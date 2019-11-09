@@ -93,7 +93,7 @@ public class TravelPalParser {
             return parseNavbarPageCommand(commandWord, arguments, new InventoryViewParser(), NavbarCommand.INVENTORY);
         case EXPENSE_MANAGER:
             return parseNavbarPageCommand(commandWord, arguments, new ExpenseManagerParser(), NavbarCommand.EXPENSE);
-        case ADD_EXPENDITURE:
+        case ADD_EXPENSE:
             return new EditExpenseParser().parse(commandWord, arguments);
         case ADD_CURRENCY:
             return new EditCurrencyParser().parse(commandWord, arguments);

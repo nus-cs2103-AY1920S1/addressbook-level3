@@ -26,9 +26,9 @@ public class DoneEditEventCommand extends Command {
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "All the fields must be provided!";
     public static final String MESSAGE_NOT_FOUND = "Event is not found!";
-    public static final String MESSAGE_EXPENDITURE_NOT_FOUND = "Expense is not found!";
+    public static final String MESSAGE_EXPENSE_NOT_FOUND = "Expense is not found!";
     public static final String MESSAGE_CLASHING_EVENT = "This event clashes with one of your other events!";
-    public static final String MESSAGE_EXPENDITURE_DUPLICATED_NAME = "This event has the same name with one of your "
+    public static final String MESSAGE_EXPENSE_DUPLICATED_NAME = "This event has the same name with one of your "
             + "other events on the same day!";
 
     public DoneEditEventCommand() { }
@@ -79,9 +79,9 @@ public class DoneEditEventCommand extends Command {
         } catch (ClashingEventException ex) {
             throw new CommandException(MESSAGE_CLASHING_EVENT);
         } catch (ExpenseNotFoundException e) {
-            throw new CommandException(MESSAGE_EXPENDITURE_NOT_FOUND);
+            throw new CommandException(MESSAGE_EXPENSE_NOT_FOUND);
         } catch (DuplicatedEventNameException e) {
-            throw new CommandException(MESSAGE_EXPENDITURE_DUPLICATED_NAME);
+            throw new CommandException(MESSAGE_EXPENSE_DUPLICATED_NAME);
         }
     }
 

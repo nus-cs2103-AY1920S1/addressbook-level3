@@ -246,7 +246,7 @@ public class MainWindow extends UiPart<Stage> {
         case EXPENSE_MANAGER:
             newPage = new ExpensesPage(this, logic, model);
             break;
-        case ADD_EXPENDITURE:
+        case ADD_EXPENSE:
             newPage = new EditExpensePage(this, logic, model);
             break;
         case ADD_CURRENCY:

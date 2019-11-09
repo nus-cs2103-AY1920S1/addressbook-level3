@@ -20,13 +20,13 @@ import seedu.address.model.itinerary.day.Day;
  * Command that enters the event page associated with an expense.
  */
 public class EnterDayOfExpenseCommand extends Command {
-    public static final String COMMAND_WORD = "show";
+    public static final String COMMAND_WORD = "goto";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the overview of a day.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Goes to the event list containing the expense.\n"
             + "Parameters: INDEX (must be a positive integer)";
 
     public static final String MESSAGE_ENTER_DAY_SUCCESS = "Here is your day!: %1$s!";
-    public static final String MESSAGE_MISC_EXPENDITURE = "The expense is not associated with an event";
+    public static final String MESSAGE_MISC_EXPENSE = "The expense is not associated with an event";
 
     private final Index indexToEnter;
 
@@ -61,7 +61,7 @@ public class EnterDayOfExpenseCommand extends Command {
 
 
         } catch (ExpenseNotFoundException ex) {
-            throw new CommandException(MESSAGE_MISC_EXPENDITURE);
+            throw new CommandException(MESSAGE_MISC_EXPENSE);
         }
     }
 

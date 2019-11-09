@@ -20,12 +20,12 @@ public class DeleteExpenseCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an expense from expense manager.\n"
-            + "Parameters: INDEX (must be a positive integer)";
+            + "Parameters: INDEX (a positive integer)";
 
-    public static final String MESSAGE_DELETE_EXPENDITURE_FAILURE = "Failed to delete your expense, "
-            + "the expense you are trying to remove is likely to be associated with an event, please go to"
-            + " the corresponding event to delete the expense";
-    public static final String MESSAGE_DELETE_EXPENDITURE_SUCCESS = "Deleted your expense : ";
+    public static final String MESSAGE_DELETE_EXPENSE_FAILURE = "The expense you are trying to remove is likely to "
+            + "be associated with an event, please go to the corresponding event to delete the expense\n"
+            + "Command: goto INDEX (a positive integer)";
+    public static final String MESSAGE_DELETE_EXPENSE_SUCCESS = "Deleted your expense : ";
 
     private final Index indexToDelete;
 
@@ -49,14 +49,14 @@ public class DeleteExpenseCommand extends Command {
         try {
             model.getPageStatus().getTrip().getExpenseList().removeByUser(expenseToDelete);
         } catch (Exception ex) {
-            return new CommandResult(MESSAGE_DELETE_EXPENDITURE_FAILURE);
+            return new CommandResult(MESSAGE_DELETE_EXPENSE_FAILURE);
         }
 
         model.setPageStatus(model.getPageStatus()
                 .withResetEditEventDescriptor()
                 .withNewPageType(PageType.EXPENSE_MANAGER));
 
-        return new CommandResult(MESSAGE_DELETE_EXPENDITURE_SUCCESS
+        return new CommandResult(MESSAGE_DELETE_EXPENSE_SUCCESS
                 + expenseToDelete.getName().toString(), true, COMMAND_WORD);
     }
 

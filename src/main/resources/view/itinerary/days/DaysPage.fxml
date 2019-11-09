@@ -16,7 +16,10 @@
         <children>
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" minViewportHeight="200.0" minViewportWidth="200.0" minWidth="-Infinity" prefViewportHeight="300.0" prefViewportWidth="800.0" style="-fx-background-color: #F2F4F7;" VBox.vgrow="ALWAYS">
                 <content>
-                    <FlowPane fx:id="dayThumbnailPane" hgap="10.0" prefWrapLength="800.0" style="-fx-background-color: #F2F4F7;" vgap="10.0" />
+                    <FlowPane fx:id="dayThumbnailPane" hgap="10.0" prefWrapLength="800.0" style="-fx-background-color: #F2F4F7;" vgap="10.0">
+                  <padding>
+                     <Insets top="10.0" />
+                  </padding></FlowPane>
                 </content></ScrollPane>
         </children>
     </VBox>

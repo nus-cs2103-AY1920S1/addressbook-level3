@@ -27,6 +27,10 @@ import seedu.address.ui.template.Page;
 public class EditExpensePage extends Page<AnchorPane> {
 
     private static final String FXML = "expense/EditExpensePage.fxml";
+    private static final String FORM_ITEM_STYLESHEET = "/view/trips/trips.css";
+
+    /** Format string for executing commands from the user interface form. */
+    private static final String EXECUTE_COMMAND_FORMAT = EditExpenseFieldCommand.COMMAND_WORD + " %1$s%2$s";
 
     private TextFormItem expenseNameFormItem;
     private DoubleFormItem expenseAmountFormItem;
@@ -82,21 +86,27 @@ public class EditExpensePage extends Page<AnchorPane> {
     private void initFormWithModel() {
         //Initialise with new display data
         expenseNameFormItem = new TextFormItem("Name of Expense: ", nameFormValue -> {
-            mainWindow.executeGuiCommand(
-                    EditExpenseFieldCommand.COMMAND_WORD
-                            + " " + PREFIX_NAME + nameFormValue);
+            mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_NAME, nameFormValue));
         });
-        expenseAmountFormItem = new DoubleFormItem("Total amount (in Singapore Dollar): ", totalBudget -> {
-            mainWindow.executeGuiCommand(EditExpenseFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_BUDGET + totalBudget);
+        expenseAmountFormItem = new DoubleFormItem("Total amount (in Singapore Dollar): ", amount -> {
+            mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_BUDGET,
+                    String.format("%.2f", amount)));
         });
         expenseDayFormItem = new TextFormItem("Day Number: ", dayNumber -> {
-            mainWindow.executeGuiCommand(EditExpenseFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_DAY_NUMBER + dayNumber);
+            mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_DAY_NUMBER, dayNumber));
         });
 
         fillPage(); //update and overwrite with existing edit descriptor
         setDisabledFields();
+
+        expenseNameFormItem.getRoot().getStylesheets().clear();
+        expenseAmountFormItem.getRoot().getStylesheets().clear();
+        expenseDayFormItem.getRoot().getStylesheets().clear();
+
+        expenseNameFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        expenseAmountFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        expenseDayFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+
         formItemsPlaceholder.getChildren().addAll(
                 expenseNameFormItem.getRoot(),
                 expenseAmountFormItem.getRoot(),

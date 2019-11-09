@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -42,16 +43,38 @@ public class ExpenseList implements Iterable<Expense> {
             throw new DuplicateExpenseException();
         }
         internalList.add(toAdd);
-        sort();
     }
 
     /**
-     * Sorts the expenses in the list by comparing the day number.
+     * Sorts the expenses in the list by comparing the property of expenses.
      */
-    public void sort() {
-        Collections.sort(internalList, (e1, e2) -> e1.getDayNumber().getValue()
-                - e2.getDayNumber().getValue());
+    public void sort(String property) {
+        assert property.equals("name") || property.equals("amount");
+
+        List<Expense> sortedList = new ArrayList<>(List.copyOf(internalList));
+        if (property.equals("name")) {
+            sortedList.sort(new LexicographicComparator());
+        } else {
+            sortedList.sort(new ValueComparator());
+        }
+
+        if (sortedList.equals(internalList)) {
+            internalList.setAll(sortedList);
+            Collections.reverse(internalList);
+        } else {
+            internalList.setAll(sortedList);
+        }
     }
+
+    /**
+     * Get the largest day number in a list of expenses.
+     */
+    public int getLargestDayNumber() {
+        List<Expense> copiedList = new ArrayList<>(List.copyOf(internalList));
+        copiedList.sort(Comparator.comparingInt(e -> e.getDayNumber().getValue()));
+        return copiedList.get(copiedList.size() - 1).getDayNumber().getValue();
+    }
+
 
 
     /**
@@ -69,7 +92,6 @@ public class ExpenseList implements Iterable<Expense> {
             throw new DuplicateExpenseException();
         }
         internalList.set(index, edited);
-        sort();
     }
 
     public void set(List<Expense> occurrences) {
@@ -78,7 +100,6 @@ public class ExpenseList implements Iterable<Expense> {
             throw new DuplicateExpenseException();
         }
         internalList.setAll(occurrences);
-        sort();
     }
 
     /**
@@ -159,4 +180,23 @@ public class ExpenseList implements Iterable<Expense> {
         return true;
     }
 
+    /**
+     * Comparator class that compares two expenses according to the lexicographic order of their names
+     */
+    static class LexicographicComparator implements Comparator<Expense> {
+        @Override
+        public int compare(Expense a, Expense b) {
+            return a.getName().toString().compareToIgnoreCase(b.getName().toString());
+        }
+    }
+
+    /**
+     * Comparator class that compares two expenses according to the amount of the expenses
+     */
+    static class ValueComparator implements Comparator<Expense> {
+        @Override
+        public int compare(Expense a, Expense b) {
+            return Double.compare(a.getBudget().getValue(), b.getBudget().getValue());
+        }
+    }
 }

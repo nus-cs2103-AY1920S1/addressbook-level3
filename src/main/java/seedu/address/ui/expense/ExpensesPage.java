@@ -89,6 +89,7 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
             fillList();
             break;
         case DELETE:
+        case SORT:
             fillPage();
             if (!viewOptionButton.isSelected()) {
                 fillList();
@@ -121,7 +122,7 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
         viewOptionButton.setSelected(false);
         VBox expenseCardsContainer = new VBox();
         List<Node> expenseCards = IntStream.range(0, expenses.size())
-                .mapToObj(i -> Index.fromZeroBased(i))
+                .mapToObj(Index::fromZeroBased)
                 .map(index -> {
                     Expense expense = expenses.get(index.getZeroBased());
                     ExpenseCard expenseCard = generateExpenseCard(expense, index);
@@ -144,6 +145,18 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
         totalExpense = new Budget(expenseSum).getValueStringInCurrency(currency);
         totalBudget = new Budget(budget).getValueStringInCurrency(currency);
         budgetLeft = new Budget(budget - expenseSum).getValueStringInCurrency(currency);
+        setBudgetLeftLabelColor(budget - expenseSum);
+    };
+
+    /**
+     * Sets the color of {@code budgetLeftLabel} according to the amount of budget left.
+     */
+    private void setBudgetLeftLabelColor(double budgetLeft) {
+        if (budgetLeft < 0) {
+            budgetLeftLabel.setStyle("-fx-text-fill: red");
+        } else {
+            budgetLeftLabel.setStyle("-fx-text-fill: #555555");
+        }
     };
 
     /**
@@ -185,7 +198,7 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
      * Get the latest day with at least an expense in it.
      */
     private void getNumberOfDay() {
-        numberOfDay = expenses.get(expenses.size() - 1).getDayNumber().getValue();
+        numberOfDay = model.getPageStatus().getTrip().getExpenseList().getLargestDayNumber();
     }
 
     /**

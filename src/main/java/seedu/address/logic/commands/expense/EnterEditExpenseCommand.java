@@ -23,7 +23,7 @@ public class EnterEditExpenseCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the expense information editing screen\n"
             + "Parameters: INDEX (must be a positive integer)";
 
-    public static final String MESSAGE_ENTER_EDIT_EXPENDITURE_SUCCESS = " Welcome to your expense! %1$s";
+    public static final String MESSAGE_ENTER_EDIT_EXPENSE_SUCCESS = " Welcome to your expense! %1$s";
 
     private final Index indexToEdit;
 
@@ -47,11 +47,11 @@ public class EnterEditExpenseCommand extends Command {
                 new EditExpenseFieldCommand.EditExpenseDescriptor(expenseToEdit);
 
         model.setPageStatus(model.getPageStatus()
-                .withNewPageType(PageType.ADD_EXPENDITURE)
+                .withNewPageType(PageType.ADD_EXPENSE)
                 .withNewExpense(expenseToEdit)
                 .withNewEditExpenseDescriptor(editExpenseDescriptor));
 
-        return new CommandResult(MESSAGE_ENTER_EDIT_EXPENDITURE_SUCCESS + expenseToEdit.getName().toString(),
+        return new CommandResult(String.format(MESSAGE_ENTER_EDIT_EXPENSE_SUCCESS, expenseToEdit),
                 true);
     }
 

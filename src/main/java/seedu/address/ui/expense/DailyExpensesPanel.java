@@ -35,12 +35,17 @@ public class DailyExpensesPanel extends UiPart<HBox> {
     private List<ExpenseCard> expenses;
     private Index index;
     private Model model;
+    private CustomisedCurrency currency;
+    private double totalExpense;
 
     public DailyExpensesPanel(List<ExpenseCard> expenses, Index index, Model model) {
         super(FXML);
         this.expenses = expenses;
         this.index = index;
         this.model = model;
+        currency = model.getTravelPal().getCurrencies().get(0);
+        totalExpense = IntStream.range(0, expenses.size())
+                .mapToDouble(i -> expenses.get(i).getExpense().getBudget().getValue()).sum();
         fillDailyExpensesPanelLabels();
     }
 
@@ -49,30 +54,20 @@ public class DailyExpensesPanel extends UiPart<HBox> {
      */
     private void fillDailyExpensesPanelLabels() {
         expenseCardContainer.getChildren().clear();
-
-        double totalExpense = IntStream.range(0, expenses.size())
-                .mapToDouble(index -> expenses.get(index).getExpense().getBudget().getValue()).sum();
-        CustomisedCurrency currency = model.getTravelPal().getCurrencies().get(0);
-
         //fill labels
         dailyExpensesLabel.setText("Expenses: " + new Budget(totalExpense).getValueStringInCurrency(currency));
+        dailyBudgetLeftLabel.setText("");
         if (index.getZeroBased() == 0) {
             dailyBudgetLabel.setText("");
-            dailyBudgetLeftLabel.setText("");
         } else {
             Day day = model.getPageStatus().getTrip().getDayList().internalList.get(index.getZeroBased() - 1);
             if (day.getTotalBudget().isPresent()) {
                 dailyBudgetLabel.setText("Budget: " + day.getTotalBudget().get().getValueStringInCurrency(currency));
-                dailyBudgetLeftLabel.setText("You still have: " + (new Budget(
-                        day.getTotalBudget().get().getValue() - totalExpense))
-                        .getValueStringInCurrency(currency));
+                fillDailyBudgetLeftLabel(day);
             } else {
                 dailyBudgetLabel.setText("Budget Not Set");
-                dailyBudgetLeftLabel.setText("");
             }
         }
-
-
 
         List<Node> expenseCards = IntStream.range(0, expenses.size())
                 .mapToObj(Index::fromZeroBased)
@@ -83,6 +78,22 @@ public class DailyExpensesPanel extends UiPart<HBox> {
         expenseCardContainer.getChildren().addAll(expenseCards);
 
     }
+
+    /**
+     * Fills the {@code dailyBudgetLeftLabel} according to budget left.
+     * @param day the day the expense belongs to
+     */
+    private void fillDailyBudgetLeftLabel(Day day) {
+        double budgetLeft = day.getTotalBudget().get().getValue() - totalExpense;
+        if (budgetLeft < 0) {
+            dailyBudgetLeftLabel.setStyle("-fx-text-fill: red");
+        }
+        dailyBudgetLeftLabel.setText("Budget left: " + (new Budget(budgetLeft))
+                .getValueStringInCurrency(currency));
+
+    }
+
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

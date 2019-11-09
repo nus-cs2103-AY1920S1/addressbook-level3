@@ -10,5 +10,6 @@ public enum ExpenseManagerCommand {
     SHOWDAYS,
     SHOWLIST,
     CURRENCY,
-    SHOW
+    GOTO,
+    SORT
 }

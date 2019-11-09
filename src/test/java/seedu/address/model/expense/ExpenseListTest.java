@@ -21,12 +21,12 @@ import seedu.address.testutil.ExpenseBuilder;
 
 public class ExpenseListTest {
 
-    public static final Expense EXPENDITURE_A = ExpenseBuilder.newInstance().setName(new Name("Expense A"))
+    public static final Expense EXPENSE_A = ExpenseBuilder.newInstance().setName(new Name("Expense A"))
             .setBudget(new Budget(123))
             .setDayNumber(new DayNumber("1"))
             .setType("misc")
             .build();
-    public static final Expense EXPENDITURE_B = ExpenseBuilder.newInstance().setName(new Name("Expense B"))
+    public static final Expense EXPENSE_B = ExpenseBuilder.newInstance().setName(new Name("Expense B"))
             .setBudget(new Budget(123.12))
             .setDayNumber(new DayNumber("2"))
             .setType("planned")
@@ -41,15 +41,15 @@ public class ExpenseListTest {
     @Test
     void contains_expenseNotInList_returnsFalse() {
         ExpenseList expenseList = new ExpenseList();
-        assertFalse(expenseList.contains(EXPENDITURE_A));
+        assertFalse(expenseList.contains(EXPENSE_A));
     }
 
     @Test
     void contains_expenseInList_returnsTrue() {
         ExpenseList expenseList = new ExpenseList();
         assertDoesNotThrow(() -> {
-            expenseList.add(EXPENDITURE_A);
-            assertTrue(expenseList.contains(EXPENDITURE_A));
+            expenseList.add(EXPENSE_A);
+            assertTrue(expenseList.contains(EXPENSE_A));
         });
     }
 
@@ -57,8 +57,8 @@ public class ExpenseListTest {
     void contains_expenseWithSameIdentityFieldsInList_returnsTrue() {
         ExpenseList expenseList = new ExpenseList();
         assertDoesNotThrow(() -> {
-            expenseList.add(EXPENDITURE_A);
-            Expense editedExpenseA = ExpenseBuilder.of(EXPENDITURE_A).setBudget(new Budget(10))
+            expenseList.add(EXPENSE_A);
+            Expense editedExpenseA = ExpenseBuilder.of(EXPENSE_A).setBudget(new Budget(10))
                     .build();
             assertTrue(expenseList.contains(editedExpenseA));
         });
@@ -74,37 +74,37 @@ public class ExpenseListTest {
     void add_duplicateExpense_throwsDuplicateExpenseException() {
         ExpenseList expenseList = new ExpenseList();
         assertDoesNotThrow(() -> {
-            expenseList.add(EXPENDITURE_A);
-            assertThrows(DuplicateExpenseException.class, () -> expenseList.add(EXPENDITURE_A));
+            expenseList.add(EXPENSE_A);
+            assertThrows(DuplicateExpenseException.class, () -> expenseList.add(EXPENSE_A));
         });
     }
 
     @Test
     void setExpense_nullTargetExpense_throwsNullPointerException() {
         ExpenseList expenseList = new ExpenseList();
-        assertThrows(NullPointerException.class, () -> expenseList.set(null, EXPENDITURE_A));
+        assertThrows(NullPointerException.class, () -> expenseList.set(null, EXPENSE_A));
     }
 
     @Test
     void setExpense_nullEditedExpense_throwsNullPointerException() {
         ExpenseList expenseList = new ExpenseList();
-        assertThrows(NullPointerException.class, () -> expenseList.set(EXPENDITURE_A, null));
+        assertThrows(NullPointerException.class, () -> expenseList.set(EXPENSE_A, null));
     }
 
     @Test
     void setExpense_targetExpenseNotInList_throwsExpenseNotFoundException() {
         ExpenseList expenseList = new ExpenseList();
-        assertThrows(ExpenseNotFoundException.class, () -> expenseList.set(EXPENDITURE_A, EXPENDITURE_A));
+        assertThrows(ExpenseNotFoundException.class, () -> expenseList.set(EXPENSE_A, EXPENSE_A));
     }
 
     @Test
     void setExpense_editedExpenseIsSameExpense_success() {
         ExpenseList expenseList = new ExpenseList();
         assertDoesNotThrow(() -> {
-            expenseList.add(EXPENDITURE_A);
-            expenseList.set(EXPENDITURE_A, EXPENDITURE_A);
+            expenseList.add(EXPENSE_A);
+            expenseList.set(EXPENSE_A, EXPENSE_A);
             ExpenseList expectedUniqueExpenseList = new ExpenseList();
-            expectedUniqueExpenseList.add(EXPENDITURE_A);
+            expectedUniqueExpenseList.add(EXPENSE_A);
             assertEquals(expectedUniqueExpenseList, expenseList);
         });
     }
@@ -113,11 +113,11 @@ public class ExpenseListTest {
     void setExpense_editedExpenseHasSameIdentity_success() {
         ExpenseList expenseList = new ExpenseList();
         assertDoesNotThrow(() -> {
-            expenseList.add(EXPENDITURE_A);
-            Expense editedExpense = ExpenseBuilder.of(EXPENDITURE_A)
+            expenseList.add(EXPENSE_A);
+            Expense editedExpense = ExpenseBuilder.of(EXPENSE_A)
                     .setBudget(new Budget("100"))
                     .build();
-            expenseList.set(EXPENDITURE_A, editedExpense);
+            expenseList.set(EXPENSE_A, editedExpense);
             ExpenseList expectedUniqueExpenseList = new ExpenseList();
             expectedUniqueExpenseList.add(editedExpense);
             assertEquals(expectedUniqueExpenseList, expenseList);
@@ -128,10 +128,10 @@ public class ExpenseListTest {
     void setExpense_editedExpenseHasDifferentIdentity_success() {
         ExpenseList expenseList = new ExpenseList();
         assertDoesNotThrow(() -> {
-            expenseList.add(EXPENDITURE_A);
-            expenseList.set(EXPENDITURE_A, EXPENDITURE_B);
+            expenseList.add(EXPENSE_A);
+            expenseList.set(EXPENSE_A, EXPENSE_B);
             ExpenseList expectedUniqueExpenseList = new ExpenseList();
-            expectedUniqueExpenseList.add(EXPENDITURE_B);
+            expectedUniqueExpenseList.add(EXPENSE_B);
             assertEquals(expectedUniqueExpenseList, expenseList);
         });
     }
@@ -140,9 +140,9 @@ public class ExpenseListTest {
     public void setExpense_editedExpenseHasNonUniqueIdentity_throwsDuplicateExpenseException() {
         ExpenseList expenseList = new ExpenseList();
         assertDoesNotThrow(() -> {
-            expenseList.add(EXPENDITURE_A);
-            expenseList.add(EXPENDITURE_B);
-            assertThrows(DuplicateExpenseException.class, () -> expenseList.set(EXPENDITURE_A, EXPENDITURE_B));
+            expenseList.add(EXPENSE_A);
+            expenseList.add(EXPENSE_B);
+            assertThrows(DuplicateExpenseException.class, () -> expenseList.set(EXPENSE_A, EXPENSE_B));
         });
     }
 
@@ -155,15 +155,15 @@ public class ExpenseListTest {
     @Test
     public void remove_expenseDoesNotExist_throwsExpenseNotFoundException() {
         ExpenseList expenseList = new ExpenseList();
-        assertThrows(ExpenseNotFoundException.class, () -> expenseList.remove(EXPENDITURE_A));
+        assertThrows(ExpenseNotFoundException.class, () -> expenseList.remove(EXPENSE_A));
     }
 
     @Test
     public void remove_existingExpense_removesExpense() {
         ExpenseList expenseList = new ExpenseList();
         assertDoesNotThrow(() -> {
-            expenseList.add(EXPENDITURE_A);
-            expenseList.removeByUser(EXPENDITURE_A);
+            expenseList.add(EXPENSE_A);
+            expenseList.removeByUser(EXPENSE_A);
             ExpenseList expectedUniqueExpenseList = new ExpenseList();
             assertEquals(expectedUniqueExpenseList, expenseList);
         });
@@ -181,9 +181,9 @@ public class ExpenseListTest {
     public void setExpenses_uniqueExpenseList_replacesOwnListWithProvidedUniqueExpenseList() {
         ExpenseList expenseList = new ExpenseList();
         assertDoesNotThrow(() -> {
-            expenseList.add(EXPENDITURE_A);
+            expenseList.add(EXPENSE_A);
             List<Expense> expectedUniqueExpenseList = new ArrayList<Expense>();
-            expectedUniqueExpenseList.add(EXPENDITURE_B);
+            expectedUniqueExpenseList.add(EXPENSE_B);
             expenseList.set(expectedUniqueExpenseList);
             assertEquals(expectedUniqueExpenseList, expenseList.asUnmodifiableObservableList());
         });
@@ -200,11 +200,11 @@ public class ExpenseListTest {
     public void setExpenses_list_replacesOwnListWithProvidedList() {
         ExpenseList expenseList = new ExpenseList();
         assertDoesNotThrow(() -> {
-            expenseList.add(EXPENDITURE_A);
-            List<Expense> expenses = Collections.singletonList(EXPENDITURE_B);
+            expenseList.add(EXPENSE_A);
+            List<Expense> expenses = Collections.singletonList(EXPENSE_B);
             expenseList.set(expenses);
             ExpenseList expectedUniqueExpenseList = new ExpenseList();
-            expectedUniqueExpenseList.add(EXPENDITURE_B);
+            expectedUniqueExpenseList.add(EXPENSE_B);
             assertEquals(expectedUniqueExpenseList, expenseList);
         });
     }
@@ -212,7 +212,7 @@ public class ExpenseListTest {
     @Test
     public void setExpenses_listWithDuplicateExpenses_throwsDuplicateExpenseException() {
         ExpenseList expenseList = new ExpenseList();
-        List<Expense> listWithDuplicateExpenses = Arrays.asList(EXPENDITURE_A, EXPENDITURE_A);
+        List<Expense> listWithDuplicateExpenses = Arrays.asList(EXPENSE_A, EXPENSE_A);
         assertThrows(DuplicateExpenseException.class, () -> expenseList.set(listWithDuplicateExpenses));
     }
 

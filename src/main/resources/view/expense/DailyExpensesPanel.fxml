@@ -27,12 +27,12 @@
                </padding>
             </Label>
             <Label fx:id="dailyBudgetLeftLabel" text="\$budgetLeft">
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
                <HBox.margin>
                   <Insets bottom="5.0" right="10.0" />
                </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
             </Label>
          </children>
          <padding>

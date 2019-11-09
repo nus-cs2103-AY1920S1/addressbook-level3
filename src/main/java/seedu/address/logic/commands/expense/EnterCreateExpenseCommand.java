@@ -23,7 +23,7 @@ public class EnterCreateExpenseCommand extends Command {
         requireNonNull(model);
 
         model.setPageStatus(
-                model.getPageStatus().withNewPageType(PageType.ADD_EXPENDITURE));
+                model.getPageStatus().withNewPageType(PageType.ADD_EXPENSE));
 
         return new CommandResult(MESSAGE_SUCCESS, true);
     }
