@@ -298,16 +298,17 @@ public abstract class Payment extends Transaction implements LedgerOperations {
 
 // tag::project[]
 [[Implementation-Projection]]
-=== Project Balance Feature: `project`
+=== Project Feature: `project`
 
-This feature allows users to _project_ their balance status based on past income and outflows as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
+This feature allows users to _project_ their balance amount and budget statuses based on past income and outflows as manifest in their
+_TransactionHistory_ by using the command `project DATE [CATEGORY]`.
 
 ==== Current Implementation
 
 The `project` command is facilitated by the Logic and Model components of the application, _PalPay_.
 
 The sequence diagram below demonstrates how the `project DATE [CATEGORY]` command is handled by the application.
-Do note that if a `CATEGORY` is not specified by the user, it will be set as `GENERAL` by default.
+If a `CATEGORY` is not specified by the user, it will be set as `GENERAL` by default.
 
 .Sequence Diagram of Project Command
 image::ProjectSequenceDiagram.png[ProjectCommand Sequence Diagram]
@@ -320,7 +321,7 @@ regardless of their categories. On the other hand, only budgets without categori
 
 ===== Projection by Date and Category
 
-When projecting by date and category, transactions tagged by the specified category will be taken into account.
+When projecting by date and category, all transactions tagged by the specified category will be taken into account.
 Similarly, all budgets tagged with the specified category will be projected upon.
 
 ===== Budget Projections
@@ -339,10 +340,25 @@ A graphical representation of the _user_'s projections may be rendered using the
 
 ==== Future Enhancements
 
+===== Polynomial Regression
+For simplicity of logic and design, the current implementation performs linear regression (via gradient descent),
+projecting user balance and budget states using a best-fit straight line. Ultimately, income and spending trends
+may not be best represented by a straight line, but rather by a polynomial equation. In future updates, the `projection`
+feature will choose a value, _n_, and perform a _n-th_ degree polynomial regression, such that the user's balance
+and budget states can be more accurately projected.
+
+===== Normal Equation
+Currently, the gradient descent algorithm is used to plot the projection graph, which is used for predicting the
+_user_'s balance and budget states at specified point in time. For smaller data sets, analytically computing the
+normal equation to find the best-fit line graph may have result in a faster runtime. In future updates, the
+normal equation method will be used in place of the gradient descent algorithm, for projections with less than
+a set number (e.g. 500) of transactions.
+
 ==== Design Considerations
+// end::project[]
 
 === Display Feature `display`
-// end::project[]
+// end::display[]
 
 // tag::view[]
 === View Feature: `view`
