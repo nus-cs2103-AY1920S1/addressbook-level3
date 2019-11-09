@@ -134,11 +134,28 @@ Searches for children mystery books that are not on loan and show the first 3 en
 // end::UGshiyao1[]
 
 // tag::info[]
-==== Viewing a book: `info`
+==== Viewing a book's information: `info`
 
 Views more information about a book in the displayed list. +
+The information displayed includes: +
+
+* Title of book
+* Genres of book, if any
+* Serial number of book
+* Author of book
+* Loan status of book
+* Loan history of book +
+{nbsp}
 
 Format: `info INDEX`
+
+The figure below shows how an info window might look like.
+****
+.Info window of a selected book
+image::infowindow.png[width=500]
+****
+In the window above, we can see that information related to the book 'Man's Search for Munning' is displayed in a viewable window.
+
 
 // end::info[]
 ==== Clearing all entries : `clear`
@@ -179,10 +196,10 @@ Format: `delete INDEX` or `delete sn/BOOK_SN`
 
 ****
 * Deletes the book at the specified `INDEX`.
-* The index refers to the index number shown in the displayed book list.
-* The index *must be a positive integer* 1, 2, 3, ...
-* `INDEX` will delete the book with the book at this index in the results list
-* `sn/BOOK_SN` will delete the book with this serial number
+* `INDEX` refers to the index number shown in the displayed book list.
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
+* `delete INDEX` will delete the book with the book at `INDEX` position in the results list.
+* `delete sn/BOOK_SN` will delete the book with this serial number
 ****
 
 Examples:
@@ -286,7 +303,9 @@ Exits Serve Mode. +
 
 Format: `done`
 
-After loaning all books, upon the `DONE` command, a printable loan slip in pdf format will be generated. The loan slip will be opened in your computer's pdf viewer and also saved in the `loan_slips` folder.
+After loaning all books, upon the `done` command, a printable loan slip in pdf format will be generated.
+The loan slip will be opened in your computer's pdf viewer and also saved in the `loan_slips` folder.
+The figure below shows an example of how a loan slip might look like.
 
 ****
 .Printable loan slip generated.

@@ -253,11 +253,11 @@ We will now move on to the next section, which aims to explain the implementatio
 
 This section describes some noteworthy details on how certain features are implemented.
 
-//tag::addBook[]
 === Add book feature
 This feature allows a user to add a new book to the LiBerry system.
 
-==== Implementation
+//tag::addBook[]
+==== Details of Implementation
 
 The add book function is facilitated by `Catalog`.
 The `Catalog` stores a list of books, representing the books in the library.
@@ -328,7 +328,7 @@ Alternative 1 not behaving as expected. This is also in line with the *KISS* (Ke
 
 // tag::undo/redo[]
 === Undo/Redo feature
-==== Implementation
+==== Details of Implementation
 
 The undo/redo mechanism is facilitated by `CommandHistory`.
 It contains a undo/redo command history, stored internally as an `commandHistoryList` and `currentCommandPointer`.
@@ -464,9 +464,9 @@ of memory usage.
 We chose alternative 1 as it is easier to maintain a single data structure.
 // end::undo/redo[]
 
-// tag::printLoanSlip[]
 === Generate Loan Slip feature
-==== Proposed Implementation
+// tag::printLoanSlip[]
+==== Details of Implementation
 
 The printing of loan slip feature is facilitated by `LoanSlipUtil`.
 Essentially, it implements the following operations:
@@ -561,7 +561,7 @@ its index shown in the GUI list. Likewise, the same idea is applied to renewing 
 * When reserving books for borrowers, it is possible that the book is found through the GUI, and thus, index is used. Or,
 the borrower brings the physical book forward to reserve it as he/she does not want to borrow it now.
 
-==== Implementation
+==== Details of Implementation
 
 This feature is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`. The object diagram
 just after a book is loaned out can be seen below.
@@ -690,7 +690,7 @@ up of the application. Thus, it can make the application feel laggy and unrespon
 The command for finding a book in the catalog is as follows: +
 `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }`
 
-==== Implementation
+==== Details of Implementation
 ModelManager contains a `FilteredList` of `Books` (`filteredBooks`), which is used to display books on the LiBerry GUI. Book finding works by
 starting converting the command string in to a `BookPredicate` object, then updating `filteredBooks` with that predicate.
 
@@ -750,7 +750,7 @@ filtered books does not have an API that sets a hard limit on the number of book
 
 //tag::registerBorrower[]
 === Register borrower feature
-==== Implementation
+==== Details of Implementation
 The `register` borrower feature is facilitated by `BorrowerRecords`. The BorrowerRecords stores a list of borrowers,
 representing the borrowers registered into the library system. The command to register a borrower into the library
 system is as followed: +
