@@ -47,7 +47,7 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of five components.
+The rest of the App consists of five components.statsOverallClassDiagram
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
@@ -62,7 +62,7 @@ Each of the five components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-// end::architectureDiagram[]
+// end::architectureDiagram[]statsOverallClassDiagram
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -353,6 +353,9 @@ class.
 // end::statisticsCommand[]
 
 === Autocomplete feature
+
+image::AutoCompleteClassDiagram.png[]
+
 ==== Current Implementation
 
 This feature is visible in the UI as a dropdown menu when the user enters input into the command box.

@@ -1,0 +1,45 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package AutoComplete {
+Class AutoCompleteResultGenerator
+Interface Graph <<Interface>>
+Interface AutoCompleteResultProvider <<Interface>>
+Class "{abstract}\nAutoCompleteGraph" as AutoCompleteGraph
+Interface AutoCompleteValueProvider <<Interface>>
+Class "{abstract}\nGraphBuiltFromModel" as GraphBuiltFromModel
+Class "{abstract}\nGraphWithStartNode" as GraphWithStartNode
+Class "{abstract\nGraphWithPreamble}" as GraphWithPreamble
+Class "{abstract\nGraphWithStartNodeAndPreamble}" as GraphWithStartNodeAndPreamble
+Class EmptyProvider
+Interface Edge <<Interface>>
+Class AutoCompleteEdge
+Class "{abstract}\nNode" as Node
+Class "{abstract}\nAutoCompleteNode" as AutoCompleteNode
+}
+
+AutoCompleteResultGenerator *-down-> "*" AutoCompleteResultProvider
+
+AutoCompleteGraph .up.|> Graph
+AutoCompleteGraph .up.|> AutoCompleteResultProvider
+
+GraphBuiltFromModel -up-|> AutoCompleteGraph
+GraphWithStartNode -up-|> GraphBuiltFromModel
+GraphWithPreamble -up-|> GraphBuiltFromModel
+GraphWithStartNodeAndPreamble -up-|> GraphWithStartNode
+
+EmptyProvider .up.|> AutoCompleteResultProvider
+
+AutoCompleteEdge .up.|> Edge
+AutoCompleteGraph *--> "*" AutoCompleteEdge
+
+AutoCompleteNode -up-|> Node
+AutoCompleteEdge *--> "2" AutoCompleteNode
+AutoCompleteNode .up.|> AutoCompleteValueProvider
+
+Graph ...> Node
+
+@enduml

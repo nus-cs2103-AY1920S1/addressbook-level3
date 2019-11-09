@@ -875,6 +875,12 @@ If csv file of the input file name does not exist, the application data will be 
 === Autocomplete
 As you enter characters into the command line, suggestions will appear.
 
+A maximum of 8 suggestions will appear in a dropdown menu, sorted by their degree of
+similarity to the entered text.
+
+[TIP]
+The system might lag and suggest nothing if you are typing too fast.
+
 Example: `add`
 
 *** If you enter `add-c` followed by a space, the system will suggest
@@ -891,7 +897,7 @@ If the last entered prefix was `e/`, it would instead suggest a list of existing
 the system will continuously suggest `t/` prefixes and `Tag` arguments after all compulsory arguments
 are entered.
 
-* Autocomplete works similarly for all `add` commands.
+* Autocomplete works similarly for all `add` commands, and `generate-s`.
 ****
 
 Example: `edit`
