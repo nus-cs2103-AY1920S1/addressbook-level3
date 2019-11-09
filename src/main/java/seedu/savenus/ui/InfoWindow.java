@@ -35,6 +35,7 @@ import seedu.savenus.model.info.SaveInfo;
 import seedu.savenus.model.info.SortInfo;
 import seedu.savenus.model.info.TopUpInfo;
 import seedu.savenus.model.info.ViewSortInfo;
+import seedu.savenus.model.info.WithdrawInfo;
 
 /**
  * Controller for a info page
@@ -279,6 +280,12 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(ViewSortInfo.INFORMATION);
             usageExample.setText(ViewSortInfo.USAGE);
             output.setText(ViewSortInfo.OUTPUT);
+            break;
+        case InfoCommand.WITHDRAW_INFO :
+            commandWord.setText(WithdrawInfo.COMMAND_WORD);
+            infoMessage.setText(WithdrawInfo.INFORMATION);
+            usageExample.setText(WithdrawInfo.USAGE);
+            output.setText(WithdrawInfo.OUTPUT);
             break;
         default :
             commandWord.setText("YOU ARE NOT SUP  POSED TO SEE TH IS PAG  E");
