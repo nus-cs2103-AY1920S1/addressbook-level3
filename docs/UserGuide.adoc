@@ -92,6 +92,22 @@ the command box and then hitting kbd:[Enter].
 You have to provide additional parameters for some commands, and the format of each command
 is provided in the command descriptions.
 
+Provided below is a summary of the command format used in the $aveNUS User Guide:
+
+****
+`UPPER_CASE` words are the parameters supplied by you.
+
+For example, `info COMMAND`, `COMMAND` is a parameter to find out more information about `COMMAND`.
+
+Items in square brackets are optional.
+
+For example, `budget AMOUNT [DURATION]` has an optional parameter `DURATION`, hence `budget 100 10` or `budget 100`
+are both valid commands.
+
+Items with …​ after them can be used multiple times or not at all.
+For example, `delete INDEX...` works with commands such as `delete 1`, `delete 1 2` and so on.
+****
+
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
@@ -608,7 +624,8 @@ Users can specify their liked and disliked categories, tags and/or locations. Th
 system will then be able to generate more accurate recommendations with the user's preferences.
 
 [TIP]
-Users can provide multiple categories, tags and/or locations with each command.
+Users can provide multiple categories, tags and/or locations with each command. However, at least one category, tag
+or location must be provided with each command.
 
 [NOTE]
 Users cannot add what they have already liked into your current dislikes,
@@ -618,7 +635,7 @@ for their convenience.
 ===== To add likes:
 
 ****
-*Format*: `like c/CATEGORY t/TAG l/LOCATION` +
+*Format*: `like [c/CATEGORY]... [t/TAG]... [l/LOCATION]...` +
 *Example*: `like c/chinese t/chicken t/rice l/frontier canteen`
 ****
 
@@ -635,7 +652,7 @@ image::add-like.png[align="center", width=700]
 ===== To add dislikes:
 
 ****
-*Format*: `dislike c/CATEGORY t/TAG l/LOCATION` +
+*Format*: `dislike [c/CATEGORY]... [t/TAG]... [l/LOCATION]...` +
 *Example*: `dislike c/italian t/pasta t/cheese l/the tea party`
 ****
 
@@ -654,7 +671,8 @@ Users are able to remove their previously added likes and dislikes (if they exis
 from the system.
 
 [TIP]
-Users can provide multiple categories, tags and/or locations with each command.
+Users can provide multiple categories, tags and/or locations with each command. However, at least one category, tag or
+location to remove must be provided with each command.
 
 [NOTE]
 The likes and dislikes must exist in the system before removing them.
@@ -662,7 +680,7 @@ The likes and dislikes must exist in the system before removing them.
 ===== To remove likes:
 
 ****
-*Format*: `removelike c/CATEGORY t/TAG l/LOCATION` +
+*Format*: `removelike [c/CATEGORY]... [t/TAG]... [l/LOCATION]...` +
 *Example*: `removelike c/Japanese t/Spicy t/Healthy l/The Tea Party`
 ****
 
@@ -679,7 +697,7 @@ image::removelike.png[align="center", width=700]
 ===== To remove dislikes:
 
 ****
-*Format*: `removedislike c/CATEGORY t/TAG l/LOCATION` +
+*Format*: `removedislike [c/CATEGORY]... [t/TAG]... [l/LOCATION]...` +
 *Example*: `removedislike c/Chinese t/Cheap t/Healthy l/The Deck`
 ****
 
