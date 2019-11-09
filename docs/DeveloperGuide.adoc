@@ -1,9 +1,11 @@
 = Xpire - Developer Guide
 :site-section: DeveloperGuide
 :toc:
+:toclevels: 4
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -144,9 +146,10 @@ Classes used by multiple components are in the `io.xpire.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag:replenishList[]
 === Replenish List
-==== Implementation
+// tag:replenishListItems[]
+==== Items in the replenish list
+===== Implementation
 //{Explain here how the ToReplenish/ToBuy List is implemented}_
 Items are added to the replenish list by the user using the `ShiftCommand`.
 When an item expires, the item is automatically tagged as `#Expired`.
@@ -169,9 +172,9 @@ image::AutoShiftSequenceDiagram.png[]
 
 //The following activity diagram summarizes what happens when a user executes a new command:
 
-==== Design Considerations
+===== Design Considerations
 
-===== Aspect: How expired items are being handled
+====== Aspect: How expired items are being handled
 * **Alternative 1 (current choice): Once an item expires,
 the item is automatically tagged as `#Expired`.**
 ** Pros: Makes good use of existing `SearchCommand`, where user can search for the `#Expired` tag to view list of expired items.
@@ -180,6 +183,35 @@ the item is automatically tagged as `#Expired`.**
 * **Alternative 2: Once an item expires, item is automatically transferred to the replenish list.**
 ** Pros: User need not manually key in item details to transfer it to the replenish list.
 ** Cons: User does not have the flexibility to pick which items to transfer to the replenish list.
+//===== Aspect: Data structure to store the items
+//* **Alternative 1 (current choice): **
+//** Pros:
+//** Cons:
+//
+//* **Alternative 2:**
+//** Pros:
+//** Cons:
+// end::replenishListItems[]
+
+// tag:replenishListCommands[]
+==== Commands in the replenish list
+===== Implementation
+As shown in  <<Logic component,Section 2.3>> above, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
+`ReplenishParser` parses and handles the commands in the replenish list.
+[NOTE]
+Certain commands such as sorting by date, or deleting
+of item quantities are not permitted, as items in the replenish list do not have expiry dates or quantities.
+
+The activity diagram below follows the general path of a command executed in either the main tracking list `Xpire`, or the
+replenish list.
+
+.Activity Diagram for general parsing of commands
+image::ParseCommandActivityDiagram.png[]
+
+In the event that `ReplenishParser` is selected, it will prevent any invalid or prohibited commands and also check for spelling mistakes in the user input.
+This will be further explained in a <<Spelling correction with alternative recommendations,later section>>.
+
+===== Design Considerations
 
 ===== Aspect: How commands are executed in the list
 * **Alternative 1 (current choice): Create two separate parsers, one for the main tracking list and another for the replenish list.**
@@ -189,43 +221,52 @@ the item is automatically tagged as `#Expired`.**
 * **Alternative 2: Create two versions of each command, one for each list.**
 ** Pros: This allows us to greatly customise the command for each list.
 ** Cons: This however would lead to unnecessary repetition of code across the code base.
-//
-//===== Aspect: Data structure to store the items
-//* **Alternative 1 (current choice): **
-//** Pros:
-//** Cons:
-//
-//* **Alternative 2:**
-//** Pros:
-//** Cons:
-// end::tobuylist[]
+// end::replenishListCommands[]
 
 // tag::autosort[]
 === Auto-sorting of items by name then date
 ==== Implementation
-The auto-sorting mechanism is facilitated by `SortedUniqueItemList` which replaces `UniqueItemList`.
+Items in both lists are also automatically sorted by their name then date in chronological order.
+This auto-sorting mechanism is facilitated by `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`
+that both implement `SortedUniqueItemList`, in a relationship illustrated in  <<Model component,Section 2.4>> above.
 
-`SortedUniqueItemList` supports the following new function(s):
+`SortedUniqueXpireItemList` supports a new function, `SortedUniqueItemList#setMethodOfSorting()`, that specifies the
+`MethodOfSorting` and comparator to be used for the list.
 
-* `SortedUniqueItemList#setMethodOfSorting()` -- Specifies the MethodOfSorting and comparator to be used for the list.
+In both `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`, items are stored in a `SortedList<Item>` and
+subsequently sorted based on the comparator defined.
 
-In `SortedUniqueItemList`, items are stored in a `SortedList<Item>` and sorted based on the comparator specified.
+The following sequence diagrams break down the intricacies in the view operation that works to display the sorted items:
 
-The following sequence diagram shows how items added are auto-sorted:
-
-.Sequence Diagram modelling how items added are auto-sorted
-image::AutoSortAddSequenceDiagram.png[]
+.Sequence Diagram illustrating how the view operation displays items in order
+image::AutoSortViewSequenceDiagram.png[]
 
 [NOTE]
 Parsers are omitted from the diagram above to place greater emphasis on the sorting mechanism.
 
-.Sequence Diagram: set method of sorting as default
-image::AutoSortAddPartSequenceDiagram.png[]
+Figure 13 above shows a `view|replenish` command executed to change the current view from that of the main tracking list `Xpire`
+to the replenish list, while Figure 14 below materializes this process.
 
-`this.methodOfSorting = new MethodOfSorting("name");`
+.Sequence Diagram : setting the parser
+image::ViewSetParserSequenceDiagram.png[]
+
+`LogicManager` creates and allocates a parser to parse commands entered by the user each time. It does so by first identifying the current view
+displayed. In this example, the current view is found to be `XPIRE`, and thus `XpireParser` is selected. Following that,
+new objects `ViewCommandParser` and `ViewCommand` are created and returned to `LogicManager` to be used in the execution of the `view|replenish` command.
+Figure 15 pictures the process of retrieving the internal sorted list of items of `ReplenishList`.
+
+.Sequence Diagram : retrieve internal sorted list
+image::AutoSortViewPartSequenceDiagram.png[]
+
+
 [NOTE]
-Everytime an item is added to the list, the method of sorting is reset to the default, which sorts
-the items by name then date.
+Everytime view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
+the default method of sorting is then retrieved.
+
+`this.internalUnmodifiableList = FXCollections.unmodifiableList(this.sortedInternalList);`
+
+[NOTE]
+The list returned is the sortedInternalList wrapped as an unmodifiable list.
 
 The following sequence diagram shows how the sort command changes the default order of how items are displayed:
 
@@ -247,26 +288,6 @@ The SortedList changes accordingly based on the method of sorting specified.
 
 .Activity Diagram showing the control flow of a sort command executed by the user
 image::SortActivityDiagram.png[]
-
-The following sequence diagram shows how the view operation works to display items that are auto-sorted or sorted manually by name or date:
-
-.Sequence Diagram showing how the view operation displays items in order
-image::AutoSortViewSequenceDiagram.png[]
-
-[NOTE]
-Parsers are omitted from the diagram above to place greater emphasis on the sorting mechanism.
-
-.Sequence Diagram : retrieve internal sorted list
-image::AutoSortViewPartSequenceDiagram.png[]
-
-[NOTE]
-Everytime view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
-the default method of sorting is then retrieved.
-
-`this.internalUnmodifiableList = FXCollections.unmodifiableList(this.sortedInternalList);`
-
-[NOTE]
-The list returned is the sortedInternalList wrapped as an unmodifiable list.
 
 ==== Design Considerations
 
