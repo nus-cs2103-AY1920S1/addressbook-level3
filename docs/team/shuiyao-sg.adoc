@@ -1,4 +1,4 @@
-= Shui Yao - Project Portfolio for NUStudy
+= Shui Yao (shuiyao-sg) - Project Portfolio for NUStudy
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -11,35 +11,74 @@ to morph an existing Java application https://github.com/nus-cs2103-AY1920S1/add
 NUStudy, which is a desktop application with command line for user input and a JavaFX GUI for display. NUStudy supports
 notes management, quiz practice, revision task records, and usage statistics to help with revision.
 
-You may take note of the following symbols and formatting used in this portfolio: +
+NOTE: You may take note of the following symbols and formatting used in this portfolio *unless otherwise specified*: +
 `overdue` - The monospaced text indicates that it is a user input. +
 _Task_ - An italicised word indicates that it is a class name. +
 #11 - A number with # sign indicates the Pull Request or Issue number. +
-PR - Abbreviation for "Pull Request".
+PR - Abbreviation for "Pull Request". +
+`monospaced` text in Developer Guide has different meanings. If the first letter
+of each word is capitalized, then the `monospaced` text refers to a class or interface name. If
+the text comes with a bracket () at the end, then the text refers to a method name. Otherwise, the text refers to user command.
 
 == Summary of Contributions
-This section is to summarise my contributions to the project, including feature enhancements, documentation and project
+
+This section summarises my contributions to the project, including feature enhancements, documentation and project
 management.
 
-* Major Enhancement: I implemented revision tasks, which have attributes of a heading, a starting date and time
+*Enhancement added*: I implemented revision task management features
 (starting from PR https://github.com/AY1920S1-CS2103T-F11-4/main/pull/37[#37]).
-** What it does: This feature supports tasks for revision of a note or a question at a particular point of time. It is
-implemented as _Task_ class stored in a revision list which is implemented as _TaskList_ class. I also implemented
-commands (_AddTaskForNoteCommand_, _DoneTaskCommand_ etc.) to support operations on tasks.
-** Justification: This feature allows users to set their revision plans and goals. It makes the revision more structured
-and organised. It helps to stop procrastination to some extent. In the future release *v2.0*, this feature will also
-support desktop push notification to remind the users to start their revision.
-** Highlights: This enhancement is dependent on _Note_ and _Question_ classes implemented by my teammates. There might
-be regressions of my task features if my teammates decide to change their implementations of _Note_ or _Question_.
+
+* What it does: These features support tasks for revising a note or a question at a particular point of time. Users can perform operations with revision tasks
+such as addition, deletion, searching, editing, marking done, listing finished/unfinished/overdue tasks etc.
+* Justification: This feature allows users to set their revision plans and goals. It makes the revision more structured
+and organised. The task is designed in a way that each task only supports revision of one note or question. Having this
+"one tiny easy revision task at a time" approach, users would find it easier to start the revision.
+This helps to stop procrastination to some extent.
+* Highlights: This enhancement is dependent on _Note_ and _Question_ classes implemented by my teammates. There might
+be regressions of my task features if my teammates decide to change their implementations.
 Therefore, I did a thorough analysis of the design pattern and the project architecture to use as least information as
-possible from their classes in order to reduce coupling.
+possible from their classes in order to reduce coupling. The task management features require a decent amount of effort
+because they need to support a wide range of operations.
 
-* Minor Enhancement
+*Code contributed*: You may feel free to check my code https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shuiyao-sg&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shuiyao-sg&tabRepo=AY1920S1-CS2103T-F11-4%2Fmain%5Bmaster%5D[here].
 
-* Code Contributed: You may feel free to check my code https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shuiyao-sg&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shuiyao-sg&tabRepo=AY1920S1-CS2103T-F11-4%2Fmain%5Bmaster%5D[here]
+*Other contributions*:
 
-* Other Contributions
+* Project management:
+** I was the *project leader* for NUStudy.
+** I was in charge of overall team coordination, scheduling, facilitating discussion during weekly team meetings
+and communicating with the tutor.
+** I issued the first version of project plan (https://github.com/AY1920S1-CS2103T-F11-4/main/issues/26[#26]).
+** I did the pre-release of *mid-v1.3* on GitHub (https://github.com/AY1920S1-CS2103T-F11-4/main/releases/tag/mid-v1.3[mid-v1.3]).
+* Documentation:
+** Redesigned class diagrams for UI and Model components in Developer Guide (https://github.com/AY1920S1-CS2103T-F11-4/main/pull/75[#75]).
+** Added command summary to User Guide (https://github.com/AY1920S1-CS2103T-F11-4/main/pull/171[171]).
+* Team work and community contribution:
+** Reported bugs of teammate's feature (https://github.com/AY1920S1-CS2103T-F11-4/main/issues/165[#165], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/166[166]).
+** Reviewed other teams' PRs (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/14[#14], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/97[#97]).
 
 == Contributions to the User Guide
 
+*This section summarises my contributions to the User Guide.*
+
+include::../UserGuide.adoc[tag=task_1]
+include::../UserGuide.adoc[tag=task_2]
+include::../UserGuide.adoc[tag=task_3]
+include::../UserGuide.adoc[tag=task_4]
+include::../UserGuide.adoc[tag=task_5]
+
+Apart from the documentation of my individual feature, I also helped the team by adding a command summary of everyone's feature.
+You may refer to the Command Summary section in the User Guide.
+
 == Contributions to the Developer Guide
+
+This section summarises my contributions to the Developer Guide. For a full list of all task commands, please refer to the beginning of
+section "Revision task management - Implementation" in the Developer Guide.
+
+include::../DeveloperGuide.adoc[tag=task_1]
+include::../DeveloperGuide.adoc[tag=task_2]
+include::../DeveloperGuide.adoc[tag=task_usecase]
+
+Apart from addition to my individual features, I also modified the diagrams of the UI and Model components. You may refer
+to Figure 4. Class diagram of the UI component, Figure 5. Detailed class diagram for Panels package and Figure 8. Class diagram of the Model component
+in the Developer Guide.

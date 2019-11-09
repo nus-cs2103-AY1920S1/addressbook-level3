@@ -4,8 +4,8 @@ start
 :Check input;
 
 if () then ([input is valid])
-    :filters quizResults list;
-    :hides notes and
+    :Filter quizResults list;
+    :Hide notes and
     tasks panels;
     :Display statistics;
 else ([else])

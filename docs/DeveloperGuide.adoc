@@ -1,4 +1,4 @@
-= NUStudy developer guide
+= NUStudy Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,22 +14,13 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-4/main/tree/master
 
-== Introduction
+By: `AY1920S1-CS2103T-F11-4`      Since: `September 2019`      Licence: `MIT`
 
 NUStudy is an application for managing three kinds of informational material: lecture notes, quizzes and revision tasks.
 It helps users to prepare for exams and tests in university by facilitating their learning.
 
 As a developer of NUStudy, this guide can help you understand the basic software architecture and design considerations
 for its implementation so that you can start contributing in no time.
-
-You can refer to this guide for the following information:
-
-*   <<Setting up, Setting up>>
-*	<<Design, Design>>
-*   <<Implementation, Implementation>>
-*	<<Documentation, Documentation>>
-*	<<Testing, Testing>>
-*	<<DevOps, DevOps>>
 
 For any queries, simply <<ContactUs#, contact us>>.
 
@@ -79,11 +70,13 @@ image::ArchitectureSequenceDiagram.png[]
 [[Design-Ui]]
 === `UI`
 
+// tag::UIClassDiagram[]
 .Class diagram of the `UI` component
 image::UiClassDiagram.png[]
 
 .Detailed class diagram for `Panels` package
 image::PanelPackageClassDiagram.png[]
+// end::UIClassDiagram[]
 
 _API:_ link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -122,9 +115,10 @@ image::DeleteSequenceDiagram.png[]
 
 [[Design-Model]]
 === `Model`
-
+// tag::ModelClassDiagram[]
 .Class diagram of the `Model` component
 image::ModelClassDiagram.png[]
+// end::ModelClassDiagram[]
 
 _API:_ link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -151,10 +145,12 @@ This section describes some finer details on how certain features are implemente
 === Image support for lecture notes
 
 Usually, we do not learn best from just text; we rely on images that our minds can process more easily.
-As such, implementing images in lecture notes was considered very important. Although some lecture notes
-have multiple images, it is always possible to combine them using basic image editing software like the
-GNU Image Manipulation Program (GIMP) and Paint, so the implementation was limited to at most one
-image per note.
+As such, implementing images in lecture notes is a very important feature for NUStudy.
+
+Although some lecture notes have multiple images, it is always possible to combine them using
+basic image editing software like the GNU Image Manipulation Program (GIMP) and Paint, so the implementation is
+limited to at most one image per note. Having a common format for notes facilitates their retrieval through
+the `findnote` command and aids a human user in remembering what the notes say.
 
 ==== Implementation
 
@@ -177,7 +173,7 @@ has the field `isImageRemoved` to track this.
 
 We also defer image selection until after the title has been checked against existing lecture notes,
 which saves time that would otherwise be wasted in navigating to the desired image.
-This is accomplished using
+This is accomplished using three things:
 
 * the `finalizeImage()` method of the `Note` class, calling `selectImage()`
 * the `needsImage` field of `Note`, which allows a one-time execution of `finalizeImage()`
@@ -198,31 +194,39 @@ we cannot use absolute paths, since they would break when the images are moved o
 into application data using `finalizeImage()`, which points references to these local copies.
 // end::lecimage[]
 
-// tag::lecimagedesignconsiderations[]
+// tag::lecimagedc[]
 ==== Design considerations: where to place the image?
 
-* _Alternative 1 (current choice):_ Images are shown within each lecture note in the first column, and each lecture note
-shows all of its title, content and image
-** Pros: Easier to implement (FXML does not have to reach into other places)
+* _Alternative 1 (current choice):_ We show the images associated to each and every lecture note
+in the first column, together with the title and content.
+** Pros: This is easier to implement, for the code interfacing with FXML does not have to be written in places other
+than those directly pertaining to notes. It also makes the note "card" (object representing the note)
+self-contained.
 ** Cons: Scrolling through lecture notes, all with images, takes time, but this downside is alleviated
-by the `findnote` command
-* _Alternative 2:_ Place the images in the second column, below their corresponding title and content
-** Pros: More visually appealing, since by keeping just one note in the second column it becomes a kind of flash card
-** Cons: Harder to implement (FXML must reach into the object representing the second column),
-need to have a separate `NotePreview` JavaFX object since images are only going to be displayed
-in the second column
+by the `findnote` command.
+* _Alternative 2:_ We place *one* full note in the second column and only show a preview (the title and first words
+of the content) in the first column.
+** Pros: This behaviour is closer to notepad applications on mobile devices which show a list of notes.
+It saves space in the list and gives more prominence to a selected note, turning it into a flash card.
+** Cons: The second column, normally housing revision tasks, requires extra code to handle the display
+of full notes. This may include a separate `NotePreview` class, or `Note` may have a variable toggling
+between preview and full modes.
 
 ==== Design considerations: when to copy images into the local folder
-* _Alternative 1 (current choice):_ Images are copied when the command is executed, i.e. `Command#execute()`
-** Pros: Effects a better separation of concerns (image selection is not execution of the command, image
-copying may be thought of as a side effect of command execution)
-** Cons: Need to adapt the file copying code to each command
-* _Alternative 2:_ Images are copied when the image is selected, i.e. `AppUtil#selectImage()`
-** Pros: Compared to alternative 1, has less time between initial image selection and the copy into
-application data. There is a potential application risk if
-** Cons: `selectImage()` has two only loosely related responsibilities (worse separation of concerns),
-impossible to take into account user preferences for where the application data is stored
-// end::lecimagedesignconsiderations[]
+* _Alternative 1 (current choice):_ We copy images when the command is executed, i.e. in `Command#execute()`.
+** Pros: This effects a better separation of concerns – image selection is not execution of the command, while
+copying can be a side effect of command execution. Individual command effects can be fine-tuned.
+** Cons: Each command that copies images needs to have its own code implementing the copy. To reduce code
+duplication, that common code can be written as a method of the `Note` class requiring a `Path` object representing
+the destination folder for the copy.
+* _Alternative 2:_ We copy images when the image is selected, i.e. in `AppUtil#selectImage()`.
+** Pros: Compared to alternative 1, this takes less time between image selection and writing into
+application data, minimising the chance of exceptions due to changes in the file system (permissions,
+existence of the file at the specified path, etc.) being raised.
+** Cons: `selectImage()` has two only loosely related responsibilities in this alternative, which is
+a worse separation of concerns. It is impossible to take into account user preferences at the point of image
+selection, since it requires a `Model` object which is not available to `AppUtil#selectImage()`.
+// end::lecimagedc[]
 
 // tag::questiond[]
 === Question management feature
@@ -423,18 +427,46 @@ The charts will be small and condensed making it difficult to see the data at fi
 This is also more difficult to implement.
 // end::stats[]
 
-=== Add revision task
+// tag::task_1[]
+=== Revision task management
+Revision task management involves addition, deletion, editing, searching and many other operations on tasks. This section
+explains how task management features are implemented.
+
 ==== Implementation
-`AddTaskForNoteCommand` is implemented to add a task for lecture notes revision with the command `rn`. It extends `Command` class and adds a
-`Task` for lecture notes revision to the `TaskList` kept in `AppData` model, which wraps all application data. Similarly,
-`AddTaskForQuestionCommand` is implemented to add a task for question notes.
 
-The `TaskList` is essentially a list of `Task`. `TaskList` supports the `add(Task)` operation and this operation is
-exposed to `AppData#addTask(Task)`.
+Revision task management is facilitated by `Model`.
+Commands related to task manipulation extend `Command` class.
+The commands update the `Model` interface which is implemented by `ModelManager` class.
+The `ModelManager` then updates `AppData` which stores all the revision tasks in an internal data structure `TaskList`.
+`TaskList` is essentially an `ObservableList` of `Task`.
+Local data will be updated in the end by `LogicManager`.
 
-The following process illustrates the mechanism of adding a revision task to the task list.
+//end::task_1[]
 
-Step 1. The user enters command `rn t/UML diagram dt/01/01/2019 tm/1200` for adding a task for note. The command will be parsed by `AddTaskForNoteCommandParser`.
+The revision task management commands include:
+
+* `AddTaskForNoteCommand` -- Adds a new task for revising note to the app.
+* `AddTaskForQuestionCommand` -- Adds a new task for revising question to the app.
+* `ClearTaskCommand` -- Clears all tasks in the app.
+* `DeleteTaskCommand` -- Deletes a task from the app.
+* `DoneTaskCommand` -- Marks a task as done.
+* `EditTaskCommand` -- Edits fields of a task.
+* `FindTaskCommand` -- Searches for a task with given information.
+* `ListAllTaskCommand` -- Displays all tasks to the user.
+* `ListDoneTaskTaskCommand` -- Displays tasks that have been done to the user.
+* `ListNotDoneTaskCommand` -- Displays tasks that have not been done to the user.
+* `ListOverdueTaskCommand` -- Displays tasks that have passed the scheduled time to the user.
+
+These operations are exposed in the `Model` interface as `Model#addTask(Task task)`, `Model#hasTask(Task task)`, `Model#clearTaskList()`,
+`Model#deleteTask(Task target)`, `Model#markTaskAsDone(Task taskDone)`, `Model#setTask(Task target, Task editedTask)`,
+`Model#updateFilteredTaskList(Predicate<Task> predicate)` and `Model#getFilteredTaskList()` respectively.
+
+// tag::task_2[]
+
+Taking `AddTaskForNoteCommand` as an example, the following process illustrates the mechanism of adding a revision task for note to the task list (adding a revision task
+for question has a similar command but different parameters).
+
+Step 1. The user enters command `rn t/UML diagram dt/01/01/2019 tm/1200` for adding a task for note. The command is parsed by `AddTaskForNoteCommandParser`.
 `AddTaskForNoteParser` then creates an `AddTaskForNoteCommand`. The high-level logic of *parsing* and *creating the command*
 is similar to the process of deleting a note from the note list as illustrated by the <<DeleteSequenceDiagram, *sequence diagram for deleting a note*>>.
 However, the execution stage of `AddTaskForNoteCommand` differs from that of deleting a note.
@@ -442,10 +474,41 @@ However, the execution stage of `AddTaskForNoteCommand` differs from that of del
 Step 2. The `Logic Manager` calls `Command#execute(Model)` which essentially calls `AddTaskForNoteCommand#execute(Model)`
 because of polymorphism.
 
+Step 3. `AddTaskForNoteCommand` calls its own private method `hasValidNote(Model)` which checks if
+the `Note` with `Title` "UML diagram" exists in `Model`. If not, a `CommandException` will be thrown and `execute(Model)` stops because non-existing note
+title is not allowed to be the heading of any tasks.
+
+Step 4. `AddTaskForNoteCommand` calls `Model#hasTask(Task)` to check whether the `Model` has a task identical to the one
+the user is adding. If there is an existing identical task, a `CommandException` will be thrown and `execute(Model)` stops to avoid duplicate tasks.
+
+Step 5. `AddTaskForNoteCommand` calls `Model#addTask(Task)` to add the new task to the `Model`. `Model` calls
+`AppData#addTask(Task)` to add the task to `AppData` which keeps track of all data of the app. `AppData` then calls `TaskList#add(Task)`
+to add the task to `TaskList`, which is the underlying data structure storing tasks.
+
+Step 6. A `CommandResult` is created and returned to the `LogicManager` to inform the user of successful addition of a new
+task to the revision plan.
+
+The following sequence diagram illustrates the interaction between classes when calling `AddTaskForNoteCommand#execute(Model)`.
+
+.Sequence diagram for `execute(Model)` of `AddTaskForNoteCommand`
+image::task/AddTaskForNoteCommandExecuteSequenceDiagram.png[]
+
+Zooming in to *Step 3*, when calling `hasValidNoteForTask(Model)`, `AddTaskForNoteCommand` creates a new `Note` with a `Title` "UML diagram" and a `Content` "dummy entry".
+The entry of `Content` is not important because `AddTaskForNoteCommand` only records the `Title` of a `Note` and the existence
+of a `Note` is checked against its `Title` only (if the title is in the note list, then the note exists in the list).
+The detailed process is illustrated by the sequence diagram below.
+
+.Sequence diagram for checking existence of a `Note` in the model when `AddTaskForNoteCommand` calls its own `hasValidNoteForTask(Model)`
+image::task/HasValidNoteSequenceDiagram.png[]
+
+The following activity diagram summarizes the whole process of adding a task for note.
+
+.Activity diagram for adding a task for note
+image::task/AddTaskForNoteActivityDiagram.png[]
 
 ==== Design considerations
 ===== Aspect: Design of `Task`
-* **Alternative 1 (current implementation):** implement `Task` as a concrete class with two subclasses to support task for
+* **Alternative 1 (current implementation):** We implement `Task` as a concrete class with two subclasses to support task for
 notes and questions respectively.
 ** Pros: It supports different behaviours of task for `Note` and task for `Question` by polymorphism. The concrete `Task`
 class will also allow adding of general tasks in *v2.0*.
@@ -454,18 +517,36 @@ Hence we need to write more pieces of code.
 
 The class diagram below illustrates how `Task` class is designed:
 
-.Design for `Task` class
+.Design of `Task` class
 image::task/TaskClassDiagram.png[]
 
-* **Alternative 2:** design `Task` as an interface to be implemented by two different classes.
-** Pros: More flexible design. Less exposure of internal properties of Task to client.
+* **Alternative 2:** We design `Task` as an interface to be implemented by two different classes.
+** Pros: This approach is better in data hiding. The client classes know less information about internal properties of `Task`.
 ** Cons: We need to implement all methods in the interface and hence more code snippets are needed. Both implementing
 classes have to include the field in common such as `isDone`, which results in duplicate code snippets.
 
-* **Alternative 3:** wrap everything in one concrete `Task` class to support both lecture notes and questions.
-** Pros: Less code to write.
-** Cons: It violates the principle of Separation of Concern. Hard to maintain or extend in the future if more types of
+* **Alternative 3:** We wrap everything in one concrete `Task` class to support both lecture notes and questions.
+** Pros: We need to write less code.
+** Cons: It violates the principle of Separation of Concern, making it hard to maintain or extend in the future if more types of
 tasks are needed.
+
+===== Aspect: Design of command for adding a task
+* **Alternative 1 (current implementation):** We implement the command as two independent classes, namely `AddTaskForNoteCommand` and
+`AddTaskForQuestionCommand` to support adding `TaskForNote` and `TaskForQuestion` respectively.
+** Pros: The two types of commands, although similar in logic, receive different parameters and interact with different
+classes (one interacting with `TaskForNote` while another one interacting with `TaskForQuestion`). Therefore, it is better to separate the
+concerns by implementing the commands as two separate classes. If `TaskForNote` and `TaskForQuestion` classes deviate more
+significantly in the future in terms of their behaviour, this approach makes it easier to maintain the adding commands.
+** Cons: We need to write more code. There might be some duplicate code snippets involving the logic shared by both commands.
+We also need to implement different parsers for the two commands, which involes some extra work.
+
+* **Alternative 2:** We implement only one class of adding command to support both `TaskForNote` and `TaskForQuestion`.
+** Pros: We can write less code as there would be fewer duplicate code snippets and we do not need to implement separate
+command parsers.
+** Cons: This approach leads to lower level of abstraction as all concerns of `Task`, regardless of `TaskForNote` or `TaskForQuestion`,
+are wrapped into the same class. It could be difficult to maintain if the behaviors of `TaskForNote` and `TaskForQuestion`
+get more complex and diverse.
+// end::task_2[]
 
 === Logging
 
@@ -646,14 +727,16 @@ Use case ends
 * Use case resumes from step 2
 // end::usecase[]
 
-[discrete]
-=== Use case: Add a revision task to revision plan (Shui Yao)
+// tag::task_usecase[]
 
-*Preconditions:* notes collections and question collections are not both empty
+[discrete]
+=== Use case: Add a revision task for note to revision plan (Shui Yao)
+
+*Preconditions:* lecture note list is not empty
 
 *MSS*
 
-1. Student keys in revision task command and specifies the note set name or question set name he/she wants to add to revision plan, with starting date and starting time
+1. Student keys in revision task command and specifies the title of the note he/she wants to add to revision plan, with starting date and starting time
 2. NUStudy adds the task to revision plan
 3. NUStudy informs the Student about successful addition of the task
 
@@ -662,28 +745,38 @@ Use case ends
 *Extensions*
 
 [none]
-* 1a. NUStudy detects that neither a note set or a question set is entered by Student
+* 1a. NUStudy detects missing entry for note title
 [none]
-** 1a1. NUStudy requests for the correct input with a note set name or a question set name
+** 1a1. NUStudy requests for input of note title
 ** 1a2. Student enters correct input
-** Steps 1a1 - 1a2 are repeated until the input is correct
+** Steps 1a1 - 1a2 are repeated until the input is valid
 * Use case resumes from Step 2
 
 [none]
-* 1b. NUStudy detects missing starting date or time
+* 1b. NUStudy detects a note title entry that is non-existent in the note list
 [none]
-** 1b1. NUStudy requests for correct input with starting date and time
-** 1b2. Student enters correct input following the format
-** Steps 1b1 - 1b2 are repeated until getting a correct input with valid starting date and time
+** 1b1. NUStudy requests for a valid input of note title (a note that exists in the note list)
+** 1b2. Student enters valid note title
+** Steps 1b1 - 1b2 are repeated until the input is valid
 * Use case resumes from Step 2
 
 [none]
-* 1c. NUStudy detects invalid date or time
+* 1c. NUStudy detects missing starting date or time
 [none]
-** 1c1. NUStudy requests for valid date and time
-** 1c2. Student enters correct input with valid date and time
-** Steps 1c1 - 1c2 are repeated until getting a correct input with valid date and time
+** 1c1. NUStudy requests for correct input with starting date and time
+** 1c2. Student enters correct input following the format
+** Steps 1c1 - 1c2 are repeated until getting a correct input with valid starting date and time
 * Use case resumes from Step 2
+
+[none]
+* 1d. NUStudy detects invalid date or time
+[none]
+** 1d1. NUStudy requests for valid date and time
+** 1d2. Student enters correct input with valid date and time
+** Steps 1d1 - 1d2 are repeated until getting a correct input with valid date and time
+* Use case resumes from Step 2
+
+//end::task_usecase[]
 
 [discrete]
 === Use case: Delete a task from revision plan (Shui Yao)
@@ -720,20 +813,10 @@ Use case ends
 *MSS*
 
 1. Student clears the revision plan
-2. NUStudy requests for confirmation
-3. Student confirms the clear operation
-4. NUStudy clears the revision plan
-5. NUStudy informs the Student that the revision plan is successfully cleared
+2. NUStudy clears the revision plan
+3. NUStudy informs the Student that the revision plan is successfully cleared
 
 Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. Student disapprove the clear operation
-[none]
-** 2a1. NUStudy informs the Student of the cancellation of clear operation
-* Use case ends
 
 // tag::statsUseCase[]
 [discrete]
