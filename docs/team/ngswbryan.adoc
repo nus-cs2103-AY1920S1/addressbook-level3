@@ -16,7 +16,7 @@ This portfolio page aims to document the contributions I have made in the develo
 
 == Overview
 
-TutorAid is a handy application that was created with the end goal of helping tutors and teaching assistants in NUS School of Computing. It is a Command Line Interface (CLI) based tool to cater to computing professionals who are highly adept at typing but also provides a Graphical User Interface (GUI) interface for users to easily view and interact with TutorAid.
+TutorAid is a handy application that was created for tutors and teaching assistants in NUS School of Computing to help improve their workflow and save time by better organizing all the information they require in one central location. It is a Command Line Interface (CLI) based tool to cater to computing professionals who are highly adept at typing but also provides a Graphical User Interface (GUI) interface for users to easily view and interact with TutorAid.
 
 TutorAid boasts well thought out features which have been carefully selected and reviewed to fit the exact needs of our target audience. All of TutorAid's features and implementations are well documented in guides for users and developers respectively.
 
