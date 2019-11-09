@@ -24,8 +24,9 @@ public class GraphCommandTest {
 
     @Test
     public void execute_noDateRange_success() {
-        CommandResult expectedCommandResult = new CommandResult("Graph panel updated for all spending!\n" +
-            "To view graph for a more specific date range, type: graph d/DATE_START d/DATE_END.\n", true, false, false);
+        CommandResult expectedCommandResult = new CommandResult("Graph panel updated for all spending!\n"
+            + "To view graph for a more specific date range, type: graph d/DATE_START d/DATE_END.\n",
+            true, false, false);
         assertCommandSuccess(new GraphCommand(), model, expectedCommandResult, expectedModel);
     }
 

@@ -119,7 +119,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void updateStatsPredicate_predicateGiven_Success() {
+    public void updateStatsPredicate_null_success() {
         modelManager.updateStatsPredicate(null);
         assertEquals(modelManager.getStatsPredicate(), null);
     }

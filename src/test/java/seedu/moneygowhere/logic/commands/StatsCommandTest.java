@@ -29,8 +29,9 @@ class StatsCommandTest {
 
     @Test
     public void execute_noDateRange_success() {
-        CommandResult expectedCommandResult = new CommandResult("Statistics panel updated for all spending!\n" +
-            "To view statistics for a more specific date range, type: stats d/DATE_START d/DATE_END.\n", false, true, false);
+        CommandResult expectedCommandResult = new CommandResult("Statistics panel updated for all spending!\n"
+            + "To view statistics for a more specific date range, type: stats d/DATE_START d/DATE_END.\n",
+            false, true, false);
         assertCommandSuccess(new StatsCommand(), model, expectedCommandResult, expectedModel);
     }
 
