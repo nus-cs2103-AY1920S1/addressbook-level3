@@ -270,7 +270,7 @@ Examples:
 * `undo` +
 Undoes the last command
 
-
+// end::undo[]
 // tag::redo[]
 === Redoing the latest undone command(s) : `redo`
 
@@ -285,6 +285,8 @@ Format: `redo`
 Examples:
 
 * `redo` +
+
+// end::redo[]
 
 === Sorting ELISA out: `sort`
 Is ELISA getting too cluttered and disorganized? Do you want to sort your task by their priority? Or the events by their start date?
@@ -318,11 +320,11 @@ Examples:
 * `find CS2101 CS2103` - find items that contains either CS2101 or CS2103 within their description.
 
 === Entering priority mode: `priority`
-Feeling stress? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
+Feeling stressed? Too much tasks on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
 
 By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA base on priority and the order in which the task was added to the list.
 
-Feeling less stress? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone task and you will be automatically brought out of priority mode.
+Feeling less stressed? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone task and you will be automatically brought out of priority mode.
 
 Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hhmm` and ELISA will turn it off at that specific time for you.
 
@@ -336,7 +338,7 @@ Examples:
 
 ****
 * Note that this command can only be called in the task panel.
-* Note that all command such as `edit`, `undo` and `redo` still works in priority mode.
+* Note that all commands such as `edit`, `undo` and `redo` still works in priority mode.
 ****
 
 === Expanding an item in the view: `open` & `close`
@@ -360,6 +362,19 @@ Example sequence:
 Although, the ESC key can close too, we do not advise doing so as ELISA may be confused later on :(
 
 
+// tag::joke[]
+=== Asking ELISA for a joke : `joke`
+Need to amuse yourself for a bit? Simply use the `joke` command and ELISA will select a joke from her database for you to enjoy!
+
+****
+* Note that each joke is randomly selected from the database and may repeat.
+****
+
+Example:
+
+* `joke` +
+
+// end::joke[]
 === Exiting the program : `exit`
 
 Exits the program. +
