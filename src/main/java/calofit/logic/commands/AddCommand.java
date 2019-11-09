@@ -8,6 +8,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import calofit.commons.core.Messages;
@@ -54,7 +55,7 @@ public class AddCommand extends Command {
     private Dish toAdd;
     private int dishNumber;
     private boolean isNumber = false;
-    private LinkedList<Integer> dishIntList;
+    private List<Integer> dishIntList;
     private boolean isList = false;
 
     /**
@@ -73,7 +74,7 @@ public class AddCommand extends Command {
         this.isNumber = true;
     }
 
-    public AddCommand(LinkedList<Integer> dishIntList) {
+    public AddCommand(List<Integer> dishIntList) {
         requireNonNull(dishIntList);
         this.dishIntList = dishIntList;
         this.isList = true;

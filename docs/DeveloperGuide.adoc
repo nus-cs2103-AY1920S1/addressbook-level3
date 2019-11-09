@@ -228,10 +228,29 @@ meals are first added to separate a `toBeAddedMealList` and once all the indexes
 ** Pros: Easy comparison. Reduces complications when adding meals.
 ** Cons: High collision.
 
+* **Alternative 3** Compare name, calories and tags
+** Pros: Very precise comparison.
+** Cons: May cause the dish database to get very large just because the tag is different
+
 * **Explanation of choice:** As a calorie counter, the calories is an important
 part of the meal. Hence we need to consider it when comparing meals. Certain meals
 with the same name may not have the same amount of calories. Hence we decided to go
 with alternative 1.
+
+==== Aspect: Data structure when storing in meals in meal log
+* **Alternative 1 (Current choice):** Use arraylist to store meals in meal log
+** Pros: Able to delete by index.
+** Cons: Interacting with the meal log will be slow.
+
+* **Alternative 2:** Use a hash map to store the meals in meal log
+** Pros: Able quickly retrieve information from the meal log.
+** Cons: Unable to delete through index. Also unable to store duplicates of the same meal.
+
+* **Explanation of choice:** The user may consume the same meal within the day. If we use a hash
+map, we will not be able to store the duplicate meals easily. Hash map does not preserve order.
+Hence, showing on the meal list section would be difficult as well. A user may not have a large
+amount of meals daily. Hence the array list would not be that large. Therefore, despite its limitation,
+an array list is still used.
 
 === Delete feature
 ==== Implementation
