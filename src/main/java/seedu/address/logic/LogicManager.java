@@ -87,7 +87,7 @@ public class LogicManager implements Logic {
     public ItineraryLogic getItineraryLogic() {
         return this.itineraryLogic;
     }
-    
+
     @Override
     public MainLogic getMainLogic() {
         return this.mainLogic;

@@ -10,6 +10,11 @@ import seedu.address.address.model.util.AddressBookStatistics;
  */
 public class AddressBookCard {
 
+    /**
+     * Card for {@link AddressBookStatistics}.
+     * @param addressBookStatistics
+     * @return observable list of nodes that makes up the {@code AddressBookCard}
+     */
     public static ObservableList<Node> make(AddressBookStatistics addressBookStatistics) {
         return FXCollections.observableArrayList(
                 new AchievementsTitleLabel("Address Book").getRoot(),

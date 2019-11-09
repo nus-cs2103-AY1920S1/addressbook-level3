@@ -15,6 +15,11 @@ public class ItineraryCard {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    /**
+     * Card for {@link ItineraryStatistics}.
+     * @param itineraryStatistics
+     * @return observable list of nodes that makes up the {@code ItineraryCard}
+     */
     public static ObservableList<Node> make(ItineraryStatistics itineraryStatistics) {
         return FXCollections.observableArrayList(
                 new AchievementsTitleLabel("Itinerary").getRoot(),

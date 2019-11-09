@@ -15,6 +15,11 @@ public class FinancialCard {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    /**
+     * Card for {@link FinancialTrackerStatistics}.
+     * @param financialTrackerStatistics
+     * @return observable list of nodes that makes up the {@code FinancialCard}
+     */
     public static ObservableList<Node> make(FinancialTrackerStatistics financialTrackerStatistics) {
         return FXCollections.observableArrayList(
                 new AchievementsTitleLabel("Financial Tracker").getRoot(),

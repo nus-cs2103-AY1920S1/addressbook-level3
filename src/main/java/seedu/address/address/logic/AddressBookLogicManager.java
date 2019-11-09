@@ -73,6 +73,9 @@ public class AddressBookLogicManager implements AddressBookLogic {
         return new AddressBookStatisticsManager();
     }
 
+    /**
+     * Local class for {@link AddressBookStatistics}
+     */
     private class AddressBookStatisticsManager implements AddressBookStatistics {
         @Override
         public int getTotalPersons() {

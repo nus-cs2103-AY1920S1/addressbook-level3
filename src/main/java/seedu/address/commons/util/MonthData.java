@@ -1,9 +1,12 @@
 package seedu.address.commons.util;
 
+/**
+ * {@Code MonthData} used for generating Statistics.
+ */
 public class MonthData implements Comparable<MonthData> {
-    int key;
-    int month;
-    int year;
+    private int key;
+    private int month;
+    private int year;
 
     public MonthData(int key, int month, int year) {
         this.key = key;
@@ -13,7 +16,7 @@ public class MonthData implements Comparable<MonthData> {
 
     public MonthData(int key, String date) {
         this.key = key;
-        this.month = Integer.parseInt(date.substring(0,2));
+        this.month = Integer.parseInt(date.substring(0, 2));
         this.year = Integer.parseInt(date.substring(3));
     }
 
@@ -35,7 +38,7 @@ public class MonthData implements Comparable<MonthData> {
 
     @Override
     public int compareTo(MonthData o) {
-        if(this.isSameYear(o)) {
+        if (this.isSameYear(o)) {
             return Integer.compare(getMonth(), o.getMonth());
         } else {
             return getYear() - o.getYear();

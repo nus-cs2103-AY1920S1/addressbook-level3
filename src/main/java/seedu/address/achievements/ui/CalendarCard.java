@@ -15,7 +15,11 @@ import seedu.address.commons.core.LogsCenter;
 public class CalendarCard {
 
     private static final Logger logger = LogsCenter.getLogger(CalendarCard.class);
-
+    /**
+     * Card for {@link CalendarStatistics}.
+     * @param calendarStatistics
+     * @return observable list of nodes that makes up the {@code CalendarCard}
+     */
     public static ObservableList<Node> make(CalendarStatistics calendarStatistics) {
         ObservableList<Node> observableList = FXCollections.observableArrayList(
                 new AchievementsTitleLabel("Calendar").getRoot(),

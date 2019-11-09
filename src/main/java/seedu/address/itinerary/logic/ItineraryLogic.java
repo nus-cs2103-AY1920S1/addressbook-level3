@@ -101,6 +101,9 @@ public class ItineraryLogic {
         return new ItineraryStatisticsManager();
     }
 
+    /**
+     * Local class for {@link ItineraryStatistics}
+     */
     private class ItineraryStatisticsManager implements ItineraryStatistics {
         @Override
         public int getTotalItineraryEntries() {

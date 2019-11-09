@@ -1,5 +1,8 @@
 package seedu.address.commons.util;
 
+/**
+ * Country Data used for generating Statistics.
+ */
 public class CountryData implements Comparable<CountryData> {
     private int key;
     private String value;

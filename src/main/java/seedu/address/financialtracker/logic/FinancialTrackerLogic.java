@@ -97,6 +97,9 @@ public class FinancialTrackerLogic {
         return new FinancialStatisticsManager();
     }
 
+    /**
+     * Local class for {@link FinancialTrackerStatistics}
+     */
     private class FinancialStatisticsManager implements FinancialTrackerStatistics {
 
         @Override

@@ -15,6 +15,11 @@ public class DiaryBookCard {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    /**
+     * Card for {@link DiaryBookStatistics}.
+     * @param diaryBookStatistics
+     * @return observable list of nodes that makes up the {@code DiaryBookCard}
+     */
     public static ObservableList<Node> make(DiaryBookStatistics diaryBookStatistics) {
         return FXCollections.observableArrayList(
                 new AchievementsTitleLabel("Diary Book").getRoot(),

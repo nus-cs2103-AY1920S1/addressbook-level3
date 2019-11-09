@@ -80,6 +80,9 @@ public class DiaryBookLogic {
         return new DiaryBookStatisticsManager();
     }
 
+    /**
+     * Local class for {@link DiaryBookStatistics}
+     */
     private class DiaryBookStatisticsManager implements DiaryBookStatistics {
         @Override
         public int getTotalDiaryEntries() {
