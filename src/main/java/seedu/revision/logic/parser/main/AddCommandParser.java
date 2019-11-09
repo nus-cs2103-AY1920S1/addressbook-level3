@@ -10,10 +10,10 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
 import seedu.revision.logic.parser.ArgumentTokenizer;
@@ -36,12 +36,6 @@ import seedu.revision.model.category.Category;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
-    private Question question;
-    private ArrayList<Answer> correctAnswerList;
-    private ArrayList<Answer> wrongAnswerList;
-    private Difficulty difficulty;
-    private Set<Category> categories;
-
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -52,85 +46,24 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_QUESTION_TYPE, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_WRONG,
                 PREFIX_DIFFICULTY, PREFIX_CATEGORY);
 
-        QuestionType questionType;
-        if (arePrefixesPresent(argMultimap, PREFIX_QUESTION_TYPE)) {
-            questionType = ParserUtil.parseType(argMultimap.getValue(PREFIX_QUESTION_TYPE).get());
-        } else {
+        if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION_TYPE, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_CATEGORY,
+                PREFIX_DIFFICULTY) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        validateQuestionType(questionType, argMultimap);
+        QuestionType questionType = ParserUtil.parseType(argMultimap.getValue(PREFIX_QUESTION_TYPE).get());
+        Question question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
+        Difficulty difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
+        Set<Category> categories = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
+        ArrayList<Answer> correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
+        ArrayList<Answer> wrongAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG));
 
-        this.question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
-        this.difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
-        this.categories = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
-
-        Answerable answerable;
-
-        switch (questionType.getType()) {
-        case "mcq":
-            answerable = new Mcq(question, correctAnswerList, wrongAnswerList, difficulty, categories);
-            break;
-        case "tf":
-            answerable = new TrueFalse(question, correctAnswerList, difficulty, categories);
-            break;
-        case "saq":
-            answerable = new Saq(question, correctAnswerList, difficulty, categories);
-            break;
-        default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+        Answerable answerable = Answerable.create(questionType.getType(), question, correctAnswerList,
+                wrongAnswerList, difficulty, categories);
 
         requireNonNull(answerable);
         validateAnswerableToAdd(answerable);
         return new AddCommand(answerable);
-    }
-
-    /**
-     * Validates that the question to be added is either an MCQ, TrueFalse or SAQ.
-     * @param questionType type of question to be added.
-     * @param argMultimap add multi-map.
-     * @return true or false
-     * @throws ParseException if question is in the wrong format.
-     */
-    private boolean validateQuestionType(QuestionType questionType, ArgumentMultimap argMultimap) throws
-            ParseException {
-        String type = questionType.getType();
-        int numCorrect = argMultimap.getAllValues(PREFIX_CORRECT).size();
-        int numWrong = argMultimap.getAllValues(PREFIX_WRONG).size();
-
-        if (arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_CATEGORY,
-                PREFIX_DIFFICULTY) && argMultimap.getPreamble().isEmpty()) {
-            this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
-
-            switch (type.toLowerCase()) {
-            case "mcq":
-                if (numCorrect == 1 && numWrong == 3 && arePrefixesPresent(argMultimap, PREFIX_WRONG)) {
-                    this.wrongAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG));
-                    return true;
-                } else {
-                    throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);
-                }
-            case "tf":
-                if (numCorrect == 1 && numWrong <= 1) {
-                    this.correctAnswerList = new ArrayList<>(Arrays.asList(
-                            new Answer(this.correctAnswerList.get(0).answer.toLowerCase())));
-                    return true;
-                } else {
-                    throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
-                }
-            case "saq":
-                if (numCorrect > 0 && numWrong == 0) {
-                    return true;
-                } else {
-                    throw new ParseException(Saq.MESSAGE_CONSTRAINTS);
-                }
-            default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-            }
-        } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
     }
 
     /**
@@ -151,6 +84,12 @@ public class AddCommandParser implements Parser<AddCommand> {
                 throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
             }
         }
+        if (answerableToAdd instanceof Saq) {
+            if (!Saq.isValidSaq((Saq) answerableToAdd)) {
+                throw new ParseException(Saq.MESSAGE_CONSTRAINTS);
+            }
+            areSaqAnswersValid(answerableToAdd.getCorrectAnswerList(), answerableToAdd.getQuestion());
+        }
 
         return true;
     }
@@ -160,6 +99,25 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if none of the answers is 'exit'
+     * @param answerList the list of correct answers
+     * @return a boolean to determine if saq answer is valid. True if valid. False otherwise.
+     * @throws ParseException exception is thrown if answer is 'exit'.
+     */
+    private boolean areSaqAnswersValid(ArrayList<Answer> answerList, Question question) throws ParseException {
+        for (Answer answer : answerList) {
+            if (answer.getAnswer().toLowerCase().trim().equals("exit")) {
+                throw new ParseException(Saq.MESSAGE_INVALID_ANSWER_EXIT);
+            }
+
+            if (FuzzySearch.tokenSetRatio(answer.getAnswer(), question.question) == 100) {
+                throw new ParseException(Saq.MESSAGE_INVALID_ANSWER);
+            }
+        }
+        return true;
     }
 
 }

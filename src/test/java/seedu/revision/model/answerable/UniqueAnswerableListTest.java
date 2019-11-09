@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalMcq.MCQ_B;
-import static seedu.revision.testutil.TypicalMcq.MCQ_C;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_B;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_C;
 
 import java.util.Arrays;
 import java.util.Collections;

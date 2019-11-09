@@ -4,14 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_MCQ_QUESTION_2;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_TF_QUESTION_1;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_TF_QUESTION_2;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalMcq.MCQ_B;
-import static seedu.revision.testutil.TypicalMcq.MCQ_CORRECT_ANSWER_A;
-import static seedu.revision.testutil.TypicalMcq.MCQ_C;
-import static seedu.revision.testutil.TypicalMcq.MCQ_WRONG_ANSWER_A;
 import static seedu.revision.testutil.TypicalTrueFalse.TF_A;
 import static seedu.revision.testutil.TypicalTrueFalse.TF_ANSWER_FALSE;
 import static seedu.revision.testutil.TypicalTrueFalse.TF_ANSWER_TRUE;
@@ -24,7 +19,6 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.revision.testutil.McqBuilder;
 import seedu.revision.testutil.builder.TrueFalseBuilder;
 
 public class TrueFalseTest {

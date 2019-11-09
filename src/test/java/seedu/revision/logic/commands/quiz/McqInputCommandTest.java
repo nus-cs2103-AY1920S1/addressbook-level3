@@ -4,9 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.revision.logic.commands.CommandTestUtil.COMMAND_RESULT_BUILDER_CORRECT_HELP_FALSE_EXIT_FALSE;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.revision.testutil.TypicalMcq.MCQ_A;
-import static seedu.revision.testutil.TypicalMcq.MCQ_A_COMMAND;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_A;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_A_COMMAND;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
@@ -32,8 +34,7 @@ public class McqInputCommandTest {
 
         Command command = new McqInputCommand(rightOption, MCQ_A);
         Command commandUpperCase = new McqInputCommand(rightOptionUppercase, MCQ_A);
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack("correct")
-                .withHelp(false).withExit(false).build();
+        CommandResult expectedCommandResult = new CommandResult(COMMAND_RESULT_BUILDER_CORRECT_HELP_FALSE_EXIT_FALSE);
 
         try {
             assertCommandSuccess(command, model,
@@ -53,9 +54,7 @@ public class McqInputCommandTest {
 
         Command command = new McqInputCommand(firstWrongOption, MCQ_A);
         Command commandUppercase = new McqInputCommand(firstWrongOption.toUpperCase(), MCQ_A);
-
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack("wrong")
-                .withHelp(false).withExit(false).build();
+        CommandResult expectedCommandResult = new CommandResult(COMMAND_RESULT_BUILDER_CORRECT_HELP_FALSE_EXIT_FALSE);
 
         try {
             assertCommandSuccess(command, model,

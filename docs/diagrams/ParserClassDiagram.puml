@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T3
+skinparam classBackgroundColor LOGIC_COLOR_T3
+
+Interface QuizParser <<Interface>>
+Interface Parser <<Interface>>
+
+Class ParserManager
+Class ABCParser
+Class XYZParser
+
+note bottom of ABCParser : parses commands\nwhich are used\nin Configuration\nMode.
+note bottom of XYZParser : parses commands\nwhich are used\nin Quiz Mode.
+
+ABCParser .up.|> Parser
+XYZParser .up.|> QuizParser
+ParserManager -left-> ABCParser : creates >
+ParserManager -right-> XYZParser : creates >
+
+@enduml

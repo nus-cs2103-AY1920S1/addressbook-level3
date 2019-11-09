@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalMcq.MCQ_D;
-import static seedu.revision.testutil.TypicalMcq.MCQ_C;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_D;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_C;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

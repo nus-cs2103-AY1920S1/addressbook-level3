@@ -3,7 +3,7 @@ package seedu.revision.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.revision.storage.JsonAdaptedAnswerable.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalMcq.MCQ_D;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_D;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.commons.core.Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.revision.testutil.TypicalMcq.MCQ_E;
-import static seedu.revision.testutil.TypicalMcq.MCQ_F;
-import static seedu.revision.testutil.TypicalMcq.MCQ_G;
-import static seedu.revision.testutil.TypicalMcq.getMcqRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_E;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_F;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_G;
+import static seedu.revision.testutil.TypicalMcqs.getMcqRevisionTool;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -20,7 +20,7 @@ import seedu.revision.model.answerable.Answerable;
 /**
  * A utility class containing a list of {@code Answerable} objects to be used in tests.
  */
-public class TypicalMcq {
+public class TypicalMcqs {
     public static final Answer MCQ_CORRECT_ANSWER_A = new Answer("Brownfield");
     public static final Answer MCQ_CORRECT_ANSWER_B = new Answer("Greyfield");
     public static final Answer MCQ_WRONG_ANSWER_A = new Answer("Greenfield");
@@ -75,7 +75,7 @@ public class TypicalMcq {
 
 
 
-    private TypicalMcq() {} // prevents instantiation
+    private TypicalMcqs() {} // prevents instantiation
 
     /**
      * Returns an {@code RevisionTool} with all the typical answerables.

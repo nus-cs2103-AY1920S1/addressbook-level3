@@ -2,8 +2,11 @@ package seedu.revision.logic.commands.quiz;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.revision.logic.commands.CommandTestUtil.COMMAND_RESULT_BUILDER_CORRECT_HELP_FALSE_EXIT_FALSE;
+import static seedu.revision.logic.commands.CommandTestUtil.COMMAND_RESULT_BUILDER_WRONG_HELP_FALSE_EXIT_FALSE;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.revision.testutil.TypicalTrueFalse.TF_A;
 import static seedu.revision.testutil.TypicalTrueFalse.TF_A_COMMAND;
@@ -11,6 +14,7 @@ import static seedu.revision.testutil.TypicalTrueFalse.TF_A_COMMAND;
 
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
@@ -27,8 +31,7 @@ public class TfInputCommandTest {
         Command commandLowerCase = new TfInputCommand("true", TF_A);
         Command commandRandomCase = new TfInputCommand("tRuE", TF_A);
 
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack("correct")
-                .withHelp(false).withExit(false).build();
+        CommandResult expectedCommandResult = new CommandResult(COMMAND_RESULT_BUILDER_CORRECT_HELP_FALSE_EXIT_FALSE);
         try {
             assertCommandSuccess(commandNormal, model,
                     expectedCommandResult, expectedModel);
@@ -50,9 +53,7 @@ public class TfInputCommandTest {
         Command commandLowerCase = new TfInputCommand("false", TF_A);
         Command commandRandomCase = new TfInputCommand("faLSE", TF_A);
 
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack("wrong")
-                .withHelp(false).withExit(false).build();
-
+        CommandResult expectedCommandResult = new CommandResult(COMMAND_RESULT_BUILDER_WRONG_HELP_FALSE_EXIT_FALSE);
         try {
             assertCommandSuccess(commandNormal, model,
                     expectedCommandResult, expectedModel);
@@ -71,7 +72,7 @@ public class TfInputCommandTest {
     public void equals() {
         // same values -> returns true
         Command commandCopy = new TfInputCommand("False", TF_A);
-        assertTrue(TF_A_COMMAND.equals(commandCopy));
+        assertEquals(TF_A_COMMAND, commandCopy);
 
         // same object -> returns true
         assertTrue(commandCopy.equals(commandCopy));

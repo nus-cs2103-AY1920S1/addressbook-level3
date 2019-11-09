@@ -13,6 +13,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-F10-3/main
+:javaFxBugURL: https://github.com/javafxports/openjdk-jfx/pull/271
 
 By: `Team F10-3`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -27,16 +28,16 @@ GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
+.  Ensure that you have the latest version of JavaFX installed in your Computer. (Previous versions of JavaFX may cause
+bugs related to displaying pop ups. more info about this bug can be found at this link:{javaFxBugURL}/link[link])
 .  Download the latest RT link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your `*test bank*`.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI should appear in a few seconds. The image below shows the app in configuration mode.
 +
 image::Ui.png[width="790"]
-image::Ui2.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Some example commands you can try in configuration mode:
 
 * *`list`* : lists all categories and difficulties for the user to choose.
 * **`add `**`type/mcq q/According to the textbook, which kind of project is more difficult? x/Greenfield x/Brownfield y/None
@@ -45,10 +46,17 @@ y/ (as in "yes") marking the correct answers. Difficulty: 1, Category: Introduct
 * **`delete`**`3` : deletes the 3rd question shown in the current list.
 * *`exit`* : exits the app.
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<ConfigurationMode>> for details of each command.
 
-[[Features]]
-== Features
+. To enter Quiz Mode, type `start mode/normal` other modes such as arcade and custom are also available and are elaborated
+in <<Quiz Mode>> .
++
+image::Ui2.png[width="790"]
++
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+
+[[ConfigurationMode]]
+== Configuration Mode
 
 ====
 *Command Format*
@@ -63,9 +71,11 @@ which can be used as `add type/mcq q/What the recommended user story format?`.
 
 Format: `help`
 
+//tag::wilfred[]
+//tag::wilfred-start[]
 === Starting the quiz: `start`.
 
-User can start by choosing the mode of the quiz. (normal / arcade / custom). See Section 4 (Quiz Mode) for in-quiz commands.
+User can start by choosing the mode of the quiz. (normal / arcade / custom). See <<Quiz Mode>> for in-quiz commands.
 
 Format: `start mode/MODE`
 
@@ -77,15 +87,7 @@ Examples:
 
 * `start mode/normal`
 * `start mode/custom cat/uml /diff/1 timer/20`
-
-=== Exiting the quiz / application: `exit`
-
-User can end the quiz and go back into configuration mode to perform commands such as `add`, `list`, and `status`
-.
-
-If user is in configuration mode, `exit` will close the application.
-
-Format: `exit`
+//end::wilfred-start[]
 
 === Check your progress: `status` [Coming in v1.4]
 
@@ -125,25 +127,30 @@ Examples:
 image::autocomplete.png[width="790"]
 
 
+//tag::wilfred-add[]
 === Adding a question: `add`
 
 Adds a question to the test bank
 
 Format: `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER x/WRONG_ANSWER... `
 
-[TIP]
+****
 [%hardbreaks]
+The following are the valid answer formats for each question type:
 *MCQ*: 1 Correct answer and 3 Wrong answers.
 *True & False*: 1 Correct answer (i.e. True / False) wrong answers omitted.
-*SAQ*: Multiple correct answers, wrong answers omitted.
+*SAQ*: Multiple correct answers, no wrong answers.
+****
 
 Examples:
 
 * `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1
-x/Greenfield x/Brownfield y/None of the others of the above x/Padifield`
-* `add type/tf q/OODMs are Clas>1 secs Diagrams cat/uml diff/2 y/true`
+x/Greenfield x/Brownfield y/None of the others x/Padifield`
+* `add type/tf q/OODMs are Class Diagrams cat/uml diff/2 y/true`
 * `add type/saq q/What does UML stands for? cat/cs2103 diff/1 y/unified modeling language`
+//end::wilfred-add[]
 
+//tag::wilfred-edit[]
 === Editing a question : `edit`
 
 Edits an existing question in the test bank.
@@ -163,6 +170,7 @@ Examples:
 
 * `edit 1 q/According the the textbook, is greenfield or brownfield tougher?` +
 Edits the the first question to "According the the textbook, is greenfield or brownfield tougher?"
+//end::wilfred-edit[]
 
 === Deleting a question : `delete`
 
@@ -202,7 +210,6 @@ Examples:
 === Locating questions: `find`
 
 Finds questions whose descriptions contain any of the given keywords. +
-
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -235,38 +242,73 @@ Format: `restore`
 Test bank data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
+=== Exiting the application: `exit`
+
+Exits the application. +
+Format: `exit`
+
 // tag::import/export[]
 === Importing / Exporting test banks `[coming in v2.0]`
 
-_{explain how the user can import / export test banks}_
+User can export can import json files containing the test bank into the application.
 // end::import/export[]
 
+=== Hints `[coming in v2.0]`
+
+User will be able to get hints for MCQs and SAQs. Typing '/hint' for MCQs will eliminate two wrong answers from the
+options, leaving user with two options, one of which is correct. Typing '/hint' for SAQs will show the user random
+keywords from the correct answer list.
+
+//tag::wilfred-quiz[]
 == Quiz Mode
 
 === Normal Mode
-Levels are separated by difficulty. User has the choice to move on to the next level or exit the quiz.
+Levels are separated by difficulty. At the end of each level, user has the choice to move on to the next level or exit the quiz.
+The user is given 30 seconds to answer each question.
 
 === Arcade Mode
 Levels are separated by difficulty. If user enters a wrong answer before finishing the quiz. Quiz will end and display the results.
+The user is given 20 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
+level 3 giving the user 10 seconds to answer each question.
 
 === Custom Mode
-Category, Difficulty and Timer (must be above 1 second) can be customised by the user.
+Category, Difficulty and Timer (must be above 1 second) can be customised by the user. Levels are also sorted according to
+difficulty.
 
 === Answering Questions
-==== MCQ
-Answers can only be A, B, C, or D (Case insensitive)
+* MCQ
+** Answers can only be A, B, C, or D (Case insensitive)
+* True and False
+** Answers can only be True (T) / False (F) (Case insensitive)
+* SAQ
+** Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+//end::wilfred-quiz[]
 
-==== True and False
-Answers can only be True (T) / False (F) (Case insensitive)
+=== Exiting the quiz
 
-=== SAQ
-Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+User can end the quiz and go back into Configuration Mode (see <<ConfigurationMode>>) to perform commands such as `add`, `list`, and `status`
+.
+
+Format: `exit`
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Test Bank folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
+data of your previous Test Bank folder.
 
+*Q*: Why am I not able to click on the options to select the answers for MCQs and T/F questions? +
+*A*: The options are there as a way to show the users the options available. As this is a CLI application, the main
+input will be through keyboard inputs.
+
+*Q*: Can I use this application for another module? +
+*A*: Yes you can. This application is designed to store any types of MCQs, T/F and SAQs.
+
+*Q*: I want to challenge my friends using this application, how can I do it? +
+*A*: There is no online support for the application right now. One way you can chanllenge your friend is to prepare the
+same json files and load it up to your individual computers and do the quiz together.
+
+//tag::wilfred-summary[]
 == Command Summary
 
 * *Help* : `help`
@@ -297,8 +339,9 @@ e.g. `find user story`
 * *Clear* : `clear`
 
 * *Restore* : `restore`
+//end::wilfred-summary[]
+//end::wilfred[]
 
 [TIP]
-[%hardbreaks]
-*AutoComplete*: Use the "TAB" key to see dropdown options
-for auto completion.
+*AutoComplete*: Suggested commands will be shown as you type. Navigate through the dropdown list using the up and down
+arrow keys and hit kbd:[Enter] to complete the command.

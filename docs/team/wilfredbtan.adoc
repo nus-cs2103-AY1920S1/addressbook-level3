@@ -1,0 +1,110 @@
+= Wilfred Bradley Tan - Project Portfolio for CS2103/T Revision Tool (RT)
+:site-section: AboutUs
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:contributedCodeUrl: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=wilfredbtan
+:ab3Url: https://github.com/nus-cs2103-AY1920S1/addressbook-level3
+:pullUrl: https://github.com/AY1920S1-CS2103-F10-3/main/pull
+
+By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
+
+== Introduction
+This portfolio provides an overview of the CS2103/T Revision Tool and highlights my contribution in the project including a brief description of the key features that I implemented.
+
+=== The Team
+Our team of 5 consists of 2 Year 4 Engineering Science students, a Year 4 Industrial & Systems Engineering student, a Year
+3 Communications and New Media student and myself, a Year 2 Computer Science / Business student.
+
+=== About the Project
+
+This 7-week project was started as part of NUS' Software Engineering (CS2103/T) module. The team was required to
+to either morph or enhance an existing application (link:{ab3Url}/[Address Book - Level 3]). Our team decided to morph the project
+into the CS2103/T Revision Tool (RT) a desktop quiz application which allows users to create customised question banks
+and attempt the quizzes in an interactive manner. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 14 kLoC.
+
+.UI of the Configuration Mode
+image:Ui.png[width="790"]
+
+.UI of the Quiz Mode
+image:Ui2.png[width="790"]
+
+== Summary of contributions
+
+As the Team Lead of the project, my role was to ensure that the team met the milestones and to coordinate the integration
+of the entire application. Furthermore, I developed the main driver for the Quiz Mode in the application which was the backbone
+of many of the other features.
+
+* *Major enhancement*: added *the main driver for the quiz*
+
+** *What it does*: After entering quiz mode, the driver parses user input, determines whether the answer is correct and displays the next question. At the end of each level and the entire quiz, the user is shown his/her score and given the choice to continue (i.e. proceed to the next level or restart) or exit the quiz.
+** *Justification*: This essential feature is the core of the application and allows other features to be built upon it. Furthermore, it significantly improves the product as it adds the element of interaction to the application.
+** *Highlights*: This enhancement required the deep understanding of the entire project structure as it can be considered the nervous system that connects the application from UI to Storage. Other functionality such as answering MCQs, True & False or Short-Answer Questions (SAQ) were built upon this feature.
+** Credits: Code for the GUI display was adapted from Address Book – Level 3
+
+* *Minor enhancements*:
+** Created the Normal and Arcade mode for the quiz. In Arcade Mode, each level has increasing difficulty and a shorter time limit, whenever a user gets a question wrong, the quiz ends and the user has to restart.
+** Created the abstract `Answerable` Class for subclasses such as `MCQ`, `TrueFalse` and `SAQ` classes to be built upon.
+** Added a progress bar for each level in the quiz.
+** Implemented the adaptable UI for each type of question’s answers (i.e. allowing the GUI to change from displaying 4 panels for MCQs to 2 panels for True & False questions).
+
+* *Code contributed*: You can view the code I contributed to this project link:{contributedCodeUtl}/[here, window=blank]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases v1.3 - v1.4 (2 releases) on GitHub
+
+** Enhancements to existing features:
+*** Wrote additional GUI tests to increase coverage from 50% to 72% (PR link:{pullUrl}/158[#158])
+*** Updated the GUI colour scheme and added aesthetic artifacts such as level label (PR link:{pullUrl}/98[#98], link:{pullUrl}/148[#148])
+*** Created skeleton class for `AnswerableBuilder` using Java Generics and the builder class design so that other teammates will be able to build upon it easily (PR link:{pullUrl}/148[#148], link:{pullUrl}/149[#149])
+*** Adapted CommandResult to follow the builder design pattern .
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide link:{pullUrl}
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=wilfred-start]
+
+include::../UserGuide.adoc[tag=wilfred-add]
+
+include::../UserGuide.adoc[tag=wilfred-edit]
+
+include::../UserGuide.adoc[tag=wilfred-quiz]
+
+include::../UserGuide.adoc[tag=wilfred-summary]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=wilfred-logic]
+
+include::../DeveloperGuide.adoc[tag=wilfred-answerable]
+
+include::../DeveloperGuide.adoc[tag=wilfred-quiz]

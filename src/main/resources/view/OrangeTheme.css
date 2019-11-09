@@ -321,7 +321,7 @@
     -fx-text-fill: #F70D1A;
 }
 
-#commandTextField {
+.commandTextField {
     -fx-background-color: transparent #ffa45c transparent #ffa45c;
     -fx-background-insets: 0;
     -fx-border-color: #ffa45c #ffa45c #ffffff #ffa45c;
@@ -373,6 +373,10 @@
     -fx-border-radius: 20;
     -fx-background-radius: 2;
     -fx-font-size: 15;
+}
+
+.alert.warning.dialog-pane {
+    -fx-background-color: derive(#878784, 20%);
 }
 
 .alert.error.dialog-pane {

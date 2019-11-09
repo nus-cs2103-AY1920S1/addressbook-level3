@@ -1,6 +1,6 @@
 package seedu.revision.logic.commands;
 
-import static seedu.revision.testutil.TypicalMcq.getMcqRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.getMcqRevisionTool;
 
 import org.junit.jupiter.api.BeforeEach;
 

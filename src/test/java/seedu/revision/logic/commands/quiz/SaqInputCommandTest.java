@@ -4,14 +4,21 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.revision.logic.commands.CommandTestUtil.COMMAND_RESULT_BUILDER_CORRECT_HELP_FALSE_EXIT_FALSE;
+import static seedu.revision.logic.commands.CommandTestUtil.COMMAND_RESULT_BUILDER_WRONG_HELP_FALSE_EXIT_FALSE;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.revision.testutil.TypicalSaq.SAQ_A;
-import static seedu.revision.testutil.TypicalSaq.SAQ_A_COMMAND;
+import static seedu.revision.testutil.TypicalSaqs.SAQ_A;
+import static seedu.revision.testutil.TypicalSaqs.SAQ_B;
+import static seedu.revision.testutil.TypicalSaqs.SAQ_B_COMMAND;
 
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
+
+
 import seedu.revision.model.ModelManager;
 
 
@@ -24,8 +31,7 @@ public class SaqInputCommandTest {
     public void execute_saqMatchingAnswer_correct() throws ParseException {
         Command commandResult = new SaqInputCommand(
                 "Unit Testing", SAQ_A);
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack("correct")
-                .withHelp(false).withExit(false).build();
+        CommandResult expectedCommandResult = new CommandResult(COMMAND_RESULT_BUILDER_CORRECT_HELP_FALSE_EXIT_FALSE);
 
         try {
             assertCommandSuccess(commandResult, model,
@@ -37,10 +43,8 @@ public class SaqInputCommandTest {
 
     @Test
     public void execute_saqRandomAnswer_wrong() throws ParseException {
-        Command commandResult = new TfInputCommand("I don't know", SAQ_A);
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack("wrong")
-                .withHelp(false).withExit(false).build();
-
+        Command commandResult = new SaqInputCommand("I don't know", SAQ_A);
+        CommandResult expectedCommandResult = new CommandResult(COMMAND_RESULT_BUILDER_WRONG_HELP_FALSE_EXIT_FALSE);
         try {
             assertCommandSuccess(commandResult, model,
                     expectedCommandResult, expectedModel);
@@ -52,8 +56,8 @@ public class SaqInputCommandTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Command commandCopy = new SaqInputCommand("Unit Testing", SAQ_A);
-        assertEquals(SAQ_A_COMMAND, commandCopy);
+        Command commandCopy = new SaqInputCommand("UML Diagram", SAQ_B);
+        assertEquals(commandCopy, SAQ_B_COMMAND);
 
         // same object -> returns true
         assertEquals(commandCopy, commandCopy);

@@ -6,12 +6,12 @@ import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREEN
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_MCQ_QUESTION_2;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalMcq.MCQ_B;
-import static seedu.revision.testutil.TypicalMcq.MCQ_CORRECT_ANSWER_A;
-import static seedu.revision.testutil.TypicalMcq.MCQ_C;
-import static seedu.revision.testutil.TypicalMcq.MCQ_VALID_CORRECT_ANSWER_LIST;
-import static seedu.revision.testutil.TypicalMcq.MCQ_VALID_WRONG_ANSWER_LIST;
-import static seedu.revision.testutil.TypicalMcq.MCQ_WRONG_ANSWER_A;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_B;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_CORRECT_ANSWER_A;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_C;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_VALID_CORRECT_ANSWER_LIST;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_VALID_WRONG_ANSWER_LIST;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_WRONG_ANSWER_A;
 
 import java.util.ArrayList;
 import java.util.Arrays;
