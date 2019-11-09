@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 
 /**
  * Create an anchor pane that can store additional data.

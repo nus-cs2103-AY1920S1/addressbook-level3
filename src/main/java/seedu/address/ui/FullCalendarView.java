@@ -16,7 +16,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
 
 /**
