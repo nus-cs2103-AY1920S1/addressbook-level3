@@ -63,10 +63,16 @@ public class Day {
         return timetable.getActivityWithTime(index);
     }
 
+    /**
+     * Returns the next activity in the schedule that is overlapping with the activity given by the Index.
+     */
     public Optional<ActivityWithTime> findNextActNoOverlap(Index index) {
         return timetable.findNextNoOverlap(index);
     }
 
+    /**
+     * Returns a list of activity overlapping with the given {@code ActivityWithTime}.
+     */
     public List<ActivityWithTime> findAllOverlap(ActivityWithTime activity) {
         return timetable.findAllOverlap(activity);
     }
