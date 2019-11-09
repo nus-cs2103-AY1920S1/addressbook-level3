@@ -25,7 +25,7 @@ public class SampleDataUtil {
                     new Date("2019 09 09"), new Amount("5.40"), getTagSet("mala")),
             new Expense(new Category("Food", CategoryType.EXPENSE), new Description("chicken rice"),
                     new Date("2019 09 09"), new Amount("3.50"), getTagSet("mala")),
-            new Income(new Category("Work", CategoryType.INCOME), new Description("october salary"),
+            new Income(new Category("Salary", CategoryType.INCOME), new Description("october salary"),
                     new Date("2019 10 11"), new Amount("3000"), getTagSet("salary"))
         };
     }

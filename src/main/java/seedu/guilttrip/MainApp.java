@@ -83,14 +83,14 @@ public class MainApp extends Application {
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty GuiltTrip");
-            initialData = new GuiltTrip(true);
+            initialData = SampleDataUtil.getSampleAddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty GuiltTrip");
-            initialData = new GuiltTrip(true);
+            initialData = SampleDataUtil.getSampleAddressBook();
         } catch (IllegalArgumentException e) {
             logger.warning("Problem while reading from the file. There is a duplicate category and "
                     + "will be starting with an empty GuiltTrip");
-            initialData = new GuiltTrip(true);
+            initialData =  SampleDataUtil.getSampleAddressBook();
         }
 
         return new ModelManager(initialData, userPrefs);

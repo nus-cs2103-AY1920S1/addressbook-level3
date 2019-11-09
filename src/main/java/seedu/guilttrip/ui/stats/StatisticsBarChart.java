@@ -1,7 +1,5 @@
 package seedu.guilttrip.ui.stats;
 
-import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -15,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.statistics.DailyStatistics;
 import seedu.guilttrip.ui.UiPart;
 
@@ -30,7 +27,6 @@ public class StatisticsBarChart extends UiPart<Region> {
     private ObservableList<String> listOfDays;
     private ObservableList<XYChart.Data<String, Number>> dataForExpense;
     private ObservableList<XYChart.Data<String, Number>> dataForIncome;
-    private final Logger logger = LogsCenter.getLogger(StatisticsPieChart.class);
 
     @FXML
     private BarChart barChart;
@@ -115,7 +111,7 @@ public class StatisticsBarChart extends UiPart<Region> {
                     incomeChart);
             this.expenseChart.setData(dataForExpense);
             this.incomeChart.setData(dataForIncome);
-            barChart.getData().add(seriesList);
+            barChart.getData().addAll(seriesList);
             barChart.setVisible(true);
             noEntryLabel.setVisible(false);
         }

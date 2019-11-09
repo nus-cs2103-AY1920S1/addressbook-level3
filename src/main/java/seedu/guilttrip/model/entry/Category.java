@@ -8,7 +8,8 @@ import java.util.Arrays;
 import seedu.guilttrip.model.util.CategoryType;
 
 /**
- * Represents a entry's Category in the guilttrip.
+ * Represents a entry's Category in the guilttrip. Checking whether the category is valid is left to the various
+ * commands.
  */
 public class Category {
 
