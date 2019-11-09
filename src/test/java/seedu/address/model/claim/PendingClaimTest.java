@@ -32,12 +32,12 @@ class PendingClaimTest {
                 .withDate("04-04-2019")
                 .build();
         ApprovedClaim approvedLogisticsClaim = new ClaimBuilder().withDescription("Logistics").buildApproved();
-        RejectedClaim rejectedLogistiscClaim = new ClaimBuilder().withDescription("Logistics").buildRejected();
+        RejectedClaim rejectedLogisticsClaim = new ClaimBuilder().withDescription("Logistics").buildRejected();
 
         assertNotEquals(logisticsClaim, otherLogisticsClaim); // different date
         assertNotEquals(logisticsClaim, transportClaim); // different description
         assertNotEquals(logisticsClaim, approvedLogisticsClaim); // different class
-        assertNotEquals(logisticsClaim, rejectedLogistiscClaim); // different class
+        assertNotEquals(logisticsClaim, rejectedLogisticsClaim); // different class
 
         assertEquals(logisticsClaim, logisticsClaim); // same identity
         assertEquals(logisticsClaim, validLogisticsClaim); // same fields
