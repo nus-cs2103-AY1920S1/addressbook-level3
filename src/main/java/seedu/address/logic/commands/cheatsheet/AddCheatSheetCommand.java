@@ -8,10 +8,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.CheatSheetCommandResult;
@@ -23,6 +26,7 @@ import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteContainsTagPredicate;
+import seedu.address.model.note.NoteFragment;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -47,12 +51,16 @@ public class AddCheatSheetCommand extends Command {
 
     private final CheatSheet toAdd;
 
+    private final Logger logger = LogsCenter.getLogger(AddCheatSheetCommand.class.getName());
+
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
     public AddCheatSheetCommand(CheatSheet cheatsheet) {
         requireNonNull(cheatsheet);
         toAdd = cheatsheet;
+
+        logger.info("Add cheatsheet command created.");
     }
 
     @Override
@@ -66,6 +74,7 @@ public class AddCheatSheetCommand extends Command {
         int currentAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
         model.addCheatSheet(toAdd);
         int newAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
+
         // to assert that one cheatsheet got added
         assert(newAmountOfCheatSheets == currentAmountOfCheatSheets + 1);
 
@@ -75,6 +84,8 @@ public class AddCheatSheetCommand extends Command {
 
         model.setCheatSheet(toAdd, editedCheatSheet);
         int numberOfContentPulled = editedCheatSheet.getContents().size();
+
+        logger.info("Cheatsheet is created.");
         return new CheatSheetCommandResult(String.format(MESSAGE_SUCCESS, editedCheatSheet)
         + "\n" + numberOfContentPulled + MESSAGE_SUCCESSFUL_AUTOGENERATE);
     }
@@ -90,6 +101,8 @@ public class AddCheatSheetCommand extends Command {
      * Retrieves all the notes and flashcards with the relevant tags
      */
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
+        logger.info("Automatically retrieve contents from flashcards and notes");
+
         Set<Content> contentList = new HashSet<>();
 
         // get all notes
@@ -97,26 +110,40 @@ public class AddCheatSheetCommand extends Command {
         model.updateFilteredNoteList(noteTagPredicate);
         ObservableList<Note> noteList = model.getFilteredNoteList();
 
+        int numOfIgnored = 0;
+
         for (Note note: noteList) {
             try {
                 contentList.add(new Content(note.getContentCleanedFromTags().toString(), note.getTags()));
             } catch (IllegalArgumentException ignored) {
                 // ignore invalid content
+                numOfIgnored++;
             }
         }
+
+        //assert make sure that all notes matched the requirements are added into the list
+        assert(contentList.size() == noteList.size() - numOfIgnored);
 
         // get all note fragments
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
         noteList = model.getFilteredNoteList();
 
         for (Note note : noteList) {
-            for (Note noteFrag : note.getFilteredNoteFragments(noteTagPredicate)) {
+            List<NoteFragment> noteFragList = note.getFilteredNoteFragments(noteTagPredicate);
+            int initialSize = contentList.size();
+            numOfIgnored = 0;
+
+            for (Note noteFrag : noteFragList) {
                 try {
                     contentList.add(new Content(noteFrag.getContent().toString(), noteFrag.getTags()));
                 } catch (IllegalArgumentException ignored) {
                     // ignore invalid content
+                    numOfIgnored++;
                 }
             }
+
+            //assert make sure that all note fragments matched the requirements are added into the list
+            assert(contentList.size() == initialSize + noteFragList.size() - numOfIgnored);
         }
 
         // get all flashcards
@@ -124,10 +151,15 @@ public class AddCheatSheetCommand extends Command {
         model.updateFilteredFlashcardList(flashcardTagPredicate);
         ObservableList<Flashcard> flashcardList = model.getFilteredFlashcardList();
 
+        int initialSize = contentList.size();
+
         for (Flashcard flashcard: flashcardList) {
             contentList.add(new Content(flashcard.getQuestion().toString(), flashcard.getAnswer().toString(),
                     flashcard.getTags()));
         }
+
+        //assert make sure that all flashcards matched the requirements are added into the list
+        assert(contentList.size() == initialSize + flashcardList.size());
 
         return contentList;
     }

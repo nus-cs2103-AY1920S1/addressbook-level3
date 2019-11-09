@@ -6,7 +6,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_ARE_YOU_SURE_WANT_TO_D
 import static seedu.address.commons.core.Messages.MESSAGE_CONFIRM_DELETE;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -32,8 +34,11 @@ public class DeleteCheatSheetCommand extends Command {
 
     private final Index targetIndex;
 
+    private final Logger logger = LogsCenter.getLogger(DeleteCheatSheetCommand.class.getName());
+
     public DeleteCheatSheetCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+        logger.info("Delete cheatsheet command created.");
     }
 
     public Index getTargetIndex() {
@@ -73,6 +78,8 @@ public class DeleteCheatSheetCommand extends Command {
                 }
             }
         }
+
+        logger.info("Cheatsheet is deleted.");
         return commandResult;
     }
 

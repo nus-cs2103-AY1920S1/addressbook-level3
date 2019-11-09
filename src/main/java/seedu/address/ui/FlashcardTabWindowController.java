@@ -20,11 +20,9 @@ import seedu.address.model.flashcard.Flashcard;
  */
 public class FlashcardTabWindowController {
 
-    private static final String TIME_TRIAL_END_FEEDBACK = "The time trial has ended!";
     private static final Integer TIMER_DURATION = 5;
     private static final Integer SHOW_ANSWER_DURATION = 3;
     private static final Integer ONE_FLASHCARD_DURATION = TIMER_DURATION + SHOW_ANSWER_DURATION;
-
     private static Optional<Flashcard> currFlashcard;
     private static boolean isAnswerShown;
 
@@ -42,9 +40,10 @@ public class FlashcardTabWindowController {
 
     private IntegerProperty currentSeconds;
     private Timeline timeline;
+    private Timeline timelineHelper;
 
     /**
-     *
+     * This method is called after the FlashcardTabWindowController has been injected.
      */
     @FXML
     public void initialize() {
@@ -64,6 +63,8 @@ public class FlashcardTabWindowController {
         ansTextArea.setText(flashcard.getAnswer().toString());
         ansTextArea.setVisible(false);
         timerLabel.setVisible(true);
+        currFlashcard = Optional.of(flashcard);
+        isAnswerShown = false;
         startTimer();
     }
 
@@ -77,6 +78,7 @@ public class FlashcardTabWindowController {
         ansTextArea.setVisible(false);
         currFlashcard = Optional.of(flashcard);
         isAnswerShown = false;
+        assert (currFlashcard.isPresent());
     }
 
     /**
@@ -89,6 +91,16 @@ public class FlashcardTabWindowController {
         isAnswerShown = true;
     }
 
+
+    /**
+     * This method is called when a command is executed during a time trial - terminates the time trial.
+     */
+    public void terminateTimeTrial() {
+        timeline.stop();
+        timelineHelper.stop();
+        resetTextsAfterTimeTrial();
+    }
+
     /**
      * Hides the timer and flashes the answer of the flashcard.
      */
@@ -98,21 +110,17 @@ public class FlashcardTabWindowController {
         isAnswerShown = true;
     }
 
-
-
     /**
      * Starts the timer countdown.
      */
     private void startTimer() {
         // Adapted from https://asgteach.com/2011/10/javafx-animation-and-binding-simple-countdown-timer-2/
-        if (timeline != null) {
-            timeline.stop();
-        }
+
         currentSeconds.set(TIMER_DURATION);
-        timeline = new Timeline(new KeyFrame(Duration.seconds(TIMER_DURATION + 1),
+        timelineHelper = new Timeline(new KeyFrame(Duration.seconds(TIMER_DURATION + 1),
                 new KeyValue(currentSeconds, 0)),
                 new KeyFrame(Duration.seconds(TIMER_DURATION), e -> showTimetrialFlashcardAns()));
-        timeline.play();
+        timelineHelper.play();
     }
 
     /**
@@ -122,7 +130,7 @@ public class FlashcardTabWindowController {
     public void startTimeTrial(Optional<ArrayList<Flashcard>> deck) {
         resetTexts();
         currFlashcard = Optional.empty();
-        Timeline timeline = new Timeline();
+        timeline = new Timeline();
         int cardCount = 0;
         for (Flashcard fc: deck.get()) {
             timeline.getKeyFrames().addAll(
@@ -140,15 +148,18 @@ public class FlashcardTabWindowController {
     /**
      * Empties the qnsTextArea and ansTextArea.
      */
-    private void resetTexts() {
+    private void resetTextsAfterTimeTrial() {
         qnsTextArea.setText("");
         ansTextArea.setText("");
+        timerLabel.setVisible(false);
+        currFlashcard = Optional.empty();
+        MainWindow.setIsTimeTrialOngoing(false);
     }
 
     /**
-     * Empties the qnsTextArea and ansTextArea.
+     * Empties the qnsTextArea and ansTextArea after a time trial.
      */
-    private void resetTextsAfterTimeTrial() {
+    private void resetTexts() {
         qnsTextArea.setText("");
         ansTextArea.setText("");
     }

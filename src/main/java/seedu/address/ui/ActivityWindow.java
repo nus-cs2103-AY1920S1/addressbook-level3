@@ -79,6 +79,10 @@ public class ActivityWindow extends UiPart<Region> {
         flashcardTabWindowController.startTimeTrial(deck);
     }
 
+    public void terminateTimeTrial() {
+        flashcardTabWindowController.terminateTimeTrial();
+    }
+
     public void displayNote(Note note) {
         notesTabWindowController.loadNote(note);
     }

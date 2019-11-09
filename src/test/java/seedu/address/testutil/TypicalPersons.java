@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.person.Person;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
+
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
@@ -59,9 +59,11 @@ public class TypicalPersons {
 
     private TypicalPersons() {} // prevents instantiation
 
+    /* Unused but kept for reference
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
+    /*
     public static StudyBuddyPro getTypicalAddressBook() {
         StudyBuddyPro ab = new StudyBuddyPro();
         for (Person person : getTypicalPersons()) {
@@ -69,6 +71,7 @@ public class TypicalPersons {
         }
         return ab;
     }
+    */
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
