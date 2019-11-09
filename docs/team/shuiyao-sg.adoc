@@ -58,6 +58,8 @@ and communicating with the tutor.
 ** Reviewed teammates's PRs (https://github.com/AY1920S1-CS2103T-F11-4/main/pull/33[#33], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/34[#34],
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/55[#55], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/59[#59],
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/61[#61], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/89[#61]).
+* Community:
+** Reviewed other teams' PRs (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/14[#14], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/97[#97]).
 
 == Contributions to the User Guide
 '''
