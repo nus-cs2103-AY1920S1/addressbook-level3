@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Module {
+Class ArchivedModule
+Class TrackedModule
+Interface Module <<Interface>>
+
+Interface Trackable <<Interface>>
+
+show ModuleStatus fields
+Enum ModuleStatus <<Enumeration>> {
+COMPLETED
+ONGOING
+PLANNED
+}
+
+show SemesterTimestamp fields
+Class SemesterTimestamp {
+    String academicYear
+    String semester
+}
+
+}
+
+TrackedModule *-left-> "1" ArchivedModule : references >
+TrackedModule .down.|> Module
+TrackedModule .down.|> Trackable
+ArchivedModule .down.|> Module
+
+TrackedModule *-right-> "1" ModuleStatus
+TrackedModule *-down-> "1  " SemesterTimestamp
+
+Module -right[hidden]- Trackable
+
+@enduml

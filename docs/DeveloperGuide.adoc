@@ -177,13 +177,10 @@ image::ModuleViewSequenceDiagram.png[]
 [NOTE]
 The `BackCommand` mostly follows the same sequence as described above, except that it does not need to find any module, and sets the displayed module to `null`.
 
-The following sequence diagram shows how the `ViewCommand` attempts to find the module from the `Model`.
+The following activity diagram describes the process of finding a matching module to display.
 
-.Reference Diagram for finding a matching module
-image::ModuleViewSequenceDiagram_FindModule.png[]
-
-[NOTE]
-`TrackedModule` composes of an `ArchivedModule`. If a `TrackedModule` is found, it is guaranteed the corresponding `ArchivedModule` can be found.
+.Sequence Diagram of module finding process
+image::ModuleViewFindModuleActivityDiagram.png[]
 
 ==== Design Considerations
 
@@ -210,6 +207,45 @@ Cons:
 * Potentially inefficient.
 * Possible side effects from certain commands.
 // end::moduleview[]
+
+// tag::markmodulestatus[]
+=== [Proposed] Marking modules as completed, ongoing or planned
+
+Users can mark modules as pass:[<text style="color:darkgreen"><b>completed</b></text>], pass:[<text style="color:darkorange"><b>ongoing</b></text>] or pass:[<text style="color:blue"><b>planned</b></text>]. Users can also timestamp the modules with the semester that the user pass:[<text style="color:darkgreen"><b>has taken</b></text>]/pass:[<text style="color:darkorange"><b>is taking</b></text>]/pass:[<text style="color:blue"><b>will take</b></text>] the module.
+
+==== Implementation
+
+The tracked module will have 2 new fields: `moduleStatus` and `semesterTimestamp`.
+
+The `moduleStatus` will be an enumeration of:
+
+* pass:[<text style="color:darkgreen"><b>completed</b></text>],
+* pass:[<text style="color:darkorange"><b>ongoing</b></text>] and
+* pass:[<text style="color:blue"><b>planned</b></text>].
+
+The `semesterTimestamp` will be a combination of:
+
+* an academic year
+** In NUS, the academic year representation is prefixed with "AY", followed by the last 2 digits of the starting year, and the last 2 digits of the ending year
+** e.g. AY1920, AY2021
+
+* a semester
+** In NUS, there are a total of 4 semesters. Semester 1, Semester 2, Special Term 1 (ST1) and Special Term 2 (ST2).
+** e.g. 1, 2, ST1, ST2
+
+The user will be free to modify the `moduleStatus` and the `semesterTimestamp`. The following class diagram will illustrate the above implementation.
+
+.Possible implementation of Module Status
+image::ModuleStatusClassDiagram.png[]
+
+==== Possible Extensions
+
+With the new data, users may be able to easier manage their tracked modules and gleam useful information.
+
+. pass:[<text style="color:darkgreen"><b>Completed modules</b></text>] will be hidden from the module list, but still viewable through a `listall` command (proposed command) and accessible through the `view` command.
+
+. pass:[<text style="color:darkgreen"><b>Completed modules</b></text>] and pass:[<text style="color:darkorange"><b>ongoing modules</b></text>] can be used to determine if a user fulfil the requirements for their pass:[<text style="color:blue"><b>planned modules</b></text>].
+// end::markmodulestatus[]
 
 // tag::searchfitering[]
 === Search filtering feature

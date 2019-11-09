@@ -1,0 +1,36 @@
+@startuml
+start
+
+:Get list of tracked modules;
+
+:Filter by module code;
+note right
+It is guaranteed there is at most
+one module in the filtered list
+end note
+
+if () then ([not empty])
+    :Return module;
+    end
+
+else([else])
+
+:Get list of archived modules;
+
+:Filter by module code;
+note right
+It is guaranteed there is at most
+one module in the filtered list
+end note
+
+if () then ([not empty])
+    :Return module;
+    end
+else([else])
+
+endif
+
+:Throw exception;
+end
+
+@enduml
