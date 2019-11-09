@@ -10,7 +10,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ENDDATE_AFRICA_
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ENDDATE_DAY_1_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AFRICA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BALI;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_DAY_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTDATE_BALI_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTDATE_DAY_1_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TOTAL_BUDGET_AFRICA;

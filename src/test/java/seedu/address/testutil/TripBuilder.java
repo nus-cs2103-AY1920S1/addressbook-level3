@@ -54,7 +54,8 @@ public class TripBuilder {
                 .setTotalBudget(trip.getBudget())
                 .setDayList(trip.getDayList())
                 .setExpenditureList(trip.getExpenditureList())
-                .setDiary(trip.getDiary());
+                .setDiary(trip.getDiary())
+                .setInventoryList(trip.getInventoryList());
         //.setDayList(trip.getDayList());
     }
 

@@ -19,7 +19,6 @@ import java.util.Optional;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
@@ -93,7 +92,7 @@ public class EditEventFieldCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditEventDescriptor)) {
+        if (!(other instanceof EditEventFieldCommand)) {
             return false;
         }
 
@@ -327,7 +326,7 @@ public class EditEventFieldCommand extends Command {
         }
 
         public void setBudget(Budget totalBudget) {
-            this.totalBudget = Optional.of(totalBudget);
+            this.totalBudget = Optional.ofNullable(totalBudget);
         }
 
         public void setBudget(Optional<Budget> totalBudget) {
@@ -383,7 +382,7 @@ public class EditEventFieldCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditCommand.EditPersonDescriptor)) {
+            if (!(other instanceof EditEventDescriptor)) {
                 return false;
             }
 

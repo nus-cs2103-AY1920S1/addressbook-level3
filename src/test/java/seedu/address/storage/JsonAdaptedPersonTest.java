@@ -1,37 +1,24 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.model.ModelTestUtil.*;
 import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalTrips.TRIP_A;
 import static seedu.address.testutil.TypicalTrips.TRIP_B;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.ParserDateUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.diary.Diary;
-import seedu.address.model.expenditure.ExpenditureList;
-import seedu.address.model.inventory.InventoryList;
-import seedu.address.model.itinerary.Budget;
-import seedu.address.model.itinerary.Location;
-import seedu.address.model.itinerary.day.DayList;
+
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.trip.Trip;
-import seedu.address.storage.diary.JsonAdaptedDiary;
-import seedu.address.testutil.TripBuilder;
+
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";

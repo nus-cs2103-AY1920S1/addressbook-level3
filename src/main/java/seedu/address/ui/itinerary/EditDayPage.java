@@ -11,10 +11,8 @@ import seedu.address.logic.commands.itinerary.days.edit.CancelEditDayCommand;
 import seedu.address.logic.commands.itinerary.days.edit.DoneEditDayCommand;
 import seedu.address.logic.commands.itinerary.days.edit.EditDayFieldCommand;
 import seedu.address.logic.parser.CliSyntax;
-import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
-import seedu.address.ui.components.form.DateFormItem;
 import seedu.address.ui.components.form.DayPhotoFormItem;
 import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
@@ -28,7 +26,6 @@ public class EditDayPage extends Page<AnchorPane> {
 
     private static final String FXML = "itinerary/days/EditDayPage.fxml";
     private TextFormItem dayDestinationFormItem;
-    private DateFormItem dayDateFormItem;
     private DoubleFormItem dayTotalBudgetFormItem;
     private TextFormItem dayDescriptionFormItem;
     private DayPhotoFormItem dayPhotoFormItem;
@@ -57,8 +54,6 @@ public class EditDayPage extends Page<AnchorPane> {
 
         currentEditDescriptor.getDestination().ifPresent(destination ->
                 dayDestinationFormItem.setValue(destination.toString()));
-        currentEditDescriptor.getStartDate().ifPresent(startDate ->
-                dayDateFormItem.setValue(startDate.toLocalDate()));
         currentEditDescriptor.getBudget().ifPresent(budget ->
                 dayTotalBudgetFormItem.setValue(budget.value));
         currentEditDescriptor.getDescription().ifPresent((description ->
@@ -73,14 +68,6 @@ public class EditDayPage extends Page<AnchorPane> {
      */
     private void initFormWithModel() {
         //Initialise with new display data
-        dayDateFormItem = new DateFormItem("Date : ", date -> {
-            mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
-                    + " " + CliSyntax.PREFIX_DATE_START
-                    + ParserDateUtil.getStringFromDate(date.atStartOfDay()));
-            mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
-                    + " " + CliSyntax.PREFIX_DATE_END
-                    + ParserDateUtil.getStringFromDate(date.atTime(23, 59)));
-        });
         dayTotalBudgetFormItem = new DoubleFormItem("Total budget (in Singapore Dollar): ", totalBudget -> {
             mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
                     + " " + CliSyntax.PREFIX_BUDGET + String.format("%.2f", totalBudget));
@@ -104,7 +91,6 @@ public class EditDayPage extends Page<AnchorPane> {
         formItemsPlaceholder.getChildren().add(new Label("Edit Day"));
 
         formItemsPlaceholder.getChildren().addAll(
-                dayDateFormItem.getRoot(),
                 dayTotalBudgetFormItem.getRoot(),
                 dayDestinationFormItem.getRoot(),
                 dayDescriptionFormItem.getRoot(),

@@ -59,7 +59,7 @@ public class ShowEventDetailsCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || other instanceof EnterEditEventCommand;
+                || other instanceof ShowEventDetailsCommand;
     }
 
 }

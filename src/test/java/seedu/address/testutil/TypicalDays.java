@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import java.time.LocalDateTime;
 
 import seedu.address.model.itinerary.Location;
-import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.EventList;
 
@@ -12,14 +11,14 @@ import seedu.address.model.itinerary.event.EventList;
  */
 public class TypicalDays {
 
-    public static LocalDateTime DATETIME_1 = LocalDateTime.of(2019, 1, 5, 12, 0);
-    public static LocalDateTime DATETIME_2 = LocalDateTime.of(2020, 11, 3, 0, 0);
+    public static final LocalDateTime DATETIME_A = LocalDateTime.of(2019, 1, 5, 12, 0);
+    public static final LocalDateTime DATETIME_B = LocalDateTime.of(2020, 11, 3, 0, 0);
 
-    public static LocalDateTime INVALID_DATETIME_AFTER_1 = LocalDateTime.of(2022, 11, 3, 0, 0);
-    public static LocalDateTime INVALID_DATETIME_AFTER_2 = LocalDateTime.of(2022, 11, 3, 0, 0);
+    public static final LocalDateTime INVALID_DATETIME_AFTER_1 = LocalDateTime.of(2022, 11, 3, 0, 0);
+    public static final LocalDateTime INVALID_DATETIME_AFTER_2 = LocalDateTime.of(2022, 11, 3, 0, 0);
 
-    public static LocalDateTime INVALID_DATETIME_BEFORE_1 = LocalDateTime.of(2000, 11, 3, 0, 0);
-    public static LocalDateTime INVALID_DATETIME_BEFORE_2 = LocalDateTime.of(2000, 11, 3, 0, 0);
+    public static final LocalDateTime INVALID_DATETIME_BEFORE_1 = LocalDateTime.of(2000, 11, 3, 0, 0);
+    public static final LocalDateTime INVALID_DATETIME_BEFORE_2 = LocalDateTime.of(2000, 11, 3, 0, 0);
 
     public static final Day DAY_A = DayBuilder.newInstance()
             .setStartDate(LocalDateTime.of(2019, 2, 6, 0, 0))

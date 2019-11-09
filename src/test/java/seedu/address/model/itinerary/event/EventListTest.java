@@ -1,20 +1,20 @@
 package seedu.address.model.itinerary.event;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.itinerary.Budget;
-import seedu.address.model.itinerary.event.exceptions.ClashingEventException;
-import seedu.address.model.itinerary.event.exceptions.EventNotFoundException;
-import seedu.address.testutil.EventBuilder;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.model.ModelTestUtil.VALID_EVENT_1;
-import static seedu.address.model.ModelTestUtil.VALID_EVENT_2;
-import static seedu.address.testutil.TypicalPersons.BOB;
+//import org.junit.jupiter.api.Test;
+//import seedu.address.model.expenditure.Expenditure;
+//import seedu.address.model.itinerary.Budget;
+//import seedu.address.model.itinerary.event.exceptions.ClashingEventException;
+//import seedu.address.model.itinerary.event.exceptions.EventNotFoundException;
+//import seedu.address.testutil.EventBuilder;
+//
+//import java.util.ArrayList;
+//import java.util.Collections;
+//import java.util.List;
+//
+//import static org.junit.jupiter.api.Assertions.*;
+//import static seedu.address.model.ModelTestUtil.VALID_EVENT_1;
+//import static seedu.address.model.ModelTestUtil.VALID_EVENT_2;
+//import static seedu.address.testutil.TypicalPersons.BOB;
 
 /**
  * TODO after all features related to event has been completed
