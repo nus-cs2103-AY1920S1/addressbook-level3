@@ -396,28 +396,27 @@ Instantiation of the `Event` object when the app is started will be more complic
 === Generate Schedule feature
 ==== Proposed Implementation
 
-The Generate Schedule Feature is implemented to allow users to have an overview of view all dates that has an event and the
-specific events for those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
+The Generate Schedule Feature is implemented to allow users to have an overview of all dates that has an event and the
+specific events that happens on those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
 new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
 
-It processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
+The `DistinctDateProcessor` processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
 process through these events to create specific `DistinctDate` Objects which stores a list of events which occurs on the date
-they are representing. These DistinctDate Objects are then used to be displayed on the GUI.
+they are representing. These DistinctDate Objects are then used, to create `DateCard` which will be displayed on the GUI.
 
-Additionally, The DistinctDateProcessor contains the following operations:
+The `DistinctDateProcessor` utilises the following operations in the `generate_schedule` command:
 
-* `generateDistinctDateList(Model model)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDateList() and generateListOfEventForDate() operations.
-* `generateListOfEventForDate(LocalDate date, Model model)` -- Takes in a `LocalDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
-* `generateDateList(Model model)` -- Takes in the entire list of events, identify all the dates that has at least one event and returns it as a list.
+* `generateAllDistinctDateList(Model model)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDistinctDateList() operations.
+* `generateDistinctDateList(List<Event> eventList)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDateList() and generateListOfEventForDate() operations.
+* `generateDateList(List<Event> eventList)` -- Takes in the entire list of events, identify all the dates that has at least one event and returns it as a list.
+* `generateListOfEventForDate(EventDate date, Model model)` -- Takes in an `EventDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
 
-The following class diagrams shows how the `DistinctDate` class and utility `DistinctDateProcessor` class is implemented:
+The following class diagram shows how the relationships between the different classes used by the `generate_schedule` command:
 
-._Class Diagram for DistinctDate_
-image::DistinctDateClassDiagram.png[align="center", width = "300"]
-._Class Diagram for DistinctDateProcessor_
-image::DistinctDateProcessorClassDiagram.png[align="center", width = "300"]
+._Class Diagram for GenerateScheduleCommand_
+image::GenerateScheduleClassDiagram.png[align="center", width = "300"]
 
-Given below is an example usage scenario and how the display schedule mechanism behaves at each step.
+Given below is an example usage scenario and how the `display_schedule` command behaves at each step.
 
 ._Program flow of the Generate Schedule Feature_
 image::GenerateScheduleFlowChart.png[align="center", width = "300"]
@@ -430,7 +429,7 @@ image::GenerateScheduleFlowChart.png[align="center", width = "300"]
 The distinctDatesList will not be updated, and will not contain the new event that is added.
 [NOTE]
 Any command that alters the eventBook will not change the distinctDatesList. The distinctDatesList will continue to store the
-original list until the User requires it by calling the "generate_schedule" command. Where the distinctDateList will be generated
+original list until the User requires it by calling the `generate_schedule` command. Where the distinctDateList will be generated
 again using the current EventList
 
 

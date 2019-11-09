@@ -98,7 +98,6 @@ public class DistinctDatesProcessor {
         }
         List<EventDate> datesList = new ArrayList<>(datesSet);
         Collections.sort(datesList);
-        //System.out.println(datesList.toString());
         return datesList;
     }
 }
