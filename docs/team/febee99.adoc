@@ -101,7 +101,7 @@ include::../UserGuide.adoc[tag=view]
 
 include::../UserGuide.adoc[tag=sort]
 
-include::../UserGuide.adoc[tag=tablesummary]
+//include::../UserGuide.adoc[tag=tablesummary]
 
 == Contributions to the Developer Guide
 
