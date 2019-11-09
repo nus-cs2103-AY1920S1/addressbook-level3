@@ -185,7 +185,7 @@ public class ShowBuilder {
      * @return show.
      */
     public Show build() {
-        if (type.equals("movie")) {
+        if (type.toLowerCase().equals("movie")) {
             return new Movie(name, description, isWatched, dateOfRelease, runningTime, actors);
         } else {
             return new TvShow(name, description, isWatched, dateOfRelease, runningTime, actors,

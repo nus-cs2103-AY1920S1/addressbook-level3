@@ -100,6 +100,6 @@ public class TypicalShows {
 
     public static List<Show> getTypicalShow() {
         return new ArrayList<>(Arrays.asList(JOKER, AVENGERSENDGAME, FIGHTCLUB,
-                GODFATHER2));
+                GODFATHER2, THEOFFICE));
     }
 }
