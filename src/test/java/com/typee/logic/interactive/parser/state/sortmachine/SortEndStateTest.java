@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser.state;
+package com.typee.logic.interactive.parser.state.sortmachine;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import com.typee.logic.commands.SortCommand;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.CliSyntax;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.EndState;
+import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
-import com.typee.logic.interactive.parser.state.sortmachine.PropertyState;
 import com.typee.model.util.EngagementComparator;
 
 public class SortEndStateTest {

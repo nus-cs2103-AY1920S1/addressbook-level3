@@ -1,17 +1,16 @@
-package com.typee.logic.interactive.parser.state;
+package com.typee.logic.interactive.parser.state.sortmachine;
 
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
-
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.CliSyntax;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.calendarstate.CalendarState;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
-import com.typee.logic.interactive.parser.state.sortmachine.PropertyState;
 
 public class PropertyStateTest {
     private static final PropertyState TYPICAL_PROPERTY_STATE = new PropertyState(new ArgumentMultimap());

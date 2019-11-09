@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser.state;
+package com.typee.logic.interactive.parser.state.redomachine;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,37 +7,36 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.typee.logic.commands.UndoCommand;
+import com.typee.logic.commands.RedoCommand;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
-import com.typee.logic.interactive.parser.state.undomachine.UndoState;
 
-public class UndoStateTest {
-    private UndoState typicalUndoState = new UndoState(new ArgumentMultimap());
+public class RedoStateTest {
+    private RedoState typicalRedoState = new RedoState(new ArgumentMultimap());
 
     @Test
     public void transition() {
-        assertThrows(StateTransitionException.class, () -> typicalUndoState.transition(new ArgumentMultimap()));
+        assertThrows(StateTransitionException.class, () -> typicalRedoState.transition(new ArgumentMultimap()));
     }
 
     @Test
     public void buildCommand() {
-        assertDoesNotThrow(() -> assertEquals(typicalUndoState.buildCommand(), new UndoCommand()));
+        assertDoesNotThrow(() -> assertEquals(typicalRedoState.buildCommand(), new RedoCommand()));
     }
 
     @Test
     public void getStateConstraints() {
-        assertEquals(typicalUndoState.getStateConstraints(), "The latest undoable command will be undone.");
+        assertEquals(typicalRedoState.getStateConstraints(), "The last undone command will be redone.");
     }
 
     @Test
     public void isEndState() {
-        assertTrue(typicalUndoState.isEndState());
+        assertTrue(typicalRedoState.isEndState());
     }
 
     @Test
     public void getPrefix() {
-        assertEquals(typicalUndoState.getPrefix(), new Prefix(""));
+        assertEquals(typicalRedoState.getPrefix(), new Prefix(""));
     }
 }
