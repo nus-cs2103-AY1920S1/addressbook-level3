@@ -341,8 +341,6 @@ Examples:
 
 * `redo` +
 
-
-
 === Sort/Find Feature
 
 //tag::sort[]
@@ -370,7 +368,6 @@ Examples:
 * `sort priority` - sorts the item within the panel by their priority (from high to low).
 * `sort desc` - sorts the item within the panel by their description (lexicographic order)
 //end::sort[]
-
 
 //tag::find[]
 ==== Finding a task: `find`
