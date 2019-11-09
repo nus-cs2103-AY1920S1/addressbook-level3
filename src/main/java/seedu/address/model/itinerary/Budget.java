@@ -57,7 +57,7 @@ public class Budget {
 
     @Override
     public String toString() {
-        return value.toString();
+        return String.format("%.2f", value);
     }
 
 
