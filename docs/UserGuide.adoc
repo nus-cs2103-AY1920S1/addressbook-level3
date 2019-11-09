@@ -663,13 +663,13 @@ It deletes all players, trainings, attendance, events and performances.
 
 Type the clear command.
 
-image::clear.png[width="400"]
+image::clear.png[width="450"]
 
 Format : `clear`
 
 *What you should see*
 
-image::afterclear.png[width="400"]
+image::afterclear.png[width="450"]
 
 The following prompt will show if data was successfully cleared.
 
@@ -681,12 +681,12 @@ This command provides a user guide for Athletick.
 
 Type the help command.
 
-image::beforehelp.png[width="400"]
+image::beforehelp.png[width="450"]
 Format: `help`
 
 *What you should see*
 
-image::afterhelp.png[width="400"]
+image::afterhelp.png[width="450"]
 
 A pop up box will appear, with a link to the user guide on Athletick.
 
@@ -727,7 +727,7 @@ press Enter to execute it.
 
 Format : `undo`
 
-image::Undo.png[width="400"]
+image::Undo.png[width="450"]
 
 
 *What you should see*
@@ -735,7 +735,7 @@ image::Undo.png[width="400"]
 The result box will display a success message and you can check that
 Mohamad Ali’s contact information is visible in the list again!
 
-image::AfterUndo.png[width="400"]
+image::AfterUndo.png[width="450"]
 
 ==== Redoing an `undo` command : `redo`
 
@@ -772,13 +772,13 @@ Enter to execute it.
 
 Format : `redo`
 
-image::Redo.png[width="400"]
+image::Redo.png[width="450"]
 *What you should see*
 
 The result box will display a success message.
 Furthermore, the list now only has 7 people and Mohamad Ali is once again gone from the list!
 
-image::AfterRedo.png[width="400"]
+image::AfterRedo.png[width="450"]
 
 === Upcoming features
 
