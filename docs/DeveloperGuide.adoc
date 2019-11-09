@@ -2198,7 +2198,7 @@ Expected: Shows appropriate error messages of why the command failed.
 .. Prerequisites: The notes panel has some notes listed in the panel.
 
 .. Test case: `note sort` +
-   Expected: Side panel has the list sorted in order of priority(in the order red, yellow, green, grey).
+   Expected: Side panel has the list sorted in order of priority (in the order red, yellow, green, grey).
 .. Test case: `note sort 0` +
    Expected: Shows appropriate error messages of why the command failed.
 .. Other incorrect sort commands to try: `note sort list`, `note 1 sort` +
