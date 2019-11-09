@@ -3,13 +3,13 @@ package io.xpire.logic.commands;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.testutil.TypicalItems.APPLE;
 import static io.xpire.testutil.TypicalItems.BANANA;
+import static io.xpire.testutil.TypicalItems.CORN;
 import static io.xpire.testutil.TypicalItems.DUCK;
 import static io.xpire.testutil.TypicalItems.EGG;
+import static io.xpire.testutil.TypicalItems.FISH;
+import static io.xpire.testutil.TypicalItems.GRAPE;
 import static io.xpire.testutil.TypicalItems.HONEY;
 import static io.xpire.testutil.TypicalItems.ICE_CREAM;
-import static io.xpire.testutil.TypicalItems.CORN;
-import static io.xpire.testutil.TypicalItems.GRAPE;
-import static io.xpire.testutil.TypicalItems.FISH;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

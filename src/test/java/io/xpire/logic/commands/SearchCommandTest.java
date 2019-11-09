@@ -1,8 +1,8 @@
 package io.xpire.logic.commands;
 
-import static io.xpire.logic.commands.SearchCommand.MESSAGE_ITEMS_LISTED_OVERVIEW;
 import static io.xpire.commons.core.Messages.MESSAGE_SUGGESTIONS;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static io.xpire.logic.commands.SearchCommand.MESSAGE_ITEMS_LISTED_OVERVIEW;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.TypicalItems.BANANA;
 import static io.xpire.testutil.TypicalItems.DUCK;

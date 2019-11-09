@@ -215,6 +215,7 @@ public class DeleteCommandTest {
         expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_FISH)
                 .withExpiryDate(VALID_EXPIRY_DATE_FISH)
                 .withReminderThreshold(VALID_REMINDER_THRESHOLD_FISH)
+                .withTags(VALID_TAG_FRIDGE)
                 .withQuantity("3")
                 .build();
         expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
