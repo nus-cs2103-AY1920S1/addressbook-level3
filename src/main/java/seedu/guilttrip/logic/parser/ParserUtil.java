@@ -347,12 +347,7 @@ public class ParserUtil {
      */
     public static PanelName parsePanelName(String panelName) throws ParseException {
         requireNonNull(panelName);
-        String trimmedPanelName = panelName.trim();
-        if (!PanelName.isValidPanelName(trimmedPanelName)) {
-            throw new ParseException(PanelName.MESSAGE_CONSTRAINTS);
-        }
-
-        return PanelName.parse(trimmedPanelName);
+        return PanelName.parse(panelName);
     }
 
     /**

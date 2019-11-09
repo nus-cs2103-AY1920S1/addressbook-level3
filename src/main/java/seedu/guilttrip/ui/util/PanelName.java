@@ -1,53 +1,24 @@
 package seedu.guilttrip.ui.util;
 
-import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
-import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import seedu.guilttrip.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a PanelName.
  */
-public class PanelName {
+public enum PanelName {
 
-    public static final String MESSAGE_CONSTRAINTS = "Panel names should be one of the following: wishlist/w, "
-            + "budget(s)/b, reminder(s)/r or autoexpense(s)/ae";
+    MAIN, BUDGET, WISH, REMINDER, AUTOEXPENSE;
 
-    public final String panelName;
-
-    /**
-     * Construct a {@code PanelName} with the specified field.
-     */
-    public PanelName(String panelName) {
-        requireAllNonNull(panelName);
-        checkArgument(isValidPanelName(panelName), MESSAGE_CONSTRAINTS);
-        this.panelName = panelName;
-    }
-
-    public String getName() {
-        return this.panelName;
-    }
-
-    /**
-     * Returns true if a given string is a valid panel name.
-     */
-    public static boolean isValidPanelName(String test) {
-        String testLowerCase = test.toLowerCase();
-
-        ArrayList<String> acceptedInputs = new ArrayList<>(Arrays.asList("wishlist", "wish", "wishes", "w", "budget",
-                "budgets", "b", "reminders", "reminder", "r", "autoexpenses", "autoexpense", "autoexp", "ae"));
-
-        return acceptedInputs.contains(testLowerCase);
-    }
+    public static final String MESSAGE_CONSTRAINTS = "Panel names should be one of the following: wishlist,"
+            + "budget(s), reminder(s) or autoexpense(s)\n"
+            + "aliases: w, b, r, ae";
 
     /**
      * Parses input {@code panelNameString} and returns {@code PanelName} with standardised panel name.
      */
-    public static PanelName parse(String panelNameString) {
-        String standardisedPanelName = "";
+    public static PanelName parse(String panelNameString) throws ParseException {
 
-        switch (panelNameString.toLowerCase()) {
+        switch (panelNameString.toLowerCase().trim()) {
         case "wishlist":
             // Fallthrough
         case "wishes":
@@ -55,22 +26,19 @@ public class PanelName {
         case "wish":
             // Fallthrough
         case "w":
-            standardisedPanelName = "wishlist";
-            break;
+            return WISH;
         case "budget":
             // Fallthrough
         case "budgets":
             // Fallthrough
         case "b":
-            standardisedPanelName = "budget";
-            break;
+            return BUDGET;
         case "reminders":
             // Fallthrough
         case "reminder":
             // Fallthrough
         case "r":
-            standardisedPanelName = "reminder";
-            break;
+            return REMINDER;
         case "autoexpense":
             // Fallthrough
         case "autoexpenses":
@@ -78,29 +46,14 @@ public class PanelName {
         case "autoexp":
             // Fallthrough
         case "ae":
-            standardisedPanelName = "autoexpense";
-            break;
+            return AUTOEXPENSE;
         default:
-            // Do nothing. Input should have been checked if it is a valid panel name.
+            throw new ParseException("Invalid panel name");
         }
 
-        return new PanelName(standardisedPanelName);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof PanelName // instanceof handles nulls
-                && panelName.equals(((PanelName) other).panelName)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return panelName.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return panelName;
+    public static String toString(PanelName panelName) {
+        return panelName + "";
     }
 }

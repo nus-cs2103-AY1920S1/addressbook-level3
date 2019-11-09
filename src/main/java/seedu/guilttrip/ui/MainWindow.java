@@ -276,8 +276,8 @@ public class MainWindow extends UiPart<Stage> {
      * Toggles the isVisible and isManaged property for the specified panel.
      * Checks if the entire side panel needs to be toggled as well.
      */
-    private void handleTogglePanel(String panelNameString) throws CommandException {
-        togglePanel(panelNameString);
+    private void handleTogglePanel(PanelName panelName) throws CommandException {
+        togglePanel(panelName);
         toggleEntireSidePanelIfNecessary();
     }
 
@@ -286,25 +286,28 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @param panelName name of the specified panel to be toggled.
      */
-    private void togglePanel(String panelName) throws CommandException {
+    private void togglePanel(PanelName panelName) throws CommandException {
         switch (panelName) {
-        case "wishlist":
+        case WISH:
             if (mainPanel.getChildren().contains(wishListPanel.getRoot())) {
                 throw new CommandException("The panel you want to toggle is already shown in the main panel!");
             }
             togglePlaceHolder(wishesPlaceHolder);
             break;
-        case "budget":
+        case BUDGET:
             if (mainPanel.getChildren().contains(budgetPanel.getRoot())) {
                 throw new CommandException("The panel you want to toggle is already shown in the main panel!");
             }
             togglePlaceHolder(budgetsPlaceHolder);
             break;
-        case "reminder":
+        case REMINDER:
             if (mainPanel.getChildren().contains(reminderPanel.getRoot())) {
                 throw new CommandException("The panel you want to toggle is already shown in the main panel!");
             }
             togglePlaceHolder(remindersPlaceHolder);
+            break;
+        case AUTOEXPENSE:
+            togglePlaceHolder(autoExpensesPlaceHolder);
             break;
         default:
             break;
@@ -367,11 +370,12 @@ public class MainWindow extends UiPart<Stage> {
                 && !autoExpensesPlaceHolder.isManaged()) {
             sidePanelsPlaceHolder.setManaged(false);
             sidePanelsPlaceHolder.setVisible(false);
+            logger.info("Toggled entire side panel off");
         } else { // any one of the side panels are managed and visible
             sidePanelsPlaceHolder.setManaged(true);
             sidePanelsPlaceHolder.setVisible(true);
+            logger.info("Toggled entire side panel on");
         }
-        logger.info("Toggled entire side panel");
     }
 
     /**
@@ -523,8 +527,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isTogglePanel()) {
                 PanelName panelName = commandResult.getPanelName();
-                String panelNameString = panelName.getName();
-                handleTogglePanel(panelNameString);
+                handleTogglePanel(panelName);
             }
 
             if (commandResult.isListFonts()) {
@@ -571,7 +574,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isList()) {
                 String toList = commandResult.getToList();
-                // allow only these possible values of entryToList
+                // allow only these possible values of toList
                 assert (toList.equals("main") || toList.equals("budget") || toList.equals("wish")
                         || toList.equals("reminder"));
 
