@@ -78,7 +78,7 @@ public class RenewCommand extends ReversibleCommand {
         ArrayList<Book> renewingBooks = getRenewingBooks(model);
         Borrower servingBorrower = model.getServingBorrower();
 
-        String feedbackMessage = "";
+        StringBuilder feedbackMessage = new StringBuilder();
         ArrayList<Book> renewedBookList = new ArrayList<>();
         ArrayList<Book> bookToBeRenewedList = new ArrayList<>();
         ArrayList<Loan> renewedLoanList = new ArrayList<>();
@@ -108,8 +108,8 @@ public class RenewCommand extends ReversibleCommand {
                 e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
             }
 
-            feedbackMessage += String.format(MESSAGE_SUCCESS, renewedBook,
-                    servingBorrower, DateUtil.formatDate(extendedDueDate));
+            feedbackMessage.append(String.format(MESSAGE_SUCCESS, renewedBook,
+                    servingBorrower, DateUtil.formatDate(extendedDueDate)));
             renewedBookList.add(renewedBook);
             bookToBeRenewedList.add(bookToBeRenewed);
             renewedLoanList.add(renewedLoan);
@@ -119,11 +119,18 @@ public class RenewCommand extends ReversibleCommand {
         undoCommand = new UnrenewCommand(renewedBookList, bookToBeRenewedList, renewedLoanList,
                 loanToBeRenewedList);
         redoCommand = this;
-        commandResult = new CommandResult(feedbackMessage.trim());
+        commandResult = new CommandResult(feedbackMessage.toString().trim());
 
         return commandResult;
     }
 
+    /**
+     * Retrieves the books that we are renewing in an ArrayList.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return ArrayList of renewingBooks.
+     * @throws CommandException If an error occurs during command execution.
+     */
     private ArrayList<Book> getRenewingBooks(Model model) throws CommandException {
         List<Book> lastShownBorrowerBooksList = model.getBorrowerBooks();
         ArrayList<Book> renewingBooks = new ArrayList<>();
@@ -138,6 +145,9 @@ public class RenewCommand extends ReversibleCommand {
         return renewingBooks;
     }
 
+    /**
+     * Get the book we are renewing from its index.
+     */
     private void getRenewingBookFromIndex(List<Book> lastShownBorrowerBooksList, ArrayList<Book> renewingBooks,
                                           int maxRenewCount) throws CommandException {
         if (index.getZeroBased() >= lastShownBorrowerBooksList.size()) {
@@ -160,6 +170,9 @@ public class RenewCommand extends ReversibleCommand {
         renewingBooks.add(bookToBeRenewed);
     }
 
+    /**
+     * Get all the books that can be renewed.
+     */
     private void getAllRenewableBooks(List<Book> lastShownBorrowerBooksList, ArrayList<Book> renewingBooks,
                                       int maxRenewCount) throws CommandException {
         for (Book book : lastShownBorrowerBooksList) {

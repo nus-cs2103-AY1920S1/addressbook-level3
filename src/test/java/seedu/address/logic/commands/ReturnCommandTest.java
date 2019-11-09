@@ -58,8 +58,8 @@ class ReturnCommandTest {
         ReturnCommand returnCommand = new ReturnCommand(INDEX_FIRST_BOOK);
 
         LocalDate returnDate = DateUtil.getTodayDate();
-        int fineAmount = DateUtil.getNumOfDaysOverdue(LOAN_7.getDueDate(), returnDate)
-                * expectedModel.getUserSettings().getFineIncrement();
+        int dailyFineIncrement = expectedModel.getUserSettings().getFineIncrement();
+        int fineAmount = DateUtil.getNumOfDaysOverdue(LOAN_7.getDueDate(), returnDate) * dailyFineIncrement;
         Loan returnedLoan = LOAN_7.returnLoan(returnDate, fineAmount);
         Book returnedBook = onLoan.returnBook().addToLoanHistory(LOAN_7);
 
