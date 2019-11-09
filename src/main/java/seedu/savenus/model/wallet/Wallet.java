@@ -105,7 +105,7 @@ public class Wallet {
      * @param newDaysToExpire New {@code DaysToExpire} created from user's input
      */
     public final void setDaysToExpire(DaysToExpire newDaysToExpire) throws BudgetDurationOutOfBoundsException {
-        if (newDaysToExpire.getDaysToExpire() > 365) {
+        if (newDaysToExpire.isOutOfBounds()) {
             throw new BudgetDurationOutOfBoundsException();
         }
         daysToExpire.setDaysToExpire(newDaysToExpire);

@@ -98,34 +98,40 @@
                                     </VBox>
                            <VBox styleClass="vbox-tab-pane-with-border">
                               <children>
-                                 <AnchorPane VBox.vgrow="ALWAYS">
+                                 <HBox>
                                     <children>
-                                       <ImageView fitHeight="222.0" fitWidth="222.0" layoutX="56.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-                                          <image>
-                                             <Image url="@../images/Wallet.png" />
-                                          </image>
-                                       </ImageView>
-                                                  <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" layoutX="206.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="money" wrappingWidth="386.0">
-                                                      <font>
-                                                          <Font name="Monospaced Regular" size="50.0" />
-                                                      </font>
-                                                  </Text>
-                                                  <Text fx:id="daysToExpirePlaceholder" fill="WHITE" layoutX="207.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-days-left" text="days" wrappingWidth="174.0">
-                                                      <font>
-                                                          <Font name="Franklin Gothic Demi Cond" size="27.0" />
-                                                      </font>
-                                                  </Text>
+                                       <AnchorPane>
+                                          <children>
+                                             <ImageView fitHeight="222.0" fitWidth="222.0" layoutX="46.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                   <Image url="@../images/Wallet.png" />
+                                                </image>
+                                             </ImageView>
+                                                      <Text fx:id="savingsAccountPlaceholder" fill="WHITE" layoutX="202.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="savings" wrappingWidth="386.0">
+                                                          <font>
+                                                              <Font name="Monospaced Regular" size="15.0" />
+                                                          </font>
+                                                      </Text>
+                                                        <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" layoutX="203.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="money" wrappingWidth="386.0">
+                                                            <font>
+                                                                <Font name="Monospaced Regular" size="15.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <Text fx:id="daysToExpirePlaceholder" fill="WHITE" layoutX="203.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-days-left" text="days" wrappingWidth="174.0">
+                                                            <font>
+                                                                <Font name="Franklin Gothic Demi Cond" size="27.0" />
+                                                            </font>
+                                                        </Text>
+                                          </children>
+                                          <padding>
+                                             <Insets bottom="10.0" top="10.0" />
+                                          </padding>
+                                       </AnchorPane>
                                     </children>
-                                    <VBox.margin>
-                                       <Insets />
-                                    </VBox.margin>
-                                    <padding>
-                                       <Insets bottom="10.0" top="10.0" />
-                                    </padding>
-                                 </AnchorPane>
+                                 </HBox>
                                  <TabPane styleClass="tab-pane-with-border" tabClosingPolicy="UNAVAILABLE">
                                    <tabs>
-                                     <Tab text="History">
+                                     <Tab text="Purchases">
                                        <content>
                                              <VBox maxHeight="1.7976931348623157E308" prefHeight="655.0" prefWidth="670.0" spacing="10.0" styleClass="vbox-inner-tab-pane-with-border">
                                                 <children>

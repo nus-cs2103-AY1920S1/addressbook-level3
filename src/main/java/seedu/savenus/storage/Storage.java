@@ -9,6 +9,7 @@ import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.UserRecommendations;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
@@ -18,6 +19,7 @@ import seedu.savenus.storage.alias.AliasStorage;
 import seedu.savenus.storage.menu.MenuStorage;
 import seedu.savenus.storage.purchase.PurchaseHistoryStorage;
 import seedu.savenus.storage.recommend.RecsStorage;
+import seedu.savenus.storage.savings.SavingsAccountStorage;
 import seedu.savenus.storage.savings.SavingsStorage;
 import seedu.savenus.storage.sort.CustomSortStorage;
 import seedu.savenus.storage.userprefs.UserPrefsStorage;
@@ -27,7 +29,8 @@ import seedu.savenus.storage.wallet.WalletStorage;
  * API of the Storage component
  */
 public interface Storage extends MenuStorage, UserPrefsStorage,
-        RecsStorage, PurchaseHistoryStorage, CustomSortStorage, SavingsStorage, WalletStorage, AliasStorage {
+        RecsStorage, PurchaseHistoryStorage, CustomSortStorage, SavingsStorage, SavingsAccountStorage,
+        WalletStorage, AliasStorage {
 
     // ============================= User Preferences Methods ================================================
     @Override
@@ -133,8 +136,30 @@ public interface Storage extends MenuStorage, UserPrefsStorage,
     Path getSavingsHistoryFilePath();
 
     @Override
-    void saveSavingsHistory(ReadOnlySavingsHistory savingsAccount) throws IOException;
+    Optional<ReadOnlySavingsHistory> readSavingsHistory() throws DataConversionException, IOException;
 
     @Override
-    void saveSavingsHistory(ReadOnlySavingsHistory savingsAccount, Path filePath) throws IOException;
+    Optional<ReadOnlySavingsHistory> readSavingsHistory(Path filePath) throws DataConversionException, IOException;
+
+    @Override
+    void saveSavingsHistory(ReadOnlySavingsHistory savingsHistory) throws IOException;
+
+    @Override
+    void saveSavingsHistory(ReadOnlySavingsHistory savingsHistory, Path filePath) throws IOException;
+
+    // ============================= Savings Account Methods ================================================
+    @Override
+    Path getSavingsAccountFilePath();
+
+    @Override
+    Optional<ReadOnlySavingsAccount> readSavingsAccount() throws DataConversionException, IOException;
+
+    @Override
+    Optional<ReadOnlySavingsAccount> readSavingsAccount(Path filePath) throws DataConversionException, IOException;
+
+    @Override
+    void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount) throws IOException;
+
+    @Override
+    void saveSavingsAccount(ReadOnlySavingsAccount savingsAccount, Path filePath) throws IOException;
 }

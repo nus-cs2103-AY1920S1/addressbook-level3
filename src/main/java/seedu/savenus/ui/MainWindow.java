@@ -74,6 +74,9 @@ public class MainWindow extends UiPart<Stage> {
     private Text remainingBudgetPlaceholder;
 
     @FXML
+    private Text savingsAccountPlaceholder;
+
+    @FXML
     private Text daysToExpirePlaceholder;
 
 
@@ -119,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Bind remaining budget to displayed value
         StringBinding remainingBudgetBinding = Bindings.createStringBinding(() ->
-                        String.format("$%s", logic.getWallet().getRemainingBudgetAmount().toString()),
+                        String.format("Wallet: $%s", logic.getWallet().getRemainingBudgetAmount().toString()),
                 logic.getWallet().getRemainingBudgetProperty());
         remainingBudgetPlaceholder.textProperty().bind(remainingBudgetBinding);
 
@@ -133,6 +136,12 @@ public class MainWindow extends UiPart<Stage> {
                         : String.format("%d days left", logic.getWallet().getNumberOfDaysToExpire()),
                 logic.getWallet().getDaysToExpireProperty());
         daysToExpirePlaceholder.textProperty().bind(daysToExpireBinding);
+
+        // Bind savings to the savings display to show the value.
+        StringBinding savingsAccountBinding = Bindings.createStringBinding(() -> String.format(
+                "Savings: $%s",
+                logic.getSavingsAccount().getCurrentSavings().get().getAmount().toString()));
+        savingsAccountPlaceholder.textProperty().bind(savingsAccountBinding);
     }
 
     /**
@@ -294,7 +303,9 @@ public class MainWindow extends UiPart<Stage> {
                     || commandResult.getFeedbackToUser().equals(InfoCommand.REMOVELIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SAVE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)
-                    || commandResult.getFeedbackToUser().equals(InfoCommand.TOP_UP_INFO)) {
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.TOP_UP_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.WITHDRAW_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.SHOW_INFO)) {
                 if (infoWindow.isShowing()) {
                     infoWindow.closeWindow();
                 }
@@ -317,8 +328,20 @@ public class MainWindow extends UiPart<Stage> {
             // Update purchaseListPanel after every command.
             purchaseListPanel.updatePurchaseList(logic.getPurchaseHistoryList());
 
-            // Update savingsHistoryPanel after every command.
-            savingsHistoryPanel.updateSavingsHistory(logic.getSavingsHistory().getSavingsHistory());
+            // Update savingsHistoryPanel after every command, depending on what the user wants to see.
+            if (commandResult.isShowSavingsOnly()) {
+                savingsHistoryPanel.updateSavingsHistory(logic.getSavingsHistory().getSavingsOnly());
+            } else if (commandResult.isShowWithdrawOnly()) {
+                savingsHistoryPanel.updateSavingsHistory(logic.getSavingsHistory().getWithdrawalsOnly());
+            } else {
+                savingsHistoryPanel.updateSavingsHistory(logic.getSavingsHistory().getSavingsHistory());
+            }
+
+            // Update current savings each time a command is executed.
+            StringBinding savingsAccountBinding = Bindings.createStringBinding(() -> String.format(
+                    "Savings: $%s",
+                    logic.getSavingsAccount().getCurrentSavings().get().getAmount().toString()));
+            savingsAccountPlaceholder.textProperty().bind(savingsAccountBinding);
 
             return commandResult;
         } catch (CommandException | ParseException e) {

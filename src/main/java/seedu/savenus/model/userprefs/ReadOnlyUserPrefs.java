@@ -17,6 +17,8 @@ public interface ReadOnlyUserPrefs {
 
     Path getSavingsHistoryFilePath();
 
+    Path getSavingsAccountFilePath();
+
     Path getWalletFilePath();
 
     Path getSortFilePath();

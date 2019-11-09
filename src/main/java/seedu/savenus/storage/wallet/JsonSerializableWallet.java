@@ -8,7 +8,7 @@ import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.wallet.Wallet;
 
 /**
- * An Immutable Savings Account that is serializable to JSON format.
+ * An Immutable Wallet that is serializable to JSON format.
  */
 @JsonRootName(value = "wallet")
 public class JsonSerializableWallet {

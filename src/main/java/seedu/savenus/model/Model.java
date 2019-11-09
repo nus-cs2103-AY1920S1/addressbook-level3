@@ -17,15 +17,17 @@ import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.recommend.RecommendationSystem;
+import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.ReadOnlySavingsHistory;
 import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.savings.exceptions.InsufficientSavingsException;
+import seedu.savenus.model.savings.exceptions.SavingsOutOfBoundException;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
-import seedu.savenus.storage.savings.exceptions.InvalidSavingsAmountException;
 
 /**
  * The API of the Model component.
@@ -274,9 +276,9 @@ public interface Model {
     CustomSorter getCustomSorter();
 
     /**
-     * Add money from wallet to savings account.
+     * Add a saving to the savings history.
      */
-    void addToHistory(Savings savings) throws InvalidSavingsAmountException;
+    void addToHistory(Savings savings);
 
     /**
      * Return an unmodifiable version of the user's SavingsHistory.
@@ -287,6 +289,21 @@ public interface Model {
      * Replaces saving history data with the data in {@code savingsHistory}.
      */
     void setSavingsHistory(ReadOnlySavingsHistory savingsHistory);
+
+    /**
+     * Return an unmodifiable version of the user's SaviungAccount.
+     */
+    ReadOnlySavingsAccount getSavingsAccount();
+
+    /**
+     * Add a deposit into the savings account.
+     */
+    void depositInSavings(Savings savings) throws SavingsOutOfBoundException, InsufficientFundsException;
+
+    /**
+     * Withdraw a sum from the savings account.
+     */
+    void withdrawFromSavings(Savings savings) throws InsufficientSavingsException;
 
     /**
      * Gets the list of aliases from the model.

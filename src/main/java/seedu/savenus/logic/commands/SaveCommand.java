@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.savings.exceptions.SavingsOutOfBoundException;
 import seedu.savenus.model.util.TimeStamp;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 import seedu.savenus.storage.savings.exceptions.InvalidSavingsAmountException;
@@ -15,7 +16,7 @@ import seedu.savenus.storage.savings.exceptions.InvalidSavingsAmountException;
  */
 public class SaveCommand extends Command {
 
-    public static final String COMMAND_WORD = "deposit";
+    public static final String COMMAND_WORD = "save";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Set User's savings\n"
@@ -23,12 +24,16 @@ public class SaveCommand extends Command {
             + "Restriction: " + Savings.MESSAGE_CONSTRAINTS + "\n"
             + "Example: " + COMMAND_WORD + " 100";
 
-    private static final String MESSAGE_SAVINGS_SUCCESS = "Added to your Savings Account: $%1$s";
+    public static final String MESSAGE_SAVINGS_SUCCESS = "Added to your Savings Account: $%1$s";
 
     private final Savings savingsAmount;
 
     public SaveCommand(String savings) {
         this.savingsAmount = new Savings(savings, TimeStamp.generateCurrentTimeStamp(), false);
+    }
+
+    public SaveCommand(String savings, String time) {
+        this.savingsAmount = new Savings(savings, time, false);
     }
 
     @Override
@@ -37,14 +42,23 @@ public class SaveCommand extends Command {
 
         // deduct from wallet in model
         try {
-            model.deductFromWallet(this.savingsAmount);
+            // Deposit into savings only possible if
+            // Wallet has sufficient funds,
+            // Adding this saving does not increase the current account value > 1000000
+            model.depositInSavings(this.savingsAmount);
             model.addToHistory(this.savingsAmount);
         } catch (InsufficientFundsException e) {
             throw new CommandException(e.getMessage() + " to add to savings account!");
-        } catch (InvalidSavingsAmountException e) { // add to the savings account in the model.
+        } catch (InvalidSavingsAmountException | SavingsOutOfBoundException e) {
             throw new CommandException(e.getMessage());
         }
-
         return new CommandResult(String.format(MESSAGE_SAVINGS_SUCCESS, savingsAmount.toString()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SaveCommand // instanceof handles nulls
+                && this.savingsAmount.equals(((SaveCommand) other).savingsAmount)); // state check
     }
 }

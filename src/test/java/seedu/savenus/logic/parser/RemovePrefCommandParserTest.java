@@ -6,7 +6,6 @@ import static seedu.savenus.logic.commands.CommandTestUtil.CATEGORY_DESC_NASI_LE
 import static seedu.savenus.logic.commands.CommandTestUtil.LOCATION_DESC_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.LOCATION_DESC_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.NAME_DESC_CHICKEN_RICE;
-import static seedu.savenus.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.savenus.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN_RICE;
 import static seedu.savenus.logic.commands.CommandTestUtil.TAG_DESC_CHICKEN;
 import static seedu.savenus.logic.commands.CommandTestUtil.TAG_DESC_RICE;
@@ -16,6 +15,7 @@ import static seedu.savenus.logic.commands.CommandTestUtil.VALID_LOCATION_CHICKE
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_LOCATION_NASI_LEMAK;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_CHICKEN;
 import static seedu.savenus.logic.commands.CommandTestUtil.VALID_TAG_RICE;
+import static seedu.savenus.logic.commands.RemovePreferenceCommand.REMOVE_ALL_KEYWORD;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
@@ -59,9 +59,9 @@ public class RemovePrefCommandParserTest {
     }
 
     @Test
-    public void parse_nothingProvided_success() {
-        assertRemovePreferenceParseSuccess(parser, PREAMBLE_WHITESPACE, new RemoveDislikeCommand(true), false);
-        assertRemovePreferenceParseSuccess(parser, PREAMBLE_WHITESPACE, new RemoveLikeCommand(true), true);
+    public void parse_removeAllFlag_success() {
+        assertRemovePreferenceParseSuccess(parser, REMOVE_ALL_KEYWORD, new RemoveDislikeCommand(true), false);
+        assertRemovePreferenceParseSuccess(parser, REMOVE_ALL_KEYWORD, new RemoveLikeCommand(true), true);
     }
 
     @Test

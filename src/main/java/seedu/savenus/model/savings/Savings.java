@@ -15,7 +15,7 @@ public class Savings {
     public static final String MESSAGE_CONSTRAINTS =
             "Please provide a savings amount with 0 or 2 decimal places.\n"
             + "For example: 1.50 or 200\n"
-            + "Note that you also cannot save 0 or a negative amount of money!";
+            + "Note that you also CANNOT save 0 or a negative amount of money!";
 
     public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
@@ -23,13 +23,6 @@ public class Savings {
     private final Money savingsAmount; // the amount to be saved.
     private final TimeStamp timeStamp;
     private final boolean isWithdraw; // required for sanity check in addToHistory in model
-    // Default starting savings amount is a deposit.
-    // Constructor should never be called
-    //    public Savings() {
-    ////        savingsAmount = new Money("0.00");
-    ////        timeStamp = new TimeStamp(TimeStamp.generateCurrentTimeStamp());
-    ////        isWithdraw = false;
-    ////    }
 
     public Savings(String savings, String time, boolean withdraw) {
         requireNonNull(savings);
@@ -46,15 +39,6 @@ public class Savings {
         return timeStamp;
     }
 
-    /**
-     * Makes the savings amount a negative value.
-     * Use for Withdrawals only.
-     */
-    public void makeWithdraw() {
-        // if it is a withdrawal, the saving should be a negative value.
-        savingsAmount.negate();
-    }
-
     public Money getSavingsAmount() {
         return this.savingsAmount;
     }
@@ -63,8 +47,27 @@ public class Savings {
         return this.isWithdraw;
     }
 
+    /**
+     * Labels a Saving as a withdrawal instead of a deposit
+     */
+    public void makeWithdraw() {
+        // Sanity check again to ensure only a withdrawal can call this.
+        if (isWithdraw) {
+            this.savingsAmount.negate();
+        }
+    }
+
     @Override
     public String toString() {
         return String.format("%.02f", savingsAmount.getAmount());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof Savings
+            && this.savingsAmount.equals(((Savings) other).savingsAmount)
+            && this.getTimeStamp().getTimeStampInLocalDateTime()
+                .equals(((Savings) other).timeStamp.getTimeStampInLocalDateTime()));
     }
 }
