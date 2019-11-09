@@ -21,6 +21,7 @@ import seedu.weme.logic.parser.contextparser.ExportParser;
 import seedu.weme.logic.parser.contextparser.ImportParser;
 import seedu.weme.logic.parser.contextparser.MemeParser;
 import seedu.weme.logic.parser.contextparser.TemplateParser;
+import seedu.weme.logic.parser.contextparser.ViewParser;
 import seedu.weme.logic.parser.contextparser.WemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.ModelContext;
@@ -50,6 +51,7 @@ public class ParserUtil {
     public static final ImportParser IMPORT_PARSER = new ImportParser();
     public static final ExportParser EXPORT_PARSER = new ExportParser();
     public static final CreateParser CREATE_PARSER = new CreateParser();
+    public static final ViewParser VIEW_PARSER = new ViewParser();
 
     /**
      * Returns a Parser depending on the given ModelContext.
@@ -69,8 +71,9 @@ public class ParserUtil {
             return TEMPLATE_PARSER;
         case CONTEXT_CREATE:
             return CREATE_PARSER;
-        case CONTEXT_STATISTICS:
         case CONTEXT_VIEW:
+            return VIEW_PARSER;
+        case CONTEXT_STATISTICS:
         case CONTEXT_PREFERENCES:
             // TODO: This is a temporary placeholder until all tabs have been implemented
             return new WemeParser() {
