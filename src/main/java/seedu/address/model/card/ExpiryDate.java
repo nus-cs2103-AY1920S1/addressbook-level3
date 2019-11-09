@@ -3,11 +3,11 @@ package seedu.address.model.card;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+
+import seedu.address.commons.util.ExpiryUtil;
 
 /**
  * Represents a Card's expiry date in the card book.
@@ -52,10 +52,7 @@ public class ExpiryDate {
      * Returns true if a given string is a valid expiry date.
      */
     public static boolean isValidExpiryDate(String test) {
-        LocalDate date = LocalDate.parse(test, dateTimeFormat);
-        Period period = LocalDate.now().until(date);
-        int monthsToExpiry = period.getMonths() + period.getYears() * 12 + (period.getDays() > 0 ? 1 : 0);
-        return monthsToExpiry >= 0;
+        return ExpiryUtil.getMonthToExp(test) > 0;
     }
 
     @Override

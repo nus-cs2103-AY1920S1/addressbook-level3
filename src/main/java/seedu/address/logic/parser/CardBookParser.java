@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CopyCardNumberCommand;
 import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;
@@ -59,6 +60,10 @@ public class CardBookParser {
 
         case ReadCardCommand.COMMAND_WORD:
             return new ReadCardCommandParser().parse(arguments);
+
+        case CopyCardNumberCommand.COMMAND_WORD:
+            return new CopyCardNumberCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
