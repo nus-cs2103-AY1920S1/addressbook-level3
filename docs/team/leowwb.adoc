@@ -13,19 +13,23 @@ means that the primary means of user input to the product must be through the ty
 This project was the result of six weeks of hard work by my team, which comprises two final-year Computer Engineering students and three sophomore Computer Science
 students (including myself). All are students in the National University of Singapore (NUS).
 
-Our final product is _KeyboardFlashCards_ - a flashcard manager application targeted at computing students (in particular, NUS School of Computing students),
-who will be able to use it to enhance their learning experience. It does this by simulating a real deck of flashcards, complete with features including creation, editing,
-deletion, revision, and sharing of flashcards. This application is written in the Java programming language, and has a GUI (graphical user interface) created with the JavaFX library.
-It has roughly 17 KLoC, up from the original addressbook application's 10 KLoC.
+Our final product is _KeyboardFlashCards_ - a desktop flashcard manager application targeted at
+computing students (in particular, NUS School of Computing students), who will be able to use it to
+enhance their learning experience. It does this by simulating a real deck of flashcards on the user's
+computer, complete with features including creation, editing, deletion, revision, and sharing of
+flashcards. The application is written in the Java programming language, and has a GUI (graphical
+user interface) created with the JavaFX library. It has roughly 17 KLoC, up from the original
+addressbook application's 10 KLoC.
 
 Here is a screenshot of our project:
 
-image::Ui.png[KeyboardFlashCards]
+image::annotatedUi.png[KeyboardFlashCards]
 _Figure 1. The graphical user interface of **KeyboardFlashCards**_
 
 Please note the following symbols and formatting, which will appear throughout the rest of the document:
-TODO
-
+NOTE: A point of information to take note of
+TIP: A tip or suggestion
+CAUTION: A cautionary piece of advice
 
 == Summary of contributions
 
@@ -34,18 +38,29 @@ TODO
 |===
 
 * *Major enhancement #1*: I added *the ability to export flashcards to various file formats*.
-** What it does: It allows the user to save a subset of their flashcards to a specified external file. The file format can be either '.docx' or '.json', and is inferred from the file extension specified by the user.
-** Justification: This feature greatly improves the application, as the ability to export flashcards would mean that the user can easily generate cheat sheets or share flashcards with others.
-** Highlights: This enhancement was designed in such a way as to maximize extensibility in the future (if a developer wishes to add support for more file formats). It required an in-depth analysis of design alternatives. The implementation was challenging due to the dependence on an external library, as well as the tendency of certain file paths to break our parser.
-** Credits: All writing of flashcards to `.docx` format is done with the use of Apache POI.
+** What it does: It allows the user to save their flashcards from the application into a specified external file.
+    The file format can be either '.docx' or '.json', and is inferred from the file extension specified by the user.
+    To avoid clutter, any data that would only be relevant in the context of the application (e.g. a user-given rating)
+    is not exported with the flashcards.
+** Justification: This feature greatly improves the application. The ability to export flashcards
+    means that the user can easily generate cheat sheets (by exporting to a document file),
+    or share flashcards with others (by exporting to a JSON file) - all through the convenience of a single command.
+** Highlights: This enhancement was designed in such a way as to maximize extensibility in the future
+    (if a future developer ever wishes to add support for more file formats). It required an in-depth analysis of design alternatives.
+    The implementation was challenging due to the dependence on an external library,
+    as well as the tendency of certain file paths to break our user input parser.
+** Credits: All writing of flashcards to the '.docx' and '.json' formats is done with the use of two external libraries;
+    these are Apache POI and Jackson, respectively.
 
-* *Major enhancement #2: I added *the ability to import flashcards*.
-** What it does: It allows the user to import flashcards from JSON format (files that end in '.json').
-** Justification: A user could previously import '.json' files that were previously exported, by copying and pasting the file over their existing save file. This feature allows users to do the same from the convenience of the application's CLI, Furthermore, importing flashcards in this manner will not result in any loss to their original data.
-** Highlights: TODO
-** Credits: TODO
-
-//* *Minor enhancement*: ???
+* *Major enhancement #2: I added *the ability to import flashcards from an external file*.
+** What it does: It allows the user to import flashcards from a JSON file (a file that ends in '.json').
+    The imported flashcards are added to the application, and the user will be able to use them as if they were their own.
+** Justification: This feature, when used in combination with the `export` feature, allows users to share their flashcards with
+    one another.
+** Highlights: This feature does not import flashcards which the user already has. This is because
+    there's no good reason for the user to have two copies of the same flashcard.
+    The user will be notified if a duplicate is detected in a file while importing.
+** Credits: All reading of flashcards from the `.json` format is done with the use of Jackson, an external library.
 
 * *Code contributed*: Please click on these links to see a sample of my code:
 [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_ (reposense link??)
@@ -53,30 +68,38 @@ TODO
 * *Other contributions*
 
 ** Project management
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
+*** Updated the project website with the team's details (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19],
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/24[#24]
+    )
 ** Documentation
-*** Wrote the User Guide and Developer Guide content pertaining to the exporting and importing of flashcards https://github.com[#14]
-*** TODO wrote the qna? what else ah https://github.com[#14]
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Created the general framework that would be used by the User Guide (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19]
+    )
+*** Wrote the FAQ and an early version of the Command Summary section for the User Guide (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19]
+    )
+*** Wrote the User Guide and Developer Guide content pertaining to the exporting and importing of flashcards (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/137[#137],
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/141[#141],
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/151[#151],
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/221[#221],
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/224[#224]
+    )
 ** Community
-*** PRs reviewed (with non-trivial review comments):
+*** Reviewed the following PRs (with non-trivial review comments):
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/98[#98],
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/154[#154]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:
     https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/53[1],
-    https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23[2],
-    TODO the one reviewed for mock PE?
+    https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23[2]
     )
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools
-*** Integrated a third party library (Apache POI) to the project (https://github.com/AY1920S1-CS2103T-T12-4/main/pull/44[#44])
+*** Integrated a third party library (Apache POI) to the project (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/44[#44]
+    )
 *** Integrated new Github plugins (Travis CI, Appveyor, Coveralls) to the team repository
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -88,7 +111,7 @@ _(start of extract from User Guide)_
 
 include::../UserGuide.adoc[tag=flashcardexport]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=flashcardimport]
 
 _(end of extract from User Guide)_
 
@@ -98,16 +121,8 @@ _(end of extract from User Guide)_
 |_The following are sections that I have written for the Developer Guide. They showcase my ability to write technical documentation targeting developers, as well as the technical depth of my contributions to the project._
 |===
 
-_(start of extract from User Guide)_
+_(start of extract from Developer Guide)_
 
-include::../DeveloperGuide.adoc[tag=flashcardexport]
+include::../DeveloperGuide.adoc[tag=flashcardexportimport]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-_(end of extract from User Guide)_
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+_(end of extract from Developer Guide)_

@@ -3,35 +3,35 @@
   "flashcards" : [ {
     "question" : "Store-and-forward",
     "answer": "Entire packet must arrive at a router before it can be transmitted on the next link",
-    "rating": "good",
+    "rating": "null",
     "categories": [ "CS2105" ]
   }, {
     "question" : "End-to-end delay",
     "answer": "2L/R (assuming no other delay)",
-    "rating": "good",
+    "rating": "null",
     "categories": [ "computerNetworking", "CS2105" ]
   }, {
     "question" : "Sources of Packet Delay?",
     "answer": "Nodal processing, queuing, transmission, propagation",
-    "rating": "good"
+    "rating": "null"
   }, {
     "question" : "Formula for propagation delay",
     "answer": "d, length of physical link (m) / s, propagation speed in medium (~2x10^8 m/sec) ",
-    "rating": "good",
+    "rating": "null",
     "categories": [ "DELAY" ]
   }, {
     "question" : "Formula for transmission delay",
     "answer": "L, packet length (bits) / R, link bandwidth (bps)",
-    "rating": "good",
+    "rating": "null",
     "categories" : ["C"]
   }, {
     "question" : "Throughput definition",
     "answer": "How many bits can be transmitted per unit time",
-    "rating": "easy"
+    "rating": "null"
   }, {
     "question" : "What is a Protocol",
     "answer": "Protocols define format and order of messages exchanged and the action taken after messages are sent or received",
-    "rating": "easy"
+    "rating": "null"
   } ],
   "deadlines" : [ {
     "task" : "Submit User Guide for Software Engineering",

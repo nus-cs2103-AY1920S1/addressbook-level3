@@ -166,6 +166,7 @@ public class ModelManagerTest {
         modelManager.initializeTestModel(testList);
         for (FlashCard fc : dummyList) {
             String qn = fc.getQuestion().toString();
+            modelManager.setTestFlashCard();
             assertEquals(qn, modelManager.getTestQuestion());
         }
     }
@@ -177,7 +178,7 @@ public class ModelManagerTest {
         modelManager.initializeTestModel(testList);
         for (FlashCard fc : dummyList) {
             String qn = fc.getAnswer().toString();
-            modelManager.getTestQuestion();
+            modelManager.setTestFlashCard();
             assertEquals(qn, modelManager.getTestAnswer());
         }
     }

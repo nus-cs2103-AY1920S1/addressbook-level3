@@ -324,6 +324,11 @@
     -fx-border-width: 0;
 }
 
+#flashcardPane {
+    -fx-background-color: #ffe4e1;
+    -fx-background-radius: 5;
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;

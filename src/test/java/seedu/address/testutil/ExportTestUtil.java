@@ -45,4 +45,17 @@ public class ExportTestUtil {
             deleteFile(exportPath);
         }
     }
+
+    /**
+     * Checks the current operating system. Returns true if it is Windows, false otherwise.
+     * Rationale: Certain tests pertaining to ExportPaths will behave differently on Windows and Unix, due to both
+     * having different definitions of what makes a legal file path.
+     *
+     * @return true if the current OS is Windows, false otherwise
+     */
+    public static boolean isRunningOnWindows() {
+        return System
+                .getProperty("os.name")
+                .contains("Windows");
+    }
 }

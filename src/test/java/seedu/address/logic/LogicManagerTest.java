@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FLASHCARD_DISP
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_1;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_1;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalFlashCards.WWII;
 
@@ -79,8 +78,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + QUESTION_DESC_1 + ANSWER_DESC_1
-                + RATING_DESC_1;
+        String addCommand = AddCommand.COMMAND_WORD + QUESTION_DESC_1 + ANSWER_DESC_1;
         FlashCard expectedFlashCard = new FlashCardBuilder(WWII).withCatgeories().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addFlashCard(expectedFlashCard);

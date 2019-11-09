@@ -245,37 +245,96 @@ prefixes like `t>` and `d>`
 ** Cons: Difficult to implement.
 // end::deadline[]
 
+
 //@@author LeowWB
-// tag::flashcardexport[]
-=== Exporting of FlashCards
+
+// tag::flashcardexportimport[]
+
+=== Exporting/Importing of FlashCards
 ==== Implementation
 
+Our application currently supports the exporting of `FlashCards` to two file formats (`.docx` and `.json`) and importing of `FlashCards` from one
+file format (`.json`). These mechanisms are primarily facilitated by the following classes:
 
-The `FlashCard` exporting mechanism is primarily facilitated by the following classes:
-
-* `ExportUtil` -- Handles the actual exporting of `FlashCards`
 * `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCards` are to be exported, and to where
 * `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
+* `ImportCommand` -- Embodies an `import` command by the user; carries information about where `FlashCards` are to be imported from
+* `ImportCommandParser` -- Parses user input and uses it to construct an `ImportCommand` instance
+* `ExportPath` -- Represents the path to a specific file - either absolute or relative to the application directory
+* `ExportPathFactory` -- Parses the user-provided file path and creates instances of `ExportPath`
 
-The mechanism is also supported by the package `seedu.address.model.export`, consisting of the following classes:
+NOTE: The "export" in `ExportPath` is to be taken as a noun, not a verb. An `ExportPath`, therefore, is not the path that we export to, but the
+path of an export. `ExportPaths` are used in both exporting and importing of files.
 
-* `DocumentPath` -- Represents the path to a specific document - either absolute or relative to the application directory
-* `DocumentFilePath` -- Represents the path to a specific document, relative to its immediate parent directory
-* `DirectoryPath` -- Represents the path to a specific directory - either absolute or relative to the application directory
+`ExportPath` is an abstract class that follows the factory pattern. Each subclass of `ExportPath` represents the path to a specific file of a
+specific extension (e.g. an instance of `DocumentPath` represents the path to a specific document). Instances of these subclasses are created by
+`ExportPathFactory#getExportPath(String)`, which determines the appropriate subclass to create based on the extension of the provided file path String.
+Once created, an `ExportPath` will expose the following relevant methods:
 
-Of particular note is `ExportUtil`, as it is arguably the class responsible for doing the most tangible work.
-Similar to the other classes in the `util` package, it consists entirely of `static` methods, and does not keep track of any variables.
-It exposes a single method, `ExportUtil#exportFlashCards(List<FlashCard>, DocumentPath)`, which prints a `List` of `FlashCards` to a `.docx`
-document located at the given `DocumentPath`. This is done by interfacing with the Apache POI library (in particular, the package
-`org.apache.poi.xwpf.usermodel`).
+* `getPath()` -- Returns a Java `Path` object that represents this `ExportPath`
+* `export(List<FlashCard> list)` -- Exports the given `List` of `FlashCards` to the file path embodied by this `ExportPath`
+* `importFrom()` -- Attempts to import `FlashCards` from the file path represented by this `ExportPath`
 
-The following sequence diagram shows how the export operation works:
+CAUTION: Not all `ExportPath` subclasses will implement the `importFrom()` method. `DocumentPath`, for example, does not - this is because documents are
+relatively unstructured and impractical to import from, and there are other reasons for exporting to a document (e.g. to use as cheat sheet).
+
+Because `ExportPath` follows the factory pattern, any class that deals with `ExportPath` or its subclasses need not know which particular subclass it is
+dealing with exactly. Each `ExportPath` subclass will implement its own `export` and `import` methods, which, when called, will perform the required operations
+without any further hassle. Of course, due to the Separation of Concerns principle, the `ExportPath` subclasses will not handle these directly.
+Instead, they will delegate the work to other utility classes, which, in turn, interface with the external libraries necessary to complete the task.
+
+TIP: The exporting/importing functionality is extremely easy to extend - support for new formats can be added simply through the creation of new subclasses of `ExportPath`.
+
+NOTE: All relevant classes can be found in the `seedu.address.model.export` package. The only exceptions are `ExportCommand`, `ImportCommand`, `ExportCommandParser`, and `ImportCommandParser`, which can be found in the `seedu.address.logic` package.
+
+The following table shows the classes and methods that you may have to deal with when exporting to or importing from each format:
+
+[width="59%",cols="20%,35%,35%",options="header",]
+|====
+
+|**File format**                        |Document           |JSON
+
+|**File extension**                     |`.docx`            |`.json`
+
+|**`ExportPath` subclass**              |`DocumentPath`     |`JsonExportPath`
+
+a|**Export utility class and method**
+a|`DocumentExportUtil#exportFlashCardsToDocument( List<FlashCard>, DocumentPath)`
+a|`JsonExportUtil#exportFlashCardsToJson( List<FlashCard>, JsonExportPath)`
+
+a|**Import utility class and method**
+a|_None - importing not supported_
+a|`JsonImportUtil#importFlashCardsFromJson( JsonExportPath)`
+
+|**External library used**              |Apache POI         |Jackson
+|====
+
+The number of classes supporting the import/export feature is rather large. The following class diagram will help to clarify the associations
+between these classes:
+
+image::ExportClassDiagram.png[height=700]
+
+_Figure 1: Class diagram showing the classes directly relevant to importing and exporting_
+
+The following sequence diagram shows how the export operation works when the user tries to export to a document (`.docx`) file:
 
 image::ExportSequenceDiagram.png[]
 
+_Figure 2: Sequence diagram showing the process of exporting to a document file_
+
+NOTE: Due to a limitation of PlantUML, object lifelines in the diagram extend beyond the destroy markers. This, of course, should be ignored.
+
 The following activity diagram summarizes what happens when a user executes an export command:
 
-image::ExportActivityDiagram.png[width=320,height=480]
+image::ExportActivityDiagram.png[width=500,height=540]
+
+_Figure 3: Activity diagram of when the user executes an export command_
+
+The following activity diagram summarizes what happens when a user executes an import command:
+
+image::ImportActivityDiagram.png[width=500,height=580]
+
+_Figure 4: Activity diagram of when the user executes an import command_
 
 ==== Design Considerations
 
@@ -313,9 +372,9 @@ NOTE: The original AddressBook application, from which KeyboardFlashCards was mo
 * **Alternative 1:** Read file path as-is, using the existing AddressBook parser
 ** Pros: Does not require further code changes
 ** Cons: Means that errors may occur for certain file paths
-* **Alternative 2:** Disallow user from selecting file path - instead, always export to a specific directory
+* **Alternative 2:** Disallow user from selecting file path - instead, always export to and import from a specific directory
 ** Pros: Is somewhat easy to implement
-** Cons: Requires user to navigate to the specified directory to obtain the file; requires a means of finding alternatives if the default directory does not exist
+** Cons: Requires user to navigate to the specified directory; requires a means of finding alternatives if the default directory does not exist
 * **Alternative 3:** Ask user to replace slashes in file path with another character
 ** Pros: Is very easy to implement
 ** Cons: Greatly inconveniences the user; extra work must be done to restore the input to the original file path
@@ -325,7 +384,7 @@ NOTE: The original AddressBook application, from which KeyboardFlashCards was mo
 
 NOTE: **Alternative 4** was preferred as it provides users with the greatest overall convenience.
 
-// end::flashcardexport[]
+// end::flashcardexportimport[]
 
 //@@author keiteo
 // tag::dataencryption[]

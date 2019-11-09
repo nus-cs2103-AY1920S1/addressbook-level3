@@ -25,6 +25,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.testutil.FlashCardBuilder;
+import seedu.address.ui.TestFlashCardPanel;
 
 public class AddCommandTest {
 
@@ -143,6 +144,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public String getStyleSheet() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getKeyboardFlashCardsFilePath() {
             throw new AssertionError("This method should not be called.");
         }
@@ -257,7 +263,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //@@author keiteo
+        //@@author keiteo-reused
         @Override
         public void initializeTestModel(List<FlashCard> testList) {
             throw new AssertionError("This method should not be called.");
@@ -265,6 +271,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasTestFlashCard() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTestFlashCard() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -279,6 +290,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public TestFlashCardPanel getTestFlashCardPanel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<FlashCard> getFlashCardList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -289,10 +305,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public void endFlashCardTest() {
+        public void showAnswer() {
             throw new AssertionError("This method should not be called.");
         }
-
 
         //@@author LeowWB
         public ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate) {

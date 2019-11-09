@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -13,6 +14,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
@@ -77,12 +79,9 @@ public class StatsWindow extends UiPart<Stage> {
         xAxisC.setLabel("Test Number");
         yAxisC.setLabel("Percentage");
 
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("good"));
-        int numGood = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("hard"));
-        int numHard = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("easy"));
-        int numEasy = model.getFilteredFlashCardList().size();
+        int numGood = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("good")).size();
+        int numHard = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("hard")).size();
+        int numEasy = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("easy")).size();
 
         int[] stats = model.getTestStats();
 
@@ -113,11 +112,14 @@ public class StatsWindow extends UiPart<Stage> {
         removeLegend(bc1, bc2, lc);
         setColour(bc1, bc2);
 
-        FlowPane root = new FlowPane();
+        FlowPane root = new FlowPane(Orientation.HORIZONTAL);
         root.getChildren().addAll(bc1, bc2, lc);
-        Scene scene = new Scene(root, 1600, 400);
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(root);
+        Scene scene = new Scene(sp, 550, 500);
         stage.setTitle("STATISTICS");
         stage.setScene(scene);
+
     }
 
     /**
