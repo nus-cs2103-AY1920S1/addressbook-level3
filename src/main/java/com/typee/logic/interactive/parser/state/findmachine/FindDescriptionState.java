@@ -77,9 +77,6 @@ public class FindDescriptionState extends State implements OptionalState {
 
     @Override
     public boolean canBeSkipped(ArgumentMultimap newArgs) {
-        if (newArgs.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            return false;
-        }
-        return true;
+        return newArgs.getValue(PREFIX_DESCRIPTION).isEmpty();
     }
 }

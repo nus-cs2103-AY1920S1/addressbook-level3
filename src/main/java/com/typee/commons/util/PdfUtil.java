@@ -43,6 +43,7 @@ import com.typee.model.report.Report;
 
 /**
  * Generates report of engagement with a specified template.
+ * @@author nordic96
  */
 public class PdfUtil {
 

@@ -1,11 +1,11 @@
-package com.typee.logic.interactive.parser.state.calendarstate;
+package com.typee.logic.interactive.parser.state.calendarmachine;
 
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DATE;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-import com.typee.logic.commands.CalendarOpenDisplayCommand;
+import com.typee.logic.commands.CalendarCloseDisplayCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
@@ -16,15 +16,15 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 /**
- * Represents the end state(accepting state) of the state machine that builds the open display command.
+ * Represents the end state (accepting state) of the state machine that builds the close display command.
  */
-public class DisplayEndState extends EndState {
+public class CloseDisplayEndState extends EndState {
 
-    private static final String MESSAGE_CONSTRAINTS = "Displayed engagements on the entered date.";
+    private static final String MESSAGE_CONSTRAINTS = "Closed engagement list window on the entered date.";
     private static final String DATE_PATTERN = "dd/MM/uuuu";
     private static final String MESSAGE_INVALID_INPUT = "Invalid command! Please enter a valid date.";
 
-    protected DisplayEndState(ArgumentMultimap soFar) {
+    protected CloseDisplayEndState(ArgumentMultimap soFar) {
         super(soFar);
     }
 
@@ -32,15 +32,15 @@ public class DisplayEndState extends EndState {
     public Command buildCommand() throws CommandException {
         String dateString = soFar.getValue(PREFIX_DATE).get();
         LocalDate date = fetchDate(dateString);
-        return new CalendarOpenDisplayCommand(date);
+        return new CalendarCloseDisplayCommand(date);
     }
 
     /**
-     * Makes and returns a {@code LocalDate} object from the entered {@code String}.
+     * Makes and returns a date from the entered {@code String}.
      *
      * @param dateString String that represents a date.
      * @return {@code LocalDate}.
-     * @throws CommandException If the {@code String} is not a valid date.
+     * @throws CommandException If the date is invalid.
      */
     private LocalDate fetchDate(String dateString) throws CommandException {
         try {
@@ -53,7 +53,7 @@ public class DisplayEndState extends EndState {
 
     @Override
     public State transition(ArgumentMultimap newArgs) throws StateTransitionException {
-        throw new StateTransitionException(MESSAGE_END_STATE);
+        throw new StateTransitionException(EndState.MESSAGE_END_STATE);
     }
 
     @Override

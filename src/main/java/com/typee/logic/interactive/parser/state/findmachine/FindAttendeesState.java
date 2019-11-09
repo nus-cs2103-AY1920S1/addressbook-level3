@@ -77,9 +77,6 @@ public class FindAttendeesState extends State implements OptionalState {
 
     @Override
     public boolean canBeSkipped(ArgumentMultimap newArgs) {
-        if (newArgs.getValue(PREFIX_ATTENDEES).isPresent()) {
-            return false;
-        }
-        return true;
+        return newArgs.getValue(PREFIX_ATTENDEES).isEmpty();
     }
 }

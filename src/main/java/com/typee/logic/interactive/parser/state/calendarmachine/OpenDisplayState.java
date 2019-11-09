@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser.state.calendarstate;
+package com.typee.logic.interactive.parser.state.calendarmachine;
 
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DATE;
 import static java.util.Objects.requireNonNull;
@@ -40,7 +40,7 @@ public class OpenDisplayState extends PenultimateState {
 
         enforceNoExcessiveArguments(newArgs);
 
-        return new DisplayEndState(soFar);
+        return new OpenDisplayEndState(soFar);
     }
 
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> date)

@@ -8,6 +8,7 @@ import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LOCATION;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_PRIORITY;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -127,16 +128,28 @@ class DescriptionStateTest {
     @Test
     void transition_invalidArgumentMultimap_throwsStateTransitionException() {
 
-        // Equivalence Partition : ArgumentMultimap without a description prefix.
+        // Equivalence Partitions : ArgumentMultimap without a description prefix, duplicate prefixes.
 
-        List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_LOCATION,
-                PREFIX_PRIORITY);
-        List<String> args = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "COM-2", "low");
+        // EP : No description prefix
+        List<Prefix> firstPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME,
+                PREFIX_LOCATION, PREFIX_PRIORITY);
 
-        State initialState = new DescriptionState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 4), args.subList(0, 4)));
-        assertThrows(StateTransitionException.class, () -> initialState.transition(ArgumentMultimapBuilder.build(
-                prefixes.subList(4, 5), args.subList(4, 5))));
+        // EP : Duplicate prefixes.
+        List<Prefix> secondPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME,
+                PREFIX_LOCATION, PREFIX_DESCRIPTION, PREFIX_LOCATION);
+
+        List<String> firstArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "COM-2", "low");
+        List<String> secondArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "COM-2", "Desc", "PGP");
+
+        State firstState = new DescriptionState(ArgumentMultimapBuilder.build(
+                firstPrefixes.subList(0, 4), firstArgs.subList(0, 4)));
+        State secondState = new DescriptionState(ArgumentMultimapBuilder.build(
+                secondPrefixes.subList(0, 4), secondArgs.subList(0, 4)));
+
+        assertThrows(StateTransitionException.class, () -> firstState.transition(ArgumentMultimapBuilder.build(
+                firstPrefixes.subList(4, 5), firstArgs.subList(4, 5))));
+        assertThrows(StateTransitionException.class, () -> secondState.transition(ArgumentMultimapBuilder.build(
+                secondPrefixes.subList(4, 6), secondArgs.subList(4, 6))));
     }
 
     @Test
@@ -148,7 +161,7 @@ class DescriptionStateTest {
     @Test
     void isEndState_valid_returnsFalse() {
         State state = new DescriptionState(new ArgumentMultimap());
-        assertEquals(state.isEndState(), false);
+        assertFalse(state.isEndState());
     }
 
     @Test
