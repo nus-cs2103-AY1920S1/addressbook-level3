@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser.state.helpmachine;
+package com.typee.logic.interactive.parser.state.listmachine;
 
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,46 +7,46 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.typee.logic.commands.HelpCommand;
+import com.typee.logic.commands.ListCommand;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
-class HelpStateTest {
+class ListStateTest {
 
-    private HelpState helpState;
+    private ListState listState;
 
     @BeforeEach
     public void setUp() {
         ArgumentMultimap argumentMultimap = new ArgumentMultimap();
-        helpState = new HelpState(argumentMultimap);
+        listState = new ListState(argumentMultimap);
     }
 
     @Test
     public void buildCommand() {
-        assertEquals(helpState.buildCommand(), new HelpCommand());
+        assertEquals(listState.buildCommand(), new ListCommand());
     }
 
     @Test
     public void transition() {
         ArgumentMultimap argumentMultimap = new ArgumentMultimap();
         assertThrows(StateTransitionException.class, ()
-            -> helpState.transition(argumentMultimap));
+                -> listState.transition(argumentMultimap));
     }
 
     @Test
     public void getStateConstraints() {
-        assertEquals(helpState.getStateConstraints(), "Please refer to the user guide for more information.");
+        assertEquals(listState.getStateConstraints(), "Listed all engagements.");
     }
 
     @Test
     public void isEndState() {
-        assertTrue(helpState.isEndState());
+        assertTrue(listState.isEndState());
     }
 
     @Test
     public void getPrefix() {
-        assertEquals(helpState.getPrefix(), new Prefix(""));
+        assertEquals(listState.getPrefix(), new Prefix(""));
     }
 
 }

@@ -18,7 +18,7 @@ public class CalendarStateTest {
     private CalendarState calendarState;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         calendarState = new CalendarState(new ArgumentMultimap());
     }
 

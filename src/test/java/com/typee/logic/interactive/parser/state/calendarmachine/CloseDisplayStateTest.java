@@ -18,7 +18,7 @@ public class CloseDisplayStateTest {
     private CloseDisplayState closeDisplayState;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         try {
             ArgumentMultimap argumentMultimap = new ArgumentMultimap();
             argumentMultimap.put(CliSyntax.PREFIX_CALENDAR, "closedisplay");

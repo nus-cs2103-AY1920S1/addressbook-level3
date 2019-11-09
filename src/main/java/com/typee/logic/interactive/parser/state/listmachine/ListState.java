@@ -14,14 +14,14 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
  */
 public class ListState extends EndState {
 
-    private static final String MESSAGE_CONSTRAINTS = "Listed all commands.";
+    private static final String MESSAGE_CONSTRAINTS = "Listed all engagements.";
 
     public ListState(ArgumentMultimap soFar) {
         super(soFar);
     }
 
     @Override
-    public Command buildCommand() throws CommandException {
+    public Command buildCommand() {
         return new ListCommand();
     }
 

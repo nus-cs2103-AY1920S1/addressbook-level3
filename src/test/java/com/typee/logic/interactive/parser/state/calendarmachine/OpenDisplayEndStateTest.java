@@ -22,7 +22,7 @@ public class OpenDisplayEndStateTest {
     private OpenDisplayEndState openDisplayEndState;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         try {
             ArgumentMultimap argumentMultimap = new ArgumentMultimap();
             argumentMultimap.put(CliSyntax.PREFIX_CALENDAR, "opendisplay");

@@ -20,7 +20,7 @@ public class PreviousMonthStateTest {
     private PreviousMonthState previousMonthState;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         try {
             ArgumentMultimap argumentMultimap = new ArgumentMultimap();
             argumentMultimap.put(CliSyntax.PREFIX_CALENDAR, "previousmonth");
