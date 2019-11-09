@@ -49,7 +49,6 @@ public class StartCommand extends Command {
         }
         keyboardFlashCardsParser.startTestMode();
         model.setTestFlashCard();
-        //String question = model.getTestQuestion();
         keyboardFlashCardsParser.setAwaitingAnswer(true);
         CommandResult result = new CommandResult(
                 MESSAGE_START_TEST_SUCCESS,
@@ -73,8 +72,7 @@ public class StartCommand extends Command {
             return new LinkedList<>(model.getFlashCardList());
         }
         CategoryContainsAnyKeywordsPredicate predicate = getSearchTermPredicate();
-        model.updateFilteredFlashCardList(predicate);
-        return new LinkedList<>(model.getFilteredFlashCardList());
+        return new LinkedList<>(model.getFilteredFlashCardListNoCommit(predicate));
     }
 
     /** Converts tagName to a CategoryContainsAnyKeywordsPredicate for searchTag(). */

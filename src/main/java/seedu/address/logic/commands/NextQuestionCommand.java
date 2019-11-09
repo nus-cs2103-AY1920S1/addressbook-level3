@@ -31,7 +31,6 @@ abstract class NextQuestionCommand extends Command {
             return result;
         }
 
-        //String nextQuestion = model.getTestQuestion();
         model.setTestFlashCard();
         keyboardFlashCardsParser.setAwaitingAnswer(true);
         return new CommandResult(

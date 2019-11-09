@@ -52,12 +52,18 @@ public class RateQuestionCommand extends NextQuestionCommand {
         assert model != null;
         String rating = this.rating.toString();
         assert rating.equals("good") || rating.equals("hard") || rating.equals("easy");
-        if (rating.equals("good")) {
+        switch (rating) {
+        case "good":
             model.editStats(0);
-        } else if (rating.equals("hard")) {
+            break;
+        case "hard":
             model.editStats(1);
-        } else { // rating.equals("easy")
+            break;
+        case "easy":
             model.editStats(2);
+            break;
+        default:
+            // should not reach this stage
         }
     }
 

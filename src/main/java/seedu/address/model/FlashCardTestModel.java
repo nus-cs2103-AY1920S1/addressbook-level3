@@ -14,7 +14,7 @@ import seedu.address.ui.TestFlashCardPanel;
  */
 public class FlashCardTestModel {
 
-    private static FlashCard currentFlashCard;
+    private FlashCard currentFlashCard;
 
     private List<FlashCard> testList;
     private List<FlashCard> testListOld = new LinkedList<>(); // placeholder for previous function
@@ -65,7 +65,7 @@ public class FlashCardTestModel {
         return currentFlashCard.getAnswer().toString();
     }
 
-    public static FlashCard getCurrentFlashCard() {
+    FlashCard getCurrentFlashCard() {
         return currentFlashCard;
     }
 
