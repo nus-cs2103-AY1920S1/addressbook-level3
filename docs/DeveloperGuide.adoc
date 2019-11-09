@@ -697,6 +697,7 @@ sequence diagram for the StudentAddCommand.
 
 .Sequence Diagram for `StudentAddCommand`
 image::StudentAddSequence.png[]
+
 {nbsp} +
 **The following are the common steps among all Student commands.**
 
@@ -922,6 +923,7 @@ NOTE: Index cannot be out of bounds of the student list, and cannot attempt to m
 The following is a detailed explanation of the operations `RemoveMarkCommand` performs. +
 
 1. The `RemoveMarkCommand#execute(Model model)` method is executed and it validates the `Index` derived from the input.
+image::Ui.png[]
 
 2. The method `Student#setUnmarked()` will then be called to mark the `Student` with the specified `Index`
 
