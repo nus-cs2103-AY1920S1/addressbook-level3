@@ -2,7 +2,7 @@
 :site-section: AboutUs
 :relfileprefix: team/
 :imagesDir: images
-:styleDir: stylesheets-imageLeftAligned
+:stylesDir: stylesheets
 
 LiBerry was developed by the https://github.com/AY1920S1-CS2103T-F13-1[CS2103T-F13-1] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
