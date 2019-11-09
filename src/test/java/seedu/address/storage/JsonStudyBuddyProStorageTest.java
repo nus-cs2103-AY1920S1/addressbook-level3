@@ -3,11 +3,10 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalNotes.PIPELINE;
 import static seedu.address.testutil.TypicalFlashcards.CS_ONE;
-import static seedu.address.testutil.TypicalFlashcards.INTELLIJ_ONE;
 import static seedu.address.testutil.TypicalFlashcards.MATH_ONE;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalStudyBuddyPro;
+import static seedu.address.testutil.TypicalNotes.PIPELINE;
 
 import java.io.IOException;
 import java.nio.file.Path;
