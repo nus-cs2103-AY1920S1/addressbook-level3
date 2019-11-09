@@ -1,0 +1,13 @@
+@startuml
+start
+:      Create a graph between
+interviewees and interview slots;
+
+repeat
+:BFS to build a layered graph;
+    if (Augmenting path(s) not found?)
+        stop
+    else
+        :DFS to augment the matching between
+             interviewees and interview slots;
+@enduml

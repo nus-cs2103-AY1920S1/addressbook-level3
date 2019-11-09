@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Scheduler - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-F09-1/main/blob/master/
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -34,7 +34,8 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/scheduler/Main.java[`Main`] and
+link:{repoURL}/src/main/java/seedu/scheduler/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -77,11 +78,12 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}src/main/java/seedu/scheduler/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}src/main/java/seedu/scheduler/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -110,6 +112,7 @@ interviewee allocated to each time slots. The slot that has no interviewee will 
 containing the schedules of the day.
 *Step 8. The MainWindow class will fill the Ui with the ScheduleViewPanel.
 
+.Schedule View Sequence Diagram
 image::ScheduleViewSequenceDiagram.png[]
 
 ==== Interviewee/Interviewer List View
@@ -158,6 +161,7 @@ of interviewees
 *Step 4. ScheduleViewPanel will firstly clear all the data and input the updated data from the .csv file.
 *Step 5. ScheduleViewPanel object will then be returned to the MainWindow and display the updated data.
 
+.UI Refresh During Data Import Sequence Diagram
 image::ImportUIRefreshSequenceDiagram.png[]
 
 // tag::logic[]
@@ -173,7 +177,7 @@ Users should be able to manually key in input (i.e add interviewers and intervie
 package accordingly to suit our needs.
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/scheduler/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -196,7 +200,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/scheduler/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -218,7 +222,7 @@ table in the imported interviewer's availability. The data of the `Schedule` can
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/scheduler/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -228,7 +232,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.scheduler.commons` package.
 
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
@@ -254,44 +258,135 @@ classes were added:
 
 The following *sequence diagram* describes how the add command works when adding an interviewee:
 
+.Add Interviewee Sequence Diagram
 image::AddSequenceDiagram_1_2.png[]
 
 The following activity diagram shows the steps needed to add a new interviewee:
 
+.Add Interviewee Activity Diagram
 image::AddActivityDiagram_1_2.png[]
 
 // end::add[]
 
-=== [Coming soon in v1.3] Scheduling Algorithm
+=== Scheduling Feature
+==== Algorithm
 The scheduling of interviews is essentially a https://www.geeksforgeeks.org/maximum-bipartite-matching/[maximum bipartite matching problem].
-The application is trying to find the **maximum number of matching** between available interview slots
+The scheduling feature is trying to find the **maximum number of matching** between available interview slots
 and interviewees.
 
-In this application, the selected algorithm is https://www.geeksforgeeks.org/hopcroft-karp-algorithm-for-maximum-matching-set-1-introduction/[hopcroft-karp algorithm].
+In this application, the selected algorithm is https://www.geeksforgeeks.org/hopcroft-karp-algorithm-for-maximum-matching-set-1-introduction/[Hopcroft-Kap algorithm].
 The complexity of the algorithm is o(√v x e), which is reasonably fast. The relevant details of the algorithm are as below:
 
-**Vertex**
+**Vertex** +
+Interviewee and interview slot.
 
-**Edge**
+**Edge** +
+An edge represents a possible matching relationship  between interviewee and interview slot. An edge exists between interviewee and interview slot if and only if the interviewee can attend the slot.
 
 **Matching Criteria** +
-An interviewee matches an interview slot if **all** the criteria below are fulfilled:
+An interviewee can match an interview slot (i.e. can attend it) if **all** the criteria below are fulfilled:
 
 . The timing of the slot matches one of the available timings of the interviewee.
-. The department of the time slot matches the department of choice of the interviewee.
+. The department of the interviewer at that interview slot matches the department of choice of the interviewee.
 
-**Brief Explanation of the Algorithm** +
-Include an **activity diagram** here to summarise the algorithm.
+**Explanation of the Algorithm** +
+The **activity diagram** below summarises the key steps in the algorithm.
 
-The proposed implementation of this algorithm is to encapsulate the logic of the algorithm into a `Command` class under
-`Logic` component, possibly with the help of some auxiliary classes. The command is then invoked when the user key in the relevant
+.HopcroftKarp Algorithm Activity Diagram
+image::HopcroftKarp.png[300, 500]
 
-The proposed implementation of this algorithm is to encapsulate the logic of the algorithm into a `Command` class under
-`Logic` component, possibly with the help of some auxiliary classes. The command is then invoked when the user key in the relevant
-command keyword (refer user guide).
+Referring to the diagram above, a graph between interviewees and interview slots will first be built. Specifically, the graph built is a bipartite
+graph where each interviewee is linked to the slot that it can match and vice versa, but interviewees are not linked with each
+other, same goes to interview slots. Thus, the 2 distinct groups of vertices in the graph are interviewee vertices and interview slot
+vertices. Before continuing, please read the below clarification about the terms **unmatched** and **free**.
 
-When the scheduling algorithm has finished running, it will update the data in the `Schedule` objects to reflect the
-allocated time slots to the interviewees, which the changes will then be reflected automatically in the UI.
+[IMPORTANT]
+The term **unmatched** refers to a vertex that is not matched to its previous adjacent vertex by DFS. The term **free** refers to
+a vertex that is not matched to any other vertex yet by DFS.
+
+A breadth-first-search (BFS) is then conducted on all **free** vertices in the graph to search for <<Notes,augmenting paths>> which in the process will construct a layered graph.
+The BFS is slightly special as it will visit adjacent vertex in an **<<Notes, alternating sequence of unmatched and matched edges>>**.
+
+****
+Starting from one of the free vertices in the graph, visit adjacent vertices(group x) that are **not matched to it (i.e. unmatched)** in a
+breath-first manner. This is then followed by visiting adjacent vertices that are **matched to** the vertices in group x
+in a breath-first manner.
+****
+
+The routine above is repeated until a layer of **free** vertices are found (i.e. augmenting path(s) is found) or the layered graph cannot be further extended
+(i.e. all augmenting path have been exhausted).
+
+If augmenting path(s) exists, depth-first-search (DFS) will then be applied to every **free** vertex in the last layer of the layered graph
+to increase the number of matching between interviewee and interview slot. The DFS will start on one of the free vertices in the last layer and traverse through one of the
+augmenting path(s) which the free vertex lies in. When DFS hits the ends of an augmenting path, the unmatched and matched relationships between the vertices along the path will be **flipped**.
+Due to this alternating unmatched and matched relationship, the number of matching(a.k.a. cardinality) along the path will be increased by exactly 1 when the relationships along the path are flipped.
+
+When the relationships are flipped, the vertices will be marked as used such that it cannot be used as one of the vertex
+along the other augmenting paths in the layered graph for the other iterations of DFS on the current layered graph.
+
+The process of BFS followed by DFS will keep repeating until no more augmenting path(s) can be found in the bipartite graph of interviewee and interview slots, which
+marks the termination of the algorithm. At this point, the maximum number of matching have been found. This is based on a simple graph theory:
+
+> The number of matching in a graph is maximal if and only if no more augmenting path exist.
+
+The theory above is so because if an augmenting path exists, it means that the number of matching along that path can be increased
+by 1, which in turn increases the number of matching in the graph.
+
+===== Notes
+
+. **Augmenting path**: A simple path alternating between unmatched edges and matched edges. An augmenting path must
+start with a *free* vertex and ends with a **free** vertex. Thus, the patten of the alternating edges will always be
+unmatched, matched, unmatched ...., matched, unmatched.
+
+. **Matched edge**: An edge is matched if the two vertices connected by it are matched to each other in previous iterations of
+the DFS. In the case of the application, one of the two vertices will be an interviewee and the other will be an interview slot.
+
+. **Unmatched edge**: An edge is unmatched if the two vertices connected by it are not matched to each other in previous
+iterations of DFS.
+
+. **Layered graph**: A layered graph is a graph formed by multiple layers of vertices. In this case, the layers are alternating between
+unmatched and matched vertices, except that the first layer of the graph are always a layer of free vertices. The last layer of the
+of the graph can either be a layer of matched vertices or free vertices (if augmenting path(s) exists). Below is an example of a layered graph:
+
+.Layered Graph (image taken from https://www-m9.ma.tum.de/graph-algorithms/matchings-hopcroft-karp/index_en.html)
+image::Layered_Graph.png[300, 400]
+
+
+==== Implementation
+The implementation of the algorithm is encapsulated in the the `graph` subpackage in the `logic` package. Below is a
+class diagram describing the essential components of the `graph` package.
+
+.Graph Subpackage
+image::GraphPackage.png[]
+
+A `Command` object called `ScheduleCommand` makes use of the `graph` package to schedule the interviews for the interviewee.
+It first uses `BipartiteGraphGenerator` to generates a `BipartiteGraph` which models the graph of interviewee and
+interview slots. The `BipartiteGraph` object is then passed to a `HopcrofKarp` object which implements the logic of
+HopcroftKarp algorithm, where the BFS and DFS logic is split into `BfsHopcroftKarp` and `DfsHopcroftKarp` object to better
+manage the implementation of the algorithm.
+
+`HopcroftKarp` will then be executed which will run the algorithm and schedule interviews for the interviewees. To record
+the result of scheduling, it will modify the matching status between `IntervieweeVertex` and `InterviewSlotVertex` in the
+`BipartiteGraph` object passed to it.
+
+After the `HopcroftKarp` algorithm has finished executing, `ScheduleCommand` will then use the `BipartiteGraph` object
+to update the allocated slot to an `Interviewee`. It will also update the allocated slots to the `Interviewer` which will be
+interviewing the `Interviewee`. Finally, the `ScheduleCommand` will interact with `Model` to reflect the scheduling result in
+the `Ui`.
+
+Below are some class diagrams and a sequence diagram to aid the above explanation.
+
+.BipartiteGraphGenerator and BipartiteGraph with its components.
+image::BipartiteGraphGenerator.png[]
+
+.IntervieweeVertex
+image::IntervieweeVertex.png[200, 300]
+
+.InterviewSlotVertex
+image::InterviewSlotVertex.png[300, 550]
+
+.Executing Schedule Command Sequence Diagram
+image::ScheduleSequenceDiagram.png[]
 
 
 === Import
@@ -302,6 +397,7 @@ The import feature uses `CsvReader` in the Model to read the given .csv file and
 * `import interviewer fp/FILE_PATH` stores the read data as a list of `Interviewer` objects in the model.
 * `import interviewee fp/FILE_PATH` stores the read data as a list of `Interviewee` objects in the model.
 
+.Import Interviewer's Schedules Sequence Diagram
 image::ImportSequenceDiagram.png[]
 Given above is an example of a sequence diagram for importing interviewer's schedules. It applies to both importing interviewee's and interviewer's data,
 with the only difference being in the string processing methods in the *CsvReader* class
@@ -318,6 +414,7 @@ with the only difference being in the string processing methods in the *CsvReade
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.Import Activity Diagram
 image::ImportActivityDiagram.png[]
 
 ===== CsvReader
@@ -353,6 +450,7 @@ CsvWriter facilitates the writing to the specified file.
 
 Below shows the sequence diagram of an example export command.
 
+.Export Sequence Diagram
 image::ExportSequenceDiagram.png[]
 
 The implementation is very similar to the Import feature. The only differences are in the Model where CsvWriter gets
@@ -360,6 +458,7 @@ the scheduled time slots from the Model and proceeds to write it into the specif
 
 The Activity Diagram below summarises the execution of the export command.
 
+.Export Activity Diagram
 image::ExportActivityDiagram.png[]
 
 // tag::email[]
@@ -372,6 +471,7 @@ The Email feature makes use of the `java.awt.Desktop` package to activate the de
 * The `Cc:` field is configurable by the user via an optional configuration file.
 * The subject and message body are also automatically populated with details that are relevant to the Interviewee, depending on the context of the command used.
 
+.Email Sequence Diagram
 image::EmailSequenceDiagram.png[]
 
 ===== Example: Interview timeslot
@@ -674,23 +774,6 @@ A hypothetical person that refers to the user of the software and is tasked to a
 A date and time in which either the interviewer or interviewee is available for an interview.
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -703,8 +786,9 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Open up terminal in the folder where the jar file is located and execute `java -jar scheduler.jar` +
+   Expected: Shows the GUI with three tabs(Schedules, Interviewers, Interviewees). The window size may not be optimum,
+   you can drag around the edge of the window to expand it accordingly.
 
 . Saving window preferences
 
@@ -712,7 +796,32 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Scheduling Interviews
+. Import .csv files of interviewers' availability and interviewees' details using the `import` command.
+.. Please refer to the QuickStart section in the <<UserGuide#, user guide>> to download the templates of the interviewers' availability and interviewees details.
+
+. Type `schedule` in the text console of the app and press enter.
+
+. Expected: Schedules in the `Schedules` tab reflects the scheduled result accordingly, i.e. the name of the
+  interviewee shows up in the interview schedule if its availability and department matches one of the available interview slots
+  (originally marked as 1 in the schedules when the interviewer's availability is imported). The text console will
+  also shows relevant message about the interview result, e.g. "All interviewees are allocated with a slot!",
+  "Interviewees that are not allocated a slot" followed by the number and name of the interviewees that are not allocated a slot,
+  or "No matching is found :(".
+
+. You can use the sample test data below to test if the scheduling feature is working properly.
+... http://bit.ly/2Ny64Q8[Interviewer Test Data]
+... All interviewees are allocated a slot (http://bit.ly/36KLxj4[Interviewees data]).
+... Some interviewees are allocated a slot (http://bit.ly/33wQ1I9[Interviewees data]).
+... All interviewees are not allocated a slot (http://bit.ly/33rVy2B[Interviewees data]).
+
+. You can also design your own test data to check if the scheduling feature is working properly by adding some available
+  interview slots in the interviewer's availability template. Then, add interviewees which have availabilities and department that match the
+  available interview slots. Import the data and check if the interviewees name show up in the schedules.
+.. Note that some interviewees may not be allocated a slot because of unavoidable collisions between interviewees which have the same availability
+   and department.
+.. You can also test the opposite way, i.e. design test data which contains interviewees that cannot be allocated a slot and check
+   if the name of the interviewee does not exist in the schedule.
 
 === Deleting a person
 

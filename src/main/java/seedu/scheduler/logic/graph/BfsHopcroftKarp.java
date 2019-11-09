@@ -7,10 +7,10 @@ import java.util.Queue;
 /**
  * Performs breath-first search to find augmenting paths in the bipartite graph of interviewees and interview slots.
  */
-public class BfsHopCroftKarp {
+public class BfsHopcroftKarp {
     private BipartiteGraph graph;
 
-    public BfsHopCroftKarp(BipartiteGraph graph) {
+    public BfsHopcroftKarp(BipartiteGraph graph) {
         this.graph = graph;
     }
 
@@ -20,12 +20,12 @@ public class BfsHopCroftKarp {
      * structure of the layered graph.
      *
      * @param intervieweePredecessor a list used to keep track of the predecessor of an interviewee, which is a
-     *                               slot matched to it.
+     *                               slot matched to it
      * @param interviewSlotPredecessors a list used to keep track of predecessor(s) of an interview slot, which is
-     *                                  interviewee(s) that can match the interview slot.
+     *                                  interviewee(s) that can match the interview slot
      */
     public List<InterviewerSlotVertex> execute(List<InterviewerSlotVertex> intervieweePredecessor,
-                                               List<List<IntervieweeVertex>> interviewSlotPredecessors) {
+            List<List<IntervieweeVertex>> interviewSlotPredecessors) {
         Queue<Vertex> currentLayer = initialiseBfs();
         Queue<Vertex> nextLayer = new LinkedList<>();
         List<InterviewerSlotVertex> unmatchedSlotVertices = new LinkedList<>();

@@ -5,9 +5,9 @@ import seedu.scheduler.model.person.Slot;
 /**
  * A vertex that wraps an interview slot into it.
  */
-public class InterviewerSlotVertex extends Vertex<InterviewerSlot, IntervieweeVertex> implements
+public class InterviewerSlotVertex extends Vertex<InterviewSlot, IntervieweeVertex> implements
         Comparable<InterviewerSlotVertex> {
-    public InterviewerSlotVertex(InterviewerSlot item, int index) {
+    public InterviewerSlotVertex(InterviewSlot item, int index) {
         super(item, index);
     }
 
