@@ -1,10 +1,10 @@
 package seedu.flashcard.model.flashcard;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.flashcard.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class AnswerTest {
 
@@ -32,7 +32,8 @@ public class AnswerTest {
         // valid Answer
         assertTrue(Answer.isValidAnswer("3"));
         assertTrue(Answer.isValidAnswer("/")); // one character
-        assertTrue(Answer.isValidAnswer("Builds applications by combining functionalities packaged as programmatically")); // long answer
+        assertTrue(Answer.isValidAnswer("Builds applications by combining "
+            + "functionalities packaged as programmatically")); // long answer
 
     }
 }

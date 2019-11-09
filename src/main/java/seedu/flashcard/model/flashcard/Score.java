@@ -25,7 +25,7 @@ public class Score {
      * Used when loading score from Json file.
      */
     public Score(int correctAnswers, int wrongAnswers) {
-        checkArgument(isValidScore(correctAnswers,wrongAnswers), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidScore(correctAnswers, wrongAnswers), MESSAGE_CONSTRAINTS);
         this.correctAnswers = correctAnswers;
         this.wrongAnswers = wrongAnswers;
     }

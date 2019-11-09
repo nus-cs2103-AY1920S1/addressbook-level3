@@ -1,11 +1,10 @@
 package seedu.flashcard.model.flashcard;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.flashcard.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class ScoreTest {
 
@@ -45,8 +44,8 @@ public class ScoreTest {
 
 
         // valid Score
-        assertTrue(Score.isValidScore(0,0));
-        assertTrue(Score.isValidScore(0,1));
+        assertTrue(Score.isValidScore(0, 0));
+        assertTrue(Score.isValidScore(0, 1));
     }
 }
 

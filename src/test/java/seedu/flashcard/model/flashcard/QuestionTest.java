@@ -1,12 +1,11 @@
 package seedu.flashcard.model.flashcard;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.flashcard.testutil.Assert.assertThrows;
 
+import org.junit.jupiter.api.Test;
 
 public class QuestionTest {
 
@@ -34,11 +33,11 @@ public class QuestionTest {
         assertTrue(Question.isValidQuestion("3"));
         assertTrue(Question.isValidQuestion("/")); // one character
         assertTrue(Question.isValidQuestion("Builds applications by combining functionalities"
-                +" packaged as programmatically")); // long answer
+                + " packaged as programmatically")); // long answer
     }
 
     @Test
-    public void shortenLabel_shortenQuestion_Success() {
+    public void shortenLabel_shortenQuestion_success() {
         //Question length is 6
         assertEquals("There are six words in this ...",
                 new Question("There are six words in this").shortenForLabel());
