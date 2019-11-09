@@ -16,7 +16,7 @@ import com.typee.logic.commands.CalendarPreviousMonthCommand;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.TabCommand;
 import com.typee.logic.commands.exceptions.CommandException;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.ui.calendar.CalendarWindow;
 import com.typee.ui.calendar.exceptions.CalendarCloseDisplayException;
 import com.typee.ui.game.StartWindow;

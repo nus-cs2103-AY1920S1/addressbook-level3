@@ -13,10 +13,10 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
-import com.typee.logic.parser.exceptions.ParseException;
 
 /**
  * Represents the end state of the state machine that builds the {@code DeleteCommand}.

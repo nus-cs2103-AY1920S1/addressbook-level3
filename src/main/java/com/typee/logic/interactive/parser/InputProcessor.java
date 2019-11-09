@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.typee.commons.core.Messages;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 
 /**
  * Processes input {@code Strings} to find prefixes and command words.
