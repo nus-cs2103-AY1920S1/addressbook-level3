@@ -275,7 +275,7 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public Optional<Contact> getContactByPhone(Phone phone) {
+        public Optional<Contact> getContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 

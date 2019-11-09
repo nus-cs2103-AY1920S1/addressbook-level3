@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -311,8 +310,9 @@ public class ModelManager implements Model {
     private void updateMapping(Contact oldContact, Contact newContact) {
         if (contactActivityMap.containsKey(oldContact)) {
             Activity oldAct = contactActivityMap.remove(oldContact);
-            Activity newAct = new Activity(oldAct.getName(), oldAct.getAddress(), newContact, oldAct.getCost().orElse(null),
-                        oldAct.getTags(), oldAct.getDuration(), oldAct.getPriority());
+            Activity newAct = new Activity(oldAct.getName(), oldAct.getAddress(), newContact,
+                    oldAct.getCost().orElse(null), oldAct.getTags(), oldAct.getDuration(),
+                    oldAct.getPriority());
             activities.setActivity(oldAct, newAct);
             if (activityDayMap.containsKey(oldAct)) {
                 List<Day> listOfDays = activityDayMap.remove(oldAct);

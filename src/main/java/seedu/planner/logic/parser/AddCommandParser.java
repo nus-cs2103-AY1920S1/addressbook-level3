@@ -100,7 +100,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-            Contact contact = new Contact(name, phone, null, null, new HashSet<Tag>());
+            Contact contact = new Contact(name, phone, null, address, new HashSet<Tag>());
             Accommodation accommodation = new Accommodation(name, address, contact, tagList);
             return new AddAccommodationCommand(accommodation, false);
         } else {
@@ -137,7 +137,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-            contact = new Contact(name, phone, null, null, new HashSet<Tag>());
+            contact = new Contact(name, phone, null, address, new HashSet<Tag>());
         }
         if (argMultimap.getValue(PREFIX_PRIORITY).isPresent()) {
             priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
