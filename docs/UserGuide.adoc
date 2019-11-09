@@ -387,8 +387,8 @@ The bottommost panel shows you the "undo" delimiter. +
 This means that you can invoke the `undo` command twice, as both AddParticipantCommands can be undone.
 Notice that the `list participants` command is not shown in the "History" section as it does not change data.
 
-=== Undo Previous Commands: `undo`
-Undoes the previous command you executed.
+=== Undo Previous Commands: `undo [NUM_COMMANDS]`
+Undoes previously executed commands.
 
 ****
 * Undoes the effects of the previous command you executed, and will return Alfred to the previous state (as though you never executed the previous command).
@@ -399,8 +399,8 @@ Undoes the previous command you executed.
 
 Format: `undo`
 
-=== Redo Previous Commands: `redo`
-Redoes the previous command you executed.
+=== Redo Previous Commands: `redo [NUM_COMMANDS]`
+Redoes previously executed commands.
 
 ****
 * Redoes the effects of the previous command you executed, and will return Alfred to the previous state (as though you re-executed the previous command).

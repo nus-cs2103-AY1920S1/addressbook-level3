@@ -5,7 +5,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.entity.CommandType;
 
 /**
  * Command that undoes the effects of the previous command, returning the model to its previous state.
@@ -39,7 +38,7 @@ public class UndoCommand extends Command {
             model.undo(this.numToUndo);
             model.updateHistory(this);
             model.recordCommandExecution(this.getCommandInputString());
-            return new CommandResult(String.format(MESSAGE_SUCCESS, this.numToUndo), CommandType.H);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, this.numToUndo));
         } catch (AlfredModelHistoryException e) {
             throw new CommandException(e.getMessage());
         }
