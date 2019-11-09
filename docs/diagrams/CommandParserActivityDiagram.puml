@@ -6,30 +6,30 @@ skinparam shadowing false
 start
 :Receive __command__ from user input;
 
-if (Start of __command__ contains whitespace(s)) then(yes)
+if (Start of __command__ contains whitespace(s)?) then (yes)
     :Remove whitespace(s) from start of __command__;
-else(no)
+else (no)
 endif
 
-if (Start of __command__ contains a word) then(yes)
+if (Start of __command__ contains a word?) then (yes)
     :This word is our **command keyword**
     Remove word from start of __command__;
-else(no)
+else (no)
     :Throw exception : Invalid command format!;
     stop
 endif
 
-while (Start of __command__ contains whitespace(s)) is(yes)
+while (Start of __command__ contains whitespace(s)?) is (yes)
     :Remove whitespace(s) from start of __command__;
 
-if (Start of __command__ contains a phrase) then(yes)
+if (Start of __command__ contains a phrase?) then (yes)
     :This phrase is our **command phrase**
     Remove phrase from start of __command__;
-else(no)
+else (no)
     stop
 endif
 
-endwhile(no)
+endwhile (no)
 
 stop
 @enduml

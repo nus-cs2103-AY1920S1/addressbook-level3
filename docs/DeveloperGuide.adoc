@@ -183,6 +183,11 @@ Referring to the diagram above, it performs the following operations:
 . Execute the `Command` and obtain a `UserOutput`.
 . Notify all `userOutputListeners` about the `UserOutput`.
 
+To give a more concrete example, refer to the sequence diagram below of adding a task:
+
+.Sequence diagram of adding a task
+image::AddTaskSequenceDiagram.png[]
+
 [NOTE]
 ====
 CommandManager closely follows the https://en.wikipedia.org/wiki/Command_pattern[command design pattern].
@@ -209,7 +214,7 @@ public class MyCommand extends Command {
     }
 
     @Override
-    CommandOutput execute() {
+    UserOutput execute() {
         this.model.doSomething();
         // ...
     }
@@ -225,8 +230,8 @@ In Horo, a `CommandParser` is implemented as a finite state machine (FSM). It pa
 
 What the FSM is trying to do is tokenize user input into:
 
-1. `Command keyword`
-2. `Command phrase(s)`
+. `Command keyword`
+. `Command phrase(s)`
 
 A *command keyword* is defined as the first sequence of consecutive, non-whitespace characters of the user input.
 For the rest of this guide, a sequence of consecutive, non-whitespace characters will be referred to as a ‘word’.
@@ -261,7 +266,7 @@ To understand how the FSM works, study the activity diagram below:
 image::CommandParserActivityDiagram.png[]
 
 After tokenizing, the command keyword is sent to a `CommandKeywordParser`, which returns a `CommandBuilder`.
-The remaining command phrases are sent to the `CommandBuilder`, which returns the `Command` we want.
+The remaining command phrases are sent to the `CommandBuilder`, which builds the `Command` we want.
 
 
 ==== CommandKeywordParser
@@ -273,18 +278,22 @@ In Horo, a `CommandKeywordParser` uses a `HashMap` to map a command keyword to a
 
 ==== CommandBuilder
 
-A `CommandBuilder` is defined to be able to accept an arbitrary amount of command settings, and eventually create a `Command` using those settings.
+A `CommandBuilder` is defined to be able to accept an arbitrary amount of command phrases, and eventually create a `Command` using those phrases.
 
-In Horo, a `CommandBuilder` is implemented such that the entire definition of a `Command` is in the `CommandBuilder`. The `CommandBuilder` will use those definitions to automagically parse command phrases.
+In Horo, a `CommandBuilder` is implemented such that the entire definition of a `Command` is in the `CommandBuilder`.
+The `CommandBuilder` will use those definitions to automagically parse command phrases.
 
-The definition of a command is split into two parts:
+.Class diagram of CommandBuilder
+image::CommandBuilderClassDiagram.png[]
 
-1. `Command argument(s)`
-2. `Command option(s)`
+Referring to the diagram above, the definition the command is implemented in two methods:
+
+. `defineCommandArguments()`
+. `defineCommandOptions()`
 
 A *command option* is defined to have a keyword and a list of arguments.
 An *option’s keyword* is defined to be a command phrase.
-An *option’s argument* is defined to be a command phrase that is not an option’s keyword. An option’s argument is a command phrase that lies after the option’s keyword.
+An *option’s argument* is defined to be a command phrase that is not an option’s keyword, and lies after it.
 
 Example of option’s keyword & arguments below. The option’s keyword is underlined:
 
@@ -292,12 +301,55 @@ Example of option’s keyword & arguments below. The option’s keyword is under
 - `+++<u>--tags</u>+++ Animal Cat Dog`
 - `+++<u>-d</u>+++ Horse`
 
-A *command argument* is defined to be a command phrase that is not an option’s keyword. This is similar to an option’s argument, except that the position of this argument in the user input is important. A command argument is a command phrase that lies after the command keyword, and before any command option’s keywords.
+A *command argument* is defined to be a command phrase that is not an option’s keyword.
+This is similar to an option’s argument, except that the position of this argument in the user input is important.
+A command argument is a command phrase that lies after the command keyword, and before any command option’s keywords.
 
 Example of command’s arguments below. The command’s keyword is underlined.
 
 - `+++<u>add_event</u>+++ Horse “24/10/2019 10:00”`
 - `+++<u>delete_event</u>+++ 1 2 3`
+
+To understand how `CommandBuilder` works, study the activity diagram below:
+
+.Activity diagram of CommandBuilder
+image::CommandBuilderActivityDiagram.png[]
+
+To demonstrate an example of how to use `CommandBuilder`, suppose you would like to create a `MyCommand` which takes in one String argument,
+and have an option which also takes in one String argument, you could do this:
+
+[source, java]
+----
+class MyCommandBuilder extends CommandBuilder {
+
+    private String arg1;
+    private String arg2;
+
+    @Override
+    protected RequiredArgumentList defineCommandArguments() {
+        return ArgumentList.required()
+            .addArgument(StringArgument.newBuilder("Argument 1", s -> this.arg1 = s));
+    }
+
+    @Override
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
+        return Map.of(
+            "--option", ArgumentList.optional()
+                .addArgument(StringArgument.newBuilder("Argument 2", s -> this.arg2 = s))
+        );
+    }
+
+    @Override
+    protected Command commandBuild() {
+        return new MyCommand(this.arg1, this.arg2);
+    }
+}
+----
+
+[NOTE]
+====
+CommandBuilder closely follows the https://en.wikipedia.org/wiki/Builder_pattern[builder design pattern].
+====
 
 ==== Argument
 

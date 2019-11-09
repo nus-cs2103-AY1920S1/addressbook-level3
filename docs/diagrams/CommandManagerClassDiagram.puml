@@ -2,10 +2,10 @@
 
 ' Style
 hide empty members
-skinparam boxPadding 100
 skinparam classAttributeIconSize 0
 skinparam genericDisplay old
 skinparam packageStyle rectangle
+skinparam lineType polyline
 skinparam shadowing false
 
 package Logic {
