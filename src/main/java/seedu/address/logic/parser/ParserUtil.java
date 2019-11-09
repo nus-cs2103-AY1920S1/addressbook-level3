@@ -60,6 +60,7 @@ import seedu.address.model.earnings.Claim;
 import seedu.address.model.earnings.Count;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Type;
+import seedu.address.model.note.ClassType;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.ModuleCode;
 import seedu.address.model.person.Attendance;
@@ -368,6 +369,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Content(trimmedContent);
+    }
+
+    /**
+     * Parses a {@code String content} into an {@code Content}.
+     * @param type String of class type.
+     * @return ClassType.
+     * @throws ParseException if the given {@code code} is invalid.
+     */
+    public static ClassType parseClassType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!ClassType.isValidClassType(trimmedType)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new ClassType(trimmedType);
     }
 
     /**
