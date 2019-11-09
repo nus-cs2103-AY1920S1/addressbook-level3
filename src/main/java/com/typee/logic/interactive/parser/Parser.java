@@ -60,7 +60,6 @@ public class Parser implements InteractiveParser {
     private static final String MESSAGE_RESET = "The arguments of the previously entered command have been flushed."
             + " Please enter another command to get started!";
     private static final String MESSAGE_IDLE_STATE = "No command is being executed currently.";
-    private static final String MESSAGE_BLANK = "The command entered cannot be blank!";
 
 
     /** The state of the finite state machine currently being parsed. */
@@ -442,9 +441,7 @@ public class Parser implements InteractiveParser {
     private boolean isOptionalState(ArgumentMultimap argumentMultimap) {
         if (currentState instanceof OptionalState) {
             OptionalState optionalState = (OptionalState) currentState;
-            if (optionalState.canBeSkipped(argumentMultimap)) {
-                return true;
-            }
+            return optionalState.canBeSkipped(argumentMultimap);
         }
         return false;
     }
