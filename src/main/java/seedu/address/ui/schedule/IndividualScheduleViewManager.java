@@ -13,7 +13,6 @@ import seedu.address.model.person.Name;
  * Class to handle schedule views of individuals. Schedule of individuals do not show free time.
  */
 public class IndividualScheduleViewManager extends ScheduleViewManager {
-    private static final Logger logger = LogsCenter.getLogger(IndividualScheduleViewManager.class);
     private PersonSchedule personSchedule;
     private ScheduleView scheduleView;
     private int weekNumber;
@@ -23,7 +22,7 @@ public class IndividualScheduleViewManager extends ScheduleViewManager {
         this.personSchedule = personSchedule;
         this.weekNumber = 0;
         this.currentDate = LocalDate.now();
-        logger.info("Generating schedule for " + personSchedule.getPersonDisplay().getName().fullName + ".");
+        super.logger.info("Generating schedule for " + personSchedule.getPersonDisplay().getName().fullName + ".");
     }
 
     /**

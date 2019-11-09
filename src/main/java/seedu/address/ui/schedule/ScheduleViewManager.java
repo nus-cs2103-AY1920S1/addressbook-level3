@@ -4,7 +4,9 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
@@ -16,11 +18,13 @@ import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
  * Abstract class to control schedule view in the UI.
  */
 public abstract class ScheduleViewManager {
+    protected static final Logger logger = LogsCenter.getLogger(ScheduleViewManager.class);
     public static ScheduleViewManager getInstanceOf(ScheduleWindowDisplay scheduleWindowDisplay)
             throws InvalidScheduleViewException {
         ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
 
         if (!isValidSchedules(scheduleWindowDisplay.getPersonSchedules())) {
+            logger.severe("Schedule given is invalid.");
             throw new InvalidScheduleViewException("The schedule has clashes between events!");
         }
 

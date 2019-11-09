@@ -20,8 +20,6 @@ import seedu.address.model.person.Name;
  */
 public class GroupScheduleViewManager extends ScheduleViewManager {
 
-    private static final Logger logger = LogsCenter.getLogger(GroupScheduleViewManager.class);
-
     private List<PersonSchedule> originalPersonSchedules;
     private List<MonthSchedule> filteredMonthSchedules;
     private GroupName groupName;
@@ -40,7 +38,7 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
         this.freeSchedules = freeSchedules;
         this.weekNumber = 0;
         this.currentDate = LocalDate.now();
-        logger.info("Generating schedule view for " + groupName.toString() + ".");
+        super.logger.info("Generating schedule view for " + groupName.toString() + ".");
     }
 
     /**
