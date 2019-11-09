@@ -19,7 +19,7 @@ import seedu.address.model.card.ExpiryDate;
 import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
 import seedu.address.model.note.Content;
-import seedu.address.model.note.SortByCond;
+import seedu.address.model.note.MultipleSortByCond;
 import seedu.address.model.note.Title;
 import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordValue;
@@ -279,13 +279,14 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code sortByCond} is invalid.
      */
-    public static SortByCond parseSortByCond(String sortByCond) throws ParseException {
+    public static MultipleSortByCond parseSortByCond(String sortByCond) throws ParseException {
         requireNonNull(sortByCond);
         String trimmedSortByCond = sortByCond.trim();
-        if (!SortByCond.isValidSortByCond(trimmedSortByCond)) {
-            throw new ParseException(SortByCond.MESSAGE_CONSTRAINTS);
+        String[] sortByConditions = trimmedSortByCond.split(" ");
+        if (!MultipleSortByCond.isValidSortByCond(sortByConditions)) {
+            throw new ParseException(MultipleSortByCond.MESSAGE_CONSTRAINTS);
         }
-        return new SortByCond(trimmedSortByCond);
+        return new MultipleSortByCond(sortByConditions);
     }
     /**
      * Parses a {@code String description} into a {@code Description}.

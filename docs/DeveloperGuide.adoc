@@ -233,6 +233,21 @@ The decryption process is similar to the encryption process, except that the `EN
 
 // end::dataencryption[]
 
+=== Notes Feature
+Within the notes feature, the user will be able to perform operations to `add`, `open`, `delete` and `edit` a note.
+
+The `open` command allows users to open the note in a separate panel to edit and save through the UI of the app.
+The following sequence diagram illustrates how the note is retrieved and editable via the `open` command.
+
+image::OpenNoteSequenceDiagram.png[]
+
+Below is the sub-diagram for retrieving the note through the `open` command.
+****
+* Note that the sequence diagram for `add`, `delete` and `edit` commands are similar to the one below, hence are omitted.
+****
+
+image::OpenNoteSequenceDiagramRef.png[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

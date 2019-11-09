@@ -6,8 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.note.MultipleSortByCond;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.SortByCond;
 import seedu.address.model.note.UniqueNoteList;
 
 
@@ -20,21 +20,21 @@ import seedu.address.model.note.UniqueNoteList;
 public class NoteBook implements ReadOnlyNoteBook {
 
     private final UniqueNoteList notes;
-    private SortByCond sortByCond;
+    private MultipleSortByCond sortByConds;
 
     public NoteBook() {
-        this.sortByCond = new SortByCond();
+        this.sortByConds = new MultipleSortByCond(new String[]{"DateModified"});
         notes = new UniqueNoteList();
     }
 
-    public NoteBook(SortByCond sortByCond) {
-        this.sortByCond = sortByCond;
+    public NoteBook(MultipleSortByCond sortByCond) {
+        this.sortByConds = sortByCond;
         notes = new UniqueNoteList();
     }
 
-    public NoteBook(UniqueNoteList notes, SortByCond sortByCond) {
+    public NoteBook(UniqueNoteList notes, MultipleSortByCond sortByCond) {
         this.notes = notes;
-        this.sortByCond = sortByCond;
+        this.sortByConds = sortByCond;
     }
     /**
      * Creates an AddressBook using the Notes in the {@code toBeCopied}
@@ -51,14 +51,14 @@ public class NoteBook implements ReadOnlyNoteBook {
     public void resetData(ReadOnlyNoteBook newData) {
         requireNonNull(newData);
         setNotes(newData.getNoteList());
-        setSortByCond(newData.getSortByCond());
+        setSortByCond(newData.getSortByConds());
     }
 
     /**
      * Sorts the notes of the existing data according using (@code SortByCond).
      */
     public void sortNotes() {
-        notes.sortNotes(sortByCond);
+        notes.sortNotes(sortByConds);
 
     }
     @Override
@@ -76,12 +76,12 @@ public class NoteBook implements ReadOnlyNoteBook {
     //=========== Notes =============================================================
     //// list overwrite operations
 
-    public SortByCond getSortByCond() {
-        return sortByCond;
+    public MultipleSortByCond getSortByConds() {
+        return sortByConds;
     }
 
-    public void setSortByCond(SortByCond sortByCond) {
-        this.sortByCond = sortByCond;
+    public void setSortByCond(MultipleSortByCond sortByConds) {
+        this.sortByConds = sortByConds;
     }
     /**
      * Replaces the contents of the person list with {@code persons}.

@@ -17,8 +17,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.file.FileStatus;
+import seedu.address.model.note.MultipleSortByCond;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.SortByCond;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 
@@ -236,7 +236,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void editNoteSortByCond(SortByCond sortByCond) {
+    public void editNoteSortByCond(MultipleSortByCond sortByCond) {
 
     }
 
@@ -260,18 +260,18 @@ public class ModelStub implements Model {
 
     }
     @Override
-    public void commitNote() {
+    public void commitNote(String command) {
 
     }
 
     @Override
-    public void undoNote() {
-
+    public String undoNote() {
+        return null;
     }
 
     @Override
-    public void redoNote() {
-
+    public String redoNote() {
+        return null;
     }
 
     @Override
