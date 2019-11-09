@@ -164,7 +164,7 @@ It is not possible to set a reminder in the past.
 
 This command is used to edit any of the items that you might have. +
 
-====== *Limitations* +
+===== *Limitations* +
 
 * You are only able to edit the item currently shown in your view. For example, when you're on the task list, you can only edit the tasks shown. You will not be able to edit events or reminders.
 * The new item with the edited fields must not already exist. Don't worry if you can't remember that, ELISA will remind you!
@@ -263,6 +263,7 @@ Although, the ESC key can close too, we do not advise doing so as ELISA may be c
 
 Screen is too dark? Switch up the theme by typing `theme white`!
 
+.White theme of ELISA
 image::themewhite.PNG[]
 
 Examples:
@@ -281,6 +282,7 @@ Chat box getting too cluttered? Type `clearscreen` to clear it!
 
 Sick of looking through lists of events? Type `show c` in the command box and your events will be magically placed into a calendar!
 
+.Calendar feature of ELISA
 image::calendar.PNG[]
 
 === Entertainment Features
@@ -291,6 +293,7 @@ Too stressed from all the work? Check out these features to take a short break s
 
 `game` switches your list of tasks into a game of Snakes!
 
+.Snake game of ELISA
 image::SnakeGame.PNG[Snake, 600, 600, float="right"]
 
 +++<u>Rules:</u>+++
@@ -387,23 +390,41 @@ Examples:
 === Entering priority mode: `priority`
 Feeling stress? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
 
+.ELISA before priority mode with a long list of task
+image::BeforePriority.PNG[800,800]
+
 By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA base on priority and the order in which the task was added to the list.
+
+.ELISA in priority mode
+image::AfterPriority.PNG[800, 800]
+
+Notice that the ELISA icon turns red to signify that you are in priority mode and your task list has shrink from 5 tasks to the 1 most important task.
+
+When you are done with your current task, just tell ELISA you are done by simply typing `done 1` and ELISA will generate the next task for you.
+
+.ELISA after completing the first task
+image::AfterDone.PNG[800, 800]
 
 Feeling less stress? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone task and you will be automatically brought out of priority mode.
 
+.ELISA after all tasks are completed
+image::AllDone.PNG[800, 800]
+
 Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hhmm` and ELISA will turn it off at that specific time for you.
 
-Format: `priority` or `priority dd/mm/yyyy hhmm`
+There is also an extreme focus mode for the easily distracted. Simply tell ELISA that you want to enter the extreme focus mode by attaching a `-f` flag to the back of the command. In the extreme focus mode, commands such as `show`, `sort`, `find`, `game`, `event` and `reminder` are banned.
+
+Format: `priority [DATETIME] [-f]`
 
 Examples:
 
 * `priority` - activates or deactivates the priority mode
 * `priority 30/10/2019 1200` - activates the priority mode and ask ELISA to turn it off on 30/10/2019 at noon
-* `priority 2.hours.later` - activates the priority mode and ask ELISA to turn it off 2 hours later
+* `priority 2.hour.later -f` - activates the focus mode and ask ELISA to turn it off 2 hours later
 
 ****
-* Note that this command can only be called in the task panel.
-* Note that all command such as `edit`, `undo` and `redo` still works in priority mode.
+* Note that this command can only be called in the task panel and when you have incomplete tasks to be completed.
+* Note that all command such as `edit`, `undo` and `redo` still works in priority mode. However, if a `done` or `delete` command takes you out of priority mode and then you `undo` it, it will only `undo` the command but will not take you back into priority mode.
 ****
 //end::priority[]
 
@@ -416,20 +437,13 @@ Format: `exit`
 ELISA saves the data in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == Additional Notes
 === Input
 * Currently, an empty input can be entered, but ELISA will show an invalid command.
 
 === Calendar
 
-* Currently, it only shows *2 events* on each date due to limited space on the calendar. If there are more events on that date, to find them all, you can go to the event list and sort through it.
+* Currently, it only shows *1 event* on each date due to limited space on the calendar. If there are more events on that date, to find them all, you can go to the event list and sort through it.
 * Currently, it only shows the *current* month. We are still working to bring the next month to you.
 * Please keep a full screen. If you resize, we are unable to guarantee the view of the calendar.
 
