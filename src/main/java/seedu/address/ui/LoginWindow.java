@@ -81,6 +81,7 @@ public class LoginWindow extends UiPart<Stage> {
         title.setFont(Font.font ("Serif", 80));
         title.setFill(Color.valueOf("FFFFFF"));
         //title.setFill(Color.valueOf("A02C45"));
+        title.setId("fancytext");
         textPlaceholder.getChildren().add(title);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
