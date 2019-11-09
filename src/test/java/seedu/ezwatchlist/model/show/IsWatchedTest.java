@@ -39,7 +39,6 @@ public class IsWatchedTest {
         assertEquals(new IsWatched("true").hashCode(), 1);
         assertEquals(new IsWatched("true").getIsWatchedBoolean(), true);
     }
-    
     public void getIsWatchedBoolean() {
         assertTrue(new IsWatched("true").getIsWatchedBoolean());
         assertFalse(new IsWatched("false").getIsWatchedBoolean());
