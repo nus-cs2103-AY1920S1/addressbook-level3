@@ -332,7 +332,7 @@ Format: `listnote`
 
 // end::delete[]
 
-// tag::studentProfile[]
+// tag::addStudentProfile[]
 === Student List
 
 ==== Add a student: 'add'
@@ -352,6 +352,7 @@ Examples:
 
 * `add n/Caesar,James,Todd c/CS2030`
 
+// end::addStudentProfile[]
 ==== Delete a student: 'delete'
 
 Deletes a student from TutorAid.
@@ -360,31 +361,6 @@ Format: `delete INDEX`
 Examples:
 
 * `delete 1` (deletes the first student.)
-
-==== Edit a student: 'edit'
-
-Edits a Student's fields.
-Format: `edit INDEX n/NAME pic/PICTURE r/RESULT att/ATTENDANCE part/PARTICIPATION c/CLASS`
-
-[NOTE]
-User does not have to edit all fields of a Student. He can just edit whatever needs to be changed (see example).
-
-[NOTE]
-Result of a student can be assigned using this command. e.g. `edit 1 r/79`
-
-Examples:
-
-* `edit 1 r/20 att/10 part/10 c/CS2030`
-
-==== List students: 'list'
-
-List all students in TutorAid.
-Format: `list`
-
-image::list.png[width="600", align="left"]
-
-[NOTE]
-`list` command does not take any arguments.
 
 ==== Find a student: 'find'
 
@@ -395,26 +371,6 @@ Examples:
 
 * `find Tom`
 
-==== Add a picture to a student: 'set_pic'
-
-Adds a picture to display next to the student card.
-Format: `set_pic INDEX pic/FILENAME`
-
-[NOTE]
-The picture specified must be in either .jpg, .png or .bmp format. It must also be located in the same directory as TutorAid.
-
-Examples:
-
-* `set_pic 2 pic/Tom.jpg`
-
-==== Assign students to a class: 'assign_class'
-
-Assigns a class to a student or a group of students.
-Format: `assign_class INDEXES c/CLASSID`
-
-Examples:
-
-* `assign_class 1,2,3 c/CS2030`
 
 ==== List all students in a class: 'list_class'
 
@@ -448,6 +404,53 @@ Format: `mark_participation INDEXES`
 Examples:
 
 * `mark_participation 1,2,3`
+
+// tag::includeStudentProfile[]
+==== Edit a student: 'edit'
+
+Edits a Student's fields.
+Format: `edit INDEX n/NAME pic/PICTURE r/RESULT att/ATTENDANCE part/PARTICIPATION c/CLASS`
+
+[NOTE]
+User does not have to edit all fields of a Student. He can just edit whatever needs to be changed (see example).
+
+[NOTE]
+Result of a student can be assigned using this command. e.g. `edit 1 r/79`
+
+Examples:
+
+* `edit 1 r/20 att/10 part/10 c/CS2030`
+
+==== List students: 'list'
+
+List all students in TutorAid.
+Format: `list`
+
+image::list.png[width="600", align="left"]
+
+[NOTE]
+`list` command does not take any arguments.
+
+==== Add a picture to a student: 'set_pic'
+
+Adds a picture to display next to the student card.
+Format: `set_pic INDEX pic/FILENAME`
+
+[NOTE]
+The picture specified must be in either .jpg, .png or .bmp format. It must also be located in the same directory as TutorAid.
+
+Examples:
+
+* `set_pic 2 pic/Tom.jpg`
+
+==== Assign students to a class: 'assign_class'
+
+Assigns a class to a student or a group of students.
+Format: `assign_class INDEXES c/CLASSID`
+
+Examples:
+
+* `assign_class 1,2,3 c/CS2030`
 
 ==== View serial absentees with defined threshold: 'absentees' [Coming in v2.0]
 
@@ -498,6 +501,7 @@ Examples:
 * `ad` (instead of `add`) -> TutorAid will prompt the user what they meant. Type `add` now to be able
 to use `ad` as an `add` command in the future.
 
+// end::includeStudentProfile[]
 ==== Delete a custom command: 'deleteCustomCommand'
 
 Deletes a custom command you previously added. This custom command will be forgotten by TutorAid and will not be able to be used anymore.
