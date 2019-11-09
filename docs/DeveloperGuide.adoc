@@ -294,8 +294,8 @@ Step 3: Patient will then be showed in the queue.
 === Appointment feature
 The Appointment feature provides users the ability to manage appointments for patients. It can help patients to add, change, delete appointments. It also helps user to find the missed appointments and settles each missing appointment efficiently.
 
-* e.g. `newappt i/001A str/01/11/19 1800 rec/m num/2` - allows the user to create two monthly appointments to patient whose referenceId is 001A.
-* e.g. `editappt 1 str/02/11/19 1800` - allows the user to change a patient's first appointment timing to be the input timing if there is no conflict.
+* e.g. `newappt -id 001A -start 01/11/19 1800 rec/m num/2` - allows the user to create two monthly appointments to patient whose referenceId is 001A.
+* e.g. `editappt -entry 1 -end 02/11/19 1800` - allows the user to change a patient's first appointment timing to be the input timing if there is no conflict.
 
 ==== Current Implementation
 The Appointment feature contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
@@ -346,7 +346,7 @@ The appointments command searches for appointments that were belong to the patie
 
 Case 2: `appointments`
 
-The appointments behaves similarly to appointments with the exception that it does not take in any arguments. Instead, it automatically executes with the predicate EventContainsApprovedStatusPredicate. updateFilteredAppointmentList() is called and the entire list of upcoming appointments is shown to the user.
+The appointments with referce id behaves similarly to appointments with the exception that it does not take in any arguments. Instead, it automatically executes with the predicate EventContainsApprovedStatusPredicate. updateFilteredAppointmentList() is called and the entire list of upcoming appointments is shown to the user.
 
 ==== `editappt` Command
 The following activity diagram summarizes what happens when a user executes a ChangeAppointment command:
@@ -373,8 +373,6 @@ The missAppointment command searches for appointments that patients did not come
 The settleAppointment command helps users to record if they settled missing appointments. It allows users make any missing appointment to be SETTLE once users have settled it. it will updateUniqueAppointmentList to display the rest missing appointments.
 
 In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's dutyRoster and Model#`UniqueEventList`. This ensures users can easily make appointments for patients.
-
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 === Duty Shift Scheduling
 
