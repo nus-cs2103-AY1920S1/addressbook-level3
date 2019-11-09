@@ -67,6 +67,9 @@ public class Assignment {
         checkCompletion();
     }
 
+    /**
+     * Checks if the given assignment is completed from the assignment grades map.
+     */
     private void checkCompletion() {
         for (String value : getGrades().values()) {
             if (value != "Not submitted.") {
