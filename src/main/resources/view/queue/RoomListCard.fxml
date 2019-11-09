@@ -19,9 +19,7 @@
     <HBox spacing="5" alignment="CENTER_LEFT" fx:id="patientPane" prefHeight="50">
       <Label fx:id="patientName" text="\$doctorName" styleClass="cell_big_label" />
     </HBox>
-        <HBox spacing="5" alignment="CENTER_LEFT" fx:id="invisiblePane" prefHeight="37.5">
-
-        </HBox>
+        <HBox spacing="5" alignment="CENTER_LEFT" fx:id="invisiblePane" prefHeight="37.5"/>
     </VBox>
   </GridPane>
 </HBox>

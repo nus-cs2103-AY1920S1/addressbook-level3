@@ -82,6 +82,9 @@ public abstract class OmniPanel<T> extends UiPart<Region> {
      * Restores the selection on the listview with the lastSelectedIndex.
      */
     public void regainSelector() {
+        if (lastSelectedIndex >= ols.size()) {
+            lastSelectedIndex = 0;
+        }
         omniPanelListView.getSelectionModel().select(lastSelectedIndex);
     }
 }
