@@ -15,6 +15,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.TextFlow;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandMasterList;
 
@@ -51,7 +52,7 @@ public class AutoCompleteTextField extends TextField {
                         .filter(e -> e.toLowerCase().contains(mainRequest.toLowerCase()))
                         .collect(Collectors.toList());
                 if (!filteredEntries.isEmpty()) {
-                    populatePopup(filteredEntries, enteredText);
+                    populatePopup(filteredEntries, mainRequest);
                     if (!entriesPopup.isShowing()) {
                         //position of popup
                         entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
@@ -94,16 +95,24 @@ public class AutoCompleteTextField extends TextField {
      */
     private void populatePopup(List<String> searchResult, String searchRequest) {
         assert !searchResult.isEmpty() : "Search result must be non-empty in this method.";
+        if (searchRequest.equals("")) {
+            return;
+        }
         List<CustomMenuItem> menuItems = new LinkedList<>();
         int maxEntries = 10;
-        int count = Math.min(searchResult.size(), maxEntries);
+        int numEntries = Math.min(searchResult.size(), maxEntries);
         entriesList.clear();
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < numEntries; i++) {
             final String result = searchResult.get(i);
-
+            boolean requestLongerThanResult = searchRequest.length() >= result.length();
+            if (result.equals("") || requestLongerThanResult) {
+                continue;
+            }
             entriesList.add(result);
             Label entryLabel = new Label();
-            entryLabel.setGraphic(Styles.buildTextFlow(result, searchRequest));
+            TextFlow highlightText = Styles.buildTextFlow(result, searchRequest);
+
+            entryLabel.setGraphic(highlightText);
             entryLabel.setPrefHeight(10);
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             menuItems.add(item);

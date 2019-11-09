@@ -9,24 +9,24 @@ import org.junit.jupiter.api.Test;
 public class DisplayPictureTest {
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
+    public void constructor_invalidDisplayPicture_throwsIllegalArgumentException() {
         String inValidFileName = "";
         assertThrows(IllegalArgumentException.class, () -> new DisplayPicture(inValidFileName));
     }
 
     @Test
-    public void isValidAddress() {
-        // null address
+    public void isValidDisplayPicture() {
+        // null filename
         assertThrows(NullPointerException.class, () -> DisplayPicture.isValidFormat(null));
 
-        // invalid addresses
+        // invalid filenames
         assertFalse(DisplayPicture.isValidFormat("")); // empty string
         assertFalse(DisplayPicture.isValidFormat(" ")); // spaces only
+        assertFalse(DisplayPicture.isValidFormat("asddf"));
+        assertFalse(DisplayPicture.isValidFormat("asddf234567uio"));
 
-        // valid addresses
-        assertTrue(DisplayPicture.isValidFormat("Blk 456, Den Road, #01-355"));
-        assertTrue(DisplayPicture.isValidFormat("-")); // one character
-        assertTrue(DisplayPicture.isValidFormat("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        // valid filename
+        assertTrue(DisplayPicture.isValidFormat("/images/themyth.png"));
+        assertTrue(DisplayPicture.isValidFormat("file:/D:/IMG-20190206-WA0010.jpg")); // actual file
     }
-
 }

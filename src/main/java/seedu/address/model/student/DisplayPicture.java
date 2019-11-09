@@ -3,6 +3,7 @@ package seedu.address.model.student;
 //@@ author SebastianLie
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Class to handle location of image on student card
@@ -23,6 +24,7 @@ public class DisplayPicture {
      */
     public DisplayPicture(String fileName) {
         requireNonNull(fileName);
+        checkArgument(isValidFormat(fileName));
         imgFileName = fileName;
     }
 

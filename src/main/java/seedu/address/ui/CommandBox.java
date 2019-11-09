@@ -79,6 +79,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
             try {
                 String previousCommand = history.getPastCommand();
                 commandTextField.setText((previousCommand));
+                commandTextField.positionCaret(previousCommand.length());
             } catch (NoSuchElementException ex) {
                 commandTextField.setText((""));
             }
@@ -87,6 +88,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
             try {
                 String nextCommand = history.getNextCommand();
                 commandTextField.setText((nextCommand));
+                commandTextField.positionCaret(nextCommand.length());
             } catch (NoSuchElementException ex) {
                 commandTextField.setText((""));
             }
