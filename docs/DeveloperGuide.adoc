@@ -164,8 +164,8 @@ works.
 image::StatsSequenceDiagram.png[]
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+===  Undo/Redo feature
+==== Implementation
 
 The undo/redo mechanism is facilitated by `VersionedFlashcardList`.
 It extends `FlashcardList` with an undo/redo history, stored internally as an `flashcardListStateList` and `currentStatePointer`.
@@ -216,9 +216,6 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitFlashcardList()`. Since the `currentStatePointer` is not pointing at the end of the `flashcardListStateList`, all flashcard list states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -233,26 +230,18 @@ image::CommitActivityDiagram.png[]
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the flashcard being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: We must ensure that the implementation of each individual command are correct. There will be a lot coding involved and a higher chance of regression bugs.
+// end::undoredo[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use a list to store the history of flashcard list states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedFlashcardList`.
+** Pros: It has a very clear structure and is therefore easy for future developers to update.
+** Cons: It might be difficult to navigate between different elements in the list. However, that's not really a big issue as we only need to move to neighbouring states each time.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-Since the current FlashMind uses scores to helps the user see his progress, we found that the user can easily access
-the scores saved in the json files and change them, so the scoree will no longer be accurate. Therefore, it is suggestible
-to use some encryption on the scores saved in the json file to avoid the user manually change them.
-
-// end::dataencryption[]
 
 === Logging
 
@@ -337,38 +326,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user |automatically decide duplicate flashcard |I will add same flashcard into the system multiple times
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
 (For all use cases below, the *System* is the `FlashcardList` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: UC01 - Find a flashcard ID number
+=== Use case: UC01 - View all the flashcards
 
 Actor: User
 
 *MSS*
 
-1.  User requests to list flashcards.
-2.  FlashMind shows a list of flashcards.
-3.  User finds the flashcard ID number.
+1.  User requests to view all existing flashcards by using correct command line input.
+2.  FlashMind shows a list of all existing flashcards.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The user requests to list flashcards based on tags or keywords.
-+
-[none]
-** 1a1. FlashMind shows the list of flashcards under the given tag or whose question or answer matches the keyword.
-+
-Use case resumes at step 3.
-
-[none]
-* 1b. The flashcard list is empty.
+* 1a. The flashcard list is empty.
 +
 Use case ends.
 
@@ -380,8 +358,9 @@ Actor: User
 
 *MSS*
 
-1.  User [.underline]#finds the flashcard ID number (UC01)#.
-2.  User request to delete the flashcard with given ID number.
+1.  User [.underline]#views all flashcards (UC01)#.
+2.  User locates the correct index of the flashcard he/she wants.
+3.  User request to delete the flashcard with the specific index number.
 3.  FlashMind deletes the flashcard.
 +
 Use case ends.
@@ -389,7 +368,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The given ID number is invalid.
+* 2a. The given index is invalid.
 +
 [none]
 ** 2a1. FlashMind shows an error message.
@@ -403,9 +382,10 @@ Actor: User
 
 *MSS*
 
-1.  User [.underline]#finds the flashcard ID number (UC01)#.
-2.  User requires to tag the flashcard with a given tag name.
-3.  FlashMind creates a new tag with the given tag name and put the flashcard under the given tag name.
+1.  User [.underline]#views all existing flashcards (UC01)#.
+2.  User identifies the index of the particular flashcard that he/she wants to tag.
+2.  User tags the flashcard with provided tag names.
+3.  FlashMind creates new tags with the given tag names and put the flashcard under these tags.
 +
 Use case ends.
 
@@ -428,21 +408,14 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2c. The input flashcard ID number is invalid.
+* 2c. The input flashcard index number is invalid.
 +
 [none]
 ** 2c1. FlashMind shows an error message.
 +
 Use case ends.
 
-[none]
-* 2d. The given tag name is empty.
-+
-[none]
-** 2d1. FlashMind shows an error message including the constraints on tag names.
-+
-Use case ends.
-
+// tag::usecases[]
 [discrete]
 === Use case: UC04 - edit a flashcard
 
@@ -450,9 +423,10 @@ Actor: User
 
 *MSS*
 
-1. User [.underline]#finds the flashcard ID number (UC01)#.
-2. User request to edit the question or answer of a flashcard.
-3. FlashMind updates the question or answer on the given flashcard.
+1. User [.underline]#views all existing flashcards (UC01)#.
+2. User identifies the index of the particular flashcard that he/she wants to edit.
+3. User request to edit the question, tag or answer of a flashcard.
+3. FlashMind updates the question, tag or answer on the specific flashcard.
 
 *Extensions*
 
@@ -465,7 +439,7 @@ Actor: User
 Use case ends.
 
 [none]
-* 2b. The input flashcard Id number is invalid
+* 2b. The input flashcard index number is invalid
 +
 [none]
 ** 2b1. FlashMind shows an error message.
@@ -473,83 +447,32 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC05 - find a tag name
+=== Use case: UC05 - find all flashcards with particular tags
 
 Actor: User
 
 *MSS*
 
-1. User request to list all the flashcard sets with the same tags.
-2. FlashMind shows a list of all current flashcard sets.
-3. User finds the particular set he or she desires.
+1. User request to list all the flashcard sets with the same tags by inputting these tags.
+2. FlashMind shows a list of all current flashcards with the provided tags.
 
 [none]
-* 2a. The tag list is empty.
+* 2a. The tag is empty or does not exist.
 +
 [none]
 ** 2a1. System displays an error message.
 user case ends.
+// end::usecases[]
 
 [discrete]
-=== Use case: UC06 - edit a tag name
+=== Use case: UC06 - delete a tag
 
 Actor: User
 
 *MSS*
 
-1. User [.underline]#finds the tag (UC05)#.
-2. User requests to update the tag name.
-3. FlashMind updates the name of the tag.
-
-*Extensions*
-
-[none]
-* 4a. The tag user wants to update does not exist.
-+
-[none]
-** 4a1. FlashMind shows an error message.
-+
-Use case ends.
-
-[none]
-* 4b. The new tag name is invalid.
-+
-[none]
-** 4b1. FlashMind shows an error message including the constraints on the tag name.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC07 - delete a tag from the tag list
-
-Actor: User
-
-*MSS*
-
-1. User [.underline]#finds the tag (UC05)#.
-2. User requests to delete the tag.
-3. FlashMind deletes the tag from all flashcards with this tag and delete it from the tag list.
-
-*Extensions*
-[none]
-* 4a. The tag user wants to delete does not exist.
-+
-[none]
-** 4a1. FlashMind shows an error message.
-+
-Use case ends.
-
-
-[discrete]
-=== Use case: UC08 - delete a tag from a flashcard
-
-Actor: User
-
-*MSS*
-
-1. User [.underline]#finds the flashcard (UC01)#.
-2. User requests to delete the tag from the flashcard.
-3. FlashMind deletes the tag from the flashcard.
+1. User requests to delete a particular tag by inputting the name of that tag.
+2. FlashMind deletes the tag from all flashcards with this tag and delete it from the tag list. Also, all flashcards with that tag are not removed.
 
 *Extensions*
 [none]
@@ -561,7 +484,7 @@ Actor: User
 Use case ends.
 
 [discrete]
-=== Use case: UC09 - Start a quiz on a tag
+=== Use case: UC07 - Start a quiz on a flashcard
 
 Actor: User
 
@@ -569,14 +492,13 @@ Precondition: The tag exists in the database
 
 *MSS*
 
-1. User starts a quiz on a tag
-2. FlashMind shows a question
-3. User answers the question
-4. FlashMind displays result
-5. User confirms the result
-[none]
-* steps 2-5 are repeated until all the flashcard in the tag have been displayed.
-6. Quiz shows the results of the quiz
+1. User [.underline]#views all existing flashcards (UC01)#.
+1. User starts a quiz on a particular flashcard by providing its index.
+2. FlashMind displays the question on that flashcard.
+3. User carries out the quiz by providing an answer to that question.
+4. FlashMind displays result.
+5. User confirms the result.
+6. Quiz ends.
 
 Use case ends
 
@@ -584,9 +506,46 @@ Use case ends
 [none]
 * 3a. User does not give an answer
 [none]
-** 3a1. FlashMind waits for the set period
+** 3a1. FlashMind waits for 15 seconds
 ** 3a2. User still has no answer
-** Use case resumes from step 4 (question is marked wrong)
+** Flashcard will be skipped or marked as wrong.
+
+[none]
+* *a. At any time, User decides to end the quiz
+[none]
+** *a1. FlashMind  requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
+** use case ends
+
+[discrete]
+=== Use case: UC08 - Start a quiz on a set of flashcards with the same tag
+
+Actor: User
+
+Precondition: The tag exists in the database
+
+*MSS*
+
+1. User [.underline]#views all existing flashcards (UC01)#.
+2. User identifies a particular tag that he/she wants to quiz on.
+1. User starts a quiz on that tag by providing the tag name.
+2. FlashMind shows the question of the first flashcard.
+3. User answers the question by providing a response.
+4. FlashMind displays result.
+5. User confirms the result.
+[none]
+* steps 2-5 are repeated until all the flashcard in the tag have been quizzed.
+6. Quiz ends.
+
+Use case ends
+
+*Extensions*
+[none]
+* 3a. User does not give an answer
+[none]
+** 3a1. FlashMind waits for 15 seconds.
+** 3a2. User still has no answer
+** Use case resumes from step 4 (flashcard is skipped or marked as wrong)
 
 [none]
 * *a. At any time, User decides to quit the quiz
@@ -594,6 +553,26 @@ Use case ends
 ** *a1. FlashMind  requests to confirm the cancellation.
 ** *a2. User confirms the cancellation.
 ** use case ends
+
+[discrete]
+=== Use case: UC09 - Undo/redo a flashcard list change
+
+Actor: User
+
+Precondition: There is an actual change that happened to the flashcard list.
+
+*MSS*
+
+1. User inputs either undo or redo command to get back the previous or previous undone state of flashcard list.
+2. FlashMind displays the undone/redone flashcard card list to the user.
+
+Use case ends
+
+*Extensions*
+[none]
+* 1a. There is no undoable/redoable state available
+[none]
+** 1a1. FlashMind displays error message.
 
 [discrete]
 === Use case: UC10 - View all the available commands
@@ -608,39 +587,7 @@ Actor: User
 Use case ends.
 
 [discrete]
-=== Use case: UC11 - Start a quiz on a set of flashcards with the same tag
-
-Actor: User
-
-*MSS*
-
-1. User [.underline]#finds the tag that he or she wants to do a quiz on (UC05)#
-2. System finds the particular flashcard set with the same tag and wait for further commands.
-3. User sets the time limit for each flashcard and tells the system to start the quiz.
-4. User does the timed quiz.
-5. At the end of the quiz, system will show useful statistics to the user.
-+
-Use case ends.
-
-*Extensions*
-[none]
-* 2a. The desired flashcard set is not found.
-+
-[none]
-** 2a1. System reports error.
-+
-Use case resumes at step 2.
-
-[none]
-* *a. User wants end the quiz prematurely at any time during the quiz mode.
-+
-[none]
-** *a1. User types in `exit` +
-   *a2. System exits the quiz, displays a goodbye message and skips the statistics part. +
-   Use case ends.
-
-[discrete]
-=== Use case: UC12 - View the statistics of a set of flashcards
+=== Use case: UC11 - View the statistics of a set of flashcards with the same tag
 
 Actor: User
 
@@ -662,19 +609,19 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: UC13 - Show progress of tag
+=== Use case: UC12 - Show statistics of a particular flashcard.
 Actor: user
 
-Precondition: Tag exists in the system.
+Precondition: The flashcard exists in the system.
 
 *MSS*
 
-1. User requests for the progress of a tag
-2. System shows the statistics of the desired tag
+1. User [.underline]#views all existing flashcards (UC01)#.
+2. User identifies the index of that flashcard which he/she wants to view progress of.
+1. User requests for the progress of a flashcard by inputting the index number of that flashcard.
+2. System shows the statistics of that flashcard.
 
 Use case ends
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements

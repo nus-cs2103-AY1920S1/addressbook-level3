@@ -1,0 +1,51 @@
+= He Songchi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FlashMind
+
+---
+
+== Overview
+
+FlashMind enables users to organize pieces of information in the form of flashcards, review and tests them in order to absorb knowledge in a very productive manner. The program features an commandline interface (CLI).
+
+== Summary of contributions
+
+* *First major enhancement*: added *the ability to undo/redo commands whenever there is a change to the flashcard list.*
+** What it does: Allows the flashcard list to be reverted back to its previous state or restored back to its undone state.
+** Justification: This feature improves the product significantly because it is very likely that the user might input something wrong, accidentally deleted all tags and so forth. This provides them with a very easy way to get back what they want.
+** Highlights: This feature, although not challenging conceptually, is quite time-consuming as I needed to do a lot of refactoring of code to ensure that the undo/redo feature is compatible with all our existing commands, and it turned out that many bugs emerged after adding this command and I spent a lot of time debugging to ensure that this feature becomes bug-free and fully integrated into our program.
+** Credits: The overall undo/redo concept was borrowed from AddressBook 4 and besides lines of new coded added, many of the codes are adapted from its code base.
+
+* *Second major enhancement*: redesigned *the GUI layout and colour scheme*
+** What it does: Recreated the graphical user interface, which is divided into various sections, each responsible for a particular function.
+** Justification: This feature is quite important as it allows future features to be added and integrated smoothly and also it is a major shift away from the original Address Book GUI.
+** Highlights: This feature requires some good understanding of the GUI design and a little bit of CSS knowledge. As a freshman who has no previous experience with GUI, I actually spent hours on this.
+
+* *Minor enhancement*:
+** Constantly updating GUI to ensure that it has higher usability and fewer bugs, such as the resizability issue.
+
+* *Code contributed*:Click on the link [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=akimatsu98&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false&tabOpen=true&tabType=zoom&tabAuthor=Oscar-B-Liang&tabRepo=AY1920S1-CS2103-T14-3%2Fmain%5Bmaster%5D[link]] to view my code contributions.
+
+* *Other contributions*:
+
+** Documentation:
+*** Documented the undo/redo feature in the Developer Guide.
+*** Contributed and modified the majority of the use cases in the Developer Guide.
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=usecases]
+
+== PROJECT: FlashMind
+
+---
+
