@@ -45,6 +45,10 @@ public class RedoCommand extends Command {
             return CommandResult.commandResultServe(msgSuccess);
         }
 
+        if (commandResult.isToggleUi()) {
+            return CommandResult.commandResultToggleUi(msgSuccess);
+        }
+
         return new CommandResult(msgSuccess);
     }
 
