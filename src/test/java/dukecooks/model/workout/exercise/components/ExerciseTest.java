@@ -1,4 +1,4 @@
-package dukecooks.model.workout.exercise;
+package dukecooks.model.workout.exercise.components;
 
 import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
 import static dukecooks.testutil.exercise.TypicalExercises.SITUP;
@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandTestUtil;
-import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.exercise.ExerciseBuilder;
 

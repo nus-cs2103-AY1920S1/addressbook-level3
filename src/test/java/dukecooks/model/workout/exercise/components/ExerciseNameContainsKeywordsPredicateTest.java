@@ -1,4 +1,4 @@
-package dukecooks.model.workout.exercise;
+package dukecooks.model.workout.exercise.components;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import dukecooks.model.workout.exercise.components.ExerciseNameContainsKeywordsPredicate;
 import dukecooks.testutil.exercise.ExerciseBuilder;
 
 public class ExerciseNameContainsKeywordsPredicateTest {
