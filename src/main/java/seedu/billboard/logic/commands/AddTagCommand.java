@@ -15,6 +15,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
 
+//@@author waifonglee
 /**
  * Adds tag(s) to an existing expense.
  */
@@ -75,7 +76,8 @@ public class AddTagCommand extends TagCommand {
 
         model.setExpense(expenseToEdit, editedExpense);
 
-        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, editedExpense));
+        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, editedExpense),
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     /**

@@ -69,7 +69,7 @@ public class RevertArchiveCommand extends ArchiveCommand {
         if (archiveList.size() == 0) {
             model.deleteArchive(archiveName);
             feedback += "\n" + String.format(MESSAGE_EMPTY_ARCHIVE_AFTER_REVERT_EXPENSE, archiveName);
-            return new CommandResult(feedback);
+            return new CommandResult(feedback, false, false, CommandResult.DEFAULT_LIST_VIEW);
         } else {
             return new CommandResult(feedback, false, false, archiveName);
         }

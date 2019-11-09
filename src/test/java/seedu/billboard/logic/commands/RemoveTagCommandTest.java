@@ -24,6 +24,7 @@ import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.testutil.ExpenseBuilder;
 
+//@@author waifonglee
 public class RemoveTagCommandTest {
     private static final List<String> SINGLE_TAG_STUB = new ArrayList<>(Collections.singletonList("friends"));
     private static final List<String> DOUBLE_TAG_STUB = new ArrayList<>(Arrays.asList("friends", "monday"));

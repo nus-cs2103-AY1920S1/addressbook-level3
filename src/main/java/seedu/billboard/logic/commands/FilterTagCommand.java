@@ -7,6 +7,7 @@ import seedu.billboard.commons.core.Messages;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.tag.ContainsTagPredicate;
 
+//@@author waifonglee
 /**
  * Filters and lists all expenses with tags input by user.
  */
@@ -29,7 +30,8 @@ public class FilterTagCommand extends TagCommand {
         requireNonNull(model);
         model.updateFilteredExpenses(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW, model.getFilteredExpenses().size()));
+                String.format(Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW, model.getFilteredExpenses().size()),
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     @Override

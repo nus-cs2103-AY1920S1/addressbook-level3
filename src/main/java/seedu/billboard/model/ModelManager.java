@@ -344,4 +344,12 @@ public class ModelManager implements Model {
                 && filteredExpense.equals(other.filteredExpense)
                 && filteredArchives.equals(other.filteredArchives);
     }
+
+    @Override
+    public String toString() {
+        return "Billboard: " + billboard.toString()
+                + "\nArchives: " + archives.toString()
+                + "\nFiltered Expenses: " + filteredExpense.toString()
+                + "\nFiltered Archives: " + filteredArchives.toString();
+    }
 }

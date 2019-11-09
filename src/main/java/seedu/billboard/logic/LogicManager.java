@@ -61,7 +61,7 @@ public class LogicManager implements Logic {
                 || (command instanceof DeleteArchiveCommand) || (command instanceof DeleteCommand)
                 || (command instanceof RevertArchiveCommand) || (command instanceof EditCommand)
                 || (command instanceof FilterTagCommand) || (command instanceof RemoveTagCommand)) {
-            VersionedBillboard.addCmd(commandText);
+            VersionedBillboard.addCmd(commandText, commandResult);
             VersionedBillboard.commit(model.getClone());
         }
 

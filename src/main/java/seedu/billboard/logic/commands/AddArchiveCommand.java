@@ -65,13 +65,15 @@ public class AddArchiveCommand extends ArchiveCommand {
             model.addArchiveExpense(archiveName, expenseToArchive);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS_CREATE_ARCHIVE,
-                    archiveName, expenseToArchive.getName(), archiveName));
+                    archiveName, expenseToArchive.getName(), archiveName),
+                    false, false, CommandResult.DEFAULT_LIST_VIEW);
         }
 
         model.addArchiveExpense(archiveName, expenseToArchive);
 
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS_EXISTING_ARCHIVE, expenseToArchive.getName(), archiveName));
+                String.format(MESSAGE_SUCCESS_EXISTING_ARCHIVE, expenseToArchive.getName(), archiveName),
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     @Override
