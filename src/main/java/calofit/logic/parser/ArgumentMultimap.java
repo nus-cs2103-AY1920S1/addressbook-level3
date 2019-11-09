@@ -2,9 +2,17 @@ package calofit.logic.parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import calofit.commons.core.Messages;
+import calofit.logic.parser.exceptions.ParseException;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -56,5 +64,28 @@ public class ArgumentMultimap {
      */
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
+    }
+
+    /**
+     * Check that all prefixes are amongst the given prefixes, and throws an {@link ParseException} otherwise.
+     * The {@value messageProducer} function is given the set of unknown tags,
+     * and should produce the message returned in the error.
+     * @param messageProducer Error message producer
+     * @param prefixes Allowed prefixes
+     * @throws ParseException Thrown if any unknown prefixes are detected.
+     */
+    public void checkAllowedPrefixes(Function<? super Set<Prefix>, ? extends String> messageProducer,
+                                     Prefix... prefixes) throws ParseException {
+        Set<Prefix> allowed = Stream.of(prefixes).collect(Collectors.toCollection(HashSet::new));
+        Set<Prefix> parsed = new HashSet<>(argMultimap.keySet());
+        parsed.removeAll(allowed);
+        if (getPreamble().isBlank()) {
+            parsed.remove(new Prefix(""));
+        }
+
+        if (!parsed.isEmpty()) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                messageProducer.apply(parsed)));
+        }
     }
 }
