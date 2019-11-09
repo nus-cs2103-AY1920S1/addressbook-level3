@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import organice.model.person.DoctorInCharge;
 import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
@@ -103,11 +104,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a patient's doctor in charge is the same as {@code doctorIc} exists in the address book.
+     */
+    public boolean hasDoctorInCharge(DoctorInCharge doctorIc) {
+        requireNonNull(doctorIc);
+        return persons.isAttachedToPatient(doctorIc);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Retrieves the {@code Person} with the specified {@code Nric}.
+     * {@code Nric} must exist in ORGANice.
+     */
+    public Person getPerson(Nric personNric) throws PersonNotFoundException {
+        return persons.getPerson(personNric);
     }
 
     /**

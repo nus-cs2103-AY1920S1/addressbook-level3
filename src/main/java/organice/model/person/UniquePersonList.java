@@ -69,6 +69,31 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Returns true if the list contains a patient whose doctor in charge is the same as the given argument
+     */
+    public boolean isAttachedToPatient(DoctorInCharge doctorIc) {
+        requireNonNull(doctorIc);
+        return internalList.stream().anyMatch(
+            n -> n.getType().isPatient() && ((Patient) n).getDoctorInCharge().equals(doctorIc)
+        );
+    }
+
+    /**
+     * Returns the {@code Person} with the specified {@code Nric}.
+     */
+    public Person getPerson(Nric personNric) throws PersonNotFoundException {
+        requireNonNull(personNric);
+        for (int i = 0; i < internalList.size(); i++) {
+            Person currentPerson = internalList.get(i);
+
+            if (currentPerson.getNric().equals(personNric)) {
+                return currentPerson;
+            }
+        }
+        throw new PersonNotFoundException();
+    }
+
+    /**
      * Returns the {@code Patient} with the specified {@code Nric}.
      */
     public Patient getPatient(Nric patientNric) throws PersonNotFoundException {
