@@ -1,8 +1,9 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.commands.*;
+import seedu.address.calendar.commands.AlternativeDeleteCommand;
+import seedu.address.calendar.commands.DeleteCommand;
 import seedu.address.calendar.model.date.Date;
-import seedu.address.calendar.model.event.*;
+import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;

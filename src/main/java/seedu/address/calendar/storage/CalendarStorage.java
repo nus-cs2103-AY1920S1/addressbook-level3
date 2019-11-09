@@ -1,7 +1,6 @@
 package seedu.address.calendar.storage;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.calendar.model.ReadOnlyCalendar;
