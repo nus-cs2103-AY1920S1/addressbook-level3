@@ -13,6 +13,7 @@ import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.showPatient
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
@@ -34,8 +35,13 @@ import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs(),
-                                           TypicalAppointments.getTypicalAppointmentBook());
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs(),
+                TypicalAppointments.getTypicalAppointmentBook());
+    }
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -109,6 +115,50 @@ public class EditCommandTest {
         expectedModel.setAppointments(patientInFilteredList, editedPatient);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_samePatient_failure() {
+        // Test for EditCommand bug in https://github.com/AY1920S1-CS2103-F10-1/main/issues/209
+        // Try to edit an existing patient to have the same identity as another existing patient
+        // Same identity = same name && (same phone || same email)
+
+        // First, edit the patient to have the same name
+        Patient firstPatient = model.getPatientByIndex(TypicalIndexes.INDEX_FIRST_PATIENT);
+        Patient secondPatient = model.getPatientByIndex(TypicalIndexes.INDEX_SECOND_PATIENT);
+        EditCommand.EditPatientDescriptor descriptor = new EditPatientDescriptorBuilder(secondPatient)
+                .withName(firstPatient.getName().toString()) // same name
+                .build();
+        EditCommand successfulEditCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_PATIENT, descriptor);
+
+        PatientBook editedPatientBook = new PatientBook(model.getStagedPatientBook());
+        Patient editedPatient = new PatientBuilder(secondPatient)
+                .withName(firstPatient.getName().toString())
+                .build();
+        editedPatientBook.setPatient(secondPatient, editedPatient);
+        Model expectedModel = new ModelManager(editedPatientBook, model.getUserPrefs(),
+                model.getStagedAppointmentBook());
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PATIENT_SUCCESS, editedPatient);
+
+        assertCommandSuccess(successfulEditCommand, model, expectedMessage, expectedModel);
+
+        // Then, try to edit the patient to also have the same phone
+        secondPatient = model.getPatientByIndex(TypicalIndexes.INDEX_SECOND_PATIENT);
+        descriptor = new EditPatientDescriptorBuilder(secondPatient)
+                .withPhone(firstPatient.getPhone().toString()) // same phone
+                .build();
+        EditCommand failingEditCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_PATIENT, descriptor);
+
+        assertCommandFailure(failingEditCommand, model, EditCommand.MESSAGE_DUPLICATE_PATIENT);
+
+        // Try the same thing with the email
+        secondPatient = model.getPatientByIndex(TypicalIndexes.INDEX_SECOND_PATIENT);
+        descriptor = new EditPatientDescriptorBuilder(secondPatient)
+                .withEmail(firstPatient.getEmail().toString()) // same email
+                .build();
+        failingEditCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_PATIENT, descriptor);
+
+        assertCommandFailure(failingEditCommand, model, EditCommand.MESSAGE_DUPLICATE_PATIENT);
     }
 
     @Test
