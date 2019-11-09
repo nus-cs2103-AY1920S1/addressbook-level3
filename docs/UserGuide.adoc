@@ -295,15 +295,25 @@ image::SnakeGame.PNG[Snake, 600, 600, float="right"]
 
 +++<u>Rules:</u>+++
 
-Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Careful not to let your snake bit it's own tail or it will be GAME OVER!
+Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Careful not to let your snake bite it's own tail or it will be GAME OVER!
 
 Hit `ENTER` to reset the game when your snake dies.
 
 Pressing `ESC` key will exit the game and return you to your list of tasks!
 
-==== Tell a joke: `joke`
+// tag::joke[]
+=== Asking ELISA for a joke : `joke`
+Need to amuse yourself for a bit? Simply use the `joke` command and ELISA will select a joke from her database for you to enjoy!
 
-Type `joke` in the command box and I will showcase my exceptional sense of humor and tell you a random joke!
+****
+* Note that each joke is randomly selected from the database and may repeat.
+****
+
+Example:
+
+* `joke` +
+
+// end::joke[]
 
 === Undo/Redo Feature
 
@@ -322,6 +332,7 @@ Examples:
 * `undo` +
 Undoes the last command
 
+// end::undo[]
 
 // tag::redo[]
 ==== Redoing the latest undone command(s) : `redo`
@@ -338,6 +349,7 @@ Examples:
 
 * `redo` +
 
+//end::redo[]
 
 //tag::sort[]
 ==== Sorting ELISA out: `sort`
@@ -382,11 +394,11 @@ Examples:
 
 //tag::priority[]
 === Entering priority mode: `priority`
-Feeling stress? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
+Feeling stressed? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
 
 By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA base on priority and the order in which the task was added to the list.
 
-Feeling less stress? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone task and you will be automatically brought out of priority mode.
+Feeling less stressed? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone tasks and you will be automatically brought out of priority mode.
 
 Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hhmm` and ELISA will turn it off at that specific time for you.
 
@@ -400,7 +412,7 @@ Examples:
 
 ****
 * Note that this command can only be called in the task panel.
-* Note that all command such as `edit`, `undo` and `redo` still works in priority mode.
+* Note that all commands such as `edit`, `undo` and `redo` still works in priority mode.
 ****
 //end::priority[]
 
