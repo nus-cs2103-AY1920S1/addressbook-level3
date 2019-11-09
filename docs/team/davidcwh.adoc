@@ -28,9 +28,9 @@ Note the following formatting used in this document:
 
 NOTE: This symbol indicates important information.
 
-`archive` - Text in Consolas font colored red indicates that this is a command that can be inputted into the command line and executed by _Billboard_.
+`archive` - A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by _Billboard_.
 
-`*ArchiveWrapper*` - *Bold* text in Consolas font colored red indicates a component, class, object or variable in the architecture of _Billboard_.
+`*ArchiveWrapper*` - A grey highlight (called a mark-up) with bold text indicates a component, class, object or variable in the architecture of _Billboard_.
 
 "_movie tickets_" - Italicised text with quotation marks indicates the name of an expense or archive used for demonstration purposes.
 
