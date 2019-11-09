@@ -11,7 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
+<?import javafx.scene.image.Image?>
 <fx:root minHeight="600" minWidth="750" resizable="true" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/address_book_32.png" />
+    </icons>
     <scene>
         <Scene>
             <stylesheets>
@@ -39,20 +43,22 @@
                                          <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                                      </padding>
                                 </VBox>
-                                 <HBox alignment="CENTER" prefHeight="200.0" prefWidth="500.0">
+                                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0">
                                      <VBox>
-                                         <Label fx:id="startingDateLabel"/>
-                                         <padding>
-                                             <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
-                                         </padding>
-                                     </VBox>
-                                     <VBox>
-                                         <Label fx:id="endingDateLabel" />
+                                         <Label fx:id="infoLabel"/>
                                          <padding>
                                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                                          </padding>
                                      </VBox>
                                  </HBox>
+                                 <HBox alignment="CENTER">
+                                     <Label fx:id="summaryLabel"/>
+                                     <Label fx:id="summaryValue"/>
+                                     <padding>
+                                         <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                                     </padding>
+                                 </HBox>
+
                              </children>
                          </VBox>
                      </children>

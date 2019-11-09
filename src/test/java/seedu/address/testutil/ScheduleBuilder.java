@@ -17,7 +17,7 @@ public class ScheduleBuilder {
 
     private static final String DEFAULT_VENUE = "Central Library";
     private static final Calendar DEFAULT_CALENDAR = new Calendar.Builder()
-            .setDate(2019, 12, 1).setTimeOfDay(23, 30, 0).build();
+            .setDate(2019, 11, 1).setTimeOfDay(23, 30, 0).build();
 
     private UUID id;
     private Calendar calendar;
