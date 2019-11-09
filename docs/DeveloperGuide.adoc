@@ -252,6 +252,19 @@ The queue feature allows the user to enqueue and dequeue a patient from the queu
 * e.g. `enqueue 003A` - Enqueues the patient with reference id 003A.
 * e.g. `next 1` Serves the next patient in queue and allocates him/her to room 1.
 
+Queue supports a few basic commands:
+
+* Enqueue -- Enqueues a patient into the queue. +
+Format: `enqueue <PATIENT_REFERENCE_ID>`
+* Dequeue -- Dequeues a patient from the queue. +
+Format: `dequeue <QUEUE_INDEX>`
+* Next -- Assigns the next patient in the queue to a doctor. +
+Format: `next <ENTRY_ID>`
+* Break -- Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
+Format: `break <ENTRY_ID>`
+* Resume -- Allows patients to be directed to a doctor. e.g. Doctor is back from his/her break. +
+Format: `resume <ENTRY_ID>`
+
 ==== Current Implementation
 The queue will be displayed in a list.
 
@@ -282,17 +295,17 @@ The Appointment feature contains multiple operations to indirectly manipulate th
 
 `newappt` Command - Adds a appointment or reoccurring appointments to a patient.
 
-`ackappt` Command - Acknowledges a appointment once the patient reaches.
+`ackappt` Command - Acknowledges an appointment once the patient reaches.
 
-`appointments` Command - Lists all upcoming appointment schedule or lists a specific patient's upcoming appointments.
+`appointments` Command - Lists all upcoming appointment schedules or lists a specific patient's upcoming appointments.
 
 `editappt` Command - Change a current appointment's timing to a different timing.
 
 `cancelappt` Command - Cancels appointments found within the appointment schedule.
 
-`missappt` Command - Lists all missing appointment.
+`missappt` Command - Lists all missed appointments.
 
-`settleappt` Command - Settles a missing appointment when user contact with patient.
+`settleappt` Command - Settles a missed appointment when user contacts with patient.
 
 
 The class diagram below illustrates the interactions between the Appointment class and associated classes.
@@ -300,33 +313,33 @@ The class diagram below illustrates the interactions between the Appointment cla
 .Appointment class diagram
 image::AppointmentClassDiagram.png[]
 
-Each Appointment object consists of a PersonReferenceId, Timing, Status. Timing class has 2 DateTime object as they indicates the starting and ending time of the appointment. The `UniqueEventList` contains 0 or more Appointments.
+Each Appointment object consists of a PatientId, Timing, Status. Timing class has 2 DateTime objects which indicates the start and end time of the appointment. The UniqueAppointmentList contains 0 or more Appointments.
 
 The current implementation of Appointment will do check with patient object by the unique referenceId and it will also check timing with doctors' dutyRoster. If the referenceId exists within the Model#UniquePersonList  and the timing is valid, then constructing the Appointment object. This ensures that the patient is registered and the appointment's timing is valid before making an appointment.
 
-==== `newappt` Command
-The addAppointment command behaves similarly to the add command used for Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
+==== `addappt` Command
+The `addAppointment` command behaves similarly to the `add` command used for Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
 
-The following activity diagram summarizes what happens when a user executes a AddAppointment command:
+The following activity diagram summarizes what happens when a user executes a `AddAppointment` command:
 
 .Interactions Inside the Logic Component when a user executes a `newappt` command
 image::AddAppointmentActivityDiagram.png[]
 
 ==== `ackappt` command
 
-The ackAppointment command will mark the patient's the most upcoming appointment as Acknowledge when the patient is reaching and it will updateUniqueAppointmentList to display the rest appointments that are belong to the patient.
+The `ackAppointment` command will mark the patient's the most upcoming appointment as Acknowledge when the patient is reaching and it will update `UniqueAppointmentList` to display the rest appointments that are belong to the patient.
 
 ==== `appointments` Command
 
-The appointments command works in two different cases for different purpose.
+The `appointments` command works in two different cases for different purpose.
 
 Case 1: `appointments patientId`
 
-The appointments command searches for appointments that were belong to the patient that was entered by the user. The filtered appointments are found in ModelManager. The list is instantiated by filtering the `UniqueEventList` using EventContainsKeywordPredicate which is created from the patientId argument supplied by the user.
+The `appointments` command searches for appointments that were belong to the patient that was entered by the user. The filtered appointments are found in `ModelManager`. The list is instantiated by filtering the `UniqueAppointmentList` using `EventContainsKeywordPredicate` which is created from the `patientId` argument supplied by the user.
 
 Case 2: `appointments`
 
-The appointments with referce id behaves similarly to appointments with the exception that it does not take in any arguments. Instead, it automatically executes with the predicate EventContainsApprovedStatusPredicate. updateFilteredAppointmentList() is called and the entire list of upcoming appointments is shown to the user.
+The appointments behaves similarly to appointments with the exception that it does not take in any arguments. Instead, it automatically executes with the predicate `EventContainsApprovedStatusPredicate`. `updateFilteredAppointmentList()` is called and the entire list of upcoming appointments is shown to the user.
 
 ==== `editappt` Command
 The following activity diagram summarizes what happens when a user executes a ChangeAppointment command:
@@ -346,13 +359,13 @@ image::CancelAppointmentSequenceDiagram.png[]
 
 ==== `missappt` Command
 
-The missAppointment command searches for appointments that patients did not come. The filtered appointments are found in ModelManager. The list is instantiated by filtering the `UniqueEventList` using EventsMissedPredicate which checks all APPROVED-Status appointments' ending times with current time.
+The `missAppointment` command displays the missed appointments. The missed appointments are found in `ModelManager`. The list is instantiated by filtering the `UniqueAppointmentList` using `EventsMissedPredicate` which checks all `APPROVED`-Status appointments ending times with current time.
 
 ==== `settleappt` Command
 
-The settleAppointment command helps users to record if they settled missing appointments. It allows users make any missing appointment to be SETTLE once users have settled it. it will updateUniqueAppointmentList to display the rest missing appointments.
+The `settleappt` command removes a missed appointment. It updates `UniqueAppointmentList` to display the rest of the missing appointments.
 
-In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's dutyRoster and Model#`UniqueEventList`. This ensures users can easily make appointments for patients.
+In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's `dutyRoster` and `Model#UniqueAppointmentList`. This ensures users can easily make appointments for patients.
 
 === Duty Shift Scheduling
 
@@ -414,15 +427,12 @@ In future implementations, i.e. v2.0, the valid timing slot will be given after 
 
 ===== Aspect: How undo & redo executes
 
-* *Alternative 1 (current choice):* Save the entire address book.
-+
-[cols="1,10"]
-|===
-|*Pros*|
-1. Implementation is easy.
-|*Cons*|
-1. May have performance issues in terms of memory usage.
-|===
+* **Alternative 1 (current choice):** Create `DateTime` and `Timing` class to store
+** Pros: Makes it easier to calculate timings and clashes between multiple appointments with different timing field.
+** Cons: Requires additional code to implement `Timing` class and interact with other common methods that rely on `DateTime`.
+* **Alternative 2:** Store as Strings
+** Pros: Makes it easier to implement.
+** Cons: Requires additional code to convert into `DateTIme` class when carrying out calculating methods.
 
 * *Alternative 2:* Individual command knows how to undo/redo by itself.
 +
