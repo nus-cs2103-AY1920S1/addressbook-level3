@@ -2,7 +2,6 @@ package seedu.address.ics;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +23,6 @@ public class IcsParserTest {
                 + "END:VEVENT";
         assertDoesNotThrow(() -> DateTime.fromIcsString("20191109T043400Z"));
         DateTime startDateTime = DateTime.fromIcsString("20191109T043400Z");
-        assertEquals(startDateTime, DateTime.fromUserString("09/11/2019 12:34"));
         String description = "Test Description";
 
         EventSource expected = EventSource
@@ -32,7 +30,7 @@ public class IcsParserTest {
                 .build();
         EventSource outcome = IcsParser.parseSingleEvent(icsEventObjectString);
         assertEquals(expected.getDescription(), outcome.getDescription());
-        assertTrue(expected.getStartDateTime().equals(outcome.getStartDateTime()));
+        assertEquals(expected.getStartDateTime(), outcome.getStartDateTime());
     }
 
     @Test
@@ -45,10 +43,10 @@ public class IcsParserTest {
                 + "SUMMARY:Test Description\n"
                 + "DTEND:20191109T054500Z\n"
                 + "END:VEVENT";
-        assertDoesNotThrow(() -> DateTime.fromUserString("09/11/2019 12:34"));
-        DateTime startDateTime = DateTime.fromUserString("09/11/2019 12:34");
-        assertDoesNotThrow(() -> DateTime.fromUserString("09/11/2019 13:45"));
-        DateTime endDateTime = DateTime.fromUserString("09/11/2019 13:45");
+        assertDoesNotThrow(() -> DateTime.fromIcsString("20191109T043400Z"));
+        DateTime startDateTime = DateTime.fromIcsString("20191109T043400Z");
+        assertDoesNotThrow(() -> DateTime.fromIcsString("20191109T054500Z"));
+        DateTime endDateTime = DateTime.fromIcsString("20191109T054500Z");
         String description = "Test Description";
 
         EventSource expected = EventSource
@@ -87,8 +85,8 @@ public class IcsParserTest {
                 + "DUE:20191109T043400Z\n"
                 + "END:VTODO";
         String description = "hello";
-        assertDoesNotThrow(() -> DateTime.fromUserString("09/11/2019 12:34"));
-        DateTime dueDate = DateTime.fromUserString("09/11/2019 12:34");
+        assertDoesNotThrow(() -> DateTime.fromIcsString("20191109T043400Z"));
+        DateTime dueDate = DateTime.fromIcsString("20191109T043400Z");
 
         TaskSourceBuilder builder = TaskSource.newBuilder(description);
         builder.setDueDate(dueDate);
