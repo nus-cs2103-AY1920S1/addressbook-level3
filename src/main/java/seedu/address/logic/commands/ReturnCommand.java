@@ -75,7 +75,7 @@ public class ReturnCommand extends ReversibleCommand {
         ArrayList<Book> returningBooks = getReturningBooks(model);
         Borrower servingBorrower = model.getServingBorrower();
 
-        String feedbackMessage = "";
+        StringBuilder feedbackMessage = new StringBuilder();
         ArrayList<Book> returnedBookList = new ArrayList<>();
         ArrayList<Book> bookToBeReturnedList = new ArrayList<>();
         ArrayList<Loan> returnedLoanList = new ArrayList<>();
@@ -85,8 +85,9 @@ public class ReturnCommand extends ReversibleCommand {
         for (Book bookToBeReturned : returningBooks) {
             Loan loanToBeReturned = bookToBeReturned.getLoan().get();
 
+            int dailyFineIncrement = model.getUserSettings().getFineIncrement();
             int fineAmount = DateUtil.getNumOfDaysOverdue(loanToBeReturned.getDueDate(), returnDate)
-                    * model.getUserSettings().getFineIncrement();
+                    * dailyFineIncrement;
             Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, fineAmount);
             Book returnedBook = bookToBeReturned
                     .deleteFromLoanHistory(loanToBeReturned)
@@ -105,8 +106,8 @@ public class ReturnCommand extends ReversibleCommand {
             // unmount this book in LoanSlipUtil if it is mounted
             LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToBeReturned);
 
-            feedbackMessage += String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
-                FineUtil.centsToDollarString(fineAmount));
+            feedbackMessage.append(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
+                    FineUtil.centsToDollarString(fineAmount)));
             returnedBookList.add(returnedBook);
             bookToBeReturnedList.add(bookToBeReturned);
             returnedLoanList.add(returnedLoan);
@@ -116,7 +117,7 @@ public class ReturnCommand extends ReversibleCommand {
         undoCommand = new UnreturnCommand(returnedBookList, bookToBeReturnedList, returnedLoanList,
                 loanToBeReturnedList);
         redoCommand = this;
-        commandResult = new CommandResult(feedbackMessage.trim());
+        commandResult = new CommandResult(feedbackMessage.toString().trim());
 
         return commandResult;
     }
