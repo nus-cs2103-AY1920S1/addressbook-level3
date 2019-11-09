@@ -3,24 +3,25 @@ package seedu.address.commons.util;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.TreeSet;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class TreeUtil {
-    private TreeSet<IntegerPairUtil> treeSet;
-    private HashMap<String, IntegerPairUtil> hashMap;
+public class TreeUtil<V extends Comparable> {
+    private TreeSet<V> treeSet;
+    private HashMap<String, V> hashMap;
 
     public TreeUtil() {
         treeSet = new TreeSet<>();
         hashMap = new HashMap<>();
     }
 
-    public void add(String value) {
+    public <U> void add(String value, V defaultValueIfMissing, Function<V, V> function) {
         if(!value.isBlank()) {
-            IntegerPairUtil storedPair = Optional.ofNullable(hashMap.get(value)).orElse(new IntegerPairUtil(0, value));
-            treeSet.remove(storedPair);
-            IntegerPairUtil newPair = new IntegerPairUtil(storedPair.getKey() + 1, storedPair.getValue());
-            treeSet.add(newPair);
-            hashMap.put(value, newPair);
+            V prevValue = Optional.ofNullable(hashMap.get(value)).orElse(defaultValueIfMissing);
+            treeSet.remove(prevValue);
+            V newValue = function.apply(prevValue);
+            treeSet.add(newValue);
+            hashMap.put(value, newValue);
         }
     }
 
@@ -28,7 +29,11 @@ public class TreeUtil {
         return treeSet.isEmpty();
     }
 
-    public Stream<IntegerPairUtil> stream() {
+    public Stream<V> descendingStream() {
         return treeSet.descendingSet().stream();
+    }
+
+    public Stream<V> ascendingStream() {
+        return treeSet.stream();
     }
 }

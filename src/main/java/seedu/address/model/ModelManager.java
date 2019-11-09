@@ -38,7 +38,7 @@ public class ModelManager implements Model {
         return new Supplier<StatisticsModel>() {
             @Override
             public StatisticsModel get() {
-                return new StatisticsModelManager(addressBookModel);
+                return new StatisticsModelManager(null, null, null, null, null);
             }
         };
     }

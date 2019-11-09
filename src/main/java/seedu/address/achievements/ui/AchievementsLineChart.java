@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -14,9 +15,9 @@ import seedu.address.ui.UiPart;
  * An UI component that displays a horizontal {@link BarChart} with {@code xAxisLabel}, {@code yAxisLabel} and
  * {@code chartData}.
  */
-public class AchievementsHorizontalBarChart extends UiPart<Region> {
+public class AchievementsLineChart extends UiPart<Region> {
 
-    private static final String FXML = "achievements/AchievementsHorizontalBarChart.fxml";
+    private static final String FXML = "achievements/AchievementsLineChart.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -30,15 +31,15 @@ public class AchievementsHorizontalBarChart extends UiPart<Region> {
     private Label yAxisLabel;
 
     @FXML
-    private BarChart<Number, String> barChart;
+    private LineChart<String, Number> lineChart;
 
-    public AchievementsHorizontalBarChart(String chartTitle, String xAxisLabel, String yAxisLabel,
-                                          XYChart.Series<Number, String> chartData) {
+    public AchievementsLineChart(String chartTitle, String xAxisLabel, String yAxisLabel,
+                                 XYChart.Series<String, Number> chartData) {
         super(FXML);
         this.xAxisLabel.setText(xAxisLabel);
         this.yAxisLabel.setText(yAxisLabel);
         this.chartTitle.setText(chartTitle);
 
-        barChart.getData().add(chartData);
+        lineChart.getData().add(chartData);
     }
 }

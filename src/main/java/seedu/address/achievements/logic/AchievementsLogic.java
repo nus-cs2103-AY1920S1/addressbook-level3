@@ -1,5 +1,7 @@
 package seedu.address.achievements.logic;
 
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,5 +30,25 @@ public interface AchievementsLogic {
      * Horizontal bar chart data for Address Book.
      * @return horizontal bar chart data for Address Book
      */
-    XYChart.Series<Integer, String> getAddressChartData();
+    XYChart.Series<Number, String> getAddressChartData();
+
+    int getTotalDiaryEntries();
+
+    XYChart.Series<String, Number> getDiaryChartData();
+
+    ObservableList<PieChart.Data> getFinancialPieChartData();
+
+    XYChart.Series<String, Number> getFinancialBarChartData();
+
+    XYChart.Series<String, Number> getItineraryLineChartData();
+
+    int getTotalItineraryEntries();
+
+    long getNumberOfDaysTrip();
+
+    long getNumberOfDaysVacation();
+
+    long getNumberOfTrip();
+
+    double getPercentageTrip();
 }

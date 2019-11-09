@@ -2,13 +2,21 @@ package seedu.address.diaryfeature.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.DatePair;
+import seedu.address.commons.util.TreeUtil;
 import seedu.address.diaryfeature.model.details.Details;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 
@@ -106,6 +114,40 @@ public class DiaryModel {
 
     public DiaryBook getDiaryBook() {
         return  this.diaryBook;
+    }
+
+    //=========== Statistics =================================================================================
+
+    public int getTotalDiaryEntries() {
+        return filteredDiaryBook.size();
+    }
+
+
+    public XYChart.Series<String, Number> getDiaryChart() {
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        //setup resources
+        TreeUtil<DatePair> treeUtil = new TreeUtil<>();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+
+
+        FXCollections.unmodifiableObservableList(filteredDiaryBook).stream().forEach(diaryEntry -> {
+            Date date = diaryEntry.getDate();
+            String displayDate = dateFormatter.format(date);
+
+            DatePair defaultIfMissing = new DatePair(0, date);
+            Function<DatePair, DatePair> incrementFunction =
+                    datePair -> new DatePair(datePair.getKey() + 1, datePair.getValue());
+
+            treeUtil.add(displayDate, defaultIfMissing, incrementFunction);
+        });
+
+        series.getData().addAll(treeUtil.ascendingStream()
+                .map(datePair ->
+                        new XYChart.Data<String, Number> (
+                                dateFormatter.format(datePair.getValue()), datePair.getKey()))
+                .collect(Collectors.toList()));
+        return series;
     }
 
     @Override

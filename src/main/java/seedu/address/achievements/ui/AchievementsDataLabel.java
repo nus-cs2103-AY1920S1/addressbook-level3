@@ -18,9 +18,9 @@ public class AchievementsDataLabel extends UiPart<Region> {
     @FXML
     private Label dataValue;
 
-    public AchievementsDataLabel(String dataTitle, String dataValueStart, String dataValueEnd) {
+    public AchievementsDataLabel(String dataTitle, String dataValue) {
         super(FXML);
         this.dataTitle.setText(dataTitle);
-        this.dataValue.setText(dataValueStart + " / " + dataValueEnd);
+        this.dataValue.setText(dataValue);
     }
 }
