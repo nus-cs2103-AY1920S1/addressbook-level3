@@ -91,6 +91,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 // end::uicomponent[]
 
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -113,6 +114,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::AddSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+// end::logic[]
 
 [[Design-Model]]
 === Model component
