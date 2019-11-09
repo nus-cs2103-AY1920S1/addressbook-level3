@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
+import static seedu.revision.testutil.TypicalMcq.MCQ_C;
+import static seedu.revision.testutil.TypicalMcq.getMcqRevisionTool;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,7 +37,7 @@ public class RevisionToolTest {
 
     @Test
     public void resetData_withValidReadOnlyRevisionTool_replacesData() {
-        RevisionTool newData = getTypicalRevisionTool();
+        RevisionTool newData = getMcqRevisionTool();
         revisionTool.resetData(newData);
         assertEquals(newData, revisionTool);
     }
@@ -45,9 +45,9 @@ public class RevisionToolTest {
     @Test
     public void resetData_withDuplicateAnswerable_throwsDuplicateAnswerableException() {
         // Two answerables with the same identity fields
-        Answerable editedAlice = new McqBuilder(MCQ_STUB).withCategories(VALID_CATEGORY_GREENFIELD)
+        Answerable editedAlice = new McqBuilder(MCQ_C).withCategories(VALID_CATEGORY_GREENFIELD)
                 .build();
-        List<Answerable> newAnswerables = Arrays.asList(MCQ_STUB, editedAlice);
+        List<Answerable> newAnswerables = Arrays.asList(MCQ_C, editedAlice);
         RevisionToolStub newData = new RevisionToolStub(newAnswerables);
 
         assertThrows(DuplicateAnswerableException.class, () -> revisionTool.resetData(newData));
@@ -60,13 +60,13 @@ public class RevisionToolTest {
 
     @Test
     public void hasAnswerable_answerableNotInRevisionTool_returnsFalse() {
-        assertFalse(revisionTool.hasAnswerable(MCQ_STUB));
+        assertFalse(revisionTool.hasAnswerable(MCQ_C));
     }
 
     @Test
     public void hasAnswerable_answerableInRevisionTool_returnsTrue() {
-        revisionTool.addAnswerable(MCQ_STUB);
-        assertTrue(revisionTool.hasAnswerable(MCQ_STUB));
+        revisionTool.addAnswerable(MCQ_C);
+        assertTrue(revisionTool.hasAnswerable(MCQ_C));
     }
 
     @Test

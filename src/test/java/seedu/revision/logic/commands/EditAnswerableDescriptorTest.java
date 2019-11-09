@@ -6,7 +6,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.DESC_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
+import static seedu.revision.logic.commands.CommandTestUtil.VALID_MCQ_QUESTION_2;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +36,7 @@ public class EditAnswerableDescriptorTest {
 
         // different name -> returns false
         EditCommand.EditAnswerableDescriptor editedAmy = new EditAnswerableDescriptorBuilder(DESC_ALPHA)
-                .withQuestion(VALID_QUESTION_BETA).build();
+                .withQuestion(VALID_MCQ_QUESTION_2).build();
         assertFalse(DESC_ALPHA.equals(editedAmy));
 
         // different difficulty -> returns false

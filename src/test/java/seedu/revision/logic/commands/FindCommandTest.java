@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.commons.core.Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.revision.testutil.TypicalAnswerables.C_ANSWERABLE;
-import static seedu.revision.testutil.TypicalAnswerables.E_ANSWERABLE;
-import static seedu.revision.testutil.TypicalAnswerables.F_ANSWERABLE;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
+import static seedu.revision.testutil.TypicalMcq.MCQ_E;
+import static seedu.revision.testutil.TypicalMcq.MCQ_F;
+import static seedu.revision.testutil.TypicalMcq.MCQ_G;
+import static seedu.revision.testutil.TypicalMcq.getMcqRevisionTool;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,8 +27,8 @@ import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredic
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalRevisionTool(), new UserPrefs(), new History());
-    private Model expectedModel = new ModelManager(getTypicalRevisionTool(), new UserPrefs(), new History());
+    private Model model = new ModelManager(getMcqRevisionTool(), new UserPrefs(), new History());
+    private Model expectedModel = new ModelManager(getMcqRevisionTool(), new UserPrefs(), new History());
 
     @Test
     public void equals() {
@@ -74,7 +74,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredAnswerableList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(C_ANSWERABLE, E_ANSWERABLE, F_ANSWERABLE), model.getFilteredAnswerableList());
+        assertEquals(Arrays.asList(MCQ_E, MCQ_F, MCQ_G), model.getFilteredAnswerableList());
     }
 
     /**

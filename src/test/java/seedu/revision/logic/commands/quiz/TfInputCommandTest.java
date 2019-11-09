@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.revision.testutil.TypicalTrueFalse.A_ANSWERABLE;
-import static seedu.revision.testutil.TypicalTrueFalse.A_TF_COMMAND;
+import static seedu.revision.testutil.TypicalTrueFalse.TF_A;
+import static seedu.revision.testutil.TypicalTrueFalse.TF_A_COMMAND;
 
 
 import seedu.revision.logic.commands.Command;
@@ -21,22 +21,22 @@ public class TfInputCommandTest {
 
 
     @Test
-    public void execute_tfAnswerFalseCaseInsensitive_correct() throws ParseException {
-        Command commandResultNormal = new TfInputCommand("False", A_ANSWERABLE);
-        Command commandResultUpperCase = new TfInputCommand("FALSE", A_ANSWERABLE);
-        Command commandResultLowerCase = new TfInputCommand("false", A_ANSWERABLE);
-        Command commandResultRandomCase = new TfInputCommand("FAlSe", A_ANSWERABLE);
+    public void execute_tfAnswerTrueCaseInsensitive_correct() throws ParseException {
+        Command commandNormal = new TfInputCommand("True", TF_A);
+        Command commandUpperCase = new TfInputCommand("TRUE", TF_A);
+        Command commandLowerCase = new TfInputCommand("true", TF_A);
+        Command commandRandomCase = new TfInputCommand("tRuE", TF_A);
 
         CommandResult expectedCommandResult = new CommandResult().withFeedBack("correct")
                 .withHelp(false).withExit(false).build();
         try {
-            assertCommandSuccess(commandResultNormal, model,
+            assertCommandSuccess(commandNormal, model,
                     expectedCommandResult, expectedModel);
-            assertCommandSuccess(commandResultUpperCase, model,
+            assertCommandSuccess(commandUpperCase, model,
                     expectedCommandResult, expectedModel);
-            assertCommandSuccess(commandResultLowerCase, model,
+            assertCommandSuccess(commandLowerCase, model,
                     expectedCommandResult, expectedModel);
-            assertCommandSuccess(commandResultRandomCase, model,
+            assertCommandSuccess(commandRandomCase, model,
                     expectedCommandResult, expectedModel);
         } catch (Exception e) {
             throw new ParseException(TfInputCommand.MESSAGE_USAGE);
@@ -44,13 +44,23 @@ public class TfInputCommandTest {
     }
 
     @Test
-    public void execute_tfAnswerTrue_wrong() throws ParseException {
-        Command commandResult = new TfInputCommand("True", A_ANSWERABLE);
+    public void execute_tfAnswerFalseCaseInsensitve_wrong() throws ParseException {
+        Command commandNormal = new TfInputCommand("False", TF_A);
+        Command commandUpperCase = new TfInputCommand("FALSE", TF_A);
+        Command commandLowerCase = new TfInputCommand("false", TF_A);
+        Command commandRandomCase = new TfInputCommand("faLSE", TF_A);
+
         CommandResult expectedCommandResult = new CommandResult().withFeedBack("wrong")
                 .withHelp(false).withExit(false).build();
 
         try {
-            assertCommandSuccess(commandResult, model,
+            assertCommandSuccess(commandNormal, model,
+                    expectedCommandResult, expectedModel);
+            assertCommandSuccess(commandUpperCase, model,
+                    expectedCommandResult, expectedModel);
+            assertCommandSuccess(commandLowerCase, model,
+                    expectedCommandResult, expectedModel);
+            assertCommandSuccess(commandRandomCase, model,
                     expectedCommandResult, expectedModel);
         } catch (Exception e) {
             throw new ParseException(TfInputCommand.MESSAGE_USAGE);
@@ -60,8 +70,8 @@ public class TfInputCommandTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Command commandCopy = new TfInputCommand("False", A_ANSWERABLE);
-        assertTrue(A_TF_COMMAND.equals(commandCopy));
+        Command commandCopy = new TfInputCommand("False", TF_A);
+        assertTrue(TF_A_COMMAND.equals(commandCopy));
 
         // same object -> returns true
         assertTrue(commandCopy.equals(commandCopy));

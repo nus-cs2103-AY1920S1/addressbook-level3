@@ -3,10 +3,10 @@ package seedu.revision.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.H_ANSWERABLE;
-import static seedu.revision.testutil.TypicalAnswerables.I_ANSWERABLE;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
+import static seedu.revision.testutil.TypicalMcq.H_ANSWERABLE;
+import static seedu.revision.testutil.TypicalMcq.I_ANSWERABLE;
+import static seedu.revision.testutil.TypicalMcq.MCQ_C;
+import static seedu.revision.testutil.TypicalMcq.getMcqRevisionTool;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -63,7 +63,7 @@ public class JsonRevisionToolStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        RevisionTool original = getTypicalRevisionTool();
+        RevisionTool original = getMcqRevisionTool();
         JsonRevisionToolStorage jsonAddressBookStorage = new JsonRevisionToolStorage(filePath);
 
         // Save in new file and read back
@@ -73,7 +73,7 @@ public class JsonRevisionToolStorageTest {
 
         // Modify data, overwrite exiting file, and read back
         original.addAnswerable(H_ANSWERABLE);
-        original.removeAnswerable(MCQ_STUB);
+        original.removeAnswerable(MCQ_C);
         jsonAddressBookStorage.saveRevisionTool(original, filePath);
         readBack = jsonAddressBookStorage.readRevisionTool(filePath).get();
         assertEquals(original, new RevisionTool(readBack));

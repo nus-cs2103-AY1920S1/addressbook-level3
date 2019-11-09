@@ -24,9 +24,6 @@ public class Mcq extends Answerable {
         super(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
 
-    public Mcq(ArrayList<Answer> correctAnswerList, ArrayList<Answer> wrongAnswerList) {
-        super(correctAnswerList, wrongAnswerList);
-    }
 
     /**
      * Checks whether the input Mcq is valid
