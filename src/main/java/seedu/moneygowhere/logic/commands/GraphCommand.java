@@ -61,7 +61,7 @@ public class GraphCommand extends Command {
         requireNonNull(endingDate);
         startDate = startingDate;
         endDate = endingDate;
-        messageSuccess = String.format("Graph panel updated for spending between %s and %s!\n", startDate, endDate);
+        messageSuccess = "Graph panel updated for spending between specified date range!\n";
     }
 
     @Override

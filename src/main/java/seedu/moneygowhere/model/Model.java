@@ -156,11 +156,6 @@ public interface Model {
      */
     ObservableList<Spending> getStatsList();
 
-    /**
-     * Updates the statsPredicate
-     */
-    void updateStatsPredicate(Predicate<Spending> statsPredicate);
-
     //@@author Nanosync
     /**
      * Gets the currency in use.

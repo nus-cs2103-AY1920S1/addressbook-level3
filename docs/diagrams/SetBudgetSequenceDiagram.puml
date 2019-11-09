@@ -30,12 +30,11 @@ deactivate BudgetCommandParser
 
 SpendingBookParser -> BudgetCommandParser : parse(" 100000")
 activate BudgetCommandParser
-activate Budget
 
 BudgetCommandParser -> ParseUtil
 activate ParseUtil
 
-create Budget
+activate Budget
 ParseUtil -> Budget
 
 Budget --> ParseUtil
@@ -82,6 +81,8 @@ deactivate BudgetCommand
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 BudgetCommand -[hidden]-> SpendingBookParser
 destroy BudgetCommand
+destroy Budget
+destroy CommandResult
 
 [<--LogicManager
 deactivate LogicManager

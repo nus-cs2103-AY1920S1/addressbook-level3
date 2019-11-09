@@ -38,8 +38,7 @@ class StatsCommandTest {
     @Test
     public void execute_validDateRange_success() {
         CommandResult expectedCommandResult = new CommandResult(
-            String.format("Statistics panel updated for spending between %s and %s!\n",
-            APPLE.getDate(), GLASSES.getDate()), false, true, false);
+            "Statistics panel updated for spending between specified date range!\n", false, true, false);
         assertCommandSuccess(new StatsCommand(APPLE.getDate(), GLASSES.getDate()), model,
             expectedCommandResult, expectedModel);
     }

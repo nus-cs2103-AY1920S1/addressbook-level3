@@ -16,7 +16,6 @@ endif::[]
 
 By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
-// tag::introduction[]
 == Introduction
 
 *MoneyGoWhere* is a personal finance application targeted to students at the National University of Singapore (NUS).
@@ -44,6 +43,8 @@ Tips that can help you better navigate the application.
 Useful information for a deeper understanding of the command.
 ====
 
+Without further ado, let's head over to <<Quick Start>> to get started!
+
 == Quick Start
 
 These steps will guide you in installing MoneyGoWhere on your computer.
@@ -69,9 +70,12 @@ e.g. typing *`help`* will display the help information.
 
 . When you are ready to get started on tracking your own finances, do type `clear` in the command box and press kbd:[Enter].
 This removes all the sample data from the application.
-. You can refer to <<Features>> for more details about each command.
 
-// end::introduction[]
+This is the end of the Quick Start tutorial. You can refer to <<Features>> for more details about each command.
+
+[NOTE]
+Your data is saved in the `data/` folder by default. You are advised not to modify any of the system created files within the folder,
+else *MoneyGoWhere* may not perform as expected.
 
 [[Features]]
 == Features
@@ -148,6 +152,7 @@ MoneyGoWhere will also automatically check whether a given date is valid.
 Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019. MoneyGoWhere may automatically try to correct dates *best possible date*.
 // end::flexibledateformats[]
 
+// tag::updown[]
 === Going through your command history:
 Similar to a typical command line interface (CLI), the user may press the up and down key
 to go through the previous user input history, and display it in the command box. Pressing the up key would go back to the earlier user input command.
@@ -156,6 +161,7 @@ Whereas pressing the down key would move towards the most recent user input key.
 [NOTE]
 If the user is at the most recent, or the earliest user inputted command, then press the up and down key respectively,
 no text will be displayed.
+// end::updown[]
 
 === Adding a spending : `add`
 
@@ -190,7 +196,7 @@ Edits a spending at a specified index in the list. +
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the spending will be removed i.e adding of tags is not cumulative.
-* Tags can have up to 64 characters.
+* Tags can have up to 15 characters.
 * You can remove all the spending's tags by typing `t/` without specifying any tags after it.
 * If a spending date is in the future, it can only be up to end of this month.
 * Spending entries that are added using a different currency will have output displayed in SGD.
@@ -319,8 +325,11 @@ Spending entries which match the search criteria are listed.
 
 // end::find[]
 
+// tag::budget[]
 === Setting monthly budget : `budget`
-Sets a budget for the current month in Singapore dollars. +
+Sets a budget for the current month in the currency set . +
+The monthly budget cannot exceed 1,000,000,000 Singapore Dollars. +
+
 *Format:* `budget MONTHLY_BUDGET` +
 
 [NOTE]
@@ -333,15 +342,18 @@ Sets a budget of $`500000` for this month
 
 *Expected Output:*
 
-The budget for the current month is changed.
+The budget for the current month is changed to the set amount.
+// end::budget[]
 
+// tag::showbudget[]
 === Showing current budget : `showbudget`
-Returns the current monthly budget. +
+Returns the current monthly budget, total spending and remaining budget in Singapore Dollars. +
 *Format:* `showbudget`
 
 *Expected Output:*
 
-The budget for the current month is shown.
+The budget for the current month along with the total spending in the month as well as remaining budget is shown.
+// end::showbudget[]
 
 // tag::currency[]
 === Setting the currency : `currency`
@@ -399,6 +411,11 @@ All available exchange rates are shown, or a conversion of an input currency is 
 Organises the spending based on tags.
 A pie chart is generated, with each sector representing the total amount of money spent on a tag.
 This enables users to be more informed of their spending habits as they are now aware of where they have spent most of their money on.
+An example is shown below.
+
+.Output of `stats`
+image::stats.png[width="700"]
+
 
 *Format:* `stats d/DATE_START d/DATE_END`
 
@@ -432,13 +449,8 @@ The statistics panel will update with the currency set.
 
 * `stats`: Generates statistics for all spending.
 
-.Output of `stats`
-image::allstats.png[width="700"]
-
 * `stats d/20/10/2019 d/25/10/2019`: Generates statistics for spending between and including 20/10/2019 and 25/10/2019.
 
-.Output of `stats d/20/10/2019 d/25/10/2019`
-image::daterangestats.png[width=700"]
 
 *Expected Output:*
 
@@ -450,6 +462,10 @@ Statistics is shown.
 === Generating a graph : `graph`
 Organises the spending based on date. A line graph is generated, with each point representing the total amount of money spent on a particular date.
 This enables users to analyze trends in their spending amount over a particular period of time.
+An example is shown below.
+
+.Output of `graph`
+image::graph.png[width="700"]
 
 *Format:* `graph d/DATE_START d/DATE_END`
 
@@ -481,14 +497,7 @@ The graph panel will update with the currency set.
 *Examples:*
 
 * `graph`: Generates a graph for all spending.
-
-.Output of `graph`
-image::allgraph.png[width="700"]
-
 * `graph d/20/10/2019 d/25/10/2019`: Generates a graph for spending between and including 20/10/2019 and 25/10/2019.
-
-.Output of `graph d/20/10/2019 d/25/10/2019`
-image::daterangegraph.png[width="700"]
 
 *Expected Output:*
 
@@ -704,9 +713,9 @@ e.g. `exchangerate`, `exchangerate 5 USD`
 e.g. `budget 18000`
 | *Show Budget* | `showbudget` +
 e.g. `showbudget`
-| *Generate statistics*| `stats d/STARTDATE d/ENDDATE` +
+| *Generate statistics*| `stats d/DATE_START d/DATE_END` +
 e.g. `stats d/01/01/2019 d/07/01/2019` +
-| *Graph*| `graph d/STARTDATE d/ENDDATE` +
+| *Graph*| `graph d/DATE_START d/DATE_END` +
 e.g. `graph d/01/01/2019 d/07/01/2019` +
 | *Import data*| `import p/FILE_PATH` +
 e.g. `import p/C:\Users\User\Documents\importfile.csv` +
