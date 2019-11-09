@@ -456,17 +456,17 @@ The following sequence diagrams shows how the learn custom command operation wor
 
 Firstly an unknown command is supplied,
 
-image::UnknownCommandDiagram.png[]
+image::UnknownCommandDiagram.png[width="600"]
 
 NOTE: The lifeline for `UnknownCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 After which, a known command is supplied,
 
-image::NewCommandDiagram.png[]
+image::NewCommandDiagram.png[width="600"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::LearnCustomCommandsActivityDiagram.png[width="800"]
+image::LearnCustomCommandsActivityDiagram.png[width="500"]
 
 ==== Design Considerations
 
