@@ -2,7 +2,16 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTENDANCE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PICTURE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RESULT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -99,6 +108,7 @@ public class CommandTestUtil {
     public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "consulting"; // "consulting" is not allowed
     public static final String INVALID_AMOUNT_DESC =
             " " + PREFIX_AMOUNT + "323.332"; // Only 2 decimal places are allowed
+
 
 
     public static final String VALID_CLASSID_NOTE_AMY = "CS2103T";

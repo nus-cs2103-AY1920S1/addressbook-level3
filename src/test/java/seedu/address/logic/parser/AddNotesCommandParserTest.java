@@ -5,9 +5,9 @@ import static seedu.address.logic.commands.CommandTestUtil.CLASSID_DESC_NOTE_BOB
 import static seedu.address.logic.commands.CommandTestUtil.CLASSID_DESC_NOTE_CALVIN;
 import static seedu.address.logic.commands.CommandTestUtil.CONTENT_DESC_NOTE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.CONTENT_DESC_NOTE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CLASSID_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.TYPE_DESC_NOTE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TYPE_DESC_NOTE_CALVIN;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CLASSID_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ATTENDANCE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_CONTENT_3;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_NOTES_LAB;
