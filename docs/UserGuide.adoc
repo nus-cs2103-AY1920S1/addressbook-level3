@@ -48,7 +48,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 dob/12.09.1980 g/Male`: adds person
 * **`delete`**`3` : deletes the 3rd person shown in the current list
 * *`listpolicy`* : lists all policies
-* `add pol n/SeniorCare d/care for seniors c/months/10 pr/$50000 [sa/50 ea/75]`: adds policy
+* `addpolicy n/SeniorCare d/care for seniors c/months/10 pr/$50000 [sa/50 ea/75]`: adds policy
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -862,9 +862,13 @@ Format:
 
 Examples:
 
-`restore 1` +
-
 Restores first index of the list of bin items.
+
+```
+# input commands
+>>> listbin
+>>> restore 1
+```
 
 Expected Output: +
 ```
@@ -998,7 +1002,7 @@ Suggestions of correct command words will be listed immediately once an incorrec
 * *Add Person* `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH​ g/GENDER` +
 e.g. `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 dob/12.09.1980 g/MALE`
 * *Add Policy* `addpolicy  addpolicy n/NAME d/DESCRIPTION c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID]  pr/PRICE [sa/START_AGE] [ea/END_AGE]...` +
-e.g. `add pol n/SeniorCare d/care for seniors c/months/10 pr/$50000 [sa/50 ea/75]`
+e.g. `addpolicy n/SeniorCare d/care for seniors c/months/10 pr/$50000 [sa/50 ea/75]`
 * *List People* : `listpeople`
 * *List Policy* : `listpolicy`
 * *List Bin Items* : `listbin`
@@ -1045,3 +1049,4 @@ e.g. `display i/policy-popularity-breakdown f/piechart`
 e.g. `binitemexpiry days/30`
 * *Clear* : `clear`
 * *Help* : `help`
+* *Exit* : `exit`

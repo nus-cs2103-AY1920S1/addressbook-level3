@@ -330,7 +330,7 @@ The following sequence diagram shows how a `deletepolicy` operation involves the
 image::BinDeletePolicySequenceDiagram.png[]
 
 Step 4. The user quits the current session and starts a new session some time later. He/she then realises that he/she
-needs that contact that was deleted and wants it back, so he/she executes `restore 1` to restore the deleted person
+needs the person that was deleted and wants it back, so he/she executes `restore 1` to restore the deleted person
 from the bin.
 
 Step 5. The `restore` command then calls `Model#deleteBinItem(itemToRestore)`, which removes `itemToRestore` from
@@ -720,16 +720,17 @@ Use case resumes at step 1.
 Use case ends.
 // end::editperson[]
 
+//tag::deleteperson[]
 [discrete]
-=== Use case: Delete contact
+=== Use case: Delete person
 
 *MSS*
 
-1.  User requests to list contacts
-2.  Insurelytics shows a list of contacts
-3.  User requests to delete a specific contact in the list
-4.  Insurelytics deletes the contact
-5.  Contact appears in the recycling bin
+1.  User requests to list persons.
+2.  Insurelytics shows a list of persons.
+3.  User requests to delete a specific person in the list.
+4.  Insurelytics deletes the person.
+5.  Person appears in the recycling bin.
 +
 Use case ends.
 
@@ -746,6 +747,7 @@ Use case ends.
 ** 3a1. Insurelytics shows an error message.
 +
 Use case resumes at step 2.
+//end::deleteperson[]
 
 [discrete]
 === Use case: Assigning a policy to a person
@@ -781,15 +783,16 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 
+//tag::restore[]
 [discrete]
-=== Use case: Restoring recently deleted contact
+=== Use case: Restoring recently deleted items
 
 *MSS*
 
-1.  User requests to list recently deleted contacts from recycling bin
-2.  Insurelytics shows a list of contacts
-3.  User requests to restore a specific contact in the list
-4.  AddressBook restores the contact
+1.  User requests to list recently deleted items from bin.
+2.  Insurelytics shows a list of bin items.
+3.  User requests to restore a specific item in the list.
+4.  AddressBook restores the item to the list it belongs to.
 +
 Use case ends.
 
@@ -806,6 +809,7 @@ Use case ends.
 ** 3a1. Insurelytics shows an error message.
 +
 Use case resumes at step 2.
+//end::restore[]
 
 [discrete]
 // tag::mergingusecase[]
@@ -885,7 +889,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample persons and policies. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -901,7 +905,9 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First person is deleted from the list. Details of the deleted person shown in the status message.
+Timestamp
+in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
