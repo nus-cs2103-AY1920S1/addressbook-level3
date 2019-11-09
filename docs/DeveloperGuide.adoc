@@ -1,4 +1,4 @@
-= NUStudy developer guide
+= NUStudy Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -455,15 +455,15 @@ The revision task management commands include:
 * `ListNotDoneTaskCommand` -- Displays tasks that have not been done to the user.
 * `ListOverdueTaskCommand` -- Displays tasks that have passed the scheduled time to the user.
 
+These operations are exposed in the `Model` interface as `Model#addTask(Task task)`, `Model#hasTask(Task task)`, `Model#clearTaskList()`,
+`Model#deleteTask(Task target)`, `Model#markTaskAsDone(Task taskDone)`, `Model#setTask(Task target, Task editedTask)`,
+`Model#updateFilteredTaskList(Predicate<Task> predicate)` and `Model#getFilteredTaskList()` respectively.
 
-`AddTaskForNoteCommand` is implemented to add a task for revising a lecture note with the command `rn`. It extends `Command` class and adds a
-`Task` to the `TaskList` kept in `AppData` model, which wraps all application data. Similarly,
-`AddTaskForQuestionCommand` is implemented to add a task for revising a question.
 
-The `TaskList` is essentially a list of `Task`. `TaskList` supports the `add(Task)` operation and this operation is
-exposed to `AppData#addTask(Task)`.
+`AddTaskForNoteCommand` is implemented to add a task for revising a lecture note with the command `rn`. Similarly,
+`AddTaskForQuestionCommand` is implemented to add a task for revising a question with the command `rq`.
 
-The following process illustrates the mechanism of adding a revision task for note to the task list (adding a revision task
+Taking `AddTaskForNoteCommand` as an example, the following process illustrates the mechanism of adding a revision task for note to the task list (adding a revision task
 for question has a similar command but different parameters).
 
 Step 1. The user enters command `rn t/UML diagram dt/01/01/2019 tm/1200` for adding a task for note. The command is parsed by `AddTaskForNoteCommandParser`.

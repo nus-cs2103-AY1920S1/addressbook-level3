@@ -1,4 +1,4 @@
-= NUStudy project portfolio for Zhang Dongjun (Auxinnn)
+= Zhang Dongjun (Auxinnn) - Project Portfolio for NUStudy
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
