@@ -283,7 +283,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Gets the first date and last date from the {@param graphData} provided.
+     * Gets the first date and last date from the graph data provided.
      */
     private void getStartAndEndDates(LinkedHashMap<String, Double> graphData) {
         if (graphData.size() >= 2) {

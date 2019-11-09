@@ -121,7 +121,7 @@ public class ModelManagerTest {
     @Test
     public void updateStatsPredicate_predicateGiven_Success() {
         modelManager.updateStatsPredicate(null);
-        assertEquals(modelManager.statsPredicate, null);
+        assertEquals(modelManager.getStatsPredicate(), null);
     }
 
     @Test

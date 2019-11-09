@@ -26,6 +26,7 @@ import seedu.moneygowhere.model.spending.Spending;
  * Represents the in-memory model of the MoneyGoWhere list data.
  */
 public class ModelManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final SpendingBook spendingBook;
@@ -34,7 +35,7 @@ public class ModelManager implements Model {
     private final SortedList<Spending> sortedSpendings;
     private final SortedList<Reminder> sortedReminders;
 
-    Predicate<Spending> statsPredicate;
+    private Predicate<Spending> statsPredicate;
 
     /**
      * Initializes a ModelManager with the given spendingBook and userPrefs.
@@ -275,4 +276,7 @@ public class ModelManager implements Model {
 
     }
 
+    public Predicate<Spending> getStatsPredicate() {
+        return statsPredicate;
+    }
 }

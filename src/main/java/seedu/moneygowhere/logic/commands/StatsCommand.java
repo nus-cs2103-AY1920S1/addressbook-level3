@@ -48,8 +48,8 @@ public class StatsCommand extends Command {
     public StatsCommand() {
         startDate = null;
         endDate = null;
-        messageSuccess = "Statistics panel updated for all spending!\n" +
-            "To view statistics for a more specific date range, type: stats d/DATE_START d/DATE_END.\n";
+        messageSuccess = "Statistics panel updated for all spending!\n"
+            + "To view statistics for a more specific date range, type: stats d/DATE_START d/DATE_END.\n";
     }
 
     /**
@@ -60,7 +60,8 @@ public class StatsCommand extends Command {
         requireNonNull(endingDate);
         startDate = startingDate;
         endDate = endingDate;
-        messageSuccess = String.format("Statistics panel updated for spending between %s and %s!\n", startDate, endDate);
+        messageSuccess = String.format("Statistics panel updated for spending between %s and %s!\n",
+            startDate, endDate);
     }
 
     @Override

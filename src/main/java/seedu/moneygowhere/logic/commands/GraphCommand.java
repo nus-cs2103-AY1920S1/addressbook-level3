@@ -49,8 +49,8 @@ public class GraphCommand extends Command {
     public GraphCommand() {
         startDate = null;
         endDate = null;
-        messageSuccess = "Graph panel updated for all spending!\n" +
-            "To view graph for a more specific date range, type: graph d/DATE_START d/DATE_END.\n";
+        messageSuccess = "Graph panel updated for all spending!\n"
+            + "To view graph for a more specific date range, type: graph d/DATE_START d/DATE_END.\n";
     }
 
     /**
