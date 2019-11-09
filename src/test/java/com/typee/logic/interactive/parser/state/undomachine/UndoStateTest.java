@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser.state;
+package com.typee.logic.interactive.parser.state.undomachine;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +11,6 @@ import com.typee.logic.commands.UndoCommand;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
-import com.typee.logic.interactive.parser.state.undomachine.UndoState;
 
 public class UndoStateTest {
     private UndoState typicalUndoState = new UndoState(new ArgumentMultimap());
