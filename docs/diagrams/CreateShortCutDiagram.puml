@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":FinSecParser" as FinSecParser LOGIC_COLOR
+participant "cmd:CreateShortCutCommand" as CreateShortCutCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "c:CommandItem" as CommandItem LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("validCommand")
+activate LogicManager
+
+LogicManager -> Model : getSavedCommand()
+activate Model
+
+Model --> LogicManager: savedCommand
+deactivate Model
+
+LogicManager -> FinSecParser : checkCommand(currentInput, savedInput)
+activate FinSecParser
+
+create CreateShortCutCommand
+FinSecParser -> CreateShortCutCommand
+activate CreateShortCutCommand
+
+CreateShortCutCommand --> FinSecParser : cmd
+deactivate CreateShortCutCommand
+
+FinSecParser --> LogicManager : cmd
+deactivate FinSecParser
+
+LogicManager -> CreateShortCutCommand : execute()
+activate CreateShortCutCommand
+
+create CommandItem
+CreateShortCutCommand -> CommandItem : new CommandItem(savedInput, currentInput)
+activate CommandItem
+
+CommandItem--> CreateShortCutCommand : c
+deactivate CommandItem
+
+CreateShortCutCommand-> Model : addCommand(c)
+activate Model
+
+Model --> CreateShortCutCommand
+deactivate Model
+
+create CommandResult
+CreateShortCutCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CreateShortCutCommand
+deactivate CommandResult
+
+CreateShortCutCommand --> LogicManager : result
+deactivate CreateShortCutCommand
+
+CreateShortCutCommand -[hidden]-> LogicManager : result
+destroy CreateShortCutCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
