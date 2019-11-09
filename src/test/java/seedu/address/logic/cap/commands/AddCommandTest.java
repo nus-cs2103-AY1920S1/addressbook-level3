@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import javafx.collections.transformation.*;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
@@ -131,6 +132,16 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyCapLog getCapLog() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public FilteredList<Module> getFilteredListbyTime() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSortedList() {
             throw new AssertionError("This method should not be called.");
         }
 
