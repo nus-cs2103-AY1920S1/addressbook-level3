@@ -13,7 +13,6 @@ import dream.fcard.util.stats.DateTimeUtil;
 /**
  * A list of Session objects.
  */
-
 public class SessionList implements JsonInterface {
 
     private ArrayList<Session> sessionArrayList;

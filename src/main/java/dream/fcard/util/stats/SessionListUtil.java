@@ -63,12 +63,12 @@ public class SessionListUtil {
     }
 
     /**
-     * Given a TestSession, return a double representing the percentage of correct answers.
-     * Assumes that the TestSession provided has a score.
-     * @param session The TestSession whose score to get.
+     * Given a Session, return a double representing the percentage of correct answers.
+     * Assumes that the Session provided has a score.
+     * @param session The Session whose score to get.
      * @return A double representing the percentage of correct answers.
      */
-    public static double getScoreAsPercentageDouble(TestSession session) {
+    public static double getScoreAsPercentageDouble(Session session) {
         String score = session.getScore();
         return SessionListUtil.getScoreAsPercentageDouble(score);
     }
@@ -94,15 +94,15 @@ public class SessionListUtil {
 
     /**
      * Calculates the average score of a list of test sessions.
-     * @param testSessionList The list of test sessions.
+     * @param sessionList The list of test sessions.
      * @return The average score of the list of test sessions, as a String.
      */
-    public static String getAverageScore(TestSessionList testSessionList) {
-        ArrayList<TestSession> sessionArrayList = testSessionList.getTestSessionArrayList();
+    public static String getAverageScore(SessionList sessionList) {
+        ArrayList<Session> sessionArrayList = sessionList.getSessionArrayList();
 
         double sumOfScores = 0.0;
         int numOfTestSessionsWithScore = 0;
-        for (TestSession session : sessionArrayList) {
+        for (Session session : sessionArrayList) {
             if (!session.hasScore()) {
                 continue;
             }
