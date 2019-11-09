@@ -8,6 +8,8 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     @Test
@@ -71,3 +73,4 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         assertStatusBarUnchanged();
     }
 }
+//@@author

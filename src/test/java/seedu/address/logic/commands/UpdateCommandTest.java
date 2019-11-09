@@ -282,7 +282,7 @@ public class UpdateCommandTest extends GuiUnitTest {
     }
 
     @Test
-    public void executeBody_setBodyStatusToCop_success() throws CommandException {
+    public void executeBody_setBodyStatusToCop_success() throws CommandException, InterruptedException {
         Body body = new BodyBuilder().build();
         model.addEntity(body);
 
@@ -292,6 +292,7 @@ public class UpdateCommandTest extends GuiUnitTest {
         UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         updateCommand.execute(model);
 
+        Thread.sleep(100);
         assertEquals(model.getNumberOfNotifs(), 1);
     }
     //@@author

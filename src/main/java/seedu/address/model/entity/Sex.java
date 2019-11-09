@@ -1,5 +1,6 @@
 package seedu.address.model.entity;
 
+//@@author shaoyi1997
 /**
  * Enumerates sex.
  */
@@ -34,3 +35,4 @@ public enum Sex {
         }
     }
 }
+//@@author

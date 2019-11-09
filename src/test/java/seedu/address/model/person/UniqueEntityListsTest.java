@@ -22,6 +22,7 @@ import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.WorkerBuilder;
 
+//@@author shaoyi1997
 public class UniqueEntityListsTest {
 
     private final UniqueEntityLists uniqueEntityLists = new UniqueEntityLists();
@@ -181,3 +182,4 @@ public class UniqueEntityListsTest {
             -> uniqueEntityLists.asUnmodifiableObservableListFridge().remove(0));
     }
 }
+//@@author

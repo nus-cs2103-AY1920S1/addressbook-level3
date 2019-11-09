@@ -22,7 +22,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.entity.worker.Worker;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997
 /**
  * A utility class containing a list of {@code Workers} objects to be used in tests.
  */
@@ -71,4 +71,4 @@ public class TypicalWorkers {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CHARLIE, CLARA));
     }
 }
-//@@ author
+//@@author

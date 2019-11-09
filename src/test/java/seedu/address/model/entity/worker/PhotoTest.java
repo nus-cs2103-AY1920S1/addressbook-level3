@@ -7,6 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+//@@author shaoyi1997
 class PhotoTest {
 
     private Photo photo = new Photo(Photo.PATH_TO_EXAMPLE_PHOTO);
@@ -49,3 +50,4 @@ class PhotoTest {
         assertEquals(photo.hashCode(), copyPhoto.hashCode());
     }
 }
+//@@author

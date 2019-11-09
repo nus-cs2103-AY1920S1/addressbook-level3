@@ -32,6 +32,8 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.WorkerBuilder;
 import seedu.address.ui.GuiUnitTest;
 
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 3 with modifications
 public class AddCommandTest extends GuiUnitTest {
 
     @Test
@@ -336,3 +338,4 @@ public class AddCommandTest extends GuiUnitTest {
     }
 
 }
+//@@author

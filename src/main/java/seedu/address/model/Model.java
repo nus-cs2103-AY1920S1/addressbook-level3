@@ -104,6 +104,7 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
+    //@@author shaoyi1997
     /**
      * Returns true if an entity with the same identity as {@code entity} exists in Mortago.
      */
@@ -156,6 +157,7 @@ public interface Model {
      *  Returns the total number of notifications in the system.
      */
     int getNumberOfNotifs();
+    //@@author
 
     /**
      *  Returns the total number of active notifications in the system.
@@ -165,6 +167,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    //@@author shaoyi1997
     /** Returns an unmodifiable view of the filtered list of workers*/
     ObservableList<Worker> getFilteredWorkerList();
 
@@ -173,6 +176,7 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered list of fridges */
     ObservableList<Fridge> getFilteredFridgeList();
+    //@@author
 
     /** Returns an unmodifiable view of the filtered list of entities */
     ObservableList<? extends Entity> getFilteredEntityList(String entityType);
@@ -219,7 +223,7 @@ public interface Model {
      */
     void updateFilteredFridgeList(Predicate<Fridge> predicate);
 
-    //@@ shaoyi1997-reused
+    //@@author shaoyi1997-reused
     //Reused from SE-EDU Address Book Level 4
     /**
      * Selected person in the filtered body list.
@@ -238,5 +242,5 @@ public interface Model {
      */
     void setSelectedBody(Body body);
 
-    //@@ shaoyi1997-reused
+    //@@author
 }

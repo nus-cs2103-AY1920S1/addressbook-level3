@@ -16,9 +16,9 @@ import java.util.Date;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.entity.worker.Worker;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997
 /**
- * A utility class for Worker.
+ * A utility class for the Worker class to be used in tests.
  */
 public class WorkerUtil {
 
@@ -57,4 +57,4 @@ public class WorkerUtil {
         return dateFormat.format(date);
     }
 }
-//@@ author
+//@@author

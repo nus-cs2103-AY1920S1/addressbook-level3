@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 
+//@@author shaoyi1997
 /**
  * Master Detail Pane for list of bodies and a selected body's details.
  */
@@ -26,3 +27,4 @@ public class BodyMasterDetailPane extends UiPart<Region> {
         bodyMasterDetailPane.setDetailNode(bodyCardSelected.getRoot());
     }
 }
+//@@author

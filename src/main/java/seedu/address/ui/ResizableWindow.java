@@ -11,11 +11,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 //@@author shaoyi1997-reused
+//Reused from https://stackoverflow.com/questions/19455059/allow-user-to-resize-an-undecorated-stage
 /**
  * Enables the resizing of MainWindow by adding mouse event listeners.
- *
- * By: Evgenii Kanivets and Alexander.Berg
- * Adapted From: https://stackoverflow.com/questions/19455059/allow-user-to-resize-an-undecorated-stage
  */
 public class ResizableWindow {
 

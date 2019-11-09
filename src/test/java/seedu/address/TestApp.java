@@ -18,7 +18,8 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import systemtests.ModelHelper;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
  * testing
@@ -102,4 +103,4 @@ public class TestApp extends MainApp {
     }
 
 }
-//@@ author
+//@@author

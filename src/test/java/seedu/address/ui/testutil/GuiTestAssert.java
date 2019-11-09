@@ -10,7 +10,8 @@ import guitests.guihandles.WorkerListPanelHandle;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.ui.WorkerCard;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 /**
  * A set of assertion methods useful for writing GUI tests.
  */
@@ -83,4 +84,4 @@ public class GuiTestAssert {
         assertEquals(expected, resultDisplayHandle.getText());
     }
 }
-//@@ author
+//@@author

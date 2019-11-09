@@ -21,7 +21,8 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4 with modifications
 public class WorkerListPanelTest extends GuiUnitTest {
     private static final ObservableList<Worker> TYPICAL_WORKERS =
             FXCollections.observableList(getTypicalWorkers());
@@ -91,3 +92,4 @@ public class WorkerListPanelTest extends GuiUnitTest {
                 WorkerListPanelHandle.WORKER_LIST_VIEW_ID));
     }
 }
+//@@author

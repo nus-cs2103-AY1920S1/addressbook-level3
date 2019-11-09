@@ -17,14 +17,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.commons.util.FileUtil;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997
 /**
  * Represents the display picture of a worker in Mortago.
  */
 public class Photo {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Error in importing display photo: Photo should be less than 2MB or it does not exist.";
+            "Error in importing display photo: Photo should be a jpeg, jpg or png file, or it does not exist.";
     public static final String MESSAGE_DATA_COPY_ERROR =
             "Error in copying photo to the data directory";
     public static final String PATH_TO_DATA_DIRECTORY = "data" + File.separator + "photo" + File.separator;
@@ -139,4 +139,4 @@ public class Photo {
         return Objects.hash(originalDirectory, dataDirectory);
     }
 }
-//@@ author
+//@@author

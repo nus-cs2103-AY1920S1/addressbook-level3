@@ -159,7 +159,7 @@ public class ParserUtil {
         return tagSet;
     }
 
-    //@@ author shaoyi1997
+    //@@author shaoyi1997
     /**
      * Parses {@code String date} into a {@code Date date}.
      *
@@ -306,5 +306,5 @@ public class ParserUtil {
             throw new ParseException(Photo.MESSAGE_CONSTRAINTS);
         }
     }
-    //@@ author
+    //@@author
 }

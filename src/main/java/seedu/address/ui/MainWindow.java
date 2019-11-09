@@ -24,7 +24,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 3 with major modifications
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -195,7 +196,7 @@ public class MainWindow extends UiPart<Stage> {
         // set handler when user double clicks on the menubar
         menuBar.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
-                maximizeRestore(event);
+                maximiseRestore();
             }
         });
 
@@ -212,7 +213,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Enables the maximization and restoration of the window.
      */
-    private void maximizeRestore(MouseEvent evt) {
+    private void maximiseRestore() {
         if (primaryStage.isMaximized()) {
             primaryStage.setMaximized(false);
             if (primaryStage.getScene().getWindow().getY() < 0) {
@@ -262,7 +263,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setMaximiseButtonHandler() {
         maximiseButton.setOnMousePressed(click -> {
-            maximizeRestore(click);
+            maximiseRestore();
         });
     }
 
@@ -324,4 +325,4 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 }
-//@@ author
+//@@author

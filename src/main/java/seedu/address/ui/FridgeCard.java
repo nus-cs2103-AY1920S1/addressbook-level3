@@ -7,13 +7,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.entity.fridge.Fridge;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997
 /**
  * An UI component that displays information of a {@code Fridge}.
  */
 public class FridgeCard extends UiPart<Region> {
 
     private static final String FXML = "FridgeListCard.fxml";
+    private static final String NO_BODY_IN_FRIDGE = "No body assigned";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -42,7 +43,7 @@ public class FridgeCard extends UiPart<Region> {
         if (fridge.getBody().isPresent()) {
             bodyIdInFridge.setText(fridge.getBody().get().getIdNum().toString());
         } else {
-            bodyIdInFridge.setText("No body assigned");
+            bodyIdInFridge.setText(NO_BODY_IN_FRIDGE);
         }
     }
 
@@ -63,4 +64,4 @@ public class FridgeCard extends UiPart<Region> {
         return fridge.equals(card.fridge);
     }
 }
-//@@ author
+//@@author

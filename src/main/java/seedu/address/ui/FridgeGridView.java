@@ -12,7 +12,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.fridge.Fridge;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997
 /**
  * Represents the grid view that displays the fridges in the dashboard.
  */
@@ -53,4 +53,4 @@ public class FridgeGridView extends UiPart<Region> {
     }
 
 }
-//@@ author
+//@@author

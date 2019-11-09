@@ -29,14 +29,18 @@ public class ClearCommand extends UndoableCommand {
         savedModel = new AddressBook(model.getAddressBook());
         model.setAddressBook(new AddressBook());
         UniqueIdentificationNumberMaps.clearAllEntries();
-        SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
+        SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE); // deselect any bodies
         selectCommand.execute(model);
+
+        // so that the lists are not showing only filtered entries from past find/filter commands
         listsAllEntities(model);
+
         setUndoable();
         model.addExecutedCommand(this);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    //@@author shaoyi1997
     /**
      * Lists all the entities.
      */
@@ -48,6 +52,7 @@ public class ClearCommand extends UndoableCommand {
         ListFridgeCommand listFridgeCommand = new ListFridgeCommand();
         listFridgeCommand.execute(model);
     }
+    //@@author
 
     @Override
     public CommandResult undo(Model model) {

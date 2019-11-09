@@ -12,7 +12,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
 /**
  * Provides access to a stage in a JavaFx application for GUI testing purposes.
  */
@@ -62,4 +62,4 @@ public abstract class StageHandle {
         return node.orElseThrow(NodeNotFoundException::new);
     }
 }
-//@@ author
+//@@author

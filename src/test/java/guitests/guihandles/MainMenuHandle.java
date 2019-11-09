@@ -5,7 +5,8 @@ import java.util.Arrays;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 
-//@@ author
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 /**
  * Provides a handle to the main menu of the app.
  */
@@ -38,4 +39,4 @@ public class MainMenuHandle extends NodeHandle<Node> {
         Arrays.stream(menuItems).forEach(guiRobot::clickOn);
     }
 }
-//@@ author
+//@@author

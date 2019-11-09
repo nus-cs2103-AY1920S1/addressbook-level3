@@ -2,7 +2,8 @@ package guitests.guihandles;
 
 import javafx.stage.Stage;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 /**
  * Provides a handle for {@code MainWindow}.
  */
@@ -44,4 +45,4 @@ public class MainWindowHandle extends StageHandle {
         return mainMenu;
     }
 }
-//@@ author
+//@@author
