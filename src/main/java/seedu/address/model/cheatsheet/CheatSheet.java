@@ -7,7 +7,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 
@@ -23,6 +25,8 @@ public class CheatSheet extends StudyBuddyItem {
     // Data fields
     private final Set<Content> contents = new HashSet<>();
 
+    private final Logger logger = LogsCenter.getLogger(CheatSheet.class.getName());
+
     private int contentIndex = 0;
 
     /**
@@ -33,6 +37,7 @@ public class CheatSheet extends StudyBuddyItem {
         requireAllNonNull(title, contents, tags);
         this.title = title;
         this.contents.addAll(contents);
+        logger.info("Creating cheatsheet with contents");
     }
 
     /**
@@ -44,6 +49,7 @@ public class CheatSheet extends StudyBuddyItem {
         super(tags);
         requireAllNonNull(title, tags);
         this.title = title;
+        logger.info("Creating cheatsheet without contents");
     }
 
     public Title getTitle() {
@@ -65,8 +71,6 @@ public class CheatSheet extends StudyBuddyItem {
         return null;
     }
 
-
-
     public ArrayList<Content> getSortedContents() {
         resetContentIndexes();
         ArrayList<Content> contentList = new ArrayList<>(contents);
@@ -83,15 +87,16 @@ public class CheatSheet extends StudyBuddyItem {
     public void resetContentIndexes() {
         this.resetContentIndex();
         contents.forEach(this::formatContent);
+        logger.info("Reorganized the contents' index");
     }
 
-    public String getContentsInStringForm() {
-        StringBuilder sb = new StringBuilder("");
-        for (Content c : contents) {
-            sb.append(c.toString());
-            sb.append(" ");
-        }
-        return sb.toString();
+    private void resetContentIndex() {
+        this.contentIndex = 0;
+    }
+
+    private void formatContent(Content c) {
+        this.contentIndex++;
+        c.setIndex(contentIndex);
     }
 
     /**
@@ -105,16 +110,6 @@ public class CheatSheet extends StudyBuddyItem {
 
         return otherCheatSheet != null
                 && otherCheatSheet.getTitle().equals(getTitle());
-    }
-
-    private void resetContentIndex() {
-        this.contentIndex = 0;
-    }
-
-    private String formatContent(Content c) {
-        this.contentIndex++;
-        c.setIndex(contentIndex);
-        return "[ " + contentIndex + ". " + c + " ]";
     }
 
     /**
@@ -150,11 +145,6 @@ public class CheatSheet extends StudyBuddyItem {
                 .append(getTitle())
                 .append("\n Tags: ");
         getTags().forEach(builder::append);
-
-        //builder.append(" Contents: ");
-        //resetContentIndexes();
-        //builder.append(contents);
-
         return builder.toString();
     }
 }

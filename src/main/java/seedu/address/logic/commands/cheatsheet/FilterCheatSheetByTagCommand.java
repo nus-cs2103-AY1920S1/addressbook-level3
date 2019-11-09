@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.FILTER;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.CheatSheetCommandResult;
@@ -30,6 +32,8 @@ public class FilterCheatSheetByTagCommand extends Command {
 
     private final CheatSheetContainsTagPredicate tagPredicate;
 
+    private final Logger logger = LogsCenter.getLogger(FilterCheatSheetByTagCommand.class.getName());
+
     /**
      * Constructor for filter by tag.
      * @param predicate to test on an note object to see if it has the tag.
@@ -38,6 +42,7 @@ public class FilterCheatSheetByTagCommand extends Command {
     public FilterCheatSheetByTagCommand(CheatSheetContainsTagPredicate predicate, ArrayList<String> tagKeywords) {
         this.tagPredicate = predicate;
         this.tagKeywords = tagKeywords;
+        logger.info("Filtering cheatsheet by tag command created.");
     }
 
     /**
