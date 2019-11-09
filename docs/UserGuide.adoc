@@ -516,6 +516,7 @@ Redoing a template item list will display which template is redone.
 //end::templatelistfeatures[]
 
 //end::tlistundoredo[]
+//tag::shoppinglistfeatures[]
 === Shopping List Management
 
 ==== Add new item to shopping list: `slist add`
@@ -656,6 +657,7 @@ Format: `slist redo`
 'slist merge bought' command cannot be redone.
 
 //end::slistundoredo[]
+//end::shoppinglistfeatures[]
 === Exiting the program : `exit`
 
 Exits the program. +

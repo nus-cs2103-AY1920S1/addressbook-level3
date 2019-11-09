@@ -552,6 +552,7 @@ Aspect: How edit command is parsed
 The following sequence diagram shows how the edit template item operation works for the logic component:
 //end::editTemplateItemfeature[]
 
+//tag::mergeBoughtFeature[]
 === MergeBought Feature
 ==== Implementations
 The user is able to merge all the bought shopping items into the grocery list. This can be done with the use of the `slist mergebought' command.
@@ -638,6 +639,7 @@ a|Use child class of `ShoppingItem` for boughtItem: `BoughtShoppingItem` with *E
 ** Extra Class ,i.e., extra code
 ** Extra steps for conversion from `BoughtShoppingItem` to `GroceryItem` while merging boughtItems to `GroceryList`.
 
+//end::mergeBoughtFeature[]
 |===
 == Documentation
 
