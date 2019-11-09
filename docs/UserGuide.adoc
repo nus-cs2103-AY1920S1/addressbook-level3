@@ -54,13 +54,13 @@ image::Gui.png[width=450]
 
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-//To be included at a later milestone
-//.  Some example commands you can try:
-//
-//* *`list`* : lists all contacts
-//* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-//* **`delete`**`3` : deletes the 3rd contact shown in the current list
-//* *`exit`* : exits the app
+
+.  Some example commands you can try:
+
+* *`list`* : lists all athletes
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com g/Male a/311, Clementi Ave 2, #02-25` : adds an athlete named `John Doe` to Athletick.
+* **`delete`**`3` : deletes the 3rd athlete shown in the current list
+* *`exit`* : exits the app
 
 You may refer to <<Features>> for a full list of commands and their details.
 
