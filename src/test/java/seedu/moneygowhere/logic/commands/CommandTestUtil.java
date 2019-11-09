@@ -141,26 +141,4 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredSpendingList().size());
     }
-
-    @Test
-    public void getGraphData() {
-        Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
-        Command command = new ExitCommand();
-        assertEquals(command.getGraphData(model), null);
-    }
-
-    @Test
-    public void getStatsData() {
-        Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
-        Command command = new ExitCommand();
-        assertEquals(command.getStatsData(model), null);
-    }
-
-    @Test
-    public void getStatsMessage() {
-        Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
-        Command command = new ExitCommand();
-        assertEquals(command.getStatsMessage(model), null);
-    }
-
 }

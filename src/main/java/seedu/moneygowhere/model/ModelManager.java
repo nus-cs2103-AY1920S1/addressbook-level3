@@ -34,7 +34,7 @@ public class ModelManager implements Model {
     private final SortedList<Spending> sortedSpendings;
     private final SortedList<Reminder> sortedReminders;
 
-    private Predicate<Spending> statsPredicate;
+    Predicate<Spending> statsPredicate;
 
     /**
      * Initializes a ModelManager with the given spendingBook and userPrefs.
