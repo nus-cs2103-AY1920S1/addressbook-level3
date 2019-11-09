@@ -803,6 +803,7 @@ Use case ends
 ** 3a2. Student enters correct input with valid index
 ** Steps 3a1 - 3a2 are repeated until getting a valid index
 * Use case resumes from Step 2
+//end::task_usecase[]
 
 [discrete]
 === Use case: Clear the revision plan (Shui Yao)
@@ -814,7 +815,6 @@ Use case ends
 3. NUStudy informs the Student that the revision plan is successfully cleared
 
 Use case ends.
-//end::task_usecase[]
 
 // tag::statsUseCase[]
 [discrete]

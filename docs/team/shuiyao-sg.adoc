@@ -4,7 +4,6 @@
 :stylesDir: ../stylesheets
 
 == Introduction
-'''
 
 This portfolio is to document my contributions to project NUStudy, which is a software engineering project under Module
 CS2103T at National University of Singapore. Our team consists of five students majoring in Computer Science. We decided
@@ -19,7 +18,7 @@ _Task_ - An italicised word indicates that it is a class name. +
 PR - Abbreviation for "Pull Request".
 
 == Summary of Contributions
-'''
+
 This section is to summarise my contributions to the project, including feature enhancements, documentation and project
 management.
 
@@ -62,24 +61,24 @@ https://github.com/AY1920S1-CS2103T-F11-4/main/pull/61[#61], https://github.com/
 ** Reviewed other teams' PRs (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/14[#14], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/97[#97]).
 
 == Contributions to the User Guide
-'''
 
 *This section summarises my contributions to the User Guide.*
 
-include::../UserGuide.adoc[tag=task]
+//include::../UserGuide.adoc[tag=task]
+include::../UserGuide.adoc[tag=task_1]
+include::../UserGuide.adoc[tag=task_2]
+include::../UserGuide.adoc[tag=task_3]
+include::../UserGuide.adoc[tag=task_4]
+include::../UserGuide.adoc[tag=task_5]
 
-'''
+I also envisioned more advanced features such as sorting tasks and enabling push notifications that will come in v2.0 of NUStudy.
+You may refer to relevant sections in the User Guide.
 
-*I also envisioned more advanced features such as sorting tasks and enabling push notifications that will come in v2.0 of NUStudy.
-You may refer to relevant sections in the User Guide.*
-
-'''
-
-*Apart from addition to my individual work, I also helped the team by adding a command summary of everyone's feature. This
-is shown in the following paragraphs. You may refer to the Command Summary section in the User Guide.*
+Apart from addition to my individual work, I also helped the team by adding a command summary of everyone's feature. This
+is shown in the following paragraphs. You may refer to the Command Summary section in the User Guide.
 
 == Contributions to the Developer Guide
-'''
+
 This section summarises my contributions to the Developer Guide. My individual section of the Developer Guide illustrates
 the implementation of the command for adding a task to the revision task list. Implementations of other commands such as
 deletion, searching, marking done etc. are omitted from the Developer Guide.
@@ -93,8 +92,6 @@ include::../DeveloperGuide.adoc[tag=task]
 
 include::../DeveloperGuide.adoc[tag=task_usecase]
 
-'''
-
-*Apart from addition to my individual features, I also modified the diagrams of the UI and Model components. You may refer
+Apart from addition to my individual features, I also modified the diagrams of the UI and Model components. You may refer
 to Figure 4. Class diagram of the UI component, Figure 5. Detailed class diagram for Panels package and Figure 8. Class diagram of the Model component
-in the Developer Guide.*
+in the Developer Guide.
