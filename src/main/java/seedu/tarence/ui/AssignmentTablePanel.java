@@ -4,25 +4,20 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.util.Callback;
 import seedu.tarence.commons.core.LogsCenter;
 import seedu.tarence.model.student.Student;
 
@@ -34,17 +29,18 @@ public class AssignmentTablePanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(AssignmentTablePanel.class);
     private long lowerPercentile;
     private long upperPercentile;
+    private boolean isDefault;
 
     @FXML
-    private Pane defaultPanel;
+    private Pane pane;
 
     @FXML
-    private TableView assignmentPlaceholder;
+    private ListView<ScoreCard> assignmentScoreListView;
 
     public AssignmentTablePanel() {
         super(FXML);
-        this.defaultPanel = new StackPane();
-        defaultPanel.getChildren().add(assignmentPlaceholder);
+        this.pane = new StackPane();
+        setDefaultPlaceHolderLabel();
     }
 
     /**
@@ -54,89 +50,63 @@ public class AssignmentTablePanel extends UiPart<Region> {
     public void generateTable(Map<Student, Integer> scores) {
         requireNonNull(scores);
         if (!isEmpty(scores)) {
+            assignmentScoreListView = new ListView<>();
             setStatistics(scores);
-            setAssignmentTable(scores);
-            assignmentPlaceholder.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            ObservableList<ScoreCard> scoreList = getScoreList(scores);
+            assignmentScoreListView.setItems(scoreList);
+            assignmentScoreListView.setCellFactory(listView -> new ScoreListViewCell());
+            this.isDefault = false;
+            pane.getChildren().clear();
+            pane.getChildren().add(assignmentScoreListView);
         } else {
             setDefaultPlaceHolderLabel();
         }
-        defaultPanel.getChildren().clear();
-        defaultPanel.getChildren().add(assignmentPlaceholder);
+    }
+
+    private ObservableList<ScoreCard> getScoreList(Map<Student, Integer> scores) {
+        ObservableList<ScoreCard> scoreList = FXCollections.observableArrayList();
+        Iterator<Map.Entry<Student, Integer>> iterator = scores.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Student, Integer> entry = iterator.next();
+            scoreList.add(new ScoreCard(entry.getKey(), entry.getValue(), lowerPercentile, upperPercentile));
+        }
+        return scoreList;
+    }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code ScoreCard}.
+     */
+    class ScoreListViewCell extends ListCell<ScoreCard> {
+
+        @Override
+        protected void updateItem(ScoreCard scoreCard, boolean empty) {
+            super.updateItem(scoreCard, empty);
+
+            if (empty || scoreCard == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(scoreCard.getRoot());
+            }
+        }
     }
 
     /**
      * @return Pane with attendance table to display.
      */
     public Pane getPane() {
-        return this.defaultPanel;
+        return this.pane;
     }
 
     /**
      * sets default placeholder. To be used only during exceptions.
      */
     private void setDefaultPlaceHolderLabel() {
-        String defaultMessage = "No scores have been set for this\n"
-                + "assignment yet :(";
+        this.isDefault = true;
+        String defaultMessage = "Sorry :( there are no scores to display";
 
         Label placeholder = new Label(defaultMessage);
-        assignmentPlaceholder.setPlaceholder(placeholder);
-    }
-
-    /**
-     * Fills up assignment tableview with hashmap data.
-     * @param namesAndScores - hashmap containing the names and scores of the students.
-     */
-    private void setAssignmentTable(Map<Student, Integer> namesAndScores) {
-        TableColumn<Map.Entry<Student, Integer>, String> names = new TableColumn<>("Name");
-        names.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Student, Integer>,
-                String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<Student, Integer>, String> p) {
-                return new SimpleStringProperty(p.getValue().getKey().getName().toString());
-            }
-        });
-
-        TableColumn<Map.Entry<Student, Integer>, Integer> scores = new TableColumn<>("Score");
-        scores.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Student, Integer>, Integer>,
-                ObservableValue<Integer>>() {
-            @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Map.Entry<Student, Integer>, Integer> p) {
-                return new SimpleIntegerProperty(Integer.valueOf(p.getValue().getValue())).asObject();
-            }
-        });
-        scores.setCellFactory(new Callback<TableColumn<Map.Entry<Student, Integer>, Integer>,
-                TableCell<Map.Entry<Student, Integer>, Integer>>() {
-            public TableCell call(TableColumn param) {
-                return new TableCell<Map.Entry<Student, Integer>, Integer>() {
-                    @Override
-                    public void updateItem(Integer item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (!isEmpty()) {
-                            this.setTextFill(Color.WHITE);
-                            setText(item.toString());
-                            if (item == -1) {
-                                this.setStyle("-fx-background-color: " + "#606060FF");
-                                setText("Score is not set");
-                            } else if (item >= upperPercentile) {
-                                this.setStyle("-fx-background-color: " + "#2BAE66FF");
-                                setText(item.toString() + " (75th Percentile)");
-                            } else if (item <= lowerPercentile) {
-                                this.setStyle("-fx-background-color: " + "#E94B3CFF");
-                                setText(item.toString() + " (25th Percentile)");
-                            } else {
-                                this.setStyle("-fx-background-color: " + "#ffa333");
-                                setText(item.toString() + " (Average)");
-                            }
-                        }
-                    }
-                };
-            }
-        });
-
-        ObservableList<Map.Entry<Student, Integer>> items =
-                FXCollections.observableArrayList(namesAndScores.entrySet());
-        assignmentPlaceholder = new TableView<Map.Entry<Student, Integer>>(items);
-        assignmentPlaceholder.getColumns().setAll(names, scores);
+        pane.getChildren().add(placeholder);
     }
 
     /**
@@ -171,5 +141,12 @@ public class AssignmentTablePanel extends UiPart<Region> {
         long numScores = scores.values().stream().filter(i -> i != -1).count();
         logger.info("Number of students in assignment: " + numScores);
         return (numScores == 0);
+    }
+
+    /**
+     * Returns true is the default view is being displayed.
+     */
+    public boolean isDefaultView() {
+        return this.isDefault;
     }
 }

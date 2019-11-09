@@ -17,7 +17,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.Label?>
-<fx:root minHeight="700" minWidth="840" onCloseRequest="#handleExit" title="T.A.rence" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="700" minWidth="862" onCloseRequest="#handleExit" title="T.A.rence" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/TArenceicon.png" />
     </icons>
@@ -81,7 +81,7 @@
                         </Tab>
                     </tabs>
                 </TabPane>
-                <TabPane fx:id="displayTabPane" minWidth="500.0" maxWidth="500" tabClosingPolicy="UNAVAILABLE" styleClass="pane-with-border">
+                <TabPane fx:id="displayTabPane" minWidth="540.0" maxWidth="540" tabClosingPolicy="UNAVAILABLE" styleClass="pane-with-border">
                     <tabs>
                         <Tab fx:id="attendanceTab" closable="false" text="Attendance">
                             <content>

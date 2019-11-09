@@ -72,9 +72,6 @@ public class DisplayAttendanceCommandParserTest {
         String invalidModule = PREFIX_MODULE + "CSCS";
         assertParseFailure(parser, invalidModule, invalidCommandMessage);
 
-        // Parsing invalid tutorial and module
-        assertParseFailure(parser, invalidModule + invalidTutorial, invalidCommandMessage);
-
         // Parsing valid index, tutorial and module (ambiguous)
         assertParseFailure(parser,
                 VALID_MODCODE_DESC + VALID_TUTORIAL_NAME_DESC + VALID_TUTORIAL_IDX_DESC,

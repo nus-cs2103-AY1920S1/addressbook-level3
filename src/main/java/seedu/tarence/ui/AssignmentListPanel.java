@@ -24,6 +24,7 @@ public class AssignmentListPanel extends UiPart<Region> {
     private static final String EMPTY_LIST_MESSAGE = "Sorry :( there are no assignments to display";
     private static final String ERROR_LIST_MESSAGE = "An error occured while displaying the list";
     private final Logger logger = LogsCenter.getLogger(AssignmentListPanel.class);
+    private boolean isDefault;
 
     @FXML
     private ListView<Assignment> assignmentListView;
@@ -35,6 +36,7 @@ public class AssignmentListPanel extends UiPart<Region> {
         super(FXML);
         cardPane = new VBox();
         cardPane.getChildren().add(getLabel(EMPTY_LIST_MESSAGE));
+        isDefault = true;
     }
 
     /**
@@ -46,6 +48,7 @@ public class AssignmentListPanel extends UiPart<Region> {
 
         if (assignmentList.isEmpty()) {
             cardPane.getChildren().add(getLabel(EMPTY_LIST_MESSAGE));
+            isDefault = true;
             return;
         }
 
@@ -53,7 +56,9 @@ public class AssignmentListPanel extends UiPart<Region> {
             assignmentListView.setItems(FXCollections.observableArrayList(assignmentList));
             assignmentListView.setCellFactory(listView -> new AssignmentListViewCell());
             cardPane.getChildren().add(assignmentListView);
+            isDefault = false;
         } catch (RuntimeException e) {
+            isDefault = true;
             cardPane.getChildren().add(getLabel(ERROR_LIST_MESSAGE));
         }
     }
@@ -84,5 +89,12 @@ public class AssignmentListPanel extends UiPart<Region> {
                 setGraphic(new AssignmentCard(assignment, getIndex() + 1).getRoot());
             }
         }
+    }
+
+    /**
+     * Returns true is the default view is being displayed.
+     */
+    public boolean isDefaultView() {
+        return this.isDefault;
     }
 }

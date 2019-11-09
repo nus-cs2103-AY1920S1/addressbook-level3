@@ -27,7 +27,7 @@ public class DisplayAssignmentScoreCommandParser extends CommandParser<DisplayAs
     public DisplayAssignmentScoreCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_NAME, PREFIX_FORMAT);
-        if (arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_NAME, PREFIX_FORMAT)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_NAME)) {
             Index index = retrieveIndex(argMultimap);
             String assignmentName = argMultimap.getValue(PREFIX_NAME).get();
             DisplayFormat displayFormat = retrieveDisplayFormat(argMultimap);
@@ -54,6 +54,9 @@ public class DisplayAssignmentScoreCommandParser extends CommandParser<DisplayAs
      * @throws ParseException if the user input does not match any valid display format.
      */
     private DisplayFormat retrieveDisplayFormat(ArgumentMultimap argumentMultimap) throws ParseException {
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_FORMAT)) {
+            return DisplayFormat.GRAPH;
+        }
         String format = argumentMultimap.getValue(PREFIX_FORMAT).get().toLowerCase();
         if (Arrays.stream(DisplayAssignmentScoreCommand.TABLE_SYNONYMS).anyMatch(name -> name.equals(format))) {
             return DisplayFormat.TABLE;

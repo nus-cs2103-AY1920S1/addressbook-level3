@@ -33,9 +33,10 @@ import seedu.tarence.model.tutorial.Week;
 public class AttendancePanel extends UiPart<Region> {
     private static final String FXML = "AttendancePanel.fxml";
     private final Logger logger = LogsCenter.getLogger(AssignmentTablePanel.class);
+    private boolean isDefault;
 
     @FXML
-    private Pane defaultPanel;
+    private Pane panel;
 
     @FXML
     private TableView attendancePlaceholder;
@@ -45,9 +46,9 @@ public class AttendancePanel extends UiPart<Region> {
      */
     public AttendancePanel() {
         super(FXML);
-        this.defaultPanel = new StackPane();
+        this.panel = new StackPane();
         setDefaultPlaceHolder();
-        defaultPanel.getChildren().add(attendancePlaceholder);
+        panel.getChildren().add(attendancePlaceholder);
         logger.info("Display default attendance");
     }
 
@@ -57,13 +58,14 @@ public class AttendancePanel extends UiPart<Region> {
      */
     public void generateTable(Tutorial tutorial) {
         requireNonNull(tutorial);
-        this.defaultPanel.getChildren().clear();
+        this.panel.getChildren().clear();
         try {
             ObservableList<String[]> observableAttendance = generateData(tutorial);
             attendancePlaceholder.setItems(observableAttendance);
             attendancePlaceholder.getColumns().setAll(createColumns());
             logger.info("successfully displayed attendance:)");
-            defaultPanel.getChildren().add(attendancePlaceholder);
+            panel.getChildren().add(attendancePlaceholder);
+            this.isDefault = false;
         } catch (NullPointerException e) {
             setDefaultPlaceHolder();
         }
@@ -72,7 +74,7 @@ public class AttendancePanel extends UiPart<Region> {
     /**
      * Returns default panel with user info
      */
-    public void setDefaultPlaceHolder() {
+    private void setDefaultPlaceHolder() {
         String defaultMessage = "Welcome to T.A.rence \uD83D\uDE0A\n"
                 + "To see all user commands, type \"help\"\n"
                 + "To view a class attendance, type:\n"
@@ -82,13 +84,21 @@ public class AttendancePanel extends UiPart<Region> {
 
         Label placeholder = new Label(defaultMessage);
         attendancePlaceholder.setPlaceholder(placeholder);
+        this.isDefault = true;
+    }
+
+    /**
+     * Returns true is the default view is being displayed.
+     */
+    public boolean isDefaultView() {
+        return this.isDefault;
     }
 
     /**
      * @return Pane with attendance table to display.
      */
     public Pane getPane() {
-        return this.defaultPanel;
+        return this.panel;
     }
 
     /**
@@ -108,7 +118,6 @@ public class AttendancePanel extends UiPart<Region> {
         List<Student> students = tutorialAttendance.getStudents();
         Attendance attendance = tutorialAttendance.getAttendance();
 
-        // TODO: to be refactored
         for (Student student : students) {
             List<String> attendanceList = new ArrayList<>();
             attendanceList.add(student.getName().toString());

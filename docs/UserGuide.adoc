@@ -1,4 +1,4 @@
-﻿= T.A.rence - Draft User Guide
+﻿= T.A.rence - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -250,6 +250,43 @@ Example:
 //-* NusID prefix: nusid/
 //-****
 
+=== Undo Previously-entered Commands : `undo`
+
+Undos a specified number of actions.
+
+Format:
+`undo` u/[NUMBER_OF_ACTIONS]
+
+Undoes any state-altering command from the application. +
+
+Format: `undo u/NUMBER_OF_STATES_TO_UNDO`
+
+Example:
+
+`undo u/2`
+
+****
+* Resets the application state to the previous state.
+* Undo can only be applied to states that are present in that particular session (from application start-up)
+* The `NUMBER_OF_STATES_TO_UNDO` refers to the previous number of states to undo in that session
+* The `NUMBER_OF_STATES_TO_UNDO` *must be a positive integer*; 1, 2, 3, ...
+****
+
+
+=== Clearing all entries : `clear`
+
+Clears all entries from the T.A.rence. +
+
+Format: `clear`
+
+Example:
+
+`clear`
+
+****
+* Resets the application state to a clean state.
+****
+
 === Searching Student by Name: `find`
 
 Searches and displays student particulars based on name. The search can be based on partial strings that match
@@ -275,6 +312,10 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 Allows user to display overall results for an exam or assignment. This can be in the form of a graph or table,
 
+image::Ui.png[width="400"]
+
+image::AssignmentTable.png[width="400"]
+
 Format: `displayAssignmentScore` i/TUTORIAL_INDEX n/ASSIGNMENT_NAME f/DISPLAY_FORMAT`.
 
 Example:
@@ -296,9 +337,28 @@ Command synonyms: `displayscore`, `displayassignment`, `displayassignment`
 ****
 ====
 
+=== Display tutorial class assignments : `displayAssignments`
+
+Allows user to list out existing assignments in a tutorial.
+
+image::ListAssignment.png[width="400"]
+
+Format: `displayAssignments `TUTORIAL_INDEX`.
+
+Example:
+
+* `displayAssignments` 1
+
+[TIP]
+====
+Command synonyms: `listassignments`, `lista`
+====
+
 === Display Tutorial Class' Attendance : `displayAttendance`
 
 Allows user to display overall attendance for a class.
+
+image::AttendanceDisplay.png[width="400"]
 
 Full Format: `displayAttendance m/MOD_CODE tn/TUTORIAL_NAME`
 
@@ -330,7 +390,7 @@ Format: `list` TUTORIAL_INDEX
 
 Example:
 
-* `list i/1 n/Lab01 f/graph`
+* `list 1`
 * `list`
 
 [TIP]
@@ -640,43 +700,6 @@ Example:
 ====
 Command synonyms: `setsemstart`, `setst`, `setsem`
 ====
-
-=== Undo Previously-entered Commands : `undo`
-
-Undos a specified number of actions.
-
-Format:
-`undo` u/[NUMBER_OF_ACTIONS]
-
-Undoes any state-altering command from the application. +
-
-Format: `undo u/NUMBER_OF_STATES_TO_UNDO`
-
-Example:
-
-`undo u/2`
-
-****
-* Resets the application state to the previous state.
-* Undo can only be applied to states that are present in that particular session (from application start-up)
-* The `NUMBER_OF_STATES_TO_UNDO` refers to the previous number of states to undo in that session
-* The `NUMBER_OF_STATES_TO_UNDO` *must be a positive integer*; 1, 2, 3, ...
-****
-
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the T.A.rence. +
-
-Format: `clear`
-
-Example:
-
-`clear`
-
-****
-* Resets the application state to a clean state.
-****
 
 === Mark Participation for a Student : `classPart` [coming in v2.0]
 

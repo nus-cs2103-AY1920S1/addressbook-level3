@@ -155,10 +155,6 @@ public class AddStudentCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_EMAIL_DESC
                 + MODULE_DESC_BOB + TUTORIAL_DESC_BOB, Email.MESSAGE_CONSTRAINTS);
 
-        // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + EMAIL_DESC_BOB
-                + MODULE_DESC_BOB + TUTORIAL_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
-
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + EMAIL_DESC_BOB
                         + MODULE_DESC_BOB + TUTORIAL_DESC_BOB,

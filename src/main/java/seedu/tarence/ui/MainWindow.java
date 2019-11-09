@@ -41,8 +41,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private TutorialListPanel tutorialListPanel;
-    private PersonListPanel personListPanel;
-    private DefaultAssignmentPanel defaultAssignmentPanel;
+    private DefaultPanel defaultPanel;
     private AssignmentListPanel assignmentListPanel;
     private AssignmentTablePanel assignmentTablePanel;
     private AssignmentStatisticsPanel assignmentStatisticsPanel;
@@ -85,9 +84,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane tutorialListPanelPlaceholder;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
 
     @FXML
     private StackPane studentListPanelPlaceholder;
@@ -169,16 +165,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         // Set default stackpane
         assignmentListPanel = new AssignmentListPanel();
         attendancePanel = new AttendancePanel();
         assignmentTablePanel = new AssignmentTablePanel();
         assignmentStatisticsPanel = new AssignmentStatisticsPanel();
-        defaultAssignmentPanel = new DefaultAssignmentPanel();
-        assignmentPanelPlaceholder.getChildren().add(defaultAssignmentPanel.getPane());
+        defaultPanel = new DefaultPanel();
+        assignmentPanelPlaceholder.getChildren().add(defaultPanel.getPane());
         attendancePanelPlaceholder.getChildren().add(new AttendancePanel().getPane());
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
@@ -278,21 +271,14 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
-     *
      * @see seedu.tarence.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            logger.info("Display Assignment: " + commandResult.isAssignmentDisplay());
-            logger.info("display Tab " + commandResult.isChangeTabs());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
@@ -303,31 +289,9 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isShowAttendance()) {
-                displayAttendance(commandResult.getTutorialAttendance());
-                handleAttendanceTabSelected();
-            }
-
-            if (commandResult.isAssignmentsDisplay()) {
-                displayAssignmentList(commandResult.getAssignmentsToDisplay());
-            }
-
-            if (commandResult.isChangeTabs()) {
-                switch(commandResult.getTabToDisplay()) {
-                case MODULES:
-                    handleModuleTabSelected();
-                    break;
-                case STUDENTS:
-                    handleStudentTabSelected();
-                    break;
-                default:
-                    handleTutorialTabSelected();
-                }
-            }
-
-            if (commandResult.isAssignmentDisplay()) {
-                displayAssignment(commandResult.getAssignmentToDisplay(), commandResult.getStudentScores(),
-                        commandResult.getAssignmentDisplayFormat());
+            if (!isDisplayCommand(commandResult)) {
+                logger.info("GUI ---- Displaying default panel");
+                displayDefaultPanel();
             }
 
             return commandResult;
@@ -465,4 +429,61 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Sets the GUI to display default pane
+     */
+    private void displayDefaultPanel() {
+        if (!attendancePanel.isDefaultView()) {
+            attendancePanelPlaceholder.getChildren().clear();
+            attendancePanelPlaceholder.getChildren().add(defaultPanel.getPane());
+        }
+        if (!assignmentTablePanel.isDefaultView() || !assignmentStatisticsPanel.isDefaultView()
+                || !assignmentListPanel.isDefaultView()) {
+            assignmentPanelPlaceholder.getChildren().clear();
+            assignmentPanelPlaceholder.getChildren().add(defaultPanel.getPane());
+        }
+    }
+
+    /**
+     * returns true if the command results has an object to display in the GUI and subsequently toggles GUI settings.
+     */
+    private boolean isDisplayCommand(CommandResult commandResult) {
+        if (commandResult.isShowAttendance()) {
+            logger.info("GUI --- Display Attendance");
+            displayAttendance(commandResult.getTutorialAttendance());
+            handleAttendanceTabSelected();
+            return true;
+        }
+
+        if (commandResult.isAssignmentsDisplay()) {
+            logger.info("GUI --- Display Assignments");
+            displayAssignmentList(commandResult.getAssignmentsToDisplay());
+            return true;
+        }
+
+        if (commandResult.isChangeTabs()) {
+            logger.info("GUI --- Changing tab");
+            switch(commandResult.getTabToDisplay()) {
+            case MODULES:
+                handleModuleTabSelected();
+                return true;
+            case STUDENTS:
+                handleStudentTabSelected();
+                return true;
+            case TUTORIALS:
+                handleTutorialTabSelected();
+                return true;
+            default:
+                return false;
+            }
+        }
+
+        if (commandResult.isAssignmentDisplay()) {
+            logger.info("GUI --- Displaying Assignment");
+            displayAssignment(commandResult.getAssignmentToDisplay(), commandResult.getStudentScores(),
+                    commandResult.getAssignmentDisplayFormat());
+            return true;
+        }
+        return false;
+    }
 }

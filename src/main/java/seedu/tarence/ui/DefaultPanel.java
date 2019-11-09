@@ -12,9 +12,9 @@ import seedu.tarence.commons.core.LogsCenter;
 /**
  * Panel containing default panel for assignment.
  */
-public class DefaultAssignmentPanel extends UiPart<Region> {
-    private static final String FXML = "DefaultAssignmentPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(DefaultAssignmentPanel.class);
+public class DefaultPanel extends UiPart<Region> {
+    private static final String FXML = "DefaultPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(DefaultPanel.class);
     private String defaultMessage = "Welcome to T.A.rence \uD83D\uDE0A\n"
             + "To view a class assignment, type: \n"
             + "\"displayScore i/tutorial_index, f/display_format, n/assignment_name\"\n"
@@ -27,7 +27,7 @@ public class DefaultAssignmentPanel extends UiPart<Region> {
     @FXML
     private Label defaultLabel;
 
-    public DefaultAssignmentPanel() {
+    public DefaultPanel() {
         super(FXML);
         this.defaultPanel = new StackPane();
         defaultLabel.setText(defaultMessage);

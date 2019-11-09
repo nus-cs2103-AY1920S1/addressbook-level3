@@ -35,6 +35,7 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
     private HashMap<Integer, Integer> distribution;
     private int[] histogramData;
     private int columnRange;
+    private boolean isDefault;
 
     @FXML
     private VBox cardPane;
@@ -60,7 +61,7 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
     public AssignmentStatisticsPanel() {
         super(FXML);
         cardPane = new VBox();
-        cardPane.getChildren().add(getEmptyLabel());
+        setDefaultPlaceHolderLabel();
     }
 
     /**
@@ -79,9 +80,10 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
             setStatistics(assignment);
             createHistogram();
             cardPane.getChildren().addAll(scoreBarChart, maxScore, median, upperPercentile, lowerPercentile);
+            this.isDefault = false;
         } else {
             logger.info("Assignment Graphical display is empty");
-            cardPane.getChildren().add(getEmptyLabel());
+            setDefaultPlaceHolderLabel();
         }
     }
 
@@ -171,9 +173,11 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
         return resultInfo.values().stream().filter(i -> i != -1).collect(Collectors.toList());
     }
 
-    private Label getEmptyLabel() {
+    private void setDefaultPlaceHolderLabel() {
+        cardPane.getChildren().clear();
+        this.isDefault = true;
         String emptyListMessage = "Sorry :( there are no scores to display";
-        return new Label(emptyListMessage);
+        cardPane.getChildren().add(new Label(emptyListMessage));
     }
 
     /**
@@ -200,5 +204,12 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
                 }
             }
         }
+    }
+
+    /**
+     * Returns true is the default view is being displayed.
+     */
+    public boolean isDefaultView() {
+        return this.isDefault;
     }
 }
