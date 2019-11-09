@@ -21,12 +21,12 @@ public class TypicalAlgoBase {
     public static AlgoBase getTypicalAlgoBase() {
         AlgoBase algoBase = new AlgoBase();
         Set<Task> tasks = new HashSet<>();
-        boolean flag = true;
+        int i = 0;
         for (Problem problem : TypicalProblems.getTypicalProblems()) {
             algoBase.addProblem(problem);
-            if (flag) {
-                flag = false;
-                tasks.add(new Task(problem, LocalDate.now().plusMonths(1), false));
+            if (i < 2) {
+                i++;
+                tasks.add(new Task(problem, LocalDate.now().plusMonths(1), i % 2 == 0));
             }
         }
         Plan samplePlan = new Plan(

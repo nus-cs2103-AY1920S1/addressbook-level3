@@ -33,7 +33,7 @@ public class TaskCommandUtil {
 
         List<Plan> lastShownPlanList = model.getFilteredPlanList();
         if (planIndex.getZeroBased() >= lastShownPlanList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PLAN_DISPLAYED_INDEX);
         }
         Plan planToUpdate = lastShownPlanList.get(planIndex.getZeroBased());
         int taskIndexInt = taskIndex.getZeroBased();
@@ -76,7 +76,7 @@ public class TaskCommandUtil {
         List<Plan> lastShownPlanList = model.getFilteredPlanList();
         if (planIndexToBeShiftedFrom.getZeroBased() >= lastShownPlanList.size()
             || planIndexToBeShiftedInto.getZeroBased() >= lastShownPlanList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PLAN_DISPLAYED_INDEX);
         }
         Plan planToBeShiftedFrom = lastShownPlanList.get(planIndexToBeShiftedFrom.getZeroBased());
         Plan planToBeShiftedInto = lastShownPlanList.get(planIndexToBeShiftedInto.getZeroBased());

@@ -78,7 +78,7 @@ public class ProblemTest {
         // different type -> returns false
         assertNotEquals(5, TWO_SUM);
 
-        // different person -> returns false
+        // different problems -> returns false
         assertNotEquals(TWO_SUM, FACTORIAL);
 
         // different name -> returns false
