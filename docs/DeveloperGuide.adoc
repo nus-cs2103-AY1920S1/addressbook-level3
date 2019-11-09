@@ -134,7 +134,7 @@ An outline of how a command is processed through `Logic` is as follows:
 A general sequence diagram depicting the above outline is shown below:
 
 [[GeneralLogicSD]]
-.Sequence Diagram for execution within `Logic`.
+.Sequence diagram for execution within `Logic`.
 image::GeneralSequenceDiagram.png[]
 
 Further details on the implementation of the `Parser` and `Command` can be found below in <<RTLogic, Section 2.3.1. Home and Reimbursement Tab>>,
@@ -352,17 +352,17 @@ a transaction with *positive* amount in this tab with the person being the cashi
 a spending with a *negative* amount will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
 
 ==== Add Command Feature
-This section explains the implementation of the Add Command feature in Home Tab.
+This section explains the implementation of the add command feature in Home Tab.
 This feature adds transaction to the table and data file. All fields in the transactions are compulsory
 to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
-has to match a name already existing in the `AddressBook` which is shown in our Members Tab.
+has to match a name already existing in the `AddressBook` which is shown in Members Tab.
 
 Thus, this feature requires access to the `CheckAndGetPersonByNameOnlyModel#getPersonByName` inside the
 person package which contains the `AddressBook` implementation to check for the validity of the name entered when inside `AddCommandParser` which
 creates the `Transaction` object. The following sequence diagram shows how the `Transaction` object is created from `AddCommandParser` which is represented in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>
 as a generic parser:
 
-.Sequence Diagram of the Parser for Add Command
+.Sequence diagram of the Parser for the ddd command
 image::HomeAddCommandParser.png[]
 
 This is the definition of the methods shown above:
@@ -373,7 +373,7 @@ This is the definition of the methods shown above:
 The `AddCommand` is created and the newly created `Transaction` object is passed into its
 constructor. The following sequence diagram is the reference from <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
-.Sequence Diagram of Add Command in Home Tab (transaction package)
+.Sequence Diagram of the add command in Home Tab (transaction package)
 
 image::HomeAddCommandSD.png[]
 
@@ -383,7 +383,7 @@ This is the definition of the methods shown above:
 * `Model#addTransaction(transaction): It adds the given `Transaction` object to its `TransactionList` objects attributes.
 
 Thus, when the `Model#resetPredicate()` method is called in the `AddCommand`, the UI table will immediately shows the full
-transaction list regardless of the list shown at the start of the activity diagram. If the prior command was a Find Command,
+transaction list regardless of the list shown at the start of the activity diagram. If the prior command was a find command,
 then the list in the beginning of the activity diagram would be a filtered list but after the add command is executed,
 the full list of transactions would be shown.
 
@@ -392,28 +392,28 @@ the data file via the `StorageManager`. The following sequence diagram shows how
 in the data file:
 
 [[updateTL]]
-.Sequence Diagram of updating the transaction list in Home Tab (transaction package)
+.Sequence diagram of updating the transaction list in Home Tab (transaction package)
 image::HomeAddCommandMMSM.png[]
 
 [NOTE]
-This update of the list of transactions is done for every command that is executed successfully in the Home Tab.
+This update of the list of transactions is done for every command that is executed successfully in Home Tab.
 
 Finally, the `StorageManager` and `ModelManager` inside the Reimbursement package will be updated with the latest `TransactionList` object
-to generate an updated list of reimbursements for the user to view in the Reimbursement Tab. The following sequence diagram shows how
-the Reimbursement Tab is updated from the `MainWindow`:
+to generate an updated list of reimbursements for the user to view in Reimbursement Tab. The following sequence diagram shows how
+Reimbursement Tab is updated from the `MainWindow`:
 
 [[update-reimbursement]]
-.Sequence Diagram of updating the reimbursement list in Reimbursement Tab (transaction package)
+.Sequence diagram of updating the reimbursement list in Reimbursement Tab (transaction package)
 image::TUpdateRinMainWindow.png[]
 
 [NOTE]
-This update of the Reimbursement Tab is done for every command after the list of transactions is updated (shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>)
-when there is a command executed successfully in the Home Tab.
+This update of the Reimbursement Tab is done for every command after the list of transactions is updated (shown in <<updateTL, 3.1.1. Add Command Feature: Figure 15>>)
+when there is a command executed successfully in Home Tab.
 
 To better illustrate the flow of events from the moment a user inputs a command till the completion of the command,
-the activity diagram for the Add Command is shown below:
+the activity diagram for the add command is shown below:
 
-.Activity Diagram of Add Command in Home Tab (transaction package)
+.Activity diagram of the add command in Home Tab (transaction package)
 
 image::HomeTabActivityDiagramAddCommand.png[]
 
@@ -421,16 +421,17 @@ As shown, when a user does not input all the compulsory fields or input a name t
 the `AddressBook`, a response to inform the user of the incorrect input is shown and when a successful addition is
 done, a response message is shown as well by our mascot, Leo.
 
-Since the reimbursement tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
-amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
+Since Reimbursement Tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
+amount to indicate a spending that needs to be reimbursed, Reimbursement Tab will update and show this record.
 
+[[DeleteCommandHome]]
 ==== Delete Command Feature
-This section explains the implementation of the Delete Command in Home Tab.
+This section explains the implementation of the delete command in Home Tab.
 This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
 that person to be deleted.The following activity diagram shows the steps needed to delete a new transaction:
 
-.Activity Diagram of Delete Command in Home Tab (transaction package)
+.Activity diagram of the delete command in Home Tab (transaction package)
 
 image::HomeTabActivityDiagramDeleteCommand.png[]
 
@@ -440,42 +441,42 @@ when a successful deletion is done.
 
 For the implementation, the `DeleteCommandParser` which is represented in <<GeneralLogicSD, 2.3. Logic component: Figure 5>> as a generic parser creates either a `DeleteIndexCommand` or `DeleteNameCommand` object according to the user input.
 The following sequence diagram shows how the `DeleteNameCommand` is created with the definition of `CheckAndGetPersonByNameOnlyModel#getPersonByName` defined in
-<<getPersonByName, 3.1.1 Add Command Feature>>:
+<<getPersonByName, 3.1.1. Add Command Feature>>:
 
-.Sequence Diagram of the parser for the Delete Command to Delete by the Person's Name
+.Sequence diagram of the parser for the delete command to delete by the `Person` 's name
 image::DeleteCommandParser.png[]
 
-The following sequence diagram shows how the delete by name command works after it is created which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+The following sequence diagram shows how the command to delete transactions according to the specified name works after it is created which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
-.Sequence Diagram of Delete Command in Home Tab (transaction package)
+.Sequence diagram of the delete command being executed in Home Tab (transaction package)
 
 image::HomeDeleteNameCommand.png[]
 
-In addition, the `Model#resetPredicate()` method defined in <<resetPredicate, 3.1.1 Add Command Feature>> is not called in the `DeleteNameCommand`. If the prior input is a
+In addition, the `Model#resetPredicate()` method defined in <<resetPredicate, 3.1.1. Add Command Feature>> is not called in the `DeleteNameCommand`. If the prior input is a
 Find Command and the list at the start of the activity diagram shows
 a filtered list, the table in the UI will continue to show the filtered list after the current Delete Command.
 To view the full transaction list, the user would be required to enter the
-Back Command where `BackCommand` calls `Model#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
-following section <<BackCommandSD, 3.1.3 BackCommand>>
+back command where `BackCommand` calls `Model#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
+following section <<BackCommandSD, 3.1.3. Back Command Feature>>
 
-After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 13>>
-and <<update-reimbursement, 3.1.1. Add Command feature: Figure 14>>
+After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 14>>
+and <<update-reimbursement, 3.1.1. Add Command feature: Figure 15>>
 respectively.
 
-The delete by index implementation would be similar but does not require interaction with the `CheckAndGetPersonByNameOnlyModel` from the
+The implementation of the command to delete transactions according to the specified index would be similar but does not require interaction with the `CheckAndGetPersonByNameOnlyModel` from the
 `AddressBook` in the person package inside its branch in `DeleteCommandParser`. In `DeleteIndexCommand`, it also calls the
 `Model#findTransactionInFilteredListByIndex(index)` and `Model#deleteTransaction(index)` instead which deletes the `Transaction` object according
 to its position in the filtered transaction list.
 
 ==== Back Command Feature
 [[BackCommandSD]]
-This section explains the implementation of the Back Command feature in Home Tab.
+This section explains the implementation of the back command feature in Home Tab.
 The `BackCommand` is called to show the full list of transactions when the table is showing
 a filtered list. It is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>
 but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
 
-.Sequence Diagram of Back Command in Home Tab (transaction package)
+.Sequence diagram of the back command being executed in Home Tab (transaction package)
 
 image::HomeTabBackCommandSequenceDiagram.png[]
 
@@ -486,15 +487,15 @@ alphabetical order, by amount (from least to most) and by date (from oldest to m
 
 The following sequence diagram shows how the sort command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
-.Sequence Diagram of Sort Command in Home Tab (transaction package)
+.Sequence diagram of the sort command being executed in Home Tab (transaction package)
 
 image::HomeTabSortSD.png[]
 
 When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
 the incorrect user input. When it is successfully sorted, there will also be a response message shown.
 
-Similar to the Delete Command, the `Model#resetPredicate()` method is not called. If the UI table is showing a filtered
-list of transactions, the Back Command has to be entered to call that method from `BackCommand` to reset the predicate.
+Similar to the delete command in <<DeleteCommandHome, 3.1.2. Delete Command Feature>>, the `Model#resetPredicate()` method is not called. If the UI table is showing a filtered
+list of transactions, the back command has to be entered to call that method from `BackCommand` to reset the predicate.
 
 ==== Overall Design Considerations
 This section's table explains the design considerations for some implementations in the Home Tab.
