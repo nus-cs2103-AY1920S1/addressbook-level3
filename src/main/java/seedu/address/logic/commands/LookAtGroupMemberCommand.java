@@ -60,8 +60,9 @@ public class LookAtGroupMemberCommand extends Command {
         final String feedback = notFound.toString().equals("")
                 ? successMessage
                 : successMessage + "\n" + String.format(MESSAGE_NOT_FOUND, notFound.toString().trim());
-        return new CommandResult(feedback, false, false,
-                false, false, false, false, false, true);
+
+        return new CommandResultBuilder(feedback)
+                .setFilter().build();
     }
 
     @Override

@@ -45,10 +45,10 @@ public class DeletePersonCommand extends Command {
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, name.toString()));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, name.toString())).build();
 
         } catch (PersonNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
         }
 
     }

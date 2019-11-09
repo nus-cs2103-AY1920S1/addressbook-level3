@@ -41,8 +41,7 @@ public class LookAtGroupMemberCommandTest {
         CommandResult commandResult = command.execute(model);
         String feedback = String.format(LookAtGroupMemberCommand.MESSAGE_SUCCESS,
                 ALICE.getName().fullName + " " + CARL.getName().fullName);
-        CommandResult expectedResult = new CommandResult(feedback, false, false,
-                false, false , false, false, false, true);
+        CommandResult expectedResult = new CommandResultBuilder(feedback).setFilter().build();
         assertEquals(expectedResult, commandResult);
     }
 
@@ -51,8 +50,7 @@ public class LookAtGroupMemberCommandTest {
         LookAtGroupMemberCommand command = new LookAtGroupMemberCommand(new ArrayList<>());
         CommandResult commandResult = command.execute(model);
         String feedback = String.format(LookAtGroupMemberCommand.MESSAGE_SUCCESS, "");
-        CommandResult expectedResult = new CommandResult(feedback, false, false,
-                false, false , false, false, false, true);
+        CommandResult expectedResult = new CommandResultBuilder(feedback).setFilter().build();
         assertEquals(expectedResult, commandResult);
     }
 
@@ -64,8 +62,7 @@ public class LookAtGroupMemberCommandTest {
         String feedback = String.format(LookAtGroupMemberCommand.MESSAGE_SUCCESS,
                 ALICE.getName().fullName + " " + CARL.getName().fullName);
         feedback += "\n" + String.format(LookAtGroupMemberCommand.MESSAGE_NOT_FOUND, BENSON.getName().fullName);
-        CommandResult expectedResult = new CommandResult(feedback, false, false,
-                false, false , false, false, false, true);
+        CommandResult expectedResult = new CommandResultBuilder(feedback).setFilter().build();
         assertEquals(expectedResult, commandResult);
     }
 

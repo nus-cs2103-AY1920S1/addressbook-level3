@@ -41,7 +41,7 @@ public class ScheduleCommand extends Command {
             try {
                 persons.add(model.findPerson(name));
             } catch (PersonNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, name.toString()));
+                return new CommandResultBuilder(String.format(MESSAGE_FAILURE, name.toString())).build();
             }
         }
 
@@ -51,7 +51,7 @@ public class ScheduleCommand extends Command {
         // update side panel
         model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResultBuilder(MESSAGE_SUCCESS).build();
     }
 
     @Override

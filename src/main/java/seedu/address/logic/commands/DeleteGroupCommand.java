@@ -46,10 +46,10 @@ public class DeleteGroupCommand extends Command {
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, groupName.toString()));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, groupName.toString())).build();
 
         } catch (GroupNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND)).build();
         }
 
     }
