@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Generic Name abstraction.
+ * Generic abstraction of name for trip / event / expense.
  */
 public class Name {
     public static final String MESSAGE_CONSTRAINTS =

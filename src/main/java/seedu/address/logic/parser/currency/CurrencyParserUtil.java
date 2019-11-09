@@ -8,7 +8,7 @@ import seedu.address.model.currency.Symbol;
 import seedu.address.model.itinerary.Name;
 
 /**
- * Collection of methods for parsing trip's abstractions.
+ * Collection of methods for parsing customised currency's abstractions.
  */
 public abstract class CurrencyParserUtil {
 
@@ -16,7 +16,7 @@ public abstract class CurrencyParserUtil {
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code Name} is invalid.
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
@@ -44,7 +44,7 @@ public abstract class CurrencyParserUtil {
      * Parses a {@code String rate} into a {@code Rate}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code rate} is invalid.
+     * @throws ParseException if the given {@code Rate} is invalid.
      */
     public static Rate parseRate(String rate) throws ParseException {
         requireNonNull(rate);

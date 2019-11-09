@@ -77,7 +77,7 @@ public class EditTripPage extends Page<AnchorPane> {
         currentEditDescriptor.getEndDate().ifPresent(endDate ->
                 tripEndDateFormItem.setValue(endDate.toLocalDate()));
         currentEditDescriptor.getBudget().ifPresent(budget ->
-                tripTotalBudgetFormItem.setValue(budget.value));
+                tripTotalBudgetFormItem.setValue(budget.getValue()));
         currentEditDescriptor.getPhoto().ifPresent(photo ->
                 tripPhotoFormItem.setValue(photo));
     }

@@ -20,7 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.expense.ExpenseList;
 import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
@@ -184,7 +184,7 @@ public class EditTripFieldCommand extends Command {
             if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
                 Trip trip = new Trip(name.get(), startDate.get(), endDate.get(),
                         destination.get(), totalBudget.get(), new DayList(startDate.get(), endDate.get()),
-                        new ExpenditureList(), new Diary(), new InventoryList(), photo);
+                        new ExpenseList(), new Diary(), new InventoryList(), photo);
                 trip.initializeDayList();
                 return trip;
             } else {
@@ -226,7 +226,7 @@ public class EditTripFieldCommand extends Command {
             }
 
             Trip newTrip = new Trip(tripName, startDate, endDate, destination, budget,
-                    trip.getDayList(), trip.getExpenditureList(), trip.getDiary(), trip.getInventoryList(), photo);
+                    trip.getDayList(), trip.getExpenseList(), trip.getDiary(), trip.getInventoryList(), photo);
             newTrip.initializeDayList();
 
             return newTrip;

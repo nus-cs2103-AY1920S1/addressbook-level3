@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import seedu.address.model.booking.Booking;
-import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -15,7 +15,7 @@ import seedu.address.model.itinerary.Name;
 /**
  * Represents a Event in TravelPal.
  * Compulsory fields: name, startDate, endDate, destination.
- * Optional fields: expenditure, booking, inventory.
+ * Optional fields: expense, booking, inventory.
  */
 public class Event {
     public static final String MESSAGE_INVALID_DATETIME = "Start date should be before end date";
@@ -28,14 +28,14 @@ public class Event {
 
     // Optional fields
     private final Inventory inventory;
-    private final Expenditure expenditure;
+    private final Expense expense;
     private final Booking booking;
 
     /**
      * Constructs an {@code Event}.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking,
-                 Expenditure expenditure, Inventory inventory, Location destination) {
+                 Expense expense, Inventory inventory, Location destination) {
         requireAllNonNull(name, startDate, endDate);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
 
@@ -44,37 +44,37 @@ public class Event {
         this.endDate = endDate;
         this.booking = booking;
         this.destination = destination;
-        this.expenditure = expenditure;
+        this.expense = expense;
         this.inventory = inventory;
     }
 
     // temporary constructor until we implement booking and inventory, accepts null for now
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Expenditure expenditure, Location destination) {
-        requireAllNonNull(name, startDate, endDate, expenditure);
+                 Expense expense, Location destination) {
+        requireAllNonNull(name, startDate, endDate, expense);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.booking = null;
         this.destination = destination;
-        this.expenditure = expenditure;
+        this.expense = expense;
         this.inventory = null;
     }
 
     /**
-     * Constructs a trip with optional expenditure field.
+     * Constructs a trip with optional expense field.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Optional<Expenditure> expenditure, Location destination) {
-        requireAllNonNull(name, startDate, endDate, expenditure);
+                 Optional<Expense> expense, Location destination) {
+        requireAllNonNull(name, startDate, endDate, expense);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.booking = null;
         this.destination = destination;
-        this.expenditure = expenditure.orElse(null);
+        this.expense = expense.orElse(null);
         this.inventory = null;
     }
 
@@ -101,8 +101,8 @@ public class Event {
     }
 
     // Optional field getters
-    public Optional<Expenditure> getExpenditure() {
-        return Optional.ofNullable(expenditure);
+    public Optional<Expense> getExpense() {
+        return Optional.ofNullable(expense);
     }
 
     public Optional<Inventory> getInventory() {
@@ -166,7 +166,7 @@ public class Event {
                 && otherTrip.getEndDate().equals(getEndDate())
                 && otherTrip.getDestination().equals(getDestination())
                 && otherTrip.getBooking().equals(getBooking())
-                && otherTrip.getExpenditure().equals(getExpenditure())
+                && otherTrip.getExpense().equals(getExpense())
                 && otherTrip.getInventory().equals(getInventory());
     }
 

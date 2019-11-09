@@ -5,11 +5,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.model.itinerary.Name;
 
 /**
- * Generic abstraction of customisedCurrency.
+ * Generic abstraction of customised currency.
  */
 public class CustomisedCurrency {
 
-    // Compulsory fields
     private final Name name;
     private final Symbol symbol;
     private final Rate rate;
@@ -36,10 +35,10 @@ public class CustomisedCurrency {
     }
 
     /**
-     * Check if two currencies are the same
+     * Check if two {@code CustomisedCurrency}s are the same
      *
-     * @param otherCurrency The other currency to check.
-     * @return Boolean of whether the currencies are the same.
+     * @param otherCurrency The other {@code CustomisedCurrency} to check.
+     * @return Boolean of whether the {@code CustomisedCurrency}s are the same.
      */
     public boolean isSameCustomisedCurrency(CustomisedCurrency otherCurrency) {
         if (otherCurrency == this) {
@@ -68,6 +67,7 @@ public class CustomisedCurrency {
 
     @Override
     public String toString() {
-        return name.toString() + "(" + symbol.toString() + "),  exchange rate -- 1 : " + rate.getValue();
+        return name.toString() + "(" + symbol.toString() + "),  exchange rate to Singapore Dollar (SGD) is "
+                + rate.getValue() + " : 1";
     }
 }

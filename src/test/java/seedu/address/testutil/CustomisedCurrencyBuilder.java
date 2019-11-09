@@ -2,9 +2,9 @@ package seedu.address.testutil;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.currency.Rate;
 import seedu.address.model.currency.Symbol;
-import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.itinerary.Name;
 
 /**

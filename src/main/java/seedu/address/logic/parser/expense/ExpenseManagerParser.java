@@ -4,12 +4,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.currency.EnterCreateCurrencyCommand;
-import seedu.address.logic.commands.expenditure.DeleteExpenditureCommand;
-import seedu.address.logic.commands.expenditure.EnterCreateExpenditureCommand;
-import seedu.address.logic.commands.expenditure.EnterDayOfExpenditureCommand;
-import seedu.address.logic.commands.expenditure.EnterDaysViewCommand;
-import seedu.address.logic.commands.expenditure.EnterEditExpenditureCommand;
-import seedu.address.logic.commands.expenditure.EnterListViewCommand;
+import seedu.address.logic.commands.expense.DeleteExpenseCommand;
+import seedu.address.logic.commands.expense.EnterCreateExpenseCommand;
+import seedu.address.logic.commands.expense.EnterDayOfExpenseCommand;
+import seedu.address.logic.commands.expense.EnterDaysViewCommand;
+import seedu.address.logic.commands.expense.EnterEditExpenseCommand;
+import seedu.address.logic.commands.expense.EnterListViewCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.currency.EnterCreateCurrencyParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -20,10 +20,10 @@ import seedu.address.logic.parser.navbar.NavbarViewParser;
  */
 public class ExpenseManagerParser implements PageParser {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
-            + EnterCreateExpenditureCommand.COMMAND_WORD + " "
-            + DeleteExpenditureCommand.COMMAND_WORD + " "
-            + EnterEditExpenditureCommand.COMMAND_WORD + " "
-            + EnterDayOfExpenditureCommand.COMMAND_WORD + " "
+            + EnterCreateExpenseCommand.COMMAND_WORD + " "
+            + DeleteExpenseCommand.COMMAND_WORD + " "
+            + EnterEditExpenseCommand.COMMAND_WORD + " "
+            + EnterDayOfExpenseCommand.COMMAND_WORD + " "
             + EnterDaysViewCommand.COMMAND_WORD + " "
             + EnterListViewCommand.COMMAND_WORD + " "
             + EnterCreateCurrencyCommand.COMMAND_WORD + " | "
@@ -40,11 +40,11 @@ public class ExpenseManagerParser implements PageParser {
 
         switch (commandType) {
         case CREATE:
-            return new EnterCreateExpenditureParser().parse(arguments);
+            return new EnterCreateExpenseParser().parse(arguments);
         case DELETE:
-            return new DeleteExpenditureParser().parse(arguments);
+            return new DeleteExpenseParser().parse(arguments);
         case EDIT:
-            return new EnterEditExpenditureParser().parse(arguments);
+            return new EnterEditExpenseParser().parse(arguments);
         case SHOWDAYS:
             return new EnterDaysViewParser().parse(arguments);
         case SHOWLIST:
@@ -52,7 +52,7 @@ public class ExpenseManagerParser implements PageParser {
         case CURRENCY:
             return new EnterCreateCurrencyParser().parse(arguments);
         case SHOW:
-            return new EnterDayOfExpenditureParser().parse(arguments);
+            return new EnterDayOfExpenseParser().parse(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

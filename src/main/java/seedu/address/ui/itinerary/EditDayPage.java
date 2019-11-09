@@ -63,7 +63,7 @@ public class EditDayPage extends Page<AnchorPane> {
         currentEditDescriptor.getStartDate().ifPresent(startDate ->
                 dayDateFormItem.setValue(startDate.toLocalDate()));
         currentEditDescriptor.getBudget().ifPresent(budget ->
-                dayTotalBudgetFormItem.setValue(budget.value));
+                dayTotalBudgetFormItem.setValue(budget.getValue()));
         currentEditDescriptor.getDescription().ifPresent((description ->
                 dayDescriptionFormItem.setValue(description.description)));
     }

@@ -30,7 +30,7 @@ import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.template.Page;
 
 /**
- * {@code Page} for displaying the currency details.
+ * {@code Page} for displaying and editing the customised currencies.
  */
 public class CurrencyPage extends Page<AnchorPane> {
 
