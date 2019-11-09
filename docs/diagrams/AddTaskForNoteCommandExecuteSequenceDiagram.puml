@@ -1,0 +1,59 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "a:AddTaskForNoteCommand" as AddTaskForNoteCommand LOGIC_COLOR
+participant ":CommandException" as CommandException LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+participant ":AppData" as AppData MODEL_COLOR
+participant ":TaskList" as TaskList MODEL_COLOR
+end box
+
+[-> AddTaskForNoteCommand : execute(model)
+activate AddTaskForNoteCommand
+
+opt !hasValidNoteForTask(model)
+    create CommandException
+    AddTaskForNoteCommand -> CommandException
+    activate CommandException
+    CommandException --> AddTaskForNoteCommand
+    deactivate CommandException
+end
+
+opt model.hasTask(toAdd)
+    create CommandException
+    AddTaskForNoteCommand -> CommandException
+    activate CommandException
+    CommandException ---> AddTaskForNoteCommand
+    deactivate CommandException
+end
+
+AddTaskForNoteCommand -> Model : addTask(toAdd)
+activate Model
+Model --> AddTaskForNoteCommand
+deactivate Model
+
+Model -> AppData : addTask(toAdd)
+activate AppData
+AppData --> Model
+deactivate AppData
+
+AppData -> TaskList : add(toAdd)
+activate TaskList
+TaskList --> AppData
+deactivate TaskList
+
+create CommandResult
+AddTaskForNoteCommand -> CommandResult
+activate CommandResult
+CommandResult --> AddTaskForNoteCommand : r
+deactivate CommandResult
+
+[<-- AddTaskForNoteCommand : r
+
+
+@enduml

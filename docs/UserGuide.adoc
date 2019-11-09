@@ -14,6 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-4/main
 
+By: `AY1920S1-CS2103T-F11-4`      Since: `September 2019`      Licence: `MIT`
+
 == Introduction
 
 NUStudy is an application for managing three kinds of informational material:

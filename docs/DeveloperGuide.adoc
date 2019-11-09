@@ -97,6 +97,7 @@ _API:_ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the sequence diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 The lifeline for `DeleteCommandParser` should end at the destroy marker × but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+[[DeleteSequenceDiagram]]
 .Interactions inside the `Logic` component for the `deletenote 1` command
 image::DeleteSequenceDiagram.png[]
 
@@ -411,10 +412,15 @@ This is also more difficult to implement.
 The `TaskList` is essentially a list of `Task`. `TaskList` supports the `add(Task)` operation and this operation is
 exposed to `AppData#addTask(Task)`.
 
-The following sequence diagram illustrates how `rn` command is executed (adding a task for question is similar, but with different user command):
+The following process illustrates the mechanism of adding a revision task to the task list.
 
-.Sequence diagram for adding a task for note
-image::task/AddTaskForNoteSequenceDiagram.png[]
+Step 1. The user enters command `rn t/UML diagram dt/01/01/2019 tm/1200` for adding a task for note. The command will be parsed by `AddTaskForNoteCommandParser`.
+`AddTaskForNoteParser` then creates an `AddTaskForNoteCommand`. The high-level logic of *parsing* and *creating the command*
+is similar to the process of deleting a note from the note list as illustrated by the <<DeleteSequenceDiagram, *sequence diagram for deleting a note*>>.
+However, the execution stage of `AddTaskForNoteCommand` differs from that of deleting a note.
+
+Step 2. The `Logic Manager` calls `Command#execute(Model)` which essentially calls `AddTaskForNoteCommand#execute(Model)`
+because of polymorphism.
 
 
 ==== Design considerations
