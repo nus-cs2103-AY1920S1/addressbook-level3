@@ -10,9 +10,12 @@ import seedu.address.logic.Graph;
 import seedu.address.model.Model;
 import seedu.address.model.phone.Phone;
 
+/**
+ * Represents a {@code Graph} used to support autocomplete for {@code FindPhoneCommand}.
+ */
 public class FindPhoneGraph extends Graph {
 
-    List<Phone> phoneList;
+    private List<Phone> phoneList;
 
     public FindPhoneGraph(Model model) {
         super(model);

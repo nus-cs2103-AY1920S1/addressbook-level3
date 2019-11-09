@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Represent an {@code Edge} list.
+ */
 public class EdgeList implements Iterable<Edge> {
 
     private List<Edge> edges;

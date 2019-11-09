@@ -2,7 +2,6 @@ package seedu.address.logic.graphs;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.logic.Edge;
@@ -12,6 +11,9 @@ import seedu.address.logic.nodes.schedule.ScheduleDateNode;
 import seedu.address.model.Model;
 import seedu.address.model.schedule.Schedule;
 
+/**
+ * Represents a {@code Graph} used to support autocomplete for {@code ScheduleCommand}.
+ */
 public class ViewScheduleGraph extends GraphWithStartNode {
 
     public ViewScheduleGraph(Model model) {
@@ -25,7 +27,7 @@ public class ViewScheduleGraph extends GraphWithStartNode {
         setStartingNode(viewScheduleStartNode);
         Node<Schedule> scheduleDateNode = new ScheduleDateNode(scheduleList);
         edges.addAll(
-                new Edge(PREFIX_DATE ,viewScheduleStartNode, scheduleDateNode)
+                new Edge(PREFIX_DATE, viewScheduleStartNode, scheduleDateNode)
         );
     }
 

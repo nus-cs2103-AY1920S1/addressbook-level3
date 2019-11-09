@@ -10,6 +10,9 @@ import seedu.address.logic.Graph;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
 
+/**
+ * Represents a {@code Graph} used to support autocomplete for {@code FindOrderCommand}.
+ */
 public class FindOrderGraph extends Graph {
 
     private List<Order> orderList;
