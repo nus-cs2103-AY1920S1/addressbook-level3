@@ -1,7 +1,6 @@
 package seedu.address.logic.cap.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;

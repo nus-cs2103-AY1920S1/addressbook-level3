@@ -30,7 +30,6 @@ public class ModuleBuilder {
     private Semester semester;
     private AcademicYear academicYear;
     private SemesterPeriod semesterPeriod;
-    private Description description;
     private Credit credit;
     private Faculty faculty;
     private Grade grade;
@@ -41,7 +40,6 @@ public class ModuleBuilder {
         academicYear = new AcademicYear(DEFAULT_ACADEMIC_YEAR);
         semesterPeriod = new SemesterPeriod(DEFAULT_SEMESTER_PERIOD);
         semester = new Semester(semesterPeriod, academicYear);
-        description = new Description(DEFAULT_DESCRIPTION);
         credit = new Credit(DEFAULT_CREDIT);
         faculty = new Faculty(DEFAULT_FACULTY);
         grade = new Grade(DEFAULT_GRADE);
@@ -56,7 +54,6 @@ public class ModuleBuilder {
         academicYear = moduleToCopy.getSemester().getAcademicYear();
         semesterPeriod = moduleToCopy.getSemester().getSemesterPeriod();
         semester = moduleToCopy.getSemester();
-        description = moduleToCopy.getDescription();
         credit = moduleToCopy.getCredit();
         faculty = moduleToCopy.getFaculty();
         grade = moduleToCopy.getGrade();
@@ -103,14 +100,6 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code description} of the {@code Module} that we are building.
-     */
-    public ModuleBuilder withDescription(String description) {
-        this.description = new Description(description);
-        return this;
-    }
-
-    /**
      * Sets the {@code Credit} of the {@code Module} that we are building.
      */
     public ModuleBuilder withCredit(int credit) {
@@ -135,9 +124,9 @@ public class ModuleBuilder {
     }
 
     /**
-     * Initiates teh build of a module.
+     * Initiates the build of a module.
      */
     public Module build() {
-        return new Module(moduleCode, title, semester, description, credit, faculty, grade);
+        return new Module(moduleCode, title, semester, credit, faculty, grade);
     }
 }

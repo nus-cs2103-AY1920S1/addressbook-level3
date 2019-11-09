@@ -8,7 +8,7 @@ import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TITLE;
 
-import java.lang.module.*;
+import java.lang.module.InvalidModuleDescriptorException;
 import java.util.stream.Stream;
 
 import seedu.address.logic.cap.commands.AddCommand;

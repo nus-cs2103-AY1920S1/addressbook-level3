@@ -13,43 +13,35 @@ import seedu.address.model.common.Module;
  */
 public class TypicalModule {
 
-    public static final Module ALICE = new ModuleBuilder().withModuleCode("CS2103")
+    public static final Module CS2103 = new ModuleBuilder().withModuleCode("CS2103")
             .withModuleTitle("Software Programming")
-            .withDescription("This module introduces the necessary conceptual and analytical "
-                    + "tools for systematic and rigorous development of software systems.")
             .withSemester("1920", 1)
             .withCredit(4)
             .withFaculty("Computing")
             .withGrade("A").build();
-    public static final Module BENSON = new ModuleBuilder().withModuleCode("CS2100")
-            .withDescription("The objective of this module is to familiarise"
-                    + " students with the fundamentals of computing devices.")
+    public static final Module CS2100 = new ModuleBuilder().withModuleCode("CS2100")
             .withModuleTitle("Computer Organisation")
             .withSemester("1920", 1)
             .withFaculty("Computing")
             .withCredit(4)
             .withGrade("A").build();
-    public static final Module CARL = new ModuleBuilder().withModuleCode("CS2101")
+    public static final Module CS2101 = new ModuleBuilder().withModuleCode("CS2101")
             .withModuleTitle("Effective Communication for Computing Professionals")
-            .withDescription("This module aims to equip students with "
-                    + "the skills needed to communicate technical information.")
             .withSemester("1920", 1)
             .withFaculty("Computing")
             .withCredit(4)
             .withGrade("A-").build();
-    public static final Module DANIEL = new ModuleBuilder().withModuleCode("CS3226")
+    public static final Module CS3226 = new ModuleBuilder().withModuleCode("CS3226")
             .withSemester("1920", 2)
-            .withDescription("This module introduces students to software development on the Web platforms.")
             .withModuleTitle("Web Programming and Applications")
             .withGrade("A-")
             .withFaculty("Computing")
             .withCredit(4).build();
-    public static final Module ELLE = new ModuleBuilder().withModuleCode("CS3233")
+    public static final Module CS3233 = new ModuleBuilder().withModuleCode("CS3233")
             .withSemester("2021", 2)
             .withFaculty("Computing")
             .withCredit(4)
             .withGrade("A-")
-            .withDescription("This module aims to prepare students in competitive problem solving.")
             .withModuleTitle("Competitive Programming").build();
 
     private TypicalModule() {} // prevents instantiation
@@ -66,6 +58,7 @@ public class TypicalModule {
     }
 
     public static List<Module> getTypicalModules() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE));
+        //populate with students
+        return new ArrayList<>(Arrays.asList(CS2103, CS2100, CS2101, CS3226, CS3233));
     }
 }
