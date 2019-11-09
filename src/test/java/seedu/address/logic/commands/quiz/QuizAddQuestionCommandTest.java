@@ -1,41 +1,48 @@
 package seedu.address.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
+import static seedu.address.logic.commands.quiz.QuizCommand.BLANK_QUIZ_ID;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.question.Question;
+import seedu.address.model.question.SavedQuestions;
 import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.SavedQuizzes;
 import seedu.address.testutil.model.ModelStub;
+import seedu.address.testutil.question.QuestionBuilder;
+import seedu.address.testutil.question.TypicalQuestions;
 import seedu.address.testutil.quiz.QuizBuilder;
 
+/**
+ * Test for QuizAddQuestionCommand.
+ */
 public class QuizAddQuestionCommandTest {
 
-    @Test
-    public void constructor_nullQuiz_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new QuizAddQuestionCommand(null,
-                QuizBuilder.DEFAULT_QUESTION_INDEX, QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX));
-    }
-
+    /**
+     * Tests whether two QuizAddQuestionCommands are equal.
+     */
     @Test
     public void equals() {
         String quizId = QuizBuilder.DEFAULT_QUIZ_ID;
         String otherQuizId = "Other Quiz";
-        QuizAddQuestionCommand addQuestionCommand = new QuizAddQuestionCommand(quizId,
-                QuizBuilder.DEFAULT_QUESTION_INDEX, QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
-        QuizAddQuestionCommand otherAddQuestionCommand = new QuizAddQuestionCommand(otherQuizId,
-                QuizBuilder.DEFAULT_QUESTION_INDEX, QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
-
+        QuizAddQuestionCommand addQuestionCommand =
+                new QuizAddQuestionCommand(quizId, 1, 1);
+        QuizAddQuestionCommand otherAddQuestionCommand =
+                new QuizAddQuestionCommand(otherQuizId, 1, 1);
         // same object -> returns true
         assertTrue(addQuestionCommand.equals(addQuestionCommand));
 
         // same values -> returns true
-        QuizAddQuestionCommand addQuestionCommandCopy = new QuizAddQuestionCommand(quizId,
-                QuizBuilder.DEFAULT_QUESTION_INDEX, QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
+        QuizAddQuestionCommand addQuestionCommandCopy =
+                new QuizAddQuestionCommand(quizId, 1, 1);
         assertTrue(addQuestionCommand.equals(addQuestionCommandCopy));
 
         // different types -> returns false
@@ -44,44 +51,86 @@ public class QuizAddQuestionCommandTest {
         // null -> returns false
         assertFalse(addQuestionCommand.equals(null));
 
-        // different quiz -> returns false
+        // different group -> returns false
         assertFalse(addQuestionCommand.equals(otherAddQuestionCommand));
+    }
+
+    /**
+     * Test for adding to quiz successfully.
+     */
+    @Test
+    public void execute_addUniqueQuestionToQuiz_success() throws Exception {
+        QuizAddQuestionCommand quizAddQuestionCommand =
+                new QuizAddQuestionCommand("Success", 4, 1);
+        ModelStub modelStub = new ModelStubWithQuizWithQuestion("Success", 3, 1);
+        CommandResult commandResult = quizAddQuestionCommand.execute(modelStub);
+        String expectedMessage = "Added question: " + 4 + " to quiz: " + "Success" + ".";
+        assertEquals(expectedMessage,
+                commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Test for adding to quiz unsuccessfully, due to quiz ID not present.
+     */
+    @Test
+    public void execute_addQuestionToQuizWithMissingQuizId_throwsCommandException() {
+        QuizAddQuestionCommand quizAddQuestionCommand =
+                new QuizAddQuestionCommand("", 1, 1);
+        Question question = new QuestionBuilder().withQuestion("").withAnswer("").build();
+        ModelStub modelStub = new ModelStubWithQuizWithQuestion("NormalThree", question);
+        assertThrows(CommandException.class, () -> quizAddQuestionCommand.execute(modelStub),
+                BLANK_QUIZ_ID);
     }
 
     /**
      * A Model stub that contains a single quiz.
      */
-    private class ModelStubWithQuiz extends ModelStub {
-        private final String quizId;
-        private final Quiz quiz;
+    private class ModelStubWithQuizWithQuestion extends ModelStub {
+        private final SavedQuizzes savedQuizzes;
+        private final SavedQuestions savedQuestions;
 
-        ModelStubWithQuiz(String quizId) {
+        /**
+         * Creates a ModelStubWithQuizWithQuestion instance.
+         *
+         * @param quizId Quiz ID of the quiz.
+         * @param questionNumber Question number of the question.
+         * @param quizIndexNumber Quiz Index Number to add to.
+         */
+        ModelStubWithQuizWithQuestion(String quizId, int questionNumber, int quizIndexNumber) {
             requireNonNull(quizId);
             Quiz quiz = new QuizBuilder().withQuizId(quizId).build();
-            this.quizId = quizId;
-            this.quiz = quiz;
+            this.savedQuizzes = new SavedQuizzes();
+            this.savedQuestions = new SavedQuestions(TypicalQuestions.getTypicalSavedQuestionsForQuiz());
+            Question question = savedQuestions.getQuestion(Index.fromOneBased(questionNumber));
+            quiz.addQuestion(quizIndexNumber, question);
+            savedQuizzes.addQuiz(quiz);
+        }
+
+        /**
+         * Creates a ModelStubWithQuizWithQuestion instance.
+         *
+         * @param quizId Quiz Id of the quiz.
+         * @param question Question in the quiz.
+         */
+        ModelStubWithQuizWithQuestion(String quizId, Question question) {
+            requireNonNull(quizId);
+            Quiz quiz = new QuizBuilder().withQuizId(quizId).build();
+            this.savedQuizzes = new SavedQuizzes();
+            this.savedQuestions = new SavedQuestions();
+            savedQuestions.addQuestion(question);
+            quiz.addQuestion(question);
+            savedQuizzes.addQuiz(quiz);
         }
 
         @Override
         public boolean checkQuizExists(String quizId) {
-            requireNonNull(quizId);
-            return this.quizId.equals(quizId);
+            return true;
         }
-    }
-
-    /**
-     * A Model stub that always accept the quiz being added.
-     */
-    private class ModelStubAcceptingQuizAdded extends ModelStub {
-        final ArrayList<Quiz> quizzesAdded = new ArrayList<>();
 
         @Override
         public boolean addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber) {
-            requireNonNull(quizId);
-            Quiz quiz = new QuizBuilder().withQuizId(quizId).build();
-            return quizzesAdded.add(quiz);
+            return savedQuizzes.addQuizQuestion(quizId, questionNumber, quizQuestionNumber, savedQuestions);
         }
 
     }
-
 }

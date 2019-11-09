@@ -1,6 +1,9 @@
 package seedu.address.storage.event;
 
+import static seedu.address.commons.util.EventUtil.validateStartEndDateTime;
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,6 +18,10 @@ import seedu.address.model.event.RecurrenceType;
 class JsonAdaptedEvent {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "event %s field is missing!";
+    public static final String INVALID_DATE_FORMAT = "Invalid date format";
+    public static final String INVALID_DATE_RANGE = "Invalid date range. StartDateTime must be "
+            + "before end date time";
+    public static final String INVALID_RECURRENCE_TYPE = "Invalid recurrence type";
 
     private String eventName;
     private String startDateTime;
@@ -61,30 +68,50 @@ class JsonAdaptedEvent {
      *                               question.
      */
     public Event toModelType() throws IllegalValueException {
-        if (eventName == null) {
+        if (eventName == null || eventName.isEmpty()) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, "EVENT NAME"));
         }
-        if (startDateTime == null) {
+        if (startDateTime == null || startDateTime.isEmpty()) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "START DATE TIME"));
         }
-        if (endDateTime == null) {
+        if (endDateTime == null || endDateTime.isEmpty()) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "END DATE TIME"));
         }
-        if (uniqueIdentifier == null) {
+        if (uniqueIdentifier == null || uniqueIdentifier.isEmpty()) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "UNIQUE IDENTIFIER"));
         }
 
-        RecurrenceType recurrenceTypeToAdd = RecurrenceType.NONE;
-
-        if (recurrenceType.equals("WEEKLY")) {
-            recurrenceTypeToAdd = RecurrenceType.WEEKLY;
-        } else if (recurrenceType.equals("DAILY")) {
-            recurrenceTypeToAdd = RecurrenceType.DAILY;
+        if (colorCategory == null || colorCategory.isEmpty()) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "COLOR CATEGORY"));
         }
 
-        return new Event(eventName, LocalDateTime.parse(startDateTime), LocalDateTime.parse(endDateTime), colorCategory,
+        RecurrenceType recurrenceTypeToAdd;
+        if (recurrenceType == null || recurrenceType.isEmpty()) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "RECURRENCE TYPE"));
+        } else if (recurrenceType.equalsIgnoreCase(RecurrenceType.WEEKLY.name())) {
+            recurrenceTypeToAdd = RecurrenceType.WEEKLY;
+        } else if (recurrenceType.equalsIgnoreCase(RecurrenceType.DAILY.name())) {
+            recurrenceTypeToAdd = RecurrenceType.DAILY;
+        } else if (recurrenceType.equalsIgnoreCase(RecurrenceType.NONE.name())) {
+            recurrenceTypeToAdd = RecurrenceType.NONE;
+        } else {
+            throw new IllegalValueException(INVALID_RECURRENCE_TYPE);
+        }
+
+        LocalDateTime startDateTime;
+        LocalDateTime endDateTime;
+        try {
+            startDateTime = LocalDateTime.parse(this.startDateTime);
+            endDateTime = LocalDateTime.parse(this.endDateTime);
+        } catch (DateTimeParseException dtpEx) {
+            throw new IllegalValueException(INVALID_DATE_FORMAT);
+        }
+        if (!validateStartEndDateTime(startDateTime, endDateTime)) {
+            throw new IllegalValueException(INVALID_DATE_RANGE);
+        }
+
+        return new Event(eventName, startDateTime, endDateTime, colorCategory,
                 uniqueIdentifier, recurrenceTypeToAdd);
     }
-
 }

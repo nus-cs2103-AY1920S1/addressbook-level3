@@ -14,12 +14,17 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.question.exceptions.DuplicateQuestionException;
+import seedu.address.model.question.exceptions.QuestionNotFoundException;
 
 /**
  * Stores questions and provides functionality to manage them.
  */
 public class QuestionBank implements Iterable<Question> {
 
+    public static final String SEARCH_RESULT_SUCCESS =
+        "Displaying results for \'%1$s\' and similar terms.\n"
+            + "Found %2$s results";
     private final ObservableList<Question> questions = FXCollections.observableArrayList();
     private final ObservableList<Question> questionsFiltered = FXCollections.observableArrayList();
     private final ObservableList<Question> questionsUnmodifiableList =
@@ -31,10 +36,9 @@ public class QuestionBank implements Iterable<Question> {
      */
     public void setQuestions(List<Question> questions) {
         requireAllNonNull(questions);
-        if (!isRepeated(questions)) {
-            //throw new DuplicateStudentException();
+        if (isRepeated(questions)) {
+            throw new DuplicateQuestionException();
         }
-
         this.questions.setAll(questions);
     }
 
@@ -44,10 +48,11 @@ public class QuestionBank implements Iterable<Question> {
      * @param question to add to the list.
      */
     public void addQuestion(Question question) {
-        if (!isRepeated(question)) {
-            this.questions.add(question);
+        requireNonNull(question);
+        if (contains(question)) {
+            throw new DuplicateQuestionException();
         }
-        // TODO: Implement check if duplicated question AND answer is entered
+        this.questions.add(question);
     }
 
     /**
@@ -68,7 +73,7 @@ public class QuestionBank implements Iterable<Question> {
     public void deleteQuestion(Question question) {
         requireNonNull(question);
         if (!questions.remove(question)) {
-            //throw new StudentNotFoundException();
+            throw new QuestionNotFoundException();
         }
     }
 
@@ -89,6 +94,9 @@ public class QuestionBank implements Iterable<Question> {
      * @param question object.
      */
     public void setQuestion(Index index, Question question) {
+        if (contains(question)) {
+            throw new DuplicateQuestionException();
+        }
         questions.set(index.getZeroBased(), question);
     }
 
@@ -168,10 +176,11 @@ public class QuestionBank implements Iterable<Question> {
      * @return Summary of questions searched.
      */
     public String searchQuestions(String textToFind) {
+        requireNonNull(textToFind);
         questionsFiltered.clear();
         int textToFindSize = textToFind.length();
         int similarityThreshold = (int) (textToFindSize * 0.4); // 40% match
-        ArrayList<Question> similiarAl = new ArrayList<>(); // Used for grouping similiar terms
+        ArrayList<Question> similarAl = new ArrayList<>(); // Used for grouping similiar terms
 
         // 2-levels of searching occurs here
         for (int i = 0; i < questions.size(); i++) {
@@ -188,15 +197,15 @@ public class QuestionBank implements Iterable<Question> {
                 questionsFiltered.add(question);
             } else if (difference <= similarityThreshold) { // Search for similar terms
                 question.setQuestion(index.getOneBased() + ". " + question.getQuestion());
-                similiarAl.add(question);
+                similarAl.add(question);
             }
         }
 
-        questionsFiltered.addAll(similiarAl);
+        similarAl.sort(Comparator.comparingInt(o -> o.getQuestion().length()));
         questionsFiltered.sort(Comparator.comparingInt(o -> o.getQuestion().length()));
+        questionsFiltered.addAll(similarAl);
 
-        return "Displaying results for \'" + textToFind + "\' and similar terms.\n"
-            + "Found " + questionsFiltered.size() + " results";
+        return String.format(SEARCH_RESULT_SUCCESS, textToFind, questionsFiltered.size());
     }
 
     /**
@@ -234,20 +243,20 @@ public class QuestionBank implements Iterable<Question> {
     private boolean isRepeated(List<Question> questions) {
         for (int i = 0; i < questions.size() - 1; i++) {
             for (int j = i + 1; j < questions.size(); j++) {
-                if (questions.get(i).isSameQuestion(questions.get(j))) {
-                    return false;
+                if (questions.get(i).equals(questions.get(j))) {
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     /**
-     * Returns true if the list contains an equivalent Student as the given argument.
+     * Returns true if the list contains an equivalent Question as the given argument.
      */
     public boolean contains(Question toCheck) {
         requireNonNull(toCheck);
-        return questions.stream().anyMatch(toCheck::isSameQuestion);
+        return questions.stream().anyMatch((question) -> question.equals(toCheck));
     }
 
     /**
@@ -260,5 +269,12 @@ public class QuestionBank implements Iterable<Question> {
     @Override
     public Iterator<Question> iterator() {
         return questions.iterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof QuestionBank // instanceof handles nulls
+            && questions.equals(((QuestionBank) other).questions));
     }
 }

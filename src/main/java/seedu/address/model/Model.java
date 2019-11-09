@@ -156,12 +156,6 @@ public interface Model {
 
     //endregion
 
-
-    //region Mark
-    void markStudent(Student student);
-
-    void unmarkStudent(Student student);
-
     boolean getIsMarked(Student student);
     //region Students
 
@@ -169,6 +163,11 @@ public interface Model {
      * Gets the record of students in read only format.
      */
     ReadOnlyStudentRecord getStudentRecord();
+
+    /**
+     * Sets the student record with the given student record.
+     */
+    void setStudentRecord(ReadOnlyStudentRecord studentRecord);
 
     /**
      * Checks if the list already contains specified student.
@@ -234,10 +233,9 @@ public interface Model {
     ObservableList<Student> getObservableListStudentsFromGroup();
 
     /**
-     * Adds a student to a group.
-     * {@code groupId} Must already exist in the list of groups.
-     * {@code studentNumber} Must already exist in the list of students.
-     * {@code groupIndexNumber} Must already exist in the quiz.
+     * Adds a student to a group. {@code groupId} Must already exist in the list of groups. {@code
+     * studentNumber} Must already exist in the list of students. {@code groupIndexNumber} Must
+     * already exist in the quiz.
      */
     boolean addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber);
 
@@ -253,6 +251,7 @@ public interface Model {
 
     /**
      * Check if student exists in group.
+     *
      * @param groupId Id of group.
      * @param student Student to check.
      * @return True if student exists in group.
@@ -296,6 +295,12 @@ public interface Model {
      * Returns the question based on its Index.
      */
     Question getQuestion(Index index);
+
+    /**
+     * Returns true if a note with the same identity as {@code question} exists in the Questions
+     * record.
+     */
+    boolean hasQuestion(Question question);
 
     /**
      * Returns the summary of questions searched.
@@ -464,10 +469,6 @@ public interface Model {
 
     ReadOnlyVEvents getVEventRecord();
 
-    String getEventExportPath();
-
-    void setEventExportPath(String targetExportPath);
-
     //endregion
 
     //region EventSchedulePrefs
@@ -479,26 +480,23 @@ public interface Model {
     EventScheduleViewMode getEventScheduleViewMode();
 
     void setEventScheduleViewMode(EventScheduleViewMode viewMode);
+
+    String getEventSchedulePrefString();
+
     //endregion
 
     //region VEvents
     boolean hasVEvent(VEvent vEvent);
 
-    void deleteVEvent(VEvent vEvent);
-
     void deleteVEvent(Index index);
 
     void addVEvent(VEvent vEvent);
 
-    void setVEvent(VEvent target, VEvent editedVEvent);
-
     void setVEvent(Index index, VEvent editedVEvent);
-
-    String getVEventSummary();
 
     VEvent getVEvent(Index index);
 
-    List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName);
+    List<Pair<Index, VEvent>> findVEvents(String desiredEventName);
 
     ObservableList<VEvent> getVEventList();
 

@@ -80,6 +80,13 @@ public class QuestionList {
     }
 
     /**
+     * Sets the questions for a quiz.
+     */
+    public void setQuestions(ArrayList<Question> questions) {
+        this.questions = questions;
+    }
+
+    /**
      * Returns the answers for a quiz.
      * @return The answers for the quiz in an ArrayList.
      */
@@ -97,6 +104,9 @@ public class QuestionList {
      */
     public void setStringQuestions(String stringQuestions) {
         String[] splitBySymbol = stringQuestions.split("//");
+        if (splitBySymbol.length == 1) {
+            return;
+        }
         for (String s : splitBySymbol) {
             String[] split = s.split(":");
             if (split.length <= 2) {
@@ -123,8 +133,11 @@ public class QuestionList {
      * @return The questions of the question list in String representation.
      */
     public String getStringQuestions() {
-        Question firstQuestion = questions.get(0);
         String returnQuestions = "";
+        if (questions.size() <= 0) {
+            return returnQuestions;
+        }
+        Question firstQuestion = questions.get(0);
         if (firstQuestion instanceof OpenEndedQuestion) {
             String question = firstQuestion.getQuestion();
             String answer = firstQuestion.getAnswer();

@@ -12,27 +12,22 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.event.EventRecord;
-import seedu.address.model.note.NotesRecord;
 import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.Question;
-import seedu.address.model.quiz.SavedQuizzes;
-import seedu.address.model.statistics.StatisticsRecord;
-import seedu.address.model.student.StudentRecord;
 
 public class QuestionEditCommandTest {
 
-    private Model model = new ModelManager(new AddressBook(), new StudentRecord(),
-        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new EventRecord(),
-        new StatisticsRecord(),
-        new UserPrefs());
+    private Model model = new ModelManager();
+
+    public QuestionEditCommandTest() {
+        model.setSavedQuestions(getTypicalSavedQuestions());
+    }
 
     @Test
     public void execute_editQuestionWithDifferentType_success() {
@@ -52,10 +47,15 @@ public class QuestionEditCommandTest {
         Question expectedQuestion = new McqQuestion(fields.get("question"), fields.get("answer"),
             options.get("optionA"), options.get("optionB"), options.get("optionC"),
             options.get("optionD"));
-        String expectedMessage = "Edited question: " + expectedQuestion;
+        String expectedMessage = String
+            .format(QuestionEditCommand.MESSAGE_SUCCESS, expectedQuestion);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, model,
-            CommandResultType.SHOW_QUESTION);
+        Model expectedModel = new ModelManager();
+        expectedModel.setSavedQuestions(getTypicalSavedQuestions());
+        expectedModel.setQuestion(index, expectedQuestion);
+
+        assertCommandSuccess(editCommand, model,
+            new CommandResult(expectedMessage, CommandResultType.SHOW_QUESTION), expectedModel);
     }
 
     @Test
@@ -69,21 +69,80 @@ public class QuestionEditCommandTest {
 
         Question expectedQuestion = new OpenEndedQuestion(fields.get("question"),
             fields.get("answer"));
-        String expectedMessage = "Edited question: " + expectedQuestion;
-        assertCommandSuccess(editCommand, model, expectedMessage, model,
-            CommandResultType.SHOW_QUESTION);
+        String expectedMessage = String
+            .format(QuestionEditCommand.MESSAGE_SUCCESS, expectedQuestion);
+
+        Model expectedModel = new ModelManager();
+        expectedModel.setSavedQuestions(getTypicalSavedQuestions());
+        expectedModel.setQuestion(index, expectedQuestion);
+
+        assertCommandSuccess(editCommand, model,
+            new CommandResult(expectedMessage, CommandResultType.SHOW_QUESTION), model);
     }
 
     @Test
-    public void execute_invalidQuestionIndex_failure() {
+    public void execute_invalidQuestionIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getAllQuestions().size() + 1);
+
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put("question", "Test Edit");
+        fields.put("answer", "Test Answer");
+        fields.put("type", "open");
+
+        QuestionEditCommand editCommand = new QuestionEditCommand(outOfBoundIndex, fields);
+
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX, ()
+            -> editCommand.execute(model));
+    }
+
+    @Test
+    public void execute_missingMcqOptionsParams_throwsNullPointerException() {
+        Index index = Index.fromOneBased(1);
+
         HashMap<String, String> fields = new HashMap<>();
         fields.put("question", "Test Edit");
         fields.put("answer", "Test Answer");
         fields.put("type", "mcq");
-        QuestionEditCommand editCommand = new QuestionEditCommand(outOfBoundIndex, fields);
 
-        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX, ()
+        assertThrows(NullPointerException.class, () ->
+            new QuestionEditCommand(index, fields).execute(model));
+
+        HashMap<String, String> options = new HashMap<>();
+        assertThrows(NullPointerException.class, () ->
+            new QuestionEditCommand(index, fields, options).execute(model));
+    }
+
+    @Test
+    public void execute_emptyMcqOptions_throwsCommandException() {
+        Index index = Index.fromOneBased(1);
+
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put("question", "Test Edit");
+        fields.put("answer", "Test Answer");
+        fields.put("type", "mcq");
+
+        HashMap<String, String> options = new HashMap<>();
+        options.put("optionA", "");
+        options.put("optionB", "");
+        options.put("optionC", "");
+        options.put("optionD", "");
+
+        QuestionEditCommand editCommand = new QuestionEditCommand(index, fields, options);
+
+        assertThrows(CommandException.class, Messages.MESSAGE_MISSING_QUESTION_OPTIONS, ()
+            -> editCommand.execute(model));
+    }
+
+    @Test
+    public void execute_editQuestionWithBlank_throwsCommandException() {
+        Index index = Index.fromOneBased(1);
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put("question", "");
+        fields.put("answer", "");
+        fields.put("type", "");
+        QuestionEditCommand editCommand = new QuestionEditCommand(index, fields);
+
+        assertThrows(CommandException.class, Messages.MESSAGE_DUPLICATE_QUESTION, ()
             -> editCommand.execute(model));
     }
 

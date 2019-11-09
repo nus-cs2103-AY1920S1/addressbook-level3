@@ -195,30 +195,6 @@ public class ModelManager implements Model {
     }
     //endregion
 
-    //region FilteredStudent List Accessors
-    @Override
-    public ObservableList<Student> getFilteredStudentList() {
-        return studentRecord.getStudentList();
-    }
-
-    @Override
-    public Optional<Index> getIndexFromStudentList(Student student) {
-        return studentRecord.getIndex(student);
-    }
-
-    @Override
-    public void setStudentWithIndex(Index index, Student student) {
-        requireAllNonNull(index, student);
-        studentRecord.setStudentWithIndex(index, student);
-    }
-
-    @Override
-    public void updateFilteredStudentList(Predicate<Student> predicate) {
-        requireNonNull(predicate);
-        filteredStudents.setPredicate(predicate);
-    }
-    //endregion
-
     //region Statistics
     @Override
     public ReadOnlyStatisticsRecord getStatisticsRecord() {
@@ -235,26 +211,39 @@ public class ModelManager implements Model {
         statisticsRecord.setStatistics(statistic);
     }
 
+    //region FilteredStudent List Accessors
+
+    /**
+     * Gets the filtered list of students stored in the student record.
+     * @return Filtered list of students stored in the student record.
+     */
+    @Override
+    public ObservableList<Student> getFilteredStudentList() {
+        return studentRecord.getStudentList();
+    }
+
+    /**
+     * Gets the Index of the student from the student record.
+     * @param student Returns the index of the student from the student record, or Optional.empty() if not present.
+     * @return
+     */
+    @Override
+    public Optional<Index> getIndexFromStudentList(Student student) {
+        return studentRecord.getIndex(student);
+    }
+
+    /**
+     * Updates the filtered student list.
+     * @param predicate Predicate.
+     */
+    @Override
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
+        requireNonNull(predicate);
+        filteredStudents.setPredicate(predicate);
+    }
+    //endregion
+
     //region Mark
-
-    /**
-     * Mark a student who is struggling academically.
-     *
-     * @param student Student who is struggling with academics.
-     */
-    public void markStudent(Student student) {
-        student.setMarked();
-    }
-
-    /**
-     * Unmark a student who has been wrongly marked/has made significant improvements and
-     * no longer needs to be monitored.
-     *
-     * @param student
-     */
-    public void unmarkStudent(Student student) {
-        student.setUnmarked();
-    }
 
     public boolean getIsMarked(Student student) {
         return student.getIsMarked();
@@ -286,6 +275,17 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Sets student into the student record with a specific index.
+     * @param index Index of the student that the user wants to set.
+     * @param student Student to be inserted into the student record.
+     */
+    @Override
+    public void setStudentWithIndex(Index index, Student student) {
+        requireAllNonNull(index, student);
+        studentRecord.setStudentWithIndex(index, student);
+    }
+
+    /**
      * Gets the student record in read only format.
      *
      * @return Read only version of the student record.
@@ -295,6 +295,15 @@ public class ModelManager implements Model {
         return studentRecord;
     }
 
+    /**
+     * Sets the student record with the given student record
+     *
+     * @param studentRecord The given student record.
+     */
+    @Override
+    public void setStudentRecord(ReadOnlyStudentRecord studentRecord) {
+        this.studentRecord.resetData(studentRecord);
+    }
     /**
      * Deletes a student in the student list.
      *
@@ -366,8 +375,8 @@ public class ModelManager implements Model {
      * {@code groupIndexNumber} Must already exist in the quiz.
      */
     public boolean addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber) {
-        int questionIndex = studentNumber - 1;
-        Student student = filteredStudents.get(questionIndex);
+        int studentIndex = studentNumber - 1;
+        Student student = filteredStudents.get(studentIndex);
 
         int groupIndex = groupList.getGroupIndex(groupId);
         if (groupIndex != -1) {
@@ -402,19 +411,6 @@ public class ModelManager implements Model {
             groupSize = group.getObservableListStudents().size();
         }
         return groupSize;
-    }
-
-    /**
-     * Returns a students from a group in list view.
-     */
-    public String getStudentsFromGroup(String groupId) {
-        String students = "";
-        int groupIndex = groupList.getGroupIndex(groupId);
-        if (groupIndex != -1) {
-            Group group = groupList.getGroup(groupIndex);
-            students = group.getStudentsFormatted();
-        }
-        return students;
     }
 
     /**
@@ -505,6 +501,12 @@ public class ModelManager implements Model {
     @Override
     public Question getQuestion(Index index) {
         return savedQuestions.getQuestion(index);
+    }
+
+    @Override
+    public boolean hasQuestion(Question question) {
+        requireNonNull(question);
+        return savedQuestions.hasQuestion(question);
     }
 
     @Override
@@ -715,16 +717,6 @@ public class ModelManager implements Model {
         return eventRecord;
     }
 
-    @Override
-    public String getEventExportPath() {
-        return eventRecord.getEventExportPath();
-    }
-
-    @Override
-    public void setEventExportPath(String targetEventExportPath) {
-        eventRecord.setEventExportPath(targetEventExportPath);
-    }
-
     //endregion
 
     //region EventSchedulePrefs
@@ -738,6 +730,11 @@ public class ModelManager implements Model {
         eventSchedulePrefs.setTargetViewDateTime(targetDateTime);
     }
 
+    @Override
+    public String getEventSchedulePrefString() {
+        return eventSchedulePrefs.toString();
+    }
+
 
     @Override
     public EventScheduleViewMode getEventScheduleViewMode() {
@@ -748,7 +745,8 @@ public class ModelManager implements Model {
     public void setEventScheduleViewMode(EventScheduleViewMode viewMode) {
         eventSchedulePrefs.setViewMode(viewMode);
     }
-    //endRegion
+
+    //endregion
 
     //region Events
     @Override
@@ -763,11 +761,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteVEvent(VEvent vEvent) {
-        eventRecord.deleteVEvent(vEvent);
-    }
-
-    @Override
     public void deleteVEvent(Index index) {
         eventRecord.deleteVEvent(index);
     }
@@ -778,20 +771,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setVEvent(VEvent target, VEvent editedVEvent) {
-        requireAllNonNull(target, editedVEvent);
-        eventRecord.setVEvent(target, editedVEvent);
-    }
-
-    @Override
     public void setVEvent(Index index, VEvent editedVEvent) {
         requireAllNonNull(index, editedVEvent);
         eventRecord.setVEvent(index, editedVEvent);
-    }
-
-    @Override
-    public String getVEventSummary() {
-        return eventRecord.getVEventSummary();
     }
 
     @Override
@@ -800,8 +782,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Pair<Index, VEvent>> findVEventsIndex(String desiredEventName) {
-        return eventRecord.findVEventsIndex(desiredEventName);
+    public List<Pair<Index, VEvent>> findVEvents(String desiredEventName) {
+        return eventRecord.findVEvents(desiredEventName);
     }
 
     @Override

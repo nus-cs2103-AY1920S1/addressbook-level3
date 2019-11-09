@@ -21,14 +21,16 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 Creating and managing your students and classes have never been easier.
 *Njoy* teaching assistant aims to enable teachers to easily manage their students and activities
 right from their keyboard. With just a few commands, you will be able to
-_manage your classes, create questions, generate quizzes and much more!_ Interested?
+_manage your classes, create questions, start a slideshow, generate quizzes and much more!_ Interested?
 Jump to <<Getting Started>> to get started.
 
-== Features
+== Features Summary
 
 . *Manage your classes* easily with just a few strokes of your keyboard.
-.. Attendance taking
-.. Record student scores
+.. Managing your list of students.
+.. Tagging students who are weak at certain subjects.
+.. Marking students performing poorly overall in academics.
+.. Add students to groups to manage them better.
 . *Create questions* that allows you to start in-class activities and distribute quizzes to your students.
 Simply define a type, a topic and an answer and you are all set.
 .. Easy input and management of your questions.
@@ -48,6 +50,32 @@ Simply define a type, a topic and an answer and you are all set.
 .. Understand the academic performance of your class.
 .. View honourable students and identify the struggling students in one look.
 
+
+== Features
+
+=== Questions
+Manage your questions using a single interface. Saving questions is easy, simply enter a topic, a question
+and an answer and you are all set!
+
+image::questions/ListQuestionResult.png[]
+_Questions management interface_
+
+=== Slideshow
+Engage your students in the classroom with our slideshow feature. Easily display existing questions
+without the need to recreate them.
+
+image::questions/SlideshowExample.png[]
+_Slideshow feature_
+
+==== Control
+Controlling Slideshow is simple. With just your arrow and space keys, you are in control of your questions.
+
+[[Features-Slideshow-Polling]]
+==== Polling _(MCQ only)_
+Get your students participating in the discussion with the polling feature included in slideshow. Gather
+responses before revealing the answer to test your students' understanding.
+
+
 == Getting Started
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -60,6 +88,7 @@ image::Ui.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing `help` and pressing kbd:[Enter] will open the help window. +
 
+[[Getting-Started-Run]]
 === Running .jar file
 . Download the `njoy.jar` file
 . Double click on `njoy.jar` file to run the application
@@ -115,7 +144,7 @@ different command: `event view` has to be keyed into the command line.
 
 *Command Format*
 ====
-All commands start with a forward slash “/” followed by the command name. Certain commands may include additional options and will be specified in the description. An optional field will be marked ​(optional) beside the field.
+All commands start with a command word (e.g `student`, `question`, `quiz`, `event`, `note`) followed by the command action. Certain commands may include additional keywords and will be specified in the description.
 ====
 
 === Students - `student`
@@ -195,7 +224,7 @@ Represents the weak subjects of a student, allowing users to focus on the specif
 
 ==== Adds a tag to a student: `tag`
 
-Allows a user to add a tag to an already added student. +
+Allows a user to add a tag to an already tagged student. +
 Format: `tag index/... tag/...`
 
 The format supported by this feature includes:
@@ -312,6 +341,9 @@ Removes the student with group index number 1 for the group named G01.
 ==== Exporting a Group to a Word Document: `export`
 
 Allows a user to export a group to a Word Document. +
+This feature was implemented as we realise that teachers may not have access to their computers at all times,
+and thus may print out group information to view during these times. +
+
 Format: `group export groupID/...`
 
 The format supported by this feature includes:
@@ -340,23 +372,39 @@ Shows all the students that belong to group with groupID `G01`
 
 === Questions ​-​ `question`
 
+The questions feature is the starting point for creating quizzes and starting a slideshow.
+With questions, you are able to manage your existing questions, and add new ones which will be automatically saved.
+
+[[Feature-Question-Add]]
 ==== Creating a question
 
 Create and store questions according to the type specified. +
-Format: `question question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
+{empty} +
+
+[big]*Format:* `question question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
+
 [NOTE]
-Note that for mcq question type, it is necessary to input options `a/`, `b/`, `c/`, `d/`.
+Note that for mcq question type, it is necessary to input keywords `a/`, `b/`, `c/`, `d/`.
 
-The options supported by this feature includes:
+The keywords supported by this feature includes:
 
-. `question` - Question topic.
-. `answer` - Answer to the question.
-. `type` - Type of question(`open` or `mcq`).
-. `a` - Option A for MCQ.
-. `b` - Option B for MCQ.
-. `c` - Option C for MCQ.
-. `d` - Option D for MCQ.
+|==============================
+| Keyword | Description
 
+| `question` | Question topic.
+| `answer` | Answer to the question.
+| `type` | Type of question(`open` or `mcq`).
+| `a` | Option A for MCQ.
+| `b` | Option B for MCQ.
+| `c` | Option C for MCQ.
+| `d` | Option D for MCQ.
+|==============================
+
+[NOTE]
+Note that `answer` is free text and allows any input since answers may be accompanied with explanations.
+Therefore, for mcq questions, ensure that the answer entered reflects the correct option.
+
+{empty} +
 Examples:
 
 * *Open ended question*: `question question/Which year did Singapore gain independence? answer/1965 type/open` +
@@ -365,24 +413,40 @@ Creates an open ended question with topic _'Which year did Singapore gain indepe
 Creates an mcq with topic _'Which year did Singapore gain independence?'_ with answer _'1965'_ and
 choices _'1965', '1963', '1968', '1970'_.
 
+image::questions/AddQuestion.png[]
+_Creating an open ended question._
+
+'''
+
 ==== Editing a question
 
-Edit a question currently stored. All fields are *optional*. +
-Format: `question [INDEX] question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
+Edit a question currently stored. All keywords are *optional*. +
+{empty} +
+
+[big]*Format:* `question [INDEX] question/... answer/... type/... (MCQ KEYWORDS IF APPLICABLE)`
 [NOTE]
 Note that when changing question type from open ended to mcq, it is necessary to input options `a/`, `b/`, `c/`, `d/`.
 
-The options supported by this feature includes:
+The keywords supported by this feature includes:
 
-. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
-. `question` - Question topic.
-. `answer` - Answer to the question.
-. `type` - Type of question(`open` or `mcq`).
-. `a` - Option A for MCQ.
-. `b` - Option B for MCQ.
-. `c` - Option C for MCQ.
-. `d` - Option D for MCQ.
+|==============================
+| Keyword | Description
 
+| `[INDEX]` | The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
+| `question` | Question topic.
+| `answer` | Answer to the question.
+| `type` | Type of question(`open` or `mcq`).
+| `a` | Option A for MCQ.
+| `b` | Option B for MCQ.
+| `c` | Option C for MCQ.
+| `d` | Option D for MCQ.
+|==============================
+
+[NOTE]
+Note that `answer` is free text and allows any input since answers may be accompanied with explanations.
+Therefore, for mcq questions, ensure that the answer entered reflects the correct option.
+
+{empty} +
 Examples:
 
 * `question 1 question/What is 1+1? answer/2` +
@@ -390,81 +454,159 @@ Edits the first question in the list changing existing question topic to _'What 
 * `question 1 type/mcq a/1965 b/1963 c/1968 d/1970` +
 Edits the type of the first question in the list from open ended question to mcq and state choices _'1965', '1963', '1968', '1970'_.
 
+image::questions/EditQuestion.png[]
+_Editing the first question._
+
+'''
+
 ==== Deleting a question
 
 Delete a question from the question list. +
-Format: `question delete [INDEX]`
+{empty} +
 
-The options supported by this feature includes:
+[big]*Format:* `question delete [INDEX]`
 
-. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>>find commands.
+The keywords supported by this feature includes:
+|==============================
+| Keyword | Description
 
+| `[INDEX]` | The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
+|==============================
+
+{empty} +
 Example:
 
 * `question delete 1` +
 Deletes the first question in the list.
 
+image::questions/DeleteQuestion.png[]
+_Deleting the first question._
+
+'''
+
 [[Feature-Question-List]]
 ==== Listing your saved questions
 
-Display the stored questions and list them in ascending order according to the time created. +
-Format: `question list`
+Display the stored questions and list them in ascending order according to the time that it was created. +
+{empty} +
 
-The options supported by this feature includes: +
-*_-This command does not require any additional options-_*
+[big]*Format:* `question list`
 
+The keywords supported by this feature includes: +
+*_-This command does not require any additional keywords-_*
+
+{empty} +
 Example:
 
 * `question list` +
 Lists the question list.
+
+image::questions/ListQuestionResult.png[]
+_Listing saved questions._
+
+'''
 
 [[Feature-Question-Find]]
 ==== Searching for a question
 
 Search and display questions using keywords and similar terms.
 [NOTE]
-The ordering of questions is based on *similarity* and the ordering is such that the question that is most similar
+The ordering of questions is based on *similarity* and the ordering is such that questions that is most similar
 to your search term will be at the top.
+{empty} +
 
-Format: `question find/...`
+[big]*Format:* `question find/...`
 
-The options supported by this feature includes:
+The keywords supported by this feature includes:
 
-. `find` - Search term to find in the list of questions.
+|==============================
+| Keyword | Description
 
+| `find` | Search term to find in the list of questions.
+|==============================
+
+{empty} +
 Example:
 
 * `question find/What is 1+1?` +
 Searches through the question list to find questions close to the search term _'What is 1+1?'_.
 
+image::questions/FindQuestion.png[]
+_Finding questions that matches search term._
+
+'''
+
 ==== Starting a Slideshow
 
 Start a slideshow based on the questions selected. The sequence of the questions displayed will follow the ordering of input. +
-Format: `question slideshow [QUESTIONS INDEX]`
+{empty} +
 
-The options supported by this feature includes:
+[big]*Format:* `question slideshow [QUESTIONS INDEX]`
 
-. `[QUESTIONS INDEX]` - Index of questions *separated by a whitespace*.
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `[QUESTIONS INDEX]` | Index of questions *separated by a whitespace*.
 Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
+|==============================
 
-The following keys are used to control the slideshow:
+{empty} +
+The following controls are used to navigate through the slideshow:
 
-. `Right arrow(→)` - Go to next question.
-. `Left arrow(←)` - Go to previous question.
-. `Esc` - Quit the slideshow.
-. `Space` - Show or hide the answer to the question.
+|==============================
+| Control | Description
 
-The following keys are used for polling for [.underline]#mcq# type questions:
+| `Right arrow(→)` | Go to next question.
+| `Left arrow(←)` | Go to previous question.
+| `Esc` | Quit the slideshow.
+| `Space` | Show or hide the answer to the question.
+|==============================
 
-. `1` - Plus one to option A.
-. `2` - Plus one to option B.
-. `3` - Plus one to option C.
-. `4` - Plus one to option D.
+{empty} +
+The following controls are used for polling mcq type questions:
 
+|==============================
+| Control | Description
+
+| `1` | Add one response to option A.
+| `2` | Add one response to option B.
+| `3` | Add one response to option C.
+| `4` | Add one response to option D.
+|==============================
+
+{empty} +
 Example:
 
 * `question slideshow 1 2 3` +
 Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
+
+image::questions/StartSlideshow.png[]
+_Starting a slideshow._
+
+{empty} +
+Below is an example of how to navigate through the slideshow and utilise the <<Features-Slideshow-Polling, polling>> feature:
+
+*Step 1.* When the slideshow window appears, scroll between the questions using the `Left arrow(←)` and `Right arrow(→)` keys.
+
+image::questions/StartSlideshowResult.png[]
+_Slideshow window appears._
+
+*Step 2.* Use the `Space` key to show or hide the answer. For mcq type questions, you may use the `1-4` keys to add to the poll results for options A to D respectively.
+
+image::questions/SlideshowAllShown.png[]
+_Answer shown with polling results._
+
+*Step 3.* When you want to end the slideshow, use the `Esc` key to exit or navigate beyond the last question of the slideshow and it will automatically exit.
+
+{empty} +
+Here is a summary of the various components of the slideshow feature:
+
+image::questions/SlideshowFeatureDescription.png[]
+_Description of the various components._
+
+'''
 
 === Quizzes ​-​ `quiz`
 
@@ -476,20 +618,7 @@ or even assignments?
 Unfortunately, since majority of the quiz commands rely on question and quiz question indexes, it is entirely up to the user
 to ensure the correct indexes of the questions or quiz questions have been entered.
 
-The following steps attempt to illustrate how one can set up the questions for a quiz.
-
-*Step 1.* First, the user has to think of a question to add to the NJoy Assistant. What question and answer should
-it be? And also, is it an mcq or open-ended question? The image below gives an overview of how to create a question: +
-
-image::CreateQuestion.jpg[]
-_`question question/How many sheeps? answer/5 type/mcq a/1 b/2 c/4 d/5` - creates a sample mcq question._
-
-{nbsp} +
-*Step 2.* The user can create as many questions as he wishes. If the user wishes to view the question indexes at any point of time - the image below gives a reminder of
-how one can view the question list: +
-
-image::QuestionList.jpg[]
-_`question list` - displays the question list._
+You may refer to <<Feature-Question-Add>> for examples on how to add questions and <<Feature-Question-List>> to view the list of questions added.
 
 {nbsp} +
 
@@ -766,18 +895,25 @@ Deletes the event with index 1
 ==== Taking screenshot of schedule
 
 Takes a screen shot of the calendar as PNG file +
-Format: `event screenshot directory/[DIRECTORY]`
+Format: `event screenshot`
 
-The options supported by this feature includes:
-
-. `[DIRECTORY]` - The target directory to save the screenshot to
 [NOTE]
 Scroll to which portion of the calendar is to be taken, and the application will then open a separate
 full screen window to maximise the content captured of the screenshot.
 
+[NOTE]
+The event schedule screenshot is stored in the same place as where the JAR file is installed.
+The screenshot can be found under a newly created printable directory.
+If the directory exists beforehand, no new directory is created.
+See <<Feature-Statistics, statistics print feature>>
 
-* `event screenshot directory/Users/John/Desktop` +
-Takes a screenshot of the current calendar and saves it to John's desktop.
+[NOTE]
+The screenshot will be saved based on the current settings of your event schedule.
+For example if you are viewing 2019-11-23 on a weekly mode, the filename will be saved as WEEKLY_2019-11-23.
+
+
+* `event screenshot` +
+Takes a screenshot of the current calendar and saves it into Printable folder.
 
 ==== Viewing all events
 
@@ -800,17 +936,22 @@ Opens the calendar view in weekly mode with the target date 23 November 2019.
 ==== Export all events
 
 Exports stored events into a .ics file. This file type can easily be imported into Google Calendar and other
-mainstream calendar applications +
-Format: `event export directory/...`
+mainstream calendar applications. +
+Format: `event export`
 
-The options supported by this feature includes:
+[NOTE]
+The file will be exported into the exports folder with the file name nJoy_Schedule.ics. If the file already exists
+it will replace it, so you know the .ics file will be your most updated version of your schedule.
 
-. `[directory]` - The full path of where you want the .ics file to be saved to.
+[NOTE]
+The file will be exported into the same directory as quiz and group exports. See <<Feature-Quiz-Export, quiz export>>,
+ <<Feature-Group-Export-Export, group export>>
+
 
 Example:
 
-* `event export directory/Users/John/Desktop` +
-Exports your events into your Desktop with the file name: `nJoy_Event_Schedule.ics`
+* `event export` +
+Exports your events into the exports directory with file name nJoy_Schedule.ics
 
 === Notes - `notes`
 
@@ -912,6 +1053,7 @@ Example:
 * `note sort` +
 Sorts the notes by priority.
 
+[[Feature-Statistics]]
 === Statistics - `statistics`
 
 ==== Generating a Statistics report
@@ -987,7 +1129,7 @@ image::ExcelFormat.png[]
 === Help ​-​ `help`
 
 Opens up the help window. +
-Format: `help`
+[big]*Format:* `help`
 
 The format supported by this feature includes:
 
@@ -995,9 +1137,10 @@ _-This command does not require any additional options-_
 
 == FAQ
 
-*Q*: Typing a command result in “Invalid command entered.” +
-*A*: Please ensure that the command is entered as specified in the format above.
-Note that all fields all mandatory unless stated otherwise.​
+*Q*: Where can I find a list of commands? +
+*A*: You may access the help guide included in the application by navigating to `Help > Help F1` located on the menu bar or by pressing the `F1` key.
+*Q*: Unable to run the application. +
+*A*: Please see <<Getting-Started-Run>> on how to start the application.
 
 == Command Summary
 
@@ -1032,8 +1175,8 @@ Note that all fields all mandatory unless stated otherwise.​
 * *Editing an Event* : `event [INDEX] eventName/... startDateTime/... endDateTime/... recur/... color/...`
 * *Deleting an Event* : `event delete [INDEX]`
 * *Viewing all Event* : `event view scheduleMode/... targetDate/...`
-* *Exporting Events* : `event export directory/...`
-* *Screenshot Calendar* : `event screenshot directory/...`
+* *Exporting Events* : `event export`
+* *Screenshot Calendar* : `event screenshot`
 * *Creating a Note* : `note note/... desc/...`
 * *Creating a Note with Priority* : `note note/... desc/... priority/...`
 * *Editing a Note* : `note [INDEX] note/... desc/... priority/...`

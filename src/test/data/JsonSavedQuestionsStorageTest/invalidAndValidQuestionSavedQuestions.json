@@ -1,0 +1,67 @@
+{
+  "questions" : [ {
+    "question" : "Example question.",
+    "answer" : "Sample answer.",
+    "type" : "open",
+    "optionA" : null,
+    "optionB" : null,
+    "optionC" : null,
+    "optionD" : null
+  }, {
+    "question" : "What is 30 + 20?",
+    "answer" : "50",
+    "type" : "mcq",
+    "optionA" : "30",
+    "optionB" : "40",
+    "optionC" : "50",
+    "optionD" : "60"
+  }, {
+    "question" : "John has $2.00 and bought a drink which cost $1.40. How much does he have left?",
+    "answer" : "$0.60",
+    "type" : "mcq",
+    "optionA" : "$0.20",
+    "optionB" : "$0.40",
+    "optionC" : "$0.60",
+    "optionD" : "$2.00"
+  }, {
+    "question" : "Bobby buys 50 pineapples, 20 apples and 5 pears from the grocery stall. Adam took 10 pineapples and 2 pears from Bobby. How many pineapples, apples and pears does Bobby have left?",
+    "answer" : "40 pineapples, 20 apples, 3 pears",
+    "type" : "open",
+    "optionA" : null,
+    "optionB" : null,
+    "optionC" : null,
+    "optionD" : null
+  }, {
+    "question" : "What are the multiples of 10?",
+    "answer" : "10, 20, 30, 40, 50, ...",
+    "type" : "open",
+    "optionA" : null,
+    "optionB" : null,
+    "optionC" : null,
+    "optionD" : null
+  }, {
+    "question" : "New ques",
+    "answer" : "Ans",
+    "type" : "test",
+    "optionA" : null,
+    "optionB" : null,
+    "optionC" : null,
+    "optionD" : null
+  }, {
+    "question" : "New que",
+    "answer" : "Ans",
+    "type" : "mcq",
+    "optionA" : "A",
+    "optionB" : "B",
+    "optionC" : "C",
+    "optionD" : "D"
+  }, {
+    "question" : "HM?",
+    "answer" : "H,?",
+    "type" : "open",
+    "optionA" : null,
+    "optionB" : null,
+    "optionC" : null,
+    "optionD" : null
+  } ]
+}

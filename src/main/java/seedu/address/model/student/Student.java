@@ -18,7 +18,7 @@ public class Student {
     // Identity fields
     private Name name;
     private final Set<Tag> tags = new HashSet<>();
-    private Boolean isMarked = false;
+    private boolean isMarked = false;
 
     /**
      * Creates student with name, tags.

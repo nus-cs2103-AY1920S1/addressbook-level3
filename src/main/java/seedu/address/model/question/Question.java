@@ -1,5 +1,7 @@
 package seedu.address.model.question;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents a question in the question list.
  */
@@ -15,9 +17,16 @@ public abstract class Question {
      * @param answer   to the question.
      */
     public Question(String question, String answer) {
+        requireAllNonNull(question, answer);
+
         this.question = question;
         this.answer = answer;
     }
+
+    /**
+     * Creates an empty question
+     */
+    public Question(){}
 
     /**
      * Returns the question.
