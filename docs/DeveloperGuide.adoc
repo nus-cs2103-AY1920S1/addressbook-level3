@@ -284,28 +284,54 @@ CustomSorter is overridden by a new CustomSorter with no fields.
 === Savings feature
 The Savings feature allows users to save a specified amount of money from their wallet into their savings account using the `save AMOUNT` command, where `AMOUNT` is a user defined amount of money to deposit into the user's savings account.
 The Savings feature also allows the user to withdraw from his savings account into his $aveNUS wallet using the `withdraw AMOUNT` command.
-On top of this, a `show` command is implemented so that users can view their savings and withdrawals exclusively, so that the user can decide for himself/herself
-if he has been saving enough into or withdrawing too much from his savings account.
+On top of this, a `show TO_DISPLAY` command is implemented so that users can view their savings and withdrawals exclusively, so that the user can decide for himself/herself
+if he has been saving enough into or withdrawing too much from his savings account. `TO_DISPLAY` will either be `savings`/
+`withdrawals`/`both`, whereby to the `TO_DISPLAY` input is case-insensitive.
 
 ==== Classes for savings feature in Model
 
-The Savings feature was implemented with a new set of classes introduced to the Model. The `SavingsAccount` is a class
-which contains the methods and classes related to this feature.
-The `SavingsAccount` object is stored in $aveNUS. It exposes a read-only interface `ReadOnlySavingsAccount` to allow only an unmodifiable version of the `SavingsAccount`
+The Savings feature was implemented with the following set of classes introduced to the Model:
+
+===== CurrentSavings
+
+===== Money
+
+===== ReadOnlySavingsHistory
+
+===== ReadOnlySavingsAccount
+
+===== Savings
+
+===== SavingsAccount
+
+===== SavingsHistory
+
+===== SavingsHistoryList
+
+===== TimeStamp
+
+On top of the implemented classes above, to support the Savings feature, we have introduced new exceptions to handle cases when
+the user enters erroneous inputs which could result in inaccurate tracking of the user's savings behaviour. Therefore,
+reducing the effectiveness of $aveNUS as a savings tracking application.
+The exception classes include the following:
+
+===== InsufficientSavingsException
+
+===== SavingsOutOfBoundException
+
+The `SavingsAccount` object is stored in the $aveNUS application persistently.
+It exposes a read-only interface `ReadOnlySavingsAccount` to allow only an unmodifiable version of the `SavingsAccount`
 to be exposed to the users, maintaining data integrity. Within the `SavingsAccount`, the class `CurrentSavings` is instantiated,
-which is a sum of the total savings and withdrawals made by the user.
+which is a sum of the total of savings added to and withdrawals taken from the saving's account.
 
-The `SavingsAccount` contains a unique `SavingsHistory` which contains a list of the past savings and withdrawals made by the user.
-which are represented by `Saving` and `Withdrawal` respectively. Both `Saving` and `Withdrawal`
-implement AccountMoney object, which consists of 2 objects:
+On top of this, the class of `SavingsHistory` is also implemented into the Model. It contains a list of the past savings and withdrawals made by the user,
+Like the `SavingsAccount`, it implements a read-only interface, named `ReadOnlySavingsHistory`, to expose an unmodifiable version
+of the `SavingsHistory` to the user, so as to maintain data integrity.
 
-****
-1. `Amount` indicated the value added/withdrew and it is displayed in the UI.
-2. `TimeStamp` indicated the date and time the amount of money was added/withdrawn.
-****
+Within the `SavingsHistory` class, the class `SavingsHistoryList` is implemented,
+to introduce better abstraction of the list which stores the savings and withdrawal history data. The collection
+of savings and withdrawals data is returned as an unmodifiable list with methods within the class `SavingsHistoryList`.
 
-Each `AccountMoney` object is unique because the `TimeStamp` will never be the same. Since it is not possible for the user to do a saving
-and a withdrawal at a single time.
 
 .Savings class diagram in Model component.
 image::SavingsAccountClassDiagram.png[align=center, alt=SavingsAccount, width=180]
