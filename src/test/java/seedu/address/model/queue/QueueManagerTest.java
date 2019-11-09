@@ -138,17 +138,16 @@ class QueueManagerTest {
         assertTrue(queueManager.equals(queueManagerCopy));
 
         Person patient = new PersonBuilder(AMY).build();
-        Person doctor = new PersonBuilder(STAFF_FIONA).withPatientId("002A").build();
         queueManager.addPatient(0, patient.getReferenceId());
 
         assertFalse(queueManager.equals(queueManagerCopy));
 
-        queueManagerCopy.addRoom(new Room(doctor.getReferenceId()));
+        queueManagerCopy.addRoom(new Room(STAFF_FIONA.getReferenceId()));
         assertFalse(queueManager.equals(queueManagerCopy));
 
         queueManagerCopy.addPatient(0, patient.getReferenceId());
         assertFalse(queueManager.equals(queueManagerCopy));
-        queueManager.addRoom(new Room(doctor.getReferenceId()));
+        queueManager.addRoom(new Room(STAFF_FIONA.getReferenceId()));
         assertTrue(queueManager.equals(queueManagerCopy));
     }
 }
