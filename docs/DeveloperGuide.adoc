@@ -63,9 +63,9 @@ image::LogicClassDiagram.png[]
 ==== How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues
-the command `addmod y1s1 cs1231s`.
+the command `addmod y1s1 CS3244`.
 
-.Component interactions for the `addmod y1s1 cs1231s` command
+.Component interactions for the `addmod y1s1 CS3244` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
