@@ -1,22 +1,37 @@
 package seedu.address.ui.schedule;
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.display.schedulewindow.PersonSchedule;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.person.Name;
+import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
 
 /**
- * Interface to control schedule view in the UI.
+ * Abstract class to control schedule view in the UI.
  */
-public interface ScheduleViewManager {
-    public static ScheduleViewManager getInstanceOf(ScheduleWindowDisplay scheduleWindowDisplay) {
+public abstract class ScheduleViewManager {
+    public static ScheduleViewManager getInstanceOf(ScheduleWindowDisplay scheduleWindowDisplay)
+            throws InvalidScheduleViewException {
         ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
+
+        if (!isValidSchedules(scheduleWindowDisplay.getPersonSchedules())) {
+            throw new InvalidScheduleViewException("The schedule has clashes between events!");
+        }
+
         switch(displayType) {
         case PERSON:
             //There is only 1 schedule in the scheduleWindowDisplay
-            return new IndividualScheduleViewManager(scheduleWindowDisplay.getPersonSchedules()
-                    .get(0));
+            if (scheduleWindowDisplay.getPersonSchedules().size() != 1) {
+                throw new InvalidScheduleViewException("Error! Multiple schedules in a person.");
+            }
+
+            return new IndividualScheduleViewManager(scheduleWindowDisplay.getPersonSchedules().get(0));
         case GROUP:
             return new GroupScheduleViewManager(scheduleWindowDisplay
                     .getPersonSchedules(),
@@ -27,10 +42,37 @@ public interface ScheduleViewManager {
         }
         return null;
     }
-    public ScheduleView getScheduleView();
-    public void scrollNext();
-    public void toggleNext();
-    public void filterPersonsFromSchedule(List<Name> persons);
-    public ScheduleWindowDisplayType getScheduleWindowDisplayType();
-    public ScheduleView getScheduleViewCopy();
+
+    /**
+     * Checks to see if the given schedules are valid.
+     * @param personSchedules List of schedules given.
+     * @return boolean.
+     */
+    private static boolean isValidSchedules(List<PersonSchedule> personSchedules) {
+        boolean isValid = true;
+        for (PersonSchedule personSchedule : personSchedules) {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 1; j <= 7; j++) {
+                    ArrayList<PersonTimeslot> timeSlots = personSchedule
+                            .getScheduleDisplay().getScheduleForWeek(i).get(DayOfWeek.of(j));
+                    LocalTime curr = LocalTime.of(ScheduleView.START_TIME, 0);
+                    for (PersonTimeslot timeSlot : timeSlots) {
+                        if (timeSlot.getStartTime().isBefore(curr)) {
+                            isValid = false;
+                            break;
+                        }
+                        curr = timeSlot.getEndTime();
+                    }
+                }
+            }
+        }
+        return isValid;
+    }
+
+    public abstract ScheduleView getScheduleView();
+    public abstract void scrollNext();
+    public abstract void toggleNext();
+    public abstract void filterPersonsFromSchedule(List<Name> persons);
+    public abstract ScheduleWindowDisplayType getScheduleWindowDisplayType();
+    public abstract ScheduleView getScheduleViewCopy();
 }

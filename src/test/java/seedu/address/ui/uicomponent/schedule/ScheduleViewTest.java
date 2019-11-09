@@ -1,4 +1,4 @@
-package seedu.address.ui.uicomponent;
+package seedu.address.ui.uicomponent.schedule;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testfx.api.FxAssert.verifyThat;

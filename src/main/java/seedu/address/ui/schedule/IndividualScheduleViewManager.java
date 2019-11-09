@@ -2,7 +2,9 @@ package seedu.address.ui.schedule;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.person.Name;
@@ -10,7 +12,8 @@ import seedu.address.model.person.Name;
 /**
  * Class to handle schedule views of individuals. Schedule of individuals do not show free time.
  */
-public class IndividualScheduleViewManager implements ScheduleViewManager {
+public class IndividualScheduleViewManager extends ScheduleViewManager {
+    private static final Logger logger = LogsCenter.getLogger(IndividualScheduleViewManager.class);
     private PersonSchedule personSchedule;
     private ScheduleView scheduleView;
     private int weekNumber;
@@ -20,14 +23,14 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
         this.personSchedule = personSchedule;
         this.weekNumber = 0;
         this.currentDate = LocalDate.now();
-        initScheduleView();
+        logger.info("Generating schedule for " + personSchedule.getPersonDisplay().getName().fullName + ".");
     }
 
     /**
      * Method to initialise or reinitialise individual ScheduleView object to be displayed in the UI.
      * Individual schedules do not show free time.
      */
-    private void initScheduleView() {
+    private void update() {
         LocalDate dateToShow = currentDate.plusDays(weekNumber * 7);
         this.scheduleView = new ScheduleView(List.of(personSchedule
                 .getScheduleDisplay().getScheduleForWeek(weekNumber)),
@@ -37,6 +40,7 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
 
     @Override
     public ScheduleView getScheduleView() {
+        update();
         return this.scheduleView;
     }
 
@@ -57,7 +61,6 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
     @Override
     public void toggleNext() {
         this.weekNumber = (weekNumber + 1) % 4;
-        initScheduleView();
     }
 
     @Override

@@ -34,6 +34,7 @@ import seedu.address.ui.popup.TimeslotView;
 import seedu.address.ui.schedule.GroupInformation;
 import seedu.address.ui.schedule.PersonDetailCard;
 import seedu.address.ui.schedule.ScheduleViewManager;
+import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
 import seedu.address.ui.util.ColorGenerator;
 
 /**
@@ -360,9 +361,11 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
+
             if (ScheduleViewManager.getInstanceOf(scheduleWindowDisplay) != null) {
                 scheduleViewManager = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay);
             }
+
 
             switch (displayType) {
             case PERSON:
@@ -378,7 +381,7 @@ public class MainWindow extends UiPart<Stage> {
             case GROUP:
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(), null,
-                        scheduleWindowDisplay.getGroupDisplay(), ColorGenerator::generateColor).getRoot(),
+                                scheduleWindowDisplay.getGroupDisplay(), ColorGenerator::generateColor).getRoot(),
                         SidePanelDisplayType.GROUP);
                 break;
             case DEFAULT:
@@ -402,13 +405,15 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             return commandResult;
+        } catch (InvalidScheduleViewException e) {
+            logger.severe("Schedule(s) given is/are not valid. Database must have been corrupted.");
+            resultDisplay.setFeedbackToUser("Database corrupted. " + e.getMessage());
+            return new CommandResult("Database corrupted");
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }
-
 }

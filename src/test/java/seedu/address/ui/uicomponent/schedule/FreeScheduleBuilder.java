@@ -1,4 +1,4 @@
-package seedu.address.ui.uicomponent;
+package seedu.address.ui.uicomponent.schedule;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

@@ -3,8 +3,10 @@ package seedu.address.ui.schedule;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
@@ -16,7 +18,9 @@ import seedu.address.model.person.Name;
 /**
  * Class to handle schedule view of groups
  */
-public class GroupScheduleViewManager implements ScheduleViewManager {
+public class GroupScheduleViewManager extends ScheduleViewManager {
+
+    private static final Logger logger = LogsCenter.getLogger(GroupScheduleViewManager.class);
 
     private List<PersonSchedule> originalPersonSchedules;
     private List<MonthSchedule> filteredMonthSchedules;
@@ -36,14 +40,14 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
         this.freeSchedules = freeSchedules;
         this.weekNumber = 0;
         this.currentDate = LocalDate.now();
-        initScheduleView();
+        logger.info("Generating schedule view for " + groupName.toString() + ".");
     }
 
     /**
      * Method to initialise or reinitialise group ScheduleView object to be displayed in the UI.
      * Group schedules show free time.
      */
-    private void initScheduleView() {
+    private void update() {
         LocalDate dateToShow = currentDate.plusDays(7 * weekNumber);
         this.scheduleView = new ScheduleView(MonthSchedule.getWeekSchedulesOf(filteredMonthSchedules, weekNumber),
                 groupName.toString(), dateToShow);
@@ -73,13 +77,11 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
     @Override
     public void filterPersonsFromSchedule(List<Name> namesToFilter) {
         filterPerson(namesToFilter);
-        initScheduleView();
     }
 
     @Override
     public void toggleNext() {
         this.weekNumber = (weekNumber + 1) % 4;
-        initScheduleView();
     }
 
     @Override
@@ -101,6 +103,7 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
 
     @Override
     public ScheduleView getScheduleView() {
+        update();
         return this.scheduleView;
     }
 
