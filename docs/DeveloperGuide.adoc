@@ -25,6 +25,7 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
+[.text-center]
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
@@ -58,6 +59,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
+[.text-center]
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
@@ -66,6 +68,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
+[.text-center]
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
@@ -74,6 +77,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+[.text-center]
 .Structure of the UI Component
 image::NewUiClassDiagram.png[]
 
@@ -93,6 +97,7 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
+[.text-center]
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
@@ -116,6 +121,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
+[.text-center]
 .Structure of the Model Component
 image::NewModelClassDiagram.png[]
 
@@ -131,11 +137,13 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
+[.text-center]
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
+[.text-center]
 .Structure of the Storage Component
 image::NewStorageClassDiagram.png[]
 
@@ -171,6 +179,7 @@ These operations are exposed in the `Model` interface as `Model#applyAlias(comma
 
 The following sequence diagram shows how adding an alias works:
 
+[.text-center]
 image::AddAliasSequenceDiagram.png[]
 
 [NOTE]
@@ -180,6 +189,7 @@ The `unalias` command does the opposite -- it calls `Model#removeAlias(alias)` i
 
 The following sequence diagram shows how applying alias works:
 
+[.text-center]
 image::ApplyAliasSequenceDiagram.png[]
 
 [NOTE]
@@ -187,6 +197,7 @@ This is a generalized diagram which depicts what happens between `execute(comman
 
 The following activity diagram shows how applying alias picks which alias to apply:
 
+[.text-center]
 image::ApplyAliasActivityDiagram.png[]
 
 [NOTE]
@@ -200,12 +211,15 @@ An unfortunate side effect to matching the longest matching macro increases the 
 ==== Implementation
 The Appointments feature comprises of Reminders and Follow-Ups. Users can create a generic Reminder to be notified of an ongoing "something to take note of", such as a hospital being closed. Follow-ups are used to plan future visits to patients. Both Reminders and Follow-ups are represented by the `Appointment` class, but are facilitated by the `AppointmentList` class for UI updates and `AppointmentTable` class for JSON updating.
 
+[.text-center]
 .Appointment Class Diagram
 image::DGApptAppointmentClassDiagram.png[]
 
+[.text-center]
 .AppointmentList Class Diagram
 image::DGApptAppointmentListClassDiagram.png[]
 
+[.text-center]
 .AppointmentTable Class Diagram
 image::DGApptAppointmentTableClassDiagram.png[]
 
@@ -226,11 +240,13 @@ These operations are exposed in the `Model` interface.
 
 The following sequence diagram shows how adding an appointment works, using reminders as an example:
 
+[.text-center]
 .Adding an Appointment Sequence Diagram
 image::DGApptAddAppointmentSequenceDiagram.png[]
 
 The following activity diagram shows how adding an appointment works, using follow-ups as an example:
 
+[.text-center]
 .Adding an Appointment Activity Diagram
 image::DGApptFollowUpActivityDiagram.png[]
 // end::appointments[]
@@ -246,10 +262,12 @@ Given below is a simple example usage scenario demonstrate how Profile feature b
 
 Step 1. The user executes `profile 3` command view the profile of the 3rd person shown in VISIT's current list. It extracts the `Person` instance from the filtered Person list from the current `model` and returns a `CommandResult` with the `Person` instance as an attribute. `MainWindow#executeCommand()` is called and the check for `CommandResult#isShowProfile()` passes, calling `ProfileWindow#setup()` which populates the hidden Profile Window with the attributes of the `Person` instance before `MainWindow#handleProfilePanel()` is called to show the Profile Window.
 
+[.text-center]
 image::Profile0.png[]
 
 Step 2. After viewing the relevant information, the user presses the 'esc' key which closes the form. This causes an event handler in `ProfileWindow` which listens for a `KeyEvent.KEY_RELEASED` event where the event code equates to `KeyCode.ESCAPE` ('esc' key) to trigger, which hides the profile window.
 
+[.text-center]
 image::Profile1.png[]
 
 [NOTE]
@@ -257,6 +275,7 @@ The user is able to close the `ProfileWindow` form by clicking the 'x' on the to
 
 This sequence diagram fully shows what happens when a user executes the Profile Command:
 
+[.text-center]
 image::ProfileSequenceDiagram1.png[]
 
 ==== Design Considerations
@@ -291,14 +310,17 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
+[.text-center]
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
+[.text-center]
 image::UndoRedoState1.png[]
 
 Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
+[.text-center]
 image::UndoRedoState2.png[]
 
 [NOTE]
@@ -306,6 +328,7 @@ If a command fails its execution, it will not call `Model#commitAddressBook()`, 
 
 Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
+[.text-center]
 image::UndoRedoState3.png[]
 
 [NOTE]
@@ -313,6 +336,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial address book
 
 The following sequence diagram shows how the undo operation works:
 
+[.text-center]
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -324,14 +348,17 @@ If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, poin
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
+[.text-center]
 image::UndoRedoState4.png[]
 
 Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
+[.text-center]
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+[.text-center]
 image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
@@ -376,12 +403,14 @@ The Visitation Report feature allows the user to `add`, `delete` and `edit` a `V
 
 The class diagram below shows the new additions to the Person class.
 
+[.text-center]
 image::VisitClass0.png[]
 
 Given below is an example usage scenario and how every component of the Visitation Report feature behaves at each step.
 
 Step 1. The user executes `addvisit 5 v/12/12/2019` command to add a visit report to the visitlist of the 5th person in the address book. This returns a  `CommandResult` which has the attribute `date` set as String `12/12/2019`. `MainWindow#executeCommand()` is called and the check for `CommandResult#isAddVisit()` passes, calling  `VisitRecordWindow#setReportInfo()` to pass the `index` of the person, the `date`, and a `Logic` object to initialize the respective attributes in the `VisitRecordWindow` class. `MainWindow#handleShowVisitForm()` is then called to display a pop up form for the user to fill in.
 
+[.text-center]
 .Activity diagram to illustrate all possible variations of Step 1
 image::AddVisit0.png[]
 
@@ -392,6 +421,7 @@ Step 2. The user fills in the form and presses `f2` on the keyboard or clicks th
 
 Step 3. The user decides to edit the report and executes the `editvisit 1 i/1` command.`MainWindow#executeCommand()` is called and the check for `CommandResult#isEditVisit()` passes, calling  `VisitRecordWindow#setOldReportInfo()` which initializes the respective attributes of `VisitRecordWindow` and populate the form with the content of the `VisitReport` from  `CommandResult#getOldReport()` .`MainWindow#handleShowVisitForm()` is then called to display a pop up form for the user to fill in.
 
+[.text-center]
 .Activity diagram to illustrate all possible variations of Step 3
 image::EditVisit0.png[]
 
@@ -402,11 +432,13 @@ Step 4. The user edits the form and presses `F3` on the keyboard or clicks the `
 
 The sequence diagram below shows how Step 3 and Step 4 works.
 
+[.text-center]
 .`EditVisitCommand` and `SaveVisitCommand` sequence diagram
 image::EditVisit1.png[]
 
 Step 5. The user then decides that the report was beyond salvaging and decides to delete it. Executing the command `deletevisit 1 d/1`, `VisitList#deleteRecord()` deletes the entry from the arraylist and `Model#setPerson()` updates the person with the new `VisitList`. The `CommandResult#isShowVisitList()` check in  `MainWindow#executeCommand()` passes and a pop up list showing an indexed list of all visitation records of the person is displayed.
 
+[.text-center]
 .Activity diagram to illustrate all possible variations of Step 5
 image::DeleteVisit0.png[]
 
@@ -455,6 +487,7 @@ with a more pronounced color palette and a clearer font.
 
 The following is the snippet of the class diagram of the Ui Component with the new Classes:
 
+[.text-center]
 image::UiRedesignClassDiagram.png[]
 
 1. The `MainWindow` has been new panel which is the ReminderPanel.
@@ -904,8 +937,6 @@ Use case ends.
 +
 Use case ends.
 
-{*TODO* : Please add use cases if your component is not featured here yet. If unsure, just put to be safe. *DELETE WHEN DONE*}
-
 [appendix]
 == Non Functional Requirements
 
@@ -928,8 +959,6 @@ User-defined shortcuts for large chunks of commonly used text for diagnosis
 
 [[visitation]] Visitation::
 A housecall or appointment with the patient
-
-{*TODO* : Please add terms if any that your commands use here. If unsure, just put to be safe. *DELETE WHEN DONE*}
 
 [appendix]
 == Instructions for Manual Testing
@@ -962,15 +991,5 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-
-{*TODO* : You can be generic about it because it is probably unrealistic to list out all your tests here. Just follow suit with these examples. *DELETE WHEN DONE*}
