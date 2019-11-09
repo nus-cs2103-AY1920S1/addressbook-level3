@@ -9,10 +9,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,6 +18,7 @@ import com.google.gson.stream.JsonReader;
 
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.exceptions.DuplicateFlashCardAndDeadlineException;
 import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
 import seedu.address.model.flashcard.exceptions.NoBadFlashCardException;
 
@@ -31,18 +30,17 @@ import seedu.address.model.flashcard.exceptions.NoBadFlashCardException;
  */
 public class BadQuestions {
 
-    private static HashMap<String, Set<FlashCard>> internalMap;
-    //private JsonBadDeadlines jsonBadDeadlines;
+    private static HashMap<String, ArrayList<FlashCard>> internalMap;
 
     public BadQuestions() {
         internalMap = loadFromJson();
-        if (internalMap.isEmpty()) {
-            HashMap<String, Set<FlashCard>> map = new HashMap<>();
+        if (internalMap == null) {
+            HashMap<String, ArrayList<FlashCard>> map = new HashMap<>();
             internalMap = map;
         }
     }
 
-    public HashMap<String, Set<FlashCard>> getBadQuestionsList() {
+    public HashMap<String, ArrayList<FlashCard>> getBadQuestionsList() {
         return internalMap;
     }
 
@@ -50,15 +48,16 @@ public class BadQuestions {
      *
      */
     public String showBadQuestionsList(DueDate d) {
-        Set<FlashCard> set = internalMap.get(d.toString());
         try {
-            Iterator<FlashCard> itr = set.iterator();
-
+            // FOR SET:
+            // Iterator<FlashCard> itr = set.iterator();
+            ArrayList<FlashCard> list = internalMap.get(d.toString());
             StringBuilder sb = new StringBuilder();
             sb.append("For Deadline: " + d.toString() + "\n");
             int index = 1;
-            while (itr.hasNext()) {
-                sb.append(index + ". " + itr.next().getQuestion().toString() + "\n");
+            for (FlashCard f : list) {
+                sb.append(index + ". " + f.getQuestion().toString() + "\n");
+                index++;
             }
             return sb.toString();
         } catch (NullPointerException e) {
@@ -73,40 +72,45 @@ public class BadQuestions {
      * @param d the duedate of bad rated flashcards
      * @param f the flashcard that is rated bad
      */
-    public void addBadQuestion(DueDate d, FlashCard f) {
+    public void addBadQuestion(DueDate d, FlashCard f, boolean duplicateDeadline) {
         String dateStr = d.toString();
-        Set<FlashCard> set = internalMap.get(dateStr);
-        if (set == null) {
-            set = new HashSet<>();
+        ArrayList<FlashCard> list = internalMap.get(dateStr);
+        if (list == null) {
+            list = new ArrayList<>();
         }
-        if (set.contains(f)) {
+        if (list.contains(f) && duplicateDeadline) {
+            throw new DuplicateFlashCardAndDeadlineException();
+        } else if (list.contains(f)) {
             throw new DuplicateFlashCardException();
         }
-        set.add(f);
-        internalMap.put(d.toString(), set);
+        list.add(f);
+        internalMap.put(d.toString(), list);
     }
 
     //TODO: remove bad question
-//    /**
-//     * Add bad rated flashcards into set.
-//     * For each due date, there will be a set of bad flashcards
-//     *
-//     * @param d the duedate of bad rated flashcards
-//     * @param f the flashcard that is rated bad
-//     */
-//    public void removeBadQuestion(DueDate d, FlashCard f) {
+
+    /**
+     * Remove bad rated flashcards from the set.
+     * For each due date, there will be a set of bad flashcards
+     * Removing a bad flashcard can be done by using the index
+     *
+     * @param d the duedate of bad rated flashcards
+     * @param f the flashcard that is rated bad
+     */
+//    public void removeBadQuestion(DueDate d, int index) {
 //        String dateStr = d.toString();
 //        Set<FlashCard> set = internalMap.get(dateStr);
-//        if (set == null) {
-//            set = new HashSet<>();
+//        try {
+//
+//            if (set.contains(f)) {
+//                throw new DuplicateFlashCardException();
+//            }
+//            set.add(f);
+//            internalMap.put(d.toString(), set);
+//        } catch (NullPointerException e) {
+//            throw new NoBadFlashCardException();
 //        }
-//        if (set.contains(f)) {
-//            throw new DuplicateFlashCardException();
-//        }
-//        set.add(f);
-//        internalMap.put(d.toString(), set);
 //    }
-
     public void loadBadQuestions() throws FileNotFoundException {
         //internalMap = jsonBadDeadlines.loadJsonBadDeadlines();
     }
@@ -148,18 +152,19 @@ public class BadQuestions {
      *
      * @throws FileNotFoundException the file not found exception
      */
-    public HashMap<String, Set<FlashCard>> loadFromJson() {
+    public HashMap<String, ArrayList<FlashCard>> loadFromJson() {
         Gson gson = new Gson();
         try {
-            Type type = new TypeToken<HashMap<String, Set<FlashCard>>>() {
+            Type type = new TypeToken<HashMap<String, ArrayList<FlashCard>>>() {
             }.getType();
             JsonReader reader = new JsonReader(new FileReader("data/BadFlashCards.json"));
-            HashMap<String, Set<FlashCard>> data = gson.fromJson(reader, type);
+            HashMap<String, ArrayList<FlashCard>> data = gson.fromJson(reader, type);
+            System.out.println(data);
             return data;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        HashMap<String, Set<FlashCard>> map = new HashMap<>();
+        HashMap<String, ArrayList<FlashCard>> map = new HashMap<>();
         return map;
     }
 }
