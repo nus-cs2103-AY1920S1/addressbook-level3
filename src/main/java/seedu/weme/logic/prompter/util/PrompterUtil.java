@@ -72,6 +72,7 @@ import seedu.weme.logic.prompter.contextprompter.MemePrompter;
 import seedu.weme.logic.prompter.contextprompter.PreferencePrompter;
 import seedu.weme.logic.prompter.contextprompter.StatisticsPrompter;
 import seedu.weme.logic.prompter.contextprompter.TemplatePrompter;
+import seedu.weme.logic.prompter.contextprompter.ViewPrompter;
 import seedu.weme.logic.prompter.contextprompter.WemePrompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.logic.prompter.prompt.CommandPrompt;
@@ -237,6 +238,18 @@ public class PrompterUtil {
     public static final Map<String, String> PREFERENCES_COMMANDS_DESCRIPTION_MAP = new HashMap<>(
             GENERAL_COMMANDS_DESCRIPTION_MAP);
 
+    public static final Set<String> VIEW_COMMANDS = new HashSet<>() {{
+            addAll(GENERAL_COMMANDS);
+            remove(UndoCommand.COMMAND_WORD);
+            remove(RedoCommand.COMMAND_WORD);
+        }};
+
+    public static final Map<String, String> VIEW_COMMANDS_DESCRIPTION_MAP = new HashMap<>() {{
+            putAll(GENERAL_COMMANDS_DESCRIPTION_MAP);
+            remove(UndoCommand.COMMAND_WORD);
+            remove(RedoCommand.COMMAND_WORD);
+        }};
+
     public static final String X_COORDINATE_PROMPT = "0.2\n0.4\n0.6\n0.8";
     public static final String X_COORDINATE_AUTO_COMPLETION = "0.2";
     public static final String Y_COORDINATE_PROMPT = "0.2\n0.4\n0.6\n0.8";
@@ -253,6 +266,7 @@ public class PrompterUtil {
     public static final WemePrompter EXPORT_PROMPTER = new ExportPrompter();
     public static final WemePrompter IMPORT_PROMPTER = new ImportPrompter();
     public static final WemePrompter PREFERENCE_PROMPTER = new PreferencePrompter();
+    public static final WemePrompter VIEW_PROMPTER = new ViewPrompter();
 
     /**
      * Returns a Prompter depending on the given ModelContext.
@@ -275,6 +289,8 @@ public class PrompterUtil {
             return STATISTICS_PROMPTER;
         case CONTEXT_PREFERENCES:
             return PREFERENCE_PROMPTER;
+        case CONTEXT_VIEW:
+            return VIEW_PROMPTER;
         default:
             throw new IllegalArgumentException();
         }

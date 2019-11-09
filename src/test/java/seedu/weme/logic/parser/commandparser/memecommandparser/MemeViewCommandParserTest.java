@@ -14,7 +14,7 @@ class MemeViewCommandParserTest {
     private MemeViewCommandParser parser = new MemeViewCommandParser();
 
     @Test
-    public void parse_validArgs_returnsStageCommand() {
+    public void parse_validArgs_returnsViewCommand() {
         assertParseSuccess(parser, "1", new MemeViewCommand(INDEX_FIRST));
     }
 
