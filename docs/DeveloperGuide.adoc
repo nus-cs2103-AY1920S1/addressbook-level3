@@ -312,7 +312,7 @@ The `newappt` command is similar to the `new` command of Patient and Doctor. The
 
 The following activity diagram summarizes what happens when a user executes a AddAppointment command:
 
-.Interactions Inside the Logic Component when a user executes a `addappt` command
+.Interactions Inside the Logic Component when a user executes a `newappt` command
 image::AddAppointmentActivityDiagram.png[]
 
 ==== `ackappt` command
