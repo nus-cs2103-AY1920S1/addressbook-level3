@@ -2,8 +2,6 @@ package seedu.address.logic.commands.scorecommand;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.commons.core.Messages.MESSAGE_NON_EXISTENT_TEAM;
-
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -41,11 +39,7 @@ public class SubtractScoreCommand extends ScoreCommand {
         requireNonNull(model);
         Team teamToScore;
 
-        try {
-            teamToScore = model.getTeam(id);
-        } catch (AlfredException ae) {
-            throw new CommandException(MESSAGE_NON_EXISTENT_TEAM);
-        }
+        teamToScore = getTeamFromModel(model, id);
 
         try {
             model.subtractTeamScore(teamToScore, score);

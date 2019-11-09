@@ -41,7 +41,7 @@ import seedu.address.logic.parser.historycommandparser.RedoCommandParser;
 import seedu.address.logic.parser.historycommandparser.UndoCommandParser;
 import seedu.address.logic.parser.listcommandparser.ListCommandParser;
 import seedu.address.logic.parser.removecommandparser.RemoveCommandAllocator;
-import seedu.address.logic.parser.scorecommandparser.ScoreCommandAllocator;
+import seedu.address.logic.parser.scorecommandparser.ScoreCommandParser;
 import seedu.address.logic.parser.viewcommandparser.ViewCommandAllocator;
 
 /**
@@ -90,7 +90,7 @@ public class AlfredParser {
             break;
 
         case ScoreCommand.COMMAND_WORD:
-            c = new ScoreCommandAllocator().allocate(arguments);
+            c = new ScoreCommandParser().parse(arguments);
             break;
 
         case ListCommand.COMMAND_WORD:

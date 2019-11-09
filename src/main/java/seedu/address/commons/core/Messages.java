@@ -20,6 +20,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_INDEX = "The specified ID is preceded by an invalid prefix "
             + "or is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX = "The team ID provided is of an invalid format.";
-    public static final String MESSAGE_NON_EXISTENT_TEAM = "The Team with the ID specified does not exist.";
+    public static final String MESSAGE_NON_EXISTENT_TEAM = "The Team with the specified ID does not exist.";
+    public static final String MESSAGE_NON_EXISTENT_MENTOR = "The Mentor with the specified ID does not exist.";
+    public static final String MESSAGE_NON_EXISTENT_PARTICIPANT = "The Participant with the specified ID"
+            + " does not exist.";
 
 }
