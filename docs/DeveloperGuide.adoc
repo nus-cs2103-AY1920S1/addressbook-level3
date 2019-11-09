@@ -236,13 +236,13 @@ that both implement `SortedUniqueItemList`, in a relationship illustrated in  <<
 In both `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`, items are stored in a `SortedList<Item>` and
 subsequently sorted based on the comparator defined.
 
-The following sequence diagrams break down the intricacies in the view operation that works to display the sorted items:
+The following sequence diagrams break down the intricacies in the view operation that works to display the sorted items in each list:
 
 .Sequence Diagram illustrating how the view operation displays items in order
 image::AutoSortViewSequenceDiagram.png[]
 
 [NOTE]
-Parsers are omitted from the diagram above to place greater emphasis on the sorting mechanism.
+Parsers are omitted from the diagram above to place greater emphasis on the parser selection process and sorting mechanism.
 
 Figure 13 above shows a `view|replenish` command executed to change the current view from that of the main tracking list `Xpire`
 to the replenish list, while Figure 14 below materializes this process.
@@ -253,53 +253,65 @@ image::ViewSetParserSequenceDiagram.png[]
 `LogicManager` creates and allocates a parser to parse commands entered by the user each time. It does so by first identifying the current view
 displayed. In this example, the current view is found to be `XPIRE`, and thus `XpireParser` is selected. Following that,
 new objects `ViewCommandParser` and `ViewCommand` are created and returned to `LogicManager` to be used in the execution of the `view|replenish` command.
-Figure 15 pictures the process of retrieving the internal sorted list of items of `ReplenishList`.
+Figure 15 below pictures the process of retrieving the internal sorted list of items in `ReplenishList`.
 
 .Sequence Diagram : retrieve internal sorted list
 image::AutoSortViewPartSequenceDiagram.png[]
+As items in the replenish list lack expiry dates, items are automatically sorted by their names. Therefore, a `nameComparator` is returned by default, as depicted above.
+As the ability to sort manually by date is thereby also rendered irrelevant, it is disallowed entirely in the replenish list.
 
+[NOTE]
+The list returned is the sortedInternalList wrapped as an unmodifiable list.
+
+`this.internalUnmodifiableList = FXCollections.unmodifiableList(this.sortedInternalList);`
 
 [NOTE]
 Everytime view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
 the default method of sorting is then retrieved.
 
-`this.internalUnmodifiableList = FXCollections.unmodifiableList(this.sortedInternalList);`
+The following sequence diagram demonstrates how the sort command changes the default order of items displayed:
 
-[NOTE]
-The list returned is the sortedInternalList wrapped as an unmodifiable list.
-
-The following sequence diagram shows how the sort command changes the default order of how items are displayed:
-
-.Sequence Diagram showing how sort command changes order of items
+.Sequence Diagram showing how sort command changes the order of items
 image::SortSequenceDiagram.png[]
-
 [NOTE]
 When sort is called, the method of sorting is redefined by the user.
+
+In this example, the user has chosen to re-sort the items by date. As indicated above, `ParserUtil` primarily verifies that the method of sorting is valid, i.e. either name or date. Next, `s`,
+the `SortCommand` object created executes the `sort|date` command. Figure 17 below exhibits the specific process which sorts the items by their expiry dates.
 
 .Sequence Diagram : set method of sorting to date
 image::SortPartSequenceDiagram.png[]
 
 In the above example, the user has specified to sort items by their expiry date, thus a dateComparator is returned.
 
-`sortedInternalList = new SortedList<>(internalList, methodOfSorting.getComparator());`
-
 [NOTE]
 The SortedList changes accordingly based on the method of sorting specified.
+
+`sortedInternalList = new SortedList<>(internalList, methodOfSorting.getComparator());`
+
+The activity diagram below details the explicit steps in the execution of a sort command.
 
 .Activity Diagram showing the control flow of a sort command executed by the user
 image::SortActivityDiagram.png[]
 
+If a `sort|date` command is executed, the comparator of the internal sorted list is set to be that of a `dateComparator`,
+and the list of items are updated accordingly.
+
+[NOTE]
+The ability to check for spelling errors of command arguments is explained in a <<Spelling correction with alternative recommendations,later section>>.
+
+
 ==== Design Considerations
 
-===== Aspect: How auto-sorting executes
+===== Aspect: When items auto-sorted by their names are displayed
 
-* **Alternative 1 (current choice):** Automatic sorting with the addition of every item.
-** Pros: Slightly more efficient algorithm for viewing items in O(1) time.
-** Cons: Slightly less efficient algorithm for adding items.
+* **Alternative 1 (current choice):** Display the sorted list of items when items are viewed.
+** Pros: Does not reset the method of sorting back to name by default with the addition of every item.
+** Cons: The user might not be able to find items added solely by their names.
 
-* **Alternative 2:** Sort only when items are viewed.
-** Pros: Slightly more efficient algorithm for adding items in O(1) time.
-** Cons: Slightly less efficient algorithm for viewing items.
+* **Alternative 2:** Display the sorted list of items with the addition of every item.
+** Pros: Allows the user to find any added item with ease as items are sorted by their name in chronological order.
+** Cons: Resets the method of sorting back to name by default every time an item is added.
 
 ===== Aspect: Data structure to store the auto-sorted items
 * **Alternative 1 (current choice):** `SortedList<Item>`.
@@ -560,9 +572,13 @@ image::SearchCommandSequenceDiagram.png[]
 // tag::recommendations[]
 === Spelling correction with alternative recommendations
 ==== Implementation
+Invalid commands are checked for spelling mistakes.
 The spelling correction mechanism is based primarily on the Damerau–Levenshtein distance algorithm, which computes the edit distance between two strings.
 This distance is based on the number of substitutions, deletions, insertions or transpositions of characters, needed to convert the source string into the target string.
 Relevant functions supporting this operation are implemented in `StringUtil`.
+
+[NOTE]
+Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
 
 The diagram below is a simplified illustration of how the feature works.
 
@@ -571,7 +587,7 @@ The diagram below is a simplified illustration of how the feature works.
 image::RecommendationsExample1.png[]
 
 [NOTE]
-The recommendations will be made solely based the list of items previously displayed rather than all items currently in the list.
+The recommendations will be made solely based on the list of items previously displayed rather than all items currently in the list.
 
 As shown in the diagram below, `Banana` was not recommended even though it exists in the original list. This is because it had been filtered from the previous list prior to when the second search command was executed.
 On the other hand, if `green` was misspelled as `gren`, the algorithm will be able to identify `green` as the closest match, as `Green Apple` is present in the previous list.
@@ -582,36 +598,43 @@ image::RecommendationsExample2.png[]
 
 //Given below is an example usage scenario and how the mechanism behaves at each step.
 
-The following sequence diagram shows how the sort operation works with recommendations,
-in the case that "date" is misspelled as "dat":
+Figure 24 below depicts the flow of events that check for spelling errors when a user executes an unknown command.
 
-.Sequence diagram illustrating the correction mechanism for command "sort|dat"
+.Activity diagram showing what happens when an unknown command is executed
+
+image::RecommendUnknownCommandActivityDiagram.png[]
+
+For example, if `set reminder` was input incorrectly as `set remindre`, it will be flagged as an invalid command.
+It is then compared with an collection of all possible command words in the existing list. `set reminder` will be established
+as its closest match and wrapped as a recommendation in a `ParseException` object to be thrown and displayed to the user.
+
+Figure 25 below on the other hand, presents what happens when a user executes a command with invalid arguments.
+
+.Activity diagram showing what happens when an a command is executed with misspelled arguments
+
+image::RecommendCommandArgumentsActivityDiagram.png[]
+
+[NOTE]
+Only search and sort commands support this operation.
+
+In the example below encapsulated in a sequence diagram, "date" is misspelled as "dat" in a sort command.
+
+.Sequence diagram illustrating the recommendations mechanism for command "sort|dat"
 
 image::RecommendationsSortSequenceDiagram.png[]
 
-The following sequence diagram `find similar words` illustrates the process omitted above.
+The sequence diagram titled `find similar words` here expands on the process omitted above in Figure 26.
 
 .Sequence diagram showing how "date" is found to be the most similar word to "dat"
 
 image::FindSimilarSequenceDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes an unknown command:
+The function `findSimilar` in `StringUtil` is called upon to return a set of strings that are most similar to the misspelled argument, `dat`.
+In this process, `dat` is compared with a set of valid inputs, i.e. both `name` and `date`, and the corresponding edit distances are stored.
+`getSuggestions("dat")` then filters the results and finds `date` to be the best match.
 
-.Activity diagram showing what happens when an unknown command is executed
-
-image::RecommendationUnknownCommandActivityDiagram.png[]
-
-[NOTE]
-Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
-
-The following activity diagram summarizes what happens when a user executes a command with misspelled arguments:
-
-.Activity diagram showing what happens when an a command is executed with misspelled arguments
-
-image::RecommendationsSearchSortActivityDiagram.png[]
-
-[NOTE]
-Only search and sort commands support this operation.
+At last, a `ParseException` which contains the recommendation `date`
+is then thrown to the user as feedback.
 
 ==== Design Considerations
 
