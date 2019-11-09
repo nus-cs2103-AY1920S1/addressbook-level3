@@ -124,15 +124,29 @@ class LocationStateTest {
     @Test
     void transition_invalidArgumentMultimap_throwsStateTransitionException() {
 
-        // Equivalence Partition : ArgumentMultimap without a location prefix.
+        // Equivalence Partitions : ArgumentMultimap without a location prefix, duplicate prefixes.
 
-        List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME, PREFIX_DESCRIPTION);
-        List<String> args = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "Description");
+        // EP : No location prefix.
+        List<Prefix> firstPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME,
+                PREFIX_END_TIME, PREFIX_DESCRIPTION);
 
-        State initialState = new LocationState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 3), args.subList(0, 3)));
-        assertThrows(StateTransitionException.class, () -> initialState.transition(ArgumentMultimapBuilder.build(
-                prefixes.subList(3, 4), args.subList(3, 4))));
+        // EP : Duplicate prefixes.
+        List<Prefix> secondPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME,
+                PREFIX_END_TIME, PREFIX_LOCATION, PREFIX_START_TIME);
+
+        List<String> firstArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "Description");
+        List<String> secondArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "Location",
+                "16/11/2019/1500");
+
+        State firstState = new LocationState(ArgumentMultimapBuilder.build(
+                firstPrefixes.subList(0, 3), firstArgs.subList(0, 3)));
+        State secondState = new LocationState(ArgumentMultimapBuilder.build(
+                secondPrefixes.subList(0, 3), secondArgs.subList(0, 3)));
+
+        assertThrows(StateTransitionException.class, () -> firstState.transition(ArgumentMultimapBuilder.build(
+                firstPrefixes.subList(3, 4), firstArgs.subList(3, 4))));
+        assertThrows(StateTransitionException.class, () -> secondState.transition(ArgumentMultimapBuilder.build(
+                secondPrefixes.subList(3, 5), secondArgs.subList(3, 5))));
     }
 
     @Test
