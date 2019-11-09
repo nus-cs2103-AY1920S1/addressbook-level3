@@ -64,9 +64,9 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException, OnlineConnectionException {
         requireNonNull(model);
-        try {
+        //try {
             if (emptyCompulsoryKeyword()) {
                 throw new CommandException("Make sure keyword(s) for n/, a/ or g/ is not empty.\n"
                         + SearchMessages.MESSAGE_USAGE);
@@ -86,13 +86,13 @@ public class SearchCommand extends Command {
             model.updateSearchResultList(result);
 
             if (isOffline) {
-                return new CommandResult(String.format(
-                        SearchMessages.MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW, model.getSearchResultList().size()));
-            } else {
-                return new CommandResult(String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW,
+                return new CommandResult("HI" + String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW,
                         model.getSearchResultList().size()));
             }
-        } catch (OnlineConnectionException e) {
+            return new CommandResult(String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW,
+                    model.getSearchResultList().size()));
+
+        /*} catch (OnlineConnectionException e) {
             if (!nameList.isEmpty()) {
                 for (String showName : nameList) {
                     addShowFromWatchListIfSameNameAs(showName, model);
@@ -118,9 +118,9 @@ public class SearchCommand extends Command {
                 }
                 addShowFromWatchListIfIsGenre(genreSet, model);
             }
-            return new CommandResult(String.format(SearchMessages.MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW,
+            return new CommandResult("WEIRD" + String.format(SearchMessages.MESSAGE_INTERNAL_SHOW_LISTED_OVERVIEW,
                     model.getSearchResultList().size()));
-        }
+        }*/
     }
 
     /**
@@ -152,9 +152,8 @@ public class SearchCommand extends Command {
      * Search for shows by actor.
      * @param model Model used.
      * @throws CommandException If command exception occurred.
-     * @throws OnlineConnectionException If online exception occurred.
      */
-    private void searchByActor(Model model) throws CommandException, OnlineConnectionException {
+    private void searchByActor(Model model) throws CommandException {
         Set<Actor> actorSet = new HashSet<Actor>();
         for (String actorName : actorList) {
             Actor actor = new Actor(actorName);
