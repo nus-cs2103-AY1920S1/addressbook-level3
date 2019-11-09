@@ -538,12 +538,16 @@ public class ModelManager implements Model {
         } catch (MissingEntityException e) {
             throw e;
         }
-        boolean isSuccessful = targetTeam.addParticipant(participant);
-        if (!isSuccessful) {
-            logger.severe("Participant is already present in team");
-            throw new AlfredModelException("Participant is already present in team");
+        try {
+            boolean isSuccessful = targetTeam.addParticipant(participant);
+            if (!isSuccessful) {
+                logger.severe("Participant is already present in team");
+                throw new AlfredModelException("Participant is already present in team");
+            }
+            this.saveList(PrefixType.T);
+        } catch (Exception e) {
+            throw new AlfredModelException(e.getMessage());
         }
-        this.saveList(PrefixType.T);
     }
 
     /**

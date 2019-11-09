@@ -44,6 +44,7 @@ public class AutoCompleteTextField extends JFXTextField {
             "score set", "history", "undo",
             "redo", "import", "export", "help"
     );
+
     /**
      * Represents a popup for user to select a command that is suggested.
      */

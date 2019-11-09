@@ -54,7 +54,7 @@ public class AssignParticipantCommand extends AssignCommand {
             model.updateHistory(this);
             model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
-            throw new CommandException(MESSAGE_PARTICIPANT_ALREADY_ASSIGNED);
+            throw new CommandException(e.getMessage());
         }
 
         return new CommandResult(String.format(MESSAGE_ASSIGN_PARTICIPANT_SUCCESS,
