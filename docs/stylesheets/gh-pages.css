@@ -221,9 +221,10 @@ table.tableblock > .title,
 
 @media print {
     a[xref] {
-	underline;
+	content: underline;
     }
 }
+
 
 
 
