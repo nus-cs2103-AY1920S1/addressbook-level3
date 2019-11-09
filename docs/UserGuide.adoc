@@ -427,16 +427,14 @@ e.g. `lend <amt>1 <day>08-08-2019 <item>HL Choco milk <met>Cash <to>Brother `
 Indicate that borrowed money or money lent has been returned. Note that index of log entry in list has to be of type 'borrow' or 'lend' to be successfully marked as repaid, all other log entries (i.e. 'spend', 'income') will be considered invalid. +
 Once the log entry has been marked as repaid, it cannot be undone and it is no longer editable.
 
-If no day is specified, date repaid will be recorded as the day the entry was entered into the system.
-
-Format: `*repaid* INDEX [<day> DAY_REPAID]` +
+Format: `*repaid* INDEX` +
 e.g. `repaid 3`
 
 ==== Clone a log entry: `clone`
 
-Duplicate a log entry, with the same information except for the date of transaction. If date is not specified, it will be recorded as the day the entry was entered into the system.
+Duplicate a log entry, with the same information except for the date of transaction.
 
-Format: `*clone* INDEX [<day> TRANSACTION_DATE]` +
+Format: `*clone* INDEX` +
 e.g. `clone 3`
 
 ==== List out finances: `list`
