@@ -8,6 +8,7 @@ import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.logic.commands.WatchCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.ui.MainWindow;
 
 /**
  * Parses input arguments and creates a new WatchCommand object
@@ -25,6 +26,10 @@ public class WatchCommandParser implements Parser<WatchCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NUM_OF_EPISODES, PREFIX_NUM_OF_SEASONS);
 
         Index index;
+
+        if (currentPanel.equals(MainWindow.SEARCH_TAB) || currentPanel.equals(MainWindow.STATISTICS_TAB)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND);
+        }
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());

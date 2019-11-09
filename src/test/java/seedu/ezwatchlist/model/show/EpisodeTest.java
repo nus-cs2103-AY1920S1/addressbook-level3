@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 public class EpisodeTest {
 
+    private static Episode validEpisode = new Episode("Episode 1", 1);
+
     @Test
     public void isValidEpisodeName() {
         // invalid Episode name

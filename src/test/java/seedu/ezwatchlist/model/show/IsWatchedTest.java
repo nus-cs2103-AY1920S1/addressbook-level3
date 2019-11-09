@@ -11,7 +11,12 @@ public class IsWatchedTest {
 
     @Test
     public void defaultConstructor() {
-        assertTrue(!(new IsWatched()).value);
+        assertFalse((new IsWatched()).value);
+    }
+
+    @Test
+    public void constructorWithParameter() {
+        assertTrue(new IsWatched("true").value);
     }
 
     @Test
@@ -33,5 +38,10 @@ public class IsWatchedTest {
     public void hashCodeTest() {
         assertEquals(new IsWatched("true").hashCode(), 1);
         assertEquals(new IsWatched("true").getIsWatchedBoolean(), true);
+
+    public void getIsWatchedBoolean() {
+        assertTrue(new IsWatched("true").getIsWatchedBoolean());
+        assertFalse(new IsWatched("false").getIsWatchedBoolean());
+
     }
 }

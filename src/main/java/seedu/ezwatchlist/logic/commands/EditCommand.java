@@ -336,14 +336,11 @@ public class EditCommand extends Command {
             EditShowDescriptor e = (EditShowDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getType().equals(e.getType())
                     && getDateOfRelease().equals(e.getDateOfRelease())
                     && getIsWatched().equals(e.getIsWatched())
                     && getDescription().equals(e.getDescription())
                     && getRunningTime().equals(e.getRunningTime())
-                    && getActors().equals(e.getActors())
-                    && getPoster().equals(e.getPoster());
-
+                    && getActors().equals(e.getActors());
         }
     }
 }
