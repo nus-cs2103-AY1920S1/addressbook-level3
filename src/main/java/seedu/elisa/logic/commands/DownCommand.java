@@ -12,7 +12,7 @@ public class DownCommand extends ScrollCommand {
 
     public static final String COMMAND_WORD = "down";
     public static final String MESSAGE_SUCCESS = "Scrolling down...";
-    public static final String MESSAGE_USAGE = "down L / down R";
+    public static final String MESSAGE_USAGE = "down";
 
     public DownCommand() {
         super();

@@ -118,7 +118,9 @@ If you face any issues, please check the <<Additional Notes>>. If it is not ment
 ====
 Now we are ready to jump into the features itself!
 
-=== Adding a task: `task`
+=== CLI Features
+
+==== Adding a task: `task`
 
 Adds a task to the task list +
 Format: `task DESCRIPTION [-d DATETIME] [-r REMINDER] [-p PRIORITY] [-t TAG]`
@@ -132,7 +134,7 @@ Examples:
 * `task eat my vitamins -r 5.hour.later`
 * `task eat my vitamins -d 10.hour.later -p low -t healthy`
 
-=== Adding an event: `event`
+==== Adding an event: `event`
 
 Adds an event to events list and calendar +
 Format: `event DESCRIPTION -d DATETIME [-r REMINDER] [-p PRIORITY] [-t TAG] [-auto PERIOD]`
@@ -144,7 +146,7 @@ Examples:
 * `event John’s Birthday -d 3.day.later -r 2.day.later -p high -t friend`
 * `event CS2013T Quiz -d 11/11/2019 2359 -auto week`
 
-=== Adding a reminder: `reminder`
+==== Adding a reminder: `reminder`
 
 Adds a reminder to the reminder list +
 Format: `reminder DESCRIPTION -r REMINDER [-t TAG]`
@@ -158,60 +160,7 @@ Examples:
 [NOTE]
 It is not possible to set a reminder in the past.
 
-=== Snoozing a reminder: `snooze`
-
-Snoozes a reminder that occurred since the application was open. +
-If an index is not provided, the most recently occurred reminder will be snoozed. +
-If a snooze duration is not specified, the reminder will be snoozed at the default duration of 5 min. +
-Format: 'snooze [INDEX] [-s SNOOZE_DURATION]' +
-
-Examples:
-* `snooze 1`
-* `snooze 3 -s 10.min.later`
-* `snooze -s 10/10/2020 1400`
-
-[NOTE]
-1. It is possible to snooze the same reminder multiple times if you wish. +
-2. It is not possible to snooze if no reminder has occurred yet. +
-However, if you use the snooze command incorrectly, ELISA will first attempt to correct your usage of the snooze command.
-
-=== Show the specified category : `show`
-
-Shows the specified category by switching the view to the given list. +
-Format: `show [t] [e] [c] [r] (Exactly *one* flag must be used with this command)''
-
-Examples:
-
-* `show t`
-* `show T` (Note: Case _insensitive_: Upper case is allowed)
-* `show e`
-* `show E`
-* `show r`
-* `show c`
-
-
-[NOTE]
-The flag can be in either lowercase or uppercase. Eg. `show E`.
-
-=== Scrolling the list : `up` / `down`
-
-Scrolls the list up/down
-
-Examples:
-
-* `up`
-* `down`
-
-=== Changing the theme : `theme`
-
-Changes the theme of Elisa!
-
-Examples:
-
-* `theme white`
-* `theme black`
-
-=== Editing an item : `edit`
+==== Editing an item : `edit`
 
 This command is used to edit any of the items that you might have. +
 
@@ -236,7 +185,7 @@ Edits item 1 of the current list. Changes the description to `read books`, deadl
 Edits item 2 of the current list. Changes the description to `CS2103 team meeting`, reminder to `3.hour.later` and priority to `high`.
 
 // tag::delete[]
-=== Deleting a reminder/task/event : `delete`
+==== Deleting a reminder/task/event : `delete`
 
 Deletes the reminder/task/event from ELISA. +
 Format: `delete INDEX`
@@ -254,94 +203,42 @@ Examples:
 `delete 2` +
 Deletes the 2nd reminder in the shown reminder list.
 
+=== Reminder Feature
 
-// tag::undo[]
-=== Undoing the latest modification(s) : `undo`
+==== Snoozing a reminder: `snooze`
 
-Reverts the latest commands given on the ELISA. +
-Format: `undo`
-
-****
-* `undo` can only be done if commands have been executed
-****
+Snoozes a reminder that occurred since the application was open. +
+If an index is not provided, the most recently occurred reminder will be snoozed. +
+If a snooze duration is not specified, the reminder will be snoozed at the default duration of 5 min. +
+Format: 'snooze [INDEX] [-s SNOOZE_DURATION]' +
 
 Examples:
+* `snooze 1`
+* `snooze 3 -s 10.min.later`
+* `snooze -s 10/10/2020 1400`
 
-* `undo` +
-Undoes the last command
+[NOTE]
+1. It is possible to snooze the same reminder multiple times if you wish. +
+2. It is not possible to snooze if no reminder has occurred yet. +
+However, if you use the snooze command incorrectly, ELISA will first attempt to correct your usage of the snooze command.
 
-// end::undo[]
-// tag::redo[]
-=== Redoing the latest undone command(s) : `redo`
+=== Navigation Features
 
-Re-executes the latest undone commands given on the ELISA. +
-Format: `redo`
+==== Show the specified category : `show`
 
-****
-* `redo` can only be done if undo has already been executed
-* After `undo`, if a new command is executed then `redo` cannot be executed
-****
+Shows the specified category by switching the view to the given list. +
+Format: `show [t] [e] [c] [r] (Exactly *one* flag must be used with this command)''
 
-Examples:
+[NOTE]
+The flag can be in either lowercase or uppercase. Eg. `show E`.
 
-* `redo` +
+==== Scrolling the list : `up` / `down`
 
-// end::redo[]
+Scrolls the list up/down
 
-=== Sorting ELISA out: `sort`
-Is ELISA getting too cluttered and disorganized? Do you want to sort your task by their priority? Or the events by their start date?
+=== Visual Features
 
-ELISA comes in-built with a sort feature that allows you to sort your items within the different panel. And the best part of it? YOU can decide how you want to sort it.
-
-The simple sort command on the different panel sorts the list differently (just another sign of how smart ELISA is) and they are as follows:
-* task panel - tasks are sorted from those that are incomplete to those that are completed. Within the two groups, they are sorted based on their priority, from high to medium and to low.
-* event panel - events are sorted based on their start date and time.
-* reminder - reminders are sorted based on their firing off date and time.
-
-But why stop there? You are also able to sort by priority and description within all the panels and even combine different sorting together! You are only limited by your imagination (and the items within your lists).
-
-Format: `sort` or `sort <criteria>`
-
-Examples:
-
-* `sort` - a simple sort that follows the criteria mentioned above for the different panel.
-* `sort priority` - sorts the item within the panel by their priority (from high to low).
-* `sort desc` - sorts the item within the panel by their description (lexicographic order)
-
-=== Finding a task: `find`
-Is your task list getting too long and you are not able to find what you are looking for? Introducing the `find` function which will allow you to find what you want within the specific panel. Just type `find` and the keyword that you want to search for within the command box and ELISA will find the relevant items for you.
-
-Format: `find <keyword>`
-
-Examples:
-
-* `find CS2101` - find all items that have CS2101 in their description within that panel
-
-* `find CS2101 CS2103` - find items that contains either CS2101 or CS2103 within their description.
-
-=== Entering priority mode: `priority`
-Feeling stressed? Too much tasks on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
-
-By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA base on priority and the order in which the task was added to the list.
-
-Feeling less stressed? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone task and you will be automatically brought out of priority mode.
-
-Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hhmm` and ELISA will turn it off at that specific time for you.
-
-Format: `priority` or `priority dd/mm/yyyy hhmm`
-
-Examples:
-
-* `priority` - activates or deactivates the priority mode
-* `priority 30/10/2019 1200` - activates the priority mode and ask ELISA to turn it off on 30/10/2019 at noon
-* `priority 2.hours.later` - activates the priority mode and ask ELISA to turn it off 2 hours later
-
-****
-* Note that this command can only be called in the task panel.
-* Note that all commands such as `edit`, `undo` and `redo` still works in priority mode.
-****
-
-=== Expanding an item in the view: `open` & `close`
+==== Expanding an item in the view: `open` & `close`
 Want to see all the details of an item at one glance? Lazy to go to event list or reminder list to find them? We got you!
 
 You can now open up an item to see all its details, regardless of what list you are on.
@@ -362,19 +259,151 @@ Example sequence:
 Although, the ESC key can close too, we do not advise doing so as ELISA may be confused later on :(
 
 
-// tag::joke[]
-=== Asking ELISA for a joke : `joke`
-Need to amuse yourself for a bit? Simply use the `joke` command and ELISA will select a joke from her database for you to enjoy!
+==== Changing the theme : `theme`
+
+Screen is too dark? Switch up the theme by typing `theme white`!
+
+image::themewhite.PNG[]
+
+Examples:
+
+* `theme white`
+* `theme black`
+
+==== Clearing the screen : `clearscreen` and `clear`
+
+Chat box getting too cluttered? Type `clearscreen` to clear it!
+
+* `clear` - clears all lists
+* `clearscreen` - clears the chat box
+
+=== Calendar Feature
+
+Sick of looking through lists of events? Type `show c` in the command box and your events will be magically placed into a calendar!
+
+image::calendar.PNG[]
+
+=== Entertainment Features
+
+Too stressed from all the work? Check out these features to take a short break so that you can go further!
+
+==== Play a game: `game`
+
+`game` switches your list of tasks into a game of Snakes!
+
+image::SnakeGame.PNG[Snake, 600, 600, float="right"]
+
++++<u>Rules:</u>+++
+
+Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Careful not to let your snake bit it's own tail or it will be GAME OVER!
+
+Hit `ENTER` to reset the game when your snake dies.
+
+Pressing `ESC` key will exit the game and return you to your list of tasks!
+
+==== Tell a joke: `joke`
+
+Type `joke` in the command box and I will showcase my exceptional sense of humor and tell you a random joke!
+
+=== Undo/Redo Feature
+
+// tag::undo[]
+==== Undoing the latest modification(s) : `undo`
+
+Reverts the latest commands given on the ELISA. +
+Format: `undo`
 
 ****
-* Note that each joke is randomly selected from the database and may repeat.
+* `undo` can only be done if commands have been executed
 ****
 
-Example:
+Examples:
 
-* `joke` +
+* `undo` +
+Undoes the last command
 
-// end::joke[]
+
+// tag::redo[]
+==== Redoing the latest undone command(s) : `redo`
+
+Re-executes the latest undone commands given on the ELISA. +
+Format: `redo`
+
+****
+* `redo` can only be done if undo has already been executed
+* After `undo`, if a new command is executed then `redo` cannot be executed
+****
+
+Examples:
+
+* `redo` +
+
+
+//tag::sort[]
+==== Sorting ELISA out: `sort`
+
+Is ELISA getting too cluttered and disorganized? Do you want to sort your task by their priority? Or the events by their start date?
+
+ELISA comes in-built with a sort feature that allows you to sort your items within the different panel. And the best part of it? YOU can decide how you want to sort it.
+
+The simple sort command on the different panel sorts the list differently (just another sign of how smart ELISA is) and they are as follows:
+
+* task panel - tasks are sorted from those that are incomplete to those that are completed. Within the two groups, they are sorted based on their priority, from high to medium and to low.
+
+* event panel - events are sorted based on their start date and time.
+
+* reminder - reminders are sorted based on their firing off date and time.
+
+But why stop there? You are also able to sort by priority and description within all the panels and even combine different sorting together! You are only limited by your imagination (and the items within your lists).
+
+Format: `sort` or `sort <criteria>`
+
+Examples:
+
+* `sort` - a simple sort that follows the criteria mentioned above for the different panel.
+* `sort priority` - sorts the item within the panel by their priority (from high to low).
+* `sort desc` - sorts the item within the panel by their description (lexicographic order)
+//end::sort[]
+
+
+//tag::find[]
+==== Finding a task: `find`
+
+Is your task list getting too long and you are not able to find what you are looking for? Introducing the `find` function which will allow you to find what you want within the specific panel. Just type `find` and the keyword that you want to search for within the command box and ELISA will find the relevant items for you.
+
+Format: `find <keyword>`
+
+Examples:
+
+* `find CS2101` - find all items that have CS2101 in their description within that panel
+
+* `find CS2101 CS2103` - find items that contains either CS2101 or CS2103 within their description.
+//end::find[]
+
+//tag::priority[]
+=== Entering priority mode: `priority`
+Feeling stress? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
+
+By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA base on priority and the order in which the task was added to the list.
+
+Feeling less stress? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone task and you will be automatically brought out of priority mode.
+
+Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hhmm` and ELISA will turn it off at that specific time for you.
+
+Format: `priority` or `priority dd/mm/yyyy hhmm`
+
+Examples:
+
+* `priority` - activates or deactivates the priority mode
+* `priority 30/10/2019 1200` - activates the priority mode and ask ELISA to turn it off on 30/10/2019 at noon
+* `priority 2.hours.later` - activates the priority mode and ask ELISA to turn it off 2 hours later
+
+****
+* Note that this command can only be called in the task panel.
+* Note that all command such as `edit`, `undo` and `redo` still works in priority mode.
+****
+//end::priority[]
+
 === Exiting the program : `exit`
 
 Exits the program. +

@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
 
 /**
@@ -31,8 +30,6 @@ public class TaskListCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label date;
-    @FXML
     private Label description;
     @FXML
     private Label id;
@@ -40,8 +37,6 @@ public class TaskListCard extends UiPart<Region> {
     private Label priorityLabel;
     @FXML
     private ImageView statusIcon;
-    @FXML
-    private ImageView eventIcon;
 
     public TaskListCard(Item item, int displayedIndex) {
         super(FXML);
@@ -52,12 +47,6 @@ public class TaskListCard extends UiPart<Region> {
             statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Completed.PNG")));
         } else {
             statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Uncompleted.PNG")));
-        }
-        if (item.hasEvent()) {
-            eventIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/EventIcon.PNG")));
-            Event event = item.getEvent().get();
-            date.setText(String.valueOf(event.getStartDateTime().getDayOfMonth())
-                + " " + String.valueOf(event.getStartDateTime().getMonth()).substring(0, 3));
         }
         String priority = item.getPriority().toString();
         priorityLabel.setText(priority);

@@ -1,0 +1,114 @@
+= Ng Siang Hwee - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ELISA
+
+== Overview
+My team of 5 software engineering students were tasked with enhancing a basic command line interface (CLI) desktop address book application for our Software Engineering project.
+
+As we are living in a fast-paced world where things are constantly changing it can become stressful at times to keep track of the many tasks, events and reminders that we have. We thought that it would be helpful to have an application that is able to aid students in managing these tasks, events and reminders so we chose to morph the address book into a student assistant.
+
+We decided to call her ELISA (Exceptionally Loud and Intelligent Student Assistant). This application enables users to add and track their tasks and events while receiving reminders for them. The assistant is in the form of a chat bot and she was given a sassy and humorous personality to enhance the user experience.
+
+== Application introduction
+This is how our application looks like:
+
+.User interface annotated
+image::sianghwee/taskpanel-annotated.PNG[]
+The rest of the report will refer to this components and so their function will be briefly explained.
+
+[cols="3, 10"]
+|===
+|Component |Function
+
+|ELISA icon
+|Icon of the application. Will change with the different mode of the application.
+
+|Result display
+|The "chatbox" with ELISA which will contain all the users past input and ELISA response.
+
+|Command box
+|The user can type their commands here to interact with ELISA.
+
+|View panel
+|The current view of the application. It can show the task(currently showing), event, reminder or calendar panel.
+|===
+
+== Summary of contributions
+
+In this section, I will be briefly going through my contributions to this team project. For the full extent of my contributions to the project please visit https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=sianghwee[here].
+
+=== Functional contributions
+* *Priority mode (Major Feature)*:
+
+_What it does?_
+
+This feature allows the user to enter a priority mode where they are able to prioritize tasks with a higher priority first and focus on that task to complete it.
+
+_Why do it?_
+
+This features help to solve the problem of students having too many tasks and being unsure of what task to complete first. It will help to alleviate the stress of the users.
+
+_What's special?_
+
+There are multiple modes for the user to choose from to suit their needs. Users can choose from a focus mode, a timed mode or just a normal mode. The individual mode will be explained in greater detail in the user guide.
+
+At the same time, users are able to update their task list in realtime (add, delete, edit) so that they can always be sure that the task that they are currently doing is the most important one.
+
+_Difficulties?_
+
+The difficulty of this feature comes from the fact that it has to be integrated with all the other commands within the application. That means that the algorithm needs to be written in a way such that it is constantly updating itself to give the user the most important task despite the changes in the tasks.
+
+For example, when a new task of a higher priority (than the current task) is added, the algorithm should be able to make that the task that is to be completed first. This requires a lot of integration with all the other code so that ELISA can behave differently depending on whether she is in priority mode.
+
+* *Sorting (Minor Feature)*:
+
+The sorting feature allows users to sort their items so that they are able to better arrange their items in a way that is most useful to them. Each of the different list have their own sorting algorithm while there are also general sorting using the priority or a description of an item.
+
+* *Find (Minor Feature)*:
+
+The find feature allows users to find an item based on the description of the item. This will aid the user in getting the item that they need at the fastest possible time.
+
+=== Other contributions:
+
+* *Project management*:
+
+Review and made suggestions on the following PR:
+
+. https://github.com/AY1920S1-CS2103T-T10-3/main/pull/69#pullrequestreview-299143917[PR #69] - idea of priority in item class ultimately adopted
+
+. https://github.com/AY1920S1-CS2103T-T10-3/main/pull/130#pullrequestreview-304515805[PR #130] - idea of getting the command word to display to the user was ultimately adopted
+
+. https://github.com/AY1920S1-CS2103T-T10-3/main/pull/134#pullrequestreview-304938689[PR #134] - idea of moving method to the `UndoableCommand` abstract class was ultimately adopted
+
+. https://github.com/AY1920S1-CS2103T-T10-3/main/pull/252#pullrequestreview-312419235[PR #252] - fix some issue with the code and optimize it
+
+{empty}
+
+* *Refactoring*:
+
+Refactored the model and storage class so that it will work with the project.
+(https://github.com/AY1920S1-CS2103T-T10-3/main/pull/68[PR #68] and https://github.com/AY1920S1-CS2103T-T10-3/main/pull/79[PR #79])
+
+* *Documentation*:
+
+Updated the user guide to include the user stories (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/47[PR #47])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide for my main feature. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=priority]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide for my main feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=priority]

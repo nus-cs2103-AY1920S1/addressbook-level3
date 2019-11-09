@@ -48,7 +48,7 @@ Responsibilities: UI
 
 === Ng Siang Hwee
 image::sianghwee.png[width="150", align="left"]
-{empty}[http://github.com/sianghwee[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/sianghwee[github]] [<<sianghwee#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Model
