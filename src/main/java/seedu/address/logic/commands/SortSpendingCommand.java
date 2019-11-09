@@ -89,6 +89,7 @@ public class SortSpendingCommand extends Command {
 
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), new ArrayList<>(), projectToEdit.getTasks(), finance, projectToEdit.getGeneratedTimetable());
         editedProject.getMemberNames().addAll(members);
+        editedProject.setListOfMeeting(projectToEdit.getListOfMeeting());
 
 
         model.setProject(projectToEdit, editedProject);

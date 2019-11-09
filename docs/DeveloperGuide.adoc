@@ -282,12 +282,13 @@ image::ProjectMeeting.png[]
 ==== Description of feature
 
 Sorts some lists based on specifications provided by the user.
-There are 2 lists that are able to be sorted so far. +
+There are 3 lists that are able to be sorted so far. +
 
 . Sort list of tasks
 . Sort list of spending
+. Sort list of meetings
 
-The implementation is similar for these 2 methods. It makes use of `SortingOrder`, which is
+The implementation is similar for these 3 methods. It makes use of `SortingOrder`, which is
 a container class that stores the current sort order as well as methods to get and set these orders.
 `SortingOrder` can be found in the `model` package.
 Currently there are 5 different methods to sort the lists.
@@ -301,11 +302,12 @@ Currently there are 5 different methods to sort the lists.
 [NOTE]
 
 Methods 3-4 are only for sorting tasks whereas method 5 is for sort spending.
-Methods 1-2 can be used to sort both lists.
+Methods 1-2 can be used to sort all lists.
 
 ==== Details
-Both commands sortTask and sortSpending take in a single integer as parameter. As mentioned in the
-note above, 1-4 are valid input for sortTask, 1, 2 and 5 are valid for sortSpending.
+All sort commands take in a single integer as parameter. As mentioned in the
+note above, integers 1-4 are valid input for sortTask, integers 1, 2 and 5 are valid for sortSpending, and
+integers 1-2 are valid for sortMeeting.
 
 An example command would be `sortTask 1` which sorts the list of tasks by alphabetical order.
 

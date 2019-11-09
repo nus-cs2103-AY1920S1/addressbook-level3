@@ -304,15 +304,6 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-==== Clear the address book: `clear`
-
-Removes all persons from your address book.
-
-[CAUTION]
-This command removes ALL persons from your address book so use it with caution!
-
-Format: `clear`
-
 ==== Remove a member: `removeMember` [Checkout]
 
 
@@ -489,7 +480,8 @@ Example:
 === Sorting
 
 The following section provides a set of commands which help with sorting the information inside the
-application.
+application. MyProject makes it very easy and user-friendly by making all sort commands follow the same
+format and index/order pairing as shown below!
 
 ****
 All commands in this section follow this set of index/order pairing, where applicable:
@@ -500,6 +492,10 @@ All commands in this section follow this set of index/order pairing, where appli
 . Whether tasks are done and then by increasing order of time
 . Increasing price
 ****
+
+[NOTE]
+The default sorting order for the following lists is by increasing order of time(index 2). Whenever MyProject
+is closed, the ordering will return to the default order.
 
 ==== Sort tasks: `sortTask` [Checkout]
 
@@ -513,9 +509,8 @@ Example:
 
 Let's say you have added many different tasks with different deadlines and progresses into MyProject. +
 
-The default sorting order that MyProject
-offers is by increasing order of date(index 2). However you wish to group those tasks that are done in one group and those not done in another group and
-then further sort each group by increasing order of date(index 4) to track the progress of your tasks. +
+The default sorting order that MyProject offers is by increasing order of time(index 2). However you wish to group those tasks that are done in one group and those not done in another group and
+then further sort each group by increasing order of time(index 4) to track the progress of your tasks. +
 
 Simply type in the command `sortTask 4` and all the tasks in the list will immediately be sorted accordingly. +
 
@@ -526,7 +521,7 @@ you wish to add or edit tasks! +
 Here is a step by step process on how to do this.
 
 . Firstly, since this command is labeled with [Checkout] at the start, ensure that you `checkout` to a project first.
-Notice how the tasks in the task list are currently at the default sorting order which is by increasing order of date.
+Notice how the tasks in the task list are currently at the default sorting order which is by increasing order of time.
 image:sortTask1.png[]
 
 . Next, enter the command `sortTask 4` into the command line and press enter. You can choose any index from 1-4 depending
@@ -547,10 +542,11 @@ image:sortTask4.png[]
 ==== Sort spending: `sortSpending` [Checkout]
 
 Sorts the spending in the budget list of the current working project based on given specification. The implementation is
-exactly the same as sortTask. Refer to the sortTask section for a more detailed explanation. +
+slightly different from sortTask. MyProject will not show you the list of spending immediately after entering
+the command `sortSpending`. Enter the command `listBudget` to view the newly sorted list of spending. +
 Format: `sortSpending INDEX`
 
-`INDEX` in this case refers to which type of sorting you want to do. In this case, only integers 1, 2 and 5 are applicable.(Refer to the highlighted section above)
+`INDEX` refers to which type of sorting you want to do. In this case, only integers 1, 2 and 5 are applicable.(Refer to the highlighted section above)
 
 Example:
 
@@ -561,7 +557,7 @@ Sorts the meetings in the meeting list of the current working project based on g
 exactly the same as sortTask. Refer to the sortTask section for a more detailed explanation. +
 Format: `sortMeeting INDEX`
 
-`INDEX` in this case refers to which type of sorting you want to do. In this case, only integers 1 and 2 are applicable.(Refer to the highlighted section above)
+`INDEX` refers to which type of sorting you want to do. In this case, only integers 1 and 2 are applicable.(Refer to the highlighted section above)
 
 Example:
 
