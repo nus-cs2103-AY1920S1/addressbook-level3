@@ -358,12 +358,12 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 
 ==== Deleting an entry : `delete` +
 
-This command allows you to delete a body, worker or fridge entry using its Identification Number. +
+This command allows you to delete a `Body`, `Worker` or `Fridge` entry using its Identification Number. +
 
 Format: `delete -FLAG  id`
 
 You only need to enter the numeric value of the Identification Number while ignoring the prefixed 0s. For example, if
-you want to delete a `Fridge` with id `F01`, you need to only enter `1`.
+you want to delete a `Fridge` with id `F01`, you need to only enter `delete -f 1`.
 
 When you delete a `Body`:
 
@@ -442,27 +442,34 @@ View a body with the ID B00000001.
 // tag::notifs[]
 
 ==== View notifs panel: `showNotifs` +
-View all notifications.
+This command allows you to view all `Notif`.
 
-In Singapore, if the next-of-kin is not contactable for more than 24 hours from the time of admission of a `Body`,
-police must informed. Mortago removes the hassle of manually keeping track of the status of bodies! For the purpose of testing, instead of 24 hours, Mortago currently
+A `Notif` is a notification associated with a `Body`. In Singapore, if the next-of-kin is not contactable for more
+than 24 hours from the time of admission of a `Body`,
+police must informed. Mortago removes the hassle of manually keeping track of the status of bodies! For the purpose of
+testing, instead of 24 hours, Mortago currently
 uses 10 seconds.
 
-When you add a `Body` or manually set its status to `ARRIVED`, Mortago automatically
-changes the status of a `Body` to `CONTACT_POLICE` and shows a pop-up notification to remind you to
-contact the police. It creates a `Notif` for all such bodies which you can view by either clicking on the
+When you add a `Body` or manually set its status to `ARRIVED`, Mortago
+automatically
+changes its status to `CONTACT_POLICE` if its status is still `ARRIVED` after 10 seconds. It then shows a pop-up
+to
+remind you to
+contact the police. It creates a `Notif` for this `Body` and you can view all `Notif` by either clicking on the
 notification bell or typing the `showNotif` command.
 
 Format: `showNotifs`
 
-Once you change the status of a `Body` from `CONTACT_POLICE` to any other possible status (!!!add in the section!!!),
+Once you change the status of the `Body` from `CONTACT_POLICE` to any other possible status (!!!add in the section!!!),
 its associated `Notif` is deleted.
+
+If you change the status of the `Body` before 10 seconds, no pop-up and `Notif` are created.
 
 Example:
 
 Imagine that a new `Body` (John Doe) has just arrived at your mortuary.
 
-1) Type the `add` command as specified in the example in <<add, Section 3.1.1>>. Currently the status of the `Body`
+1) Type the `add` command as specified in the example in <<add, Section 3.1.1>>. Currently the status of this `Body`
 is `ARRIVED`
 
 image::notif-command/Notif1.png[align="center"]
@@ -478,13 +485,13 @@ image::notif-command/Notif2.png[align="center"]
 
 image::notif-command/Notif3.png[align="center"]
 
-4) The notification bell opens up a pop-over and lists all the bodies for which you need to contact the police. You
+4) The notification bell opens up a panel and lists all the bodies for which you need to contact the police. You
 can see John Doe's ID number B00000011 is in the list.
 
 image::notif-command/Notif4.png[align="center"]
 
 5) Suppose you have contacted the police, change the status of John Doe using the command `update -b /id 11 /status
-pending police report`. John Doe's ID is no longer listed in the pop-over.
+pending police report`. John Doe's ID is no longer listed in the notifs panel.
 
 image::notif-command/Notif5.png[align="center"]
 
