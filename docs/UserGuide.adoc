@@ -220,7 +220,7 @@ Format: `edit-member mi/MEMBER_ID mn/MEMBER_NAME mt/MEMBER_TAG`
 
 ****
 * Edits the member at the specified `mi/MEMBER_ID`.
-* In this command, all the fields apart from `mi/MEMBER_ID` is optional. However, at least one of the optional fields must be provided.
+* In this command, all the fields apart from `mi/MEMBER_ID` are optional. However, at least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the member will be removed i.e adding of tags is not cumulative.
 ****
@@ -313,25 +313,61 @@ image::AfterFireMember.png[width="790"]
 
 ==== Adding a task: `add task`
 
-To add a task to the project, use the 'add-task' command in the format below. +
+To add a task to the project, use the `add-task` command in the format below. +
 Format: `add-task [tn/TASK_NAME]` +
-Optional Parameters: `[s/STATUS]` `[tt/TAG]`
+Optional parameters: `[s/STATUS]` `[tt/TAG]`
+
+[NOTE]
+If a status is not given for the task, +Work will assign it as `unbegun` or "Not Started" by default.
 
 Example:
 
-* `add-task tn/Finish up milestone setting` +
-A new task will be added to the project dashboard
+* Suppose you want to add a task called "Finish up milestones settings" to your project. First type `add-task tn/Finish up milestone setting`
+as show below.
+
+image::add-task-preview.png[]
+
+* Hit the kbd:[Enter] key and you will see that the task is added to the project! +
+[NOTE]
+The prompt displayed as a result of performing `add-task` is further explained in <<Multiline Commands>>.
+
+image::add-task-res-list.png[]
 
 ==== Deleting a task: delete-task
 
-Removes a task from the dashboard
-
+To delete a task from your project, use the `delete-task` command in the format below. +
 Format: `delete-task [ti/TASK_ID]`
 
 Example:
 
-* `delete-task 2` +
-Removes the 2nd task in the dashboard
+* Suppose you want to remove the second task in your list. First type `delete-task ti/2` into the command
+box as shown below.
+
+image::delete-task-preview.png[]
+
+* Hit the kbd:[Enter] key and you will see that the task is removed from your project!
+
+image::delete-task-res-list.png[]
+
+==== Editing a task: `edit-task`
+
+To edit a task currently in your project, use the `edit-task` command in the format below. +
+Format: `edit-task [ti/TASK_ID] [FIELD(S)_TO_EDIT]` +
+Optional parameters: `[tn/TASK_NAME]` `[s/STATUS]` `[tt/TAG]` `[at/dd-mm-yyyy hh:mm]`
+
+[IMPORTANT]
+At least one of the optional parameter must be provided in the command for a task to be edited successfully.
+
+Example:
+
+* Suppose you wanted to update the task name of the fourth task in the diagram below to become "Update event website". +
+Type `edit-task ti/4 tn/Update event website` into the command box as shown below.
+
+image::edit-task-preview.png[]
+
+* Hit the kbd:[Enter] key and you will see that the task name has been edited!
+
+image::edit-task-res-list.png[]
 
 ==== Listing all existing tasks: `list-tasks`
 
@@ -822,6 +858,8 @@ _{explain how the user can enable/disable data encryption}_
 * `doing-task [ti/TASK_ID]`: *Marks a task as `doing`*
 
 * `done-task [ti/TASK_ID]`: *Marks a task as `done`*
+
+* `edit-task [ti/TASk_ID] [FIELDS_TO_EDIT]`: *Edits a task*
 
 * `fire-member [ti/TASK_ID] [mi/MEMBER_ID]`: *Removes a task from a member*
 
