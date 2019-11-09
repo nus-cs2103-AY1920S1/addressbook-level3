@@ -521,22 +521,25 @@ image::warning.png[width = "20", float = "left"]
 // end::shortcutfeature[]
 
 //@@author {lawncegoh}
+// tag::introduction[]
 ---
+[source, java]
 The 3 features below are made to be used in conjunction with each other. They are `goto`, `check` and `sort`/`reverse` respectively.
 They are an implementation of the other objects created in this application. You will be able to use these 3 features smoothly once
-you have input objects like `claim`, `income` into FinSec. +
-You would then be able to switch between the different "tabs" that
-we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can
-`sort` or `reverse` this list. The list will then be sorted into a more organised manner for you. Once you have
-sorted the list, you can then use the `check` feature in the `contact` or `claim` View to sieve out a specific
-contact or claim that interests you. +
-Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature
+you have input objects like `claim`, `income` into FinSec. You would then be able to switch between the different "tabs" that
+we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can`sort` or `reverse` this
+list. The list will then be sorted into a more organised manner for you. Once you have sorted the list, you can then use the `check`
+feature in the `contact` or `claim` View to sieve out a specific contact or claim that interests you.
+Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature.
 
+// end::introduction[]
+
+// tag::gotofeature[]
 === Changing Views : `goto`
 
-This command changes the displayed list to show Contacts, Claims or Incomes. Such a command allows users to switch
+This command changes the displayed list to show Contacts, Claims or Incomes. Such a command allows you to switch
 between the 3 lists easily. This feature has also been enhanced with the addition of tabs below the Command Result panel.
-These tabs give the same functionality as this goto feature so users can choose to type or click on the tabs. +
+These tabs give the same functionality as this goto feature so that you can choose to type or click on the tabs. +
 
 <<UG-GotoExample>> shows the command result panel after the `goto contacts` command has been entered
 as well as the tabs that are below this panel.
@@ -557,10 +560,13 @@ Example:
 `goto claims`
 `goto incomes`
 
+// end::gotofeature[]
+
+// tag::checkfeature[]
 //@@author {lawncegoh}
 === Checking a Contact or Claim : `check`
 
-You can check an individual `Contact` or `Claim` in either lists. This will give you a clearer view of the 2 different objects
+This feature allows you to check an individual `Contact` or `Claim` in either lists. This will give you a clearer view of the 2 different objects
 that you need. This function in the contacts list will give you a pop-up of the contact and show you the basic details of this
 contact and most importantly, the claims that are under this contact. +
 
@@ -579,9 +585,45 @@ Format: `check INDEX`
 Examples:
 
 ****
-* check 1 (in contacts page, show details of the person in index 1)
-* check 13 (in claims page, show details of the claim that has the claimID of 13)
+*Checking of a contact in the contacts page:* +
+*Step 1:* Type `check 1` into the command box and press kbd:[Enter] to execute it
+
+[[UG-CheckExample1]]
+image::UG-CheckExample1.png[width="800"]
+
+*Step 2:* The result box will display "Contact Shown"
+
+[[UG-CheckExample2]]
+image::UG-CheckExample2.png[width="800"]
+
+*Step 3:* This is the pop-up window that comes up after the command is entered. You are now
+able to see the claims that belong to this contact
+[[UG-CheckExample3]]
+image::UG-CheckExample3.png[width="800"]
+
+*Checking of a claim in the claims page:* +
+*Step 1:* Type `check 2` into the command box and press kbd:[Enter] to execute it. This index 2 represents the claimID
+of each individual claim card.
+
+[[UG-CheckExample1]]
+image::UG-CheckExample4.png[width="800"]
+
+*Step 2:* The result box will display "Claim Shown"
+
+[[UG-CheckExample2]]
+image::UG-CheckExample5.png[width="800"]
+
+*Step 3:* This is the pop-up window that comes up after the command is entered. You are now able to see the important
+details that belong to this claim.
+[[UG-CheckExample3]]
+image::UG-CheckExample6.png[width="600"]
+
 ****
+
+//end::checkfeature[]
+
+
+// tag::sortfeature[]
 //@@author {lawncegoh}
 === Sorting the Contacts/Claims/Incomes list by Contact's Name
 
@@ -633,6 +675,10 @@ image::UG-ClaimsListSort.png[width="800"]
 
 Examples:
 * `sort date`
+
+// end::sortfeature[]
+
+// tag::reversefeature[]
 //@@author {lawncegoh}
 === Sorting the Contacts/Claims/Incomes list in reverse order
 
@@ -668,6 +714,8 @@ will be sorted as REJECTED at the top, followed by APPROVED then PENDING.
 Keyword: `reverse status`
 
 Format: `reverse status`
+
+// end::reversefeature[]
 
 *Warning*
 `reverse status` only applies to the claims list
@@ -707,6 +755,7 @@ Format: `budget`
 image::UG-BudgetExample.PNG[width="800"]
 
 //@@{lawncegoh}
+// tag::clearfeature[]
 === Clearing all data : `clear`
 
 This command wipes all data from the FinSec and starts with a new FinSec. This feature is also updated from addressbook
@@ -721,14 +770,16 @@ Format: `clear`
 [[UG-ClearExample1]]
 [reftext="Figure 3.14.1"]
 [caption="Figure 3.14.1: "]
-.Before the `clear` command is used (data is present)
+.When the clear command is typed, the prompt comes up to ensure that you did not type the command accidentally.
 image::UG-ClearExample1.PNG[width="800"]
 
 [[UG-ClearExample2]]
 [reftext="Figure 3.14.2"]
 [caption="Figure 3.14.2: "]
-.After the `clear` command is used (all the data has been cleared)
+.After the `clear` command is confirmed.
 image::UG-ClearExample2.PNG[width="800"]
+
+//end::clearfeature[]
 
 === Making a mistake : `<any invalid entry>`
 
