@@ -856,6 +856,19 @@ Cons:
 
 Given below are instructions to test the app manually.
 
+glist remDefault r/-1 +
+glist remDefault r/1.2 +
+glist rem +
+glist rem r/10 +
+glist delete 1 +
+glist undo +
+tlist template add 1 n/rice a/100g e/10/10/2020 +
+tlist add n/Surprise Party +
+tlist undo +
+tlist redo +
+slist undo +
+slist redo
+
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
