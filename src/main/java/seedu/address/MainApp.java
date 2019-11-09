@@ -1,8 +1,11 @@
 package seedu.address;
 
+import static seedu.address.model.expense.Currency.DEFAULT_BASE_CURRENCY;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
@@ -12,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.util.HttpsClientUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
@@ -26,7 +30,6 @@ import seedu.address.model.budget.ReadOnlyBudgetList;
 import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.exchangedata.ExchangeDataSingleton;
 import seedu.address.model.util.SampleDataUtil;
-
 import seedu.address.storage.BudgetListStorage;
 import seedu.address.storage.ExchangeDataStorage;
 import seedu.address.storage.ExpenseListStorage;
@@ -92,10 +95,20 @@ public class MainApp extends Application {
         ReadOnlyBudgetList initialBudgets;
 
         try {
-            //TODO: Pull from Endpoint
+            // Download updated data
+            try {
+                HttpsClientUtil.getLatestExchangeData(DEFAULT_BASE_CURRENCY);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Read from file
             exchangeDataOptional = storage.readExchangeData();
+
             if (!exchangeDataOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample ExchangeData");
+                logger.info("Data file not found/corrupted. Will be starting with a sample ExchangeData");
             }
             initialExchangeData = exchangeDataOptional.orElseGet(SampleDataUtil::getSampleExchangeData);
             ExchangeDataSingleton.updateInstance(initialExchangeData);
