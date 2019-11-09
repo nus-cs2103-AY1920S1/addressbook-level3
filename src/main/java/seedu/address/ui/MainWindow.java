@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -354,6 +356,21 @@ public class MainWindow extends UiPart<Stage> {
     public void handleNotes() throws ParseException, CommandException {
         try {
             String userCommand = "change_tab tab/notepad";
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
+    }
+
+    /**
+     * Switches to the calendar tab sorted by the task.
+     */
+    @FXML
+    public void findTaskByDate(LocalDate date) throws ParseException, CommandException {
+        try {
+            System.out.println(date);
+            String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String userCommand = "find_task_by_date " + formattedDate;
             executeCommand(userCommand);
         } catch (CommandException e) {
             logger.info("User attempting to change tab during the learning of an unknown command!");
