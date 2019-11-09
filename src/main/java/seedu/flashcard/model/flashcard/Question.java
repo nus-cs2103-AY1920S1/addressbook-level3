@@ -36,7 +36,7 @@ public class Question {
     public String shortenForLabel() {
         String[] splitQuestion = question.split("\\s+");
         String label = "";
-        int labelLength = 4;
+        int labelLength = 6;
         for (int i = 0; i < labelLength; i++) {
             if (i == splitQuestion.length) {
                 break;
