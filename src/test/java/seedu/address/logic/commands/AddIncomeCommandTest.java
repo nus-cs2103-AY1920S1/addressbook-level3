@@ -64,7 +64,7 @@ public class AddIncomeCommandTest {
         // null -> returns false
         assertNotEquals(null, addFundraisingCommand);
 
-        // different claims -> returns false
+        // different incomes -> returns false
         assertNotEquals(addShirtSalesCommand, addFundraisingCommand);
     }
 

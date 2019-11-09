@@ -24,7 +24,7 @@ public class AutocorrectSuggestion {
      */
     public boolean isSameAutoCorrectionSuggestion(AutocorrectSuggestion other) {
 
-        return other == this;
+        return other.getWord().equals(this.getWord());
 
     }
 
