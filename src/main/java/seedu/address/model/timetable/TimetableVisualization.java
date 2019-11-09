@@ -53,8 +53,8 @@ public class TimetableVisualization {
     }
 
     private String getDayString(int dayOfWeek) {
-        // Right pad with space
         DayOfWeek day = DayOfWeek.of(dayOfWeek);
+        // Right pad with space
         String dayString = String.format("%-" + SPACES_BETWEEN_DAY_AND_TIMETABLE + "s", day.toString().substring(0, 3));
         StringBuilder result = new StringBuilder();
         result.append(dayString);
@@ -64,21 +64,21 @@ public class TimetableVisualization {
         for (int i = 0; i < 24; i++) {
             for (int j = 0; j <= 3; j++) {
                 dummyTimerange = null;
-                if (j != 3) {
+                if (j != 3) { // From 00 to 45
                     try {
                         dummyTimerange = new TimeRange(day, LocalTime.parse(String.format("%02d:%02d", i, j * 15)),
                                 day, LocalTime.parse(String.format("%02d:%02d", i, (j + 1) * 15)));
                     } catch (IllegalValueException e) {
                         e.printStackTrace();
                     }
-                } else if (i != 23) {
+                } else if (i != 23) { // From 45 to 00
                     try {
                         dummyTimerange = new TimeRange(day, LocalTime.parse(String.format("%02d:45", i)),
                                 day, LocalTime.parse(String.format("%02d:00", i + 1)));
                     } catch (IllegalValueException e) {
                         e.printStackTrace();
                     }
-                } else {
+                } else { // Special case for 2345
                     try {
                         dummyTimerange = new TimeRange(day, LocalTime.parse("23:45"),
                                 day, LocalTime.parse("23:59"));
@@ -93,6 +93,7 @@ public class TimetableVisualization {
     }
 
     private String getIndentation() {
+        // Indent for the labels
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < SPACES_BETWEEN_DAY_AND_TIMETABLE; i++) {
             result.append(" ");

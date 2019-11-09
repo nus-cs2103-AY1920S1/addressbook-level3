@@ -27,7 +27,7 @@ activate GenerateSlotCommandParser
 GenerateSlotCommandParser --> AddressBookParser
 deactivate GenerateSlotCommandParser
 
-AddressBookParser -> GenerateSlotCommandParser : parse(d/2)
+AddressBookParser -> GenerateSlotCommandParser : parse("d/2")
 activate GenerateSlotCommandParser
 
 create GenerateSlotCommand

@@ -69,7 +69,7 @@ public class TimetableInput {
      * @param lessonTypes List of lessonTypes. Can be found on left side of mapping in {@code LessonTypeMapping.java}. Each index of list must correspond with that of groups.
      * @param sem e.g. 1 or 2
      */
-    public List<TimeRange> getTimeRangesForModule(String moduleCode, List<String> groups, List<String> lessonTypes, int sem) throws IOException, IllegalValueException {
+    private List<TimeRange> getTimeRangesForModule(String moduleCode, List<String> groups, List<String> lessonTypes, int sem) throws IOException, IllegalValueException {
         ObjectMapper objectMapper = new ObjectMapper();
         URL url = new URL("https://api.nusmods.com/v2/2019-2020/modules/" + moduleCode.toUpperCase() + ".json");
         JsonNode root = objectMapper.readTree(url);
@@ -87,7 +87,7 @@ public class TimetableInput {
      * @param lessonType Type of lession. Can be found on left side of mapping in {@code LessonTypeMapping.java}
      * @param sem either 1 or 2
      */
-    public List<TimeRange> getTimeRangeFromEntry(JsonNode moduleNode, String group, String lessonType, int sem, String moduleCode) throws IllegalValueException, JsonProcessingException {
+    private List<TimeRange> getTimeRangeFromEntry(JsonNode moduleNode, String group, String lessonType, int sem, String moduleCode) throws IllegalValueException, JsonProcessingException {
         List<JsonNode> targets = new ArrayList<>();
         moduleNode.path("semesterData")
                 .path(sem - 1) // Sem 1
