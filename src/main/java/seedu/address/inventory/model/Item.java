@@ -13,7 +13,10 @@ public class Item {
     private final String category;
     private final String description;
     private Integer quantity;
-    private final Double cost;
+    //the cost below is the cost rounded up to 2 decimal places
+    private Double cost;
+    //the cost below is the cost to 15 decimal place for accuracy
+    private Double trueCost;
     private Double totalCost;
     private Double price;
     private Double subtotal;
@@ -29,6 +32,7 @@ public class Item {
         this.category = category;
         this.quantity = quantity;
         this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
+        this.trueCost = cost;
         this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * this.cost));
         this.price = Double.parseDouble(DECIMAL_FORMAT.format(price));
         this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(quantity * this.price));
@@ -44,7 +48,8 @@ public class Item {
         this.category = category;
         this.quantity = quantity;
         this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
-        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * this.cost));
+        this.trueCost = cost;
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * this.trueCost));
         this.price = 0.00;
         this.subtotal = 0.00;
         this.id = "" + i;
@@ -71,6 +76,11 @@ public class Item {
         return cost;
     }
 
+    public void setCost(double cost) {
+        this.trueCost = cost;
+        this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
+    }
+
     public double getTotalCost() {
         return totalCost;
     }
@@ -89,7 +99,6 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-        updateSubtotal();
     }
 
     /**
@@ -113,7 +122,7 @@ public class Item {
     }
 
     public void updateTotalCost() {
-        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(this.cost * this.quantity));
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(this.trueCost * this.quantity));
     }
 
     public String getId() {
