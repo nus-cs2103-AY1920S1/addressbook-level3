@@ -49,8 +49,6 @@ public class BadQuestions {
      */
     public String showBadQuestionsList(DueDate d) {
         try {
-            // FOR SET:
-            // Iterator<FlashCard> itr = set.iterator();
             ArrayList<FlashCard> list = internalMap.get(d.toString());
             StringBuilder sb = new StringBuilder();
             sb.append("For Deadline: " + d.toString() + "\n");
