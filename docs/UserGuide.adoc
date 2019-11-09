@@ -46,11 +46,11 @@ Dive into LiBerry with our simple set-up guide for a quick tour of our user inte
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 .Components of LiBerry's User Interface (UI)
-image::annotated-ui.png[]
+image::annotated-ui.png[align=center]
 +
 . The UI of LiBerry consists of 5 main components. +
 1. The *command box* where you input commands to interact with the software.
-2. The *command result display* which provides feedback for your inputs.
+2. The *command results display* which provides feedback for your inputs.
 3. The *displayed book list* which displays all the books in LiBerry's catalog and also search results.
 4. The *borrower panel* which displays information about a borrower and his/her borrowed books when LiBerry is in Serve mode.
 5. The *mode indicator* which indicates if LiBerry is in Normal mode or Serve mode.
@@ -320,8 +320,8 @@ Edits the name of the borrower to be `Betsy Crower`.
 ==== Loaning book(s): `loan`
 
 Loan book(s) to the currently served borrower. +
-Serial number of the book is used as the borrower would bring the physical copy of the book they want to borrow
-to the librarian. Thus, librarians need not search for the index of the book in the displayed book list.
+The serial number of the book is used as the borrower would bring the physical copy of the book they want to borrow
+to you. Thus, you do not have to search for the index of the book in the displayed book list.
 
 Format: `loan sn/BOOK_SN` +
 Format: `loan sn/BOOK_SN [sn/BOOK_SN]...` **- Coming in v2.0** +
@@ -329,18 +329,18 @@ Format: `loan sn/BOOK_SN [sn/BOOK_SN]...` **- Coming in v2.0** +
 Examples:
 
 * `loan sn/B00006` +
-Loans the book with serial number B00006 to the currently served borrower. +
+You loan out the book with serial number B00006 to the currently served borrower. +
 {empty} +
 +
-.User interface after book is loaned out.
-image::ug-loan-pic.png[width=850]
-After this command is entered, the command result display will provide a short summary of which book is loaned
+.The user interface after the book is loaned out.
+image::ug-loan-pic.png[width=850, align=center]
+After this command is entered, the command results display will provide you with a summary of which book is loaned
 out and tho who it is loaned to. As seen from the screenshot, the book will also be added to the list of currently loaned out books in the borrower's
-panel on the right. Inside the main list on the left, an on loan box would also indicate
+panel on the right. Inside the main list on the left, an on-loan box would also indicate
 this book as being loaned out.
 
 * `loan sn/B00201 sn/B02929 sn/B00203` **- Coming in v2.0** +
-Loans the books with serial numbers B00201, B02929 and B00203 to the currently served borrower.
+You loan out the books with serial numbers B00201, B02929 and B00203 to the currently served borrower.
 
 ==== Returning book(s): `return`
 
@@ -358,7 +358,7 @@ The index *must be a positive integer* such as 1, 2 or 3, and must appear in the
 {nbsp}
 
 .Screenshot to illustrate return commands that can be entered.
-image::ug-return.png[width=850]
+image::ug-return.png[width=850, align=center]
 * Referring to the above screenshot as an example, entering `return 1` would successfully return the book "Stefe Jobz".
 However, entering `return 3` would be invalid as there's no book at index 3 in the borrower panel. Entering `return -all`
 would return all of Bobby's loaned out books, which are "Stefe Jobz" and "Behaves".
@@ -366,7 +366,7 @@ would return all of Bobby's loaned out books, which are "Stefe Jobz" and "Behave
 
 ==== Renewing book(s): `renew`
 
-Renew book(s) from the list of currently loaned books, i.e., extend their due dates. +
+Renew book(s) that are still loaned by the borrower, i.e., extend their due dates. +
 
 Format: `renew INDEX` or `renew -all` +
 
@@ -375,31 +375,32 @@ Format: `renew INDEX` or `renew -all` +
 * `INDEX` indicates the book at this index number shown in the borrower's book list on the right side of the UI.
 The index *must be a positive integer* such as 1, 2 or 3, and must appear in the borrower panel.
 * `-all` indicates all the books currently loaned out by the borrower that still can be renewed.
-* Books that have reached the maximum renew count or are overdue cannot be renewed.
+* You cannot renew overdue books or books that have reached the maximum renew count.
+* If you just loaned out or renewed a book, you cannot renew that same book in the same Serve mode session.
 ****
 
 ==== Paying fines: `pay`
 
-Receive AMOUNT (in dollars) from the currently served borrower to pay off his/her outstanding fines. +
+Receive AMOUNT (in dollars and up to 2 decimal places) from the currently served borrower to pay off his/her outstanding fines. +
 
 Format: `pay $AMOUNT`
-
-IMPORTANT: `AMOUNT` can only have up to 2 decimal places.
 
 Examples:
 
 * `pay $12.80` +
-Receive $12.80 to pay off borrower's total outstanding fine. +
+You receive $12.80 from the borrower to pay off his/her fine. +
 {empty} +
 +
-.The command result display after paying fines.
-image::ug-pay.png[width=500]
-As seen from the screenshot above, after a fine amount is paid, a short summary can be seen. The remaining outstanding fine
-will be shown. If the borrower pays an amount greater than his/her total outstanding fine, the amount of change to
-be given back to the borrower is also shown.
+.The command results display after paying fines.
+image::ug-pay.png[width=470, align=center]
+As seen from the screenshot above, after a fine amount is paid, a summary can be seen. You will see any outstanding fine the
+borrower still has. If the borrower pays an amount greater than his/her total outstanding fine, you can refer to the change given line
+to see how much change you should return to the borrower.
 
 * `pay $5` +
-Receive $5 to pay off borrower's total outstanding fine.
+You receive $5 from the borrower to pay off his/her fine.
+
+// end::loanRelated[]
 
 ==== Reserving a book: `reserve` - Coming in v2.0
 
@@ -420,8 +421,6 @@ Examples:
 Reserves the 2nd book shown in the displayed book list for the currently served borrower.
 * `reserve sn/B02422` +
 Reserves the book with serial number `sn/B02422` for the currently served borrower.
-
-// end::loanRelated[]
 
 '''
 

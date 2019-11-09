@@ -522,78 +522,38 @@ it adheres to good programming practices as compared to Alternative 2, which *vi
 
 // tag::bookLoaningFeatures[]
 
-=== Book Loaning Features
-
-==== Functionalities
-The functionalities and commands associated with the book loaning feature are:
-
-* `loan sn/BOOK_SN`
-
-** Loans out a book based on its serial number.
-
-* `return INDEX [-all]`
-
-** Returns a book based on the index of that book shown on the GUI.
-
-* `renew INDEX [-all]`
-
-** Renews a book based on the index of that book shown on the GUI.
-
-* `reserve sn/BOOK_SN` or `reserve INDEX`
-
-** Reserves a book based on its serial number or index of that book shown on the GUI.
-
-* `pay AMOUNT`
-
-** Pay a fine amount for overdue books.
-
-The rationale for the different types of arguments for the loan, return, renew and reserve may not be apparent at first,
-but it is actually very simple.
-
-* When borrowers come to the librarian (our user) to borrow a book, the book itself would have
-a serial number. Thus, the user just types in the serial number of the book to be loaned out, instead of using the find
-command to locate that book in LiBerry to use its index.
-
-* Whereas, when a borrower comes to return a book, the librarian only sees a limited list of book that was loaned out by
-the borrower on the GUI. Hence, the librarian need not type the longer serial number to return that book, and instead, types
-its index shown in the GUI list. Likewise, the same idea is applied to renewing books
-
-* When reserving books for borrowers, it is possible that the book is found through the GUI, and thus, index is used. Or,
-the borrower brings the physical book forward to reserve it as he/she does not want to borrow it now.
+=== Book loaning feature
 
 ==== Implementation
 
-This feature is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`. The object diagram
-just after a book is loaned out can be seen below.
+The functionalities and commands associated with the book loaning feature are `loan`, `return`, `pay` and `renew`.
+This feature set is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`.
+
+The object diagram at the state when a book is just loaned out can be seen below.
 
 .Loan object diagram after a new Loan is created
-image::LoanObjectDiagram.png[width=880, align=center]
-{nbsp} +
+image::LoanObjectDiagram.png[width=800, align=center]
 
-In this instance, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
-The `Loan` associated to this loan, with `LoanId` L000123, is stored in the `LoanRecords` class of the model component.
-
+At that instant shown in the diagram, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
+The `Loan` associated with this book loan, with `LoanId` L000123, is stored in the `LoanRecords` class of the model component.
 Both the `Book` and `Borrower` objects also have access to this `Loan` object.
 
 In each `Loan` object, only the `BorrowerId` of the `Borrower` and `SerialNumber` of the `Book` is stored to reduce
-circular dependency.
+circular dependency. The `LoanRecords` class stores all the `Loan` objects tracked by LiBerry in a HashMap, where the key is its `LoanId`.
 
-The `LoanRecords` class stores all the `Loan` objects tracked by LiBerry in a HashMap, where the key is its `LoanId`.
-
-Immutability of each object is supported to ensure correctness of undo and redo functionality.
+The immutability of each object is supported to ensure the correctness of undo and redo functionality.
 
 ===== Loaning
 
-The following activity diagram summarizes what happens when a user enters a loan command:
+The following activity diagram summarizes what happens when a user enters a loan command.
 
 .Activity diagram when a loan command is entered
-image::LoaningActivityDiagram.png[width=650, align=center]
-{nbsp} +
+image::LoaningActivityDiagram.png[width=580, align=center]
 
-NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
-they are not shown.
+After `LoanCommand#execute(model)` is called, this series of checks shown in the above diagram is done to determine if
+the book can be loaned to the currently served borrower.
 
-When a book is successfully loaned out by a borrower, a new `Loan` object is created. The `LoanId` is automatically generated according
+When a book is successfully loaned out to a borrower, a new `Loan` object is created. The `LoanId` is automatically generated according
 to the number of loans in the `LoanRecords` object in the model. The `startDate` is also automatically set to today's date.
 The `endDate` is automatically set according to the loan period set in the user settings. This `Loan` object is added to
 `LoanRecords` through the call to `Model#addLoan(loan)`.
@@ -603,85 +563,92 @@ object being added into its `currentLoanList`. The new borrower object then repl
 `BorrowerRecords` object in the model. These two steps are done through the method call to `Model#servingBorrowerNewLoan(loan)`.
 The new `Book` instance is also created by copying the details of the original book object, and likewise, with this `Loan` object added into it.
 Similarly, the new book object replaces the old book object in the `Catalog` object in the model through the call to
-`Model#setBook(bookToBeLoaned, loanedOutBook)`. These were done to support immutability of the objects.
+`Model#setBook(bookToBeLoaned, loanedOutBook)`. These were done to support the immutability of the objects.
 
 ===== Returning
 
-The following activity diagram summarizes what happens when a user enters a return command:
-
-.Activity diagram when a book is being returned.
-image::ReturningActivityDiagram.png[width=820, align=center]
-{nbsp} +
-
-NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
-they are not shown.
-
 When a loaned out book is successfully returned by a borrower, the associated `Loan` object is moved from the borrower's
 `currentLoanList` to `returnedLoanList`. Inside the book object, this `Loan` object is also removed. Inside this loan
-object, the `returnDate` is added according to today's date. The `remainingFineAmount` of this loan object is also
-calculated based on the fine amount set in the user settings.
+object, the `returnDate` is set to today's date. The `remainingFineAmount` of this loan object is also
+calculated based on the daily fine increment set in the user settings.
 
-Similarly, the creation of new objects for replacement are also done to support immutability. They are supported by the
-methods `Model#setBook(bookToBeReturned, returnedBook)` and `Model#servingBorrowerReturnLoan(returningLoan)`.
-
-===== Renewing
-
-When a book is successfully renewed by a borrower, the `renewCount` of the `Loan` object is incremented by 1
-and its `dueDate` is also increased by the renew period set in the user settings.
-
-Similarly, the creation of new objects for replacement are also done to support immutability.
-
-===== Reserving
-
-When a book is successfully reserved by a borrower, the `Book` object is marked as reserved and is added to the borrower's
-`reservedBookList`.
-
-Similarly, the creation of new objects for replacement are also done to support immutability.
+Similarly, the creation of new objects for replacement is also done to support immutability. The `return` command is supported by the
+methods `Model#setBook(bookToBeReturned, returnedBook)`, `Model#servingBorrowerReturnLoan(returningLoan)` and
+`Model#updateLoan(loanToBeReturned, returnedLoan)`, which updates the `Catalog`, `BorrowerRecords` and `LoanRecords`
+in the model respectively.
 
 ===== Paying fines
 
-When a fine amount is successfully paid by a borrower, the `remainingFineAmount` and `paidFineAmount` of the loans in
-the borrower's `returnedLoanList` is updated accordingly.
+When a fine amount is successfully paid by a borrower through the call to `Model#payFines(amountInCents)`,
+the `remainingFineAmount` and `paidFineAmount` of the loans in the borrower's `returnedLoanList` is updated accordingly.
+The fine amount is tracked individually inside each loan object instead of as a variable inside the `Borrower` instance
+that stores the total fine amount incurred by that borrower.
+This is done to support the ease of extension in the future.
+For example, the total fine each book has garnered can be easily calculated.
 
-Similarly, the creation of new objects for replacement are also done to support immutability.
+Similarly, the creation of new objects for replacement is also done to support immutability.
+
+===== Renewing
+
+The following sequence diagram illustrates the series of method calls when a `RenewCommand` is executed to renew book(s).
+
+.Sequence diagram illustrating the execution of a RenewCommand
+image::RenewSequenceDiagram.png[width=700, align=center]
+
+As seen in the diagram, firstly, a list of books that can be renewed is obtained through the `RenewCommand#getRenewingBooks(model)` method.
+For each `Loan` object associated with each book, a new instance is created with its original `renewCount` incremented by 1 and its
+`dueDate` extended by the renew period set in the user settings. This is done through the method call to `Loan#renewLoan(extendedDueDate)`.
+The call to `Book#renewBook(renewedLoan)` then returns a new instance of this book with its loan object updated.
+
+The method calls to `Model#setBook(bookToBeRenewed, renewedBook)`, `Model#servingBorrowerRenewLoan(loanToBeRenewed, renewedLoan)`
+and `Model#updateLoan(loanToBeRenewed, renewedLoan)` then updates the `Catalog`, `BorrowerRecords` and `LoanRecords` respectively.
 
 ==== Design Considerations
 
 ===== Aspect: File storage of loans
 
 Inside the model, for each current loan (loans that are not returned yet), the `Book`, the `Borrower` and the `LoanRecords`
-point to the same the same `Loan` object. LiBerry's storage system is such that `Catalog` stores the books,
+point to the same `Loan` object. LiBerry's storage system is such that `Catalog` stores the books,
 `BorrowerRecords` stores the borrowers and `LoanRecords` stores the loans. Thus, a decision was made to decide how these
 loans are serialized and stored in the user's file system.
 
-* **Alternative 1:** Save the whole `Loan` object in each book in the `catalog.json` and save the the whole of every `Loan`
-object in each borrower in `borrowerrecords.json`. The `Loan` object is also duplicated in `loanrecords.json`.
-** Pros: Easy to implement. No need to read storage files in a specific order.
-** Cons: Storage memory size issues. Same information is duplicated and stored in all 3 storage files.
+* **Alternative 1:** Save the entire `Loan` object in each book in `catalog.json` and save the entirety of every single `Loan`
+object associated with a borrower in `borrowerrecords.json`. The `Loan` object is also duplicated in `loanrecords.json`.
+** *Pros*: Easy to implement. No need to read storage files in a specific order.
+** *Cons*: Storage memory size issues. The same information is duplicated and stored in all 3 storage files. +
+{empty} +
 
-* **Alternative 2 (selected choice):** Save only the `LoanId` of each `Loan` object in each book in the `catalog.json`
+* **Alternative 2 (selected choice):** Save only the `LoanId` of each `Loan` object in each book in `catalog.json`
 and save a list of `LoanId` in each borrower in `borrowerrecords.json`. The whole `Loan` object is only saved in
-`loanrecords.json`. When reading the storage files at the start of the application, `loanrecords.json` need to be read
+`loanrecords.json`. When reading the storage files at the start of the application, `loanrecords.json` needs to be read
 in first, before the borrowers and books can be read in as they would get the loan objects from the `LoanRecords` based
 on their `LoanId` s.
-** Pros: Uses less memory as only `LoanId` is stored for the books and borrowers, instead of the whole serialized loan objects.
-Also, `LoanRecords` thus serve as a single source of truth.
-** Cons: Must ensure that the reading of stored files are in the correct order, and also correct `Loan` objects are referenced
-after reading in `borrowerrecords.json` and `catalog.json`. Method used to retrieve a `Loan` object from its `LoanId` must
+** *Pros*: Uses less memory as only `LoanId` is stored for the books and borrowers, instead of the whole serialized loan objects.
+** *Cons*: The reading of stored files have to be in a certain correct order. It must be ensured that the correct `Loan` object is referenced
+after reading in `borrowerrecords.json` and `catalog.json`, and also every time a `Loan` object is updated. The method used to retrieve a `Loan` object from its `LoanId` must
 also be fast enough as there can be hundreds of thousands of loans.
+
+*Alternative 2* was chosen as this significantly reduced the file size of the storage files.
+If alternative 1 was used, the memory needed to store each `Loan` object would be 3 times more compared to alternative 2.
+Furthermore, `LoanRecords` could then also serve as a single source of truth for loan data.
 
 ===== Aspect: Data structure to support recording of loans in LoanRecords
 
 * **Alternative 1:** Use a list data structure, such as an `ArrayList` to store the loans in the model component.
-** Pros: Easy to implement. Easy to obtain insertion order of the loans and sort through the list.
-** Cons: Slow to search for a `Loan` based on its `LoanId`, i.e., O(n) time, as the list must be traversed to find the
+** *Pros*: Easy to implement. Easy to obtain insertion order of the loans and sort through the list.
+** *Cons*: Slow to search for a `Loan` based on its `LoanId`, i.e., O(n) time, as the list must be traversed to find the
 correct associated `Loan` object. The additional time taken adds up when reading the storage files during the starting
-up of the application. Thus, it can make the application feel laggy and unresponsive at the start.
+up of the application. Thus, it can make the application feel laggy and unresponsive at the start. +
+{empty} +
 
 * **Alternative 2 (selected choice):** Use a `HashMap` to store the loans, where the key is its `LoanId`.
-** Pros: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
-** Cons: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
+** *Pros*: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
+** *Cons*: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
 `startDate` in order to obtain their insertion order.
+
+*Alternative 2* was chosen as the application frequently needs to retrieve and access a `Loan` object based on its `LoanId`.
+Thus, using a `HashMap` would greatly reduce the time needed for such operations. Moreover, the application rarely needed
+to obtain the insertion order of a `Loan` object.
 
 // end::bookLoaningFeatures[]
 
@@ -1018,49 +985,6 @@ Use case ends
 +
 Use case resumes at step 2.
 
-[discrete]
-==== Use case: Loan a book
-
-*MSS*
-
-1.  Borrower comes to user to borrow a book.
-2.  User enters the borrower's ID.
-3.  LiBerry shows that the borrower is being served.
-4.  User loans out the book to the borrower.
-5.  LiBerry shows the book as being successfully loaned out.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. LiBerry cannot find the ID in its system.
-[none]
-** 2a1. LiBerry requests for a valid and registered ID.
-[none]
-** 2a2. User enters new ID.
-** Steps 2a1-2a2 are repeated until the ID entered is valid.
-+
-Use case resumes at step 3.
-+
-{empty} +
-* 3a. The book cannot be loaned out.
-+
-[none]
-** 3a1. LiBerry shows an error message.
-+
-Use case ends.
-+
-{empty} +
-[none]
-* *a. At any time, the user makes a typo in the input.
-[none]
-** *a1. User undoes the last command entered.
-[none]
-** *a2. User re-types the input.
-+
-Use case resumes at the step preceding this.
-
 //tag::yutingUseCase[]
 [discrete]
 ==== Use case: Register a borrower
@@ -1139,6 +1063,106 @@ Use case ends.
 
 //end::yutingUseCase[]
 
+[discrete]
+==== Use case: Loan a book
+
+*MSS*
+
+1.  Borrower comes to user to borrow a book.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User loans out the book to the borrower.
+5.  LiBerry shows the book as being successfully loaned out.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. LiBerry cannot find the ID in its system.
+[none]
+** 2a1. LiBerry requests for a valid and registered ID.
+[none]
+** 2a2. User enters new ID.
+** Steps 2a1-2a2 are repeated until the ID entered is valid.
++
+Use case resumes at step 3.
++
+{empty} +
+* 4a. The book cannot be loaned out.
++
+[none]
+** 4a1. LiBerry shows an error message.
++
+Use case ends.
++
+{empty} +
+[none]
+* *a. At any time, the user makes a typo in the input.
+[none]
+** *a1. User undoes the last command entered.
+[none]
+** *a2. User re-types the input.
++
+Use case resumes at the step preceding this.
+
+[discrete]
+==== Use case: Return a book
+
+*MSS*
+
+1.  Borrower comes to user to return a book.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User returns the book for the borrower.
+5.  LiBerry shows the book as being successfully returned and shows the fine amount incurred.
++
+Use case ends.
+
+[discrete]
+==== Use case: Renew a book
+
+*MSS*
+
+1.  Borrower comes to user to renew a book.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User renews the book for the borrower.
+5.  LiBerry shows the book as being successfully renewed.
++
+Use case ends.
+
+*Extensions*
+
+* 4a. The book cannot be renewed.
++
+[none]
+** 4a1. LiBerry shows an error message.
++
+Use case ends.
+
+[discrete]
+==== Use case: Paying a fine
+
+*MSS*
+
+1.  Borrower comes to user to pay a fine.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User deducts the given amount from the borrower's outstanding fine.
+5.  LiBerry shows the fine amount which is paid, the remaining fine amount left, and the change to be given.
++
+Use case ends.
+
+*Extensions*
+
+* 4a. The borrower has no outstanding fines.
++
+[none]
+** 4a1. LiBerry shows an error message.
++
+Use case ends.
+
 === Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
@@ -1147,8 +1171,6 @@ sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
 able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 === Glossary
 
 [[mainstream-os]] Mainstream OS::
@@ -1156,22 +1178,6 @@ Windows, Linux, Unix, OS-X
 
 [[ui]] UI::
 User Interface
-
-=== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 === Instructions for Manual Testing
 
@@ -1217,3 +1223,110 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+==== Loaning a book
+
+. Loaning a book while in Serve mode.
+
+.. Prerequisites: LiBerry is in Serve mode, serial number is valid, book exists in the catalog and book is not on loan.
+.. Test case: `loan sn/VALID_SERIAL_NUMER` +
+Expected: Book with the given `VALID_SERIAL_NUMBER` is loaned to the currently served borrower. The book is added
+to the list of currently loaned books in the borrower panel. A box stating "On Loan" and relevant details also appear
+on the book in the UI, beside the label that states its serial number.
+.. Using the original sample data when you first load up LiBerry without any changes made, you can enter the following test case: `serve id/K0001` followed
+by `loan sn/B00001` to loan the first book in the list, "Harry Botter", to the borrower "Xo Xo". +
+Expected: "Harry Botter" is loaned to "Xo Xo".
+.. Other incorrect loan commands to try: `loan`, `loan abc`,`loan sn/INVALID_SERIAL_NUMBER`,
+`loan sn/SERIAL_NUMBER_OF_A_BOOK_THAT_DOES_NOT_EXIST`, `sn/SERIAL_NUMBER_OF_BOOK_ALREADY_ON_LOAN` +
+Expected: Book is not loaned out. Error details shown in the command results display.
+
+. Loaning a book while not in Serve mode.
+.. Prerequisites: LiBerry is not in Serve mode, command format is correct and serial number is valid.
+.. Test case: `loan sn/VALID_SERIAL_NUMBER` +
+Expected: Book is not loaned out. An error stating not in Serve mode is shown.
+
+. Loaning a book with an invalid serial number. An invalid serial number is one which does not have 5 digits following a
+capital 'B' character.
+.. Prerequisites: Command format is correct.
+.. Test Case: `loan sn/INVALID_SERIAL_NUMBER` +
+Expeected: Book is not loaned out. An error stating the correct format of a serial number is shown.
+
+==== Returning a book
+
+. Returning a book while in Serve mode.
+
+.. Prerequisites: LiBerry is in Serve mode and there are books listed in the borrower panel on the right.
+.. Test case: `return 1` +
+Expected: The first book (at index 1) in the borrower's list on the right is returned and no longer on loan, i.e., removed from that list.
+The box on the book in the main list on the left stating that is in "On Loan" also disappears.
+The fine incurred for that book is shown and the "Fines: $..." in the borrower panel is updated if the fine is greater than $0.
+.. Test case: `return -all` +
+Expected: All the books in the borrower's list on the right is returned and no longer on loan. The list in the borrower panel
+is now empty. The boxes on the books in the main list on the left stating that they are "On Loan" also disappears.
+The fine incurred for each book is shown and the "Fines: $..." in the borrower panel is updated if the any fine incurred is greater than $0.
+.. Incorrect return commands to try: `return`, `return abc`, `return 0`, `return x` (where x is larger than the borrower panel's list size). +
+Expected: No book is returned. Error details shown in the command result display.
+
+. Returning a book while not in Serve mode.
+
+.. Prerequisites: LiBerry is not in Serve mode and command format is correct.
+.. Test case: `return 1` or `return -all` +
+Expected: No book is returned. An error stating not in Serve mode is shown.
+
+
+==== Renewing a book
+
+. Renewing a book while in Serve mode.
+.. Prerequisites: LiBerry is in Serve mode and there are books listed in the borrower panel on the right that can be renewed.
+Only books that are not overdue, books that have not reached the maximum renew count and books that were not just loaned or renewed
+in the same Serve mode session can be renewed.
+.. Test case: `renew 1` +
+Assumption: The first book (at index 1) in the borrower's list on the right can be renewed. +
+Expected: This first book is renewed and its due date is extended. The box on that book shows the updated due date
+and the "Renewed: _x_ times" has been incremented by 1.
+.. Test case: `renew -all` +
+Assumption: There are books in the borrower's list on the right that can be renewed. +
+Expected: These renewable books are renewed and their due dates are extended. The boxes on those books show the updated
+due dates and the "Renewed: _x_ times" were incremented by 1.
+.. Incorrect renew commands to try: `renew`, `renew abc`, `renew 0`,
+ `renew x` (where x is larger than the borrower panel's list size or the book at that index cannot be renewed) +
+Expected: No book is renewed. Error details shown in the command result display.
+
+. Renewing a book while not in Serve mode.
+.. Prerequisites: LiBerry is not in Serve mode and command format is correct.
+.. Test case: `renew 1` or `renew -all` +
+Expected: No book is renewed. An error stating not in Serve mode is shown.
+
+==== Paying fines
+
+. Paying fines while in Serve mode.
+.. Prerequisites: LiBerry is in Serve mode and the borrower has outstanding fines. The "Fines: $..." in the borrower panel
+should not be $0.
+.. Test case: `pay $2` +
+Expected: $2 is deducted from the borrower's fine amount shown in the borrower panel on the right. Command results display will also indicate the remaining outstanding fine
+the borrower still has and the change amount to be given back to the borrower.
+.. Test case: `pay $2.22` +
+Expected: Similar to previous test case (`pay $2`), except $2.22 is deducted instead of $2.
+.. Test case: `pay $0` +
+Expected: Fine amount in borrower panel remains the same. An error stating the valid dollar amount is shown.
+.. Test case: `pay $abc` +
+Expected: Same as previous test case (`pay $2`).
+.. Test case: `pay $-1` +
+Expected: Same as previous test case (`pay $2`).
+.. Test case: `pay $99999999999999999999` (or any dollar amount greater than $21474836.47) +
+Expected: Same as previous test case (`pay $2`).
+.. Other incorrect pay commands to try: `pay`, `pay xyz`, `pay 1` +
+Expected: Fin amount in borrower panel remains the same. Error details shown in the command result display.
+
+. Paying fines while not in Serve mode.
+.. Prerequisites: LiBerry is in Serve mode, command format is correct and dollar amount is valid.
+.. Test case: `pay $1` +
+Expected: No fine is paid. An error stating not in Serve mode is shown.
+
+. Using the original sample data when you first load up LiBerry without any changes made, you can enter the following positive test case
+to test the pay command: `serve id/K0004` followed by `pay $2` +
+Expected: "Fine of $1.10 +
+paid by +
+Borrower: [K0004] Hiap Seng +
+Outstanding fine: $0.00 +
+Change given: $0.90" appears on the command results display. The borrower panel now shows "Fines $0.00".
