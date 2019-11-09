@@ -38,10 +38,12 @@ public class SavingsCard extends UiPart<Region> {
             savingsPane.getStyleClass().clear();
             savingsPane.getStyleClass().add("cell_withdrawal");
             timePane.getStyleClass().clear();
-            timePane.getStyleClass().add("cell_withdrawal");
+            timePane.getStyleClass().add("cell_savings_timing");
         } else {
             savingsPane.setText("$" + savings.toString());
             timePane.setText(savings.getTimeStamp().getTimeAgoString());
+            timePane.getStyleClass().clear();
+            timePane.getStyleClass().add("cell_savings_timing");
         }
     }
 

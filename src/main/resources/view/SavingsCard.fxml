@@ -18,14 +18,14 @@
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
-            <HBox alignment="CENTER_LEFT" spacing="5">
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
                 <Label fx:id="savingsPane" styleClass="cell_savings" text="\$first">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="timePane" styleClass="cell_savings" text="\$first">
+                <Label fx:id="timePane" styleClass="cell_savings_timing" text="\$first">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />
