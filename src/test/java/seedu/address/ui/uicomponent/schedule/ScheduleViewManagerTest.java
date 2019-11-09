@@ -1,16 +1,17 @@
 package seedu.address.ui.uicomponent.schedule;
 
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.display.schedulewindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.ui.schedule.ScheduleViewManager;
 import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static seedu.address.testutil.Assert.assertThrows;
 
 public class ScheduleViewManagerTest {
     private static final PersonSchedule TEST_EMPTY_SCHEDULE = PersonScheduleBuilder.buildEmptySchedule();

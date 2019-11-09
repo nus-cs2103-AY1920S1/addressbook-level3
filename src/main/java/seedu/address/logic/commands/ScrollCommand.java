@@ -26,7 +26,7 @@ public class ScrollCommand extends Command {
                 || status == ScheduleWindowDisplayType.NONE) {
             return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
         } else {
-            return new CommandResult(MESSAGE_FAILURE, false, false, false, false);
+            return new CommandResult(MESSAGE_FAILURE);
         }
 
 

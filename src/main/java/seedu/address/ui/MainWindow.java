@@ -194,9 +194,8 @@ public class MainWindow extends UiPart<Stage> {
      * Handles tab switch view.
      */
     public void handleTabSwitch() {
-        System.out.println(currentSidePanelDisplay.toString());
         if (!currentSidePanelDisplay.equals(SidePanelDisplayType.TABS)) {
-            handleChangeToTabsPanel();
+            //Do nothing.
         } else if (tabPanel.getTabs().getSelectionModel().getSelectedIndex() == 0) {
             tabPanel.getTabs().getSelectionModel().select(1);
         } else {

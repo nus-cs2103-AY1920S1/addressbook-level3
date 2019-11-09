@@ -29,7 +29,7 @@ public class ExportCommand extends Command {
         requireNonNull(model);
         ScheduleWindowDisplayType state = model.getState();
         if (!state.equals(ScheduleWindowDisplayType.PERSON) && !state.equals(ScheduleWindowDisplayType.GROUP)) {
-            throw new CommandException(MESSAGE_FAILURE);
+            return new CommandResult(MESSAGE_FAILURE);
         }
         return new CommandResult(MESSAGE_SUCCESS, false , false, true);
     }

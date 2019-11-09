@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 
@@ -16,16 +17,18 @@ public class SwitchTabCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
 
         ScheduleWindowDisplayType state = model.getState();
+        CommandResult commandResult;
         if (state == ScheduleWindowDisplayType.HOME) {
-            CommandResult commandResult =
-                    new CommandResult(MESSAGE_SUCCESS, false, false, false);
+            commandResult = new CommandResult(MESSAGE_SUCCESS, false, false, false);
             commandResult.setIsSwitchTabs(true);
             return commandResult;
         } else {
-            return new CommandResult(MESSAGE_FAILURE, false, false, false);
+            commandResult = new CommandResult(MESSAGE_FAILURE);
+            commandResult.setIsSwitchTabs(true);
+            return commandResult;
         }
 
     }

@@ -28,7 +28,7 @@ public class ToggleNextWeekCommand extends Command {
                 || status == ScheduleWindowDisplayType.NONE) {
             return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, false, true);
         } else {
-            return new CommandResult(MESSAGE_FAILURE, false, false);
+            return new CommandResult(MESSAGE_FAILURE);
         }
     }
 
