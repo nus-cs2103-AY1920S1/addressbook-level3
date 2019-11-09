@@ -36,23 +36,27 @@ public class DateUtil {
 
     /** Date pattern with dashes (01-Jan-2019). **/
     private static final Pattern DATE_MONTH_DASH_PATTERN =
-            Pattern.compile("([0-9]{1,2})-([a-zA-Z]{3})(?:$|-)([0-9]{0,4})");
+            Pattern.compile("([0-9]{1,2})-([a-zA-Z]{3})(?:$|-)([0-9]*)");
 
     /** Date pattern with spaces (01 Jan 2019). **/
     private static final Pattern DATE_MONTH_SPACE_PATTERN =
-            Pattern.compile("([0-9]{1,2}) ([a-zA-Z]{3})(?:$| )([0-9]{0,4})");
+            Pattern.compile("([0-9]{1,2}) +([a-zA-Z]{3})(?:$| +)([0-9]*)");
 
     /** Date pattern with dashes (Jan-01-2019). **/
     private static final Pattern DATE_MONTH_ALT_DASH_PATTERN =
-            Pattern.compile("([a-zA-Z]{3})-([0-9]{1,2})(?:$|-)([0-9]{0,4})");
+            Pattern.compile("([a-zA-Z]{3})-([0-9]{1,2})(?:$|-)([0-9]*)");
 
     /** Date pattern with spaces (Jan 01 2019). **/
     private static final Pattern DATE_MONTH_ALT_SPACE_PATTERN =
-            Pattern.compile("([a-zA-Z]{3}) ([0-9]{1,2})(?:$| )([0-9]{0,4})");
+            Pattern.compile("([a-zA-Z]{3}) +([0-9]{1,2})(?:$| +)([0-9]*)");
 
-    /** Prohibited day tokens **/
-    private static final String[] PROHIBITED_DAY_TOKENS =
+    /** Day tokens **/
+    private static final String[] DAY_TOKENS =
             new String[] { "mon", "tue", "wed", "thu", "fri", "sat", "sun" };
+
+    /** Month tokens **/
+    private static final String[] MONTH_TOKENS =
+            new String[] { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
 
     /** Parser for natural language processing. **/
     private static final Parser PARSER = new Parser();
@@ -168,9 +172,14 @@ public class DateUtil {
             return false;
         }
 
-        // Check February (edge case)
-        if (month.equalsIgnoreCase("feb") && day > 28) {
-            return isValidDate(Integer.parseInt(year), 2, day);
+        if (year.isEmpty()) {
+            year = String.format("%d", LocalDate.now().getYear());
+        }
+
+        for (int i = 0; i < MONTH_TOKENS.length; i++) {
+            if (month.trim().equalsIgnoreCase(MONTH_TOKENS[i])) {
+                return isValidDate(Integer.parseInt(year), i + 1, day);
+            }
         }
 
         return true;
@@ -240,9 +249,10 @@ public class DateUtil {
 
                 builder.append(String.format("%d/%d/%d", year, month, day));
             } else {
-                for (String prohibitedToken : PROHIBITED_DAY_TOKENS) {
-                    if (token.equalsIgnoreCase(prohibitedToken)
-                            || token.equalsIgnoreCase(prohibitedToken + ",")) {
+                // Do not allow day tokens since they cause problems.
+                for (String dayToken : DAY_TOKENS) {
+                    if (token.equalsIgnoreCase(dayToken)
+                            || token.equalsIgnoreCase(dayToken + ",")) {
                         return "";
                     }
                 }

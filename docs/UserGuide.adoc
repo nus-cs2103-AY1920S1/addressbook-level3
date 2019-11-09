@@ -116,22 +116,21 @@ Whenever a particular command requires a `DATE` field, you can choose either of 
 * *Relaxed Dates*
 ** The 31st of April in the year 2008
 ** 21 Nov 1997
-** Jan 21,'97
 ** jan 1st
 ** february twenty-eight
 * *Relative Dates*
-** next thursday/ last wednesday
-** today/ tomorrow/ yesterday
-** next week/ next month / next year
+** next thursday / last wednesday
+** today / tomorrow / yesterday
+** next week / next month / next year
 ** 3 days from now
 ** three weeks ago
 * *Date Alternatives*
-** next wed or thurs
-** oct 3rd or 4th
+** next wed to thurs
+** oct 3rd to 4th
 * *Prefixes*
-** day after/ the day before
-** the monday after/ the monday before
-** 2 fridays before/ 4 tuesdays after
+** day after / the day before
+** the monday after / the monday before
+** 2 fridays before / 4 tuesdays after
 
 [TIP]
 You do not need to specify which date format you would like to use as MoneyGoWhere will be able to differentiate it from the input received. However, if today is Wednesday and `wednesday` is entered, it will be considered next's week Wednesday.
