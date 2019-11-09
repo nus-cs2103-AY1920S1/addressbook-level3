@@ -263,7 +263,7 @@ Deletes the borrower with the borrower ID `id/K0001`
 
 Undoes the previous command/action.
 This command only works for commands that modifies the
-catalog, loan records and borrower records.
+catalog, loan records, borrower records or user settings.
 
 Undoable Commands:
 
