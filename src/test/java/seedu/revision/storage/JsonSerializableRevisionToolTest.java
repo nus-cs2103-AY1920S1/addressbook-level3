@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.revision.commons.exceptions.IllegalValueException;
 import seedu.revision.commons.util.JsonUtil;
 import seedu.revision.model.RevisionTool;
-import seedu.revision.testutil.TypicalAnswerables;
+import seedu.revision.testutil.TypicalMcqs;
 
 public class JsonSerializableRevisionToolTest {
 
@@ -25,7 +25,7 @@ public class JsonSerializableRevisionToolTest {
         JsonSerializableRevisionTool dataFromFile = JsonUtil.readJsonFile(TYPICAL_ANSWERABLES_FILE,
                 JsonSerializableRevisionTool.class).get();
         RevisionTool addressBookFromFile = dataFromFile.toModelType();
-        RevisionTool typicalAnswerablesAddressBook = TypicalAnswerables.getTypicalRevisionTool();
+        RevisionTool typicalAnswerablesAddressBook = TypicalMcqs.getTypicalRevisionTool();
         assertEquals(addressBookFromFile, typicalAnswerablesAddressBook);
     }
 

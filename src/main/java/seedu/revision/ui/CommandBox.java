@@ -2,6 +2,7 @@ package seedu.revision.ui;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -30,7 +31,7 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private StackPane commandBox;
 
-    private AutoComplete autoComplete;
+    private AutoComplete autoCompleteField;
 
     /**
      * The text box in the UI.
@@ -41,20 +42,21 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         if (mainWindow) {
-            autoComplete = new AutoComplete();
-            autoComplete.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault(true));
-            autoComplete.setId("commandTextField");
+            autoCompleteField = new AutoComplete();
+            autoCompleteField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault(true));
+            autoCompleteField.getStyleClass().add("commandTextField");
 
-            autoComplete.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            autoCompleteField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if (keyEvent.getCode() == KeyCode.ENTER) {
                     handleCommandEntered(true);
                 }
             });
 
-            commandBox.getChildren().add(autoComplete);
+            commandBox.getChildren().add(autoCompleteField);
         } else {
             commandTextField = new TextField();
             commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault(false));
+            commandTextField.getStyleClass().add("commandTextField");
             commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
                 if (keyEvent.getCode() == KeyCode.ENTER) {
                     handleCommandEntered(false);
@@ -70,21 +72,23 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleCommandEntered(Boolean mainWindow) {
-        if (mainWindow) {
-            try {
-                commandExecutor.execute(autoComplete.getText());
-                autoComplete.setText("");
-            } catch (CommandException | ParseException | IOException e) {
-                setStyleToIndicateCommandFailure(true);
+        Platform.runLater(() -> {
+            if (mainWindow) {
+                try {
+                    commandExecutor.execute(autoCompleteField.getText());
+                    autoCompleteField.setText("");
+                } catch (CommandException | ParseException | IOException e) {
+                    setStyleToIndicateCommandFailure(true);
+                }
+            } else {
+                try {
+                    commandExecutor.execute(commandTextField.getText());
+                    commandTextField.setText("");
+                } catch (CommandException | ParseException | IOException e) {
+                    setStyleToIndicateCommandFailure(false);
+                }
             }
-        } else {
-            try {
-                commandExecutor.execute(commandTextField.getText());
-                commandTextField.setText("");
-            } catch (CommandException | ParseException | IOException e) {
-                setStyleToIndicateCommandFailure(false);
-            }
-        }
+        });
     }
 
     /**
@@ -93,7 +97,7 @@ public class CommandBox extends UiPart<Region> {
      */
     private void setStyleToDefault(Boolean mainWindow) {
         if (mainWindow) {
-            autoComplete.getStyleClass().remove(ERROR_STYLE_CLASS);
+            autoCompleteField.getStyleClass().remove(ERROR_STYLE_CLASS);
         } else {
             commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
         }
@@ -106,7 +110,7 @@ public class CommandBox extends UiPart<Region> {
     private void setStyleToIndicateCommandFailure(Boolean mainWindow) {
         ObservableList<String> styleClass;
         if (mainWindow) {
-            styleClass = autoComplete.getStyleClass();
+            styleClass = autoCompleteField.getStyleClass();
         } else {
             styleClass = commandTextField.getStyleClass();
         }
@@ -119,6 +123,10 @@ public class CommandBox extends UiPart<Region> {
 
     public TextField getCommandTextField() {
         return commandTextField;
+    }
+
+    public AutoComplete getAutoCompleteField() {
+        return autoCompleteField;
     }
 
     /**

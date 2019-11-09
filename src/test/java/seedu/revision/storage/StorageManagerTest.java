@@ -2,7 +2,7 @@ package seedu.revision.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.getTypicalRevisionTool;
 
 import java.nio.file.Path;
 
