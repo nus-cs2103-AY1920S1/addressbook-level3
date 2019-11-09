@@ -35,6 +35,7 @@ import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPred
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 
+
 /**
  * Contains utility methods for populating {@code AlgoBase} with sample data.
  */
@@ -281,9 +282,10 @@ public class SampleDataUtil {
             for (Tag tag : sampleProblem.getTags()) {
                 if (tag.getName().equals("Graph")) {
                     filter = true;
+                    break;
                 }
             }
-            if (filter == false) {
+            if (!filter) {
                 tasks1.add(new Task(sampleProblem, LocalDate.now().plusMonths(1), false));
             } else {
                 tasks2.add(new Task(sampleProblem, LocalDate.now().plusMonths(1), false));
@@ -295,8 +297,8 @@ public class SampleDataUtil {
         Plan samplePlan = new Plan(
             new PlanName("Data Structures"),
             new PlanDescription("CS2040 Data Structures"),
-            LocalDate.now(),
-            LocalDate.now().plusMonths(1),
+                LocalDate.now(),
+                LocalDate.now().plusMonths(1),
             tasks1
         );
         sampleAb.addPlan(samplePlan);

@@ -1,6 +1,5 @@
 package seedu.algobase.integration;
 
-import static seedu.algobase.integration.IntegrationTestUtil.assertPlanName;
 import static seedu.algobase.integration.IntegrationTestUtil.assertProcessedPlanListOfLength;
 import static seedu.algobase.integration.IntegrationTestUtil.getTempFilePath;
 
@@ -21,10 +20,8 @@ import seedu.algobase.storage.JsonAlgoBaseStorage;
 import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
-public class PlanCommandsIntegrationTest {
 
-    // --- COPY BELOW FOR INTEGRATION TESTS ----------------------------------------------------------------
-
+public class ListPlanCommandIntegrationTest {
     @TempDir
     public Path testFolder;
 
@@ -42,18 +39,9 @@ public class PlanCommandsIntegrationTest {
         logicManager = new LogicManager(modelManager, storageManager);
     }
 
-    // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
-
     @Test
-    public void addplan_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("addplan n/ByteDance d/coding test for Software engineering "
-                + "start/2019-03-01 end/2019-05-31\n");
-        logicManager.execute("addplan n/Bilibili d/coding test for Actionfun campus recruiting");
-        logicManager.execute("listplan");
-        assertProcessedPlanListOfLength(logicManager, 4);
-        logicManager.execute("editplan 2 d/coding test for Bilibili campus recruiting "
-                + "start/2019-04-01 end/2019-04-30\n");
-        logicManager.execute("findplan n/bytedance d/software test start/2019-04-01 end/2019-04-30");
-        assertPlanName(logicManager, "ByteDance");
+    public void listplan_allConstraints() throws CommandException, ParseException {
+        logicManager.execute("listplan\n");
+        assertProcessedPlanListOfLength(logicManager, 2);
     }
 }
