@@ -308,7 +308,10 @@ well with our undo & redo mechanism.
 ** Cons: More complex to implement.
 
 The reason why we chose alternative 1 is because it is less complex to implement and the code is much cleaner for better
-readability which helps in future expansion.
+readability which helps in future extensions.
+
+==== Sort Note feature
+
 
 === Logging
 
@@ -831,7 +834,7 @@ Reliability
 
 Security
 
-* The app shall resist unauthorised, accidential or unintended usage and provide access only to legitimate users.
+* The app shall resist unauthorised, accidental or unintended usage and provide access only to legitimate users.
 
 Usability
 
