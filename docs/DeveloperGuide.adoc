@@ -709,7 +709,7 @@ a|* Restricts users from sorting their list by other methods
 **Reason for choice of alternative 1:**
 
 * Alternative 1 allows users to view their newly added athletes to ensure their details are correct before they are sorted into their correct positions alphabetically. This is important especially when the athlete list is very long.
-* Alternative 1 abides by our design principle to keep **Athletick** designer friendly since future developers can expand upon it to allow sorting by other attributes. On the other hand, alternative 2 does not provide much room for future expansion. 
+* Alternative 1 abides by our design principle to keep **Athletick** designer friendly since future developers can expand upon it to allow sorting by other attributes. On the other hand, alternative 2 does not provide much room for future expansion.
 
 === Logging
 
