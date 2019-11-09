@@ -546,13 +546,17 @@ image::Project.png[ProjectCommand Sequence Diagram]
 
 ===== Graphical Representation
 
-In future updates, the _user's_ balance projection will be displayed as a linear graph plotted against time, up until the date specified by the user in the command.
+In future updates, the _user's_ balance projection will be displayed as a linear graph plotted against time,
+up until the date specified by the user in the command.
 
 ===== Projection by Category
 
 In future updates, the _user_ will be able to customise projections beyond specifying a single date.
-Some possible customizations include solely projection _income_ / _outflow_ amounts, and filtered projections based on _categories_.
-For instance, `project d/22112019 c/Food -o` will project the _user's_ spending (or outflow, as denoted by the `-o` flag) on Food (specified by the `c/Food` tag) up until the 22nd of November, 2019 (specified by the `d/22112019` tag).
+Some possible customizations include solely projection _income_ / _outflow_ amounts,
+and filtered projections based on _categories_.
+For instance, `project d/22112019 c/Food -o` will project the _user's_ spending
+(or outflow, as denoted by the `-o` flag) on Food (specified by the `c/Food` tag) up until the 22nd of November, 2019
+(specified by the `d/22112019` tag).
 
 ==== Design Considerations
 

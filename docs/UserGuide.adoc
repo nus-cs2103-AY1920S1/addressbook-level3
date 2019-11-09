@@ -273,6 +273,8 @@ Display a graphical representation of a `projection` in a new window.
 Format: `display PROJECTION_ID`
 ****
 * A `Projection` with `PROJECTION_ID` must exist.
+* `Projection` graphs do not update automatically when a new `Transaction` or `Budget` is
+added or removed. Instead, they are statically rendered upon the `display` command.
 ****
 ==== Example Usage
 . Type *display PROJECTION_ID* into the command box and press kbd:[Enter].
