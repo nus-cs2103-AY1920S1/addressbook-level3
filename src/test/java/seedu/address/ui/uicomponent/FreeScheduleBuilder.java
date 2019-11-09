@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import seedu.address.model.display.schedulewindow.FreeSchedule;
-import seedu.address.model.display.schedulewindow.FreeTimeslot;
+import seedu.address.model.display.timeslots.FreeSchedule;
+import seedu.address.model.display.timeslots.FreeTimeslot;
 
 /**
  * Class to build free schedules for testing purposes.

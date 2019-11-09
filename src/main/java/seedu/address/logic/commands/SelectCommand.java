@@ -11,7 +11,7 @@ import seedu.address.model.display.scheduledisplay.GroupScheduleDisplay;
 import seedu.address.model.display.scheduledisplay.HomeScheduleDisplay;
 import seedu.address.model.display.scheduledisplay.PersonScheduleDisplay;
 import seedu.address.model.display.scheduledisplay.ScheduleState;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
+import seedu.address.model.display.timeslots.PersonTimeslot;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 

@@ -1,4 +1,4 @@
-package seedu.address.model.display.schedulewindow;
+package seedu.address.model.display.timeslots;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

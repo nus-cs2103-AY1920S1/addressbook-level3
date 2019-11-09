@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 import seedu.address.model.display.scheduledisplay.GroupScheduleDisplay;
 import seedu.address.model.display.scheduledisplay.ScheduleState;
-import seedu.address.model.display.schedulewindow.FreeTimeslot;
+import seedu.address.model.display.timeslots.FreeTimeslot;
 import seedu.address.model.person.exceptions.InvalidTimeslotException;
 
 /**

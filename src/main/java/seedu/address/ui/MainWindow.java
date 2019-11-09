@@ -26,7 +26,7 @@ import seedu.address.model.display.scheduledisplay.HomeScheduleDisplay;
 import seedu.address.model.display.scheduledisplay.PersonScheduleDisplay;
 import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
 import seedu.address.model.display.scheduledisplay.ScheduleState;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
+import seedu.address.model.display.timeslots.PersonTimeslot;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 import seedu.address.ui.home.DefaultStartView;

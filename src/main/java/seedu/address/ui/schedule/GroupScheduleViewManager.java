@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.model.display.scheduledisplay.ScheduleState;
-import seedu.address.model.display.schedulewindow.FreeSchedule;
-import seedu.address.model.display.schedulewindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.WeekSchedule;
+import seedu.address.model.display.timeslots.FreeSchedule;
+import seedu.address.model.display.timeslots.PersonSchedule;
+import seedu.address.model.display.timeslots.WeekSchedule;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Name;
 

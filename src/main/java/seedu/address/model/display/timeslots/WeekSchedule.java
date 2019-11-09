@@ -1,4 +1,4 @@
-package seedu.address.model.display.schedulewindow;
+package seedu.address.model.display.timeslots;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;

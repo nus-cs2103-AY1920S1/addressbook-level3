@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.display.DisplayModelManager;
+import seedu.address.model.display.ScheduleManager;
 import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
 import seedu.address.model.display.scheduledisplay.ScheduleState;
@@ -69,7 +69,7 @@ public class ModelManager implements Model {
     private GmapsModelManager gmapsModelManager;
 
     // UI display
-    private DisplayModelManager displayModelManager;
+    private ScheduleManager scheduleManager;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -84,7 +84,7 @@ public class ModelManager implements Model {
         this.personToGroupMappingList = timeBook.getPersonToGroupMappingList();
         this.gmapsModelManager = gmapsModelManager;
         this.nusModsData = nusModsData;
-        this.displayModelManager = new DisplayModelManager(gmapsModelManager);
+        this.scheduleManager = new ScheduleManager(gmapsModelManager);
 
         int personCounter = -1;
         for (int i = 0; i < personList.getPersons().size(); i++) {
@@ -393,51 +393,51 @@ public class ModelManager implements Model {
 
     @Override
     public ScheduleDisplay getScheduleDisplay() {
-        return displayModelManager.getScheduleDisplay();
+        return scheduleManager.getScheduleDisplay();
     }
 
     @Override
     public SidePanelDisplay getSidePanelDisplay() {
-        return displayModelManager.getSidePanelDisplay();
+        return scheduleManager.getSidePanelDisplay();
     }
 
     @Override
     public void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleState type) {
-        displayModelManager.updateDisplayWithPerson(name, time, type, timeBook);
+        scheduleManager.updateDisplayWithPerson(name, time, type, timeBook);
     }
 
     @Override
     public void updateDisplayWithUser(LocalDateTime time, ScheduleState type) {
-        displayModelManager.updateDisplayWithUser(time, type, timeBook);
+        scheduleManager.updateDisplayWithUser(time, type, timeBook);
     }
 
     @Override
     public void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleState type) {
-        displayModelManager.updateDisplayWithGroup(groupName, time, type, timeBook);
+        scheduleManager.updateDisplayWithGroup(groupName, time, type, timeBook);
     }
 
     @Override
     public void updateDisplayWithPersons(ArrayList<Person> persons,
                                          LocalDateTime time, ScheduleState type) {
-        displayModelManager.updateDisplayWithPersons(persons, time, type, timeBook);
+        scheduleManager.updateDisplayWithPersons(persons, time, type, timeBook);
     }
 
     @Override
     public void updateSidePanelDisplay(SidePanelDisplay sidePanelDisplay) {
-        displayModelManager.updateSidePanelDisplay(sidePanelDisplay);
+        scheduleManager.updateSidePanelDisplay(sidePanelDisplay);
     }
 
     @Override
     public void updateSidePanelDisplay(SidePanelDisplayType type) {
-        displayModelManager.updateSidePanelDisplay(type, timeBook);
+        scheduleManager.updateSidePanelDisplay(type, timeBook);
     }
 
     public void initialiseDefaultWindowDisplay() {
-        displayModelManager.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.HOME, timeBook);
+        scheduleManager.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.HOME, timeBook);
     }
 
     public ScheduleState getState() {
-        return displayModelManager.getState();
+        return scheduleManager.getState();
     }
 
     //=========== Suggesters =============================================================

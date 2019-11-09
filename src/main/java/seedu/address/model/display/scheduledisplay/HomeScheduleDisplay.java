@@ -2,7 +2,7 @@ package seedu.address.model.display.scheduledisplay;
 
 import java.util.ArrayList;
 
-import seedu.address.model.display.schedulewindow.PersonSchedule;
+import seedu.address.model.display.timeslots.PersonSchedule;
 
 /**
  * Schedule of the User on the Home page.

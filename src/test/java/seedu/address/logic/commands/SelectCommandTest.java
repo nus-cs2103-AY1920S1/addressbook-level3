@@ -17,7 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.display.exceptions.PersonTimeslotNotFoundException;
 import seedu.address.model.display.scheduledisplay.ScheduleState;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
+import seedu.address.model.display.timeslots.PersonTimeslot;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.modelutil.TypicalModel;

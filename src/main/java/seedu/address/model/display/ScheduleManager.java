@@ -19,11 +19,11 @@ import seedu.address.model.display.scheduledisplay.HomeScheduleDisplay;
 import seedu.address.model.display.scheduledisplay.PersonScheduleDisplay;
 import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
 import seedu.address.model.display.scheduledisplay.ScheduleState;
-import seedu.address.model.display.schedulewindow.FreeSchedule;
-import seedu.address.model.display.schedulewindow.FreeTimeslot;
-import seedu.address.model.display.schedulewindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
-import seedu.address.model.display.schedulewindow.WeekSchedule;
+import seedu.address.model.display.timeslots.FreeSchedule;
+import seedu.address.model.display.timeslots.FreeTimeslot;
+import seedu.address.model.display.timeslots.PersonSchedule;
+import seedu.address.model.display.timeslots.PersonTimeslot;
+import seedu.address.model.display.timeslots.WeekSchedule;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
@@ -46,7 +46,7 @@ import seedu.address.ui.util.ColorGenerator;
 /**
  * Handler for all display models.
  */
-public class DisplayModelManager {
+public class ScheduleManager {
 
     private static final int DAYS_OF_A_WEEK = 7;
     private static final int WEEKS_OF_A_MONTH = 4;
@@ -61,16 +61,13 @@ public class DisplayModelManager {
 
     private ScheduleDisplay scheduleDisplay;
 
-    public DisplayModelManager(GmapsModelManager gmapsModelManager) {
+    public ScheduleManager(GmapsModelManager gmapsModelManager) {
         this.gmapsModelManager = gmapsModelManager;
     }
 
     /**
      * Returns the current state of the schedule's display.
      */
-    /*public ScheduleWindowDisplayType getState() {
-        return scheduleWindowDisplay.getScheduleWindowDisplayType();
-    }*/
     public ScheduleState getState() {
         return scheduleDisplay.getState();
     }

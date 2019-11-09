@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import seedu.address.model.display.scheduledisplay.ScheduleState;
-import seedu.address.model.display.schedulewindow.PersonSchedule;
+import seedu.address.model.display.timeslots.PersonSchedule;
 import seedu.address.model.person.Name;
 
 /**

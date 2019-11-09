@@ -19,74 +19,74 @@ import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.modelutil.TypicalModel;
 
-class DisplayModelManagerTest {
+class ScheduleManagerTest {
 
-    private DisplayModelManager displayModelManager;
+    private ScheduleManager scheduleManager;
     private TimeBook timeBook;
 
     @BeforeEach
     void init() {
         timeBook = TypicalModel.generateTypicalModel().getTimeBook();
-        displayModelManager = new DisplayModelManager(new GmapsModelManager());
+        scheduleManager = new ScheduleManager(new GmapsModelManager());
     }
 
     @Test
     void getState_home() {
-        displayModelManager.updateDisplayWithUser(LocalDateTime.now(),
+        scheduleManager.updateDisplayWithUser(LocalDateTime.now(),
                 ScheduleState.HOME, timeBook);
 
-        assertEquals(ScheduleState.HOME, displayModelManager.getState());
+        assertEquals(ScheduleState.HOME, scheduleManager.getState());
     }
 
     @Test
     void getState_person() {
-        displayModelManager.updateDisplayWithUser(LocalDateTime.now(),
+        scheduleManager.updateDisplayWithUser(LocalDateTime.now(),
                 ScheduleState.PERSON, timeBook);
 
-        assertEquals(ScheduleState.PERSON, displayModelManager.getState());
+        assertEquals(ScheduleState.PERSON, scheduleManager.getState());
 
-        displayModelManager.updateDisplayWithPerson(ALICE.getName(), LocalDateTime.now(),
+        scheduleManager.updateDisplayWithPerson(ALICE.getName(), LocalDateTime.now(),
                 ScheduleState.PERSON, timeBook);
 
-        assertEquals(ScheduleState.PERSON, displayModelManager.getState());
+        assertEquals(ScheduleState.PERSON, scheduleManager.getState());
     }
 
     @Test
     void getState_group() {
-        displayModelManager.updateDisplayWithGroup(GROUP_NAME1, LocalDateTime.now(),
+        scheduleManager.updateDisplayWithGroup(GROUP_NAME1, LocalDateTime.now(),
                 ScheduleState.GROUP, timeBook);
 
-        assertEquals(ScheduleState.GROUP, displayModelManager.getState());
+        assertEquals(ScheduleState.GROUP, scheduleManager.getState());
 
         ArrayList<Person> persons = timeBook.getPersonList().getPersons();
-        displayModelManager.updateDisplayWithPersons(persons, LocalDateTime.now(),
+        scheduleManager.updateDisplayWithPersons(persons, LocalDateTime.now(),
                 ScheduleState.GROUP, timeBook);
 
-        assertEquals(ScheduleState.GROUP, displayModelManager.getState());
+        assertEquals(ScheduleState.GROUP, scheduleManager.getState());
     }
 
     @Test
     void updateDisplayWithPerson() {
         assertDoesNotThrow(() ->
-                displayModelManager.updateDisplayWithPerson(ALICE.getName(), LocalDateTime.now(),
+                scheduleManager.updateDisplayWithPerson(ALICE.getName(), LocalDateTime.now(),
                         ScheduleState.PERSON, timeBook));
     }
 
     @Test
     void updateDisplayWithUser() {
         assertDoesNotThrow(() ->
-                displayModelManager.updateDisplayWithUser(LocalDateTime.now(),
+                scheduleManager.updateDisplayWithUser(LocalDateTime.now(),
                         ScheduleState.PERSON, timeBook));
 
         assertDoesNotThrow(() ->
-                displayModelManager.updateDisplayWithUser(LocalDateTime.now(),
+                scheduleManager.updateDisplayWithUser(LocalDateTime.now(),
                         ScheduleState.HOME, timeBook));
     }
 
     @Test
     void updateDisplayWithGroup() {
         assertDoesNotThrow(() ->
-                displayModelManager.updateDisplayWithGroup(GROUP_NAME1, LocalDateTime.now(),
+                scheduleManager.updateDisplayWithGroup(GROUP_NAME1, LocalDateTime.now(),
                         ScheduleState.GROUP, timeBook));
     }
 
@@ -94,40 +94,40 @@ class DisplayModelManagerTest {
     void updateDisplayWithPersons() {
         ArrayList<Person> persons = timeBook.getPersonList().getPersons();
         assertDoesNotThrow(() ->
-                displayModelManager.updateDisplayWithPersons(persons, LocalDateTime.now(),
+                scheduleManager.updateDisplayWithPersons(persons, LocalDateTime.now(),
                         ScheduleState.GROUP, timeBook));
 
     }
 
     @Test
     void updateSidePanelDisplay_person() {
-        displayModelManager.updateSidePanelDisplay(SidePanelDisplayType.PERSON, timeBook);
+        scheduleManager.updateSidePanelDisplay(SidePanelDisplayType.PERSON, timeBook);
 
         assertEquals(SidePanelDisplayType.PERSON,
-                displayModelManager.getSidePanelDisplay().getSidePanelDisplayType());
+                scheduleManager.getSidePanelDisplay().getSidePanelDisplayType());
     }
 
     @Test
     void updateSidePanelDisplay_group() {
-        displayModelManager.updateSidePanelDisplay(SidePanelDisplayType.GROUP, timeBook);
+        scheduleManager.updateSidePanelDisplay(SidePanelDisplayType.GROUP, timeBook);
 
         assertEquals(SidePanelDisplayType.GROUP,
-                displayModelManager.getSidePanelDisplay().getSidePanelDisplayType());
+                scheduleManager.getSidePanelDisplay().getSidePanelDisplayType());
     }
 
     @Test
     void getScheduleDisplay() {
-        displayModelManager.updateDisplayWithUser(LocalDateTime.now(),
+        scheduleManager.updateDisplayWithUser(LocalDateTime.now(),
                 ScheduleState.PERSON, timeBook);
 
-        assertNotNull(displayModelManager.getScheduleDisplay());
+        assertNotNull(scheduleManager.getScheduleDisplay());
     }
 
     @Test
     void getSidePanelDisplay() {
 
-        displayModelManager.updateSidePanelDisplay(SidePanelDisplayType.PERSON, timeBook);
+        scheduleManager.updateSidePanelDisplay(SidePanelDisplayType.PERSON, timeBook);
 
-        assertNotNull(displayModelManager.getSidePanelDisplay());
+        assertNotNull(scheduleManager.getSidePanelDisplay());
     }
 }
