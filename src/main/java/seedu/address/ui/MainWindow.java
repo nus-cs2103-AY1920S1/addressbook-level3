@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -82,7 +84,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        this.unknown = false;
+        this.isUnknown = false;
         reminderWindow = new ReminderWindow(logic);
     }
 
@@ -360,6 +362,21 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches to the calendar tab sorted by the task.
+     */
+    @FXML
+    public void findTaskByDate(LocalDate date) throws ParseException, CommandException {
+        try {
+            System.out.println(date);
+            String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String userCommand = "find_task_by_date " + formattedDate;
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -398,6 +415,18 @@ public class MainWindow extends UiPart<Stage> {
 
     public TaskListPanel getTaskListPanel() {
         return taskListPanel;
+    }
+
+    /**
+     * Switches to the calendar tab sorted by the date.
+     */
+    public void deleteNoteButton(int index) throws ParseException, CommandException {
+        try {
+            String userCommand = "deletenote " + index;
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
     }
 
     /**

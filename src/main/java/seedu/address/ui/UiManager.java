@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -177,6 +178,36 @@ public class UiManager implements Ui {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.hide();
             mainWindow.showLogin();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    /**
+     * To change tab to login window.
+     */
+    public static void deleteNotesButton(int index) {
+        logger.info("Deleting Note...");
+
+        try {
+            mainWindow.deleteNoteButton(index);
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during deletion", e);
+        }
+    }
+
+    /**
+     * To change tab to tasks tab.
+     */
+    public static void startTaskWindow(LocalDate date) {
+        logger.info("Changing to Tasks Tab by Date...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillTasks();
+            mainWindow.findTaskByDate(date);
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
