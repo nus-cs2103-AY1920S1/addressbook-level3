@@ -7,8 +7,10 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NUSID;
 import static seedu.tarence.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.commons.core.index.Index;
@@ -84,11 +86,32 @@ public class EditCommand extends Command {
         }
         Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
-        if (!studentToEdit.isSamePerson(editedStudent) && model.hasStudent(editedStudent)) {
+        List<Student> duplicateStudents = new ArrayList<>(lastShownList).stream()
+            .filter(student -> student.isSameStudent(studentToEdit))
+            .collect(Collectors.toList());
+
+        // Duplicate students includes studentToEdit
+        boolean hasDuplicateStudents = duplicateStudents.size() > 1;
+        // Checks if non-duplicate students share the same data fields
+        // Includes students who are exactly identical to target student
+        boolean hasDuplicateFields = new ArrayList<>(lastShownList).stream()
+                .filter(student -> !student.isSameStudent(studentToEdit))
+                .anyMatch(student -> student.isSamePerson(editedStudent));
+        // TODO: Check this condition again
+
+        if (hasDuplicateFields) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
 
-        model.setStudent(studentToEdit, editedStudent);
+        if (hasDuplicateStudents) {
+            for (Student duplicateStudent : duplicateStudents) {
+                Student editedDuplicateStudent = createEditedStudent(duplicateStudent, editStudentDescriptor);
+                model.setStudentIgnoreDuplicates(duplicateStudent, editedDuplicateStudent);
+            }
+        } else {
+            model.setStudent(studentToEdit, editedStudent);
+        }
+
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedStudent));
     }

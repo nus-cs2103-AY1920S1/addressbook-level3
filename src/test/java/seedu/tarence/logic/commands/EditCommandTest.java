@@ -121,7 +121,7 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePersonFilteredList_failure() {
         Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
-        showStudentAtIndex(model, INDEX_FIRST_IN_LIST);
+        // showStudentAtIndex(model, INDEX_FIRST_IN_LIST);
 
         // edit student in filtered list into a duplicate in application
         Student studentInList = model.getApplication().getStudentList().get(INDEX_SECOND_IN_LIST.getZeroBased());

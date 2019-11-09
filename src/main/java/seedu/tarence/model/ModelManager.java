@@ -151,13 +151,25 @@ public class ModelManager implements Model {
     public void addStudent(Student student) {
         application.addStudent(student);
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+    }
 
+    @Override
+    public void addStudentIgnoreDuplicates(Student student) {
+        application.addStudentIgnoreDuplicates(student);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
     public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
         application.setStudent(target, editedStudent);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+    }
+
+    @Override
+    public void setStudentIgnoreDuplicates(Student target, Student editedStudent) {
+        requireAllNonNull(target, editedStudent);
+        application.setStudentIgnoreDuplicates(target, editedStudent);
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 

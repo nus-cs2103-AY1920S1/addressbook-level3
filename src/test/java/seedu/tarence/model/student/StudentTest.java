@@ -23,7 +23,7 @@ public class StudentTest {
 
         // different email -> returns false
         Student editedAlice = new StudentBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertTrue(ALICE.isSameStudent(editedAlice));
+        assertFalse(ALICE.isSameStudent(editedAlice));
 
         // different name -> returns false
         editedAlice = new StudentBuilder(ALICE).withName(VALID_NAME_BOB).build();

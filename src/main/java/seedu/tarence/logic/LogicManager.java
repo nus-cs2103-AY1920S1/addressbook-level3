@@ -97,6 +97,7 @@ public class LogicManager implements Logic {
                 return currCommandResult;
             }
 
+            // TODO: Temporarily disabling storage
             try {
                 storage.saveApplication(model.getApplication());
             } catch (IOException ioe) {

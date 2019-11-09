@@ -114,10 +114,22 @@ public interface Model {
     void setStudent(Student target, Student editedStudent);
 
     /**
+     * Replaces the given student {@code target} with {@code editedStudent}.
+     * {@code target} must exist in the application.
+     * Does not throw an error even if duplicate students exist.
+     */
+    void setStudentIgnoreDuplicates(Student target, Student editedStudent);
+
+    /**
      * Adds the given student.
      * {@code student} must not already exist in the application.
      */
     void addStudent(Student student);
+
+    /**
+     * Adds the given student, even if they already exist in the application.
+     */
+    void addStudentIgnoreDuplicates(Student student);
 
     /**
      * Checks if the combination of a given student name, tutorial name, and module code exists in the model.

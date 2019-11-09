@@ -75,10 +75,14 @@ class JsonSerializableApplication {
                 }
                 application.addTutorial(t);
                 for (Student s : t.getStudents()) {
-                    if (application.hasStudent(s)) {
+                    boolean hasDuplicates = new ArrayList<>(application.getStudentList())
+                            .stream()
+                            .filter(stud -> !s.isSameStudent(stud))
+                            .anyMatch(stud -> s.isSamePerson(stud));
+                    if (hasDuplicates) {
                         throw new IllegalValueException(MESSAGE_DUPLICATE_STUDENT);
                     }
-                    application.addStudent(s);
+                    application.addStudentIgnoreDuplicates(s);
                 }
             }
         }
