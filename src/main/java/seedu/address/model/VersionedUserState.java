@@ -94,7 +94,7 @@ public class VersionedUserState extends UserState {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of bankAccountState list, unable to undo.");
+            super("Current state pointer at start of userState list, unable to undo.");
         }
     }
 
@@ -103,7 +103,7 @@ public class VersionedUserState extends UserState {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of bankAccountState list, unable to redo.");
+            super("Current state pointer at end of userState list, unable to redo.");
         }
     }
 }

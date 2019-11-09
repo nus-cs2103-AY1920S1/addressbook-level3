@@ -269,7 +269,7 @@ Format: `project d/DATE [c/test]`
 * `DATE` input must be preceded by its tag `d/`.
 * `DATE` input must be set in the future.
 * `Date` cannot be more than _720_ days from the day of projection.
-*  There must be a minimum of _5_ transactions in total, or in the specified category
+* There must be a minimum of _5_ transactions in total, or in the specified category
 for a projection to be successfully cast.
 * Should the number of `transactions` in a  `projection` fall below _5_, the `projection`
 will be automatically deleted.
@@ -286,16 +286,18 @@ will be automatically deleted.
  Projected balance: $188.04
  You are on track to meeting your budget of $600 by 08122019, with a surplus of $484.32!
 
-
 === Display Projection Graph: `display`
 
 Display a graphical representation of a `projection` in a new window.
 
 Format: `display PROJECTION_ID`
+
 ****
 * A `Projection` with `PROJECTION_ID` must exist.
 ****
+
 ==== Example Usage
+
 . Type *display PROJECTION_ID* into the command box and press kbd:[Enter].
 +
 image::display1.png[]
@@ -309,7 +311,6 @@ representation of the budget will be additionally displayed.
 +
 image::display3.png[]
 +
-
 
 [[View]]
 // tag::view[]
@@ -395,7 +396,7 @@ Examples:
 === Sorting Transactions : `sort`
 
 Have you ever wonder which is the most expensive transaction you ever made?
-Or wondered which is the latest transaction you made? Fret not!
+Or which is the latest transaction you made? Fret not!
 You can now `sort` your transactions according to `date` or `amount`. +
 
 

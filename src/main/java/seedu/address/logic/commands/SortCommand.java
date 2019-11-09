@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
-import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -37,13 +36,14 @@ public class SortCommand extends Command {
         requireNonNull(model);
 
         ObservableList<BankAccountOperation> transactionHistory = model.getBankAccount().getTransactionHistory();
-        SortedList<BankAccountOperation> sortedTransactionHistory = sortTransactionHistory(transactionHistory);
+        ObservableList<BankAccountOperation> sortedTransactionHistory = sortTransactionHistory(transactionHistory);
         model.setTransactions(sortedTransactionHistory);
         model.commitUserState();
         return new CommandResult(MESSAGE_SUCCESS, false, false, Tab.TRANSACTION);
     }
 
-    private SortedList<BankAccountOperation> sortTransactionHistory(ObservableList<BankAccountOperation> transactionHistory) {
+    private SortedList<BankAccountOperation> sortTransactionHistory(ObservableList<BankAccountOperation>
+                                                                        transactionHistory) {
         return transactionHistory.sorted(comparator);
     }
 
