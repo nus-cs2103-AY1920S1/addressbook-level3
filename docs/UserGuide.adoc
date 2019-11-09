@@ -85,9 +85,9 @@ Example: `view cs1231`
 
 Alternatively, you may simply view the module by double clicking on the module in the module list.
 
-image::ViewCommandGuiStep1.png[width="790"]
+image::userguide/ViewCommandGuiStep1.png[]
 
-image::ViewCommandGuiStep2.png[width="790"]
+image::userguide/ViewCommandGuiStep2.png[]
 
 
 === Return from module view: `back`
@@ -327,16 +327,25 @@ e.g. `add cs2101`
 * *Delete* : `delete MODULE_CODE` +
 e.g. `delete cs2101`
 
+[[Glossary]]
 == Glossary
 
 === Common Application terms
 
 **Home view** - The state of the application that displays the home page in the main panel.
 
+image::userguide/Glossary_HomeView.png[]
+
 **Module view** - The state of the application that displays the specified module in the main panel.
+
+image::userguide/Glossary_ModuleView.png[]
 
 === Common Module terms
 
-**Archived** - A module that the institution provides. Can be viewed and tracked.
+**Archived** - A module that the institution provides. Can be viewed and tracked. It is indicated by a gray vertical bar on the module list.
 
-**Tracked** - A module that is tracked. References an archived module. Can be viewed.
+image::userguide/Glossary_ArchivedModule.png[]
+
+**Tracked** - A module that is tracked. References an archived module. Can be viewed and untracked. It is indicated by a green vertical bar on the module list.
+
+image::userguide/Glossary_TrackedModule.png[]
