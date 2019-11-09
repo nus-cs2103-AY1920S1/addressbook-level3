@@ -263,6 +263,8 @@ public class IcsParser {
         if (due == null && !(duration == null || taskStart == null)) {
             due = taskStart.plus(duration);
             builder.setDueDate(due);
+        } else if (due != null) {
+            builder.setDueDate(due);
         }
 
         if (tags.size() != 0) {
