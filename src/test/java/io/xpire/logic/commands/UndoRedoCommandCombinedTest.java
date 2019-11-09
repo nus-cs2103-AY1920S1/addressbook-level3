@@ -6,6 +6,7 @@ import static io.xpire.logic.commands.RedoCommand.MESSAGE_REDO_SUCCESS;
 import static io.xpire.logic.commands.UndoCommand.MESSAGE_UNDO_SUCCESS;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
+import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FOURTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
@@ -14,17 +15,19 @@ import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static io.xpire.testutil.TypicalItemsFields.IN_A_MONTH;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_CORIANDER;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_DUCK;
-import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_KIWI;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_EGG;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BAGEL;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_COOKIE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_CORIANDER;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_DUCK;
-import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_KIWI;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_EGG;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_BANANA;
-import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_KIWI;
-import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_CORIANDER;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRIDGE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRUIT;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_PROTEIN;
@@ -57,7 +60,6 @@ import io.xpire.model.state.StateManager;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 import io.xpire.testutil.ItemBuilder;
-import io.xpire.testutil.TypicalItems;
 import io.xpire.testutil.XpireItemBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -81,8 +83,8 @@ public class UndoRedoCommandCombinedTest {
     //Testing Undo/Redo for AddCommand
     @Test
     public void execute_undoRedoAddCommand_success() throws CommandException, ParseException {
-        AddCommand addCommand = new AddCommand(new Name(VALID_NAME_KIWI), new ExpiryDate(VALID_EXPIRY_DATE_KIWI),
-                new Quantity(VALID_QUANTITY_KIWI));
+        AddCommand addCommand = new AddCommand(new Name(VALID_NAME_CORIANDER),
+                new ExpiryDate(VALID_EXPIRY_DATE_CORIANDER), new Quantity(VALID_QUANTITY_CORIANDER));
         executeCommandAndUpdateStateManager(model, addCommand, stateManager);
         Model expectedModel = new ModelManager(getTypicalLists(), new UserPrefs());
         UndoCommand undoCommand = new UndoCommand();
@@ -91,10 +93,10 @@ public class UndoRedoCommandCombinedTest {
 
         //Redo Portion
         RedoCommand redoCommand = new RedoCommand();
-        XpireItem kiwi = new XpireItemBuilder().withName(VALID_NAME_KIWI)
-                .withExpiryDate(VALID_EXPIRY_DATE_KIWI)
-                .withQuantity(VALID_QUANTITY_KIWI).build();
-        expectedModel.addItem(XPIRE, kiwi);
+        XpireItem apple = new XpireItemBuilder().withName(VALID_NAME_CORIANDER)
+                .withExpiryDate(VALID_EXPIRY_DATE_CORIANDER)
+                .withQuantity(VALID_QUANTITY_CORIANDER).build();
+        expectedModel.addItem(XPIRE, apple);
         CommandResult expectedRedoMessage = new CommandResult(MESSAGE_REDO_SUCCESS);
         assertCommandSuccess(redoCommand, model, expectedRedoMessage, expectedModel, stateManager);
 
@@ -181,8 +183,8 @@ public class UndoRedoCommandCombinedTest {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag(VALID_TAG_FRIDGE));
         set.add(new Tag(VALID_TAG_PROTEIN));
-        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_THIRD_ITEM.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_THIRD_ITEM, set);
+        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_FOURTH_ITEM.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_FOURTH_ITEM, set);
         executeCommandAndUpdateStateManager(model, deleteCommand, stateManager);
         Model expectedModel = new ModelManager(getTypicalLists(), new UserPrefs());
         UndoCommand undoCommand = new UndoCommand();
@@ -204,8 +206,8 @@ public class UndoRedoCommandCombinedTest {
     @Test
     public void execute_undoRedoDeleteQuantity_success() throws CommandException, ParseException {
         Quantity quantityToDeduct = new Quantity("2");
-        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_SECOND_ITEM.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_SECOND_ITEM, quantityToDeduct);
+        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_FIFTH_ITEM.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_FIFTH_ITEM, quantityToDeduct);
         executeCommandAndUpdateStateManager(model, deleteCommand, stateManager);
         Model expectedModel = new ModelManager(getTypicalLists(), new UserPrefs());
         UndoCommand undoCommand = new UndoCommand();
@@ -214,10 +216,9 @@ public class UndoRedoCommandCombinedTest {
 
         //Redo Portion
         RedoCommand redoCommand = new RedoCommand();
-        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_BANANA)
-                .withExpiryDate(VALID_EXPIRY_DATE_BANANA)
-                .withQuantity("3")
-                .withReminderThreshold(VALID_REMINDER_THRESHOLD_BANANA)
+        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_EGG)
+                .withExpiryDate(VALID_EXPIRY_DATE_EGG)
+                .withQuantity("8")
                 .build();
         expectedModel.setItem(XPIRE, targetXpireItem, expectedXpireItem);
         CommandResult expectedRedoMessage = new CommandResult(MESSAGE_REDO_SUCCESS);
@@ -518,7 +519,7 @@ public class UndoRedoCommandCombinedTest {
         RedoCommand redoCommand = new RedoCommand();
         Item itemToDelete = model.getCurrentList().get(INDEX_FIRST_ITEM.getZeroBased());
         XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_BAGEL)
-                .withExpiryDate(TypicalItems.IN_A_MONTH)
+                .withExpiryDate(IN_A_MONTH)
                 .withQuantity("3")
                 .build();
         expectedModel.deleteItem(REPLENISH, itemToDelete);
@@ -534,9 +535,9 @@ public class UndoRedoCommandCombinedTest {
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag(VALID_TAG_FRIDGE));
         set.add(new Tag(VALID_TAG_PROTEIN));
-        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_THIRD_ITEM, set);
-        AddCommand addCommand = new AddCommand(new Name(VALID_NAME_KIWI), new ExpiryDate(VALID_EXPIRY_DATE_KIWI),
-                new Quantity(VALID_QUANTITY_KIWI));
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_FOURTH_ITEM, set);
+        AddCommand addCommand = new AddCommand(new Name(VALID_NAME_APPLE), new ExpiryDate(VALID_EXPIRY_DATE_APPLE),
+                new Quantity(VALID_QUANTITY_APPLE));
         ViewCommand viewCommand = new ViewCommand(REPLENISH);
         ShiftToMainCommand shiftToMainCommand = new ShiftToMainCommand(INDEX_FIRST_ITEM,
                 new ExpiryDate(IN_A_MONTH), new Quantity("3"));

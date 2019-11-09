@@ -8,16 +8,19 @@ import static io.xpire.logic.commands.TagCommand.MESSAGE_TAG_ITEM_SUCCESS_TRUNCA
 import static io.xpire.logic.commands.TagCommand.MESSAGE_TOO_MANY_TAGS;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
+import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FOURTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SIXTH_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_DUCK;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_FISH;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BAGEL;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_COOKIE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_DUCK;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_FISH;
 import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_FISH;
 import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_FISH;
@@ -135,16 +138,14 @@ public class TagCommandTest {
 
     @Test
     public void execute_truncateTagsInXpireItem_success() {
-        XpireItem xpireItemToTag = (XpireItem) model.getCurrentList().get(INDEX_FIFTH_ITEM.getZeroBased());
+        XpireItem xpireItemToTag = (XpireItem) model.getCurrentList().get(INDEX_FOURTH_ITEM.getZeroBased());
         TagCommand tagCommand = new TagCommand(XPIRE,
-                INDEX_FIFTH_ITEM, new String[]{"Abcdefghijklmnopqrstuvwxyz"});
+                INDEX_FOURTH_ITEM, new String[]{"Abcdefghijklmnopqrstuvwxyz"});
         assertEquals(tagCommand.getMode(), TagCommand.TagMode.TAG);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
-        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_JELLY)
-                .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
-                .withQuantity(VALID_QUANTITY_JELLY)
-                .withTags("Abcdefghijklmnopqrst", VALID_TAG_FRIDGE)
-                .withReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY)
+        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_DUCK)
+                .withExpiryDate(VALID_EXPIRY_DATE_DUCK)
+                .withTags("Abcdefghijklmnopqrst", VALID_TAG_FRIDGE, VALID_TAG_PROTEIN)
                 .build();
         String expectedMessage = String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, expectedXpireItem);
         expectedModel.setItem(XPIRE, xpireItemToTag, expectedXpireItem);
