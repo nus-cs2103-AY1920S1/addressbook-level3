@@ -1482,6 +1482,54 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+=== Sorting problems
+
+.. Test case: `sortprob m/name` +
+   Expected: The current problem list is sorted with respect to names in ascending order.
+.. Test case: `sortprob m/difficulty ord/descend` +
+   Expected: The current problem list is sorted with respect to difficulty in descending order.
+.. Test case: `sortprob m/diff` +
+   Expected: The current problem list remains unchanged and an error is thrown to inform the user that the method name is incorrect.
+.. Test case: `sortprob m/diff m/name` +
+   Expected: The current problem list is sorted with respect to name in ascending order.
+.. Test case: `sortprob m/name m/diff` +
+   Expected: The current problem list remains unchanged and an error is thrown to inform the user that the method name is incorrect.
+
+=== Finding problems
+
+. Finding problems that fulfills certain constraints
+.. Test case: `findprob n/sort` +
+   Expected: All problems whose name includes “sort” (case-insensitive) is listed in the “Problems” panel.
+.. Test case: `findprob` +
+   Expected: An error is thrown and the user is informed that at least one constraint should be provided.
+
+=== Adding problem-finding rules
+
+.. Prerequisites: there is no find rules named “rule1” or “rule2” or “rule3” in the existing AlgoBase, and find rules with a certain name is never added more than once.
+.. Test case: `addfindrule rule1 n/Sequences` +
+   Expected: A new find rule named “rule1” is added and the new rule appears in the “Find Rules” panel.
+.. Test case: `afr rule2 n/sequences` +
+   Expected: A new find rule named “rule2” is added and the new rule appears in the “Find Rules” panel.
+.. Test case: `afr rule3` +
+   Expected: An error is thrown and the user is informed that at least one constraint should be provided.
+
+=== Applying problem-finding rules
+
+.. Prerequisites: there are four find rules in the existing AlgoBase.
+.. Test case: `apply 1` +
+   Expected: The first find rule is applied, the problems in the “Problems” panel are updated accordingly.
+.. Test case: `apply 0` +
+   Expected: An error is thrown and the user is informed that the command format is invalid.
+.. Test case: `apply 100` +
+   Expected: An error is thrown and the user is informed that the provided find rule index is invalid.
+
+=== Deleting problem-finding rules
+
+.. Prerequisites: there are four find rules in the existing AlgoBase.
+.. Test case: `deletefindrule 1` +
+   Expected: The first find rule is deleted and the find rules list is updated.
+.. Test case: `dfr 1` +
+   Expected: The first find rule is deleted and the find rules list is updated.
 
 === Adding a Plan
 
