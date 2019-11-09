@@ -1,5 +1,5 @@
 
-=== Seah Lynn - Project Portfolio
+==== Seah Lynn - Project Portfolio
 :site-section: ProjectPortfolio
 :sectnums:
 :imagesDir: ../images
@@ -7,15 +7,15 @@
 :xrefstyle: full
 :experimental:
 
-== Introduction
+=== Introduction
 This project portfolio details my contributions to a Software Engineering group project, where my
 team and I created the Command Line Interface (CLI) desktop application, +Work. It also serves to document the
 key features I implemented in the application.
 
-=== About The Team
+==== About The Team
 We are a group of 5 Year 2 NUS Computer Science students, who worked together to create the CLI application, +Work.
 
-=== About The Project
+==== About The Project
 +Work is a CLI application created by my team for NUS School of Computing's CS2103T Software Engineering module.
 In this module, each team is required to morph or enhance an exiting CLI AddressBook application, to fit the needs of a
 target group of users.
@@ -25,7 +25,7 @@ group. It allows project leaders to manage their members, meeting times, task al
 A user can use +Work to find the most popular meeting time among his project members, when calling for a meeting, and add project tasks, and members that are assigned under these tasks, into +Work to better manage the project
 manpower.
 
-=== Formatting of Document
+==== Formatting of Document
 Shown below are symbols that will appear in my Project Portfolio, and their significance.
 [IMPORTANT]
 Information listed in this note is essential information that users should
@@ -33,10 +33,10 @@ be mindful of, in order for +Work to function as mentioned in the User Guide.
 [NOTE]
 Information listed here are things that users should take note of, so as to more efficiently use +Work.
 
-== Summary of Contributions
+=== Summary of Contributions
 This section details all of my contributions to the project, and showcases how I worked on different aspects of the project.
 
-=== Enhancements
+==== Enhancements
 * *Major enhancement*: I added the ability to retrieve the overall statistics of tasks and members in +Work.
 ** What it does: This feature allows the user to retrieve statistics relating to tasks and members in +Work, including the
 number of tasks and inventory items allocated to each member, and the proportion of tasks of different statuses, along with
@@ -66,7 +66,7 @@ each member under individual member cards
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=seahlynn&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=seahlynn&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Functional code]]
  [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=seahlynn&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=seahlynn&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Test code]]
 
-=== Other Significant Contribution to Project
+==== Other Significant Contribution to Project
 ** Project management
 *** Set up the project organisation and repository at the beginning of the project
 *** Refactored sections of code to ensure the syntax of every command is consistent with +Work's User Guide (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/85[85])
@@ -82,7 +82,7 @@ each member under individual member cards
 ** Community
 *** Reported bugs and suggestions for another team in the cohort (https://github.com/seahlynn/ped[reports])
 
-== Contributions to the User Guide
+=== Contributions to the User Guide
 We had to make changes to the original AddressBook User Guide with instructions for the features that we implemented.
 The following section displays excerpts of my additions to the *+Work User Guide* for the `Statistics` and `Member` features.
 
@@ -93,7 +93,7 @@ include::../UserGuide.adoc[tag=MemberCommandsPart1]
 
 include::../UserGuide.adoc[tag=Statistics]
 
-== Contribution to the Developer Guide
+=== Contribution to the Developer Guide
 The following section displays my additions to the *+Work Developer Guide* for the `Statistics` and `Member` features.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
