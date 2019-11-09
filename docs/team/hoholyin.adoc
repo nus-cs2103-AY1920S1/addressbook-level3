@@ -191,24 +191,33 @@ The following link shows the analysis of my code contributions:
 ** Renew loans
 ** Generate loan slip
 ** Edit Borrower details
-** Search overdue books and books that are on loan
+** Search overdue books and books that are on loan +
+{nbsp}
+* Continually added test cases throughout development phase to ensure consistent code quality. Done through the following Pull Requests:
+** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/31[[#31\]]: Refactored `AddressBook3` tests to `LiBerry` tests
+** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/117[[#117\]]: Increased test coverage for `SampleDataUtil`
+** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/206[[#206\]]: Increased test coverage for `UI` components
+** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/260[[#260\]]: Increased test coverage for `Delete` and `Book` classes
+** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/268[[#268\]]: Increased test coverage for `UnregisterCommand`
 
 ==== Enhancements to existing features:
 These enhancements are done through the following Pull Requests:
 
-* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/177[[#177\]]: Created a borrower panel in the Graphical User Interface to list books that the borrower has currently loaned.
-* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/147[[#147\]]: Made the `Book` Object immutable in preparation for the undo/redo feature.
-* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/206[[#206\]]: Increased test coverage for the source code, thereby increasing code quality and testability.
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/147[[#147\]]: Made the `Book` Object immutable in preparation for the undo/redo feature
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/176[[#176\]]: Added a new `LoanHistory` object in `Book` for to be displayed in the info window
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/177[[#177\]]: Created a borrower panel in the Graphical User Interface to list books that the borrower has currently loaned
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/187[[#187\]]: Upgraded `LoanSlipUtil` to allow it to mount multiple loans into a single loan slip
 
 ==== Documentation:
 The documentations are updated through the following Pull Requests:
 
-* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/148[[#148\]]: Illustrated the `Model` component of the system and its behaviour through class and sequence diagrams.
-* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/159[[#159\]]: Documented the feature to generate loan slip and its design considerations.
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/148[[#148\]]: Illustrated the `Model` component of the system and its behaviour through class and sequence diagrams
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/159[[#159\]]: Documented the feature to generate loan slip and its design considerations
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/162[[#162\]]: Amended Developer Guide based on feedback from tutor
 
 ==== Community:
-* https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/49/files/22e0d669e265d0f2835df4e4a2d0f15a57b05795[Reviewed] (with non-trivial comments) a Pull Request from another group
-* Contributed to forum discussions as a group (Shared a https://github.com/nus-cs2103-AY1920S1/forum/issues/115[tip] on how to check code coverage when running tests)
+* https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/49/files/22e0d669e265d0f2835df4e4a2d0f15a57b05795[Reviewed] a Pull Request from another group regarding their user stories and UML diagrams
+* Contributed a https://github.com/nus-cs2103-AY1920S1/forum/issues/115[tip] in the forum (as a group) on how to check code coverage when running tests
 * https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/49/files/22e0d669e265d0f2835df4e4a2d0f15a57b05795[Reported] bugs and suggestions for other teams in the class.
 
 ==== Tools:
