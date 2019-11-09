@@ -152,13 +152,17 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 
-* consists of 3 sub-components: Queue Manager, Address Book and Appointment Book.
+* consists of 3 sub-components: `QueueManager`, `AddressBook` and `AppointmentBook`.
 
-* stores the details of patients and staff in 2 separate instances of Address Book.
+* stores the details of patients and staff in 2 separate instances of `AddressBook`.
 
-* stores the patients' appointment details and duty shifts of staff doctors in 2 separate instances of Appointment Book.
+* stores the patients' appointments and duty shifts of staff doctors in 2 separate instances of `Appointment Book.
 
-* allows for code reusability for most of the implemented classes,
+
+
+
+
+* Most of the implemented model component code is reusable,
     such as `Person`, `Event`, `AddressBook`, `AppointmentBook` and `UniqueElementList`.
     For instance, we can reuse the `Person` class to derive classes which can represent patients or staff doctors.
     Likewise, the `Event` class can be used to derive classes which can represent patient's appointments and staff duty shifts.
@@ -178,9 +182,20 @@ The `QueueManager`,
 * stores a `QueueList` object that represents the queue.
 * stores a `UniqueElementList<Room>` which represents a list of consultation rooms where staff doctors are stationed.
 
-[[Design-QueueManager]]
-.Structure of the QueueManager Component
-image::QueueManagerClassDiagram.png[]
+
+The `AddressBook`,
+
+* stores a `Person` object that, depending on its usage, can represent either a staff doctor or patients.
+* stores a `UniquePersonList` which represents a list of all registered doctors or patients.
+
+
+The `AppointmentBook`,
+
+* stores a `Event` object that, depending on its usage, can represent either a patient's appointment and staff duty shift.
+* stores a `UniquePersonList` which represents a list of all registered appointments or shifts.
+
+
+
 
 [[Design-Storage]]
 === Storage component
@@ -193,8 +208,8 @@ image::StorageClassDiagramV2.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save and read data of the Address Book in json format.
-* can save and read data of the Appointment Book data in json format.
+* can save and read data of the particulars of patients and doctors in json format.
+* can save and read data of the Appointments and duty shifts data in json format.
 * able to reuse `JsonAddressBookStorage` to store the details of doctors and patients.
 * able to reuse `JsonAppointmentBookStorage` to store the details of staff duty shifts and patient's appointments.
 
