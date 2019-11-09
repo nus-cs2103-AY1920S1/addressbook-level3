@@ -79,9 +79,10 @@ and optimal for the users.
 
 * *Minor features*: Multiple Graphic User Interface improvements throughout the application to improve the user experience.
 As well as optimising user experience by enabling the tab recognition feature, where AddMin+ is able to identify which tab
-the user is on. This feature allows AddMin+ to bring users to the correct tab when a user inputs a command. It also
-enables AddMin+ to recognise which list the user is trying to edit on, and react accordingly. Other minor features includes the
-implementation of the `add_ev`, `edit_ev`, `find_em_tag` and `find_ev_tag` commands for the AddMin+ App.
+the user is on. This feature allows AddMin+ to bring users to the correct tab when a user inputs a command as well as restrict commands to
+specific tabs to prevent unusual behavior, that can cause users to be confused. It also enables AddMin+ to recognise which list the user is trying
+to edit on, and react accordingly. Other minor features includes the implementation of the `add_ev`, `edit_ev`, `find_em_tag` and `find_ev_tag` commands
+for the AddMin+ App.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shihaoyap&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[Functional code]][https://github.com[Test code]]
 
@@ -90,38 +91,60 @@ implementation of the `add_ev`, `edit_ev`, `find_em_tag` and `find_ev_tag` comma
 ** Project management:
 *** In charged of keep track of deadlines, submissions and issue trackers.
 *** In charged of the entire teams documentation quality.
-*** In charged of Add and Edit event commands for AddMin+ (Pull requests
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/79[#79])
-*** In charged of Find Employee and Event Tags commands for AddMin+ (Pull requests
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
-*** In charged of the entire *Schedule* feature of AddMin+ which includes 4 schedule related commands (Pull requests
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/102[#102], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/109[#109],
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/138[#138], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/139[#139])
-*** Assisted in morphing the Events class and storage units into AddMin+ (Pull requests
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/79[#79])
-*** Assisted in the refactoring process for person class to employee class and well as fixed test cases and checkstyle errors.
+*** In charged of Add and Edit event commands for AddMin+
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/79[#79])
+*** In charged of Find Employee and Event Tags commands for AddMin+
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
+*** In charged of the entire *Schedule* feature of AddMin+ which includes 4 schedule related commands
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/102[#102],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/109[#109],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/138[#138],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/139[#139])
+*** In charged of setting up test cases for all *Schedule* feature - commands, parsers, predicates
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/133[#233])
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/249[#249],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/267[#267])
+*** Assisted in morphing the Events class and storage units into AddMin+
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/79[#79])
+*** Assisted in the refactoring process for person class to employee class and well as
+fixed test cases and checkstyle errors.
 (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92[#92])
-*** Assisted in debugging AddMin+ based on User Feedback and Mock Practical Exam Feedbacks (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
+*** Assisted in debugging AddMin+ based on User Feedback and Mock Practical Exam Feedback
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
 *** Assisted in setting up the test structure for Events to facilitate easier Events related
-test cases (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
+test cases
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
+*** Assisted in implementing AddMin+ tab recognition, to disallow certain commands depending on which tab
+the user is on.
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/267[#267])
 
 ** Enhancements to existing features:
-*** Upgraded the GUI display and other GUI enhancements (Pull requests
+*** Upgraded the GUI display and other GUI enhancements
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/102[#102],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/143[#143])
-*** Wrote additional tests for existing features (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/139[#139])
+*** Wrote additional tests for existing features
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92[#92],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/127[#127],
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/53[#53], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/54[#54],
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/58[#58], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/60[#60],
- https://github.com/AY1920S1-CS2103T-T11-3/main/pull/143[#143])
+*** Did cosmetic tweaks to existing contents of the User Guide:
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/114[#114],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/143[#143],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/149[#149],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/150[#150],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/231[#231])
+
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/66[#66],
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/78[#78],
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/85[#85], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/83[#83],
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92[#92], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/99[#99],
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/103[#103], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/124[#124],
+*** PRs reviewed (with non-trivial review comments):
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/66[#66],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/83[#83],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/85[#85],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92[#92],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/137[#137])
 
 == Contributions to the User Guide
@@ -143,6 +166,15 @@ and the technical depth of my contributions to the project._
 include::../DeveloperGuide.adoc[tag=generateschedule]
 
 == Conclusion:
+The AddMin+ project was created by the AddMin+ Team as part of a university module requirement. Through AddMin+, I was able
+to experience what it was like to be involved in a software development project, where we were able to experience both the technical and
+non technical aspects of a software development project. We were able to directly apply the key software development concepts taught in CS2103T
+into our project and also experience what it was like dealing with a brown-field project.
+
+Another aspect of software development which I felt is often overlooked is actually the non technical aspect, such as
+documentation writing. However through CS2101, we were able to learn the steps of writing quality documentations of our project
+that caters to our audiences. Finally, even though the AddMin+ project was only 6 weeks long, I was able to pick up a ton of valuable knowledge
+that will be essential in becoming a software developer in the future.
 
 ---
 

@@ -6,13 +6,14 @@ package seedu.address.model.event;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalEventDates.OCT_01_2021;
 import static seedu.address.testutil.TypicalEventDates.OCT_09_2021;
 import static seedu.address.testutil.TypicalEventDates.OCT_10_2021;
-import static seedu.address.testutil.TypicalEventDates.OCT_13_2021;
 import static seedu.address.testutil.TypicalEventDates.OCT_15_2021;
 import static seedu.address.testutil.TypicalEventDates.OCT_16_2021;
 import static seedu.address.testutil.TypicalEventDates.OCT_21_2019;
 import static seedu.address.testutil.TypicalEventDates.OCT_23_2019;
+import static seedu.address.testutil.TypicalEventDates.OCT_30_2021;
 import static seedu.address.testutil.TypicalEvents.MUSICAL;
 
 import org.junit.jupiter.api.Test;
@@ -22,24 +23,22 @@ class EventContainsKeyDateRangePredicateTest {
     @Test
     void testEventOutOfRange() {
         EventContainsKeyDateRangePredicate predicate;
+        //event starts on - "10/10/2021", ends on - "15/10/2021";
         Event event = MUSICAL;
 
-        //Event Out of Start Range
-        predicate = new EventContainsKeyDateRangePredicate(OCT_13_2021, OCT_15_2021);
+        //Event before the specified date range
+        predicate = new EventContainsKeyDateRangePredicate(OCT_16_2021, OCT_30_2021);
         assertFalse(predicate.test(event));
 
-        //Event Out of End Range
-        predicate = new EventContainsKeyDateRangePredicate(OCT_10_2021, OCT_13_2021);
-        assertFalse(predicate.test(event));
-
-        //Event Out of Start and End Date Range
-        predicate = new EventContainsKeyDateRangePredicate(OCT_23_2019, OCT_09_2021);
+        //Event is after the specified date range
+        predicate = new EventContainsKeyDateRangePredicate(OCT_01_2021, OCT_09_2021);
         assertFalse(predicate.test(event));
     }
 
     @Test
     void testEventInRange() {
         EventContainsKeyDateRangePredicate predicate;
+        //event starts on - "10/10/2021", ends on - "15/10/2021";
         Event event = MUSICAL;
 
         //Event Start and End Dates within Range

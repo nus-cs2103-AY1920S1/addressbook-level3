@@ -2,7 +2,7 @@
 @@author shihaoyap
  */
 
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.schedule;
 
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_INVALID;
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_START_AFTER_END;
@@ -14,8 +14,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.schedule.DisplayScheduleBetweenCommand;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.schedule.DisplayScheduleBetweenParser;
 import seedu.address.model.event.EventContainsKeyDateRangePredicate;
 import seedu.address.model.event.EventDate;
 

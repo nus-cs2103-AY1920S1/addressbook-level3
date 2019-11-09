@@ -105,7 +105,7 @@ image::UiClassDiagram.png[]
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-There is also a `ScheduleBox` that is one of the tabs in the TabPane of `MainWindow`, the `ScheduleBox` which inherits from the abstract class `Tabs`. The abstract class `Tabs` also inherits from the abstract class `UiPart`.
+There are also `ScheduleBox`, `Finance`, `StatisticBox` which are of the tabs in the TabPane of `MainWindow`, of which all of them inherits from the abstract class `Tabs`. The abstract class `Tabs` also inherits from the abstract class `UiPart`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -393,34 +393,34 @@ Instantiation of the `Event` object when the app is started will be more complic
 // end::DeXun[]
 
 // tag::generateschedule[]
-=== Generate Schedule feature
+=== Generate Schedule Feature
 ==== Proposed Implementation
 
-The Generate Schedule Feature is implemented to allow users to have an overview of view all dates that has an event and the
-specific events for those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
+The Generate Schedule Feature is implemented to allow users to have an overview the event schedule. It will display all dates that has an event and the
+specific events that happens on those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
 new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
 
-It processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
+The `DistinctDateProcessor` processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
 process through these events to create specific `DistinctDate` Objects which stores a list of events which occurs on the date
-they are representing. These DistinctDate Objects are then used to be displayed on the GUI.
+they are representing. These DistinctDate Objects are then used, to create `DateCard` which will be displayed on the GUI. This feature
+can be seen in the generate schedule window as well as the employee fetch window.
 
-Additionally, The DistinctDateProcessor contains the following operations:
+The `DistinctDateProcessor` utilises the following operations in the `generate_schedule` command:
 
-* `generateDistinctDateList(Model model)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDateList() and generateListOfEventForDate() operations.
-* `generateListOfEventForDate(LocalDate date, Model model)` -- Takes in a `LocalDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
-* `generateDateList(Model model)` -- Takes in the entire list of events, identify all the dates that has at least one event and returns it as a list.
+* `generateAllDistinctDateList(Model model)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDistinctDateList() operations.
+* `generateDistinctDateList(List<Event> eventList)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDateList() and generateListOfEventForDate() operations.
+* `generateDateList(List<Event> eventList)` -- Takes in the entire list of events, identify all the dates that has at least one event and returns it as a list.
+* `generateListOfEventForDate(EventDate date, Model model)` -- Takes in an `EventDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
 
-The following class diagrams shows how the `DistinctDate` class and utility `DistinctDateProcessor` class is implemented:
+The following class diagram shows how the relationships between the different classes used by the `generate_schedule` command:
 
-._Class Diagram for DistinctDate_
-image::DistinctDateClassDiagram.png[align="center", width = "300"]
-._Class Diagram for DistinctDateProcessor_
-image::DistinctDateProcessorClassDiagram.png[align="center", width = "300"]
+._Class Diagram for GenerateScheduleCommand_
+image::GenerateScheduleClassDiagram.png[align="center"]
 
-Given below is an example usage scenario and how the display schedule mechanism behaves at each step.
-
+---
+Given below is an example usage scenario and how the `display_schedule` command behaves at each step.
 ._Program flow of the Generate Schedule Feature_
-image::GenerateScheduleFlowChart.png[align="center", width = "300"]
+image::GenerateScheduleFlowChart.png[align="center"]
 
 **Step 1**. The user launches the application for the first time.
 
@@ -430,7 +430,7 @@ image::GenerateScheduleFlowChart.png[align="center", width = "300"]
 The distinctDatesList will not be updated, and will not contain the new event that is added.
 [NOTE]
 Any command that alters the eventBook will not change the distinctDatesList. The distinctDatesList will continue to store the
-original list until the User requires it by calling the "generate_schedule" command. Where the distinctDateList will be generated
+original list until the User requires it by calling the `generate_schedule` command. Where the distinctDateList will be generated
 again using the current EventList
 
 
@@ -464,7 +464,7 @@ NOTE: The lifeline for `GenerateScheduleCommand` ends at the destroy marker (X).
 
 *Pros*: Easy to implement and requires less Storage Capacity and storage infrastructure to support the entire feature.
 
-*Cons*: May have performance issues in terms of speed and time Complexity. The program will have to iterate through the entire list of events and create
+*Cons*: May have performance issues in terms of speed and time Complexity if database gets extremely big. The program will have to iterate through the entire list of events and create
 the corresponding `DistinctDate` objects, whenever `generate_schedule` command is called.
 
 **Decision: Alternative 1
@@ -479,7 +479,7 @@ the schedule.
 *Cons*: May have performance issues in terms of storage and processing needed, requires new storage unit to store a new entity which is not as important
 and frequently used. This implementation can cause speed and time complexity issues as well, whenever edits are made to the existing eventList - add_ev, delete_ev etc
 the program is required to process through all DistinctDate Object to make the necessary changes. If the user does not even want to call the `generate_schedule` command
-after the changes, then this process is actually unnecessary.
+after the changes, then this process is actually unnecessary and redundant.
 
 | UI Decisions for Generate Schedule Command
 | Display Directly on the Schedule Tab, update the list when `generate_schedule` command is called
