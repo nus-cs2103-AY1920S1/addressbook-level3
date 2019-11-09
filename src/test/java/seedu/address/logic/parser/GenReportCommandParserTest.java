@@ -33,8 +33,6 @@ public class GenReportCommandParserTest {
         //Signature too long
         assertParseFailure(parser, "1 abcdefghijklmnopqrstuvwxyzabcdabcdefghij",
                 MESSAGE_INVALID_SIGNATURE_FORMAT);
-        //Signature too long
-        //assertParseFailure(parser, "1 1", MESSAGE_INVALID_SIGNATURE_FORMAT);
         //Invalid string
         assertParseFailure(parser, "B Manager A", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 GenReportCommand.MESSAGE_USAGE));
