@@ -13,6 +13,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 
+//@@author marcusteh1238
 /**
  * Class responsible for exporting Horo's tasks and events into an .ics file.
  */
@@ -25,16 +26,14 @@ public class IcsExporter {
     private List<EventSource> eventList;
     private List<TaskSource> taskList;
 
-    private ModelManager model;
-
     public IcsExporter(ModelManager model) {
-        this.model = model;
         this.eventList = model.getEvents();
         this.taskList = model.getTasks();
         requireNonNull(eventList);
         requireNonNull(taskList);
     }
 
+    //@@author marcusteh1238
     /**
      * Saves the events in an ics file, whose location is specified in the parameter.
      * @param filepathString the path of where the file should be made.
@@ -51,6 +50,7 @@ public class IcsExporter {
         }
     }
 
+    //@@author marcusteh1238
     /**
      * Generates the contents in the .ics file from the event list.
      * @param eventList The list of EventSource objects to be exported.
@@ -74,6 +74,11 @@ public class IcsExporter {
         return stringBuilder.toString();
     }
 
+    //@@author marcusteh1238
+    /**
+     * Generates a unique name for the exported ICS file, based on the current Instant.
+     * @return The file name for the exported ICS file.
+     */
     public static String getExportFileName() {
         String timestamp = DateTime.now().toIcsString();
         return "Horo_export_" + timestamp + ".ics";
