@@ -230,6 +230,7 @@ Rank feature has 2 sequential checks:
 2. Checks if an athlete participates in a competition, rank command can only be used if an athlete participates in a competition.
 
 Finally, the feature returns an athlete's report card for a competition. For example,
+
  Athlete: Alex Yeoh 
  Competition: NUS Powerlifting Open 2019 
  Rank: 1 
