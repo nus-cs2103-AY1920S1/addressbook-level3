@@ -97,7 +97,7 @@ public class BudgetPanel extends UiPart<Region> {
         if (amount - sum < 0) {
             titleText.setTextFill(Color.web("#FF0000"));
         } else {
-            titleText.setTextFill(Color.web("#00FF00"));
+            titleText.setTextFill(Color.web("#23B35B"));
         }
     }
 

@@ -21,7 +21,7 @@ By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
 *MoneyGoWhere* is a personal finance application targeted to students at the National University of Singapore (NUS).
 It allows students to keep track of all their spending and their related information such as date, cost and tags.
-Users can also set budget goals, view statistics, set reminders for bills and export their data to a .csv file.
+Users can also set budget goals, view statistics, set reminders for bills and export their data to a Csv file.
 With an easy-to-use Graphical User Interface (GUI) and employment of Command Line Interface (CLI), users can easily navigate through the application, contributing to its user-friendliness and efficiency.
 
 What are you waiting for? Start tracking your finances now!
@@ -531,7 +531,8 @@ The specified reminder is deleted.
 
 // tag::import[]
 === Importing data : `import`
-Imports data from a CSV file specified by file path. Existing spending entries are not replaced. +
+Imports the spending from a Csv file specified by a file path. The new spending
+Existing spending entries are not replaced. +
 
 *Format:* `import p/FILE_PATH` +
 
@@ -539,13 +540,13 @@ Imports data from a CSV file specified by file path. Existing spending entries a
 
 * `import p/data.csv`
 * `import p/C:\Users\User\Documents\importfile.csv`
-* `import p/~/data.csv`
+* `import p/./data.csv`
 
 [.text-center]
-.A Valid `.csv` File.
+.A Valid Csv File.
 image::ExampleValidCsv.png[width=75%]
 
-`.csv` file must have a header row with the following values:
+The figure above shows a valid Csv file that you could have or might want to create. The Csv file must have a header row with the following values:
 
 * name
 * date
@@ -569,13 +570,13 @@ Alternatively, tags could be wrapped in double quotes and separated by commas.
 
 *Expected Output:*
 
-Data from the CSV file is imported, keeping existing spending entries.
+Data from the Csv file is imported, keeping existing spending entries.
 
 // end::import[]
 
 // tag::export[]
 === Exporting data : `export`
-Exports data to a `moneygowhere.csv` file specified by a folder path. +
+Exports spending data to a `moneygowhere.csv` file specified by a folder path. +
 
 *Format:* export `p/FOLDER_PATH` +
 
@@ -583,10 +584,11 @@ Exports data to a `moneygowhere.csv` file specified by a folder path. +
 
 * `export p/Documents`
 * `export p/Finance`
+* `export p/C:\Users\user\Documents\MoneyGoWhere`
 
 *Expected Output:*
 
-Data from the spending list is exported to a specified folder with a file name `moneygowhere.csv`.
+Data from the spending list is exported to the specified folder with a file name `moneygowhere.csv`.
 
 // end::export[]
 

@@ -10,12 +10,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
 import javafx.util.Pair;
+import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.ParserUtil;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
@@ -52,6 +55,8 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_NO_CONTENT = "No content detected.";
 
     public static final String MESSAGE_ERROR_ROW = "Row %s: %s\n";
+
+    private static final Logger logger = LogsCenter.getLogger(ImportCommand.class);
 
     private final FilePath fullFilePath;
 
@@ -111,8 +116,10 @@ public class ImportCommand extends Command {
                 sb.append(errors.get(i));
             }
             String result = String.format(MESSAGE_SUCCESS_WITH_ERRORS, count, sb.toString());
+            logger.log(Level.INFO, result);
             return new CommandResult(result);
         } else {
+            logger.log(Level.INFO, String.format(MESSAGE_SUCCESS, count));
             return new CommandResult(String.format(MESSAGE_SUCCESS, count));
         }
 

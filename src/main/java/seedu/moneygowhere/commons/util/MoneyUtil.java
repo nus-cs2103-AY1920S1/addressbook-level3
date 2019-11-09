@@ -34,7 +34,7 @@ public class MoneyUtil {
      * @return
      */
     public static String format(double number) {
-        return number >= 1000
+        return number > 1000
                 ? format(number, 0)
                 : String.format("%.2f", number);
     }

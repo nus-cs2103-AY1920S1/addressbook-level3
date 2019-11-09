@@ -5,6 +5,8 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_PATH;
 
 import java.io.File;
 import java.util.NoSuchElementException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +14,7 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema.Builder;
 
+import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.path.FolderPath;
@@ -31,6 +34,8 @@ public class ExportCommand extends Command {
             + PREFIX_PATH + "C:\\Users\\User\\Documents";
 
     public static final String MESSAGE_SUCCESS = "Exported all spending to %s";
+
+    private static final Logger logger = LogsCenter.getLogger(ExportCommand.class);
 
     private final FolderPath fullFolderPath;
 
@@ -62,6 +67,7 @@ public class ExportCommand extends Command {
             csvMapper.writerFor(JsonNode.class)
                     .with(csvSchema)
                     .writeValue(file, jsonTree);
+            logger.log(Level.INFO, String.format(MESSAGE_SUCCESS, file.getAbsolutePath()));
             return new CommandResult(String.format(MESSAGE_SUCCESS, file.getAbsolutePath()));
         } catch (NoSuchElementException ex) {
             throw new CommandException(ex.getMessage());
