@@ -16,7 +16,6 @@ import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.schedule.DisplayScheduleBetweenCommand;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.schedule.DisplayScheduleBetweenParser;
 import seedu.address.model.event.EventContainsKeyDateRangePredicate;
 import seedu.address.model.event.EventDate;
 

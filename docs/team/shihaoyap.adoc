@@ -166,6 +166,15 @@ and the technical depth of my contributions to the project._
 include::../DeveloperGuide.adoc[tag=generateschedule]
 
 == Conclusion:
+The AddMin+ project was created by the AddMin+ Team as part of a university module requirement. Through AddMin+, I was able
+to experience what it was like to be involved in a software development project, where we were able to experience both the technical and
+non technical aspects of a software development project. We were able to directly apply the key software development concepts taught in CS2103T
+into our project and also experience what it was like dealing with a brown-field project.
+
+Another aspect of software development which I felt is often overlooked is actually the non technical aspect, such as
+documentation writing. However through CS2101, we were able to learn the steps of writing quality documentations of our project
+that caters to our audiences. Finally, even though the AddMin+ project was only 6 weeks long, I was able to pick up a ton of valuable knowledge
+that will be essential in becoming a software developer in the future.
 
 ---
 
