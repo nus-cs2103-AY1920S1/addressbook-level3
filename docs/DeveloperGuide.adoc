@@ -139,11 +139,13 @@ link:{repoURL}/src/main/java/seedu/algobase/ui/action/UiLogic.java[`UiLogic.java
 .  The result of the command execution is encapsulated as a `UiActionResult` object which is passed back to the `Ui`.
 .  In addition, the `UiActionResult` object can also instruct the `Ui` to perform certain actions, such as displaying the results as feedback to the user.
 
+// end::uilogic[]
+// tag::uilogicSequence[]
 .Interactions Inside the UiLogic Component for a `UiActionDetails` with a `UiActionType` of `editPlanUiAction`. This `UiActionDetails` also contains the ID of the problem to be deleted, in this case `11b`.
 image::EditSequenceDiagram.png[]
 
 NOTE: The lifeline for `EditProblemUiActionParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-// end::uilogic[]
+// end::uilogicSequence[]
 //@@author
 
 //@@author le0tan
@@ -540,7 +542,6 @@ Since AlgoBase is forked from AddressBook 3, it also inherits AB3's design choic
 //@@author tiuweehan
 // tag::gui[]
 === GUI Enhancements
-// end::gui[]
 
 An intuitive GUI facilitates the overall user friendliness of the application.
 The user should be able to navigate around the application easily to facilitate a smooth experience using AlgoBase.
@@ -550,16 +551,9 @@ In this case, having a GUI will be more beneficial to the user and facilitates a
 Additionally, multitasking is important as a user may be tackling multiple algorithmic questions at a single time.
 This, we introduced tabbing, which facilitates multitasking in AlgoBase, which is an important requirement for competitive programmers.
 
-// tag::gui[]
-
-==== Editing Problems from GUI
+==== Graphical User Interface Enhancements
 
 ===== Current Implementation
-
-When the user makes a change in the GUI, the change is propagated from `Ui` to `UiLogic` to `Model` and to `Storage`, as represented in the diagram below.
-
-.An example of a high level representation of GUI actions.
-image::ArchitectureSequenceDiagram1.png[]
 
 The following classes facilitate the handling of GUI actions:
 
@@ -570,16 +564,12 @@ The following classes facilitate the handling of GUI actions:
 * `AlgoBaseUiActionParser` - Parses a `UiActionDetails` object into an implementation of `UiAction`.
 * `UiActionResult` - The result of executing the UI action.
 
-When the user performs any action in the GUI (e.g. Editing a problem), a `UiActionDetails` object is created with a given `UiActionType`, an enum type.
-This object contains information about the action which will later be used to make changes to the application.
+When the user makes a change in the GUI, the change is propagated from `Ui` to `UiLogic` to `Model` and to `Storage`, as represented in the diagram below.
 
-This `UiActionDetails` object is sent to the `AlgoBaseUiActionParser`, which instantiates a `UiParser` depending on the `UiActionType` of the object.
-The purpose of the `UiParser` is to convert the `UiActionDetails` object into a `UiAction` object.
+.An example of a high level representation of the GUI Actions.
+image::ArchitectureSequenceDiagram1.png[]
 
-The `UiAction` object stores the instructions to make the specified changes to the `Model`, which will run when its `execute` method is called.
-The `UiAction` object is passed along to the `UiLogicManager`, which calls its `execute` method on the `Model` object.
-
-This process is captured by the example in the Sequence Diagrams below.
+This process of how the application handles UI Actions is captured by the example in the Sequence Diagrams below.
 
 .Interaction between `UI` and `UiLogic`
 image::gui/EditProblemUiActionSequenceDiagram0.png[]
@@ -606,12 +596,38 @@ and passes it back to the `UiLogicManager`.
 
 Step 3: The `UiLogicManager` executes the `EditProblemUiAction` together with the `Model`, and returns the `CommandResult`.
 
+==== Graphical User Interface State
+
+The state of the GUI is stored in a `GuiState` object, which is in turn stored in the `Model`. The `GuiState` object contains a `TabManager` object, which manages tab information such as the tabs that are open and the tabs that are currently selected.
+
+The following class diagram illustrates how the classes in the `GuiState` interact with one another:
+
+.Class Diagram for the `GuiState` class
+image::design/model/GuiPackageDiagram.png[width='60%']
+
+The information stored in the GuiState is linked to the `UI` through listeners. For example, when the attributes of the `TabManager` object is updated, it triggers callback functions in the UI controllers that update the state of the UI displayed.
+
+In AlgoBase, the state of the GUI is also saved to Storage after every action. This is so that when the user closes the application and opens it again later, the state is stored.
+
+The following Activity diagram illustrates the series of actions that occur when the user opens a new tab:
+
+image::gui/OpenTabUiActionActivityDiagram.png[]
+
+The Sequence diagram below also shows how the GuiState is saved to Storage.
+
+.Sequence Diagram for storing new GUI state
+image::gui/SwitchTabsSequenceDiagram3.png[]
+
+The `StorageManager` saves the modified `GuiState` as a new `JSON` file.
+This is done with the help of the `JsonSerializableGui`, `JsonSerializableTabManager` and `JsonSerializableTab` classes that are wrappers for the `GuiState`, `TabManager` and `TabData` classes.
+These wrapper classes can be converted into `JSON` format for storage without any data loss.
+
 ===== Design Considerations
 
 [width="100%",cols="33%,<33%,<33%",options="header",]
 |=======================================================================
 |Aspect| Alternative 1 (Current Choice) | Alternative 2
-| Handling Commands and UI Actions |
+| How to implement Commands and UI Actions in the same application |
 Handle Commands and UI Actions separately.
 
 **Pros**: Higher modularity. Allows separation the different architectures as well
@@ -624,7 +640,7 @@ Handle Commands and UI Actions together.
 **Pros**: Less code and higher reusability.
 
 **Cons**: Higher coupling and less cohesion.
-| Handling different kinds of UI Actions |
+| How to handle different kinds of UI Actions |
 Using a command structure with a central parser and many smaller parsers.
 
 **Pros**: Higher extensibility, easier to add new UI Actions
@@ -640,18 +656,12 @@ Handling each UI action individually.
 |
 |=======================================================================
 
-==== Tabbing Feature
+// end::gui[]
+// start:tab[]
 
-===== Current Implementation
+=== Command Line Tab Management
 
-The state of the GUI is stored in a `GuiState` object, which is in turn stored in the `Model`. The `GuiState` object contains a `TabManager` object, which manages tab information such as the tabs that are open and the tabs that are currently selected.
-
-The information is linked to the `UI` through listeners. When the attributes of the `TabManager` object is updated, it triggers callback functions in the UI controllers that update the state of the UI displayed.
-
-The following class diagram illustrates how the classes in the `GuiState` interact with one another:
-
-.Class Dagram for the `GuiState` class
-image::design/model/GuiPackageDiagram.png[width='60%']
+==== Current Implementation
 
 The following commands facilitate the management of tabs:
 
@@ -703,7 +713,7 @@ Step 7: After the command is executed, the state of the GUI changes. This causes
 This is done with the help of the `JsonSerializableGui`, `JsonSerializableTabManager` and `JsonSerializableTab` classes that are wrappers for the `GuiState`, `TabManager` and `TabData` classes.
 These wrapper classes can be converted into `JSON` format for storage without any data loss.
 
-===== Design Considerations
+==== Design Considerations
 
 [width="100%",cols="33%,<33%,<33%",options="header",]
 |=======================================================================
@@ -735,7 +745,7 @@ Updating the UI synchronously
 |
 |=======================================================================
 
-// end::gui[]
+// end::tab[]
 //@@author
 
 //@@author Seris370

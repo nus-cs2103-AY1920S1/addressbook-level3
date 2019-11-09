@@ -75,7 +75,7 @@ public class EditProblemUiActionParser implements UiParser<EditProblemUiAction> 
 
         String difficultyString = UiParserUtil.parseString(uiActionDetails.get(DIFFICULTY_INDEX));
         if (!difficultyString.isBlank()) {
-            editProblemDescriptor.setDescription(ParserUtil.parseDescription(descriptionString));
+            editProblemDescriptor.setDifficulty(ParserUtil.parseDifficulty(difficultyString));
         }
 
         String remarkString = UiParserUtil.parseString(uiActionDetails.get(REMARK_INDEX));

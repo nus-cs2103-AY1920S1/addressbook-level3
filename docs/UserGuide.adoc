@@ -16,7 +16,6 @@ endif::[]
 
 By: `Team CS2103T-W11-1`      Since: `Sep 2019`      Licence: `MIT`
 
-// tag::intro[]
 == Introduction
 
 AlgoBase (AB) is a one-stop management platform for Computer Science students preparing for technical interviews.
@@ -37,6 +36,7 @@ equipped with a robust Command Line Interface (CLI) while still maintaining the 
 
 Interested? Jump to the Section 2 to get an "Overview" of the AlgoBase, or Section 3 “Quick Start” to get started with AlgoBase!
 
+// tag::overview[]
 == Overview
 
 AlgoBase is primarily a problem management application, where users can add different algorithm problems from all kinds of sources.
@@ -54,7 +54,7 @@ AlgoBase is split into following 3 panes:
 ** _Display Tabs_  – shows details of a specific item
 ** _Plan Tab_ – shows details of the current plan
 
-// end::intro[]
+// end::overview[]
 
 == Quick Start
 
@@ -495,61 +495,80 @@ Examples:
 // end::task[]
 
 // tag::gui[]
-=== Editing and Deleting from the Graphical User Interface
+=== Graphical User Interface (GUI) Enhancements
 
-AlgoBase currently supports editing Problems and Plans from the GUI with an intuitive layout.
+AlgoBase currently supports several GUI features with an intuitive layout, including the following:
 
-==== Editing a Problem / Plan
+* Opening, Closing and Switching between Tabs
+* Editing a Problem / Plan
+* Deleting a Problem / Plan
 
-.Plan with name "Data Structures" is opened.
-image::gui/EditPlanUiAction0.png[width="70%"]
+==== Tabs
 
-Step 1: Select the problem / plan you want to delete by double clicking on it.
+There are 3 types of tabs in AlgoBase. 2 of them, Display and Details tabs, are illustrated in the figure below.
 
-.The name and start date of the plan are modified.
-image::gui/EditPlanUiAction1.png[width="70%"]
-
-Step 2: Make changes to the problem / plan by editing the fields directly.
-
-.The plan is successfully edited.
-image::gui/EditPlanUiAction2.png[width="70%"]
-
-Step 3: Save changes to the problem by clicking on the _"Edit Problem"_ / _"Edit Plan"_ button.
-
-
-==== Deleting a Problem / Plan
-
-.Problem with name "Sequences" is opened.
-image::gui/DeleteProblemUiAction0.png[width="70%"]
-
-Step 1: Select the problem / plan you want to delete by double clicking on it.
-
-.Warning Dialog to confirm problem being deleted.
-image::gui/DeleteProblemUiAction1.png[width="70%"]
-
-Step 2: Click on the red _"Delete Problem"_ / _"Delete Plan"_ button at the bottom right.
-To prevent accidental deletion, a warning dialog will appear to confirm if you would like to delete the item.
-Click on the _"confirm"_ button.
-
-.The problem is successfully deleted.
-image::gui/DeleteProblemUiAction2.png[width="70%"]
-
-Step 4: Click on _Confirm_.
-
-// end::gui[]
-
-// tag::tab[]
-=== Tabs
-
-There are 2 types of tabs in AlgoBase: Display and Details tabs, as seen in the figure below.
-
-.Types of tabs highlighted in Orange
-image::gui/TabsOverview.png[width="70%"]
+.Types of tabs and their usage
+image::gui/TabsOverview1.png[width="70%"]
 
 
 * **Display tabs** give a high level overview of the contents of a list of items
 (e.g. a list of _problems_ / _tags_ / _plans_ / _findrules_).
 * **Details tabs** give a more detailed description of an item in a display tab.
+
+Much like tabs you see in other applications, tabs in AlgoBase work the same way:
+
+* Switch Tab – Click on a tab to switch tabs
+* Open Tab – Double click on an item in the Display tab to open it in the Details tab
+* Close Tab – Click on the `x` button next to a Details tab to close it.
+
+[NOTE]
+Display Tabs cannot be closed.
+
+==== Editing a Problem / Plan
+
+The following steps show how a user can edit problems or plans from the GUI.
+
+Step 1: Select the problem / plan you want to delete by double clicking on it.
+
+.Plan with name "Data Structures" is opened.
+image::gui/EditPlanUiAction0Annotated.png[width="70%"]
+
+Step 2: Make changes to the problem / plan by editing the fields directly.
+
+.The name and start date of the plan are modified.
+image::gui/EditPlanUiAction1Annotated.png[width="70%"]
+
+Step 3: Save changes to the problem / plan by clicking on the _Edit Problem_ / _Edit Plan_ button.
+
+.The plan is successfully edited.
+image::gui/EditPlanUiAction2Annotated.png[width="70%"]
+
+[NOTE]
+The _Edit Plan_ Button cannot be clicked if there are no changes made to the plan.
+
+==== Deleting a Problem / Plan
+
+The following steps show how a user can delete problems or plans from the GUI.
+
+Step 1: Select the problem / plan you want to delete by double clicking on it.
+
+.Problem with name "Sequences" is opened.
+image::gui/DeleteProblemUiAction0Annotated.png[width="70%"]
+
+Step 2: Click on the red _Delete Problem_ / _Delete Plan_ button at the bottom right.
+To prevent accidental deletion, a warning dialog will appear to confirm if you would like to delete the item.
+Click on the _"confirm"_ button.
+
+.Warning Dialog to confirm problem being deleted.
+image::gui/DeleteProblemUiAction1Annotated.png[width="70%"]
+
+Step 3: Click on _Confirm_.
+
+.The problem is successfully deleted.
+image::gui/DeleteProblemUiAction2Annotated.png[width="70%"]
+
+// end::gui[]
+// tag::tab[]
 
 ==== Switching Tabs: `switchtab`
 
