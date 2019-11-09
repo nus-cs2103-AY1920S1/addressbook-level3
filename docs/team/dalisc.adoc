@@ -36,7 +36,7 @@ This symbol indicates important information.
 A grey highlight indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
 |===
 
-== 2. Summary of contributions
+== 2. Summary of Contributions
 
 This section shows a summary of my coding, documentation, and other helpful contributions to the
 team project.
