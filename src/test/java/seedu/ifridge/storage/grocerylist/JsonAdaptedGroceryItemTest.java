@@ -1,4 +1,4 @@
-package seedu.ifridge.storage;
+package seedu.ifridge.storage.grocerylist;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.ifridge.storage.JsonAdaptedGroceryItem.MISSING_FIELD_MESSAGE_FORMAT;
@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.ifridge.commons.exceptions.IllegalValueException;
 import seedu.ifridge.model.food.Name;
+import seedu.ifridge.storage.JsonAdaptedGroceryItem;
+import seedu.ifridge.storage.JsonAdaptedTag;
 
 public class JsonAdaptedGroceryItemTest {
     private static final String INVALID_NAME = "M@ngo";

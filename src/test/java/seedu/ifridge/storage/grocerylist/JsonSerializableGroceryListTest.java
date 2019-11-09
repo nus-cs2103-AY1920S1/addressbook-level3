@@ -1,4 +1,4 @@
-package seedu.ifridge.storage;
+package seedu.ifridge.storage.grocerylist;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.ifridge.testutil.Assert.assertThrows;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.ifridge.commons.exceptions.IllegalValueException;
 import seedu.ifridge.commons.util.JsonUtil;
 import seedu.ifridge.model.GroceryList;
+import seedu.ifridge.storage.JsonSerializableGroceryList;
 import seedu.ifridge.testutil.TypicalGroceryItems;
 
 public class JsonSerializableGroceryListTest {

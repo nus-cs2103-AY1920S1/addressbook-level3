@@ -1,4 +1,4 @@
-package seedu.ifridge.storage;
+package seedu.ifridge.storage.grocerylist;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.ifridge.commons.exceptions.DataConversionException;
 import seedu.ifridge.model.GroceryList;
 import seedu.ifridge.model.ReadOnlyGroceryList;
+import seedu.ifridge.storage.JsonGroceryListStorage;
 import seedu.ifridge.testutil.TypicalGroceryItems;
 
 public class JsonGroceryListStorageTest {
