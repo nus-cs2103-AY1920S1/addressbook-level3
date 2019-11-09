@@ -171,13 +171,19 @@ public class EditAccommodationCommand extends EditCommand {
 
         Name updatedName = editAccommodationDescriptor.getName().orElse(accommodationToEdit.getName());
         Address updatedAddress = editAccommodationDescriptor.getAddress().orElse(accommodationToEdit.getAddress());
-        Contact updatedContact = !editAccommodationDescriptor.getPhone().isPresent()
-                ? accommodationToEdit.getContact().isPresent()
-                ? accommodationToEdit.getContact().get()
-                : null
-                : model.hasPhone(editAccommodationDescriptor.getPhone().get())
-                ? model.getContactByPhone(editAccommodationDescriptor.getPhone().get()).get()
-                : new Contact(updatedName, editAccommodationDescriptor.getPhone().get(), null, null, new HashSet<>());
+        Contact updatedContact = editAccommodationDescriptor.getPhone().isPresent()
+                ? model.hasPhone(editAccommodationDescriptor.getPhone().get())
+                    ? model.getContactByPhone(editAccommodationDescriptor.getPhone().get()).get()
+                    : accommodationToEdit.getContact().isPresent()
+                        ? new Contact(accommodationToEdit.getContact().get().getName(),
+                            editAccommodationDescriptor.getPhone().get(),
+                            accommodationToEdit.getContact().get().getEmail().orElse(null),
+                            accommodationToEdit.getContact().get().getAddress().orElse(null),
+                            accommodationToEdit.getContact().get().getTags())
+                        : new Contact(updatedName, editAccommodationDescriptor.getPhone().get(), null, null, new HashSet<>())
+                : accommodationToEdit.getContact().isPresent()
+                    ? accommodationToEdit.getContact().get()
+                    : null;
 
         Set<Tag> updatedTags = editAccommodationDescriptor.getTags().orElse(accommodationToEdit.getTags());
 
