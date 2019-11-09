@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":ModelFinanceManager" as ModelFinanceManager MODEL_COLOR
+participant ":FinanceLog" as FinanceLog MODEL_COLOR
+end box
+
+[-> ModelFinanceManager : addBudget(b)
+activate ModelFinanceManager
+
+ModelFinanceManager -> FinanceLog : addBudget(b)
+activate FinanceLog
+
+FinanceLog -> FinanceLog : add(b)
+activate FinanceLog
+
+FinanceLog --> FinanceLog
+deactivate FinanceLog
+
+FinanceLog --> ModelFinanceManager
+deactivate FinanceLog
+
+ModelFinanceManager -> ModelFinanceManager : updateFilteredBudgetList(PREDICATE_SHOW_ALL_BUDGETS)
+activate ModelFinanceManager
+
+ModelFinanceManager --> ModelFinanceManager
+deactivate ModelFinanceManager
+
+[<--ModelFinanceManager
+deactivate ModelFinanceManager
+
+@enduml

@@ -2,7 +2,7 @@ package seedu.address.ui.finance;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import seedu.address.model.finance.logentry.BudgetData;
+import seedu.address.model.finance.budget.BudgetData;
 
 /**
  * An UI component that displays information of a {@code Budget}

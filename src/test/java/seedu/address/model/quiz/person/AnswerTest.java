@@ -14,16 +14,16 @@ public class AnswerTest {
 
     @Test
     public void isValidAnswer() {
-        // null phone number
+        // null answer number
         assertThrows(NullPointerException.class, () -> Answer.isValidAnswer(null));
 
-        // valid phone numbers
+        // valid answer numbers
         assertTrue(Answer.isValidAnswer("")); // empty string
         assertTrue(Answer.isValidAnswer(" ")); // spaces only
         assertTrue(Answer.isValidAnswer("My Answer")); // alphabets within digits
         assertTrue(Answer.isValidAnswer("123 456")); // spaces within digits
         assertTrue(Answer.isValidAnswer("93121534"));
-        assertTrue(Answer.isValidAnswer("124293842033123")); // long phone numbers
+        assertTrue(Answer.isValidAnswer("124293842033123")); // long answer numbers
         assertTrue(Answer.isValidAnswer("911")); // exactly 3 numbers (too short)
     }
 }

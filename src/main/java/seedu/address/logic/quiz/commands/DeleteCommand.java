@@ -10,10 +10,8 @@ import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.model.quiz.Model;
 import seedu.address.model.quiz.person.Question;
 
-
-
 /**
- * Deletes a question identified using it's displayed index from the address book.
+ * Deletes a question identified using it's displayed index from the modulo.
  */
 public class DeleteCommand extends Command {
 

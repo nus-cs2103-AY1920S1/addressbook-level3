@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's category in the address book.
+ * Represents a Question's category in modulo.
  * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
 public class Category {

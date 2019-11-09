@@ -56,11 +56,12 @@ For example, the `Logic` component (see the class diagram given below) defines i
 .Class Diagram of the Logic Component for the feature Cap
 image::LogicClassDiagram.png[]
 
+// tag::rationale[]
 [discrete]
 ==== Rationale for having multiple `UI`, `Logic`, `Model`, `Storage` classes in _Modulo_
 
-The features in _Modulo_ are quite distinct, and essentially do not share the commands and dalexibility of implementing each feature. The same command word `add` is now able to be executete the features to form _Modulo_ with less overlaps when coding. Each time the user switches tover the previous feature's classes.
-
+The features in _Modulo_ are quite distinct and having minimal overlaps, each feature has its own data file to read and modify. The logic to execute commands are also handled differently in each feature. As such, our decision to have 4 components for each feature was to reduce coupling and allow flexibility in our implementations. This means that the same `add` command is now able to trigger a different sequence of actions depending on the feature the user is currently in. This architecture style allows each feature to be developed independently, free from the constraints set by other features. Each time a user switches to another feature, the `Ui`, `Logic`, `Model` and `Storage` classes will be replaced by that of the new feature.
+// end::rationale[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -235,8 +236,7 @@ comparator implemented in a method that would return a sorted `FilteredList<Task
 ** Pros: Need to switch the `compareTo()` method of each `Task` each time `sort` is called.
 ** Cons: New/edited task would be automatically placed at the correct order.
 
-
-// tag::undoredo[]
+// tag::createquestion1[]
 === Quiz feature
 ==== Create question feature
 ===== Implementation
@@ -249,7 +249,7 @@ Below are the quiz model class diagram:
 image::ModelQuizClassDiagram.png[]
 
 In quiz feature, a `Question` has 6 attributes namely: `Name`, `Answer`, `Category`, `Type`, `Comment`, `Tag`, with
-the first two attributes differentiate one `Question` from the others. When the users first time launch the app or the are no data yet,
+the first three attributes differentiate one `Question` from the others. When the users first time launch the app or there are no data yet,
 Modulo will automatically populate the four questions from `SampleDataUtil`. The users are able to use the `clear` command
 if they want to delete the given data entirely. UI will then pull and updates the data from the `ModelQuizManager` which
 represents the in-memory model of the `AddressQuizBook` data, and show them to the users.
@@ -259,7 +259,7 @@ Given below is an example usage scenario on how to add a question properly and t
 *Step 1.* The user launches the application and switch to the *quiz* mode by executing `switch quiz`.
 
 *Step 2.* The user executes `*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Today_ *<cat>* _CS2131_ *<type>* _high_`
-command to add a question with the question name: _What is always coming, but never arrives?_, answer: _Tomorrow_, category: CS2131 and type: _high_ in the quiz book.
+command to add a question with the question name: _What is always coming, but never arrives?_ and answer: _Tomorrow_, category: CS2131, type: _high_ in the quiz book.
 The `add` command calls `Model#addQuestion()`, causing the modified state of the quiz book, after the command executes, to be saved in the `quizBookStateList` and shown in the UI.
 
 *Step 3.* If the user realized that they have typed the wrong answer for a particular question, then the user can executes
@@ -269,16 +269,30 @@ causing the modified state of the quiz book, after the command executes, to be s
 *Step 4.* _[Addtional]_ The user can execute `*comment 1 <val>* _The explanation is in pg 194 textbook_` if he/she now decide to add a comment or explanation of a quiz question at index 1.
 The `comment` command calls `Model#setQuestion()` to parse in an additional parameter of comment into the entity of the question. It will then be saved in the
 `quizBookStateList` and shown in the UI.
+// end::createquestion1[]
 
 [NOTE]
 Users can also utilize the undo/redo command when they realize that they have execute a command that they shouldn't do (Will be explained in [3.5.2]).
 
+// tag::createquestion2[]
 The following activity diagram summarizes the basic question creation process:
 
 image::QuizCreationActivityDiagram.png[]
 
+===== Design Considerations
+
+====== Aspect: How to add question
+
+* **Alternative 1 (current choice):** Users add question to the last of the list.
+** Pros: Easy to implement and fast (Insertion O(1)).
+** Cons: User may not be able to position the question from the list of questions.
+* **Alternative 2:** Users insert the question to the desired position.
+** Pros: User can order the list as they desired and remember things better.
+** Cons: Not as fast as the insertion at the back of the list from alternative 1. +
 {empty} +
 
+// end::createquestion2[]
+// tag::undoredo1[]
 ==== Undo/Redo feature
 ===== Implementation
 
@@ -292,24 +306,27 @@ Additionally, it implements the following operations:
 
 These operations are exposed in the `Model` interface as `Model#commitQuizBook()`, `Model#undoQuizBook()` and `Model#redoQuizBook()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Below is an example usage scenario on how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedQuizBook` will be initialized with the initial quiz book state, and the `currentStatePointer` pointing to that single quiz book state.
+*Step 1.* The user launches the application for the first time. The `VersionedQuizBook` will be initialized with the initial quiz book state, and the `currentStatePointer` pointing to that single quiz book state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the quiz book. The `delete` command calls `Model#commitQuizBook()`, causing the modified state of the quiz book after the `delete 5` command executes to be saved in the `quizBookStateList`, and the `currentStatePointer` is shifted to the newly inserted quiz book state.
+*Step 2.* The user executes `delete 5` command to delete the 5th question in the quiz book. The `delete` command calls `Model#commitQuizBook()`, causing the modified state of the quiz book after the `delete 5` command executes to be saved in the `quizBookStateList`, and the `currentStatePointer` is shifted to the newly inserted quiz book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `comment 1 <val> NewComment` to add a new person. The `add` command also calls `Model#commitQuizBook()`, causing another modified quiz book state to be saved into the `quizBookStateList`.
+*Step 3.* The user executes `comment 1 <val> NewComment` to add a new question. The `add` command also calls `Model#commitQuizBook()`, causing another modified quiz book state to be saved into the `quizBookStateList`.
 
 image::UndoRedoState2.png[]
+
+// end::undoredo1[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitQuizBook()`, so the quiz book state will not be saved into the `quizBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoQuizBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous quiz book state, and restores the quiz book to that state.
+// tag::undoredo2[]
+*Step 4.* The user now decides that adding the question was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoQuizBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous quiz book state, and restores the quiz book to that state.
 
 image::UndoRedoState3.png[]
 
@@ -319,25 +336,30 @@ If the `currentStatePointer` is at index 0, pointing to the initial quiz book st
 The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[]
+//end::undoredo2[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::undoredo3[]
 The `redo` command does the opposite -- it calls `Model#redoQuizBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the quiz book to that state.
+// end::undoredo3[]
 
 [NOTE]
 If the `currentStatePointer` is at index `quizBookStateList.size() - 1`, pointing to the latest quiz book state, then there are no undone quiz book states to restore. The `redo` command uses `Model#canRedoQuizBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the quiz book, such as `list`, will usually not call `Model#commitQuizBook()`, `Model#undoQuizBook()` or `Model#redoQuizBook()`. Thus, the `quizBookStateList` remains unchanged.
+*Step 5.* The user then decides to execute the command `list`. Commands that do not modify the quiz book, such as `list`, will usually not call `Model#commitQuizBook()`, `Model#undoQuizBook()` or `Model#redoQuizBook()`. Thus, the `quizBookStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitQuizBook()`. Since the `currentStatePointer` is not pointing at the end of the `quizBookStateList`, all quiz book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+*Step 6.* The user executes `clear`, which calls `Model#commitQuizBook()`. Since the `currentStatePointer` is not pointing at the end of the `quizBookStateList`, all quiz book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[]
+
+// tag::undoredo4[]
 
 ===== Design Considerations
 
@@ -347,8 +369,10 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the question being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
+
+// end::undoredo4[]
 
 ====== Aspect: Data structure to support the undo/redo commands
 
@@ -359,7 +383,96 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 
-// end::undoredo[]
+// tag::budget[]
+=== Budgets in finances
+
+==== Implementation
+
+A budget is an estimate or threshold of spending set for a specified period of time. In _Modulo_, a budget can be set to only include spendings of a particular characteristic (i.e. transaction method, place of spending or category). For example, budgets of spendings at a particular place can be set. _Modulo_ will only take into account spendings recorded to be associated with this place and falling within the specified period of time.
+
+To compute the current total amount spent so far and see whether this total amount still falls within the budget, amounts associated with entries are summed together.
+
+These entries have to fulfill the following requirements set by the budget to be considered in the tabulation:
+
+* Has to be a log entry of type `Spend`
+* Transaction date has to fall within budget period (i.e. between the start and end dates)
+* (If addition field of transaction method, place of spending or categorys specified) Has to either have the same transaction method, place of spending or be tagged with the same category
+
+There are some classes in the `Model` component necessary for the computation of budgets:
+
+* `Budget` - Contains the basic information about a budget (amount, start and end dates, additional characteristic `Spend` entry has to fall under (if any))
+* `BudgetData` - The `Budget` object associated to it, the limit set by the budget and the current total amount tabulated from the `Spend` entries matching the budget requirements
+
+In `ModelFinanceManager` which implements the `Model` interface, `Model#getFilteredBudgetDataList()` will return the list of `BudgetData` objects mapped from the list of `Budget` objects stored in the _Modulo_. These `BudgetData` are instantiated using information from the list of entries stored in _Modulo_. They filter out entries which do not match the requirements of the budget they are associated with, and then add up all the amounts of the entries to obtain the current total amount spent.
+
+If the total amount of spending is close to exceeding the budget (more than or equals to 80% of budget spent), an orange label at the menu bar will be shown to notify the user that a budget is near to reaching its limit.
+
+And if the total amount of spending has exceeding the limit set by the budget, the menu bar will have a red label indicating that the budget has been exceeded. The amount of money spend has gone over the estimate set and is now in deficit.
+
+Given below is an example usage scenario for what happens when a budget is set, and how _Modulo_ behaves at each step.
+
+This assumes that the user has not set any budget in the application before but has some entries recorded in the finance log. These entries are:
+
+1. (Income) Amount: 800, Item: Internship Pay, From: ABCompany,  Transaction Method: Bank Transfer, Day:  7-11-2019
+2. (Spend) Amount: 50, Item: EzLink TopUp, Transaction Method: NETS, Place: Caldecott MRT, Day:  4-11-2019
+3. (Spend) Amount: 107.70, Item: Bicycle, Transaction Method: Cash, Day:  5-11-2019, Place: Toa Payoh Lor 4, Categories: bike
+4. (Spend) Amount: 1.10, Item: KopiO, Transaction Method: Cash, Day:  2-11-2019, Categories: drink, kopitiam
+
+*Step 1.* The user launches the application and switch to the *finance* mode by executing `switch finance`.
+
+*Step 2.* The user wants to set a budget of 300 dollars for November for spendings done using cash. He executes the `budget <amt> 300 <month> 11-2019 <met> Cash` command to set this budget. The `budget` command calls `Model#addBudget(b)`, where upon the finance log will add `Budget` object `b` to `budgetList`, the list of budgets.
+
+The interactions inside the Logic Component for `budget <amt> 300 <month> 11-2019 <met> cash` Command are shown in the sequence diagram below.
+
+image::BudgetLogicSequenceDiagram.png[]
+
+[NOTE]
+The lifelines for `BudgetCommandParser` and `BudgetCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifelines reaches the end of diagram.
+
+The interactions in the Model Component for the same command are shown in the sequence diagram below.
+
+image::BudgetModelSequenceDiagram.png[]
+
+The budget is added to the list of budgets (this being the first budget in the list). The list of budgets will update with the status of each budget.
+
+Modulo will change the view after a `budget` command to show the list of budgets stored in Modulo.
+
+[NOTE]
+If the exact same budget already exists in the budget list, it will not call `Model#addBudget(b)`, and this budget will not be added to the list of budgets. Modulo will show an error message that this budget already exists.
+
+*Step 3.* The user now decides to add another entry of spending. This time the user has recently spent 400 dollars on a Nintendo Switch and paid for it using cash. He enters this record with the `spend <amt> 400 <item> Nintendo Switch <met> Cash <day> 7-11-2019` command. This entry is added to the list of entries.
+
+Since this entry is paid using cash, transaction date was in November 2019 it is included in the tabulation of the budget. It causes the total amount spent to exceed the budget of 300 dollars, and a red label in the menu bar appears to notify the user that a budget has exceeded.
+
+*Step 4.* The user views the list of budgets (in this example, there is only one budget) using the `listb` command.
+
+The window changes to a view of the budget, with information about its status shown.
+
+These information include:
+
+* Type of budget (for all `Spend` entries, for entries done using a specific transaction method, conducted at a specific place or tagged with a specific category)
+* Start and end date of budget
+* Progress bar of how much money has been spent (for entries fulfilling budget requirements)
+* Whether the budget is active (current date falls between start and end dates) or not (end date of budget has passed or start date has yet to come)
+* Total amount spend so far
+* Limit set by budget
+* Amount of money left to limit or how much has the budget been exceeded by
+
+The flow on how what happens when the user enters a new entry is shown in the activity diagram below.
+
+image::AddNewEntryActivityDiagram.png[width=60%]
+
+==== Design Considerations
+
+===== Aspect: Data structure to support tabulation of spendings
+
+* **Alternative 1 (current choice):** Save just the basic details related to the budget - amount (limit to amount to be spent), start and end date, optional requirements `Spend` entries should fufill (transaction method, place of spending or category).
+** Pros: Less information to store, flexible to changes such as updates to entries during edits (e.g. changes in amounts etc). Budgets can be retrospective (even if dates have past, budgets can still be set to see spending was kept within limits).
+** Cons: Additional step of filtering to obtain entries matching budget requirements before tabulating the total amount - may have performance issues when number of entries is large in terms of time complexity.
+* **Alternative 2:** Budget stores the same information as above, and also the list of entries that fulfill the budget requirements.
+** Pros: Removes the need for filtering entries before tabulation, simply calculate total amount from list of entries stored under the budget.
+** Cons: Will use more memory (now storing the list of entries). Difficult when an entry is delete or modified, have to delete and modify entry accordingly in the list of entries stored under the budget.
+// end::budget[]
 
 == Documentation
 
@@ -473,7 +586,144 @@ Use case ends.
 +
 [none]
 ** 2a1. Modulo shows an error message.
+
+// tag::financeMSS[]
+[discrete]
+=== Use case: Record down an entry of borrowing to finance log
+Preconditions: User has switched to the _finance_ feature
+
+*MSS*
+
+1.  User enters details of money borrowed.
+2.  User requests to add a Borrow entry.
+3.  Modulo adds Borrow entry and displays it in list of log entries.
 +
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Modulo detects an error in command/details entered.
+[none]
+** 2a1. Modulo shows an error message.
+** 2a2. Modulo requests for command to be entered in the correct format.
+** 2a3. User enters new line of command with new details.
+* Steps 2a1-2a3 are repeated until the command and details entered are in the correct format.
+* Use case resumes from step 3.
+
+[discrete]
+=== Use case: Set a budget
+Preconditions: User has switched to the _finance_ feature
+
+*MSS*
+
+1.  User enters details of budget.
+2.  User requests to add a budget to finance log.
+3.  Modulo adds the budget and displays it in list of budgets.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Modulo detects an error in command/details entered.
+[none]
+** 2a1. Modulo shows an error message.
+** 2a2. Modulo requests for command to be entered in the correct format.
+** 2a3. User enters new line of command with new details.
+* Steps 2a1-2a3 are repeated until the command and details entered are in the correct format.
+* Use case resumes from step 3.
+
+[none]
+* 2b. Modulo detects that budget already exists in finance log (with all details exactly the same).
+[none]
+** 2b1. Modulo shows an error message.
+* Use case ends.
+
+[discrete]
+=== Use case: Record down an entry of borrowing to finance log
+Preconditions: User has switched to the _finance_ feature, a budget exists in finance log
+
+*MSS*
+
+1.  User enters details of money spend.
+2.  User requests to add a Spend entry.
+3.  Modulo adds Spend entry and displays it in list of log entries.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Modulo detects an error in command/details entered.
+[none]
+** 2a1. Modulo shows an error message.
+** 2a2. Modulo requests for command to be entered in the correct format.
+** 2a3. User enters new line of command with new details.
+* Steps 2a1-2a3 are repeated until the command and details entered are in the correct format.
+* Use case resumes from step 3.
+
+[none]
+* 3a. Spend entry is included under budget and budget is exceeded (i.e. limit set by budget is crossed).
+[none]
+** 3a1. Modulo notifies that budget has been exceeded.
+** 3a2. Exceeded budget is marked as so.
+* Use case ends.
+
+[none]
+* 3b. Spend entry is included under budget and budget is close to being exceeded.
+[none]
+** 3b1. Modulo notifies that budget is close to exceeding.
+* Use case ends.
+
+[discrete]
+=== Use case: Mark an entry of money lent as repaid
+Preconditions: User has switched to the _finance_ feature
+
+*MSS*
+
+1.  User requests to mark Lend entry as repaid.
+2.  Modulo marks the entry as repaid and record downs the date of repayment.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User requests to mark Lend entry as repaid with date of repayment specified.
+* Use case resumes from step 2.
+[none]
+* 2a. Modulo checks that entry was already repaid and notifies user of it.
+* Use case ends.
+
+[discrete]
+=== Use case: View statistical summary of finance log
+Preconditions: User has switched to the _finance_ feature
+
+*MSS*
+
+1.  User requests to view statistical summary with type of summary specified.
+2.  Modulo shows graphs summarising the flow of money in the finance log.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Modulo detects an error in command/details entered.
+[none]
+** 1a1. Modulo shows an error message.
+** 1a2. Modulo requests for command to be entered in the correct format.
+** 1a3. User enters new line of command with new details.
+* Steps 1a1-1a3 are repeated until the command and details entered are in the correct format.
+* Use case resumes from step 2.
+
+[none]
+* 2a. Modulo detects that no entries have been entered in the finance log.
+[none]
+** 1a1. Modulo shows an empty page.
+* Use case ends.
+// end::financeMSS[]
 
 
 [appendix]
@@ -482,8 +732,6 @@ Use case ends.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should minimize the amount of typing
 .  Should work on various desktop size
-
-
 
 [appendix]
 == Glossary

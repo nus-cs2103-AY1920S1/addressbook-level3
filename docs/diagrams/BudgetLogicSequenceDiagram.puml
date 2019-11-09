@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicFinanceManager" as LogicFinanceManager LOGIC_COLOR
+participant ":FinanceLogParser" as FinanceLogParser LOGIC_COLOR
+participant ":BudgetCommandParser" as BudgetCommandParser LOGIC_COLOR
+participant "b:Budget" as Budget LOGIC_COLOR
+participant "bc:BudgetCommand" as BudgetCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelFinanceManager" as ModelFinanceManager MODEL_COLOR
+end box
+
+[-> LogicFinanceManager : execute("budget <amt> 300 <month> 11-2019 <met> cash")
+activate LogicFinanceManager
+
+LogicFinanceManager -> FinanceLogParser : parseCommand("budget <amt> 300 <month> 11-2019 <met> cash")
+activate FinanceLogParser
+
+create BudgetCommandParser
+FinanceLogParser -> BudgetCommandParser
+activate BudgetCommandParser
+
+BudgetCommandParser --> FinanceLogParser
+deactivate BudgetCommandParser
+
+FinanceLogParser -> BudgetCommandParser : parse("<amt> 300 <month> 11-2019 <met> cash")
+activate BudgetCommandParser
+
+create Budget
+BudgetCommandParser -> Budget
+activate Budget
+
+Budget --> BudgetCommandParser : b
+deactivate Budget
+
+create BudgetCommand
+BudgetCommandParser -> BudgetCommand : BudgetCommand(b)
+activate BudgetCommand
+
+BudgetCommand --> BudgetCommandParser : bc
+deactivate BudgetCommand
+
+BudgetCommandParser --> FinanceLogParser : bc
+deactivate BudgetCommandParser
+BudgetCommandParser -[hidden]-> FinanceLogParser : bc
+destroy BudgetCommandParser
+
+FinanceLogParser --> LogicFinanceManager : bc
+deactivate FinanceLogParser
+
+LogicFinanceManager -> BudgetCommand : execute()
+activate BudgetCommand
+
+BudgetCommand -> ModelFinanceManager : addBudget(b)
+activate ModelFinanceManager
+
+ModelFinanceManager --> BudgetCommand
+deactivate ModelFinanceManager
+
+create CommandResult
+BudgetCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> BudgetCommand
+deactivate CommandResult
+
+BudgetCommand --> LogicFinanceManager : result
+deactivate BudgetCommand
+
+BudgetCommand -[hidden]-> ModelFinanceManager
+destroy BudgetCommand
+
+[<--LogicFinanceManager
+deactivate LogicFinanceManager
+@enduml

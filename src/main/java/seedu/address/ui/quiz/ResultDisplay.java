@@ -12,7 +12,7 @@ import javafx.scene.layout.Region;
  */
 public class ResultDisplay extends UiPart<Region> {
 
-    private static final String FXML = "../ResultDisplay.fxml";
+    private static final String FXML = "ResultQuizDisplay.fxml";
 
     @FXML
     private TextArea resultDisplay;

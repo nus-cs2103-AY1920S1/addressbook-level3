@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's answer number in the address book.
+ * Represents a Question's answer number in modulo.
  * Guarantees: immutable; is valid as declared in {@link #isValidAnswer(String)}
  */
 public class Answer {
@@ -22,7 +22,9 @@ public class Answer {
     public Answer(String answer) {
         requireNonNull(answer);
         checkArgument(isValidAnswer(answer), MESSAGE_CONSTRAINTS);
+
         value = answer;
+        assert !value.contains("<ans>") : "Answer should not contain instruction answer keyword";
     }
 
     /**

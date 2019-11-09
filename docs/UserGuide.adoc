@@ -16,9 +16,11 @@ endif::[]
 
 By: `Team T16-2`      Since: `September 2019`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
 
 Modulo is a desktop application helping National University of Singapore (NUS) students to audit their academics, finances and schedule their time as they try their best to survive yet another semester of college. Those who prefer to work with a Command Line Interface (CLI) might find using Modulo to be more straightforward than the usual Graphical User Interface (GUI) applications. The application has the visual benefits of a GUI but stands strongly rooted in command line usage. Modulo does not require an internet connection to run so there’s no worry when the school wifi goes MIA yet again. The only time you need to be connected is at the start, when downloading the application. Look to <<Quick Start>> to find out how to get started on Modulo!
+// end::intro[]
 
 == Quick Start
 
@@ -200,19 +202,23 @@ e.g. `clear`
 ==== Password protection [Coming in V2.0]
 Prevent unauthorised access to your grades.
 
+// tag::quizsection1[]
 === Quiz
 
 To enter the Quiz section please enter the command: `switch quiz` +
 
+*Note on pre-populated data:* The pre-populated data are used to help you to get the picture of how
+quiz show the data. You can use the command `clear` or go to `3.4.12` section to clear the given data.
+
 *Note on UI:* You can adjust the size of the split pane by sliding the window separator
 between the two windows to fully see the whole question. Go to `3.4.6` section to fully see the
-question properly
+question properly.
 
 ==== Add the details of the quiz question:
 Users can add new quiz questions with the details in it. The details of the question should
 be added with the following requirements.
 
-The keyword instructions of the question include: +
+*The keyword instructions of the question include:* +
 - `<qns>` Indicate that the next several phrases will be the name of the question. +
 - `<ans>` Indicate that the next several phrases will be the answer to the question. +
 - `<cat>` Indicate that the next several phrases will be the category of the question. +
@@ -220,12 +226,13 @@ The keyword instructions of the question include: +
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *The details instructions after the keyword of the question:* +
-- *`<qns>` are required. The word limit is 200 and minimum 3 letters.* +
-- *`<ans>` are required. The word limit is 125.* +
-- *`<cat>` are required. The word limit is 50.* +
-- *`<type>` are required. The format after this command should only be: `high`, `normal`, `low`.* +
-- *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
+- `<qns>` are required. The word limit is 200 and minimum 3 letters. +
+- `<ans>` are required. The word limit is 125. +
+- `<cat>` are required. The word limit is 50. +
+- `<type>` are required. The format after this command should only be: `high`, `normal`, `low`. +
+- `<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another. +
 
+Note: Two questions are the same if they have the same *<qns>*, *<ans>* and *<cat>* +
 Format: `add *<qns>* _your_question_ *<ans>* _your_answer_ *<cat>* _your_category_ *<type>* _your_priority_
 *<tag>* _your_tag_`
 
@@ -252,7 +259,7 @@ Example 1: +
 ==== Edit details of a question : `edit`
 Specify which question you want to edit and modify it from the question list.
 
-The details/instructions of the new questions include: +
+*The details/instructions of the new questions include:* +
 - `<qns>` Indicate that the next several phrases will be the name of the question. +
 - `<ans>` Indicate that the next several phrases will be the answer to the question. +
 - `<cat>` Indicate that the next several phrases will be the category of the question. +
@@ -260,24 +267,22 @@ The details/instructions of the new questions include: +
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *Note that at least one of the following must be modified and replaced:* +
-- *`<qns>` word limit is 200.* +
-- *`<ans>` word limit is 125.* +
-- *`<cat>` word limit is 50.* +
-- *`<type>` format after this command should only be: `high`, `normal`, `low`.* +
-- *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
+- `<qns>` word limit is 200. No minimum letter. +
+- `<ans>` word limit is 125. No minimum letter. +
+- `<cat>` word limit is 50. +
+- `<type>` format after this command should only be: `high`, `normal`, `low`. +
+- `<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another. +
 
-Format: `*edit [CATEGORY], [NUMBER] <qns>* _your_new_question_ *<ans>* _your_new_answer_ *<cat>* _your_new_category_
+Format: `*edit [NUMBER] <qns>* _your_new_question_ *<ans>* _your_new_answer_ *<cat>* _your_new_category_
 *<type>* _your_new_priority_ *<tag>* _your_tag_` +
 
-Usage: +
-- *[CATEGORY]* is the category of the question that you want to edit, case-insensitive. +
-- *[NUMBER]* is the index/row from that category that you want to edit. +
+Usage: *[NUMBER]* is the index/row from that category that you want to edit. +
 
 Example 1: +
-*edit CS2131, 1 <qns>* _How many mammals are there in the universe?_ *<type>* low +
+*edit 1 <qns>* _How many mammals are there in the universe?_ *<type>* low +
 
 - Remark (Please avoid this): +
-*edit CS2131, 1 <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
+*edit 1 <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
 {empty} +
 
 ==== List all the questions
@@ -290,32 +295,28 @@ Format: `list` +
 Find the quiz questions from the list of questions.
 
 Format: `find [INSTRUCTION] <key>[KEYWORDS]` +
+Note: The [KEYWORDS] is the list of keywords that I want to search.
 
-The [KEYWORDS] is the list of keywords that I want to search.
+*The expected details/instructions for [INSTRUCTION] keyword are:*  +
+- `question` - Indicate that I want to include the name of the question in my search. +
+- `answer` - Indicate that I want to include the answer to the question in my search. +
+- `category` - Indicate that I want to include the category of the question in my search. +
+- `type` - Indicate that I want to include the priority/importance level of the question in my search. +
+- `tag` - Indicate that I want to include the customized tag of the question in my search.
 
-The expected details/instructions for [INSTRUCTION] keyword are:  +
-- `question` Indicate that I want to include the name of the question in my search. +
-- `answer` Indicate that I want to include the answer to the question in my search. +
-- `category` Indicate that I want to include the category of the question in my search. +
-- `type` Indicate that I want to include the priority/importance level of the question in my search. +
-- `tag` Indicate that I want to include the customized tag of the question in my search.
+*Note:* +
+• To search for everything, leave the [INSTRUCTION] field blank. +
+• To include multiple instructions to be searchable or to search for multiple keywords, you can split it with a comma `,` +
+• To enable friendlier syntax [KEYWORDS] when searching your desired questions, add `-i` after your find command.
 
-*Note:*
-
-- To search for everything, leave the [INSTRUCTION] field blank.
-
-- To include multiple instructions to be searchable or to search for multiple keywords, you can split it with a comma `,`
-
-- To enable friendlier syntax [KEYWORDS] when searching your desired questions, add `-i` after your find command.
-
-Example 1: find <key> CS2131, lecture +
+Example 1: *find* <key> CS2131, lecture +
 Explanation: search for _CS2131_ and _lecture_ keyword from the whole question
 
-Example 2: find category, answer <key> Tomorrow +
+Example 2: *find* category, answer <key> Tomorrow +
 Explanation: search from the category and answer portion of each question that matches keyword _Tomorrow_
 
-Example 3: find -i answer <key> Tomrrow +
-Explanation: search from the answer portion of each question that matches keyword that is similar to _Tomrrow_
+Example 3: *find -i* answer <key> Tomrrow +
+Explanation: search from the answer portion of each question that matches keyword that is similar to _Tomrrow_ +
 {empty} +
 
 ==== Details of a selected question:
@@ -330,7 +331,7 @@ Example: detail 1 +
 ==== Add Comment of a question:
 Users can add a comment/explanation of a particular questions.
 
-Format: `comment [INDEX] <val> _your_comment_ +
+Format: `comment [INDEX] <val> _your_comment_` +
 Usage: *[INDEX]* is the index/row from the question that you want to comment. +
 Example: comment 1 <val> The explanation is in pg 194 textbook. +
 {empty} +
@@ -344,33 +345,35 @@ Example: showAnswer no +
 {empty} +
 
 ==== Undo:
-Undo some of the previous action.
-
+Undo some of the previous action. +
+Action that is undoable include: `add`, `edit`, `delete`, `clear`, `comment` +
 Format: `undo` +
 {empty} +
 
 ==== Redo:
-Redo some of the previous action.
-
+Redo some of the previous action. +
+Action that is redo-able include: `add`, `edit`, `delete`, `clear`, `comment` +
 Format: `redo` +
 {empty} +
+
+==== Clear all data:
+To remove all of the current data in quiz book. +
+Format: `clear` +
+{empty} +
+
+// end::quizsection1[]
 
 ==== Help:
 Format : `help` +
 {empty} +
 
-==== Clear all data:
-To remove all of the current data in quiz book.
-
-Format: `clear` +
-{empty} +
-
 ==== Exit application:
-To exit application (Modulo).
-
+To exit application (Modulo). +
 Format: `exit` +
 {empty} +
 
+
+// tag::finance1[]
 === Finances
 
 To enter the Finances section, please enter the command: `switch finance`
@@ -387,6 +390,7 @@ Record down an entry of spending with relevant information associated with it. I
 
 Format: `*spend* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD [<place>PLACE] [<day>TRANSACTION_DATE] [<cat>CATEGORY]...` +
 e.g. `spend <amt>2.80 <day>15-10-2019 <item>Yong Tau Foo <met>Cash <place>Frontier`
+// end::finance1[]
 
 ==== Add an entry of income: `income`
 
@@ -433,6 +437,7 @@ List out all entries in recorded down. All entries will be ordered chronological
 
 Format: `*list*`
 
+// tag::finance2[]
 ==== Edit an entry: `edit`
 
 Edit an entry previously entered by index of entry in listed listed out by `list`. Index provided should be valid, within range of the list and positive. There is not need to re-enter all details of the log entry to edit it - just specify the field to be edited. Any irrelevant fields to the log entry (e.g. 'Borrow' entries do not have a `<place>` field) will be ignored. +
@@ -500,6 +505,7 @@ Example Format 1: `*budget* <amt>AMOUNT <start>START_DATE <end>END_DATE [<met>TR
 Example Format 2: `*budget* <amt>AMOUNT <start>START_DATE <dur>DURATION_IN_DAYS [<cat>CATEGORY_NAME]` +
 Example Format 3: `*budget* <amt>AMOUNT <month>MM-YYYY [<place>PLACE_OF_SPENDING]` +
 e.g. `budget <amt> 300 <month>11-2019 <met>cash`
+// end::finance2[]
 
 ==== List out all budgets: `listb`
 
@@ -516,17 +522,3 @@ There is no need to save manually.
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous _Modulo_ folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`

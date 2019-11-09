@@ -53,6 +53,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 String[] searchKeyword = nameKeywords[1].split(",");
                 validateParsedFindKeyword(instructionKeyword, searchKeyword);
 
+                assert searchKeyword.length != 0 : "Search keyword needed to begin searching";
                 return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(instructionKeyword),
                         Arrays.asList(searchKeyword), allowTypo));
             }

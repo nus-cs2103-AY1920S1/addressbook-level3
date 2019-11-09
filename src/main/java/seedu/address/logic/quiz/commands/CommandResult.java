@@ -24,6 +24,12 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     *
+     * @param feedbackToUser feedback shown as a result of an execution.
+     * @param specialCommand a command to notify the UI to updates when the execution happens.
+     */
     public CommandResult(String feedbackToUser, String specialCommand) {
         if (specialCommand.equals("detail")) {
             this.showDetail = true;

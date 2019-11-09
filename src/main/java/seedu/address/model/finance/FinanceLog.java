@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.finance.logentry.Budget;
-import seedu.address.model.finance.logentry.BudgetList;
+import seedu.address.model.finance.budget.Budget;
+import seedu.address.model.finance.budget.BudgetList;
 import seedu.address.model.finance.logentry.LogEntry;
 import seedu.address.model.finance.logentry.LogEntryList;
 

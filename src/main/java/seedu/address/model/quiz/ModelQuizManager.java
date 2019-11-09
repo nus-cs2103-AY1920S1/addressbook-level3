@@ -14,7 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.quiz.person.Question;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of modulo data.
  */
 public class ModelQuizManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelQuizManager.class);
@@ -26,16 +26,16 @@ public class ModelQuizManager implements Model {
     private boolean showAnswer;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given addressQuizBook and userPrefs.
      */
-    public ModelQuizManager(ReadOnlyQuizBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelQuizManager(ReadOnlyQuizBook addressQuizBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressQuizBook, userPrefs);
 
-        logger.fine("Initializing with quiz book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with quiz book: " + addressQuizBook + " and user prefs " + userPrefs);
 
         this.showAnswer = true;
-        versionedQuizBook = new VersionedQuizBook(addressBook);
+        versionedQuizBook = new VersionedQuizBook(addressQuizBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredQuestions = new FilteredList<>(versionedQuizBook.getQuestionList());
     }
@@ -74,16 +74,16 @@ public class ModelQuizManager implements Model {
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setAddressBookFilePath(Path addressQuizBookFilePath) {
+        requireNonNull(addressQuizBookFilePath);
+        userPrefs.setAddressBookFilePath(addressQuizBookFilePath);
     }
 
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyQuizBook addressBook) {
-        this.versionedQuizBook.resetData(addressBook);
+    public void setAddressBook(ReadOnlyQuizBook addressQuizBook) {
+        this.versionedQuizBook.resetData(addressQuizBook);
     }
 
     @Override

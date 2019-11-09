@@ -1,4 +1,4 @@
-package seedu.address.model.finance.logentry;
+package seedu.address.model.finance.budget;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;

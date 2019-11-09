@@ -4,15 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_COMMENT;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.model.quiz.Model;
 
@@ -47,8 +43,10 @@ public class AddCommentCommand extends Command {
     private final String questionComment;
 
     /**
-     * @param index of the question in the filtered question list to edit
-     * @param questionComment details to edit the question with
+     * Creates an AddCommentCommand to add the specified {@code Question}
+     *
+     * @param index of the question in the filtered question list that needs to be edited
+     * @param questionComment to add a comment to the specified index question.
      */
     public AddCommentCommand(Index index, String questionComment) {
         requireNonNull(index);
@@ -99,122 +97,6 @@ public class AddCommentCommand extends Command {
 
         return new Question(updatedName, commentedQuestion, updatedAnswer, updatedCategory, updatedType, updatedTags);
     }
-
-
-    /**
-     * Stores the details to edit the question with. Each non-empty field value will replace the
-     * corresponding field value of the question.
-     */
-    public static class EditQuestionDescriptor {
-        private Name name;
-        private Comment comment;
-        private Answer answer;
-        private Category category;
-        private Type type;
-        private Set<Tag> tags;
-
-        public EditQuestionDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditQuestionDescriptor(EditQuestionDescriptor toCopy) {
-            setName(toCopy.name);
-            setAnswer(toCopy.answer);
-            setCategory(toCopy.category);
-            setType(toCopy.type);
-            setTags(toCopy.tags);
-            setComment(toCopy.comment);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, comment, answer, category, type, tags);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
-        }
-
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setComment(Comment comment) {
-            this.comment = comment;
-        }
-
-        public Optional<Comment> getComment() {
-            return Optional.ofNullable(comment);
-        }
-
-        public void setAnswer(Answer answer) {
-            this.answer = answer;
-        }
-
-        public Optional<Answer> getAnswer() {
-            return Optional.ofNullable(answer);
-        }
-
-        public void setCategory(Category category) {
-            this.category = category;
-        }
-
-        public Optional<Category> getCategory() {
-            return Optional.ofNullable(category);
-        }
-
-        public void setType(Type type) {
-            this.type = type;
-        }
-
-        public Optional<Type> getType() {
-            return Optional.ofNullable(type);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditQuestionDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditQuestionDescriptor e = (EditQuestionDescriptor) other;
-
-            return getName().equals(e.getName())
-                    && getAnswer().equals(e.getAnswer())
-                    && getCategory().equals(e.getCategory())
-                    && getType().equals(e.getType())
-                    && getTags().equals(e.getTags());
-        }
-    }
-
 
     @Override
     public boolean equals(Object other) {

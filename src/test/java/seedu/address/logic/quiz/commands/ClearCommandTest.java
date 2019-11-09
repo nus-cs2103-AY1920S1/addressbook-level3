@@ -12,7 +12,7 @@ import seedu.address.model.quiz.UserPrefs;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyModulo_success() {
         Model model = new ModelQuizManager();
         Model expectedModel = new ModelQuizManager();
 
@@ -20,7 +20,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyModulo_success() {
         Model model = new ModelQuizManager(new AddressQuizBook(), new UserPrefs());
         Model expectedModel = new ModelQuizManager(new AddressQuizBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressQuizBook());
