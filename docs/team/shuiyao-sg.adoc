@@ -74,8 +74,9 @@ You may refer to the Command Summary section in the User Guide.
 
 This section summarises my contributions to the Developer Guide.
 
-include::../DeveloperGuide.adoc[tag=task]
-
+//include::../DeveloperGuide.adoc[tag=task]
+include::../DeveloperGuide.adoc[tag=task_1]
+include::../DeveloperGuide.adoc[tag=task_2]
 include::../DeveloperGuide.adoc[tag=task_usecase]
 
 Apart from addition to my individual features, I also modified the diagrams of the UI and Model components. You may refer

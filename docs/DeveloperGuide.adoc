@@ -427,7 +427,7 @@ The charts will be small and condensed making it difficult to see the data at fi
 This is also more difficult to implement.
 // end::stats[]
 
-// tag::task[]
+// tag::task_1[]
 === Revision task management
 Revision task management involves addition, deletion, editing, searching and many other operations on tasks. This section
 explains how task management features are implemented.
@@ -440,6 +440,8 @@ The commands update the `Model` interface which is implemented by `ModelManager`
 The `ModelManager` then updates `AppData` which stores all the revision tasks in an internal data structure `TaskList`.
 `TaskList` is essentially an `ObservableList` of `Task`.
 Local data will be updated in the end by `LogicManager`.
+
+//end::task_1[]
 
 The revision task management commands include:
 
@@ -459,9 +461,7 @@ These operations are exposed in the `Model` interface as `Model#addTask(Task tas
 `Model#deleteTask(Task target)`, `Model#markTaskAsDone(Task taskDone)`, `Model#setTask(Task target, Task editedTask)`,
 `Model#updateFilteredTaskList(Predicate<Task> predicate)` and `Model#getFilteredTaskList()` respectively.
 
-
-`AddTaskForNoteCommand` is implemented to add a task for revising a lecture note with the command `rn`. Similarly,
-`AddTaskForQuestionCommand` is implemented to add a task for revising a question with the command `rq`.
+// tag::task_2[]
 
 Taking `AddTaskForNoteCommand` as an example, the following process illustrates the mechanism of adding a revision task for note to the task list (adding a revision task
 for question has a similar command but different parameters).
@@ -546,7 +546,7 @@ command parsers.
 ** Cons: This approach leads to lower level of abstraction as all concerns of `Task`, regardless of `TaskForNote` or `TaskForQuestion`,
 are wrapped into the same class. It could be difficult to maintain if the behaviors of `TaskForNote` and `TaskForQuestion`
 get more complex and diverse.
-// end::task[]
+// end::task_2[]
 
 === Logging
 
