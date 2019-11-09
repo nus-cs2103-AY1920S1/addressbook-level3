@@ -627,13 +627,6 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -690,25 +683,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |see an overview of all my spending from month to month |better judge my expense/income ratio
 
-|`* * *` |spendthrift |set a budget for my monthly spending |avoid breaking the bank again
-
-|`* * *` |lazy user |key in recurring expenses just once |do not have to enter them over and over again
-
-|`* * *` |careful spender |make month-to-month comparisons of spending in a particular category |see where additional expenses for certain months come from
-
-|`* * *` |cautious spender |carry over any budget deficits incurred each month to the following month |remember to repay it
-
 |`* * *` |user who borrows and loans money frequently |track who owes me money/who I owe money to |settle my debts
 
-|`* * *` |SoC student who has to pay school fees regularly |track how much I’ll have to pay and when I have to pay it by |avoid making late payments
+|`* * *` |careful spender |dedicate different accounts to different holidays |control how much I spend while on the holidays
+
+|`* * *` |busy user |keep track of my spending in different account books |segregate completely unrelated spending
 
 |`* * *` |SoC student experienced in writing programs |write my own scripts to manipulate entries in the app |automate and customize the app to my liking
 
-|`* * *` |ambitious user |set goals for my cumulative income |work towards my dream home/car/goal
+|`* *` |spendthrift |set a budget for my monthly spending |avoid breaking the bank again
+
+|`* *` |lazy user |key in recurring expenses just once |do not have to enter them over and over again
+
+|`* *` |careful spender |make month-to-month comparisons of spending in a particular category |see where additional expenses for certain months come from
+
+|`* *` |cautious spender |carry over any budget deficits incurred each month to the following month |remember to repay it
+
+|`* *` |SoC student who has to pay school fees regularly |track how much I’ll have to pay and when I have to pay it by |avoid making late payments
+
+|`* *` |ambitious user |set goals for my cumulative income |work towards my dream home/car/goal
 
 |`* *` |careless user |undo a mistake |not worry even if I accidentally make an error
-
-|`* *` |careful spender |dedicate different accounts to different holidays |control how much I spend while on the holidays
 
 |`* *` |careful spender |set different currencies for different accounts |see my expenditure during a holiday in the local currency
 
@@ -735,8 +730,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |busy user |see my overall budget surplus/deficit at a glance |know straight away when I’m below or above my budget for that month
 
 |`* *` |meticulous user |see how much I need to budget every month to reach a savings goal based on what the goal is and its deadline |plan my budget well
-
-|`* *` |busy user |keep track of my spending in different account books |segregate completely unrelated spending
 
 |`*` |unmotivated person |be rewarded for entering my expenses/income daily |be motivated to do so and eventually turn it into a habit
 
