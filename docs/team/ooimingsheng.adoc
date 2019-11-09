@@ -1,0 +1,130 @@
+= Ooi Ming Sheng- Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Powerlifting Competition Coordinator
+
+---
+
+== Overview
+
+Powerlifting Competition Coordinator is a free application for powerlifting competition event organizers
+that is simple, fast, and easy to use. It is targeted at organizers of small to medium sized powerlifting
+competitions who require a hassle-free way of managing and tracking the lifts of participants in and out
+of the powerlifting competitions. During competition mode, the system has real time maintenance of athlete
+rankings within their respective weight classes allowing the organizer track the participants'
+standings at all times throughout the duration of the competition. The user interacts with it using a
+CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 18 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement 1*: added *the ability to support the many-to-many relationships between the competitions
+and persons*
+** What it does: allows the user to create participations (i.e. a person takes part in a particular
+competition) that can be store and retrieved from the JSON storage
+
+** Justification: This feature improves the product significantly because a user can have flexibility over
+the number of people participating in a particular competition while persisting their respective
+competition results in the JSON storage for future reference and use. Data of athletes over various
+competitions can be tracked and used to track performance across time and competition.
+
+** Highlights: Given the original architecture of address book, saving association classes was not
+immediately enabled as the storage that was intended was mainly for entities
+with a one-to-one/one-to-many relationship and definitely not a many-to-many relationship.
+It required an in-depth analysis of design alternatives, one of which was to possible store the data in XML form, since using a
+database was not allowed for the project. I did not user the XML storage as it would require too
+much time to implement. The modification of the JSON storage was still challenging as it required a deep
+understanding of the underlying JSON storage infrastructure and how everything was saved in order to
+be able to save the association class properly.
+
+* *Major enhancement 2*: added *the ability to enter and exit a competition session (i.e. context switching)
+
+** What it does: controls user actions/commands depending on the context that the application is in (i.e.
+whether a competition is in ongoing/in-session)
+
+** Justification: This feature improves the product significantly even though we have actually limited
+user actions depending on the context of the application. The control of the user flow actually focuses
+the user to performing the right actions during the competition session and hence, optimizes the user to perform
+the necessary commands on the application to record the results of the competition as efficiently as possible.
+
+** Highlights: This enhancement affects existing commands and commands to be added in future as the context
+limits what kind of commands can be done at any one point of time.
+This required an in-depth analysis of understanding of how powerlifting competitions function and how the
+user flow could be optimized for efficient recording of competition results, especially since delays in powerlifting
+competitions can be very unprofessional and damaging to the reputation of the user who is organizing this event.
+
+* *Major enhancement 3*: added *the ability to give a ranking of the athletes using different ranking methods
+
+** What it does: allows the user to list the participations in a selected competition in a sorted order
+as determined by the rank method (i.e. overall score or maximum weight lifted for a given exercise like
+bench press or squat)
+
+** Justification: This feature improves the product significantly as competitions are only relevant if we
+can determine a winner and track relative performance. This feature is therefore central to the application
+as it gives the user and therefore, the participants of the competition knowledge of their standings among their fellow
+competitors. This encourages their competitive spirit and adds to the excitement of the competition.
+
+** Highlights: This enhancement gives extreme flexibility and extensibility to future ranking methods
+that need to be added in the future as the developer can just add a new ranking methods and scoring function in
+order to use this new ranking methods to order the participants.
+
+* *Minor enhancement*: Used java generics to support the various lists of entities and is therefore extensible
+for additional entities to be added should a developer require
+
+* *Minor enhancement*: Updated the user interface to support 3 different lists
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+*** Managed the integration of the various features from other group members
+
+** Enhancements to existing features:
+*** Updated the layout to the application (Pull request https://github.com[#59])
+*** Wrote tests for new features to increase coverage (Pull requests https://github.com[#127])
+
+** Documentation:
+*** Updated the User Guide: https://github.com[#14]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+ https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+** Tools:
+*** Integrated Travis and Netlify to the team repo for Continuous integration purposes
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: NUSanswers
+
+---
+
+This application was written on a react frontend and an elixir-phoenix backend. This application
+was created with the intention of creating an online platform for NUS exam questions to be posted
+there and allow for a crowd sourcing of answers to NUS exam questions which are not released to
+the student body. Please refer to https://github.com/cs3216/a3-mobile-cloud-group-08 for more information.

@@ -52,8 +52,10 @@ Just find which athlete has the highest overall score.
 
 == Quick Start
 
-Download the software from our git repo.
-Ensure Java 11 is downloaded into your machine.
+* Download the software from our git repo.
+* Ensure Java 11 is downloaded into your machine.
+* Open application and maximize window if you cannot see the entire screen fully
+as shown in the picture below.
 
 image::Ui.PNG[width="790"]
 
