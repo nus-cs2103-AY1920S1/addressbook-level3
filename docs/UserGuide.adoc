@@ -302,6 +302,7 @@ Generates a new tag. +
 Format: `addtag t/NAME [c/COLOR]`
 
 Examples:
+
 * `addtag t/graph`
 * `addtag t/sssp c/BLUE`
 
@@ -334,7 +335,7 @@ Examples:
 ==== Editing tag color: `edittagcolor`
 
 Edits an existing tag's tag color +
-Format: `edittagcolor INDEX c/TAGCOLOR`
+Format: `edittagcolor INDEX c/TAGCOLOR` +
 Alias: `etc`
 
 Examples:
@@ -735,7 +736,7 @@ e.g. `addtag t/sssp c/BLUE`
 e.g. `deletetag 3`
 ** *Edit tag* : `edittag INDEX t/TAGNAME` +
 e.g. `edittag 1 t/sort`
-** *Edit tag color* : `edittagcolor INDEX c/TAGCOLOR` +
+** *Edit tag color* : `edittagcolor INDEX c/COLOR` +
 e.g. `edittagcolor 1 c/RED`
 
 * Plans
