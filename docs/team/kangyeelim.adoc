@@ -48,7 +48,7 @@ for Leo, our lion mascot. Each tab serves a different purpose that helps treasur
 or society's finances.
 
 Home Tab keeps track of individual transactions. Members Tab keep track of all contact
-details of members. Reimbursement Tab keeps track of reimbursement records for members that have spent money for the club activities.
+details of members. Reimbursements Tab keeps track of reimbursement records for members that have spent money for the club activities.
 Inventory Tab keeps track of items for sale. Cashier Tab helps the club with on-site sales
 and directly inputs all revenue into the system. Overview Tab allows treasurers to plan the
 club's finances.
@@ -155,7 +155,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/201[(PR #201)]
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/126[(PR #126)]
 
 * Integration
-** Integrated `Transaction Tab` with `Reimbursement Tab`:
+** Integrated `Transaction Tab` with `Reimbursements Tab`:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49[(PR #49)]
 
 ** Integrated the Original `AddressBook` into the `Members Tab` in Graphical User Interface:
@@ -288,7 +288,7 @@ To view the full transaction list, the user would be required to enter the
 Back Command where `BackCommand` calls `Model#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
 following section <<BackCommandSD, 3.1.3. Back Command Feature>>
 
-After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 14>>
+After this, the list of transactions and Reimbursement Tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 14>>
 and <<update-reimbursement, 3.1.1. Add Command feature: Figure 15>>
 respectively.
 

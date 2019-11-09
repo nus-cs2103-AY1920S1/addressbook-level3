@@ -131,7 +131,7 @@ The person must be someone recorded in the Members Tab and is case-sensitive.
 If you are adding a transaction meant to represent sales revenue, the transaction *must* be positive-valued
 and under the "Sales" category for it to show up in the Overview Tab correctly.
 If you are adding a transaction that is considered a spending which requires reimbursement to the member, the transaction *must* be negative-valued for it
-to show up in the Reimbursements Tab.
+to show up in Reimbursements Tab.
 
 * Steps
 

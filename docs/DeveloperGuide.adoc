@@ -137,20 +137,20 @@ A general sequence diagram depicting the above outline is shown below:
 .Sequence diagram for execution within `Logic`.
 image::GeneralSequenceDiagram.png[]
 
-Further details on the implementation of the `Parser` and `Command` can be found below in <<RTLogic, Section 2.3.1. Home and Reimbursement Tab>>,
+Further details on the implementation of the `Parser` and `Command` can be found below in <<RTLogic, Section 2.3.1. Home and Reimbursements Tab>>,
 <<ICLogic, Section 2.3.2. Inventory and Cashier Tab>> and <<PLogic, Section 2.3.3. Members Tab>> below.
 
 [[RTLogic]]
-==== Details on `Logic` Implementation for Home and Reimbursement Tab
-This section will show further details of the `Logic` Component of the Home and Reimbursement Tabs.
+==== Details on `Logic` Implementation for Home and Reimbursements Tab
+This section will show further details of the `Logic` component of Home Tab and Reimbursements Tab.
 
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component which is a reference for <<fig-LogicClassDiagram>>:
 
-.Structure of `Parser` for Home (Transaction) and Reimbursement Tab.
+.Structure of `Parser` for Home and Reimbursements Tab.
 image::LogicForR&T.png[]
 
 [NOTE]
-The `XYZTabParser` represents the `TransactionTabParser` for the Home Tab and `ReimbursementTabParser` for the Reimbursement
+The `XYZTabParser` represents the `TransactionTabParser` for Home Tab and `ReimbursementTabParser` for Reimbursements
 Tab.
 
 The parsers represented by the `ABCParser` and `DEFParser`:
@@ -162,7 +162,7 @@ The parsers represented by the `ABCParser` and `DEFParser`:
 ** `AddCommandParser`
 ** `DeleteCommandParser`
 
-* Reimbursement Tab:
+* Reimbursements Tab:
 ** `FindCommandParser`
 ** `DoneCommandParser`
 ** `DeadlineCommandParser`
@@ -173,19 +173,19 @@ The parsers represented by the `ABCParser` and `DEFParser`:
 ** `FindCommandParser`
 ** `SortCommandParser`
 
-* Reimbursement Tab:
+* Reimbursements Tab:
 ** `BackCommandParser`
 ** `ExitCommandParser`
 ** `SortCommandParser`
 
 In addition, the `Logic` object
-for Home and Reimbursement Tab contains the `GetPersonByNameOnlyModel` since `Logic` only uses
+for Home and Reimbursements Tab contains the `GetPersonByNameOnlyModel` since `Logic` only uses
 the `ModelManager#getPersonByName` method
 in the person package.
 
 [[ICLogic]]
 ==== Details on `Logic` Implementation for Inventory and Cashier Tab
-This section will show further details of the `Logic` Component of the Inventory and Cashier Tabs.
+This section will show further details of the `Logic` Component of Inventory Tab and Cashier Tab.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
 
 .Structure of `Parser` for Inventory and Cashier Tabs which is a reference for <<fig-LogicClassDiagram>>.
@@ -399,15 +399,15 @@ image::HomeAddCommandMMSM.png[]
 This update of the list of transactions is done for every command that is executed successfully in Home Tab.
 
 Finally, the `StorageManager` and `ModelManager` inside the Reimbursement package will be updated with the latest `TransactionList` object
-to generate an updated list of reimbursements for the user to view in Reimbursement Tab. The following sequence diagram shows how
-Reimbursement Tab is updated from the `MainWindow`:
+to generate an updated list of reimbursements for the user to view in Reimbursements Tab. The following sequence diagram shows how
+Reimbursements Tab is updated from the `MainWindow`:
 
 [[update-reimbursement]]
-.Sequence diagram of updating the reimbursement list in Reimbursement Tab (transaction package)
+.Sequence diagram of updating the reimbursement list in Reimbursements Tab (transaction package)
 image::TUpdateRinMainWindow.png[]
 
 [NOTE]
-This update of the Reimbursement Tab is done for every command after the list of transactions is updated (shown in <<updateTL, 3.1.1. Add Command Feature: Figure 15>>)
+This update of the Reimbursements Tab is done for every command after the list of transactions is updated (shown in <<updateTL, 3.1.1. Add Command Feature: Figure 15>>)
 when there is a command executed successfully in Home Tab.
 
 To better illustrate the flow of events from the moment a user inputs a command till the completion of the command,
@@ -421,8 +421,8 @@ As shown, when a user does not input all the compulsory fields or input a name t
 the `AddressBook`, a response to inform the user of the incorrect input is shown and when a successful addition is
 done, a response message is shown as well by our mascot, Leo.
 
-Since Reimbursement Tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
-amount to indicate a spending that needs to be reimbursed, Reimbursement Tab will update and show this record.
+Since Reimbursements Tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
+amount to indicate a spending that needs to be reimbursed, Reimbursements Tab will update and show this record.
 
 [[DeleteCommandHome]]
 ==== Delete Command Feature
@@ -546,7 +546,7 @@ Before, the deletion is done, there will be a check to the `TransactionModel` to
 to any transaction records since every transaction must be linked to a `Person` in the `Members Tab` (`AddressBook`).
 
 
-=== Reimbursement Tab
+=== Reimbursements Tab
 This tab helps to show reimbursements
 that the user has not paid to a person.
 Each reimbursement is auto extracted from transactions and grouped by person in transactions.
@@ -566,7 +566,7 @@ Tab.
 
 The following sequence diagram shows the execution of deadline command:
 
-.Sequence Diagram of Deadline Command in Reimbursement Tab (reimbursement package)
+.Sequence Diagram of Deadline Command in Reimbursements Tab (reimbursement package)
 image::Reimbursement/ReimbursementDeadlineCommandSD.png[]
 
 As shown, a user needs to add a deadline to a reimbursement by specifying
@@ -576,7 +576,7 @@ This `DeadlineCommand` is returned back to `LogicManager` of reimbursement and i
 `ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and displays the deadline in reimbursement list.
 After that, the deadline is saved into a `.txt` file.
 
-.Activity Diagram of Deadline Command in Reimbursement Tab (reimbursement package)
+.Activity Diagram of Deadline Command in Reimbursements Tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramDeadlineCommand.png[]
 
 As shown by the above activity diagram, when a user inputs a person who does not exist in any
@@ -590,7 +590,7 @@ Find command requires access to `Model` of the
 person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
-.Sequence Diagram of Find Command in Reimbursement Tab (reimbursement package)
+.Sequence Diagram of Find Command in Reimbursements Tab (reimbursement package)
 image::Reimbursement/ReimbursementFindCommandSD.png[]
 
 A user needs to find a reimbursement by providing the person's name.
@@ -599,7 +599,7 @@ As shown in the above figure, `FindCommand` is executed by calling `findReimburs
 and reimbursement tab only shows a `filteredList` which contains this single reimbursement.
 
 [[ReimbursementTabActivityDiagramFindCommand]]
-.Activity Diagram of Find Command in Reimbursement Tab (reimbursement package)
+.Activity Diagram of Find Command in Reimbursements Tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramFindCommand.png[]
 
 The above activity diagram shows the steps needed for find command.
@@ -610,7 +610,7 @@ is found and displayed in the tab.
 ==== Back Command feature
 This command is used to return to the original list after executing find command
 
-.Sequence Diagram of Back Command in Reimbursement Tab (reimbursement package)
+.Sequence Diagram of Back Command in Reimbursements Tab (reimbursement package)
 image::Reimbursement/ReimbursementBackCommandSD.png[]
 
 `BackCommand` execution updates `filteredList` inside `ModelManager` to the original full `reimbursementList`.
@@ -623,7 +623,7 @@ person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
 [[ReimbursementDoneCommandSD]]
-.Sequence Diagram of Done Command in Reimbursement Tab (reimbursement package)
+.Sequence Diagram of Done Command in Reimbursements Tab (reimbursement package)
 image::Reimbursement/ReimbursementDoneCommandSD.png[]
 
 A user needs to mark a reimbursement as done by specifying the person's name for the specific reimbursement.
@@ -640,7 +640,7 @@ Then `LogicManager` gets the updated transaction list and passes this list to `S
 of transaction tab to save it.
 
 [[ReimbursementUpdateTransactionsSD]]
-.Sequence Diagram of updating transactions in Reimbursement Tab (reimbursement package)
+.Sequence Diagram of updating transactions in Reimbursements Tab (reimbursement package)
 image::Reimbursement/ReimbursementUpdateTransactionsSD.png[]
 
 <<ReimbursementTabActivityDiagramDoneCommand, The following activity diagram>> shows the steps needed for done command.
@@ -649,13 +649,13 @@ If not, our app informs the user that command is incorrect. If command is valid,
 containing the provided person's name is deleted from reimbursement list and will not be displayed.
 
 [[ReimbursementTabActivityDiagramDoneCommand]]
-.Activity Diagram of Done Command in Reimbursement Tab (reimbursement package)
+.Activity Diagram of Done Command in Reimbursements Tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramDoneCommand.png[]
 
 ==== Sort Command feature
 This command is used to sort reimbursements and the user can choose to sort based on name, amount or deadline.
 
-.Sequence Diagram of Sort Command in Reimbursement Tab (reimbursement package)
+.Sequence Diagram of Sort Command in Reimbursements Tab (reimbursement package)
 image::Reimbursement/ReimbursementSortCommandSD.png[]
 
 As shown in the above figure, `SortXYZCommand` is executed by calling `sortListByXYZ` method in
@@ -1459,15 +1459,15 @@ delete command
 * 2a.
 Lion replies with wrong input message if there invalid input
 
-=== Reimbursement Tab
+=== Reimbursements Tab
 
 [discrete]
 === Use Case 7: Refresh and update reimbursement status
 
 *Preconditions*
 
-- User is on Reimbursement page
-- Reimbursement page shows correct amount of reimbursement for each person by retrieving data from Transaction tab
+- User is on Reimbursements Tab page
+- Reimbursements Tab page shows correct amount of reimbursement for each person by retrieving data from Transaction tab
 
 *Guarantees*
 
