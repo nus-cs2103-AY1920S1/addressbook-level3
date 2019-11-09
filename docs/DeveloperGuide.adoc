@@ -304,7 +304,10 @@ Finally, the feature returns an athlete's report card for a competition. For exa
  Max Deadlift: 0
 
 When the rank feature is used, RankCommand interacts with other classes to return an athlete's report card. See the
-sequence diagram for a depiction of how RankCommand interacts with other classes.
+sequence diagram for a high level depiction of how RankCommand interacts with other classes.
+
+.Sequence Diagram of the RankCommand
+image::RankCommand.png[]
 
 ===== Choice of Design Pattern
 Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands,
@@ -326,7 +329,6 @@ When we first implemented the session feature, the session can only be ended whe
 which means there are no more attempts to be made. However, we have now made it such that the user can switch
 between sessions as and when, even in the middle of the competition. This gives users more flexibility to switch between
 session states, without worrying about the state of the competition.
-
 
 === Out-Session
 
@@ -361,7 +363,73 @@ athletes) is made possible.
 image::StartSequenceDiagram.png[]
 
 
-==== Competition features
+==== Competition/Person features
+There are 4 competition/person features: adding, deleting, editing and listing competitions/persons.
+The features are briefly described below. Except for the listing and deleting competition/persons commands, the crux of
+adding and editing a competition/person commands is the CustomDate class (which will be discussed later).
+
+===== Adding a competition/person
+To add a competition, supply the name of a competition and it's start and end dates. But, start date must be equal or
+before end date.
+
+To add a person, supply a person's name, a date of birth and a gender (male or female only). A person must have
+already been born. Example, if today os 11/09/2019, a user cannot add a person who is borned in 15/09/2019 (in the
+future).
+
+===== Deleting a competition/person
+To delete a competition, supply the index of that competition.
+
+To delete a person, supply the index of that person.
+
+===== Editing a competition/person
+For competition, a user has the choice of editing either the competition name, start date of a competition or end date
+of a competition.
+
+But, start date cannot be after end date after editing a competition information.
+
+For person, a user has the choice of editing either the person name, date of birth or a gender.
+
+But,  person must have already been born.
+
+===== Listing a competition/person
+To list all competitions/person stored in the programme.
+
+===== Choice of Design Pattern
+Similar to the Rank feature.
+
+===== Implementation
+To ensure the dates given for a competition/person are valid, we created a CustomDate class which has the following
+important attributes: a Java Date object and a string which stores a date format (hard-coded).
+
+Pros:
+
+1. By storing a hard-coded date format, our programme can ensure consistency of the date format for all
+competition events.
+2. By storing a Date object, we allow the our programme to use a method from Java Date class: before(). As mentioned
+previously, this allows our programme to check if a competition start date is before or equals to the end date.
+Similarly, to allow a input person's date of birth is before or equal to the current date. For example, if today's
+date is 11/09/2019, a person's date of birth must be equal or before 11/09/2019
+
+Con:
+
+1. We need to ensure exceptions due to inappropriate date format and due to start date occurring after an end date are
+handled properly by functions which depend on CustomDate.
+2. Users may wish to have their own date format.
+
+Alternative:
+
+We have considered using just the Java Date object, but we think it will be neater to have a CustomDate class to keep a
+date object and its associated date format string together in a CustomDate object. Furthermore, we can use the
+functions available in the CustomDate class for competition and person objects. In particular, we can use the get
+method to obtain the Date objects for two different CustomDate objects and compare them to decide if a user input for
+dates is valid or not.
+
+Please see the following activity diagram to understand the utility of CustomDate class in the context of adding a
+person.
+
+.Sequence Diagram of the addPerson Command
+image::addPerson.png[]
+
 
 ==== Participation features
 A Participation is an association class we have created for every Person who has participation in a particular
