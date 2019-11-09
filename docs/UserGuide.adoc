@@ -230,21 +230,21 @@ or:
 
     m/January
 
-. ``YEAR``. This refers to which year (i.e. *2019*, *2020*, ...) you are referring to. To indicate the year, prepend the year you are referring to with ``y/``. Since TravEzy allows you to refer to any year between 1980 and 2200 (because travelling in time is fun too!), please key in a *4 digit number* . If otherwise, it would be confused 😔.
+. ``YEAR``. This refers to which year (i.e. *2019*, *2020*, ...) you are referring to. To indicate the year, prepend the year you are referring to with ``y/``. Since _TravEzy_ allows you to refer to any year between 1980 and 2200 (because travelling in time is fun too!), please key in a *4 digit number* . If otherwise, it would be confused 😔.
 +
 For instance, if you want to specify the year 2019, just key in:
 
     y/2019
 
-. ``END DAY``. This refers to the day of the end date. This is very similar to how you would specify the (start) ``DAY``, as mentioned in point 1. Now, instead of using the small letter, use the capitalised version. In other words, ``D/``.
+. ``END DAY``. This refers to the day of an event's end date. This is very similar to how you would specify the (start) ``DAY``, as mentioned in point 1. Now, instead of using the small letter, use the capitalised version. In other words, ``D/``.
 +
-For example, if you would like to indicate that your event (i.e. commitment, holiday, school break or trip) ends on fifth of January, enter:
+For example, if you would like to indicate that your event (i.e. _commitment_, _holiday_, _school break_ or _trip_) ends on fifth of January, enter:
 
     D/5
 
-. ``END MONTH``. This refers to the month of the end date. Again, this is very similar to how you would specify the (start) MONTH, as mentioned in point 2. Now, instead of using the small letter, use the capitalised version ``M/``.
+. ``END MONTH``. This refers to the month of an event's end date. Again, this is very similar to how you would specify the (start) ``MONTH``, as mentioned in point 2. Now, instead of using the small letter, use the capitalised version ``M/``.
 +
-Following from the above example, if you would like to state that your event ends (i.e. _commitment_, _holiday_, _school break_ or _trip_) ends in January, just type:
+Following from the above example, if you would like to state that your event (i.e. _commitment_, _holiday_, _school break_ or _trip_) ends in January, just type:
 
     M/1
 +
@@ -258,7 +258,7 @@ and:
 +
 WARNING: As with the above (``MONTH``), if you are spelling ``END MONTH`` in words, please specify it with *at least the first three letters* of the month.
 
-. ``END YEAR``. This refers to the year of the end date. Similarly, to specify the year of the end date, key in the capitalised version instead. In essence, place the _prefix_ ``Y/`` before the year of the last date. How simple is that?
+. ``END YEAR``. This refers to the year of an event's end date. Similarly, to specify the year of the end date, key in the capitalised version instead. In essence, place the _prefix_ ``Y/`` before the year of the end date. Isn't it simple?
 +
 For instance, if your trip ends in 2020, just type:
 
@@ -266,7 +266,7 @@ For instance, if your trip ends in 2020, just type:
 +
 WARNING: As with the above (``YEAR``), please specify ``END YEAR`` using *four digits*.
 +
-TIP: As expected, specifying the ``END DAY``, ``END MONTH`` and/or ``END YEAR`` is not always applicable. Hence, by default, TravEzy assumes that the ``END DAY``, ``END MONTH`` and/or ``END YEAR`` are the same as ``DAY``, ``MONTH`` and/or ``YEAR`` respectively.
+TIP: As expected, specifying the ``END DAY``, ``END MONTH`` and/or ``END YEAR`` is not always applicable. Hence, by default, _TravEzy_ assumes that the ``END DAY``, ``END MONTH`` and/or ``END YEAR`` are the same as ``DAY``, ``MONTH`` and/or ``YEAR`` respectively.
 
 . ``NAME``. This refers to the name of your event (i.e. _commitment_, _holiday_, _school break_ or _trip_). To indicate the name, just key in ``n/`` before it.
 +
@@ -283,7 +283,7 @@ For instance, if you have volunteered to tutor children from 2 to 5 December 201
     commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019
 
 +
-Now, TravEzy would know that the event is in fact a commitment!
+Now, _TravEzy_ would know that the event is in fact a _commitment_!
 +
 {empty} +
 {empty} +
@@ -294,18 +294,18 @@ For example, to refer to the fact that 1 May 2020 is labour day (a public _holid
     holiday n/labour day d/1 m/May y/2020
 
 +
-Now, TravEzy would recognise that day as a public holiday!
+Now, _TravEzy_ would recognise that day as a public _holiday_!
 +
 {empty} +
 {empty} +
-You might then be wondering, what if it is a _school break_? As you might have expected, TravEzy has got that covered too! Just indicate that the event is in fact a _school break_ by keying in ``school_break``.
+You might then be wondering, what if it is a _school break_? As you might have expected, _TravEzy_ has got that covered too! Just indicate that the event is in fact a _school break_ by keying in ``school_break``.
 +
 For instance, if you would like to refer to the fact that 8 Dec 2019 to 12 Jan 2020 is winter vacation (a _school break_), just type:
 
     school_break n/winter vacation d/8 m/Dec y/2019 D/12 M/Jan Y/2020
 
 +
-Yeah! Now, TravEzy know that you are referring to a school break. 😉
+Yeah! Now, _TravEzy_ know that you are referring to a _school break_. 😉
 +
 {empty} +
 {empty} +
@@ -316,7 +316,7 @@ For example, to refer to your Bali trip between 10 Dec 2019 to 13 Dec 2019, simp
     trip n/Bali 3D2N d/10 m/Dec y/2019 D/13 M/Dec Y/2019
 
 +
-Great! Now, TravEzy is aware that you are referring to a _trip_.
+Great! Now, _TravEzy_ is aware that you are referring to a _trip_.
 
 . ``PERIOD``. This refers to the number of days between the start date and end date (as specified using the above parameters). To use it, simply place the prefix ``p/`` before specifying the number of days.
 +
