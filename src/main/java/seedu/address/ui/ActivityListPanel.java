@@ -28,6 +28,14 @@ public class ActivityListPanel extends UiPart<Region> {
     }
 
     /**
+     * Forces a refresh of the contents rendered by the {@code ListView} component of this
+     * {@ActivityListPanel}.
+     */
+    public void refreshView() {
+        this.listView.refresh();
+    }
+
+    /**
      * Custom {@code ListCell} that displays the graphics of an {@code Activity} entry with an {@code ActivityCard}.
      */
     class ListViewCell extends ListCell<Activity> {

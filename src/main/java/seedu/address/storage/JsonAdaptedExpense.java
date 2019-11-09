@@ -16,18 +16,25 @@ class JsonAdaptedExpense {
     private final int[] involvedIds;
     private final double amount;
     private final String description;
+    private final boolean isSettlement;
+    private final boolean isDeleted;
 
     /**
      * Constructs a {@code JsonAdaptedExpense} with the given details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("personId") int personId, @JsonProperty("amount") double amount,
+    public JsonAdaptedExpense(@JsonProperty("personId") int personId,
+                              @JsonProperty("amount") double amount,
                               @JsonProperty("description") String description,
+                              @JsonProperty("isSettlement") boolean isSettlement,
+                              @JsonProperty("isDeleted") boolean isDeleted,
                               @JsonProperty("involvedIds") int ... involvedIds) {
         this.personId = personId;
         this.amount = amount;
         this.description = description;
         this.involvedIds = involvedIds;
+        this.isSettlement = isSettlement;
+        this.isDeleted = isDeleted;
     }
 
     /**
@@ -38,6 +45,8 @@ class JsonAdaptedExpense {
         amount = source.getAmount().value;
         description = source.getDescription();
         involvedIds = source.getInvolved();
+        isDeleted = source.isDeleted();
+        isSettlement = source.isSettlement();
     }
 
     /**
@@ -46,15 +55,22 @@ class JsonAdaptedExpense {
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
      */
     public Expense toModelType() throws IllegalValueException {
-        if (!Amount.isValidAmount(amount)) {
+        // Users shouldn't be able to enter values too massive.
+        if (!isSettlement && !Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
         final Amount amount = new Amount(this.amount);
-
+        Expense res;
         if (involvedIds == null) {
-            return new Expense(personId, amount, description);
+            res = new Expense(personId, amount, description, isSettlement);
         } else {
-            return new Expense(personId, amount, description, involvedIds);
+            res = new Expense(personId, amount, description, isSettlement, involvedIds);
         }
+
+        if (isDeleted) {
+            res.delete();
+        }
+
+        return res;
     }
 }

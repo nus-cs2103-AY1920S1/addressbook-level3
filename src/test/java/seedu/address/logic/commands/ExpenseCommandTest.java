@@ -1,12 +1,13 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_WARNING;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,8 +29,9 @@ public class ExpenseCommandTest {
     private static final String emptyString = "";
     private static final String notEmptyString = "ayy";
 
-    @BeforeAll
-    public static void setLists() {
+    @BeforeEach
+    public void setLists() {
+        persons.clear();
         persons.add("Pauline"); // alice actually
         persons.add("Benson"); // yes he is benson
         commandMultipleNames = new ExpenseCommand(persons, amount, emptyString);
@@ -66,7 +68,6 @@ public class ExpenseCommandTest {
                 "\t\t" + TypicalPersons.BENSON.getName() + "\n"),
                 commandResult.getFeedbackToUser());
 
-        expenses.clear(); // for some odd reason @BeforeAll doesn't do this properly?
         expenses.add(new Expense(
                 TypicalPersons.ALICE.getPrimaryKey(),
                 amount,
@@ -190,11 +191,11 @@ public class ExpenseCommandTest {
         ExpenseCommand command = new ExpenseCommand(personsDuplicate, amount, notEmptyString);
         CommandResult commandResult = command.execute(model);
 
-        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
+        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS + MESSAGE_WARNING,
                 amount, TypicalPersons.ALICE.getName(), notEmptyString,
-                "\t\t" + TypicalPersons.BENSON.getName() + "\n")
-                + String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.ALICE.getName())
-                + String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.BENSON.getName()),
+                "\t\t" + TypicalPersons.BENSON.getName() + "\n",
+                String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.ALICE.getName())
+                + String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.BENSON.getName())),
                 commandResult.getFeedbackToUser());
 
         Expense expense = new Expense(TypicalPersons.ALICE.getPrimaryKey(), amount,

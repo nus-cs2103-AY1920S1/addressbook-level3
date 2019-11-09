@@ -12,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_DESCRIP
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPENSE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.model.activity.Amount.MESSAGE_CONSTRAINTS;
@@ -104,6 +105,17 @@ public class ExpenseCommandParserTest {
             + PARTICIPANT_DESC_BOB
             + INVALID_AMOUNT_DESC,
             MESSAGE_CONSTRAINTS
+        );
+
+        // zero
+        assertParseFailure(
+                parser,
+                PREAMBLE_WHITESPACE
+                        + PARTICIPANT_DESC_BOB
+                        + " "
+                        + PREFIX_EXPENSE
+                        + "0",
+                MESSAGE_CONSTRAINTS
         );
     }
 }

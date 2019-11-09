@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_WARNING;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPENSE;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Context;
 import seedu.address.model.ContextType;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
@@ -43,7 +45,8 @@ public class ExpenseCommand extends Command {
             + PREFIX_DESCRIPTION + "Bubble tea";
 
     public static final String MESSAGE_SUCCESS =
-            "Expense of %s by %s successfully created.\n\tDescription: %s\n\tPeople involved:\n%s\nWarnings:\n";
+            "Expense of %s by %s successfully created (rounded to 2 decimal places)."
+            + "\n\tDescription: %s\n\tOthers involved:\n%s";
     public static final String WARNING_DUPLICATE_PERSON =
             "\tPerson with name %s already added to expense.\n";
     public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
@@ -52,10 +55,18 @@ public class ExpenseCommand extends Command {
             "Creating an expense outside an activity requires a description!";
     public static final String MESSAGE_MISSING_PERSON_DESCRIPTION =
             "At least one person is not found in the activity\nNo expense was added.";
+    public static final String MESSAGE_ZERO_EXPENSE =
+            "A payment of zero does not require an entry!";
 
-    private final List<String> persons;
-    private final Amount amount;
-    private final String description;
+    protected final List<String> persons;
+    protected final Amount amount;
+    protected final String description;
+
+    protected List<Person> searchScope;
+    protected Activity activity;
+    protected List<Integer> personList = new ArrayList<>();
+    protected StringBuilder successMessage = new StringBuilder();
+    protected StringBuilder warningMessage = new StringBuilder();
 
     public ExpenseCommand(List<String> persons, Amount amount, String description) {
         requireAllNonNull(persons, amount, description);
@@ -64,37 +75,73 @@ public class ExpenseCommand extends Command {
         this.description = description;
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-
-        List<Person> searchScope;
-        Activity activity;
-
-        // Contextual behaviour
+    protected void getScope(Model model) throws CommandException {
         if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
             if (!Title.isValidTitle(description)) {
                 throw new CommandException(MESSAGE_MISSING_DESCRIPTION);
             }
+            // TODO: maybe skip this if no description (have to double check)
             activity = new Activity(new Title(description));
             searchScope = model.getAddressBook().getPersonList();
         } else {
             activity = model.getContext().getActivity().get();
-            // TODO: Use the new view thingy in Activity class.
             searchScope = model.getAddressBook().getPersonList().stream()
-                    .filter(x -> activity.getParticipantIds().contains(x.getPrimaryKey()))
+                    .filter(x -> activity.hasPerson(x.getPrimaryKey()))
                     .collect(Collectors.toList());
         }
+    }
+
+    /**
+     * Gets the payees.
+     * @param model The model object containing the context.
+     * @param payingId The primary key of the payer.
+     */
+    protected void getInvolved(Model model, int payingId) throws CommandException {
+        if (persons.size() > 1) {
+            for (String keyword : persons.subList(1, persons.size())) {
+                Person person = searchPerson(keyword, searchScope);
+                int personPriKey = person.getPrimaryKey();
+                if (personList.contains(personPriKey) || personPriKey == payingId) {
+                    warningMessage.append(String.format(WARNING_DUPLICATE_PERSON, person.getName()));
+                    continue;
+                }
+
+                if (personPriKey != payingId) {
+                    personList.add(person.getPrimaryKey());
+                    successMessage.append("\t\t" + person.getName() + "\n");
+                }
+
+                if (model.getContext().getType() != ContextType.VIEW_ACTIVITY
+                        && !activity.hasPerson(personPriKey)) {
+                    activity.invite(personPriKey);
+                }
+
+            }
+        } else {
+            // everyone is involved if no list of people is provided
+            if (model.getContext().getType() == ContextType.VIEW_ACTIVITY) {
+                personList = searchScope.stream()
+                        .map(x -> x.getPrimaryKey())
+                        .filter(k -> k != payingId)
+                        .collect(Collectors.toList());
+                searchScope.stream()
+                        .filter(x -> x.getPrimaryKey() != payingId)
+                        .forEach(x -> successMessage.append("\t\t" + x.getName() + "\n"));
+            }
+        }
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        getScope(model);
 
         // This loop adds expenses one by one using keyword matching.
         // For each participant argument passed through, the argument is broken up into keywords
         // which are then used to search through the searchScope (context dependent).
         // Expenses will only be added if every keyword string has a unique match.
-        StringBuilder successMessage = new StringBuilder();
-        StringBuilder warningMessage = new StringBuilder();
         Person payingPerson = searchPerson(persons.get(0), searchScope);
         int payingId = payingPerson.getPrimaryKey();
-        int[] involvedArr;
 
         // Contextual behaviour
         if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
@@ -103,47 +150,14 @@ public class ExpenseCommand extends Command {
             }
         }
 
-        if (persons.size() > 1) {
-            List<Person> personList = new ArrayList<>();
-            personList.add(payingPerson);
-            for (int i = 1; i < persons.size(); i++) {
-                Person person = searchPerson(persons.get(i), searchScope);
-
-                if (personList.contains(person)) {
-                    warningMessage.append(String.format(WARNING_DUPLICATE_PERSON, person.getName()));
-                    continue;
-                }
-                personList.add(person);
-                successMessage.append("\t\t" + person.getName() + "\n");
-
-                // Contextual behaviour
-                if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
-                    if (!activity.hasPerson(person.getPrimaryKey())) {
-                        activity.invite(person.getPrimaryKey());
-                    }
-                }
-            }
-            involvedArr = personList.stream()
-                    .filter(x -> x.getPrimaryKey() != payingId)
-                    .mapToInt(x -> x.getPrimaryKey())
-                    .toArray();
-        } else {
-            // Contextual behaviour
-            if (model.getContext().getType() == ContextType.VIEW_ACTIVITY) {
-                involvedArr = searchScope.stream()
-                        .filter(x -> x.getPrimaryKey() != payingId)
-                        .mapToInt(x -> x.getPrimaryKey())
-                        .toArray();
-                searchScope.stream()
-                        .filter(x -> x.getPrimaryKey() != payingId)
-                        .forEach(x -> successMessage.append("\t\t" + x.getName() + "\n"));
-            } else {
-                involvedArr = new int[0];
-            }
-        }
+        getInvolved(model, payingId);
 
         try {
-            activity.addExpense(new Expense(payingId, amount, description, involvedArr));
+            // that long personlist expression just unboxes it into an array
+            activity.addExpense(new Expense(payingId, amount, description,
+                        personList.stream()
+                        .mapToInt(x -> x)
+                        .toArray()));
         } catch (PersonNotInActivityException e) {
             throw new CommandException(MESSAGE_MISSING_PERSON_DESCRIPTION);
         }
@@ -153,8 +167,19 @@ public class ExpenseCommand extends Command {
             model.addActivity(activity);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                amount, payingPerson.getName(), description, successMessage.toString()) + warningMessage.toString());
+        Context newContext = new Context(activity);
+        model.setContext(newContext);
+
+        if (warningMessage.length() == 0) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, amount,
+                        payingPerson.getName(), description,
+                        successMessage.toString()) , newContext);
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS
+                        + MESSAGE_WARNING, amount, payingPerson.getName(),
+                        description, successMessage.toString(),
+                        warningMessage.toString()), newContext);
+        }
     }
 
     /**
@@ -166,7 +191,7 @@ public class ExpenseCommand extends Command {
      * @return The search result as a {@code Person} object
      * @throws CommandException if the search result is not unique
      */
-    private Person searchPerson(String str, List<Person> searchScope) throws CommandException {
+    protected Person searchPerson(String str, List<Person> searchScope) throws CommandException {
         List<Person> findResult = searchScope.stream()
                 .filter(x -> str.toLowerCase().equals(x.getName().toString().toLowerCase()))
                 .collect(Collectors.toList());
