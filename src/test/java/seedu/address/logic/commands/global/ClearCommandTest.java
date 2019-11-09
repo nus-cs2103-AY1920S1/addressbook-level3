@@ -1,5 +1,5 @@
 package seedu.address.logic.commands.global;
-
+/* Unused test, kept as reference
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -37,3 +37,4 @@ public class ClearCommandTest {
     }
 
 }
+*/

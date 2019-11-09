@@ -21,7 +21,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyStudyBuddyPro;
 import seedu.address.model.ReadOnlyStudyBuddyProCheatSheets;
 import seedu.address.model.ReadOnlyStudyBuddyProFlashcards;
 import seedu.address.model.ReadOnlyStudyBuddyProNotes;

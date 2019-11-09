@@ -120,10 +120,6 @@ public class AddFlashcardCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void addNote(Note note) {
@@ -179,33 +175,6 @@ public class AddFlashcardCommandTest {
         //=============Person stuff===============================================
         @Override
         public ArrayList<StudyBuddyCounter> getStatistics(ArrayList<Tag> tagList) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        //=============Person stuff===============================================
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

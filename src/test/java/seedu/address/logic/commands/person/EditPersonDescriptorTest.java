@@ -1,5 +1,5 @@
 package seedu.address.logic.commands.person;
-
+/* Unused test, kept as reference
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
@@ -55,3 +55,4 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }
+*/

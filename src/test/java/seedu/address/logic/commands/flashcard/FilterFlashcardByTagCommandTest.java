@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.flashcard;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -8,7 +7,6 @@ import static seedu.address.logic.commands.flashcard.FilterFlashcardByTagCommand
 import static seedu.address.testutil.TypicalFlashcards.getTypicalStudyBuddyPro;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,7 +30,6 @@ public class FilterFlashcardByTagCommandTest {
         FilterFlashcardByTagCommand command = new FilterFlashcardByTagCommand(predicate, new ArrayList<>());
         expectedModel.updateFilteredFlashcardList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
     @Test

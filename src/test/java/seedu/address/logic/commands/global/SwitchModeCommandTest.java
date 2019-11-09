@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.global;
 
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+//import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import seedu.address.model.UserPrefs;
  */
 public class SwitchModeCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    //private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute() {

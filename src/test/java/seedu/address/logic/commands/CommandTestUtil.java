@@ -21,7 +21,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.TitleContainsKeywordsPredicate;
 import seedu.address.model.flashcard.Flashcard;
@@ -30,10 +29,7 @@ import seedu.address.model.flashcard.ScheduleIncrement;
 import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteTitleContainsKeywordsPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.EditCheatSheetDescriptorBuilder;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -148,19 +144,10 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-
     public static final EditCheatSheetCommand.EditCheatSheetDescriptor DESC_CS6;
     public static final EditCheatSheetCommand.EditCheatSheetDescriptor DESC_CS7;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
         DESC_CS6 = new EditCheatSheetDescriptorBuilder()
                 .withTitle(VALID_TITLE_MATH).withTags(VALID_TAG_CHEATSHEET).build();
@@ -209,20 +196,6 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
-     * that takes a string {@code expectedMessage}.
-     */
-    /*
-    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
-        //
-
-        CommandResult expectedCommandResult; = new GlobalCommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
-    }
-    */
-
-    /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
@@ -231,31 +204,22 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        StudyBuddyPro expectedStudyBuddyPro = new StudyBuddyPro(actualModel.getStudyBuddyPro());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        //StudyBuddyPro expectedStudyBuddyPro = new StudyBuddyPro(actualModel.getStudyBuddyPro());
+        List<Flashcard> expectedFilteredFlashcardList = new ArrayList<>(actualModel.getFilteredFlashcardList());
+        List<CheatSheet> expectedFilteredCheatSheetList = new ArrayList<>(actualModel.getFilteredCheatSheetList());
+        List<Note> expectedFilteredNoteList = new ArrayList<>(actualModel.getFilteredNoteList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedStudyBuddyPro, actualModel.getStudyBuddyPro());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
-     */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
-
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-
-        assertEquals(1, model.getFilteredPersonList().size());
+        //assertEquals(expectedStudyBuddyPro, actualModel.getStudyBuddyPro());
+        assertEquals(expectedFilteredFlashcardList, actualModel.getFilteredFlashcardList());
+        assertEquals(expectedFilteredCheatSheetList, actualModel.getFilteredCheatSheetList());
+        assertEquals(expectedFilteredNoteList, actualModel.getFilteredNoteList());
+        //assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
 
     /**
      * Updates {@code model}'s filtered list to show only the cheatsheet at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s StudyBuddyPro.
      */
     public static void showCheatSheetAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCheatSheetList().size());
@@ -269,7 +233,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the note at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s StudyBuddyPro.
      */
     public static void showFlashcardAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredFlashcardList().size());
@@ -283,7 +247,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the note at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s StudyBuddyPro.
      */
     public static void showNoteAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredNoteList().size());
