@@ -302,7 +302,7 @@ The Appointment feature contains multiple operations to indirectly manipulate th
 
 `ackappt` Command - Acknowledges an appointment whenever the patient checks in with the clerk.
 
-`appointments` Command - Lists all upcoming appointments or appointments containing a certain keyword.
+`appointments` Command - Lists all upcoming appointments or appointments which involves the patient whose referenceId contains a certain keyword.
 
 `editappt` Command - Edits an appointment timing.
 
@@ -383,7 +383,7 @@ The Duty shift scheduling contains multiple operations to indirectly manipulate 
 
 `newshift` Command - Adds a duty shift or reoccurring duty shifts to a doctor.
 
-`shifts` Command - Lists all duty shifts or lists a specific doctor's duty shifts.
+`shifts` Command - Lists all duty shifts involving the doctor's referenceId which contains the keyword.
 
 `editshift` Command - Change a current duty shift's timing to a different timing.
 
