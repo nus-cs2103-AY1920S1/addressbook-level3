@@ -301,7 +301,9 @@ image::task/AddTaskSequenceDiagram.png[]
 // end::task[]
 //@@author
 
+
 //@@author LuWenQ
+//tag::tag[]
 === Tag feature
 
 ==== Implementation
@@ -348,6 +350,7 @@ image::tag/TagActivityDiagram.png[]
 * Alternative 2: Simply keep tags as a part of problems. While execute the tag command will search for all tags in problems for every times it execute.
 ** Pros: No need to save the tag separately in the storage, all tags are under problems.
 ** Cons: Difficult to manage tags in different problems. Waste time for computer to execute.
+//end::tag[]
 //@@author
 
 //@@author le0tan

@@ -13,28 +13,25 @@ AlgoBase is a desktop address book application used for teaching Software Engine
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to tag problems*
+** What it does: allows the user to manage tag about problems and tasks.
+** Justification: This feature improves the product significantly because users need to categorise problems by themselves.
+** Highlights: This enhancement creates the new features about tag and. It required to make . The implementation too was challenging as it required changes to existing commands.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added a tag feature called tag color that allows the user to change the tag color displayed in UI.
 
 * *Code contributed*:
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LuWenQ&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[code contributed]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI tag display style (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote integration tests for some existing features to increase coverage from 40% to 52% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W11-1/main/pull/117[#117]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
@@ -42,8 +39,10 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LuWenQ&sort=groupTitl
 *** Integrated a third party library (Natty) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
-
+*** Reported bugs and suggestions for other teams in the class:
+**** https://github.com/luwenq/ped[Reported 11 bugs in PED]
+**** Reported bugs and suggestions for other teams in the class (examples
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/43[#43])
 == Contributions to the User Guide
 
 
@@ -51,14 +50,21 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=tag]
+
+* Tags
+** *New Tag* : `addtag t/NAME` +
+e.g. `addtag t/sssp`
+** *List Tags* : `listtag`
+** *Delete Tag* : `deletetag INDEX` +
+e.g. `deletetag 3`
+** *Edit tag* : `edittag INDEX t/TAGNAME` +
+e.g. `edittag 1 t/sort`
+
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=tag]
