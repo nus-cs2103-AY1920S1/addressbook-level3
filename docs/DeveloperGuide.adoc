@@ -701,7 +701,8 @@ NOTE: The lifeline for `StatsCommandParser` should end at the destroy marker (X)
 Otherwise, `StatsCommandParser` will verify whether the arguments provided were valid.
 .. If they are valid, `StatsCommand#StatsCommand(DATE_START, DATE_END)` is called to create a `StatsCommand` with the specified parameters.
 .. Else, a `ParseException` will be thrown and an error message will be shown to the user.
-4. `StatsCommand` is returned to `LogicManager` which then calls `StatsCommand#execute()`, which updates the `statsPredicate` in `Model`.
+4. `StatsCommand` is returned to `LogicManager` which then calls `StatsCommand#execute()`.
+5. `Model#updateFilteredSpendingList(predicate)` is subsequently called to update the list.
 
 ===== Execution
 
@@ -787,7 +788,8 @@ NOTE: The lifeline for `GraphCommandParser` should end at the destroy marker (X)
 Otherwise, `GraphCommandParser` will verify whether the arguments provided were valid.
 .. If they are valid, `GraphCommand#GraphCommand(DATE_START, DATE_END)` is called to create a `GraphCommand` with the specified parameters.
 .. Else, a `ParseException` will be thrown and an error message will be shown to the user.
-4. `GraphCommand` is returned to `LogicManager` which then calls `GraphCommand#execute()`, which updates the `statsPredicate` in `Model`.
+4. `GraphCommand` is returned to `LogicManager` which then calls `GraphCommand#execute()`.
+5. `Model#updateFilteredSpendingList(predicate)` is subsequently called to update the list.
 
 ===== Execution
 

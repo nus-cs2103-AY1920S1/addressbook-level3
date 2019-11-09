@@ -55,7 +55,7 @@ deactivate SpendingBookParser
 LogicManager -> StatsCommand : execute()
 activate StatsCommand
 
-StatsCommand -> Model : updateStatsPredicate(predicate)
+StatsCommand -> Model : updateFilteredSpendingList(predicate)
 activate Model
 
 Model --> StatsCommand
