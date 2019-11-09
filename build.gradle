@@ -41,6 +41,10 @@ test {
     useJUnitPlatform()
 }
 
+run {
+    enableAssertions = true
+}
+
 dependencies {
     String jUnitVersion = '5.4.0'
     String javaFxVersion = '11'
