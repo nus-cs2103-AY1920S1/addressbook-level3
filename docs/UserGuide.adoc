@@ -160,7 +160,8 @@ Displays a full list of all tags currently in StudyBuddyPro.
 
     Format: taglist
 
-    Expected output:
+Expected output:
+
     Here are all the tags in StudyBuddyPro.
     Listing all tags :
     [cs2100] |  flashcards : 0 notes : 3 cheatsheets : 1
@@ -185,9 +186,12 @@ Lists all StudyBuddyPro items with matching tags in the application.
 
     Format: filterall tag/TAG [tag/TAG]...
 
-    Example usage: filterall tag/CS2100
+Example usage:
 
-    Expected output:
+    filterall tag/CS2100
+
+Expected output:
+
         Lists the whole StudyBuddyPro after filtering by tag(s) :
     CS2100
     Flashcard: 6.
@@ -218,17 +222,40 @@ For example,
 
 will list all items that match all of the specified tags.
 
+=== Clearing specific feature's data: `clear`
+
+Clears the data in specific feature. Depending on the _mode_ that the user is in, the `clear` command will only clear the specific feature's data.
+
+Example usage:
+
+    clear
+
+=== Clearing entire application's data: `clear all`
+
+Clears all the data in the application.
+
+Example usage:
+
+    clear all
+
+Expected output:
+
+    Cleared the entire StudyBuddy book!
 
 === Exiting the application: `exit`
 
 Checks if there are any remaining flashcards to revise for the day
 or overdue flashcards to revise before exiting the application.
 
-    Example usage: exit
+Example usage:
+
+    exit
 
 If there are flashcards due for revision today but no overdue flashcards:
 
-    Expected output: Are you sure you want to exit? You still have the following flashcards overdue or left
+Expected output:
+
+    Are you sure you want to exit? You still have the following flashcards overdue or left
     to revise for today:
     Here are the flashcards due today:
     1. Math Question 1 - What is 2 x 2?
@@ -254,7 +281,7 @@ If there are both flashcards due for revision today and overdue flashcards:
 
 After any of the 3 scenarios above user can override the warning by entering the `exit` command again.
 
-if no remaining or overdue flashcards for revision found, application exits immediately.
+If no remaining or overdue flashcards for revision found, application exits immediately.
 
 === Editing a tag: `edit tag` (proposed in v2.0)
 
@@ -262,16 +289,23 @@ Edits a tag by the specified index.
 
     Format: edit tag/CURRENT tag/NEW
 
-    Example usage: edit tag/midterm tag/finals
+Example usage:
 
-    Expected output:
-    Tag editted!
+    edit tag/midterm tag/finals
+
+Expected output:
+
+    Tag edited!
     All items and contents in StudyBuddy tagged ‘midterm’ is replaced with tag ‘finals’.
 
-Allows the user to easily modify the tags of all the items. For instance, if every item that is marked difficult does not appear hard to you
-anymore, you could replace all items tagged 'difficult' with a tag 'moderate'.
+Allows the user to easily modify the tags of all the items. For instance, if every item that is marked difficult does not appear hard to you anymore, you could replace all items tagged 'difficult' with a tag 'moderate'.
 
 == Flashcard Feature
+
+[IMPORTANT]
+====
+All the operations in this section assume that the user is in the _flashcard_ mode.
+====
 
 === Creating a flashcard: `add`
 
@@ -279,14 +313,18 @@ Adds a flashcard from user input question <QUESTION> and answer <ANSWER>.
 
     Format: add q/QUESTION a/ANSWER t/TITLE [tag/TAG]...
 
-    Example usage: add q/What is 100 Binary in its Decimal form? a/4 t/Binary Stuff tag/CS2100
+Example usage:
 
-    Expected output: New flashcard added:
-        Title: Binary Stuff
-        Statictics: This flashcard was last viewed on: 2019-11-01. This flashcard should next be viewed on 2019-11-02 for optimum revision!
-        Question: What is 100 Binary in its Decimal form?
-        Answer: 4
-        Tags: [cs2100]
+    add q/What is 100 Binary in its Decimal form? a/4 t/Binary Stuff tag/CS2100
+
+Expected output:
+
+    New flashcard added:
+    Title: Binary Stuff
+    Statictics: This flashcard was last viewed on: 2019-11-01. This flashcard should next be viewed on 2019-11-02 for optimum revision!
+    Question: What is 100 Binary in its Decimal form?
+    Answer: 4
+    Tags: [cs2100]
 
 === Viewing a flashcard: `view`
 
@@ -294,12 +332,16 @@ Displays flashcard <FLASHCARD_INDEX> to user without answer.
 
     Format: view (index)
 
-    Example usage: view 6
+Example usage:
 
-    Expected output: Viewing flashcard:
-        Title: BinaryQn
-        Question: What is 101 Binary in its Decimal form?
-        Tags: [cs2100]
+    view 6
+
+Expected output:
+
+    Viewing flashcard:
+    Title: BinaryQn
+    Question: What is 101 Binary in its Decimal form?
+    Tags: [cs2100]
 
 === Revealing a flashcard's answer: `show`
 
@@ -307,13 +349,15 @@ Displays the answer of the flashcard currently loaded.
 
     Format: show
 
-    Example usage: show
+Example usage:
 
-    Expected output: Flashcard answer loaded
+    show
 
-=== Editing a flashcard: `edit`
+Expected output:
 
-{Coming in v2.0}
+    Flashcard answer loaded
+
+=== Editing a flashcard: `edit` (Coming in v2.0)
 
 Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
@@ -323,13 +367,13 @@ Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
 === Listing flashcards: `list`
 
-{Answer to be removed in v2.0}
-
-Lists all flashcards.
+Lists all flashcards. (Answer to be removed in v2.0)
 
    Format: list
 
-    Expected output: Listed all flashcards:
+Expected output:
+
+    Listed all flashcards:
     Question: What is my name?
     Answer: Sahil
     Title: Test Name Question 1
@@ -344,24 +388,30 @@ The user will be prompted once to confirm their deletion.
 
    Format: delete (index)
 
-    Example usage: delete 6
+Example usage:
 
-    Expected output: Are you sure you would like to delete the following flashcard?
-	    Question: What is 101 Binary in its Decimal form?
-	    Answer: 5
-	    Title: BinaryQn
-	    Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
-	    Tags: [cs2100]
-        Please use `delete 6` again to confirm your deletion..
+    delete 6
+
+Expected output:
+
+    Are you sure you would like to delete the following flashcard?
+    Question: What is 101 Binary in its Decimal form?
+    Answer: 5
+    Title: BinaryQn
+    Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
+    Tags: [cs2100]
+    Please use `delete 6` again to confirm your deletion..
 
 Upon hitting enter, the flashcard will be deleted.
 
-    Expected output: Deleted Flashcard:
-        Question: What is 101 Binary in its Decimal form?
-        Answer: 5
-        Title: BinaryQn
-        Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
-        Tags: [cs2100]
+Expected output:
+
+    Deleted Flashcard:
+    Question: What is 101 Binary in its Decimal form?
+    Answer: 5
+    Title: BinaryQn
+    Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
+    Tags: [cs2100]
 
 === Time Trial: `timetrial`
 
@@ -369,9 +419,13 @@ Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashca
 
     Format: timetrial [tag/TAG]...
 
-    Example usage: timetrial cs2103tuml hard
+Example usage:
 
-    Expected output: Time trial started
+    timetrial cs2103tuml hard
+
+Expected output:
+
+    Time trial started
 
 * At least one tag must be specified.
 * If more than one tag is specified, selects all flashcards that contains all of the specified tags.
@@ -391,16 +445,20 @@ command will be executed.
 
     Format: filter tag/TAG [tag/TAG]...
 
-    Example usage: filter tag/difficult
+Example usage:
 
-    Expeted output: Filter flashcards by tag(s) :
-        [difficult]
-        8. Question: What is 1+1?
-            Title: Basic addition
-            Tags: [difficult]
-        10. Question: What is 2x3?
-            Title: Maths
-            Tags: [difficult][important]
+    filter tag/difficult
+
+Expeted output:
+
+    Filter flashcards by tag(s) :
+    [difficult]
+    8. Question: What is 1+1?
+        Title: Basic addition
+        Tags: [difficult]
+    10. Question: What is 2x3?
+        Title: Maths
+        Tags: [difficult][important]
 
 === Remind
 
@@ -410,49 +468,62 @@ viewed at for optimal learning. These increments scale with time i.e. suggested 
 dates are closer at the start and spread further after more viewings. The suggested
 date for the next viewing of all flashcards can be viewed under the `list` command.
 
-{Give example}
+Example usage:
 
-    Example usage: remind
+    remind
 
 If no flashcards due for revision today and no overdue flashcards:
 
-    Expected output: Well done - No due or overdue flashcards!
+Expected output:
+
+    Well done - No due or overdue flashcards!
 
 If there are flashcards due for revision today but no overdue flashcards:
 
-    Expected output: Here are the flashcards due today:
+Expected output:
+
+    Here are the flashcards due today:
     1. Math Question 1 - What is 2 x 2?
 
 If there are no flashcards due for revision today but there are overdue flashcards:
 
-    Expected output: Here are your overdue flashcards:
+Expected output:
+
+    Here are your overdue flashcards:
     1. Math Question 1 - What is 2 x 2? (Was due on 2019-10-30)
 
 If there are both flashcards due for revision today and overdue flashcards:
 
-    Expected output: Here are the flashcards due today:
+Expected output:
+
+    Here are the flashcards due today:
     1. Math Question 1 - What is 2 x 2?
     Here are your overdue flashcards:
     1. Math Question 2 - What is 3 x 2? (Was due on 2019-10-30)
 
 == Notes Feature:
 
+[IMPORTANT]
+====
+All the operations in this section assume that the user is in the _notes_ mode.
+====
+
 === Creating a note: `add`
 
-* Adds a note from user input with title `TITLE` and content `CONTENT`. The title of the note cannot be a duplicate
+Adds a note from user input with title `TITLE` and content `CONTENT`. The title of the note cannot be a duplicate
 of an existing note title.
 
 ```
 Format: add t/TITLE c/CONTENT [tag/TAG]...
 ```
 
+Example usage:
 ```
-Example usage: add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes simultaneously. tag/cs2100
+add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes simultaneously. tag/cs2100
 ```
 
-```
 Expected output:
-
+```
 New note added:
     Title: Pipelining Definition
     Content: Pipelining is a process where a processor executes multiple processes simultaneously.
@@ -461,10 +532,10 @@ New note added:
 The added Note has no detected note fragment tags!
 ```
 
-* More advanced usage: Tagging of note fragments is also supported. The note fragment tagging is added at the
+More advanced usage: Tagging of note fragments is also supported. The note fragment tagging is added at the
 same time as the note is created.
 
-* Note fragment tags are added with content `FRAGMENT_CONTENT`, at least one tag
+Note fragment tags are added with content `FRAGMENT_CONTENT`, at least one tag
 `FRAGMENT_TAG`, and any number of additional tags `ADDITIONAL_FRAGMENT_TAG`:
 
 ```
@@ -477,15 +548,15 @@ IMPORTANT: The format for note fragment content is 'C/', not 'c/', and the forma
 WARNING: If the format is not followed correctly, the note fragment tag will simply not be added (but the note will
 still be added). StudyBuddyPro will assume that the user has typed the tags correctly.
 
-* In the following example, two note fragment tags are added to the same note fragment:
+In the following example, two note fragment tags are added to the same note fragment:
 
+Example usage:
 ```
-Example usage: add t/About Notes c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
+add t/About Notes c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
 ```
 
-```
 Expected output:
-
+```
 New note added:
 	Title: About Notes
 	Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
@@ -498,14 +569,14 @@ Note fragment tags detected:
 
 ```
 
-* This adds a note with content "Notes can be highlighted if needed.", and a note fragment tag with content
+This adds a note with content "Notes can be highlighted if needed.", and a note fragment tag with content
 "highlighted" and two tags "cs2100" and "important".
 
 NOTE: The spaces around the syntax elements of '/\*', 'C/' etc are part of the syntax. For example, if a note
 fragment tag looks like this: '/* C/highlighted TAG/important */if needed', then the resultant Note will look like
 this: 'highlightedif needed'.
 
-* Multiple note fragment tags are allowed. These do not interfere with the other tags of the Note.
+Multiple note fragment tags are allowed. These do not interfere with the other tags of the Note.
 
 IMPORTANT: Overlapping note fragment tags are not allowed.
 
@@ -523,13 +594,13 @@ The user will be prompted once to confirm their deletion.
 Format: delete (index)
 ```
 
+Example usage:
 ```
-Example usage: delete 3
+delete 3
 ```
 
-```
 Expected output:
-
+```
 Are you sure you would like to delete the following note?
 
     Title: About Notes
@@ -539,7 +610,6 @@ Are you sure you would like to delete the following note?
 ```
 
 Upon hitting enter, the note will be deleted.
-
 ```
 Deleted note:
     Title: About Notes
@@ -557,13 +627,13 @@ NOTE: To view the note with its note fragment tags, use the `viewraw` command in
 Format: view (index)
 ```
 
+Example usage:
 ```
-Example usage: view 3
+view 3
 ```
 
-```
 Expected output:
-
+```
 Viewing note:
     Title: About Notes
     Content: Notes can be highlighted if needed.
@@ -578,13 +648,13 @@ Views the note of index `NOTE_INDEX`. The note is shown exactly as written, incl
 Format: viewraw (index)
 ```
 
+Example usage:
 ```
-Example usage: viewraw 3
+viewraw 3
 ```
 
-```
 Expected output:
-
+```
 Viewing raw note:
     Title: About Notes
     Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
@@ -593,20 +663,19 @@ Viewing raw note:
 
 === Listing notes: `list`
 
-* Lists all notes found in StudyBuddyPro.
+Lists all notes found in StudyBuddyPro.
 
 ```
 Format: list
 ```
 
-```
 Expected output:
-
-a complete list of all notes currently in StudyBuddyPro
+```
+A complete list of all notes currently in StudyBuddyPro.
 ```
 
-```
 Example output:
+```
 Listing all notes:
 1.
     Title: Pipelining Definition
@@ -633,12 +702,14 @@ not tagged.
 Format: filter tag/TAG [tag/TAG]...
 ```
 
+Example usage:
 ```
-Example usage: filter tag/difficult
+filter tag/difficult
 ```
 
+Expected output:
 ```
-Expeted output: Filter notes by tag(s) :
+Filter notes by tag(s) :
     [difficult]
     2. Title: Tough Math
         Content: 1 + 2 is 3.
@@ -664,13 +735,13 @@ Edits a note's title, content, or tags. The note will be referred to by their or
 Format: edit ORIGINAL_TITLE [t/TITLE] [c/CONTENT] [tag/TAG]...
 ```
 
+Example usage:
 ```
-Example usage: edit Pipelining Definition t/Pipelined Definition tag/cs2100finals
+edit Pipelining Definition t/Pipelined Definition tag/cs2100finals
 ```
 
-```
 Expected output:
-
+```
 Edited Note:
     Title: Pipelined Definition
     Content: Pipelining is a process where a processor executes multiple processes simultaneously.
@@ -684,7 +755,7 @@ Edited Note:
 All the operations in this section assume that the user is in the _cheatsheet_ mode.
 ====
 
-tag::cheatsheetAdd[]
+//tag::cheatsheetAdd[]
 
 === Creating a Cheatsheet: `add`
 
@@ -708,8 +779,9 @@ Expected output:
     Tags: [cs2100midterm]
     1 content(s) have been successfully generated from the other modes.
 
-end::cheatsheetAdd[]
-tag::cheatsheetEdit[]
+//end::cheatsheetAdd[]
+
+//tag::cheatsheetEdit[]
 
 === Editing a Cheatsheet: `edit`
 
@@ -747,7 +819,7 @@ The actual implementation does not show the contents in the feedback box. Please
     Tags: [cs2100finals]
     Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
 
-end::cheatsheetEdit[]
+//end::cheatsheetEdit[]
 
 === Deleting a Cheatsheet: `delete`
 
@@ -773,7 +845,7 @@ Upon hitting enter, the specified cheatsheet will be deleted.
         Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
             [ 2. 110 in Binary is 6 is Decimal ]
 
-tag::cheatsheetView[]
+//tag::cheatsheetView[]
 
 === Viewing Cheatsheets: `view`
 
@@ -799,9 +871,9 @@ image::jasmineDiagrams/ssForViewUG.png[]
 
 The above screenshot shows the cheatsheet with index 1 in the GUI of StudyBuddyPro.
 
-end::cheatsheetView[]
+//end::cheatsheetView[]
 
-tag::cheatsheetViewSpecific[]
+//tag::cheatsheetViewSpecific[]
 
 === Viewing Cheatsheets of Specific Tag: `show`
 
@@ -831,9 +903,9 @@ image::jasmineDiagrams/ssForViewSpecificUG.png[]
 The above screenshot shows the cheatsheet's content with tag index 1 in the GUI of StudyBuddyPro.
 
 
-end::cheatsheetViewSpecific[]
+//end::cheatsheetViewSpecific[]
 
-tag::cheatsheetList[]
+//tag::cheatsheetList[]
 
 === Listing Cheatsheets: `list`
 
@@ -841,20 +913,28 @@ Lists all cheatsheets found in StudyBuddyPro.
 
    Format: list
 
-end::cheatsheetList[]
+//end::cheatsheetList[]
 
 === Listing by tags: `filter`
 
-* Filters the cheatsheet library by the user specified tag(s).
+Filters the cheatsheet library by the user specified tag(s).
+
+[IMPORTANT]
+====
 * The user must specify at least one tag.
 * The user is able to specify multiple tags.
 * CheatSheets that match all of the specified tags will be displayed.
+====
 
     Format: filter tag/TAG [tag/TAG]...
 
-    Example usage: filter tag/difficult
+Example usage:
 
-    Expeted output: Filter cheatsheet by tag(s) :
+    filter tag/difficult
+
+Expected output:
+
+    Filter cheatsheet by tag(s) :
         [difficult]
         2. Title: Tough Math
             Tags: [difficult][math]
@@ -865,7 +945,7 @@ end::cheatsheetList[]
             Content: [ 1. dy/dx is a process where mathematicians..]
                 [ 2. Question: what is dy/dx?; Answer: find gradient]
 
-tag::cheatsheetUpdate[]
+//tag::cheatsheetUpdate[]
 
 === Updating a Cheatsheet: `update` (Coming in v2.0)
 
@@ -918,7 +998,7 @@ The actual implementation does not show the contents in the feedback box. Please
     Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
               [ 2. 10 + 10 = 20]
 
-end::cheatsheetUpdate[]
+//end::cheatsheetUpdate[]
 
 == FAQ
 
@@ -929,8 +1009,6 @@ should I do? +
 do this while Mac users can use the Terminal application.
 
 == Command Summary
-
-{To be added}
 
 === Global Commands (Can be executed in any mode)
 * *Switch* : `switch MODE` +
