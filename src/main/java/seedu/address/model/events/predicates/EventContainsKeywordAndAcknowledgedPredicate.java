@@ -1,10 +1,11 @@
 //@@author SakuraBlossom
 package seedu.address.model.events.predicates;
 
+import java.util.function.Predicate;
+
 import seedu.address.model.ReferenceId;
 import seedu.address.model.events.Event;
 
-import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Event}'s {@code ReferenceId} matches the given {@code ReferenceId}.

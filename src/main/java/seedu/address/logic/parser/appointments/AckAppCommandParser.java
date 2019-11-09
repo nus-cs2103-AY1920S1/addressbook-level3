@@ -16,8 +16,6 @@ import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.parameters.Status;
 import seedu.address.model.events.parameters.Timing;
-import seedu.address.model.events.predicates.EventContainsKeywordAndAcknowledgedPredicate;
-import seedu.address.model.events.predicates.EventContainsKeywordPredicate;
 import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 
 /**
@@ -62,11 +60,11 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
             updateToPatientList(referenceId);
             if (filterEventList.size() == 0) {
                 throw new ParseException(MESSAGE_NOTING_ACK);
-            }else {
+            } else {
                 Event unAck = filterEventList.get(0);
 
                 Timing timing = unAck.getEventTiming();
-                if(!Timing.isTheSameDayToAck(timing)){
+                if (!Timing.isTheSameDayToAck(timing)) {
                     throw new ParseException(MESSAGE_NOT_SAME_DAY_ACK);
                 }
                 Status status = new Status(Status.AppointmentStatuses.ACKNOWLEDGED);
