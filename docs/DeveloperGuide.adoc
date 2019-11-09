@@ -26,7 +26,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.png[width=70%]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -48,7 +48,7 @@ The rest of the App consists of five components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Logic,*`UiLogic`*>>: The UI action handler.
+* <<Design-UiLogic,*`UiLogic`*>>: The UI action handler.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
@@ -67,7 +67,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `deleteprob 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user switches tabs in the GUI.
@@ -90,7 +90,7 @@ The UI consists of a `MainWindow` that is made up of parts
 e.g.`CommandBox`, `ResultDisplay`, `DetailsTabPane`, `DisplayTabPane`, `TaskManagementPane`, `StatusBarFooter` etc.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/algobase/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -113,9 +113,9 @@ link:{repoURL}/src/main/java/seedu/algobase/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteprob 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `deleteprob 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -185,7 +185,7 @@ image::design/model/TaskPackageDiagram.png[width="30%"]
 image::design/model/ProblemSearchRulePackageDiagram.png[width="60%"]
 
 .Structure of the PlanSearchRule Package
-image::design/model/PlanSearchRulePackageDiagram.png[width='60%']
+image::design/model/PlanSearchRulePackageDiagram.png[width='90%']
 
 .Structure of the GUI Package
 image::design/model/GuiPackageDiagram.png[width='60%']
@@ -323,14 +323,14 @@ Given below is an example usage scenario and how the tag mechanism behaves at ea
 
 Step 1. The user launches the application for the first time. The UniqueTagList will be initialized with the initial algobase state
 
-Step 2. The user executes `addtag t/easy` to add a tag named [easy] with default color which have not applied in any problems. The addtag command calls Model#addtag(), causing the taglist added a tag after the ‘addtag t/easy’ command executes to be saved in the uniqueTagList.
+Step 2. The user executes `addtag t/easy` to add a tag named [easy] with default color which have not applied in any problems. The addtag command calls `Model#addtag()`, causing the taglist added a tag after the ‘addtag t/easy’ command executes to be saved in the uniqueTagList.
 
 The following sequence diagram shows how the `deletetag` operation works:
 
 .Sequence Diagram for `AddTagCommand`
 image::tag/AddTagSequenceDiagram.png[]
 
-Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls Model#listtag(), causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
+Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls `Model#listtag()`, causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
 
 Step 4.The user executes `edittag 1 t/hard c/BLUE` to edit the current tag [easy] to [hard] in the `uniqueTagList`. The `edittag 1 t/hard c/BLUE`
 Command executes `edittag`, causing the taglist find the tag with index 1 in the tag list and change tag [easy] into [hard] and change tag color from default color to blue, and change all [easy] tag into [hard] in blue color in all problems.
@@ -433,7 +433,7 @@ image::find/PredicateClassDiagram.png[width="40%"]
 
 Given below is an example usage scenario and how the find problem mechanism behaves at each step.
 
-Step 1. The user executes `find t/recursion diff/2.0-4.0` to find a problem with a tag “recursion” and difficulty between 2.0 and 4.0.
+Step 1. The user executes `findprob t/recursion diff/2.0-4.0` to find a problem with a tag “recursion” and difficulty between 2.0 and 4.0.
 
 Step 2. `FindCommandParser` processes the user input and returns a `FindCommand` instance with the information of user’s search restrictions.
 
@@ -1130,6 +1130,7 @@ Use case ends.
 ** 2a1. AlgoBase informs user that the form of new tag is invalid.
 +
 Use case ends.
+
 [discrete]
 === Use Case 11: Sort Problems
 
@@ -1361,16 +1362,6 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 16: See details of an item
-
-*MSS*
-
-1.  User requests to see the details of a specified item from the list of items.
-2.  AlgoBase displays the details of that item.
-+
-Use case ends.
-
-[discrete]
 === Use Case 21: Export AlgoBase data
 
 *MSS*
@@ -1463,16 +1454,18 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Deleting Problems
+=== Problems
 
-. Deleting a problem while all problems are listed
+. Adding a problem
 
-.. Prerequisites: List all problems using the `list` command. Multiple problems in the list.
-.. Test case: `delete 1` +
+. Deleting a problem
+
+.. Prerequisites: List all problems using the `listprob` command. Multiple problems in the list.
+.. Test case: `deleteprob 1` +
    Expected: First problem is deleted from the list. Details of the deleted problem shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `deleteprob 0` +
    Expected: No problem is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+.. Other incorrect delete commands to try: `delete`, `deletedeleteprob x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 === Sorting problems
