@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
-import dream.fcard.logic.stats.TestSession;
-import dream.fcard.logic.stats.TestSessionList;
 
 /**
  * Utilities for easily manipulating and getting data from SessionList objects.

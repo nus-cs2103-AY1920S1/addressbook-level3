@@ -178,7 +178,7 @@ public class Session implements JsonInterface {
                     DateTimeUtil.getJsonFromDateTime(sessionStart).getObject());
             obj.put(Schema.SESSION_END,
                     DateTimeUtil.getJsonFromDateTime(sessionEnd).getObject());
-            //obj.put(Schema.SESSION_SCORE, score);
+            obj.put(Schema.SESSION_SCORE, score);
         } catch (JsonWrongValueException e) {
             System.out.println("DATETIME JSON MUST BE AN OBJECT\n" + e.getMessage());
         }
