@@ -12,20 +12,20 @@ import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
-class FromStateTest {
-    private FromState typicalFromState = new FromState(new ArgumentMultimap());
+class ToStateTest {
+    private ToState typicalToState = new ToState(new ArgumentMultimap());
     @Test
     public void transition_validArgumentMultimap_returnsPostTransitionState() {
         try {
             ArgumentMultimap validArgumentMultimap = new ArgumentMultimap();
-            validArgumentMultimap.put(CliSyntax.PREFIX_FROM, "Ko Gi Hun");
+            validArgumentMultimap.put(CliSyntax.PREFIX_TO, "Daniel Kim");
 
-            State postTransitionState = new FromState(new ArgumentMultimap());
+            State postTransitionState = new ToState(new ArgumentMultimap());
             ArgumentMultimap transitionArgumentMultimap = new ArgumentMultimap();
-            transitionArgumentMultimap.put(CliSyntax.PREFIX_FROM, "Ko Gi Hun");
+            transitionArgumentMultimap.put(CliSyntax.PREFIX_TO, "Daniel Kim");
             postTransitionState = postTransitionState.transition(transitionArgumentMultimap);
 
-            assertEquals(postTransitionState, new FromState(validArgumentMultimap));
+            assertEquals(postTransitionState, new ToState(validArgumentMultimap));
         } catch (StateTransitionException e) {
             // StateTransitionException should not be thrown here.
         }
@@ -34,11 +34,11 @@ class FromStateTest {
     @Test
     public void transition_tooManyArguments_throwsStateTransitionException() {
         try {
-            State postTransitionState = new FromState(new ArgumentMultimap());
+            State postTransitionState = new ToState(new ArgumentMultimap());
             ArgumentMultimap transitionArgumentMultimap = new ArgumentMultimap();
-            transitionArgumentMultimap.put(CliSyntax.PREFIX_FROM, "Ko Gi Hun");
+            transitionArgumentMultimap.put(CliSyntax.PREFIX_TO, "Ko Gi Hun");
             postTransitionState = postTransitionState.transition(transitionArgumentMultimap);
-            transitionArgumentMultimap.put(CliSyntax.PREFIX_FROM, "Jason Chan");
+            transitionArgumentMultimap.put(CliSyntax.PREFIX_TO, "Jason Chan");
             State finalPostTransitionState = postTransitionState;
             assertThrows(StateTransitionException.class, () ->
                     finalPostTransitionState.transition(transitionArgumentMultimap));
@@ -50,12 +50,12 @@ class FromStateTest {
     @Test
     public void transition_invalidFrom_throwsStateTransitionException() {
         try {
-            State postTransitionState = new FromState(new ArgumentMultimap());
+            State postTransitionState = new ToState(new ArgumentMultimap());
             ArgumentMultimap transitionArgumentMultimap = new ArgumentMultimap();
-            transitionArgumentMultimap.put(CliSyntax.PREFIX_FROM, "1234");
+            transitionArgumentMultimap.put(CliSyntax.PREFIX_TO, "1234");
 
             postTransitionState = postTransitionState.transition(transitionArgumentMultimap);
-            transitionArgumentMultimap.put(CliSyntax.PREFIX_FROM, "1234");
+            transitionArgumentMultimap.put(CliSyntax.PREFIX_TO, "1234");
             State finalPostTransitionState = postTransitionState;
             assertThrows(StateTransitionException.class, () ->
                     finalPostTransitionState.transition(transitionArgumentMultimap));
@@ -67,17 +67,17 @@ class FromStateTest {
     @Test
     public void transition() {
         Assertions.assertThrows(StateTransitionException.class, () ->
-                typicalFromState.transition(new ArgumentMultimap()));
+                typicalToState.transition(new ArgumentMultimap()));
     }
 
     @Test
     public void getStateConstraints() {
-        assertEquals(typicalFromState.getStateConstraints(), "Index stored. Please enter the name of the sender,"
-                + " i.e. the person who the report is from, prefixed by \"f/\".");
+        assertEquals(typicalToState.getStateConstraints(), "Sender name stored. Please enter the name of the receiver,"
+                + " i.e. the person who the report is sent to, prefixed by \"t/\".");
     }
 
     @Test
     public void getPrefix() {
-        assertEquals(typicalFromState.getPrefix(), new Prefix("f/"));
+        assertEquals(typicalToState.getPrefix(), new Prefix("t/"));
     }
 }
