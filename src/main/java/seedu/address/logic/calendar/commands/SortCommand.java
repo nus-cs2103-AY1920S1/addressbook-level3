@@ -12,11 +12,11 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Sort the tasks according to 'deadline' or 'timeadded'\n"
-        + "Parameters: 'deadline' or 'timeadded'\n"
+        + ": Sort the tasks according to 'deadline', 'time, or 'title'\n"
+        + "Parameters: 'deadline', 'time', or 'title'\n"
         + "Example: " + COMMAND_WORD + " deadline";
 
-    public static final String MESSAGE_SORT_SUCCESS = "List sorted by %1$s";
+    public static final String MESSAGE_SORT_SUCCESS = "Tasks sorted by %1$s";
 
     private final String sortType;
 

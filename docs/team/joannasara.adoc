@@ -24,7 +24,7 @@ fast and convenient way to manage all of their tasks.
 ** Highlights: This enhancement affects existing commands and needs to be supported by change of the graphical user interface.
 The implementation too was challenging as it required changes to existing commands.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=joannasara[Functional and test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=joannasara&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and test code]]
 
 * *Other contributions*:
 

@@ -30,7 +30,7 @@ public class FindCommand extends Command {
         requireNonNull(calendarModel);
         calendarModel.updateFilteredTaskList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, calendarModel.getFilteredTaskList().size()));
+                String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, calendarModel.getFilteredTaskList().size()));
     }
 
     @Override

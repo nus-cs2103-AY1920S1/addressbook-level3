@@ -19,7 +19,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to calendar. "
             + "Parameters: "
             + PREFIX_TASKTITLE + "TITLE "
             + PREFIX_TASKDAY + "DAY "
@@ -37,7 +37,7 @@ public class AddCommand extends Command {
             + PREFIX_TASKTAG + "CS2109";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in calendar";
 
     private final Task toAdd;
 
