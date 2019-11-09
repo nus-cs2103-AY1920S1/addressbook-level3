@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 
 public class AddFromContactsCommand extends Command {
 
@@ -24,7 +25,6 @@ public class AddFromContactsCommand extends Command {
 
     public static final String MESSAGE_ADD_EXISTING_SUCCESS = "Added %1$s to %2$s";
     public static final String MESSAGE_DUPLICATE_MEMBER = "Member already exists in the project.";
-    public static final String MESSAGE_DUPLICATE_INDEX = "Same index is specified twice.";
 
     private final List<Index> targetIndexList;
 
@@ -38,16 +38,18 @@ public class AddFromContactsCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Person> personsToAdd = new ArrayList<>();
         List<Index> indexChecker = new ArrayList<>();
+
+        if (containsInvalidIndexes(targetIndexList, lastShownList)) {
+            int invalidIndex = getInvalidIndex(targetIndexList, lastShownList);
+            throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX + " Invalid index: " + invalidIndex);
+        }
+
+        if (containsDuplicateIndexes(targetIndexList)) {
+            throw new CommandException(MESSAGE_DUPLICATE_INDEX + " Duplicate index: " + getDuplicateIndex(targetIndexList));
+        }
+
+
         for (Index targetIndex : targetIndexList) {
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-
-            if (indexChecker.contains(targetIndex)) {
-                throw new CommandException(MESSAGE_DUPLICATE_INDEX + " Duplicate index: " + targetIndex.getOneBased());
-            }
-
-            indexChecker.add(targetIndex);
             personsToAdd.add(lastShownList.get(targetIndex.getZeroBased()));
         }
 
@@ -80,7 +82,7 @@ public class AddFromContactsCommand extends Command {
         List<Person> editedPersons = addProjToPersons(personsToAdd, editedProject);
         setPersons(personsToAdd, editedPersons, model);
 
-        String names = getAsString(personsToAdd);
+        String names = getAsStringPersons(personsToAdd);
 
         return new CommandResult(String.format(MESSAGE_ADD_EXISTING_SUCCESS, names, projectToEditTitle), COMMAND_WORD);
 

@@ -32,12 +32,14 @@ public class Meeting {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+
+        if (!(o instanceof Meeting)) {
             return false;
         }
+
         Meeting meeting = (Meeting) o;
-        return time.equals(meeting.time)
-                && Objects.equals(description, meeting.description);
+        return this.time.equals(meeting.time)
+                && this.description.equals(meeting.description);
     }
 
     @Override

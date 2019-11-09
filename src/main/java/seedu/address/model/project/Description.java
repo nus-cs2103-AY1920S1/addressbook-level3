@@ -26,7 +26,19 @@ public class Description {
         return test.matches(VALIDATION_REGEX);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
 
+        if (!(other instanceof Description)) {
+            return false;
+        }
+
+        Description otherDesc = (Description) other;
+        return otherDesc.description.equals(this.description);
+    }
 
     @Override
     public String toString() {

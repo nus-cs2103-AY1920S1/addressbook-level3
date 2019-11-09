@@ -29,7 +29,7 @@ public class AddProjectMeetingCommand extends Command {
             + PREFIX_TIME + "29/09/2019 1900 "
             + PREFIX_DESCRIPTION + "milestone discussion";
 
-    public static final String MESSAGE_DUPLICATE_PROJECT = "Project list contains duplicate project(s).";
+    public static final String MESSAGE_DUPLICATE_MEETING = "Meeting is already set in this project.";
 
     private final Meeting toAdd;
 
@@ -55,6 +55,9 @@ public class AddProjectMeetingCommand extends Command {
         List<Meeting> meetingList = projectToEdit.getListOfMeeting();
         List<Meeting> newMeetingList = new ArrayList<>();
         newMeetingList.addAll(meetingList);
+        if (newMeetingList.contains(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MEETING);
+        }
         newMeetingList.add(toAdd);
         Collections.sort(newMeetingList, SortingOrder.getCurrentSortingOrderForMeeting());
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), members, taskList, projectToEdit.getFinance(), projectToEdit.getGeneratedTimetable());

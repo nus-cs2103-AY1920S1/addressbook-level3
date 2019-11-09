@@ -69,8 +69,7 @@ public class Task {
 
         Task otherTask = (Task) other;
         return otherTask.getDescription().equals(getDescription())
-                && otherTask.getTime().equals(getTime())
-                && otherTask.isDone() == (isDone());
+                && otherTask.getTime().equals(getTime());
     }
 
     @Override

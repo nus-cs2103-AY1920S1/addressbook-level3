@@ -49,6 +49,7 @@ public class AddTaskCommand extends Command {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         List<Task> taskToEdit = projectToEdit.getTasks();
         taskArrayList.addAll(taskToEdit);
+
         taskArrayList.add(task);
         Collections.sort(taskArrayList, SortingOrder.getCurrentSortingOrderForTask());
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),

@@ -62,6 +62,21 @@ public class Time {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof Time)) {
+            return false;
+        }
+
+        Time otherTime = (Time) other;
+        return otherTime.time.equals(this.time)
+                && otherTime.date.equals(this.date);
+    }
+
+    @Override
     public String toString() {
         return this.time;
     }

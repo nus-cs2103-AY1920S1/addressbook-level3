@@ -25,7 +25,8 @@ public class MarkAttendanceCommand extends Command {
             + "Parameters: MEETING_INDEX PERSON_INDEX... (INDEX must be positive integer)\n"
             + "Example: " + COMMAND_WORD + "2 1 2 4 (MEETING_INDEX: 2, PERSON_INDEX:1, 2, 4)";
 
-    public static final String MESSAGE_MARK_ATTENDANCE_SUCCESS = "Attendance for meeting(%1$s on %2$s) is marked for %3$s)";
+    public static final String MESSAGE_MARK_ATTENDANCE_SUCCESS = "Attendance for meeting(%1$s on %2$s) is marked for %3$s";
+    public static final String MESSAGE_DUPLICATE_ATTENDANCE = "Attendance already marked for %1$s";
 
     private final List<Index> targetIndexes;
 
@@ -41,6 +42,7 @@ public class MarkAttendanceCommand extends Command {
         //Getting the list shown to the user so that the index input matches the position of the meeting
         List<Meeting> meetingListShown = meetingSet.stream()
                 .sorted(Comparator.comparing(m -> m.getTime().getDate())).collect(Collectors.toList());
+
         //Finding the corresponding Persons in the contacts based on the names in the project
         List<String> personNameList = model.getWorkingProject().get().getMemberNames();
         List<Person> personList = new ArrayList<>();
@@ -76,10 +78,10 @@ public class MarkAttendanceCommand extends Command {
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 meeting.getDescription().toString(),
                 meeting.getTime().toString(),
-                getAsString(markedPersons)), COMMAND_WORD);
+                getAsStringPersons(markedPersons)), COMMAND_WORD);
     }
 
-    private List<Person> markAttendanceOf(List<Person> personsToMark, Meeting meeting, Project currWorkingProject) {
+    private List<Person> markAttendanceOf(List<Person> personsToMark, Meeting meeting, Project currWorkingProject) throws CommandException {
         List<Person> markedPersons = new ArrayList<>();
         String projectTitle = currWorkingProject.getTitle().title;
 
@@ -88,6 +90,9 @@ public class MarkAttendanceCommand extends Command {
             HashMap<String, List<Meeting>> meetingsAttended = previousPerformance.getMeetingsAttended();
 
             if (meetingsAttended.containsKey(projectTitle)) {
+                if (meetingsAttended.get(projectTitle).contains(meeting)) {
+                    throw new CommandException(String.format(MESSAGE_DUPLICATE_ATTENDANCE, personToMark.getName().fullName));
+                }
                 meetingsAttended.get(currWorkingProject.getTitle().title).add(meeting);
             } else {
                 meetingsAttended.put(projectTitle, new ArrayList<>());
