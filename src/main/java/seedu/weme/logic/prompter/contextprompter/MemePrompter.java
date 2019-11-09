@@ -23,6 +23,7 @@ import seedu.weme.logic.commands.memecommand.MemeLikeCommand;
 import seedu.weme.logic.commands.memecommand.MemeListCommand;
 import seedu.weme.logic.commands.memecommand.MemeStageCommand;
 import seedu.weme.logic.commands.memecommand.MemeUnarchiveCommand;
+import seedu.weme.logic.commands.memecommand.MemeViewCommand;
 import seedu.weme.logic.prompter.commandprompter.memecommandprompter.MemeAddCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.memecommandprompter.MemeArchiveCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.memecommandprompter.MemeDeleteCommandPrompter;
@@ -32,6 +33,7 @@ import seedu.weme.logic.prompter.commandprompter.memecommandprompter.MemeFindCom
 import seedu.weme.logic.prompter.commandprompter.memecommandprompter.MemeLikeCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.memecommandprompter.MemeStageCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.memecommandprompter.MemeUnarchiveCommandPrompter;
+import seedu.weme.logic.prompter.commandprompter.memecommandprompter.MemeViewCommandPrompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.Model;
@@ -96,6 +98,9 @@ public class MemePrompter extends WemePrompter {
 
         case MemeListCommand.COMMAND_WORD:
             return new CommandPrompt(MemeListCommand.MESSAGE_USAGE, userInput);
+
+        case MemeViewCommand.COMMAND_WORD:
+            return new MemeViewCommandPrompter().prompt(model, userInput);
 
         default:
             if (arguments.isBlank()) {

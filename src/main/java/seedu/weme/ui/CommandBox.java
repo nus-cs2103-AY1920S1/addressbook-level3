@@ -196,6 +196,7 @@ public class CommandBox extends UiPart<Region> {
         final String arguments = matcher.group(WemeParser.ARGUMENTS).trim();
         if (commandWord.equals(TextMoveCommand.COMMAND_WORD) && arguments.matches("\\d+")) {
             try {
+                setStyleToDefault();
                 float multiplier = event.isShiftDown() ? 5 : event.isAltDown() ? 0.2f : 1;
                 float distance = TextMoveCommand.DEFAULT_MOVE_DISTANCE * multiplier;
                 switch (event.getCode()) {
