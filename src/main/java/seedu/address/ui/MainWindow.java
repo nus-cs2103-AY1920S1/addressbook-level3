@@ -82,7 +82,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        this.unknown = false;
+        this.isUnknown = false;
         reminderWindow = new ReminderWindow(logic);
     }
 
@@ -398,6 +398,18 @@ public class MainWindow extends UiPart<Stage> {
 
     public TaskListPanel getTaskListPanel() {
         return taskListPanel;
+    }
+
+    /**
+     * Switches to the calendar tab sorted by the date.
+     */
+    public void deleteNoteButton(int index) throws ParseException, CommandException {
+        try {
+            String userCommand = "deletenote " + index;
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
     }
 
     /**

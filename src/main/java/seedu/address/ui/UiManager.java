@@ -183,6 +183,20 @@ public class UiManager implements Ui {
         }
     }
 
+    /**
+     * To change tab to login window.
+     */
+    public static void deleteNotesButton(int index) {
+        logger.info("Deleting Note...");
+
+        try {
+            mainWindow.deleteNoteButton(index);
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during deletion", e);
+        }
+    }
+
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
