@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.guilttrip.model.entry.Entry;
+import seedu.guilttrip.ui.gui.guihandles.BudgetCardHandle;
 import seedu.guilttrip.ui.gui.guihandles.EntryCardHandle;
 import seedu.guilttrip.ui.gui.guihandles.EntryListPanelHandle;
 import seedu.guilttrip.ui.gui.guihandles.ResultDisplayHandle;
@@ -25,6 +26,11 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getDate(), actualCard.getDate());
         assertEquals(expectedCard.getCategory(), actualCard.getCategory());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
+
+        if (expectedCard instanceof BudgetCardHandle && actualCard instanceof BudgetCardHandle) {
+            assertEquals(((BudgetCardHandle) expectedCard).getAmountSpent(),
+                    ((BudgetCardHandle) actualCard).getAmountSpent());
+        }
     }
 
     /**
