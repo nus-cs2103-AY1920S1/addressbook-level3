@@ -32,17 +32,17 @@ Graphical User Interface (GUI). Head over to <<Quick Start>> to see how to get t
 4. Enter the command `java -jar typee.jar` on your terminal to start the app. The GUI should appear in a few seconds.
 5. Type a command in the text box and press `Enter` to execute it.
 +
-image::Ui.png[width="700"]
+image::Ui.png[width="750"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all appointments.
-* **`tab` ** `game`: switches main window to start window of the game.
-* **`add`** `d/Meeting on Monday` : adds an appointment with the description `Meeting on Monday` to the appointment manager.
-* **`pdf` ** `i/1 to/Jason from/Harry`: generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
-* **`delete`** `3` : deletes the 3rd appointment shown in the current list.
+* **`tab` ** `b/game`: switches main window to start window of the game.
+* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 a/Jason | Harry d/Meeting on Monday a/HIGH` : adds an engagement to the storage with an engagement type of `Appointment` followed by start time and end time 09-11-2019-12:00 ~ 09-11-2019-13:30, attendee as `Jason` and `Harry`, description written as `Meeting on Monday`, priority of `HIGH`.
+* **`pdf` ** `i/1 t/Jason f/Harry`: generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
+* **`delete`** `i/3` : deletes the 3rd appointment shown in the current list.
 * *`exit`* : exits the app.
 
 Refer to <<Features>> for details of each command.
@@ -60,7 +60,7 @@ Format: `help`
 === Switch to different windows: `tab`
 
 Switches to a different menu in the application window. +
-Format: `tab [menu_name]`
+Format: `tab b/MENU_NAME`
 
 * Typee application has mainly 4 major features/menus. User needs to switch to respective windows to perform different commands and features of the system.
 ** Engagement
@@ -69,23 +69,26 @@ Format: `tab [menu_name]`
 ** Report
 
 [NOTE]
-`tab game` is used instead of `tab typinggame` to simplify typing.
-
-* `Engagement` window will be the default window upon start up of the application.
+`tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
+`Engagement` window will be the default window upon start up of the application.
 
 .Engagement (default) window displayed on start-up of the application.
-image::tab_1_default.png[width="800"]
+image::tab_1_default.png[width="520"]
 
 Now, if the user wants to switch to different windows, simply enter the tab command
-with refer to the menu name listed on the left end of the application window. For example, user enters `tab calendar`
+with refer to the menu name listed on the left end of the application window. For example, user enters `tab b/calendar`
 switch to calendar view window.
 
-.input section with tab command entered `tab calendar`
-image::tab_2.png[width="700"]
+.input section with tab command entered `tab b/calendar`
+image::tab_2.png[width="520"]
+
+[NOTE]
+Users who prefer using mouse over typing can alternatively click the green tabs on the top to switch to different menu windows.
 
 Below is the screenshot after entering the command.
 
-image::tab_3.png[width="700"]
+.tab switch successfully executed from engagement window to calendar window.
+image::tab_3.png[width="520"]
 
 //end::tab-command[]
 
