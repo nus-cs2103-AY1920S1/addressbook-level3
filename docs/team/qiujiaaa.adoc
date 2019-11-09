@@ -9,50 +9,51 @@
 
 == Overview
 
-Seller Manager Lite (SML) is a desktop application used for handphone resellers to manage their customers, phones, orders and schedules. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 28 kLoC.
+Seller Manager Lite (SML) is a desktop application used for handphone resellers to manage their customers, phones, orders and schedules.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 28 kLoC.
 
 == Summary of contributions
 
 * *Major enhancement*: added *GUI to display schedules in a calendar.*
-** What it does: allows the user to view schedules graphically, as well as navigate around the calendar after adding/editing/deleting schedules.
+** What it does: This feature allows our users to view thier schedules graphically, as well as navigate around the panel after adding/editing/deleting schedules.
 ** Justification: This feature is a critical addition for sellers who have numerous schedules planned throughout the week. Without a visual representation of a calendar, it would be extremely non-user-friendly as sellers would have to check through their list of schedules and the timings one by one.
-** Highlights: I designed a class to contain the third-party library for rendering events as a calendar. The class acts as a wrapper around the calendar and contains the logic for controlling the calendar. I implemented the controls needed for navigating around the calendar GUI.
-** Credits: _JFXtras_ for calendar display.
+** Highlights: I designed a panel class to contain the third-party library for rendering events as a calendar. The class acts as a wrapper around the calendar and contains the logic for controlling the calendar.
+To make the application more user friendly, the application automatically switches to the calendar panel when any schedule commands are executed. This is to provide users a visual confirmation of the results of their command.
+** Credits: Used _JFXtras_ for Calendar Panel to render schedules visually.
+** Integrated library in PR https://github.com/AY1920S1-CS2103T-T09-4/main/pull/105[#105]
 
-* *Minor enhancement*: Schedule commands to complement the calendar display.
+* *Other complementing enhancement*:
+** Schedule commands (in Logic) to complement the calendar display. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/115[#115], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/138/files[#138], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/162[#162], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/187[#187])
 
 * *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qiujiaaa&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]
 
 * *Other contributions*:
-
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Added some issues in issue tracker. (https://github.com/AY1920S1-CS2103T-T09-4/main/issues/created_by/qiujiaaa[Issues])
 
-_{you can add/remove categories in the list above}_
+** Enhancements to existing features:
+*** Assisted to set up some part in Model initially. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/65[#65])
+*** Wrote tests for Logic and Model modules.(https://github.com/AY1920S1-CS2103T-T09-4/main/pull/167[#167], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/172[#172], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/187[#187], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/265/files[#265], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/81[#81])
+
+** Documentation:
+*** Wrote Contact Us page. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/47[#47])
+*** Initial tweak of AB3 User Guide to fit our application. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/52[#52])
+*** Edited and added some diagrams in Developer Guide. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/150/files[#150])
+
+** Community:
+*** Reviewed PRs (with non-trivial review comments). (examples: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/61[#61], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/102[#102], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/111[#111], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/133[#133])
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-T09-2/main/issues/212[#212], https://github.com/AY1920S1-CS2103T-T09-2/main/issues/214[#214])
+
+** Tools:
+*** Integrated a third party library (jfxtras.Agenda) into SML.
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=delete]
-
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=schedule]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +61,4 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=schedule]
