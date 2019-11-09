@@ -52,7 +52,7 @@ class JsonAdaptedBudget {
         name = source.getName().fullName;
         amount = source.getAmount().value;
         amountLeft = source.getAmountLeft().value;
-        currency = source.getCurrency().value;
+        currency = source.getCurrency().name;
         startDate = source.getStartDate().rawValue;
         endDate = source.getEndDate().rawValue;
         expenseList = new JsonSerializableExpenseList(source.getExpenseList());

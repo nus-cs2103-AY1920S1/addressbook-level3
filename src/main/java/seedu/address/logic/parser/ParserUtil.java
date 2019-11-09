@@ -15,6 +15,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.exchangedata.ExchangeDataSingleton;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
@@ -84,7 +85,7 @@ public class ParserUtil {
         if (!Currency.isValidCurrency(trimmedCurrency)) {
             throw new ParseException(Currency.MESSAGE_CONSTRAINTS);
         }
-        return new Currency(trimmedCurrency);
+        return new Currency(trimmedCurrency, ExchangeDataSingleton.getInstance().getRates().getRate(trimmedCurrency));
     }
 
     /**

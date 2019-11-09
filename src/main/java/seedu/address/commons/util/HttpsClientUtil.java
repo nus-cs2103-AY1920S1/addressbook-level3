@@ -28,7 +28,7 @@ public class HttpsClientUtil {
         // Build request
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("https://api.exchangeratesapi.io/latest?base=" + base))
-            .timeout(Duration.ofSeconds(2))
+            .timeout(Duration.ofSeconds(5))
             .header("Content-Type", "application/json")
             .GET()
             .build();

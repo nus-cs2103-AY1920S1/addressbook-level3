@@ -2,13 +2,19 @@
   "expenses": [ {
     "name": "coffee",
     "amount": "2.50",
-    "currency": "SGD",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
     "date": "13/10/2019",
     "tagged": [ "snack" ]
   }, {
     "name": "coffee",
     "amount": "2.50",
-    "currency": "SGD",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
     "date": "13/10/2019",
     "tagged": [ "teabreak" ]
   } ]

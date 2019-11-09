@@ -2,14 +2,20 @@
   "expenses": [ {
     "name": "coffee",
     "amount": "a4124",
-    "currency": "SGD",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
     "date": "13/10/2019",
     "tagged": [ "education" ]
   },
     {
       "name": "coffee",
       "amount": "12.30",
-      "currency": "X12",
+      "currency" : {
+        "name" : "X12",
+        "rate" : 1.0
+      },
       "date": "13/10/2019",
       "tagged": [ "education" ]
     }]

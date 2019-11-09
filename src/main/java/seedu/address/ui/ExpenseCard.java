@@ -51,7 +51,7 @@ public class ExpenseCard extends UiPart<Region> {
             currency.setText("(" + expense.getCurrency().toString() + ")");
         } else {
             amount.setText(expense.getAmount().value);
-            currency.setText(expense.getCurrency().value);
+            currency.setText(expense.getCurrency().name);
         }
 
         date.setText(expense.getDate().value);

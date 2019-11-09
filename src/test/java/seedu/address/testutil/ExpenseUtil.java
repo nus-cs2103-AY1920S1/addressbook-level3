@@ -46,7 +46,7 @@ public class ExpenseUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_AMOUNT).append(amount.value).append(" "));
-        descriptor.getCurrency().ifPresent(amount -> sb.append(PREFIX_CURRENCY).append(amount.value).append(" "));
+        descriptor.getCurrency().ifPresent(amount -> sb.append(PREFIX_CURRENCY).append(amount.name).append(" "));
         descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
