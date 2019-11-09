@@ -27,7 +27,7 @@
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" style="-fx-background-color: #00ff00;" VBox.vgrow="NEVER">
+        <MenuBar fx:id="menuBar" style="-fx-background-color: #61AD58;" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
