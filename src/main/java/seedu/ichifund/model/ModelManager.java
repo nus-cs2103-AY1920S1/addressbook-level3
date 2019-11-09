@@ -58,8 +58,8 @@ public class ModelManager implements Model {
         filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
 
         Optional<Transaction> latestTransaction = this.fundBook.getLatestTransaction();
-        latestTransaction.ifPresentOrElse(transaction -> logger.fine("Latest transaction found: " + transaction),
-                () -> logger.fine("No transactions found."));
+        latestTransaction.ifPresentOrElse(transaction -> logger.fine(
+                "Latest transaction found: " + transaction), () -> logger.fine("No transactions found."));
 
         TransactionContext transactionContext = new TransactionContext(latestTransaction);
         logger.info("Setting initial transaction context as: " + transactionContext);
