@@ -277,7 +277,7 @@ https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#getPersonByNam
 .Sequence diagram of the parser for the delete command to delete by the `Person` 's name
 image::DeleteCommandParser.png[]
 
-The following sequence diagram shows how the command to delete transactions according to the specified name works after it is created which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+The following sequence diagram shows how the command to delete transactions according to the specified name works after it is created which is referenced in https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#GeneralLogicSD[2.3. Logic component: Figure 5]:
 
 [caption = "Figure 19. "]
 .Sequence diagram of the delete command being executed in Home Tab (transaction package)
