@@ -405,11 +405,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setDiaryRecords(ReadOnlyDiary diaryRecords) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public ObservableList<Diary> getFilteredDiaryList() {
         throw new AssertionError("This method should not be called.");
     }

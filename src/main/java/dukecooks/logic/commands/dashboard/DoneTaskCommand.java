@@ -6,8 +6,8 @@ import java.util.List;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
-import dukecooks.logic.commands.Command;
 import dukecooks.logic.commands.CommandResult;
+import dukecooks.logic.commands.DoneCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.Model;
 import dukecooks.model.dashboard.components.Dashboard;
@@ -16,12 +16,10 @@ import dukecooks.model.dashboard.components.TaskStatus;
 /**
  * Marks a task as complete into DukeCooks
  */
-public class DoneTaskCommand extends Command {
+public class DoneTaskCommand extends DoneCommand {
 
     public static final String COMMAND_WORD = "done";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the task identified by the index number used in the displayed task list as complete. \n"
-            + "Parameters: INDEX (must be a positive integer)\n";
+    public static final String VARIANT_WORD = "task";
 
     private static final String MESSAGE_DONE_TASK_SUCCESS = "Task marked as complete";
     private static final String MESSAGE_DONE_FIVE_SUCCESS = "Congrats! You've completed 5 new tasks!";

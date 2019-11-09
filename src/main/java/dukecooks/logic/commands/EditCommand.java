@@ -4,7 +4,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 
 /**
- * Edits the details of an existing recipe in Duke Cooks.
+ * Edits the details of an existing component in Duke Cooks.
  */
 public abstract class EditCommand extends Command {
 

@@ -93,11 +93,6 @@ public class DeletePageCommandTest {
                 Messages.MESSAGE_INVALID_PAGE_DISPLAYED_INDEX, () -> deletePageCommand.execute(modelStub));
     }
 
-
-
-
-
-
     @Test
     public void equals() {
         Diary diary = ALL_MEAT;

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,7 @@ import dukecooks.model.Model;
 import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
 import dukecooks.model.dashboard.ReadOnlyDashboard;
+import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
@@ -173,10 +175,40 @@ public class LogicManagerTest {
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
+    /**  ------------------------------------  DIARY ---------------------------------------- */
+
+    @Test
+    public void getFilteredDiaryList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredDiaryList().remove(0));
+    }
+
+    @Test
+    public void getDiaryFilePath_success() {
+        Path expectedDiaryFilePath = Paths.get("data" , "diary.json");
+        assertEquals(expectedDiaryFilePath, logic.getDiaryFilePath());
+    }
+
+    @Test
+    public void getDiaryRecords_success() {
+        DiaryRecords expectedDiaryRecords = new DiaryRecords();
+        assertEquals(expectedDiaryRecords, model.getDiaryRecords());
+    }
+
+    /**  ------------------------------------  PROFILE ---------------------------------------- */
+
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredExerciseList().remove(0));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
+
+    @Test
+    public void getUserProfileFilePath_success() {
+        Path expectedUserProfileFilePath = Paths.get("data" , "userprofile.json");
+        assertEquals(expectedUserProfileFilePath, logic.getUserProfileFilePath());
+    }
+
+
+    /**  ------------------------------------  RECIPE ---------------------------------------- */
 
     @Test
     public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {
@@ -184,10 +216,64 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void getRecipeBookFilePath_success() {
+        Path expectedRecipeBookFilePath = Paths.get("data" , "recipes.json");
+        assertEquals(expectedRecipeBookFilePath, logic.getRecipesFilePath());
+    }
+
+    /**  ------------------------------------  MEAL PLANS ---------------------------------------- */
+
+    @Test
     public void getFilteredMealPlanList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredMealPlanList().remove(0));
     }
 
+    @Test
+    public void getMealPlanFilePath_success() {
+        Path expectedMealPlanFilePath = Paths.get("data" , "mealplans.json");
+        assertEquals(expectedMealPlanFilePath, logic.getMealPlansFilePath());
+    }
+
+    /**  ------------------------------------  EXERCISE ---------------------------------------- */
+
+    @Test
+    public void getFilteredExerciseList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredExerciseList().remove(0));
+    }
+
+    /**  ------------------------------------  WORKOUTS ---------------------------------------- */
+
+    @Test
+    public void getFilteredWorkoutList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredWorkoutList().remove(0));
+    }
+
+
+    /**  ------------------------------------  DASHBOARD ---------------------------------------- */
+
+    @Test
+    public void getFilteredDashboardList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredDashboardList().remove(0));
+    }
+
+    @Test
+    public void getDashboardFilePath_success() {
+        Path expectedDashboardFilePath = Paths.get("data" , "dashboard.json");
+        assertEquals(expectedDashboardFilePath, logic.getDashboardFilePath());
+    }
+
+    /**  ------------------------------------  HEALTH RECORDS ---------------------------------------- */
+
+    @Test
+    public void getFilteredRecordList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredRecordList().remove(0));
+    }
+
+    @Test
+    public void getHealthRecordFilePath_success() {
+        Path expectedHealthRecordFilePath = Paths.get("data" , "healthrecords.json");
+        assertEquals(expectedHealthRecordFilePath, logic.getHealthRecordsFilePath());
+    }
 
     /**
      * Executes the command and confirms that

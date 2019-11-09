@@ -1,6 +1,8 @@
 package dukecooks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -54,5 +56,30 @@ public class AppParametersTest {
         public Map<String, String> getNamed() {
             return Collections.unmodifiableMap(namedParameters);
         }
+    }
+
+    @Test
+    public void test_equals() {
+        AppParameters testAppParameters = new AppParameters();
+        AppParameters differentConfigPathAppParameters = new AppParameters();
+        differentConfigPathAppParameters.setConfigPath(Paths.get("some random path"));
+
+        // same object
+        assertTrue(testAppParameters.equals(testAppParameters));
+
+        // different object, same fields
+        assertTrue(testAppParameters.equals(expected));
+
+        // different objects and fields
+        assertFalse(testAppParameters.equals(null));
+        assertFalse(testAppParameters.equals(differentConfigPathAppParameters));
+    }
+
+    @Test
+    public void test_hashCode() {
+        AppParameters testAppParameters = new AppParameters();
+        testAppParameters.setConfigPath(Paths.get("config.json"));
+        expected.setConfigPath(Paths.get("config.json"));
+        assertEquals(testAppParameters.hashCode(), expected.hashCode());
     }
 }

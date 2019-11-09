@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandTestUtil;
-import dukecooks.logic.commands.diary.AddPageCommand;
+import dukecooks.logic.commands.diary.CreatePageCommand;
 import dukecooks.logic.parser.CommandParserTestUtil;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.DiaryName;
@@ -13,8 +13,8 @@ import dukecooks.model.diary.components.Title;
 import dukecooks.testutil.diary.DiaryBuilder;
 import dukecooks.testutil.diary.PageBuilder;
 
-public class AddPageCommandParserTest {
-    private AddPageCommandParser parser = new AddPageCommandParser();
+public class CreatePageCommandParserTest {
+    private CreatePageCommandParser parser = new CreatePageCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -28,12 +28,13 @@ public class AddPageCommandParserTest {
                         + " tp/ " + PageBuilder.DEFAULT_PAGE_TYPE
                         + " desc/ " + PageBuilder.DEFAULT_DESCRIPTION
                         + " i/ " + PageBuilder.DEFAULT_IMAGE,
-                new AddPageCommand(expectedPage, expectedDiary.getDiaryName()));
+                new CreatePageCommand(expectedPage, expectedDiary.getDiaryName()));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddPageCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                CreatePageCommand.MESSAGE_USAGE);
 
         // missing name prefix
         CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.VALID_DIARY_NAME,
@@ -86,6 +87,6 @@ public class AddPageCommandParserTest {
                 + CommandTestUtil.DIARY_NAME_INPUT + CommandTestUtil.TITLE_SUSHI
                 + CommandTestUtil.PAGE_TYPE_SUSHI + CommandTestUtil.PAGE_DESCRIPTION_SUSHI
                 + CommandTestUtil.PAGE_IMAGE_SUSHI,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddPageCommand.MESSAGE_USAGE));
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, CreatePageCommand.MESSAGE_USAGE));
     }
 }

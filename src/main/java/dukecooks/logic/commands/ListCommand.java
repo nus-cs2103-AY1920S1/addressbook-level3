@@ -1,7 +1,7 @@
 package dukecooks.logic.commands;
 
 /**
- * Lists all recipes in the Duke Cooks to the user.
+ * Lists all components in DukeCooks to the user.
  */
 public abstract class ListCommand extends Command {
 

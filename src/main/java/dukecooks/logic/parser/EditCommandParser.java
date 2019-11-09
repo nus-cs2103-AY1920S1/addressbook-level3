@@ -25,7 +25,7 @@ import dukecooks.logic.parser.profile.EditProfileCommandParser;
 import dukecooks.logic.parser.recipe.EditRecipeCommandParser;
 
 /**
- * Parses input arguments and creates a new EditRecipeCommand object
+ * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
 

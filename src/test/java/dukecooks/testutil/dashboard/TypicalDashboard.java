@@ -20,6 +20,11 @@ public class TypicalDashboard {
     public static final Dashboard TASK3 = new DashboardBuilder().withDashboardName("Go for a run")
             .withTaskDate("13/12/2019").withTaskStatus("NOT COMPLETE").build();
 
+    public static final Dashboard TASK4COMPLETE = new DashboardBuilder().withDashboardName("Bake a cake")
+            .withTaskDate("13/12/2019").withTaskStatus("COMPLETED").build();
+    public static final Dashboard TASK5COMPLETE = new DashboardBuilder().withDashboardName("Go for a run")
+            .withTaskDate("13/12/2019").withTaskStatus("COMPLETED").build();
+
     // Manually added - Dashboard's details found in {@code CommandTestUtil}
     public static final Dashboard TASK4 = new DashboardBuilder()
             .withDashboardName(CommandTestUtil.VALID_DASHBOARDNAME_RUN)

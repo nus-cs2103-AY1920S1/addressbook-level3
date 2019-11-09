@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import dukecooks.testutil.Assert;
+
 class ImageTest {
 
     @Test
@@ -21,10 +23,8 @@ class ImageTest {
     }
 
     @Test
-    void generateTime() {
-        Time toCompare = new Time(1, 1);
-        assertTrue(toCompare.equals(Time.generateTime("01:01")));
-        assertFalse(toCompare.equals(Time.generateTime("10:10")));
+    void image_copyFailure_throwsIllegalArgumentException() {
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Image("/images/nonExistent.jpg"));
     }
 
     @Test
@@ -42,6 +42,14 @@ class ImageTest {
         // different objects and fields
         assertFalse(firstImage.equals(null));
         assertFalse(firstImage.equals(thirdImage));
+    }
+
+    @Test
+    void testHashCode() {
+        Image firstImage = new Image("/images/pho.jpg");
+        Image secondImage = new Image("/images/pho.jpg");
+
+        assertEquals(firstImage.hashCode(), secondImage.hashCode());
     }
 
     @Test

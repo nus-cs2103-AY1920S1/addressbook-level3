@@ -11,7 +11,8 @@ import dukecooks.commons.util.AppUtil;
 public class DiaryName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names should only contain alphanumeric characters and spaces, limited to 25 characters and it should not"
+                    + " be blank";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -36,7 +37,7 @@ public class DiaryName {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= 25;
     }
 
 

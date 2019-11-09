@@ -213,7 +213,7 @@ reduces the amount of switch cases within `DukeCooksParser` and makes testing mo
 
 // tag::dashboard[]
 === Dashboard features
-=== What makes up a Dashboard?
+==== What makes up a Dashboard?
 
 In DukeCooks, a `Dashboard` object represents an event a user needs to attend to, a task. A `Dashboard` is made up of
 a `DashboardName`, `TaskDate` and `TaskStatus`. Below is a class diagram that illustrates how `Dashboard` interacts with other classes.
