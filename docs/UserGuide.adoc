@@ -57,9 +57,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Insurelytics is a Command Line Interface (CLI) application for insurance agents like yourself to manage your contacts and policies. Here is a quick tutorial to help you get started using the application!
 
-You can use Insurelytics to manage two different kinds of data: *contacts* and *policies*. The formats in which these types of data are stored are as follows:
+You can use Insurelytics to manage two different kinds of data: *persons* and *policies*. The formats in which these
+types of data are stored are as follows:
 ====
-* Contact:
+* Person:
 ** Name (e.g. "Alice Pauline")
 ** NRIC (e.g. "S0000001J")
 ** Phone number (e.g. 94351253)
@@ -81,26 +82,33 @@ You can use Insurelytics to manage two different kinds of data: *contacts* and *
 ** Criteria (e.g. "nonsmoker")
 ====
 
-Let's add a contact and view his details.
+These two sets of data are displayed on the two main pages of our application, the person page and the policy page.
+They can be accessed via their respective display commands `listpeople` and `listpolicy`.
+
+First, let's navigate to the person page and add a contact.
 ```
 listpeople
 add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 dob/12.09.1980 g/Male
 ```
 
-Let's add a policy.
+Then, let's navigate to the policy page and add a policy.
 ```
 listpolicy
 addpolicy n/Senior Care d/Care for seniors c/days/20 months/11 years/5 pr/$50000 sa/50 ea/75
 ```
 
-Once stored, contacts can be `assign`-ed policies that they are eligible for. A contact is eligible for a policy if
+Persons can be `assign`-ed policies that they are eligible for. A person is eligible for a policy if
 he/she falls in the specified age range and possesses all the policy's specified criteria (in his/her tags).
 
 ```
 assignpolicy 1 pol/Life Insurance
 ```
 
-Contacts and policies can easily be retrieved using the various `find` functions, whether by *keyword* or by *tag*.
+[NOTE]
+One of our design features is to allow users to use person-related commands on the policy page and vice versa (as with
+the example above).
+
+Persons and policies can easily be retrieved using the various `find` functions, whether by *keyword* or by *tag*.
 
 ```
 find John
@@ -108,6 +116,11 @@ find John
 
 The various functions outlined in the following section are available to further help the user manage contacts and policies.
 These include additional functions to help the user gather insights, rectify mistakes and validate input among others.
+
+[IMPORTANT]
+ Note that indices are always based off the latest view of persons/policies i.e. if the user keys in a `find`
+command, indices to subsequent person-related commands will be based off the resulting list of persons from the
+`find` command. The same applies for policies.
 
 [[Features]]
 == Features
@@ -493,7 +506,7 @@ Expired items are removed on restart of application.
 
 Examples:
 
-**Delete the 2nd person in the list of people.**
+Delete the 2nd person in the list of people.
 
 ```
 # input commands
@@ -509,7 +522,7 @@ Policies: [Life Insurance]
 Tags: [smoker][disabled]
 ```
 
-**Delete the 1st person in the results of the `find` command.**
+Delete the 1st person in the results of the `find` command.
 
 ```
 # input commands
@@ -542,7 +555,7 @@ Expired items are removed on restart of application.
 
 Examples:
 
-**Deletes the 2nd policy in the list of policies.**
+Deletes the 2nd policy in the list of policies.
 
 ```
 # input commands:
@@ -559,7 +572,7 @@ Criteria: [high blood pressure]
 Tags: [term insurance]
 ```
 
-**Deletes the 1st policy in the results of the `findpolicy` command.**
+Deletes the 1st policy in the results of the `findpolicy` command.
 
 ```
 # input commands:
