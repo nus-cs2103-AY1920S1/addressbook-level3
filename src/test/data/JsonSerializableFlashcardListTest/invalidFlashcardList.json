@@ -1,0 +1,11 @@
+{
+  "flashcards" : [ {
+    "question" : "Which of the following is true about compactness?",
+    "choices" : [ "The real number space is a compact space", "The complex plane is a compact space", "A compact subspace of a compact metric space must be closed", "A closed subspace of a compact metric space must be compact" ],
+    "definition" : "For any open covering of a metric space, there is a finite subcover.",
+    "tagged" : [ "metric space", "mathematics" ],
+    "answer" : "A compact subspace of a compact metric space must be closed",
+    "score" : "33",
+    "type" : "McqFlashcard"
+  }]
+}

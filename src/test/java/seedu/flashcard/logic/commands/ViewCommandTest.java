@@ -29,8 +29,8 @@ public class ViewCommandTest {
         ModelManager expectedModel = new ModelManager(model.getFlashcardList(), new UserPrefs());
 
         assertCommandSuccess(viewCommand, model,
-                new CommandResult(expectedMessage),
-                expectedModel, commandHistory);
+                commandHistory,
+                new CommandResult(expectedMessage), expectedModel);
     }
 
     @Test
@@ -38,6 +38,6 @@ public class ViewCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFlashcardList().size() + 1);
         ViewCommand viewCommand = new ViewCommand(outOfBoundIndex);
 
-        assertCommandFailure(viewCommand, model, ViewCommand.MESSAGE_INVALID_FLASHCARD_INDEX, commandHistory);
+        assertCommandFailure(viewCommand, model, commandHistory, ViewCommand.MESSAGE_INVALID_FLASHCARD_INDEX);
     }
 }

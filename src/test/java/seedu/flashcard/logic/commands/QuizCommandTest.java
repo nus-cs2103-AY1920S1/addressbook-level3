@@ -36,8 +36,8 @@ public class QuizCommandTest {
         expectedModel.setQuiz(quizList);
 
         assertCommandSuccess(quizCommand, model,
-                new CommandResult(expectedMessage, true, expectedFlashcard),
-                expectedModel, commandHistory);
+                commandHistory,
+                new CommandResult(expectedMessage, true, expectedFlashcard), expectedModel);
     }
 
     @Test
@@ -45,6 +45,6 @@ public class QuizCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredFlashcardList().size() + 1);
         QuizCommand quizCommand = new QuizCommand(outOfBoundIndex, 1);
 
-        assertCommandFailure(quizCommand, model, QuizCommand.MESSAGE_INVALID_FLASHCARD_INDEX, commandHistory);
+        assertCommandFailure(quizCommand, model, commandHistory, QuizCommand.MESSAGE_INVALID_FLASHCARD_INDEX);
     }
 }

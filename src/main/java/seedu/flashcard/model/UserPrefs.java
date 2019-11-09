@@ -55,6 +55,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     public void setFlashcardListFilePath(Path flashcardListFilePath) {
+        requireNonNull(flashcardListFilePath);
         this.flashcardListFilePath = flashcardListFilePath;
     }
 

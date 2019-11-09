@@ -18,12 +18,13 @@ public class TypicalFlashcard {
     public static final Flashcard DAXING_AIRPORT = new FlashcardBuilder()
         .withQuestion("Which is the name of the new airport in Beijing?").withAnswer("Daxing Airport")
         .withDefinition("The largest airport in China").withTag("Geography", "Civil Engineering")
-        .withChoice("Xiongan Airport", "Daxing Airport", "Lixian Airport", "Zhuque Airport").buildMcqFlashcard();
+        .withChoice("Xiongan Airport", "Daxing Airport", "Lixian Airport", "Zhuque Airport").withScore(2, 2)
+            .buildMcqFlashcard();
     public static final Flashcard CHANGI_AIRPORT = new FlashcardBuilder()
         .withQuestion("How many runways does Changi Airport have?").withDefinition("The airport in Singapore")
         .withTag("Civil Engineering").withAnswer("4").buildShortAnswerFlashcard();
     public static final Flashcard TOKYO_AIRPORT = new FlashcardBuilder()
-        .withQuestion("How many airports are there in Tokyo?").withDefinition("More than 1")
+        .withQuestion("How many airports are there in Tokyo?").withDefinition("More than 1").withScore(0, 0)
         .withAnswer("2").buildShortAnswerFlashcard();
 
     /**
@@ -39,5 +40,12 @@ public class TypicalFlashcard {
 
     public static List<Flashcard> getTypicalFlashcards() {
         return new ArrayList<>(Arrays.asList(MOUNT_BLANC, DAXING_AIRPORT, CHANGI_AIRPORT, TOKYO_AIRPORT));
+    }
+
+    /**
+     *To avoid flip command bug where it increments score
+     */
+    public static List<Flashcard> getTypicalStatsFlashcards() {
+        return new ArrayList<>(Arrays.asList(DAXING_AIRPORT, TOKYO_AIRPORT));
     }
 }

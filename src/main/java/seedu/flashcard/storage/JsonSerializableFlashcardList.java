@@ -20,6 +20,7 @@ import seedu.flashcard.model.flashcard.Flashcard;
 public class JsonSerializableFlashcardList {
 
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "Flashcards list contains duplicate persons";
+    public static final String MESSAGE_ILLEGAL_FLASHCARD = "The Json file provided an illegal flashcard";
 
     private final List<JsonAdaptedFlashcard> flashcards = new ArrayList<>();
 
@@ -48,6 +49,9 @@ public class JsonSerializableFlashcardList {
         FlashcardList flashcardList = new FlashcardList();
         for (JsonAdaptedFlashcard jsonAdaptedFlashcard : flashcards) {
             Flashcard flashcard = jsonAdaptedFlashcard.toModelType();
+            if (!flashcard.isValidFlashcard()) {
+                throw new IllegalValueException(MESSAGE_ILLEGAL_FLASHCARD);
+            }
             if (flashcardList.hasFlashcard(flashcard)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_FLASHCARD);
             }
