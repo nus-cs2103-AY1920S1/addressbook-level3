@@ -30,9 +30,9 @@ public class GenReportCommandParser implements Parser<GenReportCommand> {
             String sign = "";
             if (argArray.length == 2) {
                 sign = argArray[1];
-                if (sign.matches(".*\\d.*") || args.length() > 40) {
-                    throw new ParseException(MESSAGE_INVALID_SIGNATURE_FORMAT);
-                }
+            }
+            if (sign.matches(".*\\d.*") || sign.length() + 1 > 40) {
+                throw new ParseException(MESSAGE_INVALID_SIGNATURE_FORMAT);
             }
             if (index.matches("[0-9]+")) {
                 Index genReportBodyId = Index.fromZeroBased(Integer.parseInt(index));
@@ -41,6 +41,9 @@ public class GenReportCommandParser implements Parser<GenReportCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
             }
         } catch (ParseException pe) {
+            if (pe.getMessage().equals(MESSAGE_INVALID_SIGNATURE_FORMAT)) {
+                throw new ParseException(MESSAGE_INVALID_SIGNATURE_FORMAT);
+            }
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
         }
     }
