@@ -456,7 +456,7 @@ image::calendar4.png[width=450]
 
 You may use the left and right arrow icons beside header 2 to navigate to the previous or next month.
 
-Days with training entries are marked with a green dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators. Today's date (e.g. 31 October 2019) is marked with a blue circle.
+Days with training entries are marked with a green dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators.
 
 ==== Viewing training / performance details for a specific date : `calendar DDMMYYYY`
 
