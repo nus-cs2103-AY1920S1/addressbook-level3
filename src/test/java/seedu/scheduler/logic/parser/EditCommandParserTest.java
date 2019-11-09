@@ -314,13 +314,44 @@ public class EditCommandParserTest {
     }
 
     @Test
+    public void parse_editIntervieweeDuplicateSlots_failure() {
+        // exact same slots - fails
+        String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_NUS_WORK_DESC_AMY + EMAIL_PERSONAL_DESC_AMY + FACULTY_DESC_AMY + YEAR_OF_STUDY_DESC_AMY
+                + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY + SLOT_DESC_AMY;
+        assertParseFailure(parser, userInput, EditCommand.MESSAGE_DUPLICATE_SLOT);
+    }
+
+    @Test
+    public void parse_editIntervieweeDuplicateDepartments_failure() {
+        // exact same departments - fails
+        String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + NAME_DESC_AMY + PHONE_DESC_AMY + TAG_DESC_FRIEND
+                + EMAIL_NUS_WORK_DESC_AMY + EMAIL_PERSONAL_DESC_AMY + FACULTY_DESC_AMY + YEAR_OF_STUDY_DESC_AMY
+                + DEPARTMENT_DESC_AMY + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY;
+        assertParseFailure(parser, userInput, EditCommand.MESSAGE_DUPLICATE_DEPARTMENT);
+
+        // same department, but in different case (logistics vs Logistics)
+        userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + NAME_DESC_AMY + PHONE_DESC_AMY + TAG_DESC_FRIEND
+                + EMAIL_NUS_WORK_DESC_AMY + EMAIL_PERSONAL_DESC_AMY + FACULTY_DESC_AMY + YEAR_OF_STUDY_DESC_AMY
+                + DEPARTMENT_DESC_AMY.toLowerCase() + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY;
+        assertParseFailure(parser, userInput, EditCommand.MESSAGE_DUPLICATE_DEPARTMENT);
+    }
+
+    @Test
+    public void parse_interviewerDuplicateSlots_failure() {
+        // exact same slots - fails
+        String userInput = VALID_NAME_AMY + ROLE_DESC_AMY_INTVR + NAME_DESC_BOB + PHONE_DESC_BOB + DEPARTMENT_DESC_BOB
+                + EMAIL_NUS_WORK_DESC_BOB + SLOT_DESC_BOB + SLOT_DESC_BOB;
+        assertParseFailure(parser, userInput, EditCommand.MESSAGE_DUPLICATE_SLOT);
+    }
+
+    @Test
     public void parse_intervieweeAllFieldsSpecified_success() {
 
         String userInput = VALID_NAME_BOB + ROLE_DESC_BOB_INTVE + NAME_DESC_AMY + PHONE_DESC_AMY + TAG_DESC_FRIEND
                 + EMAIL_NUS_WORK_DESC_AMY + EMAIL_PERSONAL_DESC_AMY + FACULTY_DESC_AMY + YEAR_OF_STUDY_DESC_AMY
                 + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY;
 
-        // TODO: possibly abstract out to a EditIntervieweeDescriptorBuilder
         Name name = new Name(VALID_NAME_AMY);
         Phone phone = new Phone(VALID_PHONE_AMY);
         Set<Tag> tagSet = new HashSet<>(List.of(new Tag(VALID_TAG_FRIEND)));

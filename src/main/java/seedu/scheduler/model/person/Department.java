@@ -43,7 +43,7 @@ public class Department {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Department // instanceof handles nulls
-                && department.equals(((Department) other).department)); // state check
+                && department.equalsIgnoreCase(((Department) other).department)); // state check
     }
 
     @Override

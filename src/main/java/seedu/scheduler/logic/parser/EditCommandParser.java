@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.scheduler.commons.util.CollectionUtil;
 import seedu.scheduler.logic.commands.EditCommand;
 import seedu.scheduler.logic.commands.EditIntervieweeCommand;
 import seedu.scheduler.logic.commands.EditIntervieweeCommand.EditIntervieweeDescriptor;
@@ -181,7 +182,13 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
-        return Optional.of(ParserUtil.parseDepartments(departments));
+        List<Department> parsedDepartments = ParserUtil.parseDepartments(departments);
+        // there should not be duplicate departments
+        if (CollectionUtil.collectionHasDuplicate(parsedDepartments)) {
+            throw new ParseException(EditCommand.MESSAGE_DUPLICATE_DEPARTMENT);
+        }
+
+        return Optional.of(parsedDepartments);
     }
 
     /**
@@ -194,7 +201,13 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
-        return Optional.of(ParserUtil.parseSlots(slots));
+        List<Slot> parsedSlots = ParserUtil.parseSlots(slots);
+        // there should not be duplicate slots
+        if (CollectionUtil.collectionHasDuplicate(parsedSlots)) {
+            throw new ParseException(EditCommand.MESSAGE_DUPLICATE_SLOT);
+        }
+
+        return Optional.of(parsedSlots);
     }
 
     /**

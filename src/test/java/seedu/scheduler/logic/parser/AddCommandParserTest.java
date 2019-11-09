@@ -155,6 +155,38 @@ public class AddCommandParserTest {
     }
 
     @Test
+    public void parse_intervieweeDuplicateSlots_failure() {
+        // exact same slots - fails
+        String intervieweeDuplicateSlots = ROLE_DESC_BOB_INTVE + NAME_DESC_BOB + PHONE_DESC_BOB
+                + FACULTY_DESC_BOB + YEAR_OF_STUDY_DESC_BOB + DEPARTMENT_DESC_BOB + SLOT_DESC_BOB
+                + SLOT_DESC_BOB + EMAIL_PERSONAL_DESC_BOB + EMAIL_NUS_WORK_DESC_BOB;
+        assertParseFailure(parser, intervieweeDuplicateSlots, AddCommand.MESSAGE_DUPLICATE_SLOT);
+    }
+
+    @Test
+    public void parse_intervieweeDuplicateDepartments_failure() {
+        // exact same string - fails
+        String intervieweeDuplicateDepartments = ROLE_DESC_BOB_INTVE + NAME_DESC_BOB + PHONE_DESC_BOB
+                + FACULTY_DESC_BOB + YEAR_OF_STUDY_DESC_BOB + DEPARTMENT_DESC_BOB + DEPARTMENT_DESC_BOB
+                + SLOT_DESC_BOB + EMAIL_PERSONAL_DESC_BOB + EMAIL_NUS_WORK_DESC_BOB;
+        assertParseFailure(parser, intervieweeDuplicateDepartments, AddCommand.MESSAGE_DUPLICATE_DEPARTMENT);
+
+        // same string when we ignore case - fails (d/marketing vs d/Marketing)
+        intervieweeDuplicateDepartments = ROLE_DESC_BOB_INTVE + NAME_DESC_BOB + PHONE_DESC_BOB
+                + FACULTY_DESC_BOB + YEAR_OF_STUDY_DESC_BOB + DEPARTMENT_DESC_BOB.toLowerCase() + DEPARTMENT_DESC_BOB
+                + SLOT_DESC_BOB + EMAIL_PERSONAL_DESC_BOB + EMAIL_NUS_WORK_DESC_BOB;
+        assertParseFailure(parser, intervieweeDuplicateDepartments, AddCommand.MESSAGE_DUPLICATE_DEPARTMENT);
+    }
+
+    @Test
+    public void parse_interviewerDuplicateSlots_failure() {
+        // exact same slots - fails
+        String interviewerDuplicateSlots = ROLE_DESC_AMY_INTVR + NAME_DESC_AMY + PHONE_DESC_AMY
+                + TAG_DESC_FRIEND + EMAIL_NUS_WORK_DESC_AMY + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY + SLOT_DESC_AMY;
+        assertParseFailure(parser, interviewerDuplicateSlots, AddCommand.MESSAGE_DUPLICATE_SLOT);
+    }
+
+    @Test
     public void parse_interviewerAllFieldsPresent_success() {
         Interviewer expectedInterviewer = new InterviewerBuilder(AMY_INTERVIEWER_MANUAL).withTags(VALID_TAG_FRIEND)
                 .build();

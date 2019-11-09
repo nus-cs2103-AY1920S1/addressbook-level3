@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.scheduler.commons.util.CollectionUtil;
 import seedu.scheduler.logic.commands.AddCommand;
 import seedu.scheduler.logic.commands.AddIntervieweeCommand;
 import seedu.scheduler.logic.commands.AddInterviewerCommand;
@@ -91,6 +92,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         List<Department> departmentChoices =
                 ParserUtil.parseDepartments(argMultimap.getAllValues(PREFIX_DEPARTMENT));
 
+        // An interviewee should not be allocated the same timeslots.
+        if (CollectionUtil.collectionHasDuplicate(availableTimeslots)) {
+            throw new ParseException(AddCommand.MESSAGE_DUPLICATE_SLOT);
+        }
+
+        // An interviewee should not belong to the same department.
+        if (CollectionUtil.collectionHasDuplicate(departmentChoices)) {
+            throw new ParseException(AddCommand.MESSAGE_DUPLICATE_DEPARTMENT);
+        }
+
         // Build the interviewee
         Interviewee interviewee = new Interviewee.IntervieweeBuilder(name, phone, tagSet)
                 .faculty(faculty)
@@ -115,6 +126,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Department department = ParserUtil.parseDepartment(argMultimap.getValue(PREFIX_DEPARTMENT).get());
         Email nusWorkEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_NUS_WORK_EMAIL).get());
         List<Slot> availableTimeslots = ParserUtil.parseSlots(argMultimap.getAllValues(PREFIX_SLOT));
+
+        // An interviewer should not have the same availabilities.
+        if (CollectionUtil.collectionHasDuplicate(availableTimeslots)) {
+            throw new ParseException(AddCommand.MESSAGE_DUPLICATE_SLOT);
+        }
 
         // Build the interviewer
         Interviewer interviewer = new Interviewer.InterviewerBuilder(name, phone, tagSet)
