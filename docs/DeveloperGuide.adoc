@@ -317,7 +317,7 @@ image::AddAppointmentActivityDiagram.png[]
 
 ==== `ackappt` command
 
-The `ackappt` command marks the patient's the most upcoming appointment as Acknowledged when the patient checks in and also updates UniqueAppointmentList to display appointments belonging to the patient.
+The `ackappt` command marks the patient's the most upcoming appointment as Acknowledged when the patient checks in and also updates UniqueEventList to display appointments belonging to the patient.
 
 ==== `appointments` Command
 
@@ -353,7 +353,7 @@ The `missappt` command searches for appointments that the patient did not attend
 
 ==== `settleappt` Command
 
-The `settleappt` command helps users to record if they settled missed appointments. It allows users make any missed appointment to be SETTLE once users have settled it. It will also update UniqueAppointmentList to display the other missed appointments.
+The `settleappt` command helps users to record if they settled missed appointments. It allows users make any missed appointment to be SETTLE once users have settled it. It will also update UniqueEventList to display the other missed appointments.
 
 In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's dutyRoster and Model#`UniqueEventList`. This ensures users can easily make appointments for patients.
 
