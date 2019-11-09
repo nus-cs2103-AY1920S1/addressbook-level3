@@ -16,7 +16,10 @@ CaloFit is a desktop application for tracking the calories that the user has tak
 The user interacts with CaloFit using a Command Line Interface(CLI) that is represented by a box near the top of the application screen. This is where the user can type in their commands and press "Enter" on their keyboards to execute them. +
 It has a Graphical User Interface(GUI) created with JavaFX. The GUI is the main display that the user sees upon starting up CaloFit.
 
-{Rubric says to list main features, indicated in PPP as a picture, can manually list as well}
+This is what our project looks like as shown in Figure 1 below:
+
+image::PPPMain.png[]
+Figure 1: The GUI for CaloFit.
 
 My role was to design and write the codes for the `report` feature. The following sections
 illustrate these enhancements in more detail, as well as the relevant documentation I have added to
