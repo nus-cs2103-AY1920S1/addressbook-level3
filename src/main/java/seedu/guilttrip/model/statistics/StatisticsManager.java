@@ -3,6 +3,7 @@ package seedu.guilttrip.model.statistics;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.beans.property.DoubleProperty;
@@ -132,15 +133,27 @@ public class StatisticsManager implements Statistics {
         modelTotalFilteredExpenses.addListener(new ListChangeListener<Expense>() {
             @Override
             public void onChanged(Change<? extends Expense> change) {
-                updateListOfStats();
-                updateBarCharts();
+                while (change.next()) {
+                    List<? extends Expense> changed = change.getAddedSubList();
+                    if (changed.size() == 1) {
+                        Expense changedExpense = changed.get(0);
+                        updateBarCharts(changedExpense.getDate());
+                        updateListOfStats(Arrays.asList(changedExpense.getDate()));
+                    }
+                }
             }
         });
         modelTotalFilteredIncomes.addListener(new ListChangeListener<Income>() {
             @Override
             public void onChanged(Change<? extends Income> change) {
-                updateListOfStats();
-                updateBarCharts();
+                while (change.next()) {
+                    List<? extends Income> changed = change.getAddedSubList();
+                    if (changed.size() == 1) {
+                        Income changedIncome = changed.get(0);
+                        updateBarCharts(changedIncome.getDate());
+                        updateListOfStats(Arrays.asList(changedIncome.getDate()));
+                    }
+                }
             }
         });
         updateListOfStats();
@@ -169,11 +182,16 @@ public class StatisticsManager implements Statistics {
      */
     @Override
     public void updateListOfStats(List<Date> listOfPeriods) {
+        ArrayList<MonthList> listOfMonths;
         if (listOfPeriods.size() == 1) {
-            calculationsForOneMonth(listOfPeriods.get(0));
+            listOfMonths = getMonth(listOfPeriods.get(0));
         } else {
-            calculationsForRangeOfPeriods(listOfPeriods);
+            listOfMonths = getListOfMonths(listOfPeriods);
         }
+        double totalExpense = countStats(listOfMonths, listOfStatsForExpense);
+        this.totalExpenseForPeriod.setValue(totalExpense);
+        double totalIncome = countStats(listOfMonths, listOfStatsForIncome);
+        this.totalIncomeForPeriod.setValue(totalIncome);
     }
 
     /**
@@ -181,7 +199,7 @@ public class StatisticsManager implements Statistics {
      *
      * @param monthToCalculate the date which contains the format of what is needed to calculate.
      */
-    private void calculationsForOneMonth(Date monthToCalculate) {
+    private ArrayList<MonthList> getMonth(Date monthToCalculate) {
         int yearToCheck = monthToCalculate.getDate().getYear();
         if (!yearlyRecord.containsKey(yearToCheck)) {
             initRecords(yearToCheck);
@@ -190,10 +208,7 @@ public class StatisticsManager implements Statistics {
         Month month = monthToCalculate.getDate().getMonth();
         MonthList startMonthListToCalculate = yearlyRecord.get(yearToCheck).get(month.getValue());
         listOfMonths.add(startMonthListToCalculate);
-        double totalExpense = countStats(listOfMonths, listOfStatsForExpense);
-        this.totalExpenseForPeriod.setValue(totalExpense);
-        double totalIncome = countStats(listOfMonths, listOfStatsForIncome);
-        this.totalIncomeForPeriod.setValue(totalIncome);
+        return listOfMonths;
     }
 
     /**
@@ -201,28 +216,28 @@ public class StatisticsManager implements Statistics {
      *
      * @param rangeOfDates a list of size 2 that contains the range of dates that needs to be calculated.
      */
-    private void calculationsForRangeOfPeriods(List<Date> rangeOfDates) {
+    private ArrayList<MonthList> getListOfMonths(List<Date> rangeOfDates) {
         Date startDate = rangeOfDates.get(0);
         Date endDate = rangeOfDates.get(1);
         int startYear = startDate.getDate().getYear();
         int endYear = endDate.getDate().getYear();
-        ArrayList<MonthList> listOfMonths = new ArrayList<MonthList>();
+        ArrayList<MonthList> listOfMonths = new ArrayList<>();
         for (int i = startYear; i <= endYear; i++) {
             if (!yearlyRecord.containsKey(i)) {
                 initRecords(i);
             }
             if (i == endYear) {
-                listOfMonths.addAll(calculateforSpecifiedMonths(startDate.getDate().getMonth().getValue(),
-                        endDate.getDate().getMonth().getValue(), i));
+                ArrayList<MonthList> listOfMonthsRetrieved = retrieveSpecifiedMonths(
+                        startDate.getDate().getMonth().getValue(),
+                        endDate.getDate().getMonth().getValue(), i);
+                listOfMonths.addAll(listOfMonthsRetrieved);
             } else {
-                listOfMonths.addAll(calculateforSpecifiedMonths(1, 12, i));
+                ArrayList<MonthList> listOfMonthsRetrieved = retrieveSpecifiedMonths(1, 12, i);
+                listOfMonths.addAll(listOfMonthsRetrieved);
             }
         }
         assert(listOfMonths.size() != 0);
-        double totalExpense = countStats(listOfMonths, listOfStatsForExpense);
-        this.totalExpenseForPeriod.setValue(totalExpense);
-        double totalIncome = countStats(listOfMonths, listOfStatsForIncome);
-        this.totalIncomeForPeriod.setValue(totalIncome);
+        return listOfMonths;
     }
 
     /**
@@ -233,7 +248,7 @@ public class StatisticsManager implements Statistics {
      * @param year the year in which the calculation is taking place.
      * @return listOfMonths the particular monthlist that needs to be calculated.
      */
-    private ArrayList<MonthList> calculateforSpecifiedMonths(int startMonth, int endMonth, int year) {
+    private ArrayList<MonthList> retrieveSpecifiedMonths(int startMonth, int endMonth, int year) {
         ArrayList<MonthList> listOfMonths = new ArrayList<MonthList>();
         for (int i = startMonth; i <= endMonth; i++) {
             MonthList monthListToCalculate = yearlyRecord.get(year).get(i);
@@ -254,7 +269,7 @@ public class StatisticsManager implements Statistics {
         double totalAmountCalculated = 0.00;
         for (int i = 0; i < typeOfCategory.size(); i++) {
             Category toVerifyCat = typeOfCategory.get(i).getCategory();
-            double totalForCategoryOverMonths = countStatsForMonth(currentMonthList, toVerifyCat);
+            double totalForCategoryOverMonths = calculateTotalAmountForCategory(currentMonthList, toVerifyCat);
             CategoryStatistics toCheck = new CategoryStatistics(toVerifyCat, totalForCategoryOverMonths);
             totalAmountCalculated = toCheck.getAmountCalculated() + totalAmountCalculated;
             if (!typeOfCategory.get(i).equals(toCheck)) {
@@ -270,7 +285,7 @@ public class StatisticsManager implements Statistics {
      * @param currentMonthList the lists of months that needs to be recalculated.
      * @param category the category that need to be recalculated whether it be income or expense.
      */
-    private double countStatsForMonth(ArrayList<MonthList> currentMonthList, Category category) {
+    private double calculateTotalAmountForCategory(ArrayList<MonthList> currentMonthList, Category category) {
         double totalAmountForTotalMonths = 0.00;
         for (int k = 0; k < currentMonthList.size(); k++) {
             MonthList monthToCalculate = currentMonthList.get(k);
@@ -288,7 +303,7 @@ public class StatisticsManager implements Statistics {
         ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(LocalDate.now().getYear());
         MonthList monthListToCalculate = yearOfRecord.get(LocalDate.now().getMonth().getValue());
         this.listOfStatsForDaily.clear();
-        this.listOfStatsForDaily.addAll(monthListToCalculate.calculateBarChart());
+        this.listOfStatsForDaily.addAll(monthListToCalculate.calculateStatisticsForBarChart());
         if (this.listOfStatsForDaily.isEmpty()) {
             this.listOfStatsForDaily.add(new DailyStatistics(LocalDate.now(), 0.00, 0.00));
         }
@@ -305,7 +320,8 @@ public class StatisticsManager implements Statistics {
         ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(monthToShow.getDate().getYear());
         MonthList monthListToCalculate = yearOfRecord.get(monthToShow.getDate().getMonth().getValue());
         this.listOfStatsForDaily.clear();
-        this.listOfStatsForDaily.addAll(monthListToCalculate.calculateBarChart());
+        ObservableList<DailyStatistics> dailyStatsToBeDisplayed = monthListToCalculate.calculateStatisticsForBarChart();
+        this.listOfStatsForDaily.addAll(dailyStatsToBeDisplayed);
         if (this.listOfStatsForDaily.isEmpty()) {
             this.listOfStatsForDaily.add(new DailyStatistics(monthToShow.getDate(), 0.00, 0.00));
         }

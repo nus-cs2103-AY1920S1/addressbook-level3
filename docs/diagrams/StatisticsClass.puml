@@ -24,11 +24,11 @@ HiddenOutside ..> Statistics
 
 StatisticsManager .up.|> Statistics
 StatisticsManager .right...|> ObservableMap
-StatisticsManager *--> "1..12" MonthlyList
+StatisticsManager *--> "1..*" MonthlyList
 MonthlyList .right...|> StatisticsList
 DailyList .right...|> StatisticsList
 CategoryList .right...|> StatisticsList
-MonthlyList *--> "1..31" DailyList
+MonthlyList *--> "28..31" DailyList
 MonthlyList --> Model
 DailyList *--> "1..*" CategoryList
 

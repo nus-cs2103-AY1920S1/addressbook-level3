@@ -93,7 +93,7 @@ public class MonthList {
 
         for (int i = 1; i <= yearMonth.lengthOfMonth(); i++) {
             DailyList dl = this.mapOfDailyLists.get(i);
-            DailyStatistics statsCalculate = dl.calculateBarChart();
+            DailyStatistics statsCalculate = dl.calculateStatisticsForBarChart();
             this.listOfDailyStatistics.add(statsCalculate);
         }
     }
@@ -152,10 +152,10 @@ public class MonthList {
      * @return listOfDailyStatistics a ObservableList of the statistics of income and expense per day in the month to
      * be used in the bar chart.
      */
-    public ObservableList<DailyStatistics> calculateBarChart() {
+    public ObservableList<DailyStatistics> calculateStatisticsForBarChart() {
         for (int i = 1; i <= yearMonth.lengthOfMonth(); i++) {
             DailyList dl = this.mapOfDailyLists.get(i);
-            DailyStatistics statsCalculate = dl.calculateBarChart();
+            DailyStatistics statsCalculate = dl.calculateStatisticsForBarChart();
             if (!listOfDailyStatistics.get(i - 1).equals(statsCalculate)) {
                 listOfDailyStatistics.set(i - 1, statsCalculate);
             }

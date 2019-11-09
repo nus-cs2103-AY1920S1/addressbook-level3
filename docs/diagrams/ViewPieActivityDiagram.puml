@@ -13,6 +13,6 @@ else ([date range is a range of months])
      :Retrieves the range of MonthList to be calculated;
 endif
     :Does calculations according to categories;
-    :Updates the relavant displays;
+    :Updates the relevant displays;
 stop
 @enduml

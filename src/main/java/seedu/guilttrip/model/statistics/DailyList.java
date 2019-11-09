@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Month;
 
 import javafx.collections.transformation.FilteredList;
+import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 
@@ -36,7 +37,7 @@ public class DailyList {
      *
      * @return statisticsForDay which is used for the BarChart.
      */
-    public DailyStatistics calculateBarChart() {
+    public DailyStatistics calculateStatisticsForBarChart() {
         double totalExpense = 0.00;
         double totalIncome = 0.00;
         for (int i = 0; i < listOfExpenses.size(); i++) {

@@ -150,8 +150,8 @@ The `Storage`
 .Structure of the Statistics Component
 image::StatisticsClass.png[]
 
-.  `Statistics` contains an ObservableMap of `MonthlyList` class.
-.  `MonthlyList` contains an ObservableMap of `DailyList` class.
+.  `Statistics` contains an ObservableMap of `MonthList` class.
+.  `MonthList` contains an ObservableMap of `DailyList` class.
 .  `DailyList` contains an ObservableMap of `CategoryList` class.
 .  These lists are populated when the guiltTrip() is started up and the content is retrieved from Storage.
 .  Any added entries are updated in the `CategoryList` and `DailyList` classes.
@@ -177,11 +177,11 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::SortSequence.png[]
 
-=== ViewHistory Command
+=== ViewPie/ViewTable Command
 
 ==== Implementation
 
-The viewHistory command extends the Command class. It calls methods from the Statistics Manager which handles the calculation of the statistics and returns it to the user.
+The ViewPie and ViewTable commands are a unique case as they both depend on `CategoryStatistics`.
 
 . The user executes the command `viewHistory typ/Expense`
 .  `Logic` uses the `guiltTripParser` class to parse the user command.
