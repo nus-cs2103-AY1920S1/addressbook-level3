@@ -39,7 +39,7 @@ public class CommandResult {
         this.showStats = false;
         this.flip = false;
         this.quiz = false;
-        this.flashcardToDisplay = null;
+        this.flashcardToDisplay = "";
     }
 
     /**
@@ -53,7 +53,7 @@ public class CommandResult {
         this.showStats = showStats;
         this.flip = false;
         this.quiz = false;
-        this.flashcardToDisplay = null;
+        this.flashcardToDisplay = "";
     }
 
     /**
@@ -121,7 +121,11 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && showStats == otherCommandResult.showStats
+                && flip == otherCommandResult.flip
+                && flashcardToDisplay.equals(otherCommandResult.flashcardToDisplay)
+                && quiz == otherCommandResult.quiz;
     }
 
     @Override

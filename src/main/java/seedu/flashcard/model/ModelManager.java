@@ -185,7 +185,7 @@ public class ModelManager implements Model {
     @Override
     public String generateStatistics() {
         desiredStats.calculate(filteredFlashcards);
-        return desiredStats.results();
+        return desiredStats.getResults();
     }
 
     @Override

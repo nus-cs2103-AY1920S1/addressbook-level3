@@ -49,5 +49,15 @@ public class StatsCommand extends Command {
 
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (target == null && ((StatsCommand) other).target == null) {
+            return true;
+        }
+        return other == this // short circuit if same object
+                || (other instanceof StatsCommand// instanceof handles nulls
+                && target.equals(((StatsCommand) other).target));
+    }
+
 
 }
