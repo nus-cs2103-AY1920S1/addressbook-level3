@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -326,11 +325,11 @@ public class ModelManager implements Model {
         //         .map(Slot::toString)
         //         .reduce((x, y) -> x + ", " + y)
         //         .get();
-        Optional<Slot> allocatedSlot = this.getAllocatedSlot(interviewee.getName().toString());
+        Slot allocatedSlot = this.getAllocatedSlot(interviewee.getName().toString());
         String slot = "";
 
-        if (allocatedSlot.isPresent()) {
-            slot = allocatedSlot.get().toString();
+        if (!allocatedSlot.equals(Slot.EMPTY_SLOT)) {
+            slot = allocatedSlot.toString();
         }
 
         return String.format(EMAIL_MESSAGE_BODY, interviewee.getName(), this.userPrefs.getOrganisation(),
@@ -507,7 +506,7 @@ public class ModelManager implements Model {
      * @return
      */
     @Override
-    public Optional<Slot> getAllocatedSlot(String intervieweeName) {
+    public Slot getAllocatedSlot(String intervieweeName) {
         return intervieweeList.getEntity(new Name(intervieweeName)).getAllocatedSlot();
     }
 

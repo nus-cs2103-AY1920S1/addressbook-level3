@@ -42,45 +42,57 @@ public class TypicalPersons {
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442").build();
+    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").build();
+    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").build();
 
     // Typical Interviewees
     public static final Interviewee ALICE_INTERVIEWEE = new IntervieweeBuilder(ALICE).withFaculty("Engineering")
             .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HeyThere@gmail.com")
-            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+            .withNusWorkEmail("HeyoAlice@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee BENSON_INTERVIEWEE = new IntervieweeBuilder(BENSON).withFaculty("Engineering")
             .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
-            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+            .withNusWorkEmail("HeyoBenson@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee CARL_INTERVIEWEE = new IntervieweeBuilder(CARL).withFaculty("Engineering")
             .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
-            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+            .withNusWorkEmail("HeyoCarl@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee DANIEL_INTERVIEWEE = new IntervieweeBuilder(DANIEL).withFaculty("Engineering")
             .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
-            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+            .withNusWorkEmail("HeyoDaniel@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee ELLE_INTERVIEWEE = new IntervieweeBuilder(ELLE).withFaculty("Engineering")
             .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
-            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+            .withNusWorkEmail("HeyoElle@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee FIONA_INTERVIEWEE = new IntervieweeBuilder(FIONA).withFaculty("Engineering")
             .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
-            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+            .withNusWorkEmail("HeyoFiona@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee GEORGE_INTERVIEWEE = new IntervieweeBuilder(GEORGE).withFaculty("Engineering")
             .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
-            .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+            .withNusWorkEmail("HeyoGeorge@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+    public static final Interviewee HOON_INTERVIEWEE = new IntervieweeBuilder(HOON).withFaculty("Engineering")
+            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withNusWorkEmail("HeyoHoon@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
+    public static final Interviewee IDA_INTERVIEWEE = new IntervieweeBuilder(IDA).withFaculty("Engineering")
+            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withNusWorkEmail("HeyoIda@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
 
     // Typical Interviewers
     public static final Interviewer ALICE_INTERVIEWER = new InterviewerBuilder(ALICE).withDepartment("Logistics")
-            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+            .withEmail("interviewerAlice@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
     public static final Interviewer BENSON_INTERVIEWER = new InterviewerBuilder(BENSON).withDepartment("Logistics")
-            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+            .withEmail("interviewerBenson@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
     public static final Interviewer CARL_INTERVIEWER = new InterviewerBuilder(CARL).withDepartment("Logistics")
-            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+            .withEmail("interviewerCarl@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
     public static final Interviewer DANIEL_INTERVIEWER = new InterviewerBuilder(DANIEL).withDepartment("Logistics")
-            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+            .withEmail("interviewerDaniel@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
     public static final Interviewer ELLE_INTERVIEWER = new InterviewerBuilder(ELLE).withDepartment("Logistics")
-            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+            .withEmail("interviewerElle@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
     public static final Interviewer FIONA_INTERVIEWER = new InterviewerBuilder(FIONA).withDepartment("Logistics")
-            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+            .withEmail("interviewerFiona@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
     public static final Interviewer GEORGE_INTERVIEWER = new InterviewerBuilder(GEORGE).withDepartment("Logistics")
-            .withEmail("interviewer@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+            .withEmail("interviewerGeorge@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer HOON_INTERVIEWER = new InterviewerBuilder(HOON).withDepartment("Marketing")
+            .withEmail("interviewerHoon@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
+    public static final Interviewer IDA_INTERVIEWER = new InterviewerBuilder(IDA).withDepartment("Marketing")
+            .withEmail("interviewerIda@gmail.com").withAvailabilities("05/05/2019 16:00-17:00").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY_PERSON_MANUAL = new PersonBuilder().withName(VALID_NAME_AMY)

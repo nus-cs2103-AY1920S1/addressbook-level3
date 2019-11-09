@@ -1,0 +1,10 @@
+{
+    "interviewers" : [ {
+        "availabilities" : [ "20/09/2019 18:00-18:30" ],
+        "department" : "Marketing",
+        "email" : "aaaaa",
+        "name" : "Mary Jane",
+        "phone" : "99999999",
+        "tagged" : [ ]
+    } ]
+}

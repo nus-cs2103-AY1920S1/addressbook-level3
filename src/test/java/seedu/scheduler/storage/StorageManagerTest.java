@@ -78,7 +78,11 @@ public class StorageManagerTest {
         storageManager.saveInterviewerList(original);
         ReadOnlyList<Interviewer> retrieved = storageManager.readInterviewerList().get();
         assertEquals(original, new InterviewerList(retrieved));
+    }
 
+    @Test
+    public void getUserPrefsFilePath() {
+        assertNotNull(storageManager.getUserPrefsFilePath());
     }
 
     @Test

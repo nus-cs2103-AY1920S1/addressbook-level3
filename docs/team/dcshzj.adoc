@@ -23,7 +23,7 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 * *Minor enhancement*: Restructured the program's Model to accommodate the change in the program's architecture and integrated with changes from other aspects of the program.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=dcshzj[Functional code]]
 
 * *Other contributions*:
 

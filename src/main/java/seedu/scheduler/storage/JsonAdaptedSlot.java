@@ -35,9 +35,9 @@ public class JsonAdaptedSlot {
 
 
     /**
-     * Converts this Jackson-friendly adapted department object into the model's {@code Department} object.
+     * Converts this Jackson-friendly adapted slot object into the model's {@code Slot} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted department.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted slot.
      */
     public Slot toModelType() throws IllegalValueException {
         return Slot.fromString(this.slot);

@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -227,7 +226,7 @@ public interface Model {
      * Returns the interview slot allocated to the interviewee with the {@code intervieweeName}.
      * @return
      */
-    Optional<Slot> getAllocatedSlot(String intervieweeName);
+    Slot getAllocatedSlot(String intervieweeName);
 
     /** Returns a list of observable list of the schedules **/
     List<ObservableList<ObservableList<String>>> getObservableLists();
