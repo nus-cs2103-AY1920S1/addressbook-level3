@@ -11,6 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.CommandType;
+import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
 
 /**
@@ -22,8 +23,8 @@ public class SimpleLeaderboardCommand extends LeaderboardCommand {
     public static final String MESSAGE_SUCCESS = "Showing Leaderboard as it Stands.";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public SimpleLeaderboardCommand(ArrayList<Comparator<Team>> comparators) {
-        super(comparators);
+    public SimpleLeaderboardCommand(ArrayList<Comparator<Team>> comparators, SubjectName subjectName) {
+        super(comparators, subjectName);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class SimpleLeaderboardCommand extends LeaderboardCommand {
         requireNonNull(model);
         assert comparators != null : "The comparators list should not be null";
         checkNoTeams(model);
-        model.setSimpleLeaderboard(comparators);
+        model.setSimpleLeaderboard(comparators, subjectName);
 
         logger.info("Showing Leaderboard.");
         model.updateHistory(this);

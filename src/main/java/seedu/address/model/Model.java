@@ -18,6 +18,7 @@ import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Score;
+import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
 import seedu.address.model.entitylist.ReadOnlyEntityList;
 import seedu.address.model.person.Person;
@@ -161,11 +162,11 @@ public interface Model {
 
     List<Mentor> findMentor(Predicate<Mentor> predicate);
 
-    void setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators);
+    void setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators, SubjectName subject);
 
-    void setTopK(int k, ArrayList<Comparator<Team>> comparators);
+    void setTopK(int k, ArrayList<Comparator<Team>> comparators, SubjectName subject);
 
-    void setTopKRandom(int k, ArrayList<Comparator<Team>> comparators);
+    void setTopKRandom(int k, ArrayList<Comparator<Team>> comparators, SubjectName subject);
 
     /* View command */
 

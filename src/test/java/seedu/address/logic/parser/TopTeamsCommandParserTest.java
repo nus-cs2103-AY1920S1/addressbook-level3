@@ -3,8 +3,10 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIE_BREAK;
 import static seedu.address.commons.core.Messages.MISSING_TIEBREAK_METHODS;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_SUBJECT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TIEBREAK_METHOD;
 import static seedu.address.logic.commands.CommandTestUtil.MISSING_TIEBREAK_METHOD;
+import static seedu.address.logic.commands.CommandTestUtil.SUBJECT_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TIE_BREAK_DESC_RANDOM;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -17,12 +19,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.topteamscommand.SimpleTopTeamsCommand;
 import seedu.address.logic.commands.topteamscommand.TopTeamsCommand;
 import seedu.address.logic.commands.topteamscommand.TopTeamsRandomCommand;
+import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
 
-class GetTopTeamsCommandParserTest {
+class TopTeamsCommandParserTest {
 
     private TopTeamsCommandParser parser = new TopTeamsCommandParser();
-
 
     @Test
     void parse_invalidUserInput_failure() {
@@ -42,16 +44,46 @@ class GetTopTeamsCommandParserTest {
         assertParseFailure(parser, "5 " + INVALID_TIEBREAK_METHOD, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 MESSAGE_INVALID_TIE_BREAK + "yes"));
 
+        // Subject specified does not exist
+        assertParseFailure(parser, "5 " + INVALID_SUBJECT_DESC, SubjectName.MESSAGE_CONSTRAINTS);
+
         // Tiebreak method not mentioned after prefix
         assertParseFailure(parser, "5 " + MISSING_TIEBREAK_METHOD, MISSING_TIEBREAK_METHODS);
+
+        // Tiebreak method not mentioned after prefix with valid subject name
+        assertParseFailure(parser, "5 " + SUBJECT_DESC_AMY + " "
+                + MISSING_TIEBREAK_METHOD, MISSING_TIEBREAK_METHODS);
+
+        // Invalid subject name after invalid number - invalid number caught
+        assertParseFailure(parser, "-5 " + INVALID_SUBJECT_DESC,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TopTeamsCommand.INVALID_VALUE_WARNING));
+
+        // Invalid subject name after invalid tiebreak methods - invalid subject caught
+        assertParseFailure(parser, "5 " + INVALID_TIEBREAK_METHOD + " " + INVALID_SUBJECT_DESC,
+               SubjectName.MESSAGE_CONSTRAINTS);
+
+        // Invalid subject name before invalid tiebreak methods - invalid subject caught
+        assertParseFailure(parser, "5 " + INVALID_SUBJECT_DESC + " " + INVALID_TIEBREAK_METHOD,
+                SubjectName.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     void parse_validfUserInput_success() {
         ArrayList<Comparator<Team>> comparators = new ArrayList<>();
-        assertParseSuccess(parser, "5", new SimpleTopTeamsCommand(5, comparators));
 
+        // No subject or tiebreak
+        assertParseSuccess(parser, "5", new SimpleTopTeamsCommand(5, comparators, null));
+
+        // No subject but with tiebreak
         assertParseSuccess(parser, "5" + TIE_BREAK_DESC_RANDOM,
-                new TopTeamsRandomCommand(5, comparators));
+                new TopTeamsRandomCommand(5, comparators, null));
+
+        // No tiebreak but with subject
+        assertParseSuccess(parser, "5" + SUBJECT_DESC_AMY,
+                new SimpleTopTeamsCommand(5, comparators, SubjectName.ENVIRONMENTAL));
+
+        // With tiebreak and Subject
+        assertParseSuccess(parser, "5" + SUBJECT_DESC_AMY + TIE_BREAK_DESC_RANDOM,
+                new TopTeamsRandomCommand(5, comparators, SubjectName.ENVIRONMENTAL));
     }
 }

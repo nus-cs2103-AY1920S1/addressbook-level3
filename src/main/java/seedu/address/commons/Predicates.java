@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
+import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
 
 /**
@@ -77,5 +78,9 @@ public class Predicates {
 
     public static Predicate<Entity> viewSpecifiedEntity(Entity entityToView) {
         return (entity) -> entity.equals(entityToView);
+    }
+
+    public static Predicate<Team> getPredicateFilterTeamBySubject(SubjectName subjectName) {
+        return Team -> !Team.getSubject().equals(subjectName);
     }
 }

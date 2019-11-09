@@ -37,6 +37,7 @@ import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Score;
+import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
 import seedu.address.model.entitylist.MentorList;
 import seedu.address.model.entitylist.ParticipantList;
@@ -792,21 +793,35 @@ public class ModelManager implements Model {
     // ==================================================================
 
     /**
-     * Resets the {@code sortedTeam} list to its original order without any sorting,
-     * then arranges it to sort the current teams stored in Alfred in descending
-     * order of their score. Implements additional Comparators {@code comparators}
-     * for tie-breaking if specified by the user.
+     * Filters out the {@code sortedTeam} list so that it only contains teams with a specific
+     * subject {@code subject} if the {@code subject} is specified - therefore is not null.
+     *
      */
-    public final void setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators) {
-        this.sortedTeam = new SortedList<>(this.teamList.getSpecificTypedList());
+    private void filterSortedList(SubjectName subject) {
+        ObservableList<Team> teams = FXCollections.observableArrayList(this.teamList.getSpecificTypedList());
+        if (subject != null) {
+            teams.removeIf(Predicates.getPredicateFilterTeamBySubject(subject));
+            this.sortedTeam = new SortedList<>(teams);
+        } else {
+            this.sortedTeam = new SortedList<>(teams);
+        }
+    }
+
+    /**
+     * Resets the {@code sortedTeam} list to its original order without any sorting and applies necessary filtering,
+     * then arranges it to sort the current teams stored in Alfred in descending order of their score. Implements
+     * additional Comparators {@code comparators} for tie-breaking if specified by the user. Additionally this also
+     * filters out teams working on a specific subject if specified by the user.
+     *
+     */
+    public final void setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators, SubjectName subject) {
+        filterSortedList(subject);
         for (Comparator<Team> comparator : comparators) {
             this.sortedTeam.setComparator(comparator);
         }
         // Set the comparator to rank by score last as in-place sorting is taking place,
-        // so ranking by score
-        // in the end will rank teams by their score and retain the tie-breaks obtained
-        // from the previously applied
-        // comparators.
+        // so ranking by score in the end will rank teams by their score and retain the tie-breaks obtained
+        // from the previously applied comparators.
         this.sortedTeam.setComparator(Comparators.rankByScore());
     }
 
@@ -815,11 +830,10 @@ public class ModelManager implements Model {
      * Comparators {@code comparators} if specified by the user, and filters the top
      * {@code k} teams, inclusive of ties, into {@code topKTeams} list.
      */
-    public final void setTopK(int k, ArrayList<Comparator<Team>> comparators) {
-        setSimpleLeaderboard(comparators);
-
-        // Create a copy of the sorted teams from which teams can be removed without
-        // damaging the original sorted teams list.
+    public final void setTopK(int k, ArrayList<Comparator<Team>> comparators, SubjectName subject) {
+        setSimpleLeaderboard(comparators, subject);
+        // Create a copy of the sorted teams from which teams can be removed without causing errors as
+        // removing from SortedList leads to exceptions.
         ObservableList<Team> teams = FXCollections.observableArrayList(sortedTeam);
         teams = LeaderboardUtil.topKWithTie(teams, k, comparators);
         this.sortedTeam = new SortedList<>(teams);
@@ -831,8 +845,8 @@ public class ModelManager implements Model {
      * {@code k} teams into {@code topKTeams} list, resolving ties on a random
      * basis.
      */
-    public final void setTopKRandom(int k, ArrayList<Comparator<Team>> comparators) {
-        setSimpleLeaderboard(comparators);
+    public final void setTopKRandom(int k, ArrayList<Comparator<Team>> comparators, SubjectName subject) {
+        setSimpleLeaderboard(comparators, subject);
         ObservableList<Team> teams = FXCollections.observableArrayList(sortedTeam);
         teams = LeaderboardUtil.randomWinnersGenerator(teams, k, comparators);
         this.sortedTeam = new SortedList<>(teams);

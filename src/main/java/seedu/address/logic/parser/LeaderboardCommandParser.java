@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIE_BREAK;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import seedu.address.logic.commands.leaderboardcommand.LeaderboardCommand;
 import seedu.address.logic.commands.leaderboardcommand.LeaderboardWithRandomCommand;
 import seedu.address.logic.commands.leaderboardcommand.SimpleLeaderboardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
 
 /**
@@ -35,16 +37,23 @@ public class LeaderboardCommandParser implements Parser<LeaderboardCommand> {
      */
     @Override
     public LeaderboardCommand parse(String userInput) throws ParseException {
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_TIE_BREAK);
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer
+                .tokenize(userInput, PREFIX_TIE_BREAK, PREFIX_SUBJECT_NAME);
         ArrayList<Comparator<Team>> comparators = new ArrayList<>();
+
+        SubjectName subject = null;
 
         if (!AlfredParserUtil.arePrefixesPresent(argumentMultimap, PREFIX_TIE_BREAK)
                 && !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LeaderboardCommand.MESSAGE_USAGE));
         }
 
+        if (AlfredParserUtil.arePrefixesPresent(argumentMultimap, PREFIX_SUBJECT_NAME)) {
+            subject = AlfredParserUtil.parseSubject(argumentMultimap.getValue(PREFIX_SUBJECT_NAME).get());
+        }
+
         if (!AlfredParserUtil.arePrefixesPresent(argumentMultimap, PREFIX_TIE_BREAK)) {
-            return new SimpleLeaderboardCommand(comparators);
+            return new SimpleLeaderboardCommand(comparators, subject);
         }
 
         // Split on whitespace as this is what is required from the user.
@@ -52,8 +61,9 @@ public class LeaderboardCommandParser implements Parser<LeaderboardCommand> {
 
         comparators = AlfredParserUtil.processedComparators(tieBreakMethods);
 
-        return AlfredParserUtil.isRandomPresent(tieBreakMethods) ? new LeaderboardWithRandomCommand(comparators)
-                : new SimpleLeaderboardCommand(comparators);
+        return AlfredParserUtil.isRandomPresent(tieBreakMethods)
+                ? new LeaderboardWithRandomCommand(comparators, subject)
+                : new SimpleLeaderboardCommand(comparators, subject);
     }
 
 

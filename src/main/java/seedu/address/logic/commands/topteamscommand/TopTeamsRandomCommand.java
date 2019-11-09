@@ -11,6 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.CommandType;
+import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
 
 /**
@@ -21,8 +22,8 @@ public class TopTeamsRandomCommand extends TopTeamsCommand {
     public static final String MESSAGE_SUCCESS = "Showing Current Top %1$s with Random Winners";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public TopTeamsRandomCommand(int k, ArrayList<Comparator<Team>> comparators) {
-        super(k, comparators);
+    public TopTeamsRandomCommand(int k, ArrayList<Comparator<Team>> comparators, SubjectName subject) {
+        super(k, comparators, subject);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class TopTeamsRandomCommand extends TopTeamsCommand {
         requireNonNull(model);
         assert comparators != null : "The comparators list should not be null";
         checkNoTeams(model);
-        model.setTopKRandom(this.numberOfTeams, comparators);
+        model.setTopKRandom(this.numberOfTeams, comparators, subject);
         logger.info("Showing Top " + this.numberOfTeams + " Teams.");
         return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfTeams), CommandType.L);
     }
