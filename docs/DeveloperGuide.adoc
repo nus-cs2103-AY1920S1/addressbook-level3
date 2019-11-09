@@ -239,6 +239,7 @@ Finally, the feature returns an athlete's report card for a competition. For exa
  Max Bench Press: 0 
  Max Deadlift: 0 
  
+ 
  See the sequence diagram for more specific depiction of how RankCommand interacts with other classes when the rank feature is used. 
 
 ===== Choice of Design Pattern
