@@ -114,7 +114,7 @@ include::../UserGuide.adoc[tag=statsfeature]
 I have made for `goto` and `check` features._
 |===
 
-include::../DeveloperGuide.adoc[tag=sortfeature]
+include::../DeveloperGuide.adoc[tag=gotofeature]
 
 include::../DeveloperGuide.adoc[tag=checkfeature]
 
