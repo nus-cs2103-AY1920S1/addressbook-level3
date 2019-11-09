@@ -53,4 +53,4 @@ image::mackymaguire.png[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: Code Quality, Documentation, Integration, Testing
-'''
+
