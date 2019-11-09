@@ -36,7 +36,7 @@ Responsibilities: Team Lead, Undo/Redo
 
 === Oliver Cheok
 image::olivercheok20.png[width="150", align="left"]
-{empty}[http://github.com/olivercheok20[github]] [<<OliverCheok#, portfolio>>]
+{empty}[http://github.com/olivercheok20[github]] [<<olivercheok20#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation, Integration, Search function
@@ -45,7 +45,7 @@ Responsibilities: Documentation, Integration, Search function
 
 === Chow Yi Yin
 image::chowyiyin.png[width="150", align="left"]
-{empty}[http://github.com/chowyiyin[github]] [<<ChowYiYin#, portfolio>>]
+{empty}[http://github.com/chowyiyin[github]] [<<chowyiyin#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing, Scheduling and Tracking, Input Validation
@@ -54,7 +54,7 @@ Responsibilities: Testing, Scheduling and Tracking, Input Validation
 
 === Chen Yuan Bo
 image::ybchen97.png[width="150", align="left"]
-{empty}[https://ybchen97.github.io/[homepage]][http://github.com/ybchen97[github]] [<<ChenYuanBo#, portfolio>>]
+{empty}[https://ybchen97.github.io/[homepage]][http://github.com/ybchen97[github]] [<<ybchen97#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code Quality, Intellij Expert, Recycling Bin
@@ -63,7 +63,7 @@ Responsibilities: Code Quality, Intellij Expert, Recycling Bin
 
 === Larry Law
 image::larrylawl.png[width="150", align="left"]
-{empty}[http://github.com/larrylawl[github]] [<<LarryLaw#, portfolio>>]
+{empty}[http://github.com/larrylawl[github]] [<<larrylawl#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Deliverables & deadlines, JavaFX Expert, Visual Representation
