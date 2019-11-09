@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= TimeBook - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T10-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T10-4`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -437,31 +437,33 @@ image::VisualRepresentationSD1.png[]
 [[Implementation-ClosestLocation]]
 === Closest Common Location
 Closest common location utilises Google Maps Api to get the best center location to meet for a group project meeting.
-We define this location as Closest Common Location.
+We define this location as Closest Common Location. Below is an example of this feature.
+[#img-Popup]
+.Example of how the algorithm is used. The closest common location for this instance is `ln-2`.
+image::gmaps/SuccessfulPopup.png[Popup]
+
+
 
 ==== Definition
 
-* Due to connectivity constraints, we cannot support location outside of NUS. All locations have to follow the spelling and format in NUSMods.
-* The closest location is the location that has the least average travelling time by car from the various sources.
+* Due to connectivity constraints, we cannot support location outside of NUS. View <<UserGuide#Supported-Locations, User Guide>> for the full list of location we support.
+* The closest location is the location that has the least average travelling distance by car from the various sources.
 * All invalid location are omitted during as the source location will not be considered.
 
 ==== Algorithm
 
-. Create a complete graph where the vertices are the different locations in NUS and edges are the respective travelling time by car from location `u` to `v`
+. Create a complete graph where the vertices are the different locations in NUS and edges are the respective travelling distance by car from location `u` to `v`
 . Represent this graph in a v x v matrix where `i` represents the source location and `j` represent destination location and `distanceMatrix[i][j]` represent the time needed to travel from `i` to `j`
 . To get the closest common location of S1 ... Sn:
-.. Get the rows i = S1 ... Sn
+.. Get the rows i = l1 ... ln
 .. Sum the values of the rows to a new row `totalDistance`
 .. The smallest value in the row is the closest common location
 
-Below is an example of how the algorithm is applied on arbitrary vertices `l1...ln` to compute the closest common location
-for `l2,ln-2 and ln1`.
-
-image::gmaps/Algorithm.png[Algorithm]
-
+Below is an example of how the algorithm is applied on arbitrary locations `l1...ln` with arbitrary travelling distance
+to compute the closest common location for `l2,ln-2 and ln1`.
 [#img-GmapsClassDiagram]
 .Example of how the algorithm is used. The closest common location for this instance is `ln-2`.
-
+image::gmaps/Algorithm.png[Algorithm]
 
 ==== Implementation
 
@@ -484,12 +486,12 @@ has a limit of 100 elements for every API call.
 
 The image below represents the Class Diagram for Closest Common Location component of TimeBook
 
-image::gmaps/GmapsClassDiagram.png[GmapsClassDiagram]
-
 [#img-GmapsClassDiagram]
 .Class Diagram for Closest Common Location Component
+image::gmaps/GmapsClassDiagram.png[GmapsClassDiagram]
 
-There are 3 main aspects to the implementation
+
+*There are 3 main aspects to the implementation of this component.*
 
 . External API
 . Creating the matrix
@@ -499,7 +501,7 @@ There are 3 main aspects to the implementation
 
 To support the limited internet connection, we preprocess the relevant data and save it into the resources directory (See <<External APIs, External APIs>>).
 
-==== Creating matrix
+===== Constructing the graph matrix
 
 This is the sequence diagram for the creation of the matrix.
 

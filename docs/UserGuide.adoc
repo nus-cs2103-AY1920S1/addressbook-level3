@@ -816,6 +816,7 @@ e.g. `popup g/CS2103T i/2`
 * *Clear* : `clear`
 * *Exit* : `exit`
 
+[[Supported-Locations]]
 == Supported Locations
 
 !===
