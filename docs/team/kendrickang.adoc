@@ -31,16 +31,22 @@ the existing code base. The implementation too was challenging as it required ch
 designed such that enhancements could be easily added.
 ** Credits: Joshua Bloch, author of Effective Java, for his ideas on Builder patterns as a way to generate objects with optional parameters.
 
+* *Minor enhancement*: added the ability to clear all entities from Scheduler.
+
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kendrickang&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
+** Project management:
+*** Contributed non-trivially to pull request code discussion
+*** Coordinated assignment of bugs after mock practical exam
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase coverage to above 75%: https://github.com/AY1920S1-CS2103-F09-1/main/pull/148[#148], https://github.com/AY1920S1-CS2103-F09-1/main/pull/154[#154]
 ** Documentation:
 *** Did cosmetic and structural tweaks to existing contents of the User Guide to improve readability: https://github.com/AY1920S1-CS2103-F09-1/main/pull/156[#156]
 ** Community:
 *** Contributed to forum discussions: https://github.com/nus-cs2103-AY1920S1/forum/issues/88#issuecomment-533785777[#1]
+
 
 ====
 

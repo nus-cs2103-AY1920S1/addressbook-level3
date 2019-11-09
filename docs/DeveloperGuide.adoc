@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-F09-1/main/tree/master/
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -166,11 +166,12 @@ image::ImportUIRefreshSequenceDiagram.png[]
 === Logic component
 
 [[fig-LogicClassDiagram]]
+
+This section shows how the `Logic` component is structured. The class diagram below shows an overview of the `Logic` component:
+
 .Structure of the Logic Component
 image::LogicClassDiagram1_2.png[]
 
-Users should be able to manually key in input (i.e add interviewers and interviewees). We therefore changed the Logic
-package accordingly to suit our needs.
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]

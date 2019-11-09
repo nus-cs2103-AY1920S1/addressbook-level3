@@ -61,13 +61,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), pe);
         }
-
         if (!arePrefixesPresent(argMultimap, PREFIX_ROLE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
 
+        // edit interviewee command
         if (role.getRole().equals(RoleType.INTERVIEWEE)) {
             EditIntervieweeDescriptor descriptor = new EditIntervieweeDescriptor();
             fillIntervieweeDescriptor(descriptor, argMultimap);
@@ -77,6 +77,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             }
             return new EditIntervieweeCommand(name, descriptor);
         }
+        // edit interviewer command
         if (role.getRole().equals(RoleType.INTERVIEWER)) {
             EditInterviewerDescriptor descriptor = new EditInterviewerDescriptor();
             fillInterviewerDescriptor(descriptor, argMultimap);
