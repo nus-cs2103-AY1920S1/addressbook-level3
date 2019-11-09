@@ -30,7 +30,8 @@ public class ChangeAppCommand extends ReversibleCommand {
             + PREFIX_START + "01/12/19 1000 "
             + PREFIX_END + "01/12/19 1040";
 
-    public static final String MESSAGE_SUCCESS = "The appointment's timing for [%1$s] %2$s has been changed:\n%3$s";
+    public static final String MESSAGE_SUCCESS = "The appointment's timing for [%1$s] %2$s has been changed:\n"
+            + "from %3$s to %4$s";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -59,8 +60,9 @@ public class ChangeAppCommand extends ReversibleCommand {
         return new CommandResult(String.format(
                 MESSAGE_SUCCESS,
                 editedEvent.getPersonId(),
-                eventToEdit.getPersonName(),
-                eventToEdit.getEventTiming()));
+                editedEvent.getPersonName(),
+                eventToEdit.getEventTiming(),
+                editedEvent.getEventTiming()));
     }
 
     @Override

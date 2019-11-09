@@ -16,6 +16,7 @@ import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.parameters.Status;
 import seedu.address.model.events.parameters.Timing;
+import seedu.address.model.events.predicates.EventContainsKeywordAndAcknowledgedPredicate;
 import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 
 /**
@@ -59,7 +60,7 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
             if (filterEventList.size() == 0) {
                 throw new ParseException(MESSAGE_NOTING_ACK);
             } else if (filterEventList.get(0).getStatus().isAcked()) {
-                throw new ParseException(AckAppCommand.MESSAGE_DUPLICATE_ACKED);
+                throw new ParseException((AckAppCommand.MESSAGE_DUPLICATE_ACKED));
             } else {
                 Event unAck = filterEventList.get(0);
 
@@ -75,7 +76,7 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
     }
 
     private void updateToPatientList(ReferenceId referenceId) {
-        model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(referenceId));
+        model.updateFilteredAppointmentList(new EventContainsKeywordAndAcknowledgedPredicate(referenceId));
         filterEventList = model.getFilteredAppointmentList();
     }
 }

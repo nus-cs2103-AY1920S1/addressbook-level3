@@ -24,8 +24,9 @@ public class AckAppCommand extends ReversibleCommand {
             + "Example: " + COMMAND_WORD + " E0000001A";
 
     public static final String MESSAGE_SUCCESS = "The upcoming appointment for [%1$s] %2$s has been acknowledged: %3$s";
-    public static final String MESSAGE_DUPLICATE_ACKED = "The upcoming appointment [%1$s] %2$s has already "
-            + "been acknowledged.";
+    public static final String MESSAGE_DUPLICATE_ACKED = "The upcoming appointment has already been acknowledged.";
+    public static final String MESSAGE_SUCCESS_UNDO = "The appointment for [%1$s]"
+            + " %2$s has been unacknowledged: \n%3$s";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -62,11 +63,26 @@ public class AckAppCommand extends ReversibleCommand {
                 new EventContainsKeywordOrRecentlyAcknowledgedPredicate(
                         editedEvent.getPersonId(), editedEvent));
 
-        return new CommandResult(String.format(
-                MESSAGE_SUCCESS,
-                editedEvent.getPersonId(),
-                editedEvent.getPersonName(),
-                editedEvent.getEventTiming()));
+
+        if (editedEvent.getStatus().isSettled()) {
+            return new CommandResult(String.format(
+                    MESSAGE_SUCCESS,
+                    editedEvent.getPersonId(),
+                    editedEvent.getPersonName(),
+                    editedEvent));
+        } else {
+            return new CommandResult(String.format(
+                    MESSAGE_SUCCESS_UNDO,
+                    editedEvent.getPersonId(),
+                    editedEvent.getPersonName(),
+                    editedEvent));
+        }
+
+//        return new CommandResult(String.format(
+//                MESSAGE_SUCCESS,
+//                editedEvent.getPersonId(),
+//                editedEvent.getPersonName(),
+//                editedEvent.getEventTiming()));
     }
 
     @Override
