@@ -682,7 +682,7 @@ Generates a word cloud based on user's most commonly wasted food.
 ==== Moving all expired food items from grocery list to waste list
 
 By default, every time the application is launched, iFridge helps you check which items
-are expired and automatically moves them into the waste list.
+are expired and gives you an option to move them to your waste list.
 
 //end::wastelistfuture[]
 
