@@ -4,7 +4,6 @@ import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.ifridge.logic.commands.WasteListCommandTestUtil.MONTH_INVALID;
 import static seedu.ifridge.logic.commands.WasteListCommandTestUtil.MONTH_OCT_RELAXED;
 import static seedu.ifridge.logic.commands.WasteListCommandTestUtil.MONTH_RELATIVE_LAST_MONTH;
-import static seedu.ifridge.logic.commands.WasteListCommandTestUtil.MONTH_SEP_FORMAL;
 import static seedu.ifridge.logic.commands.WasteListCommandTestUtil.MONTH_SEP_RELAXED;
 import static seedu.ifridge.logic.commands.WasteListCommandTestUtil.WASTE_MONTH_CURRENT_MONTH;
 import static seedu.ifridge.logic.commands.WasteListCommandTestUtil.WASTE_MONTH_LAST_MONTH;
@@ -29,9 +28,6 @@ public class ListWasteCommandParserTest {
     public void parse_validDateFormats_success() {
         // Relaxed date format
         assertParseSuccess(parser, MONTH_SEP_RELAXED, new ListWasteCommand(WASTE_MONTH_SEPTEMBER));
-
-        // Formal date format
-        assertParseSuccess(parser, MONTH_SEP_FORMAL, new ListWasteCommand(WASTE_MONTH_SEPTEMBER));
 
         // Relative date format
         assertParseSuccess(parser, MONTH_RELATIVE_LAST_MONTH, new ListWasteCommand(WASTE_MONTH_LAST_MONTH));

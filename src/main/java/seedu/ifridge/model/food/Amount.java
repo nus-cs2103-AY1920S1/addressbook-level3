@@ -17,10 +17,10 @@ import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 public class Amount {
     public static final String MESSAGE_CONSTRAINTS = "Amounts should be of the format value unit "
             + "and adhere to the following constraints:\n"
-            + "1. The value part should only contain digits and can have be decimal point or not.\n"
-            + "2. This is followed by a unit that can have a space in between or not. \n"
-            + "The unit must be one of the following: \n"
-            + "    - lbs, kg, g, oz, L, ml, units.";
+            + "1. The unit must be one of the following: lbs, kg, g, oz, L, ml, units.\n"
+            + "2. The value must be positive and can be decimal or whole number.\n"
+            + "3. This is followed by a unit that can have spaces in between. \n";
+
 
     public static final String UNIT_TYPE_WEIGHT = "Weight";
     public static final String UNIT_TYPE_VOLUME = "Volume";
@@ -37,7 +37,7 @@ public class Amount {
     //public static final String VALUE_BEFORE_DECIMAL = "(\\d*)";
     //public static final String VALUE_AFTER_DECIMAL = "(\\d+)";
     public static final String VALUE_REGEX = "([0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?)";
-    public static final String UNIT_REGEX = "(lbs?|g|kg|oz?|L|ml|units)+";
+    public static final String UNIT_REGEX = "(lbs|g|kg|oz|L|ml|units)+";
     public static final String VALIDATION_REGEX = VALUE_REGEX + "\\s*" + UNIT_REGEX; // TODO exclude 0 as valid input
 
     public static final float GRAM_TO_KG = 0.001f;
