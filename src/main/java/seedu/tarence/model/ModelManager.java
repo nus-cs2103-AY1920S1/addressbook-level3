@@ -58,9 +58,13 @@ public class ModelManager implements Model {
         this(new Application(), new UserPrefs());
     }
 
+    public ModelManager(ReadOnlyApplication application) {
+        this(application, new UserPrefs());
+    }
+
     @Override
     /**
-     * Called during Undo Command. Resets the application to the newly loaded data from the undo state.
+     * Called during Undo and Clear Command. Resets the application to the newly loaded data from the undo state.
      */
     public void setModel(ReadOnlyApplication loadedApplication) {
         requireNonNull(loadedApplication);

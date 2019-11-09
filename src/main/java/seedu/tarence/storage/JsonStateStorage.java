@@ -98,7 +98,8 @@ public class JsonStateStorage implements ApplicationStateStorage {
             //System.out.println("Saved semester start date: " + getSemesterStartDateOfLatestState());
 
             // Only saves the state when there is a change with the current state
-            if (!latestApplication.equals(application)) {
+            if (!latestApplication.equalsUsingStringComparison(application)) {
+
                 // Save the application state
                 FileUtil.createIfMissing(filePath);
                 JsonUtil.saveJsonFile(new JsonSerializableApplication(application), filePath);
@@ -205,8 +206,6 @@ public class JsonStateStorage implements ApplicationStateStorage {
         }
 
     }
-
-
 
     /**
      * Saves the first state. Has to be handled seperately as in the normal saving, saving is only done when there is

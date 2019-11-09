@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.tarence.commons.util.JsonUtil;
 import seedu.tarence.model.builder.ModuleBuilder;
 import seedu.tarence.model.builder.PersonBuilder;
 import seedu.tarence.model.builder.StudentBuilder;
@@ -242,6 +243,24 @@ public class ApplicationTest {
         @Override
         public ObservableList<Tutorial> getTutorialList() {
             return tutorials;
+        }
+
+        @Override
+        public String toStringForComparison() {
+            String applicationString = "";
+
+            for (Module m : this.getModuleList()) {
+                applicationString += m.getModCode().toString() + ": " + JsonUtil.moduleToHashMap(m).toString() + "\n";
+            }
+
+            return applicationString;
+        }
+
+        @Override
+        public Boolean equalsUsingStringComparison(ReadOnlyApplication newApp) {
+
+            return newApp.toStringForComparison().equals(this.toStringForComparison());
+
         }
     }
 

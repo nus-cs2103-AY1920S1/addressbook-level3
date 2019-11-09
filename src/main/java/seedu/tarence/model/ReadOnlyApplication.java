@@ -35,4 +35,16 @@ public interface ReadOnlyApplication {
      */
     ObservableList<Tutorial> getTutorialList();
 
+    /**
+     * Returns the string representation of all Modules in the application.
+     * @return String.
+     */
+    String toStringForComparison();
+
+    /**
+     * Compares this application with the new application based on the toStringForComparison method.
+     *
+     */
+    Boolean equalsUsingStringComparison(ReadOnlyApplication newApp);
+
 }

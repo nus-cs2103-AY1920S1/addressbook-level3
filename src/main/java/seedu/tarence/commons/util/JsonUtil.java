@@ -42,6 +42,7 @@ import seedu.tarence.commons.exceptions.IllegalValueException;
 import seedu.tarence.logic.parser.ParserUtil;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
+import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;
 import seedu.tarence.model.student.MatricNum;
@@ -318,6 +319,48 @@ public class JsonUtil {
 
     //============================== From object to Json String methods ================================================
 
+    /**
+     * Converts a single Module to its LinkedHashMap representation.
+     *
+     * @param source Module.
+     * @return LinkedHashMap
+     */
+    public static LinkedHashMap<String, LinkedHashMap<String, String>> moduleToHashMap(Module source) {
+
+        LinkedHashMap<String, LinkedHashMap<String, String>> tutorialMap =
+                new LinkedHashMap<String, LinkedHashMap<String, String>>();
+
+        for (Tutorial t : source.getTutorials()) {
+            LinkedHashMap<String, String> singleTutorialMap = new LinkedHashMap<String, String>();
+
+            // Obtain all the fields that defines a single Tutorial object.
+            String tutorialName = t.getTutName().toString();
+            String tutorialDayOfWeek = t.getTimeTable().getDay().toString();
+            String tutorialStartTime = t.getTimeTable().getStartTime().toString();
+            String tutorialWeeks = t.getTimeTable().getWeeks().toString();
+            String tutorialDuration = t.getTimeTable().getDuration().toString();
+            String studentListString = studentListToString(t.getStudents());
+            String tutorialModuleCode = t.getModCode().toString();
+            String tutorialAttendanceString = attendanceListToString(t.getAttendance());
+            String tutorialAssignmentString = assignmentListToString(t.getAssignmentsForSaving());
+            String tutorialEventString = JsonUtil.eventListToString(t.getEventListForSaving());
+
+            // Add into LinkedHashMap<String,String>, singleTutorialMap. Reading is order dependant
+            singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_NAME, tutorialName);
+            singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_DAY, tutorialDayOfWeek);
+            singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_START_TIME, tutorialStartTime);
+            singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_WEEKS, tutorialWeeks);
+            singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_DURATION, tutorialDuration);
+            singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_STUDENT_LIST, studentListString);
+            singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST, tutorialAttendanceString);
+            singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_MODULE_CODE, tutorialModuleCode);
+            singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_ASSIGNMENT_LIST, tutorialAssignmentString);
+            singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_EVENT_LIST, tutorialEventString);
+
+            tutorialMap.put(tutorialName, singleTutorialMap);
+        }
+        return tutorialMap;
+    }
 
     /**
      * Invoked when saving an Attendance object.

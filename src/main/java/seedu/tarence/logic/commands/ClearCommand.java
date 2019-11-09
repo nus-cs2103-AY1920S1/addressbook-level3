@@ -32,6 +32,11 @@ public class ClearCommand extends Command {
 
         model.setModel(emptyApplication);
 
+
+
+
+
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
