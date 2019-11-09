@@ -9,7 +9,7 @@ import seedu.address.ui.TestFlashCardPanel;
 
 //@@author keiteo
 /**
- * Creates a test model to contain relevant flashcards to test users.
+ * Instantiates a test model to contain relevant flashcards to test users.
  */
 public class FlashCardTestModel {
 
@@ -22,10 +22,16 @@ public class FlashCardTestModel {
         this.testList = testList;
     }
 
+    /**
+     * Checks if the test list is empty.
+     */
     public boolean isEmpty() {
         return testList.isEmpty();
     }
 
+    /**
+     * Removes a FlashCard from the head of the test list and sets it as the current FlashCard.
+     */
     public void setFlashcard() {
         assert !testList.isEmpty();
         currentFlashCard = testList.remove(0);
@@ -52,16 +58,26 @@ public class FlashCardTestModel {
     }
 
     //@@author keiteo
+
+    /**
+     * Gets the question of the current FlashCard.
+     */
     public String getQuestion() {
         requireNonNull(currentFlashCard);
         return currentFlashCard.getQuestion().toString();
     }
 
+    /**
+     * Gets the answer of the current FlashCard.
+     */
     public String getAnswer() {
         requireNonNull(currentFlashCard);
         return currentFlashCard.getAnswer().toString();
     }
 
+    /**
+     * Gets the current FlashCard.
+     */
     FlashCard getCurrentFlashCard() {
         return currentFlashCard;
     }

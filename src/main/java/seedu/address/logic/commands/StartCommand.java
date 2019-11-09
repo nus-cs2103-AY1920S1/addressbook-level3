@@ -13,8 +13,9 @@ import seedu.address.model.flashcard.FlashCard;
 
 //@@author keiteo
 /**
- * Starts the flashcard test by going through the cards in the specified deck.
- * If no deck name is supplied, a random deck will be chosen.
+ * Instantiates a StartCommand to allow users to start the flashcard test
+ * by going through the cards in the specified tag(s).
+ * If no tags are supplied, all FlashCards will be used.
  */
 public class StartCommand extends Command {
 
@@ -22,12 +23,12 @@ public class StartCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Starts the FlashCard test by going through the cards in the specified deck.\n"
-            + "Parameters: DECK NAME. If no argument is supplied, a random deck will be chosen.\n"
+            + "Parameters: tag(s). If no argument is supplied, all FlashCards will be used.\n"
             + "Example: " + COMMAND_WORD + " physics";
 
-    public static final String MESSAGE_NO_FLASHCARDS = "No FlashCard to test!";
+    public static final String MESSAGE_NO_FLASHCARDS = "No FlashCards to test!";
 
-    public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...\n";
+    public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...";
 
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 

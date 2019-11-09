@@ -7,7 +7,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author keiteo
 /**
- * Parses input arguments and creates a new StartCommand object.
+ * This class parses input arguments and creates a new StartCommand object.
  */
 public class StartCommandParser implements Parser<StartCommand> {
 
@@ -24,8 +24,8 @@ public class StartCommandParser implements Parser<StartCommand> {
      * and returns a StartCommand object for execution.
      */
     public StartCommand parse(String args) throws ParseException {
-        String alphaNumericWithSpaces = "^[a-zA-Z0-9\\s+]+$";
-        if (!args.matches(alphaNumericWithSpaces) && !args.isEmpty()) {
+        String alphaNumericWithSpacesRegex = "^[a-zA-Z0-9\\s+]+$";
+        if (!args.matches(alphaNumericWithSpacesRegex) && !args.isEmpty()) {
             throw new ParseException(BAD_ARGUMENTS);
         }
         String trimmedArgs = args.trim();

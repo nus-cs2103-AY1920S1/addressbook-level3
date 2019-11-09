@@ -69,14 +69,25 @@ public class KeyboardFlashCardsParser {
     }
 
     //@@author keiteo
+
+    /**
+     * Sets test mode to be true to disable parsing of non-test commands.
+     */
     public void startTestMode() {
         isRunningFlashcardTest = true;
     }
 
+    /**
+     * Sets test mode to be false to enable parsing of non-test commands.
+     */
     public void endTestMode() {
         isRunningFlashcardTest = false;
     }
 
+    /**
+     * Sets the answer status in test mode to further restrict inappropriate test commands.
+     * @param isAwaitingAnswer True if the program is waiting for user input to show answer, otherwise false.
+     */
     public void setAwaitingAnswer(boolean isAwaitingAnswer) {
         this.isAwaitingAnswer = isAwaitingAnswer;
     }
@@ -108,7 +119,7 @@ public class KeyboardFlashCardsParser {
         }
     }
 
-    //@@author
+    //@@author keiteo-reused
     /** Parses commands outside test mode i.e. list, add etc. */
     private Command parseNormalCommand(Matcher matcher) throws ParseException {
         final String commandWord = matcher.group("commandWord");

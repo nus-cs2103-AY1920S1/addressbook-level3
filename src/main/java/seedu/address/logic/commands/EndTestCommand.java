@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 
 //@@author keiteo
 /**
- * Ends the current flashcard test.
+ * Instantiates an EndTestcommand that allows users to end the current flashcard test.
  */
 public class EndTestCommand extends Command {
 
@@ -22,7 +22,7 @@ public class EndTestCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        //model.updatePerformance(model);
+        model.updatePerformance(model);
         keyboardFlashCardsParser.endTestMode();
         CommandResult result = new CommandResult("Test ended");
         result.setTestMode(false, true);

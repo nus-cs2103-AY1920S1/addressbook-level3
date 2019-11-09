@@ -9,7 +9,7 @@ import seedu.address.model.flashcard.Rating;
 
 //@@author keiteo
 /**
- * Parses input arguments and creates a new RateQuestionCommand object.
+ * This class parses input arguments and creates a new RateQuestionCommand object.
  */
 public class RateQuestionCommandParser implements Parser<RateQuestionCommand> {
 
@@ -26,7 +26,6 @@ public class RateQuestionCommandParser implements Parser<RateQuestionCommand> {
      */
     public RateQuestionCommand parse(String args) throws ParseException {
         String getFirstWord = args.trim().split("\\s+")[0];
-
         switch (getFirstWord) {
         case Rating.EASY:
         case Rating.GOOD:
