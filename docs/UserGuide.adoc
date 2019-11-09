@@ -925,11 +925,14 @@ Unfortunately, you are unable to change the app’s language.
 | <<Removing likes and dislikes from the recommendation system: `removelike` or `removedislike`, `removelike`>>
 | Remove likes from the user's specified likes or clears the likes list.
 | ```removelike c/Japanese t/Spicy t/Healthy l/The Tea Party```
+| <<Saves money into savings account: `save`, `save`>>
+| Saves a specified amount of money from the user's wallet into his savings account.
+| ```save 10```
 | <<Sorts food items based on fields: `sort`, `sort`>>
 | Sort all the food items by some specified fields and directions.
 | ```sort PRICE ASC```
-| <<Saves money into savings account: `save`, `save`>>
-| Saves a specified amount of money from the user's wallet into his savings account.
+| <<Shows either the user's savings/withdrawals only in savings history: `show`, `show`>>
+| Shows specifically the user's savings/withdrawals as determined from the user's input.
 | ```save 10```
 | <<Top up money into wallet: `topup`, `topup`>>
 | Allows users to top up the money into their wallet.
@@ -937,4 +940,7 @@ Unfortunately, you are unable to change the app’s language.
 | <<Views the fields for the custom comparator: `viewsort`, `viewsort`>>
 | Views the current Custom Sorter.
 | ```viewsort```
+| <<Withdraw money from the savings account: `withdraw`, `withdraw`>>
+| Withdraw a specified amount of money from the user's savings account into his wallet.
+| ```withdraw```
 |===
