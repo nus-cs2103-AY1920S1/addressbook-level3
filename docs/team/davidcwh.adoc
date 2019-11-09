@@ -93,7 +93,8 @@ https://github.com/AY1920S1-CS2103T-F12-4/main/pull/107[#107],
 https://github.com/AY1920S1-CS2103T-F12-4/main/pull/109[#109],
 https://github.com/AY1920S1-CS2103T-F12-4/main/pull/112[#112],
 https://github.com/AY1920S1-CS2103T-F12-4/main/pull/113[#113],
-https://github.com/AY1920S1-CS2103T-F12-4/main/pull/185[#185]
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/185[#185],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/191[#191 (with constructive feedback)]
 
 
 == Contributions to the User Guide
