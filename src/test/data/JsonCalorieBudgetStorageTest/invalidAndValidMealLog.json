@@ -1,0 +1,10 @@
+{
+  "meals": [
+    {
+      "dish": "Soup"
+    },
+    {
+      "name": "Person With Invalid Phone Field"
+    }
+  ]
+}
