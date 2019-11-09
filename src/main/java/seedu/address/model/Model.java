@@ -131,7 +131,7 @@ public interface Model {
 
     void updateTeam(Id teamId, Team team) throws AlfredException;
 
-    void updateTeamScore(Team team, Score score) throws AlfredException;
+    void setTeamScore(Team team, Score score) throws AlfredException;
 
     void addTeamScore(Team team, Score score) throws AlfredException;
 

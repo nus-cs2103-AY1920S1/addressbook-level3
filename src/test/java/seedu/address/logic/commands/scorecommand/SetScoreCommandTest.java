@@ -43,7 +43,7 @@ class SetScoreCommandTest {
 
         Model expectedModel = new ModelManagerStub();
         expectedModel.addTeam(teamToScore);
-        expectedModel.updateTeamScore(teamToScore, VALID_SCORE);
+        expectedModel.setTeamScore(teamToScore, VALID_SCORE);
 
         assertCommandSuccess(setScoreCommand, model, expectedMessage, expectedModel);
     }

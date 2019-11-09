@@ -40,7 +40,7 @@ public class SetScoreCommand extends ScoreCommand {
         teamToScore = getTeamFromModel(model, id);
 
         try {
-            model.updateTeamScore(teamToScore, score);
+            model.setTeamScore(teamToScore, score);
         } catch (AlfredException e) {
             throw new CommandException(e.getMessage());
         }

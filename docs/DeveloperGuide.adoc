@@ -636,6 +636,70 @@ image::RemoveParticipantCommandSequenceDiagram.png[]
 
 
 
+=== Scoring
+
+As its name suggests, this feature's intended purpose is to aid users in the process of giving scores to the teams participating the hackathon. The `score` command is a crucial feature of Alfred as judging and scoring are core activities within every hackathon. Alfred provides the following implementations of the `score` command:
+
+1. `score add`: allows users to add a certain number of points to a team's score
+2. `score sub`: allows users to subtract a certain number of points from a team's score
+3. `score set`: allows users to set a team's score to a certain number of points
+4. `score reset`: allows users reset a team's score to 0
+
+This feature and its varieties have been implemented in a relatively straightforward manner, as the Class Diagram below showing the high level representation of the Object Oriented solution devised to implement this feature highlights.
+
+.Scoring Feature Class Diagram
+image::ScoringClassDiagram.png[]
+
+From the above diagram it can be seen that each different implementation of the `score` command inherits from the same `ScoreCommand` abstract class. The `ScoreCommand` abstract class provides a base for the implementation of the current specific `score` commands and in the future any further additions made to the `score` command functionality must also follow this same convention.
+
+Secondly, it can also be noted that there is not `ResetScoreCommand` class. This is done intentionally as the `SetScoreCommand` can be reused to reset a particular team's score, thereby making better use of abstraction.
+
+A representation of how the above classes interact to provide execute a user's command is highlighted in the sequence diagram below. This sequence diagram illustrates the object interactions when a user types the command `score add T-1 40`. For context, this command adds 40 points to the team with ID "T-1".
+
+.Add Score Command Sequence Diagram
+image::ScoringSequenceDiagram.png[]
+
+As seen from the above diagram, the execution of the `score add` command can be put in simple words as per the following steps:
+
+* Step 1: `LogicManager` starts executing the user's command and calls the `AlfredParser` to parse it.
+* Step 2: `AlfredParser` find the appropriate `Parser` to parse the command and creates a new `ScoreCommandParser` to parse the arguments of the score command, essentially "add T-1 40".
+* Step 3: The `ScoreCommandParser` then parses the arguments and is responsible for:
+
+    ** Checking which specific implementation of the `score` command is being called (in this case "add") and ensuring it is a valid method.
+    ** Parsing the Team ID specified by the user and ensuring it is of a correct format.
+    ** Parsing the Score specified by the user and ensuring it is a valid score.
+
+* Step 4: `ScoreCommandParser` then creates a new `AddScoreCommand` object with the above parsed Team ID and Score, which is then returned all the way to `LogicManager`
+* Step 5: `LogicManager` then executes the `AddScoreCommand` object upon which the `AddScoreCommand` object calls `Model` 's `addTeamScore()` method which updates the specific team's score within `Model`.
+* Step 6: Upon updating the team's score in `Model`, the `AddScoreCommand` object creates a new `CommandResult` object which is returned to the UI component (not shown in the diagram) to display a feedback message to the user.
+
+Though the above diagram and steps are designed in the context of a `score add` command, the above logic applies to every other type of `score` command as well. The only difference though is the `ScoreCommandParser` creates the appropriate command object and each command object calls a different method from logic, as per the following:
+
+1. `score subtract`: `ScoreCommandParser` creates a new `SubtractScoreCommand` instead of an `AddScoreCommand` and this `SubtractScoreCommand` object calls the `subtractTeamScore()` method of `Model`.
+2. `score set` and `score reset`: `ScoreCommandParser` creates a new `SetScoreCommand` instead of an `AddScoreCommand` and this `SetScoreCommand` object calls the `setTeamScore()` of method `Model`.
+
+==== Design Considerations
+
+To develop the `score` feature a few considerations and decisions had to be made with regards to how to implement the feature at various steps. This section focuses on some of the aspects wherein we faced dillemas and how we addressed them.
+
+*Aspect:* How to implement `score sub` (Subtract Score Command)
+
+While traditionally a subtract command would be implemented using an add command only with negated values, this is not quite possible in Alfred's case. Within Alfred `Score` objects have a strict restriction that they cannot be created with negative values as a team's score can never be negative. This restriction cannot be relaxed as it ensures that any data being imported into Alfred does not violate this property either. Due to this the `score sub` command could be implemented by reusing the `AddScoreCommand` and hence why it has its own command class `SubtractScoreCommand`.
+
+*Aspect:* Implementation of `score reset` command
+
+* *Alternative 1:* Create a `ResetScoreCommand` class
+
+** Pros: Lowers confusion as all the relevant code is in its own class rather than mixed with other code.
+** Cons: Leads to duplication of code as the command is very similar to the `score set` command, making it poor software engineering practice.
+
+* *Alternative 2 (Current Choice):* Reuse the `SetScoreCommand` class
+
+** Pros: Better use of abstraction and reduces the amount of duplicate code written.
+** Cons: Overcrowds a single class as feedback messages and other properties of the `score reset` command also need to be written within it.
+
+Upon close inspection it was observed that the removal of duplicate code would far outweigh the convenience and orderliness of having a separate class for the command, especially considering that a `ResetScoreCommand` would have far more duplicate code than unique code as compared to the `SetScoreCommand`. Bearing this in mind, we ultimately decided to choose "Alternative 2" as it would allow for better reuse of existing code and follow better software engineering practices.
+
 
 // tag::dataencryption[]
 
@@ -653,7 +717,7 @@ The implementation of these two commands is very similar in nature. They both:
 The class diagram below provides a high level representation of the Object-Oriented solution devised to implement the aforementioned features.
 
 .Leaderboard and Get Top Teams Implementation Overview
-image::LeaderboardClassDiagram.png[]
+image::LeaderBoardClassDiagram.png[]
 
 From the above class diagram, there are two important matters to note regarding the implementation of these features:
 

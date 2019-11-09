@@ -447,7 +447,7 @@ public class ModelManager implements Model {
      * @param score the score to which the team's score will be updated.
      * @throws AlfredException if the update fails.
      */
-    public void updateTeamScore(Team team, Score score) throws AlfredException {
+    public void setTeamScore(Team team, Score score) throws AlfredException {
         team.setScore(score);
         updateTeam(team.getId(), team);
     }
