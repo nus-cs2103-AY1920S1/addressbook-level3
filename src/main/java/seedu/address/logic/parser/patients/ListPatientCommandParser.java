@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.address.logic.commands.patients.ListPatientCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.predicates.PersonMatchesKeywordPredicate;
+import seedu.address.model.person.predicates.PersonContainsKeywordPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -25,7 +25,7 @@ public class ListPatientCommandParser implements Parser<ListPatientCommand> {
             return new ListPatientCommand(PREDICATE_SHOW_ALL_PERSONS);
         }
 
-        return new ListPatientCommand(new PersonMatchesKeywordPredicate(trimmedArgs));
+        return new ListPatientCommand(new PersonContainsKeywordPredicate(trimmedArgs));
     }
 
 }
