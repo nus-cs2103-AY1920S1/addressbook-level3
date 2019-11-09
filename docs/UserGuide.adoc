@@ -154,10 +154,14 @@ All commands start with a command word (e.g `student`, `question`, `quiz`, `even
 Adds a student +
 Format: `student name/... tag/...(optional)`
 
-The options supported by this feature includes:
+The keywords supported by this feature includes:
 
-. `name` - The name of the student.
-. `tag`(optional) - The weak subjects of the student.
+|==============================
+| Keyword | Description
+
+| `name` | The name of the student.
+| `tag` (Optional) | The weak subjects of the student.
+|==============================
 
 [NOTE]
 `tag` fields of a student represent the weak subjects of a particular student, and is an optional field which can be added later under the `Tag` feature
@@ -180,24 +184,43 @@ Format: `student [index number] name/...`
 [NOTE]
 All tags and mark of the student to be edited will be transferred over to the new student.
 
-The options supported by this feature includes:
+The keywords supported by this feature includes:
 
-. `[index number]` - Index number of the student to be edited in the student list
-. `name` - New name of the student to be edited.
+|==============================
+| Keyword | Description
+
+| `[index number]` | Index number of the student to be edited in the student list
+| `name` | New name of the student to be edited.
+|==============================
+
+image::editStudent1.png[]
+_Original list of students._
+
+image::editStudent2.png[]
+_Type in the command to change name of student in index 1 to John Doe._
+
+image::editStudent3.png[]
+_Successfully change the name of student in index 1 to John Doe._
 
 Examples:
 
-* `student 1 name/Jane Doe` +
-Changes the name of the student with index number 1 in the student list to Jane Doe
+* `student 1 name/John Doe` +
+Changes the name of the student with index number 1 in the student list to John Doe
+
+
 
 ==== Deleting a student
 
 Delete a student from the student list. +
 Format: `student delete [INDEX]`
 
-The options supported by this feature includes:
+The keywords supported by this feature includes:
 
-. `[INDEX]` - Index number oif the student to be deleted in the student list
+|==============================
+| Keyword | Description
+
+| `[INDEX]` | Index number of the student to be deleted in the student list
+|==============================
 
 Example:
 
@@ -210,8 +233,8 @@ Deletes the first student in the student list.
 Display the list of students in the Main Window, and also displays the list in the Command Result Box+
 Format: `student list`
 
-The options supported by this feature includes: +
-*_-This command does not support any additional options-_*
+The keywords supported by this feature includes: +
+*_-This command does not support any additional keywords-_*
 
 Example:
 
@@ -227,10 +250,15 @@ Represents the weak subjects of a student, allowing users to focus on the specif
 Allows a user to add a tag to an already tagged student. +
 Format: `tag index/... tag/...`
 
-The format supported by this feature includes:
+The keywords supported by this feature includes:
 
-- `index` (The index number of the student you want to add the tag to)
-- `tag` (The name of the tag you want to add to the student)
+|==============================
+| Keyword | Description
+
+| `index` | The index number of the student you want to add the tag to
+| `tag` | The name of the tag you want to add to the student
+
+|==============================
 
 [NOTE]
 Tags cannot be multiple-worded, and cannot contain special characters.
@@ -255,9 +283,14 @@ Marks academically weak students, allowing users to pay extra attention to the m
 Allows a user to mark an already created student. +
 Format: `mark index/...`
 
-The format supported by this feature includes:
+The keywords supported by this feature includes:
 
-- `index` (The index number of the student you want to mark)
+|==============================
+| Keyword | Description
+
+| `index` | The index number of the student you want to mark
+
+|==============================
 
 Examples:
 
@@ -270,9 +303,14 @@ Allows a user to remove mark from an already created student who has been previo
 
 Format: `mark unmark index/...`
 
-The format supported by this feature includes:
+The keywords supported by this feature includes:
 
-- `index` (The index number of the student you want to unmark)
+|==============================
+| Keyword | Description
+
+| `index` | The index number of the student you want to unmark
+
+|==============================
 
 Examples:
 
@@ -288,10 +326,15 @@ image::marked-student-example.png[]
 Allows a user to create a group manually. +
 Format: `group manual groupID/... studentNumber/...`
 
-The format supported by this feature includes:
+The keywords supported by this feature includes:
 
-- `groupID` (The name of the group)
-- `studentNumber` (The index numbers of the students you want to add to the group)
+|==============================
+| Keyword | Description
+
+| `groupID` | The name of the group
+| `studentNumber` | The index numbers of the students you want to add to the group
+
+|==============================
 
 [NOTE]
 You are not allowed to create groups without specifying any student numbers, ie : create groups with
@@ -307,11 +350,16 @@ Adds student index numbers 1, 2 and 3 to the group named G03.
 Allows a user to add a Student to a Group. +
 Format: `group add groupID/... studentNumber/... groupIndexNumber/...`
 
-The format supported by this feature includes:
+The keywords supported by this feature includes:
 
-- `groupID` (The name of the group)
-- `studentNumber` (The index number of the student you want to add to the group)
-- `groupIndexNumber` (The index number within the group that you want to add the student to)
+|==============================
+| Keyword | Description
+
+| `groupID` | The name of the group
+| `studentNumber` | The index number of the student you want to add to the group
+| `groupIndexNumber` | The index number within the group that you want to add the student to
+
+|==============================
 
 [NOTE]
 For a group that already contains students with group index numbers 1,2 and 3, the group index number you specify in
@@ -328,10 +376,15 @@ Adds student 2 to the group index number 3 for the group named G01.
 Allows a user to remove a student from a group. +
 Format: `group delete groupID/... groupIndexNumber/...`
 
-The format supported by this feature includes:
+The keywords supported by this feature includes:
 
-- `groupID` (The name of the group)
-- `groupIndexNumber` (The group index number of the student in the group to be deleted)
+|==============================
+| Keyword | Description
+
+| `groupID` | The name of the group
+| `groupIndexNumber` | The index number of the student within the group that you want to remove
+
+|==============================
 
 Examples:
 
@@ -346,9 +399,14 @@ and thus may print out group information to view during these times. +
 
 Format: `group export groupID/...`
 
-The format supported by this feature includes:
+The keywords supported by this feature includes:
 
-- `groupID` (The name of the group)
+|==============================
+| Keyword | Description
+
+| `groupID` | The name of the group
+
+|==============================
 
 Examples:
 
@@ -357,18 +415,31 @@ Exports the group named G01 to a word document named `G01.docx`, found under the
 
 ==== Showing students from a group:
 
-Allows a user to see all students from a group.+
+Allows a user to see all students from a group.
 
 Format: `group groupID/...`
 
-The format supported by this feature includes:
+The keywords supported by this feature includes:
 
-- `groupID` (The name of the group)
+|==============================
+| Keyword | Description
 
+| `groupID` | The name of the group
+
+|==============================
 Examples:
 
 * `group groupID/G01` +
 Shows all the students that belong to group with groupID `G01`
+
+image::groupView1.png[]
+_Create a group G02 with students John Doe, Jane Doe and Ben Tan._
+
+image::groupView2.png[]
+_Type in the command to display group G02._
+
+image::groupView3.png[]
+_View of G02._
 
 === Questions ​-​ `question`
 
