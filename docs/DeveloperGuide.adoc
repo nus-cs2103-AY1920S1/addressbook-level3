@@ -739,6 +739,7 @@ Updating the UI synchronously
 //@@author
 
 //@@author Seris370
+// tag::plan[]
 
 === Training Plan Feature
 
@@ -804,7 +805,7 @@ Step 6. The user executes `deleteplan 1`, which calls `Model#getFilteredPlanList
 * **Alternative 2:** By indicating index of the original problem.
 ** Pros: Complies with other usages of prefix `task/`.
 ** Cons: Adds coupling due to access to `filteredProblemList` in the model.
-
+// end::plan[]
 //@@author
 
 == Documentation
