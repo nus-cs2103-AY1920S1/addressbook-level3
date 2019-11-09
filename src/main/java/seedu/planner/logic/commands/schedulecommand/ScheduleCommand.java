@@ -137,6 +137,7 @@ public class ScheduleCommand extends UndoableCommand {
             CommandHistory.addToUndoStack(scheduleEvent);
             CommandHistory.clearRedoStack();
         }
+
         model.scheduleActivity(dayToEdit, activityWithTimeToAdd);
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
         return new CommandResult(String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, dayIndex.getOneBased()),

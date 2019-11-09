@@ -33,7 +33,7 @@ public class ScheduleEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new ScheduleCommand(activityIndex, startTime, dayIndex, false);
+        return new ScheduleCommand(activityIndex, startTime, dayIndex, true);
     }
 
     /**
