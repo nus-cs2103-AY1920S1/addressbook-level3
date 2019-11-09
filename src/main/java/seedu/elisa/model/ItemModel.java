@@ -101,11 +101,9 @@ public interface ItemModel {
 
     public void scheduleOffPriorityMode(LocalDateTime localDateTime);
 
-    public void offPriorityMode();
+    public void closePriorityModeThread();
 
-    public Item markComplete(int index) throws IllegalListException;
-
-    public Item markIncomplete(int index) throws IllegalListException;
+    public Item markComplete(int index, boolean status) throws IllegalListException;
 
     public JokeList getJokeList();
 
