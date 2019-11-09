@@ -30,6 +30,12 @@ public class ClaimNameComparatorTest {
     }
 
     @Test
+    public void equal() {
+        int result = claimNameComparator.compare(CLAIM_1, CLAIM_1);
+        assertEquals(result, 0);
+    }
+
+    @Test
     public void moreThan() {
         int result = claimNameComparator.compare(CLAIM_2, CLAIM_1);
         assertEquals(result, 8);

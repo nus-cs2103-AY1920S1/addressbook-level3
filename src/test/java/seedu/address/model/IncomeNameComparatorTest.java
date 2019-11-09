@@ -34,6 +34,12 @@ class IncomeNameComparatorTest {
     }
 
     @Test
+    public void equal() {
+        int result = incomeNameComparator.compare(INCOME_1, INCOME_1);
+        assertEquals(result, 0);
+    }
+
+    @Test
     public void moreThan() {
         int result = incomeNameComparator.compare(INCOME_2, INCOME_1);
         assertEquals(result, 1);
