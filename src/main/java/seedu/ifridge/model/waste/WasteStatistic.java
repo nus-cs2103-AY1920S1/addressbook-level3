@@ -36,6 +36,12 @@ public class WasteStatistic {
         this.totalQuantity = totalQuantity;
     }
 
+    /**
+     * Calculates the total amount of food wasted in a UniqueWasteList {@link UniqueWasteList}.
+     *
+     * @param wasteList The {@link UniqueWasteList} which will be iterated through to compute waste statistics.
+     * @return A {@link WasteStatistic} object which contains details on the amount of food wastage for the waste list.
+     */
     public static WasteStatistic getWasteStatistic(UniqueWasteList wasteList) {
         float weight = 0;
         float volume = 0;
@@ -51,6 +57,16 @@ public class WasteStatistic {
         return new WasteStatistic(weight, volume, quantity);
     }
 
+    /**
+     * Computes the weighted average of monthly food waste based on current and previous months' food wastes.
+     *
+     * @param currentWasteList The waste list of the current month of the format {@link ReadOnlyWasteList}.
+     * @param pastWasteLists The {@link List} of previous waste lists of the format {@link ReadOnlyWasteList},
+     *                       sorted in order of most recent list (excluding the current waste list) at the start.
+     *                       It can be of any length, but a maximum of 3 previous months will be used to obtain the
+     *                       weighted average.
+     * @return The {@link WasteStatistic} of the weighted average of the previous months.
+     */
     public static WasteStatistic getWeightedStatistics(ReadOnlyWasteList currentWasteList,
                                                        List<ReadOnlyWasteList> pastWasteLists) {
 
@@ -77,6 +93,7 @@ public class WasteStatistic {
 
     /**
      * Predicts the food wastage using 2 months' worth of data.
+     *
      * @param wasteStatistics The list of WasteStatistics of the 2 months
      */
     public static WasteStatistic predictUsingTwoMonths(List<WasteStatistic> wasteStatistics) {
@@ -109,6 +126,7 @@ public class WasteStatistic {
 
     /**
      * Predicts the food wastage using 4 months' worth of data.
+     *
      * @param wasteStatistics The list of WasteStatistics of the 4 months
      */
     public static WasteStatistic predictUsingFourMonths(List<WasteStatistic> wasteStatistics) {
@@ -152,10 +170,17 @@ public class WasteStatistic {
         return totalQuantity;
     }
 
+    /**
+     * Checks for the validity of a {@link WasteStatistic} object by verifying that none of the values are negative.
+     */
     public static boolean isValidStatistic(float totalWeight, float totalVolume, float totalQuantity) {
         return totalWeight >= 0 && totalVolume >= 0 && totalQuantity >= 0;
     }
 
+    /**
+     * Compares equality of two {@link WasteStatistic} objects. A threshold is used due to the potential rounding
+     * errors arising from floating point computations.
+     */
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof WasteStatistic)) {
