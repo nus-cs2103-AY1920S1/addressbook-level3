@@ -54,7 +54,7 @@ public class BudgetCard extends UiPart<Region> {
 
         String fullDesc = budget.getDesc().fullDesc;
         desc.setText(fullDesc);
-        date.setText(budget.getDate().toString() + " - " + budget.getEndDate().toString());
+        date.setText(budget.getDate().toString() + " to " + budget.getEndDate().toString());
         double spentAmount = budget.getSpent().value;
         double totalAmount = budget.getAmount().value;
         spent.setText("$" + spentAmount);

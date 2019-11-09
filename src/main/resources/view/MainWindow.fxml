@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="guiltTrip() - your personal finance tracker" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="GuiltTrip: your personal finance tracker" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/guiltTrip()_32.png" />
     </icons>
@@ -44,7 +44,7 @@
                     </StackPane>
 
                     <VBox fx:id="mainPanel" minWidth="340" prefWidth="340" styleClass="pane-with-border"
-                          VBox.vgrow="ALWAYS" spacing="5">
+                          VBox.vgrow="ALWAYS" spacing="10">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
@@ -64,7 +64,7 @@
                 <VBox fx:id="sidePanelsPlaceHolder" minWidth="550" prefWidth="550" spacing="5"
                       styleClass="side-panel-placeholder">
                     <padding>
-                        <Insets bottom="5" left="5" right="10" top="5"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
                     <VBox fx:id="wishesPlaceHolder" minWidth="550" prefWidth="550" styleClass="side-panel"
                           VBox.vgrow="ALWAYS">
