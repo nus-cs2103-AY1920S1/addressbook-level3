@@ -29,7 +29,7 @@ else SHIFT
 CommandBox -> AutoCompletePanelManager: receiveDataFromSender()
 activate AutoCompletePanelManager
 
-AutoCompletePanelManager --> CommandBox: data
+AutoCompletePanelManager --> CommandBox: textToDisplay
 deactivate AutoCompletePanelManager
 
 /'notifyObserversToChange(KeyCode.SHIFT, textToDisplay);'/
@@ -39,7 +39,7 @@ activate CommandTextField
 CommandTextField --> CommandBox
 deactivate CommandTextField
 
-CommandBox -> AutoCompletePanelManager : notifyObserversToChange(KeyCode.SHIFT, ctextToDisplay);
+CommandBox -> AutoCompletePanelManager : notifyObserversToChange(KeyCode.SHIFT, textToDisplay);
 activate AutoCompletePanelManager
 
 AutoCompletePanelManager -> AutoCompletePanelManager : updateListView(KeyCode.SHIFT, textToDisplay)

@@ -1,27 +1,34 @@
-==== Proposed Implementation
-The auto-complete mechanism extends NurseTraverse with 2 functionalities, word completion and word suggestions. To support word suggestions of only compatible words, several lists are created and the list in operation will be switched during runtime by `AutoCompletePanel#resetList()`
+==== Overview Of Implementation
+The auto-complete mechanism extends NurseTraverse with 3 functionalities +
 
-Given below is an example usage scenario and how the word suggestion and word completion function behaves at each step.
+- Completing word in command box
+- Suggesting of words that are compatible with previous sub-commands
+- Guide for user to select from the various sub-commands +
+
+Given below is an example usage scenario
 
 Step 1:
-When the user launches the application, an instance of the object, command and prefix autocomplete word list will be initialised in `AutoCompleteStorage`(created in `AutoCompletePanel`), which implements the following operations:
+When the user launches the application, an instance of the object, command and prefix autocomplete word list will be initialised in `AutoCompleteStorage`, which implements the following operations:
 
 * `AutoCompleteWordStorage#getOListAllCommandWord()` — returns the observable list of command words stored
 * `AutoCompleteWordStorage#getOListAllPrefixWord()` — returns the observable list of prefix words stored
 * `AutoCompleteWordStorage#getOListAllObjectWord()` — returns the observable list of object words stored
-* `AutoCompleteWordStorage#generateOListAllIndexWord(String objectName)` — generate an observable list of index words corresponding to object when called
+* `AutoCompleteWordStorage#generateOListAllIndexWord(String objectName)` — generate an observable list of index words corresponding to previous object word when called
 
-The auto-complete panel will be set to object list by default.
+The auto-complete panel will be set to object list when user first start the application.
 
-Step 2: Whenever user types a key in the command line, `CommandBox` will call `AutoCompletePanel#updateListView(String currentPhraseInCommandBox)`.
+Step 2: Whenever user types a key in the command line, `CommandBox` will notify `AutoCompletePanel` to perform changes based on userinput
 
-This will update the number of matched words with the current list and runs 3 sets of algorithms, through word list handler classes.
+This will update the number of matched words with the current list and 3 sets of algorithms will be run +
 
-First, `AutoCompletePanel#resetList()` will switch the current list based on what is typed.
+- `AutoCompletePanel#resetList()` -> switch the current list based on what is typed.
 
-Second, `AutoCompleteListFilter#filterList()` will filter the chosen list to only words that are compatible with previous correctly typed full words. Eg: prefix list will be filtered to only be compatible with “pat-add” user command, the words that come before prefix.
+- `AutoCompleteListFilter#filterList()` -> filter the chosen list to only words that are compatible with previous correctly typed full words. Eg: prefix list will be filtered to only be compatible with “pat-add” user command, the words that come before prefix.
 
-Lastly, `AutoCompleteListUpdater#updateSuggestedWordsInList()` will update the chosen list which was filtered to fit the key that is partially typed. Eg: User typed “ad”. “add” and “add-medcon” which are both in the current list will be suggested.
+- `AutoCompleteListUpdater#updateSuggestedWordsInList()` -> update the chosen list which was filtered to fit the key that is partially typed. Eg: User typed “ad”. “add” and “add-medcon” which are both in the current list will be suggested.
+
+The following sequence diagram illustrates what happens when user inputs a letter into the command box: +
+-sample-
 
 ==== Design Considerations
 ===== Aspect: Method to suggest auto-complete words
