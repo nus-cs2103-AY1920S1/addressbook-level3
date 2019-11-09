@@ -134,10 +134,10 @@ public class MainAppTest extends ApplicationTest {
         robot.clickOn(commandBox).write("onduty 1").type(KeyCode.ENTER);
         Assertions.assertThat(resultDisplay.getText()).endsWith("is now on duty");
 
-        robot.write("newpatient -id 001A -name John Doe -phone 98765432"
+        robot.write("newpatient -id E0000001A -name John Doe -phone 98765432"
                         + " -email johnd@example.com -address 311, Clementi Ave 2, #02-25")
                 .type(KeyCode.ENTER)
-                .write("enqueue 001A")
+                .write("enqueue E0000001A")
                 .type(KeyCode.ENTER);
 
         Assertions.assertThat(resultDisplay.getText()).startsWith("New patient added to the queue:");
@@ -161,7 +161,7 @@ public class MainAppTest extends ApplicationTest {
         robot.write("offduty 1").type(KeyCode.ENTER);
         Assertions.assertThat(resultDisplay.getText()).endsWith("is off-duty");
 
-        robot.write("enqueue 001A").type(KeyCode.ENTER);
+        robot.write("enqueue E0000001A").type(KeyCode.ENTER);
         Assertions.assertThat(queueListView).hasExactlyNumItems(1);
 
         robot.write("dequeue 1").type(KeyCode.ENTER);
@@ -184,7 +184,7 @@ public class MainAppTest extends ApplicationTest {
         var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
         var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
 
-        robot.clickOn(commandBox).write("newdoctor -id imp0ssible -name bee").type(KeyCode.ENTER);
+        robot.clickOn(commandBox).write("newdoctor -id E0000001W -name bee").type(KeyCode.ENTER);
         Assertions.assertThat(resultDisplay.getText()).startsWith("New staff added");
 
         robot.write("undo").type(KeyCode.ENTER);
