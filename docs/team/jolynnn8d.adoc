@@ -59,7 +59,6 @@ _{you can add/remove categories in the list above}_
 
 include::../UserGuide.adoc[tag=quiz]
 
-
 == Contributions to the Developer Guide
 
 |===
