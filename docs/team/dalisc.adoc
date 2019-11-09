@@ -155,9 +155,9 @@ _{end of extract 3}_
 
 In addition to a User Guide, we wrote a Developer Guide targeted at developers who are interested in contributing to the project. The Developer Guide showcases my ability to write technical documentation and the technical depth of my contributions to the project.Given below is my contribution to the Developer Guide:
 
-{start of extract: implementation of stats command}
+_{start of extract: implementation of stats command}_
 
-4.8. Statistics feature
+*4.8. Statistics feature*
 
 *4.8.1. Current Implementation*
 
@@ -202,5 +202,5 @@ image::LineChartActivityDiagram.png[]
 ** Pros: The statistics will have more meaning.
 ** Cons: Implementation is difficult.
 
-{end of extract}
+_{end of extract}_
 
