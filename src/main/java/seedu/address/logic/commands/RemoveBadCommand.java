@@ -2,6 +2,8 @@
 
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deadline.BadQuestions;
@@ -9,8 +11,6 @@ import seedu.address.model.deadline.DueDate;
 import seedu.address.model.deadline.exceptions.DeadlineNotFoundException;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Deletes a flashCard identified using it's displayed index from the address book.

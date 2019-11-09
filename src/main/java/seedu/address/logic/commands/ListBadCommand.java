@@ -34,8 +34,8 @@ public class ListBadCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-
         BadQuestions badQuestions = new BadQuestions();
+
         try {
             String bad = badQuestions.showBadQuestionsList(date);
             return new CommandResult(String.format(bad));
