@@ -115,7 +115,8 @@ public class DateUtilTest {
 
     @Test
     public void isWithinRange_negativeDays_throwsIllegalArgumentException() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> DateUtil.isWithinRange(-1, LocalDate.now(), LocalDate.now()));
+        Assert.assertThrows(IllegalArgumentException.class, () -> DateUtil
+                .isWithinRange(-1, LocalDate.now(), LocalDate.now()));
     }
 
     @Test
