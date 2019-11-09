@@ -142,19 +142,11 @@ public class JsonAdaptedFlashcard {
         if (type.equals("McqFlashcard")) {
             McqFlashcard flashcard =
                 new McqFlashcard(modelQuestion, modelChoices, modelDefinition, modelTags, modelAnswer, modelScore);
-            if (!flashcard.isValidFlashcard()) {
-                throw new IllegalValueException("The Json file provided an illegal MCQ Flashcard, "
-                    + "now starting with default flashcards.");
-            }
-            return new McqFlashcard(modelQuestion, modelChoices, modelDefinition, modelTags, modelAnswer, modelScore);
+            return flashcard;
         } else if (type.equals("ShortAnswerFlashcard")) {
             ShortAnswerFlashcard flashcard =
                 new ShortAnswerFlashcard(modelQuestion, modelDefinition, modelTags, modelAnswer, modelScore);
-            if (!flashcard.isValidFlashcard()) {
-                throw new IllegalValueException("The Json file provided an illegal ShortAnswer Flashcard, "
-                    + "now starting with default flashcards.");
-            }
-            return new ShortAnswerFlashcard(modelQuestion, modelDefinition, modelTags, modelAnswer, modelScore);
+            return flashcard;
         } else {
             throw new IllegalValueException("Issue in saved file, the flashcard type is incorrect.");
         }

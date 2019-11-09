@@ -16,6 +16,7 @@ import java.util.Set;
 
 import seedu.flashcard.commons.core.Messages;
 import seedu.flashcard.commons.core.index.Index;
+import seedu.flashcard.commons.exceptions.IllegalValueException;
 import seedu.flashcard.commons.util.CollectionUtil;
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
@@ -99,8 +100,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code McqFlashcard} with the details of {@code flashcardToEdit}
      * edited with {@code editFlashcardDescriptor}.
      */
-    private static Flashcard createEditedMcqFlashcard(McqFlashcard flashcardToEdit,
-                                                      EditFlashcardDescriptor editFlashcardDescriptor) {
+    private static Flashcard createEditedMcqFlashcard(
+        McqFlashcard flashcardToEdit, EditFlashcardDescriptor editFlashcardDescriptor) {
         assert flashcardToEdit != null;
         Question updatedQuestion = editFlashcardDescriptor.getQuestion().orElse(flashcardToEdit.getQuestion());
         List<Choice> updatedChoices = editFlashcardDescriptor.getChoices().orElse(flashcardToEdit.getChoices());
