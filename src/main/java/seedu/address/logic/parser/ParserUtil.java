@@ -351,15 +351,16 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a string length into an integer length.
+     * Parses a {@code String} length into an {@code Integer} length.
      * Checks that length requirements are met.
      *
      * @throws ParseException if the given length is invalid.
      */
     public static int parsePasswordLength(String length) throws ParseException {
+        requireNonNull(length);
         try {
             int lengthNum = Integer.parseInt(length);
-            if (lengthNum <= 3 || lengthNum > 25) {
+            if (!GeneratePasswordCommand.isValidGeneratePasswordLength(lengthNum)) {
                 throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH);
             }
             return lengthNum;
@@ -375,6 +376,7 @@ public class ParserUtil {
      * @throws ParseException if the given length is invalid.
      */
     public static boolean parseBool(String bool) throws ParseException {
+        requireNonNull(bool);
         if (!(bool.equals("false"))) {
             throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_BOOLEAN);
         }

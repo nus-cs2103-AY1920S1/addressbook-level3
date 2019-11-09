@@ -1,5 +1,7 @@
 package seedu.address.model.password.analyser.match;
 
+import java.util.Objects;
+
 /**
  * Represents a {@code match} which was found  by {@code KeyboardAnalyser}.
  */
@@ -36,5 +38,10 @@ public class KeyboardMatch extends BaseMatch implements Comparable<KeyboardMatch
             return this.turns - o.turns;
         }
         return o.getToken().length() - super.getToken().length();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), turns);
     }
 }

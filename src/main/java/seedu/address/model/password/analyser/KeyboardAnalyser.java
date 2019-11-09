@@ -65,7 +65,6 @@ public class KeyboardAnalyser implements Analyser {
      * Returns true if curr character and next character are neighbours.
      * @param curr the current character.
      * @param next the neighbouring character.
-     * @return true only if current and next character are neighbours based on adj matrix of keyboard.
      */
     private boolean isNeighbour(Character curr, Character next) {
         List<Character> nextNeighbours = AdjacencyGraph.getNeighbors(next);

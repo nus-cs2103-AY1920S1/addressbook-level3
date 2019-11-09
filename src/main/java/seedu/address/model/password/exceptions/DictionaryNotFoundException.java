@@ -1,21 +1,22 @@
-package seedu.address.commons.exceptions;
+package seedu.address.model.password.exceptions;
 
 /**
- * Signals that there are erorrs during dictionary construction.
+ * Signals that there are errors during dictionary construction.
  */
-public class DictionaryException extends Exception {
+public class DictionaryNotFoundException extends RuntimeException {
 
     /**
      * @param message should contain relevant information on the failed constraint(s)
      */
-    public DictionaryException(String message) {
+    public DictionaryNotFoundException(String message) {
         super(message);
     }
+
     /**
      * @param message should contain relevant information on the failed constraint(s)
      * @param cause of the main exception
      */
-    public DictionaryException(String message, Throwable cause) {
+    public DictionaryNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 }

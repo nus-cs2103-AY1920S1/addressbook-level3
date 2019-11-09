@@ -9,7 +9,7 @@ public class DictionaryMatch extends BaseMatch implements Comparable<DictionaryM
     private int rank;
 
     /**
-     * Constructs a {@code DictionaryMatch}
+     * Constructs a {@code DictionaryMatch}.
      *
      * @param startIndex the start index in the {@code PasswordValue} which the match was found.
      * @param endIndex the end index in the {@code PasswordValue} which the match was found.

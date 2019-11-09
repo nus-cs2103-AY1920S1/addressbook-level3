@@ -4,8 +4,9 @@ import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.result.Result;
 
 /**
- * Represents the detailed Analysis Report formed from the {@code Result}
- * objects from the various {@code Anlayser} Objects
+ * Represents the detailed Analysis Report
+ * formed from the {@code List} of {@code Result} from the each {@code Anlayser}.
+
  */
 public class StrongAnalysisReport extends AnalysisReport {
 

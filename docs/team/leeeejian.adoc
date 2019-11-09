@@ -1,0 +1,23 @@
+= Lee Ee Jian - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+This portfolio outlines my contributions to the project SecureIT.
+
+== PROJECT: SecureIT
+
+---
+Project SecureIT was made possible with the combined effort of team F11-03 which comprises of myself, Leow Jit Yong, Hoon Chee Ping, Ni Tian Zhen and Hui Ting.
+The project was completed in November 2019 as part of a Software Engineering module (CS2103T) in the National University of Singapore.
+
+== Overview
+SecureIT is your all-in-one management tool for confidential information. The idea of creating SecureIT came about because
+my group and I felt that...
+
+
+== Summary of contributions
+This section acts as a summary of my contributions to SecureIT.
+
+* Major enhancement: I added the ability to analyse passwords.
+**

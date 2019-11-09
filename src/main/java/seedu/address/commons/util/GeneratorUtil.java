@@ -28,13 +28,13 @@ public class GeneratorUtil {
      * Generates random password value based on user input.
      * @return a random password value string
      */
-    public static String generateRandomPassword(int length, boolean lower,
-                                                boolean upper, boolean num, boolean special) {
-        ArrayList<String[]> characterSet = setCharacterSet(lower, upper, special, num);
+    public static String generateRandomPassword(int length, boolean hasLower,
+                                                boolean hasUpper, boolean hasNum, boolean hasSpecial) {
+        ArrayList<String[]> characterSet = setCharacterSet(hasLower, hasUpper, hasSpecial, hasNum);
         SecureRandom randomNumGen = new SecureRandom();
         StringBuilder password = new StringBuilder();
 
-        while (!meetUserRequirement(password.toString(), lower, upper, num, special)) {
+        while (!meetUserRequirement(password.toString(), hasLower, hasUpper, hasNum, hasSpecial)) {
             password.setLength(0);
             //generate random character from characterSet for 8 times.
             for (int k = 0; k < length; k++) {

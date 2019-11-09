@@ -112,10 +112,9 @@ public class AdjacencyGraph {
     }
 
     /**
-     * Returns a set of neighbors for a specific character.
+     * Returns the set of neighbors for a specific character.
      *
      * @param key the specific input character.
-     * @return A set of characters which are neighbors to the input character.
      */
     public static List<Character> getNeighbors(Character key) {
         ArrayList<Character> neighbors = new ArrayList<>();
@@ -139,7 +138,6 @@ public class AdjacencyGraph {
      * The substring with the least amount of turns is the easiest password.
      *
      * @param substring the substring of the password.
-     * @return the number of turns in this substring using the {@code AdjacencyGraph}
      */
     public static int getDirections(String substring) {
         int direction = 1; // the direction of the curr -> next
