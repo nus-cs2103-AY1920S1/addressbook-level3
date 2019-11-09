@@ -28,7 +28,7 @@ Additionally, I was tasked to implement an undo/redo feature, find feature and c
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: https://github.com/yamgent[yamgent] - I re-used some of his code to implement the UndoRedoStack. Other than that,
 
-* *Minor enhancement*: I added *the ability to create/read/update/delete customer, phone and order*
+* *Minor enhancement*: I added the ability to create/read/update/delete customer, phone and order
 
 * *Minor enhancement*: I added find command(s) that allows the user to search for customer, phone or order that matches certain keywords.
 This required enhancing the existing find command.
@@ -39,30 +39,29 @@ This would make it convenient for them to copy data out of the application.
 
 * *Code contributed*:
 
+* contributed a total of 11k+ LOC:
+
+** ~5k functional: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zhixianggg&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=zhixianggg&tabRepo=AY1920S1-CS2103T-T09-4%2Fmain%5Bmaster%5D[functional code]
+** 6k+ test: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zhixianggg&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=zhixianggg&tabRepo=AY1920S1-CS2103T-T09-4%2Fmain%5Bmaster%5D[test code]
+
 * Functional
 
 ** Undo/Redo: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/161[#161]
-
 ** Find: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/124[#124], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/165[#165]
-
 ** CRUD: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/80[#80], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/102[#102],
 https://github.com/AY1920S1-CS2103T-T09-4/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/124[#124], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/183[#183]
 
 
-** DevOps: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/120[#120], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/123[#123]
-
-
 * Test
 
-** Order: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/168[#168]
-
+** Command Tests: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/168[#168]
 ** Model Manager: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/106[#106]
 
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.3.1` and `v1.3.2` (2 releases) on GitHub
 
 ** Enhancements to existing features:
 *** Created an Archived Order Tab Panel (backend) as we realise that there was too much clutter in the order tab. https://github.com/AY1920S1-CS2103T-T09-4/main/pull/148[#148]
