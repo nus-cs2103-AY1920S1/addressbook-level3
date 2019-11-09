@@ -24,6 +24,7 @@ public class IcsParserTest {
                 + "END:VEVENT";
         assertDoesNotThrow(() -> DateTime.fromIcsString("20191109T043400Z"));
         DateTime startDateTime = DateTime.fromIcsString("20191109T043400Z");
+        assertEquals(startDateTime, DateTime.fromUserString("09/11/2019 12:34"));
         String description = "Test Description";
 
         EventSource expected = EventSource
