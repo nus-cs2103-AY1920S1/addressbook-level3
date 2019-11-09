@@ -164,7 +164,6 @@ public class LoginWindow extends UiPart<Stage> {
         try {
             String text = loginItem.getText().toLowerCase();
             CommandResult commandResult = logic.execute(loginItem.getText(), false);
-            //loginItem.setText("");
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -177,7 +176,6 @@ public class LoginWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser("Please login or register your account before you do any commands. "
                     + "Scroll down to see examples. \n\n"
                     + LoginCommand.MESSAGE_USAGE + " \n\n" + RegisterAccountCommand.MESSAGE_USAGE);
-            //throw e;
         }
     }
 

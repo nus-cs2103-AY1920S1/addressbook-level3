@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.address.logic.commands.DeleteCustomCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commands.CommandObject;
@@ -22,7 +20,7 @@ public class DeleteCustomCommandParser implements Parser<DeleteCustomCommand> {
             return new DeleteCustomCommand(commandToDelete);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCustomCommand.MESSAGE_USAGE), pe);
+                    String.format(DeleteCustomCommand.MESSAGE_USAGE, args.trim()), pe);
         }
     }
 

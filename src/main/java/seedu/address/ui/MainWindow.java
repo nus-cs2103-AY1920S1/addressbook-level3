@@ -33,7 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
     private LoginWindow loginWindow;
-    private boolean unknown;
+    private boolean isUnknown;
 
     // Independent Ui parts residing in this Ui container
     private EarningsListPanel earningsListPanel;
@@ -377,11 +377,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setUnknownFalse() {
-        this.unknown = false;
+        this.isUnknown = false;
     }
 
     private void setUnknownTrue() {
-        this.unknown = true;
+        this.isUnknown = true;
     }
 
     public EarningsListPanel getEarningsListPanel() {
@@ -408,19 +408,19 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
 
-            CommandResult commandResult = logic.execute(commandText, this.unknown);
-            if (this.unknown) {
+            CommandResult commandResult = logic.execute(commandText, this.isUnknown);
+            if (this.isUnknown) {
                 if (!commandResult.isUnknown()) {
                     setUnknownFalse();
                 }
             }
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+            if (commandResult.isUnknown()) {
+                setUnknownTrue();
             } else if (commandResult.isExit()) {
                 handleExit();
-            } else if (commandResult.isUnknown()) {
-                setUnknownTrue();
+            } else if (commandResult.isShowHelp()) {
+                handleHelp();
             } else if (commandResult.isPersons()) {
                 UiManager.startStudentProfile();
             } else if (commandResult.isTasks()) {
@@ -431,6 +431,8 @@ public class MainWindow extends UiPart<Stage> {
                 UiManager.startNotes();
             } else if (commandResult.isReminder()) {
                 UiManager.startReminders();
+            } else if (commandResult.isLogin()) {
+                UiManager.startLoginWindow();
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());

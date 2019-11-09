@@ -3,6 +3,8 @@ package seedu.address.model.earnings;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.core.index.Index;
@@ -14,14 +16,18 @@ import seedu.address.model.classid.ClassId;
  */
 public class Earnings {
 
+    public static final List<Earnings> EARNINGS_LIST = new ArrayList<>();
     private static ArrayList<Amount> totalEarnings = new ArrayList<>();
+    private static HashMap<String, ArrayList<Earnings>> earningsListToAdd = new HashMap<String, ArrayList<Earnings>>();
 
     // Identity fields
-    private final Date date;
+    private Date date;
     private final ClassId classId;
     private final Amount amount;
     private final Type type;
+    private Count count;
     private Claim claim;
+
 
     /**
      * Every field must be present and not null.
@@ -32,6 +38,7 @@ public class Earnings {
         this.classId = classId;
         this.amount = amount;
         this.type = type;
+        this.count = new Count("0");
         this.claim = new Claim("pending submission");
     }
 
@@ -55,8 +62,45 @@ public class Earnings {
         return claim;
     }
 
+    public Count getCount() {
+        return count;
+    }
+
+    public HashMap getListOfAutoEarnings() {
+        return earningsListToAdd;
+    }
+
+    public ArrayList<Earnings> getArrayListOfAutoEarnings(String key) {
+        return earningsListToAdd.get(key);
+    }
+
+    public void putIntoList(String key, ArrayList<Earnings> list) {
+        earningsListToAdd.put(key, list);
+    }
+
+    public static void removeEarnings(String currentDay, Earnings earnings) {
+        earningsListToAdd.get(currentDay).remove(earnings);
+    }
+
+    /**
+     * Reduces the number of times the earnings is auto added in.
+     */
+    public void reduceCount() {
+        int number = Integer.parseInt(this.count.count);
+        number--;
+        this.count = new Count(String.valueOf(number));
+    }
+
     public void setClaim(Claim claim) {
         this.claim = claim;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setCount(Count count) {
+        this.count = count;
     }
 
     public static String getTotalEarnings() {
