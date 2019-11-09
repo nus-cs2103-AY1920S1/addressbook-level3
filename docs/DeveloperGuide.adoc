@@ -1484,12 +1484,41 @@ Expected: No plan is deleted. Error message is shown. Plan index must be a valid
    Expected: The _Edit Problem_ button should be disabled and not clickable.
 .. Test case: Some valid changes are made and the user clicks on _Edit Problem_ button. +
    Expected: Name of the edited problem shown in the status message. Field updates are reflected in the Display, Details and Plan tabs. _Edit Problem_ button is disabled.
+.. Test case: Some invalid changes are made and the user clicks on _Edit Problem_ button. +
+   Expected: Error details shown in the status message. Field updates are not reflected in the Display and Plan tabs, and Details Tab remains in edit mode. _Edit Problem_ button is not disabled.
 
 === Deleting Problem from GUI
 
+. Editing a Problem from GUI
+.. Prerequisites: At least one problem exists and it is opened in a Details Tab.
+.. Test case: User clicks on the Delete button. +
+   Expected: A warning dialog shows up with a _Confirm_ and _Cancel_ button.
+.. Test case: User clicks on the Delete button then clicks _Confirm_ on the warning dialog. +
+   Expected: The Warning dialog and Details tab is closed, and the problem is removed from the plan as well as Display and Plan tabs.
+.. Test case: User clicks on the Delete button then clicks _Cancel_ on the warning dialog. +
+   Expected: The Warning dialog is closed and no other changes are made.
+
 === Editing Plan from GUI
 
+. Editing a Plan from GUI
+.. Prerequisites: At least one plan exists and it is opened in a Details Tab.
+.. Test case: No changes are made to the Plan. +
+   Expected: The _Edit Plan_ button should be disabled and not clickable.
+.. Test case: Some valid changes are made and the user clicks on _Edit Plan_ button. +
+   Expected: Name of the edited plan shown in the status message. Field updates are reflected in the Display, Details and Plan tabs. _Edit Plan_ button is disabled.
+.. Test case: Some invalid changes are made and the user clicks on _Edit Problem_ button. +
+   Expected: Error details shown in the status message. Field updates are not reflected in the Display and Plan tabs, and Details Tab remains in edit mode. _Edit Plan_ button is not disabled.
+
 === Deleting Plan from GUI
+
+. Editing a Plan from GUI
+.. Prerequisites: At least one plan exists and it is opened in a Details Tab.
+.. Test case: User clicks on the Delete button. +
+   Expected: A warning dialog shows up with a _Confirm_ and _Cancel_ button.
+.. Test case: User clicks on the Delete button then clicks _Confirm_ on the warning dialog. +
+   Expected: The Warning dialog and Details tab is closed, and the plan is removed from the Display and Plan tabs.
+.. Test case: User clicks on the Delete button then clicks _Cancel_ on the warning dialog. +
+   Expected: The Warning dialog is closed and no other changes are made.
 
 === Switching tabs from GUI
 

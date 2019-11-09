@@ -64,10 +64,10 @@
         </padding>
 
         <!-- Edit Button -->
-        <Button fx:id="editButton" styleClass="edit_button" text="Edit Plan" />
+        <Button fx:id="editButton" onMouseClicked="#handleEditPlan" styleClass="edit_button" text="Edit Plan" />
 
         <!-- Delete Button -->
-        <Button fx:id="deleteButton" styleClass="delete_button" text="Delete Plan" />
+        <Button fx:id="deleteButton" onMouseClicked="#handleDeletePlan" styleClass="delete_button" text="Delete Plan" />
       </HBox>
     </VBox>
   </ScrollPane>
