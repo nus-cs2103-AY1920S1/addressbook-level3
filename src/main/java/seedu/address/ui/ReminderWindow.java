@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,8 +12,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -71,21 +68,23 @@ public class ReminderWindow extends UiPart<Stage> {
         border.setTop(hbox);
         border.setCenter(reminderListView);
         reminderListView.setItems(logic.getFilteredReminderList());
+        reminderListView.setPrefWidth(700);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
-
-
-        //addStackPane(hbox);         // Add stack to HBox in top region
-        //border.setCenter(new GridPane());
-        //border.setRight(new FlowPane());
-        //hbox.getChildren().addAll(reminder);
-        //reminder.setText(HELP_MESSAGE);
-
+        border.isResizable();
+        border.setMargin(reminderListView, new Insets(5, 5, 5, 5));
     }
+    //addStackPane(hbox);
+    // Add stack to HBox in top region
+    //border.setCenter(new GridPane());
+    //border.setRight(new FlowPane());
+    //hbox.getChildren().addAll(reminder);
+    //reminder.setText(HELP_MESSAGE);
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class ReminderListViewCell extends ListCell<Reminder> {
+
         @Override
         protected void updateItem(Reminder reminder, boolean empty) {
             super.updateItem(reminder, empty);
@@ -94,6 +93,7 @@ public class ReminderWindow extends UiPart<Stage> {
                 setText(null);
             } else {
                 setText(reminder.toWindowString());
+
             }
         }
     }
@@ -161,6 +161,9 @@ public class ReminderWindow extends UiPart<Stage> {
         clipboard.setContent(url);
     }
 
+    /**
+     * Creates a new HBox for the Title.
+     */
     public HBox addHBox() {
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(15, 12, 15, 12));
@@ -182,14 +185,17 @@ public class ReminderWindow extends UiPart<Stage> {
         return hbox;
     }
 
+    /**
+     * Creates a new StackPane for the Title.
+     */
     public void addStackPane(HBox hb) {
         StackPane stack = new StackPane();
         Rectangle helpIcon = new Rectangle(30.0, 25.0);
-        helpIcon.setFill(new LinearGradient(0,0,0,1, true, CycleMethod.NO_CYCLE,
+        helpIcon.setFill(new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
                 new Stop[]{
-                        new Stop(0, Color.web("#4977A3")),
-                        new Stop(0.5, Color.web("#B0C6DA")),
-                        new Stop(1,Color.web("#9CB6CF")),}));
+                    new Stop(0, Color.web("#4977A3")),
+                    new Stop(0.5, Color.web("#B0C6DA")),
+                    new Stop(1, Color.web("#9CB6CF"))}));
         helpIcon.setStroke(Color.web("#D0E6FA"));
         helpIcon.setArcHeight(3.5);
         helpIcon.setArcWidth(3.5);
@@ -200,10 +206,10 @@ public class ReminderWindow extends UiPart<Stage> {
         helpText.setStroke(Color.web("#7080A0"));
 
         stack.getChildren().addAll(helpIcon, helpText);
-        stack.setAlignment(Pos.CENTER_RIGHT);     // Right-justify nodes in stack
+        stack.setAlignment(Pos.CENTER_RIGHT); // Right-justify nodes in stack
         StackPane.setMargin(helpText, new Insets(0, 10, 0, 0)); // Center "?"
 
-        hb.getChildren().add(stack);            // Add to HBox from Example 1-2
-        HBox.setHgrow(stack, Priority.ALWAYS);    // Give stack any extra space
+        hb.getChildren().add(stack); // Add to HBox from Example 1-2
+        HBox.setHgrow(stack, Priority.ALWAYS); // Give stack any extra space
     }
 }

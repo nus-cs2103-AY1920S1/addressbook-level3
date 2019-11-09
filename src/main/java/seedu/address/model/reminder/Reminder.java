@@ -81,11 +81,14 @@ public class Reminder {
         return builder.toString();
     }
 
+    /**
+     * Creates toString method to print Reminders on the RemindersWindow.
+     */
     public String toWindowString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Description: ")
+        builder.append("Description: ")
                 .append(getDescription())
-                .append(" Time: ")
+                .append("Time: ")
                 .append(getTime());
         return builder.toString();
     }
