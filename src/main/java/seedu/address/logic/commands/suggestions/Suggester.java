@@ -24,8 +24,6 @@ import seedu.address.logic.commands.EditGroupCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.EditUserCommand;
 import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.FindGroupCommand;
-import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.PopupCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ShowCommand;
@@ -63,8 +61,6 @@ public abstract class Suggester {
             Map.entry(EditPersonCommand.COMMAND_WORD, EditPersonCommandSuggester.class),
             Map.entry(EditUserCommand.COMMAND_WORD, EditUserCommandSuggester.class),
             Map.entry(ExportCommand.COMMAND_WORD, ExportCommandSuggester.class),
-            Map.entry(FindGroupCommand.COMMAND_WORD, GroupNameSuggester.class),
-            Map.entry(FindPersonCommand.COMMAND_WORD, FindPersonCommandSuggester.class),
             Map.entry(PopupCommand.COMMAND_WORD, GroupNameSuggester.class),
             Map.entry(ScheduleCommand.COMMAND_WORD, GroupNameSuggester.class),
             Map.entry(ShowCommand.COMMAND_WORD, ShowCommandSuggester.class),
