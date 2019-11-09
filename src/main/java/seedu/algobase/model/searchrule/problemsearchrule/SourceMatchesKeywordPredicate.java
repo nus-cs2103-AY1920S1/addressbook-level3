@@ -36,6 +36,7 @@ public class SourceMatchesKeywordPredicate implements Predicate<Problem> {
 
     @Override
     public boolean test(Problem problem) {
+        requireNonNull(problem);
         if (!Source.isValidSource(keyword.toString())) {
             return false;
         }

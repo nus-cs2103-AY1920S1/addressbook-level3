@@ -407,6 +407,7 @@ public class ParserUtil {
      * @throws ParseException if keyword is invalid.
      */
     private static void checkKeywordString(String keyword) throws ParseException {
+        requireNonNull(keyword);
         if (!Keyword.isValidKeyword(keyword)) {
             throw new ParseException(String.format(MESSAGE_INVALID_KEYWORD_FORMAT, Keyword.MESSAGE_CONSTRAINTS));
         }
@@ -418,6 +419,7 @@ public class ParserUtil {
      * @throws ParseException if any keyword inside the list is invalid.
      */
     private static void checkKeywordStringList(List<String> keywords) throws ParseException {
+        requireNonNull(keywords);
         if (keywords.stream().anyMatch(keyword -> !Keyword.isValidKeyword(keyword))) {
             throw new ParseException(String.format(MESSAGE_INVALID_KEYWORD_FORMAT, Keyword.MESSAGE_CONSTRAINTS));
         }
@@ -453,10 +455,10 @@ public class ParserUtil {
         } catch (NumberFormatException | NullPointerException nfe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage), nfe);
-        } catch (IllegalArgumentException ire) {
+        } catch (IllegalArgumentException iae) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_DIFFICULTY_RANGE, DifficultyIsInRangePredicate.MESSAGE_CONSTRAINTS),
-                ire);
+                iae);
         }
     }
 

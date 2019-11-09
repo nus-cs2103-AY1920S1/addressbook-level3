@@ -27,10 +27,10 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=le0tan[Cod
 
 ** Highlights:
 *** This is a full-stack feature involving all the components of *AlgoBase* from `Logic` to `Model` to `Storage` to `UI`, consisting of roughly 3000 lines of functional code and more than 2000 lines of testing code.
-*** `find` can search on almost all fields of a problem while `sort` provides 10 combinations of sorting order.
+*** `findprob` can search on almost all fields of a problem while `sortprob` provides 10 combinations of sorting order.
 *** It requires an in-depth analysis of the overall architecture of *AlgoBase* because
-**** The original implementation of `find` in AddressBook accepts only one search constraint (i.e. the name), but in *AlgoBase* we need to support combination of arbitrary (non-zero) number of search constraints.
-**** The design of AB3 only considers "filtering" problems, thus it used `FilteredList` to support `find` command. However, *AlgoBase* needs to support both `find` and `sort`. We need to redesign the way AB3 exposes the processed observable list to the UI so that the list accepts both a predicate and a comparator.
+**** The original implementation of `findprob` in AddressBook accepts only one search constraint (i.e. the name), but in *AlgoBase* we need to support combination of arbitrary (non-zero) number of search constraints.
+**** The design of AB3 only considers "filtering" problems, thus it used `FilteredList` to support `findprob` command. However, *AlgoBase* needs to support both `findprob` and `sortprob`. We need to redesign the way AB3 exposes the processed observable list to the UI so that the list accepts both a predicate and a comparator.
 
 ** Relevant pull requests:
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/49[#49]
@@ -44,7 +44,7 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/107[#107]
 
 ** What it does: allows the user to navigate to previous commands using ↑ and ↓ keyboard shortcut.
 
-** Justification: This feature makes `addfindrule` more useful - the user can first check if their problem find rule is working as expected by executing it using `find` command, then press ↑ to restore the command text, change the command word to `addfindrule` and assign a name to the added find rule.
+** Justification: This feature makes `addfindrule` more useful - the user can first check if their problem find rule is working as expected by executing it using `findprob` command, then press ↑ to restore the command text, change the command word to `addfindrule` and assign a name to the added find rule.
 
 ** Relevant pull request
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/105[#105]
@@ -53,7 +53,7 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/137[#137] (Adapted some code
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` (1 release) on GitHub
+*** Managed releases `v1.3`, `v1.3.4`, `v1.4` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** Re-implement the `help` command:
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/81[#81]
@@ -97,6 +97,7 @@ https://github.com/AY1920S1-CS2103-T16-1/main/issues/203[#203])
 include::../UserGuide.adoc[tag=sort]
 include::../UserGuide.adoc[tag=find]
 include::../UserGuide.adoc[tag=findrule]
+include::../UserGuide.adoc[tag=help]
 
 == Contributions to the Developer Guide
 
@@ -109,4 +110,6 @@ include::../DeveloperGuide.adoc[tag=savefindrule]
 === More contributions to the Developer Guide
 
 https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#Design-Model[Design - Model] +
-https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#find-problem-feature[Implementation - Find Feature]
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#find-problem-feature[Implementation - Find Feature] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#use-cases[Use cases for find and sort] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#non-functional-requirements[Non-functional requirements]

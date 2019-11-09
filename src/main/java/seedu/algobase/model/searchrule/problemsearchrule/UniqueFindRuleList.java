@@ -30,8 +30,8 @@ public class UniqueFindRuleList implements Iterable<ProblemSearchRule> {
         FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent ProblemSearchRule as the given argument.
-     * @param toCheck
+     * Returns true if the list contains an equivalent ProblemSearchRule as the {@code toCheck}.
+     * @param toCheck find rule to be checked
      */
     public boolean contains(ProblemSearchRule toCheck) {
         requireNonNull(toCheck);
@@ -41,7 +41,7 @@ public class UniqueFindRuleList implements Iterable<ProblemSearchRule> {
     /**
      * Adds a ProblemSearchRule to the list.
      * The ProblemSearchRule must not exist in the list.
-     * @param rule
+     * @param rule find rule to be added
      */
     public void add(ProblemSearchRule rule) {
         requireNonNull(rule);
@@ -56,8 +56,8 @@ public class UniqueFindRuleList implements Iterable<ProblemSearchRule> {
      * {@code target} must exist in the list.
      * The ProblemSearchRule identity of {@code editedRule} must not be the same with any other ProblemSearchRule
      * in the list.
-     * @param target
-     * @param editedRule
+     * @param target find rule to be replaced
+     * @param editedRule find rule to replace
      */
     public void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
         requireAllNonNull(target, editedRule);
@@ -75,7 +75,7 @@ public class UniqueFindRuleList implements Iterable<ProblemSearchRule> {
     /**
      * Removes the equivalent ProblemSearchRule from the list.
      * {@code toRemove} must exist in the list.
-     * @param toRemove
+     * @param toRemove find rule to be removed
      */
     public void remove(ProblemSearchRule toRemove) {
         requireNonNull(toRemove);
@@ -87,7 +87,7 @@ public class UniqueFindRuleList implements Iterable<ProblemSearchRule> {
     /**
      * Replaces the contents of the list with {@code replacement}.
      * {@code replacement} must not contain any
-     * @param replacement
+     * @param replacement replacement list
      */
     public void setFindRules(UniqueFindRuleList replacement) {
         requireNonNull(replacement);
@@ -110,7 +110,7 @@ public class UniqueFindRuleList implements Iterable<ProblemSearchRule> {
     /**
      * Returns true if {@code rules} contains only unique {@code ProblemSearchRule}.
      *
-     * @param rules
+     * @param rules list of find rules to be checked
      */
     private boolean findRulesAreUnique(List<ProblemSearchRule> rules) {
         for (int i = 0; i < rules.size() - 1; i++) {

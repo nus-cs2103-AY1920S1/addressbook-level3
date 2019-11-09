@@ -756,6 +756,7 @@ Updating the UI synchronously
 //@@author
 
 //@@author Seris370
+// tag::plan[]
 
 === Training Plan Feature
 
@@ -821,7 +822,7 @@ Step 6. The user executes `deleteplan 1`, which calls `Model#getFilteredPlanList
 * **Alternative 2:** By indicating index of the original problem.
 ** Pros: Complies with other usages of prefix `task/`.
 ** Cons: Adds coupling due to access to `filteredProblemList` in the model.
-
+// end::plan[]
 //@@author
 
 == Documentation
@@ -1004,6 +1005,8 @@ Use case ends.
 +
 Use case ends.
 
+// tag::find_uc[]
+
 [discrete]
 === Use Case 5: Find Problems
 
@@ -1028,6 +1031,9 @@ Use case ends.
 +
 Use case ends.
 
+// end::find_uc[]
+
+// tag::sort_uc[]
 [discrete]
 === Use Case 6: Sort Problems
 
@@ -1045,10 +1051,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. AlgoBase detects that no sort order is specified.
+* 2a. AlgoBase detects that no sorting method is specified.
 +
 [none]
-** 2a1. AlgoBase informs user that no sort order is given.
+** 2a1. AlgoBase informs user that no sorting method is given.
 +
 Use case ends.
 
@@ -1156,6 +1162,8 @@ Use case ends.
 ** 2a1. AlgoBase informs user that the form of new tag is invalid.
 +
 Use case ends.
+
+// end::sort_uc[]
 
 [discrete]
 === Use Case 12: Add Tasks to Plan
@@ -1475,6 +1483,46 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No problem is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+
+=== Adding a Plan
+
+. Adding a plan to the existing AlgoBase
+
+.. Test case: `addplan n/ByteDance d/coding test for Software engineering` +
+   Expected: A new plan with respective information is added and displayed on plan tab. Start date is now and end date is one month from now.
+.. Test case: `addplan n/ByteDance d/coding test for Software engineering` +
+   Expected: No plan is added. Error details shown in the status message. No plans with duplicate names can be added.
+
+=== Editing a plan
+
+. Editing a plan
+
+.. Test case: `listplan` +
+`edit 1 d/give up start/2019-01-01 end/2020-02-02` +
+   Expected: All plans are displayed in chronological order. The description and the dates of the first plan is changed.
+.. Test case: `edit 1 end/2018-02-02` +
+   Expected: Edit command is invalid. Error details shown in the status message. Starting date should be before or equal to end date.
+
+. Finding plans
+
+.. Test case: `findplan n/bytedance` +
+   Expected: The plan named 'ByteDance' is listed.
+.. Test case: `findplan start/2019-01-01 2019-12-12` +
+   Expected: Plans whose time range overlaps with the given time range are listed in the plan panel.
+
+. Deleting a plan
+
+.. Test case: `findplan n/bytedance` +
+`delete 1` +
+   Expected: The plan with name 'ByteDance' is deleted.
+.. Test case: `listplan` +
+`delete 1`
+   Expected: The first plan among all plans is deleted.
+.. Test case: `delete all`
+Expected: No plan is deleted. Error message is shown. Plan index must be a valid integer.
+
+
 === Saving Data
 
 . Dealing with missing/corrupted data files

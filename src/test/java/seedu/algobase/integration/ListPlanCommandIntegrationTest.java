@@ -20,7 +20,8 @@ import seedu.algobase.storage.JsonAlgoBaseStorage;
 import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
-public class AddPlanCommandIntegrationTest {
+
+public class ListPlanCommandIntegrationTest {
     @TempDir
     public Path testFolder;
 
@@ -39,21 +40,8 @@ public class AddPlanCommandIntegrationTest {
     }
 
     @Test
-    public void addplan_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("addplan n/test d/test start/2019-01-01 end/2019-01-01\n");
-        logicManager.execute("addplan n/test1 d/test start/2018-01-01 end/2018-02-28\n");
-        logicManager.execute("addplan n/test2 d/test start/2018-01-01 end/2020-02-29\n");
-        logicManager.execute("addplan n/test3 d/test start/2018-01-01 end/2020-03-31\n");
-        logicManager.execute("addplan n/test4 d/test start/2018-01-01 end/2020-04-30\n");
-        logicManager.execute("addplan n/test5 d/test start/2018-01-01 end/2020-05-31\n");
-        logicManager.execute("addplan n/test6 d/test start/2018-01-01 end/2020-06-30\n");
-        logicManager.execute("addplan n/test7 d/test start/2018-01-01 end/2020-07-31\n");
-        logicManager.execute("addplan n/test8 d/test start/2018-01-01 end/2020-08-31\n");
-        logicManager.execute("addplan n/test9 d/test start/2018-01-01 end/2020-09-30\n");
-        logicManager.execute("addplan n/test10 d/test start/2018-01-01 end/2020-10-31\n");
-        logicManager.execute("addplan n/test11 d/test start/2018-01-01 end/2020-11-30\n");
-        logicManager.execute("addplan n/test12 d/test start/0000-01-01 end/0999-01-31\n");
-        logicManager.execute("addplan n/test13 d/test start/2018-01-01 end/9999-12-31\n");
-        assertProcessedPlanListOfLength(logicManager, 3);
+    public void listplan_allConstraints() throws CommandException, ParseException {
+        logicManager.execute("listplan\n");
+        assertProcessedPlanListOfLength(logicManager, 2);
     }
 }

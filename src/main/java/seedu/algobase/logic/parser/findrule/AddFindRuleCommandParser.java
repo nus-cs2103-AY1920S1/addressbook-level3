@@ -1,5 +1,6 @@
 package seedu.algobase.logic.parser.findrule;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_NAME_FORMAT;
 import static seedu.algobase.commons.util.CollectionUtil.isAnyNonNull;
@@ -16,6 +17,9 @@ import static seedu.algobase.logic.parser.ParserUtil.parseNamePredicate;
 import static seedu.algobase.logic.parser.ParserUtil.parseSourcePredicate;
 import static seedu.algobase.logic.parser.ParserUtil.parseTagPredicate;
 
+import java.util.logging.Logger;
+
+import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.commands.findrule.AddFindRuleCommand;
 import seedu.algobase.logic.parser.ArgumentMultimap;
 import seedu.algobase.logic.parser.ArgumentTokenizer;
@@ -35,6 +39,8 @@ import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPred
  */
 public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
 
+    private static final Logger logger = LogsCenter.getLogger(AddFindRuleCommandParser.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddFindRuleCommand
      * and returns a AddFindRuleCommand object for execution.
@@ -43,6 +49,10 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
      */
     @Override
     public AddFindRuleCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+
+        logger.info("Parsing add find rule command with input: " + args);
+
         ArgumentMultimap argumentMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_DESCRIPTION, PREFIX_SOURCE,
                 PREFIX_DIFFICULTY, PREFIX_TAG);
@@ -52,6 +62,11 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFindRuleCommand.MESSAGE_USAGE));
         }
 
+        if (!Name.isValidName(argumentMultimap.getPreamble())) {
+            throw new ParseException(String.format(MESSAGE_INVALID_NAME_FORMAT, Name.MESSAGE_CONSTRAINTS));
+        }
+        final Name name = new Name(argumentMultimap.getPreamble());
+
         final DifficultyIsInRangePredicate difficultyIsInRangePredicate;
         if (argumentMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
             difficultyIsInRangePredicate = parseDifficultyPredicate(argumentMultimap.getValue(PREFIX_DIFFICULTY).get(),
@@ -59,11 +74,6 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
         } else {
             difficultyIsInRangePredicate = null;
         }
-
-        if (!Name.isValidName(argumentMultimap.getPreamble())) {
-            throw new ParseException(String.format(MESSAGE_INVALID_NAME_FORMAT, Name.MESSAGE_CONSTRAINTS));
-        }
-        final Name name = new Name(argumentMultimap.getPreamble());
 
         final NameContainsKeywordsPredicate nameContainsKeywordsPredicate;
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
