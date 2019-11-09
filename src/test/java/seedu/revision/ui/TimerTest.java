@@ -1,4 +1,4 @@
-package guitests;
+package seedu.revision.ui;
 
 import java.util.concurrent.TimeUnit;
 
@@ -58,7 +58,6 @@ class TimerTest {
         timer.startTimer();
         timer.stopTimer();
         robot.sleep(2, TimeUnit.SECONDS);
-        //Delay has to be a bit longer for the robot
         FxAssert.verifyThat(timer.getLabel(), LabeledMatchers.hasText(""));
     }
 
@@ -68,11 +67,10 @@ class TimerTest {
      * @param robot - Will be injected by the test runner.
      */
     @Test
-    public void timerResetAfterTwoSeconds_waitFourSeconds_shouldBeResetToThree(FxRobot robot) {
+    public void timerResetAfterTwoSeconds_shouldBeResetToThree(FxRobot robot) {
         timer.startTimer();
         robot.sleep(2, TimeUnit.SECONDS);
         timer.resetTimer();
-        //Delay has to be a bit longer for the robot
         FxAssert.verifyThat(timer.getLabel(), LabeledMatchers.hasText("3"));
     }
 }
