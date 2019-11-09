@@ -253,11 +253,11 @@ We will now move on to the next section, which aims to explain the implementatio
 
 This section describes some noteworthy details on how certain features are implemented.
 
-//tag::addBook[]
 === Add book feature
 This feature allows a user to add a new book to the LiBerry system.
 
-==== Implementation
+//tag::addBook[]
+==== Details of Implementation
 
 The add book function is facilitated by `Catalog`.
 The `Catalog` stores a list of books, representing the books in the library.
@@ -268,10 +268,14 @@ Additionally, it implements the following operation:
 Given below is an activity diagram of a book being added to the catalog.
 
 .Activity Diagram for adding a book
-image::AddBookActivityDiagram.png[width=270, align=center]
-{nbsp} +
+image::AddBookActivityDiagram.png[width=400, align=center]
+NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
+they are not shown.
 
-Given below is a class diagram of a book.
+{nbsp} +
+We can clearly see how the system decides to generate a valid serial number base on whether the user input contains a valid serial number or not. +
+{nbsp} +
+After the book is added to the system, we can now represent it with a class diagram shown below.
 
 .Class Diagram for `Book`
 image::BookClassDiagram.png[width=400, align=center]
@@ -279,14 +283,15 @@ image::BookClassDiagram.png[width=400, align=center]
 
 Notice how the book can hold either *1 or 0 loans*, depending on whether it is currently loaned out or not. +
 {nbsp} +
-
-Given below is the object diagram of a newly added book.
+The current state of this newly-added book is further illustrated by the object diagram below.
 
 .Object Diagram for `Book`
 image::BookObjectDiagram.png[width=300, align=center]
 {nbsp} +
 
-We can see that the book holds a `Optional<Loan>` in order to have either *0 or 1 `Loan` objects*. This makes it consistent with the class diagram of `Book` above.
+We can see that the book holds a `Optional<Loan>` in order to have either *0 or 1 `Loan` objects*.
+This makes it consistent with the class diagram of `Book` above.
+We can also observe that the `LoanHistory` object of the `Book` is empty since the book is new and is not loaned out before.
 
 ==== Design Considerations
 
@@ -299,9 +304,9 @@ We can see that the book holds a `Optional<Loan>` in order to have either *0 or 
 ** Pros: Will be easier (and more readable in code) to retrieve books by serial number.
 ** Cons: Will incur additional memory to maintain the HashMap.
 
-We have decided to go with Alternative 2. In contrast to the original AddressBook3, there is much more retrieval of
+*We have decided to go with Alternative 2.* In contrast to the original AddressBook3, there is much more retrieval of
 book objects in within the Book and Loan feature. Therefore, the benefits of quick retrieval of book information from the catalog will
-outweigh the additional memory costs to maintain the HashMap.
+outweigh the additional memory costs incurred to maintain the HashMap.
 
 ===== Aspect: Generating a unique serial number.
 Since we allow librarians to provide a valid serial number to new books if they wish so, we cannot generate the serial
@@ -317,18 +322,18 @@ We need to come up with a solution to give us "B00001" in the given example.
 
 * **Alternative 1:** Use a TreeMap to store current serial numbers such that we can efficiently determine the next serial number in running order.
 ** Pros: Will be efficient in generating the next valid serial number.
-** Cons: Will incur additional memory to maintain the TreeMap.
+** Cons: Will incur additional memory to maintain the TreeMap. Might also result in unexpected behaviour in some edge cases.
 * **Alternative 2 (Current choice):** Iterate from "B00001" to obtain the first unused serial number.
 ** Pros: Will be easy to implement.
 ** Cons: Will be inefficient once the number of books grow.
 
-We have decided to go with Alternative 2 and keep it simple as there are some edge cases which will lead to the implementation in
-Alternative 1 not behaving as expected. This is also in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
+*We have decided to go with Alternative 2* and keep it simple. This is because there are some edge cases which will lead to the implementation in
+Alternative 1 not behaving as expected. Furthermore, Alternative 2 is also in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
 //end::addBook[]
 
 // tag::undo/redo[]
 === Undo/Redo feature
-==== Implementation
+==== Details of Implementation
 
 The undo/redo mechanism is facilitated by `CommandHistory`.
 It contains a undo/redo command history, stored internally as an `commandHistoryList` and `currentCommandPointer`.
@@ -464,16 +469,16 @@ of memory usage.
 We chose alternative 1 as it is easier to maintain a single data structure.
 // end::undo/redo[]
 
-// tag::printLoanSlip[]
 === Generate Loan Slip feature
-==== Proposed Implementation
+// tag::printLoanSlip[]
+==== Details of Implementation
 
 The printing of loan slip feature is facilitated by `LoanSlipUtil`.
-Essentially, it implements the following operations:
+Essentially, `LoanSlipUtil` implements the following operations:
 
 * `LoanSlipUtil#mountLoan()` -- Mounts a loan in preparation for it to be generated in a PDF loan slip.
 * `LoanSlipUtil#clearSession()` -- Clears the current loan session by unmounting all loans, usually after generating a PDF loan slip.
-* `LoanSlipUtil#createLoanSlipInDirectory()` -- Creates a pdf version of the mounted loan slip in the loan_slips folder.
+* `LoanSlipUtil#createLoanSlipInDirectory()` -- Creates a pdf version of the mounted loans as a single loan slip, saved in the loan_slips folder.
 
 Given below is the sequence diagram of the generation of loan slip during the loan of a book.
 
@@ -481,15 +486,14 @@ Given below is the sequence diagram of the generation of loan slip during the lo
 image::LoanSlipGeneration.png[align=center]
 {nbsp} +
 
-The following describes the sequence of events displayed in the figure above.
+The sequence diagram above is described by the following sequence of events:
 ****
-1) The `LoanCommand` is executed +
-2) The `LoanCommand` retrieves the `Book` and the `Borrower` +
-3) The `LoanCommand` creates a new `Loan` +
-4) The `LoanCommand` mounts the new loan in `LoanSlipUtil` +
-5) The `Storage` component creates and save a new PDF `LoanSlipDocument` in a saved folder +
-6) The `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately +
-7) The `Logic` component unmounts the `LoanSlipDocument` at the end of the process
+. `LoanCommand` is executed
+. `LoanCommand` retrieves the `Book` and the `Borrower` to create a new `Loan`
+. `LoanCommand` mounts the new loan in `LoanSlipUtil`
+. `Storage` component creates and save a new PDF `LoanSlipDocument` in a saved folder
+. `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately
+. `Logic` component clears the session in `LoanSlipUtil` at the end of the process
 ****
 
 ==== Design Considerations
@@ -503,7 +507,7 @@ The following describes the sequence of events displayed in the figure above.
 ** Pros: The `Logic` component and the `LoanCommand` object can now use the full functionality of `LoanSlipDocument` via the static class `LoanSlipUtil` without knowing the internal implementation of `LoanSlipDocument`.
 ** Cons: There is more code to be written and we must consider how to save state within a static class such that it can be continually reused.
 
-We have decided to go with Alternative 2. The Facade class provides the system with a *simplified view* of generating a loan slip, making it *easier to use*.
+*We have decided to go with Alternative 2.* The Facade class provides the system with a *simplified view* of generating a loan slip, making it *easier to use*.
 It also *decouples* the code, making it easier to modify in the future.
 On the contrary, Alternative 1 will introduce a lot of unnecessary dependencies between classes, thereby *increasing coupling* and *reducing maintainability*.
 
@@ -516,7 +520,7 @@ On the contrary, Alternative 1 will introduce a lot of unnecessary dependencies 
 ** Pros: Will only need to make adjustments to `Logic` component to contain an `Optional<LoanSlipDocument>` field and update accordingly whenever a new `Loan` comes in.
 ** Cons: Violates Single Responsibility Principle as the Logic class will now have to change if we change the implementation of `LoanSlipDocument`.
 
-We have decided to go with Alternative 1 as it allows us to have flexible code that is *easily extendable*. Furthermore,
+*We have decided to go with Alternative 1* as it allows us to have flexible code that is *easily extendable*. Furthermore,
 it adheres to good programming practices as compared to Alternative 2, which *violates the Single Responsibility Principle*.
 // end::printLoanSlip[]
 
@@ -524,7 +528,7 @@ it adheres to good programming practices as compared to Alternative 2, which *vi
 
 === Book loaning feature
 
-==== Implementation
+==== Details of Implementation
 
 The functionalities and commands associated with the book loaning feature are `loan`, `return`, `pay` and `renew`.
 This feature set is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`.
@@ -657,7 +661,7 @@ to obtain the insertion order of a `Loan` object.
 The command for finding a book in the catalog is as follows: +
 `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }`
 
-==== Implementation
+==== Details of Implementation
 ModelManager contains a `FilteredList` of `Books` (`filteredBooks`), which is used to display books on the LiBerry GUI. Book finding works by
 starting converting the command string in to a `BookPredicate` object, then updating `filteredBooks` with that predicate.
 
@@ -717,7 +721,7 @@ filtered books does not have an API that sets a hard limit on the number of book
 
 //tag::registerBorrower[]
 === Register borrower feature
-==== Implementation
+==== Details of Implementation
 The `register` borrower feature is facilitated by `BorrowerRecords`. The BorrowerRecords stores a list of borrowers,
 representing the borrowers registered into the library system. The command to register a borrower into the library
 system is as followed: +

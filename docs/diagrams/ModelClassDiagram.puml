@@ -36,12 +36,11 @@ Class Name
 Class Phone
 Class Email
 Class BorrowerId
-Class LoanList
 }
 
 Package Loan {
+Class LoanList
 Class Loan
-Class ListOfAllLoans
 Class LoanId
 BorrowerId -- SerialNumber
 (BorrowerId, SerialNumber) .. Loan
@@ -76,6 +75,7 @@ Book *--> "*" Genre
 Book *--> "1" Title
 Book *--> "1" Author
 Book *--> "1" SerialNumber
+Book *--> "1" LoanList : "LoanHistory"
 
 BorrowerRecords *--> "1" BorrowersList
 BorrowersList o--> "*" Borrower
@@ -83,17 +83,19 @@ Borrower *--> "1" Name
 Borrower *--> "1" Phone
 Borrower *--> "1" Email
 Borrower *--> "1" BorrowerId
-Borrower *--> "1" LoanList
+Borrower *--> "2" LoanList
 
 LoanList *--> "*" Loan
-LoanRecords *--> "1" ListOfAllLoans
+LoanRecords *--> "1" LoanList
 Loan *--> "1" LoanId
-Loan *--> "2" LocalDate
+Loan *--> "3" LocalDate
 
 
 Catalog -[hidden]> LoanRecords
 LoanRecords -[hidden]> BorrowerRecords
-LoanList -[hidden]right> Name
+UniqueBookList -[hidden]> LoanList
+LoanList -[hidden]> BorrowersList
 
+SerialNumber -[hidden]> BorrowerId
 ModelManager -->"*" Book : filtered list
 @enduml
