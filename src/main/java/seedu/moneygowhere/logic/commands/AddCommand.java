@@ -36,7 +36,7 @@ public class AddCommand extends Command {
 
     public static final String NO_DUPLICATE_MESSAGE_SUCCESS = "New Spending added: %1$s";
 
-    public static final String MESSAGE_DUPLICATE_FOUND = "The spending with the same attributes found";
+    public static final String MESSAGE_DUPLICATE_FOUND = "A spending entry with the same attributes was found.";
 
     public static final String DUPLICATE_MESSAGE_SUCCESS = "Duplicate spending added: %1$s";
 

@@ -63,4 +63,35 @@ public class AddCommandIntegrationTest {
         assertCommandSuccess(new AddCommand(validSpending), model,
                 String.format(AddCommand.NO_DUPLICATE_MESSAGE_SUCCESS, convertedSpending), expectedModel);
     }
+
+    @Test
+    public void execute_duplicateSpendingWithChangedCurrency_success() {
+        Spending validSpending = new SpendingBuilder().build();
+
+        Model expectedModel = new ModelManager(model.getSpendingBook(), new UserPrefs());
+
+        Currency usdCurrency = null;
+        for (Currency currency : model.getSpendingBook().getCurrencies()) {
+            if (currency.name.equalsIgnoreCase("USD")) {
+                usdCurrency = currency;
+            }
+        }
+
+        assertNotNull(usdCurrency);
+
+        double updatedCost = Double.parseDouble(validSpending.getCost().value) / usdCurrency.rate;
+        Spending convertedSpending = new SpendingBuilder().withCost(String.format("%.2f", updatedCost)).build();
+
+        expectedModel.setCurrencyInUse(usdCurrency);
+        expectedModel.addSpending(convertedSpending);
+        expectedModel.addSpending(convertedSpending);
+
+        model.setCurrencyInUse(usdCurrency);
+        model.addSpending(convertedSpending);
+
+        assertCommandSuccess(new AddCommand(validSpending), model,
+                AddCommand.MESSAGE_DUPLICATE_FOUND
+                        + "\n"
+                        + String.format(AddCommand.DUPLICATE_MESSAGE_SUCCESS, convertedSpending), expectedModel);
+    }
 }
