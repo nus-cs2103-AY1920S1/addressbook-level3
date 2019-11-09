@@ -1,0 +1,39 @@
+@startuml
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+class NoteBook {
+multipleSortByCond: MultipleSortByCond
+--
+ +sortNotes() : void
+}
+
+class MultipleSortByCond {
++multipleSortByCond : String[]
++multipleSortComparator: MultipleCondNoteComparator
+--
++buildComparator(sortConditions: String): MultipleCondNoteComparator
++getSortComparator() : MultipleCondNoteComparator
+
+}
+
+class MultipleCondNoteComparator {
+-comparators: List<Comparator<Note>>
+--
++compare(a: Note, b : Note) : int <<override>>
+}
+
+interface Comparator<Note> <<Interface>>{
+--
++compare(a: Note, b: Note) : int
+}
+
+NoteBook -> "1" MultipleSortByCond
+MultipleSortByCond "1" *-->  MultipleCondNoteComparator
+MultipleCondNoteComparator .|> Comparator
+
+@enduml

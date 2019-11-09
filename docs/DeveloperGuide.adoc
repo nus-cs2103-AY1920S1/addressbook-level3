@@ -235,7 +235,7 @@ The decryption process is similar to the encryption process, except that the `EN
 
 === Notes Feature
 ==== Key basic features
-=======
+
 Within the notes feature, the user will be able to perform operations to `add`, `open`, `delete` and `edit` a note.
 
 The `open` command allows users to open the note in a separate panel to edit and save through the UI of the app.
@@ -313,8 +313,18 @@ readability which helps in future extensions.
 
 ==== Sort Note feature
 
+Sorting of notes is handled by the MultipleSortByCond class, which allows the notes in the NoteBook to be sorted in
+three different ways - by date modified, date added or number of access. Below is a
+class diagram to illustrate how the NoteBook class and MultipleSortByCond class interact with one another.
 
-=======
+image::SortNoteClassDiagram.png[]
+
+More than one of the conditions can be used to sort the notes in the note book at one time, with the leftmost condition
+having the greatest precedence. This is handled by the `MultipleSortByCond#buildComparator()`, which takes in the string
+of conditions specified by the user and returns a `MultipleCondNoteComparator` object that is used to sort the list of notes
+in NoteBook.
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
