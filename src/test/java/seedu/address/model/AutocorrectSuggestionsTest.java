@@ -4,16 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.ContactBuilder;
 
-public class AutosuggestionsTest {
+public class AutocorrectSuggestionsTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -21,7 +24,7 @@ public class AutosuggestionsTest {
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful_SuggestionsCheck() throws Exception {
+    public void execute_personAcceptedByModel_addSuccessfulSuggestionTest() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Contact validPerson = new ContactBuilder().build();
 
@@ -29,10 +32,10 @@ public class AutosuggestionsTest {
 
         assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-        assertTrue(modelStub.hasAutocorrectSuggestion(new AutocorrectSuggestion("add_claim n/" +
-                validPerson.getName().fullName)));
+        assertTrue(modelStub.hasAutocorrectSuggestion(new AutocorrectSuggestion("add_claim n/"
+                + validPerson.getName().fullName)));
     }
-    
+
 
 
     /**

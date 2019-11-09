@@ -35,8 +35,8 @@ public class CreateShortCutCommandTest {
 
     @Test
     public void equals() {
-        CommandItem addShortcut = new CommandItemBuilder().withCommandWord("add").
-                withCommandTask("add_contact").build();
+        CommandItem addShortcut = new CommandItemBuilder().withCommandWord("add")
+                .withCommandTask("add_contact").build();
         CommandItem deleteShortcut = new CommandItemBuilder().withCommandWord("delete").build();
         CreateShortCutCommand addShortcutCommand = new CreateShortCutCommand("add_contact",
                 "add");
