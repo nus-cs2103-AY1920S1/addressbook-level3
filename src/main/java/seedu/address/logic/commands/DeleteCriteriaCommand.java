@@ -98,7 +98,6 @@ public class DeleteCriteriaCommand extends Command {
                 .build();
 
         model.setPolicy(policyToEdit, editedPolicy);
-        model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
 
         // Update persons with the edited policy
         for (Person p : model.getAddressBook().getPersonList()) {
