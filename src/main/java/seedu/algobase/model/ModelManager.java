@@ -335,6 +335,7 @@ public class ModelManager implements Model {
         return algoBase.hasFindRule(rule);
     }
 
+
     @Override
     public void addFindRule(ProblemSearchRule rule) {
         requireNonNull(rule);

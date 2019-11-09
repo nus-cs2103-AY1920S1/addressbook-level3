@@ -15,6 +15,7 @@ import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.tag.Tag;
 
 /**
  * Adds a Problem to the algobase.
@@ -62,6 +63,14 @@ public class AddCommand extends Command {
 
         if (model.hasProblem(toAdd)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PROBLEM, toAdd.getName()));
+        }
+
+        for (Tag problemtag : toAdd.getTags()) {
+            for (Tag algobasetag : model.getFilteredTagList()) {
+                if (problemtag.getName().equals(algobasetag.getName())) {
+                    problemtag.setColor(algobasetag.getColor());
+                }
+            }
         }
 
         model.addProblem(toAdd);

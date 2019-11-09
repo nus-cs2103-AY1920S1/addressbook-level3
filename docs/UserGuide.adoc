@@ -304,11 +304,15 @@ Deletes the 2nd find rule in the displayed list.
 ==== Creating new tags: `addtag`
 
 Generates a new tag. +
-Format: `addtag t/NAME`
+Format: `addtag t/NAME [c/COLOR]`
 
 Examples:
 
-* `addtag t/sssp`
+* `addtag t/graph`
+* `addtag t/sssp c/BLUE`
+
+[NOTE]
+Tag color can only be "RED" "ORANGE" "YELLOW" "GREEN" "BLUE" "PURPLE" "TEAL" "BLACK" or "DEFAULT".
 
 ==== Listing tags: `listtag`
 
@@ -332,6 +336,18 @@ Format: `edittag INDEX t/NAME`
 Examples:
 
 * `edittag 1 t/difficult`
+
+==== Editing tag color: `edittagcolor`
+
+Edits an existing tag's tag color +
+Format: `edittagcolor INDEX c/TAGCOLOR` +
+Alias: `etc`
+
+Examples:
+
+* `edittagcolor 1 c/RED`
+* `etc 1 c/RED`
+
 
 // tag::plan[]
 === Training Plans
@@ -721,13 +737,15 @@ e.g. `apply 2`
 e.g. `deletefindrule 2`
 
 * Tags
-** *New Tag* : `addtag t/NAME` +
-e.g. `addtag t/sssp`
+** *New Tag* : `addtag t/NAME [c/COLOR]` +
+e.g. `addtag t/sssp c/BLUE`
 ** *List Tags* : `listtag`
 ** *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
 ** *Edit tag* : `edittag INDEX t/TAGNAME` +
 e.g. `edittag 1 t/sort`
+** *Edit tag color* : `edittagcolor INDEX c/COLOR` +
+e.g. `edittagcolor 1 c/RED`
 
 * Plans
 ** *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
