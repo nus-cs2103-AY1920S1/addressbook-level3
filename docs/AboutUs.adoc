@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Chia Wei Hao, David
 image::davidcwh.png[width="150", align="left"]
-{empty}[https://github.com/davidcwh[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/davidcwh[github]] [<<davidcwh, portfolio>>]
 
 Role: Developer +
 Responsibilities: Deliverables and deadlines, In charge of Storage
@@ -21,7 +21,7 @@ Responsibilities: Deliverables and deadlines, In charge of Storage
 
 === Fang WeiWen
 image::waynefong0401.png[width="150", align="left"]
-{empty}[http://github.com/waynefong0401[github]] [<<fangweiwen#, portfolio>>]
+{empty}[http://github.com/waynefong0401[github]] [<<waynefong0401#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of Model, Testing
@@ -39,7 +39,7 @@ Responsibilities: Integration, Code Quality
 
 === Lee WaiFong
 image::waifonglee.png[width="150", align="left"]
-{empty}[http://github.com/waifonglee[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/waifonglee[github]] [<<waifonglee#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Javafx expert
