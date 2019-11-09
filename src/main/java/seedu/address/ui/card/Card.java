@@ -3,6 +3,7 @@ package seedu.address.ui.card;
 import javafx.scene.layout.Region;
 import seedu.address.ui.UiPart;
 
+//@@author Kyzure
 /**
  * Represents a Card to show an event or task.
  */
