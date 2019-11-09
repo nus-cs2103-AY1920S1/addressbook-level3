@@ -24,13 +24,13 @@ image::../images/plan2travelSample.png[]
 
 ** Credits:  Caleb Brinkman for providing a code base to start the autocomplete feature at https://gist.github.com/floralvikings/10290131. The code had to be modified as the original autocomplete feature by Brinkman was more suited for dictionary words rather than for commands.
 
-* *Major enhancement 2*: added the itinerary timetable
+* *Major enhancement 2*: added the *itinerary*
 
 ** What it does: Allow the itinerary to update and show the current activities on the itinerary.
 ** Justification: Allow the user to be able to immediately see how the scheduled activities look like on a timetable and be able to better plan their itineraries.
 ** Highlights: This enhancement required a good understanding of Agenda from the JFXtras library. Since the default timetable provided by Agenda was edited mostly by mouse clicks, modifications had to be made to Agenda. Also, the default Agenda displayed a static amount of days and further modifications had to be made for it to adapt to changing number of days.
 
-* *Minor enhancement*: added the model for Day and ActivityWithTime
+* *Minor enhancement*: added the model for *Day* and *ActivityWithTime*
 
 ** What it does: Provides the underlying data structure for each day in the itinerary. ActivityWithTime is a higher-level wrapper of Activity that contains the starting time of the activity.
 ** Justification: An itinerary is naturally composed of days, hence it was helpful when using it to store activities that have been scheduled on a particular day.
@@ -46,13 +46,7 @@ image::../images/plan2travelSample.png[]
 * *Test Code contributed*:
 
 * *Other contributions*: Coded the redesign from AddressBook to plan2travel. Also, added functionality to allow information about activity, accommodation, contact and day to be displayed in the info tab via `list activity/accommodation/contact/day` or through `view activity/accommodation/contact`.
-**
 
-** Enhancements to existing features:
-***
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-1/main/pull/72[#72], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/74[#74], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/82[#82], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/87[#87], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/94[#94], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/99[#99], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/100[#100], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/106[#106], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/117[#117], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/122[#122], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/193[#193], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/216[#216], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/241[#241]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S1-CS2103T-T11-2/main/issues/163[1], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/164[2], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/165[3], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/166[4], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/167[5], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/168[6], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/169[7])
