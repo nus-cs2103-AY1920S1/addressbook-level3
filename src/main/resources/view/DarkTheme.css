@@ -1,6 +1,10 @@
+* {
+    -fx-base: #000;
+}
+
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    -fx-background-color: -fx-base;
+    background-color: -fx-base; /* Used in the default.html file */
 }
 
 .unselected-tab {
@@ -9,6 +13,10 @@
 
 .selected-tab {
     -fx-opacity: 1;
+}
+
+.tab-bar {
+    -fx-background-color: -fx-base;
 }
 
 .tab-bar:focused {
@@ -52,54 +60,18 @@
     -fx-max-height: 0;
 }
 
-.table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
-    -fx-table-cell-border-color: transparent;
-    -fx-table-header-border-color: transparent;
-    -fx-padding: 5;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header, .table-view .filler {
-    -fx-size: 35;
-    -fx-border-width: 0 0 1 0;
-    -fx-background-color: transparent;
-    -fx-border-color: transparent transparent derive(-fx-base, 80%) transparent;
-    -fx-border-insets: 0 10 1 0;
-}
-
-.table-view .column-header .label {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-alignment: center-left;
-    -fx-opacity: 1;
-}
-
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
-}
-
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 20%);
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
     -fx-focus-traversable: false;
 }
 
@@ -110,20 +82,15 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #222;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #000;
 }
 
 .list-cell:filled:focused {
     -fx-background-color: #309090;
-}
-
-.list-cell:filled:focused #cardPane {
-    -fx-border-color: #3e7b91;
-    -fx-border-width: 1;
 }
 
 .list-cell .label {
@@ -147,18 +114,11 @@
     -fx-text-fill: #010504;
 }
 
-.stack-pane {
-    -fx-background-color: derive(#1d1d1d, 20%);
-}
-
 .pane-with-border {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: derive(#1d1d1d, 10%);
     -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 30%);
 }
 
 .result-display {
@@ -168,10 +128,6 @@
     -fx-text-fill: white;
 }
 
-.result-display .label {
-    -fx-text-fill: black !important;
-}
-
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
@@ -179,47 +135,11 @@
     -fx-pref-height: 30px;
 }
 
-.status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
-    -fx-border-width: 1px;
-}
-
-.status-bar-with-border .label {
-    -fx-text-fill: white;
-}
-
-.grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
-    -fx-border-width: 1px;
-}
-
-.grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-}
-
-.context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
-}
-
-.context-menu .label {
-    -fx-text-fill: white;
-}
-
-.menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
-}
-
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
-}
-
-.menu .left-container {
-    -fx-background-color: black;
 }
 
 /*
@@ -232,7 +152,6 @@
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -258,7 +177,6 @@
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
     -fx-text-fill: white;
 }
 
@@ -272,11 +190,9 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #1d1d1d;
 }
 
 .dialog-pane > *.label.content {
@@ -286,7 +202,6 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#1d1d1d, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -331,11 +246,6 @@
     -fx-border-width: 0;
 }
 
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
-}
-
 #commandTextField {
     -fx-background-color: transparent #383838 transparent #383838;
     -fx-background-insets: 0;
@@ -353,7 +263,6 @@
 
 #resultDisplay .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
 }
 
 #tags {
