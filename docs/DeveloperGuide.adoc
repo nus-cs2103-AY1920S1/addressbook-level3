@@ -154,6 +154,7 @@ Classes used by multiple components are in the `seedu.calofit.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::add[]
 === Add feature
 ==== Implementation
 ===== Addition though flags (e.g add n/Chicken c/200 t/dry)
@@ -252,6 +253,9 @@ Hence, showing on the meal list section would be difficult as well. A user may n
 amount of meals daily. Hence the array list would not be that large. Therefore, despite its limitation,
 an array list is still used.
 
+// end::add[]
+
+// tag::delete[]
 === Delete feature
 ==== Implementation
 The `delete` feature is implemented through the `DeleteCommand` class that extends the abstract `Command` class.
@@ -289,9 +293,8 @@ only has 1 meal.)
 ** Cons: Have to change other parts of the model breaking abstraction.
 
 * ** Explanation of Choice:** The command is for the deletion of meals for that day. A person on average consumes 3 - 4 meals a day.
-Hence on average, the most meals to be deleted is 4. Thus the sorting time would not be too significant. Also,
-
-
+Hence on average, the most meals to be deleted is 4. Thus the sorting time would not be too significant.
+// end::delete[]
 
 === Budget Bar display
 
