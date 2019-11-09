@@ -239,7 +239,7 @@ public class ModelCapManager implements Model {
     //=========== PieChart =============================================================
 
     public ObservableList<PieChart.Data> getFilteredGradeCounts() {
-        logger.info("Generating pie chart for the grades...");
+        logger.info("Calibrating pie chart for the grades...");
 
         ObservableList<PieChart.Data> result = FXCollections.observableArrayList();
         ObservableList<Module> filteredModules = getFilteredModuleList();
@@ -276,8 +276,8 @@ public class ModelCapManager implements Model {
     /**
      * updates the class for the student based on his/her new CAP.
      */
-    public void updateRank() {
-        achievementManager.updateCap(getFilteredCapInformation());
+    public void updateRank(double cap) {
+        achievementManager.updateCap(cap);
         if (achievementManager.hasAchievementChanged()) {
             isPromoted = achievementManager.isPromoted();
             isDowngraded = achievementManager.isDownGraded();

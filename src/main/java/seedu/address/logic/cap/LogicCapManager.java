@@ -126,7 +126,7 @@ public class LogicCapManager implements Logic {
     }
 
     @Override
-    public void updateRank() {
-        model.updateRank();
+    public void updateRank(double cap) {
+        model.updateRank(cap);
     }
 }

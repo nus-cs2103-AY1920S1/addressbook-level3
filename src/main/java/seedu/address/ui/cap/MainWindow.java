@@ -128,13 +128,14 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
-        informationPanel = new InformationPanel();
+        informationPanel = new InformationPanel(logic.getFilteredCapInformation(), logic.getFilteredMcInformation());
         capPanelPlaceholder.getChildren().add(informationPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        setGraphDisplay();
+        pieChartDisplay = new CapPieChart(logic.getFilteredGradeCounts());
+        pieChartDisplayPlaceholder.getChildren().add((pieChartDisplay.getRoot()));
 
         achievementBadge = new AchievementBadge(logic.getRankImage(), logic.getRankTitle());
         achievementPlaceHolder.getChildren().add(achievementBadge.getRoot());
@@ -205,14 +206,14 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            informationPanel.setCapToUser(logic.getFilteredCapInformation());
-            informationPanel.setMcToUser(logic.getFilteredMcInformation());
+            System.out.println(commandText.substring(0,1));
+            if (!commandText.split(" ")[0].equals("find")) {
+                informationPanel.setMcToUser(logic.getFilteredMcInformation());
+                informationPanel.setCapToUser(logic.getFilteredCapInformation());
+                achievementBadge.setUpdatedRankToUser(logic.getRankImage(), logic.getRankTitle());
+                pieChartDisplay.setPieChartUpdate(logic.getFilteredGradeCounts());
+            }
 
-            setGraphDisplay();
-
-            logic.updateRank();
-            achievementBadge = new AchievementBadge(logic.getRankImage(), logic.getRankTitle());
-            achievementPlaceHolder.getChildren().add(achievementBadge.getRoot());
 
             return commandResult;
         } catch (CommandException | IllegalArgumentException | ParseException e) {
@@ -220,11 +221,6 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
-    }
-
-    private void setGraphDisplay() {
-        pieChartDisplay = new CapPieChart(logic.getFilteredGradeCounts());
-        pieChartDisplayPlaceholder.getChildren().add((pieChartDisplay.getRoot()));
     }
 
     //=========== Achievements =============================================================

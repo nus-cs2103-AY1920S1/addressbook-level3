@@ -65,7 +65,7 @@ public class Semester {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Semester // instanceof handles nulls
-            && semesterPeriod == semesterPeriod  // check for same semester period
+            && semesterPeriod == semesterPeriod // check for same semester period
             && academicYear.equals(((Semester) other).academicYear)); // state check
     }
 

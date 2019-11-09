@@ -13,7 +13,7 @@ public class Grade {
             "Grade should be of a valid grade and it is case-sensitive.";
     private final String grade;
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code grade}.
      *
      * @param grade A valid grade.
      */

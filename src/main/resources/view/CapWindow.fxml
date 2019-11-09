@@ -52,7 +52,7 @@
                            <Insets bottom="5" left="20" right="10" top="5" />
                          </padding>
                        </StackPane>
-                          <StackPane fx:id="pieChartDisplayPlaceholder" prefHeight="446.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+                          <StackPane fx:id="pieChartDisplayPlaceholder" prefHeight="350.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                             <padding>
                               <Insets bottom="5" left="10" right="10" top="5" />
                             </padding>

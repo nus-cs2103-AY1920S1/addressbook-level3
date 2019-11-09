@@ -24,9 +24,6 @@ The user interacts with it using a CLI, and it features an outstanding user-frie
 ** Justification: This feature complements the function of Modulo as an one-stop application for NUS students to manage their life in NUS. For students in NUS who are well-concerned and motivated, the CAP Tracker allows users to keep track of their CAP and grades with ease.
 ** Highlights: The implementation of the CAP feature was challenging but satisfying. The single 'add' command...
 
-
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
-
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_

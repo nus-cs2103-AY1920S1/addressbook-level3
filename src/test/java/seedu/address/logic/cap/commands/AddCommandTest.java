@@ -225,7 +225,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateRank() {
+        public void updateRank(double rank) {
             throw new AssertionError("This method should not be called.");
         }
     }
