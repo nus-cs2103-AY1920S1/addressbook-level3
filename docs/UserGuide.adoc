@@ -512,7 +512,11 @@ Example:
 
 * `getTop 20` will display the top 20 teams with the highest points in the hackathon.
 
-=== Tie-Break
+=== Extensions to `leaderboard` and `getTop K` Command
+
+To provide additional functionalities to the `leaderboard` and `getTop k` commands within Alfred, there are few extensions that can be added to these two commands to allow you to see a representation of the leaderboard or top teams more accustomed to your needs. These extensions and how to use them within Alfred are explained in the subsections below.
+
+==== Tie-Break
 
 By default Alfred `leaderboard` and `getTop k` commands fetch and display teams in descending order of their score, and by the order they were added into Alfred in case of tied scores.
 
@@ -541,6 +545,24 @@ Example:
 
 * `leaderboard tb/moreParticipants lowerId` will display the leaderboard on the UI with Alfred breaking the tie between teams with equals scores based on which team has more participants, and if the number of participants is equal then by which team has the lower ID.
 * `getTop 3 tb/lessParticipants random` will display the top 3 teams on the UI with Alfred breaking the tie between teams with equals scores based on which team has fewer participants, and if the number of participants is equal then Alfred will randomly pick the winners for the tie.
+
+==== Filter by Subject
+
+By default, when running either the `leaderboard` or `getTop k` command, Alfred will show all the appropriate teams irrespective of their subject. However, in the situation that you need to select winners from a certain subject category, Alfred's filter by subject feature provides you the capability to achieve this. To view the leaderboard or top teams for a specific subject, follow the following format:
+
+* `leaderboard s/SUBJECT_NAME` in the case of a `leaderboard` command
+* `getTop k s/SUBJECT_NAME` in the case of a `getTop k` command
+
+****
+* You must precede the subject you want to filter by with the prefix `s/` for Alfred to understand your request. You can specify only one subject to filter the leaderboard or top teams by.
+* This extension can be used in addition to tiebreak methods in which case the tiebreak methods will be used to split ties between any teams with the same subject.
+****
+
+Example:
+
+* `leaderboard s/Social` will display the leaderboard consisting only of teams with the subject "Social"
+* `getTop 3 tb/lessParticipants s/Health` will display the top 3 teams within the hackathon, all of which will consist of only of those with subject "Health". Additionally, any ties between these teams will be broken using the tiebreak method "lessParticipants" - the team with fewer participants wins the tie.
+
 
 === Bulk Registration: `import fp/PATH_TO_CSV_FILE [fp/PATH_TO_ERROR_FILE]`
 You may import multiple entities at once into Alfred through the specification of a CSV file. +
