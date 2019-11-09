@@ -1,4 +1,4 @@
-= NUStudy – portfolio for Jeremy Tan (Parcly Taxel)
+= Jeremy Tan (Parcly Taxel) - Project Portfolio for NUStudy
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
