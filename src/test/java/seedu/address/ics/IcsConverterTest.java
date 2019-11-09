@@ -18,6 +18,7 @@ import seedu.address.model.tasks.TaskSourceBuilder;
 
 public class IcsConverterTest {
 
+    //@@author marcusteh1238
     @Test
     public void toString_normalEventNoEndTime_icsConversion() throws ParseException {
 
@@ -60,6 +61,7 @@ public class IcsConverterTest {
         assertEquals("END:VEVENT", icsStringArr[5]);
     }
 
+    //@@author marcusteh1238
     @Test
     public void toString_eventWithEndTime_icsConversion() throws ParseException {
         String description = "Test Description";
@@ -114,6 +116,7 @@ public class IcsConverterTest {
         assertEquals("END:VEVENT", icsStringArr[6]);
     }
 
+    //@@author marcusteh1238
     @Test
     public void toString_eventWithEndTimeAndTags_icsConversion() throws ParseException {
         String description = "Test Description";
@@ -176,6 +179,7 @@ public class IcsConverterTest {
         assertEquals("END:VEVENT", icsStringArr[7]);
     }
 
+    //@@author marcusteh1238
     @Test
     public void toString_normalTask_icsConversion() {
         String description = "Test Description";
@@ -207,6 +211,7 @@ public class IcsConverterTest {
         assertEquals("END:VTODO", icsStringArr[4]);
     }
 
+    //@@author marcusteh1238
     @Test
     public void toString_taskWithDueDate_icsConversion() throws ParseException {
         String description = "Test Description";

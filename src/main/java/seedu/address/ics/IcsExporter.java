@@ -13,6 +13,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 
+//@@author marcusteh1238
 /**
  * Class responsible for exporting Horo's tasks and events into an .ics file.
  */
@@ -35,6 +36,7 @@ public class IcsExporter {
         requireNonNull(taskList);
     }
 
+    //@@author marcusteh1238
     /**
      * Saves the events in an ics file, whose location is specified in the parameter.
      * @param filepathString the path of where the file should be made.
@@ -51,6 +53,7 @@ public class IcsExporter {
         }
     }
 
+    //@@author marcusteh1238
     /**
      * Generates the contents in the .ics file from the event list.
      * @param eventList The list of EventSource objects to be exported.

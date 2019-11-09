@@ -16,9 +16,10 @@ import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.model.tasks.TaskSourceBuilder;
 
-
+//@@author marcusteh1238
 public class IcsParserTest {
 
+    //@@author marcusteh1238
     /**
      * Helper function to check if the tags in the parsed ICS file is valid.
      * @param expectedTags The tags that are expected to be in the new object.
@@ -37,6 +38,7 @@ public class IcsParserTest {
         return outcomeTags.isEmpty();
     }
 
+    //@@author marcusteh1238
     @Test
     public void eventSourceCreationCorrectness_parseSingleEventNormalWithoutEndDateTime_valueAsExpected()
             throws ParseException, IcsException {
@@ -58,6 +60,7 @@ public class IcsParserTest {
         assertEquals(expected.getStartDateTime(), outcome.getStartDateTime());
     }
 
+    //@@author marcusteh1238
     @Test
     public void eventSourceCreationCorrectness_parseSingleEventNormalWithEndDateTime_valueAsExpected()
             throws ParseException, IcsException {
@@ -85,6 +88,7 @@ public class IcsParserTest {
         assertEquals(expected.getEndDateTime(), outcome.getEndDateTime());
     }
 
+    //@@author marcusteh1238
     @Test
     public void eventSourceCreationCorrectness_parseSingleEventNormalWithEndDateTimeWithTags_valueAsExpected()
             throws ParseException, IcsException {
@@ -119,6 +123,7 @@ public class IcsParserTest {
         assertTrue(checkTags(tags, outcomeTags));
     }
 
+    //@@author marcusteh1238
     @Test
     public void taskSourceCreationCorrectness_parseSingleTaskNormalWithoutDueDateTime_valueAsExpected()
             throws IcsException {
@@ -134,6 +139,7 @@ public class IcsParserTest {
         assertEquals(expected.getDescription(), outcome.getDescription());
     }
 
+    //@@author marcusteh1238
     @Test
     public void taskSourceCreationCorrectness_parseSingleTaskNormalWithDueDateTime_valueAsExpected()
             throws ParseException, IcsException {
@@ -156,6 +162,7 @@ public class IcsParserTest {
         assertEquals(expected.getDueDate(), outcome.getDueDate());
     }
 
+    //@@author marcusteh1238
     @Test
     public void taskSourceCreationCorrectness_parseSingleTaskNormalWithDueDateTimeWithTags_valueAsExpected()
             throws ParseException, IcsException {

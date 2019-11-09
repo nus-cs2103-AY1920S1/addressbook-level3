@@ -7,11 +7,13 @@ import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 
+//@@author marcusteh1238
 /**
  * This is the class responsible for converting Events and Tasks into their relevant ICS strings.
  */
 public class IcsConverter {
 
+    //@@author marcusteh1238
     /**
      * Converts an EventSource object into its String representation in the Ics file format.
      * Its details and start time will be saved in this String representation.
@@ -46,6 +48,7 @@ public class IcsConverter {
         return icsStringBuilder.toString();
     }
 
+    //@@author marcusteh1238
     /**
      * Converts a TaskSource object into its String representation in the Ics file format.
      * Its details and due date will be saved in this String representation.
@@ -75,6 +78,7 @@ public class IcsConverter {
         return icsStringBuilder.toString();
     }
 
+    //@@author marcusteh1238
     /**
      * Generates a unique UID that complies with section RFC5545 of the iCalendar specification.
      * This is achieved by using the Instant of the function call.
@@ -85,6 +89,7 @@ public class IcsConverter {
         return currentInstant + "@Horo";
     }
 
+    //@@author marcusteh1238
     /**
      * Generates a String representing the tags to be stored in the ICS object's description.
      * @param tags The tags of the EventSource or TaskSource object.
