@@ -67,5 +67,8 @@ class JsonSerializableWatchList {
         return watchList;
     }
 
+    public JsonAdaptedShows getShows() {
+        return shows;
+    }
 }
 

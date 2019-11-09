@@ -33,12 +33,9 @@ public class EpisodeTest {
     }
 
     @Test
-    public void getEpisodeName() {
-        assertEquals(validEpisode.getEpisodeName(), "Episode 1");
+    public void episodeConstructorTest() {
+        assertEquals(new Episode("Episode name", 3).getEpisodeName(), "Episode name");
+        assertEquals(new Episode("Episode name", 3).getEpisodeNum(), 3);
     }
 
-    @Test
-    public void getEpisodeNum() {
-        assertEquals(validEpisode.getEpisodeNum(), 1);
-    }
 }

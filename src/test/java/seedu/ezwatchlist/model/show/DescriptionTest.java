@@ -1,5 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
@@ -35,5 +36,15 @@ public class DescriptionTest {
                 + "disregarded and mistreated by society. He then embarks on a downward spiral of revolution"
                 + " and bloody crime. This path brings him face-to-face with "
                 + "his alter-ego: The Joker.")); // long description
+    }
+
+    @Test
+    public void descriptionConstructorTest() {
+        assertEquals(new Description().fullDescription, "");
+    }
+
+    @Test
+    public void hashCode_test() {
+        assertEquals(new Description("A fine day").hashCode(), "A fine day".hashCode());
     }
 }

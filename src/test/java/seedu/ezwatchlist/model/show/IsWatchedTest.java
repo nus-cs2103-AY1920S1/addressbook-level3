@@ -1,5 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
@@ -34,8 +35,13 @@ public class IsWatchedTest {
     }
 
     @Test
+    public void hashCodeTest() {
+        assertEquals(new IsWatched("true").hashCode(), 1);
+        assertEquals(new IsWatched("true").getIsWatchedBoolean(), true);
+    }
     public void getIsWatchedBoolean() {
         assertTrue(new IsWatched("true").getIsWatchedBoolean());
         assertFalse(new IsWatched("false").getIsWatchedBoolean());
+
     }
 }

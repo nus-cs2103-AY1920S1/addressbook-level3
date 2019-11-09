@@ -10,13 +10,19 @@ import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.testutil.ShowBuilder;
 import seedu.ezwatchlist.testutil.WatchListBuilder;
+
 
 public class ModelManagerTest {
 
@@ -128,5 +134,48 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setWatchListFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(watchList, differentUserPrefs)));
+    }
+
+    @Test
+    public void hasShowNameTest() {
+        Show show = new ShowBuilder(AVENGERSENDGAME).build();
+        modelManager.addShow(show);
+        assertTrue(modelManager.hasShowName(show.getName()));
+    }
+    @Test
+    public void getShowIfHasNameTest() {
+        Show show = new ShowBuilder(AVENGERSENDGAME).build();
+        modelManager.addShow(show);
+        List<Show> showList = new ArrayList<>();
+        showList.add(show);
+        assertEquals(modelManager.getShowIfHasName(show.getName()), showList);
+    }
+
+    @Test
+    public void hasActorTest() {
+        Show show = new ShowBuilder(AVENGERSENDGAME).build();
+        modelManager.addShow(show);
+        assertTrue(modelManager.hasActor(show.getActors()));
+    }
+    @Test
+    public void getShowIfHasActorTest() {
+        Show show = new ShowBuilder(AVENGERSENDGAME).build();
+        modelManager.addShow(show);
+        List<Show> showList = new ArrayList<>();
+        showList.add(show);
+        assertEquals(modelManager.getShowIfHasActor(show.getActors()), showList);
+    }
+    @Test
+    public void getShowIfIsGenreTest() {
+        Show show = new ShowBuilder(AVENGERSENDGAME).build();
+        modelManager.addShow(show);
+        List<Show> showList = new ArrayList<>();
+        showList.add(show);
+        assertEquals(modelManager.getShowIfIsGenre(show.getGenres()), new ArrayList<>());
+    }
+
+    @Test
+    public void getWatchedShowListTest() {
+        assertTrue(modelManager.getWatchedShowList() instanceof ObservableList);
     }
 }
