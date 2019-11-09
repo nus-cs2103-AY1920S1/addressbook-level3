@@ -16,10 +16,14 @@ public enum SubjectName {
             + "\t1. Environmental\n"
             + "\t2. Social\n"
             + "\t3. Health\n"
-            + "\t4. Education";
+            + "\t4. Education"
+            + "\t5. Entertainment"
+            + "\t6. Other";
 
 
-    private static final String VALIDATION_REGEX = "^(?i)(Environmental|Social|Health|Education)(?-i)$";
+
+    private static final String VALIDATION_REGEX = "^(?i)(Environmental|Social|Health|Education"
+            + "|Entertainment|Other)(?-i)$";
 
     private final String subjectNameString;
 

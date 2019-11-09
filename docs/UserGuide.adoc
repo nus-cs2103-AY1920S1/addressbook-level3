@@ -101,10 +101,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 `SubjectName` - the subject a mentor or team will be focusing on in the Hackathon +
 Must be one of the values below:
+
 * Environmental
 * Social
 * Health
 * Education
+* Entertainment
+* Social
 
 `Score` - must be an integer ranging from 0 to 100.
 
@@ -538,6 +541,8 @@ Must be one of the values below:
 * Social
 * Health
 * Education
+* Entertainment
+* Other
 
 `Score` - must be an integer ranging from 0 to 100.
 
