@@ -401,7 +401,9 @@ public class FinSec implements ReadOnlyFinSec {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FinSec // instanceof handles nulls
-                && persons.equals(((FinSec) other).persons));
+                && persons.equals(((FinSec) other).persons)
+                && claims.equals(((FinSec) other).claims)
+                && incomes.equals(((FinSec) other).incomes));
     }
 
     @Override
