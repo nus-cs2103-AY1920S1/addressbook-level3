@@ -277,9 +277,9 @@ public interface Model {
     void setContact(Contact target, Contact editedContact);
 
     /**
-     * Returns an Optional Contact by searching the contact list for a contact with the same phone as {@code phone}.
+     * Returns an Optional Contact by searching the contact list for a contact with the same contact {@code contact}.
      */
-    Optional<Contact> getContactByPhone(Phone toGet);
+    Optional<Contact> getContact(Contact contact);
 
     /**
      * Returns an unmodifiable view of the filtered contacts list
