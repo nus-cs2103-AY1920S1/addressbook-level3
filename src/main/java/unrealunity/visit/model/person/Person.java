@@ -66,6 +66,13 @@ public class Person {
     }
 
     /**
+     * Returns a defensive copy of Person.
+     */
+    public Person getClone() {
+        return new Person(name, phone, email, address, visitList, tags);
+    }
+
+    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
