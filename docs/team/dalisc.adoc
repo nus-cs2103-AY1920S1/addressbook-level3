@@ -70,10 +70,7 @@ team project.
 We wrote a User Guide targeted at the users of Mortago. The User Guide containts instructions on how to use the various commands of the application. The following is an excerpt from our Mortago User Guide, showing additions that I have
 made for the `stats`, `fitler`, and `find` features.
 
-This section also contains an excerpt for the sorting feature that I have planned for the
-next version (v2.0) of Mortago.
-
-{start of extract 1: stats command}
+_{start of extract 1: stats command}_
 This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
 
 The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised and updated automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days. You can change the time frame with the `stats` command.
@@ -99,10 +96,10 @@ image::statsMonth.png[width="790"]
 The line chart will display statistics for the year specified. In this case is it 2019. The line chart will appear as below:
 
 image::statsYear.png[width="790"]
-{end of extract 1}
+_{end of extract 1}_
 
 
-{start of extract 2: filter command}
+_{start of extract 2: filter command}_
 
 This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
 
@@ -118,9 +115,9 @@ All female worker entries will be displayed.
 * `filter -b /cod Car Accident /sex male` +
 All body entries with car accident as the cause of death and those that are male will be displayed.
 
-{end of extract 2}
+_{end of extract 2}_
 
-{start of extract 3: sort command (v2.0)}
+_{start of extract 3: find command}_
 Finds bodies or workers whose names contain any of the given keywords. +
 
 Format: `find (flag) (keyword)...`
@@ -142,20 +139,58 @@ Examples:
 Returns any bodies having names `John`
 * `find -w Betsy Tim John` +
 Returns any workers having names `Betsy`, `Tim`, or `John`
-{end of extract 3}
+
+_{end of extract 3}_
+
 
 == Contributions to the Developer Guide
 
+In addition to a User Guide, we wrote a Developer Guide targeted at developers who are interested in contributing to the project. The Developer Guide showcases my ability to write technical documentation and the technical depth of my contributions to the project.Given below is my contribution to the Developer Guide:
 
-_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+{start of extract: implementation of stats command}
+=== Statistics feature
+==== Current Implementation
 
+The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days (default view) and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched. Users can switch the view to a specified week, month, or view.
 
-{start of extract}
-include::../DeveloperGuide.adoc[tag=statistics]
+In `LineChartPanel`, four key operations that constructs the line chart and updates it dynamically are implemented, and they are executed in order:
+
+* `LineChartPanel#initialiseTreeMap()` -- Initialises a tree map that contains the dates as the keys and the number of bodies admitted as the frequency.
+* `LineChartPanel#initialiseLineChart()` -- Creates a Line Chart with Xaxis and Yaxis.
+* `LineChartPanel#updateSeries()` -- Adds data to the series of the line chart based on what is in the tree map.
+* `LineChartPanel#updateUponChanged()` -- If a body is added or removed, the tree map is changed accordingly depending on the date of admission of the body, and the series is updated again.
+
+The above operations are invoked through a wrapper function `LineChartPanel#makeLineChart()` which is invoked when the user calls `LineChartPanel#getLineChart()`.
+
+The line chart is updated automatically because it takes in an ObservableList<Body> from the `AddressBook`, so it re-intialises once a change has been detected. The user is able to switch the time frame of the line chart between the last ten days or a particular week, month, or year with the `stats` command (See User Guide).
+
+The following sequence diagram shows hows `LineChartPanel` interacts `AddressBook` to obtain an observable list of bodies, creates a line chart from it, and then passes the line chart to be displayed in `MainWindow` with dynamic update:
+
+image::LineChartAddBodySequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How data is stored and updated
+
+* **Alternative 1 (current choice):** Use a tree map to keep track of bodies and initialise the treemap depending on the given time frame.
+** Pros: Implementation is easy.
+** Cons: Series is regenerated whenever there is a change in time frame. As can be seen from the activity diagram below, the series gets reintialised regardless of whether it will affect a change in the appearance of the line chart.
+
+image::LineChartActivityDiagram.png[]
+
+* **Alternative 2:** Store all data in a separate storage class.
+** Pros: No need to reinitialise the treemap everytime a `stats` command is called.
+** Cons: Implementation requires a lot of storage which may not be tapped on most of the time.
+
+===== Aspect: How line chart appears to end user
+
+* **Alternative 1 (current choice):** Only the last 10 days is visible.
+** Pros: Implementation is easy and simple.
+** Cons: The statistics is limited in meaning if only the last 10 days is known.
+
+* **Alternative 2:** Users have the option to toggle between the last week, month, or year.
+** Pros: The statistics will have more meaning.
+** Cons: Implementation is difficult.
+
 {end of extract}
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
