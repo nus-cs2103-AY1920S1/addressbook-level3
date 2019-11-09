@@ -56,7 +56,7 @@ MoneyGoWhere comes preloaded with sample data to allow you to explore and famili
 
 +
 .User Interface of MoneyGoWhere
-image::Ui.png[width="800"]
+image::ui_annotate.png[width="1000"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* will display the help information.
@@ -186,6 +186,7 @@ Edits a spending at a specified index in the list. +
 * Tags can have up to 64 characters.
 * You can remove all the spending's tags by typing `t/` without specifying any tags after it.
 * If a spending date is in the future, it can only be up to end of this month.
+* Spending entries that are added using a different currency will have output displayed in SGD.
 * If you are using a different currency, the cost entered may have precision errors as it will be converted to SGD.
 ****
 
@@ -251,6 +252,7 @@ Sorts all spending based on a given order. +
 * Valid sort orders are: `ASC`, `DESC`.
 * At least one of the optional fields *must be provided*.
 * If the given sort order is `c/ASC n/DESC`, Cost will be sorted in ascending order, followed by name in descending order.
+* Sorting names or remarks by default will sort uppercase letters first, followed by lowercase letters.
 ****
 
 *Examples:*
@@ -541,7 +543,7 @@ Imports data from a CSV file specified by file path. Existing spending entries a
 
 [.text-center]
 .A Valid `.csv` File.
-image::ExampleValidCsv.png[]
+image::ExampleValidCsv.png[width=75%]
 
 `.csv` file must have a header row with the following values:
 

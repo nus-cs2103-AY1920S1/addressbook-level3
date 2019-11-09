@@ -2,6 +2,7 @@ package seedu.moneygowhere.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -76,6 +77,8 @@ public interface Model {
      * {@code Spending} must not already exist in the MoneyGoWhere list.
      */
     void addSpending(Spending spending);
+
+    void addSpending(List<Spending> spending);
 
     /**
      * Replaces the given Spending {@code target} with {@code editedSpending}.

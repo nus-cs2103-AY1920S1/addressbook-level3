@@ -111,6 +111,11 @@ class AddReminderCommandTest {
         }
 
         @Override
+        public void addSpending(List<Spending> spending) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setSpendingBook(ReadOnlySpendingBook newData) {
             throw new AssertionError("This method should not be called.");
         }

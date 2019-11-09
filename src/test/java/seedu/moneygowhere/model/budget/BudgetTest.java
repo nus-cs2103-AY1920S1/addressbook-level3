@@ -8,6 +8,9 @@ import static seedu.moneygowhere.testutil.TypicalSpendings.getSpendingSum;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,13 +76,13 @@ class BudgetTest {
     public void initialize_validInput_success() {
         Budget temp = new Budget(100, "01/2010");
         temp.initialize(newDate, getTypicalSpendingBook().getSpendingList());
-        assertEquals(100, temp.getValue());
+        assertEquals(100, temp.getAmount());
         assertEquals((new BudgetMonth(newDate)).toString(), temp.getMonthString());
         assertEquals(0, temp.getSum());
 
         temp = new Budget(1000, "01/2010");
         temp.initialize(oldDate, getTypicalSpendingBook().getSpendingList());
-        assertEquals(1000, temp.getValue());
+        assertEquals(1000, temp.getAmount());
         assertEquals((new BudgetMonth(oldDate)).toString(), temp.getMonthString());
         assertEquals(getSpendingSum(), temp.getSum());
 
@@ -110,13 +113,27 @@ class BudgetTest {
     }
 
     @Test
+    public void addSpending_multipleSpending_success() {
+        List<Spending> spendingList = new ArrayList<>(
+            Arrays.asList(
+                new SpendingBuilder().withName("name").withCost("10").withDate("10/01/2010").build(),
+                new SpendingBuilder().withName("name2").withCost("10").withDate("10/01/2010").build(),
+                new SpendingBuilder().withName("name3").withCost("10").withDate("10/01/2010").build()
+            )
+        );
+        Budget oldBudgetTemp = new Budget(100, "01/2010");
+        oldBudgetTemp.addSpending(spendingList);
+        assertEquals(30, oldBudgetTemp.getSum());
+    }
+
+    @Test
     public void deleteSpending_wrongDate_noAdd() {
         Spending temp = new SpendingBuilder().withName("name").withCost("10").withDate("10/01/2010").build();
-        double originalValue = newBudget.getValue();
+        double originalValue = newBudget.getAmount();
         double originalSum = newBudget.getSum();
 
         newBudget.deleteSpending(temp);
-        assertEquals(originalValue, newBudget.getValue());
+        assertEquals(originalValue, newBudget.getAmount());
         assertEquals(originalSum, newBudget.getSum());
     }
 

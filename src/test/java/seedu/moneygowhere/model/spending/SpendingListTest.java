@@ -46,7 +46,12 @@ public class SpendingListTest {
 
     @Test
     public void add_nullSpending_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> spendingList.add(null));
+        assertThrows(NullPointerException.class, () -> spendingList.add((Spending) null));
+    }
+
+    @Test
+    public void add_nullListSpending_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> spendingList.add((List<Spending>) null));
     }
 
     @Test

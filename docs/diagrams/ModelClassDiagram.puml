@@ -27,6 +27,17 @@ class SpendingList
 Package Tag {
 Class Tag
 }
+
+Package Reminder {
+class Reminder
+class ReminderList
+class ReminderMessage
+}
+
+Package Budget {
+class Budget
+class BudgetMonth
+}
 }
 
 Class HiddenOutside #FFFFFF
@@ -39,6 +50,7 @@ Model .right.> ObservableList
 ModelManager o--> "1" SpendingBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
+
 
 SpendingBook *--> "1" SpendingList
 SpendingList o--> "*" Spending
@@ -53,4 +65,15 @@ Cost -[hidden]right-> Date
 Date -[hidden]right-> Remark
 
 ModelManager -->"1" Spending : filtered and sorted list
+
+SpendingBook *--> "1" ReminderList
+ReminderList o--> "*" Reminder
+Reminder *--> ReminderMessage
+Reminder *--> Date
+
+ModelManager -right->"1" Reminder : filtered and sorted list
+
+SpendingBook *--> "1" Budget
+Budget *--> BudgetMonth
+
 @enduml

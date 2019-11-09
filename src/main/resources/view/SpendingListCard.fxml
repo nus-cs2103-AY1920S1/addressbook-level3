@@ -12,14 +12,15 @@
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
+    <padding><Insets top="15"/></padding>
     <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" percentWidth="8.0" prefWidth="10.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="65.0" prefWidth="160.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="27.0" prefWidth="70.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="7.5" percentWidth="13.0" prefWidth="11.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="63.0" prefWidth="160.0" />
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="24.0" prefWidth="70.0" />
       <ColumnConstraints />
     </columnConstraints>
     <children>
-      <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+      <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS">
         <Label fx:id="id" alignment="TOP_LEFT" contentDisplay="TOP" styleClass="cell_big_label" text="\$id">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
@@ -27,7 +28,7 @@
           </minWidth>
         </Label>
       </VBox>
-      <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
+      <VBox fx:id="labelVbox" alignment="CENTER_LEFT" GridPane.columnIndex="1">
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true" >
         </Label>
         <Label fx:id="date" styleClass="cell_small_label" text="\$date">
@@ -40,13 +41,18 @@
           </VBox.margin>
         </FlowPane>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="110" GridPane.columnIndex="2">
-        <Label fx:id="cost" alignment="CENTER" styleClass="cell_small_label" text="\$cost" wrapText="true">
+      <VBox alignment="CENTER" GridPane.columnIndex="2">
+        <Label fx:id="cost"  styleClass="cell_small_label" text="\$cost" >
+          <minWidth>
+            <!-- Ensures that the label text is never truncated -->
+            <Region fx:constant="USE_PREF_SIZE" />
+          </minWidth>
         </Label>
       </VBox>
     </children>
     <rowConstraints>
       <RowConstraints />
+      <RowConstraints vgrow="SOMETIMES" minHeight="15.0" prefHeight="25.0" valignment="CENTER"/>
     </rowConstraints>
   </GridPane>
 </HBox>

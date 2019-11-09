@@ -44,9 +44,6 @@ public class Date implements Comparable<Date> {
         return DateUtil.isValidDate(test);
     }
 
-    public LocalDate getDateValue() {
-        return this.dateValue;
-    }
     @Override
     public String toString() {
         return value;

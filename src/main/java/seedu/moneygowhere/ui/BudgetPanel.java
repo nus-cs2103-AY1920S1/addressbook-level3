@@ -5,7 +5,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import seedu.moneygowhere.commons.util.MoneyUtil;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.currency.Currency;
 
 /**
  * The UI component that is responsible for Showing the current monthly budget and total spending.
@@ -21,7 +23,7 @@ public class BudgetPanel extends UiPart<Region> {
     private Label remainingBudget;
 
     @FXML
-    private Label budgetRemark;
+    private Label titleText;
 
     @FXML
     private Label budgetAmount;
@@ -29,11 +31,14 @@ public class BudgetPanel extends UiPart<Region> {
     private double amount;
     private double sum;
 
-    public BudgetPanel(Budget budget) {
+    private Currency currencyInUse;
+
+    public BudgetPanel(Budget budget, Currency currencyInUse) {
         super(FXML);
 
-        this.amount = budget.getValue();
+        this.amount = budget.getAmount();
         this.sum = budget.getSum();
+        this.currencyInUse = currencyInUse;
 
         update();
     }
@@ -43,8 +48,9 @@ public class BudgetPanel extends UiPart<Region> {
      */
     private void update() {
         remainingBudget.setText(getRemainingBudgetText());
-        budgetRemark.setText(getBudgetRemark());
         budgetAmount.setText(getBudgetAmount());
+
+        updateTitleText();
     }
 
     /**
@@ -52,19 +58,21 @@ public class BudgetPanel extends UiPart<Region> {
      * Based on the new {@code Budget}
      * @param budget the budget to get data to update.
      */
-    public void update(Budget budget) {
-        if (this.amount != budget.getValue() || this.sum != budget.getSum()) {
-            this.amount = budget.getValue();
+    public void update(Budget budget, Currency currencyInUse) {
+        if (this.amount != budget.getAmount() || this.sum != budget.getSum()
+            || !this.currencyInUse.equals(currencyInUse)) {
+            this.amount = budget.getAmount();
             this.sum = budget.getSum();
+            this.currencyInUse = currencyInUse;
             update();
         }
     }
 
     private String getRemainingBudgetText() {
         double percentDiff = (amount - sum) / amount;
-        double remainingAmount = Math.abs(amount - sum);
+        double remainingAmount = Math.abs(amount - sum) * currencyInUse.rate;
 
-        String defaultOutput = String.format("$%.2f", remainingAmount);
+        String defaultOutput = String.format("%s %s", currencyInUse.symbol, MoneyUtil.format(remainingAmount));
         if (percentDiff < 0) {
             remainingBudget.setTextFill(Color.web("#FF0000"));
             return "-" + defaultOutput;
@@ -81,17 +89,20 @@ public class BudgetPanel extends UiPart<Region> {
         return defaultOutput;
     }
 
-    private String getBudgetRemark() {
+    /**
+     * Sets the colour of the titleText to red.
+     * If user has exceeded the budget.
+     */
+    private void updateTitleText() {
         if (amount - sum < 0) {
-            budgetRemark.setTextFill(Color.web("#FF0000"));
-            return "Your money go where ahh?";
+            titleText.setTextFill(Color.web("#FF0000"));
         } else {
-            budgetRemark.setTextFill(Color.web("#00FF00"));
-            return "";
+            titleText.setTextFill(Color.web("#00FF00"));
         }
     }
 
     private String getBudgetAmount() {
-        return "This month's budget: $" + String.format("%.02f", amount);
+        return String.format("This month's budget: %s %s", currencyInUse.symbol,
+                MoneyUtil.format(amount * currencyInUse.rate));
     }
 }

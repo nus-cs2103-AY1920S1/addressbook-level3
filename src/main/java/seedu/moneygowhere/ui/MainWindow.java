@@ -1,5 +1,6 @@
 package seedu.moneygowhere.ui;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.Logic;
@@ -28,7 +30,7 @@ import seedu.moneygowhere.model.currency.Currency;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow2.fxml";
+    private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -138,17 +140,17 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getSpendingBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getSpendingBookFilePath(), logic.getSpendingBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, this::getPrevCommand, this::getNextCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        BudgetPanel bp = new BudgetPanel(logic.getSpendingBook().getBudget());
+        Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
+
+        BudgetPanel bp = new BudgetPanel(logic.getSpendingBook().getBudget(), currencyInUse);
         budgetPanel = bp;
         budgetPanelPlaceholder.getChildren().add(bp.getRoot());
-
-        Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
 
         graphTab = new Tab("Graph");
         graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n", currencyInUse);
@@ -216,29 +218,32 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            budgetPanel.update(logic.getSpendingBook().getBudget());
+            Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
+
+            budgetPanel.update(logic.getSpendingBook().getBudget(), currencyInUse);
 
             if (commandResult.isExit()) {
                 handleExit();
             }
 
-            Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
-
             if (commandResult.isShowGraph()) {
                 graphPanel = new GraphPanel(logic.getGraphData(), commandResult.getFeedbackToUser(), currencyInUse);
                 tabPanePlaceholder.getSelectionModel().select(graphTab);
+                graphTab.setContent(graphPanel.getRoot());
             } else {
                 graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n", currencyInUse);
+                logger.log(Level.INFO, logic.getGraphData().toString());
+                graphTab.setContent(graphPanel.getRoot());
             }
-            graphTab.setContent(graphPanel.getRoot());
 
             if (commandResult.isShowStats()) {
                 statsPanel = new StatsPanel(logic.getStatsData(), commandResult.getFeedbackToUser(), currencyInUse);
                 tabPanePlaceholder.getSelectionModel().select(statsTab);
+                statsTab.setContent(statsPanel.getRoot());
             } else {
                 statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n", currencyInUse);
+                statsTab.setContent(statsPanel.getRoot());
             }
-            statsTab.setContent(statsPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

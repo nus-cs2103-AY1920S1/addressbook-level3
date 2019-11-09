@@ -8,15 +8,19 @@ import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BANANA;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BILL_REMINDER;
+import static seedu.moneygowhere.testutil.TypicalSpendings.CATFOOD;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.model.spending.NameContainsKeywordsPredicate;
+import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.testutil.SpendingBookBuilder;
 
 public class ModelManagerTest {
@@ -87,6 +91,15 @@ public class ModelManagerTest {
     public void hasSpending_spendingInAddressBook_returnsTrue() {
         modelManager.addSpending(APPLE);
         assertTrue(modelManager.hasSpending(APPLE));
+    }
+
+    @Test
+    public void hasMultipleSpending_spendingInAddressBook_returnsTrue() {
+        List<Spending> spendings = new ArrayList<>(Arrays.asList(APPLE, BANANA, CATFOOD));
+        modelManager.addSpending(spendings);
+        assertTrue(modelManager.hasSpending(APPLE));
+        assertTrue(modelManager.hasSpending(BANANA));
+        assertTrue(modelManager.hasSpending(CATFOOD));
     }
 
     @Test
