@@ -38,7 +38,7 @@ public class Event extends Interval<Date, Event> {
      * @return A placeholder {@code Event} instance which has the same start and end date as the event query
      */
     public static Event getEventPlaceHolder(EventQuery eventQuery) {
-        Name name = new Name("");
+        Name name = new Name("Placeholder");
         EventType eventType = null;
         return new Event(name, eventQuery.getStart(), eventQuery.getEnd(), eventType);
     }

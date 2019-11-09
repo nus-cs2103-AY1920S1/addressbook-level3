@@ -40,10 +40,6 @@ public class ViewOnlyDay {
         return dayOfMonth;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
     /**
      * Returns day of week as a meaningful numerical value that is zero-based.
      *

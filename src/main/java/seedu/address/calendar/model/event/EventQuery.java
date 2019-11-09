@@ -20,14 +20,6 @@ public class EventQuery extends Interval<Date, EventQuery> {
         return startDate.compareTo(endDate) <= 0;
     }
 
-    public static EventQuery getMonthQuery(EventQuery eventQuery) {
-        Date startDate = eventQuery.getStart();
-        Date startOfMonth = DateUtil.getFirstDateInSameMonth(startDate);
-        Date endOfMonth = DateUtil.getLastDateInSameMonth(startDate);
-
-        return new EventQuery(startOfMonth, endOfMonth);
-    }
-
     boolean isSameInterval(EventQuery otherEventQuery) {
         Date otherStartDate = otherEventQuery.startDate;
         Date otherEndDate = otherEventQuery.endDate;

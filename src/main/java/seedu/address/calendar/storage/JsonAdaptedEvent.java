@@ -50,6 +50,11 @@ public class JsonAdaptedEvent {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "name of event"));
         }
+
+        if (!Name.isValidNameString(name)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINT);
+        }
+
         final Name eventName = new Name(name);
 
         if (startDate == null) {

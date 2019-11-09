@@ -28,6 +28,7 @@ public class DeleteCommitmentCommand extends DeleteCommand {
         this.commitment = commitment;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) throws CommandException, NoSuchElementException {
         calendar.deleteEvent(commitment);
         String formattedFeedback = String.format(MESSAGE_DELETE_SUCCESS, commitment.toString());
