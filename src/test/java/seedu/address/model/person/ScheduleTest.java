@@ -13,6 +13,7 @@ import seedu.address.model.person.exceptions.SchedulingException;
 
 class ScheduleTest {
     public static final LocalTime TEN_AM = LocalTime.of(10, 0);
+    public static final LocalTime TWO_PM = LocalTime.of(14, 0);
 
 
     /**
@@ -86,8 +87,16 @@ class ScheduleTest {
     @Test
     void findFirstAvailableSlot_notAvailable_returnsEmpty() {
         Schedule sample = sampleSchedule();
-        EventTime fourHourTask = EventTime.parse("1400", "1800");
+        EventTime fourHourTask = EventTime.parse("1400", Schedule.END_WORK_TIME);
         assertTrue(sample.findFirstAvailableSlot(TEN_AM, fourHourTask.getDuration()).isEmpty());
+    }
+
+    @Test
+    void findFirstAvailableSlot_duringOngoingTask_returnAvailableSlot() {
+        Schedule sample = sampleSchedule();
+        EventTime twoHourTask = EventTime.parse("1400", "1600");
+        EventTime expected = EventTime.parse("1500", "1700");
+        assertEquals(expected, sample.findFirstAvailableSlot(TWO_PM, twoHourTask.getDuration()).get());
     }
 
 

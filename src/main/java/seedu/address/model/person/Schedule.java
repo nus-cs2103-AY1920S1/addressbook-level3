@@ -23,8 +23,8 @@ public class Schedule {
     public static final String MESSAGE_EVENT_START_BEFORE_NOW_FORMAT =
             "The event cannot happen in the past. The time now is %s. ";
 
-    private static final String START_WORK_TIME = "0900";
-    private static final String END_WORK_TIME = "1800";
+    public static final String START_WORK_TIME = "0900";
+    public static final String END_WORK_TIME = "2100";
     private static EventTime workingHours = EventTime.parse(START_WORK_TIME, END_WORK_TIME);
 
     public static final String MESSAGE_OUTSIDE_WORKING_HOURS =
@@ -97,9 +97,19 @@ public class Schedule {
 
         // HACK: using a zero minute event time to get the tailset
         EventTime now = new EventTime(timeNow, timeNow);
-        schedule.add(now);
 
-        NavigableSet<EventTime> candidates = schedule.subSet(now, true, lastCandidate, true);
+        EventTime firstCandidate = schedule.lower(now);
+
+        // this should always be non null, since an event starting at midnight will always be the smallest
+        assert firstCandidate != null;
+
+        if (!firstCandidate.overlaps(now)) {
+            schedule.add(now);
+            firstCandidate = now;
+        }
+
+
+        NavigableSet<EventTime> candidates = schedule.subSet(firstCandidate, true, lastCandidate, true);
         Iterator<EventTime> iter = candidates.iterator();
 
         EventTime prev = null;
@@ -112,14 +122,14 @@ public class Schedule {
             boolean canFit = Duration.between(prev.getEnd(), head.getStart()).compareTo(proposed) >= 0;
 
             if (canFit) {
-                schedule.remove(now);
+                schedule.remove(now); // it's okay if now doesn't exist in the set
                 return Optional.of(new EventTime(prev.getEnd(), proposed));
             }
 
             prev = head;
         }
 
-        schedule.remove(now);
+        schedule.remove(now); // it's okay if now doesn't exist in the set
         return Optional.empty();
     }
 
