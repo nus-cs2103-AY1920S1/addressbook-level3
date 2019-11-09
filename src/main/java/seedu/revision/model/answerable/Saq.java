@@ -1,11 +1,11 @@
 package seedu.revision.model.answerable;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Set;
 
 import seedu.revision.model.category.Category;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Answerable in the Test Bank.
