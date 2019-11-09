@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class DeckStats extends Stats {
 
     /** Data structure mapping decks to their corresponding SessionLists. */
-    private HashMap<String, SessionList> deckHashMap = new HashMap<>();
+    private HashMap<String, SessionList> deckHashMap;
 
     /** The current Session the user is engaging in. */
     private Session currentSession;
@@ -45,6 +45,10 @@ public class DeckStats extends Stats {
     @Override
     public void startCurrentSession() {
         // assert that currentDeck is not null?
+        String currentDeck = this.getCurrentDeck();
+        if (currentDeck == null) {
+
+        }
 
         // replace with assert?
         if (this.currentSession != null) {
@@ -52,8 +56,7 @@ public class DeckStats extends Stats {
             logger.info("Existing test session detected. Terminating it first...");
         }
 
-        // debug (change to Logger when implemented)
-        logger.info("Starting a test session...");
+        logger.info("Starting a test session of deck " + currentDeck + "...");
 
         this.currentSession = new Session();
     }
@@ -62,37 +65,61 @@ public class DeckStats extends Stats {
     public void endCurrentSession() {
         // assert that currentDeck is not null?
         String currentDeck = this.getCurrentDeck();
+        if (currentDeck == null) {
+
+        }
 
         if (this.currentSession == null) {
-            logger.info("Current login session not found!");
+            logger.info("Current test session not found!");
             return;
         }
 
         try {
             this.currentSession.endSession();
-            //this.sessionList.addSession(currentSession);
+            this.addSessionToDeckSessionList(this.currentSession, currentDeck);
 
             // reset currentSession to null since this is terminated
             this.currentSession = null;
 
-            logger.info("Ending the current login session...");
+            logger.info("Ending the current test session...");
         } catch (Exception e) {
             e.printStackTrace();
-            logger.info("Current login session not found?");
+            logger.info("Current test session not found?");
         }
     }
 
     @Override
     public Session getCurrentSession() {
-        return null;
+        return this.currentSession;
     }
 
     // methods relating to changes to decks
 
+    /** Returns the SessionList related to the specified deck. */
+    public SessionList getSessionListForDeck(String deckName) {
+        // assumes that the deck can be found? or throw exception?
+        return this.deckHashMap.get(deckName);
+    }
+
+    /** Returns true if there are no decks in the DeckStats object. */
+    public boolean hasNoDecks() {
+        return this.deckHashMap.isEmpty();
+    }
+
     /** Adds the given Session to the SessionList corresponding to the given deck. */
     public void addSessionToDeckSessionList(Session session, String deckName) {
         // if deck not found in hashmap, throw deck not found exception?
+        SessionList sessionList = this.getSessionListForDeck(deckName);
+        sessionList.addSession(session);
+    }
 
+    /**
+     * Creates a new SessionList corresponding to a new deck with the specified name.
+     * Assumes that no issues with the creating operation exist, i.e. have already been dealt with.
+     * @param deckName The name of the deck to be added.
+     */
+    public void createNewDeck(String deckName) {
+        this.deckHashMap.put(deckName, new SessionList());
     }
 
     /**
@@ -102,7 +129,8 @@ public class DeckStats extends Stats {
      * @param newDeckName The new name of the deck.
      */
     public void renameDeck(String oldDeckName, String newDeckName) {
-
+        SessionList sessionList = this.deckHashMap.remove(oldDeckName);
+        this.deckHashMap.put(newDeckName, sessionList);
     }
 
     /**
@@ -110,6 +138,6 @@ public class DeckStats extends Stats {
      * @param deckName The name of the deck to be deleted.
      */
     public void deleteDeck(String deckName) {
-
+        this.deckHashMap.remove(deckName);
     }
 }
