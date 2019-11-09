@@ -640,7 +640,7 @@ With so many claims and incomes, all having differing dates, it can be hard to k
 
 * We also wanted to keep track of the history of said `Claims` and `Incomes` and doing it over a 1 month period ensures there will not be too visual data cluttering the screen.
 
-==== Alternatives Considered
+==== Design Considerations
 
 We have considered between two differing graph designs.
 
@@ -751,11 +751,19 @@ of placing all of them into the same list
 change automatically to either the contact, claims or incomes page. This gives the user a clear indication if the specific entry he/she has added
 is successful.
 
-==== Alternatives Considered
-* We wanted to display 3 lists in the same main page, but that would cause the lists to be too crammed
+==== Design Considerations
 
-* We wanted to reload the list on the current page to the various lists, but we believe that such a change in tabs will
-help to tell the user that he is currently working on something different.
+* Change the current list to another, overtaking the same area
+** *Advantage*: Cleaner user interface
+** *Disadvantage*: Performance issues may arise when the lists get too long and this constant reloading may cause lags
+** I decided to proceed with this option because the change in tabs
+would allow users to be clear that they are changing a page to the specific list that they want.
+
+* Display 3 lists in the same main page
+** Pros: Can see everything in a glance
+** Cons: Main page may have performance issues too as the lists all have to be loaded at the same time
+
+
 
 // end::gotofeature[]
 
@@ -868,9 +876,19 @@ The pop-up method seems to be the best way to attract the attention of the user 
 check at that point in time. A pop-up is also easy because it allows the user to return immediately to the lists of claims or contacts and he/she
 can continue to work on his tasks immediately.
 
-==== Alternative Considered
-* We also considered that upon `check index`, it just removes the whole list from view and isolates the desired claim
-or contact needed, but we realised that might not catch the attention of the user
+==== Design Considerations
+
+* Show a pop-up of the individual card
+** *Advantage*: Clearly shows the user what he/she is checking
+** *Disadvantage*: Inconvenient for people with dual screens as the pop-up may appear on another screen
+** I decided to proceed with this option because it is the best way of making the individual window clear to the user.
+
+* Remove the whole list from view and isolates the desired claim
+or contact needed
+** *Advantage*: Does not require the pop-up, another window to be shown
+** *Disadvantage*: Might not catch the attention of the user
+
+
 // end::checkfeature[]
 
 // tag::sortfeature[]
@@ -974,8 +992,15 @@ filter is especially important so the user can check what are the latest or olde
 find the various contacts/claims/incomes. It doubles up as a find or filter function to let the user find the specific
 object he/she is finding.
 
-==== Alternative Considered
+==== Design Considerations
+* Sorting of the claims list based on description
+** *Advantage*: Easily find the claim you are looking for
+** *Disadvantage*: Might be difficult to remember the names of each claim
+
 * Sorting of the claims list based on contact's name instead
+** *Advantage*: Easy to know as the person's name is probably easier to remember than the claim's description
+** *Disadvantage*: Already done in check contact, where you can filter the claims of a certain contact through the
+`check` feature
 
 // end::sortfeature[]
 

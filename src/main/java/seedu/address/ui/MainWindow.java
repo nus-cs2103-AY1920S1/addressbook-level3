@@ -60,6 +60,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
+    /**
+     * Constructs the mainwindow with all the other objects with it
+     * @param primaryStage that holds the FXML
+     * @param logic that runs the logic and commands behind it
+     */
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 

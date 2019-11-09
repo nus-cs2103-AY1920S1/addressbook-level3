@@ -23,10 +23,12 @@ class SortCommandTest {
         assertThrows(NullPointerException.class, () -> new SortCommand(null));
     }
 
-    @Test
-    public void execute_validFilter() {
-
-    }
+    //    @Test
+    //    public void execute_validFilter() throws CommandException {
+    //        SortFilter validFilter = new SortFilter("name", 1);
+    //        CommandResult commandResult = new SortCommand(validFilter).execute(model);
+    //        assertEquals("Contacts List Sorted in Lexicographical Order", commandResult.getFeedbackToUser());
+    //    }
 
     @Test
     public void execute_invalidFilter() {

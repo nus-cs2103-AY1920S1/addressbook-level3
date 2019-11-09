@@ -7,9 +7,9 @@
 
 == Overview
 
-This was a project for a Software Engineering Module CS2103T in National University of Singapore. I am in a team of 4 Computer Science students and we were given the task of enhancing the existing Command Line Interface application that the module provided us with. We decided to morph the application into a Financial Tracker for Finance Secretaries in organisations. The name of the application is FinSec.
+This is a project for a Software Engineering module, CS2103T in National University of Singapore. I am in a team of 4 Computer Science students and we were given the task of enhancing the existing Command Line Interface application that the module provided us with. We decided to morph the application into a Financial Tracker for Finance Secretaries in organisations. The name of the application is FinSec.
 
-This new application, allows for these Finance Secretaries to easily store their claims requests, income inflows and keep track of budget accurately. On top of these, the secretary has to store the contacts of all the people who have made transactions with him so that it ensures easier tracking in the future.
+This new application, allows for these Finance Secretaries to easily store their claims requests, income inflows and keep track of budget accurately. On top of these, the secretary can store the contacts of all the people who have made transactions with him so that it ensures easier tracking in the future.
 
 This is what our project looks like:
 
@@ -18,6 +18,8 @@ This is what our project looks like:
 image::PPP-ui.png[]
 
 == Summary of contributions
+
+This section is a summary of my contributions to the project. I have 3 major enhancements and 1 minor enhancement in total. They are as follows:
 
 * *Major enhancement 1*: I added *ability to `goto` a different view, through the different lists*
 ** *What it does*: this `goto` feature allows the user to get to the different lists, namely: contacts,

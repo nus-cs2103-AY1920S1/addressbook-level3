@@ -37,9 +37,7 @@ public class CheckCommand extends Command {
      * @param index that is from user input
      */
     public CheckCommand(Index index) {
-        if (index == null) {
-            throw new NullPointerException();
-        }
+        requireNonNull(index);
         this.index = index;
     }
 
