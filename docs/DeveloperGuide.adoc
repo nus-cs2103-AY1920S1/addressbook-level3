@@ -778,7 +778,7 @@ is passed into a stream to remove duplicates.
 [NOTE]
 If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works and is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works:
 
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
 
