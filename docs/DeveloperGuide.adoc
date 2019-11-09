@@ -115,6 +115,20 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+. Handles the mutli-threading of reactive search requests by the user.
+    * When the user is searching for an existing entry, the system will attempt to filter through the results as the user types.
+
+    * Each key stroke will trigger a new reactive search request which is processed on a separate thread.
+        This is done to avoid lagging the UI.
+
+    * If a new reactive search request is triggered before the previous request has been completed.
+        The previous request thread will be interrupted before the new request thread is allowed to be executed.
+
+    * The execution of a reactive search differs from the normal command, in the way that it only allows the execution of `NonActionableCommand` types.
+        Hence, there is no modification of any data in the system's model when executing a reactive search.
+
+
+
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `next 1` and `enqueue E0000001A` API call.
 
 .Interactions inside the Logic Component for the `enqueue E0000001A` Command.
@@ -140,19 +154,24 @@ The `Model`,
 
 * consists of 3 sub-components: Queue Manager, Address Book and Appointment Book.
 
-* stores the details of patients and staff into 2  an Address Book.
+* stores the details of patients and staff in 2 separate instances of Address Book.
 
-* stores the Appointment details of patients and staff in an Appointment Book.
+* stores the patients' appointment details and duty shifts of staff doctors in 2 separate instances of Appointment Book.
 
-* improves code reusability, we can reuse the `Person` class to derive classes which can represent patients or staff doctors.
-
-* likewise, we can reuse the `Event` class to derive classes which can represent patient's appointments and staff duty shifts.
+* allows for code reusability for most of the implemented classes,
+    such as `Person`, `Event`, `AddressBook`, `AppointmentBook` and `UniqueElementList`.
+    For instance, we can reuse the `Person` class to derive classes which can represent patients or staff doctors.
+    Likewise, the `Event` class can be used to derive classes which can represent patient's appointments and staff duty shifts.
 
 * exposes an unmodifiable `ObservableList<Person>` and `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
 * does not depend on any of the other three components.
 
-* stores a unique list of `Tags` in the `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
+
+
+
+
+* stores a unique list of `Tags` and `ReferenceId`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
 
 The `QueueManager`,
 
