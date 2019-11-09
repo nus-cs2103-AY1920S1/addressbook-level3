@@ -24,7 +24,8 @@ public class JsonAdaptedNote {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedNote(@JsonProperty("classId") String classId, @JsonProperty("type") String type, @JsonProperty("content") String content) {
+    public JsonAdaptedNote(@JsonProperty("classId") String classId,
+                           @JsonProperty("type") String type, @JsonProperty("content") String content) {
         this.classId = classId;
         this.type = type;
         this.content = content;

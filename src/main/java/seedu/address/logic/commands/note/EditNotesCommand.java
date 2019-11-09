@@ -1,7 +1,9 @@
 package seedu.address.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.List;

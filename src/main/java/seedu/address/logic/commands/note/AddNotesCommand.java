@@ -3,6 +3,7 @@ package seedu.address.logic.commands.note;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -20,8 +21,11 @@ public class AddNotesCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a note to the address book. "
             + "Parameters: "
             + PREFIX_CLASSID + "MODULE CODE "
+            + PREFIX_TYPE + "TYPE "
+            + PREFIX_CONTENT + "NOTE CONTENT"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CLASSID + "CS2103T "
+            + PREFIX_TYPE + "tut "
             + PREFIX_CONTENT + "Checking for project meeting time ";
 
     public static final String MESSAGE_SUCCESS = "New note added: \n + %1$s";
