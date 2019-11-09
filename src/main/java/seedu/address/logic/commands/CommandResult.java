@@ -26,6 +26,7 @@ public class CommandResult {
     private boolean showTasks;
     private boolean showPersons;
     private boolean showReminder;
+    private boolean showLogin;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -56,7 +57,20 @@ public class CommandResult {
         this.showReminder = showReminder;
     }
 
-
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showEarnings,
+                         boolean unknown, boolean showTasks, boolean showPersons,
+                         boolean showNotes, boolean showReminder, boolean showLogin) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.showEarnings = showEarnings;
+        this.unknown = unknown;
+        this.showTasks = showTasks;
+        this.showPersons = showPersons;
+        this.showNotes = showNotes;
+        this.showReminder = showReminder;
+        this.showLogin = showLogin;
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
@@ -81,6 +95,10 @@ public class CommandResult {
 
     public boolean isEarnings() {
         return showEarnings;
+    }
+
+    public boolean isLogin() {
+        return showLogin;
     }
 
     public boolean isUnknown() {

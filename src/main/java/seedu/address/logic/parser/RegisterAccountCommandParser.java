@@ -15,7 +15,7 @@ import seedu.address.model.account.Username;
 /**
  * Parses input arguments and creates a new RegisterAccountCommand object
  */
-public class RegisterAccountCommandParser {
+public class RegisterAccountCommandParser implements Parser<RegisterAccountCommand> {
 
     /**
      * Parses the given {@code String} of arguments

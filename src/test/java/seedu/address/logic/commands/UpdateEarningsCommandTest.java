@@ -28,7 +28,6 @@ import seedu.address.testutil.UpdateEarningsDescriptorBuilder;
 
 public class UpdateEarningsCommandTest {
 
-
     private Model model = new ModelManager(getTypicalTutorAid(), new UserPrefs());
 
     @Test
@@ -64,11 +63,7 @@ public class UpdateEarningsCommandTest {
         Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
         expectedModel.setEarnings(lastEarnings, editedEarnings);
 
-        assertCommandSuccess(
-                updateEarningsCommand,
-                model,
-                expectedMessage,
-                expectedModel);
+        assertCommandSuccess(updateEarningsCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

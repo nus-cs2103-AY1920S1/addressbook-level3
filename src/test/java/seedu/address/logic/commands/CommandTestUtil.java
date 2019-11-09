@@ -109,10 +109,13 @@ public class CommandTestUtil {
     public static final EditEarningsDescriptor DESC_CS2100;
     public static final EditEarningsDescriptor DESC_CS1231;
 
-    public static final String VALID_USERNAME_ADRIAN = "amychoo";
+    public static final String VALID_USERNAME_ADRIAN = "adriannn";
     public static final String VALID_USERNAME_BARBARA = "barbara";
     public static final String VALID_PASSWORD_ADRIAN = "password123";
     public static final String VALID_PASSWORD_BARBARA = "passingword123";
+
+    public static final String INVALID_USERNAME = "a m y ch o o";
+    public static final String INVALID_PASSWORD = "pa sswo r d 25 2";
 
     public static final CommandObject DELETE_COMMAND;
 

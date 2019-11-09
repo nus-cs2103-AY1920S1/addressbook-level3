@@ -26,4 +26,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_CONTENT = new Prefix("c/");
     public static final Prefix PREFIX_TYPE = new Prefix("type/");
     public static final Prefix PREFIX_CLAIM = new Prefix("claim/");
+    public static final Prefix PREFIX_COUNT = new Prefix("count/");
 }

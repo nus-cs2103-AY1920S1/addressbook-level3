@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEarningsCommand;
 import seedu.address.logic.commands.AssignClassCommand;
+import seedu.address.logic.commands.AutoAddEarningsCommand;
+import seedu.address.logic.commands.AutoCommand;
 import seedu.address.logic.commands.CancelCommand;
 import seedu.address.logic.commands.ChangeTabCommand;
 import seedu.address.logic.commands.ClaimEarningsCommand;
@@ -190,6 +192,12 @@ public class TutorAidParser {
 
             case ClaimEarningsCommand.COMMAND_WORD:
                 return new ClaimEarningsCommandParser().parse(arguments);
+
+            case AutoAddEarningsCommand.COMMAND_WORD:
+                return new AutoAddEarningsCommandParser().parse(arguments);
+
+            case AutoCommand.COMMAND_WORD:
+                return new AutoCommand();
 
             case FindTaskCommand.COMMAND_WORD:
                 return new FindTaskCommandParser().parse(arguments);
