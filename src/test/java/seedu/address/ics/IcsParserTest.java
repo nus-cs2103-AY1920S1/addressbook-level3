@@ -2,6 +2,7 @@ package seedu.address.ics;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,9 +30,8 @@ public class IcsParserTest {
                 .newBuilder(description, startDateTime)
                 .build();
         EventSource outcome = IcsParser.parseSingleEvent(icsEventObjectString);
-        System.out.println("Expected: " + expected.getStartDateTime() + "Actual: " + outcome.getStartDateTime());
         assertEquals(expected.getDescription(), outcome.getDescription());
-        assertEquals(expected.getStartDateTime(), outcome.getStartDateTime());
+        assertTrue(expected.getStartDateTime().equals(outcome.getStartDateTime()));
     }
 
     @Test
