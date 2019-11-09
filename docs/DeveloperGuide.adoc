@@ -342,6 +342,9 @@ Additionally, it implements the following operations:
 * `CommandHistory#commit()` -- Saves the current reversible command in its command history.
 * `CommandHistory#undo()` -- Undoes the most recent reversible command.
 * `CommandHistory#redo()` -- Redoes the most recent previously undone command.
+* `CommandHistory#canUndo() --
+* `CommandHistory#canRedo() --
+* `CommandHistory#reset() --
 
 These operations are exposed in the `Model` interface as `Model#commitCommand()`, `Model#undoCommand()` and `Model#redoCommand()` respectively.
 

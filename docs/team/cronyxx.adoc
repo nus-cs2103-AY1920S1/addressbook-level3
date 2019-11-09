@@ -8,7 +8,9 @@
 
 === Purpose
 This portfolio is written to document my role as the *User Interface* (UI)
-designer and my contributions to our project, *LiBerry*.
+designer and my contributions to our project, *LiBerry*. The following sections
+describe our project and the enhancements that I added in detail, together
+with relevant documentation from the user guide and developer guide.
 
 === About the project
 *LiBerry* is a *free*, *single-user*, and *lightweight* library management system,
@@ -17,6 +19,12 @@ require any internet connection to function and is optimized for librarians
 who prefer to work with a *Command Line Interface* (CLI). The *Graphical User
 Interface* (GUI) of *LiBerry* is created with *JavaFX* while the entire software
 is written in *Java*.
+
+.Screenshot of LiBerry user interface
+image::Ui.png[]
+
+The figure above shows the graphical user interface of our application,
+LiBerry.
 
 === Motivations
 *LiBerry* is created to promote the setting up of private and community
@@ -42,75 +50,98 @@ effectively.
 
 === Key symbols
 
+The following symbols and formatting are used in this document:
 
+TIP: Denotes useful tips.
+
+IMPORTANT: Denotes important details to take note of.
 
 == Summary of Contributions
 ---
 
 This section describes the contributions that I have made to *LiBerry*.
-Here is the link to the code that I contributed to the project:
 
+Here is the link to the code that I contributed to the project:
 Code contributed: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=Cronyxx[RepoSense Report]
 
-=== Major enhancement: Undo/Redo feature
+=== Major enhancement - Undo/Redo feature:
 
 ==== Description:
-Allows the user to undo all previous commands one at a time.
-Preceding undo commands can be reversed by using the redo command.
+This feature enables users to undo all previous commands one at a time.
+Undone commands can be reversed one at a time by using the redo command.
 
 ==== Justification:
-This feature improves the product significantly because a user can
-make mistakes in commands and the app should provide a convenient way
-to rectify them.
+This feature makes the application much more user friendly. This is because
+this feature provides a convenient method for users to rectify any
+immediate mistakes that was made.
 
 ==== Highlights:
-This enhancement affects existing commands and commands to be added in
-future. It required an in-depth analysis of design alternatives.
-The implementation too was challenging as it required changes to
-existing commands.
+This enhancement was implemented in a way that minimises the memory usage
+required. In addition, this enhancement is extensible and can be applied to
+future commands with little overheads. This required an in-depth analysis
+of design alternatives and the consideration of the target audience of our
+application.
+
+=== Secondary enhancement - Set User Settings feature:
+
+==== Description:
+This feature enables users to set customisable settings to our application.
+Some of the settings includes loan period, which is the number of days a
+book can be loaned out, and renew period, which is the number of the days
+a loan can be extended. These user settings are then stored locally so that
+users do not have to set them every time they open the application.
+
+==== Justification:
+As every library have different loan policies, this feature allows libraries
+to customise their own loan policies which is essential for the operation of
+the library. This feature also allows users to set different policies for
+different type of books which makes the application more flexible.
+
+==== Highlights:
+The most challenging part of this enhancement is making it persistent as
+it requires some knowledge of teh storage system.
 
 === Minor enhancement:
-Added a history command that allows the user to navigate to
-previous commands using up/down keys.
+Added a help command that opens up a window to show the users a summary of
+commands available.
 
 === Other contributions:
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed release `v1.2.1` on GitHub.
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Created and Updated our application icon (Pull request:
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/99[#99]).
+*** Updated User Interface to fit our application
+(Pull requests: https://github.com/AY1920S1-CS2103T-F13-1/main/pull/114[#114],
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/149[#149]).
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated UI component of the Developer Guide (Pull request:
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/158[#158]).
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Reviewed teammates' pull requests (with non-trivial review comments)
+(Pull requests: https://github.com/AY1920S1-CS2103T-F13-1/main/pull/98[#98],
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/125[#125]).
+*** Contributed to forum discussions as a group by sharing a tip on checking code coverage when running tests
+(https://github.com/nus-cs2103-AY1920S1/forum/issues/115[Link to post]).
+*** Added suggestions for other teams taking the module (https://github.com/AY1920S1-CS2103T-T09-3/main/issues/150[Example]).
 
 == Contributions to the User Guide
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=UGHelp]
+include::../UserGuide.adoc[tag=UGUndo]
+include::../UserGuide.adoc[tag=UGRedo]
+include::../UserGuide.adoc[tag=UGSet]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and
+the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=undoredo]
-
-//include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=undo/redo]

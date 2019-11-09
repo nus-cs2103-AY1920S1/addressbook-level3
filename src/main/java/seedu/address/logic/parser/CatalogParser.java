@@ -27,6 +27,7 @@ import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.commands.ToggleUiCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UnregisterCommand;
+import seedu.address.logic.commands.ViewSettingsCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -103,6 +104,9 @@ public class CatalogParser {
             return new RenewCommandParser().parse(arguments);
 
         case SetCommand.COMMAND_WORD:
+            if (arguments.equals("")) {
+                return new ViewSettingsCommand();
+            }
             return new SetCommandParser().parse(arguments);
 
         case PayCommand.COMMAND_WORD:

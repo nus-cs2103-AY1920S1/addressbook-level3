@@ -39,6 +39,7 @@ import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.commands.UnregisterCommand;
+import seedu.address.logic.commands.ViewSettingsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
@@ -177,6 +178,10 @@ public class CatalogParserTest {
 
     @Test
     public void parseCommand_set() throws Exception {
+        // Set command without any arguments
+        assertEquals(parser.parseCommand(SetCommand.COMMAND_WORD), new ViewSettingsCommand());
+
+        // Set command with arguments
         UserSettings userSettings = new UserSettingsBuilder().build();
         SetCommand.SetUserSettingsDescriptor descriptor = new SetUserSettingsDescriptorBuilder(userSettings).build();
         SetCommand command = (SetCommand) parser.parseCommand(SetCommand.COMMAND_WORD + " "
