@@ -774,7 +774,7 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to add a <<loan-out, loan out>> for a person.
+1.  User requests to add a <<loan-out, loan out>>.
 2.  Budget Buddy adds the loan for the given person.
 +
 Use case ends.
@@ -782,19 +782,12 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. The given loan out value is negative.
+* 1a. The given loan out value is not positive.
 +
 [none]
 ** 1a1. Budget Buddy shows an error message.
 +
 Use case resumes at step 1.
-
-* 2a. The given person does not exist in the loan list.
-+
-[none]
-** 2a1. Budget Buddy adds the given person to the loan list with a loan entry.
-+
-Use case ends.
 
 === Use case: Edit loan
 
@@ -840,36 +833,6 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-=== Use case: Rename categories
-
-*MSS*
-
-1. User requests to list all categories.
-2. Budget Buddy shows all created categories.
-3. User requests to rename a category.
-4. Budget Buddy renames the category and displays the list of categories.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 3a. The index of the category does not exist.
-+
-[none]
-** 3a1. Budget buddy shows an error message.
-+
-Use case resumes at step 3.
-
-[none]
-* 3b. The new name of the category is invalid.
-+
-[none]
-** 3b1. Budget Buddy shows an error message.
-+
-Use case resumes at step 3.
-
-
 [appendix]
 == Non Functional Requirements
 
@@ -884,27 +847,10 @@ Use case resumes at step 3.
 Windows, Linux, Unix, OS-X
 
 [[loan-out]] Loan Out::
-A loan where the user owes another person money.
+A loan where the user has lent money to another person.
 
 [[loan-in]] Loan In::
-A loan where another person owes the user money.
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+A loan where the user has borrowed money from another person.
 
 [appendix]
 == Instructions for Manual Testing
@@ -912,7 +858,7 @@ Cons:
 Given below are instructions to test the app manually.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+These instructions only provide a starting point for testers to work on.
 
 === Launch and Shutdown
 
@@ -928,26 +874,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting an account
 
-=== Deleting a person
+. Deleting an account while all accounts are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all persons using the `account list` command. More than one account in the list.
+.. Test case: `account delete 1` +
+   Expected: First account is deleted from the list. Details of the deleted account shown in the status message.
+.. Test case: `account delete 0` +
+   Expected: No account is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `account delete`, `account delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
