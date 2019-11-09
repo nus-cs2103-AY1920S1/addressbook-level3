@@ -41,6 +41,7 @@ image::ug_quickstart.png[]
 .  Find me, `ELISA.jar` link:{repoURL}/releases[here].
 .  Double-click me to start the app. See you in a few seconds.
 +
+.Main window of ELISA
 image::MainWindow.png[width="790"]
 +
 .  Tell me what to do in the command box!
@@ -61,7 +62,6 @@ For your viewing pleasure, we've collated it nicely into a quick starter pack be
 
 image::ug_features.png[]
 
-====
 This table shows the basic rules for the formatting the input:
 
 .Command Guidelines
@@ -69,8 +69,11 @@ This table shows the basic rules for the formatting the input:
 |Guidelines: |Description: |Correct usage:
 |Words in UPPER_CASE are the parameters to be supplied by the user | If given `task DESCRIPTION` description is to be provided. |`task shower`
 |All flags *MUST* have a _space_ after them | `task shower -d10.min.later` is *incorrect*. It should be `task shower -d 10.min.later` | `task shower -d 10.min.later`
-|Flags in square brackets are optional | If given `task DESCRIPTION [-t TAG]` tag is optional | `task shower` `task shower -t clean`
-|Flags can be in any order, given that they are accepted by the command | If given `task DESCRIPTION [-d DATETIME] [-r REMINDER]` -r can come before -d | `task shower -d 1.hour.later -r 30.min.later` `task shower -r 30.min.later -d 1.hour.later`
+|Flags in square brackets are optional | If given `task DESCRIPTION [-t TAG]` tag is optional a| `task shower` +
+ `task shower -t clean`
+
+|Flags can be in any order, given that they are accepted by the command | If given `task DESCRIPTION [-d DATETIME] [-r REMINDER]` -r can come before -d a| `task shower -d 1.hour.later -r 30.min.later` +
+ `task shower -r 30.min.later -d 1.hour.later`
 |Flags must not be repeated in the same input, unless it is a tag flag | `task shower -p high -p low` is *incorrect* as -p appears twice. However, `task bathe -t fresh -t hygiene` is accepted| `task shower -p high`
 |For the parser of mm.min.later, hh.hour.later, dd.day.later, the maximum allowed is 100 | `101.min.later` is not accepted, however `100.min.later` or `99.day.later` are both accepted. | `task study -d 99.day.later`
 |===
@@ -88,6 +91,7 @@ For *more experienced* users: +
 * This can be your best buddy! We understand that sometimes it can be troublesome to look through the entire guide just to find the flag you want.
 
 .Flags Overview
+[cols="1,2,3,2,2"]
 |===
 |Flag: |Parameter: |Parameter Format: |Possible Parameters: | Example Usage:
 |-d | DATETIME | yyyy-MM-ddTHHmm or dd/MM/yyyy HHmm or mm.min.later or HH.hour.later or dd.day.later |2019-09-25T19:34 or 25/09/2019 1934 or 10.min.later| -d 25/09/2019 1934
@@ -99,6 +103,17 @@ For *more experienced* users: +
 |--tk | _none_ | _none_ | _none_ | --tk
 |--e | _none_ | _none_ | _none_ | --e
 |--r | _none_ | _none_ | _none_ | --r
+|===
+
+There are three other flags that do not take in any parameters and are only used for the edit command. They are listed below:
+
+.Additional flags
+[cols="1,9"]
+|===
+|Flag:| Meaning:
+|--tk | Used to delete a task attached to an item
+|--e | Used to delete an event attached to an item
+|--r | Used to delete a reminder attached to an item
 |===
 
 [NOTE]
@@ -115,7 +130,7 @@ All time dependent elements such as deadline, reminder and calendar time are dep
 
 If you face any issues, please check the <<Additional Notes>>. If it is not mentioned there, then feel free to bring it up to us!
 
-====
+
 Now we are ready to jump into the features itself!
 
 === CLI Features
@@ -341,7 +356,7 @@ Examples:
 
 * `redo` +
 
-=== Sort/Find Feature
+=== Sort/Find/Priority Feature
 
 //tag::sort[]
 ==== Sorting ELISA out: `sort`
@@ -366,13 +381,20 @@ Examples:
 
 * `sort` - a simple sort that follows the criteria mentioned above for the different panel.
 * `sort priority` - sorts the item within the panel by their priority (from high to low).
-* `sort desc` - sorts the item within the panel by their description (lexicographic order)
+* `sort description` - sorts the item within the panel by their description (lexicographic order)
 //end::sort[]
 
 //tag::find[]
 ==== Finding a task: `find`
 
 Is your task list getting too long and you are not able to find what you are looking for? Introducing the `find` function which will allow you to find what you want within the specific panel. Just type `find` and the keyword that you want to search for within the command box and ELISA will find the relevant items for you.
+
+.ELISA before find command
+image::BeforeFind.PNG[]
+
+.ELISA after find command
+image::AfterFind.PNG[]
+
 
 Format: `find <keyword>`
 
@@ -384,7 +406,7 @@ Examples:
 //end::find[]
 
 //tag::priority[]
-=== Entering priority mode: `priority`
+==== Entering priority mode: `priority`
 Feeling stress? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
 
 .ELISA before priority mode with a long list of task
