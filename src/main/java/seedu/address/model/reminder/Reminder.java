@@ -80,4 +80,13 @@ public class Reminder {
                 .append(getTime());
         return builder.toString();
     }
+
+    public String toWindowString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(" Description: ")
+                .append(getDescription())
+                .append(" Time: ")
+                .append(getTime());
+        return builder.toString();
+    }
 }

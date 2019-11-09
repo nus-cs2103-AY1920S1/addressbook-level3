@@ -83,7 +83,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         this.unknown = false;
-        reminderWindow = new ReminderWindow();
+        reminderWindow = new ReminderWindow(logic);
     }
 
     public Stage getPrimaryStage() {
