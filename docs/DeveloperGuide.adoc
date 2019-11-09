@@ -427,12 +427,15 @@ In future implementations, i.e. v2.0, the valid timing slot will be given after 
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Create `DateTime` and `Timing` class to store
-** Pros: Makes it easier to calculate timings and clashes between multiple appointments with different timing field.
-** Cons: Requires additional code to implement `Timing` class and interact with other common methods that rely on `DateTime`.
-* **Alternative 2:** Store as Strings
-** Pros: Makes it easier to implement.
-** Cons: Requires additional code to convert into `DateTIme` class when carrying out calculating methods.
+* *Alternative 1 (current choice):* Save the entire address book.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Implementation is easy.
+|*Cons*|
+1. May have performance issues in terms of memory usage.
+|===
 
 * *Alternative 2:* Individual command knows how to undo/redo by itself.
 +
