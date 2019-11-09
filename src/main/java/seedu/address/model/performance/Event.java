@@ -203,7 +203,7 @@ public class Event {
     /**
      * Find the index of the record to be deleted.
      */
-    private int getIndexToDelete(List<Record> athleteRecords, AthletickDate date) {
+    public int getIndexToDelete(List<Record> athleteRecords, AthletickDate date) {
         requireAllNonNull(athleteRecords, date);
         int i = 0;
         for (Record record : athleteRecords) {

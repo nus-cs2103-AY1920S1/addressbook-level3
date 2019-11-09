@@ -37,7 +37,7 @@ public class DeleteCommandParserTest {
 
     private static final String FLAG_INVALID = "-person";
     private static final String SPACE = " ";
-    private static final AthletickDate ATHLETICK_DATE = new AthletickDate(25, 12, 2019, 2, "December");
+    public static final AthletickDate VALID_DATE = new AthletickDate(25, 12, 2019, 2, "December");
 
     private DeleteCommandParser parser = new DeleteCommandParser();
 
@@ -54,7 +54,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgsRecord_returnsDeleteRecordCommand() {
         String userInput = FLAG_RECORD + SPACE + VALID_INDEX + EVENT_DESC + DATE_DESC;
-        assertParseSuccess(parser, userInput, new DeleteRecordCommand(INDEX_FIRST_PERSON, VALID_EVENT, ATHLETICK_DATE));
+        assertParseSuccess(parser, userInput, new DeleteRecordCommand(INDEX_FIRST_PERSON, VALID_EVENT, VALID_DATE));
     }
 
     @Test
@@ -133,7 +133,7 @@ public class DeleteCommandParserTest {
     public void parseRecord_validRecordArgs_returnsDeleteRecordCommand() throws ParseException {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = FLAG_RECORD + SPACE + VALID_INDEX + EVENT_DESC + DATE_DESC;
-        DeleteRecordCommand expectedCommand = new DeleteRecordCommand(targetIndex, VALID_EVENT, ATHLETICK_DATE);
+        DeleteRecordCommand expectedCommand = new DeleteRecordCommand(targetIndex, VALID_EVENT, VALID_DATE);
         assertEquals(expectedCommand, parser.parseRecord(userInput));
     }
 
