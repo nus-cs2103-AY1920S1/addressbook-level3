@@ -19,10 +19,10 @@ public class NameContainsKeywordsPredicate implements Predicate<Module> {
     @Override
     public boolean test(Module module) {
         boolean isModuleCodeMatch = keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getModuleCode().getModuleCode(),
+            .anyMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(module.getModuleCode().getModuleCode(),
                   keyword));
         boolean isTitleMatch = keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getTitle().getTitle(),
+            .anyMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(module.getTitle().getTitle(),
                   keyword));
         return isModuleCodeMatch || isTitleMatch;
     }
