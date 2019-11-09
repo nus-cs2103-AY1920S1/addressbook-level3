@@ -269,4 +269,7 @@ quiz scores might not be saved. Through `exit` command, all of your quiz results
 === Saving the data
 
 Flashcards are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+There is no need to save manually. +
+After the data is saved, do not modify any of the Json files manually. You might end up screwing up all the information stored in them.
+If unfortunately, you did manually change the Json file and found the FlashMind operating with any problem, the only suggestion we
+can give you is to delete the file flashcardlist.json, so the system will start with default flashcard list again.
