@@ -3,16 +3,20 @@
 
 participant ":CommandBox" as CommandBox UI_COLOR
 participant ":AutoCompletePanelManager" as AutoCompletePanelManager UI_COLOR
+participant ":AutoCompletePanel" as AutoCompletePanel UI_COLOR
+participant ":AutoCompleteWord" as AutoCompleteWord UI_COLOR
 participant ":MatchWordUpdater" as MatchWordUpdater UI_COLOR
 participant ":AutoCompleteListHandler" as AutoCompleteListHandler UI_COLOR
-participant ":AutoCompletePanel" as AutoCompletePanel UI_COLOR
 participant "commandTextField:TextField" as CommandTextField UI_COLOR
 
 [-> CommandBox : User presses a key;
 activate CommandBox
 
 alt UP or DOWN
-CommandBox -> AutoCompletePanelManager : notifyObserversKeyPressed(event.getCode());
+CommandBox -> CommandBox : notifyObserversKeyPressed(event.getCode());
+activate CommandBox
+
+CommandBox -> AutoCompletePanelManager : update(event.getCode());
 activate AutoCompletePanelManager
 
 AutoCompletePanelManager -> AutoCompletePanel: select(selectedIndex)
@@ -23,14 +27,38 @@ deactivate AutoCompletePanel
 
 AutoCompletePanelManager --> CommandBox
 deactivate AutoCompletePanelManager
+return
+
+
 
 else SHIFT
 
-CommandBox -> AutoCompletePanelManager: receiveDataFromSender()
+CommandBox -> CommandBox : receiveDataFromSender()
+ activate CommandBox
+
+ CommandBox -> AutoCompletePanelManager : sendData()
+ activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> AutoCompletePanelManager: getSelected()
 activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> AutoCompletePanel: getSelected()
+activate AutoCompletePanel
+
+AutoCompletePanel --> AutoCompletePanelManager: selectedAutoCompleteWord
+deactivate AutoCompletePanel
+
+return selectedAutoCompleteWord
+
+AutoCompletePanelManager -> AutoCompleteWord: getSuggestedWord()
+activate AutoCompleteWord
+
+AutoCompleteWord --> AutoCompletePanelManager: textToDisplay
+deactivate AutoCompleteWord
 
 AutoCompletePanelManager --> CommandBox: textToDisplay
 deactivate AutoCompletePanelManager
+return textToDisplay
 
 /'notifyObserversToChange(KeyCode.SHIFT, textToDisplay);'/
 CommandBox -> CommandTextField : setText(textToDisplay)
@@ -39,7 +67,10 @@ activate CommandTextField
 CommandTextField --> CommandBox
 deactivate CommandTextField
 
-CommandBox -> AutoCompletePanelManager : notifyObserversToChange(KeyCode.SHIFT, textToDisplay);
+CommandBox -> CommandBox : notifyObserversToChange(KeyCode.SHIFT, textToDisplay);
+activate CommandBox
+
+CommandBox -> AutoCompletePanelManager : update(KeyCode.SHIFT, textToDisplay);
 activate AutoCompletePanelManager
 
 AutoCompletePanelManager -> AutoCompletePanelManager : updateListView(KeyCode.SHIFT, textToDisplay)
@@ -62,13 +93,17 @@ activate AutoCompletePanel
 
 AutoCompletePanel --> AutoCompletePanelManager
 deactivate AutoCompletePanel
-deactivate AutoCompletePanelManager
+return
 
 AutoCompletePanelManager --> CommandBox
 deactivate AutoCompletePanelManager
+return
 
 else Any other key
-CommandBox -> AutoCompletePanelManager : notifyObserversToChange(event.getCode(), commandTextField.getText() + event.getText());
+CommandBox -> CommandBox : notifyObserversToChange(event.getCode(), commandTextField.getText() + event.getText());
+activate CommandBox
+
+CommandBox -> AutoCompletePanelManager : update(event.getCode(), commandTextField.getText() + event.getText());
 activate AutoCompletePanelManager
 
 AutoCompletePanelManager -> AutoCompletePanelManager : updateListView(event.getCode(), commandTextField.getText() + event.getText())
@@ -91,10 +126,11 @@ activate AutoCompletePanel
 
 AutoCompletePanel --> AutoCompletePanelManager
 deactivate AutoCompletePanel
-deactivate AutoCompletePanelManager
+return
 
 AutoCompletePanelManager --> CommandBox
 deactivate AutoCompletePanelManager
+return
 end
 
 @enduml

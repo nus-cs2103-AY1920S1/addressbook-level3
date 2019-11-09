@@ -5,7 +5,7 @@ The auto-complete mechanism extends NurseTraverse with 3 functionalities +
 - Suggesting of words that are compatible with previous sub-commands
 - Guide for user to select from the various sub-commands +
 
-Given below is an example usage scenario when user inputs a letter into the command box +
+*Given below is an example usage scenario of autocompletion* +
 
 Step 1:
 When the user launches the application, an instance of the object, command and prefix autocomplete word list will be initialised in `AutoCompleteStorage`, which implements the following operations:
@@ -41,11 +41,15 @@ The following sequence diagram illustrates the flow of how list is generated whe
 
 image::AutocompleteSequenceDiagram.png[]
 
+*Given below is an the sequence diagram for the guide system for suggestion word* +
+
+image::GuideSystemSequenceDiagram.png[]
+
 === Design Considerations
 ===== Aspect: Communication between UiParts +
 (`CommandBox`, `AutoCompletePanel` and `ResultDisplay`) +
 
-* **Alternative 1:** Pass in references of each UiParts components around
+* **Alternative 1:** Pass references of each UiParts components around
 ** Pros: Simpler to call methods as required, code will be easier to understand and implementation will take less effort
 ** Cons: Code will be harder to track since any component with reference to the UiPart can manipulate its property
 

@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":AutoCompletePanelManager" as AutoCompletePanelManager UI_COLOR
+participant ":AutoCompletePanel" as AutoCompletePanel UI_COLOR
+participant ":AutoCompleteWord" as AutoCompleteWord UI_COLOR
+participant ":ResultDisplay" as ResultDisplay UI_COLOR
+participant "resultTextArea:TextArea" as TextArea UI_COLOR
+
+[-> CommandBox : User presses a key;
+activate CommandBox
+
+opt UP or DOWN
+
+CommandBox -> CommandBox : receiveDataFromSender()
+activate CommandBox
+
+CommandBox -> AutoCompletePanelManager : sendData()
+activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> AutoCompletePanelManager: getSelected()
+activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> AutoCompletePanel: getSelected()
+activate AutoCompletePanel
+
+AutoCompletePanel --> AutoCompletePanelManager: selectedAutoCompleteWord
+deactivate AutoCompletePanel
+
+return selectedAutoCompleteWord
+
+AutoCompletePanelManager -> AutoCompleteWord: getDescription()
+activate AutoCompleteWord
+
+AutoCompleteWord --> AutoCompletePanelManager: description
+deactivate AutoCompleteWord
+
+AutoCompletePanelManager --> CommandBox: description
+deactivate AutoCompletePanelManager
+return description
+
+CommandBox -> CommandBox : notifyObserversToChange(event.getCode(), description);
+activate CommandBox
+
+CommandBox -> ResultDisplay : update(event.getCode(), description);
+activate ResultDisplay
+
+ResultDisplay -> TextArea : setText(description)
+activate TextArea
+
+TextArea --> ResultDisplay
+deactivate TextArea
+
+ResultDisplay --> CommandBox
+deactivate ResultDisplay
+return
+
+end
+
+@enduml
+
