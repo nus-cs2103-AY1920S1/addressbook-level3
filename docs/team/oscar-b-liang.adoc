@@ -29,6 +29,10 @@ However, it was a very troublesome and time consuming task. I spent a whole week
 
 ** Credits: The structure heavily relied on AB3 structure, but an obvious modification in the structure of flashcards.
 
+* *Second major contributions*: Maintaining the storage system of FlashMind. There are many cases where the user just somehow love
+to modify the Json files. This can be fatal to MCQ flashcards since the user might encounter the situation where none of the
+choices in an Mcq flashcard which can match the answer. Thus, we applied defensive programming to avoid loading invalid MCQ flashcards.
+
 * *Minor contributions*: Add *ListByTag*, *ListTag*, *DeleteTag* commands. Modified *Add* and *Edit* commands to fit into
 our flashcard system.
 
