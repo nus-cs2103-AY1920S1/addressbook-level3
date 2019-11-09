@@ -1,14 +1,15 @@
 package seedu.address.logic;
 
-import java.util.logging.Logger;
+import java.util.function.Supplier;
 
 import seedu.address.achievements.logic.AchievementsLogic;
 import seedu.address.achievements.logic.AchievementsLogicManager;
+import seedu.address.achievements.model.StatisticsModel;
+import seedu.address.achievements.model.StatisticsModelManager;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.address.logic.AddressBookLogicManager;
 import seedu.address.calendar.logic.CalendarLogic;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
 import seedu.address.financialtracker.logic.FinancialTrackerLogic;
 import seedu.address.itinerary.logic.ItineraryLogic;
@@ -36,7 +37,16 @@ public class LogicManager implements Logic {
         // main model is used to save gui settings
         this.userPrefsModel = model.getUserPrefsModel();
         this.addressBookLogic = new AddressBookLogicManager(model.getAddressBookModel(), storage);
-        this.achievementsLogic = new AchievementsLogicManager(model.statisticsModelSupplier());
+        this.achievementsLogic = new AchievementsLogicManager(new Supplier<StatisticsModel>() {
+            @Override
+            public StatisticsModel get() {
+                return new StatisticsModelManager(addressBookLogic.getStatistics(),
+                        calendarLogic.getStatistics(),
+                        diaryLogic.getStatistics(),
+                        financialTrackerLogic.getStatistics(),
+                        itineraryLogic.getStatistics());
+            }
+        });
         this.mainLogic = new MainLogicManager(userPrefsModel, storage);
         this.diaryLogic = new DiaryBookLogic();
         this.calendarLogic = new CalendarLogic();
@@ -77,7 +87,7 @@ public class LogicManager implements Logic {
     public ItineraryLogic getItineraryLogic() {
         return this.itineraryLogic;
     }
-    
+
     @Override
     public MainLogic getMainLogic() {
         return this.mainLogic;

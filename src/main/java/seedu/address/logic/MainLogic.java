@@ -5,6 +5,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Logic for main page.
+ */
 public interface MainLogic {
     /**
      * Executes the command and returns the result.

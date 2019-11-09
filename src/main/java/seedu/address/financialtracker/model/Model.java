@@ -4,7 +4,10 @@ import java.util.HashMap;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.StatisticsUtil;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.ui.CountriesDropdown;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -107,4 +110,17 @@ public class Model {
         countriesDropdown.handleUpdateFromUserInput(country);
     }
 
+    //=========== Statistics =================================================================================
+
+    public ObservableList<PieChart.Data> getFinancialPieChartData() {
+        double total = getSummaryMap().get("Total");
+        return StatisticsUtil.getFinancialPieChartData(
+                getSummaryMap(), entry -> !entry.getKey().equals("Total"),
+                entry -> new PieChart.Data(entry.getKey(), entry.getValue() / total));
+    }
+
+    public XYChart.Series<String, Number> getFinancialBarChartData() {
+        return StatisticsUtil.getFinancialBarChartData(getSummaryMap(), entry -> !entry.getKey().equals("Total"),
+                entry -> new XYChart.Data<String, Number>(entry.getKey(), entry.getValue()));
+    }
 }

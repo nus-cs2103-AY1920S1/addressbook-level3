@@ -3,12 +3,15 @@ package seedu.address.itinerary.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.MonthData;
+import seedu.address.commons.util.StatisticsUtil;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
 
@@ -104,6 +107,15 @@ public class Model {
 
     public void clearEvent() {
         itinerary.clear();
+    }
+
+    public int getTotalItineraryEntries() {
+        return filteredEvents.size();
+    }
+
+    public XYChart.Series<String, Number> getItineraryBarChart() {
+        Function<Event, MonthData> toMonthDataFunction = event -> new MonthData(0, event.getMonthAndYear());
+        return StatisticsUtil.getMonthDataSeries(filteredEvents, toMonthDataFunction);
     }
 
     @Override

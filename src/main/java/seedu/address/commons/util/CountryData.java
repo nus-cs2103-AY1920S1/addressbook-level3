@@ -1,10 +1,13 @@
 package seedu.address.commons.util;
 
-public class IntegerPairUtil implements Comparable<IntegerPairUtil> {
-    int key;
-    String value;
+/**
+ * Country Data used for generating Statistics.
+ */
+public class CountryData implements Comparable<CountryData> {
+    private int key;
+    private String value;
 
-    public IntegerPairUtil(int key, String value) {
+    public CountryData(int key, String value) {
         this.key = key;
         this.value = value;
     }
@@ -17,20 +20,20 @@ public class IntegerPairUtil implements Comparable<IntegerPairUtil> {
         return this.value;
     }
 
-    private boolean isSameKey(IntegerPairUtil other) {
+    private boolean isSameKey(CountryData other) {
         return this.key == other.key;
     }
 
-    private int compareKey(IntegerPairUtil other) {
+    private int compareKey(CountryData other) {
         return Integer.compare(this.key, other.key);
     }
 
-    private int compareValue(IntegerPairUtil other) {
+    private int compareValue(CountryData other) {
         return this.value.compareToIgnoreCase(other.value);
     }
 
     @Override
-    public int compareTo(IntegerPairUtil other) {
+    public int compareTo(CountryData other) {
         return this.isSameKey(other) ? this.compareValue(other) : this.compareKey(other);
     }
 

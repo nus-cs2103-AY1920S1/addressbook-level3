@@ -52,14 +52,14 @@ public interface Logic extends GuiSettingsLogic {
      * @return Itinerary logic
      */
     ItineraryLogic getItineraryLogic();
-    
+
     /**
      * Gets financial tracker logic.
      *
      * @return Financial tracker logic
      */
     FinancialTrackerLogic getFinancialTrackerLogic();
-    
+
     /**
      * Gets main logic.
      *

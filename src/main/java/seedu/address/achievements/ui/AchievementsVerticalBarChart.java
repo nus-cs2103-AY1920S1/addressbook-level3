@@ -32,17 +32,13 @@ public class AchievementsVerticalBarChart extends UiPart<Region> {
     @FXML
     private BarChart<String, Number> barChart;
 
-    public AchievementsVerticalBarChart(String chartTitle, String xAxisLabel, String yAxisLabel) {
+    public AchievementsVerticalBarChart(String chartTitle, String xAxisLabel, String yAxisLabel,
+                                        XYChart.Series<String, Number> chartData) {
         super(FXML);
         this.xAxisLabel.setText(xAxisLabel);
         this.yAxisLabel.setText(yAxisLabel);
         this.chartTitle.setText(chartTitle);
 
-        XYChart.Series series = new XYChart.Series();
-        series.getData().add(new XYChart.Data("Singapore", 2));
-        series.getData().add(new XYChart.Data("United States", 5));
-        series.getData().add(new XYChart.Data("Malaysia", 5));
-
-        barChart.getData().add(series);
+        barChart.getData().add(chartData);
     }
 }

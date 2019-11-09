@@ -128,7 +128,8 @@ public class AchievementsPage extends UiPart<Region> implements Page {
      */
     void refreshUi() {
         achievementsPlaceholder.getChildren().clear();
-        achievementsPlaceholder.getChildren().add(new AchievementsCard(achievementsLogic).getRoot());
+        achievementsPlaceholder.getChildren().add(
+                new AchievementsCard(achievementsLogic.getStatisticsView()).getRoot());
     }
 
     /**
@@ -143,7 +144,6 @@ public class AchievementsPage extends UiPart<Region> implements Page {
             CommandResult commandResult = achievementsLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -198,6 +198,7 @@ public class AchievementsPage extends UiPart<Region> implements Page {
 
     @Override
     public Parent getParent() {
-        refreshUi(); return super.getRoot();
+        refreshUi();
+        return super.getRoot();
     }
 }

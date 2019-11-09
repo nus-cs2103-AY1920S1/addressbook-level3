@@ -3,7 +3,8 @@ package seedu.address.achievements.logic;
 import java.util.function.Supplier;
 import java.util.logging.Logger;
 
-import javafx.scene.chart.XYChart;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import seedu.address.achievements.logic.parser.AchievementsParser;
 import seedu.address.achievements.model.StatisticsModel;
 import seedu.address.commons.core.LogsCenter;
@@ -38,13 +39,8 @@ public class AchievementsLogicManager implements AchievementsLogic {
     }
 
     @Override
-    public int getTotalPersons() {
-        return statisticsModelSupplier.get().getTotalPersons();
-    }
-
-    @Override
-    public XYChart.Series<Integer, String> getAddressChartData() {
-        return statisticsModelSupplier.get().getAddressChartData();
+    public ObservableList<Node> getStatisticsView() {
+        return statisticsModelSupplier.get().getStatisticsView();
     }
 
 }
