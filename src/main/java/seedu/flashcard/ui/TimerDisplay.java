@@ -47,7 +47,7 @@ public class TimerDisplay extends UiPart<Region> {
                         IntegerProperty totalCards, IntegerProperty remainingCards) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-
+        timeline = new Timeline();
         timerLabel.textProperty().bind(timeSeconds.asString());
         currentQuestion.textProperty().bind(remainingCards.asString());
         totalQuestions.textProperty().bind(totalCards.asString());
@@ -59,6 +59,7 @@ public class TimerDisplay extends UiPart<Region> {
      * Starts/Restarts the timer with a user defined duration
      */
     void initializeTimer () {
+        timeline.stop();
         if (userPrefTime.getValue() == 0) {
             startTime = DEFAULT_TIME;
         } else {
