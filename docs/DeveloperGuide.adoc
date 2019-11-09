@@ -220,15 +220,16 @@ image::SessionClassDiagram.png[]
 ==== Lift feature
 
 ==== Rank feature
+A RankCommand class is created to facilitate ranking of an athlete for a given competition he or she participates in.
 
 ===== Implementation
-Rank Command extends the Command Abstract Class, the rationale is explained in `Choice of Design Pattern` sub-section of the Rank feature.
+RankCommand extends the Command Abstract Class, the rationale is explained in `Choice of Design Pattern` sub-section of the Rank feature.
 
-Rank Command has 2 sequential checks:
+Rank feature has 2 sequential checks:
 1. Checks if a competition session is ongoing, rank command can only be used if a competition session persists.
 2. Checks if an athlete participates in a competition, rank command can only be used if an athlete participates in a competition.
 
-Finally, rank returns an athlete's report card for a competition. For example,
+Finally, the feature returns an athlete's report card for a competition. For example,
 
  Athlete: Alex Yeoh 
  Competition: NUS Powerlifting Open 2019 
@@ -237,6 +238,8 @@ Finally, rank returns an athlete's report card for a competition. For example,
  Max Squat: 1 
  Max Bench Press: 0 
  Max Deadlift: 0 
+ 
+ See the sequence diagram for more specific depiction of how RankCommand interacts with other classes when the rank feature is used. 
 
 ===== Choice of Design Pattern
 Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands, without the programme knowing which type of command is being executed. Furthermore, the original AB3 code base achieves a Command Design Pattern by requiring different types of command classes to extend from a Command Abstract Class. 
