@@ -22,7 +22,7 @@ public class ScheduleTimeNode extends Node<Schedule> {
         SortedSet<String> values = new TreeSet<>();
         backingList.forEach(schedule -> {
             Calendar calendar = schedule.getCalendar();
-            String hour = String.valueOf(calendar.get(Calendar.HOUR));
+            String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
             String minute = String.valueOf(calendar.get(Calendar.MINUTE));
             String display = String.format("%s.%s", hour, minute);
             values.add(display);

@@ -36,13 +36,13 @@ public class AddCustomerGraph extends GraphWithStartNode {
         Node<Customer> customerEmailNode = new CustomerEmailNode(customerList);
         Node<Customer> customerNameNode = new CustomerNameNode(customerList);
         Node<Customer> customerTagNode = new CustomerTagNode(customerList);
-        edges.addAll(Arrays.asList(
+        edges.addAll(
                 new Edge(PREFIX_NAME, addCustomerStartNode, customerNameNode),
                 new Edge(PREFIX_CONTACT, customerNameNode, customerContactNumberNode),
                 new Edge(PREFIX_EMAIL, customerContactNumberNode, customerEmailNode),
                 new Edge(PREFIX_TAG, customerEmailNode, customerTagNode),
                 new Edge(PREFIX_TAG, customerTagNode, customerTagNode)
-        ));
+        );
     }
 
 }

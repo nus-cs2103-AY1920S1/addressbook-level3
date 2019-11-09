@@ -37,7 +37,7 @@ public class EditScheduleGraph extends GraphWithStartNodeAndPreamble {
         Node<Schedule> scheduleVenueNode = new ScheduleVenueNode(scheduleList);
         Node<Schedule> scheduleTimeNode = new ScheduleTimeNode(scheduleList);
         Node<Schedule> scheduleTagNode = new ScheduleTagNode(scheduleList);
-        edges.addAll(Arrays.asList(
+        edges.addAll(
                 new Edge(PREFIX_DATE, editScheduleStartNode, scheduleDateNode),
                 new Edge(PREFIX_TIME, editScheduleStartNode, scheduleTimeNode),
                 new Edge(PREFIX_VENUE, editScheduleStartNode, scheduleVenueNode),
@@ -58,7 +58,7 @@ public class EditScheduleGraph extends GraphWithStartNodeAndPreamble {
                 new Edge(PREFIX_TIME, scheduleTagNode, scheduleTimeNode),
                 new Edge(PREFIX_VENUE, scheduleTagNode, scheduleVenueNode),
                 new Edge(PREFIX_TAG, scheduleTagNode, scheduleTagNode)
-        ));
+        );
     }
 
 }

@@ -14,10 +14,10 @@ import seedu.address.model.Model;
 public abstract class Graph {
 
     private static Graph emptyGraph = null;
-    protected final List<Edge> edges;
+    protected final EdgeList edges;
 
     public Graph(Model model) {
-        this.edges = new ArrayList<>();
+        this.edges = new EdgeList();
         build(model);
     }
 

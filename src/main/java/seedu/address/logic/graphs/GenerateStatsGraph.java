@@ -32,11 +32,11 @@ public class GenerateStatsGraph extends GraphWithStartNode {
         setStartingNode(statsStartNode);
         Node<StatisticType> statsTypeNode = new StatsTypeNode(Arrays.asList(StatisticType.values()));
         Node<Schedule> statsDateNode = new ScheduleDateNode(scheduleList);
-        edges.addAll(Arrays.asList(
+        edges.addAll(
                 new Edge(PREFIX_STAT_TYPE, statsStartNode, statsTypeNode),
                 new Edge(PREFIX_STARTING_DATE, statsTypeNode, statsDateNode),
                 new Edge(PREFIX_ENDING_DATE, statsDateNode, statsDateNode)
-        ));
+        );
     }
 
 }

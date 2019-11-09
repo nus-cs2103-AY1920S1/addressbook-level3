@@ -21,7 +21,6 @@ public class FindCustomerGraph extends Graph {
     @Override
     protected void build(Model model) {
         customerList = model.getCustomerBook().getList();
-
     }
 
     @Override

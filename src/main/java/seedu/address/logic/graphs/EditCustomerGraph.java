@@ -37,7 +37,7 @@ public class EditCustomerGraph extends GraphWithStartNodeAndPreamble {
         Node<Customer> customerEmailNode = new CustomerEmailNode(customerList);
         Node<Customer> customerNameNode = new CustomerNameNode(customerList);
         Node<Customer> customerTagNode = new CustomerTagNode(customerList);
-        edges.addAll(Arrays.asList(
+        edges.addAll(
                 new Edge(PREFIX_CONTACT, editCustomerStartNode, customerContactNumberNode),
                 new Edge(PREFIX_EMAIL, editCustomerStartNode, customerEmailNode),
                 new Edge(PREFIX_NAME, editCustomerStartNode, customerNameNode),
@@ -58,7 +58,7 @@ public class EditCustomerGraph extends GraphWithStartNodeAndPreamble {
                 new Edge(PREFIX_EMAIL, customerTagNode, customerEmailNode),
                 new Edge(PREFIX_NAME, customerTagNode, customerNameNode),
                 new Edge(PREFIX_TAG, customerTagNode, customerTagNode)
-        ));
+        );
     }
 
 }

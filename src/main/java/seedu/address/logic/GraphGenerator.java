@@ -28,6 +28,7 @@ import seedu.address.logic.graphs.FindCustomerGraph;
 import seedu.address.logic.graphs.FindOrderGraph;
 import seedu.address.logic.graphs.FindPhoneGraph;
 import seedu.address.logic.graphs.GenerateStatsGraph;
+import seedu.address.logic.graphs.ViewScheduleGraph;
 import seedu.address.model.Model;
 
 /**
@@ -82,7 +83,7 @@ class GraphGenerator {
 
         // Schedule commands
         graphs.put("switch-s", Graph.emptyGraph(model));
-        graphs.put("schedule", Graph.emptyGraph(model)); //TODO DIFF
+        graphs.put("schedule", new ViewScheduleGraph(model));
         graphs.put("add-s", new AddScheduleGraph(model));
         graphs.put("delete-s", new DeleteScheduleGraph(model));
         graphs.put("edit-s", new EditScheduleGraph(model));

@@ -36,13 +36,13 @@ public class AddOrderGraph extends GraphWithStartNode {
         Node<Order> orderPhoneIndexNode = new OrderPhoneIndexNode(orderList);
         Node<Order> orderPriceNode = new OrderPriceNode(orderList);
         Node<Order> orderTagNode = new OrderTagNode(orderList);
-        edges.addAll(Arrays.asList(
+        edges.addAll(
                 new Edge(PREFIX_PHONE, addOrderStartNode, orderCustomerIndexNode),
                 new Edge(PREFIX_CUSTOMER, orderCustomerIndexNode, orderPhoneIndexNode),
                 new Edge(PREFIX_PRICE, orderPhoneIndexNode, orderPriceNode),
                 new Edge(PREFIX_TAG, orderPriceNode, orderTagNode),
                 new Edge(PREFIX_TAG, orderTagNode, orderTagNode)
-        ));
+        );
     }
 
 }

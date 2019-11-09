@@ -49,7 +49,7 @@ public class EditPhoneGraph extends GraphWithStartNodeAndPreamble {
         Node<Phone> phoneBrandNode = new PhoneBrandNode(phoneList);
         Node<Phone> phoneCapacityNode = new PhoneCapacityNode(phoneList);
         Node<Phone> phoneTagNode = new PhoneTagNode(phoneList);
-        edges.addAll(Arrays.asList(
+        edges.addAll(
                 new Edge(PREFIX_IDENTITY_NUM, editPhoneStartNode, phoneIdentityNumberNode),
                 new Edge(PREFIX_SERIAL_NUM, editPhoneStartNode, phoneSerialNumberNode),
                 new Edge(PREFIX_COST, editPhoneStartNode, phoneCostNode),
@@ -122,7 +122,7 @@ public class EditPhoneGraph extends GraphWithStartNodeAndPreamble {
                 new Edge(PREFIX_COLOUR, phoneNameNode, phoneColourNode),
                 new Edge(PREFIX_TAG, phoneNameNode, phoneTagNode),
                 new Edge(PREFIX_PHONE_NAME, phoneNameNode, phoneNameNode)
-        ));
+        );
     }
 
 }

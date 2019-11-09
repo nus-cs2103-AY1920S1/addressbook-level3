@@ -37,7 +37,7 @@ public class EditOrderGraph extends GraphWithStartNodeAndPreamble {
         Node<Order> orderPhoneIndexNode = new OrderPhoneIndexNode(orderList);
         Node<Order> orderPriceNode = new OrderPriceNode(orderList);
         Node<Order> orderTagNode = new OrderTagNode(orderList);
-        edges.addAll(Arrays.asList(
+        edges.addAll(
                 new Edge(PREFIX_PHONE, editOrderStartNode, orderPhoneIndexNode),
                 new Edge(PREFIX_CUSTOMER, editOrderStartNode, orderCustomerIndexNode),
                 new Edge(PREFIX_PRICE, editOrderStartNode, orderPriceNode),
@@ -58,7 +58,7 @@ public class EditOrderGraph extends GraphWithStartNodeAndPreamble {
                 new Edge(PREFIX_CUSTOMER, orderTagNode, orderCustomerIndexNode),
                 new Edge(PREFIX_PRICE, orderTagNode, orderPriceNode),
                 new Edge(PREFIX_TAG, orderTagNode, orderTagNode)
-        ));
+        );
     }
 
 }

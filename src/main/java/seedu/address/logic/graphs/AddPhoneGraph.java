@@ -48,7 +48,7 @@ public class AddPhoneGraph extends GraphWithStartNode {
         Node<Phone> phoneColourNode = new PhoneColourNode(phoneList);
         Node<Phone> phoneCostNode = new PhoneCostNode(phoneList);
         Node<Phone> phoneTagNode = new PhoneTagNode(phoneList);
-        edges.addAll(Arrays.asList(
+        edges.addAll(
                 new Edge(PREFIX_IDENTITY_NUM, addPhoneStartNode, phoneIdentityNumberNode),
                 new Edge(PREFIX_SERIAL_NUM, phoneIdentityNumberNode, phoneSerialNumberNode),
                 new Edge(PREFIX_PHONE_NAME, phoneSerialNumberNode, phoneNameNode),
@@ -58,7 +58,7 @@ public class AddPhoneGraph extends GraphWithStartNode {
                 new Edge(PREFIX_COST, phoneColourNode, phoneCostNode),
                 new Edge(PREFIX_TAG, phoneCostNode, phoneTagNode),
                 new Edge(PREFIX_TAG, phoneTagNode, phoneTagNode)
-        ));
+        );
     }
 
 }

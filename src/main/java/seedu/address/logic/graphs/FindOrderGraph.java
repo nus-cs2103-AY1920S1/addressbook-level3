@@ -21,7 +21,6 @@ public class FindOrderGraph extends Graph {
     @Override
     protected void build(Model model) {
         orderList = model.getOrderBook().getList();
-
     }
 
     @Override
