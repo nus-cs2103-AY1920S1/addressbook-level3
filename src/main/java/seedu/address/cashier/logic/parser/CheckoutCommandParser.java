@@ -2,6 +2,7 @@ package seedu.address.cashier.logic.parser;
 
 import static seedu.address.cashier.ui.CashierMessages.AMOUNT_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_AMOUNT;
+import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
 
 import java.util.logging.Logger;
 
@@ -55,7 +56,8 @@ public class CheckoutCommandParser implements Parser {
         } else if (amount > totalAmount) {
             change = amount - totalAmount;
         } else {
-            throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount));
+            throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_AMOUNT,
+                    DECIMAL_FORMAT.format(totalAmount), DECIMAL_FORMAT.format(totalAmount)));
         }
 
         CheckoutCommand checkoutCommand = new CheckoutCommand(totalAmount, change);

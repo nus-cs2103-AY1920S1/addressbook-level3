@@ -175,7 +175,6 @@ public class LogicManagerTest {
                                       Model expectedModel) {
         try {
             CommandResult result = logic.execute(inputCommand);
-            System.out.println(result.getFeedbackToUser());
             assertEquals(expectedMessage, result.getFeedbackToUser());
             assertEquals(expectedModel, model);
         } catch (Exception e) {
@@ -208,7 +207,6 @@ public class LogicManagerTest {
                                       String expectedMessage) {
         Model expectedModel = new seedu.address.cashier.model.ModelManager(model.getInventoryList(),
                 model.getTransactionList());
-        System.out.println("expected msg: " + expectedMessage);
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

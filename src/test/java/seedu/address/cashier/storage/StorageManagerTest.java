@@ -109,7 +109,6 @@ public class StorageManagerTest {
         transactionStorage.writeFile(transactionList);
         Transaction original = TypicalTransactions.GEORGE_TRANSACTION_7;
         storage.appendToTransaction(original);
-        System.out.println(transactionStorage.readTransactionList().size());
         TransactionList retrieved = transactionStorage.readTransactionList();
         assertEquals(original, retrieved.get(retrieved.size() - 1));
     }
