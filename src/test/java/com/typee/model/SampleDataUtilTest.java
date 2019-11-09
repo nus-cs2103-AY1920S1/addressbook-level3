@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
+
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.Location;
@@ -28,10 +29,15 @@ public class SampleDataUtilTest {
     @Test
     public void getSampleEngagementList() {
         assertThrows(IndexOutOfBoundsException.class, ()
-                -> SampleDataUtil.getSampleEngagementList().getEngagementList().get(1));
+            -> SampleDataUtil.getSampleEngagementList().getEngagementList().get(1));
         equalsSampleEngagement(SampleDataUtil.getSampleEngagementList().getEngagementList().get(0));
     }
 
+    /**
+     * Compares the engagement under test with the expected engagement and throw assertion error if not match.
+     *
+     * @param engagementFetched engagement under test
+     */
     private void equalsSampleEngagement(Engagement engagementFetched) {
         assertDoesNotThrow(() -> assertTrue(engagementFetched instanceof Meeting));
         assertDoesNotThrow(() -> assertEquals(engagementFetched.getAttendees(),
