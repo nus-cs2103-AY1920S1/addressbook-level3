@@ -90,12 +90,8 @@ public class CommandTestUtil {
                                             Model expectedModel,
                                             seedu.address.person.model.CheckAndGetPersonByNameModel personModel) {
         try {
-            System.out.println("beforee");
             CommandResult result = command.execute(cashierModel, personModel);
-            System.out.println("inside test util:" + expectedCommandResult.getFeedbackToUser());
-            System.out.println(result.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
-            System.out.println("did first assert equals");
             assertEquals(expectedModel, cashierModel);
             assertEquals(expectedModel.getSalesList(), cashierModel.getSalesList());
         } catch (Exception ce) {

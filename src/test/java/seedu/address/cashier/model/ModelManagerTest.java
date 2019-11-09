@@ -384,9 +384,6 @@ public class ModelManagerTest {
     @Test
     public void getRecommendedItem_successful() throws NoSuchIndexException {
         setInventoryList2();
-        for (int i = 0; i < modelManager.getInventoryList().size(); i++) {
-            System.out.println(modelManager.getInventoryList().getiArrayList().get(i));
-        }
         ArrayList<String> expectedList = new ArrayList<>();
         expectedList.add(BURGER_AND_CHIPS.getDescription());
         expectedList.add(FISH_BURGER.getDescription());
@@ -403,9 +400,6 @@ public class ModelManagerTest {
     @Test
     public void getRecommendedItemThatEndSimilarly_successful() throws NoSuchIndexException {
         setInventoryList2();
-        for (int i = 0; i < modelManager.getInventoryList().size(); i++) {
-            System.out.println(modelManager.getInventoryList().getiArrayList().get(i));
-        }
         ArrayList<String> expectedList = new ArrayList<>();
         expectedList.add(BURGER_AND_CHIPS.getDescription());
         expectedList.add(CHIPS.getDescription());
