@@ -34,7 +34,7 @@ public class JsonSerializableFlashcardListTest {
     }
 
     @Test
-    public void toModelType_invalidFlashcardFile_throwsIllegalValueEXception() throws Exception {
+    public void toModelType_invalidFlashcardFile_throwsIllegalValueException() throws Exception {
         JsonSerializableFlashcardList dataFromFile = JsonUtil.readJsonFile(INVALID_FLASHCARD_FILE,
             JsonSerializableFlashcardList.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);

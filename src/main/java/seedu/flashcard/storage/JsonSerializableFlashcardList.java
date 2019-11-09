@@ -49,6 +49,9 @@ public class JsonSerializableFlashcardList {
         FlashcardList flashcardList = new FlashcardList();
         for (JsonAdaptedFlashcard jsonAdaptedFlashcard : flashcards) {
             Flashcard flashcard = jsonAdaptedFlashcard.toModelType();
+            if (!flashcard.isValidFlashcard()) {
+                throw new IllegalValueException(MESSAGE_ILLEGAL_FLASHCARD);
+            }
             if (flashcardList.hasFlashcard(flashcard)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_FLASHCARD);
             }
