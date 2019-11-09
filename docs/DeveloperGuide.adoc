@@ -709,13 +709,13 @@ image::LineChartActivityDiagram.png[]
 ** Pros: No need to reinitialise the treemap everytime a `stats` command is called.
 ** Cons: Implementation requires a lot of storage which may not be tapped on most of the time.
 
-===== Aspect: How line chart appears to end user
+===== Aspect: The time frames of the line chart
 
-* **Alternative 1 (current choice):** Only the last 10 days is visible.
+* **Alternative 1 (current choice):** Users can toggle between four types of time frames.
 ** Pros: Implementation is easy and simple.
-** Cons: The statistics is limited in meaning if only the last 10 days is known.
+** Cons: The statistics is limited in meaning if it cannot be compared between other time frames.
 
-* **Alternative 2:** Users have the option to toggle between the last week, month, or year.
+* **Alternative 2:** Users can print a summary of statistics over a specified period..
 ** Pros: The statistics will have more meaning.
 ** Cons: Implementation is difficult.
 
