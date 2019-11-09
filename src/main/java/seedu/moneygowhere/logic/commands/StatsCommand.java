@@ -66,9 +66,7 @@ public class StatsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        //To reset the spending list to default after previous commands
-        model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
-        model.updateStatsPredicate(getStatsPredicate());
+        model.updateFilteredSpendingList(getStatsPredicate());
         logger.log(Level.INFO, String.format("Showing statistics from %s to %s", startDate, endDate));
         return new CommandResult(messageSuccess, false, true, false);
     }

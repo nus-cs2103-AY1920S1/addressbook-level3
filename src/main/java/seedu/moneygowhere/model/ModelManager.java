@@ -216,7 +216,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Spending> getStatsList() {
         FilteredList<Spending> filteredList = new FilteredList<>(getFilteredSpendingList());
-        filteredList.setPredicate(statsPredicate);
 
         SortedList<Spending> sortedList = new SortedList<>(filteredList);
         Comparator<Spending> byDate = (Spending a, Spending b) -> (a.getDate().compareTo(b.getDate()));
