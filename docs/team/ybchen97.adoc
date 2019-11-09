@@ -39,6 +39,15 @@ through the command `binitemexpiry`. This is a global setting and applies for al
 * *Minor enhancement*:
 *** Redesigned User Interface to give a cleaner, sleek look. [Pull Request https://github.com/AY1920S1-CS2103-F09-4/main/pull/209[#209]]
 
+ifndef::env-github[]
+image::uiscreenshot.png[width="800", align="left"]
+endif::[]
+
+ifdef::env-github[]
+image::uiscreenshot.png[width="800", align="left"]
+endif::[]
+
+
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=ybchen97[tp Code
 Dashboard]]
 [https://github.com[Test code]]
