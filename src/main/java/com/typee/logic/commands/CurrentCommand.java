@@ -18,4 +18,13 @@ public class CurrentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         return new CommandResult(currentMessage);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else {
+            return other instanceof CurrentCommand;
+        }
+    }
 }
