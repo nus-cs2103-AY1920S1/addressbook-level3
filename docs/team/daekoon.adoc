@@ -39,7 +39,7 @@ It has >10k LOC.
 ** Highlights: Activity command that allows users to create new activities. Users can specify the title of the activity, and can invite contacts into the activity as participants. In order to improve usability, contacts are first searched using exact-matching, and then keyword-based matching if no valid exact match is found.
 
 * *Search functionality with context*: I added the ability to search using context.
-** What it does: The `find` command allows the user to search based on current context. 
+** What it does: The `find` command allows the user to search based on current context.
 ** Justification: This feature significantly increase the usability of our product. As time progresses, the application will have many contacts and activities, having the ability to find the one you want is invaluable.
 ** Highlights: Find command that searches based on the current context. When viewing a list of activities, find command searches for activity. When viewing a list of contacts, it searches for contacts instead. Uses keyword-based matching.
 
@@ -55,7 +55,7 @@ It has >10k LOC.
 ** Added User guide for Activity Command
 ** Added section on Activity feature for Developer Guide
 
-=== Code contributed 
+=== Code contributed
 
 ** https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=daekoon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=daekoon&tabRepo=AY1920S1-CS2103T-W11-2%2Fmain%5Bmaster%5D[Contribution info].
 
