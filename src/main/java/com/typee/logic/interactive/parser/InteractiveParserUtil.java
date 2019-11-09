@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 import com.typee.commons.core.index.Index;
 import com.typee.commons.util.StringUtil;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;

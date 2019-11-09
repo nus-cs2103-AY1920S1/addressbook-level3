@@ -6,7 +6,6 @@ package com.typee.logic.interactive.parser;
 public class CliSyntax {
 
     /* Prefix definitions */
-    public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_ENGAGEMENT_TYPE = new Prefix("t/");
     public static final Prefix PREFIX_LOCATION = new Prefix("l/");
     public static final Prefix PREFIX_START_TIME = new Prefix("s/");
