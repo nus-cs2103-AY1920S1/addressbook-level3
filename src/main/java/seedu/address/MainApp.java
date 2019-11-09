@@ -65,10 +65,7 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = new ModelManager(alfredStorage, userPrefs);
-        model.initialize();
-
         logic = new LogicManager(model);
-
         ui = new UiManager(logic);
     }
 

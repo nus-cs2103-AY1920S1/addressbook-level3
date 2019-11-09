@@ -20,10 +20,8 @@ import seedu.address.model.entity.Team;
  */
 public class ModelManagerStub extends ModelManager {
 
-    // TODO: Update when ModelManager gets updated
 
     public ModelManagerStub() {
-        // TODO: user constructor for Alfred later
         super();
         this.filteredParticipantList =
                 new FilteredList<>(this.participantList.getSpecificTypedList());

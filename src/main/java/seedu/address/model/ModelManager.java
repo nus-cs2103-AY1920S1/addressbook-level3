@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -43,7 +42,6 @@ import seedu.address.model.entitylist.MentorList;
 import seedu.address.model.entitylist.ParticipantList;
 import seedu.address.model.entitylist.ReadOnlyEntityList;
 import seedu.address.model.entitylist.TeamList;
-import seedu.address.model.person.Person;
 import seedu.address.storage.AlfredStorage;
 
 /**
@@ -54,9 +52,9 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     // EntityLists
-    protected ParticipantList participantList = new ParticipantList();
-    protected TeamList teamList = new TeamList();
-    protected MentorList mentorList = new MentorList();
+    protected ParticipantList participantList;
+    protected TeamList teamList;
+    protected MentorList mentorList;
 
     protected FilteredList<Participant> filteredParticipantList;
     protected FilteredList<Team> filteredTeamList;
@@ -71,43 +69,34 @@ public class ModelManager implements Model {
     private AlfredStorage storage = null;
     private ModelHistory history = null;
     private CommandHistory commandHistory = null;
-    private AddressBook addressBook = null;
     private final UserPrefs userPrefs;
-    private FilteredList<Person> filteredPersons = null;
 
-    /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
-     */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    // This constructor is only used for ModelManagerStub
+    protected ModelManager() {
         super();
-        requireAllNonNull(addressBook, userPrefs);
-
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        this.addressBook = new AddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-    }
-
-    public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this.userPrefs = null;
+        this.storage = null;
+        this.participantList = new ParticipantList();
+        this.mentorList = new MentorList();
+        this.teamList = new TeamList();
+        this.filteredParticipantList = new FilteredList<>(this.participantList.getSpecificTypedList());
+        this.filteredMentorList = new FilteredList<>(this.mentorList.getSpecificTypedList());
+        this.filteredTeamList = new FilteredList<>(this.teamList.getSpecificTypedList());
     }
 
     public ModelManager(AlfredStorage storage, ReadOnlyUserPrefs userPrefs) {
         super();
         this.userPrefs = new UserPrefs(userPrefs);
         this.storage = storage;
-        // TODO: Remove: Currently it is here to make tests pass.
-        this.addressBook = new AddressBook();
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.commandHistory = new CommandHistoryManager();
+        this.initialize();
     }
 
     /**
      * Initializes the various lists used. If storage contains no data, empty lists
      * are initialized.
      */
-    public void initialize() {
+    private void initialize() {
         // Try loading the 3 lists into memory.
         try {
             Optional<ParticipantList> storageParticipantList = this.storage.readParticipantList();
