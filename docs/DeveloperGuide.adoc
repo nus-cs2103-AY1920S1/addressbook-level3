@@ -393,7 +393,7 @@ Instantiation of the `Event` object when the app is started will be more complic
 // end::DeXun[]
 
 // tag::generateschedule[]
-=== Generate Schedule feature
+=== Generate Schedule Feature
 ==== Proposed Implementation
 
 The Generate Schedule Feature is implemented to allow users to have an overview of all dates that has an event and the
@@ -402,7 +402,8 @@ new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDa
 
 The `DistinctDateProcessor` processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
 process through these events to create specific `DistinctDate` Objects which stores a list of events which occurs on the date
-they are representing. These DistinctDate Objects are then used, to create `DateCard` which will be displayed on the GUI.
+they are representing. These DistinctDate Objects are then used, to create `DateCard` which will be displayed on the GUI. This feature
+can be seen in the generate schedule window as well as the employee fetch window.
 
 The `DistinctDateProcessor` utilises the following operations in the `generate_schedule` command:
 
@@ -463,7 +464,7 @@ NOTE: The lifeline for `GenerateScheduleCommand` ends at the destroy marker (X).
 
 *Pros*: Easy to implement and requires less Storage Capacity and storage infrastructure to support the entire feature.
 
-*Cons*: May have performance issues in terms of speed and time Complexity. The program will have to iterate through the entire list of events and create
+*Cons*: May have performance issues in terms of speed and time Complexity if database gets extremely big. The program will have to iterate through the entire list of events and create
 the corresponding `DistinctDate` objects, whenever `generate_schedule` command is called.
 
 **Decision: Alternative 1
@@ -478,7 +479,7 @@ the schedule.
 *Cons*: May have performance issues in terms of storage and processing needed, requires new storage unit to store a new entity which is not as important
 and frequently used. This implementation can cause speed and time complexity issues as well, whenever edits are made to the existing eventList - add_ev, delete_ev etc
 the program is required to process through all DistinctDate Object to make the necessary changes. If the user does not even want to call the `generate_schedule` command
-after the changes, then this process is actually unnecessary.
+after the changes, then this process is actually unnecessary and redundant.
 
 | UI Decisions for Generate Schedule Command
 | Display Directly on the Schedule Tab, update the list when `generate_schedule` command is called
