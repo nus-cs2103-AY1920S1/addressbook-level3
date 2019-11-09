@@ -180,7 +180,11 @@ public class EditAccommodationCommand extends EditCommand {
                             accommodationToEdit.getContact().get().getEmail().orElse(null),
                             accommodationToEdit.getContact().get().getAddress().orElse(null),
                             accommodationToEdit.getContact().get().getTags())
-                        : new Contact(updatedName, editAccommodationDescriptor.getPhone().get(), null, null, new HashSet<>())
+                        : new Contact(updatedName,
+                            editAccommodationDescriptor.getPhone().get(),
+                            null,
+                            null,
+                            new HashSet<>())
                 : accommodationToEdit.getContact().isPresent()
                     ? accommodationToEdit.getContact().get()
                     : null;
