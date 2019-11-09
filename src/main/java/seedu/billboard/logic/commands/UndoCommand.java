@@ -28,7 +28,11 @@ public class UndoCommand extends Command {
 
         Model undoModel = VersionedBillboard.getUndoModel();
         String undoCmd = VersionedBillboard.getUndoCmd();
+        CommandResult undoCmdResult = VersionedBillboard.getUndoCmdResult();
+
         model.setModel(undoModel.getClone());
-        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, undoCmd));
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, undoCmd),
+                false, false,
+                undoCmdResult.getListToBeDisplayed().orElse(CommandResult.UNCHANGED_LIST_VIEW));
     }
 }

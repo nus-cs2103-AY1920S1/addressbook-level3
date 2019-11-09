@@ -3,11 +3,15 @@ package seedu.billboard.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents the result of a command execution.
  */
 public class CommandResult {
+
+    public static final String DEFAULT_LIST_VIEW = "";
+    public static final String UNCHANGED_LIST_VIEW = null;
 
     private final String feedbackToUser;
 
@@ -35,7 +39,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, "");
+        this(feedbackToUser, false, false, UNCHANGED_LIST_VIEW);
     }
 
     public String getFeedbackToUser() {
@@ -50,8 +54,8 @@ public class CommandResult {
         return exit;
     }
 
-    public String getListToBeDisplayed() {
-        return listToBeDisplayed;
+    public Optional<String> getListToBeDisplayed() {
+        return Optional.ofNullable(listToBeDisplayed);
     }
 
     @Override
