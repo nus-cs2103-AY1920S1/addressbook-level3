@@ -58,8 +58,10 @@ endif::[]
 *** Set up image:https://travis-ci.org/AY1920S1-CS2103-F09-4/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103-F09-4/main"]
 https://coveralls.io/github/AY1920S1-CS2103-F09-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103-F09-4/main/badge.svg?branch=master[Coverage
 Status]] image:https://api.netlify.com/api/v1/badges/069e22b0-46f6-4637-aaec-3d593e33589f/deploy-status["Netlify Status", link="https://app.netlify.com/sites/insurelytics/deploys"]
-image:https://api.codacy.com/project/badge/Grade/b4c6f87fc11549a49da8e727b71a9cc0["Codacy code quality", link="https://www.codacy.com/manual/larrylawl/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103-F09-4/main&utm_campaign=Badge_Grade"]
-*** IntelliJ to auto format based on `checkstyle.xml`. (details below)
+image:https://api.codacy.com/project/badge/Grade/b4c6f87fc11549a49da8e727b71a9cc0["Codacy code quality",
+link="https://www.codacy.com/manual/larrylawl/main?utm_source=github
+.com&utm_medium=referral&utm_content=AY1920S1-CS2103-F09-4/main&utm_campaign=Badge_Grade"] and https://github.com/AY1920S1-CS2103-F09-4/main/issues/new/choose[Bug Report Template]
+*** IntelliJ to auto format based on `checkstyle.xml`.
 ** Project Management:
 *** Managed releases from v1.1 to v1.3 on GitHub
 ** Documentation:
@@ -87,10 +89,5 @@ include::../DeveloperGuide.adoc[tag=display]
 
 include::../DeveloperGuide.adoc[tag=addperson]
 
-include::../DeveloperGuide.adoc[tag=editperson]
 
-== PROJECT: PowerPointLabs
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_
