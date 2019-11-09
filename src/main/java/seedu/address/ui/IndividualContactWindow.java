@@ -75,6 +75,8 @@ public class IndividualContactWindow extends UiPart<Stage> {
         name.setText("Name: " + contact.getName().toString());
         number.setText("Contact: " + contact.getPhone().toString());
         windowSetup();
+
+        //@@author{weigenie}
         claims = new TableView<>();
 
         snCol.setCellValueFactory(new PropertyValueFactory<ClaimItem, String>("sn"));

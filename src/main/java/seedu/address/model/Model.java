@@ -15,7 +15,6 @@ import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.ui.IndividualClaimWindow;
-import seedu.address.ui.IndividualContactWindow;
 
 /**
  * The API of the Model component.
