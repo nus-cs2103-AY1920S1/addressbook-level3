@@ -161,32 +161,32 @@ public class AddCommandParserTest {
         // invalid nric
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_NRIC_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
             + ADDRESS_DESC_BOB + DATE_OF_BIRTH_DESC_BOB + GENDER_DESC_BOB, Nric.MESSAGE_CONSTRAINTS
-            + ParseExceptionHandler.CONTACT_SUGGESTION_HEADER + VALID_NAME_BOB + "\n" + "Phone Number: "
-            + VALID_PHONE_BOB + "\n" + "Email: " + VALID_EMAIL_BOB);
+            + ParseExceptionHandler.CONTACT_SUGGESTION_HEADER + VALID_NAME_BOB + "\n" + Phone.HEADER
+            + VALID_PHONE_BOB + "\n" + Email.HEADER + VALID_EMAIL_BOB);
 
         // invalid nric and invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_NRIC_DESC + INVALID_PHONE_DESC + EMAIL_DESC_BOB
             + ADDRESS_DESC_BOB + DATE_OF_BIRTH_DESC_BOB + GENDER_DESC_BOB, Nric.MESSAGE_CONSTRAINTS
             + ParseExceptionHandler.CONTACT_SUGGESTION_HEADER + VALID_NAME_BOB + "\n"
-            + "Email: " + VALID_EMAIL_BOB);
+            + Email.HEADER + VALID_EMAIL_BOB);
 
         // invalid nric and invalid email
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_NRIC_DESC + PHONE_DESC_BOB + INVALID_EMAIL_DESC
             + ADDRESS_DESC_BOB + DATE_OF_BIRTH_DESC_BOB + GENDER_DESC_BOB, Nric.MESSAGE_CONSTRAINTS
             + ParseExceptionHandler.CONTACT_SUGGESTION_HEADER + VALID_NAME_BOB + "\n"
-            + "Phone Number: " + VALID_PHONE_BOB);
+            + Phone.HEADER + VALID_PHONE_BOB);
 
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + DATE_OF_BIRTH_DESC_BOB + GENDER_DESC_BOB,
             Phone.MESSAGE_CONSTRAINTS + ParseExceptionHandler.CONTACT_SUGGESTION_HEADER
-                + VALID_NAME_BOB + "\n" + "Email: " + VALID_EMAIL_BOB);
+                + VALID_NAME_BOB + "\n" + Email.HEADER + VALID_EMAIL_BOB);
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC
                 + ADDRESS_DESC_BOB + DATE_OF_BIRTH_DESC_BOB + GENDER_DESC_BOB,
             Email.MESSAGE_CONSTRAINTS + ParseExceptionHandler.CONTACT_SUGGESTION_HEADER
-                + VALID_NAME_BOB + "\n" + "Phone: " + VALID_PHONE_BOB);
+                + VALID_NAME_BOB + "\n" + Phone.HEADER + VALID_PHONE_BOB);
 
         // invalid address
         assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
