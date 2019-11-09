@@ -279,19 +279,32 @@ Step 3: Patient will then displayed in the queue.
 === Appointment feature
 The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User also able to find missed appointments and settles each missed appointment efficiently.
 
+<<<<<<< HEAD
 * e.g. `newappt -id E0000001A -start 01/11/19 1800 -rec m -num 2` - creates two monthly appointments to patient whose referenceId is 001A.
 * e.g. `editappt 1 -start 02/11/19 1800` - edits a patient's first appointment timing to be the input timing if there is no conflict.
+=======
+* e.g. `newappt -id 001A -start 01/11/19 1800 rec/m num/2` - allows the user to create two monthly appointments to patient whose referenceId is 001A.
+* e.g. `editappt -entry 1 -end 02/11/19 1800` - allows the user to change a patient's first appointment timing to be the input timing if there is no conflict.
+>>>>>>> d3b9f9b0a0c3e6658c64f6966ed5a330d39acc39
 
 ==== Current Implementation
-The Appointment feature contains multiple operations to indirectly manipulate the UniqueAppointmentList. The implemented operations include:
+The Appointment feature contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
 
+<<<<<<< HEAD
 `newappt` Command - Creates an new appointment or recurring appointments for a patient.
+=======
+`newappt` Command - Adds a appointment or reoccurring appointments to a patient.
+>>>>>>> d3b9f9b0a0c3e6658c64f6966ed5a330d39acc39
 
 `ackappt` Command - Acknowledges an appointment whenever the patient checks in with the clerk.
 
 `appointments` Command - Lists all upcoming appointments or appointments containing a certain keyword.
 
+<<<<<<< HEAD
 `editappt` Command - Edits an appointment timing.
+=======
+`editappt` Command - Change a current appointment's timing to a different timing.
+>>>>>>> d3b9f9b0a0c3e6658c64f6966ed5a330d39acc39
 
 `cancelappt` Command - Cancels an appointment.
 
@@ -303,12 +316,21 @@ The Appointment feature contains multiple operations to indirectly manipulate th
 .Appointment class diagram illustrating interactions between the Appointment class and associated classes.
 image::AppointmentClassDiagram.png[]
 
+<<<<<<< HEAD
 Each Appointment object consists of Patient Id, Timing, Status. Timing class has 2 DateTime object representing the starting and ending time of the appointment. The UniqueAppointmentList contains 0 or more Appointments.
 
 The current implementation of Appointment will refer to the patient object by the unique referenceId and it will also ensure timing compatibility with doctors' duty shift. If the referenceId exists within the Model#UniquePatientList and the timing is valid, then constructing the Appointment object. This ensures that the patient is registered and the appointment's timing is valid before making an appointment.
 
 ==== `newappt` Command
 The `newappt` command is similar to the `new` command of Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
+=======
+Each Appointment object consists of a PersonReferenceId, Timing, Status. Timing class has 2 DateTime object as they indicates the starting and ending time of the appointment. The `UniqueEventList` contains 0 or more Appointments.
+
+The current implementation of Appointment will do check with patient object by the unique referenceId and it will also check timing with doctors' dutyRoster. If the referenceId exists within the Model#UniquePersonList  and the timing is valid, then constructing the Appointment object. This ensures that the patient is registered and the appointment's timing is valid before making an appointment.
+
+==== `newappt` Command
+The addAppointment command behaves similarly to the add command used for Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
+>>>>>>> d3b9f9b0a0c3e6658c64f6966ed5a330d39acc39
 
 The following activity diagram summarizes what happens when a user executes a AddAppointment command:
 
@@ -325,14 +347,21 @@ The appointments command works in two different cases for different purpose.
 
 Case 1: `appointments patientId`
 
-The appointments command searches for appointments that were belong to the patient that was entered by the user. The filtered appointments are found in ModelManager. The list is instantiated by filtering the UniqueAppointmentList using EventContainsKeywordPredicate which is created from the patientId argument supplied by the user.
+The appointments command searches for appointments that were belong to the patient that was entered by the user. The filtered appointments are found in ModelManager. The list is instantiated by filtering the `UniqueEventList` using EventContainsKeywordPredicate which is created from the patientId argument supplied by the user.
 
 Case 2: `appointments`
 
+<<<<<<< HEAD
 If appointments is executed without arguments, it executes with the predicate EventContainsApprovedStatusPredicate. updateFilteredAppointmentList() is called and the entire list of upcoming appointments is shown to the user.
 
 ==== `editappt` Command
 The following activity diagram summarizes what happens when a user executes a `editappt` command:
+=======
+The appointments with referce id behaves similarly to appointments with the exception that it does not take in any arguments. Instead, it automatically executes with the predicate EventContainsApprovedStatusPredicate. updateFilteredAppointmentList() is called and the entire list of upcoming appointments is shown to the user.
+
+==== `editappt` Command
+The following activity diagram summarizes what happens when a user executes a ChangeAppointment command:
+>>>>>>> d3b9f9b0a0c3e6658c64f6966ed5a330d39acc39
 
 .Interactions Inside the Logic Component when a user executes a `editappt` command
 
@@ -349,13 +378,69 @@ image::CancelAppointmentSequenceDiagram.png[]
 
 ==== `missappt` Command
 
-The `missappt` command searches for appointments that the patient did not attend. The filtered appointments are found in ModelManager. The list is instantiated by filtering the UniqueAppointmentList using EventsMissedPredicate which checks all APPROVED-Status appointments' ending times with current time.
+The `missappt` command searches for appointments that the patient did not attend. The filtered appointments are found in ModelManager. The list is instantiated by filtering the `UniqueEventList` using EventsMissedPredicate which checks all APPROVED-Status appointments' ending times with current time.
 
 ==== `settleappt` Command
 
 The settleAppointment command helps users to record if they settled missed appointments. It allows users make any missed appointment to be SETTLE once users have settled it. It will also update UniqueAppointmentList to display the other missed appointments.
 
-In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's duty shift and Model#UniqueAppointmentList. This ensures users can easily make appointments for patients.
+In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's dutyRoster and Model#`UniqueEventList`. This ensures users can easily make appointments for patients.
+
+=== Duty Shift Scheduling
+
+The duty shift scheduling provides users the ability to schedule duty shift for doctors. It can help doctors to check, add, edit duty shift efficiently.
+
+editshift -entry 1 -start 02/12/19 0900 -end 02/12/19 2100
+* e.g. `newshift -id STAFF001 -start 01/11/19 0900 -end 01/12/19 2100 reoccur m -num 2` - allows the user to create two monthly duty shifts to doctor whose referenceId is STAFF001.
+* e.g. `editshift -entry 1 -start 02/12/19 0900 -end 02/12/19 2100` - allows the user to change a doctor's first duty shift to be the input timing if there is no conflict.
+
+==== Current Implementation
+The Duty shift scheduling contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
+
+`newshift` Command - Adds a duty shift or reoccurring duty shifts to a doctor.
+
+`shifts` Command - Lists all duty shifts or lists a specific doctor's duty shifts.
+
+`editshift` Command - Change a current duty shift's timing to a different timing.
+
+`cancelshift` Command - Cancels duty shift found within the duty shift sechedule.
+
+The class diagram below illustrates the interactions between the Appointment class and associated classes.
+
+.Duty Shift class diagram
+image::DutyShiftClassDiagram.png[]
+
+Each Duty Shift object consists of a PersonReferenceId, Timing, Status. Timing class has 2 DateTime object as they indicates the starting and ending time of the duty shift. The `UniqueEventList` contains 0 or more duty shifts.
+
+The current implementation of duty shift will do check with doctor object by the unique referenceId and it will also check timing with appointments. If the referenceId exists within the Model#UniquePersonList and the timing is valid, then constructing the Duty shift object. This ensures that the doctor is registered and the duty shift's timing is valid before making an duty shift.
+
+==== `newshift` Command
+The newshift command behaves similarly to the add command used for Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status.
+
+==== `shifts` Command
+
+The shifts command works in two different cases for different purpose.
+
+Case 1: `shifts Reference Id`
+
+The shifts command searches for duty shifts that were belong to the doctor that was entered by the user. The filtered shifts are found in ModelManager. The list is instantiated by filtering the `UniqueEventList` using EventContainsKeywordPredicate which is created from the reference Id argument supplied by the user.
+
+Case 2: `shifts`
+
+The shifts behaves similarly to shifts with the exception that it does not take in any arguments. Instead, it automatically executes with the predicate EventContainsApprovedStatusPredicate. updateFilteredEventList() is called and the entire list of upcoming duty shifts is shown to the user.
+
+==== `editshift` Command
+The following activity diagram summarizes what happens when a user executes a ChangeAppointment command:
+
+.Interactions Inside the Logic Component when a user executes a `editappt` command
+
+image::ChangeShiftActivityDiagram.png[]
+
+==== `cancelshift` Command
+
+`cancelshift` simply takes in the index of the target duty shift to cancel according to the displayed shift list.
+
+In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's dutyRoster and Model#`UniqueEventList`. This ensures users can easily add duty shift for any doctor.
 
 ==== Design Considerations
 
@@ -513,7 +598,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |clerk|use the appointment scheduler | schedule appointments for my patients
 
-|`* * *` |clerk |add recursive appointments| schedule new appointments recursively for my patients
+|`* * *` |clerk |add reoccurring appointments| schedule new reoccurring appointments for my patients
 
 |`* * *` |clerk|save time managing the queue | have more time to do my own work
 
