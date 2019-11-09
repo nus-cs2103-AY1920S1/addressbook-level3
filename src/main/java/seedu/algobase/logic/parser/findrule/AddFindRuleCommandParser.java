@@ -17,6 +17,9 @@ import static seedu.algobase.logic.parser.ParserUtil.parseNamePredicate;
 import static seedu.algobase.logic.parser.ParserUtil.parseSourcePredicate;
 import static seedu.algobase.logic.parser.ParserUtil.parseTagPredicate;
 
+import java.util.logging.Logger;
+
+import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.commands.findrule.AddFindRuleCommand;
 import seedu.algobase.logic.parser.ArgumentMultimap;
 import seedu.algobase.logic.parser.ArgumentTokenizer;
@@ -36,6 +39,8 @@ import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPred
  */
 public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
 
+    private static final Logger logger = LogsCenter.getLogger(AddFindRuleCommandParser.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddFindRuleCommand
      * and returns a AddFindRuleCommand object for execution.
@@ -45,6 +50,8 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
     @Override
     public AddFindRuleCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
+        logger.info("Parsing add find rule command with input: " + args);
 
         ArgumentMultimap argumentMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_DESCRIPTION, PREFIX_SOURCE,
