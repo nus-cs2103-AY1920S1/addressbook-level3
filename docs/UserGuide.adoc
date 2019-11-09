@@ -23,7 +23,7 @@ Team: *T17-2*
 
 == Introduction
 //tag::intro
-image::TraveEzyLogo.png[]
+image::TraveEzyLogo.png[TravEzy Logo]
 
 
 Welcome to *TravEzy*! 😊
@@ -89,12 +89,13 @@ Refer to Section 3, “Features” for details of each command.
 
 == Preface
 
-Nobody likes to read long documents, especially when you have something as
-exciting as TravEzy to start using. So, we're going to give you a simple structure
-that you can use to make using this user guide a TravEzy experience 😊:
+Excited to start using _TravEzy_? Read this section to find out how this document is structured, and what each symbol and special font style mean. We promise that this will help you to get started with using _TravEzy_ more quickly! 😊
 
+=== Structure of this Document
 
-We've split up this guide into the different portions of our application, namely:
+Nobody likes to read long documents, especially when you have something as exciting as TravEzy to use. So, we have organised this document such that you can easily look for what *you* need. 
+
+We've split up this guide into the different features of our application, namely:
 
 . Main
 . Calendar
@@ -104,38 +105,40 @@ We've split up this guide into the different portions of our application, namely
 . Achievements
 
 
-In each section, you will find the commands that you can type to begin making use of the features.
-We have provided the word that you type into TravEzy to trigger the
-command, or the _Command Word_  in a special format, for example -  ``Command Word``. With this, there
-is a short description of the command as well.
+In each of the above sections, you will be introduced to the *interface* of the feature, the *_parameters_* (which are just like those fields you fill up in a regular form📝) and the *commands* that will do the menial tasks for you.
 
-After the _Command Word_, we have also included the _Format_ for entering the command.
-Now, in TravEzy, along with the _Command Word_, we also have additional parameters
-that must be typed in with the _Command Word_. These parameters are made explicit with
-_Prefixes_. Each prefix will be followed by a forward slash, ``/``, after which will be value that you, the user must input. If the parameter is optional, it will be surrounded by sqaure brackets,
-``[]``.
 
-Lastly, with each command, there is an example of a possible command that can be input by a user.
+=== Reading this Document
 
-Here, is an example from the diary:
+Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's find out more about what they mean in this document!
 
-Trying to journal your trip to DisneyLand?
-*Add an entry to your diary: ``add``*
+.Symbols and fonts (rows)
+[grid="rows", frame="none"]
+|===
+| Symbol/font | What does it mean?
 
-Adds an entry to your diary, with the parameters: title (of the diary entry), date
-(of the event you are trying to journal) , place (of the event) and memory (more info
-about the event).
+| _italics_
+| An italicised text indicates that the text has a definition that is (rather) specific to the application. Do look out for the definitions of these words along the way. If not, please look at the glossary in section 13).
+ 
+| ``command``
+| A grey highlight means that you can type the words into _TravEzy_ and it will start performing tasks for you
 
-The _Command Word_ is ``add`` and the prefixes are ``t/`` for title, ``d/``
-for date, ``p/`` for place and ``m/`` for memory.
-Only title and date are compulsory.
+| ``MONTH``
+| Uppercase letters that are highlighted in grey indicate that the word is a _parameter_.footnote:[Remember what this means? A parameter is merely like a field in your regular form. Just replace it and fill it up with anything appropriate. 😊]
 
-Format: ``add t/title d/date [p/place] [m/memory]``
+| ``m\MONTH``
+| The slash and letter (or word) before the _parameter_ is a _prefix_. It is used to separate the current _parameter_ from other _parameters_.
 
-Example: Lets take the example of my fishing trip! I can't really remember where it was...
+| ``[m\MONTH]``
+| Square brackets imply that the the stated _prefix_ and _parameter_ are optional. (This means less typing! 😆)
 
-``add t/Fishing Trip d/12/12/2019 m/Caught the biggest fish ever!``
+| 💡  
+| A light bulb indicates that what is to follow is a tip. 
 
+| ⚠️  
+| A warning sign indicates that what is to follow is important.
+ 
+|===
 
 
 
@@ -193,25 +196,25 @@ Example: Let's say I have to exit the calendar page -
 
 == Calendar
 
-We have all been there. It's the end of the semester but we still have orientation camps to plan, upcoming projects for our CCA, hackathons to attend, internships to complete, family commitments, etc. However, we have worked so hard and *really* want to go for a trip with our friends and unwind. Sounds like you this semester?
+We have all been there. It's the end of the semester but we still have orientation camps, internships, and family commitments to attend to. However, we have worked so hard and *really* want to unwind by travelling. Sounds like you?
 
-Well, TravEzy has got you covered. Simply inform TravEzy of your schedule (your commitments, school breaks and public holidays) and TravEzy will suggest periods of time when you can travel! Excited to find out more? Well... Read on!
+Well, _TravEzy_ has got you covered. Simply inform _TravEzy_ of your schedule (your commitments, school breaks, public holidays and trips) and _TravEzy_ will suggest periods of time when you can travel! Excited to find out more? Well... Read on!
 
 === Interface
 
 === Parameters
 
-Let us find out what are the main parameters (or fields, just like those which you fill up in a regular form📝).
+Let us find out what the main _parameters_ for calendar are.
 
 
-. DAY. This refers to which day of the month (e.g. *1*, *2*, ..., *31* of January). To specify the day, simply place ``d/`` before it.
+. ``DAY``. This refers to which day of the month (e.g. *1*, *2*, ..., *31* of January). To specify the day, simply place the _prefix_ ``d/`` before it.
 +
 For example, if you would like to specify that it is first of January, key in:
 
     d/1
 
 
-. MONTH. This refers to which month (i.e. *January*, *February*, *March*, ..., *December*) you would like to refer to. To specify the month, just place ``m/`` before the month. Since people have different ways of specifying month, TravEzy accommodates these differences. In particular, you may choose to refer to it using numbers (with *1* referring to *January*, *2* referring to *February*, etc.) or you may choose to refer to it using words. Please type *at least the first three letters* of the month 😄.
+. ``MONTH``. This refers to which month (i.e. *January*, *February*, *March*, ..., *December*) you would like to refer to. To specify the month, just place the _prefix_ ``m/`` before the month. Since people have different ways of specifying month, _TravEzy_ accommodates these differences. In particular, you may choose to refer to it using numbers (with *1* referring to *January*, *2* referring to *February*, etc.) or you may refer to it using words. Please type *at least the first three letters* of the month 😄.
 +
 Referring to the previous example, to specify that it is January, you can type:
 
@@ -227,21 +230,21 @@ or:
 
     m/January
 
-. YEAR. This refers to which year (i.e. *2019*, *2020*, ...) you are referring to. To indicate the year, prepend the year with ``y/``. Since TravEzy allows you to refer to any year between 1970 and 2200 (because travelling in time is fun too!), please key in a *4 digit number* . If otherwise, it would be confused 😔.
+. ``YEAR``. This refers to which year (i.e. *2019*, *2020*, ...) you are referring to. To indicate the year, prepend the year you are referring to with ``y/``. Since TravEzy allows you to refer to any year between 1980 and 2200 (because travelling in time is fun too!), please key in a *4 digit number* . If otherwise, it would be confused 😔.
 +
 For instance, if you want to specify the year 2019, just key in:
 
     y/2019
 
-. END DAY. This refers to the day of the last date. This is very similar to how you would specify the (start) DAY, as mentioned in point 1. Now, instead of using the small letter, use the capitalised version. In other words, ``D/``.
+. ``END DAY``. This refers to the day of the end date. This is very similar to how you would specify the (start) ``DAY``, as mentioned in point 1. Now, instead of using the small letter, use the capitalised version. In other words, ``D/``.
 +
 For example, if you would like to indicate that your event (i.e. commitment, holiday, school break or trip) ends on fifth of January, enter:
 
     D/5
 
-. END MONTH. This refers to the month of the last date. Again, this is very similar to how you would specify the (start) MONTH, as mentioned in point 2. Now, instead of using the small letter, use the capitalised version ``M/``.
+. ``END MONTH``. This refers to the month of the end date. Again, this is very similar to how you would specify the (start) MONTH, as mentioned in point 2. Now, instead of using the small letter, use the capitalised version ``M/``.
 +
-Following from the above example, if you would like to state that your event ends (i.e. commitment, holiday, school break or trip) ends in January, just type:
+Following from the above example, if you would like to state that your event ends (i.e. _commitment_, _holiday_, _school break_ or _trip_) ends in January, just type:
 
     M/1
 +
@@ -253,33 +256,27 @@ and:
 
     M/January
 +
-IMPORTANT: As with the above (MONTH), if you are spelling END MONTH in words, please specify it with *at least the first three letters* of the month.
+WARNING: As with the above (``MONTH``), if you are spelling ``END MONTH`` in words, please specify it with *at least the first three letters* of the month.
 
-. END YEAR. This refers to the year of the last date. Similarly, to specify the year of the last date, key in the capitalised version instead. In essence, place ``Y/`` before the year of the last date. How simple is that?
+. ``END YEAR``. This refers to the year of the end date. Similarly, to specify the year of the end date, key in the capitalised version instead. In essence, place the _prefix_ ``Y/`` before the year of the last date. How simple is that?
 +
 For instance, if your trip ends in 2020, just type:
 
     Y/2020
 +
-IMPORTANT: As with the above (YEAR), please specify END YEAR using *four digits*.
+WARNING: As with the above (``YEAR``), please specify ``END YEAR`` using *four digits*.
 +
-TIP: As expected, specifying the END DAY, END MONTH and/or END YEAR is not always applicable. Hence, by default, TravEzy assumes that the END DAY, END MONTH and/or END YEAR are the same as DAY, MONTH and/or YEAR respectively.
+TIP: As expected, specifying the ``END DAY``, ``END MONTH`` and/or ``END YEAR`` is not always applicable. Hence, by default, TravEzy assumes that the ``END DAY``, ``END MONTH`` and/or ``END YEAR`` are the same as ``DAY``, ``MONTH`` and/or ``YEAR`` respectively.
 
-. NAME. This refers to the name of your event (i.e. commitment, holiday, school break or trip). To indicate the name, just key in ``n/`` before it.
+. ``NAME``. This refers to the name of your event (i.e. _commitment_, _holiday_, _school break_ or _trip_). To indicate the name, just key in ``n/`` before it.
 +
 For instance, if you would like to specify that the holiday you are adding refers to Christmas 🎄 , just type:
 
     n/Christmas
 
-. INFO. This refers to any additional information associated with your event (i.e. commitment, holiday, school break or trip). To include more details about the event, just type ``i/`` before you start typing the relevant information.
+. ``EVENT TYPE``. This refers to either a _commitment_, _holiday_, _school break_ or _trip_. With this parameter, you can easily differentiate the different events in your calendar!
 +
-For example, if you would like to include the fact that your grandparents are coming for christmas this year to remind yourself that you definitely have to make time for them, you can do so by typing:
-
-    i/Grandparents will be here!!
-
-. EVENT TYPE. This refers to either a commitment, holiday, school break or trip. With this parameter, you can easily differentiate the different events in your calendar!
-+
-Are you unable to travel on a particular day or over a duration of time due to commitments? Well, indicate it with ``commitment``!
+Are you unable to travel on a particular day or over a duration of time due to _commitments_? Well, indicate it with ``commitment``!
 +
 For instance, if you have volunteered to tutor children from 2 to 5 December 2019, you can refer to it by typing:
 
@@ -290,9 +287,9 @@ Now, TravEzy would know that the event is in fact a commitment!
 +
 {empty} +
 {empty} +
-Or is there an upcoming public holiday? Then, key it in with the type ``holiday``.
+Or is there an upcoming public _holiday_? Then, key it in with the type ``holiday``.
 +
-For example, to refer to the fact that 1 May 2020 is labour day (a public holiday), just enter:
+For example, to refer to the fact that 1 May 2020 is labour day (a public _holiday_), just enter:
 
     holiday n/labour day d/1 m/May y/2020
 
@@ -301,9 +298,9 @@ Now, TravEzy would recognise that day as a public holiday!
 +
 {empty} +
 {empty} +
-You might then be wondering, what if it is a school break? As you might have expected, TravEzy has got that covered too! Just indicate that the event is in fact a school break by keying in ``school_break``.
+You might then be wondering, what if it is a _school break_? As you might have expected, TravEzy has got that covered too! Just indicate that the event is in fact a _school break_ by keying in ``school_break``.
 +
-For instance, if you would like to refer to the fact that 8 Dec 2019 to 12 Jan 2020 is winter vacation (a school break), just type:
+For instance, if you would like to refer to the fact that 8 Dec 2019 to 12 Jan 2020 is winter vacation (a _school break_), just type:
 
     school_break n/winter vacation d/8 m/Dec y/2019 D/12 M/Jan Y/2020
 
@@ -312,33 +309,35 @@ Yeah! Now, TravEzy know that you are referring to a school break. 😉
 +
 {empty} +
 {empty} +
-Last but not least, you can specify that you will be away for a trip (woo hoo!) by using the EVENT TYPE ``trip``.
+Last but not least, you can specify that you will be away for a _trip_ (woo hoo!) by using the ``EVENT TYPE`` ``trip``.
 +
 For example, to refer to your Bali trip between 10 Dec 2019 to 13 Dec 2019, simply enter:
 
     trip n/Bali 3D2N d/10 m/Dec y/2019 D/13 M/Dec Y/2019
 
 +
-Great! Now, TravEzy is aware that you are referring to a trip.
+Great! Now, TravEzy is aware that you are referring to a _trip_.
 
-. PERIOD. This refers to the number of days between the start date and end date (as specified using the above parameters).
+. ``PERIOD``. This refers to the number of days between the start date and end date (as specified using the above parameters). To use it, simply place the prefix ``p/`` before specifying the number of days.
 +
 For example, if you would like to indicate that it needs to be a period of 5 days, key in:
 
     p/5
 
+WARNING: Some commands do not use all of the above _parameters_ and _prefixes_. If the _parameters_ and _prefixes_ are not recognised, note that _TravEzy_ will treat them as regular text.
+
 === Adding an event to your calendar: ``add``
 
-Whew! After reading so much, it is time to find out how you can add your event (be it your commitment, holiday, school break or trip) so that TravEzy can start suggesting when you can travel! 😊
+Whew! After reading so much, it is time to find out how you can add your event (be it your _commitment_, _holiday_, _school break_ or _trip_) so that _TravEzy_ can start suggesting when you can travel! 😊
 
 *Format:* +
-``add EVENT TYPE n/NAME d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [i/INFO]``
+``add EVENT TYPE n/NAME d/START DAY [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
 
 *Examples:*
 ****
 * To add a commitment,
 
-    commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019
+    add commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019
 
 * To add a holiday,
 
@@ -357,18 +356,18 @@ Whew! After reading so much, it is time to find out how you can add your event (
 *Step by step:*
 (To indicate that you have a commitment rom 2 Dec 2019 to 5 Dec 2019 because you are volunteering, just key in... COMING SOON)
 
-TIP: As mentioned, you do not have to specify the END YEAR, END MONTH and/or END DAY if they are the same as START YEAR, START MONTH and/or START DAY, respectively.
+TIP: As mentioned, you do not have to specify the ``END YEAR``, ``END MONTH`` and/or ``END DAY`` if they are the same as ``START YEAR``, ``START MONTH`` and/or ``START DAY``, respectively.
 
-IMPORTANT: If you leave out the month and/or year, the current month and/or year will be used. This applies to the following commands as well.
+WARNING: If you leave out the month and/or year, the current month and/or year will be used. This applies to the following commands as well.
 
 === Deleting an event from your calendar: ``delete``
 
-Yes, we have all had that experience. We thought that next Friday is a public holiday even though it isn't. However, you have added this holiday to TravEzy! 😧 What should you do now? Delete it!
+Yes, we have all had that experience. We thought that next Friday is a public _holiday_ even though it isn't. However, you have added this _holiday_ to _TravEzy_! 😧 What should you do now? Delete it!
 
 But how? Well, this is the section for you. 😀
 
 *Format:* +
-``delete EVENT TYPE n/NAME d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
+``delete EVENT TYPE n/NAME d/START DAY [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
 
 *Examples:*
 ****
@@ -378,15 +377,15 @@ But how? Well, this is the section for you. 😀
 
 * To delete a holiday,
 
-    add holiday n/labour day d/1 m/May y/2020
+    delete holiday n/labour day d/1 m/May y/2020
 
 * To delete a school break,
 
-    add school_break n/winter vacation d/8 m/Dec y/2019 D/12 M/Jan Y/2020
+    delete school_break n/winter vacation d/8 m/Dec y/2019 D/12 M/Jan Y/2020
 
 * To delete a trip,
 
-    add trip n/Bali 3D2N d/10 m/Dec y/2019 D/13 M/Dec Y/2019
+    delete trip n/Bali 3D2N d/10 m/Dec y/2019 D/13 M/Dec Y/2019
 
 ****
 
@@ -407,29 +406,48 @@ How easy is it?
     show m/Dec
 
 
-IMPORTANT: Do remember that if you leave out the month and/or year (as we have done in this example), the current month and/or year will be used. This applies to the following commands as well.
+IMPORTANT: Do remember that if you leave out the year (as we have done in this example), the current year will be used. This applies to the following commands as well.
 
 *Step by step:*
 (COMING SOON)
 
+=== Listing your events: ``list``
+
+If you would like to view your events as a list instead, this command would be helpful!
+
+*Format:* +
+``list [d/START DAY] [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
+
+*Examples:*
+****
+* To list all events,
+
+    list
+
+* To list all events that happen between 2 December 2019 to 10 December 2019,
+
+    list d/2 m/Dec y/2019 D/10 M/Dec Y/2019
+
+****
+
 === Checking your availability for a trip: ``check``
 
-Do you need to find out whether you are available to go for a trip? You can get TravEzy to find that out for you (i.e. when you happen to have a school break/holiday then *and* do not have any commitment/trip then).
+Do you need to find out whether you are available to go for a trip? You can get _TravEzy_ to find that out for you (i.e. when you happen to have a school break/holiday then *and* do not have any commitment/trip then).
 
 Let's find out how!
 
 *Format:* +
-``check d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
+``check d/START DAY [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
 
 *Examples:*
 ****
-* To check whether you are available on 9 December,
+* To check whether you are available on 9 December 2019,
 
-    check d/9 m/12
+    check d/9 m/12 y/2019
 
-* To check whether you are available from 9 December to 20 December,
+* To check whether you are available from 9 to 20 December 2019,
 
-    check d/1 m/Dec D/20 M/Dec
+    check d/9 m/Dec y/2019 D/20 M/Dec Y/2019
 
 ****
 
@@ -438,22 +456,22 @@ Let's find out how!
 
 === Suggesting a suitable time for a trip: ``suggest``
 
-The end of the semester is near. It is time to look for some cheap flights🛫! However, before deciding which flight to book, you need to find out whether it suits your schedule. No worries! TravEzy has got you covered. 😊
+The end of the semester is near. It is time to look for some cheap flights🛫! However, before deciding which flight to book, you need to find out whether it suits your schedule. No worries! _TravEzy_ has got you covered. 😊
 
-How so? Just ask TravEzy to suggest a suitable time!
+How so? Just ask _TravEzy_ to suggest a suitable time!
 
 *Format:* +
-``suggest d/START DAY [m/START MONTH] [d/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [p/PERIOD]``
+``suggest d/START DAY [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [p/PERIOD]``
 
 *Examples:*
 ****
-* To find out when you can travel between 9 December and 20 December,
+* To find out when you can travel between 9 and 20 December 2019,
 
-    suggest d/1 m/Dec D/20 M/Dec
+    suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019
 
-* To find out when you can travel for at least 5 days between 9 December and 20 December ,
+* To find out when you can travel for at least 5 days between 9 and 20 December 2019,
 
-    check d/1 m/Dec D/20 M/Dec p/5
+    suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019 p/5
 
 ****
 
@@ -1492,3 +1510,5 @@ NUS trips: +
 ``deleteSoc``   : delete certain societies +
 
 ``selectSoc``   : select a certain society to load trips
+
+= Glossary

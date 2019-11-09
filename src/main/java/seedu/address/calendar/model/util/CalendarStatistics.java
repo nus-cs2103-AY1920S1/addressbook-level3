@@ -2,6 +2,9 @@ package seedu.address.calendar.model.util;
 
 import seedu.address.calendar.model.util.exceptions.NoVacationException;
 
+/**
+ * Represents a statistics object which contains summary of {@code Calendar}.
+ */
 public interface CalendarStatistics {
     /**
      * Gets the number of days of vacation (i.e. school breaks and holidays)

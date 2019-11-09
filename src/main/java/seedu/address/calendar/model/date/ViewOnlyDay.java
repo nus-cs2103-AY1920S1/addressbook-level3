@@ -1,7 +1,6 @@
 package seedu.address.calendar.model.date;
 
 import seedu.address.calendar.model.event.EventType;
-import seedu.address.calendar.model.util.DateUtil;
 
 public class ViewOnlyDay {
     private DayOfWeek dayOfWeek;
@@ -41,17 +40,13 @@ public class ViewOnlyDay {
         return dayOfMonth;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
     /**
      * Returns day of week as a meaningful numerical value that is zero-based.
      *
      * @return day of week as a meaningful numerical value that is zero-based
      */
     public int getDayOfWeekZeroIndex() {
-        return DateUtil.getNumericalVal(dayOfWeek);
+        return dayOfWeek.getNumericalVal();
     }
 
     public boolean hasCommitment() {

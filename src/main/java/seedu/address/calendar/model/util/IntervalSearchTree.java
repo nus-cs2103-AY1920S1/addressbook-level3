@@ -5,6 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * Represents an interval search tree which is specifically used to reduce the time complexity involved in searching
+ * for collisions between intervals.
+ *
+ * <p>This search tree is implemented using a AVL tree to ensure that the time complexity is minimised and does
+ * not degrade.</p>
+ *
+ * @param <S> The type of interval
+ * @param <T> The object which contains the interval specified above
+ */
 public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S, T>> {
     private Node root = null;
     private HashMap<Interval, Integer> intervalTracker = new HashMap<>();

@@ -8,7 +8,6 @@ import seedu.address.calendar.model.ReadOnlyCalendar;
 import seedu.address.commons.exceptions.DataConversionException;
 
 public interface CalendarStorage {
-    // Path getCalendarFilePath();
 
     Optional<ReadOnlyCalendar> readCalendar() throws DataConversionException, IOException;
 

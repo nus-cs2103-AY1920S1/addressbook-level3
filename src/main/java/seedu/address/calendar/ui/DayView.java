@@ -12,7 +12,6 @@ import seedu.address.ui.UiPart;
 public class DayView extends UiPart<Region> {
     private static final String FXML = "CalendarDayView.fxml";
     private static final double BREAKPOINT_WIDTH = 405.0;
-    private static final double MAX_CIRCLES_PER_ROW = 2; // only if the view is small
     private ReadOnlyDoubleProperty monthViewWidth;
     private final ChangeListener listener;
 
