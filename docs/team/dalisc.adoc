@@ -2,13 +2,12 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:sectnums:
 
 ---
 
-== Introduction
+== 1. Introduction
 
-=== About the Project
+=== 1.1. About the Project
 
 Mortago, a desktop application, is a comprehensive mortuary management system. Mortago is a portmanteau of two Latin words: "mortem" (death) and "curago" (to manage). As its name suggests, Mortago aims to streamline mortuary processes such as updating statuses, keeping track of unclaimed bodies, and generating reports for hospital mortuary managers. The user interacts with MORTAGO using a command line interface (CLI), and it displays a dashboard (Figure 1) that shows bodies, workers and fridges entries.
 
@@ -20,11 +19,11 @@ image::Ui.png[width="790", align="center"]
 
 _Figure 1: Mortago's dashboard._
 
-=== About the Team
+=== 1.2. About the Team
 
 This project was undertaken by a team of five Year 2 computer science undergraduates, including myself, as part of the module CS2103T Software Engineering at the National University of Singapore. For most of us, it was our first time being part of a small-scale software development team. We were tasked to build the application under the0 contraints that it must be CLI and targets a small user base.
 
-=== About My Role
+=== 1.3. About My Role
 
 My role was to design the `stats`, `filter`, and `find` features. The following section elaborates on my work in greater detail. Other than engineering these features, I also contributed to the project documentation (user and developer guides). I will be including excerpts of these contributions in the next section.
 
@@ -37,7 +36,7 @@ This symbol indicates important information.
 A grey highlight indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
 |===
 
-== Summary of contributions
+== 2. Summary of contributions
 
 This section shows a summary of my coding, documentation, and other helpful contributions to the
 team project.
@@ -66,13 +65,13 @@ team project.
 *** I reviewed PRs, offering non-trivial review comments. (Exampless: https://github.com[#36])
 *** I reported bugs and suggestions for other teams in the class (Examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
-== Contributions to the User Guide
+== 3. Contributions to the User Guide
 We wrote a User Guide targeted at the users of Mortago. The User Guide containts instructions on how to use the various commands of the application. The following is an excerpt from our Mortago User Guide, showing additions that I have
 made for the `stats`, `fitler`, and `find` features.
 
 _{start of extract 1: stats command}_
 
-*3.4.1. View admission statistics: `stats`*
+==== 3.4.1. View admission statistics: `stats`
 
 This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
 
@@ -104,7 +103,7 @@ _{end of extract 1}_
 
 _{start of extract 2: filter command}_
 
-*3.2.3. Filter all entries: `filter`*
+==== 3.2.3. Filter all entries: `filter`
 
 This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
 
@@ -124,7 +123,7 @@ _{end of extract 2}_
 
 _{start of extract 3: find command}_
 
-*3.1.3. Locating entries by name: `find`*
+==== 3.1.3. Locating entries by name: `find`
 
 Finds bodies or workers whose names contain any of the given keywords. +
 
@@ -151,15 +150,15 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 _{end of extract 3}_
 
 
-== Contributions to the Developer Guide
+== 4. Contributions to the Developer Guide
 
 In addition to a User Guide, we wrote a Developer Guide targeted at developers who are interested in contributing to the project. The Developer Guide showcases my ability to write technical documentation and the technical depth of my contributions to the project.Given below is my contribution to the Developer Guide:
 
 _{start of extract: implementation of stats command}_
 
-*4.8. Statistics feature*
+=== 4.8. Statistics feature
 
-*4.8.1. Current Implementation*
+==== 4.8.1. Current Implementation
 
 The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days (default view) and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched. Users can switch the view to a specified week, month, or view.
 
@@ -178,7 +177,7 @@ The following sequence diagram shows hows `LineChartPanel` interacts `AddressBoo
 
 image::LineChartAddBodySequenceDiagram.png[]
 
-*4.8.2. Design Considerations*
+==== 4.8.2. Design Considerations
 
 ===== Aspect: How data is stored and updated
 
