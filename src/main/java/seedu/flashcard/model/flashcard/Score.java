@@ -1,5 +1,7 @@
 package seedu.flashcard.model.flashcard;
 
+import static seedu.flashcard.commons.util.AppUtil.checkArgument;
+
 /**
  * Score of each Flashcard
  */
@@ -23,6 +25,7 @@ public class Score {
      * Used when loading score from Json file.
      */
     public Score(int correctAnswers, int wrongAnswers) {
+        checkArgument(isValidScore(correctAnswers, wrongAnswers), MESSAGE_CONSTRAINTS);
         this.correctAnswers = correctAnswers;
         this.wrongAnswers = wrongAnswers;
     }
@@ -37,6 +40,15 @@ public class Score {
         }
         return Integer.parseInt(splitScore[0]) >= 0 && Integer.parseInt(splitScore[1]) >= 0;
     }
+
+    /**
+     * Used to check for int values.
+     */
+    public static boolean isValidScore(int correctAnswers, int wrongAnswers) {
+        return correctAnswers >= 0 && wrongAnswers >= 0;
+    }
+
+
 
     /**
      * Returns the number of times the flashcard has been answered correctly.
