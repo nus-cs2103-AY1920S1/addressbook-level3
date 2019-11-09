@@ -342,7 +342,7 @@ Step 10. The items are all added back into the ```TaskList``` and the priority m
 ==== Design Consideration
 *Aspect: How to restrict commands for focus mode*
 
-* Alternative 1 (Current implementation): Storing a boolean within the ``ItemModelManager`` to check if the application is in focus mode or normal mode. Commands that are not allowed to be called in focus mode will check against this boolean to determine if the command is allowed.
+* Alternative 1: Storing a boolean within the ``ItemModelManager`` to check if the application is in focus mode or normal mode. Commands that are not allowed to be called in focus mode will check against this boolean to determine if the command is allowed.
 
 |===
 |Pros |Cons
@@ -351,16 +351,18 @@ Step 10. The items are all added back into the ```TaskList``` and the priority m
 |This implementation is not scalable as each new ```Command``` that is added will need to be checked to see if they are allowed in focus mode. There is also the additional overhead of checking the state of the ```ItemModelManager``` at every call of ```Command#execute()```.
 |===
 
-* Alternative 2: Create a new ```FocusElisaParser``` that extends from the current ```ElisaParser``` but prevent the parsing of commands that are not allowed in focus mode.
+
+* Alternative 2 (Current implementation): Create a new ```FocusElisaParser``` that extends from the current ```ElisaParser``` but prevent the parsing of commands that are not allowed in focus mode.
 
 |===
 |Pros |Cons
 
 |This implementation stops the creation of the ```Command``` at the ```Parser``` level which will reduce the computational cost to the application.
-|This implementation requires the manipulation of the ```LogicManager``` to change the parser that is being used which goes against the current implementation of ```Command#execute()```. There might also be more difficulty when maintaining the code as there is a need to maintain the ```Parser#parse()``` method of the two ```Parser```.
+
+|This implementation requires the manipulation of the ```LogicManager``` to change the parser and require it to observe the ```ItemModelManager``` for changes. There might also be more difficulty when maintaining the code as there is a need to maintain the ```Parser#parse()``` method of the two ```Parser```.
 |===
 
-Both methods are not scalable in the long run, but at this moment, alternative 1 is favoured as it conforms with the current implementation of the ``Command#execute(ItemModel)`` method which states that the command should only interact with the ``ItemModel`` and not directly with the ``Logic`` itself.
+Both methods are not scalable in the long run, but at this moment, alternative 2 is favoured as it prevents the command from even being parsed or created, which saves the computing time. At the same time, it is easier to maintain as one only needs to edit the ```Parser#parse()``` method instead of having an if-else loop in all the command that are banned.
 
 *Aspect: How to turn off the priority mode after a fixed time*
 
