@@ -1,32 +1,14 @@
 package seedu.address.logic;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.SortedSet;
-
 /**
  * Represents a node in a {@link Graph}.
  */
-public abstract class Node<T> {
+public abstract class Node<V> {
 
-    protected final List<T> backingList;
+    protected final V pointer;
 
-    public Node(List<T> backingList) {
-        this.backingList = backingList;
+    public Node(V pointer) {
+        this.pointer = pointer;
     }
-
-    /**
-     * Returns a {@code Node} that does not tracking anything.
-     */
-    public static Node emptyNode() {
-        return new Node(Collections.emptyList()) {
-            @Override
-            public SortedSet<String> getValues() {
-                return Collections.emptySortedSet();
-            }
-        };
-    }
-
-    public abstract SortedSet<String> getValues();
 
 }
