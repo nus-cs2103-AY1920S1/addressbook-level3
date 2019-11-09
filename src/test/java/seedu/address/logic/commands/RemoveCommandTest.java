@@ -1,3 +1,5 @@
+//@@author: dalsontws
+
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,7 +20,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.deadline.Deadline;
 
-//@@author: dalsontws
 /**
  * Contains unit tests for {@code RemoveCommand}.
  */

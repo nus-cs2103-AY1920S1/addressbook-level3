@@ -18,7 +18,7 @@ public class DueDateTest {
     @Test
     public void constructor_invalidDueDate_throwsIllegalArgumentException() {
         String invalidDueDate = "";
-        assertThrows(DateTimeParseException.class, () -> new DueDate(invalidDueDate));
+        assertThrows(IllegalArgumentException.class, () -> new DueDate(invalidDueDate));
     }
 
     @Test

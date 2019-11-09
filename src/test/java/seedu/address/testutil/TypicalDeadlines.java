@@ -15,8 +15,8 @@ public class TypicalDeadlines {
 
     public static final String VALID_TASK_STR = "Complete Deadline Scheduler.";
     public static final String VALID_TASK_STR_2 = "Complete Calendar GUI.";
-    public static final String VALID_DUEDATE_STR = "01/10/2019";
-    public static final String VALID_DUEDATE_STR_2 = "11/10/2019";
+    public static final String VALID_DUEDATE_STR = "01/10/2020";
+    public static final String VALID_DUEDATE_STR_2 = "11/10/2020";
 
     public static final Deadline COMPLETE_SCHEDULER = new DeadlineBuilder().withTask(VALID_TASK_STR)
             .withDueDate(VALID_DUEDATE_STR).build();
