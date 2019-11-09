@@ -594,42 +594,35 @@ Actor: User
 +
 Use case ends.
 
+// tag::statsusecase[]
+
 [discrete]
-=== Use case: UC11 - View the statistics of a set of flashcards with the same tag
+=== Use case: UC11 - View the statistics of flashcards
 
 Actor: User
 
 *MSS*
 
-1.  User [.underline]#finds the particular set of flashcards he or she desires (UC05)#
-2.  System displays the statistics of that flashcard set with the same tag.
+1.  User enters `stats` to ask FlashMind to show stats of all cards
+2.  System displays the statistics of the selected flashcards in a new window
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The given flashcard set name is invalid or does not exist.
+* 1a. User enters `stats [t/Tag]` to ask FlashMind to show stats of cards under specified tags.
++
+Use case resumes at step 2.
+
+[none]
+* 2a. The tag is empty or does not exist.
 +
 [none]
-** 1a1. FlashMind displays an error message.
+** 2a1. System displays an error message.
 +
-Use case resumes at step 1.
-
-[discrete]
-=== Use case: UC12 - Show statistics of a particular flashcard.
-Actor: user
-
-Precondition: The flashcard exists in the system.
-
-*MSS*
-
-1. User [.underline]#views all existing flashcards (UC01)#.
-2. User identifies the index of that flashcard which he/she wants to view progress of.
-1. User requests for the progress of a flashcard by inputting the index number of that flashcard.
-2. System shows the statistics of that flashcard.
-
-Use case ends
+user case ends.
+// end::statsusecase[]
 
 [appendix]
 == Non Functional Requirements

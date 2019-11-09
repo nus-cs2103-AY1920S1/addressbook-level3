@@ -1,10 +1,11 @@
 package seedu.flashcard.model.flashcard;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.flashcard.testutil.Assert.assertThrows;
 
-import org.junit.jupiter.api.Test;
 
 public class DefinitionTest {
 
@@ -21,9 +22,18 @@ public class DefinitionTest {
 
     @Test
     public void isValidDefinition() {
+
+        // null Definition
         assertThrows(NullPointerException.class, () -> Definition.isValidDefinition(null));
-        assertFalse(Definition.isValidDefinition(""));
-        assertFalse(Definition.isValidDefinition(" "));
-        assertTrue(Definition.isValidDefinition("Roses are red"));
+
+        // invalid Definition
+        assertFalse(Definition.isValidDefinition("")); // empty string
+        assertFalse(Definition.isValidDefinition(" ")); // spaces only
+
+        // valid Definition
+        assertTrue(Definition.isValidDefinition("3"));
+        assertTrue(Definition.isValidDefinition("/")); // one character
+        assertTrue(Definition.isValidDefinition("Builds applications by combining functionalities"
+                +" packaged as programmatically")); // long answer
     }
 }
