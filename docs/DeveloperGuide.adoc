@@ -464,7 +464,7 @@ The following steps explain the activity diagram:
 |How sort is executed
 |Set a new comparator +
 *Pros:* Easy to implement +
-*Cons:* `Comparator` is coupled to many field classes
+*Cons:* `SpendingComparator` may be updated when new fields are added
 |Sort the underlying list without a comparator +
 *Pros:* Able to manipulate objects directly +
 *Cons:* Violates fundamental Object Oriented Principles
@@ -478,7 +478,7 @@ The following steps explain the activity diagram:
 *Cons:* Large code structure changes
 |===
 
-Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. The only downside of this approach is that changing any field classes might require a change in the Comparator. In contrast, for Alternative 2, manipulating the internal elements of the list directly is dangerous and can cause unintended side effects. There was also a huge difference for the method design for sort, and Alternative 1 was the easier approach to avoid side effects in Alternative 2.
+Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. The only downside of this approach is that changing any field classes may require modifying `SpendingComparator`. In contrast, for Alternative 2, manipulating the internal elements of the list directly is dangerous and can cause unintended side effects. There was also a huge difference for the method design for sort, and Alternative 1 was the easier approach to avoid side effects in Alternative 2.
 // end::sort[]
 
 // tag::reminder[]
