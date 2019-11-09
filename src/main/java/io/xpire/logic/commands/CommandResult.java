@@ -5,11 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 import java.util.Objects;
 
+//@@author JermyTan
 /**
  * Represents the result of a command execution.
  */
 public class CommandResult {
 
+    /** Feedback message to be shown to the user. */
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */

@@ -16,11 +16,13 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
 
+//@@author febee99
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code SortCommand}.
@@ -41,12 +43,12 @@ public class SortCommandTest {
         String expectedMessage = SortCommand.MESSAGE_SUCCESS + " by name";
         XpireMethodOfSorting xpireMethodOfSorting = new XpireMethodOfSorting("name");
         SortCommand command = new SortCommand(xpireMethodOfSorting);
-        expectedModel.sortItemList(xpireMethodOfSorting);
-        expectedModel.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
+        expectedModel.sortXpire(xpireMethodOfSorting);
+        expectedModel.filterCurrentList(ListType.XPIRE, Model.PREDICATE_SORT_ALL_ITEMS);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(
                 Arrays.asList(EXPIRED_APPLE, BANANA, DUCK, EXPIRING_FISH, JELLY, EXPIRED_MILK, EXPIRED_ORANGE),
-                model.getFilteredXpireItemList()
+                model.getCurrentList()
         );
     }
 
@@ -55,12 +57,12 @@ public class SortCommandTest {
         String expectedMessage = SortCommand.MESSAGE_SUCCESS + " by date";
         XpireMethodOfSorting xpireMethodOfSorting = new XpireMethodOfSorting("date");
         SortCommand command = new SortCommand(xpireMethodOfSorting);
-        expectedModel.sortItemList(xpireMethodOfSorting);
-        expectedModel.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
+        expectedModel.sortXpire(xpireMethodOfSorting);
+        expectedModel.filterCurrentList(ListType.XPIRE, Model.PREDICATE_SORT_ALL_ITEMS);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(
                 Arrays.asList(EXPIRED_MILK, EXPIRED_ORANGE, EXPIRED_APPLE, EXPIRING_FISH, BANANA, DUCK, JELLY),
-                model.getFilteredXpireItemList()
+                model.getCurrentList()
         );
     }
 }

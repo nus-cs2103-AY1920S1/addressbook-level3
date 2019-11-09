@@ -8,6 +8,7 @@ import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.ListType;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagItemDescriptor;
 
@@ -15,6 +16,11 @@ import io.xpire.model.tag.TagItemDescriptor;
  * Parses input arguments and creates a new TagCommand object.
  */
 public class TagCommandParser implements Parser<TagCommand> {
+    private final ListType listType;
+
+    public TagCommandParser(ListType listType) {
+        this.listType = listType;
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the TagCommand
@@ -27,7 +33,7 @@ public class TagCommandParser implements Parser<TagCommand> {
         String[] splitArgs = args.split("\\|", 2);
         Index index;
         if (splitArgs[0].isEmpty()) {
-            return new TagCommand();
+            return new TagCommand(listType);
         }
         try {
             index = ParserUtil.parseIndex(splitArgs[0]);
@@ -44,13 +50,10 @@ public class TagCommandParser implements Parser<TagCommand> {
                     .format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
         tagItemDescriptor.setTags(set);
-        return new TagCommand(index, tagItemDescriptor);
+        return new TagCommand(listType, index, tagItemDescriptor);
     }
 
     private static boolean hasTags(String[] arguments) {
         return arguments.length > 1 && arguments[1].trim().split("#").length > 1;
     }
-
-
-
 }

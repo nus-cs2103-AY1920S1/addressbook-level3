@@ -85,15 +85,31 @@ public class ExpiryDate {
         return Long.parseLong(getStatus()) <= 0;
     }
 
+    public String getStatus() {
+        long offset = DateUtil.getOffsetDays(DateUtil.getCurrentDate(), this.date);
+        return String.valueOf(offset);
+    }
 
+    //@@author JermyTan
+    /**
+     * Returns the number of days left to the expiry date given the specified date.
+     * If specified date is not earlier than expiry date, an "Expired!" status will be returned.
+     *
+     * @param current Specified date.
+     * @return Status of the expiry date.
+     */
     public String getStatus(LocalDate current) {
         long offset = DateUtil.getOffsetDays(current, this.date);
         return offset > 0 ? String.format(DAYS_LEFT, offset, offset == 1 ? "" : "s") : EXPIRED;
     }
 
-    public String getStatus() {
-        long offset = DateUtil.getOffsetDays(DateUtil.getCurrentDate(), this.date);
-        return String.valueOf(offset);
+    /**
+     * Returns the string representation of the expiry date with its status.
+     *
+     * @return String representation of expiry date with its status.
+     */
+    public String toStringWithCountdown() {
+        return String.format("%s (%s)", this.toString(), this.getStatus(DateUtil.getCurrentDate()));
     }
 
     public LocalDate getDate() {
@@ -103,10 +119,6 @@ public class ExpiryDate {
     @Override
     public String toString() {
         return DateUtil.convertDateToString(this.date);
-    }
-
-    public String toStringWithCountdown() {
-        return String.format("%s (%s)", this.toString(), this.getStatus(DateUtil.getCurrentDate()));
     }
 
     @Override

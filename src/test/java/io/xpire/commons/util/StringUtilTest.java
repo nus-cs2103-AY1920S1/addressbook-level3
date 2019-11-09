@@ -19,79 +19,6 @@ import io.xpire.testutil.TypicalItems;
 
 public class StringUtilTest {
 
-    //---------------- Tests for containsWordIgnoreCase --------------------------------------
-
-    /*
-     * Invalid equivalence partitions for word: null, empty, multiple words
-     * Invalid equivalence partitions for sentence: null
-     * The four test cases below test one invalid input at a time.
-     */
-
-    @Test
-    public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> StringUtil
-                .containsPhraseIgnoreCase("typical sentence", null));
-    }
-
-    @Test
-    public void containsWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
-        Assert.assertThrows(IllegalArgumentException.class, "Phrase parameter cannot be empty", ()
-            -> StringUtil.containsPhraseIgnoreCase("typical sentence", "  "));
-    }
-
-    @Test
-    public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> StringUtil
-                .containsPhraseIgnoreCase(null, "abc"));
-    }
-
-    /*
-     * Valid equivalence partitions for word:
-     *   - any word
-     *   - word containing symbols/numbers
-     *   - word with leading/trailing spaces
-     *
-     * Valid equivalence partitions for sentence:
-     *   - empty string
-     *   - one word
-     *   - multiple words
-     *   - sentence with extra spaces
-     *
-     * Possible scenarios returning true:
-     *   - matches first word in sentence
-     *   - last word in sentence
-     *   - middle word in sentence
-     *   - matches multiple words
-     *
-     * Possible scenarios returning false:
-     *   - query word matches part of a sentence word
-     *   - sentence word matches part of the query word
-     *
-     * The test method below tries to verify all above with a reasonably low number of test cases.
-     */
-
-    @Test
-    public void containsWordIgnoreCase_validInputs_correctResult() {
-
-        // Empty sentence
-        assertFalse(StringUtil.containsPhraseIgnoreCase("", "abc")); // Boundary case
-        assertFalse(StringUtil.containsPhraseIgnoreCase("    ", "123"));
-
-        // Matches a partial word only
-        assertTrue(StringUtil.containsPhraseIgnoreCase("aaa bbb ccc", "bb")); // Sentence word bigger than query word
-        assertFalse(StringUtil.containsPhraseIgnoreCase("aaa bbb ccc", "bbbb")); // Query word bigger than sentence word
-
-        // Matches word in the sentence, different upper/lower case letters
-        assertTrue(StringUtil.containsPhraseIgnoreCase("aaa bBb ccc", "Bbb")); // First word (boundary case)
-        assertTrue(StringUtil.containsPhraseIgnoreCase("aaa bBb ccc@1", "CCc@1")); // Last word (boundary case)
-        assertTrue(StringUtil.containsPhraseIgnoreCase("  AAA   bBb   ccc  ", "aaa")); // Sentence has extra spaces
-        assertTrue(StringUtil.containsPhraseIgnoreCase("Aaa", "aaa")); // Only one word in sentence (boundary case)
-        assertTrue(StringUtil.containsPhraseIgnoreCase("aaa bbb ccc", "  ccc  ")); // Leading/trailing spaces
-
-        // Matches multiple words in sentence
-        assertTrue(StringUtil.containsPhraseIgnoreCase("AAA bBb ccc  bbb", "bbB"));
-    }
-
     //---------------- Tests for getDetails --------------------------------------
 
     /*
@@ -144,6 +71,80 @@ public class StringUtilTest {
         assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
     }
 
+    //@@author JermyTan
+    //---------------- Tests for containsPhraseIgnoreCase --------------------------------------
+
+    /*
+     * Invalid equivalence partitions for word: null, empty, multiple words
+     * Invalid equivalence partitions for sentence: null
+     * The four test cases below test one invalid input at a time.
+     */
+
+    @Test
+    public void containsPhraseIgnoreCase_nullWord_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> StringUtil
+                .containsPhraseIgnoreCase("typical sentence", null));
+    }
+
+    @Test
+    public void containsPhraseIgnoreCase_emptyWord_throwsIllegalArgumentException() {
+        Assert.assertThrows(IllegalArgumentException.class, "Phrase parameter cannot be empty", ()
+            -> StringUtil.containsPhraseIgnoreCase("typical sentence", "  "));
+    }
+
+    @Test
+    public void containsPhraseIgnoreCase_nullSentence_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> StringUtil
+                .containsPhraseIgnoreCase(null, "abc"));
+    }
+
+    /*
+     * Valid equivalence partitions for word:
+     *   - any word
+     *   - word containing symbols/numbers
+     *   - word with leading/trailing spaces
+     *
+     * Valid equivalence partitions for sentence:
+     *   - empty string
+     *   - one word
+     *   - multiple words
+     *   - sentence with extra spaces
+     *
+     * Possible scenarios returning true:
+     *   - matches first word in sentence
+     *   - last word in sentence
+     *   - middle word in sentence
+     *   - matches multiple words
+     *
+     * Possible scenarios returning false:
+     *   - query word matches part of a sentence word
+     *   - sentence word matches part of the query word
+     *
+     * The test method below tries to verify all above with a reasonably low number of test cases.
+     */
+
+    @Test
+    public void containsPhraseIgnoreCase_validInputs_correctResult() {
+
+        // Empty sentence
+        assertFalse(StringUtil.containsPhraseIgnoreCase("", "abc")); // Boundary case
+        assertFalse(StringUtil.containsPhraseIgnoreCase("    ", "123"));
+
+        // Matches a partial word only
+        assertTrue(StringUtil.containsPhraseIgnoreCase("aaa bbb ccc", "bb")); // Sentence word bigger than query word
+        assertFalse(StringUtil.containsPhraseIgnoreCase("aaa bbb ccc", "bbbb")); // Query word bigger than sentence word
+
+        // Matches word in the sentence, different upper/lower case letters
+        assertTrue(StringUtil.containsPhraseIgnoreCase("aaa bBb ccc", "Bbb")); // First word (boundary case)
+        assertTrue(StringUtil.containsPhraseIgnoreCase("aaa bBb ccc@1", "CCc@1")); // Last word (boundary case)
+        assertTrue(StringUtil.containsPhraseIgnoreCase("  AAA   bBb   ccc  ", "aaa")); // Sentence has extra spaces
+        assertTrue(StringUtil.containsPhraseIgnoreCase("Aaa", "aaa")); // Only one word in sentence (boundary case)
+        assertTrue(StringUtil.containsPhraseIgnoreCase("aaa bbb ccc", "  ccc  ")); // Leading/trailing spaces
+
+        // Matches multiple words in sentence
+        assertTrue(StringUtil.containsPhraseIgnoreCase("AAA bBb ccc  bbb", "bbB"));
+    }
+
     //---------------- Tests for isNonNegativeInteger --------------------------------------
     @Test
     public void isNonNegativeInteger() {
@@ -156,15 +157,23 @@ public class StringUtilTest {
         assertFalse(StringUtil.isNonNegativeInteger("a"));
         assertFalse(StringUtil.isNonNegativeInteger("aaa"));
 
-        // EP: zero
-        assertTrue(StringUtil.isNonNegativeInteger("0"));
-
         // EP: zero as prefix
         assertTrue(StringUtil.isNonNegativeInteger("01"));
 
         // EP: signed numbers
         assertFalse(StringUtil.isNonNegativeInteger("-1"));
-        assertTrue(StringUtil.isNonNegativeInteger("1")); //"+1" is successfully parsed by Integer#parseInt(String)
+        assertFalse(StringUtil.isNonNegativeInteger("+1")); //"+1" is successfully parsed by Integer#parseInt(String)
+
+        // EP: numbers with white space
+        assertFalse(StringUtil.isNonNegativeInteger(" 101 ")); // Leading/trailing spaces
+        assertFalse(StringUtil.isNonNegativeInteger(("1 0"))); // Spaces in the middle
+
+        // EP: number larger than Integer.MAX_VALUE
+        assertFalse(StringUtil.isNonNegativeInteger(String.valueOf(Integer.MAX_VALUE + 1)));
+
+        // EP: valid numbers, should return true
+        assertTrue(StringUtil.isNonNegativeInteger("0"));
+        assertTrue(StringUtil.isNonNegativeInteger("10"));
     }
 
     //---------------- Tests for convertToSentenceCase --------------------------------------
@@ -185,8 +194,56 @@ public class StringUtilTest {
         // EP: mix of upper and lower case strings
         assertEquals(StringUtil.convertToSentenceCase("frUit"), "Fruit");
         assertEquals(StringUtil.convertToSentenceCase("SweEt"), "Sweet");
+
+        // EP: numeric leading character
+        assertEquals(StringUtil.convertToSentenceCase("4fruits"), "4fruits"); // no change
+        assertEquals(StringUtil.convertToSentenceCase("4Fruits"), "4fruits"); // "F" changed to "f"
+        assertEquals(StringUtil.convertToSentenceCase("444FruItS"), "444fruits");
     }
 
+    //@@author JermyTan
+    @Test
+    public void getQrCode_nullText_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> StringUtil.getQrCode(null, 100));
+    }
+
+    @Test
+    public void getGetQrCode_emptyText_throwsAssertionError() {
+        Assert.assertThrows(AssertionError.class, () -> StringUtil.getQrCode("", 100));
+    }
+
+    @Test
+    public void getQrCode_invalidLength_throwsAssertionError() {
+        Assert.assertThrows(AssertionError.class, () -> StringUtil.getQrCode("random text", 0)); //boundary
+        Assert.assertThrows(AssertionError.class, () -> StringUtil.getQrCode("random text", -2));
+    }
+
+    @Test
+    public void getQrCode_validInputs_nonEmptyByteArray() {
+        assertTrue(StringUtil.getQrCode("random text", 100).length > 0);
+    }
+
+    @Test
+    public void getQrCode_sameValidInputsSameLength_equalByteArrays() {
+        assertTrue(Arrays.equals(StringUtil.getQrCode("random text", 100),
+                StringUtil.getQrCode("random text", 100)));
+    }
+
+    @Test
+    public void getQrCode_sameValidInputsDifferentLength_distinctByteArrays() {
+        assertFalse(Arrays.equals(StringUtil.getQrCode("random text", 100),
+                StringUtil.getQrCode("random text", 200)));
+    }
+
+    @Test
+    public void getQrCode_differentValidInputs_distinctByeArrays() {
+        assertFalse(Arrays.equals(StringUtil.getQrCode("random text", 100),
+                StringUtil.getQrCode("another random text", 100)));
+        assertFalse(Arrays.equals(StringUtil.getQrCode("random text", 100),
+                StringUtil.getQrCode("another random text", 200)));
+    }
+
+    //@@author febee99
     //---------------- Tests for computeDistance --------------------------------------
     @Test
     public void computeDistance() {

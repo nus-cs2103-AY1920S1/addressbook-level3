@@ -2,6 +2,7 @@ package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static io.xpire.model.ListType.XPIRE;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -26,10 +27,14 @@ import io.xpire.logic.commands.UndoCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 
+//@@author JermyTan
 /**
  * Parses user input.
  */
 public class XpireParser implements Parser {
+    private static final int NUM_COMMAND_PATITIONS = 2;
+    private static final int COMMAND_WORD_INDEX = 0;
+    private static final int COMMAND_ARGS_INDEX = 1;
 
     /**
      * Parses user input into command for execution.
@@ -41,16 +46,17 @@ public class XpireParser implements Parser {
     public Command parse(String userInput) throws ParseException {
         // Removes leading and trailing white spaces and trailing bars.
         String trimmedUserInput = userInput.trim()
-                                           .replaceAll("\\|+$", "");
+                                           .replaceAll(MULTIPLE_SEPARATOR, "");
 
-        String commandWord = trimmedUserInput.split("\\|", 2)[0].trim();
+        String commandWord = trimmedUserInput
+                .split(SEPARATOR, NUM_COMMAND_PATITIONS)[COMMAND_WORD_INDEX].trim();
         if (commandWord.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         String arguments;
         try {
-            arguments = trimmedUserInput.split("\\|", 2)[1];
+            arguments = trimmedUserInput.split(SEPARATOR, NUM_COMMAND_PATITIONS)[COMMAND_ARGS_INDEX];
         } catch (ArrayIndexOutOfBoundsException e) {
             arguments = "";
         }
@@ -65,22 +71,22 @@ public class XpireParser implements Parser {
         case DeleteCommand.COMMAND_WORD:
             //fallthrough
         case DeleteCommand.COMMAND_SHORTHAND:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteCommandParser(XPIRE).parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             //fallthrough
         case ClearCommand.COMMAND_SHORTHAND:
-            return new ClearCommand("main");
+            return new ClearCommand(XPIRE);
 
         case SearchCommand.COMMAND_WORD:
             //fallthrough
         case SearchCommand.COMMAND_SHORTHAND:
-            return new SearchCommandParser().parse(arguments);
+            return new SearchCommandParser(XPIRE).parse(arguments);
 
         case ViewCommand.COMMAND_WORD:
             //fallthrough
         case ViewCommand.COMMAND_SHORTHAND:
-            return new ViewCommandParser().parse(arguments);
+            return new ViewCommandParser(XPIRE).parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             //fallthrough
@@ -110,7 +116,7 @@ public class XpireParser implements Parser {
         case TagCommand.COMMAND_WORD:
             //fallthrough
         case TagCommand.COMMAND_SHORTHAND:
-            return new TagCommandParser().parse(arguments);
+            return new TagCommandParser(XPIRE).parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             //fallthrough

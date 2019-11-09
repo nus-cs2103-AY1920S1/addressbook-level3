@@ -14,8 +14,8 @@ import io.xpire.model.item.ReminderThreshold;
  * Parses input arguments and creates a new SetReminderCommand object.
  */
 public class SetReminderCommandParser implements Parser<SetReminderCommand> {
-
-    private static final String REGEX = "\\|";
+    private static final int ITEM_INDEX = 0;
+    private static final int THRESHOLD_INDEX = 1;
 
     /**
      * Parses the given {@code String} of arguments in the context of the SetReminderCommand
@@ -28,13 +28,13 @@ public class SetReminderCommandParser implements Parser<SetReminderCommand> {
         Index index;
         ReminderThreshold threshold;
 
-        if (args.split(REGEX).length < 2) {
+        if (args.split(SEPARATOR).length < 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SetReminderCommand.MESSAGE_USAGE));
         }
 
         try {
-            index = ParserUtil.parseIndex(args.split(REGEX)[0]);
+            index = ParserUtil.parseIndex(args.split(SEPARATOR)[ITEM_INDEX]);
 
         } catch (IllegalValueException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -42,7 +42,7 @@ public class SetReminderCommandParser implements Parser<SetReminderCommand> {
         }
 
         try {
-            threshold = ParserUtil.parseReminderThreshold(args.split(REGEX)[1]);
+            threshold = ParserUtil.parseReminderThreshold(args.split(SEPARATOR)[THRESHOLD_INDEX]);
         } catch (IllegalValueException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_REMINDER_THRESHOLD,
                     SetReminderCommand.MESSAGE_USAGE), e);

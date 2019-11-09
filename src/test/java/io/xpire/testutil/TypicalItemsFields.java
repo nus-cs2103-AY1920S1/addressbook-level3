@@ -11,7 +11,11 @@ public class TypicalItemsFields {
 
     public static final String VALID_NAME_APPLE = "Apple";
     public static final String VALID_NAME_BANANA = "Banana";
+    public static final String VALID_NAME_BAGEL = "Bagel";
+    public static final String VALID_NAME_BISCUIT = "Biscuit";
+    public static final String VALID_NAME_CHOCOLATE = "Chocolate";
     public static final String VALID_NAME_CORIANDER = "Coriander";
+    public static final String VALID_NAME_COOKIE = "Cookie";
     public static final String VALID_NAME_DUCK = "Duck";
     public static final String VALID_NAME_JELLY = "Jelly";
     public static final String VALID_NAME_KIWI = "Kiwi";
@@ -47,11 +51,14 @@ public class TypicalItemsFields {
     public static final String VALID_QUANTITY_EXPIRED_MILK = "2";
     public static final String VALID_QUANTITY_EXPIRED_ORANGE = "1";
 
+    public static final String VALID_TAG_CADBURY = "Cadbury";
+    public static final String VALID_TAG_COCOA = "Cocoa";
     public static final String VALID_TAG_DRINK = "Drink";
     public static final String VALID_TAG_FRIDGE = "Fridge";
     public static final String VALID_TAG_FRUIT = "Fruit";
     public static final String VALID_TAG_HERB = "Herb";
     public static final String VALID_TAG_PROTEIN = "Protein";
+    public static final String VALID_TAG_SWEET = "Sweet";
 
     public static final String VALID_REMINDER_THRESHOLD_APPLE = "0";
     public static final String VALID_REMINDER_THRESHOLD_BANANA = "0";

@@ -1,10 +1,13 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.model.ListType.REPLENISH;
+import static io.xpire.model.ListType.XPIRE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import io.xpire.commons.core.index.Index;
@@ -13,7 +16,9 @@ import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.ContainsKeywordsPredicate;
+import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.StackManager;
 import io.xpire.model.state.StateManager;
 import io.xpire.testutil.Assert;
 
@@ -23,7 +28,7 @@ import io.xpire.testutil.Assert;
 public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
-    private static StateManager stateManager = new StateManager();
+    private static StateManager stateManager = new StackManager();
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -61,24 +66,40 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         Xpire expectedXpire = new Xpire(actualModel.getLists()[0]);
-        List<XpireItem> expectedFilteredList = new ArrayList<>(actualModel.getFilteredXpireItemList());
+        @SuppressWarnings ("unchecked")
+        List<XpireItem> expectedFilteredList = new ArrayList<>((Collection<XpireItem>) actualModel.getCurrentList());
 
         Assert.assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, stateManager));
         assertEquals(expectedXpire, actualModel.getLists()[0]);
-        assertEquals(expectedFilteredList, actualModel.getFilteredXpireItemList());
+        assertEquals(expectedFilteredList, actualModel.getCurrentList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the xpireItem at the given {@code targetIndex} in the
      * {@code model}'s expiry date tracker.
      */
-    public static void showItemAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredXpireItemList().size());
+    public static void showXpireItemAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getCurrentList().size());
 
-        XpireItem xpireItem = model.getFilteredXpireItemList().get(targetIndex.getZeroBased());
+        XpireItem xpireItem = (XpireItem) model.getCurrentList().get(targetIndex.getZeroBased());
         final String[] splitName = xpireItem.getName().toString().split("\\s+");
-        model.updateFilteredItemList(new ContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredXpireItemList().size());
+        model.filterCurrentList(XPIRE, new ContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getCurrentList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the replenishItem at the given {@code targetIndex} in the
+     * {@code model}'s replenish list.
+     */
+    public static void showReplenishItemAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getCurrentList().size());
+
+        Item replenishItem = model.getCurrentList().get(targetIndex.getZeroBased());
+        final String[] splitName = replenishItem.getName().toString().split("\\s+");
+        model.filterCurrentList(REPLENISH, new ContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        assertEquals(1, model.getCurrentList().size());
     }
 
 }

@@ -1,6 +1,7 @@
 package io.xpire.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
+import static io.xpire.model.ListType.XPIRE;
 
 import java.util.function.Predicate;
 
@@ -44,9 +45,11 @@ public class CheckCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) {
-        requireNonNull(model);
+        requireAllNonNull(model, stateManager);
         stateManager.saveState(new FilteredState(model));
-        model.updateFilteredItemList(this.predicate);
+
+        model.filterCurrentList(XPIRE, this.predicate);
+
         setShowInHistory(true);
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -70,6 +73,6 @@ public class CheckCommand extends Command {
 
     @Override
     public String toString() {
-        return "the following Check command:\n" + this.result;
+        return "Check command";
     }
 }

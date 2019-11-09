@@ -1,7 +1,9 @@
 package io.xpire.model;
 
+import static io.xpire.model.ListType.XPIRE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
@@ -25,74 +27,75 @@ public class ModelManagerTest {
 
     @Test
     public void constructor() {
-        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
-        Assertions.assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new Xpire(), new Xpire(modelManager.getXpire()));
+        assertEquals(new UserPrefs(), this.modelManager.getUserPrefs());
+        assertEquals(new GuiSettings(), this.modelManager.getGuiSettings());
+        assertEquals(new Xpire(), new Xpire(this.modelManager.getXpire()));
+        assertEquals(new ReplenishList(), new ReplenishList(this.modelManager.getReplenishList()));
     }
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
+        Assert.assertThrows(NullPointerException.class, () -> this.modelManager.setUserPrefs(null));
     }
 
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setListFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setListFilePath(Paths.get("xpire/io/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
-        modelManager.setUserPrefs(userPrefs);
-        assertEquals(userPrefs, modelManager.getUserPrefs());
+        this.modelManager.setUserPrefs(userPrefs);
+        assertEquals(userPrefs, this.modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setListFilePath(Paths.get("new/address/book/file/path"));
-        assertEquals(oldUserPrefs, modelManager.getUserPrefs());
+        userPrefs.setListFilePath(Paths.get("new/xpire/io/file/path"));
+        assertEquals(oldUserPrefs, this.modelManager.getUserPrefs());
     }
 
     @Test
     public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
+        Assert.assertThrows(NullPointerException.class, () -> this.modelManager.setGuiSettings(null));
     }
 
     @Test
     public void setGuiSettings_validGuiSettings_setsGuiSettings() {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
-        modelManager.setGuiSettings(guiSettings);
-        Assertions.assertEquals(guiSettings, modelManager.getGuiSettings());
+        this.modelManager.setGuiSettings(guiSettings);
+        Assertions.assertEquals(guiSettings, this.modelManager.getGuiSettings());
     }
 
     @Test
     public void setExpiryDateTrackerFilePath_nullPath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.setListFilePath(null));
+        Assert.assertThrows(NullPointerException.class, () -> this.modelManager.setListFilePath(null));
     }
 
     @Test
     public void setExpiryDateTrackerFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setListFilePath(path);
-        assertEquals(path, modelManager.getListFilePath());
+        Path path = Paths.get("xpire/io/file/path");
+        this.modelManager.setListFilePath(path);
+        assertEquals(path, this.modelManager.getListFilePath());
     }
 
     @Test
     public void hasItem_nullItem_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasItem(null));
+        Assert.assertThrows(NullPointerException.class, () -> this.modelManager.hasItem(XPIRE, null));
     }
 
     @Test
     public void hasItem_itemNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasItem(TypicalItems.KIWI));
+        assertFalse(this.modelManager.hasItem(XPIRE, TypicalItems.KIWI));
     }
 
     @Test
     public void hasItem_itemInAddressBook_returnsTrue() {
-        modelManager.addItem(TypicalItems.KIWI);
-        assertTrue(modelManager.hasItem(TypicalItems.KIWI));
+        this.modelManager.addItem(XPIRE, TypicalItems.KIWI);
+        assertTrue(this.modelManager.hasItem(XPIRE, TypicalItems.KIWI));
     }
 
     @Test
     public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager
-                .getFilteredXpireItemList().remove(0));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> this.modelManager
+                .getCurrentList().remove(0));
     }
 
     @Test
@@ -102,42 +105,45 @@ public class ModelManagerTest {
                 .withItem(TypicalItems.KIWI).withItem(TypicalItems.BANANA).build();
         ReplenishList replenishList = new ReplenishListBuilder()
                 .withItem(TypicalItems.BAGEL).withItem(TypicalItems.CHOCOLATE).build();
+
         ReadOnlyListView<? extends Item>[] lists = new ReadOnlyListView[]{xpire, replenishList};
 
         Xpire differentXpire = new Xpire();
         ReplenishList differentReplenishList = new ReplenishList();
+
         ReadOnlyListView<? extends Item>[] differentLists = new ReadOnlyListView[]{differentXpire,
             differentReplenishList};
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(lists, userPrefs);
+        this.modelManager = new ModelManager(lists, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(lists, userPrefs);
-        assertTrue(modelManager.equals(modelManagerCopy));
+        assertEquals(this.modelManager.getReplenishList(), modelManagerCopy.getReplenishList());
+        assertEquals(this.modelManager, modelManagerCopy);
 
         // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
+        assertEquals(this.modelManager, this.modelManager);
 
         // null -> returns false
-        assertFalse(modelManager.equals(null));
+        assertNotEquals(null, this.modelManager);
 
         // different types -> returns false
-        assertFalse(modelManager.equals(5));
+        assertNotEquals(5, this.modelManager);
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentLists, userPrefs)));
+        // different xpire -> returns false
+        assertNotEquals(this.modelManager, new ModelManager(differentLists, userPrefs));
 
         // different filteredList -> returns false
         String[] keywords = TypicalItems.KIWI.getName().toString().split("\\s+");
-        modelManager.updateFilteredItemList(new ContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(lists, userPrefs)));
+        this.modelManager.filterCurrentList(XPIRE, new ContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertNotEquals(this.modelManager, new ModelManager(lists, userPrefs));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
+        this.modelManager.setCurrentList(XPIRE);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setListFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(lists, differentUserPrefs)));
+        assertNotEquals(this.modelManager, new ModelManager(lists, differentUserPrefs));
     }
 }

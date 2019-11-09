@@ -1,5 +1,6 @@
 package io.xpire.commons.util;
 
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.io.ByteArrayOutputStream;
@@ -31,27 +32,6 @@ public class StringUtil {
     private static final String NUMERIC_VALIDATION_REGEX = "^[0-9]+$";
 
     /**
-     * Returns true if the {@code sentence} contains the {@code phrase}.
-     *   Ignores case, allows partial phrase match.
-     *   <br>examples:<pre>
-     *       containsWordIgnoreCase("ABcdef", "abc") == true
-     *       containsWordIgnoreCase("ABc def", "DEF") == true
-     *       containsWordIgnoreCase("ABc def", "abc d") == true
-     *       </pre>
-     * @param sentence cannot be null
-     * @param phrase cannot be null and cannot be empty.
-     */
-    public static boolean containsPhraseIgnoreCase(String sentence, String phrase) {
-        requireNonNull(sentence);
-        requireNonNull(phrase);
-
-        String trimmedPhrase = phrase.trim();
-        AppUtil.checkArgument(!trimmedPhrase.isEmpty(), "Phrase parameter cannot be empty");
-
-        return sentence.toLowerCase().contains(trimmedPhrase.toLowerCase());
-    }
-
-    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {
@@ -63,28 +43,33 @@ public class StringUtil {
 
     /**
      * Returns true if {@code s} is numeric.
+     *
      * @return true if {@code s} matches validation regex.
      */
     public static boolean isNumeric(String s) {
         return s.matches(NUMERIC_VALIDATION_REGEX);
     }
 
+    //@@author JermyTan
     /**
-     * Returns true if {@code s} represents a non-zero unsigned integer.
-     * e.g. 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>.
-     * Will return false for any other non-null string input.
-     * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters).
-     * @throws NullPointerException if {@code s} is null.
+     * Returns true if the {@code sentence} contains the {@code phrase}.
+     *   Ignores case, allows partial phrase match.
+     *   <br>examples:<pre>
+     *       containsWordIgnoreCase("ABcdef", "abc") == true
+     *       containsWordIgnoreCase("ABc def", "DEF") == true
+     *       containsWordIgnoreCase("ABc def", "abc d") == true
+     *       </pre>
+     *
+     * @param sentence cannot be null
+     * @param phrase cannot be null and cannot be empty.
      */
-    public static boolean isNonZeroUnsignedInteger(String s) {
-        requireNonNull(s);
+    public static boolean containsPhraseIgnoreCase(String sentence, String phrase) {
+        requireAllNonNull(sentence, phrase);
 
-        try {
-            int value = Integer.parseInt(s);
-            return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
+        String trimmedPhrase = phrase.trim();
+        AppUtil.checkArgument(!trimmedPhrase.isEmpty(), "Phrase parameter cannot be empty");
+
+        return sentence.toLowerCase().contains(trimmedPhrase.toLowerCase());
     }
 
     /**
@@ -92,6 +77,7 @@ public class StringUtil {
      * e.g. 0, 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>.
      * Will return false for any other non-null string input.
      * e.g. empty string, "-1", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
+     *
      * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isNonNegativeInteger(String s) {
@@ -106,8 +92,53 @@ public class StringUtil {
     }
 
     /**
+     * Returns the byte array representing the QR code-encoded text.
+     *
+     * @param text The string to be encoded.
+     * @param length The size of the QR code
+     * @return The byte array of the QR code-encoded text
+     */
+    public static byte[] getQrCode(String text, int length) {
+        requireNonNull(text);
+        assert !text.isEmpty() : "Text cannot be empty";
+        assert length > 0 : "Length must be more than 0";
+
+        try {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, length, length);
+            ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
+            MatrixToImageWriter.writeToStream(bitMatrix, "png", pngOutputStream);
+            return pngOutputStream.toByteArray();
+        } catch (WriterException | IOException e) {
+            return new byte[0];
+        }
+    }
+
+    //@@author
+
+    /**
+     * Returns true if {@code s} represents a non-zero unsigned integer.
+     * e.g. 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>.
+     * Will return false for any other non-null string input.
+     * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters).
+     *
+     * @throws NullPointerException if {@code s} is null.
+     */
+    public static boolean isNonZeroUnsignedInteger(String s) {
+        requireNonNull(s);
+
+        try {
+            int value = Integer.parseInt(s);
+            return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+    /**
      * Returns true if {@code s} represents an integer smaller than or equal to the given maximum value {@code max}.
      * Returns false for any other non-null string input.
+     *
      * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isExceedingMaxValue(String s, int max) {
@@ -151,6 +182,7 @@ public class StringUtil {
      * How many edits are needed to change source into target.
      * If returns 0, the strings are same.
      * If returns 1, that means either a character is added, removed, replaced or swapped.
+     *
      * @param source the first string
      * @param target the second string
      * @return The Levenshtein Distance between the two strings.
@@ -193,6 +225,7 @@ public class StringUtil {
     //@@author febee99
     /**
      * Returns suggestions of alternatives for an invalid word entered.
+     *
      * @param invalidWord The invalid word entered.
      * @param set The set of alternative words.
      * @param limit The maximum degree of differences between words compared which is accepted.
@@ -222,6 +255,7 @@ public class StringUtil {
 
     /**
      * Returns a formatted string containing similar words to the word specified.
+     *
      * @param word The word specified to find similar words for.
      * @param allWordsToCompare The set that contains all words to compare the word to.
      * @param limit The maximum degree of polarity between words acceptable.
@@ -236,6 +270,7 @@ public class StringUtil {
 
     /**
      * Returns all similar tags to the tag keyword specified.
+     *
      * @param word The tag keyword specified to find similar tags for.
      * @param allTags The set that contains all tags to compare the word to.
      * @return The string which contains all similar tags.
@@ -248,6 +283,7 @@ public class StringUtil {
 
     /**
      * Returns all similar xpireItem names to the search keyword specified.
+     *
      * @param word The keyword specified to find similar items for.
      * @param allNames The set that contains all names to compare the word to.
      * @return The string which contains all similar names.
@@ -258,24 +294,5 @@ public class StringUtil {
                                                     .map(x -> x.split("\\s+"))
                                                     .flatMap(Arrays::stream)
                                                     .collect(Collectors.toSet()), 1);
-    }
-
-    /**
-     * Returns the byte array representing the QR code-encoded text
-     *
-     * @param text The string to be encoded.
-     * @param length The size of the QR code
-     * @return The byte array of the QR code-encoded text
-     */
-    public static byte[] getQrCode(String text, int length) {
-        try {
-            QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, length, length);
-            ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-            MatrixToImageWriter.writeToStream(bitMatrix, "png", pngOutputStream);
-            return pngOutputStream.toByteArray();
-        } catch (WriterException | IOException e) {
-            return new byte[0];
-        }
     }
 }

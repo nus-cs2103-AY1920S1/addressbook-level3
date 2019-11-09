@@ -1,14 +1,24 @@
 package io.xpire.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.util.StringUtil;
+import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.item.ContainsKeywordsPredicate;
+import io.xpire.model.item.Item;
+import io.xpire.model.item.Name;
 import io.xpire.model.state.FilteredState;
 import io.xpire.model.state.StateManager;
+import io.xpire.model.tag.Tag;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+//@@author JermyTan
 /**
  * Searches and displays all items whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
@@ -24,30 +34,52 @@ public class SearchCommand extends Command {
             + "Format: search|<keyword>[|<other keywords>]... (keyword(s) for tags must be prefixed with a '#')\n"
             + "Example: " + COMMAND_WORD + "|apple|#fridge|banana";
 
+    /** A predicate that tests if an item contains a set of keywords. */
     private final ContainsKeywordsPredicate predicate;
 
-    public SearchCommand(ContainsKeywordsPredicate predicate) {
+    /** The current list type. */
+    private final ListType listType;
+
+    /**
+     * Public constructor for class.
+     *
+     * @param listType Current list type.
+     * @param predicate Predicate to test the {@code Item} object.
+     */
+    public SearchCommand(ListType listType, ContainsKeywordsPredicate predicate) {
+        this.listType = listType;
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) {
-        requireNonNull(model);
+        requireAllNonNull(model, stateManager);
         stateManager.saveState(new FilteredState(model));
-        model.updateFilteredItemList(this.predicate);
-        StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW,
-                model.getCurrentFilteredItemList().size()));
-        //@@author febee99
-        if (model.getCurrentFilteredItemList().size() == 0) {
-            predicate.getKeywords().forEach(s -> {
-                if (s.startsWith("#")) {
-                    sb.append(StringUtil.findSimilarItemTags(s, model.getAllItemTags()));
-                } else {
-                    sb.append(StringUtil.findSimilarItemNames(s, model.getAllItemNames()));
-                }
-            });
+
+        //Saves the current copy of the list view
+        ObservableList<? extends Item> previousList = FXCollections.observableArrayList(model.getCurrentList());
+        //Updates the list view
+        model.filterCurrentList(this.listType, this.predicate);
+        //Retrieves the updated list view
+        ObservableList<? extends Item> updatedList = model.getCurrentList();
+        StringBuilder sb = new StringBuilder(String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, updatedList.size()));
+
+        //If the list view is empty
+        if (updatedList.size() == 0) {
+            Set<Tag> allTags = previousList
+                    .stream()
+                    .flatMap(item -> item.getTags().stream())
+                    .collect(Collectors.toSet());
+            Set<Name> allItemNames = previousList
+                    .stream()
+                    .map(Item::getName)
+                    .collect(Collectors.toSet());
+
+            //Includes any similar tags or item names found
+            this.predicate.getKeywords().forEach(s -> sb.append(s.startsWith("#")
+                    ? StringUtil.findSimilarItemTags(s, allTags)
+                    : StringUtil.findSimilarItemNames(s, allItemNames)));
         }
-        //@@author
         setShowInHistory(true);
         return new CommandResult(sb.toString());
     }

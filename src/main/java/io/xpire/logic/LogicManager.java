@@ -1,5 +1,7 @@
 package io.xpire.logic;
 
+import static io.xpire.model.ListType.XPIRE;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -15,15 +17,16 @@ import io.xpire.logic.parser.Parser;
 import io.xpire.logic.parser.ReplenishParser;
 import io.xpire.logic.parser.XpireParser;
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
-import io.xpire.model.history.CommandHistory;
+import io.xpire.model.history.UndoableHistoryManager;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.StackManager;
 import io.xpire.model.state.StateManager;
 import io.xpire.storage.Storage;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 /**
  * The main LogicManager of the app.
@@ -37,8 +40,9 @@ public class LogicManager implements Logic {
     private Parser parser;
     private final XpireParser xpireParser = new XpireParser();
     private final ReplenishParser replenishParser = new ReplenishParser();
-    private final StateManager stateManager = new StateManager();
-    private final CommandHistory commandHistory = new CommandHistory();
+    private final StateManager stateManager = new StackManager();
+    private final UndoableHistoryManager<Command> commandHistory = new UndoableHistoryManager<>();
+    private final UndoableHistoryManager<String> inputHistory = new UndoableHistoryManager<>();
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -67,13 +71,18 @@ public class LogicManager implements Logic {
         }
 
         if (command instanceof UndoCommand) {
-            Command previousCommand = commandHistory.retrievePreviousCommand();
-            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(), previousCommand));
+            Command previousCommand = commandHistory.previous();
+            String previousInput = inputHistory.previous();
+            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(),
+                    previousCommand, previousInput));
         } else if (command instanceof RedoCommand) {
-            Command nextCommand = commandHistory.retrieveNextCommand();
-            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(), nextCommand));
+            Command nextCommand = commandHistory.next();
+            String nextInput = inputHistory.next();
+            commandResult = new CommandResult(String.format(commandResult.getFeedbackToUser(),
+                    nextCommand, nextInput));
         } else if (command.isShowInHistory()) {
-            commandHistory.addCommand(command);
+            commandHistory.save(command);
+            inputHistory.save(commandText);
         }
         return commandResult;
     }
@@ -85,20 +94,32 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public FilteredList<? extends Item> getCurrentFilteredItemList() {
-        return this.model.getCurrentFilteredItemList();
+    public ObservableList<? extends Item> getCurrentFilteredItemList() {
+        return this.model.getCurrentList();
     }
 
+    //@@author xiaoyu
     @Override
     public ObservableList<XpireItem> getXpireItemList() {
-        return this.model.getFilteredXpireItemList();
+        try {
+            return (ObservableList<XpireItem>) this.model.getItemList(XPIRE);
+        } catch (ClassCastException e) {
+            this.logger.warning("Wrong item type for Xpire");
+            return null;
+        }
     }
 
     @Override
     public ObservableList<Item> getReplenishItemList() {
-        return this.model.getFilteredReplenishItemList();
+        try {
+            return (ObservableList<Item>) this.model.getItemList(ListType.REPLENISH);
+        } catch (ClassCastException e) {
+            this.logger.warning("Wrong item type for Replenish List");
+            return null;
+        }
     }
 
+    //@@author
     @Override
     public Path getListFilePath() {
         return this.model.getListFilePath();
@@ -115,6 +136,6 @@ public class LogicManager implements Logic {
     }
 
     private boolean isXpireListView() {
-        return this.model.getCurrentFilteredItemList().equals(this.model.getFilteredXpireItemList());
+        return model.getCurrentView() == XPIRE;
     }
 }

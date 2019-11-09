@@ -1,20 +1,17 @@
 package io.xpire.model;
 
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import io.xpire.commons.core.GuiSettings;
 import io.xpire.model.item.Item;
-import io.xpire.model.item.ListToView;
-import io.xpire.model.item.Name;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
 import io.xpire.model.state.State;
-import io.xpire.model.tag.Tag;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+//@@author JermyTan
 /**
  * The API of the Model component.
  */
@@ -23,11 +20,7 @@ public interface Model {
     Predicate<? extends Item> PREDICATE_SORT_ALL_ITEMS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<? extends Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
-
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Item> PREDICATE_SHOW_ALL_REPLENISH_ITEMS = unused -> true;
-
+    Predicate<? super Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -65,146 +58,110 @@ public interface Model {
     ReadOnlyListView<? extends Item>[] getLists();
 
     /**
-     * Replaces xpire data with the data in {@code xpire}.
-     */
-    void setXpire(ReadOnlyListView<XpireItem> xpire);
-
-
-    /**
-     * Returns an Xpire object.
+     * Returns the {@code Xpire}.
      */
     Xpire getXpire();
 
     /**
-     * Returns true if an xpireItem with the same identity as {@code xpireItem} exists in xpire.
+     * Returns the {@code ReplenishList}
      */
-    boolean hasItem(XpireItem xpireItem);
+    ReadOnlyListView<Item> getReplenishList();
 
     /**
-     * Deletes the given xpireItem.
-     * The xpireItem must exist in xpire.
+     * Overrides the current {@code Xpire}'s data with another existing {@code Xpire}.
+     *
+     * @param xpire Another existing {@code Xpire}.
      */
-    void deleteItem(XpireItem target);
+    void setXpire(ReadOnlyListView<XpireItem> xpire);
 
     /**
-     * Adds the given xpireItem.
-     * {@code xpireItem} must not already exist in xpire.
-     */
-    void addItem(XpireItem xpireItem);
-
-    /**
-     * Replaces the given xpireItem {@code target} with {@code editedXpireItem}.
-     * {@code target} must exist in xpire.
-     * The xpireItem identity of {@code editedXpireItem} must not be the same as another existing xpireItem in xpire.
-     */
-    void setItem(XpireItem target, XpireItem editedXpireItem);
-
-    /**
-     * Sorts the filtered xpireItem list.
-     * @param method The method of sorting.
-     */
-    void sortItemList(XpireMethodOfSorting method);
-
-    /**
-     * Returns a set containing all existing names of items in the list.
-     * @return The set of all existing names.
-     */
-    Set<Name> getAllItemNames();
-
-    /**
-     * Returns a set containing all existing tags of items in the list.
-     * @return The set of all existing tags.
-     */
-    Set<Tag> getAllItemTags();
-
-    /** Returns an unmodifiable view of the filtered xpireItem list. */
-    FilteredList<XpireItem> getFilteredXpireItemList();
-
-    /** Returns an unmodifiable view of the current item list.*/
-    FilteredList<? extends Item> getCurrentFilteredItemList();
-
-    /**
-     * Updates the filter of the filtered Item list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredItemList(Predicate<? extends Item> predicate);
-
-    /**
-     * Updates the filter of the filtered Item list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredXpireItemList(Predicate<XpireItem> predicate);
-
-    /**
-     * Sets current filtered list view to the specified list.
-     * @param list that user is viewing.
-     */
-    void setCurrentFilteredItemList(ListToView list);
-
-    /**
-     * Sets current filtered list view to the specified list.
-     */
-    void setCurrentFilteredItemList(FilteredList<? extends Item> list);
-
-    /**
-     * Replaces replenish list data with the data in {@code replenishList}.
+     * Overrides the current {@code ReplenishList}'s data with another existing {@code ReplenishList}.
+     *
+     * @param replenishList Another existing {@code ReplenishList}.
      */
     void setReplenishList(ReadOnlyListView<Item> replenishList);
 
     /**
-     * Returns a ReplenishList object.
+     * Returns the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @return Item list belonging to either {@code Xpire} or {@code ReplenishList}.
      */
-    ReplenishList getReplenishList();
+    ObservableList<? extends Item> getItemList(ListType listType);
 
     /**
-     * Returns true if an item with the same identity as {@code Item} exists in replenish list.
+     * Checks if an item exists in the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @param item Item to be checked.
+     * @return {@code true} if item already exists in the list else {@code false}.
      */
-    boolean hasReplenishItem(Item item);
+    boolean hasItem(ListType listType, Item item);
 
     /**
-     * Deletes the given item.
-     * The item must exist in replenish list.
+     * Deletes an item in the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @param item Item to be deleted.
      */
-    void deleteReplenishItem(Item target);
+    void deleteItem(ListType listType, Item item);
 
     /**
-     * Adds the given item.
-     * {@code Item} must not already exist in replenish list.
+     * Adds an item to the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @param item Item to be added.
      */
-    void addReplenishItem(Item item);
+    void addItem(ListType listType, Item item);
 
     /**
-     * Replaces the given item {@code target} with {@code editedItem}.
-     * {@code target} must exist in the replenish list.
-     * The Item identity of {@code Item} must not be the same as another existing Item in the replenish list.
+     * Replaces an existing item with the new item in the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @param currentItem Existing item in the list to be replaced.
+     * @param newItem New item to replace the existing item.
      */
-    void setReplenishItem(Item target, Item editedItem);
-
-    void setFilteredXpireItems(FilteredList<XpireItem> list);
-
-    void setFilteredReplenishItems(FilteredList<Item> list);
-
-    Set<Tag> getAllReplenishItemTags();
-
-    Set<Name> getAllReplenishItemNames();
-
-    FilteredList<Item> getFilteredReplenishItemList();
-
-    void updateFilteredReplenishItemList(Predicate<Item> predicate);
-
-    List<Item> getReplenishItemList();
+    void setItem(ListType listType, Item currentItem, Item newItem);
 
     /**
-     * Checks expiry date of XpireItem and updates the item's tags respectively.
+     * Updates the sorting method of the list in {@code Xpire}.
+     *
+     * @param method Sorting method.
      */
-    void updateItemTags();
+    void sortXpire(XpireMethodOfSorting method);
 
-    void shiftItemToReplenishList(XpireItem xpireItem);
+    /**
+     * Returns the current view list of {@code Item} backed by the internal list of
+     * {@code Xpire} or {@code ReplenishList}.
+     */
+    FilteredList<? extends Item> getCurrentList();
 
+    /**
+     * Updates the current view list to the corresponding item list given the {@code ListType}.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     */
+    void setCurrentList(ListType listType);
+
+    /**
+     * Adds a new filtering constraint to the existing current view list.
+     *
+     * @param listType Either {@code XPIRE} or {@code REPLENISH}.
+     * @param predicate Filtering constraint.
+     */
+    void filterCurrentList(ListType listType, Predicate<? extends Item> predicate);
+
+    /**
+     * Update the entire state of Xpire.
+     *
+     * @param state New state.
+     */
     void update(State state);
 
-    void update(ListToView listToView);
-
-    ListToView getListToView();
-
+    /**
+     * Returns the identifier of which list the current view list is showing.
+     *
+     * @return Either {@code XPIRE} or {@code REPLENISH}.
+     */
+    ListType getCurrentView();
 }

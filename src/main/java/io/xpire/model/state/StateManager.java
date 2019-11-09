@@ -1,31 +1,18 @@
 package io.xpire.model.state;
 
 /**
- * A class that handles States accordingly and wraps around StackManager.
+ * An interface that provides methods for altering States.
  */
-public class StateManager {
+public interface StateManager {
 
-    public static final int MAX_STACK_SIZE = 10;
-    private StackManager stackManager = new StackManager();
+    void saveState(State state);
 
-    public void saveState(State state) {
-        stackManager.saveState(state);
-    }
+    boolean isNotRedoable();
 
-    public boolean isRedoStackEmpty() {
-        return stackManager.isRedoStackEmpty();
-    }
+    boolean isNotUndoable();
 
-    public boolean isUndoStackEmpty() {
-        return stackManager.isUndoStackEmpty();
-    }
+    State undo(State state);
 
-    public State undo(State state) {
-        return stackManager.undo(state);
-    }
-
-    public State redo() {
-        return stackManager.redo();
-    }
+    State redo();
 
 }

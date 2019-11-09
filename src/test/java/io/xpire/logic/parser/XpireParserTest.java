@@ -2,8 +2,11 @@ package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_KIWI;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_KIWI;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_DRINK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,9 +29,7 @@ import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ContainsKeywordsPredicate;
-import io.xpire.model.item.XpireItem;
-import io.xpire.testutil.ItemUtil;
-import io.xpire.testutil.XpireItemBuilder;
+import io.xpire.model.item.Quantity;
 
 public class XpireParserTest {
 
@@ -36,9 +37,8 @@ public class XpireParserTest {
 
     @Test
     public void parse_add() throws Exception {
-        XpireItem xpireItem = new XpireItemBuilder().build();
-        AddCommand command = (AddCommand) parser.parse(ItemUtil.getAddCommand(xpireItem));
-        assertEquals(new AddCommand(xpireItem), command);
+        assertTrue(parser.parse(AddCommand.COMMAND_WORD + "|" + VALID_NAME_KIWI
+                + "|" + VALID_EXPIRY_DATE_KIWI) instanceof AddCommand);
     }
 
     @Test
@@ -55,9 +55,15 @@ public class XpireParserTest {
 
     @Test
     public void parse_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parse(
+        //delete item
+        DeleteCommand deleteItemCommand = (DeleteCommand) parser.parse(
                 DeleteCommand.COMMAND_WORD + "|" + INDEX_FIRST_ITEM.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_ITEM), command);
+        assertEquals(new DeleteCommand(XPIRE, INDEX_FIRST_ITEM), deleteItemCommand);
+
+        //delete quantity
+        DeleteCommand deleteQuantityCommand = (DeleteCommand) parser.parse(
+                DeleteCommand.COMMAND_WORD + "|" + INDEX_FIRST_ITEM.getOneBased() + "|1");
+        assertEquals(new DeleteCommand(XPIRE, INDEX_FIRST_ITEM, new Quantity("1")), deleteQuantityCommand);
     }
 
     @Test
@@ -77,7 +83,7 @@ public class XpireParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parse(
                 SearchCommand.COMMAND_WORD + "|" + String.join("|", keywords));
-        assertEquals(new SearchCommand(new ContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new SearchCommand(XPIRE, new ContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
