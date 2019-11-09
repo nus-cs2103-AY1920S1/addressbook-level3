@@ -605,43 +605,43 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
             switch (e.getCode()) {
-                case UP:
-                    snake.setUp();
-                    break;
-                case DOWN:
-                    snake.setDown();
-                    break;
-                case LEFT:
-                    snake.setLeft();
-                    break;
-                case RIGHT:
-                    snake.setRight();
-                    break;
-                case ENTER:
-                    if (loop.isPaused()) {
-                        resetgame();
-                        Thread thread = new Thread(loop);
-                        thread.start();
-                    }
-                    break;
-                case ESCAPE:
-                    exitgame();
-                    break;
-                case E:
-                    if (loop.isPaused()) {
-                        resetgameEasy();
-                        Thread thread = new Thread(loop);
-                        thread.start();
-                    }
-                    break;
-                case H:
-                    if (loop.isPaused()) {
-                        resetgameHard();
-                        Thread thread = new Thread(loop);
-                        thread.start();
-                    }
-                    break;
-                default:
+            case UP:
+                snake.setUp();
+                break;
+            case DOWN:
+                snake.setDown();
+                break;
+            case LEFT:
+                snake.setLeft();
+                break;
+            case RIGHT:
+                snake.setRight();
+                break;
+            case ENTER:
+                if (loop.isPaused()) {
+                    resetgame();
+                    Thread thread = new Thread(loop);
+                    thread.start();
+                }
+                break;
+            case ESCAPE:
+                exitgame();
+                break;
+            case E:
+                if (loop.isPaused()) {
+                    resetgameEasy();
+                    Thread thread = new Thread(loop);
+                    thread.start();
+                }
+                break;
+            case H:
+                if (loop.isPaused()) {
+                    resetgameHard();
+                    Thread thread = new Thread(loop);
+                    thread.start();
+                }
+                break;
+            default:
             }
         });
     }
