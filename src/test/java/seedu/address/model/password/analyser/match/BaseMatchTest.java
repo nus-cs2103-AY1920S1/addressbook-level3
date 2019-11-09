@@ -20,17 +20,6 @@ class BaseMatchTest {
     public void getEndIndex() { assertTrue(instance.getEndIndex() == 5);}
 
     @Test
-    public void testConstructor() {
-        BaseMatch instance = new BaseMatchImpl(0, 5, "dummy");
-        String token = instance.getToken();
-        int start = instance.getStartIndex();
-        int end = instance.getEndIndex();
-        assertEquals("dummy", token);
-        assertTrue(0 == start);
-        assertTrue(5 == end);
-    }
-
-    @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new BaseMatchImpl(0, 5, null));
     }

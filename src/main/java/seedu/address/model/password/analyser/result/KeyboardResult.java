@@ -1,5 +1,7 @@
 package seedu.address.model.password.analyser.result;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.password.Password;
@@ -34,5 +36,19 @@ public class KeyboardResult extends Result {
             report.append(m);
         }
         return report.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        KeyboardResult that = (KeyboardResult) o;
+        return password.equals(that.password)
+                && description.equals(that.description)
+                && Arrays.equals(matches.toArray(), that.matches.toArray());
     }
 }

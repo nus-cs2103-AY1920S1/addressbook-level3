@@ -1,5 +1,7 @@
 package seedu.address.model.password.analyser.resources;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +12,7 @@ import java.util.Map;
 import seedu.address.model.password.exceptions.DictionaryNotFoundException;
 
 /**
- * Represents dictionary object with name and dictionary look up.
+ * Represents {@code Dictionary} that maps a given {@code String} to it's rank.
  */
 public class Dictionary {
     private static final String MESSAGE_DICTIONARY_NOT_FOUND = "Requested dictionary not found. Something went wrong. "
@@ -25,6 +27,8 @@ public class Dictionary {
      * @param dictionary the hashmap of dictionary word to ranking
      */
     public Dictionary(String name, Map<String, Integer> dictionary) {
+        requireNonNull(name);
+        requireNonNull(dictionary);
         this.name = name;
         this.dictionary = dictionary;
     }
@@ -40,8 +44,7 @@ public class Dictionary {
         case "passwords.txt":
             return new Dictionary(name, load("/dictionaries/passwords.txt"));
         default:
-            assert false : "Invalid dictionary was somehow passed in.";
-            return null;
+            throw new DictionaryNotFoundException(MESSAGE_DICTIONARY_NOT_FOUND);
         }
     }
 
@@ -67,7 +70,12 @@ public class Dictionary {
         return dictionary;
     }
 
-    public Map<String, Integer> getDictionary() {
-        return this.dictionary;
+    /**
+     * Looks up the rank of the given {@code String} in the {@code Hashmap}.
+     * @param s the given string
+     * @return the rank of the given string in the dictionary.
+     */
+    public Integer getRank(String s) {
+        return dictionary.get(s);
     }
 }

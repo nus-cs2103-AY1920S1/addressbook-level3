@@ -1,5 +1,7 @@
 package seedu.address.model.password.analyser;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +23,7 @@ public class DictionaryAnalyser implements Analyser {
     private Dictionary dictionary;
 
     public DictionaryAnalyser(Dictionary dictionary) {
+        requireNonNull(dictionary);
         this.dictionary = dictionary;
     }
 
@@ -48,7 +51,7 @@ public class DictionaryAnalyser implements Analyser {
 
                 // Match on lower
                 String lowerPart = splitPassword.toLowerCase();
-                Integer lowerRank = dictionary.getDictionary().get(lowerPart);
+                Integer lowerRank = dictionary.getRank(lowerPart);
                 if (lowerRank != null) {
                     matches.add(new DictionaryMatch(start, end - 1, lowerPart, lowerRank));
                     continue;
@@ -57,7 +60,7 @@ public class DictionaryAnalyser implements Analyser {
                 //Match on leet
                 List<String> unleetList = LeetUtil.generateUnleetList(lowerPart);
                 for (final String unleetPart : unleetList) {
-                    Integer unleetRank = dictionary.getDictionary().get(unleetPart);
+                    Integer unleetRank = dictionary.getRank(unleetPart);
                     if (unleetRank != null) {
                         matches.add(new DictionaryMatch(start, end - 1, unleetPart, unleetRank));
                         continue;

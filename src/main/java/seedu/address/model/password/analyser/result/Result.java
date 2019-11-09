@@ -3,6 +3,9 @@ package seedu.address.model.password.analyser.result;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordDescription;
+import seedu.address.model.password.PasswordValue;
+import seedu.address.model.password.Username;
 
 /**
  * Represents a result produced by an {@code Analyser} for a particular password.
@@ -12,9 +15,9 @@ import seedu.address.model.password.Password;
 public abstract class Result {
     protected Password password;
     protected ResultOutcome description;
-    protected String passwordDesc;
-    protected String passwordUser;
-    protected String passwordValue;
+    protected PasswordDescription passwordDesc;
+    protected Username passwordUser;
+    protected PasswordValue passwordValue;
 
     /**
      * Constructs a basic {@code Result}
@@ -24,23 +27,24 @@ public abstract class Result {
      */
     public Result(Password password, ResultOutcome description) {
         requireNonNull(password);
+        requireNonNull(description);
         this.password = password;
         this.description = description;
-        this.passwordDesc = password.getPasswordDescription().value;
-        this.passwordUser = password.getUsername().value;
-        this.passwordValue = password.getPasswordValue().getEncryptedPasswordValue();
+        this.passwordDesc = password.getPasswordDescription();
+        this.passwordUser = password.getUsername();
+        this.passwordValue = password.getPasswordValue();
     }
 
     public String getPasswordDesc() {
-        return passwordDesc;
+        return passwordDesc.value;
     }
 
     public String getPasswordUser() {
-        return passwordUser;
+        return passwordUser.value;
     }
 
     public String getPasswordValue() {
-        return passwordValue;
+        return passwordValue.getEncryptedPasswordValue();
     }
 
     public void setDescription(ResultOutcome description) {
@@ -66,7 +70,8 @@ public abstract class Result {
             return false;
         }
         Result that = (Result) o;
-        return password.equals(that.password);
+        return password.equals(that.password)
+                && description.equals(that.description);
     }
 
     /**
