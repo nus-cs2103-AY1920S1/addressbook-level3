@@ -24,6 +24,7 @@ import seedu.address.logic.commands.ListAllCommand;
 import seedu.address.logic.commands.ListBadCommand;
 import seedu.address.logic.commands.ListCategoryCommand;
 import seedu.address.logic.commands.RateQuestionCommand;
+import seedu.address.logic.commands.RemoveBadCommand;
 import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.SearchAnswerCommand;
 import seedu.address.logic.commands.SearchCommand;
@@ -160,6 +161,9 @@ public class KeyboardFlashCardsParser {
 
         case BadCommand.COMMAND_WORD:
             return new BadCommandParser().parse(arguments);
+
+        case RemoveBadCommand.COMMAND_WORD:
+            return new RemoveBadCommandParser().parse(arguments);
 
         case ListBadCommand.COMMAND_WORD:
             return new ListBadCommandParser().parse(arguments);

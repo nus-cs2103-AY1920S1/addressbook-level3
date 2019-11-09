@@ -16,10 +16,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.Model;
+import seedu.address.model.deadline.exceptions.DeadlineNotFoundException;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.exceptions.DuplicateFlashCardAndDeadlineException;
 import seedu.address.model.flashcard.exceptions.DuplicateFlashCardException;
+import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 import seedu.address.model.flashcard.exceptions.NoBadFlashCardException;
 
 /**
@@ -40,8 +44,18 @@ public class BadQuestions {
         }
     }
 
-    public HashMap<String, ArrayList<FlashCard>> getBadQuestionsList() {
+    public HashMap<String, ArrayList<FlashCard>> getBadQuestionsMap() {
         return internalMap;
+    }
+
+    public ObservableList<FlashCard> getBadQuestionsList(DueDate d) {
+        try {
+            ArrayList<FlashCard> list = internalMap.get(d.toString());
+            ObservableList<FlashCard> fullList = FXCollections.observableArrayList(list);
+            return fullList;
+        } catch (NullPointerException e) {
+            throw new NoBadFlashCardException();
+        }
     }
 
     /**
@@ -92,25 +106,22 @@ public class BadQuestions {
      * For each due date, there will be a set of bad flashcards
      * Removing a bad flashcard can be done by using the index
      *
-     * @param d the duedate of bad rated flashcards
-     * @param f the flashcard that is rated bad
+     * @param d The duedate of bad rated flashcards
+     * @param index The index of flashcard to remove
      */
-//    public void removeBadQuestion(DueDate d, int index) {
-//        String dateStr = d.toString();
-//        Set<FlashCard> set = internalMap.get(dateStr);
-//        try {
-//
-//            if (set.contains(f)) {
-//                throw new DuplicateFlashCardException();
-//            }
-//            set.add(f);
-//            internalMap.put(d.toString(), set);
-//        } catch (NullPointerException e) {
-//            throw new NoBadFlashCardException();
-//        }
-//    }
-    public void loadBadQuestions() throws FileNotFoundException {
-        //internalMap = jsonBadDeadlines.loadJsonBadDeadlines();
+    public FlashCard removeBadQuestion(DueDate d, int index) {
+        String dateStr = d.toString();
+        try {
+            ArrayList<FlashCard> list = internalMap.get(dateStr);
+            FlashCard deleted = list.get(index);
+            list.remove(index);
+            internalMap.put(d.toString(), list);
+            return deleted;
+        } catch (NullPointerException e1) {
+            throw new DeadlineNotFoundException();
+        } catch (IndexOutOfBoundsException e2) {
+            throw new FlashCardNotFoundException();
+        }
     }
 
     public static DueDate getBadDeadline() {
@@ -134,9 +145,8 @@ public class BadQuestions {
      */
     public void saveAsJson(BadQuestions badQuestions) {
         Gson gson = new Gson();
-        String json = gson.toJson(badQuestions.getBadQuestionsList());
+        String json = gson.toJson(badQuestions.getBadQuestionsMap());
         try {
-            //TODO: fix load and save json, json save replace file instead of appending
             FileWriter writer = new FileWriter("data/BadFlashCards.json");
             writer.write(json);
             writer.close();
@@ -157,7 +167,6 @@ public class BadQuestions {
             }.getType();
             JsonReader reader = new JsonReader(new FileReader("data/BadFlashCards.json"));
             HashMap<String, ArrayList<FlashCard>> data = gson.fromJson(reader, type);
-            System.out.println(data);
             return data;
         } catch (IOException e) {
             e.printStackTrace();

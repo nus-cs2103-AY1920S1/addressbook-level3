@@ -1,3 +1,5 @@
+//@@author dalsontws
+
 package seedu.address.model.deadline;
 
 import static java.util.Objects.requireNonNull;
@@ -12,10 +14,8 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.deadline.exceptions.DeadlineNotFoundException;
 import seedu.address.model.deadline.exceptions.DuplicateDeadlineException;
-import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 
-//@@author dalsontws
 /**
  * A list of Deadlines that enforces uniqueness between its elements and does not allow nulls.
  * A Deadline is considered unique by comparing using {@code Deadline#equals(Deadline)}.
