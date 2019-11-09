@@ -24,10 +24,12 @@ public class IcsParserTest {
         assertDoesNotThrow(() -> DateTime.fromUserString("09/11/2019 12:34"));
         DateTime startDateTime = DateTime.fromUserString("09/11/2019 12:34");
         String description = "Test Description";
+
         EventSource expected = EventSource
                 .newBuilder(description, startDateTime)
                 .build();
         EventSource outcome = IcsParser.parseSingleEvent(icsEventObjectString);
+        System.out.println("Expected: " + expected.getStartDateTime() + "Actual: " + outcome.getStartDateTime());
         assertEquals(expected.getDescription(), outcome.getDescription());
         assertEquals(expected.getStartDateTime(), outcome.getStartDateTime());
     }
@@ -47,11 +49,13 @@ public class IcsParserTest {
         assertDoesNotThrow(() -> DateTime.fromUserString("09/11/2019 13:45"));
         DateTime endDateTime = DateTime.fromUserString("09/11/2019 13:45");
         String description = "Test Description";
+
         EventSource expected = EventSource
                 .newBuilder(description, startDateTime)
                 .setEnd(endDateTime)
                 .build();
         EventSource outcome = IcsParser.parseSingleEvent(icsEventObjectString);
+
         assertEquals(expected.getDescription(), outcome.getDescription());
         assertEquals(expected.getStartDateTime(), outcome.getStartDateTime());
         assertEquals(expected.getEndDateTime(), outcome.getEndDateTime());
@@ -68,6 +72,7 @@ public class IcsParserTest {
         String description = "hello";
         TaskSource expected = TaskSource.newBuilder(description).build();
         TaskSource outcome = IcsParser.parseSingleTask(icsTaskObjectString);
+
         assertEquals(expected.getDescription(), outcome.getDescription());
     }
 
@@ -83,10 +88,12 @@ public class IcsParserTest {
         String description = "hello";
         assertDoesNotThrow(() -> DateTime.fromUserString("09/11/2019 12:34"));
         DateTime dueDate = DateTime.fromUserString("09/11/2019 12:34");
+
         TaskSourceBuilder builder = TaskSource.newBuilder(description);
         builder.setDueDate(dueDate);
         TaskSource expected = builder.build();
         TaskSource outcome = IcsParser.parseSingleTask(icsTaskObjectString);
+
         assertEquals(expected.getDescription(), outcome.getDescription());
         assertEquals(expected.getDueDate(), outcome.getDueDate());
     }
