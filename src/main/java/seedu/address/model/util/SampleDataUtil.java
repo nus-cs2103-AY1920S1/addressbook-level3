@@ -12,15 +12,13 @@ import seedu.address.model.ProjectList;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyProjectList;
 import seedu.address.model.finance.Budget;
+import seedu.address.model.finance.Money;
 import seedu.address.model.person.*;
 import seedu.address.model.project.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.finance.Finance;
 import seedu.address.model.finance.Spending;
 import seedu.address.model.timetable.Timetable;
-
-import static seedu.address.model.finance.Spending.DATE_FORMAT;
-import java.math.BigDecimal;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -92,13 +90,13 @@ public class SampleDataUtil {
         try {
             return new Project[]{
                 new Project(new Title("CS2103T"), new Description("The mod that takes most time"), new ArrayList<String>(),
-                        getTaskList(new Task(new Description("Finish GUI"), new Time("04/04/2019 1600"), false),
-                                new Task(new Description("Finish Parser"), new Time("04/04/2019 1600"), true)),
-                        new Finance(getBudgetList(new Budget("Team building", new BigDecimal("500.00"),
-                                        getSpendingList(new Spending(new BigDecimal("50.50"), DATE_FORMAT.parse("10/10/2019 1800"), "order in pizza"),
-                                                new Spending(new BigDecimal("200.50"), DATE_FORMAT.parse("12/10/2019 1800"), "Went for Zoukout"))),
-                                new Budget("Venue", new BigDecimal("200.00"),
-                                        getSpendingList(new Spending(new BigDecimal("20.00"), DATE_FORMAT.parse("14/10/2019 1800"), "booked conference room for discussion"))))), new Timetable()),
+                        getTaskList(new Task(new Description("Finish GUI"), new Time("04/04/1997 1600"), false),
+                                new Task(new Description("Finish Parser"), new Time("04/04/1997 1600"), true)),
+                        new Finance(getBudgetList(new Budget("Team building", new Money("500.00"),
+                                        getSpendingList(new Spending(new Money("50.50"), new Time("10/10/2019 1800"), "order in pizza"),
+                                                new Spending(new Money("200.50"), new Time("12/10/2019 1800"), "Went for Zoukout"))),
+                                new Budget("Venue", new Money("200.00"),
+                                        getSpendingList(new Spending(new Money("20.00"), new Time("14/10/2019 1800"), "booked conference room for discussion"))))), new Timetable()),
                 new Project(new Title("GER1000"), new Description("Free and easy"), new ArrayList<String>(),
                         getTaskList(new Task(new Description("Finish Quiz 10"), new Time("04/04/1997 1600"), false)), new Finance(), new Timetable()),
             };

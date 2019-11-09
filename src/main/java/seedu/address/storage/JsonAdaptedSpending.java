@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.finance.Money;
 import seedu.address.model.finance.Spending;
+import seedu.address.model.project.Time;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.Date;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.finance.Spending.DATE_FORMAT;
 
 /**
  * Jackson-friendly version of {@link Spending}.
@@ -19,17 +19,17 @@ import static seedu.address.model.finance.Spending.DATE_FORMAT;
 public class JsonAdaptedSpending {
 
     private final String spending;
-    private final String date;
+    private final String time;
     private final String description;
 
     /**
      * Constructs a {@code JsonAdaptedSpending} with the given {@code spending, @code date, @code description}.
      */
     @JsonCreator
-    public JsonAdaptedSpending(@JsonProperty("spending") String spending, @JsonProperty("date") String date, @JsonProperty("description") String description) {
-        requireAllNonNull(spending, date, description);
+    public JsonAdaptedSpending(@JsonProperty("spending") String spending, @JsonProperty("time") String time, @JsonProperty("description") String description) {
+        requireAllNonNull(spending, time, description);
         this.spending = spending;
-        this.date = date;
+        this.time = time;
         this.description = description;
     }
 
@@ -37,8 +37,8 @@ public class JsonAdaptedSpending {
         return spending;
     }
 
-    public String getDate() {
-        return date;
+    public String getTime() {
+        return time;
     }
 
     public String getDescription() {
@@ -50,8 +50,8 @@ public class JsonAdaptedSpending {
      * Converts a given {@code Spending} into this class for Jackson use.
      */
     public JsonAdaptedSpending(Spending source) {
-        spending = source.getSpending().toString();
-        date = DATE_FORMAT.format(source.getDate());
+        spending = source.getMoney().toString();
+        time = source.getTime().toString();
         description = source.getDescription();
     }
 
@@ -60,20 +60,30 @@ public class JsonAdaptedSpending {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted Spending.
      */
-    public Spending toModelType() throws IllegalValueException {
-        Date result = new Date();
-        if (!Spending.isValidAmount(spending)) {
+    public Spending toModelType() throws IllegalValueException, ParseException {
+        if (!Money.isValidAmount(spending)) {
             throw new IllegalValueException(Spending.MESSAGE_CONSTRAINTS);
         }
-        if (!Spending.isValidDate(date)) {
-            throw new IllegalValueException(Spending.MESSAGE_CONSTRAINTS);
+
+        String t = time.split(" ")[1];
+        String d = time.split(" ")[0];
+
+        if (time.trim().split(" ").length < 2 || time == null || time.equals("")) {
+            throw new IllegalValueException(Time.MESSAGE_CONSTRAINTS);
         }
-        try {
-            result = DATE_FORMAT.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (!Time.isValidTimeAndDate(time.trim())) {
+            throw new IllegalValueException(Time.MESSAGE_CONSTRAINTS);
         }
-        return new Spending(new BigDecimal(spending), result, description);
+        if (!Time.isValidDate(d)) {
+            throw new IllegalValueException(Time.DATE_CONSTRAINTS);
+        }
+        if (!Time.isValidTime(t)) {
+            throw new IllegalValueException(Time.TIME_CONSTRAINTS);
+        }
+
+        Time result = new Time(this.time);
+        Money amount = new Money(new BigDecimal(spending));
+        return new Spending(amount, result, description);
     }
 
 }

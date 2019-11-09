@@ -7,12 +7,10 @@ import seedu.address.model.finance.Budget;
 import seedu.address.model.finance.Finance;
 import seedu.address.model.project.Project;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPENSE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
 
 /**
@@ -21,17 +19,19 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
 
 public class AddBudgetCommand extends Command {
 
-    private final List<Budget> budgets = new ArrayList<>();
+    private final Budget budget;
     public static final String COMMAND_WORD = "addBudget";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a budget type to the project"
             + "[" + PREFIX_BUDGET + "BUDGET]...\n"
+            + "[" + PREFIX_EXPENSE + "EXPENSE]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_BUDGET + "equipment 3000.00";
+            + PREFIX_BUDGET + "equipment"
+            + PREFIX_EXPENSE + "3000.00";
 
     public static final String MESSAGE_SUCCESS = "New budgets added";
 
-    public AddBudgetCommand(List<Budget> bugets) {
-        this.budgets.addAll(bugets);
+    public AddBudgetCommand(Budget buget) {
+        this.budget = buget;
     }
 
     @Override
@@ -44,9 +44,7 @@ public class AddBudgetCommand extends Command {
 
         Project currWorkingProject = model.getWorkingProject().get();
 
-        for (Budget budget : budgets) {
-            currWorkingProject.getFinance().addBudget(budget);
-        }
+        currWorkingProject.getFinance().addBudget(budget);
 
         Project editedProject = new Project(currWorkingProject.getTitle(), //title
                 currWorkingProject.getDescription(), currWorkingProject.getMemberNames(), //description + members

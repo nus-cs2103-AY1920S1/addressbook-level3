@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPENSE;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddBudgetCommand;
@@ -22,16 +22,16 @@ public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
      */
     public AddBudgetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_BUDGET);
+                ArgumentTokenizer.tokenize(args, PREFIX_BUDGET, PREFIX_EXPENSE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_BUDGET)
+        if (!arePrefixesPresent(argMultimap, PREFIX_BUDGET, PREFIX_EXPENSE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBudgetCommand.MESSAGE_USAGE));
         }
 
-        List<Budget> budgetList = ParserUtil.parseBudgets(argMultimap.getAllValues(PREFIX_BUDGET));
+        Budget budget = ParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get(), argMultimap.getValue(PREFIX_EXPENSE).get());
 
-        return new AddBudgetCommand(budgetList);
+        return new AddBudgetCommand(budget);
     }
 
     /**

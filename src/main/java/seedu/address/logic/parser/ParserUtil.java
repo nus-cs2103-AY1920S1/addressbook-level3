@@ -5,6 +5,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.finance.Budget;
+import seedu.address.model.finance.Money;
 import seedu.address.model.finance.Spending;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -17,7 +18,6 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.timetable.TimeRange;
 
 import java.util.List;
-import java.util.Date;
 import java.util.ArrayList;
 import seedu.address.model.timetable.Timetable;
 
@@ -30,7 +30,6 @@ import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.model.finance.Spending.DATE_FORMAT;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -249,30 +248,9 @@ public class ParserUtil {
     public static Budget parseBudget(String name, String number) throws ParseException {
         requireNonNull(name, number);
         String trimmedName = name.trim();
-        String trimmedNumber = number.trim();
-        BigDecimal doubleNumber;
-        if (!Budget.isValidAmount(trimmedNumber)) {
-            throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
-        }
-        doubleNumber = new BigDecimal(trimmedNumber);
+        Money money = parseMoney(number);
         List<Spending> spendings = new ArrayList<>();
-        return new Budget(trimmedName, doubleNumber, spendings);
-    }
-
-    /**
-     * Parses {@code List<String> budgets} into a {@code Set<Budget>}.
-     */
-    public static List<Budget> parseBudgets(List<String> budgets) throws ParseException {
-        requireNonNull(budgets);
-        String[] strs = budgets.get(0).split(" ");
-        if ((strs.length) % 2 != 0) {
-            throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
-        }
-        final List<Budget> budgetSet = new ArrayList<>();
-        for (int i = 0; i < strs.length / 2; i++) {
-            budgetSet.add(parseBudget(strs[i], strs[i + 1]));
-        }
-        return budgetSet;
+        return new Budget(trimmedName, money, spendings);
     }
 
     /**
@@ -295,36 +273,16 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into an {@code Date}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code date} is invalid.
-     */
-    public static Date parseDate(String date) throws ParseException {
-        String trimmedDate = date.trim();
-        if (!Spending.isValidDate(trimmedDate)) {
-            throw new ParseException(Spending.MESSAGE_CONSTRAINTS);
-        }
-        Date result = new Date();
-        try {
-            result = DATE_FORMAT.parse(trimmedDate);
-        } catch (java.text.ParseException e) {
-            throw new ParseException(Spending.MESSAGE_CONSTRAINTS);
-        }
-        return result;
-    }
-
-    /**
-     * Parses a {@code String spending} into an {@code Spending}.
+     * Parses a {@code String spending} into an {@code Money}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code spending} is invalid.
      */
-    public static BigDecimal parseSpending(String spending) throws ParseException {
+    public static Money parseMoney(String spending) throws ParseException {
         String trimmedSpending = spending.trim();
-        if (!Spending.isValidAmount(trimmedSpending)) {
+        if (!Money.isValidAmount(trimmedSpending)) {
             throw new ParseException(Spending.MESSAGE_CONSTRAINTS);
         }
-        return new BigDecimal(spending);
+        return new Money(new BigDecimal(spending));
     }
 }

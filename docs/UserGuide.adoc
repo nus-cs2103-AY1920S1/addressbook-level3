@@ -206,7 +206,6 @@ image::add-timetable/add-timetable-step-3.png[]
 
 ==== Add a task: `addTask` [Checkout]
 
-
 Adds an unchecked task to the list of tasks of your current working project. +
 Format: `addTask s/DESCRIPTION c/dd/MM/yyyy HHmm`
 
@@ -363,6 +362,9 @@ Format: `list`
 See the summary of all budget which shows how much money is left with that budget and where is this budget used. +
 
 Format: `listBudget`
+
+.Present budget in a pie chart depicting all expenses under the budget and the remaining amount.
+image::listbudget-command.png[]
 
 === Finding
 
@@ -564,3 +566,4 @@ Format: `sortMeeting INDEX`
 Example:
 
 * `sortMeeting 1` (Sorts the meetings by alphabetical order)
+

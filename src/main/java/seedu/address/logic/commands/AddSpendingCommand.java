@@ -53,7 +53,7 @@ public class AddSpendingCommand extends Command {
         Project currWorkingProject = model.getWorkingProject().get();
         List<Budget> budgets = currWorkingProject.getFinance().getBudgets();
 
-        if (index.getZeroBased() >= budgets.size()) {
+        if (index.getZeroBased() >= budgets.size() || index.getZeroBased() < 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
         }
 

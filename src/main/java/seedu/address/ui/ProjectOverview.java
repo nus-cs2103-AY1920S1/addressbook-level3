@@ -117,8 +117,8 @@ public class ProjectOverview extends UiPart<Region> {
         XYChart.Series<String, Number> remainingAmount = new XYChart.Series<>();
         remainingAmount.setName("Amount remaining");
         for (Budget budget : project.getFinance().getBudgetObservableList()) {
-            amountSpent.getData().add(new XYChart.Data<>(budget.getName(), budget.getAmount().subtract(budget.getRemainingAmount())));
-            remainingAmount.getData().add(new XYChart.Data<>(budget.getName(), budget.getRemainingAmount()));
+            amountSpent.getData().add(new XYChart.Data<>(budget.getName(), budget.getMoney().getAmount().subtract(budget.getRemainingMoney().getAmount())));
+            remainingAmount.getData().add(new XYChart.Data<>(budget.getName(), budget.getRemainingMoney().getAmount()));
         }
 
         //Setting the data to bar chart

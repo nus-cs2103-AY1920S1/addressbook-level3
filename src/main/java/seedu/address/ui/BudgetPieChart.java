@@ -41,14 +41,14 @@ public class BudgetPieChart extends UiPart<Region> {
         this.budget = budget;
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList();
-        Double remaining = budget.getRemainingAmount().doubleValue();
+        Double remaining = budget.getRemainingMoney().getAmount().doubleValue();
         if (remaining < 0) {
             pieChartData.add(new PieChart.Data("Overshot by: $" + Math.abs(remaining), Math.abs(remaining)));
         } else {
             pieChartData.add(new PieChart.Data("Remaining: $" + remaining, remaining));
         }
         for (Spending spending : budget.getSpendings()) {
-            pieChartData.add(new PieChart.Data(spending.getDescription() + ": $" + spending.getSpending().doubleValue(), spending.getSpending().doubleValue()));
+            pieChartData.add(new PieChart.Data(spending.getDescription() + ": $" + spending.getMoney().getAmount().doubleValue(), spending.getMoney().getAmount().doubleValue()));
         }
         wrapper.setAlignment(Pos.CENTER);
         cardPane.setAlignment(Pos.CENTER);

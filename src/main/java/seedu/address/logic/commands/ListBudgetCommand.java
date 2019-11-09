@@ -32,7 +32,7 @@ public class ListBudgetCommand extends Command {
         Project workingProject = model.getWorkingProject().get();
         StringBuilder sb = new StringBuilder();
         List<Budget> budgetArrayList = workingProject.getFinance().getBudgets();
-        Collections.sort(budgetArrayList, Comparator.comparing(budget -> budget.getRemainingAmount()));
+        Collections.sort(budgetArrayList, Comparator.comparing(budget -> budget.getRemainingMoney().getAmount()));
         int index = 0;
         for (Budget budget : budgetArrayList) {
             index++;

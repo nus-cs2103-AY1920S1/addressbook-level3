@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.Budget;
+import seedu.address.model.finance.Money;
 import seedu.address.model.finance.Spending;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class JsonAdaptedBudget {
      */
     public JsonAdaptedBudget(Budget source) {
         name = source.getName();
-        amount = source.getAmount().toString();
+        amount = source.getMoney().toString();
         for (Spending spending : source.getSpendings()) {
             spendings.add(new JsonAdaptedSpending(spending));
         }
@@ -61,8 +63,8 @@ public class JsonAdaptedBudget {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted Budget.
      */
-    public Budget toModelType() throws IllegalValueException {
-        if (!Budget.isValidAmount(amount)) {
+    public Budget toModelType() throws IllegalValueException, ParseException {
+        if (!Money.isValidAmount(amount)) {
             throw new IllegalValueException(Budget.MESSAGE_CONSTRAINTS);
         }
         BigDecimal resultDouble = new BigDecimal(amount);
@@ -70,7 +72,7 @@ public class JsonAdaptedBudget {
         for (JsonAdaptedSpending spending : spendings) {
             resultSpendings.add(spending.toModelType());
         }
-        return new Budget(name, resultDouble, resultSpendings);
+        return new Budget(name, new Money(resultDouble), resultSpendings);
     }
 
 }

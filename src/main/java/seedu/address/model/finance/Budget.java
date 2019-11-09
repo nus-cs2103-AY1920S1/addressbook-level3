@@ -5,7 +5,6 @@ import seedu.address.model.util.SortingOrder;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
@@ -13,14 +12,12 @@ import java.util.Objects;
 
 public class Budget {
     private final String name;
-    private final BigDecimal amount;
+    private final Money amount;
     private final List<Spending> spendings = new ArrayList<>();
-    private BigDecimal remainingAmount;
+    private Money remainingAmount;
     public static final String MESSAGE_CONSTRAINTS = "Budget should have a name followed by an amount in the form 99.99";
-    public static final String VALIDATION_REGEX = "\\d+.\\d{1,2}?";
-    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,###.00");
 
-    public Budget(String name, BigDecimal amount, List<Spending> spendings) {
+    public Budget(String name, Money amount, List<Spending> spendings) {
         requireAllNonNull(name, amount, spendings);
         this.name = name;
         this.amount = amount;
@@ -37,23 +34,15 @@ public class Budget {
     public void addSpending(Spending spending) {
         spendings.add(spending);
         Collections.sort(spendings, SortingOrder.getCurrentSortingOrderForSpending());
-        remainingAmount = remainingAmount.subtract(spending.getSpending());
+        remainingAmount = new Money(remainingAmount.getAmount().subtract(spending.getMoney().getAmount()));
     }
 
-    public BigDecimal getAmount() {
+    public Money getMoney() {
         return amount;
     }
 
-    public String amountInString() {
-        return DECIMAL_FORMAT.format(amount);
-    }
-
-    public BigDecimal getRemainingAmount() {
+    public Money getRemainingMoney() {
         return remainingAmount;
-    }
-
-    public String remainingAmountInString() {
-        return DECIMAL_FORMAT.format(remainingAmount);
     }
 
     public String getName() {
@@ -64,26 +53,19 @@ public class Budget {
         return spendings;
     }
 
-    public BigDecimal calculateRemaining(BigDecimal amount, List<Spending> spendings) {
+    public Money calculateRemaining(Money amount, List<Spending> spendings) {
         BigDecimal result = new BigDecimal(amount.toString());
         for (Spending spending : spendings) {
-            result = result.subtract(spending.getSpending());
+            result = result.subtract(spending.getMoney().getAmount());
         }
-        return result;
-    }
-
-    /**
-     * Return is a string is a valid money amount.
-     */
-    public static boolean isValidAmount(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return new Money(result);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         Collections.sort(spendings, SortingOrder.getCurrentSortingOrderForSpending());
-        sb.append(String.format("Budget %s has $%s remaining: ", name, DECIMAL_FORMAT.format(remainingAmount)));
+        sb.append(String.format("Budget %s has $%s remaining: ", name, amount.toString()));
         for (Spending spending : spendings) {
             sb.append("\n " + spending.toString());
         }
@@ -101,7 +83,7 @@ public class Budget {
         }
 
         Budget otherBudget = (Budget) other;
-        return otherBudget.getAmount().equals(getAmount())
+        return otherBudget.getMoney().equals(getMoney())
                 && otherBudget.getName().equals(getName())
                 && otherBudget.getSpendings().equals(getSpendings());
     }

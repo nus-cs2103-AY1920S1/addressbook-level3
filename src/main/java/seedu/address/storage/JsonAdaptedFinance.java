@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.Budget;
 import seedu.address.model.finance.Finance;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class JsonAdaptedFinance {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted Finance.
      */
-    public Finance toModelType() throws IllegalValueException {
+    public Finance toModelType() throws IllegalValueException, ParseException {
         List<Budget> resultBudget = new ArrayList<>();
         for (JsonAdaptedBudget budget : budgets) {
             resultBudget.add(budget.toModelType());
