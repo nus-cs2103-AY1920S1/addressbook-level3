@@ -15,7 +15,6 @@ import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.ui.IndividualClaimWindow;
-import seedu.address.ui.IndividualContactWindow;
 
 /**
  * The API of the Model component.
@@ -184,21 +183,6 @@ public interface Model {
      * in the address book.
      */
     void setIncome(Income target, Income editedIncome);
-
-    /**
-     * Opens the claim window or focuses on it if it's already opened.
-     */
-    @FXML
-    public static void handleContact(Contact contact) {
-
-        IndividualContactWindow individualContactWindow = new IndividualContactWindow(contact);
-
-        if (!individualContactWindow.isShowing()) {
-            individualContactWindow.show();
-        } else {
-            individualContactWindow.focus();
-        }
-    }
 
     boolean hasAutocorrectSuggestion(AutocorrectSuggestion suggestion);
 

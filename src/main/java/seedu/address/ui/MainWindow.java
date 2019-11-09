@@ -318,12 +318,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleContact(Contact contact) {
         ObservableList<Claim> claimList = logic.getFilteredClaimList();
-        CheckContactWindow checkContactWindow = new CheckContactWindow(contact, claimList);
 
-        if (!checkContactWindow.isShowing()) {
-            checkContactWindow.show();
+        IndividualContactWindow individualContactWindow = new IndividualContactWindow(contact, claimList);
+
+        if (!individualContactWindow.isShowing()) {
+            individualContactWindow.show();
         } else {
-            checkContactWindow.focus();
+            individualContactWindow.focus();
         }
     }
 
