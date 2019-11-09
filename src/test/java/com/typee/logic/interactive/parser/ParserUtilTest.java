@@ -1,4 +1,4 @@
-package com.typee.logic.parser;
+package com.typee.logic.interactive.parser;
 
 import static com.typee.logic.interactive.parser.InteractiveParserUtil.MESSAGE_INVALID_INDEX;
 import static com.typee.testutil.Assert.assertThrows;

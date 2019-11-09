@@ -2,7 +2,7 @@ package com.typee.testutil;
 
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.EditCommand;
-import com.typee.logic.parser.CliSyntax;
+import com.typee.logic.interactive.parser.CliSyntax;
 import com.typee.model.person.Person;
 
 /**
