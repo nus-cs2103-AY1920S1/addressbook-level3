@@ -22,7 +22,8 @@ public class Styles {
         assert text.contains(filter);
         String caseIndependent = text.toLowerCase();
         String caseIndependentFilter = filter.toLowerCase();
-        int filterIndex = caseIndependent.indexOf(caseIndependentFilter);
+        int filterIndex = Math.max(0, caseIndependent.indexOf(caseIndependentFilter));
+        assert filterIndex >= 0;
 
         Text textBefore = new Text(text.substring(0, filterIndex));
         Text textAfter = new Text(text.substring(filterIndex + filter.length()));
