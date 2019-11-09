@@ -15,7 +15,8 @@ image::ernestyyh.png[width="150", align="left"]
 {empty}[https://github.com/ernestyyh[github]] [<<ernestyyh#, portfolio>>]
 
 Role: Team Lead,  +
-Responsibilities: Logic, Model
+Responsibilities: Project Management +
+Components: Storage, UI
 
 '''
 
@@ -24,7 +25,9 @@ image::onearmyj.png[width="150", align="left"]
 {empty}[https://github.com/OneArmyj[github]] [<<onearmyj#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI, Model
+Responsibilities: Deliverables, Documentation  +
+Components: Logic, Storage
+
 '''
 
 === Lew Kai Ming
@@ -32,7 +35,8 @@ image::kxxmxxx.png[width="150", align="left"]
 {empty}[https://github.com/KxxMxxx[github]] [<<kxxmxxx#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Logic, Storage
+Reponsibilities: Deliverables, Overall quality of Code +
+Components: Logic, Model
 
 '''
 
@@ -41,7 +45,8 @@ image::oscarsu97.png[width="150", align="left"]
 {empty}[https://github.com/oscarsu97[github]] [<<oscarsu97#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI, Model
+Responsibilities: UML Expert, Testing +
+Components: Model, Logic
 
 '''
 
@@ -50,6 +55,7 @@ image::1nefootstep.png[width="150", align="left"]
 {empty}[https://github.com/1nefootstep[github]] [<<1nefootstep#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Model, Storage
+Responsibilities: UI Expert, Integration +
+Components: Model, UI
 
 '''
