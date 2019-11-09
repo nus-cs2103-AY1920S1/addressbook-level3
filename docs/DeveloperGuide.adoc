@@ -1021,4 +1021,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
   Expected: Shows the GUI with the calendar at today's date, with no events or tasks.
 
-_{ more test cases ... }_
+// tag::notifmanualtesting[]
+=== Notification System
+
+. Posting notifications to the desktop
+.. Prerequisites: Make sure notifications have been switched on by using the `notif_on` command. +
+                  Make sure the System Tray is supported.
+.. Test case: `add_event "Test Event" "[CURRENT DATE] [CURRENT TIME INCREMENTED BY ONE MINUTE]"` +
+   Expected: Upon the next minute, a notification should be posted to your desktop through the system tray.
+.. Test case: `add_task "Test Task" --due "[CURRENT DATE] [CURRENT TIME INCREMENTED BY ONE MINUTE]"`
+   Expected: Upon the next minute, a notification should be posted to your desktop through the system tray.
+// end::notifmanualtesting[]
