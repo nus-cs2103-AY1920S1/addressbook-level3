@@ -230,17 +230,15 @@ Rank feature has 2 sequential checks:
 2. Checks if an athlete participates in a competition, rank command can only be used if an athlete participates in a competition.
 
 Finally, the feature returns an athlete's report card for a competition. For example,
+Athlete: Alex Yeoh 
+Competition: NUS Powerlifting Open 2019 
+Rank: 1 
+Total Score: 1 
+Max Squat: 1 
+Max Bench Press: 0 
+Max Deadlift: 0 
 
- Athlete: Alex Yeoh 
- Competition: NUS Powerlifting Open 2019 
- Rank: 1 
- Total Score: 1 
- Max Squat: 1 
- Max Bench Press: 0 
- Max Deadlift: 0 
- 
- 
- See the sequence diagram for more specific depiction of how RankCommand interacts with other classes when the rank feature is used. 
+See the sequence diagram for more specific depiction of how RankCommand interacts with other classes when the rank feature is used. 
 
 ===== Choice of Design Pattern
 Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands, without the programme knowing which type of command is being executed. Furthermore, the original AB3 code base achieves a Command Design Pattern by requiring different types of command classes to extend from a Command Abstract Class. 
