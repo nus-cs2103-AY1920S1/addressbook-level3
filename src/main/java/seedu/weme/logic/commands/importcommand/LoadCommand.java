@@ -31,6 +31,8 @@ public class LoadCommand extends Command {
             + PREFIX_FILEPATH + "C:/Users/username/Downloads/ ";
     public static final String MESSAGE_SUCCESS = "Memes loaded successfully to the import staging area.";
     public static final String MESSAGE_LOAD_FAILURE = "Invalid directory path given.";
+    public static final String MESSAGE_LOAD_NON_EMPTY_TAB_FAILURE = "There are memes present in the import tab. "
+            + "Please import them first or clear them before loading again.";
     private final DirectoryPath importDirectoryPath;
 
     /**
@@ -44,6 +46,9 @@ public class LoadCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.getImportList().isEmpty()) {
+            throw new CommandException(MESSAGE_LOAD_NON_EMPTY_TAB_FAILURE);
+        }
 
         try {
             List<Path> pathList = FileUtil.loadImagePath(importDirectoryPath);

@@ -1,5 +1,6 @@
 package seedu.weme.logic.commands.importcommand;
 
+import static seedu.weme.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
@@ -41,6 +42,18 @@ class LoadCommandTest extends ApplicationTest {
 
         assertCommandSuccess(loadCommand, model, LoadCommand.MESSAGE_SUCCESS, expectedModel);
 
+    }
+
+    @Test
+    public void execute_loadNonEmptyImportTab_failure() throws IOException {
+
+        List<Path> pathList = FileUtil.loadImagePath(LOAD_DIRECTORY_PATH);
+        expectedModel.loadMemes(pathList);
+
+        LoadCommand loadCommand = new LoadCommand(LOAD_DIRECTORY_PATH);
+        assertCommandSuccess(loadCommand, model, LoadCommand.MESSAGE_SUCCESS, expectedModel);
+
+        assertCommandFailure(loadCommand, model, LoadCommand.MESSAGE_LOAD_NON_EMPTY_TAB_FAILURE);
     }
 
 }
