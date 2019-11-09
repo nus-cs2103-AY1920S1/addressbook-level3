@@ -743,7 +743,7 @@ Displays expenditure ranking chart for July 2019.
 * *Loan Sort By Value* : `sort s/BY`  (Coming in v2.0)
 * *Budget Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
 * *Budget Delete* : `delete INDEX`
-* *Budget Find* : `find KEYWORD [MORE_KEYWORDS]`
+* *Budget Find* : `find [KEYWORDS]...`
 * *Expenditure Trend* : `expenditure [y/YEAR]`
 * *Income Trend* : `income [y/YEAR]`
 * *Balance Trend* : `balance [y/YEAR]`
