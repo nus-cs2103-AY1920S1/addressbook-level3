@@ -7,6 +7,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Optional;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.CollectionUtil;
@@ -38,6 +39,7 @@ public class EditDiaryCommand extends EditCommand {
 
     private final Index index;
     private final EditDiaryDescriptor editDiaryDescriptor;
+    private static Event event;
 
     /**
      * @param index of the diary in the filtered diary list to edit
@@ -69,6 +71,11 @@ public class EditDiaryCommand extends EditCommand {
 
         model.setDiary(diaryToEdit, editedDiary);
         model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
+
+        // Navigate to diary tab
+        event = Event.getInstance();
+        event.set("diary", "all");
+
         return new CommandResult(String.format(MESSAGE_EDIT_DIARY_SUCCESS, editedDiary));
     }
 

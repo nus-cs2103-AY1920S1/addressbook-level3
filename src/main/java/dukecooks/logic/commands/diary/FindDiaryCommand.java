@@ -2,6 +2,7 @@ package dukecooks.logic.commands.diary;
 
 import static java.util.Objects.requireNonNull;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.FindCommand;
@@ -22,6 +23,7 @@ public class FindDiaryCommand extends FindCommand {
             + "Example: " + COMMAND_WORD + " Asian Food";
 
     private final DiaryNameContainsKeywordsPredicate predicate;
+    private static Event event;
 
     public FindDiaryCommand(DiaryNameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
@@ -31,6 +33,11 @@ public class FindDiaryCommand extends FindCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredDiaryList(predicate);
+
+        // Navigate to diary tab
+        event = Event.getInstance();
+        event.set("diary", "all");
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_DIARY_LISTED_OVERVIEW, model.getFilteredDiaryList().size()));
     }
