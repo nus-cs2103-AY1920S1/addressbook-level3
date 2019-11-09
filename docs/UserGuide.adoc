@@ -85,9 +85,9 @@ Example: `view cs1231`
 
 Alternatively, you may simply view the module by double clicking on the module in the module list.
 
-image::ViewCommandGUiStep1.png[width="790"]
+image::ViewCommandGuiStep1.png[width="790"]
 
-image::ViewCommandGUiStep2.png[width="790"]
+image::ViewCommandGuiStep2.png[width="790"]
 
 
 === Return from module view: `back`
