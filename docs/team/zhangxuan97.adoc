@@ -44,7 +44,7 @@ allowing users to see which types of foods they tend to waste more often by chec
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103-F10-2/main/pull/30[#30]
-*** Updated the Model class diagram: ____
+*** Updated the Model class diagram: https://github.com/AY1920S1-CS2103-F10-2/main/pull/238[#238]
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/zhangxuan97/ped/issues/3[1], https://github.com/zhangxuan97/ped/issues/13[2], https://github.com/zhangxuan97/ped/issues/6[3])
 ** Tools:
