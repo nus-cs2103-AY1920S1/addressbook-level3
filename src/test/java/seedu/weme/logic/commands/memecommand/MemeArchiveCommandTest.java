@@ -9,7 +9,9 @@ import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.commons.core.Messages;
 import seedu.weme.commons.core.index.Index;
@@ -23,9 +25,14 @@ import seedu.weme.testutil.MemeBuilder;
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code MemeArchiveCommand}.
  */
-public class MemeArchiveCommandTest {
+public class MemeArchiveCommandTest extends ApplicationTest {
 
-    private Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
+    private Model model;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalWeme(), new UserPrefs());
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

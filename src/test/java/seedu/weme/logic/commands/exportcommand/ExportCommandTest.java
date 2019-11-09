@@ -6,7 +6,9 @@ import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.logic.commands.memecommand.MemeClearCommand;
 import seedu.weme.model.Model;
@@ -16,14 +18,20 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.path.DirectoryPath;
 import seedu.weme.testutil.TestUtil;
 
-class ExportCommandTest {
+class ExportCommandTest extends ApplicationTest {
 
     private static final String VALID_SANDBOX_DIRECTORY = TestUtil.getSandboxFolder().toString();
     private static final String VALID_SANDBOX_DIRECTORY_2 = TestUtil.getSecondSandboxFolder().toString();
     private static final String INVALID_SANDBOX_DIRECTORY = TestUtil.getInvalidSandboxFolder().toString();
 
-    private final Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalWeme(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
+    }
 
     @Test
     public void execute_export_successMessage() {

@@ -9,13 +9,14 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.UserPrefs;
 import seedu.weme.model.Weme;
 
-public class StorageManagerTest {
+public class StorageManagerTest extends ApplicationTest {
 
     @TempDir
     public Path testFolder;

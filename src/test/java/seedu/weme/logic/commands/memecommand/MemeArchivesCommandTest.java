@@ -5,6 +5,7 @@ import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.logic.commands.CommandTestUtil;
 import seedu.weme.model.Model;
@@ -14,7 +15,7 @@ import seedu.weme.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for MemeArchivesCommand.
  */
-public class MemeArchivesCommandTest {
+public class MemeArchivesCommandTest extends ApplicationTest {
 
     private Model model;
     private Model expectedModel;

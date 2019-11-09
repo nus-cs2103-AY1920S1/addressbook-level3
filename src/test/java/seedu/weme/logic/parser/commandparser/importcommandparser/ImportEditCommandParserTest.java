@@ -20,6 +20,7 @@ import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.logic.commands.importcommand.ImportEditCommand;
@@ -27,7 +28,7 @@ import seedu.weme.logic.commands.memecommand.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 
-public class ImportEditCommandParserTest {
+public class ImportEditCommandParserTest extends ApplicationTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 

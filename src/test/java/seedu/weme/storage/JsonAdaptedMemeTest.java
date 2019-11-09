@@ -10,21 +10,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.path.ImagePath;
 
-public class JsonAdaptedMemeTest {
+public class JsonAdaptedMemeTest extends ApplicationTest {
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_URL = "hello world";
 
-    private static final String VALID_DESCRIPTION = JOKER.getDescription().toString();
-    private static final String VALID_URL = JOKER.getImagePath().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = JOKER.getTags().stream()
-            .map(JsonAdaptedTag::new)
-            .collect(Collectors.toList());
+    private static String VALID_DESCRIPTION;
+    private static String VALID_URL;
+    private static List<JsonAdaptedTag> VALID_TAGS;
+
+    @BeforeEach
+    public void setup() {
+        VALID_DESCRIPTION = JOKER.getDescription().toString();
+        VALID_URL = JOKER.getImagePath().toString();
+        VALID_TAGS = JOKER.getTags().stream()
+                .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList());
+    }
 
     @Test
     public void toModelType_validMemeDetails_returnsMeme() throws Exception {

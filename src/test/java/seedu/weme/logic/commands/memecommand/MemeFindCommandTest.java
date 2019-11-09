@@ -10,7 +10,9 @@ import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.model.Model;
 import seedu.weme.model.ModelManager;
@@ -20,9 +22,15 @@ import seedu.weme.model.meme.TagContainsKeywordsPredicate;
 /**
  * Contains integration tests (interaction with the Model) for {@code MemeFindCommand}.
  */
-public class MemeFindCommandTest {
-    private Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
+public class MemeFindCommandTest extends ApplicationTest {
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalWeme(), new UserPrefs());
+        expectedModel = new ModelManager(model.getWeme(), new UserPrefs());
+    }
 
     @Test
     public void equals() {

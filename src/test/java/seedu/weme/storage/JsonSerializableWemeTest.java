@@ -7,13 +7,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.commons.util.JsonUtil;
 import seedu.weme.model.Weme;
 import seedu.weme.testutil.TypicalWeme;
 
-public class JsonSerializableWemeTest {
+public class JsonSerializableWemeTest extends ApplicationTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableWemeTest");
     private static final Path TYPICAL_WEME_FILE = TEST_DATA_FOLDER.resolve("typicalWeme.json");

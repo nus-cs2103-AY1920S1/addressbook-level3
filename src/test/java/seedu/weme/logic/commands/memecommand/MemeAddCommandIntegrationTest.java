@@ -5,6 +5,7 @@ import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.logic.commands.CommandTestUtil;
 import seedu.weme.model.Model;
@@ -17,7 +18,7 @@ import seedu.weme.testutil.UserPrefsBuilder;
 /**
  * Contains integration tests (interaction with the Model) for {@code MemeAddCommand}.
  */
-public class MemeAddCommandIntegrationTest {
+public class MemeAddCommandIntegrationTest extends ApplicationTest {
 
     private Model model;
 

@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.logic.parser.contextparser.MemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
@@ -21,7 +22,7 @@ import seedu.weme.model.meme.Description;
 import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 
-public class ParserUtilTest {
+public class ParserUtilTest extends ApplicationTest {
     private static final String INVALID_TAB = "NOT A TAB";
     private static final String INVALID_FILEPATH = "Hello world";
     private static final String INVALID_TAG = "#friend";

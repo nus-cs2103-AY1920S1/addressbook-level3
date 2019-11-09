@@ -10,6 +10,7 @@ import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.commons.core.Messages;
 import seedu.weme.commons.core.index.Index;
@@ -23,12 +24,13 @@ import seedu.weme.testutil.TemplateBuilder;
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code TemplateUnarchiveCommand}.
  */
-public class TemplateUnarchiveCommandTest {
+public class TemplateUnarchiveCommandTest extends ApplicationTest {
 
-    private Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
+    private Model model;
 
     @BeforeEach
     public void setup() {
+        model = new ModelManager(getTypicalWeme(), new UserPrefs());
         model.updateFilteredTemplateList(Model.PREDICATE_SHOW_ALL_ARCHIVED_TEMPLATES);
     }
 

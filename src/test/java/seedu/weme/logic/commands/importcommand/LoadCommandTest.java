@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -20,8 +21,15 @@ class LoadCommandTest extends ApplicationTest {
 
     private static final DirectoryPath LOAD_DIRECTORY_PATH = new DirectoryPath("src/test/data/memes/");
 
-    private final Model model = new ModelManager(getTypicalWeme(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalWeme(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalWeme(), new UserPrefs());
+
+    }
 
     @Test
     public void execute_load_successMessage() throws IOException {

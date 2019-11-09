@@ -9,10 +9,11 @@ import static seedu.weme.logic.commands.CommandTestUtil.VALID_FILEPATH_JOKER;
 import static seedu.weme.logic.commands.CommandTestUtil.VALID_TAG_JOKER;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 
-public class EditMemeDescriptorTest {
+public class EditMemeDescriptorTest extends ApplicationTest {
 
     @Test
     public void equals() {

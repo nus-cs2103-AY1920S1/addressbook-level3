@@ -3,6 +3,7 @@ package seedu.weme.model.path;
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.commons.util.AppUtil.checkArgument;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.InvalidPathException;
@@ -17,7 +18,8 @@ import seedu.weme.commons.util.FileUtil;
  */
 public class ImagePath {
 
-    public static final String MESSAGE_CONSTRAINTS = "File not found or invalid file path given.";
+    public static final String MESSAGE_CONSTRAINTS = "Path should be an existing image file in a supported "
+            + "image format.";
 
     public final Path filePath;
 
@@ -33,15 +35,15 @@ public class ImagePath {
     }
 
     /**
-     * Returns true if the given string is a valid Path.
+     * Returns true if the given string is a valid Path to a supported Image.
      */
     public static boolean isValidFilePath(String test) {
         // Paths.get() throws InvalidPathException when the path is a invalid.
         // It is caught and becomes return false.
         try {
             return FileUtil.isValidPath(test)
-                    && FileUtil.isFileExists(Paths.get(test));
-        } catch (InvalidPathException e) {
+                    && FileUtil.isFileExists(Paths.get(test)) && FileUtil.isValidImageExtension(Paths.get(test));
+        } catch (InvalidPathException | IOException e) {
             return false;
         }
     }

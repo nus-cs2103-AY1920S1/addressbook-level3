@@ -12,12 +12,13 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.commons.exceptions.DataConversionException;
 import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.Weme;
 
-public class JsonWemeStorageTest {
+public class JsonWemeStorageTest extends ApplicationTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonWemeStorageTest");
 
     @TempDir
