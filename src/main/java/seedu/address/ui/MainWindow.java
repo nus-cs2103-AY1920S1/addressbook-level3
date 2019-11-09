@@ -110,7 +110,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillWithContacts() {
+    public void fillWithContacts() {
         personListPanel = new PersonListPanel(logic.getFilteredContactList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -125,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up window with claims
      */
-    void fillWithClaims() {
+    public void fillWithClaims() {
         claimListPanel = new ClaimListPanel(logic.getFilteredClaimList());
         personListPanelPlaceholder.getChildren().add(claimListPanel.getRoot());
         resultDisplay = new ResultDisplay();
@@ -139,7 +139,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up window with incomes
      */
-    void fillWithIncomes() {
+    public void fillWithIncomes() {
         incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
         personListPanelPlaceholder.getChildren().add(incomeListPanel.getRoot());
         resultDisplay = new ResultDisplay();
@@ -209,7 +209,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
+    public void show() {
         primaryStage.show();
     }
 
