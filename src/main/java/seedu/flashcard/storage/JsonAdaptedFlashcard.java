@@ -108,6 +108,10 @@ public class JsonAdaptedFlashcard {
         }
         final Definition modelDefinition = new Definition(definition);
 
+        if (answer == null) {
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, Answer.class.getSimpleName()));
+        }
         if (!Answer.isValidAnswer(answer)) {
             throw new IllegalValueException(Answer.MESSAGE_CONSTRAINTS);
         }
@@ -136,9 +140,13 @@ public class JsonAdaptedFlashcard {
         final List<Choice> modelChoices = new ArrayList<>(flashcardChoices);
 
         if (type.equals("McqFlashcard")) {
-            return new McqFlashcard(modelQuestion, modelChoices, modelDefinition, modelTags, modelAnswer, modelScore);
+            McqFlashcard flashcard =
+                new McqFlashcard(modelQuestion, modelChoices, modelDefinition, modelTags, modelAnswer, modelScore);
+            return flashcard;
         } else if (type.equals("ShortAnswerFlashcard")) {
-            return new ShortAnswerFlashcard(modelQuestion, modelDefinition, modelTags, modelAnswer, modelScore);
+            ShortAnswerFlashcard flashcard =
+                new ShortAnswerFlashcard(modelQuestion, modelDefinition, modelTags, modelAnswer, modelScore);
+            return flashcard;
         } else {
             throw new IllegalValueException("Issue in saved file, the flashcard type is incorrect.");
         }

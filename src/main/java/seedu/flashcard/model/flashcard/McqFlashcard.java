@@ -17,7 +17,8 @@ public class McqFlashcard extends Flashcard {
     /**
      * This is the initializer when user is creating a new flashcard
      */
-    public McqFlashcard(Question question, List<Choice> choices, Definition definitions, Set<Tag> tags, Answer answer) {
+    public McqFlashcard(Question question, List<Choice> choices, Definition definitions,
+                        Set<Tag> tags, Answer answer) {
         super(question, definitions, tags, answer);
         this.choices.addAll(choices);
     }
@@ -42,6 +43,9 @@ public class McqFlashcard extends Flashcard {
 
     @Override
     public boolean isValidFlashcard() {
+        if (choices == null) {
+            return false;
+        }
         for (Choice choice : choices) {
             if (choice.getChoice().equals(answer.getAnswer())) {
                 return true;

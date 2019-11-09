@@ -99,8 +99,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code McqFlashcard} with the details of {@code flashcardToEdit}
      * edited with {@code editFlashcardDescriptor}.
      */
-    private static Flashcard createEditedMcqFlashcard(McqFlashcard flashcardToEdit,
-                                                      EditFlashcardDescriptor editFlashcardDescriptor) {
+    private static Flashcard createEditedMcqFlashcard(
+        McqFlashcard flashcardToEdit, EditFlashcardDescriptor editFlashcardDescriptor) {
         assert flashcardToEdit != null;
         Question updatedQuestion = editFlashcardDescriptor.getQuestion().orElse(flashcardToEdit.getQuestion());
         List<Choice> updatedChoices = editFlashcardDescriptor.getChoices().orElse(flashcardToEdit.getChoices());
