@@ -1,5 +1,6 @@
 package seedu.algobase.ui;
 
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
@@ -20,7 +21,6 @@ import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.problem.Remark;
 import seedu.algobase.model.problem.Source;
 import seedu.algobase.model.problem.WebLink;
-import seedu.algobase.model.tag.Tag;
 import seedu.algobase.ui.action.UiActionDetails;
 import seedu.algobase.ui.action.UiActionExecutor;
 import seedu.algobase.ui.action.UiActionType;
@@ -130,11 +130,6 @@ public class ProblemCard extends UiPart<Region> {
         }
         remark.setWrapText(true);
         remark.setTextAlignment(TextAlignment.JUSTIFY);
-        for (Tag tag : problem.getTags()) {
-            Label l = new Label(tag.getName());
-            String colorStyle = "-fx-background-color: " + tag.getColor();
-            l.setStyle(colorStyle);
-            tags.getChildren().add(l);
 
         // Source
         if (!Source.isDefaultSource(problem.getSource())) {
@@ -145,6 +140,9 @@ public class ProblemCard extends UiPart<Region> {
         }
         source.setWrapText(true);
         source.setTextAlignment(TextAlignment.JUSTIFY);
+        problem.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         this.addMouseClickListener();
     }
 
@@ -178,15 +176,15 @@ public class ProblemCard extends UiPart<Region> {
                         logger.info("Double Clicked on Problem card with name " + problem.getName());
 
                         logger.info(
-                            "Creating new UiActionDetails with type " + UiActionType.OPEN_DETAILS_TAB
-                                + " with a ModelType of " + ModelType.PROBLEM
-                                + " with ID of " + problem.getId()
+                                "Creating new UiActionDetails with type " + UiActionType.OPEN_DETAILS_TAB
+                                        + " with a ModelType of " + ModelType.PROBLEM
+                                        + " with ID of " + problem.getId()
                         );
 
                         uiActionExecutor.execute(new UiActionDetails(
-                            UiActionType.OPEN_DETAILS_TAB,
-                            ModelType.PROBLEM,
-                            problem.getId()
+                                UiActionType.OPEN_DETAILS_TAB,
+                                ModelType.PROBLEM,
+                                problem.getId()
                         ));
                     }
                 }
