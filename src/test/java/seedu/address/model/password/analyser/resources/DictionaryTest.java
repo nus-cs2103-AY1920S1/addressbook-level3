@@ -13,8 +13,8 @@ import seedu.address.model.password.exceptions.DictionaryNotFoundException;
 class DictionaryTest {
 
     @Test
-    void build_invalidDictionaryName_throwsDictionaryException() {
-        assertThrows(DictionaryNotFoundException.class, () -> Dictionary.build("dummy.txt"));
+    void load_invalidDictionaryName_throwsDictionaryException() {
+        assertThrows(DictionaryNotFoundException.class, () -> Dictionary.load("dummy.txt"));
     }
 
     @Test

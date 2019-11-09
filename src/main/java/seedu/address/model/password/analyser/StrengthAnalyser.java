@@ -5,15 +5,13 @@ import java.util.List;
 
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.result.Result;
+import seedu.address.model.password.analyser.result.ResultOutcome;
 import seedu.address.model.password.analyser.result.StrengthResult;
 
 /**
  * Represents analyser object that analyses passwords in password book for password strength.
  */
 public class StrengthAnalyser implements Analyser {
-    private static final String DESC_WEAK = "weak";
-    private static final String DESC_MODERATE = "moderate";
-    private static final String DESC_STRONG = "strong";
     private static final String MESSAGE_HEADER = "Analysing passwords for strength: \n";
 
     @Override
@@ -83,13 +81,13 @@ public class StrengthAnalyser implements Analyser {
                                                          boolean hasMinimumLength, boolean hasLower,
                                                          boolean hasUpper, boolean hasNum, boolean hasSpecial) {
         if (passwordScore <= 2) {
-            return new StrengthResult(passwordObject, DESC_WEAK, hasMinimumLength, hasLower,
+            return new StrengthResult(passwordObject, ResultOutcome.WEAK, hasMinimumLength, hasLower,
                     hasUpper, hasNum, hasSpecial);
         } else if (passwordScore <= 4) {
-            return new StrengthResult(passwordObject, DESC_MODERATE, hasMinimumLength, hasLower,
+            return new StrengthResult(passwordObject, ResultOutcome.MODERATE, hasMinimumLength, hasLower,
                     hasUpper, hasNum, hasSpecial);
         } else {
-            return new StrengthResult(passwordObject, DESC_STRONG, hasMinimumLength, hasLower,
+            return new StrengthResult(passwordObject, ResultOutcome.STRONG, hasMinimumLength, hasLower,
                     hasUpper, hasNum, hasSpecial);
         }
     }

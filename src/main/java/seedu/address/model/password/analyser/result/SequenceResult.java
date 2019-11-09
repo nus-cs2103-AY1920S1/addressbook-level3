@@ -16,7 +16,7 @@ public class SequenceResult extends Result {
             + "found to be common sequences:\n";
     private List<SequenceMatch> matches;
 
-    public SequenceResult(Password password, String description, List<SequenceMatch> matches) {
+    public SequenceResult(Password password, ResultOutcome description, List<SequenceMatch> matches) {
         super(password, description);
         this.matches = matches;
     }

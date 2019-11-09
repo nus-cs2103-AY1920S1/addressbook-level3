@@ -15,7 +15,7 @@ public class SimilarityResult extends Result {
             + "(Accounts are sorted by their similarity)\n";
     private List<SimilarityMatch> matches;
 
-    public SimilarityResult(Password password, String description, List<SimilarityMatch> matches) {
+    public SimilarityResult(Password password, ResultOutcome description, List<SimilarityMatch> matches) {
         super(password, description);
         this.matches = matches;
     }

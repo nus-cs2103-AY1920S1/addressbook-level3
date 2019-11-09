@@ -14,7 +14,7 @@ public class UniqueResult extends Result {
     private static final String MESSAGE_EXPLANATION = "The following accounts share the same password:\n";
     private List<UniqueMatch> matches;
 
-    public UniqueResult(Password password, String description, List<UniqueMatch> matches) {
+    public UniqueResult(Password password, ResultOutcome description, List<UniqueMatch> matches) {
         super(password, description);
         this.matches = matches;
     }

@@ -9,12 +9,12 @@ import seedu.address.model.password.Password;
 class ResultTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ResultImpl(null, "dummy"));
+        assertThrows(NullPointerException.class, () -> new ResultImpl(null, ResultOutcome.PASS));
     }
 
 
     public class ResultImpl extends Result {
-        public ResultImpl(Password p, String description) {
+        public ResultImpl(Password p, ResultOutcome description) {
             super(p, description);
         }
 

@@ -1,11 +1,12 @@
 package seedu.address.model.password.analyser.result;
 
 /**
- * Represents the status of a Result
+ * Represents the outcome of a Result
  */
-public enum ResultStatus {
-        ACTIVE,
-        MISSING,
-        CORRUPTED
-    }
+public enum ResultOutcome {
+    PASS,
+    FAIL,
+    WEAK,
+    MODERATE,
+    STRONG
 }

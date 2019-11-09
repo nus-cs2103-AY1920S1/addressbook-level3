@@ -10,6 +10,7 @@ import seedu.address.model.password.analyser.match.DictionaryMatch;
 import seedu.address.model.password.analyser.resources.Dictionary;
 import seedu.address.model.password.analyser.result.DictionaryResult;
 import seedu.address.model.password.analyser.result.Result;
+import seedu.address.model.password.analyser.result.ResultOutcome;
 
 /**
  * Represents analyser object that analyses passwords in password book for common dictionary string.
@@ -29,9 +30,9 @@ public class DictionaryAnalyser implements Analyser {
         for (Password acc : passwordList) {
             List<DictionaryMatch> matches = getAllMatches(acc.getPasswordValue().value);
             if (matches.isEmpty()) {
-                results.add(new DictionaryResult(acc, DESC_PASS, matches));
+                results.add(new DictionaryResult(acc, ResultOutcome.PASS, matches));
             } else {
-                results.add(new DictionaryResult(acc, DESC_FAIL, matches));
+                results.add(new DictionaryResult(acc, ResultOutcome.FAIL, matches));
             }
         }
         return results;
@@ -54,7 +55,7 @@ public class DictionaryAnalyser implements Analyser {
                 }
 
                 //Match on leet
-                List<String> unleetList = LeetUtil.translateLeet(lowerPart);
+                List<String> unleetList = LeetUtil.generateUnleetList(lowerPart);
                 for (final String unleetPart : unleetList) {
                     Integer unleetRank = dictionary.getDictionary().get(unleetPart);
                     if (unleetRank != null) {

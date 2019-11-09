@@ -17,7 +17,7 @@ public class KeyboardResult extends Result {
             + "found to be common keyboard patterns:\n(Tokens are sorted by the keyboard pattern complexity)\n";
     private List<KeyboardMatch> matches;
 
-    public KeyboardResult(Password password, String description, List<KeyboardMatch> matches) {
+    public KeyboardResult(Password password, ResultOutcome description, List<KeyboardMatch> matches) {
         super(password, description);
         this.matches = matches;
     }

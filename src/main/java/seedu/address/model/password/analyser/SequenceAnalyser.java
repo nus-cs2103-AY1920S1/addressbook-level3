@@ -6,6 +6,7 @@ import java.util.List;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.match.SequenceMatch;
 import seedu.address.model.password.analyser.result.Result;
+import seedu.address.model.password.analyser.result.ResultOutcome;
 import seedu.address.model.password.analyser.result.SequenceResult;
 
 /**
@@ -29,9 +30,9 @@ public class SequenceAnalyser implements Analyser {
             String password = acc.getPasswordValue().value;
             List<SequenceMatch> matches = getAllMatches(password);
             if (matches.isEmpty()) {
-                results.add(new SequenceResult(acc, DESC_PASS, matches));
+                results.add(new SequenceResult(acc, ResultOutcome.PASS, matches));
             } else {
-                results.add(new SequenceResult(acc, DESC_FAIL, matches));
+                results.add(new SequenceResult(acc, ResultOutcome.FAIL, matches));
             }
         }
         return results;

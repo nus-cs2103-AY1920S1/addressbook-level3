@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class AdjacencyGraph {
     /**
-     * Adjacency graph for the keyboardAdjMatrix keyboard
+     * Adjacency matrix for the keyboard.
      */
     private static final HashMap<Character, String[]> keyboardAdjMatrix;
 
@@ -117,60 +117,63 @@ public class AdjacencyGraph {
      * @param key the specific input character.
      */
     public static List<Character> getNeighbors(Character key) {
+        assert keyboardAdjMatrix.containsKey(key); //pre condition
         ArrayList<Character> neighbors = new ArrayList<>();
-
-        if (keyboardAdjMatrix.containsKey(key)) {
-            String[] keyNeighbors = keyboardAdjMatrix.get(key);
-            for (String keyNeighbor : keyNeighbors) {
-                if (keyNeighbor == null) {
-                    continue;
-                }
-                for (Character character : keyNeighbor.toCharArray()) {
-                    neighbors.add(character);
-                }
+        String[] keyNeighbors = keyboardAdjMatrix.get(key);
+        for (String keyNeighbor : keyNeighbors) {
+            if (keyNeighbor == null) {
+                continue;
+            }
+            for (Character character : keyNeighbor.toCharArray()) {
+                neighbors.add(character);
             }
         }
         return neighbors;
     }
 
     /**
-     * Returns the number of turns in the password substring passed in based on the adjacency graph.
-     * The substring with the least amount of turns is the easiest password.
+     * Returns the number of turns in a given string.
      *
-     * @param substring the substring of the password.
+     * @param s the substring of the password.
      */
-    public static int getDirections(String substring) {
-        int direction = 1; // the direction of the curr -> next
-        int turns = 0;
-        char[] characters = substring.toCharArray();
+    public static int getDirections(String s) {
+        int direction = -1;
+        int turns = 1;
+        char[] characters = s.toCharArray();
 
-        for (int i = 0; i < characters.length; i++) { //for each character
+        for (int i = 0; i < characters.length - 1; i++) {
             Character curr = characters[i];
-            if (i + 1 >= characters.length) { //while not at the last character
-                continue;
-            }
-
             Character next = characters[i + 1];
-            if (keyboardAdjMatrix.containsKey(curr)) {
-                String[] neighbors = keyboardAdjMatrix.get(curr);
-                for (int j = 0; j < neighbors.length; j++) { //j will represent the direction of neighbour
-                    if (neighbors[j] == null) { //skip if is null
-                        continue;
-                    }
-                    for (Character neighbor : neighbors[j].toCharArray()) { // for both char and shift char
-                        if (next.equals(neighbor)) { //
-                            if (direction == 0) {
-                                direction = j; //set the first direction
-                            } else if (direction != j) { //else check if same as previous direction.
-                                turns++;
-                                direction = j;
-                            }
-                        }
-                    }
-                }
+
+            String[] neighborsOfCurr = keyboardAdjMatrix.get(curr);
+            int directionOfNext = findDirectionOfNext(neighborsOfCurr, next);
+            if (direction == -1) {
+                direction = directionOfNext;
+            } else if (direction != directionOfNext) {
+                turns++;
+                direction = directionOfNext;
             }
         }
         return turns;
+    }
+
+    /**
+     * Returns the direction of the next character relative to the current character.
+     * @param neighborsOfCurr the list of neighbour characters adjacent to current character.
+     * @param next the next character in the token.
+     */
+    private static int findDirectionOfNext(String[] neighborsOfCurr, Character next) {
+        for (int j = 0; j < neighborsOfCurr.length; j++) {
+            if (neighborsOfCurr[j] == null) {
+                continue;
+            }
+            for (Character neighbor : neighborsOfCurr[j].toCharArray()) {
+                if (next.equals(neighbor)) {
+                    return j;
+                }
+            }
+        }
+        return -1; //should not reach this point
     }
 
 }

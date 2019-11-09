@@ -48,17 +48,18 @@ public class Dictionary {
      * @param path the path of the file with dictionary words
      * @return the hashmap of dictionary word to ranking
      */
-    private static Map<String, Integer> load(String path) {
+    static Map<String, Integer> load(String path) {
         assert !path.isEmpty();
         Map<String, Integer> dictionary = new HashMap<>();
-        try (InputStream is = Dictionary.class.getResourceAsStream(path);
-             BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
+        try {
+            InputStream is = Dictionary.class.getResourceAsStream(path);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             String line;
             int i = 1;
             while ((line = br.readLine()) != null) {
                 dictionary.put(line, i++);
             }
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             throw new DictionaryNotFoundException(MESSAGE_DICTIONARY_NOT_FOUND);
         }
         return dictionary;

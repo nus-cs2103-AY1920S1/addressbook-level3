@@ -32,10 +32,10 @@ public abstract class BaseMatch implements Match {
     }
 
     /**
-     * Returns true if {@code Match} is valid.
+     * Returns true if start index greater than end index, and token is not empty string.
      */
     protected Boolean isValidMatch(int startIndex, int endIndex, String token) {
-        return startIndex < endIndex && token != "";
+        return startIndex < endIndex && !token.isEmpty();
     }
 
     public String getToken() {

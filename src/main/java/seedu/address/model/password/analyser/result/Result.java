@@ -11,7 +11,7 @@ import seedu.address.model.password.Password;
  */
 public abstract class Result {
     protected Password password;
-    protected String description;
+    protected ResultOutcome description;
     protected String passwordDesc;
     protected String passwordUser;
     protected String passwordValue;
@@ -22,7 +22,7 @@ public abstract class Result {
      * @param password the specific password to which the result holds information about.
      * @param description the evaluation description of the {@code Analyser}.
      */
-    public Result(Password password, String description) {
+    public Result(Password password, ResultOutcome description) {
         requireNonNull(password);
         this.password = password;
         this.description = description;
@@ -43,19 +43,11 @@ public abstract class Result {
         return passwordValue;
     }
 
-    /**
-     * Sets the evaluation description of the Result.
-     * @param description the evaluation description of the {@code Analyser}.
-     */
-    public void setDescription(String description) {
+    public void setDescription(ResultOutcome description) {
         this.description = description;
     }
 
-    /**
-     * Returns the evaluation description of the Result.
-     * @return the description attribute.
-     */
-    public String getDescription() {
+    public ResultOutcome getDescription() {
         return description;
     }
 

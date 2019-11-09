@@ -22,7 +22,7 @@ public class StrengthResult extends Result {
     private boolean hasNum = false;
     private boolean hasSpecial = false;
 
-    public StrengthResult(Password password, String description, boolean hasMinimumLength,
+    public StrengthResult(Password password, ResultOutcome description, boolean hasMinimumLength,
                           boolean hasLower, boolean hasUpper, boolean hasNum, boolean hasSpecial) {
         super(password, description);
         this.hasMinimumLength = hasMinimumLength;

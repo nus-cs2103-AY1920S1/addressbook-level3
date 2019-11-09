@@ -10,8 +10,6 @@ import seedu.address.model.password.analyser.result.Result;
  * Interface for different analyser classes to implement analyse method.
  */
 public interface Analyser {
-    final String DESC_FAIL = "failed";
-    final String DESC_PASS = "passed";
 
     /**
      * Reviews specific aspect of every password in the password book to produce a list of {@code Result} objects

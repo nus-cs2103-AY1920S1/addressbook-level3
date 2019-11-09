@@ -17,7 +17,7 @@ public class DictionaryResult extends Result {
     private List<DictionaryMatch> matches;
 
 
-    public DictionaryResult(Password password, String description, List<DictionaryMatch> matches) {
+    public DictionaryResult(Password password, ResultOutcome description, List<DictionaryMatch> matches) {
         super(password, description);
         this.matches = matches;
     }

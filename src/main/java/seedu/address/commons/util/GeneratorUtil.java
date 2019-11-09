@@ -31,16 +31,16 @@ public class GeneratorUtil {
      */
     public static String generateRandomPassword(int length, boolean hasLower,
                                                 boolean hasUpper, boolean hasNum, boolean hasSpecial) {
-        ArrayList<String[]> characterSet = setCharacterSet(hasLower, hasUpper, hasSpecial, hasNum);
-        SecureRandom randomNumGen = new SecureRandom();
+        ArrayList<String[]> characterSetsToUse = setCharacterSet(hasLower, hasUpper, hasSpecial, hasNum);
+        SecureRandom rand = new SecureRandom();
         StringBuilder password = new StringBuilder();
 
         while (!meetUserRequirement(password.toString(), hasLower, hasUpper, hasNum, hasSpecial)) {
             password.setLength(0);
             for (int k = 0; k < length; k++) {
-                int ranArrayChooser = randomNumGen.nextInt(characterSet.size());
-                int randomLetterIndex = randomNumGen.nextInt(characterSet.get(ranArrayChooser).length - 1);
-                password.append(characterSet.get(ranArrayChooser)[randomLetterIndex]);
+                int ranArrayChooser = rand.nextInt(characterSetsToUse.size());
+                int randomLetterIndex = rand.nextInt(characterSetsToUse.get(ranArrayChooser).length - 1);
+                password.append(characterSetsToUse.get(ranArrayChooser)[randomLetterIndex]);
             }
         }
 
