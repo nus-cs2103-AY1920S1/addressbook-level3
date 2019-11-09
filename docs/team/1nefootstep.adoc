@@ -36,52 +36,49 @@ image::../images/plan2travelSample.png[]
 ** Justification: An itinerary is naturally composed of days, hence it was helpful when using it to store activities that have been scheduled on a particular day.
 ** Highlights: This enhancement interacts with the itinerary UI and different considerations had to be made to ensure the UI will be able to accurately display what was saved in the each day.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Functional Code contributed*:
+
+** Enhanced the GUI (Pull requests https://github.com/AY1920S1-CS2103T-T09-1/main/pull/109[#109], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/126[#126], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/207[#207], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/212[#212])
+
+
+
+
+* *Test Code contributed*:
 
 * *Other contributions*: Coded the redesign from AddressBook to plan2travel. Also, added functionality to allow information about activity, accommodation, contact and day to be displayed in the info tab via `list activity/accommodation/contact/day` or through `view activity/accommodation/contact`.
 **
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+***
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-1/main/pull/72[#72], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/74[#74], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/82[#82], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/87[#87], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/94[#94], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/99[#99], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/100[#100], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/106[#106], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/117[#117], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/122[#122], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/193[#193], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/216[#216], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/241[#241]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S1-CS2103T-T11-2/main/issues/163[1], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/164[2], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/165[3], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/166[4], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/167[5], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/168[6], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/169[7])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
+=======
+*** Integrated a third party library (JFXtras) to the project (https://github.com/AY1920S1-CS2103T-T09-1/main/pull/109[#109])
 
-== Contributions to the User Guide
+//== Contributions to the User Guide
+//
+//
+//|===
+//|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+//|===
+//
+//include::../UserGuide.adoc[tag=delete]
+//
+//include::../UserGuide.adoc[tag=dataencryption]
+//
+//== Contributions to the Developer Guide
+//
+//|===
+//|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+//|===
+//
+//include::../DeveloperGuide.adoc[tag=undoredo]
+//
+//include::../DeveloperGuide.adoc[tag=dataencryption]
 
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
-
-== Contributions to the Developer Guide
-
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
