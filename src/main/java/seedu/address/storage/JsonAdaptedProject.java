@@ -107,8 +107,7 @@ class JsonAdaptedProject {
 
         Project project = new Project(modelTitle, modelDescription, modelPersonList, modelTasks, modelFinance, new Timetable());
 
-        Set<Meeting> meetingsList = new HashSet<>(meetings);
-        project.setListOfMeeting(meetingsList);
+        project.setListOfMeeting(meetings);
 
         return project;
     }

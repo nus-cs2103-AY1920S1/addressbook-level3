@@ -2,6 +2,7 @@ package seedu.address.model.util;
 
 import seedu.address.model.finance.Spending;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Meeting;
 import seedu.address.model.project.Task;
 
 import java.util.Comparator;
@@ -13,11 +14,13 @@ import java.util.Comparator;
 public class SortingOrder {
 
     private static Comparator<Task> currentSortingOrderForTask = Comparator.comparing(task -> task.getTime().getDate());
-    private static Comparator<String> currentSortingOrderForMember = Comparator.comparing(String::toString);
+    private static Comparator<String> currentSortingOrderForMember = (member1, member2) -> member1.compareToIgnoreCase(member2);
     private static Comparator<Person> currentSortingOrderForPerson = Comparator.comparing(person -> person.getName().fullName);
     private static Comparator<Spending> currentSortingOrderForSpending = Comparator.comparing(spending -> spending.getDate());
-    private static int taskCurrentIndex = 4;
+    private static Comparator<Meeting> currentSortingOrderForMeeting = Comparator.comparing(meeting -> meeting.getTime().getDate());
+    private static int taskCurrentIndex = 2;
     private static int spendingCurrentIndex = 2;
+    private static int meetingCurrentIndex = 2;
 
     public static void setCurrentTaskSortingOrderByAlphabeticalOrder() {
         currentSortingOrderForTask = (task1, task2) -> task1.getDescription().description
@@ -61,6 +64,15 @@ public class SortingOrder {
         spendingCurrentIndex = 5;
     }
 
+    public static void setCurrentMeetingSortingOrderByAlphabeticalOrder() {
+        currentSortingOrderForMeeting = (meeting1, meeting2) -> meeting1.getDescription().description.compareToIgnoreCase(meeting2.getDescription().description);
+        meetingCurrentIndex = 1;
+    }
+
+    public static void setCurrentMeetingSortingOrderByDate() {
+        currentSortingOrderForMeeting = Comparator.comparing(meeting -> meeting.getTime().getDate());
+        meetingCurrentIndex = 2;
+    }
 
     public static Comparator<Task> getCurrentSortingOrderForTask() {
         return currentSortingOrderForTask;
@@ -78,11 +90,19 @@ public class SortingOrder {
         return currentSortingOrderForSpending;
     }
 
+    public static Comparator<Meeting> getCurrentSortingOrderForMeeting() {
+        return currentSortingOrderForMeeting;
+    }
+
     public static int getTaskCurrentIndex() {
         return taskCurrentIndex;
     }
 
     public static int getSpendingCurrentIndex() {
         return spendingCurrentIndex;
+    }
+
+    public static int getMeetingCurrentIndex() {
+        return meetingCurrentIndex;
     }
 }

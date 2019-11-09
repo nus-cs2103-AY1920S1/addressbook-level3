@@ -5,10 +5,9 @@ import seedu.address.model.Model;
 import seedu.address.model.project.Meeting;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
+import seedu.address.model.util.SortingOrder;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.*;
@@ -53,10 +52,11 @@ public class AddProjectMeetingCommand extends Command {
         Project projectToEdit = model.getWorkingProject().get();
         List<String> members = projectToEdit.getMemberNames();
         List<Task> taskList = projectToEdit.getTasks();
-        Set<Meeting> meetingList = projectToEdit.getListOfMeeting();
-        Set<Meeting> newMeetingList = new HashSet<>();
+        List<Meeting> meetingList = projectToEdit.getListOfMeeting();
+        List<Meeting> newMeetingList = new ArrayList<>();
         newMeetingList.addAll(meetingList);
         newMeetingList.add(toAdd);
+        Collections.sort(newMeetingList, SortingOrder.getCurrentSortingOrderForMeeting());
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), members, taskList, projectToEdit.getFinance(), projectToEdit.getGeneratedTimetable());
         editedProject.setListOfMeeting(newMeetingList);
 

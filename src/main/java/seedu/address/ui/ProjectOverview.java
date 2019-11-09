@@ -17,9 +17,10 @@ import seedu.address.model.finance.Budget;
 import seedu.address.model.project.Meeting;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
+import seedu.address.model.util.SortingOrder;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,7 +78,8 @@ public class ProjectOverview extends UiPart<Region> {
         memberTitle.setText("Members: ");
         members.setOrientation(Orientation.VERTICAL);
         members.setPrefWrapLength(100);
-
+        Collections.sort(project.getMemberNames(), SortingOrder.getCurrentSortingOrderForMember());
+        Collections.sort(project.getTasks(), SortingOrder.getCurrentSortingOrderForTask());
         for (String member : project.getMemberNames()) {
             members.getChildren().add(new Label("    " + ++memberCount + ". " + member));
         }
@@ -131,7 +133,7 @@ public class ProjectOverview extends UiPart<Region> {
         meetings.setPrefWrapLength(100);
         List<Meeting> listOfMeetings = new ArrayList<Meeting>(project.getListOfMeeting());
         int meetingCount = 1;
-        listOfMeetings.sort(Comparator.comparing(m -> m.getTime().getDate()));
+        Collections.sort(listOfMeetings, SortingOrder.getCurrentSortingOrderForMeeting());
         for (Meeting meeting: listOfMeetings) {
             meetings.getChildren().add(new Label("    " + meetingCount++ + ". " + meeting.getDescription().description + " on " + meeting.getTime().time));
         }

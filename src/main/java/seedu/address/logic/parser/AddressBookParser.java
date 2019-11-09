@@ -132,6 +132,9 @@ public class AddressBookParser {
 
         case SortSpendingCommand.COMMAND_WORD:
             return new SortSpendingParser().parse(arguments);
+
+        case SortMeetingCommand.COMMAND_WORD:
+            return new SortMeetingParser().parse(arguments);
             
         case AddTimetableCommand.COMMAND_WORD:
             return new AddTimetableCommandParser().parse(arguments);

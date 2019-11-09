@@ -46,7 +46,7 @@ public class DeleteProjectMeetingCommand extends Command {
         List<String> members = projectToEdit.getMemberNames();
         List<Task> tasks = projectToEdit.getTasks();
         Finance finance = projectToEdit.getFinance();
-        Set<Meeting> meetings = projectToEdit.getListOfMeeting();
+        List<Meeting> meetings = projectToEdit.getListOfMeeting();
         ArrayList<Meeting> meetingsToEdit = new ArrayList<>(meetings);
         Timetable timetable = projectToEdit.getGeneratedTimetable();
 
@@ -57,7 +57,7 @@ public class DeleteProjectMeetingCommand extends Command {
         meetingsToEdit.sort(Comparator.comparing(m -> m.getTime().getDate()));
         Meeting meetingToDelete = meetingsToEdit.remove(index.getOneBased() - 1);
         model.deleteMeetingInAllPersons(meetingToDelete, projectToEdit);
-        Set<Meeting> newMeeting = new HashSet<Meeting>(meetingsToEdit);
+        List<Meeting> newMeeting = new ArrayList<Meeting>(meetingsToEdit);
 
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
                 members, tasks, finance, timetable);

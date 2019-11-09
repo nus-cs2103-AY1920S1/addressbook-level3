@@ -329,7 +329,7 @@ The diagram above shows sortTask works. There are 2 possible error messages that
 if the user inputs an index that is not applicable to the type of items sorted. For example, `sortTask 5`
 is invalid as index 5 is linked to a price sorting mechanism which is not applicable to sorting tasks. Secondly,
 an error will be shown if the user attempts to sort the items in the same order is the current sorting order.
-For example, since the default sorting order for tasks is by increasing order of date, the command `sortTask 3`
+For example, since the default sorting order for tasks is by increasing order of date, the command `sortTask 2`
 will be invalid if the sorting order has never been changed before. Otherwise if the input is valid,
 the sorting will occur and the newly sorted task list will be displayed.
 

@@ -6,6 +6,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.finance.Budget;
 import seedu.address.model.finance.Finance;
+import seedu.address.model.finance.Spending;
 import seedu.address.model.project.Project;
 import seedu.address.model.util.SortingOrder;
 
@@ -81,7 +82,7 @@ public class SortSpendingCommand extends Command {
 
         List<Budget> budgetListToEdit = projectToEdit.getFinance().getBudgets();
         for (Budget budget : budgetListToEdit) {
-            Collections.sort(budget.getSpendings(), SortingOrder.getCurrentSortingOrderForSpending());
+            sortSpending(budget.getSpendings(), SortingOrder.getCurrentSortingOrderForSpending());
         }
 
         Finance finance = projectToEdit.getFinance();
@@ -93,6 +94,10 @@ public class SortSpendingCommand extends Command {
         model.setProject(projectToEdit, editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
         return new CommandResult(String.format(MESSAGE_SORT_SPENDING_SUCCESS, sortType), COMMAND_WORD);
+    }
+
+    public void sortSpending(List<Spending> list, Comparator<Spending> spendingComparator) {
+        Collections.sort(list, spendingComparator);
     }
 
 

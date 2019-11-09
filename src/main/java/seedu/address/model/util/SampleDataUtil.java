@@ -92,8 +92,8 @@ public class SampleDataUtil {
         try {
             return new Project[]{
                 new Project(new Title("CS2103T"), new Description("The mod that takes most time"), new ArrayList<String>(),
-                        getTaskList(new Task(new Description("Finish GUI"), new Time("04/04/1997 1600"), false),
-                                new Task(new Description("Finish Parser"), new Time("04/04/1997 1600"), true)),
+                        getTaskList(new Task(new Description("Finish GUI"), new Time("04/04/2019 1600"), false),
+                                new Task(new Description("Finish Parser"), new Time("04/04/2019 1600"), true)),
                         new Finance(getBudgetList(new Budget("Team building", new BigDecimal("500.00"),
                                         getSpendingList(new Spending(new BigDecimal("50.50"), DATE_FORMAT.parse("10/10/2019 1800"), "order in pizza"),
                                                 new Spending(new BigDecimal("200.50"), DATE_FORMAT.parse("12/10/2019 1800"), "Went for Zoukout"))),

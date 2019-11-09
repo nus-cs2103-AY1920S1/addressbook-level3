@@ -211,11 +211,9 @@ Example:
 
 * `addTask s/Finish GUI c/06/10/2019 1600`
 
-[CAUTION]
-Whenever you add a time with the prefix c/, the format should be dd/MM/yyyy HHmm,
-whereby the year must be between 1900 to 2100 and the time must be between 0000 to 2359. +
-MyProject checks for invalid days as well such as 30th February so do ensure you input
-your dates correctly!
+[NOTE]
+Whenever you add a time with the prefix c/, the format should be dd/MM/yyyy HHmm e.g
+10/12/2019 1600. MyProject will inform you if you attempt to add invalid days such as 30th February.
 
 ==== Add a project meeting: `addProjectMeeting` [Checkout]
 
@@ -498,18 +496,51 @@ All commands in this section follow this set of index/order pairing, where appli
 
 ==== Sort tasks: `sortTask` [Checkout]
 
-Sorts the tasks in the task list of the current working project based on given specification. +
+This command sorts the tasks in the task list of the current working project. +
 Format: `sortTask INDEX`
 
-`INDEX` in this case refers to which type of sorting you want to do. In this case, only integers between 1 and 4 are applicable.(Refer to the highlighted section above)
+`INDEX` refers to the index of the list provided in the highlighted section above which corresponds to the type of sorting you wish to apply.
+For example, index 1 corresponds to sorting by alphabetical order. For the case of sorting tasks, only numbers between 1 and 4 are applicable.
 
 Example:
 
-* `sortTask 4` (Sorts the tasks whether they are done and then by increasing date/time)
+Let's say you have added many different tasks with different deadlines and progresses into MyProject. +
+
+The default sorting order that MyProject
+offers is by increasing order of date(index 2). However you wish to group those tasks that are done in one group and those not done in another group and
+then further sort each group by increasing order of date(index 4) to track the progress of your tasks. +
+
+Simply type in the command `sortTask 4` and all the tasks in the list will immediately be sorted accordingly. +
+
+In addition, whenever you add a new task(Section 3.2.4) or edit the details of an existing task(Section 3.3.2), MyProject will automatically insert
+the newly added or edited task into the correct position based on this new sorting order so you don't have to continuously type this command whenever
+you wish to add or edit tasks! +
+
+Here is a step by step process on how to do this.
+
+. Firstly, since this command is labeled with [Checkout] at the start, ensure that you `checkout` to a project first.
+Notice how the tasks in the task list are currently at the default sorting order which is by increasing order of date.
+image:sortTask1.png[]
+
+. Next, enter the command `sortTask 4` into the command line and press enter. You can choose any index from 1-4 depending
+on which type of sorting order you wish to sort by based on the specifications provided in the highlighted section above.
+image:sortTask2.png[]
+
+. The following success message will be displayed if the input was entered correctly. Check that the type of sorting
+displayed in the success message is the one you actually wanted. +
+The tasks in the task list will then be immediately sorted accordingly as shown in the white box.
+image:sortTask3.png[]
+
+. Now let's say the deadline for task 2(Do UG) is pushed forward by a week and you've just completed it. Type in the command
+`editTask 2 d/ c/04/12/2019 0000`(check out section 3.3.2 for more details on the editTask command) into the command line and press enter. +
+The task will be edited accordingly and immediately be sorted into the correct position as shown below.
+image:sortTask4.png[]
+
 
 ==== Sort spending: `sortSpending` [Checkout]
 
-Sorts the spending in the budget list of the current working project based on given specification. +
+Sorts the spending in the budget list of the current working project based on given specification. The implementation is
+exactly the same as sortTask. Refer to the sortTask section for a more detailed explanation. +
 Format: `sortSpending INDEX`
 
 `INDEX` in this case refers to which type of sorting you want to do. In this case, only integers 1, 2 and 5 are applicable.(Refer to the highlighted section above)
@@ -517,3 +548,14 @@ Format: `sortSpending INDEX`
 Example:
 
 * `sortSpending 5` (Sorts the spending by increasing prices)
+
+==== Sort meeting: `sortMeeting` [Checkout]
+Sorts the meetings in the meeting list of the current working project based on given specification. The implementation is
+exactly the same as sortTask. Refer to the sortTask section for a more detailed explanation. +
+Format: `sortMeeting INDEX`
+
+`INDEX` in this case refers to which type of sorting you want to do. In this case, only integers 1 and 2 are applicable.(Refer to the highlighted section above)
+
+Example:
+
+* `sortMeeting 1` (Sorts the meetings by alphabetical order)

@@ -23,6 +23,7 @@ public class Time {
             + "-  mm refers to the clock time in minutes in 2 digits";
 
     public static final String DATE_CONSTRAINTS = "the date in the format of dd/MM/yyyy hhmm should be written in the following range: \n"
+            + "-  yyyy between 1900-9999 inclusive\n"
             + "-  MM between 01-12 inclusive\n"
             + "-  dd between 0-31 inclusive in the months of Jan(01), Mar(03), May(05), July(07), Aug(08), Oct(10), Dec(12)\n"
             + "-  dd between 0-30 inclusive in the months of Apr(04), June(06), Sep(09), Nov(11)\n"

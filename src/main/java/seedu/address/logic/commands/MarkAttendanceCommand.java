@@ -37,7 +37,7 @@ public class MarkAttendanceCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         Project currWorkingProject = model.getWorkingProject().get();
-        Set<Meeting> meetingSet = currWorkingProject.getListOfMeeting();
+        List<Meeting> meetingSet = currWorkingProject.getListOfMeeting();
         //Getting the list shown to the user so that the index input matches the position of the meeting
         List<Meeting> meetingListShown = meetingSet.stream()
                 .sorted(Comparator.comparing(m -> m.getTime().getDate())).collect(Collectors.toList());
