@@ -17,7 +17,7 @@ public class FlashCardTestModel {
     private static FlashCard currentFlashCard;
 
     private List<FlashCard> testList;
-    private List<FlashCard> testListOld = new LinkedList<>();
+    private List<FlashCard> testListOld = new LinkedList<>(); // placeholder for previous function
     private TestFlashCardPanel testFlashCardPanel;
 
     public FlashCardTestModel(List<FlashCard> testList) {
@@ -40,13 +40,21 @@ public class FlashCardTestModel {
         testFlashCardPanel = new TestFlashCardPanel(currentFlashCard);
     }
 
-    //@@author shutingy
     public TestFlashCardPanel getTestFlashCardPanel() {
         requireNonNull(currentFlashCard);
         setTestFlashCardPanel();
         return testFlashCardPanel;
     }
 
+    /**
+     * link to the gui to display the answer during test mode.
+     */
+    public void showAnswer() {
+        requireNonNull(testFlashCardPanel);
+        testFlashCardPanel.showAnswer();
+    }
+
+    //@@author keiteo
     public String getQuestion() {
         requireNonNull(currentFlashCard);
         return currentFlashCard.getQuestion().toString();
@@ -55,16 +63,6 @@ public class FlashCardTestModel {
     public String getAnswer() {
         requireNonNull(currentFlashCard);
         return currentFlashCard.getAnswer().toString();
-    }
-
-    //@@ author shutingy
-
-    /**
-     * link to the gui to display the answer during test mode.
-     */
-    public void showAnswer() {
-        requireNonNull(testFlashCardPanel);
-        testFlashCardPanel.showAnswer();
     }
 
     public static FlashCard getCurrentFlashCard() {

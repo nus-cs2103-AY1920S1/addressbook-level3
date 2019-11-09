@@ -54,11 +54,9 @@ public class RateQuestionCommand extends NextQuestionCommand {
         assert rating.equals("good") || rating.equals("hard") || rating.equals("easy");
         if (rating.equals("good")) {
             model.editStats(0);
-        }
-        if (rating.equals("hard")) {
+        } else if (rating.equals("hard")) {
             model.editStats(1);
-        }
-        if (rating.equals("easy")) {
+        } else { // rating.equals("easy")
             model.editStats(2);
         }
     }

@@ -263,7 +263,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //@@author keiteo
+        //@@author keiteo-reused
         @Override
         public void initializeTestModel(List<FlashCard> testList) {
             throw new AssertionError("This method should not be called.");
@@ -308,12 +308,6 @@ public class AddCommandTest {
         public void showAnswer() {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public void endFlashCardTest() {
-            throw new AssertionError("This method should not be called.");
-        }
-
 
         //@@author LeowWB
         public ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate) {
