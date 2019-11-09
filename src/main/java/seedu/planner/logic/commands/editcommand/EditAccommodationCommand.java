@@ -29,7 +29,6 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.contact.Contact;
-import seedu.planner.model.contact.Email;
 import seedu.planner.model.contact.Phone;
 import seedu.planner.model.field.Address;
 import seedu.planner.model.field.Name;

@@ -34,7 +34,6 @@ import seedu.planner.model.activity.Activity;
 import seedu.planner.model.activity.Duration;
 import seedu.planner.model.activity.Priority;
 import seedu.planner.model.contact.Contact;
-import seedu.planner.model.contact.Email;
 import seedu.planner.model.contact.Phone;
 import seedu.planner.model.day.exceptions.EndOfTimeException;
 import seedu.planner.model.field.Address;
