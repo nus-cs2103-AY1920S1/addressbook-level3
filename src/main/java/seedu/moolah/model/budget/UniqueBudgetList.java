@@ -14,6 +14,7 @@ import seedu.moolah.model.budget.exceptions.DeleteDefaultBudgetException;
 import seedu.moolah.model.budget.exceptions.DuplicateBudgetException;
 import seedu.moolah.model.budget.exceptions.SwitchToFuturePeriodException;
 import seedu.moolah.model.expense.Description;
+import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
 
 /**
@@ -80,6 +81,22 @@ public class UniqueBudgetList implements Iterable<Budget> {
     public void setBudgets(UniqueBudgetList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+    }
+
+    public void removeExpense(Expense key) {
+        requireNonNull(key);
+        Budget budget = getBudgetWithName(key.getBudgetName());
+        Budget copy = budget.deepCopy();
+        copy.removeExpense(key);
+        setBudget(budget, copy);
+    }
+
+    public void setExpense(Expense target, Expense edited) {
+        requireAllNonNull(target, edited);
+        Budget budget = getBudgetWithName(target.getBudgetName());
+        Budget copy = budget.deepCopy();
+        copy.setExpense(target, edited);
+        setBudget(budget, copy);
     }
 
     public void setBudgets(List<Budget> budgets) {
