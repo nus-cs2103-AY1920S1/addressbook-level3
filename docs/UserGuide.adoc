@@ -463,7 +463,7 @@ You can also add two `dt/` fields representing a time period to get questions yo
 within that time period. The format for date is dd/MM/yyyy. +
 Format: `overview [dt/START_DATE dt/END_DATE]`
 
-NOTE: For date input constraints, you may refer to <<Add a revision task for a note: `rn`>>.
+NOTE: For date input constraints, you may refer to <<Adding a revision task for a note: `rn`>>.
 
 NOTE: If you have more than 8 different difficulty levels, the stack bar chart may repeat
 colors for the difficulties. To differentiate between the different bars in the chart,
@@ -550,7 +550,7 @@ Format: `rq i/INDEX_OF_QUESTION dt/DATE tm/TIME` +
 Example: +
 `rq i/1 dt/11/11/2019 tm/1500`
 
-NOTE: For constraints on `DATE` and `TIME` input, you may refer to <<Add a revision task for a note: `rn`>>.
+NOTE: For constraints on `DATE` and `TIME` input, you may refer to <<Adding a revision task for a note: `rn`>>.
 
 ==== Removing revision task: `rdelete`
 You can remove a particular revision task from current list with this command. +
