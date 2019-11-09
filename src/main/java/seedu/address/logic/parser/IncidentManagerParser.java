@@ -120,6 +120,7 @@ public class IncidentManagerParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+        System.out.println(arguments);
 
         checkAccess(commandWord);
         checkInterface(commandWord);

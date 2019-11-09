@@ -83,6 +83,6 @@ public class FindVehiclesCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindVehiclesCommand // instanceof handles nulls
-                && predicate == ((FindVehiclesCommand) other).predicate); // state check
+                && predicate.equals(((FindVehiclesCommand) other).predicate)); // state check
     }
 }

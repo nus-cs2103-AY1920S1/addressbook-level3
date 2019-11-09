@@ -88,7 +88,7 @@ public class EditIncidentCommandTest {
         EditIncidentCommand editIncidentCommand = new EditIncidentCommand(INDEX_FIRST_ENTITY, editIncident);
 
         Incident editedIncident = new Incident(incidentToEdit.getOperator(), incidentToEdit.getDistrict(),
-                incidentToEdit.getDateTime(), incidentToEdit.getIncidentId(), incidentToEdit.getCallerNumber(),
+                incidentToEdit.getIncidentDateTime(), incidentToEdit.getIncidentId(), incidentToEdit.getCallerNumber(),
                 updateDesc, incidentToEdit.getStatus(), incidentToEdit.getVehicle());
 
         String expectedMessage = String.format(EditIncidentCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
