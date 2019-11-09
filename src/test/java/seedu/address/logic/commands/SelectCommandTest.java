@@ -18,6 +18,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.display.exceptions.PersonTimeslotNotFoundException;
 import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.timeslots.PersonTimeslot;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.modelutil.TypicalModel;
@@ -32,7 +33,7 @@ class SelectCommandTest {
     }
 
     @Test
-    void executeOnGroup_personNotSpecified() throws CommandException {
+    void executeOnGroup_personNotSpecified() throws CommandException, GroupNotFoundException {
         model.updateDisplayWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
 
@@ -51,7 +52,7 @@ class SelectCommandTest {
     }
 
     @Test
-    void executeOnGroup_personNotFound() throws CommandException {
+    void executeOnGroup_personNotFound() throws CommandException, GroupNotFoundException {
         model.updateDisplayWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
 
@@ -70,7 +71,7 @@ class SelectCommandTest {
     }
 
     @Test
-    void executeOnGroup_timeslotNotFound() throws CommandException {
+    void executeOnGroup_timeslotNotFound() throws CommandException, GroupNotFoundException {
         model.updateDisplayWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
 
@@ -89,7 +90,7 @@ class SelectCommandTest {
 
     @Test
     void executeOnGroup_success()
-            throws CommandException, PersonTimeslotNotFoundException, PersonNotFoundException {
+            throws CommandException, PersonTimeslotNotFoundException, PersonNotFoundException, GroupNotFoundException {
 
         model.updateDisplayWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);

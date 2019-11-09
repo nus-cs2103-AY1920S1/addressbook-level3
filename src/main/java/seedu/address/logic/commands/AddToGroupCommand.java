@@ -91,10 +91,16 @@ public class AddToGroupCommand extends Command {
             return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE)).build();
         } catch (AlreadyInGroupException e) {
 
-            model.updateDisplayWithGroup(group.getGroupName(),
-                    LocalDateTime.now(), ScheduleState.GROUP);
+            try {
+                model.updateDisplayWithGroup(group.getGroupName(),
+                        LocalDateTime.now(), ScheduleState.GROUP);
+            } catch (GroupNotFoundException ex) {
+                return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND)).build();
+            }
 
             return new CommandResultBuilder(String.format(MESSAGE_UPDATED_ROLE, mapping.getRole().toString())).build();
+        } catch (GroupNotFoundException e) {
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND)).build();
         }
 
     }

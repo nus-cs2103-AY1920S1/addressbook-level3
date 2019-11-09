@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.ModelManager;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.person.exceptions.InvalidTimeslotException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.modelutil.TypicalModel;
@@ -25,7 +26,7 @@ class GroupScheduleDisplayTest {
     private GroupScheduleDisplay groupScheduleDisplay;
 
     @BeforeEach
-    void init() {
+    void init() throws GroupNotFoundException {
         modelManager = TypicalModel.generateModelWithSchedules();
         modelManager.updateDisplayWithGroup(GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
         groupScheduleDisplay = (GroupScheduleDisplay) modelManager.getScheduleDisplay();

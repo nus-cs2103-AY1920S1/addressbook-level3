@@ -75,6 +75,8 @@ public class DeleteFromGroupCommand extends Command {
 
         } catch (MappingNotFoundException e) {
             return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_MAPPING_NOT_FOUND)).build();
+        } catch (GroupNotFoundException e) {
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND)).build();
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,

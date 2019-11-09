@@ -100,7 +100,11 @@ public class AddNusModCommand extends Command {
             model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.PERSON);
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
         } else {
-            model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleState.PERSON);
+            try {
+                model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleState.PERSON);
+            } catch (PersonNotFoundException e) {
+                return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
+            }
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
         }
 

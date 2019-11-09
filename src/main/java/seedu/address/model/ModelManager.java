@@ -385,24 +385,30 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleState type) {
-        scheduleManager.updateDisplayWithPerson(name, time, type, timeBook);
+    public void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleState type)
+            throws PersonNotFoundException {
+        scheduleManager.updateDisplayWithPerson(timeBook.getPersonList().findPerson(name), time, type);
     }
 
     @Override
     public void updateDisplayWithUser(LocalDateTime time, ScheduleState type) {
-        scheduleManager.updateDisplayWithUser(time, type, timeBook);
+        scheduleManager.updateDisplayWithUser(timeBook.getPersonList().getUser(), time, type);
     }
 
     @Override
-    public void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleState type) {
-        scheduleManager.updateDisplayWithGroup(groupName, time, type, timeBook);
+    public void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleState type)
+            throws GroupNotFoundException {
+        Group group = timeBook.getGroupList().findGroup(groupName);
+        scheduleManager.updateDisplayWithGroup(group,
+                timeBook.getPersonsOfGroup(groupName),
+                timeBook.getPersonToGroupMappingList().getMappingsOfGroup(group.getGroupId()),
+                time, type);
     }
 
     @Override
     public void updateDisplayWithPersons(ArrayList<Person> persons,
                                          LocalDateTime time, ScheduleState type) {
-        scheduleManager.updateDisplayWithPersons(persons, time, type, timeBook);
+        scheduleManager.updateDisplayWithPersons(persons, time, type);
     }
 
     @Override
@@ -412,13 +418,17 @@ public class ModelManager implements Model {
 
     @Override
     public void updateSidePanelDisplay(SidePanelDisplayType type) {
-        scheduleManager.updateSidePanelDisplay(type, timeBook);
+        scheduleManager.updateSidePanelDisplay(type,
+                timeBook.getPersonList().getPersons(), timeBook.getGroupList().getGroups());
     }
 
+    @Override
     public void initialiseDefaultWindowDisplay() {
-        scheduleManager.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.HOME, timeBook);
+        scheduleManager.updateDisplayWithUser(timeBook.getPersonList().getUser(),
+                LocalDateTime.now(), ScheduleState.HOME);
     }
 
+    @Override
     public ScheduleState getState() {
         return scheduleManager.getState();
     }

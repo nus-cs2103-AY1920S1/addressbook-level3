@@ -8,9 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.timeslots.PersonSchedule;
 import seedu.address.model.display.timeslots.PersonTimeslot;
-import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.util.Calendar;
 

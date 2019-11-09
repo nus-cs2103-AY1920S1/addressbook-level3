@@ -4,7 +4,6 @@ import java.time.DayOfWeek;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Optional;
 
 import seedu.address.model.person.exceptions.InvalidTimeslotException;
 

@@ -45,8 +45,7 @@ public class AddGroupCommand extends Command {
             Group group = model.addGroup(groupDescriptor);
 
             // updates main window
-            model.updateDisplayWithGroup(group.getGroupName(), LocalDateTime.now(),
-                    ScheduleState.GROUP);
+            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.HOME);
 
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);

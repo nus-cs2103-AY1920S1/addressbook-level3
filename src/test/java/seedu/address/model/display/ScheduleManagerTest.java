@@ -16,7 +16,10 @@ import seedu.address.model.GmapsModelManager;
 import seedu.address.model.TimeBook;
 import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
+import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.modelutil.TypicalModel;
 
 class ScheduleManagerTest {
@@ -32,35 +35,42 @@ class ScheduleManagerTest {
 
     @Test
     void getState_home() {
-        scheduleManager.updateDisplayWithUser(LocalDateTime.now(),
-                ScheduleState.HOME, timeBook);
+        scheduleManager.updateDisplayWithUser(timeBook.getPersonList().getUser(),
+                LocalDateTime.now(),
+                ScheduleState.HOME);
 
         assertEquals(ScheduleState.HOME, scheduleManager.getState());
     }
 
     @Test
-    void getState_person() {
-        scheduleManager.updateDisplayWithUser(LocalDateTime.now(),
-                ScheduleState.PERSON, timeBook);
+    void getState_person() throws PersonNotFoundException {
+        scheduleManager.updateDisplayWithUser(timeBook.getPersonList().getUser(),
+                LocalDateTime.now(), ScheduleState.PERSON);
 
         assertEquals(ScheduleState.PERSON, scheduleManager.getState());
 
-        scheduleManager.updateDisplayWithPerson(ALICE.getName(), LocalDateTime.now(),
-                ScheduleState.PERSON, timeBook);
+        scheduleManager.updateDisplayWithPerson(timeBook.getPersonList().findPerson(ALICE.getName()),
+                LocalDateTime.now(),
+                ScheduleState.PERSON);
 
         assertEquals(ScheduleState.PERSON, scheduleManager.getState());
     }
 
     @Test
-    void getState_group() {
-        scheduleManager.updateDisplayWithGroup(GROUP_NAME1, LocalDateTime.now(),
-                ScheduleState.GROUP, timeBook);
+    void getState_group() throws GroupNotFoundException {
+        Group group = timeBook.getGroupList().findGroup(GROUP_NAME1);
+        scheduleManager.updateDisplayWithGroup(group,
+                timeBook.getPersonsOfGroup(GROUP_NAME1),
+                timeBook.getPersonToGroupMappingList().getMappingsOfGroup(group.getGroupId()),
+                LocalDateTime.now(),
+                ScheduleState.GROUP);
 
         assertEquals(ScheduleState.GROUP, scheduleManager.getState());
 
         ArrayList<Person> persons = timeBook.getPersonList().getPersons();
-        scheduleManager.updateDisplayWithPersons(persons, LocalDateTime.now(),
-                ScheduleState.GROUP, timeBook);
+        scheduleManager.updateDisplayWithPersons(
+                persons, LocalDateTime.now(),
+                ScheduleState.GROUP);
 
         assertEquals(ScheduleState.GROUP, scheduleManager.getState());
     }
@@ -68,40 +78,53 @@ class ScheduleManagerTest {
     @Test
     void updateDisplayWithPerson() {
         assertDoesNotThrow(() ->
-                scheduleManager.updateDisplayWithPerson(ALICE.getName(), LocalDateTime.now(),
-                        ScheduleState.PERSON, timeBook));
+                scheduleManager.updateDisplayWithPerson(
+                        timeBook.getPersonList().findPerson(ALICE.getName()),
+                        LocalDateTime.now(),
+                        ScheduleState.PERSON));
     }
 
     @Test
     void updateDisplayWithUser() {
         assertDoesNotThrow(() ->
-                scheduleManager.updateDisplayWithUser(LocalDateTime.now(),
-                        ScheduleState.PERSON, timeBook));
+                scheduleManager.updateDisplayWithUser(
+                        timeBook.getPersonList().getUser(),
+                        LocalDateTime.now(),
+                        ScheduleState.PERSON));
 
         assertDoesNotThrow(() ->
-                scheduleManager.updateDisplayWithUser(LocalDateTime.now(),
-                        ScheduleState.HOME, timeBook));
+                scheduleManager.updateDisplayWithUser(
+                        timeBook.getPersonList().getUser(),
+                        LocalDateTime.now(),
+                        ScheduleState.HOME));
     }
 
     @Test
-    void updateDisplayWithGroup() {
+    void updateDisplayWithGroup() throws GroupNotFoundException {
+        Group group = timeBook.getGroupList().findGroup(GROUP_NAME1);
         assertDoesNotThrow(() ->
-                scheduleManager.updateDisplayWithGroup(GROUP_NAME1, LocalDateTime.now(),
-                        ScheduleState.GROUP, timeBook));
+                scheduleManager.updateDisplayWithGroup(group,
+                        timeBook.getPersonsOfGroup(GROUP_NAME1),
+                        timeBook.getPersonToGroupMappingList().getMappingsOfGroup(group.getGroupId()),
+                        LocalDateTime.now(),
+                        ScheduleState.GROUP));
     }
 
     @Test
     void updateDisplayWithPersons() {
         ArrayList<Person> persons = timeBook.getPersonList().getPersons();
         assertDoesNotThrow(() ->
-                scheduleManager.updateDisplayWithPersons(persons, LocalDateTime.now(),
-                        ScheduleState.GROUP, timeBook));
+                scheduleManager.updateDisplayWithPersons(
+                        persons, LocalDateTime.now(),
+                        ScheduleState.GROUP));
 
     }
 
     @Test
     void updateSidePanelDisplay_person() {
-        scheduleManager.updateSidePanelDisplay(SidePanelDisplayType.PERSON, timeBook);
+        scheduleManager.updateSidePanelDisplay(SidePanelDisplayType.PERSON,
+                timeBook.getPersonList().getPersons(),
+                timeBook.getGroupList().getGroups());
 
         assertEquals(SidePanelDisplayType.PERSON,
                 scheduleManager.getSidePanelDisplay().getSidePanelDisplayType());
@@ -109,7 +132,9 @@ class ScheduleManagerTest {
 
     @Test
     void updateSidePanelDisplay_group() {
-        scheduleManager.updateSidePanelDisplay(SidePanelDisplayType.GROUP, timeBook);
+        scheduleManager.updateSidePanelDisplay(SidePanelDisplayType.GROUP,
+                timeBook.getPersonList().getPersons(),
+                timeBook.getGroupList().getGroups());
 
         assertEquals(SidePanelDisplayType.GROUP,
                 scheduleManager.getSidePanelDisplay().getSidePanelDisplayType());
@@ -117,8 +142,10 @@ class ScheduleManagerTest {
 
     @Test
     void getScheduleDisplay() {
-        scheduleManager.updateDisplayWithUser(LocalDateTime.now(),
-                ScheduleState.PERSON, timeBook);
+        scheduleManager.updateDisplayWithUser(
+                timeBook.getPersonList().getUser(),
+                LocalDateTime.now(),
+                ScheduleState.PERSON);
 
         assertNotNull(scheduleManager.getScheduleDisplay());
     }
@@ -126,7 +153,9 @@ class ScheduleManagerTest {
     @Test
     void getSidePanelDisplay() {
 
-        scheduleManager.updateSidePanelDisplay(SidePanelDisplayType.PERSON, timeBook);
+        scheduleManager.updateSidePanelDisplay(SidePanelDisplayType.PERSON,
+                timeBook.getPersonList().getPersons(),
+                timeBook.getGroupList().getGroups());
 
         assertNotNull(scheduleManager.getSidePanelDisplay());
     }

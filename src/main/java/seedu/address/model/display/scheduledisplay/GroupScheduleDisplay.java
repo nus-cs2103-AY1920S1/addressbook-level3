@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.timeslots.FreeSchedule;
 import seedu.address.model.display.timeslots.FreeTimeslot;
 import seedu.address.model.display.timeslots.PersonSchedule;
-import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.InvalidTimeslotException;
 

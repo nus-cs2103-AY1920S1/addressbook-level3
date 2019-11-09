@@ -36,6 +36,7 @@ public class PersonList {
      * @return return true when successfully added
      */
     public Person addPerson(PersonDescriptor personDescriptor) throws DuplicatePersonException {
+
         try {
             findPerson(personDescriptor.getName());
         } catch (PersonNotFoundException e) {
@@ -201,21 +202,6 @@ public class PersonList {
             }
         }
         return null;
-    }
-
-    /**
-     * Converts to String.
-     *
-     * @return String
-     */
-    public String toString() {
-        int i;
-        String output = "";
-        for (i = 0; i < persons.size(); i++) {
-            output += persons.get(i).toString();
-            output += "\n";
-        }
-        return output;
     }
 
     /**

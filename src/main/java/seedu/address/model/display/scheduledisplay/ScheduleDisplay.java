@@ -3,10 +3,10 @@ package seedu.address.model.display.scheduledisplay;
 import java.util.ArrayList;
 
 import seedu.address.model.display.exceptions.PersonTimeslotNotFoundException;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.timeslots.PersonSchedule;
 import seedu.address.model.display.timeslots.PersonTimeslot;
 import seedu.address.model.display.timeslots.WeekSchedule;
-import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
