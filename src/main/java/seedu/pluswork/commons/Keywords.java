@@ -50,7 +50,6 @@ public class Keywords {
             DoingTaskCommand.COMMAND_WORD,
             SetDeadlineCommand.COMMAND_WORD,
             DoneTaskCommand.COMMAND_WORD,
-            ListMemberByTaskCommand.COMMAND_WORD,
             UndoCommand.COMMAND_WORD,
             RedoCommand.COMMAND_WORD,
 
@@ -122,9 +121,6 @@ public class Keywords {
 
             case DoneTaskCommand.COMMAND_WORD:
                 return commandWord + " " + DoneTaskCommand.PREFIX_USAGE;
-
-            case ListMemberByTaskCommand.COMMAND_WORD:
-                return commandWord + " " + ListMemberByTaskCommand.PREFIX_USAGE;
 
             case UndoCommand.COMMAND_WORD:
                 return commandWord + " " + FindTaskCommand.PREFIX_USAGE;

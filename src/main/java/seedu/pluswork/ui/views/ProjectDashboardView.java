@@ -91,6 +91,8 @@ public class ProjectDashboardView extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
+                meetingCard.getRoot().getStyleClass().clear();
+                meetingCard.getRoot().getStyleClass().add(CARD_STYLE);
                 setGraphic(meetingCard.getRoot());
             }
         }
