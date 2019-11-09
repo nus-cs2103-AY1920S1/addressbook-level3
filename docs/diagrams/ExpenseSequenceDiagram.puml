@@ -1,0 +1,91 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ExpenseCommandParser" as ExpenseCommandParser LOGIC_COLOR
+participant "i:ExpenseCommand" as ExpenseCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "c:Context" as Context MODEL_COLOR
+participant "e:Expense" as Expense MODEL_COLOR
+participant "a:Activity" as Activity MODEL_COLOR
+end box
+
+[-> LogicManager : execute("expense p/Jo e/10")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("expense p/Jo e/10")
+activate AddressBookParser
+
+create ExpenseCommandParser
+AddressBookParser -> ExpenseCommandParser : ExpenseCommandParser()
+activate ExpenseCommandParser
+
+ExpenseCommandParser --> AddressBookParser
+deactivate ExpenseCommandParser
+
+AddressBookParser -> ExpenseCommandParser : parse("p/Jo e/10")
+activate ExpenseCommandParser
+
+create ExpenseCommand
+ExpenseCommandParser -> ExpenseCommand : ExpenseCommand({"Jo"}, 10, "")
+activate ExpenseCommand
+
+ExpenseCommand --> ExpenseCommandParser : i
+deactivate ExpenseCommand
+
+ExpenseCommandParser --> AddressBookParser : i
+deactivate ExpenseCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ExpenseCommandParser -[hidden]-> AddressBookParser
+destroy ExpenseCommandParser
+
+AddressBookParser --> LogicManager : i
+deactivate AddressBookParser
+
+LogicManager -> ExpenseCommand : execute()
+activate ExpenseCommand
+
+ExpenseCommand -> Model : getContext()
+activate Model
+
+Model--> ExpenseCommand : c
+deactivate Model
+
+ExpenseCommand -> Context : getActivity()
+activate Context
+
+Context --> ExpenseCommand : a
+deactivate Context
+
+create Expense
+ExpenseCommand -> Expense
+activate Expense
+
+Expense --> ExpenseCommand : e
+deactivate Expense
+
+ExpenseCommand -> Activity : addExpense(e)
+activate Activity
+
+Activity --> ExpenseCommand
+deactivate Activity
+
+create CommandResult
+ExpenseCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ExpenseCommand
+deactivate CommandResult
+
+ExpenseCommand --> LogicManager : result
+deactivate ExpenseCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

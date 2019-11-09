@@ -174,14 +174,13 @@ Creates a new expense with a list of contacts, an amount and an optional descrip
 
 If only one contact is specified in the list, then SplitWiser will assume that all current participants in the activity are involved in this expense and thus owe this person money. +
 
-If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if `activity t/ACTIVITY_NAME` was called). The expense and contact(s) will then be added to the activity. +
+If no activity is being viewed, the description is compulsory - a new activity will instead be created with the same title as the description (as if `activity t/ACTIVITY_NAME` was called). The expense and contact(s) will then be added to the activity. You may wish to change the title of this new activity using the `edit` command thereafter (refer to <<Edit an existing contact or activity : `edit`>>). +
 
 Format: `expense p/PERSON e/AMOUNT_PAID [p/PERSON ...] [d/DESCRIPTION]`
 
 ****
 * Exactly one expense amount must be provided.
-* The amount specified will be rounded to 2 decimal places.
-* After rounding, the allowable expense amount for any single expense is from $0.01 to $1,000,000.
+* The allowable expense amount for any single expense must range from $0.01 to $1,000,000 when rounded to 2 decimal places.
 ****
 
 Examples:
@@ -241,7 +240,7 @@ If instead Joseph owes Mary $10, the command will fail, since in this case any w
 
 Edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed. +
 
-Format: `edit [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tag/TAG] ...` for contacts OR `edit [t/ACTIVITY_TITLE]` for activities.
+Format: `edit [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tag/TAG ...]` for contacts OR `edit [t/ACTIVITY_TITLE]` for activities.
 
 ****
 * At least one of the optional fields must be provided.
@@ -309,6 +308,19 @@ If viewing an activity, strikes off (soft-deletes) the 2nd expense by index.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st entry (either a contact or activity) in the results of the `find` command.
+
+//tag::varexpense[]
+=== Add variable split expenses to an activity: `varexpense` (*v2.0 only*)
+
+Creates a new expense with a list of (contact, amount) pairs and an optional description, and adds it to the currently viewed activity. The very first (contact, amount) pair will represent the person paying and the amount paid. Every subsequent (contact, amount) pair will then represent the cost incurred by each person in this expense.
+
+Format: `varexpense p/PERSON e/AMOUNT [d/DESCRIPTION] [(p/PERSON e/AMOUNT) ...]`
+
+****
+* The first amount (i.e. the paid amount) must be greater than or equal to the sum of all subsequent amounts specified.
+* If the numbers do not add up to the paid amount, any excess value is taken to be incurred by the paying person.
+****
+//end::varexpense[]
 
 === Assign an activity as a sub-activity: `assign` (*v2.0 only*)
 
