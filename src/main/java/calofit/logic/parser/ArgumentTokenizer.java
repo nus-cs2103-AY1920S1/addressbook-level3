@@ -3,6 +3,8 @@ package calofit.logic.parser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -26,6 +28,36 @@ public class ArgumentTokenizer {
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
         return extractArguments(argsString, positions);
+    }
+
+    /**
+     * Tokenizes an arguments string and returns an {@code ArgumentMultimap} object that maps prefixes to their
+     * respective argument values. All prefixes will be recognized in the arguments string.
+     *
+     * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @return           ArgumentMultimap object that maps prefixes to their arguments
+     */
+    public static ArgumentMultimap tokenizeAny(String argsString) {
+        Pattern argPat = Pattern.compile("\\w+/");
+        Matcher matcher = argPat.matcher(argsString);
+        ArgumentMultimap map = new ArgumentMultimap();
+
+        String curPrefix = "";
+        boolean hasNextArg;
+        int cur = 0;
+        do {
+            hasNextArg = matcher.find();
+            int end = hasNextArg ? matcher.start() : argsString.length();
+            String argValue = argsString.substring(cur, end).trim();
+            System.out.println(curPrefix + ": " + argValue);
+            map.put(new Prefix(curPrefix), argValue);
+
+            if (hasNextArg) {
+                curPrefix = matcher.group(0);
+                cur = matcher.end();
+            }
+        } while (hasNextArg);
+        return map;
     }
 
     /**
