@@ -11,6 +11,9 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.calendar.AddTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.classid.ClassId;
+import seedu.address.model.reminder.Reminder;
+import seedu.address.model.reminder.ReminderDescription;
+import seedu.address.model.reminder.ReminderTime;
 import seedu.address.model.task.Marking;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskTime;
@@ -25,6 +28,7 @@ public class AddTaskCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddTaskCommand parse(String args) throws ParseException {
+        System.out.println(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CLASSID, PREFIX_MARKING, PREFIX_TASK_TIME);
 
@@ -39,7 +43,16 @@ public class AddTaskCommandParser {
 
         Task task = new Task(classId, taskTimeList, marking);
 
-        return new AddTaskCommand(task);
+        if (marking.equals(new Marking("Y"))) {
+            System.out.println("yesy");
+            ReminderDescription rd = ParserUtil.parseReminderDescription(argMultimap.getValue(PREFIX_CLASSID).get());
+            TreeSet<ReminderTime> reminderTimeList = ParserUtil.parseReminderTimes(argMultimap.getAllValues(PREFIX_TASK_TIME));
+            AddTaskCommand addtaskreminder = new AddTaskCommand(task);
+            addtaskreminder.getReminder(new Reminder(rd, reminderTimeList));
+            return addtaskreminder;
+        } else {
+            return new AddTaskCommand(task);
+        }
     }
 
     /**
