@@ -15,8 +15,6 @@ import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.classroom.UniqueClassroomList;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
-//import seedu.address.model.scheduler.Reminder;
-//import seedu.address.model.scheduler.UniqueReminderList;
 import seedu.address.model.lesson.UniqueLessonWeekList;
 import seedu.address.model.student.Student;
 //import seedu.address.model.student.UniqueStudentList;
@@ -218,7 +216,6 @@ public class Notebook implements ReadOnlyNotebook {
     }
 
 
-
     /**
      * Adds a lessons to the classroom.
      * The lesson must not already exist in the classroom.
@@ -228,6 +225,15 @@ public class Notebook implements ReadOnlyNotebook {
         UniqueLessonList dayList = lessonLists.getDayList(day);
         dayList.add(p);
         lessons.add(p);
+    }
+
+    /**
+     * Returns true if another lesson in the list exists in the same period as lesson toCheck.
+     * @param toCheck Lesson object.
+     * @return boolean.
+     */
+    public boolean checkTimingExist(Lesson toCheck) {
+        return lessons.checkTimingExist(toCheck);
     }
 
     /**
@@ -322,12 +328,6 @@ public class Notebook implements ReadOnlyNotebook {
         ArrayList<Classroom> classroomList = new ArrayList<Classroom>(classrooms.values());
         ObservableList<Classroom>
         return classroomList;
-    }
-     */
-
-    /*
-    public ObservableList<Reminder> getReminderList() {
-        return reminders.asUnmodifiableObservableList();
     }
      */
 
