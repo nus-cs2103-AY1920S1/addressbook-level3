@@ -194,11 +194,11 @@ public class MainWindow extends UiPart<Stage> {
 
             Optional<String> listNameToBeDisplayed = commandResult.getListToBeDisplayed();
             listNameToBeDisplayed.ifPresent(name -> {
-                        List<? extends Expense> listToBeDisplayed = name.equals("")
-                                ? logic.getFilteredExpenseList()
-                                : logic.getFilteredArchiveExpenseList(name);
-                        displayedExpenses.setAll(listToBeDisplayed);
-                    }
+                    List<? extends Expense> listToBeDisplayed = name.equals("")
+                            ? logic.getFilteredExpenseList()
+                            : logic.getFilteredArchiveExpenseList(name);
+                    displayedExpenses.setAll(listToBeDisplayed);
+                }
             );
 
             if (commandResult.isShowHelp()) {
