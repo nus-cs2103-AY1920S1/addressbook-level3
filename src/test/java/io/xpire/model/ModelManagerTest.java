@@ -70,7 +70,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setExpiryDateTrackerFilePath_validPath_setsAddressBookFilePath() {
+    public void setExpiryDateTrackerFilePath_validPath_setsXpireFilePath() {
         Path path = Paths.get("xpire/io/file/path");
         this.modelManager.setListFilePath(path);
         assertEquals(path, this.modelManager.getListFilePath());
@@ -82,14 +82,14 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasItem_itemNotInAddressBook_returnsFalse() {
-        assertFalse(this.modelManager.hasItem(XPIRE, TypicalItems.KIWI));
+    public void hasItem_itemNotInXpire_returnsFalse() {
+        assertFalse(this.modelManager.hasItem(XPIRE, TypicalItems.APPLE));
     }
 
     @Test
-    public void hasItem_itemInAddressBook_returnsTrue() {
-        this.modelManager.addItem(XPIRE, TypicalItems.KIWI);
-        assertTrue(this.modelManager.hasItem(XPIRE, TypicalItems.KIWI));
+    public void hasItem_itemInXpire_returnsTrue() {
+        this.modelManager.addItem(XPIRE, TypicalItems.APPLE);
+        assertTrue(this.modelManager.hasItem(XPIRE, TypicalItems.APPLE));
     }
 
     @Test
@@ -102,7 +102,7 @@ public class ModelManagerTest {
     public void equals() {
 
         Xpire xpire = new ExpiryDateTrackerBuilder()
-                .withItem(TypicalItems.KIWI).withItem(TypicalItems.BANANA).build();
+                .withItem(TypicalItems.APPLE).withItem(TypicalItems.BANANA).build();
         ReplenishList replenishList = new ReplenishListBuilder()
                 .withItem(TypicalItems.BAGEL).withItem(TypicalItems.CHOCOLATE).build();
 
@@ -134,7 +134,7 @@ public class ModelManagerTest {
         assertNotEquals(this.modelManager, new ModelManager(differentLists, userPrefs));
 
         // different filteredList -> returns false
-        String[] keywords = TypicalItems.KIWI.getName().toString().split("\\s+");
+        String[] keywords = TypicalItems.APPLE.getName().toString().split("\\s+");
         this.modelManager.filterCurrentList(XPIRE, new ContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertNotEquals(this.modelManager, new ModelManager(lists, userPrefs));
 

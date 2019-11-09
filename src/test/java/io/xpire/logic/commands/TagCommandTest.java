@@ -6,19 +6,19 @@ import static io.xpire.logic.commands.CommandTestUtil.showReplenishItemAtIndex;
 import static io.xpire.logic.commands.CommandTestUtil.showXpireItemAtIndex;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
-import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FOURTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SECOND_ITEM;
+import static io.xpire.testutil.TypicalIndexes.INDEX_SIXTH_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
-import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_FISH;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BAGEL;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_COOKIE;
-import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_JELLY;
-import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_JELLY;
-import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_FISH;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_FISH;
+import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_FISH;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_CADBURY;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_COCOA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRIDGE;
@@ -116,15 +116,15 @@ public class TagCommandTest {
     //add tags to an already tagged xpireItem should add on more tags
     @Test
     public void execute_addMoreTagsToXpireItem_success() {
-        XpireItem xpireItemToTag = (XpireItem) model.getCurrentList().get(INDEX_FIFTH_ITEM.getZeroBased());
-        TagCommand tagCommand = new TagCommand(XPIRE, INDEX_FIFTH_ITEM, new String[]{VALID_TAG_FRUIT});
+        XpireItem xpireItemToTag = (XpireItem) model.getCurrentList().get(INDEX_SIXTH_ITEM.getZeroBased());
+        TagCommand tagCommand = new TagCommand(XPIRE, INDEX_SIXTH_ITEM, new String[]{VALID_TAG_PROTEIN});
         assertEquals(tagCommand.getMode(), TagCommand.TagMode.TAG);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
-        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_JELLY)
-                                             .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
-                                             .withQuantity(VALID_QUANTITY_JELLY)
-                                             .withTags(VALID_TAG_FRIDGE, VALID_TAG_FRUIT)
-                                             .withReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY)
+        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_FISH)
+                                             .withExpiryDate(VALID_EXPIRY_DATE_FISH)
+                                             .withQuantity(VALID_QUANTITY_FISH)
+                                             .withTags(VALID_TAG_FRIDGE, VALID_TAG_PROTEIN)
+                                             .withReminderThreshold(VALID_REMINDER_THRESHOLD_FISH)
                                              .build();
         String expectedMessage = String.format(TagCommand.MESSAGE_TAG_ITEM_SUCCESS, expectedXpireItem);
         expectedModel.setItem(XPIRE, xpireItemToTag, expectedXpireItem);
@@ -134,15 +134,15 @@ public class TagCommandTest {
     //adding tags that already exist should not add duplicates or edit the existing tags
     @Test
     public void execute_addDuplicateTagsToXpireItem_success() {
-        XpireItem xpireItemToTag = (XpireItem) model.getCurrentList().get(INDEX_FIFTH_ITEM.getZeroBased());
-        TagCommand tagCommand = new TagCommand(XPIRE, INDEX_FIFTH_ITEM, new String[]{VALID_TAG_FRIDGE});
+        XpireItem xpireItemToTag = (XpireItem) model.getCurrentList().get(INDEX_SIXTH_ITEM.getZeroBased());
+        TagCommand tagCommand = new TagCommand(XPIRE, INDEX_SIXTH_ITEM, new String[]{VALID_TAG_FRIDGE});
         assertEquals(tagCommand.getMode(), TagCommand.TagMode.TAG);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
-        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_JELLY)
-                .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
-                .withQuantity(VALID_QUANTITY_JELLY)
+        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_FISH)
+                .withExpiryDate(VALID_EXPIRY_DATE_FISH)
+                .withQuantity(VALID_QUANTITY_FISH)
                 .withTags(VALID_TAG_FRIDGE)
-                .withReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY)
+                .withReminderThreshold(VALID_REMINDER_THRESHOLD_FISH)
                 .build();
         String expectedMessage = String.format(TagCommand.MESSAGE_TAG_ITEM_SUCCESS, expectedXpireItem);
         expectedModel.setItem(XPIRE, xpireItemToTag, expectedXpireItem);

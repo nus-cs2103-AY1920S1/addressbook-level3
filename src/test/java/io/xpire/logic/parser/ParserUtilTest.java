@@ -9,10 +9,10 @@ import static io.xpire.testutil.TypicalItemsFields.INVALID_NAME;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_QUANTITY;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_REMINDER_THRESHOLD;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_TAG;
-import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_KIWI;
-import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_JELLY;
-import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_JELLY;
-import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_FISH;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_FISH;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_FISH;
+import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_FISH;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_DRINK;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRUIT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,14 +75,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
-        Name expectedName = new Name(VALID_NAME_JELLY);
-        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME_JELLY));
+        Name expectedName = new Name(VALID_NAME_FISH);
+        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME_FISH));
     }
 
     @Test
     public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME_JELLY + WHITESPACE;
-        Name expectedName = new Name(VALID_NAME_JELLY);
+        String nameWithWhitespace = WHITESPACE + VALID_NAME_FISH + WHITESPACE;
+        Name expectedName = new Name(VALID_NAME_FISH);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
     }
 
@@ -162,14 +162,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseExpiryDate_validDate_returnsExpiryDate() throws Exception {
-        ExpiryDate validDate = new ExpiryDate(VALID_EXPIRY_DATE_KIWI);
-        assertEquals(validDate, ParserUtil.parseExpiryDate(VALID_EXPIRY_DATE_KIWI));
+        ExpiryDate validDate = new ExpiryDate(VALID_EXPIRY_DATE_FISH);
+        assertEquals(validDate, ParserUtil.parseExpiryDate(VALID_EXPIRY_DATE_FISH));
     }
 
     @Test
     public void parseExpiryDate_validDateWithWhiteSpace_returnsExpiryDate() throws Exception {
-        ExpiryDate validDate = new ExpiryDate(VALID_EXPIRY_DATE_KIWI);
-        assertEquals(validDate, ParserUtil.parseExpiryDate(WHITESPACE + VALID_EXPIRY_DATE_KIWI + WHITESPACE));
+        ExpiryDate validDate = new ExpiryDate(VALID_EXPIRY_DATE_FISH);
+        assertEquals(validDate, ParserUtil.parseExpiryDate(WHITESPACE + VALID_EXPIRY_DATE_FISH + WHITESPACE));
     }
 
     //Note: I think need to catch DateTimeParseException somehow? If not here always got warning.
@@ -185,8 +185,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseQuantity_validQuantity_returnsQuantity() throws Exception {
-        Quantity validQuantity = new Quantity(VALID_QUANTITY_JELLY);
-        assertEquals(validQuantity, ParserUtil.parseQuantity(VALID_QUANTITY_JELLY));
+        Quantity validQuantity = new Quantity(VALID_QUANTITY_FISH);
+        assertEquals(validQuantity, ParserUtil.parseQuantity(VALID_QUANTITY_FISH));
     }
 
     @Test
@@ -196,8 +196,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseReminderThreshold_validThreshold_returnsReminderThreshold() throws Exception {
-        ReminderThreshold validThreshold = new ReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY);
-        assertEquals(validThreshold, ParserUtil.parseReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY));
+        ReminderThreshold validThreshold = new ReminderThreshold(VALID_REMINDER_THRESHOLD_FISH);
+        assertEquals(validThreshold, ParserUtil.parseReminderThreshold(VALID_REMINDER_THRESHOLD_FISH));
     }
 
     @Test

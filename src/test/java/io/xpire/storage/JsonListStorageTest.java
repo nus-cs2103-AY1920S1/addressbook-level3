@@ -1,7 +1,7 @@
 package io.xpire.storage;
 
 import static io.xpire.testutil.Assert.assertThrows;
-import static io.xpire.testutil.TypicalItems.KIWI;
+import static io.xpire.testutil.TypicalItems.APPLE;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -78,7 +78,7 @@ public class JsonListStorageTest {
         assertEquals(original.getItemList(), new Xpire(readBack).getItemList());
 
         // Modify data, overwrite exiting file, and read back
-        original.addItem(KIWI);
+        original.addItem(APPLE);
         jsonExpiryDateTrackerStorage.saveList(bothLists, filePath);
         readBack = jsonExpiryDateTrackerStorage.readList(filePath)[0].get();
         assertEquals(original.getItemList(), new Xpire(readBack).getItemList());
