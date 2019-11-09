@@ -293,7 +293,9 @@ image::ExpenseClassDiagram.png[]
 *** Design of the command for the user in a way that is intuitive
 *** Managing the event that the amount list does not add up to the amount paid
 *** GUI representation of the more generalised version of `Expense`
+// end::expense[]
 
+// tag::createexpense[]
 === Create expense feature
 The mechanism to create expenses is facilitated by `Expense`. Each `Activity` stores a list of `Expense` called `expenses`, representing the expenses incurred in the course of this activity.
 
@@ -301,10 +303,12 @@ When creating an expense, an amount and at least one person (the paying person) 
 
 
 
-In terms of the name searching logic to specify who is involved, it is identical to that which is used in the creation of activities (see <<Create activity feature>>), but with a few key differences: +
+In terms of the name searching logic to actually identify who is involved, it is identical to that which is used in the creation of activities (see <<Create activity feature>>), but with a few key differences: +
 
 1. The expense will only be created if **all** sets of keywords result in a unique match. For instance, if the user specifies `p/John Doe p/Mary p/James`, but only the keyword `James` does not successfully identify a unique person, then the entire expense will not be created.
 2. The search scope is contextual. If creating an expense outside an activity context, it will search for matches in the entire Address Book. However, in an activity context, it will only search for matches among existing activity participants.
+
+Here, it is important to realise that duplicating the name searching logic ensures a consistent user experience, as the user has no reason to expect that the search behaviour would be different. For example, if `john` was successfully used to identify a contact named `John Doe` when creating an activity, the user has no reason to expect that `john` would not be able to identify `John Doe` for an expense.
 
 Here is a sample use case in creating an expense:
 
@@ -320,7 +324,7 @@ image::ExpenseSequenceDiagram.png[]
 
 NOTE: The lifeline for `ExpenseCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-// end::expense[]
+// end::createexpense[]
 // tag::algorithm[]
 === Debt simplification algorithm
 The algorithm is inspired by https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf[this paper].
