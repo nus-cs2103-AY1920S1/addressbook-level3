@@ -71,6 +71,7 @@ public class GameTimerManager implements GameTimer {
         cancelled = true;
         this.timer.cancel();
 
+
         /** Ensuring any changes to UI are always called from JavaFX Application Thread.*/
         if (!Thread.currentThread().getName().equals("JavaFX Application Thread")) {
             Platform.runLater(() ->
@@ -78,7 +79,6 @@ public class GameTimerManager implements GameTimer {
             return;
         }
         updateTimerCallBack.updateTimerDisplay("", 0, totalTimeGiven);
-
     }
 
     /**
@@ -94,7 +94,6 @@ public class GameTimerManager implements GameTimer {
                     /* Guard block to prevent concurrency issues. Timer.cancel() has no
                      * real time guarantee.
                      */
-
                     if (cancelled) {
                         return;
                     }
@@ -106,25 +105,26 @@ public class GameTimerManager implements GameTimer {
                     // When timeLeft has reached a timeStamp to request for more hints from AppManager.
                     if (nextTimeForHint != -100L && nextTimeForHint == timeLeft) {
                         callBackToUpdateHints();
+                        timeLeft = timeLeft - 10;
+                        return;
                     }
 
                     if (timeLeft <= 0) {
                         stopAndCallBackToSkipOver();
                         return;
                     }
-                    --timeLeft;
+                    timeLeft = timeLeft - 10;
                 });
             }
-        }, 0, 1); // Start timer immediately, and refresh every 1ms
+        }, 0, 10); // Start timer immediately, and refresh every 10ms
     }
 
     /**
      * Performs a callBack to AppManager to notify that TimerDisplay needs to be updated.
      */
     private void callBackToUpdateTimerDisplay() {
-        updateTimerCallBack.updateTimerDisplay(
-                mainMessage + ": " + ((double) timeLeft) / 1000,
-                timeLeft, totalTimeGiven);
+        String timeString = String.format("%s: %.2f", mainMessage, timeLeft / 1000.0);
+        updateTimerCallBack.updateTimerDisplay(timeString, timeLeft, totalTimeGiven);
     }
 
     /**

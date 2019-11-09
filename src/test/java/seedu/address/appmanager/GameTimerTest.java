@@ -145,8 +145,8 @@ public class GameTimerTest {
             GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
 
             dummyTimer = GameTimer.getInstance("Dummy Message",
-                    70, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
-            dummyTimer.initHintTimingQueue(10, 70);
+                    100, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+            dummyTimer.initHintTimingQueue(10, 100);
             appManagerStub.setCountDownLatch(cd);
             dummyTimer.run();
         });
@@ -229,7 +229,7 @@ public class GameTimerTest {
             GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
 
             dummyTimer = GameTimer.getInstance("Dummy Message",
-                    123, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+                    120, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
             appManagerStub.setCountDownLatch(cd);
             dummyTimer.run();
         });
@@ -240,7 +240,7 @@ public class GameTimerTest {
             e.printStackTrace();
         }
 
-        assertEquals(dummyTimer.getElapsedMillis(), 123);
+        assertEquals(dummyTimer.getElapsedMillis(), 120);
     }
 
 

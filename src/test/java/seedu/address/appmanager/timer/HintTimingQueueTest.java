@@ -47,6 +47,8 @@ class HintTimingQueueTest {
         Queue<Long> expectedTimings = new LinkedList<>();
         for (int i = 0; i < 7; i++) {
             long currentTiming = (long) (5000 * 0.75) - (i * expectedDelta);
+            currentTiming = (currentTiming / 10) * 10;
+
             if (currentTiming <= 0) {
                 expectedTimings.add(50L); // Last Hint Shown at 50ms
             } else {

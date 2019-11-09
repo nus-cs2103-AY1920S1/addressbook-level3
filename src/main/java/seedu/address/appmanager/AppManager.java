@@ -127,6 +127,7 @@ public class AppManager {
 
             setGameTimer(logic.getTimeAllowedPerQuestion(), logic.getHintFormatSizeFromCurrentGame());
 
+
             Platform.runLater(() -> {
                 /** Call-back to UI to update QuestionDisplay with current Card's Meaning. */
                 this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
@@ -134,6 +135,7 @@ public class AppManager {
                 /** Starts the initialized GameTimer for this current Card. */
                 gameTimer.run();
             });
+
         }
 
         return commandResult;
