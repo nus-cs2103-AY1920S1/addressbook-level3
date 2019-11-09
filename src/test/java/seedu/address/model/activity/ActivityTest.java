@@ -121,8 +121,7 @@ public class ActivityTest {
         a.addExpense(two);
         a.addExpense(three);
 
-        Expense settle = new Expense(aid, new Amount(0), "", gid);
-        settle.setIsSettlement(true);
+        Expense settle = new Expense(aid, new Amount(0), "", true, gid);
         a.addExpense(settle);
 
         ArrayList<ArrayList<Double>> matrix = new ArrayList<>(
@@ -139,8 +138,7 @@ public class ActivityTest {
         a.addExpense(two);
         a.addExpense(three);
 
-        Expense settlepartial = new Expense(aid, new Amount(1), "", gid);
-        settlepartial.setIsSettlement(true);
+        Expense settlepartial = new Expense(aid, new Amount(1), "", true, gid);
         a.addExpense(settlepartial);
 
         ArrayList<ArrayList<Double>> matrixreloaded = new ArrayList<>(
@@ -350,6 +348,32 @@ public class ActivityTest {
     }
 
     @Test
+    public void addDeletedExpense() {
+        int aid = TypicalPersons.ALICE.getPrimaryKey();
+        Amount treefiddy = new Amount(30);
+        Expense one = new Expense(aid, treefiddy, "testing");
+        one.delete();
+
+        Activity a = new ActivityBuilder()
+                .withTitle("test")
+                .addPerson(TypicalPersons.ALICE)
+                .addPerson(TypicalPersons.ELLE)
+                .addExpense(one)
+                .build();
+
+        ArrayList<ArrayList<Double>> transfermatrix = new ArrayList<>(
+                List.of(
+                        //                       A    E
+                        new ArrayList<>(List.of(0.0, 0.0)),
+                        new ArrayList<>(List.of(0.0, 0.0))
+                ));
+
+        // Debt matrix not updated while expense list is updated
+        assertEquals(a.getTransferMatrix(), transfermatrix);
+        assertEquals(a.getExpenses(), List.of(one));
+    }
+
+    @Test
     public void activity_disinvitePersons_success() {
         Activity a = new ActivityBuilder()
             .withTitle("test")
@@ -466,7 +490,10 @@ public class ActivityTest {
         editedLunch = new ActivityBuilder(lunch).addPerson(TypicalPersons.ALICE).build();
         assertFalse(lunch.equals(editedLunch));
 
-        // TODO: Different expenses -> returns false
+        // different expenses -> returns false
+        int id = lunch.getParticipantIds().get(0);
+        editedLunch = new ActivityBuilder(lunch).addExpense(new Expense(id, new Amount(0), "")).build();
+        assertFalse(lunch.equals(editedLunch));
     }
 
     @Test
