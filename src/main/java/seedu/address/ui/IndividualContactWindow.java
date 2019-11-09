@@ -1,15 +1,22 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.commonvariables.Id;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -18,9 +25,10 @@ import seedu.address.model.contact.Contact;
 public class IndividualContactWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(IndividualContactWindow.class);
-    private static final String FXML = "IndividualContactWindow.fxml";
+    private static final String FXML = "CheckContactWindow.fxml";
 
-    private static Claim claim;
+    private static Contact contact;
+    private static ObservableList<Claim> claimList;
 
     @FXML
     private Label name;
@@ -29,7 +37,25 @@ public class IndividualContactWindow extends UiPart<Stage> {
     private Label number;
 
     @FXML
-    private FlowPane claims;
+    private TableView<ClaimItem> claims;
+
+    @FXML
+    private TableColumn<ClaimItem, String> snCol;
+
+    @FXML
+    private TableColumn<ClaimItem, String> claimIdCol;
+
+    @FXML
+    private TableColumn<ClaimItem, String> dateCol;
+
+    @FXML
+    private TableColumn<ClaimItem, String> statusCol;
+
+    @FXML
+    private TableColumn<ClaimItem, String> descriptionCol;
+
+    @FXML
+    private TableColumn<ClaimItem, String> amountCol;
 
     @FXML
     private Stage root;
@@ -42,21 +68,33 @@ public class IndividualContactWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the IndividualClaimWindow.
      */
-    public IndividualContactWindow(Stage root, Contact contact) {
+    public IndividualContactWindow(Stage root, Contact contact, ObservableList<Claim> claimList) {
         super(FXML, root);
+        this.contact = contact;
+        this.claimList = claimList;
         name.setText("Name: " + contact.getName().toString());
         number.setText("Contact: " + contact.getPhone().toString());
         windowSetup();
-        contact.getClaims().stream()
-                .forEach(id -> claims.getChildren().add(
-                        new Label(String.valueOf("Claim " + Integer.parseInt(id.value)) + " ")));
+        claims = new TableView<>();
+
+        snCol.setCellValueFactory(new PropertyValueFactory<ClaimItem, String>("sn"));
+        claimIdCol.setCellValueFactory(new PropertyValueFactory<ClaimItem, String>("claimId"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<ClaimItem, String>("date"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<ClaimItem, String>("status"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<ClaimItem, String>("description"));
+        amountCol.setCellValueFactory(new PropertyValueFactory<ClaimItem, String>("amount"));
+
+        claims.getColumns().setAll(snCol, claimIdCol, dateCol, statusCol, descriptionCol, amountCol);
+
+        ObservableList<ClaimItem> claimItems = getClaimItems();
+        claims.setItems(claimItems);
     }
 
     /**
      * Creates a new IndividualContactWindow.
      */
-    public IndividualContactWindow(Contact contact) {
-        this(new Stage(), contact);
+    public IndividualContactWindow(Contact contact, ObservableList<Claim> claimList) {
+        this(new Stage(), contact, claimList);
     }
 
     /**
@@ -120,4 +158,36 @@ public class IndividualContactWindow extends UiPart<Stage> {
         root.close();
     }
 
+    //@@author{weigenie}
+    private ObservableList<ClaimItem> getClaimItems() {
+        List<ClaimItem> lst = new ArrayList<>();
+        int count = 1;
+        for (Id id: contact.getClaims()) {
+            Claim claim = findClaimById(id);
+            if (claim != null) {
+                ClaimItem item = new ClaimItem(count + "",
+                        claim.getId().toString(),
+                        claim.getDate().toString(),
+                        claim.getStatus().toString(),
+                        claim.getDescription().toString(),
+                        claim.getAmount().toString());
+                lst.add(item);
+                count++;
+            }
+        }
+        return (ObservableList<ClaimItem>) FXCollections.observableArrayList(lst);
+    }
+
+    //@@author{weigenie}
+    /**
+     * Finds the claim by its id.
+     */
+    private Claim findClaimById(Id id) {
+        for (Claim claim: claimList) {
+            if (claim.getId().equals(id)) {
+                return claim;
+            }
+        }
+        return null;
+    }
 }

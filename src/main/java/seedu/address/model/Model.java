@@ -185,21 +185,6 @@ public interface Model {
      */
     void setIncome(Income target, Income editedIncome);
 
-    /**
-     * Opens the claim window or focuses on it if it's already opened.
-     */
-    @FXML
-    public static void handleContact(Contact contact) {
-
-        IndividualContactWindow individualContactWindow = new IndividualContactWindow(contact);
-
-        if (!individualContactWindow.isShowing()) {
-            individualContactWindow.show();
-        } else {
-            individualContactWindow.focus();
-        }
-    }
-
     boolean hasAutocorrectSuggestion(AutocorrectSuggestion suggestion);
 
     void deleteAutocorrectSuggestion(AutocorrectSuggestion suggestion);
