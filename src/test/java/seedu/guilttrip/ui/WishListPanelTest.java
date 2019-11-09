@@ -24,13 +24,11 @@ import seedu.guilttrip.ui.gui.guihandles.WishListCardHandle;
 import seedu.guilttrip.ui.gui.guihandles.WishListPanelHandle;
 import seedu.guilttrip.ui.wishlist.WishListPanel;
 
-
 /**
  * Unit test for wish list panel.
  */
 public class WishListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Wish> TYPICAL_WISHES =
-            FXCollections.observableList(getTypicalWishes());
+    private static final ObservableList<Wish> TYPICAL_WISHES = FXCollections.observableList(getTypicalWishes());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 

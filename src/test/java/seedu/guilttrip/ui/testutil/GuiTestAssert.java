@@ -28,8 +28,8 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getTags(), actualCard.getTags());
 
         if (expectedCard instanceof BudgetCardHandle && actualCard instanceof BudgetCardHandle) {
-            assertEquals(((BudgetCardHandle) expectedCard).getAmountSpent(),
-                    ((BudgetCardHandle) actualCard).getAmountSpent());
+            assertEquals(((BudgetCardHandle) expectedCard).getAmountSpent(), (
+                    (BudgetCardHandle) actualCard).getAmountSpent());
         }
     }
 

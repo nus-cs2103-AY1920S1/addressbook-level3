@@ -24,13 +24,11 @@ import seedu.guilttrip.ui.gui.guihandles.IncomeCardHandle;
 import seedu.guilttrip.ui.gui.guihandles.IncomeListPanelHandle;
 import seedu.guilttrip.ui.income.IncomeListPanel;
 
-
 /**
  * Unit test for income list panel.
  */
 public class IncomeListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Income> TYPICAL_INCOMES =
-            FXCollections.observableList(getTypicalIncomes());
+    private static final ObservableList<Income> TYPICAL_INCOMES = FXCollections.observableList(getTypicalIncomes());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 

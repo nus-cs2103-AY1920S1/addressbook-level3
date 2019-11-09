@@ -24,14 +24,11 @@ import seedu.guilttrip.ui.expense.ExpenseListPanel;
 import seedu.guilttrip.ui.gui.guihandles.ExpenseCardHandle;
 import seedu.guilttrip.ui.gui.guihandles.ExpenseListPanelHandle;
 
-
-
 /**
  * Unit test for expense list panel.
  */
 public class ExpenseListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Expense> TYPICAL_EXPENSES =
-            FXCollections.observableList(getTypicalExpenses());
+    private static final ObservableList<Expense> TYPICAL_EXPENSES = FXCollections.observableList(getTypicalExpenses());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 

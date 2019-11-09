@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.guilttrip.ui.testutil.GuiTestAssert.assertCardDisplaysEntry;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.testutil.BudgetBuilder;
-import seedu.guilttrip.ui.gui.guihandles.BudgetCardHandle;
 import seedu.guilttrip.ui.budget.BudgetCard;
+import seedu.guilttrip.ui.gui.guihandles.BudgetCardHandle;
 
 public class BudgetCardTest extends GuiUnitTest {
 

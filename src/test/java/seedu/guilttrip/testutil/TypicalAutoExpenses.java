@@ -12,7 +12,7 @@ import seedu.guilttrip.model.entry.AutoExpense;
 public class TypicalAutoExpenses {
 
     public static final AutoExpense FOOD_AUTO_EXPENSE = new AutoExpenseBuilder().withDesc("pgp mala")
-            .withTime("2019-09-09").withAmt(5.50).withTags("food").withFreq("daily").build();
+            .withDate("2019-09-09").withAmt(5.50).withTags("food").withFreq("daily").build();
     public static final AutoExpense BBT_AUTO_EXPENSE = new AutoExpenseBuilder()
             .withDesc("UTown gongcha passion fruit tea with 70% sugar").withAmt(4.38)
             .withTags("food", "luxury", "drinks").withFreq("daily").build();

@@ -14,7 +14,7 @@ import seedu.guilttrip.model.tag.Tag;
 import seedu.guilttrip.model.util.SampleDataUtil;
 
 /**
- * A utility class containing a list of {@code Expense} objects to be used in tests.
+ * A utility class containing a list of {@code Budget} objects to be used in tests.
  */
 public class BudgetBuilder {
 
@@ -96,6 +96,9 @@ public class BudgetBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code period} of the {@code Budget} that we are building.
+     */
     public BudgetBuilder withPeriod(String period) {
         this.period = new Period(period);
         return this;
