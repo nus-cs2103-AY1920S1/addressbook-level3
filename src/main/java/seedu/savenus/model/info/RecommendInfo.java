@@ -2,6 +2,7 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.RecommendCommand;
 
+//@@author robytanama
 /**
  * Contains information on Recommend command.
  */

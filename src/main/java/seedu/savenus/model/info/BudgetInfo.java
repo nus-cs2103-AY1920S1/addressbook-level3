@@ -2,6 +2,7 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.BudgetCommand;
 
+//@@author robytanama
 /**
  * Contains information on Budget command.
  */

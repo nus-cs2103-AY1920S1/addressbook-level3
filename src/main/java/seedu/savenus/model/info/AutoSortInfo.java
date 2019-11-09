@@ -2,6 +2,7 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.AutoSortCommand;
 
+//@@author robytanama
 /**
  * Contains information on AutoSort command.
  */

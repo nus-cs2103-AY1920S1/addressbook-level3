@@ -13,6 +13,7 @@ import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Restrictions;
 import seedu.savenus.model.recommend.RecommendationSystem;
 
+//@@author robytanama
 /**
  * An UI component that displays information of a {@code Food}.
  */

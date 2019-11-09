@@ -7,7 +7,6 @@ import javafx.beans.binding.StringBinding;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -15,12 +14,17 @@ import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.Logic;
 import seedu.savenus.logic.commands.CommandResult;
+import seedu.savenus.logic.commands.DefaultCommand;
+import seedu.savenus.logic.commands.HistoryCommand;
 import seedu.savenus.logic.commands.InfoCommand;
+import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
+import seedu.savenus.logic.commands.ViewSortCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Food;
 
+//@@author robytanama
 /**
  * The Main Window.
  */
@@ -234,11 +238,68 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Runs recommend command.
+     * Runs {@code theme} command.
+     */
+    @FXML
+    private void handleTheme() {
+        if (primaryStage.getScene().getStylesheets().get(0).equals(LIGHT_THEME_CSS)) {
+            changeThemeToDark();
+        } else {
+            changeThemeToLight();
+        }
+    }
+
+    /**
+     * Runs {@code recommend} command.
      */
     @FXML
     private void handleRecommend() throws CommandException, ParseException {
         CommandResult commandResult = logic.execute(RecommendCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Runs {@code list} command.
+     */
+    @FXML
+    private void handleList() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(ListCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Runs {@code default} command.
+     */
+    @FXML
+    private void handleDefault() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(DefaultCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Runs {@code history} command.
+     */
+    @FXML
+    private void handleHistory() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(HistoryCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Runs {@code viewsort} command.
+     */
+    @FXML
+    private void handleViewSort() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(ViewSortCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
         logger.info("Result: " + commandResult.getFeedbackToUser());
         resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
     }

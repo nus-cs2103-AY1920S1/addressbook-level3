@@ -2,6 +2,7 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.RemoveLikeCommand;
 
+//@@author robytanama
 /**
  * Contains information on removedislike command.
  */
