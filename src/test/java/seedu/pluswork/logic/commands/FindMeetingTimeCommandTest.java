@@ -19,7 +19,9 @@ import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.commons.util.DateTimeUtil;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ProjectDashboard;
 import seedu.pluswork.model.ReadOnlyProjectDashboard;
@@ -41,115 +43,192 @@ import seedu.pluswork.model.task.Task;
 import seedu.pluswork.testutil.MeetingBuilder;
 import seedu.pluswork.testutil.MeetingQueryBuilder;
 
-public class AddMeetingCommandTest {
+public class FindMeetingTimeCommandTest {
+    private static final LocalDateTime SAMPLE_START_DATE1;
+    private static final LocalDateTime SAMPLE_START_DATE2;
+    private static final LocalDateTime SAMPLE_START_DATE3;
+    private static final LocalDateTime SAMPLE_END_DATE1;
+    private static final LocalDateTime SAMPLE_END_DATE2;
+    private static final LocalDateTime SAMPLE_END_DATE3;
+    private static final Duration SAMPLE_DURATION1 = Duration.ofHours(20);
+    private static final Duration SAMPLE_DURATION2 = Duration.ofHours(1);
+    private static final Duration SAMPLE_DURATION3 = Duration.ofHours(2);
+
+    static {
+        LocalDateTime startTmp1 = null;
+        LocalDateTime startTmp2 = null;
+        LocalDateTime startTmp3 = null;
+        LocalDateTime endTmp1 = null;
+        LocalDateTime endTmp2 = null;
+        LocalDateTime endTmp3 = null;
+        try {
+            startTmp1 = DateTimeUtil.parseDateTime("10-11-2019 18:00");
+            startTmp2 = DateTimeUtil.parseDateTime("01-01-2001 01:00");
+            startTmp3 = DateTimeUtil.parseDateTime("30-03-2020 23:59");
+            endTmp1 = DateTimeUtil.parseDateTime("15-11-2019 19:00");
+            endTmp2 = DateTimeUtil.parseDateTime("15-10-2030 23:59");
+            endTmp3 = DateTimeUtil.parseDateTime("31-03-2020 01:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        requireNonNull(startTmp1);
+        requireNonNull(startTmp2);
+        requireNonNull(startTmp3);
+        requireNonNull(endTmp1);
+        requireNonNull(endTmp2);
+        requireNonNull(endTmp3);
+        assert(startTmp1.isBefore(endTmp1));
+        assert(startTmp2.isBefore(endTmp2));
+        assert(startTmp3.isBefore(endTmp3));
+        SAMPLE_START_DATE1 = startTmp1;
+        SAMPLE_START_DATE2 = startTmp2;
+        SAMPLE_START_DATE3 = startTmp3;
+        SAMPLE_END_DATE1 = endTmp1;
+        SAMPLE_END_DATE2 = endTmp2;
+        SAMPLE_END_DATE3 = endTmp3;
+    }
 
     @Test
     public void constructor_nullMeeting_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddMeetingCommand(null));
+        assertThrows(NullPointerException.class,
+                () -> new FindMeetingTimeCommand(null, null, null));
+        assertThrows(NullPointerException.class,
+                () -> new FindMeetingTimeCommand(SAMPLE_END_DATE1, null, SAMPLE_DURATION1));
+        assertThrows(NullPointerException.class,
+                () -> new FindMeetingTimeCommand(null, null, SAMPLE_DURATION3));
+        assertThrows(NullPointerException.class,
+                () -> new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE3, null));
+        assertThrows(NullPointerException.class,
+                () -> new FindMeetingTimeCommand(null, SAMPLE_END_DATE1, null));
     }
 
     @Test
-    public void execute_meetingAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_findMeetingTimeAcceptedByModel_successful() throws Exception {
         MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
-
-        Index validIndex = new Index(0);
-        Meeting validMeeting = validMeetingQuery.getMeetingList().get(validIndex.getZeroBased());
-        ModelStubWithMeetingQuery modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
-
-        CommandResult commandResult = new AddMeetingCommand(validIndex).execute(modelStub);
-
-        assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, validMeeting),
-                commandResult.getFeedbackToUser());
-    }
-
-    @Test
-    public void execute_duplicateMeeting_throwsCommandException() {
-        Index validIndex = new Index(1);
-        MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
-        Meeting validMeeting = validMeetingQuery.getMeetingList().get(validIndex.getZeroBased());
+        MeetingQuery validMeetingQueryEmptyList =
+                new MeetingQueryBuilder().withMeetings(new ArrayList<Meeting>()).build();
 
         ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
-        modelStub.addMeeting(validMeeting);
+        ModelStub modelStubEmptyList = new ModelStubWithMeetingQuery(validMeetingQueryEmptyList);
 
-        AddMeetingCommand addMeetingCommand = new AddMeetingCommand(validIndex);
-        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_DUPLICATE_MEETING, () ->
-                addMeetingCommand.execute(modelStub));
+        FindMeetingTimeCommand validCommand1
+                = new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE1, SAMPLE_DURATION1);
+        FindMeetingTimeCommand validCommand2
+                = new FindMeetingTimeCommand(SAMPLE_START_DATE2, SAMPLE_END_DATE2, SAMPLE_DURATION2);
+
+        CommandResult commandSuccess1 = validCommand1.execute(modelStub);
+        CommandResult commandSuccess2 = validCommand2.execute(modelStub);
+
+        assertEquals(String.format(FindMeetingTimeCommand.MESSAGE_SUCCESS,
+                DateTimeUtil.displayDateTime(SAMPLE_START_DATE1),
+                DateTimeUtil.displayDateTime(SAMPLE_END_DATE1)),
+                commandSuccess1.getFeedbackToUser());
+        assertEquals(String.format(FindMeetingTimeCommand.MESSAGE_SUCCESS,
+                DateTimeUtil.displayDateTime(SAMPLE_START_DATE2),
+                DateTimeUtil.displayDateTime(SAMPLE_END_DATE2)),
+                commandSuccess2.getFeedbackToUser());
+
+        CommandResult commandFail1 = validCommand1.execute(modelStubEmptyList);
+        CommandResult commandFail2 = validCommand2.execute(modelStubEmptyList);
+
+        assertEquals(String.format(FindMeetingTimeCommand.MESSAGE_FAILURE,
+                DateTimeUtil.displayDateTime(SAMPLE_START_DATE1),
+                DateTimeUtil.displayDateTime(SAMPLE_END_DATE1)),
+                commandFail1.getFeedbackToUser());
+        assertEquals(String.format(FindMeetingTimeCommand.MESSAGE_FAILURE,
+                DateTimeUtil.displayDateTime(SAMPLE_START_DATE2),
+                DateTimeUtil.displayDateTime(SAMPLE_END_DATE2)),
+                commandFail2.getFeedbackToUser());
     }
 
-    @Test
-    public void execute_meetingIndexOutOfBounds_throwsCommandException() {
-        MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
-        ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
-        int validIndexUpperBound = validMeetingQuery.getMeetingList().size();
-
-        Index invalidIndex1 = new Index(20);
-        Index invalidIndex2 = new Index(validIndexUpperBound);
-        Index invalidIndex3 = new Index(validIndexUpperBound + 1);
-        Index invalidIndex4 = new Index(validIndexUpperBound + 200);
-
-        assert(invalidIndex1.getZeroBased() >= validIndexUpperBound);
-        assert(invalidIndex2.getZeroBased() >= validIndexUpperBound);
-        assert(invalidIndex3.getZeroBased() >= validIndexUpperBound);
-        assert(invalidIndex4.getZeroBased() >= validIndexUpperBound);
-
-        AddMeetingCommand invalidCommand1 = new AddMeetingCommand(invalidIndex1);
-        AddMeetingCommand invalidCommand2 = new AddMeetingCommand(invalidIndex2);
-        AddMeetingCommand invalidCommand3 = new AddMeetingCommand(invalidIndex3);
-        AddMeetingCommand invalidCommand4 = new AddMeetingCommand(invalidIndex4);
-
-        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
-                invalidCommand1.execute(modelStub));
-        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
-                invalidCommand2.execute(modelStub));
-        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
-                invalidCommand3.execute(modelStub));
-        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
-                invalidCommand4.execute(modelStub));
-    }
-
-    @Test
-    public void execute_nullMeetingQuery_throwsCommandException() {
-        MeetingQuery nullMeetingQuery = null;
-        ModelStub modelStub = new ModelStubWithMeetingQuery(nullMeetingQuery);
-
-        Index validIndex1 = new Index(1);
-        Index validIndex2 = new Index(123934);
-        Index validIndex3 = new Index(99999999);
-        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(validIndex1);
-        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(validIndex2);
-        AddMeetingCommand addMeetingCommand3 = new AddMeetingCommand(validIndex3);
-
-        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
-                addMeetingCommand1.execute(modelStub));
-        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
-                addMeetingCommand2.execute(modelStub));
-        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
-                addMeetingCommand3.execute(modelStub));
-    }
-
-    @Test
-    public void equals() {
-        Index testIndex1 = new Index(1);
-        Index testIndex2 = new Index(200000000);
-        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(testIndex1);
-        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(testIndex2);
-
-        // same object -> returns true
-        assertTrue(addMeetingCommand1.equals(addMeetingCommand1));
-
-        // same values -> returns true
-        AddMeetingCommand addMeetingCommand1Copy = new AddMeetingCommand(testIndex1);
-        assertTrue(addMeetingCommand1.equals(addMeetingCommand1Copy));
-
-        // different types -> returns false
-        assertFalse(addMeetingCommand2.equals(1));
-
-        // null -> returns false
-        assertFalse(addMeetingCommand2.equals(null));
-
-        // different task -> returns false
-        assertFalse(addMeetingCommand1.equals(addMeetingCommand2));
-    }
+//    @Test
+//    public void execute_duplicateMeeting_throwsCommandException() {
+//        Index validIndex = new Index(1);
+//        MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
+//        Meeting validMeeting = validMeetingQuery.getMeetingList().get(validIndex.getZeroBased());
+//
+//        ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
+//        modelStub.addMeeting(validMeeting);
+//
+//        AddMeetingCommand addMeetingCommand = new AddMeetingCommand(validIndex);
+//        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_DUPLICATE_MEETING, () ->
+//                addMeetingCommand.execute(modelStub));
+//    }
+//
+//    @Test
+//    public void execute_meetingIndexOutOfBounds_throwsCommandException() {
+//        MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
+//        ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
+//        int validIndexUpperBound = validMeetingQuery.getMeetingList().size();
+//
+//        Index invalidIndex1 = new Index(20);
+//        Index invalidIndex2 = new Index(validIndexUpperBound);
+//        Index invalidIndex3 = new Index(validIndexUpperBound + 1);
+//        Index invalidIndex4 = new Index(validIndexUpperBound + 200);
+//
+//        assert(invalidIndex1.getZeroBased() >= validIndexUpperBound);
+//        assert(invalidIndex2.getZeroBased() >= validIndexUpperBound);
+//        assert(invalidIndex3.getZeroBased() >= validIndexUpperBound);
+//        assert(invalidIndex4.getZeroBased() >= validIndexUpperBound);
+//
+//        AddMeetingCommand invalidCommand1 = new AddMeetingCommand(invalidIndex1);
+//        AddMeetingCommand invalidCommand2 = new AddMeetingCommand(invalidIndex2);
+//        AddMeetingCommand invalidCommand3 = new AddMeetingCommand(invalidIndex3);
+//        AddMeetingCommand invalidCommand4 = new AddMeetingCommand(invalidIndex4);
+//
+//        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+//                invalidCommand1.execute(modelStub));
+//        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+//                invalidCommand2.execute(modelStub));
+//        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+//                invalidCommand3.execute(modelStub));
+//        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+//                invalidCommand4.execute(modelStub));
+//    }
+//
+//    @Test
+//    public void execute_nullMeetingQuery_throwsCommandException() {
+//        MeetingQuery nullMeetingQuery = null;
+//        ModelStub modelStub = new ModelStubWithMeetingQuery(nullMeetingQuery);
+//
+//        Index validIndex1 = new Index(1);
+//        Index validIndex2 = new Index(123934);
+//        Index validIndex3 = new Index(99999999);
+//        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(validIndex1);
+//        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(validIndex2);
+//        AddMeetingCommand addMeetingCommand3 = new AddMeetingCommand(validIndex3);
+//
+//        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
+//                addMeetingCommand1.execute(modelStub));
+//        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
+//                addMeetingCommand2.execute(modelStub));
+//        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
+//                addMeetingCommand3.execute(modelStub));
+//    }
+//
+//    @Test
+//    public void equals() {
+//        Index testIndex1 = new Index(1);
+//        Index testIndex2 = new Index(200000000);
+//        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(testIndex1);
+//        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(testIndex2);
+//
+//        // same object -> returns true
+//        assertTrue(addMeetingCommand1.equals(addMeetingCommand1));
+//
+//        // same values -> returns true
+//        AddMeetingCommand addMeetingCommand1Copy = new AddMeetingCommand(testIndex1);
+//        assertTrue(addMeetingCommand1.equals(addMeetingCommand1Copy));
+//
+//        // different types -> returns false
+//        assertFalse(addMeetingCommand2.equals(1));
+//
+//        // null -> returns false
+//        assertFalse(addMeetingCommand2.equals(null));
+//
+//        // different task -> returns false
+//        assertFalse(addMeetingCommand1.equals(addMeetingCommand2));
+//    }
 
     /**
      * A default model stub that have all of the methods failing.
@@ -481,22 +560,9 @@ public class AddMeetingCommandTest {
      */
     private class ModelStubWithMeetingQuery extends ModelStub {
         final MeetingQuery meetingQuery;
-        final ArrayList<Meeting> meetingsAdded = new ArrayList<>();
 
         private ModelStubWithMeetingQuery(MeetingQuery meetingQuery) {
             this.meetingQuery = meetingQuery;
-        }
-
-        @Override
-        public boolean hasMeeting(Meeting meeting) {
-            requireNonNull(meeting);
-            return meetingsAdded.stream().anyMatch(meeting::isSameMeeting);
-        }
-
-        @Override
-        public void addMeeting(Meeting meeting) {
-            requireNonNull(meeting);
-            meetingsAdded.add(meeting);
         }
 
         @Override
@@ -505,7 +571,8 @@ public class AddMeetingCommandTest {
         }
 
         @Override
-        public void updateFilteredMeetingsList(Predicate<Meeting> predicate) {
+        public void findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration duration) {
+
         }
     }
 }

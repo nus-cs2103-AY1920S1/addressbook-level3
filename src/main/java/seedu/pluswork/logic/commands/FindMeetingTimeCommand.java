@@ -42,7 +42,9 @@ public class FindMeetingTimeCommand extends Command {
      * Creates an AddCommand to add the specified {@code Task}
      */
     public FindMeetingTimeCommand(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
-        //Check if non null
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        requireNonNull(meetingDuration);
         this.startDate = startDate;
         this.endDate = endDate;
         this.meetingDuration = meetingDuration;
