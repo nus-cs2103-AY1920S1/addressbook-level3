@@ -16,7 +16,6 @@ public class FlashCardTestModel {
     private FlashCard currentFlashCard;
 
     private List<FlashCard> testList;
-    //private List<FlashCard> testListOld = new LinkedList<>();
     private TestFlashCardPanel testFlashCardPanel;
 
     public FlashCardTestModel(List<FlashCard> testList) {
@@ -30,7 +29,6 @@ public class FlashCardTestModel {
     public void setFlashcard() {
         assert !testList.isEmpty();
         currentFlashCard = testList.remove(0);
-        // testListOld.add(currentFlashCard);
     }
 
     //@@author shutingy

@@ -11,6 +11,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class StartCommandParser implements Parser<StartCommand> {
 
+    public static final String BAD_ARGUMENTS = "Please make sure your tags are alphanumeric!";
+
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
     StartCommandParser(KeyboardFlashCardsParser keyboardFlashCardsParser) {
@@ -22,9 +24,9 @@ public class StartCommandParser implements Parser<StartCommand> {
      * and returns a StartCommand object for execution.
      */
     public StartCommand parse(String args) throws ParseException {
-        String alphanumericWithSpaces = "^[a-zA-Z0-9\\s+]+$";
-        if (!args.matches(alphanumericWithSpaces) && !args.isEmpty()) {
-            throw new ParseException("test");
+        String alphaNumericWithSpaces = "^[a-zA-Z0-9\\s+]+$";
+        if (!args.matches(alphaNumericWithSpaces) && !args.isEmpty()) {
+            throw new ParseException(BAD_ARGUMENTS);
         }
         String trimmedArgs = args.trim();
         return new StartCommand(keyboardFlashCardsParser, trimmedArgs);
