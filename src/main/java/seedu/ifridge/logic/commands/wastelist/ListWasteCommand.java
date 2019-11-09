@@ -7,8 +7,6 @@ import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
-import seedu.ifridge.model.ReadOnlyWasteList;
-import seedu.ifridge.model.WasteList;
 import seedu.ifridge.model.waste.WasteMonth;
 
 /**
