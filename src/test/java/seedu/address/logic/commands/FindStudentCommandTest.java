@@ -14,10 +14,10 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-
 import seedu.address.model.student.NameContainsKeywordsPredicate;
 
 /**
@@ -67,7 +67,7 @@ public class FindStudentCommandTest {
         assertEquals(Collections.emptyList(), model.getFilteredStudentList());
     }
 
-
+  
     @Test
     public void execute_multipleKeywords_multipleStudentsFound() {
         String expectedMessage = String.format(MESSAGE_STUDENTS_LISTED_OVERVIEW, 3);

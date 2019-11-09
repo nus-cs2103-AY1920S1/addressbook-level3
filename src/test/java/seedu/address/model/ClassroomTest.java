@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.classroom.Classroom;
 //import seedu.address.model.classroom.ReadOnlyClassroom;
 //import seedu.address.model.lesson.Lesson;
-//import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 //import seedu.address.model.student.exceptions.DuplicateStudentException;
 import seedu.address.testutil.StudentBuilder;
@@ -96,7 +95,6 @@ public class ClassroomTest {
     /*
     private static class ClassroomStub implements ReadOnlyClassroom {
         private final ObservableList<Student> students = FXCollections.observableArrayList();
-        private final ObservableList<Reminder> reminders = FXCollections.observableArrayList();
         private final ObservableList<Assignment> assignments = FXCollections.observableArrayList();
         private final ObservableList<Lesson> lessons = FXCollections.observableArrayList();
 
@@ -107,11 +105,6 @@ public class ClassroomTest {
         @Override
         public ObservableList<Student> getStudentList() {
             return students;
-        }
-
-        @Override
-        public ObservableList<Reminder> getReminderList() {
-            return reminders;
         }
 
         @Override

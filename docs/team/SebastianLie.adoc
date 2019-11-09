@@ -1,0 +1,97 @@
+= Sebastian Lie - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Teacher's Notebook
+
+---
+
+== Overview
+
+This project portfolio details my key contributions to Project Teacher's Notebook.
+
+Teacher's Notebook is a desktop application designed by my group mates and I for a software engineering
+module in National University of Singapore (NUS).
+It's target audience is secondary or primary school teachers in Singapore.
+aims to improve the efficiency of administrative processes in medical institutes.
+The project was created under the constraint of the fact that the user only
+interacts with the application through a Command Line Interface (CLI).
+It is written in Java, and has about 10 kLoC.
+
+The main features of the project are:
+
+- The ability to manage students and their
+
+- The ability to
+
+- The ability to
+
+- The ability to
+
+== Summary of Contributions
+
+- *Major Enhancement*: added the ability to upload and display photos of students
+** What it does
+** Justification
+
+- *Major Enhancement*: added the autocomplete feature to the gui
+** What it does
+
+- *Minor Enhancement*: added the ability to scroll through previously entered commands with the up and down arrow keys
+- Code Contributed [https://github.com/AY1920S1-CS2103-T14-1/main/commits?author=sebastianlie[Functional Code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=SebastianLie&tabRepo=AY1920S1-CS2103-T14-1%2Fmain%5Bmaster%5D[RepoSense]
+]
+- Other contributions:
+
+== Contributions to User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=userfriendly]
+
+include::../UserGuide.adoc[tag=classes]
+
+include::../UserGuide.adoc[tag=upload]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

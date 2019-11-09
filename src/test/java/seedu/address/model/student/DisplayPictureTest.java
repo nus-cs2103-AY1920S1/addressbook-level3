@@ -7,26 +7,30 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 public class DisplayPictureTest {
-
+  
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new DisplayPicture(null));
+    public void constructor_invalidDisplayPicture_throwsIllegalArgumentException() {
+        String inValidFileName = "";
+        assertThrows(IllegalArgumentException.class, () -> new DisplayPicture(inValidFileName));
     }
 
+  
     @Test
-    public void isValidFormat() {
-        // null DisplayPicture
+    public void isValidDisplayPicture() {
+        // null filename
         assertThrows(NullPointerException.class, () -> DisplayPicture.isValidFormat(null));
 
-        // invalid DisplayPictures
+        // invalid filenames
+      
         assertFalse(DisplayPicture.isValidFormat("")); // empty string
         assertFalse(DisplayPicture.isValidFormat(" ")); // spaces only
+        assertFalse(DisplayPicture.isValidFormat("asddf"));
+        assertFalse(DisplayPicture.isValidFormat("asddf234567uio"));
         assertFalse(DisplayPicture.isValidFormat("D://")); // file length less than 5
         assertFalse(DisplayPicture.isValidFormat("/Users/file.pdf")); // file is not jpg or png format
 
-        // valid DisplayPictures
-        assertTrue(DisplayPicture.isValidFormat("/Users/file.png")); // png format
-        assertTrue(DisplayPicture.isValidFormat("/Users/user/picture.jpg")); // jpg format
-        assertTrue(DisplayPicture.isValidFormat("/Users/user/Desktop/CS2103/TeamProject/Folder/file.jpg")); // long DisplayPicture
+        // valid filename
+        assertTrue(DisplayPicture.isValidFormat("/images/themyth.png"));
+        assertTrue(DisplayPicture.isValidFormat("file:/D:/IMG-20190206-WA0010.jpg")); // actual file
     }
 }

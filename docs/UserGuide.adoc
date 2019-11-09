@@ -18,7 +18,8 @@ By: 'Team CS2103-T14-1'     Since: 'Sep 2019'
 
 == Introduction
 
-Teacher’s Notebook is for teachers who prefer to make use of an application to keep track of the deliverables, tasks and students’ information. It is optimized for teachers who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a teacher who wants to manage your students and your tasks efficiently, and can type fast, Teacher’s Notebook can get your work done much faster than traditional applications! Jump to Section 2, “Quick Start” to get started! Enjoy!
+Teacher’s Notebook is for teachers who prefer to make use of an application to keep track of the deliverables,
+tasks and students’ information. It is optimized for teachers who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a teacher who wants to manage your students and your tasks efficiently, and can type fast, Teacher’s Notebook can get your work done much faster than traditional applications! Jump to Section 2, “Quick Start” to get started! Enjoy!
 
 == Quick Start
 
@@ -43,6 +44,50 @@ Teacher’s Notebook is for teachers who prefer to make use of an application to
 
 // tag::classes[]
 === Classes
+The user can view his or her classes in the middle panel of the GUI of Teacher's Notebook as shown below. +
+
+image::class/class1.jpg[]
+
+The class colored in blue shows the class that the user is currently viewing.
+Viewing a class enables a user to see the full profiles of the students, +
+As well as full information about assignments. Changing classes will allow the user to view the students and assignments of another class.
+The number of students, and the number of assignments are displayed for each class +
+
+==== Adding: addclass
+
+Adds a new class to the list of existing classes. The name of the new class must not be empty,
+and it must be different from all the current class names.
+
+Format: `addclass c/CLASS_NAME`
+
+Examples:
+
+* `addclass c/4E7`
+* `addclass c/3E8`
+
+==== Deleting: deleteclass
+
+Allows a user to delete the selected class, if the user no longer needs the class or entered its name wrongly. +
+Classroom must be in the current list of classrooms, and class name cannot be empty. +
+
+Format: `deleteclassroom c/CLASS_NAME`
+
+Examples:
+
+* `deleteclassroom c/4E7`
+* `deleteclassroom c/3E8`
+
+==== Setting: setclass
+
+Allows a user to delete the selected class, if the user no longer needs the class or entered its name wrongly. +
+Classroom must be in the current list of classrooms, and class name cannot be empty. +
+
+Format: `setclass c/CLASS_NAME`
+
+Examples:
+
+* `setclass c/4E7`
+* `setclass c/3E8`
 // end::classes[]
 
 // tag::lessons[]
@@ -69,13 +114,6 @@ Students are contained within each class. There are several fields in each stude
 ** Tags must be alphanumerical. This is an optional field that can be used multiple times.
 * DisplayPicture - Prefix: none
 ** Display pictures must be in PNG file format. A default display picture is set for each student.
-
-====
-*CONDITIONS* +
-* Students in the class must not have the same name. Other fields can be the same as we expect that there might be
-siblings sharing the same fields (e.g. share the same phone and email, stay in the same house etc.)
-* Phone and parent phone must not be the same. We expect that the students now have a phone.
-====
 
 ==== Adding: addstudent
 
@@ -112,19 +150,6 @@ Example:
 [NOTE]
 The index provided must be valid.
 
-==== Uploading: upload
-
-Uploads a PNG or JPG file to set as the display picture of the student at the specified index in the student list of the current class. +
-This will prompt the user to select a PNG or JPG file from their computer to set as the new display picture of the student. +
-Format: `upload STUDENT_INDEX`
-
-Example:
-
-* `upload 3`
-
-[NOTE]
-The index provided must be valid and the directory of the image uploaded is assumed to not change.
-
 ==== Finding: findstudent
 
 Find students whose name matches a given keyword in the current classroom. +
@@ -135,12 +160,114 @@ Examples:
 * `findstudent John Doe`
 * `findstudent Jane Doe`
 
-// end::students[]
+// tag::upload[]
+==== Uploading: upload
 
+Allows a user to upload a PNG/JPG file to set the display picture of the student at the specified index in the student list of the current class. +
+Upon entering the command, a window will popup as shown below:
+
+image::upload/upload_1.jpg[]
+
+And the user will be prompted to select a PNG/JPG file from their computer to set as the new display picture of the student. +
+The user may cancel the upload operation by clicking on cancel in the window that pops up. +
+
+Format: `upload STUDENT_INDEX`
+
+Example:
+
+* `upload 3`
+
+[NOTE]
+The index provided must be valid and the directory of the image uploaded is assumed to not change.
+If the image is moved or deleted after it is set as the display picture, the display picture will be empty when the user starts up Teacher's Notebook.
+
+==== Resetting display picture
+
+Resets the display picture of the student to the default.
+
+Format: resetdisplaypic
+
+Example:
+
+* `resetdisplaypic`
+
+// end::upload[]
+
+// end::students[]
 
 // tag::assignments[]
 === Assignments
 // end::assignments[]
+
+
+// tag::userfriendly[]
+=== User-Friendly Features
+
+The features here do not necessarily contribute directly to a teacher's everyday job, but improve the usability
+of Teacher's Notebook and make using the application a more forgiving, painless and seamless experience. +
+
+==== Autocomplete
+
+The Autocomplete feature allows a user to toggle through suggestions that guess at what command the user wants to type in. +
+Upon typing any letters that resemble commands, a popup menu will appear as shown below:
+
+image::autocorrect/autocomplete2.jpg[]
+
+The user can then choose the first option of the menu using CTRL, use SHIFT + UP and SHIFT + DOWN to cycle through menu options, +
+or use ESC to close the pop window. If the popup menu is closed, no autocomplete features will be available. +
+
+Usage:
+
+`SHIFT + Arrow DOWN` and `SHIFT + Arrow UP` Keys to toggle between autocomplete options +
+`CTRL` Key to choose the first autocomplete suggestions +
+`ESC` Key to close the autocomplete suggestions +
+
+==== History
+
+The History feature allows a user to toggle through their previously entered commands, +
+regardless of whether the user command was successful. As this may clash with autocomplete suggestion toggling, we recommend closing +
+autocomplete suggestions before using the History feature. +
+
+Usage:
+
+`Arrow UP and DOWN` Key to toggle through previous commands +
+
+==== Undo/Redo: Undo/Redo
+
+The undo/redo feature allows a user to undo any command, and there is no limit on the number of actions that can be undone or redone. +
+After the undo/redo command the application will be in the state before/after the action was made. +
+Undo/redo cannot, however, undo actions made during previous activation of Teacher's Notebook. +
+This is to say, once the application is closed, all actions done cannot be undone. +
+
+Usage:
+
+Enter `undo` or `redo` +
+
+==== Help
+
+Triggers a popup window with a link to the user guide.
+
+Usage:
+
+Enter `help` +
+
+==== Clear
+
+Clears all data from the notebook. If triggered erroneously, the clear command can be undone to reclaim all data.
+
+Usage:
+
+Enter `clear` to clear all data +
+
+==== Exit
+
+Exits the application and stops all teacher's notebook processes. +
+
+Usage:
+
+Enter `exit` +
+
+// end::userfriendly[]
 
 
 == Additional Features Coming in V2.0

@@ -35,6 +35,7 @@ public class StudentUtil {
         sb.append(PREFIX_NAME + student.getName().fullName + " ");
         sb.append(PREFIX_PHONE + student.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + student.getEmail().value + " ");
+        sb.append(PREFIX_PARENTPHONE + student.getParentPhone().value + " ");
         sb.append(PREFIX_ADDRESS + student.getAddress().value + " ");
         sb.append(PREFIX_PARENTPHONE + student.getParentPhone().value + " ");
         sb.append(PREFIX_MEDICALCONDITION + student.getMedicalCondition().value + " ");

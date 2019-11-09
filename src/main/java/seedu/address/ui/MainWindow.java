@@ -33,7 +33,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.scheduler.Scheduler;
+import seedu.address.ui.scheduler.Scheduler;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -65,7 +65,6 @@ public class MainWindow extends UiPart<Stage> {
     private ReminderListPanel sunReminderListPanel;
 
     private ListChangeListener<Lesson> listener;
-
 
     @FXML
     private TabPane lessonTabPanel;
@@ -377,7 +376,8 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         } catch (NullPointerException e) {
-            resultDisplay.setFeedbackToUser("Please choose a photo.");
+            logger.info("Null pointer exception.");
+            resultDisplay.setFeedbackToUser("Upload operation cancelled.");
             throw e;
         }
     }

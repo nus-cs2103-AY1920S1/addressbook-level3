@@ -203,9 +203,34 @@ public class ModelManager implements Model {
         notebook.displayAssignments();
     }
 
+    /**
+     * returns a string of lessons.
+     * @return String.
+     */
+    public String displayLessons() {
+        if (filteredLessons.isEmpty()) {
+            return "";
+        } else {
+            final StringBuilder builder = new StringBuilder();
+            //builder.append(filteredLessons.get(0));
+            for (int i = 0; i < filteredLessons.size(); i++) {
+                builder.append("---------------------------------------");
+                builder.append("\n" + filteredLessons.get(i) + "\n");
+            }
+            return builder.toString();
+        }
+    }
+
     @Override
     public void addLesson(Lesson lesson) {
         notebook.addLesson(lesson);
+        updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
+    }
+
+    @Override
+    public boolean checkTimingExist(Lesson toCheck) {
+        requireNonNull(toCheck);
+        return notebook.checkTimingExist(toCheck);
     }
 
     @Override
@@ -262,13 +287,6 @@ public class ModelManager implements Model {
     public ObservableList<UniqueLessonList> getFilteredLessonWeekList() {
         return filteredLessonLists;
     }
-
-    /*
-    @Override
-    public ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate) {
-        return notebook.getCurrentClassroom().getFilteredReminderList();
-    }
-    */
 
     @Override
     public void updateFilteredStudentList(Predicate<Student> predicate) {

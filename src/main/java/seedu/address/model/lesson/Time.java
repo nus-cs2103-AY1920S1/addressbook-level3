@@ -41,6 +41,11 @@ public class Time {
         return date;
     }
 
+    public String getStringDay() {
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE");
+        return formatter.format(time.getTime());
+    }
+
     public String getStringTime() {
         return this.toString();
     }
