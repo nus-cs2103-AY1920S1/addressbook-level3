@@ -11,8 +11,6 @@ import dream.fcard.util.json.jsontypes.JsonValue;
  * Card that evaluates input to match back of card.
  */
 public class FrontBackCard extends FlashCard {
-    protected String back;
-    protected String front;
     protected int cardResult;
 
     /**
@@ -25,7 +23,6 @@ public class FrontBackCard extends FlashCard {
     public FrontBackCard(String frontString, String backString) {
         back = backString;
         front = frontString;
-        // Default priority is 1
         priority = LOW_PRIORITY;
         this.cardResult = -1;
     }
@@ -60,7 +57,7 @@ public class FrontBackCard extends FlashCard {
 
     @Override
     public FlashCard duplicate() {
-        return new FrontBackCard(front, back, 0);
+        return new FrontBackCard(front, back, priority);
     }
 
     /**

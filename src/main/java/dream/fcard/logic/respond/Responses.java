@@ -12,6 +12,7 @@ import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.commands.HelpCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
+import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
@@ -27,7 +28,7 @@ import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.RegexUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
 
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 /**
  * The enums are composed of three properties:
@@ -71,7 +72,7 @@ public enum Responses {
 
                     if (!validCommand) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command! "
-                                + "Type 'help' for the UserGuide'.");
+                                + "Type 'help' for all available commands'.");
                     }
                     return true;
                 }
@@ -85,8 +86,7 @@ public enum Responses {
                     LogsCenter.getLogger(Responses.class).info("COMMAND: HELP");
                     //@author
 
-
-                    //TODO open a window to UserGuide.html (by Taha)
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, HelpCommand.generalHelp());
                     return true;
                 }
     ),
@@ -265,7 +265,7 @@ public enum Responses {
             "^((?i)(add)).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct "
                             + "format of the Add command, type 'help command/add'");
                     return true;
                 }
@@ -273,14 +273,10 @@ public enum Responses {
     EDIT_CARD(
             RegexUtil.commandFormatRegex("edit", new String[]{
                 "deck/",
-                "index/",
-                "front/",
-                "back/",
-                "choiceIndex/",
-                "choice/"}),
+                "index/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("edit",
                             new String[]{
                                 "deck/",
                                 "index/",
@@ -290,19 +286,29 @@ public enum Responses {
                                 "choice/"},
                             i);
 
+                    // @@author PhireHandy
+                    boolean hasValidEditField = res.get(2).size() == 1 || res.get(3).size() == 1
+                            || res.get(4).size() == 1 || res.get(5).size() == 1;
+
+                    if (hasValidEditField) {
+                        StateHolder.getState().addCurrDecksToDeckHistory();
+                    }
+                    //@@author
+
                     //@@author huiminlim
                     boolean hasDeckName = res.get(0).size() == 1;
                     boolean hasIndex = res.get(1).size() == 1;
 
                     // Checks if "deck/" and "index" are supplied.
                     if (!hasDeckName || !hasIndex) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct "
                                 + "format of the Edit command, type 'help command/Edit'");
                         return true;
                     }
 
                     // Obtain deck
                     String deckName = res.get(0).get(0);
+
                     Deck deck = null;
                     try {
                         deck = StateHolder.getState().getDeck(deckName);
@@ -311,8 +317,8 @@ public enum Responses {
                         return true;
                     }
                     assert deck != null;
-
                     ArrayList<FlashCard> cards = deck.getCards();
+
                     int index = -1;
                     try {
                         index = Integer.parseInt(res.get(1).get(0));
@@ -321,13 +327,13 @@ public enum Responses {
                         return true;
                     }
                     assert index != -1;
+
                     boolean isIndexValid = index > 0 && index <= cards.size();
                     if (!isIndexValid) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: index provided is invalid.'");
                         return true;
                     }
                     FlashCard card = cards.get(index - 1);
-
 
                     // Must check for validity of command before executing change
                     boolean hasChoiceIndex = res.get(4).size() == 1;
@@ -340,12 +346,13 @@ public enum Responses {
                                 + "Front Back card has no choices.");
                     }
 
-                    ArrayList<Deck> currDecks = StateHolder.getState().getDecks();
-
-                    boolean hasFront = res.get(3).size() == 1;
+                    boolean hasFront = res.get(2).size() == 1;
+                    System.out.println(hasFront);
                     if (hasFront) {
-                        String front = res.get(3).get(0);
+                        String front = res.get(2).get(0);
+                        System.out.println("before: " + front);
                         card.setFront(front);
+                        System.out.println("after: " + card.getFront());
                     }
 
                     boolean hasBack = res.get(3).size() == 1;
@@ -354,15 +361,19 @@ public enum Responses {
                         card.setBack(back);
                     }
 
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is complete.");
+                    Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                    Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
+
                     boolean hasNoChoiceChange = !hasChoice && !hasChoiceIndex;
                     if (hasNoChoiceChange) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is complete.");
                         return true;
                     }
                     boolean isInvalidChoiceCommand = (hasChoice && !hasChoiceIndex) || (!hasChoice && hasChoiceIndex);
                     if (isInvalidChoiceCommand) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! "
                                 + "Please check your choices");
+                        return true;
                     }
                     assert card instanceof MultipleChoiceCard;
                     MultipleChoiceCard mcqCard = (MultipleChoiceCard) card;
@@ -371,17 +382,16 @@ public enum Responses {
                     try {
                         int choiceIndex = Integer.parseInt(res.get(4).get(0));
                         mcqCard.editChoice(choiceIndex, newChoice);
+
                     } catch (NumberFormatException | IndexNotFoundException n) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: "
                                 + "Choice index provided is invalid.'");
                         return true;
                     }
 
-                    if (!(StateHolder.getState().completelyEquals(currDecks))) {
-                        StateHolder.getState().addDecksToDeckHistory(currDecks);
-                    }
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is complete.");
 
-                    Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                    Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
                     Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
                     //@author
 
@@ -393,12 +403,12 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
-                            + "format of the Edit command, type 'help command/edit'");
+                            + "format of the Edit command, type 'help command/edit");
                     return true;
                 }
     ),
     DELETE_CARD(
-            RegexUtil.commandFormatRegex("delete", new String[]{"deck/", "index/"}),
+            RegexUtil.commandFormatRegex("delete", new String[]{"deck/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("delete",
@@ -410,13 +420,25 @@ public enum Responses {
                     boolean hasDeck = res.get(0).size() == 1;
                     boolean hasIndex = res.get(1).size() == 1;
 
-                    if (!hasDeck || !hasIndex) {
+                    if (!hasDeck) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the"
                                 + "correct format of the Delete command, type 'help command/delete'");
                         return true;
                     }
 
                     String deckName = res.get(0).get(0);
+
+                    if (!hasIndex) {
+                        // Delete deck
+                        try {
+                            State s = StateHolder.getState();
+                            s.removeDeck(deckName);
+                        } catch (DeckNotFoundException dnf) {
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, dnf.getMessage());
+                            return true;
+                        }
+                    }
+
                     assert deckName != null;
                     try {
                         Deck deck = StateHolder.getState().getDeck(deckName);
@@ -430,7 +452,7 @@ public enum Responses {
                         }
 
                          */
-
+                        StateHolder.getState().addCurrDecksToDeckHistory();
                         deck.removeCard(index);
                     } catch (DeckNotFoundException d) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
@@ -442,7 +464,6 @@ public enum Responses {
 
                     Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
                     Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
-
                     //@author
 
                     return true; //if valid
@@ -581,7 +602,7 @@ public enum Responses {
                     try {
                         StateHolder.getState().undoDeckChanges();
                         StorageManager.writeDecks(StateHolder.getState().getDecks());
-                        Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
                         return true;
                     } catch (NoDeckHistoryException ndhExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, ndhExc.getMessage());
@@ -597,7 +618,6 @@ public enum Responses {
                         StateHolder.getState().redoDeckChanges();
                         StorageManager.writeDecks(StateHolder.getState().getDecks());
                         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
-
                         return true;
                     } catch (NoUndoHistoryException nuhExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, nuhExc.getMessage());
@@ -627,7 +647,7 @@ public enum Responses {
                             ExamRunner.terminateExam();
                         }
                     }
-                    AnchorPane newCard = exam.getCardDisplayFront();
+                    Pane newCard = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -645,7 +665,7 @@ public enum Responses {
                 i -> {
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.downIndex();
-                    AnchorPane newCard = exam.getCardDisplayFront();
+                    Pane newCard = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -684,7 +704,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardFront = exam.getCardDisplayFront();
+                    Pane cardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
                 }
@@ -695,7 +715,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD_BACK);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardBack = exam.getCardDisplayBack();
+                    Pane cardBack = exam.getCardDisplayBack();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
                 }
@@ -707,7 +727,7 @@ public enum Responses {
                     Consumers.doTask("GET_SCORE", true);
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.upIndex();
-                    AnchorPane nextCardFront = exam.getCardDisplayFront();
+                    Pane nextCardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -720,7 +740,7 @@ public enum Responses {
                     Consumers.doTask("GET_SCORE", false);
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.upIndex();
-                    AnchorPane nextCardFront = exam.getCardDisplayFront();
+                    Pane nextCardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -745,7 +765,7 @@ public enum Responses {
                     } catch (IndexNotFoundException e) {
                         Consumers.doTask("DISPLAY_MESSAGE", "Invalid Choice");
                     }
-                    AnchorPane cardBack = exam.getCardDisplayBack();
+                    Pane cardBack = exam.getCardDisplayBack();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
                 }
@@ -756,7 +776,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_MCQ);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardFront = exam.getCardDisplayFront();
+                    Pane cardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
                 }

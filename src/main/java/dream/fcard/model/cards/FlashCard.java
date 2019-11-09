@@ -79,7 +79,7 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
      * @return integer value of priorirty level.
      */
     public int getPriority() {
-        return priority;
+        return this.priority;
     }
 
     public abstract FlashCard duplicate();
@@ -94,6 +94,5 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
 
     public void setBack(String back) {
         this.back = back;
-    };
-
+    }
 }

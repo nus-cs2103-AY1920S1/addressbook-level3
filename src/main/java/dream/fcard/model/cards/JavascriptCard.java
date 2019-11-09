@@ -10,9 +10,6 @@ import dream.fcard.util.json.jsontypes.JsonValue;
  * Card that evaluates input as javascript code whose output has to match back of card.
  */
 public class JavascriptCard extends FlashCard {
-
-    protected String front; //question
-    protected String back;
     protected String attempt;
 
 
@@ -61,7 +58,7 @@ public class JavascriptCard extends FlashCard {
     public FlashCard duplicate() {
         String frontText = front;
         String backText = back;
-        return new JavascriptCard(frontText, backText);
+        return new JavascriptCard(frontText, backText, priority);
     }
 
     /**

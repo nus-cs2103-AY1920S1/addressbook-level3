@@ -202,14 +202,8 @@ To be implemented: An in-app Flashcard Pro compiler and debugger for JS and Java
 
 Classes used by multiple components are in the `dream.fcard.datastructures` package and root of `dream.fcard.util`
 
-== Implementation
-
-This section describes some noteworthy details on how certain features are implemented.
-
-
 // tag::parsejson[]
 === Implementation
-
 The parsing is done by `JsonParser`.
 It takes a string and attempts to read it as one of a `JsonValueTypes` and create its corresponding object wrapped in `JsonValue`.
 Since Objects and Arrays can recursively contain a json value, their contents are also read, created and wrapped.
@@ -229,13 +223,13 @@ Likewise for json array values.
 [NOTE]
 If all parsing types fail, there must be an error with the string input, thus a JsonFormatException is thrown.
 
-==== Design Considerations
+=== Design Considerations
 
 The JsonParser is designed to be a utility class with a pure function without any mutation of state.
 Thus it should be self contained within a single function call.
 
-=== [Proposed] Saving User Statistics feature
-==== Proposed Implementation
+== [Proposed] Saving User Statistics feature
+=== Proposed Implementation
 
 ==== Design Considerations
 
@@ -557,7 +551,7 @@ Use case ends.
 +
 Use case ends.
 
-[discrete]
+
 === Use case: Creating a deck of cards
 *MSS*
 
