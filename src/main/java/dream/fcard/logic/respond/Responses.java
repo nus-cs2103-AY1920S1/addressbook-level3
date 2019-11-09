@@ -345,7 +345,7 @@ public enum Responses {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! "
                                 + "Front Back card has no choices.");
                     }
-                  
+
                     boolean hasFront = res.get(2).size() == 1;
                     System.out.println(hasFront);
                     if (hasFront) {
@@ -390,10 +390,6 @@ public enum Responses {
                     }
 
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is complete.");
-
-                    if (!(StateHolder.getState().completelyEquals(currDecks))) {
-                        StateHolder.getState().addDecksToDeckHistory(currDecks);
-                    }
 
                     Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
                     Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
