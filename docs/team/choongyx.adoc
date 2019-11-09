@@ -88,8 +88,6 @@ https://github.com/AY1920S1-CS2103T-F13-3/main/issues/119[8])
 
 Given below are sections I contributed to the User Guide, which include the Introduction, How To Use This Guide, Quick Start, Statistics feature and Graph feature.
 
-include::../UserGuide.adoc[tag=introduction]
-
 include::../UserGuide.adoc[tag=statistics]
 
 include::../UserGuide.adoc[tag=graph]

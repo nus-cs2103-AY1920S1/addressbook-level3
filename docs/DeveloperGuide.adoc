@@ -649,6 +649,10 @@ The `StatsCommandParser` differentiates these 2 commands based on whether a vali
 .Activity Diagram showing behaviour of StatsCommandParser
 image::StatsActivityDiagram.png[width="600"]
 
+. If a valid date range is provided in the `stats` command given by the user, `StatsCommand(DATE_START, DATE_END)` with the respective date parameters is created. The command will execute based on this date range.
+. If no date range is provided by the user, `StatsCommand()` is created, which will execute the command based on the whole date range in the list.
+. Else, if the parameters are invalid, a `ParseException` is thrown and the application waits for a new user input.
+
 The implementation of the Statistics feature can be split into 2 phases, preparation and execution. Given below is an explanation of how the Statistics mechanism behaves at each phase.
 
 ===== Preparation
@@ -661,7 +665,7 @@ image::StatsSequenceDiagram.png[]
 
 NOTE: The lifeline for `StatsCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-1. User first enters the command `stats d/01/01/2019 d/07/01/2019`.
+1. User first enters a `stats` command.
 
 2. `SpendingBookParser` will parse and identify the command as a `StatsCommand` and pass on the argument to `StatsCommandParser`.
 
@@ -717,6 +721,12 @@ The `GraphCommandParser` differentiates these 2 commands based on whether a vali
 .Activity Diagram showing behaviour of GraphCommandParser
 image::GraphActivityDiagram.png[width="600"]
 
+
+. If a valid date range is provided in the `graph` command given by the user, `GraphCommand(DATE_START, DATE_END)` with the respective date parameters is created. The command will execute based on this date range.
+. If no date range is provided by the user, `GraphCommand()` is created, which will execute the command based on the whole date range in the list.
+. Else, if the parameters are invalid, a `ParseException` is thrown and the application waits for a new user input.
+
+
 The implementation of the Graph feature can be split into 2 phases, preparation and execution. Given below is an explanation of how the Graph mechanism behaves at each phase.
 
 ===== Preparation
@@ -729,7 +739,7 @@ image::GraphSequenceDiagram.png[]
 
 NOTE: The lifeline for `GraphCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-1. User first enters the command `graph d/01/01/2019 d/07/01/2019`.
+1. User first enters a `graph` command.
 
 2. `SpendingBookParser` will parse and identify the command as a `GraphCommand` and pass on the argument to `GraphCommandParser`.
 
