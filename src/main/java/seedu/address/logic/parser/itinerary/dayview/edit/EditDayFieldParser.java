@@ -1,18 +1,20 @@
 package seedu.address.logic.parser.itinerary.dayview.edit;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_CHOOSER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.io.File;
 import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ImageChooser;
 import seedu.address.logic.commands.itinerary.days.edit.EditDayFieldCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -37,13 +39,14 @@ public class EditDayFieldParser implements Parser<EditDayFieldCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
-                        PREFIX_NAME,
                         PREFIX_DATE_START,
                         PREFIX_DATE_END,
                         PREFIX_BUDGET,
                         PREFIX_LOCATION,
                         PREFIX_INDEX,
-                        PREFIX_DESCRIPTION);
+                        PREFIX_DESCRIPTION,
+                        PREFIX_FILE_CHOOSER,
+                        PREFIX_DATA_FILE_PATH);
 
         Optional<Index> index;
 
@@ -70,7 +73,8 @@ public class EditDayFieldParser implements Parser<EditDayFieldCommand> {
         }
         if (argMultimap.getValue(PREFIX_DATE_END).isPresent()) {
             editDayDescriptor.setEndDate(
-                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_END).get()));
+                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_END).get())
+                            .withHour(23).withMinute(59));
         }
         if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
             editDayDescriptor.setBudget(
@@ -84,6 +88,16 @@ public class EditDayFieldParser implements Parser<EditDayFieldCommand> {
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editDayDescriptor.setDescription(
                     ItineraryParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+        }
+
+        File imageFile = null;
+        if (argMultimap.getValue(PREFIX_FILE_CHOOSER).isPresent()) {
+            ImageChooser imageChooser = new ImageChooser();
+            imageFile = imageChooser.showDialog();
+        }
+        if (argMultimap.getValue(PREFIX_DATA_FILE_PATH).isPresent()) {
+            editDayDescriptor.setPhoto(
+                    ItineraryParserUtil.parseFilePath(argMultimap.getValue(PREFIX_DATA_FILE_PATH).get(), imageFile));
         }
 
         if (!editDayDescriptor.isAnyFieldEdited()) {

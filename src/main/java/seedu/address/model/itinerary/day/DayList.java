@@ -18,8 +18,8 @@ import seedu.address.model.itinerary.day.exceptions.DayNotFoundException;
 public class DayList extends ConsecutiveOccurrenceList<Day> {
     private static final String MESSAGE_INVALID_DATETIME = "Date should be within valid duration";
 
-    private final LocalDateTime startDate;
-    private final LocalDateTime endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     public DayList(LocalDateTime startDate, LocalDateTime endDate) {
         this.startDate = startDate;
@@ -32,6 +32,16 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
     public boolean isValidDay(Day day) {
         return !(day.getStartDate().isBefore(startDate))
                 && !(day.getEndDate().isAfter(endDate));
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+        this.internalList.removeIf(day -> !this.isValidDay(day));
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+        this.internalList.removeIf(day -> !this.isValidDay(day));
     }
 
     @Override
@@ -64,8 +74,13 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
         if (index == -1) {
             throw new DayNotFoundException();
         }
-
-        internalList.set(index, editedDay);
+        Day day = internalList.remove(index);
+        if (containsClashing(editedDay)) {
+            internalList.add(day);
+            throw new ClashingDayException();
+        } else {
+            internalList.add(editedDay);
+        }
     }
 
     @Override
@@ -109,4 +124,5 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
         }
         return true;
     }
+
 }

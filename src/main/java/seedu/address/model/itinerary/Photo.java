@@ -1,4 +1,4 @@
-package seedu.address.model.trip;
+package seedu.address.model.itinerary;
 
 import static seedu.address.commons.util.AppUtil.getAbsoluteImage;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
 import seedu.address.commons.util.AppUtil;
 
 /**
- * Abstraction of a photo in trip containing the path to an image.
+ * Abstraction of a photo containing the path to an image.
  */
 public class Photo {
     public static final String INVALID_FILE_PATH = "/images/invalidPhotoPlaceholder.png";

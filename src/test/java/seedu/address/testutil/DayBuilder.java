@@ -84,7 +84,7 @@ public class DayBuilder {
     }
 
     public Day build() {
-        return new Day(startDate, endDate, description, destination, totalBudget, eventList);
+        return new Day(startDate, endDate, description, destination, totalBudget, eventList, null);
     }
 
 }

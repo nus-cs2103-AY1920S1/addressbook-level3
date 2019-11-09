@@ -123,6 +123,7 @@ public class EditEventPage extends Page<AnchorPane> {
         eventEndTimeFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
         eventTotalBudgetFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
         eventDestinationFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        eventDescriptionFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
 
         formItemsPlaceholder.getChildren().addAll(
                 eventNameFormItem.getRoot(),
