@@ -54,6 +54,6 @@ public class AddPlanCommandIntegrationTest {
         logicManager.execute("addplan n/test11 d/test start/2018-01-01 end/2020-11-30\n");
         logicManager.execute("addplan n/test12 d/test start/0000-01-01 end/0999-01-31\n");
         logicManager.execute("addplan n/test13 d/test start/2018-01-01 end/9999-12-31\n");
-        assertProcessedPlanListOfLength(logicManager, 3);
+        assertProcessedPlanListOfLength(logicManager, 16);
     }
 }
