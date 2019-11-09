@@ -27,7 +27,7 @@ public class MeetingQuery {
     }
 
     public ObservableList<Meeting> getMeetingList() {
-        return meetingList;
+        return meetingUnmodifiableList;
     }
 
     public LocalDateTime getStartDate() {
@@ -40,5 +40,9 @@ public class MeetingQuery {
 
     public Duration getDuration() {
         return duration;
+    }
+
+    public boolean hasMeetings() {
+        return meetingList.size() > 0;
     }
 }

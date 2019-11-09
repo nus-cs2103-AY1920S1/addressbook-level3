@@ -40,10 +40,6 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
     private final ObservableList<CalendarWrapper> internalList = FXCollections.observableArrayList();
     private final ObservableList<CalendarWrapper> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-//    private static final TimeZone DEFAULT_TIMEZONE = TimeZoneRegistryFactory
-//            .getInstance()
-//            .createRegistry()
-//            .getTimeZone("Asia/Hong_Kong");
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -358,11 +354,7 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
                 meetingList.add(newMeetingDate);
             }
         }
-        if (maxAttendance == 0) {
-            return null;
-        } else {
-            return new MeetingQuery(meetingList, startDate, endDate, duration);
-        }
+        return new MeetingQuery(meetingList, startDate, endDate, duration);
     }
 
     public static void addMemberAvailability(HashMap<LocalDateTime, List<MemberName>> attendance,
