@@ -38,8 +38,6 @@ public class SavedQuestions implements ReadOnlyQuestions {
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
-
     /**
      * Returns a question bank.
      * @return The question bank.
@@ -80,8 +78,6 @@ public class SavedQuestions implements ReadOnlyQuestions {
 
         setQuestions(newData.getSavedQuestions());
     }
-
-    //// Question-level operations
 
     /**
      * Returns true if a Question with the same identity as {@code Question} exists in the saved

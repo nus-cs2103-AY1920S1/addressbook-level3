@@ -30,6 +30,11 @@ public class SavedQuestionsTest {
     }
 
     @Test
+    public void initialise_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new SavedQuestions(null));
+    }
+
+    @Test
     public void resetData_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> savedQuestions.resetData(null));
     }
