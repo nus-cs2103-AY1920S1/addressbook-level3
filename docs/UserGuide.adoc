@@ -107,9 +107,6 @@ We've split up this guide into the different features of our application, namely
 
 In each of the above sections, you will be introduced to the *interface* of the feature, the *_parameters_* (which are just like those fields you fill up in a regular form📝) and the *commands* that will do the menial tasks for you.
 
-We have provided the word that you type into TravEzy to trigger the
-command, or the _Command Word_  in a special format, for example -  ``Command Word``. With this, there
-is a short description of the command as well.
 
 === Reading this Document
 
