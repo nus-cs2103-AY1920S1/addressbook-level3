@@ -172,7 +172,7 @@ public class EditAccommodationCommand extends EditCommand {
         Name updatedName = editAccommodationDescriptor.getName().orElse(accommodationToEdit.getName());
         Address updatedAddress = editAccommodationDescriptor.getAddress().orElse(accommodationToEdit.getAddress());
         Contact updatedContact = editAccommodationDescriptor.getPhone().isPresent()
-                ? model.hasPhone(editAccommodationDescriptor.getPhone().get())
+                ? model.getContactByPhone(editAccommodationDescriptor.getPhone().get()).isPresent()
                     ? model.getContactByPhone(editAccommodationDescriptor.getPhone().get()).get()
                     : accommodationToEdit.getContact().isPresent()
                         ? new Contact(accommodationToEdit.getContact().get().getName(),
@@ -183,7 +183,7 @@ public class EditAccommodationCommand extends EditCommand {
                         : new Contact(updatedName,
                             editAccommodationDescriptor.getPhone().get(),
                             null,
-                            null,
+                            updatedAddress,
                             new HashSet<>())
                 : accommodationToEdit.getContact().isPresent()
                     ? accommodationToEdit.getContact().get()

@@ -182,7 +182,7 @@ public class EditActivityCommand extends EditCommand {
         Name updatedName = editActivityDescriptor.getName().orElse(activityToEdit.getName());
         Address updatedAddress = editActivityDescriptor.getAddress().orElse(activityToEdit.getAddress());
         Contact updatedContact = editActivityDescriptor.getPhone().isPresent()
-                ? model.hasPhone(editActivityDescriptor.getPhone().get())
+                ? model.getContactByPhone(editActivityDescriptor.getPhone().get()).isPresent()
                     ? model.getContactByPhone(editActivityDescriptor.getPhone().get()).get()
                     : activityToEdit.getContact().isPresent()
                         ? new Contact(activityToEdit.getContact().get().getName(),
@@ -190,7 +190,11 @@ public class EditActivityCommand extends EditCommand {
                             activityToEdit.getContact().get().getEmail().orElse(null),
                             activityToEdit.getContact().get().getAddress().orElse(null),
                             activityToEdit.getContact().get().getTags())
-                        : new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null, new HashSet<>())
+                        : new Contact(updatedName,
+                            editActivityDescriptor.getPhone().get(),
+                        null,
+                            updatedAddress,
+                            new HashSet<>())
                 : activityToEdit.getContact().isPresent()
                     ? activityToEdit.getContact().get()
                     : null;
