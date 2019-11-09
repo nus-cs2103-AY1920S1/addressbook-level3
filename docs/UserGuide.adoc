@@ -1091,12 +1091,12 @@ goal set for that particular financial goal.
 ** To set sales goal notification: `notify s/PERCENTAGE`
 
 * Examples:
-** To set budget goal notification: [blue]`notify b/PERCENTAGE`
-** To set expense goal notification: [blue]`notify e/PERCENTAGE`
-** To set sales goal notification: [blue]`notify s/PERCENTAGE`
+** To set budget goal notification: [blue]`notify b/80`
+** To set expense goal notification: [blue]`notify e/80`
+** To set sales goal notification: [blue]`notify s/80`
 
 [NOTE]
-The percentage value should be a value from 0 - 100. +
+The percentage value should be a whole number from 0 - 100. +
 This feature will not work if no goals have previously been set with the `set` command, or if the goal is currently
 set to 0. +
 To disable notifications for a particular financial goal, simply set its notifications threshold to 0.

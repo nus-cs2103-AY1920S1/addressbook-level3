@@ -34,10 +34,6 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above depicts the high-level design of treasurerPro.
 
-[TIP]
-The `.xml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-You may use link:draw.io[draw.io] to edit the diagrams.
-
 treasurerPro is divided primarily into 6 packages which contain implementation for each tab in the UI:
 
 . Transaction package: Home Tab
@@ -153,7 +149,7 @@ image::LogicForR&T.png[]
 The `XYZTabParser` represents the `TransactionTabParser` for Home Tab and `ReimbursementTabParser` for Reimbursements
 Tab.
 
-The parsers represented by the `ABCParser` and `DEFParser`:
+The parsers represented by the `ABCParser` and `DEFParser` are:
 
 `ABCParser`:
 
@@ -183,6 +179,15 @@ for Home and Reimbursements Tab contains the `GetPersonByNameOnlyModel` since `L
 the `ModelManager#getPersonByName` method
 in the person package.
 
+==== Details on `Logic` Implementation for Members Tab
+[[PLogic]]
+This section will show further details of the `Logic` Component of the Members Tab.
+This is integrated from the existing `AddressBook`.
+Given below is a Class Diagram showing the structure of `Parser` within the `Logic` Component:
+
+.Structure of `Parser` for Members Tab.
+image::LogicForAB.png[]
+
 [[ICLogic]]
 ==== Details on `Logic` Implementation for Inventory and Cashier Tab
 This section will show further details of the `Logic` Component of Inventory Tab and Cashier Tab.
@@ -193,10 +198,9 @@ image::ParserForInventoryCashier.png[]
 
 [NOTE]
 The `XYZTabParser` represents the `InventoryTabParser` for the Inventory Tab and `CashierTabParser`
-for the Cashier
-Tab.
+for the Cashier Tab.
 
-The parsers represented by the `ABCParser`:
+The parsers represented by the `ABCParser` are:
 
 `ABCParser`:
 
@@ -214,14 +218,18 @@ The parsers represented by the `ABCParser`:
 ** `CheckoutCommandParser`
 ** `ClearCommandParser`
 
-==== Details on `Logic` Implementation for Members Tab
-[[PLogic]]
-This section will show further details of the `Logic` Component of the Members Tab.
-This is integrated from the existing `AddressBook`.
+==== Details on `Logic` Implementation for Overview Tab
+[[OverviewLogic]]
+This section will show further details of the `Logic` Component of the Overview Tab.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` Component:
 
-.Structure of `Parser` for Members Tab.
-image::LogicForAB.png[]
+.Structure of `Parser` for Overview Tab.
+image::OverviewLogicDiagram.png[]
+
+The parsers represented by the `ABCParser` are:
+
+* `SetCommandParser`
+* `NotifyCommandParser`
 
 [[Design-Model]]
 === Model component
@@ -236,6 +244,8 @@ image::ModelCD.png[]
 
 
 ==== Details on the `Model` Implementation for Home Tab
+The `Model` of the Home tab:
+
 * stores a `TransactionList` object that represents the list of all transactions data
 * stores a `Predicate<Transaction>` object to filter the list of all transactions
 * stores another `TransactionList` object that represents the filtered list of transactions according to the predicate
@@ -248,6 +258,7 @@ To be filled in :)
 *API for reimbursements package* : link:{repoURL}/src/main/java/seedu/address/reimbursement/model/Model.java[`Model.java`]
 
 ==== Details on the `Model` Implementation for Members Tab
+The `Model` of the Members tab:
 * stores a `UserPref` object that represents the user's preferences for `person` package.
 * stores the Address Book data for `person` package.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
@@ -261,6 +272,7 @@ To be filled in :)
 *API for inventory package* : link:{repoURL}/src/main/java/seedu/address/inventory/model/Model.java[`Model.java`]
 
 ==== Details on the `Model` Implementation for Cashier Tab
+The `Model` of the Cashier tab:
 * stores an `InventoryList` object that represents the list of all items in the inventory
 * stores a list of sales items present on the table of the Cashier Tab
 * accesses the `TransactionList` object from transaction package that represents the list of all transactions data
@@ -273,16 +285,16 @@ package access different set of methods which modifies only the quantity of the 
 *API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/model/Model.java[`Model.java`]
 
 ==== Details on the `Model` Implementation for Overview Tab
-To be filled in :)
+The `Model` of the Overview tab:
+
+* stores an array of 6 double values representing the budget goal, expense goal, sales goal, budget threshold, expense
+threshold and sales threshold respectively
+* stores three booleans indicating whether notifications for budget, expenses and sales have already been shown, valid
+for the current session only
+* exposes getter and setter method to read and write the goals and thresholds
+* does not depend on any of the other components
 
 *API for overview package* : link:{repoURL}/src/main/java/seedu/address/overview/model/Model.java[`Model.java`]
-
-//[NOTE]
-//As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
-//This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
-//An example of how such a model may look like is given below. +
-
-//image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -327,7 +339,7 @@ To be filled in :)
 *API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/storage/Storage.java[`Storage.java`]
 
 ==== Details on the `Storage` Implementation for Overview Tab
-To be filled in :)
+* can save Overview tab goals and threshold in txt format and read it back
 
 *API for overview package* : link:{repoURL}/src/main/java/seedu/address/overview/storage/Storage.java[`Storage.java`]
 
