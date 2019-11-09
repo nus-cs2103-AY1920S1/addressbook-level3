@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.flashcard.testutil.TypicalFlashcard.DAXING_AIRPORT;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.flashcard.testutil.FlashcardBuilder;
 
 public class McqFlashcardTest {

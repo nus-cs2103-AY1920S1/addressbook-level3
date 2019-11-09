@@ -11,7 +11,7 @@ import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.McqFlashcard;
 import seedu.flashcard.model.flashcard.Question;
-import seedu.flashcard.model.flashcard.ShortAnswerFlashcardTest;
+import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 import seedu.flashcard.model.tag.Tag;
 
 /**
@@ -33,7 +33,7 @@ public class EditFlashcardDescriptorBuilder {
      * Returns a {@code EditFlashcardDescriptor} with fields containing {@code flashcard}'s details
      * Particular for ShortAnswerFlashcards
      */
-    public EditFlashcardDescriptorBuilder(ShortAnswerFlashcardTest flashcard) {
+    public EditFlashcardDescriptorBuilder(ShortAnswerFlashcard flashcard) {
         descriptor = new EditFlashcardDescriptor();
         descriptor.setQuestion(flashcard.getQuestion());
         descriptor.setAnswer(flashcard.getAnswer());

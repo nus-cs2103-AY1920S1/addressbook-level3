@@ -14,7 +14,7 @@ import seedu.flashcard.logic.commands.EditCommand.EditFlashcardDescriptor;
 import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.McqFlashcard;
-import seedu.flashcard.model.flashcard.ShortAnswerFlashcardTest;
+import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 import seedu.flashcard.model.tag.Tag;
 
 /**
@@ -26,7 +26,7 @@ public class FlashcardUtil {
         if (flashcard.isMcq()) {
             return AddCommand.COMMAND_WORD + " " + getFlashcardDetails((McqFlashcard) flashcard);
         } else {
-            return AddCommand.COMMAND_WORD + " " + getFlashcardDetails((ShortAnswerFlashcardTest) flashcard);
+            return AddCommand.COMMAND_WORD + " " + getFlashcardDetails((ShortAnswerFlashcard) flashcard);
         }
     }
 
@@ -34,7 +34,7 @@ public class FlashcardUtil {
      * For short answer flashcard usage.
      * Returns the part of command string for the given {@code flashcard}'s details.
      */
-    public static String getFlashcardDetails(ShortAnswerFlashcardTest flashcard) {
+    public static String getFlashcardDetails(ShortAnswerFlashcard flashcard) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_QUESTION + flashcard.getQuestion().question + " ");
         sb.append(PREFIX_DEFINITION + flashcard.getDefinition().definition + " ");
