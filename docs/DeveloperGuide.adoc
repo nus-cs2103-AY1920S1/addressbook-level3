@@ -155,13 +155,6 @@ This section describes some noteworthy details on how certain features are imple
 include::./devguide/UndoRedoHistory.adoc[]
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Visits Management
 
 include::./devguide/VisitsManagement.adoc[]
