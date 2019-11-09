@@ -5,7 +5,11 @@ package seedu.address.model.flashcard.exceptions;
  * of the cases were matched.
  */
 public class StringToScheduleIncrementConversionException extends RuntimeException {
+
+    public static final String ERROR_MESSAGE = "Exception while converting ScheduleIncrement string in JSON storage "
+            + "to ScheduleIncrement!";
+
     public StringToScheduleIncrementConversionException() {
-        super("Exception while converting ScheduleIncrement string in JSON storage to ScheduleIncrement!");
+        super(ERROR_MESSAGE);
     }
 }

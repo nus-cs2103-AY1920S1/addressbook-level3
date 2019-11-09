@@ -24,9 +24,9 @@ import seedu.address.model.StudyBuddyPro;
 /**
  * A class to access StudyBuddyPro data stored as a json file on the hard disk.
  */
-public class JsonStudyBuddyStorage implements StudyBuddyProStorage {
+public class JsonStudyBuddyProStorage implements StudyBuddyProStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonStudyBuddyStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonStudyBuddyProStorage.class);
 
     private Path cheatSheetFilePath;
     private Path flashcardFilePath;
@@ -38,7 +38,7 @@ public class JsonStudyBuddyStorage implements StudyBuddyProStorage {
      * @param noteFilePath cannot be null.
      * @param cheatSheetFilePath cannot be null.
      */
-    public JsonStudyBuddyStorage(Path flashcardFilePath, Path noteFilePath, Path cheatSheetFilePath) {
+    public JsonStudyBuddyProStorage(Path flashcardFilePath, Path noteFilePath, Path cheatSheetFilePath) {
         requireNonNull(flashcardFilePath);
         requireNonNull(noteFilePath);
         requireNonNull(cheatSheetFilePath);
