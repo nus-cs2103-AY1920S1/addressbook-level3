@@ -145,7 +145,7 @@ public class Calendar {
     }
 
     private void updateMonthView(Event event) {
-        EventQuery eventQuery = Event.asEventQuery(event);
+        EventQuery eventQuery = event.asEventQuery();
         updateMonthView(eventQuery);
     }
 

@@ -346,4 +346,11 @@ public class DateTest {
         assertTrue(date.compareTo(yearBefore) > 0);
         assertTrue(date.compareTo(yearAfter) < 0);
     }
+
+    @Test
+    public void to_string() {
+        Date date = new Date(new Day(DayOfWeek.THU, 19, MonthOfYear.AUGUST, new Year(2060)),
+                MonthOfYear.AUGUST, new Year(2060));
+        assertEquals("Thu, 19 August 2060", date.toString());
+    }
 }
