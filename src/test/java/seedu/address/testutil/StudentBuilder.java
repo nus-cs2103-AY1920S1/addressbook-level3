@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.student.Address;
+import seedu.address.model.student.DisplayPicture;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
 import seedu.address.model.student.Name;
@@ -31,6 +32,7 @@ public class StudentBuilder {
     private Address address;
     private ParentPhone parentPhone;
     private MedicalCondition medicalCondition;
+    private DisplayPicture displayPicture;
     private Set<Tag> tags;
 
     public StudentBuilder() {
@@ -38,6 +40,7 @@ public class StudentBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        displayPicture = new DisplayPicture();
         parentPhone = new ParentPhone(DEFAULT_PARENTPHONE);
         medicalCondition = new MedicalCondition(DEFAULT_MEDICALCONDITION);
         tags = new HashSet<>();
@@ -51,6 +54,7 @@ public class StudentBuilder {
         phone = studentToCopy.getPhone();
         email = studentToCopy.getEmail();
         address = studentToCopy.getAddress();
+        displayPicture = new DisplayPicture(studentToCopy.getDisplayPictureFilePath());
         parentPhone = studentToCopy.getParentPhone();
         medicalCondition = studentToCopy.getMedicalCondition();
         tags = new HashSet<>(studentToCopy.getTags());
@@ -77,6 +81,14 @@ public class StudentBuilder {
      */
     public StudentBuilder withAddress(String address) {
         this.address = new Address(address);
+        return this;
+    }
+
+    /**
+     * Sets {@code display picture} of the {@code Student} that we are building.
+     */
+    public StudentBuilder withDisplayPicture(String fileName) {
+        this.displayPicture = new DisplayPicture(fileName);
         return this;
     }
 
@@ -113,7 +125,7 @@ public class StudentBuilder {
     }
 
     public Student build() {
-        return new Student(name, phone, email, parentPhone, address, medicalCondition, tags);
+        return new Student(name, phone, email, parentPhone, address, displayPicture, medicalCondition, tags);
     }
 
 }
