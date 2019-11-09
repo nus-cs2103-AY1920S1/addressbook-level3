@@ -62,7 +62,7 @@ Each of the five components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-// end::architectureDiagram[]statsOverallClassDiagram
+// end::architectureDiagram[]
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
