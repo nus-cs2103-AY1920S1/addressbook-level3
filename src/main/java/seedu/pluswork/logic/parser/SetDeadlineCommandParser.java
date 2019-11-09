@@ -18,6 +18,7 @@ import seedu.pluswork.logic.parser.exceptions.ParseException;
  */
 public class SetDeadlineCommandParser implements Parser<SetDeadlineCommand> {
     public static final String MESSAGE_NO_ID = "Please enter the TASK ID of the task you want to set a deadline for.";
+    public static final String DEADLINE_PASSED = "The deadline entered has already passed, please try again";
 
     /**
      * Parses the given {@code String} of arguments in the context of the SetDeadlineCommand
@@ -36,11 +37,11 @@ public class SetDeadlineCommandParser implements Parser<SetDeadlineCommand> {
         Index index;
         LocalDateTime dateTime;
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK_INDEX).get());
-            dateTime = DateTimeUtil.parseDateTime(argMultimap.getValue(PREFIX_DEADLINE).get());
-        } catch (ParseException e) {
-            throw new ParseException(e.getMessage());
+        index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK_INDEX).get());
+        dateTime = DateTimeUtil.parseDateTime(argMultimap.getValue(PREFIX_DEADLINE).get());
+
+        if (dateTime.isBefore(LocalDateTime.now())) {
+            throw new ParseException(DEADLINE_PASSED);
         }
 
         return new SetDeadlineCommand(index, dateTime);

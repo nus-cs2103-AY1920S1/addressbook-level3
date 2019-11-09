@@ -3,6 +3,8 @@ package seedu.pluswork.model.calendar;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,6 +40,13 @@ public class Meeting {
 
     public ObservableList<MemberName> getMemberNameList() {
         return internalUnmodifiableList;
+    }
+
+    public Meeting updateMemberRemoved(MemberName memberToRemove) {
+        List<MemberName> updatedNameList = internalList.stream()
+                .filter(memberName -> !memberName.equals(memberToRemove))
+                .collect(Collectors.toList());
+        return new Meeting(startTime, duration, updatedNameList);
     }
 
     public boolean isSameMeeting(Meeting other) {

@@ -66,8 +66,6 @@ public class LogicManager implements Logic {
             return commandResultMl;
         }
 
-        logger.info("goes here");
-
         try {
             storage.saveProjectDashboard(model.getProjectDashboard());
             storage.saveUserSettings(model.getUserSettings());

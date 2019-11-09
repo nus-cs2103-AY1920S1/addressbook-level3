@@ -24,6 +24,7 @@ import seedu.pluswork.model.mapping.TasMemMapping;
 import seedu.pluswork.model.mapping.UniqueMappingManager;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.member.MemberId;
+import seedu.pluswork.model.member.MemberName;
 import seedu.pluswork.model.member.UniqueMemberList;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.TaskStatus;
@@ -109,6 +110,10 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         this.calendars.setCalendars(calendars);
     }
 
+    public void setMeetingQuery(MeetingQuery meetingQuery) {
+        this.meetingQuery = meetingQuery;
+    }
+
     /**
      * Resets the existing data of this {@code ProjectDashboard} with {@code newData}.
      * Replaces the contents of the inventory list with {@code inventories}.
@@ -129,6 +134,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         setMappings(newData.getInvMemMappingList(), newData.getInvTasMappingList(), newData.getTasMemMappingList());
         setCalendars(newData.getCalendarList());
         setMeetings(newData.getMeetingList());
+        setMeetingQuery(newData.getMeetingQuery());
     }
 
     //// task-level operations
@@ -441,10 +447,15 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     public void deleteCalendar(CalendarWrapper calendar) {
         calendars.remove(calendar);
+        MemberName memberToRemove = calendar.getMemberName();
+        if (meetingQuery != null) {
+            meetingQuery.updateMemberRemoved(memberToRemove);
+        }
+        meetings.updateMemberRemoved(memberToRemove);
     }
 
     public boolean hasCalendar(CalendarWrapper calendar) {
-        return calendars.contains(calendar);
+        return calendars.containsMemberName(calendar);
     }
 
     @Override

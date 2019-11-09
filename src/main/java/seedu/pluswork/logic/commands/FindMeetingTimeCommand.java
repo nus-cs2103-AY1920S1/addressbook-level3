@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import seedu.pluswork.commons.util.DateTimeUtil;
+import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.calendar.MeetingQuery;
 
@@ -31,6 +32,8 @@ public class FindMeetingTimeCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Found a meeting time between %1$s - %2$s";
     public static final String MESSAGE_FAILURE = "Could not find a meeting time between %1$s - %2$s";
 
+    public static final String ILLEGAL_END_DATE = "Please enter an end time that is after the start time";
+
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final Duration meetingDuration;
@@ -39,26 +42,33 @@ public class FindMeetingTimeCommand extends Command {
      * Creates an AddCommand to add the specified {@code Task}
      */
     public FindMeetingTimeCommand(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
-        //Check if non null
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        requireNonNull(meetingDuration);
         this.startDate = startDate;
         this.endDate = endDate;
         this.meetingDuration = meetingDuration;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (endDate.isBefore(startDate)) {
+            throw new CommandException(ILLEGAL_END_DATE);
+        }
 
         model.findMeetingTime(startDate, endDate, meetingDuration);
         MeetingQuery meetingQuery = model.getMeetingQuery();
-        if (meetingQuery == null) {
+        assert(meetingQuery != null);
+        if (!meetingQuery.hasMeetings()) {
             String startDateString = DateTimeUtil.displayDateTime(startDate);
             String endDateString = DateTimeUtil.displayDateTime(endDate);
-            return new CommandResult(String.format(MESSAGE_FAILURE, startDate, endDate));
+            return new CommandResult(String.format(MESSAGE_FAILURE, startDateString, endDateString));
         } else {
             String startDateString = DateTimeUtil.displayDateTime(startDate);
             String endDateString = DateTimeUtil.displayDateTime(endDate);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, startDate, endDate));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, startDateString, endDateString));
         }
     }
 

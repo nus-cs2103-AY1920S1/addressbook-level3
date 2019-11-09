@@ -5,9 +5,14 @@ import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import seedu.pluswork.model.member.MemberName;
 
 public class MeetingQuery {
     private final ObservableList<Meeting> meetingList = FXCollections.observableArrayList();
@@ -27,7 +32,7 @@ public class MeetingQuery {
     }
 
     public ObservableList<Meeting> getMeetingList() {
-        return meetingList;
+        return meetingUnmodifiableList;
     }
 
     public LocalDateTime getStartDate() {
@@ -40,5 +45,16 @@ public class MeetingQuery {
 
     public Duration getDuration() {
         return duration;
+    }
+
+    public boolean hasMeetings() {
+        return meetingList.size() > 0;
+    }
+
+    public void updateMemberRemoved(MemberName memberToRemove) {
+        List<Meeting> tmpList = meetingList.stream()
+                .map(meeting -> (Meeting) meeting.updateMemberRemoved(memberToRemove))
+                .collect(Collectors.toList());
+        meetingList.setAll(tmpList);
     }
 }
