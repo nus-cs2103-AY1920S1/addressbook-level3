@@ -282,7 +282,7 @@ The following sequence diagram shows how the command to delete transactions acco
 image::HomeDeleteNameCommand.png[width = "300"]
 
 In addition, the `Model#resetPredicate()` method defined in <<resetPredicate, 3.1.1. Add Command Feature>> is not called in the `DeleteNameCommand`. If the prior input is a
-Find Command and the list at the start of the activity diagram shows
+find command and the list at the start of the activity diagram shows
 a filtered list, the table in the UI will continue to show the filtered list after the current Delete Command.
 To view the full transaction list, the user would be required to enter the
 Back Command where `BackCommand` calls `Model#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
