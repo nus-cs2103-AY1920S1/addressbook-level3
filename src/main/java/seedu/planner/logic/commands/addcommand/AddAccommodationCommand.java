@@ -54,20 +54,24 @@ public class AddAccommodationCommand extends AddCommand {
 
     private final Index index;
     private final Accommodation toAdd;
+    private final boolean isUndoRedo;
 
     /**
      * Creates an AddAccommodationCommand to add the specified {@Accommodation}
      */
-    public AddAccommodationCommand(Accommodation accommodation) {
+    public AddAccommodationCommand(Accommodation accommodation, boolean isUndoRedo) {
         requireNonNull(accommodation);
         toAdd = accommodation;
         index = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
+    // Constructor used to undo DeleteAccommodationEvent
     public AddAccommodationCommand(Index index, Accommodation accommodation) {
         requireAllNonNull(index, accommodation);
         toAdd = accommodation;
         this.index = index;
+        this.isUndoRedo = true;
     }
 
     public Accommodation getToAdd() {
@@ -82,42 +86,34 @@ public class AddAccommodationCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        Accommodation accommodationAdded;
         if (model.hasAccommodation(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACCOMMODATION);
         }
 
-        if (toAdd.getContact().isPresent()) {
-            if (model.hasPhone(toAdd.getContact().get().getPhone())) {
-                Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
-                Accommodation linkedAccommodation = new Accommodation(toAdd.getName(), toAdd.getAddress(), contact,
-                        toAdd.getTags());
-                model.addAccommodation(linkedAccommodation);
-                return new CommandResult(
-                    String.format(MESSAGE_SUCCESS, linkedAccommodation),
-                    new ResultInformation[] {
-                        new ResultInformation(
-                                linkedAccommodation,
-                                findIndexOfAccommodation(model, linkedAccommodation),
-                                String.format(MESSAGE_SUCCESS, "")
-                        )
-                    },
-                    new UiFocus[]{UiFocus.ACCOMMODATION, UiFocus.INFO}
-                );
-            } else {
-                if (index == null) {
-                    model.addAccommodation(toAdd);
-                } else {
-                    model.addAccommodationAtIndex(index, toAdd);
-                }
-            }
+        // Check if new Accommodation's contact already exist in ContactManager's list. If true, use the existing
+        // contact.
+        if (toAdd.getContact().isPresent() && model.hasPhone(toAdd.getContact().get().getPhone())) {
+            Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
+            accommodationAdded = new Accommodation(toAdd.getName(), toAdd.getAddress(), contact,
+                    toAdd.getTags());
         } else {
-            if (index == null) {
-                model.addAccommodation(toAdd);
-            } else {
-                model.addAccommodationAtIndex(index, toAdd);
-            }
+            accommodationAdded = toAdd;
         }
+
+        if (index == null && !isUndoRedo) {
+            // Not due to undo or redo method
+            AddAccommodationCommand newCommand = new AddAccommodationCommand(accommodationAdded, isUndoRedo);
+            updateEventStack(newCommand, model);
+            model.addAccommodation(accommodationAdded);
+        } else if (isUndoRedo && index != null) {
+            // Due to undo method DeleteAccommodationEvent
+            model.addAccommodationAtIndex(index, accommodationAdded);
+        } else {
+            // Due to redo method AddAccommodationEvent
+            model.addAccommodation(accommodationAdded);
+        }
+
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, toAdd),
             new ResultInformation[]{

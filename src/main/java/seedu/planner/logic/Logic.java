@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import seedu.planner.commons.core.GuiSettings;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
-import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.logic.parser.exceptions.ParseException;
 import seedu.planner.model.ReadOnlyAccommodation;
 import seedu.planner.model.ReadOnlyActivity;
@@ -28,7 +27,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException, EventException;
+    CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
      * Returns the Accommodation.

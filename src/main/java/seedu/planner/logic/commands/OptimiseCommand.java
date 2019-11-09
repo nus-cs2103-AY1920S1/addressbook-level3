@@ -43,13 +43,15 @@ public class OptimiseCommand extends UndoableCommand {
     private final Index dayIndex;
     private TreeMap<ActivityWithTime, List<ActivityWithTime>> adjList;
     private List<Path> paths;
+    private final boolean isUndoRedo;
 
     /**
      * Creates an OptimiseCommand to optimise a day's activities.
      */
-    public OptimiseCommand(Index dayIndex) {
+    public OptimiseCommand(Index dayIndex, boolean isUndoRedo) {
         requireNonNull(dayIndex);
         this.dayIndex = dayIndex;
+        this.isUndoRedo = isUndoRedo;
     }
 
     public Index getDayIndex() {
@@ -80,8 +82,12 @@ public class OptimiseCommand extends UndoableCommand {
             path.add(startPoint);
             tracePaths(startPoint, path);
         }
-
         Collections.sort(paths);
+
+        if (!isUndoRedo) {
+            updateEventStack(this, model);
+        }
+
         model.setDay(dayToOptimise, new Day (paths.get(0).path));
         return new CommandResult(MESSAGE_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }

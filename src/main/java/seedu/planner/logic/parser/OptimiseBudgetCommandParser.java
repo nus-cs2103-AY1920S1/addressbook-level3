@@ -22,6 +22,6 @@ public class OptimiseBudgetCommandParser implements Parser<OptimiseCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, OptimiseCommand.MESSAGE_USAGE));
         }
         Index dayIndex = ParserUtil.parseIndex(trimmedArgs);
-        return new OptimiseCommand(dayIndex);
+        return new OptimiseCommand(dayIndex, false);
     }
 }

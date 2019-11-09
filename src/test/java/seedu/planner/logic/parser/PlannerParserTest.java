@@ -38,7 +38,7 @@ public class PlannerParserTest {
     public void parseCommand_add() throws Exception {
         Contact contact = new ContactBuilder().build();
         AddContactCommand command = (AddContactCommand) parser.parseCommand(ContactUtil.getAddCommand(contact));
-        assertEquals(new AddContactCommand(contact), command);
+        assertEquals(new AddContactCommand(contact, false), command);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class PlannerParserTest {
         DeleteContactCommand command = (DeleteContactCommand) parser.parseCommand(
                 DeleteContactCommand.COMMAND_WORD + " " + DeleteContactCommand.SECOND_COMMAND_WORD + " "
                         + INDEX_FIRST_CONTACT.getOneBased());
-        assertEquals(new DeleteContactCommand(INDEX_FIRST_CONTACT), command);
+        assertEquals(new DeleteContactCommand(INDEX_FIRST_CONTACT, false), command);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class PlannerParserTest {
         EditContactCommand command = (EditContactCommand) parser.parseCommand(EditContactCommand.COMMAND_WORD + " "
                 + EditContactCommand.SECOND_COMMAND_WORD + " " + INDEX_FIRST_CONTACT.getOneBased() + " "
                 + ContactUtil.getEditContactDescriptorDetails(descriptor));
-        assertEquals(new EditContactCommand(INDEX_FIRST_CONTACT, descriptor), command);
+        assertEquals(new EditContactCommand(INDEX_FIRST_CONTACT, descriptor, false), command);
     }
 
     @Test

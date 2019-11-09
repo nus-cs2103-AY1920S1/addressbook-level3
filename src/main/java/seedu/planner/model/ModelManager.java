@@ -338,13 +338,13 @@ public class ModelManager implements Model {
                     contactAccommodationMap.put(newContact, new ArrayList<>(Arrays.asList(newAcc)));
                 }
                 accommodationContactMap.put(newAcc, newContact);
-            } else if (newAcc.getContact().isPresent()) {
-                Contact newContact = newAcc.getContact().get();
-                if (!hasContact(newContact)) {
-                    addContact(newContact);
-                }
-                addAccommodationMapping(newAcc);
             }
+        } else if (newAcc.getContact().isPresent()) {
+            Contact newContact = newAcc.getContact().get();
+            if (!hasContact(newContact)) {
+                addContact(newContact);
+            }
+            addAccommodationMapping(newAcc);
         }
     }
 
@@ -708,7 +708,16 @@ public class ModelManager implements Model {
 
     @Override
     public void shiftDatesInItineraryByDay(long days) {
-        this.itinerary.shiftDatesInItineraryByDay(days);
+        shiftDatesInItineraryByDayBetweenRange(
+                days,
+                Index.fromOneBased(1),
+                Index.fromOneBased(itinerary.getNumberOfDays())
+        );
+    }
+
+    @Override
+    public void shiftDatesInItineraryByDayBetweenRange(long days, Index startIndex, Index endIndex) {
+        this.itinerary.shiftDatesInItinerary(days, startIndex, endIndex);
     }
 
     @Override

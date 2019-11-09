@@ -16,11 +16,12 @@ public class AddContactEvent implements Event {
         this.contactAdded = contactAdded;
     }
 
+
     public UndoableCommand undo() {
-        return new DeleteContactCommand(contactAdded);
+        return new DeleteContactCommand(null, contactAdded);
     }
 
     public UndoableCommand redo() {
-        return new AddContactCommand(contactAdded);
+        return new AddContactCommand(contactAdded, true);
     }
 }

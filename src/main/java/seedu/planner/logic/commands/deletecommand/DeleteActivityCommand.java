@@ -39,19 +39,28 @@ public class DeleteActivityCommand extends DeleteCommand {
 
     private final Index targetIndex;
     private final Activity toDelete;
+    private final boolean isUndoRedo;
 
-    public DeleteActivityCommand(Index targetIndex) {
+    public DeleteActivityCommand(Index targetIndex, boolean isUndoRedo) {
         this.targetIndex = targetIndex;
         toDelete = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
-    public DeleteActivityCommand(Activity activity) {
+    // Constructor used to undo AddActivityEvent and create DeleteActivityEvent
+    public DeleteActivityCommand(Index targetIndex, Activity activity) {
+        requireNonNull(activity);
         toDelete = activity;
-        targetIndex = null;
+        this.targetIndex = targetIndex;
+        this.isUndoRedo = true;
     }
 
     public Index getTargetIndex() {
         return targetIndex;
+    }
+
+    public Activity getToDelete() {
+        return toDelete;
     }
 
     @Override
@@ -62,7 +71,6 @@ public class DeleteActivityCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         List<Activity> lastShownList = model.getFilteredActivityList();
         Activity activityToDelete;
 
@@ -74,17 +82,25 @@ public class DeleteActivityCommand extends DeleteCommand {
             activityToDelete = lastShownList.get(targetIndex.getZeroBased());
         }
         Index indexOfActivity = findIndexOfActivity(model, activityToDelete);
+
+        if (toDelete == null && !isUndoRedo) {
+            //Not due to undo method of AddActivityEvent or redo method of DeleteActivityEvent
+            DeleteActivityCommand newCommand = new DeleteActivityCommand(indexOfActivity,
+                    activityToDelete);
+            updateEventStack(newCommand, model);
+        }
         model.deleteActivity(activityToDelete);
+
         return new CommandResult(
-            String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete),
-            new ResultInformation[] {
-                new ResultInformation(
-                        activityToDelete,
-                        indexOfActivity,
-                        String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, "")
-                )
-            },
-            new UiFocus[] { UiFocus.ACTIVITY, UiFocus.INFO }
+                String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete),
+                new ResultInformation[]{
+                    new ResultInformation(
+                            activityToDelete,
+                                indexOfActivity,
+                                String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, "")
+                        )
+                },
+                new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
         );
     }
 

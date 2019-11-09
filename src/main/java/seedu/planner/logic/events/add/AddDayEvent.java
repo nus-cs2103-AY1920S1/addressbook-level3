@@ -20,6 +20,6 @@ public class AddDayEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new AddDayCommand(numberOfDays);
+        return new AddDayCommand(numberOfDays, true);
     }
 }

@@ -3,13 +3,11 @@ package seedu.planner.logic.events.schedule;
 import java.time.LocalTime;
 import java.util.List;
 
-import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.schedulecommand.ScheduleCommand;
 import seedu.planner.logic.commands.schedulecommand.UnscheduleCommand;
 import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.day.ActivityWithTime;
@@ -24,7 +22,7 @@ public class UnscheduleEvent implements Event {
     private final Index dayIndex;
     private final Index activityUnscheduledIndex;
 
-    public UnscheduleEvent(Index activityIndex, Index dayIndex, Model model) throws EventException {
+    public UnscheduleEvent(Index activityIndex, Index dayIndex, Model model) {
         this.activityIndex = activityIndex;
         this.dayIndex = dayIndex;
         this.startTime = generateActivityStartTime(model);
@@ -32,27 +30,23 @@ public class UnscheduleEvent implements Event {
     }
 
     public UndoableCommand undo() {
-        return new ScheduleCommand(activityUnscheduledIndex, startTime, dayIndex);
+        return new ScheduleCommand(activityUnscheduledIndex, startTime, dayIndex, true);
     }
 
     public UndoableCommand redo() {
-        return new UnscheduleCommand(activityIndex, dayIndex);
+        return new UnscheduleCommand(activityIndex, dayIndex, true);
     }
 
     /**
      * A method to obtain the start time of the activity to be unscheduled from a particular day.
      * @param model Current model of the application
      * @return the start time of the activity to be unscheduled.
-     * @throws EventException
      */
-    private LocalTime generateActivityStartTime(Model model) throws EventException {
+    private LocalTime generateActivityStartTime(Model model) {
         List<Day> lastShownDays = model.getFilteredItinerary();
         Day dayToEdit = lastShownDays.get(dayIndex.getZeroBased());
         List<ActivityWithTime> activitiesInDay = dayToEdit.getListOfActivityWithTime();
 
-        if (activityIndex.getZeroBased() >= activitiesInDay.size()) {
-            throw new EventException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
-        }
         ActivityWithTime activityToUnschedule = activitiesInDay.get(activityIndex.getZeroBased());
         return activityToUnschedule.getStartDateTime().toLocalTime();
     }
@@ -61,16 +55,10 @@ public class UnscheduleEvent implements Event {
      * A method to generate the Index of the activity to be unscheduled base on the Activity list in model.
      * @param model Current model of the application
      * @return The index of the activity based on the Activity list in model.
-     * @throws EventException
      */
-    private Index generateActivityUnscheduledIndex(Model model) throws EventException {
+    private Index generateActivityUnscheduledIndex(Model model) {
         List<Day> lastShownDays = model.getFilteredItinerary();
         Day dayToEdit = lastShownDays.get(dayIndex.getZeroBased());
-        List<ActivityWithTime> activitiesInDay = dayToEdit.getListOfActivityWithTime();
-
-        if (activityIndex.getZeroBased() >= activitiesInDay.size()) {
-            throw new EventException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
-        }
 
         Activity activityUnscheduled = dayToEdit.getActivityWithTime(activityIndex).getActivity();
 

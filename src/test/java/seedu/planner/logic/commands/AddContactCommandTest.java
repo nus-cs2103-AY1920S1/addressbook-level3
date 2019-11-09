@@ -44,7 +44,7 @@ public class AddContactCommandTest {
 
     @Test
     public void constructor_nullContact_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddContactCommand((Contact) null));
+        assertThrows(NullPointerException.class, () -> new AddContactCommand((Contact) null, false));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class AddContactCommandTest {
         ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
         Contact validContact = new ContactBuilder().build();
 
-        CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub);
+        CommandResult commandResult = new AddContactCommand(validContact, false).execute(modelStub);
 
         assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
@@ -61,7 +61,7 @@ public class AddContactCommandTest {
     @Test
     public void execute_duplicateContact_throwsCommandException() {
         Contact validContact = new ContactBuilder().build();
-        AddCommand addContactCommand = new AddContactCommand(validContact);
+        AddCommand addContactCommand = new AddContactCommand(validContact, false);
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
         assertThrows(CommandException.class,
@@ -72,14 +72,14 @@ public class AddContactCommandTest {
     public void equals() {
         Contact alice = new ContactBuilder().withName("Alice").build();
         Contact bob = new ContactBuilder().withName("Bob").build();
-        AddContactCommand addAliceCommand = new AddContactCommand(alice);
-        AddContactCommand addBobCommand = new AddContactCommand(bob);
+        AddContactCommand addAliceCommand = new AddContactCommand(alice, false);
+        AddContactCommand addBobCommand = new AddContactCommand(bob, false);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddContactCommand addAliceCommandCopy = new AddContactCommand(alice);
+        AddContactCommand addAliceCommandCopy = new AddContactCommand(alice, false);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -331,6 +331,10 @@ public class AddContactCommandTest {
         }
 
         public void shiftDatesInItineraryByDay(long days) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void shiftDatesInItineraryByDayBetweenRange(long days, Index startIndex, Index endIndex) {
             throw new AssertionError("This method should not be called.");
         }
 

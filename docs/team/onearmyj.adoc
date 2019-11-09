@@ -15,14 +15,16 @@ undertaking the module CS2103T under NUS School of Computing.
 
 == Introduction
 
-Plan²travel is a desktop travel planning application. The application is targeted at fellow university students who
-travel infrequently, and would require an application to organize their travelling information when they plan their
-own trip itinerary. +
+*Plan²travel* is a desktop travel planning application. The application is targeted at fellow university students who
+travel infrequently and would greatly benefit from an application that helps organize their travelling information when they plan their own itinerary. Plan²travel has the ability to store and display information such as activities, accommodations, contacts and an itinerary which comprises of a list of day. Each day is displayed with a list of activities that is scheduled. +
 
-It is written in Java and has about 10 kLoC. The user interacts with the application using a
-Command Line Interface (CLI), and it has a Graphical User Interface GUI created with JavaFX.
+The user interacts with the application using a Command Line Interface (CLI), and it has Graphical User Interface GUI created with JavaFX.
 
 It is cross-platform and can be compiled for both Windows and Mac OS.
+
+Below is a screenshot of our application:
+
+image::../images/Plan2TravelSS.png[]
 
 == Summary of contributions
 |===
@@ -44,6 +46,7 @@ analysis of design alternatives. The implementation too was challenging as it re
 * *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/112[Update 1] |
 https://github.com/AY1920S1-CS2103T-T09-1/main/pull/127[Update 2] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/133[Update 3]
 | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/194[Update 4] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/220[Update 5]
+| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/230[Update 6]
 * *Test Code Contributed*:
 
 
@@ -74,7 +77,6 @@ https://github.com/AY1920S1-CS2103T-T09-1/main/pull/73[Morph-Model Part 2] | htt
 *** Over 20 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?q=is%3Apr+author%3AOneArmyj[Pull Requests] on Github
 *** Over 10 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3AOneArmyj[Reviews] on Github
 *** Overview of Code Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=onearmyj[here]
-
 == Contributions to the User Guide
 |===
 |_Given below are sections I contributed to Plan²travel User Guide. They showcase my ability to write documentation
@@ -82,7 +84,6 @@ targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=undoredocommand]
-include::../UserGuide.adoc[tag=commandsummary]
 
 == Contributions to the Developer Guide
 
@@ -90,6 +91,5 @@ include::../UserGuide.adoc[tag=commandsummary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=storageuml]
 include::../DeveloperGuide.adoc[tag=undoredo]
 

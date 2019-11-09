@@ -61,20 +61,24 @@ public class AddActivityCommand extends AddCommand {
 
     private final Index index;
     private final Activity toAdd;
+    private final boolean isUndoRedo;
 
     /**
      * Creates an AddActivityCommand to add the specified {@Activity}
      */
-    public AddActivityCommand(Activity activity) {
+    public AddActivityCommand(Activity activity, boolean isUndoRedo) {
         requireNonNull(activity);
         toAdd = activity;
         index = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
+    // Constructor used to undo DeleteActivityEvent
     public AddActivityCommand(Index index, Activity activity) {
         requireAllNonNull(index, activity);
         toAdd = activity;
         this.index = index;
+        this.isUndoRedo = true;
     }
 
     public Activity getToAdd() {
@@ -89,56 +93,47 @@ public class AddActivityCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        Activity activityAdded;
         if (model.hasActivity(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
         }
-        if (toAdd.getContact().isPresent()) {
-            if (model.hasPhone(toAdd.getContact().get().getPhone())) {
-                Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
-                Cost cost = toAdd.getCost().isPresent() ? toAdd.getCost().get() : null;
-                Activity linkedActivity = new Activity(toAdd.getName(), toAdd.getAddress(), contact,
-                        cost, toAdd.getTags(), toAdd.getDuration(), toAdd.getPriority());
-                model.addActivity(linkedActivity);
-                return new CommandResult(
-                    String.format(MESSAGE_SUCCESS, linkedActivity),
-                    new ResultInformation[]{
-                        new ResultInformation(
-                                linkedActivity,
-                                findIndexOfActivity(model, linkedActivity),
+
+        // Check if new Activity's contact already exist in ContactManager's list. If true, use the existing
+        // contact.
+        if (toAdd.getContact().isPresent() && model.hasPhone(toAdd.getContact().get().getPhone())) {
+            Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
+            Cost cost = toAdd.getCost().isPresent() ? toAdd.getCost().get() : null;
+            activityAdded = new Activity(toAdd.getName(), toAdd.getAddress(), contact, cost, toAdd.getTags(),
+                    toAdd.getDuration(), toAdd.getPriority());
+        } else {
+            activityAdded = toAdd;
+        }
+
+        if (index == null && !isUndoRedo) {
+            // Not due to undo or redo method
+            AddActivityCommand newCommand = new AddActivityCommand(activityAdded, isUndoRedo);
+            updateEventStack(newCommand, model);
+            model.addActivity(activityAdded);
+        } else if (isUndoRedo && index != null) {
+            // Due to undo method of DeleteActivityEvent
+            model.addActivityAtIndex(index, activityAdded);
+        } else {
+            // Due to redo method of AddActivityEvent
+            model.addActivity(activityAdded);
+        }
+
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, toAdd),
+                new ResultInformation[]{
+                    new ResultInformation(
+                            toAdd,
+                                findIndexOfActivity(model, toAdd),
                                 String.format(MESSAGE_SUCCESS, "")
                         )
-                    },
-                    new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
-                );
-            } else {
-                if (index == null) {
-                    model.addActivity(toAdd);
-                } else {
-                    model.addActivityAtIndex(index, toAdd);
-                }
-            }
-        } else {
-            if (index == null) {
-                model.addActivity(toAdd);
-            } else {
-                model.addActivityAtIndex(index, toAdd);
-            }
-        }
-        return new CommandResult(
-            String.format(MESSAGE_SUCCESS, toAdd),
-            new ResultInformation[]{
-                new ResultInformation(
-                        toAdd,
-                        findIndexOfActivity(model, toAdd),
-                        String.format(MESSAGE_SUCCESS, "")
-                )
-            },
-            new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
+                },
+                new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
         );
     }
-
-
 
     @Override
     public boolean equals(Object other) {

@@ -40,19 +40,28 @@ public class DeleteContactCommand extends DeleteCommand {
 
     private final Index targetIndex;
     private final Contact toDelete;
+    private final boolean isUndoRedo;
 
-    public DeleteContactCommand(Index targetIndex) {
+    public DeleteContactCommand(Index targetIndex, boolean isUndoRedo) {
         toDelete = null;
         this.targetIndex = targetIndex;
+        this.isUndoRedo = isUndoRedo;
     }
 
-    public DeleteContactCommand(Contact contact) {
+    // Constructor used to undo AddContactEvent and DeleteContactEvent
+    public DeleteContactCommand(Index targetIndex, Contact contact) {
+        requireNonNull(contact);
         toDelete = contact;
-        targetIndex = null;
+        this.targetIndex = targetIndex;
+        this.isUndoRedo = true;
     }
 
     public Index getTargetIndex() {
         return targetIndex;
+    }
+
+    public Contact getToDelete() {
+        return toDelete;
     }
 
     @Override
@@ -63,7 +72,6 @@ public class DeleteContactCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         List<Contact> lastShownList = model.getFilteredContactList();
         Contact contactToDelete;
 
@@ -75,7 +83,14 @@ public class DeleteContactCommand extends DeleteCommand {
             contactToDelete = lastShownList.get(targetIndex.getZeroBased());
         }
         Index indexOfContact = findIndexOfContact(model, contactToDelete);
+
+        if (toDelete == null && !isUndoRedo) {
+            //Not due to undo method of AddContactEvent or redo method of DeleteContactEvent
+            DeleteContactCommand newCommand = new DeleteContactCommand(indexOfContact, contactToDelete);
+            updateEventStack(newCommand, model);
+        }
         model.deleteContact(contactToDelete);
+
         return new CommandResult(
             String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete),
             new ResultInformation[] {
