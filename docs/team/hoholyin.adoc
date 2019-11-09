@@ -56,22 +56,11 @@ This feature represents most of the core features of 'LiBerry' in a condensed PD
 I have provided a breakdown below as to how this feature achieves the required *depth*, *completeness* and *level of effort*.
 
 * *Depth*: This feature is deeply linked with the Book, Loan and Borrower features as it has to display information relevant to these features
-{nbsp}
 
-* *Completeness*: This feature is complete with the intended style has been rigorously tested in many test cases. +
-{nbsp}
+* *Completeness*: This feature is complete with the intended style has been rigorously tested in many test cases.
 
 * *Effort*: This feature required an in-depth understanding of handling external libraries as well as file input and output.
-These information are not taught in the course and therefore required extensive research on my part. +
-{nbsp}
-
-To allow us to fully visualise this feature, let us take a look at how a generated loan slip will looks like.
-
-.Generated Loan Slip
-image::LoanSlip.png[width=250, align=center]
-{nbsp}
-
-In Figure 2, we can see all books loaned by 'Bill' recorded and generated in a printable loan slip.
+These information are not taught in the course and therefore required extensive research on my part.
 
 ==== Credits
 This feature is made possible with the 'iText 7' library. However, it was still required of me to understand both the

@@ -312,14 +312,6 @@ outweigh the additional memory costs incurred to maintain the HashMap.
 Since we allow librarians to provide a valid serial number to new books if they wish so, we cannot generate the serial
 number using the number of books or the largest serial number.
 
-Eg: The system now has "B00009" and "B00010".
-
-If we generate based on number of books, we get the serial number "B00003", wasting the serial numbers "B00001" and "B00002".
-
-If we generate based on the largest serial number, we get the serial number "B00011", wasting all the unused serial numbers before it.
-
-We need to come up with a solution to give us "B00001" in the given example.
-
 * **Alternative 1:** Use a TreeMap to store current serial numbers such that we can efficiently determine the next serial number in running order.
 ** Pros: Will be efficient in generating the next valid serial number.
 ** Cons: Will incur additional memory to maintain the TreeMap. Might also result in unexpected behaviour in some edge cases.
