@@ -689,7 +689,8 @@ In `LineChartPanel`, four key operations that constructs the line chart and upda
 
 The above operations are invoked through a wrapper function `LineChartPanel#makeLineChart()` which is invoked when the user calls `LineChartPanel#getLineChart()`.
 
-The line chart is updated automatically because it takes in an ObservableList<Body> from the `AddressBook`, so it re-intialises once a change has been detected.
+The line chart is updated automatically because it takes in an ObservableList<Body> from the `AddressBook`, so it re-intialises once a change has been detected. The user is able to switch the time frame of the line chart between the last ten days or a particular week, month, or year with the `stats` command (See User Guide).
+
 The following sequence diagram shows hows `LineChartPanel` interacts `AddressBook` to obtain an observable list of bodies, creates a line chart from it, and then passes the line chart to be displayed in `MainWindow` with dynamic update:
 
 image::LineChartAddBodySequenceDiagram.png[]
@@ -698,14 +699,14 @@ image::LineChartAddBodySequenceDiagram.png[]
 
 ===== Aspect: How data is stored and updated
 
-* **Alternative 1 (current choice):** Use a tree map to keep track of bodies and initialise the last 10 days.
-** Pros: Implementation is easy and ensures only the last 10 days is visible.
-** Cons: Series is regenerated for the whole 10 days whenever there is a change. As can be seen from the activity diagram below, the series gets reintialised regardless of whether it will affect a change in the appearance of the line chart.
+* **Alternative 1 (current choice):** Use a tree map to keep track of bodies and initialise the treemap depending on the given time frame.
+** Pros: Implementation is easy.
+** Cons: Series is regenerated whenever there is a change in time frame. As can be seen from the activity diagram below, the series gets reintialised regardless of whether it will affect a change in the appearance of the line chart.
 
 image::LineChartActivityDiagram.png[]
 
 * **Alternative 2:** Store all data in a separate storage class.
-** Pros: Implementation allows user to see beyond 10 days.
+** Pros: No need to reinitialise the treemap everytime a `stats` command is called.
 ** Cons: Implementation requires a lot of storage which may not be tapped on most of the time.
 
 ===== Aspect: How line chart appears to end user
