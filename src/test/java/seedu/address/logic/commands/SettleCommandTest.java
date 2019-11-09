@@ -76,8 +76,8 @@ public class SettleCommandTest {
                     String.format(SettleCommand.EXPENSE_DESCRIPTION,
                         TypicalPersons.ALICE.getName(),
                         TypicalPersons.BENSON.getName()),
+                    true,
                     TypicalPersons.BENSON.getPrimaryKey());
-        settlement.setIsSettlement(true);
         expenses.add(settlement);
         assertEquals(expenses, model.getActivityBook().getActivityList().get(0).getExpenses());
     }
@@ -185,8 +185,8 @@ public class SettleCommandTest {
                 String.format(SettleCommand.EXPENSE_DESCRIPTION,
                     TypicalPersons.ALICE.getName(),
                     TypicalPersons.BENSON.getName()),
+                true,
                 TypicalPersons.BENSON.getPrimaryKey());
-        settle.setIsSettlement(true);
         expectedActivity.addExpense(settle);
 
         Model expectedModel = new ModelManager();
