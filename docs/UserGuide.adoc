@@ -338,16 +338,20 @@ Examples:
 
 * `redo` +
 
-=== Sort/Find Feature
 
+//tag::sort[]
 ==== Sorting ELISA out: `sort`
+
 Is ELISA getting too cluttered and disorganized? Do you want to sort your task by their priority? Or the events by their start date?
 
 ELISA comes in-built with a sort feature that allows you to sort your items within the different panel. And the best part of it? YOU can decide how you want to sort it.
 
 The simple sort command on the different panel sorts the list differently (just another sign of how smart ELISA is) and they are as follows:
+
 * task panel - tasks are sorted from those that are incomplete to those that are completed. Within the two groups, they are sorted based on their priority, from high to medium and to low.
+
 * event panel - events are sorted based on their start date and time.
+
 * reminder - reminders are sorted based on their firing off date and time.
 
 But why stop there? You are also able to sort by priority and description within all the panels and even combine different sorting together! You are only limited by your imagination (and the items within your lists).
@@ -359,8 +363,12 @@ Examples:
 * `sort` - a simple sort that follows the criteria mentioned above for the different panel.
 * `sort priority` - sorts the item within the panel by their priority (from high to low).
 * `sort desc` - sorts the item within the panel by their description (lexicographic order)
+//end::sort[]
 
+
+//tag::find[]
 ==== Finding a task: `find`
+
 Is your task list getting too long and you are not able to find what you are looking for? Introducing the `find` function which will allow you to find what you want within the specific panel. Just type `find` and the keyword that you want to search for within the command box and ELISA will find the relevant items for you.
 
 Format: `find <keyword>`
@@ -370,7 +378,9 @@ Examples:
 * `find CS2101` - find all items that have CS2101 in their description within that panel
 
 * `find CS2101 CS2103` - find items that contains either CS2101 or CS2103 within their description.
+//end::find[]
 
+//tag::priority[]
 === Entering priority mode: `priority`
 Feeling stress? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
 
@@ -392,6 +402,7 @@ Examples:
 * Note that this command can only be called in the task panel.
 * Note that all command such as `edit`, `undo` and `redo` still works in priority mode.
 ****
+//end::priority[]
 
 === Exiting the program : `exit`
 
