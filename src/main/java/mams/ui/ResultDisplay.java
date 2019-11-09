@@ -28,4 +28,8 @@ public class ResultDisplay extends UiPart<Region> {
     public void clearDisplay() {
         resultDisplay.clear();
     }
+
+    public void setFocusTraversable(boolean isTraversable) {
+        resultDisplay.setFocusTraversable(isTraversable);
+    }
 }

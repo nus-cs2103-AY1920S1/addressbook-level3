@@ -52,6 +52,7 @@ public class HistoryListPanel extends UiPart<Region> {
      */
     public void scrollToBottom() {
         int lastIndex = commandHistoryList.size() - 1;
+        itemListView.requestFocus();
         itemListView.scrollTo(lastIndex);
         itemListView.getSelectionModel().select(lastIndex);
         itemListView.getFocusModel().focus(lastIndex);

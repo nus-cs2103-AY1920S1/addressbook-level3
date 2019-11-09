@@ -26,7 +26,8 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_APPEAL, PREFIX_MODULE, PREFIX_STUDENT);
 
-        if (argMultimap.areAllPrefixesAbsent(PREFIX_APPEAL, PREFIX_MODULE, PREFIX_STUDENT)) {
+        if (argMultimap.areAllPrefixesAbsent(PREFIX_APPEAL, PREFIX_MODULE, PREFIX_STUDENT)
+                || !argMultimap.getPreamble().isBlank()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }
 
@@ -44,11 +45,12 @@ public class ViewCommandParser implements Parser<ViewCommand> {
                 parameters.setStudentIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENT).get()));
             }
 
+            // by this point, invalid parameters should have thrown ParseException in the earlier checks
             assert parameters.isAtLeastOneParameterPresent() : "Assertion failed: ViewCommandParameter has no params"
                     + "even after parsing";
             return new ViewCommand(parameters);
         } catch (ParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE), e);
         }
 
     }

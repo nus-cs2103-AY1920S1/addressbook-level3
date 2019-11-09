@@ -17,7 +17,7 @@ import mams.logic.parser.exceptions.ParseException;
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
-    public static final String OPTIONS_NOT_RECOGNIZED = "Invalid options: %1$s";
+    public static final String MESSAGE_OPTIONS_NOT_RECOGNIZED = "Invalid parameters: %1$s";
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListCommand
@@ -32,9 +32,8 @@ public class ListCommandParser implements Parser<ListCommand> {
         boolean showAppeals = false;
         boolean showAll;
 
+        verifyNoUnrecognizedArguments(args, OPTION_APPEAL, OPTION_MODULE, OPTION_STUDENT);
         OptionsSet optionsSet = OptionsTokenizer.tokenize(args);
-
-        verifyNoUnrecognizedOptions(optionsSet, OPTION_APPEAL, OPTION_MODULE, OPTION_STUDENT);
 
         // if no prefixes were specified, default to list all items.
         showAll = optionsSet.areAllTheseOptionAbsent(OPTION_APPEAL, OPTION_MODULE, OPTION_STUDENT);
@@ -63,8 +62,27 @@ public class ListCommandParser implements Parser<ListCommand> {
         if (!unrecognizedOptions.isEmpty()) {
             String unrecognizedOptionsAsString = unrecognizedOptions.stream().map(Option::toString)
                     .collect(Collectors.joining(" "));
-            throw new ParseException(String.format(OPTIONS_NOT_RECOGNIZED, unrecognizedOptionsAsString)
+            throw new ParseException(String.format(MESSAGE_OPTIONS_NOT_RECOGNIZED, unrecognizedOptionsAsString)
                     + " \n" + ListCommand.MESSAGE_USAGE);
+        }
+    }
+
+    /**
+     * Throws a ParseException if there are any arguments in {@code args} that do not match the format of
+     * any {@code Option} in the supplied {@code options} array. This is a convenient wrapper around the
+     * {@link OptionsTokenizer#getUnrecognizedArguments(String, String...)} method to throw error messages specific
+     * to ListCommand.
+     * @param args String to be parsed
+     * @param recognized Array of {@code Option} that are deemed acceptable
+     * @throws ParseException if args contain any arguments other than those in {@code recognized}
+     */
+    private void verifyNoUnrecognizedArguments(String args, Option... recognized) throws ParseException {
+        List<String> unrecognized = OptionsTokenizer.getUnrecognizedArguments(args, recognized);
+        if (!unrecognized.isEmpty()) {
+            String unrecognizedParamsAsSingleString = String.join(" ", unrecognized).trim();
+            throw new ParseException(String.format(MESSAGE_OPTIONS_NOT_RECOGNIZED,
+                    unrecognizedParamsAsSingleString)
+                    + "\n" + ListCommand.MESSAGE_USAGE);
         }
     }
 }

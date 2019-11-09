@@ -81,5 +81,13 @@ public class OptionsTokenizerTest {
         Collections.sort(output);
         Collections.sort(unrecognizedArguments);
         assertEquals(output, unrecognizedArguments);
+
+        // test overloaded version that accepts {@code Options[]}
+        output = OptionsTokenizer.getUnrecognizedArguments(argsString,
+                option1,
+                option2);
+        Collections.sort(output);
+        Collections.sort(unrecognizedArguments);
+        assertEquals(output, unrecognizedArguments);
     }
 }
