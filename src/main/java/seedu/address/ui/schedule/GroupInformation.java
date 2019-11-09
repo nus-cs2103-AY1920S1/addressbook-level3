@@ -2,6 +2,7 @@ package seedu.address.ui.schedule;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
@@ -27,10 +28,8 @@ public class GroupInformation extends UiPart<Region> {
     @FXML
     private StackPane groupMembers;
 
-    private List<String> colors;
-
     public GroupInformation(List<PersonDisplay> members, List<Name> filteredNames,
-                            GroupDisplay groupDisplay, List<String> colors) {
+                            GroupDisplay groupDisplay, Function<Integer, String> colorGenerator) {
         super(FXML);
         ArrayList<Name> names = members.stream().map(p -> p.getName())
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -39,10 +38,9 @@ public class GroupInformation extends UiPart<Region> {
         ArrayList<Role> roles = members.stream().map(p -> p.getRole())
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        this.colors = colors;
         GroupDetailCard groupCard = new GroupDetailCard(groupDisplay);
         groupDetails.getChildren().add(groupCard.getRoot());
-        MemberList memberList = new MemberList(names, emails, roles, colors, filteredNames);
+        MemberList memberList = new MemberList(names, emails, roles, colorGenerator, filteredNames);
         groupMembers.getChildren().add(memberList.getRoot());
     }
 

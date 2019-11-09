@@ -1,14 +1,16 @@
 package seedu.address.ui.home;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.display.schedulewindow.PersonSchedule;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
+import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.util.Calendar;
 
@@ -31,12 +33,19 @@ public class DefaultStartView extends UiPart<Region> {
     @FXML
     private StackPane noticeBoardPlaceHolder;
 
-    public DefaultStartView(List<PersonTimeslot> eventsToday) {
+    public DefaultStartView(PersonSchedule personSchedule) {
         super(FXML);
-        defaultTitle.setText("WELCOME TO TIMEBOOK!");
+
+        ArrayList<PersonTimeslot> personTimeslots = personSchedule.getScheduleDisplay()
+                .getScheduleForWeek(0)
+                .get(LocalDate.now().getDayOfWeek());
+
+        PersonDisplay personDisplay = personSchedule.getPersonDisplay();
+        defaultTitle.setText(String.format("Welcome %s!", personDisplay.getName()));
+
         Calendar calendar = new Calendar(LocalDate.now());
         calendarPlaceHolder.getChildren().add(calendar.getRoot());
-        UpcomingScheduleList upcomingScheduleList = new UpcomingScheduleList(LocalDate.now(), eventsToday);
+        UpcomingScheduleList upcomingScheduleList = new UpcomingScheduleList(LocalDate.now(), personTimeslots);
         noticeBoardPlaceHolder.getChildren().add(upcomingScheduleList.getRoot());
     }
 }

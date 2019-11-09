@@ -19,7 +19,7 @@ public class ShowCommandParser implements Parser<ShowCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GROUPNAME);
 
-        if (!hasOnlyOneParam(argMultimap)
+        if (hasBothParam(argMultimap)
                 || !argMultimap.getPreamble().isEmpty()
                 || Parser.areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
@@ -28,15 +28,20 @@ public class ShowCommandParser implements Parser<ShowCommand> {
         if (Parser.arePrefixesPresent(argMultimap, PREFIX_NAME)) {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             return new ShowCommand<Name>(name);
-        } else {
+        } else if (Parser.arePrefixesPresent(argMultimap, PREFIX_GROUPNAME)) {
             //Group name.
             GroupName groupName = ParserUtil.parseGroupName(argMultimap.getValue(PREFIX_GROUPNAME).get());
             return new ShowCommand<GroupName>(groupName);
+        } else if (args.trim().equals("")) {
+            return new ShowCommand<>(null);
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
     }
 
     /**
      * Method to check and ensure that input has either prefix name or prefix groupname but not both.
+     *
      * @param argumentMultimap Argument map to check
      * @return true only when input has only one parameter.
      */
@@ -45,10 +50,15 @@ public class ShowCommandParser implements Parser<ShowCommand> {
                 && Parser.arePrefixesPresent(argumentMultimap, PREFIX_GROUPNAME)) {
             return false;
         } else if (!Parser.arePrefixesPresent(argumentMultimap, PREFIX_NAME)
-            && !Parser.arePrefixesPresent(argumentMultimap, PREFIX_GROUPNAME)) {
+                && !Parser.arePrefixesPresent(argumentMultimap, PREFIX_GROUPNAME)) {
             return false;
         } else {
             return true;
         }
+    }
+
+    private boolean hasBothParam(ArgumentMultimap argumentMultimap) {
+        return Parser.arePrefixesPresent(argumentMultimap, PREFIX_NAME)
+                && Parser.arePrefixesPresent(argumentMultimap, PREFIX_GROUPNAME);
     }
 }

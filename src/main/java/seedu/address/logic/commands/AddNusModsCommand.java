@@ -91,10 +91,10 @@ public class AddNusModsCommand extends Command {
 
         // updates UI.
         if (name == null) {
-            model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
         } else {
-            model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
         }
 

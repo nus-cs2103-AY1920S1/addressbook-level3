@@ -16,46 +16,72 @@ import seedu.address.model.person.schedule.Venue;
 public class SampleEvents {
 
     public static final Event EVENT1_1 = new Event(
-            "Project Meeting",
+            "Event1",
             new ArrayList<>(List.of(
                     new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(9, 30)),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(10, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(11, 0)),
                             new Venue("I3")),
                     new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 30)),
-                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(13, 0)),
-                            new Venue("LT32")),
+                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(10, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(11, 0)),
+                            new Venue("I3")),
                     new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(11, 45)),
-                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(12, 15)),
-                            new Venue("AS6")),
+                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(10, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(11, 0)),
+                            new Venue("I3")),
                     new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(12, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(13, 0)),
-                            new Venue("COM1")),
+                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(10, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(11, 0)),
+                            new Venue("I3")),
                     new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(13, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(13, 30)),
-                            new Venue("COM2"))
+                            LocalDateTime.of(LocalDate.now().plusDays(4), LocalTime.of(10, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(4), LocalTime.of(11, 0)),
+                            new Venue("I3")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(10, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(11, 0)),
+                            new Venue("I3")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(10, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(11, 0)),
+                            new Venue("I3"))
+
             ))
     );
 
     public static final Event EVENT1_2 = new Event(
-            "CS2103 lecture",
+            "Event2",
             new ArrayList<>(List.of(
                     new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(15, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(16, 30)),
-                            new Venue("COM1")),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(13, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(14, 0)),
+                            new Venue("BIZ2")),
                     new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(9, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(10, 30)),
-                            new Venue("COM2")),
+                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(13, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(14, 0)),
+                            new Venue("BIZ2")),
                     new Timeslot(
-                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(16, 0)),
-                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(18, 30)),
+                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(13, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(14, 0)),
+                            new Venue("BIZ2")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(13, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 0)),
+                            new Venue("BIZ2")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(4), LocalTime.of(13, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(4), LocalTime.of(14, 0)),
+                            new Venue("BIZ2")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(13, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(14, 0)),
+                            new Venue("BIZ2")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(13, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(14, 0)),
                             new Venue("BIZ2"))
+
             ))
     );
 

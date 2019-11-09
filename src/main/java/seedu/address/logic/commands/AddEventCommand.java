@@ -52,13 +52,12 @@ public class AddEventCommand extends Command {
         } else {
 
             try {
-
                 if (name == null) {
                     model.addEvent(event);
-                    model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                    model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
                 } else {
                     model.addEvent(name, event);
-                    model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                    model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS, event.getEventName().trim()));
 

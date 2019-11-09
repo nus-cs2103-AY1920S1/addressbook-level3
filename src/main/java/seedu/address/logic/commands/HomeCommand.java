@@ -21,7 +21,7 @@ public class HomeCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
+        model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, false,
                 false, false, true);
     }

@@ -375,9 +375,18 @@
     -fx-opacity: 0.65;
 }
 
+#colouredBlockWithText {
+    -fx-alignment: top-left;
+}
+
+#colouredBlockWithText .label {
+    -fx-padding: 3 0 0 3;
+}
+
 #colouredBlock {
     -fx-effect: dropshadow(gaussian, #222831, 2, 0.0, 3, 3);
     -fx-opacity: 0.85;
+    -fx-border-width: 0;
 }
 
 #commandTypeLabel {

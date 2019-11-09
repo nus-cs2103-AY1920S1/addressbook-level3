@@ -1,6 +1,7 @@
 package seedu.address.ui.schedule;
 
 import java.util.List;
+import java.util.function.Function;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -33,12 +34,12 @@ public class MemberList extends UiPart<Region> {
     @FXML
     private ScrollPane listMemberContainer;
 
-    public MemberList(List<Name> memberNames, List<Email> emails, List<Role> roles, List<String> colors,
-                      List<Name> filteredMembers) {
+    public MemberList(List<Name> memberNames, List<Email> emails, List<Role> roles,
+                      Function<Integer, String> colorGenerator, List<Name> filteredMembers) {
         super(FXML);
         for (int i = 0; i < memberNames.size(); i++) {
             MemberCard memberCard = new MemberCard(memberNames.get(i).fullName,
-                    emails.get(i).value, roles.get(i).toString(), colors.get(i));
+                    emails.get(i).value, roles.get(i).toString(), colorGenerator.apply(i));
             if (filteredMembers != null && !filteredMembers.contains(memberNames.get(i))) {
                 memberCard.reduceOpacity();
             }

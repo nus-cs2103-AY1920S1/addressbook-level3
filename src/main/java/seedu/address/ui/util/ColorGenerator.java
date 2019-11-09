@@ -18,4 +18,13 @@ public class ColorGenerator {
     public static ArrayList<String> generateColorList() {
         return listOfColors;
     }
+
+    public static int getSize() {
+        return listOfColors.size();
+    }
+
+    public static String generateColor(int seed) {
+        return listOfColors.get(seed % getSize());
+    }
+
 }

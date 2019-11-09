@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.ui.UiPart;
 
 /**

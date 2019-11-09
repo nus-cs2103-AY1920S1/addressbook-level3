@@ -29,12 +29,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.ui.schedule.ScheduleView;
-import seedu.address.ui.util.ColorGenerator;
 import seedu.address.ui.util.DateFormatter;
 import seedu.address.ui.util.TimeUtil;
 
@@ -68,8 +67,7 @@ public class ScheduleViewTest extends ApplicationTest {
      */
     @Start
     public void start(Stage stage) {
-        ScheduleView scheduleView = new ScheduleView(List.of(TEST_SCHEDULE),
-                ColorGenerator.generateColorList(), TEST_SCHEDULE_TITLE, LocalDate.now());
+        ScheduleView scheduleView = new ScheduleView(List.of(TEST_SCHEDULE), TEST_SCHEDULE_TITLE, LocalDate.now());
         //Generate schedule using the TEST_SCHEDULE.
         scheduleView.setFreeTime(TEST_FREE_SCHEDULE);
         scheduleView.generateSchedule();
@@ -126,9 +124,17 @@ public class ScheduleViewTest extends ApplicationTest {
         String colouredTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeslotContainer #colouredBlockWithText";
         String colouredTimeSlotBlockTextId = colouredTimeSlotBlockId + " .label";
         ArrayList<Node> colouredBlocksText = new ArrayList<>(lookup(colouredTimeSlotBlockTextId).queryAll());
+        ArrayList<PersonTimeslot> flattenedTimeSlots = new ArrayList<>();
+        //Flatten time slots into array list starting from "now".
+        for (int i = 1; i <= 7; i++) {
+            ArrayList<PersonTimeslot> timeslots = TEST_SCHEDULE.get(now.plusDays(i - 1).getDayOfWeek());
+            for (int j = 0; j < timeslots.size(); j++) {
+                flattenedTimeSlots.add(timeslots.get(j));
+            }
+        }
         //Check that text inside block is displayed correctly.
         for (int i = 0; i < colouredBlocksText.size(); i++) {
-            verifyThat(colouredBlocksText.get(i), hasText(TEST_EVENT_NAMES.get(i)));
+            verifyThat(colouredBlocksText.get(i), hasText(flattenedTimeSlots.get(i).getDisplayString()));
         }
     }
 

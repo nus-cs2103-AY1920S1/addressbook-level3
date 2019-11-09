@@ -17,9 +17,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.util.DateFormatter;
@@ -35,6 +35,7 @@ public class ScheduleView extends UiPart<Region> {
     public static final double ONE_HOUR_LENGTH = 60;
     protected static final int HALF_HOUR = 30;
     protected static final int BLOCK_WIDTH = 140;
+    protected static final double THRESHOLD_TO_OMIT_LABELS = 20;
     private static final String FXML = "ScheduleView.fxml";
 
     @FXML
@@ -50,15 +51,13 @@ public class ScheduleView extends UiPart<Region> {
     private GridPane scheduleContentContainer;
 
     private List<WeekSchedule> schedulesShown;
-    private List<String> colors;
     private LocalDate now;
     private HashMap<LocalDate, StackPane> dateStackPanes;
 
-    public ScheduleView(List<WeekSchedule> weekSchedules, List<String> colors, String title, LocalDate date) {
+    public ScheduleView(List<WeekSchedule> weekSchedules, String title, LocalDate date) {
         super(FXML);
         this.dateStackPanes = new HashMap<>();
         this.schedulesShown = weekSchedules;
-        this.colors = colors;
         this.now = date;
         this.title.setText(title + "'s Schedule");
         //Set up empty cells and headers.
@@ -120,7 +119,7 @@ public class ScheduleView extends UiPart<Region> {
             HBox combinedSchedules = new HBox();
             for (int j = 0; j < schedulesShown.size(); j++) {
                 ArrayList<PersonTimeslot> eventsToday = schedulesShown.get(j).get(now.plusDays(i - 1).getDayOfWeek());
-                VBox individualSchedule = getDayVBoxOfIndividualSchedule(eventsToday, colors.get(j));
+                VBox individualSchedule = getDayVBoxOfIndividualSchedule(eventsToday);
                 //Change line 99 for collapsible blocks.
                 individualSchedule.setPrefWidth(BLOCK_WIDTH / schedulesShown.size());
                 combinedSchedules.getChildren().add(individualSchedule);
@@ -131,6 +130,7 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Creates a cell with a day header of the date given.
+     *
      * @param date The date to be placed inside the cell.
      * @return VBox. The cell that contains the date.
      */
@@ -149,6 +149,7 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Creates a cell with the given time.
+     *
      * @param header String representation of the time.
      * @return StackPane. The cell that contains this time;
      */
@@ -163,6 +164,7 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Creates an empty table cell for the table to have dashed lines and solid lines.
+     *
      * @return VBox. The empty table cell.
      */
     private VBox createEmptyTableCell() {
@@ -178,6 +180,7 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Creates half a cell for offset purposes.
+     *
      * @return VBox. The offset cell.
      */
     private VBox createHalfTableCell() {
@@ -189,11 +192,11 @@ public class ScheduleView extends UiPart<Region> {
 
     /**
      * Method to create a block that represents the occupied/busy time slots of an individual for a particular day.
+     *
      * @param daySchedule List that contains all occupied time slots of the individual on a particular day.
-     * @param color Color that the block should be.
      * @return VBox that represents the individual's busy time slots for this particular day.
      */
-    private VBox getDayVBoxOfIndividualSchedule(ArrayList<PersonTimeslot> daySchedule, String color) {
+    private VBox getDayVBoxOfIndividualSchedule(ArrayList<PersonTimeslot> daySchedule) {
         VBox timeslotContainer = new VBox();
         timeslotContainer.setId("timeslotContainer");
         HBox.setHgrow(timeslotContainer, Priority.ALWAYS);
@@ -210,7 +213,7 @@ public class ScheduleView extends UiPart<Region> {
                 timeslotContainer.getChildren().add(freeTimeslot);
             }
             Region busyTimeslot = new Block(TimeUtil.getTimeDifference(startTime, endTime))
-                    .makeColouredBlockWithText(color, timeslot.getEventName(),
+                    .makeColouredBlockWithText(timeslot.getColor(), timeslot.getDisplayString(),
                             ToolTipFormatter.formatTooltipMessage(timeslot));
             timeslotContainer.getChildren().add(busyTimeslot);
             originalTimeStamp = endTime;
@@ -240,6 +243,8 @@ public class ScheduleView extends UiPart<Region> {
      * @return VBox that represents the free time block.
      */
     private VBox getDayVBoxOfFreeSchedule(ArrayList<FreeTimeslot> freeSchedule) {
+        //Very similar to creating an individual schedule but need to call different block generator methods
+        // and set different id.
         VBox timeslotContainer = new VBox();
         timeslotContainer.setId("freeTimeSlotContainer");
         timeslotContainer.getChildren().add(new Block(HALF_HOUR).makeEmptyBlock());
@@ -279,8 +284,11 @@ public class ScheduleView extends UiPart<Region> {
     class Block {
         private int duration;
         private double heightOfTimeslot;
+        private double width;
+
         public Block(int duration) {
             this.duration = duration;
+            this.width = BLOCK_WIDTH / schedulesShown.size();
             int hours = duration / 60;
             double minutes = duration % 60;
             this.heightOfTimeslot = hours * ONE_HOUR_LENGTH + (minutes / 60.0) * ONE_HOUR_LENGTH;
@@ -291,9 +299,13 @@ public class ScheduleView extends UiPart<Region> {
          */
         private Region makeColouredBlock(String color) {
             Region colouredBlock = new Region();
-            colouredBlock.setPrefSize(BLOCK_WIDTH, heightOfTimeslot);
+            colouredBlock.setPrefSize(width, heightOfTimeslot);
+            double radiusToSet = (BLOCK_WIDTH / (28.0 * schedulesShown.size()));
+            if (heightOfTimeslot < THRESHOLD_TO_OMIT_LABELS) {
+                radiusToSet = 0;
+            }
             colouredBlock.setStyle("-fx-background-color: " + color
-                    + "; -fx-background-radius: " + (BLOCK_WIDTH / (28.0 * schedulesShown.size())) + ";");
+                    + "; -fx-background-radius: " + radiusToSet + ";");
             colouredBlock.setId("colouredBlock");
             return colouredBlock;
         }
@@ -302,16 +314,20 @@ public class ScheduleView extends UiPart<Region> {
          * Creates a coloured block with the given color and places a text at the centre of the block. Binds a tooltip
          * to the block.
          * @param color The color of the block.
-         * @param text The text to be placed at the centre of the block.
+         * @param text The text to be placed in the block.
          * @param tooltipMessage The message for the tool tip to show.
          * @return StackPane.
          */
         private StackPane makeColouredBlockWithText(String color, String text, String tooltipMessage) {
             //Ensure that the block must be greater than 10px in height otherwise block will become distorted.
             assert heightOfTimeslot > 10;
+
             StackPane container = new StackPane();
             Region colouredBlock = makeColouredBlock(color);
-            container.getChildren().addAll(colouredBlock, createLabel(text));
+            container.getChildren().addAll(colouredBlock);
+            if (width > THRESHOLD_TO_OMIT_LABELS && heightOfTimeslot > THRESHOLD_TO_OMIT_LABELS) {
+                //container.getChildren().add(createLabel(text));
+            }
             Tooltip tooltip = new Tooltip(tooltipMessage);
             Tooltip.install(container, tooltip);
             container.setId("colouredBlockWithText");
@@ -326,7 +342,7 @@ public class ScheduleView extends UiPart<Region> {
         private Label createLabel(String text) {
             Label textLabel = new Label(text);
             if (heightOfTimeslot < 30) {
-                double fontSize = heightOfTimeslot / 2;
+                double fontSize = heightOfTimeslot / 3;
                 textLabel.setStyle("-fx-font-size: " + fontSize + ";");
             }
             return textLabel;
@@ -339,6 +355,7 @@ public class ScheduleView extends UiPart<Region> {
         private Region makeEmptyBlock() {
             Region result = new Region();
             result.setPrefSize(BLOCK_WIDTH, heightOfTimeslot);
+            result.setMaxSize(BLOCK_WIDTH, heightOfTimeslot);
             return result;
         }
 

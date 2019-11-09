@@ -7,18 +7,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.model.person.schedule.Venue;
+import seedu.address.ui.util.ColorGenerator;
 
 /**
  * A class for testing Schedule View.
  */
 public class WeekScheduleBuilder {
 
-    public static final List<String> EVENT_NAMES = List.of("EVENT0", "EVENT1", "EVENT2", "EVENT3", "EVENT4", "EVENT5",
-            "EVENT6", "EVENT7", "EVENT8", "EVENT9", "EVENT10", "EVENT11", "EVENT12", "EVENT13", "EVENT14",
-            "EVENT15", "EVENT16");
+    public static final List<String> EVENT_NAMES = List.of("EVENT1", "EVENT2", "EVENT3", "EVENT4",
+            "EVENT5", "EVENT6", "EVENT7", "EVENT8", "EVENT9", "EVENT10", "EVENT11",
+            "EVENT12", "EVENT13", "EVENT14", "EVENT15", "VENT16");
+    private static final String COLOR = ColorGenerator.generateColor(0);
     private static final Venue VENUE = new Venue("Central library");
     private LocalDate now;
     private WeekSchedule weekSchedule;
@@ -68,11 +70,14 @@ public class WeekScheduleBuilder {
     public ArrayList<PersonTimeslot> simplePersonTimeslotsStub() {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(0), LocalTime.of(8, 0), LocalTime.of(9, 0), VENUE));
+                EVENT_NAMES.get(0), null, LocalTime.of(8, 0),
+                LocalTime.of(9, 0), VENUE, COLOR, false, null));
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(1), LocalTime.of(10, 0), LocalTime.of(12, 0), VENUE));
+                EVENT_NAMES.get(1), null, LocalTime.of(10, 0),
+                LocalTime.of(12, 0), VENUE, COLOR, false, null));
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(2), LocalTime.of(14, 0), LocalTime.of(16, 0), VENUE));
+                EVENT_NAMES.get(2), null, LocalTime.of(14, 0),
+                LocalTime.of(16, 0), VENUE, COLOR, false, null));
         return timeslots;
     }
 
@@ -84,11 +89,14 @@ public class WeekScheduleBuilder {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         //Back to back lessons.
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(3), LocalTime.of(8, 0), LocalTime.of(9, 0), VENUE));
+                EVENT_NAMES.get(3), null, LocalTime.of(8, 0), LocalTime.of(9, 0),
+                VENUE, COLOR, false, null));
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(4), LocalTime.of(9, 0), LocalTime.of(10, 0), VENUE));
+                EVENT_NAMES.get(4), null, LocalTime.of(9, 0), LocalTime.of(10, 0),
+                VENUE, COLOR, false, null));
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(5), LocalTime.of(10, 0), LocalTime.of(12, 0), VENUE));
+                EVENT_NAMES.get(5), null, LocalTime.of(10, 0), LocalTime.of(12, 0),
+                VENUE, COLOR, false, null));
         return timeslots;
     }
 
@@ -100,11 +108,14 @@ public class WeekScheduleBuilder {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         //Lessons with weird gaps.
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(6), LocalTime.of(8, 10), LocalTime.of(8, 25), VENUE));
+                EVENT_NAMES.get(6), null, LocalTime.of(8, 10), LocalTime.of(8, 25),
+                VENUE, COLOR, false, null));
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(7), LocalTime.of(10, 35), LocalTime.of(12, 45), VENUE));
+                EVENT_NAMES.get(7), null, LocalTime.of(10, 35), LocalTime.of(12, 45),
+                VENUE, COLOR, false, null));
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(8), LocalTime.of(14, 55), LocalTime.of(16, 0), VENUE));
+                EVENT_NAMES.get(8), null, LocalTime.of(14, 55), LocalTime.of(16, 0),
+                VENUE, COLOR, false, null));
         return timeslots;
     }
 
@@ -116,11 +127,14 @@ public class WeekScheduleBuilder {
         //Another weird set of time slots.
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(9), LocalTime.of(8, 0), LocalTime.of(8, 25), VENUE));
+                EVENT_NAMES.get(9), null, LocalTime.of(8, 0), LocalTime.of(8, 25),
+                VENUE, COLOR, false, null));
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(10), LocalTime.of(10, 35), LocalTime.of(12, 45), VENUE));
+                EVENT_NAMES.get(10), null, LocalTime.of(10, 35), LocalTime.of(12, 45),
+                VENUE, COLOR, false, null));
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(11), LocalTime.of(14, 55), LocalTime.of(16, 5), VENUE));
+                EVENT_NAMES.get(11), null, LocalTime.of(14, 55), LocalTime.of(16, 5),
+                VENUE, COLOR, false, null));
         return timeslots;
     }
 
@@ -133,7 +147,8 @@ public class WeekScheduleBuilder {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         //One long day
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(12), LocalTime.of(8, 0), LocalTime.of(20, 0), VENUE));
+                EVENT_NAMES.get(12), null, LocalTime.of(8, 0), LocalTime.of(20, 0),
+                VENUE, COLOR, false, null));
         return timeslots;
     }
 

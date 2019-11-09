@@ -18,6 +18,7 @@ public class LocationOverview extends UiPart<Region> {
     private static final String SOURCE = "Everyone's locations: ";
     private static final String VALID = "Out of all these locations, the valid locations are: ";
     private static final String INVALID = "Locations that cannot be found in NUS: ";
+
     @FXML
     private VBox locationOverviewContainer;
 
@@ -39,17 +40,23 @@ public class LocationOverview extends UiPart<Region> {
     public LocationOverview(String firstChoice, List<String> locationsEntered,
                             List<String> validLocations, List<String> invalidLocations) {
         super(FXML);
+
         firstChoiceLocation.setText(firstChoice);
-        this.sourceLocations.getChildren().add(getLocationCell(SOURCE, locationsEntered));
+
+        this.sourceLocations.getChildren()
+                .add(getLocationCell(SOURCE, locationsEntered));
+
         this.validLocations.getChildren().add(
                 getLocationCell(VALID, validLocations));
+
         this.invalidLocations.getChildren().add(
                 getLocationCell(INVALID, invalidLocations));
     }
 
     /**
      * Method to create a container to contain texts of the locations.
-     * @param title Title of the container.
+     *
+     * @param title            Title of the container.
      * @param locationsEntered Locations to be placed inside this cell.
      * @return
      */

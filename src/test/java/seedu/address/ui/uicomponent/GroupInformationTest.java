@@ -47,7 +47,6 @@ public class GroupInformationTest extends ApplicationTest {
     private static final GroupDescription SAMPLE_GROUP_DESCRIPTION = new GroupDescription("SAMPLE GROUP DESCRIPTION");
     private static final GroupDisplay SAMPLE_GROUP_DISPLAY = new GroupDisplay(SAMPLE_GROUP_NAME,
             SAMPLE_GROUP_DESCRIPTION);
-    private static final List<String> COLORS = ColorGenerator.generateColorList();
     private static final String GROUP_NAME_ID = "#groupDetails #groupDetailContainer #groupName";
     private static final String GROUP_DESC_ID = "#groupDetails #groupDetailContainer #groupDescription";
     private static final String GROUP_MEMBERS_ID = "#groupMembers";
@@ -70,7 +69,7 @@ public class GroupInformationTest extends ApplicationTest {
     public void start(Stage stage) {
         //Scenario is only Alice is focused.
         Parent sceneRoot = new GroupInformation(SAMPLE_PERSON_DISPLAYS, List.of(ALICE.getName()),
-                SAMPLE_GROUP_DISPLAY, COLORS).getRoot();
+                SAMPLE_GROUP_DISPLAY, ColorGenerator::generateColor).getRoot();
         Scene scene = new Scene(sceneRoot);
         scene.getStylesheets().add("/view/DarkTheme.css");
         stage.setScene(scene);

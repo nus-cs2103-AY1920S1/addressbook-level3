@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml">
+
+
+    <VBox fx:id="timeslotOverviewContainer" GridPane.halignment="CENTER">
+
+        <StackPane>
+            <Label fx:id="eventName" style="-fx-font-size: 20"/>
+        </StackPane>
+
+        <StackPane>
+            <Label fx:id="dateString"/>
+        </StackPane>
+
+        <StackPane>
+            <Label fx:id="timeString"/>
+        </StackPane>
+
+        <StackPane>
+            <Label fx:id="venueString"/>
+        </StackPane>
+
+    </VBox>
+</GridPane>

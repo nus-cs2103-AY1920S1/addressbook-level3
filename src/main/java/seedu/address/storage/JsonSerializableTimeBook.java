@@ -20,7 +20,10 @@ import seedu.address.model.person.User;
  */
 @JsonRootName(value = "timebook")
 class JsonSerializableTimeBook {
-
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_USER = "Persons list contains duplicate user(s).";
+    public static final String MESSAGE_DUPLICATE_GROUP = "Persons list contains duplicate group(s).";
+    public static final String MESSAGE_DUPLICATE_MAPPING = "Persons list contains duplicate mapping(s).";
     private final JsonAdaptedUser user;
     private final List<JsonAdaptedPerson> personList = new ArrayList<>();
     private final List<JsonAdaptedGroup> groupList = new ArrayList<>();
@@ -71,16 +74,25 @@ class JsonSerializableTimeBook {
 
         for (JsonAdaptedPerson jsonAdaptedPerson : personList) {
             Person person = jsonAdaptedPerson.toModelType();
+            if (timeBook.getPersonList().getPersons().contains(person)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
             timeBook.addPerson(person);
         }
 
         for (JsonAdaptedGroup jsonAdaptedGroup : groupList) {
             Group group = jsonAdaptedGroup.toModelType();
+            if (timeBook.getPersonList().getPersons().contains(group)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_GROUP);
+            }
             timeBook.addGroup(group);
         }
 
         for (JsonAdaptedMapping jsonAdaptedMapping : mappingList) {
             PersonToGroupMapping map = jsonAdaptedMapping.toModelType();
+            if (timeBook.getPersonList().getPersons().contains(map)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MAPPING);
+            }
             timeBook.addMapping(map);
         }
 

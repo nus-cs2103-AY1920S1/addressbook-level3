@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -22,7 +21,7 @@ import seedu.address.logic.export.Exporter;
 import seedu.address.logic.export.GroupScheduleExporter;
 import seedu.address.logic.export.IndividualScheduleExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
@@ -35,6 +34,7 @@ import seedu.address.ui.popup.TimeslotView;
 import seedu.address.ui.schedule.GroupInformation;
 import seedu.address.ui.schedule.PersonDetailCard;
 import seedu.address.ui.schedule.ScheduleViewManager;
+import seedu.address.ui.util.ColorGenerator;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -163,10 +163,7 @@ public class MainWindow extends UiPart<Stage> {
 
         //setting up default detailsview
         detailsViewPlaceholder.getChildren().add(new DefaultStartView(logic.getMainWindowDisplay()
-                .getPersonSchedules().get(0)
-                .getScheduleDisplay()
-                .getScheduleForWeek(0)
-                .get(LocalDate.now().getDayOfWeek()))
+                .getPersonSchedules().get(0))
                 .getRoot());
     }
 
@@ -282,7 +279,7 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             GroupInformation groupInformation = new GroupInformation(logic.getMainWindowDisplay().getPersonDisplays(),
                     null, logic.getMainWindowDisplay().getGroupDisplay(),
-                    scheduleViewManager.getOriginalColors());
+                    ColorGenerator::generateColor);
             Exporter exporter = new GroupScheduleExporter(scheduleViewManager.getScheduleViewCopy(), groupInformation,
                     "png", "./export.png");
             try {
@@ -336,7 +333,7 @@ public class MainWindow extends UiPart<Stage> {
                 if (!scheduleWindowDisplay.getFilteredNames().isEmpty()) {
                     handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(),
                             scheduleWindowDisplay.getFilteredNames().get(), scheduleWindowDisplay.getGroupDisplay(),
-                            scheduleViewManager.getOriginalColors()).getRoot(), SidePanelDisplayType.GROUP);
+                            ColorGenerator::generateColor).getRoot(), SidePanelDisplayType.GROUP);
                     scheduleViewManager.filterPersonsFromSchedule(scheduleWindowDisplay.getFilteredNames().get());
                     handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 }
@@ -381,16 +378,15 @@ public class MainWindow extends UiPart<Stage> {
             case GROUP:
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(), null,
-                        scheduleWindowDisplay.getGroupDisplay(),
-                        scheduleViewManager.getOriginalColors()).getRoot(), SidePanelDisplayType.GROUP);
+                        scheduleWindowDisplay.getGroupDisplay(), ColorGenerator::generateColor).getRoot(),
+                        SidePanelDisplayType.GROUP);
                 break;
             case DEFAULT:
                 // do nothing
                 break;
             case HOME:
                 handleChangeOnDetailsView(new DefaultStartView(scheduleWindowDisplay
-                        .getPersonSchedules().get(0)
-                        .getScheduleDisplay().getScheduleForWeek(0).get(LocalDate.now().getDayOfWeek()))
+                        .getPersonSchedules().get(0))
                         .getRoot());
                 handleChangeToTabsPanel();
                 break;

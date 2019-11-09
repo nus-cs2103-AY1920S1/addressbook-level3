@@ -1,58 +1,57 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
-import seedu.address.model.group.Group;
-import seedu.address.model.group.GroupName;
-import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
- * Gives the schedule for the week of a group.
+ * Gives the schedule for a list of persons.
  */
 public class ScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "schedule";
-    public static final String MESSAGE_SUCCESS = "Schedule found: \n\n";
-    public static final String MESSAGE_FAILURE = "Unable to generate schedule";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_GROUPNAME + " GROUPNAME";
+    public static final String MESSAGE_SUCCESS = "Schedule created!";
+    public static final String MESSAGE_FAILURE = "Unable to generate schedule: %s not found";
 
-    public final GroupName groupName;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
+            + PREFIX_NAME + "NAME ...";
 
-    public ScheduleCommand(GroupName groupName) {
-        this.groupName = groupName;
+    private ArrayList<Name> names;
+
+    public ScheduleCommand(ArrayList<Name> names) {
+        this.names = names;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        Group group;
-        try {
-            group = model.findGroup(groupName);
-        } catch (GroupNotFoundException e) {
-            return new CommandResult(MESSAGE_FAILURE);
+        ArrayList<Person> persons = new ArrayList<>();
+
+        for (Name name: names) {
+            try {
+                persons.add(model.findPerson(name));
+            } catch (PersonNotFoundException e) {
+                return new CommandResult(String.format(MESSAGE_FAILURE, name.toString()));
+            }
         }
 
         // update main window
-        model.updateScheduleWindowDisplay(group.getGroupName(), LocalDateTime.now(), ScheduleWindowDisplayType.NONE);
+        model.updateDisplayWithPersons(persons, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
         // update side panel
-        model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
+        model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
-        ArrayList<PersonSchedule> schedules = model.getScheduleWindowDisplay().getPersonSchedules();
-        String output = "";
-        for (PersonSchedule s : schedules) {
-            output += s.toString() + "\n";
-        }
-        return new CommandResult(MESSAGE_SUCCESS + output);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class ScheduleCommand extends Command {
             return false;
         } else if (!(command instanceof ScheduleCommand)) {
             return false;
-        } else if (((ScheduleCommand) command).groupName.equals(this.groupName)) {
+        } else if (((ScheduleCommand) command).names.equals(this.names)) {
             return true;
         } else {
             return false;

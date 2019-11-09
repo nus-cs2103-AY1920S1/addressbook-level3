@@ -63,7 +63,7 @@ public class PersonCard extends UiPart<Region> {
 
         // state check
         PersonCard card = (PersonCard) other;
-        return person.isSamePerson(card.person);
+        return person.equals(card.person);
     }
 
     public static String getPersonInitials(String personName) {

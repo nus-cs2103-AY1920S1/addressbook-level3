@@ -5,5 +5,8 @@
     "email": "invalid@email!3e",
     "remark": "",
     "address": "4th street"
-  } ]
+  } ],
+  "personList": [],
+  "groupList": [],
+  "mappingList": []
 }

@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import seedu.address.model.display.detailwindow.PersonSchedule;
-import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.display.exceptions.PersonTimeslotNotFoundException;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.person.Name;
@@ -82,11 +81,8 @@ public class ScheduleWindowDisplay {
         return freeScheduleWeeks.get(week).getFreeTimeslot(id);
     }
 
-    public PersonTimeslot getPersonTimeslot(int week, Name name, int day, int id)
-            throws PersonNotFoundException, InvalidTimeslotException {
-
-        // week must be 0 - 3
-        //ArrayList<PersonSchedule> personSchedules = this.personSchedules.get(week);
+    public PersonTimeslot getPersonTimeslot (Name name, int week, int id)
+            throws PersonNotFoundException, PersonTimeslotNotFoundException {
 
         // find the schedule of the person with the given name
         PersonSchedule selectedPersonSchedule = null;
@@ -100,18 +96,33 @@ public class ScheduleWindowDisplay {
             throw new PersonNotFoundException();
         }
 
-        // select the day of week
-        ArrayList<PersonTimeslot> personTimeslots = selectedPersonSchedule.getScheduleDisplay()
-                .getScheduleForWeek(week).get(DayOfWeek.of(day));
+        // get the weekSchedule
+        WeekSchedule currentWeekSchedule = selectedPersonSchedule.getScheduleDisplay().getScheduleForWeek(week);
 
-        // select specific timeslot
-        try {
-            PersonTimeslot selectedPersonTimeslot = personTimeslots.get(id);
-            return selectedPersonTimeslot;
-        } catch (IndexOutOfBoundsException iobe) {
-            throw new InvalidTimeslotException();
+        // get the selected timeslot
+        PersonTimeslot personTimeslot = currentWeekSchedule.getPersonTimeslot(id);
+        return personTimeslot;
+    }
+
+    public PersonTimeslot getPersonTimeslotForToday(Name name, int id)
+            throws PersonNotFoundException, PersonTimeslotNotFoundException {
+
+        PersonSchedule selectedPersonSchedule = null;
+        for (int i = 0; i < personSchedules.size(); i++) {
+            if (personSchedules.get(i).getPersonDisplay().getName().equals(name)) {
+                selectedPersonSchedule = personSchedules.get(i);
+            }
+        }
+        if (selectedPersonSchedule == null) {
+            throw new PersonNotFoundException();
         }
 
+        // get the weekSchedule: week is always 0
+        WeekSchedule currentWeekSchedule = selectedPersonSchedule.getScheduleDisplay().getScheduleForWeek(0);
+
+        // get the selected timeslot
+        PersonTimeslot personTimeslot = currentWeekSchedule.getPersonTimeslotForToday(id);
+        return personTimeslot;
     }
 
     /**
@@ -131,6 +142,19 @@ public class ScheduleWindowDisplay {
             s += "\n";
 
         }
+        return s;
+    }
+
+    /**
+     * For debugging purposes only.
+     */
+    public String personScheduleToString() {
+        String s = "";
+
+        for (int i = 0; i < personSchedules.size(); i++) {
+            s += personSchedules.get(i).toString();
+        }
+
         return s;
     }
 }

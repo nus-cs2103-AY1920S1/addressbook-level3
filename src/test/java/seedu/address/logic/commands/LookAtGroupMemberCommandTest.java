@@ -31,7 +31,7 @@ public class LookAtGroupMemberCommandTest {
     @BeforeEach
     void init() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
         model = TypicalModel.generateTypicalModel();
-        model.updateScheduleWindowDisplay(TypicalGroups.GROUP_NAME3, LocalDateTime.now(),
+        model.updateDisplayWithGroup(TypicalGroups.GROUP_NAME3, LocalDateTime.now(),
                 ScheduleWindowDisplayType.GROUP);
     }
 

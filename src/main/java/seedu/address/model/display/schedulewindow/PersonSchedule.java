@@ -1,9 +1,8 @@
-package seedu.address.model.display.detailwindow;
+package seedu.address.model.display.schedulewindow;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 
-import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 
 /**
@@ -18,7 +17,8 @@ public class PersonSchedule {
     private MonthSchedule scheduleDisplay;
 
     public PersonSchedule(String scheduleName,
-                          PersonDisplay personDisplay, MonthSchedule scheduleDisplay) {
+                          PersonDisplay personDisplay,
+                          MonthSchedule scheduleDisplay) {
 
         this.scheduleName = scheduleName;
         this.personDisplay = personDisplay;
@@ -27,10 +27,6 @@ public class PersonSchedule {
 
     public PersonDisplay getPersonDisplay() {
         return this.personDisplay;
-    }
-
-    public String getScheduleName() {
-        return scheduleName;
     }
 
     public MonthSchedule getScheduleDisplay() {
@@ -48,8 +44,8 @@ public class PersonSchedule {
                 ArrayList<PersonTimeslot> personTimeslots = scheduleDisplay.getScheduleForWeek(j).get(DayOfWeek.of(i));
                 output += DayOfWeek.of(i) + ":\n";
                 for (PersonTimeslot d : personTimeslots) {
-                    String timeSlotDetails = d.getStartTime().toString() + "---" + d.getEndTime().toString();
-                    output += timeSlotDetails + "\n";
+                    //String timeSlotDetails = d.getStartTime().toString() + "---" + d.getEndTime().toString();
+                    output += d.toString() + "\n";
                 }
             }
         }
