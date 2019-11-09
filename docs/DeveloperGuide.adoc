@@ -503,10 +503,11 @@ To support the limited internet connection, we preprocess the relevant data and 
 
 ===== Constructing the graph matrix
 
-This is the sequence diagram for the creation of the matrix.
+Below is the sequence diagram for the creation of the matrix.
 
-
-image::gmaps/MatrixCreationSequenceDiagram.png[]
+[#img-Gmaps-Sequence-Diagram]
+.Sequence diagram for the construction of the graph matrix
+image::gmaps/MatrixCreationSequenceDiagram.png[Gmaps-Sequence-Diagram]
 
 *Brief overview*
 The initialising of the matrix is broken into 2 steps. The first step is to get the list of locations in NUSMods and
