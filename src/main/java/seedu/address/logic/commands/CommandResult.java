@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 import seedu.address.model.display.schedulewindow.PersonTimeslot;
 
 /**

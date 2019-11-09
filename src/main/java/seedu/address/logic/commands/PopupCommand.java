@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.person.exceptions.InvalidTimeslotException;

@@ -30,7 +30,7 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
     private void initScheduleView() {
         LocalDate dateToShow = currentDate.plusDays(weekNumber * 7);
         this.scheduleView = new ScheduleView(List.of(personSchedule
-                .getScheduleDisplay().getScheduleForWeek(weekNumber)),
+                .getScheduleDisplay().get(weekNumber)),
                 personSchedule.getPersonDisplay().getName().fullName, dateToShow);
         this.scheduleView.generateSchedule();
     }
@@ -48,7 +48,7 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
     @Override
     public ScheduleView getScheduleViewCopy() {
         ScheduleView copy = new ScheduleView(List.of(personSchedule
-                .getScheduleDisplay().getScheduleForWeek(weekNumber)),
+                .getScheduleDisplay().get(weekNumber)),
                 personSchedule.getPersonDisplay().getName().fullName, currentDate.plusDays(7 * weekNumber));
         copy.generateSchedule();
         return copy;

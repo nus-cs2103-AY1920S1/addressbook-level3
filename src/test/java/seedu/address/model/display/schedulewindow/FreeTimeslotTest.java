@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 
 class FreeTimeslotTest {
 

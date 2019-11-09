@@ -37,7 +37,7 @@ public class DefaultStartView extends UiPart<Region> {
         super(FXML);
 
         ArrayList<PersonTimeslot> personTimeslots = personSchedule.getScheduleDisplay()
-                .getScheduleForWeek(0)
+                .get(0)
                 .get(LocalDate.now().getDayOfWeek());
 
         PersonDisplay personDisplay = personSchedule.getPersonDisplay();

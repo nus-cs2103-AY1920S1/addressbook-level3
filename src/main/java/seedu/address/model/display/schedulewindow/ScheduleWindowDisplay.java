@@ -1,8 +1,6 @@
 package seedu.address.model.display.schedulewindow;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,22 +29,13 @@ public class ScheduleWindowDisplay {
     }
 
     public ScheduleWindowDisplay(ArrayList<PersonSchedule> personSchedules,
-                               ArrayList<FreeSchedule> freeScheduleWeeks, GroupDisplay groupDisplay,
+                                 ArrayList<FreeSchedule> freeScheduleWeeks, GroupDisplay groupDisplay,
                                  ScheduleWindowDisplayType scheduleWindowDisplayType) {
 
         this.personSchedules = personSchedules;
         this.freeScheduleWeeks = freeScheduleWeeks;
         this.groupDisplay = groupDisplay;
         this.scheduleWindowDisplayType = scheduleWindowDisplayType;
-    }
-
-    public void setFilteredNames(List<Name> filteredNames) {
-        assert this.scheduleWindowDisplayType.equals(ScheduleWindowDisplayType.GROUP);
-        List<Name> presentNames = personSchedules.stream()
-                .map(personSchedule -> personSchedule.getPersonDisplay().getName())
-                .filter(name -> filteredNames.contains(name))
-                .collect(Collectors.toCollection(ArrayList::new));
-        this.filteredNames = Optional.of(presentNames);
     }
 
     public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
@@ -69,6 +58,15 @@ public class ScheduleWindowDisplay {
         return filteredNames;
     }
 
+    public void setFilteredNames(List<Name> filteredNames) {
+        assert this.scheduleWindowDisplayType.equals(ScheduleWindowDisplayType.GROUP);
+        List<Name> presentNames = personSchedules.stream()
+                .map(personSchedule -> personSchedule.getPersonDisplay().getName())
+                .filter(filteredNames::contains)
+                .collect(Collectors.toCollection(ArrayList::new));
+        this.filteredNames = Optional.of(presentNames);
+    }
+
     public ArrayList<PersonDisplay> getPersonDisplays() {
         ArrayList<PersonDisplay> personDisplays = new ArrayList<>();
         for (PersonSchedule p : personSchedules) {
@@ -81,7 +79,7 @@ public class ScheduleWindowDisplay {
         return freeScheduleWeeks.get(week).getFreeTimeslot(id);
     }
 
-    public PersonTimeslot getPersonTimeslot (Name name, int week, int id)
+    public PersonTimeslot getPersonTimeslot(Name name, int week, int id)
             throws PersonNotFoundException, PersonTimeslotNotFoundException {
 
         // find the schedule of the person with the given name
@@ -97,7 +95,7 @@ public class ScheduleWindowDisplay {
         }
 
         // get the weekSchedule
-        WeekSchedule currentWeekSchedule = selectedPersonSchedule.getScheduleDisplay().getScheduleForWeek(week);
+        WeekSchedule currentWeekSchedule = selectedPersonSchedule.getScheduleDisplay().get(week);
 
         // get the selected timeslot
         PersonTimeslot personTimeslot = currentWeekSchedule.getPersonTimeslot(id);
@@ -118,43 +116,11 @@ public class ScheduleWindowDisplay {
         }
 
         // get the weekSchedule: week is always 0
-        WeekSchedule currentWeekSchedule = selectedPersonSchedule.getScheduleDisplay().getScheduleForWeek(0);
+        WeekSchedule currentWeekSchedule = selectedPersonSchedule.getScheduleDisplay().get(0);
 
         // get the selected timeslot
         PersonTimeslot personTimeslot = currentWeekSchedule.getPersonTimeslotForToday(id);
         return personTimeslot;
     }
 
-    /**
-     * For debugging purposes only.
-     */
-    public String freeScheduleToString() {
-        String s = "";
-
-        //Show just the free schedule for Week 0 only.
-        HashMap<DayOfWeek, ArrayList<FreeTimeslot>> free = freeScheduleWeeks.get(0).getFreeSchedule();
-        for (int i = 0; i < 7; i++) {
-            ArrayList<FreeTimeslot> freeTimeslots = free.get(DayOfWeek.of(i + 1));
-            s += DayOfWeek.of(i + 1).toString() + "\n";
-            for (int j = 0; j < freeTimeslots.size(); j++) {
-                s += " === " + freeTimeslots.get(j).toString();
-            }
-            s += "\n";
-
-        }
-        return s;
-    }
-
-    /**
-     * For debugging purposes only.
-     */
-    public String personScheduleToString() {
-        String s = "";
-
-        for (int i = 0; i < personSchedules.size(); i++) {
-            s += personSchedules.get(i).toString();
-        }
-
-        return s;
-    }
 }

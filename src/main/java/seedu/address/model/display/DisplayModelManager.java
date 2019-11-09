@@ -13,10 +13,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.GmapsModelManager;
 import seedu.address.model.TimeBook;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
-import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
@@ -47,21 +46,18 @@ import seedu.address.ui.util.ColorGenerator;
 public class DisplayModelManager {
 
     private static final int DAYS_OF_A_WEEK = 7;
+    private static final int WEEKS_OF_A_MONTH = 4;
+
     private static final int FREE_TIMESLOT_TRHESHOLD = 15;
+    private static final LocalTime SCHEDULE_START_TIME = LocalTime.of(8, 0);
+    private static final LocalTime SCHEDULE_END_TIME = LocalTime.of(20, 0);
 
     private GmapsModelManager gmapsModelManager;
-
-    private LocalTime startTime;
-    private LocalTime endTime;
-
     private ScheduleWindowDisplay scheduleWindowDisplay;
     private SidePanelDisplay sidePanelDisplay;
 
     public DisplayModelManager(GmapsModelManager gmapsModelManager) {
         this.gmapsModelManager = gmapsModelManager;
-        this.startTime = LocalTime.of(8, 0);
-        this.endTime = LocalTime.of(20, 0);
-
     }
 
     /**
@@ -165,7 +161,7 @@ public class DisplayModelManager {
                 return;
             }
 
-            PersonSchedule personSchedule = generatePersonSchedule(person.getName().toString(),
+            PersonSchedule personSchedule = generatePersonSchedule(
                     now,
                     person,
                     role,
@@ -177,7 +173,7 @@ public class DisplayModelManager {
         for (int h = 0; h < 4; h++) {
             final int finalH = h;
             FreeSchedule freeSchedule = generateFreeSchedule(personSchedules
-                    .stream().map(sch -> sch.getScheduleDisplay().getScheduleForWeek(finalH))
+                    .stream().map(sch -> sch.getScheduleDisplay().get(finalH))
                     .collect(Collectors.toCollection(ArrayList::new)), now);
             freeScheduleForMonth.add(freeSchedule);
         }
@@ -193,11 +189,10 @@ public class DisplayModelManager {
     private void updateScheduleWindowDisplay(Person person, LocalDateTime time, ScheduleWindowDisplayType type) {
         ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
 
-        assert(type.equals(ScheduleWindowDisplayType.PERSON)
-                        || type.equals(ScheduleWindowDisplayType.HOME));
+        assert (type.equals(ScheduleWindowDisplayType.PERSON)
+                || type.equals(ScheduleWindowDisplayType.HOME));
 
         PersonSchedule personSchedule = generatePersonSchedule(
-                person.getName().toString(),
                 time,
                 person,
                 Role.emptyRole(),
@@ -208,6 +203,224 @@ public class DisplayModelManager {
 
         ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personSchedules, type);
         updateScheduleWindowDisplay(scheduleWindowDisplay);
+    }
+
+    /**
+     * Getter method to retrieve detail window display.
+     */
+    public ScheduleWindowDisplay getScheduleWindowDisplay() {
+        return scheduleWindowDisplay;
+    }
+
+    /**
+     * Getter method to retrieve side panel display.
+     */
+    public SidePanelDisplay getSidePanelDisplay() {
+        return sidePanelDisplay;
+    }
+
+    /**
+     * Generates the PersonSchedule of a Person.
+     */
+    private PersonSchedule generatePersonSchedule(LocalDateTime now,
+                                                  Person person,
+                                                  Role role,
+                                                  String color,
+                                                  boolean isInGroup) {
+
+        ArrayList<WeekSchedule> scheduleDisplay = new ArrayList<>();
+        for (int week = 0; week < WEEKS_OF_A_MONTH; week++) {
+            scheduleDisplay.add(generateWeekSchedule(now.plusDays(week * DAYS_OF_A_WEEK), person, color, isInGroup));
+        }
+        return new PersonSchedule(new PersonDisplay(person, role), scheduleDisplay);
+    }
+
+    /**
+     * Generates the WeekSchedule of a Person.
+     */
+    private WeekSchedule generateWeekSchedule(LocalDateTime date, Person person, String color, boolean isInGroup) {
+
+        HashMap<DayOfWeek, ArrayList<PersonTimeslot>> scheduleDisplay = new HashMap<>();
+
+        Schedule personSchedule = person.getSchedule();
+        ArrayList<Event> events = personSchedule.getEvents();
+
+        for (int day = 1; day <= DAYS_OF_A_WEEK; day++) {
+            scheduleDisplay.put(DayOfWeek.of(day), new ArrayList<>());
+        }
+
+        for (int e = 0; e < events.size(); e++) {
+            Event currentEvent = events.get(e);
+            String eventName = currentEvent.getEventName();
+
+            String selectedColor;
+            if (isInGroup) {
+                selectedColor = color;
+            } else {
+                selectedColor = ColorGenerator.generateColor(e);
+
+            }
+
+            ArrayList<Timeslot> timeslots = currentEvent.getTimeslots();
+            for (int t = 0; t < timeslots.size(); t++) {
+                Timeslot currentTimeslot = timeslots.get(t);
+
+                LocalDateTime currentStartTime = currentTimeslot.getStartTime();
+                LocalDateTime currentEndTime = currentTimeslot.getEndTime();
+                Venue currentVenue = currentTimeslot.getVenue();
+
+                //Checks to see if the currentStartTime is within the upcoming 7 days.
+                if (date.toLocalDate().plusDays(DAYS_OF_A_WEEK).isAfter(currentStartTime.toLocalDate())
+                        && date.toLocalDate().minusDays(1).isBefore(currentStartTime.toLocalDate())
+                        && (SCHEDULE_START_TIME.isBefore(currentStartTime.toLocalTime())
+                        || SCHEDULE_START_TIME.compareTo(currentStartTime.toLocalTime()) == 0)
+                        && SCHEDULE_END_TIME.isAfter(currentStartTime.toLocalTime())) {
+
+                    PersonTimeslot timeslot = new PersonTimeslot(
+                            eventName,
+                            currentStartTime.toLocalDate(),
+                            currentStartTime.toLocalTime(),
+                            currentEndTime.toLocalTime()
+                                    .isAfter(SCHEDULE_END_TIME) ? SCHEDULE_END_TIME : currentEndTime.toLocalTime(),
+                            currentVenue,
+                            selectedColor,
+                            isInGroup,
+                            gmapsModelManager.closestLocationData(
+                                    new ArrayList<>(List.of(currentVenue.getVenue())))
+                    );
+
+                    scheduleDisplay.get(currentStartTime.getDayOfWeek()).add(timeslot);
+                }
+            }
+        }
+
+        for (int i = 1; i < DAYS_OF_A_WEEK; i++) {
+            scheduleDisplay.get(DayOfWeek.of(i)).sort(
+                    Comparator.comparing(PersonTimeslot::getStartTime));
+        }
+
+
+        return new WeekSchedule(scheduleDisplay);
+    }
+
+    /**
+     * Generates a free schedule from a list of person schedules.
+     */
+    private FreeSchedule generateFreeSchedule(ArrayList<WeekSchedule> personSchedules,
+                                              LocalDateTime now) {
+
+        HashMap<DayOfWeek, ArrayList<FreeTimeslot>> freeSchedule = new HashMap<>();
+
+        // Used to allocate an ID for each FreeTimeslot
+        int freeTimeslotIdCounter = 1;
+
+        int currentDay = now.getDayOfWeek().getValue();
+        for (int i = currentDay; i <= DAYS_OF_A_WEEK + currentDay - 1; i++) {
+
+            int day = ((i - 1) % 7) + 1;
+            freeSchedule.put(DayOfWeek.of(day), new ArrayList<>());
+
+            LocalTime currentTime = SCHEDULE_START_TIME;
+            ArrayList<String> lastVenues = new ArrayList<>();
+
+            // initialize last venues to null for each person
+            for (int j = 0; j < personSchedules.size(); j++) {
+                lastVenues.add(null);
+            }
+
+            boolean isClash;
+            LocalTime newFreeTimeslotStartTime = null;
+
+            while (true) {
+
+                isClash = false;
+
+                ArrayList<String> currentLastVenues = new ArrayList<>(lastVenues);
+
+                // loop through each person
+                for (int j = 0; j < personSchedules.size(); j++) {
+                    ArrayList<PersonTimeslot> timeslots = personSchedules.get(j).get(DayOfWeek.of(day));
+
+                    // loop through each timeslot
+                    for (int k = 0; k < timeslots.size(); k++) {
+
+                        // record the latest venue for each clash
+                        if (timeslots.get(k).isClash(currentTime)) {
+                            isClash = true;
+                            currentLastVenues.set(j, timeslots.get(k).getVenue().toString());
+                            break;
+                        }
+                    }
+                }
+
+                if (!isClash) {
+                    if (newFreeTimeslotStartTime == null) {
+                        newFreeTimeslotStartTime = currentTime;
+                    }
+                    lastVenues = new ArrayList<>(currentLastVenues);
+
+                } else {
+                    if (newFreeTimeslotStartTime != null) {
+
+                        if (newFreeTimeslotStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD) {
+                            freeSchedule.get(DayOfWeek.of(day))
+                                    .add(generateFreeTimeslot(
+                                            freeTimeslotIdCounter,
+                                            lastVenues,
+                                            newFreeTimeslotStartTime,
+                                            currentTime));
+
+                            freeTimeslotIdCounter++;
+                        }
+                        newFreeTimeslotStartTime = null;
+                    }
+                    lastVenues = new ArrayList<>(currentLastVenues);
+                }
+
+                if (currentTime.equals(SCHEDULE_END_TIME)) {
+                    if (!isClash) {
+                        if (newFreeTimeslotStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD) {
+                            freeSchedule.get(DayOfWeek.of(day))
+                                    .add(generateFreeTimeslot(
+                                            freeTimeslotIdCounter,
+                                            lastVenues,
+                                            newFreeTimeslotStartTime,
+                                            currentTime));
+                            freeTimeslotIdCounter++;
+                        }
+                    }
+                    break;
+                }
+                currentTime = currentTime.plusMinutes(1);
+            }
+        }
+        return new FreeSchedule(freeSchedule);
+    }
+
+    /**
+     * Helper method to generate a FreeTimeslot.
+     */
+    private FreeTimeslot generateFreeTimeslot(int id,
+                                              ArrayList<String> lastVenues,
+                                              LocalTime startTime,
+                                              LocalTime endTime) {
+
+        ArrayList<String> freeTimeslotLastVenues = new ArrayList<>();
+        for (String string : lastVenues) {
+            if (string != null) {
+                freeTimeslotLastVenues.add(string);
+            }
+        }
+
+        ClosestCommonLocationData closestCommonLocationData =
+                gmapsModelManager.closestLocationData(freeTimeslotLastVenues);
+
+        return new FreeTimeslot(
+                id,
+                freeTimeslotLastVenues,
+                closestCommonLocationData,
+                startTime,
+                endTime);
     }
 
     /**
@@ -245,240 +458,6 @@ public class DisplayModelManager {
 
         sidePanelDisplay = new SidePanelDisplay(displayPersons, displayGroups, type);
         updateSidePanelDisplay(sidePanelDisplay);
-    }
-
-    /**
-     * Getter method to retrieve detail window display.
-     */
-    public ScheduleWindowDisplay getScheduleWindowDisplay() {
-        return scheduleWindowDisplay;
-    }
-
-    /**
-     * Getter method to retrieve side panel display.
-     */
-    public SidePanelDisplay getSidePanelDisplay() {
-        return sidePanelDisplay;
-    }
-
-    /**
-     * Generates the PersonSchedule of a Person.
-     *
-     * @param scheduleName name of the schedule
-     * @param now          current time
-     * @param person       of the schedule
-     * @param role         role of the person
-     * @return PersonSchedule
-     */
-    private PersonSchedule generatePersonSchedule(String scheduleName,
-                                                  LocalDateTime now,
-                                                  Person person,
-                                                  Role role,
-                                                  String color,
-                                                  boolean isInGroup) {
-
-        WeekSchedule weekZeroSchedule = generateWeekSchedule(now, person, color, isInGroup);
-        WeekSchedule weekOneSchedule = generateWeekSchedule(now.plusDays(7), person, color, isInGroup);
-        WeekSchedule weekTwoSchedule = generateWeekSchedule(now.plusDays(14), person, color, isInGroup);
-        WeekSchedule weekThreeSchedule = generateWeekSchedule(now.plusDays(21), person, color, isInGroup);
-
-        return new PersonSchedule(scheduleName, new PersonDisplay(person, role), new MonthSchedule(weekZeroSchedule,
-                weekOneSchedule, weekTwoSchedule, weekThreeSchedule));
-    }
-
-    /**
-     * Generates the WeekSchedule of a Person.
-     */
-    private WeekSchedule generateWeekSchedule(LocalDateTime date, Person person, String color, boolean isInGroup) {
-
-        HashMap<DayOfWeek, ArrayList<PersonTimeslot>> scheduleDisplay = new HashMap<>();
-
-        Schedule personSchedule = person.getSchedule();
-        ArrayList<Event> events = personSchedule.getEvents();
-
-        for (int i = 1; i <= DAYS_OF_A_WEEK; i++) {
-            scheduleDisplay.put(DayOfWeek.of(i), new ArrayList<>());
-        }
-
-        for (int e = 0; e < events.size(); e++) {
-            Event currentEvent = events.get(e);
-            String eventName = currentEvent.getEventName();
-
-            String selectedColor = color;
-            if (selectedColor == null) {
-                selectedColor = ColorGenerator.generateColor(e);
-            }
-
-            ArrayList<Timeslot> timeslots = currentEvent.getTimeslots();
-            for (int t = 0; t < timeslots.size(); t++) {
-                Timeslot currentTimeslot = timeslots.get(t);
-
-                LocalDateTime currentStartTime = currentTimeslot.getStartTime();
-                LocalDateTime currentEndTime = currentTimeslot.getEndTime();
-
-                Venue currentVenue = currentTimeslot.getVenue();
-
-                //Checks to see if the currentStartTime is within the upcoming 7 days.
-                if (date.toLocalDate().plusDays(DAYS_OF_A_WEEK).isAfter(currentStartTime.toLocalDate())
-                        && date.toLocalDate().minusDays(1).isBefore(currentStartTime.toLocalDate())
-                        && (startTime.isBefore(currentStartTime.toLocalTime())
-                        || startTime.compareTo(currentStartTime.toLocalTime()) == 0)
-                        && endTime.isAfter(currentStartTime.toLocalTime())) {
-
-                    ArrayList<String> arr = new ArrayList<>();
-                    arr.add(currentVenue.getVenue());
-
-                    PersonTimeslot timeslot = new PersonTimeslot(
-                            eventName,
-                            currentStartTime.toLocalDate(),
-                            currentStartTime.toLocalTime(),
-                            currentEndTime.toLocalTime().isAfter(endTime) ? endTime : currentEndTime.toLocalTime(),
-                            currentVenue,
-                            selectedColor,
-                            isInGroup,
-                            gmapsModelManager.closestLocationData(
-                                    new ArrayList<>(List.of(currentVenue.getVenue())))
-                    );
-
-                    scheduleDisplay.get(currentStartTime.getDayOfWeek()).add(timeslot);
-                    scheduleDisplay.get(currentStartTime.getDayOfWeek()).sort(
-                            Comparator.comparing(PersonTimeslot::getStartTime)
-                    );
-                }
-            }
-        }
-
-        return new WeekSchedule(scheduleDisplay);
-    }
-
-    /**
-     * Generates a free schedule from a list of person schedules.
-     *
-     * @param personSchedules to generate the free schedule from
-     * @return FreeSchedule
-     */
-    private FreeSchedule generateFreeSchedule(ArrayList<WeekSchedule> personSchedules,
-                                              LocalDateTime now) {
-
-        HashMap<DayOfWeek, ArrayList<FreeTimeslot>> freeSchedule = new HashMap<>();
-
-        int idCounter = 1;
-
-        int currentDay = now.getDayOfWeek().getValue();
-
-        for (int i = currentDay; i <= DAYS_OF_A_WEEK + currentDay - 1; i++) {
-
-            int day = i;
-            if (i > 7) {
-                day -= 7;
-            }
-
-            freeSchedule.put(DayOfWeek.of(day), new ArrayList<>());
-
-            LocalTime currentTime = startTime;
-            ArrayList<String> lastVenues = new ArrayList<>();
-
-            // initialize last venues to null for each person
-            for (int j = 0; j < personSchedules.size(); j++) {
-                lastVenues.add(null);
-            }
-
-            boolean isClash;
-            LocalTime newFreeStartTime = null;
-
-            while (true) {
-
-                isClash = false;
-
-                ArrayList<String> currentLastVenues = new ArrayList<>(lastVenues);
-
-                // loop through each person
-                for (int j = 0; j < personSchedules.size(); j++) {
-                    ArrayList<PersonTimeslot> timeslots = personSchedules.get(j).get(DayOfWeek.of(day));
-
-                    // loop through each timeslot
-                    for (int k = 0; k < timeslots.size(); k++) {
-
-                        // record the latest venue for each clash
-                        if (timeslots.get(k).isClash(currentTime)) {
-                            isClash = true;
-                            currentLastVenues.set(j, timeslots.get(k).getVenue().toString());
-                            break;
-                        }
-                    }
-                }
-
-                if (!isClash) {
-                    if (newFreeStartTime == null) {
-                        newFreeStartTime = currentTime;
-                    }
-                    lastVenues = new ArrayList<>(currentLastVenues);
-
-                } else {
-                    if (newFreeStartTime != null) {
-
-                        if (newFreeStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD - 1) {
-                            ArrayList<String> temp = new ArrayList<>(lastVenues);
-                            for (int arr = 0; arr < temp.size(); arr++) {
-                                if (temp.get(arr) == null) {
-                                    temp.remove(arr);
-                                    arr--;
-                                }
-                            }
-
-                            ClosestCommonLocationData closestCommonLocationData =
-                                    gmapsModelManager.closestLocationData(temp);
-
-                            freeSchedule.get(DayOfWeek.of(day))
-                                    .add(new FreeTimeslot(
-                                            idCounter,
-                                            new ArrayList<>(lastVenues),
-                                            closestCommonLocationData,
-                                            newFreeStartTime,
-                                            currentTime));
-
-                            idCounter++;
-                        }
-
-                        newFreeStartTime = null;
-                    }
-                    lastVenues = new ArrayList<>(currentLastVenues);
-
-                }
-
-                if (currentTime.equals(endTime)) {
-                    if (!isClash) {
-
-                        if (newFreeStartTime.until(currentTime, MINUTES) >= FREE_TIMESLOT_TRHESHOLD - 1) {
-                            ArrayList<String> temp = new ArrayList<>(lastVenues);
-                            for (int arr = 0; arr < temp.size(); arr++) {
-                                if (temp.get(arr) == null) {
-                                    temp.remove(arr);
-                                    arr--;
-                                }
-                            }
-                            ClosestCommonLocationData closestCommonLocationData =
-                                    gmapsModelManager.closestLocationData(temp);
-
-                            freeSchedule.get(DayOfWeek.of(day))
-                                    .add(new FreeTimeslot(
-                                            idCounter,
-                                            new ArrayList<>(lastVenues),
-                                            closestCommonLocationData,
-                                            newFreeStartTime,
-                                            currentTime));
-                            idCounter++;
-                        }
-
-                    }
-                    break;
-                }
-                currentTime = currentTime.plusMinutes(1);
-            }
-
-        }
-
-        return new FreeSchedule(freeSchedule);
     }
 
 }

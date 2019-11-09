@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.display.DisplayModelManager;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;

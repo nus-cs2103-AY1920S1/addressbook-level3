@@ -1,4 +1,4 @@
-package seedu.address.model.display.detailwindow;
+package seedu.address.model.display.locationdata;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
