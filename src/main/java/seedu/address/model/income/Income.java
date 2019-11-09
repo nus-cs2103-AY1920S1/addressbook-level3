@@ -82,10 +82,7 @@ public class Income {
         }
 
         return otherIncome != null
-                && otherIncome.getName().equals(getName())
-                && otherIncome.getPhone().equals(getPhone())
-                && (otherIncome.getDescription().equals(getDescription())
-                        || otherIncome.getAmount().equals(getAmount()));
+                && (otherIncome.getDescription().equals(getDescription()));
     }
 
     /**
