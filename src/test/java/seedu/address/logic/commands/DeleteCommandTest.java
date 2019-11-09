@@ -44,8 +44,8 @@ public class DeleteCommandTest {
             getTypicalAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
     private Model model2 = new ModelManager(
             getTypicalAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook(getTypicalActivityBook()));
-    private Context listContactsContext = new Context(ContextType.LIST_CONTACT);
-    private Context listActivitiesContext = new Context(ContextType.LIST_ACTIVITY);
+    private Context listContactsContext = Context.newListContactContext();
+    private Context listActivitiesContext = Context.newListActivityContext();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

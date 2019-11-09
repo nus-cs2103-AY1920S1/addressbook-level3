@@ -62,7 +62,7 @@ public class DeleteCommand extends Command {
                 throw new CommandException(String.format(MESSAGE_PERSON_INVOLVED_ACTIVITY, personToDelete.getName()));
             }
 
-            Context listContact = new Context(ContextType.LIST_CONTACT);
+            Context listContact = Context.newListContactContext();
             model.deletePerson(personToDelete);
             model.setContext(listContact);
 
@@ -77,7 +77,7 @@ public class DeleteCommand extends Command {
             }
 
             Activity activityToDelete = activityList.get(targetIndex.getZeroBased());
-            Context listActivity = new Context(ContextType.LIST_ACTIVITY);
+            Context listActivity = Context.newListActivityContext();
             model.deleteActivity(activityToDelete);
             model.setContext(listActivity);
 
