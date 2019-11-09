@@ -48,10 +48,6 @@ public class BorrowLogEntryTest {
 
     @Test
     public void equals() {
-        // same values -> returns true
-        LogEntry logCopy03 = new LogEntryBuilder(LOG03).buildBorrow();
-        assertTrue(LOG03.equals(logCopy03));
-
         // same object -> returns true
         assertTrue(LOG03.equals(LOG03));
 
