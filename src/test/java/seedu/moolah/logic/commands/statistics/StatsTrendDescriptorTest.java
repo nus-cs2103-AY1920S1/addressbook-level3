@@ -35,11 +35,13 @@ class StatsTrendDescriptorTest {
         assertFalse(VALID_STATS_TREND_DESCRIPTOR.equals(editedStatsTrendDescriptor));
 
         // different end date -> returns false
-        editedStatsTrendDescriptor = new StatsTrendDescriptorBuilder(VALID_STATS_TREND_DESCRIPTOR).withEndDate(VALID_LATER_TIMESTAMP).build();
+        editedStatsTrendDescriptor = new StatsTrendDescriptorBuilder(VALID_STATS_TREND_DESCRIPTOR)
+                .withEndDate(VALID_LATER_TIMESTAMP).build();
         assertFalse(VALID_STATS_TREND_DESCRIPTOR.equals(editedStatsTrendDescriptor));
 
         // different mode -> returns false
-        editedStatsTrendDescriptor = new StatsTrendDescriptorBuilder(VALID_STATS_TREND_DESCRIPTOR).withMode(VALID_MODE_BUDGET).build();
+        editedStatsTrendDescriptor = new StatsTrendDescriptorBuilder(VALID_STATS_TREND_DESCRIPTOR)
+                .withMode(VALID_MODE_BUDGET).build();
         assertFalse(VALID_STATS_TREND_DESCRIPTOR.equals(editedStatsTrendDescriptor));
 
     }

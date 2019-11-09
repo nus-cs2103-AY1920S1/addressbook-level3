@@ -13,7 +13,6 @@ import seedu.moolah.logic.commands.CommandTestUtil;
 import seedu.moolah.logic.commands.statistics.StatsCommand;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.model.expense.Timestamp;
-import seedu.moolah.model.statistics.Statistics;
 
 class StatsCommandParserTest {
     private StatsCommandParser parser = new StatsCommandParser();
@@ -60,10 +59,9 @@ class StatsCommandParserTest {
         assertParseFailure(parser, CommandTestUtil.STATS_DUPLICATE_DATE_PREFIX_WITH_COMMAND,
                 MESSAGE_REPEATED_PREFIX_COMMAND);
 
+        consider checking for natural language commands
+
          */
-
-
-    //consider checking for natural language commands
 
 
 

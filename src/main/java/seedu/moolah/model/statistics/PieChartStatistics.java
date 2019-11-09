@@ -17,20 +17,21 @@ import seedu.moolah.model.expense.Timestamp;
  */
 public class PieChartStatistics implements Statistics {
 
-
-    private List<String> formattedCategories;
-
-    private List<Double> formattedPercentages;
-
-    private List<Category> budgetCategories;
-
     private Timestamp startDate;
 
     private Timestamp endDate;
 
     private ObservableList<Expense> expenses;
 
+    //after population
+
     private String title;
+
+    private List<String> formattedCategories;
+
+    private List<Double> formattedPercentages;
+
+    private List<Category> budgetCategories;
 
 
     /**

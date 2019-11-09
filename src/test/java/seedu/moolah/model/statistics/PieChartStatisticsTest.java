@@ -1,14 +1,15 @@
 package seedu.moolah.model.statistics;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.moolah.testutil.Assert.assertThrows;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.budget.BudgetPeriod;
-import seedu.moolah.model.expense.Category;
 import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.testutil.TypicalMooLah;
 
@@ -31,7 +32,6 @@ class PieChartStatisticsTest {
             WEEK_BUDGET_END_DATE.showDate());
 
     public static final List<String> WEEK_BUDGET_RESULTS = List.of();
-
 
     public static final Timestamp FUTURE_WEEK_BUDGET_START_DATE =
             Timestamp.createTimestampIfValid("06-09-2020").get();
@@ -72,51 +72,65 @@ class PieChartStatisticsTest {
             "TRAVEL(0.78%)", "ENTERTAINMENT(12.50%)", "OTHERS(50.00%)", "UTILITIES(3.13%)", "SHOPPING(1.56%)",
             "EDUCATION(25.00%)", "FOOD(0.26%)");
 
-    //start date and end day logic delegated to the descriptor class instead of the PieChart class
 
-//    @Test
-//    void pieChart_dayPeriodWithNoDates_correctOutput() {
-//        Budget budget = TypicalMooLah.getPopulatedDayBudget();
-//        PieChartStatistics statistics = PieChartStatistics.run(Category.getValidCategories(),
-//                null, null, budget);
-//        assertEquals(statistics.getTitle(), DAY_BUDGET_TITLE);
-//        assertEquals(statistics.getFormattedCategories(), DAY_BUDGET_RESULTS);
-//    }
-//
-//    @Test
-//    void pieChart_weekPeriodWithOnlyStartDate_correctOutput() {
-//        Budget budget = TypicalMooLah.getPopulatedWeekBudget();
-//        PieChartStatistics statistics = PieChartStatistics.run(Category.getValidCategories(),
-//                WEEK_BUDGET_START_DATE, null, budget);
-//        assertEquals(statistics.getTitle(), WEEK_BUDGET_TITLE);
-//        assertEquals(statistics.getFormattedCategories(), WEEK_BUDGET_RESULTS);
-//    }
-//
-//
-//    @Test
-//    void pieChart_monthPeriodWithOnlyEndDate_correctOutput() {
-//        Budget budget = TypicalMooLah.getPopulatedMonthBudget();
-//        PieChartStatistics statistics = PieChartStatistics.run(Category.getValidCategories(),
-//                null, MONTH_BUDGET_END_DATE, budget);
-//        assertEquals(statistics.getTitle(), MONTH_BUDGET_TITLE);
-//        assertEquals(statistics.getFormattedCategories(), MONTH_BUDGET_RESULTS);
-//    }
+    @Test
+    public void constructor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                new PieChartStatistics(null, WEEK_BUDGET_START_DATE, WEEK_BUDGET_END_DATE));
+        assertThrows(NullPointerException.class, () ->
+                new PieChartStatistics(FXCollections.observableArrayList() , null, WEEK_BUDGET_END_DATE));
+        assertThrows(NullPointerException.class, () ->
+                new PieChartStatistics(FXCollections.observableArrayList() , WEEK_BUDGET_START_DATE, null));
+    }
 
-//    @Test
-//    void pieChart_yearPeriodWithBothDates_correctOutput() {
-//        Budget budget = TypicalMooLah.getPopulatedYearBudget();
-//        PieChartStatistics statistics = PieChartStatistics.run(Category.getValidCategories(),
-//                YEAR_BUDGET_START_DATE, YEAR_BUDGET_END_DATE, budget);
-//        assertEquals(statistics.getTitle(), YEAR_BUDGET_TITLE);
-//        assertEquals(statistics.getFormattedCategories(), YEAR_BUDGET_RESULTS);
-//    }
+    @Test
+    void pieChart_dayPeriodWithNoDates_correctOutput() {
+        Budget budget = TypicalMooLah.getPopulatedDayBudget();
+        PieChartStatistics statistics = new PieChartStatistics(budget.getExpenses(), budget.getWindowStartDate(),
+                budget.getWindowEndDate());
+        statistics.populateData();
+        assertEquals(statistics.getTitle(), DAY_BUDGET_TITLE);
+        assertEquals(statistics.getFormattedCategories(), DAY_BUDGET_RESULTS);
+    }
 
-//    @Test
-//    void pieChart_futureWeekPeriodWithOnlyStartDate_correctOutput() {
-//        Budget budget = TypicalMooLah.getPopulatedWeekBudget();
-//        PieChartStatistics statistics = PieChartStatistics.run(Category.getValidCategories(),
-//                FUTURE_WEEK_BUDGET_START_DATE, null, budget);
-//        assertEquals(statistics.getTitle(), FUTURE_WEEK_BUDGET_TITLE);
-//        assertEquals(statistics.getFormattedCategories(), FUTURE_WEEK_BUDGET_RESULTS);
-//    }
+    @Test
+    void pieChart_weekPeriodWithOnlyStartDate_correctOutput() {
+        Budget budget = TypicalMooLah.getPopulatedWeekBudget();
+        PieChartStatistics statistics = new PieChartStatistics(budget.getExpenses(), WEEK_BUDGET_START_DATE,
+                WEEK_BUDGET_END_DATE);
+        statistics.populateData();
+        assertEquals(statistics.getTitle(), WEEK_BUDGET_TITLE);
+        assertEquals(statistics.getFormattedCategories(), WEEK_BUDGET_RESULTS);
+    }
+
+    @Test
+    void pieChart_monthPeriodWithOnlyEndDate_correctOutput() {
+        Budget budget = TypicalMooLah.getPopulatedMonthBudget();
+        PieChartStatistics statistics = new PieChartStatistics(budget.getExpenses(), MONTH_BUDGET_START_DATE,
+                MONTH_BUDGET_END_DATE);
+        statistics.populateData();
+        assertEquals(statistics.getTitle(), MONTH_BUDGET_TITLE);
+        assertEquals(statistics.getFormattedCategories(), MONTH_BUDGET_RESULTS);
+    }
+
+
+    @Test
+    void pieChart_yearPeriodWithBothDates_correctOutput() {
+        Budget budget = TypicalMooLah.getPopulatedYearBudget();
+        PieChartStatistics statistics = new PieChartStatistics(budget.getExpenses(),
+                YEAR_BUDGET_START_DATE, YEAR_BUDGET_END_DATE);
+        statistics.populateData();
+        assertEquals(statistics.getTitle(), YEAR_BUDGET_TITLE);
+        assertEquals(statistics.getFormattedCategories(), YEAR_BUDGET_RESULTS);
+    }
+
+    @Test
+    void pieChart_futureWeekPeriodWithOnlyStartDate_correctOutput() {
+        Budget budget = TypicalMooLah.getPopulatedWeekBudget();
+        PieChartStatistics statistics = new PieChartStatistics(budget.getExpenses(),
+                FUTURE_WEEK_BUDGET_START_DATE, FUTURE_WEEK_BUDGET_END_DATE);
+        statistics.populateData();
+        assertEquals(statistics.getTitle(), FUTURE_WEEK_BUDGET_TITLE);
+        assertEquals(statistics.getFormattedCategories(), FUTURE_WEEK_BUDGET_RESULTS);
+    }
 }

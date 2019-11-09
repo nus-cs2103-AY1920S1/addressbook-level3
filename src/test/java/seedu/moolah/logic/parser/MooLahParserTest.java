@@ -63,7 +63,9 @@ import seedu.moolah.logic.commands.general.ExitCommand;
 import seedu.moolah.logic.commands.general.HelpCommand;
 import seedu.moolah.logic.commands.statistics.StatsCommand;
 import seedu.moolah.logic.commands.statistics.StatsCompareCommand;
+import seedu.moolah.logic.commands.statistics.StatsDescriptor;
 import seedu.moolah.logic.commands.statistics.StatsTrendCommand;
+import seedu.moolah.logic.commands.statistics.StatsTrendDescriptor;
 import seedu.moolah.logic.commands.ui.ViewPanelCommand;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.model.ReadOnlyUserPrefs;
@@ -71,6 +73,8 @@ import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.expense.DescriptionContainsKeywordsPredicate;
 import seedu.moolah.model.expense.Event;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.statistics.Mode;
 import seedu.moolah.testutil.AliasTestUtil;
 import seedu.moolah.testutil.EditEventDescriptorBuilder;
 import seedu.moolah.testutil.EditExpenseDescriptorBuilder;
@@ -78,6 +82,8 @@ import seedu.moolah.testutil.EventBuilder;
 import seedu.moolah.testutil.EventUtil;
 import seedu.moolah.testutil.ExpenseBuilder;
 import seedu.moolah.testutil.ExpenseUtil;
+import seedu.moolah.testutil.StatsDescriptorBuilder;
+import seedu.moolah.testutil.StatsTrendDescriptorBuilder;
 import seedu.moolah.ui.panel.PanelName;
 
 public class MooLahParserTest {
@@ -402,44 +408,53 @@ public class MooLahParserTest {
 
 
     // ------ stats command --------
-//    @Test
-//    void parseCommand_stats() throws Exception {
-//        Command command = parser.parseCommand(
-//                String.format("%s %s01-10-2019 %s31-10-2019",
-//                        StatsCommand.COMMAND_WORD,
-//                        PREFIX_START_DATE,
-//                        PREFIX_END_DATE),
-//                CommandGroup.STATISTIC, readOnlyUserPrefs);
-//        assertTrue(command instanceof StatsCommand);
-//        assertEquals(command, new StatsCommand(
-//                CommandTestUtil.OCTOBER_FIRST,
-//                CommandTestUtil.OCTOBER_LAST));
-//    }
-//
-//    @Test
-//    void parseCommand_statsTrend() throws Exception {
-//        Command command = parser.parseCommand(
-//            String.format("%s %s%s",
-//                    StatsTrendCommand.COMMAND_WORD,
-//                    PREFIX_MODE ,
-//                    "budget"),
-//            CommandGroup.STATISTIC, readOnlyUserPrefs);
-//        assertTrue(command instanceof StatsTrendCommand);
-//        // equals not included yet
-//    }
-//
-//    @Test
-//    void parseCommand_statsCompare() throws Exception {
-//        Command command = parser.parseCommand(
-//                String.format("%s %s01-10-2019 %s31-10-2019",
-//                        StatsCompareCommand.COMMAND_WORD,
-//                        PREFIX_FIRST_START_DATE ,
-//                        PREFIX_SECOND_START_DATE),
-//                CommandGroup.STATISTIC, readOnlyUserPrefs);
-//        assertTrue(command instanceof StatsCompareCommand);
-//        assertEquals(command, new StatsCompareCommand(
-//                CommandTestUtil.OCTOBER_FIRST, CommandTestUtil.OCTOBER_LAST));
-//    }
+
+    @Test
+    void parseCommand_statsBasic() throws Exception {
+        StatsDescriptor descriptor = new StatsDescriptorBuilder().build();
+        descriptor.setStartDate(Timestamp.createTimestampIfValid(CommandTestUtil.VALID_EARLY_TIMESTAMP).get());
+        descriptor.setEndDate(Timestamp.createTimestampIfValid(CommandTestUtil.VALID_LATE_TIMESTAMP).get());
+
+        //should I put all 4 configurations here or test it elsewhere?
+        Command command = parser.parseCommand(
+                String.format("%s %s%s %s%s",
+                        StatsCommand.COMMAND_WORD,
+                        PREFIX_START_DATE, CommandTestUtil.VALID_EARLY_TIMESTAMP,
+                        PREFIX_END_DATE, CommandTestUtil.VALID_LATE_TIMESTAMP),
+                CommandGroup.STATISTIC, readOnlyUserPrefs);
+        assertTrue(command instanceof StatsCommand);
+        assertEquals(command, new StatsCommand(descriptor));
+    }
+
+    @Test
+    void parseCommand_statsTrend() throws Exception {
+        StatsTrendDescriptor descriptor = new StatsTrendDescriptorBuilder().build();
+        descriptor.setMode(new Mode(CommandTestUtil.VALID_MODE_BUDGET).isBudgetMode());
+
+        Command command = parser.parseCommand(
+            String.format("%s %s%s",
+                    StatsTrendCommand.COMMAND_WORD,
+                    PREFIX_MODE ,
+                    CommandTestUtil.VALID_MODE_BUDGET),
+            CommandGroup.STATISTIC, readOnlyUserPrefs);
+        assertTrue(command instanceof StatsTrendCommand);
+        assertEquals(command, new StatsTrendCommand(descriptor));
+    }
+
+    @Test
+    void parseCommand_statsCompare() throws Exception {
+        Timestamp firstDate = Timestamp.createTimestampIfValid(CommandTestUtil.VALID_EARLY_TIMESTAMP).get();
+        Timestamp secondDate = Timestamp.createTimestampIfValid(CommandTestUtil.VALID_LATE_TIMESTAMP).get();
+        Command command = parser.parseCommand(
+                String.format("%s %s%s %s%s",
+                        StatsCompareCommand.COMMAND_WORD,
+                        PREFIX_FIRST_START_DATE, CommandTestUtil.VALID_EARLY_TIMESTAMP,
+                        PREFIX_SECOND_START_DATE, CommandTestUtil.VALID_LATE_TIMESTAMP),
+                CommandGroup.STATISTIC, readOnlyUserPrefs);
+        assertTrue(command instanceof StatsCompareCommand);
+        assertEquals(command, new StatsCompareCommand(
+                firstDate, secondDate));
+    }
 
 
     // ----- command is alias -------

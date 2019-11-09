@@ -22,11 +22,13 @@ public class TabularStatistics implements Statistics {
 
     private Timestamp secondEndDate;
 
-    private List<FiveElementTableEntry> unionDifferenceTable;
-
     private int categorySize;
 
     private ObservableList<Expense> expenses;
+
+    //after population
+
+    private List<FiveElementTableEntry> unionDifferenceTable;
 
     private String title;
 

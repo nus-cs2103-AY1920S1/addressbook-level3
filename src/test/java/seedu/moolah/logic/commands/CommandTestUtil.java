@@ -143,12 +143,12 @@ public class CommandTestUtil {
     public static final String VALID_MODE_CATEGORY = "Category";
     public static final String VALID_MODE_BUDGET = "budget";
 
-    public static final StatsDescriptor VALID_STATS_DESCRIPTOR = new StatsDescriptorBuilder().
-            withStartDate(VALID_EARLY_TIMESTAMP).withEndDate(VALID_LATE_TIMESTAMP).build();
+    public static final StatsDescriptor VALID_STATS_DESCRIPTOR = new StatsDescriptorBuilder()
+            .withStartDate(VALID_EARLY_TIMESTAMP).withEndDate(VALID_LATE_TIMESTAMP).build();
 
-    public static final StatsTrendDescriptor VALID_STATS_TREND_DESCRIPTOR = new StatsTrendDescriptorBuilder().
-            withStartDate(VALID_EARLY_TIMESTAMP).withEndDate(VALID_LATE_TIMESTAMP).withMode(VALID_MODE_CATEGORY).build();
-
+    public static final StatsTrendDescriptor VALID_STATS_TREND_DESCRIPTOR = new StatsTrendDescriptorBuilder()
+            .withStartDate(VALID_EARLY_TIMESTAMP).withEndDate(VALID_LATE_TIMESTAMP)
+            .withMode(VALID_MODE_CATEGORY).build();
 
 
     public static final String STATS_WITHOUT_PREFIX = " 5";
@@ -162,6 +162,7 @@ public class CommandTestUtil {
     public static final String STATS_SECOND_START_DATE_PREFIX_MISSING_INPUT = String.format(" %s %s01-10-2019",
             PREFIX_SECOND_START_DATE, PREFIX_FIRST_START_DATE);
 
+    //may depreciate see how
     public static final String STATS_INVALID_PREFIX = String.format(" %s ", PREFIX_CATEGORY);
     public static final String STATS_HIGHER_END_DATE = String.format(" %s31-10-2019 %s01-10-2019",
             PREFIX_START_DATE, PREFIX_END_DATE);
@@ -177,10 +178,10 @@ public class CommandTestUtil {
     public static final String STATS_TREND_HIGHER_END_DATE = String.format(" %s31-10-2019 %s01-10-2019 %scategory",
             PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_MODE);
 
-    public static final Timestamp OCTOBER_FIRST = Timestamp.createTimestampIfValid("01-10-2019").get();
-    public static final Timestamp OCTOBER_LAST = Timestamp.createTimestampIfValid("31-10-2019").get();
     public static final Timestamp ONE_MINUTE_AGO =
             Timestamp.createTimestampIfValid("1 minute ago").get();
+    //may depreciate, see how
+
 
     static {
         DESC_CHICKEN = new EditExpenseDescriptorBuilder().withDescription(VALID_EXPENSE_DESCRIPTION_CHICKEN)

@@ -29,6 +29,8 @@ public class TrendStatistics implements Statistics {
 
     private ObservableList<Expense> expenses;
 
+    //after population
+
     private List<Timestamp> dates = new ArrayList<>();
 
     private List<Double> periodicTotalExpenditures = new ArrayList<>();
@@ -39,15 +41,13 @@ public class TrendStatistics implements Statistics {
 
     private String title;
 
-    public TrendStatistics(ObservableList<Expense> expenses, Timestamp startDate,
-                           Timestamp endDate, Budget primaryBudget, boolean isBudgetMode) {
+    public TrendStatistics(Timestamp startDate, Timestamp endDate, Budget primaryBudget, boolean isBudgetMode) {
 
-        requireNonNull(expenses);
         requireNonNull(startDate);
         requireNonNull(endDate);
         requireNonNull(primaryBudget);
 
-        this.expenses = expenses;
+        this.expenses = primaryBudget.getExpenses();
         this.startDate = startDate;
         this.endDate = endDate;
         this.primaryBudget = primaryBudget;
@@ -138,7 +138,7 @@ public class TrendStatistics implements Statistics {
             validDate = nextLocalStartDate;
 
         }
-
+        //shown to the user, should be exactly what they counted
         this.setTitle(String.format("Periodic trendline from %s to %s in the unit of %ss",
                 startDate.showDate(), endDate.showDate(),
                 period));
@@ -155,6 +155,10 @@ public class TrendStatistics implements Statistics {
         while (windowStartDate.dateIsAfter(startDate) && changedWindowDate.dateIsAfter(startDate)) {
             windowStartDate = changedWindowDate;
             changedWindowDate = changedWindowDate.createBackwardTimestamp(period);
+        }
+        //edge case
+        if (changedWindowDate.getDate().equals(startDate.getDate())) {
+            windowStartDate = changedWindowDate;
         }
 
         return windowStartDate;

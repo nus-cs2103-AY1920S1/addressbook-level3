@@ -64,7 +64,7 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
             statsTrendDescriptor.setStartDate(startDate);
             statsTrendDescriptor.setEndDate(endDate);
             if (!statsTrendDescriptor.isStartBeforeEnd()) {
-                throw new ParseException(Messages.MESSAGE_CONSTRAINTS_END_DATE);//is this under message or under the command?
+                throw new ParseException(Messages.MESSAGE_CONSTRAINTS_END_DATE);
             }
         } else if (isStartPresent) {
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
@@ -77,20 +77,6 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
         statsTrendDescriptor.setMode(mode.isBudgetMode());
         return new StatsTrendCommand(statsTrendDescriptor);
     }
-
-//    /**
-//     * Parses the given {@code String} of arguments in the context of the StatsTrendCommand
-//     * Checks that start date is before the end date of the given {@code ArgumentMultimap}
-//     *
-//     * @throws ParseException if the detected start date is after the end date
-//     */
-//    private void checkStartBeforeEnd(ArgumentMultimap argMultimap) throws ParseException {
-//        Timestamp startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
-//        Timestamp endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
-//        if (endDate.isBefore(startDate)) {
-//            throw new ParseException(Messages.MESSAGE_CONSTRAINTS_END_DATE);
-//        }
-//    }
 
 }
 

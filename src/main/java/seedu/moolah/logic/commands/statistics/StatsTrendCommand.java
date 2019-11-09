@@ -98,8 +98,8 @@ public class StatsTrendCommand extends Command {
                     2 * StatsTrendCommand.HALF_OF_PERIOD_NUMBER));
         }
 
-        TrendStatistics statistics = new TrendStatistics(primaryBudget.getExpenses(),
-                startDate.get(), endDate.get(), primaryBudget, statsTrendDescriptor.getMode());
+        TrendStatistics statistics = new TrendStatistics(startDate.get(), endDate.get(),
+                primaryBudget, statsTrendDescriptor.getMode());
         statistics.populateData();
         return statistics;
     }

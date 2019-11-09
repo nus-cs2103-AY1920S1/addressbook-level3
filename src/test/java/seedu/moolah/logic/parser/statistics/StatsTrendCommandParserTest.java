@@ -14,7 +14,6 @@ import seedu.moolah.logic.commands.CommandTestUtil;
 import seedu.moolah.logic.commands.statistics.StatsTrendCommand;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.model.expense.Timestamp;
-import seedu.moolah.model.statistics.Statistics;
 
 class StatsTrendCommandParserTest {
 
