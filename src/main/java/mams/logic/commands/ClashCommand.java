@@ -47,7 +47,7 @@ public class ClashCommand extends Command {
     public static final String MESSAGE_INVALID_MODULE = "Module not found. ";
     public static final String MESSAGE_INVALID_STUDENT = "Student not found. ";
     public static final String MESSAGE_INVALID_INDEX = "Please enter a valid index. ";
-    public static final String MESSAGE_INVALID_APPEAL_TYPE = "This is not a add/drop module appeal. "
+    public static final String MESSAGE_NO_NEED_TO_CHECK_CLASH = "This is not a add/drop module appeal. "
             + "No need to check clashes.";
 
     private ArrayList<ClashCase> clashCases;
@@ -73,7 +73,7 @@ public class ClashCommand extends Command {
             Appeal appeal = lastShownAppealList.get(params.getAppealIndex().get().getZeroBased());
 
             if (!isAddModAppeal(appeal) && !isDropModAppeal(appeal)) {
-                throw new CommandException(MESSAGE_INVALID_APPEAL_TYPE);
+                return new CommandResult(MESSAGE_NO_NEED_TO_CHECK_CLASH);
             }
 
             Student studentToCheck = getStudent(appeal.getStudentId(), model.getFullStudentList());
