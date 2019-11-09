@@ -997,6 +997,8 @@ Use case ends.
 +
 Use case ends.
 
+// tag::find_uc[]
+
 [discrete]
 === Use Case 5: Find Problems
 
@@ -1021,6 +1023,9 @@ Use case ends.
 +
 Use case ends.
 
+// end::find_uc[]
+
+// tag::sort_uc[]
 [discrete]
 === Use Case 6: Sort Problems
 
@@ -1044,7 +1049,7 @@ Use case ends.
 ** 2a1. AlgoBase informs user that no sorting method is given.
 +
 Use case ends.
-
+// end::sort_uc[]
 
 [discrete]
 === Use Case 7: Add Tasks to Plan

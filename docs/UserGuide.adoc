@@ -651,6 +651,7 @@ Examples:
 
 === Miscellaneous
 
+// tag::help[]
 ==== Viewing help : `help`
 
 List all possible commands or find command usage using the command word. +
@@ -663,6 +664,7 @@ Shows command usage for `addprob` command.
 
 [NOTE]
 `help` command only searches commands' full command word. (i.e. aliases is not supported by `help`)
+// end::help[]
 
 ==== Clearing all entries : `clear`
 
