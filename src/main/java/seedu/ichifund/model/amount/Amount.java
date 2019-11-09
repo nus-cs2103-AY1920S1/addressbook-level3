@@ -13,7 +13,7 @@ public class Amount implements Comparable<Amount> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Amount should be in the format '<dollars>.<cents>' or '<dollars>'.\n"
-                    + "<dollars> consists of numbers up to 6 digits with no leading zeroes, unless it is '0'.\n"
+                    + "<dollars> consists of numbers up to 5 digits with no leading zeroes, unless it is '0'.\n"
                     + "<cents> consists of numbers, and is exactly 2 digits long.";
     public static final String POSITIVE_AMOUNT_CONSTRAINT =
             "Amount should be positive for transactions, repeatables, budgets, and loan.\n";
