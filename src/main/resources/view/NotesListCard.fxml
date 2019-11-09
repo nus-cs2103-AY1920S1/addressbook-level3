@@ -31,6 +31,7 @@
                       </Label>
                       <Label fx:id="classId" styleClass="cell_big_label" text="\$classId" />
                   </HBox>
+                  <Label fx:id="type" styleClass="cell_small_label" text="\$type" />
                   <Label fx:id="content" styleClass="cell_small_label" text="\$content" />
               </VBox>
          </children>
