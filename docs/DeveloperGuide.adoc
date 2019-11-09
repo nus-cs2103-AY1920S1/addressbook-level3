@@ -586,7 +586,7 @@ a response informs the user that deadline is successfully added to the reimburse
 
 ==== Find Command feature
 This command is used to find a reimbursement that contains the person's name.
-Find command requires access to `Model` of the
+The find command requires access to `Model` of the
 person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
