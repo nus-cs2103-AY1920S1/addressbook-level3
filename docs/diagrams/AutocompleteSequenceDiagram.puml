@@ -1,0 +1,101 @@
+@startuml
+!include style.puml
+
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":AutoCompletePanelManager" as AutoCompletePanelManager UI_COLOR
+participant ":MatchWordUpdater" as MatchWordUpdater UI_COLOR
+participant ":AutoCompleteListHandler" as AutoCompleteListHandler UI_COLOR
+participant ":AutoCompletePanel" as AutoCompletePanel UI_COLOR
+participant "commandTextField:TextField" as CommandTextField UI_COLOR
+
+[-> CommandBox : User presses a key;
+activate CommandBox
+
+alt UP or DOWN
+CommandBox -> AutoCompletePanelManager : notifyObserversKeyPressed(event.getCode());
+activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> AutoCompletePanel: select(selectedIndex)
+activate AutoCompletePanel
+
+AutoCompletePanel --> AutoCompletePanelManager
+deactivate AutoCompletePanel
+
+AutoCompletePanelManager --> CommandBox
+deactivate AutoCompletePanelManager
+
+else SHIFT
+
+CommandBox -> AutoCompletePanelManager: receiveDataFromSender()
+activate AutoCompletePanelManager
+
+AutoCompletePanelManager --> CommandBox: data
+deactivate AutoCompletePanelManager
+
+/'notifyObserversToChange(KeyCode.SHIFT, textToDisplay);'/
+CommandBox -> CommandTextField : setText(textToDisplay)
+activate CommandTextField
+
+CommandTextField --> CommandBox
+deactivate CommandTextField
+
+CommandBox -> AutoCompletePanelManager : notifyObserversToChange(KeyCode.SHIFT, ctextToDisplay);
+activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> AutoCompletePanelManager : updateListView(KeyCode.SHIFT, textToDisplay)
+activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> MatchWordUpdater : findMatchedWords(textToDisplay)
+activate MatchWordUpdater
+
+MatchWordUpdater -->  AutoCompletePanelManager: matchedWords
+deactivate MatchWordUpdater
+
+AutoCompletePanelManager ->  AutoCompleteListHandler: generateList(matchedWords, textToDisplay)
+activate AutoCompleteListHandler
+
+AutoCompleteListHandler --> AutoCompletePanelManager: generatedList
+deactivate AutoCompleteListHandler
+
+AutoCompletePanelManager -> AutoCompletePanel: setList(generatedList)
+activate AutoCompletePanel
+
+AutoCompletePanel --> AutoCompletePanelManager
+deactivate AutoCompletePanel
+deactivate AutoCompletePanelManager
+
+AutoCompletePanelManager --> CommandBox
+deactivate AutoCompletePanelManager
+
+else Any other key
+CommandBox -> AutoCompletePanelManager : notifyObserversToChange(event.getCode(), commandTextField.getText() + event.getText());
+activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> AutoCompletePanelManager : updateListView(event.getCode(), commandTextField.getText() + event.getText())
+activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> MatchWordUpdater : findMatchedWords(commandTextField.getText() + event.getText())
+activate MatchWordUpdater
+
+MatchWordUpdater -->  AutoCompletePanelManager: matchedWords
+deactivate MatchWordUpdater
+
+AutoCompletePanelManager ->  AutoCompleteListHandler: generateList(matchedWords, commandTextField.getText() + event.getText())
+activate AutoCompleteListHandler
+
+AutoCompleteListHandler --> AutoCompletePanelManager: generatedList
+deactivate AutoCompleteListHandler
+
+AutoCompletePanelManager -> AutoCompletePanel: setList(generatedList)
+activate AutoCompletePanel
+
+AutoCompletePanel --> AutoCompletePanelManager
+deactivate AutoCompletePanel
+deactivate AutoCompletePanelManager
+
+AutoCompletePanelManager --> CommandBox
+deactivate AutoCompletePanelManager
+end
+
+@enduml
+
