@@ -11,6 +11,9 @@ import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.analytics.DataList;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.budget.UniqueBudgetList;
+import seedu.ichifund.model.loan.Loan;
+import seedu.ichifund.model.loan.LoanId;
+import seedu.ichifund.model.loan.LoanList;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.repeater.UniqueRepeaterList;
@@ -24,9 +27,11 @@ import seedu.ichifund.model.transaction.TransactionList;
 public class FundBook implements ReadOnlyFundBook {
 
     private RepeaterUniqueId currentRepeaterUniqueId;
+    private LoanId currentLoanId;
     private final UniqueRepeaterList repeaters;
     private final UniqueBudgetList budgets;
     private final TransactionList transactions;
+    private final LoanList loans;
     private final DataList datas;
 
     /*
@@ -42,9 +47,10 @@ public class FundBook implements ReadOnlyFundBook {
         budgets = new UniqueBudgetList();
         transactions = new TransactionList();
         datas = new DataList();
+        loans = new LoanList();
     }
 
-    public FundBook() {}
+    public FundBook(){}
 
     /**
      * Creates an FundBook using the items in the {@code toBeCopied}
@@ -176,6 +182,35 @@ public class FundBook implements ReadOnlyFundBook {
         repeaters.remove(key);
     }
 
+    /// loan-level operations
+
+    /**
+     * Checks boolean value for if loan exists in Loans.
+     * @param loan
+     * @return
+     */
+    public boolean hasLoan(Loan loan) {
+        requireNonNull(loan);
+        return loans.contains(loan);
+    }
+
+    /**
+     * Adds new loan with loan parameters to loans list.
+     * @param loan
+     */
+    public void addLoan(Loan loan) {
+        requireNonNull(loan);
+        loans.add(loan);
+    }
+
+    /**
+     * Replaces the current unique id with {@code uniqueId}.
+     */
+    public void setCurrentLoanId(LoanId loanId) {
+        requireNonNull(loanId);
+        this.currentLoanId = loanId;
+    }
+
     //// budget-level operations
 
     /**
@@ -220,12 +255,18 @@ public class FundBook implements ReadOnlyFundBook {
         return transactions.asUnmodifiableObservableList().size() + " transactions, "
                 + repeaters.asUnmodifiableObservableList().size() + " repeaters, "
                 + budgets.asUnmodifiableObservableList().size() + " budgets, "
+                + loans.asUnmodifiableObservableList().size() + " loans, "
                 + datas.asUnmodifiableObservableList() + " datas";
     }
 
     @Override
     public RepeaterUniqueId getCurrentRepeaterUniqueId() {
         return currentRepeaterUniqueId;
+    }
+
+    @Override
+    public LoanId getCurrentLoanId() {
+        return currentLoanId;
     }
 
     @Override
@@ -241,6 +282,11 @@ public class FundBook implements ReadOnlyFundBook {
     @Override
     public ObservableList<Transaction> getTransactionList() {
         return transactions.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Loan> getLoanList() {
+        return loans.asUnmodifiableObservableList();
     }
 
     @Override

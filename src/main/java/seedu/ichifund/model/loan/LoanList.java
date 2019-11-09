@@ -60,6 +60,20 @@ public class LoanList implements Iterable<Loan> {
         }
     }
 
+    /**
+     * Checks if passses @code loanlist contains a loan
+     * @param loan
+     * @return
+     */
+    public boolean contains(Loan loan) {
+        requireNonNull(loan);
+        if (internalList.contains(loan)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void setLoans(LoanList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -93,7 +107,7 @@ public class LoanList implements Iterable<Loan> {
 
         // Searches for first loan that is earlier than current time
         for (Loan loan : internalList) {
-            if (loan.getTakenOn().compareTo(Date.getCurrent()) >= 0) {
+            if (loan.getStartDate().compareTo(Date.getCurrent()) >= 0) {
                 return Optional.of(loan);
             }
         }

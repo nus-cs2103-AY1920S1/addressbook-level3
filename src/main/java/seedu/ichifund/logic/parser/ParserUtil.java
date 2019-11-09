@@ -10,6 +10,7 @@ import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
+import seedu.ichifund.model.loan.Name;
 import seedu.ichifund.model.repeater.MonthOffset;
 import seedu.ichifund.model.transaction.Category;
 import seedu.ichifund.model.transaction.TransactionType;
@@ -47,6 +48,21 @@ public class ParserUtil {
             throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Name parseName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Name(trimmedName);
     }
 
     /**
