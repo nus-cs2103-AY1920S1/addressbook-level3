@@ -5,6 +5,7 @@ import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -378,10 +379,10 @@ public class ModelManager implements Model {
 
     @Override
     /**
-     * Closes mark's timer.
+     * Starts mark's timer.
      */
-    public void closeTimer() {
-        versionedMark.closeTimer();
+    public void startTimer(ScheduledExecutorService executor) {
+        versionedMark.deleteExpiredReminder(executor);
     }
 
 }

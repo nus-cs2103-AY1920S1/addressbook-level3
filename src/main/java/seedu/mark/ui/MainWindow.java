@@ -4,8 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -92,7 +93,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane folderStructurePlaceholder;
 
     private ObservableList<Reminder> reminders;
-    private Timer timer = new Timer();
+    private ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -110,6 +111,7 @@ public class MainWindow extends UiPart<Stage> {
 
         reminders = logic.getReminderList();
         displayReminderMessage();
+        logic.startMarkTimer(executor);
     }
 
 
@@ -209,8 +211,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-
-        logic.closeMarkTimer();
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
@@ -218,8 +218,8 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
 
         primaryStage.hide();
-        timer.cancel();
-        timer.purge();
+        executor.shutdownNow();
+        Platform.exit();
     }
 
     /**
@@ -385,8 +385,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void displayReminderMessage() {
 
-        TimerTask task = new TimerTask() {
-            @Override
+        Runnable task = new Runnable() {
             public void run() {
 
                 LocalDateTime now = LocalDateTime.now();
@@ -396,10 +395,10 @@ public class MainWindow extends UiPart<Stage> {
                         Reminder reminder = reminders.get(i);
                         LocalDateTime remindTime = reminder.getRemindTime();
                         if (now.isBefore(remindTime) && compareHour(now, remindTime) < 5 && !reminder.getShow()) {
-                            Notifications noti = getNotification(reminder);
+                            Notifications notif = getNotification(reminder);
 
                             Platform.runLater(() -> {
-                                noti.show();
+                                notif.show();
                             });
 
                             reminder.toShow();
@@ -425,6 +424,6 @@ public class MainWindow extends UiPart<Stage> {
             }
         };
 
-        timer.schedule(task, 0, 1 * 1000);
+        executor.scheduleAtFixedRate(task, 10, 10, TimeUnit.SECONDS);
     }
 }

@@ -8,9 +8,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -49,9 +50,6 @@ public class Mark implements ReadOnlyMark {
 
     private final ObservableList<Paragraph> annotatedDocument;
 
-
-    private Timer timer = new Timer();
-
     private final SimpleStringProperty offlineDocCurrentlyShowing;
 
 
@@ -66,9 +64,6 @@ public class Mark implements ReadOnlyMark {
         autotagController = new AutotagController(FXCollections.observableList(new ArrayList<>()));
 
         annotatedDocument = FXCollections.observableList(new ArrayList<>());
-
-
-        deleteExpiredReminder();
 
         offlineDocCurrentlyShowing = new SimpleStringProperty(NAME_NO_DOCUMENT);
 
@@ -389,43 +384,43 @@ public class Mark implements ReadOnlyMark {
      * @return the difference of two time in hour.
      */
     private long compareHour(LocalDateTime before, LocalDateTime after) {
-        return Duration.between(before, after).toHours();
+        return Duration.between(after, before).toHours();
     }
 
     /**
      * Deletes expired reminders.
      */
-    private void deleteExpiredReminder() {
-        TimerTask task = new TimerTask() {
-            @Override
+    public void deleteExpiredReminder(ScheduledExecutorService executor) {
+        Runnable task = new Runnable() {
             public void run() {
-                List<Reminder> expiredReminders = new ArrayList<>();
-                LocalDateTime now = LocalDateTime.now();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Reminder> expiredReminders = new ArrayList<>();
+                        LocalDateTime now = LocalDateTime.now();
 
-                for (int i = 0; i < reminders.size(); i++) {
-                    Reminder reminder = reminders.get(i);
-                    LocalDateTime time = reminder.getRemindTime();
-                    if (compareHour(now, time) <= -1) {
-                        expiredReminders.add(reminder);
+                        for (int i = 0; i < reminders.size(); i++) {
+                            Reminder reminder = reminders.get(i);
+                            LocalDateTime time = reminder.getRemindTime();
+                            System.out.println(compareHour(now, time));
+                            if (compareHour(now, time) >= 1) {
+                                expiredReminders.add(reminder);
+                            }
+                        }
+
+                        for (int i = 0; i < expiredReminders.size(); i++) {
+                            Reminder expiredReminder = expiredReminders.get(i);
+                            removeReminder(expiredReminder);
+                        }
                     }
-                }
+                });
 
-                for (int i = 0; i < expiredReminders.size(); i++) {
-                    Reminder expiredReminder = expiredReminders.get(i);
-                    removeReminder(expiredReminder);
-                }
             }
         };
 
-        timer.schedule(task, 0, 1 * 1000);
+        executor.scheduleAtFixedRate(task, 0, 10, TimeUnit.SECONDS);
     }
 
-    @Override
-    public void closeTimer() {
-        timer.cancel();
-        timer.purge();
-
-    }
 
     @Override
     public int hashCode() {

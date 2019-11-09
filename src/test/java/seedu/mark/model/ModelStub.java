@@ -2,6 +2,7 @@ package seedu.mark.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -232,9 +233,10 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void closeTimer() {
+    public void startTimer(ScheduledExecutorService executor) {
         throw new AssertionError("This method should not be called.");
     }
+
 
     @Override
     public ObservableList<Paragraph> getObservableDocument() {

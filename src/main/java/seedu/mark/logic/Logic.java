@@ -1,6 +1,7 @@
 package seedu.mark.logic;
 
 import java.nio.file.Path;
+import java.util.concurrent.ScheduledExecutorService;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -108,8 +109,8 @@ public interface Logic {
     SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 
     /**
-     * Delete expired reminders.
+     * Deletes expired reminders.
      */
-    public void closeMarkTimer();
+    void startMarkTimer(ScheduledExecutorService executor);
 
 }

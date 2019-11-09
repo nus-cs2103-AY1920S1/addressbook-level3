@@ -2,6 +2,7 @@ package seedu.mark.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -264,9 +265,9 @@ public interface Model {
 
 
     /**
-     * Closes mark's timer.
+     * Starts mark's timer.
      */
-    void closeTimer();
+    void startTimer(ScheduledExecutorService executor);
 
     ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing();
 
