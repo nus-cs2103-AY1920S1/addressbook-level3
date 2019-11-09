@@ -1,0 +1,67 @@
+@startuml
+!include style.puml
+
+skinparam sequenceGroup {
+    borderColor red
+    borderThickness 1
+    FontName Arial
+    FontStyle normal
+    HeaderFontStyle normal
+    BodyBackgroundColor azure
+}
+
+box Logic #Lightblue
+    participant ":Logic" as Logic LOGIC_COLOR
+    participant ":RenewCommand" as RenewCommand LOGIC_COLOR
+end box
+box Model #Pink
+    participant "bookToBeRenewed:Book" as Book MODEL_COLOR
+    participant "loanToBeRenewed:Loan" as Loan MODEL_COLOR
+    participant ":Model" as Model MODEL_COLOR
+end box
+
+Logic -> RenewCommand : execute(model)
+activate RenewCommand
+
+RenewCommand -> RenewCommand : getRenewingBooks(model)
+activate RenewCommand
+RenewCommand --> RenewCommand : renewingBooks
+deactivate RenewCommand
+
+loop each bookToBeRenewed in renewingBooks
+RenewCommand -> Book : getLoan()
+activate Book
+Book --> RenewCommand : loanToBeRenewed
+deactivate Book
+
+RenewCommand -> Loan : renewLoan(extendedDueDate)
+activate Loan
+Loan --> RenewCommand : renewedLoan
+deactivate Loan
+
+RenewCommand -> Book : renewBook(renewedLoan)
+activate Book
+Book --> RenewCommand : renewedBook
+deactivate Book
+
+RenewCommand -> Model : setBook(bookToBeRenewed, renewedBook)
+activate Model
+Model --> RenewCommand
+deactivate Model
+
+RenewCommand -> Model : servingBorrowerRenewLoan(loanToBeRenewed, renewedLoan)
+activate Model
+Model --> RenewCommand
+deactivate Model
+
+RenewCommand -> Model : updateLoan(loanToBeRenewed, renewedLoan)
+activate Model
+Model --> RenewCommand
+deactivate Model
+end
+
+RenewCommand --> Logic : commandResult
+deactivate RenewCommand
+destroy RenewCommand
+
+@enduml
