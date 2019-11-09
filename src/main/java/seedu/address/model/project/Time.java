@@ -15,7 +15,7 @@ public class Time {
      */
 
 
-    public static final String MESSAGE_CONSTRAINTS = "Time should be written in the following format : dd/MM/yyyy hhmm\n"
+    public static final String MESSAGE_CONSTRAINTS = "Date and Time should be written in the following format : dd/MM/yyyy hhmm\n"
             + "-  where dd refers to days in 2 digits\n"
             + "-  MM refers to months in 2 digits\n"
             + "-  yyyy refers to years in 4 digits\n"

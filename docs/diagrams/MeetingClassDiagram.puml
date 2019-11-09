@@ -2,7 +2,7 @@
 skinparam classAttributeIconSize 0
 
 Package Model <<Rectangle>> {
-Class AddressBook
+Class ProjectList
 Package Project <<Rectangle>> {
 Class Project
 Class UniqueProjectList
@@ -20,7 +20,7 @@ Class Description {
 }
 }
 
-AddressBook *--> "1" UniqueProjectList
+ProjectList *--> "1" UniqueProjectList
 UniqueProjectList o--> "*" Project
 Project *--> "*" Meeting
 Meeting *--> "1" Time

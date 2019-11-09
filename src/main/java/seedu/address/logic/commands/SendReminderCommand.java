@@ -67,18 +67,7 @@ public class SendReminderCommand extends Command {
         List<Task> taskList = project.getTasks();
 
         //obtaining List<Person> recipientsList from List<String> that is in the project and model.getMembers()
-        List<Person> contactList = model.getMembers();
-        HashMap<Name, Person> contactSet = new HashMap<Name, Person>();
-        for (Person person: contactList) {
-            contactSet.put(person.getName(), person);
-        }
-
-        List<String> recipientsListInString = project.getMemberNames();
-        List<Person> recipientsList = new ArrayList<>();
-        for (String name: recipientsListInString) {
-            Name n = new Name(name);
-            recipientsList.add(contactSet.get(n));
-        }
+        List<Person> recipientsList = getMembersFromContacts(model, project);
 
         //get current time
         java.util.Date date = new java.util.Date();
@@ -91,17 +80,22 @@ public class SendReminderCommand extends Command {
         for (Meeting meeting: meetingList) {
             Date meetingDate = meeting.getTime().getDate();
             long diffDays = findDifferenceInDays(date, meetingDate);
-            if (diffDays <= this.durationDays) {
-                meetingsReminder = meetingsReminder + i + ".  " + meeting.toString() + "\n";
+            if (diffDays <= this.durationDays && diffDays >= 0) {
+                meetingsReminder = meetingsReminder + i + ".  "
+                        + "Meeting description: "
+                        + meeting.getDescription().toString()
+                        + "\n"
+                        + "     Meeting time: "
+                        + meeting.getTime().toString() + "\n";
+                i++;
             }
-            i++;
         }
 
         int j = 1;
         for (Task task: taskList) {
             Date meetingDate = task.getTime().getDate();
             long diffDays = findDifferenceInDays(date, meetingDate);
-            if (diffDays <= this.durationDays) {
+            if (diffDays <= this.durationDays && diffDays >= 0) {
                 taskReminder = taskReminder + j + ".  " + task.toString() + "\n";
             }
             j++;
@@ -112,7 +106,14 @@ public class SendReminderCommand extends Command {
         for (Person person: recipientsList) {
             String recipientEmail = person.getEmail().value;
             try {
-                Mailer.sendEmail(ownerAccount.getEmail().value, ownerAccount.getPassword(), recipientEmail, "Meeting and Task Reminder", message);
+                String name = person.getName().toString();
+                String messageBody = "Hi " + name + ", \n"
+                        + "\n"
+                        + message
+                        + "\n"
+                        + "\n"
+                        + "Thank you.";
+                Mailer.sendEmail(ownerAccount.getEmail().value, ownerAccount.getPassword(), recipientEmail, "Meeting and Task Reminder", messageBody);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -131,5 +132,22 @@ public class SendReminderCommand extends Command {
         long diffTime = endTime - startTime;
         long diffDays = diffTime / (1000 * 60 * 60 * 24);
         return diffDays;
+    }
+
+    public List<Person> getMembersFromContacts(Model model, Project project) {
+        List<Person> contactList = model.getMembers();
+        HashMap<Name, Person> contactSet = new HashMap<Name, Person>();
+        for (Person person: contactList) {
+            contactSet.put(person.getName(), person);
+        }
+
+        List<String> recipientsListInString = project.getMemberNames();
+        List<Person> recipientsList = new ArrayList<>();
+        for (String name: recipientsListInString) {
+            Name n = new Name(name);
+            recipientsList.add(contactSet.get(n));
+        }
+
+        return recipientsList;
     }
 }
