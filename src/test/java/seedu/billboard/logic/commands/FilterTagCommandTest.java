@@ -22,6 +22,7 @@ import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.tag.ContainsTagPredicate;
 import seedu.billboard.model.tag.Tag;
 
+//@@author waifonglee
 public class FilterTagCommandTest {
     private Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalBillboard(), new UserPrefs());

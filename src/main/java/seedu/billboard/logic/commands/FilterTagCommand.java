@@ -7,6 +7,7 @@ import seedu.billboard.commons.core.Messages;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.tag.ContainsTagPredicate;
 
+//@@author waifonglee
 /**
  * Filters and lists all expenses with tags input by user.
  */
