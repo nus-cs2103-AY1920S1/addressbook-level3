@@ -47,7 +47,7 @@ public class ProcessingMarkDoneCommand extends Command {
             taskNumber = Integer.parseInt(taskNumberString);
         } catch (NumberFormatException nfe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingMarkDoneCommand.MESSAGE_USAGE));
         }
     }
 
@@ -88,7 +88,7 @@ public class ProcessingMarkDoneCommand extends Command {
     }
 
     /**
-     * Mark a particular task on the donor's tasklist as done.
+     * Mark a particular task on the donor's Tasklist as done.
      * The tasklist will show a tick beside the task number and description.
      * @param model {@code Model} which the command should operate on.
      * @return CommandResult object.

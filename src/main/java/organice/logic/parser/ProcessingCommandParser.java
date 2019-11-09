@@ -27,7 +27,8 @@ public class ProcessingCommandParser implements Parser<ProcessingCommand> {
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
         try {
-            if (nameKeywords[0].startsWith(prefixNricString) && nameKeywords[1].startsWith(prefixNricString)) {
+            if (nameKeywords[0].startsWith(prefixNricString) && nameKeywords[1].startsWith(prefixNricString)
+                && nameKeywords.length == 2) {
                 firstNric = nameKeywords[0].replaceFirst(prefixNricString, "");
                 secondNric = nameKeywords[1].replaceFirst(prefixNricString, "");
             } else {
