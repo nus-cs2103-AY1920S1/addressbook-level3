@@ -54,13 +54,13 @@ image::Gui.png[width=450]
 
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-//To be included at a later milestone
-//.  Some example commands you can try:
-//
-//* *`list`* : lists all contacts
-//* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-//* **`delete`**`3` : deletes the 3rd contact shown in the current list
-//* *`exit`* : exits the app
+
+.  Some example commands you can try:
+
+* *`list`* : lists all athletes
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com g/Male a/311, Clementi Ave 2, #02-25` : adds an athlete named `John Doe` to Athletick.
+* **`delete`**`3` : deletes the 3rd athlete shown in the current list
+* *`exit`* : exits the app
 
 You may refer to <<Features>> for a full list of commands and their details.
 
@@ -505,7 +505,7 @@ With reference to the diagram below, **Attendance Pie Chart** indicates the over
 image::calendar11.png[width=450]
 
 === Athlete Management
-
+// tag::select[]
 ==== Viewing more details of a team member : `select`
 
 This command shows the profile of the athlete that you have selected.
@@ -533,11 +533,12 @@ image::afterSelect.png[width=450]
 
 [NOTE]
 If the image of the selected athlete is not appearing as shown below, take note that the image file is not in the
-`images` folder. You may refer to the *"FAQ"* section to know more on where to include the image files
-which are going to be used and *Section 4.1.3. "Editing an athlete"* to understand further how to edit the image of an athlete.
+`images` folder. You may refer to <<FAQ>> section to know more on where to include the image files
+which are going to be used and <<Editing an athlete : `edit`>> to understand further how to edit the image of
+an athlete.
 
 image::noImage.png[width=450]
-
+// end::select[]
 ==== Sorting athletes alphabetically : `sort`
 
 This command sorts your **Athletick** list alphabetically by the athletes' name.
@@ -663,11 +664,13 @@ It deletes all players, trainings, attendance, events and performances.
 
 Type the clear command.
 
+image::clear.png[width="450"]
+
 Format : `clear`
 
 *What you should see*
 
-// insert picture
+image::afterclear.png[width="450"]
 
 The following prompt will show if data was successfully cleared.
 
@@ -679,11 +682,12 @@ This command provides a user guide for Athletick.
 
 Type the help command.
 
+image::beforehelp.png[width="450"]
 Format: `help`
 
 *What you should see*
 
-image::help.png[width="350"]
+image::afterhelp.png[width="450"]
 
 A pop up box will appear, with a link to the user guide on Athletick.
 
@@ -724,7 +728,7 @@ press Enter to execute it.
 
 Format : `undo`
 
-image::undo.png[width=450]
+image::Undo.png[width="450"]
 
 
 *What you should see*
@@ -732,7 +736,7 @@ image::undo.png[width=450]
 The result box will display a success message and you can check that
 Mohamad Ali’s contact information is visible in the list again!
 
-image::afterUndo.png[width=450]
+image::AfterUndo.png[width="450"]
 
 ==== Redoing an `undo` command : `redo`
 
@@ -769,17 +773,19 @@ Enter to execute it.
 
 Format : `redo`
 
-image::redo.png[width=450]
+image::Redo.png[width="450"]
 *What you should see*
 
 The result box will display a success message.
 Furthermore, the list now only has 7 people and Mohamad Ali is once again gone from the list!
 
-image::afterRedo.png[width=450]
+image::AfterRedo.png[width="450"]
 
 === Upcoming features
 
-==== Team roster [coming in v2.0]
+==== Change app theme [coming in v2.0]
+
+==== Generate Team roster [coming in v2.0]
 
 ==== Performance tracker [coming in v2.0]
 
@@ -798,6 +804,7 @@ There is no need to save manually.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Athletick folder.
 
+// tag::FAQ[]
 *Q*: How do I add my image files to the `images` folder? +
 *A*: Make sure that the `images` folder is in the same directory as the Athletick executable jar file. If the
 `images` folder is not created, the following steps will guide you through the creating of the `images` folder and
@@ -814,7 +821,7 @@ image::imageFile.png[width="790"]
 * Add the image files that you want to use into the folder.
 
 image::addingPhotos.png[width="790"]
-
+//end::FAQ[]
 == Command Summary
 
 [horizontal]
