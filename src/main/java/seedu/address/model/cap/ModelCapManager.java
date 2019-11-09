@@ -195,6 +195,8 @@ public class ModelCapManager implements Model {
                 && filteredModules.equals(other.filteredModules);
     }
 
+
+
     //=========== CAP =============================================================
 
     @Override
