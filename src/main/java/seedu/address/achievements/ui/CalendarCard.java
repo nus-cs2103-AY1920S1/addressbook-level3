@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import seedu.address.calendar.model.util.CalendarStatistics;
+import seedu.address.calendar.model.util.exceptions.NoVacationException;
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -13,18 +14,25 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class CalendarCard {
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    private static final Logger logger = LogsCenter.getLogger(CalendarCard.class);
 
     public static ObservableList<Node> make(CalendarStatistics calendarStatistics) {
-        return FXCollections.observableArrayList(
+        ObservableList<Node> observableList = FXCollections.observableArrayList(
                 new AchievementsTitleLabel("Calendar").getRoot(),
                 new AchievementsDataLabel("Total Number of Trip Days: ", ""
                         + calendarStatistics.getNumDaysTrip()).getRoot(),
                 new AchievementsDataLabel("Total Number of Days Of Vacation: ", ""
                         + calendarStatistics.getNumDaysVacation()).getRoot(),
                 new AchievementsDataLabel("Total Number of Trips: ", ""
-                        + calendarStatistics.getNumTrip()).getRoot(),
-                new AchievementsDataLabel("Percentage of Vacation Days spent on Trips", "").getRoot(),
-                new AchievementsProgressBar(calendarStatistics.getPercentageTrip()).getRoot());
+                        + calendarStatistics.getNumTrip()).getRoot());
+        try {
+            double getPercentageTrip = calendarStatistics.getPercentageTrip();
+            observableList.add(
+                    new AchievementsDataLabel("Percentage of Vacation Days spent on Trips", "").getRoot());
+            observableList.add(new AchievementsProgressBar(calendarStatistics.getPercentageTrip()).getRoot());
+        } catch (NoVacationException nve) {
+            logger.info("No vactation days. Progress bar for calendar not loaded.");
+        }
+        return observableList;
     }
 }
