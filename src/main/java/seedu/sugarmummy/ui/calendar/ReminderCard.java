@@ -1,10 +1,13 @@
 package seedu.sugarmummy.ui.calendar;
 
+import java.time.LocalDate;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.sugarmummy.model.calendar.Reminder;
+import seedu.sugarmummy.model.time.DateTime;
 import seedu.sugarmummy.ui.UiPart;
 
 /**
@@ -34,7 +37,7 @@ public class ReminderCard extends UiPart<Region> {
     public ReminderCard(Reminder reminder) {
         super(FXML);
         this.reminder = reminder;
-        dateTime.setText(reminder.getDateTime().toString());
+        dateTime.setText(new DateTime(LocalDate.now(), reminder.getTime()).toString());
         description.setText(reminder.getDescription().value);
     }
 
