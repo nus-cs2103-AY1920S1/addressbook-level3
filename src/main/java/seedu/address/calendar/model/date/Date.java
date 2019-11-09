@@ -32,7 +32,8 @@ public class Date implements IntervalPart<Date> {
             + "DDD, dd MMM... yyyy\n" + "where D stands for the letters in a day of week (there must be 3), "
             + "d stands for the digit in the day of month (there must be 1 to 2), "
             + "M stands for the letters in a day of month (there must be at least 3) and y stands for "
-            + "the digits in a year (there must be 4)";
+            + "the digits in a year (there must be 4).\n"
+            + "The year must also be between 1980 and 2200.";
     private static final String MESSAGE_DATE_CONSTRAINT = "Date's fields must be consistent";
 
     private Day day;
