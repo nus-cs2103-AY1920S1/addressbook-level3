@@ -37,7 +37,7 @@ public class ReminderListPanel extends UiPart<Region> {
     @FXML
     private Label title;
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane reminderScrollPane;
     private ObservableList<Reminder> reminders;
     private ObservableList<Node> reminderItems;
 
@@ -58,7 +58,6 @@ public class ReminderListPanel extends UiPart<Region> {
                 reminderList.getChildren().setAll(reminderItems);
             }
         });
-        title.setMinWidth(Region.USE_PREF_SIZE);
         reminderList.getChildren().addAll(reminderItems);
 
     }
@@ -73,7 +72,7 @@ public class ReminderListPanel extends UiPart<Region> {
             Label reminder = new Label(index + reminders.get(i).toString());
             reminder.getStyleClass().clear();
             reminder.getStyleClass().add("reminder-cell");
-            reminder.setMinWidth(Region.USE_PREF_SIZE);
+            reminder.prefWidthProperty().bind(reminderScrollPane.widthProperty());
             reminderItems.add(reminder);
         }
         logger.info("run setting of reminderListItems");
