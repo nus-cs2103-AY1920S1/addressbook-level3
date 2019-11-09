@@ -56,9 +56,6 @@ public class UiManager implements Ui {
         }
 
         NotificationHelper.execute(logic.getModel()).ifPresent(s -> {
-            if (notificationWindow != null) {
-                notificationWindow.getRoot().hide();
-            }
             notificationWindow = new NotificationWindow(s);
             notificationWindow.show();
         });
