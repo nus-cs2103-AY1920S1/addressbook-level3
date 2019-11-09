@@ -17,7 +17,7 @@ import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.testutil.builder.SaqBuilder;
-import seedu.revision.testutil.builder.TrueFalseBuilder;
+
 
 /**
  * A utility class containing a list of {@code Answerable} objects to be used in tests.
@@ -53,8 +53,7 @@ public class TypicalAnswerables {
     public static final Answerable F_ANSWERABLE = new McqBuilder().withQuestion("Fiona Kunz").withDifficulty("1")
             .withCorrectAnswerList(MCQ_VALID_CORRECT_ANSWER_LIST).withWrongAnswerList(MCQ_VALID_WRONG_ANSWER_LIST)
             .build();
-    public static final Answerable G_ANSWERABLE = new McqBuilder().buildTest();
-    public static final McqInputCommand G_MCQ_COMMAND = new McqInputCommand("a", G_ANSWERABLE);
+
 
     // Manually added
     public static final Answerable H_ANSWERABLE = new McqBuilder().withQuestion("Hoon Meier")
@@ -65,8 +64,6 @@ public class TypicalAnswerables {
             .withWrongAnswerList(MCQ_VALID_WRONG_ANSWER_LIST).build();
 
 
-    public static final Answerable J_ANSWERABLE = new TrueFalseBuilder().build();
-    public static final TfInputCommand J_TF_COMMAND = new TfInputCommand("False", J_ANSWERABLE);
 
     public static final Answerable K_ANSWERABLE = new SaqBuilder().build();
     public static final TfInputCommand K_SAQ_COMMAND = new TfInputCommand(
