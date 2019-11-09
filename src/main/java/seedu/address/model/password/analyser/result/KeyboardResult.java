@@ -7,7 +7,7 @@ import seedu.address.model.password.analyser.match.KeyboardMatch;
 import seedu.address.model.password.analyser.match.Match;
 
 /**
- * Represents a keyboard {@code Result} produced from {@code KeyboardAnalyser}.
+ * Represents a {@code Result} produced from {@code KeyboardAnalyser}.
  */
 public class KeyboardResult extends Result {
 

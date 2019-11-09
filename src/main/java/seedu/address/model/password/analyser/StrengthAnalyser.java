@@ -9,7 +9,7 @@ import seedu.address.model.password.analyser.result.ResultOutcome;
 import seedu.address.model.password.analyser.result.StrengthResult;
 
 /**
- * Represents analyser object that analyses passwords in password book for password strength.
+ * Represents an {@code Analyser} that analyses passwords in password book for password strength.
  */
 public class StrengthAnalyser implements Analyser {
     private static final String MESSAGE_HEADER = "Analysing passwords for strength: \n";
@@ -68,6 +68,7 @@ public class StrengthAnalyser implements Analyser {
 
     /**
      * Creates the strength result object based on the arguments provided.
+     *
      * @param passwordObject the password
      * @param passwordScore the calculated strength score for password
      * @param hasMinimumLength the minimum length required for strong password

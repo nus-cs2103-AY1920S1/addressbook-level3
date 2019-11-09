@@ -6,7 +6,7 @@ import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.match.UniqueMatch;
 
 /**
- * Represents a result produced from unique analyser.
+ * Represents a {@code Result} produced from an {@code UniqueAnalyser}.
  */
 public class UniqueResult extends Result {
     private static final String MESSAGE_UNIQUE_PASSWORD =

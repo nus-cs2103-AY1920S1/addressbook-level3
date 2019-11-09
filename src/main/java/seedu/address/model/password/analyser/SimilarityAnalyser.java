@@ -10,7 +10,7 @@ import seedu.address.model.password.analyser.result.ResultOutcome;
 import seedu.address.model.password.analyser.result.SimilarityResult;
 
 /**
- * Represents analyser object that analyses passwords in password book for similar passwords.
+ * Represents an {@code Analyser} that analyses passwords in password book for similar passwords.
  */
 
 public class SimilarityAnalyser implements Analyser {

@@ -7,7 +7,7 @@ import seedu.address.model.password.analyser.match.DictionaryMatch;
 import seedu.address.model.password.analyser.match.Match;
 
 /**
- * Represents a dictionary {@code Result} produced from {@code DictionaryAnalyser}.
+ * Represents a {@code Result} produced from {@code DictionaryAnalyser}.
  */
 public class DictionaryResult extends Result {
     private static final String MESSAGE_NO_COMMON_PASSWORD_FOUND =

@@ -11,7 +11,7 @@ import seedu.address.model.password.analyser.result.ResultOutcome;
 import seedu.address.model.password.analyser.result.UniqueResult;
 
 /**
- * Represents analyser object that analyses passwords in password book for unique passwords.
+ * Represents an {@code Analyser} that analyses passwords in password book for unique passwords.
  */
 public class UniqueAnalyser implements Analyser {
     private static final String MESSAGE_HEADER = "Analysing passwords to check unique: \n";

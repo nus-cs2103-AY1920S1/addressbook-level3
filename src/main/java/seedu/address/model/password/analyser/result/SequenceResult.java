@@ -7,7 +7,7 @@ import seedu.address.model.password.analyser.match.Match;
 import seedu.address.model.password.analyser.match.SequenceMatch;
 
 /**
- * Represents a result produced from sequence analyser.
+ * Represents a {@code Result} produced from {@code SequenceAnalyser}.
  */
 public class SequenceResult extends Result {
     private static final String MESSAGE_NO_COMMON_SEQ_FOUND =

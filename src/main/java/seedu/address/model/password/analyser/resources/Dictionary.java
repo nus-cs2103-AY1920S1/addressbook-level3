@@ -19,7 +19,8 @@ public class Dictionary {
     private final Map<String, Integer> dictionary;
 
     /**
-     * Creates dictionary object with specific name and dictionary.
+     * Constructs dictionary object with specific name and dictionary.
+     *
      * @param name name of dictionary object
      * @param dictionary the hashmap of dictionary word to ranking
      */
@@ -30,6 +31,7 @@ public class Dictionary {
 
     /**
      * Builds the required dictionary based on the specified dictionary name.
+     *
      * @param name the name of the required dictionary
      * @return the dictionary object
      */
@@ -65,10 +67,6 @@ public class Dictionary {
         return dictionary;
     }
 
-    /**
-     * Gets the hashmap of dictionary word to ranking.
-     * @return the dictionary
-     */
     public Map<String, Integer> getDictionary() {
         return this.dictionary;
     }

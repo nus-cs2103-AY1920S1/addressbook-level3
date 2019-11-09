@@ -5,9 +5,8 @@ import seedu.address.model.password.analyser.Analyser;
 import seedu.address.model.password.analyser.result.Result;
 
 /**
- * Represents the detailed Analysis Report
- * formed from the {@code List} of {@code Result} from the each {@code Anlayser}.
-
+ * Represents the detailed Analysis Report for a particular {@code Password} by compiling each of it's {@code Result}
+ * from the each {@code Analyser}.
  */
 public class StrongAnalysisReport extends AnalysisReport {
 
@@ -21,7 +20,7 @@ public class StrongAnalysisReport extends AnalysisReport {
     }
 
     /**
-     * Writes introductory section of for the report.
+     * Writes introductory section for the report.
      */
     public void writeIntroduciton() {
         reportBuilder.append(MESSAGE_PASSWORD_HEADER);

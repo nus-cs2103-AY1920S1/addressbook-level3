@@ -10,7 +10,7 @@ import seedu.address.model.password.analyser.result.ResultOutcome;
 import seedu.address.model.password.analyser.result.SequenceResult;
 
 /**
- * Represents analyser object that analyses passwords in password book for common sequence string.
+ * Represents an {@code Analyser} that analyses passwords in password book for common sequence string.
  */
 public class SequenceAnalyser implements Analyser {
 

@@ -12,7 +12,7 @@ import seedu.address.model.password.analyser.result.Result;
 import seedu.address.model.password.analyser.result.ResultOutcome;
 
 /**
- * Represents analyser object that analyses passwords in password book for common keyboard pattern usage.
+ * Represents an {@code Analyser} that analyses passwords in password book for common keyboard pattern usage.
  */
 public class KeyboardAnalyser implements Analyser {
 

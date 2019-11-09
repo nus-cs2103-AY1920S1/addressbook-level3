@@ -6,7 +6,7 @@ import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.match.SimilarityMatch;
 
 /**
- * Represents a result produced from similarity analyser.
+ * Represents a {@code Result} produced from an {@code SimilarityAnalyser}.
  */
 public class SimilarityResult extends Result {
 

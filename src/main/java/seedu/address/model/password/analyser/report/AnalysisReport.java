@@ -9,7 +9,7 @@ import seedu.address.model.password.analyser.Analyser;
 import seedu.address.model.password.analyser.result.Result;
 
 /**
- * Represents the Analysis Report that compiles the {@code List} of {@code Result} from the each {@code Analyser}.
+ * Represents an Analysis Report that compiles the {@code List} of {@code Result} from the each {@code Analyser}.
  */
 public class AnalysisReport {
     protected static final String MESSAGE_DIVIDER = "-------------------------------------------\n";

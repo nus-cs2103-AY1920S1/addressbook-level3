@@ -5,7 +5,7 @@ import java.util.Objects;
 import seedu.address.model.password.Password;
 
 /**
- * Represents a result produced from strength analyser.
+ * Represents a {@code Result} produced from an {@code StrengthAnalyser}.
  */
 public class StrengthResult extends Result {
 
