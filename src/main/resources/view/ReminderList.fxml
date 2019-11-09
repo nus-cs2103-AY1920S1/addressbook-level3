@@ -5,9 +5,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:id="panel">
-    <Label text="Reminders" textFill="ivory" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefWidth="900.0" fx:id="title" style="-fx-background-color: #07847A; -fx-text-fill: white; -fx-padding: 5px;"/>
+    <Label text="Reminders" textFill="ivory" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefWidth="800.0" fx:id="title" style="-fx-background-color: #07847A; -fx-text-fill: white; -fx-padding: 5px;"/>
     <ScrollPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:id="scrollPane" prefWidth="400.0" style="-fx-background-color: #1d1d1d;">
-        <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="900.0" fx:id="reminderList" style="-fx-border-color: #383838 #383838 #383838 #383838; ">
+        <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="800.0" fx:id="reminderList" style="-fx-border-color: #383838 #383838 #383838 #383838; ">
 
         </VBox>
     </ScrollPane>
