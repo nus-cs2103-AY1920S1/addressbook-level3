@@ -1,5 +1,9 @@
 package seedu.address.ics;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,10 +14,6 @@ import seedu.address.model.DateTime;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class IcsExporterTest {
 
