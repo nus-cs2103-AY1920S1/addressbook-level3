@@ -19,7 +19,8 @@ import seedu.address.model.common.Module;
 public class CommandTestUtil {
 
     //Student names
-    public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_MODULE_TITLE = "Software Engineering";
+    public static final String VALID_MODULE_FACULTY = "Computing";
 
     /**
      * Executes the given {@code command}, confirms that <br>

@@ -15,9 +15,9 @@ public class Credit {
 
     private final int credit;
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code Credit}.
      *
-     * @param credit A valid phone number.
+     * @param credit A valid credit.
      */
     public Credit(int credit) {
         requireNonNull(credit);
@@ -52,4 +52,21 @@ public class Credit {
             return false;
         }
     }
+
+    /**
+     * Returns true if a given string is a valid credit.
+     */
+    public static boolean isValidCredit(String credit) throws NumberFormatException {
+        try {
+            int value = Integer.parseInt(credit);
+            if (value < 23 && value >= 2) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
 }

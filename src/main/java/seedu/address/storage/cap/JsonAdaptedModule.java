@@ -19,7 +19,7 @@ import seedu.address.model.common.Module;
  */
 class JsonAdaptedModule {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "There should not be null as inputs!";
 
     private final String moduleCode;
     private final String title;
@@ -45,7 +45,7 @@ class JsonAdaptedModule {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Module} into this class for Jackson use.
      */
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModuleCode().moduleCode;
@@ -57,7 +57,7 @@ class JsonAdaptedModule {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted module object into the model's {@code Module} object.
      *
      * @return a Module
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
@@ -72,7 +72,36 @@ class JsonAdaptedModule {
             throw new IllegalValueException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
 
+        if (title == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
+        }
+        if (!Title.isValidTitle(title)) {
+            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
+        }
 
+        if (semester == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Semester.class.getSimpleName()));
+        }
+        if (!Semester.isValidSemester(semester)) {
+            throw new IllegalValueException(Semester.MESSAGE_CONSTRAINTS);
+        }
+
+        if (credit == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Credit.class.getSimpleName()));
+        }
+        if (!Credit.isValidCredit(credit)) {
+            throw new IllegalValueException(Credit.MESSAGE_CONSTRAINTS);
+        }
+        if (credit == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Credit.class.getSimpleName()));
+        }
+        if (!Credit.isValidCredit(credit)) {
+            throw new IllegalValueException(Credit.MESSAGE_CONSTRAINTS);
+        }
         final ModuleCode modelName = new ModuleCode(moduleCode);
         final Title modelTitle = new Title(title);
         final Semester modelSemester = ParserUtil.parseSemester(semester);

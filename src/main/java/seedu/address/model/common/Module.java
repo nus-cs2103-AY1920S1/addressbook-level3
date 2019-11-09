@@ -15,6 +15,7 @@ import seedu.address.model.cap.person.Title;
  * Represents a NUS modules in the address book.
  */
 public class Module {
+
     private ModuleCode moduleCode;
     private Title title;
     private Semester semester;

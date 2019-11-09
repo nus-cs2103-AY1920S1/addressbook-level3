@@ -11,9 +11,12 @@ import seedu.address.model.common.Module;
  */
 public class Semester {
 
+    public static final String MESSAGE_CONSTRAINTS = "Incorrect academic year or semester period.";
+
     private final SemesterPeriod semesterPeriod;
     private final AcademicYear academicYear;
     private final ArrayList<Module> modules;
+
     /**
      * Constructs a {@code Semester}.
      *
@@ -25,6 +28,18 @@ public class Semester {
         requireNonNull(academicYear);
         this.semesterPeriod = semesterPeriod;
         this.academicYear = academicYear;
+        modules = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a {@code Semester}.
+     *
+     * @param semester
+     */
+    public Semester(String semester) {
+        requireNonNull(semester);
+        this.academicYear = new AcademicYear(semester.substring(0, 4));
+        this.semesterPeriod = new SemesterPeriod(Integer.valueOf(semester.substring(5, 6)));
         modules = new ArrayList<>();
     }
 
@@ -72,5 +87,19 @@ public class Semester {
     @Override
     public String toString() {
         return academicYear.toString() + "S" + semesterPeriod.toString();
+    }
+
+    /**
+     * Returns true if a given string is a valid Semester.
+     */
+    public static boolean isValidSemester(String test) {
+        try {
+            requireNonNull(test);
+            AcademicYear.isValidAcademicYear(test.substring(0, 4));
+            SemesterPeriod.isValidSemesterPeriod(Integer.parseInt(test.substring(5, 6)));
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 }
