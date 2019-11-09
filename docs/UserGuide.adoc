@@ -560,6 +560,8 @@ Prints the order lists with formatting that is appropriate for stock-take or ord
 Order list is converted into PDF format before being printed. +
 Format: `print-o`
 
+// tag::schedule[]
+
 === Schedule Commands
 Commands that work on schedules you have.
 
@@ -630,6 +632,8 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 Clears every schedule in SML. +
 
 [underline]#Format#: `clear-s`
+
+// end::schedule[]
 
 === Archived Orders Commands:
 
