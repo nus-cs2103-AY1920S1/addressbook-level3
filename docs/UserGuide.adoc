@@ -110,6 +110,7 @@ Examples:
 * `contact n/John Doe hp/98765432` +
 Creates a new contact with name John Doe and mobile number 98765432.
 
+// tag::create_activity[]
 === Create new activity: `activity`
 
 Creates a new activity with a title, contacts (optional) and no expenses.
@@ -132,6 +133,7 @@ Creates a new activity with title 'Chalet' and the user and John Doe as particip
 
 * `activity t/Breakfast p/David Li p/Bernice Yu` +
 Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.
+// end::create_activity[]
 
 === Add contacts to an activity: `invite`
 
@@ -197,6 +199,8 @@ Edits the phone number of the current contact in view to `999`. No changes are m
 * `edit t/BBQ` +
 Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
 
+
+// tag::find[]
 === Finding contacts or activities: `find`
 
 Finds contacts or activities whose name or title respectively contain *any* of the given keywords.
@@ -217,8 +221,10 @@ Examples:
 Returns contacts (e.g. `john` and `John Doe`) and activities (e.g. `John birthday party`).
 * `find Betsy Tim John` +
 Returns any contact or activity whose name or title contains the word `Betsy`, `Tim`, or `John`.
+// end::find[]
 
-=== Deleting a contact, activity or expense : `delete`
+=== Deleting a contact, activity or expense (v1.4) : `delete`
+>>>>>>> Stashed changes
 
 Deletes the specified index from the current list view. Delete can also be used to delete all entries by not specifying any index, but the user will be prompted to confirm this action.
 

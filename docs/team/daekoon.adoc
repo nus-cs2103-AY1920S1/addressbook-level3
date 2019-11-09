@@ -15,6 +15,9 @@ The user interacts with it using a CLI, and is targeted at users who prefer CLI 
 It however has a nice JavaFX GUI to report details graphically and intuitvely.
 It has >10k LOC.
 
+
+// Explain what the symbols mean
+
 == Summary of contributions
 === Major Enhancements
 * *Activity Class*: I created the `Activity` class and all its dependencies.
@@ -35,6 +38,11 @@ It has >10k LOC.
 ** Justification: This is the foundational feature of our product. Activities contain all necessary information needed to handle splitting of bills, and we need to provide users the ability to create activities to make use of our product.
 ** Highlights: Activity command that allows users to create new activities. Users can specify the title of the activity, and can invite contacts into the activity as participants. In order to improve usability, contacts are first searched using exact-matching, and then keyword-based matching if no valid exact match is found.
 
+* *Search functionality with context*: I added the ability to search using context.
+** What it does: The `find` command allows the user to search based on current context. 
+** Justification: This feature significantly increase the usability of our product. As time progresses, the application will have many contacts and activities, having the ability to find the one you want is invaluable.
+** Highlights: Find command that searches based on the current context. When viewing a list of activities, find command searches for activity. When viewing a list of contacts, it searches for contacts instead. Uses keyword-based matching.
+
 === Other contributions
 
 * Project management:
@@ -53,7 +61,7 @@ It has >10k LOC.
 
 == Contributions to the User Guide
 
-
+// If too much contribution, selectively choose the good parts
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
@@ -65,8 +73,6 @@ It has >10k LOC.
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../UserGuide.adoc[tag=algorithm]
+include::../UserGuide.adoc[tag=create_activity]
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../UserGuide.adoc[tag=find]
