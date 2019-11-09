@@ -1,8 +1,8 @@
-package seedu.address.logic.commands;
+package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -10,19 +10,13 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.FinSec;
-import seedu.address.model.ModelStub;
-import seedu.address.model.ReadOnlyFinSec;
+import seedu.address.logic.commands.AddContactCommand;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.ContactBuilder;
 
-
-public class AddContactCommandTest {
+public class AutocorrectSuggestionsTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -30,7 +24,7 @@ public class AddContactCommandTest {
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_personAcceptedByModel_addSuccessfulSuggestionTest() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Contact validPerson = new ContactBuilder().build();
 
@@ -38,41 +32,10 @@ public class AddContactCommandTest {
 
         assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertTrue(modelStub.hasAutocorrectSuggestion(new AutocorrectSuggestion("add_claim n/"
+                + validPerson.getName().fullName)));
     }
 
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Contact validPerson = new ContactBuilder().build();
-        AddContactCommand addContactCommand = new AddContactCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
-
-        assertThrows(CommandException.class,
-                AddContactCommand.MESSAGE_DUPLICATE_PERSON, () -> addContactCommand.execute(modelStub));
-    }
-
-    @Test
-    public void equals() {
-        Contact alice = new ContactBuilder().withName("Alice").build();
-        Contact bob = new ContactBuilder().withName("Bob").build();
-        AddContactCommand addAliceCommand = new AddContactCommand(alice);
-        AddContactCommand addBobCommand = new AddContactCommand(bob);
-
-        // same object -> returns true
-        assertEquals(addAliceCommand, addAliceCommand);
-
-        // same values -> returns true
-        AddContactCommand addAliceCommandCopy = new AddContactCommand(alice);
-        assertEquals(addAliceCommand, addAliceCommandCopy);
-
-        // different types -> returns false
-        assertNotEquals(1, addAliceCommand);
-
-        // null -> returns false
-        assertNotEquals(null, addAliceCommand);
-
-        // different person -> returns false
-        assertNotEquals(addAliceCommand, addBobCommand);
-    }
 
 
     /**
@@ -98,11 +61,18 @@ public class AddContactCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Contact> personsAdded = new ArrayList<>();
+        final ArrayList<AutocorrectSuggestion> suggestionsAdded = new ArrayList<>();
 
         @Override
         public boolean hasContact(Contact contact) {
             requireNonNull(contact);
             return personsAdded.stream().anyMatch(contact::isSamePerson);
+        }
+
+        @Override
+        public boolean hasAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
+            requireNonNull(suggestion);
+            return suggestionsAdded.stream().anyMatch(suggestion::isSameAutoCorrectionSuggestion);
         }
 
         @Override
@@ -113,12 +83,7 @@ public class AddContactCommandTest {
 
         @Override
         public void addAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
-            return;
-        }
-
-        @Override
-        public ObservableList<AutocorrectSuggestion> getFilteredAutocorrectSuggestionList() {
-            return new FilteredList<AutocorrectSuggestion>(null);
+            suggestionsAdded.add(suggestion);
         }
 
         @Override

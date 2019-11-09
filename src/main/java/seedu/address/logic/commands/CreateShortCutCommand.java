@@ -20,6 +20,14 @@ public class CreateShortCutCommand extends Command {
         this.prevInput = previousInput;
     }
 
+    public String getCurrentInput() {
+        return currentInput;
+    }
+
+    public String getPrevInput() {
+        return prevInput;
+    }
+
     @Override
     public CommandResult execute(Model model) {
         CommandItem newCommand = new CommandItem(new CommandWord(this.prevInput),
@@ -30,5 +38,11 @@ public class CreateShortCutCommand extends Command {
         return new CommandResult(SHOWING_NEW_SHORTCUT_MESSAGE
                 + this.prevInput + " to " + this.currentInput,
                 false, false, false, false, false);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CreateShortCutCommand);
     }
 }
