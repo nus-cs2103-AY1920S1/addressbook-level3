@@ -47,7 +47,7 @@ public class ProcessingMarkDoneCommand extends Command {
             taskNumber = Integer.parseInt(taskNumberString);
         } catch (NumberFormatException nfe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingMarkDoneCommand.MESSAGE_USAGE));
         }
     }
 
@@ -55,10 +55,10 @@ public class ProcessingMarkDoneCommand extends Command {
      * Method to check if the two Nrics given are valid.
      * It needs to contain one patient and one donor.
      * Both of them must be matched and their status must be processing already.
-     * The method will create the donor and patient with the respective Nrics in ORAGANice
-     * from the parameters.
-     * @param firstNric the first Nric given by the user.
-     * @param secondNric the second Nric given by the user.
+     * The method will first convert the Nrics given in String to an actual Nric type,
+     * then it will create the donor and patient with the respective Nric in ORAGANice.
+     * @param firstNric the first Nric given by the user in String.
+     * @param secondNric the second Nric given by the user in String.
      * @param model
      * @return a boolean true false stating whether the inputs are valid.
      */
@@ -88,7 +88,7 @@ public class ProcessingMarkDoneCommand extends Command {
     }
 
     /**
-     * Mark a particular task on the donor's tasklist as done.
+     * Mark a particular task on the donor's Tasklist as done.
      * The tasklist will show a tick beside the task number and description.
      * @param model {@code Model} which the command should operate on.
      * @return CommandResult object.
