@@ -992,7 +992,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: User must be logged in. There must be incomplete and/or complete draft incident reports in the system. Incident panel view must show all incidents (use `list-i` to return to this view if needed). Index, caller number, and description specified for `fill` in parameter mode must all be valid.
 .. Test case: `fill 1 p/95860594 desc/There was an incident` +
-   Expected: If first incident in the list is a draft and the user has created the report, same expected behaviour as case 2 (ii) above.
+   Expected: If first incident in the list is a draft and the user has created the report, same expected behaviour as case 2 (iii) above.
    If user has not created the selected incident, the message "You do not have access to fill this draft as another operator has created it." is displayed.
    If selected incident has already been submitted and user has created the incident, the message "This report has already been submitted" is displayed.
 
@@ -1035,7 +1035,7 @@ Message: "Listed all incident reports ready for submission".
 
 .. Prerequisites: User must be logged in. There must be complete draft incident reports in the system. Incident panel view must show all incidents (use `list-i` to return to this view if needed). Index specified for `submit` in parameter mode must be valid.
 .. Test case: `submit 1` +
-   Expected: If first incident in the list is a complete draft and the user has created the report, same expected behaviour as case 2 (ii) above.
+   Expected: If first incident in the list is a complete draft and the user has created the report, same expected behaviour as case 2 (iii) above.
    If user has not created the selected incident, the message "You do not have access to submit this report as another operator has created it." is displayed.
    If selected incident has already been submitted and user has created the incident, the message "This report has already been submitted" is displayed.
 
