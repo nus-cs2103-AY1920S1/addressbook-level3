@@ -71,6 +71,7 @@ We wrote a User Guide targeted at the users of Mortago. The User Guide containts
 made for the `stats`, `fitler`, and `find` features.
 
 _{start of extract 1: stats command}_
+
 ==== View admission statistics: `stats`
 
 This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
@@ -102,6 +103,7 @@ _{end of extract 1}_
 
 
 _{start of extract 2: filter command}_
+
 ==== Filter all entries: `filter`
 
 This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
@@ -121,6 +123,7 @@ All body entries with car accident as the cause of death and those that are male
 _{end of extract 2}_
 
 _{start of extract 3: find command}_
+
 ==== Locating entries by name: `find`
 
 Finds bodies or workers whose names contain any of the given keywords. +
@@ -153,7 +156,9 @@ _{end of extract 3}_
 In addition to a User Guide, we wrote a Developer Guide targeted at developers who are interested in contributing to the project. The Developer Guide showcases my ability to write technical documentation and the technical depth of my contributions to the project.Given below is my contribution to the Developer Guide:
 
 {start of extract: implementation of stats command}
+
 === Statistics feature
+
 ==== Current Implementation
 
 The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days (default view) and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched. Users can switch the view to a specified week, month, or view.
