@@ -37,11 +37,13 @@ public class UndoRedoStackTest {
         undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
                 Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
         undoRedoStack.push(dummyCommandOne);
-        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
+        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne),
+                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
 
         // empty redoStack
         undoRedoStack.push(dummyCommandOne);
-        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
+        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne),
+                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
     }
 
     @Test

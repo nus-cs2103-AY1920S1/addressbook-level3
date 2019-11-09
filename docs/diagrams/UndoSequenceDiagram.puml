@@ -3,44 +3,77 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SellerManagerParser" as SellerManagerParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+participant ":UndoRedoStack" as UndoRedoStack LOGIC_COLOR
+participant ":UndoStack" as UndoStack LOGIC_COLOR
+participant ":RedoStack" as RedoStack LOGIC_COLOR
+participant ":UndoableCommand" as UndoableCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
 end box
 [-> LogicManager : execute(undo)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicManager -> SellerManagerParser : parseCommand(undo)
+activate SellerManagerParser
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+SellerManagerParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> SellerManagerParser
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+SellerManagerParser --> LogicManager : u
+deactivate SellerManagerParser
 
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> UndoRedoStack : popUndo()
+activate UndoRedoStack
+
+UndoRedoStack -> UndoStack : removeFirst()
+activate UndoStack
+
+UndoStack -> UndoableCommand
+activate UndoableCommand
+
+UndoableCommand --> UndoStack : toUndoCommand
+
+deactivate UndoableCommand
+
+UndoStack --> UndoRedoStack : toUndoCommand
+
+deactivate UndoStack
+
+
+UndoRedoStack -> RedoStack : addFirst(toUndoCommand)
+activate RedoStack
+
+RedoStack --> UndoRedoStack
+
+deactivate RedoStack
+
+UndoRedoStack --> UndoCommand : toUndoCommand
+
+deactivate UndoRedoStack
+
+UndoCommand -> UndoableCommand : undo()
+activate UndoableCommand
+
+UndoableCommand -> Model : setXYZBook, updateFilteredXYZList
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+Model --> UndoableCommand
 
-Model --> UndoCommand
+UndoableCommand --> UndoCommand
+deactivate UndoableCommand
+
 deactivate Model
 
 UndoCommand --> LogicManager : result
