@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.util.ExpiryUtil;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -106,6 +107,22 @@ public class Card {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    /**
+     * Returns true if the card has expired.
+     * @return true if the card's expiry date is over.
+     */
+    public boolean hasExpired() {
+        return ExpiryUtil.getMonthToExp(expiryDate.toString()) < 0;
+    }
+
+    /**
+     * Returns true if the card is expiring.
+     * @return true if the card's expiry date is reaching in less than 3 months.
+     */
+    public boolean isExpiring() {
+        return !this.hasExpired() && ExpiryUtil.getMonthToExp(expiryDate.toString()) < 3;
     }
 
     /**
