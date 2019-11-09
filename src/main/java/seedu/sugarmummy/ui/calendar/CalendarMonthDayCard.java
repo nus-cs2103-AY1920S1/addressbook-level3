@@ -37,7 +37,7 @@ public class CalendarMonthDayCard extends UiPart<Region> {
         super(FXML);
         BooleanBinding booleanBinding = Bindings.createBooleanBinding(new Callable<Boolean>() {
             @Override
-            public Boolean call(){
+            public Boolean call() {
                 return today.getDateProperty().get().equals(date);
             }
         }, today.getDateProperty());
@@ -56,13 +56,5 @@ public class CalendarMonthDayCard extends UiPart<Region> {
         super(FXML);
         this.date.setText("");
         this.entryNumber.setText("");
-    }
-
-    public CalendarMonthDayCard(LocalDate date) {
-        super(FXML);
-        this.date.setWrapText(true);
-        this.date.setStyle("-fx-text-fill: white; -fx-font-size: 12");
-        this.date.setText(date.getDayOfMonth() + "");
-        this.dayCard.setBottom(null);
     }
 }

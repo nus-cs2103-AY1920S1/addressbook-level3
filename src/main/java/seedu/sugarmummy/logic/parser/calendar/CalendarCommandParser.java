@@ -4,16 +4,12 @@ import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_YEAR_MONTH;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_YEAR_MONTH_DAY;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_YEAR_MONTH_WEEK;
 
-import java.util.stream.Stream;
-
 import seedu.sugarmummy.logic.commands.calendar.CalendarCommand;
 import seedu.sugarmummy.logic.parser.ArgumentMultimap;
 import seedu.sugarmummy.logic.parser.ArgumentTokenizer;
 import seedu.sugarmummy.logic.parser.Parser;
 import seedu.sugarmummy.logic.parser.ParserUtil;
-import seedu.sugarmummy.logic.parser.Prefix;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
-import seedu.sugarmummy.model.time.YearMonth;
 import seedu.sugarmummy.model.time.YearMonthDay;
 
 /**

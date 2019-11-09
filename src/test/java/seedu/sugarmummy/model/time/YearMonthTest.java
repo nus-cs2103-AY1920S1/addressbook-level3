@@ -13,7 +13,6 @@ class YearMonthTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new YearMonth((String) null));
-        assertThrows(NullPointerException.class, () -> new YearMonth((java.time.YearMonth) null));
     }
 
     @Test
@@ -33,6 +32,6 @@ class YearMonthTest {
 
     @Test
     public void constructor_string() {
-        assertEquals(new YearMonth(validYearMonth), new YearMonth("2020-12"));
+        assertEquals(new YearMonth(2020, 12), new YearMonth("2020-12"));
     }
 }

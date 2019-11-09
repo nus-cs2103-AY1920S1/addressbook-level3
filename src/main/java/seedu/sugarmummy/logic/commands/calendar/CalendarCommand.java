@@ -22,7 +22,7 @@ public class CalendarCommand extends Command {
     public static final String COMMAND_WORD = "calendar";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a calendar of a month with a list of calendar "
-            + "entries on a day/ in a week/in the month."
+            + "entries on a day/ in a week/in a month."
             + "Parameters: "
             + "[" + PREFIX_YEAR_MONTH + "YEAR_MONTH]"
             + "[" + PREFIX_YEAR_MONTH_DAY + "YEAR_MONTH_DAY]"
