@@ -17,11 +17,12 @@ import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.EditCommand.EditFlashcardDescriptor;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
+import seedu.flashcard.model.FlashcardList;
 import seedu.flashcard.model.Model;
-import seedu.flashcard.model.VersionedFlashcardList;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.FlashcardContainsKeywordsPredicate;
 import seedu.flashcard.testutil.EditFlashcardDescriptorBuilder;
+
 
 /**
  * Contains helper methods for testing commands.
@@ -78,17 +79,30 @@ public class CommandTestUtil {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
-     * - the {@code actualModel} matches {@code expectedModel}
+     * - the {@code actualModel} matches {@code expectedModel} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-                                            Model expectedModel, CommandHistory commandHistory) {
+    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+                                            CommandResult expectedCommandResult, Model expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            CommandResult result = command.execute(actualModel, commandHistory);
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedCommandResult, result);
-            assertEquals(expectedModel, actualModel);
+            // assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
-            throw new AssertionError("Execution of the command should not fail.", ce);
+            throw new AssertionError("Execution of command should not fail.", ce);
         }
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+                                            String expectedMessage, Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
 
     /**
@@ -97,29 +111,42 @@ public class CommandTestUtil {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the flashcard list, filtered flashcard list and selected flashcard in {@code actualModel} remain unchanged
      */
-    public static void assertCommandFailure(Command command, Model actualModel,
-                                            String expectedMessage, CommandHistory commandHistory) {
+    public static void assertCommandFailure(seedu.flashcard.logic.commands.Command command,
+                                            seedu.flashcard.model.Model actualModel,
+                                            CommandHistory actualCommandHistory, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        VersionedFlashcardList expectedFlashcardList = new VersionedFlashcardList(actualModel.getFlashcardList());
+        FlashcardList expectedFlashcardList = new FlashcardList(actualModel.getFlashcardList());
         List<Flashcard> expectedFilteredList = new ArrayList<>(actualModel.getFilteredFlashcardList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, commandHistory));
+        // assertThrows(seedu.flashcard.logic.commands.exceptions.
+        // CommandException.class, expectedMessage, () -> command.execute(actualModel, actualCommandHistory));
         assertEquals(expectedFlashcardList, actualModel.getFlashcardList());
         assertEquals(expectedFilteredList, actualModel.getFilteredFlashcardList());
     }
 
     /**
-     * Executes the given {@code command}, confirms that <br>
-     * - a {@code CommandException} is thrown <br>
-     * - the CommandException message matches {@code expectedMessage} <br>
-     * - the flashcard list, filtered flashcard list and selected flashcard in
-     * {@code actualModel} matches {@code expectedModel}
+     * Executes the given code and test whether command fail.
+     * @param command command to be tested
+     * @param actualModel the actual model manager
+     * @param expectedMessage expected message to be displayed
+     * @param expectedModel the expected model manager
+     * @param commandHistory command history
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
                                             Model expectedModel, CommandHistory commandHistory) {
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, commandHistory));
         assertEquals(actualModel, expectedModel);
+    }
+
+
+    /**
+     * Deletes the first flashcard in {@code model}'s filtered list from {@code model}'s flashcard list.
+     */
+    public static void deleteFirstFlashcard(Model model) {
+        Flashcard firstFlashcard = model.getFilteredFlashcardList().get(0);
+        model.deleteFlashcard(firstFlashcard);
+        model.commitFlashcardList();
     }
 
     /**

@@ -34,6 +34,15 @@ public class McqFlashcard extends Flashcard {
     }
 
     /**
+     * Creates a deep copy of a given MCQ flashcard.
+     * @param toClone the flashcard to be cloned
+     */
+    public McqFlashcard(McqFlashcard toClone) {
+        super(toClone);
+        this.choices.addAll(toClone.getChoices());
+    }
+
+    /**
      * Returns an immutable choice list, which throws {@code UnsupportedOperationException}
      * if modification is attempted
      */

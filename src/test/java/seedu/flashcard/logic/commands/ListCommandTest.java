@@ -34,14 +34,14 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, new CommandResult(ListCommand.MESSAGE_SUCCESS),
-                expectedModel, commandHistory);
+        assertCommandSuccess(new ListCommand(), model, commandHistory,
+                new CommandResult(ListCommand.MESSAGE_SUCCESS), expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
-        assertCommandSuccess(new ListCommand(), model, new CommandResult(ListCommand.MESSAGE_SUCCESS),
-                expectedModel, commandHistory);
+        assertCommandSuccess(new ListCommand(), model, commandHistory,
+                new CommandResult(ListCommand.MESSAGE_SUCCESS), expectedModel);
     }
 }

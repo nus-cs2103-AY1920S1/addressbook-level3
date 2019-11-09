@@ -28,15 +28,15 @@ public class ListTagCommandTest {
             tagNameList = tagNameList + tag.tagName + "\n";
         }
         assertCommandSuccess(new ListTagCommand(), model,
-                new CommandResult(ListTagCommand.MESSAGE_SUCCESS + tagNameList),
-                expectedModel, commandHistory);
+                commandHistory,
+                new CommandResult(ListTagCommand.MESSAGE_SUCCESS + tagNameList), expectedModel);
     }
 
     @Test
     public void execute_noTagsInSystem_showsEverything() {
         model = new ModelManager(getTaglessFlashcardList(), new UserPrefs());
         expectedModel = new ModelManager(model.getFlashcardList(), new UserPrefs());
-        assertCommandSuccess(new ListTagCommand(), model, new CommandResult(ListTagCommand.MESSAGE_SUCCESS),
-                expectedModel, commandHistory);
+        assertCommandSuccess(new ListTagCommand(), model, commandHistory,
+                new CommandResult(ListTagCommand.MESSAGE_SUCCESS), expectedModel);
     }
 }

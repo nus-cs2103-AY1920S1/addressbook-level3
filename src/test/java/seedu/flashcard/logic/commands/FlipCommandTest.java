@@ -40,8 +40,8 @@ public class FlipCommandTest {
         String expectedMessage = String.format(CORRECT_ANSWER, correctAnswer.toString());
 
         assertCommandSuccess(flipCommand, model,
-                new CommandResult(expectedMessage, true, QUIZ_END),
-                expectedModel, commandHistory);
+                commandHistory,
+                new CommandResult(expectedMessage, true, QUIZ_END), expectedModel);
     }
 
     @Test
@@ -58,15 +58,15 @@ public class FlipCommandTest {
         String expectedMessage = String.format(INCORRECT_ANSWER, wrongAnswer.toString(), correctAnswer.toString());
 
         assertCommandSuccess(flipCommand, model,
-                new CommandResult(expectedMessage, true, QUIZ_END),
-                expectedModel, commandHistory);
+                commandHistory,
+                new CommandResult(expectedMessage, true, QUIZ_END), expectedModel);
     }
 
     @Test
     public void execute_flashcardsToQuizAbsent_throwsCommandException() {
         FlipCommand flipCommand = new FlipCommand(new Answer("Invalid"));
 
-        assertCommandFailure(flipCommand, model, FlipCommand.MESSAGE_NULL_QUIZ_FLASHCARD, commandHistory);
+        assertCommandFailure(flipCommand, model, commandHistory, FlipCommand.MESSAGE_NULL_QUIZ_FLASHCARD);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class FlipCommandTest {
         FlipCommand flipCommand = new FlipCommand(new Answer("Invalid"));
 
         assertCommandFailure(flipCommand, model,
-                FlipCommand.MESSAGE_MCQ_INDEX, commandHistory);
+                commandHistory, FlipCommand.MESSAGE_MCQ_INDEX);
     }
 
 }

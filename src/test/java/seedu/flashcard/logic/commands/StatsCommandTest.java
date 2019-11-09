@@ -43,8 +43,8 @@ public class StatsCommandTest {
     public void execute_listIsNotFilteredAndPresentTags_showsSameList() {
         expectedModel.updateFilteredFlashcardList(model.getHasTagPredicate(testTags));
         assertCommandSuccess(new StatsCommand(testTags), model,
-                new CommandResult(expectedModel.generateStatistics(), false, false, true),
-                expectedModel, commandHistory);
+                commandHistory,
+                new CommandResult(expectedModel.generateStatistics(), false, false, true), expectedModel);
     }
 
     @Test
@@ -52,15 +52,15 @@ public class StatsCommandTest {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
         expectedModel.updateFilteredFlashcardList(model.getHasTagPredicate(testTags));
         assertCommandSuccess(new StatsCommand(testTags), model,
-                new CommandResult(expectedModel.generateStatistics(), false, false, true),
-                expectedModel, commandHistory);
+                commandHistory,
+                new CommandResult(expectedModel.generateStatistics(), false, false, true), expectedModel);
     }
 
     @Test
     public void execute_listIsNotFilteredAndNoTags_showsEverything() {
         assertCommandSuccess(new StatsCommand(null), model,
-                new CommandResult(expectedModel.generateStatistics(), false, false, true),
-                expectedModel, commandHistory);
+                commandHistory,
+                new CommandResult(expectedModel.generateStatistics(), false, false, true), expectedModel);
     }
 
 
@@ -68,8 +68,8 @@ public class StatsCommandTest {
     public void execute_listIsFilteredAndNoTags_showsEverything() {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
         assertCommandSuccess(new StatsCommand(null), model,
-                new CommandResult(expectedModel.generateStatistics(), false, false, true),
-                expectedModel, commandHistory);
+                commandHistory,
+                new CommandResult(expectedModel.generateStatistics(), false, false, true), expectedModel);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class StatsCommandTest {
         wrongTags.add(wrongTag);
         expectedModel.updateFilteredFlashcardList(model.getHasTagPredicate(wrongTags));
         assertCommandSuccess(new StatsCommand(wrongTags), model,
-                new CommandResult(StatsCommand.MESSAGE_FAIL), expectedModel, commandHistory);
+                commandHistory, new CommandResult(StatsCommand.MESSAGE_FAIL), expectedModel);
     }
 
 }

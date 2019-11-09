@@ -44,8 +44,8 @@ public class QuizTagCommandTest {
         String expectedFlashcard = firstCard.toString();
 
         assertCommandSuccess(quizTagCommand, model,
-                new CommandResult(expectedMessage, true, expectedFlashcard),
-                expectedModel, commandHistory);
+                commandHistory,
+                new CommandResult(expectedMessage, true, expectedFlashcard), expectedModel);
     }
 
     @Test

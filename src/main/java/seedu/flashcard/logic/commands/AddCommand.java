@@ -67,4 +67,11 @@ public class AddCommand extends Command {
         model.commitFlashcardList();
         return new CommandResult(MESSAGE_SUCCESS, false, false);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof AddCommand
+                && toAdd.equals(((AddCommand) other).toAdd));
+    }
 }

@@ -17,6 +17,14 @@ public class ShortAnswerFlashcard extends Flashcard {
     }
 
     /**
+     * Creates a deep copy of a short answer flashcard
+     * @param toClone the flashcard to be cloned
+     */
+    public ShortAnswerFlashcard(ShortAnswerFlashcard toClone) {
+        super(toClone);
+    }
+
+    /**
      * This initializer should only be accessed by the storage package, because this initializer ensures the
      * flashcard scores can be reloaded
      */

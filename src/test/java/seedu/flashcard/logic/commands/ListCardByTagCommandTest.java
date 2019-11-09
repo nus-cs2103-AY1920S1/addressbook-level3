@@ -42,7 +42,7 @@ public class ListCardByTagCommandTest {
     public void execute_listIsNotFilteredandPresentTags_showsSameList() {
         expectedModel.updateFilteredFlashcardList(model.getHasTagPredicate(testTags));
         assertCommandSuccess(new ListCardByTagCommand(testTags), model,
-                new CommandResult(ListCardByTagCommand.MESSAGE_SUCCESS), expectedModel, commandHistory);
+                commandHistory, new CommandResult(ListCardByTagCommand.MESSAGE_SUCCESS), expectedModel);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ListCardByTagCommandTest {
         showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
         expectedModel.updateFilteredFlashcardList(model.getHasTagPredicate(testTags));
         assertCommandSuccess(new ListCardByTagCommand(testTags), model,
-                new CommandResult(ListCardByTagCommand.MESSAGE_SUCCESS), expectedModel, commandHistory);
+                commandHistory, new CommandResult(ListCardByTagCommand.MESSAGE_SUCCESS), expectedModel);
     }
 
     @Test
@@ -60,6 +60,6 @@ public class ListCardByTagCommandTest {
         wrongTags.add(wrongTag);
         expectedModel.updateFilteredFlashcardList(model.getHasTagPredicate(wrongTags));
         assertCommandSuccess(new ListCardByTagCommand(wrongTags), model,
-                new CommandResult(ListCardByTagCommand.MESSAGE_SUCCESS), expectedModel, commandHistory);
+                commandHistory, new CommandResult(ListCardByTagCommand.MESSAGE_SUCCESS), expectedModel);
     }
 }
