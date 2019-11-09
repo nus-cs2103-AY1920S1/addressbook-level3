@@ -247,7 +247,7 @@ public class ItemModelManagerTest {
     public void markComplete_incompleteTask_markTaskAsComplete() {
         testModel.addItem(task);
         try {
-            testModel.markComplete(0);
+            testModel.markComplete(0, true);
             assertTrue(testModel.getItem(0).getTask().get().isComplete());
         } catch (IllegalListException e) {
             fail(e);
@@ -259,7 +259,7 @@ public class ItemModelManagerTest {
         testModel.addItem(task);
         try {
             testModel.togglePriorityMode();
-            testModel.markComplete(0);
+            testModel.markComplete(0, true);
             assertFalse(testModel.getPriorityMode().getValue());
         } catch (IllegalListException e) {
             fail(e);
@@ -289,7 +289,7 @@ public class ItemModelManagerTest {
         testModel.addItem(lowPriority);
         try {
             testModel.togglePriorityMode();
-            testModel.markComplete(0);
+            testModel.markComplete(0, true);
             assertEquals(lowPriority, testModel.getVisualList().get(0));
         } catch (IllegalListException e) {
             fail(e);
