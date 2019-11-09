@@ -2,7 +2,6 @@ package seedu.revision.ui;
 
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.collections.ObservableList;
@@ -11,10 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
@@ -34,14 +33,12 @@ import seedu.revision.ui.bar.Timer;
  * The Quiz Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class StartQuizWindow extends Window {
+public class StartQuizWindow extends ParentWindow {
 
     protected static final String FXML = "StartQuizWindow.fxml";
 
     @FXML
     protected StackPane levelPlaceholder;
-
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
     private MainWindow mainWindow;
     private ObservableList<Answerable> quizList;
@@ -81,11 +78,18 @@ public class StartQuizWindow extends Window {
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
 
+    /**
+     * Initialises the GUI when Quiz Mode is started.
+     * @param primaryStage the stage where scenes can be added to.
+     * @param logic the logic that will be used to drive the quiz.
+     * @param mode the mode of the quiz
+     */
     public StartQuizWindow(Stage primaryStage, Logic logic, Mode mode) {
         super(FXML, primaryStage, logic);
         this.mode = mode;
     }
 
+    /** gets the current progess of the user **/
     public final double getCurrentProgressIndex() {
         return currentProgressIndex.get();
     }
@@ -149,28 +153,27 @@ public class StartQuizWindow extends Window {
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            timer.resetTimer();
+
             CommandResult commandResult = logic.execute(commandText, currentAnswerable);
-            if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
+            if (commandResult.isCorrect()) {
                 totalScore++;
                 score++;
             }
 
-            timer.resetTimer();
-
             if (commandResult.isExit()) {
                 handleExit();
-                return new CommandResult().build();
+                return new CommandResultBuilder().build();
             }
 
-            if (commandResult.getFeedbackToUser().equalsIgnoreCase("wrong")
-                    && mode.value.equals(Modes.ARCADE.toString())) {
+            if (!commandResult.isCorrect() && mode.value.equals(Modes.ARCADE.toString())) {
                 handleEnd(currentAnswerable);
-                return new CommandResult().build();
+                return new CommandResultBuilder().build();
             }
 
             if (!answerableIterator.hasNext()) {
                 handleEnd(currentAnswerable);
-                return new CommandResult().build();
+                return new CommandResultBuilder().build();
             }
 
             currentProgressIndex.set(getCurrentProgressIndex() + 1);
@@ -232,12 +235,12 @@ public class StartQuizWindow extends Window {
 
         task.setOnSucceeded(e -> {
             Optional<ButtonType> result = nextLevelDialog.showAndWait();
-            if (result.get() == nextLevelDialog.getEndButton()) {
+            if (result.get() == nextLevelDialog.getNoButton()) {
                 handleExit();
             } else {
                 //Reset UI in the window
-                levelLabel = new LevelLabel(nextLevel);
-                levelPlaceholder.getChildren().add(levelLabel.getRoot());
+                levelLabel.updateLevelLabel(nextLevel);
+
                 currentProgressIndex.set(0);
                 progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
                         getSizeOfCurrentLevel(nextAnswerable),
@@ -276,7 +279,7 @@ public class StartQuizWindow extends Window {
 
         task.setOnSucceeded(e -> {
             Optional<ButtonType> result = endAlert.showAndWait();
-            if (result.get() == endAlert.getEndButton()) {
+            if (result.get() == endAlert.getNoButton()) {
                 handleExit();
             } else {
                 restartQuiz();

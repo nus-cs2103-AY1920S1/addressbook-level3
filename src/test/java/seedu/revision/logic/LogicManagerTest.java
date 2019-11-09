@@ -32,7 +32,9 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.storage.JsonHistoryStorage;
 import seedu.revision.storage.JsonRevisionToolStorage;
 import seedu.revision.storage.JsonUserPrefsStorage;
+import seedu.revision.storage.Storage;
 import seedu.revision.storage.StorageManager;
+import seedu.revision.stubs.StorageStub;
 import seedu.revision.testutil.McqBuilder;
 
 public class LogicManagerTest {
@@ -43,15 +45,11 @@ public class LogicManagerTest {
 
     private Model model = new ModelManager();
     private Logic logic;
+    private Storage storageStub = new StorageStub();
 
     @BeforeEach
     public void setUp() {
-        JsonRevisionToolStorage addressBookStorage =
-                new JsonRevisionToolStorage(temporaryFolder.resolve("revisionTool.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        JsonHistoryStorage historyStorage = new JsonHistoryStorage(temporaryFolder.resolve("history.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, historyStorage);
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model, storageStub);
     }
 
     @Test
@@ -167,4 +165,5 @@ public class LogicManagerTest {
             throw DUMMY_IO_EXCEPTION;
         }
     }
+
 }

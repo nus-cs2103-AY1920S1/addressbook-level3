@@ -5,6 +5,8 @@ import java.util.Set;
 
 import seedu.revision.model.category.Category;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents a Answerable in the Test Bank.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -23,6 +25,20 @@ public class Saq extends Answerable {
     public Saq(Question question, ArrayList<Answer> correctAnswerList, Difficulty difficulty,
                Set<Category> categories) {
         super(question, correctAnswerList, new ArrayList<>(), difficulty, categories);
+    }
+
+    /**
+     * Checks whether the input Mcq is valid
+     * @param saq the saq to validate.
+     * @return boolean to indicate whether Mcq is valid or not.
+     */
+    public static boolean isValidSaq(Saq saq) {
+        requireNonNull(saq);
+        if (saq.getCorrectAnswerList().size() == 0
+                || saq.getWrongAnswerList().size() > 0) {
+            return false;
+        }
+        return true;
     }
 
     @Override

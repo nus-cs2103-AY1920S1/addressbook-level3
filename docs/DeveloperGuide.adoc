@@ -1,4 +1,4 @@
-= Test Bank - Developer Guide
+= CS2103/T Revision Tool - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -90,6 +90,7 @@ The `UI` component,
 
 [[Design-Logic]]
 === Logic component
+==== Overview of Logic Component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -104,12 +105,56 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+//tag::wilfred-logic[]
+==== Managing parsing in Configuration and Quiz Mode
+During a quiz session a `QuizParser` instead of `Parser` is used.
+
+.Class Diagram of ParserManager to display how parsers are created in both modes.
+image::ParserClassDiagram.png[width=500]
+
+As different commands are accepted in Configuration and Quiz Mode, the `ParserManager` class uses overloaded methods to
+decide the valid commands in each mode. The following are the parsers used in each mode:
+
+* ABCParser:
+** AddCommandParser
+** DeleteCommandParser
+** EditCommandParser
+** FindCommandParser
+** ListCommandParser
+** StartCommandParser
+
+* XYZParser:
+** McqInputCommandParser
+** TfInputCommandParser
+** SaqInputCommandParser
+
+=== Parsing in Configuration Mode
+In Configuration Mode, a single string is passed as an argument to the execute method.
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+=== Parsing in Quiz Mode
+In Quiz Mode, a string and the current `Answerable` object are passed as arguments to the execute method.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("c", answerable)` API call.
+
+.Interactions Inside the Logic Component for the `c` input command.
+image::QuizSequenceDiagram.png[width=790]
+
+Key differences between parsing in Configuration Mode and Quiz Mode:
+
+. In Quiz Mode, `Answerable#isCorrect(answer)` is called from the `McqInputCommand` to check whether the user's answer is correct.
+. After which, the result is used to construct a `CommandResult` will be passed back to the `LogicManager`
+. Lastly, the `Model` is accessed to update the user's score history.
+
+[NOTE]
+`CommandResult` is built using a builder design to allow flexibility of values returned to the `LogicManager`.
+To guard against null values, default values are provided to every field in the `CommandResult` class upon construction.
+Objects that call `CommandResult` can choose to customise `CommandResult` according to their needs.
+//end::wilfred-logic[]
 
 [[Design-Model]]
 === Model component
@@ -126,7 +171,8 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Answerable>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-The `Answerable` Class
+//tag::wilfred-answerable[]
+==== The `Answerable` Class
 
 .Class Diagram of the Answerable Class
 image::AnswerableClassDiagram.png[]
@@ -146,6 +192,7 @@ The following are the rules of validity for each subclass:
 [NOTE]
 For all subclasses, there cannot be any duplicates of answers. For example, if an Mcq class has "option1" as one of its
 wrong answers, it cannot have "option1" as its correct answer or another wrong answer.
+//end::wilfred-answerable[]
 
 [[Design-Storage]]
 === Storage component
@@ -223,12 +270,14 @@ NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but du
 ** Cons: Slow to add questions, requiring multiple steps to fully complete a question.
 // end::undoredo[]
 
+//tag::wilfred-quiz[]
 === Quiz Mode
+==== How the quiz works
 After the user has `start` ed the quiz, the application enters quiz mode. The following is the flow of events after a quiz
 session has started.
 
 .Activity Diagram of a Quiz Session in `NormalMode`
-image::QuizSessionActivityDiagram.png[]
+image::QuizSessionActivityDiagram.png[width=790]
 
 . After the user has started either a normal / custom mode quiz. He/she will be prompted to key in their answer.
 . If the input is valid, the revision tool will display the subsequent question until the level / entire quiz has ended.
@@ -239,23 +288,9 @@ move on to the next question.
 . Once a level has ended, the user will be given the choice to move on to the next level or exit the quiz.
 . Once the entire quiz has ended, the user will be given the choice to restart or exit the quiz.
 
-=== Quiz Commands
-During a quiz session the `QuizCommandParser` instead of `RevisionToolParser` is used.
-
-.Interactions Inside the Logic Component during a quiz session
-image::QuizSequenceDiagram.png[]
-
-
-Sequence of steps after a user keys in their input.
-
-. `Answerable#isCorrect(answer)` is called from the `McqInputCommand` to check whether the user's answer is correct.
-. After which, the result is used to construct a `CommandResult` will be passed back to the `LogicManager`
-. Lastly, the `Model` is accessed to update the user's score history.
-
 [NOTE]
-`CommandResult` is built using a factory design to allow flexibility of values returned to the `LogicManager`.
-To guard against null values, default values are provided to every field in the `CommandResult` class upon construction.
-Objects that call `CommandResult` can choose to customise `CommandResult` according to their needs.
+For Arcade Mode, when a users enters a wrong answer, the quiz will end.
+//end::wilfred-quiz[]
 
 
 // tag::dataencryption[]

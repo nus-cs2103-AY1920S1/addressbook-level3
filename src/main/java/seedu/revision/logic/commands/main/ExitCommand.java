@@ -14,7 +14,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult().withFeedBack(MESSAGE_EXIT_ACKNOWLEDGEMENT).withHelp(false).withExit(true).build();
+        return new CommandResultBuilder().withFeedBack(MESSAGE_EXIT_ACKNOWLEDGEMENT).withExit(true).build();
     }
 
     @Override
