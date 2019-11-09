@@ -7,7 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
+import seedu.address.model.display.timeslots.PersonTimeslot;
 import seedu.address.ui.UiPart;
 
 /**

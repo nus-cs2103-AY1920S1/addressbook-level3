@@ -1,10 +1,10 @@
-package seedu.address.model.display.schedulewindow;
+package seedu.address.model.display.timeslots;
 
 import java.time.LocalTime;
 
 import java.util.ArrayList;
 
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 
 /**
  * A Free Timeslot class that represents the free time of the group schedule and the previous locations of the members.
@@ -30,13 +30,6 @@ public class FreeTimeslot {
         this.closestCommonLocationData = closestCommonLocationData;
         this.startTime = startTime;
         this.endTime = endTime;
-
-        for (int i = 0; i < this.venues.size(); i++) {
-            if (this.venues.get(i) == null) {
-                this.venues.remove(i);
-                i--;
-            }
-        }
     }
 
     /**

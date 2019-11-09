@@ -13,11 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
-import seedu.address.model.group.exceptions.DuplicateGroupException;
-import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.grouputil.TypicalGroups;
 import seedu.address.testutil.modelutil.TypicalModel;
@@ -29,10 +27,10 @@ public class LookAtGroupMemberCommandTest {
     private static final Person DANIEL = TypicalPersons.DANIEL;
     private ModelManager model;
     @BeforeEach
-    void init() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
+    void init() throws GroupNotFoundException {
         model = TypicalModel.generateTypicalModel();
         model.updateDisplayWithGroup(TypicalGroups.GROUP_NAME3, LocalDateTime.now(),
-                ScheduleWindowDisplayType.GROUP);
+                ScheduleState.GROUP);
     }
 
     @Test

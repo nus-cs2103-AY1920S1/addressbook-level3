@@ -11,8 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
+import seedu.address.model.display.timeslots.PersonTimeslot;
 import seedu.address.model.person.schedule.Venue;
 import seedu.address.ui.util.ColorGenerator;
 

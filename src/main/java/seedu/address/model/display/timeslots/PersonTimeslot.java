@@ -1,9 +1,9 @@
-package seedu.address.model.display.schedulewindow;
+package seedu.address.model.display.timeslots;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 import seedu.address.model.person.schedule.Venue;
 
 /**

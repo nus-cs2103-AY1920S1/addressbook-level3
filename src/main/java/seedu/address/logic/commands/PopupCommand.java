@@ -8,9 +8,10 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-import seedu.address.model.display.schedulewindow.FreeTimeslot;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
+import seedu.address.model.display.scheduledisplay.GroupScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
+import seedu.address.model.display.timeslots.FreeTimeslot;
 import seedu.address.model.person.exceptions.InvalidTimeslotException;
 
 /**
@@ -43,10 +44,11 @@ public class PopupCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        ScheduleWindowDisplayType status = model.getState();
-        if (status == ScheduleWindowDisplayType.GROUP) {
+        ScheduleState status = model.getState();
+        if (status == ScheduleState.GROUP) {
             try {
-                FreeTimeslot freeTimeslot = model.getScheduleWindowDisplay().getFreeTimeslot(week, id);
+                GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) model.getScheduleDisplay();
+                FreeTimeslot freeTimeslot = groupScheduleDisplay.getFreeTimeslot(week, id);
                 ClosestCommonLocationData commonLocationData = freeTimeslot.getClosestCommonLocationData();
 
                 if (!commonLocationData.isOk()) {

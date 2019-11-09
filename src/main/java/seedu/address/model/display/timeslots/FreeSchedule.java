@@ -1,10 +1,9 @@
-package seedu.address.model.display.schedulewindow;
+package seedu.address.model.display.timeslots;
 
 import java.time.DayOfWeek;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Optional;
 
 import seedu.address.model.person.exceptions.InvalidTimeslotException;
 
@@ -29,7 +28,6 @@ public class FreeSchedule {
      * @return Optional FreeTimeslot.
      */
     public FreeTimeslot getFreeTimeslot(int id) throws InvalidTimeslotException {
-        Optional<FreeTimeslot> freeTimeslot = Optional.empty();
         for (int i = 1; i <= 7; i++) {
             ArrayList<FreeTimeslot> timeslotForDay = freeSchedule.get(DayOfWeek.of(i));
             for (int j = 0; j < timeslotForDay.size(); j++) {

@@ -7,8 +7,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.display.exceptions.PersonTimeslotNotFoundException;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.GroupScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.HomeScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.PersonScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
+import seedu.address.model.display.timeslots.PersonTimeslot;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -47,32 +50,15 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        ScheduleWindowDisplayType status = model.getState();
-        if (status == ScheduleWindowDisplayType.GROUP) {
+        ScheduleState status = model.getState();
+        if (status == ScheduleState.GROUP) {
             try {
                 if (name.equals(Name.emptyName())) {
                     return new CommandResultBuilder(
                             String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_SPECIFIED)).build();
                 }
-
-                PersonTimeslot personTimeslot = model.getScheduleWindowDisplay()
-                        .getPersonTimeslot(name, week, id);
-
-                return new CommandResultBuilder(MESSAGE_SUCCESS)
-                        .setSelect().setPersonTimeslotData(personTimeslot).build();
-
-            } catch (PersonNotFoundException e) {
-                return new CommandResultBuilder(
-                        String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
-            } catch (PersonTimeslotNotFoundException e) {
-                return new CommandResultBuilder(
-                        String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
-            }
-        } else if (status == ScheduleWindowDisplayType.PERSON) {
-            try {
-                Name name = model.getScheduleWindowDisplay().getPersonDisplays().get(0).getName();
-                PersonTimeslot personTimeslot = model.getScheduleWindowDisplay()
-                        .getPersonTimeslot(name, week, id);
+                GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) model.getScheduleDisplay();
+                PersonTimeslot personTimeslot = groupScheduleDisplay.getPersonTimeslot(name, week, id);
 
                 return new CommandResultBuilder(MESSAGE_SUCCESS)
                         .setSelect().setPersonTimeslotData(personTimeslot).build();
@@ -84,11 +70,27 @@ public class SelectCommand extends Command {
                 return new CommandResultBuilder(
                         String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
             }
-        } else if (status == ScheduleWindowDisplayType.HOME) {
+        } else if (status == ScheduleState.PERSON) {
             try {
+                PersonScheduleDisplay personScheduleDisplay = (PersonScheduleDisplay) model.getScheduleDisplay();
+                Name name = personScheduleDisplay.getPersonDisplays().get(0).getName();
+                PersonTimeslot personTimeslot = personScheduleDisplay.getPersonTimeslot(name, week, id);
+
+                return new CommandResultBuilder(MESSAGE_SUCCESS)
+                        .setSelect().setPersonTimeslotData(personTimeslot).build();
+
+            } catch (PersonNotFoundException e) {
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
+            } catch (PersonTimeslotNotFoundException e) {
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
+            }
+        } else if (status == ScheduleState.HOME) {
+            try {
+                HomeScheduleDisplay homeScheduleDisplay = (HomeScheduleDisplay) model.getScheduleDisplay();
                 Name name = model.getUser().getName();
-                PersonTimeslot personTimeslot = model.getScheduleWindowDisplay()
-                        .getPersonTimeslotForToday(name, id);
+                PersonTimeslot personTimeslot = homeScheduleDisplay.getPersonTimeslotForToday(name, id);
 
                 return new CommandResultBuilder(MESSAGE_SUCCESS)
                         .setSelect().setPersonTimeslotData(personTimeslot).build();

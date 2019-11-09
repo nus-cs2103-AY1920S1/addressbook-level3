@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
@@ -71,10 +71,12 @@ public class DeleteFromGroupCommand extends Command {
             model.deletePersonToGroupMapping(mapping);
 
             model.updateDisplayWithGroup(group.getGroupName(),
-                    LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+                    LocalDateTime.now(), ScheduleState.GROUP);
 
         } catch (MappingNotFoundException e) {
             return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_MAPPING_NOT_FOUND)).build();
+        } catch (GroupNotFoundException e) {
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND)).build();
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,

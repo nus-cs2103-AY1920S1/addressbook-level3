@@ -1,4 +1,4 @@
-package seedu.address.model.display.detailwindow;
+package seedu.address.model.display.locationdata;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

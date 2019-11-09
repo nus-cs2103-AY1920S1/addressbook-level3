@@ -8,9 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.model.display.schedulewindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
 import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.model.display.timeslots.PersonSchedule;
+import seedu.address.model.display.timeslots.PersonTimeslot;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.util.Calendar;
 
@@ -37,7 +37,7 @@ public class DefaultStartView extends UiPart<Region> {
         super(FXML);
 
         ArrayList<PersonTimeslot> personTimeslots = personSchedule.getScheduleDisplay()
-                .getScheduleForWeek(0)
+                .get(0)
                 .get(LocalDate.now().getDayOfWeek());
 
         PersonDisplay personDisplay = personSchedule.getPersonDisplay();
