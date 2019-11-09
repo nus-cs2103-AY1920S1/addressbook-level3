@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -28,8 +28,8 @@ class StatefulAddressBookTest {
     @Test
     public void saveAddressBookState_withUndo_clearsPreviousStates() {
         Person person1 = new PersonBuilder().build();
-        Person person2 = new PersonBuilder().withName(VALID_NAME_BOB).build();
-        Person person3 = new PersonBuilder().withName(VALID_NAME_AMY).build();
+        Person person2 = new PersonBuilder().withNric(VALID_NRIC_BOB).build();
+        Person person3 = new PersonBuilder().withNric(VALID_NRIC_AMY).build();
 
         // Address book adds person1 and person2, undoes twice, then adds person3
         addressBook.addPerson(person1);
@@ -51,7 +51,7 @@ class StatefulAddressBookTest {
     @Test
     public void undo() {
         Person person1 = new PersonBuilder().build();
-        Person person2 = new PersonBuilder().withName(VALID_NAME_BOB).build();
+        Person person2 = new PersonBuilder().withNric(VALID_NRIC_BOB).build();
 
         expectedAddressBook.addPerson(person1);
         expectedAddressBook.saveAddressBookState();
@@ -70,7 +70,7 @@ class StatefulAddressBookTest {
     @Test
     public void redo() {
         Person person1 = new PersonBuilder().build();
-        Person person2 = new PersonBuilder().withName(VALID_NAME_BOB).build();
+        Person person2 = new PersonBuilder().withNric(VALID_NRIC_BOB).build();
 
         expectedAddressBook.addPerson(person1);
         expectedAddressBook.saveAddressBookState();

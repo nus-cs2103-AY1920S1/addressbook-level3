@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DIABETIC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SMOKER;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -95,7 +95,7 @@ class RedoCommandTest {
     @Test
     public void execute_redoAddCommand() {
         Person person1 = new PersonBuilder().build();
-        Person person2 = new PersonBuilder().withName(VALID_NAME_BOB).build();
+        Person person2 = new PersonBuilder().withNric(VALID_NRIC_BOB).build();
 
         try {
             new AddCommand(person1).execute(model);

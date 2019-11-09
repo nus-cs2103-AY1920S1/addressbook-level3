@@ -48,12 +48,10 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicatePersonWithDifferentFields_throwsCommandExceptionWithoutMerge() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
-        String personInListName = personInList.getName().fullName;
         String personInListNric = personInList.getNric().nric;
-        Person personWithSameNameAndNric = new PersonBuilder().withName(personInListName)
-                .withNric(personInListNric).build();
-        AddCommand addCommand = new AddCommand(personWithSameNameAndNric);
-        assertCommandFailure(new AddCommand(personWithSameNameAndNric), model,
+        Person personWithSameNric = new PersonBuilder().withNric(personInListNric).build();
+        AddCommand addCommand = new AddCommand(personWithSameNric);
+        assertCommandFailure(new AddCommand(personWithSameNric), model,
                 addCommand.generateExceptionMessageWithMergePrompt(personInList));
     }
 
