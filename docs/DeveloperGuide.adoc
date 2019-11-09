@@ -253,7 +253,8 @@ The `Model` of the Home tab:
 *API for transaction package* : link:{repoURL}/src/main/java/seedu/address/transaction/model/Model.java[`Model.java`]
 
 ==== Details on the `Model` Implementation for Reimbursements Tab
-To be filled in :)
+* stores a `ReimbursementList` object that represents the list of all reimbursements data
+* stores another `ReimbursementList` object that represents the filtered list of reimbursements according to the command
 
 *API for reimbursements package* : link:{repoURL}/src/main/java/seedu/address/reimbursement/model/Model.java[`Model.java`]
 
