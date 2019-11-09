@@ -641,6 +641,9 @@ Want to share great recipes and workout tips with your friends? Look through the
 start sharing!
 
 image::diaryoverview.png[width="600"]
++
+
+image::diaryoverview2.png[width="600"]
 
 
 ==== pass:[<u>Adding a diary</u>]
