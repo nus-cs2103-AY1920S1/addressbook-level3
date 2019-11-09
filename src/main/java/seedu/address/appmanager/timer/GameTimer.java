@@ -2,6 +2,8 @@ package seedu.address.appmanager.timer;
 
 /**
  * API for GameTimer, specifies the required methods for a GameTimer to operate as intended with AppManager
+ *
+ * @@author kohyida1997
  */
 public interface GameTimer extends Runnable {
 

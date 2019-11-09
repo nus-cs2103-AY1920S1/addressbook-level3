@@ -9,6 +9,8 @@ import seedu.address.commons.core.LogsCenter;
 
 /**
  * Represents the back-end countdown timer that runs during a Game session.
+ *
+ * @@author kohyida1997
  */
 public class GameTimerManager implements GameTimer {
 
