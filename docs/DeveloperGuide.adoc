@@ -424,35 +424,35 @@ image::SortSequenceDiagram.png[]
 
 Given below is an example usage of how `sort` behaves at each step.
 
-Step 1. The user launches the application and views an unsorted list of transactions.
+**Step 1**. The user launches the application and views an unsorted list of transactions.
 
 .Initial State of PalPay
 image::sort_dg_1.png[]
 
-Step 2. The user now executes `sort date/d` to sort the transactions in the order of descending date.
+**Step 2**. The user now executes `sort date/d` to sort the transactions in the order of descending date.
 
 .User Inputs `sort date/d`
 image::sort_dg_2.png[]
 
-Step 3. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+**Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
 
-Step 4. `MainParser` determines which command is being used and creates `SortCommandParser` to further parse the input
+**Step 4**. `MainParser` determines which command is being used and creates `SortCommandParser` to further parse the input
 from the user.
 
-Step 5. `SortCommandParser` parses the argument and checks if it is valid. If it is
+**Step 5**. `SortCommandParser` parses the argument and checks if it is valid. If it is
 invalid, `SortCommandParser` throws an exception and terminates. Else, it returns a `SortCommand`.
 
-Step 6. `LogicManager` uses `SortCommand#execute()` to sort the transactions in the order of descending date.
+**Step 6**. `LogicManager` uses `SortCommand#execute()` to sort the transactions in the order of descending date.
 
-Step 7. `SortCommand` uses `ModelManager#getBankAccount()` to get the current bank account and uses
+**Step 7**. `SortCommand` uses `ModelManager#getBankAccount()` to get the current bank account and uses
 `BankAccount#getTransactionHistory()` to get the list of transactions of the user.
 
-Step 8. `SortCommand` uses `SortCommand#sortTransactionHistory()` to sort the transactions.
+**Step 8**. `SortCommand` uses `SortCommand#sortTransactionHistory()` to sort the transactions.
 
-Step 9. `SortCommand` uses `Model#setTransactions()` to store the sorted transactions and `Model#commitUserState` to
+**Step 9**. `SortCommand` uses `Model#setTransactions()` to store the sorted transactions and `Model#commitUserState` to
 save the latest state of the application.
 
-Step 10. `SortCommand` returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user
+**Step 10**. `SortCommand` returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user
 at the end.
 
 .After Sorting of Transactions
@@ -475,23 +475,23 @@ Developers have to create a new comparator class to sort a new area.
 // tag::filter[]
 === Filter Feature: `filter`
 
-This feature allows the user to _filter_ their bank account by the _category_ of their transactions by using the
- `filter [CATEGORY]...`.
+This feature allows the user to filter the list of transactions by category, description, month and/or year.
 
 ==== Overview
 
 The `FilterCommandParser` implements `Parser` with the following operation:
 
-* `FilterCommandParser#parse()`: This operation will take in a `String` input from the user that represents different categories delimited by a whitespace.
-It will then create a `TransactionContainsCategoriesPredicate` and passed into a new `FilterCommand`.
-Finally, this operation will return the new `FilterCommand`.
+* `FilterCommandParser#parse()`: This operation will take in at least one `String` input from the user that represents
+different fields delimited by a whitespace. All transactions that contains all fields will be displayed in the
+transaction tab.
 
 ==== Current Implementation
 
 The `filter` command is facilitated by the `FilterCommandParser` and `FilterCommand` of the application.
-PalPay filters the list of transactions by checking if any of the specified categories exists in the transaction.
+PalPay filters the list of transactions by checking if any of the specified fields exist in the transaction.
 
-For instance, the command `filter breakfast dinner` would display a list of transactions with categories of breakfast or dinner or both.
+For instance, the command `filter c/breakfast c/dinner` would display a list of transactions with categories
+of breakfast or dinner or both.
 
 The following class diagram depicts the relations of the FilterCommand, FilterCommandParser and its related classes.
 
@@ -530,20 +530,20 @@ and `Model#redoUserState()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time.
+**Step 1**. The user launches the application for the first time.
 The `VersionedUserState` will be initialized with the initial user state, and the `currentStatePointer`
 pointing to that single user state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete t5` command to delete the 5th transaction in the transaction list.
+**Step 2**. The user executes `delete t5` command to delete the 5th transaction in the transaction list.
 The `delete` command calls `Model#commitUserState()`, causing the modified state of the user state after the
 `delete t5` command executes to be saved in the `userStateList`, and the `currentStatePointer` is shifted
 to the newly inserted user state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `in $/10 n/Allowance d/07112019` to log a new transaction.
+**Step 3**. The user executes `in $/10 n/Allowance d/07112019` to log a new transaction.
 The `in` command also calls `Model#commitUserState()`, causing another modified user state to be saved
 into the `userStateList`.
 
@@ -553,7 +553,7 @@ image::UndoRedoState2.png[]
 If a command fails its execution, it will not call `Model#commitUserState()`, so the user state will
 not be saved into the `userStateList`.
 
-Step 4. The user now decides that logging the transaction was a mistake, and decides to undo that action by
+**Step 4**. The user now decides that logging the transaction was a mistake, and decides to undo that action by
 executing the `undo` command. The `undo` command will call `Model#undoUserState()`, which will shift the
 `currentStatePointer` once to the left, pointing it to the previous user state, and restores the user state
 to that state.
@@ -580,13 +580,13 @@ If the `currentStatePointer` is at index `userStateList.size() - 1`, pointing to
 there are no undone user states to restore. The `redo` command uses `Model#canRedoUserState()` to
 check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`.
+**Step 5**. The user then decides to execute the command `list`.
 Commands that do not modify the user state, such as `list`, will usually not call `Model#commitUserState()`,
 `Model#undoUserState()` or `Model#redoUserState()`. Thus, the `userStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitUserState()`.
+**Step 6**. The user executes `clear`, which calls `Model#commitUserState()`.
 Since the `currentStatePointer` is not pointing at the end of the `userStateList`, all user states after
 the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the
 `in $/10 n/Allowance d/07112019` command. This is the behavior that most modern desktop applications follow.
