@@ -12,9 +12,9 @@
 
 <VBox fx:id="expenseCard" styleClass="expense-card-pane" VBox.vgrow="ALWAYS" minHeight="-Infinity"
     maxHeight="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane styleClass="expense-card" maxWidth="450" hgap="8">
+  <GridPane styleClass="expense-card" maxWidth="450">
     <columnConstraints>
-      <ColumnConstraints hgrow="NEVER" minWidth="150" maxWidth="150" />
+      <ColumnConstraints hgrow="NEVER" minWidth="160" maxWidth="160" />
       <ColumnConstraints hgrow="ALWAYS" />
     </columnConstraints>
     <VBox styleClass="amount-container" alignment="CENTER" VBox.vgrow="ALWAYS" minHeight="30" maxHeight="-Infinity"

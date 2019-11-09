@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalActivities.getTypicalActivityBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIFTH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -18,7 +20,10 @@ import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Title;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.ActivityBookBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
@@ -27,6 +32,8 @@ public class DeleteCommandTest {
 
     private Model model = new ModelManager(
             getTypicalAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
+    private Model model2 = new ModelManager(
+            getTypicalAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook(getTypicalActivityBook()));
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -67,6 +74,54 @@ public class DeleteCommandTest {
         showNoPerson(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_deletePersonOutsideActivity_success() {
+        showPersonAtIndex(model2, INDEX_FIFTH);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
+        Person personToDelete = model2.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+
+        Model expectedModel = new ModelManager(
+                getTypicalAddressBook(), new UserPrefs(), new InternalState(), getTypicalActivityBook());
+        expectedModel.deletePerson(personToDelete);
+        expectedModel.updateFilteredPersonList(x -> false);
+
+        assertCommandSuccess(deleteCommand, model2, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_deletePersonPreviouslyInActivity_success() {
+        showPersonAtIndex(model, INDEX_FIRST);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        Activity a = new Activity(new Title("asdf"), personToDelete.getPrimaryKey());
+        model.addActivity(a);
+        ActivityBook ab = new ActivityBookBuilder().withActivity(a).build();
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+
+        Model expectedModel = new ModelManager(getTypicalAddressBook(),
+                new UserPrefs(), new InternalState(), ab);
+        expectedModel.getActivityBook().getActivityList().get(0).disinvite(personToDelete);
+        expectedModel.deletePerson(personToDelete);
+        expectedModel.updateFilteredPersonList(x -> false);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_deletePersonInActivity_throwsCommandException() {
+        showPersonAtIndex(model, INDEX_FIRST);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        String errmsg = String.format(DeleteCommand.MESSAGE_PERSON_INVOLVED_ACTIVITY,
+                personToDelete.getName());
+
+        Model tempmodel = new ModelManager(
+                getTypicalAddressBook(), new UserPrefs(), new InternalState(), getTypicalActivityBook());
+
+        assertCommandFailure(deleteCommand, tempmodel, errmsg);
     }
 
     @Test

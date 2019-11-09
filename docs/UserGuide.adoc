@@ -199,6 +199,44 @@ e.g. `expense p/John Doe e/15 p/John Doe d/Cab` +
 This adds an expense of $15 by John Doe called `Cab` where only John himself is involved, thus no one owes anyone anything. This can be used to add an expense simply for recording purposes if desired, though it is not an intended use case for SplitWiser since there is no debt to calculate and resolve.
 // end::expense[]
 
+// tag::settle[]
+=== Settle debts in an activity : `settle`
+
+Settles the debt between two people within the currently viewed activity.
+Specify two people, and optionally an amount `AMOUNT_PAID` to settle.
+There are two options available:
+* `AMOUNT_PAID` is not provided: then the command will automatically calculate the minumum needed to settle the debt and use that as the amount.
+* `AMOUNT_PAID` is provided: the command will use this amount.
+
+The first person specified `PERSON1` will pay `PERSON2`.
+
+`PERSON1` and `PERSON2` can be any part of the names of the activity participants you wish to target.
+Generally it is similar to how you would add an ordinary expense.
+If no match is found for any person provided, or if multiple matches are found, the command will do nothing as it is ambiguous.
+
+An entry will be added within the activity display so you can keep track of past payments.
+These entries will have a generic description tagged to them to make it clear what it is.
+
+Format: `expense p/PERSON1 e/AMOUNT_PAID p/PERSON2`
+
+****
+* You cannot settle wih an amount greater than what is needed.
+* For example, if Bob owes Alice $10, you cannot settle with Bob paying Alice $20.
+* Naturally this also means that in this case Alice paying Bob is not possible, since that would suggest paying a negative amount of money!
+****
+
+Examples:
+
+* `settle p/John p/bob e/100` +
+Adds an settlement to the activity stating thet John has paid Bob $100.
+If John owes less than $100 to Bob, the command will be rejected.
+If no activity is currently viewed, an error will occur as it is unclear where to add the entry.
+* `expense p/Mary p/Joseph` +
+Say Mary owes Joseph $10.
+Then the command will add an settlement assuming Mary paid Joseph exactly $10.
+If instead Joseph owes Mary $10, the command will fail, since in this case any way of Mary paying Joseph will only make the debt worse.
+// end::settle[]
+
 // tag::edit[]
 === Edit an existing contact or activity : `edit`
 
@@ -221,13 +259,15 @@ Edits the phone number of the current contact in view to `999`. No changes are m
 Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
 // end::edit[]
 
-=== Finding contacts or activities (v1.4): `find`
+=== Finding contacts or activities: `find`
 
 Finds contacts or activities whose name or title respectively contain *any* of the given keywords.
 
 Format: `find KEYWORD ...`
 
 ****
+* Find command can only be used when viewing list of activities or contacts.
+* Find command will search for activities if used under list activity view. If used under list contact view, the find command will search for contacts.
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name of contacts and title of activities are searched.
@@ -238,9 +278,8 @@ Format: `find KEYWORD ...`
 Examples:
 
 * `find John` +
-Returns contacts (e.g. `john` and `John Doe`) and activities (e.g. `John birthday party`).
-* `find Betsy Tim John` +
-Returns any contact or activity whose name or title contains the word `Betsy`, `Tim`, or `John`.
+If currently viewing list of contacts, returns contacts (e.g. `john` and `John Doe`).
+If currently viewing list of activities, returns activities (e.g `lunch with john`).
 
 === Deleting a contact, activity or expense (v1.4) : `delete`
 

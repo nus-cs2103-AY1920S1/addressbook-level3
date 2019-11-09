@@ -23,6 +23,7 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_PERSON_INVOLVED_ACTIVITY = "%s is still involved in an activity!";
 
     private final Index targetIndex;
 
@@ -40,6 +41,11 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        if (model.getActivityBook().hasPerson(personToDelete.getPrimaryKey())) {
+            throw new CommandException(String.format(MESSAGE_PERSON_INVOLVED_ACTIVITY,
+                            personToDelete.getName()));
+        }
+
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
