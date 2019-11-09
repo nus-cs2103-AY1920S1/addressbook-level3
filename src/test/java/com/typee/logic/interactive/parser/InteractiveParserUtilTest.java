@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.model.person.Name;
 
-public class ParserUtilTest {
+public class InteractiveParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
