@@ -8,6 +8,7 @@ import seedu.savenus.model.alias.AliasChecker;
 import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.alias.AliasPair;
 
+//@@author seanlowjk
 /**
  * Jackson-friendly version of {@link AliasPair}.
  */

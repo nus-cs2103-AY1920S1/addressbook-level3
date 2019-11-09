@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 
+//@@author seanlowjk
 /**
  * Sorts all the foods in the $aveNUS menu based on given criterion.
  */

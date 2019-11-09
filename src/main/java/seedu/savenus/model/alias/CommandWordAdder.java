@@ -33,6 +33,7 @@ import seedu.savenus.logic.commands.TopUpCommand;
 import seedu.savenus.logic.commands.ViewSortCommand;
 import seedu.savenus.logic.commands.WithdrawCommand;
 
+//@@author seanlowjk
 /**
  * Represents an adder which adds all command words in $aveNUS to the list of AliasPairs.
  */

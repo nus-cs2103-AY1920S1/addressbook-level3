@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.alias.AliasList;
 
+//@@author seanlowjk
 /**
  * Creates a storage to store fields for the AliasList.
  */

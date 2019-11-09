@@ -2,6 +2,7 @@ package seedu.savenus.logic.commands;
 
 import seedu.savenus.model.Model;
 
+//@@author seanlowjk
 /**
  * Allows the user to view the current Custom Sorter.
  */

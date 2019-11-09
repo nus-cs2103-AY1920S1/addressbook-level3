@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.commands.SortCommand;
 
+//@@author seanlowjk
 public class AliasListTest {
 
     private AliasList aliasList;
