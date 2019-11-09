@@ -40,7 +40,7 @@ public class UserStats extends Stats {
         // debug (change to Logger when implemented)
         logger.info("Starting a login session...");
 
-        this.currentSession = new Session(); // currentSession should be null
+        this.currentSession = new Session();
     }
 
     @Override
@@ -58,7 +58,6 @@ public class UserStats extends Stats {
             // reset currentSession to null since this is terminated
             this.currentSession = null;
 
-            // debug (change to Logger when implemented)
             logger.info("Ending the current login session...");
         } catch (Exception e) {
             e.printStackTrace();

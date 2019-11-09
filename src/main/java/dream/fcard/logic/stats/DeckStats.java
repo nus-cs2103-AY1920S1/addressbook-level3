@@ -44,12 +44,42 @@ public class DeckStats extends Stats {
 
     @Override
     public void startCurrentSession() {
+        // assert that currentDeck is not null?
 
+        // replace with assert?
+        if (this.currentSession != null) {
+            endCurrentSession(); // should not occur, but should terminate just in case
+            logger.info("Existing test session detected. Terminating it first...");
+        }
+
+        // debug (change to Logger when implemented)
+        logger.info("Starting a test session...");
+
+        this.currentSession = new Session();
     }
 
     @Override
     public void endCurrentSession() {
+        // assert that currentDeck is not null?
+        String currentDeck = this.getCurrentDeck();
 
+        if (this.currentSession == null) {
+            logger.info("Current login session not found!");
+            return;
+        }
+
+        try {
+            this.currentSession.endSession();
+            //this.sessionList.addSession(currentSession);
+
+            // reset currentSession to null since this is terminated
+            this.currentSession = null;
+
+            logger.info("Ending the current login session...");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.info("Current login session not found?");
+        }
     }
 
     @Override
@@ -59,4 +89,27 @@ public class DeckStats extends Stats {
 
     // methods relating to changes to decks
 
+    /** Adds the given Session to the SessionList corresponding to the given deck. */
+    public void addSessionToDeckSessionList(Session session, String deckName) {
+        // if deck not found in hashmap, throw deck not found exception?
+
+    }
+
+    /**
+     * Renames a deck.
+     * Assumes that no issues with the renaming operation exist, i.e. have already been dealt with.
+     * @param oldDeckName The original name of the deck.
+     * @param newDeckName The new name of the deck.
+     */
+    public void renameDeck(String oldDeckName, String newDeckName) {
+
+    }
+
+    /**
+     * Deletes a deck.
+     * @param deckName The name of the deck to be deleted.
+     */
+    public void deleteDeck(String deckName) {
+
+    }
 }
