@@ -10,7 +10,6 @@ import seedu.address.model.classroom.Classroom;
 import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
-//import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
@@ -123,8 +122,6 @@ public interface Model {
 
     void updateFilteredLessonWeekList(Predicate<UniqueLessonList> predicate);
 
-    //ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate);
-
     ReadOnlyNotebook undo();
 
     boolean canUndo();
@@ -151,10 +148,23 @@ public interface Model {
     void displayAssignments();
 
     /**
+     * returns lists of lessons as a string.
+     * @return list of lessons.
+     */
+    String displayLessons();
+
+    /**
      * Adds the given lesson.
      * @param lesson lesson object.
      */
     void addLesson(Lesson lesson);
+
+    /**
+     * takes a Lesson and checks if another lesson exists in the same time period.
+     * @param toCheck Lesson object.
+     * @return boolean.
+     */
+    boolean checkTimingExist(Lesson toCheck);
 
     /**
      * Returns true if a Lesson with the same identity exists in the classroom.

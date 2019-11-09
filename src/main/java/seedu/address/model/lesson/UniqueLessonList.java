@@ -49,6 +49,23 @@ public class UniqueLessonList implements Iterable<Lesson> {
     }
 
     /**
+     * checks if there exists a lesson during the time period of lesson toCheck.
+     * @param toCheck Lesson object.
+     * @return boolean.
+     */
+    public boolean checkTimingExist(Lesson toCheck) {
+        for (int i = 0; i < internalList.size(); i++) {
+            Lesson lesson = internalList.get(i);
+            if (lesson.checkTimingExist(toCheck)) {
+                return true;
+            } else if (toCheck.checkTimingExist(lesson)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Replaces the lesson {@code target} in the list with {@code editedLesson}.
      * {@code target} must exist in the list.
      * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the list.
@@ -124,7 +141,7 @@ public class UniqueLessonList implements Iterable<Lesson> {
     }
 
     /**
-     * Returns true if {@code lessons} contains only unique students.
+     * Returns true if {@code lessons} contains only unique lesson.
      */
     private boolean lessonsAreUnique(List<Lesson> lessons) {
         for (int i = 0; i < lessons.size() - 1; i++) {
