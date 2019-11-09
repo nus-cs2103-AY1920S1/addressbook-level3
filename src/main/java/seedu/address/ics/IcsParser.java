@@ -291,7 +291,7 @@ public class IcsParser {
         Matcher matcher = Pattern.compile("\\[([^\\]]+)").matcher(icsDescription);
         ArrayList<String> tags = new ArrayList<>();
         int pos = -1;
-        while (matcher.find(pos+1)){
+        while (matcher.find(pos + 1)) {
             pos = matcher.start();
             tags.add(matcher.group(1));
         }
