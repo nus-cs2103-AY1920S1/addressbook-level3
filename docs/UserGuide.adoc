@@ -376,6 +376,7 @@ Format: `renew INDEX` or `renew -all` +
 The index *must be a positive integer* such as 1, 2 or 3, and must appear in the borrower panel.
 * `-all` indicates all the books currently loaned out by the borrower that still can be renewed.
 * You cannot renew books that have reached the maximum renew count or books that are already overdue.
+* If you just loaned out or renewed a book, you cannot renew that same book in the same serve session.
 ****
 
 ==== Paying fines: `pay`
