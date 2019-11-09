@@ -18,6 +18,6 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setBillboard(new Billboard());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 }

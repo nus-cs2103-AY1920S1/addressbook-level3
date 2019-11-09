@@ -1,5 +1,7 @@
 package seedu.billboard.ui;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -86,6 +88,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -189,12 +192,14 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            String listNameToBeDisplayed = commandResult.getListToBeDisplayed();
-            if (!(listNameToBeDisplayed.equals(""))) {
-                displayedExpenses.setAll(logic.getFilteredArchiveExpenseList(listNameToBeDisplayed));
-            } else {
-                displayedExpenses.setAll(logic.getFilteredExpenseList());
-            }
+            Optional<String> listNameToBeDisplayed = commandResult.getListToBeDisplayed();
+            listNameToBeDisplayed.ifPresent(name -> {
+                    List<? extends Expense> listToBeDisplayed = "".equals(name)
+                            ? logic.getFilteredExpenseList()
+                            : logic.getFilteredArchiveExpenseList(name);
+                    displayedExpenses.setAll(listToBeDisplayed);
+                }
+            );
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

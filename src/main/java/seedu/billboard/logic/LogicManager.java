@@ -53,16 +53,15 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
         Command command = billboardParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        CommandResult commandResult = command.execute(model);
 
         if ((command instanceof AddArchiveCommand) || (command instanceof AddCommand)
                 || (command instanceof AddTagCommand) || (command instanceof ClearCommand)
                 || (command instanceof DeleteArchiveCommand) || (command instanceof DeleteCommand)
                 || (command instanceof RevertArchiveCommand) || (command instanceof EditCommand)
                 || (command instanceof FilterTagCommand) || (command instanceof RemoveTagCommand)) {
-            VersionedBillboard.addCmd(commandText);
+            VersionedBillboard.addCmd(commandText, commandResult);
             VersionedBillboard.commit(model.getClone());
         }
 
