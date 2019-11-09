@@ -26,7 +26,7 @@ public class AddPageCommandTest {
     }
 
     @Test
-    public void execute_createPage() {
+    public void execute_addPage() {
         assertCommandSuccess(new AddPageCommand(), model, AddPageCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

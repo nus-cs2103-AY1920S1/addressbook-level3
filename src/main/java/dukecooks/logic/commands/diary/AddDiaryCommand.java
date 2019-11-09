@@ -24,8 +24,8 @@ public class AddDiaryCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "You have added a new diary with name: %1$s";
     public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in Duke Cooks!";
 
-    private final Diary toAdd;
     private static Event event;
+    private final Diary toAdd;
 
     /**
      * Creates an AddDiaryCommand to add the specified {@code Diary}

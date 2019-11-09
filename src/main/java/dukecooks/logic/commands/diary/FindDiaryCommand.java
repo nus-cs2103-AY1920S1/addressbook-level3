@@ -22,8 +22,8 @@ public class FindDiaryCommand extends FindCommand {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " Asian Food";
 
-    private final DiaryNameContainsKeywordsPredicate predicate;
     private static Event event;
+    private final DiaryNameContainsKeywordsPredicate predicate;
 
     public FindDiaryCommand(DiaryNameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;

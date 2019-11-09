@@ -27,8 +27,8 @@ public class DeleteDiaryCommand extends DeleteCommand {
 
     public static final String MESSAGE_DELETE_DIARY_SUCCESS = "You have deleted diary with name: %1$s";
 
-    private final Index targetIndex;
     private static Event event;
+    private final Index targetIndex;
 
     public DeleteDiaryCommand(Index targetIndex) {
         this.targetIndex = targetIndex;

@@ -37,9 +37,9 @@ public class EditDiaryCommand extends EditCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DIARY = "This diary already exists in the Duke Cooks.";
 
+    private static Event event;
     private final Index index;
     private final EditDiaryDescriptor editDiaryDescriptor;
-    private static Event event;
 
     /**
      * @param index of the diary in the filtered diary list to edit

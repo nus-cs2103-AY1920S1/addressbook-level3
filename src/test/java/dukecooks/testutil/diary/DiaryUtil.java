@@ -2,6 +2,7 @@ package dukecooks.testutil.diary;
 
 import dukecooks.logic.commands.diary.AddDiaryCommand;
 import dukecooks.logic.commands.diary.EditDiaryCommand;
+import dukecooks.logic.commands.diary.EditPageCommand;
 import dukecooks.logic.parser.CliSyntax;
 import dukecooks.model.diary.components.Diary;
 
@@ -33,6 +34,26 @@ public class DiaryUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getDiaryName().ifPresent(name -> sb.append(CliSyntax.PREFIX_DIARY_NAME).append(name.fullName)
                 .append(" "));
+        return sb.toString();
+    }
+
+    /**
+     * Returns the part of command string for the given {@code EditPageDescriptor}'s details.
+     */
+    public static String getEditPageDescriptorDetails(EditPageCommand.EditPageDescriptor descriptor) {
+        StringBuilder sb = new StringBuilder();
+        descriptor.getTitle().ifPresent(title -> sb.append(CliSyntax.PREFIX_PAGE_TITLE).append(title.fullTitle)
+                .append(" "));
+
+        descriptor.getPageType().ifPresent(type -> sb.append(CliSyntax.PREFIX_PAGE_TYPE).append(type.pageType)
+                .append(" "));
+
+        descriptor.getPageDescription().ifPresent(description -> sb.append(CliSyntax.PREFIX_PAGE_DESCRIPTION)
+                .append(description.fullPageDescription).append(" "));
+
+        descriptor.getImage().ifPresent(image -> sb.append(CliSyntax.PREFIX_IMAGE).append(image.getDataPath())
+                .append(" "));
+
         return sb.toString();
     }
 }

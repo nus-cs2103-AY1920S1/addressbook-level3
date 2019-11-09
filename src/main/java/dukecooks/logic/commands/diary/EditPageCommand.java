@@ -52,10 +52,10 @@ public class EditPageCommand extends EditCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PAGE = "This page already exists in the Duke Cooks.";
 
+    private static Event event;
     private final Index index;
     private final DiaryName diaryName;
     private final EditPageDescriptor editPageDescriptor;
-    private static Event event;
 
     /**
      * @param index of the page in the diary list to edit
