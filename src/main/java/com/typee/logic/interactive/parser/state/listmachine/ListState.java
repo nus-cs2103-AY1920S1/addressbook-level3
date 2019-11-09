@@ -2,7 +2,6 @@ package com.typee.logic.interactive.parser.state.listmachine;
 
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.ListCommand;
-import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.EndState;
@@ -14,14 +13,14 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
  */
 public class ListState extends EndState {
 
-    private static final String MESSAGE_CONSTRAINTS = "Listed all commands.";
+    private static final String MESSAGE_CONSTRAINTS = "Listed all engagements.";
 
     public ListState(ArgumentMultimap soFar) {
         super(soFar);
     }
 
     @Override
-    public Command buildCommand() throws CommandException {
+    public Command buildCommand() {
         return new ListCommand();
     }
 

@@ -22,7 +22,7 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.OptionalState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
-import com.typee.logic.interactive.parser.state.calendarstate.CalendarState;
+import com.typee.logic.interactive.parser.state.calendarmachine.CalendarState;
 import com.typee.logic.interactive.parser.state.clearmachine.ClearState;
 import com.typee.logic.interactive.parser.state.currentmachine.CurrentState;
 import com.typee.logic.interactive.parser.state.deletemachine.IndexState;
