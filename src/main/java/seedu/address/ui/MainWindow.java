@@ -35,6 +35,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindowCopy.fxml";
+    private static final String TIME_TRIAL_END_FEEDBACK = "The time trial has ended!";
+
+    private static boolean isTimeTrialOngoing;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -78,7 +81,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private ImageView currentHighlightedCircle;
-
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -211,6 +213,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isGlobalCommandResult()) {
@@ -256,12 +259,17 @@ public class MainWindow extends UiPart<Stage> {
      * @param flashcardCommandResult
      */
     private void executeFlashcardCommandHelper(FlashcardCommandResult flashcardCommandResult) {
-        if (flashcardCommandResult.isTimeTrial()) {
+        if (isTimeTrialOngoing && !flashcardCommandResult.isShowAns()) {
+            activityWindow.terminateTimeTrial();
+        }
+
+        if (flashcardCommandResult.isShowAns()) {
+            activityWindow.showAnswer();
+        } else if (flashcardCommandResult.isTimeTrial()) {
+            isTimeTrialOngoing = true;
             activityWindow.startTimeTrial(flashcardCommandResult.getDeck());
         } else if (flashcardCommandResult.getFlashcard().isPresent()) {
             activityWindow.displayFlashcard(flashcardCommandResult.getFlashcard().get());
-        } else if (flashcardCommandResult.isShowAns()) {
-            activityWindow.showAnswer();
         }
     }
 
@@ -324,4 +332,7 @@ public class MainWindow extends UiPart<Stage> {
         ft.play();
     }
 
+    public static void setIsTimeTrialOngoing(boolean isTimeTrialOngoing) {
+        MainWindow.isTimeTrialOngoing = isTimeTrialOngoing;
+    }
 }

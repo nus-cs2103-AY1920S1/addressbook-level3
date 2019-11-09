@@ -3,6 +3,9 @@ package seedu.address.logic.commands.flashcard;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.SHOW;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -25,6 +28,8 @@ public class ShowFlashcardAnswerCommand extends Command {
 
     public static final String SHOW_FLASHCARD_ANSWER_SUCCESS = "Flashcard answer loaded";
 
+    private static final Logger logger = LogsCenter.getLogger(ShowFlashcardAnswerCommand.class);
+
     public ShowFlashcardAnswerCommand() {
     }
 
@@ -39,6 +44,11 @@ public class ShowFlashcardAnswerCommand extends Command {
         if (FlashcardTabWindowController.isAnswerShown()) {
             throw new CommandException(Messages.MESSAGE_ANSWER_ALREADY_LOADED);
         }
+
+        logger.info("Executing ShowFlashcardAnswerCommand for flashcard: "
+            + FlashcardTabWindowController.getCurrFlashcard().get().getTitle());
+
+        assert (!FlashcardTabWindowController.getCurrFlashcard().get().getAnswer().fullAnswer.isEmpty());
 
         return new FlashcardCommandResult(SHOW_FLASHCARD_ANSWER_SUCCESS, true);
     }
