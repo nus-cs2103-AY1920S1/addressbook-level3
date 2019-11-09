@@ -1,8 +1,5 @@
 package seedu.mark.ui;
 
-import static java.util.Objects.requireNonNull;
-
-import java.net.URL;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -17,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import seedu.mark.MainApp;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Url;
 
