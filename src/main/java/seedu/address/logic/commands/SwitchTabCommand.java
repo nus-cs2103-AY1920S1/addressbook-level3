@@ -10,7 +10,7 @@ import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 public class SwitchTabCommand extends Command {
     public static final String COMMAND_WORD = "switch-tab";
     public static final String MESSAGE_SUCCESS = "Tabs switched!";
-    public static final String MESSAGE_FAILURE = "No tabs to switch";
+    public static final String MESSAGE_FAILURE = "You can only switch tabs in the home page!";
     public static final String MESSAGE_USAGE = "Switch tab command does not take in any other arguments!";
 
     public SwitchTabCommand() {
