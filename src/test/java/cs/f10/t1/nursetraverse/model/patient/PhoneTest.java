@@ -1,7 +1,9 @@
 package cs.f10.t1.nursetraverse.model.patient;
 
 import static cs.f10.t1.nursetraverse.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -37,5 +39,18 @@ public class PhoneTest {
         assertTrue(Phone.isValidPhone("911")); // exactly 3 numbers
         assertTrue(Phone.isValidPhone("420420")); // in between 3 and 8 numbers
         assertTrue(Phone.isValidPhone("93121534")); //exactly 8 numbers
+    }
+
+    @Test
+    public void equals() {
+        // Unequal phone numbers
+        assertNotEquals(new Phone("911"), new Phone("901"));
+        assertNotEquals(new Phone("420420"), new Phone("429420"));
+        assertNotEquals(new Phone("9312534"), new Phone("93121535"));
+
+        // Equal phone numbers
+        assertEquals(new Phone("911"), new Phone("911"));
+        assertEquals(new Phone("420420"), new Phone("420420"));
+        assertEquals(new Phone("93121534"), new Phone("93121534"));
     }
 }
