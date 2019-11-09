@@ -14,5 +14,7 @@
     <orderEntry type="library" name="Gradle: de.jensd:fontawesomefx-commons:11.0" level="project" />
     <orderEntry type="library" name="Gradle: de.jensd:fontawesomefx-fontawesome:4.7.0-11" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-fxml:win:11.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:mac:11.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:mac:11.0.1" level="project" />
   </component>
 </module>

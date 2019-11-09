@@ -126,24 +126,12 @@ public class SuggestionTemplates {
 
     static {
 
-        Text filepathPrefix1 = new Text("fp/");
-        Text filepath1 = new Text("PATH_TO_CSV_FILE ");
-        filepath1.setFill(Color.GREY);
+        Text filepathPrefix0 = new Text("fp/");
+        Text filepath0 = new Text("PATH_TO_CSV_FILE ");
+        filepath0.setFill(Color.GREY);
         IMPORT_TEMPLATE = new TextFlow(
-                IMPORT.getText(), filepathPrefix1,
-                filepath1, IMPORT_INSTRUCTION.getText()
-        );
-
-
-        Text entity1 = new Text("[team/mentor/participant] ");
-        Text filepathPrefix2 = new Text("fp/");
-        Text filepath2 = new Text("PATH_TO_CSV_FILE ");
-        filepath2.setFill(Color.GREY);
-        entity1.setFill(Color.GREY);
-        EXPORT_TEMPLATE = new TextFlow(
-                EXPORT.getText(), entity1,
-                filepathPrefix2, filepath2,
-                EXPORT_INSTRUCTION.getText()
+                IMPORT.getText(), filepathPrefix0,
+                filepath0, IMPORT_INSTRUCTION.getText()
         );
 
         //HISTORY Commands
@@ -151,13 +139,6 @@ public class SuggestionTemplates {
                 HISTORY.getText(), HISTORY_INSTRUCTION.getText()
         );
 
-        UNDO_TEMPLATE = new TextFlow(
-                UNDO.getText(), UNDO_INSTRUCTION.getText()
-        );
-
-        REDO_TEMPLATE = new TextFlow(
-                REDO.getText(), REDO_INSTRUCTION.getText()
-        );
         //HELP Command
 
         HELP_TEMPLATE = new TextFlow(
@@ -415,6 +396,28 @@ public class SuggestionTemplates {
         REMOVE_MENTOR_TEMPLATE = new TextFlow(
                 REMOVE_MENTOR.getText(), mentorId16,
                 teamId16, REMOVE_MENTOR_INSTRUCTION.getText()
+        );
+
+        Text entity17 = new Text("[team/mentor/participant] ");
+        Text filepathPrefix17 = new Text("fp/");
+        Text filepath17 = new Text("PATH_TO_CSV_FILE ");
+        filepath17.setFill(Color.GREY);
+        entity17.setFill(Color.GREY);
+        EXPORT_TEMPLATE = new TextFlow(
+                EXPORT.getText(), entity17,
+                filepathPrefix17, filepath0,
+                EXPORT_INSTRUCTION.getText()
+        );
+
+        //UNDO/REDO Method
+        Text numbers17 = new Text("[NUMBER] ");
+        UNDO_TEMPLATE = new TextFlow(
+                UNDO.getText(), numbers17, UNDO_INSTRUCTION.getText()
+        );
+
+        Text numbers18 = new Text("[NUMBER] ");
+        REDO_TEMPLATE = new TextFlow(
+                REDO.getText(), numbers18, REDO_INSTRUCTION.getText()
         );
 
     }
