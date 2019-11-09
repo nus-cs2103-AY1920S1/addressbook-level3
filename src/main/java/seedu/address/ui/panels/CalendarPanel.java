@@ -98,7 +98,7 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Switch the agenda view according to the date input by the user
+     * Switch the agenda view to the week containing the specified date.
      */
     private void setAgendaView(Calendar calendar) {
         LocalDateTime localDateTime = calendarToLocalDateTime(calendar);
