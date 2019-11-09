@@ -23,14 +23,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
  * The pane to view the questions of a deck and access deck editing functionality.
  */
-public class DeckDisplay extends AnchorPane {
+public class DeckDisplay extends VBox {
     @FXML
     private Label deckName;
     @FXML
@@ -60,7 +59,7 @@ public class DeckDisplay extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             this.deck = deck;
-            deckName.setText(deck.getDeckName());
+            deckName.setText("Deck: " + deck.getDeckName());
             renderQuestions();
             deleteDeckButton.setOnAction(e -> {
                 try {
@@ -94,6 +93,10 @@ public class DeckDisplay extends AnchorPane {
      */
     private void renderQuestions() {
         questionList.getChildren().clear();
+        Label subtitle = new Label("Cards in deck");
+        subtitle.getStyleClass().add("window-subtitle");
+        questionList.getChildren().add(subtitle);
+
         ArrayList<FlashCard> cards = deck.getCards();
         int numCards = cards.size();
         deckSize.setText(numCards + (numCards == 1 ? " card" : " cards"));

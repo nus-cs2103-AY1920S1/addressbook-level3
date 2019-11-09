@@ -12,7 +12,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -34,13 +35,15 @@ public class JavaTestRunnerApplication extends Application {
         try {
             FXMLLoader fxmlloader = new FXMLLoader(Main.class
                     .getResource("/view/Windows/JavaTestEvaluator.fxml"));
-            AnchorPane ap = fxmlloader.load();
-            Scene scene = new Scene(ap);
+            VBox vb = fxmlloader.load();
+            Scene scene = new Scene(vb);
             stage.setScene(scene);
-            stage.setTitle("FlashCoder Java");
-            TextArea textArea = (TextArea) ap.getChildren().get(2);
+            stage.getIcons().add(new Image(JavaTestRunnerApplication.class.getResourceAsStream(
+                "/images/icon_black_resized.png")));
+            stage.setTitle("FlashCard Pro: FlashCoder Java");
+            TextArea textArea = (TextArea) vb.getChildren().get(2);
             textArea.setText(boilerPlate());
-            ap.getChildren().get(2).requestFocus();
+            vb.getChildren().get(2).requestFocus();
             JavaTestEvaluator evaluator = fxmlloader.getController();
             evaluator.setCodeReturner(sendResult);
             evaluator.setCard(card);

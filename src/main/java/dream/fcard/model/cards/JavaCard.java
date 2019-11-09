@@ -18,7 +18,6 @@ import dream.fcard.util.json.jsontypes.JsonValue;
  * Card that evaluates input as javascript code whose output has to match back of card.
  */
 public class JavaCard extends FlashCard {
-
     private String question;
     private ArrayList<TestCase> testCases;
     private String attempt;
@@ -27,6 +26,18 @@ public class JavaCard extends FlashCard {
         this.question = question;
         this.testCases = testCases;
         cardResult = -1;
+
+        // attribute from flashcard class
+        priority = Priority.LOW_PRIORITY;
+    }
+
+    public JavaCard(String question, ArrayList<TestCase> testCases, int priorityLevel) {
+        this.question = question;
+        this.testCases = testCases;
+        cardResult = -1;
+
+        // attribute from flashcard class
+        priority = priorityLevel;
     }
 
     @Override

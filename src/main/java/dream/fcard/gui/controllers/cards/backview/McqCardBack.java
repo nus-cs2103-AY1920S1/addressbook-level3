@@ -12,13 +12,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 
 /**
  * The rear view of a multiple choice card.
  */
-public class McqCardBack extends AnchorPane {
+public class McqCardBack extends VBox {
     @FXML
     private Label correctOrWrongLabel;
     @FXML
@@ -71,7 +72,7 @@ public class McqCardBack extends AnchorPane {
 
     private void seeFront() {
         Exam exam = ExamRunner.getCurrentExam();
-        AnchorPane cardFront = exam.getCardDisplayFront();
+        Pane cardFront = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
     }
 }

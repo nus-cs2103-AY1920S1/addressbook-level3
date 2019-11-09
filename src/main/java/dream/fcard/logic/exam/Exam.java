@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 /**
  * Interface to define behaviour of exams.
@@ -28,7 +28,7 @@ public interface Exam {
 
     public int getDuration();
 
-    public AnchorPane getCardDisplayFront();
+    public Pane getCardDisplayFront();
 
-    public AnchorPane getCardDisplayBack();
+    public Pane getCardDisplayBack();
 }

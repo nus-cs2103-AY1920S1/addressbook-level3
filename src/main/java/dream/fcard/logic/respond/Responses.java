@@ -12,6 +12,7 @@ import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.commands.HelpCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
+import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
@@ -23,9 +24,11 @@ import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.model.exceptions.InvalidInputException;
 import dream.fcard.model.exceptions.NoDeckHistoryException;
 import dream.fcard.model.exceptions.NoUndoHistoryException;
+import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.RegexUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
-import javafx.scene.layout.AnchorPane;
+
+import javafx.scene.layout.Pane;
 
 /**
  * The enums are composed of three properties:
@@ -95,8 +98,22 @@ public enum Responses {
                     LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT");
                     //@author
 
-                    return true; //if valid
-                    //return false; //if not valid
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat(
+                            "import", new String[]{"filepath/"}, i);
+                    String path = res.get(0).get(0).trim();
+                    Deck deck = StorageManager.loadDeck(path);
+                    System.out.println(path);
+                    if (deck != null) {
+                        StorageManager.writeDeck(deck);
+                        StateHolder.getState().addDeck(deck);
+                        Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                        System.out.println("Successfully added " + path);
+                    } else {
+                        System.out.println("File does not exist, or file does not match schema for a deck");
+                        return false;
+                    }
+
+                    return true;
                 }
     ),
     IMPORT_ERROR(
@@ -111,13 +128,25 @@ public enum Responses {
                 }
     ),
     EXPORT(
-            RegexUtil.commandFormatRegex("export", new String[]{"filepath/"}),
+            RegexUtil.commandFormatRegex("export", new String[]{"deck/", "filepath/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     //@@author huiminlim
                     LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT_ERROR");
                     //@author
 
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat(
+                            "export", new String[]{"deck/", "filepath/"}, i);
+                    String pathName = res.get(1).get(0).trim();
+                    String deckName = res.get(0).get(0).trim();
+
+                    try {
+                        Deck d = StateHolder.getState().getDeck(deckName);
+                        FileReadWrite.write(FileReadWrite.resolve(
+                                pathName, "./" + d.getDeckName() + ".json"), d.toJson().toString());
+                    } catch (DeckNotFoundException e) {
+                        System.out.println("Deck does not exist");
+                    }
                     return true; //if valid
                     //return false; //if not valid
                 }
@@ -279,6 +308,7 @@ public enum Responses {
 
                     // Obtain deck
                     String deckName = res.get(0).get(0);
+
                     Deck deck = null;
                     try {
                         deck = StateHolder.getState().getDeck(deckName);
@@ -287,8 +317,8 @@ public enum Responses {
                         return true;
                     }
                     assert deck != null;
-
                     ArrayList<FlashCard> cards = deck.getCards();
+
                     int index = -1;
                     try {
                         index = Integer.parseInt(res.get(1).get(0));
@@ -297,13 +327,13 @@ public enum Responses {
                         return true;
                     }
                     assert index != -1;
+
                     boolean isIndexValid = index > 0 && index <= cards.size();
                     if (!isIndexValid) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: index provided is invalid.'");
                         return true;
                     }
                     FlashCard card = cards.get(index - 1);
-
 
                     // Must check for validity of command before executing change
                     boolean hasChoiceIndex = res.get(4).size() == 1;
@@ -315,12 +345,14 @@ public enum Responses {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! "
                                 + "Front Back card has no choices.");
                     }
-
+                  
                     boolean hasFront = res.get(2).size() == 1;
+                    System.out.println(hasFront);
                     if (hasFront) {
                         String front = res.get(2).get(0);
+                        System.out.println("before: " + front);
                         card.setFront(front);
-                        deck.replaceCard(card, index);
+                        System.out.println("after: " + card.getFront());
                     }
 
                     boolean hasBack = res.get(3).size() == 1;
@@ -329,15 +361,19 @@ public enum Responses {
                         card.setBack(back);
                     }
 
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is complete.");
+                    Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                    Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
+
                     boolean hasNoChoiceChange = !hasChoice && !hasChoiceIndex;
                     if (hasNoChoiceChange) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is complete.");
                         return true;
                     }
                     boolean isInvalidChoiceCommand = (hasChoice && !hasChoiceIndex) || (!hasChoice && hasChoiceIndex);
                     if (isInvalidChoiceCommand) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! "
                                 + "Please check your choices");
+                        return true;
                     }
                     assert card instanceof MultipleChoiceCard;
                     MultipleChoiceCard mcqCard = (MultipleChoiceCard) card;
@@ -346,10 +382,17 @@ public enum Responses {
                     try {
                         int choiceIndex = Integer.parseInt(res.get(4).get(0));
                         mcqCard.editChoice(choiceIndex, newChoice);
+
                     } catch (NumberFormatException | IndexNotFoundException n) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command: "
                                 + "Choice index provided is invalid.'");
                         return true;
+                    }
+
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is complete.");
+
+                    if (!(StateHolder.getState().completelyEquals(currDecks))) {
+                        StateHolder.getState().addDecksToDeckHistory(currDecks);
                     }
 
                     Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
@@ -364,12 +407,12 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
-                            + "format of the Edit command, type 'help command/edit'");
+                            + "format of the Edit command, type 'help command/edit");
                     return true;
                 }
     ),
     DELETE_CARD(
-            RegexUtil.commandFormatRegex("delete", new String[]{"deck/", "index/"}),
+            RegexUtil.commandFormatRegex("delete", new String[]{"deck/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("delete",
@@ -381,13 +424,25 @@ public enum Responses {
                     boolean hasDeck = res.get(0).size() == 1;
                     boolean hasIndex = res.get(1).size() == 1;
 
-                    if (!hasDeck || !hasIndex) {
+                    if (!hasDeck) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the"
                                 + "correct format of the Delete command, type 'help command/delete'");
                         return true;
                     }
 
                     String deckName = res.get(0).get(0);
+
+                    if (!hasIndex) {
+                        // Delete deck
+                        try {
+                            State s = StateHolder.getState();
+                            s.removeDeck(deckName);
+                        } catch (DeckNotFoundException dnf) {
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, dnf.getMessage());
+                            return true;
+                        }
+                    }
+
                     assert deckName != null;
                     try {
                         Deck deck = StateHolder.getState().getDeck(deckName);
@@ -413,7 +468,6 @@ public enum Responses {
 
                     Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
                     Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
-
                     //@author
 
                     return true; //if valid
@@ -464,11 +518,11 @@ public enum Responses {
                 } //todo
     ),
     STATS(
-            RegexUtil.commandFormatRegex("stats", new String[]{"deck/"}),
+            RegexUtil.commandFormatRegex("stats", new String[]{}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res =
-                            RegexUtil.parseCommandFormat("test", new String[]{"deck/"}, i);
+                            RegexUtil.parseCommandFormat("stats", new String[]{"deck/"}, i);
 
                     //Checks if a deckName is supplied.
                     boolean hasDeckName = res.get(0).size() > 0;
@@ -480,7 +534,13 @@ public enum Responses {
 
                     if (hasDeckName) {
                         // todo: @PhireHandy where should I get the name of the deck?
-                        //StatsDisplayUtil.openDeckStatisticsWindow(deck);
+                        try {
+                            StatsDisplayUtil
+                                    .openDeckStatisticsWindow(StateHolder.getState().getDeck(
+                                            res.get(0).get(0).trim()));
+                        } catch (DeckNotFoundException e) {
+                            return false;
+                        }
                         return true;
                     } else {
                         // todo: causes InvocationTargetException, due to regex PatternSyntaxException.
@@ -591,7 +651,7 @@ public enum Responses {
                             ExamRunner.terminateExam();
                         }
                     }
-                    AnchorPane newCard = exam.getCardDisplayFront();
+                    Pane newCard = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -609,7 +669,7 @@ public enum Responses {
                 i -> {
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.downIndex();
-                    AnchorPane newCard = exam.getCardDisplayFront();
+                    Pane newCard = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -648,7 +708,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardFront = exam.getCardDisplayFront();
+                    Pane cardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
                 }
@@ -659,7 +719,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD_BACK);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardBack = exam.getCardDisplayBack();
+                    Pane cardBack = exam.getCardDisplayBack();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
                 }
@@ -671,7 +731,7 @@ public enum Responses {
                     Consumers.doTask("GET_SCORE", true);
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.upIndex();
-                    AnchorPane nextCardFront = exam.getCardDisplayFront();
+                    Pane nextCardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -684,7 +744,7 @@ public enum Responses {
                     Consumers.doTask("GET_SCORE", false);
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.upIndex();
-                    AnchorPane nextCardFront = exam.getCardDisplayFront();
+                    Pane nextCardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -709,7 +769,7 @@ public enum Responses {
                     } catch (IndexNotFoundException e) {
                         Consumers.doTask("DISPLAY_MESSAGE", "Invalid Choice");
                     }
-                    AnchorPane cardBack = exam.getCardDisplayBack();
+                    Pane cardBack = exam.getCardDisplayBack();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
                 }
@@ -720,7 +780,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_MCQ);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardFront = exam.getCardDisplayFront();
+                    Pane cardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
                 }

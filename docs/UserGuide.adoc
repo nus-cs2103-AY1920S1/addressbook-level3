@@ -16,19 +16,24 @@ endif::[]
 
 By: `Team F09-02`      Since: `Aug 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 FlashCard Pro is an application designed for students who *prefer to use a desktop app for managing flashcards*. It is also useful for teachers who would like to provide resources, in the form of custom flashcard decks, to support their students’ learning.
 
 FlashCard Pro is optimised for users who are *comfortable with Command Line Interface-based interaction*, allowing them to work more efficiently than with traditional Graphical User Interface (GUI)-based flashcard apps, while still being able to use their flashcards in a familiar GUI format.
 
+// end::introduction[]
+// tag::whatis[]
 == What is a flashcard?
 
 *Flashcards* are containers for information. Each card has a “front” and a “back”. One recommended use case is such: the user stores a question on the “front” of the card, and the answer on the “back”.
 
+// end::whatis[]
+// tag::interacting[]
 == Interacting with flashcards
 
-After sets of flashcards (known as *“decks”*) have been created, the user can interact with the flashcards in various ways. For example, they may test themselves on the content of the decks via *timed and untimed tests*. For ordinary cards with a front and back, the user can gauge their own understanding of the material by pressing either the "I got it right!" or "I got it wrong :(" buttons on the back of the flashcard. 
+After sets of flashcards (known as *“decks”*) have been created, the user can interact with the flashcards in various ways. For example, they may test themselves on the content of the decks via *timed and untimed tests*. For ordinary cards with a front and back, the user can gauge their own understanding of the material by pressing either the "I got it right!" or "I got it wrong :(" buttons on the back of the flashcard.
 
 Other types of flashcards support more advanced interactions. Cards with *multiple choices* for their answers will prompt the user to select an answer, and the app will automatically determine if the answer is correct.
 
@@ -38,6 +43,7 @@ As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, us
 
 With FlashCard Pro's *Java and JavaScript cards*, teachers can define basic coding problems for their students. Based on the test cases provided by the teachers, FlashCard Pro will evaluate the output of the student’s solution, allowing students to gauge their own coding knowledge, and teachers to evaluate their students’ progress. Test decks can be passed easily from student to teacher, as they are stored in convenient, lightweight JSON files which can be *imported or exported* natively in FlashCard Pro.
 
+// end::interacting[]
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -331,7 +337,7 @@ Exams will also terminate automatically upon running out of cards in the test de
 // tag::stats[]
 === Viewing user statistics : `stats`
 
-Opens a new window to shows your *usage statistics*, such as time spent and list of login sessions over time. A *quick summary of the decks*, showing the number of cards, number of test sessions and average score, is also provided for reference. 
+Opens a new window to shows your *usage statistics*, such as time spent and list of login sessions over time. A *quick summary of the decks*, showing the number of cards, number of test sessions and average score, is also provided for reference.
 
 [TIP]
 You can also open the statistics window by clicking `Statistics > View my statistics` in the menu bar of the app.
@@ -349,7 +355,7 @@ Examples:
 
 * `stats` +
 // todo: add screenshot
-Displays an overview of your statistics, grouped by your login sessions and statistics specific to each deck. 
+Displays an overview of your statistics, grouped by your login sessions and statistics specific to each deck.
 
 * `stats deck/science_deck` +
 // todo: add screenshot

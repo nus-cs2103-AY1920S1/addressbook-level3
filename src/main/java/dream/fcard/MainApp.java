@@ -1,16 +1,20 @@
 package dream.fcard;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import dream.fcard.core.Main;
+import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.stats.UserStatsHolder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.StateHolder;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -18,16 +22,25 @@ import javafx.stage.Stage;
  */
 public class MainApp extends Application {
 
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
+        logger.info("=============================[ Starting FlashCard Pro ]===========================");
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/Windows/MainWindow.fxml"));
             VBox vbox = fxmlLoader.load();
             Scene scene = new Scene(vbox);
             stage.setScene(scene);
+            stage.setMinHeight(500);
+            stage.setMinWidth(900);
             stage.setTitle("FlashCard Pro");
-            stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/address_book_32.png")));
+            stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/icon_black_resized.png")));
             stage.show();
+
+            // load code font
+            Font.loadFont(MainApp.class.getResourceAsStream("/fonts/Inconsolata.otf"), 12);
 
             StorageManager.loadUserStats();
             // start a session. if UserStats has not been retrieved, it will do so at this point.
@@ -35,14 +48,13 @@ public class MainApp extends Application {
 
             // when the 'X' button is clicked.
             stage.setOnCloseRequest(e -> {
-                System.out.println("Terminating the application...");
+                logger.info("============================ [ Stopping FlashCard Pro ] =============================");
                 UserStatsHolder.getUserStats().endCurrentSession();
                 StorageManager.saveAll(StateHolder.getState().getDecks());
                 StorageManager.saveStats(UserStatsHolder.getUserStats());
             });
         } catch (IOException e) {
-            // TODO: Our yet-to-be-reinstated-logger will replace this rudimentary error printing
-            System.err.println("Failed to load app");
+            logger.severe("Failed to load app");
             e.printStackTrace();
         }
     }
