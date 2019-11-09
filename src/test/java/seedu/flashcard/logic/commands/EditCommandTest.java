@@ -12,7 +12,7 @@ import seedu.flashcard.model.FlashcardList;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.ModelManager;
 import seedu.flashcard.model.UserPrefs;
-import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
+import seedu.flashcard.model.flashcard.ShortAnswerFlashcardTest;
 import seedu.flashcard.testutil.EditFlashcardDescriptorBuilder;
 import seedu.flashcard.testutil.FlashcardBuilder;
 
@@ -22,7 +22,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        ShortAnswerFlashcard editedFlashcard = new FlashcardBuilder().buildShortAnswerFlashcard();
+        ShortAnswerFlashcardTest editedFlashcard = new FlashcardBuilder().buildShortAnswerFlashcard();
         EditFlashcardDescriptor descriptor = new EditFlashcardDescriptorBuilder(editedFlashcard).build();
         EditCommand editCommand = new EditCommand(INDEX_THIRD_FLASHCARD, descriptor);
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashcard);

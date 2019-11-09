@@ -11,7 +11,7 @@ import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.McqFlashcard;
 import seedu.flashcard.model.flashcard.Question;
 import seedu.flashcard.model.flashcard.Score;
-import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
+import seedu.flashcard.model.flashcard.ShortAnswerFlashcardTest;
 import seedu.flashcard.model.tag.Tag;
 import seedu.flashcard.model.util.SampleDataUtil;
 
@@ -44,7 +44,7 @@ public class FlashcardBuilder {
      * For short answer flashcards only.
      * Initializes the FlashcardBuilder with the data of {@code flashcard}.
      */
-    public FlashcardBuilder(ShortAnswerFlashcard flashcard) {
+    public FlashcardBuilder(ShortAnswerFlashcardTest flashcard) {
         this.question = flashcard.getQuestion();
         this.answer = flashcard.getAnswer();
         this.tags = flashcard.getTags();
@@ -113,8 +113,8 @@ public class FlashcardBuilder {
         return this;
     }
 
-    public ShortAnswerFlashcard buildShortAnswerFlashcard() {
-        return new ShortAnswerFlashcard(question, definition, tags, answer, score);
+    public ShortAnswerFlashcardTest buildShortAnswerFlashcard() {
+        return new ShortAnswerFlashcardTest(question, definition, tags, answer, score);
     }
 
     public McqFlashcard buildMcqFlashcard() {
