@@ -4,63 +4,82 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model <<Rectangle>>{
-Interface ReadOnlyBankAccount <<Interface>>
-Interface Model <<Interface>>
-Interface ReadOnlyLedger <<Interface>>
-'Interface ReadOnlyUserPrefs <<Interface>>
-Class BankAccount
-Class ReadOnlyBankAccount
-Class Model
-Class ModelManager
-'Class UserPrefs
-Class Ledger
-Class Projection
-Class VersionedBankAccount
+Package Model <<Rectangle>> {
+    Interface ReadOnlyBankAccount <<Interface>>
+    Interface Model <<Interface>>
+    Interface ReadOnlyLedger <<Interface>>
+    'Interface ReadOnlyUserPrefs <<Interface>>
+    Class BankAccount
+    Class ReadOnlyBankAccount
+    Class Model
+    Class ModelManager
+    'Class UserPrefs
+    Class Ledger
+    Class VersionedBankAccount
 
 
-Package Transaction {
-Interface BankOperation <<Interface>>
-Interface LedgerOperation <<Interface>>
+    Package Transaction {
+    Interface BankOperation <<Interface>>
+    Interface LedgerOperation <<Interface>>
 
-Class Transaction <<abstract>>
-Class InTransaction
-Class OutTransaction
+    Class Transaction <<abstract>>
+    Class InTransaction
+    Class OutTransaction
 
-Class Budget
-Class Amount
+    Class Budget
+    Class Amount
 
-Package {
-Class Split
-Class LendMoney
-Class Payment
-Class ReceiveMoney
+    Package {
+    Class Split
+    Class LendMoney
+    Class Payment
+    Class ReceiveMoney
 
-Split -[hidden]-> Payment
-ReceiveMoney -[hidden]-> LendMoney
-}
+    Split -[hidden]-> Payment
+    ReceiveMoney -[hidden]-> LendMoney
+    }
 
-Class UniqueBudgetList
-Class UniqueTransactionList
+    Class UniqueBudgetList
+    Class UniqueTransactionList
 
-}
+    }
 
-Package Person {
-Class Person
-Class UniquePersonList
-Person -[hidden]right-> UniquePersonList
-}
+    Package Person {
+    Class Person
+    Class UniquePersonList
+    Person -[hidden]right-> UniquePersonList
+    }
 
 
-Package Util {
-Class Date
-Class Time
-}
+    Package Category {
+    Class Category
+    }
 
-Package Tag {
-Class Tag
-}
+    Package Util {
+    Class Date
+    Class Time
+    }
 
+    Package Tag {
+    Class Tag
+    }
+
+    Package Projection {
+    Class Projection
+    Class ProjectionGraph
+    Class UniqueProjectionList
+    Class GradientDescent
+
+    BankAccount o--> "1" UniqueProjectionList
+    UniqueProjectionList o--> "*" Projection
+    Projection o--> "1" GradientDescent
+    ProjectionGraph o--> "1" Projection
+    ProjectionGraph o--> "1" GradientDescent
+    Projection o--> "1" Date
+    Projection o--> "1" UniqueBudgetList
+    Projection o--> "0..1" Category
+    Projection o--> "1" UniqueTransactionList
+    }
 }
 
 Class HiddenOutside #FFFFFF

@@ -69,7 +69,7 @@ public class ProjectCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ensureDaysToProjectIsWithinRange(this.date);
+        ensureDateToProjectIsWithinRange(this.date);
         ObservableList<BankAccountOperation> transactionHistory =
                 model.getBankAccount().getSortedTransactionHistory(new DateComparator());
         Projection projection = defineProjection(transactionHistory, model);
@@ -136,7 +136,7 @@ public class ProjectCommand extends Command {
     /**
      * Ensures that the {@code Projection} is not cast beyond the maximum number of days to project
      */
-    private void ensureDaysToProjectIsWithinRange(Date toProject) throws CommandException {
+    private void ensureDateToProjectIsWithinRange(Date toProject) throws CommandException {
         int daysFromNow = Math.abs(Date.daysBetween(Date.now(), toProject));
         if (daysFromNow >= REQUIRED_MAXIMUM_DAYS_TO_PROJECT) {
             throw new CommandException(MESSAGE_PROJECTION_TOO_PROTRACTED);

@@ -11,7 +11,6 @@ import javafx.scene.layout.StackPane;
 
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.util.Date;
-import seedu.address.model.util.GradientDescent;
 
 /**
  * JavaFX class for rendering the projection line + scatter plot graph

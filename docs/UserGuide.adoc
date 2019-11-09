@@ -268,10 +268,10 @@ Format: `project d/DATE [c/test]`
 * `DATE` input only accepts date in format DDMMYYYY.
 * `DATE` input must be preceded by its tag `d/`.
 * `DATE` input must be set in the future.
-* `Date` cannot be more than 720 days from the day of projection.
-*  There must be a minimum of 5 transactions in total, or in the specified category
+* `Date` cannot be more than _720_ days from the day of projection.
+*  There must be a minimum of _5_ transactions in total, or in the specified category
 for a projection to be successfully cast.
-* Should the number of `transactions` in a  `projection` fall below 5, the `projection`
+* Should the number of `transactions` in a  `projection` fall below _5_, the `projection`
 will be automatically deleted.
 ****
 

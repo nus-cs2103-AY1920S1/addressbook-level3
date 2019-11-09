@@ -1,4 +1,4 @@
-package seedu.address.model.util;
+package seedu.address.model.projection;
 
 import static java.util.Objects.requireNonNull;
 
