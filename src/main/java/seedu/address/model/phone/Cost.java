@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Cost {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Costs must start with $, have at most 2 decimals and be non-negative." +
-                    "The maximum valid cost is $999,999,999.99";
+            "Costs must start with $, have at most 2 decimals and be non-negative."
+                    + "The maximum valid cost is $999,999,999.99.";
 
     public static final String VALIDATION_REGEX = "\\$(0|([1-9]\\d{0,8}))(\\.\\d{1,2})?";
 
