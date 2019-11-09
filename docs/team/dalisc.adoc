@@ -35,8 +35,6 @@ Before we move there, I would like to highlight the symbols and text formatting 
 This symbol indicates important information.
 |`stats`|
 A grey highlight indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
-|_body_|
-Italicised text indicates a component, class or object in the architecture of the application.
 |===
 
 == Summary of contributions
@@ -70,28 +68,87 @@ team project.
 
 == Contributions to the User Guide
 We wrote a User Guide targeted at the users of Mortago. The User Guide containts instructions on how to use the various commands of the application. The following is an excerpt from our Mortago User Guide, showing additions that I have
-made for the `stats` and `fitler` features.
+made for the `stats`, `fitler`, and `find` features.
 
 This section also contains an excerpt for the sorting feature that I have planned for the
 next version (v2.0) of Mortago.
 
 {start of extract 1: stats command}
-include::../UserGuide.adoc[tag=stats]
+This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
+
+The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised and updated automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days. You can change the time frame with the `stats` command.
+
+The following are the correct formats for typing in stats commands, with example usage:
+
+* To display the last 10 days: `stats` +
+The line chart will display statistics over the last 10 days. The line chart will appear as below:
+
+image::statsTenDays.png[width="790"]
+
+* To display a specific week: `stats /week 25/10/2019` +
+The line chart will display statistics for the week which contains the specified day. In this case, it is the date 12/10/2019. The line chart will appear as below:
+
+image::statsWeek.png[width="790"]
+
+* To display a specific month: `stats /month 5/2019` +
+The line chart will display statistics or the month specified. In this case, it is May 2019. The line chart will appear as below:
+
+image::statsMonth.png[width="790"]
+
+* To display a specific year: `stats /year 2019` +
+The line chart will display statistics for the year specified. In this case is it 2019. The line chart will appear as below:
+
+image::statsYear.png[width="790"]
 {end of extract 1}
 
+
 {start of extract 2: filter command}
-include::../UserGuide.adoc[tag=filter]
+
+This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
+
+All attributes of a body or worker entry can be filtered. If more than one attribute is specified, the entries displayed must fulfill all attributes. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
+
+Format: `filter -FLAG [/attributeName attributeValue ...]`
+
+Example:
+
+* `filter -w /sex female` +
+All female worker entries will be displayed.
+
+* `filter -b /cod Car Accident /sex male` +
+All body entries with car accident as the cause of death and those that are male will be displayed.
+
 {end of extract 2}
 
 {start of extract 3: sort command (v2.0)}
-include::../UserGuide.adoc[tag=sort]
+Finds bodies or workers whose names contain any of the given keywords. +
+
+Format: `find (flag) (keyword)...`
+
+|===
+| :bulb: a|
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+|===
+
+Format: `find -FLAG [keyword...]`
+
+Examples:
+
+* `find -b John` +
+Returns any bodies having names `John`
+* `find -w Betsy Tim John` +
+Returns any workers having names `Betsy`, `Tim`, or `John`
 {end of extract 3}
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+
+_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+
 
 {start of extract}
 include::../DeveloperGuide.adoc[tag=statistics]
