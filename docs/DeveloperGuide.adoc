@@ -302,7 +302,7 @@ The approve claim feature is facilitated by the `RejectClaimCommandParser` and t
 The `RejectClaimCommand` is part of the logic component of our application. It interacts with the model and storage
 components of our application.
 
-// tag::shortcutfeature[]
+
 === Income feature
 
 The `add_income` command allows for users to register new `Income` objects into FinSec.
@@ -424,7 +424,7 @@ Here is an example of a step-by-step process on how the edit command alters an a
 
 //enter activity diagram for edit income
 
-
+// tag::shortcutfeature[]
 === Shortcut feature
 
 This feature gives the user an option to create a shortcut when an unknown command is entered into FinSec.
@@ -470,14 +470,23 @@ XYSeries public Command checkCommand(String currentInput, String prevInput) {
 
 *Step 7 :* `CreateShortCutCommmand` would then return a `CommandResult` to the `LogicManager` which would then be returned back to the user.
 
-The following activity diagram summarises what happens when a user executes an unknown command:
+The following diagrams summarises what happens when a user executes an unknown command:
 
 <<ShortcutDiagram>> is the activity diagram when a user inputs an unknown command
 [[ShortcutDiagram]]
-[reftext="Figure 2.4"]
-[caption="Figure 2.4: "]
+[reftext="Figure 2.4.1"]
+[caption="Figure 2.4.1: "]
 .ActivityDiagram when a user inputs an unknown command
 image::ShortcutActivityDiagram.png[width="800"]
+
+<<CreateShortCutDiagram>> shows the UML diagram of the flow of logic when a user creates a shortcut to a valid command
+[[CreateShortCutDiagram]]
+[reftext="Figure 2.4.2"]
+[caption="Figure 2.4.2: "]
+.UML diagram when a user creates a shortcut
+image::CreateShortCutDiagram.png[width="800"]
+
+
 
 ==== Why was it implemented this way?
 

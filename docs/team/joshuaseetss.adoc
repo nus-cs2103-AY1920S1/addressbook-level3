@@ -57,13 +57,17 @@ This section shows a summary of my coding, documentation, and other contribution
 * *Other contributions*
 
 ** Project management
+*** I ensured that testability of the code was not neglected and assigned team members to issues.
+*** I managed the release of version 1.4 of FinSec on GitHub.
 
 ** Enhancements to existing features
+*** I refactored and optimised some reusable code in AB3 to increase code quality and make the program more Object Oriented.
 
 ** Documentation
-
+*** I helped with the refactoring of class names in AB3 to suit the context of FinSec.
 ** Community
-
+*** I conducted reviews on other team's PR to give suggestions and constructive comments.
+*** I also reported bugs and potential flaws in other teams' project to help prepare them for the demo.
 ** Tools
 
 
