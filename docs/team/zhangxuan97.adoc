@@ -45,9 +45,10 @@ allowing users to see which types of foods they tend to waste more often by chec
 
 ** Project management:
 *** Managed milestone `v1.3` on Github
+*** Refactored package names: https://github.com/AY1920S1-CS2103-F10-2/main/pull/141[#141]
 
 ** Documentation:
-*** Populated the command summary for user guide
+*** Populated the command summary for user guide: https://github.com/AY1920S1-CS2103-F10-2/main/pull/156[#156]
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103-F10-2/main/pull/30[#30]
 *** Updated the Model class diagram: https://github.com/AY1920S1-CS2103-F10-2/main/pull/238[#238]
 
@@ -68,7 +69,7 @@ allowing users to see which types of foods they tend to waste more often by chec
 
 include::../UserGuide.adoc[tag=wastelistfeatures]
 
-include::../UserGuide.adoc[tag=commandsummary]
+//include::../UserGuide.adoc[tag=commandsummary]
 
 include::../UserGuide.adoc[tag=wastelistfuture]
 
@@ -82,4 +83,5 @@ include::../DeveloperGuide.adoc[tag=modelcomponent]
 
 include::../DeveloperGuide.adoc[tag=reportwastefeature]
 
+include::../DeveloperGuide.adoc[tag=wastelistmanualtesting]
 
