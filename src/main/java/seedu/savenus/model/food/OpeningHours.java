@@ -10,7 +10,7 @@ public class OpeningHours implements Field {
 
     // This to show the user how they should type the opening hours.
     public static final String MESSAGE_CONSTRAINTS =
-            "Opening hours should only contain numbers and spaces, and it should not be blank. "
+            "Invalid opening hours provided"
           + "The format should be in the form of HHMM HHMM";
 
     public static final String DEFAULT_VALUE = "No Opening Hours";
