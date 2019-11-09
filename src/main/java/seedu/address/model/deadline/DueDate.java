@@ -58,6 +58,13 @@ public class DueDate {
     }
 
     /**
+     * Returns LocalDate format of DueDate
+     */
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    /**
      * Returns true if a given date is today or after today
      */
     public static boolean isLaterDate(String test) {

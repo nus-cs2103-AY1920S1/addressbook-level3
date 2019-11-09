@@ -3,6 +3,7 @@ package seedu.address.model.deadline;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.deadline.exceptions.DeadlineNotFoundException;
 import seedu.address.model.deadline.exceptions.DuplicateDeadlineException;
+import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.exceptions.FlashCardNotFoundException;
 
 //@@author dalsontws
@@ -44,6 +46,13 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
             throw new DuplicateDeadlineException();
         }
         internalList.add(toAdd);
+        Comparator<Deadline> comparator = new Comparator<Deadline>() {
+            @Override
+            public int compare(Deadline d1, Deadline d2) {
+                return d1.getDueDate().getLocalDate().compareTo(d2.getDueDate().getLocalDate());
+            }
+        };
+        FXCollections.sort(internalList, comparator);
     }
 
     /**
