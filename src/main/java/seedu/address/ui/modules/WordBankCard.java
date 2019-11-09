@@ -25,6 +25,7 @@ import seedu.address.ui.UiPart;
 public class WordBankCard extends UiPart<Region> {
 
     private static final String FXML = "WordBankCard.fxml";
+    private String dataFilePath;
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -85,14 +86,11 @@ public class WordBankCard extends UiPart<Region> {
      */
     @FXML
     private void handleDragDetection(MouseEvent event) {
-        System.out.println("onDragDetected");
-
+//        dataFilePath = "data";
         Dragboard db = cardPane.startDragAndDrop(TransferMode.COPY);
         ClipboardContent content = new ClipboardContent();
-        String wordBankPath = "data/wordBanks/" + wordBank.getName() + ".json";
+        String wordBankPath = dataFilePath + File.separator + "wordBanks" + File.separator + wordBank.getName() + ".json";
         File tmpFile = new File(wordBankPath);
-
-        System.out.println(tmpFile);
 
         List<File> filePathList = new ArrayList<>();
         filePathList.add(tmpFile);
@@ -101,8 +99,11 @@ public class WordBankCard extends UiPart<Region> {
         db.setContent(content);
 
         event.consume();
-        System.out.println("dragDetection done");
 
+    }
+
+    void initialiseFilePath(String dataFilePath) {
+        this.dataFilePath = dataFilePath;
     }
 
     /**
