@@ -86,7 +86,7 @@ public class CalendarStateTest {
         ArgumentMultimap invalidArgumentMultimap = new ArgumentMultimap();
         invalidArgumentMultimap.put(CliSyntax.PREFIX_CALENDAR, "hi");
         assertThrows(StateTransitionException.class, ()
-                -> calendarState.transition(invalidArgumentMultimap));
+            -> calendarState.transition(invalidArgumentMultimap));
     }
 
     @Test
