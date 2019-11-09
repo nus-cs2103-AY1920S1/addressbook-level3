@@ -127,12 +127,12 @@ with his different modes.
 ** Discussed with team member, Paul, who is in-charge of UI, on _Observer Pattern_ usage to display word banks and cards that automatically
 update itself.
 
-** Discussed with team member, Jason, on how I can best leverage his statistics feature to streamline my revision word bank implementation.
+** Consulted team member, Jason, on how I can best leverage his statistics feature to streamline my revision word bank implementation.
 
 ** Learned and adapted _Callbacks_ and _Functional Programming_ into my drag and drop section
 to preserve the quality and structural integrity of the existing code base, from team member Yi Da.
 
-** Individually sourced for proper online tutorials and online code references to implement drag and drop section,
+** Individually Sourced for proper online tutorials and online code references to implement drag and drop section,
 and design concepts such as _Observer Pattern_ and _MVC_ within cards and word banks.
 
 //{nbsp}
@@ -151,19 +151,19 @@ and design concepts such as _Observer Pattern_ and _MVC_ within cards and word b
 
 === Minor features
 ** Default word banks for new players
-*** Multiple user friendly word banks for user to try out. (pokemon, arithmetic, trivia, graph, cs2103t)
-*** They are created on the first launch of _Dukemon_ (implemented through preferences.json file), and behaves like normal word bank. (Can be edited and removed)
+*** Implemented multiple user friendly word banks for user to try out. (pokemon, arithmetic, trivia, graph, cs2103t)
+*** Created on the first launch of _Dukemon_ (implemented through preferences file), and behaves like normal word bank. (Can be edited and removed)
 
-** Improve user experience greatly
+** User experience centric messages
 *** Played the game insane amount of times to design constructive feedback to display on the command box from the user perspective.
 *** Developed user friendly command usage feedback that guides the user to using _Dukemon_.
 
 ** Automatic creation of folders.
-*** Folders required for related files are created if not present.
+*** Implemented the initialisation of required folders for related files automatically if not present.
 
 === Other contributions
 * *Code contributed*:
-** Overall: [https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=chrischenhui[All Commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chrischenhui&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[RepoSense]]
+** Overall: [https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=chrischenhui[All Commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chrischenhui&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[RepoSense]] [https://github.com/AY1920S1-CS2103T-T11-2/main/graphs/contributors?from=2016-08-07&to=2019-11-09&type=a[GitHub]]
 ** Functional:
 *** WordBank: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/wordbank[WordBank]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/wordbanklist[WordBankList]]
 *** Storage: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/storage/wordbanks[WordBank storage]]
@@ -178,7 +178,7 @@ and design concepts such as _Observer Pattern_ and _MVC_ within cards and word b
 *** Data for testing: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/data/JsonSerializableWordBankTest[WordBank test data]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/data/JsonWordBankListStorageTest[WordBankList test data]]
 
 * *Other contributions* :
-** Discovered and fixed huge amount of bugs across different parts of _Dukemon_. [https://github.com/AY1920S1-CS2103T-T11-2/main/issues?page=1&q=is%3Aissue+is%3Aclosed+assignee%3Achrischenhui[Issues resolved by me]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/185[Bugs fixed]]
+** Discovered and fixed huge amount of bugs across different parts of _Dukemon_. [https://github.com/AY1920S1-CS2103T-T11-2/main/issues?page=1&q=is%3Aissue+is%3Aclosed+assignee%3Achrischenhui[Issues resolved]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/185[Bugs fixed]]
 
 ** Project management:
 *** Found members and formed the team. Went extra miles to bond everyone through fine details.
@@ -192,17 +192,19 @@ can fully believe in and dedicate effort.
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 
 ** *Documentation:*
-*** Apart from my own section within UG, I wrote a major chunk of User Guide's skeleton for my teammates: [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/100/files[UG heavy update 1]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/128/files[UG heavy update 2]] [https://github.com/AY1920S1-CS2103T-T11-2/main/commit/5601a170c8fc889278a7a7cdb2c7b2f05b42ecbd[UG heavy update 3]]
+*** Wrote a major chunk of User Guide's skeleton for my teammates (This does not include writing my own section within UG): [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/100/files[UG update 1]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/128/files[UG update 2]] [https://github.com/AY1920S1-CS2103T-T11-2/main/commit/5601a170c8fc889278a7a7cdb2c7b2f05b42ecbd[UG update 3]]
 *** Studied and improved styling for team's UML diagrams. [https://github.com/AY1920S1-CS2103T-T11-2/main/blame/master/docs/diagrams/style.puml[Style.puml]]
 
 ** *Community:*
-*** Reviewed PRs (with positivity): [https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/54[TimeBook]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/210[Jason's new command]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/218[Yida's clean code]]
+*** Reviewed PRs. (with positivity): [https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/54[TimeBook]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/210[Jason's new command]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/218[Yida's clean code]]
 
-*** Reported bugs in the form of issues for other teams in the class [https://github.com/chrischenhui/ped/issues[Njar]]
+*** Reported bugs for other teams in the class, in the form of GitHub issues. [https://github.com/chrischenhui/ped/issues[Njar]]
 
 ** *Tools:*
-*** JUnit testing +
-*** https://github.com/AY1920S1-CS2103T-https://www.netlify.com/-2/main/pull/218[Netlify]
+*** [https://github.com/junit-team/junit5[JUnit 5]] for testing.
+*** [https://openjfx.io/[JavaFX]] [https://gluonhq.com/products/scene-builder/[SceneBuilder]] for Dukemon's UI.
+*** [http://plantuml.com/[PlantUML]] for UML diagrams.
+*** [https://github.com/AY1920S1-CS2103T-https://www.netlify.com/-2/main/pull/218[Netlify]] for workflow improvement.
 
 //*** Integrated a third party library (Natty) to the project (https://github.com[#42])
 //*** Integrated a new Github plugin (CircleCI) to the team repo
