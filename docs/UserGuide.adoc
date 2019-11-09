@@ -640,6 +640,9 @@ Format: `run <index>`
 Want to share great recipes and workout tips with your friends? Look through the available commands in this section and
 start sharing!
 
+image::diaryoverview.png[width="600"]
+
+
 ==== pass:[<u>Adding a diary</u>]
 
 Let's first get started by creating diaries with our `add diary` command
