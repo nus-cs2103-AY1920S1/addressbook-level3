@@ -94,6 +94,9 @@ public class DiaryListPanel extends UiPart<Region> {
         refreshPages(targetIndex);
     }
 
+    /**
+     * Refreshes the page list view.
+     */
     void refreshPages(int targetIndex) {
 
         if (!diaryList.isEmpty()) {
@@ -187,11 +190,11 @@ public class DiaryListPanel extends UiPart<Region> {
     }
 
     /**
-     * Executes an AddPageCommand, based on the input provided in the GUI.
+     * Executes an CreatePageCommand, based on the input provided in the GUI.
      */
     @FXML
     void executeInput() {
-        String command = "add page";
+        String command = "create page";
         String diaryInput = " n/ " + diaryNameTextField.getText();
         String titleInput = " t/ " + pageTitleTextField.getText();
         String pageTypeInput = " tp/ " + pageTypeTextField.getText();

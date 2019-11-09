@@ -6,14 +6,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dukecooks.logic.commands.CreateCommand;
-import dukecooks.logic.commands.PushCommand;
 import dukecooks.logic.commands.diary.CreatePageCommand;
+import dukecooks.logic.parser.diary.CreatePageCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new CreateCommand object
  */
-public class CreateCommandParser implements Parser<CreateCommand> {
+public class CreateCommandParser implements Parser<CreatePageCommand> {
 
 
     /**
@@ -26,12 +26,12 @@ public class CreateCommandParser implements Parser<CreateCommand> {
      * and returns the appropriate CreateCommand-variant object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public CreateCommand parse(String args) throws ParseException {
+    public CreatePageCommand parse(String args) throws ParseException {
 
         final Matcher matcher = BASIC_VARIANT_FORMAT.matcher(args.trim());
 
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PushCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCommand.MESSAGE_USAGE));
         }
 
         final String variant = matcher.group("variant");
@@ -40,11 +40,10 @@ public class CreateCommandParser implements Parser<CreateCommand> {
         switch (variant) {
 
         case CreatePageCommand.VARIANT_WORD:
-            return new CreatePageCommand();
+            return new CreatePageCommandParser().parse(arguments);
 
         default:
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PushCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCommand.MESSAGE_USAGE));
         }
     }
 }
-

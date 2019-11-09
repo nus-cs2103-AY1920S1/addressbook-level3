@@ -9,7 +9,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_TYPE;
 
 import java.util.stream.Stream;
 
-import dukecooks.logic.commands.diary.AddPageCommand;
+import dukecooks.logic.commands.diary.CreatePageCommand;
 import dukecooks.logic.parser.ArgumentMultimap;
 import dukecooks.logic.parser.ArgumentTokenizer;
 import dukecooks.logic.parser.Parser;
@@ -25,16 +25,16 @@ import dukecooks.model.diary.components.Title;
 
 
 /**
- * Parses input arguments and creates a new AddDiaryCommand object
+ * Parses input arguments and creates a new CreatePageCommand object
  */
-public class AddPageCommandParser implements Parser<AddPageCommand> {
+public class CreatePageCommandParser implements Parser<CreatePageCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddPageCommand
-     * and returns an AddPageCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CreatePageCommand
+     * and returns an CreatePageCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddPageCommand parse(String args) throws ParseException {
+    public CreatePageCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DIARY_NAME, PREFIX_PAGE_TITLE, PREFIX_PAGE_TYPE,
@@ -43,7 +43,7 @@ public class AddPageCommandParser implements Parser<AddPageCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_DIARY_NAME, PREFIX_PAGE_TITLE, PREFIX_PAGE_TYPE,
                 PREFIX_PAGE_DESCRIPTION, PREFIX_IMAGE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPageCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreatePageCommand.MESSAGE_USAGE));
         }
 
         DiaryName diaryName = ParserUtil.parseDiaryName(argMultimap.getValue(PREFIX_DIARY_NAME).get());
@@ -54,7 +54,7 @@ public class AddPageCommandParser implements Parser<AddPageCommand> {
         Image image = ParserUtil.parseImage(argMultimap.getValue(PREFIX_IMAGE).get());
 
         Page pageToAdd = new Page(title, pageType, description, image);
-        return new AddPageCommand(pageToAdd, diaryName);
+        return new CreatePageCommand(pageToAdd, diaryName);
     }
 
 
