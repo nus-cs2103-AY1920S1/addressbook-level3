@@ -16,6 +16,7 @@ import seedu.flashcard.commons.util.ConfigUtil;
 import seedu.flashcard.commons.util.StringUtil;
 import seedu.flashcard.logic.Logic;
 import seedu.flashcard.logic.LogicManager;
+import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.ModelManager;
 import seedu.flashcard.model.ReadOnlyFlashcardList;
@@ -178,7 +179,12 @@ public class MainApp extends Application {
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+            logger.severe("Failed to save User preferences " + StringUtil.getDetails(e));
+        }
+        try {
+            storage.saveFlashcardList(model.getFlashcardList());
+        } catch (IOException ioe) {
+            logger.severe("Fail to save flashcard list.");
         }
     }
 }

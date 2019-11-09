@@ -30,6 +30,14 @@ public class ShortAnswerFlashcard extends Flashcard {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof ShortAnswerFlashcard)) {
+            return false;
+        }
+        return super.equals(other);
+    }
+
+    @Override
     public boolean isMcq() {
         return false;
     }
