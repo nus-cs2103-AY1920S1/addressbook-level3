@@ -34,7 +34,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{https://github.com/AY1920S1-CS2103-F09-4/main/releases[here].
+.  Download the latest `addressbook.jar` https://github.com/AY1920S1-CS2103-F09-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -109,18 +109,19 @@ One of our design features is to allow users to use person-related commands on t
 the example above).
 
 Persons and policies can easily be retrieved using the various `find` functions, whether by *keyword* or by *tag*.
+Let's find a person and add a "senior" tag to the person.
 
 ```
 find John
+addtag 1 t/senior
 ```
+
+[IMPORTANT]
+Note that the index of `addtag` refers to the resulting list from the previous `find` command. Indices of persons
+are always based off the latest view of the person page. The same applies for policies.
 
 The various functions outlined in the following section are available to further help the user manage contacts and policies.
 These include additional functions to help the user gather insights, rectify mistakes and validate input among others.
-
-[IMPORTANT]
- Note that indices are always based off the latest view of persons/policies i.e. if the user keys in a `find`
-command, indices to subsequent person-related commands will be based off the resulting list of persons from the
-`find` command. The same applies for policies.
 
 [[Features]]
 == Features
