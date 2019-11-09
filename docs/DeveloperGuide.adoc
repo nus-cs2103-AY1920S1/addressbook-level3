@@ -170,19 +170,39 @@ Logic is primarily built by two segments: Command and Parser.
 
     ParserManager holds reference to two SpecificModeParsers
 
-    The SpecificModeParser changes based on current application mode.
+    The SpecificModeParsers change based on current application mode.
 
     They hold references to all concrete Parser and Command Classes with the help of ClassUtil
 
 Logic fulfils its contracts with other packages through two interfaces: Logic and UiLogicHelper
 
+==== Interaction through Logic Interface
+
 Examples of transactions promised by Logic API include command execution, command result and update statistics.
+
+
+* Command Execution through `Logic Interface`
+
+.  A String from Ui package gets to `ParserManager` and gets converted into a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a word meaning pair into wordbank).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+
+==== Interaction through UiLogicHelper Interface
 
 UiLogicHelper APIs is a subset of Logic APIs and only contains transactions for AutoComplete. It exposes the functionalities through the following getter methods:
 
 * `List<AutoFillAction>#getMenuItems(String text)` -- Gets a List of AutoFillActions to fill up AutoComplete display based on current user input given in text
 * `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
 * `List<ModeEnum>#getModes()` -- Retrieves the possible modes the user can transition to from current mode
+
+
+The following sequence diagram shows how the AutoComplete operation runs when user keys in "st" into command box.
+
+.Sequence Diagram of AutoComplete
+image::AutoCompleteSequenceDiagram.png[]
+
 
 *API* :
 link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -297,54 +317,39 @@ The above implementation empowers the application with the following features :
 ==== Implementation details of ParserManager
 
 
-.  `ParserManager` instance has reference to two `SpecificModeParser` 
-.  When user enters a keystroke, the `SpecificModeParser` which hold switch Command or `SpecificModeParser` which hold current mode commands are accessed based on internal state.
-.  It updates the AutoComplete suggestions for every keystroke.
+.  `ParserManager` instance has reference to two `SpecificModeParser` objects
+.  When user enters a keystroke, the `SpecificModeParser` which holds switch commands or `SpecificModeParser` which holds current mode commands are accessed based on internal state.
 .   Internal State consists of booleans: gameIsOver, bankLoaded and enumeration ModeEnum: HOME, OPEN, GAME, SETTINGS
-.   Boolean algebra is used to derive the four overall states in the following way:
-*   SwitchCommands are those that change mode and work as a WordBank is selected and Game is not running
-*   ModeCommands belong to a specific mode and only work when application is in the specific mode.
-
+.   Boolean algebra is used to derive the four overall states.
 
    The below activity diagram demonstrates four possible states and a typical user flow.
 
 .Activity diagram of a typical application flow
 image::StateActivityDiagram.PNG[]
 
+*   Definitions of Switch and Mode in table above
+**   SwitchCommands = (commands that change mode)
+**   ModeCommands = (commands that belong to a specific mode ie Home, Open, Game and Settings) 
+
 ==== Implementation details of SpecificModeParser
 
-.   SpecificModeParsers use  ClassUtil to handle instantiation of Parser and Command objects.
-.   ClassUtil holds a list of references to Command and Parsers classes. In Java class references are passed using .class attribute. Example: AddCommand.class
-.   Internally, ClassUtil employs java reflections to find attributes of classes without instantiating them. Code for it is succinct and shown in the snippet below.
-.   Also, when a command needs to be executed, it instantiates the Parser object (if any) and Command object at runtime.
+*   SpecificModeParsers use  ClassUtil to handle instantiation of Parser and Command objects.
+*   ClassUtil holds a list of references to Command and Parsers classes. In Java class references are passed using .class attribute. Example: AddCommand.class
+*   Internally, ClassUtil employs java reflections to find attributes of classes without instantiating them. Code for it is succinct and shown in the snippet below.
 
 .Code snippet from ClassUtil.java
 image::reflectionsSnippet.PNG[width="500"]
 
-Below snippet is from ParserManager. Just one line of code is necessary to include a new command with its parser. Example:
+*   Also, when a command needs to be executed, it instantiates the Parser object (if any) and Command object at runtime.
+
+*   Below snippet is from ParserManager. Just one line of code is necessary to include a new command with its parser. Example:
 
     temp.add(NewCommand.class, NewCommandParser.class);
 
 .Code snippet from ParserManager.java
 image::reflectionsSnippet2.PNG[width="500"]
 
-==== Walkthrough of Command Execution
 
-* Command Execution through `Logic Interface`
-
-.  A String from Ui package gets to `ParserManager` and gets converted into a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a word meaning pair into wordbank).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-
-==== Walkthrough of AutoComplete
-
-* AutoComplete through `UiLogicHelper Interface`
-
-The following sequence diagram shows how the AutoComplete operation runs when user keys in "st" into command box.
-
-.Sequence Diagram of AutoComplete
-image::AutoCompleteSequenceDiagram.png[]
 
 
 ==== Design Considerations

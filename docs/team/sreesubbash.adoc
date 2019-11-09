@@ -23,7 +23,7 @@ While it was targeted at regular CLI users, after preliminary user experience fe
 
 It was our priority to improve their learning experience. So I took the initiative to go the extra mile to improve their command line experience.
 
-Under the hood, it required major restructuring of input handling. In that process, I took care that code was well abstracted for co-developers and future developers.
+Under the hood, it required major restructuring of input handling. In that process, I took care of that code was well abstracted for co-developers and future developers.
 
 
 image::subbashcontentpageB.png[width=300]
@@ -55,11 +55,11 @@ NOTE: In-depth analysis in Developer Guide extract below
 
 *Project management*
 
-*** Coordinated development and master branch workflow for rapid prototyping in early weeks.
+*** Coordinated development branch and master branch workflow for rapid prototyping in early weeks.
 
 *** Suggested branching workflow (with username, merge count and purpose) during period closer to deployment for stability and accountability in changes.
 
-*** Initial setup of continuous integration pipeline with travis.
+*** Initial setup of continuous integration pipeline with Travis.
 
 *** Managed product release on GitHub https://github.com/AY1920S1-CS2103T-T11-2/main/releases/tag/v1.3.5[v1.3.5]
 
