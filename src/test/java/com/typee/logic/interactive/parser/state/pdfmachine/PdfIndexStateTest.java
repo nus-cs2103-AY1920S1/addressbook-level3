@@ -19,7 +19,6 @@ class PdfIndexStateTest {
     void setUp() {
         typicalPdfIndexState = new PdfIndexState(new ArgumentMultimap());
     }
-    
     @Test
     public void transition_validArgumentMultimap_returnsPostTransitionState() {
         try {
