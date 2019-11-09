@@ -100,12 +100,18 @@ public class EditScheduleCommand extends UndoableCommand {
             // do nothing
         }
 
-        // additional check for invalid order (order is scheduled but optional is null)
+        // additional check for invalid order (order is scheduled but optional is empty)
         if (orderToReschedule.getSchedule().isEmpty()) {
             throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED_INVALID);
         }
 
         Schedule scheduleToEdit = orderToReschedule.getSchedule().get();
+
+        // additional check for missing schedule in databook
+        if (!model.hasSchedule(scheduleToEdit)) {
+            throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED_INVALID);
+        }
+
         Schedule editedSchedule = createEditedSchedule(scheduleToEdit, editScheduleDescriptor);
 
         if (!scheduleToEdit.isSameAs(editedSchedule) && model.hasSchedule(editedSchedule)) {

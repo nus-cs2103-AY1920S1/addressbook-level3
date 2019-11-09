@@ -6,22 +6,31 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCustomers.getTypicalCustomerBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_SCHEDULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_SCHEDULE;
+import static seedu.address.testutil.TypicalOrders.ORDERONE;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
 import static seedu.address.testutil.TypicalPhones.getTypicalPhoneBook;
 import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Status;
 import seedu.address.model.schedule.Schedule;
+import seedu.address.testutil.OrderBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -60,7 +69,31 @@ public class DeleteScheduleCommandTest {
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
     }
 
-    // Filtered list tests to be updated after predicates are set up
+    @Test
+    public void execute_validScheduledOrderButOptionalIsEmpty_throwsCommandException() {
+        Model modelManager = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
+                getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(),
+                new UserPrefs());
+        Order invalidOrder = new OrderBuilder(ORDERONE).withSchedule(Optional.empty()).withStatus(Status.SCHEDULED)
+                .build();
+        modelManager.setOrder(ORDERONE, invalidOrder);
+
+        DeleteScheduleCommand deleteCommand = new DeleteScheduleCommand(INDEX_FIRST_ORDER);
+        assertThrows(CommandException.class, () -> deleteCommand.executeUndoableCommand(modelManager,
+                new CommandHistory(), new UndoRedoStack()));
+    }
+
+    @Test
+    public void execute_validOrderButScheduleNotInDataBook_throwsCommandException() {
+        Model modelManager = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
+                getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(),
+                new UserPrefs());
+        modelManager.setScheduleBook(new DataBook<Schedule>());
+
+        DeleteScheduleCommand deleteCommand = new DeleteScheduleCommand(INDEX_FIRST_ORDER);
+        assertThrows(CommandException.class, () -> deleteCommand.executeUndoableCommand(modelManager,
+                new CommandHistory(), new UndoRedoStack()));
+    }
 
     @Test
     public void equals() {
