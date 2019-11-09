@@ -1,4 +1,4 @@
-package com.typee.logic.parser.exceptions;
+package com.typee.logic.interactive.parser.exceptions;
 
 import com.typee.commons.exceptions.IllegalValueException;
 

@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.TabCommand;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.ui.Tab;
 
 /**

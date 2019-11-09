@@ -1,6 +1,6 @@
 package com.typee.logic.commands;
 
-import static com.typee.logic.parser.CliSyntax.PREFIX_NAME;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;

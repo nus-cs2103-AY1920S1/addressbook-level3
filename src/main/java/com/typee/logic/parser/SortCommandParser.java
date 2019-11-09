@@ -3,7 +3,7 @@ package com.typee.logic.parser;
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.SortCommand;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 
 /**
  * Parses a sort command and returns a {@code SortCommand} object

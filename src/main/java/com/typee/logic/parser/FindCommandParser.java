@@ -11,7 +11,7 @@ import static com.typee.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import com.typee.logic.commands.FindCommand;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.EngagementPredicate;
 

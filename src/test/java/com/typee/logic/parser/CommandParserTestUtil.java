@@ -3,7 +3,7 @@ package com.typee.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.typee.logic.commands.Command;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 
 /**
  * Contains helper methods for testing command parsers.

@@ -19,7 +19,7 @@ import com.typee.logic.commands.RedoCommand;
 import com.typee.logic.commands.SortCommand;
 import com.typee.logic.commands.TabCommand;
 import com.typee.logic.commands.UndoCommand;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 
 /**
  * Parses user input.

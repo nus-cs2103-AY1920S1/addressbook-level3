@@ -1,7 +1,7 @@
 package com.typee.logic.parser;
 
 import com.typee.logic.commands.Command;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 
 /**
  * Represents a Parser that is able to parse user input into a {@code Command} of type {@code T}.

@@ -9,7 +9,7 @@ import com.typee.logic.commands.CalendarNextMonthCommand;
 import com.typee.logic.commands.CalendarOpenDisplayCommand;
 import com.typee.logic.commands.CalendarPreviousMonthCommand;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new CalendarCommand object.

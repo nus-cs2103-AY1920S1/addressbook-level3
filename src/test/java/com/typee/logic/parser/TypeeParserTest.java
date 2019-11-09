@@ -18,7 +18,7 @@ import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.FindCommand;
 import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.commands.ListCommand;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.model.engagement.EngagementPredicate;
 
 public class TypeeParserTest {

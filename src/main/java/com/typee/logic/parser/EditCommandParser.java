@@ -6,7 +6,7 @@ import com.typee.commons.core.Messages;
 import com.typee.commons.core.index.Index;
 import com.typee.logic.commands.EditCommand;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new EditCommand object
