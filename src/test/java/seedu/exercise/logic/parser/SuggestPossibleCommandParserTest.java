@@ -3,7 +3,7 @@ package seedu.exercise.logic.parser;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.exercise.logic.parser.predicate.PredicateUtil.predicateShowExercisesWithMuscle;
+import static seedu.exercise.logic.parser.predicate.PredicateUtil.getBasePredicateMuscle;
 import static seedu.exercise.testutil.CommonTestData.DESC_OPERATION_TYPE_AND;
 import static seedu.exercise.testutil.CommonTestData.DESC_SUGGEST_TYPE_POSSIBLE;
 import static seedu.exercise.testutil.CommonTestData.MUSCLE_DESC_AEROBICS;
@@ -24,6 +24,8 @@ import seedu.exercise.logic.parser.predicate.ExercisePredicate;
 import seedu.exercise.model.property.Muscle;
 import seedu.exercise.model.resource.Exercise;
 
+//@@author kwekke
+
 public class SuggestPossibleCommandParserTest {
     private SuggestCommandParser parser = new SuggestCommandParser();
 
@@ -41,7 +43,7 @@ public class SuggestPossibleCommandParserTest {
         Set<Muscle> targetMuscles = new HashSet<>();
         targetMuscles.add(new Muscle(VALID_MUSCLE_AEROBICS));
         targetMuscles.add(new Muscle(VALID_MUSCLE_BASKETBALL));
-        BasePropertyPredicate predicateMuscleAnd = predicateShowExercisesWithMuscle(targetMuscles, true);
+        BasePropertyPredicate predicateMuscleAnd = getBasePredicateMuscle(targetMuscles, true);
 
         //no custom properties
         Predicate<Exercise> exercisePredicateMuscleAdd = new ExercisePredicate(true, predicateMuscleAnd);
@@ -54,7 +56,7 @@ public class SuggestPossibleCommandParserTest {
     public void parsePossible_optionalOperationTypeMissing_success() {
         Set<Muscle> targetMuscles = new HashSet<>();
         targetMuscles.add(new Muscle(VALID_MUSCLE_AEROBICS));
-        BasePropertyPredicate predicateOneMuscleAnd = predicateShowExercisesWithMuscle(targetMuscles, true);
+        BasePropertyPredicate predicateOneMuscleAnd = getBasePredicateMuscle(targetMuscles, true);
         Predicate<Exercise> exercisePredicateOneMuscleAnd = new ExercisePredicate(true, predicateOneMuscleAnd);
         assertParseSuccess(parser, DESC_SUGGEST_TYPE_POSSIBLE + MUSCLE_DESC_AEROBICS,
                 new SuggestPossibleCommand(exercisePredicateOneMuscleAnd));

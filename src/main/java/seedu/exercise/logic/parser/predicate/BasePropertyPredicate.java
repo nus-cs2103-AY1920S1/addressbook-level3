@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import seedu.exercise.model.resource.Exercise;
 
+//@@author kwekke
 /**
  * Represents a {@code Predicate} that filters {@code Exercise} which matches the given property.
  */

@@ -6,7 +6,7 @@ import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseFailu
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_BASIC;
 import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_POSSIBLE;
-import static seedu.exercise.logic.parser.predicate.PredicateUtil.predicateShowExercisesWithMuscle;
+import static seedu.exercise.logic.parser.predicate.PredicateUtil.getBasePredicateMuscle;
 import static seedu.exercise.testutil.CommonTestData.DESC_OPERATION_TYPE_AND;
 import static seedu.exercise.testutil.CommonTestData.DESC_SUGGEST_TYPE_BASIC;
 import static seedu.exercise.testutil.CommonTestData.DESC_SUGGEST_TYPE_POSSIBLE;
@@ -30,6 +30,8 @@ import seedu.exercise.logic.parser.predicate.ExercisePredicate;
 import seedu.exercise.model.property.Muscle;
 import seedu.exercise.model.resource.Exercise;
 
+//@@author kwekke
+
 class SuggestCommandParserTest {
     private SuggestCommandParser parser = new SuggestCommandParser();
 
@@ -38,7 +40,7 @@ class SuggestCommandParserTest {
         Set<Muscle> targetMuscles = new HashSet<>();
         targetMuscles.add(new Muscle(VALID_MUSCLE_AEROBICS));
         boolean isStrict = true;
-        BasePropertyPredicate predicateMuscleAnd = predicateShowExercisesWithMuscle(targetMuscles, isStrict);
+        BasePropertyPredicate predicateMuscleAnd = getBasePredicateMuscle(targetMuscles, isStrict);
         Predicate<Exercise> exercisePredicate = new ExercisePredicate(isStrict, predicateMuscleAnd);
 
         //whitespace preamble -> success

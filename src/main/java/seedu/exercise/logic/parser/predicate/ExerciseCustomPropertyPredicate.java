@@ -1,9 +1,12 @@
 package seedu.exercise.logic.parser.predicate;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Map;
 
 import seedu.exercise.model.resource.Exercise;
 
+//@@author kwekke
 /**
  * Tests whether an {@code Exercise} matches the {@code predicate}
  */
@@ -13,6 +16,7 @@ public class ExerciseCustomPropertyPredicate implements BasePropertyPredicate {
     private final boolean isStrict;
 
     public ExerciseCustomPropertyPredicate(Map<String, String> customProperties, boolean isStrict) {
+        requireNonNull(customProperties);
         this.customProperties = customProperties;
         this.isStrict = isStrict;
     }

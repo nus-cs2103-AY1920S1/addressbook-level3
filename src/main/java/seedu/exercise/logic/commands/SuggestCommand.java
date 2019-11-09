@@ -3,6 +3,7 @@ package seedu.exercise.logic.commands;
 import static seedu.exercise.logic.commands.SuggestBasicCommand.MESSAGE_USAGE_SUGGEST_BASIC;
 import static seedu.exercise.logic.commands.SuggestPossibleCommand.MESSAGE_USAGE_SUGGEST_POSSIBLE;
 
+//@@author kwekke
 /**
  * Represents an SuggestCommand with hidden internal logic and the ability to be executed.
  */

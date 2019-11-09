@@ -1,51 +1,59 @@
 {
   "jsonResources" : [ {
-    "name" : "Rope Skipping",
-    "date" : "11/11/2019",
-    "calories" : "330",
-    "quantity" : "10",
-    "unit" : "counts",
-    "muscles" : [ "Legs" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Cycling",
-    "date" : "10/11/2019",
-    "calories" : "284",
-    "quantity" : "5",
-    "unit" : "km",
-    "muscles" : [ "Legs" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Strength Training",
-    "date" : "09/11/2019",
-    "calories" : "341",
-    "quantity" : "20",
-    "unit" : "counts",
-    "muscles" : [ "Chest" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Swimming",
-    "date" : "08/11/2019",
-    "calories" : "354",
-    "quantity" : "10",
-    "unit" : "laps",
-    "muscles" : [ "Calves" ],
-    "customProperties" : { }
-  }, {
     "name" : "Bench Press",
-    "date" : "07/11/2019",
-    "calories" : "222",
-    "quantity" : "30",
+    "date" : "09/11/2019",
+    "calories" : "50",
+    "quantity" : "70",
+    "unit" : "kg",
+    "muscles" : [ "Chest", "Triceps" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Deadlift",
+    "date" : "09/11/2019",
+    "calories" : "80",
+    "quantity" : "120",
+    "unit" : "kg",
+    "muscles" : [ "Legs", "Back" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Pull Ups",
+    "date" : "09/11/2019",
+    "calories" : "50",
+    "quantity" : "50",
     "unit" : "counts",
+    "muscles" : [ "Back", "Biceps" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Push Ups",
+    "date" : "09/11/2019",
+    "calories" : "30",
+    "quantity" : "100",
+    "unit" : "counts",
+    "muscles" : [ "Chest", "Triceps" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Run",
+    "date" : "09/11/2019",
+    "calories" : "200",
+    "quantity" : "10",
+    "unit" : "km",
     "muscles" : [ "Triceps" ],
     "customProperties" : { }
   }, {
-    "name" : "Running",
-    "date" : "06/11/2019",
-    "calories" : "431",
-    "quantity" : "2.4",
-    "unit" : "km",
-    "muscles" : [ "Legs" ],
+    "name" : "Sit ups",
+    "date" : "09/11/2019",
+    "calories" : "30",
+    "quantity" : "100",
+    "unit" : "counts",
+    "muscles" : [ "Abs" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Squat",
+    "date" : "09/11/2019",
+    "calories" : "100",
+    "quantity" : "100",
+    "unit" : "kg",
+    "muscles" : [ "Legs", "Back" ],
     "customProperties" : { }
   } ]
 }

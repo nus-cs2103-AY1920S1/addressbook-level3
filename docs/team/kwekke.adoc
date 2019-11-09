@@ -7,45 +7,45 @@
 
 == Overview
 
-My team of 4 computer science students were tasked with changing a basic command line application. Our team
+My team of 5 computer science students were tasked with changing a basic command line application. Our team
 decided to morph the application into ExerHealth. **ExerHealth** is a desktop application used for tracking
-and scheduling the user's exercises. The application has statistical analysis of exercises users have completed
+and scheduling the user's exercises. The application contains statistical analysis of exercises that users have completed
 in the past. Additionally, it also acts as a personal trainer by suggesting different exercises which both
 beginners and advanced users can choose from to incorporate into their exercise regimes.
 The user interacts with it using a command line interface, and it has a GUI created with JavaFX.
 
 Below is a screenshot of what our desktop application looks like:
 
-**//TODO: Add image of UI**
+image::Ui.png[]
 
-
+<<<
 
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to search for suggestions*
 ** What it does: The command `suggest` allows the user to search for suggestions.
-** Justification: This feature enables new users to have a starting point in their exercise regime.
-This feature also offers experienced users suggestions based on the type of exercises the user wants to do.
-** Highlights: This enhancement works well with existing features, such as Custom Properties, and can be expanded on.
-It required an in-depth analysis of design alternatives to ensure that future extensions or further enhancements can be smooth.
-The implementation too was challenging as it required multiple new predicate and utility classes.
+** Justification: This feature gives new users a starting point in their exercise regime.
+This feature also offers experienced users suggestions based on the type of exercises the user wishes to do.
+** Highlights: This enhancement works well with existing features, such as Custom Properties, and can be expanded upon.
+It requires an in-depth analysis of design alternatives to ensure that future extensions or further enhancements can be smooth.
+The implementation was also challenging as it required multiple new predicate and utility classes.
 
-* *Minor enhancement 1*: Added the display panel on the left hand side of the UI to show the respective information after a command is executed.
+* *Minor enhancement 1*: Added the display panel on the left hand side of the UI to show the respective information after a command is executed (Pull request https://github.com/AY1920S1-CS2103T-T09-2/main/pull/121/files[#121]).
 
-* *Minor enhancement 2*: Allowed the command box to be automatically focused on upon opening the application so that user does not need to click on the box to start typing.
-
+* *Minor enhancement 2*: Allowed the command box to be automatically focused on upon opening the application so that user does not need to click on the box to start typing (Pull request https://github.com/AY1920S1-CS2103T-T09-2/main/pull/128[#128]).
 
 * *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kwekke&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]
 
 * *Other contributions*:
 
+
 ** Project management:
 *** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 *** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/137[#137], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/96[#96])
 ** Enhancements to existing features:
-*** Refactored the GUI (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/121[#121]
+*** Refactored the GUI (Pull request https://github.com/AY1920S1-CS2103T-T09-2/main/pull/121[#121])
 ** Community:
-*** PRs reviewed (with non-trivial review comments):  https://github.com/AY1920S1-CS2103T-T09-2/main/pull/114[#114]
+*** PRs reviewed (with non-trivial review comments):  https://github.com/AY1920S1-CS2103T-T09-2/main/pull/114[#114], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/81[#81]
 *** Reported bugs and suggestions for other projects (https://github.com/AY1920S1-CS2103T-F12-1/main/issues/199[#199], https://github.com/AY1920S1-CS2103T-F12-1/main/issues/198[#198],
  https://github.com/AY1920S1-CS2103T-F12-1/main/issues/196[#196], https://github.com/AY1920S1-CS2103T-F12-1/main/issues/190[#190], https://github.com/AY1920S1-CS2103T-F12-1/main/issues/185[#185])
 
@@ -65,9 +65,3 @@ include::../UserGuide.adoc[tag=suggest]
 |===
 
 include::../DeveloperGuide.adoc[tag=suggest]
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

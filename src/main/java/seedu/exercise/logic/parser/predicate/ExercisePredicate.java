@@ -9,8 +9,9 @@ import java.util.function.Predicate;
 
 import seedu.exercise.model.resource.Exercise;
 
+//@@author kwekke
 /**
- * Tests whether an {@code Exercise} matches the {@code predicate}
+ * Encapsulates a {@code predicate} for an {@code Exercise}
  */
 public class ExercisePredicate implements Predicate<Exercise> {
     private List<BasePropertyPredicate> predicates = new ArrayList<>();

@@ -504,13 +504,13 @@ is acting like a singleton and so, a singleton class will be appropriate.
 === Suggest
 
 ==== Rationale
-Beginners now have a plethora of choices and may be overwhelmed when deciding on what exercises to do.
+Beginners now have a plethora of choices, which may overwhelm them when they are deciding on what exercises to do.
 Thus, we decided to provide users with sample exercise routines to reduce the inertia of starting this lifestyle change.
-On other hand, regular gym goers may face a repetitive and mundane exercise routine or may want to experiment with different exercises.
-As such, put it briefly, we decided to give users the ability to discover exercises based on the characteristics they are interested in.
+On the other hand, regular gym goers may face a repetitive and mundane exercise routine or may want to experiment with different exercises.
+As such, to put it briefly, we decided to give users the ability to discover exercises based on the characteristics they are interested in.
 
 This feature presents a cohesive function that all users can benefit from.
-This also makes our application well-rounded so that users can better achieve their fitness goals.
+It also makes our application well-rounded so that users can better achieve their fitness goals.
 
 ==== Overview
 The sample exercise routines are currently implemented in ExerHealth's database as a hard-coded set of exercises.
@@ -522,23 +522,27 @@ based on `Muscle` and `CustomProperty`.
 The `SuggestBasic` command displays a list of exercises from our database to the user.
 The `SuggestPossible` command is created by parsing the user's inputs to form a `Predicate` before filtering ExerHealth's database and the user's tracked exercises.
 
-The following activity diagram summarizes what happens when a user enters a suggest possible command:
+<<<
 
-.Activity diagram showing the workflow of a suggest possible command
+The following activity diagram summarizes what happens when a user enters a `SuggestPossible` command:
+
+.Activity diagram showing the workflow of a `SuggestPossible` command
 image::SuggestActivityDiagram.png[]
 
-In detail, when a `SuggestPossibleCommand` is entered, the `Logic` component is responsible for parsing the inputs into a `Predicate`.
-The `Predicate` is then used to instantiate a `SuggestPossibleCommand`, and later used to filter a list of `Exercise` when the command is executed.
+In detail, when a `SuggestPossible` command is entered, the `Logic` component is responsible for parsing the inputs into a `Predicate`.
+The `Predicate` is then used to instantiate a `SuggestPossible` command, and later used to filter a list of `Exercise` when the command is executed.
 The interactions between the multiple objects can be captured using a sequence diagram.
 
-The following sequence diagram shows the sequence flow from the when a user enters a valid `SuggestPossibleCommand`:
+<<<
 
-.Sequence diagram of a suggest possible command
+The following sequence diagram shows the sequence flow when a user enters a valid `SuggestPossible` command:
+
+.Sequence diagram of a `SuggestPossibleCommand`.
 image::SuggestSequenceDiagram.png[]
 
 From the sequence diagram:
 
-1. When the `LogicManager` receive the `execute` command, it calls the `parseCommand` method of `ExerciseBookParser`.
+1. When the `LogicManager` receives the `execute` command, it calls the `parseCommand` method of `ExerciseBookParser`.
 
 2. `ExerciseBookParser` will receive `suggest` as the command type and instantiate `SuggestCommandParser` to further parse the command.
 
@@ -547,13 +551,15 @@ to parse the user input to create an `ExercisePredicate` object (named `p` in th
 
 4. `SuggestCommandParser` will instantiate `SuggestPossibleCommand` with the `ExercisePredicate` as the constructor parameter.
 
-5. The `SuggestPossibleCommand` object is then returned to `SuggestCommandParser`, `ExerciseBookParser` and lastly back to `LogicManager` to execute.
+5. The `SuggestPossibleCommand` object is then returned to `SuggestCommandParser`, followed by `ExerciseBookParser`, and lastly back to `LogicManager` to execute.
 
-6. `LogicManager` will proceed to call execute `SuggestPossibleCommand`.
+6. `LogicManager` will proceed to `execute` `SuggestPossibleCommand`.
 
 7. `SuggestPossibleCommand` then calls the `updateSuggestedExerciseList` method in `ModelManager`, passing in the predicate to filter the list of suggest exercises.
 
 8. `SuggestPossibleCommand` creates a new `CommandResult` to be returned.
+
+<<<
 
 In step 3, the process in which the `ExercisePredicate` object is created can be explored deeper.
 
@@ -567,7 +573,7 @@ From the sequence diagram above:
 
 2. Since there were no CustomProperty tags to filter, `ParserUtil` creates `ExercisePredicate` with only the `musclesPredicate` and the boolean `isStrict`.
 
-3. The resulting `ExercisePredicate` is then returned to `ParserUtil` and then `SuggestCommandParser`.
+3. The resulting `ExercisePredicate` is then returned to `ParserUtil`, followed by `SuggestCommandParser`.
 
 The diagram below shows the structure of a `ExercisePredicate` object.
 A `ExercisePredicate` contains a `list` of `BasePropertyPredicate`,
@@ -578,7 +584,9 @@ where each contains a `Collection` of `Muscle` or `CustomProperty`.
 image::SuggestCommandClassDiagram.png[]
 
 Creating classes such as `ExerciseCustomPropertyPredicate` and `ExerciseMusclePredicate`
-allow us to conduct better testing because we can compare the `Collection` of `Muscle`/`CustomProperty` being considered.
+allows us to conduct better testing because we can compare the `Collection` of `Muscle`/`CustomProperty` that is being considered.
+
+<<<
 
 ==== Design Considerations
 ===== Aspect: Implementation of predicate creation
@@ -587,12 +595,12 @@ allow us to conduct better testing because we can compare the `Collection` of `M
 *** Easy to implement and understand. The class `SuggestPossibleCommand` contains the parsing and creation of the predicate
 all in one place as it stores the tags, and creates the predicate and filters the list of exercises.
 ** Cons:
-*** Violation of SRP as `SuggestPossibleCommand`, in addition to updating the model, has to create the predicate.
+*** Violation of Single Responsibility Principle (SRP) as `SuggestPossibleCommand` updates the model and creates the predicate.
 * **Choice 2 (current choice): ** Predicate class to handle all predicates.
 ** Pros:
-*** Adheres to Single Responsibility Principle (SRP) and Separation of Concern (SoC).
+*** Adheres to SRP and Separation of Concern (SoC).
 ** Cons:
-*** Increases the complexity of the code as more classes are needed, also increasing the lines of code written.
+*** Increases the complexity of the code as more classes are needed, and also increases the lines of code written.
 // end::suggest[]
 
 // tag::statistic[]

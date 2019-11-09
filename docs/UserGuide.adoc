@@ -718,19 +718,19 @@ image::ResolveRegimeTracker.png[]
 [[suggestion]]
 === Suggesting ideas: `suggest`
 
-==== Suggest basic exercises
+==== Suggests basic exercises
 Recommends exercises from ExerHealth's inbuilt database for beginners.
 
 Format: `suggest s/basic`
 
-==== Suggest possible exercises
+==== Suggests possible exercises
 Suggests exercises matching specified tags.
 
 ===== Based on matching muscle tags
 Format: `suggest s/possible o/OPERATION_TYPE [m/MUSCLE CUSTOM_PROPERTY_PREFIX_NAME/VALUE]`
 
 ****
-* You must choose one of the following operation type: `and` / `or` i.e. commands such as `suggest s/possible m/Chest m/Legs` will fail whereas `suggest s/possible o/or m/Chest m/Legs` will succeed.
+* You must choose one of the following operation types: `and` / `or` i.e. commands such as `suggest s/possible m/Chest m/Legs` will fail whereas `suggest s/possible o/or m/Chest m/Legs` will succeed.
 
 * You have to enter at least one property (muscle/custom property) to search for suggestions i.e. commands such as
 `suggest s/possible o/and` and `suggest s/possible o/or` will both fail
@@ -739,7 +739,7 @@ whereas `suggest s/possible o/or m/Chest` will succeed.
 * The operation type is optional if there is only one tag provided i.e. commands such as
 `suggest s/possible o/and m/Chest`, `suggest s/possible o/or m/Chest` and `suggest s/possible m/Chest`
 will all achieve the same outcome -
-display all the exercises tagged with "Chest" in the exercise tracker and ExerHealth's database.
+display all the exercises tagged with `Chest` in the exercise tracker and ExerHealth's database.
 ****
 ===== Based on matching custom properties
 
@@ -753,40 +753,39 @@ Suppose you have created a new custom property and have been tracking a few exer
 
 1. `custom s/r f/Rating p/Number`
 
-2. `add t/exercise n/Run d/02/11/2019 c/200 q/10 u/km m/Legs r/8`
+2. `add t/exercise n/Run d/03/11/2019 c/200 q/10 u/km m/Legs r/8`
 
 3. `add t/exercise n/Bench Press d/05/11/2019 c/150 q/40 u/kg m/Chest r/8`
 
 
-Then, the following input will display a list of exercises which are tagged with "Chest" and have a rating of 8.
+Then, the following input will display a list of exercises which are tagged with `Chest` and have a rating of `8`.
 
 `suggest s/possible o/and m/Chest r/8`
 
 Thus the command will display only the exercise named "Bench Press".
+
+<<<
 
 Expected Result:
 
 .Exercises with a `Chest` tag and a rating of `8` are shown.
 image::suggestPossibleAfter1.png[]
 
-The input, `suggest s/possible o/or m/Chest r/8`, however, will display a list of exercises with "Chest" *or* have a rating of 8.
-
-.Before entering the new suggest command
-image::suggestPossibleBefore2.png[]
+The input, `suggest s/possible o/or m/Chest r/8`, however, will display a list of exercises tagged with `Chest` *or* have a rating of `8`.
 
 Expected Result:
 
 .Exercises with a `Chest` tag and exercises with a rating of `8` are shown.
 image::suggestPossibleAfter2.png[]
 
-As seen on the image above, the two previously added exercises named "Bench Press" and "Run" are displayed because they each have a rating of 8.
-In addition to the tracked exercises, ExerHealth will also display suggestions in its database. Hence the exercise named "Push Ups" is displayed
-as it has a "Chest" muscle tag.
+As shown above, the two previously added exercises, "Bench Press and "Run", are displayed because they each have a rating of `8`.
+In addition to the tracked exercises, ExerHealth also displays suggestions in its database. Hence it will display the exercise named "Push Ups" as it has a `Chest` tag.
 
 ===== Duplicates
 
-Sometimes, you may track exercises of the same name. Instead of displaying all suggestions of the same name, this function
-display the information of the most recently tracked exercise of that name.
+Sometimes, you may want to track exercises of the same name. Instead of displaying all suggestions of the same name, `suggest`
+displays the information of the most recently tracked exercise of that name.
+As can be seen below, there are two exercises named "Bench Press".
 
 .Before entering the new suggest command
 image::suggestPossibleBefore3.png[]
@@ -796,15 +795,7 @@ Expected Result:
 .Only the latest `Bench Press` exercise is displayed
 image::suggestPossibleAfter3.png[]
 
-As seen on the image above, the tracked exercise named "Bench Press" on "06/11/2019" is displayed instead of the one on "05/11/2019".
-
-****
-*Notes:*
-
-* Suggestions from the database have dates displayed refer to the last time ExerHealth's database was updated.
-
-****
-
+As seen from the image above, the information from the "Bench Press" on "06/11/2019" is displayed instead of the one on "05/11/2019" (observe that the calories are different).
 // end::suggest[]
 
 // tag::customfeature[]

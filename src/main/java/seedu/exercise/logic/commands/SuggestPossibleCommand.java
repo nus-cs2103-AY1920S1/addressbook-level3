@@ -12,6 +12,8 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.ui.ListResourceType;
 
+//@@author kwekke
+
 /**
  * Lists possible exercises to the user.
  */
@@ -27,7 +29,7 @@ public class SuggestPossibleCommand extends SuggestCommand {
             + PREFIX_OPERATION_TYPE + "and "
             + PREFIX_MUSCLE + "Legs";
 
-    public static final String MESSAGE_SUCCESS = "Listed suggested exercises.";
+    public static final String MESSAGE_SUCCESS = "Listed all suggested exercises.";
 
     private Predicate<Exercise> predicate;
 

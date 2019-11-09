@@ -3,8 +3,8 @@ package seedu.exercise.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.exercise.logic.parser.predicate.PredicateUtil.predicateShowExerciseWithCustomProperty;
-import static seedu.exercise.logic.parser.predicate.PredicateUtil.predicateShowExercisesWithMuscle;
+import static seedu.exercise.logic.parser.predicate.PredicateUtil.getBasePredicateCustomProperty;
+import static seedu.exercise.logic.parser.predicate.PredicateUtil.getBasePredicateMuscle;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_RATING;
@@ -38,6 +38,8 @@ import seedu.exercise.model.property.custom.CustomProperty;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.testutil.builder.CustomPropertyBuilder;
 import seedu.exercise.ui.ListResourceType;
+
+//@@author kwekke
 
 public class SuggestPossibleCommandTest {
 
@@ -77,7 +79,7 @@ public class SuggestPossibleCommandTest {
     @Test
     public void execute_suggestPossibleMuscle_success() {
         boolean isStrict = true;
-        Predicate<Exercise> predicateMuscleAnd = predicateShowExercisesWithMuscle(targetMuscles, isStrict);
+        Predicate<Exercise> predicateMuscleAnd = getBasePredicateMuscle(targetMuscles, isStrict);
 
         expectedModel.updateSuggestedExerciseList(predicateMuscleAnd);
         String expectedMessage = SuggestPossibleCommand.MESSAGE_SUCCESS;
@@ -91,7 +93,7 @@ public class SuggestPossibleCommandTest {
     public void execute_suggestPossibleCustomProperty_success() {
         boolean isStrict = true;
         Predicate<Exercise> predicateCustomPropertyAnd =
-            predicateShowExerciseWithCustomProperty(targetCustomProperties, isStrict);
+            getBasePredicateCustomProperty(targetCustomProperties, isStrict);
 
         expectedModel.updateSuggestedExerciseList(predicateCustomPropertyAnd);
         String expectedMessage = SuggestPossibleCommand.MESSAGE_SUCCESS;
@@ -104,7 +106,7 @@ public class SuggestPossibleCommandTest {
     @Test
     public void equals() {
         boolean isStrict = true;
-        Predicate<Exercise> predicateMuscleAnd = predicateShowExercisesWithMuscle(targetMuscles, isStrict);
+        Predicate<Exercise> predicateMuscleAnd = getBasePredicateMuscle(targetMuscles, isStrict);
         SuggestCommand suggestPossibleCommand = new SuggestPossibleCommand(predicateMuscleAnd);
 
         // same object -> returns true
@@ -121,11 +123,11 @@ public class SuggestPossibleCommandTest {
         assertFalse(suggestPossibleCommand.equals(null));
 
         //different predicate with same values -> returns true
-        Predicate<Exercise> predicateMuscleAndCopy = predicateShowExercisesWithMuscle(targetMuscles, isStrict);
+        Predicate<Exercise> predicateMuscleAndCopy = getBasePredicateMuscle(targetMuscles, isStrict);
         assertTrue(suggestPossibleCommand.equals(new SuggestPossibleCommand(predicateMuscleAndCopy)));
 
         //different predicate with different values -> returns false
-        Predicate<Exercise> predicateMuscleOr = predicateShowExercisesWithMuscle(targetMuscles, false);
+        Predicate<Exercise> predicateMuscleOr = getBasePredicateMuscle(targetMuscles, false);
         assertFalse(suggestPossibleCommand.equals(new SuggestPossibleCommand(predicateMuscleOr)));
     }
 
