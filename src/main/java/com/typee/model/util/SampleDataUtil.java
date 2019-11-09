@@ -1,6 +1,7 @@
 package com.typee.model.util;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Arrays;
 
 import com.typee.model.EngagementList;
@@ -23,7 +24,9 @@ public class SampleDataUtil {
         try {
             return new Engagement[]{
                     Engagement.of(EngagementType.MEETING,
-                            new TimeSlot(LocalDateTime.now(), LocalDateTime.now()),
+                            new TimeSlot(
+                                    LocalDateTime.of(2019, Month.NOVEMBER, 12, 15, 0),
+                                    LocalDateTime.of(2019, Month.NOVEMBER, 12, 17, 0)),
                             new AttendeeList(Arrays.asList(new Person[]{new Person(new Name("Uggi"))})),
                             new Location("SR-10"), "Test", Priority.HIGH)
             };

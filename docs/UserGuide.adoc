@@ -236,7 +236,8 @@ This means that nothing will happen if this command is used with a date which al
 Format: `calendar opendisplay [date]`. The date must follow a DD/MM/YYYY format.
 
 If this command is used to open an engagement list window using a date from another month, the calendar's view will switch to
-display that specified month.
+display that specified month. This command can be used to quickly switch to another month which is not immediately before or
+after the currently displayed month.
 
 All engagement list windows will be closed if something is done to change the displayed calendar month
 (e.g. using the `calendar nextmonth` command). This includes using this command as in the above paragraph.

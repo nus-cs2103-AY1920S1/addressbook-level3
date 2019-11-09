@@ -16,10 +16,12 @@ src/main/resources/docs/
 
 /reports
 
-# Test sandbox files
-src/test/data/sandbox/
-
 # MacOS custom attributes files created by Finder
 .DS_Store
 
 /docs/images/appveyor/
+
+/test/data/sandbox/serialize.json
+/test/data/sandbox/invalidList.json
+
+src/test/data/sandbox/serialize.json

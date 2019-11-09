@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
+import com.typee.commons.util.DateUtil;
 import com.typee.model.engagement.Engagement;
+import com.typee.model.engagement.TimeSlot;
 import com.typee.ui.UiPart;
+import com.typee.ui.calendar.exceptions.CalendarCloseDisplayException;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -96,6 +99,7 @@ public class CalendarWindow extends UiPart<Region> {
     /**
      * Returns a {@code LocalDate} instance representing the first Sunday to be displayed.
      * This Sunday is defined as the Sunday before or on the first day of the month.
+     *
      * @return A {@code LocalDate} instance representing the first Sunday to be displayed.
      */
     private LocalDate getDateOfFirstSundayToBeDisplayed() {
@@ -110,6 +114,7 @@ public class CalendarWindow extends UiPart<Region> {
     /**
      * Sets the openSingleDayEngagementsDisplayWindow date of the specified {@code CalendarDateCell} to the
      * date represented by the specified {@code LocalDate}.
+     *
      * @param calendarDateCell The specified {@code CalendarDateCell}.
      * @param calendarDate The specified {@code LocalDate}.
      */
@@ -125,24 +130,40 @@ public class CalendarWindow extends UiPart<Region> {
     /**
      * Adds all engagements which occur on the date represented by the specified {@code LocalDate}
      * to the specified {@code CalendarDateCell}.
+     *
      * @param calendarDateCell The specified {@CalendarDate}.
      * @param calendarDate The specified {@CalendarDateCell}.
      */
     private void addAllEngagementsForDate(CalendarDateCell calendarDateCell, LocalDate calendarDate) {
         calendarDateCell.clearEngagements();
         for (Engagement engagement : engagements) {
-            LocalDateTime startDateTime = engagement.getTimeSlot().getStartTime();
-            if (startDateTime.getDayOfMonth() == calendarDate.getDayOfMonth()
-                    && startDateTime.getMonthValue() == calendarDate.getMonthValue()
-                    && startDateTime.getYear() == calendarDate.getYear()) {
+            if (isWithinTimeSlot(calendarDate, engagement.getTimeSlot())) {
                 calendarDateCell.addEngagement(engagement);
             }
         }
     }
 
     /**
+     * Returns true if the specified calendar date is within the specified time slot.
+     *
+     * @param calendarDate The specified calendar date.
+     * @param timeSlot The specified time slot.
+     * @return True if the specified calendar date is within the specified time slot.
+     */
+    private boolean isWithinTimeSlot(LocalDate calendarDate, TimeSlot timeSlot) {
+        LocalDateTime startDateTime = timeSlot.getStartTime();
+        LocalDateTime endDateTime = timeSlot.getEndTime();
+        LocalDate startDate = LocalDate.of(startDateTime.getYear(), startDateTime.getMonthValue(),
+                startDateTime.getDayOfMonth());
+        LocalDate endDate = LocalDate.of(endDateTime.getYear(), endDateTime.getMonthValue(),
+                endDateTime.getDayOfMonth());
+        return calendarDate.compareTo(startDate) >= 0 && calendarDate.compareTo(endDate) <= 0;
+    }
+
+    /**
      * Updates the specified {@code CalendarDatePane} to openSingleDayEngagementsDisplayWindow the number of engagements
      * in the specified {@code CalendarDateCell}.
+     *
      * @param calendarDateCell The specified {@code CalendarDateCell}.
      */
     private void updateEngagementCountDisplay(CalendarDateCell calendarDateCell) {
@@ -180,6 +201,7 @@ public class CalendarWindow extends UiPart<Region> {
 
     /**
      * Opens a window which displays the engagements on the specified date.
+     *
      * @param date The specified date.
      */
     public void openSingleDayEngagementsDisplayWindow(LocalDate date) {
@@ -194,6 +216,25 @@ public class CalendarWindow extends UiPart<Region> {
                 calendarDateCell.displayEngagements();
             }
         }
+    }
+
+    /**
+     * Closes the single day engagements window for the specified date.
+     *
+     * @param date The specified date.
+     * @throws CalendarCloseDisplayException If there is no open window for the specified date.
+     */
+    public void closeSingleDayEngagementsDisplayWindow(LocalDate date) throws CalendarCloseDisplayException {
+        for (CalendarDateCell calendarDateCell : calendarDateCells) {
+            if (calendarDateCell.getDate().equals(date)
+                    && calendarDateCell.hasOpenEngagementsDisplay()) {
+                calendarDateCell.closeDisplayedEngagements();
+                return;
+            }
+        }
+        String formattedDateString = DateUtil.getFormattedDateString(date);
+        throw new CalendarCloseDisplayException("There is no open engagements display window for "
+                + formattedDateString);
     }
 
     /**

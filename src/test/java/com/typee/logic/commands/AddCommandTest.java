@@ -311,12 +311,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void saveReport(Path fileDir, Report report) {
+        public Path saveReport(Path fileDir, Report report) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean deleteReport(Report report) throws DeleteDocumentException {
+        public boolean deleteReport(Path fileDir, Report report) throws DeleteDocumentException {
             throw new AssertionError("This method should not be called.");
         }
     }
