@@ -32,7 +32,7 @@ public class HintTimingQueue {
         // Populate the hintTimesQueue with timestamps that are evenly spaced out.
         for (int i = 0; i < numberOfTimings; i++) {
             long currentTiming = (long) (timeAllowedPerQuestion * 0.75) - (i * delta);
-            currentTiming = (currentTiming / 10) * 10; // Rounding off to nearest 10 (integer division).
+            currentTiming = (currentTiming / 50) * 50; // Rounding off to nearest multiple of 50.
 
             if (currentTiming <= 0) {
                 hintTimesQueue.add(50L); // Last Hint always shown at 50ms

@@ -264,6 +264,7 @@ public class AppManager {
     private void skipOverToNextQuestion() {
         try {
             this.mainWindowExecuteCallBack.execute(SkipCommand.COMMAND_WORD);
+            logger.info("Skip over initiated by a GameTimer!");
         } catch (ParseException | CommandException e) {
             // Code should not be throwing ParseException. (Command word is correct)
             e.printStackTrace();

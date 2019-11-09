@@ -24,7 +24,7 @@ class HintTimingQueueTest {
 
     @Test
     public void pollNextTimeToUpdate_queueSizeIsOne() {
-        HintTimingQueue testQueue = new HintTimingQueue(1, 1000);
+        HintTimingQueue testQueue = new HintTimingQueue(1, 700);
         assertTrue(testQueue.pollNextTimeToUpdate() == 50L);
     }
 
@@ -47,7 +47,7 @@ class HintTimingQueueTest {
         Queue<Long> expectedTimings = new LinkedList<>();
         for (int i = 0; i < 7; i++) {
             long currentTiming = (long) (5000 * 0.75) - (i * expectedDelta);
-            currentTiming = (currentTiming / 10) * 10;
+            currentTiming = (currentTiming / 50) * 50;
 
             if (currentTiming <= 0) {
                 expectedTimings.add(50L); // Last Hint Shown at 50ms

@@ -105,7 +105,7 @@ public class GameTimerManager implements GameTimer {
                     // When timeLeft has reached a timeStamp to request for more hints from AppManager.
                     if (nextTimeForHint != -100L && nextTimeForHint == timeLeft) {
                         callBackToUpdateHints();
-                        timeLeft = timeLeft - 10;
+                        timeLeft = timeLeft - 50;
                         return;
                     }
 
@@ -113,17 +113,17 @@ public class GameTimerManager implements GameTimer {
                         stopAndCallBackToSkipOver();
                         return;
                     }
-                    timeLeft = timeLeft - 10;
+                    timeLeft = timeLeft - 50;
                 });
             }
-        }, 0, 10); // Start timer immediately, and refresh every 10ms
+        }, 0, 50); // Start timer immediately, and refresh every 50ms
     }
 
     /**
      * Performs a callBack to AppManager to notify that TimerDisplay needs to be updated.
      */
     private void callBackToUpdateTimerDisplay() {
-        String timeString = String.format("%s: %.2f", mainMessage, timeLeft / 1000.0);
+        String timeString = String.format("%s: %.1f", mainMessage, timeLeft / 1000.0);
         updateTimerCallBack.updateTimerDisplay(timeString, timeLeft, totalTimeGiven);
     }
 
@@ -133,8 +133,6 @@ public class GameTimerManager implements GameTimer {
     private void stopAndCallBackToSkipOver() {
         cancelled = true;
         timer.cancel();
-
-        logger.info("Skip over initiated by a GameTimer!");
 
         // Makes a call-back to the AppManager to execute a 'skip' command
         skipOverCallBack.skipOverToNextQuestion();
