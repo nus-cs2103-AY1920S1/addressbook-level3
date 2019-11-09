@@ -32,6 +32,11 @@ public class ReminderDefaultCommandParser {
         } else {
             r = Integer.parseInt(argMultimap.getValue(PREFIX_REMINDER).get().trim());
         }
+
+        if (r < 0) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderDefaultCommand.MESSAGE_USAGE));
+        }
+
         return new ReminderDefaultCommand(String.valueOf(r));
     }
 

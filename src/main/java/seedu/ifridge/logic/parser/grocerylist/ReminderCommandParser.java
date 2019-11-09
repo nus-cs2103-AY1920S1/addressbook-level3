@@ -24,8 +24,12 @@ public class ReminderCommandParser {
      */
     public ReminderCommand parse(String args, String def) throws ParseException {
         int r;
+        System.out.println(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_REMINDER);
+
+        boolean check1 = !arePrefixesPresent(argMultimap, PREFIX_REMINDER);
+        String check2 = argMultimap.getPreamble();
 
         if (args.equals("")) {
             r = Integer.valueOf(def);

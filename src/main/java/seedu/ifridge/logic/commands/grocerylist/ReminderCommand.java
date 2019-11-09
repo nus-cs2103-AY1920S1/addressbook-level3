@@ -16,9 +16,9 @@ public class ReminderCommand extends Command {
     public static final String COMMAND_WORD = "rem";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Display list with all food expiring within n days. "
-            + "(n must be more than 0)\n"
+            + "(n must be more than or equals to 0)\n"
             + "Parameters: "
-            + PREFIX_REMINDER + "REMINDER \n"
+            + PREFIX_REMINDER + "NUMBEROFDAYS \n"
             + "Example: glist " + COMMAND_WORD + " "
             + PREFIX_REMINDER + "3";
 
