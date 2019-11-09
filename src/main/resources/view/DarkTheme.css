@@ -449,5 +449,22 @@
     -fx-background-image: url('../images/btn_refresh.png');
 }
 
-.toggle-button {
+.tab-pane .tab-header-area .tab-header-background{
+    -fx-background-color: #4D5656;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #239B56;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #108041;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+.tab-pane .tab .text{
+    -fx-fill:white;
 }

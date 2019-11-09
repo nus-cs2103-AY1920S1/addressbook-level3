@@ -215,6 +215,9 @@ public class MainWindow extends UiPart<Stage> {
         mainWindow.getChildren().add(root);
         lblWindowTitle.setText(tabInput.getName() + " Window");
         currentTab = tabInput;
+        menuTabPane.getTabs().stream()
+                .filter(tab -> tab.getText().equals(tabInput.getName()))
+                .forEach(tab -> menuTabPane.getSelectionModel().select(tab));
     }
 
     /**
