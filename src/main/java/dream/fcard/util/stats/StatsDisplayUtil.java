@@ -7,7 +7,7 @@ import dream.fcard.gui.controllers.windows.DeckStatisticsWindow;
 import dream.fcard.gui.controllers.windows.StatisticsWindow;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
-import dream.fcard.logic.stats.UserStatsHolder;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.model.StateHolder;
 
@@ -79,7 +79,7 @@ public class StatsDisplayUtil {
 
     /** Creates the TableView object for the user's login sessions. */
     public static TableView<Session> getUserSessionsTableView() {
-        SessionList userSessionList = UserStatsHolder.getUserStats().getSessionList();
+        SessionList userSessionList = StatsHolder.getUserStats().getSessionList();
         return getSessionsTableView(userSessionList);
     }
 

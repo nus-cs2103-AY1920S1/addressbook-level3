@@ -7,7 +7,7 @@ import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.UserStats;
-import dream.fcard.logic.stats.UserStatsHolder;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.util.stats.SessionListUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
@@ -59,7 +59,7 @@ public class StatisticsWindow extends ScrollPane {
             e.printStackTrace();
         }
 
-        this.userStats = UserStatsHolder.getUserStats();
+        this.userStats = StatsHolder.getUserStats();
         displaySummaryStats();
 
         this.sessionsTableView = StatsDisplayUtil.getUserSessionsTableView();

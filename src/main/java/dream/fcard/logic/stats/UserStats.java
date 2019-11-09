@@ -16,7 +16,7 @@ public class UserStats extends Stats {
     public UserStats() {
         this.sessionList = new SessionList();
         this.currentSession = null;
-        System.out.println("New UserStats object created");
+        logger.info("New UserStats object created.");
     }
 
     /** Sets the sessionList of the current Stats object to the given newSessionList. */

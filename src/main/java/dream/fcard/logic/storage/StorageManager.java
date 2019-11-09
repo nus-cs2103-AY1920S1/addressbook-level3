@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.UserStats;
-import dream.fcard.logic.stats.UserStatsHolder;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;
@@ -291,7 +291,7 @@ public class StorageManager {
                 // todo: or abstract out and use this to load deck session list too?
                 arr.add(session);
             }
-            UserStatsHolder.getUserStats().setSessionList(new SessionList(arr));
+            StatsHolder.getUserStats().setSessionList(new SessionList(arr));
             // load login session
         } catch (FileNotFoundException e) {
             System.out.println("STATS FILE DOES NOT EXIST");
