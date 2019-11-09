@@ -31,6 +31,7 @@ public class AddSchoolBreakCommand extends AddCommand {
         this.schoolBreak = schoolBreak;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) throws CommandException {
         try {
             calendar.addEvent(schoolBreak);

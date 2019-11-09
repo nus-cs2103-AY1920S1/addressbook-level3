@@ -31,6 +31,7 @@ public class DeleteSchoolBreakCommand extends DeleteCommand {
         this.schoolBreak = schoolBreak;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) throws CommandException, NoSuchElementException {
         calendar.deleteEvent(schoolBreak);
         String formattedFeedback = String.format(MESSAGE_DELETE_SUCCESS, schoolBreak.toString());

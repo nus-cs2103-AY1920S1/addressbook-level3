@@ -29,6 +29,7 @@ public class CheckCommand extends Command<Calendar> {
         this.eventQuery = eventQuery;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) {
         boolean isAvailable = calendar.isAvailable(eventQuery);
 

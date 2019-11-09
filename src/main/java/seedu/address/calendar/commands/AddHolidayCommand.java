@@ -29,6 +29,7 @@ public class AddHolidayCommand extends AddCommand {
         this.holiday = holiday;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) throws CommandException {
         try {
             calendar.addEvent(holiday);

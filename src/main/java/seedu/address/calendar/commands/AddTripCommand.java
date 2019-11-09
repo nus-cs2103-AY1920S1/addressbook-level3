@@ -28,6 +28,7 @@ public class AddTripCommand extends AddCommand {
         this.trip = trip;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) throws CommandException, ClashException {
         try {
             calendar.addEvent(trip);
