@@ -15,6 +15,7 @@ import javafx.collections.ObservableMap;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
+
 /**
  * Represents a Customer in the system.
  */
@@ -142,7 +143,7 @@ public class Customer {
         for (Tag tag : tags) {
             Integer i = totalTags.get(tag);
             if (i == null) {
-                
+
             } else if ((i - 1) == 0) {
                 totalTags.remove(tag);
             } else {
