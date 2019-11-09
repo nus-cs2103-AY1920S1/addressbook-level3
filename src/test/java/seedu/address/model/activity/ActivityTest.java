@@ -121,8 +121,7 @@ public class ActivityTest {
         a.addExpense(two);
         a.addExpense(three);
 
-        Expense settle = new Expense(aid, new Amount(0), "", gid);
-        settle.setIsSettlement(true);
+        Expense settle = new Expense(aid, new Amount(0), "", true, gid);
         a.addExpense(settle);
 
         ArrayList<ArrayList<Double>> matrix = new ArrayList<>(
@@ -139,8 +138,7 @@ public class ActivityTest {
         a.addExpense(two);
         a.addExpense(three);
 
-        Expense settlepartial = new Expense(aid, new Amount(1), "", gid);
-        settlepartial.setIsSettlement(true);
+        Expense settlepartial = new Expense(aid, new Amount(1), "", true, gid);
         a.addExpense(settlepartial);
 
         ArrayList<ArrayList<Double>> matrixreloaded = new ArrayList<>(

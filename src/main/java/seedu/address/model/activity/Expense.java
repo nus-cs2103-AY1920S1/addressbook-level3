@@ -12,7 +12,7 @@ public class Expense {
     private int[] involvedIds;
     private final Amount amount;
     private final String description;
-    private boolean isSettlement;
+    private final boolean isSettlement;
     private boolean isDeleted;
 
     /**
@@ -33,6 +33,29 @@ public class Expense {
 
     public Expense(int personId, Amount amount, String description, int ... ids) {
         this(personId, amount, description);
+        requireAllNonNull(ids);
+        this.involvedIds = ids;
+    }
+
+    /**
+     * Constructor for Expense.
+     * @param personId ID of the person who paid.
+     * @param amount The amount paid.
+     * @param description Description of the expense (can be an empty string).
+     * @param isSettlement The flag to indicate whether this is a settlement expense.
+     */
+    public Expense(int personId, Amount amount, String description, boolean isSettlement) {
+        requireAllNonNull(personId, amount, description);
+        this.personId = personId;
+        this.amount = amount;
+        this.description = description;
+        this.isDeleted = false;
+        this.isSettlement = isSettlement;
+        involvedIds = null;
+    }
+
+    public Expense(int personId, Amount amount, String description, boolean isSettlement, int ... ids) {
+        this(personId, amount, description, isSettlement);
         requireAllNonNull(ids);
         this.involvedIds = ids;
     }
@@ -69,10 +92,6 @@ public class Expense {
 
     public boolean isDeleted() {
         return isDeleted;
-    }
-
-    public void setIsSettlement(boolean isSettlement) {
-        this.isSettlement = isSettlement;
     }
 
     /**

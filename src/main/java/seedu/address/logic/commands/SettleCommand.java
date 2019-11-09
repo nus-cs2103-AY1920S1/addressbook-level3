@@ -106,8 +106,7 @@ public class SettleCommand extends ExpenseCommand {
         String description = String.format(EXPENSE_DESCRIPTION, payingName, receivingName);
 
         try {
-            Expense e = new Expense(payingId, amount, description, receivingId);
-            e.setIsSettlement(true);
+            Expense e = new Expense(payingId, amount, description, true, receivingId);
             activity.addExpense(e);
         } catch (PersonNotInActivityException e) {
             throw new CommandException(MESSAGE_MISSING_PERSON_DESCRIPTION);
