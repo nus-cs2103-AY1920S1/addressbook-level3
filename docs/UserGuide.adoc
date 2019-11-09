@@ -60,7 +60,7 @@ image::UserGuideCommandBox.png[width="790"]
 There are 4 application modes.
 
 .Application modes
-image::UGModes.png[width="790"]
+image::UGModes.png[width="350"]
 
 .Mode Display
 image::RestrictedHomeMode.png[width="790"]
@@ -187,26 +187,26 @@ specified.
 
 === Purposes of each mode
 
-image::HomeMode.png[width="450"]
+image::HomeMode.png[width="350"]
 
 * Create/Choose a _Wordbank_
 
 * View Global Statistics
 
 
-image::OpenMode.png[width="450"]
+image::OpenMode.png[width="350"]
 
 * Create/Add/Modify _Cards_ of your _WordBank_. (Each _Card_ contains a _Word_ and _Meaning_).
 * View Statistics belonging to a specific _WordBank_
 
-image::GameMode.png[width="450"]
+image::GameMode.png[width="350"]
 
 
 * Guess  _Words_ based on each _Meaning_ that appear as quickly as possible!
 * Finish the _Game_ and  view the _Statistics_ for your game session.
 * Evaluate your performance
 
-image::SettingsMode.png[width="450"]
+image::SettingsMode.png[width="350"]
 
 
 * Configure your preferred _Settings_. (change _Difficulty_, _Theme_ etc.)

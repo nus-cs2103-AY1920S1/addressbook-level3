@@ -7,10 +7,9 @@ skinparam classBackgroundColor LOGIC_COLOR
 package Logic {
 
 package Parser {
-Class ParserManager
-Class SwitchModeParser
-Class SpecificModeParser
-Class ClassUtil
+Class ParserManager PARSERMANAGER_COLOR
+Class SpecificModeParser PARSERMANAGER_COLOR
+Class ClassUtil PARSERMANAGER_COLOR
 }
 
 package Command {
@@ -40,10 +39,8 @@ Logic -up-|> UiLogicHelper
 LogicManager .up.|> Logic
 LogicManager -->"1" ParserManager
 
-ParserManager ..> SpecificModeParser
-ParserManager ..> SwitchModeParser
+ParserManager ..>"2" SpecificModeParser
 SpecificModeParser ..> ClassUtil
-SwitchModeParser ..> ClassUtil
 
 ClassUtil ..> Command : creates >
 XCommand -up-|> SwitchCommand

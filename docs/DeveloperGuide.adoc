@@ -162,17 +162,17 @@ Logic is primarily built by two segments: Command and Parser.
 
     Command is an abstract class.
 
-    Four other abstract classes (HomeCommand, OpenCommand, GameCommand and SettingsCommand) extend Command.
+    Four other abstract classes (WordBankCommand, CardCommand, GameCommand and SettingsCommand) extend Command.
 
     Concrete Command classes with an execute method implementation extend one of the above four abstract classes.
 
 ===== Parser
 
-    ParserManager holds reference to a SpecificModeParser and a SwitchModeParser.
+    ParserManager holds reference to two SpecificModeParsers
 
     The SpecificModeParser changes based on current application mode.
 
-    Both of them hold references to all concrete Parser and Command Classes with the help of ClassUtil
+    They hold references to all concrete Parser and Command Classes with the help of ClassUtil
 
 Logic fulfils its contracts with other packages through two interfaces: Logic and UiLogicHelper
 
@@ -180,7 +180,7 @@ Examples of transactions promised by Logic API include command execution, comman
 
 UiLogicHelper APIs is a subset of Logic APIs and only contains transactions for AutoComplete. It exposes the functionalities through the following getter methods:
 
-* `List<AutoFillAction>#getMenuItems(String text)` -- Gets an List of AutoFillActions to fill up AutoComplete display based on current user input given in text
+* `List<AutoFillAction>#getMenuItems(String text)` -- Gets a List of AutoFillActions to fill up AutoComplete display based on current user input given in text
 * `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
 * `List<ModeEnum>#getModes()` -- Retrieves the possible modes the user can transition to from current mode
 
@@ -281,28 +281,52 @@ Classes used by multiple components are in the `seedu.Dukemon.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::autocompleteimplementation[]
-=== [underline]#AutoComplete and Command Execution#
+=== AutoComplete and Dynamic Parsers
 _This section explains how the design choice of Dynamic Parsers fulfils AutoComplete and Command Execution._
 
-ParserManager dynamically changes parser depending on current mode the game is at. When updating the User Interface for every keystroke, it ensures only the right commands get parsed and autocompleted at each moment.
+ParserManager dynamically changes parser depending on current mode the game is at. This is modeled using the Strategy Pattern. https://en.wikipedia.org/wiki/Strategy_pattern. 
 
-==== Implementation details
+Instead of choosing a  single parser to use at compile time, they are chosen at runtime depending on runtime state. This supports a variety of benefits which are explained under design considerations.  
+
+The above implementation empowers the application with the following features :
+
+.   Every user keystroke only auto completes the right commands
+.   Only the right commands get parsed and executed. What are the right commands? They are the commands that belong to the current mode and switch commands when preconditions are met. 
 
 
-.  `ParserManager` instance has reference to a `SwitchModeParser` and `SpecificModeParser`
-.   When user enters a keystroke, the `SwitchModeParser` and/or `SpecificModeParser` are accessed based on internal state.
+==== Implementation details of ParserManager
+
+
+.  `ParserManager` instance has reference to two `SpecificModeParser` 
+.  When user enters a keystroke, the `SpecificModeParser` which hold switch Command or `SpecificModeParser` which hold current mode commands are accessed based on internal state.
 .  It updates the AutoComplete suggestions for every keystroke.
 .   Internal State consists of booleans: gameIsOver, bankLoaded and enumeration ModeEnum: HOME, OPEN, GAME, SETTINGS
-.   The above process is aided by `ClassUtil` to handle instantiation of Parser and Command objects.
+.   Boolean algebra is used to derive the four overall states in the following way:
+*   SwitchCommands are those that change mode and work as a WordBank is selected and Game is not running
+*   ModeCommands belong to a specific mode and only work when application is in the specific mode.
 
 
-    The state management is complex. The below sequence diagram demonstrates all possible workflows.
+   The below activity diagram demonstrates four possible states and a typical user flow.
 
-.Activity diagram of Application flow
-image::ParserManagerActivityDiagram.PNG[]
+.Activity diagram of a typical application flow
+image::StateActivityDiagram.PNG[]
 
-NOTE: Home (No Switch) means HomeModeParser is used and SwitchModeParser is not used
+==== Implementation details of SpecificModeParser
 
+.   SpecificModeParsers use  ClassUtil to handle instantiation of Parser and Command objects.
+.   ClassUtil holds a list of references to Command and Parsers classes. In Java class references are passed using .class attribute. Example: AddCommand.class
+.   Internally, ClassUtil employs java reflections to find attributes of classes without instantiating them. Code for it is succinct and shown in the snippet below.
+.   Also, when a command needs to be executed, it instantiates the Parser object (if any) and Command object at runtime.
+
+.Code snippet from ClassUtil.java
+image::reflectionsSnippet.PNG[width="500"]
+
+Below snippet is from ParserManager. Just one line of code is necessary to include a new command with its parser. Example:
+
+    temp.add(NewCommand.class, NewCommandParser.class);
+
+.Code snippet from ParserManager.java
+image::reflectionsSnippet2.PNG[width="500"]
 
 ==== Walkthrough of Command Execution
 
@@ -336,7 +360,7 @@ How parser and command objects are instantiated in SpecificModeParser
 Open Close Principle strictly followed. Adding a command with a parser takes only one line of code. +
  +
 [underline]_Cons:_ +
-It is developer responsibility to ensure classes subclass Command object as compile time errors would not be thrown.
+It is developer's responsibility to ensure classes subclass Command object as compile time errors would not be thrown.
 |**Use switches in Parser to match Command Word to create Parser objects if necessary else directly create Command object.** +
  +
 [underline]_Pros:_ +
@@ -346,7 +370,7 @@ Compile time error would be thrown if new command or parser does not subclass co
 Adding a new command with parser would require the developer to insert it into multiple locations as the autocomplete feature needs an iterable command list.
 
 3+|**Why did we choose Alternative 1:** +
-d
+Given that ClassUtil gracefully handles wrongly passed class references, the lack of compile time check does not impair the functionality of the application. Furthermore, alternative 1 prevents code duplication for autocomplete and executing.
 
 |**Aspect 2:** +
 Single Parser vs Parser Manager
@@ -356,7 +380,7 @@ Single Parser vs Parser Manager
 Commands not belonging to specific mode would not be parsed +
  +
 [underline]_Cons:_ +
-More code to write for initial developer. However it is easily extnensible for new modes and parsers by the Open Close Principle
+More code to write for initial developer. However it is easily extensible for new modes and parsers by the Open Close Principle
 | **Use a single parser** +
  +
 [underline]_Pros_ +
@@ -365,16 +389,9 @@ We do not need to restructure the logic package. +
 [underline]_Cons_ +
 Bad user experience as it autocompletes and parses commands that do not belong to a particular mode.
 3+| **Why did we choose Alternative 1:** +
-d
+As commands are stateful, it would be easy to overlook the edge cases when so many combinations and permutations are likely. Segregating them by modes allows a better user experience and minimises the possibilities of bugs.
 |===
 
-
-
-==== Technical details
-
-<Insert class util code demonstrating java reflections>
-
-<Insert where one line of code can be inserted for adding new commands and parsers>
 
 // end::autocompleteimplementation[]
 

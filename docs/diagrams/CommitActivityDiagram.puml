@@ -1,14 +1,35 @@
 @startuml
-(*)  if "" then
---> "Home (No Switch)"
+skinparam linetype ortho
 
+(*) -down-> "State"
+note right
+A:git clone url/to/repository
+scp -p url/to/hooks/commit_msg repository/.git/hooks
+end note
+-down->[get an assignment] "coding"
+-down-> "commit locally"
+note right
+B:git add xxx
+git commit
+end note
+-down-> "review"
+note right
+C:git push origin refs/for/<branch>
+end note
 if "" then
-  -->[&#91;bank <bankName>&#93;] "Home (With Switch)"
-  --> "Another activity"
-  -right-> (*)
+  -left->[rejected] "rework"
+  -up-> "recommit"
+'note left
+'D:git add xxx
+'git commit --amend
+'end note
+  -right-> "review"
 else
-  ->[&#91;else&#93;] "Something else"
-  -->[Ending process] (*)
-endif
-
+  --right-->[approved] "submit"
+note right: E:click "submit" on on corresponding gerrit page
+  -up-> "update local repository"
+note right
+F:git pull --rebase
+end note
+  -left->[get another task(a new cycle)] "coding"
 @enduml
