@@ -526,7 +526,7 @@ it adheres to good programming practices as compared to Alternative 2, which *vi
 
 ==== Implementation
 
-The functionalities and commands associated with the book loaning feature are `loan`, `return`, `renew` and `pay`.
+The functionalities and commands associated with the book loaning feature are `loan`, `return`, `pay` and `renew`.
 This feature set is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`.
 
 The object diagram at the state when a book is just loaned out can be seen below.
@@ -577,6 +577,17 @@ methods `Model#setBook(bookToBeReturned, returnedBook)`, `Model#servingBorrowerR
 `Model#updateLoan(loanToBeReturned, returnedLoan)`, which updates the `Catalog`, `BorrowerRecords` and `LoanRecords`
 in the model respectively.
 
+===== Paying fines
+
+When a fine amount is successfully paid by a borrower through the call to `Model#payFines(amountInCents)`,
+the `remainingFineAmount` and `paidFineAmount` of the loans in the borrower's `returnedLoanList` is updated accordingly.
+The fine amount is tracked individually inside each loan object instead of as a variable inside the `Borrower` instance
+that stores the total fine amount incurred by that borrower.
+This is done to support the ease of extension in the future.
+For example, the total fine each book has garnered can be easily calculated.
+
+Similarly, the creation of new objects for replacement are also done to support immutability.
+
 ===== Renewing
 
 The following sequence diagram illustrates the series of method calls when a `RenewCommand` is executed to renew book(s).
@@ -591,17 +602,6 @@ The call to `Book#renewBook(renewedLoan)` then returns a new instance of this bo
 
 The method calls to `Model#setBook(bookToBeRenewed, renewedBook)`, `Model#servingBorrowerRenewLoan(loanToBeRenewed, renewedLoan)`
 and `Model#updateLoan(loanToBeRenewed, renewedLoan)` then updates the `Catalog`, `BorrowerRecords` and `LoanRecords` respectively.
-
-===== Paying fines
-
-When a fine amount is successfully paid by a borrower through the call to `Model#payFines(amountInCents)`,
-the `remainingFineAmount` and `paidFineAmount` of the loans in the borrower's `returnedLoanList` is updated accordingly.
-The fine amount is tracked individually inside each loan object instead of as a variable inside the `Borrower` instance
-that stores the total fine amount incurred by that borrower.
-This is done to support the ease of extension in the future.
-For example, the total fine each book has garnered can be easily calculated.
-
-Similarly, the creation of new objects for replacement are also done to support immutability.
 
 ==== Design Considerations
 
