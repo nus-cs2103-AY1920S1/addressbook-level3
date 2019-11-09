@@ -512,25 +512,42 @@ image::redo3.png[]
 [[Clear]]
 === Clearing All Entries : `clear`
 
-Clears all entries from your Bank Account. +
+Do you want to start PalPay from a clean slate again? The `clear` command lets you do that! +
+
+
+==== Command Syntax
+
 Format: `clear`
 
 [[List]]
 === Listing All Entries : `list`
 
-Lists all entries from your Bank Account. +
+After filtering your transactions, you can use the `list` command to see all of your transactions in PalPay again. +
+
+
+==== Command Syntax
+
 Format: `list`
 
 [[Help]]
 === Viewing Help : `help`
 
-Opens help page for the list of usable commands +
+Did you forget how to use the `in` command? Fret not! You can easily find the link to this User Guide with the
+`help` command. Simply copy and paste the URL into your browser to access our User Guide.
+
+==== Command Syntax
+
 Format: `help`
+
+image::help.png[]
 
 [[Exit]]
 === Exiting the Application : `exit`
 
-Exits the program. +
+Finishing using PalPay for the day? You can use the `exit` command to close PalPay.
+
+==== Command Syntax
+
 Format: `exit`
 
 === Saving the Data
