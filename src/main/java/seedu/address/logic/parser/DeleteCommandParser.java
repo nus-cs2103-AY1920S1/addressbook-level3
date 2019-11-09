@@ -81,19 +81,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRecordCommand.MESSAGE_USAGE));
         }
-        ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_EVENT, PREFIX_DATE);
 
-        // index
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRecordCommand.MESSAGE_USAGE), pe);
-        }
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT, PREFIX_DATE);
+        Index index = parseIndex(argMultimap);
 
-        // arguments
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENT, PREFIX_DATE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRecordCommand.MESSAGE_USAGE));
         }
@@ -102,6 +93,18 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         AthletickDate athletickDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         return new DeleteRecordCommand(index, eventName, athletickDate);
+    }
+
+    /**
+     * Parses the index of the athlete for DeleteRecordCommand.
+     */
+    private Index parseIndex(ArgumentMultimap argMultimap) throws ParseException {
+        try {
+            return ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRecordCommand.MESSAGE_USAGE), pe);
+        }
     }
 
     /**
@@ -121,6 +124,20 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_USAGE), pe);
         }
+    }
+
+    /**
+     * Creates a DeleteTrainingCommand object if the flag given is for a training.
+     */
+    public DeleteTrainingCommand parseTraining(String args) throws ParseException {
+        args = removeFlag(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
+        if (!isPrefixPresent(argMultimap, PREFIX_DATE) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteTrainingCommand.MESSAGE_USAGE));
+        }
+        AthletickDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        return new DeleteTrainingCommand(date);
     }
 
     /**
@@ -148,20 +165,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException(DeleteCommand.MESSAGE_USAGE);
         }
-    }
-
-    /**
-     * Creates a DeleteTrainingCommand object if the flag given is for a training.
-     */
-    public DeleteTrainingCommand parseTraining(String args) throws ParseException {
-        args = removeFlag(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
-        if (!isPrefixPresent(argMultimap, PREFIX_DATE) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteTrainingCommand.MESSAGE_USAGE));
-        }
-        AthletickDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        return new DeleteTrainingCommand(date);
     }
 
     /**

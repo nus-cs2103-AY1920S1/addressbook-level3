@@ -96,6 +96,58 @@ public class Event {
     }
 
     /**
+     * Checks if the athlete has any record under this event.
+     */
+    public boolean hasPerson(Person athlete) {
+        requireNonNull(athlete);
+        AtomicBoolean hasPerson = new AtomicBoolean(false);
+        records.forEach((person, recordList) -> {
+            if (person.equals(athlete)) {
+                hasPerson.set(true);
+            }
+        });
+        return hasPerson.get();
+    }
+
+    /**
+     * Sorts records based on AthletickDate.
+     */
+    private void sortAthleteRecords(Person athlete) {
+        requireNonNull(athlete);
+        List<Record> athleteRecords = getAthleteRecords(athlete);
+        athleteRecords.sort(new Comparator<Record>() {
+            @Override
+            public int compare(Record first, Record second) {
+                return AthletickDate.compareDate(first.getDate(), second.getDate());
+            }
+        });
+    }
+
+    /**
+     * Returns true if both events have the same names.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) other;
+        return otherEvent.getName().equals(name);
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    //// Adding record functions
+
+    /**
      * Adds a player's record to this event.
      */
     public void addRecord(Person athlete, Record record) {
@@ -130,6 +182,8 @@ public class Event {
         records.put(athlete, currentPerformanceEntries);
     }
 
+    //// Deleting record functions
+
     /**
      * Removes a player's record from this event.
      * Since there can only be one record per day, only the date needs to be specified.
@@ -149,7 +203,7 @@ public class Event {
     /**
      * Find the index of the record to be deleted.
      */
-    private int getIndexToDelete(List<Record> athleteRecords, AthletickDate date) {
+    public int getIndexToDelete(List<Record> athleteRecords, AthletickDate date) {
         requireAllNonNull(athleteRecords, date);
         int i = 0;
         for (Record record : athleteRecords) {
@@ -161,33 +215,7 @@ public class Event {
         return i;
     }
 
-    /**
-     * Sorts records based on AthletickDate.
-     */
-    private void sortAthleteRecords(Person athlete) {
-        requireNonNull(athlete);
-        List<Record> athleteRecords = getAthleteRecords(athlete);
-        athleteRecords.sort(new Comparator<Record>() {
-            @Override
-            public int compare(Record first, Record second) {
-                return AthletickDate.compareDate(first.getDate(), second.getDate());
-            }
-        });
-    }
-
-    /**
-     * Checks if the athlete has any record under this event.
-     */
-    public boolean hasPerson(Person athlete) {
-        requireNonNull(athlete);
-        AtomicBoolean hasPerson = new AtomicBoolean(false);
-        records.forEach((person, recordList) -> {
-            if (person.equals(athlete)) {
-                hasPerson.set(true);
-            }
-        });
-        return hasPerson.get();
-    }
+    //// Editing person functions
 
     /**
      * Updates the person details for this event with the edited person details.
@@ -212,28 +240,6 @@ public class Event {
         }
         assert(athleteRecordsCopy.size() == athleteRecordsToCopy.size());
         return athleteRecordsCopy;
-    }
-
-    /**
-     * Returns true if both events have the same names.
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Event)) {
-            return false;
-        }
-
-        Event otherEvent = (Event) other;
-        return otherEvent.getName().equals(name);
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 
     //// Analysis helper functions
