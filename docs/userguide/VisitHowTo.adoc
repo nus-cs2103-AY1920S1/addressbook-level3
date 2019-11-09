@@ -6,7 +6,7 @@
 
 Visit Todos are, as the name suggests, todo items. These are items that are attached to a patient and are todo items that you want to be reminded to do when you visit that patient. Each Visit Todo contains a description of that task.
 
-When you begin a visit using `visit-start`, the patient's Visit Todos are copied into the visit checklist as Visit Tasks. Each visit task has a description (of the visit todo it was copied from), a field for you to add details to that task and a flag to indicate if that task is finished.
+When you begin a visit using `visit-start`, the patient's Visit Todos are copied into the visit checklist as Visit Tasks. Each visit task has a description (of the visit todo it was copied from) which is a field for you to add details to that task, and a flag to indicate if that task is finished.
 
 === How to view the ongoing visit
 
@@ -16,7 +16,7 @@ image::CurrentVisit.png[width="500"]
 
 === How to view the visit todos of a patient
 
-You can view the visit todos of a patient using `pat-list` and `pat-find`. Visit Todos are displayed under their patient details. A visual representation can be seen below under.
+You can view the visit todos of a patient using `pat-list` and `pat-find`. Visit Todos are displayed under their patient details. A visual representation can be seen below.
 
 === How to view visits of a patient (previous and ongoing)
 
@@ -36,7 +36,7 @@ To introduce how to manage a visit, let's use an example where you have a patien
 If you are adding a new patient, you can add these visit todos using `pat-add`. Example: `pat-add n/John Heng p/82221222 e/john@gmail.com a/John's address t/Male vt/Take Blood Pressure vt/Take Body Temperature vt/Restock Medicine`.
 
 *Editing the Visit Todos of a patient* +
-Alternatively, if John is an existing patient in NurseTraverse you can update John's list of Visit Todos using `pat-edit`. In this scenario, John is the 2nd patient in `pat-list`, so you would use `pat-edit 2 vt/Take Body Temperature vt/Restock Medicine`.
+Alternatively, if John is an existing patient in NurseTraverse you can update John's list of Visit Todos using `pat-edit`. Let's assume that John is the 2nd patient in `pat-list`, so you would use `pat-edit 2 vt/Take Body Temperature vt/Restock Medicine`.
 
 *Starting a Visit* +
 Let's assume that you decide to visit John's house. When you are at John's house during a house visit and you want to begin keeping track of your visit and recording visit details, you can use `visit-start`. In this scenario, John is the 2nd patient in `pat-list`, so you would use `visit-start 2`. Since you can only be visiting one patient at one time, you can only have one ongoing visit at any time; `visit-start` can only be performed if there is no ongoing visit.

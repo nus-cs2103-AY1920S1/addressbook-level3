@@ -291,6 +291,9 @@ public class ModelManager implements Model {
         return stagedPatientBook.getPatientListByIndexes(indexes);
     }
 
+    // Undo/Redo/History specific methods
+    //@@author gabrielchao
+
     /**
      * Returns an unmodifiable view of the full list of {@code Patient} backed by {@code stagedPatients}
      */
@@ -362,6 +365,8 @@ public class ModelManager implements Model {
         stagedPatients.setAll(stagedPatientBook.getPatientList());
         updateOngoingVisitList();
     }
+
+    //@@author
 
     //=========== Filtered Patient List Accessors =============================================================
 

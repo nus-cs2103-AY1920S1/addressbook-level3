@@ -1,3 +1,5 @@
+//@@author gabrielchao
+
 package cs.f10.t1.nursetraverse.model;
 
 import static cs.f10.t1.nursetraverse.testutil.Assert.assertThrows;

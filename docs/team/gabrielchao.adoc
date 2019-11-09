@@ -42,7 +42,8 @@ functional and test code. Otherwise, code contributed can be found via reference
 ** Project management:
 *** Managed release `v1.3.1` on GitHub
 *** Helped pinpoint bugs in other code (Issues https://github.com/AY1920S1-CS2103-F10-1/main/issues/84[#84],
-https://github.com/AY1920S1-CS2103-F10-1/main/issues/162[#162])
+https://github.com/AY1920S1-CS2103-F10-1/main/issues/162[#162],
+and a severe bug discussed offline and fixed in PR https://github.com/AY1920S1-CS2103-F10-1/main/pull/120[#120])
 
 ** Enhancements to existing features:
 *** Make name comparison case insensitive (Pull request https://github.com/AY1920S1-CS2103-F10-1/main/pull/197[#197])
