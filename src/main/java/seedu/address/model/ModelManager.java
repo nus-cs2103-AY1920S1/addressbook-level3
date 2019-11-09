@@ -12,9 +12,8 @@ import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.display.DisplayModelManager;
 import seedu.address.model.display.locationdata.ClosestCommonLocationData;
-import seedu.address.model.display.schedule.ScheduleDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
@@ -393,11 +392,6 @@ public class ModelManager implements Model {
     //=========== UI Model =============================================================
 
     @Override
-    public ScheduleWindowDisplay getScheduleWindowDisplay() {
-        return displayModelManager.getScheduleWindowDisplay();
-    }
-
-    @Override
     public ScheduleDisplay getScheduleDisplay() {
         return displayModelManager.getScheduleDisplay();
     }
@@ -408,28 +402,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateScheduleWindowDisplay(ScheduleWindowDisplay scheduleWindowDisplay) {
-        displayModelManager.updateScheduleWindowDisplay(scheduleWindowDisplay);
-    }
-
-    @Override
-    public void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleWindowDisplayType type) {
+    public void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleState type) {
         displayModelManager.updateDisplayWithPerson(name, time, type, timeBook);
     }
 
     @Override
-    public void updateDisplayWithUser(LocalDateTime time, ScheduleWindowDisplayType type) {
+    public void updateDisplayWithUser(LocalDateTime time, ScheduleState type) {
         displayModelManager.updateDisplayWithUser(time, type, timeBook);
     }
 
     @Override
-    public void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type) {
+    public void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleState type) {
         displayModelManager.updateDisplayWithGroup(groupName, time, type, timeBook);
     }
 
     @Override
     public void updateDisplayWithPersons(ArrayList<Person> persons,
-                                         LocalDateTime time, ScheduleWindowDisplayType type) {
+                                         LocalDateTime time, ScheduleState type) {
         displayModelManager.updateDisplayWithPersons(persons, time, type, timeBook);
     }
 
@@ -444,10 +433,10 @@ public class ModelManager implements Model {
     }
 
     public void initialiseDefaultWindowDisplay() {
-        displayModelManager.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.HOME, timeBook);
+        displayModelManager.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.HOME, timeBook);
     }
 
-    public ScheduleWindowDisplayType getState() {
+    public ScheduleState getState() {
         return displayModelManager.getState();
     }
 

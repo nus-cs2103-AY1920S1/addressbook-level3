@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Name;
@@ -87,8 +87,8 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
     }
 
     @Override
-    public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
-        return ScheduleWindowDisplayType.GROUP;
+    public ScheduleState getScheduleWindowDisplayType() {
+        return ScheduleState.GROUP;
     }
 
     @Override

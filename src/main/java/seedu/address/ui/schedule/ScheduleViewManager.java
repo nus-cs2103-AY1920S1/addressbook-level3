@@ -2,8 +2,10 @@ package seedu.address.ui.schedule;
 
 import java.util.List;
 
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.GroupScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.PersonScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.person.Name;
 
 /**
@@ -11,18 +13,20 @@ import seedu.address.model.person.Name;
  */
 public interface ScheduleViewManager {
 
-    public static ScheduleViewManager getInstanceOf(ScheduleWindowDisplay scheduleWindowDisplay) {
-        ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
+    public static ScheduleViewManager getInstanceOf(ScheduleDisplay scheduleDisplay) {
+        ScheduleState displayType = scheduleDisplay.getState();
         switch(displayType) {
         case PERSON:
+            PersonScheduleDisplay personScheduleDisplay = (PersonScheduleDisplay) scheduleDisplay;
             //There is only 1 schedule in the scheduleWindowDisplay
-            return new IndividualScheduleViewManager(scheduleWindowDisplay.getPersonSchedules()
+            return new IndividualScheduleViewManager(personScheduleDisplay.getPersonSchedules()
                     .get(0));
         case GROUP:
-            return new GroupScheduleViewManager(scheduleWindowDisplay
+            GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) scheduleDisplay;
+            return new GroupScheduleViewManager(scheduleDisplay
                     .getPersonSchedules(),
-                    scheduleWindowDisplay.getGroupDisplay().getGroupName(),
-                    scheduleWindowDisplay.getFreeSchedule());
+                    groupScheduleDisplay.getGroupDisplay().getGroupName(),
+                    groupScheduleDisplay.getFreeSchedule());
         default:
             break;
         }
@@ -32,6 +36,6 @@ public interface ScheduleViewManager {
     public void scrollNext();
     public void toggleNext();
     public void filterPersonsFromSchedule(List<Name> persons);
-    public ScheduleWindowDisplayType getScheduleWindowDisplayType();
+    public ScheduleState getScheduleWindowDisplayType();
     public ScheduleView getScheduleViewCopy();
 }

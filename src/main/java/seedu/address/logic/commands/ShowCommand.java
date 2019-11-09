@@ -8,7 +8,7 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Name;
@@ -55,9 +55,9 @@ public class ShowCommand<T> extends Command {
             }
 
             if (person.get().equals(model.getUser())) {
-                model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.PERSON);
             } else {
-                model.updateDisplayWithPerson((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                model.updateDisplayWithPerson((Name) name, LocalDateTime.now(), ScheduleState.PERSON);
             }
             return new CommandResultBuilder(
                     String.format(MESSAGE_SUCCESS, person.get().getName().toString())).build();
@@ -76,13 +76,13 @@ public class ShowCommand<T> extends Command {
                 throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
             }
 
-            model.updateDisplayWithGroup((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+            model.updateDisplayWithGroup((GroupName) name, LocalDateTime.now(), ScheduleState.GROUP);
 
             return new CommandResultBuilder(
                     String.format(MESSAGE_SUCCESS, group.get().getGroupName().toString())).build();
         } else {
 
-            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.PERSON);
             return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, "Your schedule")).build();
         }
     }

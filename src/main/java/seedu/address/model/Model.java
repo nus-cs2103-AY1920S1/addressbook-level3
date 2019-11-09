@@ -9,9 +9,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.display.locationdata.ClosestCommonLocationData;
-import seedu.address.model.display.schedule.ScheduleDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
@@ -280,11 +279,6 @@ public interface Model {
     /**
      * Returns the current main window display model.
      */
-    ScheduleWindowDisplay getScheduleWindowDisplay();
-
-    /**
-     * Returns the current main window display model.
-     */
     ScheduleDisplay getScheduleDisplay();
 
     /**
@@ -293,29 +287,24 @@ public interface Model {
     SidePanelDisplay getSidePanelDisplay();
 
     /**
-     * Updates the current main window display.
-     */
-    void updateScheduleWindowDisplay(ScheduleWindowDisplay scheduleWindowDisplay);
-
-    /**
      * Updates the current main window display with a Person's schedule.
      */
-    void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleState type);
 
     /**
      * Updates the current main window display with the User's schedule.
      */
-    void updateDisplayWithUser(LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithUser(LocalDateTime time, ScheduleState type);
 
     /**
      * Updates the current main window display with a Group's schedule.
      */
-    void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleState type);
 
     /**
      * Updates the current main window display with an Array of Person's schedule.
      */
-    void updateDisplayWithPersons(ArrayList<Person> persons, LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithPersons(ArrayList<Person> persons, LocalDateTime time, ScheduleState type);
 
     /**
      * Updates the current side panel display.
@@ -330,7 +319,7 @@ public interface Model {
     /**
      * Gets the current state of the schedule window display
      */
-    ScheduleWindowDisplayType getState();
+    ScheduleState getState();
 
     //=========== Suggesters =============================================================
 

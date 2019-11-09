@@ -3,8 +3,8 @@ package seedu.address.ui.schedule;
 import java.time.LocalDate;
 import java.util.List;
 
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.person.Name;
 
 /**
@@ -66,7 +66,7 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
     }
 
     @Override
-    public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
-        return ScheduleWindowDisplayType.PERSON;
+    public ScheduleState getScheduleWindowDisplayType() {
+        return ScheduleState.PERSON;
     }
 }

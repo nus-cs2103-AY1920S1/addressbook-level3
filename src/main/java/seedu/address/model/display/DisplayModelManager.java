@@ -14,16 +14,15 @@ import java.util.stream.Collectors;
 import seedu.address.model.GmapsModelManager;
 import seedu.address.model.TimeBook;
 import seedu.address.model.display.locationdata.ClosestCommonLocationData;
-import seedu.address.model.display.schedule.GroupScheduleDisplay;
-import seedu.address.model.display.schedule.HomeScheduleDisplay;
-import seedu.address.model.display.schedule.PersonScheduleDisplay;
-import seedu.address.model.display.schedule.ScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.GroupScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.HomeScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.PersonScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.PersonTimeslot;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
@@ -58,7 +57,6 @@ public class DisplayModelManager {
 
     private GmapsModelManager gmapsModelManager;
 
-    private ScheduleWindowDisplay scheduleWindowDisplay;
     private SidePanelDisplay sidePanelDisplay;
 
     private ScheduleDisplay scheduleDisplay;
@@ -73,8 +71,7 @@ public class DisplayModelManager {
     /*public ScheduleWindowDisplayType getState() {
         return scheduleWindowDisplay.getScheduleWindowDisplayType();
     }*/
-
-    public ScheduleWindowDisplayType getState() {
+    public ScheduleState getState() {
         return scheduleDisplay.getState();
     }
 
@@ -83,7 +80,7 @@ public class DisplayModelManager {
      * Updates with a schedule of a person specified by name.
      */
     public void updateDisplayWithPerson(Name name, LocalDateTime time,
-                                        ScheduleWindowDisplayType type,
+                                        ScheduleState type,
                                         TimeBook timeBook) {
 
         try {
@@ -97,7 +94,7 @@ public class DisplayModelManager {
     /**
      * Updates with a schedule of the user.
      */
-    public void updateDisplayWithUser(LocalDateTime time, ScheduleWindowDisplayType type, TimeBook timeBook) {
+    public void updateDisplayWithUser(LocalDateTime time, ScheduleState type, TimeBook timeBook) {
         User user = timeBook.getPersonList().getUser();
         updateScheduleWindowDisplay(user, time, type);
     }
@@ -107,7 +104,7 @@ public class DisplayModelManager {
      */
     public void updateDisplayWithGroup(GroupName groupName,
                                        LocalDateTime now,
-                                       ScheduleWindowDisplayType type,
+                                       ScheduleState type,
                                        TimeBook timeBook) {
 
         try {
@@ -138,7 +135,7 @@ public class DisplayModelManager {
      */
     public void updateDisplayWithPersons(ArrayList<Person> persons,
                                          LocalDateTime now,
-                                         ScheduleWindowDisplayType type,
+                                         ScheduleState type,
                                          TimeBook timeBook) {
 
         GroupDisplay groupDisplay = new GroupDisplay(persons);
@@ -146,12 +143,10 @@ public class DisplayModelManager {
 
     }
 
-    /**
-     * Updates the detail window display.
-     */
-    public void updateScheduleWindowDisplay(ScheduleWindowDisplay scheduleWindowDisplay) {
-        this.scheduleWindowDisplay = scheduleWindowDisplay;
+    private void updateScheduleDisplay(ScheduleDisplay scheduleDisplay) {
+        this.scheduleDisplay = scheduleDisplay;
     }
+
 
     /**
      * Update to a Group schedule.
@@ -159,7 +154,7 @@ public class DisplayModelManager {
     private void updateScheduleWindowDisplay(ArrayList<Person> persons,
                                              GroupDisplay groupDisplay,
                                              LocalDateTime now,
-                                             ScheduleWindowDisplayType type) {
+                                             ScheduleState type) {
 
         ArrayList<FreeSchedule> freeScheduleForMonth = new ArrayList<>();
         ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
@@ -169,7 +164,7 @@ public class DisplayModelManager {
             Person person = persons.get(i);
             Role role = Role.emptyRole();
 
-            if (!type.equals(ScheduleWindowDisplayType.GROUP)) {
+            if (!type.equals(ScheduleState.GROUP)) {
                 return;
             }
 
@@ -190,29 +185,20 @@ public class DisplayModelManager {
             freeScheduleForMonth.add(freeSchedule);
         }
 
-        ScheduleWindowDisplay scheduleWindowDisplay =
-                new ScheduleWindowDisplay(personSchedules, freeScheduleForMonth, groupDisplay, type);
-
-        updateScheduleWindowDisplay(scheduleWindowDisplay);
-
         GroupScheduleDisplay scheduleDisplay =
                 new GroupScheduleDisplay(personSchedules, freeScheduleForMonth, groupDisplay);
 
         updateScheduleDisplay(scheduleDisplay);
     }
 
-    private void updateScheduleDisplay(ScheduleDisplay scheduleDisplay) {
-        this.scheduleDisplay = scheduleDisplay;
-    }
-
     /**
      * Update to a Person schedule.
      */
-    private void updateScheduleWindowDisplay(Person person, LocalDateTime time, ScheduleWindowDisplayType type) {
+    private void updateScheduleWindowDisplay(Person person, LocalDateTime time, ScheduleState type) {
         ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
 
-        assert (type.equals(ScheduleWindowDisplayType.PERSON)
-                || type.equals(ScheduleWindowDisplayType.HOME));
+        assert (type.equals(ScheduleState.PERSON)
+                || type.equals(ScheduleState.HOME));
 
         PersonSchedule personSchedule = generatePersonSchedule(
                 time,
@@ -223,30 +209,21 @@ public class DisplayModelManager {
 
         personSchedules.add(personSchedule);
 
-        ScheduleWindowDisplay scheduleWindowDisplay =
-                new ScheduleWindowDisplay(personSchedules, type);
-
-        updateScheduleWindowDisplay(scheduleWindowDisplay);
-
         ScheduleDisplay scheduleDisplay = null;
 
-        if(type == ScheduleWindowDisplayType.PERSON) {
+        if (type == ScheduleState.PERSON) {
             scheduleDisplay = new PersonScheduleDisplay(personSchedules);
-        } else if (type == ScheduleWindowDisplayType.HOME) {
+        } else if (type == ScheduleState.HOME) {
             scheduleDisplay = new HomeScheduleDisplay(personSchedules);
         }
 
-        assert(sidePanelDisplay != null);
+        assert (scheduleDisplay != null);
         updateScheduleDisplay(scheduleDisplay);
     }
 
     /**
      * Getter method to retrieve detail window display.
      */
-    public ScheduleWindowDisplay getScheduleWindowDisplay() {
-        return scheduleWindowDisplay;
-    }
-
     public ScheduleDisplay getScheduleDisplay() {
         return scheduleDisplay;
     }

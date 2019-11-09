@@ -14,7 +14,7 @@ import java.util.Map;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.ModuleToEventMappingException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Holidays;
@@ -91,10 +91,10 @@ public class AddNusModsCommand extends Command {
 
         // updates UI.
         if (name == null) {
-            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.PERSON);
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
         } else {
-            model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleState.PERSON);
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
         }
 

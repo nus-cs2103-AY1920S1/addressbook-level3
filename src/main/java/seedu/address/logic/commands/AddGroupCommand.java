@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
@@ -46,7 +46,7 @@ public class AddGroupCommand extends Command {
 
             // updates main window
             model.updateDisplayWithGroup(group.getGroupName(), LocalDateTime.now(),
-                    ScheduleWindowDisplayType.GROUP);
+                    ScheduleState.GROUP);
 
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);

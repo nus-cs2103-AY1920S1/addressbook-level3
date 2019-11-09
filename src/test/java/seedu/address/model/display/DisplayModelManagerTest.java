@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.GmapsModelManager;
 import seedu.address.model.TimeBook;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.modelutil.TypicalModel;
@@ -33,61 +33,61 @@ class DisplayModelManagerTest {
     @Test
     void getState_home() {
         displayModelManager.updateDisplayWithUser(LocalDateTime.now(),
-                ScheduleWindowDisplayType.HOME, timeBook);
+                ScheduleState.HOME, timeBook);
 
-        assertEquals(ScheduleWindowDisplayType.HOME, displayModelManager.getState());
+        assertEquals(ScheduleState.HOME, displayModelManager.getState());
     }
 
     @Test
     void getState_person() {
         displayModelManager.updateDisplayWithUser(LocalDateTime.now(),
-                ScheduleWindowDisplayType.PERSON, timeBook);
+                ScheduleState.PERSON, timeBook);
 
-        assertEquals(ScheduleWindowDisplayType.PERSON, displayModelManager.getState());
+        assertEquals(ScheduleState.PERSON, displayModelManager.getState());
 
         displayModelManager.updateDisplayWithPerson(ALICE.getName(), LocalDateTime.now(),
-                ScheduleWindowDisplayType.PERSON, timeBook);
+                ScheduleState.PERSON, timeBook);
 
-        assertEquals(ScheduleWindowDisplayType.PERSON, displayModelManager.getState());
+        assertEquals(ScheduleState.PERSON, displayModelManager.getState());
     }
 
     @Test
     void getState_group() {
         displayModelManager.updateDisplayWithGroup(GROUP_NAME1, LocalDateTime.now(),
-                ScheduleWindowDisplayType.GROUP, timeBook);
+                ScheduleState.GROUP, timeBook);
 
-        assertEquals(ScheduleWindowDisplayType.GROUP, displayModelManager.getState());
+        assertEquals(ScheduleState.GROUP, displayModelManager.getState());
 
         ArrayList<Person> persons = timeBook.getPersonList().getPersons();
         displayModelManager.updateDisplayWithPersons(persons, LocalDateTime.now(),
-                ScheduleWindowDisplayType.GROUP, timeBook);
+                ScheduleState.GROUP, timeBook);
 
-        assertEquals(ScheduleWindowDisplayType.GROUP, displayModelManager.getState());
+        assertEquals(ScheduleState.GROUP, displayModelManager.getState());
     }
 
     @Test
     void updateDisplayWithPerson() {
         assertDoesNotThrow(() ->
                 displayModelManager.updateDisplayWithPerson(ALICE.getName(), LocalDateTime.now(),
-                        ScheduleWindowDisplayType.PERSON, timeBook));
+                        ScheduleState.PERSON, timeBook));
     }
 
     @Test
     void updateDisplayWithUser() {
         assertDoesNotThrow(() ->
                 displayModelManager.updateDisplayWithUser(LocalDateTime.now(),
-                        ScheduleWindowDisplayType.PERSON, timeBook));
+                        ScheduleState.PERSON, timeBook));
 
         assertDoesNotThrow(() ->
                 displayModelManager.updateDisplayWithUser(LocalDateTime.now(),
-                        ScheduleWindowDisplayType.HOME, timeBook));
+                        ScheduleState.HOME, timeBook));
     }
 
     @Test
     void updateDisplayWithGroup() {
         assertDoesNotThrow(() ->
                 displayModelManager.updateDisplayWithGroup(GROUP_NAME1, LocalDateTime.now(),
-                        ScheduleWindowDisplayType.GROUP, timeBook));
+                        ScheduleState.GROUP, timeBook));
     }
 
     @Test
@@ -95,7 +95,7 @@ class DisplayModelManagerTest {
         ArrayList<Person> persons = timeBook.getPersonList().getPersons();
         assertDoesNotThrow(() ->
                 displayModelManager.updateDisplayWithPersons(persons, LocalDateTime.now(),
-                        ScheduleWindowDisplayType.GROUP, timeBook));
+                        ScheduleState.GROUP, timeBook));
 
     }
 
@@ -116,11 +116,11 @@ class DisplayModelManagerTest {
     }
 
     @Test
-    void getScheduleWindowDisplay() {
+    void getScheduleDisplay() {
         displayModelManager.updateDisplayWithUser(LocalDateTime.now(),
-                ScheduleWindowDisplayType.PERSON, timeBook);
+                ScheduleState.PERSON, timeBook);
 
-        assertNotNull(displayModelManager.getScheduleWindowDisplay());
+        assertNotNull(displayModelManager.getScheduleDisplay());
     }
 
     @Test

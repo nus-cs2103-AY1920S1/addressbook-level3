@@ -1,20 +1,22 @@
-package seedu.address.model.display.schedule;
+package seedu.address.model.display.scheduledisplay;
 
 import java.util.ArrayList;
 
 import seedu.address.model.display.schedulewindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 
+/**
+ * Schedule of a Person.
+ */
 public class PersonScheduleDisplay extends ScheduleDisplay {
 
-    private static final ScheduleWindowDisplayType state = ScheduleWindowDisplayType.PERSON;
+    private static final ScheduleState state = ScheduleState.PERSON;
 
     public PersonScheduleDisplay(ArrayList<PersonSchedule> personSchedules) {
         super(personSchedules);
     }
 
     @Override
-    public ScheduleWindowDisplayType getState() {
+    public ScheduleState getState() {
         return state;
     }
 }

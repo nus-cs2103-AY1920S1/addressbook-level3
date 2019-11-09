@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.EventNotFoundException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -48,11 +48,11 @@ public class DeleteEventCommand extends Command {
 
             if (name == null) {
                 model.deleteEvent(eventName);
-                model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.PERSON);
 
             } else {
                 model.deleteEvent(name, eventName);
-                model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleState.PERSON);
 
             }
 

@@ -1,20 +1,28 @@
-package seedu.address.model.display.schedule;
+package seedu.address.model.display.scheduledisplay;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.GroupDisplay;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.InvalidTimeslotException;
 
+/**
+ * A Schedule of a Group.
+ */
 public class GroupScheduleDisplay extends ScheduleDisplay {
 
-    private static final ScheduleWindowDisplayType state = ScheduleWindowDisplayType.GROUP;
+    private static final ScheduleState state = ScheduleState.GROUP;
 
     private GroupDisplay groupDisplay;
     private ArrayList<FreeSchedule> freeSchedules;
+
+    private Optional<List<Name>> filteredNames = Optional.empty();
 
     public GroupScheduleDisplay(ArrayList<PersonSchedule> personSchedules,
                                 ArrayList<FreeSchedule> freeSchedules,
@@ -36,8 +44,21 @@ public class GroupScheduleDisplay extends ScheduleDisplay {
         return freeSchedules.get(week).getFreeTimeslot(id);
     }
 
+    public void setFilteredNames(List<Name> filteredNames) {
+        ArrayList<PersonSchedule> personSchedules = super.getPersonSchedules();
+        List<Name> presentNames = personSchedules.stream()
+                .map(personSchedule -> personSchedule.getPersonDisplay().getName())
+                .filter(filteredNames::contains)
+                .collect(Collectors.toCollection(ArrayList::new));
+        this.filteredNames = Optional.of(presentNames);
+    }
+
+    public Optional<List<Name>> getFilteredNames() {
+        return filteredNames;
+    }
+
     @Override
-    public ScheduleWindowDisplayType getState() {
+    public ScheduleState getState() {
         return state;
     }
 

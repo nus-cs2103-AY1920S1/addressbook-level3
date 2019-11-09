@@ -1,16 +1,18 @@
-package seedu.address.model.display.schedule;
+package seedu.address.model.display.scheduledisplay;
 
 import java.util.ArrayList;
 
 import seedu.address.model.display.exceptions.PersonTimeslotNotFoundException;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.PersonTimeslot;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+/**
+ * Schedule to be Displayed.
+ */
 public abstract class ScheduleDisplay {
 
     private ArrayList<PersonSchedule> personSchedules;
@@ -75,7 +77,5 @@ public abstract class ScheduleDisplay {
         return personTimeslot;
     }
 
-    public ScheduleWindowDisplayType getState() {
-        return null;
-    }
+    public abstract ScheduleState getState();
 }

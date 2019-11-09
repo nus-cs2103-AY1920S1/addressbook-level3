@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
@@ -79,7 +79,7 @@ public class AddToGroupCommand extends Command {
 
             // updates main window
             model.updateDisplayWithGroup(group.getGroupName(),
-                    LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+                    LocalDateTime.now(), ScheduleState.GROUP);
 
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
@@ -92,7 +92,7 @@ public class AddToGroupCommand extends Command {
         } catch (AlreadyInGroupException e) {
 
             model.updateDisplayWithGroup(group.getGroupName(),
-                    LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+                    LocalDateTime.now(), ScheduleState.GROUP);
 
             return new CommandResultBuilder(String.format(MESSAGE_UPDATED_ROLE, mapping.getRole().toString())).build();
         }
