@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -15,6 +16,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.reminder.Reminder;
+import seedu.address.model.task.Task;
 
 /**
  * Constructor for the entire calendar view
@@ -116,6 +119,15 @@ public class FullCalendarView extends UiPart<Region> {
 
             ap.setTopAnchor(vb, 20.0);
             ap.setLeftAnchor(vb, 5.0);
+
+            ListView<Task> taskListView = new ListView<>();
+            //taskListView.setItems(logic.getFilteredReminderList());
+            //taskListView.setPrefWidth(700);
+            //taskListView.setCellFactory(listView -> new TaskListViewCell());
+            //should look at list and add task to date till no more tasks
+
+            ap.setTopAnchor(taskListView, 20.0);
+            ap.setLeftAnchor(taskListView, 5.0);
         }
         // Change the title of the calendar
         calendarTitle.setText(yearMonth.getMonth().toString() + " " + String.valueOf(yearMonth.getYear()));
