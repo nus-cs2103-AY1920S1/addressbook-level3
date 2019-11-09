@@ -140,7 +140,7 @@ public class MainAppTest extends ApplicationTest {
                 .write("enqueue 001A")
                 .type(KeyCode.ENTER);
 
-        Assertions.assertThat(resultDisplay.getText()).startsWith("New person added to the queue:");
+        Assertions.assertThat(resultDisplay.getText()).startsWith("New patient added to the queue:");
         Assertions.assertThat(queueListView).hasExactlyNumItems(1);
 
         robot.write("break 1").type(KeyCode.ENTER);

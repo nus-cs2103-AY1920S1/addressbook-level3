@@ -87,15 +87,6 @@ class QueueManagerTest {
     }
 
     @Test
-    void poll_success() {
-        queueManager = new QueueManager();
-        Person patient = new PersonBuilder(AMY).build();
-        queueManager.addPatient(patient.getReferenceId());
-        queueManager.poll();
-        assertEquals(0, queueManager.getSizeOfQueue());
-    }
-
-    @Test
     void hasPatient_success() {
         queueManager = new QueueManager();
         Person patient = new PersonBuilder(AMY).build();

@@ -1,3 +1,4 @@
+//@@author wongsm7
 package seedu.address.logic.commands.queue;
 
 import static java.util.Objects.requireNonNull;
@@ -14,7 +15,7 @@ import seedu.address.model.ReferenceId;
  */
 public class EnqueueCommand extends ReversibleCommand {
 
-    public static final String MESSAGE_SUCCESS = "New person added to the queue: %s";
+    public static final String MESSAGE_SUCCESS = "New patient added to the queue: %s";
     public static final String MESSAGE_DUPLICATE_PERSON_IN_QUEUE = "This patient already exists in the queue";
     public static final String MESSAGE_DUPLICATE_PERSON_BEING_SERVED = "This patient is already being served";
     public static final String COMMAND_WORD = "enqueue";
