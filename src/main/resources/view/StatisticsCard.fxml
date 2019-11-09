@@ -13,7 +13,7 @@
     <HBox alignment="TOP_RIGHT">
         <VBox alignment="CENTER_RIGHT" minHeight="105">
             <padding><Insets top="40" right="5" bottom="20" left="30"/></padding>
-            <LineChart fx:id="lineChart" VBox.vgrow="SOMETIMES" prefHeight="400" prefWidth="600">
+            <LineChart fx:id="lineChart" VBox.vgrow="SOMETIMES" prefHeight="400" prefWidth="500">
                 <xAxis>
                     <NumberAxis side="BOTTOM" label="Num Students" autoRanging="true"/>
                 </xAxis>
@@ -25,7 +25,7 @@
 
         <VBox alignment="CENTER_LEFT" minHeight="105">
             <padding><Insets top="40" right="20" bottom="20" left="10"/></padding>
-            <PieChart fx:id="distributionChart" VBox.vgrow="SOMETIMES" prefHeight="400" prefWidth="600"/>
+            <PieChart fx:id="distributionChart" VBox.vgrow="SOMETIMES" prefHeight="400" prefWidth="500"/>
         </VBox>
 
         <VBox alignment="CENTER_RIGHT">
@@ -64,7 +64,7 @@
         </VBox>
     </HBox>
 
-    <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" prefHeight="400">
+    <HBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" prefHeight="400" alignment="TOP_RIGHT">
         <padding><Insets top="40"/></padding>
         <StackPane HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" fx:id="q1Pane">
             <VBox VBox.vgrow="ALWAYS" alignment="TOP_CENTER">
