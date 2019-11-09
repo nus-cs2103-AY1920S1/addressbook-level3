@@ -31,16 +31,19 @@
           <Menu mnemonicParsing="false" text="Help">
           <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
+          <Menu mnemonicParsing="false" text="Students">
+            <MenuItem fx:id="studenttab" mnemonicParsing="false" onAction="#handleStudents" text="Students" />
+          </Menu>
           <Menu mnemonicParsing="false" text="Reminders">
             <MenuItem fx:id="remindertab" mnemonicParsing="false" onAction="#handleReminder" text="Reminders" />
-            <MenuItem fx:id="reminderbox" mnemonicParsing="false" onAction="#handleReminderBox" text="RemindersBox" />
+            <MenuItem fx:id="reminderbox" mnemonicParsing="false" onAction="#handleReminderBox" text="RemindersWindow" />
           </Menu>
           <Menu mnemonicParsing="false" text="Earnings">
             <MenuItem fx:id="earningstab" mnemonicParsing="false" onAction="#handleEarnings" text="Earnings" />
           </Menu>
-          <Menu mnemonicParsing="false" text="Calendar">
-            <MenuItem fx:id="calendartab" mnemonicParsing="false" onAction="#handleCalendarDate" text="ByDate" />
-            <MenuItem fx:id="tasktab" mnemonicParsing="false" onAction="#handleCalendarTask" text="ByTask" />
+          <Menu mnemonicParsing="false" text="Tasks">
+            <MenuItem fx:id="calendartab" mnemonicParsing="false" onAction="#handleCalendarDate" text="CalendarView" />
+            <MenuItem fx:id="tasktab" mnemonicParsing="false" onAction="#handleCalendarTask" text="ListView" />
           </Menu>
           <Menu mnemonicParsing="false" text="Notes">
             <MenuItem fx:id="notestab" mnemonicParsing="false" onAction="#handleNotes" text="Notes" />
