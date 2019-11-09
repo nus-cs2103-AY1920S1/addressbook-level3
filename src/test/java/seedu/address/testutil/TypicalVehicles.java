@@ -1,15 +1,11 @@
 package seedu.address.testutil;
 
+import seedu.address.model.IncidentManager;
+import seedu.address.model.vehicle.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import seedu.address.model.IncidentManager;
-import seedu.address.model.vehicle.Availability;
-import seedu.address.model.vehicle.District;
-import seedu.address.model.vehicle.Vehicle;
-import seedu.address.model.vehicle.VehicleNumber;
-import seedu.address.model.vehicle.VehicleType;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -30,6 +26,12 @@ public class TypicalVehicles {
 
     public static final Vehicle V5 = new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("GER4389F"),
             new District(4), new Availability("AVAILABLE"));
+
+    public static final Vehicle V6 = new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("BBA2222F"),
+            new District(1), new Availability("BUSY"));
+
+    public static final Vehicle V7 = new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("FKH1291P"),
+            new District(20), new Availability("AVAILABLE"));
 
     private TypicalVehicles() {} // prevents instantiation
 
