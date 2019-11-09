@@ -97,13 +97,6 @@ public class LogicManager implements Logic {
                 return currCommandResult;
             }
 
-            // TODO: Temporarily disabling storage
-            try {
-                storage.saveApplication(model.getApplication());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-            }
-
             // If attendance is to be displayed, it will be passed into the commandResult
             if (currCommandResult.isShowAttendance()) {
                 tutorialToStore = Optional.of(currCommandResult.getTutorialAttendance());
@@ -124,6 +117,15 @@ public class LogicManager implements Logic {
             if (currCommandResult.isAssignmentsDisplay()) {
                 logger.info("----------------[COMMAND RESULT][Displaying Assignments]");
                 assignmentsToDisplay = Optional.of(currCommandResult.getAssignmentsToDisplay());
+            }
+
+            // TODO: Temporarily disabling storage
+            // TODO: Check if error thrown disables the bug
+            try {
+                storage.saveApplication(model.getApplication());
+            } catch (IOException ioe) {
+                logger.info("IOException during saving - " + ioe);
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
 

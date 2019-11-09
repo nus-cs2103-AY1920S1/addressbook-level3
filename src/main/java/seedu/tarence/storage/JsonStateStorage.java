@@ -2,15 +2,14 @@ package seedu.tarence.storage;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Stack;
 import java.util.logging.Logger;
-
-// TODO: Cannot resolve import
-// import org.apache.commons.io.FileUtils;
 
 import seedu.tarence.commons.core.LogsCenter;
 import seedu.tarence.commons.exceptions.DataConversionException;
@@ -57,42 +56,86 @@ public class JsonStateStorage implements ApplicationStateStorage {
     }
 
     /**
-     * Clears the folder used to store temporate state json files.
+     * Clears the folder used to store temporary state json files.
      * @throws IOException if got error in accessing the file directory.
      */
     public void clearStateFolder() throws IOException {
         Path filePath = Paths.get(dataFolderName, stateFolderName);
-        // TODO: Cannot resolve FileUtils
-        // FileUtils.deleteDirectory(filePath.toFile());
+        File folderDirectory = filePath.toFile();
+
+        // Delete all files in the directory
+        File[] listOfFiles = folderDirectory.listFiles();
+        if (listOfFiles != null) {
+            for (File file : listOfFiles) {
+                if (file.isFile()) {
+                    file.delete();
+                }
+            }
+        }
+
+        // Delete directory itself
+        folderDirectory.delete();
+
     }
+
 
     /**
      * Saves the application state whenever there is a change in state.
      * @param application Contains TArence's model.
      * @throws IOException thrown when there is an error in saving.
      */
-    public void saveApplicationState(ReadOnlyApplication application) throws IOException {
+    public void saveApplicationState(ReadOnlyApplication application) {
         requireNonNull(application);
 
         // Get the next filePath eg "data\states\state5.json".
         Path filePath = getNextFilePath();
 
-        // Only save the state if the incoming application is different from the latest application
-        ReadOnlyApplication latestApplication = getLatestState();
+        try {
+            // Only save the state if the incoming application is different from the latest application
+            ReadOnlyApplication latestApplication = getLatestState();
 
-        // System.out.println("Current app sem start date: " + Module.getSemStart());
-        //System.out.println("Saved semester start date: " + getSemesterStartDateOfLatestState());
+            // System.out.println("Current app sem start date: " + Module.getSemStart());
+            //System.out.println("Saved semester start date: " + getSemesterStartDateOfLatestState());
 
-        // Only saves the state when there is a change with the current state
-        if (!latestApplication.equals(application)) {
-            // Save the application state
-            FileUtil.createIfMissing(filePath);
-            JsonUtil.saveJsonFile(new JsonSerializableApplication(application), filePath);
+            // Only saves the state when there is a change with the current state
+            if (!latestApplication.equals(application)) {
+                // Save the application state
+                FileUtil.createIfMissing(filePath);
+                JsonUtil.saveJsonFile(new JsonSerializableApplication(application), filePath);
 
-            // Increment the stack counter
-            stateStack.push(stateStack.peek() + 1);
+                // Increment the stack counter
+                stateStack.push(stateStack.peek() + 1);
+
+            }
+        } catch (NoSuchElementException | IOException e) {
+            String loggerMessage = "Unable to save state as state-storage-structure has been altered."
+                    + "\nWill be resetting to new state ie start from state 0";
+
+            logger.info(loggerMessage);
+
+            resetStateStorage(application);
 
         }
+    }
+
+    /**
+     * Resets the state storage when there is an error ie user deletes the folder.
+     *
+     * @param application
+     */
+    public void resetStateStorage(ReadOnlyApplication application) {
+
+        try {
+            clearStateFolder();
+            this.stateStack = new Stack<>();
+            stateStack.add(0);
+
+            saveFirstState(application);
+
+        } catch (IOException e) {
+            logger.info("Problem with resetting state storage");
+        }
+
     }
 
     public String getSemesterStartDateOfLatestState() throws IOException {

@@ -141,6 +141,9 @@ public class JsonAdaptedModule {
         try {
             for (String tutorialName : tutorialMap.keySet()) {
                 LinkedHashMap<String, String> singleTutorialMap = tutorialMap.get(tutorialName);
+
+                Boolean temp = JsonUtil.isValidTutorialMap(singleTutorialMap);
+
                 // TODO: Check if singleTutorialMap is valid ie contains all the requires params
                 Tutorial tutorialFromJson = JsonUtil.tutorialMapToTutorial(singleTutorialMap);
                 tutorials.add(tutorialFromJson);

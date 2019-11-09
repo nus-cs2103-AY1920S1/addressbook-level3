@@ -28,7 +28,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        ReadOnlyApplication emptyApplication = SampleDataUtil.getSampleApplication();
+        ReadOnlyApplication emptyApplication = SampleDataUtil.getEmptyApplication();
 
         model.setModel(emptyApplication);
 

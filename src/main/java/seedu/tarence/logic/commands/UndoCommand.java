@@ -3,6 +3,7 @@ package seedu.tarence.logic.commands;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_UNDO_NUM_OF_STATES;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
@@ -50,7 +51,7 @@ public class UndoCommand extends Command {
 
             if (storage.maxNumberOfRollbacksAllowed() == 0) {
 
-                errorMessage = "Unable to undo as there are no state-altering commands eecuted in this session";
+                errorMessage = "Unable to undo as there is nothing left to undo";
 
             }
 
@@ -61,7 +62,7 @@ public class UndoCommand extends Command {
             Integer stateToUndoTo = storage.getLatestStateIndex() - numOfStatesToUndo;
             ReadOnlyApplication retrievedState = storage.getSpecifiedState(stateToUndoTo);
             model.setModel(retrievedState);
-        } catch (IOException e) {
+        } catch (IOException | NoSuchElementException e) {
             throw new CommandException("Error in undo command. Possible corrupted state json file");
         }
 

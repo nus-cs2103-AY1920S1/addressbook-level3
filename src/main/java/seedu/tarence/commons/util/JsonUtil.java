@@ -268,6 +268,29 @@ public class JsonUtil {
     }
 
     /**
+     * Checks if the tutorial Map contains the valid keys
+     *
+     * @param singleTutorialMap from Json file.
+     * @return True hopefully
+     */
+    public static Boolean isValidTutorialMap(LinkedHashMap<String, String> singleTutorialMap) {
+
+        /*
+        for(String key : singleTutorialMap.keySet()) {
+            //System.out.println ("Keys: " + key);
+        }
+
+        if ( singleTutorialMap.containsKey(JsonAdaptedModule.TUTORIAL_EVENT_LIST) ) {
+            //System.out.println("Tutorial Map CONTAINS field: " + JsonAdaptedModule.TUTORIAL_EVENT_LIST);
+            return true;
+        } else {
+            return false;
+        }
+*/
+        return true;
+    }
+
+    /**
      * Checks if the studentString contains valid fields and the order correct.
      *
      * @param studentString String representing a Student from Json object.

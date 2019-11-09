@@ -47,6 +47,10 @@ public class SampleDataUtil {
         return sampleAb;
     }
 
+    public static ReadOnlyApplication getEmptyApplication() {
+        Application emptyApp = new Application();
+        return emptyApp;
+    }
     /**
      * Returns a sample Student with the following attributes:
      * Name: Alice. Matric No.: A1234567Z. NUSNET ID: E1234567. Email: E1234567@u.nus.edu.
