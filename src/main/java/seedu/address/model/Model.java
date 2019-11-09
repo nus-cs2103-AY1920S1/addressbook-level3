@@ -173,8 +173,6 @@ public interface Model {
     //@@author shutingy
     void showAnswer();
 
-    void endFlashCardTest();
-
     /**
      * Replaces the given flashCard {@code target} with {@code editedFlashCard}.
      * {@code target} must exist in the address book.

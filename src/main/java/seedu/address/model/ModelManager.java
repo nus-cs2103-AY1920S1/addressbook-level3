@@ -249,7 +249,6 @@ public class ModelManager implements Model {
     @Override
     public void initializeTestModel(List<FlashCard> testList) {
         flashCardTestModel = new FlashCardTestModel(testList);
-        hideFlashCardList();
     }
 
     @Override
@@ -267,29 +266,9 @@ public class ModelManager implements Model {
         return flashCardTestModel.getQuestion();
     }
 
-    //@@author shutingy
-    @Override
-    public TestFlashCardPanel getTestFlashCardPanel() {
-        return flashCardTestModel.getTestFlashCardPanel();
-    }
-
     @Override
     public String getTestAnswer() {
         return flashCardTestModel.getAnswer();
-
-    }
-
-    //@@author shutingy
-    @Override
-    public void showAnswer() {
-        flashCardTestModel.showAnswer();
-    }
-
-
-
-    @Override
-    public void endFlashCardTest() {
-        showFlashCardList();
     }
 
     @Override
@@ -297,14 +276,15 @@ public class ModelManager implements Model {
         return flashCardTestModel.getCurrentFlashCard();
     }
 
-    /** Hides the list of flashcards during test mode. */
-    private void hideFlashCardList() {
-        updateFilteredFlashCardList(pred -> false);
+    //@@author shutingy
+    @Override
+    public TestFlashCardPanel getTestFlashCardPanel() {
+        return flashCardTestModel.getTestFlashCardPanel();
     }
 
-    /** Shows the entire list of flashcards. */
-    private void showFlashCardList() {
-        updateFilteredFlashCardList(pred -> true);
+    @Override
+    public void showAnswer() {
+        flashCardTestModel.showAnswer();
     }
 
     //@@author LeowWB

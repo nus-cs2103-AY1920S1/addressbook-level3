@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
 
+//@@author keiteo
 /**
  * Represents a NextQuestionCommand to skip questions.
  */
@@ -25,9 +26,7 @@ abstract class NextQuestionCommand extends Command {
         requireNonNull(model);
         if (!model.hasTestFlashCard()) {
             keyboardFlashCardsParser.endTestMode();
-            model.endFlashCardTest();
-            CommandResult result =
-                    new CommandResult(MESSAGE_SUCCESS_END_OF_TEST);
+            CommandResult result = new CommandResult(MESSAGE_SUCCESS_END_OF_TEST);
             result.setTestMode(false, true);
             return result;
         }
