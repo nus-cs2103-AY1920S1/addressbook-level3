@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 /**
  * Represents a {@code Graph} that supports commands that accept a preamble only.
  */
-public abstract class GraphWithPreamble extends Graph {
+public abstract class GraphWithPreamble<T> extends GraphBuiltFromModel<T> implements AutoCompleteResultProvider {
 
     private List<?> dataList;
 
@@ -25,7 +25,7 @@ public abstract class GraphWithPreamble extends Graph {
     }
 
     @Override
-    protected AutoCompleteResult process(String input) {
+    public AutoCompleteResult process(String input) {
         SortedSet<String> values = new TreeSet<>();
         String stringToCompare;
 

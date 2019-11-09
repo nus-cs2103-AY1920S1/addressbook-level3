@@ -13,28 +13,28 @@ import seedu.address.model.Model;
 /**
  * Represents a {@code Graph} that supports commands that accept arguments only.
  */
-public abstract class GraphWithStartNode extends Graph {
+public abstract class GraphWithStartNode extends GraphBuiltFromModel<Prefix> {
 
-    private Node<?> startingNode;
+    private AutoCompleteNode<?> startingNode;
 
     public GraphWithStartNode(Model model) {
         super(model);
     }
 
-    protected void setStartingNode(Node<?> startingNode) {
+    protected void setStartingNode(AutoCompleteNode<?> startingNode) {
         this.startingNode = startingNode;
     }
 
     @Override
-    protected AutoCompleteResult process(String input) {
+    public AutoCompleteResult process(String input) {
         Pattern prefixPattern = Pattern.compile(" .{1,2}/");
         String stringToCompare = input;
-        Node<?> currentNode = startingNode;
+        AutoCompleteNode<?> currentNode = startingNode;
         SortedSet<String> values = new TreeSet<>();
         Matcher matcher = prefixPattern.matcher(input);
         while (matcher.find()) {
             Prefix prefix = new Prefix(matcher.group().trim());
-            Optional<Node<?>> nextNode = traverse(currentNode, prefix);
+            Optional<AutoCompleteNode<?>> nextNode = traverse(currentNode, prefix);
             if (nextNode.isPresent()) {
                 currentNode = nextNode.get();
             }
@@ -43,7 +43,7 @@ public abstract class GraphWithStartNode extends Graph {
         if (input.endsWith("/")) { // fill with possible arguments
             values.addAll(currentNode.getValues());
         } else { // fill with possible prefixes
-            List<Prefix> prefixes = getPrefixes(currentNode);
+            List<Prefix> prefixes = getWeights(currentNode);
             prefixes.forEach(prefix -> values.add(prefix.toString()));
             stringToCompare = stringToCompare.substring(stringToCompare.lastIndexOf(" ") + 1);
         }

@@ -5,15 +5,17 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import seedu.address.logic.AutoCompleteGraph;
 import seedu.address.logic.AutoCompleteResult;
 import seedu.address.logic.Graph;
+import seedu.address.logic.GraphBuiltFromModel;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 
 /**
  * Represents a {@code Graph} used to support autocomplete for {@code FindCustomerCommand}.
  */
-public class FindCustomerGraph extends Graph {
+public class FindCustomerGraph extends GraphBuiltFromModel {
 
     private List<Customer> customerList;
 
@@ -27,7 +29,7 @@ public class FindCustomerGraph extends Graph {
     }
 
     @Override
-    protected AutoCompleteResult process(String input) {
+    public AutoCompleteResult process(String input) {
         SortedSet<String> values = new TreeSet<>();
         List<String> contactNumberList = customerList.stream()
                 .map(customer -> customer.getContactNumber().toString())

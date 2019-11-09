@@ -24,7 +24,7 @@ public abstract class GraphWithStartNodeAndPreamble extends GraphWithStartNode {
     }
 
     @Override
-    protected AutoCompleteResult process(String input) {
+    public AutoCompleteResult process(String input) {
         SortedSet<String> values = new TreeSet<>();
         String stringToCompare;
 
