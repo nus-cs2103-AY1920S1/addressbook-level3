@@ -197,9 +197,9 @@ Example: Let's say I have to exit the calendar page -
 
 == Calendar
 
-We have all been there. It's the end of the semester but we still have orientation camps, internships, and family commitments to attend to. However, we have worked so hard and *really* want to unwind by travelling. Sounds like you?
+It's the end of the semester but there are still orientation camps, internships, and family commitments to attend to. However, the desire to unwind by travelling after a long and tiring semester is just *too strong*. Sounds like you?
 
-Well, _TravEzy_ has got you covered. Simply inform _TravEzy_ of your schedule (your commitments, school breaks, public holidays and trips) and _TravEzy_ will suggest periods of time when you can travel! Excited to find out more? Well... Read on!
+Well, _TravEzy_ has got you covered. Simply inform _TravEzy_ of your schedule (your _commitments_, _school breaks_, public _holidays_ and _trips_) and _TravEzy_ will suggest periods of time when you can travel! Excited to find out more? Well... Read on!
 
 === Interface
 
