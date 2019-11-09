@@ -96,7 +96,24 @@ public class ModelManager implements Model {
      * Initializes the various lists used. If storage contains no data, empty lists
      * are initialized.
      */
-    private void initialize() {
+    public void initialize() {
+        this.loadListsFromStorage();
+        this.validateTeamList();
+        this.initializeModelHistoryManager();
+
+        this.filteredParticipantList =
+                new FilteredList<>(this.participantList.getSpecificTypedList());
+        this.filteredMentorList =
+                new FilteredList<>(this.mentorList.getSpecificTypedList());
+        this.filteredTeamList =
+                new FilteredList<>(this.teamList.getSpecificTypedList());
+        this.sortedTeam = new SortedList<>(this.teamList.getSpecificTypedList());
+    }
+
+    /**
+     * Load the lists from storage.
+     */
+    private void loadListsFromStorage() {
         // Try loading the 3 lists into memory.
         try {
             Optional<ParticipantList> storageParticipantList = this.storage.readParticipantList();
@@ -125,8 +142,8 @@ public class ModelManager implements Model {
                 MentorList.setLastUsedId(largestIdUsed);
             }
         } catch (AlfredException e) {
-            logger.warning("Initialising new MentorList. " + "Problem encountered reading MentorList from storage: "
-                    + e.getMessage());
+            logger.warning("Initialising new MentorList. "
+                    + "Problem encountered reading MentorList from storage: " + e.getMessage());
             this.mentorList = new MentorList();
         }
 
@@ -141,14 +158,16 @@ public class ModelManager implements Model {
                 TeamList.setLastUsedId(largestIdUsed);
             }
         } catch (AlfredException e) {
-            logger.warning("Initialising new TeamList. " + "Problem encountered reading TeamList from storage: "
-                    + e.getMessage());
+            logger.warning("Initialising new TeamList. "
+                    + "Problem encountered reading TeamList from storage: " + e.getMessage());
             this.teamList = new TeamList();
         }
+    }
 
-        // The following try-catch block is necessary to ensure that the teamList loaded
-        // is valid
-        // and the data has not been tampered with.
+    /**
+     * Validates the team list to ensure that the data has not been tampered with.
+     */
+    private void validateTeamList() {
         try {
             for (Team t : this.teamList.getSpecificTypedList()) {
                 validateNewTeamObject(t);
@@ -159,39 +178,18 @@ public class ModelManager implements Model {
             this.mentorList = new MentorList();
             this.teamList = new TeamList();
         }
+    }
 
+    /**
+     * Initializes the modelHistoryManager.
+     */
+    private void initializeModelHistoryManager() {
         try {
             this.history = new ModelHistoryManager(this.participantList, ParticipantList.getLastUsedId(),
                     this.mentorList, MentorList.getLastUsedId(), this.teamList, TeamList.getLastUsedId());
         } catch (AlfredModelHistoryException e) {
             logger.severe("Unable to initialise ModelHistoryManager.");
         }
-
-        this.filteredParticipantList = new FilteredList<>(this.participantList.getSpecificTypedList());
-        this.filteredMentorList = new FilteredList<>(this.mentorList.getSpecificTypedList());
-        this.filteredTeamList = new FilteredList<>(this.teamList.getSpecificTypedList());
-        this.sortedTeam = new SortedList<>(this.teamList.getSpecificTypedList());
-
-        // Optional TODO: reimplement this logic here.
-        // Optional<ReadOnlyAddressBook> addressBookOptional;
-        // ReadOnlyAddressBook initialData;
-        // try {
-        // addressBookOptional = storage.readAddressBook();
-        // if (!addressBookOptional.isPresent()) {
-        // logger.info("Data file not found. Will be starting with a sample
-        // AddressBook");
-        // }
-        // initialData =
-        // addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        // } catch (DataConversionException e) {
-        // logger.warning("Data file not in the correct format. Will be starting with an
-        // empty AddressBook");
-        // initialData = new AddressBook();
-        // } catch (IOException e) {
-        // logger.warning("Problem while reading from the file. Will be starting with an
-        // empty AddressBook");
-        // initialData = new AddressBook();
-        // }
     }
 
     // =========== UserPrefs
