@@ -209,7 +209,8 @@ public class ModelManager implements Model {
 
     //=========== Statistics related functions =====================================================================
     /**
-     * Returns an unmodifiable view of spending, filtered by {@code statsPredicate} and sorted by date.
+     * Returns an unmodifiable view of spending, filtered by {@code statsPredicate} and sorted by date
+     * in descending order.
      *
      * @return {@code ObservableList<Spending>} of spending which fulfill the date range provided
      */

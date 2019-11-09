@@ -252,6 +252,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Constructs the Statistics Panel
+     */
     private void getStatsPanel(Currency currencyInUse) {
         LinkedHashMap<String, Double> statsData = logic.getStatsData();
         if (startDate == null && lastDate == null) {
@@ -264,6 +267,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Constructs the Graph Panel
+     */
     private void getGraphPanel(Currency currencyInUse) {
         LinkedHashMap<String, Double> graphData = logic.getGraphData();
         if (startDate == null && lastDate == null) {
@@ -276,6 +282,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Gets the first date and last date from the {@param graphData} provided.
+     */
     private void getStartAndEndDates(LinkedHashMap<String, Double> graphData) {
         if (graphData.size() >= 2) {
             Iterator<Map.Entry<String, Double>> iterator = graphData.entrySet().iterator();

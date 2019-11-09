@@ -13,7 +13,7 @@ import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
- * Displays statistics of the user's spending.
+ * Displays statistics of the user's spending based on date range provided, if any.
  */
 public class StatsCommand extends Command {
 
@@ -43,8 +43,7 @@ public class StatsCommand extends Command {
     private Date endDate;
 
     /**
-     * Creates a StatsCommand with whole date range of all spending
-     * if date range is not specified.
+     * Creates a StatsCommand with no parameters if date range is not specified.
      */
     public StatsCommand() {
         startDate = null;
@@ -54,7 +53,7 @@ public class StatsCommand extends Command {
     }
 
     /**
-     * Creates a StatsCommand with specified date range.
+     * Creates a StatsCommand with the specified date range.
      */
     public StatsCommand(Date startingDate, Date endingDate) {
         requireNonNull(startingDate);
@@ -71,6 +70,10 @@ public class StatsCommand extends Command {
         return new CommandResult(messageSuccess, false, true, false);
     }
 
+    /**
+     * Returns a predicate of the date range if a date range is specified.
+     * Else, return a predicate to show all spending.
+     */
     public Predicate<Spending> getStatsPredicate() {
         if (startDate == null && endDate == null) {
             return PREDICATE_SHOW_ALL_SPENDINGS;

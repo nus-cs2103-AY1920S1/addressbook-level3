@@ -13,7 +13,7 @@ import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
- * Format full help instructions for every command for display.
+ * Generates a graph of daily total spending based on date range provided, if any.
  */
 public class GraphCommand extends Command {
 
@@ -44,8 +44,7 @@ public class GraphCommand extends Command {
 
 
     /**
-     * Creates a GraphCommand with whole date range of all spending
-     * if date range is not specified.
+     * Creates a GraphCommand with no parameters if date range is not specified.
      */
     public GraphCommand() {
         startDate = null;
@@ -55,7 +54,7 @@ public class GraphCommand extends Command {
     }
 
     /**
-     * Creates a GraphCommand with specified date range.
+     * Creates a GraphCommand with the specified date range.
      */
     public GraphCommand(Date startingDate, Date endingDate) {
         requireNonNull(startingDate);
@@ -72,6 +71,10 @@ public class GraphCommand extends Command {
         return new CommandResult(messageSuccess, true, false, false);
     }
 
+    /**
+     * Returns a predicate of the date range if a date range is specified.
+     * Else, return a predicate to show all spending.
+     */
     public Predicate<Spending> getGraphPredicate() {
         if (startDate == null && endDate == null) {
             return PREDICATE_SHOW_ALL_SPENDINGS;

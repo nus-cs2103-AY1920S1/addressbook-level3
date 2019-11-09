@@ -32,7 +32,7 @@ public class GraphPanel extends UiPart<Region> {
     /**
      * Constructs the spending graph with the data.
      */
-    private void loadData(LinkedHashMap<String, Double> graphData, String commandResult, Currency currency) {
+    private void loadData(LinkedHashMap<String, Double> graphData, String graphLabel, Currency currency) {
 
         //@@author choongyx
         CategoryAxis xAxis = new CategoryAxis();
@@ -50,7 +50,7 @@ public class GraphPanel extends UiPart<Region> {
         }
         spendingChart.getData().add(series);
 
-        spendingChart.setTitle(commandResult);
+        spendingChart.setTitle(graphLabel);
 
         //@@author jonathantjendana
         for (XYChart.Series<String, Number> s : spendingChart.getData()) {

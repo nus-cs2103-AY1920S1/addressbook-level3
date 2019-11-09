@@ -150,9 +150,9 @@ public interface Model {
     /** Returns an unmodifiable view of the sorted Reminder list */
     ObservableList<Reminder> getSortedReminderList();
 
-    //@@author choongyongxin
+    //@@author choongyx
     /**
-     * Returns an unmodifiable view of the filtered Spending list
+     * Returns an unmodifiable view of the filtered Spending list sorted by date in descending order.
      */
     ObservableList<Spending> getStatsList();
 

@@ -17,9 +17,9 @@ public class StatsCommandParser implements Parser<StatsCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the StatsCommand
-     * and returns a StatsCommand object
-     * for execution.
+     * and returns a StatsCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
+     * or if the date range provided is invalid.
      */
     public StatsCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
