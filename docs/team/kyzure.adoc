@@ -67,7 +67,7 @@ Here is a link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Kyzure
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The following sections are an excerpt of my contribution to the User Guide._
 |===
 
 include::../UserGuide.adoc[tag=uiCalendarView]
@@ -77,7 +77,7 @@ include::../UserGuide.adoc[tag=uiTimelineDay]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The following sections are an excerpt of my contribution to the Developer Guide._
 |===
 
 include::../DeveloperGuide.adoc[tag=uiImplementation]

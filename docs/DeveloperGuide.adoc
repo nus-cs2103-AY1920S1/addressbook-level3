@@ -563,7 +563,7 @@ image::Ui.png[]
 
 ** **Cons**: :The user will not be able to know what Events or Tasks there are easily, unless they change the view to month view. However, the increase space allows a small section for the upcoming events and tasks which tackles this problem.
 
-==== Aspect: Design of the `LogPanel`
+===== Aspect: Design of the `LogPanel`
 * Alternative 1: The `LogPanel` is placed side-by-side with any other panel.
 
 ** **Pros**: The users can always have a visualization of the success of their commands
