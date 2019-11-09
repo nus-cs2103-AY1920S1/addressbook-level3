@@ -1,10 +1,10 @@
 package com.typee.logic.interactive.parser.state.findmachine;
 
 import static com.typee.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static com.typee.logic.parser.CliSyntax.PREFIX_ATTENDEES;
-import static com.typee.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static com.typee.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static com.typee.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ATTENDEES;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LOCATION;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_PRIORITY;
 
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.FindCommand;

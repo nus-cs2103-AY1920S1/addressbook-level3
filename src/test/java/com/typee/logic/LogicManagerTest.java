@@ -13,7 +13,7 @@ import com.typee.commons.core.Messages;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.ListCommand;
 import com.typee.logic.commands.exceptions.CommandException;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.model.Model;
 import com.typee.model.ModelManager;
 import com.typee.model.UserPrefs;

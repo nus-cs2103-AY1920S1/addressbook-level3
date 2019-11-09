@@ -2,7 +2,7 @@ package com.typee.logic.interactive.parser;
 
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 
 /**
  * Represents a parser that interacts with the user to sequentially build a {@code Command}.

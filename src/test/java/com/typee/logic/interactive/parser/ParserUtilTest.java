@@ -1,4 +1,4 @@
-package com.typee.logic.parser;
+package com.typee.logic.interactive.parser;
 
 import static com.typee.logic.interactive.parser.InteractiveParserUtil.MESSAGE_INVALID_INDEX;
 import static com.typee.testutil.Assert.assertThrows;
@@ -7,8 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.model.person.Name;
 
 public class ParserUtilTest {
