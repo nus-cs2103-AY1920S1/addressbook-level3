@@ -109,7 +109,7 @@ public class ScheduleCommand extends Command {
                                             List<Interviewee> interviewees) {
         BipartiteGraph optimumGraph = null;
 
-        int maxMatching = 0;
+        int maxMatching = -1;
         for (int i = 0; i < 10; i++) {
             // To ensure fairer scheduling
             Collections.shuffle(interviewers);
