@@ -645,6 +645,9 @@ The factors affecting the calculation of the recommendation value is summarized 
 |===
 //end::recommendationpenalty[]
 
+[IMPORTANT]
+Recommendation turns auto-sorting OFF.
+
 ****
 Format: `recommend`
 ****
