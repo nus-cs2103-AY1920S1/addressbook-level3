@@ -30,9 +30,9 @@ public class StatsWindow extends UiPart<Stage> {
     private static final String FXML = "StatsWindow.fxml";
     private static final Stage stage = new Stage();
 
-    private static final String good = "Good";
-    private static final String hard = "Hard";
-    private static final String easy = "Easy";
+    private static final String GOOD = "good";
+    private static final String HARD = "hard";
+    private static final String EASY = "easy";
 
 
     /**
@@ -79,21 +79,21 @@ public class StatsWindow extends UiPart<Stage> {
         xAxisC.setLabel("Test Number");
         yAxisC.setLabel("Percentage");
 
-        int numGood = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("good")).size();
-        int numHard = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("hard")).size();
-        int numEasy = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("easy")).size();
+        int numGood = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate(GOOD)).size();
+        int numHard = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate(HARD)).size();
+        int numEasy = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate(EASY)).size();
 
         int[] stats = model.getTestStats();
 
         XYChart.Series seriesA = new XYChart.Series();
-        seriesA.getData().add(new XYChart.Data(good, numGood));
-        seriesA.getData().add(new XYChart.Data(hard, numHard));
-        seriesA.getData().add(new XYChart.Data(easy, numEasy));
+        seriesA.getData().add(new XYChart.Data(GOOD, numGood));
+        seriesA.getData().add(new XYChart.Data(HARD, numHard));
+        seriesA.getData().add(new XYChart.Data(EASY, numEasy));
 
         XYChart.Series seriesB = new XYChart.Series();
-        seriesB.getData().add(new XYChart.Data(good, stats[0]));
-        seriesB.getData().add(new XYChart.Data(hard, stats[1]));
-        seriesB.getData().add(new XYChart.Data(easy, stats[2]));
+        seriesB.getData().add(new XYChart.Data(GOOD, stats[0]));
+        seriesB.getData().add(new XYChart.Data(HARD, stats[1]));
+        seriesB.getData().add(new XYChart.Data(EASY, stats[2]));
 
         XYChart.Series seriesC = new XYChart.Series();
         ArrayList<Integer> perform = model.getPerformance();

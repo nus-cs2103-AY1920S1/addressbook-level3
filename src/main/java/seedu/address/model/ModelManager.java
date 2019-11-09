@@ -179,7 +179,13 @@ public class ModelManager implements Model {
         int numGood = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("good")).size();
         int numHard = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("hard")).size();
         int numEasy = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("easy")).size();
-        int value = ((numEasy + numGood) * 100) / (numEasy + numGood + numHard);
+        int value;
+        if ((numEasy + numGood + numHard) == 0){
+            value = 0;
+        }
+        else {
+            value = ((numEasy + numGood) * 100) / (numEasy + numGood + numHard);
+        }
         performance.add(value);
     }
 
