@@ -176,21 +176,18 @@ public class StatisticManager implements Statistic {
      * Takes in an orderlist, calculates the profit of all orders in this month
      */
     private static double calculateProfitByMonth(List<Order> orderList, Calendar month) {
-        DecimalFormat profitFormatter = new DecimalFormat("#.####");
-        profitFormatter.setRoundingMode(RoundingMode.CEILING);
-
         double[] doubleProfitList =
                 StatisticManager.streamOfPresentOrders(orderList.stream())
                         .filter(currentOrder ->
                                DateUtil.extractMonth(currentOrder) == month.get(Calendar.MONTH)
                                         && DateUtil.extractYear(currentOrder) == month.get(Calendar.YEAR))
                         .map(currentOrder ->
-                                profitFormatter.format(MoneyUtil.convertToDouble(currentOrder.getPrice())
+                                MoneyUtil.convertToDouble(currentOrder.getPrice())
                                 -
-                                MoneyUtil.convertToDouble(currentOrder.getPhone().getCost())))
+                                MoneyUtil.convertToDouble(currentOrder.getPhone().getCost()))
                         .collect(Collectors.toList())
                         .stream()
-                        .mapToDouble(Double::parseDouble).toArray();
+                        .mapToDouble(d -> d).toArray();
         double result = new BigDecimal(StatUtils.sum(doubleProfitList))
                 .setScale(2, RoundingMode.HALF_UP)
                 .doubleValue();
