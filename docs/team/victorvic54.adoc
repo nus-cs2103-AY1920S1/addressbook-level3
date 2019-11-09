@@ -1,9 +1,7 @@
-= Victor Varian - Project Portfolio
+= Victor Varian - Project Portfolio (Modulo)
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-
-== PROJECT: AddressBook - Level 3
 
 == Overview
 
@@ -14,8 +12,8 @@ the user interacts with it using a CLI, and it has a GUI created with JavaFX.
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to switch application for different features*
-** What it does: allows the user to switch logic, model, storage, and UI from one feature to another.
-** Justification: This feature is the first step for the user to switch and use several features that Modulo offers. It also make sure that switching from one feature to another is smooth enough.
+** What it does: allows user to switch logic, model, storage, UI from one feature to another.
+** Justification: This feature is the first step for the user to switch and use several features that Modulo offers. Switching from one feature to another is maintained to smooth.
 ** Highlights: This enhancement can be extended further if the next developer decides to add a big feature to Modulo.
 It required an in-depth analysis of design alternatives. The implementation too was challenging as it required a depth understanding on how to make sure each feature
 care for their own implementation without others interfering it. Furthermore it will also reduce coupling in our code.
@@ -23,7 +21,7 @@ care for their own implementation without others interfering it. Furthermore it 
 * *Major enhancement*: added *the ability to compromise for typo and categorical search*
 ** What it does: allows the user to search for questions in multiple ways based on the result of the filter that the user keys in. It also substantially helps the user
 who often type carelessly to capture for typo if the user enable it.
-** Justification: This feature helps the user search for related questions faster and flexible. The feature can therefore help users save more time from linear searching
+** Justification: This feature helps the user search for related questions faster and flexible. The feature can help users save more time from linear searching
 and retyping the keyword they want to search.
 ** Highlights: This enhancement affects existing commands and commands to be added in future.
 It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
@@ -42,8 +40,8 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=victorvic54&sort=grou
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.1` - `v1.2.1` (3 releases) on GitHub
+** Project management: +
+Managed releases `v1.1` - `v1.2.1` (3 releases) on GitHub
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T16-2/main/pull/104[#104]
@@ -56,17 +54,14 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=victorvic54&sort=grou
 
 == Contributions to the User Guide
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=quizsection]
+include::../UserGuide.adoc[tag=quizsection1]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=createquestion1]
+include::../DeveloperGuide.adoc[tag=createquestion2]
+include::../DeveloperGuide.adoc[tag=undoredo1]
+include::../DeveloperGuide.adoc[tag=undoredo2]
+include::../DeveloperGuide.adoc[tag=undoredo3]
+include::../DeveloperGuide.adoc[tag=undoredo4]
 

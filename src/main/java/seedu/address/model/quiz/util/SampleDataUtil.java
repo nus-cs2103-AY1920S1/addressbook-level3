@@ -20,19 +20,19 @@ import seedu.address.model.quiz.tag.Tag;
 public class SampleDataUtil {
     public static Question[] getSampleQuestions() {
         return new Question[] {
+            new Question(new Name("In which year did NUS founded?"), new Comment("The explanation is on lecture 10"),
+                new Answer("1905"), new Category("Random"), new Type("low"),
+                getTagSet("general", "trivia")),
+            new Question(new Name("If you have a bowl with six apples and you take away four, how many do you have?"),
+                null, new Answer("Four"),
+                new Category("CS2132"), new Type("normal"),
+                getTagSet("tutorial")),
             new Question(new Name("What is always coming, but never arrives?"), null, new Answer("Tomorrow"),
                 new Category("CS2131"), new Type("high"),
                 getTagSet("lecture")),
-            new Question(new Name("In which year did NUS founded?"), null, new Answer("1905"),
-                new Category("Random"), new Type("low"),
-                getTagSet("general", "trivia")),
-            new Question(new Name("If you have a bowl with six apples and you take away four, how many do you have?"),
-                new Comment("The explanation is on lecture 10"), new Answer("Four"),
-                new Category("CS2132"), new Type("normal"),
-                getTagSet("tutorial")),
             new Question(new Name("What is it that goes up, but never comes down?"),
-                new Comment("The explanation is on lecture 20"), new Answer("Age"),
-                new Category("Random"), new Type("high"),
+                new Comment("The explanation is on lecture 20"), new Answer("Lorem ipsum"),
+                new Category("Random"), new Type("low"),
                 getTagSet("trivia"))
         };
     }
