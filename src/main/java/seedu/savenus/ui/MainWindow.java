@@ -14,6 +14,7 @@ import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.Logic;
 import seedu.savenus.logic.commands.CommandResult;
+import seedu.savenus.logic.commands.CustomSortCommand;
 import seedu.savenus.logic.commands.DefaultCommand;
 import seedu.savenus.logic.commands.HistoryCommand;
 import seedu.savenus.logic.commands.InfoCommand;
@@ -299,6 +300,17 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleViewSort() throws CommandException, ParseException {
         CommandResult commandResult = logic.execute(ViewSortCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Runs {@code customsort} command.
+     */
+    @FXML
+    private void handleCustomSort() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(CustomSortCommand.COMMAND_WORD);
         foodListPanel.updateFoodList(logic.getFilteredFoodList());
         logger.info("Result: " + commandResult.getFeedbackToUser());
         resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
