@@ -13,7 +13,7 @@ end box
 [-> CommandBox : handleTextChanged()
 activate CommandBox
 
-CommandBox -> MainWindow : updateCommandAutoComplete("a")
+CommandBox -> MainWindow : handleCommandBoxTextChanged("a")
 activate MainWindow
 
 MainWindow -> AutoCompleter : update("a")

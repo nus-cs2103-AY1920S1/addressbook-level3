@@ -42,7 +42,7 @@ import seedu.address.ui.queue.QueueListPanel;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> implements CommandBoxInterface, OmniPanelManager {
+public class MainWindow extends UiPart<Stage> implements CommandBoxManager, OmniPanelManager {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String HELP_URI = "https://ay1920s1-cs2103t-t09-3.github.io/main/UserGuide#Features";

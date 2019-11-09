@@ -6,7 +6,7 @@ import javafx.scene.input.KeyCode;
 /**
  * MainWindow's Interface of CommandBox.
  */
-public interface CommandBoxInterface {
+public interface CommandBoxManager {
 
     /**
      * CommandBox TextChanged Callback.
