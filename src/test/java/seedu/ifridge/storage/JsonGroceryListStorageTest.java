@@ -1,7 +1,11 @@
 package seedu.ifridge.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.ifridge.testutil.Assert.assertThrows;
+import static seedu.ifridge.testutil.TypicalGroceryItems.CAKE;
+import static seedu.ifridge.testutil.TypicalGroceryItems.RICE_WINE;
+import static seedu.ifridge.testutil.TypicalGroceryItems.SPAGHETTI;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -10,21 +14,23 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.ifridge.commons.exceptions.DataConversionException;
 import seedu.ifridge.model.GroceryList;
 import seedu.ifridge.model.ReadOnlyGroceryList;
+import seedu.ifridge.testutil.TypicalGroceryItems;
 
 public class JsonGroceryListStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonGroceryListStorageTest");
 
     @TempDir
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readGroceryList_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readGroceryList(null));
     }
 
-    private java.util.Optional<ReadOnlyGroceryList> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyGroceryList> readGroceryList(String filePath) throws Exception {
         return new JsonGroceryListStorage(Paths.get(filePath)).readGroceryList(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -36,59 +42,59 @@ public class JsonGroceryListStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readGroceryList("NonExistentFile.json").isPresent());
     }
-
-    /*@Test
-    public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
-    }*/
-
-    /*@Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
-    }*/
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
-        //assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+    public void read_notJsonFormat_exceptionThrown() {
+        assertThrows(DataConversionException.class, () -> readGroceryList("notJsonFormatGroceryList.json"));
     }
 
-    /*@Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
-        GroceryList original = getTypicalGroceryList();
+    @Test
+    public void readGroceryList_invalidGroceryItemGroceryList_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readGroceryList("invalidGroceryItemGroceryList.json"));
+    }
+
+    @Test
+    public void readGroceryList_invalidAndValidGroceryItemGroceryList_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readGroceryList("invalidAndValidGroceryItemGroceryList.json"));
+    }
+
+    @Test
+    public void readAndSaveGroceryList_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempGroceryList.json");
+        GroceryList original = TypicalGroceryItems.getTypicalGroceryList();
         JsonGroceryListStorage jsonGroceryListStorage = new JsonGroceryListStorage(filePath);
 
         // Save in new file and read back
         jsonGroceryListStorage.saveGroceryList(original, filePath);
         ReadOnlyGroceryList readBack = jsonGroceryListStorage.readGroceryList(filePath).get();
-        //assertEquals(original, new GroceryList(readBack));
+        assertEquals(original, new GroceryList(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addGroceryItem(RICE_WINE);
+        original.removeGroceryItem(SPAGHETTI);
         jsonGroceryListStorage.saveGroceryList(original, filePath);
         readBack = jsonGroceryListStorage.readGroceryList(filePath).get();
-        //assertEquals(original, new GroceryList(readBack));
+        assertEquals(original, new GroceryList(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addGroceryItem(CAKE);
         jsonGroceryListStorage.saveGroceryList(original); // file path not specified
         readBack = jsonGroceryListStorage.readGroceryList().get(); // file path not specified
-        //assertEquals(original, new GroceryList(readBack));
+        assertEquals(original, new GroceryList(readBack));
 
-    }*/
+    }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveGroceryList_nullGroceryList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveGroceryList(null, "SomeFile.json"));
     }
 
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyGroceryList groceryList, String filePath) {
+    private void saveGroceryList(ReadOnlyGroceryList groceryList, String filePath) {
         try {
             new JsonGroceryListStorage(Paths.get(filePath))
                     .saveGroceryList(groceryList, addToTestDataPathIfNotNull(filePath));
@@ -98,7 +104,7 @@ public class JsonGroceryListStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new GroceryList(), null));
+    public void saveGroceryList_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveGroceryList(new GroceryList(), null));
     }
 }
