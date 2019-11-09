@@ -18,6 +18,8 @@ public class InfoCommand extends Command {
 
     public static final String ADD_INFO = COMMAND_INDICATOR + AddCommand.COMMAND_WORD;
 
+    public static final String ALIAS_INFO = COMMAND_INDICATOR + AliasCommand.COMMAND_WORD;
+
     public static final String AUTO_SORT_INFO = COMMAND_INDICATOR + AutoSortCommand.COMMAND_WORD;
 
     public static final String BUDGET_INFO = COMMAND_INDICATOR + BudgetCommand.COMMAND_WORD;

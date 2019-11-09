@@ -10,6 +10,7 @@ import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.model.info.AddInfo;
+import seedu.savenus.model.info.AliasInfo;
 import seedu.savenus.model.info.AutoSortInfo;
 import seedu.savenus.model.info.BudgetInfo;
 import seedu.savenus.model.info.BuyInfo;
@@ -131,6 +132,12 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(AddInfo.INFORMATION);
             usageExample.setText(AddInfo.USAGE);
             output.setText(AddInfo.OUTPUT);
+            break;
+        case InfoCommand.ALIAS_INFO :
+            commandWord.setText(AliasInfo.COMMAND_WORD);
+            infoMessage.setText(AliasInfo.INFORMATION);
+            usageExample.setText(AliasInfo.USAGE);
+            output.setText(AliasInfo.OUTPUT);
             break;
         case InfoCommand.AUTO_SORT_INFO :
             commandWord.setText(AutoSortInfo.COMMAND_WORD);

@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.AddCommand;
+import seedu.savenus.logic.commands.AliasCommand;
 import seedu.savenus.logic.commands.AutoSortCommand;
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.BuyCommand;
@@ -46,6 +47,7 @@ public class HelpWindow extends UiPart<Stage> {
             + "-CS2103T-F13-2/main/blob/master/docs/UserGuide.adoc";
     public static final String HELP_MESSAGE = "Here is the list of available commands:\n\n"
             + AddCommand.COMMAND_WORD + "\n"
+            + AliasCommand.COMMAND_WORD + "\n"
             + AutoSortCommand.COMMAND_WORD + "\n"
             + BudgetCommand.COMMAND_WORD + "\n"
             + BuyCommand.COMMAND_WORD + "\n"
