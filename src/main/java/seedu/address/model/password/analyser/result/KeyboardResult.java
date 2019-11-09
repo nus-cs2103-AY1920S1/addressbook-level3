@@ -13,6 +13,8 @@ public class KeyboardResult extends Result {
 
     private static final String MESSAGE_NO_COMMON_KEYBOARD_PATTERN_FOUND =
             "No passwords were found to have contained common keyboard patterns\n";
+    private static final String MESSAGE_EXPLANATION = "The following tokens in your password were "
+            + "found to be common keyboard patterns:\n(Tokens are sorted by the keyboard pattern complexity)\n";
     private List<KeyboardMatch> matches;
 
     public KeyboardResult(Password password, String description, List<KeyboardMatch> matches) {
@@ -27,6 +29,7 @@ public class KeyboardResult extends Result {
             report.append(MESSAGE_NO_COMMON_KEYBOARD_PATTERN_FOUND);
             return report.toString();
         }
+        report.append(MESSAGE_EXPLANATION);
         for (Match m : matches) {
             report.append(m);
         }

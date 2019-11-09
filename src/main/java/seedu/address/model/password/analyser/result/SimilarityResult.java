@@ -11,6 +11,8 @@ import seedu.address.model.password.analyser.match.SimilarityMatch;
 public class SimilarityResult extends Result {
 
     private static final String MESSAGE_NO_SIMILAR_ACC_FOUND = "No accounts with similar passwords were found\n";
+    private static final String MESSAGE_EXPLANATION = "The following accounts share similar password:\n"
+            + "(Accounts are sorted by their similarity)\n";
     private List<SimilarityMatch> matches;
 
     public SimilarityResult(Password password, String description, List<SimilarityMatch> matches) {
@@ -24,7 +26,7 @@ public class SimilarityResult extends Result {
         if (matches.isEmpty()) {
             return report.append(MESSAGE_NO_SIMILAR_ACC_FOUND).toString();
         }
-        report.append("The following accounts share similar password: \n");
+        report.append(MESSAGE_EXPLANATION);
         for (SimilarityMatch m : matches) {
             report.append(m);
         }

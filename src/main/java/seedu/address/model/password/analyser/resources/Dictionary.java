@@ -38,7 +38,8 @@ public class Dictionary {
         case "passwords.txt":
             return new Dictionary(name, load("/dictionaries/passwords.txt"));
         default:
-            throw new DictionaryNotFoundException(MESSAGE_DICTIONARY_NOT_FOUND);
+            assert false : "Invalid dictionary was somehow passed in.";
+            return null;
         }
     }
 
@@ -48,6 +49,7 @@ public class Dictionary {
      * @return the hashmap of dictionary word to ranking
      */
     private static Map<String, Integer> load(String path) {
+        assert !path.isEmpty();
         Map<String, Integer> dictionary = new HashMap<>();
         try (InputStream is = Dictionary.class.getResourceAsStream(path);
              BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {

@@ -10,10 +10,10 @@ import seedu.address.model.password.Password;
 public class StrengthResult extends Result {
 
     private static final String MESSAGE_RECOMMEND_LENGTH = "[-] Try to have at least 8 character for password.\n";
-    private static final String MESSAGE_RECOMMEND_LOWER_AND_UPPER = "[-] Try to include a mix a "
+    private static final String MESSAGE_RECOMMEND_LOWER_AND_UPPER = "[-] Try to include a mix of "
             + "both upper and lower case letters.\n";
-    private static final String MESSAGE_RECOMMEND_NUM = "[-] Try to include a numerals.\n";
-    private static final String MESSAGE_RECOMMEND_SPECIAL = "[-] Try to include a special characters.\n";
+    private static final String MESSAGE_RECOMMEND_NUM = "[-] Try to include numerals.\n";
+    private static final String MESSAGE_RECOMMEND_SPECIAL = "[-] Try to include special characters.\n";
     private static final String MESSAGE_STRONG_PASSWORD = "Password is strong.\n";
 
     private boolean hasMinimumLength = false;
