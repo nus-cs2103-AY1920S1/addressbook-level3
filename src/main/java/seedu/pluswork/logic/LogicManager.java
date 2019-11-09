@@ -1,9 +1,20 @@
 package seedu.pluswork.logic;
 
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_TAG;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PDFTYPE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_START_PERIOD;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_END_PERIOD;
+
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
 import seedu.pluswork.commons.core.LogsCenter;
+import seedu.pluswork.commons.Keywords;
 import seedu.pluswork.logic.MultiLine.MultiLineManager;
+import seedu.pluswork.logic.autocomplete.AutoComplete;
 import seedu.pluswork.logic.commands.Command;
 import seedu.pluswork.logic.commands.CommandResult;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
@@ -25,6 +36,9 @@ import seedu.pluswork.storage.Storage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.LinkedList;
 import java.util.logging.Logger;
 
 /**
@@ -38,12 +52,14 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final ProjectDashboardParser projectDashboardParser;
     private final MultiLineManager multiLine;
+    private final AutoComplete autoComplete;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         projectDashboardParser = new ProjectDashboardParser();
         multiLine = new MultiLineManager(model);
+        autoComplete = new AutoComplete(model);
     }
 
     @Override
@@ -164,4 +180,10 @@ public class LogicManager implements Logic {
     public ClockFormat getClockFormat() {
         return model.getCurrentClockFormat();
     }
+
+    @Override 
+    public LinkedList<String> getAutoCompleteResults(String input) {
+        return autoComplete.completeText(input);
+    }
+    
 }

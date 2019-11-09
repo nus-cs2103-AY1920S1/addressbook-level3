@@ -18,6 +18,7 @@ import seedu.pluswork.model.task.Task;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
+import java.util.LinkedList;
 
 /**
  * API of the Logic component
@@ -118,5 +119,13 @@ public interface Logic {
      * Returns the clock format of +Work.
      */
     ClockFormat getClockFormat();
+    
+    /**
+     * returns a list of suggestions for command
+     * @param input
+     * @return
+     */
+    LinkedList<String> getAutoCompleteResults(String input);
+
 
 }
