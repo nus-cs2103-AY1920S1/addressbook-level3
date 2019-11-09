@@ -21,18 +21,13 @@ import seedu.address.model.UserPrefs;
  * {@code GotoCommand}.
  */
 //@@author {lawncegoh}
-class GotoCommandTest {
+class GotoCommandTest extends GotoCommand {
 
     private Model model = new ModelManager(getTypicalFinSec(), new UserPrefs());
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new GotoCommand(null));
-    }
-
-    @Test
-    public void execute_validView() {
-
     }
 
     @Test
@@ -74,5 +69,4 @@ class GotoCommandTest {
         // different gotoCommands -> returns false
         assertFalse(gotoFirstCommand.equals(gotoSecondCommand));
     }
-
 }

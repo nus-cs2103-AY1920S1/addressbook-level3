@@ -46,8 +46,6 @@ import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 
-
-
 /**
  * A utility class containing a list of {@code FinSec} objects to be used in tests.
  */
@@ -159,6 +157,10 @@ public class TypicalObjects {
         //adding the incomes into a test finsec
         for (Income income : getTypicalIncomes()) {
             fs.addIncome(income);
+        }
+
+        for (Claim claim : getTypicalNonApprovedClaims()) {
+            fs.addClaim(claim);
         }
 
         return fs;
