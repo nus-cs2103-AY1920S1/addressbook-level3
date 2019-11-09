@@ -1,13 +1,11 @@
 @startuml
 !include style.puml
-title Sequence Diagram for 'delete activity' command
+title Sequence Diagram for Delete Activity command
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":PlannerParser" as PlannerParser LOGIC_COLOR
+participant ":DeleteActivityCommand" as DeleteActivityCommand LOGIC_COLOR
 participant "<<class>>\n:EventFactory" as EventFactory LOGIC_COLOR
 participant "<<class>>\n:CommandHistory" as CommandHistory LOGIC_COLOR
-participant ":DeleteActivityCommand" as DeleteActivityCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -15,48 +13,46 @@ box Model MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete activity 1")
-activate LogicManager
+[-> DeleteActivityCommand : execute(model)
+activate DeleteActivityCommand
 
-LogicManager -> PlannerParser : parseCommand("delete activity 1")
-activate PlannerParser
+DeleteActivityCommand -> DeleteActivityCommand : updateEventStack(command, model)
+activate DeleteActivityCommand
 
-PlannerParser --> LogicManager : command
-deactivate PlannerParser
-
-LogicManager -> EventFactory : parse(command, model)
+DeleteActivityCommand -> EventFactory : parse(command, model)
 activate EventFactory
 
-EventFactory --> LogicManager : Event
+EventFactory --> DeleteActivityCommand : newEvent
 deactivate EventFactory
 
-LogicManager -> CommandHistory : addToUndoStack(Event)
+DeleteActivityCommand -> CommandHistory : addToUndoStack(newEvent)
 activate CommandHistory
-CommandHistory --> LogicManager
+
+CommandHistory --> DeleteActivityCommand
 deactivate CommandHistory
 
-LogicManager -> CommandHistory : clearRedoStack()
+DeleteActivityCommand -> CommandHistory : clearRedoStack()
 activate CommandHistory
-CommandHistory --> LogicManager
+
+CommandHistory --> DeleteActivityCommand
 deactivate CommandHistory
 
-LogicManager -> DeleteActivityCommand : execute(model)
-activate DeleteActivityCommand
+DeleteActivityCommand --> DeleteActivityCommand
+deactivate DeleteActivityCommand
 
 DeleteActivityCommand -> ModelManager : deleteActivity(activityToDelete)
 activate ModelManager
+
 ModelManager --> DeleteActivityCommand
 deactivate ModelManager
 
+create CommandResult
 DeleteActivityCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteActivityCommand : commandResult
+CommandResult --> DeleteActivityCommand
 deactivate CommandResult
 
-DeleteActivityCommand --> LogicManager : commandResult
+[<-- DeleteActivityCommand : commandResult
 deactivate DeleteActivityCommand
-
-[<--LogicManager : commandResult
-deactivate LogicManager
 @enduml

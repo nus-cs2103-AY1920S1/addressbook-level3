@@ -50,14 +50,16 @@ activate ModelManager
 ModelManager --> AddActivityCommand
 deactivate ModelManager
 
+create CommandResult
 AddActivityCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> AddActivityCommand : commandResult
+CommandResult --> AddActivityCommand
 deactivate CommandResult
 
 AddActivityCommand --> UndoCommand : commandResult
 deactivate AddActivityCommand
+
 [<--UndoCommand : commandResult
 deactivate UndoCommand
 @enduml
