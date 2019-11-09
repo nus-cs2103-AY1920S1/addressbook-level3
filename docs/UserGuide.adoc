@@ -230,7 +230,7 @@ a|
 /dob 12/12/1984
 /dod 12/08/2019 2358
 /doa 13/08/2019 0200
-/status claimed
+/status arrived
 /nric S8456372C
 /religion Catholic
 /NOKname Jack Smith
@@ -382,23 +382,17 @@ ID number is W00003.
 
 To delete his record:
 
-1. Type `delete -w 3` and press `ENTER` to execute it.
+1) Type `delete -w 3` and press `ENTER` to execute it.
 
 image::delete-command/DeleteStep1.png[align="center"]
 
-2. The result box will display the message as shown in the screenshot below
+2) The result box will display the message as shown below.
 
-image::delete-command/DeleteStep2.png[align="ceneter"]
+image::delete-command/DeleteStep2.png[align="center"]
 
+3) And you can check that Jim Kerr is no longer in the list of workers.
 
-
-|===
-| Command | Expected Output
-
-| `delete -w 9` +
-| Deleted Entity: John Doe Worker ID: W00009 Sex: MALE Phone: No input given. Date of Birth: No input given.
-Date Joined: Thu Dec 12 00:00:00 SGT 2019 Designation: No input given. Employment Status: No input given.
-|===
+image::delete-command/DeleteStep3.png[align="center"]
 
 // end::delete
 
@@ -447,18 +441,52 @@ View a body with the ID B00000001.
 
 // tag::notifs[]
 
-==== View notifs panel: `showNotifs`
+==== View notifs panel: `showNotifs` +
 View all notifications.
 
-A `notif` is automatically created when you could not contact the next of kin within 24 hours from the time
-of arrival of the body. For the purpose of testing, this period is set to 10 seconds instead of 24 hours.
-The `bodyStatus` will be automatically changed to `CONTACT_POLICE` if it is `ARRVIED` after the 10 second period.
-A pop-up window to remind you to contact the police will be shown so that they can search for the body's next of kin.
+In Singapore, if the next-of-kin is not contactable for more than 24 hours from the time of admission of a `Body`,
+police must informed. Mortago removes the hassle of manually keeping track of the status of bodies! For the purpose of testing, instead of 24 hours, Mortago currently
+uses 10 seconds.
 
-Once you change the `bodyStatus` to any of the possible bodyStatus instead of `ARRIVED`, the `notif` will be be deleted.
-If you change the `bodyStatus` to `ARRIVED`, the associated `notif` for the body will be added and the timer will start from the point in time it is changed.
+When you add a `Body` or manually set its status to `ARRIVED`, Mortago automatically
+changes the status of a `Body` to `CONTACT_POLICE` and shows a pop-up notification to remind you to
+contact the police. It creates a `Notif` for all such bodies which you can view by either clicking on the
+notification bell or typing the `showNotif` command.
 
 Format: `showNotifs`
+
+Once you change the status of a `Body` from `CONTACT_POLICE` to any other possible status (!!!add in the section!!!),
+its associated `Notif` is deleted.
+
+Example:
+
+Imagine that a new `Body` (John Doe) has just arrived at your mortuary.
+
+1) Type the `add` command as specified in the example in <<add, Section 3.1.1>>. Currently the status of the `Body`
+is `ARRIVED`
+
+image::notif-command/Notif1.png[align="center"]
+
+2) Wait for 10 seconds. Mortago automatically changes the status of the `Body` to `CONTACT_POLICE` and shows
+you a
+pop-up
+notification.
+
+image::notif-command/Notif2.png[align="center"]
+
+3) Type `showNotif` and press `ENTER` to execute it.
+
+image::notif-command/Notif3.png[align="center"]
+
+4) The notification bell opens up a pop-over and lists all the bodies for which you need to contact the police. You
+can see John Doe's ID number B00000011 is in the list.
+
+image::notif-command/Notif4.png[align="center"]
+
+5) Suppose you have contacted the police, change the status of John Doe using the command `update -b /id 11 /status
+pending police report`. John Doe's ID is no longer listed in the pop-over.
+
+image::notif-command/Notif5.png[align="center"]
 
 // end::notifs[]
 
@@ -502,9 +530,12 @@ Imagine that you've accidentally deleted the wrong Body (John Doe) from Mortago.
 
 To undo:
 
-1. Type `undo` or `u` into the command box.
-2. Press `Enter` to execute the command.
-3. Notice that the result box displays "Undid deleting this entity: <long descriptor of the body>" and John Doe is now back in the list of bodies.
+1) Type `undo` or `u` into the command box.
+
+2) Press `Enter` to execute the command.
+
+3) Notice that the result box displays "Undid deleting this entity: <long descriptor of the body>" and John Doe is now
+back in the list of bodies.
 
 
 ==== Redoing a command: `redo`
@@ -525,9 +556,12 @@ Instead of manually deleting John Doe again, simply `redo` the command.
 
 To redo:
 
-1. Type `redo` or `r` into the command box.
-2. Press `Enter` to execute the command.
-3. Notice that the result box displays "Deleted this entity: <long descriptor of the body>" and John Doe is now absent from the list of bodies.
+1) Type `redo` or `r` into the command box.
+
+2) Press `Enter` to execute the command.
+
+3) Notice that the result box displays "Deleted this entity: <long descriptor of the body>" and John Doe is now absent
+from the list of bodies.
 
 // end::undoredo[]
 
