@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import unrealunity.visit.testutil.Assert;
@@ -140,6 +141,34 @@ public class StringUtilTest {
     @Test
     public void getDetails_nullGiven_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
+    }
+
+    //---------------- Tests for getDetails --------------------------------------
+
+    /*
+     * Equivalence Partitions: null, valid throwable object
+     */
+
+    @Test
+    public void allStringsNotNullOrBlank_nullString_correctOutput() {
+        String s = null;
+        Assertions.assertEquals(false , StringUtil.allStringsNotNullOrBlank(s));
+    }
+
+    @Test
+    public void allStringsNotNullOrBlank_blankString_correctOutput() {
+        Assertions.assertEquals(false , StringUtil.allStringsNotNullOrBlank(" "));
+        Assertions.assertEquals(false , StringUtil.allStringsNotNullOrBlank(""));
+    }
+
+    @Test
+    public void allStringsNotNullOrBlank_validString_correctOutput() {
+        Assertions.assertEquals(true , StringUtil.allStringsNotNullOrBlank("test"));
+    }
+
+    @Test
+    public void allStringsNotNullOrBlank_multipleValidString_correctOutput() {
+        Assertions.assertEquals(true , StringUtil.allStringsNotNullOrBlank("test", "testing", "notABlank"));
     }
 
 }
