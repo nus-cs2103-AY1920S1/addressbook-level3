@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.ui.TestFlashCardPanel;
+
 /**
  * Represents the result of a command execution.
  */
@@ -20,6 +22,15 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** check test mode. */
+    private boolean isTest = false;
+    private boolean isStartTest = false;
+
+    /** check detect change in the mode. */
+    private boolean isEndTest = false;
+
+    private TestFlashCardPanel testFlashCardPanel;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -28,6 +39,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.showStats = showStats;
         this.exit = exit;
+
     }
 
     /**
@@ -38,6 +50,12 @@ public class CommandResult {
         this(feedbackToUser, false, false, false);
     }
 
+    public CommandResult(String feedbackToUser, TestFlashCardPanel testFlashCardPanel) {
+        this (feedbackToUser, false, false, false);
+        isTest = true;
+        this.testFlashCardPanel = testFlashCardPanel;
+
+    }
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -48,6 +66,27 @@ public class CommandResult {
 
     public boolean isShowStats() {
         return showStats;
+    }
+
+    public boolean isTestMode() {
+        return isTest;
+    }
+
+    public boolean isStartTest() {
+        return isStartTest;
+    }
+
+    public boolean isEndTest() {
+        return isEndTest;
+    }
+
+    public void setTestMode(boolean start, boolean end) {
+        isStartTest = start;
+        isEndTest = end;
+    }
+
+    public TestFlashCardPanel getTestFlashCardPanel () {
+        return testFlashCardPanel;
     }
 
     public boolean isExit() {

@@ -22,10 +22,11 @@ public class EndTestCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-
-        model.updatePerformance(model);
+        //model.updatePerformance(model);
         keyboardFlashCardsParser.endTestMode();
-        return new CommandResult("Test ended");
+        CommandResult result = new CommandResult("Test ended");
+        result.setTestMode(false, true);
+        return result;
     }
 
     @Override

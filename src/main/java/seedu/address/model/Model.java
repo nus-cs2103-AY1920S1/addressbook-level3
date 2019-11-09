@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
+import seedu.address.ui.TestFlashCardPanel;
 
 /**
  * The API of the Model component.
@@ -43,6 +44,8 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     void setStyleSheet(String string);
+
+    String getStyleSheet();
 
     /**
      * Returns the user prefs' address book file path.
@@ -157,13 +160,18 @@ public interface Model {
 
     boolean hasTestFlashCard();
 
+    void setTestFlashCard();
+
     String getTestQuestion();
 
     String getTestAnswer();
 
+    TestFlashCardPanel getTestFlashCardPanel();
+
     FlashCard getCurrentTestFlashCard();
 
-    void endFlashCardTest();
+    //@@author shutingy
+    void showAnswer();
 
     /**
      * Replaces the given flashCard {@code target} with {@code editedFlashCard}.

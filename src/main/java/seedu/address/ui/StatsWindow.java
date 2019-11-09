@@ -82,6 +82,7 @@ public class StatsWindow extends UiPart<Stage> {
         int numGood = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("good")).size();
         int numHard = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("hard")).size();
         int numEasy = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("easy")).size();
+
         int[] stats = model.getTestStats();
 
         XYChart.Series seriesA = new XYChart.Series();
@@ -168,14 +169,6 @@ public class StatsWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
-    }
-
-    /**
-     * Update stats window.
-     */
-    public void update() {
-        getRoot().hide();
-        getRoot().show();
     }
 
 }

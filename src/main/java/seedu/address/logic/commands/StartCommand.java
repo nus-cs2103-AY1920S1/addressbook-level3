@@ -27,7 +27,7 @@ public class StartCommand extends Command {
 
     public static final String MESSAGE_NO_FLASHCARDS = "No FlashCard to test!";
 
-    public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...\n%s";
+    public static final String MESSAGE_START_TEST_SUCCESS = "Starting test...\n";
 
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
@@ -48,9 +48,16 @@ public class StartCommand extends Command {
             return new CommandResult(MESSAGE_NO_FLASHCARDS);
         }
         keyboardFlashCardsParser.startTestMode();
-        String question = model.getTestQuestion();
+        model.setTestFlashCard();
+        //String question = model.getTestQuestion();
         keyboardFlashCardsParser.setAwaitingAnswer(true);
-        return new CommandResult(String.format(MESSAGE_START_TEST_SUCCESS, question), false, false, false);
+
+        CommandResult result = new CommandResult(
+                MESSAGE_START_TEST_SUCCESS,
+                model.getTestFlashCardPanel());
+        result.setTestMode(true, false);
+        return result;
+
     }
 
     @Override

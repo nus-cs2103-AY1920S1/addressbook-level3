@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -68,7 +70,6 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        //primaryStage.getScene().getStylesheets().add("view/LightTheme.css");
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
         setStyleSheet(logic.getGuiSettings());
@@ -161,6 +162,25 @@ public class MainWindow extends UiPart<Stage> {
         stylesheet = newStylesheet;
         primaryStage.getScene().getStylesheets().add(stylesheet);
     }
+    //@@ author shutingy
+
+    /**
+     * modified the flashcardList for test mode
+     */
+    public void updateScene(TestFlashCardPanel testFlashCardPanel) {
+        requireNonNull(testFlashCardPanel);
+        flashcardListPanelPlaceholder.getChildren().add(testFlashCardPanel.getRoot());
+    }
+    //@@ author shutingy
+
+    /**
+     * update the scene when test mode ended.
+     */
+    @FXML
+    public void handleEndTest() {
+        flashcardListPanelPlaceholder.getChildren().clear();
+        flashcardListPanelPlaceholder.getChildren().add(flashCardListPanel.getRoot());
+    }
 
 
     /**
@@ -235,13 +255,13 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            //Todo
-            // commandResult.isAdd() {
-            // handleAdd
+            if (commandResult.isTestMode()) {
+                updateScene(commandResult.getTestFlashCardPanel());
+            }
 
-            //todo
-            // commandResult.is start() {
-            // handleStart()
+            if (commandResult.isEndTest()) {
+                handleEndTest();
+            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {

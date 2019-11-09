@@ -18,6 +18,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.RatingContainsKeywordPredicate;
+import seedu.address.ui.TestFlashCardPanel;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -82,6 +83,10 @@ public class ModelManager implements Model {
 
     public void setStyleSheet(String styleSheet) {
         userPrefs.setStyleSheet(styleSheet);
+    }
+
+    public String getStyleSheet() {
+        return userPrefs.getStyleSheet();
     }
 
     @Override
@@ -240,12 +245,16 @@ public class ModelManager implements Model {
     @Override
     public void initializeTestModel(List<FlashCard> testList) {
         flashCardTestModel = new FlashCardTestModel(testList);
-        hideFlashCardList();
     }
 
     @Override
     public boolean hasTestFlashCard() {
         return !flashCardTestModel.isEmpty();
+    }
+
+    @Override
+    public void setTestFlashCard() {
+        flashCardTestModel.setFlashcard();
     }
 
     @Override
@@ -256,12 +265,6 @@ public class ModelManager implements Model {
     @Override
     public String getTestAnswer() {
         return flashCardTestModel.getAnswer();
-
-    }
-
-    @Override
-    public void endFlashCardTest() {
-        showFlashCardList();
     }
 
     @Override
@@ -269,14 +272,15 @@ public class ModelManager implements Model {
         return flashCardTestModel.getCurrentFlashCard();
     }
 
-    /** Hides the list of flashcards during test mode. */
-    private void hideFlashCardList() {
-        updateFilteredFlashCardList(pred -> false);
+    //@@author shutingy
+    @Override
+    public TestFlashCardPanel getTestFlashCardPanel() {
+        return flashCardTestModel.getTestFlashCardPanel();
     }
 
-    /** Shows the entire list of flashcards. */
-    private void showFlashCardList() {
-        updateFilteredFlashCardList(pred -> true);
+    @Override
+    public void showAnswer() {
+        flashCardTestModel.showAnswer();
     }
 
     //@@author LeowWB

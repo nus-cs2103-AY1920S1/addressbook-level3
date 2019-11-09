@@ -15,7 +15,7 @@ import seedu.address.ui.StatsWindow;
 public class RateQuestionCommand extends NextQuestionCommand {
 
     public static final String COMMAND_WORD = "rate";
-    public static final String MESSAGE_SUCCESS = "Rated successfully! Here's the next question:\n%s";
+    public static final String MESSAGE_SUCCESS = "Rated successfully! Here's the next question";
     public static final String ERROR_MESSAGE = "You can only rate after answering the question!\n"
             + "Next available command: ans, skip, end";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Rates a FlashCard and gets the next question.\n"
@@ -55,11 +55,9 @@ public class RateQuestionCommand extends NextQuestionCommand {
         assert rating.equals("good") || rating.equals("hard") || rating.equals("easy");
         if (rating.equals("good")) {
             model.editStats(0);
-        }
-        if (rating.equals("hard")) {
+        } else if (rating.equals("hard")) {
             model.editStats(1);
-        }
-        if (rating.equals("easy")) {
+        } else { // rating.equals("easy")
             model.editStats(2);
         }
     }
