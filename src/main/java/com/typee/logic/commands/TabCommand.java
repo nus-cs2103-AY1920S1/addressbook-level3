@@ -27,4 +27,19 @@ public class TabCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS + tabToSwitch.getName(),
                 true, tabToSwitch);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o instanceof TabCommand) {
+            TabCommand newTabCommand = (TabCommand) o;
+            String newTabName = newTabCommand.tabToSwitch.getName();
+            return newTabName.equalsIgnoreCase(tabToSwitch.getName());
+        }
+
+        return false;
+    }
 }

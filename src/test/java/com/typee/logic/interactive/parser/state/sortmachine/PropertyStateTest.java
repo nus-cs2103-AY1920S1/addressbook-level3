@@ -10,7 +10,6 @@ import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.CliSyntax;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.State;
-import com.typee.logic.interactive.parser.state.calendarmachine.CalendarState;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 public class PropertyStateTest {
@@ -27,7 +26,7 @@ public class PropertyStateTest {
             transitionArgumentMultimap.put(CliSyntax.PREFIX_PROPERTY, "start");
             postTransitionState = postTransitionState.transition(transitionArgumentMultimap);
 
-            assertEquals(postTransitionState, new CalendarState(validArgumentMultimap));
+            assertEquals(postTransitionState, new PropertyState(validArgumentMultimap));
         } catch (StateTransitionException e) {
             // StateTransitionException should not be thrown here.
         }

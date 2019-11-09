@@ -153,12 +153,11 @@ public class CalendarWindow extends UiPart<Region> {
     private boolean isWithinTimeSlot(LocalDate calendarDate, TimeSlot timeSlot) {
         LocalDateTime startDateTime = timeSlot.getStartTime();
         LocalDateTime endDateTime = timeSlot.getEndTime();
-        return (startDateTime.getDayOfMonth() <= calendarDate.getDayOfMonth()
-                && calendarDate.getDayOfMonth() <= endDateTime.getDayOfMonth())
-                && (startDateTime.getMonthValue() <= calendarDate.getMonthValue()
-                && calendarDate.getMonthValue() <= endDateTime.getMonthValue())
-                && (startDateTime.getYear() <= calendarDate.getYear()
-                && calendarDate.getYear() <= endDateTime.getYear());
+        LocalDate startDate = LocalDate.of(startDateTime.getYear(), startDateTime.getMonthValue(),
+                startDateTime.getDayOfMonth());
+        LocalDate endDate = LocalDate.of(endDateTime.getYear(), endDateTime.getMonthValue(),
+                endDateTime.getDayOfMonth());
+        return calendarDate.compareTo(startDate) >= 0 && calendarDate.compareTo(endDate) <= 0;
     }
 
     /**

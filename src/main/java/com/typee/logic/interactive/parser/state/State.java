@@ -2,6 +2,7 @@ package com.typee.logic.interactive.parser.state;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
@@ -114,7 +115,7 @@ public abstract class State {
 
     @Override
     public int hashCode() {
-        return soFar.hashCode();
+        return Objects.hash(soFar);
     }
 
 }

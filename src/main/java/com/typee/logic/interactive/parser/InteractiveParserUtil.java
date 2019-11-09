@@ -5,11 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.typee.commons.core.index.Index;
@@ -29,15 +29,7 @@ import com.typee.model.util.EngagementComparator;
  */
 public class InteractiveParserUtil {
 
-    public static final String MESSAGE_INVALID_DATE_STRING = "Please stick to the DD/MM/YYYY format.";
-    public static final String MESSAGE_INVALID_DATE_FORMAT = "%s is not a valid date "
-            + "in the DD/MM/YYYY/HHMM format.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_TIME_STRING = "Please stick to the DD/MM/YYYY/HHMM format.";
-    public static final String MESSAGE_INVALID_TIME_FORMAT = "%s is not a valid date-time "
-            + "in the DD/MM/YYYY/HHMM format.";
-    public static final String MESSAGE_INVALID_DESCRIPTION = "The description cannot be empty.";
-    public static final String MESSAGE_INVALID_ATTENDEES = "There can't be no attendees.";
     private static final String FORMAT_DATE_TIME = "dd/MM/uuuu/HHmm";
     private static final String MESSAGE_YEAR_ZERO = "The year zero is not allowed!";
 
@@ -77,7 +69,7 @@ public class InteractiveParserUtil {
      * @param name name of the {@code Person}.
      * @return a {@code Name} object representing the name.
      */
-    public static Name parseNameDeterministic(String name) {
+    private static Name parseNameDeterministic(String name) {
         try {
             return parseName(name);
         } catch (ParseException e) {
@@ -95,9 +87,7 @@ public class InteractiveParserUtil {
     public static EngagementType parseType(String engagementType) {
         requireNonNull(engagementType);
         String trimmedType = engagementType.trim();
-        EngagementType type = EngagementType.of(trimmedType);
-        return type;
-
+        return EngagementType.of(trimmedType);
     }
 
     /**
@@ -172,41 +162,6 @@ public class InteractiveParserUtil {
     }
 
     /**
-     * Parses the {@code String date} input by the user.
-     * Returns a {@code LocalDate} object representing the date.
-     *
-     * @param date The {@code String date} input by the user.
-     * @return A {@code LocalDate} object.
-     */
-    public static LocalDate parseDate(String date) throws ParseException {
-        requireNonNull(date);
-        try {
-            LocalDate localDate = convertStringToDate(date);
-            return localDate;
-        } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
-            throw new ParseException(MESSAGE_INVALID_DATE_STRING);
-        } catch (DateTimeException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_DATE_FORMAT, date));
-        }
-    }
-
-    /**
-     * Converts a {@code String} to its corresponding {@code LocalDate} object.
-     *
-     * @param date date.
-     * @return the corresponding {@code LocalDate} object.
-     */
-    private static LocalDate convertStringToDate(String date) {
-        if (date.length() != 10) {
-            throw new StringIndexOutOfBoundsException();
-        }
-        int year = Integer.parseInt(date.substring(6, 10));
-        Month month = Month.of(Integer.parseInt(date.substring(3, 5)));
-        int day = Integer.parseInt(date.substring(0, 2));
-        return LocalDate.of(year, month, day);
-    }
-
-    /**
      * Validates and returns the description of an engagement.
      *
      * @param description Description of an engagement.
@@ -224,9 +179,9 @@ public class InteractiveParserUtil {
      */
     public static AttendeeList parseAttendees(String attendees) {
         List<Person> attendeesList = Arrays.stream(attendees.split("\\|"))
-                .map(name -> name.trim())
+                .map(String::trim)
                 .map(name -> new Person(InteractiveParserUtil.parseNameDeterministic(name)))
-                .filter(name -> name != null)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         return new AttendeeList(attendeesList);
     }

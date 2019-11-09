@@ -2,10 +2,6 @@ package com.typee.logic.interactive.parser.state.deletemachine;
 
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LIST_INDEX;
 
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.typee.commons.core.index.Index;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.DeleteCommand;
@@ -51,7 +47,7 @@ public class DeleteEndState extends EndState {
 
     @Override
     public Command buildCommand() throws CommandException {
-        String oneBasedIndex = fetchIndex(soFar.getValue(PREFIX_LIST_INDEX));
+        String oneBasedIndex = soFar.getValue(PREFIX_LIST_INDEX).get();
         try {
             Index index = InteractiveParserUtil.parseIndex(oneBasedIndex);
             return new DeleteCommand(index);
@@ -60,16 +56,4 @@ public class DeleteEndState extends EndState {
         }
     }
 
-    /**
-     * Returns the index from the {@code String} representation.
-     *
-     * @param value {@code String} representation of the index.
-     * @return index.
-     */
-    private String fetchIndex(Optional<String> value) {
-        Pattern pattern = Pattern.compile("\\d+");
-        Matcher matcher = pattern.matcher(value.get());
-        matcher.find();
-        return matcher.group();
-    }
 }
