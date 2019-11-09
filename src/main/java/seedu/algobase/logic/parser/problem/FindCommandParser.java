@@ -1,5 +1,6 @@
 package seedu.algobase.logic.parser.problem;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -34,6 +35,8 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     @Override
     public FindCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+
         ArgumentMultimap argumentMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_DESCRIPTION, PREFIX_SOURCE,
                 PREFIX_DIFFICULTY, PREFIX_TAG);

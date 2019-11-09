@@ -1,5 +1,6 @@
 package seedu.algobase.logic.parser.problem;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SORTING_METHOD;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SORTING_ORDER;
@@ -25,6 +26,8 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     @Override
     public SortCommand parse(String userInput) throws ParseException {
+        requireNonNull(userInput);
+
         ArgumentMultimap argumentMultimap =
             ArgumentTokenizer.tokenize(userInput, PREFIX_SORTING_METHOD, PREFIX_SORTING_ORDER);
 

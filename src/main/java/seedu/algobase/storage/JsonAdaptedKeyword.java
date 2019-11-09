@@ -11,6 +11,7 @@ import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
  */
 public class JsonAdaptedKeyword {
 
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Keyword's %s field is missing!";
     private final String keyword;
 
     /**
@@ -36,6 +37,10 @@ public class JsonAdaptedKeyword {
      * Keyword.
      */
     public Keyword toModelType() throws IllegalValueException {
+        if (keyword == null) {
+            throw new
+                IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Keyword.class.getSimpleName()));
+        }
         if (!Keyword.isValidKeyword(keyword)) {
             throw new IllegalValueException(Keyword.MESSAGE_CONSTRAINTS);
         }

@@ -38,6 +38,9 @@ public class JsonAdaptedDifficultyIsInRangePredicate {
      * {@code DifficultyIsInRangePredicate} object.
      */
     public DifficultyIsInRangePredicate toModelType() throws IllegalValueException {
+        // Note that if lowerBound and/or upperBound is missing, Jackson will initialize them as 0.0
+        // that's another reason why we choose to reserve 0.0 as an invalid difficulty
+        // so that we can catch such case easily.
         if (!DifficultyIsInRangePredicate.isValidDifficultyRange(lowerBound, upperBound)) {
             throw new IllegalValueException(DifficultyIsInRangePredicate.MESSAGE_CONSTRAINTS);
         }

@@ -1,5 +1,6 @@
 package seedu.algobase.model.searchrule.problemsearchrule;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate.DEFAULT_AUTHOR_PREDICATE;
 import static seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate.DEFAULT_DESCRIPTION_PREDICATE;
 import static seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate.DEFAULT_DIFFICULTY_PREDICATE;
@@ -52,6 +53,7 @@ public class FindProblemDescriptor {
      * A defensive copy constructor.
      */
     public FindProblemDescriptor(FindProblemDescriptor toCopy) {
+        requireNonNull(toCopy);
         setNamePredicate(toCopy.namePredicate);
         setAuthorPredicate(toCopy.authorPredicate);
         setDescriptionPredicate(toCopy.descriptionPredicate);

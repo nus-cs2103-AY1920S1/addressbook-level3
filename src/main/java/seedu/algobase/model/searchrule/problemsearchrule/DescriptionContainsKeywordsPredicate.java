@@ -37,6 +37,7 @@ public class DescriptionContainsKeywordsPredicate implements Predicate<Problem> 
 
     @Override
     public boolean test(Problem problem) {
+        requireNonNull(problem);
         return keywords.stream()
                 .allMatch(keyword ->
                     StringUtil.containsWordIgnoreCase(problem.getDescription().value, keyword.toString()));

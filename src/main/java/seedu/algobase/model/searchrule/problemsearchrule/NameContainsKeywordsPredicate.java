@@ -37,6 +37,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Problem> {
 
     @Override
     public boolean test(Problem problem) {
+        requireNonNull(problem);
         return keywords.stream()
                 .anyMatch(keyword ->
                     StringUtil.containsWordIgnoreCase(problem.getName().fullName, keyword.toString()));

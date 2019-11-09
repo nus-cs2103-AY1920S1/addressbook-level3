@@ -38,6 +38,7 @@ public class TagIncludesKeywordsPredicate implements Predicate<Problem> {
 
     @Override
     public boolean test(Problem problem) {
+        requireNonNull(problem);
         if (keywords.stream().anyMatch(keyword -> !Tag.isValidTagName(keyword.toString()))) {
             return false;
         }

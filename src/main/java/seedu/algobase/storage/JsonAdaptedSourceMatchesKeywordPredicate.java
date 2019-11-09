@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.algobase.commons.exceptions.IllegalValueException;
+import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
 import seedu.algobase.model.searchrule.problemsearchrule.SourceMatchesKeywordPredicate;
 
 /**
@@ -11,6 +12,7 @@ import seedu.algobase.model.searchrule.problemsearchrule.SourceMatchesKeywordPre
  */
 public class JsonAdaptedSourceMatchesKeywordPredicate {
 
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "SourceMatchesKeywordPredicate's %s field is missing!";
     private final JsonAdaptedKeyword keyword;
 
     /**
@@ -37,6 +39,10 @@ public class JsonAdaptedSourceMatchesKeywordPredicate {
      * SourceMatchesKeywordPredicate.
      */
     public SourceMatchesKeywordPredicate toModelType() throws IllegalValueException {
+        if (keyword == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Keyword.class.getSimpleName()));
+        }
+
         return new SourceMatchesKeywordPredicate(keyword.toModelType());
     }
 

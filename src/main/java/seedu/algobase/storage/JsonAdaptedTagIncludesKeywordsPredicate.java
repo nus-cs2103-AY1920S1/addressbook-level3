@@ -1,6 +1,7 @@
 package seedu.algobase.storage;
 
-import java.util.ArrayList;
+import static seedu.algobase.storage.util.StorageUtil.getKeywordsFromJson;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.algobase.commons.exceptions.IllegalValueException;
-import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
 import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPredicate;
 
 /**
@@ -16,6 +16,7 @@ import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPred
  */
 public class JsonAdaptedTagIncludesKeywordsPredicate {
 
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "TagIncludesKeywordsPredicate's %s field is missing!";
     private final List<JsonAdaptedKeyword> keywords;
 
     /**
@@ -42,13 +43,7 @@ public class JsonAdaptedTagIncludesKeywordsPredicate {
      * TagIncludesKeywordsPredicate.
      */
     public TagIncludesKeywordsPredicate toModelType() throws IllegalValueException {
-        final List<Keyword> predicateKeywords = new ArrayList<>();
-
-        for (JsonAdaptedKeyword keyword: keywords) {
-            predicateKeywords.add(keyword.toModelType());
-        }
-
-        return new TagIncludesKeywordsPredicate(predicateKeywords);
+        return new TagIncludesKeywordsPredicate(getKeywordsFromJson(keywords, MISSING_FIELD_MESSAGE_FORMAT));
     }
 
 }

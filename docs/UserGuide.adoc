@@ -162,7 +162,7 @@ Format: `listprob`
 
 ==== Sorting problems: `sortprob`
 
-Sorts the current list of results by a specified order and direction. +
+Sorts the current list of results by a specified method and order. +
 Format: `sortprob m/METHOD [ord/ORDER]`
 
 * `METHOD` can be `name`, `author`, `weblink`, `difficulty` or `source`.
@@ -246,7 +246,7 @@ Alias: `afr`
 The feature of storing/applying a problem-finding rule is complementary to the plan and tag feature: both tag and plan requires you to categorize problems one by one manually. If you simply want to "keep a list of problems" that fulfills certain conditions, say "algorithm questions of medium difficulty" or "graph theory questions from Kattis", you may store these rules using `addfindrule` and `apply` them later. Unlike plans, as you add new questions to AlgoBase, so long as the new questions fulfill the search rule, they will show up if you `apply` that rule.
 
 [NOTE]
-The rules for constraints are the same as those described in `findprob` command.
+The rules for constraints are the same as those described in `findprob` command. Note that keywords in a find rule may be less restrictive than the fields (e.g. name, source, etc.).
 
 Examples:
 

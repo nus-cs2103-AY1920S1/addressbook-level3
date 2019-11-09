@@ -1038,10 +1038,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. AlgoBase detects that no sort order is specified.
+* 2a. AlgoBase detects that no sorting method is specified.
 +
 [none]
-** 2a1. AlgoBase informs user that no sort order is given.
+** 2a1. AlgoBase informs user that no sorting method is given.
 +
 Use case ends.
 
