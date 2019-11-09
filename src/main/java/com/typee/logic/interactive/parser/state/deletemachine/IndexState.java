@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-import com.typee.commons.core.index.Index;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.Prefix;
@@ -55,7 +54,7 @@ public class IndexState extends PenultimateState {
      */
     private void enforceValidity(Optional<String> index) throws StateTransitionException {
         try {
-            Index listIndex = InteractiveParserUtil.parseIndex(index.get());
+            InteractiveParserUtil.parseIndex(index.get());
         } catch (ParseException e) {
             throw new StateTransitionException(e.getMessage());
         }
