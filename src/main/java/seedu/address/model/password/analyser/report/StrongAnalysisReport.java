@@ -1,6 +1,7 @@
 package seedu.address.model.password.analyser.report;
 
 import seedu.address.model.password.Password;
+import seedu.address.model.password.analyser.Analyser;
 import seedu.address.model.password.analyser.result.Result;
 
 /**
@@ -10,29 +11,31 @@ import seedu.address.model.password.analyser.result.Result;
  */
 public class StrongAnalysisReport extends AnalysisReport {
 
-    private static final String MESSAGE_PASSWORDHEADER = "Analysing password for following account: \n";
+    private static final String MESSAGE_PASSWORD_HEADER = "Analysing password for following account: \n";
+    private Password password;
 
-    public StrongAnalysisReport() {
+    public StrongAnalysisReport(Password password) {
         super();
+        this.password = password;
+        writeIntroduciton();
+    }
+
+    /**
+     * Writes introductory section of for the report.
+     */
+    public void writeIntroduciton() {
+        reportBuilder.append(MESSAGE_PASSWORD_HEADER);
+        reportBuilder.append(password);
+        reportBuilder.append(MESSAGE_DIVIDER);
     }
 
     /**
      * Writes further in-depth information about a specific result.
      */
-    public void write(Result result) {
+    public void write(Analyser analyser, Result result) {
+        super.reportBuilder.append(analyser.getHeader());
         super.reportBuilder.append(result.getGreaterDetail());
         super.reportBuilder.append(super.MESSAGE_DIVIDER);
-    }
-
-    /**
-     * Writes password in String format.
-     *
-     * @param password
-     */
-    public void writePassword(Password password) {
-        super.reportBuilder.append(MESSAGE_PASSWORDHEADER);
-        super.reportBuilder.append(password);
-        super.reportBuilder.append(MESSAGE_DIVIDER);
     }
 
     @Override

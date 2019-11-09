@@ -62,8 +62,8 @@ public class UniqueAnalyser implements Analyser {
             if (p == acc) {
                 continue;
             }
-            matches.add(new UniqueMatch(0, acc.getPasswordValue().value.length(),
-                    acc.getPasswordValue().value, acc));
+            matches.add(new UniqueMatch(0, acc.getPasswordValue().value.length() - 1,
+                    acc.getPasswordValue().value, p));
         }
         return matches;
     }

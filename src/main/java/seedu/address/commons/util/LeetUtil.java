@@ -66,7 +66,7 @@ public class LeetUtil {
     /**
      * Internal function to recursively build the list of un-leet possibilities.
      */
-    private static void replaceAtIndex(final TreeMap<Integer, Character[]> indexToReplacements,
+    private static void replaceAtIndex(TreeMap<Integer, Character[]> indexToReplacements,
                                        Integer currentIndex, char[] password, List<String> possibilities) {
         Character[] listOfReplacementsForSpecialCharacter = indexToReplacements.get(currentIndex);
         for (char replacement : listOfReplacementsForSpecialCharacter) {
