@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -16,9 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Window;
 import seedu.address.address.logic.AddressBookLogic;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.MainLogic;
 import seedu.address.logic.commands.CommandResult;
@@ -127,23 +123,6 @@ public class MainPage extends UiPart<Region> implements Page {
     }
 
     /**
-     * Quit after letting user read the ByeResponse.
-     *
-     */
-
-    public void exit() {
-        TimerTask myDelay = new TimerTask() {
-            @Override
-            public void run() {
-                System.exit(0);
-                helpWindow.hide();
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule(myDelay, 350);
-    }
-
-    /**
      * Opens the code window or focuses on it if it's already opened.
      */
     @FXML
@@ -172,13 +151,9 @@ public class MainPage extends UiPart<Region> implements Page {
      */
     @FXML
     private void handleExit() {
-        Window mainWindow = getRoot().getScene().getWindow();
-        GuiSettings guiSettings = new GuiSettings(mainWindow.getWidth(), mainWindow.getHeight(),
-                (int) mainWindow.getX(), (int) mainWindow.getY());
-        logger.info(guiSettings.toString());
-        mainLogic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        mainWindow.hide();
+        codeWindow.hide();
+        PageManager.closeWindows();
     }
 
     /**
@@ -190,7 +165,7 @@ public class MainPage extends UiPart<Region> implements Page {
         try {
             CommandResult commandResult = mainLogic.execute(commandText);
             //check for right regex, if regex does not match, exception should be thrown
-            assert commandText.matches("(\\s)?+(goto+(\\s).*$|help+(\\s)|exit+(\\s))");;
+            assert commandText.matches("(\\s*)?+(goto+(\\s*).*$|help+(\\s*)?|exit+(\\s*)?)");
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

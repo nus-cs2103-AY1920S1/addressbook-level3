@@ -2,7 +2,6 @@ package seedu.address.achievements.ui;
 
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
@@ -26,15 +25,8 @@ public class AchievementsPieChart extends UiPart<Region> {
     @FXML
     private PieChart pieChart;
 
-    public AchievementsPieChart(String title) {
+    public AchievementsPieChart(String title, ObservableList<PieChart.Data> pieChartData) {
         super(FXML);
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data("Singapore", 13),
-                        new PieChart.Data("China", 25),
-                        new PieChart.Data("United States", 10),
-                        new PieChart.Data("Malaysia", 22),
-                        new PieChart.Data("India", 30));
         this.pieChart.setData(pieChartData);
         this.pieChart.setLabelLineLength(10);
         this.chartTitle.setText(title);

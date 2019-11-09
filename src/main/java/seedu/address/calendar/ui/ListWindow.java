@@ -17,9 +17,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+/**
+ * Pop-up window for list view. The pop-up disappears when it is out of focus and reappears with the default
+ * height and width.
+ */
 public class ListWindow extends UiPart<Stage> {
     private static final String FXML = "CalendarListWindow.fxml";
-    private static final String SEPARATOR = "\n";
+    private static final double DEFAULT_WINDOW_HEIGHT = 300;
+    private static final double DEFAULT_WINDOW_WIDTH = 450;
 
     private final Stage listWindow;
     private final EventCard commitmentCard;
@@ -63,13 +68,11 @@ public class ListWindow extends UiPart<Stage> {
         }));
 
         listWindow.setOnShowing(event -> {
-            listWindow.setX(PageManager.getXPosition());
-            listWindow.setY(PageManager.getYPosition());
-        });
-
-        listWindow.setOnShown(event -> {
-            listWindow.setX(PageManager.getXPosition() - listWindow.getWidth() / 2);
-            listWindow.setY(PageManager.getYPosition() - listWindow.getHeight() / 2);
+            listWindow.setHeight(DEFAULT_WINDOW_HEIGHT);
+            listWindow.setWidth(DEFAULT_WINDOW_WIDTH);
+            // centralise
+            listWindow.setX(PageManager.getXPosition() - DEFAULT_WINDOW_WIDTH / 2);
+            listWindow.setY(PageManager.getYPosition() - DEFAULT_WINDOW_HEIGHT / 2);
         });
 
         // create cards
@@ -172,6 +175,9 @@ public class ListWindow extends UiPart<Stage> {
         listWindow.requestFocus();
     }
 
+    /**
+     * Determiner helps to determine how to categorise and layout all the events.
+     */
     private class EventTypeDeterminer {
         final String FORMAT_COMMITMENT = "(commitment\\sfrom\\s\\p{Alnum}{3},\\s\\p{Alnum}++\\s\\p{Alnum}++\\s"
                 + "\\p{Alnum}++\\sto\\s\\p{Alnum}{3},\\s\\p{Alnum}++\\s\\p{Alnum}++\\s\\p{Alnum}++)" + "|"

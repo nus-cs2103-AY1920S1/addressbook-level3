@@ -28,6 +28,7 @@ public class AlternativeDeleteCommand extends DeleteCommand implements Alternati
         this.eventQuery = eventQuery;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar, Option option) throws CommandException {
         AlternativeCommandUtil.isValidUserCommand(option, IS_BINARY_OPTION);
 

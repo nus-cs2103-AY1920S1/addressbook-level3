@@ -62,7 +62,8 @@ class MonthView {
             boolean hasHoliday = day.hasHoliday();
             boolean hasSchoolBreak = day.hasSchoolBreak();
             boolean hasTrip = day.hasTrip();
-            DayView dayView = new DayView(day.getDayOfMonth(), monthViewWidth, hasCommitment, hasHoliday, hasSchoolBreak, hasTrip);
+            DayView dayView = new DayView(day.getDayOfMonth(), monthViewWidth, hasCommitment, hasHoliday,
+                    hasSchoolBreak, hasTrip);
             dayViews.add(dayView);
             int firstDayOfWeekAsNum = firstDay.getDayOfWeekZeroIndex() - 1;
             int rowIndex = (firstDayOfWeekAsNum + day.getDayOfMonth()) / 7;

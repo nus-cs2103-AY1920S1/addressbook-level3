@@ -29,6 +29,7 @@ public class DeleteHolidayCommand extends DeleteCommand {
         this.holiday = holiday;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) throws CommandException, NoSuchElementException {
         calendar.deleteEvent(holiday);
         String formattedFeedback = String.format(MESSAGE_DELETE_SUCCESS, holiday.toString());

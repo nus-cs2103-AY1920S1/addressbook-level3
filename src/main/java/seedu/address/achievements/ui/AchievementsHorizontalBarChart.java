@@ -30,10 +30,10 @@ public class AchievementsHorizontalBarChart extends UiPart<Region> {
     private Label yAxisLabel;
 
     @FXML
-    private BarChart<Integer, String> barChart;
+    private BarChart<Number, String> barChart;
 
     public AchievementsHorizontalBarChart(String chartTitle, String xAxisLabel, String yAxisLabel,
-                                          XYChart.Series<Integer, String> chartData) {
+                                          XYChart.Series<Number, String> chartData) {
         super(FXML);
         this.xAxisLabel.setText(xAxisLabel);
         this.yAxisLabel.setText(yAxisLabel);

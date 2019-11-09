@@ -1,8 +1,6 @@
 package seedu.address.diaryfeature.ui;
 
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -20,6 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CodeWindow;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.Page;
+import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
 
@@ -30,7 +29,6 @@ import seedu.address.ui.ResultDisplay;
  */
 public class DiaryPage extends UiPart<Region> implements Page {
     private static final PageType pageType = PageType.DIARY;
-
 
     private static final String FXML = "DiaryPage.fxml";
 
@@ -115,14 +113,7 @@ public class DiaryPage extends UiPart<Region> implements Page {
      */
     @FXML
     private void handleExit() {
-        TimerTask myDelay = new TimerTask() {
-            @Override
-            public void run() {
-                System.exit(0);
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule(myDelay,350);
+        PageManager.closeWindows();
     }
 
     /**

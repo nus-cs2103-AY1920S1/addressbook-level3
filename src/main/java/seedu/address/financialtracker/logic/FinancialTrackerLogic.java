@@ -6,16 +6,16 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.financialtracker.logic.parser.FinancialTrackerParser;
 import seedu.address.financialtracker.model.FinancialTracker;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Expense;
-import seedu.address.financialtracker.model.util.SampleDataUtil;
-import seedu.address.financialtracker.storage.FinancialTrackerStorage;
+import seedu.address.financialtracker.model.util.FinancialTrackerStatistics;
 import seedu.address.financialtracker.storage.JsonFinancialTrackerStorage;
-import seedu.address.financialtracker.ui.CountriesDropdown;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -38,7 +38,7 @@ public class FinancialTrackerLogic {
         financialTrackerParser = new FinancialTrackerParser();
         try {
             Optional<FinancialTracker> financialTrackerOptional = storage.readFinancialTracker();
-            if(financialTrackerOptional.isPresent()) {
+            if (financialTrackerOptional.isPresent()) {
                 financialTrackerModel = new Model(financialTrackerOptional.get());
             } else {
                 financialTrackerModel = new Model(SampleDataUtil.getSampleData());
@@ -63,10 +63,11 @@ public class FinancialTrackerLogic {
 
     /**
      * Use this logic class to execute commands which utilize model and storage.
+     * 
      * @param commandText user input
      * @return CommandResult, see {@Code CommandResult}
      * @throws CommandException if the command executed with error
-     * @throws ParseException if user inputted wrong format of command
+     * @throws ParseException   if user inputted wrong format of command
      */
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -85,7 +86,8 @@ public class FinancialTrackerLogic {
     }
 
     /**
-     * Returns an observe only expense list with current country specified in financial tracker.
+     * Returns an observe only expense list with current country specified in
+     * financial tracker.
      */
     public ObservableList<Expense> getExpenseList() {
         return financialTrackerModel.getExpenseList();
@@ -93,13 +95,36 @@ public class FinancialTrackerLogic {
 
     /**
      * Set the Financial Tracker's current country key.
+     * 
      * @param field country to be set
      */
     public void setCountry(String field) {
         this.financialTrackerModel.setCountry(field);
     }
 
-    //public GuiSettings getGuiSettings() { return userPrefsModel.getGuiSettings(); }
+    public FinancialTrackerStatistics getStatistics() {
+        return new FinancialStatisticsManager();
+    }
 
-    //public void setGuiSettings(GuiSettings guiSettings) { userPrefsModel.setGuiSettings(guiSettings); }
+    /**
+     * Local class for {@link FinancialTrackerStatistics}
+     */
+    private class FinancialStatisticsManager implements FinancialTrackerStatistics {
+
+        @Override
+        public ObservableList<PieChart.Data> getFinancialPieChartData() {
+            return financialTrackerModel.getFinancialPieChartData();
+        }
+
+        @Override
+        public XYChart.Series<String, Number> getFinancialBarChartData() {
+            return financialTrackerModel.getFinancialBarChartData();
+        }
+    }
+
+    // public GuiSettings getGuiSettings() { return userPrefsModel.getGuiSettings();
+    // }
+    //
+    // public void setGuiSettings(GuiSettings guiSettings) {
+    // userPrefsModel.setGuiSettings(guiSettings); }
 }

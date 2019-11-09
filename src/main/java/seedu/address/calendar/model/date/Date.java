@@ -32,7 +32,8 @@ public class Date implements IntervalPart<Date> {
             + "DDD, dd MMM... yyyy\n" + "where D stands for the letters in a day of week (there must be 3), "
             + "d stands for the digit in the day of month (there must be 1 to 2), "
             + "M stands for the letters in a day of month (there must be at least 3) and y stands for "
-            + "the digits in a year (there must be 4)";
+            + "the digits in a year (there must be 4).\n"
+            + "The year must also be between 1980 and 2200.";
     private static final String MESSAGE_DATE_CONSTRAINT = "Date's fields must be consistent";
 
     private Day day;
@@ -135,7 +136,7 @@ public class Date implements IntervalPart<Date> {
 
         try {
             DayOfWeek.valueOf(dayOfWeek);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
 
@@ -170,7 +171,7 @@ public class Date implements IntervalPart<Date> {
         requireNonNull(month);
         requireNonNull(year);
         DayOfWeek dayOfWeekVal = DayOfWeek.valueOf(dayOfWeek);
-        MonthOfYear monthVal = MonthOfYear.valueOf(month);
+        MonthOfYear monthVal = DateUtil.convertStrToMonth(month);
         Year yearVal = new Year(Integer.parseInt(year));
         int dayOfMonthVal = Integer.parseInt(dayOfMonth);
 

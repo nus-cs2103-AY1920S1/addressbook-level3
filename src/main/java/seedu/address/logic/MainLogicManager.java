@@ -12,6 +12,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefsModel;
 import seedu.address.storage.UserPrefsStorage;
 
+/**
+ * Logic Manager for the main page.
+ */
 public class MainLogicManager implements MainLogic {
 
     private final Logger logger = LogsCenter.getLogger(getClass());

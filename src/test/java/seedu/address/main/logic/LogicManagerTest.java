@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.address.logic.AddressBookLogic;
-import seedu.address.address.model.AddressBook;
 import seedu.address.address.model.AddressBookModel;
 import seedu.address.address.model.AddressBookModelManager;
 import seedu.address.address.storage.JsonAddressBookStorage;
@@ -40,7 +39,7 @@ public class LogicManagerTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(90, 45, 30, 15));
         userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
-        AddressBook addressBook = new AddressBookBuilder().withPerson(new PersonBuilder().build()).build();
+        seedu.address.address.model.AddressBook addressBook = new AddressBookBuilder().withPerson(new PersonBuilder().build()).build();
         AddressBookModel addressBookModel = new AddressBookModelManager(addressBook, userPrefs);
         UserPrefsModel userPrefsModel = new UserPrefsModelManager(userPrefs);
 

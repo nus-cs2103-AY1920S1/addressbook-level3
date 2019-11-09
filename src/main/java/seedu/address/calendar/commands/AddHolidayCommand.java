@@ -19,7 +19,6 @@ public class AddHolidayCommand extends AddCommand {
             + "[" + CliSyntax.PREFIX_END_MONTH + " END MONTH] "
             + "[" + CliSyntax.PREFIX_END_YEAR + " END YEAR] "
             + CliSyntax.PREFIX_NAME + " NAME "
-            + "[" + CliSyntax.PREFIX_INFO + " INFO]" + "\n"
             + "Example: " + AddCommand.COMMAND_WORD + " " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + " 28 "
             + CliSyntax.PREFIX_START_MONTH + " Oct " + CliSyntax.PREFIX_START_YEAR + " 2019 "
             + CliSyntax.PREFIX_NAME + " Diwali (Observed)";
@@ -30,6 +29,7 @@ public class AddHolidayCommand extends AddCommand {
         this.holiday = holiday;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) throws CommandException {
         try {
             calendar.addEvent(holiday);
