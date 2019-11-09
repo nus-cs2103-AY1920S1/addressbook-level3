@@ -20,7 +20,7 @@ image::sianghwee/taskpanel-annotated.PNG[]
 My role was to implement the undo and redo functionality as well as give ELISA more of a personality.
 
 == Summary of contributions
-* *Code contributed*: My contributions can be found [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lrchema&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lrchema&tabRepo=AY1920S1-CS2103T-T10-3%2Fmain%5Bmaster%5D[here]]
+* *Code contributed*: My contributions can be found https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lrchema&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lrchema&tabRepo=AY1920S1-CS2103T-T10-3%2Fmain%5Bmaster%5D[here]
 
 * *Enhancement added*: added the ability to *undo/redo previous commands*
 ** Function: The undo command allows the user to undo a previous command. The user may reverse this undo command with the redo command.
@@ -43,10 +43,10 @@ My role was to implement the undo and redo functionality as well as give ELISA m
 *** Updated the user guide with information on how to use the undo and redo commands
 *** Updated the developer guide by giving the implementation of the undo function as well as filling in use cases and user stories
 ** Reviewed the following pull requests:
-*** [https://github.com/AY1920S1-CS2103T-T10-3/main/pull/116[PR #116]]: Made a comment on cleaning up code by deleting it instead of commenting it out
-*** [https://github.com/AY1920S1-CS2103T-T10-3/main/pull/132[PR #132]]: Suggested to make the command non-case-sensitive, which was adopted.
-*** [https://github.com/AY1920S1-CS2103T-T10-3/main/pull/136[PR #136]]: Gave a suggestion to shorten the command word, which was adopted as an option along with the original long form
-*** [https://github.com/AY1920S1-CS2103T-T10-3/main/pull/156[PR #156]]: Proposed to change the colour of the dialog to something less abrasive and gave an alternative colour option. This suggestion was adopted
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/116[PR #116]: Made a comment on cleaning up code by deleting it instead of commenting it out
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/132[PR #132]: Suggested to make the command non-case-sensitive, which was adopted.
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/136[PR #136]: Gave a suggestion to shorten the command word, which was adopted as an option along with the original long form
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/156[PR #156]: Proposed to change the colour of the dialog to something less abrasive and gave an alternative colour option. This suggestion was adopted
 ** Design:
 *** Reviewed and gave suggestions on how to improve the ELISA logo my teammate Chengyi created, which were implemented in the final version of the logo.
 The logo before, which looks cute and innocent
@@ -57,7 +57,7 @@ and the logo after, which is more confident and sassy
 
 image::lrchema/elisaAfter.PNG[]
 
-*** Created a chime sound for the reminder function, used in [https://github.com/AY1920S1-CS2103T-T10-3/main/pull/157[PR #157]]
+*** Created a chime sound for the reminder function, used in https://github.com/AY1920S1-CS2103T-T10-3/main/pull/157[PR #157]
 
 == Contributions to the User Guide
 
