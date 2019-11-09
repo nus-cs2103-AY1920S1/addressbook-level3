@@ -50,7 +50,8 @@ public class GraphCommand extends Command {
     public GraphCommand() {
         startDate = null;
         endDate = null;
-        messageSuccess = "Graph for all dates\n";
+        messageSuccess = "Graph panel updated for all spending!\n" +
+            "To view graph for a more specific date range, type: graph d/DATE_START d/DATE_END.\n";
     }
 
     /**
@@ -61,7 +62,7 @@ public class GraphCommand extends Command {
         requireNonNull(endingDate);
         startDate = startingDate;
         endDate = endingDate;
-        messageSuccess = String.format("Graph for spending between %s and %s\n", startDate, endDate);
+        messageSuccess = String.format("Graph panel updated for spending between %s and %s!\n", startDate, endDate);
     }
 
     @Override
