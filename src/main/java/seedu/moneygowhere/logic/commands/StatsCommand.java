@@ -60,7 +60,7 @@ public class StatsCommand extends Command {
         requireNonNull(endingDate);
         startDate = startingDate;
         endDate = endingDate;
-        messageSuccess = "Statistics panel for spending between specified date range!\n";
+        messageSuccess = "Statistics panel updated for spending between specified date range!\n";
     }
 
     @Override
