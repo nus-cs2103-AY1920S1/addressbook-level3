@@ -32,18 +32,11 @@ public class AutoCompleteTextField extends JFXTextField {
      * Represent the list of possible commands users can enter.
      */
     private final SortedSet<String> commandSuggestionSet = new TreeSet<String>();
-    private final List<String> commandSuggestionList = Arrays.asList(
-            "exit", "assign participant", "assign mentor",
-            "remove participant", "remove mentor", "add participant",
-            "add mentor", "add team", "list participants",
-            "list mentors", "list teams", "edit participant",
-            "edit mentor", "edit team", "delete participant",
-            "delete mentor", "delete team", "find participant",
-            "find mentor", "find team", "leaderboard",
-            "getTop", "score add", "score sub",
-            "score set", "history", "undo",
-            "redo", "import", "export", "help"
-    );
+    private final List<String> commandSuggestionList = Arrays.asList("exit", "assign participant", "assign mentor",
+            "remove participant", "remove mentor", "add participant", "add mentor", "add team", "list participants",
+            "list mentors", "list teams", "edit participant", "edit mentor", "edit team", "delete participant",
+            "delete mentor", "delete team", "find participant", "find mentor", "find team", "leaderboard", "getTop",
+            "score add", "score sub", "score set", "history", "undo", "redo", "import", "export", "help");
 
     /**
      * Represents a popup for user to select a command that is suggested.
@@ -308,7 +301,6 @@ public class AutoCompleteTextField extends JFXTextField {
             return null;
         }
     }
-
 
     private TextFlow getOtherTemplate(String suggestion) {
         switch (suggestion) {
