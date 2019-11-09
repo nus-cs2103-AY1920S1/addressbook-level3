@@ -43,7 +43,7 @@ public class CheckoutCommandParserTest {
                 TypicalTransactions.getTypicalTransactionList());
     }
 
-    @Test
+    /*@Test
     public void parse_validAmountPresent_success() {
         model.setCashier(new PersonBuilder().build());
 
@@ -60,7 +60,7 @@ public class CheckoutCommandParserTest {
                 new CheckoutCommand(totalAmount, VALID_PRICE_PAID - totalAmount), model,
                 (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
-    }
+    }*/
 
     @Test
     public void parse_invalidNotANumberAmountPresent_failure() {
