@@ -111,15 +111,31 @@
 }
 
 #main_window .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    /*-fx-background-color: #3c3e3f;*/
+    -fx-background-color: #DCDCDC;
+    -fx-text-fill: #1B2631;
 }
 
 #main_window .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    /*-fx-background-color: #515658;*/
+    -fx-background-color: #F0F0F0;
+}
+
+#main_window .list-cell:filled:selected .text{
+    -fx-fill: white;
 }
 
 #main_window .list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+    -fx-background-color: #2471A3;
+}
+
+#main_window .list-cell:filled:focused {
+    -fx-background-color: #2471A3;
+    -fx-focus-color: -fx-background-color;
+}
+
+#main_window .list-cell:filled:focused .text{
+    -fx-fill: white;
 }
 
 #main_window .list-cell:filled:selected #cardPane {
@@ -128,7 +144,7 @@
 }
 
 #main_window .list-cell .text {
-    -fx-fill: #ffffff;
+    /*-fx-fill: #ffffff;*/
 }
 
 .cell_big_label {
@@ -158,13 +174,20 @@
 }
 
 .result-display {
-    -fx-background-color: transparent;
+    -fx-background-color: #383838;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 11pt;
     -fx-text-fill: white;
 }
 
-.result-display .label {
+.result-display .text-area .scroll-pane .content {
+    -fx-background-color: #283747;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 11pt;
+    -fx-text-fill: white;
+}
+
+.result-display .label{
     -fx-text-fill: black !important;
 }
 

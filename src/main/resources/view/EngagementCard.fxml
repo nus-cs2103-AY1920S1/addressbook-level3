@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" prefHeight="105.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="105.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -40,10 +40,10 @@
             </children>
          </HBox>
       <FlowPane fx:id="tags" />
-         <HBox prefHeight="18.0" prefWidth="195.0">
+         <HBox prefHeight="18.0">
             <children>
-               <Label styleClass="cell_small_label" text="Attendees: " textOverrun="CLIP" />
-            <Label fx:id="attendees" styleClass="cell_small_label" text="\$attendees" textOverrun="CLIP" />
+               <Label styleClass="cell_small_label" text="Attendees: " />
+            <Label fx:id="attendees" prefHeight="17.0" prefWidth="300.0" styleClass="cell_small_label" text="\$attendees" />
             </children>
          </HBox>
       <Label fx:id="description" styleClass="cell_small_label" text="\$description" textOverrun="CLIP" />

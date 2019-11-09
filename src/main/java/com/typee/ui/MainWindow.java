@@ -151,11 +151,7 @@ public class MainWindow extends UiPart<Stage> {
         lblWindowTitle.setText("Engagement Window");
         engagementListPanel = new EngagementListPanel(logic.getFilteredEngagementList());
         mainWindow.getChildren().add(engagementListPanel.getRoot());
-
-        //adding tab panel holder
         prepareTabMenuList(menuTabPane);
-        //tabPanel = new TabPanel(tabList);
-        //tabPanelPlaceHolder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
