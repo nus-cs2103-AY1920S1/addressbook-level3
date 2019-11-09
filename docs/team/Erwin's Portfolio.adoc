@@ -3,7 +3,7 @@
 :imagesdir: ../images
 :stylesdir: ../stylesheets
 :sectnums:
-:
+:note-caption: :information_source:
 
 === Introduction
 
