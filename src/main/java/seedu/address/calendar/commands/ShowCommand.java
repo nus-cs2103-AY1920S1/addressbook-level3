@@ -15,11 +15,11 @@ import java.util.Optional;
 public class ShowCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "show";
     public static final String MESSAGE_SHOWING_REQUESTED = "Showing month view for %s %s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a month view of the requested month"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a month view of the requested month\n"
             + "Parameters: "
-            + CliSyntax.PREFIX_MONTH + " MONTH "
-            + "[" + CliSyntax.PREFIX_YEAR + " YEAR]" + "\n"
-            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_MONTH + " Dec " + CliSyntax.PREFIX_YEAR + " 2019";
+            + CliSyntax.PREFIX_MONTH + "MONTH "
+            + "[" + CliSyntax.PREFIX_YEAR + "YEAR]" + "\n"
+            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_MONTH + "Dec " + CliSyntax.PREFIX_YEAR + "2019";
 
     private MonthOfYear monthOfYear;
     private Year year;
