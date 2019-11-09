@@ -18,7 +18,7 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 
 /**
- * Contains utility methods used for processing DistinctDates.
+ * Contains utility methods used for processing the list of Events into DistinctDates.
  */
 public class DistinctDatesProcessor {
 

@@ -396,7 +396,7 @@ Instantiation of the `Event` object when the app is started will be more complic
 === Generate Schedule Feature
 ==== Proposed Implementation
 
-The Generate Schedule Feature is implemented to allow users to have an overview of all dates that has an event and the
+The Generate Schedule Feature is implemented to allow users to have an overview the event schedule. It will display all dates that has an event and the
 specific events that happens on those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
 new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
 
@@ -415,12 +415,12 @@ The `DistinctDateProcessor` utilises the following operations in the `generate_s
 The following class diagram shows how the relationships between the different classes used by the `generate_schedule` command:
 
 ._Class Diagram for GenerateScheduleCommand_
-image::GenerateScheduleClassDiagram.png[align="center", width = "300"]
+image::GenerateScheduleClassDiagram.png[align="center"]
 
+---
 Given below is an example usage scenario and how the `display_schedule` command behaves at each step.
-
 ._Program flow of the Generate Schedule Feature_
-image::GenerateScheduleFlowChart.png[align="center", width = "300"]
+image::GenerateScheduleFlowChart.png[align="center"]
 
 **Step 1**. The user launches the application for the first time.
 
