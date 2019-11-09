@@ -42,7 +42,7 @@ public class EditShowDescriptorBuilder {
         descriptor.setActors(show.getActors());
         descriptor.setPoster(show.getPoster());
         descriptor.setGenres(show.getGenres());
-        if(show.getType().equals("Tv Show")) {
+        if (show.getType().equals("Tv Show")) {
             descriptor.setTotalNumOfEpisodes(show.getTotalNumOfEpisodes());
             descriptor.setNumOfEpisodesWatched(show.getNumOfEpisodesWatched());
             descriptor.setSeasons(show.getTvSeasons());

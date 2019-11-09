@@ -23,6 +23,7 @@ import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
 import seedu.ezwatchlist.testutil.ShowBuilder;
 import seedu.ezwatchlist.testutil.ShowUtil;
+import seedu.ezwatchlist.testutil.TypicalShows;
 import seedu.ezwatchlist.testutil.WatchShowDescriptorBuilder;
 
 public class WatchListParserTest {
@@ -61,13 +62,12 @@ public class WatchListParserTest {
 
     @Test
     public void parseCommand_watch() throws Exception {
-        Show show = new ShowBuilder().build();
+        Show show = TypicalShows.THEOFFICE;
         WatchShowDescriptor descriptor = new WatchShowDescriptorBuilder(show).build();
         WatchCommand command = (WatchCommand) parser.parseCommand(WatchCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_SHOW.getOneBased(), currentTab);
+                + INDEX_FIRST_SHOW.getOneBased() + " e/3", currentTab);
         assertEquals(
-                new WatchCommand(INDEX_FIRST_SHOW, descriptor, false, false), command);
-
+                new WatchCommand(INDEX_FIRST_SHOW, descriptor, false, true), command);
     }
 
     @Test

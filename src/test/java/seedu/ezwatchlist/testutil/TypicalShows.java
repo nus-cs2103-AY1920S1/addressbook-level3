@@ -64,6 +64,25 @@ public class TypicalShows {
             .withIsWatched("true").withDateOfRelease("12 December 1974")
             .withRunningTime(202).withActors("Al Pacino").build();
 
+    public static final Show WATCHEDJOKER = new ShowBuilder().withName("Joker").withDescription(
+            "Forever alone in a crowd, failed comedian Arthur Fleck seeks connection as he walks the streets of Gotham "
+                    + "City. Arthur wears two masks -- the one he paints for his day job as a clown, and the guise he "
+                    + "projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied "
+                    + "and disregarded by society, Fleck begins a slow descent into madness as he transforms into the "
+                    + "criminal mastermind known as the Joker."
+    ).withIsWatched("true").withDateOfRelease("3 october 2019").withType("Movie")
+            .withRunningTime(122).withActors("Joaquin Phoenix").build();
+
+    public static final Show THEOFFICE = new ShowBuilder().withName("The Office").withDescription("A mockumentary"
+            + " on a group of typical office workers, where the workday consists of ego clashes,"
+            + " inappropriate behavior, and tedium.").withType("Tv Show")
+            .withIsWatched("false").withDateOfRelease("2005-03-24")
+            .withRunningTime(202).withActors("Steve Carrell", "Jenna Fischer").withNumOfEpisodesWatched(3)
+            .withTotalNumOfEpisodes(195).withSeasons(new SeasonGenerator()
+                    .withTvSeason(6).withTvSeason(22).withTvSeason(23)
+                    .withTvSeason(19).withTvSeason(26).withTvSeason(26)
+                    .withTvSeason(26).withTvSeason(24).withTvSeason(23).getTvSeasons()).build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalShows() {} // prevents instantiation

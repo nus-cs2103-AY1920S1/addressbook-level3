@@ -13,7 +13,6 @@ import java.util.Set;
 
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.commons.core.messages.Messages;
-import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.actor.Actor;
@@ -441,7 +440,6 @@ public class WatchCommand extends Command {
 
             // state check
             WatchShowDescriptor e = (WatchShowDescriptor) other;
-
             return getNumOfEpisodesWatched() == e.getNumOfEpisodesWatched()
                     && getNumOfSeasonsWatched() == e.getNumOfSeasonsWatched();
         }
