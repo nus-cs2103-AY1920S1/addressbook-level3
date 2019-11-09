@@ -30,7 +30,7 @@ public class FilterTagCommand extends TagCommand {
         model.updateFilteredExpenses(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW, model.getFilteredExpenses().size()),
-                false, false, "");
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     @Override

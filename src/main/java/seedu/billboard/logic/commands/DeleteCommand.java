@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
         model.deleteExpense(expenseToDelete);
 
         return new CommandResult(String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete),
-                false, false, "");
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     @Override

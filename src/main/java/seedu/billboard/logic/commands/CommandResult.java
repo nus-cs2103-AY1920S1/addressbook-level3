@@ -10,7 +10,8 @@ import java.util.Optional;
  */
 public class CommandResult {
 
-    public static final String DEFAULT_LIST = "";
+    public static final String DEFAULT_LIST_VIEW = "";
+    public static final String UNCHANGED_LIST_VIEW = null;
 
     private final String feedbackToUser;
 
@@ -38,7 +39,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, null);
+        this(feedbackToUser, false, false, UNCHANGED_LIST_VIEW);
     }
 
     public String getFeedbackToUser() {

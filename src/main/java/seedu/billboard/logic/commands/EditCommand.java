@@ -93,7 +93,7 @@ public class EditCommand extends Command {
         model.setExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
         return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense),
-                false, false, "");
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     /**
