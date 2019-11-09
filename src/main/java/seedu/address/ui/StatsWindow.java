@@ -105,7 +105,6 @@ public class StatsWindow extends UiPart<Stage> {
             for (int i = 0; i < perform.size(); i++) {
                 BigDecimal bd = new BigDecimal(perform.get(i).floatValue()).setScale(2, RoundingMode.HALF_UP);
                 seriesC.getData().add(new XYChart.Data(i + 1, bd.floatValue()));
-//                seriesC.getData().add(new XYChart.Data(i + 1, perform.get(i).floatValue()));
             }
         }
 
