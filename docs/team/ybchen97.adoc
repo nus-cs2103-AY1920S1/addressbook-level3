@@ -61,7 +61,7 @@ https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75]
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=deleteperson]
 
 include::../UserGuide.adoc[tag=deletepolicy]
 
@@ -80,10 +80,3 @@ include::../DeveloperGuide.adoc[tag=bin]
 include::../DeveloperGuide.adoc[tag=deleteperson]
 
 include::../DeveloperGuide.adoc[tag=restore]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

@@ -488,7 +488,7 @@ Deletes the `nonsmoker` criteria from the 2nd policy in the list of policies.
 `deletecriteria 1 t/nonsmoker` +
 Deletes the `nonsmoker` tag from the 1st policy in the results of the `findpolicy` command.
 
-// tag::delete[]
+// tag::deleteperson[]
 === Deleting a person : `delete`
 
 Deletes the specified person from the list of people. +
@@ -537,7 +537,9 @@ Expected output:
 Deleted Person: Carl Kurz
 NRIC: S0000003J; Phone: 95352563; Email: heinz@example.com; Address: wall street; Date of Birth: 6 June 1996; Gender: Male
 ```
+//end::deleteperson[]
 
+//tag::deletepolicy[]
 === Deleting a policy : `deletepolicy`
 
 Deletes the specified policy from the address book. +
@@ -587,7 +589,9 @@ Expected output:
 Deleted Policy: Senior Care
 Description: Care for seniors; Coverage: 5 years, 11 months, 20 days; Price: $50000; Start Age: 50; End Age: 75
 ```
+//end::deletepolicy[]
 
+//tag::assignpolicy[]
 === Adding policies to a person : `assignpolicy`
 
 Assigns a policy to the person at the specified index. +
@@ -609,7 +613,9 @@ Assigns the 'Senior Care' (the second policy in the list) policy to the 2nd pers
 * `find Betsy` +
 `assignpolicy 1 pol/Accident Insurance` +
 Assigns the 'Accident Insurance' (the first policy in the list) policy to the 1st person in the results of the `find` command.
+//end::assignpolicy[]
 
+//tag::unassignpolicy[]
 === Deleting policies from a person : `unassignpolicy`
 
 Removes a policy from the person at the specified index. +
@@ -630,7 +636,9 @@ Removes the policy 'Accident Insurance' in the absolute list from the 2nd person
 * `find Betsy` +
 `unassignpolicy 1 pol/Health insurance` +
 Removes the policy 'Health Insurance' in the absolute list from the 1st person in the results of the `find` command.
+//end::unassignpolicy[]
 
+//tag::deletetag[]
 === Deleting tags from a person : `deletetag`
 
 Deletes tag(s) from the person at the specified index. +
@@ -651,7 +659,9 @@ Deletes a `high_priority` tag from the 2nd person in the list of people.
 * `find Betsy` +
 `deletetag 1 t/high_risk` +
 Deletes a `high_risk` tag from the 1st person in the results of the `find` command.
+//end::deletetag[]
 
+//tag::deletepolicytag[]
 === Deleting tags from a policy : `deletepolicytag`
 
 Deletes tag(s) from the policy at the specified index. +
@@ -672,8 +682,8 @@ Deletes a `high_priority` tag from the 2nd policy in the list of policies.
 * `findpolicy Senior` +
 `deletepolicytag 1 t/high_risk` +
 Deletes a `high_risk` tag from the 1st policy in the results of the `find` command.
+//end::deletepolicytag[]
 
-// end::delete[]
 === Clearing all entries : `clear`
 
 Clears all entries from the address book, including the bin.+
