@@ -26,13 +26,13 @@ import seedu.address.model.policy.StartAge;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new MergePolicyCommand object
  */
 public class MergePolicyCommandParser implements Parser<MergePolicyCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddPolicyCommand
-     * and returns a MergePolicy object for execution.
+     * Parses the given {@code String} of arguments in the context of the MergePolicyCommand
+     * and returns a MergePolicyCommand object for execution.
      * @throws seedu.address.logic.parser.exceptions.ParseException if the user input does
      * not conform the expected format
      */
