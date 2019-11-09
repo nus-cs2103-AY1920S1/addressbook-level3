@@ -268,7 +268,7 @@ Additionally, it implements the following operation:
 Given below is an activity diagram of a book being added to the catalog.
 
 .Activity Diagram for adding a book
-image::AddBookActivityDiagram.png[width=270]
+image::AddBookActivityDiagram.png[width=400]
 {nbsp} +
 We can clearly see how the system decides to generate a valid serial number base on whether the user input contains a valid serial number or not. +
 {nbsp} +
@@ -301,7 +301,7 @@ We can also observe that the `LoanHistory` object of the `Book` is empty since t
 ** Pros: Will be easier (and more readable in code) to retrieve books by serial number.
 ** Cons: Will incur additional memory to maintain the HashMap.
 
-We have decided to go with Alternative 2. In contrast to the original AddressBook3, there is much more retrieval of
+*We have decided to go with Alternative 2.* In contrast to the original AddressBook3, there is much more retrieval of
 book objects in within the Book and Loan feature. Therefore, the benefits of quick retrieval of book information from the catalog will
 outweigh the additional memory costs incurred to maintain the HashMap.
 
@@ -324,7 +324,7 @@ We need to come up with a solution to give us "B00001" in the given example.
 ** Pros: Will be easy to implement.
 ** Cons: Will be inefficient once the number of books grow.
 
-We have decided to go with Alternative 2 and keep it simple. This is because there are some edge cases which will lead to the implementation in
+*We have decided to go with Alternative 2* and keep it simple. This is because there are some edge cases which will lead to the implementation in
 Alternative 1 not behaving as expected. Furthermore, Alternative 2 is also in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
 //end::addBook[]
 
@@ -483,7 +483,7 @@ Given below is the sequence diagram of the generation of loan slip during the lo
 image::LoanSlipGeneration.png[]
 {nbsp} +
 
-The following describes the sequence of events displayed in the figure above.
+The sequence diagram above is described by the following sequence of events:
 ****
 . `LoanCommand` is executed
 . `LoanCommand` retrieves the `Book` and the `Borrower` to create a new `Loan`
@@ -504,7 +504,7 @@ The following describes the sequence of events displayed in the figure above.
 ** Pros: The `Logic` component and the `LoanCommand` object can now use the full functionality of `LoanSlipDocument` via the static class `LoanSlipUtil` without knowing the internal implementation of `LoanSlipDocument`.
 ** Cons: There is more code to be written and we must consider how to save state within a static class such that it can be continually reused.
 
-We have decided to go with Alternative 2. The Facade class provides the system with a *simplified view* of generating a loan slip, making it *easier to use*.
+*We have decided to go with Alternative 2.* The Facade class provides the system with a *simplified view* of generating a loan slip, making it *easier to use*.
 It also *decouples* the code, making it easier to modify in the future.
 On the contrary, Alternative 1 will introduce a lot of unnecessary dependencies between classes, thereby *increasing coupling* and *reducing maintainability*.
 
@@ -517,7 +517,7 @@ On the contrary, Alternative 1 will introduce a lot of unnecessary dependencies 
 ** Pros: Will only need to make adjustments to `Logic` component to contain an `Optional<LoanSlipDocument>` field and update accordingly whenever a new `Loan` comes in.
 ** Cons: Violates Single Responsibility Principle as the Logic class will now have to change if we change the implementation of `LoanSlipDocument`.
 
-We have decided to go with Alternative 1 as it allows us to have flexible code that is *easily extendable*. Furthermore,
+*We have decided to go with Alternative 1* as it allows us to have flexible code that is *easily extendable*. Furthermore,
 it adheres to good programming practices as compared to Alternative 2, which *violates the Single Responsibility Principle*.
 // end::printLoanSlip[]
 

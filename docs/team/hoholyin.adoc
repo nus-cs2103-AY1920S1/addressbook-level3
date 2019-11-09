@@ -97,12 +97,12 @@ It was intended for the loan slip to display the following information: +
 ** Details of multiple loans in a single loan slip
 ** Details of renewed loans
 
-All the above information is accurately displayed in the generated loan slip from 'LiBery' `v1.4`. +
+All the above information is accurately displayed in the generated loan slip from 'LiBerry' `v1.4`. +
 {nbsp}
 
-* *Effort*: This feature required in-depth understanding of: +
+* *Effort*: This feature required an in-depth understanding of: +
 {nbsp}
-** How to leverage on Gradle to add libraries from the *Maven Central Repository*
+** How to leverage on Gradle to add libraries from the Maven Central Repository
 ** How to get resources when the application in a `.jar` format
 ** How to handle file input
 ** How to handle file output
