@@ -1,110 +1,129 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.storage.JsonAdaptedExpense.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.storage.JsonAdaptedBudget.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalExpenses.FOOD;
-
+import static seedu.address.testutil.TypicalBudgets.KOREA;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
-
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ExpenseList;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 
-public class JsonAdaptedExpenseTest {
+public class JsonAdaptedBudgetTest {
     private static final String INVALID_NAME = "  ";
     private static final String INVALID_AMOUNT = "+$@654";
     private static final String INVALID_CURRENCY = "X12";
-    private static final String INVALID_DATE = "Sat";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_START_DATE = "Sat";
+    private static final String INVALID_END_DATE = "Thursday 1/1/2019";
 
-    private static final String VALID_NAME = FOOD.getName().toString();
-    private static final String VALID_AMOUNT = FOOD.getAmount().toString();
-    private static final String VALID_CURRENCY = FOOD.getCurrency().toString();
-    private static final String VALID_DATE = FOOD.getDate().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = FOOD.getTags().stream()
-            .map(JsonAdaptedTag::new)
-            .collect(Collectors.toList());
+    private static final String VALID_NAME = KOREA.getName().toString();
+    private static final String VALID_AMOUNT = KOREA.getAmount().toString();
+    private static final String VALID_CURRENCY = KOREA.getCurrency().toString();
+    private static final String VALID_START_DATE = KOREA.getStartDate().rawValue;
+    private static final String VALID_END_DATE = KOREA.getEndDate().rawValue;
+    private static final JsonSerializableExpenseList VALID_EXPENSELIST =
+        new JsonSerializableExpenseList(new ExpenseList());
 
     @Test
-    public void toModelType_validExpenseDetails_returnsExpense() throws Exception {
-        JsonAdaptedExpense expense = new JsonAdaptedExpense(FOOD);
-        assertEquals(FOOD, expense.toModelType());
+    public void toModelType_validBudgetDetails_returnsBudget() throws Exception {
+        JsonAdaptedBudget budget = new JsonAdaptedBudget(KOREA);
+        assertEquals(KOREA, budget.toModelType());
     }
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedExpense expense =
-                new JsonAdaptedExpense(INVALID_NAME, VALID_AMOUNT, VALID_CURRENCY, VALID_DATE, VALID_TAGS);
+        JsonAdaptedBudget budget =
+                new JsonAdaptedBudget(INVALID_NAME, VALID_AMOUNT, VALID_AMOUNT, VALID_CURRENCY, VALID_START_DATE,
+                VALID_END_DATE, VALID_EXPENSELIST);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, budget::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedExpense expense = new JsonAdaptedExpense(null, VALID_AMOUNT, VALID_CURRENCY, VALID_DATE, VALID_TAGS);
+        JsonAdaptedBudget budget =
+                new JsonAdaptedBudget(null, VALID_AMOUNT, VALID_AMOUNT, VALID_CURRENCY, VALID_START_DATE,
+                VALID_END_DATE, VALID_EXPENSELIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, budget::toModelType);
     }
 
     @Test
     public void toModelType_invalidAmount_throwsIllegalValueException() {
-        JsonAdaptedExpense expense =
-                new JsonAdaptedExpense(VALID_NAME, INVALID_AMOUNT, VALID_CURRENCY, VALID_DATE, VALID_TAGS);
+        JsonAdaptedBudget budget =
+                new JsonAdaptedBudget(VALID_NAME, INVALID_AMOUNT, VALID_AMOUNT ,VALID_CURRENCY, VALID_START_DATE,
+                VALID_END_DATE, VALID_EXPENSELIST);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, budget::toModelType);
     }
 
     @Test
     public void toModelType_nullAmount_throwsIllegalValueException() {
-        JsonAdaptedExpense expense = new JsonAdaptedExpense(VALID_NAME, null, VALID_CURRENCY, VALID_DATE, VALID_TAGS);
+        JsonAdaptedBudget budget =
+                new JsonAdaptedBudget(VALID_NAME, null, VALID_AMOUNT ,VALID_CURRENCY, VALID_START_DATE,
+                VALID_END_DATE, VALID_EXPENSELIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, budget::toModelType);
     }
 
     @Test
     public void toModelType_invalidCurrency_throwsIllegalValueException() {
-        JsonAdaptedExpense expense =
-            new JsonAdaptedExpense(VALID_NAME, VALID_AMOUNT, INVALID_CURRENCY, VALID_DATE, VALID_TAGS);
+        JsonAdaptedBudget budget =
+                new JsonAdaptedBudget(VALID_NAME, VALID_AMOUNT, VALID_AMOUNT, INVALID_CURRENCY, VALID_START_DATE,
+                VALID_END_DATE, VALID_EXPENSELIST);
         String expectedMessage = Currency.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, budget::toModelType);
     }
 
     @Test
     public void toModelType_nullCurrency_throwsIllegalValueException() {
-        JsonAdaptedExpense expense = new JsonAdaptedExpense(VALID_NAME, VALID_AMOUNT, null, VALID_DATE, VALID_TAGS);
+        JsonAdaptedBudget budget =
+                new JsonAdaptedBudget(VALID_NAME, VALID_AMOUNT, VALID_AMOUNT, null, VALID_START_DATE,
+                VALID_END_DATE, VALID_EXPENSELIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Currency.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, budget::toModelType);
     }
 
     @Test
-    public void toModelType_invalidDate_throwsIllegalValueException() {
-        JsonAdaptedExpense expense =
-                new JsonAdaptedExpense(VALID_NAME, VALID_AMOUNT, VALID_CURRENCY, INVALID_DATE, VALID_TAGS);
+    public void toModelType_invalidStartDate_throwsIllegalValueException() {
+        JsonAdaptedBudget budget =
+                new JsonAdaptedBudget(VALID_NAME, VALID_AMOUNT, VALID_AMOUNT, VALID_CURRENCY, INVALID_START_DATE,
+                    VALID_END_DATE, VALID_EXPENSELIST);
         String expectedMessage = Date.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, budget::toModelType);
     }
 
     @Test
-    public void toModelType_nullDate_throwsIllegalValueException() {
-        JsonAdaptedExpense expense = new JsonAdaptedExpense(VALID_NAME, VALID_AMOUNT, VALID_CURRENCY, null, VALID_TAGS);
+    public void toModelType_nullStartDate_throwsIllegalValueException() {
+        JsonAdaptedBudget budget =
+                new JsonAdaptedBudget(VALID_NAME, VALID_AMOUNT, VALID_AMOUNT, VALID_CURRENCY, null,
+                VALID_END_DATE, VALID_EXPENSELIST);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, budget::toModelType);
     }
 
     @Test
-    public void toModelType_invalidTags_throwsIllegalValueException() {
-        List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedExpense expense =
-                new JsonAdaptedExpense(VALID_NAME, VALID_AMOUNT, VALID_CURRENCY, VALID_DATE, invalidTags);
-        assertThrows(IllegalValueException.class, expense::toModelType);
+    public void toModelType_invalidEndDate_throwsIllegalValueException() {
+        JsonAdaptedBudget budget =
+            new JsonAdaptedBudget(VALID_NAME, VALID_AMOUNT, VALID_AMOUNT, VALID_CURRENCY, VALID_START_DATE,
+                INVALID_END_DATE, VALID_EXPENSELIST);
+        String expectedMessage = Date.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, budget::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullEndDate_throwsIllegalValueException() {
+        JsonAdaptedBudget budget =
+            new JsonAdaptedBudget(VALID_NAME, VALID_AMOUNT, VALID_AMOUNT, VALID_CURRENCY, VALID_START_DATE,
+            null, VALID_EXPENSELIST);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, budget::toModelType);
     }
 
 }

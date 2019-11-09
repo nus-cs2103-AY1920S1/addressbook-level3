@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_AMOUNT_EGYPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_CURRENCY_EGYPT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_ENDDATE_EGYPT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_STARTDATE_EGYPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_END_DATE_EGYPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_START_DATE_EGYPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_NAME_EGYPT;
 import static seedu.address.testutil.TypicalBudgets.JAPAN;
 import static seedu.address.testutil.TypicalBudgets.KOREA;
@@ -76,11 +76,11 @@ public class BudgetTest {
         assertFalse(KOREA.equals(editedKorea));
 
         // different start date -> returns false
-        editedKorea = new BudgetBuilder(KOREA).withStartDate(VALID_BUDGET_STARTDATE_EGYPT).build();
+        editedKorea = new BudgetBuilder(KOREA).withStartDate(VALID_BUDGET_START_DATE_EGYPT).build();
         assertFalse(KOREA.equals(editedKorea));
 
         // different end date -> returns false
-        editedKorea = new BudgetBuilder(KOREA).withEndDate(VALID_BUDGET_ENDDATE_EGYPT).build();
+        editedKorea = new BudgetBuilder(KOREA).withEndDate(VALID_BUDGET_END_DATE_EGYPT).build();
         assertFalse(KOREA.equals(editedKorea));
     }
 }
