@@ -221,6 +221,13 @@ image::SessionClassDiagram.png[]
 
 ==== Rank feature
 
+===== Implementation
+
+===== Choice of Design Pattern
+Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands, without the programme knowing which type of command is being executed. Furthermore, the original AB3 code base achieves a Command Design Pattern by requiring different types of command classes to extend from a Command Abstract Class. 
+
+Due to time constraint and to achieve consistency with the Command Design Pattern of the original Code Base, we decide to apply the Command Design Pattern for the Rank command too.
+
 ==== RankList feature
 
 ==== End session feature
