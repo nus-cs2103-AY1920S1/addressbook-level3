@@ -136,15 +136,7 @@ public class Activity {
      * Returns a List containing all the IDs of the participants.
      * @return A {@code List} containing the IDs of all participants.
      */
-    public List<Integer> getParticipantsIds() {
-        return participantIds;
-    }
-
-    /**
-     * Returns an ArrayList containing all the IDs of the participants.
-     * @return A {@code List} containing the IDs of all participants.
-     */
-    public ArrayList<Integer> getParticipantIds() {
+    public List<Integer> getParticipantIds() {
         return participantIds;
     }
 
@@ -373,7 +365,7 @@ public class Activity {
             double debt = getOwed(involved[0], payer);
             if (debt < 0) {
                 return;
-            } else if (amount > debt || amount == 0) {
+            } else if (amount == 0) {
                 splitAmount = debt;
             } else {
                 splitAmount = amount;

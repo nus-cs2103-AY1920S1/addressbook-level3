@@ -492,7 +492,10 @@ public class ActivityTest {
         editedLunch = new ActivityBuilder(lunch).addPerson(TypicalPersons.ALICE).build();
         assertFalse(lunch.equals(editedLunch));
 
-        // TODO: Different expenses -> returns false
+        // different expenses -> returns false
+        int id = lunch.getParticipantIds().get(0);
+        editedLunch = new ActivityBuilder(lunch).addExpense(new Expense(id, new Amount(0), "")).build();
+        assertFalse(lunch.equals(editedLunch));
     }
 
     @Test
