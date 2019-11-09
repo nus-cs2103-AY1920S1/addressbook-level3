@@ -20,6 +20,9 @@ import seedu.exercise.model.property.custom.CustomProperty;
 /**
  * Helps to keep track of all the existing prefixes and full names for both default and custom properties.
  * It also helps to keep track of all the existing custom properties that have been defined by the user.
+ *
+ * This solution was partly inspired by
+ * https://github.com/yunpengn/main/blob/master/src/main/java/seedu/address/model/property/PropertyManager.java.
  */
 public class PropertyBook {
     public static final String MESSAGE_DUPLICATE_NAME_OR_PREFIX = "The full name or the prefix of the custom"

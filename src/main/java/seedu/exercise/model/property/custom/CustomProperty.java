@@ -11,6 +11,9 @@ import seedu.exercise.logic.parser.Prefix;
 
 /**
  * Represents a custom property that an {@code Exercise} object can have.
+ *
+ * This solution was partly inspired by
+ * https://github.com/yunpengn/main/blob/master/src/main/java/seedu/address/model/property/Property.java.
  */
 public class CustomProperty {
     public static final String FULL_NAME_CONSTRAINTS = "Full names should contain only alphabets and should"
