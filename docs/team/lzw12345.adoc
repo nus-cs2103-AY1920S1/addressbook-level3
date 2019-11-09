@@ -74,7 +74,7 @@ include::../UserGuide.adoc[tag=stat]
 |===
 
 include::../DeveloperGuide.adoc[tag=model]
-
+include::../DeveloperGuide.adoc[tag=statsusecase]
 
 == Contributions to the README
 |===
