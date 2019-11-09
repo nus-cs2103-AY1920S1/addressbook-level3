@@ -41,22 +41,4 @@ public class QueueCard extends UiPart<Region> {
         refId.setText(person.getReferenceId().toString());
         phone.setText(person.getPhone().toString());
     }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof QueueCard)) {
-            return false;
-        }
-
-        // state check
-        QueueCard card = (QueueCard) other;
-        return id.getText().equals(card.id.getText())
-            && person.equals(card.person);
-    }
 }

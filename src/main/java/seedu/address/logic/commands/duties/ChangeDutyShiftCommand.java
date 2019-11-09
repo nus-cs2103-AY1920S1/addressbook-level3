@@ -31,8 +31,7 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
             + PREFIX_START + "02/12/19 0900 "
             + PREFIX_END + "02/12/19 2100";
 
-    public static final String MESSAGE_SUCCESS = "Duty shift changed to %1$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the duty roster";
+    public static final String MESSAGE_SUCCESS = "The duty shift has changed to %1$s";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -50,11 +49,6 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        if (model.hasExactDutyShift(editedEvent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
-        }
-
         try {
             model.setDutyShift(eventToEdit, editedEvent);
         } catch (InvalidEventScheduleChangeException ex) {
