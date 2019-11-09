@@ -9,11 +9,11 @@ import static seedu.guilttrip.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
+import org.junit.jupiter.api.Test;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import org.junit.jupiter.api.Test;
 
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Category;

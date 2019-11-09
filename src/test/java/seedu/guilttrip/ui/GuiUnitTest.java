@@ -4,12 +4,11 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import javafx.scene.Node;
+
 import seedu.guilttrip.ui.gui.GuiRobot;
 import seedu.guilttrip.ui.gui.guihandles.exceptions.NodeNotFoundException;
 import seedu.guilttrip.ui.testutil.UiPartExtension;
-
-import javafx.scene.Node;
-
 
 /**
  * A GUI unit test class for GuiltTrip.

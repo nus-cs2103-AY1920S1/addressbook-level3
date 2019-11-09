@@ -5,9 +5,10 @@ import java.util.function.BooleanSupplier;
 
 import org.testfx.api.FxRobot;
 
+import javafx.stage.Stage;
+
 import seedu.guilttrip.ui.gui.guihandles.exceptions.StageNotFoundException;
 
-import javafx.stage.Stage;
 
 /**
  * Robot used to simulate user actions on the GUI.

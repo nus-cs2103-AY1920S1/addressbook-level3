@@ -11,16 +11,16 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.ui.expense.ExpenseListPanel;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import seedu.guilttrip.ui.gui.guihandles.ExpenseCardHandle;
 import seedu.guilttrip.ui.gui.guihandles.ExpenseListPanelHandle;
 
@@ -64,8 +64,8 @@ public class ExpenseListPanelTest extends GuiUnitTest {
                 .set(secondExpense));
         guiRobot.pauseForHuman();
 
-        ExpenseCardHandle expectedExpense = expenseListPanelHandle.
-                getExpenseCardHandle(INDEX_SECOND_ENTRY.getZeroBased());
+        ExpenseCardHandle expectedExpense = expenseListPanelHandle
+                .getExpenseCardHandle(INDEX_SECOND_ENTRY.getZeroBased());
         ExpenseCardHandle selectedExpense = expenseListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedExpense, selectedExpense);
     }
