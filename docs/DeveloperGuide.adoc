@@ -204,241 +204,32 @@ This allows us to achieve polymorphism by overloading methods in `Model` to hand
 
 // end::transaction[]
 
-// tag::update[]
-=== Update: `update`
+// tag::set[]
+=== Set Budget Feature: `set`
 
-This feature allows users to update either the **Amount**, **Date** or **Category** of either a Transaction or Budget.
+This feature allows the user to set a budget for a given time period for a category, if specified.
+The user is allowed to set multiple budgets, but duplicate budgets (budgets with the same identity in terms of *amount*, *date* and *tag*) are not allowed.
+Upon setting the budget and prior to the deadline, the user's `OutTransaction` will deduct the amount from each budget in the list respectively.
+
+==== Current Implementation
+
+The `set` command is an extension of parent `Command` class, facilitated by the _Logic_ and _Model_ components of the application, _PalPay_ +
+Given an *amount* and *date*, a new Budget is set for the user. +
+Upon setting a new budget, a `BudgetCard` is created and displayed in a list in the application window till the date set by the user. +
+
+// TODO: add PUML figure for Sequence diagram
+
 
 ==== Design Considerations
 
-This `update` feature allows one or more fields of a Transaction or Budget to be updated. (e.g. `update t1 $/2` and `update t1 $/2 d/10102019` will both work as intended). This will minimize the need to input all non-required parameters if a user does not require all parameters of a Transaction or Budget to be changed.
-
-===== Aspect: Update requires `TYPE+INDEX` as one of its parameter
-
-* **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction or Budget list. (e.g. `delete b1` deletes item index 1 from budget).
-** Pros: Requires lesser user steps to be taken before executing a `update` command
-** Cons: Requires two lists to be created instead of 1. The `UniqueTransactionList` stores Transaction items and `UniqueBudgetList` to store Budget items.
-For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `update 1`)
-** Pros: Requires only one unique list required to store both Transactions and Budgets.
-** Cons: Requires additional user step to switch between modes before executing a updating command.
-
-// end::update[]
-
-// tag::undoredo[]
-=== Undo / Redo Command Feature: `undo`/`redo`
-
-==== Current Implementation
-
-The undo/redo mechanism is facilitated by `VersionedUserState`.
-It extends `UserState` with an undo/redo history, stored internally as an `userStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedUserState#commit()` -- Saves the current user state in its history.
-* `VersionedUserState#undo()` -- Restores the previous user state from its history.
-* `VersionedUserState#redo()` -- Restores a previously undone user state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitUserState()`, `Model#undoUserState()`
-and `Model#redoUserState()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time.
-The `VersionedUserState` will be initialized with the initial user state, and the `currentStatePointer`
-pointing to that single user state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete t5` command to delete the 5th transaction in the transaction list.
-The `delete` command calls `Model#commitUserState()`, causing the modified state of the user state after the
-`delete t5` command executes to be saved in the `userStateList`, and the `currentStatePointer` is shifted
-to the newly inserted user state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `in $/10 n/Allowance d/07112019` to log a new transaction.
-The `in` command also calls `Model#commitUserState()`, causing another modified user state to be saved
-into the `userStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitUserState()`, so the user state will
-not be saved into the `userStateList`.
-
-Step 4. The user now decides that logging the transaction was a mistake, and decides to undo that action by
-executing the `undo` command. The `undo` command will call `Model#undoUserState()`, which will shift the
-`currentStatePointer` once to the left, pointing it to the previous user state, and restores the user state
-to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial user state, then there are no previous
-user states to restore. The `undo` command uses `Model#canUndoUserState()` to check if this is the case.
-If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
-the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoUserState()`, which shifts the `currentStatePointer`
-once to the right, pointing to the previously undone state, and restores the user state to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `userStateList.size() - 1`, pointing to the latest user state, then
-there are no undone user states to restore. The `redo` command uses `Model#canRedoUserState()` to
-check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`.
-Commands that do not modify the user state, such as `list`, will usually not call `Model#commitUserState()`,
-`Model#undoUserState()` or `Model#redoUserState()`. Thus, the `userStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitUserState()`.
-Since the `currentStatePointer` is not pointing at the end of the `userStateList`, all user states after
-the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the
-`in $/10 n/Allowance d/07112019` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-==== Design Considerations
-
-===== Aspect: How Undo and Redo Executes
-
-* **Alternative 1 (current choice):** Saves the entire user state.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete t1`, just save the transaction being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-//===== Aspect: Data Structure to Support the Undo/Redo Commands
-//
-//* **Alternative 1 (current choice):** Use a list to store the history of user states.
-//** Pros: Easy for new Computer Science student undergraduates to understand,
-//who are likely to be the new incoming developers of our project.
-//** Cons: Logic is duplicated twice.
-//For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-//* **Alternative 2:** Use `HistoryManager` for undo/redo
-//** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-//** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
-//Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::delete[]
-=== Delete Transaction Feature: `delete`
-
-This feature allows the user to delete an existing transaction or budget from the list. +
-The following activity diagram summarizes what happens when a user executes Delete command:
-
-.Activity Diagram of Delete Command
-image::DeleteActivityDiagram.png[]
-
-==== Current Implementation
-
-`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extend the `Transaction` class.
-`Transaction` stores an *amount*, *date* and a set of *categories* which describe the variables a `Transaction` with the `BankAccount` will typically hold.
-`Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
-`inTransaction` and `outTransaction` implement `BankAccountOperation`.
-
-==== Design Consideration
-
-===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
-
-Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables.
-`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`,
-this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands.
-This allows multiple transaction calls within the same method.
-
-// end::delete[]
-
-// tag::sort[]
-=== Sort Feature: `sort`
-
-This feature allows the user to _sort_ their bank account by the _amount_ or _date_ of their transactions by using the command `sort amount` or `sort date` respectively.
-
-==== Current Implementation
-
-The `sort` command is facilitated by the _Logic_ and _Model_ components of the application.
-
-The following sequence diagram shows how the sorting of transactions work when the user enters `sort amount`.
-
-.Sequence Diagram for `sort amount`
-image::SortSequenceDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: Sorting of the Bank Account
-
-* **Alternative 1 (Current Choice):** Creating a comparator for each area to be sorted.
-** **Pros:** Easy to implement.
-** **Cons:** Users can only sort by comparators that have been implemented.
-Developers have to create a new comparator class to sort a new area.
-* **Alternative 2:** Users can define the area to be sorted.
-** **Pros:** Extremely flexible for the users as they are not limited to the number of areas to be sorted.
-** **Cons:** Difficult to implement.
-
-// end::sort[]
-
-// tag::filter[]
-=== Filter Feature: `filter`
-
-This feature allows the user to _filter_ their bank account by the _category_ of their transactions by using the
- `filter [CATEGORY]...`.
-
-==== Overview
-
-The `FilterCommandParser` implements `Parser` with the following operation:
-
-* `FilterCommandParser#parse()`: This operation will take in a `String` input from the user that represents different categories delimited by a whitespace.
-It will then create a `TransactionContainsCategoriesPredicate` and passed into a new `FilterCommand`.
-Finally, this operation will return the new `FilterCommand`.
-
-==== Current Implementation
-
-The `filter` command is facilitated by the `FilterCommandParser` and `FilterCommand` of the application.
-PalPay filters the list of transactions by checking if any of the specified categories exists in the transaction.
-
-For instance, the command `filter breakfast dinner` would display a list of transactions with categories of breakfast or dinner or both.
-
-The following class diagram depicts the relations of the FilterCommand, FilterCommandParser and its related classes.
-
-.Class Diagram for `Filter`
-image::FilterClassDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: Filtering by multiple categories
-
-* **Alternative 1 (Current Choice):** Creating one predicate for all categories to be sorted.
-** **Pros:** Extremely flexible for the users as they are not limited to the number of categories to be filtered.
-** **Cons:** Difficult to implement.
-* **Alternative 2:** Creating a predicate for each category to be sorted.
-** **Pros:** Easy to implement.
-** **Cons:** Users can only filter by predicates that have been implemented.
-Developers have to create a new predicate class to filter a new category.
-
-// end::filter[]
-
-// tag::view[]
-=== View Feature: `view`
-
-This feature allows the user to switch between the different tabs of the application.
-
-==== Current Implementation
-
-The `view` command is facilitated by the `MainWindow`, `MainTabPanel`, `ViewCommandParser` and `ViewCommand`.
-
-The following activity diagram shows the flow of the `view` command.
-
-.Activity Diagram for `View`
-image::ViewActivityDiagram.png[]
-// end::view[]
+Currently, `Budget` does not extend from `Transaction` although the two behave in a similar way.
+There is an aggregation between `Budget` and `Transaction` as the two can exist independent of each other,
+although an effect on one may also cause an impact on the other.
+The current design was chosen over the former design of inheritance as there is a stark difference in the two
+in a way that `Budget` does not affect the `balance` of the user's bank account directly while `Transaction` does.
+Hence, by Liskov Substitution Principle, inheritance is not a suitable design. +
+
+// end::set[]
 
 // tag::split[]
 === Split Feature: `split`
@@ -505,39 +296,11 @@ public abstract class Payment extends Transaction implements LedgerOperations {
 }
 ```
 
-// tag::set[]
-=== Set Budget Feature: `set`
-
-This feature allows the user to set a budget for a given time period for a category, if specified.
-The user is allowed to set multiple budgets, but duplicate budgets (budgets with the same identity in terms of *amount*, *date* and *tag*) are not allowed.
-Upon setting the budget and prior to the deadline, the user's `OutTransaction` will deduct the amount from each budget in the list respectively.
-
-==== Current Implementation
-
-The `set` command is an extension of parent `Command` class, facilitated by the _Logic_ and _Model_ components of the application, _PalPay_ +
-Given an *amount* and *date*, a new Budget is set for the user. +
-Upon setting a new budget, a `BudgetCard` is created and displayed in a list in the application window till the date set by the user. +
-
-// TODO: add PUML figure for Sequence diagram
-
-
-==== Design Considerations
-
-Currently, `Budget` does not extend from `Transaction` although the two behave in a similar way.
-There is an aggregation between `Budget` and `Transaction` as the two can exist independent of each other,
-although an effect on one may also cause an impact on the other.
-The current design was chosen over the former design of inheritance as there is a stark difference in the two
-in a way that `Budget` does not affect the `balance` of the user's bank account directly while `Transaction` does.
-Hence, by Liskov Substitution Principle, inheritance is not a suitable design. +
-
-// end::set[]
-
 // tag::project[]
 [[Implementation-Projection]]
 === Project Balance Feature: `project`
 
-This feature allows users to _project_ their balance status based on past income and outflows
-as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
+This feature allows users to _project_ their balance status based on past income and outflows as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
 
 ==== Current Implementation
 
@@ -578,25 +341,284 @@ A graphical representation of the _user_'s projections may be rendered using the
 
 ==== Design Considerations
 
-The project command has multiple possible implementations as to how the projection may be computed.
-In the current implementation, the projected amount is calculated via the following equation:
-
-_Projected Balance = Current Balance - [(Past Income - Past Outflow) / Total Days Elapsed] * Days Until Date of Projection_
-
-While this algorithm allows for simple and fast computation, it does not hedge against one-time big purchases.
-For example, if the user were to buy a computer, his outflow projection is likely to be proportionally larger in the short run.
-
-==== Alternative Implementations
-
-===== Linear Regression
-
-In light of the above-mentioned limitation, a possible algorithm to be used is the
-https://en.wikipedia.org/wiki/Gradient_descent#targetText=Gradient%20descent%20is%20a%20first,function%20at%20the%20current%20point[_Gradient Descent_]
-algorithm in finding a best fit projection line for the user's balance.
-However, this will increase the computational cost of the `project` function significantly, causing _PalPay_ to run slower overall.
+=== Display Feature `display`
 // end::project[]
 
-=== Display Feature `display`
+// tag::view[]
+=== View Feature: `view`
+
+This feature allows the user to switch between the different tabs of the application.
+
+==== Current Implementation
+
+The `view` command is facilitated by the `MainWindow`, `MainTabPanel`, `ViewCommandParser` and `ViewCommand`.
+
+The following activity diagram shows the flow of the `view` command.
+
+.Activity Diagram for `View`
+image::ViewActivityDiagram.png[]
+// end::view[]
+
+// tag::delete[]
+=== Delete Transaction Feature: `delete`
+
+This feature allows the user to delete an existing transaction or budget from the list. +
+The following activity diagram summarizes what happens when a user executes Delete command:
+
+.Activity Diagram of Delete Command
+image::DeleteActivityDiagram.png[]
+
+==== Current Implementation
+
+`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extend the `Transaction` class.
+`Transaction` stores an *amount*, *date* and a set of *categories* which describe the variables a `Transaction` with the `BankAccount` will typically hold.
+`Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
+`inTransaction` and `outTransaction` implement `BankAccountOperation`.
+
+==== Design Consideration
+
+===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
+
+Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables.
+`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`,
+this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands.
+This allows multiple transaction calls within the same method.
+
+// end::delete[]
+
+// tag::update[]
+=== Update: `update`
+
+This feature allows users to update either the **Amount**, **Date** or **Category** of either a Transaction or Budget.
+
+==== Design Considerations
+
+This `update` feature allows one or more fields of a Transaction or Budget to be updated. (e.g. `update t1 $/2` and `update t1 $/2 d/10102019` will both work as intended). This will minimize the need to input all non-required parameters if a user does not require all parameters of a Transaction or Budget to be changed.
+
+===== Aspect: Update requires `TYPE+INDEX` as one of its parameter
+
+* **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction or Budget list. (e.g. `delete b1` deletes item index 1 from budget).
+** Pros: Requires lesser user steps to be taken before executing a `update` command
+** Cons: Requires two lists to be created instead of 1. The `UniqueTransactionList` stores Transaction items and `UniqueBudgetList` to store Budget items.
+For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `update 1`)
+** Pros: Requires only one unique list required to store both Transactions and Budgets.
+** Cons: Requires additional user step to switch between modes before executing a updating command.
+
+// end::update[]
+
+// tag::sort[]
+=== Sort Feature: `sort`
+
+This feature allows the user to sort their transactions by amount or date, in ascending and descending order.
+
+==== Current Implementation
+
+The `sort` command is facilitated by the Logic and Model components of the application.
+
+The following sequence diagram shows how the sorting of transactions work when the user enters `sort date/d`.
+
+.Sequence Diagram for `sort date/d`
+image::SortSequenceDiagram.png[]
+
+==== Example of Usage
+
+Given below is an example usage of how `sort` behaves at each step.
+
+**Step 1**. The user launches the application and views an unsorted list of transactions.
+
+.Initial State of PalPay
+image::sort_dg_1.png[]
+
+**Step 2**. The user now executes `sort date/d` to sort the transactions in the order of descending date.
+
+.User Inputs `sort date/d`
+image::sort_dg_2.png[]
+
+**Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+
+**Step 4**. `MainParser` determines which command is being used and creates `SortCommandParser` to further parse the input
+from the user.
+
+**Step 5**. `SortCommandParser` parses the argument and checks if it is valid. If it is
+invalid, `SortCommandParser` throws an exception and terminates. Else, it returns a `SortCommand`.
+
+**Step 6**. `LogicManager` uses `SortCommand#execute()` to sort the transactions in the order of descending date.
+
+**Step 7**. `SortCommand` uses `ModelManager#getBankAccount()` to get the current bank account and uses
+`BankAccount#getTransactionHistory()` to get the list of transactions of the user.
+
+**Step 8**. `SortCommand` uses `SortCommand#sortTransactionHistory()` to sort the transactions.
+
+**Step 9**. `SortCommand` uses `Model#setTransactions()` to store the sorted transactions and `Model#commitUserState` to
+save the latest state of the application.
+
+**Step 10**. `SortCommand` returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user
+at the end.
+
+.After Sorting of Transactions
+image::sort_dg_3.png[]
+
+==== Design Considerations
+
+===== Aspect: Sorting of the Bank Account
+
+* **Alternative 1 (Current Choice):** Creating a comparator for each area to be sorted.
+** **Pros:** Easy to implement.
+** **Cons:** Users can only sort by comparators that have been implemented.
+Developers have to create a new comparator class to sort a new area.
+* **Alternative 2:** Users can define the area to be sorted.
+** **Pros:** Extremely flexible for the users as they are not limited to the number of areas to be sorted.
+** **Cons:** Difficult to implement.
+
+// end::sort[]
+
+// tag::filter[]
+=== Filter Feature: `filter`
+
+This feature allows the user to filter the list of transactions by category, description, month and/or year.
+
+==== Overview
+
+The `FilterCommandParser` implements `Parser` with the following operation:
+
+* `FilterCommandParser#parse()`: This operation will take in at least one `String` input from the user that represents
+different fields delimited by a whitespace. All transactions that contains all fields will be displayed in the
+transaction tab.
+
+==== Current Implementation
+
+The `filter` command is facilitated by the `FilterCommandParser` and `FilterCommand` of the application.
+PalPay filters the list of transactions by checking if any of the specified fields exist in the transaction.
+
+For instance, the command `filter c/breakfast c/dinner` would display a list of transactions with categories
+of breakfast or dinner or both.
+
+The following class diagram depicts the relations of the FilterCommand, FilterCommandParser and its related classes.
+
+.Class Diagram for `Filter`
+image::FilterClassDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Filtering by multiple categories
+
+* **Alternative 1 (Current Choice):** Creating one predicate for all categories to be sorted.
+** **Pros:** Extremely flexible for the users as they are not limited to the number of categories to be filtered.
+** **Cons:** Difficult to implement.
+* **Alternative 2:** Creating a predicate for each category to be sorted.
+** **Pros:** Easy to implement.
+** **Cons:** Users can only filter by predicates that have been implemented.
+Developers have to create a new predicate class to filter a new category.
+
+// end::filter[]
+
+// tag::undoredo[]
+=== Undo / Redo Command Feature: `undo`/`redo`
+
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `VersionedUserState`.
+It extends `UserState` with an undo/redo history, stored internally as an `userStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedUserState#commit()` -- Saves the current user state in its history.
+* `VersionedUserState#undo()` -- Restores the previous user state from its history.
+* `VersionedUserState#redo()` -- Restores a previously undone user state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitUserState()`, `Model#undoUserState()`
+and `Model#redoUserState()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+**Step 1**. The user launches the application for the first time.
+The `VersionedUserState` will be initialized with the initial user state, and the `currentStatePointer`
+pointing to that single user state.
+
+image::UndoRedoState0.png[]
+
+**Step 2**. The user executes `delete t5` command to delete the 5th transaction in the transaction list.
+The `delete` command calls `Model#commitUserState()`, causing the modified state of the user state after the
+`delete t5` command executes to be saved in the `userStateList`, and the `currentStatePointer` is shifted
+to the newly inserted user state.
+
+image::UndoRedoState1.png[]
+
+**Step 3**. The user executes `in $/10 n/Allowance d/07112019` to log a new transaction.
+The `in` command also calls `Model#commitUserState()`, causing another modified user state to be saved
+into the `userStateList`.
+
+image::UndoRedoState2.png[]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitUserState()`, so the user state will
+not be saved into the `userStateList`.
+
+**Step 4**. The user now decides that logging the transaction was a mistake, and decides to undo that action by
+executing the `undo` command. The `undo` command will call `Model#undoUserState()`, which will shift the
+`currentStatePointer` once to the left, pointing it to the previous user state, and restores the user state
+to that state.
+
+image::UndoRedoState3.png[]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial user state, then there are no previous
+user states to restore. The `undo` command uses `Model#canUndoUserState()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the undo.
+
+
+**Step 5**. The user then decides to execute the command `list`.
+Commands that do not modify the user state, such as `list`, will usually not call `Model#commitUserState()`,
+`Model#undoUserState()` or `Model#redoUserState()`. Thus, the `userStateList` remains unchanged.
+
+image::UndoRedoState4.png[]
+
+**Step 6**. The user executes `clear`, which calls `Model#commitUserState()`.
+Since the `currentStatePointer` is not pointing at the end of the `userStateList`, all user states after
+the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the
+`in $/10 n/Allowance d/07112019` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoState5.png[]
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redoUserState()`, which shifts the `currentStatePointer`
+once to the right, pointing to the previously undone state, and restores the user state to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `userStateList.size() - 1`, pointing to the latest user state, then
+there are no undone user states to restore. The `redo` command uses `Model#canRedoUserState()` to
+check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+===== Aspect: How Undo and Redo Executes
+
+* **Alternative 1 (current choice):** Saves the entire user state.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete t1`, just save the transaction being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+//===== Aspect: Data Structure to Support the Undo/Redo Commands
+//
+//* **Alternative 1 (current choice):** Use a list to store the history of user states.
+//** Pros: Easy for new Computer Science student undergraduates to understand,
+//who are likely to be the new incoming developers of our project.
+//** Cons: Logic is duplicated twice.
+//For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+//* **Alternative 2:** Use `HistoryManager` for undo/redo
+//** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+//** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
+//Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
+
+
+
 
 === Logging
 

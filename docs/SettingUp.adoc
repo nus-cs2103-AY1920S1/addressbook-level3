@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Setting Up
+= PalPay - Setting Up
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -24,7 +24,7 @@ IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them.
 If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
-== Setting up the project in your computer
+== Setting Up the Project in Your Computer
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -37,12 +37,12 @@ Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings.
 
-== Verifying the setup
+== Verifying the Setup
 
 . Run the `seedu.address.Main` and try a few commands
 . <<Testing#,Run the tests>> to ensure they all pass.
 
-== Configurations to do before writing code
+== Configurations to Do Before Writing Code
 
 === Configuring the coding style
 
@@ -60,7 +60,7 @@ Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-=== Updating documentation to match your fork
+=== Updating Documentation to Match Your Fork
 
 After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level3` repo.
 
@@ -70,7 +70,7 @@ If you plan to develop this fork as a separate product (i.e. instead of contribu
 
 . Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
-=== Setting up CI
+=== Setting Up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork.
 See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
@@ -85,6 +85,6 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-=== Getting started with coding
+=== Getting Started with Coding
 
-When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, AddressBook's architecture>>.
+When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, PalPay's architecture>>.

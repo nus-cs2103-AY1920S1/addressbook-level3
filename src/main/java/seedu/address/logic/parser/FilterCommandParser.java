@@ -17,7 +17,7 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Description;
-import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.model.transaction.TransactionPredicate;
 
 /**
  * Parses input arguments and creates a new FilterCommand object.
@@ -45,7 +45,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         Optional<Integer> year = parseYear(argMultimap);
         Optional<Description> description = parseDescription(argMultimap);
 
-        return new FilterCommand(new TransactionContainsCategoriesPredicate(categorySet, month, year, description));
+        return new FilterCommand(new TransactionPredicate(categorySet, month, year, description));
     }
 
     /**

@@ -27,8 +27,8 @@ import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.LendMoney;
-import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 import seedu.address.model.transaction.UniqueBudgetList;
+import seedu.address.model.transaction.TransactionPredicate;
 import seedu.address.model.util.Date;
 import seedu.address.testutil.BankOperationBuilder;
 import seedu.address.testutil.UserStateBuilder;
@@ -300,7 +300,7 @@ public class ModelManagerTest {
         // different filteredList -> returns false
         Optional<Set<Category>> categories = Optional.of(ALICE
             .getCategories());
-        modelManager.updateFilteredTransactionList(new TransactionContainsCategoriesPredicate(categories,
+        modelManager.updateFilteredTransactionList(new TransactionPredicate(categories,
             Optional.empty(), Optional.empty(), Optional.empty()));
         assertFalse(modelManager.equals(new ModelManager(userState, userPrefs)));
 
