@@ -1,7 +1,7 @@
 package seedu.algobase.model.searchrule.problemsearchrule;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.algobase.commons.util.AppUtil.compareTwoLists;
+import static seedu.algobase.commons.util.AppUtil.isTwoListsEqual;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -38,6 +38,7 @@ public class TagIncludesKeywordsPredicate implements Predicate<Problem> {
 
     @Override
     public boolean test(Problem problem) {
+        requireNonNull(problem);
         if (keywords.stream().anyMatch(keyword -> !Tag.isValidTagName(keyword.toString()))) {
             return false;
         }
@@ -48,6 +49,6 @@ public class TagIncludesKeywordsPredicate implements Predicate<Problem> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TagIncludesKeywordsPredicate // instanceof handles nulls
-                && compareTwoLists(keywords, ((TagIncludesKeywordsPredicate) other).keywords)); // state check
+                && isTwoListsEqual(keywords, ((TagIncludesKeywordsPredicate) other).keywords)); // state check
     }
 }

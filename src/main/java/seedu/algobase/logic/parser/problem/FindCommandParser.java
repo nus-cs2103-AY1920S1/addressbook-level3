@@ -1,5 +1,6 @@
 package seedu.algobase.logic.parser.problem;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -14,6 +15,9 @@ import static seedu.algobase.logic.parser.ParserUtil.parseNamePredicate;
 import static seedu.algobase.logic.parser.ParserUtil.parseSourcePredicate;
 import static seedu.algobase.logic.parser.ParserUtil.parseTagPredicate;
 
+import java.util.logging.Logger;
+
+import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.commands.problem.FindCommand;
 import seedu.algobase.logic.parser.ArgumentMultimap;
 import seedu.algobase.logic.parser.ArgumentTokenizer;
@@ -26,6 +30,8 @@ import seedu.algobase.model.searchrule.problemsearchrule.FindProblemDescriptor;
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
+    private static final Logger logger = LogsCenter.getLogger(FindCommandParser.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -34,6 +40,9 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     @Override
     public FindCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        logger.info("Parsing find command of input: " + args);
+
         ArgumentMultimap argumentMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_DESCRIPTION, PREFIX_SOURCE,
                 PREFIX_DIFFICULTY, PREFIX_TAG);

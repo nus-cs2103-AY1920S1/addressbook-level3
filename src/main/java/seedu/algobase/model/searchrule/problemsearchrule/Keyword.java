@@ -28,6 +28,7 @@ public class Keyword {
      * Returns true if a given string is a valid keyword.
      */
     public static boolean isValidKeyword(String test) {
+        requireNonNull(test);
         return !test.isBlank();
     }
 

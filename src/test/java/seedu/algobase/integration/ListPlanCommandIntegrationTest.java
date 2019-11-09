@@ -1,5 +1,6 @@
 package seedu.algobase.integration;
 
+import static seedu.algobase.integration.IntegrationTestUtil.assertProcessedPlanListOfLength;
 import static seedu.algobase.integration.IntegrationTestUtil.getTempFilePath;
 
 import java.nio.file.Path;
@@ -19,7 +20,8 @@ import seedu.algobase.storage.JsonAlgoBaseStorage;
 import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
-public class AddTagCommandIntegrationTest {
+
+public class ListPlanCommandIntegrationTest {
     @TempDir
     public Path testFolder;
 
@@ -38,16 +40,8 @@ public class AddTagCommandIntegrationTest {
     }
 
     @Test
-    public void addtag_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("addtag t/test\n");
-        logicManager.execute("addtag t/test1 c/RED\n");
-        logicManager.execute("addtag t/test2 c/YELLOW\n");
-        logicManager.execute("addtag t/test3 c/ORANGE\n");
-        logicManager.execute("addtag t/test4 c/GREEN\n");
-        logicManager.execute("addtag t/test5 c/BLUE\n");
-        logicManager.execute("addtag t/test6 c/PURPLE\n");
-        logicManager.execute("addtag t/test7 c/BLACK\n");
-        logicManager.execute("addtag t/test8 c/TEAL\n");
-        logicManager.execute("addtag t/test9 c/DEFAULT\n");
+    public void listplan_allConstraints() throws CommandException, ParseException {
+        logicManager.execute("listplan\n");
+        assertProcessedPlanListOfLength(logicManager, 2);
     }
 }

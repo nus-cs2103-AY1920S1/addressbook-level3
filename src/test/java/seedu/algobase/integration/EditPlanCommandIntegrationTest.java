@@ -40,5 +40,7 @@ public class EditPlanCommandIntegrationTest {
     @Test
     public void editplan_allConstraints() throws CommandException, ParseException {
         logicManager.execute("editplan 1 n/test d/test start/2019-01-01 end/2019-01-01\n");
+        logicManager.execute("editplan 1 n/test d/test start/2019-01-01 end/2019-01-01\n");
+        logicManager.execute("editplan 1 n/test d/test start/2020-02-29 end/2024-02-29\n");
     }
 }

@@ -25,11 +25,11 @@ public class AlgoBaseUiActionParser {
      * @throws ParseException if the uiAction does not conform the expected format
      */
     public UiAction parseCommand(UiActionDetails uiActionDetails) throws ParseException {
-        logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
-            + " and size " + uiActionDetails.size());
-
         requireNonNull(uiActionDetails);
         requireNonNull(uiActionDetails.getActionWord());
+
+        logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
+            + " and size " + uiActionDetails.size());
 
         switch (uiActionDetails.getActionWord()) {
 

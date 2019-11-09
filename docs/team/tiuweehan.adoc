@@ -22,12 +22,12 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=tiuweehan[
 ** What it does: allows the user to open problems & plans in their own separate tabs,
 where they can edit and delete said items in the GUI in a user-friendly manner.
 
-** Justifications: As our target users are Computer Science students preparing for technical interviews, they would likely want to manage multiple plans and problems concurrently. We decided to introduce tabbing to address this need, as it is a convenient, intuitive and user-friendly solution. Furthermore, while the command line is fast for typing short commands, it might not be ideal in certain cases. For example, it would be extremely tedious and time consuming to edit large amounts of text from the command line. Hence, I implemented the ability to edit a problem / plan from within the tabs. Not having to deal with cumbersome details tremendously improves the overall user experience our user – it reduces their frustration and maximises the time they spend practicing for their interviews
+** Justifications: As our target users are Computer Science students preparing for technical interviews, they would likely want to manage multiple plans and problems concurrently. We decided to introduce tabbing to address this need, as it is a convenient, intuitive and user-friendly solution. Furthermore, while the command line is fast for typing short commands, it might not be ideal in certain cases. For example, it would be extremely tedious and time consuming to edit large amounts of text from the command line. Hence, I implemented the ability to edit a problem or plan from within the tabs. Not having to deal with cumbersome details tremendously improves the overall user experience our user – it reduces their frustration and maximises the time they spend practicing for their interviews
 
 ** Highlights:
 *** This enhancement introduces a new high level component `UiLogic`, which handle events, or `UiActions`, triggered by the user in the GUI.
 It was challenging as logic of the Command line is primarily synchronous while the GUI is event-driven. Integrating the 2 architectural styles cleanly required an in-depth evaluation of design alternatives.
-*** Furthermore, this feature transcends across all 5 components of AlgoBase: `UI`, `Logic`, `UiLogic`, `Model` and `Storage`, making it a full-stack development consisting of > 4000 lines of functional code and > 1500 lines of tests.
+*** Furthermore, this feature transcends across all 5 components of AlgoBase: `UI`, `Logic`, `UiLogic`, `Model` and `Storage`, making it a full-stack development consisting of more than 4000 lines of functional code and more than 1500 lines of tests.
 
 ** Relevant pull requests:
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/37[#37]

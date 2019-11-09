@@ -24,10 +24,11 @@ public class CloseDetailsTabUiActionParser implements UiParser<CloseDetailsTabUi
 
     @Override
     public CloseDetailsTabUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
+        requireNonNull(uiActionDetails);
+
         logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
             + " and size " + uiActionDetails.size());
 
-        requireNonNull(uiActionDetails);
         assert uiActionDetails.size() == 2;
         assert uiActionDetails.get(MODEL_TYPE_INDEX) instanceof ModelType;
         assert uiActionDetails.get(ID_INDEX) instanceof Id;

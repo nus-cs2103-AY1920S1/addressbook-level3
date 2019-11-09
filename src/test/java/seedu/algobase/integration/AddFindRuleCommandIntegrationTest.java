@@ -40,5 +40,6 @@ public class AddFindRuleCommandIntegrationTest {
     public void addfindrule_allConstraints() throws CommandException, ParseException {
         logicManager.execute("addfindrule rule1 n/name a/author d/des src/s diff/2.0-3.0 t/tag1 tag2");
         logicManager.execute("afr rule2 n/name a/author d/des src/s diff/2.0-3.0 t/tag1 tag2");
+        logicManager.execute("afr rule3 n/name a/author d/des src/s diff/2.0-3.0 t/tag1 t/tag2");
     }
 }

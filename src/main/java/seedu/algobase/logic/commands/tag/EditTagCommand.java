@@ -1,6 +1,7 @@
 package seedu.algobase.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PROBLEMS;
 
@@ -40,9 +41,7 @@ public class EditTagCommand extends Command {
      * @param name details to edit the Tag with
      */
     public EditTagCommand(Index index, String name) {
-        requireNonNull(index);
-        requireNonNull(name);
-
+        requireAllNonNull(index, name);
         this.index = index;
         this.name = name;
     }
@@ -78,8 +77,7 @@ public class EditTagCommand extends Command {
      * @return Tag with updated name.
      */
     private static Tag createEditedTag(Tag tagToEdit, String name) {
-        assert tagToEdit != null;
-        assert name != null;
+        requireAllNonNull(tagToEdit, name);
         Id id = tagToEdit.getId();
         return new Tag(id, name);
     }

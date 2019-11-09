@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows program usage instructions.\n"
             + "Parameter:\n"
-            + "COMMAND_NAME (can be empty if you want a list of possible commands)\n"
+            + "[COMMAND_NAME] (leave empty if you want a list of possible command words)\n"
             + "Example:\n"
             + COMMAND_WORD + " " + FindCommand.COMMAND_WORD;
 
@@ -30,10 +30,8 @@ public class HelpCommand extends Command {
         this.isListAllCommands = isListAllCommands;
         if (!isListAllCommands) {
             requireNonNull(commandClass);
-            this.commandClass = commandClass;
-        } else {
-            this.commandClass = commandClass;
         }
+        this.commandClass = commandClass;
     }
 
     public boolean isListAllCommands() {

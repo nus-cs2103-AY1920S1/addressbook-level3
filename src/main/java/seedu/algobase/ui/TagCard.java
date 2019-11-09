@@ -33,6 +33,8 @@ public class TagCard extends UiPart<Region> {
         tagName.setText(tag.getName());
         tagName.setWrapText(true);
         tagName.setTextAlignment(TextAlignment.JUSTIFY);
+        String colorStyle = "-fx-background-color: " + tag.getColor();
+        tagName.setStyle(colorStyle);
     }
 
     @Override

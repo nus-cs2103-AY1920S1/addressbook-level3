@@ -66,6 +66,7 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditProblemDescriptor editProblemDescriptor;
+    private List<Problem> lastShownList;
 
     /**
      * @param index of the Problem in the filtered Problem list to edit
@@ -89,7 +90,7 @@ public class EditCommand extends Command {
         }
 
         Problem problemToEdit = lastShownList.get(index.getZeroBased());
-        Problem editedProblem = createEditedProblem(problemToEdit, editProblemDescriptor);
+        Problem editedProblem = createEditedProblem(problemToEdit, editProblemDescriptor, model);
 
         if (!problemToEdit.isSameProblem(editedProblem) && model.hasProblem(editedProblem)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PROBLEM, problemToEdit.getName()));
@@ -114,7 +115,9 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Problem} with the details of {@code problemToEdit}
      * edited with {@code editProblemDescriptor}.
      */
-    private static Problem createEditedProblem(Problem problemToEdit, EditProblemDescriptor editProblemDescriptor) {
+    private static Problem createEditedProblem(Problem problemToEdit,
+                                               EditProblemDescriptor editProblemDescriptor,
+                                               Model model) {
         assert problemToEdit != null;
 
         Id id = problemToEdit.getId();
@@ -123,6 +126,13 @@ public class EditCommand extends Command {
         WebLink updatedWebLink = editProblemDescriptor.getWebLink().orElse(problemToEdit.getWebLink());
         Description updatedDescription = editProblemDescriptor.getDescription().orElse(problemToEdit.getDescription());
         Set<Tag> updatedTags = editProblemDescriptor.getTags().orElse(problemToEdit.getTags());
+        for (Tag problemtag : updatedTags) {
+            for (Tag algobasetag : model.getFilteredTagList()) {
+                if (problemtag.getName().equals(algobasetag.getName())) {
+                    problemtag.setColor(algobasetag.getColor());
+                }
+            }
+        }
         Difficulty updatedDifficulty = editProblemDescriptor.getDifficulty().orElse(problemToEdit.getDifficulty());
         Remark updatedRemark = editProblemDescriptor.getRemark().orElse(problemToEdit.getRemark());
         Source updatedSource = editProblemDescriptor.getSource().orElse(problemToEdit.getSource());

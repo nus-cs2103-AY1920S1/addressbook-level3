@@ -8,6 +8,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.algobase.logic.parser.ParserUtil.hasPrefixesPresent;
 import static seedu.algobase.logic.parser.ParserUtil.parseDate;
+import static seedu.algobase.model.problem.Name.isValidName;
 import static seedu.algobase.model.searchrule.plansearchrule.TimeRange.ORDER_CONSTRAINTS;
 import static seedu.algobase.model.searchrule.plansearchrule.TimeRange.isValidRange;
 
@@ -100,6 +101,9 @@ public class FindPlanCommandParser implements Parser {
             String taskName = argumentMultimap.getValue(PREFIX_TASK).get();
             if (taskName.isBlank()) {
                 throw new ParseException(FindPlanCommand.MESSAGE_NO_CONSTRAINTS);
+            }
+            if (!isValidName(taskName)) {
+                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
             }
             Name name = new Name(taskName);
             findPlanDescriptor.setTasksContainsNamePredicate(new TasksContainsNamePredicate(name));
