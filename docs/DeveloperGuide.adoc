@@ -151,7 +151,7 @@ The following activity diagram summarizes what happens to the `UI` component
 when a user executes a new command:
 
 .Flow of Events within `UI`
-image::UiUpdateBookListActivityDiagram.png[width=270]
+image::UiUpdateBookListActivityDiagram.png[width=270, align=center]
 {nbsp} +
 The activity diagram above aims to illustrate how `UI` only updates the `BookListPanel` when the catalog is being updated by a command. +
 We will now move on to give more details about the `Logic` component.
@@ -268,13 +268,13 @@ Additionally, it implements the following operation:
 Given below is an activity diagram of a book being added to the catalog.
 
 .Activity Diagram for adding a book
-image::AddBookActivityDiagram.png[width=270]
+image::AddBookActivityDiagram.png[width=270, align=center]
 {nbsp} +
 
 Given below is a class diagram of a book.
 
 .Class Diagram for `Book`
-image::BookClassDiagram.png[width=400]
+image::BookClassDiagram.png[width=400, align=center]
 {nbsp} +
 
 Notice how the book can hold either *1 or 0 loans*, depending on whether it is currently loaned out or not. +
@@ -283,7 +283,7 @@ Notice how the book can hold either *1 or 0 loans*, depending on whether it is c
 Given below is the object diagram of a newly added book.
 
 .Object Diagram for `Book`
-image::BookObjectDiagram.png[width=300]
+image::BookObjectDiagram.png[width=300, align=center]
 {nbsp} +
 
 We can see that the book holds a `Optional<Loan>` in order to have either *0 or 1 `Loan` objects*. This makes it consistent with the class diagram of `Book` above.
@@ -353,7 +353,7 @@ Step 1. The user launches the application for the first time.
 The `CommandHistory` will be initialized with an empty `commandHistoryList`.
 
 .Initial state of CommandHistory
-image::UndoRedoState0.png[width=300]
+image::UndoRedoState0.png[width=300, align=center]
 
 Step 2. The user executes `delete 5` command to delete the 5th
 book in the catalog. The `delete` command calls `Model#commitCommand()`,
@@ -361,14 +361,14 @@ causing the `delete 5` command to be saved in the `commandHistoryList`,
 and the `currentCommandPointer` is pointed to the newly inserted command.
 
 .State of CommandHistory after `delete 5`
-image::UndoRedoState1.png[width=300]
+image::UndoRedoState1.png[width=300, align=center]
 
 Step 3. The user executes `add t/Animal Farm ...` to add a new book.
 The `add` command also calls `Model#commitCommand()`, causing the add
 command to be saved into the `catalogHistoryList`.
 
 .State of CommandHistory after `add t/Animal Farm`
-image::UndoRedoState2.png[width=300]
+image::UndoRedoState2.png[width=300, align=center]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitCommand()`,
@@ -385,7 +385,7 @@ This will then shift the `currentCommandPointer` once to the left, pointing it
 to the previous `ReversibleCommand` in the `commandListHistory`.
 
 .State of CommandHistory after `undo`
-image::UndoRedoState3.png[width=300]
+image::UndoRedoState3.png[width=300, align=center]
 
 [NOTE]
 If the `currentCommandPointer` is at index -1, pointing to no command,
@@ -418,7 +418,7 @@ will usually not call `Model#commitCommand()`,`Model#undoCommand()` or
 `Model#redoCommand()`. Thus, the `commandHistoryList` remains unchanged.
 
 .State of CommandHistory after `help`
-image::UndoRedoState4.png[width=300]
+image::UndoRedoState4.png[width=300, align=center]
 
 Step 6. The user executes `clear`, which calls `Model#commitCommand()`.
 Since the `currentCommandPointer` is not pointing at the end of the `commandHistoryList`,
@@ -428,12 +428,12 @@ We designed it this way because it no longer makes sense to redo the
 desktop applications follow.
 
 .State of CommandHistory after `clear`
-image::UndoRedoState5.png[width=300]
+image::UndoRedoState5.png[width=300, align=center]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 .Activity diagram for committing Command
-image::CommitActivityDiagram.png[width=300]
+image::CommitActivityDiagram.png[width=300, align=center]
 
 ==== Design Considerations
 
@@ -549,7 +549,7 @@ This feature is mainly facilitated by the `Loan` association class between a `Bo
 at the state when a book is just loaned out can be seen below.
 
 .Loan object diagram after a new Loan is created
-image::LoanObjectDiagram.png[width="800, align=center]
+image::LoanObjectDiagram.png[width=800, align=center]
 {nbsp} +
 
 In this instance, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
@@ -566,7 +566,7 @@ Immutability of each object is supported to ensure correctness of undo and redo 
 The following activity diagram summarizes what happens when a user enters a loan command:
 
 .Activity diagram when a loan command is entered
-image::LoaningActivityDiagram.png[width="580, align=center]
+image::LoaningActivityDiagram.png[width=580, align=center]
 {nbsp} +
 
 NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
@@ -589,7 +589,7 @@ Similarly, the new book object replaces the old book object in the `Catalog` obj
 The following activity diagram summarizes what happens when a user enters a return command:
 
 .Activity diagram when a book is being returned.
-image::ReturningActivityDiagram.png[width="700, align=center]
+image::ReturningActivityDiagram.png[width=700, align=center]
 {nbsp} +
 
 NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
@@ -676,13 +676,13 @@ The diagram below shows a simplified command generation sequence of a 'find t/An
 starting from the CatalogParser
 
 .Sequence Diagram showing the execution of a Find Command input
-image::FindSequenceDiagram.png[width="840]
+image::FindSequenceDiagram.png[width=840, align=center]
 
 The `BookPredicate` class stores in its fields the specific values to match. Default values are mostly null, which will indicate that
 there is no need to filter for that field. Below is an example.
 
-image:BookPredicateEmptyObjectDiagram.png[height="300, align=center]
-image:BookPredicateFilledObjectDiagram.png[height="300, align=center]
+image::BookPredicateEmptyObjectDiagram.png[height=300, align=center]
+image::BookPredicateFilledObjectDiagram.png[height=300, align=center]
 
 .Object Diagram showing the fields present in an empty (left) and partially filled (right) BookPredicate object
 
@@ -898,7 +898,7 @@ I submit a book title query
 The use case diagram below illustrates the main use cases of LiBerry.
 
 .General Use Cases for LiBerry
-image::UseCases.png[width="330, align=center]
+image::UseCases.png[width=330, align=center]
 {nbsp} +
 
 (For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
