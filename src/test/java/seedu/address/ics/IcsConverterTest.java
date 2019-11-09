@@ -49,7 +49,8 @@ public class IcsConverterTest {
         // validate DTSTART field.
         String dtStartString = icsStringArr[3];
         assertTrue(dtStartString.startsWith("DTSTART:"));
-        assertEquals("DTSTART:11111111T030000Z", dtStartString);
+        dtStartString = dtStartString.replace("DTSTART:", "");
+        assertEquals(DateTime.fromIcsString(dtStartString), startDateTime);
 
         // validate SUMMARY field.
         assertEquals("SUMMARY:Test Description", icsStringArr[4]);
@@ -97,7 +98,7 @@ public class IcsConverterTest {
         String dtStartString = icsStringArr[3];
         assertTrue(dtStartString.startsWith("DTSTART:"));
         dtStartString = dtStartString.replace("DTSTART:", "");
-        assertEquals(DateTime.fromIcsString(dtStartString), startDateTime);
+        assertEquals(startDateTime, DateTime.fromIcsString(dtStartString));
 
         // validate SUMMARY field.
         assertEquals("SUMMARY:Test Description", icsStringArr[4]);
@@ -105,7 +106,8 @@ public class IcsConverterTest {
         // validate DTEND field.
         String dtEndString = icsStringArr[5];
         assertTrue(dtEndString.startsWith("DTEND:"));
-        assertEquals(DateTime.fromIcsString(dtEndString), endDateTime);
+        dtEndString = dtEndString.replace("DTEND:", "");
+        assertEquals(endDateTime, DateTime.fromIcsString(dtEndString));
 
         // validate end of ICS VEVENT object field.
         assertEquals("END:VEVENT", icsStringArr[6]);
@@ -177,7 +179,9 @@ public class IcsConverterTest {
         assertEquals("SUMMARY:Test Description", icsStringArr[3]);
 
         // validate DUE field.
-        assertEquals("DUE:11111111T040000Z", icsStringArr[4]);
+        assertTrue(icsStringArr[4].startsWith("DUE:"));
+        String dueDateOutcome = icsStringArr[4].replace("DUE:", "");
+        assertEquals(dueDateTime, DateTime.fromIcsString(dueDateOutcome));
 
         // validate end of ICS VTODO object field.
         assertEquals("END:VTODO", icsStringArr[5]);
