@@ -52,7 +52,6 @@ public class HelpCommandIntegrationTest {
         logicManager.execute("help editprob\n");
         logicManager.execute("help editplan\n");
         logicManager.execute("help edittag\n");
-        logicManager.execute("help edittagcolor\n");
         logicManager.execute("help exit\n");
         logicManager.execute("help findprob\n");
         logicManager.execute("help findplan\n");

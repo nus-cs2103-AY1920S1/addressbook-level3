@@ -93,7 +93,7 @@ image::UiStartPlan.png[]
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/factorial t/recursion` or as `n/factorial`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/recursion`, `t/recursion t/dynamic-programming` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
-* If there are duplicate parameters, *AlgoBase* will only consider the last parameter and ignore previous parameters (with the same parameter name). e.g. `addprob n/nameA n/nameB` will add a problem with name `nameB`.
+* If there are duplicate parameters, and the command format doesn't expect multiple parameters of the same name (i.e. having `...` in its format), *AlgoBase* will only consider the last parameter and ignore previous parameters (with the same parameter name). e.g. `addprob n/nameA n/nameB` will add a problem with name `nameB`.
 ====
 
 === Problems
@@ -190,7 +190,7 @@ Sorts the current list of problems from lowest to highest difficulty.
 ==== Locating problems: `findprob`
 
 Finds problems fulfilling all provided constraints. +
-Format: `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
+Format: `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]`
 
 .The result of `findprob` is shown in the problems list
 image::findprob_1.png[width="70%"]
@@ -242,7 +242,7 @@ Returns any problem from `Kattis` that's authored by `Hentin Marz`.
 ==== Storing a problem-finding rule: `addfindrule`
 
 Saves a problem-finding rule from provided constraints. +
-Format: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...` +
+Format: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]` +
 Alias: `afr`
 
 .Information related to find rules is displayed in the "Find Rules" panel
@@ -331,22 +331,11 @@ Examples:
 ==== Editing tags: `edittag`
 
 Edits an existing tag. +
-Format: `edittag INDEX t/NAME`
+Format: `edittag INDEX [t/NAME] [c/COLOR]`
 
 Examples:
 
-* `edittag 1 t/difficult`
-
-==== Editing tag color: `edittagcolor`
-
-Edits an existing tag's tag color +
-Format: `edittagcolor INDEX c/TAGCOLOR` +
-Alias: `etc`
-
-Examples:
-
-* `edittagcolor 1 c/RED`
-* `etc 1 c/RED`
+* `edittag 1 t/difficult c/BLUE`
 
 
 // tag::plan[]
@@ -747,10 +736,11 @@ e.g. `addtag t/sssp c/BLUE`
 ** *List Tags* : `listtag`
 ** *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
-** *Edit Tag* : `edittag INDEX t/TAGNAME` +
-e.g. `edittag 1 t/sort`
-** *Edit Tag Color* : `edittagcolor INDEX c/COLOR` +
-e.g. `edittagcolor 1 c/RED`
+
+
+** *Edit tag* : `edittag INDEX [t/TAGNAME] [c/COLOR]` +
+e.g. `edittag 1 t/sort c/BLUE`
+
 
 * Plans
 ** *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +

@@ -3,6 +3,10 @@ package seedu.algobase.logic.parser.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG_COLOR;
+
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.tag.EditTagCommand;
@@ -10,6 +14,7 @@ import seedu.algobase.logic.parser.ArgumentMultimap;
 import seedu.algobase.logic.parser.ArgumentTokenizer;
 import seedu.algobase.logic.parser.Parser;
 import seedu.algobase.logic.parser.ParserUtil;
+import seedu.algobase.logic.parser.Prefix;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
@@ -22,10 +27,11 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
      * and returns an EditTagCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+
     public EditTagCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_TAG_COLOR);
 
         Index index;
 
@@ -35,6 +41,22 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTagCommand.MESSAGE_USAGE), pe);
         }
 
-        return new EditTagCommand(index, argMultimap.getValue(PREFIX_TAG).get());
+        Optional<String> name;
+        if (arePrefixesPresent(argMultimap, PREFIX_TAG)) {
+            name = Optional.ofNullable(argMultimap.getValue(PREFIX_TAG).get());
+        } else {
+            name = Optional.empty();
+        }
+        Optional<String> color;
+        if (arePrefixesPresent(argMultimap, PREFIX_TAG_COLOR)) {
+            color = Optional.ofNullable(argMultimap.getValue(PREFIX_TAG_COLOR).get());
+        } else {
+            color = Optional.empty();
+        }
+
+        return new EditTagCommand(index, name, color);
+    }
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

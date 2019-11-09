@@ -40,13 +40,13 @@ public class EditTagCommandIntegrationTest {
     @Test
     public void edittag_allConstraints() throws CommandException, ParseException {
         logicManager.execute("edittag 1 t/edited \n");
-        logicManager.execute("edittagcolor 1 c/RED");
-        logicManager.execute("edittagcolor 1 c/YELLOW");
-        logicManager.execute("edittagcolor 1 c/ORANGE");
-        logicManager.execute("edittagcolor 1 c/GREEN");
-        logicManager.execute("edittagcolor 1 c/BLUE");
-        logicManager.execute("edittagcolor 1 c/PURPLE");
-        logicManager.execute("edittagcolor 1 c/TEAL");
-        logicManager.execute("edittagcolor 1 c/DEFAULT");
+        logicManager.execute("edittag 1 c/RED");
+        logicManager.execute("edittag 1 c/YELLOW");
+        logicManager.execute("edittag 1 c/ORANGE");
+        logicManager.execute("edittag 1 c/GREEN");
+        logicManager.execute("edittag 1 c/BLUE");
+        logicManager.execute("edittag 1 c/PURPLE");
+        logicManager.execute("edittag 1 c/TEAL");
+        logicManager.execute("edittag 1 c/DEFAULT");
     }
 }

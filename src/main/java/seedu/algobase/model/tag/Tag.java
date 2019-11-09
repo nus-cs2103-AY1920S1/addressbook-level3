@@ -108,7 +108,7 @@ public class Tag {
             || color.equalsIgnoreCase("PURPLE")
             || color.equalsIgnoreCase("BLACK")
             || color.equalsIgnoreCase("TEAL")
-            || color.equalsIgnoreCase("DEFAULT")
+            || color.equals("DEFAULT")
             || color.equalsIgnoreCase("#3e7b91")) {
             isValid = true;
         }
@@ -131,7 +131,7 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + tagName + ']';
+        return '[' + tagName + " " + tagColor + ']';
     }
 
     /**
