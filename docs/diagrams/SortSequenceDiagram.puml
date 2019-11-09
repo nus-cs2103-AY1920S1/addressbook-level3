@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":BankAccountParser" as BankAccountParser LOGIC_COLOR
+participant ":MainParser" as MainParser LOGIC_COLOR
 participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
 participant "s:SortCommand" as SortCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
@@ -17,17 +17,17 @@ end box
 [-> LogicManager : execute(sort amount)
 activate LogicManager
 
-LogicManager -> BankAccountParser : parseCommand(sort amount)
-activate BankAccountParser
+LogicManager -> MainParser : parseCommand(sort amount)
+activate MainParser
 
 create SortCommandParser
-BankAccountParser -> SortCommandParser
+MainParser -> SortCommandParser
 activate SortCommandParser
 
-SortCommandParser --> BankAccountParser
+SortCommandParser --> MainParser
 deactivate SortCommandParser
 
-BankAccountParser -> SortCommandParser : parse(sort amount)
+MainParser -> SortCommandParser : parse(sort amount)
 activate SortCommandParser
 
 create SortCommand
@@ -37,14 +37,14 @@ activate SortCommand
 SortCommand --> SortCommandParser
 deactivate SortCommand
 
-SortCommandParser --> BankAccountParser
+SortCommandParser --> MainParser
 deactivate SortCommandParser
 
-SortCommandParser -[hidden]-> BankAccountParser
+SortCommandParser -[hidden]-> MainParser
 destroy SortCommandParser
 
-BankAccountParser --> LogicManager : s
-deactivate BankAccountParser
+MainParser --> LogicManager : s
+deactivate MainParser
 
 LogicManager -> SortCommand : execute()
 activate SortCommand
