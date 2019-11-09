@@ -2,7 +2,6 @@ package com.typee.logic.interactive.parser.state.clearmachine;
 
 import com.typee.logic.commands.ClearCommand;
 import com.typee.logic.commands.Command;
-import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.EndState;
@@ -21,7 +20,7 @@ public class ClearState extends EndState {
     }
 
     @Override
-    public Command buildCommand() throws CommandException {
+    public Command buildCommand() {
         return new ClearCommand();
     }
 
