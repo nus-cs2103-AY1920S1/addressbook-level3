@@ -89,7 +89,14 @@ public class Snake {
      * @return {@code true} if the Snake hasn't run into itself yet.
      */
     public boolean isSafe() {
-        return safe || length == 1;
+        return safe;
+    }
+
+    /**
+     * Marks snake as unsafe
+     */
+    public void markAsUnsafe() {
+        safe = false;
     }
 
     /**
