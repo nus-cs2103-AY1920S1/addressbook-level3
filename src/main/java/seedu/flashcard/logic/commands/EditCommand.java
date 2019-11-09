@@ -16,7 +16,6 @@ import java.util.Set;
 
 import seedu.flashcard.commons.core.Messages;
 import seedu.flashcard.commons.core.index.Index;
-import seedu.flashcard.commons.exceptions.IllegalValueException;
 import seedu.flashcard.commons.util.CollectionUtil;
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;

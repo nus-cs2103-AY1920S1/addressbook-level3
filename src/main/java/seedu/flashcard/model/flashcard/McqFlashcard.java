@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import seedu.flashcard.commons.exceptions.IllegalValueException;
 import seedu.flashcard.model.tag.Tag;
 
 /**
@@ -14,7 +13,6 @@ import seedu.flashcard.model.tag.Tag;
 public class McqFlashcard extends Flashcard {
 
     private final List<Choice> choices = new ArrayList<>();
-    public static final String MESSAGE_ILLEGAL_FLASHCARD = "The Json file provided an illegal flashcard";
 
     /**
      * This is the initializer when user is creating a new flashcard
