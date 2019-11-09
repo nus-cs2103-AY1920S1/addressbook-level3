@@ -415,10 +415,11 @@ image::FillCommandNoParamsSequenceDiagram.png[width="600"]
 * The old incident report will be removed from the system and be replaced with the new updated incident report.
 * The new incident report is placed at the front of the incident list for easy access.
 
-image::FillCommandWithParamsSequenceDiagram.png[width="800"]
 In this sequence diagram, the helper methods within `FillCommand` are omitted for clarity.
 
 The `SubmitCommand` functions similarly, with one crucial difference. As no Incident fields are to be updated, the specified incident is simply retrieved, and its fields are copied into a new `Incident` object with a `SUBMITTED_REPORT` status.
+
+image::FillCommandWithParamsSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -428,21 +429,17 @@ The `SubmitCommand` functions similarly, with one crucial difference. As no Inci
 ** Pros: +
 1. Intuitive and convenient to use. If user needs easy access to reports that can be filled or submitted, they do not need to remember a new command keyword. +
 2. Requires lesser code. Abstraction of the filtered listing subroutine reduces the amount of redundant code. +
-** Cons: +
-1. Might be potentially confusing to user as `FillCommand` is performing a function of listing that is extraneous to the function of filling.
-2. This mode might be redundant **if** the user follows a strict incident management workflow where any newly generated incident is promptly filled and submitted without it remaining in the system as a draft.
+** Con: 1. Might be potentially confusing to user as `FillCommand` is performing a function of listing that is extraneous to the function of filling.
 * **Alternative 1:** Extend `FillCommand` to create two child classes `FillCommandNoParams` and `FillCommandWithParams`. +
 ** Pros: +
 1. Better use of the OOP principle of inheritance. +
 2. Reduce coupling between `ListIncidentsCommand` and `FillCommand`.
-** Con: +
+** Cons: +
 1. Increases amount of code and hence marginally reduces app performance as one additional new class needs to be created.
 2. Misleading use of abstraction as the `FillCommandNoParams` is technically not performing the function of filling but that of listing.
 * **Alternative 2:** Separate the 'listing' and the 'filling' aspect by using separate command words.
-** Pro: +
-1. Most appropriate use of abstraction and single responsibility principle, which are crucial OOP concepts.
-** Con: +
-1. User needs to either remember an additional command word or type a longer `list-i` command by specifying the filter predicate, which reduces user convenience.
+** Pro: 1. Most appropriate use of abstraction and single responsibility principle, which are crucial OOP concepts.
+** Con: 1. User needs to either remember an additional command word or type a longer `list-i` command by specifying the filter predicate, which reduces user convenience.
 
 ===== Aspect: How incident `fill` and `submit` commands execute in parameter mode
 
@@ -450,19 +447,15 @@ The `SubmitCommand` functions similarly, with one crucial difference. As no Inci
 ** Pros: +
 1. Improved accountability. Prevents a user from changing the most important fields of the incident report, such as `incidentId`, `incidentDateTime`, and `vehicle`, without first committing the report into the system. +
 2. More convenient for the user as they only have to specify 2 report fields instead of 6 or 7.
-** Con: +
-1. User is unable to fill `callerNumber` independently of `description` unless they first submit the incident report and then use the `edit` command.
+** Con: 1. User is unable to fill `callerNumber` independently of `description` unless they first submit the incident report and then use the `edit` command.
 * **Alternative 1:** Combine `fill` and `submit` functions i.e. filling a report completely will automatically submit it.
 ** Pros: +
 1. Easier to implement as Incident reports have two statuses - DRAFT or SUBMITTED - instead of three.
 2. More convenient as this results in one less step in the user's workflow and one less command word for the user to remember.
-** Con: +
-1. Less adaptable and modular. If new fields are added to the incident report, then the user might want to enter / replace those fields by executing repeated fill commands in parameter mode without committing the report into the system and possibly alerting their supervisors and/or relevant agencies with incomplete / likely to change information.
+** Con: 1. Less adaptable and modular. If new fields are added to the incident report, then the user might want to enter / replace those fields by executing repeated fill commands without committing the report into the system with incomplete / likely to change information.
 * **Alternative 2:** Allow `fill` command to fill variable number of fields.
-** Pro: +
-1. Satisfies the cons of the two approaches above as it is versatile enough to allow the user to independently fill different incident report fields as well as adaptable enough to accommodate extra fields.
-** Con: +
-1. Harder to implement as we would need more elaborate methods to parse the variable arguments.
+** Pro: 1. Satisfies the cons of the two approaches above as it is versatile enough to allow the user to independently fill different incident report fields as well as adaptable enough to accommodate extra fields.
+** Con: 1 . Harder to implement as we would need more elaborate methods to parse the variable arguments.
 
 ==== Known Issues
 
