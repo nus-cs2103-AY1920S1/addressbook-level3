@@ -23,7 +23,6 @@ import seedu.address.logic.commands.CommandMasterList;
  * AutoComplete added to textfield.
  * listens to user input and populates
  * drop down menu with existing commands
- * solution adopted from https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions
  */
 public class AutoCompleteTextField extends TextField {
 
@@ -82,7 +81,7 @@ public class AutoCompleteTextField extends TextField {
      */
     private void setListener() {
         textProperty().addListener(changeListener);
-        logger.info("Listening to command box.");
+        logger.info("Listening to textfield.");
     }
 
     /**
@@ -94,7 +93,7 @@ public class AutoCompleteTextField extends TextField {
      * @param searchRequest
      */
     private void populatePopup(List<String> searchResult, String searchRequest) {
-        assert !searchResult.isEmpty();
+        assert !searchResult.isEmpty() : "Search result must be non-empty in this method.";
         List<CustomMenuItem> menuItems = new LinkedList<>();
         int maxEntries = 10;
         int count = Math.min(searchResult.size(), maxEntries);
@@ -123,7 +122,7 @@ public class AutoCompleteTextField extends TextField {
      * shutsdown listener for autocomplete
      */
     public void shutdown() {
-        logger.info("Shutting down autocomplete listener for commandbox....");
+        logger.info("Shutting down autocomplete listener for textfield....");
         textProperty().removeListener(changeListener);
     }
 

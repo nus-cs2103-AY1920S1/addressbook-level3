@@ -49,13 +49,14 @@ public class UploadPictureCommand extends Command {
 
         requireNonNull(index);
         requireNonNull(fileName);
-        assert fileName.length() > 5;
+
+        assert fileName.length() > 4 : "Filename should be at least 4 letters long to be valid!";
         int start = fileName.length() - 3;
 
         boolean isPng = fileName.substring(start).equals("png");
         boolean isJpg = fileName.substring(start).equals("jpg");
 
-        assert isPng || isJpg;
+        assert isPng || isJpg : "File should be a JPG or PNG file!";
 
         this.index = index;
         this.fileName = fileName;

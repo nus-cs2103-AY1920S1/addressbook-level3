@@ -37,6 +37,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        assert commandTextField != null : "Textfield must be initialised by now.";
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
@@ -74,7 +75,6 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
      * @param keyCode
      */
     private void keyPressed(KeyCode keyCode) {
-        logger.info("Shortcut Key pressed.");
         if (keyCode == KeyCode.UP) {
             try {
                 String previousCommand = history.getPastCommand();
@@ -91,7 +91,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
                 commandTextField.setText((""));
             }
         }
-        if (keyCode == KeyCode.TAB) {
+        if (keyCode == KeyCode.CONTROL) {
             try {
                 commandTextField.setAutoCompleteResult();
             } catch (Exception e) {
