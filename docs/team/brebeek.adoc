@@ -77,7 +77,7 @@ careful tweaks to existing structures.
 *** Managed milestones `v1.2` - `v1.4` on GitHub
 ** Enhancements to existing features:
 *** Updated part of the find feature (Pull request https://github.com/AY1920S1-CS2103T-F14-3/main[#111])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main[#36], https://github.com/AY1920S1-CS2103T-F14-3/main[#38])
+*** Wrote additional tests for existing features to increase coverage from 50% to 65% (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main[#36], https://github.com/AY1920S1-CS2103T-F14-3/main[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-F14-3/main[#14]
 ** Community:

@@ -164,7 +164,7 @@ Deletes the 1st appointment in the results of the `find` command.
 Clears all appointments from the appointment manager. +
 Format: `clear`
 
-//tag:undo-redo[]
+//tag::undo-redo[]
 === Undoing the previous command : `undo`
 Undoes the previous command, provided that it exists. +
 Format: `undo`
