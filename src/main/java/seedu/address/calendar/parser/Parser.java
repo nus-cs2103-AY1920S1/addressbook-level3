@@ -10,11 +10,14 @@ import java.util.regex.Pattern;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+/**
+ * An abstract class which represents a parser.
+ */
 public abstract class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    protected static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -35,5 +38,13 @@ public abstract class Parser {
         return parseCommand(commandWord, arguments);
     }
 
+    /**
+     * Parses user input after the initial input has been successfully separated into command word and arguments.
+     *
+     * @param commandWord The command word specified by the user
+     * @param arguments The arguments entered by the user
+     * @return A command that is representative of that requested by the user
+     * @throws ParseException if the user input is invalid
+     */
     protected abstract Command<Calendar> parseCommand(String commandWord, String arguments) throws ParseException;
 }
