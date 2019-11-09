@@ -80,7 +80,8 @@ public class StatsWindow extends UiPart<Stage> {
 
         int upperBoundA = findUpperBound(numGood, numHard, numEasy);
         int upperBoundB = findUpperBound(stats[0], stats[1], stats[2]);
-        initialize(bc1, bc2, lc, xAxisA, xAxisB, xAxisC, yAxisA, yAxisB, yAxisC, upperBoundA, upperBoundB, perform.size());
+        initialize(bc1, bc2, lc, xAxisA, xAxisB, xAxisC, yAxisA,
+                yAxisB, yAxisC, upperBoundA, upperBoundB, perform.size());
 
         XYChart.Series seriesA = new XYChart.Series();
         seriesA.getData().add(new XYChart.Data(GOOD, numGood));
@@ -151,7 +152,8 @@ public class StatsWindow extends UiPart<Stage> {
      * Sets the title & labels the axis of the charts.
      * Sets the boundary and precision for the axis if needed.
      */
-    public void initialize(BarChart bc1, BarChart bc2, LineChart lc, CategoryAxis xAxisA, CategoryAxis xAxisB, NumberAxis xAxisC, NumberAxis yAxisA, NumberAxis yAxisB, NumberAxis yAxisC, int upperBoundA, int upperBoundB, int upperBoundC) {
+    public void initialize(BarChart bc1, BarChart bc2, LineChart lc, CategoryAxis xAxisA, CategoryAxis xAxisB,
+                           NumberAxis xAxisC, NumberAxis yAxisA, NumberAxis yAxisB, NumberAxis yAxisC, int upperBoundA, int upperBoundB, int upperBoundC) {
         bc1.setTitle("Total");
         bc2.setTitle("Completed in tests");
         lc.setTitle("Performance Chart");
@@ -189,14 +191,14 @@ public class StatsWindow extends UiPart<Stage> {
     /**
      * Returns the highest value
      */
-    public int findUpperBound(int A, int B, int C) {
-        int largest = A;
+    public int findUpperBound(int one, int two, int three) {
+        int largest = one;
 
-        if (B > largest) {
-            largest = B;
+        if (two > largest) {
+            largest = two;
         }
-        if (C > largest) {
-            largest = C;
+        if (three > largest) {
+            largest = three;
         }
 
         return largest;
