@@ -92,8 +92,8 @@ public class AddAppCommand extends ReversibleCommand {
             return new CommandResult(String.format(
                     MESSAGE_SUCCESS_REOCCURRING,
                     eventList.size(),
-                    eventList.get(1).getPersonId(),
-                    eventList.get(1).getPersonName(),
+                    eventList.get(0).getPersonId(),
+                    eventList.get(0).getPersonName(),
                     eventList.stream()
                             .map(e -> e.getEventTiming().toString()).collect(Collectors.joining("\n"))));
 
