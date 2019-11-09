@@ -1,9 +1,11 @@
 package dream.fcard.gui.controllers.displays.test;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -23,6 +25,8 @@ public class EndOfTestAlert {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);
+        window.getIcons().add(new Image(EndOfTestAlert.class.getResourceAsStream(
+            "/images/icon_black_resized.png")));
 
         Label label = new Label();
         label.setText(message);
@@ -30,6 +34,7 @@ public class EndOfTestAlert {
         closeButton.setOnAction(e -> window.close());
 
         VBox layout = new VBox(10);
+        layout.setPadding(new Insets(20));
         layout.getChildren().addAll(label, closeButton);
         layout.setAlignment(Pos.CENTER);
         //

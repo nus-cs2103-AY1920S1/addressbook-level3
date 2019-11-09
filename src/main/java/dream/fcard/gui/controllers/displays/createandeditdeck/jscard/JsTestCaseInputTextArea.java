@@ -5,13 +5,12 @@ import java.io.IOException;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 
 /**
  * A file uploader for Js card creating.
  */
-public class JsTestCaseInputTextArea extends ScrollPane {
+public class JsTestCaseInputTextArea extends TextArea {
     @FXML
     private TextArea testCaseTextArea;
 

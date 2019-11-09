@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -28,7 +29,9 @@ public class StatsDisplayUtil {
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new StatisticsWindow());
         stage.setScene(scene);
-        stage.setTitle("My Statistics");
+        stage.getIcons().add(new Image(StatisticsWindow.class.getResourceAsStream(
+            "/images/icon_black_resized.png")));
+        stage.setTitle("FlashCard Pro: My overall statistics");
         stage.show();
     }
 
@@ -38,7 +41,9 @@ public class StatsDisplayUtil {
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new DeckStatisticsWindow(deck));
         stage.setScene(scene);
-        stage.setTitle("My Statistics");
+        stage.getIcons().add(new Image(DeckStatisticsWindow.class.getResourceAsStream(
+            "/images/icon_black_resized.png")));
+        stage.setTitle("My statistics for deck: " + deck.getDeckName());
         stage.show();
     }
 
@@ -78,8 +83,21 @@ public class StatsDisplayUtil {
         return getSessionsTableView(userSessionList);
     }
 
-    //public static TableView<Session> getTestSessionsTableView(Deck deck)
-    // todo
+    /**
+     * Creates the TableView object for the user's test sessions involving the given deck.
+     * @param deck The deck whose test sessions are to be displayed.
+     * @return The TableView object showing the user's test sessions.
+     */
+    public static TableView<Session> getTestSessionsTableView(Deck deck) {
+        SessionList testSessionList = deck.getTestSessionList();
+        TableView<Session> testSessionTableView = getSessionsTableView(testSessionList);
+
+        TableColumn<Session, String> scoreColumn = new TableColumn<>("Score");
+        scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+        testSessionTableView.getColumns().add(scoreColumn);
+
+        return testSessionTableView;
+    }
 
     /** Creates the TableView object representing the list of decks. */
     public static TableView<Deck> getDeckTableView() {
@@ -100,6 +118,8 @@ public class StatsDisplayUtil {
 
         //TableColumn<Deck, Double> avgScoreColumn = new TableColumn<>("Average score");
         //avgScoreColumn.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
+        // todo: figure out how to call getAverageScore() on the sessionList instead of also making
+        //  averageScore an attribute of Deck
 
         deckTableView.getColumns().add(nameColumn);
         deckTableView.getColumns().add(numCardsColumn);
@@ -108,6 +128,4 @@ public class StatsDisplayUtil {
 
         return deckTableView;
     }
-
-    ///** Creates the TableView object representing the list of sessions for a deck. */
 }

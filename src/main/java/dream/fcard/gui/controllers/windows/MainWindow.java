@@ -58,6 +58,7 @@ public class MainWindow extends VBox {
     private Consumer<Pane> swapDisplays = p -> {
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(p);
+        //displayScrollPane.setVvalue(0);
     };
     private Consumer<String> displayMessage = message -> {
         messageLabel.setText(message);
@@ -72,6 +73,7 @@ public class MainWindow extends VBox {
         DeckDisplay deckDisplay = new DeckDisplay(d);
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(deckDisplay);
+        //displayScrollPane.setVvalue(0);
     };
     //private Consumer<Boolean> exitCreate = b -> exitCreate();
 
@@ -152,17 +154,6 @@ public class MainWindow extends VBox {
         displayContainer.getChildren().add(tempCreateDeckDisplay);
     }
 
-    ///**
-    // * Switches the display pane to create pane, used to enter StateEnun.CREATE.
-    // *
-    // * @param s The name of the deck being created.
-    // */
-    //private void showCreateNewDeckForm(String s) {
-    //    displayContainer.getChildren().clear();
-    //    this.tempCreateDeckDisplay = new CreateDeckDisplay(s);
-    //    displayContainer.getChildren().add(tempCreateDeckDisplay);
-    //}
-
     /**
      * When user wants to create/edit deck, put the editing pane.
      * Otherwise when the user clicks on a deck, put the deck display Pane containing info about the deck.
@@ -177,6 +168,7 @@ public class MainWindow extends VBox {
             DeckDisplay deckDisplay = new DeckDisplay(StateHolder.getState().getDecks().get(0));
             displayContainer.getChildren().clear();
             displayContainer.getChildren().add(deckDisplay);
+            //displayScrollPane.setVvalue(0);
         }
     }
 
@@ -204,7 +196,6 @@ public class MainWindow extends VBox {
         Consumers.addConsumer(ConsumerSchema.CREATE_NEW_DECK, create);
         Consumers.addConsumer(ConsumerSchema.SEE_SPECIFIC_DECK, seeDeck);
         Consumers.addConsumer(ConsumerSchema.QUIT_PROGRAM, quitProgram);
-        //Consumers.addConsumer(ConsumerSchema.OPEN_WINDOW, openWindow);
     }
 
     /**

@@ -5,12 +5,12 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.HBox?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="500.0" spacing="5.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <TextArea fx:id="inputTextArea" prefHeight="43.0" prefWidth="187.0" />
-        <TextArea fx:id="outputTextArea" prefHeight="43.0" prefWidth="191.0" />
-        <Button fx:id="addRowButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" text="Add" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="deleteRowButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="58.0" text="Delete" textAlignment="CENTER" wrapText="true" />
+        <TextArea fx:id="inputTextArea" prefHeight="50.0" prefWidth="150.0" promptText="Enter input..." />
+        <TextArea fx:id="outputTextArea" prefHeight="50.0" prefWidth="150.0" promptText="Enter expected output..." />
+        <Button fx:id="addRowButton" mnemonicParsing="false" text="Add" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="deleteRowButton" mnemonicParsing="false" text="Delete" textAlignment="CENTER" wrapText="true" />
     </children>
     <opaqueInsets>
         <Insets />

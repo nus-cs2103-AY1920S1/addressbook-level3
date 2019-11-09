@@ -22,7 +22,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 /**
@@ -30,7 +29,7 @@ import javafx.scene.layout.VBox;
  */
 public class CardCreatingWindow extends VBox {
     @FXML
-    private TextField questionField;
+    private TextArea questionField;
     @FXML
     private VBox answerContainer;
     @FXML

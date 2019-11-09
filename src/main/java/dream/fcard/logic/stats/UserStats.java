@@ -17,9 +17,4 @@ public class UserStats extends Stats {
         super();
         System.out.println("New UserStats object created");
     }
-
-    // todo: calculate number of sessions in past week, past month etc. should this generate a list?
-    // todo: possibly compare past week to previous week etc.
-
-    // methods copied from Stats
 }

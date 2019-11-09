@@ -28,7 +28,7 @@ import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.RegexUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
 
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 /**
  * The enums are composed of three properties:
@@ -72,7 +72,7 @@ public enum Responses {
 
                     if (!validCommand) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command! "
-                                + "Type 'help' for the UserGuide'.");
+                                + "Type 'help' for all available commands'.");
                     }
                     return true;
                 }
@@ -86,8 +86,7 @@ public enum Responses {
                     LogsCenter.getLogger(Responses.class).info("COMMAND: HELP");
                     //@author
 
-
-                    //TODO open a window to UserGuide.html (by Taha)
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, HelpCommand.generalHelp());
                     return true;
                 }
     ),
@@ -266,7 +265,7 @@ public enum Responses {
             "^((?i)(add)).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct "
                             + "format of the Add command, type 'help command/add'");
                     return true;
                 }
@@ -278,7 +277,23 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("edit",
-                            new String[]{"deck/", "index/", "front/", "back/", "choiceIndex/", "choice/"}, i);
+                            new String[]{
+                                "deck/",
+                                "index/",
+                                "front/",
+                                "back/",
+                                "choiceIndex/",
+                                "choice/"},
+                            i);
+
+                    // @@author PhireHandy
+                    boolean hasValidEditField = res.get(2).size() == 1 || res.get(3).size() == 1
+                            || res.get(4).size() == 1 || res.get(5).size() == 1;
+
+                    if (hasValidEditField) {
+                        StateHolder.getState().addCurrDecksToDeckHistory();
+                    }
+                    //@@author
 
                     //@@author huiminlim
                     boolean hasDeckName = res.get(0).size() == 1;
@@ -286,7 +301,7 @@ public enum Responses {
 
                     // Checks if "deck/" and "index" are supplied.
                     if (!hasDeckName || !hasIndex) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct "
                                 + "format of the Edit command, type 'help command/Edit'");
                         return true;
                     }
@@ -330,9 +345,6 @@ public enum Responses {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! "
                                 + "Front Back card has no choices.");
                     }
-
-                    ArrayList<Deck> currDecks = StateHolder.getState().getDecks();
-
 
                     boolean hasFront = res.get(2).size() == 1;
                     System.out.println(hasFront);
@@ -379,9 +391,8 @@ public enum Responses {
 
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is complete.");
 
-                    if (!(StateHolder.getState().completelyEquals(currDecks))) {
-                        StateHolder.getState().addDecksToDeckHistory(currDecks);
-                    }
+                    Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+                    Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
                     //@author
 
                     return true;
@@ -432,6 +443,16 @@ public enum Responses {
                     try {
                         Deck deck = StateHolder.getState().getDeck(deckName);
                         int index = Integer.parseInt(res.get(1).get(0));
+
+                        /*
+                        boolean isIndexValid = index > 0 && index <= deck.getSize();
+                        if (!isIndexValid) {
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
+                                    + "Index is invalid");
+                        }
+
+                         */
+                        StateHolder.getState().addCurrDecksToDeckHistory();
                         deck.removeCard(index);
                     } catch (DeckNotFoundException d) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
@@ -581,7 +602,7 @@ public enum Responses {
                     try {
                         StateHolder.getState().undoDeckChanges();
                         StorageManager.writeDecks(StateHolder.getState().getDecks());
-                        Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
                         return true;
                     } catch (NoDeckHistoryException ndhExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, ndhExc.getMessage());
@@ -597,7 +618,6 @@ public enum Responses {
                         StateHolder.getState().redoDeckChanges();
                         StorageManager.writeDecks(StateHolder.getState().getDecks());
                         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
-
                         return true;
                     } catch (NoUndoHistoryException nuhExc) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, nuhExc.getMessage());
@@ -627,7 +647,7 @@ public enum Responses {
                             ExamRunner.terminateExam();
                         }
                     }
-                    AnchorPane newCard = exam.getCardDisplayFront();
+                    Pane newCard = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -645,7 +665,7 @@ public enum Responses {
                 i -> {
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.downIndex();
-                    AnchorPane newCard = exam.getCardDisplayFront();
+                    Pane newCard = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", newCard);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -684,7 +704,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardFront = exam.getCardDisplayFront();
+                    Pane cardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
                 }
@@ -695,7 +715,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_FBCARD_BACK);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardBack = exam.getCardDisplayBack();
+                    Pane cardBack = exam.getCardDisplayBack();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
                 }
@@ -707,7 +727,7 @@ public enum Responses {
                     Consumers.doTask("GET_SCORE", true);
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.upIndex();
-                    AnchorPane nextCardFront = exam.getCardDisplayFront();
+                    Pane nextCardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -720,7 +740,7 @@ public enum Responses {
                     Consumers.doTask("GET_SCORE", false);
                     Exam exam = ExamRunner.getCurrentExam();
                     exam.upIndex();
-                    AnchorPane nextCardFront = exam.getCardDisplayFront();
+                    Pane nextCardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
                     Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
                     return true;
@@ -745,7 +765,7 @@ public enum Responses {
                     } catch (IndexNotFoundException e) {
                         Consumers.doTask("DISPLAY_MESSAGE", "Invalid Choice");
                     }
-                    AnchorPane cardBack = exam.getCardDisplayBack();
+                    Pane cardBack = exam.getCardDisplayBack();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardBack);
                     return true;
                 }
@@ -756,7 +776,7 @@ public enum Responses {
                 i -> {
                     StateHolder.getState().setCurrState(StateEnum.TEST_MCQ);
                     Exam exam = ExamRunner.getCurrentExam();
-                    AnchorPane cardFront = exam.getCardDisplayFront();
+                    Pane cardFront = exam.getCardDisplayFront();
                     Consumers.doTask("SWAP_CARD_DISPLAY", cardFront);
                     return true;
                 }

@@ -2,6 +2,7 @@
 package dream.fcard.util.stats;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
+import dream.fcard.logic.stats.TestSession;
+import dream.fcard.logic.stats.TestSessionList;
 
 public class SessionListUtilTest {
 
@@ -50,6 +53,38 @@ public class SessionListUtilTest {
         return sessionListForTest;
     }
 
+    private TestSessionList getTestSessionListForTest() {
+        TestSessionList testSessionList = new TestSessionList();
+
+        TestSession testSessionOne = new TestSession(sessionOne, "3/20");
+        TestSession testSessionTwo = new TestSession(sessionTwo, "6/20");
+        TestSession testSessionThree = new TestSession(sessionThree, "9/20");
+        TestSession testSessionFour = new TestSession(sessionFour, "12/20");
+        TestSession testSessionFive = new TestSession(sessionFour, "15/20");
+
+        testSessionList.addSession(testSessionOne);
+        testSessionList.addSession(testSessionTwo);
+        testSessionList.addSession(testSessionThree);
+        testSessionList.addSession(testSessionFour);
+        testSessionList.addSession(testSessionFive);
+
+        return testSessionList;
+    }
+
+    @Test
+    void testSessionList_containsTestSessionsWithScores() {
+        boolean isValid = true;
+        ArrayList<TestSession> testSessionArrayList = getTestSessionListForTest()
+            .getTestSessionArrayList();
+        for (TestSession testSession : testSessionArrayList) {
+            if (!testSession.hasScore()) {
+                isValid = false;
+            }
+        }
+
+        assertTrue(isValid);
+    }
+
     @Test
     void getSublistAfterCutoff_testOne() {
         SessionList sessionListForTest = getSessionListForTest();
@@ -69,37 +104,79 @@ public class SessionListUtilTest {
     }
 
     @Test
-    void getScoreAsPercentage_testOne() {
+    void getScoreAsPercentageString_testOne() {
         String score = "5/10";
-        String expectedString = "50"; // 5/10 = 1/2 = 50%
-        String obtainedString = SessionListUtil.getScoreAsPercentage(score);
+        String expectedString = "50.0%"; // 5/10 = 1/2 = 50.0%
+        String obtainedString = SessionListUtil.getScoreAsPercentageString(score);
 
         assertEquals(expectedString, obtainedString);
     }
 
     @Test
-    void getScoreAsPercentage_testTwo() {
+    void getScoreAsPercentageString_testTwo() {
         String score = "3/15";
-        String expectedString = "20"; // 3/15 = 1/5 = 20%
-        String obtainedString = SessionListUtil.getScoreAsPercentage(score);
+        String expectedString = "20.0%"; // 3/15 = 1/5 = 20.0%
+        String obtainedString = SessionListUtil.getScoreAsPercentageString(score);
 
         assertEquals(expectedString, obtainedString);
     }
 
     @Test
-    void getScoreAsPercentage_testThree() {
+    void getScoreAsPercentageString_testThree() {
         String score = "3/7";
-        String expectedString = "42.86"; // 3/7 = 0.42857...
-        String obtainedString = SessionListUtil.getScoreAsPercentage(score);
+        String expectedString = "42.86%"; // 3/7 = 0.42857...
+        String obtainedString = SessionListUtil.getScoreAsPercentageString(score);
 
         assertEquals(expectedString, obtainedString);
     }
 
     @Test
-    void getScoreAsPercentage_testFour() {
+    void getScoreAsPercentageString_testFour() {
         String score = "17/23";
-        String expectedString = "73.91"; // 17/23 = 0.73913...
-        String obtainedString = SessionListUtil.getScoreAsPercentage(score);
+        String expectedString = "73.91%"; // 17/23 = 0.73913...
+        String obtainedString = SessionListUtil.getScoreAsPercentageString(score);
+
+        assertEquals(expectedString, obtainedString);
+    }
+
+    @Test
+    void convertScoreDoubleToString_testOne() {
+        double score = 73.91;
+        String expectedString = "73.91%";
+        String obtainedString = SessionListUtil.convertScoreDoubleToString(score);
+
+        assertEquals(expectedString, obtainedString);
+    }
+
+    //@Test
+    //void getScoreAsPercentage_onSessionList() {
+    //    SessionList sessionList = getTestSessionListForTest();
+    //    // expected output: 3/20 = 15%
+    //    ArrayList<Session> sessionArrayList = sessionList.getSessionArrayList();
+    //    Session
+    //}
+
+    @Test
+    void getScoreAsPercentageDouble_onSession() {
+        ArrayList<TestSession> testSessionArrayList = getTestSessionListForTest()
+            .getTestSessionArrayList();
+        TestSession sessionForTest = testSessionArrayList.get(3); // score is 12/20
+
+        double expectedDouble = 60.0;
+        double obtainedDouble = SessionListUtil.getScoreAsPercentageDouble(sessionForTest);
+
+        assertEquals(expectedDouble, obtainedDouble);
+    }
+
+    @Test
+    void getAverageScore_allSessionsHaveScores() {
+        TestSessionList sessionList = getTestSessionListForTest();
+        // expected output:
+        // 3/20 + 6/20 + 9/20 + 12/20 + 15/20 = 45/20
+        // 45/20 / 5 = 9/20
+        // 9/20 = 45%
+        String expectedString = "45.0%";
+        String obtainedString = SessionListUtil.getAverageScore(sessionList);
 
         assertEquals(expectedString, obtainedString);
     }
