@@ -40,7 +40,8 @@ public class AutoCompleteTextField extends TextField {
         @Override
         public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
             String enteredText = getText();
-            String mainRequest = enteredText.substring(0,Math.min(enteredText.length(),6));
+            int comparingCutoffPoint = Math.min(enteredText.length(), 6);
+            String mainRequest = enteredText.substring(0, comparingCutoffPoint);
             if (enteredText == null || enteredText.isEmpty()) {
                 entriesPopup.hide();
             } else {

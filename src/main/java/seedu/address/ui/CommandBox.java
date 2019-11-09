@@ -70,7 +70,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
 
     //@@author SebastianLie
     /**
-     * handles GUI commands, like history or autocomplete
+     * handles keypresses for GUI commands, like history or autocomplete
      * @param keyCode
      */
     private void keyPressed(KeyCode keyCode) {
@@ -93,7 +93,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
         if (keyCode == KeyCode.TAB) {
             try {
                 commandTextField.setAutoCompleteResult();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 logger.info("Exception thrown from autocomplete.");
             }
         }
