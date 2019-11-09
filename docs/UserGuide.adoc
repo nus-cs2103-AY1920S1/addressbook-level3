@@ -134,12 +134,14 @@ our CLI.
 
 IchiFund data is saved in the hard disk automatically after you enter any command that changes the data. +
 There is no need for you to save manually.
-
+// tag::tx[]
 === Transactions
 
 Do you ever feel overwhelmed by the ever-growing number of transactions you have to keep track of?
 With our transactions feature, you can organise your transactions in a fuss-free manner!
 
+//tag::overviewtx[]
+[[overviewtx]]
 ==== Overview
 
 In the transactions tab, you can maintain a list of your transactions, adding, editing, deleting and filtering items
@@ -183,6 +185,8 @@ filter for category or type.
 If there are no transactions recorded, the current date in the system is used to
 generate the the filter.
 This makes it easier for you to access the transactions in the current month!
+
+// end::overviewtx[]
 
 // tag::filtertx[]
 [[filtertx]]
@@ -242,6 +246,7 @@ the command word `filter` is keyed in at the start.
 
 // end::filtertx[]
 
+// tag::addtx[]
 [[addtx]]
 ==== Creating transaction: `add`
 Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
@@ -323,6 +328,8 @@ The feature for adding transactions is built to work best under these constraint
 
 Additionally, the transaction feature works best when the system time functions normally, with no change in time zone.
 
+// end::addtx[]
+
 [[edittx]]
 ==== Editing transaction: `edit`
 Format: `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
@@ -378,6 +385,8 @@ transaction list.
 [NOTE]
 Unfortunately, transactions created from repeaters cannot be edited or deleted directly.
 For a more detailed guide on how to modify these transactions, refer to <<repeaters>>
+
+// end::tx[]
 
 ==== Reducing clutter (coming in v2.0)
 
