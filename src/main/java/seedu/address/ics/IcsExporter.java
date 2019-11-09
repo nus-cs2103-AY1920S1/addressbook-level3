@@ -38,7 +38,7 @@ public class IcsExporter {
     /**
      * Saves the events in an ics file, whose location is specified in the parameter.
      * @param filepathString the path of where the file should be made.
-     * @throws IOException if the file or directory cannot be created.
+     * @throws IcsException if the file or directory cannot be created.
      */
     public void export(String filepathString) throws IcsException {
         try {
