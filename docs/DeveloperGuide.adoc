@@ -1114,8 +1114,6 @@ sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
 able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 === Glossary
 
 [[mainstream-os]] Mainstream OS::
@@ -1123,22 +1121,6 @@ Windows, Linux, Unix, OS-X
 
 [[ui]] UI::
 User Interface
-
-=== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 === Instructions for Manual Testing
 
@@ -1184,3 +1166,110 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+==== Loaning a book
+
+. Loaning a book while in Serve mode.
+
+.. Prerequisites: LiBerry is in Serve mode, serial number is valid, book exists in the catalog and book is not on loan.
+.. Test case: `loan sn/VALID_SERIAL_NUMER` +
+Expected: Book with the given `VALID_SERIAL_NUMBER` is loaned to the currently served borrower. The book is added
+to the list of currently loaned books in the borrower panel. A box stating "On Loan" and relevant details also appear
+on the book in the UI, beside the label that states its serial number.
+.. Using the original sample data when you first load up LiBerry without any changes made, you can enter the following test case: `serve id/K0001` followed
+by `loan sn/B00001` to loan the first book in the list, "Harry Botter", to the borrower "Xo Xo". +
+Expected: "Harry Botter" is loaned to "Xo Xo".
+.. Other incorrect loan commands to try: `loan`, `loan abc`,`loan sn/INVALID_SERIAL_NUMBER`,
+`loan sn/SERIAL_NUMBER_OF_A_BOOK_THAT_DOES_NOT_EXIST`, `sn/SERIAL_NUMBER_OF_BOOK_ALREADY_ON_LOAN` +
+Expected: Book is not loaned out. Error details shown in the command results display.
+
+. Loaning a book while not in Serve mode.
+.. Prerequisites: LiBerry is not in Serve mode, command format is correct and serial number is valid.
+.. Test case: `loan sn/VALID_SERIAL_NUMBER` +
+Expected: Book is not loaned out. An error stating not in Serve mode is shown.
+
+. Loaning a book with an invalid serial number. An invalid serial number is one which does not have 5 digits following a
+capital 'B' character.
+.. Prerequisites: Command format is correct.
+.. Test Case: `loan sn/INVALID_SERIAL_NUMBER` +
+Expeected: Book is not loaned out. An error stating the correct format of a serial number is shown.
+
+==== Returning a book
+
+. Returning a book while in Serve mode.
+
+.. Prerequisites: LiBerry is in Serve mode and there are books listed in the borrower panel on the right.
+.. Test case: `return 1` +
+Expected: The first book (at index 1) in the borrower's list on the right is returned and no longer on loan, i.e., removed from that list.
+The box on the book in the main list on the left stating that is in "On Loan" also disappears.
+The fine incurred for that book is shown and the "Fines: $..." in the borrower panel is updated if the fine is greater than $0.
+.. Test case: `return -all` +
+Expected: All the books in the borrower's list on the right is returned and no longer on loan. The list in the borrower panel
+is now empty. The boxes on the books in the main list on the left stating that they are "On Loan" also disappears.
+The fine incurred for each book is shown and the "Fines: $..." in the borrower panel is updated if the any fine incurred is greater than $0.
+.. Incorrect return commands to try: `return`, `return abc`, `return 0`, `return x` (where x is larger than the borrower panel's list size). +
+Expected: No book is returned. Error details shown in the command result display.
+
+. Returning a book while not in Serve mode.
+
+.. Prerequisites: LiBerry is not in Serve mode and command format is correct.
+.. Test case: `return 1` or `return -all` +
+Expected: No book is returned. An error stating not in Serve mode is shown.
+
+
+==== Renewing a book
+
+. Renewing a book while in Serve mode.
+.. Prerequisites: LiBerry is in Serve mode and there are books listed in the borrower panel on the right that can be renewed.
+Only books that are not overdue, books that have not reached the maximum renew count and books that were not just loaned or renewed
+in the same Serve mode session can be renewed.
+.. Test case: `renew 1` +
+Assumption: The first book (at index 1) in the borrower's list on the right can be renewed. +
+Expected: This first book is renewed and its due date is extended. The box on that book shows the updated due date
+and the "Renewed: _x_ times" has been incremented by 1.
+.. Test case: `renew -all` +
+Assumption: There are books in the borrower's list on the right that can be renewed. +
+Expected: These renewable books are renewed and their due dates are extended. The boxes on those books show the updated
+due dates and the "Renewed: _x_ times" were incremented by 1.
+.. Incorrect renew commands to try: `renew`, `renew abc`, `renew 0`,
+ `renew x` (where x is larger than the borrower panel's list size or the book at that index cannot be renewed) +
+Expected: No book is renewed. Error details shown in the command result display.
+
+. Renewing a book while not in Serve mode.
+.. Prerequisites: LiBerry is not in Serve mode and command format is correct.
+.. Test case: `renew 1` or `renew -all` +
+Expected: No book is renewed. An error stating not in Serve mode is shown.
+
+==== Paying fines
+
+. Paying fines while in Serve mode.
+.. Prerequisites: LiBerry is in Serve mode and the borrower has outstanding fines. The "Fines: $..." in the borrower panel
+should not be $0.
+.. Test case: `pay $2` +
+Expected: $2 is deducted from the borrower's fine amount shown in the borrower panel on the right. Command results display will also indicate the remaining outstanding fine
+the borrower still has and the change amount to be given back to the borrower.
+.. Test case: `pay $2.22` +
+Expected: Similar to previous test case (`pay $2`), except $2.22 is deducted instead of $2.
+.. Test case: `pay $0` +
+Expected: Fine amount in borrower panel remains the same. An error stating the valid dollar amount is shown.
+.. Test case: `pay $abc` +
+Expected: Same as previous test case (`pay $2`).
+.. Test case: `pay $-1` +
+Expected: Same as previous test case (`pay $2`).
+.. Test case: `pay $99999999999999999999` (or any dollar amount greater than $21474836.47) +
+Expected: Same as previous test case (`pay $2`).
+.. Other incorrect pay commands to try: `pay`, `pay xyz`, `pay 1` +
+Expected: Fin amount in borrower panel remains the same. Error details shown in the command result display.
+
+. Paying fines while not in Serve mode.
+.. Prerequisites: LiBerry is in Serve mode, command format is correct and dollar amount is valid.
+.. Test case: `pay $1` +
+Expected: No fine is paid. An error stating not in Serve mode is shown.
+
+. Using the original sample data when you first load up LiBerry without any changes made, you can enter the following positive test case
+to test the pay command: `serve id/K0004` followed by `pay $2` +
+Expected: "Fine of $1.10 +
+paid by +
+Borrower: [K0004] Hiap Seng +
+Outstanding fine: $0.00 +
+Change given: $0.90" appears on the command results display. The borrower panel now shows "Fines $0.00".
