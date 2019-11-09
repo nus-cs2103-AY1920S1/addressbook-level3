@@ -79,9 +79,6 @@ public class FindPriorityState extends PenultimateState implements OptionalState
 
     @Override
     public boolean canBeSkipped(ArgumentMultimap newArgs) {
-        if (newArgs.getValue(PREFIX_PRIORITY).isPresent()) {
-            return false;
-        }
-        return true;
+        return newArgs.getValue(PREFIX_PRIORITY).isEmpty();
     }
 }
