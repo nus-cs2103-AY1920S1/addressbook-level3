@@ -488,17 +488,41 @@ Format: `delete INDEX`
 permanently. This default value can be changed with the <<binitemexpiry, binitemexpiry>> command.
 ****
 [NOTE]
-Deleted items will expire in 10 seconds for testing purposes. Expired items are removed on restart of application.
+Expired items are removed on restart of application.
 
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the list of people.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+**Delete the 2nd person in the list of people.**
+
+```
+# input commands
+>>> listpeople
+>>> delete 2
+```
+
+Expected output:
+```
+Deleted Person: Benson Meier
+NRIC: S0000002J; Phone: 98765432; Email: johnd@example.com; Address: 311, Clementi Ave 2, #02-25; Date of Birth: 12 December 1922; Gender: Male
+Policies: [Life Insurance]
+Tags: [smoker][disabled]
+```
+
+**Delete the 1st person in the results of the `find` command.**
+
+```
+# input commands
+>>> find carl
+>>> delete 1
+```
+
+Expected output:
+
+```
+Deleted Person: Carl Kurz
+NRIC: S0000003J; Phone: 95352563; Email: heinz@example.com; Address: wall street; Date of Birth: 6 June 1996; Gender: Male
+```
 
 === Deleting a policy : `deletepolicy`
 
@@ -513,17 +537,42 @@ Format: `deletepolicy INDEX`
 permanently. This default value can be changed with the <<binitemexpiry, binitemexpiry>> command.
 ****
 [NOTE]
-Deleted items will expire in 10 seconds for testing purposes. Expired items are removed on restart of application.
+Expired items are removed on restart of application.
 
 
 Examples:
 
-* `listpolicy` +
-`deletepolicy 2` +
-Deletes the 2nd policy in the list of policies.
-* `findpolicy senior` +
-`deletepolicy 1` +
-Deletes the 1st policy in the results of the `findpolicy` command.
+**Deletes the 2nd policy in the list of policies.**
+
+```
+# input commands:
+>>> listpolicy
+>>> deletepolicy 2
+```
+
+Expected output:
+
+```
+Deleted Policy: Life Insurance
+Description: Insurance for life; Coverage: 50 years, 0 months, 0 days; Price: $1000000; Start Age: 21; End Age: 80
+Criteria: [high blood pressure]
+Tags: [term insurance]
+```
+
+**Deletes the 1st policy in the results of the `findpolicy` command.**
+
+```
+# input commands:
+>>> findpolicy senior
+>>> deletepolicy 1
+```
+
+Expected output:
+
+```
+Deleted Policy: Senior Care
+Description: Care for seniors; Coverage: 5 years, 11 months, 20 days; Price: $50000; Start Age: 50; End Age: 75
+```
 
 === Adding policies to a person : `assignpolicy`
 
