@@ -3,10 +3,12 @@ package seedu.moolah.model.budget;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.moolah.testutil.TypicalMooLah.ANNIVERSARY;
+import static seedu.moolah.testutil.TypicalMooLah.DRINKS;
 import static seedu.moolah.testutil.TypicalMooLah.CHICKEN_RICE;
 import static seedu.moolah.testutil.TypicalMooLah.OUTSIDE_SCHOOL;
 import static seedu.moolah.testutil.TypicalMooLah.SCHOOL;
+import static seedu.moolah.testutil.TypicalMooLah.SCHOOL_BUDGET_STRING_ONE;
+import static seedu.moolah.testutil.TypicalMooLah.SCHOOL_BUDGET_STRING_TWO;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,22 +23,19 @@ public class BudgetTest {
     @Test
     public void testAddExpenses() {
         Budget schoolCopy = new BudgetBuilder(SCHOOL).build();
-        schoolCopy.addExpense(ANNIVERSARY);
-        assertTrue(schoolCopy.getExpenses().contains(ANNIVERSARY));
+        schoolCopy.addExpense(DRINKS);
+        assertTrue(schoolCopy.getExpenses().contains(DRINKS));
     }
-
-    /* to fix
+    
     @Test
-    public void testGetExpenseSum() {
+    public void testCalculateExpenseSum() {
         ObservableList<Expense> expenses = FXCollections.observableArrayList();
-        expenses.add(ANNIVERSARY);
         expenses.add(CHICKEN_RICE);
+        expenses.add(DRINKS);
         Budget editedSchool = new BudgetBuilder(SCHOOL)
                 .withExpenses(expenses).build();
-        assertEquals(23.50, editedSchool.getExpenseSum());
+        assertEquals(53.50, editedSchool.calculateExpenseSum());
     }
-
-     */
 
     @Test
     public void testNormalize() {
@@ -51,22 +50,22 @@ public class BudgetTest {
     @Test
     public void testRemoveIdentical() {
         ObservableList<Expense> expenses = FXCollections.observableArrayList();
-        expenses.add(ANNIVERSARY);
+        expenses.add(DRINKS);
         Budget editedSchool = new BudgetBuilder(SCHOOL)
                 .withExpenses(expenses).build();
-        editedSchool.removeExpense(ANNIVERSARY);
-        assertFalse(editedSchool.getExpenses().contains(ANNIVERSARY));
+        editedSchool.removeExpense(DRINKS);
+        assertFalse(editedSchool.getExpenses().contains(DRINKS));
     }
 
     @Test
     public void testSetExpense() {
         ObservableList<Expense> expenses = FXCollections.observableArrayList();
-        expenses.add(ANNIVERSARY);
+        expenses.add(DRINKS);
         Budget editedSchool = new BudgetBuilder(SCHOOL)
                 .withExpenses(expenses).build();
-        editedSchool.setExpense(ANNIVERSARY, CHICKEN_RICE);
+        editedSchool.setExpense(DRINKS, CHICKEN_RICE);
         assertTrue(editedSchool.getExpenses().contains(CHICKEN_RICE));
-        assertFalse(editedSchool.getExpenses().contains(ANNIVERSARY));
+        assertFalse(editedSchool.getExpenses().contains(DRINKS));
     }
 
     @Test
@@ -109,7 +108,7 @@ public class BudgetTest {
 
         // different expense list -> return true
         ObservableList<Expense> expenses = FXCollections.observableArrayList();
-        expenses.add(ANNIVERSARY);
+        expenses.add(DRINKS);
         editedSchool = new BudgetBuilder(SCHOOL)
                 .withExpenses(expenses).build();
         assertTrue(SCHOOL.isSameBudget(editedSchool));
@@ -159,13 +158,6 @@ public class BudgetTest {
                 .withStartDate("18-10-2019").build();
         assertFalse(SCHOOL.equals(editedSchool));
 
-        /*
-        // different end date -> returns false
-        editedSchool = new BudgetBuilder(SCHOOL)
-                .withEndDate("17-10-2020").build();
-        assertFalse(SCHOOL.equals(editedSchool));
-         */
-
         // different primary status -> returns false
         editedSchool = new BudgetBuilder(SCHOOL)
                 .withIsPrimary(false).build();
@@ -173,17 +165,15 @@ public class BudgetTest {
 
         // different expense list -> returns false
         ObservableList<Expense> expenses = FXCollections.observableArrayList();
-        expenses.add(ANNIVERSARY);
+        expenses.add(DRINKS);
         editedSchool = new BudgetBuilder(SCHOOL)
                 .withExpenses(expenses).build();
         assertFalse(SCHOOL.equals(editedSchool));
     }
 
-    /* to fix
     @Test
     public void testStringConversion() {
         assertTrue(SCHOOL.toString().equals(SCHOOL_BUDGET_STRING_ONE)
                 || SCHOOL.toString().equals(SCHOOL_BUDGET_STRING_TWO));
     }
-    */
 }
