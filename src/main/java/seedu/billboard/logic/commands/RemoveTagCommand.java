@@ -15,6 +15,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
 
+//@@author waifonglee
 /**
  * Removes tag(s) from existing expense.
  */
