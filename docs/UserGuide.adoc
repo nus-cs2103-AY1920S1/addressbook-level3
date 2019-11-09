@@ -318,7 +318,7 @@ For example, to refer to your Bali trip between 10 Dec 2019 to 13 Dec 2019, simp
 +
 Great! Now, TravEzy is aware that you are referring to a _trip_.
 
-. ``PERIOD``. This refers to the number of days between the start date and end date (as specified using the above parameters).
+. ``PERIOD``. This refers to the number of days between the start date and end date (as specified using the above parameters). To use it, simply place the prefix ``p/`` before specifying the number of days.
 +
 For example, if you would like to indicate that it needs to be a period of 5 days, key in:
 
