@@ -32,61 +32,13 @@ NOTE: Denotes additional information.
 == Summary of contributions
 This section shows a summary of my contributions to the team project and will include: +
 
-. Major enhancement - Generating Loan Slip
-. Secondary enhancement - Book feature
+. Major enhancement - Book feature
 . Code contributed
 . Other contributions +
 {nbsp}
 
-=== *Major enhancement - Generate Loan Slip feature*
-This feature allows librarians to *automatically generate loan slips in Portable Document Format (PDF)* for every loan.
-I will explain in detail below what the feature is about and why it is an important feature.
-
-
-==== What the feature does
-This feature *generates loan slips* so that the librarian can immediately print the loan slip for the borrower.
-The printed loan slip contains all information about the loan or renew, including a list of loaned books and the due date of these loans.
-
-==== Justification
-Since our target group is small impoverished communities, it is unlikely they will have reliable internet access to check the status of their loans.
-Therefore, it will be suitable for librarians to provide them with a printed version of the loan.
-
-==== Highlights
-This feature is challenging to implement as it will require us to create a new PDF document from scratch.
-It was required of me to understand a great deal about file input and output in Java, which was something out of the scope of the course.
-Additionally, this document would have to be suitably styled to display a certain level of professionalism.
-
-==== Why this is a major feature
-This feature represents most of the core features of 'LiBerry' in a condensed PDF.
-I have provided a breakdown below as to how this feature achieves the required *depth*, *completeness* and *level of effort*.
-
-* *Depth*: This feature is deeply linked with the Book, Loan and Borrower features as it has to display information relevant to these features
-{nbsp}
-
-* *Completeness*: This feature is complete with the intended style has been rigorously tested in many test cases. +
-{nbsp}
-
-* *Effort*: This feature required an in-depth understanding of handling external libraries as well as file input and output.
-These information are not taught in the course and therefore required extensive research on my part. +
-{nbsp}
-
-To allow us to fully visualise this feature, let us take a look at how a generated loan slip will looks like.
-
-.Generated Loan Slip
-image::LoanSlip.png[width=250, align=center]
-{nbsp}
-
-In Figure 2, we can see all books loaned by 'Bill' recorded and generated in a printable loan slip.
-
-==== Credits
-This feature is made possible with the 'iText 7' library. However, it was still required of me to understand both the
-Java `File` class and the API well such that I can use it appropriately in the context of our project.
-{nbsp}
-
----
-
-=== *Secondary enhancement - Book feature*
-On top of the feature to generate loan slips, I am also primarily involved the implementation of the book-related core features.
+=== *Major enhancement - Book feature*
+I am primarily involved the implementation of the book-related core features.
 In the Book feature, we have the following sub-features:
 
 ** The ability to *add books*
@@ -136,19 +88,12 @@ The following link shows the analysis of my code contributions:
 === *Other contributions*:
 
 ==== Project management:
-* Managed the release of https://github.com/AY1920S1-CS2103T-F13-1/main/releases/tag/v1.3.1[`v1.3`] on GitHub. In `v1.3`, we have the following features:
-** Pay fines
-** Renew loans
-** Generate loan slip
-** Edit Borrower details
-** Search overdue books and books that are on loan +
+* Managed the release of https://github.com/AY1920S1-CS2103T-F13-1/main/releases/tag/v1.3.1[`v1.3`] on GitHub. +
 {nbsp}
 * Continually added test cases throughout development phase to ensure consistent code quality. Done through the following Pull Requests:
 ** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/31[[#31\]]: Refactored `AddressBook3` tests to `LiBerry` tests
-** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/117[[#117\]]: Increased test coverage for `SampleDataUtil`
 ** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/206[[#206\]]: Increased test coverage for `UI` components
 ** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/260[[#260\]]: Increased test coverage for `Delete` and `Book` classes
-** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/268[[#268\]]: Increased test coverage for `UnregisterCommand`
 
 ==== Enhancements to existing features:
 These enhancements are done through the following Pull Requests:
@@ -185,16 +130,10 @@ It demonstrates my ability to write documentation for librarians so that they ca
 
 === Book feature
 The ability to manage books in the system will help librarians track the status of all books with ease.
-In the User Guide documentation of the Book feature, I will cover the following:
-
-. How to use the `add` command
-. How to use the `delete` command
-. How to use the `info` command +
+In the User Guide documentation of the Book feature, I will explain how to use the `add` and `delete` commands.
 {nbsp}
 
 include::../UserGuide.adoc[tag=bookRelated]
-
-include::../UserGuide.adoc[tag=info]
 {nbsp}
 
 === Generating a loan slip
@@ -216,23 +155,10 @@ The following excerpts from the 'LiBerry' Developer Guide demonstrate my ability
 . How the loan slip generation feature is implemented
 
 === Implementation of Book feature
-In the Developer Guide documentation of the Book feature, specifically the sub-feature of adding a book,
-I have included the following information:
-
-. The behaviour of the system when a book is being added, illustrated by an activity diagram
-. The Class diagram of a `Book`
-. The Object diagram of a `Book` when it is first being added
-. Design considerations for the Book feature +
-{nbsp}
 
 include::../DeveloperGuide.adoc[tag=addBook]
 
 === Implementation of Generate Loan Slip feature
-In the Developer Guide documentation of the Generate Loan Slip feature, I have included the following information:
-
-. Sequence diagram of generating a loan slip
-. Design considerations of the Generate Loan Slip feature +
-{nbsp}
 
 include::../DeveloperGuide.adoc[tag=printLoanSlip]
 
