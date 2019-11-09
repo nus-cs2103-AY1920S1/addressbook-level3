@@ -78,7 +78,10 @@ public class EditPlanUiAction extends UiAction {
 
         model.setPlan(planToEdit, editedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
-        return new UiActionResult(Optional.of(String.format(MESSAGE_EDIT_PLAN_SUCCESS, editedPlan.getPlanName())));
+        return new UiActionResult(
+            true,
+            Optional.of(String.format(MESSAGE_EDIT_PLAN_SUCCESS, editedPlan.getPlanName()))
+        );
     }
 
     /**

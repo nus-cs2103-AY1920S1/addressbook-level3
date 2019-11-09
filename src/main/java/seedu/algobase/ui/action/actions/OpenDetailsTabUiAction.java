@@ -61,7 +61,7 @@ public class OpenDetailsTabUiAction extends UiAction {
             }
             TabData tabData = new TabData(modelType, modelId);
             TabCommandType result = tabManager.openDetailsTab(tabData);
-            return new UiActionResult(Optional.empty());
+            return new UiActionResult(true, Optional.empty());
         } catch (NoSuchElementException exception) {
             throw new UiActionException(String.format(MESSAGE_INVALID_ELEMENT));
         } catch (IllegalArgumentException exception) {

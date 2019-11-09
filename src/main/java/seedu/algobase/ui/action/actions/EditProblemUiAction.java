@@ -85,7 +85,10 @@ public class EditProblemUiAction extends UiAction {
         }
 
         model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
-        return new UiActionResult(Optional.of(String.format(MESSAGE_EDIT_PROBLEM_SUCCESS, editedProblem.getName())));
+        return new UiActionResult(
+            true,
+            Optional.of(String.format(MESSAGE_EDIT_PROBLEM_SUCCESS, editedProblem.getName()))
+        );
     }
 
     /**

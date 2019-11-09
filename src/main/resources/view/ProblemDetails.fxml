@@ -101,10 +101,10 @@
           </padding>
 
           <!-- Edit Button -->
-          <Button fx:id="editButton" styleClass="edit_button" text="Edit Problem" />
+          <Button fx:id="editButton" onMouseClicked="#handleEditProblem" styleClass="edit_button" text="Edit Problem" />
 
           <!-- Delete Button -->
-          <Button fx:id="deleteButton" styleClass="delete_button" text="Delete Problem" />
+          <Button fx:id="deleteButton" onMouseClicked="#handleDeleteProblem" styleClass="delete_button" text="Delete Problem" />
         </HBox>
       </VBox>
   </ScrollPane>

@@ -34,7 +34,7 @@ public class SetPlanUiAction extends UiAction {
         for (Plan plan : lastShownList) {
             if (plan.getId().equals(planId)) {
                 model.setCurrentPlan(plan);
-                return new UiActionResult(Optional.empty());
+                return new UiActionResult(true, Optional.empty());
             }
         }
 

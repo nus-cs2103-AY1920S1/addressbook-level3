@@ -266,7 +266,7 @@ public class MainWindow extends UiPart<Stage> {
             return uiActionResult;
         } catch (UiActionException | ParseException e) {
             resultDisplay.setFeedbackToUser(e.getMessage());
-            return new UiActionResult(Optional.empty());
+            return new UiActionResult(false, Optional.empty());
         }
     }
 }
