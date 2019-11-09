@@ -16,6 +16,7 @@ import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.EventSourceBuilder;
 import seedu.address.model.tasks.TaskSource;
+import seedu.address.model.tasks.TaskSourceBuilder;
 
 /***
  * Parses an ICS file to allow importing into Horo.
@@ -178,6 +179,7 @@ public class IcsParser {
         String description = "";
         DateTime eventStart = null;
         DateTime eventEnd = null;
+        ArrayList<String> tags = new ArrayList<>();
         for (String line : lines) {
             if (line.startsWith("SUMMARY:")) {
                 description = line.replaceFirst("SUMMARY:", "");
@@ -194,6 +196,8 @@ public class IcsParser {
                 eventEnd = parseTimeStamp(timestamp);
             } else if (line.equals("END:VCALENDAR") && !line.equals(lines[lines.length - 1])) {
                 throw new IcsException(FILE_IS_CORRUPTED);
+            } else if (line.startsWith("DESCRIPTION:")) {
+                tags.addAll(getTagsFromIcsDescription(line));
             }
         }
         if (description.equals("") || eventStart == null) {
@@ -202,6 +206,9 @@ public class IcsParser {
         EventSourceBuilder builder = EventSource.newBuilder(description, eventStart);
         if (eventEnd != null) {
             builder.setEnd(eventEnd);
+        }
+        if (tags.size() != 0) {
+            builder.setTags(tags);
         }
         return builder.build();
     }
@@ -218,6 +225,7 @@ public class IcsParser {
         DateTime taskStart = null;
         DateTime due = null;
         Duration duration = null;
+        ArrayList<String> tags = new ArrayList<>();
         for (String line : lines) {
             if (line.startsWith("SUMMARY:")) {
                 description = line.replaceFirst("SUMMARY:", "");
@@ -241,6 +249,8 @@ public class IcsParser {
                 taskStart = startString.equals("")
                         ? DateTime.now()
                         : parseTimeStamp(startString);
+            } else if (line.startsWith("DESCRIPTION:")) {
+                tags.addAll(getTagsFromIcsDescription(line));
             }
         }
 
@@ -248,12 +258,17 @@ public class IcsParser {
             throw new IcsException(FILE_IS_CORRUPTED);
         }
 
+        TaskSourceBuilder builder = TaskSource.newBuilder(description);
+
         if (due == null && !(duration == null || taskStart == null)) {
             due = taskStart.plus(duration);
+            builder.setDueDate(due);
         }
-        return due != null
-                ? TaskSource.newBuilder(description).setDueDate(due).build()
-                : TaskSource.newBuilder(description).build();
+
+        if (tags.size() != 0) {
+            builder.setTags(tags);
+        }
+        return builder.build();
     }
 
     /**
@@ -268,5 +283,16 @@ public class IcsParser {
         } catch (ParseException e) {
             throw new IcsException(TIMESTAMP_IS_INVALID);
         }
+    }
+
+    public static ArrayList<String> getTagsFromIcsDescription(String icsDescription) {
+        Matcher matcher = Pattern.compile("\\[([^\\]]+)").matcher(icsDescription);
+        ArrayList<String> tags = new ArrayList<>();
+        int pos = -1;
+        while (matcher.find(pos+1)){
+            pos = matcher.start();
+            tags.add(matcher.group(1));
+        }
+        return tags;
     }
 }
