@@ -82,4 +82,5 @@ include::../DeveloperGuide.adoc[tag=modelcomponent]
 
 include::../DeveloperGuide.adoc[tag=reportwastefeature]
 
+include::../DeveloperGuide.adoc[tag=wastelistmanualtesting]
 
