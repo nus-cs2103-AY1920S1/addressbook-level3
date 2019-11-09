@@ -11,7 +11,6 @@ import static seedu.address.cashier.ui.CashierMessages.AMOUNT_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_AMOUNT;
 import static seedu.address.cashier.ui.CashierMessages.NO_CASHIER;
 import static seedu.address.testutil.TypicalItem.CHIPS;
-import static seedu.address.testutil.TypicalItem.FISH_BURGER;
 import static seedu.address.testutil.TypicalItem.STORYBOOK;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
