@@ -76,23 +76,23 @@ public class AddNusModCommand extends Command {
         try {
             person = getPerson(name, model);
         } catch (PersonNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
         }
 
         try {
             module = model.findModule(moduleId);
             event = mapModuleToEvent(module, startAcadSemDate, semesterNo, this.lessonTypeNumMap, holidays);
         } catch (ModuleNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE,
-                    String.format(MESSAGE_MODULE_NOT_FOUND, moduleCode)));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE,
+                    String.format(MESSAGE_MODULE_NOT_FOUND, moduleCode))).build();
         } catch (ModuleToEventMappingException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, e.getMessage()));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, e.getMessage())).build();
         }
 
         try {
             person.addEvent(event);
         } catch (EventClashException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_EVENTS_CLASH));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_EVENTS_CLASH)).build();
         }
 
         // updates UI.
@@ -104,7 +104,7 @@ public class AddNusModCommand extends Command {
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResultBuilder(MESSAGE_SUCCESS).build();
     }
 
     private Person getPerson(Name name, Model model) throws PersonNotFoundException {

@@ -50,22 +50,22 @@ public class SelectCommand extends Command {
         if (status == ScheduleWindowDisplayType.GROUP) {
             try {
                 if (name.equals(Name.emptyName())) {
-                    return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_SPECIFIED));
+                    return new CommandResultBuilder(
+                            String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_SPECIFIED)).build();
                 }
 
                 PersonTimeslot personTimeslot = model.getScheduleWindowDisplay()
                         .getPersonTimeslot(name, week, id);
 
-                CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS, false, false);
-                commandResult.setIsSelect(true);
-                commandResult.setPersonTimeslotData(personTimeslot);
-
-                return commandResult;
+                return new CommandResultBuilder(MESSAGE_SUCCESS)
+                        .setSelect().setPersonTimeslotData(personTimeslot).build();
 
             } catch (PersonNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
             } catch (PersonTimeslotNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
             }
         } else if (status == ScheduleWindowDisplayType.PERSON) {
             try {
@@ -73,16 +73,15 @@ public class SelectCommand extends Command {
                 PersonTimeslot personTimeslot = model.getScheduleWindowDisplay()
                         .getPersonTimeslot(name, week, id);
 
-                CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS, false, false);
-                commandResult.setIsSelect(true);
-                commandResult.setPersonTimeslotData(personTimeslot);
-
-                return commandResult;
+                return new CommandResultBuilder(MESSAGE_SUCCESS)
+                        .setSelect().setPersonTimeslotData(personTimeslot).build();
 
             } catch (PersonNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
             } catch (PersonTimeslotNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
             }
         } else if (status == ScheduleWindowDisplayType.HOME) {
             try {
@@ -90,18 +89,17 @@ public class SelectCommand extends Command {
                 PersonTimeslot personTimeslot = model.getScheduleWindowDisplay()
                         .getPersonTimeslotForToday(name, id);
 
-                CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS, false, false);
+                return new CommandResultBuilder(MESSAGE_SUCCESS)
+                        .setSelect().setPersonTimeslotData(personTimeslot).build();
 
-                commandResult.setIsSelect(true);
-                commandResult.setPersonTimeslotData(personTimeslot);
-                return commandResult;
             } catch (PersonNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
             } catch (PersonTimeslotNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
             }
         }
-
 
         return null;
     }
