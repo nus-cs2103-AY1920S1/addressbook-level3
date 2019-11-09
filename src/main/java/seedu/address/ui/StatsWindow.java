@@ -152,8 +152,8 @@ public class StatsWindow extends UiPart<Stage> {
      * Sets the title & labels the axis of the charts.
      * Sets the boundary and precision for the axis if needed.
      */
-    public void initialize(BarChart bc1, BarChart bc2, LineChart lc, CategoryAxis xAxisA, CategoryAxis xAxisB,
-                           NumberAxis xAxisC, NumberAxis yAxisA, NumberAxis yAxisB, NumberAxis yAxisC, int upperBoundA, int upperBoundB, int upperBoundC) {
+    public void initialize(BarChart bc1, BarChart bc2, LineChart lc, CategoryAxis xAxisA, CategoryAxis xAxisB, NumberAxis xAxisC,
+                           NumberAxis yAxisA, NumberAxis yAxisB, NumberAxis yAxisC, int upperBoundA, int upperBoundB, int upperBoundC) {
         bc1.setTitle("Total");
         bc2.setTitle("Completed in tests");
         lc.setTitle("Performance Chart");
