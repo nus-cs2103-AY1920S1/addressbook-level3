@@ -219,11 +219,17 @@ In the overview, you are able to see the balance, the total expenses, the total 
 
 Format: `account overview`
 
-****
-* Step 1. Type `account overview` in the command textfield input.
-* Step 2. Successful message displayed, and you can navigate to the exports folder in the same directory of the source file.
-* Step 3. Open the html file in the exports folder to see the overview of all accounts.
-****
+image::accountOverview_1.png[]
+Step 1. Type `account overview` in the command textfield input.
+
+image::accountOverview_2.png[]
+Step 2. Successful message displayed, and you can navigate to the exports folder in the same directory of the source file.
+
+image::accountOverview3.png[]
+
+image::accountOverview4.png[]
+Step 3. Open the html file in the exports folder to see the overview of all accounts.
+
 // end::accounts[]
 
 // tag::loans[]
