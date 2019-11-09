@@ -4,28 +4,28 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.address.logic.commands.CommandTestUtil.showStudentAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showStudentAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
-//import static seedu.address.testutil.TypicalStudents.getTypicalClassroom;
+import static seedu.address.testutil.TypicalNotebook.getTypicalNotebook;
 
 import org.junit.jupiter.api.Test;
 
-//import seedu.address.commons.core.Messages;
-//import seedu.address.commons.core.index.Index;
-//import seedu.address.logic.commands.EditStudentCommand.EditStudentDescriptor;
-//import seedu.address.model.classroom.Classroom;
-//import seedu.address.model.Model;
-//import seedu.address.model.ModelManager;
-//import seedu.address.model.UserPrefs;
-//import seedu.address.model.student.Student;
-//import seedu.address.testutil.EditStudentDescriptorBuilder;
-//import seedu.address.testutil.StudentBuilder;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditStudentCommand.EditStudentDescriptor;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.Notebook;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.student.Student;
+import seedu.address.testutil.EditStudentDescriptorBuilder;
+import seedu.address.testutil.StudentBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -33,10 +33,9 @@ import org.junit.jupiter.api.Test;
  */
 public class EditStudentCommandTest {
 
-    /*
-    private Model model = new ModelManager(getTypicalClassroom(), new UserPrefs());
-     */
-    /*
+    private Model model = new ModelManager(getTypicalNotebook(), new UserPrefs());
+
+
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Student editedStudent = new StudentBuilder().build();
@@ -45,14 +44,13 @@ public class EditStudentCommandTest {
 
         String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
-        Model expectedModel = new ModelManager(new Classroom(model.getCurrentClassroom()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Notebook(model.getNotebook()), new UserPrefs());
         expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent);
 
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     }
-     */
 
-    /*
+
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastStudent = Index.fromOneBased(model.getFilteredStudentList().size());
@@ -68,14 +66,13 @@ public class EditStudentCommandTest {
 
         String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
-        Model expectedModel = new ModelManager(new Classroom(model.getCurrentClassroom()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Notebook(model.getNotebook()), new UserPrefs());
         expectedModel.setStudent(lastStudent, editedStudent);
 
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     }
-     */
 
-    /*
+
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_STUDENT,
@@ -84,13 +81,12 @@ public class EditStudentCommandTest {
 
         String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
-        Model expectedModel = new ModelManager(new Classroom(model.getCurrentClassroom()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Notebook(model.getNotebook()), new UserPrefs());
 
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     }
-     */
 
-    /*
+
     @Test
     public void execute_filteredList_success() {
         showStudentAtIndex(model, INDEX_FIRST_STUDENT);
@@ -102,14 +98,13 @@ public class EditStudentCommandTest {
 
         String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
-        Model expectedModel = new ModelManager(new Classroom(model.getCurrentClassroom()), new UserPrefs());
+        Model expectedModel = new ModelManager(new Notebook(model.getNotebook()), new UserPrefs());
         expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent);
 
         assertCommandSuccess(editStudentCommand, model, expectedMessage, expectedModel);
     }
-     */
 
-    /*
+
     @Test
     public void execute_duplicateStudentUnfilteredList_failure() {
         Student firstStudent = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
@@ -118,9 +113,8 @@ public class EditStudentCommandTest {
 
         assertCommandFailure(editStudentCommand, model, EditStudentCommand.MESSAGE_DUPLICATE_STUDENT);
     }
-     */
 
-    /*
+
     @Test
     public void execute_duplicateStudentFilteredList_failure() {
         showStudentAtIndex(model, INDEX_FIRST_STUDENT);
@@ -134,7 +128,7 @@ public class EditStudentCommandTest {
     }
 
     @Test
-    public void execute_invalidStudentndexUnfilteredList_failure() {
+    public void execute_invalidStudentIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudentList().size() + 1);
         EditStudentCommand.EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder()
                 .withName(VALID_NAME_BOB).build();
@@ -147,7 +141,6 @@ public class EditStudentCommandTest {
      * Edit filtered list where index is larger than size of filtered list,
      * but smaller than size of classroom
      */
-    /*
     @Test
     public void execute_invalidStudentIndexFilteredList_failure() {
         showStudentAtIndex(model, INDEX_FIRST_STUDENT);
@@ -160,7 +153,7 @@ public class EditStudentCommandTest {
 
         assertCommandFailure(editStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }
-     */
+
 
     @Test
     public void equals() {
