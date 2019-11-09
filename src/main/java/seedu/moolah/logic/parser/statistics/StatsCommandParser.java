@@ -8,7 +8,9 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_START_DATE;
 import java.util.Collections;
 import java.util.List;
 
+import seedu.moolah.commons.core.Messages;
 import seedu.moolah.logic.commands.statistics.StatsCommand;
+import seedu.moolah.logic.commands.statistics.StatsDescriptor;
 import seedu.moolah.logic.parser.ArgumentMultimap;
 import seedu.moolah.logic.parser.ArgumentTokenizer;
 import seedu.moolah.logic.parser.Parser;
@@ -16,7 +18,6 @@ import seedu.moolah.logic.parser.ParserUtil;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.model.expense.Timestamp;
-import seedu.moolah.model.statistics.Statistics;
 
 /**
  * Parses input arguments and creates a new StatsCommand object
@@ -45,39 +46,32 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
         }
 
+        StatsDescriptor statsDescriptor = new StatsDescriptor();
+
         Timestamp startDate = null;
         Timestamp endDate = null;
 
         boolean isStartPresent = argMultimap.getValue(PREFIX_START_DATE).isPresent();
         boolean isEndPresent = argMultimap.getValue(PREFIX_END_DATE).isPresent();
         if (isStartPresent && isEndPresent) {
-            checkStartBeforeEnd(argMultimap);
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
-            return StatsCommand.createWithBothDates(startDate, endDate);
+            statsDescriptor.setStartDate(startDate);
+            statsDescriptor.setEndDate(endDate);
+            if (!statsDescriptor.isStartBeforeEnd()) {
+                throw new ParseException(Messages.MESSAGE_CONSTRAINTS_END_DATE);
+                //is this under message or under the command?
+                //checkStartBeforeEnd(argMultimap);//consider shifting this test into the descriptor
+                //the test should be tested too
+            }
         } else if (isStartPresent) {
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
-            return StatsCommand.createOnlyWithStartDate(startDate);
+            statsDescriptor.setStartDate(startDate);
         } else if (isEndPresent) {
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
-            return StatsCommand.createOnlyWithEndDate(endDate);
-        } else {
-            return StatsCommand.createWithNoDate();
+            statsDescriptor.setEndDate(endDate);
         }
-    }
 
-    /**
-     * Parses the given {@code String} of arguments in the context of the StatsCommand
-     * Checks that start date is before the end date of the given {@code ArgumentMultimap}
-     *
-     * @throws ParseException if the detected start date is after the end date
-     */
-    private void checkStartBeforeEnd(ArgumentMultimap argMultimap) throws ParseException {
-        Timestamp startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
-        Timestamp endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
-        if (endDate.isBefore(startDate)) {
-            throw new ParseException(Statistics.MESSAGE_CONSTRAINTS_END_DATE);
-        }
+        return new StatsCommand(statsDescriptor);
     }
-
 }

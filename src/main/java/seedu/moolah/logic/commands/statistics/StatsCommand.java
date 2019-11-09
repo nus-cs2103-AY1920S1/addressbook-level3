@@ -5,20 +5,26 @@ import static seedu.moolah.commons.core.Messages.MESSAGE_DISPLAY_STATISTICS_WITH
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_START_DATE;
 
+import java.util.Optional;
+
 import seedu.moolah.logic.commands.Command;
 import seedu.moolah.logic.commands.CommandGroup;
 import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
+import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.statistics.PieChartStatistics;
+import seedu.moolah.model.statistics.Statistics;
 import seedu.moolah.ui.StatsPanel;
 
 /**
- * Calculates statistics for Moolah
+ * Represents a StatsCommand that is meant to output statistics using the visual
+ * representation of a pie chart
  */
 public class StatsCommand extends Command {
 
-    public static final String COMMAND_WORD = "stats" + CommandGroup.GENERAL;
+    public static final String COMMAND_WORD = "statsbasic" + CommandGroup.GENERAL;
 
     public static final String MESSAGE_SUCCESS = "Pie Chart calculated!";
 
@@ -31,53 +37,17 @@ public class StatsCommand extends Command {
             + PREFIX_START_DATE + "11-11-1111 "
             + PREFIX_END_DATE + "12-12-1212 ";
 
-    private final Timestamp startDate;
-    private final Timestamp endDate;
+
+    private StatsDescriptor statsDescriptor;
 
     /**
      * Creates a StatsCommand to calculate statistics between 2 dates {@code Timestamp}
      */
-    public StatsCommand(Timestamp startDate, Timestamp endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-    //can consider this to be private now that there are other static methods available
-
-    /**
-     * Creates a StatsCommand that only has a start date
-     * @param startDate The start date
-     */
-    public static StatsCommand createOnlyWithStartDate(Timestamp startDate) {
-        requireNonNull(startDate);
-        return new StatsCommand(startDate, null);
+    public StatsCommand(StatsDescriptor statsDescriptor) {
+        requireNonNull(statsDescriptor);
+        this.statsDescriptor = statsDescriptor;
     }
 
-    /**
-     * Creates a StatsCommand that only has an end date
-     * @param endDate The end date
-     */
-    public static StatsCommand createOnlyWithEndDate(Timestamp endDate) {
-        requireNonNull(endDate);
-        return new StatsCommand(null, endDate);
-    }
-
-    /**
-     * Creates a StatsCommand that contains both a start date and end date
-     * @param startDate The start date
-     * @param endDate The end date
-     */
-    public static StatsCommand createWithBothDates(Timestamp startDate, Timestamp endDate) {
-        requireNonNull(startDate);
-        requireNonNull(endDate);
-        return new StatsCommand(startDate, endDate);
-    }
-
-    /**
-     * Creates a StatsCommand that does not contain a start date or end date
-     */
-    public static StatsCommand createWithNoDate() {
-        return new StatsCommand(null, null);
-    }
 
     @Override
     protected void validate(Model model) throws CommandException {
@@ -91,7 +61,11 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.calculateStatistics(COMMAND_WORD, startDate, endDate, false);
+
+        Budget primaryBudget = model.getPrimaryBudget();
+        Statistics statistics = createPieChartStatistics(primaryBudget, statsDescriptor);
+        model.setStatistics(statistics);
+
         return new CommandResult(MESSAGE_SUCCESS, false, false, StatsPanel.PANEL_NAME);
     }
 
@@ -99,9 +73,39 @@ public class StatsCommand extends Command {
     public boolean equals(Object other) {
         return other == this //short circuit if same object
                 || (other instanceof StatsCommand // instance of handles nulls
-                && startDate.equals(((StatsCommand) other).startDate)
-                && endDate.equals(((StatsCommand) other).endDate));
+                && statsDescriptor.equals(((StatsCommand) other).statsDescriptor));
     }
+
+    /**
+     * Creates and returns a {@code Statistics} with the details of {@code statsDescriptor}
+     * and {@code primaryBudget} where necessary.
+     */
+    private Statistics createPieChartStatistics(Budget primaryBudget, StatsDescriptor statsDescriptor) {
+        requireNonNull(primaryBudget);
+        Optional<Timestamp> startDate = statsDescriptor.getStartDate();
+        Optional<Timestamp> endDate = statsDescriptor.getEndDate();
+
+        boolean isStartPresent = startDate.isPresent();
+        boolean isEndPresent = endDate.isPresent();
+
+
+        if (!isStartPresent && !isEndPresent) {
+            startDate = Optional.of(primaryBudget.getWindowStartDate());
+            endDate = Optional.of(primaryBudget.getWindowEndDate());
+        } else if (isStartPresent && !isEndPresent) {
+            endDate = Optional.of(startDate.get().createForwardTimestamp(primaryBudget.getBudgetPeriod()).minusDays(1));
+        } else if (!isStartPresent) {
+            startDate = Optional.of(endDate.get().createBackwardTimestamp(primaryBudget.getBudgetPeriod()).plusDays(1));
+        }
+
+        PieChartStatistics statistics = new PieChartStatistics(primaryBudget.getExpenses(),
+                startDate.get(), endDate.get());
+        statistics.populateData();
+        return statistics;
+
+    }
+
+
 }
 
 

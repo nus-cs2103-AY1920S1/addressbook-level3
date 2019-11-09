@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.budget.BudgetPeriod;
-import seedu.moolah.model.expense.Category;
 import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.testutil.TypicalMooLah;
 
@@ -120,9 +119,9 @@ class TabularStatisticsTest {
     @Test
     void tableView_dayPeriodSameInterval_correctOutput() {
         Budget budget = TypicalMooLah.getPopulatedDayBudget();
-        TabularStatistics statistics = TabularStatistics.run(Category.getValidCategories(),
-                DAY_BUDGET_FIRST_START_DATE, DAY_BUDGET_FIRST_START_DATE, budget);
-
+        TabularStatistics statistics = new TabularStatistics(budget.getExpenses(), DAY_BUDGET_FIRST_START_DATE,
+                DAY_BUDGET_FIRST_START_DATE, DAY_BUDGET_FIRST_START_DATE, DAY_BUDGET_FIRST_START_DATE);
+        statistics.populateData();
         assertEquals(statistics.getTitle(), DAY_BUDGET_TITLE);
         assertEquals(statistics.getUnionDifferenceTable(), DAY_BUDGET_RESULTS);
     }
@@ -130,9 +129,10 @@ class TabularStatisticsTest {
     @Test
     void tableView_weekPeriodOverlappingIntervals_correctOutput() {
         Budget budget = TypicalMooLah.getPopulatedWeekBudget();
-        TabularStatistics statistics = TabularStatistics.run(Category.getValidCategories(),
-                WEEK_BUDGET_FIRST_START_DATE, WEEK_BUDGET_SECOND_START_DATE, budget);
-
+        TabularStatistics statistics = new TabularStatistics(budget.getExpenses(),
+                WEEK_BUDGET_FIRST_START_DATE, WEEK_BUDGET_FIRST_END_DATE,
+                WEEK_BUDGET_SECOND_START_DATE, WEEK_BUDGET_SECOND_END_DATE);
+        statistics.populateData();
         assertEquals(statistics.getTitle(), WEEK_BUDGET_TITLE);
         assertEquals(statistics.getUnionDifferenceTable(), WEEK_BUDGET_RESULTS);
     }
@@ -140,10 +140,10 @@ class TabularStatisticsTest {
     @Test
     void tableView_monthPeriodDisjointIntervals_correctOutput() {
         Budget budget = TypicalMooLah.getPopulatedMonthBudget();
-        TabularStatistics statistics = TabularStatistics.run(Category.getValidCategories(),
-                MONTH_BUDGET_FIRST_START_DATE, MONTH_BUDGET_SECOND_START_DATE, budget);
-
-
+        TabularStatistics statistics = new TabularStatistics(budget.getExpenses(),
+                MONTH_BUDGET_FIRST_START_DATE, MONTH_BUDGET_FIRST_END_DATE,
+                MONTH_BUDGET_SECOND_START_DATE, MONTH_BUDGET_SECOND_END_DATE);
+        statistics.populateData();
         assertEquals(statistics.getTitle(), MONTH_BUDGET_TITLE);
         assertEquals(statistics.getUnionDifferenceTable(), MONTH_BUDGET_RESULTS);
     }
@@ -151,10 +151,10 @@ class TabularStatisticsTest {
     @Test
     void tableView_futureYearPeriodDisjointIntervals_correctOutput() {
         Budget budget = TypicalMooLah.getPopulatedYearBudget();
-        TabularStatistics statistics = TabularStatistics.run(Category.getValidCategories(),
-                YEAR_BUDGET_FIRST_START_DATE, YEAR_BUDGET_SECOND_START_DATE, budget);
-
-
+        TabularStatistics statistics = new TabularStatistics(budget.getExpenses(),
+                YEAR_BUDGET_FIRST_START_DATE, YEAR_BUDGET_FIRST_END_DATE,
+                YEAR_BUDGET_SECOND_START_DATE, YEAR_BUDGET_SECOND_END_DATE);
+        statistics.populateData();
         assertEquals(statistics.getTitle(), YEAR_BUDGET_TITLE);
         assertEquals(statistics.getUnionDifferenceTable(), YEAR_BUDGET_RESULTS);
     }

@@ -750,7 +750,7 @@ You may cycle through these commands using the arrow keys.
 // tag::statsug[]
 
 === Viewing Statistics
-==== Summary Statistics: `stats`
+==== Summary Statistics: `statsbasic`
 This command allows you to have a basic summary of the money spent from their
 categorical expenses in a given period of their current budget.
 
@@ -759,7 +759,7 @@ the combined expenditure of all expenses under the category,
 taken as a percentage of the total expenditure in the budget the command was called.
 
 
-Format: `stats [sd/<START_DATE>] [ed/<END_DATE>]`
+Format: `statsbasic [sd/<START_DATE>] [ed/<END_DATE>]`
 
 
 [NOTE]
@@ -787,9 +787,9 @@ the unit of time and statistics is calculated starting from one unit of time bef
 of the current window of the budget.
 
 Example of configurations:
-`stats`
-`stats sd/ytd`
-`stats sd/11-11-2018 ed/12-12-2018`
+`statsbasic`
+`statsbasic sd/ytd`
+`statsbasic sd/11-11-2018 ed/12-12-2018`
 
 Step-by-step guide:
 For example, MooLah is currently at the "school" budget with these expenses in window 1
@@ -797,7 +797,7 @@ For example, MooLah is currently at the "school" budget with these expenses in w
 
 To generate the pie chart:
 
-. Type `stats` into the command box and press `Enter` to execute it.
+. Type `statsbasic` into the command box and press `Enter` to execute it.
 . The result box will display the message Pie Chart generated.
 . The screen will be switched into the Statistics Panel where the Pie Chart will be generated.
 +
@@ -1050,8 +1050,8 @@ e.g. `switchperiod t/01-05`
 
 *Viewing statistics:*
 
-* *Summary statistics* : `stats [start/START_DATE] [end/END_DATE]` +
-e.g. `stats sd/11-11-2018 ed/12-12-2018`
+* *Summary statistics* : `statsbasic [start/START_DATE] [end/END_DATE]` +
+e.g. `statsbasic sd/11-11-2018 ed/12-12-2018`
 * *Comparison statistics* : `statscompare sd1/START_DATE_1 sd2/START_DATE_2` +
 e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019`
 * *Growth statistics* : `statstrend [sd/START_DATE] [ed/END_DATE] mode/MODE` +

@@ -15,4 +15,6 @@ public class Messages {
     public static final String MESSAGE_REPEATED_PREFIX_COMMAND = "Repeated prefixes are not allowed!";
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX = "The event index provided is invalid";
     public static final String MESSAGE_DISPLAY_STATISTICS_WITHOUT_BUDGET = "Statistics without budgets is not allowed";
+    public static final String MESSAGE_CONSTRAINTS_END_DATE = "Start date must be before end date.";
+
 }

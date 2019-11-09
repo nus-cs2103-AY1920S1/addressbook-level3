@@ -97,11 +97,6 @@ public class AddEventCommandTest {
     private class ModelStub implements Model {
 
         @Override
-        public void calculateStatistics(String command, Timestamp date1, Timestamp date2, boolean isBudget) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setBudget(Budget target, Budget editedBudget) {
             throw new AssertionError("This method should not be called.");
         }
@@ -373,6 +368,11 @@ public class AddEventCommandTest {
 
         @Override
         public Statistics getStatistics() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStatistics(Statistics statistics) {
             throw new AssertionError("This method should not be called.");
         }
     }

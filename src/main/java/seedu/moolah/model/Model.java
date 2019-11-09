@@ -250,8 +250,8 @@ public interface Model {
 
     // ================================ STATS =======================================
 
-    void calculateStatistics(String command, Timestamp date1, Timestamp date2, boolean isBudget);
-
     Statistics getStatistics();
+
+    void setStatistics(Statistics statistics);
 
 }
