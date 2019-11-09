@@ -19,7 +19,7 @@ public class ListWasteCommand extends Command {
     public static final String MESSAGE_USAGE = "wlist " + COMMAND_WORD
             + ": Lists out your current food waste for a given month. "
             + "If no month is specified, the food waste for the current month is displayed.\n"
-            + "Optional Parameters: " + PREFIX_MONTH + "MONTH_OF_YEAR"
+            + "Optional Parameters: " + PREFIX_MONTH + "MONTH_OF_YEAR\n"
             + "Example: wlist " + COMMAND_WORD + " " + PREFIX_MONTH + "Sep 2019\n";
 
     public static final String MESSAGE_MONTH_RESTRICTION = "The given month must not"
@@ -52,7 +52,9 @@ public class ListWasteCommand extends Command {
         }
 
         boolean hasWasteListInArchive = model.hasWasteMonth(this.wasteMonth);
-        if (!hasWasteListInArchive) {
+        if (!hasWasteListInArchive && this.wasteMonth.equals(currentWasteMonth)) {
+            model.getWasteList();
+        } else if (!hasWasteListInArchive) {
             throw new CommandException(String.format(MESSAGE_NO_WASTE_LIST_FOUND, this.wasteMonth));
         }
 

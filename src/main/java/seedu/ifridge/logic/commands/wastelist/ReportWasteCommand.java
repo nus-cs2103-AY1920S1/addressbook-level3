@@ -75,6 +75,7 @@ public class ReportWasteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
 
         requireNonNull(model);
+        model.getWasteList();
         if (this.startWasteMonth.isAfter(this.endWasteMonth)) {
             throw new CommandException(MESSAGE_INVALID_START_END_ORDER);
         }
