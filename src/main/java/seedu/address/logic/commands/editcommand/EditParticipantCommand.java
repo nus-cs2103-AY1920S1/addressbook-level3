@@ -23,6 +23,8 @@ import seedu.address.model.entity.Phone;
 public class EditParticipantCommand extends EditCommand {
 
     public static final String MESSAGE_EDIT_PARTICIPANT_SUCCESS = "Edited Participant: %1$s";
+    public static final String MESSAGE_NO_FIELD_TO_CHANGE = "The fields inputted are not changing any of"
+            + " Participant %s's fields.";
     public static final String MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX =
             "The participant index provided is invalid";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " participant"
@@ -54,6 +56,10 @@ public class EditParticipantCommand extends EditCommand {
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX);
         }
+
+        if (!this.isAnyFieldChanged(participantToEdit, this.editParticipantDescriptor)) {
+            throw new CommandException(String.format(MESSAGE_NO_FIELD_TO_CHANGE, participantToEdit.getId()));
+        }
         Participant editedParticipant = this.createEditedParticipant(participantToEdit,
                 this.editParticipantDescriptor);
 
@@ -66,6 +72,27 @@ public class EditParticipantCommand extends EditCommand {
         } catch (AlfredException e) {
             throw new CommandException(e.getMessage());
         }
+    }
+
+    /**
+     * Checks if {@code editParticipantDescriptor} is actually changing each field of {@code participantToEdit} to
+     * a different value.
+     * i.e. If {@code participantToEdit} has {@code Name} of "participant" and {@code editParticipantDescriptor} has
+     * {@code Name} of "participant", this method will return false, whereas
+     * {@link EditParticipantDescriptor#isAnyFieldEdited()} will return true.
+     */
+    private boolean isAnyFieldChanged(Participant participantToEdit,
+                                      EditParticipantDescriptor editParticipantDescriptor) {
+        if (!editParticipantDescriptor.getName().orElse(participantToEdit.getName())
+                .equals(participantToEdit.getName())) {
+            return true;
+        }
+        if (!editParticipantDescriptor.getPhone().orElse(participantToEdit.getPhone())
+                .equals(participantToEdit.getPhone())) {
+            return true;
+        }
+        return !editParticipantDescriptor.getEmail().orElse(participantToEdit.getEmail())
+                .equals(participantToEdit.getEmail());
     }
 
     @Override

@@ -27,7 +27,8 @@ import seedu.address.model.entity.Team;
 public class EditTeamCommand extends EditCommand {
 
     public static final String MESSAGE_EDIT_TEAM_SUCCESS = "Edited Team: %1$s";
-    public static final String MESSAGE_DUPLICATE_TEAM = "This person already exists in the address book.";
+    public static final String MESSAGE_NO_FIELD_TO_CHANGE = "The fields inputted are not changing any of"
+            + " Team %s's fields.";
     public static final String MESSAGE_INVALID_TEAM_DISPLAYED_INDEX =
             "The team index provided is invalid";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " team"
@@ -59,6 +60,10 @@ public class EditTeamCommand extends EditCommand {
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
         }
+
+        if (!this.isAnyFieldChanged(teamToEdit, this.editTeamDescriptor)) {
+            throw new CommandException(String.format(MESSAGE_NO_FIELD_TO_CHANGE, teamToEdit.getId()));
+        }
         Team editedTeam = this.createEditedTeam(teamToEdit,
                 this.editTeamDescriptor);
 
@@ -70,6 +75,29 @@ public class EditTeamCommand extends EditCommand {
         } catch (AlfredException e) {
             throw new CommandException(e.getMessage());
         }
+    }
+
+    /**
+     * Checks if {@code editTeamDescriptor} is actually changing each field of {@code teamToEdit} to a different value.
+     * i.e. If {@code teamToEdit} has {@code Location} of 2 and {@code editTeamDescriptor} has {@code Location} of
+     * 2, this method will return false, whereas {@link EditTeamDescriptor#isAnyFieldEdited()}
+     * will return true.
+     */
+    private boolean isAnyFieldChanged(Team teamToEdit, EditTeamDescriptor editTeamDescriptor) {
+        if (!editTeamDescriptor.getName().orElse(teamToEdit.getName()).equals(teamToEdit.getName())) {
+            return true;
+        }
+        if (!editTeamDescriptor.getSubject().orElse(teamToEdit.getSubject()).equals(teamToEdit.getSubject())) {
+            return true;
+        }
+        if (!editTeamDescriptor.getScore().orElse(teamToEdit.getScore()).equals(teamToEdit.getScore())) {
+            return true;
+        }
+        if (!editTeamDescriptor.getProjectName().orElse(teamToEdit.getProjectName())
+                .equals(teamToEdit.getProjectName())) {
+            return true;
+        }
+        return !editTeamDescriptor.getLocation().orElse(teamToEdit.getLocation()).equals(teamToEdit.getLocation());
     }
 
     @Override

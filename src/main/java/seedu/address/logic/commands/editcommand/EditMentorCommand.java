@@ -24,7 +24,8 @@ import seedu.address.model.entity.SubjectName;
 public class EditMentorCommand extends EditCommand {
 
     public static final String MESSAGE_EDIT_MENTOR_SUCCESS = "Edited Mentor: %1$s";
-    public static final String MESSAGE_DUPLICATE_MENTOR = "This person already exists in the address book.";
+    public static final String MESSAGE_NO_FIELD_TO_CHANGE = "The fields inputted are not changing any of"
+            + " Mentor %s's fields.";
     public static final String MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX =
             "The mentor index provided is invalid";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " mentor"
@@ -57,6 +58,10 @@ public class EditMentorCommand extends EditCommand {
             mentorToEdit = model.getMentor(this.id);
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX);
+        }
+
+        if (!this.isAnyFieldChanged(mentorToEdit, this.editMentorDescriptor)) {
+            throw new CommandException(String.format(MESSAGE_NO_FIELD_TO_CHANGE, mentorToEdit.getId()));
         }
         Mentor editedMentor = this.createEditedMentor(mentorToEdit,
                 this.editMentorDescriptor);
@@ -92,6 +97,30 @@ public class EditMentorCommand extends EditCommand {
         SubjectName updatedSubject = editMentorDescriptor.getSubject().orElse(mentorToEdit.getSubject());
 
         return new Mentor(updatedName, id, updatedPhone, updatedEmail, updatedOrganization, updatedSubject);
+    }
+
+    /**
+     * Checks if {@code editMentorDescriptor} is actually changing each field of {@code mentorToEdit} to
+     * a different value.
+     * i.e. If {@code mentorToEdit} has {@code Name} of "mentor" and {@code editMentorDescriptor} has {@code Name} of
+     * "mentor", this method will return false, whereas {@link EditMentorDescriptor#isAnyFieldEdited()}
+     * will return true.
+     */
+    private boolean isAnyFieldChanged(Mentor mentorToEdit, EditMentorDescriptor editMentorDescriptor) {
+        if (!editMentorDescriptor.getName().orElse(mentorToEdit.getName()).equals(mentorToEdit.getName())) {
+            return true;
+        }
+        if (!editMentorDescriptor.getPhone().orElse(mentorToEdit.getPhone()).equals(mentorToEdit.getPhone())) {
+            return true;
+        }
+        if (!editMentorDescriptor.getEmail().orElse(mentorToEdit.getEmail()).equals(mentorToEdit.getEmail())) {
+            return true;
+        }
+        if (!editMentorDescriptor.getOrganization().orElse(mentorToEdit.getOrganization())
+                .equals(mentorToEdit.getOrganization())) {
+            return true;
+        }
+        return !editMentorDescriptor.getSubject().orElse(mentorToEdit.getSubject()).equals(mentorToEdit.getSubject());
     }
 
     @Override
