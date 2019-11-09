@@ -81,8 +81,7 @@ public class ModelManager implements Model {
         this.inventoryList = inventoryList;
         this.transactionList = transactionList;
     }
-
-
+    
     /**
      * Returns true if the quantity keyed in is less than or equals to the quantity available in inventory.
      * Else, return false.
