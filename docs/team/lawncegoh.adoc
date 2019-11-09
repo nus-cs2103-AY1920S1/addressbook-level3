@@ -65,10 +65,7 @@ the ability to pop up the claims that are of a certain date or status. If the so
 * *Minor enhancement 1*: I tweaked the `clear` feature in the existing AB3 to ensure that before the user is able to clear the list, the application prompts the
 user one more time to ensure that the command was not by accident.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/
-#search=lawncegoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=
-commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&
-tabType=authorship&tabAuthor=lawncegoh&tabRepo=AY1920S1-CS2103T-W12-1%2Fmain%5Bmaster%5D
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lawncegoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lawncegoh&tabRepo=AY1920S1-CS2103T-W12-1%2Fmain%5Bmaster%5D
 [Code]]_{give links to collated code files}_
 
 * *Other contributions*:
@@ -97,12 +94,16 @@ https://github.com/nus-cs2103-AY1920S1/forum/issues/45[2]
 
 |===
 |_Given below are sections I contributed to the User Guide. The following is an excerpt from our FinSec User Guide, showing additions that I have
-made for `sort` and `check` features._
+made for `sort` and `check` features. There is also a section on the 2 features I am proposing to implement in v2.0_
 |===
 
 include::../UserGuide.adoc[tag=sortfeature]
 
 include::../UserGuide.adoc[tag=checkfeature]
+
+include::../UserGuide.adoc[tag=checkDatefeature]
+
+include::../UserGuide.adoc[tag=statsfeature]
 
 == Contributions to the Developer Guide
 

@@ -636,8 +636,11 @@ Keyword: `sort name`
 Format: `sort name`
 
 Examples:
+
 * `sort name`
+
 //@@author {lawncegoh}
+
 === Sorting the Claims/Incomes list by Date
 
 This feature allows you to sort the various lists according to the date from the oldest to newest entry.
@@ -840,6 +843,47 @@ Examples:
 ****
 * Popup will appear upon entering of this command to allow the user to choose an image and it will be attached to the
 specified index from the user input
+****
+
+//@@author{lawncegoh}
+// tag::checkDatefeature[]
+=== Checking for months or dates
+
+Checks for the claims or incomes that matches the specific month or date that was typed as input.
+
+Keyword: `check`
+
+Format: `check FILTER`
+
+Examples:
+
+* `check november`
+* `check 28/12/2019`
+
+****
+The list of claims or incomes based on the above check filter will be shown in a similar pop-up to the
+current check feature. This is an increment to that feature.
+****
+//end::checkDatefeature[]
+
+//tag::statsfeature[]
+//@@author{lawncegoh}
+=== Display statistics of the application
+
+Displays the important statistics that a Finance Secretary need to know. Examples of statistics are:
+
+* Number of claims in the month
+* Total income received in a certain time period
+* What was the most expensive claim
+
+Keyword: `statistics`
+
+Format: `statistics`
+//end::statsfeature[]
+
+****
+This statistics feature will be the 4th view that the application can bring you to. All the specific data
+and graphs will be shown on this 4th view.
 ****
 
 === Grouping Users : `tag` (To be implemented in v2.0)
