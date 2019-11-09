@@ -281,28 +281,31 @@ public class ModelManager implements Model {
     private void updateMapping(Activity oldAct, Activity newAct) throws EndOfTimeException {
         if (oldAct.getContact().isPresent()) { //checks for existing mapping
             Contact oldContact = activityContactMap.remove(oldAct);
-            Contact newContact = newAct.getContact().get();
 
             contactActivityMap.get(oldContact).remove(oldAct);
+            
+            if (newAct.getContact().isPresent()) {
+                Contact newContact = newAct.getContact().get();
 
-            //checks whether the contact only existed for old activity. If yes, safe to delete from contact list
-            if (contactActivityMap.get(oldContact).isEmpty() && !contactAccommodationMap.containsKey(oldContact)) {
-                contactActivityMap.remove(oldContact);
-                setContact(oldContact, newContact);
-            }
+                //checks whether the contact only existed for old activity. If yes, safe to delete from contact list
+                if (contactActivityMap.get(oldContact).isEmpty() && !contactAccommodationMap.containsKey(oldContact)) {
+                    contactActivityMap.remove(oldContact);
+                    deleteContact(oldContact);
+                }
 
-            //if contact that was added is a new contact
-            if (!hasContact(newContact)) {
-                addContact(newContact);
-            }
+                //if contact that was added is a new contact
+                if (!hasContact(newContact)) {
+                    addContact(newContact);
+                }
 
-            //updates the mapping accordingly
-            if (contactActivityMap.containsKey(newContact)) {
-                contactActivityMap.get(newContact).add(newAct);
-            } else {
-                contactActivityMap.put(newContact, new ArrayList<>(Arrays.asList(newAct)));
+                //updates mapping accordingly
+                if (contactActivityMap.containsKey(newContact)) {
+                    contactActivityMap.get(newContact).add(newAct);
+                } else {
+                    contactActivityMap.put(newContact, new ArrayList<>(Arrays.asList(newAct)));
+                }
+                activityContactMap.put(newAct, newContact);
             }
-            activityContactMap.put(newAct, newContact);
 
         } else if (newAct.getContact().isPresent()) { //activity gets new contact previously not there
             Contact newContact = newAct.getContact().get();
@@ -323,28 +326,31 @@ public class ModelManager implements Model {
     private void updateMapping(Accommodation oldAcc, Accommodation newAcc) {
         if (oldAcc.getContact().isPresent()) { //checks for existing mapping
             Contact oldContact = accommodationContactMap.remove(oldAcc);
-            Contact newContact = newAcc.getContact().get();
 
             contactAccommodationMap.get(oldContact).remove(oldAcc);
 
-            //checks whether contact only exist for old accommodation. If yes, safe to delete
-            if (contactAccommodationMap.get(oldContact).isEmpty() && !contactActivityMap.containsKey(oldContact)) {
-                contactAccommodationMap.remove(oldContact);
-                setContact(oldContact, newContact);
-            }
+            if (newAcc.getContact().isPresent()) {
+                Contact newContact = newAcc.getContact().get();
 
-            //if contact that was added is a new contact
-            if (!hasContact(newContact)) {
-                addContact(newContact);
-            }
+                //checks whether contact only exist for old accommodation. If yes, safe to delete
+                if (contactAccommodationMap.get(oldContact).isEmpty() && !contactActivityMap.containsKey(oldContact)) {
+                    contactAccommodationMap.remove(oldContact);
+                    setContact(oldContact, newContact);
+                }
 
-            //updates mapping accordingly
-            if (contactAccommodationMap.containsKey(newContact)) {
-                contactAccommodationMap.get(newContact).add(newAcc);
-            } else {
-                contactAccommodationMap.put(newContact, new ArrayList<>(Arrays.asList(newAcc)));
+                //if contact that was added is a new contact
+                if (!hasContact(newContact)) {
+                    addContact(newContact);
+                }
+
+                //updates mapping accordingly
+                if (contactAccommodationMap.containsKey(newContact)) {
+                    contactAccommodationMap.get(newContact).add(newAcc);
+                } else {
+                    contactAccommodationMap.put(newContact, new ArrayList<>(Arrays.asList(newAcc)));
+                }
+                accommodationContactMap.put(newAcc, newContact);
             }
-            accommodationContactMap.put(newAcc, newContact);
 
         } else if (newAcc.getContact().isPresent()) { //accommodation gets new contact previously not there
             Contact newContact = newAcc.getContact().get();
@@ -660,6 +666,7 @@ public class ModelManager implements Model {
     public void deleteContact(Contact target) {
         removeContactMapping(target);
         contacts.removeContact(target);
+        updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
     }
 
     @Override
