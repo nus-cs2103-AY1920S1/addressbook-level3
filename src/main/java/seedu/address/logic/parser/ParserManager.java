@@ -37,7 +37,7 @@ import seedu.address.logic.commands.wordbankcommands.ImportCommand;
 import seedu.address.logic.commands.wordbankcommands.RemoveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.game.GuessCommandParser;
-import seedu.address.logic.parser.home.BankCommandParser;
+import seedu.address.logic.parser.home.SelectCommandParser;
 import seedu.address.logic.parser.home.CreateCommandParser;
 import seedu.address.logic.parser.home.ExportCommandParser;
 import seedu.address.logic.parser.home.ImportCommandParser;
@@ -141,7 +141,7 @@ public class ParserManager {
             return temp;
 
         case HOME:
-            temp.add(SelectCommand.class, BankCommandParser.class);
+            temp.add(SelectCommand.class, SelectCommandParser.class);
             temp.add(ImportCommand.class, ImportCommandParser.class);
             temp.add(ExportCommand.class, ExportCommandParser.class);
             temp.add(CreateCommand.class, CreateCommandParser.class);
