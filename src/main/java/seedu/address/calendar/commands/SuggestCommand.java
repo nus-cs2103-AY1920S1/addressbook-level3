@@ -40,6 +40,7 @@ public class SuggestCommand extends Command<Calendar> {
         minPeriod = Optional.empty();
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) throws CommandException {
         String suggestions = minPeriod.map(n -> calendar.suggest(eventQuery, n))
                 .orElse(calendar.suggest(eventQuery));

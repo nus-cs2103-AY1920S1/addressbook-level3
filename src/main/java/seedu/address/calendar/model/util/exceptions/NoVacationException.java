@@ -1,6 +1,9 @@
 package seedu.address.calendar.model.util.exceptions;
 
-public class NoVacationException extends RuntimeException {
+/**
+ * Represents an error when there are no vacations (i.e. school break or holiday).
+ */
+public class NoVacationException extends Exception {
     public NoVacationException() {
         super("There is no vacation");
     }

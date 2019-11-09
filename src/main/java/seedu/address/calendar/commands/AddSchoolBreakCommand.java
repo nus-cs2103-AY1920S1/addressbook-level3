@@ -19,7 +19,6 @@ public class AddSchoolBreakCommand extends AddCommand {
             + "[" + CliSyntax.PREFIX_END_MONTH + " END MONTH] "
             + "[" + CliSyntax.PREFIX_END_YEAR + " END YEAR] "
             + CliSyntax.PREFIX_NAME + " NAME "
-            + "[" + CliSyntax.PREFIX_INFO + " INFO]" + "\n"
             + "Example: " + AddCommand.COMMAND_WORD + " " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + " 8 "
             + CliSyntax.PREFIX_START_MONTH + " Dec " + CliSyntax.PREFIX_START_YEAR + " 2019 "
             + CliSyntax.PREFIX_END_DAY + " 12 " + CliSyntax.PREFIX_END_MONTH + " January "
@@ -32,6 +31,7 @@ public class AddSchoolBreakCommand extends AddCommand {
         this.schoolBreak = schoolBreak;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) throws CommandException {
         try {
             calendar.addEvent(schoolBreak);

@@ -88,8 +88,6 @@ public class Calendar {
         return events.getEventsAtSpecificTime(eventQuery);
     }
 
-    // todo: update response message to indicate that the view has also been updated
-
     public boolean isAvailable(EventQuery eventQuery) {
         boolean isAvailable = events.isAvailable(eventQuery);
         updateMonthView(eventQuery);
@@ -145,7 +143,7 @@ public class Calendar {
     }
 
     private void updateMonthView(Event event) {
-        EventQuery eventQuery = Event.asEventQuery(event);
+        EventQuery eventQuery = event.asEventQuery();
         updateMonthView(eventQuery);
     }
 
@@ -229,19 +227,22 @@ public class Calendar {
      * Creates a statistics object that contains statistics of {@code this} calendar.
      */
     private class CalendarStatisticsManager implements CalendarStatistics {
-
+        @Override
         public long getNumDaysVacation() {
             return Calendar.this.getNumDaysVacation();
         }
 
+        @Override
         public long getNumDaysTrip() {
             return Calendar.this.getNumDaysTrip();
         }
 
+        @Override
         public long getNumTrip() {
             return Calendar.this.getNumTrip();
         }
 
+        @Override
         public double getPercentageTrip() throws NoVacationException {
             return Calendar.this.getPercentageTrip();
         }

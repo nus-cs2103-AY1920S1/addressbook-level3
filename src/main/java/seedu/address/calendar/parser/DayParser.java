@@ -29,7 +29,8 @@ public class DayParser {
         return Day.getDay(dayOfMonth, monthOfYear, year);
     }
 
-    Optional<Day> parse(Optional<String> dayInput, Optional<MonthOfYear> month, Optional<Year> year) throws ParseException {
+    Optional<Day> parse(Optional<String> dayInput, Optional<MonthOfYear> month, Optional<Year> year)
+            throws ParseException {
         if (dayInput.isEmpty()) {
             return Optional.empty();
         }

@@ -28,6 +28,7 @@ public class DeleteTripCommand extends DeleteCommand {
         this.trip = trip;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) throws CommandException, NoSuchElementException {
         calendar.deleteEvent(trip);
         String formattedFeedback = String.format(MESSAGE_DELETE_SUCCESS, trip.toString());

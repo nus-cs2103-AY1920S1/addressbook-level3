@@ -14,6 +14,7 @@ public class AddTripIgnoreCommand extends AddTripCommand implements AlternativeC
         super(trip);
     }
 
+    @Override
     public CommandResult execute(Calendar calendar, Option option) throws CommandException {
         AlternativeCommandUtil.isValidUserCommand(option, IS_BINARY_OPTION);
         boolean isExecute = option.getBinaryOption();

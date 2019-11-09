@@ -35,6 +35,7 @@ public class ListCommand extends Command<Calendar> {
         this.eventQuery = Optional.empty();
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) throws CommandException {
         String relevantEvents;
 
