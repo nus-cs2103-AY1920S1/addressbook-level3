@@ -72,7 +72,7 @@ public class LogicManager implements Logic {
     public final void shutdown() {
         checker.shutdown();
         autoRescheduleManager.shutdown();
-        model.offPriorityMode();
+        model.closePriorityModeThread();
     }
 
     @Override

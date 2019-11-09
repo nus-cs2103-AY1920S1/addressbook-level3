@@ -44,7 +44,7 @@ public class DoneCommand extends UndoableCommand {
 
         try {
             oldItem = model.getItem(targetIndex.getZeroBased());
-            itemDone = model.markComplete(targetIndex.getZeroBased());
+            itemDone = model.markComplete(targetIndex.getZeroBased(), true);
             if (!isExecuted()) {
                 model.getElisaCommandHistory().clearRedo();
                 setExecuted(true);

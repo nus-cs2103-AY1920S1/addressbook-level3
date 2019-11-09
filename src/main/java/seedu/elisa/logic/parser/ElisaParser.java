@@ -10,6 +10,7 @@ import seedu.elisa.logic.commands.ClearCommand;
 import seedu.elisa.logic.commands.ClearScreenCommand;
 import seedu.elisa.logic.commands.CloseCommand;
 import seedu.elisa.logic.commands.Command;
+import seedu.elisa.logic.commands.ContinueCommand;
 import seedu.elisa.logic.commands.DeleteCommand;
 import seedu.elisa.logic.commands.DoneCommand;
 import seedu.elisa.logic.commands.DownCommand;
@@ -130,6 +131,10 @@ public class ElisaParser {
 
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(description, flags);
+
+        case "continue":
+        case ContinueCommand.COMMAND_WORD:
+            return new ContinueCommandParser().parse(description, flags);
 
         case JokeCommand.COMMAND_WORD:
             return new JokeCommand();
