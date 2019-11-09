@@ -6,7 +6,6 @@ import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Rating;
-import seedu.address.ui.StatsWindow;
 
 //@@author keiteo
 /**
