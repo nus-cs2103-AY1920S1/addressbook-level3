@@ -30,21 +30,24 @@ public class AutoCompleteTextField extends TextField {
     private final SortedSet<String> entries;
     private ContextMenu entriesPopup;
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private History history;
     private ArrayList<String> entriesList = new ArrayList<>();
 
     /**
-     * Listener added
+     * the listener that will be added to textproperty
+     * listens for changes in user input and suggests
+     * commands accordingly
      */
     private ChangeListener<String> changeListener = new ChangeListener<>() {
         @Override
         public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
             String enteredText = getText();
-            int comparingCutoffPoint = Math.min(enteredText.length(), 6);
+            int maxCompareWordSize = 6;
+            int comparingCutoffPoint = Math.min(enteredText.length(), maxCompareWordSize);
             String mainRequest = enteredText.substring(0, comparingCutoffPoint);
             if (enteredText == null || enteredText.isEmpty()) {
                 entriesPopup.hide();
             } else {
+                //TODO make this code better 
                 List<String> filteredEntries = entries.stream()
                         .filter(e -> e.toLowerCase().contains(mainRequest.toLowerCase()))
                         .collect(Collectors.toList());
@@ -91,8 +94,8 @@ public class AutoCompleteTextField extends TextField {
      * @param searchRequest
      */
     private void populatePopup(List<String> searchResult, String searchRequest) {
+        assert !searchResult.isEmpty();
         List<CustomMenuItem> menuItems = new LinkedList<>();
-
         int maxEntries = 10;
         int count = Math.min(searchResult.size(), maxEntries);
         entriesList.clear();

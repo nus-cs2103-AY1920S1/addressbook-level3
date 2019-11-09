@@ -22,12 +22,14 @@ public class Styles {
         assert text.contains(filter);
         String caseIndependent = text.toLowerCase();
         String caseIndependentFilter = filter.toLowerCase();
-        int filterIndex = Math.max(0, caseIndependent.indexOf(caseIndependentFilter));
+
+        int filterIndex = caseIndependent.indexOf(caseIndependentFilter);
+        int filterIndexWithinLength = Math.max(0, caseIndependent.indexOf(caseIndependentFilter));
         assert filterIndex >= 0;
 
-        Text textBefore = new Text(text.substring(0, filterIndex));
-        Text textAfter = new Text(text.substring(filterIndex + filter.length()));
-        Text textFilter = new Text(text.substring(filterIndex, filterIndex + filter.length()));
+        Text textBefore = new Text(text.substring(0, filterIndexWithinLength));
+        Text textAfter = new Text(text.substring(filterIndexWithinLength + filter.length()));
+        Text textFilter = new Text(text.substring(filterIndexWithinLength, filterIndexWithinLength + filter.length()));
 
         textFilter.setFill(Color.LIGHTSKYBLUE);
         textFilter.setFont(Font.font("Arial", FontWeight.BOLD, 12));
