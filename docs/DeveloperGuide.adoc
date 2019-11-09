@@ -396,8 +396,8 @@ Instantiation of the `Event` object when the app is started will be more complic
 === Generate Schedule Feature
 ==== Proposed Implementation
 
-The Generate Schedule Feature is implemented to allow users to have an overview the event schedule. It will display all dates that has an event and the
-specific events that happens on those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
+The Generate Schedule Feature is implemented to allow users to have an overview of the event schedule. It will display all dates that have an event and the
+specific events that is happening on those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
 new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
 
 The `DistinctDateProcessor` processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
@@ -412,31 +412,31 @@ The `DistinctDateProcessor` utilises the following operations in the `generate_s
 * `generateDateList(List<Event> eventList)` -- Takes in the entire list of events, identify all the dates that has at least one event and returns it as a list.
 * `generateListOfEventForDate(EventDate date, Model model)` -- Takes in an `EventDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
 
-The following class diagram shows how the relationships between the different classes used by the `generate_schedule` command:
+The following class diagram shows the relationships between the different classes used by the `generate_schedule` command:
 
 ._Class Diagram for GenerateScheduleCommand_
 image::GenerateScheduleClassDiagram.png[align="center"]
 
 ---
-Given below is an example usage scenario and how the `display_schedule` command behaves at each step.
+Below is an example usage scenario and how the `display_schedule` command behaves at each step.
 ._Program flow of the Generate Schedule Feature_
 image::GenerateScheduleFlowChart.png[align="center"]
 
 **Step 1**. The user launches the application for the first time.
 
-**Step 2**. The `distinctDatesList` will be initialized based on the initial event book state.
+**Step 2**. The `distinctDatesList` will be initialised based on the initial event book state.
 
 **Step 3**. The user executes `add_ev n/Free Coffee ...` to add a new event into the Eventlist.
 The distinctDatesList will not be updated, and will not contain the new event that is added.
 [NOTE]
 Any command that alters the eventBook will not change the distinctDatesList. The distinctDatesList will continue to store the
-original list until the User requires it by calling the `generate_schedule` command. Where the distinctDateList will be generated
-again using the current EventList
+original list until the User requires it by calling the `generate_schedule` command, where the distinctDateList will be generated
+again using the current EventList.
 
 
 **Step 4**. The user executes `generate_schedule` to see all the dates and the respective events on those dates.
 
-**Step 5**. The distinctDateList will be generated again based on the current list of events in the EventList and is displayed on a separate window.
+**Step 5**. The distinctDateList will be generated again based on the current list of events in the EventList and will be displayed on a separate window.
 
 **Step 6**. The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored,
 however the DistinctDateList would not.

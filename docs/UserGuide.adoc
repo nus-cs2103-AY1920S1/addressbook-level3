@@ -607,7 +607,7 @@ Undo the payment of employee with $100.
 Welcome to Schedule! Looking for a way to display and see what events you have on a specific Date or Month?
 Want to have an overview of all the dates where you have an event? Then you are at the right place!
 
-To get things started, all Schedule-related commands occurs in the Schedule Tab as seen from the figure below!
+To get things started, all Schedule-related commands occurs in the Schedule Tab as seen from the figure below.
 You can get to the Schedule Tab easily by either clicking on the Schedule Tab on the User Interface or
 just simply type in any Schedule-related commands and AddMin+ will bring you there.
 
@@ -617,7 +617,7 @@ image::ScheduleUiDetailed.png[]
 ---
 
 ==== Display Schedule for a specific date: `display_schedule_date`
-Want to check if you have any events on a specific date. Instead of looking through the list of events you have, you
+Want to check if you have any events on a specific date? Instead of looking through the list of events you have, you
 could use the `display_schedule_date` command to do it!
 
 Format: `display_schedule_date on/dd/MM/yyyy`
@@ -637,12 +637,12 @@ the specific date from the date picker as seen from the figure below.
 
 image::ScheduleUiStep1.png[]
 
-**Step 2**.  The result box will display a message which inform you how many events are being listed. In this case the message displayed
+**Step 2**.  The result box will display a message informing you how many events are being listed. In this case the message displayed
 is "1 events listed!"
 
 image::ScheduleUiStep2.png[]
 
-**Step 3**.  In the event list you will be able to see all the events that are on the specified date. In this case the only event that is on
+**Step 3**.  In the event list you will be able to see all the events that are on the specified date. In this case, the only event that is on
 20/11/2019 is "Talk by DEF Company".
 
 image::ScheduleUiStep3.png[]
@@ -670,13 +670,13 @@ navigate to the specific month and year.
 
 image::ScheduleUiMonthStep1.png[]
 
-**Step 2**.  The result box will display a message which inform you how many events are being listed. In this case the message displayed
+**Step 2**.  The result box will display a message informing you how many events are being listed. In this case the message displayed
 is "2 events listed!"
 
 image::ScheduleUiMonthStep2.png[]
 
-**Step 3**.  In the event list you will be able to see all the events that are on the specified month, year. In this case there is 2 event
-that is on 11/2019 which is "Talk by DEF Company" and "Birthday Party".
+**Step 3**.  In the event list, you will be able to see all the events that are on the specified month, year. In this case there are 2 events
+on 11/2019 which are "Talk by DEF Company" and "Birthday Party".
 
 image::ScheduleUiMonthStep3.png[]
 
