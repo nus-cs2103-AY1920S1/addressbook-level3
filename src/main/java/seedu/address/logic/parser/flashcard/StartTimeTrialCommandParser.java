@@ -29,6 +29,9 @@ public class StartTimeTrialCommandParser implements Parser<StartTimeTrialCommand
         }
 
         String[] tagKeywords = trimmedArgs.split("\\s+");
+        for (String keyword: tagKeywords) {
+            assert (!keyword.isEmpty());
+        }
         Set<Tag> tags = new HashSet<>();
         // copy to array of tags
         for (String s : tagKeywords) {

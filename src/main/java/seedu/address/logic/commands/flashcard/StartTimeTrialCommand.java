@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
@@ -17,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
@@ -32,9 +35,12 @@ public class StartTimeTrialCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Time trial started";
 
-    private String[] tagKeywords;
+    private static final Logger logger = LogsCenter.getLogger(StartTimeTrialCommand.class);
 
+    private String[] tagKeywords;
     private final FlashcardContainsTagPredicate tagPredicate;
+
+
     /**
      * Creates an AddFlashcardCommand to add the specified {@code Flashcard}
      */
@@ -47,13 +53,24 @@ public class StartTimeTrialCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        StringBuilder sb = new StringBuilder();
+        for (Tag tag: tagPredicate.getTags()) {
+            sb.append(tag + " ");
+        }
+
+        logger.info("Starting time trial of flashcards with the tags: "
+            + sb.toString().trim());
+
         requireNonNull(model);
 
         ArrayList<Flashcard> deck = model.getTaggedFlashcards(tagPredicate);
         if (deck.size() == 0) {
             throw new TagNotFoundException("Tag not found");
         }
+
         Optional<ArrayList<Flashcard>> optionalDeck = Optional.of(deck);
+
+        assert (optionalDeck.get().size() > 0);
 
         return new FlashcardCommandResult(String.format(MESSAGE_SUCCESS), true, optionalDeck);
     }
