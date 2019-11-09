@@ -40,7 +40,7 @@ public class WatchCommand extends Command {
             + "by the index number used in the displayed show list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "[" + PREFIX_NUM_OF_EPISODES + "NUMBER OF EPISODES] "
-            + "Example: " + COMMAND_WORD + " 1"
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NUM_OF_EPISODES + "12 ";
 
     public static final String MESSAGE_WATCH_SHOW_SUCCESS = "Marked show as watched: %1$s";
