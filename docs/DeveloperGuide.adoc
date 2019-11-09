@@ -628,31 +628,33 @@ loans are serialized and stored in the user's file system.
 
 * **Alternative 1:** Save the whole `Loan` object in each book in the `catalog.json` and save the the whole of every `Loan`
 object in each borrower in `borrowerrecords.json`. The `Loan` object is also duplicated in `loanrecords.json`.
-** Pros: Easy to implement. No need to read storage files in a specific order.
-** Cons: Storage memory size issues. Same information is duplicated and stored in all 3 storage files.
+** *Pros*: Easy to implement. No need to read storage files in a specific order.
+** *Cons*: Storage memory size issues. Same information is duplicated and stored in all 3 storage files. +
+{empty} +
 
 * **Alternative 2 (selected choice):** Save only the `LoanId` of each `Loan` object in each book in the `catalog.json`
 and save a list of `LoanId` in each borrower in `borrowerrecords.json`. The whole `Loan` object is only saved in
 `loanrecords.json`. When reading the storage files at the start of the application, `loanrecords.json` need to be read
 in first, before the borrowers and books can be read in as they would get the loan objects from the `LoanRecords` based
 on their `LoanId` s.
-** Pros: Uses less memory as only `LoanId` is stored for the books and borrowers, instead of the whole serialized loan objects.
+** *Pros*: Uses less memory as only `LoanId` is stored for the books and borrowers, instead of the whole serialized loan objects.
 Also, `LoanRecords` thus serve as a single source of truth.
-** Cons: Must ensure that the reading of stored files are in the correct order, and also correct `Loan` objects are referenced
+** *Cons*: Must ensure that the reading of stored files are in the correct order, and also correct `Loan` objects are referenced
 after reading in `borrowerrecords.json` and `catalog.json`. Method used to retrieve a `Loan` object from its `LoanId` must
 also be fast enough as there can be hundreds of thousands of loans.
 
 ===== Aspect: Data structure to support recording of loans in LoanRecords
 
 * **Alternative 1:** Use a list data structure, such as an `ArrayList` to store the loans in the model component.
-** Pros: Easy to implement. Easy to obtain insertion order of the loans and sort through the list.
-** Cons: Slow to search for a `Loan` based on its `LoanId`, i.e., O(n) time, as the list must be traversed to find the
+** *Pros*: Easy to implement. Easy to obtain insertion order of the loans and sort through the list.
+** *Cons*: Slow to search for a `Loan` based on its `LoanId`, i.e., O(n) time, as the list must be traversed to find the
 correct associated `Loan` object. The additional time taken adds up when reading the storage files during the starting
-up of the application. Thus, it can make the application feel laggy and unresponsive at the start.
+up of the application. Thus, it can make the application feel laggy and unresponsive at the start. +
+{empty} +
 
 * **Alternative 2 (selected choice):** Use a `HashMap` to store the loans, where the key is its `LoanId`.
-** Pros: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
-** Cons: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
+** *Pros*: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
+** *Cons*: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
 `startDate` in order to obtain their insertion order.
 
 // end::bookLoaningFeatures[]
