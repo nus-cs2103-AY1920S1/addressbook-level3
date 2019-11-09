@@ -933,7 +933,7 @@ Unfortunately, you are unable to change the app’s language.
 | ```sort PRICE ASC```
 | <<Shows either the user's savings/withdrawals only in savings history: `show`, `show`>>
 | Shows specifically the user's savings/withdrawals as determined from the user's input.
-| ```save 10```
+| ```show savings```
 | <<Top up money into wallet: `topup`, `topup`>>
 | Allows users to top up the money into their wallet.
 | ```topup 10```
@@ -942,5 +942,5 @@ Unfortunately, you are unable to change the app’s language.
 | ```viewsort```
 | <<Withdraw money from the savings account: `withdraw`, `withdraw`>>
 | Withdraw a specified amount of money from the user's savings account into his wallet.
-| ```withdraw```
+| ```withdraw 100```
 |===
