@@ -9,12 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalEventDates.OCT_01_2021;
 import static seedu.address.testutil.TypicalEventDates.OCT_09_2021;
 import static seedu.address.testutil.TypicalEventDates.OCT_10_2021;
-import static seedu.address.testutil.TypicalEventDates.OCT_13_2021;
 import static seedu.address.testutil.TypicalEventDates.OCT_15_2021;
 import static seedu.address.testutil.TypicalEventDates.OCT_16_2021;
-import static seedu.address.testutil.TypicalEventDates.OCT_30_2021;
 import static seedu.address.testutil.TypicalEventDates.OCT_21_2019;
 import static seedu.address.testutil.TypicalEventDates.OCT_23_2019;
+import static seedu.address.testutil.TypicalEventDates.OCT_30_2021;
 import static seedu.address.testutil.TypicalEvents.MUSICAL;
 
 import org.junit.jupiter.api.Test;
