@@ -102,7 +102,7 @@ public class EventTime implements Comparable<EventTime> {
         String endTimeStr = times.get(1);
 
         try {
-            //checks if it can be parse into a EventTime
+            //checks if it can be parsed into a EventTime
             EventTime candidate = parse(startTimeStr, endTimeStr);
             if (candidate.getStart().compareTo(candidate.getEnd()) >= 0) {
                 return false;

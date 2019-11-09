@@ -93,57 +93,74 @@ public class AssignCommand extends Command {
     public static String buildSuccessfulResponse(SchedulingSuggestion suggestion, Task task, Driver driver,
                                                  EventTime eventTime) {
         String additionalSuggestion = suggestion.isEmpty() ? "" : "\n" + suggestion;
-        String succeedResponse = String.format(MESSAGE_ASSIGN_SUCCESS,
+        return String.format(MESSAGE_ASSIGN_SUCCESS,
                 task.getId(),
                 driver.getName().fullName,
                 eventTime.toString()) + additionalSuggestion;
-        return succeedResponse;
+    }
+
+    /**
+     * Checks that the task if not already completed, and scheduled for today. Otherwise, throws an exception.
+     *
+     * @param task the task to check
+     * @throws CommandException with the error message
+     */
+    public static void checkAssignPreconditions(Task task) throws CommandException {
+        if (task.getStatus().equals(TaskStatus.COMPLETED)) {
+            throw new CommandException(MESSAGE_ALREADY_COMPLETED);
+        }
+
+        if (!task.getDate().equals(GlobalClock.dateToday())) {
+            throw new CommandException(MESSAGE_NOT_TODAY);
+        }
+    }
+
+    public static Task getTaskIfPresent(Model model, int taskId) throws CommandException {
+        if (!model.hasTask(taskId)) {
+            throw new CommandException(Task.MESSAGE_INVALID_ID);
+        }
+        return model.getTask(taskId);
+    }
+
+    public static Driver getDriverIfPresent(Model model, int driverId) throws CommandException {
+        if (!model.hasDriver(driverId)) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+        return model.getDriver(driverId);
+    }
+
+    /**
+     * Checks that the proposed time is not in the past; otherwise, throws an exception.
+     * @param eventTime the proposed time
+     * @throws CommandException with error message
+     */
+    public static void assertTimeIsNotPast(EventTime eventTime) throws CommandException {
+        if (eventTime.getStart().compareTo(GlobalClock.timeNow()) < 0) {
+            throw new CommandException(String.format(Schedule.MESSAGE_EVENT_START_BEFORE_NOW_FORMAT,
+                    GlobalClock.timeNow().format(EventTime.DISPLAY_TIME_FORMAT)));
+        }
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // check existence of task and driver
-        if (!model.hasTask(taskId)) {
-            throw new CommandException(Task.MESSAGE_INVALID_ID);
-        }
-        if (!model.hasDriver(driverId)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
+        Driver driver = getDriverIfPresent(model, driverId);
+        Task task = getTaskIfPresent(model, taskId);
 
-        Driver driver = model.getDriver(driverId);
-        Task task = model.getTask(taskId);
+        checkAssignPreconditions(task);
+
+        // saving the state of event time
         Optional<EventTime> existingEventTime = task.getEventTime();
-
-        // check if the task is already completed
-        if (task.getStatus().equals(TaskStatus.COMPLETED)) {
-            throw new CommandException(MESSAGE_ALREADY_COMPLETED);
-        }
-
-        // check whether the task is scheduled for today
-        if (!task.getDate().equals(GlobalClock.dateToday())) {
-            throw new CommandException(MESSAGE_NOT_TODAY);
-        }
-
 
         boolean isAlreadyAssigned = task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
                 || task.getEventTime().isPresent();
 
         if (isAlreadyAssigned) {
-            if (isForceAssign) {
-                FreeCommand.freeDriverFromTask(task.getDriver().get(), task);
-            } else {
-                throw new CommandException(MESSAGE_ALREADY_ASSIGNED + MESSAGE_PROMPT_FORCE);
-            }
+            resetTaskIfForced(task);
         }
 
-        // check current time against system time
-        if (eventTime.getStart().compareTo(GlobalClock.timeNow()) < 0) {
-            throw new CommandException(String.format(Schedule.MESSAGE_EVENT_START_BEFORE_NOW_FORMAT,
-                    GlobalClock.timeNow().format(EventTime.DISPLAY_TIME_FORMAT)));
-        }
-
+        assertTimeIsNotPast(eventTime);
 
         SchedulingSuggestion suggestion = driver.suggestTime(eventTime, GlobalClock.timeNow());
         if (suggestion.isFatal()) {
@@ -158,6 +175,20 @@ public class AssignCommand extends Command {
         model.refreshAllFilteredList();
 
         return new CommandResult(buildSuccessfulResponse(suggestion, task, driver, eventTime));
+    }
+
+    /**
+     * Handles the case where the task is already assign. It resets the task if the force flag, is
+     * turned on; otherwise, throws an exception.
+     * @param task the task to reset, if needed
+     * @throws CommandException when the forced flag is not turned on
+     */
+    public void resetTaskIfForced(Task task) throws CommandException {
+        if (isForceAssign) {
+            FreeCommand.freeDriverFromTask(task.getDriver().get(), task);
+        } else {
+            throw new CommandException(MESSAGE_ALREADY_ASSIGNED + MESSAGE_PROMPT_FORCE);
+        }
     }
 
     @Override
