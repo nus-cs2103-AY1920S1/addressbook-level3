@@ -12,15 +12,20 @@ import seedu.address.logic.commands.findcommand.FindCommand;
 import seedu.address.logic.commands.findcommand.FindMentorCommand;
 import seedu.address.logic.commands.findcommand.FindParticipantCommand;
 import seedu.address.logic.commands.findcommand.FindTeamCommand;
+import seedu.address.model.entity.Id;
+import seedu.address.model.entity.PrefixType;
 
 public class FindCommandAllocatorTest {
+    private Id mentorId = new Id(PrefixType.M, 1);
+    private Id participantId = new Id(PrefixType.P, 2);
+    private Id teamId = new Id(PrefixType.T, 2);
     private FindCommandAllocator findCommandAllocator = new FindCommandAllocator();
 
     @Test
     void allocate_correctUserInput_success() {
         assertAllocatorSuccess(findCommandAllocator, "mentor n/Damith",
                 new FindMentorCommand(FindCommandUtilEnum.AND,
-                        Optional.of("damith"), Optional.empty(), Optional.empty(), Optional.empty(),
+                        Optional.of("Damith"), Optional.empty(), Optional.empty(), Optional.empty(),
                         Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()));
         assertAllocatorSuccess(findCommandAllocator, "participant e/dog@gmail.com",
                 new FindParticipantCommand(FindCommandUtilEnum.AND,
