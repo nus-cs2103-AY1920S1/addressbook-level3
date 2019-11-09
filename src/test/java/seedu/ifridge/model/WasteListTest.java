@@ -72,7 +72,6 @@ public class WasteListTest {
         assertThrows(UnsupportedOperationException.class, () -> wasteList.getWasteList().remove(0));
     }
 
-
     @Test
     void getWasteListByMonth() {
         WasteList.initialiseWasteArchive();
@@ -80,4 +79,5 @@ public class WasteListTest {
         WasteMonth lastWasteMonth = new WasteMonth(LocalDate.now()).previousWasteMonth();
         assertEquals(WASTE_LIST_LAST_MONTH, WasteList.getWasteListByMonth(lastWasteMonth));
     }
+
 }

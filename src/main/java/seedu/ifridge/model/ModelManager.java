@@ -745,6 +745,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+        boolean sameWasteReport = wasteReport == null || wasteReport.equals(other.wasteReport);
         return groceryList.equals(other.groceryList)
                 && templateList.equals(other.templateList)
                 && wasteList.equals(other.wasteList)
@@ -761,6 +762,7 @@ public class ModelManager implements Model {
                 //&& versionedWasteList.equals(other.versionedWasteList)
                 //&& versionedShoppingList.equals(other.versionedShoppingList)
                 //&& versionedBoughtList.equals(other.versionedBoughtList)
-                && unitDictionary.equals(other.unitDictionary);
+                && unitDictionary.equals(other.unitDictionary)
+                && sameWasteReport;
     }
 }

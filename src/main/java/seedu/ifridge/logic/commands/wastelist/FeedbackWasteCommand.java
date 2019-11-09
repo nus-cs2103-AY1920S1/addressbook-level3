@@ -48,6 +48,7 @@ public class FeedbackWasteCommand extends Command {
 
         List<ReadOnlyWasteList> pastWasteLists = new ArrayList<>();
         SortedSet<WasteMonth> pastWasteMonths = model.getDescendingWasteMonths();
+        pastWasteMonths.remove(currentWasteMonth);
         int numWasteLists = 0;
         for (WasteMonth wm : pastWasteMonths) {
             pastWasteLists.add(model.getWasteListByMonth(wm));
@@ -56,7 +57,6 @@ public class FeedbackWasteCommand extends Command {
                 break;
             }
         }
-
         WasteStatistic predictedWastage = WasteStatistic.getWeightedStatistics(currentWasteList, pastWasteLists);
 
         String currentWastageMessage = String.format(MESSAGE_CURRENT_WASTAGE,
