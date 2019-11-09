@@ -95,8 +95,8 @@ public class ExportCommand extends Command {
         BufferedReader phoneReader = new BufferedReader(new FileReader(String.valueOf(phoneFile)));
         String currPhoneLine;
         while ((currPhoneLine = phoneReader.readLine()) != null) {
-            if (!currPhoneLine.contains("cost") && !currPhoneLine.contains("identityNumber")
-            && !currPhoneLine.contains("tagged")) {
+            if (!currPhoneLine.contains("cost") && !currPhoneLine.contains("identityNumber") && !currPhoneLine.contains
+                    ("tagged")) {
                 phoneData.append(currPhoneLine);
             }
         }
