@@ -32,8 +32,7 @@ public class AddTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CLASSID + "CS2103T "
             + PREFIX_MARKING + "Y "
-            + PREFIX_TASK_TIME + "13/10/2019 13:00, 13/10/2019 15:00 "
-            + PREFIX_TASK_TIME + "14/10/2019 13:00, 14/10/2019 15:00 ";
+            + PREFIX_TASK_TIME + "13/10/2019 13:00, 13/10/2019 15:00 ";
 
     public static final String MESSAGE_SUCCESS = "New task added:\n%1$s";
 

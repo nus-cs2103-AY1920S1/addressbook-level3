@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 
 /**
  * Create an anchor pane that can store additional data.
@@ -20,7 +21,7 @@ public class AnchorPaneNode extends AnchorPane {
     public AnchorPaneNode(Node... children) {
         super(children);
         // Add action handler for mouse clicked
-        this.setStyle("-fx-background-color: #C0C0C0");
+        this.setStyle("-fx-background-color: #EBFAFF");
         //this.setOnMouseClicked(e -> System.out.println("This pane's date is: " + date));
         this.setOnMouseClicked(e -> UiManager.startTaskWindow(date));
     }
