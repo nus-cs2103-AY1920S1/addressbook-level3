@@ -6,5 +6,5 @@ public interface DiaryBookStatistics {
 
     int getTotalDiaryEntries();
 
-    XYChart.Series<String, Number> getDiaryChart();
+    XYChart.Series<String, Number> getDiaryBarChart();
 }

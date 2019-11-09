@@ -41,10 +41,10 @@ public class LogicManager implements Logic {
             @Override
             public StatisticsModel get() {
                 return new StatisticsModelManager(addressBookLogic.getStatistics(),
-                                                  calendarLogic.getStatistics(),
-                                                  diaryLogic.getStatistics(),
-                                                  financialTrackerLogic.getStatistics(),
-                                                  itineraryLogic.getStatistics());
+                        calendarLogic.getStatistics(),
+                        diaryLogic.getStatistics(),
+                        financialTrackerLogic.getStatistics(),
+                        itineraryLogic.getStatistics());
             }
         });
         this.mainLogic = new MainLogicManager(userPrefsModel, storage);

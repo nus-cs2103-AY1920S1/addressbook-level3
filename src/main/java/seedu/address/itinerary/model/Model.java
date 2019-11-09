@@ -2,21 +2,16 @@ package seedu.address.itinerary.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.chart.XYChart;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.commons.util.DatePair;
-import seedu.address.commons.util.TreeUtil;
+import seedu.address.commons.util.MonthData;
+import seedu.address.commons.util.StatisticsUtil;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
 
@@ -118,32 +113,9 @@ public class Model {
         return filteredEvents.size();
     }
 
-    public XYChart.Series<String, Number> getItineraryLineChart() {
-        SimpleDateFormat dateParser = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-
-        TreeUtil<DatePair> treeUtil = new TreeUtil<>();
-        FXCollections.unmodifiableObservableList(filteredEvents).stream().forEach(event -> {
-            try {
-                Date date = dateParser.parse(event.getDate().toString());
-                String displayDate = dateFormatter.format(date);
-                DatePair defaultIfMissing = new DatePair(0, date);
-                Function<DatePair, DatePair> incrementFunction =
-                        datePair -> new DatePair(datePair.getKey() + 1, datePair.getValue());
-                treeUtil.add(displayDate, defaultIfMissing, incrementFunction);
-            } catch (ParseException e) {
-                throw new RuntimeException();
-            }
-        });
-
-        series.getData().addAll(treeUtil.ascendingStream()
-                .map(datePair ->
-                        new XYChart.Data<String, Number> (
-                                dateFormatter.format(datePair.getValue()), datePair.getKey()))
-                .collect(Collectors.toList()));
-        return series;
+    public XYChart.Series<String, Number> getItineraryBarChart() {
+        Function<Event, MonthData> toMonthDataFunction = event -> new MonthData(0, event.getMonthAndYear());
+        return StatisticsUtil.getMonthDataSeries(filteredEvents, toMonthDataFunction);
     }
 
     @Override

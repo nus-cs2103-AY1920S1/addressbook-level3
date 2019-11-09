@@ -2,12 +2,12 @@ package seedu.address.financialtracker.model;
 
 import java.util.HashMap;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.StatisticsUtil;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.ui.CountriesDropdown;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -113,33 +113,14 @@ public class Model {
     //=========== Statistics =================================================================================
 
     public ObservableList<PieChart.Data> getFinancialPieChartData() {
-        // initialise pie chart data
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-
         double total = getSummaryMap().get("Total");
-
-        // get statistics from model
-        getSummaryMap().entrySet().stream()
-                       .filter(entry -> !entry.getKey().equals("Total"))
-                       .forEach(entrySet -> {
-                           pieChartData.add(
-                                   new PieChart.Data(entrySet.getKey(), entrySet.getValue() / total));
-                       });
-        return pieChartData;
+        return StatisticsUtil.getFinancialPieChartData(
+                getSummaryMap(), entry -> !entry.getKey().equals("Total"),
+                entry -> new PieChart.Data(entry.getKey(), entry.getValue() / total));
     }
 
-    public XYChart.Series<String, Number>getFinancialBarChartData() {
-
-        //initialise bar chart data
-        XYChart.Series barChartData = new XYChart.Series();
-
-        HashMap<String, Number> copy = new HashMap<>();
-        getSummaryMap().entrySet()
-                       .stream()
-                       .filter(entry -> !entry.getKey().equals("Total"))
-                       .forEach(entry ->
-                               barChartData.getData().add(
-                                       new XYChart.Data<String, Number>(entry.getKey(), entry.getValue())));
-        return barChartData;
+    public XYChart.Series<String, Number> getFinancialBarChartData() {
+        return StatisticsUtil.getFinancialBarChartData(getSummaryMap(), entry -> !entry.getKey().equals("Total"),
+                entry -> new XYChart.Data<String, Number>(entry.getKey(), entry.getValue()));
     }
 }

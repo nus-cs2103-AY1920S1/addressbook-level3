@@ -1,8 +1,13 @@
 package seedu.address.achievements.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.Node;
+import seedu.address.achievements.ui.AddressBookCard;
+import seedu.address.achievements.ui.CalendarCard;
+import seedu.address.achievements.ui.DiaryBookCard;
+import seedu.address.achievements.ui.FinancialCard;
+import seedu.address.achievements.ui.ItineraryCard;
 import seedu.address.address.model.util.AddressBookStatistics;
 import seedu.address.calendar.model.util.CalendarStatistics;
 import seedu.address.diaryfeature.model.util.DiaryBookStatistics;
@@ -34,62 +39,11 @@ public class StatisticsModelManager implements StatisticsModel {
     }
 
     @Override
-    public int getTotalPersons() {
-        return addressBookStatistics.getTotalPersons();
-    }
-
-    @Override
-    public XYChart.Series<Number, String> getAddressChartData() {
-        return addressBookStatistics.getAddressChartData();
-    }
-
-    @Override
-    public int getTotalDiaryEntries() {
-        return diaryBookStatistics.getTotalDiaryEntries();
-    }
-
-    @Override
-    public XYChart.Series<String, Number> getDiaryChartData() {
-        return diaryBookStatistics.getDiaryChart();
-    }
-
-    @Override
-    public ObservableList<PieChart.Data> getFinancialPieChartData() {
-        return financialTrackerStatistics.getFinancialPieChartData();
-    }
-
-    @Override
-    public XYChart.Series<String, Number> getFinancialBarChartData() {
-        return financialTrackerStatistics.getFinancialBarChartData();
-    }
-
-    @Override
-    public int getTotalItineraryEntries() {
-        return itineraryStatistics.getTotalItineraryEntries();
-    }
-
-    @Override
-    public XYChart.Series<String, Number> getItineraryLineChartData() {
-        return itineraryStatistics.getItineraryLineChartData();
-    }
-
-    @Override
-    public long getNumberOfDaysTrip() {
-        return calendarStatistics.getNumDaysTrip();
-    }
-
-    @Override
-    public long getNumberOfDaysVacation() {
-        return calendarStatistics.getNumDaysVacation();
-    }
-
-    @Override
-    public long getNumberOfTrip() {
-        return calendarStatistics.getNumTrip();
-    }
-
-    @Override
-    public double getPercentageTrip() {
-        return calendarStatistics.getPercentageTrip();
+    public ObservableList<Node> getStatisticsView() {
+        return FXCollections.concat(AddressBookCard.make(addressBookStatistics),
+                CalendarCard.make(calendarStatistics),
+                DiaryBookCard.make(diaryBookStatistics),
+                FinancialCard.make(financialTrackerStatistics),
+                ItineraryCard.make(itineraryStatistics));
     }
 }

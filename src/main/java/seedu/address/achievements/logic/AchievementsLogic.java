@@ -1,8 +1,7 @@
 package seedu.address.achievements.logic;
 
 import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.Node;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -20,35 +19,5 @@ public interface AchievementsLogic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    /**
-     * Get statistics of number of total contacts in Address Book.
-     * @return total number of contacts in Address Book
-     */
-    int getTotalPersons();
-
-    /**
-     * Horizontal bar chart data for Address Book.
-     * @return horizontal bar chart data for Address Book
-     */
-    XYChart.Series<Number, String> getAddressChartData();
-
-    int getTotalDiaryEntries();
-
-    XYChart.Series<String, Number> getDiaryChartData();
-
-    ObservableList<PieChart.Data> getFinancialPieChartData();
-
-    XYChart.Series<String, Number> getFinancialBarChartData();
-
-    XYChart.Series<String, Number> getItineraryLineChartData();
-
-    int getTotalItineraryEntries();
-
-    long getNumberOfDaysTrip();
-
-    long getNumberOfDaysVacation();
-
-    long getNumberOfTrip();
-
-    double getPercentageTrip();
+    ObservableList<Node> getStatisticsView();
 }

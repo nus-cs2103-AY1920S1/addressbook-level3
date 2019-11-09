@@ -124,6 +124,11 @@ public class Event {
         return date;
     }
 
+    public String getMonthAndYear() {
+        String dateString = date.toString().replace('/','-');
+        return dateString.substring(3);
+    }
+
     public Location getLocation() {
         return location;
     }

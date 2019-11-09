@@ -87,8 +87,8 @@ public class DiaryBookLogic {
         }
 
         @Override
-        public XYChart.Series<String, Number> getDiaryChart() {
-            return diaryModel.getDiaryChart();
+        public XYChart.Series<String, Number> getDiaryBarChart() {
+            return diaryModel.getDiaryBarChart();
         }
     }
 }

@@ -108,8 +108,8 @@ public class ItineraryLogic {
         }
 
         @Override
-        public XYChart.Series<String, Number> getItineraryLineChartData() {
-            return model.getItineraryLineChart();
+        public XYChart.Series<String, Number> getItineraryBarChartData() {
+            return model.getItineraryBarChart();
         }
     }
 }
