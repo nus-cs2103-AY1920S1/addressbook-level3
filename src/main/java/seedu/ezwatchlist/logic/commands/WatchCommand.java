@@ -241,6 +241,24 @@ public class WatchCommand extends Command {
                 && episodeNum <= showToEdit.getTvSeasons().get(seasonNum - 1).getTotalNumOfEpisodes();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof WatchCommand)) {
+            return false;
+        }
+
+        // state check
+        WatchCommand e = (WatchCommand) other;
+        return index.equals(e.index)
+                && watchShowDescriptor.equals(e.watchShowDescriptor);
+    }
+
     /**
      * Stores the details to edit the show with. Each non-empty field value will replace the
      * corresponding field value of the show.
@@ -280,13 +298,6 @@ public class WatchCommand extends Command {
             setNumOfSeasonsWatched(toCopy.numOfSeasonsWatched);
             setTotalNumOfEpisodes(toCopy.totalNumOfEpisodes);
             setSeasons(toCopy.seasons);
-        }
-
-        /**
-         * Returns true if isWatched is edited.
-         */
-        public boolean isAnyFieldWatched() {
-            return CollectionUtil.isAnyNonNull(isWatched);
         }
 
         public void setName(Name name) {
@@ -431,14 +442,8 @@ public class WatchCommand extends Command {
             // state check
             WatchShowDescriptor e = (WatchShowDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getType().equals(e.getType())
-                    && getDateOfRelease().equals(e.getDateOfRelease())
-                    && getIsWatched().equals(e.getIsWatched())
-                    && getDescription().equals(e.getDescription())
-                    && getRunningTime().equals(e.getRunningTime())
-                    && getActors().equals(e.getActors())
-                    && getPoster().equals(e.getPoster());
+            return getNumOfEpisodesWatched() == e.getNumOfEpisodesWatched()
+                    && getNumOfSeasonsWatched() == e.getNumOfSeasonsWatched();
         }
     }
 }

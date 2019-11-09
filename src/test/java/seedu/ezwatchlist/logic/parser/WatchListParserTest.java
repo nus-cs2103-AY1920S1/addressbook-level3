@@ -16,11 +16,14 @@ import seedu.ezwatchlist.logic.commands.EditCommand.EditShowDescriptor;
 import seedu.ezwatchlist.logic.commands.ExitCommand;
 import seedu.ezwatchlist.logic.commands.HelpCommand;
 import seedu.ezwatchlist.logic.commands.ListCommand;
+import seedu.ezwatchlist.logic.commands.WatchCommand;
+import seedu.ezwatchlist.logic.commands.WatchCommand.WatchShowDescriptor;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
 import seedu.ezwatchlist.testutil.ShowBuilder;
 import seedu.ezwatchlist.testutil.ShowUtil;
+import seedu.ezwatchlist.testutil.WatchShowDescriptorBuilder;
 
 public class WatchListParserTest {
 
@@ -54,6 +57,17 @@ public class WatchListParserTest {
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD, currentTab) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3", currentTab) instanceof ExitCommand);
+    }
+
+    @Test
+    public void parseCommand_watch() throws Exception {
+        Show show = new ShowBuilder().build();
+        WatchShowDescriptor descriptor = new WatchShowDescriptorBuilder(show).build();
+        WatchCommand command = (WatchCommand) parser.parseCommand(WatchCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_SHOW.getOneBased(), currentTab);
+        assertEquals(
+                new WatchCommand(INDEX_FIRST_SHOW, descriptor, false, false), command);
+
     }
 
     @Test
