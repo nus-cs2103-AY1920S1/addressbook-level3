@@ -866,16 +866,16 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The user attempts to add a like that already exists as a dislike, or vice versa.
+* 1a. The user attempts to add a like that already exists as a dislike, or vice versa.
 [none]
-** 2a1. $aveNUS shows an error message.
+** 1a1. $aveNUS shows an error message.
 +
 Use case ends.
 
-* 3a. The given categories, tags or locations are invalid.
+* 1b. The given categories, tags or locations are invalid.
 +
 [none]
-** 3a1. $aveNUS shows an error message.
+** 1b1. $aveNUS shows an error message.
 +
 Use case ends.
 
