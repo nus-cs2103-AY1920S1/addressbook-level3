@@ -388,12 +388,12 @@ The first operation is exposed in the `Model` interface as `Model#setCheatSheet(
 The following _figure_ shows a high-level view of how the auto-generation operation works.
 
 .Sequence diagram to illustrate auto-generation operation
-image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
+image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[pdfwidth=60%]
 
 From the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure_ below explains the details within the sequence diagram.
 
 .Detailed sequence diagram for retrieval of tagged contents
-image::jasmineDiagrams/AddCheatSheetDetailedSequenceDiagram.png[]
+image::jasmineDiagrams/AddCheatSheetDetailedSequenceDiagram.png[pdfwidth=60%]
 
 The above sequence diagram shows the complete action flow for the execution of methods.
 Here is a brief summary of the steps taken to create the cheatsheet:
