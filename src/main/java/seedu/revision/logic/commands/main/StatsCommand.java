@@ -34,9 +34,9 @@ public class StatsCommand extends Command {
         requireNonNull(model);
         ObservableList<Statistics> history = model.getStatisticsList();
         if (history.isEmpty()) {
-            return new CommandResult().withFeedBack("You have not attempted any quizzes yet!").build();
+            return new CommandResultBuilder().withFeedBack("You have not attempted any quizzes yet!").build();
         }
-        return new CommandResult().withFeedBack(String.format(MESSAGE_SUCCESS + "\nLatest quiz results shown: \n"
+        return new CommandResultBuilder().withFeedBack(String.format(MESSAGE_SUCCESS + "\nLatest quiz results shown: \n"
                 + history.get(history.size() - 1))).withStats(true).build();
     }
 }

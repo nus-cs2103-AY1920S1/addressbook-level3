@@ -44,7 +44,7 @@ public class StartCommand extends Command {
         requireNonNull(model);
         model.updateFilteredAnswerableList(this.mode.getCombinedPredicate());
 
-        return new CommandResult().withFeedBack(String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW,
+        return new CommandResultBuilder().withFeedBack(String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW,
                 model.getFilteredAnswerableList().size())).withStart(true).withMode(mode).build();
     }
 }

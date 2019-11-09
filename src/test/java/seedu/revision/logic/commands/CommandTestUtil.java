@@ -17,6 +17,7 @@ import java.util.List;
 import seedu.revision.commons.core.index.Index;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
@@ -103,7 +104,7 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack(expectedMessage).build();
+        CommandResult expectedCommandResult = new CommandResultBuilder().withFeedBack(expectedMessage).build();
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
