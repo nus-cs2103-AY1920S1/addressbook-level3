@@ -19,7 +19,7 @@
             <Insets />
          </VBox.margin>
       </Label>
-      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" VBox.vgrow="ALWAYS">
+      <ScrollPane fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" VBox.vgrow="ALWAYS">
          <content>
             <VBox fx:id="recordContents" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" />
          </content>
