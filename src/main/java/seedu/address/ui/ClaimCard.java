@@ -51,7 +51,7 @@ public class ClaimCard extends UiPart<Region> {
         date.setText(claim.getDate().text);
         status.setText(claim.getStatus().toString());
         description.setText(claim.getDescription().text);
-        amount.setText("$" + claim.getAmount().value);
+        amount.setText("$ " + claim.getAmount().value);
         name.setText(claim.getName().fullName);
         claim.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

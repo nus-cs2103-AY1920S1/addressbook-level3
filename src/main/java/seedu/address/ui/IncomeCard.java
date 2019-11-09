@@ -49,7 +49,7 @@ public class IncomeCard extends UiPart<Region> {
         this.income = income;
         id.setText(displayedIndex + ". ");
         description.setText(income.getDescription().text);
-        amount.setText("$" + income.getAmount().value);
+        amount.setText("$ " + income.getAmount().value);
         date.setText(income.getDate().text);
         name.setText(income.getName().fullName);
         phone.setText(income.getPhone().value);
