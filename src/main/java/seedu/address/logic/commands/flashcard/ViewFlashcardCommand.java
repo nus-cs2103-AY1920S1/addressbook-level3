@@ -16,14 +16,11 @@ import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.ui.FlashcardTabWindowController;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
 public class ViewFlashcardCommand extends Command {
-    private static final Logger logger = LogsCenter.getLogger(ViewFlashcardCommand.class);
-
     public static final String COMMAND_WORD = VIEW;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -32,6 +29,8 @@ public class ViewFlashcardCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String VIEW_FLASHCARD_SUCCESS = "Viewing flashcard: %1$s";
+
+    private static final Logger logger = LogsCenter.getLogger(ViewFlashcardCommand.class);
 
     private final Index targetIndex;
 

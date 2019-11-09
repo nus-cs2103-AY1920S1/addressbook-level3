@@ -9,7 +9,6 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
@@ -41,9 +40,10 @@ public class FlashcardTabWindowController {
 
     private IntegerProperty currentSeconds;
     private Timeline timeline;
+    private Timeline timelineHelper;
 
     /**
-     *
+     * This method is called after the FlashcardTabWindowController has been injected.
      */
     @FXML
     public void initialize() {
@@ -91,10 +91,14 @@ public class FlashcardTabWindowController {
         isAnswerShown = true;
     }
 
+
+    /**
+     * This method is called when a command is executed during a time trial - terminates the time trial.
+     */
     public void terminateTimeTrial() {
-        System.out.println("TRYING TO TERMINATE PLS HEP");
         timeline.stop();
-        timeline = null;
+        timelineHelper.stop();
+        resetTextsAfterTimeTrial();
     }
 
     /**
@@ -111,14 +115,12 @@ public class FlashcardTabWindowController {
      */
     private void startTimer() {
         // Adapted from https://asgteach.com/2011/10/javafx-animation-and-binding-simple-countdown-timer-2/
-        if (timeline != null) {
-            timeline.stop();
-        }
+
         currentSeconds.set(TIMER_DURATION);
-        timeline = new Timeline(new KeyFrame(Duration.seconds(TIMER_DURATION + 1),
+        timelineHelper = new Timeline(new KeyFrame(Duration.seconds(TIMER_DURATION + 1),
                 new KeyValue(currentSeconds, 0)),
                 new KeyFrame(Duration.seconds(TIMER_DURATION), e -> showTimetrialFlashcardAns()));
-        timeline.play();
+        timelineHelper.play();
     }
 
     /**
@@ -128,7 +130,7 @@ public class FlashcardTabWindowController {
     public void startTimeTrial(Optional<ArrayList<Flashcard>> deck) {
         resetTexts();
         currFlashcard = Optional.empty();
-        Timeline timeline = new Timeline();
+        timeline = new Timeline();
         int cardCount = 0;
         for (Flashcard fc: deck.get()) {
             timeline.getKeyFrames().addAll(
@@ -149,8 +151,9 @@ public class FlashcardTabWindowController {
     private void resetTextsAfterTimeTrial() {
         qnsTextArea.setText("");
         ansTextArea.setText("");
+        timerLabel.setVisible(false);
         currFlashcard = Optional.empty();
-        MainWindow.isTimeTrialOngoing = false;
+        MainWindow.setIsTimeTrialOngoing(false);
     }
 
     /**

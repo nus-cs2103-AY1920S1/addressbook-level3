@@ -35,9 +35,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindowCopy.fxml";
-    private static final String TIME_TRIAL_ONGOING_FEEDBACK = "Commands are not allowed to be inputted as a time trial"
-            + " is still ongoing!";
     private static final String TIME_TRIAL_END_FEEDBACK = "The time trial has ended!";
+
+    private static boolean isTimeTrialOngoing;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -81,8 +81,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private ImageView currentHighlightedCircle;
-
-    public static boolean isTimeTrialOngoing;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -332,5 +330,9 @@ public class MainWindow extends UiPart<Stage> {
         FadeTransition ft = new FadeTransition(Duration.millis(400), targetCircle);
         ft.setToValue(1);
         ft.play();
+    }
+
+    public static void setIsTimeTrialOngoing(boolean isTimeTrialOngoing) {
+        MainWindow.isTimeTrialOngoing = isTimeTrialOngoing;
     }
 }

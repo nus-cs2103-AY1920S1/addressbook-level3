@@ -26,7 +26,6 @@ import seedu.address.model.tag.exceptions.TagNotFoundException;
  * Loads the next flashcard into the window.
  */
 public class StartTimeTrialCommand extends Command {
-    private static final Logger logger = LogsCenter.getLogger(StartTimeTrialCommand.class);
 
     public static final String COMMAND_WORD = TIMETRIAL;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts a time trial of all all the flashcards"
@@ -36,10 +35,12 @@ public class StartTimeTrialCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Time trial started";
 
+    private static final Logger logger = LogsCenter.getLogger(StartTimeTrialCommand.class);
 
     private String[] tagKeywords;
-
     private final FlashcardContainsTagPredicate tagPredicate;
+
+
     /**
      * Creates an AddFlashcardCommand to add the specified {@code Flashcard}
      */
@@ -57,8 +58,8 @@ public class StartTimeTrialCommand extends Command {
             sb.append(tag + " ");
         }
 
-        logger.info("Starting time trial of flashcards with the tags: " +
-            sb.toString().trim());
+        logger.info("Starting time trial of flashcards with the tags: "
+            + sb.toString().trim());
 
         requireNonNull(model);
 
