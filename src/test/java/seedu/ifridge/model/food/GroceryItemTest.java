@@ -66,6 +66,6 @@ public class GroceryItemTest {
 
         // different tags -> returns false
         editedBanana = new GroceryItemBuilder(BANANA).withTags(VALID_TAG_NUTS).build();
-        assertTrue(BANANA.equals(editedBanana));
+        assertFalse(BANANA.equals(editedBanana));
     }
 }

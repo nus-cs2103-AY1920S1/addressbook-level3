@@ -48,31 +48,34 @@ public class GroceryCommandTestUtil {
     public static final String VALID_EXPIRY_DATE_NUTS = "10/12/2019";
     public static final String VALID_EXPIRY_DATE_ORANGES = "24/11/2019";
 
-    public static final String[] VALID_TAG_BANANA = {"potassium", "fruits"};
+    public static final String VALID_TAG_BANANA = "potassium";
     public static final String VALID_TAG_OLIVE_OIL = "healthy";
     public static final String VALID_TAG_NUTS = "nuts";
     public static final String VALID_TAG_ORANGES = "oranges";
-    public static final String VALID_TAG_CARBS = "carbs";
-    public static final String VALID_TAG_VEGETABLE = "vegetable";
 
+    public static final String NAME_DESC_BANANA = " " + PREFIX_NAME + VALID_NAME_BANANA;
+    public static final String NAME_DESC_OLIVE_OIL = " " + PREFIX_NAME + VALID_NAME_OLIVE_OIL;
     public static final String NAME_DESC_NUTS = " " + PREFIX_NAME + VALID_NAME_NUTS;
     public static final String NAME_DESC_ORANGES = " " + PREFIX_NAME + VALID_NAME_ORANGES;
     public static final String NAME_DESC_CHEESE = " " + PREFIX_NAME + VALID_NAME_CHEESE;
     public static final String NAME_DESC_TOMATO_JUICE = " " + PREFIX_NAME + VALID_NAME_TOMATO_JUICE;
 
+    public static final String AMOUNT_DESC_BANANA = " " + PREFIX_AMOUNT + VALID_AMOUNT_BANANA;
+    public static final String AMOUNT_DESC_OLIVE_OIL = " " + PREFIX_AMOUNT + VALID_AMOUNT_OLIVE_OIL;
     public static final String AMOUNT_DESC_NUTS = " " + PREFIX_AMOUNT + VALID_AMOUNT_NUTS;
     public static final String AMOUNT_DESC_ORANGES = " " + PREFIX_AMOUNT + VALID_AMOUNT_ORANGES;
     public static final String AMOUNT_DESC_CHEESE = " " + PREFIX_AMOUNT + VALID_AMOUNT_CHEESE;
     public static final String AMOUNT_DESC_TOMATO_JUICE = " " + PREFIX_AMOUNT + VALID_NAME_TOMATO_JUICE;
 
+    public static final String EXPIRY_DATE_DESC_BANANA = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_BANANA;
+    public static final String EXPIRY_DATE_DESC_OLIVE_OIL = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_OLIVE_OIL;
     public static final String EXPIRY_DATE_DESC_NUTS = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_NUTS;
     public static final String EXPIRY_DATE_DESC_ORANGES = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_ORANGES;
 
-    public static final String TAG_DESC_BANANA = " " + PREFIX_TAG + VALID_TAG_BANANA[0] + " "
-            + PREFIX_TAG + VALID_TAG_BANANA[1];
+    public static final String TAG_DESC_BANANA = " " + PREFIX_TAG + VALID_TAG_BANANA;
     public static final String TAG_DESC_OLIVE_OIL = " " + PREFIX_TAG + VALID_TAG_OLIVE_OIL;
-    public static final String TAG_DESC_VEGETABLE = " " + PREFIX_TAG + VALID_TAG_VEGETABLE;
-    public static final String TAG_DESC_CARBS = " " + PREFIX_TAG + VALID_TAG_CARBS;
+    public static final String TAG_DESC_NUTS = " " + PREFIX_TAG + VALID_TAG_NUTS;
+    public static final String TAG_DESC_ORANGES = " " + PREFIX_TAG + VALID_TAG_ORANGES;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Mango&"; // '&' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "snack*"; // '*' not allowed in tags
