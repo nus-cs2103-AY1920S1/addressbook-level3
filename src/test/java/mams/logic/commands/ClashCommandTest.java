@@ -1,31 +1,27 @@
 package mams.logic.commands;
 
-import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static mams.logic.commands.CommandTestUtil.assertCommandFailure;
+import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalIndexes.INDEX_FOURTH;
 import static mams.testutil.TypicalIndexes.INDEX_MAX_INT;
 import static mams.testutil.TypicalIndexes.INDEX_SECOND;
 import static mams.testutil.TypicalIndexes.INDEX_THIRD;
-import static mams.testutil.TypicalModules.CS1010;
-import static mams.testutil.TypicalModules.CS1020;
-import static mams.testutil.TypicalModules.CS1231;
-import static mams.testutil.TypicalModules.CS2040;
-
 import static mams.testutil.TypicalMams.getTypicalMams;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static mams.testutil.TypicalModules.CS1010;
+import static mams.testutil.TypicalModules.CS1231;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
-
 import mams.model.module.Module;
-import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 
 public class ClashCommandTest {
 
@@ -58,13 +54,13 @@ public class ClashCommandTest {
         assertFalse(command.equals(null));
 
         ClashCommand.ClashCommandParameters anotherParams = new ClashCommand.ClashCommandParameters();
+        ClashCommand secondCommand = new ClashCommand(anotherParams);
 
         // different appeal index -> returns false
         anotherParams.setAppealIndex(INDEX_SECOND);
         anotherParams.setModuleIndices(INDEX_FIRST, INDEX_SECOND);
         anotherParams.setModuleCodes("cs1010", "cs1020");
         anotherParams.setStudentIndex(INDEX_FIRST);
-        ClashCommand secondCommand = new ClashCommand(anotherParams);
         assertFalse(command.equals(secondCommand));
 
         // different module indices -> returns false
@@ -100,10 +96,7 @@ public class ClashCommandTest {
 
         // add module appeal -> no clash, show message
         params.setAppealIndex(INDEX_FOURTH);
-        assertCommandSuccess(command,
-                model,
-                ClashCommand.MESSAGE_CLASH_NOT_DETECTED,
-                expectedModel);
+        assertCommandSuccess(command, model, ClashCommand.MESSAGE_CLASH_NOT_DETECTED, expectedModel);
 
         // drop module appeal
         params.setAppealIndex(INDEX_SECOND);
@@ -117,13 +110,13 @@ public class ClashCommandTest {
     }
 
     @Test
-    public void execute_invalidAppealIndex_throwsInvalidIndexException() {
+    public void execute_invalidAppealIndex_throwsCommandException() {
 
         ClashCommand.ClashCommandParameters params = new ClashCommand.ClashCommandParameters();
-        params.setAppealIndex(INDEX_MAX_INT);
         ClashCommand command = new ClashCommand(params);
 
         // index > size of current appeal list
+        params.setAppealIndex(INDEX_MAX_INT);
         assertCommandFailure(command, model, ClashCommand.MESSAGE_INVALID_INDEX);
 
     }
@@ -146,7 +139,7 @@ public class ClashCommandTest {
     }
 
     @Test
-    public void execute_atLeastOneInvalidModuleIndices_throwsInvalidIndexException() {
+    public void execute_atLeastOneInvalidModuleIndices_throwsCommandException() {
 
         ClashCommand.ClashCommandParameters params = new ClashCommand.ClashCommandParameters();
         ClashCommand command = new ClashCommand(params);
@@ -161,55 +154,88 @@ public class ClashCommandTest {
     }
 
     @Test
-    public void execute_duplicateModuleIndices_throwsException() {}
+    public void execute_validModuleCodes_success() {
+
+        ClashCommand.ClashCommandParameters params = new ClashCommand.ClashCommandParameters();
+        ClashCommand command = new ClashCommand(params);
+
+        // clash detected
+        params.setModuleCodes("cs1010", "cs1231");
+        String expectedMessage = ClashCommand.MESSAGE_CLASH_DETECTED;
+        expectedMessage += getClashDetails(CS1010, CS1231);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+
+        // no clash detect
+        params.setModuleCodes("cs1010", "cs2040");
+        assertCommandSuccess(command, model, ClashCommand.MESSAGE_CLASH_NOT_DETECTED, expectedModel);
+    }
 
     @Test
-    public void execute_validModuleCodes_success() {}
+    public void execute_atLeastOneInvalidModuleCodes_throwsCommandException() {
 
-    @Test
-    public void execute_atLeastOneInvalidModuleCodes_throwsModuleNotFoundException() {
+        ClashCommand.ClashCommandParameters params = new ClashCommand.ClashCommandParameters();
+        ClashCommand command = new ClashCommand(params);
 
-        // -> module not found
+        // first module code invalid -> module not found
+        params.setModuleCodes("cs1234", "cs1231");
+        assertCommandFailure(command, model, ClashCommand.MESSAGE_INVALID_MODULE);
+
+        // second module code invalid -> module not found
+        params.setModuleCodes("cs1231", "cs1234");
+        assertCommandFailure(command, model, ClashCommand.MESSAGE_INVALID_MODULE);
 
     }
 
     @Test
-    public void execute_duplicateModuleCodes_throwsException() {}
+    public void parse_duplicateModuleParameters_throwsCommandException() {
+
+        ClashCommand.ClashCommandParameters params = new ClashCommand.ClashCommandParameters();
+        ClashCommand command = new ClashCommand(params);
+
+        // duplicate module indices
+        params.setModuleIndices(INDEX_FIRST, INDEX_FIRST);
+        assertCommandFailure(command, model, ClashCommand.MESSAGE_DUPLICATE_MODULE_PARAMS);
+
+        // duplicate module codes
+        params.setModuleCodes("cs1231", "cs1231");
+        assertCommandFailure(command, model, ClashCommand.MESSAGE_DUPLICATE_MODULE_PARAMS);
+
+    }
 
     @Test
     public void execute_validStudentIndex_success() {
 
         ClashCommand.ClashCommandParameters params = new ClashCommand.ClashCommandParameters();
+        ClashCommand command = new ClashCommand(params);
 
         // clash detected
         params.setStudentIndex(INDEX_SECOND);
-        ClashCommand command = new ClashCommand(params);
         String expectedMessage = ClashCommand.MESSAGE_CLASH_DETECTED;
         expectedMessage += getClashDetails(CS1231, CS1010);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
 
         // no clash detected
         params.setStudentIndex(INDEX_FIRST);
-        assertCommandSuccess(command,
-                model,
-                ClashCommand.MESSAGE_CLASH_NOT_DETECTED,
-                expectedModel);
+        assertCommandSuccess(command, model, ClashCommand.MESSAGE_CLASH_NOT_DETECTED, expectedModel);
     }
 
     @Test
-    public void execute_invalidStudentIndex_throwsInvalidIndexException() {
+    public void execute_invalidStudentIndex_throwsCommandException() {
 
         ClashCommand.ClashCommandParameters params = new ClashCommand.ClashCommandParameters();
-        params.setStudentIndex(INDEX_MAX_INT);
         ClashCommand command = new ClashCommand(params);
 
         // index > size of current student list
+        params.setStudentIndex(INDEX_MAX_INT);
         assertCommandFailure(command, model, ClashCommand.MESSAGE_INVALID_INDEX);
 
     }
 
-    /*
-
+    /**
+     * Formats the clash details between two {@code Module} objects
+     * @param firstModule a {@code Module} object
+     * @param secondModule another {@code Module} object
+     * @return String representation of clash details
      */
     private String getClashDetails(Module firstModule, Module secondModule) {
         String details = firstModule.getModuleCode();
@@ -220,5 +246,4 @@ public class ClashCommandTest {
         details += "\n";
         return details;
     }
-
 }

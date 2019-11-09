@@ -30,7 +30,7 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_noRelevantPrefixesPresent_throwParseException() {
+    public void parse_noRelevantPrefixesPresent_throwsParseException() {
         assertParseFailure(parser,
                 " t/1 y/1 8/ -s -all",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
@@ -60,7 +60,7 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_allEmptyKeywords_throwParseException() {
+    public void parse_allEmptyKeywords_throwsParseException() {
         // single prefix
         assertParseFailure(parser,
                 " a/",
@@ -84,21 +84,35 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
-        // no leading and trailing whitespaces
-        List<Predicate> studentNames = new ArrayList<>();
-        studentNames.add(new StudentContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
 
-        FindCommand expectedFindCommand =
-                new FindCommand(studentNames);
+        // single prefix: s/
+        List<Predicate> studentPreds = new ArrayList<>();
+        studentPreds.add(new StudentContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+
+        FindCommand expectedFindCommand = new FindCommand(studentPreds);
         assertParseSuccess(parser, " s/Alice Bob", expectedFindCommand);
 
-        // multiple prefixes
-        List<Predicate> multiplePreds = new ArrayList<>();
-        multiplePreds.add(new StudentContainsKeywordsPredicate(Arrays.asList("alice", "bob")));
-        multiplePreds.add(new ModuleContainsKeywordsPredicate(Collections.singletonList("cs1231")));
-        multiplePreds.add(new AppealContainsKeywordsPredicate(Collections.singletonList("unresolved")));
+        // single prefix: m/
+        List<Predicate> modulePreds = new ArrayList<>();
+        modulePreds.add(new ModuleContainsKeywordsPredicate(Collections.singletonList("cs1231")));
 
-        expectedFindCommand = new FindCommand(multiplePreds);
+        expectedFindCommand = new FindCommand(modulePreds);
+        assertParseSuccess(parser, " m/cs1231", expectedFindCommand);
+
+        // single prefix: a/
+        List<Predicate> appealPreds = new ArrayList<>();
+        appealPreds.add(new AppealContainsKeywordsPredicate(Collections.singletonList("unresolved")));
+
+        expectedFindCommand = new FindCommand(appealPreds);
+        assertParseSuccess(parser, " a/unresolved", expectedFindCommand);
+
+        // multiple prefixes
+        List<Predicate> multiplePrefixes = new ArrayList<>();
+        multiplePrefixes.add(new StudentContainsKeywordsPredicate(Arrays.asList("alice", "bob")));
+        multiplePrefixes.add(new ModuleContainsKeywordsPredicate(Collections.singletonList("cs1231")));
+        multiplePrefixes.add(new AppealContainsKeywordsPredicate(Collections.singletonList("unresolved")));
+
+        expectedFindCommand = new FindCommand(multiplePrefixes);
         assertParseSuccess(parser, " s/alice bob m/cs1231 a/unresolved", expectedFindCommand);
 
         // different ordering but same object

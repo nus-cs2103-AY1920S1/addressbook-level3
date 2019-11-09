@@ -17,6 +17,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
+import org.junit.jupiter.api.Test;
+
 import mams.commons.core.Messages;
 import mams.model.Model;
 import mams.model.ModelManager;
@@ -24,8 +26,6 @@ import mams.model.UserPrefs;
 import mams.model.appeal.AppealContainsKeywordsPredicate;
 import mams.model.module.ModuleContainsKeywordsPredicate;
 import mams.model.student.StudentContainsKeywordsPredicate;
-
-import org.junit.jupiter.api.Test;
 
 public class FindCommandTest {
 
@@ -173,7 +173,7 @@ public class FindCommandTest {
         FindCommand findCommand = new FindCommand(predicates);
         expectedModel.updateFilteredStudentList(predicates.get(0));
         assertCommandSuccess(findCommand, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BENSON), model.getFilteredStudentList());
+        assertEquals(Collections.singletonList(BENSON), model.getFilteredStudentList());
 
     }
 
