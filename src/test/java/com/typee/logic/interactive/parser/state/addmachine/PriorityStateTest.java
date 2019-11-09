@@ -110,12 +110,17 @@ class PriorityStateTest {
     @Test
     void transition_invalidArgumentMultimap_throwsStateTransitionException() {
 
-        // Equivalence Partition : ArgumentMultimap without a location prefix, ArgumentMultimap with excessive args.
+        // Equivalence Partitions : ArgumentMultimap without a priority level prefix,
+        // ArgumentMultimap with excessive args.
 
+        // EP : No priority level prefix.
         List<Prefix> firstPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME,
                 PREFIX_DESCRIPTION, PREFIX_LOCATION, PREFIX_ATTENDEES);
+
+        // EP : Excessive arguments.
         List<Prefix> secondPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME,
                 PREFIX_DESCRIPTION, PREFIX_LOCATION, PREFIX_ATTENDEES, PREFIX_PRIORITY, PREFIX_ORDER);
+        
         List<String> firstArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "Description",
                 "Location", "Damn It");
         List<String> secondArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "Description",
