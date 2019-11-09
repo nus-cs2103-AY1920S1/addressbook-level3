@@ -435,6 +435,8 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::editMode[]
+
 === EditMode
 A `Restaurant` object contains many attributes. On top of a `Name`, `Location`, `Rating` and a list of `Tag`,
 it also includes a list of `Food` as its menu, as well as a list of `Order`. This makes it difficult to edit
@@ -509,6 +511,8 @@ on the current context.
 * **Alternative:**
 ** Pros: Will only need 1 method signature to change the display of User Interface.
 ** Cons: It will create many unnecessary contexts that the Parser will never be in apart from this situation.
+
+// end::editMode[]
 
 == Documentation
 

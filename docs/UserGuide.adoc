@@ -424,9 +424,10 @@ Example: `history 1`
 ====
 
 // end::customerCommand[]
-// tag::restaurantCommand[]
 
 {nbsp} +
+
+// tag::restaurantCommand[]
 
 === Restaurant commands
 
@@ -564,6 +565,8 @@ will be auto-tagged as "Popular".
 .Note:
 * Food items' quantity ordered will only be updated upon completion of an order.
 ====
+
+// end::restaurantCommand[]
 
 {nbsp} +
 
