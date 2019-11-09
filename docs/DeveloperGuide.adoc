@@ -282,17 +282,18 @@ CustomSorter is overridden by a new CustomSorter with no fields.
 
 //tag::savings[]
 === Savings feature
-The Savings feature allows users to save a specified amount of money from their wallet into their Savings Account using the `save AMOUNT` command, where `AMOUNT` is a user defined amount of money to deposit into the user's Savings Account.
-The Savings feature also allows the user to withdraw from his savings account either into his wallet or withdraw the money completely from the $aveNUS app.
-Using the `withdraw AMOUNT`, users will be able to transfer their money into their $aveNUS wallets, and using "withdraw out AMOUNT", the user can withdraw the
-money completely from the Savings Account and the application.
+The Savings feature allows users to save a specified amount of money from their wallet into their savings account using the `save AMOUNT` command, where `AMOUNT` is a user defined amount of money to deposit into the user's savings account.
+The Savings feature also allows the user to withdraw from his savings account into his $aveNUS wallet using the `withdraw AMOUNT` command.
+On top of this, a `show` command is implemented so that users can view their savings and withdrawals exclusively, so that the user can decide for himself/herself
+if he has been saving enough into or withdrawing too much from his savings account.
 
 ==== Classes for savings feature in Model
 
-The Savings feature was implemented with a new set of classes introduced to the Model. The `SavingsAccount` is a singleton class
-which contains the methods and  classes related to this feature.
-The `SavingsAccount` object is stored in $aveNUS. It exposes a read-only interface `ReadOnlySavings` to allow the other components to retrieve
-the savings history of the user while maintaining data integrity.
+The Savings feature was implemented with a new set of classes introduced to the Model. The `SavingsAccount` is a class
+which contains the methods and classes related to this feature.
+The `SavingsAccount` object is stored in $aveNUS. It exposes a read-only interface `ReadOnlySavingsAccount` to allow only an unmodifiable version of the `SavingsAccount`
+to be exposed to the users, maintaining data integrity. Within the `SavingsAccount`, the class `CurrentSavings` is instantiated,
+which is a sum of the total savings and withdrawals made by the user.
 
 The `SavingsAccount` contains a unique `SavingsHistory` which contains a list of the past savings and withdrawals made by the user.
 which are represented by `Saving` and `Withdrawal` respectively. Both `Saving` and `Withdrawal`
