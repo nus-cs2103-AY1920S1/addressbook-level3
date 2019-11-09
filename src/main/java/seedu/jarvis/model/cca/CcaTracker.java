@@ -88,7 +88,7 @@ public class CcaTracker {
 
     public Cca getCca(Index index) {
         requireNonNull(index);
-
+        assert index.getZeroBased() >= 0 : "Index is negative.";
         return ccaList.getCca(index);
     }
 
@@ -115,6 +115,7 @@ public class CcaTracker {
      */
     public void addCca(Index targetIndex, Cca cca) {
         requireAllNonNull(targetIndex, cca);
+        assert targetIndex.getZeroBased() >= 0 : "Index is negative.";
         ccaList.addCca(targetIndex, cca);
     }
 
@@ -162,6 +163,7 @@ public class CcaTracker {
      */
     public void increaseProgress(Index index) {
         requireNonNull(index);
+        assert index.getZeroBased() >= 0 : "Index is negative.";
         ccaList.increaseProgress(index);
     }
 
@@ -171,6 +173,7 @@ public class CcaTracker {
      * @return true if the Cca at {@code TargetIndex} contains a {@CcaProgress} already.
      */
     public boolean ccaContainsProgress(Index targetIndex) {
+        assert targetIndex.getZeroBased() >= 0 : "Index is negative.";
         return ccaList.ccaContainsProgress(targetIndex);
     }
 
@@ -178,6 +181,7 @@ public class CcaTracker {
      * Checks if cca progress at {@code s} is already max.
      */
     public boolean ccaAtMaxIncrement(Index index) {
+        assert index.getZeroBased() >= 0 : "Index is negative.";
         return ccaList.ccaAtMaxIncrement(index);
     }
 
@@ -204,6 +208,7 @@ public class CcaTracker {
      */
     public boolean ccaProgressAtMinLevel(Index targetIndex) {
         requireNonNull(targetIndex);
+        assert targetIndex.getZeroBased() >= 0 : "Index is negative.";
         return ccaList.ccaProgressAtMinLevel(targetIndex);
     }
 
@@ -212,6 +217,7 @@ public class CcaTracker {
      */
     public void decreaseProgress(Index targetIndex) {
         requireNonNull(targetIndex);
+        assert targetIndex.getZeroBased() >= 0 : "Index is negative.";
         ccaList.decreaseProgress(targetIndex);
     }
 

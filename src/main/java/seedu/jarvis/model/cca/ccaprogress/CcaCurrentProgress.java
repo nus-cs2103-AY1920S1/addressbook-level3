@@ -48,6 +48,7 @@ public class CcaCurrentProgress {
      * Decreases the current progress by 1.
      */
     public void decreaseProgress() {
+        assert currentProgress >= 0 : "Progress is negative.";
         if (progressAtMin()) {
             throw new CcaProgressAtMinException();
         }
@@ -58,7 +59,7 @@ public class CcaCurrentProgress {
     //// util methods
 
     /**
-     * Returns true of the progress is at 1.
+     * Returns true of the progress is at 0.
      */
     public boolean progressAtMin() {
         return currentProgress == 0;
