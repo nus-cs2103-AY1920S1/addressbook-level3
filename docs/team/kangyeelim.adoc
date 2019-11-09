@@ -27,7 +27,7 @@ This project is part of the module 'Software Engineering Project CS2103T' where 
 command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
 Our team decided to incorporate and morph the AddressBook application as part of our all-in-one application which
 enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
-reimbursements, inventory and member’s contact details easily. The duration of our project was 13 weeks.
+reimbursements, inventory and members' contact details easily. The duration of our project was 13 weeks.
 
 ===  Key to the Icons and Formatting Used in the Document
 
@@ -36,7 +36,7 @@ This symbol indicates extra information or definition.
 
 `Model` :
 Text with this font and grey highlight indicates a component, class or object in the architecture of
-the application.
+the application. It also indicates a generic command format for the command box in the User Guide.
 
 [blue]`command` :
 Text with this blue font and grey highlight indicates a command that can be inputted by the user.
@@ -48,7 +48,7 @@ for Leo, our lion mascot. Each tab serves a different purpose that helps treasur
 or society's finances.
 
 Home Tab keeps track of individual transactions. Members Tab keep track of all contact
-details of members. Reimbursements Tab keeps track of reimbursement records for members that have spent money for the club activities.
+details of members. Reimbursements Tab keeps track of reimbursement records for members that have spent money for club activities.
 Inventory Tab keeps track of items for sale. Cashier Tab helps the club with on-site sales
 and directly inputs all revenue into the system. Overview Tab allows treasurers to plan the
 club's finances.
@@ -87,11 +87,11 @@ A [blue]`*sort*` command was implemented for the transactions in the table to so
 ////
 * Deleting Transactions of a Specific Member
 ** What it does:
-The Delete Command allows all transactions linked to the specified member in the command to be deleted at once.
+This feature allows all transactions linked to a specified member to be deleted at once.
 
 ** Justification:
 This feature allows the user to clear all transaction records linked to a specific member if the member
-has left the CCA since a member's details can only be deleted in the Members Tab if the member does not have existing transaction
+has left the CCA since a member's details can only be deleted in Members Tab if the member does not have existing transaction
 records.
 
 ** Highlights:
@@ -101,7 +101,7 @@ records. This works well with the deletion of member feature in Members Tab.
 * Sorting Transactions in a Specific Order
 ** What it does:
 Each transaction records consists of a date, description, category, amount of money and
-person accountable for the transaction. Thus, the Sort Command helps to sort the transactions by the alphabetical order of
+person accountable for the transaction. Thus, this feature helps to sort the transactions by the alphabetical order of
 the person's name, by the date (from oldest to most recent) or amount (from smallest to largest).
 
 ** Justification:
@@ -175,8 +175,8 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/22[(PR#22)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/197[(PR #197)]
 
 == Contributions to the User Guide
-The following section shows my additions to the treasurerPro User Guide for the `Home Tab` features which showcases my ability
-to write documentation to guide non-technical end-users on how to use treasurerPro.
+The following section shows my additions to the treasurerPro User Guide for the features in Home Tab which showcases my ability
+to write documentation to guide end-users on how to use treasurerPro.
 
 === Current Enhancement
 {Start of First Extract from User Guide}
