@@ -1,6 +1,8 @@
 package seedu.moneygowhere.ui;
 
-import java.util.logging.Level;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -74,6 +76,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private Tab graphTab;
     private Tab statsTab;
+
+    private String startDate = null;
+    private String lastDate = null;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -153,11 +158,12 @@ public class MainWindow extends UiPart<Stage> {
         budgetPanelPlaceholder.getChildren().add(bp.getRoot());
 
         graphTab = new Tab("Graph");
-        graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n", currencyInUse);
+        getStartAndEndDates(logic.getGraphData());
+        getGraphPanel(currencyInUse);
         graphTab.setContent(graphPanel.getRoot());
 
         statsTab = new Tab("Statistics");
-        statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n", currencyInUse);
+        getStatsPanel(currencyInUse);
         statsTab.setContent(statsPanel.getRoot());
 
         tabPanePlaceholder.getTabs().addAll(graphTab, statsTab);
@@ -226,23 +232,16 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            getStartAndEndDates(logic.getGraphData());
+            getGraphPanel(currencyInUse);
+            getStatsPanel(currencyInUse);
+
             if (commandResult.isShowGraph()) {
-                graphPanel = new GraphPanel(logic.getGraphData(), commandResult.getFeedbackToUser(), currencyInUse);
                 tabPanePlaceholder.getSelectionModel().select(graphTab);
-                graphTab.setContent(graphPanel.getRoot());
-            } else {
-                graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n", currencyInUse);
-                logger.log(Level.INFO, logic.getGraphData().toString());
-                graphTab.setContent(graphPanel.getRoot());
             }
 
             if (commandResult.isShowStats()) {
-                statsPanel = new StatsPanel(logic.getStatsData(), commandResult.getFeedbackToUser(), currencyInUse);
                 tabPanePlaceholder.getSelectionModel().select(statsTab);
-                statsTab.setContent(statsPanel.getRoot());
-            } else {
-                statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n", currencyInUse);
-                statsTab.setContent(statsPanel.getRoot());
             }
 
             return commandResult;
@@ -252,6 +251,56 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Constructs the Statistics Panel
+     */
+    private void getStatsPanel(Currency currencyInUse) {
+        LinkedHashMap<String, Double> statsData = logic.getStatsData();
+        if (startDate == null && lastDate == null) {
+            statsPanel = new StatsPanel(statsData, "Statistics\n", currencyInUse);
+            statsTab.setContent(statsPanel.getRoot());
+        } else {
+            statsPanel = new StatsPanel(statsData,
+                String.format("Statistics for spending between %s and %s\n", startDate, lastDate), currencyInUse);
+            statsTab.setContent(statsPanel.getRoot());
+        }
+    }
+
+    /**
+     * Constructs the Graph Panel
+     */
+    private void getGraphPanel(Currency currencyInUse) {
+        LinkedHashMap<String, Double> graphData = logic.getGraphData();
+        if (startDate == null && lastDate == null) {
+            graphPanel = new GraphPanel(graphData, "Graph\n", currencyInUse);
+            graphTab.setContent(graphPanel.getRoot());
+        } else {
+            graphPanel = new GraphPanel(graphData,
+                String.format("Graph for spending between %s and %s\n", startDate, lastDate), currencyInUse);
+            graphTab.setContent(graphPanel.getRoot());
+        }
+    }
+
+    /**
+     * Gets the first date and last date from the graph data provided.
+     */
+    private void getStartAndEndDates(LinkedHashMap<String, Double> graphData) {
+        if (graphData.size() >= 2) {
+            Iterator<Map.Entry<String, Double>> iterator = graphData.entrySet().iterator();
+            startDate = iterator.next().getKey().toString();
+            while (iterator.hasNext()) {
+                lastDate = iterator.next().getKey().toString();
+            }
+        } else if (graphData.size() == 1) {
+            startDate = graphData.entrySet().iterator().next().getKey().toString();
+            lastDate = startDate;
+        } else {
+            startDate = null;
+            lastDate = null;
+        }
+    }
+
     /**
      * Retrieves the previously stored command.
      *

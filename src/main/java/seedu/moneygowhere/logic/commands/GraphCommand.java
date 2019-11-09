@@ -13,7 +13,7 @@ import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
- * Format full help instructions for every command for display.
+ * Generates a graph of daily total spending based on date range provided, if any.
  */
 public class GraphCommand extends Command {
 
@@ -44,35 +44,37 @@ public class GraphCommand extends Command {
 
 
     /**
-     * Creates a GraphCommand with whole date range of all spending
-     * if date range is not specified.
+     * Creates a GraphCommand with no parameters if date range is not specified.
      */
     public GraphCommand() {
         startDate = null;
         endDate = null;
-        messageSuccess = "Graph for all dates\n";
+        messageSuccess = "Graph panel updated for all spending!\n"
+            + "To view graph for a more specific date range, type: graph d/DATE_START d/DATE_END.\n";
     }
 
     /**
-     * Creates a GraphCommand with specified date range.
+     * Creates a GraphCommand with the specified date range.
      */
     public GraphCommand(Date startingDate, Date endingDate) {
         requireNonNull(startingDate);
         requireNonNull(endingDate);
         startDate = startingDate;
         endDate = endingDate;
-        messageSuccess = String.format("Graph for spending between %s and %s\n", startDate, endDate);
+        messageSuccess = String.format("Graph panel updated for spending between %s and %s!\n", startDate, endDate);
     }
 
     @Override
     public CommandResult execute(Model model) {
-        //To reset the spending list to default after previous commands
-        model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
-        model.updateStatsPredicate(getGraphPredicate());
+        model.updateFilteredSpendingList(getGraphPredicate());
         logger.log(Level.INFO, String.format("Showing graph from %s to %s", startDate, endDate));
         return new CommandResult(messageSuccess, true, false, false);
     }
 
+    /**
+     * Returns a predicate of the date range if a date range is specified.
+     * Else, return a predicate to show all spending.
+     */
     public Predicate<Spending> getGraphPredicate() {
         if (startDate == null && endDate == null) {
             return PREDICATE_SHOW_ALL_SPENDINGS;

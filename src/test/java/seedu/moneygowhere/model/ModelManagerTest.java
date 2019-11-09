@@ -119,6 +119,12 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void updateStatsPredicate_null_success() {
+        modelManager.updateStatsPredicate(null);
+        assertEquals(modelManager.getStatsPredicate(), null);
+    }
+
+    @Test
     public void getFilteredSpendingList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredSpendingList().remove(0));
     }

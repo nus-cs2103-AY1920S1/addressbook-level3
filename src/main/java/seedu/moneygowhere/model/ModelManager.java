@@ -26,6 +26,7 @@ import seedu.moneygowhere.model.spending.Spending;
  * Represents the in-memory model of the MoneyGoWhere list data.
  */
 public class ModelManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final SpendingBook spendingBook;
@@ -209,14 +210,14 @@ public class ModelManager implements Model {
 
     //=========== Statistics related functions =====================================================================
     /**
-     * Returns an unmodifiable view of spending, filtered by {@code statsPredicate} and sorted by date.
+     * Returns an unmodifiable view of spending, filtered by {@code statsPredicate} and sorted by date
+     * in descending order.
      *
      * @return {@code ObservableList<Spending>} of spending which fulfill the date range provided
      */
     @Override
     public ObservableList<Spending> getStatsList() {
         FilteredList<Spending> filteredList = new FilteredList<>(getFilteredSpendingList());
-        filteredList.setPredicate(statsPredicate);
 
         SortedList<Spending> sortedList = new SortedList<>(filteredList);
         Comparator<Spending> byDate = (Spending a, Spending b) -> (a.getDate().compareTo(b.getDate()));
@@ -275,4 +276,7 @@ public class ModelManager implements Model {
 
     }
 
+    public Predicate<Spending> getStatsPredicate() {
+        return statsPredicate;
+    }
 }

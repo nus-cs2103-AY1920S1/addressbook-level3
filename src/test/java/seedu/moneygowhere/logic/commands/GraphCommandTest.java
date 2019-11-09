@@ -23,15 +23,17 @@ public class GraphCommandTest {
     private Model expectedModel = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
 
     @Test
-    public void execute_graphMessage_success() {
-        CommandResult expectedCommandResult = new CommandResult("Graph for all dates\n", true, false, false);
+    public void execute_noDateRange_success() {
+        CommandResult expectedCommandResult = new CommandResult("Graph panel updated for all spending!\n"
+            + "To view graph for a more specific date range, type: graph d/DATE_START d/DATE_END.\n",
+            true, false, false);
         assertCommandSuccess(new GraphCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
-    public void execute_graphMessageValidDateRange_success() {
+    public void execute_validDateRange_success() {
         CommandResult expectedCommandResult = new CommandResult(
-            String.format("Graph for spending between %s and %s\n", APPLE.getDate(), GLASSES.getDate()),
+            String.format("Graph panel updated for spending between %s and %s!\n", APPLE.getDate(), GLASSES.getDate()),
                 true, false, false);
         assertCommandSuccess(new GraphCommand(APPLE.getDate(), GLASSES.getDate()), model,
             expectedCommandResult, expectedModel);
