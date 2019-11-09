@@ -49,15 +49,22 @@ The *_Architecture Diagram_* given above explains the high-level design of Horo.
 
 `LogsCenter` is used by many classes to write log messages to Horo's log file.
 
-The rest of Horo is managed by seven components.
+The rest of Horo is managed by seven components:
 
-* <<Design-CommandManager,*`CommandManager`*>>: Responsible for executing commands from the user.
-* <<Design-Ics,*`Ics`*>>: Responsible for handling the importing and exporting of ICS files.
-* <<Design-ModelManager,*`ModelManager`*>>: Responsible for reading and writing to the in-memory data of Horo.
-* <<Design-NotificationManager,*`NotificationManager`*>>: Responsible for sending notifications to the user.
-* <<Design-StorageManager,*`StorageManager`*>>: Responsible for reading and writing to an external disk.
-* <<Design-UiManager,*`UiManager`*>>: Responsible for managing the user interface (UI) of Horo.
-* <<Design-UndoRedoManager,*`UndoRedoManager`*>>: Responsible for tracking changes in ModelManager, and reverting its history when needed.
+. <<Design-CommandManager,*`CommandManager`*>> : Responsible for executing commands from the user.
+. <<Design-Ics,*`Ics`*>> : Responsible for handling the importing and exporting of ICS files.
+. <<Design-ModelManager,*`ModelManager`*>> : Responsible for reading and writing to the in-memory data of Horo.
+. <<Design-NotificationManager,*`NotificationManager`*>> : Responsible for sending notifications to the user.
+. <<Design-StorageManager,*`StorageManager`*>> : Responsible for reading and writing to an external disk.
+. <<Design-UiManager,*`UiManager`*>> : Responsible for managing the user interface (UI) of Horo.
+. <<Design-UndoRedoManager,*`UndoRedoManager`*>> : Responsible for tracking changes in ModelManager, and reverting its history when needed.
+
+Most components follow the https://en.wikipedia.org/wiki/Observer_pattern[observer design pattern], to reduce tight coupling and increase cohesion.
+They implement these listeners:
+
+. `CommandInputListener` : The component will be notified about command input from the user.
+. `ModelDataListener` : The component will be notified whenever the Model changes.
+. `UserOutputListener` : The component will be notified whenever a message needs to be displayed to the user.
 
 The sections below give more details of each component.
 
