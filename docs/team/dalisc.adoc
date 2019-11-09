@@ -9,7 +9,7 @@
 
 === 1.1. About the Project
 
-Mortago, a desktop application, is a comprehensive mortuary management system. Mortago is a portmanteau of two Latin words: "mortem" (death) and "curago" (to manage). As its name suggests, Mortago aims to streamline mortuary processes such as updating statuses, keeping track of unclaimed bodies, and generating reports for hospital mortuary managers. The user interacts with MORTAGO using a command line interface (CLI), and it displays a dashboard (Figure 1) that shows bodies, workers and fridges entries.
+Mortago, a desktop application, is a comprehensive mortuary management system. It is a student project from the National University of Singapore (NUS). Mortago is a portmanteau of two Latin words: "mortem" (death) and "curago" (to manage). As its name suggests, Mortago aims to streamline mortuary processes such as updating statuses, keeping track of unclaimed bodies, and generating reports for hospital mortuary managers. The user interacts with MORTAGO using a command line interface (CLI), and it displays a dashboard (Figure 1) that shows bodies, workers and fridges entries.
 
 The interface is responsive to suit different screen sizes. However, due to its detailed interface, it is recommended for larger screen sizes such as desktop monitors. Mortago has a graphical user interface (GUI) created with JavaFX. It is written in Java, and maintains a local storage.
 
@@ -21,7 +21,7 @@ _Figure 1: Mortago's dashboard._
 
 === 1.2. About the Team
 
-This project was undertaken by a team of five Year 2 computer science undergraduates, including myself, as part of the module CS2103T Software Engineering at the National University of Singapore. For most of us, it was our first time being part of a small-scale software development team. We were tasked to build the application under the0 contraints that it must be CLI and targets a small user base.
+This project was undertaken by a team of five Year 2 computer science undergraduates, including myself, as part of the NUS module CS2103T Software Engineering. For most of us, it was our first time being part of a small-scale software development team. We were tasked to build the application under the contraints that it must be CLI and targets a small user base.
 
 === 1.3. About My Role
 
@@ -184,10 +184,12 @@ image::LineChartAddBodySequenceDiagram.png[]
 The line chart needs data to refer to. Below are two alternatives for how to access the data and update the line chart:
 
 * **Alternative 1 (current choice):** Data is not stored. Use a tree map to keep track of bodies and initialise the treemap depending on the given time frame.
+
+The following activity diagram illustrates the current choice for accessing and updating data:
+image::LineChartActivityDiagram.png[]
+
 ** Pros: Implementation is easy.
 ** Cons: Series is regenerated whenever there is a change in time frame. As can be seen from the activity diagram below, the series gets reintialised regardless of whether it will affect a change in the appearance of the line chart.
-
-image::LineChartActivityDiagram.png[]
 
 * **Alternative 2:** Store all data in a separate storage class.
 ** Pros: No need to reinitialise the treemap everytime a `stats` command is called.
