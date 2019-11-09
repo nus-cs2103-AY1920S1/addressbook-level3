@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import mams.commons.exceptions.IllegalValueException;
-import mams.logic.CommandHistory;
-import mams.logic.InputOutput;
-import mams.logic.ReadOnlyCommandHistory;
+import mams.logic.history.CommandHistory;
+import mams.logic.history.InputOutput;
+import mams.logic.history.ReadOnlyCommandHistory;
 
 /**
  * An Immutable CommandHistory that is serializable to JSON format.
@@ -49,7 +49,8 @@ class JsonSerializableCommandHistory {
 
         for (JsonAdaptedInputOutput jsonAdaptedInputOutput: inputOutputs) {
             InputOutput inputOutput = jsonAdaptedInputOutput.toLogicType();
-            commandHistory.add(inputOutput.getInput(), inputOutput.getOutput());
+            commandHistory.add(inputOutput.getInput(), inputOutput.getOutput(),
+                    inputOutput.checkSuccessful(), inputOutput.getTimeStamp());
         }
 
         return commandHistory;

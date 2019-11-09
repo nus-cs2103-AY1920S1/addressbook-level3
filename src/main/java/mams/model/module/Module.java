@@ -36,6 +36,9 @@ public class Module {
     public static final String MESSAGE_CONSTRAINTS_QUOTA =
             "Quota must be more than 0";
 
+    public static final String MESSAGE_CONSTRAINTS_QUOTA_REACHED =
+            "Module has reached max quota, unable to accept any more students. ";
+
     /*
      * Only CS modules are allowed for adding. The first 2 characters should be
      * "CS" followed by strictly 4 digits.
@@ -177,6 +180,13 @@ public class Module {
         return quota;
     }
 
+    /*
+     * All modules workload is 4 MC for now.
+     */
+    public String getModuleWorkload() {
+        return "4";
+    }
+
     public int getQuotaInt() {
         return Integer.parseInt(quota);
     }
@@ -281,6 +291,8 @@ public class Module {
         final StringBuilder builder = new StringBuilder();
         int startTimeSlot = 0;
 
+        assert(slots.length != 0);
+
         int test;
         for (int i = 0; i < slots.length; i++) {
             test = slots[i];
@@ -291,8 +303,11 @@ public class Module {
                         .append(" ")
                         .append(getTime(slots[i]))
                         .append(" to ")
-                        .append(getTime(slots[i] + 1))
-                        .append(" "); //Ends at next hour
+                        .append(getTime(slots[i] + 1)); //Ends at next hour
+                // addition of separating comma
+                if (i != slots.length - 1) {
+                    builder.append(", ");
+                }
                 startTimeSlot = 0;
             } else if (startTimeSlot == 0 && (i != slots.length - 1)) {
                 //first hour of 2/3hr sessions.
@@ -303,8 +318,11 @@ public class Module {
                         .append(" ")
                         .append(getTime(startTimeSlot))
                         .append(" to ")
-                        .append(getTime(slots[i] + 1))
-                        .append(" "); //Ends at next hour
+                        .append(getTime(slots[i] + 1)); //Ends at next hour
+                // addition of separating comma
+                if (i != slots.length - 1) {
+                    builder.append(", ");
+                }
                 startTimeSlot = 0;
             }
         }

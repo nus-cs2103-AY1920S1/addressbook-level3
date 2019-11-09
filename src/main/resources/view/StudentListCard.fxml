@@ -39,7 +39,7 @@
         <padding>
           <Insets top="1" bottom="1" />
         </padding>
-        <Label fx:id="creditsPrefix" styleClass="prefix-label,  prefix_purple" text="Credits" />
+        <Label fx:id="creditsPrefix" styleClass="prefix-label,  prefix_purple" text="Allowed Credits" />
         <Label fx:id="credits" styleClass="cell_small_label" text="\$credits" />
       </HBox>
       <HBox spacing="3" alignment="CENTER_LEFT">

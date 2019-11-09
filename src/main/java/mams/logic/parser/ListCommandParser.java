@@ -2,25 +2,29 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import static mams.logic.parser.CliSyntax.PARAM_APPEAL;
-import static mams.logic.parser.CliSyntax.PARAM_MODULE;
-import static mams.logic.parser.CliSyntax.PARAM_STUDENT;
+import static mams.logic.parser.CliSyntax.OPTION_APPEAL;
+import static mams.logic.parser.CliSyntax.OPTION_MODULE;
+import static mams.logic.parser.CliSyntax.OPTION_STUDENT;
 
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import mams.logic.commands.ListCommand;
+import mams.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new ListCommand object
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
+    public static final String OPTIONS_NOT_RECOGNIZED = "Invalid options: %1$s";
+
     /**
      * Parses the given {@code String} of arguments in the context of the ListCommand
      * and returns a ListCommand object for execution.
      */
     @Override
-    public ListCommand parse(String args) {
+    public ListCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
         boolean showStudents = false;
@@ -28,30 +32,39 @@ public class ListCommandParser implements Parser<ListCommand> {
         boolean showAppeals = false;
         boolean showAll;
 
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PARAM_APPEAL, PARAM_MODULE, PARAM_STUDENT);
+        OptionsSet optionsSet = OptionsTokenizer.tokenize(args);
+
+        verifyNoUnrecognizedOptions(optionsSet, OPTION_APPEAL, OPTION_MODULE, OPTION_STUDENT);
 
         // if no prefixes were specified, default to list all items.
-        showAll = arePrefixesAbsent(argMultimap, PARAM_APPEAL, PARAM_STUDENT, PARAM_MODULE);
+        showAll = optionsSet.areAllTheseOptionAbsent(OPTION_APPEAL, OPTION_MODULE, OPTION_STUDENT);
 
-        if (argMultimap.getValue(PARAM_APPEAL).isPresent() || showAll) {
+        if (optionsSet.isOptionPresent(OPTION_APPEAL) || showAll) {
             showAppeals = true;
         }
-        if (argMultimap.getValue(PARAM_MODULE).isPresent() || showAll) {
+        if (optionsSet.isOptionPresent(OPTION_MODULE) || showAll) {
             showModules = true;
         }
-        if (argMultimap.getValue(PARAM_STUDENT).isPresent() || showAll) {
+        if (optionsSet.isOptionPresent(OPTION_STUDENT) || showAll) {
             showStudents = true;
         }
-
         return new ListCommand(showAppeals, showModules, showStudents);
     }
 
     /**
-     * Returns true if all of the prefixes are not present in the given
-     * {@code ArgumentMultimap}.
+     * Throws a ParseException if there are any options in {@code optionsSet} not matching those in the
+     * supplied {@code options} array.
+     * @param optionsSet tokenized options
+     * @param options recognized options to compare againse
+     * @throws ParseException if any options other than the recognized options are found.
      */
-    private static boolean arePrefixesAbsent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isEmpty());
+    private void verifyNoUnrecognizedOptions(OptionsSet optionsSet, Option... options) throws ParseException {
+        List<Option> unrecognizedOptions = optionsSet.getAllOtherOptions(options);
+        if (!unrecognizedOptions.isEmpty()) {
+            String unrecognizedOptionsAsString = unrecognizedOptions.stream().map(Option::toString)
+                    .collect(Collectors.joining(" "));
+            throw new ParseException(String.format(OPTIONS_NOT_RECOGNIZED, unrecognizedOptionsAsString)
+                    + " \n" + ListCommand.MESSAGE_USAGE);
+        }
     }
 }

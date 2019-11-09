@@ -2,6 +2,11 @@ package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static mams.logic.parser.CliSyntax.OPTION_APPEAL;
+import static mams.logic.parser.CliSyntax.OPTION_MODULE;
+import static mams.logic.parser.CliSyntax.OPTION_STUDENT;
+
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 
 /**
@@ -10,6 +15,16 @@ import mams.model.Model;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Lists out MAMS items, with several options for targeting specific lists. If no options "
+            + "are specified, then all items will be listed.\n"
+            + "Parameters: KEYWORD "
+            + "[" + OPTION_APPEAL + "] "
+            + "[" + OPTION_MODULE + "] "
+            + "[" + OPTION_STUDENT + "]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + OPTION_APPEAL + " " + OPTION_STUDENT;
 
     public static final String MESSAGE_LIST_APPEALS_SUCCESS = "Listed all appeals";
     public static final String MESSAGE_LIST_MODULES_SUCCESS = "Listed all modules";
@@ -24,12 +39,6 @@ public class ListCommand extends Command {
     private final boolean showModules;
     private final boolean showStudents;
 
-    public ListCommand() {
-        this.showAppeals = true;
-        this.showModules = true;
-        this.showStudents = true;
-    }
-
     public ListCommand(boolean showAppeals, boolean showModules, boolean showStudents) {
         this.showAppeals = showAppeals;
         this.showModules = showModules;
@@ -37,14 +46,10 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) {
         requireNonNull(model);
-        // it is responsibility of parser to enforce this condition, thus
-        // we raise an AssertionError as this condition should not occur
-        // ie. there is no graceful way for the app/user to handle this error
-        // and recover from it without silently perpetuating a bug into future
-        // iterations of MAMS.
-        requireAtLeastOneTrue(showAppeals, showModules, showStudents);
+        // it is responsibility of parser to enforce this condition
+        assert(containsAtLeastOneTrue(showAppeals, showModules, showStudents)) : ASSERT_ERROR_MESSAGE;
 
         StringBuilder msg = new StringBuilder();
 
@@ -68,17 +73,17 @@ public class ListCommand extends Command {
     }
 
     /**
-     * assert that at least one element in boolean array {@code params} is true
-     * @param params
+     * Returns true if at least one element in boolean array {@code params} is true.
+     * This was made for code readability.
+     * @param params boolean array to be tested.
      */
-    public static void requireAtLeastOneTrue(boolean... params) {
+    public static boolean containsAtLeastOneTrue(boolean... params) {
+        requireNonNull(params);
         boolean hasAtLeastOneTrue = false;
         for (boolean param : params) {
             hasAtLeastOneTrue = hasAtLeastOneTrue || param;
         }
-        if (!hasAtLeastOneTrue) {
-            throw new AssertionError(ASSERT_ERROR_MESSAGE);
-        }
+        return hasAtLeastOneTrue;
     }
 
     @Override

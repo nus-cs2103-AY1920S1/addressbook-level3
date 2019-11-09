@@ -6,15 +6,14 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="expandedCardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="TOP_LEFT" minHeight="600" prefHeight="900" GridPane.columnIndex="0">
+        <VBox minHeight="600" prefHeight="900" GridPane.columnIndex="0">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
@@ -50,6 +49,11 @@
 
             <Label fx:id="currentAppealsPrefix" styleClass="cell_big_label, pink-text-label" text="Appeals:" />
             <Label fx:id="currentAppeals" styleClass="cell_small_label, description_text" text="\$appeals" />
+
+            <Label minHeight="20" />
+
+            <Label fx:id="previousModulesPrefix" styleClass="cell_big_label, pink-text-label" text="Modules Previously Taken:" />
+            <Label fx:id="previousModules" styleClass="cell_small_label, description_text" text="\$prevMods" />
 
         </VBox>
     </GridPane>

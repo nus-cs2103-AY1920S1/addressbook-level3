@@ -1,17 +1,22 @@
 package mams.logic.commands;
 
 import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
+import static mams.logic.commands.ClashCommand.ClashCase;
 import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import mams.commons.core.Messages;
+
 import mams.logic.commands.exceptions.CommandException;
+
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.appeal.Appeal;
 import mams.model.module.Module;
@@ -26,6 +31,7 @@ public class MassApprove extends Approve {
 
     private final List<String> validIds;
     private final List<String> invalidIds;
+    private final List<String> appealsWithClash;
     private final List<String> alreadyApproved = new ArrayList<>();
     private final List<String> alreadyRejected = new ArrayList<>();
     private final List<String> approvedSuccessfully = new ArrayList<>();
@@ -33,14 +39,14 @@ public class MassApprove extends Approve {
     public MassApprove(List<String> validIds, List<String> invalidIds) {
         this.validIds = validIds;
         this.invalidIds = invalidIds;
+        this.appealsWithClash = new ArrayList<>();
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        List<Appeal> lastShownList = model.getFilteredAppealList();
-
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
+        List<Appeal> fullAppealList = model.getFullAppealList();
         for (String appealId : validIds) {
-            for (Appeal appeal : lastShownList) {
+            for (Appeal appeal : fullAppealList) {
                 if (appealId.equalsIgnoreCase(appeal.getAppealId())) {
                     Appeal approvedAppeal;
                     Appeal appealToApprove = appeal;
@@ -53,15 +59,15 @@ public class MassApprove extends Approve {
                             Module editedModule;
                             String moduleCode;
 
-                            List<Student> lastShownStudentList = model.getFilteredStudentList();
-                            List<Module> lastShownModuleList = model.getFilteredModuleList();
+                            List<Student> fullStudentList = model.getFullStudentList();
+                            List<Module> fullModuleList = model.getFullModuleList();
 
                             String appealType = appealToApprove.getAppealType();
                             String studentToEditId = appealToApprove.getStudentId();
 
                             if (appealType.equalsIgnoreCase("Increase workload")) {
 
-                                List<Student> studentToCheckList = lastShownStudentList.stream()
+                                List<Student> studentToCheckList = fullStudentList.stream()
                                         .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                                         .collect(Collectors.toList());
 
@@ -83,7 +89,7 @@ public class MassApprove extends Approve {
                                 moduleCode = appealToApprove.getModuleToDrop();
 
                                 //Check if student exists
-                                List<Student> studentToCheckList = lastShownStudentList.stream()
+                                List<Student> studentToCheckList = fullStudentList.stream()
                                         .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                                         .collect(Collectors.toList());
                                 if (studentToCheckList.isEmpty()) {
@@ -104,7 +110,7 @@ public class MassApprove extends Approve {
                                 }
 
                                 //check if module exist
-                                List<Module> moduleToCheckList = lastShownModuleList.stream()
+                                List<Module> moduleToCheckList = fullModuleList.stream()
                                         .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode))
                                         .collect(Collectors.toList());
                                 if (moduleToCheckList.isEmpty()) {
@@ -152,10 +158,10 @@ public class MassApprove extends Approve {
                                 model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
 
                             } else {
-
+                                ArrayList<ClashCase> clashCases = new ArrayList<>();
                                 moduleCode = appealToApprove.getModuleToAdd();
 
-                                List<Student> studentToCheckList = lastShownStudentList.stream()
+                                List<Student> studentToCheckList = fullStudentList.stream()
                                         .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                                         .collect(Collectors.toList());
                                 if (studentToCheckList.isEmpty()) {
@@ -164,7 +170,7 @@ public class MassApprove extends Approve {
                                 studentToEdit = studentToCheckList.get(0);
 
                                 //check if module exist
-                                List<Module> moduleToCheckList = lastShownModuleList.stream()
+                                List<Module> moduleToCheckList = fullModuleList.stream()
                                         .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode))
                                         .collect(Collectors.toList());
                                 if (moduleToCheckList.isEmpty()) {
@@ -179,6 +185,30 @@ public class MassApprove extends Approve {
                                     if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
                                         throw new CommandException(MESSAGE_DUPLICATE_MODULE);
                                     }
+                                }
+
+                                //Get all the modules student has and add them into an arraylist of modules for checking
+                                ArrayList<Module> currentModules = new ArrayList<>();
+                                for (Tag currentModule : studentModules) {
+                                    String modCode = currentModule.getTagName();
+                                    List<Module> filteredModulesList = model.getFullModuleList()
+                                            .stream()
+                                            .filter(m -> m.getModuleCode().equalsIgnoreCase(modCode))
+                                            .collect(Collectors.toList());
+                                    Module filteredModule = filteredModulesList.get(0);
+                                    currentModules.add(filteredModule);
+                                }
+
+                                //Checks if current modules clashes with requested module
+                                for (Module currentModule : currentModules) {
+                                    if (getClashCase(currentModule, moduleToEdit).isPresent()) {
+                                        clashCases.add(getClashCase(currentModule, moduleToEdit).get());
+                                    }
+                                }
+
+                                if (!clashCases.isEmpty()) {
+                                    appealsWithClash.add(appealId);
+                                    break;
                                 }
 
                                 //add module to student.
@@ -269,7 +299,31 @@ public class MassApprove extends Approve {
         if (!invalidIds.isEmpty()) {
             result += "\nInvalid appeal IDs: " + invalidIds.toString();
         }
+        if (!appealsWithClash.isEmpty()) {
+            result += "\nAppeals with module clash: " + appealsWithClash.toString();
+        }
         return result;
+    }
+
+    private Optional<ClashCase> getClashCase(Module moduleA, Module moduleB) {
+        int[] timeTableA = moduleA.getTimeSlotToIntArray();
+        int[] timeTableB = moduleB.getTimeSlotToIntArray();
+        ArrayList<Integer> slots = new ArrayList<>();
+        for (int i : timeTableA) {
+            for (int j : timeTableB) {
+                if (i == j) {
+                    slots.add(i);
+                }
+            }
+        }
+        if (!slots.isEmpty()) {
+            ClashCase c = new ClashCase();
+            c.setModuleA(moduleA);
+            c.setModuleB(moduleB);
+            c.setClashingSlots(slots);
+            return Optional.of(c);
+        }
+        return Optional.empty();
     }
 
 }

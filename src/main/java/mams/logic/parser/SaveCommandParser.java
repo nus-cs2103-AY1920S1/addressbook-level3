@@ -9,7 +9,7 @@ import mams.logic.commands.SaveCommand;
 import mams.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddModCommand object
+ * Parses input arguments and creates a new SaveCommand object
  */
 public class SaveCommandParser implements Parser<SaveCommand> {
 

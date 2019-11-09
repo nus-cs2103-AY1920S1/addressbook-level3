@@ -4,6 +4,7 @@ import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static mams.logic.commands.CommandTestUtil.showAppealAtIndex;
 import static mams.logic.commands.CommandTestUtil.showModuleAtIndex;
 import static mams.logic.commands.CommandTestUtil.showStudentAtIndex;
+import static mams.testutil.TypicalCommandHistory.getTypicalCommandHistory;
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalMams.getTypicalMams;
 
@@ -216,20 +217,21 @@ public class ListCommandTest {
     }
 
     @Test
-    public void requireAtLeastOneTrue() {
-        // all true -> no error
-        ListCommand.requireAtLeastOneTrue(true, true, true, true, true);
+    public void containsAtLeastOneTrue() {
+        // all true -> true
+        assertTrue(ListCommand.containsAtLeastOneTrue(true, true, true, true, true));
 
-        // one true -> no error
-        ListCommand.requireAtLeastOneTrue(true, false, false, false);
+        // one true -> true
+        assertTrue(ListCommand.containsAtLeastOneTrue(true, false, false, false));
 
-        // none true -> raise AssertionError
-        assertThrows(AssertionError.class, () -> ListCommand.requireAtLeastOneTrue(false, false, false));
+        // none true -> false
+        assertFalse(ListCommand.containsAtLeastOneTrue(false, false, false));
     }
 
     @Test
     public void execute_listCommandInitializedWithAllFalse_throwsError() {
-        assertThrows(AssertionError.class, () -> new ListCommand(false, false, false).execute(model));
+        assertThrows(AssertionError.class, () -> new ListCommand(false, false, false)
+                .execute(model, getTypicalCommandHistory()));
     }
 
     @Test

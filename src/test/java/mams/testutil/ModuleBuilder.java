@@ -1,11 +1,12 @@
 package mams.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import mams.model.module.Module;
 import mams.model.tag.Tag;
-import mams.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Module objects.
@@ -102,7 +103,9 @@ public class ModuleBuilder {
      * Parses the {@code students} into a {@code Set<Tag>} and set it to the {@code Module} that we are building.
      */
     public ModuleBuilder withTags(String ... tags) {
-        this.students = SampleDataUtil.getTagSet(tags);
+        this.students = Arrays.stream(tags)
+                .map(Tag::new)
+                .collect(Collectors.toSet());;
         return this;
     }
 

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import mams.commons.core.GuiSettings;
 import mams.logic.commands.CommandResult;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.InputOutput;
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.Model;
 import mams.model.ReadOnlyMams;
@@ -44,6 +45,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the commands entered by the user */
     ObservableList<InputOutput> getCommandHistory();
+
+    /** Returns an unmodifiable view of the filtered commands entered by the user */
+    ObservableList<InputOutput> getFilteredCommandHistory();
 
     /**
      * Returns the user prefs' MAMS file path.

@@ -8,13 +8,23 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import mams.commons.core.GuiSettings;
 import mams.commons.core.LogsCenter;
+import mams.commons.core.time.TimeStamp;
 import mams.commons.exceptions.DataConversionException;
+import mams.logic.commands.ClashCommand;
 import mams.logic.commands.Command;
 import mams.logic.commands.CommandResult;
+import mams.logic.commands.FindCommand;
+import mams.logic.commands.HelpCommand;
+import mams.logic.commands.HistoryCommand;
+import mams.logic.commands.ListCommand;
 import mams.logic.commands.RedoCommand;
 import mams.logic.commands.SaveCommand;
 import mams.logic.commands.UndoCommand;
+import mams.logic.commands.ViewCommand;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.CommandHistory;
+import mams.logic.history.InputOutput;
+import mams.logic.history.ReadOnlyCommandHistory;
 import mams.logic.parser.MamsParser;
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.Model;
@@ -46,11 +56,11 @@ public class LogicManager implements Logic {
         try { // attempt to load CommandHistory from disk
             commandHistoryOptional = storage.readCommandHistory();
             if (!commandHistoryOptional.isPresent()) {
-                logger.info("Command history data file not found. Starting with a blank command history...");
+                logger.info("Command history data file not found. Starting with an empty command history...");
             }
             startingCommandHistory = commandHistoryOptional.orElseGet(CommandHistory::new);
         } catch (IOException | DataConversionException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty MAMS");
+            logger.warning("Problem while reading from the file. Starting with an empty command history...");
             startingCommandHistory = new CommandHistory();
         }
         this.commandHistory = new CommandHistory(startingCommandHistory);
@@ -65,17 +75,20 @@ public class LogicManager implements Logic {
 
         try {
             command = mamsParser.parseCommand(commandText);
-            if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)) {
+            if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)
+                    && !(command instanceof ListCommand) && !(command instanceof HistoryCommand)
+                    && !(command instanceof HelpCommand) && !(command instanceof FindCommand)
+                    && !(command instanceof ClashCommand) && !(command instanceof ViewCommand)) {
                 new SaveCommand("undo").privateExecute(model);
             }
-            commandResult = command.execute(model);
+            commandResult = command.execute(model, commandHistory);
             storage.saveMams(model.getMams());
-            commandHistory.add(commandText, commandResult.getFeedbackToUser());
+            commandHistory.add(commandText, commandResult.getFeedbackToUser(), true, new TimeStamp());
         } catch (CommandException | ParseException e) {
-            commandHistory.add(commandText, e.getMessage());
+            commandHistory.add(commandText, e.getMessage(), false, new TimeStamp());
             throw e; // after getting message, rethrow. stacktrace is not lost
         } catch (IOException ioe) {
-            commandHistory.add(commandText, ioe.getMessage());
+            commandHistory.add(commandText, ioe.getMessage(), false, new TimeStamp());
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
@@ -110,6 +123,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<InputOutput> getCommandHistory() {
         return commandHistory.getInputOutputHistory();
+    }
+
+    @Override
+    public ObservableList<InputOutput> getFilteredCommandHistory() {
+        return commandHistory.getFilteredCommandHistory();
     }
 
     @Override

@@ -7,11 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import mams.commons.core.index.Index;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import mams.commons.core.index.Index;
+
+
 
 public class ClashCommandParametersTest {
 
@@ -76,7 +79,7 @@ public class ClashCommandParametersTest {
     }
 
     @Test
-    public void setter_SetsCorrectFields() {
+    public void setter_setsCorrectFields() {
 
         // appeal index
         params.setAppealIndex(INDEX_FIRST);
@@ -86,7 +89,7 @@ public class ClashCommandParametersTest {
 
         // module indices
         params.setModuleIndices(INDEX_FIRST, INDEX_SECOND);
-        ArrayList<Index> moduleIndices= new ArrayList<>();
+        ArrayList<Index> moduleIndices = new ArrayList<>();
         moduleIndices.add(INDEX_FIRST);
         moduleIndices.add(INDEX_SECOND);
         assertEquals(moduleIndices, params.getModuleIndices().get());
@@ -95,7 +98,7 @@ public class ClashCommandParametersTest {
 
         // module codes
         params.setModuleCodes("cs1010", "cs1020");
-        ArrayList<String> moduleCodes= new ArrayList<>();
+        ArrayList<String> moduleCodes = new ArrayList<>();
         moduleCodes.add("cs1010");
         moduleCodes.add("cs1020");
         assertEquals("cs1010", params.getFirstModuleCode());

@@ -5,10 +5,10 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import mams.commons.exceptions.DataConversionException;
-import mams.logic.ReadOnlyCommandHistory;
+import mams.logic.history.ReadOnlyCommandHistory;
 
 /**
- * Represents a storage for {@link mams.logic.CommandHistory}.
+ * Represents a storage for {@link mams.logic.history.CommandHistory}.
  */
 public interface CommandHistoryStorage {
     /**

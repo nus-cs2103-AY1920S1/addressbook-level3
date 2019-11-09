@@ -7,11 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ClashCommandClashCaseTest {
 
@@ -29,7 +30,7 @@ public class ClashCommandClashCaseTest {
 
         clashCase.setModuleA(CS1010);
         clashCase.setModuleB(CS1020);
-        clashingSlots.addAll(Arrays.asList(1,2,45,46,47));
+        clashingSlots.addAll(Arrays.asList(1, 2, 45, 46, 47));
         clashCase.setClashingSlots(clashingSlots);
 
         // same object -> returns true
@@ -64,11 +65,11 @@ public class ClashCommandClashCaseTest {
     }
 
     @Test
-    public void setter_SetsCorrectFields() {
+    public void setter_setsCorrectFields() {
 
         clashCase.setModuleA(CS1010);
         clashCase.setModuleB(CS1020);
-        clashingSlots.addAll(Arrays.asList(1,2,45,46,47));
+        clashingSlots.addAll(Arrays.asList(1, 2, 45, 46, 47));
         clashCase.setClashingSlots(clashingSlots);
 
         // first module
