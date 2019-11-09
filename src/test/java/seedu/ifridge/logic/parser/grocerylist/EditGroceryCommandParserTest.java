@@ -11,12 +11,10 @@ import static seedu.ifridge.logic.commands.grocerylist.GroceryCommandTestUtil.VA
 import static seedu.ifridge.logic.commands.grocerylist.GroceryCommandTestUtil.VALID_NAME_NUTS;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ifridge.logic.commands.grocerylist.EditGroceryCommand;
-import seedu.ifridge.model.GroceryList;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.tag.Tag;
 
@@ -25,9 +23,6 @@ public class EditGroceryCommandParserTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditGroceryCommand.MESSAGE_USAGE);
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
-
-    private GroceryList groceryList = getTypicalGroceryList();
-
 
     private EditGroceryCommandParser parser = new EditGroceryCommandParser();
 

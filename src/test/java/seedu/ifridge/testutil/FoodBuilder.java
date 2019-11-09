@@ -5,7 +5,7 @@ import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.Name;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Food objects.
  */
 public class FoodBuilder {
     public static final String DEFAULT_NAME = "Yakult";
@@ -20,7 +20,7 @@ public class FoodBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the FoodBuilder with the data of {@code foodToCopy}.
      */
     public FoodBuilder(Food foodToCopy) {
         name = foodToCopy.getName();
@@ -28,7 +28,7 @@ public class FoodBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Food} that we are building.
      */
     public FoodBuilder withName(String name) {
         this.name = new Name(name);
@@ -36,7 +36,7 @@ public class FoodBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Food} that we are building.
      */
     public FoodBuilder withAmount(String amount) {
         this.amount = new Amount(amount);
