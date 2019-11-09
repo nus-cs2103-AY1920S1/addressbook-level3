@@ -111,7 +111,7 @@ public class WordBankCard extends UiPart<Region> {
      *
      * @param commandExecutor Method to register.
      */
-    public void registerDragAndDropCallBack(WordBankCardExecuteCallBack commandExecutor) {
+    void registerDragAndDropCallBack(WordBankCardExecuteCallBack commandExecutor) {
         this.commandExecutor = commandExecutor;
     }
 

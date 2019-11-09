@@ -106,28 +106,50 @@ The highlighted section shows, what commands are currently available. You can cl
 
 
 // tag::yida-quickstart[]
+// tag::chenhui-userDragAndDrop[]
 
 === Drag and drop
 
 Streamline the process of sharing of word banks with friends.
 
-.Word bank file
-image::DragAndDrop1.png[150, 150]
+//.Word bank file
+//image:DragAndDrop1.png[130, 130, align="left"]
 
-.Dragging into Dukemon
-image::DragAndDrop2.png[150, 150]
+//image:chrischenhui.png[width="90", align="left"]
+//image:kohyida1997.png[width="90", align="left"]
+//image:sreesubbash.png[width="90", align="left"]
 
-.Dukemon registers the bank
-image::DragAndDrop3.png[150, 150]
+image:DragAndDrop1.png[width=121, align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDrop2.png[width="130", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDrop3.png[width="130", align="left"]
+
+//.Dragging into Dukemon
+//image:DragAndDrop2.png[130, 130, align="left"]
+
+//.Dukemon registers the bank
+//image:DragAndDrop3.png[130, 130]
 
 From `HOME` mode, you can view your _WordBanks_. +
 Simply drag and drop a _WordBank_ json file from your computer into Dukemon. +
+
+image:DragAndDropOut1.png[width="130", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDropOut2.png[width="124", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDropOut3.png[width="119", align="left"]
+
 Likewise, drag and drop a _WordBank_ out of the application, into say,
 your desktop, or chat applications. +
 
 Try it!
 
 NOTE: Dukemon only reads json files.
+
+// end::chenhui-userDragAndDrop[]
+
+// tag::chenhui-userRevisionBank[]
 
 === Revision bank
 
@@ -136,12 +158,13 @@ It collates all your wrong cards, whichever _WordBank_ it may have came from. +
 It is also smart enough to remove the cards if you have cleared it afterwards.
 
 .Revision bank alongside with other word banks
-image::revisionbank.png[220, 220]
+image::revisionbank.png[130, 130]
 
 .Screenshot of how a revision page looks like
-image::revisionpage.png[700,700]
+image::revisionpage.png[600,600]
 
-To try it, simply play some _WordBank_ and then visit the revision bank to attempt all your wrong cards.
+To try it, simply play some _WordBank_ and then visit the revision bank to attempt cards that requires revision.
+// end::chenhui-userRevisionBank[]
 
 === QuickStart
 
