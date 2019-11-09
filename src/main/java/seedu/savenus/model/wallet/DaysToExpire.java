@@ -15,9 +15,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class DaysToExpire {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Budget Duration should be a positive integer";
-    public static final String INTEGER_CONSTRAINTS =
-            "Due to Integer limitations, this application will not accept Budget Duration of more than 365 days";
+            "Budget Duration should be a non-negative integer";
+    public static final String BUDGET_DURATION_CONTRAINTS =
+            "This application will not accept Budget Duration of more than 365 days";
     public static final String VALIDATION_REGEX = "0|[1-9]\\d*$";
 
     private final IntegerProperty daysToExpireProperty;
