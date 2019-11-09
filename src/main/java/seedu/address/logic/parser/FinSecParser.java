@@ -75,14 +75,18 @@ public class FinSecParser {
         initialiseDefaultCommands();
     }
 
+    //@@author{joshuaseetss}
     public static TreeMap<String, String> getCommandList() {
         return FinSecParser.commandList;
     }
 
+    //@@author{joshuaseetss}
     public static HashSet<CommandItem> getShortcutList() {
         return FinSecParser.shortcuts;
     }
 
+
+    //@@author{joshuaseetss}
     /**
      * Used to check if the task the user wants to make a shortcut to exists.
      * Returns a {@code CreateShortCutCommand} if the task exists or an {@code ShortCutRequestCommand} if it does not.
@@ -96,6 +100,8 @@ public class FinSecParser {
         }
     }
 
+
+    //@@author{joshuaseetss}
     /**
      * Initialises FinSec's default commands into the treemap of commands.
      */
@@ -212,6 +218,7 @@ public class FinSecParser {
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         } else {
+            //@@author{joshuaseetss}
             return new ShortCutRequestCommand(commandWord);
         }
     }
