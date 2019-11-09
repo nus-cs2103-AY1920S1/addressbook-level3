@@ -125,13 +125,13 @@
     -fx-font-family: "monospace";
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #26ff00;
 }
 
 .cell_small_label {
     -fx-font-family: "monospace";
     -fx-font-size: 14px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #26ff00;
 }
 
 .stack-pane {
@@ -312,6 +312,12 @@
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
+}
+
+#flashcardPane {
+    -fx-background-color: #383838;
+    -fx-background-radius: 5;
+
 }
 
 #commandTypeLabel {

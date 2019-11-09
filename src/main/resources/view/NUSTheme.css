@@ -134,13 +134,13 @@
     -fx-font-family: "Segoe UI";
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #003d7a;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 14px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #003d7a;
 }
 
 .stack-pane {
@@ -321,6 +321,11 @@
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
+}
+
+#flashcardPane {
+    -fx-background-color: #ffce8e;
+    -fx-background-radius: 5;
 }
 
 #commandTypeLabel {
