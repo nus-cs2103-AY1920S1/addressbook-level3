@@ -40,6 +40,8 @@ I have used symbols to give a visual explanation to certain parts of this portfo
 [TIP]
 Denotes useful tips.
 
+NOTE: Denotes additional information.
+
 == Summary of contributions
 This section shows a summary of my contributions to the team project and will include: +
 

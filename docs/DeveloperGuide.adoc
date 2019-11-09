@@ -269,6 +269,9 @@ Given below is an activity diagram of a book being added to the catalog.
 
 .Activity Diagram for adding a book
 image::AddBookActivityDiagram.png[width=400]
+NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
+they are not shown.
+
 {nbsp} +
 We can clearly see how the system decides to generate a valid serial number base on whether the user input contains a valid serial number or not. +
 {nbsp} +
