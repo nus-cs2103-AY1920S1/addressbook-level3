@@ -279,21 +279,23 @@ Examples:
 If currently viewing list of contacts, returns contacts (e.g. `john` and `John Doe`).
 If currently viewing list of activities, returns activities (e.g `lunch with john`).
 
-=== Deleting a contact, activity or expense (v1.4) : `delete`
+=== Deleting a contact, activity or expense: `delete`
 
-Deletes the specified index from the current list view. Delete can also be used to delete all entries by not specifying any index, but the user will be prompted to confirm this action.
+Deletes the contact/activity/expense at the specified index from the current display. +
 
-If viewing a contact instead, the contact will be deleted.
+If current display is listing contacts `list c/`, the contact at that specified index will be deleted if he/she is not involved in any activities.
 
-If viewing an activity instead, it will delete an expense* by index. Not specifying any index will result in the current activity being deleted. +
+If current display is listing activities `list a/`, the activity at that specified index will be deleted.
 
-Multiple entries can be deleted at once.
+If viewing an activity instead `view a/1`, it will soft-delete an expense* by index.
 
-Format: `delete [INDEX] ...`
+If the current display is not any of the above displays mentioned, error will be thrown.
+
+Format: `delete INDEX`
 
 ****
 * Deletes the entry at the specified `INDEX`.
-* The index refers to the index number shown in the displayed contact or activity or expense list.
+* The index refers to the index number shown in the displayed list of contacts/activities.
 * The index *must be a positive integer* 1, 2, 3, ...
 * *Expenses cannot be completely deleted. It will instead be struck off (but still visible) in the activity view, and moved to the bottom of the list.
 ****
@@ -301,13 +303,13 @@ Format: `delete [INDEX] ...`
 Examples:
 
 * `delete 2` +
-If viewing the list of contacts, deletes the 2nd person by index. +
-If viewing a contact, deletes the contact. +
-If viewing the list of activities, deletes the 2nd activity by index. +
-If viewing an activity, strikes off (soft-deletes) the 2nd expense by index.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st entry (either a contact or activity) in the results of the `find` command.
+If viewing the list of contacts, deletes the 2nd person by index if he/she is not involved in any activity. +
+
+* `delete 1` +
+If viewing the list of activities, deletes the 1st activity by index. +
+
+* `delete 1` +
+If viewing a particular activity, strikes off (soft-deletes) the 1st expense by index.
 
 //tag::varexpense[]
 === Add variable split expenses to an activity: `varexpense` (*v2.0 only*)

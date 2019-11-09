@@ -486,6 +486,48 @@ NOTE: The activity diagram for the disinvite command is omitted as it is similar
 ** Cons: Might create duplicate person object when reading from multiple json files if not implemented properly.
 // end::invitedisinvite[]
 
+//tag::delete[]
+=== Delete feature
+==== Implementation
+
+The delete mechanism is facilitated by `AddressBook`, `ActivityBook`, as well as `Activity`. +
+The items that will be deleted can be contact/activity/expense depending on your current display.
+
+Given below is an example usage scenario and how the delete mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.  `SplitWiser` will be initialized with the initial address book and activity book state.
+
+Step 2. The user executes `list c/` command to display list contacts screen.
+
+Step 3. The user executes `delete 1` to delete the contact at the first index if he/she is not involved in any activities.
+
+Step 4. The user executes `list a/` to display list activities screen.
+
+Step 5. The user executes `delete 1` again, but this time the activity at the first index will be deleted instead.
+
+Step 6. The user views an activity at the second index using `view a/2`
+
+Step 7. The user executes `delete 1` again, but this time the expense at the first index will be deleted instead.
+
+The following activity diagram summarizes what happens when a user executes a delete command for deletion of activity:
+
+image::DeleteContactActivityDiagram.png[]
+
+NOTE: The activity diagram for deletion of expense and contact are omitted as they are similar to the deletion of activity.
+
+==== Design Considerations
+
+===== Aspect: How delete executes
+
+* **Alternative 1 (current choice):** Contextual based delete of contact/activity/expense based on current displayed screen.
+** Pros: More user-friendly. Users do not have to keep specifying what to delete.
+** Cons: Harder to implement.
+
+* **Alternative 2:** Delete based on user specifying which field to delete.
+** Pros: Easy to implement.
+** Cons: Have to keep retyping the field for deletion which is inconvenient.
+// end::delete[]
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
