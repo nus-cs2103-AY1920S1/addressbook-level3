@@ -381,7 +381,7 @@ Examples:
 List all students in TutorAid.
 Format: `list`
 
-image::list.png[width="700", align="left"]
+image::list.png[width="600", align="left"]
 
 [NOTE]
 `list` command does not take any arguments.
@@ -488,7 +488,7 @@ Examples:
 Accidentally typing in a wrong/unknown command laucnhes TutorAid into learner mode. You can choose to learn this wrong command to execute an existing
 command by typing in its command word. Alternatively, you can type `cancel` to revert back to normal operations.
 
-image::customCommandError.png[width="700", align="left"]
+image::customCommandError.png[width="600", align="left"]
 
 [NOTE]
 You can't learn a full command (e.g. `add n/Caesar c/CS1231`). Doing so will result in an error. TutorAid only allows command words like `add`.
