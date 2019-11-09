@@ -293,7 +293,7 @@ may not redo previously undone commands.
 Format: `redo`
 
 // end::UGRedo[]
-// start::UGSet[]
+// tag::UGSet[]
 
 ==== Setting User Settings: `set`
 
@@ -338,7 +338,7 @@ image::AfterSetCommand.png[width=850]
 
 After entering the set command, the user settings would be updated.
 The updated user settings will then be displayed in the result display
-as shown in the figure above.
+as shown in the yellow box in the figure above.
 
 // end::UGSet[]
 
