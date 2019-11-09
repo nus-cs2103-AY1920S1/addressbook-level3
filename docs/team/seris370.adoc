@@ -28,6 +28,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=seris370[C
 ** Enhancements to project prototype:
 *** Add basic plan commands and Ui for plans (Pull requests https://github.com/AY1920S1-CS2103T-W11-1/main/pull/65[#65], https://github.com/AY1920S1-CS2103T-W11-1/main/pull/72[#72])
 *** Enable plan finding (Pull requests https://github.com/AY1920S1-CS2103T-W11-1/main/pull/117[#117], https://github.com/AY1920S1-CS2103T-W11-1/main/pull/148[#148])
+*** Write tests for plans (Pull requests https://github.com/AY1920S1-CS2103T-W11-1/main/pull/65[#212])
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/105[#105]
