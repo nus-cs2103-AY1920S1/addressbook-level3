@@ -67,7 +67,7 @@ public class WatchListParserTest {
     @Test
     public void parseCommand_watch() throws Exception {
         Show show = TypicalShows.THEOFFICE;
-        WatchShowDescriptor descriptor = new WatchShowDescriptorBuilder(show).build();
+        WatchCommand.WatchShowDescriptor descriptor = new WatchShowDescriptorBuilder(show).build();
         WatchCommand command = (WatchCommand) parser.parseCommand(WatchCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_SHOW.getOneBased() + " e/3", currentTab);
         assertEquals(
