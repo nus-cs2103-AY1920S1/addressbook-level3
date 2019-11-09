@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_SCHEDULE_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_SCHEDULE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MANPOWER_TO_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -49,6 +51,10 @@ public class CommandTestUtil {
     public static final String VALID_DATE_2 = " " + PREFIX_DATE + "10/10/2021";
     public static final String VALID_YEAR_MONTH_1 = " " + PREFIX_YEAR_MONTH + "10/2019";
     public static final String VALID_YEAR_MONTH_2 = " " + PREFIX_YEAR_MONTH + "01/2019";
+    public static final String VALID_DATE_RANGE_1 = " " + PREFIX_EVENT_SCHEDULE_START
+            + "01/10/2019 " + PREFIX_EVENT_SCHEDULE_END + "30/12/2019";
+    public static final String VALID_DATE_RANGE_2 = " " + PREFIX_EVENT_SCHEDULE_START
+            + "10/10/2019 " + PREFIX_EVENT_SCHEDULE_END + "12/10/2019";
 
     //invalid date fields
     public static final String INVALID_DATE_1 = " " + PREFIX_DATE + "2019/10/29";
@@ -59,6 +65,14 @@ public class CommandTestUtil {
     public static final String INVALID_YEAR_MONTH_2 = " " + PREFIX_YEAR_MONTH + "2019/10";
     public static final String INVALID_YEAR_MONTH_3 = " " + PREFIX_YEAR_MONTH + "2019 August";
     public static final String INVALID_YEAR_MONTH_4 = " " + PREFIX_YEAR_MONTH + "August 2019";
+    public static final String INVALID_DATE_RANGE_1 = " " + PREFIX_EVENT_SCHEDULE_START
+            + "2019/10/29 " + PREFIX_EVENT_SCHEDULE_END + "30/12/2019";
+    public static final String INVALID_DATE_RANGE_2 = " " + PREFIX_EVENT_SCHEDULE_START
+            + "01/01/2019 " + PREFIX_EVENT_SCHEDULE_END + "30 Aug 2019";
+    public static final String INVALID_DATE_RANGE_3 = " " + PREFIX_EVENT_SCHEDULE_START
+            + "10 Aug 2019 " + PREFIX_EVENT_SCHEDULE_END + "30 Aug 2019";
+    public static final String INVALID_DATE_RANGE_4 = " " + PREFIX_EVENT_SCHEDULE_START
+            + "30/12/2019 " + PREFIX_EVENT_SCHEDULE_END + "01/01/2019";
 
     //valid event fields
     public static final String VALID_NAME_PARTY = "Party";
