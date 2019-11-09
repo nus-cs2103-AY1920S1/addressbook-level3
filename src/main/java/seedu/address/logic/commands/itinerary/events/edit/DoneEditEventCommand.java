@@ -7,7 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
-import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
+import seedu.address.model.expense.exceptions.ExpenseNotFoundException;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.model.itinerary.event.exceptions.ClashingEventException;
 import seedu.address.model.itinerary.event.exceptions.DuplicatedEventNameException;
@@ -26,9 +26,9 @@ public class DoneEditEventCommand extends Command {
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "All the fields must be provided!";
     public static final String MESSAGE_NOT_FOUND = "Event is not found!";
-    public static final String MESSAGE_EXPENDITURE_NOT_FOUND = "Expenditure is not found!";
+    public static final String MESSAGE_EXPENSE_NOT_FOUND = "Expense is not found!";
     public static final String MESSAGE_CLASHING_EVENT = "This event clashes with one of your other events!";
-    public static final String MESSAGE_EXPENDITURE_DUPLICATED_NAME = "This event has the same name with one of your "
+    public static final String MESSAGE_EXPENSE_DUPLICATED_NAME = "This event has the same name with one of your "
             + "other events on the same day!";
 
     public DoneEditEventCommand() { }
@@ -51,19 +51,19 @@ public class DoneEditEventCommand extends Command {
                 //NullPointerException is caught below
                 eventToAdd = editEventDescriptor.buildEvent(model);
                 model.getPageStatus().getDay().getEventList().add(eventToAdd);
-                if (eventToAdd.getExpenditure().isPresent()) {
-                    model.getPageStatus().getTrip().getExpenditureList().add(eventToAdd.getExpenditure().get());
+                if (eventToAdd.getExpense().isPresent()) {
+                    model.getPageStatus().getTrip().getExpenseList().add(eventToAdd.getExpense().get());
                 }
                 commandResult = new CommandResult(String.format(MESSAGE_CREATE_EVENT_SUCCESS, eventToAdd), true);
             } else {
                 //edit the current "selected" event
                 eventToAdd = editEventDescriptor.buildEvent(eventToEdit, model);
                 model.getPageStatus().getDay().getEventList().set(eventToEdit, eventToAdd);
-                if (eventToEdit.getExpenditure().isPresent()) {
-                    model.getPageStatus().getTrip().getExpenditureList().remove(eventToEdit.getExpenditure().get());
+                if (eventToEdit.getExpense().isPresent()) {
+                    model.getPageStatus().getTrip().getExpenseList().remove(eventToEdit.getExpense().get());
                 }
-                if (eventToAdd.getExpenditure().isPresent()) {
-                    model.getPageStatus().getTrip().getExpenditureList().add(eventToAdd.getExpenditure().get());
+                if (eventToAdd.getExpense().isPresent()) {
+                    model.getPageStatus().getTrip().getExpenseList().add(eventToAdd.getExpense().get());
                 }
                 commandResult = new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToAdd), true);
             }
@@ -78,10 +78,10 @@ public class DoneEditEventCommand extends Command {
             throw new CommandException(MESSAGE_NOT_FOUND);
         } catch (ClashingEventException ex) {
             throw new CommandException(MESSAGE_CLASHING_EVENT);
-        } catch (ExpenditureNotFoundException e) {
-            throw new CommandException(MESSAGE_EXPENDITURE_NOT_FOUND);
+        } catch (ExpenseNotFoundException e) {
+            throw new CommandException(MESSAGE_EXPENSE_NOT_FOUND);
         } catch (DuplicatedEventNameException e) {
-            throw new CommandException(MESSAGE_EXPENDITURE_DUPLICATED_NAME);
+            throw new CommandException(MESSAGE_EXPENSE_DUPLICATED_NAME);
         }
     }
 

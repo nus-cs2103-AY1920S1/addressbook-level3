@@ -8,9 +8,10 @@ import seedu.address.model.currency.CustomisedCurrency;
 
 
 /**
- * TODO: Implement display for inventory and booking labels.
+ * A component for displaying the details of a singular {@code CustomisedCurrency} that is unselected.
  */
 public class UnselectedCurrencyCard extends CurrencyCard {
+
     private static final String FXML = "currency/CurrencyCard.fxml";
 
     @FXML

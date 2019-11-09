@@ -13,9 +13,9 @@ public class BudgetTest {
     }
 
     @Test
-    public void constructor_invalidExpenditure_throwsIllegalArgumentException() {
-        String invalidExpenditure = "";
-        assertThrows(IllegalArgumentException.class, () -> new Budget(invalidExpenditure));
+    public void constructor_invalidExpense_throwsIllegalArgumentException() {
+        String invalidExpense = "";
+        assertThrows(IllegalArgumentException.class, () -> new Budget(invalidExpense));
     }
 
     @Test
