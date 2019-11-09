@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 
+/**
+ * Tests that a {@code Lesson}'s keywords matches any of the keywords given.
+ */
 public class LessonContainsKeywordsPredicate implements Predicate<Lesson> {
     private final List<String> keywords;
 

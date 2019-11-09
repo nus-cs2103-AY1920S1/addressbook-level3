@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.Calendar;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -204,6 +203,10 @@ public class ModelManager implements Model {
         notebook.displayAssignments();
     }
 
+    /**
+     * returns a string of lessons.
+     * @return String.
+     */
     public String displayLessons() {
         if (filteredLessons.isEmpty()) {
             return "";
