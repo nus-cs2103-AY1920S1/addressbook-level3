@@ -7,15 +7,12 @@ import java.util.Optional;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 
@@ -52,7 +49,7 @@ public class DeleteAccommodationCommand extends DeleteCommand {
         this.isUndoRedo = isUndoRedo;
     }
 
-    //Constructor used to undo AddAccommodationEvent and create DeleteAccommodationEvent
+    // Constructor used to undo AddAccommodationEvent and create DeleteAccommodationEvent
     public DeleteAccommodationCommand(Index targetIndex, Accommodation accommodation) {
         requireNonNull(accommodation);
         toDelete = accommodation;
@@ -76,9 +73,9 @@ public class DeleteAccommodationCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         List<Accommodation> lastShownList = model.getFilteredAccommodationList();
         Accommodation accommodationToDelete;
+
         if (toDelete != null) {
             accommodationToDelete = toDelete;
         } else if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -89,15 +86,13 @@ public class DeleteAccommodationCommand extends DeleteCommand {
         Index indexOfAccommodation = findIndexOfAccommodation(model, accommodationToDelete);
 
         if (toDelete == null && !isUndoRedo) {
-            //Not due to undo method
+            // Not due to undo method of AddAccommodationEvent or redo method of DeleteAccommodationEvent
             DeleteAccommodationCommand newCommand = new DeleteAccommodationCommand(indexOfAccommodation,
                     accommodationToDelete);
-            Event deleteAccommodationEvent = EventFactory.parse(newCommand, model);
-            CommandHistory.addToUndoStack(deleteAccommodationEvent);
-            CommandHistory.clearRedoStack();
+            updateEventStack(newCommand, model);
         }
-
         model.deleteAccommodation(accommodationToDelete);
+
         return new CommandResult(
             String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, accommodationToDelete),
             new ResultInformation[]{
@@ -122,6 +117,7 @@ public class DeleteAccommodationCommand extends DeleteCommand {
         }
         return indexOfAccommodation.get();
     }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

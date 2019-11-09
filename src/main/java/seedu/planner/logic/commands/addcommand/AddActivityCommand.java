@@ -15,15 +15,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
@@ -76,7 +73,7 @@ public class AddActivityCommand extends AddCommand {
         this.isUndoRedo = isUndoRedo;
     }
 
-    //Constructor used to undo DeleteActivityEvent
+    // Constructor used to undo DeleteActivityEvent
     public AddActivityCommand(Index index, Activity activity) {
         requireAllNonNull(index, activity);
         toAdd = activity;
@@ -101,6 +98,8 @@ public class AddActivityCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
         }
 
+        // Check if new Activity's contact already exist in ContactManager's list. If true, use the existing
+        // contact.
         if (toAdd.getContact().isPresent() && model.hasPhone(toAdd.getContact().get().getPhone())) {
             Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
             Cost cost = toAdd.getCost().isPresent() ? toAdd.getCost().get() : null;
@@ -111,17 +110,15 @@ public class AddActivityCommand extends AddCommand {
         }
 
         if (index == null && !isUndoRedo) {
-            //Not due to undo or redo method
+            // Not due to undo or redo method
             AddActivityCommand newCommand = new AddActivityCommand(activityAdded, isUndoRedo);
-            Event addActivityEvent = EventFactory.parse(newCommand, model);
-            CommandHistory.addToUndoStack(addActivityEvent);
-            CommandHistory.clearRedoStack();
+            updateEventStack(newCommand, model);
             model.addActivity(activityAdded);
         } else if (isUndoRedo && index != null) {
-            //Due to undo method of DeleteActivityEvent
+            // Due to undo method of DeleteActivityEvent
             model.addActivityAtIndex(index, activityAdded);
         } else {
-            //Due to redo method of AddActivityEvent
+            // Due to redo method of AddActivityEvent
             model.addActivity(activityAdded);
         }
 
@@ -137,8 +134,6 @@ public class AddActivityCommand extends AddCommand {
                 new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
         );
     }
-
-
 
     @Override
     public boolean equals(Object other) {

@@ -13,15 +13,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;
 
@@ -75,7 +72,7 @@ public class AddContactCommand extends AddCommand {
         this.isUndoRedo = isUndoRedo;
     }
 
-    //Constructor used to undo DeleteContactEvent
+    // Constructor used to undo DeleteContactEvent
     public AddContactCommand(Index index, Contact contact) {
         requireAllNonNull(index, contact);
         toAdd = contact;
@@ -99,16 +96,14 @@ public class AddContactCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
         if (index == null && !isUndoRedo) {
-            //Not due to undo method
-            Event addContactEvent = EventFactory.parse(this, model);
-            CommandHistory.addToUndoStack(addContactEvent);
-            CommandHistory.clearRedoStack();
+            // Not due to undo method
+            updateEventStack(this, model);
             model.addContact(toAdd);
         } else if (isUndoRedo && index != null) {
-            //Due to undo method of DeleteContactEvent
+            // Due to undo method of DeleteContactEvent
             model.addContactAtIndex(index, toAdd);
         } else {
-            //Due to redo method AddContactEvent
+            // Due to redo method AddContactEvent
             model.addContact(toAdd);
         }
         return new CommandResult(

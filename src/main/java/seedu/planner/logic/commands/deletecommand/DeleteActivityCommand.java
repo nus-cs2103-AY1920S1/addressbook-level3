@@ -7,15 +7,12 @@ import java.util.Optional;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 
@@ -50,7 +47,7 @@ public class DeleteActivityCommand extends DeleteCommand {
         this.isUndoRedo = isUndoRedo;
     }
 
-    //Constructor used to undo AddActivityEvent and create DeleteActivityEvent
+    // Constructor used to undo AddActivityEvent and create DeleteActivityEvent
     public DeleteActivityCommand(Index targetIndex, Activity activity) {
         requireNonNull(activity);
         toDelete = activity;
@@ -74,9 +71,9 @@ public class DeleteActivityCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         List<Activity> lastShownList = model.getFilteredActivityList();
         Activity activityToDelete;
+
         if (toDelete != null) {
             activityToDelete = toDelete;
         } else if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -87,15 +84,13 @@ public class DeleteActivityCommand extends DeleteCommand {
         Index indexOfActivity = findIndexOfActivity(model, activityToDelete);
 
         if (toDelete == null && !isUndoRedo) {
-            //Not due to undo method
+            //Not due to undo method of AddActivityEvent or redo method of DeleteActivityEvent
             DeleteActivityCommand newCommand = new DeleteActivityCommand(indexOfActivity,
                     activityToDelete);
-            Event deleteActivityEvent = EventFactory.parse(newCommand, model);
-            CommandHistory.addToUndoStack(deleteActivityEvent);
-            CommandHistory.clearRedoStack();
+            updateEventStack(newCommand, model);
         }
-
         model.deleteActivity(activityToDelete);
+
         return new CommandResult(
                 String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete),
                 new ResultInformation[]{
@@ -108,6 +103,7 @@ public class DeleteActivityCommand extends DeleteCommand {
                 new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
         );
     }
+
     /**
      * Returns the index of activity in the model.
      * Precondition: the {@code activity} must have not been deleted before this.

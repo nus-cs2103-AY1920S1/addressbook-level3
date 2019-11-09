@@ -12,15 +12,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.contact.Contact;
@@ -69,7 +66,7 @@ public class AddAccommodationCommand extends AddCommand {
         this.isUndoRedo = isUndoRedo;
     }
 
-    //Constructor used to undo DeleteAccommodationEvent
+    // Constructor used to undo DeleteAccommodationEvent
     public AddAccommodationCommand(Index index, Accommodation accommodation) {
         requireAllNonNull(index, accommodation);
         toAdd = accommodation;
@@ -94,6 +91,8 @@ public class AddAccommodationCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_ACCOMMODATION);
         }
 
+        // Check if new Accommodation's contact already exist in ContactManager's list. If true, use the existing
+        // contact.
         if (toAdd.getContact().isPresent() && model.hasPhone(toAdd.getContact().get().getPhone())) {
             Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
             accommodationAdded = new Accommodation(toAdd.getName(), toAdd.getAddress(), contact,
@@ -103,17 +102,15 @@ public class AddAccommodationCommand extends AddCommand {
         }
 
         if (index == null && !isUndoRedo) {
-            //Not due to undo or redo method
+            // Not due to undo or redo method
             AddAccommodationCommand newCommand = new AddAccommodationCommand(accommodationAdded, isUndoRedo);
-            Event addAccommodationEvent = EventFactory.parse(newCommand, model);
-            CommandHistory.addToUndoStack(addAccommodationEvent);
-            CommandHistory.clearRedoStack();
+            updateEventStack(newCommand, model);
             model.addAccommodation(accommodationAdded);
         } else if (isUndoRedo && index != null) {
-            //Due to undo method DeleteAccommodationEvent
+            // Due to undo method DeleteAccommodationEvent
             model.addAccommodationAtIndex(index, accommodationAdded);
         } else {
-            //Due to redo method AddAccommodationEvent
+            // Due to redo method AddAccommodationEvent
             model.addAccommodation(accommodationAdded);
         }
 

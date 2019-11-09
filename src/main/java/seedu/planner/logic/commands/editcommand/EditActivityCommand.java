@@ -23,15 +23,12 @@ import java.util.Set;
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.commons.util.CollectionUtil;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.activity.Duration;
@@ -97,7 +94,7 @@ public class EditActivityCommand extends EditCommand {
         this.isUndoRedo = isUndoRedo;
     }
 
-    //Constructor used to undo or generate EditAccommodationEvent
+    // Constructor used to undo or generate EditAccommodationEvent
     public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor, Activity activity) {
         requireAllNonNull(index, activity);
         this.index = index;
@@ -134,7 +131,6 @@ public class EditActivityCommand extends EditCommand {
 
         Activity activityToEdit = lastShownList.get(index.getZeroBased());
         Index activityToEditIndex = findIndexOfActivity(model, activityToEdit);
-
         Activity editedActivity;
         editedActivity = (activity == null) ? createEditedActivity(activityToEdit, editActivityDescriptor, model)
                 : activity;
@@ -142,7 +138,6 @@ public class EditActivityCommand extends EditCommand {
         if (!activityToEdit.isSameActivity(editedActivity) && model.hasActivity(editedActivity)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
         }
-
         try {
             model.setActivity(activityToEdit, editedActivity);
         } catch (EndOfTimeException e) {
@@ -150,15 +145,13 @@ public class EditActivityCommand extends EditCommand {
         }
 
         if (activity == null && !isUndoRedo) {
-            //Not due to undo method
+            // Not due to undo/redo method of EditActivityEvent
             EditActivityCommand newCommand = new EditActivityCommand(index, editActivityDescriptor, activityToEdit);
-            Event editActivityEvent = EventFactory.parse(newCommand, model);
-            CommandHistory.addToUndoStack(editActivityEvent);
-            CommandHistory.clearRedoStack();
+            updateEventStack(newCommand, model);
         }
-
         model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
         Index editedActivityIndex = findIndexOfActivity(model, editedActivity);
+
         return new CommandResult(
             String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity),
             new ResultInformation[] {
@@ -195,9 +188,11 @@ public class EditActivityCommand extends EditCommand {
                 : model.hasPhone(editActivityDescriptor.getPhone().get())
                 ? model.getContactByPhone(editActivityDescriptor.getPhone().get()).get()
                 : new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null, new HashSet<>());
+
         Cost updatedCost = editActivityDescriptor.getCost().isPresent()
                 ? editActivityDescriptor.getCost().get()
                 : null;
+
         Set<Tag> updatedTags = editActivityDescriptor.getTags().orElse(activityToEdit.getTags());
         Duration updatedDuration = editActivityDescriptor.getDuration().orElse(activityToEdit.getDuration());
         Priority updatedPriority = editActivityDescriptor.getPriority().orElse(activityToEdit.getPriority());

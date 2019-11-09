@@ -7,15 +7,12 @@ import java.util.Optional;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;
 
@@ -51,7 +48,7 @@ public class DeleteContactCommand extends DeleteCommand {
         this.isUndoRedo = isUndoRedo;
     }
 
-    //Constructor used to undo AddContactEvent and DeleteContactEvent
+    // Constructor used to undo AddContactEvent and DeleteContactEvent
     public DeleteContactCommand(Index targetIndex, Contact contact) {
         requireNonNull(contact);
         toDelete = contact;
@@ -75,7 +72,6 @@ public class DeleteContactCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         List<Contact> lastShownList = model.getFilteredContactList();
         Contact contactToDelete;
 
@@ -89,13 +85,12 @@ public class DeleteContactCommand extends DeleteCommand {
         Index indexOfContact = findIndexOfContact(model, contactToDelete);
 
         if (toDelete == null && !isUndoRedo) {
-            //Not due to undo method
+            //Not due to undo method of AddContactEvent or redo method of DeleteContactEvent
             DeleteContactCommand newCommand = new DeleteContactCommand(indexOfContact, contactToDelete);
-            Event deleteContactEvent = EventFactory.parse(newCommand, model);
-            CommandHistory.addToUndoStack(deleteContactEvent);
-            CommandHistory.clearRedoStack();
+            updateEventStack(newCommand, model);
         }
         model.deleteContact(contactToDelete);
+
         return new CommandResult(
             String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete),
             new ResultInformation[] {

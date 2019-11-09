@@ -21,15 +21,12 @@ import java.util.Set;
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.commons.util.CollectionUtil;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.contact.Email;
@@ -93,7 +90,7 @@ public class EditContactCommand extends EditCommand {
         this.isUndoRedo = isUndoRedo;
     }
 
-    //Constructor used to undo or generate EditAccommodationEvent
+    // Constructor used to undo or generate EditAccommodationEvent
     public EditContactCommand(Index index, EditContactDescriptor editContactDescriptor, Contact contact) {
         requireAllNonNull(index, contact);
         this.index = index;
@@ -130,24 +127,22 @@ public class EditContactCommand extends EditCommand {
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
         Index contactToEditIndex = findIndexOfContact(model, contactToEdit);
-
         Contact editedContact;
         editedContact = (contact == null) ? createEditedContact(contactToEdit, editContactDescriptor) : contact;
 
         if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
-        if (contact == null && !isUndoRedo) {
-            //Not due to undo method
-            EditContactCommand newCommand = new EditContactCommand(index, editContactDescriptor, contactToEdit);
-            Event editContactEvent = EventFactory.parse(newCommand, model);
-            CommandHistory.addToUndoStack(editContactEvent);
-            CommandHistory.clearRedoStack();
-        }
 
+        if (contact == null && !isUndoRedo) {
+            //Not due to undo/redo method of EditContactEvent
+            EditContactCommand newCommand = new EditContactCommand(index, editContactDescriptor, contactToEdit);
+            updateEventStack(newCommand, model);
+        }
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         Index editedContactIndex = findIndexOfContact(model, editedContact);
+
         return new CommandResult(
             String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact),
             new ResultInformation[] {

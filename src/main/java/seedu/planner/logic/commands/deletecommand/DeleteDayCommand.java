@@ -6,14 +6,11 @@ import java.util.List;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.day.Day;
 
@@ -49,7 +46,7 @@ public class DeleteDayCommand extends DeleteCommand {
         this.isUndoRedo = isUndoRedo;
     }
 
-    //Constructor used to create DeleteDayEvent
+    // Constructor used to create DeleteDayEvent
     public DeleteDayCommand(Index targetIndex, Day day) {
         requireNonNull(day);
         toDelete = day;
@@ -72,24 +69,21 @@ public class DeleteDayCommand extends DeleteCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        //Not due to undo method
         requireNonNull(model);
         List<Day> lastShownList = model.getFilteredItinerary();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DAY_DISPLAYED_INDEX);
         }
-
         Day dayToDelete = lastShownList.get(targetIndex.getZeroBased());
 
         if (!isUndoRedo) {
+            // Not due to redo method of DeleteDayEvent
             DeleteDayCommand newCommand = new DeleteDayCommand(targetIndex, dayToDelete);
-            Event deleteDayEvent = EventFactory.parse(newCommand, model);
-            CommandHistory.addToUndoStack(deleteDayEvent);
-            CommandHistory.clearRedoStack();
+            updateEventStack(newCommand, model);
         }
-
         model.deleteDay(dayToDelete);
+
         return new CommandResult(
             String.format(MESSAGE_DELETE_DAY_SUCCESS, targetIndex.getOneBased()),
             new UiFocus[] {UiFocus.AGENDA}

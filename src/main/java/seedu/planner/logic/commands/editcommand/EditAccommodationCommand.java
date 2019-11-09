@@ -20,15 +20,12 @@ import java.util.Set;
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.commons.util.CollectionUtil;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.contact.Contact;
@@ -89,7 +86,7 @@ public class EditAccommodationCommand extends EditCommand {
         this.isUndoRedo = isUndoRedo;
     }
 
-    //Constructor used to undo or generate EditAccommodationEvent
+    // Constructor used to undo or generate EditAccommodationEvent
     public EditAccommodationCommand(Index index, EditAccommodationDescriptor editAccommodationDescriptor,
                                     Accommodation accommodation) {
         requireAllNonNull(index, accommodation);
@@ -127,7 +124,6 @@ public class EditAccommodationCommand extends EditCommand {
 
         Accommodation accommodationToEdit = lastShownList.get(index.getZeroBased());
         Index accommodationToEditIndex = findIndexOfAccommodation(model, accommodationToEdit);
-
         Accommodation editedAccommodation;
         editedAccommodation = (accommodation == null) ? createEditedAccommodation(accommodationToEdit,
                 editAccommodationDescriptor, model) : accommodation;
@@ -138,17 +134,15 @@ public class EditAccommodationCommand extends EditCommand {
         }
 
         if (accommodation == null && !isUndoRedo) {
-            //Not due to undo method
+            //Not due to undo/redo method of EditAccommodationEvent
             EditAccommodationCommand newCommand = new EditAccommodationCommand(index, editAccommodationDescriptor,
                     accommodationToEdit);
-            Event editAccommodationEvent = EventFactory.parse(newCommand, model);
-            CommandHistory.addToUndoStack(editAccommodationEvent);
-            CommandHistory.clearRedoStack();
+            updateEventStack(newCommand, model);
         }
-
         model.setAccommodation(accommodationToEdit, editedAccommodation);
         model.updateFilteredAccommodationList(PREDICATE_SHOW_ALL_ACCOMMODATIONS);
         Index editedAccommodationIndex = findIndexOfAccommodation(model, editedAccommodation);
+
         return new CommandResult(
             String.format(MESSAGE_EDIT_ACCOMMODATION_SUCCESS, editedAccommodation),
             new ResultInformation[]{

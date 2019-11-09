@@ -21,15 +21,12 @@ import java.util.stream.IntStream;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.ModelManager;
 import seedu.planner.model.activity.Activity;
@@ -120,7 +117,8 @@ public class AutoScheduleCommand extends UndoableCommand {
 
         Model initialModel = new ModelManager(model.getAccommodations(), model.getActivities(), model.getContacts(),
                 model.getItinerary(), model.getUserPrefs());
-        //Generate schedule for specified day(s)
+
+        // Generate schedule for specified day(s)
         for (Index dayIndex : days) {
             List<ActivityWithTime> activitiesForTheDay = new ArrayList<>();
             if (dayIndex.getZeroBased() >= editDays.size()) {
@@ -134,7 +132,7 @@ public class AutoScheduleCommand extends UndoableCommand {
                 OptionalInt nextTimingIndex = getNextTimingIndex(i, timeSchedule);
                 LocalTime currentTime = timeSchedule.get(i).get();
 
-                //Check if there exists an activity that fits the schedule
+                // Check if there exists an activity that fits the schedule
                 Optional<Activity> activity = getSuitableActivity(activitiesWithCount, i, timeSchedule);
                 if (activity.isPresent()) {
                     activitiesForTheDay.add(toSchedule(timeSchedule.get(i).get()
@@ -143,7 +141,7 @@ public class AutoScheduleCommand extends UndoableCommand {
                     throw new CommandException(MESSAGE_INVALID_SCHEDULE);
                 }
 
-                //Sets the next timing as the end time of chosen activity if next timing in schedule is unavailable
+                // Sets the next timing as the end time of chosen activity if next timing in schedule is unavailable
                 int duration = activity.get().getDuration().value;
                 if ((nextTimingIndex.isEmpty() || (nextTimingIndex.getAsInt() != nextIndex
                         && nextTimingIndex.getAsInt() != draftSchedule.size()))) {
@@ -157,9 +155,8 @@ public class AutoScheduleCommand extends UndoableCommand {
             model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
         }
         if (!isUndoRedo) {
-            Event autoScheduleEvent = EventFactory.parse(this, initialModel);
-            CommandHistory.addToUndoStack(autoScheduleEvent);
-            CommandHistory.clearRedoStack();
+            // Not due to redo method of AutoScheduleEvent
+            updateEventStack(this, initialModel);
         }
         return new CommandResult(Messages.MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }
@@ -171,7 +168,7 @@ public class AutoScheduleCommand extends UndoableCommand {
             LocalTime currentTiming = timeSchedule.get(currentIndex).get();
             LocalTime currentActivityEndTime = currentTiming.plusMinutes(duration);
 
-            //Check if it is the last activity in the draftSchedule to schedule
+            // Check if it is the last activity in the draftSchedule to schedule
             if (currentIndex == draftSchedule.size() - 1) {
                 if (currentActivityEndTime.isBefore(currentTiming)) {
                     throw new CommandException(MESSAGE_INVALID_SCHEDULE);
@@ -179,7 +176,7 @@ public class AutoScheduleCommand extends UndoableCommand {
                 return Optional.of(activityWithCount.getActivity());
             }
 
-            //check if activity chosen overlap next timing in timeSchedule
+            // Check if activity chosen overlap next timing in timeSchedule
             OptionalInt nextTimingIndex = getNextTimingIndex(currentIndex, timeSchedule);
             if (nextTimingIndex.isEmpty()) {
                 return Optional.of(activityWithCount.getActivity());

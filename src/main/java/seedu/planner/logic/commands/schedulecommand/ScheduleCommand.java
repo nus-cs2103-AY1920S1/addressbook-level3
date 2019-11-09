@@ -15,7 +15,6 @@ import java.util.List;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
@@ -23,8 +22,6 @@ import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.CommandUtil;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.day.ActivityWithTime;
@@ -59,6 +56,7 @@ public class ScheduleCommand extends UndoableCommand {
             new ArrayList<>(),
             new ArrayList<>()
     );
+
     public static final int MAX_LIMIT_OF_OVERLAP = 5;
     public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activity scheduled to day %d";
     public static final String MESSAGE_END_TIME_EXCEEDS_LAST_DAY = "Activity will end after the end of the itinerary.";
@@ -66,7 +64,6 @@ public class ScheduleCommand extends UndoableCommand {
             + " timeslot";
     public static final String MESSAGE_EXCEED_LIMIT_OF_OVERLAP = "Activity added to this time slot will "
             + "exceed the limit of " + MAX_LIMIT_OF_OVERLAP + " overlapping of activities";
-
 
     private final Index activityIndex;
     private final LocalTime startTime;
@@ -132,14 +129,12 @@ public class ScheduleCommand extends UndoableCommand {
         }
 
         if (!isUndoRedo) {
-            //Not due to undo method of UnscheduleEvent
-            Event scheduleEvent = EventFactory.parse(this, model);
-            CommandHistory.addToUndoStack(scheduleEvent);
-            CommandHistory.clearRedoStack();
+            //Not due to undo method of UnscheduleEvent or redo method of ScheduleEvent
+            updateEventStack(this, model);
         }
-
         model.scheduleActivity(dayToEdit, activityWithTimeToAdd);
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
+
         return new CommandResult(String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, dayIndex.getOneBased()),
                 new UiFocus[]{UiFocus.AGENDA});
     }
