@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser.state;
+package com.typee.logic.interactive.parser.state.calendarmachine;
 
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,8 +12,7 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.CliSyntax;
 import com.typee.logic.interactive.parser.Prefix;
-import com.typee.logic.interactive.parser.state.calendarstate.CalendarState;
-import com.typee.logic.interactive.parser.state.calendarstate.NextMonthState;
+import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 public class NextMonthStateTest {

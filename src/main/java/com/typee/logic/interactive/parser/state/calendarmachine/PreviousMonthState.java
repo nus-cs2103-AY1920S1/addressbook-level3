@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser.state.calendarstate;
+package com.typee.logic.interactive.parser.state.calendarmachine;
 
 import com.typee.logic.commands.CalendarPreviousMonthCommand;
 import com.typee.logic.commands.Command;

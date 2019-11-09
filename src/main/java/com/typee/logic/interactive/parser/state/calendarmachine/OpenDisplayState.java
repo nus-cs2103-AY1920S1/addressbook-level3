@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser.state.calendarstate;
+package com.typee.logic.interactive.parser.state.calendarmachine;
 
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DATE;
 import static java.util.Objects.requireNonNull;
