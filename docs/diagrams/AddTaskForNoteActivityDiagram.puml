@@ -1,0 +1,26 @@
+@startuml
+start
+: User types command for adding task for note;
+: System parses command;
+
+if () then ([valid input])
+    : Create new task;
+
+    if() then ([note exists in model])
+       if() then ([else])
+            : Add the task to the revision task list;
+            : Display command result;
+       else ([task exists in revision task list])
+            : Exception thrown;
+       endif
+
+    else ([else])
+        : Exception thrown;
+    endif
+
+else ([else])
+    : Exception thrown;
+endif
+stop
+
+@enduml

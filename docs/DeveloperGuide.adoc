@@ -406,14 +406,15 @@ This is also more difficult to implement.
 
 === Add revision task
 ==== Implementation
-`AddTaskForNoteCommand` is implemented to add a task for lecture notes revision with the command `rn`. It extends `Command` class and adds a
-`Task` for lecture notes revision to the `TaskList` kept in `AppData` model, which wraps all application data. Similarly,
-`AddTaskForQuestionCommand` is implemented to add a task for question notes.
+`AddTaskForNoteCommand` is implemented to add a task for revising a lecture note with the command `rn`. It extends `Command` class and adds a
+`Task` to the `TaskList` kept in `AppData` model, which wraps all application data. Similarly,
+`AddTaskForQuestionCommand` is implemented to add a task for revising a question.
 
 The `TaskList` is essentially a list of `Task`. `TaskList` supports the `add(Task)` operation and this operation is
 exposed to `AppData#addTask(Task)`.
 
-The following process illustrates the mechanism of adding a revision task to the task list.
+The following process illustrates the mechanism of adding a revision task for note to the task list (adding a revision task
+for question has a similar command but different parameters).
 
 Step 1. The user enters command `rn t/UML diagram dt/01/01/2019 tm/1200` for adding a task for note. The command is parsed by `AddTaskForNoteCommandParser`.
 `AddTaskForNoteParser` then creates an `AddTaskForNoteCommand`. The high-level logic of *parsing* and *creating the command*
@@ -450,9 +451,14 @@ The detailed process is illustrated by the sequence diagram below.
 .Sequence diagram for checking existence of a `Note` in the model when `AddTaskForNoteCommand` calls its own `hasValidNoteForTask(Model)`
 image::task/HasValidNoteSequenceDiagram.png[]
 
+The following activity diagram summarizes the whole process of adding a task for note.
+
+.Activity diagram for adding a task for note
+image::task/AddTaskForNoteActivityDiagram.png[]
+
 ==== Design considerations
 ===== Aspect: Design of `Task`
-* **Alternative 1 (current implementation):** implement `Task` as a concrete class with two subclasses to support task for
+* **Alternative 1 (current implementation):** We implement `Task` as a concrete class with two subclasses to support task for
 notes and questions respectively.
 ** Pros: It supports different behaviours of task for `Note` and task for `Question` by polymorphism. The concrete `Task`
 class will also allow adding of general tasks in *v2.0*.
@@ -464,15 +470,32 @@ The class diagram below illustrates how `Task` class is designed:
 .Design of `Task` class
 image::task/TaskClassDiagram.png[]
 
-* **Alternative 2:** design `Task` as an interface to be implemented by two different classes.
-** Pros: More flexible design. Less exposure of internal properties of Task to client.
+* **Alternative 2:** We design `Task` as an interface to be implemented by two different classes.
+** Pros: This approach is better in data hiding. The client classes know less information about internal properties of `Task`.
 ** Cons: We need to implement all methods in the interface and hence more code snippets are needed. Both implementing
 classes have to include the field in common such as `isDone`, which results in duplicate code snippets.
 
-* **Alternative 3:** wrap everything in one concrete `Task` class to support both lecture notes and questions.
-** Pros: Less code to write.
-** Cons: It violates the principle of Separation of Concern. Hard to maintain or extend in the future if more types of
+* **Alternative 3:** We wrap everything in one concrete `Task` class to support both lecture notes and questions.
+** Pros: We need to write less code.
+** Cons: It violates the principle of Separation of Concern, making it hard to maintain or extend in the future if more types of
 tasks are needed.
+
+===== Aspect: Design of adding command for task
+* **Alternative 1 (current implementation):** We implement the command as two independent classes, namely `AddTaskForNoteCommand` and
+`AddTaskForQuestionCommand` to support adding `TaskForNote` and `TaskForQuestion` respectively.
+** Pros: The two types of commands, although similar in logic, receive different parameters and interact with different
+classes (one interacting with `TaskForNote` while another one interacting with `TaskForQuestion`). Therefore, it is better to separate the
+concerns by implementing the commands as two separate classes. If `TaskForNote` and `TaskForQuestion` classes deviate more
+significantly in the future in terms of their behaviour, this approach makes it easier to maintain the adding commands.
+** Cons: We need to write more code. There might be some duplicate code snippets involving the logic shared by both commands.
+We also need to implement different parsers for the two commands, which involes some extra work.
+
+* **Alternative 2:** We implement only one class of adding command to support both `TaskForNote` and `TaskForQuestion`.
+** Pros: We can write less code as there would be fewer duplicate code snippets and we do not need to implement separate
+command parsers.
+** Cons: This approach leads to lower level of abstraction as all concerns of `Task`, regardless of `TaskForNote` or `TaskForQuestion`,
+are wrapped into the same class. It could be difficult to maintain if the behaviors of `TaskForNote` and `TaskForQuestion`
+get more complex and diverse.
 
 === Logging
 
@@ -654,13 +677,13 @@ Use case ends
 // end::usecase[]
 
 [discrete]
-=== Use case: Add a revision task to revision plan (Shui Yao)
+=== Use case: Add a revision task for note to revision plan (Shui Yao)
 
-*Preconditions:* notes collections and question collections are not both empty
+*Preconditions:* lecture note list is not empty
 
 *MSS*
 
-1. Student keys in revision task command and specifies the note set name or question set name he/she wants to add to revision plan, with starting date and starting time
+1. Student keys in revision task command and specifies the title of the note he/she wants to add to revision plan, with starting date and starting time
 2. NUStudy adds the task to revision plan
 3. NUStudy informs the Student about successful addition of the task
 
@@ -669,27 +692,35 @@ Use case ends
 *Extensions*
 
 [none]
-* 1a. NUStudy detects that neither a note set or a question set is entered by Student
+* 1a. NUStudy detects missing entry for note title
 [none]
-** 1a1. NUStudy requests for the correct input with a note set name or a question set name
+** 1a1. NUStudy requests for input of note title
 ** 1a2. Student enters correct input
-** Steps 1a1 - 1a2 are repeated until the input is correct
+** Steps 1a1 - 1a2 are repeated until the input is valid
 * Use case resumes from Step 2
 
 [none]
-* 1b. NUStudy detects missing starting date or time
+* 1b. NUStudy detects a note title entry that is non-existent in the note list
 [none]
-** 1b1. NUStudy requests for correct input with starting date and time
-** 1b2. Student enters correct input following the format
-** Steps 1b1 - 1b2 are repeated until getting a correct input with valid starting date and time
+** 1b1. NUStudy requests for a valid input of note title (a note that exists in the note list)
+** 1b2. Student enters valid note title
+** Steps 1b1 - 1b2 are repeated until the input is valid
 * Use case resumes from Step 2
 
 [none]
-* 1c. NUStudy detects invalid date or time
+* 1c. NUStudy detects missing starting date or time
 [none]
-** 1c1. NUStudy requests for valid date and time
-** 1c2. Student enters correct input with valid date and time
-** Steps 1c1 - 1c2 are repeated until getting a correct input with valid date and time
+** 1c1. NUStudy requests for correct input with starting date and time
+** 1c2. Student enters correct input following the format
+** Steps 1c1 - 1c2 are repeated until getting a correct input with valid starting date and time
+* Use case resumes from Step 2
+
+[none]
+* 1d. NUStudy detects invalid date or time
+[none]
+** 1d1. NUStudy requests for valid date and time
+** 1d2. Student enters correct input with valid date and time
+** Steps 1d1 - 1d2 are repeated until getting a correct input with valid date and time
 * Use case resumes from Step 2
 
 [discrete]
@@ -727,20 +758,10 @@ Use case ends
 *MSS*
 
 1. Student clears the revision plan
-2. NUStudy requests for confirmation
-3. Student confirms the clear operation
-4. NUStudy clears the revision plan
-5. NUStudy informs the Student that the revision plan is successfully cleared
+2. NUStudy clears the revision plan
+3. NUStudy informs the Student that the revision plan is successfully cleared
 
 Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. Student disapprove the clear operation
-[none]
-** 2a1. NUStudy informs the Student of the cancellation of clear operation
-* Use case ends
 
 // tag::statsUseCase[]
 [discrete]
