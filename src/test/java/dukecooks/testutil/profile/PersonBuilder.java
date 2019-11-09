@@ -11,7 +11,7 @@ import dukecooks.model.profile.person.Height;
 import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.profile.person.Weight;
-import dukecooks.model.util.SampleDataUtil;
+import dukecooks.model.util.SamplePersonDataUtil;
 
 /**
  * A utility class to help with building Person objects.
@@ -111,7 +111,7 @@ public class PersonBuilder {
      * and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withMedicalHistories(String ... medicalHistories) {
-        this.medicalHistories = SampleDataUtil.getMedicalHistorySet(medicalHistories);
+        this.medicalHistories = SamplePersonDataUtil.getMedicalHistorySet(medicalHistories);
         return this;
     }
 

@@ -116,7 +116,6 @@ public class EditTaskCommand extends EditCommand {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code ingredients} is used internally.
          */
         public EditTaskDescriptor(EditTaskDescriptor toCopy) {
             setDashboardName(toCopy.name);
@@ -146,6 +145,10 @@ public class EditTaskCommand extends EditCommand {
             return Optional.ofNullable(date);
         }
 
+        @Override
+        public String toString() {
+            return name + " " + date;
+        }
 
         @Override
         public boolean equals(Object other) {
@@ -165,5 +168,10 @@ public class EditTaskCommand extends EditCommand {
             return getDashboardName().equals(e.getDashboardName())
                     && getTaskDate().equals(e.getTaskDate());
         }
+    }
+
+    @Override
+    public String toString() {
+        return editTaskDescriptor.toString();
     }
 }

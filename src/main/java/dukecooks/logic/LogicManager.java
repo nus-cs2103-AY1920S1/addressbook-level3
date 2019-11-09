@@ -205,9 +205,4 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
-
-    @Override
-    public Path getDukeCooksFilePath() {
-        return model.getUserProfileFilePath();
-    }
 }

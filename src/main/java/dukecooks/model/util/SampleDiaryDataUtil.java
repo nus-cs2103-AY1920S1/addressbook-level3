@@ -35,6 +35,9 @@ public class SampleDiaryDataUtil {
         ArrayList<Page> mixedPageList = new ArrayList<>(Arrays.asList(SamplePagesDataUtil.getMixedSamplePages()));
         ObservableList<Page> mixedPages = FXCollections.observableArrayList(mixedPageList);
 
+        ArrayList<Page> studentPageList = new ArrayList<>(Arrays.asList(SamplePagesDataUtil.getStudentSamplePages()));
+        ObservableList<Page> studentPages = FXCollections.observableArrayList(studentPageList);
+
         return new Diary[] {
             new Diary(new DiaryName("Asian Food"), foodPages),
             new Diary(new DiaryName("Healthy Living"), mixedPages),
@@ -42,6 +45,7 @@ public class SampleDiaryDataUtil {
             new Diary(new DiaryName("Singapore Favourites"), singaporePages),
             new Diary(new DiaryName("One Week Slimming"), slimmingPages),
             new Diary(new DiaryName("Core Exercises"), exercisePages),
+            new Diary(new DiaryName("Student Essentials"), studentPages),
         };
     }
 

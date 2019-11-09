@@ -15,27 +15,15 @@ public class TaskStatus {
     }
 
     public boolean getRecentlyDoneStatus() {
-        if (taskStatus.equals("RECENTLY COMPLETED")) {
-            return true;
-        } else {
-            return false;
-        }
+        return taskStatus.equals("RECENTLY COMPLETED");
     }
 
     public boolean getDoneStatus() {
-        if (taskStatus.equals("COMPLETED") || (taskStatus.equals("RECENTLY COMPLETED"))) {
-            return true;
-        } else {
-            return false;
-        }
+        return taskStatus.equals("COMPLETED") || (taskStatus.equals("RECENTLY COMPLETED"));
     }
 
     public boolean getNotDoneStatus() {
-        if (taskStatus.equals("NOT COMPLETE")) {
-            return true;
-        } else {
-            return false;
-        }
+        return taskStatus.equals("NOT COMPLETE");
     }
 
     @Override

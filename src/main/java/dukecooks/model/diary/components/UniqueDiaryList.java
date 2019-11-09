@@ -12,7 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of diaries that enforces uniqueness between its elements and does not allow nulls.
  * A diary is considered unique by comparing using {@code Diary#isSameDiary(Diary)}. As such, adding and updating of
  * persons uses Diary#isSameDiary(Diary) for equality so as to ensure that the diary being added or updated is
  * unique in terms of identity in the UniqueDiaryList. However, the removal of a diary uses Diary#equals(Object) so

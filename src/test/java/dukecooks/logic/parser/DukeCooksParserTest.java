@@ -3,8 +3,11 @@ package dukecooks.logic.parser;
 import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static dukecooks.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static dukecooks.testutil.Assert.assertThrows;
+import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_DASHBOARD;
+import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_MEALPLAN;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,16 +19,37 @@ import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.AddCommand;
 import dukecooks.logic.commands.ClearCommand;
+import dukecooks.logic.commands.CreateCommand;
 import dukecooks.logic.commands.DeleteCommand;
 import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.ExitCommand;
 import dukecooks.logic.commands.FindCommand;
+import dukecooks.logic.commands.GotoCommand;
 import dukecooks.logic.commands.HelpCommand;
 import dukecooks.logic.commands.ListCommand;
 import dukecooks.logic.commands.ViewCommand;
+import dukecooks.logic.commands.dashboard.AddTaskCommand;
+import dukecooks.logic.commands.dashboard.DeleteTaskCommand;
+import dukecooks.logic.commands.dashboard.DoneTaskCommand;
+import dukecooks.logic.commands.dashboard.EditTaskCommand;
+import dukecooks.logic.commands.dashboard.EditTaskCommand.EditTaskDescriptor;
+import dukecooks.logic.commands.dashboard.FindTaskCommand;
+import dukecooks.logic.commands.dashboard.GotoTaskCommand;
+import dukecooks.logic.commands.dashboard.ListTaskDoneCommand;
+import dukecooks.logic.commands.dashboard.ListTaskNotDoneCommand;
 import dukecooks.logic.commands.diary.AddDiaryCommand;
+import dukecooks.logic.commands.diary.AddPageCommand;
+import dukecooks.logic.commands.diary.CreatePageCommand;
+import dukecooks.logic.commands.diary.DeleteDiaryCommand;
+import dukecooks.logic.commands.diary.DeletePageCommand;
+import dukecooks.logic.commands.diary.EditDiaryCommand;
+import dukecooks.logic.commands.diary.EditDiaryCommand.EditDiaryDescriptor;
+import dukecooks.logic.commands.diary.EditPageCommand;
+import dukecooks.logic.commands.diary.EditPageCommand.EditPageDescriptor;
 import dukecooks.logic.commands.diary.FindDiaryCommand;
+import dukecooks.logic.commands.diary.GotoDiaryCommand;
 import dukecooks.logic.commands.diary.ListDiaryCommand;
+import dukecooks.logic.commands.diary.ViewDiaryCommand;
 import dukecooks.logic.commands.exercise.AddExerciseCommand;
 import dukecooks.logic.commands.exercise.ClearExerciseCommand;
 import dukecooks.logic.commands.exercise.ListExerciseCommand;
@@ -47,16 +71,26 @@ import dukecooks.logic.commands.recipe.EditRecipeCommand.EditRecipeDescriptor;
 import dukecooks.logic.commands.recipe.FindRecipeCommand;
 import dukecooks.logic.commands.recipe.ListRecipeCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.model.dashboard.components.Dashboard;
+import dukecooks.model.dashboard.components.DashboardNameContainsKeywordsPredicate;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
+import dukecooks.model.diary.components.Page;
 import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.mealplan.components.MealPlanNameContainsKeywordsPredicate;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
 import dukecooks.model.workout.exercise.components.Exercise;
+import dukecooks.testutil.dashboard.DashboardBuilder;
+import dukecooks.testutil.dashboard.DashboardUtil;
+import dukecooks.testutil.dashboard.EditDashboardDescriptorBuilder;
 import dukecooks.testutil.diary.DiaryBuilder;
 import dukecooks.testutil.diary.DiaryUtil;
+import dukecooks.testutil.diary.EditDiaryDescriptorBuilder;
+import dukecooks.testutil.diary.EditPageDescriptorBuilder;
+import dukecooks.testutil.diary.PageBuilder;
+import dukecooks.testutil.diary.TypicalDiaries;
 import dukecooks.testutil.exercise.ExerciseBuilder;
 import dukecooks.testutil.exercise.ExerciseUtil;
 import dukecooks.testutil.mealplan.EditMealPlanDescriptorBuilder;
@@ -75,7 +109,65 @@ public class DukeCooksParserTest {
 
     /**  ------------------------------------  DASHBOARD -------------------------------------- */
 
-    //
+    @Test
+    public void parseCommand_listTaskDone() throws Exception {
+        assertTrue(parser.parseCommand(ListTaskDoneCommand.COMMAND_WORD
+                + " " + ListTaskDoneCommand.VARIANT_WORD) instanceof ListTaskDoneCommand);
+    }
+
+    @Test
+    public void parseCommand_listTaskNotDone() throws Exception {
+        assertTrue(parser.parseCommand(ListTaskNotDoneCommand.COMMAND_WORD
+                + " " + ListTaskNotDoneCommand.VARIANT_WORD) instanceof ListTaskNotDoneCommand);
+    }
+
+    @Test
+    public void parseCommand_addTask() throws Exception {
+        Dashboard dashboard = new DashboardBuilder().build();
+        AddTaskCommand command = (AddTaskCommand) parser.parseCommand(DashboardUtil.getAddTaskCommand(dashboard));
+        assertEquals(new AddTaskCommand(dashboard).toString(), command.toString());
+    }
+
+    @Test
+    public void parseCommand_deleteTask() throws Exception {
+        DeleteTaskCommand command = (DeleteTaskCommand) parser.parseCommand(
+                DeleteTaskCommand.COMMAND_WORD + " " + DeleteTaskCommand.VARIANT_WORD
+                        + " " + INDEX_FIRST_DASHBOARD.getOneBased());
+        assertEquals(new DeleteTaskCommand(INDEX_FIRST_DASHBOARD), command);
+    }
+
+    @Test
+    public void parseCommand_editTask() throws Exception {
+        Dashboard dashboard = new DashboardBuilder().build();
+        EditTaskDescriptor descriptor = new EditDashboardDescriptorBuilder(dashboard).build();
+        EditTaskCommand command = (EditTaskCommand) parser.parseCommand(EditTaskCommand.COMMAND_WORD
+                + " " + EditTaskCommand.VARIANT_WORD + " " + INDEX_FIRST_DASHBOARD.getOneBased() + " "
+                + DashboardUtil.getEditDashboardDescriptorDetails(descriptor));
+        assertEquals(new EditTaskCommand(INDEX_FIRST_DASHBOARD, descriptor).toString(), command.toString());
+    }
+
+    @Test
+    public void parseCommand_findTask() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindTaskCommand command = (FindTaskCommand) parser.parseCommand(
+                FindTaskCommand.COMMAND_WORD + " " + FindTaskCommand.VARIANT_WORD
+                        + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindTaskCommand(new DashboardNameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_gotoDashboard() throws Exception {
+        assertTrue(parser.parseCommand(GotoTaskCommand.COMMAND_WORD
+                + " " + GotoTaskCommand.VARIANT_WORD) instanceof GotoTaskCommand);
+    }
+
+    @Test
+    public void parseCommand_doneTask() throws Exception {
+        DoneTaskCommand command = (DoneTaskCommand) parser.parseCommand(
+                DoneTaskCommand.COMMAND_WORD + " " + DoneTaskCommand.VARIANT_WORD
+                        + " " + INDEX_FIRST_DASHBOARD.getOneBased());
+        assertEquals(new DoneTaskCommand(INDEX_FIRST_DASHBOARD), command);
+    }
 
     /**  ------------------------------------  RECIPE ---------------------------------------- */
 
@@ -259,6 +351,71 @@ public class DukeCooksParserTest {
         assertEquals(new AddDiaryCommand(recipe), command);
     }
 
+    @Test
+    public void parseCommand_deleteDiary() throws Exception {
+        DeleteDiaryCommand command = (DeleteDiaryCommand) parser.parseCommand(
+                DeleteDiaryCommand.COMMAND_WORD + " " + DeleteDiaryCommand.VARIANT_WORD
+                        + " " + INDEX_FIRST_DIARY.getOneBased());
+        assertEquals(new DeleteDiaryCommand(INDEX_FIRST_DIARY), command);
+    }
+
+    @Test
+    public void parseCommand_editDiary() throws Exception {
+        Diary diary = new DiaryBuilder().build();
+        EditDiaryDescriptor descriptor = new EditDiaryDescriptorBuilder(diary).build();
+        EditDiaryCommand command = (EditDiaryCommand) parser.parseCommand(EditDiaryCommand.COMMAND_WORD
+                + " " + EditDiaryCommand.VARIANT_WORD + " " + INDEX_FIRST_DIARY.getOneBased() + " "
+                + DiaryUtil.getEditDiaryDescriptorDetails(descriptor));
+        assertEquals(new EditDiaryCommand(INDEX_FIRST_DIARY, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_viewDiary() throws Exception {
+        assertTrue(parser.parseCommand(ViewDiaryCommand.COMMAND_WORD
+                + " " + ViewDiaryCommand.VARIANT_WORD + " 3") instanceof ViewDiaryCommand);
+    }
+
+    @Test
+    public void parseCommand_gotoDiary() throws Exception {
+        assertTrue(parser.parseCommand(GotoDiaryCommand.COMMAND_WORD
+                + " " + GotoDiaryCommand.VARIANT_WORD) instanceof GotoDiaryCommand);
+    }
+
+    /**  ------------------------------------  PAGE ------------------------------------------ */
+
+    @Test
+    public void parseCommand_createPage() throws Exception {
+        assertTrue(parser.parseCommand(CreatePageCommand.COMMAND_WORD
+                + " " + CreatePageCommand.VARIANT_WORD + " n/ hello t/ whatever tp/ health desc/ hello123 i/ "
+                + "/images/pho.jpg") instanceof CreatePageCommand);
+    }
+
+    @Test
+    public void parseCommand_deletePage() throws Exception {
+        DeletePageCommand command = (DeletePageCommand) parser.parseCommand(
+                DeletePageCommand.COMMAND_WORD + " " + DeletePageCommand.VARIANT_WORD
+                        + " " + INDEX_FIRST_DIARY.getOneBased() + " n/ " + TypicalDiaries.ALL_MEAT.getDiaryName());
+        assertEquals(new DeletePageCommand(INDEX_FIRST_DIARY, TypicalDiaries.ALL_MEAT.getDiaryName()), command);
+    }
+
+    @Test
+    public void parseCommand_addPage() throws Exception {
+        assertTrue(parser.parseCommand(AddPageCommand.COMMAND_WORD
+                + " " + AddPageCommand.VARIANT_WORD) instanceof AddPageCommand);
+    }
+
+    @Test
+    public void parseCommand_editPage() throws Exception {
+        Page page = new PageBuilder().build();
+        EditPageDescriptor descriptor = new EditPageDescriptorBuilder(page).build();
+        EditPageCommand command = (EditPageCommand) parser.parseCommand(EditPageCommand.COMMAND_WORD
+                + " " + EditPageCommand.VARIANT_WORD + " " + INDEX_FIRST_DIARY.getOneBased() + " n/ "
+                + TypicalDiaries.ALL_MEAT.getDiaryName() + " "
+                + DiaryUtil.getEditPageDescriptorDetails(descriptor));
+        assertEquals(new EditPageCommand(INDEX_FIRST_DIARY,
+                TypicalDiaries.ALL_MEAT.getDiaryName(), descriptor), command);
+    }
+
     /**  ------------------------------------  HEALTH ---------------------------------------- */
 
     @Test
@@ -295,14 +452,30 @@ public class DukeCooksParserTest {
 
     @Test
     public void parseCommand_clearCommandNoVariant_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand("clear"));
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE), () ->
+                        parser.parseCommand("clear"));
     }
 
     @Test
     public void parseCommand_clearCommandNonExistentVariant_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand("clear CS2103"));
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE), () ->
+                        parser.parseCommand("clear CS2103"));
+    }
+
+    @Test
+    public void parseCommand_createCommandNoVariant_throwsParseException() {
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCommand.MESSAGE_USAGE), () ->
+                        parser.parseCommand("create"));
+    }
+
+    @Test
+    public void parseCommand_createCommandNonExistentVariant_throwsParseException() {
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCommand.MESSAGE_USAGE), () ->
+                        parser.parseCommand("create CS2103"));
     }
 
     @Test
@@ -342,9 +515,23 @@ public class DukeCooksParserTest {
     }
 
     @Test
+    public void parseCommand_gotoCommandNoVariant_throwsParseException() {
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, GotoCommand.MESSAGE_USAGE), () ->
+                        parser.parseCommand("goto"));
+    }
+
+    @Test
+    public void parseCommand_gotoCommandNonExistentVariant_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, GotoCommand.MESSAGE_USAGE), ()
+            -> parser.parseCommand("goto CS2103"));
+    }
+
+    @Test
     public void parseCommand_listCommandNoVariant_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand("list"));
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE), () ->
+                        parser.parseCommand("list"));
     }
 
     @Test
