@@ -219,11 +219,6 @@ table.tableblock > .title,
     }
 }
 
-@media print {
-    a[xref]::after {
-	content: underline;
-    }
-}
 
 
 
