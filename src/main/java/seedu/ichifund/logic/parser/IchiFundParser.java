@@ -102,7 +102,7 @@ public class IchiFundParser {
 
     public void setFeatureParser(int index) {
         FeatureParser featureParser = featureParsers.get(index);
-        assert(featureParser.getTabIndex() == index);
+        assert featureParser.getTabIndex() == index;
         currentFeatureParser = featureParser;
         currentFeatureParserIndex.setValue(currentFeatureParser.getTabIndex());
     }
