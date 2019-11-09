@@ -26,15 +26,25 @@ This document describes the software architecture and system design of Athletick
 
 The intended audience of this document includes the developers and software testers of Athletick.
 
+Note the following symbols and formatting used in this document
+
+[horizontal]
+
+NOTE:: This symbol indicates important information
+
+`command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.
+
+`[green]#component#`:: Green text with grey highlight indicates a component, class, object or method in the architecture of the application.
+
 === Design goals
 
-Athletick was developed as part of CS2103T, a software engineering module taken in the National University of Singapore. We were tasked to morph a generic https://se-education.org/addressbook-level3/[address book application] that manages contacts into an application that manages something else. At the end of the project, it should be ready to be continued by future developers.
+Athletick was developed as part of https://nusmods.com/modules/CS2103T/software-engineering[CS2103T], a software engineering module taken in the National University of Singapore. We were tasked to morph a generic https://se-education.org/addressbook-level3/[address book application] that manages contacts into an application that manages something else. At the end of the project, it should be ready to be continued by future developers.
 
 As part of the project constraints, the input to Athletick needs to be primarily Command-Line Interface (CLI). Non-CLI inputs will reduce the suitability of the product to our target users. Taking this into consideration, the following principles guide the design of Athletick:
 
-. **Friendlier Syntax**
+. **Detailed Command Syntax Instructions**
 +
-In order to cater to beginner and experienced users of Athletick, we have provided shorter aliases for our command words. This helps new users to use intuitive and self-explanatory commands, while advanced users can accomplish their tasks more quickly with a shorter command syntax.
+In order to make Athletick more user-friendly, we have provided detailed command syntax instructions whenever users enter an erroneous command, allowing them to correct their errors on the fly. This helps users to maintain their workflow without having to switch back and forth between the application and the user guide, enabling them to complete their tasks more efficiently.
 
 . **Optimised Performance**
 +
@@ -150,11 +160,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `*ObservableList<Person>*`` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a Tag list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -267,30 +277,32 @@ Aspect: How to edit training information
 
 === Calendar feature
 
-The calendar feature serves 2 primary functions:
+To allow users to retrieve training and performance records using the date they were recorded on, Athletick has a calendar feature which provides 2 main functions:
 
-. Provides an overview of training and performance records in a selected month.
+. Displays an overview of training and performance records in a selected month
 
-. Displays training and performance records entered on a specific date.
+. Displays training and performance records entered on a specific date
 
 ==== Implementation
 
-The implementation of the above functions will be described separately.
+The implementation of the above functions will be described separately in this section.
 
-The first function is facilitated by `CalendarPanel`. It extends `UiPart<Region>` and represents the calendar via a `GridPane` with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:
+===== Function 1: Displays an overview of training and performance records in a selected month
 
-* `CalendarPanel#retrieveCurrentDate()` -- Retrieves the details of today's date to be used as the title of the calendar feature and for rendering the displayed month on the calendar when the user does not provide a month to view.
-* `CalendarPanel#retrieveProvidedDate()` -- Retrieves the details of the date provided by the user for rendering the displayed month on the calendar.
-* `CalendarPanel#initialiseSelectedDate()` -- Fills up all 42 cells of the `GridPane` with the respective days based on the selected date (current / provided date) by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
+Function 1 is facilitated by `[green]#CalendarPanel#`. It extends `[green]#UiPart<Region>#` and represents the calendar using a `[green]#GridPane#` with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:
+
+* `[green]#CalendarPanel#retrieveCurrentDate()#` -- Retrieves the details of today's date to be used as the title of the calendar feature and for rendering the displayed month on the calendar when the user does not provide a month to view.
+* `[green]#CalendarPanel#retrieveProvidedDate()#` -- Retrieves the details of the date provided by the user for rendering the displayed month on the calendar.
+* `[green]#CalendarPanel#initialiseSelectedDate()#` -- Fills up all 42 cells of the `GridPane` with the respective days based on the selected date (current / provided date) by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
 
 +
-In addition, days with training or performance records will be marked with a small orange or purple dot indicator respectively.
+In addition, days with training or performance records will be marked with a small green or purple dot indicator respectively.
 
-These operations are performed when an instance of `CalendarPanel` is created in the `MainWindow` class. An instance of `CalendarPanel` is created when the `CommandResult` obtained after executing the user's command contains a `Feature` corresponding to a calendar and an optional `AthletickDate`.
+These operations are performed when an instance of `[green]#CalendarPanel#` is created in the `[green]#MainWindow#` class. An instance of `[green]#CalendarPanel#` is created when the `[green]#CommandResult#` obtained after executing the user's command contains a `[green]#Feature#` corresponding to a calendar and an optional `[green]#AthletickDate#`.
 
 Given below is an example usage scenario for the first function and how the operation behaves at each step:
 
-Step 1:. The user either issues the `view calendar` or `calendar [MMYYYY]` (e.g. `calendar 012019`) command. The first command displays the calendar for the current month, while the second command displays the specified the month and year to be displayed.
+Step 1:. The user either issues the `view calendar` or `calendar [MMYYYY]` (e.g. `calendar 012019`) command. The first command displays the calendar for the current month, while the second command displays the calendar for the specified the month and year.
 
 Step 2. The issued command
 
@@ -304,16 +316,18 @@ The following activity diagram summarises what happens when a user executes the 
 
 // activity diagram
 
-The second function is facilitated by `CalendarDetailPanel`. It extends `UiPart<Region>` and displays the attendance and performance records for a specific date in a table. Additionally, it implements the following operations:
+===== Function 2: Displays training and performance records entered on a specific date
 
-* `CalendarDetailPanel#initialiseAttendanceData` -- Retrieves and displays the attendance of each person on the specified date.
-* `CalendarDetailPanel#initialisePerformanceData` -- Retrieves and displays the performance records on the specified date.
+Function 2 is facilitated by `[green]#CalendarDetailPanel#`. It extends `UiPart<Region>` and displays the attendance and performance records for a specific date in a table. Additionally, it implements the following operations:
 
-These operations are performed when an instance of `CalendarDetailPanel` is created in the `MainWindow` class. An instance of `CalendarDetailPanel` is created when the `CommandResult` obtained after executing the user's command contains an `AthletickDate`.
+* `[green]#CalendarDetailPanel#initialiseAttendanceData#` -- Retrieves and displays the attendance of each person on the specified date.
+* `[green]#CalendarDetailPanel#initialisePerformanceData#` -- Retrieves and displays the performance records on the specified date.
+
+These operations are performed when an instance of `[green]#CalendarDetailPanel#` is created in the `[green]#MainWindow#` class. An instance of `CalendarDetailPanel` is created when the `[green]#CommandResult#` obtained after executing the user's command contains an `[green]#AthletickDate#`.
 
 Given below is an example usage scenario for the second function and how the operation behaves at each step:
 
-Step 1:. The user either issues the `calendar [DDMMYYYY]` (e.g. `calendar 01012019`) command.
+Step 1: The user either issues the `calendar [DDMMYYYY]` (e.g. `calendar 01012019`) command.
 
 Step 2. The issued command
 
@@ -329,15 +343,71 @@ The following activity diagram summarises what happens when a user executes the 
 
 ==== Design considerations
 
-===== Aspect: How the calendar for the current month is displayed
-* **Alternative 1 (current choice):** Displays using a fixed 7 by 6 `GridPane`, fill up left over days with days from previous and next month.
+This section contains some of our design considerations for the calendar feature.
 
-* **Alternative 2:** Displays using a variable sized `GridPane` that is populated with days from selected month only.
+===== Aspect: Whether to display information using a monthly calendar or a list only containing dates in a month with training or performance records
+
+[width="100%", cols="1, 5, 5"]
+|===
+||Alternative 1 (Current Choice): Use a monthly calendar|Alternative 2: Use a monthly list
+
+|**Pros**
+a|* Displays information more clearly especially when users have a large number of training and performance records in a month
+ * Allows for future expansion of calendar feature with more date-related functionalities (e.g. planning of training programme in advance)
+a|* Displays information more concisely if users have a small amount of training and performance records in a month
+
+|**Cons**
+a|* Increases difficulty of implementation
+a|* Displays information in rows and columns which is no better than using Excel
+
+|===
+
+**Reason for choice of alternative 1:**
+
+* Alternative 1 displays information more clearly when users have a large amount of training and performance information, which is a probable scenario in the case of sports teams. In contrast, alternative 2 uses a list similar to Excel which we are trying to improve upon.
+* Alternative 1 abides by our design principle to keep **Athletick** designer friendly since future developers can expand upon it and implement more date-related functionalities.
+
+===== Aspect: How to display calendar for a month
+
+[width="100%", cols="1, 5, 5"]
+|===
+||Alternative 1 (Current Choice): Display using a fixed 7 by 6 `[green]#GridPane#`, fill up left over days with days from previous and next month|Alternative 2: Display using a variable sized `[green]#GridPane#` that is populated with days from selected month only
+
+|**Pros**
+a|* Makes implementation easier
+ * Emulates implementation by other calendar applications (e.g. Google Calendar)
+a|* Maximises usage of space in the application window
+
+|**Cons**
+a|* Displays information of previous and next month which users may not be interested in
+a|* Increases difficulty of implementation
+
+|===
+
+**Reason for choice of alternative 1:**
+
+* Alternative 1 is easier to implement since the dimensions of the calendar are fixed so we do not have to recalculate it constantly. The ease of implementation is important given the tight deadlines we have to contend with in our software engineering module.
+* Alternative 1 emulates the implementation of other successful calendar applications (e.g. Google Calendar) so we do not have to reinvent the wheel.
 
 ===== Aspect: How the user can display the attendance and performance data on a specific date
-* **Alternative 1 (current choice):** Have one `calendar [DDMMYYYY]` command to view _both_ attendance and performance data on the specified date.
 
-* **Alternative 2:** Have two separate commands to view attendance and performance separately on the specified date.
+[width="100%", cols="1, 5, 5"]
+|===
+||Alternative 1 (Current Choice): Use one `calendar [DDMMYYYY]` command to view _both_ attendance and performance records on the specified date|Alternative 2: Use two separate commands to view attendance and performance records _separately_ on the specified date
+
+|**Pros**
+a|* Makes access of data more efficient
+a|* Allows users to have more control over what data is displayed
+
+|**Cons**
+a|* Displays both attendance and performance records on the specified date all the time
+a|* Requires more flags to be added to the command syntax which makes it more complex
+
+|===
+
+**Reason for choice of alternative 1:**
+
+* Alternative 1 is more user-friendly as it reduces the number of commands users have to remember in order to access the information they want to see. In addition, attendance and performance records are displayed into separate sections in the window so the information will not be cluttered.
 
 === Select feature
 The `select` feature allows user to view the profile of a selected athlete.
@@ -559,30 +629,47 @@ Finally, the list shown to the user is updated through `Model#updateFilteredPers
 
 === Sort Command
 
-The sort command sorts the displayed list of athletes by alphabetical order. As new athletes are added to the bottom of the list, the sort command is used after to reorder the athlete list.
+The `sort` command sorts the displayed list of athletes in alphabetical order. As new athletes are added to the bottom of the list, the `sort` command is used after to reorder the athlete list.
 
 ==== Implementation
 
-The `sort` command makes use of a `PersonComparator` that orders athletes in alphabetical order by comparing their names. The comparison is case-insensitive.
+The `sort` command makes use of a `[green]#PersonNameComparator#` that orders athletes in alphabetical order by comparing their names. The comparison is case-insensitive.
 
-The following sequence diagram shows how the sort operation works:
+The following sequence diagram shows how the `sort` operation works:
 
 .Interactions Inside the Logic and Model Components for the `sort` Command
 image::SortCommandSequenceDiagram.png[]
 
-Upon completion of the above execution, the sorted list of athletes would be displayed immediately thorugh `Model#sortByName()`.
+Upon completion of the above execution, the sorted list of athletes would be displayed immediately to the user.
 
-To support sorting by more parameters (e.g. by height / weight), you can simply create a new class that implements `Comparator` that compares athletes by that parameter instead. After which, you have to edit the `sort` command to support different sort command syntaxes.
+To support sorting by more attributes (e.g. attendance rate/performance) in the future, you can simply create a new class that implements the `[green]#Comparator#` interface which compares athletes by that attribute instead. After which, you have to edit the `sort` command syntax to allow users to indicate how they want their list to be sorted.
 
 ==== Design considerations
-===== Aspect: When should the athlete list should be sorted
-* **Alternative 1 (current choice):** Sort address book after user issues the `sort` command
-** Pros: Users are able to view their newly added athletes at the bottom of the list which is more user-friendly especially when the list of athletes is very long. Allows future expansion to sort by other methods (e.g. performance scores) easily as we only have to create new comparators to order the athletes.
-** Cons: Additional overhead required in terms of having to create an additional command for users to issue.
 
-* **Alternative 2:** Sort address book persistently in alphabetical order
-** Pros: Sorting is automated
-** Cons: The list is unable to be sorted by other methods (e.g. attendance rate) unless we implement alternative 1 so the alternative 2 is more limited.
+This section contains some of our design considerations for the sort command.
+
+===== Aspect: When should the athlete list should be sorted
+
+[width="100%", cols="1, 5, 5"]
+|===
+||Alternative 1 (Current Choice): Sort address book after user issues the `sort` command|Alternative 2: Sort address book persistently in alphabetical order
+
+|**Pros**
+a|* Allows users to view their newly added athletes at the bottom of the list which is more user-friendly especially when the list of athletes is very long
+ * Allows for future expansion of sorting by other attributes (e.g. performance scores) easily as we only have to create new comparators to order the athletes
+a|* Automates sorting so users do not have to issue any commands
+
+|**Cons**
+a|* Requires additional overhead in terms of having to create an additional command for users to issue
+a|* Restricts users from sorting their list by other methods
+* Limits feature's further expansion by future developers
+
+|===
+
+**Reason for choice of alternative 1:**
+
+* Alternative 1 allows users to view their newly added athletes to ensure their details are correct before they are sorted into their correct positions alphabetically. This is important especially when the athlete list is very long.
+* Alternative 1 abides by our design principle to keep **Athletick** designer friendly since future developers can expand upon it to allow sorting by other attributes. On the other hand, alternative 2 does not provide much room for future expansion. 
 
 === Logging
 
@@ -602,7 +689,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `[green]#config.json#`).
 
 == Documentation
 
