@@ -45,6 +45,10 @@ public class ResultDisplay extends UiPart<Region> {
         );
     }
 
+    public void clear() {
+        dialogContainer.getChildren().clear();
+    }
+
     /**
      * Scrolls up.
      */

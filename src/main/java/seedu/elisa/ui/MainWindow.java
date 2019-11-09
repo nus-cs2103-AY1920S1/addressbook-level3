@@ -1,5 +1,8 @@
 package seedu.elisa.ui;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -8,6 +11,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.effect.GaussianBlur;
@@ -24,11 +29,17 @@ import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.exceptions.IllegalValueException;
+import seedu.elisa.game.GameLoop;
+import seedu.elisa.game.Grid;
+import seedu.elisa.game.Painter;
+import seedu.elisa.game.Snake;
 import seedu.elisa.logic.Logic;
+import seedu.elisa.logic.commands.ClearScreenCommandResult;
 import seedu.elisa.logic.commands.CloseCommand;
 import seedu.elisa.logic.commands.CloseCommandResult;
 import seedu.elisa.logic.commands.CommandResult;
 import seedu.elisa.logic.commands.DownCommandResult;
+import seedu.elisa.logic.commands.GameCommandResult;
 import seedu.elisa.logic.commands.OpenCommandResult;
 import seedu.elisa.logic.commands.PriorityCommand;
 import seedu.elisa.logic.commands.ThemeCommandResult;
@@ -41,8 +52,7 @@ import seedu.elisa.model.item.EventList;
 import seedu.elisa.model.item.ReminderList;
 import seedu.elisa.model.item.TaskList;
 import seedu.elisa.model.item.VisualizeList;
-
-
+import seedu.elisa.storage.GameStorage;
 
 
 /**
@@ -51,6 +61,9 @@ import seedu.elisa.model.item.VisualizeList;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    private static final int WIDTH = 500;
+    private static final int HEIGHT = 500;
+
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -58,9 +71,16 @@ public class MainWindow extends UiPart<Stage> {
             .getResource("images/FocusElisa.PNG").toString());
     private final Image blueElisa = new Image(getClass().getClassLoader()
             .getResource("images/ElisaImageWithoutWords.PNG").toString());
-
+    private final Path gamefilePath = Paths.get("data", "gamescore.json");
     private Stage primaryStage;
     private Logic logic;
+
+    // Elements for Game
+    private GameStorage gameStorage;
+    private GameLoop loop;
+    private Grid grid;
+    private GraphicsContext context;
+    private TreeSet<Integer> scorelist;
 
     // Independent Ui parts residing in this Ui container
     private EventListPanel eventListPanel;
@@ -123,6 +143,15 @@ public class MainWindow extends UiPart<Stage> {
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
+        gameStorage = new GameStorage(gamefilePath);
+        try {
+            gameStorage.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        scorelist = gameStorage.getScorelist();
+        scorelist.add(0);
+
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
@@ -158,7 +187,7 @@ public class MainWindow extends UiPart<Stage> {
                                 throw new FocusModeException();
                             }
                             logic.getModel().setVisualList(t1.getId());
-                            updatePanels();
+                            updatePanels(logic.getVisualList());
                         } catch (FocusModeException e) {
                             viewsPlaceholder.getSelectionModel().select(t);
                             resultDisplay.setFeedbackToUser(e.getMessage());
@@ -190,7 +219,7 @@ public class MainWindow extends UiPart<Stage> {
                             }
 
                             resultDisplay.setFeedbackToUser(feedback);
-                            updatePanels();
+                            updatePanels(logic.getVisualList());
                         });
                     }
                 }
@@ -223,7 +252,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        updatePanels();
+        updatePanels(logic.getVisualList());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -315,9 +344,13 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.scrollUp();
             break;
         case "tabPane":
-            eventListPanel.scrollUp();
-            taskListPanel.scrollUp();
-            reminderListPanel.scrollUp();
+            if (logic.getVisualList() instanceof TaskList) {
+                taskListPanel.scrollUp();
+            } else if (logic.getVisualList() instanceof EventList) {
+                eventListPanel.scrollUp();
+            } else if (logic.getVisualList() instanceof ReminderList) {
+                reminderListPanel.scrollUp();
+            }
             break;
         default:
         }
@@ -334,9 +367,13 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.scrollDown();
             break;
         case "tabPane":
-            eventListPanel.scrollDown();
-            taskListPanel.scrollDown();
-            reminderListPanel.scrollDown();
+            if (logic.getVisualList() instanceof TaskList) {
+                taskListPanel.scrollDown();
+            } else if (logic.getVisualList() instanceof EventList) {
+                eventListPanel.scrollDown();
+            } else if (logic.getVisualList() instanceof ReminderList) {
+                reminderListPanel.scrollDown();
+            }
             break;
         default:
         }
@@ -377,7 +414,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Carries out operations to close the current popup
+     * Carries out operations to close the current popup.
      * @param cr to carry out
      * @return result of executing this command
      */
@@ -398,16 +435,17 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Updates the panels to display the correct list of item.
      */
-    public void updatePanels() {
-        taskListPanel = new TaskListPanel(logic.getVisualList());
-        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
-
-        eventListPanel = new EventListPanel(logic.getVisualList());
-        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
-
-        reminderListPanel = new ReminderListPanel(logic.getVisualList());
-        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
-
+    public void updatePanels(VisualizeList targetList) {
+        if (targetList instanceof TaskList) {
+            taskListPanel = new TaskListPanel(logic.getVisualList());
+            taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+        } else if (targetList instanceof EventList) {
+            eventListPanel = new EventListPanel(logic.getVisualList());
+            eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+        } else if (targetList instanceof ReminderList) {
+            reminderListPanel = new ReminderListPanel(logic.getVisualList());
+            reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+        } else { }
         calendarPanel = new CalendarPanel(logic.getVisualList());
         calendarPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
     }
@@ -430,8 +468,6 @@ public class MainWindow extends UiPart<Stage> {
      * @param theme
      */
     private void changeTheme(String theme) {
-        System.out.print(theme);
-        System.out.print(scene.getStylesheets());
         scene.getStylesheets().remove(0);
         scene.getStylesheets().remove(0);
         switch(theme.trim()) {
@@ -453,17 +489,13 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.elisa.logic.Logic#execute(String)
      */
     @FXML
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws Exception {
         try {
             resultDisplay.setMessageFromUser(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
-            if (!(commandResult instanceof UpCommandResult) && !(commandResult instanceof DownCommandResult)
-                    && !(commandResult instanceof OpenCommandResult)
-                    && !(commandResult instanceof CloseCommandResult)) {
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            }
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isExit()) {
                 handleExit();
@@ -488,23 +520,113 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult instanceof OpenCommandResult) {
                 commandResult = executeOpen(commandResult);
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 return commandResult;
             }
 
             if (commandResult instanceof CloseCommandResult) {
                 commandResult = executeClose(commandResult);
-
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 return commandResult;
             }
 
-            updatePanels();
+            if (commandResult instanceof ClearScreenCommandResult) {
+                resultDisplay.clear();
+            }
+
+            if (commandResult instanceof GameCommandResult) {
+                startgame(primaryStage);
+            }
+
+            updatePanels(logic.getVisualList());
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        } catch (Exception e) {
+            throw e;
         }
+    }
+
+    /**
+     * Starts the snake game
+     * @param primaryStage
+     * @throws Exception
+     */
+    public void startgame(Stage primaryStage) throws Exception {
+        StackPane root = new StackPane();
+        Canvas canvas = new Canvas(WIDTH, HEIGHT);
+        context = canvas.getGraphicsContext2D();
+
+        canvas.setFocusTraversable(true);
+
+        canvas.setOnKeyPressed(e -> {
+            Snake snake = grid.getSnake();
+            if (loop.isKeyPressed()) {
+                return;
+            }
+            if (loop.isPaused()) {
+                scorelist.add(loop.getCurrentScore());
+                gameStorage.updateScoreList(loop.getCurrentScore());
+                try {
+                    gameStorage.save();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+            switch (e.getCode()) {
+            case UP:
+                snake.setUp();
+                break;
+            case DOWN:
+                snake.setDown();
+                break;
+            case LEFT:
+                snake.setLeft();
+                break;
+            case RIGHT:
+                snake.setRight();
+                break;
+            case ENTER:
+                if (loop.isPaused()) {
+                    resetgame();
+                    Thread thread = new Thread(loop);
+                    thread.start();
+                }
+                break;
+            case ESCAPE:
+                exitgame();
+                break;
+            default:
+            }
+        });
+
+        resetgame();
+
+        root.getChildren().add(canvas);
+
+        Scene gamescene = new Scene(root);
+
+        primaryStage.setResizable(true);
+        primaryStage.setHeight(HEIGHT + 100);
+        primaryStage.setWidth(WIDTH + 100);
+        primaryStage.setTitle("Snake Game");
+        primaryStage.setOnCloseRequest(e -> System.exit(0));
+        primaryStage.setScene(gamescene);
+        primaryStage.show();
+
+        Thread t = new Thread(loop);
+        t.start();
+    }
+
+    private void resetgame() {
+        grid = new Grid(WIDTH, HEIGHT);
+        loop = new GameLoop(grid, context, scorelist);
+        Painter.paint(grid, context);
+    }
+
+    private void exitgame() {
+        primaryStage.setScene(scene);
+        primaryStage.setHeight(primaryStage.getMinHeight());
+        primaryStage.setWidth(primaryStage.getMinWidth());
     }
 }

@@ -1,6 +1,6 @@
 .background {
-    -fx-background-color: derive(#white, 20%);
-    background-color: #white; /* Used in the default.html file */
+    -fx-background-color: derive(white, 20%);
+    background-color: white; /* Used in the default.html file */
 }
 
 .label-bright {
@@ -107,8 +107,8 @@
 
 .event_label {
     -fx-font-family: "Arial Black";
-    -fx-font-size: 8px;
-    -fx-text-fill: blue !important;
+    -fx-font-size: 20px;
+    -fx-text-fill: #00A5F0 !important;
 }
 
 .stack-pane {
