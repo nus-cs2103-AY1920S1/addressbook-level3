@@ -45,14 +45,6 @@ public class LogicManager implements Logic {
         return reimbursementModel.getFilteredReimbursementList();
     }
 
-    /*@Override
-    public void updateReimbursementFromTransaction() throws IOException {
-        TransactionList transList = transactionModel.getTransactionList(); no longer have the model
-        ReimbursementList rmbList = reimbursementStorage.getReimbursementFromFile(transList);
-        reimbursementModel.updateReimbursementList(rmbList);
-        reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
-    }*/
-
     @Override
     public void updateReimbursementModelAndStorage(TransactionList transactionList) throws FileReadWriteException,
             IOException {

@@ -795,6 +795,9 @@ The category field is optional. If you are unsure about the description of the d
 the Inventory Tab or simply key in the category without any other fields. Leo will display all the items in the
 specified category that are available for sale.
 
+If you input a description of an item that already exists in the inventory, the quantity inputted will be added to
+the existing quantity. If the total quantity exceed the stock available, the system will warn you and prohibit such addition.
+
 Additionally, if the description is misspelled or does not match any of the items in the inventory, Leo will recommend
 items with similar description that you might be looking for.
 
@@ -814,6 +817,8 @@ according to the mistyped description.
 [NOTE]
 If both category and description are specified and valid, the system will allow the item to be added according the
 description even if the category of the item does *not* match with the specified category inputted.
+
+
 
 Steps:
 
@@ -1172,12 +1177,12 @@ e.g. `find James Jake`
 
 === Reimbursement
 * *Add deadline*: `deadline p/NAME dt/dd-mmm-yyyy`
-* *Find Reimbursement by Person*: `find p/NAME`
+* *Find reimbursement by person*: `find p/NAME`
 * *Display full list after find/add deadline*: `back`
 * *Mark as done*: `done p/NAME`
 * *Sort by amount*: `sort amount`
 * *Sort by name*: `sort name`
-* *Sort by deadline*: `sort deadline`
+* *Sort by deadline*: `sort date`
 
 === Inventory
 * *Add*: `add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
