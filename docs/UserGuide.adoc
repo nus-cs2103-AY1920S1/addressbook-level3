@@ -172,6 +172,14 @@ Adds a new book to library records. +
 
 Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]...`
 
+****
+* Adds a book with the title `TITLE`, written by `AUTHOR`, classified by the genres `GENRE` and tagged with the serial number `BOOK_SN`.
+* `TITLE` should be at most 50 characters long.
+* `AUTHOR` should be at most 50 characters long.
+* `GENRE`, if provided, should be at most 20 characters long.
+* `BOOK_SN`, if provided, must be a valid serial number that starts with the prefix 'B' followed by 5 digits. They should be unique.
+****
+
 [TIP]
 A book can have up to 5 genres (but can have no genres as well).
 
@@ -199,7 +207,7 @@ Format: `delete INDEX` or `delete sn/BOOK_SN`
 * `INDEX` refers to the index number shown in the displayed book list.
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 * `delete INDEX` will delete the book with the book at `INDEX` position in the results list.
-* `delete sn/BOOK_SN` will delete the book with this serial number
+* `delete sn/BOOK_SN` will delete the book with this serial number.
 ****
 
 Examples:
@@ -311,7 +319,7 @@ The figure below shows an example of how a loan slip might look like.
 .Printable loan slip generated.
 image::LoanSlip.png[width=250]
 ****
-In the figure above, we can see that the loan slip records all the books being borrowed by 'Bill'.
+In the figure above, we can see that the loan slip records all the books borrowed by 'Bill'.
 // end::loanSlip[]
 
 ==== Editing a borrower: `edit`

@@ -270,8 +270,9 @@ Given below is an activity diagram of a book being added to the catalog.
 .Activity Diagram for adding a book
 image::AddBookActivityDiagram.png[width=270]
 {nbsp} +
-
-Given below is a class diagram of a book.
+We can clearly see how the system decides to generate a valid serial number base on whether the user input contains a valid serial number or not. +
+{nbsp} +
+After the book is added to the system, we can now represent it with a class diagram shown below.
 
 .Class Diagram for `Book`
 image::BookClassDiagram.png[width=400]
@@ -279,14 +280,15 @@ image::BookClassDiagram.png[width=400]
 
 Notice how the book can hold either *1 or 0 loans*, depending on whether it is currently loaned out or not. +
 {nbsp} +
-
-Given below is the object diagram of a newly added book.
+The current state of this newly-added book is further illustrated by the object diagram below.
 
 .Object Diagram for `Book`
 image::BookObjectDiagram.png[width=300]
 {nbsp} +
 
-We can see that the book holds a `Optional<Loan>` in order to have either *0 or 1 `Loan` objects*. This makes it consistent with the class diagram of `Book` above.
+We can see that the book holds a `Optional<Loan>` in order to have either *0 or 1 `Loan` objects*.
+This makes it consistent with the class diagram of `Book` above.
+We can also observe that the `LoanHistory` object of the `Book` is empty since the book is new and is not loaned out before.
 
 ==== Design Considerations
 
@@ -301,7 +303,7 @@ We can see that the book holds a `Optional<Loan>` in order to have either *0 or 
 
 We have decided to go with Alternative 2. In contrast to the original AddressBook3, there is much more retrieval of
 book objects in within the Book and Loan feature. Therefore, the benefits of quick retrieval of book information from the catalog will
-outweigh the additional memory costs to maintain the HashMap.
+outweigh the additional memory costs incurred to maintain the HashMap.
 
 ===== Aspect: Generating a unique serial number.
 Since we allow librarians to provide a valid serial number to new books if they wish so, we cannot generate the serial
@@ -317,13 +319,13 @@ We need to come up with a solution to give us "B00001" in the given example.
 
 * **Alternative 1:** Use a TreeMap to store current serial numbers such that we can efficiently determine the next serial number in running order.
 ** Pros: Will be efficient in generating the next valid serial number.
-** Cons: Will incur additional memory to maintain the TreeMap.
+** Cons: Will incur additional memory to maintain the TreeMap. Might also result in unexpected behaviour in some edge cases.
 * **Alternative 2 (Current choice):** Iterate from "B00001" to obtain the first unused serial number.
 ** Pros: Will be easy to implement.
 ** Cons: Will be inefficient once the number of books grow.
 
-We have decided to go with Alternative 2 and keep it simple as there are some edge cases which will lead to the implementation in
-Alternative 1 not behaving as expected. This is also in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
+We have decided to go with Alternative 2 and keep it simple. This is because there are some edge cases which will lead to the implementation in
+Alternative 1 not behaving as expected. Furthermore, Alternative 2 is also in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
 //end::addBook[]
 
 // tag::undo/redo[]
@@ -469,11 +471,11 @@ We chose alternative 1 as it is easier to maintain a single data structure.
 ==== Details of Implementation
 
 The printing of loan slip feature is facilitated by `LoanSlipUtil`.
-Essentially, it implements the following operations:
+Essentially, `LoanSlipUtil` implements the following operations:
 
 * `LoanSlipUtil#mountLoan()` -- Mounts a loan in preparation for it to be generated in a PDF loan slip.
 * `LoanSlipUtil#clearSession()` -- Clears the current loan session by unmounting all loans, usually after generating a PDF loan slip.
-* `LoanSlipUtil#createLoanSlipInDirectory()` -- Creates a pdf version of the mounted loan slip in the loan_slips folder.
+* `LoanSlipUtil#createLoanSlipInDirectory()` -- Creates a pdf version of the mounted loans as a single loan slip, saved in the loan_slips folder.
 
 Given below is the sequence diagram of the generation of loan slip during the loan of a book.
 
@@ -483,13 +485,12 @@ image::LoanSlipGeneration.png[]
 
 The following describes the sequence of events displayed in the figure above.
 ****
-1) The `LoanCommand` is executed +
-2) The `LoanCommand` retrieves the `Book` and the `Borrower` +
-3) The `LoanCommand` creates a new `Loan` +
-4) The `LoanCommand` mounts the new loan in `LoanSlipUtil` +
-5) The `Storage` component creates and save a new PDF `LoanSlipDocument` in a saved folder +
-6) The `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately +
-7) The `Logic` component unmounts the `LoanSlipDocument` at the end of the process
+. `LoanCommand` is executed
+. `LoanCommand` retrieves the `Book` and the `Borrower` to create a new `Loan`
+. `LoanCommand` mounts the new loan in `LoanSlipUtil`
+. `Storage` component creates and save a new PDF `LoanSlipDocument` in a saved folder
+. `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately
+. `Logic` component clears the session in `LoanSlipUtil` at the end of the process
 ****
 
 ==== Design Considerations
