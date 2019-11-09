@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -103,6 +104,16 @@ public class MemeAddCommandTest extends ApplicationTest {
 
         @Override
         public Path getDefaultExportPath() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public SimpleObjectProperty<Meme> getViewableMeme() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void setViewableMeme(Meme meme) {
             throw new AssertionError("This method should not be called");
         }
 

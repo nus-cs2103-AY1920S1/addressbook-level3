@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -110,6 +111,7 @@ public class WemeTest extends ApplicationTest {
         private final ObservableList<Meme> stagedMemes = FXCollections.observableArrayList();
         private final ObservableList<Meme> importList = FXCollections.observableArrayList();
         private final ObservableList<Template> templates = FXCollections.observableArrayList();
+        private ObservableValue<Meme> viewableMeme;
         private final Stats stats = new StatsManager();
         private final Records records = new RecordsManager();
         private final MemeCreation memeCreation = new MemeCreation();
@@ -143,6 +145,11 @@ public class WemeTest extends ApplicationTest {
 
         public ObservableList<Template> getTemplateList() {
             return templates;
+        }
+
+        @Override
+        public ObservableValue<Meme> getViewableMeme() {
+            return viewableMeme;
         }
 
         @Override

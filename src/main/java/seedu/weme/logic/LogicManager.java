@@ -120,6 +120,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableValue<Meme> getViewableMeme() {
+        return model.getViewableMeme();
+    }
+
+    @Override
     public Path getWemeFilePath() {
         return model.getDataFilePath();
     }

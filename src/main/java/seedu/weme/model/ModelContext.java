@@ -5,6 +5,7 @@ package seedu.weme.model;
  */
 public enum ModelContext {
     // List of all contexts in the application.
+    CONTEXT_VIEW("view"),
     CONTEXT_MEMES("memes"),
     CONTEXT_TEMPLATES("templates"),
     CONTEXT_CREATE("create"),

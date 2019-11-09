@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 import javafx.collections.ObservableMap;
@@ -41,6 +42,11 @@ public interface ReadOnlyWeme {
      * This list will not contain any duplicate memes.
      */
     ObservableList<Meme> getImportList();
+
+    /**
+     * Returns an unmodifiable view of the meme.
+     */
+    ObservableValue<Meme> getViewableMeme();
 
     /**
      * Returns an unmodifiable view of the template list.

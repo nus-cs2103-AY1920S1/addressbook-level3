@@ -44,6 +44,7 @@ public class ModelManager implements Model {
     private final ObservableList<Meme> stagedMemeList;
     private final ObservableList<Meme> importMemeList;
     private final FilteredList<Template> filteredTemplates;
+    private ObservableValue<Meme> viewableMeme;
 
     // ModelContext determines which parser to use at any point of time.
     private SimpleObjectProperty<ModelContext> context = new SimpleObjectProperty<>(ModelContext.CONTEXT_MEMES);
@@ -62,6 +63,7 @@ public class ModelManager implements Model {
         filteredMemes = new FilteredList<>(versionedWeme.getMemeList(), PREDICATE_SHOW_ALL_UNARCHIVED_MEMES);
         stagedMemeList = versionedWeme.getStagedMemeList();
         importMemeList = versionedWeme.getImportList();
+        viewableMeme = versionedWeme.getViewableMeme();
         filteredTemplates = new FilteredList<>(versionedWeme.getTemplateList(),
                 PREDICATE_SHOW_ALL_UNARCHIVED_TEMPLATES);
     }
@@ -146,6 +148,16 @@ public class ModelManager implements Model {
     @Override
     public Path getMemeImagePath() {
         return userPrefs.getMemeImagePath();
+    }
+
+    @Override
+    public ObservableValue<Meme> getViewableMeme() {
+        return viewableMeme;
+    };
+
+    @Override
+    public void setViewableMeme(Meme meme) {
+        versionedWeme.setViewableMeme(meme);
     }
 
     @Override
@@ -524,6 +536,7 @@ public class ModelManager implements Model {
         return versionedWeme.equals(other.versionedWeme)
                 && userPrefs.equals(other.userPrefs)
                 && filteredMemes.equals(other.filteredMemes)
+                && viewableMeme.getValue() == other.viewableMeme.getValue()
                 && stagedMemeList.equals(other.stagedMemeList)
                 && importMemeList.equals(other.importMemeList)
                 && context.getValue().equals(other.context.getValue());

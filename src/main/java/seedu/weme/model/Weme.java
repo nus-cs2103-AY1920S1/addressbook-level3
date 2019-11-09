@@ -11,6 +11,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.model.meme.Description;
@@ -47,6 +49,7 @@ public class Weme implements ReadOnlyWeme {
     private final Stats stats;
     private final Records records;
     private final MemeCreation memeCreation;
+    private SimpleObjectProperty<Meme> viewableMeme;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -63,6 +66,7 @@ public class Weme implements ReadOnlyWeme {
         stats = new StatsManager();
         records = new RecordsManager();
         memeCreation = new MemeCreation();
+        viewableMeme = new SimpleObjectProperty<>();
     }
 
     public Weme() {
@@ -249,6 +253,10 @@ public class Weme implements ReadOnlyWeme {
         memes.setMeme(target, editedMeme);
     }
 
+    public void setViewableMeme(Meme meme) {
+        viewableMeme.setValue(meme);
+    }
+
     /**
      * Replaces the given meme {@code target} in the list with {@code editedMeme}.
      * {@code target} must exist in Weme.
@@ -362,6 +370,11 @@ public class Weme implements ReadOnlyWeme {
     @Override
     public ObservableList<Meme> getImportList() {
         return importList.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableValue<Meme> getViewableMeme() {
+        return viewableMeme;
     }
 
     public ObservableList<Template> getTemplateList() {
