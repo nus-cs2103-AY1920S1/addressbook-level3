@@ -317,8 +317,8 @@ Each Appointment object consists of a PatientId, Timing, Status. Timing class ha
 
 The current implementation of Appointment will do check with patient object by the unique referenceId and it will also check timing with doctors' dutyRoster. If the referenceId exists within the Model#UniquePersonList  and the timing is valid, then constructing the Appointment object. This ensures that the patient is registered and the appointment's timing is valid before making an appointment.
 
-==== `addappt` Command
-The `addAppointment` command behaves similarly to the `add` command used for Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
+==== `newappt` Command
+The `newappt` command behaves similarly to the `add` command used for Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
 
 The following activity diagram summarizes what happens when a user executes a `AddAppointment` command:
 
