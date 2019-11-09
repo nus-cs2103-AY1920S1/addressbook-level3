@@ -18,6 +18,7 @@ import com.typee.logic.commands.SortCommand;
 import com.typee.logic.commands.TabCommand;
 import com.typee.logic.commands.UndoCommand;
 import com.typee.logic.commands.exceptions.CommandException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.OptionalState;
 import com.typee.logic.interactive.parser.state.State;
@@ -37,7 +38,6 @@ import com.typee.logic.interactive.parser.state.redomachine.RedoState;
 import com.typee.logic.interactive.parser.state.sortmachine.PropertyState;
 import com.typee.logic.interactive.parser.state.tabmachine.TabState;
 import com.typee.logic.interactive.parser.state.undomachine.UndoState;
-import com.typee.logic.interactive.parser.exceptions.ParseException;
 
 /**
  * Represents an implementation of {@code InteractiveParser} that keeps track of the state machine currently in

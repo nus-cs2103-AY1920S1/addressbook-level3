@@ -9,10 +9,10 @@ import com.typee.commons.core.index.Index;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.Prefix;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
-import com.typee.logic.interactive.parser.exceptions.ParseException;
 
 /**
  * Represents the penultimate state of the state machine that builds the {@code DeleteCommand}.
