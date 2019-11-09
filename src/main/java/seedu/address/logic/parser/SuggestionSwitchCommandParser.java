@@ -10,7 +10,7 @@ import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new SuggestionSwitchCommand object
  */
 public class SuggestionSwitchCommandParser implements Parser<SuggestionSwitchCommand> {
 
