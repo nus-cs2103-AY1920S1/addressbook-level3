@@ -41,6 +41,32 @@ public class PerformanceOverview {
         return project;
     }
 
+
+    public RateOfAttendance getRateOfAttendanceOf(Person person) {
+        String name = person.getName().fullName;
+        return attendanceRateMap.get(name);
+    }
+
+    public int getAttendanceOf(Person person) {
+        String name = person.getName().fullName;
+        return attendanceMap.get(name);
+    }
+
+    public RateOfTaskCompletion getTaskCompletionRateOf(Person person) {
+        String name = person.getName().fullName;
+        return completionRateMap.get(name);
+    }
+
+    public long getNumOfTaskDoneOf(Person person) {
+        String name = person.getName().fullName;
+        return taskDoneMap.get(name);
+    }
+
+    public List<Person> getSortedMemberList() {
+        memberList.sort(Comparator.comparing(person -> person.getName().fullName));
+        return memberList;
+    }
+
     private HashMap<String, RateOfAttendance> makeAttendanceRateMap() {
         HashMap<String, RateOfAttendance> attendanceRateMap = new HashMap<>();
         String projectTitle = project.getTitle().title;
@@ -105,40 +131,5 @@ public class PerformanceOverview {
         }
 
         return taskDoneMap;
-    }
-
-    public boolean isSamePerformanceOverview(PerformanceOverview other) {
-        if (other == this) {
-            return true;
-        }
-        
-        return other != null
-                && other.getProject().equals(getProject())
-                && other.getMemberList().equals(getMemberList());
-    }
-
-    public RateOfAttendance getRateOfAttendanceOf(Person person) {
-        String name = person.getName().fullName;
-        return attendanceRateMap.get(name);
-    }
-
-    public int getAttendanceOf(Person person) {
-        String name = person.getName().fullName;
-        return attendanceMap.get(name);
-    }
-
-    public RateOfTaskCompletion getTaskCompletionRateOf(Person person) {
-        String name = person.getName().fullName;
-        return completionRateMap.get(name);
-    }
-
-    public long getNumOfTaskDoneOf(Person person) {
-        String name = person.getName().fullName;
-        return taskDoneMap.get(name);
-    }
-
-    public List<Person> getSortedMemberList() {
-        memberList.sort(Comparator.comparing(person -> person.getName().fullName));
-        return memberList;
     }
 }

@@ -86,6 +86,7 @@ public class PerformanceOverviewCard extends UiPart<Region> {
         NumberAxis yAxisTask = new NumberAxis();
         yAxisTask.setLabel("No. of tasks");
         yAxisTask.setId("yAxis-title");
+        yAxisTask.setTickUnit(1);
 
         //Defining y axis for percentage of tasks done
         NumberAxis yAxisTaskPercentage = new NumberAxis(0, 100, 10);
