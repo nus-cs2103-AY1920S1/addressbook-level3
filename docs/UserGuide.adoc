@@ -139,6 +139,7 @@ Edits the question of the card with index 5 to "What is the tallest mountain?".
 * `edit 5 a/Mount Everest`
 Edits the answer of the card with number 5 to "Mount Everest".
 
+// tag::quiz[]
 === Quiz mode
 Starts a quiz using a particular flashcard index or with a with an optional time limit with units in seconds. +
 Format:
@@ -210,6 +211,8 @@ Format: `end`
 ****
 * Used to end a quiz if the user wants to stop the quiz without answering the flashcard
 ****
+// end::quiz[]
+
 // tag::stat[]
 === Display current progress
 Shows the current progress of a set of flashcards. +
