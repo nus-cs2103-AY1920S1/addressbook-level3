@@ -82,8 +82,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        this.isUnknown = false;
-        reminderWindow = new ReminderWindow();
+        this.unknown = false;
+        reminderWindow = new ReminderWindow(logic);
     }
 
     public Stage getPrimaryStage() {

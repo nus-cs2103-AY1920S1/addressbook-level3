@@ -60,6 +60,20 @@ public class UiManager implements Ui {
     }
 
     /**
+     * Starts the reminderWindow the first time opening Tutoraid.
+     */
+    public static void startReminderWindow() {
+        logger.info("Changing to Student Profile...");
+
+        try {
+            mainWindow.handleReminderBox();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    /**
      * To change tab to earnings tab.
      */
     public static void startStudentProfile() {
