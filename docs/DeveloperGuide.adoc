@@ -114,8 +114,10 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
+// tag:: modelClassDiagram[]
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
+// end:: modelClassDiagram[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -129,8 +131,10 @@ The `Model`,
 [[Design-Storage]]
 === Storage component
 
+// tag:: modelStorageDiagram[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
+// end:: modelStorageDiagram[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -216,7 +220,7 @@ check with the rest of the prior `Earnings` object, to ensure that there is no d
 * Step 6: `AddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
 object have been successfully added.
 
-//tag::Calendar[]
+// tag::Calendar[]
 === Calendar Feature
 
 ==== Add Tasks
@@ -280,7 +284,7 @@ check with the rest of the prior `Earnings` object, to ensure that there is no d
 
 * Step 6: `AddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
 object have been successfully added.
-//end::Calendar[]
+// end::Calendar[]
 
 === Notes Features
 ==== Add Notes
@@ -481,7 +485,7 @@ do not need to waste time populating a TreeMap.
 ** Cons: Every single query costs O(n) time to check if the command exists.
 // end::learncustomcommands[]
 
-// tag::undo/redo[]
+// tag::undoAndRedo[]
 === Undo/Redo feature
 
 The undo/redo mechanism is facilitated by `VersionedTutorAid`.
@@ -560,7 +564,7 @@ image::CommitActivityDiagram.png[]
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separaifferent things.tion of Concerns as `HistoryManager` now needs to do two d
-// end::undo/redo[]
+// end::undoAndRedo[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
