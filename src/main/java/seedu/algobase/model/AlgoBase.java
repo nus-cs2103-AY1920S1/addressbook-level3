@@ -34,12 +34,12 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     private final UniqueFindRuleList findRules;
 
     /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
+    * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+    * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+    *
+    * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+    *   among constructors.
+    */
     {
         problems = new UniqueProblemList();
         plans = new PlanList();
@@ -48,7 +48,8 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         findRules = new UniqueFindRuleList();
     }
 
-    public AlgoBase() {}
+    public AlgoBase() {
+    }
 
     /**
      * Creates an AlgoBase using the Problems in the {@code toBeCopied}
@@ -153,6 +154,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     /**
      * Removes the given problem from all plans
+     *
      * @param problem the problem to be removed
      */
     void removeProblemFromAllPlans(Problem problem) {
@@ -161,6 +163,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     /**
      * Updates the given problem in all plans
+     *
      * @param oldProblem the existing problem to be updated
      * @param newProblem the new problem to be added
      */
@@ -228,6 +231,52 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         throw new IllegalValueException("No tag found");
     }
 
+    /**
+     * reset tag for problems with tag
+     * @param oldTag tag that will reset
+     * @param newTag tag that reset to
+     */
+    public void resetTagForProblemsWithTag(Tag oldTag, Tag newTag) {
+        for (Problem problem : problems) {
+            if (problem.getTags().stream().anyMatch(x -> x.isSameTag(oldTag))) {
+                Problem newProblem = new
+                        Problem(problem.getId(),
+                        problem.getName(),
+                        problem.getAuthor(),
+                        problem.getWebLink(),
+                        problem.getDescription(),
+                        problem.getTags(),
+                        problem.getDifficulty(),
+                        problem.getRemark(),
+                        problem.getSource());
+                newProblem.setTag(oldTag, newTag);
+                problems.setProblem(problem, newProblem);
+            }
+        }
+    }
+
+    /**
+     * delete tag for problems with tag
+     * @param tag tag to delete
+     */
+    public void deleteTagForProblemsWithTag(Tag tag) {
+        for (Problem problem : problems) {
+            if (problem.getTags().stream().anyMatch(x -> x.isSameTag(tag))) {
+                Problem newProblem = new
+                        Problem(problem.getId(),
+                        problem.getName(),
+                        problem.getAuthor(),
+                        problem.getWebLink(),
+                        problem.getDescription(),
+                        problem.getTags(),
+                        problem.getDifficulty(),
+                        problem.getRemark(),
+                        problem.getSource());
+                newProblem.deleteTag(tag);
+                problems.setProblem(problem, newProblem);
+            }
+        }
+    }
     //========== Plan ===================================================================
 
     /**
@@ -247,8 +296,8 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     }
 
     /**
-     Adds a Plan to the algobase.
-     The Plan must not already exist in the algobase.
+     * Adds a Plan to the algobase.
+     * The Plan must not already exist in the algobase.
      */
     public void addPlan(Plan p) {
         plans.add(p);
@@ -266,7 +315,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     }
 
     /**
-     Removes a Plan from the algobase.
+     * Removes a Plan from the algobase.
      */
     void removePlan(Plan key) {
         plans.remove(key);
@@ -299,8 +348,9 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     /**
      * Updates the task set in the given Plan.
+     *
      * @param taskSet the task set to be updated
-     * @param plan the plan to be updated in
+     * @param plan    the plan to be updated in
      */
     public void updateTasks(Set<Task> taskSet, Plan plan) {
         plans.setPlan(plan, plan.updateTasks(taskSet));
@@ -345,6 +395,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     /**
      * Returns true of {@code rule} has the same identity as one {@code ProblemSearchRule} in AlgoBase.
+     *
      * @param rule the rule to be checked
      */
     public boolean hasFindRule(ProblemSearchRule rule) {
@@ -354,6 +405,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     /**
      * Adds a {@code rule} into AlgoBase's list of {@code ProblemSearchRule}.
+     *
      * @param rule the rule to be added
      */
     public void addFindRule(ProblemSearchRule rule) {
@@ -366,7 +418,8 @@ public class AlgoBase implements ReadOnlyAlgoBase {
      * {@code target} must exist in the Algobase.
      * The identity of {@code editedRule} must not be the same as another existing {@code ProblemSearchRule}
      * in the algobase.
-     * @param target the old rule to be updated
+     *
+     * @param target     the old rule to be updated
      * @param editedRule the new rule to be added
      */
     void setFindRule(ProblemSearchRule target, ProblemSearchRule editedRule) {
@@ -377,6 +430,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     /**
      * Replaces the contents of the FindRule list with {@code rules}.
      * {@code rules} must not contain duplicate problems.
+     *
      * @param rules the list of rules to be be used to reset the database
      */
     private void setFindRules(List<ProblemSearchRule> rules) {
@@ -386,6 +440,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     /**
      * Removes a given {@code ProblemSearchRule} in the AlgoBase.
      * {@code toRemove} must exist in the Algobase.
+     *
      * @param toRemove the rule to be removed
      */
     void removeFindRule(ProblemSearchRule toRemove) {

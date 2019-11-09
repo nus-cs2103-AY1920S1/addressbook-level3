@@ -311,7 +311,6 @@ The tag mechanism is facilitated by UniqueTagList. It creates a list of Tag, sto
 * `deleteTag` - delete a current tag which have already in the uniqueTagList.
 * `listTag` - show the tags in the uniqueTagList in the algobase GUI for users
 * `editTag` - edit the current tag name which have already been in the uniqueTagList
-* `editTagColor` - edit a tag's color which have already been in the uniqueTagList
 
 .Class Diagram for Tag
 image::tag/TagClassDiagram.png[]
@@ -331,13 +330,10 @@ image::tag/AddTagSequenceDiagram.png[]
 
 Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls Model#listtag(), causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
 
-Step 4.The user executes `edittag 1 t/hard` to edit the current tag [easy] to [hard] in the `uniqueTagList`. The `edittag 1 t/hard`
-Command executes `edittag`, causing the taglist find the tag with index 1 in the tag list and change tag [easy] into [hard] and change all [easy] tag into [hard] in all problems.
+Step 4.The user executes `edittag 1 t/hard c/BLUE` to edit the current tag [easy] to [hard] in the `uniqueTagList`. The `edittag 1 t/hard c/BLUE`
+Command executes `edittag`, causing the taglist find the tag with index 1 in the tag list and change tag [easy] into [hard] and change tag color from default color to blue, and change all [easy] tag into [hard] in blue color in all problems.
 
-Step 5.The user executes `edittagcolor 1 c/BLUE` to edit the current tag color from [DEFAULT] to [BLUE] in the `uniqueTagList`. The `edittagcolor 1 c/BLUE`
-Command executes `edittag`, causing the taglist find the tag with index 1 in the tag list and change this tag's color [DEFAULT] to [BLUE] in all related problems.
-
-Step 6. The user executes `deletetag t/hard` to delete the current tag [easy] in the uniqueTagList. The `deletetag t/hard` command executes `deletetag`, causing the taglist delete the [hard] tag in uniqueTagList and [hard] tag in all problems.
+Step 5. The user executes `deletetag t/hard` to delete the current tag [easy] in the uniqueTagList. The `deletetag t/hard` command executes `deletetag`, causing the taglist delete the [hard] tag in uniqueTagList and [hard] tag in all problems.
 (diagram)
 
 The following activity diagram summarizes what happens when a user executes a new tag modifying command

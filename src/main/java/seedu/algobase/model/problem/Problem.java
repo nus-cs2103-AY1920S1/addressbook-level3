@@ -93,6 +93,12 @@ public class Problem {
         tags.add(tag);
     }
 
+    public void setTag(Tag oldTag, Tag newTag) {
+        // defensive here
+        tags.remove(oldTag);
+        tags.add(newTag);
+    }
+
     public void deleteTag(Tag tag) {
         tags.remove(tag);
     }
