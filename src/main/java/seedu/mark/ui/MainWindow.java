@@ -35,6 +35,7 @@ import seedu.mark.logic.commands.TabCommand.Tab;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.reminder.Reminder;
 
@@ -366,7 +367,9 @@ public class MainWindow extends UiPart<Stage> {
         notif.title("Reminder Notification");
 
 
+        Bookmark bookmark = logic.getBookmarkFromReminder(reminder);
         String remindMessage = reminder.getNote().toString() + "\n"
+                + "Bookmark: " + bookmark.getName().toString() + "\n"
                 + "Due at : " + reminder.getFormattedTime();
         notif.text(remindMessage);
         Image image = new Image("/images/bell.png");

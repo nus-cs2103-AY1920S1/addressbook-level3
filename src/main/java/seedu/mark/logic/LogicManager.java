@@ -148,5 +148,10 @@ public class LogicManager implements Logic {
         model.startTimer(executor);
     }
 
+    @Override
+    public Bookmark getBookmarkFromReminder(Reminder reminder) {
+        return model.getBookmarkFromReminder(reminder);
+    }
+
 
 }

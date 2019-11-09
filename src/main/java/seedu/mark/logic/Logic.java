@@ -113,4 +113,11 @@ public interface Logic {
      */
     void startMarkTimer(ScheduledExecutorService executor);
 
+    /**
+     * Uses a reminder to find bookmark.
+     *
+     * @param reminder the reminder of the bookmark.
+     * @return the bookmark found by the reminder.
+     */
+    Bookmark getBookmarkFromReminder(Reminder reminder);
 }
