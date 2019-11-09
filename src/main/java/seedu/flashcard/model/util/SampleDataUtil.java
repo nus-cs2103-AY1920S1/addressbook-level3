@@ -127,7 +127,7 @@ public class SampleDataUtil {
                 getChoiceList("Irascible", "Invective", "Inveterate", "Irreverence"),
                 new Definition("SAT vocabulary word"),
                 getTagSet("english", "SAT"),
-                new Answer("Irrevernece")),
+                new Answer("Irreverence")),
             new McqFlashcard(new Question("Which of these mean: stubbornly established by a habit?"),
                 getChoiceList("Irascible", "Invective", "Inveterate", "Irreverence"),
                 new Definition("SAT vocabulary word"),
