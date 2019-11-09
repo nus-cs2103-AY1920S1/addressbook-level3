@@ -25,10 +25,10 @@ public class ExportCommand extends Command {
     public static final String SHOWING_EXPORT_MESSAGE = "QR code generated.";
 
     /** Pretty formatting of the exported data. */
-    private static final String BORDER = "* * * * * * * * * * * * * * * * * * * * * * * * *\n";
+    public static final String BORDER = "* * * * * * * * * * * * * * * * * * * * * * * * *\n";
 
     /** Resolution size of the QR code image. */
-    private static final int RESOLUTION_SIZE = 800;
+    public static final int RESOLUTION_SIZE = 800;
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
@@ -43,5 +43,14 @@ public class ExportCommand extends Command {
         }
         byte[] pngData = StringUtil.getQrCode(formattedOutput.toString(), RESOLUTION_SIZE);
         return new CommandResult(SHOWING_EXPORT_MESSAGE, true, pngData);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else {
+            return obj instanceof ExportCommand;
+        }
     }
 }
