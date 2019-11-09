@@ -4,7 +4,7 @@ matrix:
     - jdk: openjdk11
 
 script: >-
-  ./gradlew clean checkstyleMain checkstyleTest test coverage coveralls asciidoctor
+  ./gradlew clean checkstyleMain checkstyleTest headless allTests coverage coveralls asciidoctor
 
 deploy:
   skip_cleanup: true

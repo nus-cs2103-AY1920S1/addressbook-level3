@@ -70,13 +70,14 @@ class ModulePlannerAutocompleteSearchTest {
     }
 
     @Test
-    public void handleChangeOfActiveStudyPlan() {
+    public void handleChangeOfActiveStudyPlan() throws CloneNotSupportedException {
         Tag validTagOne = new TagBuilder().buildTestUserTag();
         String validTagNameOne = validTagOne.getTagName();
 
         StudyPlan studyPlanOne = new StudyPlanBuilder().withIndex(1).build();
         StudyPlan studyPlanTwo = new StudyPlanBuilder().withIndex(2).withModuleTags(validTagOne).build();
-        ModulePlanner modulePlanner = new ModulePlannerBuilder().withStudyPlans(studyPlanOne, studyPlanTwo).build();
+        ModulePlanner modulePlanner = new ModulePlannerBuilder().withStudyPlans(studyPlanOne.clone(),
+                studyPlanTwo.clone()).build();
         modulePlanner.activateFirstStudyPlan();
 
         ModulePlannerAutocompleteSearch autocompleteSearch =

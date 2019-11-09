@@ -54,4 +54,21 @@ public class SimpleModuleCard extends UiPart<Region> {
                     tags.getChildren().add(tagLabel);
                 });
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof SimpleModuleCard)) {
+            return false;
+        }
+
+        // state check
+        SimpleModuleCard card = (SimpleModuleCard) other;
+        return module.equals(card.module);
+    }
 }

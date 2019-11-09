@@ -44,4 +44,20 @@ public class ModulePill extends UiPart<Region> {
             modulePill.getStyleClass().add(PREREQS_NOT_MET_STYLE_CLASS);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ModulePill)) {
+            return false;
+        }
+
+        // state check
+        return module.equals(((ModulePill) other).module);
+    }
 }

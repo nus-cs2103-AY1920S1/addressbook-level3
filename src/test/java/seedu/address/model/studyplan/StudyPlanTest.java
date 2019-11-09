@@ -79,7 +79,6 @@ public class StudyPlanTest {
         expected.add(new Pair<>(SemesterName.Y1S1, "ST2334"));
         expected.add(new Pair<>(SemesterName.Y1S1, "CS3244"));
         expected.add(new Pair<>(SemesterName.Y1S2, "CS2102"));
-        expected.add(new Pair<>(SemesterName.Y1S2, "CS5339"));
         expected.add(new Pair<>(SemesterName.Y1S2, "CS5219"));
         assertEquals(result, expected);
     }

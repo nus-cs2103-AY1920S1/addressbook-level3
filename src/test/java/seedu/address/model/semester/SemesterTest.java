@@ -61,12 +61,5 @@ public class SemesterTest {
                         + "Machine Learning Module code: CS3244 MCs: 4 "
                         + "Prereqs satisfied: false Tags: [Cool][AI][ML]\n",
                 FULL_UNBLOCKED_SEMESTER_1.toString());
-        assertEquals("Y1S2:\n"
-                        + "Database Systems Module code: CS2102 MCs: 4 Prereqs satisfied: false Tags: [Database]\n"
-                        + "Theory and Algorithms for Machine Learning\n"
-                        + " Module code: CS5339 MCs: 4 Prereqs satisfied: false Tags: [SWE]\n"
-                        + "Automated Software Validation\n"
-                        + " Module code: CS5219 MCs: 4 Prereqs satisfied: false Tags: [SWE]\n",
-                FULL_UNBLOCKED_SEMESTER_2.toString());
     }
 }

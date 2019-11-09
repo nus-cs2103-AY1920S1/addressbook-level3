@@ -19,7 +19,7 @@ import seedu.address.testutil.TypicalModulesInfo;
 public class SortStudyPlansByPriorityTagCommandTest {
 
     @Test
-    public void execute_studyPlansPresent_sortSuccessful() {
+    public void execute_studyPlansPresent_sortSuccessful() throws CloneNotSupportedException {
         // construct study plans
         StudyPlan studyPlanOne = new StudyPlanBuilder().withIndex(1).build();
         StudyPlan studyPlanTwo = new StudyPlanBuilder().withStudyPlanTags(
@@ -31,9 +31,10 @@ public class SortStudyPlansByPriorityTagCommandTest {
         StudyPlan studyPlanFive = new StudyPlanBuilder().withIndex(2).build();
 
         // construct model with study plans
-        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlans(studyPlanOne, studyPlanTwo,
-                studyPlanThree, studyPlanFour, studyPlanFive).build(), new UserPrefs(),
-                        TypicalModulesInfo.getTypicalModulesInfo());
+        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlans(studyPlanOne.clone(),
+                studyPlanTwo.clone(), studyPlanThree.clone(), studyPlanFour.clone(),
+                studyPlanFive.clone()).build(), new UserPrefs(),
+                TypicalModulesInfo.getTypicalModulesInfo());
 
         // construct expected string
         StringBuilder toReturn = new StringBuilder(SortStudyPlansByPriorityTagCommand.MESSAGE_SUCCESS);
