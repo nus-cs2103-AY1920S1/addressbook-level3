@@ -39,13 +39,12 @@ public class AccountReportCommand extends Command {
         requireAllNonNull(model, model.getAccountsManager());
 
         AccountsManager accountsManager = model.getAccountsManager();
+        accountsManager.resetFilteredAccountList();
 
         List<Account> lastShownList = model.getAccountsManager().getFilteredAccountList();
         if (targetAccountIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
-
-        Account accountToReport = lastShownList.get(targetAccountIndex.getZeroBased());
 
         String accountEssentialInfo = accountsManager.getAccount(targetAccountIndex).getAccountInfo();
 

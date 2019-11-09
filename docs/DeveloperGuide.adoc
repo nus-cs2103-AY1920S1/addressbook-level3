@@ -169,17 +169,31 @@ Each `Account` object has the following attributes:
 * `name:Name` -- The name of account created.
 * `description:Description` -- A description of the account to describe the use of the account.
 * `transactionList:TransactionList` -- The list of transactions associated with the account.
+* `isActiveBooleanProperty:BooleanProperty` -- The boolean property indicating whether an account is active or inactive.
+* `balance:long` -- The balance of the account, calculated by the net sum of expenses and income.
+* `balanceLongProperty:LongProperty` -- The Long property of the balance.
+* `categoryset:Set<Category>` -- The set of categories involved in the account.
 
 To facilitate the manipulation of `Account` objects, `AccountsManager` implements the following operations:
 
 * `AccountsManager#updateFilteredAccountList(Predicate<Account> predicate)` -- Updates the current predicate of `filteredAccounts` to `predicate`.
 * `AccountsManager#getFilteredAccountList()` -- Gets `filteredAccounts`, representing the accounts in `accounts` after filtering.
-* `AccountsManage#resetFilteredAccountList()` -- Reset `filteredAccounts` so that all accounts present in `accounts` exist in `filteredAccounts`.
-* `AccountsManage#getAccounts()` -- Gets `accounts`, representing the accounts in `accounts`.
-* `AccountsManage#size()` -- Gets the length of the `accounts`, representing the number of accounts currently in `accounts`.
-* `AccountsManage#addAccount(Account toAdd)` -- Adds the `Account toAdd` to `accounts`.
-* `AccountsManage#deleteAccount(Account toDelete)` -- Deletes the account at `Index toDelete` from `accounts`.
-* `AccountsManage#editAccount(Index toEdit, Account editedAccount)` -- Edits the account at `Index Edit` to match `Account editedAccount`.
+* `AccountsManager#resetFilteredAccountList()` -- Reset `filteredAccounts` so that all accounts present in `accounts` exist in `filteredAccounts`.
+* `AccountsManager#getActiveTransactionList()` -- Gets the `activeTransactionList`, representing the `transactionList` in the active account.
+* `AccountsManager#getAccounts()` -- Gets `accounts`, representing the accounts in `accounts`.
+* `AccountsManager#size()` -- Gets the length of the `accounts`, representing the number of accounts currently in `accounts`.
+* `AccountsManager#addAccount(Account toAdd)` -- Adds the `Account toAdd` to `accounts`.
+* `AccountsManager#deleteAccount(Account toDelete)` -- Deletes the account at `Index toDelete` from `accounts`.
+* `AccountsManager#editAccount(Index toEdit, Account editedAccount)` -- Edits the account at `Index Edit` to match `Account editedAccount`.
+* `AccountsManager#switchActiveAccount(Index targetAccountIndex)` -- Inactivate the current active account, and activate the target account.
+* `AccountsManager#unsetActiveAccount()` -- Inactivate any currently active account.
+* `AccountsManager#setActiveAccount(Index toSet)` -- Activate the target account.
+* `AccountsManager#getAccount()` -- Gets the target account.
+* `AccountsManager#getActiveAccountIndex()` -- Gets the index of the currently active account.
+* `AccountsManager#getActiveAccount()` -- Gets the currently active account.
+* `AccountsManager#transactionListSwitchSource(Account account)` -- Switches the account source for the TransactionList.
+* `AccountsManager#transactionListUpdateSource()` -- Updates the transactionList linked to the currentActiveAccount.
+* `AccountsManager#exportReport()` -- Exports the overview report of all accounts.
 
 Each user-given command makes use of one or more of the above operations.
 For example, `account edit` will call `AccountsManager#resetFilteredAccountList` to update the `filteredAccounts`,
@@ -200,26 +214,25 @@ This creates a new account `toAdd` with the `name` as Japan trip and `descriptio
 `AccountsManager#addAccount(Account toAdd)` is then called and `toAdd` is added to `accounts`.
 `filteredAccountList` will be automatically updated to match `accounts`.
 
-The following sequence diagram illustrates how the process of adding an account works:
-
-image::AccountSequenceDiagram.png[]
-
-In general, the rest of the operations work using a similar sequence of steps.
-Some commands might create a new `Account` object (as shown above) while others might just use the `Index` of an account.
-
 Step 3. The user executes the command `account find trip` to find account contains the keyword trip specified.
-First, `AccountsManager#resetFilteredAccountList` is called, updating `filteredAccounts` to match the `accounts`.
 `AccountsManager#updateFilteredAccountList` is then called, setting the predicate of `filteredAccounts` according to the input parameters.
 Finally, `AccountsManager#getFilteredAccounts` is called.
 An immutable version of `filteredAccounts` (filtered) is retrieved and displayed to the user.
 In this case, an account with the `name` as Japan trip and `description` as expense spent in Japan will be displayed.
 
-Step 4. The user executes the command `loan delete 2` to delete the second account in the `accounts`.
+The following sequence diagram illustrates how the process of finding the accounts containing specified keyword works:
+
+image::AccountSequenceDiagram.png[]
+
+In general, the operations of account commands work using a similar sequence of steps.
+Some commands might create a new `Account` object (as shown above) while others might just use the `Index` of an account.
+
+Step 4. The user executes the command `account delete 2` to delete the second account in the `accounts`.
 Firstly, `AccountsManager#resetFilteredAccountList` will be called to update the `filteredAccounts`,
 so that all accounts present in `accounts` will be present in `filteredAccounts`,
 then `AccountsManager#deleteAccount` will be called to delete `toDelete` account from `accounts`.
 
-Step 5. The user executes the command `loan edit 3 n/food` to edit the `name` of the first account in the list.
+Step 5. The user executes the command `account edit 3 n/food` to edit the `name` of the first account in the list.
 This creates a new `editedAccount` identical to the third account in `accounts`, except that `editedAccount` has a `name` of food.
 `AccountsManager#editAccount(Index toEdit, Account editedAccount)` is then called,
 where `toEdit` is the index of the third account in `accounts`,
@@ -229,8 +242,18 @@ The following activity diagram summarizes the process when the user executes the
 
 image::AccountActivityDiagram.png[]
 
+Step 6. The user executes the command `account report 2` to view the details of the second account in the list.
+Firstly, `AccountsManager#resetFilteredAccountList` will be called to update the `filteredAccounts`,
+so that all accounts present in `accounts` will be present in `filteredAccounts`,
+then `AccountsManager#getAccount` and `Account#getAccountInfo` will be called to display the details of the second account.
+
+Step 7. The user executes the command `account overview` to view the report of all accounts in an html export file.
+Firstly, `AccountsManager#resetFilteredAccountList` will be called to update the `filteredAccounts`,
+so that all accounts present in `accounts` will be present in `filteredAccounts`,
+then `AccountsManager#exportReport` will be called to generate the overview of all accounts html file to the exports folder.
+
 [NOTE]
-For the commands `account edit`, `account delete`,
+For the commands `account edit`, `account delete` and `account report`,
 if the user targets an account outside of the list (e.g. index greater than list size)
 an error message will be displayed.
 
