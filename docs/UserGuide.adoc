@@ -577,10 +577,15 @@ Date should be in the format YYYY.MM.DD with valid year, month and date. Only da
 
 ==== Add a schedule : `add-s`
 Adds a schedule. +
-If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules. +
-*Note*: You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule. +
+If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules.
+****
+Note:
 
+- You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule.
+- Venue that is too long will be truncated / not visible on the calendar schedule. Simple hover your cursor over the schedule, the full venue should appear as a temporary pop-up in a while.
+****
 [underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]` +
+
 [underline]#Example#: +
 
 * `add-s 3 cd/2018.7.25 ct/18.00 v/Starbucks t/freebie -allow` +
@@ -621,6 +626,8 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 - Existing values will be updated to the input values.
 - When editing tags, the existing tags of the schedule will be removed i.e adding of tags is not cumulative.
 - You can remove all the schedule's tags by typing `t/` without specifying any tags after it.
+- You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule.
+- Venue that is too long will be truncated / not visible on the calendar schedule. Simple hover your cursor over the schedule, the full venue should appear as a temporary pop-up in a while.
 ****
 
 [underline]#Examples#:
