@@ -569,7 +569,7 @@ public class ItemModelManager implements ItemModel {
             }
         });
 
-        sortedTask.addAll(taskList.filtered(x -> ! x.getTask().get().isComplete()));
+        sortedTask.addAll(taskList.filtered(x -> !x.getTask().get().isComplete()));
     }
 
     /**
