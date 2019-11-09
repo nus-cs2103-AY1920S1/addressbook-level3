@@ -12,7 +12,7 @@ import seedu.system.logic.commands.exceptions.CommandException;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
 import seedu.system.model.person.Person;
-
+//@@author HoWeiChin
 /**
  * Adds a person to the address book.
  */

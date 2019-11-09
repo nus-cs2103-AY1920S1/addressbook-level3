@@ -101,7 +101,7 @@ public class ParserUtil {
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
+    //@@author HoWeiChin
     /**
      * Returns true if {@code startDate} is exactly or before {@code endDate}
      */
@@ -109,7 +109,6 @@ public class ParserUtil {
         Date start = startDate.getDate();
         Date end = endDate.getDate();
         return start.equals(end) || start.before(end);
-
     }
 
 }

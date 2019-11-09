@@ -13,7 +13,7 @@ import seedu.system.logic.commands.exceptions.CommandException;
 import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
 import seedu.system.model.person.Person;
-
+//@@author HoWeiChin
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
