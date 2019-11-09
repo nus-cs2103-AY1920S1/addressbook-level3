@@ -177,7 +177,7 @@ it will simply be added to his existing row. This is shown in the screenshot bel
 image::homeUG/HomeAddShowInR.png[width = "400"]
 
 
-==== To Delete Transaction(s) in the Home Tab
+==== To Delete Transactions in the Home Tab
 This command allows you to delete either all transactions of a person or a single transaction of a specific ID from the table.
 
 * Command
