@@ -15,8 +15,6 @@ import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.classroom.UniqueClassroomList;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
-//import seedu.address.model.scheduler.Reminder;
-//import seedu.address.model.scheduler.UniqueReminderList;
 import seedu.address.model.lesson.UniqueLessonWeekList;
 import seedu.address.model.student.Student;
 //import seedu.address.model.student.UniqueStudentList;
@@ -321,12 +319,6 @@ public class Notebook implements ReadOnlyNotebook {
         ArrayList<Classroom> classroomList = new ArrayList<Classroom>(classrooms.values());
         ObservableList<Classroom>
         return classroomList;
-    }
-     */
-
-    /*
-    public ObservableList<Reminder> getReminderList() {
-        return reminders.asUnmodifiableObservableList();
     }
      */
 

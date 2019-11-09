@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 //import seedu.address.model.assignment.AssignmentName;
 //import seedu.address.model.assignment.UniqueAssignmentList;
 //import seedu.address.model.lesson.Lesson;
-//import seedu.address.model.scheduler.Reminder;
 
 import seedu.address.model.student.Student;
 import seedu.address.testutil.StudentBuilder;
@@ -192,11 +191,6 @@ public class AddStudentCommandTest {
 
         @Override
         public ObservableList<Student> getFilteredStudentList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Reminder> getFilteredReminderList() {
             throw new AssertionError("This method should not be called.");
         }
 

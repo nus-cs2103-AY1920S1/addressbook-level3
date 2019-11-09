@@ -278,13 +278,6 @@ public class ModelManager implements Model {
         return filteredLessonLists;
     }
 
-    /*
-    @Override
-    public ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate) {
-        return notebook.getCurrentClassroom().getFilteredReminderList();
-    }
-    */
-
     @Override
     public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);

@@ -10,7 +10,6 @@ import seedu.address.model.classroom.Classroom;
 import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
-//import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 
 /**
@@ -122,8 +121,6 @@ public interface Model {
     void updateFilteredLessonList(Predicate<Lesson> predicate);
 
     void updateFilteredLessonWeekList(Predicate<UniqueLessonList> predicate);
-
-    //ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate);
 
     ReadOnlyNotebook undo();
 
