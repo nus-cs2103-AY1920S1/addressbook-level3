@@ -146,7 +146,8 @@ class TvShowTest {
     Show showWatchedAll = new ShowBuilder(TypicalShows.THEOFFICE).withNumOfEpisodesWatched(195).build();
     Show showWatched100 = new ShowBuilder(TypicalShows.THEOFFICE).withNumOfEpisodesWatched(100).build();
     Show showWatched0 = new ShowBuilder(TypicalShows.THEOFFICE).withNumOfEpisodesWatched(0).build();
-
+    }
+    
     @Test
     public void getNumOfEpisodesWatched() {
         assertEquals(showWatched0.getNumOfEpisodesWatched(), 0);
