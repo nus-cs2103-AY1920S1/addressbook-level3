@@ -505,7 +505,7 @@ With reference to the diagram below, **Attendance Pie Chart** indicates the over
 image::calendar11.png[width=450]
 
 === Athlete Management
-
+// tag::select[]
 ==== Viewing more details of a team member : `select`
 
 This command shows the profile of the athlete that you have selected.
@@ -533,11 +533,12 @@ image::afterSelect.png[width=450]
 
 [NOTE]
 If the image of the selected athlete is not appearing as shown below, take note that the image file is not in the
-`images` folder. You may refer to the *"FAQ"* section to know more on where to include the image files
-which are going to be used and *Section 4.1.3. "Editing an athlete"* to understand further how to edit the image of an athlete.
+`images` folder. You may refer to <<FAQ>> section to know more on where to include the image files
+which are going to be used and <<Editing an athlete : `edit`>> to understand further how to edit the image of
+an athlete.
 
 image::noImage.png[width=450]
-
+// end::select[]
 ==== Sorting athletes alphabetically : `sort`
 
 This command sorts your **Athletick** list alphabetically by the athletes' name.
@@ -803,6 +804,7 @@ There is no need to save manually.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Athletick folder.
 
+// tag::FAQ[]
 *Q*: How do I add my image files to the `images` folder? +
 *A*: Make sure that the `images` folder is in the same directory as the Athletick executable jar file. If the
 `images` folder is not created, the following steps will guide you through the creating of the `images` folder and
@@ -819,7 +821,7 @@ image::imageFile.png[width="790"]
 * Add the image files that you want to use into the folder.
 
 image::addingPhotos.png[width="790"]
-
+//end::FAQ[]
 == Command Summary
 
 [horizontal]
