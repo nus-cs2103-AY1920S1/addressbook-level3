@@ -14,7 +14,8 @@ public enum PanelName {
             + "aliases: w, b, r, ae";
 
     /**
-     * Parses input {@code panelNameString} and returns {@code PanelName} with standardised panel name.
+     * Parses input {@code panelNameString} and returns {@code PanelName} that is standardised.
+     * @throws ParseException if input string is not a recognised PanelName
      */
     public static PanelName parse(String panelNameString) throws ParseException {
 

@@ -31,8 +31,7 @@ public class ChangeFontCommandParser implements Parser<ChangeFontCommand> {
             fontName = ParserUtil.parseFontName(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeFontCommand.MESSAGE_USAGE),
-                    pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeFontCommand.MESSAGE_USAGE), pe);
         }
 
         return new ChangeFontCommand(fontName);

@@ -70,7 +70,6 @@ import seedu.guilttrip.logic.commands.statisticscommands.ViewEntryCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewPieChartCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewTableCommand;
 import seedu.guilttrip.logic.commands.uicommands.ChangeFontCommand;
-import seedu.guilttrip.logic.commands.uicommands.ListFontCommand;
 import seedu.guilttrip.logic.commands.uicommands.SetDarkThemeCommand;
 import seedu.guilttrip.logic.commands.uicommands.SetLightThemeCommand;
 import seedu.guilttrip.logic.commands.uicommands.TogglePanelCommand;
@@ -225,9 +224,6 @@ public class GuiltTripParser {
 
         case ListCategoriesCommand.COMMAND_WORD:
             return new ListCategoriesCommand();
-
-        case ListFontCommand.COMMAND_WORD:
-            return new ListFontCommand();
 
         case ListWishCommand.COMMAND_WORD:
             return new ListWishCommand();

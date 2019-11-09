@@ -1,10 +1,6 @@
 package seedu.guilttrip.ui.util;
 
-import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
-import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +9,7 @@ import java.util.Objects;
  */
 public class FontManager {
 
-    public static final List<FontName> FONTS = generateFontNames();
+    public static final ArrayList<FontName> FONTS = FontName.getAllFontNames();
     public static final String MESSAGE_CONSTRAINTS = "Font name should be one of the following: " + FONTS.toString();
 
     private FontName currentFontName;
@@ -23,46 +19,16 @@ public class FontManager {
      */
     public FontManager() {}
 
-    /**
-     * Generates a list of {@code FontName} from their string equivalents.
-     * @return
-     */
-    private static List<FontName> generateFontNames() {
-        List<String> fontNameStrings = new ArrayList<>(Arrays.asList("arial", "calibri", "cambria", "candara",
-                "garamond", "georgia", "rockwell", "segoe UI", "serif", "verdana"));
-        List<FontName> fontNames = new ArrayList<>(0);
-        for (String fontNameString : fontNameStrings) {
-            fontNames.add(new FontName(fontNameString));
-        }
-        return fontNames;
+    public List<FontName> getFontNames() {
+        return FONTS;
     }
 
-    public List<FontName> getFonts() {
-        return FONTS;
+    public List<String> getFontsAsStrings() {
+        return FontName.getAllFontNameStrings();
     }
 
     public FontName getCurrentFontName() {
         return this.currentFontName;
-    }
-
-    public void setCurrentFontName(FontName newFontName) {
-        requireAllNonNull(newFontName);
-        checkArgument(isValidFontName(newFontName), MESSAGE_CONSTRAINTS);
-        this.currentFontName = newFontName;
-    }
-
-    /**
-     * Returns true if specified font name exists in the list of valid font names.
-     */
-    private static boolean isValidFontName(FontName test) {
-        return FONTS.contains(test);
-    }
-
-    /**
-     * Returns true if specified font name exists in the list of valid font names.
-     */
-    public static boolean isValidFontName(String test) {
-        return FONTS.contains(new FontName(test));
     }
 
     @Override

@@ -37,6 +37,7 @@ import seedu.guilttrip.ui.reminder.ReminderPanel;
 import seedu.guilttrip.ui.stats.StatisticsBarChart;
 import seedu.guilttrip.ui.stats.StatisticsWindow;
 import seedu.guilttrip.ui.util.FontManager;
+import seedu.guilttrip.ui.util.FontName;
 import seedu.guilttrip.ui.util.PanelName;
 import seedu.guilttrip.ui.util.Theme;
 import seedu.guilttrip.ui.wishlist.WishListPanel;
@@ -384,7 +385,8 @@ public class MainWindow extends UiPart<Stage> {
     private String handleListFonts(String oldFeedbackToUser) {
         FontManager fontManager = new FontManager();
         String feedbackToUserWithFontList = oldFeedbackToUser + ": "
-                + Arrays.toString(fontManager.getFonts().toArray());
+                + Arrays.toString(fontManager.getFontsAsStrings().toArray());
+        System.out.println(Arrays.toString(fontManager.getFontsAsStrings().toArray()));
         logger.info("Listed all fonts");
         return feedbackToUserWithFontList;
     }
@@ -537,7 +539,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isChangeFont()) {
-                String fontNameString = commandResult.getFontName().toString();
+                String fontNameString = FontName.toLowerCaseString(commandResult.getFontName());
                 handleChangeFont(fontNameString);
             }
 
