@@ -122,7 +122,7 @@ public class Food {
         }
 
         return otherFood != null
-                && otherFood.getName().equals(getName());
+                && otherFood.equals(this);
     }
 
     /**
@@ -140,7 +140,11 @@ public class Food {
         }
 
         Food otherFood = (Food) other;
-        return otherFood.getName().equals(getName());
+        return otherFood.getName().equals(getName())
+                && (otherFood.getDescription().equals(getDescription())
+                        && otherFood.getLocation().equals(getLocation())
+                        && otherFood.getRestrictions().equals(getRestrictions())
+                        && otherFood.getOpeningHours().equals(getOpeningHours()));
     }
 
     @Override

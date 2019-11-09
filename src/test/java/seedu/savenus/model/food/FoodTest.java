@@ -38,19 +38,19 @@ public class FoodTest {
         // null -> returns false
         assertFalse(CARBONARA.isSameFood(null));
 
-        // different price and description -> returns true cause of name
+        // different price and description -> returns false
         Food editedAlice = new FoodBuilder(CARBONARA).withPrice(VALID_PRICE_NASI_LEMAK)
                 .withDescription(VALID_DESCRIPTION_NASI_LEMAK).build();
-        assertTrue(CARBONARA.isSameFood(editedAlice));
+        assertFalse(CARBONARA.isSameFood(editedAlice));
 
         // different name -> returns false
         editedAlice = new FoodBuilder(CARBONARA).withName(VALID_NAME_NASI_LEMAK).build();
         assertFalse(CARBONARA.isSameFood(editedAlice));
 
-        // same name, same price, different description -> returns true
+        // same name, same price, different description -> returns false
         editedAlice = new FoodBuilder(CARBONARA).withDescription(VALID_DESCRIPTION_NASI_LEMAK)
                 .build();
-        assertTrue(CARBONARA.isSameFood(editedAlice));
+        assertFalse(CARBONARA.isSameFood(editedAlice));
     }
 
     @Test
@@ -92,16 +92,16 @@ public class FoodTest {
         editedAlice = new FoodBuilder(CARBONARA).withPrice(VALID_PRICE_NASI_LEMAK).build();
         assertTrue(CARBONARA.equals(editedAlice));
 
-        // different description -> returns true
+        // different description -> returns false
         editedAlice = new FoodBuilder(CARBONARA).withDescription(VALID_DESCRIPTION_NASI_LEMAK).build();
-        assertTrue(CARBONARA.equals(editedAlice));
+        assertFalse(CARBONARA.equals(editedAlice));
 
         // different tags -> returns true
         editedAlice = new FoodBuilder(CARBONARA).withTags(VALID_TAG_CHICKEN).build();
         assertTrue(CARBONARA.equals(editedAlice));
 
-        // different location -> returns true
+        // different location -> returns false
         editedAlice = new FoodBuilder(CARBONARA).withLocation(VALID_LOCATION_NASI_LEMAK).build();
-        assertTrue(CARBONARA.equals(editedAlice));
+        assertFalse(CARBONARA.equals(editedAlice));
     }
 }
