@@ -220,6 +220,7 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    //@@author{joshuaseetss}
     /**
      * After unknown entry is handled, it becomes known.
      */
@@ -261,6 +262,7 @@ public class MainWindow extends UiPart<Stage> {
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 return commandResult;
             } else if (unknownEntry) {
+                //@@author{joshuaseetss}
                 CommandResult commandResult = logic.executeUnknownInput(commandText);
                 if (!commandResult.isCreateShortCut()) {
                     handleUnknownEntry();
@@ -297,6 +299,7 @@ public class MainWindow extends UiPart<Stage> {
                     handleContact(contact);
                 }
 
+                //@@author{joshuaseetss}
                 if (commandResult.isCreateShortCut()) {
                     handleUnknownEntry();
                 }
