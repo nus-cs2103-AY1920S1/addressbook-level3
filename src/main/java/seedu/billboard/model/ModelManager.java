@@ -347,7 +347,7 @@ public class ModelManager implements Model {
     public String toString() {
         return "Billboard: " + billboard.toString()
                 + "\nArchives: " + archives.toString()
-                + "\nFilteredExpenses: " + filteredExpense.toString()
-                + "\nFilteredArchives: " + filteredArchives.toString();
+                + "\nFiltered Expenses: " + filteredExpense.toString()
+                + "\nFiltered Archives: " + filteredArchives.toString();
     }
 }
