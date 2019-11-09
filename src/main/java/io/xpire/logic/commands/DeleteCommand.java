@@ -87,7 +87,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException, ParseException {
-        requireAllNonNull(model,stateManager);
+        requireAllNonNull(model, stateManager);
         this.requireNonEmptyCurrentList(model);
         stateManager.saveState(new ModifiedState(model));
         ObservableList<? extends Item> currentList = model.getCurrentList();

@@ -1,7 +1,6 @@
 package io.xpire.logic;
 
 import static io.xpire.commons.core.Messages.MESSAGE_EMPTY_LIST;
-import static io.xpire.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.Assert.assertThrows;
