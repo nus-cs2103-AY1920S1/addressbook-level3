@@ -196,6 +196,34 @@ Examples:
 
 *`account find trip`
 You can see a list of accounts with the word 'trip' contained in their names.
+
+==== View report of an account: `account report`
+
+If you want to see the details of a particular account, you can choose to view the report of the specified account.
+The report contains the balance, the total expenses, the total income, and the categories involved in the specified account.
+
+Format: `account report <id>`
+
+****
+* Views the report of the account with the specified index. The index refers to the index number shown in the displayed account list. The index must be a positive integer 1, 2, 3...
+****
+
+Example:
+
+*`account report 1` You can view the report of the first account.
+
+==== Export the overview of all accounts: `account overview`
+
+If you want to see the overview of all accounts, Budget Buddy allows you to export the overview of all accounts in html file.
+In the overview, you are able to see the balance, the total expenses, the total income, and the categories involved in each account.
+
+Format: `account overview`
+
+****
+* Step 1. Type `account overview` in the command textfield input.
+* Step 2. Successful message displayed, and you can navigate to the exports folder in the same directory of the source file.
+* Step 3. Open the html file in the exports folder to see the overview of all accounts.
+****
 // end::accounts[]
 
 // tag::loans[]
