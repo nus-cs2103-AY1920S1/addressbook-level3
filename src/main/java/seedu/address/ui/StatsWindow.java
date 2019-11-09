@@ -71,13 +71,16 @@ public class StatsWindow extends UiPart<Stage> {
         final BarChart<String, Number> bc2 = new BarChart<>(xAxisB, yAxisB);
         final LineChart<Number, Number> lc = new LineChart<>(xAxisC, yAxisC);
 
-        initialize(bc1, bc2, lc, xAxisA, xAxisB, xAxisC, yAxisA, yAxisB, yAxisC);
-
         int numGood = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate(GOOD)).size();
         int numHard = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate(HARD)).size();
         int numEasy = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate(EASY)).size();
 
         int[] stats = model.getTestStats();
+        ArrayList<Float> perform = model.getPerformance();
+
+        int upperBoundA = findUpperBound(numGood, numHard, numEasy);
+        int upperBoundB = findUpperBound(stats[0], stats[1], stats[2]);
+        initialize(bc1, bc2, lc, xAxisA, xAxisB, xAxisC, yAxisA, yAxisB, yAxisC, upperBoundA, upperBoundB, perform.size());
 
         XYChart.Series seriesA = new XYChart.Series();
         seriesA.getData().add(new XYChart.Data(GOOD, numGood));
@@ -90,7 +93,6 @@ public class StatsWindow extends UiPart<Stage> {
         seriesB.getData().add(new XYChart.Data(EASY, stats[2]));
 
         XYChart.Series seriesC = new XYChart.Series();
-        ArrayList<Float> perform = model.getPerformance();
         if (perform.size() == 0) {
             seriesC.getData().add(new XYChart.Data(0, 0));
         } else {
@@ -150,7 +152,7 @@ public class StatsWindow extends UiPart<Stage> {
      * Sets the title & labels the axis of the charts.
      * Sets the boundary and precision for the axis if needed.
      */
-    public void initialize(BarChart bc1, BarChart bc2, LineChart lc, CategoryAxis xAxisA, CategoryAxis xAxisB, NumberAxis xAxisC, NumberAxis yAxisA, NumberAxis yAxisB, NumberAxis yAxisC) {
+    public void initialize(BarChart bc1, BarChart bc2, LineChart lc, CategoryAxis xAxisA, CategoryAxis xAxisB, NumberAxis xAxisC, NumberAxis yAxisA, NumberAxis yAxisB, NumberAxis yAxisC, int upperBoundA, int upperBoundB, int upperBoundC) {
         bc1.setTitle("Total");
         bc2.setTitle("Completed in tests");
         lc.setTitle("Performance Chart");
@@ -161,10 +163,44 @@ public class StatsWindow extends UiPart<Stage> {
         xAxisC.setLabel("Test Number");
         yAxisC.setLabel("Percentage");
 
+        yAxisA.setAutoRanging(false);
+        yAxisA.setLowerBound(0);
+        yAxisA.setUpperBound(upperBoundA);
+        yAxisA.setTickUnit(1);
+        yAxisA.setMinorTickVisible(false);
+
+        yAxisB.setAutoRanging(false);
+        yAxisB.setLowerBound(0);
+        yAxisB.setUpperBound(upperBoundB);
+        yAxisB.setTickUnit(1);
+        yAxisB.setMinorTickVisible(false);
+
+        xAxisC.setAutoRanging(false);
+        xAxisC.setLowerBound(0);
+        xAxisC.setUpperBound(upperBoundC);
+        xAxisC.setTickUnit(1);
+        xAxisC.setMinorTickVisible(false);
+
         yAxisC.setAutoRanging(false);
         yAxisC.setLowerBound(0);
         yAxisC.setUpperBound(100);
         yAxisC.setTickUnit(1);
+    }
+
+    /**
+     * Returns the highest value
+     */
+    public int findUpperBound(int A, int B, int C) {
+        int largest = A;
+
+        if (B > largest) {
+            largest = B;
+        }
+        if (C > largest) {
+            largest = C;
+        }
+
+        return largest;
     }
 
     /**
