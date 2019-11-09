@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.card.ExpiringCard;
-import seedu.address.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code ExpiringCard}.

@@ -6,6 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
+/**
+ * A class for calculating time to expiry dates.
+ */
 public class ExpiryUtil {
 
     private static DateTimeFormatter dateTimeFormat = new DateTimeFormatterBuilder()
@@ -13,6 +16,11 @@ public class ExpiryUtil {
             .appendPattern("MM/yy")
             .toFormatter();
 
+    /**
+     * Calculates the number of months until the expiry given.
+     * @param expiry date in format MM/YY.
+     * @return number of months until expiry.
+     */
     public static int getMonthToExp(String expiry) {
         LocalDate date = LocalDate.parse(expiry, dateTimeFormat);
         Period period = LocalDate.now().until(date);

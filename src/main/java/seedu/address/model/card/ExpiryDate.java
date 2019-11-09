@@ -1,15 +1,13 @@
 package seedu.address.model.card;
 
-import seedu.address.commons.util.ExpiryUtil;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+
+import seedu.address.commons.util.ExpiryUtil;
 
 /**
  * Represents a Card's expiry date in the card book.
