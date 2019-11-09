@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+/**
+ * Manages all events.
+ */
 public class EventManager {
     private IntervalSearchTree<Date, Event> engagedSchedule = new IntervalSearchTree<>();
     private IntervalSearchTree<Date, Event> vacationSchedule = new IntervalSearchTree<>();
@@ -24,6 +27,15 @@ public class EventManager {
     private HashMap<Event, List<Event>> engagements = new HashMap<>();
     private HashMap<Event, List<Event>> vacations = new HashMap<>();
 
+    /**
+     * Adds a new event to {@code this}.
+     *
+     * @param event The new event to be added
+     * @return {@code true} if the operation is successful
+     * @throws DuplicateEventException if an identical event (i.e. of the same type, same start and end dates, and same
+     *                                  name) already exists
+     * @throws ClashException if the operation may result in clashing commitments
+     */
     public boolean add(Event event) throws DuplicateEventException, ClashException {
         if (event.isBusy()) {
             addEngagement(event);
@@ -33,6 +45,13 @@ public class EventManager {
         return true;
     }
 
+    /**
+     * Adds a vacation to {@code this}.
+     *
+     * @param event The vacation to be added
+     * @return {@code true} if the operation is successful
+     * @throws DuplicateEventException if an identical event already exists
+     */
     private boolean addVacation(Event event) throws DuplicateEventException {
         if (vacations.containsKey(event)) {
             List<Event> requiredList = vacations.get(event);
@@ -47,6 +66,13 @@ public class EventManager {
         return true;
     }
 
+    /**
+     * Adds a vacation to the required list.
+     *
+     * @param event Vacation to be added
+     * @param requiredList List which stores vacations that have the same time frame
+     * @throws DuplicateEventException if an identical vacation already exists
+     */
     private void addVacation(Event event, List<Event> requiredList) throws DuplicateEventException {
         if (isDuplicateEvent(event, requiredList)) {
             throw new DuplicateEventException();
@@ -139,36 +165,20 @@ public class EventManager {
     }
 
     private boolean removeEngagement(Event event) throws NoSuchElementException {
-        if (!engagements.containsKey(event)) {
-            throw new NoSuchElementException("There is no event with the same start and end dates.");
-        }
-
-        List<Event> requiredList = engagements.get(event);
-
-        if (!isDuplicateEvent(event, requiredList)) {
-            String exceptionMessage = getRelevantEventsAsString(event);
-            throw new NoSuchElementException(exceptionMessage);
-        }
-
-        removeFromList(event, requiredList);
-        if (requiredList.isEmpty()) {
-            engagements.remove(event);
-        }
-
-        try {
-            engagedSchedule.remove(event);
-        } catch (NoSuchElementException e) {
-            assert false : "This event should exist in engagedSchedule";
-        }
-        return true;
+        return remove(event, engagements, engagedSchedule);
     }
 
     private boolean removeVacation(Event event) throws NoSuchElementException {
-        if (!vacations.containsKey(event)) {
+        return remove(event, vacations, vacationSchedule);
+    }
+
+    private boolean remove(Event event, HashMap<Event, List<Event>> hashMap,
+                           IntervalSearchTree<Date, Event> schedule) throws NoSuchElementException {
+        if (!hashMap.containsKey(event)) {
             throw new NoSuchElementException("There is no event with the same start and end dates.");
         }
 
-        List<Event> requiredList = vacations.get(event);
+        List<Event> requiredList = hashMap.get(event);
 
         if (!isDuplicateEvent(event, requiredList)) {
             String exceptionMessage = getRelevantEventsAsString(event);
@@ -177,13 +187,13 @@ public class EventManager {
 
         removeFromList(event, requiredList);
         if (requiredList.isEmpty()) {
-            vacations.remove(event);
+            hashMap.remove(event);
         }
 
         try {
-            vacationSchedule.remove(event);
+            schedule.remove(event);
         } catch (NoSuchElementException e) {
-            assert false : "This event should exist in vacationSchedule";
+            assert false : "This event should exist in schedule";
         }
         return true;
     }
