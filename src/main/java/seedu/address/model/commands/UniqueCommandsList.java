@@ -9,8 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.commands.commandsexceptions.CommandNotFoundException;
-import seedu.address.model.earnings.earningsexception.DuplicateEarningsException;
-import seedu.address.model.earnings.earningsexception.EarningsNotFoundException;
+import seedu.address.model.commands.commandsexceptions.DuplicateCommandException;
 
 /**
  * A list of CommandObjects that enforces uniqueness between its elements and does not allow nulls.
@@ -47,7 +46,7 @@ public class UniqueCommandsList implements Iterable<CommandObject> {
     public void add(CommandObject toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateEarningsException();
+            throw new DuplicateCommandException();
         }
         internalList.add(toAdd);
     }
@@ -63,11 +62,11 @@ public class UniqueCommandsList implements Iterable<CommandObject> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new EarningsNotFoundException();
+            throw new CommandNotFoundException();
         }
 
         if (!target.isSameCommand(editedCommand) && contains(editedCommand)) {
-            throw new DuplicateEarningsException();
+            throw new DuplicateCommandException();
         }
 
         internalList.set(index, editedCommand);
@@ -85,7 +84,7 @@ public class UniqueCommandsList implements Iterable<CommandObject> {
     public void setCommands(List<CommandObject> commands) {
         requireAllNonNull(commands);
         if (!commandsAreUnique(commands)) {
-            throw new DuplicateEarningsException();
+            throw new DuplicateCommandException();
         }
 
         internalList.setAll(commands);
