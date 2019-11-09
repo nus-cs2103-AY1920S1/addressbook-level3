@@ -59,7 +59,7 @@ public class AppUtil {
      * @param firstList list to compare
      * @param secondList list to compare
      */
-    public static boolean compareTwoLists(List firstList, List secondList) {
+    public static boolean isTwoListsEqual(List firstList, List secondList) {
         requireNonNull(firstList);
         requireNonNull(secondList);
         if (firstList.size() != secondList.size()) {

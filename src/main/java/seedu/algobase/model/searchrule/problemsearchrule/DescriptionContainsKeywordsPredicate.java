@@ -1,7 +1,7 @@
 package seedu.algobase.model.searchrule.problemsearchrule;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.algobase.commons.util.AppUtil.compareTwoLists;
+import static seedu.algobase.commons.util.AppUtil.isTwoListsEqual;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -47,6 +47,6 @@ public class DescriptionContainsKeywordsPredicate implements Predicate<Problem> 
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DescriptionContainsKeywordsPredicate // instanceof handles nulls
-                && compareTwoLists(keywords, ((DescriptionContainsKeywordsPredicate) other).keywords)); // state check
+                && isTwoListsEqual(keywords, ((DescriptionContainsKeywordsPredicate) other).keywords)); // state check
     }
 }
