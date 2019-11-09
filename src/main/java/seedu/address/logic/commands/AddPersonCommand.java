@@ -62,10 +62,10 @@ public class AddPersonCommand extends Command {
             // update side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, addedPerson.getName().toString()));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, addedPerson.getName().toString())).build();
 
         } catch (DuplicatePersonException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_PERSON));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_PERSON)).build();
         }
 
     }

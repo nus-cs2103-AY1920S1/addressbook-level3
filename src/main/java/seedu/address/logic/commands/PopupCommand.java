@@ -58,21 +58,20 @@ public class PopupCommand extends Command {
                         errorResponse = commonLocationData.getErrorResponse();
                     } else {
                         logger.warning("Unknown error for time slot: " + freeTimeslot.toString());
-                        return new CommandResult(INTERNAL_ERROR);
+                        return new CommandResultBuilder(INTERNAL_ERROR).build();
                     }
-                    return new CommandResult(MESSAGE_USER_ERROR + errorResponse);
+                    return new CommandResultBuilder(MESSAGE_USER_ERROR + errorResponse).build();
                 }
 
-                return new CommandResult(MESSAGE_SUCCESS,
-                        false, false, false, false, true,
-                        freeTimeslot.getClosestCommonLocationData());
+                return new CommandResultBuilder(MESSAGE_SUCCESS)
+                        .setPopUp().setLocationData(freeTimeslot.getClosestCommonLocationData()).build();
 
             } catch (InvalidTimeslotException e) {
-                return new CommandResult("Invalid time slot ID: " + id + ". Please enter a valid id as "
-                        + "shown in the GUI.");
+                return new CommandResultBuilder("Invalid time slot ID: " + id + ". Please enter a valid id as "
+                        + "shown in the GUI.").build();
             }
         } else {
-            return new CommandResult(ERROR_NOTHING_TO_POPUP);
+            return new CommandResultBuilder(ERROR_NOTHING_TO_POPUP).build();
         }
 
 

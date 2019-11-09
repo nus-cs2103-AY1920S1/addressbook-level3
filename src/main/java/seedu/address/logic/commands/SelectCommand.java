@@ -25,12 +25,13 @@ public class SelectCommand extends Command {
             + PREFIX_ID + "ID" + "\n"
             + "WEEK_NUMBER: 1 - 4   (if not specified, current week will be selected)";
 
-    private static final String MESSAGE_SUCCESS = "Selected timeslot";
-    private static final String MESSAGE_FAILURE = "Unable to select: %s";
+    public static final String MESSAGE_SUCCESS = "Selected timeslot";
+    public static final String MESSAGE_FAILURE = "Unable to select: %s";
 
-    private static final String MESSAGE_PERSON_NOT_FOUND = "Person not found";
-    private static final String MESSAGE_PERSON_NOT_SPECIFIED = "Please specify a person";
-    private static final String MESSAGE_TIMESLOT_NOT_FOUND = "Invalid Timeslot ID";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "Person not found";
+    public static final String MESSAGE_PERSON_NOT_SPECIFIED = "Please specify a person";
+    public static final String MESSAGE_TIMESLOT_NOT_FOUND = "Invalid Timeslot ID";
+    public static final String MESSAGE_INVALID_STATE = "Nothing to select";
 
 
     private Integer week;
@@ -50,22 +51,22 @@ public class SelectCommand extends Command {
         if (status == ScheduleWindowDisplayType.GROUP) {
             try {
                 if (name.equals(Name.emptyName())) {
-                    return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_SPECIFIED));
+                    return new CommandResultBuilder(
+                            String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_SPECIFIED)).build();
                 }
 
                 PersonTimeslot personTimeslot = model.getScheduleWindowDisplay()
                         .getPersonTimeslot(name, week, id);
 
-                CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS, false, false);
-                commandResult.setIsSelect(true);
-                commandResult.setPersonTimeslotData(personTimeslot);
-
-                return commandResult;
+                return new CommandResultBuilder(MESSAGE_SUCCESS)
+                        .setSelect().setPersonTimeslotData(personTimeslot).build();
 
             } catch (PersonNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
             } catch (PersonTimeslotNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
             }
         } else if (status == ScheduleWindowDisplayType.PERSON) {
             try {
@@ -73,16 +74,15 @@ public class SelectCommand extends Command {
                 PersonTimeslot personTimeslot = model.getScheduleWindowDisplay()
                         .getPersonTimeslot(name, week, id);
 
-                CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS, false, false);
-                commandResult.setIsSelect(true);
-                commandResult.setPersonTimeslotData(personTimeslot);
-
-                return commandResult;
+                return new CommandResultBuilder(MESSAGE_SUCCESS)
+                        .setSelect().setPersonTimeslotData(personTimeslot).build();
 
             } catch (PersonNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
             } catch (PersonTimeslotNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
             }
         } else if (status == ScheduleWindowDisplayType.HOME) {
             try {
@@ -90,24 +90,32 @@ public class SelectCommand extends Command {
                 PersonTimeslot personTimeslot = model.getScheduleWindowDisplay()
                         .getPersonTimeslotForToday(name, id);
 
-                CommandResult commandResult = new CommandResult(MESSAGE_SUCCESS, false, false);
+                return new CommandResultBuilder(MESSAGE_SUCCESS)
+                        .setSelect().setPersonTimeslotData(personTimeslot).build();
 
-                commandResult.setIsSelect(true);
-                commandResult.setPersonTimeslotData(personTimeslot);
-                return commandResult;
             } catch (PersonNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
             } catch (PersonTimeslotNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND));
+                return new CommandResultBuilder(
+                        String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
             }
         }
-
-
-        return null;
+        return new CommandResultBuilder(MESSAGE_INVALID_STATE).build();
     }
 
     @Override
     public boolean equals(Command command) {
-        return false;
+        if (command == null) {
+            return false;
+        } else if (!(command instanceof SelectCommand)) {
+            return false;
+        } else if (((SelectCommand) command).week.equals(this.week)
+                && ((SelectCommand) command).name.equals(this.name)
+                && ((SelectCommand) command).id.equals(this.id)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

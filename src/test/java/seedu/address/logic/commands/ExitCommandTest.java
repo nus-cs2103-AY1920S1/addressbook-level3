@@ -26,7 +26,7 @@ public class ExitCommandTest {
     @Test
     void execute_exit_success() {
         CommandResult expectedCommandResult =
-                new CommandResult(ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+                new CommandResultBuilder(ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT).setExit().build();
 
         CommandResult actualCommandResult =
                 new ExitCommand().execute(model);

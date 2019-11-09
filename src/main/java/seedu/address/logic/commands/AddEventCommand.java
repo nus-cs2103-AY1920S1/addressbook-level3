@@ -59,12 +59,12 @@ public class AddEventCommand extends Command {
                     model.addEvent(name, event);
                     model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
                 }
-                return new CommandResult(String.format(MESSAGE_SUCCESS, event.getEventName().trim()));
+                return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, event.getEventName())).build();
 
             } catch (PersonNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_UNABLE_TO_FIND_PERSON));
+                return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_UNABLE_TO_FIND_PERSON)).build();
             } catch (EventClashException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_CLASH_IN_EVENTS));
+                return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_CLASH_IN_EVENTS)).build();
             }
         }
     }

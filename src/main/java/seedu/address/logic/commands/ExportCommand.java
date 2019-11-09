@@ -31,7 +31,8 @@ public class ExportCommand extends Command {
         if (!state.equals(ScheduleWindowDisplayType.PERSON) && !state.equals(ScheduleWindowDisplayType.GROUP)) {
             return new CommandResult(MESSAGE_FAILURE);
         }
-        return new CommandResult(MESSAGE_SUCCESS, false , false, true);
+        return new CommandResultBuilder(MESSAGE_SUCCESS)
+                .setExport().build();
     }
 
     @Override

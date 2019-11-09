@@ -62,14 +62,14 @@ public class AddToGroupCommand extends Command {
         try {
             person = model.findPerson(name);
         } catch (PersonNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
         }
 
         Group group;
         try {
             group = model.findGroup(groupName);
         } catch (GroupNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND)).build();
         }
 
         PersonToGroupMapping mapping = new PersonToGroupMapping(person.getPersonId(), group.getGroupId(), role);
@@ -84,17 +84,17 @@ public class AddToGroupCommand extends Command {
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS,
-                    person.getName().toString(), group.getGroupName().toString()));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS,
+                    person.getName().toString(), group.getGroupName().toString())).build();
 
         } catch (DuplicateMappingException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE)).build();
         } catch (AlreadyInGroupException e) {
 
             model.updateDisplayWithGroup(group.getGroupName(),
                     LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
-            return new CommandResult(String.format(MESSAGE_UPDATED_ROLE, mapping.getRole().toString()));
+            return new CommandResultBuilder(String.format(MESSAGE_UPDATED_ROLE, mapping.getRole().toString())).build();
         }
 
     }

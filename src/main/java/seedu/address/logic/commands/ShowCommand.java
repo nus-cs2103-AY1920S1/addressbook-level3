@@ -59,8 +59,9 @@ public class ShowCommand<T> extends Command {
             } else {
                 model.updateDisplayWithPerson((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
             }
-            return new CommandResult(String.format(MESSAGE_SUCCESS, person.get().getName().toString()),
-                    false, false);
+            return new CommandResultBuilder(
+                    String.format(MESSAGE_SUCCESS, person.get().getName().toString())).build();
+
         } else if (name instanceof GroupName) {
             ObservableList<Group> groupList = model.getObservableGroupList();
             Optional<Group> group = Optional.empty();
@@ -76,12 +77,13 @@ public class ShowCommand<T> extends Command {
             }
 
             model.updateDisplayWithGroup((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, group.get().getGroupName().toString()),
-                    false, false);
+
+            return new CommandResultBuilder(
+                    String.format(MESSAGE_SUCCESS, group.get().getGroupName().toString())).build();
         } else {
+
             model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, "Your schedule",
-                    false, false));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, "Your schedule")).build();
         }
     }
 

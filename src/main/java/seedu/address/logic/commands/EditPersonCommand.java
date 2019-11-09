@@ -71,14 +71,14 @@ public class EditPersonCommand extends Command {
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, name.toString()));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, name.toString())).build();
 
         } catch (PersonNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
         } catch (NoPersonFieldsEditedException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED)).build();
         } catch (DuplicatePersonException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_PERSON));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_PERSON)).build();
         }
 
     }

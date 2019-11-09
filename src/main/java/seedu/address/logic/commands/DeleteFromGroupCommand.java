@@ -55,14 +55,14 @@ public class DeleteFromGroupCommand extends Command {
         try {
             person = model.findPerson(name);
         } catch (PersonNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
         }
 
         Group group;
         try {
             group = model.findGroup(groupName);
         } catch (GroupNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND)).build();
         }
 
         PersonToGroupMapping mapping = new PersonToGroupMapping(person.getPersonId(), group.getGroupId());
@@ -74,7 +74,7 @@ public class DeleteFromGroupCommand extends Command {
                     LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
         } catch (MappingNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_MAPPING_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_MAPPING_NOT_FOUND)).build();
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,

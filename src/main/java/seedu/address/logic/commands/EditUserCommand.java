@@ -55,10 +55,10 @@ public class EditUserCommand extends Command {
 
             model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, user.getName().toString()));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, user.getName().toString())).build();
 
         } catch (NoPersonFieldsEditedException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED)).build();
         }
 
 

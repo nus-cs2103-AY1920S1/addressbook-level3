@@ -63,14 +63,14 @@ public class EditGroupCommand extends Command {
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, groupName.toString().trim()));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, groupName.toString().trim())).build();
 
         } catch (DuplicateGroupException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_GROUP));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_GROUP)).build();
         } catch (GroupNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND)).build();
         } catch (NoGroupFieldsEditedException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED)).build();
         }
 
     }

@@ -25,9 +25,9 @@ public class ScrollCommand extends Command {
         if (status == ScheduleWindowDisplayType.PERSON
                 || status == ScheduleWindowDisplayType.GROUP
                 || status == ScheduleWindowDisplayType.NONE) {
-            return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+            return new CommandResultBuilder(MESSAGE_SUCCESS).setScroll().build();
         } else {
-            return new CommandResult(MESSAGE_FAILURE);
+            new CommandResultBuilder(MESSAGE_FAILURE).setScroll().build();
         }
 
 

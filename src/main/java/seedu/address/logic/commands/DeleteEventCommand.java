@@ -56,12 +56,12 @@ public class DeleteEventCommand extends Command {
 
             }
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, eventName));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, eventName)).build();
 
         } catch (EventNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_EVENT_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_EVENT_NOT_FOUND)).build();
         } catch (PersonNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
         }
 
     }
