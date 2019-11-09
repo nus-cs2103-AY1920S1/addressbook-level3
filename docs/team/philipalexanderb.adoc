@@ -1,0 +1,109 @@
+:imagesDir: images
+
+= Philip Alexander Boediman - Project Portfolio for MyProject
+
+== Introduction to the project
+
+My team of 4 NUS SoC students and I were tasked to enhance a command line addressbook application. We decided to convert it into a all-in-one project management app called *_MyProject_*.
+
+*MyProject* has various features to aid team leaders in project management. Some of the more prominent features include:
+
+* Keep track of members' performance
+* Generate meeting timings
+* Keep track of project's finances
+* Record meeting minutes
+* Keep track of ongoing and upcoming tasks
+* Send out reminders and broadcast email for important announcements (My Contributions)
+
+This is what our project look like:
+
+.Graphical User Interface for MyProject
+image::Ui.png[]
+
+My role was to design email related features. The following sections illustrate these enhancements in more detail, as well as the relevant documentation
+that I have added to the user and developer guides in relation to these enhancements.
+
+== Summary of contributions
+
+This section shows a summary of my coding, documentation and other helpful contribution towards the team project.
+
+=== Major Enhancement - Email feature
+
+==== Enhancements Implemented:
+
+- `signIn` command
+* lets user signs in using his/her Google account.
+- `logOut` command
+* lets user signs out from his/her Google account.
+- `sendMail` command
+* sends a personal email to one member in the project / contact list.
+- `broadcastMail` command
+* sends a personalised broadcast message to all members in the current project.
+- `sendReminder`
+* sends a reminder to all members in the project of the upcoming meeting and tasks
+which are due in specific number of days defined by user.
+
+
+==== Justification
+
+Team leaders often have information that they want to convey to the team members about updates or changes made to
+the project or remind team members of the upcoming meeting or tasks. There might be several applications in which
+the project groups are formed in the social media platforms. Team leaders may have to switch between different applications
+to locate the project group in this platform and this process is oftentimes time-consuming. With this enhancements,
+team leaders will be able to relay his message to his members in a single application, *_MyProject_*, where all the informations
+on his various projects are stored.
+
+==== Highlights
+
+These enhancements are extremely useful and use very intuitive command formats which are very similar to the
+normal GUI that user normally encounters and are very easy to remember. Some of the challenges faced were in understanding how the javax.Mail
+works which was outside the coverages of the course. These enhancements are extendable as we can further enhance to support
+more email domains which users wish to use as well as send attachments. Overall, the enhancements can support all the basic one-way mailing features which
+are sufficient for the optimisation of the team leaders' works.
+
+==== Credits
+Credits to the https://javaee.github.io/javamail/ for providing the JavaMail library and the javax.Mail API.
+
+=== Secondary Enhancement - Meeting attribute in the project.
+
+==== Enhancements Implemented:
+
+- `AddProjectMeeting` command
+* lets user adds a meeting to .
+- `DeleteProjectMeeting` command
+* lets user signs out from his/her Google account.
+
+==== Justification
+
+Every projects will definitely have meetings, thus team leaders can easily keep track of upcoming meetings
+in the projects that he/she has.
+
+==== Highlights
+
+This enhancements is extremely useful as meeting is a very crucial part in a project's progress. Meetings
+added by the user will automatically be sorted based on the meeting time (earliest to latest).
+
+=== Other contributions
+** Project Management
+*** Tested team members' features and reported bugs for amendment.
+*** Implemented Time class which are widely used in the project.
+** Documentation
+*** Proof-reading the project's User's Guide and Developer's Guide
+
+== Contributions to the User Guide
+
+We had to provide a user guide for users to familiarise themselves with our application.
+The user guide consists of easy navigation to certain parts of the user guide, features implemented
+in our application and a summary of commands available in our application.
+
+Below is the section of user guide that I contributed for my tasks.
+
+include::../UserGuide.adoc[tag=email]
+
+
+== Contributions to the Developer Guide
+
+include::../DeveloperGuide.adoc[tag=sendReminder]
+
+include::../DeveloperGuide.adoc[tag=addProjectMeeting]
+
