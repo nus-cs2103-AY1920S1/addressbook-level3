@@ -28,4 +28,13 @@ public class UndoCommand extends Command {
         model.updateSortedEngagementList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof UndoCommand)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

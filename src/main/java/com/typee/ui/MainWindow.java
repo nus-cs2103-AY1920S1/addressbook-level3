@@ -53,7 +53,6 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private EngagementListPanel engagementListPanel;
     //Tab related attributes.
-    private TabPanel tabPanel;
     private ObservableList<Tab> tabList;
     private Tab currentTab;
 
@@ -206,15 +205,22 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Switch the window to the {@code Tab} specified.
+     * @@author nordic96
      */
     private void handleTabSwitch(Tab tabInput) {
         currentTab.getController().handleExit();
         logger.info(tabInput.toString());
+
         Parent root = tabInput.getController().getRoot();
+
         mainWindow.getChildren().clear();
         mainWindow.getChildren().add(root);
         lblWindowTitle.setText(tabInput.getName() + " Window");
         currentTab = tabInput;
+
+        menuTabPane.getTabs().stream()
+                .filter(tab -> tab.getText().equals(tabInput.getName()))
+                .forEach(tab -> menuTabPane.getSelectionModel().select(tab));
     }
 
     /**
@@ -296,6 +302,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Fetches tab information from the tab menu list to the tab retrieved after {@code TabCommand}
+     * @@author nordic96
      */
     private Tab fetchTabInformation(String tabName) {
         Tab tabToReturn = new Tab();
@@ -328,6 +335,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Populates tabListView with {@code ObservableList<Tab>}.
+     * @@author nordic96
      */
     private void prepareTabMenuList(TabPane menuTabPane) {
         menuTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
