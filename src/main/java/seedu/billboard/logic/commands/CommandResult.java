@@ -10,6 +10,8 @@ import java.util.Optional;
  */
 public class CommandResult {
 
+    public static final String DEFAULT_LIST = "";
+
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
