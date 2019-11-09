@@ -32,9 +32,9 @@ public class FindTeamCommandParser implements Parser<FindTeamCommand> {
         String excludeString = " " + AlfredParserUtil.getExcludeString(args);
 
         ArgumentMultimap argumentMultimapNorm =
-                ArgumentTokenizer.tokenize(andOrString, PREFIX_NAME, PREFIX_PROJECT_NAME);
+                ArgumentTokenizer.tokenize(andOrString.toLowerCase(), PREFIX_NAME, PREFIX_PROJECT_NAME);
         ArgumentMultimap argumentMultimapExclude = ArgumentTokenizer
-                .tokenize(excludeString, PREFIX_NAME, PREFIX_PROJECT_NAME);
+                .tokenize(excludeString.toLowerCase(), PREFIX_NAME, PREFIX_PROJECT_NAME);
 
         Optional<String> nameNorm = argumentMultimapNorm.getValue(PREFIX_NAME);
         Optional<String> projectNameNorm = argumentMultimapNorm.getValue(PREFIX_PROJECT_NAME);
