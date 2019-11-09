@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Andrew Sim
 image::andrewscw.png[width="150" align="left"]
-{empty}[https://github.com/andrewscw[github]] [<<andrewscw#, portfolio>>]
+{empty}[https://github.com/andrewscw[github]]
 
 Role: Project Advisor
 
