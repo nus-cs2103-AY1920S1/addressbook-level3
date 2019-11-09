@@ -49,24 +49,9 @@ public class CommandRecordCard extends UiPart<Region> {
             index.setText(commandRecord.getIndex().toString());
         }
 
-        switch (commandType) {
-        case UNDO:
-            //cardPane.setStyle("-fx-background-color: #17202a");
-            break;
-        case CURR:
-            //labels.getChildren().add(new javafx.scene.control.Label("You are here"));
-            cardPane.setStyle("-fx-background-color: #819eb5");
-            break;
-        case REDO:
-            // cardPane.setStyle("-fx-background-color: #17202b");
-            break;
-        case END:
-            cardPane.setStyle("-fx-background-color: #a6c6e0");
-            break;
 
-        default:
-            assert false;
-            logger.severe("CommandRecord has incorrect CommandType");
+        if (commandType == CommandRecord.CommandType.CURR || commandType == CommandRecord.CommandType.END) {
+            labels.setStyle("-fx-background-color: #b9b8bf");
         }
     }
 

@@ -1,0 +1,9 @@
+.menu .label{
+    -fx-text-fill: white;
+}
+
+.menu-item:focused {
+     -fx-background: -fx-accent;
+     -fx-background-color: #000000;
+     -fx-text-fill: #ffffff;
+}
