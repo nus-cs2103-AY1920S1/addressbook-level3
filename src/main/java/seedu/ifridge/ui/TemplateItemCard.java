@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.ifridge.model.food.TemplateItem;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code TemplateItem}.
  */
 public class TemplateItemCard extends UiPart<Region> {
 

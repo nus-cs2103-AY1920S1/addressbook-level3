@@ -3,18 +3,30 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "undo"
+title After command "glist undo"
 
 package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
+    package State3 {
+        class State3.1 as "__gl2:GroceryList__"
+        class State3.2 as "__wl2:WasteList__"
+    }
+    package State2 {
+        class State2.1 as "__gl1:GroceryList__"
+        class State2.2 as "__wl1:WasteList__"
+    }
+    package State1 {
+            class State1.1 as "__gl0:GroceryList__"
+            class State1.2 as "__wl0:WasteList__"
+    }
 }
 
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
+State1.1 -[hidden]down-> State1.2
+State2.1 -[hidden]down-> State2.2
+State3.1 -[hidden]down-> State3.2
 
 class Pointer as "Current State" #FFFFF
-
-Pointer -up-> State2
+Pointer -down-> State2
 @end
+
