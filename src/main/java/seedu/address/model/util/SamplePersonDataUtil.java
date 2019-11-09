@@ -1,8 +1,6 @@
 package seedu.address.model.util;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -357,7 +355,7 @@ public class SamplePersonDataUtil {
         for (int idx = 0; idx < count; idx++) {
 
             String name = String.format("%s %s %s",
-                    firstName[idx/ (secondName.length * thirdName.length)],
+                    firstName[idx / (secondName.length * thirdName.length)],
                     secondName[(idx / thirdName.length) % secondName.length],
                     thirdName[idx % thirdName.length]);
 
