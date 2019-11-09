@@ -5,12 +5,17 @@ import static seedu.moolah.commons.core.Messages.MESSAGE_DISPLAY_STATISTICS_WITH
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_FIRST_START_DATE;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 
+import java.time.Period;
+
 import seedu.moolah.logic.commands.Command;
 import seedu.moolah.logic.commands.CommandGroup;
 import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
+import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.statistics.Statistics;
+import seedu.moolah.model.statistics.TabularStatistics;
 import seedu.moolah.ui.StatsPanel;
 
 /**
@@ -54,7 +59,9 @@ public class StatsCompareCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.calculateStatistics(COMMAND_WORD, firstStartDate , secondStartDate, false);
+        Budget primaryBudget = model.getPrimaryBudget();
+        Statistics statistics = createTabularStatistics(primaryBudget);
+        model.setStatistics(statistics);
         return new CommandResult(MESSAGE_SUCCESS, false, false, StatsPanel.PANEL_NAME);
     }
 
@@ -65,6 +72,27 @@ public class StatsCompareCommand extends Command {
                 && firstStartDate.equals(((StatsCompareCommand) other).firstStartDate)
                 && secondStartDate.equals(((StatsCompareCommand) other).secondStartDate));
     }
+
+    /**
+     * Creates and returns a {@code Statistics} that constructs 2 intervals of duration
+     * equal to {@code primaryBudget}, to compare their expenses
+     */
+    private Statistics createTabularStatistics(Budget primaryBudget) {
+        requireNonNull(primaryBudget);
+
+        Period period = primaryBudget.getBudgetPeriod().getPeriod();
+
+        Timestamp firstEndDate = new Timestamp(firstStartDate.getFullTimestamp().plus(period)).minusDays(1);
+        Timestamp secondEndDate = new Timestamp(secondStartDate.getFullTimestamp().plus(period)).minusDays(1);
+
+        TabularStatistics statistics = new TabularStatistics(primaryBudget.getExpenses(),
+                firstStartDate, firstEndDate,
+                secondStartDate, secondEndDate);
+
+        statistics.populateData();
+        return statistics;
+    }
+
 }
 
 

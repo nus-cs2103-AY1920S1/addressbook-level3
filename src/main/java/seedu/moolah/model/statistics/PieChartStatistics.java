@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
-import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Category;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
@@ -16,14 +15,7 @@ import seedu.moolah.model.expense.Timestamp;
 /**
  * Represents the Statistics class that provides a pie chart as its Visual Representation method
  */
-public class PieChartStatistics extends Statistics {
-
-
-    private List<String> formattedCategories;
-
-    private List<Double> formattedPercentages;
-
-    private List<Category> budgetCategories;
+public class PieChartStatistics implements Statistics {
 
     private Timestamp startDate;
 
@@ -31,63 +23,39 @@ public class PieChartStatistics extends Statistics {
 
     private ObservableList<Expense> expenses;
 
-    private PieChartStatistics(ObservableList<Expense> expenses, List<Category> validCategories,
-                               Timestamp startDate, Timestamp endDate) {
+    //after population
 
-        super(expenses, validCategories);
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.expenses = getExpenses();
-    }
+    private String title;
 
-    /**
-     * A method to practise defensive programming
-     * @param expenses List of expenses
-     * @param validCategories List of allowed categories in MooLah
-     * @param startDate The start date of the tracking period
-     * @param endDate The end date of the tracking period
-     */
-    private static PieChartStatistics verify(ObservableList<Expense> expenses, List<Category> validCategories,
-                               Timestamp startDate, Timestamp endDate) {
-        requireNonNull(startDate);
-        requireNonNull(endDate);
-        requireNonNull(expenses);
-        requireNonNull(validCategories);
+    private List<String> formattedCategories;
 
-        return new PieChartStatistics(expenses, validCategories, startDate, endDate);
-    }
+    private List<Double> formattedPercentages;
+
+    private List<Category> budgetCategories;
+
 
     /**
      * Creates a PieChartStatistics object with all the required information filled in its attributes
-     * @param validCategories List of allowed categories in MooLah
+     * @param expenses The expenses tracked under the primary budget
      * @param startDate The start date of the tracking period
      * @param endDate The end date of the tracking period
-     * @param primaryBudget The primary budget whose statistics is taken
      */
-    public static PieChartStatistics run(List<Category>
-            validCategories, Timestamp startDate, Timestamp endDate, Budget primaryBudget) {
+    public PieChartStatistics(ObservableList<Expense> expenses,
+                               Timestamp startDate, Timestamp endDate) {
 
-        requireNonNull(primaryBudget);
-
-        boolean isStartPresent = startDate != null;
-        boolean isEndPresent = endDate != null;
-
-        if (!isStartPresent && !isEndPresent) {
-            startDate = primaryBudget.getWindowStartDate();
-            endDate = primaryBudget.getWindowEndDate();
-        } else if (isStartPresent && !isEndPresent) {
-            endDate = startDate.createForwardTimestamp(primaryBudget.getBudgetPeriod()).minusDays(1);
-        } else if (!isStartPresent) {
-            startDate = endDate.createBackwardTimestamp(primaryBudget.getBudgetPeriod()).plusDays(1);
-        }
-
-        PieChartStatistics statistics = PieChartStatistics.verify(primaryBudget.getExpenses(),
-                validCategories, startDate, endDate);
-        statistics.generatePieChartData();
-        return statistics;
+        requireNonNull(expenses);
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        this.expenses = expenses;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
 
+    @Override
+    public void populateData() {
+        generatePieChartData();
+    }
 
     /**
      * Gathers the data to be used for the elements of the PieChart
@@ -225,6 +193,26 @@ public class PieChartStatistics extends Statistics {
     public String toString() {
         return String.format("%s\n%s\n%s", getTitle(), getFormattedCategories(), getFormattedPercentages());
     }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Timestamp getStartDate() {
+        return startDate;
+    }
+
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
+
 }
 
 
