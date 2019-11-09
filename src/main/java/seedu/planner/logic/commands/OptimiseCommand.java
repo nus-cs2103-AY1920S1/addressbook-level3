@@ -11,14 +11,11 @@ import java.util.stream.Collectors;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
@@ -88,9 +85,7 @@ public class OptimiseCommand extends UndoableCommand {
         Collections.sort(paths);
 
         if (!isUndoRedo) {
-            Event optimiseBudgetEvent = EventFactory.parse(this, model);
-            CommandHistory.addToUndoStack(optimiseBudgetEvent);
-            CommandHistory.clearRedoStack();
+            updateEventStack(this, model);
         }
 
         model.setDay(dayToOptimise, new Day (paths.get(0).path));
