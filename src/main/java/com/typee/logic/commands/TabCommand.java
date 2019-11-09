@@ -36,7 +36,8 @@ public class TabCommand extends Command {
 
         if (o instanceof TabCommand) {
             TabCommand newTabCommand = (TabCommand) o;
-            return newTabCommand.tabToSwitch.equals(tabToSwitch);
+            String newTabName = newTabCommand.tabToSwitch.getName();
+            return newTabName.equalsIgnoreCase(tabToSwitch.getName());
         }
 
         return false;

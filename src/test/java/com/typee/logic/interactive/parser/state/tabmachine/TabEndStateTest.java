@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import com.typee.logic.commands.TabCommand;
 import com.typee.logic.commands.exceptions.CommandException;
+import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.EndState;
+import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.testutil.ArgumentMultimapBuilder;
 import com.typee.ui.Tab;
 
@@ -32,18 +34,26 @@ class TabEndStateTest {
     }
 
     @Test
-    void transition() {
+    void transition_throwsStateTransitionException() {
+        EndState endState = new TabEndState(new ArgumentMultimap());
+        assertThrows(StateTransitionException.class, () -> endState.transition(new ArgumentMultimap()));
     }
 
     @Test
-    void getStateConstraints() {
+    void getStateConstraints_valid_returnsConstraints() {
+        EndState endState = new TabEndState(new ArgumentMultimap());
+        assertEquals(endState.getStateConstraints(), "Tab successfully shifted!");
     }
 
     @Test
-    void isEndState() {
+    void isEndState_valid_returnsTrue() {
+        EndState endState = new TabEndState(new ArgumentMultimap());
+        assertTrue(endState.isEndState());
     }
 
     @Test
-    void getPrefix() {
+    void getPrefix_valid_returnsPrefix() {
+        EndState endState = new TabEndState(new ArgumentMultimap());
+        assertEquals(endState.getPrefix(), new Prefix(""));
     }
 }
