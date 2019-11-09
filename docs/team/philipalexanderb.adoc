@@ -15,7 +15,7 @@ My team of 4 NUS SoC students and I were tasked to enhance a command line addres
 * Keep track of ongoing and upcoming tasks
 * Send out reminders and broadcast email for important announcements (My Contributions)
 
-This is what our project look like:
+This is what our project main page looks like:
 
 .Graphical User Interface for MyProject
 image::Ui.png[]
@@ -96,13 +96,20 @@ We had to provide a user guide for users to familiarise themselves with our appl
 The user guide consists of easy navigation to certain parts of the user guide, features implemented
 in our application and a summary of commands available in our application.
 
-Below is the section of user guide that I contributed for my tasks.
+|===
+|_Below is the section of user guide that I contributed for my feature._
+|===
 
+include::../UserGuide.adoc[tag=addProjectMeeting]
+include::../UserGuide.adoc[tag=deleteMeeting]
 include::../UserGuide.adoc[tag=email]
 
 
 == Contributions to the Developer Guide
 
+|===
+|_Below is the section of developer guide that I contributed for my features._
+|===
 include::../DeveloperGuide.adoc[tag=sendReminder]
 
 include::../DeveloperGuide.adoc[tag=addProjectMeeting]

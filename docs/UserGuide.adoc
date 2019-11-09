@@ -332,7 +332,7 @@ Example:
 
 * `deleteTask 1`
 
-
+// tag::deleteMeeting[]
 ==== Delete a meeting: `deleteMeeting` [Checkout]
 
 
@@ -344,6 +344,7 @@ Format: `deleteMeeting INDEX`
 Example:
 
 * `deleteMeeting 1`
+// end::deleteMeeting[]
 
 === Listing Information
 
@@ -431,6 +432,7 @@ image::generate/generate-alt.png[]
 Tired of switching between applications? We got you covered, below you will find some commands which support sending
 emails right here within the application.
 
+[NOTE]
 Do keep in mind that only the user Account in our current version is only compatible with Gmail Account and please ensure that the Access to less secure app in the security setting is enabled before signing in!
 
 // tag::email[]

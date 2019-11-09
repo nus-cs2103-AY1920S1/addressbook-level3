@@ -7,18 +7,25 @@ tasks due in specific number of day to members;
 if () then ([valid input])
 
 if () then ([not checked out])
-: Display error not checked out error message;
+: Throw CommandException
+          not checked out;
 
 else ([Checked out])
+
+
 if () then ([not signed in])
-:Display not signed in error message;
+:Throw CommandException
+            not signed in;
 else ([is signed in])
-:Obtain current list of tasks and and meetings;
-:Check for meetings and tasks which are due within the specific number of days;
-:Append the meetings and tasks to the list of tasks to be sent to members;
+:   Obtain current list of
+ tasks and and meetings;
+:    Check for meetings and tasks which
+are due within the specific number of days;
 :Obtain current list of members;
-:Obtain ownerAccount for user's email and password;
-:Send the list of meetings and tasks to members via email;
+:Obtain ownerAccount for
+user's email and password;
+:Send the list of meetings and
+tasks to members via email;
 :Display success message;
 endif
 endif
@@ -26,9 +33,11 @@ endif
 else ([invalid input])
 : Checks for type of invalid input;
 if () then ([Empty Input])
-: Display duration cannot be empty error meessage;
+: Throw ParseException
+      for empty input;
 else ([Non-numeric input or negative integer])
-: Display duration must be numeric and positive integer error message;
+: Throw ParseException
+      for invalid input;
 endif
 endif
 stop
