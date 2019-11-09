@@ -1,9 +1,6 @@
 package seedu.address.calendar.ui;
 
 import java.io.IOException;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -13,21 +10,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.calendar.logic.CalendarLogic;
-import seedu.address.calendar.model.Calendar;
-import seedu.address.calendar.model.ReadOnlyCalendar;
 import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.model.date.Year;
-import seedu.address.calendar.model.util.CalendarStatistics;
-import seedu.address.calendar.storage.CalendarStorage;
-import seedu.address.calendar.storage.JsonCalendarStorage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.CommandBox;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
@@ -61,6 +52,10 @@ public class CalendarPage extends UiPart<Region> implements Page {
     @FXML
     GridPane weekHeader;
 
+    /**
+     * Creates a calendar page.
+     * @param calendarLogic Calendar logic which is used to handle all logic
+     */
     public CalendarPage(CalendarLogic calendarLogic) {
         super(FXML);
 
@@ -71,14 +66,17 @@ public class CalendarPage extends UiPart<Region> implements Page {
         listWindow = new ListWindow();
     }
 
+    /**
+     * Gets {@code this} page type.
+     * @return {@code PageType.CALENDAR}
+     */
     public PageType getPageType() {
         return pageType;
     }
 
     /**
-     * Sets up calendar page by laying out nodes.
+     * Sets up calendar page by filling up the placeholders.
      */
-
     private void fillInnerParts() {
         ViewOnlyMonth currentViewOnlyMonth = calendarLogic.getVisibleMonth();
         MonthOfYear monthOfYear = currentViewOnlyMonth.getMonthOfYear();
@@ -129,6 +127,10 @@ public class CalendarPage extends UiPart<Region> implements Page {
         PageManager.closeWindows();
     }
 
+    /**
+     * Handles list command by showing list window with the relevant content.
+     * @param feedback The relevant content to show user
+     */
     private void handleShowList(String feedback) {
         if (!listWindow.isShowing()) {
             listWindow.show(feedback);
