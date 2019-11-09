@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.CommandResult;
@@ -45,6 +46,11 @@ public class DoneTaskCommand extends DoneCommand {
 
             throw new CommandException(Messages.MESSAGE_TASK_IS_ALREADY_MARKED_AS_COMPLETE);
         }
+
+        // Navigate to dashboard tab
+        Event event = Event.getInstance();
+        event.set("dashboard", "all");
+
         Dashboard createDoneTask = createDoneTask(taskToMark);
         model.doneDashboard(createDoneTask);
 

@@ -2,6 +2,7 @@ package dukecooks.logic.commands.dashboard;
 
 import static java.util.Objects.requireNonNull;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.FindCommand;
@@ -29,6 +30,11 @@ public class FindTaskCommand extends FindCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
+        // Navigate to dashboard tab
+        Event event = Event.getInstance();
+        event.set("dashboard", "all");
+
         model.updateFilteredDashboardList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_TASK_LISTED_OVERVIEW, model.getFilteredDashboardList().size()));

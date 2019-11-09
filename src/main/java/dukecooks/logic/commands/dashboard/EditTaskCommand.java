@@ -8,6 +8,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Optional;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.CollectionUtil;
@@ -20,7 +21,7 @@ import dukecooks.model.dashboard.components.DashboardName;
 import dukecooks.model.dashboard.components.TaskDate;
 
 /**
- * Edits the details of an existing recipe in Duke Cooks.
+ * Edits the details of an existing recipe in DukeCooks.
  */
 public class EditTaskCommand extends EditCommand {
 
@@ -35,7 +36,7 @@ public class EditTaskCommand extends EditCommand {
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Duke Cooks.";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the DukeCooks.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -67,6 +68,10 @@ public class EditTaskCommand extends EditCommand {
         if (!taskToEdit.isSameDashboard(editedTask) && model.hasDashboard(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
+
+        // Navigate to dashboard tab
+        Event event = Event.getInstance();
+        event.set("dashboard", "all");
 
         model.setDashboard(taskToEdit, editedTask);
         model.updateFilteredDashboardList(PREDICATE_SHOW_ALL_DASHBOARD);
