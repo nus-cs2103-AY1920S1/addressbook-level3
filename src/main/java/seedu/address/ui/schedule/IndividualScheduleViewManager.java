@@ -3,26 +3,21 @@ package seedu.address.ui.schedule;
 import java.time.LocalDate;
 import java.util.List;
 
-import seedu.address.model.display.schedulewindow.MonthSchedule;
+import seedu.address.model.display.schedulewindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
-import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.model.person.Name;
 
 /**
  * Class to handle schedule views of individuals. Schedule of individuals do not show free time.
  */
 public class IndividualScheduleViewManager implements ScheduleViewManager {
-    private MonthSchedule monthSchedule;
-    private String color;
+    private PersonSchedule personSchedule;
     private ScheduleView scheduleView;
-    private PersonDisplay personDisplay;
     private int weekNumber;
     private LocalDate currentDate;
 
-    public IndividualScheduleViewManager(MonthSchedule monthSchedule,
-                                         PersonDisplay personDisplay, String color) {
-        this.personDisplay = personDisplay;
-        this.monthSchedule = monthSchedule;
-        this.color = color;
+    public IndividualScheduleViewManager(PersonSchedule personSchedule) {
+        this.personSchedule = personSchedule;
         this.weekNumber = 0;
         this.currentDate = LocalDate.now();
         initScheduleView();
@@ -34,8 +29,9 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
      */
     private void initScheduleView() {
         LocalDate dateToShow = currentDate.plusDays(weekNumber * 7);
-        this.scheduleView = new ScheduleView(List.of(monthSchedule.getScheduleForWeek(weekNumber)),
-                List.of(color), personDisplay.getName().fullName, dateToShow);
+        this.scheduleView = new ScheduleView(List.of(personSchedule
+                .getScheduleDisplay().getScheduleForWeek(weekNumber)),
+                personSchedule.getPersonDisplay().getName().fullName, dateToShow);
         this.scheduleView.generateSchedule();
     }
 
@@ -51,8 +47,9 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
 
     @Override
     public ScheduleView getScheduleViewCopy() {
-        ScheduleView copy = new ScheduleView(List.of(monthSchedule.getScheduleForWeek(weekNumber)),
-                List.of(color), personDisplay.getName().fullName, currentDate.plusDays(7 * weekNumber));
+        ScheduleView copy = new ScheduleView(List.of(personSchedule
+                .getScheduleDisplay().getScheduleForWeek(weekNumber)),
+                personSchedule.getPersonDisplay().getName().fullName, currentDate.plusDays(7 * weekNumber));
         copy.generateSchedule();
         return copy;
     }
@@ -64,8 +61,8 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
     }
 
     @Override
-    public List<String> getColors() {
-        return List.of(color);
+    public void filterPersonsFromSchedule(List<Name> persons) {
+        //Cannot filter persons from individual schedule.
     }
 
     @Override

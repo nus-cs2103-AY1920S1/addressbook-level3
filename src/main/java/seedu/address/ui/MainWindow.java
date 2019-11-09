@@ -34,6 +34,7 @@ import seedu.address.ui.popup.TimeslotView;
 import seedu.address.ui.schedule.GroupInformation;
 import seedu.address.ui.schedule.PersonDetailCard;
 import seedu.address.ui.schedule.ScheduleViewManager;
+import seedu.address.ui.util.ColorGenerator;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -277,8 +278,8 @@ public class MainWindow extends UiPart<Stage> {
             }
         } else {
             GroupInformation groupInformation = new GroupInformation(logic.getMainWindowDisplay().getPersonDisplays(),
-                    logic.getMainWindowDisplay().getGroupDisplay(),
-                    scheduleViewManager.getColors());
+                    null, logic.getMainWindowDisplay().getGroupDisplay(),
+                    ColorGenerator::generateColor);
             Exporter exporter = new GroupScheduleExporter(scheduleViewManager.getScheduleViewCopy(), groupInformation,
                     "png", "./export.png");
             try {
@@ -306,6 +307,7 @@ public class MainWindow extends UiPart<Stage> {
 
 
             ScheduleWindowDisplay scheduleWindowDisplay = logic.getMainWindowDisplay();
+            //Command results that require early return statements.
             if (commandResult.isScroll()) {
                 handleScroll();
                 return commandResult;
@@ -327,6 +329,36 @@ public class MainWindow extends UiPart<Stage> {
                 return commandResult;
             }
 
+            if (commandResult.isFilter()) {
+                if (!scheduleWindowDisplay.getFilteredNames().isEmpty()) {
+                    handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(),
+                            scheduleWindowDisplay.getFilteredNames().get(), scheduleWindowDisplay.getGroupDisplay(),
+                            ColorGenerator::generateColor).getRoot(), SidePanelDisplayType.GROUP);
+                    scheduleViewManager.filterPersonsFromSchedule(scheduleWindowDisplay.getFilteredNames().get());
+                    handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
+                }
+                return commandResult;
+            }
+
+            if (commandResult.isSelect()) {
+                PersonTimeslot personTimeslot;
+                if (commandResult.getPersonTimeslotData().isPresent()) {
+                    personTimeslot = commandResult.getPersonTimeslotData().get();
+
+                    TimeslotView timeslotView = new TimeslotView(personTimeslot);
+                    new TimeslotPopup(timeslotView.getRoot()).show();
+
+                } else {
+                    return commandResult;
+                }
+            }
+
+            if (commandResult.isPopUp()) {
+                LocationsView locationsView = new LocationsView(commandResult.getLocationData());
+                new LocationPopup(locationsView.getRoot()).show();
+                return commandResult;
+            }
+
             ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
             if (ScheduleViewManager.getInstanceOf(scheduleWindowDisplay) != null) {
                 scheduleViewManager = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay);
@@ -345,9 +377,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case GROUP:
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
-                handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(),
-                        scheduleWindowDisplay.getGroupDisplay(),
-                        scheduleViewManager.getColors()).getRoot(), SidePanelDisplayType.GROUP);
+                handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(), null,
+                        scheduleWindowDisplay.getGroupDisplay(), ColorGenerator::generateColor).getRoot(),
+                        SidePanelDisplayType.GROUP);
                 break;
             case DEFAULT:
                 // do nothing
@@ -369,24 +401,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isSelect()) {
-                PersonTimeslot personTimeslot;
-                if (commandResult.getPersonTimeslotData().isPresent()) {
-                    personTimeslot = commandResult.getPersonTimeslotData().get();
-
-                    TimeslotView timeslotView = new TimeslotView(personTimeslot);
-                    new TimeslotPopup(timeslotView.getRoot()).show();
-
-                } else {
-                    return commandResult;
-                }
-            }
-
-            if (commandResult.isPopUp()) {
-                LocationsView locationsView = new LocationsView(commandResult.getLocationData());
-                new LocationPopup(locationsView.getRoot()).show();
             }
 
             return commandResult;

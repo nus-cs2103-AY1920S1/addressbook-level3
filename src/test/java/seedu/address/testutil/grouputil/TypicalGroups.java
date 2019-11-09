@@ -12,8 +12,11 @@ import seedu.address.model.mapping.Role;
  */
 public class TypicalGroups {
 
+    //THIS GROUP HAS USER, ALICE PAULINE, BENSON MEIER.
     public static final GroupName GROUP_NAME1 = new GroupName("group1");
+    //THIS GROUP HAS USER, ALICE PAULINE, BENSON MEIER.
     public static final GroupName GROUP_NAME2 = new GroupName("group2");
+    //THIS GROUP HAS USER, ALICE PAULINE, CARL KURZ.
     public static final GroupName GROUP_NAME3 = new GroupName("group3");
 
     public static final GroupDescription GROUP_DESCRIPTION1 = new GroupDescription("description1");

@@ -7,7 +7,7 @@ import java.time.LocalTime;
  */
 public class TimeUtil {
     public static int formatTimeToInt(LocalTime localTime) {
-        return localTime.getHour() * 100 + (localTime.getMinute() / 2) * 2;
+        return localTime.getHour() * 100 + localTime.getMinute();
     }
 
     /**
@@ -30,16 +30,16 @@ public class TimeUtil {
 
     /**
      * Method to convert int hours to time in 24hours clock representation.
-     * @param time Time in hours to be formatted.
+     * @param hour Time in hours to be formatted.
      * @return String that represents the time.
      */
-    public static String formatIntToTime(int time) {
-        if (time == 0) {
+    public static String formatHourToString(int hour) {
+        if (hour == 0) {
             return "0000";
-        } else if (time < 10) {
-            return "0" + (time * 100);
+        } else if (hour < 10) {
+            return "0" + (hour * 100);
         } else {
-            return time * 100 + "";
+            return hour * 100 + "";
         }
     }
 }

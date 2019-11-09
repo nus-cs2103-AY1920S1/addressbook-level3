@@ -62,6 +62,11 @@ public class CommandResult {
     private boolean isSelect = false;
 
     /**
+     * The application will filter.
+     */
+    private boolean isFilter = false;
+
+    /**
      * Data to show in popup.
      */
     private Optional<ClosestCommonLocationData> locationData = Optional.empty();
@@ -170,6 +175,24 @@ public class CommandResult {
 
     }
 
+    /**
+     * Constructs an alternative CommandResult that would affect the UI.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean export,
+                         boolean scroll, boolean popUp, boolean toggleNextWeek, boolean home, boolean isFilter) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.export = export;
+        this.scroll = scroll;
+        this.popUp = popUp;
+        this.toggleNextWeek = toggleNextWeek;
+        this.home = home;
+        this.isSwitchTabs = false;
+        this.isFilter = isFilter;
+
+    }
+
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
@@ -225,6 +248,10 @@ public class CommandResult {
 
     public boolean isSelect() {
         return this.isSelect;
+    }
+
+    public boolean isFilter() {
+        return this.isFilter;
     }
 
     public void setPersonTimeslotData(PersonTimeslot personTimeslot) {

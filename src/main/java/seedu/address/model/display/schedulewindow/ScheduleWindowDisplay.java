@@ -3,6 +3,9 @@ package seedu.address.model.display.schedulewindow;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import seedu.address.model.display.exceptions.PersonTimeslotNotFoundException;
 import seedu.address.model.display.sidepanel.GroupDisplay;
@@ -18,6 +21,7 @@ public class ScheduleWindowDisplay {
     private ArrayList<PersonSchedule> personSchedules;
     private ScheduleWindowDisplayType scheduleWindowDisplayType;
     private GroupDisplay groupDisplay;
+    private Optional<List<Name>> filteredNames = Optional.empty();
 
     private ArrayList<FreeSchedule> freeScheduleWeeks;
 
@@ -36,21 +40,14 @@ public class ScheduleWindowDisplay {
         this.scheduleWindowDisplayType = scheduleWindowDisplayType;
     }
 
-    /*public ScheduleWindowDisplay() {
-        this.personSchedules = new ArrayList<>();
-        this.scheduleWindowDisplayType = ScheduleWindowDisplayType.DEFAULT;
-        this.groupDisplay = null;
-
-        this.freeScheduleWeeks = null;
+    public void setFilteredNames(List<Name> filteredNames) {
+        assert this.scheduleWindowDisplayType.equals(ScheduleWindowDisplayType.GROUP);
+        List<Name> presentNames = personSchedules.stream()
+                .map(personSchedule -> personSchedule.getPersonDisplay().getName())
+                .filter(name -> filteredNames.contains(name))
+                .collect(Collectors.toCollection(ArrayList::new));
+        this.filteredNames = Optional.of(presentNames);
     }
-
-    public ScheduleWindowDisplay(ScheduleWindowDisplayType type) {
-        this.personSchedules = new ArrayList<>();
-        this.scheduleWindowDisplayType = type;
-        this.groupDisplay = null;
-
-        this.freeScheduleWeeks = null;
-    }*/
 
     public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
         return scheduleWindowDisplayType;
@@ -66,6 +63,10 @@ public class ScheduleWindowDisplay {
 
     public ArrayList<FreeSchedule> getFreeSchedule() {
         return freeScheduleWeeks;
+    }
+
+    public Optional<List<Name>> getFilteredNames() {
+        return filteredNames;
     }
 
     public ArrayList<PersonDisplay> getPersonDisplays() {

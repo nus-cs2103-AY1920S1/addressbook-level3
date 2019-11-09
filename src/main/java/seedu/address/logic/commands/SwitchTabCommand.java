@@ -20,7 +20,6 @@ public class SwitchTabCommand extends Command {
 
         ScheduleWindowDisplayType state = model.getState();
         if (state == ScheduleWindowDisplayType.HOME) {
-            //model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
             CommandResult commandResult =
                     new CommandResult(MESSAGE_SUCCESS, false, false, false);
             commandResult.setIsSwitchTabs(true);
