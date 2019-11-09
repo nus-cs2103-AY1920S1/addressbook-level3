@@ -136,15 +136,7 @@ public class Activity {
      * Returns a List containing all the IDs of the participants.
      * @return A {@code List} containing the IDs of all participants.
      */
-    public List<Integer> getParticipantsIds() {
-        return participantIds;
-    }
-
-    /**
-     * Returns an ArrayList containing all the IDs of the participants.
-     * @return A {@code List} containing the IDs of all participants.
-     */
-    public ArrayList<Integer> getParticipantIds() {
+    public List<Integer> getParticipantIds() {
         return participantIds;
     }
 
@@ -356,6 +348,12 @@ public class Activity {
             expense.setInvolved(involved);
         }
 
+        expenses.add(expense);
+
+        if (expense.isDeleted()) {
+            return;
+        }
+
         positionMask = IntStream.of(involved)
             .map(x -> idDict.get(x))
             .toArray();
@@ -367,7 +365,7 @@ public class Activity {
             double debt = getOwed(involved[0], payer);
             if (debt < 0) {
                 return;
-            } else if (amount > debt || amount == 0) {
+            } else if (amount == 0) {
                 splitAmount = debt;
             } else {
                 splitAmount = amount;
@@ -385,8 +383,6 @@ public class Activity {
         IntStream.of(involved)
             .forEach(x -> participantActive.set(idDict.get(x), true));
         participantActive.set(payerPos, true);
-
-        expenses.add(expense);
     }
 
     /**
@@ -470,7 +466,7 @@ public class Activity {
         }
 
         // We update the balance sheet
-        double splitAmount = amount / (involved.length + 1);
+        double splitAmount = expense.isSettlement() ? amount : amount / (involved.length + 1);
 
         // Revert the change made by addExpense
         IntStream.of(positionMask)
