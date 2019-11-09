@@ -44,7 +44,8 @@ public class JsonAdaptedGroceryItemTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedGroceryItem groceryItem = new JsonAdaptedGroceryItem(null, VALID_AMOUNT, VALID_EXPIRY_DATE, VALID_TAGS);
+        JsonAdaptedGroceryItem groceryItem = new JsonAdaptedGroceryItem(
+                null, VALID_AMOUNT, VALID_EXPIRY_DATE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, groceryItem::toModelType);
     }

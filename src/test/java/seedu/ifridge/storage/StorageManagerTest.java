@@ -65,11 +65,11 @@ public class StorageManagerTest {
 
     @Test
     public void groceryListReadSave() throws Exception {
-    /*
+        /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonGroceryListStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonGroceryListStorageTest} class.
-    */
+        */
         GroceryList original = TypicalGroceryItems.getTypicalGroceryList();
         storageManager.saveGroceryList(original);
         ReadOnlyGroceryList retrieved = storageManager.readGroceryList().get();

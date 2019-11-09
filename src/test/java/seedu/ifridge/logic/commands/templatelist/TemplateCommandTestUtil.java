@@ -2,7 +2,6 @@ package seedu.ifridge.logic.commands.templatelist;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
@@ -14,15 +13,15 @@ import java.util.List;
 import seedu.ifridge.commons.core.index.Index;
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
-import seedu.ifridge.logic.commands.EditCommand;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
+import seedu.ifridge.logic.commands.grocerylist.EditGroceryCommand;
 import seedu.ifridge.logic.commands.templatelist.template.EditTemplateItemCommand;
 import seedu.ifridge.model.GroceryList;
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
-import seedu.ifridge.testutil.EditFoodDescriptorBuilder;
+import seedu.ifridge.testutil.EditGroceryItemDescriptorBuilder;
 import seedu.ifridge.testutil.EditTemplateItemDescriptorBuilder;
 
 /**
@@ -56,16 +55,18 @@ public class TemplateCommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditFoodDescriptor DESC_NUTS;
-    public static final EditCommand.EditFoodDescriptor DESC_ORANGES;
+
+    public static final EditGroceryCommand.EditGroceryItemDescriptor DESC_NUTS;
+    public static final EditGroceryCommand.EditGroceryItemDescriptor DESC_ORANGES;
     public static final EditTemplateItemCommand.EditTemplateItemDescriptor DESC_TEMP_MINCED_MEAT;
     public static final EditTemplateItemCommand.EditTemplateItemDescriptor DESC_TEMP_TOMATO_JUICE;
 
     static {
-        DESC_NUTS = new EditFoodDescriptorBuilder().withName(VALID_NAME_NUTS).withAmount(VALID_AMOUNT_NUTS)
+        DESC_NUTS = new EditGroceryItemDescriptorBuilder().withName(VALID_NAME_NUTS).withAmount(VALID_AMOUNT_NUTS)
                 .withExpiryDate(VALID_EXPIRY_DATE_NUTS).withTags(VALID_TAG_VEGETABLE).build();
-        DESC_ORANGES = new EditFoodDescriptorBuilder().withName(VALID_NAME_ORANGES).withAmount(VALID_AMOUNT_ORANGES)
-                .withExpiryDate(VALID_EXPIRY_DATE_NUTS).withTags(VALID_TAG_CARBS, VALID_TAG_VEGETABLE).build();
+        DESC_ORANGES = new EditGroceryItemDescriptorBuilder().withName(VALID_NAME_ORANGES)
+                .withAmount(VALID_AMOUNT_ORANGES).withExpiryDate(VALID_EXPIRY_DATE_NUTS)
+                .withTags(VALID_TAG_CARBS, VALID_TAG_VEGETABLE).build();
         DESC_TEMP_MINCED_MEAT = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_CHEESE)
                 .withAmount(VALID_AMOUNT_CHEESE).build();
         DESC_TEMP_TOMATO_JUICE = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_TOMATO_JUICE)
