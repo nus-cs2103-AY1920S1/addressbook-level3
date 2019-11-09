@@ -144,6 +144,4 @@ They showcase my ability to write technical documentation and
 the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=undoredo]
-
-//include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=undo/redo]
