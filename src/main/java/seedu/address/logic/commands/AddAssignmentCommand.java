@@ -59,7 +59,7 @@ public class AddAssignmentCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                   || (other instanceof AddStudentCommand // instanceof handles nulls
+                   || (other instanceof AddAssignmentCommand // instanceof handles nulls
                            && toAdd.equals(((AddAssignmentCommand) other).toAdd));
     }
 }
