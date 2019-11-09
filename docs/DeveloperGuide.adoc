@@ -717,12 +717,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-  Expected: The most recent window size and location is retained.
-
 === Notification System
 
 . Posting notifications to the desktop
