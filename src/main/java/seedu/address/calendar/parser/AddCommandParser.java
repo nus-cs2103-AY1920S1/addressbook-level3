@@ -39,7 +39,7 @@ class AddCommandParser {
 
         try {
             eventType = EventType.valueOf(eventTypeStr);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_VALID_TYPES));
         }
 

@@ -135,7 +135,7 @@ public class Date implements IntervalPart<Date> {
 
         try {
             DayOfWeek.valueOf(dayOfWeek);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
 
@@ -169,7 +169,6 @@ public class Date implements IntervalPart<Date> {
         requireNonNull(dayOfMonth);
         requireNonNull(month);
         requireNonNull(year);
-        // todo: consider encapsulating all operations
         DayOfWeek dayOfWeekVal = DayOfWeek.valueOf(dayOfWeek);
         MonthOfYear monthVal = DateUtil.convertStrToMonth(month);
         Year yearVal = new Year(Integer.parseInt(year));

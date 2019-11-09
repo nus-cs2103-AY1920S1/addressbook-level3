@@ -36,12 +36,13 @@ public enum EventType {
      * @param eventType Representative {@code String} of an {@code EventType}
      * @return {@code EventType} that is represented by {@code eventType}
      * @throws IllegalValueException if {@code eventType} does not represent any valid {@code EventType}
+     * @throws NullPointerException if {@code eventType} is {@code null}
      */
     public static EventType getInstanceFromString(String eventType) throws IllegalValueException {
         try {
             EventType requiredEventType = EventType.valueOf(eventType.trim().toUpperCase());
             return requiredEventType;
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
     }
