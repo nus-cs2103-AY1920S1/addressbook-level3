@@ -495,45 +495,77 @@ other functions such as `DeleteCommand` or `FindCommand` which also uses index. 
 the full name of the selected athlete.
 
 === Undo / Redo feature
-The undo command enables users to undo their previous commands while the redo feature enables users to redo their undone commands.
+The `undo` command enables users to undo their previous commands while the `redo` command enables users to redo their
+undone commands.
 
 ==== Undo Implementation
 
-The undo feature is facilitated by the `HistoryManager`. The `commands` stack and the `addressBooks` stack in the `HistoryManager` class are used to govern the undo feature.
+The `undo` command is facilitated by the `[green]#HistoryManager#`. `[green]#HistoryManager#` holds the
+states of `[green]#Athletick#`, `[green]#Attendance#` and `[green]#Performance#`, which are kept in
+their respective stacks governed by `[green]#HistoryManager#`. Furthermore, `[green]#HistoryManager#` also
+holds the `[green]#Command#` stack that keeps track of the commands executed by the user.
 
-The static `commands` stack keeps track of all the commands that have been executed by the user while the static `addressBooks` stack keeps track of the corresponding state of the address book following the executed command.
+Each time after the user executes a command, the command will be pushed to the
+`[green]#Command#` stack. Also, following the execution of the command,
+changes to either `[green]#Athletick#`,`[green]#Attendance#` or `[green]#Performance#`
+will result in the new state being pushed into their respective stacks.
 
-Given below is an example usage scenario and how the undo mechanism behaves at each step.
+Given below is an example usage scenario on how the undo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `HistoryManager` will be initialised with the
-initial address book state pushed to the `addressBooks` stack.
+Step 1. The user launches the application for the first time. The `[green]#HistoryManager#` will be
+initialised with the initial `[green]#Athletick#`, `[green]#Attendance#` and
+`[green]#Performance#` state pushed to the respective stacks.
 
 image::initialStack.png[width=450]
 
-Step 2. The user executes the delete 3 command to delete the 3rd person in the Athletick list. The delete command will be pushed into the `commands` stack in and the new state of the address book (after executing the delete command) will be pushed to the `addressBooks` stack as well.
+Step 2. The user executes the `delete -p 3` command to delete the 3rd person in the `[green]#Athletick#` list. The
+delete command will be pushed into the `[green]#Command#` stack. After that,
+since the `delete -p 3` command only alters the `[green]#Athletick#` state, the new `[green]#Athletick#`
+state will then be pushed to the `[green]#Athletick#` stack while the `[green]#Attendance#` and
+`[green]#Performance#` stacks are left untouched as their states remain the same.
 
 image::afterUndoStack.png[width=450]
 
-Step 3. The user now decides that deleting the 3rd person in the list was a mistake, and decides to undo the action by executing the `undo` command. The `undo` command calls the undo method in the `ModelManager` which pops the latest Command from the `commands` stack and
-the latest Address Book from the `addressBooks` stack. This removes the latest action caused by the command that wants to be undone. It then continues to peek at the `addressBooks` stack to retrieve the Address Book state before the undone Command was executed.
+Step 3. The user now decides that deleting the 3rd person in the list was a mistake, and decides to undo the action
+by executing the `undo` command. The `undo` command then executes the `undo` method in the
+`[green]#ModelManager#`. This pops the latest command from the `[green]#Command#`
+stack and the latest `[green]#Athletick#` state from the `[green]#Athletick#` stack.
+It then peeks at the `[green]#Athletick#` stack to retrieve the `[green]#Athletick#` state
+before `delete -p 3` command was executed.
 
 image::initialStack.png[width=450]
+
+Step 4. After retrieving the `[green]#Athletick#` state before `delete -p 3` command
+was executed, we then resets the `[green]#Athletick#` state to this retrieved
+`[green]#Athletick#` state. As such, the previous command will then be undone.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoSQ.png[width=450]
-Figure 1. Sequence diagram for undo feature
+Sequence diagram for undo implementation
 
 ==== Redo Implementation
 
-The redo feature is also facilitated by the `HistoryManager`. The `undoneCommands` stack and the `undoneAddressBooks` stack in the `HistoryManager` class are used to govern the redo feature.
+The `redo` command is similarly facilitated by the `[green]#HistoryManager#`. `[green]#HistoryManager#`
+also holds the undone states of `[green]#Athletick#`, `[green]#Attendance#` and `[green]#Performance#`,
+which are kept in their respective undone stacks governed by `[green]#HistoryManager#`. Furthermore,
+`[green]#HistoryManager#` also holds the undone `[green]#Command#` stack that keeps track of the commands
+undone by the user.
 
-The `undoneCommands` stack keeps track of commands that have been undone by the user while the `undoneAddressBooks` stack keeps track of the corresponding state of the address book following the undone command.
+Each time an `undo` command is executed succesfully, the undone `[green]#Command#` will be pushed
+to the undone `[green]#Command#` stack and the respective undone states of `[green]#Athletick#`, `[green]#Attendance#`
+or `[green]#Performance#`, if affected, will be pushed to their respective undone states.
 
-How the redo feature works is very similar to how the undo feature works. The difference is that redo utilises the
-`undoneCommands` stack and the `undoneAddressBooks` stack. As such, you can also refer to the diagrams in the
+Following that, how the `redo` command works is very similar to how the `undo` command works.
+As such, you can also refer to the diagrams in the
 link:https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/docs/DeveloperGuide.adoc#undo-redo-feature[Undo
 Implementation.]
+
+The activity diagram for `redo` command is as follows:
+
+image::redoactivity.png[width=450]
+Activity diagram for `redo` command
+
 
 
 ==== Design Considerations
@@ -541,21 +573,29 @@ This section describes the pros and cons of the current and other alternative im
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves a deep copy of the entire address book after each command into a stack.
-** Pros:  Easy to implement, and easy for developers to understand.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command is correct.
+[width="100%", cols="1, 5, 5"]
+|===
+||Alternative 1 (Current Choice): Keep states of `[green]#Athletick#`, `[green]#Attendance#` and
+`[green]#Performance#`.|Alternative 2: Individual command knows how to undo/redo by itself
+
+|Pros
+a|* Easy to implement, and easy for developers to understand.
+a|* Will use less memory (e.g. for `delete -p 1`, just save the person being deleted).
+
+|Cons
+a|* May have performance issues in terms of memory usage.
+a|* We must ensure that the implementation of each individual command is correct.
+
+|===
 
 ====== Reason why we chose alternative 1:
-Even though the memory usage of Alternative 2 is lesser, we do not feel this benefit of lesser memory usage
+Even though the memory usage of Alternative 2 is lesser, we do not feel that this benefit of lesser memory usage
 outweighs the tedious cost of implementing the alternative.
 
-Furthermore, as we realise that each time the application starts, the memory of the address books states
+Furthermore, as we realise that each time the application starts, the memories of the states
 are cleared.
-This means that the cost of having alternative 1 is significantly lesser, as the memory of the address
-book states does not accumulate. As such, we
+This means that the cost of having alternative 1 is significantly lesser, as the memories of the states do not
+accumulate. As such, we
 decided to
 go with the first alternative.
 
