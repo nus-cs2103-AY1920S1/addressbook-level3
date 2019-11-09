@@ -1,3 +1,6 @@
+/' This is a big diagram; to generate this image at a higher resolution, you can
+increase PLANTUML_LIMIT_SIZE as shown in http://plantuml.com/faq '/
+
 @startuml
 !include style.puml
 skinparam arrowThickness 1.1
