@@ -22,6 +22,8 @@ Role: Member
 image::philipalexanderb.png[width="150", align="left"]
 {empty}[https://github.com/philipalexanderb[github]]
 
+'''
+
 Role: Member
 
 === Kwong Chung Yue Jerry
@@ -30,12 +32,15 @@ image::jerryk1997.png[width="150", align="left"]
 
 Role: Member
 
+'''
 
 === Wang Runding
 image::R-D-D-D.png[width="150", align="left"]
 {empty}[https://github.com/r-d-d-d[github]]
 
 Role: Member
+
+'''
 
 === Sng Jia Ming Fadi Faris
 image::fadisng.png[width="150", align="left"]
