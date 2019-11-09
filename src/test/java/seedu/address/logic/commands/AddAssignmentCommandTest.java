@@ -5,28 +5,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ReadOnlyNotebook;
-import seedu.address.model.classroom.Classroom;
 import seedu.address.model.Model;
-import seedu.address.model.classroom.ReadOnlyClassroom;
+import seedu.address.model.ReadOnlyNotebook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.assignment.UniqueAssignmentList;
+import seedu.address.model.classroom.Classroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
 
-import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 import seedu.address.testutil.AssignmentBuilder;
@@ -40,13 +41,14 @@ public class AddAssignmentCommandTest {
     }
 
     @Test
-    public void execute_AssignmentAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_assignmentAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingAssignmentAdded modelStub = new ModelStubAcceptingAssignmentAdded();
         Assignment validAssignment = new AssignmentBuilder().build();
 
         CommandResult commandResult = new AddAssignmentCommand(validAssignment).execute(modelStub);
 
-        assertEquals(String.format(AddAssignmentCommand.MESSAGE_SUCCESS, validAssignment), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddAssignmentCommand.MESSAGE_SUCCESS, validAssignment),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validAssignment), modelStub.assignmentsAdded);
     }
 
@@ -287,6 +289,11 @@ public class AddAssignmentCommandTest {
 
         @Override
         public boolean isDisplayStudents() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public String displayLessons() {
             throw new AssertionError("This method should not be called");
         }
 

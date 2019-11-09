@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
+import java.util.List;
+
 import seedu.address.model.Notebook;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.lesson.UniqueLessonList;
-
-import java.util.List;
 
 /**
  * A utility class to help with building Notebook objects.

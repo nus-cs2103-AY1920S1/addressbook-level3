@@ -5,24 +5,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ReadOnlyNotebook;
-import seedu.address.model.classroom.Classroom;
 import seedu.address.model.Model;
-import seedu.address.model.classroom.ReadOnlyClassroom;
+import seedu.address.model.ReadOnlyNotebook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.assignment.UniqueAssignmentList;
+import seedu.address.model.classroom.Classroom;
+import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
 
@@ -241,7 +243,7 @@ public class AddStudentCommandTest {
         public boolean checkTimingExist(Lesson lesson) {
             throw new AssertionError("This method should not be called");
         }
-        
+
         @Override
         public ObservableList<Student> getFilteredStudentList() {
             throw new AssertionError("This method should not be called.");
@@ -289,6 +291,11 @@ public class AddStudentCommandTest {
 
         @Override
         public void displayStudents() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public String displayLessons() {
             throw new AssertionError("This method should not be called");
         }
 

@@ -1,11 +1,10 @@
 package seedu.address.testutil;
 
+import java.util.List;
+
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.classroom.Classroom;
-//import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
-
-import java.util.List;
 
 /**
  * A utility class to help with building Classroom objects.

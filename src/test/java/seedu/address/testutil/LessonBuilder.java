@@ -1,25 +1,26 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.lesson.ClassName;
-import seedu.address.model.lesson.Lesson;
-import seedu.address.model.lesson.Time;
+import static java.util.Objects.requireNonNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.lesson.ClassName;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.Time;
+
 
 /**
  * A utility class to help with building Lesson objects.
  */
 public class LessonBuilder {
 
-    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
     public static final String DEFAULT_CLASS_NAME = "4C3 English";
     public static final String DEFAULT_LESSON_START_TIME = "31/12/2019 1200";
     public static final String DEFAULT_LESSON_END_TIME = "31/12/2019 1400";
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
     private ClassName className;
     private Time lessonStartTime;
@@ -34,6 +35,16 @@ public class LessonBuilder {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Initializes the Lesson with the data of {@code lessonToCopy}.
+     */
+    public LessonBuilder(Lesson lessonToCopy) {
+        sdf.setLenient(false);
+        className = lessonToCopy.getName();
+        lessonStartTime = lessonToCopy.getStartTime();
+        lessonEndTime = lessonToCopy.getEndTime();
     }
 
     /**
@@ -57,15 +68,6 @@ public class LessonBuilder {
         return new Time(calendar);
     }
 
-    /**
-     * Initializes the Lesson with the data of {@code lessonToCopy}.
-     */
-    public LessonBuilder(Lesson lessonToCopy) {
-        sdf.setLenient(false);
-        className = lessonToCopy.getName();
-        lessonStartTime = lessonToCopy.getStartTime();
-        lessonEndTime = lessonToCopy.getEndTime();
-    }
 
     /**
      * Sets the {@code ClassName} of the {@code Lesson} that we are building.

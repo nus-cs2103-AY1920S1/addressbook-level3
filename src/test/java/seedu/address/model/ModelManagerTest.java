@@ -7,19 +7,18 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalClassrooms.getTypicalClassroom;
 import static seedu.address.testutil.TypicalLessons.getTypicalLessons;
-import static seedu.address.testutil.TypicalStudents.*;
+import static seedu.address.testutil.TypicalStudents.ALICE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+//import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Notebook;
-import seedu.address.model.student.NameContainsKeywordsPredicate;
+//import seedu.address.model.student.NameContainsKeywordsPredicate;
 import seedu.address.testutil.NotebookBuilder;
-import seedu.address.testutil.TypicalClassrooms;
+//import seedu.address.testutil.TypicalClassrooms;
 
 public class ModelManagerTest {
 
@@ -110,14 +109,14 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Notebook Notebook = new NotebookBuilder().withClassrooms(getTypicalClassroom())
+        Notebook notebook = new NotebookBuilder().withClassrooms(getTypicalClassroom())
                 .withLessons(getTypicalLessons()).build();
         Notebook differentNotebook = new Notebook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(Notebook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(Notebook, userPrefs);
+        modelManager = new ModelManager(notebook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(notebook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -143,7 +142,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setNotebookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(Notebook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(notebook, differentUserPrefs)));
     }
 
 }

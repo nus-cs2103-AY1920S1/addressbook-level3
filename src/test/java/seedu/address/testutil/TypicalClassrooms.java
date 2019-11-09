@@ -1,11 +1,14 @@
 package seedu.address.testutil;
 
-import seedu.address.model.classroom.Classroom;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.classroom.Classroom;
+
+/**
+ * A utility class containing a list of {@code Classroom} objects to be used in tests.
+ */
 public class TypicalClassrooms {
 
     public static final Classroom CLASSROOM_ONE = new ClassroomBuilder()
