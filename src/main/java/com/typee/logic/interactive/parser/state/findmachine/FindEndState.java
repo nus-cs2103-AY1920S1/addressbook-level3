@@ -69,7 +69,7 @@ public class FindEndState extends EndState {
      * @throws CommandException If the predicate is invalid.
      */
     private void checkPredicateValidity(EngagementPredicate engagementPredicate) throws CommandException {
-        if (!engagementPredicate.isValid()) {
+        if (!engagementPredicate.hasEditedFields()) {
             throw new CommandException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }

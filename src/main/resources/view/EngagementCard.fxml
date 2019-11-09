@@ -21,22 +21,22 @@
       </padding>
          <HBox prefHeight="15.0" prefWidth="129.0">
             <children>
-           <Label fx:id="id" styleClass="cell_big_label" text="\$id">
+           <Label fx:id="id" styleClass="cell_big_label" text="\$id" textOverrun="CLIP">
              <minWidth>
                <!-- Ensures that the label text is never truncated -->
                <Region fx:constant="USE_PREF_SIZE" />
              </minWidth>
            </Label>
-               <Label fx:id="type" maxWidth="1.7976931348623157E308" prefHeight="17.0" styleClass="cell_big_label" text="\$type" />
+               <Label fx:id="type" maxWidth="1.7976931348623157E308" styleClass="cell_big_label" text="\$type" textOverrun="CLIP" />
                <Label styleClass="cell_big_label" text=" at " />
-               <Label fx:id="locationOfEngagement" styleClass="cell_big_label" text="\$locationOfEngagement" />
+               <Label fx:id="locationOfEngagement" styleClass="cell_big_label" text="\$locationOfEngagement" textOverrun="CLIP" />
             </children>
          </HBox>
          <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
-           <Label fx:id="startTime" prefHeight="17.0" prefWidth="120.0" styleClass="cell_small_label" text="\$start" wrapText="true" />
-               <Label prefHeight="17.0" prefWidth="20.0" styleClass="cell_small_label" text="to " />
-               <Label fx:id="endTime" prefHeight="17.0" prefWidth="120.0" styleClass="cell_small_label" text="\$end" wrapText="true" />
+           <Label fx:id="startTime" prefHeight="17.0" prefWidth="120.0" styleClass="cell_small_label" text="\$start" textOverrun="CLIP" wrapText="true" />
+               <Label prefHeight="17.0" prefWidth="20.0" styleClass="cell_small_label" text="to " textOverrun="CLIP" />
+               <Label fx:id="endTime" prefHeight="17.0" prefWidth="120.0" styleClass="cell_small_label" text="\$end" textOverrun="CLIP" wrapText="true" />
             </children>
          </HBox>
       <FlowPane fx:id="tags" />
@@ -46,11 +46,11 @@
             <Label fx:id="attendees" prefHeight="17.0" prefWidth="300.0" styleClass="cell_small_label" text="\$attendees" />
             </children>
          </HBox>
-      <Label fx:id="description" prefHeight="17.0" prefWidth="283.0" styleClass="cell_small_label" text="\$description" />
+      <Label fx:id="description" styleClass="cell_small_label" text="\$description" textOverrun="CLIP" />
          <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
-               <Label styleClass="cell_small_label" text="Priority: " />
-               <Label fx:id="priority" prefHeight="17.0" prefWidth="100.0" styleClass="cell_small_label" text="\$priority" />
+               <Label styleClass="cell_small_label" text="Priority: " textOverrun="CLIP" />
+               <Label fx:id="priority" prefHeight="17.0" prefWidth="100.0" styleClass="cell_small_label" text="\$priority" textOverrun="CLIP" />
             </children>
          </HBox>
     </VBox>

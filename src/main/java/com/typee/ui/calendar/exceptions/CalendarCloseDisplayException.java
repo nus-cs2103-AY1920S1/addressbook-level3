@@ -7,6 +7,7 @@ public class CalendarCloseDisplayException extends Exception {
 
     /**
      * Constructs a new {@code CalendarCloseDisplayException} with the specified message.
+     *
      * @param message The specified message.
      */
     public CalendarCloseDisplayException(String message) {

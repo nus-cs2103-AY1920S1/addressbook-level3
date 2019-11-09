@@ -8,7 +8,8 @@ import com.typee.model.person.Name;
 import com.typee.model.person.Person;
 
 /**
- * Tests that an {@code Engagement}'s description matches any of the keywords given.
+ * Tests that an {@code Engagement}'s attendee, or description, or location, or priority matches any of the keywords
+ * given.
  */
 public class EngagementPredicate implements Predicate<Engagement> {
     private String timeSlot;
@@ -20,7 +21,11 @@ public class EngagementPredicate implements Predicate<Engagement> {
     public EngagementPredicate() {
     }
 
-    public boolean isValid() {
+    /**
+     * Returns true when there are any edited time slot, attendees, location, description, or priority, and returns
+     * otherwise.
+     */
+    public boolean hasEditedFields() {
         return timeSlot != null || attendees != null || location != null || description != null
                 || priority != null;
     }

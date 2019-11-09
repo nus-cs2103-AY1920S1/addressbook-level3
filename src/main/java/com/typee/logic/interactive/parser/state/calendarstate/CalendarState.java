@@ -22,11 +22,11 @@ public class CalendarState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "What would you like to do with the calendar? Please enter"
             + " the command prefixed by \"c/\". Allowed actions are"
-            + " \"nextmonth\", \"previousmonth\" and \"opendisplay\".";
+            + " \"nextmonth\", \"previousmonth\", \"opendisplay\", and \"closedisplay\".";
     private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid action after \"c/\"."
-            + " Allowed actions are \"nextmonth\", \"previousmonth\" and \"opendisplay\".";
+            + " Allowed actions are \"nextmonth\", \"previousmonth\", \"opendisplay\", and \"closedisplay\".";
     private static final String MESSAGE_INVALID_INPUT = "Invalid input!"
-            + " Allowed actions are \"nextmonth\", \"previousmonth\" and \"opendisplay\".";
+            + " Allowed actions are \"nextmonth\", \"previousmonth\", \"opendisplay\", and \"closedisplay\".";
 
     public CalendarState(ArgumentMultimap soFar) {
         super(soFar);
