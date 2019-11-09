@@ -75,15 +75,10 @@ include::../UserGuide.adoc[tag=commandSummary]
 |===
 
 include::../DeveloperGuide.adoc[tag=modelClassDiagram]
-include::../DeveloperGuide.adoc[tag=modelStorageDiagram]
+include::../DeveloperGuide.adoc[tag=storageClassDiagram]
 include::../DeveloperGuide.adoc[tag=Calendar]
 include::../DeveloperGuide.adoc[tag=undoAndRedo]
+include::../DeveloperGuide.adoc[tag=userStoriesAndCase]
 
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_ +
 
