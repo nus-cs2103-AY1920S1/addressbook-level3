@@ -162,7 +162,7 @@ Format: `listprob`
 
 ==== Sorting problems: `sortprob`
 
-Sorts the current list of results by a specified order and direction. +
+Sorts the current list of **problems** by a specified method and order. +
 Format: `sortprob m/METHOD [ord/ORDER]`
 
 * `METHOD` can be `name`, `author`, `weblink`, `difficulty` or `source`.
@@ -191,6 +191,9 @@ Sorts the current list of problems from lowest to highest difficulty.
 
 Finds problems fulfilling all provided constraints. +
 Format: `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...`
+
+.The result of `findprob` is shown in the problems list
+image::findprob_1.png[width="70%"]
 
 [NOTE]
 When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `addprob` command). Also at least one search restriction should be provided.
@@ -242,11 +245,15 @@ Saves a problem-finding rule from provided constraints. +
 Format: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...` +
 Alias: `afr`
 
+.Information related to find rules is displayed in the "Find Rules" panel
+image::find_rule_1.png[width="70%"]
+
 [TIP]
-The feature of storing/applying a problem-finding rule is complementary to the plan and tag feature: both tag and plan requires you to categorize problems one by one manually. If you simply want to "keep a list of problems" that fulfills certain conditions, say "algorithm questions of medium difficulty" or "graph theory questions from Kattis", you may store these rules using `addfindrule` and `apply` them later. Unlike plans, as you add new questions to AlgoBase, so long as the new questions fulfill the search rule, they will show up if you `apply` that rule.
+If you want to "keep a list of problems" that fulfills certain conditions, say "graph theory questions from Kattis", you may store these rules using `addfindrule` and `apply` them later. +
+Unlike plans, as you add new questions to AlgoBase, so long as the new questions fulfill the search rule, they will show up if you `apply` that rule.
 
 [NOTE]
-The rules for constraints are the same as those described in `findprob` command.
+The rules for constraints are the same as those described in `findprob` command. Note that keywords in a find rule may be less restrictive than the fields (e.g. name, source, etc.).
 
 Examples:
 
@@ -266,8 +273,6 @@ Format: `apply INDEX`
 
 [TIP]
 You can find problem-finding rules that you can `apply` with in the "Find Rules" panel by clicking on the "Find Rules" tab.
-
-image::apply_tip_find_rule_tab.png[]
 
 [NOTE]
 `apply` a problem-finding rule is essentially the same as executing a pre-filled `findprob` command.
@@ -344,6 +349,7 @@ Examples:
 * `etc 1 c/RED`
 
 
+// tag::plan[]
 === Training Plans
 
 Training plans consist of wrapped-up problems which we call `task` s.
@@ -425,6 +431,7 @@ Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [
 ** is case-sensitive.
 ** is matched word by word.
 ** is considered a match only when there is a task whose name is exactly the same as the given task name.
+// end::plan[]
 
 // tag::task[]
 === Task Management
@@ -667,6 +674,7 @@ Examples:
 
 === Miscellaneous
 
+// tag::help[]
 ==== Viewing help : `help`
 
 List all possible commands or find command usage using the command word. +
@@ -679,6 +687,7 @@ Shows command usage for `addprob` command.
 
 [NOTE]
 `help` command only searches commands' full command word. (i.e. aliases is not supported by `help`)
+// end::help[]
 
 ==== Clearing all entries : `clear`
 

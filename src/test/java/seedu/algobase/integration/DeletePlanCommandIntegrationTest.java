@@ -1,5 +1,6 @@
 package seedu.algobase.integration;
 
+import static seedu.algobase.integration.IntegrationTestUtil.assertProcessedPlanListOfLength;
 import static seedu.algobase.integration.IntegrationTestUtil.getTempFilePath;
 
 import java.nio.file.Path;
@@ -39,7 +40,9 @@ public class DeletePlanCommandIntegrationTest {
 
     @Test
     public void deleteplan_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("deleteplan 2\n");
         logicManager.execute("deleteplan 1\n");
+        assertProcessedPlanListOfLength(logicManager, 1);
+        logicManager.execute("deleteplan 1\n");
+        assertProcessedPlanListOfLength(logicManager, 0);
     }
 }

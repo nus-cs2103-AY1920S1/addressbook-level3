@@ -1,5 +1,6 @@
 package seedu.algobase.model.searchrule.problemsearchrule;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.AppUtil.checkArgument;
 
 import java.util.function.Predicate;
@@ -57,6 +58,7 @@ public class DifficultyIsInRangePredicate implements Predicate<Problem> {
 
     @Override
     public boolean test(Problem problem) {
+        requireNonNull(problem);
         Difficulty difficulty = problem.getDifficulty();
         return difficulty.value >= lowerBound && difficulty.value <= upperBound;
     }

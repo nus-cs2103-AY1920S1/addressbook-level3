@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
 
 /**
  * Jackson-friendly version of {@link AuthorMatchesKeywordPredicate}.
  */
 public class JsonAdaptedAuthorMatchesKeywordPredicate {
 
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "AuthorMatchesKeywordPredicate's %s field is missing!";
     private final JsonAdaptedKeyword keyword;
 
     /**
@@ -37,6 +39,10 @@ public class JsonAdaptedAuthorMatchesKeywordPredicate {
      * AuthorMatchesKeywordPredicate.
      */
     public AuthorMatchesKeywordPredicate toModelType() throws IllegalValueException {
+        if (keyword == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Keyword.class.getSimpleName()));
+        }
+
         return new AuthorMatchesKeywordPredicate(keyword.toModelType());
     }
 

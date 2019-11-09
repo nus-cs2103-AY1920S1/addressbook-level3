@@ -116,17 +116,17 @@ public class SortCommand extends Command {
     };
 
     private final SortingMethod method;
-    private final boolean sortByAscendingOrder;
+    private final boolean isSortByAscendingOrder;
 
     public SortCommand(SortingMethod method, SortingOrder order) {
         requireAllNonNull(method, order);
         this.method = method;
         switch (order) {
         case ascend:
-            this.sortByAscendingOrder = true;
+            this.isSortByAscendingOrder = true;
             break;
         case descend:
-            this.sortByAscendingOrder = false;
+            this.isSortByAscendingOrder = false;
             break;
         default:
             throw new IllegalArgumentException("SortingOrder can be either ascend or descend");
@@ -142,35 +142,35 @@ public class SortCommand extends Command {
         requireNonNull(model);
         switch (this.method) {
         case byName:
-            if (sortByAscendingOrder) {
+            if (isSortByAscendingOrder) {
                 model.updateSortedProblemList(PROBLEM_NAME_COMPARATOR);
             } else {
                 model.updateSortedProblemList(PROBLEM_NAME_COMPARATOR.reversed());
             }
             break;
         case byAuthor:
-            if (sortByAscendingOrder) {
+            if (isSortByAscendingOrder) {
                 model.updateSortedProblemList(PROBLEM_AUTHOR_COMPARATOR);
             } else {
                 model.updateSortedProblemList(PROBLEM_AUTHOR_COMPARATOR.reversed());
             }
             break;
         case byDifficulty:
-            if (sortByAscendingOrder) {
+            if (isSortByAscendingOrder) {
                 model.updateSortedProblemList(PROBLEM_DIFFICULTY_COMPARATOR);
             } else {
                 model.updateSortedProblemList(PROBLEM_DIFFICULTY_COMPARATOR.reversed());
             }
             break;
         case bySource:
-            if (sortByAscendingOrder) {
+            if (isSortByAscendingOrder) {
                 model.updateSortedProblemList(PROBLEM_SOURCE_COMPARATOR);
             } else {
                 model.updateSortedProblemList(PROBLEM_SOURCE_COMPARATOR.reversed());
             }
             break;
         case byWebLink:
-            if (sortByAscendingOrder) {
+            if (isSortByAscendingOrder) {
                 model.updateSortedProblemList(PROBLEM_WEB_LINK_COMPARATOR);
             } else {
                 model.updateSortedProblemList(PROBLEM_WEB_LINK_COMPARATOR.reversed());
