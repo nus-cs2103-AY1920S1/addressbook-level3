@@ -1,5 +1,6 @@
 package mams.testutil;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +32,7 @@ public class TypicalAppeals {
             20, "I want to clear prerequisites",
             "", "", "CS2105",
             "", false, "");
+
 
     public static List<Appeal> getTypicalAppeals() {
         return new ArrayList<>(Arrays.asList(APPEAL1, APPEAL2, APPEAL3, APPEAL4));

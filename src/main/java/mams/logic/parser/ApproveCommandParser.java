@@ -2,9 +2,8 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
-import static mams.logic.parser.CliSyntax.PREFIX_MASS_RESOLVE;
-import static mams.logic.parser.CliSyntax.PREFIX_REASON;
+import static mams.logic.parser.CliSyntax.*;
+import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +40,8 @@ public class ApproveCommandParser implements Parser<Approve> {
                     ApproveCommand.MESSAGE_USAGE_APPROVE));
         }
 
+        verifyNumberOfParameters(argMultimap);
+
         if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) == 1) {
             String remark = "";
             try {
@@ -73,6 +74,25 @@ public class ApproveCommandParser implements Parser<Approve> {
             return new MassApprove(validIds, invalidIds);
         } else {
             throw new ParseException(Approve.MESSAGE_USAGE_APPROVE);
+        }
+    }
+
+    /**
+     * Checks the number of parameters given by user inputs.
+     * @param argMultimap an ArgumentMultimap object stores value of each prefix.
+     * @throws ParseException when the number of parameters is not correct.
+     */
+    //@@author chensu2436
+    private void verifyNumberOfParameters(ArgumentMultimap argMultimap) throws ParseException {
+
+        if ((argMultimap.getValue(PREFIX_APPEAL).isPresent()
+                && argMultimap.getValueSize(PREFIX_APPEAL) != 1)) {
+            throw new ParseException(Approve.MESSAGE_ONLY_ONE_ITEM_ALLOWED);
+        }
+
+        if ((argMultimap.getValue(PREFIX_MASS_RESOLVE).isPresent()
+                && argMultimap.getValueSize(PREFIX_MASS_RESOLVE) != 1)) {
+            throw new ParseException(Approve.MESSAGE_ONLY_ARGUMENT_ALLOWED);
         }
     }
 }

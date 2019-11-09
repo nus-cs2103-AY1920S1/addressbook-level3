@@ -255,7 +255,6 @@ public class Appeal {
         return otherAppeal.getAppealId().equals(getAppealId())
                 && otherAppeal.getAppealType().equals(getAppealType())
                 && otherAppeal.getStudentId().equals(getStudentId())
-                && otherAppeal.getAppealDescription().equals(getAppealDescription())
                 && (otherAppeal.getStudentWorkload() == getStudentWorkload());
     }
 
