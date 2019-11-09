@@ -42,7 +42,7 @@ public class ContainsKeywordsPredicate implements Predicate<Item> {
             tagsContainsKeywords = keyword.startsWith("#")
                     && keyword.length() > 1
                     && new HashSet<>(stringifyCollection(
-                            item.getTags(), tag -> tag.substring(1, tag.length() - 1))
+                            item.getTags(), tag -> tag.substring(1))
                     )
                     .contains(keyword.substring(1));
             if (nameContainsKeywords || tagsContainsKeywords) {

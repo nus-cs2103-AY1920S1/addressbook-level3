@@ -67,7 +67,7 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
-        return "[" + this.tagName + "]";
+        return "#" + this.tagName;
     }
 
 }

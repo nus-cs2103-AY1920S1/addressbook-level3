@@ -109,7 +109,7 @@ public class SearchCommandTest {
     @Test
     public void execute_allMatchingKeywords_someItemsFoundWithRecommendations() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 0)
-                + String.format(MESSAGE_SUGGESTIONS, "[[Fridge]]")
+                + String.format(MESSAGE_SUGGESTIONS, "[#Fridge]")
                 + String.format(MESSAGE_SUGGESTIONS, "[Banana]");
         ContainsKeywordsPredicate predicate = preparePredicate("Banaan|#Fridg");
         SearchCommand command = new SearchCommand(XPIRE, predicate);
