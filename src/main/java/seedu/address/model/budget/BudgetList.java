@@ -117,7 +117,8 @@ public class BudgetList implements ReadOnlyBudgetList {
         List<Budget> lastShownList = getBudgetList();
         for (Budget budget : lastShownList) {
             if (budget.isDateWithinBudgetPeriod(newBudget.getStartDate())
-                    || budget.isDateWithinBudgetPeriod(newBudget.getEndDate())) {
+                    || budget.isDateWithinBudgetPeriod(newBudget.getEndDate())
+                    || budget.doesOtherBudgetOverlap(newBudget)) {
                 return true;
             }
         }

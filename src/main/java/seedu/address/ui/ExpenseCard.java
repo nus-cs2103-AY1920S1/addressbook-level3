@@ -46,8 +46,14 @@ public class ExpenseCard extends UiPart<Region> {
         this.expense = expense;
         id.setText(displayedIndex + ". ");
         name.setText(expense.getName().fullName);
-        amount.setText(expense.getAmount().value);
-        currency.setText(expense.getCurrency().value);
+        if (expense.isForeign()) {
+            amount.setText(expense.getConvertedAmount().value + " SGD");
+            currency.setText("(" + expense.getCurrency().toString() + ")");
+        } else {
+            amount.setText(expense.getAmount().value);
+            currency.setText(expense.getCurrency().value);
+        }
+
         date.setText(expense.getDate().value);
         expense.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))

@@ -9,6 +9,7 @@ Interface ReadOnlyExpenseList <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Class ExpenseList
+Class ExchangeData
 Class ReadOnlyExpenseList
 Class Model
 Class ModelManager

@@ -11,6 +11,7 @@ import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.ReadOnlyBudgetList;
+import seedu.address.model.exchangedata.ExchangeData;
 
 /**
  * Manages storage of ExpenseList data in local storage.
@@ -19,14 +20,16 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ExpenseListStorage expenseListStorage;
+    private ExchangeDataStorage exchangeDataStorage;
     private BudgetListStorage budgetListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(ExpenseListStorage expenseListStorage,
-            BudgetListStorage budgetListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ExpenseListStorage expenseListStorage, BudgetListStorage budgetListStorage,
+                          ExchangeDataStorage exchangeDataStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.expenseListStorage = expenseListStorage;
+        this.exchangeDataStorage = exchangeDataStorage;
         this.budgetListStorage = budgetListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
@@ -57,14 +60,30 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyExpenseList> readExpenseList() throws DataConversionException, IOException {
-        return readExpenseList(expenseListStorage.getExpenseListFilePath());
+    public Path getExchangeDataFilePath() {
+        return exchangeDataStorage.getExchangeDataFilePath();
+    }
+
+    @Override
+    public Optional<ExchangeData> readExchangeData() throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: ");
+        return exchangeDataStorage.readExchangeData();
+    }
+
+    @Override
+    public Optional<ExchangeData> readExchangeData(Path filePath) throws DataConversionException, IOException {
+        return exchangeDataStorage.readExchangeData(filePath);
     }
 
     @Override
     public Optional<ReadOnlyExpenseList> readExpenseList(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return expenseListStorage.readExpenseList(filePath);
+    }
+
+    @Override
+    public Optional<ReadOnlyExpenseList> readExpenseList() throws DataConversionException, IOException {
+        return readExpenseList(expenseListStorage.getExpenseListFilePath());
     }
 
     @Override

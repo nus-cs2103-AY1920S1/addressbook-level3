@@ -4,8 +4,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.ExpenseList;
+import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.expense.Amount;
+import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
@@ -18,27 +21,32 @@ public class Budget {
 
     // Identity fields
     private final Name name;
+    private final Currency currency;
 
     // Data Fields
     private final Date startDate;
     private final Date endDate;
     private final Amount amount;
-    private Amount amountLeft;
-
     // Expense List
     private final ExpenseList expenseList;
+    private Amount amountLeft;
+    private boolean budgetAmountPositive;
 
     /**
      * Every field must be present and not null.
      */
-    public Budget(Name name, Amount amount, Amount amountLeft, Date startDate, Date endDate, ExpenseList expenseList) {
+    public Budget(Name name, Amount amount, Amount amountLeft, Currency currency, Date startDate, Date endDate,
+                  ExpenseList expenseList) {
         requireAllNonNull(name, amount, startDate, endDate);
         this.name = name;
+        this.currency = currency;
         this.amount = amount;
         this.amountLeft = amountLeft;
         this.startDate = startDate;
         this.endDate = endDate;
         this.expenseList = expenseList;
+
+        recalculateAmountLeft();
     }
 
     public Name getName() {
@@ -53,6 +61,10 @@ public class Budget {
         return amountLeft;
     }
 
+    public Currency getCurrency() {
+        return currency;
+    }
+
     public Date getStartDate() {
         return startDate;
     }
@@ -65,8 +77,18 @@ public class Budget {
         return expenseList;
     }
 
+    public ObservableList<Expense> getObservableExpenseList() {
+        return expenseList.getExpenseList();
+    }
+
+    public void setExpenseListInBudget(ReadOnlyExpenseList expenseList) {
+        this.expenseList.resetData(expenseList);
+        recalculateAmountLeft();
+    }
+
     /**
      * Adds an expense into the expenselist inside the budget.
+     *
      * @param expense an expense to be added into a budget.
      */
     public void addExpenseIntoBudget(Expense expense) {
@@ -74,17 +96,41 @@ public class Budget {
         recalculateAmountLeft();
     }
 
+
+    /**
+     * @param expense target expense in the budget
+     */
+    public void deleteExpenseInBudget(Expense expense) {
+        expenseList.removeExpense(expense);
+        recalculateAmountLeft();
+    }
+
     public boolean budgetHasExpense(Expense expense) {
         return expenseList.hasExpense(expense);
     }
 
+    public boolean isBudgetPositive() {
+        return this.budgetAmountPositive;
+    }
+
     /**
      * Checks whether a given date falls within any budget period.
+     *
      * @param date a valid date.
      * @return a boolean value.
      */
     public boolean isDateWithinBudgetPeriod(Date date) {
         return !date.localDate.isBefore(startDate.localDate) && !date.localDate.isAfter(endDate.localDate);
+    }
+
+    /**
+     * Checks if a budget overlaps with the current instance of the budget.
+     * @param otherBudget Budget to compare with
+     * @return a boolean value.
+     */
+    public boolean doesOtherBudgetOverlap(Budget otherBudget) {
+        return otherBudget.getStartDate().localDate.isBefore(this.startDate.localDate)
+            && otherBudget.getEndDate().localDate.isAfter(this.endDate.localDate);
     }
 
     /**
@@ -96,9 +142,14 @@ public class Budget {
         for (Expense expense : expenseList.getExpenseList()) {
             amountLeft -= expense.getAmount().getValue();
         }
-        this.amountLeft = new Amount("" + amountLeft);
+        if (amountLeft <= 0.0) {
+            this.amountLeft = new Amount(String.format("%.2f", 0 - amountLeft));
+            this.budgetAmountPositive = false;
+        } else {
+            this.amountLeft = new Amount(String.format("%.2f", amountLeft));
+            this.budgetAmountPositive = true;
+        }
     }
-
 
     /**
      * Returns true if both budgets have the same name.
@@ -110,7 +161,15 @@ public class Budget {
         }
 
         return otherBudget != null
-                       && otherBudget.getName().equals(getName());
+            && otherBudget.getName().equals(getName())
+            && otherBudget.getAmount().equals(getAmount())
+            && otherBudget.getCurrency().equals(getCurrency())
+            && otherBudget.getStartDate().equals(getStartDate())
+            && otherBudget.getEndDate().equals(getEndDate());
+    }
+
+    public void setExpenseInBudget(Expense target, Expense editedExpense) {
+        this.expenseList.setExpense(target, editedExpense);
     }
 
     /**
@@ -129,9 +188,9 @@ public class Budget {
 
         Budget otherBudget = (Budget) other;
         return otherBudget.getName().equals(getName())
-                       && otherBudget.getAmount().equals(getAmount())
-                       && otherBudget.getStartDate().equals(getStartDate())
-                       && otherBudget.getEndDate().equals(getEndDate());
+            && otherBudget.getAmount().equals(getAmount())
+            && otherBudget.getStartDate().equals(getStartDate())
+            && otherBudget.getEndDate().equals(getEndDate());
     }
 
     @Override
@@ -144,14 +203,15 @@ public class Budget {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\n")
-                .append(getName())
-                .append(" ")
-                .append(getAmount())
-                .append("\n")
-                .append(getStartDate())
-                .append("\n")
-                .append(getEndDate())
-                .append("\n");
+            .append("Name: " + getName())
+            .append("\n")
+            .append("Amount: " + getAmount())
+            .append(" " + getCurrency())
+            .append("\n")
+            .append("Start: " + getStartDate())
+            .append("\n")
+            .append("End: " + getEndDate())
+            .append("\n");
         return builder.toString();
     }
 }

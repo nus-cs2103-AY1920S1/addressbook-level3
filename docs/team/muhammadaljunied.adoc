@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Muhammad Aljunied - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -13,15 +13,22 @@ include::overview.adoc[]
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability for expenses in foreign currencies to be stored and converted*
+** What it does: when an expense is added to MyMorise, the system can automatically convert the amount specified in the expense relative to the currency that was specified in the expense.
+** Justification: This feature improves user experience significantly for managing expenses as the user no longer needs to convert a foreign currency manually back into their home(base) currency.
+** Highlights: This enhancement affects 80% of all functionality of the application as all amounts added to the system may need to be converted to ensure correct computations.
+This required careful planning as as soon as it is implemented, I anticipated a large number of regressions from existing implementations as well as regressions as the other components of the app are implemented.
+The exchange rate for converting the expense's amount from its base amount to the specified currency is retrieved from the exchange data and stored together with the Expense.
+The reason for this is to ensure that an expense retains its converted value based on the rate at the time it was added, regardless of when the computation is being done.
+As currecy exchange rates are non-constant data, there is a small dependence on retrieving more updated data by making an API call in the form of a HTTP GET request to a publicly available endpoint.
+To ensure MyMorise remains responsive while the call is made, the HTTP Request is executed asynchronously with a strict 5 second timeout (a successful request should not take longer than 5 seconds).
+The fallback in poor/lack of internet conditions is a pre-loaded exchange rate stored in JSON. A successful response stores the exchange rate to the file system for the next run to use if there is no internet connection in subsequent runs, which mitigates conversion-error margins slightly.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Credits: _The idea to add it came from a "if I was using this app" brainstorming session, however I must credit Budgeting/Finance Apps I had downloaded on Android that I played around, specifically http://wally.me/[WallyNext]_
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: added support for storing currencies.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=aljunied&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=muhammadaljunied&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=aljunied&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=muhammadaljunied&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
@@ -45,7 +52,6 @@ _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
@@ -63,7 +69,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
-
 
 == PROJECT: PowerPointLabs
 
