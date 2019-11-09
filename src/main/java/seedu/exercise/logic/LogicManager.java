@@ -31,6 +31,7 @@ import seedu.exercise.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
+
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -51,6 +52,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = exerciseBookParser.parseCommand(commandText);
         if (!isCommandExecutedInCorrectState(command)) {
+            logger.info(command.getClass().getSimpleName() + " executed in wrong state: State." + MainApp.getState());
             throw new CommandException(String.format(MESSAGE_INVALID_CONTEXT, command.getClass().getSimpleName()));
         }
 
@@ -59,6 +61,7 @@ public class LogicManager implements Logic {
         try {
             saveAllData();
         } catch (IOException ioe) {
+            logger.info(FILE_OPS_ERROR_MESSAGE + ioe);
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 

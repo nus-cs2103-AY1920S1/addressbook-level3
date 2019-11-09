@@ -98,6 +98,10 @@ public class ResolveWindow extends UiPart<Stage> {
     }
 
     public void setLeftRightPanel() {
+        logger.info("Resolve window showing scheduled "
+                + logic.getConflict().getScheduledName()
+                + ", conflicting "
+                + logic.getConflict().getConflictedName());
         resultDisplay.setFeedbackToUser(INITIAL_HELP_MESSAGE);
         leftRightPanel.setLeftPanel(logic.getConflict().getScheduledRegime());
         leftRightPanel.setRightPanel(logic.getConflict().getConflictingRegime());

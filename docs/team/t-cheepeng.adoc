@@ -39,7 +39,7 @@ at a particular date. However, this difficulty was remedied as described in *Maj
 ** Justification: This feature will allow users the flexibility to select which exercises they wish to do from the conflicting scheduled regimes. It also allows users to store the resolved regime and use it in the future.
 ** Highlights: This enhancement works well with *major enhancement 1* as there is a direct link between the two. The implementation of this feature was particularly challenging because multiple resources had to be kept track of. Also, there was a need to prevent users from proceeding on with normal usage of the program until they resolve the scheduling conflict. The aforementioned requirement was technically challenging and multiple facets had to be considered in the implementation of the feature.
 
-* *Minor enhancement 1*: Added the display panel in the center of our UI to display more information on the selected resource on the left panel of our UI.
+* *Minor enhancement 1*: Added the display panel in the center of our UI to display more information of the selected resource.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=t-cheepeng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
 

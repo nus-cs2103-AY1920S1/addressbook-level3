@@ -272,6 +272,9 @@ public class ModelManager implements Model {
             addCombinedRegime(resolvedSchedule.getRegime());
             addResolvedSchedule(resolvedSchedule);
         }
+
+        logger.info("Schedule conflict resolved: " + resolvedSchedule.getRegimeName()
+                + " on " + resolvedSchedule.getDate());
         return resolvedSchedule;
     }
 
@@ -287,6 +290,7 @@ public class ModelManager implements Model {
         requireMainAppState(State.IN_CONFLICT);
         requireNonNull(conflict);
 
+        logger.info("Conflict set:\n" + conflict);
         this.conflict = conflict;
     }
 

@@ -5,13 +5,17 @@ import static java.util.Objects.requireNonNull;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import seedu.exercise.commons.core.GuiSettings;
+import seedu.exercise.commons.core.LogsCenter;
 
 /**
  * Represents User's preferences.
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
+
+    private static final Logger logger = LogsCenter.getLogger(UserPrefs.class);
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path exerciseBookFilePath = Paths.get("data" , "exercisebook.json");
@@ -43,6 +47,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setRegimeBookFilePath(newUserPrefs.getRegimeBookFilePath());
         setPropertyBookFilePath(newUserPrefs.getPropertyBookFilePath());
         setAllExerciseBookFilePath(newUserPrefs.getAllExerciseBookFilePath());
+
+        logger.info("All user preferences reset to:\n" + newUserPrefs);
     }
 
     public GuiSettings getGuiSettings() {

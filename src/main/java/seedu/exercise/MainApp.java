@@ -92,6 +92,7 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+        setState(State.NORMAL);
     }
 
     /**
@@ -303,6 +304,8 @@ public class MainApp extends Application {
      */
     public static void setState(State newState) {
         requireAllNonNull(newState);
+        logger.info("Application state changing from " + getState() + " to " + newState.toString());
+
         state = newState;
     }
 }

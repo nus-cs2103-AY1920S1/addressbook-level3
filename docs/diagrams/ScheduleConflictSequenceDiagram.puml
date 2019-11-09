@@ -22,7 +22,7 @@ deactivate Model
 Logic --[LOGIC_COLOR]> Ui: CommandResult("Schedule Conflict")
 deactivate Logic
 
-Ui -[UI_COLOR]> Ui: createResolveWindow()
+Ui -[UI_COLOR]> Ui: showResolveWindow()
 activate Ui UI_COLOR_T1
 return
 Ui --[UI_COLOR]> User

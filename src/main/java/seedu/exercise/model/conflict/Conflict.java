@@ -93,4 +93,10 @@ public class Conflict {
     public int hashCode() {
         return Objects.hash(scheduled, conflicted);
     }
+
+    @Override
+    public String toString() {
+        return "Scheduled: " + scheduled.getRegimeName() + "\nConflicting: " + conflicted.getRegimeName()
+                + "\nDate of conflict: " + scheduled.getDate();
+    }
 }

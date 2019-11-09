@@ -2,6 +2,7 @@ package seedu.exercise.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -36,10 +37,17 @@ public abstract class ResourceListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Selects, focus and scrolls to the {@code index} in {@code resources} list on left panel.
+     * <p>
+     *     Method will additionally inform the {@link OnItemSelectListener} of this selection event
+     * </p>
+     */
     void selectFocusAndScrollTo(ListView<? extends Resource> resources, int index) {
         resources.getSelectionModel().select(index);
         resources.getFocusModel().focus(index);
         resources.scrollTo(index);
+        notifyOnSelectListener(resources.getSelectionModel().getSelectedItem());
     }
 
     ChangeListener<Resource> getDefaultListViewListener() {
@@ -115,7 +123,30 @@ public abstract class ResourceListPanel extends UiPart<Region> {
         });
     }
 
-    protected abstract void selectGivenIndex(int index);
+    /**
+     * Selects the {@code index} in the resource list view on the left panel.
+     * <p>
+     *     This method will cause the selected {@code index} to propagate to {@link OnItemSelectListener}
+     *     so that any class listening out for selection changes can be informed of the selection.
+     *     Classes interested in listening out for selection events should implement the
+     *     {@link OnItemSelectListener#onItemSelect(Resource)} to be informed of the resource
+     *     that has been selected.
+     * </p>
+     */
+    protected void selectGivenIndex(int index) {
+        ListView<? extends Resource> resourceListView = getResourceListView();
+        if (index >= 0) {
+            /*
+                An extremely hacky way to get the list to select, focus and scroll to the newly changed item.
+                Without this method, when any add/edit commands are supplied, the ListChangeListener attached to
+                ObservableList is called first without the list actually changing its structure. So when the index
+                is provided, the listview is not updated and thus cannot be focused on.
+                So the solution is to make this focusing operation be done at a slightly later time when the
+                list view has been updated to reflect the commands changes
+             */
+            Platform.runLater(() -> selectFocusAndScrollTo(resourceListView, index));
+        }
+    }
 
     protected abstract void resetListSelection();
 

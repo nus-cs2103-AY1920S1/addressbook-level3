@@ -5,12 +5,14 @@ import static seedu.exercise.model.property.PropertyBook.MESSAGE_DUPLICATE_NAME_
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.exceptions.IllegalValueException;
 import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.property.custom.CustomProperty;
@@ -20,6 +22,8 @@ import seedu.exercise.model.property.custom.CustomProperty;
  */
 @JsonRootName(value = "propertybook")
 public class JsonSerializablePropertyBook {
+
+    private static final Logger logger = LogsCenter.getLogger(JsonSerializablePropertyBook.class);
 
     private final List<JsonAdaptedCustomProperty> customProperties = new ArrayList<>();
 
@@ -58,6 +62,7 @@ public class JsonSerializablePropertyBook {
             CustomProperty modelProperty = jsonCustomProperty.toModelType();
             if (propertyBook.hasClashingPrefixOrName(modelProperty)) {
                 propertyBook.clearCustomProperties();
+                logger.info("Duplicates found in serializable property book.");
                 throw new IllegalValueException(MESSAGE_DUPLICATE_NAME_OR_PREFIX);
             }
             propertyBook.addCustomProperty(modelProperty);

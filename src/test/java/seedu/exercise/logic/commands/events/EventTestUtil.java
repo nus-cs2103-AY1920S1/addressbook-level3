@@ -364,12 +364,10 @@ class EventTestUtil {
 
             model.addSchedule(LEVEL_ONE_REGIME_DATE_1_SCHEDULE);
             SCHEDULE_REGIME_COMMAND_LEVEL_TWO_REGIME_DATE_1_WITH_PAYLOAD.execute(model);
-            RESOLVE_COMMAND_LEVEL_ONE_AND_TWO_CONFLICT_AND_CREATE_THREE_WITH_PAYLOAD.execute(model);
 
             model.removeSchedule(LEVEL_THREE_REGIME_DATE_1_SCHEDULE);
             model.addSchedule(LEVEL_ONE_REGIME_DATE_1_SCHEDULE);
             SCHEDULE_REGIME_COMMAND_LEVEL_TWO_REGIME_DATE_1_WITH_PAYLOAD.execute(model);
-            RESOLVE_COMMAND_LEVEL_ONE_AND_TWO_CONFLICT_AND_TAKE_TWO_WITH_PAYLOAD.execute(model);
             MainApp.setState(State.IN_CONFLICT);
 
         } catch (CommandException e) {

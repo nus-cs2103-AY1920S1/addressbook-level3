@@ -3,8 +3,10 @@ package seedu.exercise.storage.serializablebook;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.exceptions.IllegalValueException;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Resource;
@@ -18,6 +20,8 @@ import seedu.exercise.storage.resource.JsonAdaptedResource;
 public abstract class SerializableResourceBook<T extends JsonAdaptedResource<U>, U extends Resource> {
 
     public static final String MESSAGE_DUPLICATE_RESOURCE = "The list has duplicate exercises/regimes/schedules.";
+
+    private static final Logger logger = LogsCenter.getLogger(SerializableResourceBook.class);
 
     private final List<T> jsonResources = new ArrayList<>();
 
@@ -44,6 +48,7 @@ public abstract class SerializableResourceBook<T extends JsonAdaptedResource<U>,
         for (JsonAdaptedResource jsonResource : jsonResources) {
             U resourceModel = clazz.cast(jsonResource.toModelType());
             if (resourceBook.hasResource(resourceModel)) {
+                logger.info("The list to convert has duplicates.");
                 throw new IllegalValueException(MESSAGE_DUPLICATE_RESOURCE);
             }
             resourceBook.addResource(resourceModel);

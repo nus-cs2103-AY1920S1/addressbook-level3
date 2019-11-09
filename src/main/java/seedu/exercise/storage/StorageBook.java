@@ -21,13 +21,13 @@ import seedu.exercise.storage.bookstorage.ResourceBookStorage;
 public class StorageBook implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageBook.class);
+
     private ResourceBookStorage<Exercise> exerciseBookStorage;
     private ResourceBookStorage<Exercise> exerciseDatabaseStorage;
     private ResourceBookStorage<Regime> regimeBookStorage;
     private ResourceBookStorage<Schedule> scheduleBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private PropertyBookStorage propertyBookStorage;
-
 
     public StorageBook(ResourceBookStorage<Exercise> exerciseBookStorage,
                        ResourceBookStorage<Exercise> exerciseDatabaseStorage,

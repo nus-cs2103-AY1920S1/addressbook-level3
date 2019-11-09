@@ -265,6 +265,9 @@ image::EditExerciseAfter2.png[]
 
 Deleting a certain exercise information from ExerHealth.
 
+[NOTE]
+Deleting an exercise from ExerHealth will not cause it to be deleted from your list of regimes and schedules. If you wish to delete an exercise from a regime, refer to <<deleteExerciseFromRegime>>. If you wish to complete a scheduled regime, refer to <<schedulecomplete>>
+
 Format: `delete t/exercise i/INDEX`
 
 ****
@@ -285,6 +288,7 @@ Expected result:
 .After deleting the 2nd exercise
 image::deleteExerciseAfter.png[]
 
+[[deleteExerciseFromRegime]]
 ==== Deleting exercise from scheduling regime
 
 Deletes exercises from a certain scheduling regime.
