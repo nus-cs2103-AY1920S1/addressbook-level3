@@ -157,7 +157,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undobyreverse[]
-=== [Implemented] Undo Feature
+=== [Implemented] Undo/Redo Feature
 ==== Current Implementation Logic
 
 The undo function uses the revert command method without using states and history, unlike the proposed method.
@@ -182,6 +182,9 @@ will pop the `AddTaskCommand` from the stack and reverse the effects of that com
 image::UndoStackStep2.png[]
 
 Step 3. After successful execution of the `UndoCommand` a confirmation message is displayed in the chat box.
+
+Of course, the undo feature has its counterpart, the redo command. The commands to be redone are stored in an additional stack within `ElisaCommandHistory`, and when the redo is done, it executes the command again, which reapplies the most recent change.
+// end::undobyreverse[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -351,12 +354,14 @@ Step 10. The items are all added back into the ```TaskList``` and the priority m
 |This implementation is not scalable as each new ```Command``` that is added will need to be checked to see if they are allowed in focus mode. There is also the additional overhead of checking the state of the ```ItemModelManager``` at every call of ```Command#execute()```.
 |===
 
+
 * Alternative 2 (Current implementation): Create a new ```FocusElisaParser``` that extends from the current ```ElisaParser``` but prevent the parsing of commands that are not allowed in focus mode.
 
 |===
 |Pros |Cons
 
 |This implementation stops the creation of the ```Command``` at the ```Parser``` level which will reduce the computational cost to the application.
+
 |This implementation requires the manipulation of the ```LogicManager``` to change the parser and require it to observe the ```ItemModelManager``` for changes. There might also be more difficulty when maintaining the code as there is a need to maintain the ```Parser#parse()``` method of the two ```Parser```.
 |===
 
@@ -563,6 +568,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: manage time and tasks more efficiently than a typical mouse/GUI driven app
 
+// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -608,7 +614,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user |colour code my calendar events |easily categorise and differentiate between them
 
 |=======================================================================
-
+// end::userstories[]
 _{More to be added}_
 
 [appendix]
@@ -711,7 +717,7 @@ Use case resumes at step 2.
 2. ELISA shows the reminder list.
 3. User enters command to sort reminders by date and time.
 4. ELISA shows the updated list of reminders sorted by date and time.
-
+// tag::usecaselrchema[]
 [discrete]
 === Use Case 005: Search for a task by its description
 
@@ -764,7 +770,7 @@ Use case ends.
 ** 1a1. ELISA displays an error message
 +
 Use case ends.
-
+// end::usecaselrchema[]
 _{More to be added}_
 
 [appendix]

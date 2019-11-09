@@ -11,25 +11,25 @@ import seedu.elisa.model.exceptions.IllegalListException;
 import seedu.elisa.model.item.VisualizeList;
 
 /**
- * Mark a task as done using it's index in ELISA.
+ * Mark a task as not done using it's index in ELISA.
  */
-public class DoneCommand extends UndoableCommand {
+public class ContinueCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "done";
+    public static final String COMMAND_WORD = "cont";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Mark the item identified by the index number used in the displayed item list as done.\n"
+            + ": Mark the item identified by the index number used in the displayed item list as not done.\n"
             + "Can only be used on task list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_COMPLETE_ITEM_SUCCESS = "Finally! Completed Item: %1$s";
+    public static final String MESSAGE_COMPLETE_ITEM_SUCCESS = "Oops... More work I guess. \nItem: %1$s";
 
     private final Index targetIndex;
     private Item oldItem;
-    private Item itemDone;
+    private Item itemNotDone;
 
-    public DoneCommand(Index targetIndex) {
+    public ContinueCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -44,27 +44,27 @@ public class DoneCommand extends UndoableCommand {
 
         try {
             oldItem = model.getItem(targetIndex.getZeroBased());
-            itemDone = model.markComplete(targetIndex.getZeroBased(), true);
+            itemNotDone = model.markComplete(targetIndex.getZeroBased(), false);
             if (!isExecuted()) {
                 model.getElisaCommandHistory().clearRedo();
                 setExecuted(true);
             }
-            return new CommandResult(String.format(MESSAGE_COMPLETE_ITEM_SUCCESS, itemDone));
+            return new CommandResult(String.format(MESSAGE_COMPLETE_ITEM_SUCCESS, itemNotDone));
         } catch (IllegalListException e) {
-            throw new CommandException("Done can only be done on the task list.");
+            throw new CommandException("Continue can only be done on the task list.");
         }
     }
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
-        model.replaceItem(itemDone, oldItem);
+        model.replaceItem(itemNotDone, oldItem);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DoneCommand // instanceof handles nulls
-                && targetIndex.equals(((DoneCommand) other).targetIndex)); // state check
+                || (other instanceof ContinueCommand // instanceof handles nulls
+                && targetIndex.equals(((ContinueCommand) other).targetIndex)); // state check
     }
 
     @Override

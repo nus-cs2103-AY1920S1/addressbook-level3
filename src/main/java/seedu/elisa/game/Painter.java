@@ -2,8 +2,11 @@ package seedu.elisa.game;
 
 import static seedu.elisa.game.Grid.SIZE;
 
+import java.util.List;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
 
 /**
  * This is the class that colors the snake.
@@ -24,6 +27,15 @@ public class Painter {
         // Now the Food
         gc.setFill(Food.COLOR);
         paintPoint(grid.getFood().getPoint(), gc);
+
+        // Now the Wall
+        if (grid.isHard()) {
+            List<Wall> walls = grid.getWalls();
+            for (Wall w : walls) {
+                gc.setFill(Wall.COLOR);
+                paintPoint(w.getPoint(), gc);
+            }
+        }
 
         // Now the snake
         snake = grid.getSnake();
@@ -55,7 +67,7 @@ public class Painter {
      */
     public static void paintResetMessage(GraphicsContext gc) {
         gc.setFill(Color.AQUAMARINE);
-        gc.fillText("\nHit RETURN to reset the game. \nHit ESC to get back to WORK!!!", 10, 10);
+        gc.fillText("\nHit E for (E)asy Mode. \nHit H for (H)ard Mode. \nHit ESC to get back to WORK!!!", 10, 10);
     }
 
     public static int getCurrentScore() {

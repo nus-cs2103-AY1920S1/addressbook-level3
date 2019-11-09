@@ -1,5 +1,7 @@
 package seedu.elisa.model.item;
 
+import java.util.List;
+
 import seedu.elisa.commons.core.item.Item;
 
 /**
@@ -11,16 +13,17 @@ public class ReminderList extends VisualizeList {
         super();
     }
 
+    public ReminderList(List<Item> list) {
+        super(list);
+    }
+
     /**
      * Sorts the Reminders by the date.
      * @return a new ReminderList with the reminders within sorted.
      */
     public VisualizeList sort() {
-        ReminderList rl = new ReminderList();
-        for (Item i : list) {
-            rl.add(i);
-        }
-        rl.list.sort((item1, item2) -> item1.getReminder().get().getDefaultDateTime()
+        ReminderList rl = new ReminderList(list);
+        rl.sort((item1, item2) -> item1.getReminder().get().getDefaultDateTime()
                 .compareTo(item2.getReminder().get().getDefaultDateTime()));
         return rl;
     }
@@ -31,14 +34,12 @@ public class ReminderList extends VisualizeList {
      * @return a new ReminderList only containing the items that have the search string in their description
      */
     public VisualizeList find(String[] searchString) {
-        ReminderList rl = new ReminderList();
-        return super.find(searchString, rl);
+        return super.find(searchString, new ReminderList());
     }
 
     @Override
     public VisualizeList deepCopy () {
-        ReminderList rl = new ReminderList();
-        return super.deepCopy(rl);
+        return super.deepCopy(new ReminderList());
     }
 
     public boolean belongToList(Item item) {

@@ -1,5 +1,7 @@
 package seedu.elisa.game;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javafx.scene.paint.Color;
@@ -17,12 +19,16 @@ public class Grid {
     private final int cols;
     private final int rows;
 
+    private boolean hard;
     private Snake snake;
     private Food food;
+    private List<Wall> walls;
 
     public Grid(final double width, final double height) {
         rows = (int) width / SIZE;
         cols = (int) height / SIZE;
+
+        this.hard = false;
 
         // initialize the snake at the centre of the screen
         snake = new Snake(this, new Point(rows / 2, cols / 2));
@@ -31,6 +37,24 @@ public class Grid {
         food = new Food(getRandomPoint());
     }
 
+    public Grid(final double width, final double height, boolean hard) {
+        rows = (int) width / SIZE;
+        cols = (int) height / SIZE;
+
+        this.hard = hard;
+
+        // initialize the snake at the centre of the screen
+        snake = new Snake(this, new Point(rows / 2, cols / 2));
+
+        // put the food at a random location
+        food = new Food(getRandomPoint());
+
+        //put the wall at a random location
+        walls = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            walls.add(new Wall(getRandomPoint()));
+        }
+    }
     /**
      * Ensures the snake does not go beyond the screen.
      * @param point
@@ -71,6 +95,14 @@ public class Grid {
             snake.extend();
             food.setPoint(getRandomPoint());
         } else {
+            if (hard) {
+                for (Wall w : walls) {
+                    if (w.getPoint().equals(snake.getHead())) {
+                        snake.markAsUnsafe();
+                        return;
+                    }
+                }
+            }
             snake.move();
         }
     }
@@ -97,5 +129,13 @@ public class Grid {
 
     public Food getFood() {
         return food;
+    }
+
+    public List<Wall> getWalls() {
+        return walls;
+    }
+
+    public boolean isHard() {
+        return hard;
     }
 }

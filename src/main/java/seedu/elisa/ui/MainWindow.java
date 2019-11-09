@@ -40,12 +40,13 @@ import seedu.elisa.logic.commands.CloseCommandResult;
 import seedu.elisa.logic.commands.CommandResult;
 import seedu.elisa.logic.commands.DownCommandResult;
 import seedu.elisa.logic.commands.GameCommandResult;
+import seedu.elisa.logic.commands.GameHardCommandResult;
 import seedu.elisa.logic.commands.OpenCommandResult;
 import seedu.elisa.logic.commands.PriorityCommand;
 import seedu.elisa.logic.commands.ThemeCommandResult;
 import seedu.elisa.logic.commands.UpCommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;
-import seedu.elisa.logic.commands.exceptions.FocusModeException;
+import seedu.elisa.logic.parser.exceptions.FocusModeException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.item.CalendarList;
 import seedu.elisa.model.item.EventList;
@@ -536,6 +537,10 @@ public class MainWindow extends UiPart<Stage> {
                 startgame(primaryStage);
             }
 
+            if (commandResult instanceof GameHardCommandResult) {
+                startgameHard(primaryStage);
+            }
+
             updatePanels(logic.getVisualList());
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -548,17 +553,43 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Starts the snake game
+     * Starts easy mode of the game
      * @param primaryStage
      * @throws Exception
      */
     public void startgame(Stage primaryStage) throws Exception {
+
         StackPane root = new StackPane();
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         context = canvas.getGraphicsContext2D();
 
         canvas.setFocusTraversable(true);
 
+        gameCheck(canvas);
+
+        resetgame();
+
+        root.getChildren().add(canvas);
+
+        Scene gamescene = new Scene(root);
+
+        primaryStage.setResizable(true);
+        primaryStage.setHeight(HEIGHT + 100);
+        primaryStage.setWidth(WIDTH + 100);
+        primaryStage.setTitle("Snake Game");
+        primaryStage.setOnCloseRequest(e -> System.exit(0));
+        primaryStage.setScene(gamescene);
+        primaryStage.show();
+
+        Thread t = new Thread(loop);
+        t.start();
+    }
+
+    /**
+     * Checks the key pressed in the game.
+     * @param canvas
+     */
+    private void gameCheck(Canvas canvas) {
         canvas.setOnKeyPressed(e -> {
             Snake snake = grid.getSnake();
             if (loop.isKeyPressed()) {
@@ -596,12 +627,39 @@ public class MainWindow extends UiPart<Stage> {
             case ESCAPE:
                 exitgame();
                 break;
+            case E:
+                if (loop.isPaused()) {
+                    resetgameEasy();
+                    Thread thread = new Thread(loop);
+                    thread.start();
+                }
+                break;
+            case H:
+                if (loop.isPaused()) {
+                    resetgameHard();
+                    Thread thread = new Thread(loop);
+                    thread.start();
+                }
+                break;
             default:
             }
         });
+    }
+    /**
+     * Starts hard mode of the game
+     * @param primaryStage
+     * @throws Exception
+     */
+    public void startgameHard(Stage primaryStage) throws Exception {
+        StackPane root = new StackPane();
+        Canvas canvas = new Canvas(WIDTH, HEIGHT);
+        context = canvas.getGraphicsContext2D();
 
-        resetgame();
+        canvas.setFocusTraversable(true);
 
+        gameCheck(canvas);
+
+        resetgameHard();
         root.getChildren().add(canvas);
 
         Scene gamescene = new Scene(root);
@@ -620,6 +678,16 @@ public class MainWindow extends UiPart<Stage> {
 
     private void resetgame() {
         grid = new Grid(WIDTH, HEIGHT);
+        loop = new GameLoop(grid, context, scorelist);
+        Painter.paint(grid, context);
+    }
+
+    private void resetgameEasy() {
+        resetgame();
+    }
+
+    private void resetgameHard() {
+        grid = new Grid(WIDTH, HEIGHT, true);
         loop = new GameLoop(grid, context, scorelist);
         Painter.paint(grid, context);
     }

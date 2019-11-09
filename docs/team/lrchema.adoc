@@ -1,0 +1,85 @@
+= Chandrasekaran Hema - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AddressBook - Level 3
+
+'''
+
+== About the Project
+
+My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop address book application for our Software Engineering project.
+
+We’re living in a fast paced, stressful world where things are constantly changing; and so are our tasks. We thought it would be helpful to have an application to aid us in managing these tasks, so we chose to morph the address book into a student assistant with a personality to liven up our dreary days, and we called her ELISA. This application enables users to add and track various tasks and events, as well as receive reminders for them. The assistant is in the form of a chat bot, and she has been given a sassy and humorous personality in order to enhance the user experience.
+
+This is how our user interface looks like:
+
+image::sianghwee/taskpanel-annotated.PNG[]
+
+My role was to implement the undo and redo functionality as well as give ELISA more of a personality.
+
+== Summary of contributions
+* *Code contributed*: My contributions can be found https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lrchema&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lrchema&tabRepo=AY1920S1-CS2103T-T10-3%2Fmain%5Bmaster%5D[here]
+
+* *Enhancement added*: added the ability to *undo/redo previous commands*
+** Function: The undo command allows the user to undo a previous command. The user may reverse this undo command with the redo command.
+** Justification: In the event that users have made a mistake or changed their minds about executing a command, the undo command enables them to reverse that command. If they change their minds again and decide to execute the command after all, then the redo command enables them to do so easily.
+** Highlights: The main challenge was to refactor the command from the simpler state method to the inverse function method in order to store only one reference to all other components.
+** Implementation Details:
+*** Initially I had implemented this feature by storing the state of the application after each command execution, and the undo command would set the state of the application to a previous one, almost like the application was time travelling. However, this logic interfered with my teammate Bryan’s feature, reminders, resulting in duplicate reminders. Reminders work by storing pending reminders in a list and past reminders in another list. The previous implementation of the undo feature worked by clearing the model and repopulating it after every command execution. However, this method or clearing and repopulating the model did not properly account for the items in the pending and past reminders list. This caused the reminder to be added multiple times and thus there were duplicate reminders.
+*** In order to ensure that the undo redo feature worked correctly and did not interfere with any other features, I rewrote the logic of the feature. This time, there was no time travelling backwards. The undo command only made another modification to the application, instead of reversing a previous modification. This was done by ensuring that all commands had a reverse function, which would exactly reverse the effects of that command’s execution. Naturally, redo would simply run the execution again.
+
+* *Enhancement added*: gave ELISA a personality and sense of humour
+** Function: For each command, ELISA gives either a confirmation or an error message. I made the messages humorous or sarcastic, instead of plain and emotionless. Additionally, ELISA will provide the user with a randomly selected joke upon request.
+** Justification: ELISA is able to provide a sense of companionship for the user, and the jokes can help relieve stress and provide a welcome break.
+
+* *Other contributions*:
+
+** Enhancements to underlying implementations:
+*** Refactored the packages and the parser so that they were no longer named address book, they are now called elisa.
+*** Moved and renamed some image and text resource files to make sure that the application works when packaged as a jar file
+** Documentation:
+*** Updated the user guide with information on how to use the undo and redo commands
+*** Updated the developer guide by giving the implementation of the undo function as well as filling in use cases and user stories
+** Reviewed the following pull requests:
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/116[PR #116]: Made a comment on cleaning up code by deleting it instead of commenting it out
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/132[PR #132]: Suggested to make the command non-case-sensitive, which was adopted.
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/136[PR #136]: Gave a suggestion to shorten the command word, which was adopted as an option along with the original long form
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/156[PR #156]: Proposed to change the colour of the dialog to something less abrasive and gave an alternative colour option. This suggestion was adopted
+** Design:
+*** Reviewed and gave suggestions on how to improve the ELISA logo my teammate Chengyi created, which were implemented in the final version of the logo.
+The logo before, which looks cute and innocent
+
+image::lrchema/elisaBefore.PNG[]
+
+and the logo after, which is more confident and sassy
+
+image::lrchema/elisaAfter.PNG[]
+
+*** Created a chime sound for the reminder function, used in https://github.com/AY1920S1-CS2103T-T10-3/main/pull/157[PR #157]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undo]
+
+include::../UserGuide.adoc[tag=redo]
+
+include::../UserGuide.adoc[tag=joke]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undobyreverse]
+
+include::../DeveloperGuide.adoc[tag=userstories]
+
+include::../DeveloperGuide.adoc[tag=usecaselrchema]
