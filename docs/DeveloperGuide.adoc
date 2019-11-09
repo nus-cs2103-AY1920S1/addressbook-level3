@@ -418,10 +418,11 @@ In summary, the activity diagram below illustrates what happens when a command t
 .The activity diagram showing what happens when the user enters a command to generate a waste report.
 image::WasteReportActivityDiagram.png[align="centre", width="400"]
 
-To see what constitutes a valid time frame for waste report, refer to our
-https://ay1920s1-cs2103-f10-2.github.io/main/UserGuide.html#displaying-food-wastage-statistics-code-wlist-report-code[user guide].
+Refer to our
+https://ay1920s1-cs2103-f10-2.github.io/main/UserGuide.html#displaying-food-wastage-statistics-code-wlist-report-code[user guide] to see what constitutes a valid time frame.
 
-To complete the big picture, we have included a class diagram to illustrate the key components pertaining to implementing statistical waste list features. 
+To complete the big picture, we have included a class diagram to illustrate the key components pertaining to
+implementing statistical waste list features.
 
 .The class diagram which captures some of the architectural elements for key waste-related classes.
 image::WasteClassDiagram.png[align="center"]
