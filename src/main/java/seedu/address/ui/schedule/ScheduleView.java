@@ -120,6 +120,7 @@ public class ScheduleView extends UiPart<Region> {
             for (int j = 0; j < schedulesShown.size(); j++) {
                 ArrayList<PersonTimeslot> eventsToday = schedulesShown.get(j).get(now.plusDays(i - 1).getDayOfWeek());
                 VBox individualSchedule = new VBox();
+                //Pad in offset region first.
                 individualSchedule.getChildren().addAll(new Block(HALF_HOUR).makeEmptyBlock(),
                         getDayVBoxOfIndividualSchedule(eventsToday));
                 //Change line 99 for collapsible blocks.
@@ -239,7 +240,10 @@ public class ScheduleView extends UiPart<Region> {
         for (int i = 1; i <= 7; i++) {
             StackPane dateStackPane = dateStackPanes.get(now.plusDays(i - 1));
             ArrayList<FreeTimeslot> freeTimes = vacantSchedule.get(now.plusDays(i - 1).getDayOfWeek());
-            VBox freeTimeVBox = getDayVBoxOfFreeSchedule(freeTimes);
+            VBox freeTimeVBox = new VBox();
+            //Pad in offset region first.
+            freeTimeVBox.getChildren().addAll(new Block(HALF_HOUR).makeEmptyBlock(),
+                    getDayVBoxOfFreeSchedule(freeTimes));
             dateStackPane.getChildren().add(freeTimeVBox);
         }
     }
@@ -256,7 +260,6 @@ public class ScheduleView extends UiPart<Region> {
         // and set different id.
         VBox timeslotContainer = new VBox();
         timeslotContainer.setId("freeTimeSlotContainer");
-        timeslotContainer.getChildren().add(new Block(HALF_HOUR).makeEmptyBlock());
         LocalTime originalTimeStamp = LocalTime.of(START_TIME, 0);
         for (int j = 0; j < freeSchedule.size(); j++) {
             FreeTimeslot timeslot = freeSchedule.get(j);
@@ -273,6 +276,7 @@ public class ScheduleView extends UiPart<Region> {
             timeslotContainer.getChildren().add(freeTime);
             originalTimeStamp = endTime;
         }
+        timeslotContainer.setMaxHeight((END_TIME - START_TIME) * ONE_HOUR_LENGTH);
         return timeslotContainer;
     }
 
