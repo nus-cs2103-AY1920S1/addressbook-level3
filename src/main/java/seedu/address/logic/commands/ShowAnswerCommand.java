@@ -12,6 +12,8 @@ import seedu.address.model.Model;
 public class ShowAnswerCommand extends Command {
 
     public static final String COMMAND_WORD = "ans";
+    public static final String MESSAGE_SHOW_ANSWER_SUCCESS = "Answer displayed! "
+        + "Please rate the FlashCard easy/good/hard.";
     public static final String ERROR_MESSAGE = "Answer has already been displayed!\n"
             + "Next available command: rate, end";
 
@@ -25,11 +27,9 @@ public class ShowAnswerCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        //String answer = model.getTestAnswer();
         model.showAnswer();
-
         keyboardFlashCardsParser.setAwaitingAnswer(false);
-        return new CommandResult("To be change: better feedback message");
+        return new CommandResult(MESSAGE_SHOW_ANSWER_SUCCESS);
     }
 
     @Override
