@@ -240,8 +240,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     private boolean usesRightPane(CommandResult commandResult) {
         return commandResult.isDisplay()
-            || commandResult.isExpandPerson()
-            || commandResult.isExpandPolicy()
             || commandResult.isListHistory();
     }
 
@@ -259,10 +257,6 @@ public class MainWindow extends UiPart<Stage> {
                 showListHistory();
             } else if (commandResult.isDisplay()) {
                 showListDisplay(commandResult);
-            } else if (commandResult.isExpandPerson()) {
-                showExpandPerson(commandResult);
-            } else if (commandResult.isExpandPolicy()) {
-                showExpandPolicy(commandResult);
             }
 
             return commandResult;
