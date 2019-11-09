@@ -32,6 +32,9 @@ import io.xpire.logic.parser.exceptions.ParseException;
  * Parses user input.
  */
 public class XpireParser implements Parser {
+    private static final int NUM_COMMAND_PATITIONS = 2;
+    private static final int COMMAND_WORD_INDEX = 0;
+    private static final int COMMAND_ARGS_INDEX = 1;
 
     /**
      * Parses user input into command for execution.
@@ -43,16 +46,17 @@ public class XpireParser implements Parser {
     public Command parse(String userInput) throws ParseException {
         // Removes leading and trailing white spaces and trailing bars.
         String trimmedUserInput = userInput.trim()
-                                           .replaceAll("\\|+$", "");
+                                           .replaceAll(MULTIPLE_SEPARATOR, "");
 
-        String commandWord = trimmedUserInput.split("\\|", 2)[0].trim();
+        String commandWord = trimmedUserInput
+                .split(SEPARATOR, NUM_COMMAND_PATITIONS)[COMMAND_WORD_INDEX].trim();
         if (commandWord.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         String arguments;
         try {
-            arguments = trimmedUserInput.split("\\|", 2)[1];
+            arguments = trimmedUserInput.split(SEPARATOR, NUM_COMMAND_PATITIONS)[COMMAND_ARGS_INDEX];
         } catch (ArrayIndexOutOfBoundsException e) {
             arguments = "";
         }
