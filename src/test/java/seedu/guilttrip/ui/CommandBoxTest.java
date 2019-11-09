@@ -4,15 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import javafx.scene.input.KeyCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javafx.scene.input.KeyCode;
+
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.GuiltTripCommandSuggester;
 import seedu.guilttrip.logic.commands.ListCommand;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.ui.gui.guihandles.CommandBoxHandle;
 
+/**
+ * Unit tests for Command Box.
+ */
 public class CommandBoxTest extends GuiUnitTest {
 
     private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;

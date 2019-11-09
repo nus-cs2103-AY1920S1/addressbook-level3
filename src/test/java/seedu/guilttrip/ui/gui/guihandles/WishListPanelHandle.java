@@ -9,27 +9,27 @@ import javafx.scene.control.ListView;
 import seedu.guilttrip.model.entry.Wish;
 
 /**
- * Provides a handle for {@code WishListPanel} containing the list of {@code WishCard}.
+ * Provides a handle for {@code WishListPanel} containing the list of {@code WishListCard}.
  */
 public class WishListPanelHandle extends NodeHandle<ListView<Wish>> {
     public static final String WISH_LIST_VIEW_ID = "#wishListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Wish> lastRememberedSelectedWishCard;
+    private Optional<Wish> lastRememberedSelectedWishListCard;
 
     public WishListPanelHandle(ListView<Wish> wishListPanelNode) {
         super(wishListPanelNode);
     }
 
     /**
-     * Returns a handle to the selected {@code WishCardHandle}.
+     * Returns a handle to the selected {@code WishListCardHandle}.
      * A maximum of 1 item can be selected at any time.
      *
      * @throws AssertionError        if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public WishCardHandle getHandleToSelectedCard() {
+    public WishListCardHandle getHandleToSelectedCard() {
         List<Wish> selectedWishList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedWishList.size() != 1) {
@@ -37,7 +37,7 @@ public class WishListPanelHandle extends NodeHandle<ListView<Wish>> {
         }
 
         return getAllCardNodes().stream()
-                .map(WishCardHandle::new)
+                .map(WishListCardHandle::new)
                 .filter(handle -> handle.equals(selectedWishList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
@@ -92,7 +92,7 @@ public class WishListPanelHandle extends NodeHandle<ListView<Wish>> {
     }
 
     /**
-     * Selects the {@code WishCard} at {@code index} in the list.
+     * Selects the {@code WishListCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
@@ -103,9 +103,9 @@ public class WishListPanelHandle extends NodeHandle<ListView<Wish>> {
      *
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public WishCardHandle getWishCardHandle(int index) {
+    public WishListCardHandle getWishListCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(WishCardHandle::new)
+                .map(WishListCardHandle::new)
                 .filter(handle -> handle.equals(getWish(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
@@ -125,30 +125,30 @@ public class WishListPanelHandle extends NodeHandle<ListView<Wish>> {
     }
 
     /**
-     * Remembers the selected {@code WishCard} in the list.
+     * Remembers the selected {@code WishListCard} in the list.
      */
-    public void rememberSelectedWishCard() {
+    public void rememberSelectedWishListCard() {
         List<Wish> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedWishCard = Optional.empty();
+            lastRememberedSelectedWishListCard = Optional.empty();
         } else {
-            lastRememberedSelectedWishCard = Optional.of(selectedItems.get(0));
+            lastRememberedSelectedWishListCard = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
-     * Returns true if the selected {@code WishCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedWishCard()} call.
+     * Returns true if the selected {@code WishListCard} is different from the value remembered by the most recent
+     * {@code rememberSelectedWishListCard()} call.
      */
-    public boolean isSelectedWishCardChanged() {
+    public boolean isSelectedWishListCardChanged() {
         List<Wish> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedWishCard.isPresent();
+            return lastRememberedSelectedWishListCard.isPresent();
         } else {
-            return lastRememberedSelectedWishCard.isEmpty()
-                    || !lastRememberedSelectedWishCard.get().equals(selectedItems.get(0));
+            return lastRememberedSelectedWishListCard.isEmpty()
+                    || !lastRememberedSelectedWishListCard.get().equals(selectedItems.get(0));
         }
     }
 

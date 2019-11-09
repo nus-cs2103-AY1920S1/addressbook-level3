@@ -3,9 +3,11 @@ package seedu.guilttrip.ui.gui;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
-import javafx.stage.Stage;
 import org.testfx.api.FxRobot;
+
 import seedu.guilttrip.ui.gui.guihandles.exceptions.StageNotFoundException;
+
+import javafx.stage.Stage;
 
 /**
  * Robot used to simulate user actions on the GUI.

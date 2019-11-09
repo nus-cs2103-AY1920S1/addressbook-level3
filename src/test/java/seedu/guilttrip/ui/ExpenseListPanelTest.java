@@ -9,19 +9,26 @@ import static seedu.guilttrip.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.ui.expense.ExpenseListPanel;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import seedu.guilttrip.ui.gui.guihandles.ExpenseCardHandle;
 import seedu.guilttrip.ui.gui.guihandles.ExpenseListPanelHandle;
 
+
+
+/**
+ * Unit test for expense list panel.
+ */
 public class ExpenseListPanelTest extends GuiUnitTest {
     private static final ObservableList<Expense> TYPICAL_EXPENSES =
             FXCollections.observableList(getTypicalExpenses());
@@ -53,10 +60,12 @@ public class ExpenseListPanelTest extends GuiUnitTest {
     public void selection_modelSelectedExpenseChanged_selectionChanges() {
         initUi(TYPICAL_EXPENSES);
         Expense secondExpense = TYPICAL_EXPENSES.get(INDEX_SECOND_ENTRY.getZeroBased());
-        guiRobot.interact(() -> selectedExpense.set(secondExpense));
+        guiRobot.interact(() -> selectedExpense
+                .set(secondExpense));
         guiRobot.pauseForHuman();
 
-        ExpenseCardHandle expectedExpense = expenseListPanelHandle.getExpenseCardHandle(INDEX_SECOND_ENTRY.getZeroBased());
+        ExpenseCardHandle expectedExpense = expenseListPanelHandle.
+                getExpenseCardHandle(INDEX_SECOND_ENTRY.getZeroBased());
         ExpenseCardHandle selectedExpense = expenseListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedExpense, selectedExpense);
     }

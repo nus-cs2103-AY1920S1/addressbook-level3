@@ -27,52 +27,52 @@ public class SampleDataUtil {
                     new Date("2019 11 09"), new Amount("5.40"), getTagSet("mala")),
             new Expense(new Category("Food", "Expense"), new Description("chicken rice"),
                     new Date("2019 11 10"), new Amount("3.50"), getTagSet("food")),
-                new Expense(new Category("Travel", "Expense"), new Description("hong kong trip"),
-                        new Date("2019 11 07"), new Amount("2000"), getTagSet("joinProtests")),
-                new Expense(new Category("Entertainment", "Expense"),
-                        new Description("joker movie"), new Date("2019 10 31"), new Amount("13.50"),
-                        getTagSet("withFriends")),
-                new Expense(new Category("Food", "Expense"), new Description("potato chips"),
-                        new Date("2019 11 05"), new Amount("15"), getTagSet("forBingeEating"))
+            new Expense(new Category("Travel", "Expense"), new Description("hong kong trip"),
+                    new Date("2019 11 07"), new Amount("2000"), getTagSet("joinProtests")),
+            new Expense(new Category("Entertainment", "Expense"),
+                    new Description("joker movie"), new Date("2019 10 31"), new Amount("13.50"),
+                    getTagSet("withFriends")),
+            new Expense(new Category("Food", "Expense"), new Description("potato chips"),
+                    new Date("2019 11 05"), new Amount("15"), getTagSet("forBingeEating"))
         };
     }
 
     private static Income[] getSampleIncomes() {
         return new Income[]{
-                new Income(new Category("Salary", "Income"), new Description("october salary"),
-                        new Date("2019 10 28"), new Amount("3000"), getTagSet("salary")),
-                new Income(new Category("Gifts", "Income"), new Description("gst voucher"),
-                        new Date("2019 11 07"), new Amount("300"), getTagSet("gahmenMoney")),
-                new Income(new Category("Business", "Income"), new Description("side business"),
-                        new Date("2019 11 05"), new Amount("100"), getTagSet("salary"))
+            new Income(new Category("Salary", "Income"), new Description("october salary"),
+                    new Date("2019 10 28"), new Amount("3000"), getTagSet("salary")),
+            new Income(new Category("Gifts", "Income"), new Description("gst voucher"),
+                    new Date("2019 11 07"), new Amount("300"), getTagSet("gahmenMoney")),
+            new Income(new Category("Business", "Income"), new Description("side business"),
+                    new Date("2019 11 05"), new Amount("100"), getTagSet("salary"))
         };
     }
 
     private static Wish[] getSampleWishes() {
         return new Wish[]{
-                new Wish(new Category("Shopping", "Expense"), new Description("airpods prooo"),
-                        new Date("2019 11 07"), new Amount("450"), getTagSet("gudStuff")),
-                new Wish(new Category("Shopping", "Expense"), new Description("macbook prooo"),
-                        new Date("2019 11 08"), new Amount("2000"), getTagSet("cantGetEnufOfApple")),
-                new Wish(new Category("Shopping", "Expense"),
-                        new Description("moleskine notebook"), new Date("2019 11 11"), new Amount("50"),
-                        getTagSet("giftForFriend")),
+            new Wish(new Category("Shopping", "Expense"), new Description("airpods prooo"),
+                    new Date("2019 11 07"), new Amount("450"), getTagSet("gudStuff")),
+            new Wish(new Category("Shopping", "Expense"), new Description("macbook prooo"),
+                    new Date("2019 11 08"), new Amount("2000"), getTagSet("cantGetEnufOfApple")),
+            new Wish(new Category("Shopping", "Expense"),
+                    new Description("moleskine notebook"), new Date("2019 11 11"), new Amount("50"),
+                    getTagSet("giftForFriend")),
         };
     }
 
     private static Budget[] getSampleBudgets() {
         return new Budget[]{
-                new Budget(new Category("Food", "Expense"), new Description("nov food budget"),
-                        new Date("2019 11 01"), new Period("1m"), new Amount("400"),
-                        getTagSet("canSpendMoreThisMonth")),
-                new Budget(new Category("Transport", "Expense"), new Description("grab budget"),
-                        new Date("2019 11 11"), new Period("7d"), new Amount("50"),
-                        getTagSet("spentTooMuchLastWeek")),
+            new Budget(new Category("Food", "Expense"), new Description("nov food budget"),
+                    new Date("2019 11 01"), new Period("1m"), new Amount("400"),
+                    getTagSet("canSpendMoreThisMonth")),
+            new Budget(new Category("Transport", "Expense"), new Description("grab budget"),
+                    new Date("2019 11 11"), new Period("7d"), new Amount("50"),
+                    getTagSet("spentTooMuchLastWeek")),
         };
     }
 
     public static Category[] getSampleCategories() {
-        return new Category[] {
+        return new Category[]{
             new Category("Food", "Expense"),
             new Category("Travel", "Expense"),
             new Category("Family", "Expense"),

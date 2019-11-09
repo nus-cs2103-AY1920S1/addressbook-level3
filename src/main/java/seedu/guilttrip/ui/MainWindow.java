@@ -602,25 +602,6 @@ public class MainWindow extends UiPart<Stage> {
                     mainPanel.getChildren().removeAll(mainPanel.getChildren());
                     mainPanel.getChildren().add(this.reminderPanel.getRoot());
 
-                    /*PopupWindow popupWindow = new PopupWindow();
-
-                    Popup reminderPopup = new Popup();
-                    reminderPopup.getContent().add(popupWindow.getRoot());
-                    reminderPopup.setAutoHide(true);
-                    reminderPopup.setHideOnEscape(true);
-                    if (!reminderPopup.isShowing()) {
-                        reminderPopup.show(this.primaryStage);
-                    }*/
-
-                    /*this.popupWindow = new PopupWindow();
-
-                    if (!popupWindow.isShowing()) {
-                        popupWindow.show();
-                    } else {
-                        popupWindow.focus();
-                    }*/
-
-
                     final Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.getDialogPane().getStylesheets().add(this.theme.getThemeUrl());
                     alert.initStyle(StageStyle.DECORATED);

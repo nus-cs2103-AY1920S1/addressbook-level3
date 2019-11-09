@@ -56,8 +56,8 @@ public class EditIncomeDescriptorBuilder {
      * @param amt amount to be added
      * @return the descriptor with new amount
      */
-    public EditIncomeDescriptorBuilder withAmount(String amt) {
-        descriptor.setAmount(new Amount(amt));
+    public EditIncomeDescriptorBuilder withAmount(double amt) {
+        descriptor.setAmount(new Amount(String.valueOf(amt)));
         return this;
     }
 

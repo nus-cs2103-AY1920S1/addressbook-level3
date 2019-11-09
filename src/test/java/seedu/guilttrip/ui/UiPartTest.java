@@ -10,8 +10,10 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import javafx.fxml.FXML;
 import seedu.guilttrip.MainApp;
+
+import javafx.fxml.FXML;
+
 
 public class UiPartTest {
 

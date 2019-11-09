@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.ui.gui.guihandles.ResultDisplayHandle;
 
 public class ResultDisplayTest extends GuiUnitTest {

@@ -11,6 +11,7 @@ import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
+import seedu.guilttrip.model.entry.Wish;
 
 /**
  * A utility class containing a list of {@code Entry} objects to be used in tests.
@@ -26,11 +27,18 @@ public class TypicalEntries {
             .withCategory("Travel").withTime("2019-08-11").withAmt(10000.00).withTags("Gettingalife", "Rest").build();
 
     public static final Income SALARY_INCOME = new IncomeBuilder().withDesc("november salary")
-            .withCategory("Salary").withDate("2019 11 28").withAmt("3500").withTags("work").build();
+            .withCategory("Salary").withDate("2019 11 28").withAmt(3500).withTags("work").build();
     public static final Income PART_TIME_INCOME = new IncomeBuilder().withDesc("part time work")
-            .withCategory("Salary").withDate("2019 09 21").withAmt("350").withTags("parttime").build();
+            .withCategory("Salary").withDate("2019 09 21").withAmt(350).withTags("parttime").build();
     public static final Income GIFT_INCOME = new IncomeBuilder().withDesc("gift card from mom")
-            .withCategory("Gift").withDate("2019 10 20").withAmt("30").withTags("timetogoshopping").build();
+            .withCategory("Gift").withDate("2019 10 20").withAmt(30).withTags("timetogoshopping").build();
+
+    public static final Wish AIRPODS_WISH = new WishBuilder().withDesc("airpods proo")
+            .withCategory("Shopping").withDate("2019 11 02").withAmt(450).withTags("new").build();
+    public static final Wish MACBOOK_WISH = new WishBuilder().withDesc("macbook proo")
+            .withCategory("Shopping").withDate("2019 11 03").withAmt(2000).withTags("cantGetEnoughOfApple").build();
+    public static final Wish PORTABLE_WISH = new WishBuilder().withDesc("xiaomi portable charger from lazada")
+            .withCategory("Shopping").withDate("2019 11 11").withAmt(20).withTags("electronics").build();
 
     public static final Category CATEGORY_FOOD = new CategoryBuilder().withCatType("Expense").withCatName("food")
             .build();
@@ -66,6 +74,9 @@ public class TypicalEntries {
         for (Income income : getTypicalIncomes()) {
             gt.addIncome(income);
         }
+        for (Wish wish : getTypicalWishes()) {
+            gt.addWish(wish);
+        }
         return gt;
     }
 
@@ -75,6 +86,10 @@ public class TypicalEntries {
 
     public static List<Income> getTypicalIncomes() {
         return new ArrayList<>(Arrays.asList(SALARY_INCOME, PART_TIME_INCOME, GIFT_INCOME));
+    }
+
+    public static List<Wish> getTypicalWishes() {
+        return new ArrayList<>(Arrays.asList(AIRPODS_WISH, MACBOOK_WISH, PORTABLE_WISH));
     }
 
     public static List<Category> getTypicalCategories() {

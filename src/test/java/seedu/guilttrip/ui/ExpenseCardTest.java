@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.guilttrip.ui.testutil.GuiTestAssert.assertCardDisplaysEntry;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.testutil.ExpenseBuilder;
 import seedu.guilttrip.ui.expense.ExpenseCard;

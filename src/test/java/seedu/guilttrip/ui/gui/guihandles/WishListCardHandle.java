@@ -8,9 +8,9 @@ import seedu.guilttrip.model.entry.Wish;
 /**
  * Provides a handle to a wish card in the wish list panel.
  */
-public class WishCardHandle extends EntryCardHandle {
+public class WishListCardHandle extends EntryCardHandle {
 
-    public WishCardHandle(Node cardNode) {
+    public WishListCardHandle(Node cardNode) {
         super(cardNode);
     }
 

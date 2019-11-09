@@ -52,7 +52,7 @@ public class CommandTestUtil {
     // Incomes
     public static final String VALID_DESC_SALARY_INCOME = "october salary";
     public static final String VALID_DESC_TUITION_INCOME = "tution work money";
-    public static final String VALID_AMOUNT_SALARY_INCOME = "3000";
+    public static final double VALID_AMOUNT_SALARY_INCOME = 3000;
     public static final String VALID_CATEGORY_SALARY_INCOME = "Salary";
     public static final String VALID_DATE_SALARY_INCOME = "2019 10 28";
     public static final String VALID_TAG_MONEY = "money";
