@@ -35,7 +35,8 @@ class AddAppCommandTest {
     public void execute_eventAcceptedByModel_addSuccessful() throws Exception {
         model.deleteAppointment(EVENT_BENSON);
         CommandResult commandResult = new AddAppCommand(EVENT_BENSON).execute(model);
-        assertEquals(String.format(AddAppCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS, EVENT_BENSON),
+        assertEquals(String.format(AddAppCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS, EVENT_BENSON.getPersonId(),
+                EVENT_BENSON.getPersonName(), EVENT_BENSON.getEventTiming()),
                 commandResult.getFeedbackToUser());
     }
 
