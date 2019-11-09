@@ -51,14 +51,10 @@ public class ScheduleCommand extends Command {
             List<Interviewer> interviewers = new ArrayList<>(model.getUnfilteredInterviewerList());
             List<Interviewee> interviewees = new ArrayList<>(model.getUnfilteredIntervieweeList());
 
-            // To ensure fairer scheduling
-            Collections.shuffle(interviewers);
-            Collections.shuffle(interviewees);
-
-            BipartiteGraph graph = new BipartiteGraphGenerator(interviewers, interviewees).generate();
-            HopCroftKarp algorithm = new HopCroftKarp(graph);
+            BipartiteGraph optimumGraph = findOptimumGraph(model, interviewers, interviewees);
+            HopCroftKarp algorithm = new HopCroftKarp(optimumGraph);
             algorithm.execute();
-            assignSlots(graph);
+            assignSlots(optimumGraph);
 
             try {
                 model.updateSchedulesAfterScheduling();
@@ -66,7 +62,7 @@ public class ScheduleCommand extends Command {
                 throw new CommandException("Error occurs!", e);
             }
 
-            feedback = generateResultMessage(graph);
+            feedback = generateResultMessage(optimumGraph);
         }
 
         logger.info("Finish scheduling interviews");
@@ -84,8 +80,9 @@ public class ScheduleCommand extends Command {
      * Attaches the allocated interview slot the corresponding interviewee and also to the interviewer (after running
      * the HopCroftKarp algorithm). Returns true if at least one interviewee is allocated with a slot.
      */
-    private void assignSlots(BipartiteGraph graph) {
+    private int assignSlots(BipartiteGraph graph) {
         int numInterviewees = graph.getNumInterviewees();
+        int numMatching = 0;
 
         for (int i = 0; i < numInterviewees; i++) {
             IntervieweeVertex intervieweeVertex = graph.getIntervieweePair(i).getHead();
@@ -98,8 +95,42 @@ public class ScheduleCommand extends Command {
 
                 interviewee.setAllocatedSlot(slot);
                 interviewer.addAllocatedSlot(new IntervieweeSlot(interviewee, slot));
+                numMatching++;
             }
         }
+
+        return numMatching;
+    }
+
+    /**
+     * Finds the optimum graph to maximise the number of matching between interviewee and interview slots.
+     */
+    private BipartiteGraph findOptimumGraph(Model model, List<Interviewer> interviewers,
+                                            List<Interviewee> interviewees) {
+        BipartiteGraph optimumGraph = null;
+
+        int maxMatching = 0;
+        for (int i = 0; i < 10; i++) {
+            // To ensure fairer scheduling
+            Collections.shuffle(interviewers);
+            Collections.shuffle(interviewees);
+
+            BipartiteGraph graph = new BipartiteGraphGenerator(interviewers, interviewees).generate();
+            HopCroftKarp algorithm = new HopCroftKarp(graph);
+            algorithm.execute();
+            int currNumMatching = assignSlots(graph);
+
+            if (currNumMatching > maxMatching) {
+                optimumGraph = graph;
+                maxMatching = currNumMatching;
+            }
+
+            model.resetDataBeforeScheduling();
+        }
+
+        model.resetDataBeforeScheduling();
+
+        return optimumGraph;
     }
 
     /**

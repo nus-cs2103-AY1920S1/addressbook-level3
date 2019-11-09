@@ -19,7 +19,7 @@ By: `Team AY1920S1-CS2103-F09-1`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
 Due to vastly different timetables, scheduling interviews that don't clash for applicants to positions in an NUS
-Co-Curricular Activity (CCA) can be difficult. Scheduler is an app that can automate this scheduling of interviews for
+Co-Curricular Activity (CCA) during peak recruitment period can be difficult. Scheduler is an app that can automate this scheduling of interviews for
 secretaries in NUS CCAs. Given templates adapted from exported NUSync CCA sign-up lists, Scheduler generates an optimal
 matching of interviewees to time slots. Scheduler also supports manual input. It is optimised for people who **prefer
 typing in a Command Line Interface (CLI)** to quickly access the functionalities of an app. +
@@ -534,8 +534,7 @@ Format: `filter tag TAG_NAME`
 === Scheduling `schedule`
 ==== Schedule the interviews
 Schedule and allocate interviewees to the available interview slots based on the availability of interviewees and
-their choice of department. As of V1.3, the scheduling result is reflected on the console of the application. This will
-be updated such that the result is reflected in the displayed interview timetable at v1.4.
+their choice of department.
 
 Format: `schedule`
 
