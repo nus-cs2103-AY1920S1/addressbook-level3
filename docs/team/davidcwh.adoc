@@ -28,9 +28,9 @@ Note the following formatting used in this document:
 
 NOTE: This symbol indicates important information.
 
-`archive` - Text in Consolas font colored red indicates that this is a command that can be inputted into the command line and executed by _Billboard_.
+`archive` - A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by _Billboard_.
 
-`*ArchiveWrapper*` - *Bold* text in Consolas font colored red indicates a component, class, object or variable in the architecture of _Billboard_.
+`*ArchiveWrapper*` - A grey highlight (called a mark-up) with bold text indicates a component, class, object or variable in the architecture of _Billboard_.
 
 "_movie tickets_" - Italicised text with quotation marks indicates the name of an expense or archive used for demonstration purposes.
 
@@ -93,7 +93,8 @@ https://github.com/AY1920S1-CS2103T-F12-4/main/pull/107[#107],
 https://github.com/AY1920S1-CS2103T-F12-4/main/pull/109[#109],
 https://github.com/AY1920S1-CS2103T-F12-4/main/pull/112[#112],
 https://github.com/AY1920S1-CS2103T-F12-4/main/pull/113[#113],
-https://github.com/AY1920S1-CS2103T-F12-4/main/pull/185[#185]
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/185[#185],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/191[#191 (with constructive feedback)]
 
 
 == Contributions to the User Guide

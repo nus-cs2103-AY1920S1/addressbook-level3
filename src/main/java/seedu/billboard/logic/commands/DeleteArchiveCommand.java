@@ -12,6 +12,7 @@ import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
 
+//@@author davidcwh
 /**
  * Deletes an archive expense identified using it's displayed index from
  * the given archive name and archive list of expenses.

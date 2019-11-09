@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 
+//@@author davidcwh
 /**
  * Wraps all data at the archive level
  */
@@ -155,12 +156,14 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         return expenses;
     }
 
+    //@@author
     @Override
     @SuppressWarnings("unchecked")
     public ArchiveWrapper getClone() {
         return new ArchiveWrapper((HashMap<String, Archive>) archiveList.clone());
     }
 
+    //@@author davidcwh
     void setArchives(ReadOnlyArchiveWrapper archives) {
         setArchiveList(archives.getArchiveList());
     }
