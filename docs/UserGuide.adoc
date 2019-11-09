@@ -89,12 +89,13 @@ Refer to Section 3, “Features” for details of each command.
 
 == Preface
 
-Nobody likes to read long documents, especially when you have something as
-exciting as TravEzy to start using. So, we're going to give you a simple structure
-that you can use to make using this user guide a TravEzy experience 😊:
+Excited to start using _TravEzy_? Read this section to find out how this document is structured, and what each symbol and special font style mean. We promise that this will help you to get started with using _TravEzy_ more quickly! 😊
 
+=== Structure of this Document
 
-We've split up this guide into the different portions of our application, namely:
+Nobody likes to read long documents, especially when you have something as exciting as TravEzy to use. So, we have organised this document such that you can easily look for what *you* need. 
+
+We've split up this guide into the different features of our application, namely:
 
 . Main
 . Calendar
@@ -104,38 +105,40 @@ We've split up this guide into the different portions of our application, namely
 . Achievements
 
 
-In each section, you will find the commands that you can type to begin making use of the features.
+In each of the above sections, you will be introduced to the *interface* of the feature, the *_parameters_* (which are just like those fields you fill up in a regular form📝) and the *commands* that will do the menial tasks for you.
+
 We have provided the word that you type into TravEzy to trigger the
 command, or the _Command Word_  in a special format, for example -  ``Command Word``. With this, there
 is a short description of the command as well.
 
-After the _Command Word_, we have also included the _Format_ for entering the command.
-Now, in TravEzy, along with the _Command Word_, we also have additional parameters
-that must be typed in with the _Command Word_. These parameters are made explicit with
-_Prefixes_. Each prefix will be followed by a forward slash, ``/``, after which will be value that you, the user must input. If the parameter is optional, it will be surrounded by sqaure brackets,
-``[]``.
+=== Reading this Document
 
-Lastly, with each command, there is an example of a possible command that can be input by a user.
+Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's find out more about what they mean in this document!
 
-Here, is an example from the diary:
+.Symbols and fonts (rows)
+[grid="rows", frame="none"]
+|===
+| Symbol/font | What does it mean?
+ 
+| ``command``
+| A grey highlight means that you can type the words into _TravEzy_ and it will start performing tasks for you
 
-Trying to journal your trip to DisneyLand?
-*Add an entry to your diary: ``add``*
+| ``MONTH``
+| Uppercase letters that are highlighted in grey indicate that the word is a _parameter_.footnote:[Remember what this means? A parameter is merely like a field in your regular form. Just fill it up with anything appropriate. 😊]
 
-Adds an entry to your diary, with the parameters: title (of the diary entry), date
-(of the event you are trying to journal) , place (of the event) and memory (more info
-about the event).
+| ``m\MONTH``
+| The slash before the _parameter_ is a _prefix_. It is used to separate the current _parameter_ from other _parameters_.
 
-The _Command Word_ is ``add`` and the prefixes are ``t/`` for title, ``d/``
-for date, ``p/`` for place and ``m/`` for memory.
-Only title and date are compulsory.
+| ``[m\MONTH]``
+| Square brackets imply that the the stated _prefix_ and _parameter_ are optional. (This means less typing! 😆)
 
-Format: ``add t/title d/date [p/place] [m/memory]``
+| 💡  
+| A light bulb indicates that what is to follow is a tip. 
 
-Example: Lets take the example of my fishing trip! I can't really remember where it was...
-
-``add t/Fishing Trip d/12/12/2019 m/Caught the biggest fish ever!``
-
+| ⚠️  
+| A warning sign indicates that what is to follow is important.
+ 
+|===
 
 
 
@@ -193,15 +196,15 @@ Example: Let's say I have to exit the calendar page -
 
 == Calendar
 
-We have all been there. It's the end of the semester but we still have orientation camps to plan, upcoming projects for our CCA, hackathons to attend, internships to complete, family commitments, etc. However, we have worked so hard and *really* want to go for a trip with our friends and unwind. Sounds like you this semester?
+We have all been there. It's the end of the semester but we still have orientation camps to plan, internships to complete, family commitments, etc. However, we have worked so hard and *really* want to go for a trip with our friends and unwind. Sounds like you this semester?
 
-Well, TravEzy has got you covered. Simply inform TravEzy of your schedule (your commitments, school breaks and public holidays) and TravEzy will suggest periods of time when you can travel! Excited to find out more? Well... Read on!
+Well, _TravEzy_ has got you covered. Simply inform _TravEzy_ of your schedule (your commitments, school breaks, public holidays and trips) and _TravEzy_ will suggest periods of time when you can travel! Excited to find out more? Well... Read on!
 
 === Interface
 
 === Parameters
 
-Let us find out what are the main parameters (or fields, just like those which you fill up in a regular form📝).
+Let us find out what the main parameters (or fields, just like those which you fill up in a regular form📝) for calendar.
 
 
 . DAY. This refers to which day of the month (e.g. *1*, *2*, ..., *31* of January). To specify the day, simply place ``d/`` before it.
