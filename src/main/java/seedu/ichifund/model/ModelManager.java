@@ -5,6 +5,7 @@ import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -55,7 +56,14 @@ public class ModelManager implements Model {
         filteredTransactions = new FilteredList<>(this.fundBook.getTransactionList());
         filteredRepeaters = new FilteredList<>(this.fundBook.getRepeaterList());
         filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
-        TransactionContext transactionContext = new TransactionContext(this.fundBook.getLatestTransaction());
+
+        Optional<Transaction> latestTransaction = this.fundBook.getLatestTransaction();
+        latestTransaction.ifPresentOrElse(transaction -> logger.fine("Latest transaction found: " + transaction)
+                , () -> logger.fine("No transactions found."));
+
+        TransactionContext transactionContext = new TransactionContext(latestTransaction);
+        logger.info("Setting initial transaction context as: " + transactionContext);
+
         updateFilteredTransactionList(transactionContext.getPredicate());
         this.transactionContext = new SimpleObjectProperty<>(transactionContext);
         datas = new FilteredList<>(this.fundBook.getDataList());
@@ -276,6 +284,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setTransactionContext(TransactionContext transactionContext) {
+        logger.fine("Setting transaction context as: " + transactionContext);
         this.transactionContext.setValue(transactionContext);
         updateFilteredTransactionList(transactionContext.getPredicate());
     }
