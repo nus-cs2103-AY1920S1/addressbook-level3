@@ -401,7 +401,7 @@ This enables users to be more informed of their spending habits as they are now 
 An example is shown below.
 
 .Output of `stats`
-image::allstats.png[width="700"]
+image::stats.png[width="700"]
 
 
 *Format:* `stats d/DATE_START d/DATE_END`
@@ -452,7 +452,7 @@ This enables users to analyze trends in their spending amount over a particular 
 An example is shown below.
 
 .Output of `graph`
-image::allgraph.png[width="700"]
+image::graph.png[width="700"]
 
 *Format:* `graph d/DATE_START d/DATE_END`
 

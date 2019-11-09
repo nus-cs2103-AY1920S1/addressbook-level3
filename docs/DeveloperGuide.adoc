@@ -719,6 +719,17 @@ image::StatsDataSequenceDiagram.png[width = "600"]
 
 4. Finally, the `statsData` is returned to the `MainWindow`. The data will be displayed on the Ui through `StatsPanel#loadData(statsData)` call.
 
+////
+Formatting for html to pdf
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty}
+////
 ==== Design Considerations
 
 [width="90%", cols="1,2,2", options="header",]
@@ -730,7 +741,7 @@ image::StatsDataSequenceDiagram.png[width = "600"]
 *Pros:* Limits the number of tags to the tags that are the most significant. Will not encounter any errors in the event there is a large number of tags. +
 *Cons:* Unable to display the data of other tags that are less significant.
 
-|Represent data in the form of a table. +
+|Represent data in the form of a table +
 *Pros:* Able to view the data of more tags. +
 *Cons:* Less reader-friendly option due to the large amount of data. Data is not summarized easily for the user to analyze his spending habits.
 
@@ -800,16 +811,16 @@ image::GraphDataSequenceDiagram.png[width = "600"]
 |===
 |Aspect |Alternative 1 (Current choice) |Alternative 2
 
-|Whether to merge Graph and Statistics into one command
-|Distinct Graph and Statistics commands +
+|Whether to merge Graph and Statistics features into one command
+|Distinct commands for Graph and Statistics features. +
 *Pros:* Distinct commands with similar parameters make it easy for the user to remember and use.
 One feature could be easily modified without affecting the other feature. +
 *Cons:* Code duplication due to similarity of implementation.
 
-|Merge Graph implementation with Statistics +
+|Merge Graph and Statistics features into one command. +
 *Pros:* Reduces code duplication due to  similarity of implementation. +
-*Cons:* Another parameter needed to ask user which mode he would like to view his statistics, whether in a pie chart or a graph.
-Difficult to extend Graph feature in the future to behaviours that are distinct from Statistics.
+*Cons:* Another parameter needed for user to indicate the mode he prefers to view his statistics.
+Difficult to modify one feature without needing to modify the other as well.
 
 |===
 
