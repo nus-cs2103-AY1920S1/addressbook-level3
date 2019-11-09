@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T09-3/main/tree/master
 
 By: `Team T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -216,7 +216,7 @@ In ClerkPro, each person is assigned a unique `ReferenceId`.
 
 This unique reference identifier consist of two parts:
 
-    . a unique case-insensitive string, which consist of 9 alphanumeric characters, referring to its unique ID number and
+    . a unique case-insensitive string, which consist of 9 alphanumeric characters, referring to its unique ID
     . a boolean referring to whether the reference identifier belonged to a person who is registered as a patient or a staff doctor.
 
 
@@ -224,15 +224,29 @@ This unique reference identifier consist of two parts:
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
+
+The undo/redo feature allows users to revert the action of a command or redo a command action that has been undone.
+
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by the `CommandHistory` class.
+The history class stores undoable commands as a `ReversibleActionPairCommand`,
+which pairs two `ReversibleActionCommand`, the first command being the action to be executed and its inverse. (e.g. Pairing 'add event A' and 'delete event A' command).
+Considering that the undo functionality of an 'add event' command, is similar to the action of the 'delete event' command,
+execution of the 'delete event' command could be done in place of the undo functionality of the 'add event' command.
+Hence, with such an implementation, we can avoid unnecessary duplication of code.
+
+The design of `ReversibleActionCommand` uses the Command pattern, a common design pattern often used in software engineering.
+
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `ReversibleActionPairCommand#execute()` -- Saves the current address book state in its history.
+* `ReversibleActionPairCommand#undo()` -- Restores the previous address book state from its history.
+* `ReversibleActionPairCommand#redo()` -- Restores a previously undone address book state from its history.
+
+
+//TODO [Implementation]
+
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
