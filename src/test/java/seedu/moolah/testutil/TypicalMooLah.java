@@ -29,11 +29,11 @@ import seedu.moolah.model.expense.Expense;
  */
 public class TypicalMooLah {
 
-    public static final String SCHOOL_BUDGET_STRING_ONE = "|| Description: School related expenses "
-            + "Amount: 300.00 Period: month Start date: 15 Oct 2019, 12:00:00 AM End date: 14 Nov 2019, 11:59:59 PM ||";
+    public static final String SCHOOL_BUDGET_STRING_ONE = "|| Description: School related expenses Amount: 300.00 "
+            + "Period: month Start date: 15 Oct 2019, 12:00:00 AM End date: 14 Nov 2019, 11:59:59 PM ||";
 
-    public static final String SCHOOL_BUDGET_STRING_TWO = "|| Description: School related expenses "
-            + "Amount: 300.00 Period: month Start date: Oct 15, 2019, 12:00:00 AM End date: Nov 14, 2019, 11:59:59 PM ||";
+    public static final String SCHOOL_BUDGET_STRING_TWO = "|| Description: School related expenses Amount: 300.00 "
+            + "Period: month Start date: Oct 15, 2019, 12:00:00 AM End date: Nov 14, 2019, 11:59:59 PM ||";
 
     // ==============================Budgets=================================
     public static final Budget SCHOOL = new BudgetBuilder()
@@ -449,6 +449,9 @@ public class TypicalMooLah {
         return new ArrayList<>(Arrays.asList(OUTSIDE_SCHOOL, SCHOOL));
     }
 
+    /**
+     * To reverse effect of ClearBudgetsCommandTest
+     */
     public static void reset() {
         CHICKEN_RICE.setBudget(SCHOOL);
         DRINKS.setBudget(SCHOOL);

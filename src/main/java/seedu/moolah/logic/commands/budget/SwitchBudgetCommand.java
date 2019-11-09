@@ -8,7 +8,6 @@ import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.UndoableCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Description;
 import seedu.moolah.ui.budget.BudgetPanel;
 
@@ -69,10 +68,5 @@ public class SwitchBudgetCommand extends UndoableCommand {
         return other == this // short circuit if same object
                 || (other instanceof SwitchBudgetCommand // instanceof handles nulls
                 && targetDescription.equals(((SwitchBudgetCommand) other).targetDescription));
-    }
-
-    private Budget createEditedBudget(Budget budgetToEdit, boolean editedIsPrimary) {
-        return new Budget(budgetToEdit.getDescription(), budgetToEdit.getAmount(), budgetToEdit.getWindowStartDate(),
-                budgetToEdit.getBudgetPeriod(), budgetToEdit.getExpenses(), editedIsPrimary);
     }
 }

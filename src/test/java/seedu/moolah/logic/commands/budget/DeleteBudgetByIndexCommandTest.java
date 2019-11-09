@@ -15,6 +15,7 @@ import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
+import seedu.moolah.model.MooLah;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.budget.Budget;
 
@@ -42,6 +43,21 @@ public class DeleteBudgetByIndexCommandTest {
         DeleteBudgetByIndexCommand deleteBudgetByIndexCommand = new DeleteBudgetByIndexCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteBudgetByIndexCommand, model, Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void run_onlyDefaultBudgetLeft_throwsCommandException() {
+        Model emptyModel = new ModelManager(new MooLah(), new UserPrefs(), new ModelHistory());
+        DeleteBudgetByIndexCommand deleteBudgetByIndexCommand = new DeleteBudgetByIndexCommand(INDEX_FIRST);
+
+        assertCommandFailure(deleteBudgetByIndexCommand, emptyModel, Messages.MESSAGE_CANNOT_DELETE_DEFAULT_BUDGET);
+    }
+
+    @Test
+    public void run_tryingToDeleteDefaultBudget_throwsCommandException() {
+        DeleteBudgetByIndexCommand deleteBudgetByIndexCommand = new DeleteBudgetByIndexCommand(INDEX_FIRST);
+
+        assertCommandFailure(deleteBudgetByIndexCommand, model, Messages.MESSAGE_CANNOT_DELETE_DEFAULT_BUDGET);
     }
 
 

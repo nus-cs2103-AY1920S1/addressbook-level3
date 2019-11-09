@@ -3,12 +3,18 @@ package seedu.moolah.model.budget;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.moolah.testutil.TypicalMooLah.DRINKS;
+import static seedu.moolah.testutil.TypicalMooLah.BUSAN_TRIP;
 import static seedu.moolah.testutil.TypicalMooLah.CHICKEN_RICE;
+import static seedu.moolah.testutil.TypicalMooLah.DRINKS;
+import static seedu.moolah.testutil.TypicalMooLah.ENTERTAINMENT;
+import static seedu.moolah.testutil.TypicalMooLah.FASHION;
+import static seedu.moolah.testutil.TypicalMooLah.GROCERIES;
 import static seedu.moolah.testutil.TypicalMooLah.OUTSIDE_SCHOOL;
 import static seedu.moolah.testutil.TypicalMooLah.SCHOOL;
 import static seedu.moolah.testutil.TypicalMooLah.SCHOOL_BUDGET_STRING_ONE;
 import static seedu.moolah.testutil.TypicalMooLah.SCHOOL_BUDGET_STRING_TWO;
+
+import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +32,7 @@ public class BudgetTest {
         schoolCopy.addExpense(DRINKS);
         assertTrue(schoolCopy.getExpenses().contains(DRINKS));
     }
-    
+
     @Test
     public void testCalculateExpenseSum() {
         ObservableList<Expense> expenses = FXCollections.observableArrayList();
@@ -35,6 +41,52 @@ public class BudgetTest {
         Budget editedSchool = new BudgetBuilder(SCHOOL)
                 .withExpenses(expenses).build();
         assertEquals(53.50, editedSchool.calculateExpenseSum());
+    }
+
+    @Test
+    public void testCalculateProportionUsed() {
+        ObservableList<Expense> expenses = FXCollections.observableArrayList();
+        expenses.add(CHICKEN_RICE);
+        expenses.add(DRINKS);
+        Budget editedSchool = new BudgetBuilder(SCHOOL)
+                .withExpenses(expenses).build();
+        assertEquals(new Percentage(18), editedSchool.calculateProportionUsed());
+    }
+
+    @Test
+    public void testIsHalf() {
+        //less than 50% used
+        assertFalse(SCHOOL.isHalf());
+
+        //more than 50% used
+        Budget schoolCopy = new BudgetBuilder(SCHOOL).build();
+        schoolCopy.addExpense(GROCERIES);
+        schoolCopy.addExpense(FASHION);
+        assertTrue(schoolCopy.isHalf());
+    }
+
+    @Test
+    public void testIsNear() {
+        //less than 90% used
+        assertFalse(SCHOOL.isNear());
+
+        //more than 90% used
+        Budget schoolCopy = new BudgetBuilder(SCHOOL).build();
+        schoolCopy.addExpense(GROCERIES);
+        schoolCopy.addExpense(FASHION);
+        schoolCopy.addExpense(ENTERTAINMENT);
+        assertTrue(schoolCopy.isNear());
+    }
+
+    @Test
+    public void testIsExceeded() {
+        //less than 100% used
+        assertFalse(SCHOOL.isExceeded());
+
+        //more than 100% used
+        Budget schoolCopy = new BudgetBuilder(SCHOOL).build();
+        schoolCopy.addExpense(BUSAN_TRIP);
+        assertTrue(schoolCopy.isExceeded());
     }
 
     @Test
@@ -130,9 +182,11 @@ public class BudgetTest {
         // same values -> returns true
         Budget schoolCopy = new BudgetBuilder(SCHOOL).build();
         assertTrue(SCHOOL.equals(schoolCopy));
+        assertTrue(SCHOOL.hashCode() == schoolCopy.hashCode());
 
         // same object -> returns true
         assertTrue(SCHOOL.equals(SCHOOL));
+        assertTrue(SCHOOL.hashCode() == SCHOOL.hashCode());
 
         // null -> returns false
         assertFalse(SCHOOL.equals(null));
@@ -175,5 +229,33 @@ public class BudgetTest {
     public void testStringConversion() {
         assertTrue(SCHOOL.toString().equals(SCHOOL_BUDGET_STRING_ONE)
                 || SCHOOL.toString().equals(SCHOOL_BUDGET_STRING_TWO));
+    }
+
+    @Test
+    public void testHashCode() {
+        assertEquals(Objects.hash(SCHOOL.getDescription(), SCHOOL.getAmount(),
+                SCHOOL.getWindowStartDate(), SCHOOL.getWindowEndDate(),
+                SCHOOL.getBudgetPeriod(), SCHOOL.getExpenses(), SCHOOL.isPrimary()),
+                SCHOOL.hashCode());
+
+    }
+
+    @Test
+    public void refresh_defaultBudget_notNormalized() {
+        Budget db = Budget.DEFAULT_BUDGET;
+        db.refresh();
+        assertEquals(Timestamp.EARLIEST_TIMESTAMP, db.getWindowStartDate());
+        assertEquals(Timestamp.createTimestampIfValid("31-12-2099").get().toEndOfDay(),
+                db.getWindowEndDate());
+    }
+
+    @Test
+    public void refresh_success() {
+        Budget schoolCopy = new BudgetBuilder(SCHOOL).build();
+        schoolCopy.refresh();
+        assertEquals(schoolCopy.getWindowStartDate(), Timestamp.createTimestampIfValid("15-10-2019 noon")
+                .get().toStartOfDay());
+        assertEquals(schoolCopy.getWindowEndDate(), Timestamp.createTimestampIfValid("14-11-2019 noon")
+                .get().toEndOfDay());
     }
 }

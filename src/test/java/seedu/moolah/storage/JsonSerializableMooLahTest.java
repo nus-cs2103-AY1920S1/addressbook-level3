@@ -1,8 +1,6 @@
 package seedu.moolah.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.moolah.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -14,9 +12,6 @@ import seedu.moolah.commons.exceptions.IllegalValueException;
 import seedu.moolah.commons.util.JsonUtil;
 import seedu.moolah.model.MooLah;
 import seedu.moolah.testutil.TypicalMooLah;
-
-import static seedu.moolah.testutil.TypicalMooLah.CHICKEN_RICE;
-import static seedu.moolah.testutil.TypicalMooLah.MEE_POK;
 
 public class JsonSerializableMooLahTest {
 
@@ -34,10 +29,6 @@ public class JsonSerializableMooLahTest {
                 JsonSerializableMooLah.class).get();
         MooLah mooLahFromFile = dataFromFile.toModelType();
         MooLah typicalExpensesMooLah = TypicalMooLah.getTypicalExpensesOnlyMooLah();
-//        assertTrue(typicalExpensesMooLah.getExpenseList().contains(MEE_POK));
-//        assertTrue(mooLahFromFile.getExpenseList().contains(MEE_POK));
-//        assertFalse(mooLahFromFile.getExpenseList().contains(CHICKEN_RICE));
-//        assertFalse(typicalExpensesMooLah.getExpenseList().contains(CHICKEN_RICE));
         assertEquals(mooLahFromFile, typicalExpensesMooLah);
     }
 

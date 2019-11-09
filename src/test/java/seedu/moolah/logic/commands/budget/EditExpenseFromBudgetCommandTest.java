@@ -26,7 +26,6 @@ import seedu.moolah.model.MooLah;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Expense;
-import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.testutil.EditExpenseDescriptorBuilder;
 import seedu.moolah.testutil.ExpenseBuilder;
 

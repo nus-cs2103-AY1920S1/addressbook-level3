@@ -5,6 +5,7 @@ import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 import seedu.moolah.model.expense.Timestamp;
 
@@ -103,10 +104,16 @@ public class BudgetWindow {
      */
     private Timestamp calculateEndDate() {
         Timestamp endDate = startDate.plus(period.getPeriod());
-        if (period == BudgetPeriod.DAY && endDate.getDayOfMonth() < startDate.getDayOfMonth()) {
-            endDate.plusDays(1);
+        if ((period == BudgetPeriod.MONTH || period == BudgetPeriod.YEAR)
+                && (endDate.getDayOfMonth() < startDate.getDayOfMonth())) {
+            endDate = endDate.plusDays(1);
         }
         return endDate.minusDays(1).toEndOfDay();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startDate, endDate, period);
     }
 
     @Override
