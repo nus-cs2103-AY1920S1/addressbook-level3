@@ -14,6 +14,25 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-4/main/tree/master
 
+== Introduction
+
+NUStudy is an application for managing three kinds of informational material: lecture notes, quizzes and revision tasks.
+It helps users to prepare for exams and tests in university by facilitating their learning.
+
+As a developer of NUStudy, this guide can help you understand the basic software architecture and design considerations
+for its implementation so that you can start contributing in no time.
+
+You can refer to this guide for the following information:
+
+*   <<Setting up, Setting up>>
+*	<<Design, Design>>
+*   <<Implementation, Implementation>>
+*	<<Documentation, Documentation>>
+*	<<Testing, Testing>>
+*	<<DevOps, DevOps>>
+
+For any queries, simply <<ContactUs#, contact us>>.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -373,7 +392,7 @@ create a pie chart. It will then show a statistics panel, hiding all notes, task
 The following sequence diagram shows how the UI handles the `GetStatisticsCommand`:
 
 .UI sequence diagram for `GetStatisticsCommand`
-image::StatisticsSequenceDiagram.png[]
+image::statistics/StatisticsSequenceDiagram.png[]
 
 Step 4. The user now wants to stop viewing statistics and decides to view all notes, tasks and questions
 again using the `listnote` command. The statistics panel will now be hidden.
