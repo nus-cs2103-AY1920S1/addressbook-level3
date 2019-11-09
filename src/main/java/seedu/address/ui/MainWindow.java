@@ -181,7 +181,7 @@ public class MainWindow extends UiPart<Stage> {
         final KeyCombination upCombo = new KeyCodeCombination(KeyCode.UP, KeyCombination.ALT_DOWN);
         final KeyCombination downCombo = new KeyCodeCombination(KeyCode.DOWN, KeyCombination.ALT_DOWN);
 
-        this.commandBoxPlaceholder.addEventHandler(KeyEvent.ANY, new EventHandler<KeyEvent>() {
+        this.commandBoxPlaceholder.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {
                 if (upCombo.match(ke)) {

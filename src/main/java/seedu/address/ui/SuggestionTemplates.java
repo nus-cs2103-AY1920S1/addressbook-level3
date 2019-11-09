@@ -126,8 +126,8 @@ public class SuggestionTemplates {
 
     static {
 
-        Text filepathPrefix0 = new Text("fp/");
-        Text filepath0 = new Text("PATH_TO_CSV_FILE ");
+        Text filepathPrefix0 = new Text("fp/ ");
+        Text filepath0 = new Text("[PATH_TO_CSV_FILE] ");
         filepath0.setFill(Color.GREY);
         IMPORT_TEMPLATE = new TextFlow(
                 IMPORT.getText(), filepathPrefix0,
@@ -400,12 +400,12 @@ public class SuggestionTemplates {
 
         Text entity17 = new Text("[team/mentor/participant] ");
         Text filepathPrefix17 = new Text("fp/");
-        Text filepath17 = new Text("PATH_TO_CSV_FILE ");
+        Text filepath17 = new Text("[PATH_TO_CSV_FILE] ");
         filepath17.setFill(Color.GREY);
         entity17.setFill(Color.GREY);
         EXPORT_TEMPLATE = new TextFlow(
                 EXPORT.getText(), entity17,
-                filepathPrefix17, filepath0,
+                filepathPrefix17, filepath17,
                 EXPORT_INSTRUCTION.getText()
         );
 
@@ -433,7 +433,7 @@ public class SuggestionTemplates {
                 .stream()
                 .map(textElement -> (Text) textElement)
                 .map(t -> t.getText())
-                .filter(s -> !s.matches("\\[[A-Za-z{}_ ]+\\] |[A-Z_{} ]+|\\([A-Za-z_ ]+\\)"))
+                .filter(s -> !s.matches("\\[[A-Za-z{}_ ]+\\] |[A-Z_{} ]+|\\([A-Za-z_. ]+\\)"))
                 .collect(Collectors.joining(" "));
         return result;
 
