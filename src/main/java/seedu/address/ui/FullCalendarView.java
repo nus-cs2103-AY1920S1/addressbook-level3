@@ -80,7 +80,7 @@ public class FullCalendarView extends UiPart<Region> {
         populateCalendar(yearMonth);
         // Create the calendar view
         view = new VBox(titleBar, dayLabels, calendar);
-        view.setStyle("-fx-background-color: #2F4F4F;");
+        view.setStyle("-fx-background-color: #FFDF2F;");
     }
 
     /**
