@@ -59,6 +59,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Format: `help`
 ====
 
+// tag::basic[]
 
 === Adding new flashcards
 
@@ -138,8 +139,10 @@ Examples:
 Edits the question of the card with index 5 to "What is the tallest mountain?".
 * `edit 5 a/Mount Everest`
 Edits the answer of the card with number 5 to "Mount Everest".
+// end::basic[]
 
 // tag::quiz[]
+
 === Quiz mode
 Starts a quiz using a particular flashcard index or with a with an optional time limit with units in seconds. +
 Format:
@@ -214,6 +217,7 @@ Format: `end`
 // end::quiz[]
 
 // tag::stat[]
+
 === Display current progress
 Shows the current progress of a set of flashcards. +
 Format: `stats [t/TAG]...`
@@ -229,6 +233,8 @@ Examples:
 * `stats t/biology` : Displays the progress of a the flashcards tagged with Biology.
 
 // end::stat[]
+
+// tag::basic2[]
 
 === Delete a flashcard
 Deletes the specified flashcard from the list of all flashcards. +
@@ -254,12 +260,15 @@ Format: `find KEYWORD`
 Example:
 
 * `find Blanc` : Find flashcards whose question or answer contains string "Blanc".
+// end::basic2[]
 
 === Undo & Redo
 Suppose you delete, add or edit a flashcard with a mistake, you can use undo to bring yourself back to the previous stage.
 If you did an Undo command by mistake, you can also use Redo command to undo an Undo Command. Note that Undo and Redo can only take affect
 for flashcard modifications, it cannot undo your quiz result.
 Format: `Undo`, `Redo`.
+
+// tag::basic3[]
 
 === Exiting the program
 
@@ -276,3 +285,4 @@ There is no need to save manually. +
 After the data is saved, do not modify any of the Json files manually. You might end up screwing up all the information stored in them.
 If unfortunately, you did manually change the Json file and found the FlashMind operating with any problem, the only suggestion we
 can give you is to delete the file flashcardlist.json, so the system will start with default flashcard list again.
+// end::basic3[]

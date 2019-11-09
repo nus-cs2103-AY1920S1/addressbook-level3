@@ -113,6 +113,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 // end::logic[]
 
 // tag::model[]
+
 [[Design-Model]]
 === Model component
 
@@ -152,6 +153,8 @@ Classes used by multiple components are in the `seedu.flashcard.commons` package
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::quizdiagram[]
+
 === Quiz and Flip feature
 In the flashcard system, quiz and flip is a special function that can help the user quiz themselves on the flashcards and see
 there own improvements. The flip command, which is answering the quizzed flashcard, can only be used when a current flashcard is being quizzed.
@@ -165,7 +168,10 @@ works.
 
 image::StatsSequenceDiagram.png[]
 
+// end::quizdiagram[]
+
 // tag::undoredo[]
+
 ===  Undo/Redo feature
 ==== Implementation
 
