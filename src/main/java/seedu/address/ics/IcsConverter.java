@@ -24,7 +24,9 @@ public class IcsConverter {
         String uid = generateUid();
         String dtStamp = DateTime.now().toIcsString();
         String start = event.getStartDateTime().toIcsString();
-        String tagString = getTagString(event.getTags());
+        String tagString = event.getTags() != null
+                ? getTagString(event.getTags())
+                : "";
 
         icsStringBuilder
                 .append("\n").append("UID:").append(uid)
@@ -55,7 +57,9 @@ public class IcsConverter {
 
         String uid = generateUid();
         String dtStamp = DateTime.now().toIcsString();
-        String tagString = getTagString(task.getTags());
+        String tagString = task.getTags() != null
+                ? getTagString(task.getTags())
+                : "";
         icsStringBuilder
                 .append("\n").append("UID:").append(uid)
                 .append("\n").append("DTSTAMP:").append(dtStamp)
