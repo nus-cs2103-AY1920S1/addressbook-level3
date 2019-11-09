@@ -248,9 +248,8 @@ public class ScheduleView extends UiPart<Region> {
             FreeTimeslot timeslot = freeSchedule.get(j);
             LocalTime startTime = timeslot.getStartTime();
             LocalTime endTime = timeslot.getEndTime();
-            int timeslotId = timeslot.getId();
             StackPane freeTime = new Block(TimeUtil.getTimeDifference(startTime, endTime))
-                    .makeFreeBlock("" + timeslotId);
+                    .makeFreeBlock("" + timeslot.getId());
             if (originalTimeStamp != startTime) {
                 int timeUntilNext = TimeUtil.getTimeDifference(originalTimeStamp, startTime);
                 Region untilNext = new Block(timeUntilNext).makeEmptyBlock();

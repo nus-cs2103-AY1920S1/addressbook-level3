@@ -63,16 +63,18 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
     private void filterPerson(List<Name> filteredList) {
         filteredMonthSchedules = new ArrayList<>();
         filteredColors = new ArrayList<>();
+        ArrayList<Name> filteredListCopy = new ArrayList<>(filteredList);
         for (PersonSchedule personSchedule : originalPersonSchedules) {
-            if (filteredList.contains(personSchedule.getPersonDisplay().getName())) {
+            if (filteredListCopy.contains(personSchedule.getPersonDisplay().getName())) {
+                //Person is found in the filtered list.
                 int index = originalPersonSchedules.indexOf(personSchedule);
                 filteredMonthSchedules.add(personSchedule.getScheduleDisplay());
                 filteredColors.add(originalColors.get(index));
-                filteredList.remove(personSchedule.getPersonDisplay().getName());
+                filteredListCopy.remove(personSchedule.getPersonDisplay().getName());
             }
         }
         //Must remove everyone from filteredList
-        assert filteredList.size() == 0;
+        assert filteredListCopy.size() == 0;
     }
 
     @Override
