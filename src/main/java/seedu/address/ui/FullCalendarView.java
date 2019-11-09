@@ -5,8 +5,10 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -14,6 +16,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.task.Task;
 
 /**
  * Constructor for the entire calendar view
@@ -80,7 +83,7 @@ public class FullCalendarView extends UiPart<Region> {
         populateCalendar(yearMonth);
         // Create the calendar view
         view = new VBox(titleBar, dayLabels, calendar);
-        view.setStyle("-fx-background-color: #2F4F4F;");
+        view.setStyle("-fx-background-color: #FFDF2F;");
     }
 
     /**
@@ -105,6 +108,25 @@ public class FullCalendarView extends UiPart<Region> {
             ap.setLeftAnchor(txt, 5.0);
             ap.getChildren().add(txt);
             calendarDate = calendarDate.plusDays(1);
+
+            VBox vb = new VBox();
+            Text test = new Text("test");
+            vb.setPadding(new Insets(0, 10, 0, 7));
+            vb.setSpacing(0);
+            vb.getChildren().addAll(test);
+            ap.getChildren().add(vb);
+
+            ap.setTopAnchor(vb, 20.0);
+            ap.setLeftAnchor(vb, 5.0);
+
+            ListView<Task> taskListView = new ListView<>();
+            //taskListView.setItems(logic.getFilteredReminderList());
+            //taskListView.setPrefWidth(700);
+            //taskListView.setCellFactory(listView -> new TaskListViewCell());
+            //should look at list and add task to date till no more tasks
+
+            ap.setTopAnchor(taskListView, 20.0);
+            ap.setLeftAnchor(taskListView, 5.0);
         }
         // Change the title of the calendar
         calendarTitle.setText(yearMonth.getMonth().toString() + " " + String.valueOf(yearMonth.getYear()));

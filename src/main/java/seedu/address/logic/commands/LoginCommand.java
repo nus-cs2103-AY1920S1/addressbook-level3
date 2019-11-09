@@ -53,6 +53,7 @@ public class LoginCommand extends Command {
             if (accountStorage.getAccountsList().get().sameCredentials(account.getUsername(), account.getPassword())) {
                 model.isLoggedIn();
                 UiManager.startStudentProfile();
+                UiManager.startReminderWindow();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, account));
             } else {
                 throw new CommandException("Please login again.");

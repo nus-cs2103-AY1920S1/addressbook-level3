@@ -10,6 +10,9 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -51,6 +54,9 @@ public class LoginWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
+    private StackPane textPlaceholder;
+
+    @FXML
     private StackPane loginCommand;
 
     @FXML
@@ -70,6 +76,13 @@ public class LoginWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        Text title = new Text("TUTORAID");
+        title.setFont(Font.font ("Serif", 80));
+        title.setFill(Color.valueOf("FFFFFF"));
+        //title.setFill(Color.valueOf("A02C45"));
+        title.setId("fancytext");
+        textPlaceholder.getChildren().add(title);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -151,7 +164,6 @@ public class LoginWindow extends UiPart<Stage> {
         try {
             String text = loginItem.getText().toLowerCase();
             CommandResult commandResult = logic.execute(loginItem.getText(), false);
-            //loginItem.setText("");
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -164,7 +176,6 @@ public class LoginWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser("Please login or register your account before you do any commands. "
                     + "Scroll down to see examples. \n\n"
                     + LoginCommand.MESSAGE_USAGE + " \n\n" + RegisterAccountCommand.MESSAGE_USAGE);
-            //throw e;
         }
     }
 

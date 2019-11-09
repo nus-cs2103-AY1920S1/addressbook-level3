@@ -19,7 +19,7 @@ import seedu.address.logic.commands.AddEarningsCommand;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Date;
 
-public class AddEarningsCommandTest {
+public class AddEarningsCommandParserTest {
     private AddEarningsCommandParser parser = new AddEarningsCommandParser();
 
     @Test

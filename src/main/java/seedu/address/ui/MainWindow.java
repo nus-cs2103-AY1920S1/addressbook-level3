@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -33,7 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
     private LoginWindow loginWindow;
-    private boolean unknown;
+    private boolean isUnknown;
 
     // Independent Ui parts residing in this Ui container
     private EarningsListPanel earningsListPanel;
@@ -82,8 +84,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        this.unknown = false;
-        reminderWindow = new ReminderWindow();
+        this.isUnknown = false;
+        reminderWindow = new ReminderWindow(logic);
     }
 
     public Stage getPrimaryStage() {
@@ -295,6 +297,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Switches to the students tab.
+     */
+    @FXML
+    public void handleStudents() throws CommandException, ParseException {
+        try {
+            String userCommand = "list";
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
+    }
+
+    /**
      * Switches to the earnings tab.
      */
     @FXML
@@ -347,6 +362,21 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switches to the calendar tab sorted by the task.
+     */
+    @FXML
+    public void findTaskByDate(LocalDate date) throws ParseException, CommandException {
+        try {
+            System.out.println(date);
+            String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String userCommand = "find_task_by_date " + formattedDate;
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -364,11 +394,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setUnknownFalse() {
-        this.unknown = false;
+        this.isUnknown = false;
     }
 
     private void setUnknownTrue() {
-        this.unknown = true;
+        this.isUnknown = true;
     }
 
     public EarningsListPanel getEarningsListPanel() {
@@ -388,6 +418,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Switches to the calendar tab sorted by the date.
+     */
+    public void deleteNoteButton(int index) throws ParseException, CommandException {
+        try {
+            String userCommand = "deletenote " + index;
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String, boolean)
@@ -395,19 +437,19 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
 
-            CommandResult commandResult = logic.execute(commandText, this.unknown);
-            if (this.unknown) {
+            CommandResult commandResult = logic.execute(commandText, this.isUnknown);
+            if (this.isUnknown) {
                 if (!commandResult.isUnknown()) {
                     setUnknownFalse();
                 }
             }
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+            if (commandResult.isUnknown()) {
+                setUnknownTrue();
             } else if (commandResult.isExit()) {
                 handleExit();
-            } else if (commandResult.isUnknown()) {
-                setUnknownTrue();
+            } else if (commandResult.isShowHelp()) {
+                handleHelp();
             } else if (commandResult.isPersons()) {
                 UiManager.startStudentProfile();
             } else if (commandResult.isTasks()) {
@@ -418,6 +460,8 @@ public class MainWindow extends UiPart<Stage> {
                 UiManager.startNotes();
             } else if (commandResult.isReminder()) {
                 UiManager.startReminders();
+            } else if (commandResult.isLogin()) {
+                UiManager.startLoginWindow();
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());

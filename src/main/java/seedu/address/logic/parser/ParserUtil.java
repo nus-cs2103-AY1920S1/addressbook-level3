@@ -11,6 +11,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEarningsCommand;
 import seedu.address.logic.commands.AssignClassCommand;
+import seedu.address.logic.commands.AutoAddEarningsCommand;
+import seedu.address.logic.commands.AutoCommand;
 import seedu.address.logic.commands.ChangeTabCommand;
 import seedu.address.logic.commands.ClaimEarningsCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -55,6 +57,7 @@ import seedu.address.model.commands.CommandObject;
 import seedu.address.model.commands.CommandWord;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Claim;
+import seedu.address.model.earnings.Count;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Type;
 import seedu.address.model.note.Content;
@@ -398,6 +401,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String count} into an {@code Count}.
+     * @param count String of count.
+     * @return Count.
+     * @throws ParseException if the given {@code count} is invalid.
+     */
+    public static Count parseCount(String count) throws ParseException {
+        requireNonNull(count);
+        String trimmedCount = count.trim();
+        if (!Count.isValidCount(trimmedCount)) {
+            throw new ParseException(Count.MESSAGE_CONSTRAINTS);
+        }
+        return new Count(trimmedCount);
+    }
+
+    /**
      * Helps fill command list with all the basic in built commands.
      * @param commandList A {@code TreeMap} that is used to store all commands and their actions.
      */
@@ -439,6 +457,8 @@ public class ParserUtil {
         commandList.put(MarkParticipationCommand.COMMAND_WORD, MarkParticipationCommand.COMMAND_WORD);
         commandList.put(SetPictureCommand.COMMAND_WORD, SetPictureCommand.COMMAND_WORD);
         commandList.put(ClaimEarningsCommand.COMMAND_WORD, ClaimEarningsCommand.COMMAND_WORD);
+        commandList.put(AutoAddEarningsCommand.COMMAND_WORD, AutoAddEarningsCommand.COMMAND_WORD);
+        commandList.put(AutoCommand.COMMAND_WORD, AutoCommand.COMMAND_WORD);
         commandList.put(UndoCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD);
         commandList.put(RedoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD);
     }

@@ -375,3 +375,10 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#fancytext {
+    -fx-font: 100px Tahoma;
+    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 70%);
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+}

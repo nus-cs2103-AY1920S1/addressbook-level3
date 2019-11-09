@@ -57,8 +57,8 @@
                 </StackPane>
 
                 <StackPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #1A283E;"
-                           VBox.vgrow="NEVER">
-                    <Text style="-fx-font-family: Serif; -fx-font-size: 80; -fx-text-fill: white; -fx-color: white;-fx-color: #F8C33A" text="TUTORAID">  </Text>
+                           VBox.vgrow="NEVER" fx:id="textPlaceholder">
+                    <!--<Text style="-fx-font-family: Serif; -fx-font-size: 80; -fx-text-fill: white; -fx-color: white;-fx-color: #F8C33A" text="TUTORAID">  </Text> -->
                 </StackPane>
 
                 <StackPane fx:id="loginCommand" prefHeight="150.0" prefWidth="600.0"  style="-fx-background-color: #1A283E;" styleClass="pane-with-border">
