@@ -1,6 +1,7 @@
 package calofit.ui;
 
 import static calofit.commons.util.ObservableListUtil.map;
+import static calofit.commons.util.ObservableUtil.liftA2;
 import static calofit.commons.util.ObservableUtil.liftA3;
 import static calofit.commons.util.ObservableUtil.map;
 import static calofit.commons.util.ObservableUtil.mapToObject;
@@ -24,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -33,6 +35,7 @@ import javafx.util.Callback;
 import org.controlsfx.control.SegmentedBar;
 
 import calofit.commons.util.ObservableListUtil;
+import calofit.model.dish.Dish;
 import calofit.model.meal.Meal;
 
 /**
@@ -92,6 +95,10 @@ public class BudgetBar extends StackPane {
             super(meal.getDish().getCalories().getValue(), meal.getDish().getName().fullName);
             this.meal = meal;
         }
+
+        public Meal getMeal() {
+            return meal;
+        }
     }
 
     @FXML
@@ -133,6 +140,23 @@ public class BudgetBar extends StackPane {
                 view.getStyleClass().addAll("meal-segment", "bar-segment");
             }
             return view;
+        });
+        mealSegments.setInfoNodeFactory(segment -> {
+            Label label = new Label();
+            label.getStyleClass().add("bar-label");
+            if (segment instanceof BufferSegment) {
+                label.textProperty().bind(map(
+                    liftA2(budget, totalConsumed, (b, total) -> b - total),
+                    val -> "Remaining: " + val
+                ));
+                label.getStyleClass().add("buffer-label");
+            } else {
+                MealSegment seg = (MealSegment) segment;
+                Dish d = seg.getMeal().getDish();
+                label.setText(d.getName().fullName + ": " + d.getCalories().getValue());
+                label.getStyleClass().add("meal-label");
+            }
+            return label;
         });
 
         DoubleExpression budgetXPos = markPosition(Bindings.createDoubleBinding(() -> 1.0));
