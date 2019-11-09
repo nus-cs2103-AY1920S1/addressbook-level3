@@ -40,6 +40,13 @@ public class EditShowDescriptorBuilder {
         descriptor.setDateOfRelease(show.getDateOfRelease());
         descriptor.setRunningTime(show.getRunningTime());
         descriptor.setActors(show.getActors());
+        descriptor.setPoster(show.getPoster());
+        descriptor.setGenres(show.getGenres());
+        if (show.getType().equals("Tv Show")) {
+            descriptor.setTotalNumOfEpisodes(show.getTotalNumOfEpisodes());
+            descriptor.setNumOfEpisodesWatched(show.getNumOfEpisodesWatched());
+            descriptor.setSeasons(show.getTvSeasons());
+        }
     }
 
     /**

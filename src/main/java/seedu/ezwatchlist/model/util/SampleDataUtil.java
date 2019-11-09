@@ -9,6 +9,7 @@ import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Genre;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
@@ -43,6 +44,15 @@ public class SampleDataUtil {
     public static Set<Actor> getActorSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Actor::new)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns an Genre set containing the list of strings given.
+     */
+    public static Set<Genre> getGenreSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Genre::new)
                 .collect(Collectors.toSet());
     }
 

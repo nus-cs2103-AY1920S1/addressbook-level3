@@ -33,12 +33,12 @@ import seedu.ezwatchlist.statistics.Statistics;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String ACCELERATOR_ERROR = "setAccelerator must be called when button is attached to a scene";
+    public static final String MAIN_TAB = "watch-list";
+    public static final String WATCHED_TAB = "watched-list";
+    public static final String SEARCH_TAB = "search-list";
+    public static final String STATISTICS_TAB = "statistics tab";
 
-    private static final String MAIN_TAB = "watch-list";
-    private static final String WATCHED_TAB = "watched-list";
-    private static final String SEARCH_TAB = "search-list";
-    private static final String STATISTICS_TAB = "statistics tab";
+    private static final String ACCELERATOR_ERROR = "setAccelerator must be called when button is attached to a scene";
 
     private static final String FXML = "MainWindow.fxml";
 

@@ -126,6 +126,14 @@ public class WatchShowDescriptorBuilder {
     }
 
     /**
+     * Sets the number of seasons watched of the {@code WatchShowDescriptor} that we are building.
+     */
+    public WatchShowDescriptorBuilder withNumOfSeasonsWatched(int numOfSeasonsWatched) {
+        descriptor.setNumOfSeasonsWatched(numOfSeasonsWatched);
+        return this;
+    }
+
+    /**
      * Parses the {@code seasons} into a {@code List<TvSeason>} and set it to the {@code WatchShowDescriptor}
      * that we are building.
      */
