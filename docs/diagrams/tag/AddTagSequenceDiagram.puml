@@ -1,5 +1,7 @@
 @startuml
 
+!include ../style.puml
+
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AlgoBaseParser" as AlgoBaseParser LOGIC_COLOR
