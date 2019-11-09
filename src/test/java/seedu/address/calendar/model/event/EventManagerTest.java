@@ -11,7 +11,11 @@ import seedu.address.calendar.model.date.Year;
 import seedu.address.calendar.model.event.exceptions.ClashException;
 import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventManagerTest {
     // intersect two events
@@ -163,7 +167,7 @@ public class EventManagerTest {
                 MonthOfYear.JANUARY, new Year(2050)); // start with 2050
         Date endDate = new Date(new Day(DayOfWeek.WED, 31, MonthOfYear.DECEMBER, new Year(2070)),
                 MonthOfYear.DECEMBER, new Year(2070)); // end with 2070
-        Assertions.assertEquals("", eventManager.suggest(new EventQuery(startDate, endDate)));
+        assertEquals("", eventManager.suggest(new EventQuery(startDate, endDate)));
 
         addAll(eventManager);
 
@@ -178,7 +182,7 @@ public class EventManagerTest {
                 "On Sun, 27 December 2065\n" +
                 "From Wed, 8 May 2069 to Mon, 13 May 2069\n" +
                 "From Sun, 19 May 2069 to Fri, 24 May 2069";
-        Assertions.assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate)));
+        assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate)));
 
         // with deletion
         eventManager.remove(holidayThird);
@@ -191,11 +195,11 @@ public class EventManagerTest {
                 "From Mon, 7 December 2065 to Tue, 8 December 2065\n" +
                 "From Thu, 10 December 2065 to Tue, 15 December 2065\n" +
                 "On Sun, 27 December 2065";
-        Assertions.assertEquals(expectedOutputAfterDeletion, eventManager.suggest(new EventQuery(startDate, endDate)));
+        assertEquals(expectedOutputAfterDeletion, eventManager.suggest(new EventQuery(startDate, endDate)));
 
         // add it back again
         eventManager.add(holidayThird);
-        Assertions.assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate)));
+        assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate)));
 
         // try it with overlapping holidays
         Holiday overlapHoliday = new Holiday(new Name("test"), new Date(new Day(DayOfWeek.THU,
@@ -203,7 +207,7 @@ public class EventManagerTest {
                 new Date(new Day(DayOfWeek.WED, 4, MonthOfYear.NOVEMBER, new Year(2054)), MonthOfYear.NOVEMBER,
                         new Year(2054)));
         eventManager.add(overlapHoliday);
-        Assertions.assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate)));
+        assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate)));
 
         // try it with clashing events
         Commitment clashCommitment = new Commitment(new Name("Clash"),
@@ -211,11 +215,11 @@ public class EventManagerTest {
                         MonthOfYear.OCTOBER, new Year(2054)), new Date(new Day(DayOfWeek.SUN, 1,
                 MonthOfYear.NOVEMBER, new Year(2054)), MonthOfYear.NOVEMBER, new Year(2054)));
         eventManager.addIgnoreClash(clashCommitment);
-        Assertions.assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate)));
+        assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate)));
 
         // remove clash
         eventManager.remove(clashCommitment);
-        Assertions.assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate)));
+        assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate)));
 
         // remove those with same date
         eventManager.remove(commitmentAcrossMonth);
@@ -229,15 +233,15 @@ public class EventManagerTest {
                 "On Sun, 27 December 2065\n" +
                 "From Wed, 8 May 2069 to Mon, 13 May 2069\n" +
                 "From Sun, 19 May 2069 to Fri, 24 May 2069";
-        Assertions.assertEquals(expectedOutputAfterDeletionCommitment, eventManager.suggest(new EventQuery(startDate, endDate)));
+        assertEquals(expectedOutputAfterDeletionCommitment, eventManager.suggest(new EventQuery(startDate, endDate)));
 
         // when there are no events at specified period
         Date startDateExtreme = new Date(new Day(DayOfWeek.SUN, 1, MonthOfYear.JANUARY, new Year(2012)),
                 MonthOfYear.JANUARY, new Year(2012));
         Date endDateExtreme = new Date(new Day(DayOfWeek.SAT, 9, MonthOfYear.NOVEMBER, new Year(2019)),
                 MonthOfYear.NOVEMBER, new Year(2019));
-        Assertions.assertEquals("", eventManager.suggest(new EventQuery(startDateExtreme, endDateExtreme)));
-        Assertions.assertEquals("", eventManager.suggest(new EventQuery(startDateExtreme, startDateExtreme)));
+        assertEquals("", eventManager.suggest(new EventQuery(startDateExtreme, endDateExtreme)));
+        assertEquals("", eventManager.suggest(new EventQuery(startDateExtreme, startDateExtreme)));
     }
 
     @Test
@@ -260,7 +264,7 @@ public class EventManagerTest {
                 MonthOfYear.JANUARY, new Year(2050)); // start with 2050
         Date endDate = new Date(new Day(DayOfWeek.WED, 31, MonthOfYear.DECEMBER, new Year(2070)),
                 MonthOfYear.DECEMBER, new Year(2070)); // end with 2070
-        Assertions.assertEquals("", eventManager.suggest(new EventQuery(startDate, endDate)));
+        assertEquals("", eventManager.suggest(new EventQuery(startDate, endDate)));
 
         addAll(eventManager);
 
@@ -275,7 +279,7 @@ public class EventManagerTest {
                 "On Sun, 27 December 2065\n" +
                 "From Wed, 8 May 2069 to Mon, 13 May 2069\n" +
                 "From Sun, 19 May 2069 to Fri, 24 May 2069";
-        Assertions.assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate), 1));
+        assertEquals(expectedOutput, eventManager.suggest(new EventQuery(startDate, endDate), 1));
 
         String expectedOutputMinThree = "From Fri, 14 March 2053 to Mon, 17 March 2053\n" +
                 "From Mon, 29 December 2053 to Wed, 31 December 2053\n" +
@@ -284,32 +288,39 @@ public class EventManagerTest {
                 "From Thu, 10 December 2065 to Tue, 15 December 2065\n" +
                 "From Wed, 8 May 2069 to Mon, 13 May 2069\n" +
                 "From Sun, 19 May 2069 to Fri, 24 May 2069";
-        Assertions.assertEquals(expectedOutputMinThree, eventManager.suggest(new EventQuery(startDate, endDate), 3));
+        assertEquals(expectedOutputMinThree, eventManager.suggest(new EventQuery(startDate, endDate), 3));
 
         String expectedOutputMinFour = "From Fri, 14 March 2053 to Mon, 17 March 2053\n" +
                 "From Thu, 10 December 2065 to Tue, 15 December 2065\n" +
                 "From Wed, 8 May 2069 to Mon, 13 May 2069\n" +
                 "From Sun, 19 May 2069 to Fri, 24 May 2069";
-        Assertions.assertEquals(expectedOutputMinFour, eventManager.suggest(new EventQuery(startDate, endDate), 4));
+        assertEquals(expectedOutputMinFour, eventManager.suggest(new EventQuery(startDate, endDate), 4));
 
-        Assertions.assertEquals("", eventManager.suggest(new EventQuery(startDate, endDate), Integer.MAX_VALUE));
+        assertEquals("", eventManager.suggest(new EventQuery(startDate, endDate), Integer.MAX_VALUE));
     }
 
     @Test
     public void getEvents() {
+        EventManager eventManager = new EventManager();
+        Date startDate = new Date(new Day(DayOfWeek.SAT, 1, MonthOfYear.JANUARY, new Year(2050)),
+                MonthOfYear.JANUARY, new Year(2050)); // start with 2050
+        Date endDate = new Date(new Day(DayOfWeek.WED, 31, MonthOfYear.DECEMBER, new Year(2070)),
+                MonthOfYear.DECEMBER, new Year(2070)); // end with 2070
+        EventQuery eventQuery = new EventQuery(startDate, endDate);
+        addAll(eventManager);
 
+        List<Event> expected = new ArrayList<>();
+        addAll(expected);
+        long numMatches = eventManager.getEvents(eventQuery)
+                .filter(event -> expected.stream().anyMatch(expectedEvent -> expectedEvent.equals(event)))
+                .count();
+        assertEquals(expected.size(), (int) numMatches);
     }
 
-    @Test
-    public void listAllAsString() {
-
-    }
-
-    @Test
-    public void listRelevantAsString() {
-
-    }
-
+    /**
+     * Adds all events from {@code TestUtil} to the specified event manager.
+     * @param eventManager The specified event manager
+     */
     private void addAll(EventManager eventManager) {
         eventManager.add(schoolBreakFirst);
         eventManager.add(schoolBreakSecond);
@@ -331,5 +342,33 @@ public class EventManagerTest {
         eventManager.add(commitmentOverlapAfter);
         eventManager.add(schoolBreakSixth);
         eventManager.add(tripNoIntersection);
+    }
+
+    /**
+     * Adds all events from {@code TestUtil} to the specified list.
+     *
+     * @param events The specified list
+     */
+    private void addAll(List<Event> events) {
+        events.add(schoolBreakFirst);
+        events.add(schoolBreakSecond);
+        events.add(commitmentIntersectTwo);
+        events.add(holidayFifth);
+        events.add(holidayFirst);
+        events.add(tripAcrossYear);
+        events.add(tripIntersectBetween);
+        events.add(holidayFourth);
+        events.add(schoolBreakFifth);
+        events.add(commitmentAcrossMonth);
+        events.add(holidaySecond);
+        events.add(commitmentSameAsHoliday);
+        events.add(schoolBreakFourth);
+        events.add(schoolBreakThird);
+        events.add(tripOverlapBefore);
+        events.add(holidaySixth);
+        events.add(holidayThird);
+        events.add(commitmentOverlapAfter);
+        events.add(schoolBreakSixth);
+        events.add(tripNoIntersection);
     }
 }
