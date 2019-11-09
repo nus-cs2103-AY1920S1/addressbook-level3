@@ -181,9 +181,6 @@ image::LineChartAddBodySequenceDiagram.png[]
 
 ===== Aspect: How data is stored and updated
 
-
-===== Aspect: How data is stored and updated
-
 The line chart needs data to refer to. Below are two alternatives for how to access the data and update the line chart:
 
 * **Alternative 1 (current choice):** Data is not stored. Use a tree map to keep track of bodies and initialise the treemap depending on the given time frame.
