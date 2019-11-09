@@ -1,6 +1,5 @@
 package seedu.address.model.vehicle;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -23,7 +22,6 @@ public class District {
      * @param d A valid District.
      */
     public District(int d) {
-        requireNonNull(d);
         checkArgument(isValidDistrict(d), MESSAGE_CONSTRAINTS);
         districtNum = d;
     }
