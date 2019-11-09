@@ -19,7 +19,7 @@ import static seedu.address.testutil.SampleEntity.VALID_LOCAL_DATE;
 import static seedu.address.testutil.SampleEntity.VALID_TASK_ID;
 import static seedu.address.testutil.SampleEntity.getCompleteTask;
 import static seedu.address.testutil.SampleEntity.getFirstSampleCompletedTask;
-import static seedu.address.testutil.SampleEntity.getIncompleteTask;
+import static seedu.address.testutil.SampleEntity.getUnassignedTask;
 
 import java.util.Optional;
 
@@ -51,7 +51,7 @@ public class TaskTest {
 
     @Test
     public void setDriver() {
-        Task newTask = getIncompleteTask(VALID_TASK_ID, VALID_DESCRIPTION, VALID_LOCAL_DATE);
+        Task newTask = getUnassignedTask(VALID_TASK_ID, VALID_DESCRIPTION, VALID_LOCAL_DATE, VALID_CUSTOMER);
         newTask.setDriver(Optional.of(VALID_DRIVER));
 
         assertEquals(VALID_DRIVER, newTask.getDriver().get());
@@ -59,7 +59,7 @@ public class TaskTest {
 
     @Test
     public void setEventTime() {
-        Task newTask = getIncompleteTask(VALID_TASK_ID, VALID_DESCRIPTION, VALID_LOCAL_DATE);
+        Task newTask = getUnassignedTask(VALID_TASK_ID, VALID_DESCRIPTION, VALID_LOCAL_DATE, VALID_CUSTOMER);
         newTask.setEventTime(Optional.of(VALID_EVENT_TIME));
 
         assertEquals(VALID_EVENT_TIME, newTask.getEventTime().get());

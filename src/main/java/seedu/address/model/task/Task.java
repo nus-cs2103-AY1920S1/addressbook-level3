@@ -18,6 +18,7 @@ import seedu.address.model.task.exceptions.TaskException;
 public class Task {
 
     public static final String MESSAGE_INVALID_ID = "Invalid task ID.";
+    public static final String MESSAGE_TASK_IS_ALREADY_COMPLETED = "Task's status is already set to %1$s.";
 
     public static final String DATE_FORMAT = "d/M/yyyy";
 
@@ -94,7 +95,7 @@ public class Task {
     //set methods
     public void setStatus(TaskStatus status) {
         if (this.status == status) {
-            throw new TaskException("Task's status is already set to " + status);
+            throw new TaskException(String.format(MESSAGE_TASK_IS_ALREADY_COMPLETED, status));
         }
         this.status = status;
     }

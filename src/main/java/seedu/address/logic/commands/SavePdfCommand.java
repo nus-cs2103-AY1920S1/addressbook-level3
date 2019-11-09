@@ -18,6 +18,7 @@ public class SavePdfCommand extends Command {
 
     public static final String COMMAND_WORD = "savepdf";
     public static final String FILE_NAME = "DeliveryTasks";
+    public static final String DEFAULT_FILE_PATH = "./data/" + FILE_NAME + " %1$s.pdf";
 
     public static final String MESSAGE_SUCCESS = "Successfully saved all drivers' task into a PDF document. \n"
             + "It is saved in the same folder as your deliveria.jar file as " + FILE_NAME + ".pdf";
@@ -29,12 +30,18 @@ public class SavePdfCommand extends Command {
             + "[DATE] \n"
             + "Example: " + COMMAND_WORD + " 20/10/2019";
 
-    private static final String FILE_PATH_FOR_PDF = "./data/" + FILE_NAME + " %1$s.pdf";
+    private String filePath;
 
     private Optional<LocalDate> date;
 
     public SavePdfCommand(Optional<LocalDate> date) {
         this.date = date;
+        this.filePath = DEFAULT_FILE_PATH;
+    }
+
+    public SavePdfCommand(Optional<LocalDate> date, String filePath) {
+        this.date = date;
+        this.filePath = filePath;
     }
 
     @Override
@@ -48,7 +55,7 @@ public class SavePdfCommand extends Command {
 
         LocalDate dateOfDelivery = date.get();
 
-        String filePathWithDate = String.format(FILE_PATH_FOR_PDF, dateOfDelivery);
+        String filePathWithDate = String.format(filePath, dateOfDelivery);
 
         try {
             model.saveDriverTaskPdf(filePathWithDate, dateOfDelivery);

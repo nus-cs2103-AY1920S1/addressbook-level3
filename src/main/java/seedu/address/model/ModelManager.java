@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
@@ -34,8 +35,6 @@ import seedu.address.storage.CentralManager;
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
-
-    public static final String MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE = "There's no assigned tasks for %1$s.";
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
