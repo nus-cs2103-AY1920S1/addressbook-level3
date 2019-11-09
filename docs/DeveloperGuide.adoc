@@ -948,8 +948,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -962,12 +960,87 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+=== Filling an incident report
+
+. Attempting to execute `fill` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `fill` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+.. Test case: `fill 1 p/92034950 desc/There was an incident` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `fill` in both no-parameter and parameter modes one after the other.
+
+.. Prerequisites: User must be logged in. There must be incomplete and/or complete draft incident reports in the system. Index, caller number, and description specified for `fill` in parameter mode must all be valid. User must have created the incident report.
+.. Test case: `fill` +
+   Expected: All drafts are listed in the incident panel view, with incidents whose status was most recently changed being listed first.
+   Message: "Listed all draft incident reports".
+.. Test case: `fill 1 p/95860594 desc/There was an incident` +
+   Expected: If selected draft was an incomplete draft, its status changes to 'Complete Draft' and the caller number and description fields are added according to the data specified.
+   If selected draft was a complete draft, its status remains 'Complete Draft' and the caller number and description fields are overwritten with the data specified.
+   The incident panel view lists all incidents in the system, with the just modified incident at the top of the list.
+   Message: "Incident report filled: Incident #[ID]"
+
+. Executing `fill` in parameter mode with valid parameters.
+
+.. Prerequisites: User must be logged in. There must be incomplete and/or complete draft incident reports in the system. Incident panel view must show all incidents (use `list-i` to return to this view if needed). Index, caller number, and description specified for `fill` in parameter mode must all be valid.
+.. Test case: `fill 1 p/95860594 desc/There was an incident` +
+   Expected: If first incident in the list is a draft and the user has created the report, same expected behaviour as case 2 (ii) above.
+   If user has not created the selected incident, the message "You do not have access to fill this draft as another operator has created it." is displayed.
+   If selected incident has already been submitted and user has created the incident, the message "This report has already been submitted" is displayed.
+
+. Executing `fill` in parameter mode with invalid parameters (including invalid - zero or out of bounds - index).
+
+.. Prerequisites: User must be logged in.
+.. Test case: `fill 0 p/95860594 desc/There was an incident` or `fill 1 c/95860594 desc/There was an incident` or `fill 1 p/95860594 d/There was an incident`
+   Expected: Message "Invalid command format!" is displayed along with command usage message.
+
+. Executing `fill` with no drafts present in the system.
+
+.. Prerequisites: User must be logged in. There must be no complete or incomplete drafts in the system.
+.. Test case: `fill`
+   Expected: Message "No drafts present in the system" shown while the incident panel view remains unchanged.
+.. Test case: `fill 1 p/95860594 desc/There was an incident`
+   Expected: Message "No drafts present in the system" shown while the incident panel view remains unchanged.
+
+=== Submitting an incident report
+
+. Attempting to execute `submit` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `submit` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+.. Test case: `submit 1` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `submit` in both no-parameter and parameter modes one after the other.
+
+.. Prerequisites: User must be logged in. There must be complete draft incident reports in the system. Index specified for `submit` in parameter mode must be valid. User must have created the incident report.
+.. Test case: `submit` +
+   Expected: All complete drafts are listed in the incident panel view, with incidents whose status was most recently changed being listed first.
+Message: "Listed all incident reports ready for submission".
+.. Test case: `submit 1` +
+   Expected: The status of the selected complete draft changes to 'Submitted'.
+   The incident panel view lists all incidents in the system, with the just submitted incident at the top of the list.
+   Message: "New incident report submitted: Incident #[ID]"
+
+. Executing `submit` in parameter mode with valid index.
+
+.. Prerequisites: User must be logged in. There must be complete draft incident reports in the system. Incident panel view must show all incidents (use `list-i` to return to this view if needed). Index specified for `submit` in parameter mode must be valid.
+.. Test case: `submit 1` +
+   Expected: If first incident in the list is a complete draft and the user has created the report, same expected behaviour as case 2 (ii) above.
+   If user has not created the selected incident, the message "You do not have access to submit this report as another operator has created it." is displayed.
+   If selected incident has already been submitted and user has created the incident, the message "This report has already been submitted" is displayed.
+
+. Executing `submit` in parameter mode with invalid - zero or out of bounds - index.
+
+.. Prerequisites: User must be logged in.
+.. Test case: `submit 0`
+   Expected: Message "Invalid command format!" is displayed along with command usage message.
