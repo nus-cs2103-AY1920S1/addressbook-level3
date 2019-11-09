@@ -286,6 +286,7 @@ e.g. `Aug 2019`. We also provide some flexibility by allowing you to specify rel
 [NOTE]
 To view the exact specification on supported formats, we kindly refer you to http://natty.joestelmach.com/doc.jsp[Natty Library Documentation].
 Note that if you have inadvertently specified a year longer than 4 digits, e.g. `Oct 20198`, we will only take the first 4 digits, which in this case will be `2019`.
+Alternatively, if you have keyed in `Feb Jan 2019`, the first month will be taken as the month, which will be `Feb 2019`.
 
 ****
 
@@ -354,8 +355,6 @@ Generates a waste report from Mar 2019 to Sep 2019
 Generates a waste report from Oct 2018 to Mar 2019 (one year from Mar 2018)
 * `wlist report sm/5 months ago` +
 Generates a waste report from May 2019 to Oct 2019 (current month)
-
-The allowable date formats can be found in the Natty library documentation.
 
 ====
 *Using the waste report*
