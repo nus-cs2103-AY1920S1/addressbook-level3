@@ -128,7 +128,9 @@ public class Note {
         return otherNote.getTitle().equals(getTitle())
                 && otherNote.getTags().equals(getTags())
                 && otherNote.getDescription().equals(getDescription())
-                && otherNote.getContent().equals(getContent());
+                && otherNote.getContent().equals(getContent())
+                && otherNote.getNumOfAccess().equals(getNumOfAccess());
+
     }
 
     @Override

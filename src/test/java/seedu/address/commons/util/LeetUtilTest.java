@@ -21,7 +21,7 @@ class LeetUtilTest {
     }
 
     @Test
-    void traslateLeet_passwordWithAllDifferentLeet_notInUseScope() {
+    void translateLeet_passwordWithAllDifferentLeet_notInUseScope() {
         List<String> possible = LeetUtil.translateLeet("!!!!");
         assertTrue(possible.isEmpty());
     }
@@ -29,6 +29,13 @@ class LeetUtilTest {
     @Test
     void translateLeet_passwordWithTooManyPossibilities_stopAtHundred() {
         List<String> possible = LeetUtil.translateLeet("a!!poss!b!!!t!es");
+        assertTrue(possible.size() == 100);
+    }
+
+    @Test
+    void translateLeet_stressTest() {
+        List<String> possible = LeetUtil.translateLeet("!!!!!!!!!!!!!a!!!!!!!!!!!");
+        System.out.println(possible.size());
         assertTrue(possible.size() == 100);
     }
 }

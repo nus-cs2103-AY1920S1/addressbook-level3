@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
@@ -22,20 +23,30 @@ public class ReadCardCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + " : Opens and accesses the card identified by "
-            + "the description used in the display list. Checks against"
+            + "the description used in the display list. \nChecks against "
             + "provided CVC as second level of security\n"
-            + "Parameters: d/DESCRIPTION v/CVC"
+            + "Parameters: d/DESCRIPTION v/CVC\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_DESCRIPTION + "POSB Debit "
-            + PREFIX_CVC + "256";
+            + PREFIX_CVC + "023\n"
+            + "Parameters: INDEX v/CVC\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_CVC + "023";
 
     public static final String MESSAGE_SUCCESS = "%1$s";
 
     private final Cvc cvc;
     private final Description description;
+    private final Index targetIndex;
 
     public ReadCardCommand(Cvc cvc, Description description) {
         this.cvc = cvc;
         this.description = description;
+        this.targetIndex = null;
+    }
+
+    public ReadCardCommand(Cvc cvc, Index index) {
+        this.cvc = cvc;
+        this.description = null;
+        this.targetIndex = index;
     }
 
     @Override
@@ -43,11 +54,20 @@ public class ReadCardCommand extends Command {
         requireNonNull(model);
         List<Card> lastShownList = model.getFilteredCardList();
 
-        if (!lastShownList.contains(new Card(description))) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED);
-        }
+        assert((description != null) || (targetIndex != null));
 
-        Card cardToRead = lastShownList.get(lastShownList.indexOf(new Card(description)));
+        Card cardToRead;
+        if (targetIndex != null) {
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+            }
+            cardToRead = lastShownList.get(targetIndex.getZeroBased());
+        } else {
+            if (!lastShownList.contains(new Card(description))) {
+                throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED);
+            }
+            cardToRead = lastShownList.get(lastShownList.indexOf(new Card(description)));
+        }
 
         if (!cardToRead.getNonEncryptedCvc().equals(cvc.getNonEncryptedCvc())) {
             throw new CommandException(Messages.MESSAGE_INVALID_CVC_DISPLAYED);
@@ -56,6 +76,7 @@ public class ReadCardCommand extends Command {
         return CommandResult.builder(String.format(MESSAGE_SUCCESS, cardToRead.toNonAsterixString()))
                 .read()
                 .setObject(cardToRead)
+                .setIndex(targetIndex)
                 .build();
 
     }
@@ -64,6 +85,7 @@ public class ReadCardCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadCardCommand // instanceof handles nulls
-                && description.equals(((ReadCardCommand) other).description)); // state check
+                && description.equals(((ReadCardCommand) other).description)
+                && targetIndex.equals(((ReadCardCommand) other).targetIndex)); // state check
     }
 }

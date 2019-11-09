@@ -10,6 +10,8 @@ import seedu.address.model.password.analyser.match.SequenceMatch;
  * Represents a result produced from sequence analyser.
  */
 public class SequenceResult extends Result {
+    private static final String MESSAGE_NO_COMMON_SEQ_FOUND =
+            "No passwords were found to have contained common sequences\n";
     private List<SequenceMatch> matches;
 
     public SequenceResult(Password password, String description, List<SequenceMatch> matches) {
@@ -21,7 +23,7 @@ public class SequenceResult extends Result {
     public String getGreaterDetail() {
         StringBuilder report = new StringBuilder("Result : " + description + "\n");
         if (matches.isEmpty()) {
-            report.append("No passwords were found to have contained common sequences\n");
+            report.append(MESSAGE_NO_COMMON_SEQ_FOUND);
             return report.toString();
         }
         for (Match m : matches) {

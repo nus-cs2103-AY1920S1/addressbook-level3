@@ -235,6 +235,7 @@ The decryption process is similar to the encryption process, except that the `EN
 
 === Notes Feature
 ==== Key basic features
+=======
 Within the notes feature, the user will be able to perform operations to `add`, `open`, `delete` and `edit` a note.
 
 The `open` command allows users to open the note in a separate panel to edit and save through the UI of the app.
@@ -313,6 +314,7 @@ readability which helps in future extensions.
 ==== Sort Note feature
 
 
+=======
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

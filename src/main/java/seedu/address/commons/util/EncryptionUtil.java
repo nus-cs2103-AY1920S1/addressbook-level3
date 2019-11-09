@@ -106,6 +106,23 @@ public class EncryptionUtil {
     }
 
     /**
+     * Decrypts a file to a byte array.
+     * @param filepath the file path of the file to be decrypted.
+     * @param password the password used for decryption.
+     * @return the decrypted byte array.
+     */
+    public static byte[] decryptFileToBytes(String filepath, String password)
+            throws IOException, GeneralSecurityException {
+        Path oldPath = Paths.get(filepath);
+        byte[] fileData = new byte[(int) Files.size(oldPath) - SIGNATURE.length()];
+        InputStream inStream = new FileInputStream(new File(filepath));
+        inStream.skip(SIGNATURE.length());
+        inStream.read(fileData, 0, fileData.length);
+        inStream.close();
+        return decryptBytes(fileData, password);
+    }
+
+    /**
      * Encrypts a file using the given file paths and password.
      * @param source the path of the original file.
      * @param target the path of the encrypted file.
@@ -145,15 +162,10 @@ public class EncryptionUtil {
         if (Files.exists(newPath)) {
             throw new TargetFileExistException(target);
         }
-        Path oldPath = Paths.get(source);
-        byte[] fileData = new byte[(int) Files.size(oldPath) - SIGNATURE.length()];
-        InputStream inStream = new FileInputStream(new File(source));
-        inStream.skip(SIGNATURE.length());
-        inStream.read(fileData, 0, fileData.length);
-        inStream.close();
-        byte[] processedData = decryptBytes(fileData, password);
+        byte[] processedData = decryptFileToBytes(source, password);
         Files.write(newPath, processedData);
         try {
+            Path oldPath = Paths.get(source);
             Files.deleteIfExists(oldPath);
         } catch (IOException e) {
             Files.deleteIfExists(newPath);

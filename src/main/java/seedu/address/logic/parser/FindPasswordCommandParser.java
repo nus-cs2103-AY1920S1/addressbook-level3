@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.model.password.PasswordDescription.isValidDescription;
 
 import java.util.Arrays;
 
@@ -23,6 +24,10 @@ public class FindPasswordCommandParser implements Parser<FindPasswordCommand> {
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPasswordCommand.MESSAGE_USAGE));
+        }
+
+        if (!isValidDescription(trimmedArgs)) {
+            throw new ParseException(FindPasswordCommand.MESSAGE_USAGE);
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");

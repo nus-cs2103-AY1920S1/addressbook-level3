@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBSITE;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -46,6 +47,7 @@ public class AddPasswordCommand extends Command {
         }
 
         model.addPassword(toAddPassword);
+        model.updateFilteredPasswordList(PREDICATE_SHOW_ALL_PASSWORDS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddPassword));
     }
 
