@@ -183,20 +183,22 @@ image::CommandManager.png[]
 If your concrete command requires any dependencies during execution, it is recommended to pass in the dependency from the constructor.
 
 For example, if your command needs to be able to access `ModelManager`:
-```
-public class MyCommand extends Command {
-	private final ModelManager model;
-	MyCommand(ModelManager model) {
-		this.model = model;
-	}
 
-	@Override
+[source,java]
+----
+public class MyCommand extends Command {
+    private final ModelManager model;
+    MyCommand(ModelManager model) {
+        this.model = model;
+    }
+
+    @Override
     CommandOutput execute() {
         this.model.doSomething();
-		...
-	}
+        // ...
+    }
 }
-```
+----
 
 
 ==== CommandParser
