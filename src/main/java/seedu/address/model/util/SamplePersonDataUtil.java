@@ -348,79 +348,80 @@ public class SamplePersonDataUtil {
                 "Johnny",
                 "Earl",
                 "Jimmy",
-                "Antonio"
+                "Antonio",
+                "Willy"
         };
-        List<String> names = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 100; j++) {
-                for (int k = 0; k < 100; k++) {
-                    names.add(firstName[i] + " " + secondName[j] + " " + thirdName[k]);
-                }
-            }
-        }
-        int count = 1000000;
+        int count = 100;
         Person[] listOfPersons = new Person[count];
-        for (int a = 0; a < count; a++) {
-            if (a % 10 == 0) {
-                listOfPersons[a] = new Person(patientRefId(String.format("%04d%s", a, "1A")),
-                        new Name(names.get(a)), new Phone((new Random().nextInt(19999999) + 80000000 + "")),
-                        new Email(names.get(a).replace(" ", "_") + "@example.com"),
-                        new Address("Blk 1 Geylang Street " + (new Random().nextInt(99) + 1) + ", #06-12"),
+        Random random = new Random();
+        for (int idx = 0; idx < count; idx++) {
+
+            String name = String.format("%s %s %s",
+                    firstName[idx/ (secondName.length * thirdName.length)],
+                    secondName[(idx / thirdName.length) % secondName.length],
+                    thirdName[idx % thirdName.length]);
+
+            int randCount = idx % 9;
+            if (randCount == 0) {
+                listOfPersons[idx] = new Person(patientRefId(String.format("S%07d%s", idx + 1, "A")),
+                        new Name(name), new Phone((random.nextInt(19999999) + 80000000 + "")),
+                        new Email(name.replace(" ", "_") + "@example.com"),
+                        new Address("Blk 1 Geylang Street " + (random.nextInt(99) + 1) + ", #06-12"),
                         getTagSet("diabetic"));
-            } else if (a % 10 == 1) {
-                listOfPersons[a] = new Person(patientRefId(String.format("%04d%s", a, "1A")),
-                        new Name(names.get(a)), new Phone((new Random().nextInt(19999999) + 80000000 + "")),
-                        new Email(names.get(a).replace(" ", "_") + "@example.com"),
-                        new Address("Blk 2 Jurong Street " + (new Random().nextInt(99) + 1) + ", #06-10"),
+            } else if (randCount == 1) {
+                listOfPersons[idx] = new Person(patientRefId(String.format("S%07d%s", idx + 1, "B")),
+                        new Name(name), new Phone((random.nextInt(19999999) + 80000000 + "")),
+                        new Email(name.replace(" ", "_") + "@example.com"),
+                        new Address("Blk 2 Jurong Street " + (random.nextInt(99) + 1) + ", #06-10"),
                         getTagSet("asthma"));
-            } else if (a % 10 == 2) {
-                listOfPersons[a] = new Person(patientRefId(String.format("%04d%s", a, "1A")),
-                        new Name(names.get(a)), new Phone((new Random().nextInt(19999999) + 80000000 + "")),
-                        new Email(names.get(a).replace(" ", "_") + "@example.com"),
-                        new Address("Blk 3 Raffles Street " + (new Random().nextInt(99) + 1) + ", #06-10"),
-                        getTagSet("stroke"));
-            } else if (a % 10 == 3) {
-                listOfPersons[a] = new Person(patientRefId(String.format("%04d%s", a, "1A")),
-                        new Name(names.get(a)), new Phone((new Random().nextInt(19999999) + 80000000 + "")),
-                        new Email(names.get(a).replace(" ", "_") + "@example.com"),
-                        new Address("Blk 4 Tiong Bharu Street " + (new Random().nextInt(99) + 1) + ", #06-10"),
-                        getTagSet("kidneyfailure"));
-            } else if (a % 10 == 4) {
-                listOfPersons[a] = new Person(patientRefId(String.format("%04d%s", a, "1A")),
-                        new Name(names.get(a)), new Phone((new Random().nextInt(19999999) + 80000000 + "")),
-                        new Email(names.get(a).replace(" ", "_") + "@example.com"),
-                        new Address("Blk 5 Red Hill Street " + (new Random().nextInt(99) + 1) + ", #06-10"),
+            } else if (randCount == 2) {
+                listOfPersons[idx] = new Person(patientRefId(String.format("S%07d%s", idx + 1, "C")),
+                        new Name(name), new Phone((random.nextInt(19999999) + 80000000 + "")),
+                        new Email(name.replace(" ", "_") + "@example.com"),
+                        new Address("Blk 3 Raffles Street " + (random.nextInt(99) + 1) + ", #06-10"),
+                        getTagSet());
+            } else if (randCount == 3) {
+                listOfPersons[idx] = new Person(patientRefId(String.format("S%07d%s", idx + 1, "D")),
+                        new Name(name), new Phone((random.nextInt(19999999) + 80000000 + "")),
+                        new Email(name.replace(" ", "_") + "@example.com"),
+                        new Address("Blk 4 Tiong Bharu Street " + (random.nextInt(99) + 1) + ", #06-10"),
+                        getTagSet());
+            } else if (randCount == 4) {
+                listOfPersons[idx] = new Person(patientRefId(String.format("S%07d%s", idx + 1, "E")),
+                        new Name(name), new Phone((random.nextInt(19999999) + 80000000 + "")),
+                        new Email(name.replace(" ", "_") + "@example.com"),
+                        new Address("Blk 5 Red Hill Street " + (random.nextInt(99) + 1) + ", #06-10"),
                         getTagSet("highbloodpressure"));
-            } else if (a % 10 == 5) {
-                listOfPersons[a] = new Person(patientRefId(String.format("%04d%s", a, "1A")),
-                        new Name(names.get(a)), new Phone((new Random().nextInt(19999999) + 80000000 + "")),
-                        new Email(names.get(a).replace(" ", "_") + "@example.com"),
-                        new Address("Blk 6 Clementi Street " + (new Random().nextInt(99) + 1) + ", #06-10"),
+            } else if (randCount == 5) {
+                listOfPersons[idx] = new Person(patientRefId(String.format("S%07d%s", idx + 1, "F")),
+                        new Name(name), new Phone((random.nextInt(19999999) + 80000000 + "")),
+                        new Email(name.replace(" ", "_") + "@example.com"),
+                        new Address("Blk 6 Clementi Street " + (random.nextInt(99) + 1) + ", #06-10"),
                         getTagSet("lowbloodsugar"));
-            } else if (a % 10 == 6) {
-                listOfPersons[a] = new Person(patientRefId(String.format("%04d%s", a, "1A")),
-                        new Name(names.get(a)), new Phone((new Random().nextInt(19999999) + 80000000 + "")),
-                        new Email(names.get(a).replace(" ", "_") + "@example.com"),
-                        new Address("Blk 7 Changi Street " + (new Random().nextInt(99) + 1) + ", #06-10"),
-                        getTagSet("dengue"));
-            } else if (a % 10 == 7) {
-                listOfPersons[a] = new Person(patientRefId(String.format("%04d%s", a, "1A")),
-                        new Name(names.get(a)), new Phone((new Random().nextInt(19999999) + 80000000 + "")),
-                        new Email(names.get(a).replace(" ", "_") + "@example.com"),
-                        new Address("Blk 8 Boon Lay Street " + (new Random().nextInt(99) + 1) + ", #06-10"),
+            } else if (randCount == 6) {
+                listOfPersons[idx] = new Person(patientRefId(String.format("S%07d%s", idx + 1, "G")),
+                        new Name(name), new Phone((random.nextInt(19999999) + 80000000 + "")),
+                        new Email(name.replace(" ", "_") + "@example.com"),
+                        new Address("Blk 7 Changi Street " + (random.nextInt(99) + 1) + ", #06-10"),
+                        getTagSet());
+            } else if (randCount == 7) {
+                listOfPersons[idx] = new Person(patientRefId(String.format("S%07d%s", idx + 1, "H")),
+                        new Name(name), new Phone((random.nextInt(19999999) + 80000000 + "")),
+                        new Email(name.replace(" ", "_") + "@example.com"),
+                        new Address("Blk 8 Boon Lay Street " + (random.nextInt(99) + 1) + ", #06-10"),
                         getTagSet("tuberculosis"));
-            } else if (a % 10 == 8) {
-                listOfPersons[a] = new Person(patientRefId(String.format("%04d%s", a, "1A")),
-                        new Name(names.get(a)), new Phone((new Random().nextInt(19999999) + 80000000 + "")),
-                        new Email(names.get(a).replace(" ", "_") + "@example.com"),
-                        new Address("Blk 9 Hougang Street " + (new Random().nextInt(99) + 1) + ", #06-10"),
-                        getTagSet("heart"));
+            } else if (randCount == 8) {
+                listOfPersons[idx] = new Person(patientRefId(String.format("S%07d%s", idx + 1, "I")),
+                        new Name(name), new Phone((random.nextInt(19999999) + 80000000 + "")),
+                        new Email(name.replace(" ", "_") + "@example.com"),
+                        new Address("Blk 9 Hougang Street " + (random.nextInt(99) + 1) + ", #06-10"),
+                        getTagSet());
             } else {
-                listOfPersons[a] = new Person(patientRefId(String.format("%04d%s", a, "1A")),
-                        new Name(names.get(a)), new Phone((new Random().nextInt(19999999) + 80000000 + "")),
-                        new Email(names.get(a).replace(" ", "_") + "@example.com"),
-                        new Address("Blk 10 Tampines Street " + (new Random().nextInt(99) + 1) + ", #06-10"),
-                        getTagSet("cancer"));
+                listOfPersons[idx] = new Person(patientRefId(String.format("S%07d%s", idx + 1, "J")),
+                        new Name(name), new Phone((random.nextInt(19999999) + 80000000 + "")),
+                        new Email(name.replace(" ", "_") + "@example.com"),
+                        new Address("Blk 10 Tampines Street " + (random.nextInt(99) + 1) + ", #06-10"),
+                        getTagSet());
             }
         }
         return listOfPersons;
