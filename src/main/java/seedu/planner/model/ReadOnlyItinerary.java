@@ -1,6 +1,7 @@
 package seedu.planner.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
@@ -27,6 +28,11 @@ public interface ReadOnlyItinerary {
      * Returns the start date of the planner.
      */
     LocalDate getStartDate();
+
+    /**
+     * Returns the end date time of the planner.
+     */
+    LocalDateTime getLastDateTime();
 
     /**
      * Returns the start date property of the planner.

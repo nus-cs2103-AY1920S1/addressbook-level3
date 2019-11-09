@@ -3,15 +3,20 @@ package seedu.planner.model;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.commands.util.CommandUtil;
 import seedu.planner.model.activity.Activity;
+import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
 import seedu.planner.model.day.DayList;
+import seedu.planner.model.day.exceptions.EndOfTimeException;
 import seedu.planner.model.field.Name;
 
 
@@ -139,6 +144,29 @@ public class Itinerary implements ReadOnlyItinerary {
         return days.getNumberOfDays();
     }
 
+    /**
+     * When an activity is edited, the day that contains that activity is updated with the new activity.
+     */
+    public Day updateDayActivity(Activity oldAct, Activity newAct, Day day) {
+        Index dayIndex = Index.fromZeroBased(getItinerary().indexOf(day));
+
+        List<ActivityWithTime> listOfActivityWithTime = day.getListOfActivityWithTime();
+        listOfActivityWithTime = listOfActivityWithTime.stream().map(act -> {
+            if (act.equals(oldAct)) {
+                LocalDateTime newEndDateTime = CommandUtil.calculateEndDateTime(getStartDate(), dayIndex,
+                        act.getStartDateTime().toLocalTime(), newAct.getDuration());
+                if (newEndDateTime.isAfter(getLastDateTime())) {
+                    throw new EndOfTimeException();
+                }
+                return new ActivityWithTime(newAct, act.getStartDateTime());
+            } else {
+                return act;
+            }
+        }).collect(Collectors.toList());
+
+        return new Day(listOfActivityWithTime);
+    }
+
     @Override
     public Name getName() {
         return this.nameProperty.getValue();
@@ -152,6 +180,11 @@ public class Itinerary implements ReadOnlyItinerary {
     @Override
     public LocalDate getStartDate() {
         return this.startDateProperty.getValue();
+    }
+
+    @Override
+    public LocalDateTime getLastDateTime() {
+        return getStartDate().plusDays(getNumberOfDays() - 1).atTime(23, 59);
     }
 
     @Override

@@ -20,7 +20,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.planner.commons.core.GuiSettings;
 import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.util.CommandUtil;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
@@ -262,27 +261,15 @@ public class ModelManager implements Model {
     private void updateDay(Activity oldAct, Activity newAct) throws EndOfTimeException {
         List<Day> listOfDays = activityDayMap.get(oldAct);
         List<Day> newListOfDays = new ArrayList<>();
+
         itinerary.getItinerary().forEach(day -> {
             if (listOfDays.contains(day)) {
-                List<ActivityWithTime> listOfActivityWithTime = day.getListOfActivityWithTime();
-                listOfActivityWithTime = listOfActivityWithTime.stream().map(act -> {
-                    if (act.equals(oldAct)) {
-                        Index dayIndex = Index.fromZeroBased(itinerary.getItinerary().indexOf(day));
-                        LocalDateTime newEndDateTime = CommandUtil.calculateEndDateTime(getStartDate(), dayIndex,
-                                act.getStartDateTime().toLocalTime(), newAct.getDuration());
-                        if (newEndDateTime.isAfter(getLastDateTime())) {
-                            throw new EndOfTimeException();
-                        }
-                        return new ActivityWithTime(newAct, act.getStartDateTime());
-                    } else {
-                        return act;
-                    }
-                }).collect(Collectors.toList());
-                Day newDay = new Day(listOfActivityWithTime);
+                Day newDay = itinerary.updateDayActivity(oldAct, newAct, day);
                 setDay(day, newDay);
                 newListOfDays.add(newDay);
             }
         });
+
         activityDayMap.remove(oldAct);
         activityDayMap.put(newAct, newListOfDays);
     }
@@ -292,29 +279,40 @@ public class ModelManager implements Model {
      * {@code Activity} is changed, the {@code Contact} is also updated.
      */
     private void updateMapping(Activity oldAct, Activity newAct) throws EndOfTimeException {
-        if (oldAct.getContact().isPresent()) {
+        if (oldAct.getContact().isPresent()) { //checks for existing mapping
             Contact oldContact = activityContactMap.remove(oldAct);
+            Contact newContact = newAct.getContact().get();
+
             contactActivityMap.get(oldContact).remove(oldAct);
-            if (newAct.getContact().isPresent()) {
-                Contact newContact = newAct.getContact().get();
-                if (!hasContact(newContact)) {
-                    addContact(newContact);
-                }
-                if (contactActivityMap.containsKey(newContact)) {
-                    contactActivityMap.get(newContact).add(newAct);
-                } else {
-                    contactActivityMap.put(newContact, new ArrayList<>(Arrays.asList(newAct)));
-                }
-                activityContactMap.put(newAct, newContact);
+
+            //checks whether the contact only existed for old activity. If yes, safe to delete from contact list
+            if (contactActivityMap.get(oldContact).isEmpty() && !contactAccommodationMap.containsKey(oldContact)) {
+                contactActivityMap.remove(oldContact);
+                deleteContact(oldContact);
             }
-        } else if (newAct.getContact().isPresent()) {
+
+            //if contact that was added is a new contact
+            if (!hasContact(newContact)) {
+                addContact(newContact);
+            }
+
+            //updates the mapping accordingly
+            if (contactActivityMap.containsKey(newContact)) {
+                contactActivityMap.get(newContact).add(newAct);
+            } else {
+                contactActivityMap.put(newContact, new ArrayList<>(Arrays.asList(newAct)));
+            }
+            activityContactMap.put(newAct, newContact);
+
+        } else if (newAct.getContact().isPresent()) { //activity gets new contact previously not there
             Contact newContact = newAct.getContact().get();
             if (!hasContact(newContact)) {
                 addContact(newContact);
             }
             addActivityMapping(newAct);
         }
-        if (activityDayMap.containsKey(oldAct)) {
+
+        if (activityDayMap.containsKey(oldAct)) { //updates the activities in a day
             updateDay(oldAct, newAct);
         }
     }
@@ -324,22 +322,32 @@ public class ModelManager implements Model {
      * {@code Activity} is changed, the {@code Contact} is also updated.
      */
     private void updateMapping(Accommodation oldAcc, Accommodation newAcc) {
-        if (oldAcc.getContact().isPresent()) {
+        if (oldAcc.getContact().isPresent()) { //checks for existing mapping
             Contact oldContact = accommodationContactMap.remove(oldAcc);
+            Contact newContact = newAcc.getContact().get();
+
             contactAccommodationMap.get(oldContact).remove(oldAcc);
-            if (newAcc.getContact().isPresent()) {
-                Contact newContact = newAcc.getContact().get();
-                if (!hasContact(newContact)) {
-                    addContact(newContact);
-                }
-                if (contactAccommodationMap.containsKey(newContact)) {
-                    contactAccommodationMap.get(newContact).add(newAcc);
-                } else {
-                    contactAccommodationMap.put(newContact, new ArrayList<>(Arrays.asList(newAcc)));
-                }
-                accommodationContactMap.put(newAcc, newContact);
+
+            //checks whether contact only exist for old accommodation. If yes, safe to delete
+            if (contactAccommodationMap.get(oldContact).isEmpty() && !contactActivityMap.containsKey(oldContact)) {
+                contactAccommodationMap.remove(oldContact);
+                deleteContact(oldContact);
             }
-        } else if (newAcc.getContact().isPresent()) {
+
+            //if contact that was added is a new contact
+            if (!hasContact(newContact)) {
+                addContact(newContact);
+            }
+
+            //updates mapping accordingly
+            if (contactAccommodationMap.containsKey(newContact)) {
+                contactAccommodationMap.get(newContact).add(newAcc);
+            } else {
+                contactAccommodationMap.put(newContact, new ArrayList<>(Arrays.asList(newAcc)));
+            }
+            accommodationContactMap.put(newAcc, newContact);
+
+        } else if (newAcc.getContact().isPresent()) { //accommodation gets new contact previously not there
             Contact newContact = newAcc.getContact().get();
             if (!hasContact(newContact)) {
                 addContact(newContact);
@@ -698,7 +706,7 @@ public class ModelManager implements Model {
 
     @Override
     public LocalDateTime getLastDateTime() {
-        return this.itinerary.getStartDate().plusDays(getNumberOfDays() - 1).atTime(23, 59);
+        return this.itinerary.getLastDateTime();
     }
 
     @Override
