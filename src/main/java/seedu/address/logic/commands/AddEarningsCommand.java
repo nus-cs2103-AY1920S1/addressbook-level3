@@ -55,6 +55,7 @@ public class AddEarningsCommand extends Command {
         }
 
         model.addEarnings(toAddEarnings);
+        Earnings.EARNINGS_LIST.add(toAddEarnings);
         model.commitTutorAid();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddEarnings),
                 false, false, true, false, false,

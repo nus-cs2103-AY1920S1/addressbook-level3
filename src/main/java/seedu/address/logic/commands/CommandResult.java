@@ -26,6 +26,7 @@ public class CommandResult {
     private boolean showTasks;
     private boolean showPersons;
     private boolean showReminder;
+    private boolean showLogin;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -43,8 +44,6 @@ public class CommandResult {
         this.showNotes = showNotes;
         this.showReminder = showReminder;
     }
-
-
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
@@ -69,6 +68,10 @@ public class CommandResult {
 
     public boolean isEarnings() {
         return showEarnings;
+    }
+
+    public boolean isLogin() {
+        return showLogin;
     }
 
     public boolean isUnknown() {

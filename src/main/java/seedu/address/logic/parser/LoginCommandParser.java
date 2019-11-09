@@ -15,7 +15,7 @@ import seedu.address.model.account.Username;
 /**
  * Parses input arguments and creates a new LoginCommand object
  */
-public class LoginCommandParser {
+public class LoginCommandParser implements Parser<LoginCommand> {
 
     /**
      * Parses the given {@code String} of arguments

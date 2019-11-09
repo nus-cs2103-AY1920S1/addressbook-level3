@@ -13,7 +13,7 @@ public class Claim {
             "Claim should only contain the valid input "
                     + "(i.e. processing/approved/rejected/pending submission), and it should not be blank.";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
