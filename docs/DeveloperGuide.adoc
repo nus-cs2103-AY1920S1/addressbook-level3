@@ -387,19 +387,19 @@ image::statistics/StatisticsActivityDiagram.png[]
 
 ===== Aspect: Where statistics are shown
 * **Alternative 1 (current choice):** Hide all other panels and only show statistics.
-** Pros: Less scrolling needed, more information can be shown in one panel.
+** Pros: Less scrolling will be needed and more information can be shown in one panel.
 ** Cons: More methods are needed to deal with hiding and showing the different panels leading to more room for errors.
 * **Alternative 2:** Allocate a spot in the main window with the notes, tasks and questions for statistics to be displayed.
-** Pros: Easy to implement.
+** Pros: It is easy to implement.
 ** Cons: The number of notes, tasks and questions that can be seen without scrolling will be decreased.
 The charts will be small and condensed making it difficult to see the data at first glance.
 
 ===== Aspect: How statistics are represented
-* **Alternative 1 (current choice):** Use a pie chart
-** Pros: Easy to read at a glance
+* **Alternative 1 (current choice):** Use a pie chart.
+** Pros: It is easy to read at a glance.
 ** Cons: Pie chart slices may get too small to see if there are too little correct/incorrect questions done.
-* **Alternative 2:** Use a grouped bar chart
-** Pros: The questions done are sorted by subjects, is more informative.
+* **Alternative 2:** Use a grouped bar chart.
+** Pros: The questions done are sorted by subjects, thus it is more informative.
 ** Cons: As the number of subjects increases, the bars get thinner making it more difficult to see the data.
 This is also more difficult to implement.
 // end::stats[]
@@ -716,6 +716,7 @@ Use case ends.
 ** 2a1. NUStudy informs the Student of the cancellation of clear operation
 * Use case ends
 
+// tag::statsUseCase[]
 [discrete]
 === Use case: get statistics for subjects (Irene)
 
@@ -759,6 +760,7 @@ Use case ends
 ** 1b1. Application displays a message indicating that the command format is invalid
 ** 1b2. Student re-enters the command
 * Use case resumes from step 2
+// end::statsUseCase[]
 
 // tag::usecasew[]
 [discrete]
