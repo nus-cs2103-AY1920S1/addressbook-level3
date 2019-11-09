@@ -30,7 +30,7 @@ I implemented the commands and functionality related to the loaning and returnin
 
 ==== What it does
 
-This set of feature allow our users, librarians, to `loan` books to borrowers, `return` loaned out books, `renew` loaned
+This set of feature allows our users, librarians, to `loan` books to borrowers, `return` loaned out books, `renew` loaned
 out books such that their due dates are extended, and to `pay` fines incurred for overdue books. +
 
 ==== Justification
@@ -53,7 +53,7 @@ dates and fines respectively.
 
 === Code contributed
 
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=seeziyang[Functional and test code]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=seeziyang[Functional and Test code]
 
 === Other contributions
 
@@ -79,7 +79,7 @@ and another to keep track of the features and commands.
 
 ==== Enhancements to existing features
 
-* Enhanced code for `Borrower` class to be immutable. Done through pull request:
+* Enhanced code for the `Borrower` class to be immutable. Done through pull request:
 
 ** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/152[#152] - Modified fields in Borrower to be immutable and
 added methods in the class to return new copies instead of mutating values in the current object.
@@ -97,6 +97,8 @@ count and integrated this setting to the model component.
 added more borrower-related information such as the total outstanding fine.
 
 ==== Documentation
+
+* Wrote the quick start guide in the user guide.
 
 * Wrote the documentation and guide to the `Logic` component of our software in the developer guide.
 

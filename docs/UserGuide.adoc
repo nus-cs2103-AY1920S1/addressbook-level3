@@ -336,7 +336,7 @@ You loan out the book with serial number B00006 to the currently served borrower
 image::ug-loan-pic.png[width=850, align=center]
 After this command is entered, the command results display will provide you with a summary of which book is loaned
 out and tho who it is loaned to. As seen from the screenshot, the book will also be added to the list of currently loaned out books in the borrower's
-panel on the right. Inside the main list on the left, an on loan box would also indicate
+panel on the right. Inside the main list on the left, an on-loan box would also indicate
 this book as being loaned out.
 
 * `loan sn/B00201 sn/B02929 sn/B00203` **- Coming in v2.0** +
@@ -376,7 +376,7 @@ Format: `renew INDEX` or `renew -all` +
 The index *must be a positive integer* such as 1, 2 or 3, and must appear in the borrower panel.
 * `-all` indicates all the books currently loaned out by the borrower that still can be renewed.
 * You cannot renew overdue books or books that have reached the maximum renew count.
-* If you just loaned out or renewed a book, you cannot renew that same book in the same serve session.
+* If you just loaned out or renewed a book, you cannot renew that same book in the same Serve mode session.
 ****
 
 ==== Paying fines: `pay`
