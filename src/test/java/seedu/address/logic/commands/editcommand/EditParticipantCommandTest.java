@@ -32,19 +32,17 @@ public class EditParticipantCommandTest {
     public void execute_allFieldsSpecifiedParticipantList_success() throws AlfredException {
         Participant participantToEdit = new ParticipantBuilder().build();
         model.addParticipant(participantToEdit);
-        EditParticipantDescriptor descriptor = new EditParticipantDescriptorBuilder().withName("Bob Smith").build();
+        EditParticipantDescriptor descriptor = new EditParticipantDescriptorBuilder().build();
         EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
                 participantToEdit.getId(),
                 descriptor
         );
-
-        Model expectedModel = new ModelManagerStub();
-        Participant expectedParticipant = new ParticipantBuilder().withName("Bob Smith").build();
-        expectedModel.addParticipant(expectedParticipant);
         String expectedMessage = String.format(
                 EditParticipantCommand.MESSAGE_EDIT_PARTICIPANT_SUCCESS,
-                expectedParticipant
+                participantToEdit
         );
+        Model expectedModel = new ModelManagerStub();
+        expectedModel.addParticipant(participantToEdit);
 
         assertCommandSuccess(editParticipantCommand, model, expectedMessage, expectedModel);
     }
@@ -76,19 +74,23 @@ public class EditParticipantCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedParticipantList_failure() throws AlfredException {
-        Participant participant = new ParticipantBuilder().build();
-        model.addParticipant(participant);
+    public void execute_noFieldSpecifiedParticipantList_success() throws AlfredException {
+        Participant editedParticipant = new ParticipantBuilder().build();
+        model.addParticipant(editedParticipant);
         EditParticipantCommand editParticipantCommand = new EditParticipantCommand(
-                participant.getId(),
+                editedParticipant.getId(),
                 new EditParticipantDescriptor()
         );
+
         String expectedMessage = String.format(
-                EditParticipantCommand.MESSAGE_NO_FIELD_TO_CHANGE,
-                participant.getId()
+                EditParticipantCommand.MESSAGE_EDIT_PARTICIPANT_SUCCESS,
+                editedParticipant
         );
 
-        assertCommandFailure(editParticipantCommand, model, expectedMessage);
+        Model expectedModel = new ModelManagerStub();
+        expectedModel.addParticipant(editedParticipant);
+
+        assertCommandSuccess(editParticipantCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

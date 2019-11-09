@@ -32,19 +32,17 @@ public class EditTeamCommandTest {
     public void execute_allFieldsSpecifiedTeamList_success() throws AlfredException {
         Team teamToEdit = new TeamBuilder().build();
         model.addTeam(teamToEdit);
-        EditTeamDescriptor descriptor = new EditTeamDescriptorBuilder().withName("Justice League").build();
+        EditTeamDescriptor descriptor = new EditTeamDescriptorBuilder().build();
         EditTeamCommand editTeamCommand = new EditTeamCommand(
                 teamToEdit.getId(),
                 descriptor
         );
-
-        Model expectedModel = new ModelManagerStub();
-        Team expectedTeam = new TeamBuilder().withName("Justice League").build();
-        expectedModel.addTeam(expectedTeam);
         String expectedMessage = String.format(
                 EditTeamCommand.MESSAGE_EDIT_TEAM_SUCCESS,
-                expectedTeam
+                teamToEdit
         );
+        Model expectedModel = new ModelManagerStub();
+        expectedModel.addTeam(teamToEdit);
 
         assertCommandSuccess(editTeamCommand, model, expectedMessage, expectedModel);
     }
@@ -76,19 +74,23 @@ public class EditTeamCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedTeamList_failure() throws AlfredException {
+    public void execute_noFieldSpecifiedTeamList_success() throws AlfredException {
         Team editedTeam = new TeamBuilder().build();
         model.addTeam(editedTeam);
         EditTeamCommand editTeamCommand = new EditTeamCommand(
                 editedTeam.getId(),
                 new EditTeamDescriptor()
         );
+
         String expectedMessage = String.format(
-                EditTeamCommand.MESSAGE_NO_FIELD_TO_CHANGE,
-                editedTeam.getId()
+                EditTeamCommand.MESSAGE_EDIT_TEAM_SUCCESS,
+                editedTeam
         );
 
-        assertCommandFailure(editTeamCommand, model, expectedMessage);
+        Model expectedModel = new ModelManagerStub();
+        expectedModel.addTeam(editedTeam);
+
+        assertCommandSuccess(editTeamCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
