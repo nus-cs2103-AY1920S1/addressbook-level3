@@ -38,7 +38,6 @@ public class RoomCard extends UiPart<Region> {
         this.doctor = doctor;
         this.patient = patient;
         invisiblePane.setStyle("-fx-background-color: derive(#1d1d1d, 20%);");
-        doctorName.setStyle("-fx-text-fill: white;");
         roomCard.setStyle("-fx-background-color: #1abc9c;");
         if (isReadyToServe) {
             doctorName.setText(" " + displayedIndex + ". " + doctor.getName().toString());

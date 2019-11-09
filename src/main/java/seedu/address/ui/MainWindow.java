@@ -42,7 +42,7 @@ import seedu.address.ui.queue.QueueListPanel;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanelManager {
+public class MainWindow extends UiPart<Stage> implements CommandBoxInterface, OmniPanelManager {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String HELP_URI = "https://ay1920s1-cs2103t-t09-3.github.io/main/UserGuide#Features";
@@ -69,6 +69,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private EventListPanel appointmentListPanel;
     private EventListPanel dutyShiftListPanel;
     private ResultDisplay resultDisplay;
+    private StatusBarFooter statusBarFooter;
     private TabBar tabBar;
 
     @FXML
@@ -171,15 +172,15 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, this);
-        commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
-
-        aco = new AutoCompleteOverlay(this::autoCompleterSelected);
+        aco = new AutoCompleteOverlay(this::handleAutoCompleteOverlaySelection);
         anchorPane.getChildren().add(aco.getRoot());
         AnchorPane.setBottomAnchor(aco.getRoot(), 0.0);
+
+        commandBox = new CommandBox(this::executeCommand, this, aco);
+        commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
     }
 
     /**
@@ -291,7 +292,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     /**
      * Called to update AutoComplete when new commands.
      */
-    public void updateCommandAutoComplete(String commandText) {
+    public void handleCommandBoxTextChanged(String commandText) {
         if (!commandText.isBlank()) {
             logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
             requiresReset = true;
@@ -304,7 +305,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     /**
      * Receives Key Press event from Command Box and executes expected behaviours.
      */
-    public void updateSelectionKeyPressedCommandBox(KeyCode keyCode) {
+    public void handleCommandBoxKeyPressed(KeyCode keyCode) {
         switch (keyCode) {
         case UP:
             if (aco.isSuggesting()) {
@@ -334,7 +335,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     /**
      * Called whenever AutoComplete has a selection.
      */
-    private void autoCompleterSelected(String selectedText) {
+    private void handleAutoCompleteOverlaySelection(String selectedText) {
         commandBox.appendCommandTextField(selectedText);
     }
 
@@ -385,7 +386,10 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             logger.warning("There is an OmniPanelTab that is not implemented.");
             return;
         }
-        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(region));
+        Platform.runLater(() -> {
+            statusBarFooter.setText("Current selected tab: " + omniPanelTab.getId());
+            omniPanelPlaceholder.getChildren().setAll(region);
+        });
     }
 
     @Override

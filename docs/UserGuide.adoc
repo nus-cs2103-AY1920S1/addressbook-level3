@@ -20,6 +20,7 @@ By: `T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
 This desktop application is targeted at clerks working in small clinics. It is designed for those who prefer to work with a Command Line Interface (CLI). It enables clerks to rapidly manage appointments, staff's duty roster, inventories and queues. Typing fast allows you to complete your tasks much faster than GUI apps.
 
+// tag::ui[]
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -35,20 +36,19 @@ image::Ui.png[width="100%"]
 image::Layout.PNG[width="100%"]
 +
 . Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].
+e.g. typing `help` and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].
 .  Some example commands you can try:
-
 
 * `register -id 001A -name John Doe -phone 98765432 -email johnd@example.com -address John street, block 123, #01-01` : registers a patient named `John Doe`.
 * `enqueue 001A` : enqueues patient with reference id `001A` into the queue. The patient `001A` must be registered.
-* *`exit`* : exits the app.
+* `exit` : exits the application.
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 
 == Features
-// tag::ui[]
+
 ====
 *AutoComplete & History*
 
