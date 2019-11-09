@@ -322,6 +322,15 @@ Examples:
 *  `set` +
 Shows the current user settings.
 
+The figure below show the user interface
+after the `set` command has been added. The yellow box shows the change to
+the result display as now it shows the current user settings of the application.
+
+.User interface after set to used to view current user sittings
+image::ViewSettingsCommand.png[width=850]
+
+
+
 *  `set lp/7 rp/7 fi/5 mr/2` +
 Sets the loan period to 7 days, renew period to 7 days,
 fine increment to 5 cents per day and maximum renews allowed to 2.
