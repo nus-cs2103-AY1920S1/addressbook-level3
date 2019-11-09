@@ -46,7 +46,7 @@ analysis of design alternatives. The implementation too was challenging as it re
 * *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/112[Update 1] |
 https://github.com/AY1920S1-CS2103T-T09-1/main/pull/127[Update 2] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/133[Update 3]
 | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/194[Update 4] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/220[Update 5]
-| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/230[Update 6]
+| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/230[Update 6] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/243[Final Update]
 * *Test Code Contributed*:
 
 
