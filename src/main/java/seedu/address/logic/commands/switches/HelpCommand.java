@@ -1,6 +1,7 @@
-package seedu.address.logic.commands.wordbankcommands;
+package seedu.address.logic.commands.switches;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.wordbankcommands.WordBankCommand;
 import seedu.address.model.Model;
 
 /**

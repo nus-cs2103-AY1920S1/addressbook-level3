@@ -32,7 +32,7 @@ import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
 import seedu.address.logic.commands.switches.SwitchToStartCommand;
 import seedu.address.logic.commands.wordbankcommands.CreateCommand;
 import seedu.address.logic.commands.wordbankcommands.ExportCommand;
-import seedu.address.logic.commands.wordbankcommands.HelpCommand;
+import seedu.address.logic.commands.switches.HelpCommand;
 import seedu.address.logic.commands.wordbankcommands.ImportCommand;
 import seedu.address.logic.commands.wordbankcommands.RemoveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;

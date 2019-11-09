@@ -854,6 +854,8 @@ your desktop, or chat applications. +
 
 ---
 
+// tag::chenhui-dragInWalkThrough[]
+
 Walkthrough - Drag in.
 
 // tag::chenhui-dragAndDropSequenceDiagram[]
@@ -879,10 +881,11 @@ It is also noteworthy to mention that, dragging into Dukemon functionality is we
 User receives apt feedback through the command box for different cases.
 This is possible with careful exceptions handling within the `ImportCommand` itself.
 
+// end::chenhui-dragInWalkThrough[]
+
 {nbsp}
 
 ---
-
 // end::chenhui-section3[]
 // tag::chenhui-section4[]
 

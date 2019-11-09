@@ -106,65 +106,6 @@ The highlighted section shows, what commands are currently available. You can cl
 
 
 // tag::yida-quickstart[]
-// tag::chenhui-userDragAndDrop[]
-
-=== Drag and drop
-
-Streamline the process of sharing of word banks with friends.
-
-//.Word bank file
-//image:DragAndDrop1.png[130, 130, align="left"]
-
-//image:chrischenhui.png[width="90", align="left"]
-//image:kohyida1997.png[width="90", align="left"]
-//image:sreesubbash.png[width="90", align="left"]
-
-image:DragAndDrop1.png[width=121, align="left"]
-{nbsp} {nbsp} -> {nbsp} {nbsp}
-image:DragAndDrop2.png[width="130", align="left"]
-{nbsp} {nbsp} -> {nbsp} {nbsp}
-image:DragAndDrop3.png[width="130", align="left"]
-
-//.Dragging into Dukemon
-//image:DragAndDrop2.png[130, 130, align="left"]
-
-//.Dukemon registers the bank
-//image:DragAndDrop3.png[130, 130]
-
-From `HOME` mode, you can view your _WordBanks_. +
-Simply drag and drop a _WordBank_ json file from your computer into Dukemon. +
-
-image:DragAndDropOut1.png[width="130", align="left"]
-{nbsp} {nbsp} -> {nbsp} {nbsp}
-image:DragAndDropOut2.png[width="124", align="left"]
-{nbsp} {nbsp} -> {nbsp} {nbsp}
-image:DragAndDropOut3.png[width="119", align="left"]
-
-Likewise, drag and drop a _WordBank_ out of the application, into say,
-your desktop, or chat applications. +
-
-Try it!
-
-NOTE: Dukemon only reads json files.
-
-// end::chenhui-userDragAndDrop[]
-
-// tag::chenhui-userRevisionBank[]
-
-=== Revision bank
-
-A revision bank is automatically updated for you, every time a game session ends. +
-It collates all your wrong cards, whichever _WordBank_ it may have came from. +
-It is also smart enough to remove the cards if you have cleared it afterwards.
-
-.Revision bank alongside with other word banks.
-image::revisionbank.png[130, 130]
-
-.Screenshot of how a revision page looks like.
-image::revisionpage.png[600,600]
-
-To try it, simply play some _WordBank_ and then visit the revision bank to attempt cards that requires revision.
-// end::chenhui-userRevisionBank[]
 
 === QuickStart
 
@@ -261,12 +202,12 @@ E.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acc
 === Switch Commands
 (Available in all modes as long as WordBank is selected and game is not running)
 
-==== To switch to home page: `home`
+==== Switch to home page: `home`
 Welcome home.
 
 Format: `home`
 
-==== To open _WordBank_ content: `open`
+==== Open _WordBank_ content: `open`
 Opens the page to edit the _WordBank_ selected.
 
 Format: `open`
@@ -293,6 +234,81 @@ NOTE: Entering the start command after wordbank is selected will enter game mode
 
 ==== Customise game play: `settings`
 Enters settings page, so that the user can customise the game play.
+
+=== Card Commands image:card_commands_icon.png[width="29.5"]
+(Available in Open mode)
+
+==== Add a card: `add`
+Adds a new word-meaning pair to the _WordBank_.
+
+Format: `add w/WORD m/MEANING`
+
+Examples:
+
+* `add w/Dukemon m/the Flashcard app of the future`
+* `add w/Newton's third law of motion m/Every action will produce and equal and opposite reaction`
+* `add w/Kopi Luwak m/Coffee produced from the coffee beans found in the faeces of a civet cat`
+
+NOTE: There can be duplicate words, but duplicate meanings will be rejected.
+
+==== Delete a card: `delete`
+Deletes the specified index from the _WordBank_. +
+
+Format: `delete INDEX`
+
+****
+* Deletes the word at the specified `INDEX`.
+* The index *must be a positive integer* 1, 2, 3, ...,
+and must be a valid index within the list.
+* The index refers to the index number shown in the displayed card list.
+****
+
+Examples:
+
+* `delete 2` +
+Deletes the 2nd word.
+* `delete 1` +
+Deletes the 1st word in the results of the `find` command.
+
+==== Edit a card: `edit`
+Edits a card.
+
+Format: `edit INDEX [w/WORD] [m/MEANING] [t/TAG]`
+
+Examples:
+
+* `edit 1 w/new word m/new meaning`
+* `edit 2 m/new meaning with tag t/tagged`
+
+==== Find a card: `find`
+
+Finds entry whose word or meaning or tag  contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]...`
+
+****
+* The search is case insensitive. e.g `capital` will match `cApiTAl`
+* The order of the keywords does not matter. e.g. `key words` will match `words key`
+* Word, meaning and tag will be searched
+* Words contained within will be matched e.g. `formal` will match `Informal`
+* Cards matching at least one keyword will be returned (i.e. `OR` search). e.g. `Peter man` will return `Peter Parker`, `Spiderman`
+****
+
+Examples:
+
+* `find long` +
+Returns any entries containing `long` in its word or meaning or tag.
+* `find mammal fish bird` +
+Returns any entries containing `mammal`, `fish` or `bird` in its word or meaning or tag.
+
+==== View all cards: `list`
+Views the content of a _WordBank_.
+
+Format: `list`
+
+==== Clear all cards: `clear`
+Clears the _WordBank_ by removing all cards.
+
+Format: `clear`
 
 === _WordBank_ Commands image:load_mode_icon.png[load, 22]
 (Available in Home mode)
@@ -363,81 +379,6 @@ Examples:
 
 NOTE: We have a drag and drop feature. +
 You can also drag and drop a _WordBank_ out the app into your computer.
-
-=== Card Commands image:card_commands_icon.png[width="29.5"]
-(Available in Open mode)
-
-==== Adding a flash card: `add`
-Adds a new word-meaning pair to the _WordBank_.
-
-Format: `add w/WORD m/MEANING`
-
-Examples:
-
-* `add w/Dukemon m/the Flashcard app of the future`
-* `add w/Newton's third law of motion m/Every action will produce and equal and opposite reaction`
-* `add w/Kopi Luwak m/Coffee produced from the coffee beans found in the faeces of a civet cat`
-
-NOTE: There can be duplicate words, but duplicate meanings will be rejected.
-
-==== Deleting a flash card: `delete`
-Deletes the specified index from the _WordBank_. +
-
-Format: `delete INDEX`
-
-****
-* Deletes the word at the specified `INDEX`.
-* The index *must be a positive integer* 1, 2, 3, ...,
-and must be a valid index within the list.
-* The index refers to the index number shown in the displayed card list.
-****
-
-Examples:
-
-* `delete 2` +
-Deletes the 2nd word.
-* `delete 1` +
-Deletes the 1st word in the results of the `find` command.
-
-==== Editing a card's content: `edit`
-Edits a card.
-
-Format: `edit INDEX [w/WORD] [m/MEANING] [t/TAG]`
-
-Examples:
-
-* `edit 1 w/new word m/new meaning`
-* `edit 2 m/new meaning with tag t/tagged`
-
-==== Searching for a card: `find`
-
-Finds entry whose word or meaning or tag  contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]...`
-
-****
-* The search is case insensitive. e.g `capital` will match `cApiTAl`
-* The order of the keywords does not matter. e.g. `key words` will match `words key`
-* Word, meaning and tag will be searched
-* Words contained within will be matched e.g. `formal` will match `Informal`
-* Cards matching at least one keyword will be returned (i.e. `OR` search). e.g. `Peter man` will return `Peter Parker`, `Spiderman`
-****
-
-Examples:
-
-* `find long` +
-Returns any entries containing `long` in its word or meaning or tag.
-* `find mammal fish bird` +
-Returns any entries containing `mammal`, `fish` or `bird` in its word or meaning or tag.
-
-==== Viewing a _WordBank_'s content: `list`
-Views the content of a _WordBank_.
-
-Format: `list`
-
-==== Clear a _WordBank_'s content: `clear`
-Clears the _WordBank_ by removing all cards.
-
-Format: `clear`
 
 // end::chenhui-commandusage[]
 
@@ -684,20 +625,68 @@ image::annotated_global_statistics_ui.png[]
 
 // end::statsjason[]
 
-== FAQ
+// tag::chenhui-userDragAndDrop[]
 
-*Q*: How do I pronounce your app name? +
-*A*: Think Pokemon.
+== Word bank management
 
-*Q*: How do I transfer my _WordBank_ to my friend? +
-*A*: Export your _WordBank_ to your computer, then transfer him the file. He can then import the file into his Dukemon.
+=== Drag and drop
 
+Streamline the process of sharing of word banks with friends.
 
-*Q*: Do I have to save data? +
-*A*: Dukemon data are saved in the hard disk automatically after any command that changes the data.
-These commands are generally Card/_WordBank_ commands.
-There is no need to save manually.
-Statistics are also stored automatically.
+//.Word bank file
+//image:DragAndDrop1.png[130, 130, align="left"]
+
+//image:chrischenhui.png[width="90", align="left"]
+//image:kohyida1997.png[width="90", align="left"]
+//image:sreesubbash.png[width="90", align="left"]
+
+image:DragAndDrop1.png[width=121, align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDrop2.png[width="130", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDrop3.png[width="130", align="left"]
+
+//.Dragging into Dukemon
+//image:DragAndDrop2.png[130, 130, align="left"]
+
+//.Dukemon registers the bank
+//image:DragAndDrop3.png[130, 130]
+
+From `HOME` mode, you can view your _WordBanks_. +
+Simply drag and drop a _WordBank_ json file from your computer into Dukemon. +
+
+image:DragAndDropOut1.png[width="130", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDropOut2.png[width="124", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDropOut3.png[width="119", align="left"]
+
+Likewise, drag and drop a _WordBank_ out of the application, into say,
+your desktop, or chat applications. +
+
+Try it!
+
+NOTE: Dukemon only reads json files.
+
+// end::chenhui-userDragAndDrop[]
+
+// tag::chenhui-userRevisionBank[]
+
+=== Revision bank
+
+A revision bank is automatically updated for you, every time a game session ends. +
+It collates all your wrong cards, whichever _WordBank_ it may have came from. +
+It is also smart enough to remove the cards if you have cleared it afterwards.
+
+//.Revision bank alongside with other word banks.
+//image:revisionbank.png[130, 130]
+//{nbsp} {nbsp} select revision -> {nbsp} {nbsp}
+.Quick look at revision word bank's page.
+image:revisionpage.png[450, 450]
+
+Revision bank is best appreciated when you actually play around with some word banks, and then visit the revision bank
+to revise wrong cards. Give it a try!
+// end::chenhui-userRevisionBank[]
 
 // tag::chenhui-commandsummary[]
 
@@ -719,22 +708,6 @@ s| `settings` m|
 3.1+|
 3.1+|
 
-1.5+h| WordBank Commands +
-(Available in Home mode)
-
-s| `select` m| WORD_BANK
-
-s| `create` m| WORD_BANK
-
-s| `remove` m| WORD_BANK
-
-s| `import` m| w/WORD_BANK f/FOLDER
-
-s| `export` m| w/WORD_BANK f/FOLDER
-
-3.1+|
-3.1+|
-
 1.6+h| Card Commands +
 (Available in Open mode)
 
@@ -752,6 +725,23 @@ s| `clear` m|
 
 3.1+|
 3.1+|
+
+1.5+h| WordBank Commands +
+(Available in Home mode)
+
+s| `select` m| WORD_BANK
+
+s| `create` m| WORD_BANK
+
+s| `remove` m| WORD_BANK
+
+s| `import` m| w/WORD_BANK f/FOLDER
+
+s| `export` m| w/WORD_BANK f/FOLDER
+
+3.1+|
+3.1+|
+
 1.1+h| WordBank Statistics Commands +
 (Available in Open mode)
 s| `reset` m|
@@ -820,3 +810,18 @@ Create your own difficulties with customized time durations.
 // end::version-2.0[]
 
 // end::dataencryption[]
+
+== FAQ
+
+*Q*: How do I pronounce your app name? +
+*A*: Think Pokemon.
+
+*Q*: How do I transfer my _WordBank_ to my friend? +
+*A*: Export your _WordBank_ to your computer, then transfer him the file. He can then import the file into his Dukemon.
+
+
+*Q*: Do I have to save data? +
+*A*: Dukemon data are saved in the hard disk automatically after any command that changes the data.
+These commands are generally Card/_WordBank_ commands.
+There is no need to save manually.
+Statistics are also stored automatically.

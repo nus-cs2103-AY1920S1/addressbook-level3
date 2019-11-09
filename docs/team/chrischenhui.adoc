@@ -1,5 +1,5 @@
 //= image:chrischenhui.png[icon, 100, 100]
-= image:chrischenhui.png[width="140", height="12", align="left"] Chen Hui - Project Portfolio
+= image:chrischenhui.png[width="130", height="12", align="left"] Chen Hui - Project Portfolio
 :site-section: AboutUs
 //:toc:
 //:toc-title: Table of Contents
@@ -186,7 +186,7 @@ and design concepts such as _Observer Pattern_ and _MVC_ within cards and word b
 can fully believe in and dedicate effort.
 *** Set up organisation repo, including issues, label and milestones.
 *** Set up Netlify to improve workflow.
-*** Took the initiative to kick start the project when team members were not taking the project seriously.
+*** Took initiative to kick start the project by scheduling meetings.
 
 //** Enhancements to existing features:
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
@@ -219,14 +219,14 @@ I will prioritise sections that contains diagrams to showcase my ability to enga
 include::../UserGuide.adoc[tag=chenhui-userDragAndDrop]
 include::../UserGuide.adoc[tag=chenhui-userRevisionBank]
 
-|===
-|_Due to page limit constraints, I am unable to fully cover the breadth and depth of my User Guide's documentation. +
-Below are the links to my other contributions in User Guide. Do visit them for a better understanding of the breadth and depth of my effort and contribution._
-|===
+****
+* Due to page limit constraints, I am unable to fully cover the breadth and depth of my User Guide's documentation. +
+Below are the links to my other contributions in User Guide. Do visit them for a better understanding of the breadth and depth of my effort and contribution.
+****
 
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#em-wordbank-em-commands-span-class-image-img-src-images-load_mode_icon-png-alt-load-width-22-span[Full documentation of Word bank and Card Commands.]]
-
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#command-summary[Full command summary.]]
+* [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#em-wordbank-em-commands-span-class-image-img-src-images-load_mode_icon-png-alt-load-width-22-span[Full documentation of Word bank commands]]
+* [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#card-commands-span-class-image-img-src-images-card_commands_icon-png-alt-card-commands-icon-width-29-5-span[Full documentation of Card commands]]
+* [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#command-summary[Full command summary]]
 
 //include::../UserGuide.adoc[tag=chenhui-quickstart]
 
@@ -239,37 +239,46 @@ Below are the links to my other contributions in User Guide. Do visit them for a
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. +
 Due to page limit constraints, I will collate different UML diagrams across different sections that I have contributed. +
-A link to the full documentation will be included below each diagrams.
+A link to the full documentation will be included for each of the diagrams.
 Do visit them for a better understanding of the breadth and depth of my effort and contribution._ +
 
 |===
 
-include::../DeveloperGuide.adoc[tag=chenhui-model]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Model[Detailed documentation for Model.]]
-
-include::../DeveloperGuide.adoc[tag=chenhui-storage]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Storage[Detailed documentation for Storage.]]
-
 //include::../DeveloperGuide.adoc[tag=chenhui-overviewOfWbl]
 
 include::../DeveloperGuide.adoc[tag=chenhui-wblStorageModel]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#word-bank-s-data-structure-and-its-storage-system[Detailed implementation for Word bank's data structure and its
- storage system.]]
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#word-bank-s-data-structure-and-its-storage-system[Full documentation of Word bank's data structure and its storage system]]
+
+---
 
 include::../DeveloperGuide.adoc[tag=chenhui-wblLogicStorageModel]
-include::../DeveloperGuide.adoc[tag=chenhui-importCommandSequenceDiagram]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#user-commands[Detailed implementation for User Commands.]]
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#user-commands[Full documentation of User Commands]]
+
+---
 
 //include::../DeveloperGuide.adoc[tag=chenhui-importCommandSequenceDiagram]
-include::../DeveloperGuide.adoc[tag=chenhui-dragAndDropSequenceDiagram]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#drag-and-drop[Detailed implementation for Drag and drop.]]
+
+//include::../DeveloperGuide.adoc[tag=chenhui-dragAndDropSequenceDiagram]
+include::../DeveloperGuide.adoc[tag=chenhui-dragInWalkThrough]
+{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#drag-and-drop[Full documentation of Drag and drop]]
+
+---
 
 include::../DeveloperGuide.adoc[tag=chenhui-revisionBankActivityDiagram]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#revision-word-bank[Detailed implementation for Revision word bank.]]
+{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#revision-word-bank[Full documentation of Revision word bank]]
+
+****
+* Below are the links to my other contributions in Developer Guide. Do visit them for a better understanding of the breadth and depth of my effort and contribution.
+****
+
+//include::../DeveloperGuide.adoc[tag=chenhui-model]
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Model[Model]] [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Storage[Storage]]
+//include::../DeveloperGuide.adoc[tag=chenhui-storage]
+//* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Storage[Storage]]
+//* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#user-commands[Detailed implementation for User Commands]]
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#design-considerations-4[Design considerations]]
 
 
 == image:bag-icon.png[width=35] More about me
 
-** [https://github.com/chrischenhui//[GitHub Profile]]
-
-** [https://www.linkedin.com/in/chen-hui-chris//[Linked-in Profile]]
+** [https://github.com/chrischenhui//[GitHub]] [https://www.linkedin.com/in/chen-hui-chris//[LinkedIn]]
