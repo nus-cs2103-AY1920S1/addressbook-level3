@@ -35,18 +35,10 @@ public class FindMeetingTimeCommandParser implements Parser<FindMeetingTimeComma
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMeetingTimeCommand.MESSAGE_USAGE));
         }
 
-        try {
             LocalDateTime startPeriod = DateTimeUtil.parseDateTime(argMultimap.getValue(PREFIX_START_PERIOD).get());
             LocalDateTime endPeriod = DateTimeUtil.parseDateTime(argMultimap.getValue(PREFIX_END_PERIOD).get());
             Duration durationHours = ParserUtil.parseHours(argMultimap.getValue(PREFIX_DURATION_HOURS).get());
             return new FindMeetingTimeCommand(startPeriod, endPeriod, durationHours);
-        } catch (ParseException e) {
-            if (e.getMessage().equals(DateTimeUtil.DEADLINE_PASSED)) {
-                throw new ParseException(INVALID_START_TIME);
-            } else {
-                throw e;
-            }
-        }
     }
 
     /**

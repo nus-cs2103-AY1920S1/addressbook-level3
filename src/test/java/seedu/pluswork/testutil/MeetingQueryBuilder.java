@@ -42,32 +42,32 @@ public class MeetingQueryBuilder {
         try {
             tmpDuration = Duration.ofHours(2);
             DEFAULT_MEETING_LIST.add(new MeetingBuilder()
-                    .withStartTime(DateTimeUtil.parseDateTime("10-11-2019 18:00"))
+                    .withStartTime(DateTimeUtil.parseDateTime("22-12-2019 18:00"))
                     .withDuration(tmpDuration)
                     .withMembers(DEFAULT_MEMBER_NAME_LIST_1)
                     .build());
             DEFAULT_MEETING_LIST.add(new MeetingBuilder()
-                    .withStartTime(DateTimeUtil.parseDateTime("13-11-2019 08:00"))
+                    .withStartTime(DateTimeUtil.parseDateTime("23-12-2019 08:00"))
                     .withDuration(tmpDuration)
                     .withMembers(DEFAULT_MEMBER_NAME_LIST_2)
                     .build());
             DEFAULT_MEETING_LIST.add(new MeetingBuilder()
-                    .withStartTime(DateTimeUtil.parseDateTime("16-11-2019 13:00"))
+                    .withStartTime(DateTimeUtil.parseDateTime("24-12-2019 13:00"))
                     .withDuration(tmpDuration)
                     .withMembers(DEFAULT_MEMBER_NAME_LIST_1)
                     .build());
             DEFAULT_MEETING_LIST.add(new MeetingBuilder()
-                    .withStartTime(DateTimeUtil.parseDateTime("17-11-2019 11:00"))
+                    .withStartTime(DateTimeUtil.parseDateTime("25-12-2019 11:00"))
                     .withDuration(tmpDuration)
                     .withMembers(DEFAULT_MEMBER_NAME_LIST_2)
                     .build());
             DEFAULT_MEETING_LIST.add(new MeetingBuilder()
-                    .withStartTime(DateTimeUtil.parseDateTime("19-11-2019 17:00"))
+                    .withStartTime(DateTimeUtil.parseDateTime("26-12-2019 17:00"))
                     .withDuration(tmpDuration)
                     .withMembers(DEFAULT_MEMBER_NAME_LIST_1)
                     .build());
-            tmpStartDate = DateTimeUtil.parseDateTime("09-11-2019 08:00");
-            tmpEndDate = DateTimeUtil.parseDateTime("25-11-2019 23:00");
+            tmpStartDate = DateTimeUtil.parseDateTime("22-12-2019 08:00");
+            tmpEndDate = DateTimeUtil.parseDateTime("26-12-2019 23:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }

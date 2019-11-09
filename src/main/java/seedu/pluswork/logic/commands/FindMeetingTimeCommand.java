@@ -32,7 +32,7 @@ public class FindMeetingTimeCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Found a meeting time between %1$s - %2$s";
     public static final String MESSAGE_FAILURE = "Could not find a meeting time between %1$s - %2$s";
 
-    public static final String ILLEGAL_END_DATE = "Please specify an end time that is after the start time";
+    public static final String ILLEGAL_END_DATE = "Please enter an end time that is after the start time";
 
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
