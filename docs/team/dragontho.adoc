@@ -24,7 +24,7 @@ fellow developers to build their UI components on.
 ** *Major enhancement*: added *a settings page to the application*.
 
 .Settings Page
-image:paulthoppp.png[]
+image:paulthoppp.png[width='400']
 
 ** [underline]_What it does_:
 *** Allows the user to change specific settings about the application. Difficulty level, colour theme, hints and avatar are the features that are implemented in settings so far.
@@ -62,9 +62,9 @@ image:paulthoppp.png[]
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 
-*** Some parts of the modular display feature I added was adopted by several other class mates (https://github.com/AY1920S1-CS2103T-T12-1/main/pull/51[1])
+*** The label highlighting feature that I used for my settings page was also used by other classmates(https://github.com/AY1920S1-CS2103T-T12-1/main/pull/87[1]).
 
-
+<<<
 == Contributions to the User Guide
 
 
@@ -80,9 +80,6 @@ include::../UserGuide.adoc[tag=paulsettings]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=paului]
-
 include::../DeveloperGuide.adoc[tag=settings]
 
-include::../DeveloperGuide.adoc[tag=userprofiles]
 
