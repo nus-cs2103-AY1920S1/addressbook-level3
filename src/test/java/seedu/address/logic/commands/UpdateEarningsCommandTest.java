@@ -62,8 +62,9 @@ public class UpdateEarningsCommandTest {
 
         Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
         expectedModel.setEarnings(lastEarnings, editedEarnings);
-        assertCommandSuccess(updateEarningsCommand, model, expectedMessage, expectedModel);
+        
         expectedModel.commitTutorAid();
+        assertCommandSuccess(updateEarningsCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
