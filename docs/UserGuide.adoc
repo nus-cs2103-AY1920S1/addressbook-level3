@@ -494,9 +494,6 @@ Users can get a list of recommendations from the application, based on these fac
 3. The user's purchase history (see <<Buy a food item: `buy`>>)
 ****
 
-The recommended amount to spend per meal is calculated by `budget / (daysToExpiry * 2)` under the assumption that the
-user takes 2 meals per day.
-
 The factors affecting the calculation of the recommendation value is summarized in the tables below.
 
 //tag::recommendationbonus[]
@@ -567,22 +564,24 @@ The factors affecting the calculation of the recommendation value is summarized 
 Format: `recommend`
 ****
 
-[NOTE]
-To clear the recommendations, use the `list` or `add` command.
-
 [width="100%",cols="5%,95%", grid=none]
 |===
 ifdef::env-github[| :white_check_mark: a| The list of recommendations will be shown, sorted by their recommendation value.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recommendations will be shown, sorted by their recommendation value.]
 
 image::recommend.png[]
-
 {empty}
 |===
 
+[NOTE]
+To clear the recommendations, use the `list` or `add` command.
+
+[NOTE]
+The recommended amount to spend per meal is calculated by `budget / (daysToExpiry * 2)` under the assumption that the
+user takes 2 meals per day, provided the budget and daysToExpiry is set by the user.
 
 [WARNING]
-If you do not see any recommendations, make sure that you have a non-zero budget and days to budget expiry set using
+If you do not see any recommendations, make sure that you have a non-zero budget set using
 the `budget` command! See <<Sets budget for a number of days: `budget`>> for more information.
 
 ==== Listing likes and dislikes in the recommendation system: `like` or `dislike`
@@ -654,8 +653,11 @@ image::add-dislike.png[align="center", width=700]
 Users are able to remove their previously added likes and dislikes (if they exist)
 from the system.
 
-[NOTE]
+[TIP]
 Users can provide multiple categories, tags and/or locations with each command.
+
+[NOTE]
+The likes and dislikes must exist in the system before removing them.
 
 ===== To remove likes:
 
@@ -693,7 +695,9 @@ image::removedislike.png[align="center", width=700]
 
 ==== Clearing all likes and dislikes from the recommendation system: `removelike` or `removedislike`
 
-To remove all likes or dislikes, use this command without providing any arguments.
+To remove all likes or dislikes, use this command with the `ALL` flag.
+
+This command is case-sensitive to prevent any accidental clearing of user's likes or dislikes.
 
 [WARNING]
 Only use this command if you are sure that you want to clear your likes and dislikes!
@@ -701,7 +705,7 @@ Only use this command if you are sure that you want to clear your likes and disl
 ===== To remove all likes:
 
 ****
-*Format*: `removelike`
+*Format*: `removelike ALL`
 ****
 
 [width="100%",cols="5%,95%", grid=none]
@@ -717,7 +721,7 @@ image::removelike-all.png[align="center", width=700]
 ===== To remove all dislikes:
 
 ****
-*Format*: `removedislike`
+*Format*: `removedislike ALL`
 ****
 
 [width="100%",cols="5%,95%", grid=none]
@@ -772,7 +776,7 @@ Yes you can do this by using the `clear` command.
 
 * *Does this app support another language?*
 
-Unfortunately you are unable to change the app’s language
+Unfortunately, you are unable to change the app’s language.
 
 == Command Summary
 |===

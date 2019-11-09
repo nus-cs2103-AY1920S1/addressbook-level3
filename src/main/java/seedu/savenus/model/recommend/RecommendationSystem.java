@@ -62,7 +62,7 @@ public class RecommendationSystem implements Recommender {
     public static final int DISLIKED_TAG_PENALTY_HIGH_NUM = 3;
 
     // Negative multiplier starting from -10 to 0, valid for 2 days (172800000ms)
-    public static final int JUST_BOUGHT_FOOD_VALIDITY = 172800000;
+    private static final int JUST_BOUGHT_FOOD_VALIDITY = 172800000;
 
     private static final Comparator<Food> DEFAULT_COMPARATOR = (x, y) -> 0;
     private static final Predicate<Food> DEFAULT_PREDICATE = x -> true;
@@ -393,9 +393,14 @@ public class RecommendationSystem implements Recommender {
         requireNonNull(budget);
 
         this.budget = budget;
-        if (budget.equals(BigDecimal.ZERO) || daysToExpire == 0) {
+        if (budget.equals(BigDecimal.ZERO)) {
             this.dailyBudget = BigDecimal.ZERO;
+        } else if (daysToExpire == 0) {
+            // User has not set a daysToExpiry of budget, just calculate using their given budget
+            this.dailyBudget = budget;
         } else {
+            // User has provided budget and daysToExpiry of budget, calculate using the formula
+            // dailyBudget = budget / (daysToExpire * 2), assuming 2 meals per day
             this.dailyBudget = budget.divide(new BigDecimal(daysToExpire * 2), 2, RoundingMode.HALF_DOWN);
         }
     }
@@ -417,7 +422,6 @@ public class RecommendationSystem implements Recommender {
 
     @Override
     public void updateDaysToExpire(int daysToExpire) {
-        requireNonNull(daysToExpire);
         this.daysToExpire = daysToExpire;
     }
 

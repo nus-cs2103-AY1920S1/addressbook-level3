@@ -675,15 +675,27 @@ image::AliasActivityDiagram.png[width=650, align="center"]
 
 == Documentation
 
-Refer to the guide <<Documentation#, here>>.
+:leveloffset: +1
+
+include::Documentation.adoc[tag=documentation]
+
+:leveloffset: -1
 
 == Testing
 
-Refer to the guide <<Testing#, here>>.
+:leveloffset: +1
+
+include::Testing.adoc[tag=testing]
+
+:leveloffset: -1
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+:leveloffset: +1
+
+include::DevOps.adoc[tag=devops]
+
+:leveloffset: -1
 
 [appendix]
 == Product Scope
@@ -910,8 +922,6 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -980,13 +990,10 @@ _{ more test cases ... }_
 .. Prerequisites: There has to be a food item in the menu for the user to delete.
 .. Test case: `delete 1` +
    Expected: First food item is deleted from the food list. Details of the deleted contact shown in the status message.
-Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No food item is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No food item is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
