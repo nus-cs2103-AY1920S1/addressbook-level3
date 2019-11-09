@@ -29,7 +29,6 @@ public class FreeSchedule {
      * @return Optional FreeTimeslot.
      */
     public FreeTimeslot getFreeTimeslot(int id) throws InvalidTimeslotException {
-        Optional<FreeTimeslot> freeTimeslot = Optional.empty();
         for (int i = 1; i <= 7; i++) {
             ArrayList<FreeTimeslot> timeslotForDay = freeSchedule.get(DayOfWeek.of(i));
             for (int j = 0; j < timeslotForDay.size(); j++) {

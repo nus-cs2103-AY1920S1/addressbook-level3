@@ -30,9 +30,6 @@ public class FreeTimeslot {
         this.closestCommonLocationData = closestCommonLocationData;
         this.startTime = startTime;
         this.endTime = endTime;
-
-        System.out.println(venues);
-
     }
 
     /**

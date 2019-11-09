@@ -10,7 +10,7 @@ import seedu.address.model.person.Person;
 /**
  * Group display model.
  */
-public class GroupDisplay extends Display {
+public class GroupDisplay {
 
     private final GroupName groupName;
     private final GroupDescription groupDescription;

@@ -51,6 +51,11 @@ import seedu.address.model.person.schedule.Event;
  */
 public interface Model {
 
+    /**
+     * Returns the TimeBook Object.
+     */
+    TimeBook getTimeBook();
+
     //=========== UserPrefs ==================================================================================
 
     /**
@@ -378,15 +383,5 @@ public interface Model {
      * Returns the common closest location.
      */
     String getClosestLocationDataString(ArrayList<String> locationNameList);
-
-    //=========== Others =============================================================
-
-    /**
-     * Returns a summary of all Persons, Groups, and Mappings.
-     */
-    String list();
-
-    TimeBook getTimeBook();
-
 
 }

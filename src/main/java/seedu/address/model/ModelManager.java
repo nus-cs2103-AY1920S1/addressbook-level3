@@ -68,7 +68,6 @@ public class ModelManager implements Model {
 
     private GmapsModelManager gmapsModelManager;
 
-    // UI display
     private ScheduleManager scheduleManager;
 
     /**
@@ -117,24 +116,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        /*ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);*/
-
-        return false;
+    public TimeBook getTimeBook() {
+        return this.timeBook;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -542,30 +525,6 @@ public class ModelManager implements Model {
     @Override
     public String getClosestLocationDataString(ArrayList<String> locationNameList) {
         return gmapsModelManager.closestLocationDataString(locationNameList);
-    }
-
-    //=========== Others =============================================================
-
-    @Override
-    public String list() {
-        String output = "";
-        output += "PERSONS:\n";
-        output += personList.toString();
-
-        output += "--------------------------------------------\n";
-        output += "GROUPS:\n";
-        output += groupList.toString();
-
-        output += "--------------------------------------------\n";
-        output += "MAPPINGS: \n";
-        output += personToGroupMappingList.toString();
-
-        return output;
-    }
-
-    @Override
-    public TimeBook getTimeBook() {
-        return this.timeBook;
     }
 
 }

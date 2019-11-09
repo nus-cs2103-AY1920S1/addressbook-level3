@@ -14,7 +14,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Person display model.
  */
-public class PersonDisplay extends Display {
+public class PersonDisplay {
     private final Name name;
     private final Phone phone;
     private final Email email;
