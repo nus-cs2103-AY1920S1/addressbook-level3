@@ -380,7 +380,7 @@ Alternative 1 was chosen given the time constraint in implementing the features 
 Alternative 2 will be taken into consideration for future expansions of +Work.
 
 ===== Aspect: Display of Statistics for Project Dashboard
-this section describes the pros and cons of the current and other alternative implementations of displaying the calculate statistics in +Work.
+This section describes the pros and cons of the current and other alternative implementations of displaying the calculate statistics in +Work.
 
 * **Alternative 1 (current choice):** Use a pie chart to represent information
 ** Pros: Increases the ease of workload comparison
@@ -448,33 +448,32 @@ image::SetImageActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: Saving of image under Member (url or image object)
-
-* **Alternative 1 (current choice):** Save the image file path under each member object
-** Pros: Easy to implement, centralised class for all statistics
-** Cons: May have performance issues due to calculations involving large amounts of tasks and members.
-* **Alternative 2:** Save the image itself under each member object
-** Pros: Will ensure faster performance,
-** Cons: Design of statistics object has to be very well-implemented, might not have enough time to implement it by v1.3
-
-Alternative 1 was chosen as
-
 ===== Aspect: Storing of image under member (final or changeable) (basically repalcing the whole member or not)
-* **Alternative 1 (current choice):** Use a pie chart to represent information
-** Pros: Easy for workload comparison
+This section describes the pros and cons of the current and other alternative implementations storing a profile picture under
+each member object.
+
+* **Alternative 1:** Storing the image file path as an
+** Pros: Editing the member's profile picture involves
 ** Cons: Less details of individual taks and members exposed in the statistiscs page.
-* **Alternative 2:** Use a list to represent information
-** Pros: Includes more details for individual elements
-** Cons: Decreases the ease of comparison between tasks and members
+* **Alternative 2 (current choice):** Storing the image file path as a final attribute
+** Pros: Ensures the member's image filepath remains unchangeable and specific to the member
+** Cons: A new member object has to be created to replace the member being edited every time the member's profile
+picture is updated
+
+Alternative 2 was chosen to keep in line with the original structure of the Person object in AB3, with all attributes
+being final and unchangeable.
 
 ===== Aspect: Ui Display of members
-* **Alternative 1 (current choice):** Use a pie chart to represent information
-** Pros: Easy for workload comparison
-** Cons: Less details of individual taks and members exposed in the statistiscs page.
-* **Alternative 2:** Use a list to represent information
-** Pros: Includes more details for individual elements
-** Cons: Decreases the ease of comparison between tasks and members
+This section describes the pros and cons of the current and other alternative implementations of displaying the members in +Work.
 
+* **Alternative 1:** Display each member with only its member name, ID and profile picture
+** Pros: Concise display of each member in +Work, with only the essential information being exposed
+** Cons: Less details of individual members are displayed, making it difficult to draw links between members and the tasks they are involved in
+* **Alternative 2 (current choice):** Display members with its member name, ID, profile picture and tasks assigned
+** Pros: Includes more details for individual members, which increases the ease in which the user can identify a member's responsibilities
+** Cons: Display of members is cramped and needs more
+
+Alternative 2 was chosen because it is more in line with +Work's objective of drawing easy comparison between project members and tasks.
 // end::member[]
 
 === [Proposed] Undo/Redo feature
