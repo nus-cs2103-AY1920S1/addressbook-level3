@@ -39,12 +39,10 @@ The implementation too was challenging as it required brainstorming a seamless w
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below is one of the sections I contributed to the User Guide. It showcases my ability to write documentation targeting end-users.
 |===
 
 include::../UserGuide.adoc[tag=fill]
-
-include::../UserGuide.adoc[tag=submit]
 
 == Contributions to the Developer Guide
 

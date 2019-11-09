@@ -271,9 +271,6 @@ For manual dispatchment of vehicle, the index of the chosen vehicle must be from
 === Filling a draft incident report: `fill`
 Fills a draft incident report if relevant parameters are specified, otherwise lists all draft reports ready for filling.
 
-[NOTE]
-The user can only fill the draft incident reports that have been created by them.
-
 This command works in two modes:
 
 ****
@@ -282,33 +279,32 @@ Format: `fill` +
 Lists all draft incident reports ready to be filled.
 
 * This command lists both incomplete and complete drafts.
-** If no drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
+* If no drafts exist, a message is displayed and the Incident list remains unchanged.
 ****
 
-* Usage and Outcome:
-Usage: `fill`
-Outcome:
+* Outcome of `fill`:
 
-image::fillCommandNoParamsAfterScreenshot.png[width="600"]
+image::fillCommandNoParamsAfterScreenshot.png[width="500"]
 
 ****
 *2. Parameter mode* +
 Format: `fill [INDEX] [p/CALLER_NUMBER] [desc/DESCRIPTION]` +
 Fills the draft incident report corresponding to the specified index with the phone number of the caller who reported the incident and the description of the incident.
 
+[NOTE]
+The user can only fill the draft incident reports that have been created by them.
+
 * Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
 * Both incomplete and complete drafts can be filled.
-** Fields of complete drafts will be overwritten.
-** Executing this command changes incident `status` to 'Complete Draft'.
+* Fields of complete drafts will be overwritten.
+* Executing this command changes incident `status` to 'Complete Draft'.
 * Both `CALLER_NUMBER` and `DESCRIPTION` fields must be specified while executing this command.
 * The newly filled draft will now appear at the top of the list of incidents in the GUI incident panel view.
 ****
 
-* Usage and outcome:
-Usage: `fill 1 p/90309049 desc/Traffic accident reported at FKU hospital junction` +
-Outcome:
+* Outcome of `fill 1 p/90309049 desc/Traffic accident reported at FKU hospital junction`:
 
-image::fillCommandWithParamsAfterScreenshot.png[width="600"]
+image::fillCommandWithParamsAfterScreenshot.png[width="500"]
 
 Using `fill` in both modes one after the other thus enables convenient listing and filling of target incident reports.
 
@@ -318,9 +314,6 @@ Using `fill` in both modes one after the other thus enables convenient listing a
 === Submitting a completed draft report: `submit`
 Submits a completed draft incident report if relevant parameters are specified, otherwise lists all completed drafts ready for submission.
 
-[NOTE]
-The user can only submit the completed incident reports that have been created by them.
-
 Similar to `fill`, this command also works in two modes:
 
 ****
@@ -329,42 +322,42 @@ Format: `submit` +
 Lists all completed draft incident reports ready for submission.
 
 * This command only lists complete drafts.
-** If no complete drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
+* If no complete drafts exist, a message is displayed and the Incident list remains unchanged.
 ****
 
-* Usage and outcome:
-Usage: `submit`
-Outcome:
+* Outcome of `submit`
 
-image::submitCommandNoParamsAfterScreenshot.png[width="600"]
+image::submitCommandNoParamsAfterScreenshot.png[width="500"]
 
 ****
 *2. Parameter mode* +
 Format: `submit [INDEX]` +
 Submits the completed draft incident report corresponding to the specified index.
 
+[NOTE]
+The user can only submit the completed incident reports that have been created by them.
+
 * Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
 * Only complete drafts can be submitted.
-** Executing this command changes incident `status` to `SUBMITTED_REPORT`.
+* Executing this command changes incident `status` to `SUBMITTED_REPORT`.
 * The newly submitted draft will now appear at the top of the list of incidents in the GUI incident panel view.
 ****
 
-* Usage and outcome:
-Usage: `submit 1`
-Outcome:
+* Outcome of `submit 1`:
 
-image::submitCommandWithParamsAfterScreenshot.png[width="600"]
+image::submitCommandWithParamsAfterScreenshot.png[width="500"]
 
-Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
 // end::submit[]
 
 // tag::incidentversionhistory[]
 === Tracking incident history `[coming in v2.0]`
+****
 Allows user to track any changes made to an incident report throughout its lifecycle in the incident management system. +
 Format: `track [INDEX]` +
 Function: Outputs a list of timestamps and a brief summary of changes made to the specified incident report.
 
 This feature will allow the user to improve accountability in filing incident reports. As the IMS handles incident data which is very sensitive in nature, it will be crucial for users to know when exactly were what changes made to a given incident report.
+****
 // end::incidentversionhistory[]
 
 // tag::listi[]
