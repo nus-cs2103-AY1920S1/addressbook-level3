@@ -33,7 +33,7 @@ functionalities. More importantly, MYMorise is *optimized for those who prefer t
 
     The left panel - displays all expenses recorded in MYMorise. User commands do not reference from this panel and should not be made based on this panel. Commands made should reference from the centre panel. The purpose of this panel is solely for displaying all expenses recorded only.
 
-    The centre panel - displays the current view requested by user. All commands made are in relative to the content displayed in this panel. That is, if a user enters the command `budgetlist` or `view 1`, this panel will reflect the content requested. Subsequent commands such as `edit` and `editBudget` will reference from this panel. On start up, the centre panel displays the default expense list.
+    The centre panel - displays the current view requested by user. All commands made are in relative to the content displayed in this panel. That is, if a user enters the command `listBudgets` or `view 1`, this panel will reflect the content requested. Subsequent commands such as `editExpense` and `editBudget` will reference from this panel. On start up, the centre panel displays the default expense list.
 
     The right panel - displays the visual graphics of the content shown in the centre panel only.
 ****
@@ -52,8 +52,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all expenses
-* **`add`**`n/Textbook a/23.50 t/education t/school` : adds an expense named `Textbook` to the expense list with the tags
+* *`listDefaultExpenses`* : lists all expenses
+* **`expense`**`n/Textbook a/23.50 t/education t/school` : adds an expense named `Textbook` to the expense list with the tags
 `education` and `school`.
 * **`delete`**`3` : deletes the 3rd expense shown in the current list
 * *`exit`* : exits the app
@@ -75,17 +75,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Displays all CLI commands available. +
 Format: `help`
 
-=== Listing all expenses in the default expense list : `list`
+=== Listing all expenses in the default expense list : `listDefaultExpenses`
 Shows a list of all expenses that do not fall into any budgets in MYMorise. +
-Format: `list`
+Format: `listDefaultExpenses`
 
-=== Listing all budgets in the budget list : `budgetlist`
+=== Listing all budgets in the budget list : `listBudgets`
 Shows a list of all budgets. +
-Format: `budgetlist`
+Format: `listBudgets`
 
-=== Adding an expense: `add`
+=== Adding an expense: `expense`
 Adds an expense to track.* +
-Format: `add n/NAME a/AMOUNT [c/CURRENCY] [d/DATE] [t/TAG]…​`
+Format: `expense n/NAME a/AMOUNT [c/CURRENCY] [d/DATE] [t/TAG]…​`
 
 [TIP]
 An expense with no currency specified will have the default currency set.
@@ -95,11 +95,15 @@ An expense with no date specified will default to current date and time of addit
 An expense can have any number of tags (including no tags).
 [TIP]
 User may input time in the format "HHMM" in the [d/DATE] portion to specify current date with specified time
+[TIP]
+If user wants to add an expense onto the last day of a month, just specify the day to be 31 and it will automatically be added onto the last day of the month. +
+E.g., if user wants to add an expense to the last day of April but is unsure of which day is the last day, just specify date to be 31/4/2019 and it will be added to 30th April 2019 (last day of April). +
+This tip works on budget dates too!
 
 Examples:
 
-* `add n/Coffee a/1.80 t/food`
-* `add n/Textbook a/23.50 t/education t/school`
+* `expense n/Coffee a/1.80 t/food`
+* `expense n/Textbook a/23.50 t/education t/school`
 
 *An added expense may automatically fall into a budget if the date of expense
 falls into a budget period. Otherwise it will fall into the default expense list.
@@ -140,9 +144,9 @@ Format: `view INDEX`
 * Views the expenses stored in the budget, and shows the amount of money left in the budget.
 ****
 
-=== Editing an expense : `edit`
+=== Editing an expense : `editExpense`
 Edits an existing expense in the expense list. +
-Format: `edit INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY] [t/TAG]…`
+Format: `editExpense INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY] [t/TAG]…`
 
 ****
 * Edits the expense at the specified `INDEX`. The index refers to the index number shown in the displayed expense
@@ -157,9 +161,9 @@ than the actual index of the expense in the expense list.
 
 Examples:
 
-* `edit 1 a/20.10` +
+* `editExpense 1 a/20.10` +
 Edits the amount of the first expense to be `20.10`.
-* `edit 2 n/Poets Coffee t/` +
+* `editExpense 2 n/Poets Coffee t/` +
 Replaces the name of the second expense to `Poets Coffee` and clears all existing tags.
 
 === Editing a budget : `editBudget`
@@ -201,7 +205,7 @@ Examples:
 
 *While viewing list of expenses*
 
-* `list` +
+* `listDefaultExpenses` +
 `delete 2` +
 Deletes the second expense in the default expense list in MYMorise.
 
@@ -211,7 +215,7 @@ Deletes the first expense in the results of the find command.
 
 *While viewing list of budgets*
 
-* `budgetlist` +
+* `listBudgets` +
 `delete 2`
 Deletes the second budget in the budget list in MYMorise.
 // end::delete[]
@@ -315,15 +319,15 @@ _{User is able to navigate using up and down keys to cycle through past commands
 == Command Summary
 
 * *Help* : `help`
-* *List* : `list`
-* *List Budgets* : `budgetlist`
-* *Add* : `add n/NAME a/AMOUNT [c/CURRENCY] [d/DATE] [t/TAG]…` +
-e.g. `add n/Coffee a/2.00 c/SGD t/nourishment t/school`
+* *List Default Expenses* : `listDefaultExpenses`
+* *List Budgets* : `listBudgets`
+* *Add Expense* : `expense n/NAME a/AMOUNT [c/CURRENCY] [d/DATE] [t/TAG]…` +
+e.g. `expense n/Coffee a/2.00 c/SGD t/nourishment t/school`
 * *Add Budget* : `budget n/NAME a/AMOUNT [c/CURRENCY] d/STARTDATE ed/ENDDATE`
 e.g. `budget n/Japan Travel a/4000 c/USD d/9/10/19 ed/19/10/19`
 * *View Budget* : `view INDEX`
-* *Edit* : `edit INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY] [t/TAG]…​` +
-e.g. `edit 2 n/Starbucks Coffee t/nourishment`
+* *Edit Expense* : `editExpense INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY] [t/TAG]…​` +
+e.g. `editExpense 2 n/Starbucks Coffee t/nourishment`
 * *Edit Budget* : `editBudget INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY]` +
 e.g. `editBudget 3 n/Korea Travel c/KRW`
 * *Find* : `find [n/NAME] [d/DATE] [t/TAG]` +
