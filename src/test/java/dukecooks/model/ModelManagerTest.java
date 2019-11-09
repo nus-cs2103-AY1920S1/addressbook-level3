@@ -11,17 +11,18 @@ import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
 import static dukecooks.testutil.recipe.TypicalRecipes.OMELETTE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.GuiSettings;
 import dukecooks.model.dashboard.DashboardRecords;
+import dukecooks.model.dashboard.components.DashboardNameContainsKeywordsPredicate;
 import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
 import dukecooks.model.mealplan.MealPlanBook;
@@ -45,13 +46,13 @@ public class ModelManagerTest {
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
-        Assertions.assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        Assertions.assertEquals(new DashboardRecords(), new DashboardRecords(modelManager.getDashboardRecords()));
-        Assertions.assertEquals(new RecipeBook(), new RecipeBook(modelManager.getRecipeBook()));
-        Assertions.assertEquals(new MealPlanBook(), new MealPlanBook(modelManager.getMealPlanBook()));
-        Assertions.assertEquals(new UserProfile(), new UserProfile(modelManager.getUserProfile()));
-        Assertions.assertEquals(new ExerciseCatalogue(), new ExerciseCatalogue(modelManager.getExerciseCatalogue()));
-        Assertions.assertEquals(new DiaryRecords(), new DiaryRecords(modelManager.getDiaryRecords()));
+        assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        assertEquals(new DashboardRecords(), new DashboardRecords(modelManager.getDashboardRecords()));
+        assertEquals(new RecipeBook(), new RecipeBook(modelManager.getRecipeBook()));
+        assertEquals(new MealPlanBook(), new MealPlanBook(modelManager.getMealPlanBook()));
+        assertEquals(new UserProfile(), new UserProfile(modelManager.getUserProfile()));
+        assertEquals(new ExerciseCatalogue(), new ExerciseCatalogue(modelManager.getExerciseCatalogue()));
+        assertEquals(new DiaryRecords(), new DiaryRecords(modelManager.getDiaryRecords()));
     }
 
     @Test
@@ -91,7 +92,7 @@ public class ModelManagerTest {
     public void setGuiSettings_validGuiSettings_setsGuiSettings() {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
-        Assertions.assertEquals(guiSettings, modelManager.getGuiSettings());
+        assertEquals(guiSettings, modelManager.getGuiSettings());
     }
 
     @Test
@@ -265,6 +266,8 @@ public class ModelManagerTest {
 
         DashboardRecords dashboardRecords = new DashboardRecordBuilder()
                 .withDashboard(TASK1).withDashboard(TASK2).build();
+        DashboardRecords differentDashboardRecords = new DashboardRecords();
+
         RecipeBook recipeBook = new RecipeBookBuilder().withRecipe(MILO).withRecipe(OMELETTE).build();
         RecipeBook differentRecipeBook = new RecipeBook();
 
@@ -309,10 +312,20 @@ public class ModelManagerTest {
         modelManager.updateFilteredDiaryList(new DiaryNameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(diaryRecords, userPrefs)));
 
+        // different dashboardRecords -> returns false
+        assertNotEquals(modelManager, new ModelManager(differentDashboardRecords, userPrefs));
+
+        // different DashboardRecordsFilteredList -> returns false
+        String[] dashboardKeywords = TASK1.getDashboardName().fullName.split("\\s+");
+        modelManager.updateFilteredDashboardList(new
+            DashboardNameContainsKeywordsPredicate(Arrays.asList(dashboardKeywords)));
+        assertNotEquals(modelManager, new ModelManager(dashboardRecords, userPrefs));
+
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExerciseList(Model.PREDICATE_SHOW_ALL_EXERCISE);
         modelManager.updateFilteredRecipeList(Model.PREDICATE_SHOW_ALL_RECIPES);
         modelManager.updateFilteredDiaryList(Model.PREDICATE_SHOW_ALL_DIARIES);
+        modelManager.updateFilteredDashboardList(Model.PREDICATE_SHOW_ALL_DASHBOARD);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
@@ -327,5 +340,10 @@ public class ModelManagerTest {
         UserPrefs differentDiaryUserPrefs = new UserPrefs();
         differentDiaryUserPrefs.setDiaryFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(diaryRecords, differentDiaryUserPrefs)));
+
+        // different userPrefs -> returns false
+        UserPrefs differentDashboardUserPrefs = new UserPrefs();
+        differentDashboardUserPrefs.setDashboardFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(dashboardRecords, differentDashboardUserPrefs)));
     }
 }

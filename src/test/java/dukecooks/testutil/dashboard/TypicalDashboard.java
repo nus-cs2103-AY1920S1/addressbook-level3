@@ -14,11 +14,13 @@ import dukecooks.model.dashboard.components.Dashboard;
 public class TypicalDashboard {
 
     public static final Dashboard TASK1 = new DashboardBuilder().withDashboardName("Bake cupcakes")
-            .withTaskDate("12/12/2019").withTaskStatus("COMPLETE").build();
+            .withTaskDate("12/12/2019").withTaskStatus("COMPLETED").build();
     public static final Dashboard TASK2 = new DashboardBuilder().withDashboardName("Bake a cake")
             .withTaskDate("13/12/2019").withTaskStatus("NOT COMPLETE").build();
     public static final Dashboard TASK3 = new DashboardBuilder().withDashboardName("Go for a run")
             .withTaskDate("13/12/2019").withTaskStatus("NOT COMPLETE").build();
+    public static final Dashboard TASK7 = new DashboardBuilder().withDashboardName("Project Meeting")
+            .withTaskDate("13/12/2019").withTaskStatus("RECENTLY COMPLETED").build();
 
     public static final Dashboard TASK4COMPLETE = new DashboardBuilder().withDashboardName("Bake a cake")
             .withTaskDate("13/12/2019").withTaskStatus("COMPLETED").build();
