@@ -39,16 +39,24 @@ public class FindCommandParserTest {
     @Test
     public void parse_someIrrelevantPrefixesPresent_returnsFindCommand() {
         List<Predicate> studentNames = new ArrayList<>();
-        studentNames.add(new StudentContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+        studentNames.add(new StudentContainsKeywordsPredicate(Arrays.asList("Alice", "Bob", "t/cs1231", "y/")));
 
         FindCommand expectedFindCommand =
                 new FindCommand(studentNames);
 
-        // irrelevant prefix with keywords
-        assertParseSuccess(parser, " s/Alice Bob t/cs1231", expectedFindCommand);
+        // irrelevant prefix will be taken as part of keywords
+        assertParseSuccess(parser, " s/Alice Bob t/cs1231 y/", expectedFindCommand);
+    }
 
-        // irrelevant prefix without keywords
-        assertParseSuccess(parser, " s/Alice Bob t/ y/", expectedFindCommand);
+    @Test
+    public void parse_nonEmptyPreAmple_throwsParseException() {
+        assertParseFailure(parser,
+                " p/ a/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser,
+                " alice a/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -83,9 +91,6 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand =
                 new FindCommand(studentNames);
         assertParseSuccess(parser, " s/Alice Bob", expectedFindCommand);
-
-        // multiple whitespaces between keywords
-        assertParseSuccess(parser, " s/ \n Alice \n  Bob ", expectedFindCommand);
 
         // multiple prefixes
         List<Predicate> multiplePreds = new ArrayList<>();
