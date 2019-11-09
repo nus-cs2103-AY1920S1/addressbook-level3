@@ -87,15 +87,6 @@ class QueueManagerTest {
     }
 
     @Test
-    void poll_success() {
-        queueManager = new QueueManager();
-        Person patient = new PersonBuilder(AMY).build();
-        queueManager.addPatient(patient.getReferenceId());
-        queueManager.poll();
-        assertEquals(0, queueManager.getSizeOfQueue());
-    }
-
-    @Test
     void hasPatient_success() {
         queueManager = new QueueManager();
         Person patient = new PersonBuilder(AMY).build();
@@ -138,17 +129,16 @@ class QueueManagerTest {
         assertTrue(queueManager.equals(queueManagerCopy));
 
         Person patient = new PersonBuilder(AMY).build();
-        Person doctor = new PersonBuilder(STAFF_FIONA).withPatientId("002A").build();
         queueManager.addPatient(0, patient.getReferenceId());
 
         assertFalse(queueManager.equals(queueManagerCopy));
 
-        queueManagerCopy.addRoom(new Room(doctor.getReferenceId()));
+        queueManagerCopy.addRoom(new Room(STAFF_FIONA.getReferenceId()));
         assertFalse(queueManager.equals(queueManagerCopy));
 
         queueManagerCopy.addPatient(0, patient.getReferenceId());
         assertFalse(queueManager.equals(queueManagerCopy));
-        queueManager.addRoom(new Room(doctor.getReferenceId()));
+        queueManager.addRoom(new Room(STAFF_FIONA.getReferenceId()));
         assertTrue(queueManager.equals(queueManagerCopy));
     }
 }

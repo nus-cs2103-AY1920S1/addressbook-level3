@@ -1,51 +1,51 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
-    "id": "001A",
+    "id": "S0000001A",
     "name" : "Alice Pauline",
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tagged" : [ "friends" ]
   }, {
-    "id": "002B",
+    "id": "S0000002B",
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
-    "id": "003C",
+    "id": "S0000003C",
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
     "tagged" : [ ]
   }, {
-    "id": "004D",
+    "id": "S0000004D",
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "tagged" : [ "friends" ]
   }, {
-    "id": "005E",
+    "id": "S0000005E",
     "name" : "Elle Meyer",
-    "phone" : "9482224",
+    "phone" : "94822243",
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "tagged" : [ ]
   }, {
-    "id": "006F",
+    "id": "S0000006F",
     "name" : "Fiona Kunz",
-    "phone" : "9482427",
+    "phone" : "94824273",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "tagged" : [ ]
   }, {
-    "id": "007G",
+    "id": "S0000007G",
     "name" : "George Best",
-    "phone" : "9482442",
+    "phone" : "94824423",
     "email" : "anna@example.com",
     "address" : "4th street",
     "tagged" : [ ]
