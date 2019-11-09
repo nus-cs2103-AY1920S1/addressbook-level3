@@ -12,10 +12,21 @@ import seedu.address.logic.graphs.AddCustomerGraph;
 import seedu.address.logic.graphs.AddOrderGraph;
 import seedu.address.logic.graphs.AddPhoneGraph;
 import seedu.address.logic.graphs.AddScheduleGraph;
+import seedu.address.logic.graphs.CancelOrderGraph;
+import seedu.address.logic.graphs.CompleteOrderGraph;
+import seedu.address.logic.graphs.CopyCustomerGraph;
+import seedu.address.logic.graphs.CopyOrderGraph;
+import seedu.address.logic.graphs.CopyPhoneGraph;
+import seedu.address.logic.graphs.DeleteCustomerGraph;
+import seedu.address.logic.graphs.DeletePhoneGraph;
+import seedu.address.logic.graphs.DeleteScheduleGraph;
 import seedu.address.logic.graphs.EditCustomerGraph;
 import seedu.address.logic.graphs.EditOrderGraph;
 import seedu.address.logic.graphs.EditPhoneGraph;
 import seedu.address.logic.graphs.EditScheduleGraph;
+import seedu.address.logic.graphs.FindCustomerGraph;
+import seedu.address.logic.graphs.FindOrderGraph;
+import seedu.address.logic.graphs.FindPhoneGraph;
 import seedu.address.logic.graphs.GenerateStatsGraph;
 import seedu.address.logic.graphs.ViewScheduleGraph;
 import seedu.address.model.Model;
@@ -42,39 +53,39 @@ class AutoCompleteResultGenerator {
         // Customer commands
         providers.put("switch-c", EmptyProvider.getInstance());
         providers.put("add-c", new AddCustomerGraph(model));
-        providers.put("delete-c", EmptyProvider.getInstance());
-        providers.put("find-c", EmptyProvider.getInstance());
+        providers.put("delete-c", new DeleteCustomerGraph(model));
+        providers.put("find-c", new FindCustomerGraph(model));
         providers.put("list-c", EmptyProvider.getInstance());
         providers.put("clear-c", EmptyProvider.getInstance());
         providers.put("edit-c", new EditCustomerGraph(model));
-        providers.put("copy-c", EmptyProvider.getInstance());
+        providers.put("copy-c", new CopyCustomerGraph(model));
 
         // Phone commands
         providers.put("switch-p", EmptyProvider.getInstance());
         providers.put("add-p", new AddPhoneGraph(model));
-        providers.put("delete-p", EmptyProvider.getInstance());
-        providers.put("find-p", EmptyProvider.getInstance());
+        providers.put("delete-p", new DeletePhoneGraph(model));
+        providers.put("find-p", new FindPhoneGraph(model));
         providers.put("list-p", EmptyProvider.getInstance());
         providers.put("clear-p", EmptyProvider.getInstance());
         providers.put("edit-p", new EditPhoneGraph(model));
-        providers.put("copy-p", EmptyProvider.getInstance());
+        providers.put("copy-p", new CopyPhoneGraph(model));
 
         // Order commands
         providers.put("switch-o", EmptyProvider.getInstance());
         providers.put("add-o", new AddOrderGraph(model));
-        providers.put("find-o", EmptyProvider.getInstance());
-        providers.put("complete", EmptyProvider.getInstance());
-        providers.put("cancel", EmptyProvider.getInstance());
+        providers.put("find-o", new FindOrderGraph(model));
+        providers.put("complete", new CompleteOrderGraph(model));
+        providers.put("cancel", new CancelOrderGraph(model));
         providers.put("list-o", EmptyProvider.getInstance());
         providers.put("clear-o", EmptyProvider.getInstance());
         providers.put("edit-o", new EditOrderGraph(model));
-        providers.put("copy-o", EmptyProvider.getInstance());
+        providers.put("copy-o", new CopyOrderGraph(model));
 
         // Schedule commands
         providers.put("switch-s", EmptyProvider.getInstance());
         providers.put("schedule", new ViewScheduleGraph(model));
         providers.put("add-s", new AddScheduleGraph(model));
-        providers.put("delete-s", EmptyProvider.getInstance());
+        providers.put("delete-s", new DeleteScheduleGraph(model));
         providers.put("edit-s", new EditScheduleGraph(model));
 
         // Archived order commands
