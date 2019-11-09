@@ -985,49 +985,6 @@ Use case ends
 +
 Use case resumes at step 2.
 
-[discrete]
-==== Use case: Loan a book
-
-*MSS*
-
-1.  Borrower comes to user to borrow a book.
-2.  User enters the borrower's ID.
-3.  LiBerry shows that the borrower is being served.
-4.  User loans out the book to the borrower.
-5.  LiBerry shows the book as being successfully loaned out.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. LiBerry cannot find the ID in its system.
-[none]
-** 2a1. LiBerry requests for a valid and registered ID.
-[none]
-** 2a2. User enters new ID.
-** Steps 2a1-2a2 are repeated until the ID entered is valid.
-+
-Use case resumes at step 3.
-+
-{empty} +
-* 3a. The book cannot be loaned out.
-+
-[none]
-** 3a1. LiBerry shows an error message.
-+
-Use case ends.
-+
-{empty} +
-[none]
-* *a. At any time, the user makes a typo in the input.
-[none]
-** *a1. User undoes the last command entered.
-[none]
-** *a2. User re-types the input.
-+
-Use case resumes at the step preceding this.
-
 //tag::yutingUseCase[]
 [discrete]
 ==== Use case: Register a borrower
@@ -1105,6 +1062,106 @@ Use case ends.
 Use case ends.
 
 //end::yutingUseCase[]
+
+[discrete]
+==== Use case: Loan a book
+
+*MSS*
+
+1.  Borrower comes to user to borrow a book.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User loans out the book to the borrower.
+5.  LiBerry shows the book as being successfully loaned out.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. LiBerry cannot find the ID in its system.
+[none]
+** 2a1. LiBerry requests for a valid and registered ID.
+[none]
+** 2a2. User enters new ID.
+** Steps 2a1-2a2 are repeated until the ID entered is valid.
++
+Use case resumes at step 3.
++
+{empty} +
+* 4a. The book cannot be loaned out.
++
+[none]
+** 4a1. LiBerry shows an error message.
++
+Use case ends.
++
+{empty} +
+[none]
+* *a. At any time, the user makes a typo in the input.
+[none]
+** *a1. User undoes the last command entered.
+[none]
+** *a2. User re-types the input.
++
+Use case resumes at the step preceding this.
+
+[discrete]
+==== Use case: Return a book
+
+*MSS*
+
+1.  Borrower comes to user to return a book.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User returns the book for the borrower.
+5.  LiBerry shows the book as being successfully returned and shows the fine amount incurred.
++
+Use case ends.
+
+[discrete]
+==== Use case: Renew a book
+
+*MSS*
+
+1.  Borrower comes to user to renew a book.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User renews the book for the borrower.
+5.  LiBerry shows the book as being successfully renewed.
++
+Use case ends.
+
+*Extensions*
+
+* 4a. The book cannot be renewed.
++
+[none]
+** 4a1. LiBerry shows an error message.
++
+Use case ends.
+
+[discrete]
+==== Use case: Paying a fine
+
+*MSS*
+
+1.  Borrower comes to user to pay a fine.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User deducts the given amount from the borrower's outstanding fine.
+5.  LiBerry shows the fine amount which is paid, the remaining fine amount left, and the change to be given.
++
+Use case ends.
+
+*Extensions*
+
+* 4a. The borrower has no outstanding fines.
++
+[none]
+** 4a1. LiBerry shows an error message.
++
+Use case ends.
 
 === Non Functional Requirements
 
