@@ -70,6 +70,16 @@ ml, L, oz, lbs, kg, g, units.
 - *Volume:* ml, L
 - *Quantity:* units
 - *Weight:* g, kg, oz, lbs
+* Conversion of units can only be applied on the same classification. The conversion implemented in this app is shown in the table below. +
+[width="100%",options="header"]
+|===
+| Amount in the unit specified | Amount in standard form (kg, L, units)
+
+| 1ml | 0.001L
+| 1g  | 0.001kg
+| 1oz | 0.00283495kg
+| 1lbs| 0.453592kg
+|===
 * When adding or editing items, the system will only allow items with similar names (checking is non-case-sensitive) to have similar unit types. However,
 the adding of items with conflicting unit types will not be allowed.
 ====
@@ -109,6 +119,8 @@ Clearing of waste list is done automatically at the start of every month.
 
 //tag::grocerylistfeatures[]
 === Grocery List Management
+
+The grocery list is the
 
 ==== Adding a food item: `glist add`
 
@@ -269,7 +281,11 @@ Format: `wlist list [m/MONTH_OF_YEAR]` +
 Otherwise, the food waste of the current month is displayed.
 * The `MONTH_OF_YEAR` is the natural language month and year expression in English.
 To avoid ambiguity, we recommend specifying the month and year in a relaxed date format,
-e.g. `Aug 2019`.
+e.g. `Aug 2019`. We also provide some flexibility by allowing you to specify relative date formats, e.g. `last month`.
+[[month-req]]
+[NOTE]
+To view the exact specification on supported formats, we kindly refer you to http://natty.joestelmach.com/doc.jsp[Natty Library Documentation].
+Note that if you have inadvertently specified a year longer than 4 digits, e.g. `Oct 20198`, we will only take the first 4 digits, which in this case will be `2019`.
 
 ****
 
@@ -680,7 +696,7 @@ Generates a word cloud based on user's most commonly wasted food.
 ==== Moving all expired food items from grocery list to waste list
 
 By default, every time the application is launched, iFridge helps you check which items
-are expired and automatically moves them into the waste list.
+are expired and gives you an option to move them to your waste list.
 
 //end::wastelistfuture[]
 

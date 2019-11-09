@@ -1,0 +1,11 @@
+{
+  "wastearchive" : [ {
+    "wastemonth" : "11-2019",
+    "wastelist" : [ {
+      "name" : "invalid*",
+      "amount" : "300grams",
+      "expiryDate" : "12/10/2019",
+      "tagged" : [ "staples" ]
+    } ]
+  } ]
+}

@@ -76,16 +76,25 @@ public class WasteList implements ReadOnlyWasteList {
         return wasteList.asUnmodifiableObservableList();
     }
 
+    /**
+     * Returns the {@link WasteStatistic} for the waste list.
+     */
     @Override
     public WasteStatistic getWasteStatistic() {
         return WasteStatistic.getWasteStatistic(this.wasteList);
     }
 
+    /**
+     * Returns the {@link WasteMonth} of the waste list.
+     */
     @Override
     public WasteMonth getWasteMonth() {
         return wasteList.getWasteMonth();
     }
 
+    /**
+     * Returns the {@link UniqueWasteList} of the waste list.
+     */
     @Override
     public UniqueWasteList getIterableWasteList() {
         return wasteList;
@@ -112,6 +121,9 @@ public class WasteList implements ReadOnlyWasteList {
         return wasteArchive;
     }
 
+    /**
+     * Adds a {@link WasteList} to the waste archive.
+     */
     public static void addWastelistToArchive(WasteMonth wm, WasteList wasteList) {
         wasteArchive.put(wm, wasteList);
     }
@@ -135,6 +147,9 @@ public class WasteList implements ReadOnlyWasteList {
         }
     }
 
+    /**
+     * Given a {@link WasteMonth}, returns the waste list for the month.
+     */
     public static WasteList getWasteListByMonth(WasteMonth wm) {
         return wasteArchive.get(wm);
     }
