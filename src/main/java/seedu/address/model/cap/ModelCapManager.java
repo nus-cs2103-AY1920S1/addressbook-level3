@@ -219,6 +219,7 @@ public class ModelCapManager implements Model {
         if (denominator != 0.0) {
             result = numerator / denominator;
         }
+        updateRank(result);
         return result;
     }
 
@@ -274,7 +275,7 @@ public class ModelCapManager implements Model {
     }
 
     /**
-     * updates the class for the student based on his/her new CAP.
+     * updates the rank for the student based on his/her new CAP.
      */
     public void updateRank(double cap) {
         achievementManager.updateCap(cap);

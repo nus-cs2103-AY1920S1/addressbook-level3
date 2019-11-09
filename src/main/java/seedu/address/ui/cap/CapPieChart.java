@@ -1,14 +1,14 @@
 package seedu.address.ui.cap;
 
-import java.util.logging.Logger;
-
 import static java.util.Objects.requireNonNull;
+
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
-import javafx.scene.control.*;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 

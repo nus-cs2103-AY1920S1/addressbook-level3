@@ -205,15 +205,12 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            System.out.println(commandText.substring(0,1));
             if (!commandText.split(" ")[0].equals("find")) {
                 informationPanel.setMcToUser(logic.getFilteredMcInformation());
                 informationPanel.setCapToUser(logic.getFilteredCapInformation());
                 achievementBadge.setUpdatedRankToUser(logic.getRankImage(), logic.getRankTitle());
                 pieChartDisplay.setPieChartUpdate(logic.getFilteredGradeCounts());
             }
-
 
             return commandResult;
         } catch (CommandException | IllegalArgumentException | ParseException e) {

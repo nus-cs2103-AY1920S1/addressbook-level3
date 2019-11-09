@@ -6,12 +6,12 @@
 <?import javafx.scene.image.ImageView?>
 
 <StackPane prefHeight="23.0" styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <HBox prefHeight="20.0" HBox.hgrow="ALWAYS">
+   <HBox prefHeight="20.0" HBox.hgrow="ALWAYS" >
       <ImageView xmlns:fx="http://javafx.com/fxml/1" fx:id="badgeImage" fitHeight="100.0" fitWidth="100.0"
                  pickOnBounds="true"
                  preserveRatio="true" xmlns="http://javafx.com/javafx/8"/>
       <children>
-         <Label fx:id="achievementTitle" prefHeight="26.0" styleClass="cap-result-display" wrapText="true"/>
+         <Label fx:id="achievementTitle" prefHeight="100" styleClass="cap-result-display" wrapText="true"/>
       </children>
    </HBox>
 </StackPane>
