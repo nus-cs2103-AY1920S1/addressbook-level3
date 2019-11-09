@@ -15,7 +15,7 @@ public class Savings {
     public static final String MESSAGE_CONSTRAINTS =
             "Please provide a savings amount with 0 or 2 decimal places.\n"
             + "For example: 1.50 or 200\n"
-            + "Note that you also cannot save 0 or a negative amount of money!";
+            + "Note that you also CANNOT save 0 or a negative amount of money!";
 
     public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
@@ -50,7 +50,7 @@ public class Savings {
     /**
      * Labels a Saving as a withdrawal instead of a deposit
      */
-    void makeWithdraw() {
+    public void makeWithdraw() {
         // Sanity check again to ensure only a withdrawal can call this.
         if (isWithdraw) {
             this.savingsAmount.negate();

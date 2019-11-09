@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.savings.exceptions.SavingsOutOfBoundException;
 import seedu.savenus.model.util.TimeStamp;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 import seedu.savenus.storage.savings.exceptions.InvalidSavingsAmountException;
@@ -41,12 +42,14 @@ public class SaveCommand extends Command {
 
         // deduct from wallet in model
         try {
-            model.deductFromWallet(this.savingsAmount);
-            model.addToHistory(this.savingsAmount);
+            // Deposit into savings only possible if
+            // Wallet has sufficient funds,
+            // Adding this saving does not increase the current account value > 1000000
             model.depositInSavings(this.savingsAmount);
+            model.addToHistory(this.savingsAmount);
         } catch (InsufficientFundsException e) {
             throw new CommandException(e.getMessage() + " to add to savings account!");
-        } catch (InvalidSavingsAmountException e) { // add to the savings account in the model.
+        } catch (InvalidSavingsAmountException | SavingsOutOfBoundException e) {
             throw new CommandException(e.getMessage());
         }
         return new CommandResult(String.format(MESSAGE_SAVINGS_SUCCESS, savingsAmount.toString()));

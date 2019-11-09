@@ -28,7 +28,6 @@ import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
-import seedu.savenus.storage.savings.exceptions.InvalidSavingsAmountException;
 
 /**
  * The API of the Model component.
@@ -279,7 +278,7 @@ public interface Model {
     /**
      * Add a saving to the savings history.
      */
-    void addToHistory(Savings savings) throws InvalidSavingsAmountException;
+    void addToHistory(Savings savings);
 
     /**
      * Return an unmodifiable version of the user's SavingsHistory.
@@ -299,7 +298,7 @@ public interface Model {
     /**
      * Add a deposit into the savings account.
      */
-    void depositInSavings(Savings savings) throws SavingsOutOfBoundException;
+    void depositInSavings(Savings savings) throws SavingsOutOfBoundException, InsufficientFundsException;
 
     /**
      * Withdraw a sum from the savings account.

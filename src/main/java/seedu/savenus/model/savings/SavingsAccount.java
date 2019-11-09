@@ -3,7 +3,6 @@ package seedu.savenus.model.savings;
 import static java.util.Objects.requireNonNull;
 
 import javafx.beans.property.ObjectProperty;
-import seedu.savenus.model.savings.exceptions.InsufficientSavingsException;
 import seedu.savenus.model.savings.exceptions.SavingsOutOfBoundException;
 import seedu.savenus.model.util.Money;
 
@@ -51,6 +50,26 @@ public class SavingsAccount implements ReadOnlySavingsAccount {
     }
 
     /**
+     * Check whether adding a saving amount will make the value of current savings > 1000000
+     * @param toAdd savings to be added into current savings
+     * @param currentSavings savings in the bank account
+     * @return true if the new current savings amount will be greater than 1000000
+     */
+    public static boolean testOutOfBound(Savings toAdd, CurrentSavings currentSavings) {
+        Money amountToAdd = toAdd.getSavingsAmount();
+        Money currentSavingsMoney = new Money(currentSavings.getCurrentSavingsMoney().getAmount());
+        Money newCurrentSavings = currentSavingsMoney.add(amountToAdd);
+        return newCurrentSavings.isOutOfBounds();
+    }
+
+    /**
+     * Get the current savings from this account
+     */
+    public CurrentSavings retrieveCurrentSavings() {
+        return this.currentSavings;
+    }
+
+    /**
      * Add to the current savings.
      */
     public void addToSavings(Savings savings) throws SavingsOutOfBoundException {
@@ -67,19 +86,11 @@ public class SavingsAccount implements ReadOnlySavingsAccount {
     /**
      * Deduct money from the current savings
      */
-    public void deductFromSavings(Savings savings) throws InsufficientSavingsException {
-        // Check whether savings account has enough money.
-        if (savings.isWithdraw()) {
-            savings.makeWithdraw();
-        }
+    public void deductFromSavings(Savings savings) {
         Money toSubtract = savings.getSavingsAmount();
         Money currentSavingsMoney = this.currentSavings.getCurrentSavingsMoney();
-        // Check if current savings is sufficient for the withdrawal amount.
-        if (currentSavingsMoney.getAmount().compareTo(toSubtract.getAmount().abs()) < 0) {
-            throw new InsufficientSavingsException();
-        } else {
-            currentSavings.setCurrentSavings(currentSavingsMoney.add(toSubtract));
-        }
+        currentSavings.setCurrentSavings(currentSavingsMoney.add(toSubtract));
+
     }
 
     /**

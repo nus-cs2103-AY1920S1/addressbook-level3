@@ -38,11 +38,12 @@ import seedu.savenus.model.savings.exceptions.SavingsOutOfBoundException;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.userprefs.UserPrefs;
+import seedu.savenus.model.util.Money;
+import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
-import seedu.savenus.storage.savings.exceptions.InvalidSavingsAmountException;
 
 /**
  * Represents the in-memory model of the menu data.
@@ -382,7 +383,7 @@ public class ModelManager implements Model {
      * @param savings
      */
     @Override
-    public void addToHistory(Savings savings) throws InvalidSavingsAmountException {
+    public void addToHistory(Savings savings) {
         requireNonNull(savings);
 
         // If deposit, then should not be 0 nor negative.
@@ -390,9 +391,6 @@ public class ModelManager implements Model {
         if (savings.isWithdraw()) {
             // change it back to positive number first
             savings.getSavingsAmount().negate();
-        }
-        if (Float.parseFloat(savings.toString()) <= 0) { // prevent depositing negative
-            throw new InvalidSavingsAmountException();
         } else {
             savingsHistory.addToHistory(savings);
         }
@@ -428,9 +426,20 @@ public class ModelManager implements Model {
      * @throws SavingsOutOfBoundException if adding the savings result in the savings exceeding 1,000,000
      */
     @Override
-    public void depositInSavings(Savings savings) throws SavingsOutOfBoundException {
+    public void depositInSavings(Savings savings) throws SavingsOutOfBoundException, InsufficientFundsException {
         requireNonNull(savings);
-        savingsAccount.addToSavings(savings);
+        // if savings amount > the remaining budget in the wallet.
+        if (savings.getSavingsAmount().getAmount().compareTo(this.wallet.getRemainingBudgetAmount()) == 1) {
+
+            throw new InsufficientFundsException();
+        } else {
+            if (SavingsAccount.testOutOfBound(savings, this.savingsAccount.retrieveCurrentSavings())) {
+                throw new SavingsOutOfBoundException();
+            } else {
+                deductFromWallet(savings);
+                savingsAccount.addToSavings(savings);
+            }
+        }
     }
 
     /**
@@ -442,7 +451,22 @@ public class ModelManager implements Model {
     @Override
     public void withdrawFromSavings(Savings savings) throws InsufficientSavingsException {
         requireNonNull(savings);
-        savingsAccount.deductFromSavings(savings);
+        if (savings.isWithdraw()) {
+            savings.makeWithdraw();
+        }
+        Money toSubtract = savings.getSavingsAmount();
+        Money currentSavingsMoney = savingsAccount.getCurrentSavings().get();
+        if (currentSavingsMoney.getAmount().compareTo(toSubtract.getAmount().abs()) < 0) {
+            throw new InsufficientSavingsException();
+        } else {
+            RemainingBudget newRemaining = new RemainingBudget(this.getWallet()
+                    .getRemainingBudget().getRemainingBudgetAmount()
+                    .add(savings.getSavingsAmount().getAmount().abs())
+                    .toString());
+            this.getWallet().setRemainingBudget(newRemaining);
+            savingsAccount.deductFromSavings(savings);
+            savingsHistory.addToHistory(savings);
+        }
     }
 
     // ================================ Command History Methods ===================================================

@@ -295,7 +295,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void depositInSavings(Savings savings) throws SavingsOutOfBoundException {
+        public void depositInSavings(Savings savings) throws SavingsOutOfBoundException, InsufficientFundsException {
             throw new AssertionError("This method should not be called.");
         }
 
