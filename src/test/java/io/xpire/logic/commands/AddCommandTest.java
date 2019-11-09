@@ -52,7 +52,7 @@ public class AddCommandTest {
     public void execute_itemAcceptedByModel_addSuccessful() throws Exception {
         XpireItem kiwi = new XpireItemBuilder().withName(VALID_NAME_KIWI)
                 .withExpiryDate(VALID_EXPIRY_DATE_KIWI)
-                .withQuantity("2").build();
+                .withQuantity(VALID_QUANTITY_KIWI).build();
         AddCommand addCommand = new AddCommand(new Name(VALID_NAME_KIWI), new ExpiryDate(VALID_EXPIRY_DATE_KIWI),
                 new Quantity(VALID_QUANTITY_KIWI));
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
@@ -63,7 +63,6 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        XpireItem apple = new XpireItemBuilder().withName("Apple").build();
         XpireItem banana = new XpireItemBuilder().withName("Banana").build();
         AddCommand addKiwiCommand = new AddCommand(new Name(VALID_NAME_KIWI), new ExpiryDate(VALID_EXPIRY_DATE_KIWI),
                 new Quantity(VALID_QUANTITY_KIWI));

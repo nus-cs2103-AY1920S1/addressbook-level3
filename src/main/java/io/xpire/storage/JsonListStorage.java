@@ -13,7 +13,7 @@ import io.xpire.commons.exceptions.IllegalValueException;
 import io.xpire.commons.util.FileUtil;
 import io.xpire.commons.util.JsonUtil;
 import io.xpire.model.ReadOnlyListView;
-import io.xpire.model.item.Item;
+import javafx.util.Pair;
 
 /**
  * A class to access Xpire data stored as a json file on the hard disk.
@@ -33,7 +33,7 @@ public class JsonListStorage implements ListStorage {
     }
 
     @Override
-    public Optional<ReadOnlyListView<? extends Item>>[] readList() throws DataConversionException {
+    public Pair<Optional<ReadOnlyListView>, Optional<ReadOnlyListView>> readList() throws DataConversionException {
         return readList(this.filePath);
     }
 
@@ -43,12 +43,15 @@ public class JsonListStorage implements ListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyListView<? extends Item>>[] readList(Path filePath) throws DataConversionException {
+    public Pair<Optional<ReadOnlyListView>, Optional<ReadOnlyListView>> readList(Path filePath)
+            throws DataConversionException {
         requireNonNull(filePath);
         Optional<JsonSerializableList> jsonTracker = JsonUtil.readJsonFile(
                 filePath, JsonSerializableList.class);
+        Pair<Optional<ReadOnlyListView>, Optional<ReadOnlyListView>> pair;
         if (jsonTracker.isEmpty()) {
-            return new Optional[]{Optional.empty(), Optional.empty()};
+            pair = new Pair<>(Optional.empty(), Optional.empty());
+            return pair;
         }
         try {
             if (jsonTracker.get().toModelType().length != 2) {
@@ -56,7 +59,7 @@ public class JsonListStorage implements ListStorage {
             }
             ReadOnlyListView xpire = jsonTracker.get().toModelType()[0];
             ReadOnlyListView replenishList = jsonTracker.get().toModelType()[1];
-            return new Optional[]{Optional.of(xpire), Optional.of(replenishList)};
+            return new Pair<>(Optional.of(xpire), Optional.of(replenishList));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -64,7 +67,7 @@ public class JsonListStorage implements ListStorage {
     }
 
     @Override
-    public void saveList(ReadOnlyListView<? extends Item>[] lists) throws IOException {
+    public void saveList(ReadOnlyListView[] lists) throws IOException {
         saveList(lists, this.filePath);
     }
 
@@ -73,7 +76,7 @@ public class JsonListStorage implements ListStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveList(ReadOnlyListView<? extends Item>[] lists, Path filePath) throws IOException {
+    public void saveList(ReadOnlyListView[] lists, Path filePath) throws IOException {
         requireNonNull(lists);
         requireNonNull(filePath);
 

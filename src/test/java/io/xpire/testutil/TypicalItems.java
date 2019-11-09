@@ -126,9 +126,9 @@ public class TypicalItems {
     private TypicalItems() {} // prevents instantiation
 
     /**
-     * Returns an {@code Xpire} with all the typical items.
+     * Returns an {@code Xpire} and {@code ReplenishList} with all the typical items.
      */
-    public static ReadOnlyListView<? extends Item>[] getTypicalLists() {
+    public static ReadOnlyListView[] getTypicalLists() {
         Xpire edt = new Xpire();
         for (XpireItem xpireItem : getTypicalXpireItems()) {
             XpireItem copyXpireItem = new XpireItem(xpireItem);

@@ -115,7 +115,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
         viewPanel = new ViewPanel(logic.getCurrentFilteredItemList());
         viewPanelPlaceholder.getChildren().add(viewPanel.getRoot());
 

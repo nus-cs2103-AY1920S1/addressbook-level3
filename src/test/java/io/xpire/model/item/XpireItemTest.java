@@ -31,7 +31,7 @@ public class XpireItemTest {
         assertFalse(KIWI.isSameItem(null));
 
         // different expiry date -> returns false
-        XpireItem editedKiwi = new XpireItemBuilder(KIWI).withExpiryDate("02/02/2020").build();
+        XpireItem editedKiwi = new XpireItemBuilder(KIWI).withExpiryDate("31/12/9999").build();
         assertFalse(KIWI.isSameItem(editedKiwi));
 
         // different name -> returns false

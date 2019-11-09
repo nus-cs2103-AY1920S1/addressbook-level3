@@ -15,16 +15,22 @@ public class UndoableHistoryManager<T> extends History<T> {
      * @return previous Element.
      */
     public T previous() {
+        assert currentIndex > 0;
         currentIndex -= 1;
         return history.get(currentIndex);
     }
 
     /**
      * Retrieves the next Element and sets the current index forwards by 1.
+     * Returns head if currentIndex is more than or equals to headIndex.
      *
      * @return next Element.
      */
     public T next() {
+        assert currentIndex >= 0;
+        if (currentIndex >= headIndex) {
+            return history.get(headIndex - 1);
+        }
         T nextElement = history.get(currentIndex);
         currentIndex += 1;
         return nextElement;
@@ -48,5 +54,6 @@ public class UndoableHistoryManager<T> extends History<T> {
         history.add(element);
         currentIndex += 1;
         headIndex = currentIndex;
+        assert headIndex >= 0;
     }
 }

@@ -117,11 +117,20 @@ public class ReplenishParser implements Parser {
 
         case AddCommand.COMMAND_WORD:
             //fallthrough
+        case AddCommand.COMMAND_SHORTHAND:
+            //fallthrough
         case SortCommand.COMMAND_WORD:
+            //fallthrough
+        case SortCommand.COMMAND_SHORTHAND:
             //fallthrough
         case CheckCommand.COMMAND_WORD:
             //fallthrough
+        case CheckCommand.COMMAND_SHORTHAND:
+            //fallthrough
         case SetReminderCommand.COMMAND_WORD:
+            //fallthrough
+        case SetReminderCommand.COMMAND_SHORTHAND:
+
             throw new ParseException(MESSAGE_XPIRE_COMMAND_ONLY);
 
 

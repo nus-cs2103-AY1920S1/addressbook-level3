@@ -4,6 +4,8 @@ import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showReplenishItemAtIndex;
 import static io.xpire.logic.commands.CommandTestUtil.showXpireItemAtIndex;
+import static io.xpire.logic.commands.TagCommand.MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING;
+import static io.xpire.logic.commands.TagCommand.MESSAGE_TOO_MANY_TAGS;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
@@ -131,6 +133,24 @@ public class TagCommandTest {
         assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
     }
 
+    @Test
+    public void execute_truncateTagsInXpireItem_success() {
+        XpireItem xpireItemToTag = (XpireItem) model.getCurrentList().get(INDEX_FIFTH_ITEM.getZeroBased());
+        TagCommand tagCommand = new TagCommand(XPIRE,
+                INDEX_FIFTH_ITEM, new String[]{"Abcdefghijklmnopqrstuvwxyz"});
+        assertEquals(tagCommand.getMode(), TagCommand.TagMode.TAG);
+        ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
+        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_JELLY)
+                .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
+                .withQuantity(VALID_QUANTITY_JELLY)
+                .withTags("Abcdefghijklmnopqrst", VALID_TAG_FRIDGE)
+                .withReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY)
+                .build();
+        String expectedMessage = String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, expectedXpireItem);
+        expectedModel.setItem(XPIRE, xpireItemToTag, expectedXpireItem);
+        assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
+    }
+
     //adding tags that already exist should not add duplicates or edit the existing tags
     @Test
     public void execute_addDuplicateTagsToXpireItem_success() {
@@ -162,6 +182,16 @@ public class TagCommandTest {
                 new StringBuilder(TagCommand.MESSAGE_TAG_SHOW_SUCCESS)).toString();
         assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
     }
+
+    @Test
+    public void execute_noTagsInXpire_success() {
+        TagCommand tagCommand = new TagCommand(XPIRE);
+        assertEquals(tagCommand.getMode(), TagCommand.TagMode.SHOW);
+        ModelManager expectedModel = new ModelManager();
+        assertCommandSuccess(tagCommand, expectedModel, TagCommand.MESSAGE_TAG_SHOW_FAILURE, expectedModel);
+    }
+
+
 
     //---------------- Tests for Replenish List --------------------------------------------------------------------
     @Test
@@ -272,6 +302,15 @@ public class TagCommandTest {
         String expectedMessage = TagCommand.appendTagsToFeedback(tagList,
                 new StringBuilder(TagCommand.MESSAGE_TAG_SHOW_SUCCESS)).toString();
         assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
+    }
+
+    //---------------- Failed tagging tests --------------------------------------------------------------------
+    @Test
+    public void execute_tooManyTags_throwsCommandException() {
+        TagCommand tagCommand = new TagCommand(XPIRE, INDEX_FIFTH_ITEM,
+                new String[]{VALID_TAG_CADBURY, VALID_TAG_PROTEIN,
+                    VALID_TAG_COCOA, VALID_TAG_SWEET, VALID_TAG_FRUIT, VALID_TAG_FRIDGE});
+        assertCommandFailure(tagCommand, model, MESSAGE_TOO_MANY_TAGS);
     }
 
     /**

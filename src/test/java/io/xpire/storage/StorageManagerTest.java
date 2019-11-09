@@ -13,7 +13,6 @@ import io.xpire.commons.core.GuiSettings;
 import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.UserPrefs;
 import io.xpire.model.Xpire;
-import io.xpire.model.item.Item;
 import io.xpire.testutil.TypicalItems;
 
 public class StorageManagerTest {
@@ -55,9 +54,9 @@ public class StorageManagerTest {
          * {@link JsonXpireStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonXpireStorageTest} class.
          */
-        ReadOnlyListView<? extends Item>[] original = TypicalItems.getTypicalLists();
+        ReadOnlyListView[] original = TypicalItems.getTypicalLists();
         storageManager.saveList(original);
-        ReadOnlyListView<? extends Item> retrieved = storageManager.readList()[0].get();
+        ReadOnlyListView retrieved = storageManager.readList().getKey().get();
         Xpire retrievedXpire = (Xpire) retrieved;
         assertEquals(retrieved.getItemList(), new Xpire(retrieved).getItemList());
     }

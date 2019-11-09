@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import io.xpire.commons.core.GuiSettings;
 import io.xpire.model.item.ContainsKeywordsPredicate;
-import io.xpire.model.item.Item;
 import io.xpire.testutil.Assert;
 import io.xpire.testutil.ExpiryDateTrackerBuilder;
 import io.xpire.testutil.ReplenishListBuilder;
@@ -106,12 +105,12 @@ public class ModelManagerTest {
         ReplenishList replenishList = new ReplenishListBuilder()
                 .withItem(TypicalItems.BAGEL).withItem(TypicalItems.CHOCOLATE).build();
 
-        ReadOnlyListView<? extends Item>[] lists = new ReadOnlyListView[]{xpire, replenishList};
+        ReadOnlyListView[] lists = new ReadOnlyListView[]{xpire, replenishList};
 
         Xpire differentXpire = new Xpire();
         ReplenishList differentReplenishList = new ReplenishList();
 
-        ReadOnlyListView<? extends Item>[] differentLists = new ReadOnlyListView[]{differentXpire,
+        ReadOnlyListView[] differentLists = new ReadOnlyListView[]{differentXpire,
             differentReplenishList};
         UserPrefs userPrefs = new UserPrefs();
 
