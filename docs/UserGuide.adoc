@@ -97,12 +97,12 @@ If the `create` command was executed, you will be displayed an empty form with n
 
 image::createTrip.png[]
 
-If `edit` command was executed, you will be displayed a from with details previously filled in.
+If the `edit` command was executed, you will be displayed a from with details previously filled in.
 
 
 image::editTrip.png[]
 
-Now that you on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefixes>/<value> ...`. There are 6 different prefixes, each to edit one of the 6 fields displayed. The 6 prefixes refer to editing each fields as follows:
+Now that you are on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/<value> ...`. There are 6 different prefixes, each to edit one of the 6 fields displayed. The 6 prefixes refer to editing each fields as follows:
 
 1. Name :  `n/`
 2. Start Date : `ds/`
@@ -111,8 +111,7 @@ Now that you on the edit page, to edit a specific field, execute the following c
 5. Destination : `l/`
 6. Photo File Path : `fp/`
 
-    Note:
-    You can execute fc/ with fp/ to open a file dialog to choose an image rather than type in absoulute path of the image.
+NOTE: You can execute fc/ with fp/ to open a file dialog to choose an image rather than type in absoulute path of the image.
 e.g. edit fp/ fc/
 
 Below is an example changing the name of an existing trip to "Small Trip":
@@ -132,17 +131,101 @@ Having completed editing the the form, you can submit it by executing the `done`
 You have successfully created/edited a trip!
 
 === Event Setup
+Creating/editing an event is similar to creating/editing a trip (directly above). To do so you have to begin on the events page displaying the list of events of a certain day.
 
-Event setup creates/edits properties of a specified event. It is necessary for event to contains a starting and ending time. Events contains mostly optional fields that the user can edit in future. The syntax is as follows: `edit <prefix>/<value>`
+image::eventsPage.png[title="The Events Page"]
+
+Now you can enter the `create` or `edit <index>` command to create a new trip for edit an existing one. The `<index>` to enter can be referenced from the list of events being displayed on each card.
+
+image::eventsIndex.png[]
+
+Upon execution of either command on the events page, you will be directed to a page where editing the necessary details to create a new event is possible. This page contains a form with 4 necessary fields
+
+- Name
+- Start Time
+- End Time
+- Destination
+
+NOTE: The **Total Budget** field is optional and can be left blank
+
+If the `create` command was executed, you will be displayed an empty form with details to be filled in by you for the first time.
+
+image::createEvent.png[]
+
+If the `edit <index>` command was executed, you will be displayed a form filled with details that you have previously entered.
+
+image::editEvent.png[]
+
+Now that you are on the edit events page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/value> ...`. There are 5 different prefixes, each to edit one of the 5 fields displayed. The 5 prefixes are as follows:
 
 1. Name : `n/`
-2. Start Date : `ds/`
-3. End Date: `de/`
-4. Total Budget: `b/`
-5. Destination: `l/`
+2. Start Time : `ds/`
+3. End Time : `de/`
+4. Total Budget : `b/`
+5. Destination : `l/`
 
-=== Navbar
-Every page that comprises a navbar can execute the following commands to navigate to another page.
+Below is an example of changing the destination of an existing event to "Hotel 89":
+
+- You begin at the edit event screen, the text in the name field reflects the original name of the event.
+
+image::editEvent.png[]
+
+- Enter the command `edit l/Hotel 89` into the command box and press enter to execute
+
+image::editLocation.png[]
+
+- You should now see the text in the field **Destination** change to "Hotel 89" to reflect the changes made to the event.
+
+image::editResult.png[]
+
+Now you should have completed all the necessary fields and are ready to finish the edit. You can execute the `done` or `cancel` commands to either confirm the edit or discard it. Both commands will redirect you back to the events page.
+
+Congratulations, you have created/edited an event!
+
+=== Deleting an Trip/Event
+Deleting a Trip/Day/Event is executed in exactly the same way as each other. You first have to begin on the Trip Page/Days Page/Events Page respectively. Each of the pages will show a list of trips/days/events each labelled by an index. Below are 3 different list format elements and the indication where you can find the index.
+
+image::indexExamples.png[title="Examples of different indexes displayed"]
+
+NOTE: You should have at least 1 trip/day/event in your lists or all delete commands will be invalid
+
+Enter the command `delete <index>` into the command box  where the index corresponds to the trip/day/event you wish to delete. Press enter to execute the command.
+
+image::deleteCommand.png[title="Example deletion of trip 1"]
+
+You should now see that trip/day/event that you deleted has disappeared from the list and the indexes have been reassigned in chronological order.
+
+image::deleteResult.png[title="Result of executing `delete 1`"]
+
+Congratulations, you have deleted a trip/day/event!
+
+=== Showing Event Details
+The details of each event are displayed on the right half the **Events Page**. You can access the events page by using the navigation feature (<<How to navigate>>) found on most pages.
+
+Upon accessing the events page, the information panel on the right should be empty except the prompt "Click on an event to show details here!". The left panel holds the list of events in the particular day in chronological order.
+
+image::eventsPage.png[]
+
+To show the details of an event, execute the command `show <index>` in the command box. You should use the index on the event card in the command.
+
+image::eventIndex.png[]
+
+After executing the command, you should see the details of the event show up on the information panel. Below is an example execution of the process to show the information of the event "Breakfast:
+
+- Starting from the events page, type the command `show 1` into the command box and press enter to execute.
+
+image::showCommand.png[]
+
+- Congratulations! you should see the information on the right panel pertaining to the event the "Breakfast" event just selected.
+
+image::showCommandResult.png[]
+
+=== How to navigate
+The main form of navigation is by using the navigation bars and the commands that are available on every page they are on. The bars appear like this:
+
+image::icons.png[]
+
+Each icon on the bar refers to a specific page in the application that the current page can go to. You can access these pages by simply clicking them or executing the following commands.
 
 1. Trip Manager: `home`
 2. Itinerary : `itinerary`
@@ -150,6 +233,24 @@ Every page that comprises a navbar can execute the following commands to navigat
 4. Diary : `diary`
 5. Inventory : `inventory`
 6. Expense Manager : `expense`
+7. Bookings Manager : `bookings`
+
+NOTE: Pages that do not contain a navigation bar cannot use the navigation commands above.
+
+Below is an example of navigating from the itinerary page to the days page:
+- Begin on the itinerary page
+
+image::itineraryPage.png[]
+
+- Since the page we are trying to reach is the days page, type the command `days` into the command box.
+
+image::daysCommand.png[]
+
+- Congratulations you should now see the **Days Page**
+
+image::daysPage.png[]
+
+
 
 === Expense Manager
 

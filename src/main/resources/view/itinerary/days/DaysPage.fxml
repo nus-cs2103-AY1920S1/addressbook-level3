@@ -15,6 +15,7 @@
     <VBox alignment="TOP_CENTER" style="-fx-background-color: #F2F4F7;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="0.0">
         <children>
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" minViewportHeight="200.0" minViewportWidth="200.0" minWidth="-Infinity" prefViewportHeight="300.0" prefViewportWidth="800.0" style="-fx-background-color: #F2F4F7;" VBox.vgrow="ALWAYS">
+
                 <content>
                     <FlowPane fx:id="dayThumbnailPane" hgap="10.0" prefWrapLength="800.0" style="-fx-background-color: #F2F4F7;" vgap="10.0">
                   <padding>
