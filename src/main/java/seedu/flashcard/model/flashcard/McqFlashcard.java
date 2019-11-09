@@ -56,6 +56,15 @@ public class McqFlashcard extends Flashcard {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof McqFlashcard)) {
+            return false;
+        }
+        McqFlashcard otherMcqFlashcard = (McqFlashcard) other;
+        return super.equals(other) && choices.equals(otherMcqFlashcard.getChoices());
+    }
+
+    @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getQuestion()).append("\n")

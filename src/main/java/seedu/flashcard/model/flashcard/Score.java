@@ -75,4 +75,10 @@ public class Score {
     public void incrementWrongAnswer() {
         this.wrongAnswers++;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        Score otherScore = (Score) other;
+        return correctAnswers == otherScore.correctAnswers && wrongAnswers == otherScore.wrongAnswers;
+    }
 }

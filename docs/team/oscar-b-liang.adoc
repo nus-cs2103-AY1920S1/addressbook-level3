@@ -176,7 +176,7 @@ There is no need to save manually.
 == Contributions to the Developer Guide
 
 The following are the parts I added to the developer guide. *I clearly clarify here that none of these features are implemented by
-me, they are implemented by my teammates. I simply drew the UMLs of these features.*
+me, they are implemented by my teammates. I simply drew the sequence diagrams of these features.*
 
 === Quiz and Flip feature
 In the flashcard system, quiz and flip is a special function that can help the user quiz themselves on the flashcards and see
