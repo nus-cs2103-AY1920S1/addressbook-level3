@@ -1,6 +1,6 @@
 package io.xpire.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
@@ -20,7 +20,7 @@ public class UndoCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(model, stateManager);
         if (stateManager.isNotUndoable()) {
             throw new CommandException(MESSAGE_UNDO_FAILURE);
         }

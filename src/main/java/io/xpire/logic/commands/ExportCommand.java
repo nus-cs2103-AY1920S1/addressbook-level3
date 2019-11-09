@@ -3,6 +3,7 @@ package io.xpire.logic.commands;
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 
 import io.xpire.commons.util.StringUtil;
+import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
 import io.xpire.model.item.Item;
 import io.xpire.model.state.StateManager;
@@ -30,8 +31,9 @@ public class ExportCommand extends Command {
     private static final int RESOLUTION_SIZE = 800;
 
     @Override
-    public CommandResult execute(Model model, StateManager stateManager) {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireAllNonNull(model, stateManager);
+        this.requireNonEmptyCurrentList(model);
 
         ObservableList<? extends Item> currentList = model.getCurrentList();
         StringBuilder formattedOutput = new StringBuilder(BORDER);

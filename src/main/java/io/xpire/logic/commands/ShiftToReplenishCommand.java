@@ -1,9 +1,9 @@
 package io.xpire.logic.commands;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
-import static java.util.Objects.requireNonNull;
 
 import java.util.HashSet;
 import java.util.List;
@@ -45,8 +45,8 @@ public class ShiftToReplenishCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
-
-        requireNonNull(model);
+        requireAllNonNull(model, stateManager);
+        this.requireNonEmptyCurrentList(model);
         stateManager.saveState(new ModifiedState(model));
         List<? extends Item> lastShownList = model.getCurrentList();
 

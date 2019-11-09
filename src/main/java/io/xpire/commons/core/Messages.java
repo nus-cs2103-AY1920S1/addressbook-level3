@@ -19,4 +19,5 @@ public class Messages {
             "The item has only %s day(s) left before expiring. \nReminder will start from today!";
     public static final String MESSAGE_THRESHOLD_ITEM_EXPIRED = "Cannot set reminder for expired item!";
     public static final String MESSAGE_VIEW_OPTIONS = "Only two lists (main and replenish) are available to view.";
+    public static final String MESSAGE_EMPTY_LIST = "Command not executed. The current list is empty!";
 }

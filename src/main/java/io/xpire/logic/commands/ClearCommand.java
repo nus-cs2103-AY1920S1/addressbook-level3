@@ -2,6 +2,7 @@ package io.xpire.logic.commands;
 
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 
+import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.item.Item;
@@ -34,11 +35,12 @@ public class ClearCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, StateManager stateManager) {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireAllNonNull(model, stateManager);
-        stateManager.saveState(new ModifiedState(model));
+        this.requireNonEmptyCurrentList(model);
 
-        //remove list dependency on xpire/replenish internal list
+        stateManager.saveState(new ModifiedState(model));
+        //gets the current list and remove list dependency on xpire/replenish internal list
         ObservableList<? extends Item> currentList = FXCollections.observableArrayList(model.getCurrentList());
         currentList.forEach(item -> model.deleteItem(this.listType, item));
         setShowInHistory(true);

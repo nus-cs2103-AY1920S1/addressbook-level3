@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.util.StringUtil;
+import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.ListType;
 import io.xpire.model.Model;
 import io.xpire.model.item.ContainsKeywordsPredicate;
@@ -52,12 +53,13 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, StateManager stateManager) {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireAllNonNull(model, stateManager);
-        stateManager.saveState(new FilteredState(model));
+        this.requireNonEmptyCurrentList(model);
 
         //Saves the current copy of the list view
         ObservableList<? extends Item> previousList = FXCollections.observableArrayList(model.getCurrentList());
+        stateManager.saveState(new FilteredState(model));
         //Updates the list view
         model.filterCurrentList(this.listType, this.predicate);
         //Retrieves the updated list view

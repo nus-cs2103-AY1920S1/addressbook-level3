@@ -1,7 +1,8 @@
 package io.xpire.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 
+import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
 import io.xpire.model.state.FilteredState;
@@ -32,8 +33,9 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, StateManager stateManager) {
-        requireNonNull(model);
+    public CommandResult execute(Model model, StateManager stateManager)throws CommandException {
+        requireAllNonNull(model, stateManager);
+        this.requireNonEmptyCurrentList(model);
         stateManager.saveState(new FilteredState(model));
         model.sortXpire(this.method);
         //model.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
