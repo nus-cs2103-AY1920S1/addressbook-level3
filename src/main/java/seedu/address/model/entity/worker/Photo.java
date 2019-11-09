@@ -80,7 +80,7 @@ public class Photo {
      */
     public String getStoragePathToDataDirectory() {
         String path = Paths.get(dataDirectory).toAbsolutePath().toUri().getPath();
-        if (AppUtil.isWindows()) {
+        if (path.charAt(0) == '/' && AppUtil.isWindows()) {
             return path.substring(1); // removes the additional leading forward slash
         } else {
             return path; // keeps the leading forward slash required
@@ -92,13 +92,15 @@ public class Photo {
     /**
      * Loads the example photo from resources into the data directory when the user launches app for the first time.
      */
-    private static void initExamplePhoto() {
+    private static boolean initExamplePhoto() {
         try {
             Files.createDirectories(Paths.get(PATH_TO_DATA_DIRECTORY));
             InputStream photo = MainApp.class.getResourceAsStream("/images/ExamplePhoto.jpg");
             Files.copy(photo, Paths.get(PATH_TO_EXAMPLE_PHOTO), REPLACE_EXISTING);
+            return true;
         } catch (IOException e) {
             logger.severe("Unable to load example photo.");
+            return false;
         }
     }
 
