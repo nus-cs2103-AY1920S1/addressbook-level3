@@ -25,6 +25,7 @@ import seedu.address.ui.UiPart;
 public class WordBankCard extends UiPart<Region> {
 
     private static final String FXML = "WordBankCard.fxml";
+    public final WordBank wordBank;
     private String dataFilePath;
 
     /**
@@ -34,8 +35,6 @@ public class WordBankCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
-
-    public final WordBank wordBank;
 
     @FXML
     private HBox cardPane;
@@ -86,10 +85,10 @@ public class WordBankCard extends UiPart<Region> {
      */
     @FXML
     private void handleDragDetection(MouseEvent event) {
-//        dataFilePath = "data";
         Dragboard db = cardPane.startDragAndDrop(TransferMode.COPY);
         ClipboardContent content = new ClipboardContent();
-        String wordBankPath = dataFilePath + File.separator + "wordBanks" + File.separator + wordBank.getName() + ".json";
+        String wordBankPath = dataFilePath + File.separator + "wordBanks"
+                + File.separator + wordBank.getName() + ".json";
         File tmpFile = new File(wordBankPath);
 
         List<File> filePathList = new ArrayList<>();
