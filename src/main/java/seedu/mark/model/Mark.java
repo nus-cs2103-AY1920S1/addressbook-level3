@@ -412,7 +412,6 @@ public class Mark implements ReadOnlyMark {
                         for (int i = 0; i < reminders.size(); i++) {
                             Reminder reminder = reminders.get(i);
                             LocalDateTime time = reminder.getRemindTime();
-                            System.out.println(compareHour(now, time));
                             if (compareHour(now, time) >= 1) {
                                 expiredReminders.add(reminder);
                             }
