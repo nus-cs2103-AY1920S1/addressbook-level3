@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.GoCommand.DEFAULT_TAB;
 
 import java.util.Objects;
 
@@ -10,20 +11,30 @@ import java.util.Objects;
 public class CommandResult {
 
     private final String feedbackToUser;
+    private String tabType;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+
     /** The application should exit. */
     private final boolean exit;
 
-    /**
-     * Constructs a {@code CommandResult} with the specified fields.
-     */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.tabType = DEFAULT_TAB;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String tabType) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.tabType = tabType;
     }
 
     /**
@@ -38,12 +49,20 @@ public class CommandResult {
         return feedbackToUser;
     }
 
+    public String getTabType() {
+        return tabType;
+    }
+
     public boolean isShowHelp() {
         return showHelp;
     }
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isSwitchTab() {
+        return !tabType.equals(DEFAULT_TAB);
     }
 
     @Override

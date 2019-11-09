@@ -43,6 +43,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> unassignedTasks;
+    private final FilteredList<Task> completedTasks;
 
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Driver> filteredDrivers;
@@ -71,6 +72,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.taskManager.getList());
         unassignedTasks = new FilteredList<>(this.taskManager.getList());
+        completedTasks = new FilteredList<>(this.taskManager.getList());
         filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(this.driverManager.getDriverList());
     }
@@ -96,6 +98,7 @@ public class ModelManager implements Model {
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
         filteredTasks = new FilteredList<>(taskManager.getList());
         unassignedTasks = new FilteredList<>(taskManager.getList());
+        completedTasks = new FilteredList<>(taskManager.getList());
     }
 
     public ModelManager() {
@@ -265,7 +268,6 @@ public class ModelManager implements Model {
         return customerManager.getCustomer(customerId);
     }
 
-
     /**
      * Adds Customer into customer list. Records the last unique customer id created in {@link IdManager}.
      */
@@ -293,10 +295,6 @@ public class ModelManager implements Model {
 
     public void setDriver(Driver driverToEdit, Driver editedDriver) {
         driverManager.setPerson(driverToEdit, editedDriver);
-    }
-    @Override
-    public void viewDriverTask(Person driverToView) {
-
     }
 
     public Driver getDriver(int driverId) {
@@ -400,7 +398,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the
-     * internal list of {@code versionedAddressBook}
+     * internal list of {@code versionedAddressBook}.
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -439,13 +437,16 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the
-     * internal list of {@code versionedAddressBook}
+     * internal list of {@code versionedAddressBook}.
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         return filteredTasks;
     }
 
+    /**
+     * Updates the observable view of the filtered task list to the predicate.
+     */
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list) {
         requireNonNull(predicate);
@@ -453,7 +454,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an observable view of the list of that is filtered to unassigned tasks
+     * Returns an observable view of the list of that is filtered to unassigned tasks.
      */
     @Override
     public ObservableList<Task> getUnassignedTaskList() {
@@ -462,12 +463,58 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an observable view of the list of that is filtered to assigned tasks
+     * Returns an observable view of the list of that is filtered to assigned tasks.
      */
     @Override
     public ObservableList<Task> getAssignedTaskList() {
         updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, filteredTasks);
         return filteredTasks;
+    }
+
+    /**
+     * Returns an observable view of the list of that is filtered to completed tasks.
+     */
+    @Override
+    public ObservableList<Task> getCompletedTaskList() {
+        updateFilteredTaskList(PREDICATE_SHOW_COMPLETED, completedTasks);
+        return completedTasks;
+    }
+
+    /**
+     * Returns an observable view of the current completed task list.
+     */
+    @Override
+    public ObservableList<Task> getCurrentCompletedTaskList() {
+        return completedTasks;
+    }
+
+    /**
+     * Updates the observable view of the completed tasks to the predicate.
+     */
+    @Override
+    public void updateCompletedTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        completedTasks.setPredicate(predicate);
+    }
+
+    /**
+     * Updates the observable view of the completed tasks according to the specified customer ID only.
+     * @param customerId customer ID.
+     */
+    @Override
+    public void viewCustomerTask(int customerId) {
+        updateCompletedTaskList(task -> task.getCustomer().getId() == customerId
+                                && task.getStatus().equals(TaskStatus.COMPLETED));
+    }
+
+    /**
+     * Updates the observable view of the completed tasks according to the specified driver ID only.
+     * @param driverId customer ID.
+     */
+    @Override
+    public void viewDriverTask(int driverId) {
+        updateCompletedTaskList(task ->task.getStatus().equals(TaskStatus.COMPLETED)
+                && task.getDriver().get().getId() == driverId);
     }
 
     /**
@@ -492,6 +539,9 @@ public class ModelManager implements Model {
         //refresh unassigned task list
         updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, unassignedTasks);
         getUnassignedTaskList();
+
+        updateCompletedTaskList(PREDICATE_SHOW_EMPTY_TASKS);
+        getCompletedTaskList();
     }
 
     /**
@@ -507,7 +557,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the
-     * internal list of {@code versionedAddressBook}
+     * internal list of {@code versionedAddressBook}.
      */
     @Override
     public ObservableList<Customer> getFilteredCustomerList() {
@@ -520,6 +570,7 @@ public class ModelManager implements Model {
         filteredCustomers.setPredicate(predicate);
     }
 
+    // =========== Filtered Driver List Accessors =============================================================
     /**
      * Refreshes the display of customer list.
      */

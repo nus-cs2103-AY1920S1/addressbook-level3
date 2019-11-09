@@ -29,7 +29,7 @@ public class UnassignedTaskListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code TaskCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code AssignedTaskCard}.
      */
     class UnassignedTaskListViewCell extends ListCell<Task> {
         @Override

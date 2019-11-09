@@ -21,11 +21,15 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCustomerCommand;
 import seedu.address.logic.commands.FindDriverCommand;
 import seedu.address.logic.commands.FreeCommand;
+import seedu.address.logic.commands.GoCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ReadIdCommand;
 import seedu.address.logic.commands.SavePdfCommand;
 import seedu.address.logic.commands.SuggestCommand;
+import seedu.address.logic.commands.ViewCustomerTaskCommand;
+import seedu.address.logic.commands.ViewDriverTaskCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -105,6 +109,15 @@ public class AddressBookParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommandParser().parse(arguments);
+
+        case ViewCustomerTaskCommand.COMMAND_WORD:
+            return new ViewCustomerTaskCommandParser().parse(arguments);
+
+        case ViewDriverTaskCommand.COMMAND_WORD:
+            return new ViewDriverTaskCommandParser().parse(arguments);
+
+        case GoCommand.COMMAND_WORD:
+            return new GoCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

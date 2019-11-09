@@ -175,6 +175,16 @@ public interface Model {
      */
     ObservableList<Task> getIncompleteTaskList();
 
+    /**
+     * Returns an unmodifiable view of the completed assigned task list.
+     */
+    ObservableList<Task> getCompletedTaskList();
+
+    /**
+     * Returns an unmodifiable view of the current completed assigned task list.
+     */
+    ObservableList<Task> getCurrentCompletedTaskList();
+
     // customer manager
 
     CustomerManager getCustomerManager();
@@ -185,7 +195,9 @@ public interface Model {
 
     Customer getCustomer(int customerId);
 
-    void viewDriverTask(Person driverToView);
+    void viewCustomerTask(int customerId);
+
+    void viewDriverTask(int driverId);
 
     void setCustomer(Customer customerToEdit, Customer editedTask);
 
@@ -230,6 +242,14 @@ public interface Model {
     void refreshAllFilteredList();
 
     /**
+     * Updates the filter of the completed filtered task list to filter by the given
+     * {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateCompletedTaskList(Predicate<Task> predicate);
+
+    /**
      * Returns an unmodifiable view of the filtered customer list.
      */
     ObservableList<Customer> getFilteredCustomerList();
@@ -262,4 +282,5 @@ public interface Model {
     boolean isStartAfresh();
 
     void saveDriverTaskPdf(String filePathForPdf, LocalDate date) throws IOException, PdfNoTaskToDisplayException;
+
 }
