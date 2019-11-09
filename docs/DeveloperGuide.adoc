@@ -741,7 +741,7 @@ Formatting for html to pdf
 *Pros:* Limits the number of tags to the tags that are the most significant. Will not encounter any errors in the event there is a large number of tags. +
 *Cons:* Unable to display the data of other tags that are less significant.
 
-|Represent data in the form of a table +
+|Represent data in the form of a table. +
 *Pros:* Able to view the data of more tags. +
 *Cons:* Less reader-friendly option due to the large amount of data. Data is not summarized easily for the user to analyze his spending habits.
 
