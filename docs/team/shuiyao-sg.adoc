@@ -15,26 +15,27 @@ NOTE: You may take note of the following symbols and formatting used in this por
 `overdue` - The monospaced text indicates that it is a user input. +
 _Task_ - An italicised word indicates that it is a class name. +
 #11 - A number with # sign indicates the Pull Request or Issue number. +
-PR - Abbreviation for "Pull Request".
+PR - Abbreviation for "Pull Request". +
+`monospaced` text in Developer Guide has different meanings. If the first letter
+of each word is capitalized, then the `monospaced` text refers to a class or interface name. If
+the text comes with a bracket () at the end, then the text refers to a method name. Otherwise, the text refers to user command.
 
 == Summary of Contributions
 
-This section is to summarise my contributions to the project, including feature enhancements, documentation and project
+This section summarises my contributions to the project, including feature enhancements, documentation and project
 management.
 
 *Enhancement added*: I implemented revision task management features
 (starting from PR https://github.com/AY1920S1-CS2103T-F11-4/main/pull/37[#37]).
 
 * What it does: These features support tasks for revising a note or a question at a particular point of time. Users can perform operations
-such as addition, deletion, searching, editing, marking done etc. on revision tasks. These operations are supported by
-commands such as _AddTaskForNoteCommand_, _DeleteTaskCommand_, _FindTaskCommand_, _EditTaskCommand_, _DoneTaskCommand_ etc.
+such as addition, deletion, searching, editing, marking done etc. on revision tasks.
 * Justification: This feature allows users to set their revision plans and goals. It makes the revision more structured
 and organised. The task is designed in a way that each task only supports revision of one note or question. Having this
 "one tiny easy revision task at a time" approach, users would find it easier to start the revision.
-This helps to stop procrastination to some extent. In the future release *v2.0*, this feature will also
-support desktop push notification to remind the users to start their revision.
+This helps to stop procrastination to some extent.
 * Highlights: This enhancement is dependent on _Note_ and _Question_ classes implemented by my teammates. There might
-be regressions of my task features if my teammates decide to change their implementations of _Note_ or _Question_.
+be regressions of my task features if my teammates decide to change their implementations.
 Therefore, I did a thorough analysis of the design pattern and the project architecture to use as least information as
 possible from their classes in order to reduce coupling. The task management features require a decent amount of effort
 because they need to support a wide range of operations.
@@ -52,41 +53,26 @@ and communicating with the tutor.
 * Documentation:
 ** Redesigned class diagrams for UI and Model components in Developer Guide (https://github.com/AY1920S1-CS2103T-F11-4/main/pull/75[#75]).
 ** Added command summary to User Guide (https://github.com/AY1920S1-CS2103T-F11-4/main/pull/171[171]).
-* Team work:
+* Team work and community contribution:
 ** Reported bugs of teammate's feature (https://github.com/AY1920S1-CS2103T-F11-4/main/issues/165[#165], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/166[166]).
-** Reviewed teammates's PRs (https://github.com/AY1920S1-CS2103T-F11-4/main/pull/33[#33], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/34[#34],
-https://github.com/AY1920S1-CS2103T-F11-4/main/pull/55[#55], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/59[#59],
-https://github.com/AY1920S1-CS2103T-F11-4/main/pull/61[#61], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/89[#61]).
-* Community:
 ** Reviewed other teams' PRs (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/14[#14], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/97[#97]).
 
 == Contributions to the User Guide
 
 *This section summarises my contributions to the User Guide.*
 
-//include::../UserGuide.adoc[tag=task]
 include::../UserGuide.adoc[tag=task_1]
 include::../UserGuide.adoc[tag=task_2]
 include::../UserGuide.adoc[tag=task_3]
 include::../UserGuide.adoc[tag=task_4]
 include::../UserGuide.adoc[tag=task_5]
 
-I also envisioned more advanced features such as sorting tasks and enabling push notifications that will come in v2.0 of NUStudy.
-You may refer to relevant sections in the User Guide.
-
-Apart from addition to my individual work, I also helped the team by adding a command summary of everyone's feature. This
-is shown in the following paragraphs. You may refer to the Command Summary section in the User Guide.
+Apart from the documentation of my individual feature, I also helped the team by adding a command summary of everyone's feature.
+You may refer to the Command Summary section in the User Guide.
 
 == Contributions to the Developer Guide
 
-This section summarises my contributions to the Developer Guide. My individual section of the Developer Guide illustrates
-the implementation of the command for adding a task to the revision task list. Implementations of other commands such as
-deletion, searching, marking done etc. are omitted from the Developer Guide.
-
-NOTE: Notations for this section is slightly different from the rest of the PPP. In the Developer Guide, a `monospaced`
-text has various meanings depending on its format. If the text is a word or a group of words in *PascalCase* ie. first letter
-of each word is capitalized without any space in between each word, then the `monospaced` text refers to a class or interface name. If
-the text comes with a bracket () at the end, then the text refers to a method name. Otherwise, the text refers to user command.
+This section summarises my contributions to the Developer Guide.
 
 include::../DeveloperGuide.adoc[tag=task]
 
