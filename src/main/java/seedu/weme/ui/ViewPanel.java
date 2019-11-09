@@ -40,6 +40,7 @@ public class ViewPanel extends UiPart<Region> {
                     400, 400,
                     true, true, true));
             description.setText(newValue.getDescription().value);
+            tags.getChildren().clear();
             newValue.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
