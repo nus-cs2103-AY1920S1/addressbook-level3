@@ -87,28 +87,42 @@ Each command will display the tab specified.
 === Adding an accommodation: `add accommodation`
 
 Creates an accommodation to the accommodation list +
-Format: `add accommodation n/NAME a/ADDRESS [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
+Format: `add accommodation n/NAME a/ADDRESS [p/PHONE_NUMBER] [t/TAGS]`
+
+* Both compulsory fields, name and address, must be present.
+* Name must only contain alphanumeric characters and spaces (names with only white space would be treated as blank).
+* Address can take up any values (likewise, address with only white space would be treated as blank).
 
 Examples:
 
-* `add accommodation n/Hotel 81 a/Orchard /p67555312`
+* `add accommodation n/Hotel 81 a/Orchard p/67555312`
+
+Adds "Hotel 81" with an address, "Orchard", and phone number, "67555312", into the accommodation list.
+
 * `add accommodation n/Mandarin Oriental a/Ang Mo Kio`
 
+Adds "Mandarin Oriental" with an address, "Ang Mo Kio" into the accommodation list.
 // end::addaccommodation[]
+
+// tag::editaccommodation[]
 === Editing an accommodation: `edit accommodation`
 
 Edits an accommodation +
-Format: `edit accommodation INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
+Format: `edit accommodation INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [t/TAGS]`
 
-* Edits the accommodation with the specified INDEX. The index refers to the index number shown in the displayed accommodation list. The index must be a positive integer 1, 2, 3, ...
+* Edits the accommodation with the specified INDEX.
+* The index provided refers to the index number shown in the displayed accommodation list.
+* The index provided must be a positive integer.
+* The index provided must not exceed the number of accommodations in the accommodation list.
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+* Existing fields will be updated by the input fields.
 
 Examples:
 
 * `edit accommodation 1 n/MBS a/Marina Bay t/Atas`
 
-Edits the name, address and tag of the 1st accommodation to be MBS, Marina Bay and Atas respectively.
+Edits the 1st accommodation in the accommodation list to have a name, "MBS", address, "Marina Bay", and tag, "Atas".
+// end::editaccommodation[]
 
 // tag::deleteaccommodation[]
 === Deleting an accommodation: `delete accommodation`
@@ -117,20 +131,27 @@ Delete one or more accommodation from the accommodation list +
 Format: `delete accommodation INDEX...`
 
 * Deletes the accommodation at the specified INDEX.
-* The index refers to the index number shown in the displayed accommodation list.
-* The index must be a positive integer 1, 2, 3, …
+* The index provided refers to the index number shown in the displayed accommodation list.
+* The index provided must be a positive integer.
+* The index provided must not exceed the number of accommodations in the accommodation list.
 
 Examples:
 
 * `delete accommodation 2`
 
 Deletes the 2nd accommodation in the accommodation list.
-
 // end::deleteaccommodation[]
+
 === Listing all accommodation: `list accommodation`
 
 Displays a list view of all the accommodation +
 Format: `list accommodation`
+
+Example:
+
+* `list accommodation`
+
+The tab of the activity list would drop down to show the list.
 
 // tag::viewaccommodation[]
 === Viewing a specific accommodation: `view accommodation`
@@ -139,45 +160,60 @@ Allow user to view a specific accommodation in the list based on the index shown
 Format `view accommodation ACCOMMODATION_INDEX`
 
 * Views the accommodation at the specified INDEX.
-* The index refers to the index number shown in the displayed accommodation list.
-* The index must be a positive integer 1, 2, 3, …
+* The index provided refers to the index number shown in the displayed accommodation list.
+* The index provided must be a positive integer.
+* The index provided must not exceed the number of accommodations in the accommodation list.
 
 Examples :
 
 * `view accommodation 3`
 
-Views the 3rd accommodation in the accommodation list.
-
+Shows a detailed view of the 3rd accommodation in the accommodation list.
 //end::viewaccommodation[]
 
 // tag::addactivity[]
 === Adding an activity: `add activity`
 
 Creates an activity to the activity list +
-Format: `add activity n/NAME a/ADDRESS du/DURATION [p/PHONE_NUMBER] [e/EMAIL] [pr/PRIORITY] [t/TAGS]`
+Format: `add activity n/NAME a/ADDRESS du/DURATION [p/PHONE_NUMBER] [c/COST] [pr/PRIORITY] [t/TAGS]`
+
+* Compulsory fields, name, address and duration, must be present.
+* Name must only contain alphanumeric characters and spaces (names with only white space would be treated as blank).
+* Address can take up any values (likewise, address with only white space would be treated as blank).
+* Duration is in minutes and must be less than or equal to 1440 minutes.
+* Phone number should only contain numbers and must be at least 3 digits long.
+* Cost should only contain numbers and have at most 2 decimal places.
+* Priority should only contain numbers and range from 1 to 7 inclusive. (1 being the highest priority, 7 being the lowest).
 
 Examples:
 
-* `add activity n/Visit Gundam Museum a/Tokyo du/90 /p67521312`
+* `add activity n/Visit Gundam Museum a/Tokyo du/90 p/67521312`
+
+Adds "Visit Gundam Museum" with an address, "Tokyo", duration, 90 minutes, and phone number, "67521312", to the activity list.
+
 * `add activity n/Ski a/Mount Sinai du/120`
 
+Adds "Ski" with an address, "Mount Sinai", and duration, 120 minutes, to the activity list.
 // end::addactivity[]
 
 // tag::editactivity[]
 === Editing an activity: `edit activity`
 
 Edits an activity +
-Format: `edit activity INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [pr/PRIORITY] [t/TAGS]`
+Format: `edit activity INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [c/COST] [pr/PRIORITY] [t/TAGS]`
 
-* Edits the activity with the specified INDEX. The index refers to the index number shown in the displayed activity list. The index must be a positive integer 1, 2, 3, ...
+* Edits the activity with the specified INDEX.
+* The index provided refers to the index number shown in the displayed activity list.
+* The index provided must be a positive integer.
+* The index provided must not exceed the number of activities in the activity list.
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+* Existing fields will be updated by the input fields.
 
 Examples:
 
 * `edit activity 1 n/Dinner a/Hotel t/Western`
 
-Edits the name, address and tag of the 1st activity to be Dinner, Hotel and Western respectively.
+Edits the 1st activity in the activity list to have a name, "Dinner", address, "Hotel", and tag, "Western".
 // end::editactivity[]
 
 // tag::deleteactivity[]
@@ -187,20 +223,27 @@ Delete one or more activities from the activity list +
 Format: `delete activity INDEX...`
 
 * Deletes the activity at the specified INDEX.
-* The index refers to the index number shown in the displayed activity list.
-* The index must be a positive integer 1, 2, 3, …
+* The index provided refers to the index number shown in the displayed activity list.
+* The index provided must be a positive integer.
+* The index provided must not exceed the number of activities in the activity list.
 
 Examples:
 
 * `delete activity 2`
 
 Deletes the 2nd activity in the activity list.
-
 // end::deleteactivity[]
+
 === Listing all activities: `list activity`
 
 Displays a list view of all the activities +
 Format: `list activity`
+
+Example:
+
+* `list activity`
+
+The tab of the activity list would drop down to show the list.
 
 // tag::viewactivity[]
 === Viewing a specific activity: `view activity`
@@ -209,41 +252,64 @@ Allow user to view a specific activity in the list based on the index shown +
 Format `view activity ACTIVITY_INDEX`
 
 * Views the activity at the specified INDEX.
-* The index refers to the index number shown in the displayed activity list.
-* The index must be a positive integer 1, 2, 3, …
+* The index provided refers to the index number shown in the displayed activity list.
+* The index provided must be a positive integer.
+* The index provided must not exceed the number of activities in the activity list.
 
 Examples :
 
 * `view activity 3`
 
-Views the 3rd activity in the activity list.
+Shows a detailed view of the 3rd activity in the activity list.
+// end::viewactivity[]
 
-//end::viewactivity[]
-
+// tag::addcontact[]
 === Adding a contact: `add contact`
 
 Creates a contact to the contact list +
 Format: `add contact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 
+* Both compulsory fields, name and phone number, must be present.
+* Name must only contain alphanumeric characters and spaces (names with only white space would be treated as blank).
+* Phone number should only contain numbers and must be at least 3 digits long (numbers with only white space would be treated as blank).
+* Emails should be of the format local-part@domain
+** local-part should only contain alphanumerics and the following special characters: !#$%&'*+/=?`{|}~^.-
+
 Examples:
 
-* `add contact n/Bob p/83746658 t/false`
+* `add contact n/Bob p/83746658`
 
+A contact with name, "Bob" and phone number, "83746658", is added to the contact list.
+
+* `add contact n/Sheryl p/96667710 a/Buangkok`
+
+A contact with name, "Sheryl", phone number, "96667710", and address, "Buangkok", is added to the contact list.
+// end::addcontact[]
+
+// tag::editcontact[]
 === Editing a contact: `edit contact`
 
 Edits an existing contact in the contact list +
-Format: `edit contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/IS_EMERGENCY]`
+Format: `edit contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 
-* Edits the contact with the specified INDEX. The index refers to the index number shown in the displayed contact list. The index must be a positive integer 1, 2, 3, ...
+* Edits the contact with the specified INDEX.
+* The index provided refers to the index number shown in the displayed contact list.
+* The index provided must be a positive integer.
+* The index provided must not exceed the number of contacts in the contact list.
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+* Existing fields will be updated with the input fields.
+* Name must only contain alphanumeric characters and spaces (names with only white space would be treated as blank).
+* Phone number should only contain numbers and must be at least 3 digits long (numbers with only white space would be treated as blank).
+* Emails should be of the format local-part@domain
+** local-part should only contain alphanumerics and the following special characters: !#$%&'*+/=?`{|}~^.-
 
 
 Examples:
 
-* `edit contact 1 p/93746658 t/true`
+* `edit contact 1 p/93746658`
 
-Edits the phone number and tag of the 1st contact to be 93746658 and true respectively.
+Edits the phone number of the 1st contact to be ,"93746658".
+// end::editcontact[]
 
 === Deleting a contact: `delete contact`
 
@@ -251,65 +317,83 @@ Deletes a contact from the contact list +
 Format: `delete contact INDEX`
 
 * Deletes the contact at the specified INDEX.
-* The index refers to the index number shown in the displayed contact list.
-* The index must be a positive integer 1, 2, 3, …
+* The index provided refers to the index number shown in the displayed contact list.
+* The index provided must be a positive integer.
+* The index provided must not exceed the number of contacts in the contact list.
 
 Examples:
 
 * `delete contact 3`
 
 Deletes the 3rd contact in the contact list.
-// end::yjContact[]
+// end::contact[]
 
 === List the contacts in the planner: `list contact`
 
 List the contacts in the planner +
 Format: `list contact`
 
+// tag::viewcontact[]
 === Viewing a specific contact: `view contact`
 
 Allow user to view a specific contact in the list based on the index shown +
 Format `view contact CONTACT_INDEX`
 
 * Views the contact at the specified INDEX.
-* The index refers to the index number shown in the displayed contact list.
-* The index must be a positive integer 1, 2, 3, …
+* The index provided refers to the index number shown in the displayed contact list.
+* The index provided must be a positive integer.
+* The index provided must not exceed the number of contacts in the contact list.
 
 Examples :
 
 * `view contact 3`
 
 Views the 3rd contact in the contact list.
+// end::viewcontact[]
 
-//end::viewcontact[]
-
+// tag::adddays[]
 === Adds days to the schedule: `add days`
 
 Adds DAY_NUMBER amount of days to the itinerary +
 Format: `add days DAY_NUMBER`
 
+* The number of days provided must be a positive integer.
+* The total number of days in the itinerary cannot exceed 15 days.
+
 Examples:
 
 * `add days 7`
 
-Adds 7 days to the back of the itinerary.
+Extends the itinerary by 7 days.
+// end::adddays[]
 
-=== Deleting days: `delete day`
+// tag::deleteday[]
+=== Deleting a day: `delete day`
 
 Deletes day DAY_INDEX of the itinerary. +
 Format: `delete day DAY_INDEX`
+
+* The index provided refers to the index of the day in the itinerary.
+* The index provided must be a positive integer.
+* The index provided must not exceed the number of days in the itinerary.
 
 Examples:
 
 * `delete day 2`
 
 Deletes day 2 from the itinerary.
+// end::deleteday[]
 
 // tag::schedule[]
 === Scheduling an activity to a day: `schedule`
 
 Schedules an activity to a day +
 Format: `schedule ACTIVITY_INDEX st/START_TIME d/DAY_INDEX`
+
+* The indices provided refers to the index of an activity in the activity list and the index of a day in the itinerary.
+* The indices provided must be positive integers.
+* The indices provided must not exceed the number of activities in the activity list or the number of days in the itinerary.
+* The start time should follow a 24-HOUR format (i.e. 1400)
 
 Examples:
 
@@ -323,11 +407,18 @@ Schedules the second activity in the activity list under day 2.
 Unschedules an activity from a day +
 Format: `unschedule ACTIVITY_INDEX d/DAY_INDEX`
 
+* The indices provided refers to the index of an activity in the activity list and the index of a day in the itinerary.
+* The indices provided must be positive integers.
+* The indices provided must not exceed the number of activities in the activity list or the number of days in the itinerary.
+
 Examples:
 
 * `unschedule 5 d/2`
 
 This remove the 5th activity from the activity list from day 2.
+
+[TIP]
+You can use the list day command to find out the index of the activity you wish to unschedule.
 
 // tag::autoschedule[]
 === Auto Schedule: `autoschedule`
@@ -338,11 +429,8 @@ If the end time of the activity chosen overlaps with the next activity's start t
 next activity with the `next highest priority` and `least number of count in the timetable` are chosen.
 
 * Timing can be specified if there is an activity that is confirmed to do at that timing.
-
 * An `activity name` can be specified if there is an activity that has been confirmed to do.
-
 * Location for that `day` can be specified, otherwise it is assumed to be any location.
-
 * The `Day` to schedule for can be specified, otherwise it is assumed to be scheduled for all days.
 
 [WARNING]
@@ -370,6 +458,10 @@ Optimises a day's schedule by finding all possible combinations of activities. T
 the combination with the most activities would be chosen.
 
 Format: `optimise DAY_INDEX`
+
+* The index provided refers to the index of a day in the itinerary.
+* The index provided must be positive integer.
+* The index provided must not exceed the number of days in the itinerary.
 
 Examples:
 
@@ -425,9 +517,6 @@ image::AfterUndo.png[]
 
 .Optimise command successfully redone, no overlaps.
 image::AfterOptimise.png[]
-
-
-
 // end::undoredocommand[]
 
 === Loading the data: `load`[Work in progress]
