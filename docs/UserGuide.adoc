@@ -265,10 +265,8 @@ Sorts all spending based on a given order. +
 * Valid prefixes are: Cost (`c`), Date (`d`), Name (`n`), Remarks (`r`).
 * Valid sort orders are: `ASC`, `DESC`.
 * If the given sort order is `c/ASC n/DESC`, Cost will be sorted in ascending order, followed by name in descending order.
+* Sorting names or remarks in Ascending order will sort uppercase letters first, followed by lowercase letters.
 ****
-
-[NOTE]
-Sorting names or remarks in Ascending order will sort uppercase letters first, followed by lowercase letters.
 
 *Examples:*
 
@@ -279,7 +277,12 @@ Sorts current spending displayed by Name in descending order.
 
 *Expected Output:*
 
-Spending entries are sorted based on the given order.
+An example is shown below.
+
+.Output of `sort n/ASC d/DESC`
+image::SortPreviewUG.png[width="350"]
+
+Spending entries are sorted based on the example above.
 
 // end::sort[]
 

@@ -76,13 +76,11 @@ This section shows a summary of my contributions to the team project.
 
 == Contributions to the User Guide
 
-Listed below are sections I contributed to the User Guide, which includes the Flexible Date Formats, Find and Sort section. It showcases my ability to write documentation targeting end-users.
-
-include::../UserGuide.adoc[tag=flexibledateformats]
-
-include::../UserGuide.adoc[tag=sort]
+Listed below are sections I contributed to the User Guide, which includes Find and Sort section. It showcases my ability to write documentation targeting end-users. For brevity, *flexible date formats* has been omitted and can be found https://deploy-preview-249--ay1920s1-cs2103t-f13-3.netlify.com/userguide#flexible-date-formats[here].
 
 include::../UserGuide.adoc[tag=find]
+
+include::../UserGuide.adoc[tag=sort]
 
 == Contributions to the Developer Guide
 
