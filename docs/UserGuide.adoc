@@ -381,6 +381,7 @@ image::warning.png[width = "20", float = "left"]
 ====
 
 // tag::shortcutfeature[]
+
 === Creating a shortcut
 
 Accidentally typed a command that is not in FinSec? Don't worry! FinSec will recognise that it is an unknown command and is smart enough to make that unknown entry into a shortcut!
