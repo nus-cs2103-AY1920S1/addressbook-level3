@@ -52,6 +52,11 @@ public class SuggestCommandParser {
 
         try {
             int minPeriod = Integer.parseInt(minPeriodStr);
+
+            if (minPeriod < 1) {
+                throw new ParseException("Minimum period must be positive.");
+            }
+
             return new SuggestCommand(eventQuery, minPeriod);
         } catch (NumberFormatException e) {
             throw new ParseException("Minimum period must be specified using an integer.");

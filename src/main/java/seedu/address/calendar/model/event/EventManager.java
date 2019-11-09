@@ -1,5 +1,7 @@
 package seedu.address.calendar.model.event;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.exceptions.ClashException;
 import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
@@ -339,12 +341,14 @@ public class EventManager {
 
     /**
      * Suggests possible blocks of time to travel that meet the {@code minPeriod} requirement.
+     * Guarantees: {@code minPeriod} is positive
      *
      * @param eventQuery The time period for which the user is considering to travel
      * @param minPeriod The minimum number of days for which the user wants to travel
      * @return The possible time blocks, if any
      */
     public String suggest(EventQuery eventQuery, int minPeriod) {
+        checkArgument(minPeriod > 0, "Min period must be at least 1");
         return suggestBlocks(eventQuery)
                 .filter(block -> {
                     Date startDate = block.getStart();
@@ -455,9 +459,7 @@ public class EventManager {
             }
 
             EventQuery currentAvailableBlock = availableBlocks.peek();
-            assert false : "AvailableBlock should be non-empty";
             EventQuery currentEngagedBlock = engagedBlocks.peek();
-            assert false : "EngagedBlock should be non-empty";
 
             if (!currentAvailableBlock.isOverlap(currentEngagedBlock)) {
                 // the block before can be removed

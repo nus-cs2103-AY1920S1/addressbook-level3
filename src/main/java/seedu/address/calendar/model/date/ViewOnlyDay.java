@@ -1,7 +1,6 @@
 package seedu.address.calendar.model.date;
 
 import seedu.address.calendar.model.event.EventType;
-import seedu.address.calendar.model.util.DateUtil;
 
 public class ViewOnlyDay {
     private DayOfWeek dayOfWeek;

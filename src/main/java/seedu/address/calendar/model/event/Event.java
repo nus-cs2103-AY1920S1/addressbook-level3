@@ -4,7 +4,6 @@ import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.util.Interval;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * Represents an event. It contains information about the event's start and end dates, name and event type.
