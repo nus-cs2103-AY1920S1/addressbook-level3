@@ -24,9 +24,7 @@
         <Scene>
             <stylesheets>
                 <URL value="@DarkTheme.css"/>
-                <URL value="@Extensions.css"/>
             </stylesheets>
-
             <VBox>
                 <MenuBar fx:id="menuBar" focusTraversable="false" VBox.vgrow="NEVER">
                     <Menu mnemonicParsing="false" text="File">
