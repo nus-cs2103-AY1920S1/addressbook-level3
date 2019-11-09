@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-F10-2/main/tree/master
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -114,25 +114,33 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+
+//tag::modelcomponent[]
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+.Structure of the Model Component (Higher definition picture https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=ModelClassDiagram.drawio#R7V1bd6NGEv41ftlzRgf6Co9zy2zOZjY5mWQnkzckIZtEEhokz9j59dtINIKiubq7wZL94GMQbhBVX3XVV9XVN%2Fjt5uFDEuzuPsbLcH2DnOXDDX53g5DnUvE7PfF4OkEccjpxm0TL0yn3fOJT9E%2BYnXSys%2FfRMtyXLjzE8foQ7conF%2FF2Gy4OpXNBksTfy5et4nX5rrvgNqyc%2BLQI1tWzn6Pl4S77WtQ5n%2F93GN3eyTu7TvbJJpAXZyf2d8Ey%2Fl44hd%2Ff4LdJHB9Of20e3obr9N3J93L6vx9qPs0fLAm3hy7%2F8Pnjf359%2B%2BGfV58ePnz9PXhEX4mzeZWN8i1Y32dfOHvYw6N8A0l8v12G6SDODX7z%2FS46hJ92wSL99LsQuTh3d9isxZEr%2FlxF6%2FXbeB0n4ngbb8VFb%2FaHJP47f3koPyMvu0F47lFC09Gr30k%2BYJgcwofCqew7fgjjTXhIHsUlD1LBTv%2FxKPUoO%2F5%2Blp4vleuuIDmPZyeDTGNu86HPL1X8kb3XHu8YKd4xW4vbvpmLP24Px%2B99OrGKxfcuvn329T6WH7zaH9HxWlzg0t3D%2BUM5Sga%2B01DiUU%2Bjle8gThfuCkQtXvGhLM%2ByqDKJKoQcrKPbrThcCMGF4vybVGCRgNHr7INNtFymt1EqUFnFdCgBZ2UtcKtaQBRKgEzpAKnVAQ0i%2FxhshRlKaiX%2FFEBX0VuUvsDuMgi91UKFarbwwvlKk0AZLQkUo6pAXRWssSmJUs2Ws%2FlFl2xp4R17aI4Z0%2FOOadlyUk%2Fxij3VK%2FZMvWNmy3J%2BDvaH8MVyFkEktcAf2XJyQ5bzKPJfw12cHEYynDT0lsQ0qHlZnIyObTe9drsZbpevU9ddHC2jYBNvl%2BVXGy6Fi55dLsR3F9%2FG22D9%2Fnz2jRjhhyh9rqOkqqIQ7zN5%2FCP7%2BHjwJT2YcSqP3z0UP333mA8VJAf5cIt1sN9HC3k6u%2BPxCR%2Biw3H4GaLZ4Rc5nvj7PHh6IMfurx%2Fia2YRk9sI%2F318nyzCdpCJb3EbHtrdmFQAjcpX0C6qUC55LgnXwSH6Vg61VBqX3eGXODpCvtbVB0p7%2Bt7ZfxVDIzAQcsoj%2BT4Y6PRiKgMdAZB%2F7eGY8E3auJ%2Bi%2FVgWzoprCE0cdXnFxPk2LZw0p9rF%2BSGJF2HyeOkCJc7UBKpiSXQI9LdwsxMW8OIhSjFvlajrUJsirSdlnibST3fxbhdtby9dpMxrB2nOvdkRKW73LC1E5D7jONDkvCNcZj1UITlzVbgxFpK7HXiPPv57uJ7H3%2Fu47r098OEOeDuQgAN%2B%2FDLiQIbwpUhjlscWX%2BQzNgQatdrT6stnzuQz8%2BVdxyupOmMDfXkC3EECg4IaX16oVPBYuGyXXrCvf2CCwX1g%2BgVcTwGxQkjz9dALAteLP05PrDUQcftF55kN1Bqad8S3EawOsBnDcSpdkIkAEE7oxCMDAcjUwNANQN4TgHXPZRZQqtD%2BBVBmAOVMClAcMulD2Sni2wEUIVR5n77PZRRQ8rtfPaAY7wyp9OCXMInEu08zTE%2BFmTspmBEKYqTBMIMToCGYUZ8r72MWNqb4jt%2B30df7cGSiOXSXNOTGo3GQIGco07wi5YEVmm6M8kAqykOfVEfnm%2B3IFQPHkPmjy7UfyTJfx4u%2F9b9aOA%2BK6S2bnkDuMecyFBnVtoSq2kWUDI5uF1G%2Bx1ZyRCJrKpMcIAO4RwdOcsCGcQwGMpzpRPUlPTos1vgJFTsmi2LcPhURbNNkmarTKQv2x0O42V%2B0ZN2yO6ucjIhvU7IqTvAkgP0u2A6XbKWW74c4Xqqr7fJzpzteehEedUBMM3YRHjJVoeJ2xfLFyBZB1sSrJk6RIqVnTLZYxai8yHYQbhmZ0YlJ11TtyvVJlztTk60pUgddnWwJzM6OLtsO1SytdRZ5AK92cO2VUnRjGyZXStGZLsjco4mwBRhposRhMJKjxBJbgFXL5sYGAaNkXBgosjkjQENNkHXAiuvcjIgNQqCLlnMnvbk0kC%2Bl1DI6dJTiXewUwSgqIsGZ%2BX4rF50e6UuUSq6zHRHTyqhiUK3NyECAMAdijXbMqWqDiFm6efxibzukJPM7ZMis0s1YRTePbfuQNxXj18sJ0FsegjtbPTQpq0d9HzoGMDfW2W2uDEUhEAzbPWKKGTgWenwUV95d8qJpuAieq9JrVldNE1OVHkeBfjoI5OyFHbkmoXqKzkCWhWqqK8z1cbOUV6y3QrxWGTyiCs9epDtEunkpZr44qGqP7crWVFxxfbKF%2BVBVrtuubE1VslyfbGHGjPGxZVtfy%2FI02f432NT3j7oABgBWpPhu1QKrgjNzvlO%2FhVV2CACPFOnPV87MwbgPDdC%2F5U8jDXCD%2B1bi6qMBZATaXmk7LRqAEyE1UtL13Ir15QE4aFBkmwWg%2FTBy1vBm%2ByNsm1TBo041rubPseH4bgEbbis0mtNc%2FVS7P8xK0D8bjwr0czTm%2F5Qd%2B09CT%2Bd%2BXNMCD1iR6zqwDUVX5HhwoI7I6bsWC9xHLtk0uhRLrja5GFRqZHMmosdQLYZmiCuUkwsGMqTGlFhQY1OFhe8fdpGw3UFDQ9YLcKgR8wBh5TlVl9qzmVNjyJBEX2%2BEgC47QQo8PVV4xJFNWZqilrM1oek6nEsWKOYgBqCKDJBjVaKm6OTi0qpLFiklHFhcrqAa7fasY6Z4ZLCU6vKEyRGcPhXcolVGipnijWWV0aUDlLvA5o4PTx3NyrXXHzsyRJMkI5F1R9dWa4S68iSyFHMi8eVF1RpxFZ%2Bhw%2B796%2BryZRXeYeR0GTcV47%2BIVlFBa1e0poL96xMt5aB17dhZbq4K%2Fsd2W8ZdGDLcx5BMykRcB0LpTPIOT81PErBOsMJzm%2FYcTFEa12eDKqIkY9sgU8zG9cmW%2BpDr4GPXP3JTXMf1SZezqcl2iqQHeWJl1QWRHlI%2F2kkPPi3PBdcoem%2B3BQ5kuYchn2Lp4WTWXVvqP8C6Un94WtQfbBrA%2BVAUwIHgKm3DKPBU3NC4KCiWMp0RoR8FKd3%2B1%2F1mV1P6d2Tjm8qvhmu9rF%2BfiDIzB6ZUvaEVf9SDQ%2FmGNu5R3AlbKPvzJtjQ6eLxIkuaJoIXyihUPTIQLwyUFppCS%2BU%2BWWWTWaxMj8C0ObcUvCnUy50aCWRdOz9NjUoFvL0%2FlEelYHmqB306XRv0gC7wcgW7WSz26zKl2HCnz3Y6ciuDIgydAgzHDnQaEPa0FR9sWmEK9Sue3dANGRVDWe4C5fcLVUyrsKWZZKAKF1uonfaYymcfSbrZa6HGujYTmtjUojEwUgxlucDHR1OCjy1HbLQZoF3Xp8XrMreioP7goKYyFIyPTOu6qT5L19f8AVM464%2Bc2PJf2i1pS0nTOg5tPOm%2BtFvSJV0Gm32MLtsOKenFffLt%2BBIyj6PH%2Bmn3prp%2BeoDroPTvebOHUqR6nJz7Kee47bnbpKMHIl%2F%2FRDwQF2xqR%2FlA%2FwMxvzQQM7QFLNxxEntO83PBrWlJy%2FWw8QizQBT5HdLi0wHpDBVg2rzdpObGOJOCDuFAs5y81qx3Qhos32LS39INHriBFmsGAwZfkXoWwOA6HTinCaHBY6SIhyd25xHDPZupbFq8K5Fki1RuuONK99pu2MTKDBph5wNpUGpDfDbC1JSv1H8WaCwzXN0dSF7KFToteDMPrYlVXlGwbIJA5657%2FSGAlmsIWmCiwxk5VdtuDk6MtBmKHkjtU2oFiq0tOBc5Ns6hOPbFz2pVjc4FzMR0IXCLnHWPXTimEatDm1GLyR59hShUmmrs7ilAZix2z3tgNdleje0KMjFVzOySzRnV1KnAA9SmdClLL1lBkGCYBNL4luuX6mrepfm34LaAsjm87uZaNmn2OORAbW7T%2FPOfX%2F1bgn%2F7yz18fj1%2Fjz5%2B%2B3v3ytRy7bLILTYeWa1WaLHoAOeK2BTCrZekByZ0Us1UyE6buvuOKOXYwVsdtVS0xSftL8Sa%2Bre83q2Q7B1e%2Fqb0Rltd4CagdSxLGMvjxbL8ta5woDu1U9O9QH9WVvm6TSVln%2BVqw6eZOlqzasRCakcpWq2Vvh3KS7qspXJoOQR3nGYyzPSKqjKb5s4clFvJPmRaPY%2FdbhNHC9rT7Vp9z89%2FStrLfDpz%2FGE2LW0HKLdxkbESTVv4O%2BcfbNXKvSSwdVk5AvXEYkcWpWhVzRCmSj86M58Uk2PimHqN9q9gq3xa8tlS5p%2BzNmNVl0sYaqx0pgf4qNYP5n2HZ%2Bc8h89gjxC43sFUSqCFh2QwQYdargdvhSG9vKUSwaYaXvwvTPaRMKLLP778mW4jvB8n0F4GobdSxmhs4YXzlR67zJkLKJPc5NrYSVgpWB3dLhr3WtDsnZYsc684vIOMe%2FmlQ%2FJNWqLvzrujjGm7MbC2FC7Q7L66rDxQJSWsy2yDzCzCtOW5%2Bpl5SCIQzekmpaqoapI07f9%2BeBctDsJ0B6kWXJXNVnjTdm22MqWkQ6xylKhwItikgllXj6I01lml4pOny%2F9STp8kikRJfptfw2D583b9eBVOAC0HZ1jpAvhVdYINTvSpU7%2F1gXKFkuZXuwz2d8UAsLj2qW7S7dJ5qvh%2FndbNDpup1WlJVJ2qGxA92lwNIhbXGVpBDIsTXcfcWlf1i0RT1%2BWxVXJUPhN2%2B6OySVvveB6oLGbcrp71a2czqs3EvLSywpUEv27DaZq0km7PxK1p3tJM6jgequMeKuu4ZzftKOv6noOOO7Qcjc98vwvvmpVre6yg5Clp67L%2Bmv6U%2FFIH7fefh%2FJ7QPnJUOUHleDYcs7dVaWjXoixLsSYj7wyFh2ndb7RN3U08SDTpsw4d2cePv8A2oHQmcsKP0MTv5TPisPwMsywU7qL3EtBN9kGch6yXLT2ocHWym2Lnggk5zQvs1CbDFM933vRMj%2Fqo2U%2BxstwfclcDGGwhtUleYqxtO2aIltujo9RJdsm6ncNpGNGCX0VSe8GHI9GxlB%2FBnZfpYjNKDrX5YAxu1p%2BzvnM9UlNMRHmZOa55w87Ll%2FVZjxb18U8M%2BP583wfJt%2BC%2BTr8qcfCnOdoRRnDnWyoVU67X5P6DlVGWq1obilz1717mfeQTmAaXWlX0aerAdGj1Q4BjxEPLf6GA7kdu5vqMoyoX3ZmmCavvEWoXqMw92iaqe6oyTNDNRETVzbullvpDk2fMLktodQ1Wil4M61tyNA0%2FLuYDX9JwtVF53Yx0AOk6PnmOjZLBZCptSNjuVWyVOAq9MkFHa%2BV5YJUoU%2BwbaQ%2BfVLlBF6q9IcIlwPHAlnc%2BUwt22dGeT%2BhFa5uyhuNVQsqRTR9ZpuLsNCjp99gliSk9Kncl2AIs10YxQWrm7BT%2BpSYYbYJLCNt6VX3LJht1GEBzzQYyZ5Lpodkzwyjt8GNGwu%2BrscATU5kM6HeBWIOgutw8qd8cogjDpM49SrOl4u5%2B%2B6UxsDv%2Fw8%3D[here])
 image::ModelClassDiagram.png[]
+
+Notes regarding the class diagram:
+
+* XYZ refers to the different lists used in our model - waste list, grocery list, template list and shopping list.
+* The curved arrows emanating from the `ModelManager` class all refer to filtered lists.
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores the data for the different lists: WasteList, GroceryList, TemplateList, ShoppingList.
+* exposes unmodifiable `ObservableList` for all the different lists so that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+To enhance the OOP-design of our architecture, we abstracted out a separate food class to cater to the different requirements of separate lists.
+For instance, shopping lists require its food items to have additional attributes which indicates the `urgent` and `bought` status.
+
+//end::modelcomponent[]
 
 [[Design-Storage]]
 === Storage component
@@ -361,34 +369,85 @@ before performing the corresponding undo/redo
 
 ==== Implementation
 
+The `wlist report` feature allows users to generate a graphical report of their food wastage performance.
+We illustrate below our method of implementation.
+
+**Support for flexibility of months**
+
+By allowing the user to specify a start and an end month, thorough checks are implemented in the
+`WasteReportCommand#execute` method to identify the best suited time frame:
+
+1. After the `WasteReportCommandParser#parse` successfully provides the user-specified start and end months in `WasteMonth` objects, the following checks are performed:
+** starting month cannot be later than ending month
+** starting month cannot be after current month (latest record in waste archive)
+** ending month cannot be before earliest waste record
+
+2. Upon passing the checks, the we proceed to refine the actual start and end months as follows:
+** Starting month will be the later of the specified month and the earliest record found in the waste archive. This is achieved with the use of the `WasteMonth#earlier` method.
+** Ending month will be the earlier of the specified end month and the current month (latest record in waste archive). This is achieved with the user of the `WasteMonth#later` method.
+
+This completes the first part on checking for a valid range of months.
+
+**Generating the report**
+
 Under `WasteReportCommand#execute`, when iterating through the months from the starting month to
 the ending month:
 
 * We first retrieve the relevant `WasteList` for the month using `Model#getWasteListByMonth(WasteMonth)`
 * Thereafter, we obtain a `WasteStatistic` object, which contains the weight, volume and quantity of food wasted
 for the given month by calling `WasteList#getWasteStatistic`.
+** Note that the `WasteList#getWasteStatistic` method is a wrapper method to calculate the waste statistics. The actual computation of
+the statistics for the given waste list is done in the `WasteStatistic#getWasteStatistic` static method, which takes in a `UniqueWasteList` and calculates the statistics by iterating through the list.
 * Collect the data by storing it in a `HashMap` indexed by the month (a `WasteMonth` object) with the corresponding
 `WasteStatistic` as the value.
+* The data collected in the `HashMap` is used to initiate a `WasteReport` object, which will then be passed back to the model, along with the respective `CommandResult` object.
 
-The following sequence diagram shows how the waste report feature works:
+You may find the following activity and sequence diagrams helpful.
 
-image::WasteReportSequenceDiagram.png[]
+.The activity diagram showing how the waste report feature is implemented
+image::WasteReportImplementationActivityDiagram.png[align="center"]
 
-image::WasteReportSequenceDiagramRef.png[]
+.The sequence diagram to show how the waste report feature works:
+image::WasteReportSequenceDiagram.png[align="center"]
 
-The following activity diagram shows what happens when the user enters a command to generate a waste report:
+.The sequence diagram for the reference frame to show the process of generating a waste report.
+image::WasteReportSequenceDiagramRef.png[align="center"]
 
-image::WasteReportActivityDiagram.png[]
+In summary, the activity diagram below illustrates what happens when a command to generate a waste report is entered.
 
-To see what constitutes a valid time frame, refer to our
-https://ay1920s1-cs2103-f10-2.github.io/main/UserGuide.html#displaying-food-wastage-statistics-code-wlist-report-code[user guide].
+.The activity diagram showing what happens when the user enters a command to generate a waste report.
+image::WasteReportActivityDiagram.png[align="centre", width="400"]
+
+Refer to our
+https://ay1920s1-cs2103-f10-2.github.io/main/UserGuide.html#displaying-food-wastage-statistics-code-wlist-report-code[user guide] to see what constitutes a valid time frame.
+
+To complete the big picture, we have included a class diagram to illustrate the key components pertaining to
+implementing statistical waste list features.
+
+.The class diagram which captures some of the architectural elements for key waste-related classes.
+image::WasteClassDiagram.png[align="center"]
+
+[NOTE]
+Our waste archive is stored as a static member of the `WasteList` class, in the form of a `TreeMap`.
 
 ==== Possible Alternative Implementations
-* **Alternative 1**
+* **Alternative 1 (Chosen implementation)**
++
+Go through the waste archive to retrieve the grocery items in the waste list for the past months and calculate the waste
+statistic for each month.
+
+** Pros: This is a fail-proof way of ensuring the waste statistics are accurately computed every time.
+** Cons: The runtime is linear in terms of the total number of grocery items found across all waste lists in the waste archive.
+With a growing waste archive, it will take longer to generate the report.
+
+* **Alternative 2**
++
 Since the waste statistics for the previous months are unlikely to change, they can be stored externally and loaded
 upon launch of the application, instead of calculating every time the waste report command is executed.
+
 ** Pros: Will improve the runtime of the application.
-** Cons: Will take up more storage space.
+** Cons: Will take up more storage space. Additionally, this does not guard against the event that the user modifies the
+external storage files which may cause the waste archive and the statistics to be synced incorrectly.
 
 //end::reportwastefeature[]
 
@@ -488,7 +547,6 @@ a|Changing the original unit of item to the one input by user.
 
 //end::usegroceryfeature[]
 
-=== WasteList Feature
 //tag::editTemplateItemfeature[]
 
 === Edit Template Item Feature
@@ -623,7 +681,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |generate a shopping list using my templates |save time on checking what is missing from my fridge
 
-|`* * *` |environmentally-conscious user |compare my <<food-waste,food wastage statistics>> |better manage my food waste
+|`* * *` |environmentally-conscious user |compare my <<food-waste,food wastage>> statistics |better manage my food waste
 
 |`* * *` |environmentally-conscious user |get feedback on how I am performing on my food waste management |improve my food waste management
 
