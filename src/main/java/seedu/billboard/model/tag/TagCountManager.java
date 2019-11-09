@@ -13,6 +13,7 @@ import java.util.Set;
 import seedu.billboard.model.tag.exceptions.DuplicateTagException;
 import seedu.billboard.model.tag.exceptions.TagNotFoundException;
 
+//@@author waifonglee
 /**
  * Tracks tags and the number of expenses they are tagged to.
  */
@@ -146,6 +147,7 @@ public class TagCountManager {
         return Collections.unmodifiableMap(count);
     }
 
+    //@@author
     /**
      * Returns a clone of this object.
      * @return clone of this object.
@@ -156,6 +158,7 @@ public class TagCountManager {
         return result;
     }
 
+    //@@author waifonglee
     @Override
     public boolean equals(Object other) {
         if (other == this) {
