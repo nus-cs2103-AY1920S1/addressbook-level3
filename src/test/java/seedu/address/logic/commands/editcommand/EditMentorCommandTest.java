@@ -32,17 +32,19 @@ public class EditMentorCommandTest {
     public void execute_allFieldsSpecifiedMentorList_success() throws AlfredException {
         Mentor mentorToEdit = new MentorBuilder().build();
         model.addMentor(mentorToEdit);
-        EditMentorDescriptor descriptor = new EditMentorDescriptorBuilder().build();
+        EditMentorDescriptor descriptor = new EditMentorDescriptorBuilder().withName("Bob Smith").build();
         EditMentorCommand editMentorCommand = new EditMentorCommand(
                 mentorToEdit.getId(),
                 descriptor
         );
+
+        Model expectedModel = new ModelManagerStub();
+        Mentor expectedMentor = new MentorBuilder().withName("Bob Smith").build();
+        expectedModel.addMentor(expectedMentor);
         String expectedMessage = String.format(
                 EditMentorCommand.MESSAGE_EDIT_MENTOR_SUCCESS,
-                mentorToEdit
+                expectedMentor
         );
-        Model expectedModel = new ModelManagerStub();
-        expectedModel.addMentor(mentorToEdit);
 
         assertCommandSuccess(editMentorCommand, model, expectedMessage, expectedModel);
     }
@@ -74,23 +76,20 @@ public class EditMentorCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedMentorList_success() throws AlfredException {
-        Mentor editedMentor = new MentorBuilder().build();
-        model.addMentor(editedMentor);
+    public void execute_noFieldSpecifiedMentorList_failure() throws AlfredException {
+        Mentor mentor = new MentorBuilder().build();
+        model.addMentor(mentor);
         EditMentorCommand editMentorCommand = new EditMentorCommand(
-                editedMentor.getId(),
+                mentor.getId(),
                 new EditMentorDescriptor()
         );
 
         String expectedMessage = String.format(
-                EditMentorCommand.MESSAGE_EDIT_MENTOR_SUCCESS,
-                editedMentor
+                EditMentorCommand.MESSAGE_NO_FIELD_TO_CHANGE,
+                mentor.getId()
         );
 
-        Model expectedModel = new ModelManagerStub();
-        expectedModel.addMentor(editedMentor);
-
-        assertCommandSuccess(editMentorCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(editMentorCommand, model, expectedMessage);
     }
 
     @Test
