@@ -22,7 +22,7 @@ This section lists the code and documentation I contributed to the project.
 {empty} +
 {empty} +
 
-=== Enhancement Added: Notification System
+=== Major Enhancement Added: Notification System
 
 [cols="2,8"]
 |=======
@@ -38,8 +38,10 @@ This section lists the code and documentation I contributed to the project.
 ==== Code Contributed
 link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chenggeng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ChengGeng97&tabRepo=AY1920S1-CS2103T-F12-1%2Fmain%5Bmaster%5D[RepoSense Link]
 |=======
-| Functional Code | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/NotificationManager.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/notification/NotificationCheckingThread.java[2] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/notification/NotificationChecker.java[3] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/SystemTrayCommunicator.java[4] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/PopupNotification.java[5] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/PopupListener.java[6] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/NotificationClickActionListener.java[7]
-| Test Code       | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/model/tasks/TaskSourceTest.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/model/tasks/TaskSourceBuilderTest.java[2]
+| Notification System         | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/NotificationManager.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/notification/NotificationCheckingThread.java[2] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/notification/NotificationChecker.java[3] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/SystemTrayCommunicator.java[4] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/PopupNotification.java[5] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/PopupListener.java[6] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/NotificationClickActionListener.java[7]
+| Notification Tests          | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/notification/NotificationCheckerTest.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/notification/NotificationCheckingThreadTest.java[2] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/ui/systemtray/PopupNotificationTest.java[3]
+| Task Tests                  | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/model/tasks/TaskSourceTest.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/model/tasks/TaskSourceBuilderTest.java[2]
+| Task-Related Command Tests  | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/AddTaskCommandTest.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/DeleteTaskCommandTest.java[2] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/EditTaskCommandTest.java[1]
 |=======
 
 
