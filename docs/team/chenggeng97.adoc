@@ -56,7 +56,7 @@ link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chenggeng&sort=g
 The following section includes excerpts of my contribution to the Horo User Guide, explaining the Notification System and the `notif_on` and `notif_off` commands.
 
 // tag::ug[]
-include::../UserGuide.adoc[tag=cgppp]
+include::../UserGuide.adoc[tag=chenggengppp]
 // end::ug[]
 
 == Contributions to the Developer Guide

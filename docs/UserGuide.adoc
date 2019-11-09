@@ -533,7 +533,7 @@ Command Format and Example: +
 {empty} +
 
 // tag:notification[]
-// tag:cgppp[]
+// tag:chenggengppp[]
 === Notification System
 Horo will post notifications to your system tray to remind you that an event is starting or that a task is due.
 
@@ -581,7 +581,7 @@ image::NotificationOnCommandBoxScreenShot.png[]
 image::NotificationOnFeedbackScreenShot.png[]
 
 {empty} +
-// end:cgppp[]
+// end:chenggengppp[]
 
 ==== Switch notifications off
 The `notif_off` command switches notifications off. +
