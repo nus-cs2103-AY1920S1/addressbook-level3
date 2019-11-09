@@ -23,6 +23,7 @@ import seedu.revision.model.Model;
 import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
 
@@ -33,6 +34,10 @@ public class CommandTestUtil {
 
     public static final String VALID_MCQ_QUESTION_1 = "What type of project is AB3?";
     public static final String VALID_MCQ_QUESTION_2 = "Which of the following is not true?";
+    public static final String VALID_TF_QUESTION_1 = "As per the textbook, " +
+            "PR reviews is one of the two ways of reviewing code";
+    public static final String VALID_TF_QUESTION_2 = "Linters are a subset of dynamic (not static) analysis tools";
+
     public static final String VALID_QUESTION_TYPE_MCQ = "mcq";
     public static final String VALID_DIFFICULTY_ALPHA = "1";
     public static final String VALID_DIFFICULTY_BETA = "3";
@@ -57,6 +62,7 @@ public class CommandTestUtil {
     public static final String INVALID_DIFFICULTY_DESC = " " + PREFIX_DIFFICULTY + "911a";
     // category cannot just be whitespace
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "";
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

@@ -12,10 +12,10 @@ public class SaqBuilder extends AnswerableBuilder<Saq> {
     public SaqBuilder() {
         super();
         correctAnswerList = new ArrayList<>();
-        correctAnswerList.add(new Answer("The statement is untrue"));
-        correctAnswerList.add(new Answer("incorrect"));
-        correctAnswerList.add(new Answer("not true"));
-        correctAnswerList.add(new Answer("Greenfield and brownfield projects are equally difficult"));
+        correctAnswerList.add(new Answer("Yes, this is a question"));
+        correctAnswerList.add(new Answer("Correct"));
+        correctAnswerList.add(new Answer("True"));
+        correctAnswerList.add(new Answer("Definitely a question"));
         this.withCorrectAnswerList(correctAnswerList);
     }
 
