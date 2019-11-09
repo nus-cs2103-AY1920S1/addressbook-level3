@@ -66,7 +66,7 @@ public class EditProblemUiActionParser implements UiParser<EditProblemUiAction> 
 
         String weblinkString = UiParserUtil.parseString(uiActionDetails.get(WEBLINK_INDEX));
         if (!weblinkString.isBlank()) {
-            editProblemDescriptor.setWebLink(ParserUtil.parseWeblink(weblinkString));
+            editProblemDescriptor.setWebLink(ParserUtil.parseWebLink(weblinkString));
         }
 
         String descriptionString = UiParserUtil.parseString(uiActionDetails.get(DESCRIPTION_INDEX));

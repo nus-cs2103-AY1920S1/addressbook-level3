@@ -185,6 +185,7 @@ public class ModelManager implements Model {
                 problem.deleteTag(target);
             }
         }
+        algoBase.deleteTagForProblemsWithTag(target);
     }
 
     @Override
@@ -217,6 +218,7 @@ public class ModelManager implements Model {
                 problem.addTag(editedTag);
             }
         }
+        algoBase.resetTagForProblemsWithTag(target, editedTag);
     }
 
     @Override
@@ -241,11 +243,6 @@ public class ModelManager implements Model {
     @Override
     public void deletePlan(Plan target) {
         algoBase.removePlan(target);
-    }
-
-    @Override
-    public void clearPlans() {
-        algoBase.clearPlans();
     }
 
     @Override

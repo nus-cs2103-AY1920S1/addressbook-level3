@@ -1,6 +1,9 @@
+//@@author le0tan
 package seedu.algobase.model.searchrule.problemsearchrule;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.algobase.testutil.TypicalProblemSearchRules.ALL_PREDICATE;
 import static seedu.algobase.testutil.TypicalProblemSearchRules.MEDIUM_DIFFICULTY;
@@ -33,25 +36,19 @@ class ProblemSearchRuleTest {
     @Test
     void testEquals() {
         // same values -> returns true
-        assertTrue(NAME_SEQUENCES.equals(NAME_SEQUENCES_DUPLICATE));
-
+        assertEquals(NAME_SEQUENCES, NAME_SEQUENCES_DUPLICATE);
         // same object -> returns true
-        assertTrue(ALL_PREDICATE.equals(ALL_PREDICATE));
-
+        assertEquals(ALL_PREDICATE, ALL_PREDICATE);
         // null -> returns false
-        assertFalse(ALL_PREDICATE.equals(null));
-
+        assertNotEquals(null, ALL_PREDICATE);
         // different types -> returns false
-        assertFalse(ALL_PREDICATE.equals(5));
-
+        assertNotEquals(5, ALL_PREDICATE);
         // different objects -> returns false
-        assertFalse(ALL_PREDICATE.equals(NAME_SEQUENCES));
-
+        assertNotEquals(ALL_PREDICATE, NAME_SEQUENCES);
         // same name but different predicates -> returns false
-        assertFalse(NAME_SEQUENCES.equals(NAME_SEQUENCES_SAME_NAME_DIFFERENT_PREDICATE));
-
+        assertNotEquals(NAME_SEQUENCES, NAME_SEQUENCES_SAME_NAME_DIFFERENT_PREDICATE);
         // same content -> returns true
-        assertTrue(NAME_SEQUENCES.equals(NAME_SEQUENCES_DUPLICATE));
+        assertEquals(NAME_SEQUENCES, NAME_SEQUENCES_DUPLICATE);
     }
 
 }

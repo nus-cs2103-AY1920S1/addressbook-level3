@@ -58,7 +58,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editProblemDescriptor.setAuthor(ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get()));
         }
         if (argMultimap.getValue(PREFIX_WEBLINK).isPresent()) {
-            editProblemDescriptor.setWebLink(ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get()));
+            editProblemDescriptor.setWebLink(ParserUtil.parseWebLink(argMultimap.getValue(PREFIX_WEBLINK).get()));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editProblemDescriptor.setDescription(

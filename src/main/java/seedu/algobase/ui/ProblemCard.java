@@ -102,7 +102,7 @@ public class ProblemCard extends UiPart<Region> {
         description.setTextAlignment(TextAlignment.JUSTIFY);
 
         // Weblink
-        if (!WebLink.isDefaultWeblink(problem.getWebLink())) {
+        if (!WebLink.isDefaultWebLink(problem.getWebLink())) {
             weblink.setText(problem.getWebLink().value);
         } else {
             weblink.setText("Not specified");
@@ -142,7 +142,11 @@ public class ProblemCard extends UiPart<Region> {
         source.setTextAlignment(TextAlignment.JUSTIFY);
         problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label l = new Label(tag.tagName);
+                    l.setStyle("-fx-background-color: " + tag.getColor() + ";");
+                    tags.getChildren().add(l);
+                });
         this.addMouseClickListener();
     }
 

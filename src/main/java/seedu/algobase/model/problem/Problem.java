@@ -34,18 +34,8 @@ public class Problem {
      */
     public Problem(Name name, Author author, WebLink webLink, Description description, Set<Tag> tags,
                    Difficulty difficulty, Remark remark, Source source) {
-        requireAllNonNull(name, author, webLink, description, tags, difficulty, remark, source);
-        this.id = Id.generateId();
-        this.name = name;
-        this.author = author;
-        this.webLink = webLink;
-        this.description = description;
-        this.tags.addAll(tags);
-        this.difficulty = difficulty;
-        this.remark = remark;
-        this.source = source;
+        this(Id.generateId(), name, author, webLink, description, tags, difficulty, remark, source);
     }
-
 
     public Problem(Id id, Name name, Author author, WebLink webLink, Description description, Set<Tag> tags,
                    Difficulty difficulty, Remark remark, Source source) {
@@ -91,6 +81,12 @@ public class Problem {
 
     public void addTag(Tag tag) {
         tags.add(tag);
+    }
+
+    public void setTag(Tag oldTag, Tag newTag) {
+        // defensive here
+        tags.remove(oldTag);
+        tags.add(newTag);
     }
 
     public void deleteTag(Tag tag) {
@@ -142,6 +138,7 @@ public class Problem {
                 && otherProblem.getAuthor().equals(getAuthor())
                 && otherProblem.getWebLink().equals(getWebLink())
                 && otherProblem.getDescription().equals(getDescription())
+                && otherProblem.getDifficulty().equals(getDifficulty())
                 && otherProblem.getTags().equals(getTags())
                 && otherProblem.getRemark().equals(getRemark())
                 && otherProblem.getSource().equals(getSource());

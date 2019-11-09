@@ -3,6 +3,7 @@ package seedu.algobase.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.algobase.model.Id;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
 import seedu.algobase.model.problem.Difficulty;
@@ -19,14 +20,15 @@ import seedu.algobase.model.util.SampleDataUtil;
  */
 public class ProblemBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_AUTHOR = "85355255";
+    public static final String DEFAULT_NAME = "Subset Sum";
+    public static final String DEFAULT_AUTHOR = "Alice Pauline";
     public static final String DEFAULT_WEBLINK = "http://open.kattis.com";
-    public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_DESCRIPTION = "This returns the maximum sum of a contiguous substring";
     public static final String DEFAULT_DIFFICULTY = "3.0";
-    public static final String DEFAULT_REMARK = "remark placeholder";
+    public static final String DEFAULT_REMARK = "This is a remark.";
     public static final String DEFAULT_SOURCE = "UVa";
 
+    private Id id;
     private Name name;
     private Author author;
     private WebLink webLink;
@@ -42,7 +44,7 @@ public class ProblemBuilder {
         webLink = new WebLink(DEFAULT_WEBLINK);
         description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
-        difficulty = new Difficulty(DEFAULT_DIFFICULTY);
+        difficulty = new Difficulty();
         remark = new Remark(DEFAULT_REMARK);
         source = new Source(DEFAULT_SOURCE);
     }
@@ -59,6 +61,14 @@ public class ProblemBuilder {
         difficulty = problemToCopy.getDifficulty();
         remark = problemToCopy.getRemark();
         source = problemToCopy.getSource();
+    }
+
+    /**
+     * Sets the {@code Id} of the {@code Problem} that we are building.
+     */
+    public ProblemBuilder withId(String id) {
+        this.id = new Id(id);
+        return this;
     }
 
     /**

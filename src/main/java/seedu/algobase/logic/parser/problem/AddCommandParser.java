@@ -63,7 +63,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         WebLink webLink;
         if (arePrefixesPresent(argMultimap, PREFIX_WEBLINK)) {
-            webLink = ParserUtil.parseWeblink(argMultimap.getValue(PREFIX_WEBLINK).get());
+            webLink = ParserUtil.parseWebLink(argMultimap.getValue(PREFIX_WEBLINK).get());
         } else {
             webLink = WebLink.DEFAULT_WEBLINK;
         }

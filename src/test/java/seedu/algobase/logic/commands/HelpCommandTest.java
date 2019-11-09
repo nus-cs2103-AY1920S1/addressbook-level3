@@ -3,7 +3,7 @@ package seedu.algobase.logic.commands;
 import static seedu.algobase.commons.util.AppUtil.getClassStringField;
 import static seedu.algobase.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.algobase.testutil.Assert.assertThrows;
-import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
+import static seedu.algobase.testutil.TypicalAlgoBase.getTypicalAlgoBase;
 
 import java.util.ArrayList;
 import java.util.List;

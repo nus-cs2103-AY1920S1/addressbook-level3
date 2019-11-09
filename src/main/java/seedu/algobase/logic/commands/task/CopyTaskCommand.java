@@ -5,19 +5,12 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_FROM;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_TO;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.plan.Plan;
-import seedu.algobase.model.task.Task;
 
 /**
  * Copies a Task from one Plan to another.
@@ -39,7 +32,6 @@ public class CopyTaskCommand extends Command {
             + PREFIX_PLAN_TO + "2";
 
     public static final String MESSAGE_MOVE_TASK_SUCCESS = "Task [%1$s] copied from Plan [%2$s] to Plan [%3$s].";
-    public static final String MESSAGE_DUPLICATE_TASK = "Task [%1$s] already exists in Plan [%2$s].";
 
     private final CopyTaskDescriptor copyTaskDescriptor;
 
@@ -49,6 +41,8 @@ public class CopyTaskCommand extends Command {
      * @param copyTaskDescriptor details of the plan and problem involved
      */
     public CopyTaskCommand(CopyTaskDescriptor copyTaskDescriptor) {
+        requireNonNull(copyTaskDescriptor);
+
         this.copyTaskDescriptor = copyTaskDescriptor;
     }
 
@@ -56,40 +50,17 @@ public class CopyTaskCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Plan> lastShownPlanList = model.getFilteredPlanList();
-        if (copyTaskDescriptor.planFromIndex.getZeroBased() >= lastShownPlanList.size()
-            || copyTaskDescriptor.planToIndex.getZeroBased() >= lastShownPlanList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        Plan planToBeCopiedFrom = lastShownPlanList.get(copyTaskDescriptor.planFromIndex.getZeroBased());
-        Plan planToBeCopiedInto = lastShownPlanList.get(copyTaskDescriptor.planToIndex.getZeroBased());
+        String successMessage =
+            TaskCommandUtil.shiftTask(
+                model,
+                copyTaskDescriptor.planFromIndex,
+                copyTaskDescriptor.planToIndex,
+                copyTaskDescriptor.taskIndex,
+                false,
+                MESSAGE_MOVE_TASK_SUCCESS
+            );
 
-        List<Task> taskListToBeCopiedFrom = planToBeCopiedFrom.getTaskList();
-        List<Task> taskListToBeCopiedInto = planToBeCopiedInto.getTaskList();
-        int taskIndex = copyTaskDescriptor.taskIndex.getZeroBased();
-        if (taskIndex >= taskListToBeCopiedFrom.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        Task taskToBeCopied = taskListToBeCopiedFrom.get(taskIndex);
-        Set<Task> taskSetToBeCopiedInto = new HashSet<>(taskListToBeCopiedInto);
-        if (taskSetToBeCopiedInto.contains(taskToBeCopied)) {
-            throw new CommandException(
-                String.format(MESSAGE_DUPLICATE_TASK, taskToBeCopied.getName(), planToBeCopiedInto.getPlanName()));
-        }
-        if (!planToBeCopiedInto.checkWithinDateRange(taskToBeCopied.getTargetDate())) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
-        }
-        taskSetToBeCopiedInto.add(taskToBeCopied);
-
-        model.updateTasks(taskSetToBeCopiedInto, planToBeCopiedInto);
-
-        return new CommandResult(
-            String.format(MESSAGE_MOVE_TASK_SUCCESS,
-                taskToBeCopied.getName(),
-                planToBeCopiedFrom.getPlanName(),
-                planToBeCopiedInto.getPlanName()
-            )
-        );
+        return new CommandResult(successMessage);
     }
 
     @Override

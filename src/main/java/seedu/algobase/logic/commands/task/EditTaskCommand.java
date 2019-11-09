@@ -49,6 +49,8 @@ public class EditTaskCommand extends Command {
      * @param editTaskDescriptor details of the plan and problem involved
      */
     public EditTaskCommand(EditTaskDescriptor editTaskDescriptor) {
+        requireNonNull(editTaskDescriptor);
+
         this.editTaskDescriptor = editTaskDescriptor;
     }
 
@@ -58,7 +60,7 @@ public class EditTaskCommand extends Command {
 
         List<Plan> lastShownPlanList = model.getFilteredPlanList();
         if (editTaskDescriptor.planIndex.getZeroBased() >= lastShownPlanList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PLAN_DISPLAYED_INDEX);
         }
         Plan planToUpdate = lastShownPlanList.get(editTaskDescriptor.planIndex.getZeroBased());
 

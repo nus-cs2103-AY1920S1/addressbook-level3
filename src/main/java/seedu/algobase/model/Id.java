@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Id {
     private final String idValue;
 
-    private Id(String idValue) {
+    public Id(String idValue) {
         this.idValue = idValue;
     }
 

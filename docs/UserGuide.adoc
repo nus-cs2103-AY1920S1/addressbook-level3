@@ -736,8 +736,11 @@ e.g. `addtag t/sssp c/BLUE`
 ** *List Tags* : `listtag`
 ** *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
+
+
 ** *Edit tag* : `edittag INDEX [t/TAGNAME] [c/COLOR]` +
 e.g. `edittag 1 t/sort c/BLUE`
+
 
 * Plans
 ** *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +

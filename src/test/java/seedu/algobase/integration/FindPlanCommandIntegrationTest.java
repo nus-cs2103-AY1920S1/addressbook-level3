@@ -82,7 +82,7 @@ public class FindPlanCommandIntegrationTest {
 
     @Test
     public void findplan_task() throws CommandException, ParseException {
-        logicManager.execute("findplan task/Is Graph Bipartite?");
+        logicManager.execute("findplan task/Is Graph Bipartite");
         assertPlanName(logicManager, "Graph Algorithms");
         logicManager.execute("findplan task/Freedom Trail");
         assertPlanName(logicManager, "Data Structures");

@@ -13,10 +13,10 @@ public class Name implements Comparable<Name> {
             "Names should only contain alphanumeric characters spaces and underscores, and it should not be blank";
 
     /*
-     * A name is any combination of the following characters: A-Z, a-z, ', . or whitespace.
+     * A name is any combination of the following characters: 0-9, A-Z, a-z, ', . or whitespace.
      * A name must contain at least one non-whitespace character.
      */
-    public static final String VALIDATION_REGEX = "^([A-z\\'\\.-ᶜ]+(\\s)*)*$";
+    public static final String VALIDATION_REGEX = "^([0-9A-Za-z\\'\\.]+(\\s)*)*$";
 
     public final String fullName;
 
