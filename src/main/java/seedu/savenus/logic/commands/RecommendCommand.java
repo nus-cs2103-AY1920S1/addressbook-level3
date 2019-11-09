@@ -26,6 +26,9 @@ public class RecommendCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
+        // Turns auto-sorting off while recommending food items
+        model.setAutoSortFlag(false);
+
         model.setRecommendationSystemInUse(true);
 
         RecommendationSystem recInstance = RecommendationSystem.getInstance();

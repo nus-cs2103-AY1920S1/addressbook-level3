@@ -45,6 +45,10 @@ public class SortCommand extends Command {
         if (model.getAutoSortFlag() == true) {
             return new CommandResult(AUTO_SORT_WARNING);
         }
+
+        // Clear the recommendation system (if it was used)
+        model.setRecommendationSystemInUse(false);
+
         ObservableList<Food> foodList = model.getFilteredFoodList();
         SortedList<Food> sortedList = foodList.sorted(new FoodComparator(fields));
         model.setFoods(sortedList);

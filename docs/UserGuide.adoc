@@ -290,6 +290,9 @@ Sorts all the food items by some specific FIELD.
 
 Note: You can have more than one pair of FIELD and DIRECTION.
 
+[IMPORTANT]
+The usage of `sort` will turn the recommendation system OFF it is in use.
+
 ****
 *Format*: `sort FIELD DIRECTION ...` +
 *Example*: `sort PRICE ASC`
@@ -327,6 +330,9 @@ image::makesortsuccess.png[]
 ==== Sort based on your custom comparator: `customsort`
 Sort Using your own custom comparator, which you have creating from MakeSort.
 
+[IMPORTANT]
+The usage of `customsort` will turn the recommendation system OFF it is in use.
+
 ****
 *Format*: `customsort`
 ****
@@ -344,6 +350,9 @@ image::customsortsuccess.png[]
 ==== Auto sorts list based on custom comparator: `autosort`
 Turns on and off auto sorting, based on your own custom comparator, every time you make changes to the food list.
 There are only two states, ON or OFF.
+
+[IMPORTANT]
+The usage of `autosort` will turn the recommendation system OFF it is in use.
 
 ****
 *Format*: `autosort STATE` +
@@ -384,6 +393,9 @@ image::viewsortsuccess.png[]
 
 ==== Sorts food items based on natural order: `default`
 Sorts the food items based on their default ordering, where it is based on ascending category, name and then price.
+
+[IMPORTANT]
+The usage of `default` will turn the recommendation system OFF it is in use.
 
 ****
 *Format*: `default`
@@ -633,6 +645,9 @@ The factors affecting the calculation of the recommendation value is summarized 
 |===
 //end::recommendationpenalty[]
 
+[IMPORTANT]
+Recommendation turns auto-sorting OFF.
+
 ****
 Format: `recommend`
 ****
@@ -648,6 +663,7 @@ image::recommend.png[]
 
 [NOTE]
 To clear the recommendations, use the `list` or `add` command.
+Recommendations will be cleared too using specific sorting commands such as `sort`.
 
 [NOTE]
 The recommended amount to spend per meal is calculated by `budget / (daysToExpiry * 2)` under the assumption that the
