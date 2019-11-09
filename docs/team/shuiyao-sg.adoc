@@ -28,8 +28,8 @@ management.
 *Enhancement added*: I implemented revision task management features
 (starting from PR https://github.com/AY1920S1-CS2103T-F11-4/main/pull/37[#37]).
 
-* What it does: These features support tasks for revising a note or a question at a particular point of time. Users can perform operations
-such as addition, deletion, searching, editing, marking done etc. on revision tasks.
+* What it does: These features support tasks for revising a note or a question at a particular point of time. Users can perform operations with revision tasks
+such as addition, deletion, searching, editing, marking done, listing finished/unfinished/overdue tasks etc.
 * Justification: This feature allows users to set their revision plans and goals. It makes the revision more structured
 and organised. The task is designed in a way that each task only supports revision of one note or question. Having this
 "one tiny easy revision task at a time" approach, users would find it easier to start the revision.
@@ -72,9 +72,9 @@ You may refer to the Command Summary section in the User Guide.
 
 == Contributions to the Developer Guide
 
-This section summarises my contributions to the Developer Guide.
+This section summarises my contributions to the Developer Guide. For a full list of all task commands, please refer to the beginning of
+section "Revision task management - Implementation" in the Developer Guide.
 
-//include::../DeveloperGuide.adoc[tag=task]
 include::../DeveloperGuide.adoc[tag=task_1]
 include::../DeveloperGuide.adoc[tag=task_2]
 include::../DeveloperGuide.adoc[tag=task_usecase]
