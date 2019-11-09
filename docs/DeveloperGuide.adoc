@@ -658,6 +658,7 @@ We have considered between two differing graph designs.
 |=======================
 We have settled on adopting a single-graph approach as having multiple graphs open can lead to the user being overwhelmed by unnecessary data, and the code needed to achieve this result satisfactorily would be too convoluted.
 
+// tag::gotofeature[]
 === Goto feature
 This section describes the different Views that Goto can bring a user to. It includes an overview of the goto details and how users can interact
 with goto based on commands implemented with the revamp of the original list feature.
@@ -756,6 +757,9 @@ is successful.
 * We wanted to reload the list on the current page to the various lists, but we believe that such a change in tabs will
 help to tell the user that he is currently working on something different.
 
+// end::gotofeature[]
+
+// tag::checkfeature[]
 === Check feature
 This feature is an extended feature of the goto feature because this feature can only be run when
 the user is in the claims or contacts page. This command is called when the user wants to check each contact or claim individually.
@@ -867,7 +871,9 @@ can continue to work on his tasks immediately.
 ==== Alternative Considered
 * We also considered that upon `check index`, it just removes the whole list from view and isolates the desired claim
 or contact needed, but we realised that might not catch the attention of the user
+// end::checkfeature[]
 
+// tag::sortfeature[]
 === Sort Feature
 This section describes the ways that a user can sort the various lists. An overview is also included on how these sorts
 work.
@@ -971,10 +977,14 @@ object he/she is finding.
 ==== Alternative Considered
 * Sorting of the claims list based on contact's name instead
 
+// end::sortfeature[]
+
+// tag::reversefeature[]
 === Reverse feature
 This feature is exactly identical in the implementation as compared to the above sort feature. This feature sorts the various
 lists based on the same filters in the reverse of natural ordering. It shows the lists in reverse lexicographical order if
 `name` is used as filter and shows the newest entry at the top and the oldest at the bottom of the list.
+// end::reversefeature[]
 
 [appendix]
 == Product Scope
