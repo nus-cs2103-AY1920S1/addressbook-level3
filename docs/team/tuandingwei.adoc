@@ -49,26 +49,19 @@ The user interacts with it using a CLI, and it features an outstanding user-frie
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/UserGuide.html[link] to view my contributions._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=add]
 
 include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/DeveloperGuide.html[link] to view my contributions._
 |===
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
