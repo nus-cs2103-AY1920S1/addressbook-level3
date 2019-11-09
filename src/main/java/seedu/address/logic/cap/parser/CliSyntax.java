@@ -7,7 +7,6 @@ public class CliSyntax {
 
     /* Prefix definitions */
     public static final Prefix PREFIX_CREDIT = new Prefix("<c>");
-    public static final Prefix PREFIX_DESCRIPTION = new Prefix("<d>");
     public static final Prefix PREFIX_FACULTY = new Prefix("<f>");
     public static final Prefix PREFIX_GRADE = new Prefix("<g>");
     public static final Prefix PREFIX_MODULE_CODE = new Prefix("<m>");

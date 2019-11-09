@@ -7,7 +7,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.logic.cap.parser.ParserUtil;
 import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Description;
 import seedu.address.model.cap.person.Faculty;
 import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
@@ -16,7 +15,7 @@ import seedu.address.model.cap.person.Title;
 import seedu.address.model.common.Module;
 
 /**
- * Jackson-friendly version of {@link ModuleCode}.
+ * Jackson-friendly version of {@link Module}.
  */
 class JsonAdaptedModule {
 
@@ -25,17 +24,16 @@ class JsonAdaptedModule {
     private final String moduleCode;
     private final String title;
     private final String semester;
-    private final String description;
     private final String faculty;
     private final String credit;
     private final String grade;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedModule} with the given module details.
      */
     @JsonCreator
     public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode, @JsonProperty("title") String title,
-                             @JsonProperty("semester") String semester, @JsonProperty("description") String description,
+                             @JsonProperty("semester") String semester,
                              @JsonProperty("credit") String credit, @JsonProperty("faculty") String faculty,
                              @JsonProperty("grade") String grade) {
         this.moduleCode = moduleCode;
@@ -43,7 +41,6 @@ class JsonAdaptedModule {
         this.semester = semester;
         this.credit = credit;
         this.faculty = faculty;
-        this.description = description;
         this.grade = grade;
     }
 
@@ -56,7 +53,6 @@ class JsonAdaptedModule {
         semester = source.getSemester().toString();
         credit = String.valueOf(source.getCredit().getCredit());
         faculty = source.getFaculty().getFaculty();
-        description = source.getDescription().getDescription();
         grade = source.getGrade().getGrade();
     }
 
@@ -80,12 +76,11 @@ class JsonAdaptedModule {
         final ModuleCode modelName = new ModuleCode(moduleCode);
         final Title modelTitle = new Title(title);
         final Semester modelSemester = ParserUtil.parseSemester(semester);
-        final Description modelDescription = new Description(description);
         final Credit modelCredit = new Credit(Integer.parseInt(credit));
         final Faculty modelFaculty = new Faculty(faculty);
         final Grade modelGrade = new Grade(grade);
 
-        return new Module(modelName, modelTitle, modelSemester, modelDescription,
+        return new Module(modelName, modelTitle, modelSemester,
                 modelCredit, modelFaculty, modelGrade);
     }
 

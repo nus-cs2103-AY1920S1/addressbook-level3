@@ -46,7 +46,7 @@ public class AcademicYear {
     }
 
     /**
-     * Returns true if a given string is a valid Academic Year.
+     * Returns true if a given string is a valid Academic Year i.e. +5 or -5 years of current year.
      */
     public static boolean isValidAcademicYear(String academicYear) {
         try {
