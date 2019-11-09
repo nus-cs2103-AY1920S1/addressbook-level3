@@ -147,15 +147,30 @@ class StartDateStateTest {
     @Test
     void transition_invalidArgumentMultimap_throwsStateTransitionException() {
 
-        // EP : ArgumentMultimap without a start date prefix.
+        // Equivalence Partitions : ArgumentMultimap without a start date prefix,
+        // ArgumentMultimap with duplicate prefixes.
 
-        List<Prefix> prefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_END_TIME, PREFIX_LOCATION);
-        List<String> args = List.of("interview", "15/11/2019/1500", "COM1-B1-03");
+        // EP : No start-date prefix
+        List<Prefix> firstPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_END_TIME, PREFIX_LOCATION);
 
-        State initialState = new StartDateState(ArgumentMultimapBuilder.build(
-                prefixes.subList(0, 1), args.subList(0, 1)));
-        assertThrows(StateTransitionException.class, () -> initialState.transition(ArgumentMultimapBuilder.build(
-                prefixes.subList(1, 3), args.subList(1, 3))));
+        // EP : Duplicate prefixes.
+        List<Prefix> secondPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME,
+                PREFIX_END_TIME, PREFIX_LOCATION, PREFIX_ENGAGEMENT_TYPE);
+
+        List<String> firstArgs = List.of("interview", "15/11/2019/1500", "COM1-B1-03");
+        List<String> secondArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600",
+                "COM1-B1-03", "meeting");
+
+
+        State firstState = new StartDateState(ArgumentMultimapBuilder.build(
+                firstPrefixes.subList(0, 1), firstArgs.subList(0, 1)));
+        State secondState = new StartDateState(ArgumentMultimapBuilder.build(
+                secondPrefixes.subList(0, 1), secondArgs.subList(0, 1)));
+
+        assertThrows(StateTransitionException.class, () -> firstState.transition(ArgumentMultimapBuilder.build(
+                firstPrefixes.subList(1, 3), firstArgs.subList(1, 3))));
+        assertThrows(StateTransitionException.class, () -> secondState.transition(ArgumentMultimapBuilder.build(
+                secondPrefixes.subList(1, 5), secondArgs.subList(1, 5))));
     }
 
     @Test

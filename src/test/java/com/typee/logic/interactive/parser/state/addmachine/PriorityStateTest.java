@@ -120,7 +120,7 @@ class PriorityStateTest {
         // EP : Excessive arguments.
         List<Prefix> secondPrefixes = List.of(PREFIX_ENGAGEMENT_TYPE, PREFIX_START_TIME, PREFIX_END_TIME,
                 PREFIX_DESCRIPTION, PREFIX_LOCATION, PREFIX_ATTENDEES, PREFIX_PRIORITY, PREFIX_ORDER);
-        
+
         List<String> firstArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "Description",
                 "Location", "Damn It");
         List<String> secondArgs = List.of("interview", "15/11/2019/1500", "15/11/2019/1600", "Description",
