@@ -125,12 +125,14 @@ clipboard. Then, paste and enter the URL into any browser to access this user gu
 
 ==== Exiting IchiFund : `exit`
 
-Exits your IchiFund. +
 Format: `exit`
+
+If you want to exit from IchiFund, entering the `exit` command allows you to exit the program through
+our CLI.
 
 ==== Saving IchiFund data
 
-IchiFund data are saved in the hard disk automatically after you enter any command that changes the data. +
+IchiFund data is saved in the hard disk automatically after you enter any command that changes the data. +
 There is no need for you to save manually.
 
 === Transactions
