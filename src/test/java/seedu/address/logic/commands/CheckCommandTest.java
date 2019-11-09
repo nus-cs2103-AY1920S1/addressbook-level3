@@ -87,9 +87,6 @@ class CheckCommandTest {
         // different types -> false
         assertFalse(checkFirstCommand.equals(1));
 
-        CheckCommand checkFirstCommandCopy = new CheckCommand(INDEX_FIRST_PERSON);
-        assertTrue(checkFirstCommand.equals(checkFirstCommandCopy));
-
         // null -> false
         assertFalse(checkFirstCommand.equals(null));
 
