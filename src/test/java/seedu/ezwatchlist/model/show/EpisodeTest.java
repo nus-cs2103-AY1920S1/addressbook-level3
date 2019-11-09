@@ -1,5 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -27,6 +28,12 @@ public class EpisodeTest {
 
         // valid Episode number
         assertTrue(Episode.isValidEpisodeNum(1));
+    }
+
+    @Test
+    public void episodeConstructorTest() {
+        assertEquals(new Episode("Episode name", 3).getEpisodeName(), "Episode name");
+        assertEquals(new Episode("Episode name", 3).getEpisodeNum(), 3);
     }
 
 }
