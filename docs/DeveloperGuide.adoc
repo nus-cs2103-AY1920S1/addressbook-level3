@@ -376,7 +376,7 @@ This section describes the pros and cons of the current and other alternative im
 ** Pros: Will ensure faster performance, and more detailed statistics can be included
 ** Cons: Design of statistics object has to be very well-implemented, might not have enough time to implement it by v1.4
 
-Alternative 1 was chosen given the time constraint in implementing the features in time for +Work Version 1.4.
+*Alternative 1* was chosen given the time constraint in implementing the features in time for +Work Version 1.4.
 Alternative 2 will be taken into consideration for future expansions of +Work.
 
 ===== Aspect: Display of Statistics for Project Dashboard
@@ -390,8 +390,8 @@ This section describes the pros and cons of the current and other alternative im
 ** Cons: Decreases the ease of comparison between tasks and members
 
 Because the team came to a consensus that the main objective of the Statistics feature in +Work is to provide the user with
-an overview of all the project tasks and members, for ease of comparison, alternative 1 was chosen as it fits the purpose
-more than alternative 2 does.
+an overview of all the project tasks and members, for ease of comparison, *Alternative 1* was chosen as it fits the purpose
+more than Alternative 2 does.
 
 // end::statistics[]
 
@@ -435,7 +435,7 @@ The image's file path will be stored in the Member object. If the image is shift
 
 The following sequence diagram shows how the image is called up and subsequently displayed in the UI for for an individual member.
 
-image::DisplayImageSequenceDiagram.png[]
+image::DisplayMemberSequenceDiagram.png[]
 Figure 10. Operational flow of displaying a member with image.
 
 [NOTE]
@@ -448,23 +448,24 @@ image::SetImageActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: Storing of image under member (final or changeable) (basically repalcing the whole member or not)
+===== Aspect: Storing of image under member
 This section describes the pros and cons of the current and other alternative implementations storing a profile picture under
 each member object.
 
-* **Alternative 1:** Storing the image file path as an
-** Pros: Editing the member's profile picture involves
-** Cons: Less details of individual taks and members exposed in the statistiscs page.
-* **Alternative 2 (current choice):** Storing the image file path as a final attribute
+* **Alternative 1:** Storing the image filepath as a changeable attribute
+** Pros: Editing a member's profile picture involves accessing the member and changing its file path attribute
+** Cons: The image file path attribute is exposed to the rest of the classes in +Work and may be unintentionally edited, causing
+the member's profile picture to be edited without the intention to.
+* **Alternative 2 (current choice):** Storing the image filepath as a final attribute
 ** Pros: Ensures the member's image filepath remains unchangeable and specific to the member
 ** Cons: A new member object has to be created to replace the member being edited every time the member's profile
 picture is updated
 
-Alternative 2 was chosen to keep in line with the original structure of the Person object in AB3, with all attributes
+*Alternative 2* was chosen to keep in line with the original structure of the Person object in AB3, with all attributes
 being final and unchangeable.
 
-===== Aspect: Ui Display of members
-This section describes the pros and cons of the current and other alternative implementations of displaying the members in +Work.
+===== Aspect: UI Display of members
+This section describes the pros and cons of the current and other alternative implementations of members display in +Work.
 
 * **Alternative 1:** Display each member with only its member name, ID and profile picture
 ** Pros: Concise display of each member in +Work, with only the essential information being exposed
@@ -473,7 +474,7 @@ This section describes the pros and cons of the current and other alternative im
 ** Pros: Includes more details for individual members, which increases the ease in which the user can identify a member's responsibilities
 ** Cons: Display of members is cramped and needs more
 
-Alternative 2 was chosen because it is more in line with +Work's objective of drawing easy comparison between project members and tasks.
+*Alternative 2* was chosen because it is more in line with +Work's objective of drawing easy comparison between project members and tasks.
 // end::member[]
 
 === [Proposed] Undo/Redo feature
