@@ -722,17 +722,17 @@ image::OverviewOfWordBankList.png[]
 ---
 
 Word bank's storage system integration.
-
 // tag::chenhui-wblStorageModel[]
+
 .Integration of `WordBankList` within `Storage` and `Model`.
 image::WBStorage.png[]
-// end::chenhui-wblStorageModel[]
 
 WordBankListStorage consists of robust and self-explanatory methods in which users can use and extend upon easily. +
 Alongside with word bank's data structure, they lay the foundation for my other complementary sections of Word Bank Management.
 
 On top of that, they serve as a essential foundation for Dukemon. As such, these data structures and methods were required
 by my teammates, to build their own feature implementations. (Statistics, Game, Settings)
+// end::chenhui-wblStorageModel[]
 
 {nbsp}
 
@@ -742,6 +742,9 @@ by my teammates, to build their own feature implementations. (Statistics, Game, 
 // tag::chenhui-section2[]
 
 ==== User Commands
+
+// tag::chenhui-wblLogicStorageModel[]
+
 Allows user to customise cards and group them according to topics (word banks). +
 User commands edits and manipulates `Cards` and `WordBanks` heavily.
 
@@ -760,7 +763,6 @@ You can refer to it to enhance your understanding of this implementation.
 
 Let me first introduce you how these commands are implemented and structured in `Logic`. +
 
-// tag::chenhui-wblLogicStorageModel[]
 .Overview class diagram of `Logic` with emphasis on CardCommands and WordBankCommands.
 image::WBLogicStorageModel.png[]
 // end::chenhui-wblLogicStorageModel[]
@@ -1180,16 +1182,16 @@ for the word bank statistics freely.
 // end::jason-feature[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
+//=== [Proposed] Data Encryption
+//
+//_{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
 // tag::userprofiles[]
-=== [Proposed] User Profiles
-
-_The user profiles could allow multiple users to use the same app and have different statistics tracked. This feature is a work in progress and will be delayed to v2.0._
+//=== [Proposed] User Profiles
+//
+//_The user profiles could allow multiple users to use the same app and have different statistics tracked. This feature is a work in progress and will be delayed to v2.0._
 // end::userprofiles[]
 
 === Logging
