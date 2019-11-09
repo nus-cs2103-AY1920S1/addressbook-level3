@@ -38,24 +38,20 @@ public class ReminderCard extends UiPart<Region> {
         super(FXML);
         this.reminder = reminder;
         id.setText(displayedIndex + ". ");
+        deadline.setText(this.reminder.getDueDateDescription());
 
-        String reminderDueDateDescription = reminder.getDueDateDescription();
-
-        if (reminderDueDateDescription.contains("Overdue")) {
+        switch (this.reminder.getType()) {
+        case DEADLINED_TODAY:
+            deadline.setTextFill(Color.ORANGE);
+            break;
+        case DEADLINED_TOMORROW:
+            deadline.setTextFill(Color.valueOf("#7B9918"));
+            break;
+        case OVERDUE:
             deadline.setTextFill(Color.RED);
-            deadline.setText(reminderDueDateDescription);
-        } else {
-            switch (reminderDueDateDescription) {
-            case "Today":
-                deadline.setTextFill(Color.ORANGE);
-                break;
-            case "Tomorrow":
-                deadline.setTextFill(Color.valueOf("#7B9918"));
-                break;
-            default:
-                break;
-            }
-            deadline.setText("Due " + reminder.getDueDateDescription());
+            break;
+        default:
+            break;
         }
         message.setText(reminder.getReminderMessage().value);
     }
@@ -69,7 +65,7 @@ public class ReminderCard extends UiPart<Region> {
         if (!(other instanceof ReminderCard)) {
             return false;
         }
-        
+
         ReminderCard card = (ReminderCard) other;
         return id.getText().equals(card.id.getText())
                 && reminder.equals(card.reminder);

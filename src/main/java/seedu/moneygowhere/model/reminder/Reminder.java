@@ -14,12 +14,14 @@ public class Reminder {
     private ReminderMessage reminderMessage;
     private Date deadline;
     private long remainingDays;
+    private ReminderType type;
 
     public Reminder(Date deadline, ReminderMessage reminderMessage) {
         requireAllNonNull(deadline, reminderMessage);
         this.reminderMessage = reminderMessage;
         this.deadline = deadline;
         this.remainingDays = DateUtil.getDaysBetween(DateUtil.getTodayDate(), deadline.dateValue);
+        this.type = getReminderType(this.remainingDays);
     }
 
     public ReminderMessage getReminderMessage() {
@@ -28,6 +30,25 @@ public class Reminder {
 
     public Date getDeadline() {
         return this.deadline;
+    }
+
+    /**
+     * Returns the type of reminder based on the remaining days from the current date.
+     */
+    public static ReminderType getReminderType(long remainingDays) {
+        if (remainingDays == 0) {
+            return ReminderType.DEADLINED_TODAY;
+        } else if (remainingDays == 1) {
+            return ReminderType.DEADLINED_TOMORROW;
+        } else if (remainingDays > 0) {
+            return ReminderType.DEADLINED_FURTHER;
+        } else {
+            return ReminderType.OVERDUE;
+        }
+    }
+
+    public ReminderType getType() {
+        return this.type;
     }
 
     /**
@@ -41,7 +62,7 @@ public class Reminder {
         } else if (remainingDays < 0) {
             return "Overdue\n" + DateUtil.twoDigitYearFormatDate(deadline.value);
         } else {
-            return "in \n" + remainingDays + " days " + DateUtil.twoDigitYearFormatDate(deadline.value);
+            return "Due in \n" + remainingDays + " days " + DateUtil.twoDigitYearFormatDate(deadline.value);
         }
     }
 
