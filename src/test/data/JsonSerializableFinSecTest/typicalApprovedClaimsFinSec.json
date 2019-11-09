@@ -25,19 +25,19 @@
     "claims": [ ]
   }, {
     "name" : "Elle Meyer",
-    "phone" : "94822242",
+    "phone" : "94822241",
     "email" : "werner@example.com",
     "tagged" : [ ],
     "claims": []
   }, {
     "name" : "Fiona Kunz",
-    "phone" : "94824272",
+    "phone" : "94824271",
     "email" : "lydia@example.com",
     "tagged" : [ ],
     "claims": [ ]
   }, {
     "name" : "George Best",
-    "phone" : "94824422",
+    "phone" : "94824421",
     "email" : "anna@example.com",
     "tagged" : [ ],
     "claims": [ ]
@@ -45,13 +45,13 @@
     "name" : "Amy Bee",
     "phone" : "91111111",
     "email" : "amy@example.com",
-    "tagged" : [ ],
+    "tagged" : [ "friend" ],
     "claims": [ ]
   } , {
     "name" : "Bob Choo",
     "phone" : "92222222",
     "email" : "bob@example.com",
-    "tagged" : [ ],
+    "tagged" : [ "friend", "husband" ],
     "claims": [ ]
   }  ],
   "claims": [ {
@@ -78,7 +78,8 @@
     "name" : "Bob Choo",
     "tagged" : [ ],
     "status" : "REJECTED"
-  }, {
+  } ],
+  "claims": [ {
     "id" : "1",
     "description" : "Test1",
     "amount" : "321.10",
@@ -126,7 +127,7 @@
       "date" : "01-01-2019",
       "name" : "Amy Bee",
       "phone" : "91111111",
-      "tagged" : [ "Marketing" ]
+      "tagged" : [ ]
     } ,
     {
       "description" : "Shirt sales",
@@ -134,7 +135,7 @@
       "date" : "11-11-2019",
       "name" : "Bob Choo",
       "phone" : "92222222",
-      "tagged" : [ "Marketing" ]
+      "tagged" : [ ]
     } ],
   "suggestions": [ ],
   "commands": [ ]

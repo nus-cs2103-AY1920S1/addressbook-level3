@@ -51,6 +51,9 @@ public class ClaimBuilder {
         tags = new HashSet<>(claimToCopy.getTags());
     }
 
+    /**
+     * Sets the {@code Id} of the {@code Claim} that we are building.
+     */
     public ClaimBuilder withId(String id) {
         this.id = new Id(id);
         return this;
