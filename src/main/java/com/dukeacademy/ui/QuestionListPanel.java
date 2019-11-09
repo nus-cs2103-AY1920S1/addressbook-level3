@@ -44,7 +44,7 @@ public class QuestionListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new QuestionCard(question, getIndex() + 1).getRoot());
+                setGraphic(new QuestionCard(question).getRoot());
             }
         }
     }

@@ -289,10 +289,12 @@ public class HomePage extends UiPart<Region> {
      */
     private void updateAttempting(List<Question> questions) {
         ListView<Label> attemptingListView = new ListView<>();
-        for (Question q : questions) {
-            if (q.getStatus() == Status.ATTEMPTED) {
-                Label qTitle = new Label(q.getTitle());
-                attemptingListView.getItems().add(qTitle);
+        for (int i = 0; i < questions.size(); i++) {
+            if (questions.get(i).getStatus() == Status.ATTEMPTED) {
+                int displayedIndex = questions.get(i).getId();
+                String displayedIndexString = displayedIndex + ". ";
+                Label questionDisplay = new Label(displayedIndexString + questions.get(i).getTitle());
+                attemptingListView.getItems().add(questionDisplay);
             }
         }
         attemptingListView.setPrefWidth(300);
@@ -307,10 +309,12 @@ public class HomePage extends UiPart<Region> {
      */
     private void updateBookmarked(List<Question> questions) {
         ListView<Label> bookmarkedListView = new ListView<>();
-        for (Question q : questions) {
-            if (q.isBookmarked()) {
-                Label qTitle = new Label(q.getTitle());
-                bookmarkedListView.getItems().add(qTitle);
+        for (int i = 0; i < questions.size(); i++) {
+            if (questions.get(i).isBookmarked()) {
+                int displayedIndex = questions.get(i).getId();
+                String displayedIndexString = displayedIndex + ". ";
+                Label questionDisplay = new Label(displayedIndexString + questions.get(i).getTitle());
+                bookmarkedListView.getItems().add(questionDisplay);
             }
         }
         bookmarkedListView.setPrefWidth(300);

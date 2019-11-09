@@ -59,7 +59,7 @@ public class SubmitCommand implements Command {
         logger.info("Saving user program first : " + userProgram);
         Question question = currentlyAttemptingQuestion.get();
         Question questionWithNewProgram = question.withNewUserProgram(userProgram);
-        this.questionsLogic.replaceQuestion(question, questionWithNewProgram);
+        this.updateQuestion(question, questionWithNewProgram);
 
         // Submit the user's program
         Optional<TestResult> resultsOptional;
@@ -85,7 +85,8 @@ public class SubmitCommand implements Command {
 
         if (isSuccessful) {
             Question successfulQuestion = questionWithNewProgram.withNewStatus(Status.PASSED);
-            this.questionsLogic.replaceQuestion(questionWithNewProgram, successfulQuestion);
+
+            this.updateQuestion(questionWithNewProgram, successfulQuestion);
         }
 
         // Give user feedback
@@ -96,6 +97,17 @@ public class SubmitCommand implements Command {
             feedback = feedback + "failed";
         }
 
-        return new CommandResult(feedback, false, false);
+        return new CommandResult(feedback, false);
+    }
+
+    /**
+     * Helper method to automatically update the current attempting question in both the QuestionsLogic and the
+     * ProgramSubmissionLogic
+     * @param oldQuestion the old question
+     * @param newQuestion the new question
+     */
+    private void updateQuestion(Question oldQuestion , Question newQuestion) {
+        this.programSubmissionLogic.setCurrentQuestion(newQuestion);
+        this.questionsLogic.replaceQuestion(oldQuestion, newQuestion);
     }
 }

@@ -8,6 +8,7 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
+import com.dukeacademy.model.question.exceptions.QuestionNotFoundRuntimeException;
 
 /**
  * Command to delete a bookmark made on a question.
@@ -15,16 +16,16 @@ import com.dukeacademy.model.question.Question;
 public class DeleteBookmarkCommand implements Command {
     private final Logger logger;
     private final QuestionsLogic questionsLogic;
-    private final int index;
+    private final int id;
 
     /**
      * Instantiates a new Delete Bookmark command.
-     * @param index                  the index
+     * @param id                  the id
      * @param questionsLogic         the questions logic
      */
-    public DeleteBookmarkCommand(int index, QuestionsLogic questionsLogic) {
+    public DeleteBookmarkCommand(int id, QuestionsLogic questionsLogic) {
         this.logger = LogsCenter.getLogger(DeleteBookmarkCommand.class);
-        this.index = index - 1;
+        this.id = id;
         this.questionsLogic = questionsLogic;
     }
 
@@ -40,30 +41,28 @@ public class DeleteBookmarkCommand implements Command {
     @Override
     public CommandResult execute() throws CommandException {
         try {
-            Question userSelection = this.questionsLogic.getQuestion(index);
+            Question userSelection = this.questionsLogic.getQuestion(id);
             boolean userSelectionIsBookmarked = userSelection.isBookmarked();
 
             if (userSelectionIsBookmarked) {
                 // Update isBookmarked of question to false
                 Question bookmarkedQuestion = userSelection.withNewIsBookmarked(false);
-                this.questionsLogic.setQuestion(index, bookmarkedQuestion);
-                logger.info("Deleted bookmark for question at index " + index + " : " + bookmarkedQuestion);
+                this.questionsLogic.setQuestion(id, bookmarkedQuestion);
+                logger.info("Deleted bookmark for question " + id + " : " + bookmarkedQuestion);
 
                 // Notify user of successful bookmark action
-                String feedback = "Deleted bookmark for question " + (index + 1) + " : "
+                String feedback = "Deleted bookmark for question " + (id) + " : "
                         + bookmarkedQuestion.getTitle();
-                return new CommandResult(feedback, false, false
-                );
+                return new CommandResult(feedback, false);
             } else {
                 // Simply notify user that question is not bookmarked
-                String feedback = "Question " + (index + 1) + " : " + userSelection.getTitle()
+                String feedback = "Question " + (id) + " : " + userSelection.getTitle()
                         + " - is not bookmarked.";
-                return new CommandResult(feedback, false, false
-                );
+                return new CommandResult(feedback, false);
             }
 
-        } catch (IndexOutOfBoundsException e) {
-            throw new CommandException("Index " + (index + 1) + " entered out of range for current list of questions.");
+        } catch (QuestionNotFoundRuntimeException e) {
+            throw new CommandException("No question with id  " + id + " found.");
         }
     }
 

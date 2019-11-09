@@ -15,7 +15,7 @@ public class DeleteBookmarkCommandFactory implements CommandFactory {
     /**
      * Instantiates a new DeleteBookmark command factory.
      *
-     * @param questionsLogic        the questions logic
+     * @param questionsLogic    the questions logic
      */
     public DeleteBookmarkCommandFactory(QuestionsLogic questionsLogic) {
         this.questionsLogic = questionsLogic;
@@ -32,7 +32,9 @@ public class DeleteBookmarkCommandFactory implements CommandFactory {
             int index = Integer.parseInt(commandArguments.strip());
             return new DeleteBookmarkCommand(index, questionsLogic);
         } catch (NumberFormatException e) {
-            throw new InvalidCommandArgumentsException("Invalid index entered.");
+            throw new InvalidCommandArgumentsException("Invalid input. Please call the deletebookmark command "
+                    + "in this format: <deletebookmark [id]> , where id is the positive integer beside the"
+                    + " question title.");
         }
     }
 }

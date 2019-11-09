@@ -1,4 +1,4 @@
-package com.dukeacademy.logic.commands.home;
+package com.dukeacademy.logic.commands.help;
 
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -14,25 +14,25 @@ import com.dukeacademy.model.state.Activity;
 import com.dukeacademy.model.state.ApplicationState;
 
 /**
- * Encapsulates a command used to navigate to the Home tab. Any unsaved work is automatically
- * saved before navigating to the Home tab.
+ * Encapsulates a command used to navigate to the Help tab. Any unsaved work is automatically
+ * saved before navigating to the Help tab.
  */
-public class HomeCommand implements Command {
+public class HelpCommand implements Command {
     private final Logger logger;
     private final ProgramSubmissionLogic programSubmissionLogic;
     private final QuestionsLogic questionsLogic;
     private final ApplicationState applicationState;
 
     /**
-     * Instantiates a new Home command.
+     * Instantiates a new Help command.
      *
      * @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
      * @param applicationState       the application state
      */
-    public HomeCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic,
+    public HelpCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic,
                        ApplicationState applicationState) {
-        this.logger = LogsCenter.getLogger(HomeCommand.class);
+        this.logger = LogsCenter.getLogger(HelpCommand.class);
         this.programSubmissionLogic = programSubmissionLogic;
         this.questionsLogic = questionsLogic;
         this.applicationState = applicationState;
@@ -42,6 +42,7 @@ public class HomeCommand implements Command {
     public CommandResult execute() {
         Optional<Question> currentlyAttemptingQuestion = this.programSubmissionLogic.getCurrentQuestion();
         UserProgram latestUserProgram = this.programSubmissionLogic.getUserProgramFromSubmissionChannel();
+
         if (currentlyAttemptingQuestion.isPresent()) {
             Question oldQuestion = currentlyAttemptingQuestion.get();
             String loggerMessage = "Latest question attempt : " + oldQuestion.getTitle()
@@ -55,16 +56,11 @@ public class HomeCommand implements Command {
             logger.info("No question attempt found. Skipping program save.");
         }
 
-        applicationState.setCurrentActivity(Activity.HOME);
+        applicationState.setCurrentActivity(Activity.HELP);
 
-        return new CommandResult("Returning to home page...", false);
+        return new CommandResult("We are here to help!", false);
     }
 
-    /**
-     * Helper method to save changes to a question.
-     * @param oldQuestion the old question to be replaced
-     * @param newQuestion the new question.
-     */
     private void saveQuestion(Question oldQuestion, Question newQuestion) {
         this.questionsLogic.replaceQuestion(oldQuestion, newQuestion);
     }

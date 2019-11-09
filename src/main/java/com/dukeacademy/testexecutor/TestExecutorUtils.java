@@ -60,7 +60,9 @@ public class TestExecutorUtils {
         String[] canonicalNameSplit = canonicalName.split("\\.");
         String className = canonicalNameSplit[canonicalNameSplit.length - 1];
 
-        String[] programSplit = program.split("class " + className);
+        String programRemoveComments = program
+                .replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
+        String[] programSplit = programRemoveComments.split("class " + className);
 
         if (programSplit.length == 1) {
             return false;

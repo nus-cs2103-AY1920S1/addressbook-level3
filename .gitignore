@@ -13,6 +13,8 @@ src/main/resources/docs/
 /config.json
 /preferences.json
 /*.log.*
+/Logs/
+/DukeAcademy/
 
 # Test sandbox files
 src/test/data/sandbox/
@@ -20,3 +22,5 @@ src/test/data/sandbox/
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.class
+
+/Logs
