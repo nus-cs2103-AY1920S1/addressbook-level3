@@ -81,8 +81,8 @@ public class EditCurrencyFieldCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the expenditure with. Each non-empty field value will replace the
-     * corresponding field value of the expenditure.
+     * Stores the details to edit the expense with. Each non-empty field value will replace the
+     * corresponding field value of the expense.
      */
     public static class EditCurrencyDescriptor {
         private Optional<Name> name;

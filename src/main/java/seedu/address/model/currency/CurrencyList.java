@@ -24,7 +24,7 @@ public class CurrencyList implements Iterable<CustomisedCurrency> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent {@code CustomisedCurrency} as the given argument.
      */
     public boolean contains(CustomisedCurrency toCheck) {
         requireNonNull(toCheck);
@@ -32,7 +32,7 @@ public class CurrencyList implements Iterable<CustomisedCurrency> {
     }
 
     /**
-     * Adds an currency.
+     * Adds an {@code CustomisedCurrency}.
      * The currency must not already exist in the list.
      */
     public void add(CustomisedCurrency toAdd) throws DuplicateCurrencyException {
@@ -44,7 +44,7 @@ public class CurrencyList implements Iterable<CustomisedCurrency> {
     }
 
     /**
-     * Moves an currency to the front of the list.
+     * Moves an {@code CustomisedCurrency} to the front of the list.
      */
     public void promote(CustomisedCurrency toPromote) throws CurrencyNotFoundException {
         requireNonNull(toPromote);
@@ -82,8 +82,8 @@ public class CurrencyList implements Iterable<CustomisedCurrency> {
     }
 
     /**
-     * Removes the equivalent currency from the list.
-     * The currency must exist in the list.
+     * Removes the equivalent {@code CustomisedCurrency} from the list.
+     * The {@code CustomisedCurrency} must exist in the list.
      */
     public void remove(CustomisedCurrency toRemove) throws CurrencyNotFoundException, CurrencyNotRemovableException {
         requireNonNull(toRemove);
@@ -97,9 +97,9 @@ public class CurrencyList implements Iterable<CustomisedCurrency> {
     }
 
     /**
-     * Removes the item at the specified index.
+     * Removes the {@code CustomisedCurrency} at the specified index.
      *
-     * @param index The index of the item to remove.
+     * @param index The index of the {@code CustomisedCurrency} to remove.
      */
     public void remove(Index index) throws CurrencyNotRemovableException {
         requireNonNull(index);
@@ -136,7 +136,7 @@ public class CurrencyList implements Iterable<CustomisedCurrency> {
     }
 
     /**
-     * Returns true if the list contains only unique currencies.
+     * Returns true if the list contains only unique {@code CustomisedCurrency}s.
      */
     private boolean currenciesAreUnique(List<CustomisedCurrency> occurrence) {
         for (int i = 0; i < occurrence.size() - 1; i++) {

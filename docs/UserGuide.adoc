@@ -155,7 +155,7 @@ Every page that comprises a navbar can execute the following commands to navigat
 
 ==== Introduction
 
-TravelPal's __Expense Manager__ is an integrated expense planning and management system. It keeps track all the expenditures generated in your trip, and
+TravelPal's __Expense Manager__ is an integrated expense planning and management system. It keeps track all the expenses generated in your trip, and
 provides an intuitive overview of daily and total expenses and budgets. Gui alternatives are available for executing the same operations as command line input.
 
 This section of the user guide explains how to view and manage your expenses using __Expense Manager__.
@@ -171,47 +171,47 @@ you may click the toggle button on the page.
 
 image::expense/userguide/ExpenseManagerDays.png[title="Expense Manager user interface showing the daily expenses and budget summary"]
 
-Expenses are connected to bookings/events to automatically update the current known expenditure for any date/trip/event.
-There are two types of expenditure:
+Expenses are connected to bookings/events to automatically update the current known expense for any date/trip/event.
+There are two types of expense:
 
-1. Planned expenditure (auto-generated from event)
-2. Miscellaneous expenditure (can be created and deleted)
+1. Planned expense (auto-generated from event)
+2. Miscellaneous expense (can be created and deleted)
 
 ==== Commands
 
 On the __Expense Manager__ page, the following command are available:
 
-* `create`: creates a expenditure, can also be accessed by clicking the `Add Expenditure` button.
-* `edit <index of expenditure>`: edit an expenditure, this command bring up the expense setup page.
-* `delete <index of expenditure>`: delete an expenditure, note that only miscellaneous expenditures can be deleted.
-* `showdays`: enter the days view of expense manager, the expenditures will be grouped according to the days they belong to.
+* `create`: creates a expense, can also be accessed by clicking the `Add Expense` button.
+* `edit <index of expense>`: edit an expense, this command bring up the expense setup page.
+* `delete <index of expense>`: delete an expense, note that only miscellaneous expenses can be deleted.
+* `showdays`: enter the days view of expense manager, the expenses will be grouped according to the days they belong to.
 * `currency`: enter the currency page of TravelPal, can also be accessed by clicking the `Edit Currency` button
 
 ==== Expense Setup
 
-Expense setup creates/edits properties of a specified expenditure.
-To access the __Expense Setup__ page, use `create` or `edit <index of expenditure>` command on`Expense Manager` page.
+Expense setup creates/edits properties of a specified expense.
+To access the __Expense Setup__ page, use `create` or `edit <index of expense>` command on`Expense Manager` page.
 
-It is necessary for expenditure to contains a name and amount. It can also contain an optional day number, indicating which day the expenditure belong to.
+It is necessary for expense to contains a name and amount. It can also contain an optional day number, indicating which day the expense belong to.
 
 The following commands are available on __Expense Setup__ page.
 
-* `edit <prefix>/<value> ...` : edit the field of the expenditure to be created/edited.
+* `edit <prefix>/<value> ...` : edit the field of the expense to be created/edited.
 * `done` : confirm and commit the changes, go back to the expense manager page.
 * `cancel` : go back to the expense manager page without committing the changes.
 
 The prefixes refer to editing each fields as follows:
 
-* `n/` Name of the expenditure
-* `b/` The amount of expenditure, in Singapore dollars.
-* `dn/` The day number the expenditure belongs to.
+* `n/` Name of the expense
+* `b/` The amount of expense, in Singapore dollars.
+* `dn/` The day number the expense belongs to.
 
-NOTE: For Planned expenditure linked to an event, the `name` and `day number` fields are not editable. However, you may
-edit the name of the corresponding event, this will also update the name of the planned expenditures.
+NOTE: For Planned expense linked to an event, the `name` and `day number` fields are not editable. However, you may
+edit the name of the corresponding event, this will also update the name of the planned expenses.
 
 ====== Example Usage for `edit` command:
 ======
-To add an expenditure with the name _Miscellaneous Expenses_ of $_10.5_ SGD to day _2_, use the following command:
+To add an expense with the name _Miscellaneous Expenses_ of $_10.5_ SGD to day _2_, use the following command:
 
 `edit n/Miscellaneous Expenses b/10.5 dn/2`
 ======

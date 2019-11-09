@@ -16,14 +16,14 @@ public class Budget {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[+]?[0-9]+([.][0-9]{1,2})?$";
+    private static final String VALIDATION_REGEX = "^[+]?[0-9]+([.][0-9]{1,2})?$";
 
-    public final Double value;
+    private final Double value;
 
     /**
      * Constructs an {@code Budget}.
      *
-     * @param value A valid budget.
+     * @param value A valid budget amount.
      */
     public Budget(String value) {
         requireNonNull(value);
@@ -42,12 +42,8 @@ public class Budget {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public static boolean isValidBudget(double test) {
-        return test > 0;
-    }
-
-    public double getValueInCurrency(CustomisedCurrency customisedCurrency) {
-        return Double.parseDouble(String.format("%.2f", (customisedCurrency.getRate().getValue() * value)));
+    public double getValue() {
+        return this.value;
     }
 
     public String getValueStringInCurrency(CustomisedCurrency customisedCurrency) {
