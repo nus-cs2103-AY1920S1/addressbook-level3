@@ -43,7 +43,6 @@ public class DeckDisplay extends VBox {
     @FXML
     private Button addQuestionButton;
 
-
     private Consumer<Integer> deleteCard = this::deleteCard;
     private Consumer<Integer> editCard = this::editCard;
     private Deck deck;
@@ -93,9 +92,6 @@ public class DeckDisplay extends VBox {
      */
     private void renderQuestions() {
         questionList.getChildren().clear();
-        Label subtitle = new Label("Cards in deck");
-        subtitle.getStyleClass().add("window-subtitle");
-        questionList.getChildren().add(subtitle);
 
         ArrayList<FlashCard> cards = deck.getCards();
         int numCards = cards.size();
