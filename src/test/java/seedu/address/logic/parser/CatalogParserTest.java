@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
+import seedu.address.logic.commands.ViewSettingsCommand;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -177,6 +178,10 @@ public class CatalogParserTest {
 
     @Test
     public void parseCommand_set() throws Exception {
+        // Set command without any arguments
+        assertEquals(parser.parseCommand(SetCommand.COMMAND_WORD), new ViewSettingsCommand());
+
+        // Set command with arguments
         UserSettings userSettings = new UserSettingsBuilder().build();
         SetCommand.SetUserSettingsDescriptor descriptor = new SetUserSettingsDescriptorBuilder(userSettings).build();
         SetCommand command = (SetCommand) parser.parseCommand(SetCommand.COMMAND_WORD + " "
