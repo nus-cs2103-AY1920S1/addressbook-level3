@@ -33,7 +33,7 @@ public class FindCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_SOURCE + "SOURCE] "
             + "[" + PREFIX_DIFFICULTY + "LOWER_BOUND-UPPER_BOUND] "
-            + "[" + PREFIX_TAG + "TAG]\n"
+            + "[" + PREFIX_TAG + "TAG_KEYWORDS]\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_AUTHOR + "Tung Kam Chuen";

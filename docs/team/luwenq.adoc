@@ -18,26 +18,34 @@ AlgoBase is a desktop address book application used for teaching Software Engine
 ** Justification: This feature improves the product significantly because users need to categorise problems by themselves.
 ** Highlights: This enhancement creates the new features about tag and. It required to make . The implementation too was challenging as it required changes to existing commands.
 
+** Relevant pull requests:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/67[#67]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/93[#93]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/108[#108]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/145[#145]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/165[#165]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/201[#201]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/214[#214]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/216[#216]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/241[#241]
 * *Minor enhancement*: added a tag feature called tag color that allows the user to change the tag color displayed in UI.
 
 * *Code contributed*:
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LuWenQ&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[code contributed]
 
 * *Other contributions*:
-
+** Refactors the AddressBook project:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/24[#24]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/47[#47]
 ** Enhancements to existing features:
-*** Updated the GUI tag display style (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote integration tests for some existing features to increase coverage from 40% to 52% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated the GUI tag display style (Pull requests
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/214[#214],
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/241[#241])
+*** Wrote integration tests for some existing features to increase coverage from 40% to 52% ( Pull requests
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/207[#207],
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/214[#214])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W11-1/main/pull/117[#117]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
 *** Reported bugs and suggestions for other teams in the class:
 **** https://github.com/luwenq/ped[Reported 11 bugs in PED]
@@ -68,3 +76,40 @@ e.g. `edittag 1 t/sort`
 |===
 
 include::../DeveloperGuide.adoc[tag=tag]
+=== Adding a tag
+
+. Adding a tag to the existing AlgoBase
+
+.. Test case: `addtag t/test c/BLUE` +
+   Expected: New Tag [test] added to AlgoBase.
+.. Test case: type in `addtag t/test c/BLUE` for twice +
+   Expected: Tag [test] already exists in AlgoBase.
+
+=== Deleting a tag
+
+. Deleting a tag in the existing AlgoBase
+
+.. Test case: `deletetag 1` +
+   Expected: Tag [test] deleted.
+.. Test case: `deletetag 9999` +
+   Expected: The Tag index provided is invalid
+
+
+=== Editing a tag
+
+. Editing a tag in the existing AlgoBase
+.. Test case: `edittag 1 t/edited c/RED` +
+   Expected: Tag [edited] edited.
+.. Test case: `edittag t/edited c/RED` +
+   Expected: Invalid command format!
+edittag: Edits the details of the Tag identified by the index number used in the displayed Tag list. Existing values will be overwritten by the input values.
+Parameters: INDEX (must be a positive integer) [t/TAG] [c/COLOR]
+Example: edittag 1 t/Easy c/BLUE
+
+
+=== Listing tags
+
+. Listing all tags in the existing AlgoBase
+.. Test case: `listtag` +
+   Expected: All tags listed.
+
