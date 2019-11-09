@@ -295,6 +295,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Switches to the students tab.
+     */
+    @FXML
+    public void handleStudents() throws CommandException, ParseException {
+        try {
+            String userCommand = "list";
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
+    }
+
+    /**
      * Switches to the earnings tab.
      */
     @FXML
