@@ -25,7 +25,7 @@ to manage their patient's information, allowing them to store personal details a
 with a patient. VISIT is also able to store appointments for tracking purposes and store shortcuts for quicker inputs.
 
 .VISIT Main Window
-image::Ui.png[width="790"]
+image::Ui.png[width="790", align=center]
 
 My role was to conceptualise a new UI redesign that could utilise the above features and
 implementing it. This document details my contribution to the project and the design considerations
@@ -83,7 +83,7 @@ tracks reminders and followups by the date and time, with a pop up notification 
 === UI component
 
 .Structure of the UI Component
-image::NewUiClassDiagram.png[]
+image::NewUiClassDiagram.png[align=center]
 
 *API* : link:{repoURL}/tree/master/src/main/java/unrealunity/visit/ui/Ui.java[`Ui.java`]
 
@@ -101,7 +101,7 @@ The `UI` component,
 === Model component
 
 .Structure of the Model Component
-image::NewModelClassDiagram.png[]
+image::NewModelClassDiagram.png[align=center]
 
 *API* : link:{repoURL}/tree/master/src/main/java/unrealunity/visit/model/Model.java[`Model.java`]
 
@@ -115,7 +115,7 @@ The `Model`,
 === Storage component
 
 .Structure of the Storage Component
-image::NewStorageClassDiagram.png[]
+image::NewStorageClassDiagram.png[align=center]
 
 *API* : link:{repoURL}/tree/master/src/main/java/unrealunity/visit/storage/Storage.java[`Storage.java`]
 
@@ -142,7 +142,7 @@ with a more pronounced color palette and a clearer font.
 
 The following is the snippet of the class diagram of the Ui Component with the new Classes:
 
-image::UiRedesignClassDiagram.png[]
+image::UiRedesignClassDiagram.png[align=center]
 
 1. The `MainWindow` has been new panel which is the ReminderPanel.
 2. Three new Windows, `VisitRecordWindow`, `ProfileWindow` and `MotdWindow`, are in use in addition to the MainWindow.
@@ -162,16 +162,17 @@ features made by the team. In addition to that, I needed to choose a colour sche
 for today's design standards.
 
 === Concepts
+
 [#img-concept1]
 .Concept 1 of VISIT
-image::UiConcept1.png[Concept 1]
+image::UiConcept1.png[Concept 1, align=center]
 
 The first concept tries to fit all the raw features into the Main Window. A simple wireframe design that allowed me to
 see the possibilities of different layouts. However, this is too barebones and I started expanding on this.
 
 [#img-concept2]
 .Concept 2 of VISIT
-image::UiConcept2.png[Concept 2]
+image::UiConcept2.png[Concept 2, align=center]
 
 The second concept I came up with tried to include the Visit Report feature into the Main Window. The Patient Address Book
 was then broken down into two parts, the short list of patient names in the top right panel and the full profile of a
@@ -180,7 +181,7 @@ However, the panel layout for the design was too messy and was too small for the
 
 [#img-concept3]
 .Concept 3 of VISIT
-image::UiConcept3.png[Concept 3]
+image::UiConcept3.png[Concept 3, align=center]
 
 For the third concept, I decided to shift the Visit Report to a separate window as per the Profile feature description.
 This gave a more focused view on the Visit Report feature for the user. A banner was also added to label the application in UI.
@@ -188,7 +189,7 @@ A light orange colour scheme was used because I thought it would be a colour tha
 
 [#img-concept4]
 .Concept 4 of VISIT
-image::UiConcept4.png[Concept 4]
+image::UiConcept4.png[Concept 4, align=center]
 
 After discussing with the team, the orange colour scheme did not bode well and made the application too spunky. I decided
 to look up popular sites, such as Facebook and Twitter, to get inspiration on professional web design. From there, I determined
@@ -197,7 +198,7 @@ The colour palette also fit the criteria of being easy to look at.
 
 [#img-conceptFinal]
 .Final Concept of VISIT
-image::UiConceptFinal.png[Final Concept]
+image::UiConceptFinal.png[Final Concept, align=center]
 
 Following the inspiration mentioned in the previous concept, I opted for a two panel layout for simplicity. The information
 has an equal amount of shared space, allowing the user to quickly identify the data they are looking for. Also, the banner

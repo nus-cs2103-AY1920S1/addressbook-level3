@@ -32,7 +32,7 @@ image::gachia.png[width="150", align="left"]
 {empty}[http://github.com/gachia[github]] [<<gachia#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI, Documentation, Concept Artist
+Responsibilities: Documentation, Concept Artist, in charge of `UI` component
 
 '''
 
