@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.claim.Claim;
 
-
+//@@author{weigenie}
 /**
  * An UI component that displays information of a {@code FinSec}.
  */
@@ -32,6 +32,8 @@ public class ClaimCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label claimId;
+    @FXML
     private Label date;
     @FXML
     private Label status;
@@ -47,12 +49,45 @@ public class ClaimCard extends UiPart<Region> {
     public ClaimCard(Claim claim, int displayedIndex) {
         super(FXML);
         this.claim = claim;
-        id.setText(displayedIndex + ". ");
-        date.setText(claim.getDate().text);
-        status.setText(claim.getStatus().toString());
-        description.setText(claim.getDescription().text);
-        amount.setText(claim.getAmount().value);
-        name.setText(claim.getName().fullName);
+        setId(displayedIndex + ". ");
+        setClaimId(claim.getId().toString());
+        setDate(claim.getDate().text);
+        setStatus(claim.getStatus().toString());
+        setDescription(claim.getDescription().text);
+        setAmount(claim.getAmount().value);
+        setName(claim.getName().fullName);
+        setTags();
+    }
+
+    void setId(String text) {
+        id.setText(text);
+    }
+
+    void setClaimId(String text) {
+        claimId.setText("Claim ID: " + text);
+    }
+
+    void setDate(String text) {
+        date.setText(text);
+    }
+
+    void setStatus(String text) {
+        status.setText(text);
+    }
+
+    void setDescription(String text) {
+        description.setText(text);
+    }
+
+    void setAmount(String text) {
+        amount.setText("Amount: " + text);
+    }
+
+    void setName(String text) {
+        name.setText("Claimant: " + text);
+    }
+
+    void setTags() {
         claim.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
