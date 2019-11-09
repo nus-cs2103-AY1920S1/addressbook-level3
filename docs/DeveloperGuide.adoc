@@ -304,22 +304,22 @@ We can also observe that the `LoanHistory` object of the `Book` is empty since t
 ** Pros: Will be easier (and more readable in code) to retrieve books by serial number.
 ** Cons: Will incur additional memory to maintain the HashMap.
 
-*We have decided to go with Alternative 2.* In contrast to the original AddressBook3, there is much more retrieval of
-book objects in within the Book and Loan feature. Therefore, the benefits of quick retrieval of book information from the catalog will
+*We have decided to go with Alternative 2.* There is a lot of retrieval of book objects in within the Book and Loan feature.
+Therefore, the benefits of quick retrieval of book information from the catalog will
 outweigh the additional memory costs incurred to maintain the HashMap.
 
 ===== Aspect: Generating a unique serial number.
 Since we allow librarians to provide a valid serial number to new books if they wish so, we cannot generate the serial
 number using the number of books or the largest serial number.
 
-* **Alternative 1:** Use a TreeMap to store current serial numbers such that we can efficiently determine the next serial number in running order.
+* **Alternative 1:** Use a TreeMap to store current serial numbers.
 ** Pros: Will be efficient in generating the next valid serial number.
 ** Cons: Will incur additional memory to maintain the TreeMap. Might also result in unexpected behaviour in some edge cases.
-* **Alternative 2 (Current choice):** Iterate from "B00001" to obtain the first unused serial number.
+* **Alternative 2 (Current choice):** Iterate from the beginning to obtain the first unused serial number.
 ** Pros: Will be easy to implement.
 ** Cons: Will be inefficient once the number of books grow.
 
-*We have decided to go with Alternative 2* and keep it simple. This is because there are some edge cases which will lead to the implementation in
+*We have decided to go with Alternative 2* and keep it simple. This is because there are some edge cases which will lead to
 Alternative 1 not behaving as expected. Furthermore, Alternative 2 is also in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
 //end::addBook[]
 
@@ -478,7 +478,7 @@ Essentially, `LoanSlipUtil` implements the following operations:
 Given below is the sequence diagram of the generation of loan slip during the loan of a book.
 
 .Sequence Diagram for the generation of a loan slip
-image::LoanSlipGeneration.png[align=center]
+image::LoanSlipGeneration.png[width=500, align=center]
 {nbsp} +
 
 The sequence diagram above is described by the following sequence of events:
