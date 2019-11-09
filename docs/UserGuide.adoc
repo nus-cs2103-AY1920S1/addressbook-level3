@@ -29,6 +29,7 @@ By: `Team UnrealUnity`      Since: `Sep 2019`      Licence: `MIT`
 .  Copy the file to the folder you want to use as the home folder for VISIT.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+[.text-center]
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -210,6 +211,7 @@ To enter the details of the report into VISIT:
 
 1. Type `addvisit 1 v/03/01/2019` into the command box and press kbd:[Enter] to execute it.
 +
+[.text-center]
 image::UGAddVisit0.png[width="790"]
 +
 * Date must be in the "dd/MM/yyyy" format (e.g. `v/19/10/2019`). The valid range of dates starts from the year 1900 and ends at year 2999 (inclusive).
@@ -217,6 +219,7 @@ image::UGAddVisit0.png[width="790"]
 If no date is specified and the command is used without the prefix 'v/' (for example `addvisit 1`), the report will default to the current local date of the computer.
 2. Key in the details in the respective fields of the pop-up form that appears.
 +
+[.text-center]
 image::UGAddVisit1.png[width="790"]
 +
 * Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
@@ -224,12 +227,14 @@ image::UGAddVisit1.png[width="790"]
 3. Click the kbd:[Save] button or press kbd:[F2] to save your entry.
 4. The pop-up form closes and the display box will display a message indicating a successful entry.
 +
+[.text-center]
 image::UGAddVisit2.png[width="790"]
 +
 
 [NOTE]
 While  `addvisit 1` is valid, typing in `addvisit 1 v/` without a valid date will give an error.
 
+[.text-center]
 image::UGAddVisit3.png[width="790"]
 ==== Editing the particulars of a visitation report : `editvisit`
 
@@ -239,6 +244,7 @@ Format: `editvisit INDEX [i/REPORT_INDEX]`
 [NOTE]
 If no report index is specified, `editvisit INDEX` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit report, simply re-enter the command with the desired report index.
 
+[.text-center]
 image::UGEditVisit0.png[width="790"]
 
 *Example*:
@@ -247,10 +253,12 @@ Let's say you want to edit the 2nd visit report of a patient and the patient is 
 
 1. Type `editvisit 3 i/2` into the command box and press kbd:[Enter] to execute it.
 +
+[.text-center]
 image::UGEditVisit1.png[width="790"]
 +
 2. Key in the details in the respective fields of the pop-up form(which is pre-filled with the existing information of the report) that appears.
 +
+[.text-center]
 image::UGEditVisit2.png[width="790"]
 +
 * Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
@@ -258,11 +266,13 @@ image::UGEditVisit2.png[width="790"]
 3. Click the kbd:[Save] button or press kbd:[F2] to save your edits.
 4. The pop-up form closes and the display box will display a message indicating a successful entry.
 
+[.text-center]
 image::UGEditVisit3.png[width="790"]
 
 [NOTE]
 An error will be thrown if the report with the given report index does not exist or the index given is not a number.
 
+[.text-center]
 image::UGEditVisit4.png[width="790"]
 
 ==== Deleting a visitation report : `deletevisit`
@@ -273,6 +283,7 @@ Format: `deletevisit INDEX [d/REPORT_INDEX]`
 [NOTE]
 If no report index is specified, `deletevisit INDEX` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
 
+[.text-center]
 image::UGDeleteVisit0.png[width="790"]
 
 *Example*:
@@ -281,19 +292,23 @@ Let's say you want to delete the 1st visit report of a patient and the patient i
 
 1. Type `deletevisit 2 d/1` into the command box and press kbd:[Enter] to execute it.
 +
+[.text-center]
 image::UGDeleteVisit1.png[width="790"]
 +
 2. A panel showing the list of reports will be shown, now without the deleted report and the display box will display a message indicating a successful deletion.
 
+[.text-center]
 image::UGDeleteVisit2.png[width="790"]
 
 [NOTE]
 An error will be thrown if the report with the given report index does not exist or the index given is not a number.
 
+[.text-center]
 image::UGDeleteVisit3.png[width="790"]
 
 For both `deletevisit` and `editvisit` commands if the patient has no past records, a pop up with the message "Patient has no past records" will be shown instead of a list of reports when `editvisit [INDEX]` or `deletevisit [INDEX]` is run. Note that an error will be raised if the report index is provided to a patient with no past records, for example `editvisit [INDEX] i/1` or `deletevisit [INDEX] d/1`.
 
+[.text-center]
 image::UGNoRecords.png[width="790"]
 // end::visitreports[]
 [[appointmentsImplementation]]
@@ -325,6 +340,7 @@ Creates a follow-up entry on patient with index 9 for 10 days later.
 * `followup 1` +
 Creates a follow-up entry on patient with index 1 for 7 days later.
 
+[.text-center]
 image::UGApptFollowUps.png[width="790"]
 
 ==== Creating a generic reminder : `reminder`
@@ -342,6 +358,7 @@ Creates a reminder "Two Point Hospital closed" that will display for the next 10
 * `reminder Losartan recall` +
 Creates a reminder "Losartan recall" that will display for the next 7 days.
 
+[.text-center]
 image::UGApptReminders.png[width="790"]
 
 ==== Removing an Appointment : `removeappt`
@@ -359,6 +376,7 @@ Removes any appointment which description is "Two Point Hospital closed".
 * `removeappt Satya Nadella` +
 Removes any appointments with the patient whose name is Satya Nadella.
 
+[.text-center]
 image::UGApptRemoveAppt.png[width="790"]
 
 ==== Show Appointments "Message of the Day" box : `show`
@@ -366,6 +384,7 @@ image::UGApptRemoveAppt.png[width="790"]
 Shows a pop-up containing the appointments. This is useful if you want to keep a small window just containing the appointments on the screen, separate from the main window. +
 Format: `show`
 
+[.text-center]
 image::UGApptShow.png[width="790"]
 
 ==== Sort Appointments : `sort`
@@ -427,9 +446,9 @@ Doctors will be able to generate the list of medication in their stock and assig
 , which automatically deducts from that list. +
 Warnings of low stocks are also an intended feature.
 
-==== Printing of Medical Certificates `[Coming in v2.0]`
+==== Generating of Medical Certificates `[Coming in v2.0]`
 
-In v2.0, VISIT will allow doctors to easily print an official Medical Certificate with a single command.
+In v2.0, VISIT will allow doctors to easily generate an official Medical Certificate with a single command.
 
 ==== Microsoft Azure Integration `[Coming in v2.0]`
 
