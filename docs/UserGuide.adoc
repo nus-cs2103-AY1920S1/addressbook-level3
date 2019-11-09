@@ -757,6 +757,9 @@ Expected Output:
 ```
 dlete is not recognised. Did you mean: delete 2?
 ```
+[NOTE]
+
+Suggestions may be slow for longer commands. Efficiency will be improved in v2.0.
 
 The input will automatically be updated to the suggested command.
 
