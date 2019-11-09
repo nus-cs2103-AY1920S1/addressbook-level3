@@ -51,6 +51,26 @@ public class SavingsAccount implements ReadOnlySavingsAccount {
     }
 
     /**
+     * Check whether adding a saving amount will make the value of current savings > 1000000
+     * @param toAdd savings to be added into current savings
+     * @param currentSavings savings in the bank account
+     * @return true if the new current savings amount will be greater than 1000000
+     */
+    public static boolean testOutOfBound(Savings toAdd, CurrentSavings currentSavings) {
+        Money amountToAdd = toAdd.getSavingsAmount();
+        Money currentSavingsMoney = new Money(currentSavings.getCurrentSavingsMoney().getAmount());
+        Money newCurrentSavings = currentSavingsMoney.add(amountToAdd);
+        return newCurrentSavings.isOutOfBounds();
+    }
+
+    /**
+     * Get the current savings from this account
+     */
+    public CurrentSavings retrieveCurrentSavings() {
+        return this.currentSavings;
+    }
+
+    /**
      * Add to the current savings.
      */
     public void addToSavings(Savings savings) throws SavingsOutOfBoundException {

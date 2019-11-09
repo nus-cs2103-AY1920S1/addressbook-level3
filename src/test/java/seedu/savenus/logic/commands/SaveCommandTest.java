@@ -15,9 +15,11 @@ import seedu.savenus.model.savings.CurrentSavings;
 import seedu.savenus.model.savings.Savings;
 import seedu.savenus.model.savings.SavingsAccount;
 import seedu.savenus.model.savings.SavingsHistory;
+import seedu.savenus.model.savings.exceptions.SavingsOutOfBoundException;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.util.Money;
+import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 
 /**
  * Contains integration tests (interaction with the model) and unit tests for
@@ -41,9 +43,12 @@ public class SaveCommandTest {
                 new SavingsHistory(),
                 new SavingsAccount(),
                 new AliasList());
-        expectedModel.addToHistory(testSavings);
-        expectedModel.deductFromWallet(testSavings);
-        expectedModel.depositInSavings(testSavings);
+        try {
+            expectedModel.depositInSavings(testSavings);
+            expectedModel.addToHistory(testSavings);
+        } catch (InsufficientFundsException | SavingsOutOfBoundException e) {
+            System.err.println("This should never be executed");
+        }
         assertCommandSuccess(saveCommand, model, expectedMessage, expectedModel);
     }
 }
