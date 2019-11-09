@@ -581,33 +581,39 @@ Similarly, the new book object replaces the old book object in the `Catalog` obj
 
 ===== Returning
 
-The following activity diagram summarizes what happens when a user enters a return command:
-
-.Activity diagram when a book is being returned.
-image::ReturningActivityDiagram.png[width=700, align=center]
-
-NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
-they are not shown.
-
 When a loaned out book is successfully returned by a borrower, the associated `Loan` object is moved from the borrower's
 `currentLoanList` to `returnedLoanList`. Inside the book object, this `Loan` object is also removed. Inside this loan
-object, the `returnDate` is added according to today's date. The `remainingFineAmount` of this loan object is also
-calculated based on the fine amount set in the user settings.
+object, the `returnDate` is set to today's date. The `remainingFineAmount` of this loan object is also
+calculated based on the daily fine increment set in the user settings.
 
-Similarly, the creation of new objects for replacement are also done to support immutability. They are supported by the
-methods `Model#setBook(bookToBeReturned, returnedBook)` and `Model#servingBorrowerReturnLoan(returningLoan)`.
+Similarly, the creation of new objects for replacement are also done to support immutability. The `return` command is supported by the
+methods `Model#setBook(bookToBeReturned, returnedBook)`, `Model#servingBorrowerReturnLoan(returningLoan)` and
+`Model#updateLoan(loanToBeReturned, returnedLoan)`, which updates the `Catalog`, `BorrowerRecords` and `LoanRecords`
+in the model respectively.
 
 ===== Renewing
 
-When a book is successfully renewed by a borrower, the `renewCount` of the `Loan` object is incremented by 1
-and its `dueDate` is also increased by the renew period set in the user settings.
+The following sequence diagram illustrates the series of method calls when a `RenewCommand` is executed to renew book(s).
 
-Similarly, the creation of new objects for replacement are also done to support immutability.
+.Sequence diagram illustrating the execution of a RenewCommand
+image::RenewSequenceDiagram.png[width=700, align=center]
+
+Firstly, a list of books that can be renewed is obtained through the `RenewCommand#getRenewingBooks(model)` method.
+For each `Loan` object associated with each book, a new instance is created with its original `renewCount` incremented by 1 and its
+`dueDate` extended by the renew period set in the user settings. This is done through the method call to `Loan#renewLoan(extendedDueDate)`.
+The call to `Book#renewBook(renewedLoan)` then returns a new instance of this book with its loan object updated.
+
+The method calls to `Model#setBook(bookToBeRenewed, renewedBook)`, `Model#servingBorrowerRenewLoan(loanToBeRenewed, renewedLoan)`
+and `Model#updateLoan(loanToBeRenewed, renewedLoan)` then updates the `Catalog`, `BorrowerRecords` and `LoanRecords` respectively.
 
 ===== Paying fines
 
-When a fine amount is successfully paid by a borrower, the `remainingFineAmount` and `paidFineAmount` of the loans in
-the borrower's `returnedLoanList` is updated accordingly.
+When a fine amount is successfully paid by a borrower through the call to `Model#payFines(amountInCents)`,
+the `remainingFineAmount` and `paidFineAmount` of the loans in the borrower's `returnedLoanList` is updated accordingly.
+The fine amount is tracked individually inside each loan object instead of as a variable inside the `Borrower` instance
+that stores the total fine amount incurred by that borrower.
+This is done to support the ease of extension in the future.
+For example, the total fine each book has garnered can be easily calculated.
 
 Similarly, the creation of new objects for replacement are also done to support immutability.
 
