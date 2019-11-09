@@ -152,28 +152,15 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 
+* does not depend on any of the other three components: `Logic`, `Ui`, and `Storage`.
+
 * consists of 3 sub-components: `QueueManager`, `AddressBook` and `AppointmentBook`.
 
 * stores the details of patients and staff in 2 separate instances of `AddressBook`.
 
 * stores the patients' appointments and duty shifts of staff doctors in 2 separate instances of `Appointment Book.
 
-
-
-
-
-* Most of the implemented model component code is reusable,
-    such as `Person`, `Event`, `AddressBook`, `AppointmentBook` and `UniqueElementList`.
-    For instance, we can reuse the `Person` class to derive classes which can represent patients or staff doctors.
-    Likewise, the `Event` class can be used to derive classes which can represent patient's appointments and staff duty shifts.
-
 * exposes an unmodifiable `ObservableList<Person>` and `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-
-* does not depend on any of the other three components.
-
-
-
-
 
 * stores a unique list of `Tags` and `ReferenceId`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
 
@@ -221,6 +208,19 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Unique Reference Identification
+
+In ClerkPro, each person is assigned a unique `ReferenceId`.
+    Appointments and duty shifts are tagged to the respective patients and doctors through the use of `ReferenceId`.
+
+This unique reference identifier consist of two parts:
+
+    . a unique case-insensitive string, which consist of 9 alphanumeric characters, referring to its unique ID number and
+    . a boolean referring to whether the reference identifier belonged to a person who is registered as a patient or a staff doctor.
+
+
+//TODO [Implementation]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
