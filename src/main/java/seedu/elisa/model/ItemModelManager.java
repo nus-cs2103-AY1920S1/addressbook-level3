@@ -553,12 +553,12 @@ public class ItemModelManager implements ItemModel {
             }
         });
 
-        for (int i = 0; i < taskList.size(); i++) {
-            Item item = taskList.get(i);
+        for (Item item : taskList) {
             if (!item.getTask().get().isComplete()) {
                 sortedTask.add(item);
             }
         }
+
         if (sortedTask.size() == 0) {
             priorityExitStatus = PriorityExitStatus.ALL_TASK_COMPLETED;
             priorityMode.setValue(false);
