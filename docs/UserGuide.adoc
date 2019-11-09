@@ -251,7 +251,7 @@ a|
 [[update]]
 ==== Updating an entity: `update`
 
-This command allows you to update the attributes of a body or worker.
+This command allows you to update the attributes of a body or worker. +
 
 You have to indicate the entity type you want to update with a flag, as described in <<Features>>.
 [TIP]
@@ -276,14 +276,12 @@ When you update `bodyStatus` to `ARRIVED`, a `Notif` pop-up will be shown after 
 
 There are some attributes that you can update once the entity is created. For this command,
 the list of valid attributes and their command prefixes can be found below:
-|===
 
+|===
 | Entity | Attribute
 
 | Body
-
 a|
-
 Name `/name` +
 Sex `/sex` +
 NRIC `/nric` +
@@ -321,15 +319,11 @@ Instead of typing out all the irrelevant attributes a Worker has, you just have 
 and her new designation. You see that her ID number is W00001.
 
 |===
-
 | Command | Expected Output
 
 | `update -w /id 1 /designation Senior Autopsy Technician`
-
 | Designation of Jane Doe changed to Senior Autopsy Technician.
-
 |===
-
 // end::update[]
 
 // tag::find[]
@@ -442,6 +436,8 @@ Format: `showNotifs`
 
 // end::notifs[]
 
+// tag::sortfilter[]
+
 ==== Filter all entries: `filter`
 This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
 
@@ -459,6 +455,7 @@ All body entries with car accident as the cause of death and those that are male
 
 // tag::undoredo[]
 ==== Undoing a command: `undo`
+
 This command undoes the effects of the last command you executed. You can undo up to 10 of your most recent commands.
 The commands are undone starting from the most recent to the least recent.
 
@@ -485,6 +482,7 @@ To undo:
 
 
 ==== Redoing a command: `redo`
+
 This command redoes the effects of the last command you undid.
 You can redo up to 10 of your most recent undone commands.
 All commands that can be undone can be redone. (See <<Undoing a command: `undo`>> for how `undo` can be used.)
