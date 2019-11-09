@@ -14,6 +14,7 @@ public class Phone {
             "Only Singapore phone numbers are allowed. (e.g. 88887541, +65 98753573, +6565241234)\n";
     public static final String VALIDATION_REGEX = "[689]\\d{7}|\\+65[689]\\d{7}|\\+65\\s[689]\\d{7}";
     public static final String DATA_TYPE = "PHONE";
+    public static final String HEADER = "Phone number: ";
 
     public final String value;
 
