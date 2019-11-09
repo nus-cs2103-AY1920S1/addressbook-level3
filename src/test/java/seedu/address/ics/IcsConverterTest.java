@@ -96,7 +96,7 @@ public class IcsConverterTest {
         // validate DTSTART field.
         String dtStartString = icsStringArr[3];
         assertTrue(dtStartString.startsWith("DTSTART:"));
-        assertEquals("DTSTART:11111111T030000Z", dtStartString);
+        assertTrue(dtStartString.equals("DTSTART:11111111T030000Z"));
 
         // validate SUMMARY field.
         assertEquals("SUMMARY:Test Description", icsStringArr[4]);
