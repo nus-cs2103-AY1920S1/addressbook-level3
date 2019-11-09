@@ -62,7 +62,6 @@ The custom shortcut feature required handling command words that are not recogni
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
