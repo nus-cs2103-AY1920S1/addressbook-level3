@@ -11,6 +11,7 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.sort.FoodComparator;
 
+//@@author seanlowjk
 /**
  * Sorts all the foods in the $aveNUS menu based on given criterion.
  */

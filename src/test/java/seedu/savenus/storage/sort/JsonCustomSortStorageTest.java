@@ -13,6 +13,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.sort.CustomSorter;
 
+//@@author seanlowjk
 public class JsonCustomSortStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src",
             "test", "data", "JsonCustomSortStorageTest");

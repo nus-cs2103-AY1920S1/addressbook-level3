@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.savenus.model.Model;
 
+//@@author seanlowjk
 /**
  * Creates a simple command to create a custom comparator for the user.
  */

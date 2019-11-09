@@ -9,6 +9,7 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.sort.DefaultComparator;
 
+//@@author seanlowjk
 /**
  * Sorts all the foods in the $aveNUS menu based on their default ordering, which is:
  * category, followed by name, then by price.

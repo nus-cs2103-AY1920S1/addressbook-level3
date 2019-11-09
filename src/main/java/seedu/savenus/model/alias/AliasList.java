@@ -2,6 +2,7 @@ package seedu.savenus.model.alias;
 
 import java.util.List;
 
+//@@author seanlowjk
 /**
  * Represents a list of AliasPairs.
  */

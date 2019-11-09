@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.sort.CustomSorter;
 
+//@@author seanlowjk
 public class JsonAdaptedCustomSortTest {
     @Test
     public void null_adaptedCustomSort_error() {
