@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CASH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -10,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
@@ -23,6 +21,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FinSec;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditIncomeDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -184,7 +183,7 @@ public class CommandTestUtil {
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredContactList().size());
 
-        seedu.address.model.contact.Contact contact = model.getFilteredContactList().get(targetIndex.getZeroBased());
+        Contact contact = model.getFilteredContactList().get(targetIndex.getZeroBased());
         final String[] splitName = contact.getName().fullName.split("\\s+");
         model.updateFilteredContactList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
