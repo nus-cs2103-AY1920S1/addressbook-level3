@@ -18,6 +18,7 @@ import seedu.address.logic.parser.TimeBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.TimeBook;
+import seedu.address.model.display.schedule.ScheduleDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
@@ -74,6 +75,11 @@ public class LogicManager implements Logic, SuggestionLogic {
     @Override
     public ScheduleWindowDisplay getMainWindowDisplay() {
         return model.getScheduleWindowDisplay();
+    }
+
+    @Override
+    public ScheduleDisplay getScheduleDisplay() {
+        return model.getScheduleDisplay();
     }
 
     @Override

@@ -10,6 +10,7 @@ import seedu.address.model.person.Name;
  * Interface to control schedule view in the UI.
  */
 public interface ScheduleViewManager {
+
     public static ScheduleViewManager getInstanceOf(ScheduleWindowDisplay scheduleWindowDisplay) {
         ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
         switch(displayType) {

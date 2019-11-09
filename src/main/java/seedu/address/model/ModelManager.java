@@ -12,6 +12,7 @@ import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.display.DisplayModelManager;
 import seedu.address.model.display.locationdata.ClosestCommonLocationData;
+import seedu.address.model.display.schedule.ScheduleDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
@@ -394,6 +395,11 @@ public class ModelManager implements Model {
     @Override
     public ScheduleWindowDisplay getScheduleWindowDisplay() {
         return displayModelManager.getScheduleWindowDisplay();
+    }
+
+    @Override
+    public ScheduleDisplay getScheduleDisplay() {
+        return displayModelManager.getScheduleDisplay();
     }
 
     @Override

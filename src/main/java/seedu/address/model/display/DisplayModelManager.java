@@ -14,6 +14,10 @@ import java.util.stream.Collectors;
 import seedu.address.model.GmapsModelManager;
 import seedu.address.model.TimeBook;
 import seedu.address.model.display.locationdata.ClosestCommonLocationData;
+import seedu.address.model.display.schedule.GroupScheduleDisplay;
+import seedu.address.model.display.schedule.HomeScheduleDisplay;
+import seedu.address.model.display.schedule.PersonScheduleDisplay;
+import seedu.address.model.display.schedule.ScheduleDisplay;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.FreeTimeslot;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
@@ -53,8 +57,11 @@ public class DisplayModelManager {
     private static final LocalTime SCHEDULE_END_TIME = LocalTime.of(20, 0);
 
     private GmapsModelManager gmapsModelManager;
+
     private ScheduleWindowDisplay scheduleWindowDisplay;
     private SidePanelDisplay sidePanelDisplay;
+
+    private ScheduleDisplay scheduleDisplay;
 
     public DisplayModelManager(GmapsModelManager gmapsModelManager) {
         this.gmapsModelManager = gmapsModelManager;
@@ -63,9 +70,14 @@ public class DisplayModelManager {
     /**
      * Returns the current state of the schedule's display.
      */
-    public ScheduleWindowDisplayType getState() {
+    /*public ScheduleWindowDisplayType getState() {
         return scheduleWindowDisplay.getScheduleWindowDisplayType();
+    }*/
+
+    public ScheduleWindowDisplayType getState() {
+        return scheduleDisplay.getState();
     }
+
 
     /**
      * Updates with a schedule of a person specified by name.
@@ -180,7 +192,17 @@ public class DisplayModelManager {
 
         ScheduleWindowDisplay scheduleWindowDisplay =
                 new ScheduleWindowDisplay(personSchedules, freeScheduleForMonth, groupDisplay, type);
+
         updateScheduleWindowDisplay(scheduleWindowDisplay);
+
+        GroupScheduleDisplay scheduleDisplay =
+                new GroupScheduleDisplay(personSchedules, freeScheduleForMonth, groupDisplay);
+
+        updateScheduleDisplay(scheduleDisplay);
+    }
+
+    private void updateScheduleDisplay(ScheduleDisplay scheduleDisplay) {
+        this.scheduleDisplay = scheduleDisplay;
     }
 
     /**
@@ -201,8 +223,21 @@ public class DisplayModelManager {
 
         personSchedules.add(personSchedule);
 
-        ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personSchedules, type);
+        ScheduleWindowDisplay scheduleWindowDisplay =
+                new ScheduleWindowDisplay(personSchedules, type);
+
         updateScheduleWindowDisplay(scheduleWindowDisplay);
+
+        ScheduleDisplay scheduleDisplay = null;
+
+        if(type == ScheduleWindowDisplayType.PERSON) {
+            scheduleDisplay = new PersonScheduleDisplay(personSchedules);
+        } else if (type == ScheduleWindowDisplayType.HOME) {
+            scheduleDisplay = new HomeScheduleDisplay(personSchedules);
+        }
+
+        assert(sidePanelDisplay != null);
+        updateScheduleDisplay(scheduleDisplay);
     }
 
     /**
@@ -210,6 +245,10 @@ public class DisplayModelManager {
      */
     public ScheduleWindowDisplay getScheduleWindowDisplay() {
         return scheduleWindowDisplay;
+    }
+
+    public ScheduleDisplay getScheduleDisplay() {
+        return scheduleDisplay;
     }
 
     /**
