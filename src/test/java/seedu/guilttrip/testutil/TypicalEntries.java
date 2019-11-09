@@ -52,10 +52,13 @@ public class TypicalEntries {
             .build();
     public static final Category CATEGORY_GIFT = new CategoryBuilder().withCatType("Income").withCatName("gift")
             .build();
+
+
+    //For adding new Categories
     public static final Category CATEGORY_STOCKS = new CategoryBuilder().withCatType("Income").withCatName("stocks")
             .build();
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final Category CATEGORY_SPACE = new CategoryBuilder().withCatType("Expense").withCatName("space")
+            .build();
 
     private TypicalEntries() {
     } // prevents instantiation

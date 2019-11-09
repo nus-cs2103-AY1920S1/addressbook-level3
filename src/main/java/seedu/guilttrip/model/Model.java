@@ -104,6 +104,7 @@ public interface Model {
      */
     boolean hasCategory(Category category);
 
+    boolean categoryHasAnyEntries(Category category);
     /**
      * Returns true if a entry with the same identity as {@code entry} exists in
      * the guilttrip book.
@@ -162,7 +163,6 @@ public interface Model {
      * Adds the given entry. {@code entry} must not already exist in the guilttrip
      * book.
      */
-
     void addCategory(Category category);
 
     void addExpense(Expense expense);
