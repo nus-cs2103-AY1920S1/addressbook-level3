@@ -237,7 +237,6 @@ public class MainWindow extends UiPart<Stage> {
         default:
             throw new ParseException("Invalid type: " + type);
         }
-
     }
 
     /**
