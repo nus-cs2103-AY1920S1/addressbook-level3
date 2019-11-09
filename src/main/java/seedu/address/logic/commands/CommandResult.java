@@ -18,7 +18,7 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    private boolean unknown;
+    private boolean isUnknown;
 
     private boolean showEarnings;
     private boolean showNotes;
@@ -31,26 +31,14 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean showEarnings, boolean unknown, boolean showTasks) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.showEarnings = showEarnings;
-        this.unknown = unknown;
-        this.showTasks = showTasks;
-
-    }
-
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showEarnings,
-                         boolean unknown, boolean showTasks, boolean showPersons,
+                         boolean isUnknown, boolean showTasks, boolean showPersons,
                          boolean showNotes, boolean showReminder) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showEarnings = showEarnings;
-        this.unknown = unknown;
+        this.isUnknown = isUnknown;
         this.showTasks = showTasks;
         this.showPersons = showPersons;
         this.showNotes = showNotes;
@@ -77,8 +65,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, false
-        );
+        this(feedbackToUser, false, false, false, false, false,
+                false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -102,7 +90,7 @@ public class CommandResult {
     }
 
     public boolean isUnknown() {
-        return unknown;
+        return isUnknown;
     }
 
     public boolean isPersons() {

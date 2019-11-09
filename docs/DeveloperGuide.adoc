@@ -219,7 +219,7 @@ object have been successfully added.
 //tag::Calendar[]
 === Calendar Feature
 
-=== Add Tasks
+==== Add Tasks
 The `add_task` command allows for tutors to add their tasks into TutorAid.
 
 The format for the `add_task` command is as follows:
@@ -233,7 +233,7 @@ following input from the user: `ClassId`, `Marking`, `TaskTime` which will const
 
 .Add Task Command Sequence Diagram
 image::AddTaskSequenceDiagram.png[]
-
+NOTE: The lifeline for `AddTaskCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The `AddTaskCommand` implements `Parser` with the following operation:
 
@@ -280,73 +280,7 @@ check with the rest of the prior `Earnings` object, to ensure that there is no d
 
 * Step 6: `AddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
 object have been successfully added.
-
-
-//tag::Calendar[]
-=== Calendar Feature
-
-=== Add Tasks
-The `add_task` command allows for tutors to add their tasks into TutorAid.
-
-The format for the `add_task` command is as follows:
-
- add_task c/<CLASSID> mark/<MARKING> tt/<TASKTIME> ...
-
-*Overview*
-
-The add claim `add_task` mechanism is facilitated by `AddTaskCommand` and `AddTaskCommandParser`, taking in the
-following input from the user: `ClassId`, `Marking`, `TaskTime` which will construct `Task` objects.
-
-.Add Task Command Sequence Diagram
-image::AddTaskSequenceDiagram.png[]
-
-
-The `AddTaskCommand` implements `Parser` with the following operation:
-
-* `AddTaskCommandParser#parse()` - This operation will take in a `String` input from the user and create
-individual objects based on the prefixes `c/`, `mark/` and `tt/`. The `String` value after the respective prefixes
-will create the respective objects. A validation check will be done to ensure that the strings that are entered
-by the user is entered correctly. If any of the strings entered are invalid, an error will be shown to the user to
-enter the correct format of the respective objects.
-
-** `classId` would use `ParserUtil#parseClassId()` to ensure that the class id typed in by the user is in the correct format.
-
-** `mark` would use `ParserUtil#parseMarking()` to ensure that the Marking entered by the user is in the correct format with only "Y" or "N".
-
-** `taskTime` would use `ParseUtil#parseTaskTimes()` to ensure that the TaskTime entered by the user is in the correct format.
-
-* After validation of the individual objects, an `Task` object would be created with the parameters `classId`, `Marking`,
-and `taskTime`.
-
-* `AddTaskCommandParser` would then return a `AddTaskCommand` object with the parameter, `Task` object.
-
-The following activity diagram summarizes what happens when a user executes a new command.
-
-image::AddTaskActivityDiagram.png[]
-
-*Example Scenerio*
-
-
-* Step 1: The user enters `add_task c/CS2103T Lecture  mark/Y tt/20/9/2019 13:00, 21/9/2019 16:00 tt/21/9/2019 13:00, 21/9/2019 15:00`
-to add an task into the calendar.
-This adds an `Task` object, which is a module CS2103T that the user need to attempt at 1pm of 20th and 21st September 2019.
-The task is marked so that it would be reminded.
-
-* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
-
-* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
-the given command is `add_task`, thus, `AddTaskCommandParser` object would be created with the user's input.
-
-* Step 4: `AddTaskCommandParser` performs a validation check on each of the respective objects through
-`AddTaskCommandParser#parse()`. In this case, it would use `ParserUtil#parseClassId()`, `ParserUtil#parseMarking()`, and
-`ParserUtil#parseTaskTimes()`. It would then return a `AddTaskCommand` object with an `Task` object.
-
-* Step 5: `LogicManager` would execute `AddTaskCommand#execute`. In this particular method, the `Task` object will be
-check with the rest of the prior `Task` object, to ensure that there is no duplicate `Task` object. If there are no similar
-`Task` object with the same parameters created previously, it would then be added into the task list.
-
-* Step 6: `AddTaskCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Task`
-object have been successfully added.
+//end::Calendar[]
 
 === Notes Features
 ==== Add Notes
@@ -405,6 +339,7 @@ check with the rest of the prior `Notes` object, to ensure that there is no dupl
 
 * Step 6: `AddNotesCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new
 `Notes` object have been successfully added.
+
 
 === Reminder Features
 ==== Add Reminder
@@ -468,67 +403,70 @@ check with the rest of the prior `Reminder` object, to ensure that there is no d
 ==== Implementation
 The main point of this feature is to learn a user's typing habits so as to give them a more seamless experience
 while using TutorAid by adapting to their typing style so that they do not have to memorize
-built in commands.
+built in commands. This is done by having TutorAid trigger in and out of "learner" mode.
 
-The sequence of events is triggered when a user accidentally inputs a wrong command. TutorAid will then prompt
-the user on whether or not they wish to add this command to the library as a custom command mapped to the action of a built in command.
+A `CommandResult` object now has an added boolean `isUnknown` instance variable to indicate if the command entered is
+an unknown command. Using this, TutorAid shifts between "learner" mode and normal mode:
 
-Custom command keywords and their mappings are stored locally in TutorAid.json with
+.How TutorAid goes from normal to "learner" mode
+image::changeLearner.png[width="800"]
+
+.How TutorAid goes from "learner" to normal mode
+image::changeNormal.png[width="800"]
+
+The effect of being in "learner" mode results in the `TutorAidParser` using different methods to parse the command. This will be elaborated on in the sample use scenario below.
+
+While in "learner" mode, TutorAid can map wrong commands to the actions of known commands. These wrong/custom command keywords and their mappings are stored locally in TutorAid.json with
 the help of `JsonAdaptedCommand`.
 
-The whole mechanism is mainly facilitated by `TutorAidParser` which has been modified to suit our needs. A TreeMap
-is now being used in the process of parsing commands.
+A TreeMap is now being used in the process of parsing commands. New command classes such as `UnknownCommand`, `NewCommand` and `CancelCommand` were also created.
 
-A `CommandResult` object now also has an added boolean "unknown" instance variable to indicate if the command entered is
-an unknown command. New command classes such as `UnknownCommand`, `NewCommand` and `CancelCommand` were also created.
-
-* `TutorAidParser#checkCommand()` -- Separate "parser" functions for unknown command operations.
+* `TutorAidParser#checkCommand` -- Separate "parser" functions for unknown command operations.
 Checks if the command a user wants to map his unknown command to is valid and exists or if the user wishes
 to exit the operation.
-* `TutorAidParser#initialiseBasicCommands()` -- Initialises the functionality of the `TutorAidParser` by adding
+* `TutorAidParser#initialiseBasicCommands` -- Initialises the functionality of the `TutorAidParser` by adding
 the basic command mappings to its TreeMap.
 
 Given below is an example usage scenario and how the learn custom command mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `TutorAidParser` will be initialized and all basic
-commands and previous existing custom commands will be added to its TreeMap.
+commands and previous existing custom commands will be added to its TreeMap via `TutorAidParser#initialiseBasicCommands`.
 
-Step 2. The user enters "plus" instead of "add". `TutorAidParser` does a lookup in its TreeMap and in the `TutorAidParser#parseCommand(String userInput)` function and returns a new `UnknownCommand` since
+Step 2. The user enters "plus" instead of "add". `TutorAidParser` does a lookup in its TreeMap in the `TutorAidParser#parseCommand(String userInput)` method and returns a new `UnknownCommand` since
 the TreeMap does not contain the keyword "plus".
 
-Step 3. The `UnknownCommand` is executed in `LogicManger` and "plus" is saved on a Stack in `ModelManager`. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. The `CommandResult` triggers `CommandResult#isUnknown()` and sets the "unknown" variable in `MainWindow`
-to true.
+Step 3. The `UnknownCommand` is executed by `Logic` and "plus" is saved on `savedCommand` in the `Model` component. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. This `CommandResult` triggers TutorAid into "learner" mode via the earlier explained implementation.
+
+Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". Since TutorAid is in "learner" mode, the method `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is now called instead of `TutorAidParser#parseCommand(String userInput)`.
 
 [NOTE]
-`Logic#execute(String userInput)` has been changed to `Logic#execute(String userInput, boolean isUnknown)` to account for different execution pathways of unknown and known commands.
+Logic#execute(String userInput) has been changed to Logic#execute(String userInput, boolean isUnknown) to account for different execution pathways when in normal and "learner" mode.
 
-Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". `LogicManager#execute(String userInput, boolean isUnknown)` now calls `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` as `MainWindow` passed in a value of "true" to the execute command.
+[NOTE]
+`prevUnknownCommand` variable is retrieved from executing a `peek()` command on the `savedCommand` stack in `Model`.
 
-Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned.
+Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned and "ad" is also saved.
 Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in "cancel".
 
-Step 7. The user inputs a valid command. `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest "prevUnknownCommand" retrieved from the stack, it adds the unknown command and action of the valid command as a key-value pair to the TreeMap and as a new CommandObject to the `TutorAid` for storage via execution of `NewCommand` object.
+Step 6. The user inputs a valid command. `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest `prevUnknownCommand` retrieved from the stack, the unknown command and action of the valid command is added as a key-value pair to the TreeMap and a `NewCommand` object is returned and executed to store this new command mapping with the help of `Model`.
 
-Step 8. `NewCommand` has a `CommandResult` with an "unknown" value of false. This will trigger `MainWindow#setUnknownFalse()` and set the unknown variable in `MainWindow` to false. Normal commands can then be performed as `TutorAidParser#parseCommand(String userInput)` will now be called again instead of `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`.
+Step 7. `NewCommand` has a `CommandResult` with an `isUnknown` value of `false`. This will trigger TutorAid back to normal mode. Normal commands can then be performed as `TutorAidParser#parseCommand(String userInput)` will now be called again instead of `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`.
 
 The following sequence diagrams shows how the learn custom command operation works:
 
 Firstly an unknown command is supplied,
 
-image::UnknownCommandDiagram.png[]
+image::UnknownCommandDiagram.png[width="600"]
 
 NOTE: The lifeline for `UnknownCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 After which, a known command is supplied,
 
-image::NewCommandDiagram.png[]
-
-[NOTE]
-`TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is called instead of the normal `TutorAidParser#parseCommand(String userInput)` function because the boolean input "isUnknown" in `Logic#execute(String userInput, boolean isUnknown)` is set to true.
+image::NewCommandDiagram.png[width="600"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::LearnCustomCommandsActivityDiagram.png[]
+image::LearnCustomCommandsActivityDiagram.png[width="500"]
 
 ==== Design Considerations
 
@@ -542,6 +480,87 @@ image::LearnCustomCommandsActivityDiagram.png[]
 do not need to waste time populating a TreeMap.
 ** Cons: Every single query costs O(n) time to check if the command exists.
 // end::learncustomcommands[]
+
+// tag::undo/redo[]
+=== Undo/Redo feature
+
+The undo/redo mechanism is facilitated by `VersionedTutorAid`.
+It extends `TutorAid` with an undo/redo history, stored internally as an `tutorAidStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedTutorAid#commit()` -- Saves the current tutor aid state in its history.
+* `VersionedTutorAid#undo()` -- Restores the previous tutor aid state from its history.
+* `VersionedTutorAid#redo()` -- Restores a previously undone tutor aid state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitTutorAid()`, `Model#undoTutorAid()` and `Model#redoTutorAid()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedTutorAid` will be initialized with the initial tutor aid state, and the `currentStatePointer` pointing to that single tutor aid state.
+
+image::UndoRedoState0.png[]
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the tutor aid. The `delete` command calls `Model#commitTutorAid()`, causing the modified state of the tutor aid after the `delete 5` command executes to be saved in the `tutorAidStateList`, and the `currentStatePointer` is shifted to the newly inserted tutor aid state.
+
+image::UndoRedoState1.png[]
+
+Step 3. The user executes `add_task c/CS2103T ...` to add a new task. The `add_task` command also calls `Model#commitTutorAid()`, causing another modified tutor aid state to be saved into the `tutorAidStateList`.
+
+image::UndoRedoState2.png[]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitTutorAid()`, so the tutor aid state will not be saved into the `tutorAidStateList`.
+
+Step 4. The user now decides that adding the task was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoTutorAid()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous tutor aid state, and restores the tutor aid to that state.
+
+image::UndoRedoState3.png[]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial tutor aid state, then there are no previous tutor aid states to restore. The `undo` command uses `Model#canUndoTutorAid()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redoTutorAid()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the tutor aid to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `tutorAidStateList.size() - 1`, pointing to the latest tutor aid state, then there are no undone tutor aid states to restore. The `redo` command uses `Model#canRedoTutorAid()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the tutor aid, such as `list`, will usually not call `Model#commitTutorAid()`, `Model#undoTutorAid()` or `Model#redoTutorAid()`. Thus, the `tutorAidStateList` remains unchanged.
+
+image::UndoRedoState4.png[]
+
+Step 6. The user executes `clear`, which calls `Model#commitTutorAid()`. Since the `currentStatePointer` is not pointing at the end of the `tutorAidStateList`, all tutor aid states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add_task c/CS2103T ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoState5.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire tutor aid.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of tutor aid states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedTutorAid`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undo/redo[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

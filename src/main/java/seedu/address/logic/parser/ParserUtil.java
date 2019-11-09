@@ -30,8 +30,10 @@ import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.MarkAttendanceCommand;
 import seedu.address.logic.commands.MarkParticipationCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SetPictureCommand;
 import seedu.address.logic.commands.TotalEarningsCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateEarningsCommand;
 import seedu.address.logic.commands.calendar.AddTaskCommand;
 import seedu.address.logic.commands.calendar.DeleteTaskCommand;
@@ -457,5 +459,7 @@ public class ParserUtil {
         commandList.put(ClaimEarningsCommand.COMMAND_WORD, ClaimEarningsCommand.COMMAND_WORD);
         commandList.put(AutoAddEarningsCommand.COMMAND_WORD, AutoAddEarningsCommand.COMMAND_WORD);
         commandList.put(AutoCommand.COMMAND_WORD, AutoCommand.COMMAND_WORD);
+        commandList.put(UndoCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD);
+        commandList.put(RedoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD);
     }
 }

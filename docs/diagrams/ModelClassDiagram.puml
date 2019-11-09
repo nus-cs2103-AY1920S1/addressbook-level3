@@ -9,6 +9,7 @@ Interface ReadOnlyTutorAid <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Class TutorAid
+Class VersionedTutorAid
 Class ReadOnlyTutorAid
 Class Model
 Class ModelManager
@@ -76,17 +77,18 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 TutorAid .up.|> ReadOnlyTutorAid
+VersionedTutorAid .up.|> TutorAid
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" TutorAid
+ModelManager o--> "1" VersionedTutorAid
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-TutorAid *--> Account
+VersionedTutorAid *--> Account
 Account *--> Username
 
-TutorAid *--> "1" UniquePersonList
+VersionedTutorAid *--> "1" UniquePersonList
 UniquePersonList o--> "*" Person
 Person *--> Attendance
 Person *--> ClassId
@@ -95,30 +97,30 @@ Person *--> Participation
 Person *--> Name
 Person *--> Picture
 
-TutorAid *--> "1" TaskList
+VersionedTutorAid *--> "1" TaskList
 TaskList o--> "*" Task
 Task *--> ClassId
 Task *--> Marking
 Task *--> "*" TaskTime
 
-TutorAid *--> "1" UniqueEarningsList
+VersionedTutorAid *--> "1" UniqueEarningsList
 UniqueEarningsList o--> "*" Earnings
 Earnings *--> Amount
 Earnings *--> Module
 Earnings *--> Date
 Earnings *--> Type
 
-TutorAid *--> "1" UniqueNotesList
+VersionedTutorAid *--> "1" UniqueNotesList
 UniqueNotesList o--> "*" Notes
 Notes *--> ModuleCode
 Notes *--> Content
 
-TutorAid *--> "1" UniqueReminderList
+VersionedTutorAid *--> "1" UniqueReminderList
 UniqueReminderList o--> "*" Reminder
 Reminder *--> ReminderDescription
 Reminder *--> ReminderTime
 
-TutorAid *--> "1" UniqueCommandsList
+VersionedTutorAid *--> "1" UniqueCommandsList
 UniqueCommandsList o--> "*" CommandObject
 CommandObject *--> CommandWord
 CommandObject *--> CommandAction

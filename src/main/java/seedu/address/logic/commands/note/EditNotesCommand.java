@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.note;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.List;
@@ -16,8 +16,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.note.Content;
-import seedu.address.model.note.ModuleCode;
 import seedu.address.model.note.Notes;
 
 /**
@@ -30,7 +30,7 @@ public class EditNotesCommand extends Command {
             + "by the index number used in the displayed notes list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_MODULE_CODE + "NAME] "
+            + "[" + PREFIX_CLASSID + "NAME] "
             + "[" + PREFIX_CONTENT + "CONTENT] "
             + "Example: " + COMMAND_WORD + " 1 ";
 
@@ -70,6 +70,7 @@ public class EditNotesCommand extends Command {
         }
 
         model.setNotes(notesToEdit, editedNote);
+        model.commitTutorAid();
         model.updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
         return new CommandResult(String.format(MESSAGE_EDIT_NOTES_SUCCESS, editedNote),
                 false, false, false, false, false,
@@ -83,7 +84,7 @@ public class EditNotesCommand extends Command {
     private static Notes createEditedNotes(Notes notesToEdit, EditNotesDescriptor editNotesDescriptor) {
         assert notesToEdit != null;
 
-        ModuleCode updatedCode = editNotesDescriptor.getCode().orElse(notesToEdit.getCode());
+        ClassId updatedCode = editNotesDescriptor.getCode().orElse(notesToEdit.getCode());
         Content updatedContent = editNotesDescriptor.getContent().orElse(notesToEdit.getContent());
 
         return new Notes(updatedCode, updatedContent);
@@ -112,7 +113,7 @@ public class EditNotesCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditNotesDescriptor {
-        private ModuleCode code;
+        private ClassId code;
         private Content content;
 
         public EditNotesDescriptor() {}
@@ -133,11 +134,11 @@ public class EditNotesCommand extends Command {
             return CollectionUtil.isAnyNonNull(code, content);
         }
 
-        public void setModuleCode(ModuleCode code) {
+        public void setModuleCode(ClassId code) {
             this.code = code;
         }
 
-        public Optional<ModuleCode> getCode() {
+        public Optional<ClassId> getCode() {
             return Optional.ofNullable(code);
         }
 

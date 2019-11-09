@@ -49,7 +49,7 @@ public class SetPictureCommandTest {
 
         Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
         expectedModel.setPerson(personToSetPicture, personWithPictureSet);
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(setPictureCommand, model, expectedMessage, expectedModel);
     }
 
@@ -62,7 +62,7 @@ public class SetPictureCommandTest {
         String expectedMessage = String.format(SetPictureCommand.MESSAGE_EDIT_PERSON_SUCCESS, setPicturePerson);
 
         Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(setPictureCommand, model, expectedMessage, expectedModel);
     }
 
@@ -79,7 +79,7 @@ public class SetPictureCommandTest {
 
         Model expectedModel = new ModelManager(new TutorAid(model.getTutorAid()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), personWithPictureSet);
-
+        expectedModel.commitTutorAid();
         assertCommandSuccess(setPictureCommand, model, expectedMessage, expectedModel);
     }
 

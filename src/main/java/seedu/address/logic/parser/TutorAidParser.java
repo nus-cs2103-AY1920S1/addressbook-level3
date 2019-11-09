@@ -33,9 +33,11 @@ import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.MarkAttendanceCommand;
 import seedu.address.logic.commands.MarkParticipationCommand;
 import seedu.address.logic.commands.NewCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
 import seedu.address.logic.commands.SetPictureCommand;
 import seedu.address.logic.commands.TotalEarningsCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UnknownCommand;
 import seedu.address.logic.commands.UpdateEarningsCommand;
 import seedu.address.logic.commands.calendar.AddTaskCommand;
@@ -260,6 +262,12 @@ public class TutorAidParser {
 
             case SetPictureCommand.COMMAND_WORD:
                 return new SetPictureCommandParser().parse(arguments);
+
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand();
+
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand();
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

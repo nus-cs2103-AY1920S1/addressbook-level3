@@ -28,7 +28,6 @@ import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.PersonBuilder;
 
-//import seedu.address.model.ReadOnlyCalendar;
 
 public class AddCommandTest {
 
@@ -188,7 +187,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setTutorAid(ReadOnlyTutorAid newData) {
+        public void setVersionedTutorAid(ReadOnlyTutorAid newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -344,6 +343,31 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredCalendarList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitTutorAid() {
+
+        }
+
+        @Override
+        public boolean canUndoTutorAid() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoTutorAid() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoTutorAid() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoTutorAid() {
             throw new AssertionError("This method should not be called.");
         }
     }

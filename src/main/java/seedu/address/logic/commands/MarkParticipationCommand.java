@@ -58,6 +58,7 @@ public class MarkParticipationCommand extends Command {
             Person editedPerson = createEditedPerson(personToEdit, personToEdit.getParticipation());
             model.setPerson(personToEdit, editedPerson);
         }
+        model.commitTutorAid();
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_MARK_SUCCESS),
