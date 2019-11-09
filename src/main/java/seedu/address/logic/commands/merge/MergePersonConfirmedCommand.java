@@ -42,8 +42,29 @@ public class MergePersonConfirmedCommand extends MergeConfirmedCommand {
         Person originalPerson = previousMergeCommand.getOriginalPerson();
         Person inputPerson = previousMergeCommand.getInputPerson();
         String fieldType = previousMergeCommand.getNextMergeFieldType();
-        EditCommand.EditPersonDescriptor editPersonDescriptor = new EditCommand.EditPersonDescriptor();
+        EditCommand.EditPersonDescriptor editPersonDescriptor = getEditPersonDescriptor(fieldType, inputPerson);
         logger.info("Executing merge: editing " + fieldType);
+        EditCommand edit = new EditCommand();
+        Person editedPerson = edit.executeForMerge(originalPerson, editPersonDescriptor, model);
+        previousMergeCommand.updateOriginalPerson(editedPerson);
+        if (isLastMerge()) {
+            return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
+                    + "\n" + String.format(previousMergeCommand.MESSAGE_SUCCESS,
+                    previousMergeCommand.getOriginalPerson()));
+        } else {
+            previousMergeCommand.removeFirstDifferentField();
+            String nextMerge = previousMergeCommand.getNextMergePrompt();
+            return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
+                    + "\n" + nextMerge);
+        }
+    }
+
+    /**
+     * Creates an EditPersonDescriptor to be used to update the field.
+     *
+     */
+    public EditCommand.EditPersonDescriptor getEditPersonDescriptor(String fieldType, Person inputPerson) {
+        EditCommand.EditPersonDescriptor editPersonDescriptor = new EditCommand.EditPersonDescriptor();
         switch(fieldType) {
         case Phone.DATA_TYPE:
             editPersonDescriptor.setPhone(inputPerson.getPhone());
@@ -63,19 +84,7 @@ public class MergePersonConfirmedCommand extends MergeConfirmedCommand {
         default:
             break;
         }
-        EditCommand edit = new EditCommand();
-        Person editedPerson = edit.executeForMerge(originalPerson, editPersonDescriptor, model);
-        previousMergeCommand.updateOriginalPerson(editedPerson);
-        if (isLastMerge()) {
-            return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
-                    + "\n" + String.format(previousMergeCommand.MESSAGE_SUCCESS,
-                    previousMergeCommand.getOriginalPerson()));
-        } else {
-            previousMergeCommand.removeFirstDifferentField();
-            String nextMerge = previousMergeCommand.getNextMergePrompt();
-            return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
-                    + "\n" + nextMerge);
-        }
+        return editPersonDescriptor;
     }
 
     @Override
