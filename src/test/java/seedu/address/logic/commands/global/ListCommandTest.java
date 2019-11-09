@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.global;
 
+/* Unused test, kept as reference
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 //import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -15,6 +16,7 @@ import seedu.address.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
  */
+/*
 public class ListCommandTest {
 
     private Model model;
@@ -36,5 +38,5 @@ public class ListCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
-    */
 }
+*/

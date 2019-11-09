@@ -30,7 +30,6 @@ import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.NoteBuilder;
 
@@ -150,11 +149,6 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addNote(Note note) {
             throw new AssertionError("This method should not be called.");
         }
@@ -180,21 +174,6 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasNote(Note note) {
             throw new AssertionError("This method should not be called.");
         }
@@ -211,16 +190,6 @@ public class AddNoteCommandTest {
 
         @Override
         public void updateFilteredNoteList(Predicate<Note> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
