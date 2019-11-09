@@ -308,7 +308,7 @@ be removed from the HashMap as well.
   `[green]#Model#` carries a common copy of all the data stored in Athletick.
 
 The _Observer Pattern_ is adopted when displaying `[green]#Performance#` data through the `[green]#UI#`.
-`[green]#Model#` exposes an unmodifable `[green]#ObservableList<Event>#` through
+`[green]#Model#` exposes an unmodifiable `[green]#ObservableList<Event>#` through
 `[green]#Model#getPerformance#` that returns a `[green]#ReadOnlyPerformance#`. It can be 'observed'
 and is updated accordingly when data in`[green]#Performance#` changes.
 
@@ -322,17 +322,23 @@ Deleting an event (with `[green]#DeleteEventCommand#`) does the opposite. The in
 50m` will call `[green]#Model#deleteEvent()#`, after making sure the event exists in Athletick by getting a
 boolean from `[green]#Model#hasEvent()#`.
 
+Operations for `[green]#Record#` - adding and deleting - work similarly as well, though there are more
+methods involved as there is a greater degree of nesting.
+
 The workflow for adding a record can be illustrated by the Activity Diagram below, with an example input
 `performance 1 e/freestyle 50m d/31102019 t/31.20` (ie. adding a performance record for the player at index
 1, for the freestyle 50m event in 31.20 seconds on 31st October 2019).
 
+.Activity diagram showing how a Record is added to an Event.
 image::addrecord_activitydiagram.png[width="700"]
 
+Users can also view all `[green]#Record#` s under an `[green]#Event#` using `view records e/EVENT_NAME`.
+The sequence diagram below illustrates how the Ui is involved when `[green]#Record#` viewing is executed.
+
+.Sequence diagram showing how Records are viewed.
+image::viewrecords_sequencediagram.png[width="700"]
+
 ==== Design Considerations
-
-efefef
-
-
 
 === Calendar feature
 
