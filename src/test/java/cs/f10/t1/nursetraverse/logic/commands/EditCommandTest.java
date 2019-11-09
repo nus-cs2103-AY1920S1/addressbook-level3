@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
+import cs.f10.t1.nursetraverse.model.AppointmentBook;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.PatientBook;
@@ -23,6 +24,7 @@ import cs.f10.t1.nursetraverse.model.UserPrefs;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.testutil.EditPatientDescriptorBuilder;
 import cs.f10.t1.nursetraverse.testutil.PatientBuilder;
+import cs.f10.t1.nursetraverse.testutil.TypicalAppointments;
 import cs.f10.t1.nursetraverse.testutil.TypicalIndexes;
 import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
 
@@ -32,7 +34,8 @@ import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs(),
+                                           TypicalAppointments.getTypicalAppointmentBook());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -45,7 +48,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PATIENT_SUCCESS, editedPatient);
 
-        Model expectedModel = new ModelManager(new PatientBook(model.getStagedPatientBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PatientBook(model.getStagedPatientBook()), new UserPrefs(),
+                                               new AppointmentBook(model.getStagedAppointmentBook()));
         expectedModel.setPatient(model.getFilteredPatientList().get(3), editedPatient);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -66,7 +70,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PATIENT_SUCCESS, editedPatient);
 
-        Model expectedModel = new ModelManager(new PatientBook(model.getStagedPatientBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PatientBook(model.getStagedPatientBook()), new UserPrefs(),
+                                               new AppointmentBook(model.getStagedAppointmentBook()));
         expectedModel.setPatient(lastPatient, editedPatient);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -80,7 +85,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PATIENT_SUCCESS, editedPatient);
 
-        Model expectedModel = new ModelManager(new PatientBook(model.getStagedPatientBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PatientBook(model.getStagedPatientBook()), new UserPrefs(),
+                                               new AppointmentBook(model.getStagedAppointmentBook()));
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -97,8 +103,10 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PATIENT_SUCCESS, editedPatient);
 
-        Model expectedModel = new ModelManager(new PatientBook(model.getStagedPatientBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new PatientBook(model.getStagedPatientBook()), new UserPrefs(),
+                                               new AppointmentBook(model.getStagedAppointmentBook()));
         expectedModel.setPatient(model.getFilteredPatientList().get(0), editedPatient);
+        expectedModel.setAppointments(patientInFilteredList, editedPatient);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

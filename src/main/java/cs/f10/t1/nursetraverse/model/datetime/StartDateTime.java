@@ -1,5 +1,7 @@
 package cs.f10.t1.nursetraverse.model.datetime;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -29,9 +31,18 @@ public class StartDateTime extends DateTime {
     }
 
     /**
-     * Returns if a given string is a valid dateTime.
+     * Returns true if a given string is a valid dateTime.
      */
     public static boolean isValidStartDateTime(String test) {
         return isValidDateTime(test);
+    }
+
+    /**
+     * Returns true if a given string is dateTime after the system's dateTime.
+     */
+    public static boolean isAfterSystemDateTime(String test) {
+        LocalDateTime startDateTime = parseDateTime(test);
+        LocalDateTime systemDateTime = LocalDateTime.now(ZoneId.systemDefault());
+        return startDateTime.isAfter(systemDateTime);
     }
 }

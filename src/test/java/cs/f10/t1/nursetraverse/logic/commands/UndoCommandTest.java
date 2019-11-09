@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import cs.f10.t1.nursetraverse.model.AppointmentBook;
 import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
@@ -23,7 +24,7 @@ public class UndoCommandTest {
         MutatorCommand commandToUndo = new DummyMutatorCommand("1");
         Model expectedModel = new ModelManager();
         String expectedMessage = UndoCommand.makeResultString(List.of(
-                        new HistoryRecord(commandToUndo, new PatientBook())));
+                        new HistoryRecord(commandToUndo, new PatientBook(), new AppointmentBook())));
 
         CommandTestUtil.assertCommandSuccess(commandToUndo, model,
                 String.format(DummyMutatorCommand.RESULT_PREAMBLE, "1"), expectedModel);

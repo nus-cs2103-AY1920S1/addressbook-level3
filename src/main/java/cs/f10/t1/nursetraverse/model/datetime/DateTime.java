@@ -7,8 +7,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Locale;
 
 import cs.f10.t1.nursetraverse.commons.util.AppUtil;
 
@@ -82,6 +84,29 @@ public class DateTime {
      */
     public String toJacksonJsonString() {
         return DATE_PARSER_VALIDATOR.format(dateTime);
+    }
+
+    private String getDateSuffix(int date) {
+        return (date == 1) ? "st" : (date == 2) ? "nd" : (date == 3) ? "rd" : "th";
+    }
+
+    /**
+     * Convert date to a string for showing in UI
+     * @return dateTime as a string
+     */
+    public String toUiString() {
+        String minutes = String.format("%02d", dateTime.getMinute());
+        String hours = String.format("%02d", dateTime.getHour());
+        String day = dateTime.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.getDefault());
+
+        int dateInt = dateTime.getDayOfMonth();
+        String suffix = getDateSuffix(dateInt);
+        String date = String.format("%02d", dateInt);
+
+        String month = dateTime.getMonth().getDisplayName(TextStyle.SHORT, Locale.getDefault());
+        String year = String.format("%02d", dateTime.getYear());
+
+        return day + ", " + date + suffix + " of " + month + " " + year + ", " + hours + ":" + minutes;
     }
 
     @Override

@@ -15,14 +15,17 @@ import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.UserPrefs;
 import cs.f10.t1.nursetraverse.model.patient.NameContainsKeywordsPredicate;
+import cs.f10.t1.nursetraverse.testutil.TypicalAppointments;
 import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs(),
+                                           TypicalAppointments.getTypicalAppointmentBook());
+    private Model expectedModel = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs(),
+                                                   TypicalAppointments.getTypicalAppointmentBook());
 
     @Test
     public void equals() {

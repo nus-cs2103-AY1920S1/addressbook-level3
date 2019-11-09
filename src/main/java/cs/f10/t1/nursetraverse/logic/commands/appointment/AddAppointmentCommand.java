@@ -50,6 +50,8 @@ public class AddAppointmentCommand extends MutatorCommand {
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists "
             + "in the appointment book";
+    public static final String MESSAGE_CLASHING_APPOINTMENT = "This appointment clashes with another appointment "
+            + "in the appointment book";
 
     private Appointment toAdd;
 
@@ -69,6 +71,9 @@ public class AddAppointmentCommand extends MutatorCommand {
 
         if (model.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
+        if (model.hasClashingAppointment(toAdd)) {
+            throw new CommandException(MESSAGE_CLASHING_APPOINTMENT);
         }
 
         model.addAppointment(toAdd);
