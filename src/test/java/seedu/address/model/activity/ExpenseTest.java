@@ -24,4 +24,12 @@ public class ExpenseTest {
         expense.delete();
         assertTrue(expense.isDeleted());
     }
+
+    @Test
+    public void isSettlement_makeSettlement() {
+        Expense expense = new Expense(BENSON.getPrimaryKey(), amount, description);
+        assertFalse(expense.isSettlement());
+        expense.setIsSettlement(true);
+        assertTrue(expense.isSettlement());
+    }
 }
