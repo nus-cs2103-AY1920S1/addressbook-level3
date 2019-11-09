@@ -479,7 +479,7 @@ image::SavingsSuccessMessage.png[]
 |===
 
 ==== Withdraw money from user's savings account into wallet: `withdraw`
-The user can withdraw a sum of from his/her savings account, and add it into his/her wallet.
+The user can withdraw a sum from his/her savings account, and add it into his/her wallet.
 
 ****
 *Format*: `withdraw AMOUNT` +
@@ -496,8 +496,8 @@ Also, you cannot withdraw an amount that will result in your wallet having more 
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[| :white_check_mark: a| You will see a success message and the amount of money you have saved in your savings account.]
-ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and the amount of money you have saved in your savings account. You will be able to view your withdrawals in the savings history tab. The savings will appear RED. ]
+ifdef::env-github[| :white_check_mark: a| You will see a success message and the amount of money you have withdrawn from your savings account. You will be able to view your withdrawals in the savings history tab. The withdrawals will appear RED.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and the amount of money you have withdrawn from your savings account. You will be able to view your withdrawals in the savings history tab. The withdrawals will appear RED. ]
 
 .Example withdrawal display when "Savings" is clicked as shown after withdrawals are made.
 image::SavingsWithdrawn.png[]
