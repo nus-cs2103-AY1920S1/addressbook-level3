@@ -39,7 +39,7 @@ public class WorkoutHistory {
         }
         Duration totalDuration = Duration.ZERO;
         for (WorkoutRun run : previousRuns) {
-            totalDuration.plus(run.getTotalTimeTaken());
+            totalDuration = totalDuration.plus(run.getTotalTimeTaken());
         }
         return totalDuration.dividedBy((long) previousRuns.size());
     }
@@ -54,6 +54,20 @@ public class WorkoutHistory {
 
     public ArrayList<WorkoutRun> getPreviousRuns() {
         return previousRuns;
+    }
+
+    /**
+     * Returns averageRunTime in a format that is more understandable.
+     */
+    public String getAverageRunTimeString() {
+        long seconds = averageRunTime.getSeconds();
+        long absSeconds = Math.abs(seconds);
+        String positive = String.format(
+                "%d:%02d:%02d",
+                absSeconds / 3600, (
+                        absSeconds % 3600) / 60,
+                absSeconds % 60);
+        return seconds < 0 ? "-" + positive : positive;
     }
 
     /**

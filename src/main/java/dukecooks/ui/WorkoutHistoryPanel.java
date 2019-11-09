@@ -48,8 +48,8 @@ public class WorkoutHistoryPanel extends UiPart<Region> {
         name.setText(workout.getName().workoutName);
         intensity.setText("Intensity: " + workout.getAverageIntensity().toString());
         noTimesRan.setText("Number of times completed: " + String.valueOf(workout.getHistory().getNoTimesRan()));
-        averageRunTime.setText("Average Run Time"
-                + String.valueOf(workout.getHistory().getAverageRunTime()));
+        averageRunTime.setText("Average Run Time: "
+                + workout.getHistory().getAverageRunTimeString());
         initMusclesTrained();
         initExercisesDetails();
         initRuns();
@@ -133,7 +133,7 @@ public class WorkoutHistoryPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Workout} using a {@code WorkoutRunCard}.
      */
 
     class WorkoutRunListViewCell extends ListCell<WorkoutRun> {

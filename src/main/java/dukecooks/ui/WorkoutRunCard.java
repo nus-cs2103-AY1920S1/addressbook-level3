@@ -30,6 +30,6 @@ public class WorkoutRunCard extends UiPart<Region> {
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
         totalExercisesCompleted.setText("Total Exercises Completed: "
                 + run.getTotalExercisesCompleted());
-        totalTimeTaken.setText("Total time taken" + run.getTotalTimeTakenString());
+        totalTimeTaken.setText("Total time taken: " + run.getTotalTimeTakenString());
     }
 }

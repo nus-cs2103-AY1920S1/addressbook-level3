@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import dukecooks.model.workout.Workout;
+import dukecooks.model.workout.exercise.components.Exercise;
 
 /**
  * Represents the result of a command execution.
@@ -28,7 +29,11 @@ public class CommandResult {
 
     private final boolean isViewWorkout;
 
+    private final boolean isViewExercise;
+
     private Workout workoutToRun;
+
+    private Exercise exerciseToView;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -41,6 +46,7 @@ public class CommandResult {
         this.exit = exit;
         this.isRunWorkout = isRunWorkout;
         isViewWorkout = false;
+        isViewExercise = false;
     }
 
     /**
@@ -55,6 +61,22 @@ public class CommandResult {
         this.isRunWorkout = isRunWorkout;
         this.workoutToRun = workoutToRun;
         this.isViewWorkout = isViewWorkout;
+        isViewExercise = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showReward, boolean showHelp, boolean exit,
+                         boolean isRunWorkout, Exercise exerciseToView, boolean isViewExercise) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showReward = showReward;
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.isRunWorkout = isRunWorkout;
+        this.isViewWorkout = false;
+        this.isViewExercise = isViewExercise;
+        this.exerciseToView = exerciseToView;
     }
 
     /**
@@ -91,6 +113,14 @@ public class CommandResult {
 
     public boolean isViewWorkout() {
         return isViewWorkout;
+    }
+
+    public Exercise getExerciseToView() {
+        return exerciseToView;
+    }
+
+    public boolean isViewExercise() {
+        return isViewExercise;
     }
 
     @Override
