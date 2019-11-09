@@ -114,6 +114,7 @@ be used in the financial analysis.
 
 === Code contributed
 The code that I wrote for my features can be found in the following links:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=EvonDong&tabRepo=AY1920S1-CS2103T-T13-3%2Fmain%5Bmaster%5D[RepoSense],
 https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/address/cashier[Functional Code],
 https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/address/cashier[Test Code]
 
@@ -148,7 +149,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)]
 ** Added implementation details for the `Cashier Tab`:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/164[(PR #164)],
-https://github.com/AY1920S1-CS2103T-T13-3/main/pull/162[(PR #162)]
+,https://github.com/AY1920S1-CS2103T-T13-3/main/pull/162[(PR #162)]
 
 ** Added guide to use `Cashier Tab` in user guide:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)],
