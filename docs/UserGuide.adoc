@@ -195,6 +195,7 @@ If successfully edited, the edited information of Roy (now Shawn) will be displa
 
 The team list should also reflect Roy's new details.
 
+// tag::training[]
 === Training
 *Athletick* allows you to record your team's training sessions, so that you can store important information like
 date of training and training attendance. After adding a training session, you can look at past trainings to check
@@ -357,6 +358,8 @@ If the command is successful, the result box will display the following result a
 feature box will show you your team's overall attendance rate.
 
 image::view_attendance_after.png[width=350]
+
+// end::training[]
 
 
 === Performance
@@ -579,7 +582,7 @@ image::calendar11.png[width=450]
 
 This command shows the profile of the athlete that you have selected.
 
-Let's say you want to view David's personal information.
+Let's say you want to view Michael's personal information.
 
 *What you should do*
 
