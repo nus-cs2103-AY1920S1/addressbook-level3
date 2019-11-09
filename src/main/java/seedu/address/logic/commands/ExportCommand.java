@@ -13,7 +13,8 @@ public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
 
-    public static final String MESSAGE_SUCCESS = "Exporting the current schedule showing...";
+    public static final String MESSAGE_SUCCESS = "Exporting the full schedule at this week.\n"
+            + "Exported image shows the schedules for the entire group or specific individual.";
     public static final String MESSAGE_FAILURE = "No schedule to export! Please ensure that there is a schedule in "
             + "your schedule window display before you use the command!";
     public static final String MESSAGE_USAGE = "Export command does not take in any arguments!";
