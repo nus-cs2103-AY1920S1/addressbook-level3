@@ -214,13 +214,13 @@ public class CommandResultTest {
     @Test
     public void getCalendarDate() {
         assertThrows(CommandException.class, () -> TYPICAL_EXIT_COMMAND_RESULT.getCalendarDate());
-        assertDoesNotThrow(()->assertEquals(TYPICAL_CALENDAR_COMMAND_RESULT.getCalendarDate(), localDate));
+        assertDoesNotThrow(() -> assertEquals(TYPICAL_CALENDAR_COMMAND_RESULT.getCalendarDate(), localDate));
     }
 
     @Test
     public void getCalendarCommandTyoe() {
         assertThrows(CommandException.class, () -> TYPICAL_EXIT_COMMAND_RESULT.getCalendarCommandType());
-        assertDoesNotThrow(()->assertEquals(TYPICAL_CALENDAR_COMMAND_RESULT.getCalendarCommandType(),
+        assertDoesNotThrow(() -> assertEquals(TYPICAL_CALENDAR_COMMAND_RESULT.getCalendarCommandType(),
                 calendarCommandType));
     }
 
