@@ -24,8 +24,8 @@ public class ReminderCommandParser {
      */
     public ReminderCommand parse(String args, String def) throws ParseException {
         int r;
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_REMINDER);
+        System.out.println(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_REMINDER);
 
         if (args.equals("")) {
             r = Integer.valueOf(def);
@@ -33,7 +33,11 @@ public class ReminderCommandParser {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
         } else {
-            r = Integer.parseInt(argMultimap.getValue(PREFIX_REMINDER).get().trim());
+            try {
+                r = Integer.parseInt(argMultimap.getValue(PREFIX_REMINDER).get().trim());
+            } catch (NumberFormatException nfe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
+            }
         }
 
         if (r < 0) {

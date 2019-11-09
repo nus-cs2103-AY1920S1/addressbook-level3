@@ -11,7 +11,7 @@ import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.GroceryItem;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Food}.
  */
 public class IsExpiringGroceryCard extends UiPart<Region> {
     private static final String FXML = "IsExpiringGroceryCard.fxml";

@@ -71,6 +71,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+//tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
@@ -79,7 +80,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `GroceryListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -87,6 +88,8 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+//end::uicomponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -303,6 +306,13 @@ It supports any kinds of grocery command which modifies the content of the groce
 grocery command modifies both grocery list and waste list, each grocery command will call
 `Model#commitGroceryList` and `Model#commitWasteList` so that undoing/redoing a grocery delete command will update both
 grocery list and waste list, while the other commands will only modify the grocery list.
+
+image::UndoRedoState0.png[]
+image::UndoRedoState1.png[]
+image::UndoRedoState2.png[]
+image::UndoRedoState3.png[]
+image::UndoRedoState4.png[]
+image::UndoRedoState5.png[]
 
 //end::groceryundoredofeature[]
 
