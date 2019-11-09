@@ -14,6 +14,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 
+//@@author davidcwh
 /**
  * Adds an expense to an existing archive.
  * If the archive does not exist, create a new archive to store the expense.
