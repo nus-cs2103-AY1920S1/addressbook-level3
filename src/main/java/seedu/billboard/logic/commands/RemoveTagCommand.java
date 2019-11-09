@@ -73,7 +73,8 @@ public class RemoveTagCommand extends TagCommand {
 
         model.setExpense(expenseToEdit, editedExpense);
 
-        return new CommandResult(String.format(MESSAGE_RM_TAG_SUCCESS, editedExpense));
+        return new CommandResult(String.format(MESSAGE_RM_TAG_SUCCESS, editedExpense),
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     /**
