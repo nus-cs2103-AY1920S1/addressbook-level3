@@ -79,12 +79,9 @@ public class StatsWindow extends UiPart<Stage> {
         xAxisC.setLabel("Test Number");
         yAxisC.setLabel("Percentage");
 
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("good"));
-        int numGood = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("hard"));
-        int numHard = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("easy"));
-        int numEasy = model.getFilteredFlashCardList().size();
+        int numGood = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("good")).size();
+        int numHard = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("hard")).size();
+        int numEasy = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("easy")).size();
 
         int[] stats = model.getTestStats();
 
