@@ -2,16 +2,16 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":PlannerParser" as PlannerParser LOGIC_COLOR
-participant ":ScheduleCommandParser" as ScheduleCommandParser LOGIC_COLOR
-participant "a:ScheduleActivityCommand" as ScheduleActivityCommand LOGIC_COLOR
+participant "**:LogicManager**" as LogicManager LOGIC_COLOR
+participant "**:PlannerParser**" as PlannerParser LOGIC_COLOR
+participant "**:ScheduleCommandParser**" as ScheduleCommandParser LOGIC_COLOR
+participant "**a:ScheduleActivityCommand**" as ScheduleActivityCommand LOGIC_COLOR
 end box
 
-[-> LogicManager : execute("schedule activity 2 st/1300 et/1400 d/1")
+[-> LogicManager : **execute("schedule 2 st/1300 d/1")**
 activate LogicManager
 
-LogicManager -> PlannerParser : parseCommand("schedule activity 2 st/1300 et/1400 d/1")
+LogicManager -> PlannerParser : **parseCommand("schedule 2 st/1300 d/1")**
 activate PlannerParser
 
 create ScheduleCommandParser
@@ -21,38 +21,32 @@ activate ScheduleCommandParser
 ScheduleCommandParser --> PlannerParser
 deactivate ScheduleCommandParser
 
-PlannerParser -> ScheduleCommandParser : parse("activity 2 st/1300 et/1400 d/1")
-activate ScheduleCommandParser
-
-ScheduleCommandParser -> ScheduleCommandParser : parseActivity("2 st/1300 et/1400 d/1")
+PlannerParser -> ScheduleCommandParser : **parse("2 st/1300 d/1")**
 activate ScheduleCommandParser
 
 create ScheduleActivityCommand
 ScheduleCommandParser -> ScheduleActivityCommand
 activate ScheduleActivityCommand
 
-ScheduleActivityCommand --> ScheduleCommandParser : a
+ScheduleActivityCommand --> ScheduleCommandParser : **a**
 deactivate ScheduleActivityCommand
 
-ScheduleCommandParser --> ScheduleCommandParser : a
-
-deactivate ScheduleCommandParser
-
-ScheduleCommandParser --> PlannerParser : a
+ScheduleCommandParser --> PlannerParser : **a**
 deactivate ScheduleCommandParser
 
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 ScheduleCommandParser -[hidden]-> PlannerParser
 destroy ScheduleCommandParser
 
-PlannerParser --> LogicManager : a
+PlannerParser --> LogicManager : **a**
 deactivate PlannerParser
 
-LogicManager -> ScheduleActivityCommand : execute()
+LogicManager -> ScheduleActivityCommand : **execute()**
 activate ScheduleActivityCommand
 
+ref over ScheduleActivityCommand : **update day**
 
-ScheduleActivityCommand --> LogicManager : result
+ScheduleActivityCommand --> LogicManager : **result**
 deactivate ScheduleActivityCommand
 
 [<--LogicManager

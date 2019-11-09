@@ -385,7 +385,7 @@ Aspect: Execution
 === Schedule feature
 
 *_Plan²travel_* allows user to schedule an activity from the activity list to a specified time of a day.
-This is accomplished by executing the Schedule Command using user inputted `ACTIVITY_INDEX`, `DAY_INDEX`and `start time`.
+This is accomplished by executing the `ScheduleCommand` with `activity index`, `start time` and  `day index`.
 
 Eg. `schedule ACTIVITY_INDEX st/START_TIME d/DAY_INDEX`
 
@@ -397,7 +397,7 @@ These are then passed to the `ScheduleCommand` for execution later on.
 Given below is a sequence diagram showing the creation of `ScheduleCommand`:
 
 .Sequence diagram showing how ScheduleCommand is created.
-image::ScheduleCommandExecution.png[]
+image::ScheduleCommandCreation.png[]
 
 After the creation of `ScheduleCommand`, `LogicManager` will proceed to call the `execute()` method of `ScheduleCommand`.
 
@@ -418,16 +418,16 @@ and targeted `Day` from list of days.
 Given below is a sequence diagram showing the execution of `ScheduleCommand`:
 
 .Sequence diagram showing how ScheduleCommand executes.
-image::ScheduleActivityExecution.png[]
+image::ScheduleCommandExecution.png[]
 
 ==== Design Considerations
 
 ===== Aspect: Update activities for that particular day
 
-* **Current Choice:** Create a new `Day` class with the new updated activity list to replace the targeted `Day` class.
+* **Alternative:** Create a new `Day` class with the new updated activity list to replace the targeted `Day` class.
 ** Pros: Easier for developer to test the code.
 ** Cons: Might create unnecessary overheads in the code by creating new object every time we schedule an activity.
-* **Alternative:** Directly updates the activity list in the targeted `Day` class.
+* **Current Choice:** Directly updates the activity list in the targeted `Day` class.
 ** Pros: Seem more intuitive and simple to implement.
 ** Cons: Might make it harder to debug error that surface if many other functions/classes also depends on the same `Day` class.
 // end::scheduleactivity[]

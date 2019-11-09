@@ -2,70 +2,70 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":ScheduleActivityCommand" as ScheduleActivityCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "**:ScheduleCommand**" as ScheduleCommand LOGIC_COLOR
+participant "**:CommandResult**" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
-participant ":Planner" as Planner MODEL_COLOR
-participant ":Itinerary" as Itinerary MODEL_COLOR
-participant "filteredItinerary :FilteredList" as FilteredList MODEL_COLOR
+participant "**:Model**" as Model MODEL_COLOR
+participant "**:Day**" as Day MODEL_COLOR
+participant "**:Timetable**" as Timetable MODEL_COLOR
+participant "**filteredItinerary :FilteredList**" as FilteredList MODEL_COLOR
 end box
 
-[-> ScheduleActivityCommand : execute()
-activate ScheduleActivityCommand
-ScheduleActivityCommand -> Model : getFilteredItinerary()
+[-> ScheduleCommand : **execute()**
+activate ScheduleCommand
+
+
+group update day
+
+ScheduleCommand -> Model : **getFilteredItinerary()**
 activate Model
 
-Model --> ScheduleActivityCommand
+Model --> ScheduleCommand
 deactivate Model
 
-ScheduleActivityCommand -> Model : getFilteredActivityList()
+ScheduleCommand -> Model : **getFilteredActivityList()**
 activate Model
 
-Model --> ScheduleActivityCommand
+Model --> ScheduleCommand
 deactivate Model
 
-ScheduleActivityCommand -> ScheduleActivityCommand : createScheduledActivityDay(dayToEdit, activitwithTimeToAdd)
-activate ScheduleActivityCommand
-
-ScheduleActivityCommand --> ScheduleActivityCommand : d
-deactivate ScheduleActivityCommand
-
-ScheduleActivityCommand -> Model : setDays(List<Days> days)
+ScheduleCommand -> Model : **scheduleActivity(dayToEdit, activityWithTimeToAdd)**
 activate Model
 
-Model -> Planner : setDays(editedDays)
-activate Planner
+Model -> Day : **addActivityWithTime(toAdd)**
+activate Day
 
-Planner -> Itinerary : setDays(editedDays)
-activate Itinerary
+Day -> Timetable : **addActivityWithTime(toAdd)**
+activate Timetable
 
-Itinerary --> Planner
-deactivate Itinerary
+Timetable --> Day
+deactivate Timetable
 
-Planner --> Model
-deactivate Planner
+Day --> Model
+deactivate Day
 
-Model -> FilteredList : updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS)
+Model -> FilteredList : **updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS)**
 activate FilteredList
 
 FilteredList --> Model
 deactivate FilteredList
 
-Model --> ScheduleActivityCommand
+Model --> ScheduleCommand
 deactivate Model
 
 create CommandResult
-ScheduleActivityCommand -> CommandResult
+ScheduleCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> ScheduleActivityCommand
+CommandResult --> ScheduleCommand
 deactivate CommandResult
 
-[<-- ScheduleActivityCommand : result
-deactivate ScheduleActivityCommand
+end
+
+[<-- ScheduleCommand : **result**
+deactivate ScheduleCommand
 
 
 @enduml
