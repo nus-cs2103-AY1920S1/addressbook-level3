@@ -15,7 +15,7 @@ public class Today {
         date.set(LocalDate.now());
     }
 
-    public ObjectProperty<LocalDate> dateProperty() {
+    public ObjectProperty<LocalDate> getDateProperty() {
         return date;
     }
 

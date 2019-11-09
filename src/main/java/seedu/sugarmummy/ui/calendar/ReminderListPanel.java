@@ -51,7 +51,7 @@ public class ReminderListPanel extends UiPart<Region> {
     private void initializeTodayDate(Today today) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EEE");
         StringBinding stringBinding = Bindings.createStringBinding(()->
-                dateTimeFormatter.format(today.dateProperty().get()), today.dateProperty());
+                dateTimeFormatter.format(today.getDateProperty().get()), today.getDateProperty());
         this.today.textProperty().bind(stringBinding);
         this.today.setStyle("-fx-background-color: #818A9E; -fx-text-fill: white; ");
     }

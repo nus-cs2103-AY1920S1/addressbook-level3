@@ -32,10 +32,19 @@ public class CalendarCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Here's the calendar of %1$s that I'm showing you! Any reminders "
             + "that you've added will be indicated here.";
+    public static final String MESSAGE_SUCCESS_RAW = "Here are all the reminders and events that you have added.";
 
     private final YearMonth yearMonth;
     private final Optional<YearMonthDay> yearMonthDay;
     private final boolean isShowingWeek;
+    private final boolean isShowingRaw;
+
+    public CalendarCommand() {
+        yearMonth = null;
+        yearMonthDay = null;
+        isShowingWeek = false;
+        isShowingRaw = true;
+    }
 
     /**
      * Creates an CalendarCommand to show the specified {@code yearMonth} and a list of calendar entries.
@@ -44,6 +53,7 @@ public class CalendarCommand extends Command {
         this.yearMonth = yearMonth;
         this.yearMonthDay = Optional.empty();
         isShowingWeek = false;
+        isShowingRaw = false;
     }
 
     /**
@@ -54,11 +64,15 @@ public class CalendarCommand extends Command {
         this.yearMonth = yearMonthDay.getYearMonth();
         this.yearMonthDay = Optional.of(yearMonthDay);
         this.isShowingWeek = isShowingWeek;
+        isShowingRaw = false;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (isShowingRaw) {
+            return new CommandResult(MESSAGE_SUCCESS_RAW);
+        }
         if (yearMonthDay.isPresent()) {
             return new CalendarCommandResult(String.format(MESSAGE_SUCCESS, yearMonth),
                     yearMonthDay.get(), isShowingWeek);
@@ -69,7 +83,11 @@ public class CalendarCommand extends Command {
 
     @Override
     public DisplayPaneType getDisplayPaneType() {
-        return DisplayPaneType.CALENDAR_MONTH;
+        if (isShowingRaw) {
+            return DisplayPaneType.CALENDAR_ENTRY;
+        } else {
+            return DisplayPaneType.CALENDAR_MONTH;
+        }
     }
 
     @Override
