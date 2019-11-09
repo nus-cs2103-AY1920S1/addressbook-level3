@@ -312,7 +312,7 @@ public class DateUtil {
         }
     }
 
-    //@@author austinsantosoo
+    //@@author austinsantoso
     /**
      * Returns today's date as a LocalDate.
      *
