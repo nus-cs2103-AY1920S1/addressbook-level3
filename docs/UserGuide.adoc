@@ -618,15 +618,21 @@ or even assignments?
 Unfortunately, since majority of the quiz commands rely on question and quiz question indexes, it is entirely up to the user
 to ensure the correct indexes of the questions or quiz questions have been entered.
 
-You may refer to <<Feature-Question-Add>> for examples on how to add questions and <<Feature-Question-List>> to view the list of questions added.
+You may refer to <<Feature-Question-Add, creating a question>> for examples on how to add questions and <<Feature-Question-List, listing the questions>> on how to view the current list of questions in the databank.
+
+[NOTE]
+For the following examples, we will be operating under the assumption that these sample
+questions are in the question bank.
+
+image::QuizQuestionList.PNG[]
 
 {nbsp} +
 
 ==== Creating a Quiz manually: `manual`
 
 Allows a user to create a quiz manually. +
-[NOTE]
-Format: `quiz manual quizID/... questionNumber/...`
+
+[big]*Format:* `quiz manual quizID/... questionNumber/... (One or more question numbers can be added)`
 
 The format supported by this feature includes:
 
@@ -641,8 +647,9 @@ Examples:
 
 * `quiz manual quizID/CS2103T questionNumber/1 2 3` +
 Adds question numbers 1, 2 and 3 to the quiz labelled CS2103T.
-* `quiz manual quizID/CS2103T questionNumber/5` +
-Adds question number 5 to the quiz labelled CS2103T.
+
+image::QuizManual1.PNG[]
+_Results of the create quiz manual command._
 
 ==== Creating a Quiz automatically: `auto`
 
@@ -651,8 +658,7 @@ Allows a user to create a quiz automatically. +
 [TIP]
 The questions chosen are randomised from the questions that you have previously added. As such, the user has to ensure enough questions are available in storage for quiz creation.
 
-[NOTE]
-Format: `quiz auto quizID/... numQuestions/... type/...`
+[big]*Format:* `quiz auto quizID/... numQuestions/... type/... (Type can either be mcq/open/all)`
 
 The format supported by this feature includes:
 
@@ -673,11 +679,20 @@ Adds 1 question of type open-ended to the quiz labelled CS2103T.
 * `quiz auto quizID/CS2103T numQuestions/3 type/all` +
 Adds 3 questions of any type to the quiz labelled CS2103T.
 
+image::QuizAuto1.PNG[]
+_Results of the first create quiz automatically command._
+
+image::QuizAuto2.PNG[]
+_Results of the second create quiz automatically command._
+
+image::QuizAuto3.PNG[]
+_Results of the third create quiz automatically command._
+
 ==== Adding a Question to a Quiz: `add`
 
 Allows a user to add a question to a quiz. +
-[NOTE]
-Format: `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
+
+[big]*Format:* `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
 
 The format supported by this feature includes:
 
@@ -693,8 +708,9 @@ Examples:
 
 * `quiz add quizID/CS2103T questionNumber/2 quizQuestionNumber/3` +
 Adds question 2 to the quiz question number 3 for the quiz labelled CS2103T.
-* `quiz add quizID/CS2103T questionNumber/4 quizQuestionNumber/1` +
-Adds question 4 to the quiz question number 1 for the quiz labelled CS2103T.
+
+image::QuizAdd1.PNG[]
+_Results of the add question to quiz command._
 
 ==== Deleting a Question from a Quiz: `delete`
 
@@ -703,8 +719,7 @@ Allows a user to delete a question from a quiz. +
 [TIP]
 Do take note that the user can only delete one question at a time.
 
-[NOTE]
-Format: `quiz delete quizID/... quizQuestionNumber/...`
+[big]*Format:* `quiz delete quizID/... quizID/... quizQuestionNumber/...`
 
 The format supported by this feature includes:
 
@@ -720,11 +735,14 @@ Examples:
 * `quiz delete quizID/CS2103T quizQuestionNumber/3` +
 Deletes the quiz question number 3 for the quiz labelled CS2103T.
 
+image::QuizDelete.PNG[]
+_Results of the delete question from quiz command._
+
 ==== Exporting a Quiz to HTML: `export`
 
 Allows a user to export a quiz to a formatted HTML file. This file is saved in a folder "currentDirectory/exports/". +
-[NOTE]
-Format: `quiz export quizID/...`
+
+[big]*Format:* `quiz export quizID/...`
 
 The format supported by this feature includes:
 
@@ -762,8 +780,8 @@ image::QuizExported.PNG[]
 ==== Listing a Quiz: `list`
 
 Allows a user to list a quiz's questions and answers. +
-[NOTE]
-Format: `quiz list quizID/...`
+
+[big]*Format:* `quiz list quizID/...`
 
 The format supported by this feature includes:
 
@@ -778,11 +796,14 @@ Examples:
 * `quiz list quizID/CS2103T` +
 Lists the questions and answers for the quiz labelled CS2103T.
 
+image::QuizList.PNG[]
+_Results of the list quiz command._
+
 ==== Showing only a Quiz's Questions: `showQuestions`
 
 Allows a user to show only a quiz's questions. +
-[NOTE]
-Format: `quiz showQuestions quizID/...`
+
+[big]*Format:* `quiz showQuestions quizID/...`
 
 The format supported by this feature includes:
 
@@ -797,11 +818,14 @@ Examples:
 * `quiz showQuestions quizID/CS2103T` +
 Shows only the questions for the quiz labelled CS2103T.
 
+image::QuizShowQuestions.PNG[]
+_Results of the show questions of quiz command._
+
 ==== Showing only a Quiz's Answers: `showAnswers`
 
 Allows a user to show only a quiz's answers. +
-[NOTE]
-Format: `quiz showAnswers quizID/...`
+
+[big]*Format:* `quiz showAnswers quizID/...`
 
 The format supported by this feature includes:
 
@@ -815,6 +839,9 @@ Examples:
 
 * `quiz showAnswers quizID/CS2103T` +
 Shows only the answers for the quiz labelled CS2103T.
+
+image::QuizShowAnswers.PNG[]
+_Results of the show answers of quiz command._
 
 === Events ​-​ `event`
 
