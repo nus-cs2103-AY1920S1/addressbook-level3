@@ -17,6 +17,7 @@ import seedu.scheduler.logic.commands.AddCommand;
 import seedu.scheduler.logic.commands.AddIntervieweeCommand;
 import seedu.scheduler.logic.commands.ClearCommand;
 import seedu.scheduler.logic.commands.DeleteCommand;
+import seedu.scheduler.logic.commands.DeleteIntervieweeCommand;
 import seedu.scheduler.logic.commands.DisplayCommand;
 import seedu.scheduler.logic.commands.EditCommand;
 import seedu.scheduler.logic.commands.EditIntervieweeCommand;
@@ -27,7 +28,6 @@ import seedu.scheduler.logic.commands.HelpCommand;
 import seedu.scheduler.logic.commands.ImportCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.person.Interviewee;
-import seedu.scheduler.model.person.Role;
 import seedu.scheduler.testutil.IntervieweeBuilder;
 import seedu.scheduler.testutil.IntervieweeUtil;
 import seedu.scheduler.testutil.PersonUtil;
@@ -53,11 +53,11 @@ public class SchedulerParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
+        DeleteCommand command = (DeleteIntervieweeCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " "
                         + ALICE_INTERVIEWEE.getName() + " "
                         + PREFIX_ROLE + "interviewee");
-        assertEquals(new DeleteCommand(ALICE_INTERVIEWEE.getName(), new Role("interviewee")), command);
+        assertEquals(new DeleteIntervieweeCommand(ALICE_INTERVIEWEE.getName()), command);
     }
 
     @Test

@@ -5,11 +5,13 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.scheduler.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.scheduler.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.scheduler.testutil.TypicalPersons.ALICE_INTERVIEWEE;
+import static seedu.scheduler.testutil.TypicalPersons.ALICE_INTERVIEWER;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.scheduler.logic.commands.DeleteCommand;
-import seedu.scheduler.model.person.Role;
+import seedu.scheduler.logic.commands.DeleteIntervieweeCommand;
+import seedu.scheduler.logic.commands.DeleteInterviewerCommand;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -25,7 +27,10 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser, ALICE_INTERVIEWEE.getName() + " " + PREFIX_ROLE + "interviewee",
-                new DeleteCommand(ALICE_INTERVIEWEE.getName(), new Role("interviewee")));
+                new DeleteIntervieweeCommand(ALICE_INTERVIEWEE.getName()));
+
+        assertParseSuccess(parser, ALICE_INTERVIEWER.getName() + " " + PREFIX_ROLE + "interviewer",
+                new DeleteInterviewerCommand(ALICE_INTERVIEWER.getName()));
     }
 
     @Test

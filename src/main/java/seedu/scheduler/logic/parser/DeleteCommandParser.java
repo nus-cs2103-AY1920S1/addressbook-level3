@@ -7,9 +7,12 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_ROLE;
 import java.util.stream.Stream;
 
 import seedu.scheduler.logic.commands.DeleteCommand;
+import seedu.scheduler.logic.commands.DeleteIntervieweeCommand;
+import seedu.scheduler.logic.commands.DeleteInterviewerCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
 import seedu.scheduler.model.person.Name;
 import seedu.scheduler.model.person.Role;
+import seedu.scheduler.model.person.RoleType;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -31,7 +34,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         Name name = ParserUtil.parseName(argMultimap.getPreamble());
         Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
 
-        return new DeleteCommand(name, role);
+        return role.getRole().equals(RoleType.INTERVIEWEE)
+                ? new DeleteIntervieweeCommand(name)
+                : new DeleteInterviewerCommand(name);
     }
 
     /**

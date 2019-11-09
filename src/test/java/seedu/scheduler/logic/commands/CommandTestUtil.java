@@ -110,6 +110,17 @@ public class CommandTestUtil {
     }
 
     /**
+     * Checks that the given {@code interviewer} exsits in the {@code model}.
+     */
+    public static void assertModelHasInterviewer(Model model, Interviewer interviewer) {
+        try {
+            model.getInterviewer(interviewer.getName().fullName);
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Interviewer does not exist in model.", e);
+        }
+    }
+
+    /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
