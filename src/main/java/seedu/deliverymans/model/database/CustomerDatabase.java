@@ -82,6 +82,9 @@ public class CustomerDatabase implements ReadOnlyCustomerDatabase {
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireNonNull(editedCustomer);
         customers.setCustomer(target, editedCustomer);
+        if (target.equals(customerOrders)) {
+            customerOrders = editedCustomer;
+        }
     }
 
     /**
