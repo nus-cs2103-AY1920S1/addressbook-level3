@@ -6,6 +6,7 @@ import java.util.Objects;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.util.TimeFormatter;
 
+//@@author raikonen
 /**
  * Represents a Purchase in the menu.
  * Guarantees: immutable.

@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 
 import seedu.savenus.model.purchase.exceptions.PurchaseNotFoundException;
 
+//@@author raikonen
 /**
  *  A list of purchases made.
  *

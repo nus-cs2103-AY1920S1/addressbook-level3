@@ -3,6 +3,7 @@ package seedu.savenus.model.commandhistory;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /***
  * Singleton Class to store and retrieve command history.
  */

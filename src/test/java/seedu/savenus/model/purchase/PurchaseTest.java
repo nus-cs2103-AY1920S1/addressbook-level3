@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+//@@author raikonen
 public class PurchaseTest {
     private final String testTimeOfPurchaseInMillisSinceEpoch = "1570680000000"; // 2019/10/10 12:00:00
     private final TimeOfPurchase testTimeOfPurchase = new TimeOfPurchase(testTimeOfPurchaseInMillisSinceEpoch);

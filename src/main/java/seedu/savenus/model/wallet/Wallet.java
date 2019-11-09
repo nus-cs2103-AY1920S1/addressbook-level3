@@ -13,7 +13,7 @@ import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 
-
+//@@author raikonen
 /**
  * Represents a user's Wallet in the application.
  * Guarantees: mutable;

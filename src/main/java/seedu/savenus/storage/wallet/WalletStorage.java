@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.wallet.Wallet;
 
+//@@author raikonen
 /**
  * Represents a storage for {@link Wallet}.
  */

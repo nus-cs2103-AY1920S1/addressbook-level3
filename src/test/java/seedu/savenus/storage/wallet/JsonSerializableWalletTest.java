@@ -13,6 +13,7 @@ import seedu.savenus.commons.util.JsonUtil;
 import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.testutil.TypicalWallet;
 
+//@@author raikonen
 public class JsonSerializableWalletTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",

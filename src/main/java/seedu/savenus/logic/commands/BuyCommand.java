@@ -12,6 +12,7 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 
+//@@author raikonen
 /**
  * Buy a food using it's displayed index from the menu.
  */

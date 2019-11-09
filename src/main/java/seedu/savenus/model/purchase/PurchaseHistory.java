@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 
+//@@author raikonen
 /**
  * Wraps all purchase history data
  */

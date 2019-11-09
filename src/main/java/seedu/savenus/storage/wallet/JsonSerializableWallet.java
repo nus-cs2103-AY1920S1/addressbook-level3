@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.wallet.Wallet;
 
+//@@author raikonen
 /**
  * An Immutable Wallet that is serializable to JSON format.
  */
