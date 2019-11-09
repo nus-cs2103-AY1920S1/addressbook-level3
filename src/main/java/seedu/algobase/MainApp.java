@@ -95,6 +95,14 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AlgoBase");
             initialData = new AlgoBase();
+        } catch (Exception e) {
+            logger.warning(
+                String.format(
+                    "Problem reading from the file - %s exception occurred. Will be starting with an empty AlgoBase",
+                    e.getClass().getSimpleName()
+                )
+            );
+            initialData = new AlgoBase();
         }
 
         return new ModelManager(initialData, userPrefs);

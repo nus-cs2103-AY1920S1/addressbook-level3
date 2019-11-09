@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
@@ -25,6 +26,7 @@ public class JsonSerializableAlgoBase {
     public static final String MESSAGE_DUPLICATE_PROBLEM = "Problems list contains duplicate Problem(s).";
     public static final String MESSAGE_DUPLICATE_TAG = "Tags list contains duplicate Tag(s).";
     public static final String MESSAGE_DUPLICATE_FIND_RULE = "Find rules list contains duplicate rules.";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "AlgoBase's %s field is missing!";
 
     private final List<JsonAdaptedProblem> problems = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
@@ -88,7 +90,7 @@ public class JsonSerializableAlgoBase {
             algoBase.addPlan(plan);
         }
 
-        algoBase.setGuiState(guiState.toModelType(algoBase));
+        algoBase.setGuiState(retrieveGuiState(guiState, algoBase));
 
         for (JsonAdaptedProblemSearchRule jsonAdaptedProblemSearchRule: findRules) {
             ProblemSearchRule rule = jsonAdaptedProblemSearchRule.toModelType();
@@ -101,4 +103,14 @@ public class JsonSerializableAlgoBase {
         return algoBase;
     }
 
+    /**
+     * Retrieves the {@code GuiState} from Storage.
+     */
+    private GuiState retrieveGuiState(JsonAdaptedGuiState guiState, AlgoBase algoBase) throws IllegalValueException {
+        if (guiState == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "guiState"));
+        }
+
+        return guiState.toModelType(algoBase);
+    }
 }

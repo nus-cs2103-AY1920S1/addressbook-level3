@@ -17,6 +17,9 @@ import seedu.algobase.model.gui.TabManager;
  */
 public class JsonAdaptedTabManager {
 
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "TabManager's %s field is missing!";
+    public static final String INVALID_FIELD_MESSAGE_FORMAT = "TabManager's %s index is invalid!!";
+
     private final int displayTabIndex;
     private final int detailsTabIndex;
     private final List<JsonAdaptedTab> tabsData = new ArrayList<>();
@@ -54,8 +57,23 @@ public class JsonAdaptedTabManager {
         for (JsonAdaptedTab jsonAdaptedTab : tabsData) {
             tabManager.openDetailsTab(jsonAdaptedTab.toModelType(algoBase));
         }
-        tabManager.switchDisplayTab(Index.fromZeroBased(displayTabIndex));
-        tabManager.switchDetailsTab(Index.fromZeroBased(detailsTabIndex));
+
+        try {
+            tabManager.switchDisplayTab(Index.fromZeroBased(displayTabIndex));
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalValueException(
+                String.format(INVALID_FIELD_MESSAGE_FORMAT, "Display")
+            );
+        }
+
+        try {
+            tabManager.switchDetailsTab(Index.fromZeroBased(detailsTabIndex));
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalValueException(
+                String.format(INVALID_FIELD_MESSAGE_FORMAT, "Details")
+            );
+        }
+
         return tabManager;
     }
 }
