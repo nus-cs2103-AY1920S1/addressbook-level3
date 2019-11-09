@@ -49,6 +49,11 @@ public class JsonAdaptedMeal {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Dish.class.getSimpleName()));
         }
 
+        if (time == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Timestamp.class.getSimpleName()));
+        }
+
         final Dish modelDish = dish.toModelType();
 
         final Timestamp modelTime = new Timestamp(LocalDateTime.parse(time));

@@ -31,7 +31,7 @@ logic -[LOGIC_COLOR]> command : execute(model)
 activate command COMMAND_COLOR
 
 create result
-command -[COMMAND_COLOR]> result : CommandResult()
+command -[COMMAND_COLOR]> result : CommandResult(message, false, true, false)
 activate result RESULT_COLOR
 
 result -[RESULT_COLOR]-> command : result
@@ -39,10 +39,11 @@ deactivate result
 
 command -[COMMAND_COLOR]-> logic : result
 deactivate command
+destroy command
 
 logic -[LOGIC_COLOR]-> ui : result
 deactivate logic
 
-deactivate ui
+ref over ui: generate ReportWindow.
 
 @enduml
