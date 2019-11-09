@@ -55,7 +55,7 @@ The following class plays an important role at the architecture level:
 The rest of the App consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-CommandManager,*`CommandManager`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to the hard disk.
 
@@ -168,17 +168,33 @@ An link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/TaskCard.java[
 
 As for link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/UpcomingEventCard.java[`UpcomingEventCard`] and link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/UpcomingTaskCard.java[`UpcomingTaskCard`], they only hold the Description of the Event or Task.
 
-[[Design-Logic]]
-=== CommandManager component
+[[Design-CommandManager]]
+=== CommandManager Component
+
+The `CommandManager` class manages the addition and invoking of `Commands` in Horo.
+
+.Class diagram of CommandManager
+image::CommandManagerClassDiagram.png[]
+
+Referring to the diagram above, it performs the following operations:
+
+. Listen for user input in `onCommandInput()`.
+. Pass the user input to `commandParser`, to obtain a `Command`.
+. Execute the `Command` and obtain a `UserOutput`.
+. Notify all `userOutputListeners` about the `UserOutput`.
+
+[NOTE]
+====
+CommandManager closely follows the https://en.wikipedia.org/wiki/Command_pattern[command design pattern].
+====
 
 ==== Command
 
-A `Command` is defined to be an immutable function, that can be invoked at any time, to perform any set of instructions. After executing the set of instructions, it will optionally return output to be displayed to the user.
+A `Command` is defined to be an immutable function, that can be invoked at any time, to perform any set of instructions.
+After executing the set of instructions, it will optionally return output to be displayed to the user.
 
-In Horo, a `Command` implemented as an abstract class with an abstract `execute()` method. To create a new concrete command, extend from `Command` and implement `execute()`.
-
-.Class diagram of Commands
-image::CommandManager.png[]
+In Horo, a `Command` implemented as an abstract class with an abstract `execute()` method.
+To create a new concrete command, extend from `Command` and implement `execute()`.
 
 If your concrete command requires any dependencies during execution, it is recommended to pass in the dependency from the constructor.
 
@@ -212,7 +228,9 @@ What the FSM is trying to do is tokenize user input into:
 1. `Command keyword`
 2. `Command phrase(s)`
 
-A *command keyword* is defined as the first sequence of consecutive, non-whitespace characters of the user input. For the rest of this guide, a sequence of consecutive, non-whitespace characters will be referred to as a ‘word’. A word can be described in the form of a regular expression (regex) as `[^\s]+`.
+A *command keyword* is defined as the first sequence of consecutive, non-whitespace characters of the user input.
+For the rest of this guide, a sequence of consecutive, non-whitespace characters will be referred to as a ‘word’.
+A word can be described in the form of a regular expression (regex) as `[^\s]+`.
 
 Examples of valid command keywords:
 
@@ -221,7 +239,8 @@ Examples of valid command keywords:
 - `123`
 - `😺`
 
-A *command phrase* is defined as either a word, or multiple words delimited by whitespace surrounded by quotes. Command phrases come after a command keyword.
+A *command phrase* is defined as either a word, or multiple words delimited by whitespace surrounded by quotes.
+Command phrases come after a command keyword.
 
 Examples of valid command phrases:
 
@@ -233,13 +252,16 @@ Examples of valid command phrases:
 - `--description`
 
 A valid command contains exactly one command keyword, and zero or more command phrases.
+(i.e. `[keyword] [phrase] [phrase] [phrase] ...`)
 
-`[keyword] [phrase] [phrase] [phrase] ...`
+`CommandParser` is trying to tokenize any command input into a keyword and phrases.
+To understand how the FSM works, study the activity diagram below:
 
-.State diagram of CommandParser
-image::CommandParser.png[]
+.Activity diagram of CommandParser
+image::CommandParserActivityDiagram.png[]
 
-After tokenizing, the command keyword is sent to a `CommandKeywordParser`, which returns a `CommandBuilder`. The remaining command phrases are sent to the `CommandBuilder`, which returns the `Command` we want.
+After tokenizing, the command keyword is sent to a `CommandKeywordParser`, which returns a `CommandBuilder`.
+The remaining command phrases are sent to the `CommandBuilder`, which returns the `Command` we want.
 
 
 ==== CommandKeywordParser

@@ -1,62 +1,68 @@
 @startuml
-!include style.puml
-skinparam arrowThickness 1.1
-skinparam arrowColor LOGIC_COLOR_T4
-skinparam classBackgroundColor LOGIC_COLOR
+
+' Style
+hide empty members
+skinparam boxPadding 100
+skinparam classAttributeIconSize 0
+skinparam genericDisplay old
+skinparam packageStyle rectangle
+skinparam shadowing false
 
 package Logic {
+    class CommandManager implements CommandInputListener {
+        - commandParser : CommandParser
+        - keywordParser : CommandKeywordParser
+        - userOutputListeners : List<UserOutputListener>
+        + addCommand(keyword : String, builder : CommandBuilder)
+        + addUserOutputListener(listener : UserOutputListener)
+        + onCommandInput(input : String)
+    }
 
-package Parser {
-Interface Parser <<Interface>>
-Class AddressBookParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
-Class ArgumentMultimap
-Class ArgumentTokenizer
-Class Prefix
+    package Parser {
+        interface Parser<T> {
+            + parse() : T
+        }
+        class CommandParser implements Parser {
+            + parse() : Command
+        }
+        class CommandKeywordParser implements Parser {
+            + addCommand(builder : CommandBuilder)
+            + parse() : CommandBuilder
+        }
+    }
+
+    package Command {
+        abstract class Command {
+            + execute() : UserOutput
+        }
+        abstract class CommandBuilder {
+            + build() : Command
+        }
+        interface CommandInputListener {
+            + onCommandInput(input : String)
+        }
+    }
 }
 
-package Command {
-Class XYZCommand
-Class CommandResult
-Class "{abstract}\nCommand" as Command
+package Ui {
+    class UserOutput {
+        + toString() : String
+    }
+    interface UserOutputListener {
+        + onUserOutput(output : UserOutput)
+    }
 }
 
-Interface Logic <<Interface>>
-Class LogicManager
-}
+CommandManager *--"1" CommandParser
+CommandManager *--"1" CommandKeywordParser
+CommandManager o--"*" UserOutputListener
+CommandManager ..>CommandBuilder
 
-package Model{
-Class HiddenModel #FFFFFF
-}
+CommandParser o-- CommandKeywordParser
+CommandKeywordParser o--"*" CommandBuilder
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
+Command ..> UserOutput
+CommandBuilder ..> Command
 
-LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
-
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
-
-LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
-
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
+UserOutputListener ..> UserOutput
 @enduml
