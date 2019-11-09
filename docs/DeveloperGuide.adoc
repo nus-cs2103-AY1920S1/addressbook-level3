@@ -310,6 +310,7 @@ offered by +Work. Furthermore the compatibility of the theme with JavaFx must be
 // end::settings[]
 
 // tag::statistics[]
+// tag::statisticsP1[]
 === Statistics feature
 The Statistics feature allows users to retrieve statistics relating to members and tasks in +Work, so that users can get a
 broad overview of the project's and member's project.
@@ -357,12 +358,14 @@ The following sequence diagram (Figure 11) shows how calling the 'task-stats' op
 
 image::GetStatisticsUISequenceDiagram.png[]
 Figure 11. Operational flow of displaying statistics in +Work
+// end::statisticsP1[]
 
 The following activity diagram summarizes what happens when a user executes the `task-stats` command:
 
 image::GetStatisticsActivityDiagram.png[]
 Figure 12. Operational flow during execution of `task-stats` command
 
+// tag::statisticsP2[]
 ==== Design Considerations
 This section describes the pros and cons of the current and other alternative implementations of the Statistics class in +Work,
 as well as the display of statistics in +Work.
@@ -390,6 +393,7 @@ This section describes the pros and cons of the current and other alternative im
 Because the team came to a consensus that the main objective of the Statistics feature in +Work is to provide the user with
 an overview of all the project tasks and members, for ease of comparison, *Alternative 1* was chosen as it fits the purpose
 more than Alternative 2 does.
+// tag::statisticsP2[]
 // end::statistics[]
 
 // tag::member[]
