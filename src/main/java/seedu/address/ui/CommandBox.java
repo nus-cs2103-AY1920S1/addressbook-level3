@@ -19,17 +19,23 @@ public class CommandBox extends UiPart<Region> {
             KeyCombination.CONTROL_DOWN);
 
     private final CommandExecutor commandExecutor;
-    private final AutoComplete autoComplete;
+    private final CommandBoxInterface commandBoxInterface;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor, AutoComplete autoComplete) {
+    public CommandBox(CommandExecutor commandExecutor, CommandBoxInterface commandBoxInterface,
+                      AutoCompleteOverlay aco) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        this.autoComplete = autoComplete;
+        this.commandBoxInterface = commandBoxInterface;
 
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> handleTextChanged());
+        commandTextField.focusedProperty().addListener((unused1, unused2, newValue) -> {
+            if (!newValue) {
+                aco.hide();
+            }
+        });
 
         // EventFilter was used as FXML callback onKeyPressed cannot consume keyEvent.
         commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
@@ -37,7 +43,7 @@ public class CommandBox extends UiPart<Region> {
             case UP:
             case DOWN:
             case ENTER:
-                autoComplete.updateSelectionKeyPressedCommandBox(keyEvent.getCode());
+                commandBoxInterface.handleCommandBoxKeyPressed(keyEvent.getCode());
                 keyEvent.consume();
                 break;
             default:
@@ -62,7 +68,7 @@ public class CommandBox extends UiPart<Region> {
      * Handles the Text Change event.
      */
     private void handleTextChanged() {
-        autoComplete.updateCommandAutoComplete(commandTextField.getText());
+        commandBoxInterface.handleCommandBoxTextChanged(commandTextField.getText());
     }
 
     public void setCommandTextField(String suggestion) {

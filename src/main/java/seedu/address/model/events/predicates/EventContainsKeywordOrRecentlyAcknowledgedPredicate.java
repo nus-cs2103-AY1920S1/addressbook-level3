@@ -39,4 +39,10 @@ public class EventContainsKeywordOrRecentlyAcknowledgedPredicate implements Pred
                 (EventContainsKeywordOrRecentlyAcknowledgedPredicate) other;
         return referenceId.equals(o.referenceId) && acknowledgedEvent.equals(o.acknowledgedEvent);
     }
+
+    @Override
+    public String toString() {
+        return String.format("Suggesting event(s) which involves '%1$s':\n%2$s",
+                referenceId.toString(), acknowledgedEvent.getPersonName().toString());
+    }
 }

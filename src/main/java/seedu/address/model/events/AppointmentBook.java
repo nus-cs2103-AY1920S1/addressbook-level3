@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.model.events;
 
 import static java.util.Objects.requireNonNull;
@@ -8,6 +9,7 @@ import java.util.ListIterator;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.person.Person;
 
 /**
  * Wraps all data at the appointment-book level
@@ -78,6 +80,14 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
      */
     public void removeEvent(Event key) {
         events.remove(key);
+    }
+
+    /**
+     * Replaces the given person details of {@code target} with {@code editedPerson}.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void updatesPersonDetails(Person target, Person editedPerson) {
+        events.updatesPersonDetails(target, editedPerson);
     }
 
     //// util methods

@@ -41,7 +41,6 @@ public class EditPatientDetailsCommand extends ReversibleCommand {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Patient: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This patient has already been registered.";
 
     private final Person personToEdit;
@@ -62,7 +61,7 @@ public class EditPatientDetailsCommand extends ReversibleCommand {
         requireNonNull(model);
 
         if (personToEdit.equals(editedPerson)) {
-            throw new CommandException(MESSAGE_NOT_EDITED);
+            throw new CommandException(Messages.MESSAGE_NOT_EDITED);
         }
 
         if (personToEdit == null || editedPerson == null || !model.hasExactPatient(personToEdit)) {

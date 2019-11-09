@@ -1,7 +1,9 @@
+//@@author SakuraBlossom
 package seedu.address.logic.parser.patients;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_FIELD;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -124,7 +126,7 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditPatientDetailsCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_NO_FIELD);
         }
 
         return editPersonDescriptor;

@@ -46,8 +46,8 @@ public class AutoCompleter {
             Map.entry("editshift", Set.of("-entry", "-start", "-end")),
             Map.entry("editdoctor", Set.of("-entry", "-id", "-name", "-phone", "-address", "-email")),
             Map.entry("editpatient", Set.of("-entry", "-id", "-name", "-phone", "-address", "-tag", "-email")),
-            Map.entry("newappt", Set.of("-id", "-rec", "-num", "-start", "-end")),
-            Map.entry("newshift", Set.of("-id", "-rec", "-num", "-start", "-end")),
+            Map.entry("newappt", Set.of("-id", "-reoccur", "-num", "-start", "-end")),
+            Map.entry("newshift", Set.of("-id", "-reoccur", "-num", "-start", "-end")),
             Map.entry("newdoctor", Set.of("-id", "-name", "-phone", "-address", "-email")),
             Map.entry("newpatient", Set.of("-id", "-name", "-phone", "-address", "-tag", "-email"))
     );
@@ -91,7 +91,7 @@ public class AutoCompleter {
             ResumeCommand.COMMAND_WORD
     };
 
-    private static final Pattern HAS_FLAG = Pattern.compile("(.* )?(?<!-)\\w+\\s+$");
+    private static final Pattern NO_FLAG = Pattern.compile(".*\\s-\\S+\\s+$|^\\s*\\S*");
     private static final Pattern CONTINUOUS_SPACES = Pattern.compile("\\s+");
 
     private final Trie trie;
@@ -112,23 +112,23 @@ public class AutoCompleter {
      * @return AutoComplete itself
      */
     public AutoCompleter update(String currentQuery) {
-        if (HAS_FLAG.matcher(currentQuery).matches()) {
-            try {
-                Set<String> result = SUPPORTED_ARGUMENTS.get(currentQuery.substring(0, currentQuery.indexOf(' ')));
-                HashSet<String> available = new HashSet<>(result);
-                available.removeAll(List.of(CONTINUOUS_SPACES.split(currentQuery)));
-                if (result.contains("-tag")) {
-                    available.add("-tag");
-                }
-                AutoCompleter autoCompleter = new AutoCompleter(available.toArray(String[]::new));
-                autoCompleter.currentQuery = currentQuery.substring(currentQuery.lastIndexOf(' ') + 1);
-                return autoCompleter;
-            } catch (NullPointerException e) {
-                return new AutoCompleter("");
-            }
-        } else {
+        currentQuery = currentQuery.stripLeading();
+        if (NO_FLAG.matcher(currentQuery).matches()) {
             this.currentQuery = currentQuery;
             return this;
+        }
+        try {
+            Set<String> result = SUPPORTED_ARGUMENTS.get(currentQuery.substring(0, currentQuery.indexOf(' ')));
+            HashSet<String> available = new HashSet<>(result);
+            available.removeAll(List.of(CONTINUOUS_SPACES.split(currentQuery)));
+            if (result.contains("-tag")) {
+                available.add("-tag");
+            }
+            AutoCompleter autoCompleter = new AutoCompleter(available.toArray(String[]::new));
+            autoCompleter.currentQuery = currentQuery.substring(currentQuery.lastIndexOf(' ') + 1);
+            return autoCompleter;
+        } catch (NullPointerException e) {
+            return new AutoCompleter("");
         }
     }
 

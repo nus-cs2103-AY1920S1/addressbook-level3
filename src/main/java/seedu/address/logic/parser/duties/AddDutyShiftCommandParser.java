@@ -4,15 +4,14 @@ package seedu.address.logic.parser.duties;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE_TIMES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REOCCURRING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REOCCURRING_TIMES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
@@ -22,7 +21,6 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReferenceId;
@@ -53,9 +51,9 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ID,
-                        PREFIX_START, PREFIX_END, PREFIX_RECURSIVE, PREFIX_RECURSIVE_TIMES);
+                        PREFIX_START, PREFIX_END, PREFIX_REOCCURRING, PREFIX_REOCCURRING_TIMES);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_START, PREFIX_END)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_ID, PREFIX_START, PREFIX_END)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddDutyShiftCommand.MESSAGE_USAGE));
         }
@@ -70,49 +68,51 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
 
         String startString = argMultimap.getValue(PREFIX_START).get();
         Timing timing;
-        if (!arePrefixesPresent(argMultimap, PREFIX_END)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_END)) {
             timing = ParserUtil.parseTiming(startString, null);
         } else {
             String endString = argMultimap.getValue(PREFIX_END).get();
             timing = ParserUtil.parseTiming(startString, endString);
         }
 
-        Optional<String> recursiveStringOptional = argMultimap.getValue(PREFIX_RECURSIVE);
-        Optional<String> recursiveStringTimesOptional = argMultimap.getValue(PREFIX_RECURSIVE_TIMES);
+        Optional<String> reoccurringStringOptional = argMultimap.getValue(PREFIX_REOCCURRING);
+        Optional<String> reoccurringStringTimesOptional = argMultimap.getValue(PREFIX_REOCCURRING_TIMES);
 
-        if (recursiveStringOptional.isPresent() && recursiveStringTimesOptional.isPresent()) {
-            String recursiveString = recursiveStringOptional.get();
+        if (reoccurringStringOptional.isPresent() && reoccurringStringTimesOptional.isPresent()) {
+            String reoccurring = reoccurringStringOptional.get();
 
-            if (!recursiveString.equals("w") && !recursiveString.equals("m") && !recursiveString.equals("y")) {
+            if (!reoccurring.equals("w") && !reoccurring.equals("m") && !reoccurring.equals("y")) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddDutyShiftCommand.MESSAGE_USAGE));
             }
 
-            Index recursiveTimes = ParserUtil.parseTimes(recursiveStringTimesOptional.get());
-            int times = recursiveTimes.getZeroBased() + 1;
-            Event event = new Event(referenceId, timing, new Status());
-            List<Event> eventList = getRecEvents(event, recursiveString, times);
+            Index reoccurringTimes = ParserUtil.parseTimes(reoccurringStringTimesOptional.get());
+            int times = reoccurringTimes.getZeroBased() + 1;
+
+            Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
+            List<Event> eventList = getRecEvents(event, reoccurring, times);
             return new ReversibleActionPairCommand(new AddDutyShiftCommand(eventList),
                     new CancelDutyShiftCommand(eventList));
         } else {
-            if (!recursiveStringOptional.isPresent() && recursiveStringTimesOptional.isPresent()
-                    || recursiveStringOptional.isPresent() && !recursiveStringTimesOptional.isPresent()) {
+            if (!reoccurringStringOptional.isPresent() && reoccurringStringTimesOptional.isPresent()
+                    || reoccurringStringOptional.isPresent() && !reoccurringStringTimesOptional.isPresent()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddDutyShiftCommand.MESSAGE_USAGE));
             }
-            Event event = new Event(referenceId, timing, new Status());
+
+            Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
             return new ReversibleActionPairCommand(
                     new AddDutyShiftCommand(event),
                     new CancelDutyShiftCommand(event));
         }
     }
 
-    private List<Event> getRecEvents(Event event, String recursiveString, int times) {
+    private List<Event> getRecEvents(Event event, String reoccurringString, int times) {
         List<Event> eventList = new ArrayList<>();
         Timing timing = event.getEventTiming();
         Function<Timing, Timing> func = null;
 
-        switch (recursiveString) {
+        switch (reoccurringString) {
         case "d":
             func = Timing::getOneDayLaterTiming;
             break;
@@ -128,19 +128,10 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
         }
 
         for (int i = 0; i < times; i++) {
-            eventList.add(new Event(event.getPersonId(), timing, new Status()));
+            eventList.add(new Event(event.getPersonId(), event.getPersonName(), timing, new Status()));
             timing = func.apply(timing);
         }
 
         return eventList;
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }

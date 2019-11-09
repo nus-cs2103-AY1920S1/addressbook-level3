@@ -10,6 +10,7 @@ import seedu.address.model.events.parameters.DateTime;
 import seedu.address.model.events.parameters.Status;
 import seedu.address.model.events.parameters.Timing;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.parameters.Name;
 
 /**
  * A utility class to help with building Person objects.
@@ -21,12 +22,14 @@ public class EventBuilder {
     public static final DateTime DEFAULT_DATETIME = DateTime.tryParseSimpleDateFormat("11/11/19 1800");
 
     private ReferenceId id;
+    private Name name;
     private Timing timing;
     private Status status;
 
     public EventBuilder(Person person, int afterYears, int afterMonth, int afterDays,
                         int afterHours, int afterMinutes) {
         this.id = person.getReferenceId();
+        this.name = person.getName();
         withStartTime(afterYears, afterMonth, afterDays, afterHours, afterMinutes, 30);
         status = new Status("APPROVED");
     }
@@ -40,6 +43,7 @@ public class EventBuilder {
      */
     public EventBuilder(Event personToCopy) {
         id = personToCopy.getPersonId();
+        name = personToCopy.getPersonName();
         timing = personToCopy.getEventTiming();
         status = personToCopy.getStatus();
     }
@@ -112,7 +116,7 @@ public class EventBuilder {
     }
 
     public Event build() {
-        return new Event(id, timing, status);
+        return new Event(id, name, timing, status);
     }
 
 }

@@ -94,6 +94,10 @@ public class AutoCompleteOverlay extends UiPart<Region> {
         return autoCompleteOverlay.isVisible();
     }
 
+    public void hide() {
+        autoCompleteOverlay.setVisible(false);
+    }
+
     /**
      * Handles the Mouse Clicked Event.
      */
@@ -104,6 +108,7 @@ public class AutoCompleteOverlay extends UiPart<Region> {
                 .getSelectedItem()
                 .getChildren()
                 .forEach(elem -> sb.append(((Text) elem).getText()));
+        sb.append(' ');
         selectionNotifier.notify(sb.toString());
     }
 

@@ -5,7 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
+import seedu.address.model.person.predicates.PersonContainsKeywordPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -24,7 +24,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             return new FindCommand(PREDICATE_SHOW_ALL_PERSONS);
         }
 
-        return new FindCommand(new ContainsKeywordsPredicate(args.trim().toUpperCase()));
+        return new FindCommand(new PersonContainsKeywordPredicate(args.trim().toUpperCase()));
     }
 
 }

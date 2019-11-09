@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.model.events.parameters;
 
 import static java.util.Objects.requireNonNull;
@@ -10,7 +11,7 @@ import java.util.Objects;
 
 /**
  * Represents a Date time in the schedule.
- * Guarantees: immutable; is valid as declared in {@link #isValidTimingFromCurrentTime(DateTime, DateTime)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTimingFromCurrentTime(DateTime)}
  */
 public class Timing implements Comparable<Timing> {
 
@@ -57,7 +58,7 @@ public class Timing implements Comparable<Timing> {
     /**
      * Returns true if the start dateTime is before current time.
      */
-    public static boolean isValidTimingFromCurrentTime(DateTime testStart, DateTime testEnd) {
+    public static boolean isValidTimingFromCurrentTime(DateTime testStart) {
         return testStart.getTime().isAfter(LocalDateTime.now());
     }
 
