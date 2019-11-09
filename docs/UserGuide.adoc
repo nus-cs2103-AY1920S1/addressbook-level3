@@ -208,14 +208,16 @@ Well, _TravEzy_ has got you covered. Simply inform _TravEzy_ of your schedule (y
 Let us find out what the main _parameters_ for calendar are.
 
 
-. ``DAY``. This refers to which day of the month (e.g. *1*, *2*, ..., *31* of January). To specify the day, simply place the _prefix_ ``d/`` before it.
+. ``DAY``. This refers to the day of the month (e.g. *1*, *2*, ..., *31* of January). To specify the day, simply place the _prefix_ ``d/`` before it.
 +
 For example, if you would like to specify that it is first of January, key in:
 
     d/1
 
 
-. ``MONTH``. This refers to which month (i.e. *January*, *February*, *March*, ..., *December*) you would like to refer to. To specify the month, just place the _prefix_ ``m/`` before the month. Since people have different ways of specifying month, _TravEzy_ accommodates these differences. In particular, you may choose to refer to it using numbers (with *1* referring to *January*, *2* referring to *February*, etc.) or you may refer to it using words. Please type *at least the first three letters* of the month 😄.
+. ``MONTH``. This refers to which month (i.e. *January*, *February*, *March*, ..., *December*) you would like to refer to. To specify the month, just place the _prefix_ ``m/`` before the month. 
++
+Since people have different ways of specifying month, _TravEzy_ accommodates these differences. In particular, you may choose to refer to it using numbers (with *1* referring to *January*, *2* referring to *February*, etc.) or you may refer to it using words. Please type *at least first three letters* of the month 😄.
 +
 Referring to the previous example, to specify that it is January, you can type:
 
@@ -237,13 +239,13 @@ For instance, if you want to specify the year 2019, just key in:
 
     y/2019
 
-. ``END DAY``. This refers to the day of an event's end date. This is very similar to how you would specify the (start) ``DAY``, as mentioned in point 1. Now, instead of using the small letter, use the capitalised version. In other words, ``D/``.
+. ``END DAY``. This refers to the day of an event's end date. This is very similar to how you would specify the (start) ``DAY``, as mentioned in point 1. Now, instead of using the small letter, use the upper-case version. In other words, ``D/``.
 +
 For example, if you would like to indicate that your event (i.e. _commitment_, _holiday_, _school break_ or _trip_) ends on fifth of January, enter:
 
     D/5
 
-. ``END MONTH``. This refers to the month of an event's end date. Again, this is very similar to how you would specify the (start) ``MONTH``, as mentioned in point 2. Now, instead of using the small letter, use the capitalised version ``M/``.
+. ``END MONTH``. This refers to the month of an event's end date. Again, this is very similar to how you would specify the (start) ``MONTH``, as mentioned in point 2. Now, instead of using the small letter, use the upper-case version ``M/``.
 +
 Following from the above example, if you would like to state that your event (i.e. _commitment_, _holiday_, _school break_ or _trip_) ends in January, just type:
 
@@ -257,9 +259,9 @@ and:
 
     M/January
 +
-WARNING: As with the above (``MONTH``), if you are spelling ``END MONTH`` in words, please specify it with *at least the first three letters* of the month.
+WARNING: As with the above (``MONTH``), if you are spelling ``END MONTH`` in words, please specify it with *at least first three letters* of the month.
 
-. ``END YEAR``. This refers to the year of an event's end date. Similarly, to specify the year of the end date, key in the capitalised version instead. In essence, place the _prefix_ ``Y/`` before the year of the end date. Isn't it simple?
+. ``END YEAR``. This refers to the year of an event's end date. To specify the year of the end date, key in the upper-case version instead. In essence, place the _prefix_ ``Y/`` before the year of the end date. Isn't it simple?
 +
 For instance, if your trip ends in 2020, just type:
 
