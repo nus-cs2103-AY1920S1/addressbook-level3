@@ -418,7 +418,7 @@ Examples:
 
 * `schedule 2 st/1000 d/2`
 
-Schedules the second activity in the activity list under day 2.
+Schedules the second activity in the activity list under day 2 at the specified starting time.
 // end::schedule[]
 
 === Unscheduling activities from a day: `unschedule activity`
