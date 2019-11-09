@@ -157,10 +157,10 @@ A revision bank is automatically updated for you, every time a game session ends
 It collates all your wrong cards, whichever _WordBank_ it may have came from. +
 It is also smart enough to remove the cards if you have cleared it afterwards.
 
-.Revision bank alongside with other word banks
+.Revision bank alongside with other word banks.
 image::revisionbank.png[130, 130]
 
-.Screenshot of how a revision page looks like
+.Screenshot of how a revision page looks like.
 image::revisionpage.png[600,600]
 
 To try it, simply play some _WordBank_ and then visit the revision bank to attempt cards that requires revision.

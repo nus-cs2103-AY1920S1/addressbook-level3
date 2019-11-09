@@ -212,11 +212,17 @@ can fully believe in and dedicate effort.
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. +
+I will prioritise sections that contains diagrams to showcase my ability to engage the user._
 |===
 
 include::../UserGuide.adoc[tag=chenhui-userDragAndDrop]
 include::../UserGuide.adoc[tag=chenhui-userRevisionBank]
+
+|===
+|_Due to page limit constraints, I am unable to fully cover the breadth and depth of my User Guide's documentation. +
+Below are the links to my other contributions in User Guide. Do visit them for a better understanding of the breadth and depth of my effort and contribution._
+|===
 
 {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#em-wordbank-em-commands-span-class-image-img-src-images-load_mode_icon-png-alt-load-width-22-span[Full documentation of Word bank and Card Commands.]]
 
@@ -231,13 +237,12 @@ include::../UserGuide.adoc[tag=chenhui-userRevisionBank]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._ +
-|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. +
+Due to page limit constraints, I will collate different UML diagrams across different sections that I have contributed. +
+A link to the full documentation will be included below each diagrams.
+Do visit them for a better understanding of the breadth and depth of my effort and contribution._ +
 
-****
-* Due to page limit constraints, I will not cover the full breadth and depth of my documentation in Developer's Guide. +
-For the sections I did not cover, I will reference a link to them. Do visit them to check out the diagrams.
-****
+|===
 
 include::../DeveloperGuide.adoc[tag=chenhui-model]
 {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Model[Detailed documentation for Model.]]
