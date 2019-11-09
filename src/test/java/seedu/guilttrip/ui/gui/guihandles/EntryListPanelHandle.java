@@ -12,7 +12,7 @@ import seedu.guilttrip.model.entry.Entry;
  * Provides a handle for {@code EntryListPanel} containing the list of {@code EntryCard}.
  */
 public class EntryListPanelHandle extends NodeHandle<ListView<Entry>> {
-    public static final String ENTRY_LIST_VIEW_ID = "#entryListView";
+    public static String ENTRY_LIST_VIEW_ID = "#entryListView"; // default value
 
     private static final String CARD_PANE_ID = "#cardPane";
 

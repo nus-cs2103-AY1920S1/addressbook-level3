@@ -9,7 +9,7 @@ import seedu.guilttrip.ui.gui.guihandles.exceptions.NodeNotFoundException;
 import seedu.guilttrip.ui.testutil.UiPartExtension;
 
 /**
- * A GUI unit test class for AddressBook.
+ * A GUI unit test class for GuiltTrip.
  */
 public abstract class GuiUnitTest {
     // TODO: Remove this workaround after using JavaFX version 13 or above

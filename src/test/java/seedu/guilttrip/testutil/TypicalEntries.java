@@ -9,7 +9,6 @@ import java.util.List;
 
 import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.entry.Category;
-import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 
@@ -61,8 +60,8 @@ public class TypicalEntries {
         for (Category category : getTypicalCategories()) {
             gt.addCategory(category);
         }
-        for (Entry entry : getTypicalEntries()) {
-            gt.addEntry(entry);
+        for (Expense expense : getTypicalExpenses()) {
+            gt.addExpense(expense);
         }
         for (Income income : getTypicalIncomes()) {
             gt.addIncome(income);
@@ -70,7 +69,7 @@ public class TypicalEntries {
         return gt;
     }
 
-    public static List<Entry> getTypicalEntries() {
+    public static List<Expense> getTypicalExpenses() {
         return new ArrayList<>(Arrays.asList(FOOD_EXPENSE, CLOTHING_EXPENSE, TRAVEL_EXPENSE));
     }
 

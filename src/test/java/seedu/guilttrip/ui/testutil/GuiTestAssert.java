@@ -32,7 +32,7 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysEntry(Entry expectedEntry, EntryCardHandle actualCard) {
         assertEquals(expectedEntry.getDesc().fullDesc, actualCard.getDesc());
-        assertEquals(expectedEntry.getAmount().toString(), actualCard.getAmount());
+        assertEquals("$" + expectedEntry.getAmount().toString(), actualCard.getAmount());
         assertEquals(expectedEntry.getDate().toString(), actualCard.getDate());
         assertEquals(expectedEntry.getCategory().toString(), actualCard.getCategory());
         assertEquals(expectedEntry.getTags().stream().map(tag -> tag.tagName).sorted().collect(Collectors.toList()),

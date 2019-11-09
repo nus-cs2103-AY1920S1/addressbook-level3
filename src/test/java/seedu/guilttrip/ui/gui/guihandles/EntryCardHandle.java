@@ -14,7 +14,7 @@ import seedu.guilttrip.model.entry.Entry;
 public class EntryCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String DESC_FIELD_ID = "#desc";
-    private static final String AMOUNT_FIELD_ID = "#amount";
+    private static final String AMOUNT_FIELD_ID = "#amt";
     private static final String DATE_FIELD_ID = "#date";
     private static final String CATEGORY_FIELD_ID = "#category";
     private static final String TAGS_FIELD_ID = "#tags";
@@ -75,7 +75,7 @@ public class EntryCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Entry entry) {
         return getDesc().equals(entry.getDesc().fullDesc)
-                && getAmount().equals(entry.getAmount().toString())
+                && getAmount().equals("$" + entry.getAmount().toString())
                 && getDate().equals(entry.getDate().toString())
                 && getCategory().equals(entry.getCategory().toString())
                 && getTags().equals(entry.getTags().stream()
