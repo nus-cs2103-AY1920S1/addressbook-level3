@@ -169,6 +169,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the default size based on {@code guiSettings}.
+     */
+    private void setWindowDefaultSize(GuiSettings guiSettings) {
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.getWindowCoordinates() != null) {
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
+
+    /**
      * Handles change of details view
      *
      * @param details details to be set inside detailsViewPlaceHolder in MainWindow.
@@ -210,18 +222,6 @@ public class MainWindow extends UiPart<Stage> {
         sideBarPlaceholder.getChildren().clear();
         sideBarPlaceholder.getChildren().add(details);
         currentSidePanelDisplay = type;
-    }
-
-    /**
-     * Sets the default size based on {@code guiSettings}.
-     */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
     }
 
     /**

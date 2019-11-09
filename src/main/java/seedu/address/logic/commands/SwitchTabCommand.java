@@ -21,10 +21,9 @@ public class SwitchTabCommand extends Command {
 
         ScheduleWindowDisplayType state = model.getState();
         if (state == ScheduleWindowDisplayType.HOME) {
-            return new CommandResultBuilder(MESSAGE_SUCCESS)
-                    .setSwitchTabs().build();
+            return new CommandResultBuilder(MESSAGE_SUCCESS).setSwitchTabs().build();
         } else {
-            return new CommandResultBuilder(MESSAGE_FAILURE).build();
+            return new CommandResultBuilder(MESSAGE_FAILURE).setSwitchTabs().build();
         }
 
     }

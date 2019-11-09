@@ -27,10 +27,8 @@ public class ScrollCommand extends Command {
                 || status == ScheduleWindowDisplayType.NONE) {
             return new CommandResultBuilder(MESSAGE_SUCCESS).setScroll().build();
         } else {
-            new CommandResultBuilder(MESSAGE_FAILURE).setScroll().build();
+            return new CommandResultBuilder(MESSAGE_FAILURE).setScroll().build();
         }
-
-
     }
 
     @Override

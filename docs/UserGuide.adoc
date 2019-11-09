@@ -348,8 +348,8 @@ image::showpersonresult.png[]
 *****
 image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
 
-image:./icons/lightbulb.png[] You can use the command `toggle` see next week's schedule! You may see this person's schedule up to 4 weeks in advance.
-After you've reached the fourth week's schedule, the next `toggle` command will reset the schedule view back to the first week's schedule.
+image:./icons/lightbulb.png[] You can use the command `togglenext` see next week's schedule! You may see this person's schedule up to 4 weeks in advance.
+After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
 
 image:./icons/important.png[] Unfortunately, TimeBook does not let you see a schedule that has already passed.
 
@@ -570,7 +570,8 @@ image::showgroupresult.png[]
 *****
 image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
 
-image:./icons/lightbulb.png[] You can use the command `toggle` to help you show next week's schedule!
+image:./icons/lightbulb.png[] You can use the command `togglenext` to help you show next week's schedule!
+After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
 
 *****
 
@@ -829,7 +830,7 @@ We understand that you may encounter a weird error message and are unsure of wha
 | Duplicate Mapping | This person is already in the group.
 | Cannot find closest location | The closest common location cannot be determined because everyone is not in NUS.
 | XXX does not exist | This person or group does not exist in TimeBook. Some names are case-sensitive.
-| No schedule to XXX | This error occurs when you use `scroll` and `toggle` command when there is no schedule shown.
+| No schedule to XXX | This error occurs when you use `scroll` and `togglenext` command when there is no schedule shown.
 | No group schedule is shown | You'll see this error when you are invoking the `look at` command when a group schedule is not displayed.
 | Internal Error. Please try again later  | You'll see this error when our remote database cannot handle your requests.
 |===
