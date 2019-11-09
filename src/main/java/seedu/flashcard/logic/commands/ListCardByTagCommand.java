@@ -37,4 +37,11 @@ public class ListCardByTagCommand extends Command {
         model.updateFilteredFlashcardList(model.getHasTagPredicate(target));
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListCardByTagCommand // instanceof handles nulls
+                && target.equals(((ListCardByTagCommand) other).target));
+    }
 }

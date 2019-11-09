@@ -15,6 +15,8 @@ import seedu.flashcard.model.tag.Tag;
  */
 public class ListCardByTagCommandParser implements Parser<ListCardByTagCommand> {
 
+    private Set<Tag> tagList;
+
     /**
      * Parses the string of arguments to be listed by tags.
      * @param args string containing the parameters for the target tags
@@ -29,7 +31,7 @@ public class ListCardByTagCommandParser implements Parser<ListCardByTagCommand> 
                     + ListCardByTagCommand.MESSAGE_USAGE));
         }
 
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         return new ListCardByTagCommand(tagList);
     }
@@ -37,4 +39,6 @@ public class ListCardByTagCommandParser implements Parser<ListCardByTagCommand> 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
+
 }

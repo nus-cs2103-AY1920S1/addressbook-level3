@@ -55,7 +55,7 @@ public class Statistics {
     /**
      * resets variables for new calculation
      */
-    private void reset() {
+    void reset() {
         totalCorrect = 0;
         totalWrong = 0;
         totalAttempted = 0;
@@ -69,8 +69,8 @@ public class Statistics {
      * Creates a string of summary statistics for feedback to user
      * @return returns a feedback string
      */
-    public String results() {
-        return "Displaying results for selected parameters. In summary:\n"
+    public String getResults() {
+        return "Displaying getResults for selected parameters. In summary:\n"
                 + "Total correct:" + totalCorrect
                 + "\nTotal Wrong:" + totalWrong
                 + "\nTotal Attempted:" + totalAttempted
