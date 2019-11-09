@@ -395,7 +395,7 @@ public class ModelManager implements Model {
 
     @Override
     public Name getFreeOrderName() {
-        int n = 1;
+        int n = 0;
         for (Order order : getFilteredOrderList()) {
             String orderNumber = order.getOrderName().fullName.split("\\s")[1];
             if (Integer.parseInt(orderNumber) >= n) {
