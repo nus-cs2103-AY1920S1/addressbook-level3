@@ -26,11 +26,13 @@ public class RemovePreferenceCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes likes or dislikes from a particular category, tag or location in our menu. Parameters: ["
             + PREFIX_CATEGORY + "CATEGORY]... [" + PREFIX_TAG + "TAG]... ["
-            + PREFIX_LOCATION + "...]\n" + "Example: " + COMMAND_WORD + " " + PREFIX_CATEGORY + "Chinese "
+            + PREFIX_LOCATION + "LOCATION]...\n" + "Example: " + COMMAND_WORD + " " + PREFIX_CATEGORY + "Chinese "
             + PREFIX_CATEGORY + "Western " + PREFIX_LOCATION + "University Town " + PREFIX_LOCATION + "The Deck "
-            + PREFIX_TAG + "Spicy " + PREFIX_TAG + "Healthy";
+            + PREFIX_TAG + "Spicy " + PREFIX_TAG + "Healthy\n"
+            + "Provide the ALL flag to remove all likes/dislikes. (Example: removelike ALL)";
 
     public static final String NOT_FOUND = "Please ensure all entries to remove currently exist in the list!";
+    public static final String REMOVE_ALL_KEYWORD = "ALL";
 
     public final Set<Category> categoryList;
     public final Set<Tag> tagList;
