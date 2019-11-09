@@ -120,8 +120,34 @@ public interface Model {
      */
     void updateFilteredBookmarkList(Predicate<Bookmark> predicate);
 
+    /**
+     * Adds a {@code folder} to the subfolders of {@code parentFolder}.
+     * @param folder
+     * @param parentFolder
+     */
     void addFolder(Folder folder, Folder parentFolder);
 
+    void renameFolder(Folder from, Folder to);
+
+    /**
+     * Checks if a folder can be deleted.
+     * No bookmark can have {@code folder} as its folder, and it can't have any subfolders.
+     * @param folder the folder to be deleted
+     * @return
+     */
+    boolean canDeleteFolder(Folder folder);
+
+    /**
+     * Deletes {@code folder}.
+     * @param folder
+     */
+    void deleteFolder(Folder folder);
+
+    /**
+     * Checks if {@code folder} exists.
+     * @param folder
+     * @return
+     */
     boolean hasFolder(Folder folder);
 
     /**

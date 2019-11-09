@@ -1,6 +1,7 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.core.Messages.MESSAGE_READDING_ROOT_FOLDER;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARENT_FOLDER;
 
@@ -26,8 +27,6 @@ public class AddFolderCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New folder added: %1$s.\nYou can view it in the dashboard tab.";
     public static final String MESSAGE_DUPLICATE_FOLDER = "This folder already exists in Mark";
     public static final String MESSAGE_PARENT_FOLDER_NOT_FOUND = "The parent folder %s doesn't exist in Mark";
-    public static final String MESSAGE_READDING_ROOT_FOLDER = "The " + Folder.DEFAULT_FOLDER_NAME
-            + " folder is the root folder for all folders, choose another name";
 
     private final Folder folder;
     private final Folder parentFolder;
