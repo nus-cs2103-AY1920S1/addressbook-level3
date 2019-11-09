@@ -1,4 +1,4 @@
-= Kwan Chen Sheng - Project Portfolio
+= Goh Rui Zhi - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -15,41 +15,44 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 == Summary of contributions
 
-* *Major enhancement*: Added features to view the schedules in a list of tables, list of interviewees and interviewers using javafx and the necessary
-css file to enhance the GUI of the Scheduler.
-** What it does: Allows the user to view the schedules, as well as the information of interviewees and interviewers clearly.
-** Justification: This features forms the core of the GUI, allowing user to view the and also to access the frontend of the application.
-** Highlights: This enhancement required a deeper understanding of implementing javafx, such as having to form columns dynamically in creating a schedule
-table. It is also challenging to involve integrating the multiple tables into one panel. Involves many research on what data structure can fit into the panel
-and in the end decided on converting the table into a list cell view.
+* *Major enhancement*: Import and Export command
+** What it does:
+** Justification:
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-** Credits:
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Minor enhancement*: Created a display command feature which allows the user to switch display using CLI command.
-
-* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=mrchensheng21&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=mrchensheng21&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Help in making sure that the code is following the checkstyle.
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Update GUI style.
-*** Creating tabs for the UI to display the different views.
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-***
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PR Reviewed
-*** Report bugs and suggestions to other teams
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Used multiple css files to enhance the UI display.
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
+
+
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::
+include::../UserGuide.adoc[tag=delete]
 
 include::../UserGuide.adoc[tag=dataencryption]
 
@@ -59,7 +62,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::
+include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
+
+== PROJECT: PowerPointLabs

@@ -12,6 +12,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning_sign:
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
@@ -643,8 +644,8 @@ Format: `record rank`
 |`help` +
 
 |Import existing availabilities
-|`import interviewer PATH_TO_FILE` +
-  `import interviewee PATH_TO_FILE`
+|`import interviewer fp/PATH_TO_FILE` +
+  `import interviewee fp/PATH_TO_FILE`
 
 |Clear imported data
 |`clear` +
@@ -685,7 +686,7 @@ d/DEPARTMENT... s/SLOT... [t/TAG]...` +
 |`schedule` +
 
 |Export
-|`export` +
+|`export fp/FILE_PATH` +
 
 |Email interviewee
 |`email ct/timeslot n/INTERVIEWEE NAME` +

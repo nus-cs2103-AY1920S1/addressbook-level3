@@ -1,15 +1,21 @@
 @startuml
 scale 3/4
 start
-:User executes import command;
+:User inputs import command;
+while () is ([incorrect command format])
+    :Shows correct command format and \nprompts user to try again;
+endwhile ([correct command format])
 
 if () then ([input file exists])
-    if () then ([is in correct format])
-        :Read data from specified file;
-        :Update data in Model;
+    :Reads data from specified file;
+    if () then ([data is in correct format])
+
+        :Adds data into Model;
     else ([else])
+        :Displays error message in UI;
     endif
 else ([else])
+    :Displays 'FILE_NOT_FOUND'\n error message in UI;
 endif
 stop
 @enduml

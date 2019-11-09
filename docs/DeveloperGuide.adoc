@@ -299,28 +299,53 @@ allocated time slots to the interviewees, which the changes will then be reflect
 
 The import feature uses `CsvReader` in the Model to read the given .csv file and stores the data into the model.
 
-* `import interviewer <csv file>` stores the read data as a list of `Schedule` objects in the model.
-* `import interviewee <csv file>` stores the read data as a list of `Interviewee` objects in the model.
-* `CsvReader` makes use of `BufferedReader` to read data from the given file.
+* `import interviewer fp/FILE_PATH` stores the read data as a list of `Interviewer` objects in the model.
+* `import interviewee fp/FILE_PATH` stores the read data as a list of `Interviewee` objects in the model.
 
 image::ImportSequenceDiagram.png[]
-Given above is an example of a sequence diagram for importing interviewer's schedules. It applies to both importing interviewee's and interviewer's data.
+Given above is an example of a sequence diagram for importing interviewer's schedules. It applies to both importing interviewee's and interviewer's data,
+with the only difference being in the string processing methods in the *CsvReader* class
 
-As seen in the above sequence diagram, the execution of the import feature consists of these steps:
-
-* Step 1: `LogicManager` will start executing the command by parsing it over to `AddressBookParser`.
-* Step 2: `AddressBookParser` will then look and initialise an `ImportCommand` instance and return it to `LogicManager`.
-* Step 3: `LogicManager` will then call execute() on the returned `ImportCommand`  object.
-* Step 4: During the execute() method, the method will initialise a `CsvReader` object to `readInterviewers()` from the the given .csv file.
-* Step 5: Each `Interviewer` object returned from Step 4 will then be added into model's `interviewerList`.
+//As seen in the above sequence diagram, the execution of the import feature consists of these steps:
+//
+//* Step 1: `LogicManager` will start executing the command by parsing it over to `SchedulerParser`.
+//* Step 2: `SchedulerParser` will search through the existing command words and parse the command arguments to 'ImportCommandParser'.
+//* Step 3: 'ImportCommandParser' will check if the format of the input command arguments are correct, and if the specified file path is acceptable.
+//If the command arguments are correct, it will return an `ImportCommand` object to `LogicManager`. Otherwise, it will throw a parse exception
+//* Step 3: `LogicManager` will then call execute() on the returned `ImportCommand`  object.
+//* Step 4: During the execute() method, the method will initialise a `CsvReader` object to `readInterviewers()` from the the given .csv file.
+//* Step 5: Each `Interviewer` object returned from Step 4 will then be added into model's `interviewerList`.
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::ImportActivityDiagram.png[]
 
+===== CsvReader
+`CsvReader` class encapsulates the string processing process that happens in an import command. It makes use of `BufferedReader` to
+access and read from the specified CSV file. It has 2 key methods - `readInterviewers()` and `readInterviewees()`.
+
+The following are some of the notable areas of implementation of these 2 methods:
+
+`readInterviewers()`: +
+
+* This method reads the imported file line-by-line. Number of days (each day is represented by 1 table) and the number of interviewers has to be specified at the beginning of the CSV file.
+* It generates a list of interviewers (with no availabilities yet) from the headers of each table.
+* Then, it will iterate through every line of each table and adds the availabilities to the respective interviewers.
+* The complexity of this method is O(N x D), where N is the number of interviewers and D is the number of days, assuming there are a constant number of timeslots per day.
+
+`readInterviewees()`: +
+
+* This method is quite straightforward, reading each attribute from the given table into an interviewee object.
+* There can be more than 1 work email or personal email, which are separated by whitespaces in the imported file.
+* There can also be more than 1 preferred timeslot, which are separated by commas in the imported file.
+* The complexity of this method is O(N), where N is the number of interviewees.
+
+NOTE: The imported data must obey the pre-existing conditions for each property of both interviewees and interviewers.
+E.g. `name` still cannot contain any characters other than alphabetical letters. No duplicate person is allowed as well.
+Exceptions will be thrown and the relevant error messages will be displayed in the UI if such error occurs.
 
 === Export
-==== Implementation [Proposed]
+==== Implementation
 The Export command gets the scheduled time slots from the Model and writes them in the specified .csv file.
 CsvWriter facilitates the writing to the specified file.
 
