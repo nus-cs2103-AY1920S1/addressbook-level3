@@ -17,7 +17,7 @@ import seedu.ezwatchlist.model.show.Show;
  * An Immutable WatchList that is serializable to JSON format.
  */
 @JsonRootName(value = "watchlist")
-class JsonSerializableWatchList {
+public class JsonSerializableWatchList {
 
     public static final String MESSAGE_DUPLICATE_SHOW = "Show list contains duplicate show(s).";
 

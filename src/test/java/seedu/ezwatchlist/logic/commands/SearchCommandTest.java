@@ -2,27 +2,30 @@ package seedu.ezwatchlist.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.ezwatchlist.commons.util.JsonUtil;
 import seedu.ezwatchlist.logic.parser.SearchKey;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
+import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
+import seedu.ezwatchlist.storage.JsonSerializableWatchList;
+import seedu.ezwatchlist.storage.Storage;
+import seedu.ezwatchlist.storage.JsonDatabaseStorage;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class SearchCommandTest {
-    private Model model = new ModelManager(getTypicalWatchList(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalWatchList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
 
     @Test
     public void equals() {

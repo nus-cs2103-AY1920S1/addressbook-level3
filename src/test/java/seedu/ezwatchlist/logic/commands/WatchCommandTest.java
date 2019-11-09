@@ -1,5 +1,6 @@
 package seedu.ezwatchlist.logic.commands;
 
+import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import seedu.ezwatchlist.model.UserPrefs;
 
 class WatchCommandTest {
 
-    private Model model = new ModelManager(getTypicalWatchList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
 
     @Test
     void execute_noFieldsSpecifiedUnfilteredList_success() {

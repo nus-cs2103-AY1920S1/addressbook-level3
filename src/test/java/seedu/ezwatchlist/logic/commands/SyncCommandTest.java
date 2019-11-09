@@ -84,8 +84,9 @@ public class SyncCommandTest {
         //check for sync command error: User input index is greater than search list size
         SyncCommand syncCommand = new SyncCommand(INDEX_FIRST_SHOW);
         WatchList watchList = new WatchList();
+        WatchList database = new WatchList();
         UserPrefs userPrefs = new UserPrefs();
-        ModelManager modelManager = new ModelManager(watchList, userPrefs);
+        ModelManager modelManager = new ModelManager(watchList, database, userPrefs);
         assertThrows(CommandException.class, () -> syncCommand.execute(modelManager));
 
 
@@ -137,7 +138,17 @@ public class SyncCommandTest {
         }
 
         @Override
+        public Path getDatabaseFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setWatchListFilePath(Path watchListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDatabaseFilePath(Path databaseFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -152,7 +163,17 @@ public class SyncCommandTest {
         }
 
         @Override
+        public void setDatabase(ReadOnlyWatchList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyWatchList getWatchList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyWatchList getDatabase() {
             throw new AssertionError("This method should not be called.");
         }
 

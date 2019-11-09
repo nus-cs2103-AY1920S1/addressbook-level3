@@ -86,7 +86,7 @@ public class SearchCommand extends Command {
             model.updateSearchResultList(result);
 
             if (isOffline) {
-                return new CommandResult("HI" + String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW,
+                return new CommandResult(String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW,
                         model.getSearchResultList().size()), false);
     }
             return new CommandResult(String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW,

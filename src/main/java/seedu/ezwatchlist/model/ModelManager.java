@@ -26,6 +26,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final WatchList watchList;
+    private final WatchList database;
     private final WatchList searchResult = new WatchList();
     private final FilteredList<Show> unWatchedList;
     private final FilteredList<Show> watchedList;
@@ -38,13 +39,15 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given watchList and userPrefs.
      */
-    public ModelManager(ReadOnlyWatchList watchList, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyWatchList watchList, ReadOnlyWatchList database, ReadOnlyUserPrefs userPrefs) {
         super();
         CollectionUtil.requireAllNonNull(watchList, userPrefs);
 
-        logger.fine("Initializing with watchlist: " + watchList + " and user prefs " + userPrefs);
+        logger.fine("Initializing with watchlist: " + watchList + ", database: " + database + " and user prefs "
+                + userPrefs);
 
         this.watchList = new WatchList(watchList);
+        this.database = new WatchList(database);
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredShows = new FilteredList<>(this.watchList.getShowList());
@@ -56,7 +59,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new WatchList(), new UserPrefs());
+        this(new WatchList(), new WatchList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -225,7 +228,27 @@ public class ModelManager implements Model {
         return searchResult.getShowList();
     }
 
+    //=========== Database ================================================================================
+    @Override
+    public Path getDatabaseFilePath() {
+        return userPrefs.getDatabaseFilePath();
+    }
 
+    @Override
+    public void setDatabaseFilePath(Path databaseFilePath) {
+        requireNonNull(databaseFilePath);
+        userPrefs.setDatabaseFilePath(databaseFilePath);
+    }
+
+    @Override
+    public void setDatabase(ReadOnlyWatchList database) {
+        this.database.resetData(database);
+    }
+
+    @Override
+    public ReadOnlyWatchList getDatabase() {
+        return database;
+    }
 
     @Override
     public boolean equals(Object obj) {

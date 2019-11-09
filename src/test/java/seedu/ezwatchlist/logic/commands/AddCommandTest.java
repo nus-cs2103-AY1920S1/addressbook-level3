@@ -183,7 +183,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getDatabaseFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setWatchListFilePath(Path watchListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDatabaseFilePath(Path databaseFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -198,7 +208,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setDatabase(ReadOnlyWatchList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyWatchList getWatchList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyWatchList getDatabase() {
             throw new AssertionError("This method should not be called.");
         }
 

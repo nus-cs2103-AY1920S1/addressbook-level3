@@ -55,9 +55,19 @@ public interface Model {
     Path getWatchListFilePath();
 
     /**
+     * Returns the user prefs' database file path.
+     */
+    Path getDatabaseFilePath();
+
+    /**
      * Sets the user prefs' watchlist file path.
      */
     void setWatchListFilePath(Path watchListFilePath);
+
+    /**
+     * Sets the user prefs' database file path.
+     */
+    void setDatabaseFilePath(Path databaseFilePath);
 
     /**
      * Replaces watchlist data with the data in {@code watchList}.
@@ -65,9 +75,19 @@ public interface Model {
     void setWatchList(ReadOnlyWatchList watchList);
 
     /**
-     * Returns the WatchList
+     * Replaces database with the data in {@code database}.
+     */
+    void setDatabase(ReadOnlyWatchList database);
+
+    /**
+     * Returns the WatchList.
      */
     ReadOnlyWatchList getWatchList();
+
+    /**
+     * Returns the database.
+     */
+    ReadOnlyWatchList getDatabase();
 
     /**
      * Returns true if a show with the same identity as {@code show} exists in the watchlist.

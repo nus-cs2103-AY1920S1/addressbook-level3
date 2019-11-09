@@ -23,12 +23,7 @@ import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.util.SampleDataUtil;
 import seedu.ezwatchlist.statistics.Statistics;
-import seedu.ezwatchlist.storage.JsonUserPrefsStorage;
-import seedu.ezwatchlist.storage.JsonWatchListStorage;
-import seedu.ezwatchlist.storage.Storage;
-import seedu.ezwatchlist.storage.StorageManager;
-import seedu.ezwatchlist.storage.UserPrefsStorage;
-import seedu.ezwatchlist.storage.WatchListStorage;
+import seedu.ezwatchlist.storage.*;
 import seedu.ezwatchlist.ui.Ui;
 import seedu.ezwatchlist.ui.UiManager;
 
@@ -59,7 +54,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         WatchListStorage watchListStorage = new JsonWatchListStorage(userPrefs.getWatchListFilePath());
-        storage = new StorageManager(watchListStorage, userPrefsStorage);
+        DatabaseStorage databaseStorage = new JsonDatabaseStorage(userPrefs.getDatabaseFilePath());
+        storage = new StorageManager(watchListStorage, databaseStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -79,7 +75,9 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyWatchList> watchListOptional;
+        Optional<ReadOnlyWatchList> databaseOptional;
         ReadOnlyWatchList initialData;
+        ReadOnlyWatchList database;
         try {
             watchListOptional = storage.readWatchList();
             if (!watchListOptional.isPresent()) {
@@ -94,7 +92,21 @@ public class MainApp extends Application {
             initialData = new WatchList();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            databaseOptional = storage.readDatabase();
+            if (!databaseOptional.isPresent()) {
+                logger.info("Database not found. Will be starting with a new database");
+            }
+            database = databaseOptional.orElseGet(SampleDataUtil::getSampleWatchList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty database");
+            database = new WatchList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty database");
+            database = new WatchList();
+        }
+
+        return new ModelManager(initialData, database, userPrefs);
     }
 
     private void initLogging(Config config) {

@@ -10,6 +10,7 @@ import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_DESCRIPTION
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
+import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ import seedu.ezwatchlist.testutil.ShowBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalWatchList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -43,7 +44,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SHOW_SUCCESS, editedShow);
 
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         expectedModel.setShow(model.getFilteredShowList().get(0), editedShow);
 
         assertTrue(expectedModel.getFilteredShowList().get(0).equals(editedShow));
@@ -67,7 +68,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SHOW_SUCCESS, editedShow);
 
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         expectedModel.setShow(lastShow, editedShow);
 
         //assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
