@@ -2,8 +2,10 @@ package seedu.scheduler.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -40,9 +42,12 @@ public class CollectionUtil {
      */
     public static <T> boolean collectionHasDuplicate(Collection<T> items) {
         requireNonNull(items);
-        for (T item: items) {
-            if (items.contains(item)) {
-                return true;
+        List<T> itemList = new ArrayList<>(items);
+        for (int i = 0; i < itemList.size(); i++) {
+            for (int j = i + 1; j < itemList.size(); j++) {
+                if (itemList.get(i).equals(itemList.get(j))) {
+                    return true;
+                }
             }
         }
         return false;
