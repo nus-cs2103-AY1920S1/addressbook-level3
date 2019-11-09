@@ -1,19 +1,15 @@
 package seedu.address.ics;
 
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
-import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.model.tasks.TaskSourceBuilder;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class IcsParserTest {
     @Test
