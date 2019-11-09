@@ -5,6 +5,7 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -105,6 +106,16 @@ public class FullCalendarView extends UiPart<Region> {
             ap.setLeftAnchor(txt, 5.0);
             ap.getChildren().add(txt);
             calendarDate = calendarDate.plusDays(1);
+
+            VBox vb = new VBox();
+            Text test = new Text("test");
+            vb.setPadding(new Insets(0, 10, 0, 7));
+            vb.setSpacing(0);
+            vb.getChildren().addAll(test);
+            ap.getChildren().add(vb);
+
+            ap.setTopAnchor(vb, 20.0);
+            ap.setLeftAnchor(vb, 5.0);
         }
         // Change the title of the calendar
         calendarTitle.setText(yearMonth.getMonth().toString() + " " + String.valueOf(yearMonth.getYear()));
