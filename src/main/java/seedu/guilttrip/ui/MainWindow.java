@@ -7,15 +7,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.logic.Logic;
@@ -31,7 +35,6 @@ import seedu.guilttrip.ui.expense.ExpenseListPanel;
 import seedu.guilttrip.ui.income.IncomeListPanel;
 import seedu.guilttrip.ui.reminder.ReminderPanel;
 import seedu.guilttrip.ui.stats.StatisticsBarChart;
-import seedu.guilttrip.ui.stats.StatisticsPieChartHolder;
 import seedu.guilttrip.ui.stats.StatisticsWindow;
 import seedu.guilttrip.ui.util.FontManager;
 import seedu.guilttrip.ui.util.PanelName;
@@ -45,11 +48,6 @@ import seedu.guilttrip.ui.wishlist.WishListPanel;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private final String lightThemeUrl = getClass().getResource("/view/LightTheme.css").toExternalForm();
-    private final String lightExtensionsUrl = getClass().getResource("/view/ExtensionsLight.css")
-            .toExternalForm();
-    private final String darkThemeUrl = getClass().getResource("/view/DarkTheme.css").toExternalForm();
-    private final String darkExtensionsUrl = getClass().getResource("/view/ExtensionsDark.css").toExternalForm();
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -66,13 +64,10 @@ public class MainWindow extends UiPart<Stage> {
     private AutoExpensesPanel autoExpensesPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private PopupWindow popupWindow;
     private StatisticsWindow statsListPanel;
-    private StatisticsPieChartHolder statsGraphics;
     private StatisticsBarChart statsBar;
     private BudgetPanel budgetsPanel;
-
-    private boolean isStatsWindow;
-    private boolean isStatsGraphicsWindow;
 
     // Customisable GUI elements
     private String font;
@@ -127,15 +122,13 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
-        this.isStatsGraphicsWindow = false;
-        this.isStatsWindow = false;
-
         // Configure the UI
         setUpGui(logic.getGuiSettings());
 
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        //popupWindow = new PopupWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -430,26 +423,26 @@ public class MainWindow extends UiPart<Stage> {
         String oldExtensionsUrl = null;
         String newThemeUrl = null;
         String newExtensionsUrl = null;
+        Theme oldTheme = null;
 
         switch (newTheme) {
         case LIGHT:
             this.theme = Theme.LIGHT;
-            oldThemeUrl = darkThemeUrl;
-            oldExtensionsUrl = darkExtensionsUrl;
-            newThemeUrl = lightThemeUrl;
-            newExtensionsUrl = lightExtensionsUrl;
+            oldTheme = Theme.DARK;
             break;
         case DARK:
             this.theme = Theme.DARK;
-            oldThemeUrl = lightThemeUrl;
-            oldExtensionsUrl = lightExtensionsUrl;
-            newThemeUrl = darkThemeUrl;
-            newExtensionsUrl = darkExtensionsUrl;
+            oldTheme = Theme.LIGHT;
             break;
         default:
             // Do nothing.
             break;
         }
+
+        oldThemeUrl = theme.getThemeUrl(oldTheme);
+        oldExtensionsUrl = theme.getThemeExtensionUrl(oldTheme);
+        newThemeUrl = theme.getThemeUrl(newTheme);
+        newExtensionsUrl = theme.getThemeExtensionUrl(newTheme);
 
         removeAndAddStylesheets(oldThemeUrl, newThemeUrl);
         removeAndAddStylesheets(oldExtensionsUrl, newExtensionsUrl);
@@ -513,8 +506,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.guilttrip.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText)
-            throws CommandException, ParseException, IllegalArgumentException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
+            IllegalArgumentException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -608,6 +601,36 @@ public class MainWindow extends UiPart<Stage> {
                     //showRemindersOnMainPanel();
                     mainPanel.getChildren().removeAll(mainPanel.getChildren());
                     mainPanel.getChildren().add(this.reminderPanel.getRoot());
+
+                    /*PopupWindow popupWindow = new PopupWindow();
+
+                    Popup reminderPopup = new Popup();
+                    reminderPopup.getContent().add(popupWindow.getRoot());
+                    reminderPopup.setAutoHide(true);
+                    reminderPopup.setHideOnEscape(true);
+                    if (!reminderPopup.isShowing()) {
+                        reminderPopup.show(this.primaryStage);
+                    }*/
+
+                    /*this.popupWindow = new PopupWindow();
+
+                    if (!popupWindow.isShowing()) {
+                        popupWindow.show();
+                    } else {
+                        popupWindow.focus();
+                    }*/
+
+
+                    final Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.getDialogPane().getStylesheets().add(this.theme.getThemeUrl());
+                    alert.initStyle(StageStyle.DECORATED);
+                    alert.getDialogPane().setGraphic(new ImageView(new Image("images/guiltTrip()_32.png")));
+                    alert.initOwner(this.primaryStage);
+                    alert.setTitle("reminder");
+                    alert.setHeaderText("headerText");
+                    alert.setContentText("contentText");
+                    alert.getDialogPane().setId("alertDialogPane");
+                    alert.showAndWait();
 
                     break;
                 default:
