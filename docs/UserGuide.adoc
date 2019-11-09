@@ -71,8 +71,6 @@ include::./userguide/DataSavingUndoRedo.adoc[]
 
 include::./userguide/ImportExport.adoc[]
 
-include::./userguide/Exiting.adoc[]
-
 = Tutorials / How-To Guide(s) (as of v1.4)
 
 include::./userguide/VisitHowTo.adoc[]
