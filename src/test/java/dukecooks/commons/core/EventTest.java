@@ -31,11 +31,4 @@ public class EventTest {
         Event anotherEvent = Event.getInstance();
         assertEquals(event.hashCode(), anotherEvent.hashCode());
     }
-
-    @Test
-    void test_toString() {
-        event = Event.getInstance();
-        assertTrue(event.toString().equals("Type: dashboard\nMode : all\n"));
-    }
-
 }
