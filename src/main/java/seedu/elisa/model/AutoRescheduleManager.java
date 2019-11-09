@@ -110,12 +110,13 @@ public class AutoRescheduleManager {
             Duration delay = Duration.between(LocalDateTime.now(), task.getStartTime());
             if (delay.getSeconds() < 0) {
                 LocalDateTime updatedTime = getUpdatedDateTime(task.getEvent());
+                //delay = Duration.between(LocalDateTime.now(), updatedTime);
             }
 
             RescheduleTask.addToAllTasks(task);
             timer.scheduleAtFixedRate(task, delay.toMillis(), task.getLongPeriod());
         } catch (Exception e) {
-            logger.warning("----------------[Failed to schedule Event][" + task.getEvent() + "]");
+            logger.warning("----------------[Failed to schedule Event][" + task.getEvent() + "]" + e.getMessage());
         }
     }
 
