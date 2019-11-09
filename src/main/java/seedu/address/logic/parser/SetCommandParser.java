@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_RENEWS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RENEW_PERIOD;
 
 import seedu.address.logic.commands.SetCommand;
-import seedu.address.logic.commands.ViewSettingsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

@@ -40,7 +40,7 @@ public class ToggleUiCommand extends ReversibleCommand {
         redoCommand = this;
 
         if (unusedArguments != null) {
-            commandResult =  CommandResult.commandResultToggleUi(String.format(MESSAGE_SUCCESS
+            commandResult = CommandResult.commandResultToggleUi(String.format(MESSAGE_SUCCESS
                     + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD));
             return commandResult;
         } else {
