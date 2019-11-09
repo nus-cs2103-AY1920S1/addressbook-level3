@@ -231,20 +231,24 @@ Rank feature has 2 sequential checks:
 
 Finally, the feature returns an athlete's report card for a competition. For example,
 
- Athlete: Alex Yeoh 
- Competition: NUS Powerlifting Open 2019 
- Rank: 1 
- Total Score: 1 
- Max Squat: 1 
- Max Bench Press: 0 
- Max Deadlift: 0 
+ Athlete: Alex Yeoh
+ Competition: NUS Powerlifting Open 2019
+ Rank: 1
+ Total Score: 1
+ Max Squat: 1
+ Max Bench Press: 0
+ Max Deadlift: 0
 
-When the rank feature is used, RankCommand interacts with other classes to return an athlete's report card. See the sequence diagram for a depiction of how RankCommand interacts with other classes.
+When the rank feature is used, RankCommand interacts with other classes to return an athlete's report card. See the
+sequence diagram for a depiction of how RankCommand interacts with other classes.
 
 ===== Choice of Design Pattern
-Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands, without the programme knowing which type of command is being executed. Furthermore, the original AB3 code base achieves a Command Design Pattern by requiring different types of command classes to extend from a Command Abstract Class. 
+Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands,
+without the programme knowing which type of command is being executed. Furthermore, the original AB3 code base achieves
+a Command Design Pattern by requiring different types of command classes to extend from a Command Abstract Class.
 
-Due to time constraint and to achieve consistency with the Command Design Pattern of the original Code Base, we decide to apply the Command Design Pattern for the Rank command too.
+Due to time constraint and to achieve consistency with the Command Design Pattern of the original Code Base,
+we decide to apply the Command Design Pattern for the Rank command too.
 
 ==== RankList feature
 
