@@ -52,6 +52,7 @@ public class CommandTestUtil {
     public static final String INVALID_AMOUNT_OVERFLOW_DESC = " " + PREFIX_AMOUNT + "100000000";
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "10";
     public static final String INVALID_DATETYPE_DESC = " " + PREFIX_DATE + "40402019";
+    public static final String INVALID_DATETYPE = "40402019";
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_NAME + "Milk@";
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "Work*";
 

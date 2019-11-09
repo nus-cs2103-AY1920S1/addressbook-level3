@@ -73,7 +73,7 @@ public final class GradientDescent {
     /**
      * Performs the gradient descent algorithm to optimise {@code theta0} & {@code theta1}
      */
-    public void train() {
+    private void train() {
         double delta0;
         double delta1;
         do {
@@ -149,18 +149,6 @@ public final class GradientDescent {
 
     public double getMaxOutput() {
         return (maxOutput / OUTPUT_SCALE_FACTOR);
-    }
-
-    public double getOutput(int idx) {
-        return this.actualValues[idx];
-    }
-
-    public double getDataRange() {
-        return dataRange;
-    }
-
-    public double getOutputRange() {
-        return outputRange / OUTPUT_SCALE_FACTOR;
     }
 
     public double getVariable() {
