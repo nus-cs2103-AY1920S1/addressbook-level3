@@ -16,10 +16,10 @@ import com.typee.model.engagement.exceptions.InvalidTimeException;
  */
 class JsonAdaptedEngagement {
 
-    private static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Description cannot be blank!";
-
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Engagement's %s field is missing!";
     public static final String EMPTY_LIST = "[]";
+
+    private static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Description cannot be blank!";
 
     private final String engagementType;
     private final String timeSlot;
