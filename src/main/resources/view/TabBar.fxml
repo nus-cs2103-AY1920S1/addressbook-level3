@@ -14,7 +14,7 @@
         <Insets top="5" right="5" bottom="5" left="5"/>
       </padding>
       <children>
-        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="30" fitWidth="30" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../images/doge_tab.png"/>
           </image>
@@ -28,7 +28,7 @@
         <Insets top="5" right="5" bottom="5" left="5"/>
       </padding>
       <children>
-        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="30" fitWidth="30" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../images/template_tab.png"/>
           </image>
@@ -42,7 +42,7 @@
         <Insets top="5" right="5" bottom="5" left="5"/>
       </padding>
       <children>
-        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="30" fitWidth="30" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../images/create_tab.png"/>
           </image>
@@ -56,7 +56,7 @@
         <Insets top="5" right="5" bottom="5" left="5"/>
       </padding>
       <children>
-        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="30" fitWidth="30" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../images/statistics_tab.png"/>
           </image>
@@ -70,7 +70,7 @@
         <Insets top="5" right="5" bottom="5" left="5"/>
       </padding>
       <children>
-        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="30" fitWidth="30" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../images/export_tab.png"/>
           </image>
@@ -84,7 +84,7 @@
         <Insets top="5" right="5" bottom="5" left="5"/>
       </padding>
       <children>
-        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="30" fitWidth="30" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../images/import_tab.png"/>
           </image>
@@ -98,7 +98,7 @@
         <Insets top="5" right="5" bottom="5" left="5"/>
       </padding>
       <children>
-        <ImageView fitHeight="50" fitWidth="50" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="30" fitWidth="30" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../images/preferences_tab.png"/>
           </image>

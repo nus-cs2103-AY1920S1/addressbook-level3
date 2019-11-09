@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="810" minWidth="990" onCloseRequest="#handleExit" title="Weme" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="680" minWidth="1000" onCloseRequest="#handleExit" title="Weme" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/weme.png" />
   </icons>
@@ -24,15 +24,6 @@
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
-
         <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
             <Insets bottom="5" left="10" right="10" top="5" />
@@ -47,7 +38,7 @@
         </StackPane>
 
         <HBox VBox.vgrow="ALWAYS">
-          <StackPane fx:id="tabBarPlaceholder" maxWidth="120" minHeight="320" minWidth="120" prefWidth="120" styleClass="pane-with-border" HBox.hgrow="NEVER">
+          <StackPane fx:id="tabBarPlaceholder" maxWidth="120" minHeight="420" minWidth="120" prefWidth="120" styleClass="pane-with-border" HBox.hgrow="NEVER">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>

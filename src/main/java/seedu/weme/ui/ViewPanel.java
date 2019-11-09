@@ -27,8 +27,6 @@ public class ViewPanel extends UiPart<Region> {
     @FXML
     private ImageView display;
     @FXML
-    private Label id;
-    @FXML
     private Label description;
     @FXML
     private FlowPane tags;
@@ -36,7 +34,7 @@ public class ViewPanel extends UiPart<Region> {
     public ViewPanel(ObservableValue<Meme> observableMeme) {
         super(FXML);
         observableMeme.addListener((observable, oldValue, newValue) -> {
-            display.setImage(new Image(newValue.getImagePath().toUrl().toString()));
+            display.setImage(new Image(newValue.getImagePath().toUrl().toString(), true));
             description.setText(newValue.getDescription().value);
             tags.getChildren().clear();
             newValue.getTags().stream()
