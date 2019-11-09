@@ -40,6 +40,8 @@ public class AddProfileCommand extends AddCommand {
         }
 
         model.addPerson(toAdd);
+        LinkHealth.updateHealth(model, toAdd, true, true);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

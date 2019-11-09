@@ -32,6 +32,7 @@ public class DeleteRecordCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getHealthRecords(), new UserPrefs());
         expectedModel.deleteRecord(recordToDelete);
+        expectedModel.updateFilteredRecordList(x -> x.getType().equals(recordToDelete.getType()));
 
         CommandTestUtil.assertCommandSuccess(deleteRecordCommand, model, expectedMessage, expectedModel);
     }
@@ -54,6 +55,7 @@ public class DeleteRecordCommandTest {
 
         Model expectedModel = new ModelManager(model.getHealthRecords(), new UserPrefs());
         expectedModel.deleteRecord(recordToDelete);
+        expectedModel.updateFilteredRecordList(x -> x.getType().equals(recordToDelete.getType()));
 
         CommandTestUtil.assertCommandSuccess(deleteRecordCommand, model, expectedMessage, expectedModel);
     }

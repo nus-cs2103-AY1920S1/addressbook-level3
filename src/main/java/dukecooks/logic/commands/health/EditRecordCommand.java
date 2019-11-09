@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.CollectionUtil;
@@ -44,6 +45,8 @@ public class EditRecordCommand extends EditCommand {
     public static final String MESSAGE_EDIT_RECORD_SUCCESS = "Edited Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the Duke Cooks.";
+
+    private static Event event;
 
     private final Index index;
     private final EditRecordDescriptor editRecordDescriptor;
@@ -83,6 +86,15 @@ public class EditRecordCommand extends EditCommand {
         }
 
         model.setRecord(recordToEdit, editedRecord);
+
+        model.updateFilteredRecordList(x -> x.getType().equals(type));
+        if (type.equals(Type.Weight) || type.equals(Type.Height)) {
+            LinkProfile.updateProfile(model, type);
+        }
+        // trigger event to direct user to view the output
+        event = Event.getInstance();
+        event.set("health", "type");
+
         return new CommandResult(String.format(MESSAGE_EDIT_RECORD_SUCCESS, editedRecord));
     }
 

@@ -20,9 +20,9 @@ public class Weight {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[0-9]+";
+    public static final String VALIDATION_REGEX = "^\\s*(?=.*[1-9])\\d*(?:\\.\\d{1})?";
 
-    public final int weight;
+    public final double weight;
 
     /**
      * Constructs a {@code Weight}.
@@ -32,8 +32,8 @@ public class Weight {
     public Weight(String weight) {
         requireNonNull(weight);
         AppUtil.checkArgument(isValidNumber(weight), MESSAGE_CONSTRAINTS);
-        AppUtil.checkArgument(isValidWeight(Integer.parseInt(weight)), MESSAGE_INFLATED_WEIGHT);
-        this.weight = Integer.parseInt(weight);
+        AppUtil.checkArgument(isValidWeight(Double.parseDouble(weight)), MESSAGE_INFLATED_WEIGHT);
+        this.weight = Double.parseDouble(weight);
     }
 
     /**
@@ -47,7 +47,7 @@ public class Weight {
      * Returns true if weight is within the limit set.
      * Prevents input of large values set to weight.
      */
-    public static boolean isValidWeight(int test) {
+    public static boolean isValidWeight(double test) {
         return test > 0 && test <= WEIGHT_LIMIT;
     }
 

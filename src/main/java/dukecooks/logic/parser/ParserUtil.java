@@ -425,6 +425,10 @@ public class ParserUtil {
         if (!Weight.isValidNumber(trimmedWeight)) {
             throw new ParseException(Weight.MESSAGE_CONSTRAINTS);
         }
+
+        if (!Weight.isValidWeight(Double.parseDouble(trimmedWeight))) {
+            throw new ParseException(Weight.MESSAGE_INFLATED_WEIGHT);
+        }
         return new Weight(trimmedWeight);
     }
 
@@ -439,6 +443,10 @@ public class ParserUtil {
         String trimmedHeight = height.trim();
         if (!Height.isValidNumber(trimmedHeight)) {
             throw new ParseException(Height.MESSAGE_CONSTRAINTS);
+        }
+
+        if (!Height.isValidHeight(Double.parseDouble(trimmedHeight))) {
+            throw new ParseException(Height.MESSAGE_INFLATED_HEIGHT);
         }
         return new Height(trimmedHeight);
     }

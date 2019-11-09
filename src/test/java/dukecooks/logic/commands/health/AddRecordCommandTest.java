@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -110,6 +112,12 @@ public class AddRecordCommandTest {
         @Override
         public ReadOnlyHealthRecords getHealthRecords() {
             return new HealthRecords();
+        }
+
+        @Override
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
+            requireNonNull(predicate);
+            recordsAdded.stream().filter(predicate).collect(Collectors.toList());
         }
     }
 

@@ -53,7 +53,7 @@ class WeightTest {
     @Test
     void testToString() {
         Weight weight = new Weight("90");
-        String expected = "90";
+        String expected = "90.0";
         assertEquals(weight.toString(), expected);
     }
 }
