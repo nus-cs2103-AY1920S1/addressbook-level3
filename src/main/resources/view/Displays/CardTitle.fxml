@@ -8,12 +8,12 @@
 
 <fx:root alignment="CENTER" prefWidth="500.0" spacing="10.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="questionLabel" maxWidth="300.0" text="Question " wrapText="true" />
+        <Label fx:id="questionLabel" maxWidth="300.0" style="-fx-label-padding: 10;" text="Question " wrapText="true" />
         <Pane HBox.hgrow="ALWAYS" />
         <Button fx:id="editButton" mnemonicParsing="false" text="Edit" />
         <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete" />
     </children>
     <padding>
-        <Insets bottom="10.0" right="10.0" />
+        <Insets left="10.0" right="10.0" />
     </padding>
 </fx:root>
