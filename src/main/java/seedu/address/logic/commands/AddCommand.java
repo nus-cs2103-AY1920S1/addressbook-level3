@@ -11,6 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ViewState;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 
 
@@ -38,6 +39,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense list";
+    public static final String MESSAGE_ADD_ERROR = "An error occurred while trying to add the expense";
 
     private final Expense toAdd;
 
@@ -52,14 +54,27 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        ViewState viewState = model.getViewState();
 
         if (model.hasExpense(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
 
         model.addExpense(toAdd);
-        model.setViewState(ViewState.DEFAULT_EXPENSELIST);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+
+        if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
+            return new CommandResult(model.getFilteredExpenseList(), null, null,
+                String.format(MESSAGE_SUCCESS, toAdd));
+        } else if (viewState.equals(ViewState.BUDGETLIST)) {
+            return new CommandResult(null, model.getFilteredBudgetList(), null,
+                String.format(MESSAGE_SUCCESS, toAdd));
+        } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
+            Budget viewingBudget = model.getLastViewedBudget();
+            return new CommandResult(model.getExpenseListFromBudget(viewingBudget), null, null,
+                String.format(MESSAGE_SUCCESS, toAdd));
+        } else {
+            throw new CommandException(MESSAGE_ADD_ERROR);
+        }
     }
 
     @Override
