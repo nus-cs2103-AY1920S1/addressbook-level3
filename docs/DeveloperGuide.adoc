@@ -209,15 +209,79 @@ and competition can be viewed too, as long as a competition session has yet to e
 To handle the state of the competition, we have created a new `Session` class that is packaged into model and
 managed by the ModelManager. The `Session` class is a singleton class, and only has one instance in the ModelManager.
 The reason behind the use of a singleton class to handle sessions, is that we only want one ongoing session at any
-point in time.
+point in time. The singleton class will also only temporarily store its participation list, and participationAttempt
+list in relation to the ongoing session. Once the session ends, all data is reset.
+Any update in any objects such as the attempts or participation details will be handled by the ModelManager,
+which will be explained in more details in the respective features below.
 
 .Class Diagram of the Session package in the Model
 image::SessionClassDiagram.png[]
 
+
 ==== Next feature
+One of the main purpose of the in-session function is to generate the next lifter and his attempt details accordingly.
+In the `Session` class, the list of `ParticipationAttempt` is maintained so that athletes can make their attempt
+in order of the type of lift, attempt number, and in increasing weight to be attempted. Upon calling the `next` command,
+the next lifter is called up, and the following lifter should be asked to prepare for his lift, after the next lifter.
+
+Format: `next`
+
+Given below is the example flow of what the model does when the `NextLifterCommand` is executed after being parsed
+through the LogicManager.
+
+*Step 1:* A new `NextLifterCommand` is constructed when the user inputs `next` in the command box.
+When `NextLifterCommand#execute()` is called, the model will get the following lifter, and store the
+ParticipationAttempt retrieved from `Session#getFollowingLifter()` in a local variable,
+to be returned together with the CommandResult later on.
+
+*Step 2:* The `ModelManager` will call `Session#NextLifter()` to generate the next lifter and attempt in the form of a
+`ParticipationAttempt` object. If the `Session` is not prepared, which means that the imported `ParticipationAttempts`
+are not sorted, `prepare()` will be called internally. When this method is called, the ParticipationAttempt list in the
+Session will be sorted according to the new `ParticipationAttemptComparator`. When this is done, the session is now
+prepared, and next or following lifters can be generated based on this sorted list.
+(This method is usually called once just after starting the session.)
+
+*Step 3:* The `Session#NextLifter()` method will then return the first `ParticipationAttempt` in the list.
+This is equivalent to the next lifter to make his attempt, since he is the top most in the sorted list.
+
+*Step 4:* A new `CommandResult` will be returned. Details of the next and following ParticipationAttempt will be
+included and displayed in the Dialogue Box to the user.
+
+.Sequence Diagram for the NextLifterCommand
+image::NextSequenceDiagram.png[]
 
 
 ==== Lift feature
+This command allows the user to update and record the result of the attempt that was just made.
+The participation's dependent attempts as well as scores will be automatically updated according to the lifts made and
+recording using this command.
+
+Format: `lift Y/N`
+
+Given below is the example flow of how the model executes the `AttemptLiftedCommand` in the model after it is
+parsed through the `LogicManager`.
+
+*Step 1:* An `AttemptLiftedCommand` is created with a boolean parameter to indicate the success of the lift.
+An input `lift y` by the user will create an `AttemptLiftedCommand`, taking in boolean `true`.
+
+*Step 2:* The following lifter and attempt is retrieved and stored in a local variable in the execute method of the
+command, so that we can prompt the user of the following lifter, before any changes are made to the existing attempts.
+
+*Step 3:* `model#makeAttempt()` is called in the execute method of the command. The `ModelManager` will then call
+`Session#attemptMade()` to indicate the attempt has been made. This method will return a `ParticipationAttempt` object
+that has just been made, and stored in a local variable named `next`. If this particular attempt has already been made,
+an exception will be thrown to inform the user in the form of a `CommandResult`.
+
+*Step 4:* The `Participation` of the `next` will be retrieved, so that we can update the participant's attempt by
+calling `Participation#updateAttempt()`. `ModelManager#setParticipation()` will then update the participation's attempt
+in the storage accordingly.
+
+*Step 5:* `AttemptLiftedCommand#execute()` will then return a new `CommandResult` containing the associated result,
+together with the following lifter.
+
+.Sequence Diagram for the AttemptLiftedCommand
+image::LiftSequenceDiagram.png[]
+
 
 ==== Rank feature
 A RankCommand class is created to facilitate ranking of an athlete for a given competition he or she participates in.
@@ -250,7 +314,7 @@ a Command Design Pattern by requiring different types of command classes to exte
 Due to time constraint and to achieve consistency with the Command Design Pattern of the original Code Base,
 we decide to apply the Command Design Pattern for the Rank command too.
 
-==== RankList feature
+==== Rank list feature
 
 ==== End session feature
 This feature ends the session, and shifts the user back to the out-session state.
@@ -268,8 +332,34 @@ session states, without worrying about the state of the competition.
 
 ==== Start Session feature
 The start session feature is a command to start a new competition session, when a user is not in competition state.
+As mentioned in Section 4.2. above, `Session` allows the user to start any competition session as and when, even when a
+competition has not ended (there are still attempts left to be made). To start a session, the user can enter
+the command with the specified competition.
 
-Format: `startSession`
+Format: `startSession c/COMPETITION_NAME`
+
+Given below is the flow of execution in the model after a `StartSessionCommand#execute()` is called.
+
+*Step 1:* `Model#startSession(comp, partList)` is called, where `comp` is the `Competition` object to start the session
+with, and `partList` is the list of `Participation` who will be participating in this competition session.
+The method then calls `Session#start(comp, partList)`.
+
+*Step 2:* An internal call in the `start()` method, `loadAttempts(p, p.getAttempts())`, is made for every
+`Participation` object, `p`, by looping through the `partList`, loading all unattempted attempts into the
+participationAttemptList temporarily stored in the Session instance.
+(`p.getAttempts()` retrieves the list of all 9 `Attempt` instance that the participation has submitted at the start.)
+
+*Step 3:* The `loadAttempts()` method will loop through all the 9 `Attempt` objects taken in as parameter, and checks if
+each has been attempted. If an `Attempt` by that `Participation` has not been attempted, a new `ParticipationAttempt`
+object will be created and added to the list.
+
+Because of the way `Session` handles the initialising of every new session, be it starting a new competition, resuming a
+competition, or even starting a session with a competition that has already ended (all attempts have been made by the
+athletes) is made possible.
+
+.Sequence Diagram for the StartSessionCommand
+image::StartSequenceDiagram.png[]
+
 
 ==== Competition features
 
@@ -282,7 +372,7 @@ corresponding Participation class associated to that Person and Competition inst
 To create a new Participation, the associated Person and Competition must exist. If either doesnt,
 an exception will be thrown to the user through the result box to prompt the user to input an existing one.
 
-Format: `addParticipation n/Athlete Name c/Competition Name s/S1/S2/S3 b/B1/B2/B3 d/D1/D2/D3`
+Format: `addParticipation n/PERSON_NAME c/COMPETITION_NAME s/S1/S2/S3 b/B1/B2/B3 d/D1/D2/D3`
 
 Note: S1 means the 1st attempted weight for the Squat and so on.
 
@@ -317,7 +407,7 @@ Cons:
 * User will have to scroll through the participation list on the app to type in the index.
 
 
-==== (Any other features yall want to include)
+==== Overall Rank feature
 
 
 == Documentation

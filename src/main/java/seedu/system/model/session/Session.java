@@ -178,10 +178,6 @@ public class Session {
             throw new NoOngoingSessionException();
         }
 
-        if (!isPrepared) {
-            prepare();
-        }
-
         if (isLifterReady) {
             throw new AttemptHasBeenAttemptedException();
         }
