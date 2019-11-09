@@ -40,8 +40,8 @@ public class ClearDateMappingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (MainWindow.isFinanceTab()) {
-            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
+        if (MainWindow.isFinanceTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB);
         }
 
         List<Event> lastShownList = MainWindow.getCurrentEventList(model);

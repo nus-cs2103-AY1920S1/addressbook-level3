@@ -58,18 +58,20 @@ public class DeallocateCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (MainWindow.isFinanceTab()) {
+        if (MainWindow.isFinanceTab() || MainWindow.isStatsTab()) {
             throw new CommandException(Messages.MESSAGE_WRONG_TAB_DE_ALLOCATE);
         }
 
         List<Employee> lastShownList = model.getFullListEmployees();
         List<Event> lastShownEventList;
 
-        //Checks the current tab index and retrieves the relevant list from model
-        if (MainWindow.getCurrentTabIndex() == 0) {
+        // Checks the current tab index and retrieves the relevant event list from model
+        if (MainWindow.isMainTab()) {
             lastShownEventList = model.getFilteredEventList();
-        } else {
+        } else if (MainWindow.isScheduleTab()) {
             lastShownEventList = model.getFilteredScheduledEventList();
+        } else {
+            throw new CommandException(Messages.MESSAGE_WRONG_WINDOW);
         }
 
         if (eventIndex.getZeroBased() >= lastShownEventList.size()) {
@@ -135,6 +137,7 @@ public class DeallocateCommand extends Command {
                 updatedEndDate, updatedManpowerAllocatedList, eventDateTimeMap, updatedTags);
 
     }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

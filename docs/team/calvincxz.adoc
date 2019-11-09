@@ -37,17 +37,15 @@ I have added to the user and developer guides in relation to these features.
 
 * *Major feature*: enabled the association of employees with events which includes
 *automated/manual allocation of employees to event commands* and a *de-allocate command*, as well as the
-viewing of changes the users made via the *fetch event* command. All related commands have *GUI features* implemented.
+viewing of the association via the *fetch event* command. All related commands have *GUI features* implemented.
 
-** What it does: This feature allows the user to check for availability of employees and allocate them to an event with
-certain filter requirements. The algorithm ensures that employees cannot be allocated to events with
-conflicting time periods.
+** What it does: This feature allows the user to allocate employees to events with filter requirements. The internal
+algorithm also ensures that employees cannot be allocated to events with conflicting time periods.
 
-** Justification: This feature improves the product significantly because a user can now allocate employees
-to events, which is a key component for event management companies that our app is targeting.
-The algorithm used to check for conflicting schedule is also highly beneficial for users as we
-all know how tedious such tasks can be.
-The GUI features further provide convenience for users.
+** Justification: This feature improves the product significantly because a user can now allocate employees to events,
+which is a key component for event management companies that our app is targeting. The algorithm used to check for
+conflicting schedule is also highly beneficial as users no longer have to waste precious time checking the availability
+of every individual employee. The GUI features further provide convenience for users who prefer using the mouse.
 ** Highlights: This enhancement affects existing commands and commands to be added in future.
 It required an in-depth analysis of design alternatives. The implementation too was challenging as it
 required the knowledge of both `Event` and `Employee` classes.
@@ -82,7 +80,7 @@ https://github.com/AY1920S1-CS2103T-T11-3/main/pull/109[#109], https://github.co
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/129[#129], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/132[#132],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/138[#138],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/138[#138], https://github.com/AY1920S1-CS2103T-T11-3/main/pull/145[#145])
-*** Reported bugs and suggestions for other teams (examples:  https://github.com/AY1920S1-CS2103T-F13-1/main/issues/222[1],
+*** Reported major bugs and suggestions for other teams (examples:  https://github.com/AY1920S1-CS2103T-F13-1/main/issues/222[1],
 https://github.com/AY1920S1-CS2103T-F13-1/main/issues/214[2],
 https://github.com/AY1920S1-CS2103T-F13-1/main/issues/215[3],
 https://github.com/AY1920S1-CS2103T-F13-1/main/issues/216[4],

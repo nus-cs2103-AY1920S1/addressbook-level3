@@ -20,7 +20,7 @@ public class FetchEventCommand extends Command {
     public static final String COMMAND_WORD = "fetch_ev";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the details of the event identified "
-            + "by the index number used in the displayed employee list \n"
+            + "by the index number used in the displayed event list \n"
             + "Parameters: INDEX (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
@@ -40,8 +40,8 @@ public class FetchEventCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (MainWindow.isFinanceTab()) {
-            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
+        if (MainWindow.isFinanceTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_FETCH);
         }
 
         List<Event> lastShownList = MainWindow.getCurrentEventList(model);
