@@ -20,6 +20,13 @@ iFridge is a desktop grocery management application. The user interacts with it 
 The implementation too was challenging as it required changes to existing commands
 and undo/redo implementation needs to be adjusted to the different types of list and its properties.
 
+* *Minor enhancement*: added a *reminder command* to conveniently check for grocery item(s) expiring soon.
+** What it does: Display all grocery items expiring within specified number of days.
+** Justification: This feature increase helps users to better able keep track of their grocery items
+based on their expiry dates when there are a lot of grocery items in the grocery list.
+** Highlights: This enhancement adds more convenience and usability to users as they can easily check for only grocery items
+which they are interested in with respect to their expiry dates and remind them on grocery items that are expiring soon.
+
 * *Minor enhancement*: added a *reminder default command* which serves as an iFridge settings.
 ** What it does: Saves the user preference on the default number of days used to determine whether a grocery item is expiring soon or not.
 ** Justification: This is used in color coding grocery list and waste list based on expiry dates,
@@ -28,6 +35,13 @@ as well as for reminder command to check reminders for expiring food when no spe
 for grocery list and waste list which will be saved even when the app is closed and reused when the app is reopened.
 It also gives the impression that the app can be personalized based on their preference as changes can be seen directly in the
 user interface.
+
+* *Minor enhancement*: designed and implemented the overall user interface of the application.
+** What it does: It provides the ability to switch between the different types of list and color code the
+food items based on their expiry dates (mentioned earlier).
+** Justification: Linked the logic of different commands to the user interface so any changes to the model will
+be visible and easily understandable by the users.
+** Highlights: This enhancement improves the overall usability of the app.
 
 * *Code contributed*: The samples of my functional and test code can be viewed https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=evelynejuliet[here].
 
@@ -66,6 +80,8 @@ include::../UserGuide.adoc[tag=tlistundoredo]
 |===
 |_Below are sections I have contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=uicomponent]
 
 include::../DeveloperGuide.adoc[tag=reminderdefaultfeature]
 

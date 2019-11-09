@@ -15,7 +15,7 @@ import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.ShoppingItem;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code ShoppingItem}.
  */
 public class ShoppingItemCard extends UiPart<Region> {
 

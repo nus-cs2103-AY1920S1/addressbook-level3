@@ -41,6 +41,7 @@ public class NameContainsCloseExpiryDatePredicate implements Predicate<GroceryIt
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NameContainsKeywordsPredicate); // instanceof handles nulls
+                || ((other instanceof NameContainsCloseExpiryDatePredicate) // instanceof handles nulls
+                && numberOfDays == ((NameContainsCloseExpiryDatePredicate) other).numberOfDays); //state check
     }
 }
