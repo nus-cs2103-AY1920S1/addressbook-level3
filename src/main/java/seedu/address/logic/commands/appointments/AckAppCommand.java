@@ -10,6 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.events.predicates.EventContainsKeywordOrRecentlyAcknowledgedPredicate;
+import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 
 /**
  * Acknowledge a person to the address book.
@@ -23,7 +24,7 @@ public class AckAppCommand extends ReversibleCommand {
             + "Parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD + " E0000001A";
 
-    public static final String MESSAGE_SUCCESS = "The upcoming appointment for [%1$s] %2$s has been acknowledged: %3$s";
+    public static final String MESSAGE_SUCCESS = "The upcoming appointment for [%1$s] %2$s has been acknowledged:\n%3$s";
     public static final String MESSAGE_DUPLICATE_ACKED = "The upcoming appointment has already been acknowledged.";
     public static final String MESSAGE_SUCCESS_UNDO = "The appointment for [%1$s]"
             + " %2$s has been unacknowledged: \n%3$s";
@@ -60,11 +61,11 @@ public class AckAppCommand extends ReversibleCommand {
         }
 
         model.updateFilteredAppointmentList(
-                new EventContainsKeywordOrRecentlyAcknowledgedPredicate(
-                        editedEvent.getPersonId(), editedEvent));
+                new EventMatchesRefIdPredicate(
+                        editedEvent.getPersonId()));
 
 
-        if (editedEvent.getStatus().isSettled()) {
+        if (editedEvent.getStatus().isAcked()) {
             return new CommandResult(String.format(
                     MESSAGE_SUCCESS,
                     editedEvent.getPersonId(),
@@ -78,11 +79,6 @@ public class AckAppCommand extends ReversibleCommand {
                     editedEvent));
         }
 
-//        return new CommandResult(String.format(
-//                MESSAGE_SUCCESS,
-//                editedEvent.getPersonId(),
-//                editedEvent.getPersonName(),
-//                editedEvent.getEventTiming()));
     }
 
     @Override
