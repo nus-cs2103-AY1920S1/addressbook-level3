@@ -397,8 +397,6 @@ Edits the starting date of the 2nd plan to be `2019-08-13`.
 Displays a list of all existing plans. +
 Format: `listplan`
 
-=== Searching Plans
-
 ==== Locating plans: `findplan`
 
 Finds plans fulfilling all provided constraints. +
@@ -420,6 +418,13 @@ Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [
 ** is case-sensitive.
 ** is matched word by word.
 ** is considered a match only when there is a task whose name is exactly the same as the given task name.
+
+Examples:
+
+* `findplan start/2019-08-05 end/2019-12-07` +
+Finds plans whose duration overlaps with NUS AY 19/20 Semester 1.
+* `findsplan task/Sequences` +
+Finds plans that contain a task names 'Sequences'.
 // end::plan[]
 
 // tag::task[]
