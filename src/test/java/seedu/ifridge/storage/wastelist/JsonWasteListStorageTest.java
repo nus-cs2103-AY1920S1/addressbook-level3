@@ -87,20 +87,6 @@ public class JsonWasteListStorageTest {
     }
 
     @Test
-    public void readWasteList_validWasteList_success() throws DataConversionException {
-        Path filePath = TEST_DATA_FOLDER.resolve("typicalWasteArchive.json");
-        JsonWasteListStorage jsonWasteListStorage = new JsonWasteListStorage(filePath);
-        TreeMap<WasteMonth, WasteList> expected = getTypicalWasteArchive();
-        Optional<TreeMap<WasteMonth, WasteList>> actual;
-        try {
-            actual = jsonWasteListStorage.readWasteList();
-        } catch (DataConversionException dce) {
-            throw new AssertionError("There should not be an error.");
-        }
-        assertEquals(expected, actual.get());
-    }
-
-    @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempWasteArchive.json");
         TreeMap<WasteMonth, WasteList> original = getTypicalWasteArchive();
@@ -113,6 +99,10 @@ public class JsonWasteListStorageTest {
 
         jsonWasteListStorage.saveWasteList(original);
         TreeMap<WasteMonth, WasteList> readBack2 = jsonWasteListStorage.readWasteList(filePath).get();
+        assertEquals(original, readBack2);
+
+        jsonWasteListStorage.saveWasteList(original, filePath);
+        TreeMap<WasteMonth, WasteList> readBack3 = jsonWasteListStorage.readWasteList().get();
         assertEquals(original, readBack);
     }
 
