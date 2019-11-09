@@ -19,6 +19,9 @@ import calofit.logic.commands.ExitCommand;
 import calofit.logic.commands.FindCommand;
 import calofit.logic.commands.HelpCommand;
 import calofit.logic.commands.ListCommand;
+import calofit.logic.commands.ReportCommand;
+import calofit.logic.commands.SetBudgetCommand;
+import calofit.logic.commands.SuggestCommand;
 import calofit.logic.parser.exceptions.ParseException;
 import calofit.model.dish.Dish;
 import calofit.model.dish.NameContainsKeywordsPredicate;
@@ -83,6 +86,22 @@ public class CommandParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_report() throws ParseException {
+        assertTrue(parser.parseCommand(ReportCommand.COMMAND_WORD) instanceof ReportCommand);
+    }
+
+    @Test
+    public void parseCommand_suggest() throws ParseException {
+        assertTrue(parser.parseCommand(SuggestCommand.COMMAND_WORD) instanceof SuggestCommand);
+    }
+
+    @Test
+    public void parseCommand_set() throws ParseException {
+        assertTrue(parser.parseCommand(SetBudgetCommand.COMMMAND_WORD + " 10")
+            instanceof SetBudgetCommand);
     }
 
     @Test
