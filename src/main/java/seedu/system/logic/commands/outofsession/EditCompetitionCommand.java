@@ -27,7 +27,7 @@ import seedu.system.model.person.CustomDate;
 import seedu.system.model.person.Name;
 
 /**
- * Edits the details of an existing competition in the address book.
+ * Edits the details of an existing competition in the system.
  */
 public class EditCompetitionCommand extends Command {
 

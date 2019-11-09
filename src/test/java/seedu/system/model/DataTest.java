@@ -36,7 +36,7 @@ public class DataTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlySystem_replacesData() {
         Data newData = getTypicalPersonData();
         persons.resetData(newData);
         assertEquals(newData, persons);

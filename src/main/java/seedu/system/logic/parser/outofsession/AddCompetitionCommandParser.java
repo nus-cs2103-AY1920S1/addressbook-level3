@@ -17,7 +17,7 @@ import seedu.system.model.person.CustomDate;
 import seedu.system.model.person.Name;
 
 /**
- * Parses input arguments and creates a new AddCompetitionCommand object
+ * Parses input arguments and creates a new AddCompetitionCommand object.
  */
 public class AddCompetitionCommandParser implements Parser<AddCompetitionCommand> {
 

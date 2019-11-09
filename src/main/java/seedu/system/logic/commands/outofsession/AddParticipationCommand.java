@@ -28,12 +28,18 @@ import seedu.system.model.person.Person;
 public class AddParticipationCommand extends Command {
 
     public static final String COMMAND_WORD = "addParticipation";
+
     public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
+
     public static final String MESSAGE_ATHLETE_NOT_FOUND = "The athlete with the given name does not exist: ";
+
     public static final String MESSAGE_COMPETITION_NOT_FOUND = "The competition with the given name does not exist : ";
+
     public static final String MESSAGE_DUPLICATE_PARTICIPATION = "This participation already exists.";
+
     public static final String MESSAGE_SUCCESS =
             " is added to the participation list for competition "; // athlete name MESSAGE_SUCCESS competition
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + " "
             + PREFIX_NAME + "Athlete_Name "
             + PREFIX_COMP + "Competition_Name "

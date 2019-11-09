@@ -1,19 +1,15 @@
 package seedu.system.ui;
 
-import java.util.logging.Logger;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.system.commons.core.LogsCenter;
 import seedu.system.model.person.Person;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
 public class PersonCard extends UiPart<Region> {
-    private static final Logger logger = LogsCenter.getLogger(PersonCard.class);
     private static final String FXML = "PersonListCard.fxml";
 
     /**

@@ -20,18 +20,22 @@ import seedu.system.model.participation.Participation;
 import seedu.system.model.person.Person;
 
 /**
- * Lists the athlete in order by some stipulated ranking method for a specific competition.
+ * Lists the athletes in order by some stipulated ranking method for a specific competition.
  */
 public class RanklistCommand extends Command {
 
     public static final String COMMAND_WORD = "ranklist";
+
     public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
+
     public static final String MESSAGE_USAGE =
         COMMAND_WORD + ": ranks all athletes in a competition by the chosen ranking method.\n"
         + "Parameters: " + PREFIX_RANK_METHOD + "RANKING METHOD \n"
         + "Example: " + COMMAND_WORD + " " + PREFIX_RANK_METHOD + " overall \n";
+
     public static final String MESSAGE_RANK_METHOD_NOT_FOUND =
         "The ranking method with the given name does not exist : ";
+
     public static final String MESSAGE_SUCCESS = "Ranking of athletes by %1$s score in competition %2$s:";
 
     private final RankMethod rankMethod;
@@ -55,14 +59,15 @@ public class RanklistCommand extends Command {
         Competition onGoingCompetition = model.getOngoingCompetition();
 
         model.updateFilteredParticipationList(PREDICATE_SHOW_ALL_PARTICIPATIONS);
+
         Predicate<Participation> filterByCompetition = p -> p.getCompetition().equals(onGoingCompetition);
         model.updateFilteredParticipationList(filterByCompetition);
-        Comparator<Participation> comparator = new ParticipationRankMethodComparator(rankMethod);
 
         ArrayList<Participation> participationList = new ArrayList<>();
         for (Participation participation : model.getFilteredParticipationList()) {
             participationList.add(participation);
         }
+        Comparator<Participation> comparator = new ParticipationRankMethodComparator(rankMethod);
         participationList.sort(comparator);
 
         String message = MESSAGE_SUCCESS + "\n";
@@ -73,5 +78,12 @@ public class RanklistCommand extends Command {
             message += (i + 1) + ". " + personParticipating.getName() + " (Score: " + score + ")\n";
         }
         return new CommandResult(String.format(message, rankMethod, onGoingCompetition), COMMAND_TYPE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof RanklistCommand // instanceof handles nulls
+            && rankMethod.equals(((RanklistCommand) other).rankMethod));
     }
 }

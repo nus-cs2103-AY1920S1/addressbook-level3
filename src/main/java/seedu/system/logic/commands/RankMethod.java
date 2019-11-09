@@ -1,7 +1,7 @@
 package seedu.system.logic.commands;
 
 /**
- * Represents different ranking methods of participants in a competition
+ * Represents different ranking methods of participants in a competition.
  * Guarantees: immutable
  */
 public enum RankMethod {

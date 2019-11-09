@@ -15,6 +15,7 @@ import seedu.system.model.person.Name;
  * Parses argument input and creates new ListParticipationCommand.
  */
 public class ListParticipationCommandParser implements Parser<ListParticipationCommand> {
+
     /**
      * Parses the given String {@code userInput} into a ListParticipationCommand and returns it for execution.
      *

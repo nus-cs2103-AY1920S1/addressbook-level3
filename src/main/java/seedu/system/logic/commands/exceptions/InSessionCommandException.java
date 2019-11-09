@@ -1,7 +1,7 @@
 package seedu.system.logic.commands.exceptions;
 
 /**
- * Represents an error which occurs when a command that should only be called outside a competition session
+ * Represents an error which occurs when a {@link Command} that should only be called outside a competition session
  * is called during a competition session.
  */
 public class InSessionCommandException extends CommandException {

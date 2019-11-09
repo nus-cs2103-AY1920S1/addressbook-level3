@@ -20,12 +20,17 @@ import seedu.system.model.person.Person;
 public class EditParticipationCommand extends Command {
 
     public static final String COMMAND_WORD = "editPerson";
+
     public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the participation identified "
         + "by the index number used in the displayed participation list.";
+
     public static final String MESSAGE_EDIT_PARTICIPATION_SUCCESS = "Edited participation: %1$s";
+
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PARTICIPATIN =
+
+    public static final String MESSAGE_DUPLICATE_PARTICIPATION =
         "This participation already exists in the address book.";
 
     /**

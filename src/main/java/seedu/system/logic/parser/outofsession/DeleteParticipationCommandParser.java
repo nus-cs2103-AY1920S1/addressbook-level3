@@ -9,7 +9,7 @@ import seedu.system.logic.parser.ParserUtil;
 import seedu.system.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input and returns a DeleteParticipationCommand
+ * Parses input and returns a DeleteParticipationCommand.
  */
 public class DeleteParticipationCommandParser implements Parser<DeleteParticipationCommand> {
     @Override

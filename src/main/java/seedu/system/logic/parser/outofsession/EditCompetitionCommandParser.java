@@ -17,7 +17,7 @@ import seedu.system.logic.parser.ParserUtil;
 import seedu.system.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new EditCompetitionCommand object
+ * Parses input arguments and creates a new EditCompetitionCommand object.
  */
 public class EditCompetitionCommandParser implements Parser<EditCompetitionCommand> {
 

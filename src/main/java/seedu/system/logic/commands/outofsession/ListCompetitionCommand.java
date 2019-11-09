@@ -10,12 +10,14 @@ import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
 
 /**
- * Lists all competitions in the address book to the user.
+ * Lists all competitions in the system to the user.
  */
 public class ListCompetitionCommand extends Command {
 
     public static final String COMMAND_WORD = "listCompetition";
+
     public static final CommandType COMMAND_TYPE = CommandType.COMPETITION;
+
     public static final String MESSAGE_SUCCESS = "Listed all competitions";
 
     @Override
@@ -30,4 +32,9 @@ public class ListCompetitionCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS, COMMAND_TYPE);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || other instanceof ListCompetitionCommand; // instanceof handles nulls
+    }
 }

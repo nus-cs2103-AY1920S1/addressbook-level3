@@ -15,7 +15,7 @@ import seedu.system.model.Model;
 import seedu.system.model.competition.Competition;
 
 /**
- * Deletes a competition identified using it's displayed index from the address book.
+ * Deletes a competition identified using it's displayed index from the system.
  */
 public class DeleteCompetitionCommand extends Command {
 

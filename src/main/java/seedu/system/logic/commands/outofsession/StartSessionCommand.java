@@ -18,16 +18,20 @@ import seedu.system.model.person.Name;
 import seedu.system.model.session.exceptions.OngoingSessionException;
 
 /**
- * Loads a new session for a specific competition with its participants.
+ * Loads a new session for a specific competition with its participations.
  */
 public class StartSessionCommand extends Command {
 
     public static final String COMMAND_WORD = "startSession";
+
     public static final CommandType COMMAND_TYPE = CommandType.GENERAL;
+
     public static final String MESSAGE_SUCCESS = " session has started.\n"
             + "Enter 'next' to get the next lifter in line.\n"
             + "Enter 'rank' or 'ranklist' to get the ranks of the participation/competition.";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_COMP + "Competition_Name";
+
     public static final String MESSAGE_COMPETITION_NOT_FOUND = "The competition with the given name does not exist : ";
 
     private final Name competitionName;
@@ -76,5 +80,11 @@ public class StartSessionCommand extends Command {
             return new CommandResult(e.getMessage());
         }
         return new CommandResult(competitionName + MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || other instanceof StartSessionCommand; // instanceof handles nulls
     }
 }

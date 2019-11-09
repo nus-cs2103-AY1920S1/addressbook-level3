@@ -10,7 +10,7 @@ import seedu.system.logic.commands.exceptions.InSessionCommandException;
 import seedu.system.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the system to the user.
  */
 public class ListPersonCommand extends Command {
 
@@ -29,5 +29,11 @@ public class ListPersonCommand extends Command {
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS, COMMAND_TYPE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || other instanceof DeleteCompetitionCommand; // instanceof handles nulls
     }
 }

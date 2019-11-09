@@ -16,7 +16,7 @@ import seedu.system.model.Model;
 import seedu.system.model.participation.Participation;
 
 /**
- * Deletes participation from the address book.
+ * Deletes a participation identified using it's displayed index from the system.
  */
 public class DeleteParticipationCommand extends Command {
 
@@ -51,5 +51,12 @@ public class DeleteParticipationCommand extends Command {
         Participation partToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteParticipation(partToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PARTICIPATION_SUCCESS, partToDelete), COMMAND_TYPE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof DeleteParticipationCommand // instanceof handles nulls
+            && targetIndex.equals(((DeleteParticipationCommand) other).targetIndex)); // state check
     }
 }

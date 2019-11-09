@@ -32,7 +32,9 @@ import seedu.system.model.person.Person;
 public class EditPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "editPerson";
+
     public static final CommandType COMMAND_TYPE = CommandType.PERSON;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
@@ -46,7 +48,9 @@ public class EditPersonCommand extends Command {
             + PREFIX_GENDER + "MALE";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited person: %1$s";
+
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final Index index;

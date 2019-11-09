@@ -15,7 +15,9 @@ import seedu.system.model.Model;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+
     public static final CommandType COMMAND_TYPE = CommandType.GENERAL;
+
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
 
 
@@ -31,6 +33,12 @@ public class ClearCommand extends Command {
         model.setPersons(new Data());
         model.setCompetitions(new Data());
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || other instanceof ClearCommand; // instanceof handles nulls
     }
 }
 

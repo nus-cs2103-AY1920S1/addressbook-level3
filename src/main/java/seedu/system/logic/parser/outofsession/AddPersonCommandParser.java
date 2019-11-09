@@ -18,7 +18,7 @@ import seedu.system.model.person.Name;
 import seedu.system.model.person.Person;
 
 /**
- * Parses input arguments and creates a new AddPersonCommand object
+ * Parses input arguments and creates a new AddPersonCommand object.
  */
 public class AddPersonCommandParser implements Parser<AddPersonCommand> {
 

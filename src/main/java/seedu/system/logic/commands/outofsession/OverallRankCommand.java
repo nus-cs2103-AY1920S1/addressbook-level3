@@ -14,7 +14,7 @@ import seedu.system.model.Model;
 import seedu.system.model.person.Person;
 
 /**
- * Ranks all the athletes by their total number of wins (i.e. first place finishes) among all the competitions.
+ * Ranks all the persons by their total number of wins (i.e. first place finishes) among all the competitions.
  */
 public class OverallRankCommand extends Command {
     public static final String COMMAND_WORD = "overallRank";

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_DOB;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.system.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.system.logic.parser.CliSyntax.PREFIX_RANK_METHOD;
 import static seedu.system.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class CommandTestUtil {
     public static final String VALID_DOB_BOB = "13/01/1995";
     public static final String VALID_GENDER_AMY = "female";
     public static final String VALID_GENDER_BOB = "male";
+    public static final String VALID_RANK_METHOD = "deadlift";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -39,10 +41,12 @@ public class CommandTestUtil {
     public static final String DOB_DESC_BOB = " " + PREFIX_DOB + VALID_DOB_BOB;
     public static final String GENDER_DESC_AMY = " " + PREFIX_GENDER + VALID_GENDER_AMY;
     public static final String GENDER_DESC_BOB = " " + PREFIX_GENDER + VALID_GENDER_BOB;
+    public static final String DEADLIFT_RANK_METHOD_DESC = " " + PREFIX_RANK_METHOD + VALID_RANK_METHOD;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_DOB_DESC = " " + PREFIX_DOB + "911a"; // does not follow DD/MM/YYYY format
     public static final String INVALID_GENDER_DESC = " " + PREFIX_GENDER + "shemale"; // only male or female allowed
+    public static final String INVALID_RANK_METHOD_DESC = " " + PREFIX_RANK_METHOD + "shoulder press";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

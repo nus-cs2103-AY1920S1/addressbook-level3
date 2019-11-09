@@ -20,7 +20,9 @@ import seedu.system.model.competition.Competition;
 public class AddCompetitionCommand extends Command {
 
     public static final String COMMAND_WORD = "addCompetition";
+
     public static final CommandType COMMAND_TYPE = CommandType.COMPETITION;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a competition to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "COMPETITION NAME "
@@ -32,6 +34,7 @@ public class AddCompetitionCommand extends Command {
             + PREFIX_END_DATE + "15/02/1995 ";
 
     public static final String MESSAGE_SUCCESS = "New competition added: %1$s";
+
     public static final String MESSAGE_DUPLICATE_COMPETITION = "This competition already exists in the address book";
 
     private final Competition toAdd;

@@ -1,7 +1,7 @@
 package seedu.system.model.exercise;
 
 /**
- * Represents an Exercise's type of lift.
+ * Represents an {@link Exercise}'s type of lift.
  * Guarantees: immutable
  */
 public enum Lift {

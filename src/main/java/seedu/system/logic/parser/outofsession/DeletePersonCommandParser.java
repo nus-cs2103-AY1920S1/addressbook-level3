@@ -9,7 +9,7 @@ import seedu.system.logic.parser.ParserUtil;
 import seedu.system.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeletePersonCommand object
+ * Parses input arguments and creates a new DeletePersonCommand object.
  */
 public class DeletePersonCommandParser implements Parser<DeletePersonCommand> {
 

@@ -22,10 +22,15 @@ import seedu.system.model.person.Name;
 public class ListParticipationCommand extends Command {
 
     public static final String COMMAND_WORD = "listParticipation";
+
     public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
+
     public static final String MESSAGE_SUCCESS_FOR_COMPETITION = "Listed participants for competition %1$s";
+
     public static final String MESSAGE_SUCCESS_FOR_ALL = "Listed all participants";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_COMP + "Competition_Name(optional)";
+
     public static final String MESSAGE_COMPETITION_NOT_FOUND =
         "The competition with the given name \"%1$s\" does not exist.";
 
@@ -82,5 +87,11 @@ public class ListParticipationCommand extends Command {
         model.updateFilteredParticipationList(filterByCompetition);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS_FOR_COMPETITION , competition.getName()), COMMAND_TYPE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || other instanceof ListParticipationCommand; // instanceof handles nulls
     }
 }

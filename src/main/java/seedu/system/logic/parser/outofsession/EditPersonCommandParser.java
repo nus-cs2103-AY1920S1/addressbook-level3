@@ -16,7 +16,7 @@ import seedu.system.logic.parser.ParserUtil;
 import seedu.system.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new EditPersonCommand object
+ * Parses input arguments and creates a new EditPersonCommand object.
  */
 public class EditPersonCommandParser implements Parser<EditPersonCommand> {
 

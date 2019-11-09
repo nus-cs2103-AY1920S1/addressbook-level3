@@ -4,13 +4,14 @@ import static seedu.system.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.system.commons.core.index.Index;
 import seedu.system.logic.commands.outofsession.DeleteCompetitionCommand;
+import seedu.system.logic.parser.Parser;
 import seedu.system.logic.parser.ParserUtil;
 import seedu.system.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteCompetitionCommand object
+ * Parses input arguments and creates a new DeleteCompetitionCommand object.
  */
-public class DeleteCompetitionCommandParser {
+public class DeleteCompetitionCommandParser implements Parser<DeleteCompetitionCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCompetitionCommand

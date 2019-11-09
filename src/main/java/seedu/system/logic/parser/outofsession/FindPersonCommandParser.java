@@ -10,7 +10,7 @@ import seedu.system.logic.parser.exceptions.ParseException;
 import seedu.system.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindPersonCommand object
+ * Parses input arguments and creates a new FindPersonCommand object.
  */
 public class FindPersonCommandParser implements Parser<FindPersonCommand> {
 

@@ -7,13 +7,14 @@ import seedu.system.logic.commands.RankMethod;
 import seedu.system.logic.commands.insession.RanklistCommand;
 import seedu.system.logic.parser.ArgumentMultimap;
 import seedu.system.logic.parser.ArgumentTokenizer;
+import seedu.system.logic.parser.Parser;
 import seedu.system.logic.parser.ParserUtil;
 import seedu.system.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new RanklistCommand object
+ * Parses input arguments and creates a new RanklistCommand object.
  */
-public class RanklistCommandParser {
+public class RanklistCommandParser implements Parser<RanklistCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the RanklistCommand
      * and returns an RanklistCommand object for execution.

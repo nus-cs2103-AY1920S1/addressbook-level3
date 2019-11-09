@@ -15,7 +15,7 @@ import seedu.system.model.Model;
 import seedu.system.model.person.Person;
 //@@author HoWeiChin
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a person identified using it's displayed index from the system.
  */
 public class DeletePersonCommand extends Command {
 

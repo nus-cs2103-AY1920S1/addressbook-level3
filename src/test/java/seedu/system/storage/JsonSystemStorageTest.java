@@ -59,17 +59,17 @@ public class JsonSystemStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
+    public void readSystem_invalidPersonSystem_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readPersonData("invalidPersonData.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
+    public void readSystem_invalidAndValidPersonSystem_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readPersonData("invalidAndValidPersonData.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveSystem_allInOrder_success() throws Exception {
         Path personDataFilePath = testFolder.resolve("TempPersonData.json");
         Path competitionDataFilePath = testFolder.resolve("TempCompetitionData.json");
         Path participationDataFilePath = testFolder.resolve("TempParticipationData.json");
@@ -106,7 +106,7 @@ public class JsonSystemStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveSystem_nullSystem_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> savePersonData(null, "SomeFile.json"));
     }
 
@@ -126,7 +126,7 @@ public class JsonSystemStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveSystem_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> savePersonData(new Data(), null));
     }
 }
