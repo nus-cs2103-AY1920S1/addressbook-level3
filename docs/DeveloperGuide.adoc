@@ -309,7 +309,7 @@ and a withdrawal at a single time.
 .Savings class diagram in Model component.
 image::SavingsAccountClassDiagram.png[align=center, alt=SavingsAccount, width=180]
 
-==== *Adding to the Savings Account*
+==== Adding to the Savings Account
 
 The user may want to add a new saving to his savings account. This can be done with the `save` command.
 
@@ -675,15 +675,27 @@ image::AliasActivityDiagram.png[width=650, align="center"]
 
 == Documentation
 
-Refer to the guide <<Documentation#, here>>.
+:leveloffset: +1
+
+include::Documentation.adoc[tag=documentation]
+
+:leveloffset: -1
 
 == Testing
 
-Refer to the guide <<Testing#, here>>.
+:leveloffset: +1
+
+include::Testing.adoc[tag=testing]
+
+:leveloffset: -1
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+:leveloffset: +1
+
+include::DevOps.adoc[tag=devops]
+
+:leveloffset: -1
 
 [appendix]
 == Product Scope
@@ -842,6 +854,32 @@ Use case ends.
 Use case ends.
 
 [discrete]
+=== Use case: Add likes / dislikes
+
+*MSS*
+
+1. User requests to add likes or dislikes, providing the list of liked categories, tags and locations.
+2. $aveNUS adds the likes or dislikes into the system.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user attempts to add a like that already exists as a dislike, or vice versa.
+[none]
+** 1a1. $aveNUS shows an error message.
++
+Use case ends.
+
+* 1b. The given categories, tags or locations are invalid.
++
+[none]
+** 1b1. $aveNUS shows an error message.
++
+Use case ends.
+
+[discrete]
 === Use case: Display recommendations
 
 *MSS*
@@ -910,8 +948,6 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -926,28 +962,6 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[appendix]
-== Product Survey
-
-*$aveNUS*
-
-Author:
-Sean Low
-Jon Chua
-Choo Ze Yuan
-Roby Tanama
-Clarence Koh
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -980,13 +994,10 @@ _{ more test cases ... }_
 .. Prerequisites: There has to be a food item in the menu for the user to delete.
 .. Test case: `delete 1` +
    Expected: First food item is deleted from the food list. Details of the deleted contact shown in the status message.
-Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No food item is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No food item is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
@@ -994,4 +1005,45 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+=== Adding like and dislikes
+
+. Adding likes and dislikes
+
+.. Test case: `like c/chinese t/spicy l/location` +
+   Expected: The provided categories, tags and locations are added into the like list. Details of the list of likes
+   and dislikes are shown in the status message.
+.. Test case: `dislike c/chinese` (after running the above command) +
+   Expected: The dislike is not added because the category `chinese` already exists in the user's likes.
+
+=== Removing likes and dislikes
+
+. Removing likes and dislikes
+
+.. Prerequisites: There has to be a like or dislike in the system for the user to remove.
+.. Test case: `removelike c/chinese` +
+   Expected: The category `chinese` is deleted from the user's likes. Details of the list of likes and dislikes are shown
+   in the status message.
+.. Test case `removelike c/chinese` (after running the above command) +
+   Expected: The command fails because there is no more `chinese` category present in the user's likes.
+
+=== Clearing likes and dislikes
+
+. Clearing likes and dislikes
+
+.. Prerequisites: Optimally, there should be likes or dislikes present in the system for the user to remove.
+   However, the command still works even if there are no likes or dislikes present.
+.. Test case: `removelike ALL` +
+   Expected: All likes are cleared.
+.. Test case `removedislike ALL` +
+   Expected: All dislikes are cleared.
+
+=== Obtaining a list of recommendations
+
+. Obtaining a list of recommendations
+
+.. Prerequisites: Budget and days to expiry of the budget are set by the user. The budget should also be set high enough
+   such that the user is able to purchase food items when the recommendation system calculates the optimal daily budget.
+.. Test case: `recommend` +
+   Expected: A list of recommendations tailored to the user will appear, taking into account factors such as the user's
+   liked and disliked categories, tags and locations and so on. All factors affecting the recommendation system's
+   recommendation value are documented in the User Guide and Developer Guide.

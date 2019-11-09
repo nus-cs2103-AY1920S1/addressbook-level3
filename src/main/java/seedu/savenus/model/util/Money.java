@@ -15,7 +15,7 @@ public class Money implements Comparable<Money> {
                     + " For example: 1.50 or 200";
     public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
-    private static final BigDecimal FLOATING_POINT_RESTRICTION = new BigDecimal(1000000.00);
+    public static final BigDecimal FLOATING_POINT_RESTRICTION = new BigDecimal(Integer.MAX_VALUE);
     private static final BigDecimal ZERO_VALUE = BigDecimal.ZERO;
 
     private BigDecimal value;

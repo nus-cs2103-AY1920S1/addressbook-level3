@@ -10,6 +10,7 @@ import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.model.info.AddInfo;
+import seedu.savenus.model.info.AliasInfo;
 import seedu.savenus.model.info.AutoSortInfo;
 import seedu.savenus.model.info.BudgetInfo;
 import seedu.savenus.model.info.BuyInfo;
@@ -32,9 +33,11 @@ import seedu.savenus.model.info.RecommendInfo;
 import seedu.savenus.model.info.RemoveDislikeInfo;
 import seedu.savenus.model.info.RemoveLikeInfo;
 import seedu.savenus.model.info.SaveInfo;
+import seedu.savenus.model.info.ShowInfo;
 import seedu.savenus.model.info.SortInfo;
 import seedu.savenus.model.info.TopUpInfo;
 import seedu.savenus.model.info.ViewSortInfo;
+import seedu.savenus.model.info.WithdrawInfo;
 
 //@@author robytanama
 /**
@@ -130,6 +133,12 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(AddInfo.INFORMATION);
             usageExample.setText(AddInfo.USAGE);
             output.setText(AddInfo.OUTPUT);
+            break;
+        case InfoCommand.ALIAS_INFO :
+            commandWord.setText(AliasInfo.COMMAND_WORD);
+            infoMessage.setText(AliasInfo.INFORMATION);
+            usageExample.setText(AliasInfo.USAGE);
+            output.setText(AliasInfo.OUTPUT);
             break;
         case InfoCommand.AUTO_SORT_INFO :
             commandWord.setText(AutoSortInfo.COMMAND_WORD);
@@ -280,6 +289,18 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(ViewSortInfo.INFORMATION);
             usageExample.setText(ViewSortInfo.USAGE);
             output.setText(ViewSortInfo.OUTPUT);
+            break;
+        case InfoCommand.WITHDRAW_INFO :
+            commandWord.setText(WithdrawInfo.COMMAND_WORD);
+            infoMessage.setText(WithdrawInfo.INFORMATION);
+            usageExample.setText(WithdrawInfo.USAGE);
+            output.setText(WithdrawInfo.OUTPUT);
+            break;
+        case InfoCommand.SHOW_INFO :
+            commandWord.setText(ShowInfo.COMMAND_WORD);
+            infoMessage.setText(ShowInfo.INFORMATION);
+            usageExample.setText(ShowInfo.USAGE);
+            output.setText(ShowInfo.OUTPUT);
             break;
         default :
             commandWord.setText("YOU ARE NOT SUP  POSED TO SEE TH IS PAG  E");

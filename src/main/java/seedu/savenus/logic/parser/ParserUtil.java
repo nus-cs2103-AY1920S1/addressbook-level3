@@ -94,7 +94,10 @@ public class ParserUtil {
         String trimmedSavingsString = savingsAmount.trim();
         String[] splitSavingsString = trimmedSavingsString.split("\\s+");
         if (splitSavingsString.length != 1
-            || !Money.isValidMoney(splitSavingsString[0])) {
+            || !Money.isValidMoney(splitSavingsString[0])
+            || splitSavingsString[0].contains("-")
+            || splitSavingsString[0].equals("0")
+            || splitSavingsString[0].equals("0.00")) { // catch negative savings and 0 values
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
         }
 

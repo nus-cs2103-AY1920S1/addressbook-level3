@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.AddCommand;
+import seedu.savenus.logic.commands.AliasCommand;
 import seedu.savenus.logic.commands.AutoSortCommand;
 import seedu.savenus.logic.commands.BudgetCommand;
 import seedu.savenus.logic.commands.BuyCommand;
@@ -32,8 +33,10 @@ import seedu.savenus.logic.commands.RecommendCommand;
 import seedu.savenus.logic.commands.RemoveDislikeCommand;
 import seedu.savenus.logic.commands.RemoveLikeCommand;
 import seedu.savenus.logic.commands.SaveCommand;
+import seedu.savenus.logic.commands.ShowCommand;
 import seedu.savenus.logic.commands.SortCommand;
 import seedu.savenus.logic.commands.TopUpCommand;
+import seedu.savenus.logic.commands.WithdrawCommand;
 
 //@@author robytanama
 /**
@@ -45,6 +48,7 @@ public class HelpWindow extends UiPart<Stage> {
             + "-CS2103T-F13-2/main/blob/master/docs/UserGuide.adoc";
     public static final String HELP_MESSAGE = "Here is the list of available commands:\n\n"
             + AddCommand.COMMAND_WORD + "\n"
+            + AliasCommand.COMMAND_WORD + "\n"
             + AutoSortCommand.COMMAND_WORD + "\n"
             + BudgetCommand.COMMAND_WORD + "\n"
             + BuyCommand.COMMAND_WORD + "\n"
@@ -67,8 +71,10 @@ public class HelpWindow extends UiPart<Stage> {
             + RemoveDislikeCommand.COMMAND_WORD + "\n"
             + RemoveLikeCommand.COMMAND_WORD + "\n"
             + SaveCommand.COMMAND_WORD + "\n"
+            + ShowCommand.COMMAND_WORD + "\n"
             + SortCommand.COMMAND_WORD + "\n"
-            + TopUpCommand.COMMAND_WORD + "\n\n"
+            + TopUpCommand.COMMAND_WORD + "\n"
+            + WithdrawCommand.COMMAND_WORD + "\n\n"
             + "Click the Guide button below to open to full user guide.\n"
             + "You will need internet connection to open the user guide.";
 

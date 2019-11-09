@@ -8,6 +8,8 @@ import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.savenus.testutil.TypicalMenu.CHICKEN_RICE;
 import static seedu.savenus.testutil.TypicalMenu.getTypicalMenu;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +27,6 @@ import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
 
 //@@author jon-chua
-
 /**
  * Contains integration tests and unit tests for RecommendCommand.
  */
@@ -42,12 +43,16 @@ public class RecommendCommandTest {
         expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
                 new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsHistory(), new SavingsAccount(),
                 new AliasList());
+
+        RecommendationSystem.getInstance().updateDaysToExpire(0);
+        RecommendationSystem.getInstance().updateBudget(BigDecimal.ZERO);
     }
 
     @Test
     public void execute_recommendCommand() {
         assertCommandSuccess(new RecommendCommand(), model,
-                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget(),
+                String.format(RecommendCommand.MESSAGE_SUCCESS + RecommendCommand.BUDGET_DAYS_NOT_SET,
+                        RecommendationSystem.getInstance().getDailyBudget(),
                         RecommendationSystem.getInstance().getBudget(),
                         RecommendationSystem.getInstance().getDaysToExpire()),
                 expectedModel);
@@ -57,7 +62,8 @@ public class RecommendCommandTest {
     @Test
     public void recommendCommand_notInUse_afterList() {
         assertCommandSuccess(new RecommendCommand(), model,
-                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget(),
+                String.format(RecommendCommand.MESSAGE_SUCCESS + RecommendCommand.BUDGET_DAYS_NOT_SET,
+                        RecommendationSystem.getInstance().getDailyBudget(),
                         RecommendationSystem.getInstance().getBudget(),
                         RecommendationSystem.getInstance().getDaysToExpire()),
                 expectedModel);
@@ -70,7 +76,27 @@ public class RecommendCommandTest {
     @Test
     public void recommendCommand_notInUse_afterAdd() throws CommandException {
         assertCommandSuccess(new RecommendCommand(), model,
-                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget(),
+                String.format(RecommendCommand.MESSAGE_SUCCESS + RecommendCommand.BUDGET_DAYS_NOT_SET,
+                        RecommendationSystem.getInstance().getDailyBudget(),
+                        RecommendationSystem.getInstance().getBudget(),
+                        RecommendationSystem.getInstance().getDaysToExpire()),
+                expectedModel);
+        assertTrue(model.getRecommendationSystem().isInUse());
+
+        CommandResult commandResult = new AddCommand(CHICKEN_RICE).execute(model);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, CHICKEN_RICE), commandResult.getFeedbackToUser());
+
+        assertFalse(model.getRecommendationSystem().isInUse());
+    }
+
+    @Test
+    public void recommendCommand_budgetSet_doesNotShowMessage() throws CommandException {
+        RecommendationSystem.getInstance().updateDaysToExpire(10);
+        RecommendationSystem.getInstance().updateBudget(BigDecimal.TEN);
+
+        assertCommandSuccess(new RecommendCommand(), model,
+                String.format(RecommendCommand.MESSAGE_SUCCESS + RecommendCommand.BUDGET_SET,
+                        RecommendationSystem.getInstance().getDailyBudget(),
                         RecommendationSystem.getInstance().getBudget(),
                         RecommendationSystem.getInstance().getDaysToExpire()),
                 expectedModel);

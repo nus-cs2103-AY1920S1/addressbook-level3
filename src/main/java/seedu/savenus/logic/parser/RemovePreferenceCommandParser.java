@@ -1,6 +1,7 @@
 package seedu.savenus.logic.parser;
 
 import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.savenus.logic.commands.RemovePreferenceCommand.REMOVE_ALL_KEYWORD;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.savenus.logic.parser.CliSyntax.PREFIX_TAG;
@@ -34,14 +35,14 @@ public class RemovePreferenceCommandParser implements Parser<RemovePreferenceCom
      * @throws ParseException if the user input does not conform the expected format
      */
     public RemovePreferenceCommand parse(String args, boolean isLike) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_TAG, PREFIX_LOCATION);
-
-        if (args.isBlank() && isLike) {
+        if (args.trim().equals(REMOVE_ALL_KEYWORD) && isLike) {
             return new RemoveLikeCommand(true);
-        } else if (args.isBlank() && !isLike) {
+        } else if (args.trim().equals(REMOVE_ALL_KEYWORD) && !isLike) {
             return new RemoveDislikeCommand(true);
         }
+
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_TAG, PREFIX_LOCATION);
 
         // If none of these arguments are not present, will throw an error.
         if (!areAnyPrefixesPresent(argMultimap, PREFIX_CATEGORY, PREFIX_TAG, PREFIX_LOCATION)
