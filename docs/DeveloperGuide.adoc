@@ -522,7 +522,7 @@ it adheres to good programming practices as compared to Alternative 2, which *vi
 
 // tag::bookLoaningFeatures[]
 
-=== Book Loaning Feature
+=== Book loaning feature
 
 ==== Functionalities
 The functionalities and commands associated with the book loaning feature are:
