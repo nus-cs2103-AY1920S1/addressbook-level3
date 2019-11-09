@@ -34,7 +34,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{https://github.com/AY1920S1-CS2103-F09-4/main/releases}/releases[here].
+.  Download the latest `addressbook.jar` link:{https://github.com/AY1920S1-CS2103-F09-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -81,11 +81,30 @@ You can use Insurelytics to manage two different kinds of data: *contacts* and *
 ** Criteria (e.g. "nonsmoker")
 ====
 
-To add new contacts or policies, you can use the `add` or `addpolicy` functions described in <<Features>>.
+Let's add a contact and view his details.
+```
+listpeople
+add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 dob/12.09.1980 g/Male
+```
+
+Let's add a policy.
+```
+listpolicy
+addpolicy n/Senior Care d/Care for seniors c/days/20 months/11 years/5 pr/$50000 sa/50 ea/75
+```
+
 Once stored, contacts can be `assign`-ed policies that they are eligible for. A contact is eligible for a policy if
 he/she falls in the specified age range and possesses all the policy's specified criteria (in his/her tags).
 
+```
+assignpolicy 1 pol/Life Insurance
+```
+
 Contacts and policies can easily be retrieved using the various `find` functions, whether by *keyword* or by *tag*.
+
+```
+find John
+```
 
 The various functions outlined in the following section are available to further help the user manage contacts and policies.
 These include additional functions to help the user gather insights, rectify mistakes and validate input among others.
@@ -149,11 +168,11 @@ Maximum value of `START_AGE` and `END_AGE` is 120.
 ****
 Examples:
 
-* `addpolicy n/SeniorCare d/Care for seniors c/days/20 months/11 years/5 pr/$50000 sa/50 ea/75`
+* `addpolicy n/Senior Care d/Care for seniors c/days/20 months/11 years/5 pr/$50000 sa/50 ea/75`
 
 Expected Output:
 ```
-New policy added: Seniorcare Description: Care for seniors Coverage: days/20 months/11 years/5 Price: $50000 Start Age: 50 End Age: 75
+New policy added: Senior care Description: Care for seniors Coverage: days/20 months/11 years/5 Price: $50000 Start Age: 50 End Age: 75
 ```
 // end::addpolicy[]
 
@@ -385,8 +404,9 @@ Format: `addtag INDEX t/TAG [MORE_TAGS]`
 Examples:
 
 * `listpeople` +
-`addtag 2 t/high_priority` +
-Adds a `high_priority` tag to the 2nd person in the list of people.
+`addtag 2 t/high blood pressure` +
+Adds a `high blood pressure` tag to the 2nd person in the list of people. This tag will determine the person's
+eligibility for policy.
 * `find Betsy` +
 `addtag 1 t/high_risk` +
 Adds a `high_risk` tag to the 1st person in the results of the `find` command.
