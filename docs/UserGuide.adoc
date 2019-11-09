@@ -30,7 +30,7 @@ NurseTraverse is designed for community nurses who make home visits to their pat
 image::NurseTraverse.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`app-help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`pat-list`* : lists all patients
@@ -67,11 +67,9 @@ include::./userguide/Visit.adoc[]
 
 include::./userguide/AutoComplete.adoc[]
 
-include::./userguide/DataSavingUndoRedo.adoc[]
+include::./userguide/DataUndoRedoHistory.adoc[]
 
 include::./userguide/ImportExport.adoc[]
-
-include::./userguide/Exiting.adoc[]
 
 = Tutorials / How-To Guide(s) (as of v1.4)
 
