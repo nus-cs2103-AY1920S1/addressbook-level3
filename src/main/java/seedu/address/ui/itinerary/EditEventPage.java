@@ -67,7 +67,7 @@ public class EditEventPage extends Page<AnchorPane> {
         currentEditDescriptor.getDestination().ifPresent(destination ->
                 eventDestinationFormItem.setValue(destination.toString()));
         currentEditDescriptor.getBudget().ifPresent(budget ->
-                eventTotalBudgetFormItem.setValue(budget.value));
+                eventTotalBudgetFormItem.setValue(budget.getValue()));
 
         currentEditDescriptor.getStartTime().ifPresent(startDate ->
                 eventStartTimeFormItem.setValue(startDate));

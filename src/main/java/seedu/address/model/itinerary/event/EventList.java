@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
 import seedu.address.model.itinerary.event.exceptions.ClashingEventException;
 import seedu.address.model.itinerary.event.exceptions.DuplicatedEventNameException;
@@ -42,20 +42,20 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
     }
 
     /**
-     * Updates expenditure of an event.
-     * When an expenditure associated with an event is edited, find the event in the event list and replace
-     * the expenditure field.
+     * Updates expense of an event.
+     * When an expense associated with an event is edited, find the event in the event list and replace
+     * the expense field.
      *
-     * @param expenditure the new expenditure to be used.
+     * @param expense the new expense to be used.
      * @throws EventNotFoundException exception is thrown when the matching event is not found.
      */
-    public void updateExpenditure(Expenditure expenditure) throws EventNotFoundException {
+    public void updateExpense(Expense expense) throws EventNotFoundException {
         boolean updated = false;
         for (int i = 0; i < internalList.size(); i++) {
             Event event = internalList.get(i);
-            if (event.getName().equals(expenditure.getName())) {
+            if (event.getName().equals(expense.getName())) {
                 set(event, new Event(event.getName(),
-                        event.getStartDate(), event.getEndDate(), expenditure, event.getDestination(), null));
+                        event.getStartDate(), event.getEndDate(), expense, event.getDestination(), null));
                 updated = true;
             }
         }

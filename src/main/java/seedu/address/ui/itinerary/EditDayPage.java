@@ -55,7 +55,7 @@ public class EditDayPage extends Page<AnchorPane> {
         currentEditDescriptor.getDestination().ifPresent(destination ->
                 dayDestinationFormItem.setValue(destination.toString()));
         currentEditDescriptor.getBudget().ifPresent(budget ->
-                dayTotalBudgetFormItem.setValue(budget.value));
+                dayTotalBudgetFormItem.setValue(budget.getValue()));
         currentEditDescriptor.getDescription().ifPresent((description ->
                 dayDescriptionFormItem.setValue(description.description)));
         currentEditDescriptor.getPhoto().ifPresent(photo ->

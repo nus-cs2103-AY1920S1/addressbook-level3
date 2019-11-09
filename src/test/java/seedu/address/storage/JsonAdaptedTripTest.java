@@ -26,7 +26,7 @@ class JsonAdaptedTripTest {
                 ModelTestUtil.VALID_DESTINATION_AFRICA,
                 1234d,
                 new ArrayList<JsonAdaptedDay>(),
-                new ArrayList<JsonAdaptedExpenditure>(),
+                new ArrayList<JsonAdaptedExpense>(),
                 new JsonAdaptedDiary(new Diary()),
                 Optional.empty(),
                 new ArrayList<JsonAdaptedInventory>()
@@ -42,7 +42,7 @@ class JsonAdaptedTripTest {
                 ModelTestUtil.VALID_DESTINATION_AFRICA,
                 1234d,
                 new ArrayList<JsonAdaptedDay>(),
-                new ArrayList<JsonAdaptedExpenditure>(),
+                new ArrayList<JsonAdaptedExpense>(),
                 new JsonAdaptedDiary(new Diary()),
                 Optional.empty(),
                 new ArrayList<JsonAdaptedInventory>()

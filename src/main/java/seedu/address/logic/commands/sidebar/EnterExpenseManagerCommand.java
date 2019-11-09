@@ -19,7 +19,7 @@ public class EnterExpenseManagerCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.setPageStatus(model.getPageStatus()
-                .withResetExpenditure()
+                .withResetExpense()
                 .withNewPageType(PageType.EXPENSE_MANAGER));
 
         return new CommandResult(MESSAGE_SUCCESS, true);

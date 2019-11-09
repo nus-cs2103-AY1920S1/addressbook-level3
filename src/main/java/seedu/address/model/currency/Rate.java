@@ -4,16 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Generic abstraction of budget.
+ * Generic abstraction of exchange rate.
  */
 public class Rate {
     public static final String MESSAGE_CONSTRAINTS = "Rate can take any positive numerical value with"
             + " no more than 2 decimal places, and it should not be blank";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
     public static final String VALIDATION_REGEX = "^[+]?[0-9]+([.][0-9]{1,2})?$";
 
     public final Double value;
@@ -21,7 +17,7 @@ public class Rate {
     /**
      * Constructs an {@code Rate}.
      *
-     * @param value A valid budget.
+     * @param value A valid rate.
      */
     public Rate(String value) {
         requireNonNull(value);
@@ -30,7 +26,7 @@ public class Rate {
     }
 
     /**
-     * Returns true if a given string is a valid budget.
+     * Returns true if a given string is a valid rate.
      */
     public static boolean isValidRate(String test) {
         return test.matches(VALIDATION_REGEX);

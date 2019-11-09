@@ -23,9 +23,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
-import seedu.address.model.expenditure.DayNumber;
-import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
+import seedu.address.model.expense.DayNumber;
+import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.PlannedExpense;
+import seedu.address.model.expense.exceptions.ExpenseNotFoundException;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
@@ -153,7 +154,7 @@ public class EditEventFieldCommand extends Command {
             setStartTime(toCopy.getStartDate().toLocalTime());
             setEndTime(toCopy.getEndDate().toLocalTime());
             setDestination(toCopy.getDestination());
-            setBudget(toCopy.getExpenditure().get().getBudget());
+            setBudget(toCopy.getExpense().get().getBudget());
             setInventory(toCopy.getInventory());
             setBooking(toCopy.getBooking());
             setDescription(toCopy.getDescription());
@@ -207,22 +208,25 @@ public class EditEventFieldCommand extends Command {
          * @throws NullPointerException If any of the fields are empty.
          */
         public Event buildEvent(Model model) {
+
             if (isAllPresent(name, startTime, endTime, destination)) {
-                Optional<Expenditure> expenditure = Optional.empty();
+                Optional<Expense> expense = Optional.empty();
+
                 if (totalBudget.isPresent()) {
                     DayList list = model.getPageStatus().getTrip().getDayList();
                     Day day = model.getPageStatus().getDay();
                     int index = list.internalList.indexOf(day);
-                    Expenditure newExpenditure = new Expenditure(name.get(), totalBudget.get(),
-                            new DayNumber(Integer.toString(index + 1)), false);
-                    expenditure = Optional.of(newExpenditure);
+                    Expense newExpense = new PlannedExpense(name.get(), totalBudget.get(),
+                            new DayNumber(Integer.toString(index + 1)));
+                    expense = Optional.of(newExpense);
                 }
 
                 LocalDate currentDay = model.getPageStatus().getDay().getStartDate().toLocalDate();
                 LocalDateTime newStartDate = LocalDateTime.of(currentDay, startTime.get());
                 LocalDateTime newEndDate = LocalDateTime.of(currentDay, endTime.get());
 
-                return new Event(name.get(), newStartDate, newEndDate, expenditure, destination.get(), description);
+                return new Event(name.get(), newStartDate, newEndDate, expense, destination.get(), description);
+
             } else {
                 throw new NullPointerException();
             }
@@ -237,7 +241,7 @@ public class EditEventFieldCommand extends Command {
          * @param model Source {@code Model} instance.
          * @return Edited {@code Event} instance.
          */
-        public Event buildEvent(Event event, Model model) throws ExpenditureNotFoundException {
+        public Event buildEvent(Event event, Model model) throws ExpenseNotFoundException {
             LocalDate currentDay = model.getPageStatus().getDay().getStartDate().toLocalDate();
 
             Name eventName = event.getName();
@@ -248,8 +252,8 @@ public class EditEventFieldCommand extends Command {
             Location destination = event.getDestination();
             Optional<Booking> booking = event.getBooking();
             Optional<Inventory> inventory = event.getInventory();
-            Optional<Expenditure> expenditure = event.getExpenditure();
             Optional<Description> description = event.getDescription();
+            Optional<Expense> expense = event.getExpense();
 
             if (this.name.isPresent()) {
                 eventName = this.name.get();
@@ -266,9 +270,9 @@ public class EditEventFieldCommand extends Command {
             if (this.totalBudget.isPresent()) {
                 int index = model.getPageStatus().getTrip().getDayList()
                         .internalList.indexOf(model.getPageStatus().getDay());
-                Expenditure newExpenditure = new Expenditure(eventName, this.totalBudget.get(),
-                        new DayNumber(Integer.toString(index + 1)), false);
-                expenditure = Optional.of(newExpenditure);
+                Expense newExpense = new PlannedExpense(eventName, this.totalBudget.get(),
+                        new DayNumber(Integer.toString(index + 1)));
+                expense = Optional.of(newExpense);
             }
             if (this.inventory.isPresent()) {
                 inventory = this.inventory;
@@ -280,7 +284,7 @@ public class EditEventFieldCommand extends Command {
                 description = this.description;
             }
 
-            return new Event(eventName, startDate, endDate, expenditure, destination, description);
+            return new Event(eventName, startDate, endDate, expense, destination, description);
         }
 
         /**

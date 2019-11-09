@@ -116,9 +116,9 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
     private void handleShowEventDetails() {
         // ShowEventDetailsCommand sets event in PageStatus as the event with details to show
         Event event = model.getPageStatus().getEvent();
-        if (event.getExpenditure().isPresent()) {
+        if (event.getExpense().isPresent()) {
             totalBudgetLabel.setText("Total Budget: "
-                                                + event.getExpenditure().get().getBudget()
+                                                + event.getExpense().get().getBudget()
                                                 .getValueStringInCurrency(model.getTravelPal().getCurrencies().get(0)));
         }
 

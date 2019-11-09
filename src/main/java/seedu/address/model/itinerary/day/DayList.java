@@ -44,6 +44,15 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
         this.internalList.removeIf(day -> !this.isValidDay(day));
     }
 
+    /**
+     * Get day from daylist by index.
+     * @param index the index of Day to be returned
+     * @return the day with the specified index
+     */
+    public Day get(int index) throws IndexOutOfBoundsException {
+        return internalList.get(index);
+    }
+
     @Override
     public boolean contains(Day toCheck) {
         requireNonNull(toCheck);

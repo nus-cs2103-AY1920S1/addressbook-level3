@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.expense.ExpenseList;
 import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
@@ -31,7 +31,7 @@ public class Trip {
     private final TripId tripId;
     private final Location destination;
     private final DayList dayList;
-    private final ExpenditureList expenditureList;
+    private final ExpenseList expenseList;
     private final Budget totalBudget;
     private final Diary diary;
 
@@ -44,7 +44,7 @@ public class Trip {
      * Constructs a trip.
      */
     public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
-                Budget totalBudget, DayList dayList, ExpenditureList expenditureList,
+                Budget totalBudget, DayList dayList, ExpenseList expenseList,
                 Diary diary, InventoryList inventoryList, Photo photo) {
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
@@ -53,7 +53,7 @@ public class Trip {
         this.destination = destination;
         this.totalBudget = totalBudget;
         this.dayList = dayList;
-        this.expenditureList = expenditureList;
+        this.expenseList = expenseList;
         this.tripId = new TripId();
         this.diary = diary;
         this.photo = photo;
@@ -64,7 +64,7 @@ public class Trip {
      * Constructs a trip with optional fields
      */
     public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
-                Budget totalBudget, DayList dayList, ExpenditureList expenditureList,
+                Budget totalBudget, DayList dayList, ExpenseList expenseList,
                 Diary diary, InventoryList inventoryList, Optional<Photo> photo) {
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
@@ -73,7 +73,7 @@ public class Trip {
         this.destination = destination;
         this.totalBudget = totalBudget;
         this.dayList = dayList;
-        this.expenditureList = expenditureList;
+        this.expenseList = expenseList;
         this.tripId = new TripId();
         this.diary = diary;
         this.photo = photo.orElse(null);
@@ -135,8 +135,8 @@ public class Trip {
         return dayList;
     }
 
-    public ExpenditureList getExpenditureList() {
-        return expenditureList;
+    public ExpenseList getExpenseList() {
+        return expenseList;
     }
 
     public Budget getBudget() {
@@ -190,7 +190,7 @@ public class Trip {
                 && otherTrip.getBudget().equals(getBudget())
                 && otherTrip.getDayList().equals(getDayList())
                 && otherTrip.getDiary().equals(getDiary())
-                && otherTrip.getExpenditureList().equals(getExpenditureList());
+                && otherTrip.getExpenseList().equals(getExpenseList());
     }
 
     /**

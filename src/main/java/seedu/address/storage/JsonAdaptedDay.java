@@ -69,7 +69,7 @@ public class JsonAdaptedDay {
             this.description = Optional.empty();
         }
         if (source.getTotalBudget().isPresent()) {
-            this.totalBudget = Optional.of(source.getTotalBudget().get().value);
+            this.totalBudget = Optional.of(source.getTotalBudget().get().getValue());
         } else {
             this.totalBudget = Optional.empty();
         }

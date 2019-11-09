@@ -70,7 +70,7 @@ class EditDayFieldParserTest {
     public void parseInvalidBudget_failure() {
         EditDayFieldCommand.EditDayDescriptor editDayDescriptor =
                 new EditDayFieldCommand.EditDayDescriptor();
-        assertParseFailure(parser, COMMAND_WORD + " " + PREFIX_BUDGET + "123.123",
+        assertParseFailure(parser, COMMAND_WORD + " " + PREFIX_BUDGET + "asdf",
                 Budget.MESSAGE_CONSTRAINTS);
     }
 

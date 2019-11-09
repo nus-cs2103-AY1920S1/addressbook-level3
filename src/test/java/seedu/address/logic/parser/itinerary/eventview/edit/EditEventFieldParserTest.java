@@ -100,7 +100,7 @@ class EditEventFieldParserTest {
     public void parseInvalidBudget_failure() {
         EditEventFieldCommand.EditEventDescriptor editDayDescriptor =
                 new EditEventFieldCommand.EditEventDescriptor();
-        assertParseFailure(parser, COMMAND_WORD + " " + PREFIX_BUDGET + "123.123",
+        assertParseFailure(parser, COMMAND_WORD + " " + PREFIX_BUDGET + "asdf",
                 Budget.MESSAGE_CONSTRAINTS);
     }
 
