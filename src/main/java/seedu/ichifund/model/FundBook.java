@@ -69,6 +69,15 @@ public class FundBook implements ReadOnlyFundBook {
         this.currentRepeaterUniqueId = uniqueId;
     }
 
+    /**
+     * Replaces the current unique id with {@code loanId}.
+     */
+    public void setCurrentLoanId(LoanId loanId) {
+        requireNonNull(loanId);
+
+        this.currentLoanId = loanId;
+    }
+
     //// list overwrite operations
 
     /**
@@ -102,6 +111,13 @@ public class FundBook implements ReadOnlyFundBook {
     }
 
     /**
+     * Replaces the contents of the loan list with {@code loan}.
+     */
+    public void setLoans(List<Loan> loans) {
+        this.loans.setLoans(loans);
+    }
+
+    /**
      * Resets the existing data of this {@code FundBook} with {@code newData}.
      */
     public void resetData(ReadOnlyFundBook newData) {
@@ -110,6 +126,7 @@ public class FundBook implements ReadOnlyFundBook {
         setRepeaters(newData.getRepeaterList());
         setBudgets(newData.getBudgetList());
         setTransactions(newData.getTransactionList());
+        setLoans(newData.getLoanList());
         setData(newData.getDataList());
     }
 
@@ -203,14 +220,6 @@ public class FundBook implements ReadOnlyFundBook {
         loans.add(loan);
     }
 
-    /**
-     * Replaces the current unique id with {@code uniqueId}.
-     */
-    public void setCurrentLoanId(LoanId loanId) {
-        requireNonNull(loanId);
-        this.currentLoanId = loanId;
-    }
-
     //// budget-level operations
 
     /**
@@ -299,9 +308,11 @@ public class FundBook implements ReadOnlyFundBook {
         return other == this // short circuit if same object
                 || (other instanceof FundBook // instanceof handles nulls
                 && currentRepeaterUniqueId.equals(((FundBook) other).currentRepeaterUniqueId)
+                && currentLoanId.equals(((FundBook) other).currentLoanId)
                 && transactions.equals(((FundBook) other).transactions)
                 && repeaters.equals(((FundBook) other).repeaters)
                 && budgets.equals(((FundBook) other).budgets)
+                && loans.equals(((FundBook) other).loans)
                 && datas.equals(((FundBook) other).datas));
     }
 

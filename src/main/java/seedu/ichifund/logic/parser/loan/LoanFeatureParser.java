@@ -12,7 +12,7 @@ import seedu.ichifund.logic.parser.exceptions.ParseException;
  */
 public class LoanFeatureParser implements FeatureParser {
 
-    private final int tabIndex = 4;
+    private final int tabIndex = 3;
 
     @Override
     public String getTabSwitchCommandWord() {

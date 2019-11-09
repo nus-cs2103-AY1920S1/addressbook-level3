@@ -133,7 +133,9 @@ public class FundBookTest {
         }
 
         @Override
-        public LoanId getCurrentLoanId() { return currentLoanId; }
+        public LoanId getCurrentLoanId() {
+            return currentLoanId;
+        }
 
         @Override
         public ObservableList<Repeater> getRepeaterList() {
