@@ -567,9 +567,6 @@ The following activity diagram summarizes what happens when a user enters a loan
 .Activity diagram when a loan command is entered
 image::LoaningActivityDiagram.png[width=580, align=center]
 
-NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
-they are not shown.
-
 When a book is successfully loaned out by a borrower, a new `Loan` object is created. The `LoanId` is automatically generated according
 to the number of loans in the `LoanRecords` object in the model. The `startDate` is also automatically set to today's date.
 The `endDate` is automatically set according to the loan period set in the user settings. This `Loan` object is added to
