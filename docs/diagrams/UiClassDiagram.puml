@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
 skinparam arrowThickness 1.1
-skinparam arrowColor UI_COLOR_T4
+skinparam arrowColor UI_COLOR
 skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{

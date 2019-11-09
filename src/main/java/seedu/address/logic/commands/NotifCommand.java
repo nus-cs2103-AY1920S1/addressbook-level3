@@ -5,6 +5,7 @@ import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -28,7 +29,6 @@ import seedu.address.ui.NotifWindow;
  */
 public class NotifCommand extends Command {
     public static final String MESSAGE_DUPLICATE_NOTIF = "This notif already exists in the address book";
-    public static final String MESSAGE_BODY_STATUS_CHANGE_FAILURE = "There was an error in updating the body status";
     public static final String MESSAGE_SUCCESS = "New notif added: %1$s";
     private static final Logger logger = LogsCenter.getLogger(NotifCommand.class);
 
@@ -48,6 +48,9 @@ public class NotifCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.hasNotif(notif)) {
+            model.addNotif(notif);
+        }
         startSesChangeBodyStatus();
         startSesChangeBodyStatusUi(model);
         return new CommandResult(String.format(MESSAGE_SUCCESS, notif));
@@ -96,16 +99,26 @@ public class NotifCommand extends Command {
      */
     public void startSesChangeBodyStatusUi(Model model) {
 
-        Body body = notif.getBody();
-        String notifContent = "Body Id: " + body.getIdNum()
-                + "\nName: " + body.getName()
-                + "\nNext of Kin has been uncontactable. Please contact the police";
-
         Runnable changeUi = () -> Platform.runLater(() -> {
+            Body body = notif.getBody();
+            String notifContent = "Body Id: " + body.getIdNum()
+                    + "\nName: " + body.getName()
+                    + "\nNext of Kin has been uncontactable. Please contact the police";
             if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
                 UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
                 up.setUpdateFromNotif(true);
                 body.setBodyStatus(ARRIVED);
+
+                if (model.hasNotif(notif)) {
+                    model.deleteNotif(notif);
+                }
+
+                Platform.runLater(() -> {
+                    if (!model.hasNotif(notif)) {
+                        model.addNotif(notif);
+                    }
+                });
+
                 try {
                     up.execute(model);
                     NotifWindow notifWindow = new NotifWindow();
@@ -119,14 +132,26 @@ public class NotifCommand extends Command {
                 }
             }
         });
+
         ses.schedule(changeUi, period, timeUnit);
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof NotifCommand
-                && notif.equals(((NotifCommand) other).notif));
+        if (other instanceof NotifCommand) {
+            NotifCommand otherNotifCmd = (NotifCommand) other;
+            return other == this // short circuit if same object
+                    || (notif.equals(otherNotifCmd.notif))
+                    && period == otherNotifCmd.period
+                    && timeUnit.equals(otherNotifCmd.timeUnit);
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(notif, period, timeUnit);
     }
 
     public ScheduledExecutorService getSes() {
