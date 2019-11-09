@@ -81,7 +81,7 @@ public class ScheduleView extends UiPart<Region> {
     }
 
     /**
-     * Initialises the time slot headers of the schedule view.
+     * Initialises the time slot headers of the schedule view. Forms the basis for schedule view.
      */
     private void initialiseTimeSlotHeaders() {
         for (int i = START_TIME; i <= END_TIME; i++) {
@@ -119,7 +119,9 @@ public class ScheduleView extends UiPart<Region> {
             HBox combinedSchedules = new HBox();
             for (int j = 0; j < schedulesShown.size(); j++) {
                 ArrayList<PersonTimeslot> eventsToday = schedulesShown.get(j).get(now.plusDays(i - 1).getDayOfWeek());
-                VBox individualSchedule = getDayVBoxOfIndividualSchedule(eventsToday);
+                VBox individualSchedule = new VBox();
+                individualSchedule.getChildren().addAll(new Block(HALF_HOUR).makeEmptyBlock(),
+                        getDayVBoxOfIndividualSchedule(eventsToday));
                 //Change line 99 for collapsible blocks.
                 individualSchedule.setPrefWidth(BLOCK_WIDTH / schedulesShown.size());
                 combinedSchedules.getChildren().add(individualSchedule);
@@ -200,7 +202,7 @@ public class ScheduleView extends UiPart<Region> {
         VBox timeslotContainer = new VBox();
         timeslotContainer.setId("timeslotContainer");
         HBox.setHgrow(timeslotContainer, Priority.ALWAYS);
-        timeslotContainer.getChildren().add(new Block(HALF_HOUR).makeEmptyBlock());
+        //timeslotContainer.getChildren().add(new Block(HALF_HOUR).makeEmptyBlock());
         LocalTime originalTimeStamp = LocalTime.of(START_TIME, 0);
         for (int j = 0; j < daySchedule.size(); j++) {
             PersonTimeslot timeslot = daySchedule.get(j);
@@ -218,6 +220,13 @@ public class ScheduleView extends UiPart<Region> {
             timeslotContainer.getChildren().add(busyTimeslot);
             originalTimeStamp = endTime;
         }
+        //Pad in the remaining empty time slots.
+        if (originalTimeStamp.isBefore(LocalTime.of(END_TIME, 0))) {
+            Region remaining = new Block(TimeUtil
+                    .getTimeDifference(originalTimeStamp, LocalTime.of(END_TIME, 0))).makeEmptyBlock();
+            timeslotContainer.getChildren().add(remaining);
+        }
+        timeslotContainer.setMaxHeight((END_TIME - START_TIME) * ONE_HOUR_LENGTH);
         return timeslotContainer;
     }
 
@@ -326,7 +335,7 @@ public class ScheduleView extends UiPart<Region> {
             Region colouredBlock = makeColouredBlock(color);
             container.getChildren().addAll(colouredBlock);
             if (width > THRESHOLD_TO_OMIT_LABELS && heightOfTimeslot > THRESHOLD_TO_OMIT_LABELS) {
-                //container.getChildren().add(createLabel(text));
+                container.getChildren().add(createLabel(text));
             }
             Tooltip tooltip = new Tooltip(tooltipMessage);
             Tooltip.install(container, tooltip);

@@ -108,7 +108,7 @@ public class WeekScheduleBuilder {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         //Lessons with weird gaps.
         timeslots.add(new PersonTimeslot(
-                EVENT_NAMES.get(6), null, LocalTime.of(8, 10), LocalTime.of(8, 25),
+                EVENT_NAMES.get(6), null, LocalTime.of(8, 10), LocalTime.of(8, 35),
                 VENUE, COLOR, false, null));
         timeslots.add(new PersonTimeslot(
                 EVENT_NAMES.get(7), null, LocalTime.of(10, 35), LocalTime.of(12, 45),
