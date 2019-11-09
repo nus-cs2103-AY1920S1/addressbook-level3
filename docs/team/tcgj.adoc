@@ -1,9 +1,14 @@
 = Chong Guang Jun - Project Portfolio
 :site-section: AboutUs
+:sectnums:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:siteURL: https://ay1920s1-cs2103t-w13-4.github.io/main
 
 == PROJECT: Budget Buddy
+
+This portfolio serves to provide an extract of what I have contributed as a student in the software engineering project,
+*Budget Buddy*.
 
 == About Budget Buddy
 
@@ -31,8 +36,8 @@ Take note of the following formatting used in the rest of this portfolio.
 |`command word`
 |Monospace text like this indicates that this is a command word that can be entered as part of a command to be executed by the application.
 
-|_filename.txt_
-|Italicized text like this indicates that this is a filename that can be found within the application.
+|*_filename.txt_*
+|Bold italicized text like this indicates that this is a filename that can be found within the application.
 
 |`*component*`
 |Bold monospace text like this indicates that this is a component that can be found within the application.
@@ -80,8 +85,24 @@ _{you can add/remove categories in the list above}_
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_This section shows what I have contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+You can refer to the full User Guide link:{siteURL}/UserGuide.html[here].
+
+=== Overview of Contributions
+
+Below is an overview of my contributions to the User Guide.
+
+==== Improve user experience
+
+I added multiple sections and introductory paragraphs, which include the _Introduction, Quick Start, Getting Started, Features, and FAQ_,
+that provide clarification and support in usage for the users who are using the application for the first time, or need help with troubleshooting.
+
+==== Add main content into the User Guide
+
+I wrote detailed sections about the usage of commands that are in the Budget Buddy application, to guide users in the format and
+specifications required for those commands. A couple of extracts from the User Guide that were written by me are shown in sections 4.2 and 4.3 below.
 
 include::../UserGuide.adoc[tag=rules]
 
@@ -90,7 +111,18 @@ include::../UserGuide.adoc[tag=budget]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_This section shows what I have contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+You can refer to the full Developer Guide link:{siteURL}/DeveloperGuide.html[here].
+
+=== Overview of Contributions
+
+Below is an overview of my contributions to the Developer Guide.
+
+==== Add main content into the Developer Guide
+
+I wrote detailed sections about the implementations of functionality in the Budget Buddy application, drawn UML diagrams, and documented some use cases
+for the Developer Guide. The parts of the Developer Guide that were written by me are shown in section 5.2 below.
 
 include::../DeveloperGuide.adoc[tag=rules]
