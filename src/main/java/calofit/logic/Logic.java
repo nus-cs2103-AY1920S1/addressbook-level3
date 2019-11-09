@@ -52,7 +52,7 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns a list of meals that has already been filtered by a predicate.
+     * Returns a list of meals that has been consumed today.
      */
     ObservableList<Meal> getTodayMealList();
 
@@ -62,7 +62,7 @@ public interface Logic {
     Statistics getStatistics();
 
     /**
-     * Returns the Model that the Logic is operating on.
+     * Returns the {@code Model} that the {@code Logic} is operating on.
      */
     Model getModel();
 }

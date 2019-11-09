@@ -30,9 +30,6 @@ ReportCommand -> CommandResult : returns a >
 
 CommandResult -> ReportWindow : creates a >
 
-MealLog -[hidden]left-> Statistics
-Statistics -[hidden]down-> MealLog
-Statistics -[hidden]down-> CalorieBudget
-Ui -[hidden]down-> Logic
+ReportWindow -[hidden]up-> ReportCommand
 
 @enduml

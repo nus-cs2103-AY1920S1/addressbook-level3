@@ -24,8 +24,8 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonDishDatabaseStorage dishDatabaseStorage = new JsonDishDatabaseStorage(getTempFilePath("ab"));
-        JsonMealLogStorage mealLogStorage = new JsonMealLogStorage(getTempFilePath("cd"));
+        JsonDishDatabaseStorage dishDatabaseStorage = new JsonDishDatabaseStorage(getTempFilePath("dishData"));
+        JsonMealLogStorage mealLogStorage = new JsonMealLogStorage(getTempFilePath("mealData"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(dishDatabaseStorage, mealLogStorage, userPrefsStorage);
     }

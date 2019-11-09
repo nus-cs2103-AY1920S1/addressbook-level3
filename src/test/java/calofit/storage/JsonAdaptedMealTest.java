@@ -1,5 +1,6 @@
 package calofit.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.format.DateTimeParseException;
@@ -14,13 +15,11 @@ public class JsonAdaptedMealTest {
 
     private static final JsonAdaptedDish VALID_DISH = new JsonAdaptedDish(TypicalMeals.MUSHROOM_SOUP.getDish());
 
-    /*
     @Test
     public void toModelType_validMealDetails_returnsMeal() throws Exception {
         JsonAdaptedMeal meal = new JsonAdaptedMeal(TypicalMeals.MUSHROOM_SOUP);
         assertEquals(TypicalMeals.MUSHROOM_SOUP, meal.toModelType());
     }
-    */
 
     @Test
     public void toModelType_invalidTimeStamp_throwsIllegalValueException() {

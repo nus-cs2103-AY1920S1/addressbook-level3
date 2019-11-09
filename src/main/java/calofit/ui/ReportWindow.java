@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -47,6 +48,9 @@ public class ReportWindow extends UiPart<Stage> {
     private TextFlow countCalorieExceeded;
 
     @FXML
+    private ScrollPane foodListScrollPane;
+
+    @FXML
     private TextFlow mostConsumedMeal;
 
     @FXML
@@ -64,6 +68,8 @@ public class ReportWindow extends UiPart<Stage> {
         super(FXML, root);
 
         requireNonNull(statistics);
+
+        foodListScrollPane.setFitToWidth(true);
 
         numericalStatistics.setBackground(new Background(
                 new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)
@@ -117,11 +123,12 @@ public class ReportWindow extends UiPart<Stage> {
         calorieCountExceededValue.setStyle("-fx-font-size: 35px");
         countCalorieExceeded.getChildren().addAll(calorieCountExceededHeader, calorieCountExceededValue);
 
-        Text mostConsumedFoodHeader = new Text("Most consumed dish(es) of the month is:");
+        Text mostConsumedFoodHeader = new Text("Most consumed dish(es) of the month:");
         mostConsumedFoodHeader.setStyle("-fx-font-size: 20px");
         mostConsumedMeal.getChildren().add(mostConsumedFoodHeader);
         for (int i = 0; i < statistics.getMostConsumedDishes().size(); i++) {
-            Text mostConsumedFood = new Text("\n" + statistics.getMostConsumedDishes().get(i).getName().toString());
+            Text mostConsumedFood = new Text("\n" + (i + 1) + ". "
+                    + statistics.getMostConsumedDishes().get(i).getName().toString());
             mostConsumedFood.setStyle("-fx-font-size: 35px");
             mostConsumedMeal.getChildren().add(mostConsumedFood);
         }

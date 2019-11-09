@@ -43,7 +43,11 @@
                                  </font>
                               </Label>
                               <TextFlow fx:id="countCalorieExceeded" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
-                              <TextFlow fx:id="mostConsumedMeal" textAlignment="CENTER" />
+                              <ScrollPane fx:id="foodListScrollPane">
+                                 <content>
+                                    <TextFlow fx:id="mostConsumedMeal" prefHeight="405.0" prefWidth="218.0" textAlignment="CENTER" />
+                                 </content>
+                              </ScrollPane>
                            </items>
                         </SplitPane>
                         <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
@@ -58,12 +62,12 @@
                               </BarChart>
                               <ScrollPane>
                                  <content>
-                                    <BarChart fx:id="foodChart">
+                                    <BarChart fx:id="foodChart" title="Quantity of Food Consumed">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" />
                                       </xAxis>
                                       <yAxis>
-                                        <NumberAxis label="Quantity Consumed" side="LEFT" />
+                                        <NumberAxis label="Quantity Consumed" minorTickLength="0.5" minorTickVisible="false" side="LEFT" tickUnit="1.0" />
                                       </yAxis>
                                     </BarChart>
                                  </content>

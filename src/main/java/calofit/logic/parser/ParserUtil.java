@@ -34,10 +34,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses {@code name} which is a string into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @param name is the description that we want to convert into a {@code Name} object.
+     * @throws ParseException if the given {@code name} is invalid or greater than 30 characters in length.
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
