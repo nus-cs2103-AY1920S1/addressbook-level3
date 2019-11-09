@@ -38,7 +38,7 @@ public class AddAppCommand extends ReversibleCommand {
             + "[" + PREFIX_RECURSIVE + "PREFIX_RECURSIVE w/m/y] "
             + "[" + PREFIX_RECURSIVE_TIMES + "PREFIX_RECURSIVE_TIMES]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ID + "001A "
+            + PREFIX_ID + "E0000001A "
             + PREFIX_START + "01/12/19 0900 "
             + PREFIX_END + "01/12/19 0940 "
             + PREFIX_RECURSIVE + "m "
