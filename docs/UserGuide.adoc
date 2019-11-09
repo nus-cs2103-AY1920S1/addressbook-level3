@@ -287,7 +287,6 @@ For instance, if you have volunteered to tutor children from 2 to 5 December 201
 Now, _TravEzy_ would know that the event is in fact a _commitment_!
 +
 {empty} +
-{empty} +
 Or is there an upcoming public _holiday_? Then, key it in with the type ``holiday``.
 +
 For example, to refer to the fact that 1 May 2020 is labour day (a public _holiday_), just enter:
@@ -298,7 +297,6 @@ For example, to refer to the fact that 1 May 2020 is labour day (a public _holid
 Now, _TravEzy_ would recognise that day as a public _holiday_!
 +
 {empty} +
-{empty} +
 You might then be wondering, what if it is a _school break_? As you might have expected, _TravEzy_ has got that covered too! Just indicate that the event is in fact a _school break_ by keying in ``school_break``.
 +
 For instance, if you would like to refer to the fact that 8 Dec 2019 to 12 Jan 2020 is winter vacation (a _school break_), just type:
@@ -308,7 +306,6 @@ For instance, if you would like to refer to the fact that 8 Dec 2019 to 12 Jan 2
 +
 Yeah! Now, _TravEzy_ know that you are referring to a _school break_. 😉
 +
-{empty} +
 {empty} +
 Last but not least, you can specify that you will be away for a _trip_ (woo hoo!) by using the ``EVENT TYPE`` ``trip``.
 +
