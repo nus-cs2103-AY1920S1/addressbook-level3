@@ -23,7 +23,7 @@ public class ApplyCommand extends Command {
     public static final String COMMAND_WORD = "apply";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Applies the find rule identified by the index number "
-        + "used in the displayed Find Rules list.\n"
+        + "in the current list of find rules.\n"
         + "Parameters:\n"
         + "INDEX (must be a positive integer)\n"
         + "Example:\n"

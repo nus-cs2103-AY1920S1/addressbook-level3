@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.ModelType;
+import seedu.algobase.model.problem.Difficulty;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.ui.UiPart;
 import seedu.algobase.ui.action.UiActionDetails;
@@ -76,7 +77,11 @@ public class ProblemDetails extends UiPart<Region> {
             editButton.setDisable(false);
         });
 
-        difficulty.setText(problem.getDifficulty().toString());
+        if (!Difficulty.isDefaultDifficulty(problem.getDifficulty())) {
+            difficulty.setText(problem.getDifficulty().toString());
+        } else {
+            difficulty.setText("");
+        }
         difficulty.textProperty().addListener((e) -> {
             editButton.setDisable(false);
         });

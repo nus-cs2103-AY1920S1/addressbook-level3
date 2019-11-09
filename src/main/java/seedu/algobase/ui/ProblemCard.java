@@ -14,7 +14,13 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.ModelType;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Difficulty;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.problem.Remark;
+import seedu.algobase.model.problem.Source;
+import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.ui.action.UiActionDetails;
 import seedu.algobase.ui.action.UiActionExecutor;
 import seedu.algobase.ui.action.UiActionType;
@@ -65,28 +71,73 @@ public class ProblemCard extends UiPart<Region> {
         this.problem = problem;
         this.uiActionExecutor = uiActionExecutor;
 
+        // Index
         id.setText(displayedIndex + ". ");
         id.setWrapText(true);
         id.setTextAlignment(TextAlignment.JUSTIFY);
+
+        // Name
         name.setText(problem.getName().fullName);
         name.setWrapText(true);
         name.setTextAlignment(TextAlignment.JUSTIFY);
-        author.setText(problem.getAuthor().value);
+
+        // Author
+        if (!Author.isDefaultAuthor(problem.getAuthor())) {
+            author.setText(problem.getAuthor().value);
+        } else {
+            author.setText("Not specified");
+            author.setStyle("-fx-text-fill: grey;");
+        }
         author.setWrapText(true);
         author.setTextAlignment(TextAlignment.JUSTIFY);
-        description.setText(problem.getDescription().value);
+
+        // Description
+        if (!Description.isDefaultDescription(problem.getDescription())) {
+            description.setText(problem.getDescription().value);
+        } else {
+            description.setText("Not specified");
+            description.setStyle("-fx-text-fill: grey;");
+        }
         description.setWrapText(true);
         description.setTextAlignment(TextAlignment.JUSTIFY);
-        weblink.setText(problem.getWebLink().value);
+
+        // Weblink
+        if (!WebLink.isDefaultWeblink(problem.getWebLink())) {
+            weblink.setText(problem.getWebLink().value);
+        } else {
+            weblink.setText("Not specified");
+            weblink.setStyle("-fx-text-fill: grey;");
+        }
         weblink.setWrapText(true);
         weblink.setTextAlignment(TextAlignment.JUSTIFY);
-        difficulty.setText(problem.getDifficulty().toString());
+
+        // Difficulty
+        if (!Difficulty.isDefaultDifficulty(problem.getDifficulty())) {
+            difficulty.setText(problem.getDifficulty().toString());
+        } else {
+            difficulty.setText("Not specified");
+            difficulty.setStyle("-fx-text-fill: grey;");
+        }
         difficulty.setWrapText(true);
         difficulty.setTextAlignment(TextAlignment.JUSTIFY);
-        remark.setText(problem.getRemark().value);
+
+        // Remark
+        if (!Remark.isDefaultRemark(problem.getRemark())) {
+            remark.setText(problem.getRemark().value);
+        } else {
+            remark.setText("Not specified");
+            remark.setStyle("-fx-text-fill: grey;");
+        }
         remark.setWrapText(true);
         remark.setTextAlignment(TextAlignment.JUSTIFY);
-        source.setText(problem.getSource().value);
+
+        // Source
+        if (!Source.isDefaultSource(problem.getSource())) {
+            source.setText(problem.getSource().value);
+        } else {
+            source.setText("Not specified");
+            source.setStyle("-fx-text-fill: grey;");
+        }
         source.setWrapText(true);
         source.setTextAlignment(TextAlignment.JUSTIFY);
         problem.getTags().stream()

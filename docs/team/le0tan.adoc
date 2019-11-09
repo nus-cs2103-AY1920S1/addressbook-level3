@@ -60,7 +60,7 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/81[#81]
 ** Documentation:
 *** Explains how reserved words should work in *AlgoBase* (used as a reference in the development) https://github.com/AY1920S1-CS2103T-W11-1/main/pull/35[#35]
 ** Community:
-*** As shown below, I participated in the review of most significant PRs in *AlgoBase* and provided some in-depth comments to make sure that the code quality of this project is consistent.
+*** As shown below, I participated in the review of most (significant) PRs in *AlgoBase* and provided some in-depth comments to make sure that the code quality of this project is consistent.
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/24[#24]
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/37[#37]
@@ -79,7 +79,13 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/201[#201]
 **** Reported module website's inaccurate information on PPP https://github.com/nus-cs2103-AY1920S1/forum/issues/149[#149]
 
 *** Reported bugs and suggestions for other teams in the class:
-https://github.com/le0tan/ped[Reported 19 bugs in PED]
+**** https://github.com/le0tan/ped[Reported 19 bugs in PED]
+**** Reported bugs and suggestions for other teams in the class (examples
+https://github.com/AY1920S1-CS2103-T16-1/main/issues/199[#199]
+https://github.com/AY1920S1-CS2103-T16-1/main/issues/200[#200]
+https://github.com/AY1920S1-CS2103-T16-1/main/issues/201[#201]
+https://github.com/AY1920S1-CS2103-T16-1/main/issues/202[#202]
+https://github.com/AY1920S1-CS2103-T16-1/main/issues/203[#203])
 
 == Contributions to the User Guide
 
@@ -98,6 +104,9 @@ include::../UserGuide.adoc[tag=findrule]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=savefindrule]
+
+=== More contributions to the Developer Guide
+
 https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#Design-Model[Design - Model] +
 https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#find-problem-feature[Implementation - Find Feature]
-include::../DeveloperGuide.adoc[tag=savefindrule]

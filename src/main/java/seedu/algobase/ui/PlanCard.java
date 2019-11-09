@@ -14,6 +14,7 @@ import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.plan.Plan;
+import seedu.algobase.model.plan.PlanDescription;
 import seedu.algobase.ui.action.UiActionDetails;
 import seedu.algobase.ui.action.UiActionExecutor;
 import seedu.algobase.ui.action.UiActionType;
@@ -46,21 +47,37 @@ public class PlanCard extends UiPart<Region> {
         super(FXML);
         this.planIndex = displayedIndex - 1;
         this.plan = plan;
+
+        // Index
         id.setText(displayedIndex + ". ");
         id.setWrapText(true);
         id.setTextAlignment(TextAlignment.JUSTIFY);
+
+        // Plan Name
         planName.setText(plan.getPlanName().fullName + " (" + plan.getTasks().size() + " tasks)");
         planName.setWrapText(true);
         planName.setTextAlignment(TextAlignment.JUSTIFY);
-        planDescription.setText(plan.getPlanDescription().value);
+
+        // Plan Description
+        if (!PlanDescription.isDefaultDescription(plan.getPlanDescription().value)) {
+            planDescription.setText(plan.getPlanDescription().value);
+        } else {
+            planDescription.setText("Not specified");
+            planDescription.setStyle("-fx-text-fill: grey;");
+        }
         planDescription.setWrapText(true);
         planDescription.setTextAlignment(TextAlignment.JUSTIFY);
+
+        // Start Date
         startDate.setText(plan.getStartDate().format(ParserUtil.FORMATTER));
         startDate.setWrapText(true);
         startDate.setTextAlignment(TextAlignment.JUSTIFY);
+
+        // End Date
         endDate.setText(plan.getEndDate().format(ParserUtil.FORMATTER));
         endDate.setWrapText(true);
         endDate.setTextAlignment(TextAlignment.JUSTIFY);
+
         addMouseClickListener(uiActionExecutor);
     }
 
