@@ -361,6 +361,9 @@ class.
 // end::statisticsCommand[]
 
 === Autocomplete feature
+
+image::AutoCompleteClassDiagram.png[]
+
 ==== Current Implementation
 
 This feature is visible in the UI as a dropdown menu when the user enters input into the command box.
