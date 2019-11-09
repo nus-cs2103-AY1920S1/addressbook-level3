@@ -799,7 +799,7 @@ image::plan/FindPlanDescriptorClassDiagram.png[width="70%"]
 [NOTE]
 If the user wants to find plans with overlapping time range, both the starting date and the end date should be specified, and the starting date should be before or at least equal to the end date, or an error message will be displayed to inform the user the correct form of input.
 
-Step 6. The user executes `deleteplan 1`, which calls `Model#getFilteredPlanList()` and `Model#deletePlan`. The 'Model#getFilteredPlanList()' returns the last shown plan list, which is list of plans returns by the `findplan` command in step 4. Therefore, the first plan with overlapping time range is deleted.
+Step 6. The user executes `deleteplan 1`, which calls `Model#getFilteredPlanList()` and `Model#deletePlan`. The `Model#getFilteredPlanList()` returns the last shown plan list, which is list of plans returns by the `findplan` command in step 4. Therefore, the first plan with overlapping time range is deleted.
 
 ==== Design Considerations
 
