@@ -704,6 +704,7 @@ The line chart needs data to refer to. Below are two alternatives for how to acc
 * **Alternative 1 (current choice):** Data is not stored. Use a tree map to keep track of bodies and initialise the treemap depending on the given time frame.
 
 The following activity diagram illustrates the current choice for accessing and updating data:
+
 image::LineChartActivityDiagram.png[]
 
 ** Pros: Implementation is easy.
