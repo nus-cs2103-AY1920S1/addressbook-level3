@@ -141,7 +141,9 @@ public class Customer {
     private void deleteTags(Set<Tag> tags) {
         for (Tag tag : tags) {
             Integer i = totalTags.get(tag);
-            if ((i - 1) == 0) {
+            if (i == null) {
+                
+            } else if ((i - 1) == 0) {
                 totalTags.remove(tag);
             } else {
                 totalTags.replace(tag, i, i - 1);
@@ -165,6 +167,10 @@ public class Customer {
             }
             tags.addAll(newTags);
         }
+    }
+
+    public void setNoOfOrders(int noOfOrders) {
+        this.noOfOrders = noOfOrders;
     }
 
     public int getNoOfOrders() {
