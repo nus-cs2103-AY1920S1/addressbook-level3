@@ -27,13 +27,13 @@
                     </minWidth>
                 </Label>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="120" GridPane.columnIndex="1">
+            <VBox alignment="CENTER" GridPane.columnIndex="1">
                 <Label fx:id="message" alignment="CENTER" styleClass="cell_big_label" text="\$message" wrapText="true">
                 </Label>
             </VBox>
             <Separator halignment="LEFT" minHeight="0.0" minWidth="1.0" orientation="VERTICAL" prefHeight="80.0" prefWidth="1" GridPane.columnIndex="2"/>
 
-            <VBox alignment="CENTER" prefHeight="110" GridPane.columnIndex="3">
+            <VBox alignment="CENTER" GridPane.columnIndex="3">
                 <Label fx:id="deadline" alignment="CENTER" styleClass="cell_small_label" text="\$deadline" wrapText="true">
                 </Label>
             </VBox>

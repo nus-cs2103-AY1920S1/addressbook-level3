@@ -62,17 +62,14 @@ public class ReminderCard extends UiPart<Region> {
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
         if (other == this) {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof ReminderCard)) {
             return false;
         }
-
-        // state check
+        
         ReminderCard card = (ReminderCard) other;
         return id.getText().equals(card.id.getText())
                 && reminder.equals(card.reminder);
