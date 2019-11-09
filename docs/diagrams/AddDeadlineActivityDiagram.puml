@@ -1,0 +1,23 @@
+@startuml
+start
+
+:User executes an AddDeadlineCommand;
+
+if () then ([valid command])
+	:Instantiate a Deadline
+	     object with its
+	respective parameters;
+	:           Execute
+	AddDeadlineCommand;
+	:Update the DeadlineList
+	      of the module,
+	  Deadline plane in UI
+	        and storage;
+else ([else])
+	:Throw an exception;
+	:Update UI to notify user
+	 with the error message;
+endif
+
+stop
+@enduml

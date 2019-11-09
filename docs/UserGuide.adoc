@@ -173,16 +173,16 @@ Examples:
 
 Format: `deadline MODULE_LIST_NUM a/add d/DESCRIPTION t/TIME p/PRIORITY`
 
-Adds deadline task consisting of description, time and priority tag to the respective module.
-Priority tags can be `HIGH`, `MEDIUM` OR `LOW`. Deadline tasks tagged as `HIGH` is displayed in red, `MEDIUM` in yellow
+Adds deadline task consisting of description, time and priority to the respective module.
+Priority inputs are `HIGH`, `MEDIUM` OR `LOW`. Deadline task with `HIGH` priority is displayed in red, `MEDIUM` in yellow
 and `LOW` in green. Deadline list is sorted according to priority and deadline date and time.
-All fields are compulsory.
+All parameters are compulsory.
 
 Example: `deadline 1 a/add d/tutorial 1 t/22/10/2019 2359 p/HIGH`
 
 ==== `edit`
 
-1.Edit Description
+* Edit Description
 
 Format: `deadline MODULE_LIST_NUM a/edit task/TASK_NUMBER_IN_LIST d/NEW_DESCRIPTION`
 
@@ -190,7 +190,7 @@ Edits description from the deadline task numbered in deadline list for the respe
 
 Example: `deadline 2 a/edit task/2 d/finish increments`
 
-2.Edit Time
+* Edit Time
 
 Format: `deadline MODULE_LIST_NUM a/edit task/TASK_NUMBER_IN_LIST t/NEW_TIME`
 

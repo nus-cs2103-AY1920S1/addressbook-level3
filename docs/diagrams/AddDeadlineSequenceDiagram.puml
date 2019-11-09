@@ -16,10 +16,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("deadline 2 a/add d/... t/...")
+[-> LogicManager : execute("deadline 2 a/add d/ t/ p/")
 activate LogicManager
 
-LogicManager -> ModuleBookParser : parseCommand("deadline 2 a/add d/... t/...")
+LogicManager -> ModuleBookParser : parseCommand("deadline 2 a/add d/ t/ p/")
 activate ModuleBookParser
 
 create AddDeadlineCommandParser
@@ -29,7 +29,7 @@ activate AddDeadlineCommandParser
 AddDeadlineCommandParser --> ModuleBookParser
 deactivate AddDeadlineCommandParser
 
-ModuleBookParser -> AddDeadlineCommandParser : parse("deadline 2 a/add d/... t/...")
+ModuleBookParser -> AddDeadlineCommandParser : parse("deadline 2 a/add d/ t/ p/")
 activate AddDeadlineCommandParser
 
 create AddDeadlineCommand
