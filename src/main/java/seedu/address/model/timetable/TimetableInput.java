@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TimeTableInput {
-    public Timetable getTabletableFromFilepath(String absoluteFilepath) throws IOException, ParseException {
+public class TimetableInput {
+    public Timetable getTimetableFromFilepath(String absoluteFilepath) throws IOException, ParseException {
         String content = new Scanner(new File(absoluteFilepath)).useDelimiter("\\Z").next();
-        return ParserUtil.parseTimeTable(content);
+        return ParserUtil.parseTimetable(content);
     }
 
     /**
      * Return retreived timetable from NUSMods
      * @param url URL of NUSMods shared timetable
-     * @return Retrieved {@code TimeTable}
+     * @return Retrieved {@code Timetable}
      * @throws IOException URL parsing error
      * @throws IllegalValueException Cannot find lesson grouping on NUSMods
      */

@@ -74,8 +74,8 @@ class JsonAdaptedPerson {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         projects.addAll(source.getProjects());
-        if (source.getTimeTable() != null) {
-            timetable.addAll(source.getTimeTable().getTimeRanges().stream()
+        if (source.getTimetable() != null) {
+            timetable.addAll(source.getTimetable().getTimeRanges().stream()
                     .map(JsonAdaptedTimeRange::new)
                     .collect(Collectors.toList()));
         }
@@ -139,7 +139,7 @@ class JsonAdaptedPerson {
         for (JsonAdaptedTimeRange timeRange : timetable) {
             timeRanges.add(timeRange.toModelType());
         }
-        final Timetable timeTable = new Timetable(timeRanges);
+        final Timetable timetable = new Timetable(timeRanges);
 
         final Performance modelPerformance;
         if (performance != null) {
@@ -148,7 +148,7 @@ class JsonAdaptedPerson {
             modelPerformance = new Performance();
         }
 
-        Person person = new Person(modelName, modelPhone, modelEmail, modelProfilePicture, modelAddress, modelTags, timeTable, modelPerformance);
+        Person person = new Person(modelName, modelPhone, modelEmail, modelProfilePicture, modelAddress, modelTags, timetable, modelPerformance);
 
         person.getProjects().addAll(modelProjectList);
         return person;

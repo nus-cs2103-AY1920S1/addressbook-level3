@@ -190,16 +190,19 @@ Below is a step-by-step instruction to guide you through the process of adding a
 
 * Step 1: Type `addTimetable`, followed by the index of the person you wish to add the timetable to, and the URL of the share link.
 
-image:add-timetable/add-timetable-step-1.png[]
+.User enters timetable of team member
+image::add-timetable/add-timetable-step-1.png[]
 
 * Step 2: Press enter, and you would see the following message. You can even scroll down to view a simple visualization of the timetable added!
 
-image:add-timetable/add-timetable-step-2.png[]
+.`addTimetable` command success
+image::add-timetable/add-timetable-step-2.png[]
 
 [TIP]
 Even if you accidentally entered a wrong URL, MyProject would prompt you helpfully!
 
-image:add-timetable/add-timetable-step-3.png[]
+.Error message when entered URL is invalid
+image::add-timetable/add-timetable-step-3.png[]
 
 ==== Add a task: `addTask` [Checkout]
 
@@ -391,8 +394,6 @@ associated with this functionality.
 
 ==== Generate meeting timing: `generate` [Checkout]
 
-Generates possible meeting timeslots where all member are available.
-
 Need to decide on a meeting timing, but having trouble finding a time where all members are free? This command can help suggest meeting timings!
 
 * Prerequisite: Timetables have been assigned to the members with the command `addTimetable`
@@ -411,20 +412,24 @@ Below is a step-by-step instruction to guide you through generating a meeting ti
 
 * Step 1: To generate a meeting timing for a project, you first need to `checkout` that project.
 
-image:generate/generate-step-1.png[]
+.Timeslot will be generated for the checked out project
+image::generate/generate-step-1.png[]
 
 * Step 2: Enter the command with your desired duration of the meeting, and the time range to generate within
 
-image:generate/generate-step-2.png[]
+.Enter parameters for `generate` command
+image::generate/generate-step-2.png[]
 
 * Step 3: Press enter, and you will see the following result:
 
-image:generate/generate-step-3.png[]
+.Suggested timeslots shown on the GUI
+image::generate/generate-step-3.png[]
 
 [NOTE]
 If MyProject is unable to find a timeslot where all members are free, it would try to find another timeslot where most members are free
 
-image:generate/generate-alt.png[]
+.Result shown when not all members are available. Members available would be listed.
+image::generate/generate-alt.png[]
 
 === Email
 Tired of switching between applications? We got you covered, below you will find some commands which support sending

@@ -102,7 +102,7 @@ public class AddFromContactsCommand extends Command {
             List<String> projectList = person.getProjects();
             projectList.add(projectToAdd.getTitle().title);
             Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getProfilePicture(),
-                    person.getAddress(), person.getTags(), person.getTimeTable(), person.getPerformance());
+                    person.getAddress(), person.getTags(), person.getTimetable(), person.getPerformance());
             editedPerson.getProjects().addAll(projectList);
             editedPersons.add(editedPerson);
         }

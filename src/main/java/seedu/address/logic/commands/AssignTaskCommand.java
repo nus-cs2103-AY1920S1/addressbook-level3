@@ -97,7 +97,7 @@ public class AssignTaskCommand extends Command {
 
             Person editedPerson = new Person(personToAssign.getName(), personToAssign.getPhone(), personToAssign.getEmail(),
                     personToAssign.getProfilePicture(), personToAssign.getAddress(),
-                    personToAssign.getTags(), personToAssign.getTimeTable(), updatedPerformance);
+                    personToAssign.getTags(), personToAssign.getTimetable(), updatedPerformance);
 
             editedPerson.getProjects().addAll(personToAssign.getProjects());
 

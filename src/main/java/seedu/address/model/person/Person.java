@@ -23,13 +23,13 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final List<String> projects = new ArrayList<>();
-    private final Timetable timeTable;
+    private final Timetable timetable;
     private final Performance performance;
 
     /**
-     * Every field must be present and not null, except for timeTable which can be null.
+     * Every field must be present and not null, except for timetable which can be null.
      */
-    public Person(Name name, Phone phone, Email email, ProfilePicture profilePicture, Address address, Set<Tag> tags, Timetable timeTable, Performance performance) {
+    public Person(Name name, Phone phone, Email email, ProfilePicture profilePicture, Address address, Set<Tag> tags, Timetable timetable, Performance performance) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -37,7 +37,7 @@ public class Person {
         this.profilePicture = profilePicture;
         this.address = address;
         this.tags.addAll(tags);
-        this.timeTable = timeTable;
+        this.timetable = timetable;
         this.performance = performance;
     }
 
@@ -80,8 +80,8 @@ public class Person {
         return this.projects;
     }
 
-    public Timetable getTimeTable() {
-        return timeTable;
+    public Timetable getTimetable() {
+        return timetable;
     }
 
     public Performance getPerformance() {
@@ -124,8 +124,8 @@ public class Person {
                 && otherPerson.getProfilePicture().equals(getProfilePicture())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
-                && ((this.getTimeTable() == null && otherPerson.getTimeTable() == null)
-                    || otherPerson.getTimeTable().equals(getTimeTable()))
+                && ((this.getTimetable() == null && otherPerson.getTimetable() == null)
+                    || otherPerson.getTimetable().equals(getTimetable()))
                 && otherPerson.getPerformance().equals(getPerformance());
     }
 
@@ -149,8 +149,8 @@ public class Person {
                 .append(" Tags: ");
 
         getTags().forEach(builder::append);
-        builder.append(" TimeTable: ")
-                .append(getTimeTable());
+        builder.append(" Timetable: ")
+                .append(getTimetable());
 
         return builder.toString();
     }

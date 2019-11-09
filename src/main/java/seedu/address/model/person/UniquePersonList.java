@@ -119,7 +119,7 @@ public class UniquePersonList implements Iterable<Person> {
                 personsToEdit.add(person);
                 person.getPerformance().setTask(task, editedTask, projectTitle);
                 Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getProfilePicture(),
-                        person.getAddress(), person.getTags(), person.getTimeTable(), person.getPerformance());
+                        person.getAddress(), person.getTags(), person.getTimetable(), person.getPerformance());
                 editedPerson.getProjects().addAll(person.getProjects());
                 editedPersons.add(editedPerson);
             }
@@ -150,7 +150,7 @@ public class UniquePersonList implements Iterable<Person> {
                 personsToEdit.add(person);
                 person.getPerformance().deleteTask(task, projectTitle);
                 Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getProfilePicture(),
-                        person.getAddress(), person.getTags(), person.getTimeTable(), person.getPerformance());
+                        person.getAddress(), person.getTags(), person.getTimetable(), person.getPerformance());
                 editedPerson.getProjects().addAll(person.getProjects());
                 editedPersons.add(editedPerson);
             }
@@ -181,7 +181,7 @@ public class UniquePersonList implements Iterable<Person> {
                 personsToEdit.add(person);
                 person.getPerformance().deleteMeeting(meeting, projectTitle);
                 Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getProfilePicture(),
-                        person.getAddress(), person.getTags(), person.getTimeTable(), person.getPerformance());
+                        person.getAddress(), person.getTags(), person.getTimetable(), person.getPerformance());
                 editedPerson.getProjects().addAll(person.getProjects());
                 editedPersons.add(editedPerson);
             }

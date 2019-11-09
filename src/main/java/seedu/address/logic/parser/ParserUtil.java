@@ -277,12 +277,12 @@ public class ParserUtil {
 
     /**
      * Parse newline separated TimeRanges, return their Timetable representation
-     * @param timeTableString Newline separated TimeRanges
+     * @param timetableString Newline separated TimeRanges
      * @return Timetable representation of the TimeRanges
      * @throws ParseException
      */
-    public static Timetable parseTimeTable(String timeTableString) throws ParseException {
-        String[] splitted = timeTableString.split("\n");
+    public static Timetable parseTimetable(String timetableString) throws ParseException {
+        String[] splitted = timetableString.split("\n");
         List<TimeRange> timeRanges = new ArrayList<>();
         for (String s : splitted) {
             try {

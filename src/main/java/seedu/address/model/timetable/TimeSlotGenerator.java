@@ -64,8 +64,8 @@ public class TimeSlotGenerator {
      */
     private static List<TimeRange> combineTimetables(Collection<Timetable> timetables) {
         Set<TimeRange> timeRanges = new HashSet<>();
-        for (Timetable timeTable : timetables) {
-            timeRanges.addAll(timeTable.getTimeRanges());
+        for (Timetable timetable : timetables) {
+            timeRanges.addAll(timetable.getTimeRanges());
         }
         return new ArrayList<>(timeRanges);
     }

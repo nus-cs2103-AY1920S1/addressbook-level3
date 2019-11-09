@@ -415,13 +415,13 @@ The main logic of this feature is contained within the `TimeSlotGenerator` class
 
 `TimeSlotGenerator(members, desiredMeetingDuration, restrictedTimeRange)`
 
-* `members`: `List<TimeTable>` of members of the checked-out `Project`
+* `members`: `List<Timetable>` of members of the checked-out `Project`
 * `desiredMeetingDuration`: How long the meeting would last in hour, expressed as a positive integer
 * `restrictedTimeRange`: Sets the limit of generated `TimeRange`, e.g. restrict meeting to working hours, from MONDAY 0900 - MONDAY 1800
 
 Only the two following methods are exposed:
 
-* `TimeSlotGenerator#generate()` -- Generate timeslot suitable for *_all_* `TimeTable` supplied. Returns a list of `TimeRange`, or an empty list of `TimeRange` if no such timeslot is available.
+* `TimeSlotGenerator#generate()` -- Generate timeslot suitable for *_all_* `Timetable` supplied. Returns a list of `TimeRange`, or an empty list of `TimeRange` if no such timeslot is available.
 * `TimeSlotGenerator#generateWithMostMembers()` -- Generate timeslot where *_most_* members of the currently checked out project are available. Returns a list of `TimeRange`.
 
 ==== Details
@@ -456,7 +456,7 @@ image::GenerateSlotActivityDiagram.png[]
 
 ===== `TimeSlotGenerator#generate()`
 
-. Combine all the given `TimeTable` into a single `List<TimeRange> combined`
+. Combine all the given `Timetable` into a single `List<TimeRange> combined`
 . `combined` is then processed further by merging overlapping `TimeRange` into a single `TimeRange`. E.g. `TimeRange(MONDAY, 1000, MONDAY, 1200)` and `TimeRange(MONDAY, 1200, MONDAY,1400)` are merged together to form a single `TimeRange(MONDAY, 1000, MONDAY, 1400)`. `List<TimeRange> merged` is then passed on to the next stage.
 . `merged` is then inverted, and returns `List<TimeRange> inverted` containing all timeslots where all the members are free.
 . `inverted` is then processed to ensure that all `TimeRange` falls within `restrictedTimeRange` specified by the user, truncating all `TimeRange` that extends beyond the specified `restrictedTimeRange`, returning `List<TimeRange> truncated`.
@@ -467,7 +467,7 @@ image::GenerateSlotActivityDiagram.png[]
 . Iterates over all possible combinations of timetables in descending order of number of timetable.
 . For each possible combination, call `TimeSlotGenerator#generate()`.
 . If `TimeSlotGenerator#generate()` returns an empty list, repeat step 2 again.
-. Algorithm terminates, returning the combination of List<TimeTable> used and available timings `List<TimeRange>` wrapped in a class `TimeSlotWithMember`.
+. Algorithm terminates, returning the combination of List<Timetable> used and available timings `List<TimeRange>` wrapped in a class `TimeSlotWithMember`.
 
 ==== Design Considerations
 
@@ -486,16 +486,16 @@ We went with options 1 as there is no real difference in speed if the number of 
 ==== Description of Feature
 There are two ways to input member's timetable
 
-. Member send a formatted text file to the team leader, which would then be parsed by the system
-. Member send their NUSMods timetable URL to the team leader, and the system would fetch their timetable data using NUSMods API
+. Member send a formatted text file to the team leader, which would then be parsed by the system. The file would be a list of newline separated time ranges
+. Member send their NUSMods timetable URL to the team leader, and the system would parse the URL and fetch timetable data using NUSMods API
 
-The main logic is implemented within the `AddTimetableCommand` class.
+The main logic is implemented within the `TimetableInput` class.
 
 ==== Details
 
 Important functions in the `AddTimetableCommand`:
 
-* `AddTimetableCommand#getTimetableFromNUSMods(String url)` -- Fetch timetable data using NUSMods API
+* `TimetableInput#getTimetableFromNUSMods(String url)` -- Fetch timetable data using NUSMods API
 * `AddTimetableCommand#getTimetableFromFile(String filepath)` -- Parse file to obtain timetable data
 
 An overview of how the `AddTimetableCommand` class works, shown in figure below:

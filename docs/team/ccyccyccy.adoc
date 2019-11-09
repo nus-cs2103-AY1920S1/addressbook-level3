@@ -1,4 +1,4 @@
-:imagesDir: images
+:imagesDir: ../images
 
 = Chong Chee Yuan - Project Portfolio for MyProject
 
@@ -6,7 +6,9 @@
 
 My team of 4 NUS SoC students and I were tasked to enhance a command line addressbook application. We decided to convert it into a one-stop project management app called *_MyProject_*.
 
-*MyProject* has various features to aid team leaders in project management. Notable features include:
+MyProject is meant to aid NUS students in managing multiple projects within a single desktop application that can fufill all their needs.
+
+Aside from basic features such as setting of tasks and deadlines, MyProject also boasts several tools to aid users in better managing their projects. Notable features include:
 
 * Keep track of members' progress
 * Send out email reminders
@@ -23,25 +25,35 @@ This document serves to record down my contributions to the project in detail.
 
 == Summary of contributions
 
-Enhancement: Implemented `addTimetable` and `generate` command. `addTimetable` records down a member's schedule, while `generate` suggests timings to schedule meetings on.
+*Enhancement*: Implemented `addTimetable` and `generate` command. `addTimetable` records down a member's schedule, while `generate` suggests timings to schedule meetings on.
 
-* What it does:
-** The `generate` command suggest the most suitable timeslots to schedule project meetings on. The `addTimetable` command is mainly used to support the `generate` command by recording members' timetables. The `addTimetable` command  is made extremely convenient for NUS students as they can input their timetable using NUSMods timetable sharing feature in *MyProject* as well.
-
-* Justification
+* *What it does*:
+** The `addTimetable` command is primarily used to support the `generate` command by recording members' schedule. The `addTimetable` command  is made extremely convenient for NUS students due to our integration with NUSMods timetable sharing feature, allowing users to simply input a NUSMods timetable sharing URL, instead of having to enter all the timings manually.
+** The `generate` command suggest the most suitable timeslots to schedule project meetings on, based on the timetable of members added using the `addTimetable` command.
+* *Justification*
 ** Team leaders often have trouble scheduling team meetings, having to run to every single members and ask for their availability at a certain timeslot. This process is often time consuming and inefficient. With this enhancement, team leaders can avoid this issue entirely by simply entering a database of team members' timetables into *_MyProject_* using the command `addTimetable`, and generate meeting timeslots using the command `generate`.
 
-* Highlights
-** This enhancement is extremely convenient to use, with only 2 commands to remember. The command would try its best to guess what the user wants and supply it. There is also a variety of error catching messages and suggestion of what to do to make the command work when something goes wrong. This feature is also extremely extendable as we can provide for more sources of input, such as input from .ics files. Power users can also be provided more fine-grained control over how to generate the timeslots without disrupting the default timeslot generating behavior.
+* *Highlights*
+** I tried to make this enhancement to be very convenient to use, with only 2 commands required for this functionality to work. This led to the high variety of errors that the `generate` and `addTimetable` command can occur. As such, I had to provide a robust error catching mechanism to identify what the user did wrongly and provide suggestion on how to make the command work.
+** This enhancement was also challenging because the current Java data and time libraries do not fully address my needs for a weekly recurring type of timetable, thus I had to implement it myself, which proves to be more of a challenge than expected. However, this proved to be worth the time, as it forms the backbone of the entire enhancement. This allowed for my enhancement to be extremely extendable so that we can easily provide for more sources of input, such as input from .ics files.
 
-* Credits
-** Credits to the NUSMods team for provide such a comprehensive API to retrieve module information
+* *Credits*
+** Credits to the NUSMods team for provide such a comprehensive API to retrieve module information.
 
-* Other contributions
-** Project Management
-*** Managed issue tracker
-*** Release all software versions from v1.1 to v1.3
-*** Handled Travis integration on Github
+*Code contributed*: Click the following links to view a sample of my code: http://github.com[Functional Code] http://github.com[Test Code]
+
+*Other contributions*:
+
+* Enhancement to exisiting features
+** Update UI and README to better represent MyProject https://github.com/AY1920S1-CS2103T-T17-1/main/pull/181[#181]
+* Project Management:
+** Managed issue tracker
+** Release all software releases from v1.1 to v1.3
+** Handled Travis integration on Github
+* Community:
+** Fix bugs introduced by other group members https://github.com/AY1920S1-CS2103T-T17-1/main/pull/17[#17]
+* Tools:
+** Integrated Coveralls to the project to keep track of code coverage
 
 == Contributions to the User Guide
 
@@ -49,7 +61,7 @@ We had to provide a user guide as an instruction for how to use our software. Th
 
 Below is the section of user guide that I contributed for my tasks.
 
-=== 4. Add a timetable: `addTimeTable`
+=== 4. Add a timetable: `addTimetable`
 
 Adds a timetable for the specified person, to record down their schedule.
 
@@ -102,13 +114,13 @@ The main logic of this feature is contained within the `TimeSlotGenerator` class
 
 `TimeSlotGenerator(members, desiredMeetingDuration, restrictedTimeRange)`
 
-* `members`: `List<TimeTable>` of members of the checked-out `Project`
+* `members`: `List<Timetable>` of members of the checked-out `Project`
 * `desiredMeetingDuration`: How long the meeting would last in hour, expressed as a positive integer
 * `restrictedTimeRange`: Sets the limit of generated `TimeRange`, e.g. restrict meeting to working hours, from MONDAY 0900 - MONDAY 1800
 
 Only the two following methods are exposed:
 
-* `TimeSlotGenerator#generate()` -- Generate timeslot suitable for *_all_* `TimeTable` supplied. Returns a list of `TimeRange`, or an empty list of `TimeRange` if no such timeslot is available.
+* `TimeSlotGenerator#generate()` -- Generate timeslot suitable for *_all_* `Timetable` supplied. Returns a list of `TimeRange`, or an empty list of `TimeRange` if no such timeslot is available.
 * `TimeSlotGenerator#generateWithMostMembers()` -- Generate timeslot where *_most_* members of the currently checked out project are available. Returns a list of `TimeRange`.
 
 ==== Details
@@ -143,7 +155,7 @@ image::GenerateSlotActivityDiagram.png[]
 
 ===== `TimeSlotGenerator#generate()`
 
-. Combine all the given `TimeTable` into a single `List<TimeRange> combined`
+. Combine all the given `Timetable` into a single `List<TimeRange> combined`
 . `combined` is then processed further by merging overlapping `TimeRange` into a single `TimeRange`. E.g. `TimeRange(MONDAY, 1000, MONDAY, 1200)` and `TimeRange(MONDAY, 1200, MONDAY,1400)` are merged together to form a single `TimeRange(MONDAY, 1000, MONDAY, 1400)`. `List<TimeRange> merged` is then passed on to the next stage.
 . `merged` is then inverted, and returns `List<TimeRange> inverted` containing all timeslots where all the members are free.
 . `inverted` is then processed to ensure that all `TimeRange` falls within `restrictedTimeRange` specified by the user, truncating all `TimeRange` that extends beyond the specified `restrictedTimeRange`, returning `List<TimeRange> truncated`.
@@ -154,7 +166,7 @@ image::GenerateSlotActivityDiagram.png[]
 . Iterates over all possible combinations of timetables in descending order of number of timetable.
 . For each possible combination, call `TimeSlotGenerator#generate()`.
 . If `TimeSlotGenerator#generate()` returns an empty list, repeat step 2 again.
-. Algorithm terminates, returning the combination of List<TimeTable> used and available timings `List<TimeRange>` wrapped in a class `TimeSlotWithMember`.
+. Algorithm terminates, returning the combination of List<Timetable> used and available timings `List<TimeRange>` wrapped in a class `TimeSlotWithMember`.
 
 ==== Design Considerations
 

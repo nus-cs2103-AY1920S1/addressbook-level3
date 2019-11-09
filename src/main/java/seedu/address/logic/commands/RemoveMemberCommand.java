@@ -72,7 +72,7 @@ public class RemoveMemberCommand extends Command {
         String projectTitle = project.getTitle().title;
         person.getProjects().remove(projectTitle);
         Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getProfilePicture(),
-                person.getAddress(), person.getTags(), person.getTimeTable(), person.getPerformance());
+                person.getAddress(), person.getTags(), person.getTimetable(), person.getPerformance());
         editedPerson.getProjects().addAll(person.getProjects());
 
         return editedPerson;

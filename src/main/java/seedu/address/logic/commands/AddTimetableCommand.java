@@ -8,8 +8,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.timetable.TimeTableInput;
-import seedu.address.model.timetable.TimeTableVisualization;
+import seedu.address.model.timetable.TimetableInput;
+import seedu.address.model.timetable.TimetableVisualization;
 import seedu.address.model.timetable.Timetable;
 
 import java.io.IOException;
@@ -88,27 +88,27 @@ public class AddTimetableCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
-        Timetable timeTable = null;
+        Timetable timetable = null;
         if (absoluteFilepath != null) {
             try {
-                timeTable = new TimeTableInput().getTabletableFromFilepath(absoluteFilepath);
+                timetable = new TimetableInput().getTimetableFromFilepath(absoluteFilepath);
             } catch (IOException e) {
                 throw new IllegalValueException(MESSAGE_INVALID_FILEPATH);
             }
         } else if (url != null) {
             try {
-                timeTable = new TimeTableInput().getTimetableFromUrl(url);
+                timetable = new TimetableInput().getTimetableFromUrl(url);
             } catch (IOException e) {
                 throw new CommandException(MESSAGE_INVALID_URL_OR_INTERNET_ERROR);
             }
         }
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getProfilePicture(),
-                personToEdit.getAddress(), personToEdit.getTags(), timeTable, personToEdit.getPerformance());
+                personToEdit.getAddress(), personToEdit.getTags(), timetable, personToEdit.getPerformance());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ADD_TIMETABLE_SUCCESS, editedPerson.getName().toString(), new TimeTableVisualization(timeTable).visualize()), COMMAND_WORD);
+        return new CommandResult(String.format(MESSAGE_ADD_TIMETABLE_SUCCESS, editedPerson.getName().toString(), new TimetableVisualization(timetable).visualize()), COMMAND_WORD);
     }
 
     @Override

@@ -56,7 +56,7 @@ public class GenerateSlotCommand extends Command {
         if (model.getWorkingProject().isEmpty()) {
             throw new CommandException(MESSAGE_UNKNOWN_ERROR);
         }
-        List<Timetable> timetables = model.getMembers().stream().map(Person::getTimeTable).collect(Collectors.toList());
+        List<Timetable> timetables = model.getMembers().stream().map(Person::getTimetable).collect(Collectors.toList());
         try {
             boolean allMembersAvailable = true;
             Timetable generatedTimetable = new Timetable(new TimeSlotGenerator(timetables, durationInHours, timeRange).generate());
@@ -68,7 +68,7 @@ public class GenerateSlotCommand extends Command {
                     return new CommandResult(MESSAGE_GENERATION_FAILED_NO_SLOT_AVAILABLE, COMMAND_WORD);
                 }
                 generatedTimetable = new Timetable(timeSlotsAvailable.getTimeRanges());
-                members = model.getMembers().stream().filter(x -> timeSlotsAvailable.getTimetables().contains(x.getTimeTable())).collect(Collectors.toList());
+                members = model.getMembers().stream().filter(x -> timeSlotsAvailable.getTimetables().contains(x.getTimetable())).collect(Collectors.toList());
             }
             Project currWorkingProject = model.getWorkingProject().get();
             Project editedProject = new Project(currWorkingProject.getTitle(),

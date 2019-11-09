@@ -6,7 +6,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.finance.Budget;
-import seedu.address.model.timetable.TimeTableVisualization;
+import seedu.address.model.timetable.TimetableVisualization;
 import seedu.address.model.timetable.Timetable;
 
 import java.util.logging.Logger;
@@ -25,7 +25,7 @@ public class ShowTimetablePanel extends UiPart<Region> {
 
     public ShowTimetablePanel(Timetable timetable) {
         super(FXML);
-        title.setText(new TimeTableVisualization(timetable).visualize());
+        title.setText(new TimetableVisualization(timetable).visualize());
         title.setStyle("-fx-font-family: 'monospaced';");
     }
 

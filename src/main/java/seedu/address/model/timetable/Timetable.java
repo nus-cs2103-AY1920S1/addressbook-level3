@@ -42,8 +42,8 @@ public class Timetable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Timetable timeTable = (Timetable) o;
-        return timeRanges.equals(timeTable.timeRanges);
+        Timetable timetable = (Timetable) o;
+        return timeRanges.equals(timetable.timeRanges);
     }
 
     @Override

@@ -6,12 +6,12 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.StringJoiner;
 
-public class TimeTableVisualization {
-    private Timetable timeTable;
+public class TimetableVisualization {
+    private Timetable timetable;
     private static final int SPACES_BETWEEN_DAY_AND_TIMETABLE = 5;
 
-    public TimeTableVisualization(Timetable timeTable) {
-        this.timeTable = timeTable;
+    public TimetableVisualization(Timetable timetable) {
+        this.timetable = timetable;
     }
 
     public String visualize() {
@@ -86,7 +86,7 @@ public class TimeTableVisualization {
                         e.printStackTrace();
                     }
                 }
-                result.append((dummyTimerange != null) && this.timeTable.overlaps(dummyTimerange) ? "-" : " ");
+                result.append((dummyTimerange != null) && this.timetable.overlaps(dummyTimerange) ? "-" : " ");
             }
         }
         return result.toString();

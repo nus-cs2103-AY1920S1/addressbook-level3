@@ -100,7 +100,7 @@ public class MarkAttendanceCommand extends Command {
 
             Person editedPerson = new Person(personToMark.getName(), personToMark.getPhone(), personToMark.getEmail(),
                     personToMark.getProfilePicture(), personToMark.getAddress(),
-                    personToMark.getTags(), personToMark.getTimeTable(), updatedPerformance);
+                    personToMark.getTags(), personToMark.getTimetable(), updatedPerformance);
             editedPerson.getProjects().addAll(personToMark.getProjects());
 
             markedPersons.add(editedPerson);
