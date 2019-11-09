@@ -27,7 +27,7 @@ public class CancelAppCommand extends ReversibleCommand {
     public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "The appointment for [%1$s] %2$s "
             + "was cancelled: %3$s";
     public static final String MESSAGE_CANCEL_APPOINTMENTS_SUCCESS = "%1$s reoccurring appointments for [%2$s]"
-            + "%3$s were cancelled:\n%4$s";
+            + " %3$s were cancelled:\n%4$s";
     public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS =
             "Must indicate at least 1 appointment to delete";
 
