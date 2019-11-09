@@ -33,20 +33,24 @@ public class PerformanceCommandParser implements Parser<PerformanceCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PerformanceCommand.MESSAGE_USAGE));
         }
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, PerformanceCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = parseIndex(argMultimap);
 
         String event = ParserUtil.parseEvent(argMultimap.getValue(PREFIX_EVENT).get());
         AthletickDate date = ParserUtil.parseDateTypeOne(argMultimap.getValue(PREFIX_DATE).get());
         Timing timing = ParserUtil.parseTiming(argMultimap.getValue(PREFIX_TIMING).get());
 
         return new PerformanceCommand(index, event, date, timing);
+    }
+
+    /**
+     * Parses the index of the athlete whom the performance is added for.
+     */
+    private Index parseIndex(ArgumentMultimap argMultimap) throws ParseException {
+        try {
+            return ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PerformanceCommand.MESSAGE_USAGE), pe);
+        }
     }
 
     /**
