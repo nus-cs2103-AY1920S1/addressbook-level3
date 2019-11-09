@@ -1,3 +1,4 @@
+//@@author le0tan
 package seedu.algobase.model.problem;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
 
 class DifficultyIsInRangePredicateTest {
+
     @Test
     public void test_difficultyInRange_returnTrue() {
         DifficultyIsInRangePredicate predicate =
@@ -23,4 +25,5 @@ class DifficultyIsInRangePredicateTest {
                     QUICK_SORT.getDifficulty().value * 3);
         assertFalse(predicate.test(QUICK_SORT));
     }
+
 }

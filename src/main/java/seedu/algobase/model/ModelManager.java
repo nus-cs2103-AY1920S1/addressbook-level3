@@ -244,11 +244,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void clearPlans() {
-        algoBase.clearPlans();
-    }
-
-    @Override
     public void addPlan(Plan plan) {
         algoBase.addPlan(plan);
         updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);

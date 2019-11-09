@@ -45,6 +45,8 @@ public class DeleteTaskCommand extends Command {
      * @param deleteTaskDescriptor details of the plan and problem involved
      */
     public DeleteTaskCommand(DeleteTaskDescriptor deleteTaskDescriptor) {
+        requireNonNull(deleteTaskDescriptor);
+
         this.deleteTaskDescriptor = deleteTaskDescriptor;
     }
 
