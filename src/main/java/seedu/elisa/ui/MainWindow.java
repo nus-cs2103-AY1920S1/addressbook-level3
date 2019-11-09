@@ -558,67 +558,17 @@ public class MainWindow extends UiPart<Stage> {
      * @throws Exception
      */
     public void startgame(Stage primaryStage) throws Exception {
+
         StackPane root = new StackPane();
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
         context = canvas.getGraphicsContext2D();
 
         canvas.setFocusTraversable(true);
 
-        canvas.setOnKeyPressed(e -> {
-            Snake snake = grid.getSnake();
-            if (loop.isKeyPressed()) {
-                return;
-            }
-            if (loop.isPaused()) {
-                scorelist.add(loop.getCurrentScore());
-                gameStorage.updateScoreList(loop.getCurrentScore());
-                try {
-                    gameStorage.save();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-            }
-            switch (e.getCode()) {
-            case UP:
-                snake.setUp();
-                break;
-            case DOWN:
-                snake.setDown();
-                break;
-            case LEFT:
-                snake.setLeft();
-                break;
-            case RIGHT:
-                snake.setRight();
-                break;
-            case ENTER:
-                if (loop.isPaused()) {
-                    resetgame();
-                    Thread thread = new Thread(loop);
-                    thread.start();
-                }
-                break;
-            case ESCAPE:
-                exitgame();
-                break;
-            case E:
-                if (loop.isPaused()) {
-                    resetgameEasy();
-                    Thread thread = new Thread(loop);
-                    thread.start();
-                }
-                break;
-            case H:
-                if (loop.isPaused()) {
-                    resetgameHard();
-                    Thread thread = new Thread(loop);
-                    thread.start();
-                }
-                break;
-            default:
-            }
-        });
+        gameCheck(canvas);
+
         resetgame();
+
         root.getChildren().add(canvas);
 
         Scene gamescene = new Scene(root);
@@ -636,17 +586,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Starts hard mode of the game
-     * @param primaryStage
-     * @throws Exception
+     * Checks the key pressed in the game.
+     * @param canvas
      */
-    public void startgameHard(Stage primaryStage) throws Exception {
-        StackPane root = new StackPane();
-        Canvas canvas = new Canvas(WIDTH, HEIGHT);
-        context = canvas.getGraphicsContext2D();
-
-        canvas.setFocusTraversable(true);
-
+    private void gameCheck(Canvas canvas) {
         canvas.setOnKeyPressed(e -> {
             Snake snake = grid.getSnake();
             if (loop.isKeyPressed()) {
@@ -662,45 +605,60 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
             switch (e.getCode()) {
-            case UP:
-                snake.setUp();
-                break;
-            case DOWN:
-                snake.setDown();
-                break;
-            case LEFT:
-                snake.setLeft();
-                break;
-            case RIGHT:
-                snake.setRight();
-                break;
-            case ENTER:
-                if (loop.isPaused()) {
-                    resetgame();
-                    Thread thread = new Thread(loop);
-                    thread.start();
-                }
-                break;
-            case ESCAPE:
-                exitgame();
-                break;
-            case E:
-                if (loop.isPaused()) {
-                    resetgameEasy();
-                    Thread thread = new Thread(loop);
-                    thread.start();
-                }
-                break;
-            case H:
-                if (loop.isPaused()) {
-                    resetgameHard();
-                    Thread thread = new Thread(loop);
-                    thread.start();
-                }
-                break;
-            default:
+                case UP:
+                    snake.setUp();
+                    break;
+                case DOWN:
+                    snake.setDown();
+                    break;
+                case LEFT:
+                    snake.setLeft();
+                    break;
+                case RIGHT:
+                    snake.setRight();
+                    break;
+                case ENTER:
+                    if (loop.isPaused()) {
+                        resetgame();
+                        Thread thread = new Thread(loop);
+                        thread.start();
+                    }
+                    break;
+                case ESCAPE:
+                    exitgame();
+                    break;
+                case E:
+                    if (loop.isPaused()) {
+                        resetgameEasy();
+                        Thread thread = new Thread(loop);
+                        thread.start();
+                    }
+                    break;
+                case H:
+                    if (loop.isPaused()) {
+                        resetgameHard();
+                        Thread thread = new Thread(loop);
+                        thread.start();
+                    }
+                    break;
+                default:
             }
         });
+    }
+    /**
+     * Starts hard mode of the game
+     * @param primaryStage
+     * @throws Exception
+     */
+    public void startgameHard(Stage primaryStage) throws Exception {
+        StackPane root = new StackPane();
+        Canvas canvas = new Canvas(WIDTH, HEIGHT);
+        context = canvas.getGraphicsContext2D();
+
+        canvas.setFocusTraversable(true);
+
+        gameCheck(canvas);
+
         resetgameHard();
         root.getChildren().add(canvas);
 
