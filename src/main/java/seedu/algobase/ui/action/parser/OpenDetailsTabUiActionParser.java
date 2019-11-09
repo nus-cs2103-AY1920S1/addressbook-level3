@@ -23,10 +23,11 @@ public class OpenDetailsTabUiActionParser implements UiParser<OpenDetailsTabUiAc
 
     @Override
     public OpenDetailsTabUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
+        requireNonNull(uiActionDetails);
+
         logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
             + " and size " + uiActionDetails.size());
 
-        requireNonNull(uiActionDetails);
         assert uiActionDetails.size() == 2;
         assert uiActionDetails.get(MODEL_TYPE_INDEX) instanceof ModelType;
         assert uiActionDetails.get(ID_INDEX) instanceof Id;

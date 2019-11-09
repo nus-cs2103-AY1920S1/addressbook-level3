@@ -21,10 +21,11 @@ public class SwitchDetailsTabUiActionParser implements UiParser<SwitchDetailsTab
 
     @Override
     public SwitchDetailsTabUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
+        requireNonNull(uiActionDetails);
+
         logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
             + " and size " + uiActionDetails.size());
 
-        requireNonNull(uiActionDetails);
         assert uiActionDetails.size() == 1;
         assert uiActionDetails.get(INDEX_INDEX) instanceof Index;
 

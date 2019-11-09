@@ -27,10 +27,11 @@ public class DeleteProblemUiActionParser implements UiParser<DeleteProblemUiActi
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteProblemUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
+        requireNonNull(uiActionDetails);
+
         logger.info("Parsing UI Action Details of type " + uiActionDetails.getActionWord()
             + " and size " + uiActionDetails.size());
 
-        requireNonNull(uiActionDetails);
         assert uiActionDetails.size() == 2;
         assert uiActionDetails.get(ID_INDEX) instanceof Id;
         assert uiActionDetails.get(IS_FORCED_INDEX) instanceof Boolean;
