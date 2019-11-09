@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.model.wordbanklist;
 
 import javafx.collections.ObservableList;

@@ -31,6 +31,7 @@ public class LoadBankPanel extends UiPart<Region> {
     private Storage storage;
     private LoadBankPanelDisplayExecuteCallBack importCommandExecutor;
     private WordBankCard.WordBankCardExecuteCallBack exportCommandExecutor;
+    private String dataFilePath;
 
     @FXML
     private ListView<WordBank> loadBankView;
@@ -56,6 +57,7 @@ public class LoadBankPanel extends UiPart<Region> {
                 WordBankCard wbc = new WordBankCard(wordBank, getIndex() + 1);
                 setGraphic(wbc.getRoot());
                 wbc.registerDragAndDropCallBack(exportCommandExecutor);
+                wbc.initialiseFilePath(dataFilePath);
             }
         }
     }
@@ -128,6 +130,10 @@ public class LoadBankPanel extends UiPart<Region> {
         String fileName = file.toString();
         String ext = getExtension(file);
         return fileName.substring(0, fileName.length() - ext.length());
+    }
+
+    public void initialiseFilePath(String dataFilePath) {
+        this.dataFilePath = dataFilePath;
     }
 
     /**

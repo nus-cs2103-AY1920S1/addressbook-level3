@@ -609,12 +609,12 @@ debug and resolve problems in the code.
 // tag::chenhui-feature[]
 
 === [underline]#Word Bank Management#
-This section discusses the implementation of Word Bank Management in varied levels of detail. +
+This section discusses the implementation of Word Bank Management in various levels of detail. +
 This can be split into four complimentary distinct sections.
 
 They are: +
 
-** Word bank’s data structure and it's storage system
+** Word bank’s data structure and its storage system
 ** User Commands
 ** Drag and drop
 ** Revision word bank
@@ -625,14 +625,13 @@ They are: +
 
 // tag::chenhui-section1[]
 
-==== Word bank's data structure and it's storage system
+==== Word bank's data structure and its storage system
 Allows developers to use and extend this architecture to streamline their feature implementation. +
 Allows user to save and load their word banks. +
 
 Observe closely the attributes and methods of the following class diagrams. +
-They describe and explain word bank's data structure and storage in detail. +
-Each of them are implemented with close examination so that it is easily usable and extended upon by other
-teammates/complimentary features.
+They describe and explain word bank's data structure and its storage system in detail. +
+
 
 //A quick look at `Card` and `WordBank` as it is displayed through the `UI`.
 //
@@ -676,7 +675,7 @@ Cards with the same meaning are duplicates, and is disallowed.
 
 ---
 
-Now the second level - `WordBank`
+Next, the second level - `WordBank`
 
 .Class diagram of `WordBank`.
 image::WordBankDiagram.png[]
@@ -722,18 +721,18 @@ image::OverviewOfWordBankList.png[]
 
 ---
 
-Now the integration with storage - How `WordBankList` is stored in `Model` and `Storage`.
-
+Word bank's storage system integration.
 // tag::chenhui-wblStorageModel[]
+
 .Integration of `WordBankList` within `Storage` and `Model`.
 image::WBStorage.png[]
-// end::chenhui-wblStorageModel[]
 
 WordBankListStorage consists of robust and self-explanatory methods in which users can use and extend upon easily. +
 Alongside with word bank's data structure, they lay the foundation for my other complementary sections of Word Bank Management.
 
 On top of that, they serve as a essential foundation for Dukemon. As such, these data structures and methods were required
 by my teammates, to build their own feature implementations. (Statistics, Game, Settings)
+// end::chenhui-wblStorageModel[]
 
 {nbsp}
 
@@ -743,7 +742,10 @@ by my teammates, to build their own feature implementations. (Statistics, Game, 
 // tag::chenhui-section2[]
 
 ==== User Commands
-Allows user to customise his cards and group them according to topics (word banks). +
+
+// tag::chenhui-wblLogicStorageModel[]
+
+Allows user to customise cards and group them according to topics (word banks). +
 User commands edits and manipulates `Cards` and `WordBanks` heavily.
 
 NOTE: As mentioned previously, user commands will extend and utilise word bank's data structure and storage heavily. +
@@ -761,7 +763,6 @@ You can refer to it to enhance your understanding of this implementation.
 
 Let me first introduce you how these commands are implemented and structured in `Logic`. +
 
-// tag::chenhui-wblLogicStorageModel[]
 .Overview class diagram of `Logic` with emphasis on CardCommands and WordBankCommands.
 image::WBLogicStorageModel.png[]
 // end::chenhui-wblLogicStorageModel[]
@@ -831,7 +832,9 @@ then to the `UI` to notify the user.
 // tag::chenhui-section3[]
 
 ==== Drag and drop
-Enables saving/loading a word bank file into/out of user's computer through drag and drop. +
+Allows user to export their word bank out of their computer simply by dragging it out of Dukemon. +
+Likewise, it allows user to import a word bank file from their computer by dragging it into Dukemon.
+
 Improves user experience by making it easy to share word banks with friends.
 
 NOTE: As mentioned previously, drag and drop will extend and utilise word bank's storage heavily. +
@@ -852,6 +855,8 @@ Likewise, drag and drop a `WordBank` out of the application, into say,
 your desktop, or chat applications. +
 
 ---
+
+// tag::chenhui-dragInWalkThrough[]
 
 Walkthrough - Drag in.
 
@@ -878,16 +883,20 @@ It is also noteworthy to mention that, dragging into Dukemon functionality is we
 User receives apt feedback through the command box for different cases.
 This is possible with careful exceptions handling within the `ImportCommand` itself.
 
+// end::chenhui-dragInWalkThrough[]
+
 {nbsp}
 
 ---
-
 // end::chenhui-section3[]
 // tag::chenhui-section4[]
 
 ==== Revision word bank
-Serves as a centralised bank that collects cards across different word banks through the game play.
-The update to revision word bank is done automatically after every game session. +
+Allows user to visit a centralised word bank that automatically collects cards for revision. +
+Cards that were answered wrongly are automatically added to this revision bank. +
+Likewise, cards that were answered correctly during game play are automatically removed from this revision bank.
+
+Improves user learning experience by helping the user to collate cards that require revision.
 
 NOTE: As mentioned previously, revision word bank will extend and utilise word bank's data structure and storage heavily. +
 You can refer to it to enhance your understanding of this implementation.
@@ -961,7 +970,7 @@ Commands that depend on it becomes much easier to implement. (This can be seen i
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 2**: +
 Storage system for word banks.
-| **Store one single large json file with word bank names as keys and it's word bank data as values**: +
+| **Store one single large json file with word bank names as keys and its word bank data as values**: +
 
 _Pros:_ +
 Always save a snapshot of the data to the same file, regardless of what commands are executed.
@@ -1173,16 +1182,16 @@ for the word bank statistics freely.
 // end::jason-feature[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
+//=== [Proposed] Data Encryption
+//
+//_{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
 // tag::userprofiles[]
-=== [Proposed] User Profiles
-
-_The user profiles could allow multiple users to use the same app and have different statistics tracked. This feature is a work in progress and will be delayed to v2.0._
+//=== [Proposed] User Profiles
+//
+//_The user profiles could allow multiple users to use the same app and have different statistics tracked. This feature is a work in progress and will be delayed to v2.0._
 // end::userprofiles[]
 
 === Logging
