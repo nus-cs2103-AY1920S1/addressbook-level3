@@ -2,8 +2,8 @@ package seedu.ifridge.model.food;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_AMOUNT_NUTS;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_NUTS;
+import static seedu.ifridge.logic.commands.grocerylist.GroceryCommandTestUtil.VALID_AMOUNT_NUTS;
+import static seedu.ifridge.logic.commands.grocerylist.GroceryCommandTestUtil.VALID_NAME_NUTS;
 import static seedu.ifridge.testutil.TypicalFoodItems.OREO;
 import static seedu.ifridge.testutil.TypicalFoodItems.YAKITORI;
 

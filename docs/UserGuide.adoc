@@ -70,6 +70,16 @@ ml, L, oz, lbs, kg, g, units.
 - *Volume:* ml, L
 - *Quantity:* units
 - *Weight:* g, kg, oz, lbs
+* Conversion of units can only be applied on the same classification. The conversion implemented in this app is shown in the table below. +
+[width="100%",options="header"]
+|===
+| Amount in the unit specified | Amount in standard form (kg, L, units)
+
+| 1ml | 0.001L
+| 1g  | 0.001kg
+| 1oz | 0.00283495kg
+| 1lbs| 0.453592kg
+|===
 * When adding or editing items, the system will only allow items with similar names (checking is non-case-sensitive) to have similar unit types. However,
 the adding of items with conflicting unit types will not be allowed.
 ====
@@ -109,6 +119,8 @@ Clearing of waste list is done automatically at the start of every month.
 
 //tag::grocerylistfeatures[]
 === Grocery List Management
+
+The grocery list is the
 
 ==== Adding a food item: `glist add`
 
