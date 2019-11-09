@@ -11,7 +11,7 @@ import seedu.ifridge.logic.parser.defaults.ReminderDefaultCommandParser;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
 
 public class ReminderDefaultCommandParserTest {
-    ReminderDefaultCommandParser parser = new ReminderDefaultCommandParser();
+    private ReminderDefaultCommandParser parser = new ReminderDefaultCommandParser();
 
     @Test
     public void parse_validValueSpecified_success() {
@@ -33,7 +33,8 @@ public class ReminderDefaultCommandParserTest {
             parser.parse(" r/-1");
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
-            assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderDefaultCommand.MESSAGE_USAGE), pe.getMessage());
+            assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ReminderDefaultCommand.MESSAGE_USAGE), pe.getMessage());
         }
     }
 }
