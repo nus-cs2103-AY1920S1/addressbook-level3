@@ -2,7 +2,6 @@ package com.typee.logic.interactive.parser.state.listmachine;
 
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.ListCommand;
-import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.EndState;
