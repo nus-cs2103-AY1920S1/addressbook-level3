@@ -39,22 +39,26 @@ public class AddDayCommand extends AddCommand {
     private final int toAdd;
     private final Index index;
     private final Day dayToAdd;
+    private boolean isUndoRedo;
 
     /**
      * Creates an AddDayCommand to add the specified {@code List} of {@code Day}s
      */
-    public AddDayCommand(int numDays) {
+    public AddDayCommand(int numDays, boolean isUndoRedo) {
         requireNonNull(numDays);
         toAdd = numDays;
         index = null;
         dayToAdd = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
+    //Constructor used to undo DeleteDayEvent
     public AddDayCommand(Index index, Day dayToAdd) {
         requireAllNonNull(index, dayToAdd);
         this.index = index;
         this.dayToAdd = dayToAdd;
-        toAdd = 0;
+        toAdd = 1;
+        this.isUndoRedo = true;
     }
 
     public int getToAdd() {
@@ -70,14 +74,23 @@ public class AddDayCommand extends AddCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         int currNumDays = model.getNumberOfDays();
+
         if ((currNumDays + toAdd) > MAX_NUMBER_OF_DAYS_ALLOWED_IN_PLANNER) {
             throw new CommandException(MESSAGE_NUMBER_OF_DAYS_LIMIT_EXCEEDED);
         }
-        if (index == null && dayToAdd == null) {
+
+        if (index == null && dayToAdd == null && !isUndoRedo) {
+            //Not due to undo method
+            updateEventStack(this, model);
             model.addDays(toAdd);
-        } else {
+        } else if (isUndoRedo && index != null && dayToAdd != null) {
+            //Due to undo method of DeleteDayEvent
             model.addDayAtIndex(index, dayToAdd);
+        } else {
+            //Due to redo method AddDayEvent
+            model.addDays(toAdd);
         }
+
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, toAdd),
                 new UiFocus[]{UiFocus.AGENDA}

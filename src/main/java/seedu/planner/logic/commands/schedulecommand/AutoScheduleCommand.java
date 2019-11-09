@@ -28,6 +28,7 @@ import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
+import seedu.planner.model.ModelManager;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.activity.ActivityWithCount;
 import seedu.planner.model.day.ActivityWithTime;
@@ -71,12 +72,15 @@ public class AutoScheduleCommand extends UndoableCommand {
     private List<NameOrTagWithTime> draftSchedule;
     private Optional<Address> address;
     private List<Index> days;
+    private final boolean isUndoRedo;
 
-    public AutoScheduleCommand(List<NameOrTagWithTime> draftSchedule, Optional<Address> address, List<Index> days) {
+    public AutoScheduleCommand(List<NameOrTagWithTime> draftSchedule, Optional<Address> address, List<Index> days,
+                               boolean isUndoRedo) {
         requireNonNull(draftSchedule);
         this.draftSchedule = draftSchedule;
         this.address = address;
         this.days = days;
+        this.isUndoRedo = isUndoRedo;
     }
 
     public List<NameOrTagWithTime> getDraftSchedule() {
@@ -110,7 +114,11 @@ public class AutoScheduleCommand extends UndoableCommand {
         if (days.size() == 0) {
             days = daysToSchedule(editDays.size());
         }
-        //Generate schedule for specified day(s)
+
+        Model initialModel = new ModelManager(model.getAccommodations(), model.getActivities(), model.getContacts(),
+                model.getItinerary(), model.getUserPrefs());
+
+        // Generate schedule for specified day(s)
         for (Index dayIndex : days) {
             List<ActivityWithTime> activitiesForTheDay = new ArrayList<>();
             if (dayIndex.getZeroBased() >= editDays.size()) {
@@ -124,7 +132,7 @@ public class AutoScheduleCommand extends UndoableCommand {
                 OptionalInt nextTimingIndex = getNextTimingIndex(i, timeSchedule);
                 LocalTime currentTime = timeSchedule.get(i).get();
 
-                //Check if there exists an activity that fits the schedule
+                // Check if there exists an activity that fits the schedule
                 Optional<Activity> activity = getSuitableActivity(activitiesWithCount, i, timeSchedule);
                 if (activity.isPresent()) {
                     activitiesForTheDay.add(toSchedule(timeSchedule.get(i).get()
@@ -133,17 +141,22 @@ public class AutoScheduleCommand extends UndoableCommand {
                     throw new CommandException(MESSAGE_INVALID_SCHEDULE);
                 }
 
-                //Sets the next timing as the end time of chosen activity if next timing in schedule is unavailable
+                // Sets the next timing as the end time of chosen activity if next timing in schedule is unavailable
                 int duration = activity.get().getDuration().value;
                 if ((nextTimingIndex.isEmpty() || (nextTimingIndex.getAsInt() != nextIndex
                         && nextTimingIndex.getAsInt() != draftSchedule.size()))) {
                     timeSchedule.set(nextIndex, Optional.ofNullable(currentTime.plusMinutes(duration)));
                 }
             }
+
             Day editedDay = new Day(activitiesForTheDay);
             editDays.set(dayIndex.getZeroBased(), editedDay);
             model.setDays(editDays);
             model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
+        }
+        if (!isUndoRedo) {
+            // Not due to redo method of AutoScheduleEvent
+            updateEventStack(this, initialModel);
         }
         return new CommandResult(Messages.MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }
@@ -155,7 +168,7 @@ public class AutoScheduleCommand extends UndoableCommand {
             LocalTime currentTiming = timeSchedule.get(currentIndex).get();
             LocalTime currentActivityEndTime = currentTiming.plusMinutes(duration);
 
-            //Check if it is the last activity in the draftSchedule to schedule
+            // Check if it is the last activity in the draftSchedule to schedule
             if (currentIndex == draftSchedule.size() - 1) {
                 if (currentActivityEndTime.isBefore(currentTiming)) {
                     throw new CommandException(MESSAGE_INVALID_SCHEDULE);
@@ -163,7 +176,7 @@ public class AutoScheduleCommand extends UndoableCommand {
                 return Optional.of(activityWithCount.getActivity());
             }
 
-            //check if activity chosen overlap next timing in timeSchedule
+            // Check if activity chosen overlap next timing in timeSchedule
             OptionalInt nextTimingIndex = getNextTimingIndex(currentIndex, timeSchedule);
             if (nextTimingIndex.isEmpty()) {
                 return Optional.of(activityWithCount.getActivity());

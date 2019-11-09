@@ -40,19 +40,29 @@ public class DeleteAccommodationCommand extends DeleteCommand {
 
     private final Index targetIndex;
     private final Accommodation toDelete;
+    private final boolean isUndoRedo;
 
-    public DeleteAccommodationCommand(Index targetIndex) {
+    public DeleteAccommodationCommand(Index targetIndex, boolean isUndoRedo) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
         toDelete = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
-    public DeleteAccommodationCommand(Accommodation accommodation) {
+    // Constructor used to undo AddAccommodationEvent and create DeleteAccommodationEvent
+    public DeleteAccommodationCommand(Index targetIndex, Accommodation accommodation) {
+        requireNonNull(accommodation);
         toDelete = accommodation;
-        targetIndex = null;
+        this.targetIndex = targetIndex;
+        this.isUndoRedo = true;
     }
 
     public Index getTargetIndex() {
         return targetIndex;
+    }
+
+    public Accommodation getToDelete() {
+        return toDelete;
     }
 
     @Override
@@ -63,7 +73,6 @@ public class DeleteAccommodationCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         List<Accommodation> lastShownList = model.getFilteredAccommodationList();
         Accommodation accommodationToDelete;
 
@@ -75,7 +84,15 @@ public class DeleteAccommodationCommand extends DeleteCommand {
             accommodationToDelete = lastShownList.get(targetIndex.getZeroBased());
         }
         Index indexOfAccommodation = findIndexOfAccommodation(model, accommodationToDelete);
+
+        if (toDelete == null && !isUndoRedo) {
+            // Not due to undo method of AddAccommodationEvent or redo method of DeleteAccommodationEvent
+            DeleteAccommodationCommand newCommand = new DeleteAccommodationCommand(indexOfAccommodation,
+                    accommodationToDelete);
+            updateEventStack(newCommand, model);
+        }
         model.deleteAccommodation(accommodationToDelete);
+
         return new CommandResult(
             String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, accommodationToDelete),
             new ResultInformation[]{
@@ -100,6 +117,7 @@ public class DeleteAccommodationCommand extends DeleteCommand {
         }
         return indexOfAccommodation.get();
     }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

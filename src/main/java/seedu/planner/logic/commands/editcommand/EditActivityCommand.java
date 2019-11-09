@@ -80,22 +80,27 @@ public class EditActivityCommand extends EditCommand {
 
     private final Index index;
     private final EditActivityDescriptor editActivityDescriptor;
-    private final boolean isUndo;
+    private final Activity activity;
+    private final boolean isUndoRedo;
+
     /**
      * @param index of the activity in the filtered activity list to edit
      */
-    public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor) {
+    public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor, boolean isUndoRedo) {
         requireAllNonNull(index, editActivityDescriptor);
         this.index = index;
         this.editActivityDescriptor = editActivityDescriptor;
-        isUndo = false;
+        activity = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
-    public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor, boolean isUndo) {
-        requireAllNonNull(index, editActivityDescriptor, isUndo);
+    // Constructor used to undo or generate EditAccommodationEvent
+    public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor, Activity activity) {
+        requireAllNonNull(index, activity);
         this.index = index;
         this.editActivityDescriptor = editActivityDescriptor;
-        this.isUndo = isUndo;
+        this.activity = activity;
+        this.isUndoRedo = true;
     }
 
     public Index getIndex() {
@@ -104,6 +109,10 @@ public class EditActivityCommand extends EditCommand {
 
     public EditActivityDescriptor getEditActivityDescriptor() {
         return editActivityDescriptor;
+    }
+
+    public Activity getActivity() {
+        return activity;
     }
 
     @Override
@@ -122,20 +131,27 @@ public class EditActivityCommand extends EditCommand {
 
         Activity activityToEdit = lastShownList.get(index.getZeroBased());
         Index activityToEditIndex = findIndexOfActivity(model, activityToEdit);
-        Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor, model, isUndo);
+        Activity editedActivity;
+        editedActivity = (activity == null) ? createEditedActivity(activityToEdit, editActivityDescriptor, model)
+                : activity;
 
         if (!activityToEdit.isSameActivity(editedActivity) && model.hasActivity(editedActivity)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
         }
-
         try {
             model.setActivity(activityToEdit, editedActivity);
         } catch (EndOfTimeException e) {
             throw new CommandException(e.toString());
         }
 
+        if (activity == null && !isUndoRedo) {
+            // Not due to undo/redo method of EditActivityEvent
+            EditActivityCommand newCommand = new EditActivityCommand(index, editActivityDescriptor, activityToEdit);
+            updateEventStack(newCommand, model);
+        }
         model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
         Index editedActivityIndex = findIndexOfActivity(model, editedActivity);
+
         return new CommandResult(
             String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity),
             new ResultInformation[] {
@@ -160,24 +176,23 @@ public class EditActivityCommand extends EditCommand {
      */
     private static Activity createEditedActivity(Activity activityToEdit,
                                                  EditActivityDescriptor editActivityDescriptor,
-                                                 Model model,
-                                                 boolean isUndo) {
+                                                 Model model) {
         assert activityToEdit != null;
 
         Name updatedName = editActivityDescriptor.getName().orElse(activityToEdit.getName());
         Address updatedAddress = editActivityDescriptor.getAddress().orElse(activityToEdit.getAddress());
-        Contact updatedContact = !editActivityDescriptor.getPhone().isPresent() && isUndo
-                ? null
-                : editActivityDescriptor.getPhone().isPresent()
-                    ? model.hasPhone(editActivityDescriptor.getPhone().get())
-                        ? model.getContactByPhone(editActivityDescriptor.getPhone().get()).get()
-                        : new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null, new HashSet<>())
-                    : activityToEdit.getContact().isPresent()
+        Contact updatedContact = !editActivityDescriptor.getPhone().isPresent()
+                ? activityToEdit.getContact().isPresent()
                 ? activityToEdit.getContact().get()
-                : null;
+                : null
+                : model.hasPhone(editActivityDescriptor.getPhone().get())
+                ? model.getContactByPhone(editActivityDescriptor.getPhone().get()).get()
+                : new Contact(updatedName, editActivityDescriptor.getPhone().get(), null, null, new HashSet<>());
+
         Cost updatedCost = editActivityDescriptor.getCost().isPresent()
                 ? editActivityDescriptor.getCost().get()
                 : null;
+
         Set<Tag> updatedTags = editActivityDescriptor.getTags().orElse(activityToEdit.getTags());
         Duration updatedDuration = editActivityDescriptor.getDuration().orElse(activityToEdit.getDuration());
         Priority updatedPriority = editActivityDescriptor.getPriority().orElse(activityToEdit.getPriority());

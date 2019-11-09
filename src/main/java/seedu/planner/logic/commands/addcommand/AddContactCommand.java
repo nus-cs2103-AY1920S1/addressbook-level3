@@ -60,20 +60,24 @@ public class AddContactCommand extends AddCommand {
 
     private final Index index;
     private final Contact toAdd;
+    private final boolean isUndoRedo;
 
     /**
      * Creates an AddContactCommand to add the specified {@code contact}.
      */
-    public AddContactCommand(Contact contact) {
+    public AddContactCommand(Contact contact, boolean isUndoRedo) {
         requireNonNull(contact);
         toAdd = contact;
         index = null;
+        this.isUndoRedo = isUndoRedo;
     }
 
+    // Constructor used to undo DeleteContactEvent
     public AddContactCommand(Index index, Contact contact) {
         requireAllNonNull(index, contact);
         toAdd = contact;
         this.index = index;
+        this.isUndoRedo = true;
     }
 
     public Contact getToAdd() {
@@ -88,14 +92,19 @@ public class AddContactCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         if (model.hasContact(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
-        if (index == null) {
+        if (index == null && !isUndoRedo) {
+            // Not due to undo method
+            updateEventStack(this, model);
             model.addContact(toAdd);
-        } else {
+        } else if (isUndoRedo && index != null) {
+            // Due to undo method of DeleteContactEvent
             model.addContactAtIndex(index, toAdd);
+        } else {
+            // Due to redo method AddContactEvent
+            model.addContact(toAdd);
         }
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, toAdd),

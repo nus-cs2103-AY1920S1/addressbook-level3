@@ -24,7 +24,7 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ClearCommand(false), model, ClearCommand.MESSAGE_SUCCESS,
                 new UiFocus[]{UiFocus.AGENDA}, expectedModel);
     }
 
@@ -40,7 +40,7 @@ public class ClearCommandTest {
         expectedModel.setContacts(new ContactManager());
         expectedModel.setItinerary(new Itinerary());
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ClearCommand(false), model, ClearCommand.MESSAGE_SUCCESS,
                 new UiFocus[]{UiFocus.AGENDA}, expectedModel);
     }
 }

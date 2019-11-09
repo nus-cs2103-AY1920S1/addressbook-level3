@@ -17,10 +17,10 @@ public class AddAccommodationEvent implements Event {
     }
 
     public UndoableCommand undo() {
-        return new DeleteAccommodationCommand(accommodationAdded);
+        return new DeleteAccommodationCommand(null, accommodationAdded);
     }
 
     public UndoableCommand redo() {
-        return new AddAccommodationCommand(accommodationAdded);
+        return new AddAccommodationCommand(accommodationAdded, true);
     }
 }

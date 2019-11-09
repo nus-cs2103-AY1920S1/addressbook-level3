@@ -11,11 +11,14 @@ import java.util.stream.Collectors;
 
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.CommandHistory;
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
+import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.EventFactory;
 import seedu.planner.model.Model;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
@@ -43,13 +46,15 @@ public class OptimiseCommand extends UndoableCommand {
     private final Index dayIndex;
     private TreeMap<ActivityWithTime, List<ActivityWithTime>> adjList;
     private List<Path> paths;
+    private final boolean isUndoRedo;
 
     /**
      * Creates an OptimiseCommand to optimise a day's activities.
      */
-    public OptimiseCommand(Index dayIndex) {
+    public OptimiseCommand(Index dayIndex, boolean isUndoRedo) {
         requireNonNull(dayIndex);
         this.dayIndex = dayIndex;
+        this.isUndoRedo = isUndoRedo;
     }
 
     public Index getDayIndex() {
@@ -80,8 +85,14 @@ public class OptimiseCommand extends UndoableCommand {
             path.add(startPoint);
             tracePaths(startPoint, path);
         }
-
         Collections.sort(paths);
+
+        if (!isUndoRedo) {
+            Event optimiseBudgetEvent = EventFactory.parse(this, model);
+            CommandHistory.addToUndoStack(optimiseBudgetEvent);
+            CommandHistory.clearRedoStack();
+        }
+
         model.setDay(dayToOptimise, new Day (paths.get(0).path));
         return new CommandResult(MESSAGE_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }

@@ -42,13 +42,13 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
             switch(type) {
             case DeleteAccommodationCommand.SECOND_COMMAND_WORD:
-                return new DeleteAccommodationCommand(index);
+                return new DeleteAccommodationCommand(index, false);
             case DeleteActivityCommand.SECOND_COMMAND_WORD:
-                return new DeleteActivityCommand(index);
+                return new DeleteActivityCommand(index, false);
             case DeleteContactCommand.SECOND_COMMAND_WORD:
-                return new DeleteContactCommand(index);
+                return new DeleteContactCommand(index, false);
             case DeleteDayCommand.SECOND_COMMAND_WORD:
-                return new DeleteDayCommand(index);
+                return new DeleteDayCommand(index, false);
             default:
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }

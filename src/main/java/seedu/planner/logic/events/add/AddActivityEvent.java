@@ -17,10 +17,10 @@ public class AddActivityEvent implements Event {
     }
 
     public UndoableCommand undo() {
-        return new DeleteActivityCommand(activityAdded);
+        return new DeleteActivityCommand(null, activityAdded);
     }
 
     public UndoableCommand redo() {
-        return new AddActivityCommand(activityAdded);
+        return new AddActivityCommand(activityAdded, true);
     }
 }

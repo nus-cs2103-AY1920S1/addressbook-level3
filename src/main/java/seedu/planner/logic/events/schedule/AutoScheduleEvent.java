@@ -36,6 +36,6 @@ public class AutoScheduleEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new AutoScheduleCommand(draftSchedule, address, days);
+        return new AutoScheduleCommand(draftSchedule, address, days, true);
     }
 }

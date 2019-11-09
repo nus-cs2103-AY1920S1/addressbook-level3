@@ -7,62 +7,58 @@ import seedu.planner.logic.commands.deletecommand.DeleteCommand;
 import seedu.planner.logic.commands.deletecommand.DeleteContactCommand;
 import seedu.planner.logic.commands.deletecommand.DeleteDayCommand;
 import seedu.planner.logic.events.Event;
-import seedu.planner.logic.events.exceptions.EventException;
-import seedu.planner.model.Model;
+import seedu.planner.model.accommodation.Accommodation;
+import seedu.planner.model.activity.Activity;
+import seedu.planner.model.contact.Contact;
+import seedu.planner.model.day.Day;
 
 /**
  * A factory class to generate the corresponding delete Events according to the delete Commands parsed.
  */
 public class DeleteEventFactory {
-    public static final String MESSAGE_NOT_UNDOABLE = "The following command \'%1$s\' \'%2$s\' is not undoable";
-
     /**
      * A static method to generate the delete events based on the delete commands parsed.
      * @param command Delete Command to be parsed.
      * @return Corresponding event representing the delete command parsed.
-     * @throws EventException
      */
-    public static Event parse(DeleteCommand command, Model model) throws EventException {
+    public static Event parse(DeleteCommand command) {
         String secondCommandWord = command.getSecondCommandWord();
 
         switch(secondCommandWord) {
         case (DeleteAccommodationCommand.SECOND_COMMAND_WORD):
             DeleteAccommodationCommand tempCommand1 = (DeleteAccommodationCommand) command;
-            return generateDeleteAccommodationEvent(tempCommand1.getTargetIndex(), model);
+            return generateDeleteAccommodationEvent(tempCommand1.getTargetIndex(), tempCommand1.getToDelete());
 
         case (DeleteActivityCommand.SECOND_COMMAND_WORD):
             DeleteActivityCommand tempCommand2 = (DeleteActivityCommand) command;
-            return generateDeleteActivityEvent(tempCommand2.getTargetIndex(), model);
+            return generateDeleteActivityEvent(tempCommand2.getTargetIndex(), tempCommand2.getToDelete());
 
         case (DeleteContactCommand.SECOND_COMMAND_WORD):
             DeleteContactCommand tempCommand3 = (DeleteContactCommand) command;
-            return generateDeleteContactEvent(tempCommand3.getTargetIndex(), model);
+            return generateDeleteContactEvent(tempCommand3.getTargetIndex(), tempCommand3.getToDelete());
 
         case (DeleteDayCommand.SECOND_COMMAND_WORD):
             DeleteDayCommand tempCommand4 = (DeleteDayCommand) command;
-            return generateDeleteDayEvent(tempCommand4.getTargetIndex(), model);
+            return generateDeleteDayEvent(tempCommand4.getTargetIndex(), tempCommand4.getToDelete());
 
         default:
-            throw new EventException(
-                    String.format(MESSAGE_NOT_UNDOABLE, command.getCommandWord(), command.getSecondCommandWord())
-            );
+            return null;
         }
     }
 
-    public static DeleteAccommodationEvent generateDeleteAccommodationEvent(Index index, Model model)
-            throws EventException {
-        return new DeleteAccommodationEvent(index, model);
+    public static DeleteAccommodationEvent generateDeleteAccommodationEvent(Index index, Accommodation accommodation) {
+        return new DeleteAccommodationEvent(index, accommodation);
     }
 
-    public static DeleteActivityEvent generateDeleteActivityEvent(Index index, Model model) throws EventException {
-        return new DeleteActivityEvent(index, model);
+    public static DeleteActivityEvent generateDeleteActivityEvent(Index index, Activity activity) {
+        return new DeleteActivityEvent(index, activity);
     }
 
-    public static DeleteContactEvent generateDeleteContactEvent(Index index, Model model) throws EventException {
-        return new DeleteContactEvent(index, model);
+    public static DeleteContactEvent generateDeleteContactEvent(Index index, Contact contact) {
+        return new DeleteContactEvent(index, contact);
     }
 
-    public static DeleteDayEvent generateDeleteDayEvent(Index index, Model model) throws EventException {
-        return new DeleteDayEvent(index, model);
+    public static DeleteDayEvent generateDeleteDayEvent(Index index, Day day) {
+        return new DeleteDayEvent(index, day);
     }
 }

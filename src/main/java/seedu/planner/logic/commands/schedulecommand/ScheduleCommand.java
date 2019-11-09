@@ -56,6 +56,7 @@ public class ScheduleCommand extends UndoableCommand {
             new ArrayList<>(),
             new ArrayList<>()
     );
+
     public static final int MAX_LIMIT_OF_OVERLAP = 5;
     public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activity scheduled to day %d";
     public static final String MESSAGE_END_TIME_EXCEEDS_LAST_DAY = "Activity will end after the end of the itinerary.";
@@ -64,19 +65,20 @@ public class ScheduleCommand extends UndoableCommand {
     public static final String MESSAGE_EXCEED_LIMIT_OF_OVERLAP = "Activity added to this time slot will "
             + "exceed the limit of " + MAX_LIMIT_OF_OVERLAP + " overlapping of activities";
 
-
     private final Index activityIndex;
     private final LocalTime startTime;
     private final Index dayIndex;
+    private final boolean isUndoRedo;
 
     /**
      * Creates an ScheduleCommand to schedule the specified {@Activity} into the day.
      */
-    public ScheduleCommand(Index activityIndex, LocalTime startTime, Index dayIndex) {
+    public ScheduleCommand(Index activityIndex, LocalTime startTime, Index dayIndex, boolean isUndoRedo) {
         requireAllNonNull(activityIndex, startTime, dayIndex);
         this.activityIndex = activityIndex;
         this.startTime = startTime;
         this.dayIndex = dayIndex;
+        this.isUndoRedo = isUndoRedo;
     }
 
     public Index getActivityIndex() {
@@ -125,18 +127,14 @@ public class ScheduleCommand extends UndoableCommand {
         if (dayToEdit.getListOfActivityWithTime().contains(activityWithTimeToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY_SCHEDULED);
         }
-        int numOfOverlap = 0;
-        for (ActivityWithTime activity : dayToEdit.getListOfActivityWithTime()) {
-            if (activityWithTimeToAdd.isOverlapping(activity)) {
-                numOfOverlap++;
-            }
-        }
-        if (numOfOverlap >= MAX_LIMIT_OF_OVERLAP) {
-            throw new CommandException(MESSAGE_EXCEED_LIMIT_OF_OVERLAP);
+
+        if (!isUndoRedo) {
+            //Not due to undo method of UnscheduleEvent or redo method of ScheduleEvent
+            updateEventStack(this, model);
         }
         model.scheduleActivity(dayToEdit, activityWithTimeToAdd);
-
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
+
         return new CommandResult(String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, dayIndex.getOneBased()),
                 new UiFocus[]{UiFocus.AGENDA});
     }

@@ -45,6 +45,12 @@ public class DayList implements Iterable<Day> {
         requireAllNonNull(index, d);
 
         internalList.add(index.getZeroBased(), d);
+
+        shiftDatesInItinerary(
+                1,
+                Index.fromZeroBased(index.getZeroBased() + 1),
+                Index.fromOneBased(internalList.size())
+        );
     }
 
     /**

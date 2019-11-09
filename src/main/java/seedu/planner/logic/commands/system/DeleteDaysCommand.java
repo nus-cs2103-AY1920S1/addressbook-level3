@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.result.CommandResult;
+import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.model.Model;
 
 /**
@@ -28,6 +29,9 @@ public class DeleteDaysCommand extends UndoableCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.deleteDays(numberOfDays);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS),
+                new UiFocus[] {UiFocus.AGENDA}
+        );
     }
 }

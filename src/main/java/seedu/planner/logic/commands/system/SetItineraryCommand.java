@@ -2,6 +2,7 @@ package seedu.planner.logic.commands.system;
 
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.result.CommandResult;
+import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.model.Model;
 import seedu.planner.model.ReadOnlyItinerary;
 
@@ -26,6 +27,9 @@ public class SetItineraryCommand extends UndoableCommand {
     @Override
     public CommandResult execute(Model model) {
         model.setItinerary(itinerary);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS),
+                new UiFocus[] {UiFocus.AGENDA}
+        );
     }
 }

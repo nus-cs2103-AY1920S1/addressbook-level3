@@ -36,13 +36,30 @@ public class DeleteDayCommand extends DeleteCommand {
     public static final String MESSAGE_DELETE_DAY_SUCCESS = "Deleted day: %1$d";
 
     private final Index targetIndex;
+    private final Day toDelete;
+    private final boolean isUndoRedo;
 
-    public DeleteDayCommand(Index targetIndex) {
+    public DeleteDayCommand(Index targetIndex, boolean isUndoRedo) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
+        toDelete = null;
+        this.isUndoRedo = isUndoRedo;
+    }
+
+    // Constructor used to create DeleteDayEvent
+    public DeleteDayCommand(Index targetIndex, Day day) {
+        requireNonNull(day);
+        toDelete = day;
+        this.targetIndex = targetIndex;
+        this.isUndoRedo = true;
     }
 
     public Index getTargetIndex() {
         return targetIndex;
+    }
+
+    public Day getToDelete() {
+        return toDelete;
     }
 
     @Override
@@ -58,9 +75,15 @@ public class DeleteDayCommand extends DeleteCommand {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DAY_DISPLAYED_INDEX);
         }
-
         Day dayToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        if (!isUndoRedo) {
+            // Not due to redo method of DeleteDayEvent
+            DeleteDayCommand newCommand = new DeleteDayCommand(targetIndex, dayToDelete);
+            updateEventStack(newCommand, model);
+        }
         model.deleteDay(dayToDelete);
+
         return new CommandResult(
             String.format(MESSAGE_DELETE_DAY_SUCCESS, targetIndex.getOneBased()),
             new UiFocus[] {UiFocus.AGENDA}

@@ -50,7 +50,7 @@ public class AutoScheduleCommandParser {
             days = ParserUtil.parseDaysToSchedule(argMultimap.getValue(PREFIX_DAY).get());
         }
 
-        return new AutoScheduleCommand(draftSchedule, address, days);
+        return new AutoScheduleCommand(draftSchedule, address, days, false);
     }
 
     private List<NameOrTagWithTime> getDraftSchedule(ArgumentMultimap argumentMultimap,
