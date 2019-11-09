@@ -114,10 +114,9 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
-// tag:: modelClassDiagram[]
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
-// end:: modelClassDiagram[]
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -131,10 +130,9 @@ The `Model`,
 [[Design-Storage]]
 === Storage component
 
-// tag:: storageClassDiagram[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
-// end:: storageClassDiagram[]
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 

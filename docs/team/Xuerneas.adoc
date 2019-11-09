@@ -74,10 +74,10 @@ include::../UserGuide.adoc[tag=commandSummary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=modelClassDiagram]
-include::../DeveloperGuide.adoc[tag=storageClassDiagram]
 include::../DeveloperGuide.adoc[tag=Calendar]
+
 include::../DeveloperGuide.adoc[tag=undoAndRedo]
+
 include::../DeveloperGuide.adoc[tag=userStoriesAndCase]
 
 
