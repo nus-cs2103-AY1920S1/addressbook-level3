@@ -15,15 +15,15 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 
 public class CloseDisplayStateTest {
 
-    private State closeDisplayState;
+    private CloseDisplayState closeDisplayState;
 
     @BeforeEach
     public void setup() {
         try {
             ArgumentMultimap argumentMultimap = new ArgumentMultimap();
             argumentMultimap.put(CliSyntax.PREFIX_CALENDAR, "closedisplay");
-            closeDisplayState = new CalendarState(new ArgumentMultimap());
-            closeDisplayState = closeDisplayState.transition(argumentMultimap);
+            State calendarState = new CalendarState(new ArgumentMultimap());
+            closeDisplayState = (CloseDisplayState) calendarState.transition(argumentMultimap);
         } catch (StateTransitionException e) {
             // StateTransitionException should not be thrown here.
         }

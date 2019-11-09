@@ -17,15 +17,15 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 
 public class PreviousMonthStateTest {
 
-    private State previousMonthState;
+    private PreviousMonthState previousMonthState;
 
     @BeforeEach
     public void setup() {
         try {
             ArgumentMultimap argumentMultimap = new ArgumentMultimap();
             argumentMultimap.put(CliSyntax.PREFIX_CALENDAR, "previousmonth");
-            previousMonthState = new CalendarState(new ArgumentMultimap());
-            previousMonthState = previousMonthState.transition(argumentMultimap);
+            State calendarState = new CalendarState(new ArgumentMultimap());
+            previousMonthState = (PreviousMonthState) calendarState.transition(argumentMultimap);
         } catch (StateTransitionException e) {
             // StateTransitionException should not be thrown here.
         }
@@ -34,7 +34,7 @@ public class PreviousMonthStateTest {
     @Test
     public void buildCommand() {
         try {
-            assertEquals(((PreviousMonthState) previousMonthState).buildCommand(), new CalendarPreviousMonthCommand());
+            assertEquals(previousMonthState.buildCommand(), new CalendarPreviousMonthCommand());
         } catch (CommandException e) {
             // CommandException should not be thrown here.
         }

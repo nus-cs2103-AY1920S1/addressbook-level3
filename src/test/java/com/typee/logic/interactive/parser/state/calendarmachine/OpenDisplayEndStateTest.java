@@ -19,17 +19,17 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 
 public class OpenDisplayEndStateTest {
 
-    private State openDisplayEndState;
+    private OpenDisplayEndState openDisplayEndState;
 
     @BeforeEach
     public void setup() {
         try {
             ArgumentMultimap argumentMultimap = new ArgumentMultimap();
             argumentMultimap.put(CliSyntax.PREFIX_CALENDAR, "opendisplay");
-            openDisplayEndState = new CalendarState(new ArgumentMultimap());
-            openDisplayEndState = openDisplayEndState.transition(argumentMultimap);
+            State calendarState = new CalendarState(new ArgumentMultimap());
+            calendarState = calendarState.transition(argumentMultimap);
             argumentMultimap.put(CliSyntax.PREFIX_DATE, "11/11/2019");
-            openDisplayEndState = openDisplayEndState.transition(argumentMultimap);
+            openDisplayEndState = (OpenDisplayEndState) calendarState.transition(argumentMultimap);
         } catch (StateTransitionException e) {
             // StateTransitionException should not be thrown here.
         }
@@ -39,7 +39,7 @@ public class OpenDisplayEndStateTest {
     public void buildCommand_validDate_returnsCalendarOpenDisplayCommand() {
         try {
             LocalDate validDate = LocalDate.of(2019, 11, 11);
-            assertEquals(((OpenDisplayEndState) openDisplayEndState).buildCommand(),
+            assertEquals(openDisplayEndState.buildCommand(),
                     new CalendarOpenDisplayCommand(validDate));
         } catch (CommandException e) {
             // CommandException should not be thrown here.
