@@ -342,15 +342,11 @@ The following steps explain the activity diagram:
 [[Implementation-Find]]
 === Find feature
 
-The find feature allows the user to search for a spending based on specified field. If search results are too broad, fields may be combined to increase specificity.
-
-For example, `find n/Apple c/2.50-3.00` will find an `Apple` of cost range $`2.50` to $`3.00`.
+The find feature allows the user to search for a spending based on specified fields. More fields may added to increase specificity. For example, `find n/Apple c/2.50-3.00` will find an `Apple` of cost range $`2.50` to $`3.00`.
 
 ==== Implementation
 
-Find is supported by having a `Predicate` implemented for every field in Spending. Predicates are added based on valid input entered by the user.
-
-The `FindCommandParser` class stores these predicates, which are combined using Java 8 streams with an `AND` operation to form a more specific search query.
+Find is supported by having a `Predicate` implemented for every field in Spending. Predicates are added based on valid input entered by the user. The `FindCommandParser` class stores these predicates, which are combined using Java 8 streams with an `AND` operation to form a more specific search query.
 
 The sequence diagram below demonstrates how the `find` command is executed:
 
@@ -403,20 +399,17 @@ Able to manipulate objects directly +
   +
 *Cons:* +
 Poor abstraction +
-Change in comparison requires prior knowledge of the structure of the entire code  +
-Difficult to implement
+Requires prior knowledge of the structure of the entire code
 |===
 
-Alternative 1 was chosen as it was the easiest to implement and obeys the Open-Closed Principle (OCP) of the SOLID principles. Although Alternative 2 enables checking of the related objects directly, it has poor abstraction and changes in the function require prior knowledge of the structure of the entire code. It is also difficult to implement
+Alternative 1 was chosen as it was the easiest to implement and obeys the Open-Closed Principle (OCP) of the SOLID principles. Although Alternative 2 enables checking of the related objects directly, it has poor abstraction and changes in the function require prior knowledge of the structure of the entire code, making it difficult to implement.
 // end::find[]
 
 // tag::sort[]
 [[Implementation-Sort]]
 === Sort feature
 
-The sort feature allows users to sort all currently displayed Spending entries automatically. The default sorting sequence is by Date, followed by Cost. Both are in descending order.
-
-The user may choose to modify how the displayed entries are sorted using the `sort` command.
+The sort feature allows users to sort all currently displayed Spending entries automatically using the `sort` command. The default sorting sequence is by: Date (Descending), Cost (Descending), Name (Ascending) and Remark (Ascending).
 
 For example, `sort n/ASC d/DESC` applies sorting by name in ascending order, followed by Date in descending order. This applies to any future commands entered.
 
@@ -431,7 +424,7 @@ This operation is exposed in the `Model` interface as `Model#updateSortedSpendin
 At a high level view, `SpendingComparator` and `SortField` interacts in the manner shown below.
 
 .High-level view of package interaction
-image::SortPackageDiagram.png[Sort Package Diagram]
+image::SortPackageDiagram.png[Sort Package Diagram,width=20%]
 
 The sequence diagram below demonstrates how the `sort` command is executed:
 
@@ -485,11 +478,7 @@ The following steps explain the activity diagram:
 *Cons:* Large code structure changes
 |===
 
-Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. The only downside of this approach is that changing any field classes might require a change in the Comparator.
-
-In contrast, for Alternative 2, manipulating the internal elements of the list directly is dangerous and can cause unintended side effects.
-
-There was also a huge difference for the method design for sort, and Alternative 1 was the easier approach to avoid side effects in Alternative 2.
+Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. The only downside of this approach is that changing any field classes might require a change in the Comparator. In contrast, for Alternative 2, manipulating the internal elements of the list directly is dangerous and can cause unintended side effects. There was also a huge difference for the method design for sort, and Alternative 1 was the easier approach to avoid side effects in Alternative 2.
 // end::sort[]
 
 // tag::reminder[]

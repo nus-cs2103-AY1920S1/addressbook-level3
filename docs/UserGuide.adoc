@@ -110,31 +110,39 @@ Help can be accessed from the menu bar by clicking on the `Help` button.
 // tag::flexibledateformats[]
 === Flexible date formats
 
-Whenever a particular command requires a `DATE` field, you can choose either of the following formats.
+Whenever a particular command requires a `DATE` field, you can choose either of the following formats in the table below.
 
-* *Formal Dates*
-** 1978-01-28
-** 1984/04/02
-** 1/02/1980 _(1st February 1980)_
-** 26/2/2019
-* *Relaxed Dates*
-** The 31st of April in the year 2008
-** 21 Nov 1997
-** jan 1st
-** february twenty-eight
-* *Relative Dates*
-** next thursday / last wednesday
-** today / tomorrow / yesterday
-** next week / next month / next year
-** 3 days from now
-** three weeks ago
-* *Date Alternatives*
-** next wed to thurs
-** oct 3rd to 4th
-* *Prefixes*
-** day after / the day before
-** the monday after / the monday before
-** 2 fridays before / 4 tuesdays after
+.Date format table
+[width="100%",cols="20%,80%",options="header"]
+|====
+|Date Type|Formats
+|*Formal Date* |
+1978-01-28 +
+1984/04/02 +
+1/02/1980 _(1st February 1980)_ +
+26/2/2019 +
+|*Relaxed Date* |
+The 31st of April in the year 2008 +
+21 Nov 1997 +
+Jan 21,'97 +
+jan 1st +
+february twenty-eight
+|*Relative Dates* |
+next thursday/ last wednesday +
+today/ tomorrow/ yesterday +
+next week/ next month / next year +
+3 days from now +
+three weeks ago
+|*Date Alternatives* |
+next wed or thurs +
+oct 3rd or 4th
+|*Prefixes* |
+day after/ the day before +
+the monday after/ the monday before +
+2 fridays before/ 4 tuesdays after
+|====
+
+Listed above are the date formats that can be used.
 
 [TIP]
 You do not need to specify which date format you would like to use as MoneyGoWhere will be able to differentiate it from the input received. However, if today is Wednesday and `wednesday` is entered, it will be considered next's week Wednesday.
@@ -253,11 +261,11 @@ Sorts all spending based on a given order. +
 *Format:* `sort [PREFIX/SORT_ORDER]...`
 
 ****
+* At least one of the optional fields *must be provided*.
 * Valid prefixes are: Cost (`c`), Date (`d`), Name (`n`), Remarks (`r`).
 * Valid sort orders are: `ASC`, `DESC`.
-* At least one of the optional fields *must be provided*.
 * If the given sort order is `c/ASC n/DESC`, Cost will be sorted in ascending order, followed by name in descending order.
-* Sorting names or remarks by default will sort uppercase letters first, followed by lowercase letters.
+* Sorting names or remarks in Ascending order will sort uppercase letters first, followed by lowercase letters.
 ****
 
 *Examples:*
@@ -269,7 +277,12 @@ Sorts current spending displayed by Name in descending order.
 
 *Expected Output:*
 
-Spending entries are sorted based on the given order.
+An example is shown below.
+
+.Output of `sort n/ASC d/DESC`
+image::SortPreviewUG.png[width="350"]
+
+Spending entries are sorted based on the example above.
 
 // end::sort[]
 
@@ -281,40 +294,31 @@ Searches for spending based on given keywords, cost range, date range, remarks o
 *Format:* `find [n/NAME_KEYWORDS] [c/COST_MIN] [c/COST_MAX] [d/DATE_START] [d/DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
 
 ****
-* At least one search field must be present.
-* The search is case-insensitive. For example, `apple` and `Apple` will output the same search results.
-* The order of the keywords do not matter for name and remarks. For example, `ticket concert` will match `concert ticket`.
+* At least one search field must be present and the search is case-insensitive. For example, `apple` and `Apple` will output the same search results.
+* The order of the keywords do not matter for name and remarks. For example, `ticket concert` will match `concert ticket` and only full words will be matched. For example, `app` will not match `apple`.
 * Spending matching at least one keyword will be returned. For example, `Phone` will return `New Phone`, `Phone Bill`.
-* When searching for multiple tags, any tag listed will be matched along with the previous criteria. For example, if there the search keyword was `d/yesterday d/today t/food t/entertainment`, spending entries within `yesterday` and `today` that have either tags `food` or `entertainment` will be matched.
-* Only full words will be matched. For example, `app` will not match `apple`.
-* Date range can only be input in the following ways:
-
-** `d/DATE_START d/DATE_END`
-** `d/DATE_START to DATE_END`
-** `d/DATE_START - DATE_END`
-
-* Cost range can only be input in the following ways:
-
-** `c/COST_MIN c/COST_MAX`
-** `c/COST_MIN-COST_MAX`
-** `c/COST_MIN - COST_MAX`
+* When searching for multiple tags, any tag listed will be matched along with the previous criteria. For example, if the search keyword was `d/yesterday d/today t/food t/entertainment`, spending entries within `yesterday` and `today` that have either tags `food` or `entertainment` will be matched.
 ****
 
 [NOTE]
 DATE_START must be earlier or the same as DATE_END, and COST_MIN must be smaller or the same as COST_MAX.
 
+[TIP]
+Date range can be input in the following ways: +
+`d/DATE_START d/DATE_END` +
+`d/DATE_START to DATE_END` +
+`d/DATE_START - DATE_END`
+
+[TIP]
+Cost range can be input in the following ways: +
+`c/COST_MIN c/COST_MAX` +
+`c/COST_MIN-COST_MAX` +
+`c/COST_MIN - COST_MAX`
+
 *Examples:*
 
-* `find n/apple c/1.50-2.00 d/01/09/2019 d/30/09/2019` +
-Returns a list of spending with `apple` keyword within the cost range `1.50` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
 * `find n/Java book c/100.20-150.00 d/01/09/2019 - 30/09/2019` +
 Returns a list of spending with matching the keywords `Java` or `book` within the cost range `100.20` to `150.00` and date range within `01/09/2019` to `30/09/2019`.
-* `find n/apple c/1-2 d/01/09/2019 to 30/09/2019` +
-Returns a list of spending with `apple` keyword within the cost range `1.00` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
-* `find r/breakfast meal` +
-Returns a list of spending with matching the keywords `breakfast` or `meal` in remarks.
-* `find t/food t/leisure` +
-Returns a list of spending with `food` or `leisure` tags.
 * `find d/yesterday d/today t/food t/leisure` +
 Returns a list of spending within `yesterday` and `today` that have `food` or `leisure` tags.
 
@@ -384,8 +388,13 @@ Displays current stored exchange rates. +
 * If AMOUNT and CURRENCYCODE are specified, the indicated values are converted to SGD.
 * CURRENCYCODE can be `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
 * Entering `SGD` as CURRENCYCODE will display an error since the entered value is already in SGD.
-* Due to network limitations, exchange rates are fixed and locally stored. Note that exchange rates may vary across different websites.
 ****
+
+[TIP]
+Due to network limitations, exchange rates are fixed and locally stored. Exchange rates may also vary across different websites.
+
+[NOTE]
+v1.4 does not have networking support for exchange rates. This will be available from v2.0 onwards.
 
 *Example:*
 
