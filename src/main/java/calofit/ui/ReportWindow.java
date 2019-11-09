@@ -1,10 +1,14 @@
 package calofit.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -25,10 +29,6 @@ public class ReportWindow extends UiPart<Stage> {
     public static final String FXML = "ReportWindow.fxml";
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
 
-    public final int maximum;
-    public final int minimum;
-    public final double average;
-
     @FXML
     private Label numericalStatistics;
 
@@ -48,7 +48,16 @@ public class ReportWindow extends UiPart<Stage> {
     private TextFlow countCalorieExceeded;
 
     @FXML
+    private ScrollPane foodListScrollPane;
+
+    @FXML
     private TextFlow mostConsumedMeal;
+
+    @FXML
+    private BarChart foodChart;
+
+    @FXML
+    private BarChart calorieOverTime;
 
     /**
      * Constructs the Report Window based on the FXML file as the basis.
@@ -57,6 +66,10 @@ public class ReportWindow extends UiPart<Stage> {
      */
     private ReportWindow(Stage root, Statistics statistics) {
         super(FXML, root);
+
+        requireNonNull(statistics);
+
+        foodListScrollPane.setFitToWidth(true);
 
         numericalStatistics.setBackground(new Background(
                 new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)
@@ -82,10 +95,6 @@ public class ReportWindow extends UiPart<Stage> {
         countCalorieExceeded.setTextAlignment(TextAlignment.CENTER);
         mostConsumedMeal.setBackground(forFoodStatistics);
         mostConsumedMeal.setTextAlignment(TextAlignment.CENTER);
-
-        this.maximum = statistics.getMaximum();
-        this.minimum = statistics.getMinimum();
-        this.average = statistics.getAverage();
 
         Text maximum = new Text("Maximum\n");
         maximum.setStyle("-fx-font-weight: bold; -fx-font-size: 35px");
@@ -114,11 +123,19 @@ public class ReportWindow extends UiPart<Stage> {
         calorieCountExceededValue.setStyle("-fx-font-size: 35px");
         countCalorieExceeded.getChildren().addAll(calorieCountExceededHeader, calorieCountExceededValue);
 
-        Text mostConsumedFoodHeader = new Text("Most consumed dish of the month is: \n");
+        Text mostConsumedFoodHeader = new Text("Most consumed dish(es) of the month:");
         mostConsumedFoodHeader.setStyle("-fx-font-size: 20px");
-        Text mostConsumedFoodValue = new Text(statistics.getMostConsumedDish().getName().toString());
-        mostConsumedFoodValue.setStyle("-fx-font-size: 35px");
-        mostConsumedMeal.getChildren().addAll(mostConsumedFoodHeader, mostConsumedFoodValue);
+        mostConsumedMeal.getChildren().add(mostConsumedFoodHeader);
+        for (int i = 0; i < statistics.getMostConsumedDishes().size(); i++) {
+            Text mostConsumedFood = new Text("\n" + (i + 1) + ". "
+                    + statistics.getMostConsumedDishes().get(i).getName().toString());
+            mostConsumedFood.setStyle("-fx-font-size: 35px");
+            mostConsumedMeal.getChildren().add(mostConsumedFood);
+        }
+
+        foodChart.getData().addAll(statistics.getFoodChartSeries());
+
+        calorieOverTime.getData().addAll(statistics.getCalorieChartSeries());
     }
 
     /**
@@ -127,13 +144,14 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public ReportWindow(Statistics statistics) {
         this(new Stage(), statistics);
+        logger.fine("Report page is being generated.");
     }
 
     /**
      * Displays the ReportWindow to the user.
      */
     public void show() {
-        logger.fine("Showing report page about the application.");
+        logger.fine("Showing report page displaying statistics of CaloFit this month.");
         getRoot().show();
         getRoot().centerOnScreen();
     }
@@ -142,6 +160,7 @@ public class ReportWindow extends UiPart<Stage> {
      * Hides the ReportWindow from the user.
      */
     public void hide() {
+        logger.fine("Report page is closed");
         getRoot().hide();
     }
 }

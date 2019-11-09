@@ -52,17 +52,17 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns a list of meals that has already been filtered by a predicate.
+     * Returns a list of meals that has been consumed today.
      */
     ObservableList<Meal> getTodayMealList();
 
     /**
-     * Returns the Statistics object that wraps around the statistics of CaloFit.
+     * Returns the {@code Statistics} object that wraps around the data in CaloFit to be displayed to the user.
      */
     Statistics getStatistics();
 
     /**
-     * Returns the Model that the Logic is operating on.
+     * Returns the {@code Model} that the {@code Logic} is operating on.
      */
     Model getModel();
 }

@@ -10,6 +10,7 @@ import calofit.commons.exceptions.DataConversionException;
 import calofit.model.ReadOnlyUserPrefs;
 import calofit.model.UserPrefs;
 import calofit.model.dish.ReadOnlyDishDatabase;
+import calofit.model.meal.ReadOnlyMealLog;
 
 /**
  * Manages storage of DishDatabase data in local storage.
@@ -18,12 +19,15 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private DishDatabaseStorage dishDatabaseStorage;
+    private MealLogStorage mealLogStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(DishDatabaseStorage dishDatabaseStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(DishDatabaseStorage dishDatabaseStorage,
+                          MealLogStorage mealLogStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.dishDatabaseStorage = dishDatabaseStorage;
+        this.mealLogStorage = mealLogStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -74,4 +78,33 @@ public class StorageManager implements Storage {
         dishDatabaseStorage.saveDishDatabase(dishDatabase, filePath);
     }
 
+    // ================ Meallog methods ==============================
+
+
+    @Override
+    public Path getMealLogFilePath() {
+        return dishDatabaseStorage.getDishDatabaseFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyMealLog> readMealLog() throws DataConversionException, IOException {
+        return readMealLog(mealLogStorage.getMealLogFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyMealLog> readMealLog(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return mealLogStorage.readMealLog(filePath);
+    }
+
+    @Override
+    public void saveMealLog(ReadOnlyMealLog mealLog) throws IOException {
+        saveMealLog(mealLog, mealLogStorage.getMealLogFilePath());
+    }
+
+    @Override
+    public void saveMealLog(ReadOnlyMealLog mealLog, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        mealLogStorage.saveMealLog(mealLog, filePath);
+    }
 }

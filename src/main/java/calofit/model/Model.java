@@ -1,12 +1,15 @@
 package calofit.model;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 
 import calofit.commons.core.GuiSettings;
 import calofit.model.dish.Dish;
+import calofit.model.dish.Name;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
@@ -17,7 +20,7 @@ import calofit.model.util.Statistics;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Dish> PREDICATE_SHOW_ALL_DISHES = unused -> true;
+    Predicate<Dish> PREDICATE_SHOW_DEFAULT = null;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -62,6 +65,8 @@ public interface Model {
      */
     boolean hasDish(Dish dish);
 
+    Dish getDish(Dish dish);
+
     /**
      * Deletes the given dish.
      * The dish must exist in the dish database.
@@ -86,9 +91,9 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered dish list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * If null, resets to the default predicate.
      */
-    void updateFilteredDishList(Predicate<Dish> predicate);
+    void setDishFilterPredicate(Predicate<Dish> predicate);
 
     /**
      * Returns an unmodifiable view of the filtered Meal List.
@@ -97,29 +102,33 @@ public interface Model {
 
     void addMeal(Meal meal);
 
+    void removeMeal(Meal meal);
+
+    void setMeal(Meal target, Meal editedMeal);
+
     /**
-     * Returns the MealLog that wraps around the list of meals input by the user.
+     * Returns the {@code MealLog} that wraps around the list of meals input by the user.
      */
     MealLog getMealLog();
 
     /**
-     * Returns the current Statistics object that wraps around the statistics of CaloFit.
+     * Returns the {@code Statistics} object that wraps around the data in CaloFit to be displayed to the user.
      */
     Statistics getStatistics();
 
     /**
      * Returns the Dish by checking with the Dish Database.
-     * @param dish is the Dish to be searched.
-     * @return the Dish itself or the Dish stored in the database if found.
+     * @param dishName is the name of the dish to be searched.
+     * @return the Dish stored in the database if found or null if not found.
      */
-    Dish getDishByName(Dish dish);
+    Dish getDishByName(Name dishName);
 
     /**
      * Checks if the Dish is in the Dish Database.
      * @param dish is the Dish to be checked.
      * @return a boolean representing whether the Dish is found in the database.
      */
-    boolean hasDishName(Dish dish);
+    boolean hasDishName(Name dish);
 
     /**
      * Gets the CalorieBudget that wraps around the calorie budget history of CaloFit.
@@ -132,4 +141,6 @@ public interface Model {
      * @return the remaining calories.
      */
     int getRemainingCalories();
+
+    ObjectProperty<LocalDateTime> nowProperty();
 }

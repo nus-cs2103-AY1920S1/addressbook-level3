@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import calofit.model.Model;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
+import calofit.model.dish.Name;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.MealLog;
 import calofit.testutil.Assert;
@@ -23,7 +24,7 @@ public class AddCommandTest {
 
     @Test
     public void constructor_nullDish_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        Assert.assertThrows(NullPointerException.class, () -> new AddCommand((Dish) null));
     }
 
     @Test
@@ -85,20 +86,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasDishName(Dish dish) {
-            requireNonNull(dish);
-            return dishesAdded.stream().anyMatch(dish::isSameDishName);
+        public boolean hasDishName(Name dishName) {
+            requireNonNull(dishName);
+            return dishesAdded.stream().anyMatch(dish -> {
+                return dish.getName().toLowerCase().equals(dishName.toLowerCase());
+            });
         }
 
         @Override
-        public Dish getDishByName(Dish dish) {
+        public Dish getDishByName(Name dishName) {
             for (int i = 0; i < dishesAdded.size(); i++) {
                 Dish dishInList = dishesAdded.get(i);
-                if (dishInList.getName().equals(dish.getName())) {
+                if (dishInList.getName().toLowerCase().equals(dishName.toLowerCase())) {
                     return dishInList;
                 }
             }
-            return dish;
+            return null;
         }
 
         @Override

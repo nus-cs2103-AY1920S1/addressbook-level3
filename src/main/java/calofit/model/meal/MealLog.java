@@ -1,33 +1,109 @@
 package calofit.model.meal;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleExpression;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
+import calofit.commons.util.CollectionUtil;
+import calofit.commons.util.ObservableListUtil;
+import calofit.model.dish.exceptions.DishNotFoundException;
+import calofit.model.meal.exceptions.DuplicateMealException;
 
 /**
  * Represents all meals tracked by the application.
  * Contains the original list of all meals input by the user.
  * Stores other lists of meals that are generated based on the original list of meals.
  */
-public class MealLog {
+public class MealLog implements ReadOnlyMealLog {
     private List<Meal> mealLog = new ArrayList<>();
     private ObservableList<Meal> observableMeals = FXCollections.observableList(mealLog);
     private ObservableList<Meal> readOnlyMeals = FXCollections.unmodifiableObservableList(observableMeals);
-    private ObservableList<Meal> todayMeals = observableMeals.filtered(MealLog::isMealToday);
-    private ObservableList<Meal> currentMonthMeals = observableMeals.filtered(MealLog::isMealThisMonth);
+    private FilteredList<Meal> todayMeals;
+    private FilteredList<Meal> currentMonthMeals;
+
+    private final DoubleExpression todayCalories;
+
+    private final SimpleObjectProperty<LocalDate> todayProperty = new SimpleObjectProperty<>(LocalDate.now());
+
+    public MealLog() {
+        this(List.of());
+    }
+
+    public MealLog (MealLog toBeCopied) {
+        this(toBeCopied.mealLog);
+    }
+    public MealLog (List<Meal> meals) {
+        this.observableMeals.addAll(meals);
+        todayMeals = new FilteredList<>(observableMeals);
+        todayMeals.predicateProperty().bind(Bindings.createObjectBinding(() -> this::isMealToday, todayProperty));
+        currentMonthMeals = new FilteredList<>(observableMeals);
+        currentMonthMeals.predicateProperty().bind(Bindings.createObjectBinding(() -> this::isMealThisMonth,
+            todayProperty));
+        todayCalories = ObservableListUtil.sum(ObservableListUtil.lazyMap(todayMeals,
+            meal -> (double) meal.getDish().getCalories().getValue()));
+    }
+
+    public MealLog(ReadOnlyMealLog toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
+
+    /**
+     * Resets the existing data of this {@code MealLog} with {@code newData}.
+     */
+    public void resetData(ReadOnlyMealLog newData) {
+        requireNonNull(newData);
+
+        setMeals(newData.getMealLog());
+    }
+
+    /**
+     * Replaces the contents of this list with {@code meals}.
+     * {@code meals} must not contain duplicate meals.
+     */
+    public void setMeals(List<Meal> meals) {
+        CollectionUtil.requireAllNonNull(meals);
+        if (!mealsAreUnique(meals)) {
+            throw new DuplicateMealException();
+        }
+
+        observableMeals.setAll(meals);
+    }
+
+    /**
+     * Returns true if {@code meals} contains only unique meals.
+     */
+    private boolean mealsAreUnique(List<Meal> meals) {
+        for (int i = 0; i < meals.size() - 1; i++) {
+            for (int j = i + 1; j < meals.size(); j++) {
+                if (meals.get(i).isSameMeal(meals.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     /**
      * Checks if the Meal object is created today.
      * @param meal the Meal to be tested
      * @return the boolean representing whether the meal is created today.
      */
-    private static boolean isMealToday(Meal meal) {
+    private boolean isMealToday(Meal meal) {
         return meal.getTimestamp()
             .getDateTime().toLocalDate()
-            .equals(LocalDate.now());
+            .equals(this.todayProperty.get());
     }
 
     /**
@@ -35,17 +111,20 @@ public class MealLog {
      * @param meal is the Meal to be tested
      * @return the boolean representing whether the Meal is created in this month.
      */
-    private static boolean isMealThisMonth(Meal meal) {
-        return meal.getTimestamp()
+    private boolean isMealThisMonth(Meal meal) {
+        return (meal.getTimestamp()
                 .getDateTime().toLocalDate().getMonth()
-                .equals(LocalDate.now().getMonth());
+                .equals(LocalDate.now().getMonth())) && (
+                meal.getTimestamp()
+                .getDateTime().toLocalDate().getYear() == LocalDate.now().getYear());
     }
 
     /**
      * Get a list of meals eaten by the user.
      * @return Meal list
      */
-    public ObservableList<Meal> getMeals() {
+    @Override
+    public ObservableList<Meal> getMealLog() {
         return readOnlyMeals;
     }
 
@@ -59,12 +138,45 @@ public class MealLog {
     }
 
     /**
+     * Adds a list of meals to the meal log
+     * @param listOfMeal list of meals to add
+     */
+    public void addListOfMeals (LinkedList<Meal> listOfMeal) {
+        while (!listOfMeal.isEmpty()) {
+            observableMeals.add(listOfMeal.poll());
+        }
+    }
+
+    /**
      * Remove a meal from the meal log.
      * @param meal Meal to remove
-     * @return True if meal was in log and got removed, false otherwise.
      */
-    public boolean removeMeal(Meal meal) {
-        return observableMeals.remove(meal);
+    public void removeMeal(Meal meal) {
+        requireNonNull(meal);
+        if (!observableMeals.remove(meal)) {
+            throw new DishNotFoundException();
+        }
+    }
+
+    public void setMeal(Meal target, Meal editedMeal) {
+        CollectionUtil.requireAllNonNull(target, editedMeal);
+
+        int index = observableMeals.indexOf(target);
+        if (index == -1) {
+            throw new DishNotFoundException();
+        }
+
+        observableMeals.set(index, editedMeal);
+    }
+
+    /**
+     * Checks if a meal is in the meal log.
+     * @param meal Meal to check
+     * @return True if meal was in the Log, false otherwise.
+     */
+    public boolean hasMeal(Meal meal) {
+        requireNonNull(meal);
+        return observableMeals.stream().anyMatch(meal::isSameMeal);
     }
 
     /**
@@ -81,5 +193,20 @@ public class MealLog {
      */
     public ObservableList<Meal> getCurrentMonthMeals() {
         return currentMonthMeals;
+    }
+
+    public DoubleExpression getTodayCalories() {
+        return todayCalories;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MealLog // instanceof handles nulls
+                && mealLog.equals(((MealLog) other).mealLog));
+    }
+
+    public ObjectProperty<LocalDate> todayProperty() {
+        return todayProperty;
     }
 }

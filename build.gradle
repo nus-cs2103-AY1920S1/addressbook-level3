@@ -67,7 +67,7 @@ dependencies {
 
     implementation group: 'org.controlsfx', name: 'controlsfx', version: '11.0.0'
 
-    testImplementation 'org.mockito:mockito-core:+'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.1.0'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion

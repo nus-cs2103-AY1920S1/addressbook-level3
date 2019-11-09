@@ -18,6 +18,8 @@ import calofit.logic.commands.CommandResult;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.exceptions.ParseException;
 
+
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -75,6 +77,7 @@ public class MainWindow extends UiPart<Stage> {
 
         budgetBar.mealsProperty().set(logic.getModel().getMealLog().getTodayMeals());
         budgetBar.budgetProperty().bind(logic.getModel().getCalorieBudget().currentBudget());
+
     }
 
     public Stage getPrimaryStage() {
@@ -98,7 +101,7 @@ public class MainWindow extends UiPart<Stage> {
          * is fixed in later version of SDK.
          *
          * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
+         * consume function-key events. Bcecause CommandBox contains a TextField, and
          * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
          * not work when the focus is in them because the key event is consumed by
          * the TextInputControl(s).
@@ -174,11 +177,20 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-        reportWindow.hide();
+        if (reportWindow != null) {
+            reportWindow.hide();
+        }
     }
 
+    /**
+     * Creates the ReportWindow containing the statistics of Calofit and displays it.
+     * Checks if a current report window is showing or not and closes it if it is showing.
+     */
     @FXML
     private void handleReport() {
+        if (this.reportWindow != null) {
+            this.reportWindow.hide();
+        }
         this.reportWindow = new ReportWindow(logic.getStatistics());
         this.reportWindow.show();
     }

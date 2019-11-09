@@ -2,14 +2,17 @@ package calofit.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 
 import calofit.commons.core.LogsCenter;
 import calofit.model.dish.Dish;
+
 
 /**
  * Panel containing the list of persons.
@@ -21,10 +24,15 @@ public class DishListPanel extends UiPart<Region> {
     @FXML
     private ListView<Dish> dishListView;
 
+    @FXML
+    private Text emptyOverlay;
+
     public DishListPanel(ObservableList<Dish> dishList) {
         super(FXML);
         dishListView.setItems(dishList);
         dishListView.setCellFactory(listView -> new DishListViewCell());
+
+        emptyOverlay.visibleProperty().bind(Bindings.createBooleanBinding(dishList::isEmpty, dishList));
     }
 
     /**

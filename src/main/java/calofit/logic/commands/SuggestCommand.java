@@ -9,14 +9,14 @@ public class SuggestCommand extends Command {
 
     public static final String COMMAND_WORD = "suggest";
 
-    public static final String MESSAGE_SUCCESS = "The suggested meals are listed below!";
+    public static final String MESSAGE_SUCCESS = "The suggest feature has been toggled.";
 
 
     @Override
     public CommandResult execute(Model model) {
 
         int remain = model.getRemainingCalories();
-        model.updateFilteredDishList(dish -> dish.getCalories().getValue() <= remain);
+        model.setDishFilterPredicate(null);
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

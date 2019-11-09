@@ -1,6 +1,6 @@
 package calofit.logic.commands;
 
-import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
+import static calofit.model.Model.PREDICATE_SHOW_DEFAULT;
 import static java.util.Objects.requireNonNull;
 
 import calofit.model.Model;
@@ -18,7 +18,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredDishList(PREDICATE_SHOW_ALL_DISHES);
+        model.setDishFilterPredicate(PREDICATE_SHOW_DEFAULT);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

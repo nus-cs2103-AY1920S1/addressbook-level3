@@ -3,20 +3,29 @@ package calofit.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.binding.DoubleExpression;
+import javafx.beans.binding.ObjectExpression;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
 import calofit.commons.util.CollectionUtil;
+import calofit.commons.util.ObservableUtil;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
+import calofit.model.dish.Name;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
+import calofit.model.meal.ReadOnlyMealLog;
 import calofit.model.util.Statistics;
 
 /**
@@ -30,21 +39,31 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Dish> filteredDishes;
     private final CalorieBudget budget;
+    private ObjectExpression<Predicate<Dish>> suggestedDishFilter;
+
+    private ObjectProperty<LocalDateTime> nowProperty = new SimpleObjectProperty<>(LocalDateTime.now());
 
     /**
      * Initializes a ModelManager with the given dishDatabase and userPrefs.
      */
-    public ModelManager(MealLog mealLog, ReadOnlyDishDatabase dishDatabase, ReadOnlyUserPrefs userPrefs) {
-        super();
+    public ModelManager(ReadOnlyMealLog mealLog, ReadOnlyDishDatabase dishDatabase, ReadOnlyUserPrefs userPrefs) {
         CollectionUtil.requireAllNonNull(dishDatabase, userPrefs);
 
         logger.fine("Initializing with dish database: " + dishDatabase + " and user prefs " + userPrefs);
 
         this.dishDatabase = new DishDatabase(dishDatabase);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.mealLog = mealLog;
+        this.mealLog = new MealLog(mealLog);
         this.filteredDishes = new FilteredList<>(this.dishDatabase.getDishList());
         this.budget = new CalorieBudget();
+        DoubleExpression remainingCalories = budget.currentBudget().subtract(this.mealLog.getTodayCalories());
+        suggestedDishFilter = ObservableUtil.mapToObject(remainingCalories,
+            remain -> dish -> dish.getCalories().getValue() <= remain);
+        filteredDishes.predicateProperty().bind(suggestedDishFilter);
+
+        ObjectExpression<LocalDate> todayExp = ObservableUtil.cachingMap(nowProperty, LocalDateTime::toLocalDate);
+        this.mealLog.todayProperty().bind(todayExp);
+        this.budget.todayProperty().bind(todayExp);
     }
 
     public ModelManager() {
@@ -109,14 +128,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasDishName(Dish dish) {
-        requireNonNull(dish);
-        return dishDatabase.hasDishName(dish);
+    public Dish getDish(Dish dish) {
+        return dishDatabase.getDish(dish);
     }
 
     @Override
-    public Dish getDishByName(Dish dish) {
-        return dishDatabase.getDishByName(dish);
+    public boolean hasDishName(Name dishName) {
+        requireNonNull(dishName);
+        return dishDatabase.hasDishName(dishName);
+    }
+
+    @Override
+    public Dish getDishByName(Name dishName) {
+        return dishDatabase.getDishByName(dishName);
     }
 
     @Override
@@ -127,7 +151,7 @@ public class ModelManager implements Model {
     @Override
     public void addDish(Dish dish) {
         dishDatabase.addDish(dish);
-        updateFilteredDishList(PREDICATE_SHOW_ALL_DISHES);
+        setDishFilterPredicate(PREDICATE_SHOW_DEFAULT);
     }
 
     @Override
@@ -149,9 +173,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredDishList(Predicate<Dish> predicate) {
-        requireNonNull(predicate);
-        filteredDishes.setPredicate(predicate);
+    public void setDishFilterPredicate(Predicate<Dish> predicate) {
+        if (filteredDishes.predicateProperty().isBound()) {
+            filteredDishes.predicateProperty().unbind();
+        }
+
+        if (predicate == null) {
+            filteredDishes.predicateProperty().bind(suggestedDishFilter);
+        } else {
+            filteredDishes.setPredicate(predicate);
+        }
     }
 
     @Override
@@ -161,7 +192,8 @@ public class ModelManager implements Model {
 
     @Override
     public Statistics getStatistics() {
-        return Statistics.generateStatistics(this.mealLog, this.getCalorieBudget());
+        return Statistics.generateStatistics(
+                this.mealLog.getCurrentMonthMeals(), this.getCalorieBudget());
     }
 
     @Override
@@ -180,12 +212,26 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return dishDatabase.equals(other.dishDatabase)
                 && userPrefs.equals(other.userPrefs)
+                // && mealLog.equals(other.mealLog);
                 && filteredDishes.equals(other.filteredDishes);
+
     }
 
     @Override
     public void addMeal(Meal meal) {
         this.mealLog.addMeal(meal);
+    }
+
+    @Override
+    public void removeMeal(Meal meal) {
+        mealLog.removeMeal(meal);
+    }
+
+    @Override
+    public void setMeal(Meal target, Meal editedMeal) {
+        CollectionUtil.requireAllNonNull(target, editedMeal);
+
+        mealLog.setMeal(target, editedMeal);
     }
 
     @Override
@@ -206,5 +252,10 @@ public class ModelManager implements Model {
         }
 
         return remainingBudget;
+    }
+
+    @Override
+    public ObjectProperty<LocalDateTime> nowProperty() {
+        return nowProperty;
     }
 }

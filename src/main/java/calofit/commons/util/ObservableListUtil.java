@@ -299,6 +299,8 @@ public class ObservableListUtil {
             //Hence, either we are in the middle of the source list, and have a fresh target,
             //or we have went past the end and are adding items, so target == source.
             List<T> target = null;
+            int changeEnd = 0;
+            int elementDelta = 0;
             ObservableListUtil.Updater<T, ? super S> func = updater.get();
             List<? extends S> source = getSource();
 
@@ -309,6 +311,7 @@ public class ObservableListUtil {
                     //so we catch up and add the unchanged elements.
                     target.addAll(cachedValues.subList(target.size(), c.getFrom()));
                 }
+                changeEnd = c.getTo();
 
                 if (c.wasPermutated()) {
                     if (target != null) {
@@ -353,8 +356,9 @@ public class ObservableListUtil {
                     if (c.wasRemoved()) {
                         //Here, c.getFrom() < cachedValues.size().
                         //This means we aren't reusing cachedValues as target.
-                        List<T> changed = cachedValues.subList(c.getFrom(), c.getTo());
+                        List<T> changed = cachedValues.subList(c.getFrom(), c.getFrom() + c.getRemovedSize());
                         nextRemove(c.getFrom(), new ArrayList<>(changed));
+                        elementDelta += c.getRemovedSize();
                     }
                     if (c.wasAdded()) {
                         //Here, we add to the target, no matter if it's the copy or the original.
@@ -366,6 +370,7 @@ public class ObservableListUtil {
                             pos++;
                         }
                         nextAdd(c.getFrom(), c.getTo());
+                        elementDelta -= c.getAddedSize();
                     }
                 }
             }
@@ -373,6 +378,12 @@ public class ObservableListUtil {
             if (target != null) {
                 //If we copied the list, update our current cache to point to the copy.
                 //Still safe if we didn't copy but added to end, as then cachedValues == target.
+                if (target != cachedValues) {
+                    int validCachedSuffix = changeEnd + elementDelta;
+                    if (validCachedSuffix < cachedValues.size()) {
+                        target.addAll(cachedValues.subList(validCachedSuffix, cachedValues.size()));
+                    }
+                }
                 this.cachedValues = target;
             }
             endChange();
@@ -510,6 +521,11 @@ public class ObservableListUtil {
         protected abstract T transformValue(S source);
         protected int transformIndex(int source) {
             return source;
+        }
+
+        @Override
+        public boolean wasPermutated() {
+            return c.wasPermutated();
         }
 
         @Override

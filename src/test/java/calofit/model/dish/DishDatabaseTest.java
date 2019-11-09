@@ -44,9 +44,9 @@ public class DishDatabaseTest {
     @Test
     public void resetData_withDuplicateDishes_throwsDuplicateDishesException() {
         // Two dishes with the same identity fields
-        Dish editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(VALID_TAG_SALTY)
+        Dish editedSpaghetti = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(VALID_TAG_SALTY)
                 .build();
-        List<Dish> newDishes = Arrays.asList(TypicalDishes.SPAGHETTI, editedAlice);
+        List<Dish> newDishes = Arrays.asList(TypicalDishes.SPAGHETTI, editedSpaghetti);
         DishDatabaseStub newData = new DishDatabaseStub(newDishes);
 
         Assert.assertThrows(DuplicateDishException.class, () -> dishDatabase.resetData(newData));
@@ -71,9 +71,9 @@ public class DishDatabaseTest {
     @Test
     public void hasDish_dishWithSameIdentityFieldsInDishDatabase_returnsTrue() {
         dishDatabase.addDish(TypicalDishes.SPAGHETTI);
-        Dish editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(VALID_TAG_SALTY)
+        Dish editedSpaghetti = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(VALID_TAG_SALTY)
                 .build();
-        assertTrue(dishDatabase.hasDish(editedAlice));
+        assertTrue(dishDatabase.hasDish(editedSpaghetti));
     }
 
     @Test

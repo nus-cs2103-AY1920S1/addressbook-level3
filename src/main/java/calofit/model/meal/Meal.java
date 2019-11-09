@@ -22,6 +22,7 @@ public class Meal implements Comparable<Meal> {
         this.timestamp = timestamp;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -77,5 +78,28 @@ public class Meal implements Comparable<Meal> {
     @Override
     public int compareTo(Meal meal) {
         return timestamp.compareTo(meal.timestamp);
+    }
+
+    @Override
+    public String toString() {
+        String mealString = this.dish.getName().toString() + " "
+                + this.dish.getCalories().toString() + "cal";
+        if (!this.dish.getTags().isEmpty()) {
+            mealString = mealString + " " + this.dish.getTags().toString();
+        }
+        return mealString;
+    }
+
+    /**
+     * Returns true if both meals of the same dish have the same timestamp.
+     */
+    public boolean isSameMeal(Meal otherMeal) {
+        if (otherMeal == this) {
+            return true;
+        }
+
+        return otherMeal != null
+                && otherMeal.getDish().equals(getDish())
+                && otherMeal.getTimestamp().equals(getTimestamp());
     }
 }

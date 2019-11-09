@@ -1,6 +1,6 @@
 package calofit.logic;
 
-import static calofit.commons.core.Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX;
+import static calofit.commons.core.Messages.MESSAGE_INVALID_MEAL_INDEX;
 import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,7 +22,9 @@ import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
 import calofit.model.dish.Dish;
 import calofit.model.dish.ReadOnlyDishDatabase;
+import calofit.model.meal.ReadOnlyMealLog;
 import calofit.storage.JsonDishDatabaseStorage;
+import calofit.storage.JsonMealLogStorage;
 import calofit.storage.JsonUserPrefsStorage;
 import calofit.storage.StorageManager;
 import calofit.testutil.Assert;
@@ -42,8 +44,10 @@ public class LogicManagerTest {
     public void setUp() {
         JsonDishDatabaseStorage dishDatabaseStorage =
                 new JsonDishDatabaseStorage(temporaryFolder.resolve("dishDb.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(dishDatabaseStorage, userPrefsStorage);
+        JsonMealLogStorage mealLogStorage = new JsonMealLogStorage(temporaryFolder.resolve("mealLog.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(
+                temporaryFolder.resolve("preferences.json"));
+        StorageManager storage = new StorageManager(dishDatabaseStorage, mealLogStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -56,7 +60,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_MEAL_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, String.format(MESSAGE_INVALID_MEAL_INDEX, 9));
     }
 
     @Test
@@ -70,9 +74,12 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonDishDatabaseIoExceptionThrowingStub
         JsonDishDatabaseStorage dishDatabaseStorage =
                 new JsonDishDatabaseIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDishDb.json"));
+        JsonMealLogStorage mealLogStorage =
+                new JsonMealLogIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionMealLog.json"));
         JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(dishDatabaseStorage, userPrefsStorage);
+                new JsonUserPrefsStorage(
+                        temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+        StorageManager storage = new StorageManager(dishDatabaseStorage, mealLogStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -150,7 +157,7 @@ public class LogicManagerTest {
     }
 
     /**
-     * A stub class to throw an {@code IOException} when the save method is called.
+     * A stub class to throw an {@code IOException} when the save method is called for {@code DishDatabase}.
      */
     private static class JsonDishDatabaseIoExceptionThrowingStub extends JsonDishDatabaseStorage {
         private JsonDishDatabaseIoExceptionThrowingStub(Path filePath) {
@@ -159,6 +166,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveDishDatabase(ReadOnlyDishDatabase dishDatabase, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called for MealLog.
+     */
+    private static class JsonMealLogIoExceptionThrowingStub extends JsonMealLogStorage {
+        private JsonMealLogIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveMealLog(ReadOnlyMealLog mealLog, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

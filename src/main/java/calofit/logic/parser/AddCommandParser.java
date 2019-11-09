@@ -4,6 +4,8 @@ import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static calofit.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
 import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -27,25 +29,42 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CALORIES, PREFIX_TAG);
+        try {
+            String[] argsArr = args.split(" ");
+            LinkedList<Integer> dishIntList = new LinkedList<Integer>();
+            if (argsArr.length == 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            for (int i = 1; i < argsArr.length; i++) {
+                // Check if are they all numbers
+                int dishNumber = Integer.parseInt(argsArr[i]);
+                dishIntList.add(dishNumber);
+            }
+            return new AddCommand(dishIntList);
+        } catch (NumberFormatException e) {
+            System.out.println(argMultimap.getPreamble());
+            if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
+                    || !argMultimap.getPreamble().isEmpty()
+                    || argMultimap.getAllValues(PREFIX_NAME).size() != 1
+                    || argMultimap.getAllValues(PREFIX_CALORIES).size() > 1) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+
+            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            Calorie calories;
+            if (argMultimap.getValue(PREFIX_CALORIES).isPresent()) {
+                calories = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIES).get());
+            } else {
+                calories = Calorie.UNKNOWN_CALORIE;
+            }
+
+            Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+            Dish dish = new Dish(name, calories, tagList);
+            return new AddCommand(dish);
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Calorie calories;
-        if (argMultimap.getValue(PREFIX_CALORIES).isPresent()) {
-            calories = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIES).get());
-        } else {
-            calories = Calorie.UNKNOWN_CALORIE;
-        }
-
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-        Dish dish = new Dish(name, calories, tagList);
-
-        return new AddCommand(dish);
     }
 
     /**

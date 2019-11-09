@@ -1,5 +1,7 @@
 package calofit.ui;
 
+import java.time.Duration;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -10,8 +12,10 @@ import javafx.stage.Stage;
 
 import calofit.MainApp;
 import calofit.commons.core.LogsCenter;
+import calofit.commons.core.Timer;
 import calofit.commons.util.StringUtil;
 import calofit.logic.Logic;
+import calofit.logic.NotificationHelper;
 
 /**
  * The manager of the UI component.
@@ -21,14 +25,17 @@ public class UiManager implements Ui {
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/calofit_logo.png";
 
     private Logic logic;
     private MainWindow mainWindow;
+    private Timer timer;
+    private NotificationWindow notificationWindow;
 
-    public UiManager(Logic logic) {
+    public UiManager(Logic logic, Timer timer) {
         super();
         this.logic = logic;
+        this.timer = timer;
     }
 
     @Override
@@ -47,6 +54,17 @@ public class UiManager implements Ui {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
+
+        timer.registerPeriodic(Duration.ofMinutes(10), () -> {
+            Optional<String> notifMessage = NotificationHelper.execute(logic.getModel());
+            notifMessage.ifPresent(s -> {
+                if (notificationWindow != null) {
+                    notificationWindow.getRoot().hide();
+                }
+                notificationWindow = new NotificationWindow(s);
+                notificationWindow.show();
+            });
+        });
     }
 
     private Image getImage(String imagePath) {

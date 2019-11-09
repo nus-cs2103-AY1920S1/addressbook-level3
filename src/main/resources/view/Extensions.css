@@ -62,3 +62,13 @@ BudgetBar {
 .buffer-segment > Label {
     -fx-alignment: center;
 }
+
+.listHeader {
+    -fx-font-size: 20px;
+    -fx-fill: white;
+}
+
+.emptyDishText {
+    -fx-font-size: 20px;
+    -fx-fill: white;
+}

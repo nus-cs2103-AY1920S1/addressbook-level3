@@ -30,8 +30,10 @@ public class JsonUserPrefsStorageTest {
 
     private Optional<UserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder) throws DataConversionException {
         Path prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
-        return new JsonUserPrefsStorage(prefsFilePath).readUserPrefs(prefsFilePath);
+        return new JsonUserPrefsStorage(prefsFilePath)
+                .readUserPrefs(prefsFilePath);
     }
+
 
     @Test
     public void readUserPrefs_missingFile_emptyResult() throws DataConversionException {
@@ -74,12 +76,13 @@ public class JsonUserPrefsStorageTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
         userPrefs.setDishDatabaseFilePath(Paths.get("dishDb.json"));
+        userPrefs.setMealLogFilePath(Paths.get("mealLog.json"));
         return userPrefs;
     }
 
     @Test
     public void savePrefs_nullPrefs_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> saveUserPrefs(null, "SomeFile.json"));
+        Assert.assertThrows(NullPointerException.class, () -> saveUserPrefs(null, "TypicalUserPrefs.json"));
     }
 
     @Test
@@ -105,8 +108,8 @@ public class JsonUserPrefsStorageTest {
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(new GuiSettings(1200, 200, 0, 2));
 
-        Path pefsFilePath = testFolder.resolve("TempPrefs.json");
-        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath);
+        Path prefsFilePath = testFolder.resolve("TempPrefs.json");
+        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(prefsFilePath);
 
         //Try writing when the file doesn't exist
         jsonUserPrefsStorage.saveUserPrefs(original);

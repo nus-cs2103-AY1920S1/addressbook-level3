@@ -1,6 +1,6 @@
 package calofit.model;
 
-import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
+import static calofit.model.Model.PREDICATE_SHOW_DEFAULT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -119,11 +119,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = TypicalDishes.SPAGHETTI.getName().fullName.split("\\s+");
-        modelManager.updateFilteredDishList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.setDishFilterPredicate(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(dishDatabase, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredDishList(PREDICATE_SHOW_ALL_DISHES);
+        modelManager.setDishFilterPredicate(PREDICATE_SHOW_DEFAULT);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

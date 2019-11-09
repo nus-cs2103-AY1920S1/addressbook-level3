@@ -2,6 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -23,27 +26,54 @@
                   <items>
                         <SplitPane dividerPositions="0.5, 0.5, 0.5" orientation="VERTICAL">
                            <items>
-                              <Label fx:id="numericalStatistics" prefHeight="35.0" prefWidth="225.0" text="Numerical Statistics" textAlignment="CENTER" underline="true" wrapText="true">
+                              <Label fx:id="numericalStatistics" minHeight="36.0" prefHeight="35.0" prefWidth="225.0" text="Numerical Statistics" textAlignment="CENTER" underline="true" wrapText="true">
                                  <font>
                                     <Font size="25.0" />
                                  </font></Label>
-                              <TextFlow fx:id="maximumCalorie" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme.css" />
-                              <TextFlow fx:id="minimumCalorie" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme.css" />
-                              <TextFlow fx:id="averageCalorie" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@DarkTheme.css" />
+                              <TextFlow fx:id="maximumCalorie" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" stylesheets="@DarkTheme.css" />
+                              <TextFlow fx:id="minimumCalorie" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" stylesheets="@DarkTheme.css" />
+                              <TextFlow fx:id="averageCalorie" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" stylesheets="@DarkTheme.css" />
                            </items>
                         </SplitPane>
                         <SplitPane dividerPositions="0.5, 0.5" orientation="VERTICAL">
                            <items>
-                              <Label fx:id="foodStatistics" prefHeight="35.0" prefWidth="255.0" text="Food Statistics" textAlignment="CENTER" underline="true" wrapText="true">
+                              <Label fx:id="foodStatistics" minHeight="36.0" prefHeight="35.0" prefWidth="255.0" text="Food Statistics" textAlignment="CENTER" underline="true" wrapText="true">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <TextFlow fx:id="countCalorieExceeded" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
-                              <TextFlow fx:id="mostConsumedMeal" maxHeight="150.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
+                              <TextFlow fx:id="countCalorieExceeded" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
+                              <ScrollPane fx:id="foodListScrollPane">
+                                 <content>
+                                    <TextFlow fx:id="mostConsumedMeal" prefHeight="405.0" prefWidth="218.0" textAlignment="CENTER" />
+                                 </content>
+                              </ScrollPane>
                            </items>
                         </SplitPane>
-                    <ScrollPane prefHeight="-1.0" prefWidth="-1.0" />
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                          <items>
+                              <BarChart fx:id="calorieOverTime" legendVisible="false" title="Calories Over Time">
+                                <xAxis>
+                                  <CategoryAxis label="Dates" side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis label="Calorie Intake" side="LEFT" />
+                                </yAxis>
+                              </BarChart>
+                              <ScrollPane>
+                                 <content>
+                                    <BarChart fx:id="foodChart" title="Quantity of Food Consumed">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis label="Quantity Consumed" minorTickLength="0.5" minorTickVisible="false" side="LEFT" tickUnit="1.0" />
+                                      </yAxis>
+                                    </BarChart>
+                                 </content>
+                              </ScrollPane>
+                          </items>
+                        </SplitPane>
                   </items>
                 </SplitPane>
                 <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">

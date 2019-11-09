@@ -36,6 +36,8 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " "
             + CliSyntax.PREFIX_NAME + "Duck Noodles&"; // '&' not allowed in names
+    public static final String INVALID_NAME_LENGTH = " "
+            + CliSyntax.PREFIX_NAME + "hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii";
     public static final String INVAID_CALORIES_NEGATIVE = " " + CliSyntax.PREFIX_CALORIES + "-1000";
     public static final String INVALID_TAG_DESC = " " + CliSyntax.PREFIX_TAG + "bland*"; // '*' not allowed in tags
 
@@ -106,7 +108,7 @@ public class CommandTestUtil {
 
         Dish dish = model.getFilteredDishList().get(targetIndex.getZeroBased());
         final String[] splitName = dish.getName().fullName.split("\\s+");
-        model.updateFilteredDishList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.setDishFilterPredicate(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredDishList().size());
     }

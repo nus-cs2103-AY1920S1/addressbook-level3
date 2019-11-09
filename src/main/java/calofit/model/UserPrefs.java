@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path dishDatabaseFilePath = Paths.get("data" , "dishDb.json");
+    private Path mealLogFilePath = Paths.get("data", "mealLog.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setDishDatabaseFilePath(newUserPrefs.getDishDatabaseFilePath());
+        setMealLogFilePath(newUserPrefs.getMealLogFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,6 +58,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.dishDatabaseFilePath = dishDatabaseFilePath;
     }
 
+    public Path getMealLogFilePath() {
+        return mealLogFilePath;
+    }
+
+    public void setMealLogFilePath(Path mealLogFilePath) {
+        requireNonNull(mealLogFilePath);
+        this.mealLogFilePath = mealLogFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,19 +79,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && dishDatabaseFilePath.equals(o.dishDatabaseFilePath);
+                && dishDatabaseFilePath.equals(o.dishDatabaseFilePath)
+                && mealLogFilePath.equals(o.mealLogFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, dishDatabaseFilePath);
+        return Objects.hash(guiSettings, dishDatabaseFilePath, mealLogFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + dishDatabaseFilePath);
+        sb.append("\nLocal dish database data file location : " + dishDatabaseFilePath);
+        sb.append("\nLocal mealLog data file location : " + mealLogFilePath);
         return sb.toString();
     }
 

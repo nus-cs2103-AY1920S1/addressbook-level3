@@ -2,14 +2,19 @@ package calofit;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.stage.Stage;
 
 import calofit.commons.core.Config;
 import calofit.commons.core.LogsCenter;
+import calofit.commons.core.Timer;
 import calofit.commons.core.Version;
 import calofit.commons.exceptions.DataConversionException;
 import calofit.commons.util.ConfigUtil;
@@ -23,10 +28,13 @@ import calofit.model.UserPrefs;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.MealLog;
+import calofit.model.meal.ReadOnlyMealLog;
 import calofit.model.util.SampleDataUtil;
 import calofit.storage.DishDatabaseStorage;
 import calofit.storage.JsonDishDatabaseStorage;
+import calofit.storage.JsonMealLogStorage;
 import calofit.storage.JsonUserPrefsStorage;
+import calofit.storage.MealLogStorage;
 import calofit.storage.Storage;
 import calofit.storage.StorageManager;
 import calofit.storage.UserPrefsStorage;
@@ -38,6 +46,7 @@ import calofit.ui.UiManager;
  */
 public class MainApp extends Application {
 
+    public static final Duration TIME_UPDATE_PERIOD = Duration.ofSeconds(10);
     public static final Version VERSION = new Version(1, 2, 1, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
@@ -48,6 +57,9 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
 
+    private Timer timer = new Timer(Platform::runLater);
+    private SimpleObjectProperty<LocalDateTime> nowProperty = new SimpleObjectProperty<>(LocalDateTime.now());
+
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing DishDatabase ]===========================");
@@ -56,18 +68,25 @@ public class MainApp extends Application {
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 
-        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(
+                config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         DishDatabaseStorage dishDatabaseStorage = new JsonDishDatabaseStorage(userPrefs.getDishDatabaseFilePath());
-        storage = new StorageManager(dishDatabaseStorage, userPrefsStorage);
+        MealLogStorage mealLogStorage = new JsonMealLogStorage(userPrefs.getMealLogFilePath());
+        storage = new StorageManager(dishDatabaseStorage, mealLogStorage, userPrefsStorage);
 
         initLogging(config);
 
+        timer.registerPeriodic(TIME_UPDATE_PERIOD, () -> {
+            nowProperty.set(LocalDateTime.now());
+        });
+
         model = initModelManager(storage, userPrefs);
+        model.nowProperty().bind(nowProperty);
 
         logic = new LogicManager(model, storage);
 
-        ui = new UiManager(logic);
+        ui = new UiManager(logic, timer);
     }
 
     /**
@@ -100,10 +119,22 @@ public class MainApp extends Application {
      * @param userPrefs User preference object
      * @return Meal loaded from file, or a new instance if file is missing or invalidn
      */
-    private MealLog loadMealLog(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        //TODO: Load from file given by userPrefs
-        MealLog mealLog = new MealLog();
-        return mealLog;
+    private ReadOnlyMealLog loadMealLog(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        Optional<ReadOnlyMealLog> mealLogOptional;
+        ReadOnlyMealLog initialData;
+        try {
+            mealLogOptional = storage.readMealLog();
+            if (!mealLogOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a empty MealLog");
+            }
+            return mealLogOptional.orElseGet(SampleDataUtil::getNewMealLog);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty MealLog");
+            return new MealLog();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty MealLog");
+            return new MealLog();
+        }
     }
 
     /**
@@ -113,7 +144,7 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         ReadOnlyDishDatabase dishDb = loadDishDatabase(storage, userPrefs);
-        MealLog mealLog = loadMealLog(storage, userPrefs);
+        ReadOnlyMealLog mealLog = loadMealLog(storage, userPrefs);
         return new ModelManager(mealLog, dishDb, userPrefs);
     }
 

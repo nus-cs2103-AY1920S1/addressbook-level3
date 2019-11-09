@@ -5,6 +5,7 @@ import static calofit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +13,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import calofit.logic.commands.AddCommand;
-import calofit.logic.commands.ClearCommand;
 import calofit.logic.commands.DeleteCommand;
 import calofit.logic.commands.EditCommand;
 import calofit.logic.commands.ExitCommand;
@@ -40,16 +40,12 @@ public class CommandParserTest {
     }
 
     @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
-    }
-
-    @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST_MEAL.getOneBased());
-        assertEquals(new DeleteCommand(TypicalIndexes.INDEX_FIRST_MEAL), command);
+        List<Integer> mealIndexList = new ArrayList<Integer>();
+        mealIndexList.add(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
+        assertEquals(new DeleteCommand(mealIndexList), command);
     }
 
     @Test

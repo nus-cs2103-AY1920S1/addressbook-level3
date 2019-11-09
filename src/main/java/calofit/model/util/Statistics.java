@@ -1,61 +1,99 @@
 package calofit.model.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.SortedMap;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 
+import calofit.commons.core.LogsCenter;
 import calofit.model.CalorieBudget;
 import calofit.model.dish.Dish;
 import calofit.model.meal.Meal;
-import calofit.model.meal.MealLog;
 
 /**
  * Wrapper class that contains all the statistics to be generated in the report.
+ * Statistics to be generated are calculated and stored in the wrapper object as data attributes.
  */
 public class Statistics {
+
+    private static final Logger logger = LogsCenter.getLogger(Statistics.class);
 
     private final int maximum;
     private final int minimum;
     private final double average;
     private final int calorieExceedCount;
-    private final Dish mostConsumedDish;
+    private final List<Dish> mostConsumedDishes;
+    private final Series<String, Integer> foodChartData;
+    private final Series<String, Integer> calorieChartSeries;
 
     /**
      * Constructor for the wrapper Statistics class that cannot be called by other classes.
      * @param maximum is the maximum Calorie intake of the month.
      * @param minimum is the minimum Calorie intake of the month.
      * @param average is the average Calorie intake per day of the month.
-     * @param calorieExceedCount is the number of days of the month where the calorie budget exceeded.
-     * @param mostConsumed is the Meal that was most consumed in the month.
+     * @param calorieExceedCount is the number of days of the month where the calorie budget was exceeded.
+     * @param mostConsumedDishes is the list of dishes that was most consumed in the month.
+     * @param foodChartData is the data that contains the quantity of each dish eaten this month.
+     * @param calorieSeries is the series that represents the data showing calories taken over time for this month.
      */
-    private Statistics(int maximum, int minimum, double average, int calorieExceedCount, Dish mostConsumed) {
+    private Statistics(int maximum, int minimum, double average, int calorieExceedCount, List<Dish> mostConsumedDishes,
+                       Series<String, Integer> foodChartData, Series<String, Integer> calorieSeries) {
+
+        assert maximum >= 0 : "Negative maximum calorie value is invalid.";
+        assert minimum >= 0 : "Negative minimum calorie value is invalid.";
+        assert average >= 0 : "Negative average calorie value is invalid.";
+        assert calorieExceedCount >= 0 : "Negative number of days calorie intake exceeded budget is invalid.";
+        assert mostConsumedDishes.size() > 0 : "Empty meal log resulted in empty list of most consumed dishes.";
+        assert foodChartData.getData().size() > 0 : "Empty meal log resulted in no data obtained for the food chart.";
+        assert calorieSeries.getData().size() > 0 : "Empty meal log resulted in no calorie intake value processed.";
+
         this.maximum = maximum;
         this.minimum = minimum;
         this.average = average;
         this.calorieExceedCount = calorieExceedCount;
-        this.mostConsumedDish = mostConsumed;
+        this.mostConsumedDishes = mostConsumedDishes;
+        this.foodChartData = foodChartData;
+        this.calorieChartSeries = calorieSeries;
+
     }
 
     /**
-     * Factory static method to generate a Statistics wrapper class based on the MealLog for current month.
-     * @param mealLog is the MealLog to get the statistics from.
-     * @param budget is the CalorieBudget to obtain the history of budgets set by the user.
+     * Factory static method to create the Statistics object based on the {@code MealLog} and {@code CalorieBudget}.
+     * @param currentMonthMealLog is the MealLog that contains the list of meals which we want to gather the data from.
+     * @param budget is the CalorieBudget that contains the history of budgets which we want to gather the data from.
      * @return a Statistics object that wraps about the statistics generated.
      */
-    public static Statistics generateStatistics(MealLog mealLog, CalorieBudget budget) {
-        ObservableList<Meal> currentMonthMeals = mealLog.getCurrentMonthMeals();
-        Dish mostConsumed = Statistics.getMostConsumedDish(currentMonthMeals);
-        int calorieExceedCount = Statistics.getCalorieExceedCount(budget, currentMonthMeals);
+    public static Statistics generateStatistics(ObservableList<Meal> currentMonthMealLog, CalorieBudget budget) {
+        logger.fine("Statistics are being generated.");
+
+        try {
+            requireNonNull(budget);
+        } catch (NullPointerException nullParams) {
+            logger.fine("Null CalorieBudget cannot be processed to get statistics.");
+        }
+        assert !currentMonthMealLog.isEmpty() : "Empty current month meal log not handled.";
+
+        int calorieExceedCount = Statistics.getCalorieExceedCount(budget, currentMonthMealLog);
+        List<Dish> mostConsumedDishes = Statistics.getMostConsumedDishes(currentMonthMealLog);
+        Series<String, Integer> foodChartData = Statistics.getFoodChartSeries(currentMonthMealLog);
+        Series<String, Integer> calorieChartData = Statistics.getCalorieChartSeries(currentMonthMealLog);
+
         int maximum = 0;
         int minimum = 0;
         double average = 0.0;
         for (int i = 1; i <= LocalDate.now().lengthOfMonth(); i++) {
             LocalDate currentDate = LocalDate.now().withDayOfMonth(i);
             int currentCalorieValue = 0;
-            ObservableList<Meal> currentDayMeals = currentMonthMeals
+            ObservableList<Meal> currentDayMeals = currentMonthMealLog
                     .filtered(meal -> meal.getTimestamp().getDateTime().toLocalDate().equals(currentDate));
             for (int j = 0; j < currentDayMeals.size(); j++) {
                 Meal currentMeal = currentDayMeals.get(j);
@@ -70,13 +108,38 @@ public class Statistics {
             }
         }
 
-        average = Math.round(average / LocalDate.now().lengthOfMonth());
+        average = Math.round(average / ((double) LocalDate.now().lengthOfMonth()));
 
-        return new Statistics(maximum, minimum, average, calorieExceedCount, mostConsumed);
+        return new Statistics(maximum, minimum, average,
+                calorieExceedCount, mostConsumedDishes, foodChartData, calorieChartData);
     }
 
     /**
-     * Returns number of days of current month where calorie intake exceeded calorie budget.
+     * Gets the maximum calorie intake of the month.
+     * @return the calorie value as an int
+     */
+    public int getMaximum() {
+        return this.maximum;
+    }
+
+    /**
+     * Gets the minimum calorie intake of the month.
+     * @return the calorie value as an int.
+     */
+    public int getMinimum() {
+        return this.minimum;
+    }
+
+    /**
+     * Gets the average calorie intake of the month.
+     * @return the calorie value as an double.
+     */
+    public double getAverage() {
+        return this.average;
+    }
+
+    /**
+     * Returns the number of days of the current month where calorie intake exceeded calorie budget.
      * @return the number of days.
      */
     public int getCalorieExceedCount() {
@@ -84,12 +147,12 @@ public class Statistics {
     }
 
     /**
-     * Method to obtain number of times a calorie budget has been exceeded for that month.
-     * Calorie intake for that day is computed by filtering MealLog to obtain that day's meals and
-     * summing them up.
+     * Method to obtain the number of times the calorie budget has been exceeded for that month.
+     * Calorie intake for a day is computed by filtering {@code MealLog} to obtain that day's meals and
+     * summing the calorie values of the {@code Dish} that make up the {@code Meal}.
      * The calorie intake computed is then compared to that day's calorie budget set by the user.
-     * @param budget the calorie budget class that contains the history of budgets set by the user.
-     * @param monthlyMeals is the history of meals that the user has eaten for that month.
+     * @param budget the {@code CalorieBudget} that contains the history of budgets set by the user.
+     * @param monthlyMeals is the list of meals that the user has eaten for that month.
      * @return the number of days where the calorie intake exceeded the calorie budget.
      */
     public static int getCalorieExceedCount(CalorieBudget budget, ObservableList<Meal> monthlyMeals) {
@@ -115,57 +178,108 @@ public class Statistics {
     }
 
     /**
-     * Returns the most consumed Dish of the Month.
-     * @return a Dish.
+     * Returns the most consumed {@code Dish} of the month in a list to cater to multiple dishes.
+     * @return a list of dishes.
      */
-    public Dish getMostConsumedDish() {
-        return this.mostConsumedDish;
+    public List<Dish> getMostConsumedDishes() {
+        return this.mostConsumedDishes;
     }
 
     /**
-     * Method to obtain the most consumed Dish in a list of meals
-     * Obtained by storing Dishes in a hashmap to check for duplicates and increment how many times they are eaten.
+     * Method to obtain the most consumed {@code Dish} or Dishes of the month.
+     * Obtained by storing Dishes in a {@code HashMap} to check for duplicates and
+     * incrementing the value everytime the dish is processed.
      * @param meals is the list of meals that we want to know the information from.
-     * @return the most consumed Dish in the list.
+     * @return the list of most consumed dishes.
      */
-    public static Dish getMostConsumedDish(ObservableList<Meal> meals) {
-        HashMap<Dish, Integer> map = new HashMap<>();
+    public static List<Dish> getMostConsumedDishes(ObservableList<Meal> meals) {
+        HashMap<Dish, Integer> mapOfDishes = new HashMap<>();
         for (int i = 0; i < meals.size(); i++) {
             Dish currentDish = meals.get(i).getDish();
-            Integer value = map.get(currentDish);
-            map.put(currentDish, value == null ? 1 : value + 1);
+            Integer value = mapOfDishes.get(currentDish);
+            mapOfDishes.put(currentDish, value == null ? 1 : value + 1);
         }
-        Entry<Dish, Integer> max = null;
-        for (Entry<Dish, Integer> e : map.entrySet()) {
-            if (max == null || e.getValue() > max.getValue()) {
-                max = e;
+        Entry<Dish, Integer> maxEntry = null;
+        for (Entry<Dish, Integer> currentEntry : mapOfDishes.entrySet()) {
+            if (maxEntry == null || currentEntry.getValue() > maxEntry.getValue()) {
+                maxEntry = currentEntry;
             }
         }
-        return max.getKey();
+        Integer maxValue = maxEntry.getValue();
+        ArrayList<Dish> listOfMostConsumedDishes = new ArrayList<>();
+        for (Entry<Dish, Integer> currentEntry : mapOfDishes.entrySet()) {
+            if (currentEntry.getValue() == maxValue) {
+                listOfMostConsumedDishes.add(currentEntry.getKey());
+            }
+        }
+        return listOfMostConsumedDishes;
     }
 
     /**
-     * Gets the maximum calorie intake of the month.
-     * @return the calorie value as an int
+     * Getter method to return the list of dishes and their quantity consumed for this month as a series
+     * @return the series containing the dishes eaten this month and their respective quantities.
      */
-    public int getMaximum() {
-        return this.maximum;
+    public Series<String, Integer> getFoodChartSeries() {
+        return this.foodChartData;
     }
 
     /**
-     * Gets the minimum calorie intake of the month.
-     * @return the calorie value as an int
+     * Generates the list of dishes that the user has eaten this month and the number of times each was eaten.
+     * Stores the data in a Series and returns it.
+     * Obtained by storing the {@code Dish} in a {@code HashMap} to check for duplicates and
+     * incrementing the value everytime the dish is processed.
+     * For each {@code Entry} generated from the {@code EntrySet} of the HashMap,
+     * a {@code Data} object is created with the entry name and value.
+     * @param meals is the list of meals that we want to know the information from.
+     * @return the series containing each dish and their quantity eaten this month.
      */
-    public int getMinimum() {
-        return this.minimum;
+    public static Series<String, Integer> getFoodChartSeries(ObservableList<Meal> meals) {
+        XYChart.Series<String, Integer> foodData = new XYChart.Series<>();
+        foodData.setName("Types of Food.");
+        HashMap<Dish, Integer> mapOfDishes = new HashMap<>();
+        for (int i = 0; i < meals.size(); i++) {
+            Dish currentDish = meals.get(i).getDish();
+            Integer value = mapOfDishes.get(currentDish);
+            mapOfDishes.put(currentDish, value == null ? 1 : value + 1);
+        }
+        for (Entry<Dish, Integer> currentEntry : mapOfDishes.entrySet()) {
+            foodData.getData().add(new XYChart.Data(
+                    currentEntry.getKey().getName().toString(), currentEntry.getValue()));
+        }
+        return foodData;
     }
 
     /**
-     * Gets the average calorie intake of the month.
-     * @return the calorie value as an int
+     * Getter method to return the series of calorie intake value of the user over the course of the month.
+     * @return the series representing the above data.
      */
-    public double getAverage() {
-        return this.average;
+    public Series<String, Integer> getCalorieChartSeries() {
+        return this.calorieChartSeries;
+    }
+
+    /**
+     * Method to get the amount of calories taken per day over the month and store them in a series.
+     * Calorie intake for a day is computed by filtering monthlyMeals to obtain that day's meals and
+     * summing the calorie values of the {@code Dish} that make up the {@code Meal}.
+     * A {@code Data} object is then added to the series containing the date of the month and the
+     * calorie intake value calculated for that date.
+     * @param monthlyMeals is the list of meals taken this month.
+     * @return the series itself.
+     */
+    public static Series<String, Integer> getCalorieChartSeries(ObservableList<Meal> monthlyMeals) {
+        XYChart.Series<String, Integer> calorieData = new XYChart.Series<>();
+        calorieData.setName("Date");
+        for (int i = 1; i <= LocalDate.now().lengthOfMonth(); i++) {
+            int currentCalorieValue = 0;
+            LocalDate currentDate = LocalDate.now().withDayOfMonth(i);
+            ObservableList<Meal> currentDayMeals = monthlyMeals
+                    .filtered(meal -> meal.getTimestamp().getDateTime().toLocalDate().equals(currentDate));
+            for (int j = 0; j < currentDayMeals.size(); j++) {
+                currentCalorieValue += currentDayMeals.get(j).getDish().getCalories().getValue();
+            }
+            calorieData.getData().add(new XYChart.Data(String.valueOf(i), currentCalorieValue));
+        }
+        return calorieData;
     }
 
 }

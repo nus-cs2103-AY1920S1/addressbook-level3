@@ -1,0 +1,35 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor COMMAND_COLOR
+skinparam classBackgroundColor COMMAND_COLOR
+
+Package Model {
+Class CalorieBudget
+Class MealLog
+}
+
+Package Logic {
+Class ReportCommand
+CLass CommandResult
+}
+
+Package Ui {
+Class ReportWindow
+}
+
+Package Util {
+Class Statistics
+}
+
+ReportWindow .right.> Statistics : gets values from >
+Statistics .up.> MealLog : gets data from >
+Statistics .up.> CalorieBudget : gets data from >
+
+ReportCommand -> CommandResult : returns a >
+
+CommandResult -> ReportWindow : creates a >
+
+ReportWindow -[hidden]up-> ReportCommand
+
+@enduml
