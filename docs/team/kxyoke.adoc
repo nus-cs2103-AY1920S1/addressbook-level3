@@ -2,8 +2,9 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
-== PROJECT: Mark
+= PROJECT: Mark
 
 ---
 
@@ -33,16 +34,38 @@ Note the following symbols and formatting used in this document:
 //TODO: symbols/glossary list
 
 == Summary of contributions
+This section gives a summary of the features I implemented, documentation I did and other parts I contributed to my team project.
 
-* *Major enhancement*: added the ability to *annotate offline copies of web pages*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+=== Major enhancements
+I have made 2 major enhancements: adding the annotation functionality and adding the in-built web browser.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+==== Added the annotation feature
+I added the ability to annotate the offline copy of the web page referred to by a bookmark. Users can not only read their web pages offline,
+but they can also make notes on them directly. They can highlight paragraphs and attach notes to paragraphs or add general notes to the document.
+//** What it does
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* Justification: Users may need to make notes as they are reading through their web pages, for instance when studying. This means it is important for them
+to be able to conveniently make notes while they remember what they need to annotate. Rather than having to go through the hassle of opening a new document and storing notes
+separately, they can instead annotate directly on the web page the moment they want to add notes or emphasize a piece of information.
+This feature keeps their notes together with the content of the web page and makes it easy to get information by taking a glance at the annotated document. If they want to make changes to their
+existing annotations, they can also do so easily in just one step.
+
+* Highlights:
+* Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+==== Added the web browsing feature
+I added the ability to browse web pages on the application. Users can navigate the web using the embedded web view and the address bar.
+
+* Justification: Users no longer need to open a separate web browser window to view their bookmarks. This ensures easy navigation within the application by maintaining focus on the application
+rather than on other platforms, which would otherwise make it more troublesome to handle
+
+
+=== Minor enhancement
+In addition to the major enhancements I made, I also created tabs to house the various parts of the user interface that we show to the user.
+==== Added tab view
+
+=== Code contributed
+ [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
