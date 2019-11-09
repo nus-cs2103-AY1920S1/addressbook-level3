@@ -16,8 +16,8 @@ I was responsible for writing the expense adding feature. This makes my role par
 == Summary of contributions
 
 * *Major enhancement*: Added the ability to add expenses
-** *What it does:* The `expense` command allows the user to add expenses to an activity by first specifying who paid and how much, then optionally listing people who were involved in the expense.
-** *Justification:* This is important as it gives users the precise control over the people required to pay in each expense. In a real-world group activity scenario, it might not be the case that everyone is involved in every part of the activity that involves money. For example, one might go out for a meal with friends but opt out of buying dessert later.
+** *What it does:* The `expense` command allows the user to add expenses to an activity by first specifying who paid and how much, followed by an optional description of the expense, then optionally listing people who were involved in the expense.
+** *Justification:* This is important as it gives users the necessary precise control over the people required to pay in each expense. In a real-world group activity scenario, it might not be the case that everyone is involved in every part of the activity that involves money. For example, one might go out for a meal with friends but opt out of buying dessert later. Having such flexibility enables the user to manage a wide range of real-world scenarios.
 ** *Highlights:* The design of the `expense` command was particularly tricky due to the limitations of a CLI interface. The tough part was in trying to strike a balance between keeping the command simple enough to use yet provide enough flexibility for the user to specify various possible combinations of expense details. We went through various possible designs for the `expense` command and took the user experience into consideration for each case, before finally settling on the way the `expense` command is currently structured.
 
 * *Minor enhancement*: Updated the `edit` command to only work when viewing a contact or activity
@@ -46,7 +46,11 @@ I was responsible for writing the expense adding feature. This makes my role par
 
 include::../UserGuide.adoc[tag=expense]
 
+---
 include::../UserGuide.adoc[tag=edit]
+
+---
+include::../UserGuide.adoc[tag=varexpense]
 
 == Contributions to the Developer Guide
 

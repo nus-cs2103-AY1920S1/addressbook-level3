@@ -16,10 +16,10 @@ participant "e:Expense" as Expense MODEL_COLOR
 participant "a:Activity" as Activity MODEL_COLOR
 end box
 
-[-> LogicManager : execute("expense p/David p/Mary e/10 d/nasi lemak")
+[-> LogicManager : execute("expense p/Jo e/10")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("expense p/David p/Mary e/10 d/nasi lemak")
+LogicManager -> AddressBookParser : parseCommand("expense p/Jo e/10")
 activate AddressBookParser
 
 create ExpenseCommandParser
@@ -29,11 +29,11 @@ activate ExpenseCommandParser
 ExpenseCommandParser --> AddressBookParser
 deactivate ExpenseCommandParser
 
-AddressBookParser -> ExpenseCommandParser : parse("p/David p/Mary e/10 d/nasi lemak")
+AddressBookParser -> ExpenseCommandParser : parse("p/Jo e/10")
 activate ExpenseCommandParser
 
 create ExpenseCommand
-ExpenseCommandParser -> ExpenseCommand : ExpenseCommand({"David", "Mary"}, new Amount(10), "nasi lemak")
+ExpenseCommandParser -> ExpenseCommand : ExpenseCommand({"Jo"}, 10, "")
 activate ExpenseCommand
 
 ExpenseCommand --> ExpenseCommandParser : i
