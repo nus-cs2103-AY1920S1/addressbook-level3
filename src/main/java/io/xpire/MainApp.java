@@ -33,6 +33,7 @@ import io.xpire.ui.Ui;
 import io.xpire.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 /**
  * Runs the application.
@@ -86,19 +87,19 @@ public class MainApp extends Application {
      * {@code storage}'s expiry date tracker.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyListView<? extends Item>>[] listArray;
+        Pair<Optional<ReadOnlyListView>, Optional<ReadOnlyListView>> pair;
         ReadOnlyListView<XpireItem> initialTrackerData;
         ReadOnlyListView<Item> initialReplenishData;
         try {
-            listArray = storage.readList();
-            if (!listArray[0].isPresent()) {
+            pair = storage.readList();
+            if (pair.getKey().isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample Expiry Date Tracker");
             }
-            if (!listArray[1].isPresent()) {
+            if (pair.getValue().isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample Replenish List");
             }
-            initialTrackerData = (Xpire) listArray[0].orElseGet(SampleDataUtil::getSampleXpire);
-            initialReplenishData = (ReplenishList) listArray[1].orElseGet(
+            initialTrackerData = (Xpire) pair.getKey().orElseGet(SampleDataUtil::getSampleXpire);
+            initialReplenishData = (ReplenishList) pair.getValue().orElseGet(
                     SampleDataUtil::getSampleReplenishList
             );
         } catch (DataConversionException e) {

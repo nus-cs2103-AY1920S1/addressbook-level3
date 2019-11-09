@@ -66,7 +66,6 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        XpireItem apple = new XpireItemBuilder().withName("Apple").build();
         XpireItem banana = new XpireItemBuilder().withName("Banana").build();
         AddCommand addAppleCommand = new AddCommand(new Name(VALID_NAME_APPLE), new ExpiryDate(VALID_EXPIRY_DATE_APPLE),
                 new Quantity(VALID_QUANTITY_APPLE));
