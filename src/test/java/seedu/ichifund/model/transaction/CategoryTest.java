@@ -28,13 +28,14 @@ public class CategoryTest {
         assertFalse(Category.isValidCategory(" ")); // spaces only
         assertFalse(Category.isValidCategory("^")); // only non-alphanumeric characters
         assertFalse(Category.isValidCategory("food*")); // contains non-alphanumeric characters
+        assertFalse(Category.isValidCategory("Breakfast with Tiffany because Sabrina disappearedd")); // too long
 
         // valid category
         assertTrue(Category.isValidCategory("food")); // alphabets only
         assertTrue(Category.isValidCategory("000")); // numbers only
         assertTrue(Category.isValidCategory("food1")); // alphanumeric characters
         assertTrue(Category.isValidCategory("Breakfast with Tiffany")); // with capital letters
-        assertTrue(Category.isValidCategory("Breakfast with Tiffany because Sabrina disappeared"));
+        assertTrue(Category.isValidCategory("Breakfast with Tiffany because Sabrina disappeared")); // 50 characters
     }
 
     @Test
