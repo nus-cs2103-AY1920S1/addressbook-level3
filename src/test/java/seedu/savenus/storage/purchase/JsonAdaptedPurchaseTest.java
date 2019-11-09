@@ -13,7 +13,7 @@ import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.TimeOfPurchase;
 import seedu.savenus.storage.food.JsonAdaptedFood;
 
-
+//@@author raikonen
 public class JsonAdaptedPurchaseTest {
 
     private static final TimeOfPurchase VALID_TIMEOFPURCHASE = new TimeOfPurchase("1570976664361");

@@ -2,6 +2,7 @@ package seedu.savenus.model.purchase;
 
 import seedu.savenus.model.util.TimeStamp;
 
+//@@author raikonen
 /**
  * Class to create TimeOfPurchase.
  */

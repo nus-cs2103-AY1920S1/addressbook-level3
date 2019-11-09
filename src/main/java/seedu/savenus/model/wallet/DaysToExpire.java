@@ -9,6 +9,7 @@ import java.time.temporal.ChronoUnit;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+//@@author raikonen
 /**
  * Represents the number of days to budget expiration in the application.
  */

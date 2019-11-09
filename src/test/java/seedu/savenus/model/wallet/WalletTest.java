@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 
+//@@author raikonen
 public class WalletTest {
 
     public static final Wallet EMPTYWALLET = new Wallet("0" , "10");

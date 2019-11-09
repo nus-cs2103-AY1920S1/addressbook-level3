@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+//@@author raikonen
 /**
  * Time Formatter class to format {@code LocalDateTime} input into user-readable strings.
  */

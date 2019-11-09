@@ -9,6 +9,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.savenus.model.util.Money;
 
+//@@author raikonen
 /**
  * Represents a {@code Wallet}'s {@code RemainingBudget} amount in the application.
  */

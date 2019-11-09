@@ -2,6 +2,7 @@ package seedu.savenus.model.wallet.exceptions;
 
 import seedu.savenus.model.wallet.RemainingBudget;
 
+//@@author raikonen
 /**
  * Signals that the budget input amount is out of bounds;
  */

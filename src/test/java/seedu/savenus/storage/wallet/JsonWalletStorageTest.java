@@ -18,6 +18,7 @@ import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
 
 
+//@@author raikonen
 public class JsonWalletStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
             "JsonWalletStorageTest");

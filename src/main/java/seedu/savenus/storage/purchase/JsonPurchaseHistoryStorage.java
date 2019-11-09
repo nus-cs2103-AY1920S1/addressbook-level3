@@ -15,6 +15,7 @@ import seedu.savenus.commons.util.JsonUtil;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.storage.menu.JsonMenuStorage;
 
+//@@author raikonen
 /**
  * A class to access Purchase History data stored as a json file on the hard disk.
  */
