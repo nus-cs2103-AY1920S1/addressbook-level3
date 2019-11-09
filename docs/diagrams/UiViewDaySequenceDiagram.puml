@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":UiManager" as UiManager LOGIC_COLOR
+end box
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":CalendarPanel" as CalendarPanel UI_COLOR
+participant "timelineView:TimelineDayView" as TimelineDayView UI_COLOR
+participant "calendarScreen:CalendarScreen" as CalendarScreen UI_COLOR
+end box
+
+'==== UiManager ====
+[-> UiManager : viewDay(calendarDate)
+activate UiManager
+UiManager -> MainWindow : viewDay(calendarDate)
+
+activate MainWindow
+MainWindow -> CalendarPanel : changeToDayView(calendarDate)
+
+activate CalendarPanel
+CalendarPanel -> CalendarPanel : changeCalendarScreenDate(calendarDate)
+
+activate CalendarPanel
+create CalendarScreen
+CalendarPanel -> CalendarScreen : CalendarScreen()
+activate CalendarScreen
+CalendarScreen --> CalendarPanel : calendarScreen
+deactivate CalendarScreen
+CalendarPanel --> CalendarPanel
+deactivate CalendarPanel
+
+create TimelineDayView
+CalendarPanel -> TimelineDayView : TimelineDayView()
+activate TimelineDayView
+TimelineDayView --> CalendarPanel : timelineView
+deactivate TimelineDayView
+
+CalendarPanel --> MainWindow
+deactivate CalendarPanel
+
+MainWindow -> CalendarPanel : viewCalendar()
+activate CalendarPanel
+CalendarPanel --> MainWindow
+deactivate CalendarPanel
+MainWindow --> UiManager
+deactivate MainWindow
+UiManager -->[
+deactivate UiManager
+UiManager -[hidden]--> UiManager
+@enduml

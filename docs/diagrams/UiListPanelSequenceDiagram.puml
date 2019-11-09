@@ -1,0 +1,35 @@
+*@startuml
+!include style.puml
+box Ui UI_COLOR_T1
+participant ":ListPanel" as ListPanel UI_COLOR
+participant ":EventListPanel" as EventListPanel UI_COLOR
+participant ":TaskListPanel" as TaskListPanel UI_COLOR
+end box
+
+'==== Event List ====
+[-> ListPanel : onEventListChange(events, eventHash)
+activate ListPanel
+
+ListPanel -> EventListPanel : onEventListChange(events, eventHash)
+activate EventListPanel
+EventListPanel --> ListPanel
+deactivate EventListPanel
+
+ListPanel -->[
+deactivate ListPanel
+
+'==== Task List =====
+[-> ListPanel : onTaskListChange(tasks, taskHash)
+activate ListPanel
+
+ListPanel -> TaskListPanel : onTaskListChange(tasks, taskHash)
+activate TaskListPanel
+TaskListPanel--> ListPanel
+deactivate TaskListPanel
+
+ListPanel -->[
+deactivate ListPanel
+
+
+
+@enduml

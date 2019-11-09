@@ -55,7 +55,8 @@ public class UpcomingView extends UiPart<Region> {
             if (source instanceof EventSource) {
                 EventSource event = (EventSource) source;
                 DateTime eventDate = event.getStartDateTime();
-                if (currentDate.sameMonthYear(eventDate.getMonth(), eventDate.getYear())) {
+                if (currentDate.sameMonthYear(eventDate.getMonth(), eventDate.getYear())
+                        && currentDate.getDay() <= eventDate.getDay()) {
                     UpcomingEventCard eventCard = new UpcomingEventCard(event);
                     upcomingList.getChildren().add(eventCard.getRoot());
                     index++;
@@ -63,7 +64,9 @@ public class UpcomingView extends UiPart<Region> {
             } else if (source instanceof TaskSource) {
                 TaskSource task = (TaskSource) source;
                 DateTime taskDate = task.getDueDate();
-                if (taskDate != null && currentDate.sameMonthYear(taskDate.getMonth(), taskDate.getYear())) {
+                if (taskDate != null
+                        && currentDate.sameMonthYear(taskDate.getMonth(), taskDate.getYear())
+                        && currentDate.getDay() <= taskDate.getDay()) {
                     UpcomingTaskCard taskCard = new UpcomingTaskCard(task);
                     upcomingList.getChildren().add(taskCard.getRoot());
                     index++;
