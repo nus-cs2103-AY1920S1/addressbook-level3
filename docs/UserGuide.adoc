@@ -663,6 +663,7 @@ image::recommend.png[]
 
 [NOTE]
 To clear the recommendations, use the `list` or `add` command.
+Recommendations will be cleared too using specific sorting commands such as `sort`.
 
 [NOTE]
 The recommended amount to spend per meal is calculated by `budget / (daysToExpiry * 2)` under the assumption that the
