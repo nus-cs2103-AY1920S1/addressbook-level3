@@ -35,7 +35,7 @@ public class AutoCompleteTextField extends TextField {
     /**
      * the listener that will be added to textproperty
      * listens for changes in user input and suggests
-     * commands accordingly
+     * commands accordingly, filters by contains()
      */
     private ChangeListener<String> changeListener = new ChangeListener<>() {
         @Override
@@ -86,8 +86,7 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * populates contextmenu
-     * of command to be entered
+     * populates contextmenu with suggestions from listener
      * if any suggestion is selected,
      * set the textfield to suggestion
      * @param searchResult
