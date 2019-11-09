@@ -393,6 +393,7 @@ The Duty shift scheduling contains multiple operations to indirectly manipulate 
 
 `editshift` Command - Change a current duty shift's timing to a different timing.
 
+`cancelshift` Command - Cancels duty shift found within the duty shift sechedule.
 
 The class diagram below illustrates the interactions between the Appointment class and associated classes.
 
@@ -423,32 +424,13 @@ The following activity diagram summarizes what happens when a user executes a Ch
 
 .Interactions Inside the Logic Component when a user executes a `editappt` command
 
-image::ChangeAppointmentActivityDiagram.png[]
+image::ChangeShiftActivityDiagram.png[]
 
 ==== `cancelshift` Command
 
-`cancelshift` simply takes in the index of the target appointment to cancel according to the displayed appointment list.
+`cancelshift` simply takes in the index of the target duty shift to cancel according to the displayed shift list.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("cancelappt 1")` API call.
-
-.Interactions Inside the Logic Component for the `cancelappt 1` Command
-image::CancelAppointmentSequenceDiagram.png[]
-
-In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's dutyRoster and Model#`UniqueEventList`. This ensures users can easily make appointments for patients.
-
-`newshift` Command - Adds a appointment or reoccurring appointments to a patient.
-
-`ackappt` Command - Acknowledges a appointment once the patient reaches.
-
-`appointments` Command - Lists all upcoming appointment schedule or lists a specific patient's upcoming appointments.
-
-`editappt` Command - Change a current appointment's timing to a different timing.
-
-`cancelappt` Command - Cancels appointments found within the appointment schedule.
-
-`missappt` Command - Lists all missing appointment.
-
-`settleappt` Command - Settles a missing appointment when user contact with patient.
+In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's dutyRoster and Model#`UniqueEventList`. This ensures users can easily add duty shift for any doctor.
 
 ==== Design Considerations
 
