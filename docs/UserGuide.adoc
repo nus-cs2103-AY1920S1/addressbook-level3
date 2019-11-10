@@ -247,7 +247,7 @@ Displays a list of all spending and their information such as name, date, cost, 
 *Format:* `list`
 
 [NOTE]
-By default, list of all spending is sorted by descending order of date, followed by descending order of cost and lastly, by ascending order of name. +
+By default, list of all spending is sorted by descending order of date, descending order of cost, ascending order of name and finally ascending order of remark. +
 
 [TIP]
 This command is implicitly invoked upon application start up, and can be used to reset the view after find or sort.

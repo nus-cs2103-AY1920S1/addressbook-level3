@@ -1299,7 +1299,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to list all spending.
-2.  MoneyGoWhere shows list of spending in the default order of date in descending order, followed by cost in descending order and name in ascending order.
+2.  MoneyGoWhere shows list of spending in the default order of date in descending order, cost in descending order, name in ascending order and remark in ascending order.
 +
 Use case ends.
 
