@@ -11,7 +11,7 @@
 
 Budget Buddy is a desktop application that allows users to track their expenses.
 The user interacts with it using a Command-Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX.
-It is written in Java, and has about 15 kLoC.
+It is written in Java, and has about 20 kLoC.
 
 == About the Project
 
@@ -36,7 +36,8 @@ or scripts to trigger alarms when their expenses have exceeded a certain limit.
 
 My role in the project was to implement all facets regarding the *loans* feature.
 Chiefly, I added the ability for the user to add, edit, view and delete loans.
-Users can also mark loans as paid or unpaid, and when viewing their list of loans they can sort or filter the list by amount, date and more.
+Users can also mark loans as paid or unpaid,
+and when viewing their list of loans they can sort or filter the list by amount, date and more.
 I was also responsible for implementing the complex algorithm necessary to split and divide an initially unbalanced group payment;
 the main challenge in this scenario was to devise an algorithm that worked for any group size and every variation of initial unbalance.
 
@@ -48,10 +49,13 @@ upholding the quality of project documentation, and ensuring the team remained o
 * *Major enhancement*: Added *the ability to track loans and split unbalanced group payments equally*
 ** *What they do*: Tracking loans allows the user to track all the money that they owe/are owed to other people.
 Splitting group payments through the app allows the user in avoiding messy miscalculations and over/under-paying their friends.
-** *Justification*: This feature improves the product significantly, as both lending/borrowing money and paying for large items as a group are common occurrences that affect one's expenses.
-** *Highlights*: Implementing loan-tracking required an in-depth analysis of design alternatives, especially regarding the structure of the loan-person relationship.
+** *Justification*: This feature improves the product significantly,
+as both lending/borrowing money and paying for large items as a group are common occurrences that affect one's expenses,
+especially for students.
+** *Highlights*: Implementing loan-tracking required an in-depth analysis of design alternatives,
+especially regarding the structure of the loan-person relationship.
 Building it on top of and mutating the original brownfield project also proved challenging.
-Splitting group payments proved difficult due to needing an accurate yet efficient algorithm.
+Splitting group payments proved difficult due to the need for an accurate yet efficient algorithm.
 Great care had to be taken to correctly implement each of the many steps in the complex final result.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=kenneth-fung[RepoSense Report]]
@@ -65,20 +69,41 @@ https://github.com/AY1920S1-CS2103T-W13-4/main/pull/3[#3]
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/AY1920S1-CS2103T-W13-4/main/pull/56[#56],
 https://github.com/AY1920S1-CS2103T-W13-4/main/pull/60[#60],
-https://github.com/AY1920S1-CS2103T-W13-4/main/pull/80[#80]
+https://github.com/AY1920S1-CS2103T-W13-4/main/pull/80[#80],
+https://github.com/AY1920S1-CS2103T-W13-4/main/pull/157[#157],
+https://github.com/AY1920S1-CS2103T-W13-4/main/pull/178[#178],
+https://github.com/AY1920S1-CS2103T-W13-4/main/pull/183[#183]
+
+<<<
 
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are a few sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users.
+Due to limited space, not all my contributions could be included;
+please refer to the full https://ay1920s1-cs2103t-w13-4.github.io/main/UserGuide.html#managing-loans-code-loan-code[User Guide]
+to read them in their entirety. I was responsible for the section on *Managing Loans*._
 |===
 
-include::../UserGuide.adoc[tag=loans]
+include::../UserGuide.adoc[tag=kenneth-ppp-loan-intro]
+
+include::../UserGuide.adoc[tag=kenneth-ppp-loan-paid]
+
+include::../UserGuide.adoc[tag=kenneth-ppp-loan-split]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are a few sections I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+Due to limited space, not all my contributions could be included;
+please refer to the full https://ay1920s1-cs2103t-w13-4.github.io/main/DeveloperGuide.html#loans-feature[Developer Guide]
+to read them in their entirety. I was responsible for the section detailing the *Loans Feature*._
 |===
 
-include::../DeveloperGuide.adoc[tag=loans]
+include::../DeveloperGuide.adoc[tag=kenneth-ppp-loan-class]
+include::../DeveloperGuide.adoc[tag=kenneth-ppp-loan-sequence]
+include::../DeveloperGuide.adoc[tag=kenneth-ppp-loan-multi]
+include::../DeveloperGuide.adoc[tag=kenneth-ppp-loan-split-1]
+include::../DeveloperGuide.adoc[tag=kenneth-ppp-loan-split-2]

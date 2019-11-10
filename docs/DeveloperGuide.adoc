@@ -272,6 +272,7 @@ After each command, `AccountsManager#resetFilteredAccountList` is called to rese
 // end::accounts[]
 
 // tag::loans[]
+// tag::kenneth-ppp-loan-class[]
 === Loans Feature
 ==== Implementation
 
@@ -289,6 +290,8 @@ image::LoanClassDiagram.png[]
 The `Debtor` class, `LoansManager#debtors`, `LoansManager#setDebtors` and `LoansManager#getDebtors` can be ignored for now.
 They are depicted here for the sake of completion,
 but will only be used when discussing the `loan split` command in a <<Loan Splitting,later section>>.
+
+// end::kenneth-ppp-loan-class[]
 
 Each `Loan` object has the following attributes:
 
@@ -317,6 +320,7 @@ After each command, the state of `internalList` is saved in the file `loans.json
 `loans.json` is stored on the local hard disk in a `data` folder,
 which is in the same directory as `budgetbuddy.jar`.
 
+// tag::kenneth-ppp-loan-sequence[]
 Given below is an example usage scenario and how the `LoansManager` behaves at each step.
 
 Step 1.
@@ -339,6 +343,7 @@ image::LoanSequenceDiagram.png[]
 
 In general, the rest of the operations work using a similar sequence of steps.
 Some commands might create a new `Loan` object (as shown above) while others might just use the `Index` of a loan (e.g. `loan delete`).
+// end::kenneth-ppp-loan-sequence[]
 
 Step 3.
 The user executes the command `loan list out p/John w/1/11/2019 s/x`
@@ -382,6 +387,8 @@ For the commands `loan paid`, `loan unpaid` and `loan delete`,
 if the user targets a loan outside of the list (e.g. index greater than list size)
 an error message will be displayed.
 
+// tag::kenneth-ppp-loan-multi[]
+
 ===== Multi-Loan Targeting
 
 The user can target and act on multiple loans with a single command.
@@ -402,6 +409,9 @@ Both lists are displayed to the user after other target loans that are in `inter
 notifying the user that the target `indices`/`persons` could not be found.
 
 Multi-loan targeting is implemented for the commands `loan paid`, `loan unpaid` and `loan delete`.
+// end::kenneth-ppp-loan-multi[]
+
+// tag::kenneth-ppp-loan-split-1[]
 
 ===== Loan Splitting
 
@@ -418,6 +428,7 @@ John executes the command `loan split p/John p/Mary p/Peter x/0 x/10 x/90`.
 Budget Buddy then outputs a list of the necessary payments between the three.
 From this list, John can now see that he owes Peter *$33.33* and that Mary owes Peter *$23.33*.
 ====
+// end::kenneth-ppp-loan-split-1[]
 
 To display the results of the calculations, `LoansManager` holds a list of `debtors` containing `Debtor` objects.
 For your convenience, the <<loan-class-diagram,class diagram of the Loans model>> is reproduced here:
@@ -435,6 +446,7 @@ Each entry in the `HashMap` represents a creditor, with their name as the `Perso
 This list is used to hold and display the `Debtor` objects created for the latest execution of `loan split`
 and is stored between sessions in `loans.json`.
 
+// tag::kenneth-ppp-loan-split-2[]
 Given below is an example scenario to demonstrate how the final list is calculated.
 The algorithm as a whole can be summarized in the activity diagram below,
 which might prove helpful for following the steps in the example scenario:
@@ -495,6 +507,7 @@ Step 5. The list of `debtors` in `LoansManager` is displayed to the user.
 In this scenario, the display will show that
 `Duke` owes `Adam` *$26.66*
 and `You` (`Kenneth`, the user) owe `Zed` and `Adam` *$3.32* and *$6.68* respectively.
+// end::kenneth-ppp-loan-split-2[]
 
 ==== Design Considerations
 ===== Aspect: Structure of the loan - person interaction

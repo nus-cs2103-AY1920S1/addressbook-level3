@@ -295,6 +295,7 @@ Step 3. Open the html file in the exports folder to see the overview of all acco
 // end::accounts[]
 
 // tag::loans[]
+// tag::kenneth-ppp-loan-intro[]
 === Managing loans: `loan`
 
 image::LoanUG1.png[width=75%,scaledwidth=75%]
@@ -304,6 +305,7 @@ Never again allow those small sums you lend out to accumulate into a massive pil
 You can also record who you owe money to, saving you the embarrassment of being publicly reminded by your loan shark friends.
 Finally, it can even help you calculate who owes who how much
 when you and said friends wake in the morning after an expensive night out.
+// end::kenneth-ppp-loan-intro[]
 
 ==== Add a new loan: `loan out|in`
 
@@ -386,6 +388,7 @@ Examples:
 `loan edit 1 x/500 d/Dude owes me so much money I can't even.` +
 Lists all loans, then edits the amount and description of the first loan in the list to the given values.
 
+// tag::kenneth-ppp-loan-paid[]
 ==== Mark loan(s) as paid: `loan paid`
 
 This command marks one or more loans in the list as *paid*.
@@ -414,6 +417,7 @@ Examples:
 Lists all loans, then marks the first three loans in the list as *paid*.
 * `loan paid p/John p/Adam` +
 Marks all loans pertaining to John and Adam as *paid*.
+// end::kenneth-ppp-loan-paid[]
 
 ==== Mark loan(s) as unpaid: `loan unpaid`
 
@@ -436,6 +440,7 @@ Its format is as follows.
 Format: `loan delete [<index ...>] [<p/person ...>]`
 
 [[loan-split]]
+// tag::kenneth-ppp-loan-split[]
 ==== Calculate loans: `loan split`
 
 This command takes a group of persons and a list of amounts each person has paid,
@@ -499,6 +504,7 @@ image::LoanUG5.png[width=75%,scaledwidth=75%]
 
 The latter debt will also have been added to your loan list,
 which can be checked using the command `loan list` or by pressing the hotkey mentioned above.
+// end::kenneth-ppp-loan-split[]
 // end::loans[]
 
 // tag::rules[]
