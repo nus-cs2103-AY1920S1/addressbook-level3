@@ -2349,46 +2349,61 @@ and "Unmarked Student" at index 2, who is not marked.
 .. Prerequisites: The student list already already contains 3 students, and there is already a group with GroupId "G02" present.
 
 .. Test case: `group manual/ groupID/G01 studentNumber/1 2 3` +
-   Expected: Adds student "New Student" to the list of students.
-.. Test case: `student name/Test Student` +
-   Expected: Shows error message that a student with the same name already exists in the student list.
-.. Test case: `student name/2231` +
-   Expected: Shows error message that student names can only contain alphabets and spaces.
-.. Test case: `student name/Test Student tag/Tag` +
-   Expected: Adds student "Test Student" with tag "Tag"
-.. Other incorrect add commands to try: `student name/new student tag/`, `student name/new student tag/tag with space` +
+   Expected: Creates group "G01" with students 1,2 and 3.
+.. Test case: `group manual/ groupID/G02 studentNumber/1 2 3` +
+   Expected: Shows error message that a group with the same name already exists in the group list.
+.. Test case: `group manual/ groupID/ studentNumber/1 2 3` +
+   Expected: Shows error message that groupID is left empty.
+.. Test case: `group manual/ groupID/G01 studentNumber/1 2 5` +
+   Expected: Shows error message that one or more of the student numbers is out of bounds.
+.. Other incorrect add commands to try: `group manual/ groupID/G01 studentNumber/`, `group manual/ groupID/ studentNumber/` +
    Expected: Shows error message regarding reason for command failure or the correct command syntax.
 
-. Editing an existing student in the student list.
+. Adding a student to an already created group.
 
-.. Prerequisites: The student list contains two students. "Test One" at index one and "Test Two" at index two.
+.. Prerequisites: The student list contains 3 students, and there is already a group with groupID G01, with students 1 and 2.
 
-.. Test case: `student 1 name/changed name ` +
-   Expected: First Student in the student list is edited to "Test One"
-.. Test case: `student 1 name/Test Two` +
-   Expected: Error message stating that "Test Two" already exists in the student list is shown.
-.. Test case: `student 0 name/Test Zero` +
-   Expected: Shows error message that index provided is not valid.
-.. Test case: `student 5 name/Test Five` +
-   Expected: Shows error message that index provided is out of bounds.
+.. Test case: `group add groupID/G01 studentNumber/3 groupIndexNumber/2` +
+   Expected: Third student in student list is added to group "G01", with group index number of 2.
+.. Test case: `group add groupID/G03 studentNumber/1 groupIndexNumber/2` +
+   Expected: Error message stating that group with the groupID does not exist.
+.. Test case: `group add groupID/G01 studentNumber/5 groupIndexNumber/2` +
+   Expected: Shows error message that index provided for the student number is out of bounds.
+.. Test case: `group add groupID/ studentNumber/ groupIndexNumber/` +
+   Expected: Shows error message that one or more fields are left empty.
+.. Test case: `group add groupID/G01 studentNumber/2 groupIndexNumber/10` +
+   Expected: Shows error message that index provided for the group index number is out of bounds.
 
-. Deleting a student from the student list.
+. Deleting a student from an already created group
 
-.. Prerequisites: The student list has one student at index 1.
+.. Prerequisites: The student list contains 3 students, and there is already a group with groupID G01, with students 1 and 2.
 
-.. Test case: `student delete 1` +
-   Expected: First student is deleted from the list.
-.. Test case: `student delete 0` +
-   Expected: Error message stating that index is invalid is shown
-.. Test case: `student delete 5` +
-   Expected: Error message stating that index is out of bounds is shown.
+.. Test case: `group delete groupID/G01 groupIndexNumber/1` +
+   Expected: First student in "G01" is removed from the group
+.. Test case: `group delete groupID/G03 groupIndexNumber/1` +
+   Expected: Error message stating that the group with the groupID does not exist.
+.. Test case: `group delete groupID/G01 groupIndexNumber/5` +
+   Expected: Error message stating that group index number is out of bounds is shown.
+.. Test case: `group delete groupID/ groupIndexNumber/` +
+   Expected: Shows error message that one or more fields are left empty.
 
-. Listing students in the student panel.
+. Showing the students from a specific group in the group window.
 
-.. Prerequisites: The student list is populated with some students.
+.. Prerequisites: The student list contains 3 students, and there is already a group with groupID G01, with students 1 and 2.
 
-.. Test case: `student list` +
-   Expected: A string representation of the student list is shown in the status result.
+.. Test case: `group groupID/G01` +
+   Expected: A window showing the students in group "G01" pops up.
+.. Test case: `group groupID/G02` +
+   Expected: Error message stating that the group with the groupID does not exist.
+
+. Exporting a group to a word document.
+
+.. Prerequisites: The student list contains 3 students, and there is already a group with groupID G01, with students 1 and 2.
+
+.. Test case: `group export groupID/G01` +
+   Expected: A message stating that the group was successfully exported to G01.docx is shown.
+.. Test case: `group export groupID/G02` +
+   Expected: Error message stating that the group with the groupID does not exist.
 
 
 === Saving data
