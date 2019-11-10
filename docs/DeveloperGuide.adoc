@@ -222,6 +222,8 @@ This unique reference identifier consist of two parts:
 
 //TODO [Implementation]
 
+
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 
@@ -229,45 +231,60 @@ The undo/redo feature allows users to revert the action of a command or redo a c
 
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by the `CommandHistory` class.
+The undo/redo mechanism is facilitated by the `CommandHistory` class, which is found in the `logic` component.
 The history class stores undoable commands as a `ReversibleActionPairCommand`,
 which pairs two `ReversibleActionCommand`, the first command being the action to be executed and its inverse. (e.g. Pairing 'add event A' and 'delete event A' command).
+
+A `ReversibleCommand` refers to any command which modifies the data in the system's model.
+Commands that only reads data from the model without modifying it, will not be added to the undo history stack.
+
 Considering that the undo functionality of an 'add event' command, is similar to the action of the 'delete event' command,
 execution of the 'delete event' command could be done in place of the undo functionality of the 'add event' command.
 Hence, with such an implementation, we can avoid unnecessary duplication of code.
 
 The design of `ReversibleActionCommand` uses the Command pattern, a common design pattern often used in software engineering.
+It implements the following operations:
 
-Additionally, it implements the following operations:
+* `ReversibleActionPairCommand#execute()` -- Executes the primary action.
+* `ReversibleActionPairCommand#undo()` -- Undoes the primary action by executing its inverse operation.
+* `ReversibleActionPairCommand#redo()` -- Restores a previously undone primary action by executing the same operation again.
 
-* `ReversibleActionPairCommand#execute()` -- Saves the current address book state in its history.
-* `ReversibleActionPairCommand#undo()` -- Restores the previous address book state from its history.
-* `ReversibleActionPairCommand#redo()` -- Restores a previously undone address book state from its history.
+Additionally, after the action pair has been executed,
+it is then added to the undo stack of the `CommandHistory` via the following implemented operations:
 
+* `CommandHistory#addToCommandHistory()` -- Saves the most recent command that modifies the system's model in its undo history.
+* `CommandHistory#performUndo()` -- Performs the inverse operation to restore the system to its previous state.
+* `CommandHistory#performRedo()` -- Restores a previously undone state by re-executing the respective undone command.
 
-//TODO [Implementation]
-
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
+These operations are all contained within the `Logic` component.
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `CommandHistory` will be initialised with an empty undo stack.
+
+Step 2. The user executes `newpatient -id S9729970A -name Mark` command which registers a new patient named `Mark` with the unique id of `S9729970A`.
+The `newpatient` command creates a `ReversibleActionPairCommand`, which pairs of a `RegisterPatientCommand` and `UnregisterPatientCommand`.
+After the invoking execution of the `RegisterPatientCommand`, the whole `ReversibleActionPairCommand` is pushed to the undo history stack
+via the `CommandHistory#addToCommandHistory()`
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 3. The user executes `enqueue S9729970A` command to add a patient whose reference id matches `S9729970A`.
+    The `enqueue` command also calls the `CommandHistory#addToCommandHistory()`, which pushes the enqueue action pair into the command history stack.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `newpatient ...` to register a new patient. The command also invokes `CommandHistory#addToCommandHistory()`, causing another action pair to be saved into the command history undo stack.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `CommandHistory#addToCommandHistory()`. Hence, the command will not be saved into the command history.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `CommandHistory#performUndo()`,
+which pops the top of the command history stack and
+
+
+which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoState3.png[]
 
