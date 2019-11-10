@@ -34,7 +34,7 @@ public class ExportIcsCommand extends Command {
         if (directory != null) {
             return Paths.get(directory).resolve(filename).toString();
         } else {
-            return DEFAULT_DIRECTORY.resolve(filename).toString();
+            return DEFAULT_DIRECTORY.resolve(filename).toAbsolutePath().toString();
         }
     }
 
