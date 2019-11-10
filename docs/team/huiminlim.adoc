@@ -31,7 +31,15 @@ image::Ui.png[width="790"]
 
 ** Wrote JUnit tests for MultipleChoiceCard and FrontBackCard.
 
-* Justification: This feature allows the user to explore multiple modes of learning using flash cards.
+* Justification:
+
+** This feature allows the user to explore multiple modes of learning using flash cards.
+
+** The priorities also allow the user to customize his/her own test deck set, so that he/she can vary the difficulty of the test.
+
+** The creation of test subset also allows the user to take the test with a different set of cards each time, allowing the user to learn more from each test.
+
+** The shuffling allows the user to take the test of Multiple Choice Cards with greater learning value since the options are changed.
 
 * Highlights:
 
@@ -39,12 +47,20 @@ image::Ui.png[width="790"]
 
 ** In addition, this feature is challenging because it requires in-depth analysis and design of the Regex parser to determine which card type (Front and Back card or Multiple Choice card) is created.
 
+** Also, this feature is tightly related to other components, such as:
+
+*** In test mode, the cards need to be designed such that the display and logic for test is coherent with the designs of multiple flash cards.
+
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=huiminlim&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]][https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/model[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub [https://github.com/AY1920S1-CS2103-F09-2/main/releases[Releases on Github]]
+
+** Testing:
+*** Did product testing to ensure that the command parsing were accurate, and various system integration tests.
+*** Debugged certain command related bugs: https://github.com/AY1920S1-CS2103-F09-2/main/pull/294[#294], https://github.com/AY1920S1-CS2103-F09-2/main/pull/333[#333], https://github.com/AY1920S1-CS2103-F09-2/main/pull/318[#318]
 *** Alerted team about bugs found in issue tracker: https://github.com/AY1920S1-CS2103-F09-2/main/issues/146[#146], https://github.com/AY1920S1-CS2103-F09-2/main/issues/99[#99], https://github.com/AY1920S1-CS2103-F09-2/main/issues/109[#109]
 
 ** Enhancements to existing features:
