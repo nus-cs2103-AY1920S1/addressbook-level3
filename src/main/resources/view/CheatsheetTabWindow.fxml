@@ -6,18 +6,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="cheatsheetTabWindow" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.CheatsheetTabWindowController">
+<BorderPane fx:id="cheatsheetTabWindow" focusTraversable="true" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.CheatsheetTabWindowController">
    <center>
-      <SplitPane dividerPositions="0.2" maxWidth="0.2">
+      <SplitPane dividerPositions="0.2" focusTraversable="false" styleClass="result-display" stylesheets="@DarkTheme.css" BorderPane.alignment="TOP_LEFT">
         <items>
-          <AnchorPane>
+          <AnchorPane styleClass="result-display" stylesheets="@DarkTheme.css">
                <children>
-                  <ListView fx:id="tagArea" fixedCellSize="0.0" minWidth="0.0" mouseTransparent="true" styleClass="result-display" stylesheets="@DarkTheme.css" />
+                  <ListView fx:id="tagArea" fixedCellSize="0.0" focusTraversable="false" mouseTransparent="true" styleClass="result-display" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
-          <AnchorPane>
+          <AnchorPane styleClass="result-display" stylesheets="@DarkTheme.css">
                <children>
-                  <TextArea fx:id="cheatsheetArea" editable="false" styleClass="result-display" stylesheets="@DarkTheme.css" />
+                  <TextArea fx:id="cheatsheetArea" editable="false" focusTraversable="false" prefHeight="402.0" prefWidth="661.0" styleClass="result-display" stylesheets="@DarkTheme.css" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>
