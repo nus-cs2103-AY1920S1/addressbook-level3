@@ -473,7 +473,7 @@ image::diary/userguide/diary_what_is_a_paragraph.png[title = "Annotated highligh
 
 This **line number** is used for several commands described in <<Diary Commands>>.
 
-NOTE: It is trivial if using the edit box to edit text, as text editing is done directly on the **diary text**.
+NOTE: The line numbers are trivial if using the edit box to edit text, as text editing is done directly on the **diary text**.
 
 [[diary_text_displaying_images]]
 ===== Displaying images
@@ -481,21 +481,19 @@ There are currently two main formats in which you can display images inside the 
 
 Both of them use simple clauses that require the numbering of the photo as displayed in the gallery.
 
+image::diary/userguide/diary_mini_gallery_edit_box.png[title="Example usage of `<images>` clause to display images as a mini horizontal gallery or inline image"]
+
 ====== As a mini horizontal gallery of images.
 ** Format: Use a diary **text paragraph** consisting of only the clause `<images number1 number2 numberN>`, where `numberN`
 is the index of the photo as displayed in the gallery (<<diary_gallery_display>>).
 ** Example: `<images 5 1 3 4>` - displays a mini gallery with the images 1, 3 and 5 as shown in the gallery.
 
-image::diary/userguide/diary_mini_gallery_edit_box.png[]
-
 ====== As an inline image with an accompanying paragraph of text.
 ** Format: Use a diary **text paragraph** consisting of your desired text, along with the clause
 `<images numberN>`, where `numberN` is the index of the photo as displayed in the gallery <<diary_gallery_display>>.
 ** By default, the clause will place the image on the right, and the text on the left. You can include the `'left'`
-word inside the `<images left numberN>` clause as such to reverse the order.
-** Sample usage:
+word inside the `<images left numberN>` clause to reverse the order.
 
-image::diary/userguide/diary_mini_gallery_edit_box.png[]
 
 ==== Diary Operations
 
@@ -532,7 +530,6 @@ image::diary/userguide/diary_create_command_with_button.png[title="Example usage
 
 . That's it! the diary entry will be successfully created, and you will be brought to the new diary entry's screen without
 having to navigate to it via <<diary_flip_command>> automatically.
-.. The edit box will also be opened automatically, as shown below, and you can start editing with it right away!
 +
 image::diary/userguide/diary_create_command_command_after.png[title="Example result of post diary entry creation"]
 
@@ -721,7 +718,8 @@ If you are currently viewing a diary entry, and know how to format the entry tex
 then you could use with the `append` command to add a new paragraph of text.
 
 ====== Using the `append <paragraph>` command
-* Usage: Adds a new paragraph of text as specified by the `<paragraph>` of text immediately after the the `append` word.
+* Usage: Adds a new paragraph of text as specified by the `<paragraph>` of text immediately after the the `append` command word,
+at the last line as displayed in the diary entry (see <<Diary Entry Display Area>>).
 * Arguments:
 ** `<paragraph>` - The paragraph of text to append, as described in <<diary_text_info>>.
 
