@@ -70,21 +70,36 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
-tag::ui[]
+//tag::ui[]
 [[Design-Ui]]
 === UI component
+
+==== Overview
+The `UI` consists of the `MainWindow` that is made up of static and non-static parts
+e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+[NOTE]
+The non-static `Ui` component, `UserViewMain` is responsive to user commands. Its functionality will be
+further explained using a separate diagram.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The `UI` consists of a `MainWindow` that is made up of static and non-static parts e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-**Functionality of `UserView` classes:**
+==== Functionality of `UserViewMain`
 
-`UserViewMain` is the component responsible for switching the user view. As it needs fetch data from the `Model`, it contains
-a reference to `Logic`, hence Figure 4 shows an association between `UserViewMain` and `Logic`. The controller class of `UserViewMain` is `UserViewController`.
+`UserViewMain` is the component responsible for switching the user view. As it fetches data from `Logic`, it is associated
+with `Logic`, hence Figure 5 below shows an association between `UserViewMain` and `Logic`. The controller class of `UserViewMain` is `UserViewController`. +
+`UserViewController` and `UserViewNavigator` both contain references to the various `UiPart` views offered in +Work in order to switch between them successfully. +
+
+The diagram below shows how `UserViewMain` integrates with `Logic`, `Model` and `UiPart`.
+
+.UserViewMain integration with UI component
+image::UserViewMainClassDiagram.png[]
+
+Below is a guide to how `UserViewMain` switches the users view.
 
 Step 1: User enters a command.
 
@@ -100,13 +115,14 @@ Step 4: This component is then passed to `UserViewController` to set the current
 Step 5: Users view is then switched successfully.
 
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
-* Executes user commands using the `Logic` component.
+* Parses and executes user commands to show user the right view using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
-end::ui[]
+//end::ui[]
 
 [[Design-Logic]]
 === Logic component
@@ -224,8 +240,80 @@ may not help as much.
 May introduce complexity into storage and dependencies among components.
 
 
-_**=== Settings feature
-==== Proposed Implementation
+//tag::dashboard[]
+=== Dashboard feature
+==== Implementation
+
+This feature was implemented to allow users to view the status of the tasks in their project, upcoming deadlines and upcoming meetings
+at a glance.
+
+The command introduced by this feature is `home` and displays data affected by `Task` and `Meeting` commands such as `add-task`, `edit-task`
+and `add-meeting`.
+The commands are facilitated by `ProjectDasboard`. This component resides in `Model` and contains the in-memory data of the application which is
+retrieved when the user switches to `Home`.
+
+* `ProjectDashboard#getTasksNotStarted()` -- Retrieves the current list of tasks with status `unbegun` in +Work.
+* `ProjectDashboard#getTasksDoing()` -- Retrieves the current list of tasks with status `doing` in +Work.
+* `ProjectDashboard#getTasksDone()` -- Retrieves the current list of tasks with status `done` in +Work.
+* `ProjectDashboard#getTasksByDeadline()` -- Retrieves the current list of tasks with nearing deadlines in +Work.
+* `ProjectDashboard#getMeetingList()` -- Retrieves the current list of meetings in +Work.
+* `ProjectDashboard#splitTaksByStatus()` -- Processes the current list of tasks and stores the tasks by status.
+* `ProjectDashboard#splitTaksByDeadline()` -- Processes the current list of tasks and stores the tasks based on nearing deadlines.
+
+These operations are exposed in the `Model` interface as `Model#getFilteredTasksNotStarted()`, `Model#getFilteredTasksDoing()`,
+`Model#getFilteredTasksDone()`, `Model#getFilteredTasksByDeadline()` and `Model#getFilteredMeetingList()`.
+
+[NOTE]
+
+To allow `Ui` to be responsive to updates in the settings, all of the operations are similarly exposed in the `Logic` interface
+`Logic#getFilteredTasksNotStarted()`, `Logic#getFilteredTasksDoing()`,
+`Logic#getFilteredTasksDone()`, `Logic#getFilteredTasksByDeadline()` and `Logic#getFilteredMeetingList()`.
+
+Step 1. The user executes the `home` command.
+
+Step 2. `Logic` executes `Logic#getFilteredTasksNotStarted()`, `Logic#getFilteredTasksDoing()`,
+`Logic#getFilteredTasksDone()`, `Logic#getFilteredTasksByDeadline()` and `Logic#getFilteredMeetingList()`.
+
+Step 3. This calls `Model#getFilteredTasksNotStarted()`, `Model#getFilteredTasksDoing()`, `Model#getFilteredTasksDone()`, `Model#getFilteredTasksByDeadline()`.
+
+Step 4. This executes `ProjectDashboard#splitTasksByStatus()`, to populate `tasksNotStarted`, `tasksDoing` and `tasksDone`. +
+Similarly, `ProjectDashBoard#splitTasksByDeadline()` is called to populate `tasksByDeadline`.
+
+Step 5. The various `FilteredList` objects are updated, since their backing lists are stored in `ProjectDashboard`. (refer to Figure 9)
+
+The object diagram below shows a snapshot of the various objects involved when the user views the dashboard.
+
+[NOTE]
+The diagram omits objects involving the `Ui` component as well as specific `Task` objects for brevity.
+
+.Snapshot of objects involved in populating the dashboard with data
+image::DashboardObjectDiagram.png[]
+
+
+
+==== Design Considerations
+
+This section explores how the design of the dashboard can affect it's responsiveness and integration with other data in the application.
+
+===== Aspect: Data structure used to store `Task` objects.
+
+* **Alternative 1 (current choice):** All tasks are stored in a single `UniqueTaskList` in `ProjectDashboard` with `TaskStatus` attribute.
+When the enters `home` to view the dashboard, the tasks are split by `TaskStatus` and deadline in `ProjectDashboard` and dispatched to the `Ui`.
+** Pros: Easier to implement in terms of storage and retrieval. By storing only one list and splitting the tasks in memory there is less data saved.
+** Cons: The constant processing of task data may tax the memory of the application, as it is storing the same tasks in multiple data structures. This may affect performance
+for large number of tasks.
+* **Alternative 2:** The `Task` objects will only contain attributes which are not filtered in the dashboard. They can be stored in a `HashMap` as values and the keys are filtered attributes such as `TaskStatus` and deadline.
+** Pros: Memory usage of _Work is more efficient, as `ProjectDashboard` does not have to store multiple references of the same `Task` objects in memory. Also, due to the mappings between `TaskStatus` and the `Task` assigned those statuses, they can be retrieved and displayed more efficiently.
+** Cons: Due to the requirements of +Work, `Task` objects are coupled to `Member` and `Inventory`. The method of storing these tasks, other components would have to
+iterate through all keys to obtain all the `Task` objects and manipulate their mappings. This would render the `HashMap` useless.
+
+We decided to opt for design option one so as to enable `Task` to integrate with other components of +Work in the most efficient way possible. Although design option two would
+benefit the dashboard greatly it would cause almost all other components and views to become inefficient.
+//end::dashboard[]
+
+//tag::settings[]
+=== Settings feature
+==== Implementation
 
 This feature was implemented to allow users to customise their experience when using +Work.
 
@@ -267,14 +355,14 @@ Step 4. `DARK` theme has been applied to +Work and `Ui` is updated.
 
 Step 5. The settings have been updated and stored in `plusworksettings.json`.
 
-The following sequence diagram shows how the `theme dark` operation works.
+The following sequence diagram shows how the `theme dark` operation works with reference to steps 2 and 3 above.
 
 .Operational flow of `ThemeCommand`
 image::ThemeSequenceDiagram.png[]
 
 NOTE: The lifeline for `ThemeCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `theme light` operation is similar to the one shown in figure 9. However, the method called is `setLightTheme`.
+The `theme light` operation is similar to the one shown in figure above. However, the method called is `UserSettings#setLightTheme()`.
 
 [IMPORTANT]
 
@@ -285,31 +373,25 @@ The `clock twelve` and `clock twenty_four` have a similar operation to `theme da
 
 This section explores how the design can affect the level of customisation available to the user through the settings feature in +Work.
 
-===== Aspect: Storage of the required settings data
+===== Aspect: Storage of the various options in settings data
 
-Within a specific setting, each option has data that helps yield a specific behaviour. Currently the available settings are
-represented as enumerations.
+Within a specific setting stored in `Model`, each option has data that helps yield a specific behaviour. Currently the available settings are
+represented as `Enum`.
 
-* **Alternative 1 (current choice):** The relevant data is stored within the enum class itself. +
+* **Alternative 1 (current choice):** The relevant data is stored within the class itself. +
 For example `ClockFormat` has two constants `TWENTY_FOUR` and `TWELVE` that contain `DateTimeFormatters` which are retrieved
 when the user wishes to toggle between them.
 ** Pros: Better design as it is more modular. The data can be stored as attributes of the enum constants and retrieved via the default setting from `Model`. Furthermore if
 data is to be changed, it only needs to be changed in one component for the expected behaviour to be achieved.
-** Cons: User cannot customise the data.
-* **Alternative 2:** The data is stored in the `UserSettings` interface as `static` fields.
-** Pros: This exposes the data of each option of all settings to the `Model`. If the user requests to customise that data, it would be possible in this design.
-** Cons: This violates the Single Responsibility principle, as the interface changes whenever the data related to a particular settings option is updated. `UserSettings` should only be aware of the various settings the user
+** Cons: User cannot customise the data directly due to the nature of `Enum` classes.
+* **Alternative 2:** The data is stored in the `UserSettings` component as `static` fields.
+** Pros: This exposes the data of each option fore each settings to the `Model` component. If the user requests to customise that data, it would be possible in this design.
+** Cons: `UserSettings` would change whenever the data related to a particular settings option is updated. Ideadlly, `UserSettings` should only be aware of the various settings the user
 is able to customise.
 
-===== Aspect: Level of user customisation for +Work themes
+We decided to opt for design option one, so as to be in line with the Single Responsibility principle. This would make it easier
+for future developers to extend the functionality of `UserSettings` in a more modular manner.
 
-* **Alternative 1 (current choice):** User can change between light and dark only.
-** Pros: Easier to implement and maintain UI components and css files to ensure theme cascades consistently.
-** Cons: User is limited to two themes, which may affect their viewing preferences.
-* **Alternative 2:** User can import their own themes and use them.
-** Pros: User has greater flexibility in choosing themes for +Work.
-** Cons: We must ensure that all UI components switch themes consistently. This may take a long time to test, due to large number of views
-offered by +Work. Furthermore the compatibility of the theme with JavaFx must be regarded as well.
 // end::settings[]
 
 // tag::statistics[]
@@ -565,9 +647,6 @@ represented as enumerations.
 ** Pros: The inventories list is more user-friendly and more provides more details.
 
 ** Cons: Implementation is harder, and we have to ensure minimal errors or bugs.
-
-// end::settings[]
-
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation

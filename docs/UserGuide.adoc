@@ -96,7 +96,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 |===
 
 * *Tags*
-** Tags are the only non-compulsary parameter mentioned in commands (unless otherwise stated).
+** Tags are the only non-compulsory parameter mentioned in commands (unless otherwise stated).
 ** When tags are mentioned as a parameter, it is taken for granted that you can input multiple tags
 using the format `mt/... mt/... mt/...`
 
@@ -106,24 +106,24 @@ using the format `mt/... mt/... mt/...`
 // tag::UniversalCommands[]
 === Universal Commands
 
-==== Accessing project dashboard page: `home` +
+==== Accessing the project dashboard page: `home` +
 This command brings you to the project dashboard page, where tasks are displayed. +
 
 Format: `home` +
 
 Calling the `home` command will bring you to the following page:
 
-image::Home.png[width=400]
+image::Ui.png[width=790]
 
 
-==== Accessing time management page: `calendar` +
+==== Accessing the time management page: `calendar` +
 This command brings you to the time management page where calendar and meeting times are displayed +
 
 Format: `calendar` +
 
 Calling the `calendar` command will bring you to the following page:
 
-==== Accessing settings page: `settings` (Coming in v1.3) +
+==== Accessing the settings page: `settings` +
 This command brings you to the settings page  +
 
 Format: `settings` +
@@ -226,7 +226,7 @@ Format: `edit-member mi/MEMBER_ID mn/MEMBER_NAME mt/MEMBER_TAG`
 
 ****
 * Edits the member at the specified `mi/MEMBER_ID`.
-* In this command, all the fields apart from `mi/MEMBER_ID` is optional. However, at least one of the optional fields must be provided.
+* In this command, all the fields apart from `mi/MEMBER_ID` are optional. However, at least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the member will be removed i.e adding of tags is not cumulative.
 ****
@@ -318,34 +318,73 @@ image::AfterFireMember.png[width="400"]
 
 ==== Adding a task: `add task`
 
-To add a task to the project, use the 'add-task' command in the format below. +
+To add a task to the project, use the `add-task` command in the format below. +
 Format: `add-task [tn/TASK_NAME]` +
-Optional Parameters: `[s/STATUS]` `[tt/TAG]`
+Optional parameters: `[s/STATUS]` `[tt/TAG]`
+
+[NOTE]
+If a status is not given for the task, +Work will assign it as `unbegun` or "Not Started" by default.
 
 Example:
 
-* `add-task tn/Finish up milestone setting` +
-A new task will be added to the project dashboard
+* Suppose you want to add a task called "Finish up milestones settings" to your project. First type `add-task tn/Finish up milestone setting`
+as show below.
 
-==== Removing a task: remove-task
+image::add-task-preview.png[]
 
-Removes a task from the dashboard
+* Hit the kbd:[Enter] key and you will see that the task is added to the project! +
+[NOTE]
+The prompt displayed as a result of performing `add-task` is further explained in <<Multiline Commands>>.
 
-Format: `remove-task [ti/TASK_ID]`
+image::add-task-res-list.png[]
+
+==== Deleting a task: delete-task
+
+To delete a task from your project, use the `delete-task` command in the format below. +
+Format: `delete-task [ti/TASK_ID]`
 
 Example:
 
-* `remove-task 2` +
-Removes the 2nd task in the dashboard
+* Suppose you want to remove the second task in your list. First type `delete-task ti/2` into the command
+box as shown below.
+
+image::delete-task-preview.png[]
+
+* Hit the kbd:[Enter] key and you will see that the task is removed from your project!
+
+image::delete-task-res-list.png[]
+
+==== Editing a task: `edit-task`
+
+To edit a task currently in your project, use the `edit-task` command in the format below. +
+Format: `edit-task [ti/TASK_ID] [FIELD(S)_TO_EDIT]` +
+Optional parameters: `[tn/TASK_NAME]` `[s/STATUS]` `[tt/TAG]` `[at/dd-mm-yyyy hh:mm]`
+
+[IMPORTANT]
+At least one of the optional parameter must be provided in the command for a task to be edited successfully.
+
+Example:
+
+* Suppose you wanted to update the task name of the fourth task in the diagram below to become "Update event website". +
+Type `edit-task ti/4 tn/Update event website` into the command box as shown below.
+
+image::edit-task-preview.png[]
+
+* Hit the kbd:[Enter] key and you will see that the task name has been edited!
+
+image::edit-task-res-list.png[]
 
 ==== Listing all existing tasks: `list-tasks`
 
-To list all the tasks created for the project, use the `list-tasks` command in the format below. +
-Format: 'list-tasks'
+To list all the tasks created for the project, use the `list-tasks` command in the format below from any view you are in. +
+Format: `list-tasks`
 
 Example:
 
-* Type `list-tasks` in the command box.
+* Type `list-tasks` in the command box as shown below.
+
+image::list-tasks-preview.png[]
+
 * Hit the kbd:[Enter] key and you will see all your tasks! You should see a window similar to the one below.
 
 image::list-tasks.png[]
@@ -360,13 +399,14 @@ Example:
 
 * After finishing the task "Shirts for Freshman Open Day" shown below, you would want to mark it as completed. To do so, first navigate to task list view using `list-tasks`.
 
-image::done-tasks-dashboard-command.png[]
+image::list-tasks-preview.png[]
 
 * Type `done-task ti/5` into the command box as shown below.
 
-image::done-task-list-command.png[]
+image::done-task-preview-list.png[]
 
-* Hit the kbd:[Enter] key and you will see that the task has been marked as `done`! You should see a window similar to the one below when you navigate back to `home`.
+* Hit the kbd:[Enter] key and the task will been marked as `done`! You should see a window similar to the one below when you navigate back to `home`.
+Notice that "Shirts for freshman open day" has been moved to `done`.
 
 image::done-task-result-dashboard.png[]
 
@@ -376,7 +416,7 @@ image::done-task-result-dashboard.png[]
 To update the task status to `doing`, use the `doing-task` command in the format below. +
 Format: `doing-task [ti/TASK_ID]`
 
-Example: `doing-task ti/1`
+Example:
 
 * `doing-task ti/3` +
 This sets the status of task 3 to `doing`.
@@ -391,73 +431,82 @@ This sets a deadline for an existing task in your project.
 
 Format: `set-deadline [ti/TASK_ID] [at/DEADLINE] [at/dd-mm-yyyy hh:mm]`
 
-[TIP]
-Remember to input using the 24 hour time format of dd-mm-yyyy hh:mm
+[IMPORTANT]
+The deadline you enter has to be at a future date!
 
 Example:
 
 * To set a deadline for the task "Shirts for Freshman Open Day" shown below, first navigate to the task list view using `list-tasks`.
 
-image::Ui.png[]
+image::list-tasks-preview.png[]
 
-* Suppose the deadline for your task is on the 10th of November 2019 at 6pm, enter `set-deadline ti/5 at/10-11-2019 18:00` into the command box.
+* Suppose the deadline for your task is on the 20th of November 2019 at 6pm, enter `set-deadline ti/5 at/10-11-2019 18:00` into the command box as shown below.
+
+image::set-deadline-list-preview.png[]
 
 * Hit the kbd:[Enter] key and you will see that a deadline has been set!.
 
-image::set-deadline-list-result.png[]
+image::set-deadline-res-list.png[]
 
 Now, navigate to the dashboard by entering `home`. Hit the kbd:[Enter] key and you will see that the deadline can be seen! You should see a window similar to the one below.
 
 image::set-deadline-res-dashboard.png[]
 
 [TIP]
-The "Upcoming deadlines" sidebar (right side of above picture) helps you keep track of tasks which are due in less than two weeks.
+The "Upcoming deadlines" sidebar (right side of above picture) helps you keep track of tasks which are due in two weeks or less.
 // end::task[]
 
 '''
 
-=== Calendar Commands (Coming in v1.3)
+=== Calendar Commands
 
 ****
 
-Suggested steps for you to follow
+Before using +Work's calendar features
 
-1. User first exports their `.ics` file from NUSmods
+1. Have your team members download their calendar through NUSmods as an `.ics` file
 
-2. Then import it into their google calendar
+2. Team members import the file into their google calendar and add their weekly commitments
 
-3. Add any weekly commitments to their google calendar
+3. Team members export the calendar as an `.ics` file once again
 
-4. Export `.ics` file again
+4. Collect these calendar `.ics` files from team members
 
-5. Import all to our application
+5. Take note of the file path that the files are stored under
 
-6. enter command `generate-timings`
-
-7. Choose the desired timing for the weekly meetings from the grid displayed
-
-8. Create a new `Meeting`
+Now you are ready to use +Work's calendar commands!
 
 ****
 
-==== Adding a members calendar: `import-calendar`
+==== Adding a member's calendar: `add-calendar`
 
-Format: `import-calendar [mi/MEMBER_ID] [c/PATH_TO_ICS]`
-
-Example:
-
-You can add your project's member John Doe's `ics` file like this,
-
-* `import-calendar mi/JD c/data/john_ics_file` +
-Adds a calendar to John's profile
-
-==== Generating time across all calendars uploaded: `generate-timings`
-
-Format: `generate-timings`
+Format: `add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS_FILE]`
 
 Example:
 
-* `generate-timings` +
+You can add your team member John Doe's calendar file with the command
+
+* `add-calendar mn/John Doe fp/C:\Users\gabriel\Desktop\CalendarFiles\john_calendar.ics` +
+John's calendar is now saved in +Work
+
+==== Removing a member's calendar: `delete-calendar`
+
+Format: `delete-calendar [mn/MEMBER_NAME]`
+
+Example:
+
+You can also remove a team member's calendar file like this,
+
+* `add-calendar mn/John Doe` +
+John's calendar has been deleted from +Work
+
+==== Find a meeting time: `find-meeting-time`
+
+Format: `find-meeting-time [start/START_DATE] [end/END_DATE] [hours/DURATION]`
+
+Example:
+
+* `find-meeting-time start/__19-10-2019 08:00__ end/__29-10-2019 17:00__ hours/2` +
 Generates a grid showing the number of people who can make it for a particular time slot during the week (mock-up needed)
 
 ==== Adding a meeting: `add meeting`
@@ -708,53 +757,66 @@ image::ml-task_4_4.PNG[]
 image::ml-task_4_5.PNG[]
 // end::Multiline[]
 
-=== Settings Commands
 // tag::settings[]
+=== Settings Commands
+
++Work helps you view your current settings by highlighting your current option! To see your current settings navigate
+to the settings panel by entering `settings` as described in section Section 3.1.3.
+
 ==== Switching the theme of +Work: `theme`
 
-This command helps you toggle the theme of +Work between light and dark to suit your viewing preferences.
+This command helps you toggle the theme of +Work between `light` and `dark` to suit your viewing preferences.
 
 [TIP]
-
-By default, the theme is set to dark.
+By default, the theme is set to `dark`.
 
 Format: `theme light`
 
-Examples:
+Example:
 
-* Type `theme light` as shown below.
+* Type `theme light` into the command box as shown below.
 
-image::theme-light-command.png[]
+image::theme-light-preview.png[]
 
-* Hit the kbd:[Enter] key and +Work switches to the light theme!
+* Hit the kbd:[Enter] key and +Work switches to the `light` theme! As seen below, your choice of `light` is highlighted as well.
 
-image::theme_light.png[]
+image::theme-light-res.png[]
 
-* Similarly, `theme dark` switches to the dark theme, and your choice is highlighted.
+* Similarly, `theme dark` switches to the `dark` theme.
 
-==== Switching the clock format of +Work: `clock`
+==== Switching the time format of +Work: `clock`
 
-This command helps you toggle the clock format of +Work between 24 hour and 12 hour format. +
-The clock format is set to 24 hour is set to 24 hour by default.
+This command helps you toggle the time format of +Work between 24 hour and 12 hour clock. +
+
+[TIP]
+The time format is set to 24 hour by default.
 
 [NOTE]
-
 This does not affect the input format of deadlines for tasks, you still need to be enter them in the 24 hour format!
 
 Format: `clock twenty_four`
 
-Examples:
+Example:
 
-* `clock twelve` +
-Switches to the 12 hour clock
+* Type `clock twelve` into the command box as shown below.
 
-* `clock twenty_four` +
-Switches to the 24 hour clock
+image::clock-twelve-preview.png[]
 
-'''
+* Hit the kbd:[Enter] key and +Work switches the time format to the 12 hour clock! As seen below, the new format is highlighted as well.
+
+image::clock-twelve-res-settings.png[]
+
+* Now when you navigate to any view which has time sensitive data, you will see that the format has been switched. For example, if you were to switch
+back to the dashboard by entering `home` you should see a window similar the one shown below.
+
+image::clock-twelve-res-dashboard.png[]
+
+* Similarly, `clock twenty_four` switches to the 24 hour clock.
+
 // end::settings[]
+'''
 
-=== Saving the data
+=== Saving Data
 
 Project data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
@@ -807,15 +869,9 @@ _{explain how the user can enable/disable data encryption}_
 
 * `add-task [tn/TASK_NAME] s/TASK_STATUS tt/TASK_TAG`: *Adds a task*
 
-* `edit-member [mi/MEMBER_ID] mn/MEMBER_NAME mt/MEMBER_TAG`: *Edits a member*
-
-* `edit-inv [ii/ITEM_ID] i/ITEM_NAME p/PRICE ti/TASK_ID mi/MEMBER_ID`: *Edits a inventory*
-
 * `assign [ti/TASK_ID] [mi/MEMBER_ID]`: *Adds a task to a member*
 
 * `calendar`: *Switches to the time management page*
-
-* `pdf [ty/TYPE]`: *Creates a PDF document of inventory list*
 
 * `clock twelve`: *Switches deadline display to the 12 hour clock format*
 
@@ -828,6 +884,12 @@ _{explain how the user can enable/disable data encryption}_
 * `doing-task [ti/TASK_ID]`: *Marks a task as `doing`*
 
 * `done-task [ti/TASK_ID]`: *Marks a task as `done`*
+
+* `edit-inv [ii/ITEM_ID] i/ITEM_NAME p/PRICE ti/TASK_ID mi/MEMBER_ID`: *Edits a inventory*
+
+* `edit-member [mi/MEMBER_ID] mn/MEMBER_NAME mt/MEMBER_TAG`: *Edits a member*
+
+* `edit-task [ti/TASk_ID] [FIELDS_TO_EDIT]`: *Edits a task*
 
 * `fire-member [ti/TASK_ID] [mi/MEMBER_ID]`: *Removes a task from a member*
 
@@ -849,6 +911,8 @@ _{explain how the user can enable/disable data encryption}_
 
 * `list-inv`: *Lists all inventories*
 
+* `pdf [ty/TYPE]`: *Creates a PDF document of inventory list*
+
 * `remove-member [mi/MEMBER_ID]`: *Removes a member*
 
 * `remove-task [ti/TASK_ID]`: *Removes a task*
@@ -862,11 +926,11 @@ _{explain how the user can enable/disable data encryption}_
 == Upcoming Features
 
 // tag::version-2.0[]
-=== Cloud integration `[coming in v2.0]`
+=== Cloud Integration `[coming in v2.0]`
 
 Collaborate online with your teammates, and store your project details such as members calendars in the cloud.
 
-=== Customisable user profiles `[coming in v2.0]`
+=== Customisable User Profiles `[coming in v2.0]`
 
 Create more detailed profiles for members and choose who has authority to change details of the project.
 // end::version-2.0[]

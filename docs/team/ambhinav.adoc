@@ -1,62 +1,72 @@
-= John Doe - Project Portfolio
+= Abhinav Ramnath - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: +Work
+== Introduction
+This project portfolio documents my contributions to a software engineering group project taken in my sophomore year in the National University of Singapore. For this project, my team and I worked together to build
+a desktop application, +Work, targeted at NUS students who are project leaders.
 
----
+=== About the Project
++Work is a project management tool with a graphical user interface (GUI) that helps project leaders to manage their projects details. +Work uses a command line interface (CLI) to operate, in other words, users mainly interact with +Work by typing specific commands and pressing the enter key. +
+The main features of +Work include; managing tasks, managing members, managing inventory, generating statistics, generating PDF reports and finding optimal meeting times among members.
 
-== Overview
+=== Important Symbols
+Shown below are a few symbols that will appear in this document, along with their significance.
+[TIP]
+Information listed here can help users of +Work save time when using the application.
 
-+Work is a project management tool for NUS students, to track members and
+[NOTE]
+Information listed here should be noted by users to help them improve their experience.
 
-== Summary of contributions
+[IMPORTANT]
+Information listed here is essential to users. They need to understand this in order for +Work to work optimally.
 
-* *Major enhancement*: added *the ability for users to customise the appearance in +Work*
-** What it does: allows the user to toggle the theme of the app between light and dark. Also, allows the user to toggle the
-deadline display format of the app between 24hr and 12hr.
-** Justification: This feature improves the product significantly as +Work can adapt to their preferences. Furthermore, as +Work scales to `v2.0`, it would be easier for users and developers alike to
-handle the complexity in may bring.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. +
+== Summary of Contributions
+This section serves to summarise my major contributions to the project.
+
+* *Major enhancement one*: I added the ability for users to *customise the appearance* of +Work to suit their viewing preferences.
+** What it does: This feature allows the user to toggle the theme of the entire application between light and dark. Also, it allows the user to toggle the
+display of task deadlines format of the app between 24hr and 12hr.
+** Justification: This feature improves the current product as +Work can adapt to users viewing preferences. Furthermore, as +Work scales to `v2.0` and beyond, it would be easier for users and developers alike to
+handle the increasing complexity additional features may bring.
+** Highlights: As of the latest release, this enhancement affects any command that deals with time sensitive data. It required an in-depth analysis of design alternatives. +
 The implementation was moderately difficult as I was able to adapt the integration of the
-settings component based on the implementation of the existing `UserPrefs` component. The more difficult aspect was to design the component in such a way where it would be easy to extend its functionality
+`UserSettings` component based on existing components. The more difficult aspect was to design the component in such a way where it would be easy to extend its functionality
 in the event more user settings are to be added. I tried to incorporate as much of the OOP principles as possible so as to
 make the feature more robust.
-** Credits: _Adapted the code to do responsive highlighting for the settings page from a course mate.
-{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Credits: I adapted some code that does responsive highlighting for the settings panel in +Work from a course mate.
 
-* *Minor enhancement*: Added the ability for users to add, edit, remove and set status for tasks.
+* *Major enhancement two*: I added a dashboard to +Work that helps users see important information when the application is started.
+** What it does: This feature allows the user to view their tasks based on their current completion status. Furthermore, users can view their upcoming deadlines as well as any upcoming project meetings.
+** Justification: This feature improves the current product as students decide which tasks demand their attention, so that they can remain on track for their project. Furthermore, they can prepare for upcoming meetings more efficiently.
+** Highlights: The dashboard is responsive to changes in task status, deadlines and any project meetings. The implementation was relatively simple as I was also responsible for integrating task management into the project.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: I added cosmetic improvements to +Work's dashboard so as to make it more appealing to students.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambhinav&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambhinav&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` and `v1.2.1` (3 releases) on GitHub
-*** Tracked and helped to fix bugs found during developer testing using issues (Issue https://github.com/AY1920S1-CS2103T-T12-1/main/issues/82[#82])
-*** Added additional tests for the repository to bump coverage up ....
-** Enhancements to existing features:
-*** Created a modular framework in `Ui` to make it easier for teammates to add different user screens for their respective features (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/51[#51])
-*** Added an "Upcoming deadlines" sidebar to help users keep track of tasks that are due soon. (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/63[#63] )
+*** Managed releases `v1.1`, `v1.2.1` and `v1.4` (3 releases) on GitHub
+*** Tracked and helped to fix bugs found during developer testing using GitHub issues (Issue https://github.com/AY1920S1-CS2103T-T12-1/main/issues/82[#82])
+*** Added additional tests to the repository to bump coverage up from 37% to 39% (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/166[#166])
+** Enhancements to the application:
+*** Created a modular framework in `UI` to make it easier for teammates to add different user views for their respective features (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/51[#51])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-T12-1/main/pull/152[#152]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T12-1/main/pull/55[#55]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reviewed pull requests made by teammates to the repository on GitHub (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T12-1/main/pull/55[#55]
+*** Reported bugs and suggestions for other teams in the module (examples:  https://github.com/ambhinav/ped/issues/6[1], https://github.com/ambhinav/ped/issues/5[2], https://github.com/ambhinav/ped/issues/3[3])
 ** Tools:
-*** Added test coverage tool Coveralls to the team repo (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/149[#149])
-
-_{you can add/remove categories in the list above}_
+*** Added the test coverage tool Coveralls to the team repository (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/149[#149])
 
 == Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-
-include::../UserGuide.adoc[tag=task]
 
 include::../UserGuide.adoc[tag=settings]
 
@@ -66,12 +76,4 @@ include::../UserGuide.adoc[tag=settings]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=ui]
-
 include::../DeveloperGuide.adoc[tag=settings]
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
