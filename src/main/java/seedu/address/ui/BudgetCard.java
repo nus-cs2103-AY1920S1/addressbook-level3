@@ -49,6 +49,7 @@ public class BudgetCard extends UiPart<Region> {
             amountLeft.setText(budget.getAmountLeft().value);
         } else {
             amountLeft.setText('-' + budget.getAmountLeft().value);
+            amountLeft.setStyle("-fx-text-fill: #FF0000");
         }
     }
 
