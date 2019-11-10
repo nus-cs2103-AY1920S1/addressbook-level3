@@ -125,6 +125,25 @@ public class ViewCommandParserTest {
     }
 
     @Test
+    void parse_unnecessaryPreamblePresent_throwParseException() {
+
+        // valid format but unnecessary preamble present
+        assertParseFailure(parser,
+                " preamble s/1 m/5",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
+
+        // invalid format and unnecessary preamble present
+        assertParseFailure(parser,
+                " preamble s/alfkaflkan m/5",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
+
+        // unnecessary preamble present and no prefixes present
+        assertParseFailure(parser,
+                " preamble",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     void parse_allIndexesSpecifiedValid_parseSuccess() {
 
         ViewCommand.ViewCommandParameters params = new ViewCommand.ViewCommandParameters();
