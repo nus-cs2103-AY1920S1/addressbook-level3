@@ -360,7 +360,6 @@ image::view_attendance_after.png[width=350]
 
 // end::training[]
 
-
 === Performance
 To help you keep track of your team's performance,
 Athletick has a built-in performance tracker for you record and analyse your team's performance.
@@ -418,8 +417,11 @@ image::deleteevent_wysd.png[width="250"]
 
 *What you should see*
 
-If successfully deleted, the result box will display the deleted event name as shown below.
-The event should no longer be in *Athletick*.
+If successfully deleted, the result box (red box) will display the deleted event's name as shown in the
+diagram below.
+
+Additionally, the feature box (orange box) will show the current list of events you have in Athletick. The
+deleted event should not appear there.
 
 .Notice that the backstroke 100m event is no longer listed.
 image::deleteevent_wyss.png[width="150"]
