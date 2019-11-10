@@ -322,9 +322,10 @@ public class AddCommandTest {
         }
 
         @Override
-        public void syncMovie(List<Movie> syncMovie) {
-
+        public ObservableList<Show> getMoviesFromUnWatchedList() {
+            return null;
         }
+
 
         @Override
         public String getPage(String shortCutKey) {

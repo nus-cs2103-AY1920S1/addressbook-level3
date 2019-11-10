@@ -3,6 +3,7 @@ package seedu.ezwatchlist.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -155,13 +156,7 @@ public class ModelManager implements Model {
     @Override
     public void setShow(Show target, Show editedShow) {
         CollectionUtil.requireAllNonNull(target, editedShow);
-
         watchList.setShow(target, editedShow);
-    }
-
-    @Override
-    public void syncMovie(List<Movie> syncMovie) {
-
     }
 
     @Override
@@ -219,6 +214,19 @@ public class ModelManager implements Model {
     public void updateSearchResultList(List<Show> shows) {
         searchResult.setShows(shows);
         updateFilteredShowList(PREDICATE_ALL_SHOWS);
+    }
+
+    @Override
+    public ObservableList<Show> getMoviesFromUnWatchedList() {
+        FilteredList<Show> unWatchedList = this.unWatchedList;
+        ArrayList<Show> movieList = new ArrayList<>();
+        for(int i = 0 ; i < unWatchedList.size(); i++) {
+            Show show = unWatchedList.get(i);
+            if (show.getType().equals("Movie")) {
+                movieList.add(show);
+            }
+        }
+        return (ObservableList<Show>) movieList;
     }
 
     public ObservableList<Show> getSearchResultList() {

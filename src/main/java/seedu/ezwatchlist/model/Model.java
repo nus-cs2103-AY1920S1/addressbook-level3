@@ -165,10 +165,10 @@ public interface Model {
     void updateSearchResultList(List<Show> searchResult);
 
     /**
-     * Sync a given show.
-     * {@code syncMovie} must already been retrieved from IMDB database.
+     * Retrieve a list of Movies from unwatchedlist.
+     * @throws NullPointerException if the {@code searchResult} if null.
      */
-    void syncMovie(List<Movie> syncMovie);
+    ObservableList<Show> getMoviesFromUnWatchedList();
 
     /**
      * Returns a string representing the name of the page.
