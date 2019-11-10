@@ -110,7 +110,7 @@ public class StatsWindow extends UiPart<Stage> {
         TextFlow leastExpEateries = new TextFlow();
         leastExpEateries.setTextAlignment(TextAlignment.CENTER);
         leastExpEateries.setStyle(String.format("-fx-padding: 0 20 0 20"));
-        Text titleLeastExp = new Text("Top  eateries you spent the least at\n");
+        Text titleLeastExp = new Text("Top 3 eateries you spent the least at\n");
         titleLeastExp.setStyle("-fx-font-weight: bold; -fx-font-size: 15px");
         leastExpEateries.getChildren().add(titleLeastExp);
 

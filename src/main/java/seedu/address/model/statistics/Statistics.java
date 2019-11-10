@@ -218,10 +218,12 @@ public class Statistics {
 
     private List<Eatery> getMostExpEateries() {
         List<Eatery> mostExp = new ArrayList<>();
+        List<Eatery> sortByExpenseCopy = new ArrayList<>(sortByExpense);
         int size = sortByExpense.size() > 3 ? 3 : sortByExpense.size();
 
+        Collections.reverse(sortByExpenseCopy);
         for (int i = 0; i < size; i++) {
-            mostExp.add(sortByExpense.get(i));
+            mostExp.add(sortByExpenseCopy.get(i));
         }
 
         return mostExp;
@@ -231,7 +233,6 @@ public class Statistics {
         List<Eatery> leastExp = new ArrayList<>();
         int size = sortByExpense.size() > 3 ? 3 : sortByExpense.size();
 
-        Collections.reverse(sortByExpense);
         for (int i = 0; i < size; i++) {
             leastExp.add(sortByExpense.get(i));
         }
@@ -241,10 +242,12 @@ public class Statistics {
 
     private List<Eatery> getMostVisited() {
         List<Eatery> mostVisited = new ArrayList<>();
+        List<Eatery> sortByVisitCopy = new ArrayList<>(sortByVisit);
         int size = sortByVisit.size() > 3 ? 3 : sortByVisit.size();
 
+        Collections.reverse(sortByVisitCopy);
         for (int i = 0; i < size; i++) {
-            mostVisited.add(sortByExpense.get(i));
+            mostVisited.add(sortByVisitCopy.get(i));
         }
 
         return mostVisited;
@@ -254,7 +257,6 @@ public class Statistics {
         List<Eatery> leastVisited = new ArrayList<>();
         int size = sortByVisit.size() > 3 ? 3 : sortByVisit.size();
 
-        Collections.reverse(sortByVisit);
         for (int i = 0; i < size; i++) {
             leastVisited.add(sortByVisit.get(i));
         }

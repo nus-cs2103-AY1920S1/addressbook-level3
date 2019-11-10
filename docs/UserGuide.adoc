@@ -281,7 +281,7 @@ Example: `delete 1`
 // tag::stats[]
 ===== Showing overall statistics: `stats`
 
-Presents a visual overview of the user’s eateries and reviews. Eatery and review data used to generate the statistics are collated from the start of the application. The command will generate six types of statistics:  most visited eateries, least visited eateries, eateries you spent the most at, eateries you spent the least at, price per category, number of visits per category. +
+Presents a visual overview of the user’s eateries and reviews. Eatery and review data used to generate the statistics are collated from the start of the application. The command will generate six types of statistics:  most visited eateries, least visited eateries, eateries you spent the most at (on average), eateries you spent the least at (on average), price per category, number of visits per category. +
 Format: `stats`
 
 ****
