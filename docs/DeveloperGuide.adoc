@@ -161,7 +161,23 @@ This section describes some noteworthy details on how certain features are imple
 ==== Implementation
 
 The undo/redo mechanism is facilitated by `VersionedBillboard`.
-It store the state history into a `stateList` and maintain a state pointer `currentStatePointer`.
+
+If you successfully execute a command that will change the Billboard state,
+the current Billboard state will automatically commit to the `VersionedBillboard`.
+The current state will be store into the `stateList`,
+and a state pointer `currentStatePointer` will be maintained.
+
+ List of command that will commit to `VersionedBillboard`:
+- AddArchiveCommand
+- AddCommand
+- AddTagCommand
+- ClearCommand
+- DeleteArchiveCommand
+- DeleteCommand
+- RevertArchiveCommand
+- EditCommand
+- RemoveTagCommand
+
 Additionally, it implements the following operations:
 
 * `VersionedBillboard#commit()` -- Saves the current billboard state in its history.
@@ -196,7 +212,10 @@ Step 4. The user now decides that adding the expense was a mistake, and decides 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial billboard state, then there are no previous billboard states to restore. The `undo` command uses `VersionedBillboard#isRedoable()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is pointing to the initial billboard state,
+then there are no previous billboard states to restore.
+The `undo` command uses `VersionedBillboard#isRedoable()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -242,7 +261,8 @@ image::CommitActivityDiagram.png[]
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `Model` and `VersionedBillboard`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
+Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 // tag::archive[]
@@ -619,9 +639,9 @@ and saved.
 === History feature
 ==== Implementation
 
-The history function will enable user to view previous actions.
+You can use the `history` command to view previous actions.
 
-Billboard will store all the command entered even the command is never executed.
+Billboard will store all the command entered even the command fails to execute or in wrong format.
 
 This function is facilitated by the `CommandHistory` class.
 
@@ -651,12 +671,13 @@ The LogicManager will store the command to CommandHistory before parsing it to e
 
 ===== Aspect: How command histories are stored
 
-* **Alternative 1 (current choice):** Initial a CommandHistory class to store them.
-** Pros: Easy to implement.
-** Cons: None.
-* **Alternative 2:** Maintain a list in Model and store them.
-** Pros: None.
-** Cons: Duplicate list will be saved while saving billboards to VersionedBillboard. Also, restoring billboard will need to update the history list.
+* **Alternative 1 (current choice):** Store all commands including commands that fail to execute.
+** Pros: User can see what goes wrong in the previous command.
+This is the standard way to implement the history function.
+** Cons: Cost more memory to store all commands.
+* **Alternative 2:** Store commands that is successfully executed and can be undone/redone.
+** Pros: User will not need to view the command that is not useful.
+** Cons: User cannot view the invalid command.
 // end::history[]
 
 // tag::updownkey[]
@@ -708,6 +729,17 @@ image::UpkeySequenceDiagram.png[]
 The Down(`&darr;`) key does the opposite — it calls CommandHistory#peekPreviousCmd(),
 which shifts the statePointer once to the left,
 pointing to the previous command state, and return the command.
+
+==== Design Considerations
+
+===== Aspect: How command histories are stored
+
+* **Alternative 1 (current choice):** Navigate through all commands including invalid commands.
+** Pros: User can edit the invalid command easily, without typing the whole command again.
+** Cons: The static object will need to stay in the memory.
+* **Alternative 2:** Only navigate through commands that can be undone/redone.
+** Pros: User require less time to navigate through the history to find the command(commands that can be undone/redone are usually long)
+** Cons: User will not be able to edited the previous invalid command, cost more time to type the whole command again.
 // end::updownkey[]
 
 === Logging

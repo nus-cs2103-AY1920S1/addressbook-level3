@@ -37,12 +37,12 @@ GUI apps!
 ====
 *Command Format*
 
-* Words in `[SQUARE BRACKETS]` are the mandatory parameters to be supplied by the user e.g. in `add n/[NAME] d/[DESCRIPTION] a/[AMOUNT]`, `NAME` `DESCRIPTION` and `AMOUNT` are parameters which can be used as `expense add n/buy a book d/math book a/10`.
+* Words in `[SQUARE BRACKETS]` are the mandatory parameters to be supplied by the user e.g. in `add [n/NAME] [d/DESCRIPTION] [a/AMOUNT]`, `NAME` `DESCRIPTION` and `AMOUNT` are parameters which can be used as `expense add n/buy a book d/math book a/10`.
 * The mandatory parameters must be supplied in the order specified.
 * Default values can be specified in the square brackets, e.g `[NUM_ENTRIES, DEFAULT = 10]`. If the user does not provide a value for that parameter, it will default to the default value stated.
-* Some commands may have optional parameters denoted under options. These can be included by specifying a flag, usually of the format `--flag` or `-f`. E.g `--description` can be used as `expense edit 2 --description "changed description"`.
+* Some commands may have optional parameters denoted under options. These can be included by specifying in `<ANGULAR BRACKETS>` format, e.g `<a/AMOUNT>` can be used as `expense edit 2 a/10`.
 * Flags can be in any order.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[TAG]...` can be used as `{nbsp}` (i.e. 0 times), `bills`, `bills fees` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `<t/TAG>...` can be used as `{nbsp}` (i.e. 0 times), `bills`, `bills fees` etc.
 
 ====
 
@@ -50,10 +50,10 @@ GUI apps!
 === Managing expenses: `expense`
 
 . _Add a new expense: expense add_ +
-Adds an expense to records. +
+You can add an expense to records using this command. +
 Usage:
 
-add n/[NAME] d/[DESCRIPTION] a/[AMOUNT] t/[TAG]
+add n/[NAME] d/[DESCRIPTION] a/[AMOUNT] t/[TAG] date/[DATE]
 
 Example:  +
 `add n/buy a book d/math textbook a/10 t/coop` +
@@ -65,7 +65,7 @@ Edits an existing expense that is being displayed on the GUI. Either description
 {nbsp} +
 Usage:
 
- expense edit [INDEX] [OPTIONS]
+ edit [INDEX] [OPTIONS]
 +
 Options: +
 
@@ -73,11 +73,12 @@ Options: +
 * `d/`: Specify new description to update expense with. +
 * `a/`: Specify new amount to update expense with. +
 * `t/`: Specify the tag and attach it to the expense. +
+* `date/`: Specify new timestamp to update expense with. +
 {nbsp} +
 
 +
 Example: +
-`expense edit 2 d/buy a math book` +
+`edit 2 d/buy a math book` +
 Edit the expense at index 2  with new description of: “buy a math book” +
 
 [NOTE]
@@ -99,7 +100,7 @@ Deletes the expense with index 3. +
 {nbsp} +
 
 . _List all expenses: list_ +
-Lists all the expenses in the record list. +
+You can list all the expenses in the record list using this command. `list` will ignore all parameters. +
 {nbsp} +
 Usage:
 

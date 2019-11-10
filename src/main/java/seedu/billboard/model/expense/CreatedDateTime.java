@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class CreatedDateTime {
 
     // More formats can be added
-    public static final List<String> ACCEPTABLE_PATTERNS = List.of("d/M/yyyy[ HHmm]");
+    public static final List<String> ACCEPTABLE_PATTERNS = List.of("d/M/yyyy [HHmm]");
 
     public static final String MESSAGE_CONSTRAINTS = "Created date should follow one of these formats:\n"
              + String.join("\n", ACCEPTABLE_PATTERNS);
