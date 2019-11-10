@@ -213,10 +213,20 @@ public class InteractiveParserUtil {
                 .withResolverStyle(ResolverStyle.STRICT);
         LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
         int year = localDateTime.getYear();
+        enforceNonZeroYear(year);
+        return localDateTime;
+    }
+
+    /**
+     * Enforces that the specified year is non-zero.
+     *
+     * @param year The specified year.
+     * @throws DateTimeException If the specified year is zero.
+     */
+    private static void enforceNonZeroYear(int year) throws DateTimeException {
         if (year == 0) {
             throw new DateTimeException(MESSAGE_YEAR_ZERO);
         }
-        return localDateTime;
     }
 
     /**
@@ -240,10 +250,12 @@ public class InteractiveParserUtil {
      * @param date Date.
      * @param pattern Date-pattern.
      * @return {@code LocalDate} representing the date.
+     * @throws DateTimeException If the specified date's year is 0000.
      */
-    public static LocalDate parseLocalDate(String date, String pattern) {
+    public static LocalDate parseLocalDate(String date, String pattern) throws DateTimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern).withResolverStyle(ResolverStyle.STRICT);
         LocalDate localDate = LocalDate.parse(date, formatter);
+        enforceNonZeroYear(localDate.getYear());
         return localDate;
     }
 }

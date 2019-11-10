@@ -74,6 +74,21 @@ public class CalendarStateTest {
     }
 
     @Test
+    public void transition_zeroYear_throwsStateTransitionException() {
+        try {
+            ArgumentMultimap transitionArgumentMultimap = new ArgumentMultimap();
+            transitionArgumentMultimap.put(CliSyntax.PREFIX_CALENDAR, "opendisplay");
+            State postTransitionState = calendarState.transition(transitionArgumentMultimap);
+            transitionArgumentMultimap.put(CliSyntax.PREFIX_DATE, "01/01/0000");
+            State finalPostTransitionState = postTransitionState;
+            assertThrows(StateTransitionException.class, ()
+                -> finalPostTransitionState.transition(transitionArgumentMultimap));
+        } catch (StateTransitionException e) {
+            // StateTransitionException should not be thrown here.
+        }
+    }
+
+    @Test
     public void transition_invalidPrefix_throwsStateTransitionException() {
         ArgumentMultimap invalidArgumentMultimap = new ArgumentMultimap();
         invalidArgumentMultimap.put(new Prefix("hi"), "opendisplay");

@@ -18,7 +18,7 @@ import com.typee.logic.commands.TabCommand;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.ui.calendar.CalendarWindow;
-import com.typee.ui.calendar.exceptions.CalendarCloseDisplayException;
+import com.typee.ui.calendar.exceptions.CalendarInteractionException;
 import com.typee.ui.game.StartWindow;
 import com.typee.ui.report.ReportWindow;
 
@@ -228,30 +228,30 @@ public class MainWindow extends UiPart<Stage> {
      * @param commandResult The specified {@code CommandResult}.
      */
     private void handleCalendarInteraction(CommandResult commandResult) throws CommandException {
-        if (currentTab == null || !(currentTab.getController() instanceof CalendarWindow)) {
+        if (!(currentTab.getController() instanceof CalendarWindow)) {
             throw new CommandException("Calendar commands can only be used in the calendar window.");
         }
         CalendarWindow calendarWindow = (CalendarWindow) currentTab.getController();
         String calendarCommandType = commandResult.getCalendarCommandType();
-        switch (calendarCommandType) {
-        case CalendarOpenDisplayCommand.COMMAND_WORD:
-            calendarWindow.openSingleDayEngagementsDisplayWindow(commandResult.getCalendarDate());
-            break;
-        case CalendarCloseDisplayCommand.COMMAND_WORD:
-            try {
+        try {
+            switch (calendarCommandType) {
+            case CalendarOpenDisplayCommand.COMMAND_WORD:
+                calendarWindow.openSingleDayEngagementsDisplayWindow(commandResult.getCalendarDate());
+                break;
+            case CalendarCloseDisplayCommand.COMMAND_WORD:
                 calendarWindow.closeSingleDayEngagementsDisplayWindow(commandResult.getCalendarDate());
                 break;
-            } catch (CalendarCloseDisplayException e) {
-                throw new CommandException(e.getMessage());
+            case CalendarNextMonthCommand.COMMAND_WORD:
+                calendarWindow.populateCalendarWithNextMonth();
+                break;
+            case CalendarPreviousMonthCommand.COMMAND_WORD:
+                calendarWindow.populateCalendarWithPreviousMonth();
+                break;
+            default:
+                throw new CommandException("Invalid calendar command.");
             }
-        case CalendarNextMonthCommand.COMMAND_WORD:
-            calendarWindow.populateCalendarWithNextMonth();
-            break;
-        case CalendarPreviousMonthCommand.COMMAND_WORD:
-            calendarWindow.populateCalendarWithPreviousMonth();
-            break;
-        default:
-            throw new CommandException("Invalid calendar command.");
+        } catch (CalendarInteractionException e) {
+            throw new CommandException(e.getMessage());
         }
     }
 
