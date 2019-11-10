@@ -1,0 +1,12 @@
+{
+  "guiSettings" : {
+    "windowWidth" : 1250.0,
+    "windowHeight" : 800.0,
+    "extra" : "some value ",
+    "windowCoordinates" : {
+      "x" : 580,
+      "y" : 146
+    }
+  },
+  "capLogFilePath" : "capmodulelog.json"
+}

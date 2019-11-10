@@ -360,14 +360,14 @@ public class SwitchOperation {
      */
     private seedu.address.model.cap.Model initModelManager(CapStorage storage,
                                                            seedu.address.model.cap.ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyCapLog> addressBookOptional;
+        Optional<ReadOnlyCapLog> capLogOptional;
         ReadOnlyCapLog initialData;
         try {
-            addressBookOptional = storage.readCapLog();
-            if (!addressBookOptional.isPresent()) {
+            capLogOptional = storage.readCapLog();
+            if (!capLogOptional.isPresent()) {
                 System.out.println("Data file not found. Will be starting with a sample CapLog");
             }
-            initialData = addressBookOptional
+            initialData = capLogOptional
                     .orElseGet(seedu.address.model.cap.util.SampleDataUtil::getSampleCapLog);
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty CapLog");

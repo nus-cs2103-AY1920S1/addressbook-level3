@@ -33,8 +33,6 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label title;
     @FXML
-    private Label faculty;
-    @FXML
     private Label grade;
 
     public ModuleCard(Module module, int displayedIndex) {
@@ -43,7 +41,6 @@ public class ModuleCard extends UiPart<Region> {
         moduleCode.setText(module.getModuleCode().toString());
         title.setText(module.getTitle().toString());
         semester.setText(module.getSemester().toString());
-        faculty.setText(module.getFaculty().toString());
         grade.setText(module.getGrade().toString());
     }
 

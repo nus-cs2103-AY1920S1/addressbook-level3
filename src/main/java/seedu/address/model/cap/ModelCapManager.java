@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.GuiSettings;
@@ -30,8 +32,8 @@ public class ModelCapManager implements Model {
     private final CapLog capLog;
     private final CapUserPrefs capUserPrefs;
     private final FilteredList<Semester> filteredSemesters;
-    private final FilteredList<Module> filteredModules;
     private final AchievementManager achievementManager;
+    private FilteredList<Module> filteredModules;
     private boolean isPromoted;
     private boolean isDowngraded;
 
@@ -177,6 +179,37 @@ public class ModelCapManager implements Model {
     }
 
     @Override
+    public FilteredList<Module> getFilteredListbyTime() {
+        return new FilteredList<Module>(new SortedList<Module>(this.capLog.getModuleList(),
+                new Comparator<Module>() {
+                    @Override
+                    public int compare(Module targetModule, Module otherModule) {
+                        String academicYearTarget = targetModule.getSemester().getAcademicYear().getAcademicYear();
+                        String academicYearOther = otherModule.getSemester().getAcademicYear().getAcademicYear();
+
+                        int semesterTarget = targetModule.getSemester().getSemesterPeriod().getSemesterPeriod();
+                        int semesterOther = otherModule.getSemester().getSemesterPeriod().getSemesterPeriod();
+
+                        if (Integer.parseInt(academicYearTarget) > Integer.parseInt(academicYearOther)) {
+                            return 1;
+                        } else if (Integer.parseInt(academicYearTarget) < Integer.parseInt(academicYearOther)) {
+                            return -1;
+                        }
+
+                        return semesterTarget - semesterOther;
+                    }
+                }));
+    }
+
+    @Override
+    public void setSortedList() {
+        filteredModules = getFilteredListbyTime();
+        capLog.setModules(filteredModules);
+
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -194,6 +227,8 @@ public class ModelCapManager implements Model {
                 && capUserPrefs.equals(other.capUserPrefs)
                 && filteredModules.equals(other.filteredModules);
     }
+
+
 
     //=========== CAP =============================================================
 
