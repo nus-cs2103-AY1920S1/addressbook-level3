@@ -23,37 +23,37 @@ public class EventCardTest extends GuiUnitTest {
     public void display() {
         // defaultValues
         Event defaultSampleEvent = new EventBuilder().build();
-        EventCard EventCard = new EventCard(defaultSampleEvent, 1);
-        uiPartExtension.setUiPart(EventCard);
-        assertCardDisplay(EventCard, defaultSampleEvent, 1);
+        EventCard eventCard = new EventCard(defaultSampleEvent, 1);
+        uiPartExtension.setUiPart(eventCard);
+        assertCardDisplay(eventCard, defaultSampleEvent, 1);
 
         // with description
-        Event EventWithDescription = new EventBuilder().withDescription("description").build();
-        EventCard = new EventCard(EventWithDescription, 2);
-        uiPartExtension.setUiPart(EventCard);
-        assertCardDisplay(EventCard, EventWithDescription, 2);
+        Event eventWithDescription = new EventBuilder().withDescription("description").build();
+        eventCard = new EventCard(eventWithDescription, 2);
+        uiPartExtension.setUiPart(eventCard);
+        assertCardDisplay(eventCard, eventWithDescription, 2);
     }
 
     @Test
     public void equals() {
-        Event Event = new EventBuilder().build();
-        EventCard EventCard = new EventCard(Event, 0);
+        Event event = new EventBuilder().build();
+        EventCard eventCard = new EventCard(event, 0);
 
         // same Event, same index -> returns true
-        EventCard copy = new EventCard(Event, 0);
-        assertEquals(EventCard, copy);
+        EventCard copy = new EventCard(event, 0);
+        assertEquals(eventCard, copy);
 
         // same object -> returns true
-        assertEquals(EventCard, EventCard);
+        assertEquals(eventCard, eventCard);
 
         // null -> returns false
-        assertNotEquals(null, EventCard);
+        assertNotEquals(null, eventCard);
 
         // different types -> returns false
-        assertNotEquals(0, EventCard);
+        assertNotEquals(0, eventCard);
 
         // same Event, different index -> returns false
-        assertNotEquals(EventCard, new EventCard(Event, 1));
+        assertNotEquals(eventCard, new EventCard(event, 1));
     }
 
     /**

@@ -77,10 +77,6 @@ public class GuiTestAssert {
     public static void assertCardDisplaysEvent(Event expectedExpense, EventCardHandle actualCard) {
         assertEquals(actualCard.getDescription(), expectedExpense.getDescription().fullDescription);
         assertEquals(actualCard.getCategory(), expectedExpense.getCategory().getCategoryName());
-//        assertEquals(actualCard.getDate(),
-//                expectedExpense.getTimestamp().getFullTimestamp().format(ofPattern(DATE_PATTERN)));
-//        assertEquals(actualCard.getTime(),
-//                expectedExpense.getTimestamp().getFullTimestamp().format(ofPattern(TIME_PATTERN)));
         assertEquals(actualCard.getPrice(),
                 String.format(PRICE_TEMPLATE, CURRENCY_SYMBOL, expectedExpense.getPrice().getAsDouble()));
     }

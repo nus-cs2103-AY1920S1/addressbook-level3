@@ -1,11 +1,5 @@
 package guitests.guihandles.event;
 
-import static java.time.format.DateTimeFormatter.ofPattern;
-import static seedu.moolah.ui.expense.ExpenseCard.CURRENCY_SYMBOL;
-import static seedu.moolah.ui.expense.ExpenseCard.DATE_PATTERN;
-import static seedu.moolah.ui.expense.ExpenseCard.PRICE_TEMPLATE;
-import static seedu.moolah.ui.expense.ExpenseCard.TIME_PATTERN;
-
 import guitests.guihandles.CardHandle;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -74,8 +68,5 @@ public class EventCardHandle extends CardHandle<Event> {
     public boolean wraps(Event event) {
         return getDescription().equals(event.getDescription().fullDescription)
                 && getCategory().equals(event.getCategory().getCategoryName());
-//                && getDate().equals(event.getTimestamp().getFullTimestamp().format(ofPattern(DATE_PATTERN)))
-//                && getTime().equals(event.getTimestamp().getFullTimestamp().format(ofPattern(TIME_PATTERN)))
-//                && getPrice().equals(String.format(PRICE_TEMPLATE, CURRENCY_SYMBOL, event.getPrice().getAsDouble()));
     }
 }
