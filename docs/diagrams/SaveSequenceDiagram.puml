@@ -12,6 +12,7 @@ end box
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant ":SavingsAccount" as SavingsAccount MODEL_COLOR
+participant ":SavingHistory" as SavingHistory MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
@@ -56,7 +57,7 @@ deactivate SaveNusParser
 LogicManager -> SaveCommand : execute()
 activate SaveCommand
 
-SaveCommand -> Model : addToSavings(Savings savings)
+SaveCommand -> Model : depositInSavings(Savings savings)
 activate Model
 
 Model --> SaveCommand
