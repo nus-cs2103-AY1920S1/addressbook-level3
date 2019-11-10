@@ -751,21 +751,20 @@ appended to the list of transactions on the Home tab. In addition, the stock rem
 accordingly in the Inventory tab.
 
 ==== Add Sales Item Feature
-This feature allows the addition of sales items to the cart.
+This feature allows the adding of sales items to the cart.
 
 Only sales items can be added to the cart. If the price of an item is zero, it is not available for sale. The
 system will prohibit any addition of such an item to the cart.
 
 Adding of a sales item to the cart will require an input of its description and quantity. An optional field for
-category is provided to guide the cashier to find the desired item. If the category field is input with other unspecified
-description and quantity fields, `Model` will search all the sales items in the `Inventory List`
-according to the specified category and suggestions would be shown by Leo, the assistant. +
-If description and quantity field are both valid, the `ModelManager` will add the item into the sales list.
+category is provided to guide the cashier to find the desired item. If only the category field is inputted,
+`Model` will search all the sales items in the `Inventory List`
+according to the specified category and suggestions would be shown by Leo, the assistant.
 
 If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method,
 which will in turn call `getCombination(arr, arr.length)` method to return an ArrayList containing all subsets of
 the inputted description that are of at least length 3. These subsets are then compared
-with the actual descriptions of all items in the inventory to check if either contains the other.
+with the actual description of all items in the inventory to check if either contains the other.
 
 The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
@@ -793,6 +792,8 @@ starting character. The second loop takes each of the characters on the right of
 The last loop appends characters from the starting character to the ending character. After the nested loops, the ArrayList
 is passed into a stream to filter out all subsets of length less than 3.
 
+If description and quantity are both valid, the `ModelManager` will add the item into the sales list as shown in Figure 2.
+
 [NOTE]
 If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
 
@@ -810,6 +811,10 @@ There will also be checks to ensure that the item specified is available for sal
 [NOTE]
 After every add command, the quantity of items in the Inventory Tab will still remain the same. The remaining stock
 will only be updated after the Checkout Command.
+
+[NOTE]
+Once the item is added, boolean `onCashierMode` in ModelManager  will be immediately set to true if
+it is initially false.
 
 The following activity diagram shows the steps proceeding after the user input an add command:
 
@@ -866,6 +871,10 @@ transaction of the sales made.
 [NOTE]
 After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
 
+[NOTE]
+After checkout command is executed, boolean `onCashierMode` in ModelManager  will be
+immediately set to false.
+
 The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>,
 shows how the checkout command is executed:
 
@@ -875,8 +884,8 @@ image::CheckoutCommandCashierSeq1.png[]
 
 The `Cashier Logic` will call relevant methods to update the inventory list and newly-generated transaction
 to the respective `.txt file`. +
-To update the view on the Inventory tab and Transaction tab, transaction will be added to the transaction model and
-`readInUpdatedList()` method of inventory model will called to read in the entire inventory data file.
+To update the view on the Inventory tab and Transaction tab, transaction will be added to the transaction `Model` and
+`readInUpdatedList()` method of inventory `Model` will called to read in the entire inventory data file.
 
 The following sequence diagram shows how the transaction and inventory are updated:
 
@@ -907,37 +916,37 @@ This section explains the design considerations for some crucial implementations
 
 |A LinkedList is used to store the list of sales item.
 
-*Pros*: Time performance is better when elements are accessed from the head of the list.
+*Pros*: Elements can be accessed from the head and tail of the list in constant time.
 
-*Cons*: Performance is poor when accessing directly via the index.
+*Cons*: When accessing directly via the index, performance is poor with respect to time.
 
 |Alternative 1 is selected. An ArrayList has better performance with respect to time when accessing each elements directly. As the sales list will be updated and accessed regularly, an ArrayList is more fitting.
 
-|The Transaction, Inventory and Person `Model` interfaces are passed as parameters into Cashier's `Logic`
+|The Transaction, Inventory and Person `Model` interfaces are passed as parameters into the constructor of Cashier's `Logic`
 to call relevant methods to update the inventory and transactions.
 
 *Pros*: Cashier's Logic can access all public methods in the respective `Model`.
 
 *Cons*: It might result in unintended modification to some of the data in the Models.
 
-|Interfaces that only contains required methods are created. The methods are called via these interfaces
+|Interfaces that only contains the required methods are created. The methods are called via these interfaces
 to update the data.
 
-*Pros*: Prevents any unwanted changes through other methods. This follows the Facade Pattern.
+*Pros*: Prevents any unwanted changes through other methods. This adheres to the Facade Pattern.
 
 *Cons*: If more methods are needed, they need to be added to these interfaces.
 
 |Alternative 2 was implemented as only a few methods are required from each `Model`, so the new interfaces can act as facades
-and restrict access to all public methods in the models. This prevents in Cashier’s `Logic` from causing any
+and restrict access to all public methods in the models. This prevents Cashier’s `Logic` from causing any
 unintended modification to any of the data in the Models.
 
-|The Cashier Storage directly writes to and from the data file of the inventory and transaction.
+|The Cashier's `Storage` directly writes to and from the data file of the inventory and transaction.
 
 *Pros*: It can access the data file directly without any dependencies.
 
-*Cons*: The data files can be modified from 2 sources, introducing more chances of bugs.
+*Cons*: The data files can be modified from 2 sources, increasing chances of bugs.
 
-|The Cashier Storage accesses the methods from the Transaction and Inventory storage via their `Logic`
+|The Cashier's `Storage` accesses the methods from the Transaction and Inventory storage via their `Logic`
 to update the data.
 
 *Pros*: The data files are only modified from 1 source, ensuring cohesiveness in the format of data stored.
@@ -945,7 +954,7 @@ to update the data.
 *Cons*: It introduces more dependencies on the storage of other packages.
 
 |Alternative 2 is implemented to enforce defensive programming, so that the data files are not modified via 2 different
-methods and eliminate any chances of uncoordinated data in the data files.
+methods from different sources and eliminates any chances of uncoordinated data in the data files.
 
 |===
 
