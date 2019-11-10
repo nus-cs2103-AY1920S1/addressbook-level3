@@ -180,10 +180,17 @@ The following sequence diagram shows how the quiztag command works:
 .Component interactions for any quiztag command
 image::QuizTagSequenceDiagram.png[]
 
-After which, the flip command can be called consecutively for as long as there are flashcards left in the quiz, as shown below:
+Calling a quiztag command triggers the quiz mode, which is stored as a boolean in the FlashcardListParser.
+This is done with the consideration that there are different functions that can start the quiz mode (i.e quiz, quiztag),
+and others that can end the quiz mode (i.e flip, end, exit).
+
+During quiz mode, the flip command can be called consecutively for as long as there are flashcards left in the quiz, as shown below:
 
 .Flip command running and interact with the parser to toggle quiz mode
 image::FlipSequenceDiagram.png[]
+
+The flip command interacts with the model to check if there are any quizable flashcards.
+If there are none, the flip command toggles the quiz mode in FlashcardListParser off. 
 
 // end::quiztagfeature[]
 
