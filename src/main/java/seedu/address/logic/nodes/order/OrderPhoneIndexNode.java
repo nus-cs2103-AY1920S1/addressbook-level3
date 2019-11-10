@@ -21,8 +21,10 @@ public class OrderPhoneIndexNode extends AutoCompleteNode<List<Order>> {
         SortedSet<String> values = new TreeSet<>();
         int minIndex = 1;
         int maxIndex = pointer.size();
-        values.add(String.valueOf(minIndex));
-        values.add(String.valueOf(maxIndex));
+        if (maxIndex > 0) {
+            values.add(String.valueOf(minIndex));
+            values.add(String.valueOf(maxIndex));
+        }
         return values;
     }
 
