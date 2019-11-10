@@ -393,8 +393,7 @@ image::AutotagActivityDiagram.png[]
 === Annotation feature
 ==== Implementation
 The annotation feature builds upon the structure of an offline document used to represent a _Readability4J-derived cache_.
-Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. Each annotation is targeted to an entire paragraph;
-an annotation is added to a `Paragraph`. The annotation will be internally stored as an instance of `Annotation`.
+Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. Each annotation is attached to an entire `Paragraph`. The annotation will be internally stored as an instance of `Annotation`.
 You can view the class structure of the annotation feature in the <<annotation-cd, figure above>>.
 
 The annotation feature encompasses this functionality:
@@ -406,6 +405,10 @@ The annotation feature encompasses this functionality:
 Command  words `annotate`, `annotate-delete` and `annotate-edit` make up the _family of annotation commands_.
 When activated, each calls the respective command parser to create the corresponding `AnnotationCommand`.
 Subsequently, when necessary the appropriate `Paragraph` is retrieved, and the annotation is handled according to the command.
+You can study the hierarchy of the _family of annotation commands_ here:
+
+.Structure of the _family of annotation commands_.
+image::AnnotationCommandStructure.png[]
 
 The following sequence diagram illustrates how a command of the _family of annotation commands_ operates:
 
@@ -415,9 +418,10 @@ image::AnnotationSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+
 In the <<sd-annotation-general, figure above>>, the specifics of how `Parser#parse` and `AnnotationCommand#execute` are abstracted out.
 This is because each of the annotation commands have different input criteria. Hence each command is parsed and handled differently.
-The sub-sections below will show some examples illustrating how each command works.
+The sub-sections below will show you some examples illustrating how each command works.
 
 ===== Adding annotations
 Adding an annotation works as described by the <<sd-annotation-general, general sequence diagram>>, with the following
@@ -425,6 +429,7 @@ sequence diagram referred to by the reference frame:
 
 .Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate 1 p/p2 n/example note h/orange`. `ARGS` include `pid`, `highlight` and `note`.
 image::AddAnnotationSequenceDiagram.png[]
+
 
 The above example adds an annotation to a `:TrueParagraph`. Alternatively, if the user chooses to add a general note instead,
 `OfflineDocument#addPhantom` is called instead, creating an annotated `:PhantomParagraph`.
@@ -439,7 +444,8 @@ sequence diagram referred to by the reference frame:
 .Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-delete 1 p/p2 n/true`. `ARGS` include `pid`.
 image::DeleteAnnotationSequenceDiagram.png[]
 
-The above example deletes only the highlight from a `:TrueParagraph` which has a note. A `:PhantomParagraph` is created to keep a reference to the note.
+
+The above example deletes only the highlight from a `:TrueParagraph` which has a note, and then creates a `:PhantomParagraph` to keep a reference to the note.
 
 For other `annotate-delete` functions, instances of other derived classes of `DeleteAnnotationCommand` is used instead of `:DeleteAnnotationHighlightCommand`.
 If the user requests to remove the entire annotation instead, `DeleteAnnotationAllCommand` is used and the `an:Annotation` is simply dereferenced.
@@ -454,8 +460,12 @@ sequence diagram referred to by the reference frame:
 .Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-edit 1 p/g1 to/p1 h/green`. `ARGS` include `origPid`, `targetPid` and `newHighlight` and `newNote`.
 image::EditAnnotationSequenceDiagram.png[]
 
+
 The above example moves general note `G1` to paragraph `P1` and highlights `P1` green. As per the specifications, users are not allowed to move any annotation to `:PhantomParagraph` using `annotate-edit`, so `targetP` must either be `null` or a `:TrueParagraph`.
 However, `origP` can be anything as long as it is an instance of a derived class of `Paragraph`.
+
+The reason why we do not allow users to use this command to make notes general is because there is not much value in doing so given we only support highlights and notes as annotations.
+If you want, you can easily extend the edit function to be able to allow moving annotations to the general section.
 
 ===== Summmary
 
@@ -463,6 +473,8 @@ The following activity diagram summarizes what happens when a user attempts to a
 //TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
 
 image::AnnotationActivityDiagram.png[]
+
+You are welcome to extend the annotation feature by adding more forms of annotation.
 
 ==== Design Considerations
 The following are a few design considerations made in deciding how to implement the annotation feature:
