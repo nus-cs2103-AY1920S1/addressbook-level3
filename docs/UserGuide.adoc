@@ -392,6 +392,17 @@ Examples:
 Deletes day 2 from the itinerary.
 // end::deleteday[]
 
+=== List activities in a day: `list day`
+
+Lists the activities within day DAY_INDEX of the itinerary. +
+Format: `list day DAY_INDEX`
+
+Examples:
+
+* `list day 3`
+
+Lists activities within day 3 of the itinerary.
+
 // tag::schedule[]
 === Scheduling an activity to a day: `schedule`
 
@@ -506,6 +517,18 @@ Format: `redo`
 
 Examples: Undo/Redo optimise budget command
 
+=== Autocomplete
+
+While typing a command, suggestions from a dropdown menu will appear. The menu can be interacted with using the arrow keys, enter button or the mouse.
+
+* Autocomplete for commands
+
+image::CommandAutoComplete.png[]
+
+* Autocomplete for prefix
+
+image::PrefixAutoComplete.png[]
+
 * Before optimise
 
 .Day 2 has lots of overlapping activities
@@ -609,6 +632,7 @@ Format: `exit`
 | list accommodation
 | list activity
 | list contact
+| list day DAY_INDEX
 |===
 
 === View Commands

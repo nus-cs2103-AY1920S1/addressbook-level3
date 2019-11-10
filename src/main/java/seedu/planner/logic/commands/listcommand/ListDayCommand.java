@@ -9,6 +9,7 @@ import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
+import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.day.ActivityWithTime;
 
@@ -20,6 +21,15 @@ public class ListDayCommand extends ListCommand {
     public static final String SECOND_COMMAND_WORD = "day";
 
     public static final String MESSAGE_SUCCESS = "Listed all activities in day";
+
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "Lists the activities within day DAY_INDEX.",
+            COMMAND_WORD + " ("
+                    + SECOND_COMMAND_WORD
+                    + " <DAY_INDEX>",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1"
+    );
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(COMMAND_WORD + " "
             + SECOND_COMMAND_WORD,

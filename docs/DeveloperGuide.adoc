@@ -127,14 +127,14 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Planner data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores a `ActivityManager`, `AccommodationManager`, `ContactManager` and `Itinerary` that represents the managers for activity, accommodation, contact and day respectively.
+* exposes an unmodifiable `ObservableList<Activity>`, `ObservableList<Accommodation>`, `ObservableList<Contact>` and `ObservableList<Day>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+//[NOTE]
+//As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
 
-image:BetterModelClassDiagram.png[]
+//image:BetterModelClassDiagram.png[]
 
 // tag::storageuml[]
 [[Design-Storage]]
@@ -376,41 +376,44 @@ Aspect: Execution
 ** Cons:
 *** Less flexible optimisation.
 // end::optimise[]
+// tag::autocomplete[]
+=== Autocomplete
+
+// end::autocomplete[]
 
 // tag::scheduleactivity[]
-=== [Proposed] Schedule Activity feature
+=== Schedule feature
 
 *_Plan²travel_* allows user to schedule an activity from the activity list to a specified time of a day.
-This is accomplished by executing the Schedule Command using `activity index`, `day index`, `start time` and `end time` of the activity.
+This is accomplished by executing the Schedule Command using user inputted `ACTIVITY_INDEX`, `DAY_INDEX`and `start time`.
 
-Eg. `schedule activity ACTIVITY_INDEX st/START_TIME et/END_TIME d/DAY_INDEX`
+Eg. `schedule ACTIVITY_INDEX st/START_TIME d/DAY_INDEX`
 
 ==== Current Implementation
 
-The keywords from the command given by the user is parsed using `ScheduleCommandParser` which converts the string variable of start time and end time into a LocalTime format and wraps activity index and day index  with an Index class.
-These are then passed to the `ScheduleActivityCommand` for execution later on.
+The keywords from the command given by user is parsed using `ScheduleCommandParser` which converts the string variable of start time into a LocalDateTime object, while activity index and day index are converted into Index objects.
+These are then passed to the `ScheduleCommand` for execution later on.
 
 Given below is a sequence diagram showing the creation of `ScheduleActivityCommand`:
 
 .Sequence diagram showing how ScheduleActivityCommand is created.
 image::ScheduleActivityCommandCreation.png[]
 
-After the creation of `ScheduleActivityCommand`, `LogicManager` will proceed to call the `execute()` method of `ScheduleActivityCommand`.
+After the creation of `ScheduleCommand`, `LogicManager` will proceed to call the `execute()` method of `ScheduleCommand`.
 
-Below are the steps taken during the execution of `ScheduleActivityCommand`:
+Below are the steps taken during the execution of `ScheduleCommand`:
 
     1. `Model` will retrieve the list of days from the `Itinerary` and the list of activities from  `UniqueActivityList`.
 
     2. The `activityIndex` and `dayIndex` will then be used to obtain the target `Activity` from activity list
 and target `Day` from list of days.
 
-    3. `Activity` will be converted to `ActivityWithTime` using the start time and time given.
+    3. `Activity` will be converted to `ActivityWithTime` using the startDateTime and duration of activity.
 
-    4. This `ActivityWithTime` is then added to the list of `ActivityWithTime` for the target `Day`.
+    4. This `ActivityWithTime` is then added to the list of `ActivityWithTime` in the target `Day`.
 
-    5. A new `Day` is created with the updated list of `ActivityWithTime`.
+    5. The list of `ActivityWithTime` is sorted according ActivityWithTime startDateTime.
 
-    6. `Model` will replace the old `Day` with the new `Day` created in the `Itinerary`.
 
 Given below is a sequence diagram showing the execution of `ScheduleActivityCommand`:
 
@@ -421,11 +424,11 @@ image::ScheduleActivityExecution.png[]
 
 ===== Aspect: Update activities for that particular day
 
-* **Alternative 1 (current choice):** Create a new `Day` class with updated activity list for that day.
+* **Alternative 1 :** Create a new `Day` class with updated activity list for that day.
 ** Pros: Easier for developer to test the code.
 ** Cons: Might create unnecessary overheads in the code by creating new object every time we schedule an activity.
-* **Alternative 2:** Directly updates the activity list in the current `Day` class.
-** Pros: Seem more intuitive and simple to implement.
+* **Alternative 2 (current choice):** Directly updates the activity list in the current `Day` class.
+** Pros: More intuitive and simple to implement. Requires less computational time to execute.
 ** Cons: Might make it harder to debug if other functions/classes also depends on the same `Day` class.
 // end::scheduleactivity[]
 
@@ -453,9 +456,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 ==== Current Implementation
 
-Internally, Timetable is a TreeSet of ActivityWithTime. This allows fast access of ActivityWithTime stored in Timetable as well as giving Timetable the flexibility to accept Activities that start and end at any time instead of fixed intervals (e.g. 30 minute intervals).
-
-To be precise, comparison between ActivityWithTime in the TreeSet is done by comparing their start times. To prevent overlapping activities, checks will be conducted before the adding. The start time of an ActivityWithTime that is added will not be before the end time of its floor neighbour and it's end time will not be after the start time of its ceiling neighbour.
+Internally, Timetable is a List of ActivityWithTime. This gives the Timetable flexibility to accept Activities that start and end at any time instead of fixed intervals (e.g. 30 minute intervals) while allow for conflicting ActivityWithTime.
 
 ==== Design considerations
 * Alternative 1: an Array of time slots that stores Activity
@@ -464,11 +465,17 @@ To be precise, comparison between ActivityWithTime in the TreeSet is done by com
 
 ** Cons: Constrained to fixed intervals. Hence, Activity start times and end times have to be in multiples of the fixed interval.
 
-* Alternative 2(current choice): a TreeSet of ActivityWithTime
+* Alternative 2: a TreeSet of ActivityWithTime
 
 ** Pros: Allows flexible start times and end times. Fast access to Activity in Timetable. Does not allow ActivityWithTime objects to have the same start times.
 
-** Con: UI for itinerary might be difficult to implement as each the size of each block of ActivityWithTime in the UI is not the same.
+** Con: UI for itinerary might be difficult to implement as each the size of each block of ActivityWithTime in the UI is not the same. Does not allow for conflicting startDateTime between ActivityWithTime.
+
+* Alternative 3(current choice): a List of ActivityWithTime
+
+** Pros: Allows flexible start times and end times. ActivityWithTime can have the same startDateTime, thus allowing conflicting ActivityWithTime.
+
+** Con: UI for itinerary might be difficult to implement as each the size of each block of ActivityWithTime in the UI is not the same. Slower access time if the size of the List is large.
 
 == Documentation
 
