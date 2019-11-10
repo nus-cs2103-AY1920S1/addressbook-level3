@@ -33,6 +33,8 @@ Certain special formatting are used in this document and their description is as
 
 === Summary of contributions
 
+This section describes the various enhancements that I have contributed to the project which includes coding, documentation, project management and design.
+
 * *Major enhancement*: Added the ability for teachers to manage their questions.
 ** *What it does:* Allows teachers to manage their questions more efficiently by providing a simple interface to create, edit, delete and find questions.
 ** *Justification:* With teachers having to constantly prepare their questions before lessons and organise their questions for quizzes or homework, this feature will help to cut down
@@ -93,4 +95,3 @@ include::../UserGuide.adoc[tag=questions-slideshow]
 include::../DeveloperGuide.adoc[tag=questions-find]
 
 include::../DeveloperGuide.adoc[tag=questions-slideshow]
-
