@@ -48,16 +48,9 @@ programmers), you can get used to it while working on your coding skills here in
 - Refer to the following links for the complete walk-through (link:{JDKInstallationMac}[macOS] / link:{JDKInstallationWin}[windows])
 
 . Download the latest DukeAcademy.jar link:{repoURL}/releases[here].
-. Double-click the .jar file to start the app. The GUI should appear in a few seconds. If the app cannot be launched by double-clicking:
-- Launch Notepad (or any text editor), then copy and paste the following line into the text editor.
+. Double-click the .jar file to start the app. The GUI should appear in a few seconds. If the app cannot be launched by double-clicking, type `java -jar DukeAcademy.jar` inside terminal to launch.
 
- java -jar [name_of_file].jar
-
-- Replace "[name_of_file]" with whatever name you have saved the .jar file as.
-- Save the text file as a .bat file in the same location as the .jar file.
-- Then double-click on the newly created .bat file to run the app.
-
-. When launching the app for the first time, it will create a folder in your User home directory.
+. When launching the app for the first time, it will create a folder in the directory where you put the jar file.
 - This folder will contain all of your app's data. To fix any errors related to corrupted data, delete this folder and the app will be reinstalled.
 
 +
@@ -98,7 +91,9 @@ _Note: the index of a question is the number displayed next to its title._
 image::questionindex.png[width="1000"]
 +
 
+
 [[Overview]]
+
 == Overview
 
 The application is divided into 3 separate tabs, each one of them serving a specific purpose. You can toggle between the
@@ -342,24 +337,32 @@ image::submit.png[width="1000"]
 //tag::load[]
 === Loading new questions: `loadquestions`
 
-Imports new questions into the application through a text file.
+Imports your own set of questions into the application through a text file.
 
 *Format:* `loadquestions [filename]`
 
-****
-* Your text file should be located at the Desktop.
-* Your text file should follow the format specified at <<Custom-Questions>>.
-* The questions in the text file will only be loaded after entering this command.
-* Your questions will be loaded immediately.
-****
+*Procedure:*
+
+* Create your own question set text file. The text file should follow the format specified at <<Custom-Questions>>.
+* Your text file should be located inside the `DukeAcademy/newQuestions` directory. This `DukeAcademy` folder resides in the same directory whereby you put the `DukeAcademy.jar` application.
+
+*Example:*
+
+* We prepared for you a dummy custom question set located in `DukeAcademy/newQuestions`.
+* It includes 2 questions, namely `Apple` and `Banana`.
+* To load, type `loadquestions NewProblems.txt`.
+
 
 image::loadquestions.png[width="1000"]
 
-*Examples:*
+*Note:*
 
-* `loadquestions my_problem_set.txt` +
-Loads the questions from the file "my_problem_set.txt" located on your desktop.
+* The `.txt` suffix need to be typed as well.
+* The file name is case-sensitive. It might not work for case-insensitive entries.
+
+
 //end::load[]
+
 === Exit the application: `exit`
 
 Exits the application
@@ -393,10 +396,11 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 * Removing bookmark: `deletebookmark [id]`
 * Find by question title: `find​ [keyword]...`
 * Browse by category: ​`browse​ [keyword]...`
-* View: view: ​`view​ [id]`
+* View: `view​ [id]`
 * Attempt a question: `attempt​ [id]`
 * Submit:​ `submit`
 * Load questions: ​`loadquestions​ [filename]`
+* Switch tab sequentially: `tab`
 * Exit: `exit`
 
 //end::summary[]
