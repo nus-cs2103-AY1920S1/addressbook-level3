@@ -13,7 +13,7 @@ import seedu.address.logic.parser.navbar.NavbarViewParser;
  * Parses the commands related to the itinerary view page.
  */
 public class InventoryViewParser implements PageParser<Command> {
-    private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
+    static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + AddInventoryCommand.COMMAND_WORD + " "
             + DeleteInventoryCommand.COMMAND_WORD + " | "
             + NavbarViewParser.MESSAGE_COMMAND_TYPES;

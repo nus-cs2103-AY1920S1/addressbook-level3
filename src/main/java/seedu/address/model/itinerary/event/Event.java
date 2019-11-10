@@ -38,7 +38,7 @@ public class Event {
      * Constructs an {@code Event}.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking,
-                 Expenditure expenditure, Optional<InventoryList> inventoryList, Location destination) {
+                 Expenditure expenditure, Optional<List<Inventory>> inventoryList, Location destination) {
         requireAllNonNull(name, startDate, endDate);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
 
@@ -48,18 +48,7 @@ public class Event {
         this.booking = booking;
         this.destination = destination;
         this.expenditure = expenditure;
-
-        if (inventoryList.isPresent()) {
-
-            this.inventoryList = Optional.of(new ArrayList<Inventory>());
-
-            for (int i =0; i<inventoryList.get().getSize(); i++){
-                this.inventoryList.get().add(inventoryList.get().getList().get(i));
-            }
-
-        } else {
-            this.inventoryList = Optional.empty();
-        }
+        this.inventoryList = inventoryList;
     }
 
     // temporary constructor until we implement booking and inventoryList, accepts null for now

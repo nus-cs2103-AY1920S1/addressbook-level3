@@ -3,13 +3,18 @@ package seedu.address.testutil;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import seedu.address.model.booking.Booking;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
+
+import javax.swing.text.html.Option;
 
 /**
  * Builder class to accommodate optional properties using builder pattern.
@@ -22,7 +27,7 @@ public class EventBuilder {
     private Booking booking;
     private Location destination;
     private Expenditure totalBudget;
-    private Inventory inventory;
+    private Optional<List<Inventory>> inventoryList;
 
     /**
      * Constructs an empty {@code EventBuilder}.
@@ -53,7 +58,7 @@ public class EventBuilder {
                 .setEndDate(event.getEndDate())
                 .setLocation(event.getDestination());
         event.getExpenditure().ifPresent(e::setTotalBudget);
-        event.getInventory().ifPresent(e::setInventory);
+        event.getInventoryList().ifPresent(e::setInventoryList);
         event.getBooking().ifPresent(e::setBooking);
         return e;
     }
@@ -83,13 +88,13 @@ public class EventBuilder {
         return this;
     }
 
-    public EventBuilder setInventory(Inventory inventory) {
-        this.inventory = inventory;
+    public EventBuilder setInventoryList(List<Inventory> inventoryList) {
+        this.inventoryList = Optional.of(inventoryList);
         return this;
     }
 
     public Event build() {
-        return new Event(name, startDate, endDate, booking, totalBudget, inventory, destination);
+        return new Event(name, startDate, endDate, booking, totalBudget, inventoryList, destination);
     }
 
 }

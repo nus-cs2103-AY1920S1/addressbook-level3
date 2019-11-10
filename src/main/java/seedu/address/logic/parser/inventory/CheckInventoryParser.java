@@ -21,7 +21,7 @@ public class CheckInventoryParser implements Parser<CheckInventoryCommand> {
             return new CheckInventoryCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EnterDayCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckInventoryCommand.MESSAGE_USAGE));
         }
     }
 }
