@@ -374,7 +374,10 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 === Visual Representation of individual's or group's schedule feature
 
-The visual representation of a schedule is created in the `ScheduleView` class.
+The visual representation of a schedule is created in the `ScheduleView` class. The model below illustrates the purpose of the `ScheduleView` class.
+
+image::./yijie/ScheduleViewDomainModel.png[]
+
 In order to control the schedule created, an abstract class `ScheduleViewManager` is needed to control the creation of `ScheduleView` objects.
 The two classes that extend from `ScheduleViewManager` are `IndividualScheduleViewManager` and `GroupScheduleViewManager`.
 
@@ -403,10 +406,11 @@ executes the `lookat` command to inspect some of his group member's schedules. T
 The following sequence diagram shows how the `show` command eventually lead to changes in the UI to show the visual representation
 of an individual's or group's schedule.
 
+image::./yijie/showCommandSequenceDiagram.png[]
 
+In order to make the diagram look less messy, a reference diagram shown below is created to show what happens in the *get schedule view* frame.
 
-image::VisualRepresentationSD0.png[]
-image::VisualRepresentationSD1.png[]
+image::./yijie/showCommandSdFrame.png[]
 
 ==== Design Considerations
 
