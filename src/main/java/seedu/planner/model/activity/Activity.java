@@ -12,11 +12,11 @@ import seedu.planner.model.field.Cost;
 import seedu.planner.model.field.Name;
 import seedu.planner.model.tag.Tag;
 
+//@@author oscarsu97
+
 /**
  * Represents an Activity in the trip planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
- *
- * @@author oscarsu97
  */
 public class Activity implements Comparable<Activity> {
 

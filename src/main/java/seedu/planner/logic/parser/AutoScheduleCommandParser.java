@@ -17,9 +17,10 @@ import seedu.planner.logic.parser.exceptions.ParseException;
 import seedu.planner.model.field.Address;
 import seedu.planner.model.field.NameOrTagWithTime;
 
+//@@author oscarsu97
+
 /**
  * Parses input arguments and creates a new AutoScheduleCommand object
- * @@author oscarsu97
  */
 public class AutoScheduleCommandParser {
 

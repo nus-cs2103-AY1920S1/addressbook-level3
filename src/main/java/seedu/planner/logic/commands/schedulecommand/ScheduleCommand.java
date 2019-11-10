@@ -27,10 +27,10 @@ import seedu.planner.model.activity.Activity;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
 
+//@@author oscarsu97
+
 /**
  * Schedules an activity to a day.
- *
- * @@author oscarsu97
  */
 public class ScheduleCommand extends UndoableCommand {
 

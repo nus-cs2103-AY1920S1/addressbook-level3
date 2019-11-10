@@ -3,11 +3,11 @@ package seedu.planner.model.activity;
 import static java.util.Objects.requireNonNull;
 import static seedu.planner.commons.util.AppUtil.checkArgument;
 
+//@@author oscarsu97
+
 /**
  * Represents the duration of an Activity in the application.
  * Guarantees: immutable;
- *
- * @@author oscarsu97
  */
 public class Duration {
     public static final Integer MINUTES_IN_A_DAY = 1440;

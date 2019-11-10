@@ -36,6 +36,8 @@ import seedu.planner.model.day.Day;
 import seedu.planner.model.field.Address;
 import seedu.planner.model.field.NameOrTagWithTime;
 
+//@@author oscarsu97
+
 /**
  * Generates a schedule for specified day(s).
  */

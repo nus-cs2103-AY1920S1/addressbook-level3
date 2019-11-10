@@ -2,6 +2,8 @@ package seedu.planner.model.activity;
 
 import java.util.Objects;
 
+//@@author oscarsu97
+
 /**
  * Represents the number of times the Activity appears in the Timetable.
  */

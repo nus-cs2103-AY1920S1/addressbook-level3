@@ -3,11 +3,11 @@ package seedu.planner.model.activity;
 import static java.util.Objects.requireNonNull;
 import static seedu.planner.commons.util.AppUtil.checkArgument;
 
+//@@author oscarsu97
+
 /**
  * Represents the priority of an Activity in the application.
  * Guarantees: immutable;
- *
- * @@author oscarsu97
  */
 public class Priority {
 
@@ -49,7 +49,7 @@ public class Priority {
 
     @Override
     public int hashCode() {
-        return ((Integer) priorityValue).hashCode();
+        return  priorityValue.hashCode();
     }
 }
 
