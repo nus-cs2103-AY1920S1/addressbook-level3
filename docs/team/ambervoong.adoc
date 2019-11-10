@@ -97,7 +97,7 @@ as a digital database.
 entities contain many fields. I also had to deal with storing entities that contained other entities.
 
 === Code Contributed
-You can view my code at the link here: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambervoong&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via Reposense]]
+You can view my code at the link here: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambervoong&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[(via Reposense)]
 
 === Other contributions
 Other contributions I have made to the team and the project are listed in this section, along with relevant links.
