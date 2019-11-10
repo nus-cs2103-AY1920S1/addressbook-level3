@@ -1,0 +1,35 @@
+@startuml
+title Review
+
+start
+
+:User executes ""review"" command;
+note left
+  Arguments should
+  contain valid eatery index,
+  review description,
+  cost, rating and date
+end note
+
+if (is a valid command) then (yes)
+    :Parse arguments into a
+    ""ReviewCommand"" object;
+
+    :Execute ""ReviewCommand"";
+    note left
+        Adds review
+    end note
+
+    :Add new review to the specified eatery's list of reviews;
+
+
+    :Show success message to the user;
+else (no)
+    :Throw an exception;
+
+    :Show error message to the user;
+endif
+
+stop
+
+@enduml

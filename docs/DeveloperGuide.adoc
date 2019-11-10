@@ -285,48 +285,225 @@ image:StatsUiSequenceDiagram.png[]
 Reason for choosing alternative 1: Although it may be annoying for the user to keep calling `stats` command after every change made, we realise that since `stats` acts as a statistics report for the users, users may not call the `stats` command as often to justify refactoring the entire code. Furthermore, to make a change to the eatery or reviews, the user would still need to minimize `StatsWindow` and unminimize it to view the auto-updated changes. Hence, the number of steps the user would need to execute to see the change in statistics is the same even for both auto-update and without auto-update.
 
 // tag::revieweatery[]
-=== [Proposed] Review Eatery feature
+=== Review Eatery feature
 ==== Implementation
 
-The review mechanism is facilitated by the existing `AddressBook`.
-It extends `AddressBook` with a review field, stored internally as an array list of reviews along with other
+The review mechanism is facilitated by `EateryList`.
+It is stored internally as a set of reviews along with the other
 attributes of an eatery.
 Additionally, it implements the following operations:
 
-* `AddressBook#review()` -- Adds a review to the eatery identified by the user input.
-* `AddressBook#editReview()` -- Edits a previously written review.
+* `Eatery#addReview` -- Adds a review to the eatery identified by the user input.
 
 Given below is an example usage scenario and how the review mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the initial json data stored.
+Step 1. The user launches the application for the first time. The `EateryList` will be initialized with the initial json data stored.
 
 Step 2. The user executes `review 1 ...` command to add a review to the first Eatery in the address book. The `review` command will call `Eatery#addReview()`.
 [NOTE]
 If the index given is not a valid index (ie, out of bounds or negative), it will return an error to the user rather than attempting to review the Eatery.
 
-Step 3. The user executes `open 1` to get the complete details of the first Eatery.
+[NOTE]
+If the review is missing a `Description`, `Rating`, `Cost` or a `Date` field, an error will be shown to the user instead of adding the review.
 
-Step 4. The user then decides to execute `edit review 1 ...` to edit the first review of the Eatery opened in the previous step. This calls the `EatMe#editcommand()`.
+Step 3. The eatery list now returns a success message upon successfully adding a review to the eatery.
 
-===== Aspect: How review and edit review executes
+The following diagram shows the activities involved.
+image:ReviewActivityDiagram.png[]
 
-* **Alternative 1 (current choice):** No further nesting of Review field in Eatery.
-** Pros: Easily implemented.
-** Cons: May be worse OOP model as compared to other commands.
+The following diagram shows how the method is executed.
+image:ReviewSequenceDiagram.png[]
+
+===== Aspect: How review executes
+
+* ** Alternative 1 (current choice) **
+Adds a review to an eatery's list of reviews.
+** Pros: Easy to understand and implement.
+** Cons: The set of reviews of an `Eatery` is not final, unlike tags.
+
+* ** Alternative 2**
+Return a new set of reviews every time a review is added.
+** Pros: Makes the set of reviews final, adhering to the existing model.
+** Cons: Highly inefficient
+
+===== Aspect: Data Structure used to store Reviews
+
+* **Alternative 1 (current choice):**
+No further nesting of Review field in Eatery.
+** Pros: Easily implemented and will not compromise speed.
+** Cons: The OOP model might be different from other Commands.
 * **Alternative 2:** Further nesting of Review field in Eatery.
 ** Pros: A better OOP model.
 ** Cons: May decrease performance and difficult to implement.
 
-* **Current choice:** Store and edit the reviews of an eatery in a list.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: List is not immutable.
+
 // end::revieweatery[]
+
+// tag::editreview[]
+
+=== Edit Review feature
+==== Implementation
+
+The edit review mechanism is facilitated by `EateryList`. It makes use of the following operations:
+
+* `EateryList#getActiveEatery`
+* `EateryList#getActiveReviews`
+
+Given below is an example usage scenario and how the close mechanism behaves at each step.
+
+Step 1. The user decides to check the reviews of an eatery by using `show` command.
+
+Step 2. The user then decides to edit the first review of the eatery and executes `editreview 1 ...` with the necessary fields.
+
+[NOTE]
+If none of the fields entered are different from the existing fields, the user will be shown an error saying that at least one field should be different.
+
+[NOTE]
+If the user input is not according to the given format, an error will be shown to the user instead of attempting to edit the review.
+
+Step 3. The application returns a success message upon successfully editing the review.
+
+The following diagram shows the activities involved.
+image:EditReviewActivityDiagram.png[]
+
+==== Design Considerations:
+
+===== Aspect: How edit review executes
+* ** Alternative 1 (current choice)**:
+When the show command is used, `EateryList#setActiveEatery` will set the eatery shown as the active eatery.
+When the user attempts to edit review, the eatery is accessed using `EateryList#getActiveEatery`. The reviews are modified by using
+`EateryList#getActiveReviews`, which returns a list of reviews. The changed list is set to the `ActiveEatery`
+by `Eatery#setReviews`.
+
+** Pros: Easy to access and edit reviews.
+** Cons: The `ActiveEatery` is not modified until the `show` command is used on another eatery.
+
+* ** Alternative 2**:
+Operate directly on the list of reviews after using `show` command and set the changed list to the eatery.
+
+** Pros: `EditReview` is only accessible after using `show` command.
+** Cons: Difficult to implement and understand.
+// end::editreview[]
+
+//tag::deletereview[]
+=== Delete Review feature
+==== Implementation
+
+The delete review mechanism is facilitated by `EateryList`. It makes use of the following operations:
+
+* `EateryList#getActiveEatery`
+* `EateryList#getActiveReviews`
+
+Given below is an example usage scenario and how the close mechanism behaves at each step.
+
+Step 1. The user decides to check the reviews of an eatery by using `show` command.
+
+Step 2. The user then decides to delete the first review of the eatery and executes `deletereview 1 ...` .
+
+[NOTE]
+If the index given is not a valid index (ie, out of bounds or negative), it will return an error to the user rather than attempting to close the Eatery.
+
+Step 3. The application returns a success message upon successfully deleting the review.
+
+==== Design Considerations:
+
+===== Aspect: How delete review executes
+* ** Alternative 1 (current choice)**:
+When the show command is used, `EateryList#setActiveEatery` will set the eatery shown as the active eatery.
+When the user attempts to delete a review, the eatery is accessed using `EateryList#getActiveEatery`. The reviews are modified by using
+`EateryList#getActiveReviews`, which returns a list of reviews. The changed list is set to the `ActiveEatery`
+by `Eatery#setReviews`.
+
+** Pros: Easy to access and delete reviews.
+** Cons: The `ActiveEatery` is not modified until the `show` command is used on another eatery.
+
+* ** Alternative 2**:
+Operate directly on the list of reviews after using `show` command and set the changed list to the eatery.
+
+** Pros: `DeleteReview` is only accessible after using `show` command.
+** Cons: Difficult to implement and understand.
+
+//end::deletereview[]
+
+//tag::addtag[]
+=== Add Tag feature
+==== Implementation
+The addtag mechanism is facilitated by the EateryList and implement the following operations:
+
+* `EateryList#getFilteredEateryList`
+* `EateryList#setEatery`
+
+The effects of add tag are cumulative, ie it does not replace existing tags but adds the given tags.
+
+Given below is an example usage scenario and how the addtag mechanism behaves.
+
+Step 1. The user launches the application and wants to add tags to the first eatery displayed.
+
+Step 2. The user executes `addtag 1 ...` to add the required tags to the eatery.
+
+[NOTE]
+If the index specified is invalid (negative or out of bounds) or the format of the command is wrong,
+an error will be shown to the user.
+
+Step 3. If the tags to be added are not associated with eatery previously, they will be added to the eatery.
+
+Step 4. AddTag success message is shown to the user.
+
+==== Design Considerations:
+===== How AddTag executes:
+* ** Current choice: **
+Returns a new Eatery object with the existing and new tags. The tags to be added are checked
+if they are already associated with the eatery before adding.
+
+** Pros:
+Preserves the OOP model of the project and there is no need for setter methods.
+
+** Cons: Very inefficient to return new Eatery object every time tags are changed.
+
+//end::addtag[]
+
+//tag:: deletetag[]
+=== Delete Tag feature
+
+==== Implementation
+The deleteTag mechanism is facilitated by the EateryList and implement the following operations:
+
+* `EateryList#getFilteredEateryList`
+* `EateryList#setEatery`
+
+Given below is an example usage scenario and how the addtag mechanism behaves.
+
+Step 1. The user launches the application and wants to delete tags from the first eatery displayed.
+
+Step 2. The user executes `deletetag 1 ...` to delete the required tags from the eatery.
+
+[NOTE]
+If the index specified is invalid (negative or out of bounds) or the format of the command is wrong,
+an error will be shown to the user.
+
+Step 3. If the tags to be deleted are not associated with eatery previously, no changes will be made.
+
+Step 4. DeleteTag success message is shown to the user.
+
+==== Design Considerations:
+===== How AddTag executes:
+* ** Current choice: **
+Returns a new Eatery object with the existing and new tags. The tags to be deleted are checked
+if they are already associated with the eatery before deleting.
+
+** Pros:
+Preserves the OOP model of the project and there is no need for setter methods.
+
+** Cons: Very inefficient to return new Eatery object every time tags are changed.
+
+
+//end::deletetag[]
 
 // tag::close[]
 === Close Eatery feature
 ==== Implementation
 
-The close mechanism is facilitated by `AddressBook`. It implements ReadOnlyAddressBook interface with the following operation:
+The close mechanism is facilitated by `AddressBook`. It implements the `ReadOnlyAddressBook` interface with the following operation:
 
 * `AddressBook#setEatery()` -- Replaces an Eatery with a modified Eatery specified by the user input.
 

@@ -22,8 +22,6 @@ import seedu.address.model.eatery.Review;
 public class ReviewCommand extends Command {
 
     public static final String COMMAND_WORD = "review";
-    public static final String MESSAGE_EATERY_CLOSED = "The eatery is closed!";
-
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a review to the eatery identified "
             + "by the index number used in the last eatery listing. "
@@ -67,10 +65,6 @@ public class ReviewCommand extends Command {
 
         if (model.isMainMode()) {
             Eatery eateryToAddReview = lastShownList.get(index.getZeroBased());
-
-            if (!eateryToAddReview.getIsOpen()) {
-                throw new CommandException(MESSAGE_EATERY_CLOSED);
-            }
 
             eateryToAddReview.addReview(review);
             model.updateFilteredEateryList(Model.PREDICATE_SHOW_ALL_EATERIES);
