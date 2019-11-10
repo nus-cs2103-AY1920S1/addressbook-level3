@@ -24,7 +24,8 @@ My role in this project was to design and implement the Notification system of t
 
 Note the following symbols and formatting used throughout this document:
 |=======
-| `notif_on` | A grey highlight indicates that a term is a command that can be executed by the program if input through the command line.
+| `notif_on` | A grey highlight in the User Guide indicates that a term is a command that can be executed by the program if input through the command line.
+| `NotificationManager`| A grey highlight in the Developer Guide indicates that a term is a class or an object used in the source code of the application.
 |=======
 
 == Summary of Contributions
