@@ -12,23 +12,21 @@ import static seedu.address.testutil.TypicalLessons.ANOTHER_MON;
 import static seedu.address.testutil.TypicalLessons.TUE;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.LessonBuilder;
 
 public class LessonTest {
 
     @Test
-    public void isSameDay(Lesson otherLesson) {
+    public void isSameDay() {
         //same object -> returns true
         assertTrue(MON.isSameDay(MON));
-
-        //null object -> returns false
-        assertFalse(MON.isSameDay(null));
 
         //same day -> returns true;
         assertTrue(MON.isSameDay(ANOTHER_MON));
 
         //different day -> returns false
-        assertTrue(MON.isSameDay(TUE));
+        assertFalse(MON.isSameDay(TUE));
 
         //edited to different day -> returns false
         Lesson editedMon = new LessonBuilder(MON).withStartTime(VALID_STARTTIME_TUE).withEndTime(VALID_ENDTIME_TUE)
@@ -37,7 +35,7 @@ public class LessonTest {
     }
 
     @Test
-    public void isSameLesson(Lesson otherLesson) {
+    public void isSameLesson() {
         //same object -> returns true
         assertTrue(MON.isSameLesson(MON));
 
@@ -58,7 +56,7 @@ public class LessonTest {
     }
 
     @Test
-    public void equals(Lesson otherLesson) {
+    public void equals() {
         //same object -> returns true
         assertTrue(MON.equals(MON));
 
