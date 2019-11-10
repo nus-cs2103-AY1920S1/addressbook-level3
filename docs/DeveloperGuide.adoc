@@ -163,10 +163,29 @@ This section describes some noteworthy details on how certain features are imple
 The AutoComplete feature is facilitated by 2 classes: the `AutoCompleteTextField`, and the class `Styles`.
 Both are represented in the class diagram below.
 
-The `AutoCompleteTextField` adds a `ChangeListener` to textProperty() that notifies
+image::SebastianDG/AutoCompleteClassDiagram.png[auto_,300,300,pdfwidth=50%,scaledwidth=50%]
 
+The `AutoCompleteTextField` adds a `ChangeListener` to textProperty() that notifies `AutoCompleteTextField`
+whenever the user inputs new text, i.e when the text entered changes.
 
+Step 1.  User triggers the listener when user enters text.
 
+Step 2. From the text entered, `AutoCompleteTextField` attempts suggesting existing commands.
+If input matches any existing commands, it proceeds to step 3. Otherwise, it does nothing and waits user input.
+
+Step 3. `AutoCompleteTextField` calls `Styles#buildTextFlow`to highlight the portion of each
+command suggestion where the user's input matches the suggestion.
+
+Step 4. `AutoCompleteTextField` then displays a popup menu using the javafx class `ContextMenu`.
+
+Step 5. If the user selects a suggestion, the textfield is set to that suggestion, and the popup menu is
+closed. If the user enters more text, `AutoCompleteTextField` returns to step 1.
+
+Step 6. Otherwise, the popup menu is closed.
+
+This sequence of steps is illustrated below with an activity diagram.
+
+image::SebastianDG/auto_activity.JPG[auto_,500,500,pdfwidth=50%,scaledwidth=50%]
 // end::autocomplete[]
 
 // tag::upload[]

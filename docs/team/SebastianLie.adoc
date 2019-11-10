@@ -37,7 +37,15 @@ The main features of the project are:
 ** Justification
 
 - *Major Enhancement*: added the autocomplete feature to the gui
-** What it does
+** What it does: add a popup menu that suggests commands to the user based on text the user has already entered
+** Justification: Many commands in Teacher's Notebook are long and tedious, and have specific prefixes or formats.
+By suggesting commands, users can quickly become familiar with commands, and save time not needing to remember the
+format of commands.
+and easily select
+** Highlights: This enhancement allows the user to view up to 10 suggestions in a popup menu, and select between them with the keyboard.
+Commands suggested are already in their required form with prefixes, making it easier for users
+to execute the intended command successfully without referring to the UserGuide.
+
 
 - *Minor Enhancement*: added the ability to scroll through previously entered commands with the up and down arrow keys
 - Code Contributed [https://github.com/AY1920S1-CS2103-T14-1/main/commits?author=sebastianlie[Functional Code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=SebastianLie&tabRepo=AY1920S1-CS2103-T14-1%2Fmain%5Bmaster%5D[RepoSense]
