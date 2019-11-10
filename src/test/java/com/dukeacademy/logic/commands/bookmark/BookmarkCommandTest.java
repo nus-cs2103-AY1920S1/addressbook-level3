@@ -13,8 +13,7 @@ class BookmarkCommandTest {
     void testExecute() throws CommandException {
         MockQuestionsLogic questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
         BookmarkCommand bookmarkCommand = new BookmarkCommand(-1, questionsLogic);
-        assertThrows(CommandException.class,
-                "Index -1 entered out of range for current list of questions.", () ->
-                        bookmarkCommand.execute());
+        String expectedMessage = "No question with id  -1 found.";
+        assertThrows(CommandException.class, expectedMessage, () -> bookmarkCommand.execute());
     }
 }

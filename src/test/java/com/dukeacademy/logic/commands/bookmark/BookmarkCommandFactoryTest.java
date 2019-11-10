@@ -24,7 +24,9 @@ class BookmarkCommandFactoryTest {
         BookmarkCommandFactory factory = new BookmarkCommandFactory(questionsLogic);
         assertTrue(factory.getCommand("1") instanceof BookmarkCommand);
 
+        String expectedMessage = "Invalid input. Please call the bookmark command in this format: <bookmark [id]> , "
+                + "where id is the positive integer beside the question title.";
         assertThrows(InvalidCommandArgumentsException.class,
-                "Invalid index entered.", () -> factory.getCommand("testerString"));
+                expectedMessage, () -> factory.getCommand("testerString"));
     }
 }

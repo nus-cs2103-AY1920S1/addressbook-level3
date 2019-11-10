@@ -24,7 +24,9 @@ class DeleteBookmarkCommandFactoryTest {
         DeleteBookmarkCommandFactory factory = new DeleteBookmarkCommandFactory(questionsLogic);
         assertTrue(factory.getCommand("1") instanceof DeleteBookmarkCommand);
 
-        assertThrows(InvalidCommandArgumentsException.class,
-                "Invalid index entered.", () -> factory.getCommand("testerString"));
+        String expectedMessage = "Invalid input. Please call the deletebookmark command in this format: "
+                + "<deletebookmark [id]> , where id is the positive integer beside the question title.";
+        assertThrows(InvalidCommandArgumentsException.class, expectedMessage, () ->
+                factory.getCommand("testerString"));
     }
 }
