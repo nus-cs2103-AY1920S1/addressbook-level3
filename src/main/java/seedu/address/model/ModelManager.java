@@ -42,7 +42,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with notebook: " + notebook + " and user prefs " + userPrefs);
         this.notebook = new Notebook(notebook);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.caretaker = new Caretaker(new Memento(notebook), this.notebook);
+        this.caretaker = new Caretaker(this.notebook);
 
         filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
         filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());

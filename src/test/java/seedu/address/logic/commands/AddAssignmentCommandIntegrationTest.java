@@ -4,12 +4,12 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalNotebook.getTypicalNotebook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -36,7 +36,8 @@ public class AddAssignmentCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getNotebook(), new UserPrefs());
 
         List<String> studentNames = new ArrayList<>();
-        expectedModel.getCurrentClassroom().getStudentList().forEach(student -> studentNames.add(student.getName().toString()));
+        expectedModel.getCurrentClassroom().getStudentList().forEach(student -> studentNames.add(student.getName()
+                .toString()));
         validAssignment.initialiseGrades(studentNames);
 
         expectedModel.addAssignment(validAssignment);

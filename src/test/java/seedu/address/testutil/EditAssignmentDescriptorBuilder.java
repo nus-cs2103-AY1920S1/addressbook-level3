@@ -24,10 +24,10 @@ public class EditAssignmentDescriptorBuilder {
     /**
      * Returns an {@code EditAssignmentDescriptor} with fields containing {@code Assignment}'s details
      */
-    public EditAssignmentDescriptorBuilder(Assignment Assignment) {
+    public EditAssignmentDescriptorBuilder(Assignment assignment) {
         descriptor = new EditAssignmentCommand.EditAssignmentDescriptor();
-        descriptor.setAssignmentName(Assignment.getAssignmentName());
-        descriptor.setAssignmentDeadline(Assignment.getAssignmentDeadline());
+        descriptor.setAssignmentName(assignment.getAssignmentName());
+        descriptor.setAssignmentDeadline(assignment.getAssignmentDeadline());
     }
 
     /**

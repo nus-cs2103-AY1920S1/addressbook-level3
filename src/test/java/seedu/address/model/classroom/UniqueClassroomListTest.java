@@ -33,13 +33,13 @@ public class UniqueClassroomListTest {
     }
 
     @Test
-    public void contains_ClassroomInList_returnsTrue() {
+    public void contains_classroomInList_returnsTrue() {
         uniqueClassroomList.add(CLASSROOM_ONE);
         assertTrue(uniqueClassroomList.contains(CLASSROOM_ONE));
     }
 
     @Test
-    public void contains_ClassroomWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_classroomWithSameIdentityFieldsInList_returnsTrue() {
         uniqueClassroomList.add(CLASSROOM_ONE);
         Classroom editedClassroomOne = new ClassroomBuilder(CLASSROOM_ONE)
                 .withStudents(getTypicalStudents()).build();
@@ -108,7 +108,8 @@ public class UniqueClassroomListTest {
     public void setClassroom_editedClassroomHasNonUniqueIdentity_throwsDuplicateClassroomException() {
         uniqueClassroomList.add(CLASSROOM_ONE);
         uniqueClassroomList.add(CLASSROOM_TWO);
-        assertThrows(DuplicateClassroomException.class, () -> uniqueClassroomList.setClassroom(CLASSROOM_ONE, CLASSROOM_TWO));
+        assertThrows(DuplicateClassroomException.class, () -> uniqueClassroomList
+                .setClassroom(CLASSROOM_ONE, CLASSROOM_TWO));
     }
 
     @Test
@@ -117,7 +118,7 @@ public class UniqueClassroomListTest {
     }
 
     @Test
-    public void remove_ClassroomDoesNotExist_throwsClassroomNotFoundException() {
+    public void remove_classroomDoesNotExist_throwsClassroomNotFoundException() {
         assertThrows(ClassroomNotFoundException.class, () -> uniqueClassroomList.remove(CLASSROOM_ONE));
     }
 
@@ -151,8 +152,8 @@ public class UniqueClassroomListTest {
     @Test
     public void setClassrooms_list_replacesOwnListWithProvidedList() {
         uniqueClassroomList.add(CLASSROOM_ONE);
-        List<Classroom> ClassroomList = Collections.singletonList(CLASSROOM_TWO);
-        uniqueClassroomList.setClassrooms(ClassroomList);
+        List<Classroom> classroomList = Collections.singletonList(CLASSROOM_TWO);
+        uniqueClassroomList.setClassrooms(classroomList);
         UniqueClassroomList expectedUniqueClassroomList = new UniqueClassroomList();
         expectedUniqueClassroomList.add(CLASSROOM_TWO);
         assertEquals(expectedUniqueClassroomList, uniqueClassroomList);
@@ -162,12 +163,13 @@ public class UniqueClassroomListTest {
     public void setClassrooms_listWithDuplicateClassrooms_throwsDuplicateClassroomException() {
         List<Classroom> listWithDuplicateClassrooms = Arrays.asList(CLASSROOM_ONE, CLASSROOM_ONE);
         assertThrows(
-                DuplicateClassroomException.class, () -> uniqueClassroomList.setClassrooms(listWithDuplicateClassrooms));
+                DuplicateClassroomException.class, () -> uniqueClassroomList
+                        .setClassrooms(listWithDuplicateClassrooms));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueClassroomList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, (
+                ) -> uniqueClassroomList.asUnmodifiableObservableList().remove(0));
     }
 }
