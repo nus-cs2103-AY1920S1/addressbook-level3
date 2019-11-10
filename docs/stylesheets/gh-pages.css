@@ -21,7 +21,7 @@
 /* Overrides for asciidoctor.css */
 
 a {
-    color: #0074c7;
+    color: #294172;
 }
 
 h1,
@@ -40,7 +40,7 @@ h5,
 h5 > a.link,
 h6,
 h6 > a.link {
-    color: #e46c0a;
+    color: #294172;
 }
 
 .subheader,
@@ -62,7 +62,7 @@ table.tableblock > .title,
 .ulist > .title,
 .qlist > .title,
 .hdlist > .title {
-    color: rgb(197, 90, 17);
+    color: #294172;
 }
 
 @media screen {
@@ -148,7 +148,7 @@ table.tableblock > .title,
 }
 
 .navbar-light .nav-link.active {
-    border-bottom: 2px #e46c0a solid;
+    border-bottom: 2px #294172 solid;
 }
 
 .navbar-lg .nav-link.active {
