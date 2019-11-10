@@ -158,43 +158,55 @@ kbd:[↑] and kbd:[↓] keys on your keyboard. You can call back up to 20 comman
 // tag::help[]
 ==== Opening the help window: `help`
 
+Use the command `help` to access the help window.
+
+Example:
+
+Let's say that you wanted to view all your items that are expiring soon, but have forgotten the command word for this purpose.
+Instead of trying all possible inputs, you can simply type `help` into the command box, to find the command word `check` that you have looking for.
+
 .Help window
 image::help.png[width="790"]
-
-Displays the help window. +
-Format: `help`
 // end::help[]
 
 // tag::view[]
 ==== Viewing all items : `view`
 
-===== Viewing all items in the current list
-
-.Items in current list viewed
-image::view-current.png[width="790"]
-Shows all items in the current list, which is the main list by default, or the replenish list if otherwise specified. +
-All items are sorted by both name (lexicographical order) and date (chronological order). +
-Format: `view`
-
 ===== Viewing all items in another list
 
-.Items in main tracking list viewed
-image::view-main.png[width="790"]
+To toggle between the main list and the list of items to be replenished, you
+can use the command `view|<list name>`. This shows you all the items in the list sorted by name
+(lexicographical order) then date (chronological order). +
+
+Examples:
+
+Let's say that you have completely depleted some items, namely `Cherry` and `Coco Crunch` in the main tracking list, and you wish to view these items
+that have been automatically shifted to the replenish list. You can do so by typing `view|replenish` in the command box
+to change your current list view to that shown in Figure 2 below.
 
 .Items in replenish list viewed
 image::view-replenish.png[width="790"]
 
-Changes the list to be displayed. +
-You can toggle between the main list and the list of items to be replenished with this command. +
-Format: `view|<list to view>`
+Perhaps after viewing all your items in the replenish list, you wish to return to the main tracking list to add some items
+that you have recently purchased. You can easily return to the main list, by typing `view|main` in the command box.
+This is depicted in Figure 3 below.
 
-Examples:
+.Items in main tracking list viewed
+image::view-main.png[width="790"]
 
-* `view|main` +
-Displays all items in the main list.
+===== Viewing all items in the current list
 
-* `view|replenish` +
-Displays all items in the replenish list.
+To view all the items in the current list, you can simply enter the command `view`.
+[NOTE]
+If you have not previously toggled the list view, this command will display the main tracking list by default.
+
+Example:
+
+Let's say that you have been searching for an item in the main tracking list, and you are shown the item found.
+To return back to the main list that displays all the items tracked, you can simply enter the command `view`.
+
+.Items in current list viewed
+image::view-current.png[width="790"]
 // end::view[]
 
 // tag::search[]
@@ -216,6 +228,7 @@ Format: `search|<keyword>[|<other keywords>]...`
 [TIP]
 You can do an AND search, e.g. search for items that contains BOTH `red` and `apple` in its name, by keying `search|red` and then `search|apple`. Suppose there are only 3 items in your list, e.g. `red fuji apple`, `red strawberry` and `green apple`, the above commands will display only `red fuji apple`.
 
+****
 * The search is case insensitive. e.g `ham` will match `Ham` and `#fruit` will match `#Fruit`.
 * The order of the keywords does not matter. e.g. `Turkey Ham|Apple` will match `Apple|Turkey Ham`.
 * Only the name and tag fields, if any, are searched.
@@ -503,21 +516,42 @@ Lists items expiring in the next 20 days.
 
 // tag::sort[]
 ==== Sorting all items : `sort`
-Sorts all items in your list by their name or date. +
-Format: `sort|<key>`
+[NOTE]
+Your items in both lists are sorted by their names by default.
 
-****
-* Items can be sorted by either name or date.
-* For example, Apple will sort ahead of Banana, while an item that expires on 1/1/2020 will sort ahead of another that expires on 1/1/2022.
-****
-===== Sorting all items by their name
-Format: `sort|name`
+To change the way your items are sorted, you can simply use the command `sort|<key>`,
+where <key> can be specified as either date or name.
 
 ===== Sorting all items by their date
+Example:
+
+Let's say that you are currently on the main tracking list, and you wish to identify all your items expiring next year.
+To expedite your search for these items, simply enter the command `sort|date`, and all your items will be sorted by their expiry dates
+in chronological order.
+
+As shown in the figure below, Banana that expires on 2nd November 2019 sorts ahead of Strawberry which expires a day later.
+
 .Items sorted by their date
 image::sort-date.png[width="790"]
 
-Format: `sort|date`
+[NOTE]
+Items that expire on the same day will be sorted by their names.
+****
+* For example, Apple will sort ahead of Banana, if both have the same expiry date.
+****
+
+===== Sorting all items by their name
+
+Example:
+
+Let's say that you have previously sorted your items by their expiry dates to find some items expiring in a certain year.
+You can use the command `sort|name` to return your list to its default method of sorting that sorts your items by their names.
+
+[NOTE]
+Items with the same name will be sorted by their expiry dates.
+****
+* For example, Milk that expires today will sort ahead of Milk that expires tomorrow.
+****
 // end::sort[]
 
 // tag::dataencryption[]
@@ -567,7 +601,7 @@ The table below summarises the common commands available for use in both lists.
 |`redo`|
 
 1.2+|*View*
-1.2+|`view\|<list>`
+1.2+|`view\|<list name>`
 
 |`view\|main`
 |`view\|replenish`

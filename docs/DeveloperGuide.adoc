@@ -1,9 +1,11 @@
 = Xpire - Developer Guide
 :site-section: DeveloperGuide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 5
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -65,7 +67,6 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for `delete|1` command
 
 image::ArchitectureSequenceDiagram.png[]
-
 The sections below give more details of each component.
 
 [[Design-Ui]]
@@ -144,9 +145,12 @@ Classes used by multiple components are in the `io.xpire.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag:replenishList[]
 === Replenish List
-==== Implementation
+// tag::replenishListItems[]
+
+==== Items in the replenish list
+
+===== Implementation
 //{Explain here how the ToReplenish/ToBuy List is implemented}_
 Items are added to the replenish list by the user using the `ShiftCommand`.
 When an item expires, the item is automatically tagged as `#Expired`.
@@ -169,27 +173,7 @@ image::AutoShiftSequenceDiagram.png[]
 
 //The following activity diagram summarizes what happens when a user executes a new command:
 
-==== Design Considerations
-
-===== Aspect: How expired items are being handled
-* **Alternative 1 (current choice): Once an item expires,
-the item is automatically tagged as `#Expired`.**
-** Pros: Makes good use of existing `SearchCommand`, where user can search for the `#Expired` tag to view list of expired items.
-** Cons: User has to manually type in a short command to add an item to the replenish list.
-
-* **Alternative 2: Once an item expires, item is automatically transferred to the replenish list.**
-** Pros: User need not manually key in item details to transfer it to the replenish list.
-** Cons: User does not have the flexibility to pick which items to transfer to the replenish list.
-
-===== Aspect: How commands are executed in the list
-* **Alternative 1 (current choice): Create two separate parsers, one for the main tracking list and another for the replenish list.**
-** Pros: This allows us to reuse existing commands that are currently functional for the main tracking list in the replenish list as well, without extensive repetition of code.
-** Cons: This would require us to check which parser is to be used every time a command is executed.
-
-* **Alternative 2: Create two versions of each command, one for each list.**
-** Pros: This allows us to greatly customise the command for each list.
-** Cons: This however would lead to unnecessary repetition of code across the code base.
-//
+===== Design Considerations
 //===== Aspect: Data structure to store the items
 //* **Alternative 1 (current choice): **
 //** Pros:
@@ -198,87 +182,147 @@ the item is automatically tagged as `#Expired`.**
 //* **Alternative 2:**
 //** Pros:
 //** Cons:
-// end::tobuylist[]
+====== Aspect: How expired items are being handled
+* **Alternative 1 (current choice): Once an item expires,
+the item is automatically tagged as `#Expired`.**
+** Pros: Makes good use of existing `SearchCommand`, where user can search for the `#Expired` tag to view list of expired items.
+** Cons: User has to manually type in a short command to add an item to the replenish list.
 
-// tag::autosort[]
+* **Alternative 2: Once an item expires, item is automatically transferred to the replenish list.**
+** Pros: User need not manually key in item details to transfer it to the replenish list.
+** Cons: User does not have the flexibility to pick which items to transfer to the replenish list.
+// end::replenishListItems[]
+
+// tag::replenishListCommands[]
+==== Commands in the replenish list
+
+===== Implementation
+As shown in the snippet of the `Logic` class diagram below, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
+`ReplenishParser` parses and handles the commands in the replenish list.
+
+.Snippet of Logic class diagram to highlight the relationship between the parsers
+image::ParserClassDiagram.png[]
+
+[NOTE]
+Certain commands such as sorting by date, or deleting
+of item quantities are not permitted, as items in the replenish list do not have expiry dates or quantities.
+
+The activity diagram below follows the general path of a command executed in either the main tracking list `Xpire`, or the
+replenish list.
+
+.Activity Diagram for general parsing of commands
+image::ParseCommandActivityDiagram.png[]
+
+In the event that `ReplenishParser` is selected, it will prevent any invalid or prohibited commands and also check for spelling mistakes in the user input.
+This will be further explained in a <<Spelling correction with alternative recommendations,later section>>.
+
+===== Design Considerations
+
+====== Aspect: How commands are executed in the list
+* **Alternative 1 (current choice): Create two separate parsers, one for the main tracking list and another for the replenish list.**
+** Pros: This allows us to reuse existing commands that are currently functional for the main tracking list in the replenish list as well, without extensive repetition of code.
+** Cons: This would require us to check which parser is to be used every time a command is executed.
+
+* **Alternative 2: Create two versions of each command, one for each list.**
+** Pros: This allows us to greatly customise the command for each list.
+** Cons: This however would lead to unnecessary repetition of code across the code base.
+// end::replenishListCommands[]
+
+// tag::autosortPartOne[]
 === Auto-sorting of items by name then date
 ==== Implementation
-The auto-sorting mechanism is facilitated by `SortedUniqueItemList` which replaces `UniqueItemList`.
+Items in both lists are automatically sorted by their name then date in chronological order.
+This auto-sorting mechanism is facilitated by `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`
+that both implement `SortedUniqueItemList`, in a relationship summarised in the diagram below.
 
-`SortedUniqueItemList` supports the following new function(s):
+.Snippet of Model class diagram to bring attention to the relationship between internal sorted lists
+image::SortedUniqueItemListClassDiagram.png[]
 
-* `SortedUniqueItemList#setMethodOfSorting()` -- Specifies the MethodOfSorting and comparator to be used for the list.
+In both `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`, items are stored in a `SortedList<Item>` and
+subsequently sorted based on the comparator defined. `SortedUniqueXpireItemList` supports a new function, `SortedUniqueItemList#setMethodOfSorting()`, that specifies the
+`MethodOfSorting` and comparator to be used for the list.
 
-In `SortedUniqueItemList`, items are stored in a `SortedList<Item>` and sorted based on the comparator specified.
+The following sequence diagrams break down the intricacies in the view operation that works to display the sorted items in each list:
 
-The following sequence diagram shows how items added are auto-sorted:
-
-.Sequence Diagram modelling how items added are auto-sorted
-image::AutoSortAddSequenceDiagram.png[]
+.Sequence Diagram illustrating how the view operation displays items in order
+image::AutoSortViewSequenceDiagram.png[]
 
 [NOTE]
-Parsers are omitted from the diagram above to place greater emphasis on the sorting mechanism.
+Parsers are omitted from the diagram above to place greater emphasis on the parser selection process and sorting mechanism.
 
-.Sequence Diagram: set method of sorting as default
-image::AutoSortAddPartSequenceDiagram.png[]
+The figure above shows a `view|replenish` command executed to change the current view from that of the main tracking list `Xpire`
+to the replenish list, while the figure below initialises this process.
 
-`this.methodOfSorting = new MethodOfSorting("name");`
+.Sequence Diagram : setting the parser
+image::ViewSetParserSequenceDiagram.png[]
+
+`LogicManager` creates and allocates a parser to parse commands entered by the user each time. It does so by first identifying the current view
+displayed. In this example, the current view is found to be `XPIRE`, and thus `XpireParser` is selected. Following that,
+new objects `ViewCommandParser` and `ViewCommand` are created and returned to `LogicManager` to be used in the execution of the `view|replenish` command.
+The figure below pictures the process of retrieving the internal sorted list of items in `ReplenishList`.
+
+.Sequence Diagram : retrieve internal sorted list
+image::AutoSortViewPartSequenceDiagram.png[]
+As items in the replenish list lack expiry dates, the command to sort by date is rendered irrelevant and thereby disallowed entirely in the replenish list.
+Instead, items are automatically sorted by their names. Therefore, in the diagram above, a `nameComparator` is always returned by default.
+
 [NOTE]
-Everytime an item is added to the list, the method of sorting is reset to the default, which sorts
-the items by name then date.
+The list returned is the sortedInternalList wrapped as an unmodifiable list.
 
-The following sequence diagram shows how the sort command changes the default order of how items are displayed:
+`this.internalUnmodifiableList = FXCollections.unmodifiableList(this.sortedInternalList);`
 
-.Sequence Diagram showing how sort command changes order of items
+[NOTE]
+Every time view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
+the default method of sorting is then retrieved.
+// end::autosortPartOne[]
+
+// tag::autosortPartTwo[]
+The following sequence diagram demonstrates how the sort command changes the default order of items displayed:
+
+.Sequence Diagram showing how sort command changes the order of items
 image::SortSequenceDiagram.png[]
-
 [NOTE]
 When sort is called, the method of sorting is redefined by the user.
+
+In this example, the user has chosen to re-sort the items by date. As indicated above, `ParserUtil` primarily verifies that the method of sorting is valid, i.e. either name or date. Next, `s`,
+the `SortCommand` object created executes the `sort|date` command. The figure below exhibits the specific process which sorts the items by their expiry dates.
 
 .Sequence Diagram : set method of sorting to date
 image::SortPartSequenceDiagram.png[]
 
 In the above example, the user has specified to sort items by their expiry date, thus a dateComparator is returned.
 
-`sortedInternalList = new SortedList<>(internalList, methodOfSorting.getComparator());`
-
 [NOTE]
 The SortedList changes accordingly based on the method of sorting specified.
+
+`sortedInternalList = new SortedList<>(internalList, methodOfSorting.getComparator());`
+
+The activity diagram below details the explicit steps in the execution of a sort command.
 
 .Activity Diagram showing the control flow of a sort command executed by the user
 image::SortActivityDiagram.png[]
 
-The following sequence diagram shows how the view operation works to display items that are auto-sorted or sorted manually by name or date:
-
-.Sequence Diagram showing how the view operation displays items in order
-image::AutoSortViewSequenceDiagram.png[]
+If a `sort|date` command is executed, the comparator of the internal sorted list is set to be that of a `dateComparator`,
+and the list of items are updated accordingly.
 
 [NOTE]
-Parsers are omitted from the diagram above to place greater emphasis on the sorting mechanism.
+The ability to check for spelling errors of command arguments is explained in a <<Spelling correction with alternative recommendations,later section>>.
+// end::autosortPartTwo[]
 
-.Sequence Diagram : retrieve internal sorted list
-image::AutoSortViewPartSequenceDiagram.png[]
-
-[NOTE]
-Everytime view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
-the default method of sorting is then retrieved.
-
-`this.internalUnmodifiableList = FXCollections.unmodifiableList(this.sortedInternalList);`
-
-[NOTE]
-The list returned is the sortedInternalList wrapped as an unmodifiable list.
-
+// tag::autosortPartThree[]
 ==== Design Considerations
+In the process of actualising this feature, I contemplated on when items should be automatically sorted by name and displayed.
+I also tried and tested varied options to derive an optimal data structure to store the sorted items. The following is a brief summary of my analysis and decisions.
 
-===== Aspect: How auto-sorting executes
+===== Aspect: When items auto-sorted by their names are displayed
 
-* **Alternative 1 (current choice):** Automatic sorting with the addition of every item.
-** Pros: Slightly more efficient algorithm for viewing items in O(1) time.
-** Cons: Slightly less efficient algorithm for adding items.
+* **Alternative 1 (current choice):** Display the sorted list of items when items are viewed.
+** Pros: Does not reset the method of sorting back to name by default with the addition of every item.
+** Cons: The user might not be able to find items added solely by their names.
 
-* **Alternative 2:** Sort only when items are viewed.
-** Pros: Slightly more efficient algorithm for adding items in O(1) time.
-** Cons: Slightly less efficient algorithm for viewing items.
+* **Alternative 2:** Display the sorted list of items with the addition of every item.
+** Pros: Allows the user to find any added item with ease as items are sorted by their name in chronological order.
+** Cons: Resets the method of sorting back to name by default every time an item is added.
 
 ===== Aspect: Data structure to store the auto-sorted items
 * **Alternative 1 (current choice):** `SortedList<Item>`.
@@ -288,7 +332,7 @@ The list returned is the sortedInternalList wrapped as an unmodifiable list.
 * **Alternative 2:** `TreeSet<Item>`.
 ** Pros: Disallows addition of identical items to the set.
 ** Cons: May not be as compatible with the internalList which is of type ObservableList.
-// end::autosort[]
+// end::autosortPartThree[]
 
 // tag::setreminder[]
 === Set Reminders for expiring items
@@ -536,12 +580,17 @@ Below is the UML sequence diagram of an example usage scenario.
 image::SearchCommandSequenceDiagram.png[]
 // end::search[]
 
-// tag::recommendations[]
+// tag::recommendationsIntro[]
 === Spelling correction with alternative recommendations
 ==== Implementation
+Invalid commands are checked for spelling mistakes.
 The spelling correction mechanism is based primarily on the Damerau–Levenshtein distance algorithm, which computes the edit distance between two strings.
 This distance is based on the number of substitutions, deletions, insertions or transpositions of characters, needed to convert the source string into the target string.
 Relevant functions supporting this operation are implemented in `StringUtil`.
+
+[NOTE]
+Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
+// end::recommendationsIntro[]
 
 The diagram below is a simplified illustration of how the feature works.
 
@@ -549,8 +598,9 @@ The diagram below is a simplified illustration of how the feature works.
 
 image::RecommendationsExample1.png[]
 
+// tag::recommendationsPartOne[]
 [NOTE]
-The recommendations will be made solely based the list of items previously displayed rather than all items currently in the list.
+The recommendations will be made solely based on the list of items previously displayed rather than all items currently in the list.
 
 As shown in the diagram below, `Banana` was not recommended even though it exists in the original list. This is because it had been filtered from the previous list prior to when the second search command was executed.
 On the other hand, if `green` was misspelled as `gren`, the algorithm will be able to identify `green` as the closest match, as `Green Apple` is present in the previous list.
@@ -558,41 +608,55 @@ On the other hand, if `green` was misspelled as `gren`, the algorithm will be ab
 .Example illustrating that recommendations are solely based on the previous list
 
 image::RecommendationsExample2.png[]
+// end::recommendationsPartOne[]
+
+// tag::recommendationsPartTwo[]
 
 //Given below is an example usage scenario and how the mechanism behaves at each step.
 
-The following sequence diagram shows how the sort operation works with recommendations,
-in the case that "date" is misspelled as "dat":
+The figure below depicts the flow of events that check for spelling errors when a user executes an unknown command.
 
-.Sequence diagram illustrating the correction mechanism for command "sort|dat"
+.Activity diagram showing what happens when an unknown command is executed
+
+image::RecommendUnknownCommandActivityDiagram.png[]
+
+For example, if `set reminder` was input incorrectly as `set remindre`, it will be flagged as an invalid command.
+It is then compared with an collection of all possible command words in the existing list. `set reminder` will be established
+as its closest match and wrapped as a recommendation in a `ParseException` object to be thrown and displayed to the user.
+// end::recommendationsPartTwo[]
+
+// tag::recommendationsPartThree[]
+The figure below presents what happens when a user executes a command with invalid arguments.
+
+.Activity diagram showing what happens when an a command is executed with misspelled arguments
+
+image::RecommendCommandArgumentsActivityDiagram.png[]
+
+[NOTE]
+Only search and sort commands support this operation.
+
+In the example below encapsulated in a sequence diagram, the user has misspelled "date" as "dat" in a sort command.
+
+.Sequence diagram illustrating the recommendations mechanism for command "sort|dat"
 
 image::RecommendationsSortSequenceDiagram.png[]
 
-The following sequence diagram `find similar words` illustrates the process omitted above.
+The sequence diagram titled `find similar words` below expands on the process omitted above.
 
 .Sequence diagram showing how "date" is found to be the most similar word to "dat"
 
 image::FindSimilarSequenceDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes an unknown command:
+The function `findSimilar` in `StringUtil` is called upon to return a set containing strings that are most similar to the misspelled argument, `dat`.
+In this process, `dat` is compared with a set of valid inputs, i.e. both `name` and `date`, and the corresponding edit distances are stored.
+`getSuggestions("dat")` then filters the results and finds `date` to be the best match.
 
-.Activity diagram showing what happens when an unknown command is executed
-
-image::RecommendationUnknownCommandActivityDiagram.png[]
-
-[NOTE]
-Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
-
-The following activity diagram summarizes what happens when a user executes a command with misspelled arguments:
-
-.Activity diagram showing what happens when an a command is executed with misspelled arguments
-
-image::RecommendationsSearchSortActivityDiagram.png[]
-
-[NOTE]
-Only search and sort commands support this operation.
+At last, a `ParseException` which contains the recommendation `date`
+is then thrown to the user as feedback.
 
 ==== Design Considerations
+When tasked to implement this feature, I had to decide on what was the best way to display any form of recommendations to the user.
+I also evaluated multiple options to derive an optimal data structure to store the recommendations. The following is a brief summary of my analysis and decisions.
 
 ===== Aspect: How recommendations execute
 
@@ -612,7 +676,7 @@ Only search and sort commands support this operation.
 * **Alternative 2:** Store all possible recommendations in a long list.
 ** Pros: Simpler implementation.
 ** Cons: Not closely related words may also be recommended to the user.
-// end::recommendations[]
+// end::recommendationsPartThree[]
 
 === Logging
 
