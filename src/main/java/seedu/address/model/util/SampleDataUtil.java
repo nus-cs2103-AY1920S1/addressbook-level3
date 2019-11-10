@@ -84,4 +84,19 @@ public class SampleDataUtil {
                 .map(x -> new Content(x, new HashSet<Tag>()))
                 .collect(Collectors.toSet());
     }
+
+    public static Tag[] getSampleFlashcardTags() {
+        return new Tag[] {
+                new Tag("IntelliJ"),
+                new Tag("Shortcuts"),
+                new Tag("SE"),
+                new Tag("Principles")
+        };
+    }
+
+    public static Tag[] getSampleNotesTags() {
+        return new Tag[] {
+                new Tag("CS2100")
+        };
+    }
 }
