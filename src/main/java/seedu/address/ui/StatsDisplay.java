@@ -67,7 +67,7 @@ public class StatsDisplay extends UiPart<Region> {
         }
 
         for (Map.Entry<Tag, Double> entry : taggedExpenses.entrySet()) {
-            String tagName = entry.getKey().tagName == "" ? "Untagged" : entry.getKey().tagName ;
+            String tagName = entry.getKey().tagName.equals("") ? "Untagged" : entry.getKey().tagName ;
             Double totalAmount = entry.getValue();
             PieChart.Data data = new PieChart.Data(tagName, totalAmount);
             pieChartData.add(data);
