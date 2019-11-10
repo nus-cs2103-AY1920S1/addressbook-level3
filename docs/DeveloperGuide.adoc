@@ -172,10 +172,10 @@ Referring to the diagram above, it performs the following operations:
 . Execute the `Command` and obtain a `UserOutput`.
 . Notify all `userOutputListeners` about the `UserOutput`.
 
-To give a more concrete example, refer to the sequence diagram below of *adding a task* to Horo:
+To give a more concrete example of how `CommandManager` functions, refer to the sequence diagram below of *adding a task* to Horo:
 
 .Sequence diagram of adding a task
-image::AddTaskSequenceDiagram.png[]
+image::CommandManagerAddTaskSequenceDiagram.png[]
 
 [NOTE]
 ====
@@ -191,7 +191,6 @@ In Horo, a `Command` implemented as an abstract class with an abstract `execute(
 To create a new concrete command, extend from `Command` and implement `execute()`.
 
 If your concrete command requires any dependencies during execution, it is recommended to pass in the dependency from the constructor.
-
 For example, if your command needs to be able to access `ModelManager`:
 
 [source,java]
@@ -304,8 +303,8 @@ To understand how `CommandBuilder` works, study the activity diagram below:
 .Activity diagram of CommandBuilder
 image::CommandBuilderActivityDiagram.png[]
 
-To demonstrate an example of how to use `CommandBuilder`, suppose you would like to create a `MyCommand` which takes in one String argument,
-and have an option which also takes in one String argument, you could do this:
+The `CommandBuilder` API provides a simple way for developers to create a `Command`.
+For example, to create a `MyCommand` which takes in one String argument, and have an option which also takes in one String argument, you could do this:
 
 [source, java]
 ----
@@ -333,6 +332,32 @@ class MyCommandBuilder extends CommandBuilder {
         return new MyCommand(this.arg1, this.arg2);
     }
 }
+----
+
+[source, java]
+----
+class MyCommand extends Command {
+
+    private final String arg1;
+    private final String arg2;
+
+    public MyCommand(String arg1, String arg2) {
+        this.arg1 = arg1;
+        this.arg2 = arg2;
+    }
+
+    @Override
+    public UserOutput execute() {
+        // Do something with arg1 and arg2
+    }
+}
+----
+
+Simply register `MyCommandBuilder` to `CommandManager` to use your new command:
+
+[source]
+----
+commandManager.addCommand("mycommand", MyCommandBuilder::new)
 ----
 
 [NOTE]
@@ -375,6 +400,9 @@ The `ModelManager` has three main functions,
 . Allows any class with a reference to `ModelManager` to update the current `ModelData`.
 
 To give a more concrete example of how ModelManager notifies its listeners, refer to the sequence diagram below of *adding a task* to Horo:
+
+.Sequence diagram of adding a task
+image::ModelManagerAddTaskSequenceDiagram.png[]
 
 ==== ModelData
 
