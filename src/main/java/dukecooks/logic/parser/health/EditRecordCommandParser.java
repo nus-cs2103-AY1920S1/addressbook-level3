@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
+import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.health.EditRecordCommand;
 import dukecooks.logic.commands.health.EditRecordCommand.EditRecordDescriptor;
@@ -50,7 +51,7 @@ public class EditRecordCommandParser implements Parser<EditRecordCommand> {
 
         EditRecordDescriptor editRecordDescriptor = new EditRecordDescriptor();
         if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
-            editRecordDescriptor.setType(ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get()));
+            throw new ParseException(Messages.MESSAGE_CANNOT_EDIT_RECORD_TYPE);
         }
         if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
             editRecordDescriptor.setTimestamp(ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_DATETIME).get()));
