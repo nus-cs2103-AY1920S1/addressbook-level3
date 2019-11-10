@@ -64,6 +64,7 @@ These are just a few of the commands you can execute on EatMe. Refer to <<Featur
 * Items in curly brackets are optional parameters. For example, in `add \n [name of eatery] \a [address] \c [category] {\t [tags]...}`, `{\t [tags]...}` is an optional parameter that the user can choose to supply if he/she wishes to add certain tags to the eatery.
 * Items with `…` after them can be used multiple times including zero times e.g. `{nbsp}` can be used as (i.e. 0 times), `\t non-aircon`, `\t good-for-groups \t non-aircon`, etc.
 * Parameters can be in any order. For example, if the command specifies `\n [name of eatery] \a [address] \c [category]`, `\a [address] \n [name of eatery] \c [category]` is also acceptable.
+* For parameters requiring `index`, `index` refers to the index number shown in the displayed eatery or review list. The index *must be a positive integer* 1, 2, 3, ... .
 ====
 
 === General
@@ -80,14 +81,22 @@ Format: `list`
 
 Format: `clear`
 
+// tag::import[]
 ==== Importing eateries: `import`
 
-Imports eateries from a text file. +
-Format: `import \f [filename]`
+Imports eateries from a json file. +
+Format: `import \u [filename]`
+
+****
+* Imports eatery data from the specified json file.
+* The user can type in the filename without the ".json" extension, however, the file *must* still be a json file.
+****
 
 Examples:
 
-* `import \f /home/user/eatme-backup-john.txt`
+* `import \u john`
+* `import \u john.json`
+// end::import[]
 
 ==== Exit the app: `exit`
 
@@ -98,18 +107,22 @@ Format: `exit`
 In Main mode, users will be able to view and manipulate the eateries that they visited. +
 
 ==== Working with Eateries
+// tag::add[]
 ===== Adding an eatery: `add`
 
 Adds an eatery to the app. +
 Format: `add \n [name of eatery] \a [address] \c [category] {\t [tags]...}`
 
-[TIP]
-An eatery can have any number of tags (including 0)
+****
+* The name, address, and category fields are compulsory and must be provided.
+* The tag field is optional, and you can specify 0 to as many tags as you want.
+****
 
 Examples:
 
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese`
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese \t good-for-groups \t non-aircon`
+// end::add[]
 
 ===== Finding an eatery: `find`
 
@@ -121,50 +134,57 @@ Examples:
 * `find \n Two Chefs Eating Place`
 * `find \t Chinese`
 
-
+// tag::close[]
 ===== Marking an eatery as closed: `close`
 
-Closes an eatery if the eatery no longer exists. The eatery will still be listed, but will be grayed out to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +
-Format: `close [id]`
+Closes an eatery if the eatery no longer exists. The eatery will still be listed, but will be highlighted in red to inform you that the eatery no longer exists. In the case that you accidentally closed the wrong eatery or the eatery reopens, typing `reopen` does the opposite of `close`. +
+Format: `close [index]`
 
 Examples:
 
 * `close 2`
+// end::close[]
 
+// tag::reopen[]
 ===== Reopening a closed eatery: `reopen`
 
 Reopens a previously closed eatery. +
-Format: `reopen [id]`
+Format: `reopen [index]`
 
 Examples:
 
 * `reopen 2`
+// end::reopen[]
 
+// tag:: edit[]
 ===== Editing an eatery: `edit`
 
 Edits an existing eatery in the application. +
-Format: `edit INDEX {\n NAME} {\c CATEGORY} {\a ADDRESS} {\t TAG}...`
+Format: `edit [index] {\n [name of eatery]} {\a [address]} {\c [category]} {\t [tags]...}`
 
 ****
-* Edits the eatery at the specified `INDEX`. The index refers to the index number shown in the displayed eatery list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the eatery will be removed i.e adding of tags is not cumulative. To have a cumulative effect, use `addtag` and `removetag`
-* You can remove all the person's tags by typing `\t` without specifying any tags after it.
+* When editing tags, the existing tags of the eatery will be removed i.e adding of tags is not cumulative. To have a cumulative effect, use `addtag` and `removetag`.
+* You can remove all the eatery's tags by typing `\t` without specifying any tags after it.
 ****
+
 Examples:
 
 * `edit 1 \t good-for-groups`
 * `edit 1 \a NUS Biz School`
+// end::edit[]
 
 ===== Reviewing an eatery: `review`
 
 Leaves a review for an eatery. +
-Format: `review [id] \d [description] \p [price per person] \r [rating] \w [date in DD/MM/YYYY format]`
+Format: `review [index] \d [description] \p [price per person] \r [rating] \w [date in DD/MM/YYYY format]`
 
 ****
-* Writes a review for the eatery specified by `id` in the displayed eatery list.
+* Leaves a review for the eatery at the specified index.
+* Date *must* be in DD/MM/YYYY format.
 ****
+
 Examples:
 
 * `review 2 \d Nice Condensed Milk Pork Ribs \p 15 \r 4 \w 23/10/2019`
@@ -172,12 +192,13 @@ Examples:
 ===== Editing a review: `editreview`
 
 Edits an eatery's review. The `show` command helps to view an eatery's reviews.
-Format: `editreview [id] {\d DESCRIPTION} {\p COST} {\r RATING} {\w DATE}`
+Format: `editreview [index] {\d [description]} {\p [price per person]} {\r [rating]} {\w [date in DD/MM/YYYY format]}`
 
 ****
-* Edits the review at the specified `id`. The index refers to the index number shown in the displayed review list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the review at the specified index.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* Date *must* be in DD/MM/YYYY format.
 ****
 
 Examples:
@@ -188,10 +209,12 @@ image::EditReviewCommand.png[width="790"]
 
 ===== Deleting a review: `deletereview`
 Deletes an eatery's review. The `show` command helps to view an eatery's reviews.
-Format: `deletereview [id]`
+Format: `deletereview [index]`
+
 ****
-* Deletes the review at the specified `id`. The index refers to the index number shown in the displayed review list. The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the review at the specified index.
 ****
+
 Examples:
 
 * `deletereview 2`
@@ -199,21 +222,25 @@ Examples:
 image::DeleteReviewCommand.png[width=""790"]
 
 ===== Tagging an eatery: `addtag`
-`
 Adds tags to an eatery. +
-Format: `addtag [id] \t [tags]...`
+Format: `addtag [index] \t [tags]...`
+
+****
+* At least *one* tag must be specified.
+****
 
 Examples:
 
 * `addtag 2 \t hawker \t good-for-sharing`
 
 ===== Removing tags from an eatery: `removetag`
-
 Removes tags from an eatery. +
-Format: `removetag [id] \t [tags]...`
+Format: `removetag [index] \t [tags]...`
+
 ****
 * If the tags to be removed are not associated to the eatery in the first place, no changes will be made.
 ****
+
 Examples:
 
 * `removetag 2 \t hawker`
@@ -225,11 +252,13 @@ Format: `random`
 
 ===== Viewing an eatery: `show`
 
-Shows an eatery with all its details i.e. address, category, tags, reviews, external reviews (from Google), and a map of its location.Format: `show [id]`
+Shows an eatery with all its details i.e. address, category, tags, reviews, and a map of its location. +
 Format: `show [index]`
+
 ****
-* Shows the eatery at the specified `index`.
+* Shows the eatery at the specified index.
 ****
+
 Examples:
 
 * `show 2`
@@ -238,17 +267,25 @@ Examples:
 
 Deletes an eatery in the application. +
 Format: `delete [index]`
+
 ****
-* Deletes the eatery at the specified `id`. The index refers to the index number shown in the displayed review list. The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the eatery at the specified index.
 ****
+
 Example: `delete 1`
 
 ==== Visualisation
+// tag::stats[]
 ===== Showing overall statistics: `stats`
 
-Presents a visual overview of the user’s eateries and reviews. +
+Presents a visual overview of the user’s eateries and reviews. Eatery and review data used to generate the statistics are collated from the start of the application. The command will generate six types of statistics:  most visited eateries, least visited eateries, eateries you spent the most at, eateries you spent the least at, price per category, number of visits per category. +
 Format: `stats`
 
+****
+* There must be at least *one* review and eatery to generate the statistics.
+* After updating a review or eatery, the user must run the `stats` command again to update the statistics as it does *not* auto-update.
+****
+// end::stats[]
 
 === Todo Mode
 
@@ -262,22 +299,20 @@ Format: `mode`
 ==== Adding an eatery: `add`
 
 Adds an eatery to the todo list. +
-Format: `add \n [name of eatery] \a [address] {\t [tags, space-delimited]}`
+Format: `add \n [name of eatery] \a [address] {\t [tags]...}`
 
 Examples:
 
 * `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129`
-* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \t good-for-groups non-aircon`
+* `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \t good-for-groups \t non-aircon`
 
 ==== Saving a todo eatery to the main eatery list : `save`
 
 Remove a todo eatery from the todo list and provides a quick way to add it to the main list of eateries. +
-
 Format: `save [index]`
 
 ****
-* Save the eatery at the specified index. The index refers to the index number shown in the displayed todo list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Save the eatery at the specified index.
 * The eatery will be removed from the todo list after `save` is executed
 * User will be required to input the missing field before the eatery is saved in the main list.
 ****
@@ -305,7 +340,11 @@ Examples:
 ==== Tagging an eatery: `addtag`
 
 Adds tags to an eatery. +
-Format: `addtag [id] \t [tags, space-delimited]`
+Format: `addtag [index] \t [tags]...`
+
+****
+* At least *one* tag must be specified.
+****
 
 Examples:
 
@@ -314,7 +353,7 @@ Examples:
 ==== Removing tags from an eatery: `removetag`
 
 Removes tags from an eatery. +
-Format: `removetag [id] \t [tags, space-delimited]`
+Format: `removetag [index] \t [tags]...`
 
 Examples:
 
@@ -323,7 +362,7 @@ Examples:
 ==== Viewing an eatery: `show`
 
 Shows an eatery with all its details i.e. address, category, tags, reviews, external reviews (from Google), and a map of its location.
-Format: `show [id]`
+Format: `show [index]`
 
 Examples:
 
@@ -332,7 +371,10 @@ Examples:
 ==== Deleting an eatery: `delete`
 
 Delete an eatery in the application. +
-Format: `delete 1`
+Format: `delete [index]`
+
+Examples:
+* `delete 1`
 
 === News Feed
 ==== Adding a feed : `addfeed`
