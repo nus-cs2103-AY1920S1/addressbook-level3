@@ -32,30 +32,27 @@ Taking after reputable flashcard applications like Anki, FlashCard Pro provides 
 * Highlights:
 
 ** This enhancement provides the user with greater functionality to improve his flashcard learning experience. Instead of having a database to access cards, the user is now able to test him/herself.
+** The user is also able to obtain a full-feedback loop with regards to his learning. This begins with testing him/herself with questions, followed by getting a feedback score and lastly being able to review the mistakes made and re-attempt cards for further practice.
 ** In addition, this feature is challenging because it requires in-depth analysis and design of the overall application architecture. It involved some complex design decisions such as making ExamRunner a singleton class as well as overall understanding in FXML, Regex and Logic code to tie the implementations of GUI and CLI together.
+** Significant changes were made from the initial design when we changed our program structure to suit a MVC design pattern. This required thorough understanding of good software architecture as well as the Consumer functional interface.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=huiminlim&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]][https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/model[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub [https://github.com/AY1920S1-CS2103-F09-2/main/releases[Releases on Github]]
-*** Alerted team about bugs found in issue tracker: https://github.com/AY1920S1-CS2103-F09-2/main/issues/146[#146], https://github.com/AY1920S1-CS2103-F09-2/main/issues/99[#99], https://github.com/AY1920S1-CS2103-F09-2/main/issues/109[#109]
+*** Alerted team about bugs found in issue tracker: https://github.com/AY1920S1-CS2103-F09-2/main/issues/326[#326]
 
 ** Enhancements to existing features:
-*** Wrote the parsing and input validation for:
-**** Front and Back, Multiple Choice Card addition
-**** Edit Front and Back Card, Multiple Choice Card
-**** Delete Flash card
 *** Wrote additional tests (Pull requests https://github.com[#36], https://github.com[#38])
 
 ** Documentation:
-*** Did documentation for the CLI commands in the User Guide. (See <<Contributions to the User Guide>> below)
-*** Did documentation in Developer Guide. (See <<Contributions to the Developer Guide>> below)
+*** Maintained the Command List Summary (See Section 7 of <<Contributions to the User Guide>> below)
+
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F13-2/main/pull/205[#205], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/91[#91]
-*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/137[#137])
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/167[#167])
 
 
 == Contributions to the User Guide
