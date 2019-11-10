@@ -17,7 +17,9 @@ public class GenReportSummaryCommandParser implements Parser<GenReportSummaryCom
      * and returns a GenReportSummaryCommand object for execution.
      **/
     public GenReportSummaryCommand parse(String args) throws ParseException {
-        if (!args.matches("^[ A-Za-z]+$") || args.length() > 40) {
+        if (args.equals("")) {
+            return new GenReportSummaryCommand(args);
+        } else if (!args.matches("^[ A-Za-z]+$") || args.length() > 40) {
             throw new ParseException(MESSAGE_INVALID_SIGNATURE_FORMAT);
         }
         return new GenReportSummaryCommand(args);
