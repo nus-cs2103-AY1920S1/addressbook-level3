@@ -12,6 +12,7 @@ public class Location {
     public final String location;
 
     public Location(String location) {
+        assert isValidLocation(location);
         this.location = location;
     }
 

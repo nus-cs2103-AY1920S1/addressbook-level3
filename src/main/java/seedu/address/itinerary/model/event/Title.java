@@ -15,6 +15,7 @@ public class Title {
 
     public Title(String title) {
         requireNonNull(title);
+        assert isValidTitle(title);
         this.title = title;
     }
 
