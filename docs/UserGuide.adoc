@@ -19,7 +19,7 @@ By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
 
 == Welcome to AddMin+
 
-*AddMin+* is an all in one administration desktop application, that is specially designed for any other events management start-up company with limited manpower and resources.
+*AddMin+* is an all-in-one administration desktop application, that is specially designed for any events management start-up company with limited manpower and resources.
 These companies would usually only be able to afford to hire one admin staff to handle both the management of events and employees and this can be tough.
 The Admin+ Team understands the struggles that start-ups face daily, and we are here to help!
 
@@ -165,11 +165,9 @@ Provides a way to jump between the Main and Schedule Tab.
 
 [TIP]
 A Schedule-related command executed in the Main Tab will direct you to the Schedule Tab. While an
-Employee-related command executed in the Schedule Tab will bring you back to the Main Tab. Lastly, all
-Event-related command is executed based on the current Event list being displayed, regardless if the user
-is in the Main Tab or Schedule Tab.
-*Users are not advised to executed Employee-related commands in the Schedule Tab if he/she is unfamiliar
-as the lists referenced by the app are on the Main Tab*
+Employee-related command executed in the Schedule Tab will not be allowed as the user does not have an employee list
+to refer to in the Schedule Tab. Lastly, all Event-related command is executed based on the current Event list that is
+being displayed, regardless if the user is in the Main Tab or Schedule Tab.
 
 Main Tab: `main`
 
@@ -616,6 +614,10 @@ To get things started, all Schedule-related commands occur in the Schedule Tab a
 You can get to the Schedule Tab easily by either clicking on the Schedule Tab on the User Interface or
 just simply type in any Schedule-related commands and AddMin+ will bring you there.
 
+[NOTE]
+All Event-Related commands that are done in the Schedule Tab, will be referencing the Event List displayed in the Schedule Tab.
+All Employee-Related commands are disabled in the Schedule Tab, as there is no Employee List being displayed in the Schedule Tab.
+
 ._User Interface (UI) of the Schedule Feature_
 image::ScheduleUiDetailed.png[]
 
@@ -633,7 +635,6 @@ Examples:
 ****
 * Note the <<Constraints>> for *DATE*.
 ****
-
 
 **Example: To display schedule for a specific date (20/11/2019):**
 
@@ -692,13 +693,14 @@ The event list will be empty and not display anything if there is no event on th
 
 ==== Generate Entire Schedule: `generate_schedule`
 Looking for a way to have an overview of all the dates that has an event? Use the `generate_schedule` command to do so.
-The `generate_schedule` command looks through the entire list of events and generates a new list of all the dates
+The `generate_schedule` command looks through the entire list of events and generates a new window with a list of all the dates
 which has an event and also displays all the events that happen on that date.
 
 Format: `generate_schedule`
 
-[TIP]
+[NOTE]
 The `generate_schedule` will only display dates and events that have a set date and time allocated to it.
+Events with no set date and time, will only be displayed according to it's start and end date.
 The `generate_schedule` command opens a new window to display the new list of information.
 The `generate_schedule` command processes and creates the list based on when the command is called.
 Note that any changes to the events after the command will not be reflected. Users are advised to use the
