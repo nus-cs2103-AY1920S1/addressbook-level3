@@ -1,8 +1,11 @@
 package seedu.guilttrip.model.reminders.messages;
 
+/**
+ * Basic message displayed in notification panel when reminder is activated.
+ */
 public class Notification {
-    String text;
-    public Notification (String text){
+    private String text;
+    public Notification (String text) {
         this.text = text;
     };
     public String toString() {

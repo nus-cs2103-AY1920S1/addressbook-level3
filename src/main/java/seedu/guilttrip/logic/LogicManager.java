@@ -10,6 +10,7 @@ import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.CommandResult;
+import seedu.guilttrip.logic.commands.GuiltTripCommandSuggester;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.logic.parser.GuiltTripParser;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
@@ -20,7 +21,6 @@ import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.Wish;
-import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.messages.Notification;
@@ -39,7 +39,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final GuiltTripParser guiltTripParser;
-    private boolean addressBookModified;
+    private boolean guiltTripModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -47,8 +47,8 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         guiltTripParser = new GuiltTripParser();
 
-        //Set addressBookModified to true whenever the models' addressbook is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        //Set guiltTripModified to true whenever the models' GuiltTrip is modified.
+        model.getGuiltTrip().addListener(observable -> guiltTripModified = true);
     }
 
     @Override
@@ -59,14 +59,15 @@ public class LogicManager implements Logic {
         try {
             Command command = guiltTripParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
+            GuiltTripCommandSuggester.setLastOutput(commandResult.getFeedbackToUser());
         } finally {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
+        if (guiltTripModified) {
             logger.info("Finance tracker modified, saving to file");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveGuiltTrip(model.getGuiltTrip());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -76,8 +77,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyGuiltTrip getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyGuiltTrip getGuiltTrip() {
+        return model.getGuiltTrip();
     }
 
     @Override
@@ -150,8 +151,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getGuiltTripFilePath() {
+        return model.getGuiltTripFilePath();
     }
 
     @Override

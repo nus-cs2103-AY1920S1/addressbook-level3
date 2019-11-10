@@ -1,6 +1,7 @@
 package seedu.guilttrip.logic.commands.editcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
@@ -37,8 +38,9 @@ public class EditBudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "editBudget";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Budget identified "
-            + "by the index number used in the displayed Budget list. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Edits the details of the Budget identified "
+            + "by the index number used in the displayed Budget list. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESC + "NAME] "
@@ -51,7 +53,7 @@ public class EditBudgetCommand extends Command {
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Budget: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the guilttrip book.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "There is no change in the entry that you are editing.";
 
     private final Index index;
     private final EditBudgetDescriptor editEntryDescriptor;
@@ -79,13 +81,16 @@ public class EditBudgetCommand extends Command {
 
         Budget entryToEdit = lastShownList.get(index.getZeroBased());
         Budget editedEntry = createEditedBudget(entryToEdit, editEntryDescriptor);
+        if (!model.hasCategory(editedEntry.getCategory())) {
+            throw new CommandException(MESSAGE_INVALID_CATEGORY);
+        }
 
-        if (entryToEdit.isSameEntry(editedEntry) && model.hasBudget(editedEntry)) {
+        if (entryToEdit.isSameBudget(editedEntry) && model.hasBudget(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
         model.setBudget(entryToEdit, editedEntry);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 

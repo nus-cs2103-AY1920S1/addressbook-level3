@@ -17,7 +17,8 @@ import seedu.guilttrip.model.entry.SortType;
 public class SortExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "sortExpense";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the list of expenses in guiltTrip(). \n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Sorts the list of expenses in guiltTrip(). \n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
             + PREFIX_SEQUENCE + "SEQUENCE "
@@ -39,8 +40,15 @@ public class SortExpenseCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.sortFilteredExpense(type, sequence);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, type));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortExpenseCommand // instanceof handles nulls
+                && type.equals(((SortExpenseCommand) other).type))
+                && sequence.equals(((SortExpenseCommand) other).sequence);
+    }
 }

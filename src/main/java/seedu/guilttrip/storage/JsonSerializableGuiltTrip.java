@@ -58,17 +58,19 @@ class JsonSerializableGuiltTrip {
      *               {@code JsonSerializableGuiltTrip}.
      */
     public JsonSerializableGuiltTrip(ReadOnlyGuiltTrip source) {
-        listofExpenseCategories.addAll(
-                source.getExpenseCategoryList().stream().map(JsonAdaptedCategory::new).collect(Collectors.toList()));
-        listofIncomeCategories.addAll(
-                source.getIncomeCategoryList().stream().map(JsonAdaptedCategory::new).collect(Collectors.toList()));
+        listofExpenseCategories
+                .addAll(source.getExpenseCategoryList().stream()
+                        .map(JsonAdaptedCategory::new).collect(Collectors.toList()));
+        listofIncomeCategories
+                .addAll(source.getIncomeCategoryList().stream()
+                        .map(JsonAdaptedCategory::new).collect(Collectors.toList()));
         expenses.addAll(source.getExpenseList().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
         incomes.addAll(source.getIncomeList().stream().map(JsonAdaptedIncome::new).collect(Collectors.toList()));
         wishes.addAll(source.getWishList().stream().map(JsonAdaptedWish::new).collect(Collectors.toList()));
         budgets.addAll(source.getBudgetList().stream().map(JsonAdaptedBudget::new).collect(Collectors.toList()));
-        reminders.addAll(source.getReminderList().stream().
-                filter(reminder -> !reminder.getStatus().equals(Reminder.Status.exceeded)).
-                map(JsonAdaptedReminder::new).collect(Collectors.toList()));
+        reminders.addAll(source.getReminderList().stream()
+                .filter(reminder -> !reminder.getStatus().equals(Reminder.Status.exceeded))
+                .map(JsonAdaptedReminder::new).collect(Collectors.toList()));
         autoExpenses.addAll(
                 source.getAutoExpenseList().stream().map(JsonAdaptedAutoExpense::new).collect(Collectors.toList()));
     }

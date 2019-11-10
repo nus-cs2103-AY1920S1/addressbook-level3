@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
-import seedu.guilttrip.model.reminders.conditions.TypeCondition;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.conditions.DateCondition;
 import seedu.guilttrip.model.reminders.conditions.KeyWordsCondition;
 import seedu.guilttrip.model.reminders.conditions.QuotaCondition;
 import seedu.guilttrip.model.reminders.conditions.TagsCondition;
+import seedu.guilttrip.model.reminders.conditions.TypeCondition;
 import seedu.guilttrip.model.tag.Tag;
 import seedu.guilttrip.storage.JsonAdaptedTag;
 

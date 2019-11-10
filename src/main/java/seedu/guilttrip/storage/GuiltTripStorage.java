@@ -16,7 +16,7 @@ public interface GuiltTripStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getGuiltTripFilePath();
 
     /**
      * Returns GuiltTrip data as a {@link ReadOnlyGuiltTrip}.
@@ -24,23 +24,23 @@ public interface GuiltTripStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyGuiltTrip> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyGuiltTrip> readGuiltTrip() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getGuiltTripFilePath()
      */
-    Optional<ReadOnlyGuiltTrip> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyGuiltTrip> readGuiltTrip(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyGuiltTrip} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyGuiltTrip addressBook) throws IOException;
+    void saveGuiltTrip(ReadOnlyGuiltTrip addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyGuiltTrip)
+     * @see #saveGuiltTrip(ReadOnlyGuiltTrip)
      */
-    void saveAddressBook(ReadOnlyGuiltTrip addressBook, Path filePath) throws IOException;
+    void saveGuiltTrip(ReadOnlyGuiltTrip addressBook, Path filePath) throws IOException;
 
 }

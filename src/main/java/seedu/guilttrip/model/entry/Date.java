@@ -45,7 +45,13 @@ public class Date {
             .appendOptional(DateTimeFormatter.ofPattern("d-MM-uuuu"))
             .appendOptional(DateTimeFormatter.ofPattern("dd-MM-uuuu"))
             .appendOptional(DateTimeFormatter.ofPattern("dd.MM.uuuu"))
-            .appendOptional(DateTimeFormatter.ofPattern("d.MM.uuuu")).toFormatter();
+            .appendOptional(DateTimeFormatter.ofPattern("d.MM.uuuu"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/M"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/M"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/MM"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/MM"))
+            .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
+            .toFormatter();
 
     private static final DateTimeFormatter INPUTFORMATTERWITHRESOLVER = INPUTFORMATTER
             .withResolverStyle(ResolverStyle.STRICT);
@@ -137,10 +143,6 @@ public class Date {
         return new Date(this.getDate().plus(freq.getPeriod()));
     }
 
-    public Date minus(Frequency freq) {
-        return new Date(this.getDate().minus(freq.getPeriod()));
-    }
-
     /**
      * Adds a specified number of days/ months/ years to a Date
      *
@@ -166,6 +168,9 @@ public class Date {
         return new Date(newDate);
     }
 
+    public Date minus(Frequency freq) {
+        return new Date(this.getDate().minus(freq.getPeriod()));
+    }
 
     /**
      * Removes a specified number of days/ months/ years to a Date

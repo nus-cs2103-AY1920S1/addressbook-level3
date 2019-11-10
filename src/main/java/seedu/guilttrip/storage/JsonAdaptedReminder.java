@@ -11,7 +11,7 @@ import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.reminders.GeneralReminder;
-import seedu.guilttrip.model.reminders.IEWReminder;
+import seedu.guilttrip.model.reminders.IewReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.util.Frequency;
@@ -23,7 +23,7 @@ import seedu.guilttrip.storage.conditions.JsonAdaptedCondition;
 public class JsonAdaptedReminder {
     private String reminderType;
     private String header;
-    private String uniqueID;
+    private String uniqueId;
 
     private final List<JsonAdaptedCondition> conditions = new ArrayList<>();
 
@@ -34,13 +34,13 @@ public class JsonAdaptedReminder {
     public JsonAdaptedReminder(@JsonProperty("reminderType") String reminderType,
                                @JsonProperty("header") String header,
                                @JsonProperty("status") String status,
-                               @JsonProperty("uniqueID") String uniqueID,
+                               @JsonProperty("uniqueID") String uniqueId,
                                @JsonProperty("conditions") List<JsonAdaptedCondition> conditions,
                                @JsonProperty("period") String period,
                                @JsonProperty("freq") String freq) {
         this.reminderType = reminderType;
         this.header = header;
-        this.uniqueID = uniqueID;
+        this.uniqueId = uniqueId;
         this.conditions.addAll(conditions);
         this.period = period;
         this.freq = freq;
@@ -50,7 +50,7 @@ public class JsonAdaptedReminder {
      * Converts a given {@code GeneralReminder} into this class for Jackson use.
      */
     public JsonAdaptedReminder(Reminder source) {
-        uniqueID = source.getUniqueID();
+        uniqueId = source.getUniqueId();
         header = source.getHeader().toString();
         if (source instanceof GeneralReminder) {
             GeneralReminder generalReminder = (GeneralReminder) source;
@@ -58,9 +58,9 @@ public class JsonAdaptedReminder {
             conditions.addAll(generalReminder.getConditions().stream()
                     .map(JsonAdaptedCondition::new)
                     .collect(Collectors.toList()));
-        } else if (source instanceof IEWReminder) {
-            IEWReminder iewReminder = (IEWReminder) source;
-            reminderType = "IEWReminder";
+        } else if (source instanceof IewReminder) {
+            IewReminder iewReminder = (IewReminder) source;
+            reminderType = "IewReminder";
             period = iewReminder.getPeriod().toString();
             freq = iewReminder.getFrequency().toString();
         }
@@ -83,14 +83,14 @@ public class JsonAdaptedReminder {
             final Description modelMessage = new Description(header);
             GeneralReminder modelGeneralReminder = new GeneralReminder(modelMessage, conditionList);
             return modelGeneralReminder;
-        } else if (reminderType.equalsIgnoreCase("IEWReminder")) {
+        } else if (reminderType.equalsIgnoreCase("IewReminder")) {
             if (!Description.isValidDescription(header)) {
                 throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
             }
             final Description modelHeader = new Description(header);
             final Period modelPeriod = new Period(period);
             final Frequency modelFreq = Frequency.parse(freq);
-            IEWReminder iewReminder = new IEWReminder(modelHeader, uniqueID, modelPeriod, modelFreq);
+            IewReminder iewReminder = new IewReminder(modelHeader, uniqueId, modelPeriod, modelFreq);
             return iewReminder;
         } else {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);

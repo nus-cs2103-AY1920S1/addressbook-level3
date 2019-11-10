@@ -6,7 +6,7 @@ import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
 import java.util.Arrays;
 
 /**
- * Represents a SortType in the finance manager.
+ * Represents a SortType in the guiltTrip.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class SortType {
@@ -23,19 +23,23 @@ public class SortType {
     public final String fullType;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code SortType}.
      *
+<<<<<<< HEAD
+=======
+     * @param fullType A valid sortType.
+>>>>>>> f659a201d941a9d7dedf6472b89947095b946820
      */
     public SortType(String fullType) throws IllegalArgumentException {
         requireNonNull(fullType);
-        checkArgument(isValidDescription(fullType), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidSortType(fullType), MESSAGE_CONSTRAINTS);
         this.fullType = fullType;
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid sortType.
      */
-    public static boolean isValidDescription(String test) {
+    public static boolean isValidSortType(String test) {
         return Arrays.stream(VALIDATIONLIST).anyMatch(t -> t.equalsIgnoreCase(test));
     }
 

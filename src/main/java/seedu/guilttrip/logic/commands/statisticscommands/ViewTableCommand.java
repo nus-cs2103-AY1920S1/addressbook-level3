@@ -18,8 +18,9 @@ import seedu.guilttrip.model.entry.Date;
 public class ViewTableCommand extends Command {
 
     public static final String COMMAND_WORD = "viewTable";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": View Statistics of guilttrip() in table form. Use a "
-            + "comma to separate the two dates. \n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": View Statistics of guilttrip() in table form. Use a "
+            + "comma to separate the two dates. \n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_PERIOD + "PERIOD "
             + "Example: " + COMMAND_WORD + " "

@@ -7,8 +7,8 @@ import javafx.scene.Node;
  */
 public abstract class Cell {
     private Node node;
-    private int x_coordinate;
-    private int y_coordinate;
+    private int xCoordinate;
+    private int yCoordinate;
 
     public abstract Node getNode();
 }

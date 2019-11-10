@@ -1,6 +1,7 @@
 package seedu.guilttrip.logic.commands.editcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
@@ -33,8 +34,8 @@ import seedu.guilttrip.model.tag.Tag;
 public class EditIncomeCommand extends Command {
 
     public static final String COMMAND_WORD = "editIncome";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Income identified "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Edits the details of the Income identified ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "by the index number used in the displayed Incomes list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -75,13 +76,16 @@ public class EditIncomeCommand extends Command {
 
         Income incomeToEdit = lastShownList.get(index.getZeroBased());
         Income editedIncome = createEditedIncome(incomeToEdit, editIncomeDescriptor);
+        if (!model.hasCategory(editedIncome.getCategory())) {
+            throw new CommandException(MESSAGE_INVALID_CATEGORY);
+        }
 
         if (incomeToEdit.isSameEntry(editedIncome) && model.hasIncome(editedIncome)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
         model.setIncome(incomeToEdit, editedIncome);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedIncome));
     }
 
@@ -93,7 +97,7 @@ public class EditIncomeCommand extends Command {
         assert incomeToEdit != null;
         Category updatedCategory = editEntryDescriptor.getCategory().orElse(incomeToEdit.getCategory());
         Description updatedName = editEntryDescriptor.getDesc().orElse(incomeToEdit.getDesc());
-        Date updatedTime = editEntryDescriptor.getTime().orElse(incomeToEdit.getDate());
+        Date updatedTime = editEntryDescriptor.getDate().orElse(incomeToEdit.getDate());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(incomeToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(incomeToEdit.getTags());
         return new Income(updatedCategory, updatedName, updatedTime, updatedAmount, updatedTags);
@@ -137,7 +141,7 @@ public class EditIncomeCommand extends Command {
         public EditIncomeDescriptor(EditIncomeDescriptor toCopy) {
             setCategory(toCopy.category);
             setDesc(toCopy.desc);
-            setTime(toCopy.date);
+            setDate(toCopy.date);
             setAmount(toCopy.amt);
             setTags(toCopy.tags);
         }
@@ -165,11 +169,11 @@ public class EditIncomeCommand extends Command {
             return Optional.ofNullable(desc);
         }
 
-        public void setTime(Date time) {
-            this.date = time;
+        public void setDate(Date date) {
+            this.date = date;
         }
 
-        public Optional<Date> getTime() {
+        public Optional<Date> getDate() {
             return Optional.ofNullable(date);
         }
 
@@ -216,7 +220,7 @@ public class EditIncomeCommand extends Command {
 
             return getDesc().equals(e.getDesc())
                     && getAmount().equals(e.getAmount())
-                    && getTime().equals(e.getTime())
+                    && getDate().equals(e.getDate())
                     && getTags().equals(e.getTags());
         }
     }

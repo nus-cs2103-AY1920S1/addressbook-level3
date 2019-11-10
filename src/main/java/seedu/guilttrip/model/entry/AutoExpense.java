@@ -1,6 +1,7 @@
 package seedu.guilttrip.model.entry;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public class AutoExpense extends Entry {
     private static final String ENTRY_TYPE = "AutoExpense";
     private final Frequency freq;
     private Date lastTime;
+    private final List<Expense> expensesCreated = new LinkedList<>();
 
     public AutoExpense(Category category, Description desc, Amount amount, Set<Tag> tags, Frequency freq, Date date) {
         super(category, desc, date, amount, tags);
@@ -23,14 +25,14 @@ public class AutoExpense extends Entry {
     }
 
     public AutoExpense(Category category, Description desc, Amount amount, Set<Tag> tags, Frequency freq, Date date,
-            Date lastTime) {
+                       Date lastTime) {
         super(category, desc, date, amount, tags);
         this.lastTime = lastTime;
         this.freq = freq;
     }
 
     public String getType() {
-        return this.ENTRY_TYPE;
+        return ENTRY_TYPE;
     }
 
     public Date getNextTime() {
@@ -42,6 +44,7 @@ public class AutoExpense extends Entry {
     }
 
     //TODO HIGHLY LIKELY ERROR
+
     /**
      * Returns a new Budget if and only if it's category is edited.
      */
@@ -60,7 +63,9 @@ public class AutoExpense extends Entry {
     public List<Expense> generateNewExpenses() {
         List<Expense> newExpenses = new ArrayList<>();
         while (getNextTime().lessThanOrEqualsToday()) {
-            newExpenses.add(generateNextExpense());
+            Expense nextExpense = generateNextExpense();
+            newExpenses.add(nextExpense);
+            expensesCreated.add(nextExpense);
         }
         return newExpenses;
     }

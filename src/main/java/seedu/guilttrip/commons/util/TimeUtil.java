@@ -1,7 +1,7 @@
 package seedu.guilttrip.commons.util;
 
-
 import java.time.LocalDate;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -27,7 +27,8 @@ public class TimeUtil {
     };
 
 
-    public static LocalDate getLastRecordedDate() { return currDate;
+    public static LocalDate getLastRecordedDate() {
+        return currDate;
     }
 
     /**
@@ -56,6 +57,8 @@ public class TimeUtil {
         ses.shutdownNow();
         logger.info("Timer ends");
     }
+
+
     public ObservableSupport getSupport() {
         return support;
     }

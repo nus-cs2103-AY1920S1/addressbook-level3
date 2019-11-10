@@ -79,25 +79,25 @@ public abstract class Condition {
             }
         } else if (this instanceof DateCondition) {
             if (other instanceof DateCondition) {
-                return ((DateCondition) this).equals((DateCondition) other);
+                return this.equals(other);
             } else {
                 return false;
             }
         } else if (this instanceof KeyWordsCondition) {
             if (other instanceof KeyWordsCondition) {
-                return ((KeyWordsCondition) this).equals((KeyWordsCondition) other);
+                return this.equals(other);
             } else {
                 return false;
             }
         } else if (this instanceof QuotaCondition) {
             if (other instanceof QuotaCondition) {
-                return ((QuotaCondition) this).equals((QuotaCondition) other);
+                return this.equals(other);
             } else {
                 return false;
             }
         } else if (this instanceof TagsCondition) {
             if (other instanceof TagsCondition) {
-                return ((TagsCondition) this).equals((TagsCondition) other);
+                return this.equals(other);
             } else {
                 return false;
             }

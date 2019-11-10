@@ -1,13 +1,14 @@
 package seedu.guilttrip.logic.parser;
 
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
-
 import java.time.LocalDate;
 
 import seedu.guilttrip.logic.commands.SetCurrDateCommand;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Date;
 
+/**
+ * Creates a SetCurrDateCommand object.
+ */
 public class SetCurrDateCommandParser implements Parser<SetCurrDateCommand> {
     @Override
     public SetCurrDateCommand parse(String args) throws ParseException {

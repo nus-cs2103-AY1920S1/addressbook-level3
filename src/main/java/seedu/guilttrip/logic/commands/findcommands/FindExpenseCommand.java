@@ -25,7 +25,8 @@ public class FindExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "findExpense";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all expense entries which contains "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Finds all expense entries ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC + "which contains "
             + " the keywords that the user requests to be filtered by contain any of and displays them as a list with "
             + "index numbers. There must at least be one property that you are searching by. \n"
             + "[" + PREFIX_CATEGORY + "KEYWORDS] "
@@ -47,7 +48,7 @@ public class FindExpenseCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         Predicate<Entry> newPredicate = this.predicate.stream().reduce(t -> true, (tbefore, tafter) ->
-            tbefore.and(tafter));
+                tbefore.and(tafter));
         model.updateFilteredExpenses(newPredicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_ENTRIES_LISTED_OVERVIEW, model.getFilteredExpenses().size()));

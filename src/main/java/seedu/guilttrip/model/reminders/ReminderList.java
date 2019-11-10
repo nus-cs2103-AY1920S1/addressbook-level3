@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.util.ListenerSupport;
 import seedu.guilttrip.commons.util.ObservableSupport;
+import seedu.guilttrip.commons.util.ObservableSupport.Evt;
 import seedu.guilttrip.commons.util.TimeUtil;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
@@ -24,7 +25,6 @@ import seedu.guilttrip.model.reminders.messages.Message;
 import seedu.guilttrip.model.reminders.messages.Notification;
 import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.ui.UiManager;
-import seedu.guilttrip.commons.util.ObservableSupport.Evt;
 
 
 /**
@@ -45,6 +45,8 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
     private ObservableSupport support = new ObservableSupport();
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private Predicate<Reminder> isEntryReminder = reminder -> !(reminder instanceof GeneralReminder);
+
     public Reminder getReminderSelected() {
         return reminderSelected;
     }
@@ -53,7 +55,6 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
         this.reminderSelected = reminderSelected;
     }
 
-    private Predicate<Reminder> isEntryReminder = reminder -> ! (reminder instanceof GeneralReminder);
 
     public void linkToUi(UiManager uiManager) {
         support.addPropertyChangeListener(uiManager);
@@ -144,6 +145,9 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
         return internalNotificationList;
     }
 
+    /**
+     * Transfers entry reminder from beingRemove to beingAdded.
+     */
     public void setEntryUpdate(Entry beingRemove, Entry beingAdded) {
         if (beingAdded.getDate().isAfter(new Date(TimeUtil.getLastRecordedDate())) && beingRemove.hasReminder()) {
             Optional<Reminder> optReminder = findReminderFOrEntry(beingRemove);
@@ -155,10 +159,13 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
         }
     }
 
+    /**
+     * Removes the respective reminder of the entry being removed from the list.
+     */
     public void deleteEntryUpdate(Entry beingRemoved) {
         if (beingRemoved.hasReminder()) {
             for (Reminder reminder : internalList.filtered(isEntryReminder)) {
-                if (reminder.getUniqueID().equals(beingRemoved.getUniqueID())) {
+                if (reminder.getUniqueId().equals(beingRemoved.getUniqueId())) {
                     internalList.remove(reminder);
                 }
             }
@@ -172,7 +179,7 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
      */
     private Optional<Reminder> findReminderFOrEntry(Entry beingAdded) {
         for (Reminder reminder : internalList.filtered(isEntryReminder)) {
-            if (reminder.getUniqueID().equals(beingAdded.getUniqueID())) {
+            if (reminder.getUniqueId().equals(beingAdded.getUniqueId())) {
                 return Optional.of(reminder);
             }
         }
@@ -183,21 +190,21 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
      * transferReminder from beingRemoved to beingAdded
      */
     private void transferReminder(Reminder reminder, Entry beingAdded) {
-        if (reminder instanceof IEWReminder) {
-            transferIEWReminder((IEWReminder) reminder, beingAdded);
+        if (reminder instanceof IewReminder) {
+            transferIewReminder((IewReminder) reminder, beingAdded);
         }
     }
 
 
     /**
-     * transferIEWReminder from beingRemoved to beingAdded.
+     * transferIewReminder from beingRemoved to beingAdded.
      */
-    private void transferIEWReminder(IEWReminder reminder, Entry beingAdded) {
+    private void transferIewReminder(IewReminder reminder, Entry beingAdded) {
         Description header = reminder.getHeader();
         Period period = reminder.getPeriod();
         Frequency freq = reminder.getFrequency();
         internalList.remove(reminder);
-        IEWReminder newReminder = new IEWReminder(header, beingAdded, period, freq);
+        IewReminder newReminder = new IewReminder(header, beingAdded, period, freq);
         newReminder.setMessage(reminder.getMessage());
         newReminder.togglePopUpDisplay(reminder.willDisplayPopUp());
         add(newReminder);
@@ -238,21 +245,23 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
         }
     }
 
+    /**
+     * Handles reminder according to its status.
+     * @param reminder
+     */
     private void handleTriggeredReminders(Reminder reminder) {
         if (reminder.willDisplayPopUp()) {
             Message message = reminder.getMessage();
             support.firePropertyChange("NewReminderMessage", null, message);
         }
         if (reminder instanceof GeneralReminder) {
-            ((GeneralReminder) reminder).reset();
+            reminder.reset();
         }
-        if (reminder instanceof IEWReminder) {
+        if (reminder instanceof IewReminder) {
             if (reminder.getStatus().equals(Reminder.Status.met)) {
-                ((IEWReminder) reminder).reset();
-                ((IEWReminder) reminder).setNextActive();
-            } else if (reminder.getStatus().equals(Reminder.Status.exceeded)) {
-                //remove(reminder);
-                //logger.info("Reminder deleted");
+                IewReminder iewReminder = (IewReminder) reminder;
+                iewReminder.reset();
+                iewReminder.setNextActive();
             }
         }
         notificationList.add(reminder.genNotification());

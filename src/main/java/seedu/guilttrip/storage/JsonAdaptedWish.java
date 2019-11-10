@@ -25,7 +25,7 @@ class JsonAdaptedWish {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Wish's %s field is missing!";
 
-    private final String uniqueID;
+    private final String uniqueId;
     private final String category;
     private final String desc;
     private final String date;
@@ -36,11 +36,11 @@ class JsonAdaptedWish {
      * Constructs a {@code JsonAdaptedPerson} with the given entry details.
      */
     @JsonCreator
-    public JsonAdaptedWish(@JsonProperty("uniqueID") String uniqueID, @JsonProperty("category") String category,
+    public JsonAdaptedWish(@JsonProperty("uniqueId") String uniqueId, @JsonProperty("category") String category,
                            @JsonProperty("desc") String desc,
                            @JsonProperty("amt") String amt, @JsonProperty("date") String date,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.uniqueID = uniqueID;
+        this.uniqueId = uniqueId;
         this.category = category;
         this.desc = desc;
         this.amt = amt;
@@ -55,7 +55,7 @@ class JsonAdaptedWish {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedWish(Wish source) {
-        uniqueID = source.getUniqueID();
+        uniqueId = source.getUniqueId();
         category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
@@ -98,8 +98,8 @@ class JsonAdaptedWish {
         final Amount modelAmt = new Amount(amt);
         final Set<Tag> modelTags = new HashSet<>(entryTags);
         Wish modelWish = new Wish(modelCategory, modelDesc, modelDate, modelAmt, modelTags);
-        if (uniqueID != null) {
-            modelWish.setUniqueID(uniqueID);
+        if (uniqueId != null) {
+            modelWish.setUniqueId(uniqueId);
             modelWish.setHasReminder(true);
         }
         return modelWish;

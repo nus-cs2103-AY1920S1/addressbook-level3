@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.guilttrip.model.entry.exceptions.CategoryNotFoundException;
 import seedu.guilttrip.model.entry.exceptions.DuplicateCategoryException;
 
 public class CategoryListTest {
@@ -50,7 +51,7 @@ public class CategoryListTest {
     @Test
     public void add_duplicateCategory_throwsIllegalArgumentException() {
         categoryList.add(CATEGORY_FOOD);
-        assertThrows(IllegalArgumentException.class, () -> categoryList.add(CATEGORY_FOOD));
+        assertThrows(DuplicateCategoryException.class, () -> categoryList.add(CATEGORY_FOOD));
     }
 
     @Test
@@ -101,7 +102,7 @@ public class CategoryListTest {
 
     @Test
     public void remove_categoryDoesNotExist_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> categoryList.remove(CATEGORY_FOOD));
+        assertThrows(CategoryNotFoundException.class, () -> categoryList.remove(CATEGORY_FOOD));
     }
 
     @Test
@@ -142,9 +143,9 @@ public class CategoryListTest {
         List<Category> listWithDuplicateIncomeCategories = Arrays.asList(CATEGORY_BUSINESS, CATEGORY_BUSINESS);
         List<Category> listWithNoDuplicateIncomeCategories = Arrays.asList(CATEGORY_BUSINESS, CATEGORY_STOCKS);
 
-        assertThrows(IllegalArgumentException.class, () -> categoryList
+        assertThrows(DuplicateCategoryException.class, () -> categoryList
                 .setCategories(listWithDuplicateExpenseCategories, listWithNoDuplicateIncomeCategories));
-        assertThrows(IllegalArgumentException.class, () -> categoryList
+        assertThrows(DuplicateCategoryException.class, () -> categoryList
                 .setCategories(listWithDuplicateExpenseCategories, listWithDuplicateIncomeCategories));
     }
 

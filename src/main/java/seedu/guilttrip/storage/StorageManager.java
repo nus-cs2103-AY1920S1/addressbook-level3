@@ -48,30 +48,30 @@ public class StorageManager implements Storage {
     // ================ GuiltTrip methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return guiltTripStorage.getAddressBookFilePath();
+    public Path getGuiltTripFilePath() {
+        return guiltTripStorage.getGuiltTripFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyGuiltTrip> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(guiltTripStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyGuiltTrip> readGuiltTrip() throws DataConversionException, IOException {
+        return readGuiltTrip(guiltTripStorage.getGuiltTripFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyGuiltTrip> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyGuiltTrip> readGuiltTrip(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return guiltTripStorage.readAddressBook(filePath);
+        return guiltTripStorage.readGuiltTrip(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyGuiltTrip addressBook) throws IOException {
-        saveAddressBook(addressBook, guiltTripStorage.getAddressBookFilePath());
+    public void saveGuiltTrip(ReadOnlyGuiltTrip addressBook) throws IOException {
+        saveGuiltTrip(addressBook, guiltTripStorage.getGuiltTripFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyGuiltTrip addressBook, Path filePath) throws IOException {
+    public void saveGuiltTrip(ReadOnlyGuiltTrip addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        guiltTripStorage.saveAddressBook(addressBook, filePath);
+        guiltTripStorage.saveGuiltTrip(addressBook, filePath);
     }
 
 }

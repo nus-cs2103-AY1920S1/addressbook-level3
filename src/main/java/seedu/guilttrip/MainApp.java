@@ -57,14 +57,15 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        GuiltTripStorage guiltTripStorage = new JsonGuiltTripStorage(userPrefs.getAddressBookFilePath());
+        GuiltTripStorage guiltTripStorage = new JsonGuiltTripStorage(userPrefs.getGuiltTripFilePath());
         storage = new StorageManager(guiltTripStorage, userPrefsStorage);
 
         initLogging(config);
         model = initModelManager(storage, userPrefs);
         logic = new LogicManager(model, storage);
         ui = new UiManager(logic);
-        ((GuiltTrip) model.getAddressBook()).linkReminderListToUi((UiManager) ui);
+        GuiltTrip guiltTrip = (GuiltTrip) model.getGuiltTrip();
+        guiltTrip.linkReminderListToUi((UiManager) ui);
     }
 
     /**
@@ -77,7 +78,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyGuiltTrip> addressBookOptional;
         ReadOnlyGuiltTrip initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readGuiltTrip();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample GuiltTrip");
             }

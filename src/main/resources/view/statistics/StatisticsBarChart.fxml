@@ -8,24 +8,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="testView" prefHeight="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <StackPane fx:id="stackForBar" prefHeight="600.0" prefWidth="600.0">
-         <children>
-            <BarChart fx:id="barChart">
-              <xAxis>
-                <CategoryAxis fx:id="dateOfRecord" side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis fx:id="statisticsForDay" side="LEFT" />
-              </yAxis>
-            </BarChart>
-            <Label fx:id="noEntryLabel" text="No Entries for this Period">
-               <font>
-                  <Font name="AvenirLTStd-Black" size="28.0" />
-               </font>
-            </Label>
-         </children>
-      </StackPane>
-   </children>
+<VBox fx:id="testView" prefHeight="500.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <StackPane fx:id="stackForBar" prefHeight="600.0" prefWidth="600.0">
+        <BarChart fx:id="barChart">
+            <xAxis>
+                <CategoryAxis fx:id="dateOfRecord" side="BOTTOM" styleClass="stats-bar-cat-axis"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="statisticsForDay" side="LEFT" styleClass="stats-bar-num-axis"/>
+            </yAxis>
+        </BarChart>
+        <Label fx:id="noEntryLabel" text="No Entries for this Period">
+            <font>
+                <Font name="AvenirLTStd-Black" size="28.0"/>
+            </font>
+        </Label>
+    </StackPane>
 </VBox>

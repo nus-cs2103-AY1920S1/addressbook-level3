@@ -11,7 +11,6 @@ import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
-import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 
 /**
@@ -21,7 +20,8 @@ public class SelectReminderCommand extends Command {
     public static final String COMMAND_WORD = "selectReminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Select the reminder identified by the index number used in the displayed generalReminder list for editing.\n"
+            + ": Select the reminder identified by the index number used in the "
+            + "displayed generalReminder list for editing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -39,8 +39,8 @@ public class SelectReminderCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
-       Reminder ReminderToInspect = lastShownList.get(targetIndex.getZeroBased());
-        model.selectReminder(ReminderToInspect);
-        return new CommandResult(String.format(MESSAGE_REMINDER_SELECTED_SUCCESS, ReminderToInspect));
+        Reminder reminderToInspect = lastShownList.get(targetIndex.getZeroBased());
+        model.selectReminder(reminderToInspect);
+        return new CommandResult(String.format(MESSAGE_REMINDER_SELECTED_SUCCESS, reminderToInspect));
     }
 }

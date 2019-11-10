@@ -8,12 +8,12 @@ import javafx.scene.text.Text;
  * Header of generalReminder. Will always be included in message pop up.
  */
 public class Header extends Cell {
-    public static final String type = "Header";
-    private static final String defaultFont = "/fonts/Faraco_Hand.ttf";
-    private static final double defaultFontSize = 10;
+    public static final String TYPE = "Header";
+    private static final String DEFAULTFONT = "/fonts/Faraco_Hand.ttf";
+    private static final double DEFAULTFONTSIZE = 10;
     private String header;
-    private String fontName = defaultFont;
-    private double fontSize = defaultFontSize;
+    private String fontName = DEFAULTFONT;
+    private double fontSize = DEFAULTFONTSIZE;
     private Font font;
 
     public Header(String header) {

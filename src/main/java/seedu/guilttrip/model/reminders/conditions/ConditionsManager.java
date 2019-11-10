@@ -77,7 +77,7 @@ public class ConditionsManager implements Iterable<Condition> {
                 existingCondition.addPropertyChangeListener(listener);
             }
         } else {
-                generalConditionsList.add(toAdd);
+            generalConditionsList.add(toAdd);
         }
     }
 

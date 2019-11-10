@@ -9,6 +9,8 @@ import seedu.guilttrip.model.Model;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Terminates guiltTrip.";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC;
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting guilttrip() as requested ...";
 

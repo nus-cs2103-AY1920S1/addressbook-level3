@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
  * Users may chose to include an image in their generalReminder message.
  */
 public class ReminderImage extends Cell {
-    public static final String type = "Image";
+    public static final String TYPE = "Image";
     private String imageName;
     private Image image;
 

@@ -23,7 +23,7 @@ import seedu.guilttrip.model.tag.Tag;
 class JsonAdaptedExpense {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
-    private final String uniqueID;
+    private final String uniqueId;
     private final String category;
     private final String desc;
     private final String date;
@@ -34,10 +34,10 @@ class JsonAdaptedExpense {
      * Constructs a {@code JsonAdaptedPerson} with the given entry details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("uniqueID") String uniqueID, @JsonProperty("category") String category, @JsonProperty("desc") String desc,
-                              @JsonProperty("amt") String amt, @JsonProperty("time") String time,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.uniqueID = uniqueID;
+    public JsonAdaptedExpense(@JsonProperty("uniqueId") String uniqueId, @JsonProperty("category") String category,
+                              @JsonProperty("desc") String desc, @JsonProperty("amt") String amt,
+                              @JsonProperty("time") String time, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.uniqueId = uniqueId;
         this.category = category;
         this.desc = desc;
         this.amt = amt;
@@ -52,7 +52,7 @@ class JsonAdaptedExpense {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedExpense(Expense source) {
-        uniqueID = source.getUniqueID();
+        uniqueId = source.getUniqueId();
         category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
@@ -110,8 +110,8 @@ class JsonAdaptedExpense {
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
         Expense modelExpense = new Expense(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
-        if (uniqueID != null) {
-            modelExpense.setUniqueID(uniqueID);
+        if (uniqueId != null) {
+            modelExpense.setUniqueId(uniqueId);
             modelExpense.setHasReminder(true);
         }
         return modelExpense;

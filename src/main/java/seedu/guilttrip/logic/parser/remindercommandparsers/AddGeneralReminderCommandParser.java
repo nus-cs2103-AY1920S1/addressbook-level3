@@ -41,23 +41,24 @@ public class AddGeneralReminderCommandParser implements Parser<AddGeneralReminde
                         args, PREFIX_TYPE, PREFIX_DESC, PREFIX_UPPER_BOUND, PREFIX_LOWER_BOUND,
                         PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_TAG);
         if (!arePrefixesPresent(argMultimap, PREFIX_DESC)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddGeneralReminderCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddGeneralReminderCommand.MESSAGE_USAGE));
         }
         Description header = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
         AddGeneralReminderCommand command = new AddGeneralReminderCommand(header);
-        if (argMultimap.getValue(PREFIX_TYPE).isPresent()){
+        if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
             command.setType(argMultimap.getValue(PREFIX_TYPE).get());
         }
-        if (argMultimap.getValue(PREFIX_UPPER_BOUND).isPresent()){
+        if (argMultimap.getValue(PREFIX_UPPER_BOUND).isPresent()) {
             command.setUpperBound(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_UPPER_BOUND).get()).value);
         }
-        if (argMultimap.getValue(PREFIX_LOWER_BOUND).isPresent()){
+        if (argMultimap.getValue(PREFIX_LOWER_BOUND).isPresent()) {
             command.setLowerBound(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_LOWER_BOUND).get()).value);
         }
-        if (argMultimap.getValue(PREFIX_START_DATE).isPresent()){
+        if (argMultimap.getValue(PREFIX_START_DATE).isPresent()) {
             command.setStart(ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get()));
         }
-        if (argMultimap.getValue(PREFIX_END_DATE).isPresent()){
+        if (argMultimap.getValue(PREFIX_END_DATE).isPresent()) {
             command.setStart(ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get()));
         }
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

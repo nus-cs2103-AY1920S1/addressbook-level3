@@ -27,11 +27,8 @@
                 <URL value="@ExtensionsLight.css" />
             </stylesheets>
 
-            <HBox fx:id="window" minHeight="1180" prefHeight="1180" maxHeight="1180" style="-fx-background-color: White" spacing="5">
-                <padding>
-                    <Insets bottom="5" left="5" right="5" top="5"/>
-                </padding>
-                <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: white">
+            <HBox fx:id="window" minHeight="1180" prefHeight="1180" maxHeight="1180" >
+                <VBox HBox.hgrow="ALWAYS" >
                     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                         <Menu mnemonicParsing="false" text="File">
                             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -66,7 +63,7 @@
                 <!-- to contain the side panels in vbox -->
                 <VBox fx:id="sidePanelsPlaceHolder" minWidth="400" prefWidth="400" spacing="5" styleClass="side-panel-placeholder">
                     <padding>
-                        <Insets bottom="5" left="5" right="5" top="5"/>
+                        <Insets bottom="5" left="5" right="10" top="5"/>
                     </padding>
                     <VBox fx:id="wishesPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS">
                         <padding>

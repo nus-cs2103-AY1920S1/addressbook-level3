@@ -6,6 +6,9 @@ import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.reminders.messages.Message;
 import seedu.guilttrip.model.reminders.messages.Notification;
 
+/**
+ * All reminder types implements this interface.
+ */
 public interface Reminder {
     /**
      * Used by ReminderList to know when to update displayed reminder messages.
@@ -22,7 +25,7 @@ public interface Reminder {
     public ObservableSupport getSupport();
     public void addPropertyChangeListener(ListenerSupport pcl);
     public void removePropertyChangeListener(ListenerSupport pcl);
-    public String getUniqueID();
+    public String getUniqueId();
     public void reset();
 
     /**

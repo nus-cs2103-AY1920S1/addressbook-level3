@@ -110,7 +110,7 @@ public class AddGeneralReminderCommand extends Command {
             model.addCondition(condition);
         }
         model.addReminder(reminder);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, reminder));
     }
 

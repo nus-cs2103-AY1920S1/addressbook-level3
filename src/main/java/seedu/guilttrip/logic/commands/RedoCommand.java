@@ -15,8 +15,9 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
     public static final String MESSAGE_SUCCESS = "Redo success!";
     public static final String MESSAGE_FAILURE = "There are insufficient commands to redo!";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Redo the most recent undone command that modified the state of the finance tracker\n"
+    public static final String ONE_LINER_DESC = COMMAND_WORD
+            + ": Redo the most recent undone command that modified the state of the finance tracker\n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "If number n is provided, the most recent n number of commands will be redone\n"
             + "Parameters: NUMBER (must be a positive integer)\n"
             + "Example 1: " + COMMAND_WORD + "\n"
@@ -32,12 +33,12 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canRedoAddressBook(step)) {
+        if (!model.canRedoGuiltTrip(step)) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
         for (long l = 0; l < step.value; l++) {
-            model.redoAddressBook();
+            model.redoGuiltTrip();
         }
 
         return new CommandResult(MESSAGE_SUCCESS);

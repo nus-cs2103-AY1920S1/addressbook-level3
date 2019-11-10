@@ -1,6 +1,7 @@
 package seedu.guilttrip.logic.commands.addcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
@@ -24,8 +25,9 @@ public class AddExpenseCommand extends Command {
 
     public static final String MESSAGE_CATEGORY = "Call the command listCategories for the list of Categories.";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " / " + COMMAND_WORD_SHORT
-            + " : Adds an expense entry to guiltTrip. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + " / " + COMMAND_WORD_SHORT
+            + " : Adds an expense entry to guiltTrip. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY "
             + PREFIX_DESC + "DESCRIPTION "
@@ -56,8 +58,11 @@ public class AddExpenseCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (!model.hasCategory(toAdd.getCategory())) {
+            throw new CommandException(MESSAGE_INVALID_CATEGORY);
+        }
         model.addExpense(toAdd);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

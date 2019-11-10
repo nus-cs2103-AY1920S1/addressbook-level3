@@ -5,7 +5,7 @@ package seedu.guilttrip.commons.core;
  */
 public class Messages {
 
-    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
+    public static final String MESSAGE_UNKNOWN_COMMAND = "Oh no, unknown command! Type 'help' for help. :)";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_ARGUMENT_FORMAT = "Invalid arguments! %1$s";
     public static final String MESSAGE_MISSING_ARGUMENT_FORMAT = "The following arguments are required: %1$s";

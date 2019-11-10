@@ -10,6 +10,7 @@ import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Category;
+import seedu.guilttrip.model.entry.CategoryList;
 
 
 /**
@@ -19,7 +20,8 @@ public class AddCategoryCommand extends Command {
 
     public static final String COMMAND_WORD = "addCategory";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a category to the finance tracker. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Adds a category to the finance tracker. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY TYPE "
             + PREFIX_DESC + "DESCRIPTION "
@@ -46,8 +48,12 @@ public class AddCategoryCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.hasCategory(toAdd)) {
+            throw new CommandException(String.format(CategoryList.MESSAGE_CONSTRAINTS_IN_LIST,
+                    toAdd.getCategoryType()));
+        }
         model.addCategory(toAdd);
-        model.commitAddressBook();
+        model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

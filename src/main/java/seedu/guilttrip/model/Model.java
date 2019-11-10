@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
-
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.step.Step;
 import seedu.guilttrip.model.entry.AutoExpense;
@@ -33,16 +32,13 @@ import seedu.guilttrip.model.statistics.DailyStatistics;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Entry> PREDICATE_SHOW_ALL_ENTRIES = unused -> true;
-    Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
-    Predicate<Income> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
-    Predicate<Wish> PREDICATE_SHOW_ALL_WISHES = unused -> true;
-    Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
-    Predicate<AutoExpense> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
-    Predicate<Condition> PREDICATE_SHOW_ALL_CONDITIONS = unused -> true;
-    Predicate<Reminder> PREDICATE_SHOW_DISPLAYED_REMINDERS =
-        x -> !x.getStatus().equals(Reminder.Status.unmet);
-    Predicate<Reminder> PREDICATE_SHOW_HIDDEN_REMINDERS =
-            x -> !x.getStatus().equals(Reminder.Status.unmet);
+
+    Predicate<Entry> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_INCOMES = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_WISHES = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_CONDITIONS = unused -> true;
     Predicate<Reminder> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
     Predicate<Reminder> PREDICATE_SHOW_GENERAL_REMINDERS = reminder -> reminder instanceof GeneralReminder;
 
@@ -63,6 +59,8 @@ public interface Model {
     void updateBarCharts();
 
     void updateBarCharts(Date month);
+
+    void createExpensesFromAutoExpenses();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -85,22 +83,22 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' guilttrip book file path.
+     * Returns the user prefs' guiltTrip book file path.
      */
-    Path getAddressBookFilePath();
+    Path getGuiltTripFilePath();
 
     /**
-     * Sets the user prefs' guilttrip book file path.
+     * Sets the user prefs' guiltTrip file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setGuiltTripFilePath(Path guiltTripFilePath);
 
     /**
-     * Replaces guilttrip book data with the data in {@code addressBook}.
+     * Replaces guilttrip book data with the data in {@codh guiltTrip}.
      */
-    void setAddressBook(ReadOnlyGuiltTrip addressBook);
+    void setGuiltTrip(ReadOnlyGuiltTrip guiltTrip);
 
     /** Returns the GuiltTrip */
-    ReadOnlyGuiltTrip getAddressBook();
+    ReadOnlyGuiltTrip getGuiltTrip();
 
     /**
      * Returns true if a entry with the same identity as {@code entry} exists in
@@ -108,6 +106,7 @@ public interface Model {
      */
     boolean hasCategory(Category category);
 
+    boolean categoryHasAnyEntries(Category category);
     /**
      * Returns true if a entry with the same identity as {@code entry} exists in
      * the guilttrip book.
@@ -166,7 +165,6 @@ public interface Model {
      * Adds the given entry. {@code entry} must not already exist in the guilttrip
      * book.
      */
-
     void addCategory(Category category);
 
     void addExpense(Expense expense);
@@ -250,7 +248,7 @@ public interface Model {
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateAllLists(Predicate<Entry> predicate);
+    //void updateAllLists(Predicate<Entry> predicate);
 
     void updateFilteredExpenses(Predicate<Entry> predicate);
 
@@ -277,26 +275,26 @@ public interface Model {
     /**
      * Returns true if the model has previous finance tracker states to restore.
      */
-    boolean canUndoAddressBook(Step step);
+    boolean canUndoGuiltTrip(Step step);
 
     /**
      * Returns true if the model has undone finance tracker states to restore.
      */
-    boolean canRedoAddressBook(Step step);
+    boolean canRedoGuiltTrip(Step step);
 
     /**
      * Restores the model's finance tracker to its previous state.
      */
-    void undoAddressBook();
+    void undoGuiltTrip();
 
     /**
      * Restores the model's finance tracker to its previously undone state.
      */
-    void redoAddressBook();
+    void redoGuiltTrip();
 
     /**
      * Saves the current finance tracker state for undo/redo
      */
-    void commitAddressBook();
+    void commitGuiltTrip();
 
 }

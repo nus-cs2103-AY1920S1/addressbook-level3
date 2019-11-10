@@ -15,7 +15,8 @@ public class ChangeFontCommand extends Command {
 
     public static final String COMMAND_WORD = "changeFont";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the application font to specified font. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Changes the application font to specified font. ";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "PARAMETERS: font name (case sensitive; type listFont to see available fonts) "
             + "EXAMPLE: " + COMMAND_WORD + " verdana";
 

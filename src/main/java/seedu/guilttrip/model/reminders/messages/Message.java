@@ -24,11 +24,12 @@ import seedu.guilttrip.model.entry.Entry;
 public class Message {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static final String defaultbgiLink = "/images/page3.png";
-    private double hGap = 5;
-    private double vGap = 5;
     private static final String defaultFont = "/fonts/Faraco_Hand.ttf";
     private static final double defaultNoteFontSize = 10;
     private static final double defaultHeaderFontSize = 20;
+
+    private double hGap = 5;
+    private double vGap = 5;
 
     private Entry entry;
     private HashMap<Pair<Integer, Integer>, Cell> messageMap = new HashMap<>();
@@ -39,10 +40,10 @@ public class Message {
     private Pair<Integer, Integer> noteCoordinates;
     private Pair<Integer, Integer> statsCoordinates;
 
-    public Message(String headerString, int x_coordinate, int y_coordinate) {
+    public Message(String headerString, int xCoordinate, int yCoordinate) {
         Header header = new Header(headerString);
-        messageMap.put(new Pair(x_coordinate, y_coordinate), header);
-        this.headerCoordinates = new Pair(x_coordinate, y_coordinate);
+        messageMap.put(new Pair(xCoordinate, yCoordinate), header);
+        this.headerCoordinates = new Pair(xCoordinate, yCoordinate);
         try {
             buildBackground(defaultbgiLink);
         } catch (IOException e) {
@@ -157,8 +158,8 @@ public class Message {
      * @param reminderNote
      * @return
      */
-    public boolean placeNote(String reminderNote, int x_coordinate, int y_coordinate) {
-        Pair<Integer, Integer> coordinates = new Pair(x_coordinate, y_coordinate);
+    public boolean placeNote(String reminderNote, int xCoordinate, int yCoordinate) {
+        Pair<Integer, Integer> coordinates = new Pair(xCoordinate, yCoordinate);
         Note note = new Note(reminderNote);
         note.update(entry);
         this.noteCoordinates = coordinates;
@@ -190,6 +191,9 @@ public class Message {
         }
     }
 
+    /**
+     * Restores default font
+     */
     public void restoreDefaultFont() throws IOException {
         Header header = (Header) messageMap.get(headerCoordinates);
         header.setFont(defaultFont, defaultNoteFontSize);
@@ -198,16 +202,20 @@ public class Message {
         buildBackground(defaultbgiLink);
     }
 
-//=== Backgroung image ===//
+    /**
+     * Sets background image.
+     * @param imageLink file path of image.
+     * @throws IOException image not found.
+     */
     public void buildBackground(String imageLink) throws IOException {
         Image background =
                 new ReminderImage(
                         "/images/page3.png", "DefaultBackground", false).getImage();
         this.bgi = new Background(new BackgroundImage(
-                background, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,null,null));
+                background, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, null));
     }
 
-    public void setBGI(String imageLink) throws IOException {
+    public void setBgi(String imageLink) throws IOException {
         buildBackground(imageLink);
     }
 
@@ -244,15 +252,15 @@ public class Message {
 
     /**
      * Only can shift a cell if old position contains cell and new position is empty.
-     * @param coordinate_x
-     * @param coodinate_y
-     * @param new_x
-     * @param new_y
+     * @param xCoordinate
+     * @param yCoordinate
+     * @param newX
+     * @param newY
      * @return if shifting is successful.
      */
-    public boolean shiftCell(int coordinate_x, int coodinate_y, int new_x, int new_y) {
-        Pair<Integer, Integer> oldPos = new Pair(coordinate_x, coodinate_y);
-        Pair<Integer, Integer> newPos = new Pair(new_x, new_y);
+    public boolean shiftCell(int xCoordinate, int yCoordinate, int newX, int newY) {
+        Pair<Integer, Integer> oldPos = new Pair(xCoordinate, yCoordinate);
+        Pair<Integer, Integer> newPos = new Pair(newX, newY);
         if (messageMap.containsKey(oldPos) && !messageMap.containsKey(newPos)) {
             Cell target = messageMap.get(oldPos);
             messageMap.put(newPos, target);

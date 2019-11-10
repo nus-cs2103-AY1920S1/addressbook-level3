@@ -5,35 +5,32 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="1200.0">
-         <children>
-            <VBox VBox.vgrow="ALWAYS">
-               <children>
-                  <HBox fx:id="tablePiePlaceHolder" prefHeight="466.0" HBox.hgrow="ALWAYS" />
-               </children>
-            </VBox>
-            <VBox fx:id="sideStatisticsPanel" prefHeight="1200.0" prefWidth="243.0" stylesheets="@../LightTheme.css">
-               <children>
-                  <VBox fx:id="totalExpense" alignment="CENTER" prefWidth="243.0" styleClass="side-panel-expense" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label alignment="TOP_CENTER" contentDisplay="CENTER" styleClass="side-panel-title" text="Total Expense($)" textAlignment="CENTER" />
-                        <Label fx:id="expenseLabel" alignment="CENTER" style="-fx-text-fill: Coral;" styleClass="side-panel-title" text="Expense" textAlignment="CENTER" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefWidth="243.0" styleClass="side-panel-income" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label alignment="TOP_CENTER" contentDisplay="CENTER" styleClass="side-panel-title" text="Total Income($)" textAlignment="CENTER" />
-                        <Label fx:id="incomeLabel" style="-fx-text-fill: #3cb371;" styleClass="side-panel-title" text="Income" />
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-         </children>
-         <padding>
-            <Insets top="40.0" />
-         </padding>
-      </HBox>
-   </children>
+<VBox alignment="CENTER" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="1200.0">
+      <padding>
+         <Insets top="40.0"/>
+      </padding>
+
+      <VBox VBox.vgrow="ALWAYS">
+         <HBox fx:id="tablePiePlaceHolder" prefHeight="466.0" HBox.hgrow="ALWAYS"/>
+      </VBox>
+
+      <VBox fx:id="sideStatisticsPanel" prefHeight="1200.0" prefWidth="243.0">
+         <VBox fx:id="totalExpense" alignment="CENTER" prefWidth="243.0" styleClass="side-panel-expense"
+               VBox.vgrow="ALWAYS">
+            <Label alignment="TOP_CENTER" contentDisplay="CENTER" styleClass="side-panel-title"
+                   text="Total Expense ($)" textAlignment="CENTER"/>
+            <Label fx:id="expenseLabel" alignment="CENTER" style="-fx-text-fill: Coral;"
+                   styleClass="side-panel-title" text="Expense" textAlignment="CENTER"/>
+         </VBox>
+
+         <VBox alignment="CENTER" prefWidth="243.0" styleClass="side-panel-income" VBox.vgrow="ALWAYS">
+            <Label alignment="TOP_CENTER" contentDisplay="CENTER" styleClass="side-panel-title"
+                   text="Total Income ($)" textAlignment="CENTER"/>
+            <Label fx:id="incomeLabel" style="-fx-text-fill: #3cb371;" styleClass="side-panel-title"
+                   text="Income"/>
+         </VBox>
+
+      </VBox>
+   </HBox>
 </VBox>

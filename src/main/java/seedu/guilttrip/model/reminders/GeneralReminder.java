@@ -16,9 +16,9 @@ import seedu.guilttrip.model.reminders.messages.Notification;
 /**
  * Basic generalReminder class with minimal functionality.
  */
-public class GeneralReminder implements ListenerSupport, Reminder{
+public class GeneralReminder implements ListenerSupport, Reminder {
 
-    private String uniqueID = UUID.randomUUID().toString();
+    private String uniqueId = UUID.randomUUID().toString();
 
     private Description header;
 
@@ -49,8 +49,8 @@ public class GeneralReminder implements ListenerSupport, Reminder{
 
 
     @Override
-    public String getUniqueID() {
-        return this.uniqueID;
+    public String getUniqueId() {
+        return this.uniqueId;
     }
 
     public Status getStatus() {
@@ -161,7 +161,7 @@ public class GeneralReminder implements ListenerSupport, Reminder{
     public void togglePopUpDisplay(boolean willDisplayPopup) {
         this.displayPopUp = willDisplayPopup;
         if (displayPopUp && message == null) {
-            message = new Message(header.toString(),2,2);
+            message = new Message(header.toString(), 2, 2);
         }
     }
 

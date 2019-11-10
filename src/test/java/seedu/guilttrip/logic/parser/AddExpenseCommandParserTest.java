@@ -1,6 +1,5 @@
 package seedu.guilttrip.logic.parser;
 
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.AMOUNT_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.AMOUNT_FOOD_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_CLOTHING_EXPENSE;
@@ -49,7 +48,7 @@ public class AddExpenseCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_FOOD_EXPENSE + AMOUNT_FOOD_EXPENSE
-                + CATEGORY_FOOD_EXPENSE + DATE_FOOD_EXPENSE + TAG_DESC_FOOD,
+                        + CATEGORY_FOOD_EXPENSE + DATE_FOOD_EXPENSE + TAG_DESC_FOOD,
                 new AddExpenseCommand(expectedExpense));
 
         // multiple tags - all accepted
@@ -73,39 +72,32 @@ public class AddExpenseCommandParserTest {
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT , AddExpenseCommand.MESSAGE_USAGE);
-
         // missing name prefix
         assertParseFailure(parser, VALID_DESC_CLOTHING_EXPENSE + AMOUNT_CLOTHING_EXPENSE
-                        + CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT,
-                expectedMessage);
+                + CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT);
 
         // missing amount prefix
         assertParseFailure(parser, NAME_DESC_CLOTHING_EXPENSE + VALID_AMOUNT_CLOTHING_EXPENSE
-                        + CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT,
-                expectedMessage);
+                + CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT);
 
         // missing category prefix
         assertParseFailure(parser, NAME_DESC_CLOTHING_EXPENSE + AMOUNT_CLOTHING_EXPENSE
-                        + VALID_CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT,
-                expectedMessage);
+                + VALID_CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT);
 
         // missing guilttrip prefix
         assertParseFailure(parser, NAME_DESC_CLOTHING_EXPENSE + AMOUNT_CLOTHING_EXPENSE
-                        + CATEGORY_CLOTHING_EXPENSE + VALID_DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT,
-                expectedMessage);
+                + CATEGORY_CLOTHING_EXPENSE + VALID_DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT);
 
         // all prefixes missing
         assertParseFailure(parser, NAME_DESC_CLOTHING_EXPENSE + VALID_AMOUNT_CLOTHING_EXPENSE
-                        + VALID_CATEGORY_CLOTHING_EXPENSE + VALID_DATE_CLOTHING_EXPENSE + VALID_TAG_CLOTHING_CLOTHES,
-                expectedMessage);
+                + VALID_CATEGORY_CLOTHING_EXPENSE + VALID_DATE_CLOTHING_EXPENSE + VALID_TAG_CLOTHING_CLOTHES);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + AMOUNT_CLOTHING_EXPENSE
-                + CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT,
+                        + CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT,
                 Description.MESSAGE_CONSTRAINTS);
 
         // invalid amount
@@ -130,8 +122,7 @@ public class AddExpenseCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_CLOTHING_EXPENSE + AMOUNT_CLOTHING_EXPENSE
-                        + CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExpenseCommand.MESSAGE_USAGE));
+                + CATEGORY_CLOTHING_EXPENSE + DATE_CLOTHING_EXPENSE + TAG_DESC_CLOTHING + TAG_DESC_WANT);
     }
 
 }

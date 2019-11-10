@@ -7,6 +7,9 @@ import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.reminders.messages.Message;
 
+/**
+ * automatically displays message popup.
+ */
 public class AutoDisplayPopUp extends Command {
     private Message message;
     public AutoDisplayPopUp(Message message) {

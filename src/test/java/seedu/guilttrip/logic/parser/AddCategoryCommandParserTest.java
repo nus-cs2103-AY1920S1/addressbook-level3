@@ -44,17 +44,16 @@ public class AddCategoryCommandParserTest {
 <<<<<<< HEAD
 =======
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT , AddCategoryCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryCommand.MESSAGE_USAGE);
 
         // missing category prefix
-        assertParseFailure(parser, VALID_CATEGORY_TYPE_EXPENSE + CATEGORY_NAME_EXPENSE, expectedMessage);
+        assertParseFailure(parser, VALID_CATEGORY_TYPE_EXPENSE + CATEGORY_NAME_EXPENSE);
 
         // missing Category name prefix
-        assertParseFailure(parser, CATEGORY_TYPE_EXPENSE + VALID_CATEGORY_NAME_EXPENSE_FOOD, expectedMessage);
+        assertParseFailure(parser, CATEGORY_TYPE_EXPENSE + VALID_CATEGORY_NAME_EXPENSE_FOOD);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_CATEGORY_TYPE_EXPENSE + VALID_CATEGORY_NAME_EXPENSE_FOOD,
-                expectedMessage);
+        assertParseFailure(parser, VALID_CATEGORY_TYPE_EXPENSE + VALID_CATEGORY_NAME_EXPENSE_FOOD);
     }
 
     @Test
@@ -65,7 +64,6 @@ public class AddCategoryCommandParserTest {
                 Category.MESSAGE_CONSTRAINTS_TYPE);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + CATEGORY_TYPE_INCOME + CATEGORY_NAME_INCOME,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + CATEGORY_TYPE_INCOME + CATEGORY_NAME_INCOME);
     }
 }

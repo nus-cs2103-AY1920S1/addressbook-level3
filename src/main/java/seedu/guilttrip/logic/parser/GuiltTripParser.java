@@ -2,7 +2,12 @@ package seedu.guilttrip.logic.parser;
 
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.guilttrip.logic.parser.ParserUtil.mapOfMessageUsages;
+import static seedu.guilttrip.logic.parser.ParserUtil.mapOfOneLinerDescs;
+import static seedu.guilttrip.logic.parser.ParserUtil.setOfCommandWords;
 
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +28,7 @@ import seedu.guilttrip.logic.commands.addcommands.AddBudgetCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddIncomeCommand;
+import seedu.guilttrip.logic.commands.addcommands.AddWishCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteAutoExpenseCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteBudgetCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteCategoryCommand;
@@ -40,14 +46,10 @@ import seedu.guilttrip.logic.commands.findcommands.FindBudgetCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindIncomeCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindWishCommand;
-import seedu.guilttrip.logic.commands.remindercommands.AddConditionToReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.AddGeneralReminderCommand;
-import seedu.guilttrip.logic.commands.remindercommands.AddImageCommand;
-import seedu.guilttrip.logic.commands.remindercommands.AddNewImageCommand;
 import seedu.guilttrip.logic.commands.remindercommands.DeleteReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.DisplayPopupCommand;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
-import seedu.guilttrip.logic.commands.remindercommands.ListActiveRemindersCommand;
 import seedu.guilttrip.logic.commands.remindercommands.ListAllRemindersCommand;
 import seedu.guilttrip.logic.commands.remindercommands.RemoveConditionFromReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.SelectReminderCommand;
@@ -72,6 +74,7 @@ import seedu.guilttrip.logic.parser.addcommandparsers.AddBudgetCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddCategoryCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddExpenseCommandParser;
 import seedu.guilttrip.logic.parser.addcommandparsers.AddIncomeCommandParser;
+import seedu.guilttrip.logic.parser.addcommandparsers.AddWishCommandParser;
 import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteAutoExpenseCommandParser;
 import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteBudgetCommandParser;
 import seedu.guilttrip.logic.parser.deletecommandparsers.DeleteCategoryCommandParser;
@@ -90,9 +93,6 @@ import seedu.guilttrip.logic.parser.findcommandparsers.FindBudgetCommandParser;
 import seedu.guilttrip.logic.parser.findcommandparsers.FindExpenseCommandParser;
 import seedu.guilttrip.logic.parser.findcommandparsers.FindIncomeCommandParser;
 import seedu.guilttrip.logic.parser.findcommandparsers.FindWishCommandParser;
-import seedu.guilttrip.logic.parser.remindercommandparsers.AddConditionToReminderCommandParser;
-import seedu.guilttrip.logic.parser.remindercommandparsers.AddImageCommandParser;
-import seedu.guilttrip.logic.parser.remindercommandparsers.AddNewImageCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.AddGeneralReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.DeleteReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.EditReminderCommandParser;
@@ -116,13 +116,17 @@ import seedu.guilttrip.logic.parser.uicommandparsers.TogglePanelCommandParser;
  */
 public class GuiltTripParser {
 
+    public static final Set<String> COMMANDS_SET = setOfCommandWords();
+    public static final Map<String, String> ONE_LINER_DESC_MAP = mapOfOneLinerDescs();
+    public static final Map<String, String> MESSAGE_USAGE_MAP = mapOfMessageUsages();
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
+     *
      * @param userInput full user input string
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
@@ -151,6 +155,9 @@ public class GuiltTripParser {
 
         case AddCategoryCommand.COMMAND_WORD:
             return new AddCategoryCommandParser().parse(arguments);
+
+        case AddWishCommand.COMMAND_WORD:
+            return new AddWishCommandParser().parse(arguments);
 
         case EditExpenseCommand.COMMAND_WORD:
             // Fallthrough
@@ -249,12 +256,6 @@ public class GuiltTripParser {
         case DisplayPopupCommand.COMMAND_WORD:
             return new DisplayPopupCommand();
 
-        case AddImageCommand.COMMAND_WORD:
-            return new AddImageCommandParser().parse(arguments);
-
-        case AddNewImageCommand.COMMAND_WORD:
-            return new AddNewImageCommandParser().parse(arguments);
-
         case AddGeneralReminderCommand.COMMAND_WORD:
             return new AddGeneralReminderCommandParser().parse(arguments);
 
@@ -267,17 +268,11 @@ public class GuiltTripParser {
         case DeleteReminderCommand.COMMAND_WORD:
             return new DeleteReminderCommandParser().parse(arguments);
 
-        case AddConditionToReminderCommand.COMMAND_WORD:
-            return new AddConditionToReminderCommandParser().parse(arguments);
-
         case RemoveConditionFromReminderCommand.COMMAND_WORD:
             return new RemoveConditionFromReminderCommandParser().parse(arguments);
 
         case ListAllRemindersCommand.COMMAND_WORD:
             return new ListAllRemindersCommand();
-
-        case ListActiveRemindersCommand.COMMAND_WORD:
-            return new ListActiveRemindersCommand();
 
         case AddAutoExpenseCommand.COMMAND_WORD:
             return new AddAutoExpenseCommandParser().parse(arguments);

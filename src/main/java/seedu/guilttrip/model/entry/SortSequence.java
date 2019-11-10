@@ -19,20 +19,20 @@ public class SortSequence {
     public final String sequence;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code SortSequence}.
      *
-     * @param desc A valid name.
+     * @param sequence A valid name.
      */
     public SortSequence(String sequence) {
         requireNonNull(sequence);
-        checkArgument(isValidDescription(sequence), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidSortSequence(sequence), MESSAGE_CONSTRAINTS);
         this.sequence = sequence;
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid SortSequence.
      */
-    public static boolean isValidDescription(String test) {
+    public static boolean isValidSortSequence(String test) {
         return (test.equalsIgnoreCase("ascending") || test.equalsIgnoreCase("descending"));
     }
 

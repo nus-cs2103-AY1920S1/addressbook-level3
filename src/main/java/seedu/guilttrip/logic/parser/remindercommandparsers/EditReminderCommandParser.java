@@ -2,7 +2,6 @@ package seedu.guilttrip.logic.parser.remindercommandparsers;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_FREQ;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_LOWER_BOUND;
@@ -22,7 +21,7 @@ import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand.EditGeneralReminderDescriptor;
-import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand.EditIEWReminderDescriptor;
+import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand.EditIewReminderDescriptor;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
@@ -41,11 +40,18 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     private final Logger logger = LogsCenter.getLogger(getClass());
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the
+     *EditReminderCommand and returns an EditReminderCommand object for
+     * execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public EditReminderCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
-                        PREFIX_DESC, PREFIX_UPPER_BOUND, PREFIX_LOWER_BOUND,
+                        PREFIX_UPPER_BOUND, PREFIX_LOWER_BOUND,
                         PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_TAG, PREFIX_AMOUNT, PREFIX_PERIOD);
 
         Index index;
@@ -83,21 +89,21 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
             logger.info("Params match GeneralReminder.");
             return new EditReminderCommand(editGeneralReminderDescriptor);
         } else if (isEntryReminder) {
-            editReminderDescriptor = new EditReminderCommand.EditIEWReminderDescriptor();
-            EditIEWReminderDescriptor editIEWReminderDescriptor =
-                    (EditIEWReminderDescriptor) editReminderDescriptor;
+            editReminderDescriptor = new EditIewReminderDescriptor();
+            EditIewReminderDescriptor editIewReminderDescriptor =
+                    (EditIewReminderDescriptor) editReminderDescriptor;
             if (argMultimap.getValue(PREFIX_PERIOD).isPresent()) {
-                editIEWReminderDescriptor.setPeriod(
+                editIewReminderDescriptor.setPeriod(
                         ParserUtil.parsePeriods(argMultimap.getValue(PREFIX_PERIOD).get()));
             }
             if (argMultimap.getValue(PREFIX_FREQ).isPresent()) {
-                editIEWReminderDescriptor.setFrequency(
+                editIewReminderDescriptor.setFrequency(
                         ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_FREQ).get()));
             }
-            logger.info("Params match IEWReminder.");
-            return new EditReminderCommand(editIEWReminderDescriptor);
-        }
-        else {
+            logger.info("Params match IewReminder.");
+            return new EditReminderCommand(editIewReminderDescriptor);
+
+        } else {
             throw new ParseException(EditReminderCommand.MISMATCHING_REMINDER_TYPES);
         }
     }

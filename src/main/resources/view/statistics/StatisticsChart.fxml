@@ -5,14 +5,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox alignment="CENTER" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-       <SplitPane fx:id="pieChartPanelHolder" dividerPositions="0.29797979797979796">
-           <AnchorPane fx:id="pieChartPanelHolderLeft" />
-           <AnchorPane fx:id="pieChartPanelHolderRight" />
-       </SplitPane>
-   </children>
-   <padding>
-      <Insets top="40.0" />
-   </padding>
+<HBox alignment="CENTER" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="40.0" right="10"/>
+    </padding>
+    <SplitPane fx:id="pieChartPanelHolder" style="-fx-background-color: transparent" dividerPositions="0.29797979797979796">
+        <AnchorPane fx:id="pieChartPanelHolderLeft" />
+        <AnchorPane fx:id="pieChartPanelHolderRight"/>
+    </SplitPane>
 </HBox>

@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.guilttrip.model.entry.exceptions.DuplicateEntryException;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 
 /**
@@ -53,13 +52,6 @@ public class BudgetList implements Iterable<Budget> {
         requireAllNonNull(target, editedBudget);
 
         int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new EntryNotFoundException();
-        }
-
-        if (!target.equals(editedBudget) && contains(editedBudget)) {
-            throw new DuplicateEntryException();
-        }
 
         internalList.set(index, editedBudget);
     }

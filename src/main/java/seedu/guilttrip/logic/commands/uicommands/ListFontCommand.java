@@ -13,6 +13,8 @@ import seedu.guilttrip.model.Model;
 public class ListFontCommand extends Command {
 
     public static final String COMMAND_WORD = "listFont";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + "Lists all available fonts.";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC;
 
     public static final String MESSAGE_SUCCESS = "Listed all fonts";
 

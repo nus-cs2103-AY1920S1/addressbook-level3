@@ -13,8 +13,8 @@ import seedu.guilttrip.commons.core.LogsCenter;
  * A ui for the status bar that is displayed at the header of the application.
  */
 public class ResultDisplay extends UiPart<Region> {
-    private final Logger logger = LogsCenter.getLogger(getClass());
     private static final String FXML = "ResultDisplay.fxml";
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private TextArea resultDisplay;

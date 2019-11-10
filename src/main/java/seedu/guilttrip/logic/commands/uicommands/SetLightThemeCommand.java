@@ -14,6 +14,8 @@ import seedu.guilttrip.ui.util.Theme;
 public class SetLightThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "setLightTheme";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Sets the theme to the light theme.";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC;
 
     public static final String MESSAGE_SUCCESS = "Changed to light theme";
 

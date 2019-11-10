@@ -1,8 +1,8 @@
 package seedu.guilttrip.logic.commands.remindercommands;
 
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_FREQ;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.List;
@@ -20,10 +20,13 @@ import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.entry.Wish;
-import seedu.guilttrip.model.reminders.IEWReminder;
+import seedu.guilttrip.model.reminders.IewReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.util.Frequency;
 
+/**
+ * Set a reminder for an expense/ income/ wish.
+ */
 public class SetReminderCommand extends Command {
     public static final String COMMAND_WORD = "setReminder";
     public static final String UNSUPPORTED_TYPE = "Unable to create reminder for this entry.";
@@ -66,26 +69,26 @@ public class SetReminderCommand extends Command {
         case "expense":
             List<Expense> expenseList = model.getFilteredExpenses();
             Expense targetExpense = expenseList.get(targetIndex.getZeroBased());
-            if(targetExpense.getDate().minus(period).isBefore(currDate)) {
+            if (targetExpense.getDate().minus(period).isBefore(currDate)) {
                 throw new CommandException(INVALID_PERIOD);
             }
-            model.addReminder(new IEWReminder(header,targetExpense, period, freq));
+            model.addReminder(new IewReminder(header, targetExpense, period, freq));
             return new CommandResult(String.format(MESSAGE_SUCCESS, targetExpense));
         case "income":
             List<Income> incomeList = model.getFilteredIncomes();
             Income targetIncome = incomeList.get(targetIndex.getZeroBased());
-            if(targetIncome.getDate().minus(period).isBefore(currDate)) {
+            if (targetIncome.getDate().minus(period).isBefore(currDate)) {
                 throw new CommandException(INVALID_PERIOD);
             }
-            model.addReminder(new IEWReminder(header, targetIncome, period, freq));
+            model.addReminder(new IewReminder(header, targetIncome, period, freq));
             return new CommandResult(String.format(MESSAGE_SUCCESS, targetIncome));
         case "wish":
             List<Wish> wishList = model.getFilteredWishes();
             Wish targetWish = wishList.get(targetIndex.getZeroBased());
-            if(targetWish.getDate().minus(period).isBefore(currDate)) {
+            if (targetWish.getDate().minus(period).isBefore(currDate)) {
                 throw new CommandException(INVALID_PERIOD);
             }
-            model.addReminder(new IEWReminder(header, targetWish, period, freq));
+            model.addReminder(new IewReminder(header, targetWish, period, freq));
             return new CommandResult(String.format(MESSAGE_SUCCESS, targetWish));
         default:
             throw new CommandException(UNSUPPORTED_TYPE);

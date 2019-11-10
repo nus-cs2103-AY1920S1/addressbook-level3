@@ -10,7 +10,7 @@ import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.commons.util.ListenerSupport;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.reminders.GeneralReminder;
-import seedu.guilttrip.model.reminders.IEWReminder;
+import seedu.guilttrip.model.reminders.IewReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 
@@ -19,7 +19,7 @@ import seedu.guilttrip.model.reminders.conditions.Condition;
  */
 public class ReminderMapper {
     private final List<Reminder> reminders = new ArrayList<>();
-    private final HashMap<String, IEWReminder> iewReminders = new HashMap<>();
+    private final HashMap<String, IewReminder> iewReminders = new HashMap<>();
     private final List<Condition> conditions = new ArrayList<>();
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -31,9 +31,9 @@ public class ReminderMapper {
                 GeneralReminder generalReminder = (GeneralReminder) reminder;
                 mapCondition(generalReminder);
                 reminders.add(generalReminder);
-            } else if (reminder instanceof IEWReminder) {
-                IEWReminder iewReminder = (IEWReminder) reminder;
-                iewReminders.put(iewReminder.getUniqueID(), iewReminder);
+            } else if (reminder instanceof IewReminder) {
+                IewReminder iewReminder = (IewReminder) reminder;
+                iewReminders.put(iewReminder.getUniqueId(), iewReminder);
             }
         }
     }
@@ -57,8 +57,11 @@ public class ReminderMapper {
         }
     }
 
+    /**
+     * Map entry specific reminder to ebrty.
+     */
     public void mapEntry(Entry entry) {
-        IEWReminder reminder = iewReminders.get(entry.getUniqueID());
+        IewReminder reminder = iewReminders.get(entry.getUniqueId());
         logger.info("Successfully mapped reminder " + reminder + " to entry " + entry);
         reminder.setEntry(entry);
         reminders.add(reminder);
@@ -68,7 +71,7 @@ public class ReminderMapper {
         return reminders;
     }
 
-    public HashMap<String, IEWReminder> getIewReminders() {
+    public HashMap<String, IewReminder> getIewReminders() {
         return this.iewReminders;
     }
 

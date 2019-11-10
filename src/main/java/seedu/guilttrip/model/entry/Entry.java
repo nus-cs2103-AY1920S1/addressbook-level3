@@ -17,7 +17,7 @@ import seedu.guilttrip.model.tag.Tag;
  */
 public class Entry {
     private boolean hasReminder;
-    private String uniqueID;
+    private String uniqueId;
     // Identity fields
     private final Category category;
     private final Description desc;
@@ -50,12 +50,12 @@ public class Entry {
         this.hasReminder = hasReminder;
     }
 
-    public String getUniqueID() {
-        return this.uniqueID;
+    public String getUniqueId() {
+        return this.uniqueId;
     }
 
-    public void setUniqueID(final String uniqueID) {
-        this.uniqueID = uniqueID;
+    public void setUniqueId(final String uniqueId) {
+        this.uniqueId = uniqueId;
     }
     public Category getCategory() {
         return category;
@@ -138,13 +138,13 @@ public class Entry {
             return false;
         } else {
             if (this instanceof Expense) {
-                return ((Expense) this).equals((Expense) other);
+                return this.equals(other);
             } else if (this instanceof Income) {
-                return ((Income) this).equals((Income) other);
+                return this.equals(other);
             } else if (this instanceof Wish) {
-                return ((Wish) this).equals((Wish) other);
+                return this.equals(other);
             } else if (this instanceof Budget) {
-                return ((Budget) this).equals((Budget) other);
+                return this.equals(other);
             } else {
                 return false;
             }
