@@ -1,8 +1,9 @@
 package seedu.moolah.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moolah.storage.JsonAdaptedBudget.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.moolah.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.moolah.testutil.TypicalMooLah.OUTSIDE_SCHOOL;
 
 import java.time.Period;
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ import seedu.moolah.commons.exceptions.IllegalValueException;
 import seedu.moolah.model.expense.Description;
 import seedu.moolah.model.expense.Price;
 import seedu.moolah.model.expense.Timestamp;
-import static seedu.moolah.testutil.TypicalMooLah.OUTSIDE_SCHOOL;
 
 public class JsonAdaptedBudgetTest {
 
