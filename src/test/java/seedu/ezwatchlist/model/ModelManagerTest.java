@@ -7,6 +7,7 @@ import static seedu.ezwatchlist.model.Model.PREDICATE_ALL_SHOWS;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
 import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
+import static seedu.ezwatchlist.testutil.TypicalShows.JOKER;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,6 +33,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        assertEquals(new WatchList(), new WatchList((modelManager.getDatabase())));
         assertEquals(new WatchList(), new WatchList(modelManager.getWatchList()));
     }
 
@@ -102,12 +104,14 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         WatchList watchList = new WatchListBuilder().withShow(AVENGERSENDGAME).withShow(FIGHTCLUB).build();
+        WatchList database = new WatchListBuilder().withShow(AVENGERSENDGAME).withShow(FIGHTCLUB).withShow(JOKER)
+                .build();
         WatchList differentWatchList = new WatchList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(watchList, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(watchList, userPrefs);
+        modelManager = new ModelManager(watchList, database, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(watchList, database, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -120,12 +124,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different watchlist -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentWatchList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentWatchList, database, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = AVENGERSENDGAME.getName().showName.split("\\s+");
         modelManager.updateFilteredShowList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(watchList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(watchList, database, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredShowList(PREDICATE_ALL_SHOWS);
@@ -133,7 +137,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setWatchListFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(watchList, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(watchList, database, differentUserPrefs)));
     }
 
     @Test
@@ -142,13 +146,14 @@ public class ModelManagerTest {
         modelManager.addShow(show);
         assertTrue(modelManager.hasShowName(show.getName()));
     }
+
     @Test
     public void getShowIfHasNameTest() {
         Show show = new ShowBuilder(AVENGERSENDGAME).build();
         modelManager.addShow(show);
         List<Show> showList = new ArrayList<>();
         showList.add(show);
-        assertEquals(modelManager.getShowIfHasName(show.getName()), showList);
+        assertEquals(modelManager.getShowFromWatchlistIfHasName(show.getName()), showList);
     }
 
     @Test
@@ -163,7 +168,7 @@ public class ModelManagerTest {
         modelManager.addShow(show);
         List<Show> showList = new ArrayList<>();
         showList.add(show);
-        assertEquals(modelManager.getShowIfHasActor(show.getActors()), showList);
+        assertEquals(modelManager.getShowFromWatchlistIfHasActor(show.getActors()), showList);
     }
     @Test
     public void getShowIfIsGenreTest() {
@@ -171,7 +176,7 @@ public class ModelManagerTest {
         modelManager.addShow(show);
         List<Show> showList = new ArrayList<>();
         showList.add(show);
-        assertEquals(modelManager.getShowIfIsGenre(show.getGenres()), new ArrayList<>());
+        assertEquals(modelManager.getShowFromWatchlistIfIsGenre(show.getGenres()), new ArrayList<>());
     }
 
     @Test

@@ -87,6 +87,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyWatchList getDatabase() {
+        return model.getDatabase();
+    }
+
+    @Override
     public ObservableList<Show> getUnWatchedList() {
         return model.getUnWatchedShowList();
     }
@@ -114,6 +119,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getWatchListFilePath() {
         return model.getWatchListFilePath();
+    }
+
+    @Override
+    public Path getDatabaseFilePath() {
+        return model.getDatabaseFilePath();
     }
 
     @Override
