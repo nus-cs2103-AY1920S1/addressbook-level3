@@ -20,6 +20,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.logic.Logic;
@@ -30,13 +31,11 @@ import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.ui.autoexpense.AutoExpensesPanel;
 import seedu.guilttrip.ui.budget.BudgetPanel;
 import seedu.guilttrip.ui.condition.ConditionPanel;
-import seedu.guilttrip.ui.entry.EntryListPanel;
 import seedu.guilttrip.ui.expense.ExpenseListPanel;
 import seedu.guilttrip.ui.income.IncomeListPanel;
 import seedu.guilttrip.ui.reminder.ReminderPanel;
 import seedu.guilttrip.ui.stats.StatisticsBarChart;
 import seedu.guilttrip.ui.stats.StatisticsWindow;
-import seedu.guilttrip.ui.util.FontManager;
 import seedu.guilttrip.ui.util.FontName;
 import seedu.guilttrip.ui.util.PanelName;
 import seedu.guilttrip.ui.util.Theme;
@@ -56,7 +55,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private EntryListPanel entryListPanel;
     private ExpenseListPanel expenseListPanel;
     private IncomeListPanel incomeListPanel;
     private ReminderPanel reminderPanel;
@@ -71,7 +69,7 @@ public class MainWindow extends UiPart<Stage> {
     private BudgetPanel budgetsPanel;
 
     // Customisable GUI elements
-    private String font;
+    private FontName font;
     private Theme theme;
 
     @FXML
@@ -229,9 +227,9 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the font based on {@code guiSettings}.
      */
     private void setFont(GuiSettings guiSettings) {
-        String savedFont = guiSettings.getFont();
+        FontName savedFont = guiSettings.getFont();
         this.font = savedFont;
-        String style = "-fx-font-family: " + savedFont;
+        String style = "-fx-font-family: " + FontName.toLowerCaseString(savedFont);
         window.setStyle(style);
     }
 
@@ -381,9 +379,9 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Changes font in the application to the specified font.
      */
-    private void handleChangeFont(String font) {
+    private void handleChangeFont(FontName font) {
         this.font = font;
-        String style = "-fx-font-family: " + font;
+        String style = "-fx-font-family: " + FontName.toLowerCaseString(font);
         window.setStyle(style);
     }
 
@@ -486,10 +484,6 @@ public class MainWindow extends UiPart<Stage> {
         alert.showAndWait();
     }
 
-    public EntryListPanel getEntryListPanel() {
-        return entryListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -516,8 +510,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isChangeFont()) {
-                String fontNameString = FontName.toLowerCaseString(commandResult.getFontName());
-                handleChangeFont(fontNameString);
+                handleChangeFont(commandResult.getFontName());
             }
 
             if (commandResult.isToggleStats()) {

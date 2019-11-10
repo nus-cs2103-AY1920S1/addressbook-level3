@@ -7,9 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.ui.UiPart;
-import seedu.guilttrip.ui.entry.EntryCard;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -67,7 +67,7 @@ public class WishListCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EntryCard)) {
+        if (!(other instanceof WishListCard)) {
             return false;
         }
 

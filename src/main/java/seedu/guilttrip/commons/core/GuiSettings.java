@@ -1,9 +1,10 @@
 package seedu.guilttrip.commons.core;
 
-import java.awt.Point;
+import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+import seedu.guilttrip.ui.util.FontName;
 import seedu.guilttrip.ui.util.Theme;
 
 /**
@@ -14,13 +15,13 @@ public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 800;
     private static final double DEFAULT_WIDTH = 1100;
-    private static final String DEFAULT_FONT = "segoe UI";
+    private static final FontName DEFAULT_FONT = FontName.SEGOE_UI;
     private static final Theme DEFAULT_THEME = Theme.DARK;
 
     private final double windowWidth;
     private final double windowHeight;
     private final Point windowCoordinates;
-    private final String font;
+    private final FontName font;
     private final Theme theme;
 
     public GuiSettings() {
@@ -31,7 +32,7 @@ public class GuiSettings implements Serializable {
         theme = DEFAULT_THEME;
     }
 
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, String font,
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, FontName font,
                        Theme theme) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
@@ -52,7 +53,7 @@ public class GuiSettings implements Serializable {
         return windowCoordinates != null ? new Point(windowCoordinates) : null;
     }
 
-    public String getFont() {
+    public FontName getFont() {
         return font;
     }
 
