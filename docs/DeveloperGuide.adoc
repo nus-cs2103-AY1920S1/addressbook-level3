@@ -199,14 +199,20 @@ image:BetterModelClassDiagram.png[]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::storage_classdiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`[green]#Storage.java#`]
 
-The `[green]#Storage#` component,
+The `[green]#Storage#` component saves the following data in json format and reads it back as objects when
+a new session of Athletick is started.
 
-* can save `[green]#UserPref#` objects in json format and read it back.
-* can save the Athletick data in json format and read it back.
+* `[green]#UserPref#` data
+* `[green]#Athletick#` data (athlete list)
+* `[green]#Performance#` data (`[green]#Event#` and `[green]#Record#`)
+* `[green]#TrainingManager#` data (`[green]#Training#`)
+
+`[green]#Performance#` and `[green]#TrainingManager#` rely on `[green]#JsonAdaptedPerson#` as well, since a
+performance and training record also stores the athlete it is referring to.
 
 [[Design-Commons]]
 === Common classes
@@ -347,6 +353,148 @@ which defeats the purpose of having a command line interface. Editing training b
 
 // end::training[]
 === Performance feature
+
+Athletick allows users to record athlete's performance details from timed trials.
+With this information recorded, Athletick allows users to get an overview of the team's capability and
+progress in specific events.
+
+==== Implementation
+
+This section explains how `[green]#Performance#` is implemented in Athletick. It is split into x sections:
+x, y, z.
+
+===== Overview
+
+To facilitate this, `[green]#ModelManager#` has a `[green]#Performance#`, which has a `[green]#UniqueEventList#`.
+Every `[green]#Event#` in Athletick is stored in this `[green]#UniqueEventList#`.
+The class diagram below shows how the different components mentioned interact with one another.
+
+.Class diagram for showing how Performance is implemented.
+image::performance_classdiagram.png[width="250"]
+
+As the name suggests, all `[green]#Event#` names are unique in `[green]#UniqueEventList#`.
+This is ensured by `[green]#UniqueEventList#contains()#` that checks whether there is an `[green]#Event#`
+with the same name before the `[green]#Event#` is added.
+
+Every event has its own https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashMap.html[HashMap]
+where performances under this event are stored. The key and value of the HashMap are explained below.
+
+[horizontal]
+
+Key:: `[green]#Person#` that the performance records will be under.
+Value:: List of `[green]#Record#` s under the `[green]#Person#`.
+
+.Class diagram showing how Records are stored in Event.
+image::event_classdiagram.png[width="250']
+
+This structure allows each `[green]#Person#` to have multiple `[green]#Record#` s stored in Athletick so
+their progress over time can be analysed using the `[green]#AthletickDate#` and `[green]#Timing#`
+attributes in `[green]#Record#`. Additionally, athlete's records can be easily retrieved by calling the
+`[green]#HashMap#get()#` method.
+
+`[green]#Event#` s are added using the `[green]#EventCommand#`, and `[green]#Record#` s are added using the
+ `[green]#PerformanceCommand#`. In these commands, changes to `[green]#UniqueEventList#` are called through
+  `[green]#Model#` in `[green]#EventCommand#execute()#` and `[green]#PerformanceCommand#execute()#` since
+  `[green]#Model#` carries a common copy of all the data stored in Athletick.
+
+The _Observer Pattern_ is adopted when displaying `[green]#Performance#` data through the `[green]#UI#`.
+`[green]#Model#` exposes an unmodifiable `[green]#ObservableList<Event>#` through
+`[green]#Model#getPerformance#` that returns a `[green]#ReadOnlyPerformance#`. It can be 'observed'
+and is updated accordingly when data in`[green]#Performance#` changes.
+
+===== Function 1: Adding and Deleting of Event
+
+The following sequence diagram illustrates what happens in `[green]#Logic#` and `[green]#Model#` when in an
+example scenario when `event freestyle 50m` is given as a user input.
+
+.Sequence diagram showing the operations in Logic and Model when an event is added.
+image::addevent_sequencediagram.png[width="700"]
+
+Deleting an event (with `[green]#DeleteEventCommand#`) does the opposite. The input `delete -e freestyle
+50m` will call `[green]#Model#deleteEvent()#`, after making sure the event exists in Athletick by getting a
+boolean from `[green]#Model#hasEvent()#`.
+
+===== Function 2: Adding and Deleting of Record
+
+Operations for `[green]#Record#` - adding and deleting - work similarly as well, though there are more
+methods involved as there is a greater degree of nesting.
+
+The workflow for adding a record can be illustrated by the Activity Diagram below, with an example input
+`performance 1 e/freestyle 50m d/31102019 t/31.20` (ie. adding a performance record for the player at index
+1, for the freestyle 50m event in 31.20 seconds on 31st October 2019).
+
+.Activity diagram showing how a Record is added to an Event.
+image::addrecord_activitydiagram.png[width="700"]
+
+===== Function 3: Viewing of Event and Record
+
+Users can also view all `[green]#Record#` s under an `[green]#Event#` using `view records e/EVENT_NAME`.
+The sequence diagram below illustrates how the Ui is involved when `[green]#Record#` viewing is executed.
+
+.Sequence diagram showing how Records are viewed.
+image::viewrecords_sequencediagram.png[width="700"]
+
+==== Design Considerations
+
+This section explains the factors that we took into consideration when making decision on how different
+aspects in `[green]#Performance#` should be implemented.
+
+===== Aspect: Method of storing performance records for athletes.
+
+[width="100%", cols="1, 5, 5"]
+|===
+|| *Alternative 1 (Current Choice): Use a HashMap of Persons as keys and a list of Records as values.*
+| *Alternative 2: Create a class that has Persons and list of Records as attributes and store instances of
+this class in a list.*
+
+|**Pros**
+a|* Retrieving athlete's individual records is fast - it can be done in O(1) time
+a|* Checking of records can be done with a simple for-loop
+
+|**Cons**
+a|* Checking requires using an iterator or a lambda operation (requires variables to be declared as final,
+making retrieval of data troublesome)
+* Retrieving by values (eg. date of record) is difficult as it requires traversing through the HashMap and
+checking the individual records' dates
+a|* Adding of records is susceptible to errors as duplicate persons can be added
+* Creating our own data structure results in overheads in testing and creating our own helper methods
+* Retrieving an athlete's individual records in O(1) time requires the athlete's index in the list, which
+is not always known
+
+|===
+
+**Reason for choice of Alternative 1:**
+
+* Retrieving from a HashMap is fast, which fulfils one of our non-functional requirements of being able to support a database of 1000 athletes
+* Using a athlete-records relationship is similar to the key-value relationship in HashMap so the existing
+methods that are in the HashMap API are relevant
+
+===== Aspect: Method of displaying events and records to users.
+
+[width="100%", cols="1, 5, 5"]
+|===
+|| *Alternative 1 (Current Choice): Display events and records separately.*
+| *Alternative 2: Display all records under all events.*
+
+|**Pros**
+a|* Viewing events, followed by "zooming" in to a particular event's records gives users a more immersive
+experience
+a|* Navigating is simple as viewing events and its records requires only one command
+
+|**Cons**
+a|* Getting an overview of all events and its respective records is not possible
+* Supporting 2 commands results in overhead in parsing the command and creating the relevant Ui in the
+feature box
+a|* Displaying of information will require a lot of scrolling (since the feature box is limited in size) and
+can be difficult when the event of interest is located at the end
+|===
+
+**Reason for choice of Alternative 1:**
+
+* Allowing users to look at the records under their event of interest gives them more control over what they want to see
+* Navigating from event overview to a particular event mimics how people navigate in apps - tapping on a
+chat title (in this case, viewing records for a particular event), to see the whole conversation (record
+details for a particular event)
 
 === Calendar feature
 
@@ -575,6 +723,8 @@ Reason: In the end, I went with alternative 1 because it was more intuitive to u
 other functions such as `[green]#DeleteCommand#` or `[green]#FindCommand#` which also uses index. It also reduces the
 need to type out the full name of the selected athlete.
 //end::select[]
+
+//tag::undoredo[]
 === Undo / Redo feature
 The `undo` command enables users to undo their previous commands while the `redo` command enables users to redo their
 undone commands.
@@ -597,6 +747,7 @@ Step 1. The user launches the application for the first time. The `[green]#Histo
 initialised with the initial `[green]#Athletick#`, `[green]#Attendance#` and
 `[green]#Performance#` state pushed to the respective stacks.
 
+.Initial stacks of states
 image::initialStack.png[width=450]
 
 Step 2. The user executes the `delete -p 3` command to delete the 3rd person in the `[green]#Athletick#` list. The
@@ -605,6 +756,7 @@ since the `delete -p 3` command only alters the `[green]#Athletick#` state, the 
 state will then be pushed to the `[green]#Athletick#` stack while the `[green]#Attendance#` and
 `[green]#Performance#` stacks are left untouched as their states remain the same.
 
+.Stacks of states after `delete -p 3` command
 image::afterUndoStack.png[width=450]
 
 Step 3. The user now decides that deleting the 3rd person in the list was a mistake, and decides to undo the action
@@ -614,6 +766,7 @@ stack and the latest `[green]#Athletick#` state from the `[green]#Athletick#` st
 It then peeks at the `[green]#Athletick#` stack to retrieve the `[green]#Athletick#` state
 before `delete -p 3` command was executed.
 
+.Stacks of states after `undo` command
 image::initialStack.png[width=450]
 
 Step 4. After retrieving the `[green]#Athletick#` state before `delete -p 3` command
@@ -622,8 +775,9 @@ was executed, we then resets the `[green]#Athletick#` state to this retrieved
 
 The following sequence diagram shows how the undo operation works:
 
-image::undoSQ.png[width=450]
-Sequence diagram for undo implementation
+.Sequence diagram for undo implementation
+image::undoSQ.png[width="450"]
+
 
 ==== Redo Implementation
 
@@ -644,10 +798,8 @@ Implementation.]
 
 The activity diagram for `redo` command is as follows:
 
-image::redoactivity.png[width=450]
-Activity diagram for `redo` command
-
-
+.Activity diagram for `redo` command
+image::redoactivity.png[width="450"]
 
 ==== Design Considerations
 This section describes the pros and cons of the current and other alternative implementations of the undo and redo features.
@@ -676,10 +828,9 @@ outweighs the tedious cost of implementing the alternative.
 Furthermore, as we realise that each time the application starts, the memories of the states
 are cleared.
 This means that the cost of having alternative 1 is significantly lesser, as the memories of the states do not
-accumulate. As such, we
-decided to
-go with the first alternative.
+accumulate. As such, we decided to go with the first alternative.
 
+//end::undoredo[]
 //tag::photo[]
 === Adding/editing photo feature
 ==== Implementation
