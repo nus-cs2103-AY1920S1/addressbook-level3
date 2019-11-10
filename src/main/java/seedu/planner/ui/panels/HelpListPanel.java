@@ -6,6 +6,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.planner.logic.commands.ClearCommand;
 import seedu.planner.logic.commands.ExitCommand;
+import seedu.planner.logic.commands.NewCommand;
 import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.commands.RedoCommand;
 import seedu.planner.logic.commands.UndoCommand;
@@ -74,6 +75,7 @@ public class HelpListPanel extends UiPart<Region> {
                     new HelpCard(AutoScheduleCommand.MESSAGE_USAGE).getRoot(),
                     new HelpCard(OptimiseCommand.MESSAGE_USAGE).getRoot(),
                     new HelpCard(UnscheduleCommand.MESSAGE_USAGE).getRoot(),
+                    new HelpCard(NewCommand.MESSAGE_USAGE).getRoot(),
                     new HelpCard(UndoCommand.MESSAGE_USAGE).getRoot(),
                     new HelpCard(RedoCommand.MESSAGE_USAGE).getRoot(),
                     new HelpCard(ClearCommand.MESSAGE_USAGE).getRoot(),

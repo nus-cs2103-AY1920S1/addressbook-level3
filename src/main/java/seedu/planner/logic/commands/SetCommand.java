@@ -51,6 +51,7 @@ public class SetCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Settings of planner changed!";
     public static final String MESSAGE_NAME_IS_TOO_LONG = "Please keep the name of the planner equal to or "
             + "under 30 characters";
+    public static final int MAX_NAME_LENGTH = 30;
 
     private final Name name;
     private final LocalDate startDate;
@@ -67,11 +68,11 @@ public class SetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (!(name == null)) {
-            if (this.name.name.length() > 30) {
+            if (this.name.name.length() > MAX_NAME_LENGTH) {
                 throw new CommandException(MESSAGE_NAME_IS_TOO_LONG);
             }
 
-            Path newPlannerFilePath = model.getPlannerFilePath().resolveSibling(this.name.toString());
+            Path newPlannerFilePath = model.getPlannerFilePath().resolveSibling(this.name.name);
 
             try {
                 if (Files.exists(newPlannerFilePath) && Files.list(newPlannerFilePath).findAny().isPresent()) {

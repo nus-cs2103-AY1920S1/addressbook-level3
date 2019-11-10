@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.planner.commons.core.GuiSettings;
 import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.logic.commands.Command;
+import seedu.planner.logic.commands.NewCommand;
 import seedu.planner.logic.commands.SetCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
@@ -57,6 +58,8 @@ public class LogicManager implements Logic {
             } catch (IOException ioe) {
                 throw new CommandException(FILE_DELETION_ERROR_MESSAGE + ioe, ioe);
             }
+        }
+        if (command instanceof SetCommand || command instanceof NewCommand) {
             storage.setAccommodationFilePath(getAccommodationFilePath());
             storage.setActivityFilePath(getActivityFilePath());
             storage.setContactFilePath(getContactFilePath());
