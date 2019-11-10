@@ -19,6 +19,7 @@ import seedu.address.model.person.Result;
 class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String NULL_PICTURE = "null";
 
     private final String name;
     private final String picture;
@@ -73,7 +74,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Picture.class.getSimpleName()));
         }
-        if (!Picture.isValidPicture(picture) && !("null".equals(picture))) {
+        if (!Picture.isValidPicture(picture) && !(NULL_PICTURE.equals(picture))) {
             throw new IllegalValueException(Picture.MESSAGE_CONSTRAINTS);
         }
         final Picture modelPicture = new Picture(picture);

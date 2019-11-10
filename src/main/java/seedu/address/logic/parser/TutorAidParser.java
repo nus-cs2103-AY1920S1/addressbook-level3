@@ -90,6 +90,7 @@ public class TutorAidParser {
      * Used to map basic commands to {@code TreeMap} when the TutorAidParser object is initialised.
      */
     private void initialiseBasicCommands() {
+        assert TutorAidParser.commandList != null : "TreeMap needs to be initialised first";
         ParserUtil.fillBasicCommands(TutorAidParser.commandList);
     }
 
