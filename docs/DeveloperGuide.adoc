@@ -92,9 +92,7 @@ The `UI` component,
 
 [[Design-Logic]]
 === Logic component
-
 //tag::shaun-logic[]
-
 ==== Overview of Logic Component
 
 [[fig-LogicClassDiagram]]
@@ -185,6 +183,7 @@ The `Model`,
 
 .Class Diagram of the Answerable Class
 image::AnswerableClassDiagram.png[]
+
 The main class that the Revision Tool operates on is the `Answerable` class.
 
 Each `Answerable` class must have 1 `Question`, 1 `Difficulty` and can have any amount of categories associated with it.
