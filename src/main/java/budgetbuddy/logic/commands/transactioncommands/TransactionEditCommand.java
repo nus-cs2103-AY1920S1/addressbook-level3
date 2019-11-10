@@ -92,8 +92,6 @@ public class TransactionEditCommand extends ScriptCommand {
             ObservableList<Transaction> targetTransactionList = model.getFilteredTransactions();
             Transaction targetTransaction = targetTransactionList.get(targetTransactionIndex.getZeroBased());
 
-            //the transaction will be deleted and re-added to allow for changing of accounts.
-            //this is because transactions do not have references to their respective accounts.
             Account oldAccount = accountsManager.getActiveAccount();
 
             //target account is set to the active account if not provided.
@@ -106,6 +104,8 @@ public class TransactionEditCommand extends ScriptCommand {
             Transaction updatedTransaction = getUpdatedTransaction(targetTransaction, updatedTransactionDescriptor,
                     targetAccount, model.getAccountsManager().getActiveAccount());
 
+            //the transaction will be deleted and re-added to allow for changing of accounts.
+            //this is because transactions do not have references to their respective accounts.
             oldAccount.deleteTransaction(targetTransaction);
             targetAccount.addTransaction(updatedTransaction);
             Index updatedTxnIndex = Index.fromOneBased(targetAccount.getTransactionList().getTransactionsCount());

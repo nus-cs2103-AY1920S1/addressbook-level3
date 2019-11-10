@@ -54,7 +54,7 @@ public class AccountDeleteCommand extends Command {
         try {
             accountsManager.deleteAccount(targetIndex);
         } catch (EmptyAccountListException e) {
-            return new CommandResult(MESSAGE_LAST_ACCOUNT_DELETION_ILLEGAL, CommandCategory.ACCOUNT);
+            throw new CommandException(MESSAGE_LAST_ACCOUNT_DELETION_ILLEGAL);
         }
         return new CommandResult(String.format(MESSAGE_DELETE_ACCOUNT_SUCCESS, accountToDelete),
                 CommandCategory.ACCOUNT);

@@ -8,6 +8,7 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
+import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 
 /**
@@ -34,12 +35,12 @@ public class AccountSwitchCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException{
         requireAllNonNull(model, model.getAccountsManager());
         try {
             model.getAccountsManager().setActiveAccountByIndex(targetAccountIndex);
         } catch (IndexOutOfBoundsException e) {
-            return new CommandResult(MESSAGE_INVALID_DISPLAYED_INDEX, CommandCategory.ACCOUNT);
+            throw new CommandException(MESSAGE_INVALID_DISPLAYED_INDEX);
         }
         String resultMessage = String.format(MESSAGE_SUCCESS, model.getAccountsManager().getActiveAccount());
 
