@@ -23,7 +23,9 @@ Information listed here should be noted by users to help them improve their expe
 Information listed here is essential to users. They need to understand this in order for +Work to work optimally.
 
 == Summary of Contributions
-This section serves to summarise my major contributions to the project.
+This section serves to summarise my major contributions to the project as well other noteworthy contributions such as project management.
+
+=== Enhancements
 
 * *Major enhancement one*: I added the ability for users to *customise the appearance* of +Work to suit their viewing preferences.
 ** What it does: This feature allows the user to toggle the theme of the entire application between light and dark. Also, it allows the user to toggle the
@@ -46,7 +48,7 @@ make the feature more robust.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambhinav&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambhinav&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Test code]]
 
-* *Other contributions*:
+=== Other Contributions
 
 ** Project management:
 *** Managed releases `v1.1`, `v1.2.1` and `v1.4` (3 releases) on GitHub
@@ -64,16 +66,16 @@ make the feature more robust.
 
 == Contributions to the User Guide
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+The following is an excerpt taken from the User Guide of +Work. I wrote instructions to help users customise their preferences using the
+settings feature.
 
 include::../UserGuide.adoc[tag=settings]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+The following is an excerpt taken form the Developer Guide of +Work, showing additions I have made to explain the technical
+aspects of the settings and dashboard feature.
 
 include::../DeveloperGuide.adoc[tag=settings]
+
+include::../DeveloperGuide.adoc[tag=dashboard]
