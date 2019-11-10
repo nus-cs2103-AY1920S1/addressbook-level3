@@ -411,7 +411,7 @@ Expected output:
     Tags: [cs2100]
     Please use `delete 6` again to confirm your deletion..
 
-Upon hitting enter, the flashcard will be deleted.
+Upon keying in `delete 6` again, then the flashcard will be deleted.
 
 Expected output:
 
@@ -421,6 +421,10 @@ Expected output:
     Title: BinaryQn
     Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
     Tags: [cs2100]
+
+[IMPORTANT]
+sdf
+
 
 === Time Trial: `timetrial`
 
@@ -947,12 +951,11 @@ Expected output:
         [difficult]
         2. Title: Tough Math
             Tags: [difficult][math]
-            Content: [ 1. Question: What's 1+1; Answer: 2 ]
-                [ 2. Question: what is 100 + 10; Answer: 110 ]
         7. Title: MA1521 Chapter 5
             Tags: [difficult]
-            Content: [ 1. dy/dx is a process where mathematicians..]
-                [ 2. Question: what is dy/dx?; Answer: find gradient]
+
+* Contents of the cheatsheet will not be displayed during filter.
+* Use the view command instead, the view the contents of the cheatsheet. (refer to section 7.4)
 
 //tag::cheatsheetUpdate[]
 

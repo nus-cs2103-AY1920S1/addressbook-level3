@@ -83,7 +83,6 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
         setNotes(newData.getNoteList());
         setFlashcards(newData.getFlashcardList());
         setCheatSheets(newData.getCheatSheetList());
-        setTags(newData.getTagList());
     }
 
     /**
@@ -99,6 +98,7 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
         setFlashcards(newFlashcards.getFlashcardList());
         setNotes(newNotes.getNoteList());
         setCheatSheets(newCheatSheets.getCheatSheetList());
+        setTags(newCheatSheets.getTagList());
     }
 
     @Override
@@ -278,6 +278,10 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
 
     public void setTags(List<Tag> tags) {
         this.tags.setTags(tags);
+    }
+
+    public void addAllTags(List<Tag> tags) {
+        this.tags.addAllTags(tags);
     }
 
     /**
