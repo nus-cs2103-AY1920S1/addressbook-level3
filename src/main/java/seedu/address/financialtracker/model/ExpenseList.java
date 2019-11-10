@@ -161,6 +161,10 @@ public class ExpenseList {
         this.maximumCap = 0;
     }
 
+    /**
+     * Undo and resets the expense list to previous expense list stored in UndoStack.
+     * @throws CommandException if the UndoStack is empty
+     */
     public void undo() throws CommandException {
         if (this.undoStack.isEmpty()) {
             throw new CommandException("Nothing to undo!");
@@ -182,10 +186,13 @@ public class ExpenseList {
         return copyExpenseList;
     }
 
+    /**
+     * A helper class to help storing all the expenses after every actions done by user.
+     */
     private class ExpenseListCopy {
-        ArrayList<Expense> expenses = new ArrayList<>();
-        double maximumCap;
-        Comparator<? super Expense> currentComparator;
+        private ArrayList<Expense> expenses = new ArrayList<>();
+        private double maximumCap;
+        private Comparator<? super Expense> currentComparator;
 
         public ExpenseListCopy(List<Expense> expenses, double maximumCap,
                                Comparator<? super Expense> currentComparator) {
