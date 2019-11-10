@@ -44,14 +44,15 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of four components
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Game,*`Game`*>>: Holds game data.
 
-Each of the four components
+The first four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -467,7 +468,11 @@ by opening the engagements list window for that particular date.
 ** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
 The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
 
-=== Game Window
+// tag::typinggame[]
+=== Game Feature
+==== Implementation
+The game feature is implemented using the singleton pattern using the singleton class `GameWindow`. This means that there
+can only be one `gameInstance` at any given time with the exception of the game being over.
 
 .Structure of the Game Window
 image::GameWindowClassDiagram.png[]
@@ -495,6 +500,7 @@ image::GameWindowClassDiagram.png[]
 | Displays the individual word.
 | To allow user to know the next word to type.
 |===
+// end::typinggame[]
 
 //tag::sort[]
 === Sort feature
@@ -865,6 +871,7 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 
 //Updated by Jun Hao
+//tag::use-case-game[]
 [discrete]
 === Use case: (UC14) Typing game
 
@@ -885,6 +892,7 @@ Use case ends.
 * 2a. User exits game
 +
 Use case ends.
+//end::use-case-game[]
 
 [discrete]
 //Updated by Ko Gi Hun 30/09/19
