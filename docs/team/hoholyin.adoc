@@ -29,6 +29,7 @@ NOTE: Denotes additional information.
 
 {nbsp} +
 {nbsp} +
+{nbsp} +
 
 == Summary of contributions
 This section shows a summary of my contributions to the team project and will include the main enhancement (Generating Loan Slip),
