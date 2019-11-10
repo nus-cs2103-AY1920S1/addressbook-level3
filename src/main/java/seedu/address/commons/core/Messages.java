@@ -48,19 +48,23 @@ public class Messages {
             + "should be used as input!";
     public static final String MESSAGE_WRONG_TAB_AUTO_ALLOCATE = "Current Window does not support the "
             + "auto allocate feature\n" + "Note: Auto Allocate Commands should be executed in "
-            + "either Main, Schedule, Statistics Tab.\n";
+            + "the Main Tab.\n";
     public static final String MESSAGE_WRONG_TAB_DE_ALLOCATE = "Current Window does not support the "
-            + "de-allocate feature\n" + "Note: Deallocate Commands should be executed in a Tab where "
-            + "you have an Event List.\n";
-    public static final String MESSAGE_WRONG_TAB_MANUAL_ALLOCATE_1 = "Current Window does not support the "
-            + "manual allocate feature\n" + "Note: Manual Allocate Commands should be executed in either the "
-            + "Main Tab or Employee Window.\n"
-            + "You can consider using the Auto Allocate Commands instead.";
-    public static final String MESSAGE_WRONG_TAB_MANUAL_ALLOCATE_2 = "Current Window does not support the "
-            + "manual allocate feature\n" + "Note: Manual Allocate Commands should be executed in either the "
-            + "Main Tab or Employee Window.\n";
+            + "de-allocate feature\n" + "Note: De-allocate Commands should be executed in "
+            + "the Main Tab.\n";
+    public static final String MESSAGE_WRONG_TAB_MANUAL_ALLOCATE_BY_INDEX = "Current Window does not support "
+            + "manual allocation by index\n" + "Consider doing the allocation using Employee ID.";
+    public static final String MESSAGE_WRONG_TAB_MANUAL_ALLOCATE = "Current Window does not support the "
+            + "manual allocate feature\n" + "Note: Manual Allocate Commands should be executed in the "
+            + "Main Tab.\n";
+    public static final String MESSAGE_WRONG_TAB_FETCH = "Current Window does not support the "
+            + "fetch feature\n" + "Note: Fetch Commands should be executed in the "
+            + "Main Tab.\n";
     public static final String MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST = "Current Window does not have "
             + "an Employee List\n" + "Note: Employee Commands should be executed in either the Main or Finance Tab.";
     public static final String MESSAGE_WRONG_TAB_MISSING_EVENT_LIST = "Current Window does not have an Event List\n"
             + "Note: Event Commands should be executed in either the Main or Schedule or Statistics Tab.";
+
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not support this "
+            + "command\n" + "Note: This command should be executed in the Main Tab";
 }
