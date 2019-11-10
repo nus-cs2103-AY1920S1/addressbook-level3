@@ -36,7 +36,7 @@ public class ReportCommandTest {
 
         CommandResult actualResult = reportCommand.execute(mockModel);
 
-        assertEquals(actualResult.getFeedbackToUser(), mockResult.getFeedbackToUser());
+        assertEquals(mockResult.getFeedbackToUser(), actualResult.getFeedbackToUser());
         assertTrue(actualResult.isShowReport());
         assertFalse(actualResult.isExit());
         assertFalse(actualResult.isShowHelp());
