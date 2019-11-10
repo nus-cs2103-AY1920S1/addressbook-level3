@@ -29,14 +29,20 @@ By: `TeamXpire`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*. More importantly, Xpire is *optimised for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you have trouble tracking your items' expiry dates, Xpire can help you manage and notify you of items that are soon-expiring. Interested? Jump to the <<Quick Start>> to get started!
+Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*.
+More importantly, Xpire is *optimised for those who prefer to work with a Command Line Interface*
+(CLI) while still having the benefits of a Graphical User Interface (GUI). If you have trouble
+tracking your items' expiry dates, Xpire can help you manage and notify you of items that are
+soon-expiring. Interested? Jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `xpire.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for Xpire.
-.  Launch the jar file using the `java -jar` command to start the app. The GUI should appear in a few seconds.
+.  In the home folder for Xpire, launch the jar file using the `java -jar xpire.jar` command on
+Terminal (for macOs) or Command Prompt (for Windows) to start the app. The GUI should appear in
+a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -50,7 +56,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `*delete*|3` : deletes the 3rd item shown in the current list
 * `*exit*` : exits the app
 
-.  Xpire not only has a list to track you perishable items, but also a *to-buy* list (replenish list). You can move your items from the
+.  Xpire not only has a list to track you perishable items, but also a *to-buy* list (replenish list).
+The *to-buy* list is to help you keep track of the things you want to replenish. You can move your items from the
 tracking list to the replenish list once they are consumed or expired.
 * `*shift*|1` : moves the 1st item from the tracking list (main list) to the replenish list
 
@@ -147,9 +154,10 @@ kbd:[↑] and kbd:[↓] keys on your keyboard. You can call back up to 20 comman
 ====
 *Command Format*
 
-* Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `set reminder|<index>|<reminder threshold>`, `<index>` and `<reminder threshold>` are parameters which can be used as `set reminder|1|7`.
+* Words that are enclosed with `<` and `>` are the parameters to be supplied by you e.g. in `set reminder|<index>|<reminder threshold>`, `<index>` and `<reminder threshold>` are parameters which can be used as `set reminder|1|7`.
+* Tags are recognised with the prefix `#` on the CLI. e.g. Xpire recognises `Fruit` as a name while `#Fruit` as a tag.
 * Parameters in square brackets are optional e.g `check[|<days>]` can be used as `check|7` or `check`.
-* Optional parameters with `…`​ after them can be used multiple times including zero times. For example, for [<other tags>]..., the following format for Tag Command: `tag|<index>|<tag>[<other tags>]...` can be used as `tag|1|#Fruit #Frozen #Cold` or `tag|1|#Fruit`.
+* Optional parameters with `…`​ after them can be used multiple times including zero times. e.g. for [<other tags>]..., the following format for Tag Command: `tag|<index>|<tag>[<other tags>]...` can be used as `tag|1|#Fruit #Frozen #Cold` or `tag|1|#Fruit`.
 * Trailing `|` (s) are allowed. e.g. `add|banana|2/2/2020|||` or `sort|name|`.
 ====
 
@@ -212,9 +220,6 @@ image::view-current.png[width="790"]
 // tag::search[]
 ==== Searching for item(s) by name and/or tag: `search`
 
-.Items matching #fruit or chicken shown
-image::search.png[width="790"]
-
 Having a hard time looking for an item in Xpire? Not to worry, Xpire provides a search functionality to aid you in finding your items with ease.
 
 With `search`, you can simply input any words or phrases and Xpire will display all items whose names or tag(s) contain any of the given keywords.
@@ -222,11 +227,24 @@ With `search`, you can simply input any words or phrases and Xpire will display 
 
 Format: `search|<keyword>[|<other keywords>]...`
 
+.Items matching #fruit or chicken shown
+image::search.png[width="790"]
+
 [NOTE]
-`search` is designed to work only on the current view list. In other words, `search` will only display matching items which exists in the current view list.
+`search` is designed to work only on the current view list. In other words, `search` will only
+display matching items which exists in the current view list.
 
 [TIP]
-You can do an AND search, e.g. search for items that contains BOTH `red` and `apple` in its name, by keying `search|red` and then `search|apple`. Suppose there are only 3 items in your list, e.g. `red fuji apple`, `red strawberry` and `green apple`, the above commands will display only `red fuji apple`.
+You can do an AND search, e.g. search for items that contains BOTH `red` and `apple` in its name,
+by keying `search|red` and then `search|apple`. Suppose there are only 3 items in your list, e.g.
+ `red fuji apple`, `red strawberry` and `green apple` (see Figure 6), the above commands will display only `red
+ fuji apple` (see Figure 7).
+
+.Item list before searching
+image::search-initial.png[width="790"]
+
+.Item list after keying `search|red` and then `search|apple`
+image::search-after.png[width="790"]
 
 ****
 * The search is case insensitive. e.g `ham` will match `Ham` and `#fruit` will match `#Fruit`.
@@ -240,12 +258,17 @@ You can do an AND search, e.g. search for items that contains BOTH `red` and `ap
 
 Examples:
 
-* `search|kebab` +
-Returns `Chicken Kebab` and `kebab`.
-* `search|Chicken Ham` +
-Returns `Chicken Ham`.
-* `search|milk|tea|#Drink` +
-Returns any items with names containing `milk` or `tea`, or with the tag `#Drink`.
+* `search|kebab` will display `Chicken Kebab` and `kebab` (see Figure 8).
+
+.Item list after keying `search|kebab`
+image::search-kebab.png[width="790"]
+
+* `search|Chicken Ham` will display `Chicken Ham` (see Figure 9).
+
+.Item list after keying `search|Chicken Ham`
+image::search-chicken-ham.png[width="790"]
+
+* `search|milk|tea|#Drink` will display any items with names containing `milk` or `tea`, or with the tag `#Drink`.
 // end::search[]
 
 // tag::shift[]
@@ -289,23 +312,76 @@ For items with single quantity, you can save time by keying in only the item nam
 
 // end::shift[]
 
-
 // tag::clear[]
 ==== Clearing all entries : `clear`
 
-Clears all entries from the current list that is displayed. +
+Want a quick way of deleting all the items in the current view list?
+You can simply type `clear` and all items in the current view list will be deleted immediately.
+
 Format: `clear`
+
+[NOTE]
+`clear` is designed to work only on the current view list. In other words, `clear` will only
+delete all items which exists in the current view list.
+
+Example:
+
+* While on the current view list (see Figure 10), input `clear` to remove all items in the list (see Figure 11)
+
+.Items in the current view list
+image::clear-before.png[width="790"]
+
+.All items in the list have been deleted.
+image::clear-after.png[width="790"]
+
 // end::clear[]
 
 // tag::export[]
 ==== Exporting data (multi-platform) : `export`
 
-.Items in current list exported to QR code
+Thinking of viewing the list of currently tracked items on your mobile phone? Want to have a
+copy of the to-buy items on your mobile phone so that you can refer to it while shopping?
+With Xpire's `export` feature, you can easily transfer the list of items to any platform
+by simply scanning the generated QR code.
+
+Xpire can not only help you track your items' expiry dates, it can also export the current
+list of items through a QR code (see Figure 12). Any device with a QR code reader will be
+able to download the list of items (see Figure 13).
+
+Format: `export`
+
+.QR code containing the data of the items in the current view list
 image::export.png[width="790"]
 
-Exports the current list of items through a QR code. +
-Any device with a QR code reader will be able to download the list of items. +
-Format: `export`
+.List of items received when scanning the QR code through a mobile phone
+image::export-phone.png[width="250"]
+
+[NOTE]
+====
+`export` is designed to work only on the current view list. In other words, `export` will only
+export all items which exists in the current view list.
+
+Depending on the operating system of your mobile phone, you may be directed to a google search
+page after scanning the QR code. Follow the steps below to rectify this issue if necessary.
+====
+
+* Upon scanning the QR code, you may see a pop-up prompt suggesting to you to search the content
+received on the web (see Figure 14).
+
+.Pop-up prompt to suggest to search the content on the web
+image::export-prompt.png[width="250"]
+
+* Instead of immediately accepting the suggestion, press and hold on the prompt to reveal the other
+options available (see Figure 15). Choose "Copy" or any other similar options.
+
+.Additional options to handle the content
+image::export-other-options.png[width="250"]
+
+* Once the content has been copied, you can simply paste and save the content on Notes or any other
+notepad application on your mobile phone (see Figure 16).
+
+.Pasting and saving exported content onto the mobile phone's built-in notepad application
+image::export-save-in-notes.png[width="250"]
 
 // end:export[]
 
@@ -682,7 +758,9 @@ The table below summarises the commands only available for use in the main list.
 
 == Command Shorthands
 
-Commands also come with command shorthands which can be used in place of the full command word. For instance, `a|Strawberry|31/12/2019` is the same as `add|Strawberry|31/12/2019`.
+If you are looking for a quick way to type and execute the commands, then this section is just
+for you. Commands also come with command shorthands which can be used in place of the full command word.
+For instance, `a|Strawberry|31/12/2019` is the same as `add|Strawberry|31/12/2019`.
 
 Below is a list of commands and their corresponding command shorthands:
 
