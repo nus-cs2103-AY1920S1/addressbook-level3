@@ -82,13 +82,11 @@ Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a sp
 [[In]]
 === Logging Income : `in`
 
-=======
+Have an income that you need to log down? PalPay accepts all income inputs through the `in` command. Inputting an `in` command will increase the overall balance value. Your income statements have the added option to be tagged under one or more categories. You can do so by including the `[c/CATEGORY]` parameter in your command line. All uncategorized incomes will be tagged under the `GENERAL` category.
 
-Adds an income of your personal finance to PalPay +
+==== Command Syntax
+
 Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
-
-Have an income that you need to log down? PalPay accepts all income inputs through the `in` command. Inputting an `in` command will increase the overall balance value. Your income statements has the added option to be tagged under one or more categories, you can do so by including the `[c/CATEGORY]` parameter in your command line. All uncategorized incomes will be tagged under the `GENERAL` category.
-
 
 ****
 * `AMOUNT` accepts the value of this income. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
@@ -109,7 +107,7 @@ Have an income that you need to log down? PalPay accepts all income inputs throu
 .Income Logging Example 1
 image::in_ug_1.png[]
 
-. The income is added to the top of the *Transactions* tab
+. The income is added to the empty *Transactions* tab.
 . The added income is given a `GENERAL` category.
 . Balance has increased from $0 to $120 (red box in Figure 2).
 
@@ -119,40 +117,83 @@ image::in_ug_2.png[]
  Example 2: in $/500.50 n/allowance d/01012020 c/parents
 
 . Inputs an income of $500.50 with description set to 'allowance' and date set on 01/01/2020.
-. The income includes `parents` in the `CATEGORY` field.
+. The income includes `parents` under the `CATEGORY` field.
 . Initial balance (red box in Figure 3) has a value of $120.
 
 .Income Logging Example 2
 image::in_ug_3.png[]
 
-. The income is added to the top of the *Transactions* tab
-. The added income is given a `parents` category.
+. The income is added to the bottom of the *Transactions* tab.
+. The added income tagged under `parents` category.
 . Balance has increased from $120 to $620.50 (red box in Figure 4).
 
 .Sample Income 2 Added
 image::in_ug_4.png[]
 
-Examples:
+Example Commands:
 
 * `in $/100 d/01012019 n/errand c/work c/company`
 * `in $/250.50 d/29022020 n/mom c/family`
 * `in $/120 d/31122019 n/helping friend`
 
+
 [[Out]]
 === Logging Expense : `out`
 
-Adds an expenditure of your personal finance +
+Have you recently made an expenditure that requires logging down? PalPay accepts all expenditure inputs through the `out` command. Inputting an `out` command will decrease the overall balance value. Your expenditure statements, just like the income statements, have the added option to be tagged under one or more categories. You can do so by including the `[c/CATEGORY]` parameter in your command line. All uncategorized incomes will be tagged under the `GENERAL` category.
+
+==== Command Syntax
 Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
 * `AMOUNT` accepts the value of this expenditure. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
+* Users should not input negative values into `AMOUNT` (i.e. `out $/-100 ...`) as PalPay has already accounted for the difference between incomes and expenditures.
 * `ITEM` accepts the description of this expenditure.
 * `DATE` accepts the date of this transaction
 * `CATEGORY` accepts the CATEGORY for this expenditure. An `out` Transaction can be created without any `CATEGORY`.
-* `in` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
+* `out` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
 ****
 
-Examples:
+Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
+
+
+==== Example Usage
+
+ Example 1: out $/5 d/01012020 n/burger
+
+. Inputs an expenditure of $5 with description set to 'burger' and date set on 01/01/2020.
+. The expenditure has not utilized the optional `CATEGORY` field.
+. Initial balance (red box in Figure 5) has a value of $620.50.
+
+.Expenditure Logging Example 1
+image::out_ug_1.png[]
+
+. The expenditure is added to the bottom of the *Transactions* tab.
+. The amount value of the expenditure box should display a negative value (see Figure 6 entry 3).
+. The added expenditure is given a `GENERAL` category.
+. Balance has decreased from $620.50 to $615.50 (red box in Figure 6).
+
+.Sample Expenditure 1 Added
+image::out_ug_2.png[]
+
+ Example 2: out $/1000 n/maintenance d/02012020 c/car c/transport
+
+. Inputs an expenditure of $1000 with description set to 'maintenance' and date set on 02/01/2020.
+. The income includes `car` and `transport` under the `CATEGORY` field.
+. Initial balance (red box in Figure 7) has a value of $615.50.
+
+.Expenditure Logging Example 2
+image::out_ug_3.png[]
+
+. The expenditure is added to the bottom of the *Transactions* tab.
+. The added expenditure is tagged under `car` and `transport` category.
+. Balance has decreased from $615.50 to -$384.50 (red box in Figure 8).
+. The negative value of the balance indicates that the total spending amount outweighs the total savings amount.
+
+.Sample Expenditure 2 Added
+image::out_ug_4.png[]
+
+Example Commands:
 
 * `out $/100 d/01012019 n/milk c/food c/drinks`
 * `out $/29 d/29022020 n/taxi c/transport`
@@ -386,42 +427,82 @@ image::view3.png[]
 // tag::delete[]
 === Deleting Finance : `delete`
 
-Deletes the specified Transaction or Budget from the finance manager. +
+Deletes the specified Transaction, Budget, Ledger or Projection from PalPay. +
+
+==== Command Syntax
 Format: `delete TYPE+INDEX`
 
 ****
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
-* `TYPE` accepts either `t` (Transaction) or `b` (Budget). (e.g. `delete b1` refers to deleting an *Budget* of index 1).
+* `TYPE` accepts either `t` (Transaction), `b` (Budget), `l` (Ledger) or `p` (Projection). (e.g. `delete b1` refers to deleting a *Budget* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete b 1` or `delete 1` or `delete 1b` will not work).
 * You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget of `INDEX` does not exists.
 * Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
+PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` is not allowed)
+
+==== Example Usage:
+
+ Deleting the 5th entry of the transactions list
+
+. Note the index of the entry you want to delete. In this example, *entry 5* is the field we will be deleting.
++
+image::delete_ug_1.png[]
++
+. Since we are deleting a *Transaction* entry of index 5, we will input `t` into our `TYPE` field and `5` into our `INDEX` field.
++
+image::delete_ug_2.png[]
++
+. Success message will be displayed upon successful deletion.
++
+image::delete_ug_3.png[]
+
+
 Examples:
 
 * `delete t1`
 * `delete b3`
+* `delete l2`
+* `delete p4`
 
 [[Update]]
 === Updating Finance : `update`
 
-Updates the specified income or expenditure from the finance manager. +
-Format: `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]`
+Did you make a mistake in one of your entries? Perhaps you over counted that expenditure you made. PalPay provides you with an `update` feature which helps you change specific fields within your entries.
+
+
+==== Command Syntax
+The `update` feature has different implementations for different entry types. The conditions for the `update` feature is as follows.
+
+Format (Transactions): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]` +
+
+Format (Budget): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]` +
+
+Format (Ledger): Cannot be updated +
+
+Format (Projections): `update TYPE+INDEX [d/DATE]`
 
 ****
-* `AMOUNT` accepts a non-negative value lesser than 1,000,000.
+* `AMOUNT` accepts a non-negative, non zero value lesser than 1,000,000.
 * `ITEM` accepts the description of this Transaction or Budget.
 * `DATE` accepts the date of this Transaction or Budget
 * `CATEGORY` accepts the CATEGORY for the Transaction or Budget.
 * At least one `AMOUNT`, `DATE`, `ITEM` or `CATEGORY` fields must be entered. You can input more than 1 of the mentioned fields (e.g. `update t1 $/100 n/milk`).
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
-* `TYPE` accepts either `t` (Transaction) or `b` (Budget). (e.g. `update b1 ...` refers to updating a *Budget* of index 1).
+* `TYPE` accepts either `t` (Transaction), `b` (Budget), or `p` (Projection). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work).
-* `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted but `update t1` will not be accepted).
 * You can only update an existing transaction or budget. Nothing will be updated if the transaction or budget of `INDEX` does not exists.
-* You can not change an `in` transaction to an `out` transaction.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
+
+To Note:
+
+* `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
+* Ledger does not have an update function. If you need to change specific fields within a ledger entry, you should delete the target entry and recreate a new ledger entry with your preferred fields.
+* You can not change an `in` transaction to an `out` transaction.
+
+==== Example Usage
 
 Examples:
 
