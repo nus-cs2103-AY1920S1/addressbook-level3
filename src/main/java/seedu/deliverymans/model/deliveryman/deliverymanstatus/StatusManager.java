@@ -32,10 +32,10 @@ public class StatusManager {
         for (Deliveryman man : deliverymenList) {
             switch (man.getStatus().getDescription()) {
             case "AVAILABLE":
-                updateStatusOf(man, "AVAILABLE");
+                availableMen.add(man);
                 break;
             case "UNAVAILABLE":
-                updateStatusOf(man, "UNAVAILABLE");
+                unavailableMen.add(man);
                 break;
             case "DELIVERING":
                 deliveringMen.add(man);
@@ -78,6 +78,9 @@ public class StatusManager {
      */
     public void removeDeliveryman(Deliveryman target) {
         requireNonNull(target);
+        assert (target.getStatus().getDescription().equals("AVAILABLE")
+                || target.getStatus().getDescription().equals("UNAVAILABLE")
+                || target.getStatus().getDescription().equals("DELIVERING"));
 
         for (Deliveryman man: availableMen) {
             if (target.isSameDeliveryman(man)) {

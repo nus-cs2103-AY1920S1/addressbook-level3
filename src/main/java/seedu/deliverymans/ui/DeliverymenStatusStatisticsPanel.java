@@ -86,12 +86,13 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
         adviceDisplay.appendText(recordCard.adviceMessage());
         resultDisplay.appendText(recordCard.resultMessage());
 
+        /*
         resultDisplay.appendText("=========================================\n");
         resultDisplay.appendText("AVAILABLE:  " + String.valueOf(pieChartData.get(0).getPieValue()) + "%\n");
         resultDisplay.appendText("UNAVAILABLE:  " + String.valueOf(pieChartData.get(1).getPieValue()) + "%\n");
         resultDisplay.appendText("DELIVERING:  " + String.valueOf(pieChartData.get(2).getPieValue()) + "%\n");
         resultDisplay.appendText("=========================================\n");
-
+        */
 
     }
 

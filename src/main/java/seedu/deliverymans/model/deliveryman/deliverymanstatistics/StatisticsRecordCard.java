@@ -63,29 +63,29 @@ public class StatisticsRecordCard {
         StringBuilder sb = new StringBuilder();
         switch (utilisationState) {
         case LOW:
-            sb.append("You have too much manpower that is not utilized!\n");
+            sb.append("You have too much manpower that is not utilized!\n\n");
             break;
         case HIGH:
-            sb.append("Watch out!You are running out of available deliverymen!\n");
+            sb.append("Watch out!You are running out of available deliverymen!\n\n");
             break;
         case MODERATE:
-            sb.append("All is well. Your deliverymen are balanced.\n");
+            sb.append("All is well. Your deliverymen are balanced.\n\n");
             break;
         default:
             sb.append("***DeliveryMANS***\n");
         }
         switch (activityState) {
         case LOW:
-            sb.append("You have too many deliverymen who are off.\n");
+            sb.append("You have too many deliverymen who are off.\n\n");
             break;
         case MODERATE:
-            sb.append("You have a fair number of active deliverymen.\n");
+            sb.append("You have a fair number of active deliverymen.\n\n");
             break;
         case HIGH:
-            sb.append("Great! Your deliverymen are mostly active.\n");
+            sb.append("Great! Your deliverymen are mostly active.\n\n");
             break;
         case MAX:
-            sb.append("Amazing! All your deliveryMANS are working hard to serve your restaurant\n");
+            sb.append("Amazing! All your deliveryMANS are working hard to serve your restaurant\n\n");
             break;
         default:
             sb.append("***DeliveryMANS***\n");

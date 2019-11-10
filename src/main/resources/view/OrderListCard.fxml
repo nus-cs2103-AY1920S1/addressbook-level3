@@ -31,9 +31,8 @@
             <Label fx:id="customer" styleClass="cell_small_label" text="\$customer"/>
             <Label fx:id="restaurant" styleClass="cell_small_label" text="\$restaurant"/>
             <Label fx:id="deliveryman" styleClass="cell_small_label" text="\$deliveryman"/>
-            <Label fx:id="deliveryStatus" styleClass="cell_small_label" text="\$deliveryStatus"/>
             <Label fx:id="food" styleClass="cell_small_label" text="\$food"/>
-
+            <Label fx:id="deliveryStatus" styleClass="cell_small_label" text="\$deliveryStatus"/>
         </VBox>
     </GridPane>
 </HBox>
