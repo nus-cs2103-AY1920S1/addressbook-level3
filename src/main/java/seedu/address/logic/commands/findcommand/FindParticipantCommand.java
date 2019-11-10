@@ -62,17 +62,17 @@ public class FindParticipantCommand extends FindCommand {
 
         if (nameExclude.isPresent()) {
             filterPredicates.add(
-                    Predicates.getPredicateFindParticipantByName(nameNorm.get(), true));
+                    Predicates.getPredicateFindParticipantByName(nameExclude.get(), true));
         }
 
         if (emailExclude.isPresent()) {
             filterPredicates.add(
-                    Predicates.getPredicateFindParticipantByEmail(emailNorm.get(), true));
+                    Predicates.getPredicateFindParticipantByEmail(emailExclude.get(), true));
         }
 
         if (phoneExclude.isPresent()) {
             filterPredicates.add(
-                    Predicates.getPredicateFindParticipantByPhone(phoneNorm.get(), true));
+                    Predicates.getPredicateFindParticipantByPhone(phoneExclude.get(), true));
         }
 
         this.findPredicate = type == FindCommandUtilEnum.AND

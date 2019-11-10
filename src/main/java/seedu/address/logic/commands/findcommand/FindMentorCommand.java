@@ -83,7 +83,10 @@ public class FindMentorCommand extends FindCommand {
                     Predicates.getPredicateFindMentorByOrganization(organizationExclude.get(), true));
         }
 
-        this.findPredicate = Predicates.predicateReducer(filterPredicates);
+        this.findPredicate = type == FindCommandUtilEnum.AND
+                ? Predicates.predicateReducer(filterPredicates)
+                : Predicates.predicateReducerOr(filterPredicates);
+
         this.nameNorm = nameNorm.orElse("");
         this.emailNorm = emailNorm.orElse("");
         this.phoneNorm = phoneNorm.orElse("");
