@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -178,6 +180,12 @@ public interface Model {
     void saveCommand(String command);
 
     String getSavedCommand();
+
+    void saveToMap(String key, ArrayList<Earnings> list);
+
+    void saveListToMap(String key, Earnings earnings);
+
+    HashMap<String, ArrayList<Earnings>> getMap();
 
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.

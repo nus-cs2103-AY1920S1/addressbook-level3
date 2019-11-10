@@ -28,6 +28,12 @@ public class TotalEarningsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
+        if (Earnings.getTotalEarnings().equals("0.00")) {
+            for (Earnings e : Earnings.getEarningsList()) {
+                Earnings.addToTotalEarnings(e.getAmount());
+            }
+        }
+
         return new CommandResult(MESSAGE_SUCCESS + Earnings.getTotalEarnings(),
                 false, false, true, false, false,
                 false, false, false);

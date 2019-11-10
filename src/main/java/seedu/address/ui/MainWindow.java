@@ -497,8 +497,6 @@ public class MainWindow extends UiPart<Stage> {
                 UiManager.startNotes();
             } else if (commandResult.isReminder()) {
                 UiManager.startReminders();
-            } else if (commandResult.isLogin()) {
-                UiManager.startLoginWindow();
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
