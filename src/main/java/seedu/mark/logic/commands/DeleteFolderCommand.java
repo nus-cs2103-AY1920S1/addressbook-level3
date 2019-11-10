@@ -27,7 +27,8 @@ public class DeleteFolderCommand extends Command {
     public static final String MESSAGE_DELETING_ROOT_FOLDER = "You cannot delete the " + Folder.DEFAULT_FOLDER_NAME
             + " folder.";
     private static final String MESSAGE_FOLDER_STILL_CONTAINS_STUFF = "Your folder still contains other folders or "
-            + "other bookmarks.\nPlease delete or move such bookmarks to another folder and delete the subfolders first.";
+            + "other bookmarks.\n"
+            + "Please delete or move such bookmarks to another folder and delete the subfolders first.";
     private final Folder folder;
 
     /**
