@@ -320,7 +320,7 @@ After recording a training, you can check the attendance of an athlete
 This command allows you to check the attendance of an athlete.
 
 Let's say you notice that Michael hasn't been attending recent trainings and would like to check on his overall
-attendance rate.
+attendance.
 
 *What you should do*
 
@@ -334,7 +334,7 @@ image::attendance_command_before.png[width=350]
 
 *What you should see*
 
-If the command is successful, the athlete's name and attendance rate will be displayed in the result box as shown in
+If the command is successful, the athlete's name and attendance will be displayed in the result box as shown in
 the diagram below.
 
 image::attendance_command_after.png[width=350]
@@ -354,7 +354,7 @@ image::view_attendance_before.png[width=350]
 *What you should see*
 
 If the command is successful, the result box will display the following result as shown in the diagram below. The
-feature box will show you your team's overall attendance rate.
+feature box will show you your team's overall attendance.
 
 image::view_attendance_after.png[width=350]
 
