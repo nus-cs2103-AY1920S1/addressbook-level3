@@ -49,7 +49,7 @@ public class PdfEndState extends EndState {
             Index index = InteractiveParserUtil.parseIndex(oneBasedIndex);
             return index;
         } catch (ParseException e) {
-            logger.severe(String.format(LOG_BUILD_FAILURE, PdfCommand.class, e.getMessage()));
+            LOGGER.severe(String.format(LOG_BUILD_FAILURE, PdfCommand.class, e.getMessage()));
             throw new CommandException(e.getMessage());
         }
     }

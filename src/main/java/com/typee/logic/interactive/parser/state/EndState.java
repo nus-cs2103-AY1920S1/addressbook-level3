@@ -1,6 +1,5 @@
 package com.typee.logic.interactive.parser.state;
 
-import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
@@ -14,7 +13,7 @@ import com.typee.logic.interactive.parser.Prefix;
  */
 public abstract class EndState extends State {
 
-    protected static final Logger logger = LogsCenter.getLogger(EndState.class);
+    protected static final Logger LOGGER = LogsCenter.getLogger(EndState.class);
 
     protected static final String LOG_BUILD_FAILURE = "Failed to build %s - %s";
 
