@@ -652,7 +652,7 @@ In the execution phase, the program processes and retrieves the data to be displ
 Below is the UML sequence diagram and a step-by-step explanation.
 
 .Sequence Diagram demonstrating the execution stage of Statistics feature
-image::StatsDataSequenceDiagram.png[width = "600"]
+image::StatsDataSequenceDiagram.png[width = "400"]
 
 1. Upon checking that the boolean `isShowStats` = true, the `MainWindow` calls `LogicManager#getStatsData()`.
 
@@ -728,7 +728,7 @@ In the execution phase, the program processes and retrieves the data to be displ
 Below is the UML sequence diagram and a step-by-step explanation.
 
 .Sequence Diagram demonstrating the execution stage of Graph feature
-image::GraphDataSequenceDiagram.png[width = "600"]
+image::GraphDataSequenceDiagram.png[width = "400"]
 
 1. Upon checking that the boolean `isShowGraph` = true, the `MainWindow` calls `LogicManager#getGraphData()`.
 

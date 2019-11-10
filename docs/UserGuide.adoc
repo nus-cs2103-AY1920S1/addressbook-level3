@@ -416,7 +416,7 @@ A pie chart is generated, with each sector representing the total amount of mone
 This enables users to be more informed of their spending habits as they are now aware of where they have spent most of their money on.
 An example is shown below.
 
-.Output of `stats`
+.Output of `stats d/21/10/2019 d/25/10/2019`
 image::stats.png[width="700"]
 
 
@@ -467,7 +467,7 @@ Organises the spending based on date. A line graph is generated, with each point
 This enables users to analyze trends in their spending amount over a particular period of time.
 An example is shown below.
 
-.Output of `graph`
+.Output of `graph d/21/10/2019 d/25/10/2019`
 image::graph.png[width="700"]
 
 *Format:* `graph d/DATE_START d/DATE_END`
