@@ -1,10 +1,10 @@
 package seedu.jarvis.logic.parser.finance;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.commands.CommandTestUtil.INVALID_PURCHASE_MONEY;
 import static seedu.jarvis.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.jarvis.logic.commands.CommandTestUtil.PURCHASE_DESC_LUNCH;
-import static seedu.jarvis.logic.commands.CommandTestUtil.PURCHASE_MONEY_LUNCH;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INVALID_PURCHASE_MONEY;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.PURCHASE_DESC_LUNCH;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.PURCHASE_MONEY_LUNCH;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
 

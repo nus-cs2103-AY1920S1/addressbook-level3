@@ -1,10 +1,10 @@
 @startuml
-!include ../style.puml
+!include ../style2.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Planner <<Rectangle>> {
+Package CoursePlanner <<Rectangle>> {
     Class CoursePlanner
     Class UniqueCourseList
     Class Course

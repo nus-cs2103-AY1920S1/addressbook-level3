@@ -1,0 +1,69 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":JarvisParser" as JarvisParser LOGIC_COLOR
+participant ":RemovePaidCommandParser" as RemovePaidCommandParser LOGIC_COLOR
+participant "d:RemovePaidCommand" as RemovePaidCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("delete-paid 1")
+activate LogicManager
+
+LogicManager -> JarvisParser : parseCommand("delete-paid 1")
+activate JarvisParser
+
+create RemovePaidCommandParser
+JarvisParser -> RemovePaidCommandParser
+activate RemovePaidCommandParser
+
+RemovePaidCommandParser --> JarvisParser
+deactivate RemovePaidCommandParser
+
+JarvisParser -> RemovePaidCommandParser : parse("1")
+activate RemovePaidCommandParser
+
+create RemovePaidCommand
+RemovePaidCommandParser -> RemovePaidCommand
+activate RemovePaidCommand
+
+RemovePaidCommand --> RemovePaidCommandParser : d
+deactivate RemovePaidCommand
+
+RemovePaidCommandParser --> JarvisParser : d
+deactivate RemovePaidCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+RemovePaidCommandParser -[hidden]-> JarvisParser
+destroy RemovePaidCommandParser
+
+JarvisParser --> LogicManager : d
+deactivate JarvisParser
+
+LogicManager -> RemovePaidCommand : execute()
+activate RemovePaidCommand
+
+RemovePaidCommand -> Model : deletePurchase(1)
+activate Model
+
+Model --> RemovePaidCommand
+deactivate Model
+
+create CommandResult
+RemovePaidCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> RemovePaidCommand
+deactivate CommandResult
+
+RemovePaidCommand --> LogicManager : result
+deactivate RemovePaidCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

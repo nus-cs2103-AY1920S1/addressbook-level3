@@ -1,5 +1,5 @@
 @startuml
-!include ../style.puml
+!include ../style2.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
@@ -12,6 +12,7 @@ Package FinanceTracker <<Rectangle>> {
     Class Purchase
     Class PurchaseDescription
     Class PurchaseMoneySpent
+    Class LocalDate
     Class Installment
     Class InstallmentDescription
     Class InstallmentMoneyPaid
@@ -23,11 +24,12 @@ FinanceTracker *--> "1" InstallmentList
 FinanceTracker *--> "0...1" MonthlyLimit
 
 PurchaseList o--> "*" Purchase
-Purchase *--> "1" PurchaseDescription
+Purchase *-left-> "1" PurchaseDescription
 Purchase *--> "1" PurchaseMoneySpent
+Purchase *--> "1" LocalDate
 
 InstallmentList o--> "*" Installment
 Installment *--> "1" InstallmentDescription
-Installment *--> "1" InstallmentMoneyPaid
+Installment *-right-> "1" InstallmentMoneyPaid
 
 @enduml

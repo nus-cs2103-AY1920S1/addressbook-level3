@@ -241,11 +241,16 @@ The `Model` API is responsible for interacting with the data in `Jarvis` includi
 the various aspects such as user's preferences, command history,
 finance management, cca information, courses and schedule information.
 
+Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/Model.java[[API\]]
+link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/[[Package\]]
+
+The `Model` API acts as a facade that handles interaction with the data of Jarvis.
+
 Below is a class diagram involving the `Model` interface, which inherits
 from the feature specific model interfaces.
 
 .Model Interface
-image::model/ModelInterfaceClassDiagram.png[]
+image::ModelInterfaceClassDiagram.png[]
 
 The `Model` component,
 
@@ -256,8 +261,38 @@ The `Model` component,
 * Stores the `CoursePlanner` Data
 * Stores the `Planner` data
 
-Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/Model.java[[API\]]
-link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/[[Package\]]
+The concrete class `ModelManager` implements `Model` and manages the data
+for Jarvis. `ModelManager` contains `UserPrefs`, `HistoryManager`, `CcaTracker`,
+`CoursePlanner`, `FinanceTracker` and `Planner`. These classes manages the
+data related to their specific features.
+
+Below is a class diagram for `ModelManager`.
+
+.`ModelManager` class
+image::UpdatedModelClassDiagram.png[]
+
+Each feature has a class managing the data related to that feature as mentioned
+earlier.
+
+Below are the class diagrams of these classes.
+
+.`UserPrefs`
+image::ModelUserPrefsClassDiagram.png[]
+
+.`HistoryManager`
+image::ModelHistoryManagerClassDiagram.png[]
+
+.`CcaTracker`
+image::ModelCcaTrackerClassDiagram.png[]
+
+.`CoursePlanner`
+image::ModelCoursePlannerClassDiagram.png[]
+
+.`FinanceTracker`
+image::ModelFinanceTrackerClassDiagram.png[]
+
+.`Planner`
+image::ModelPlannerClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -266,6 +301,9 @@ The `Storage` API is responsible for reading and writing data in json format.
 This allows the application is remember information in json format when the
 user closes the application.
 
+Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/Storage.java[[API\]]
+link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/[[Package\]]
+
 The `Storage` API acts as a facade that handles interaction regarding
 storage related components.
 
@@ -273,7 +311,7 @@ Below is a class diagram involving the `Storage` interface, which
 inherits from feature specific storage interfaces.
 
 .Storage Interface
-image::storage/StorageInterfaceClassDiagram.png[]
+image::StorageInterfaceClassDiagram.png[]
 
 The `Storage` component,
 
@@ -288,7 +326,7 @@ the storage for `UserPrefs`, `FinanceTracker`, `CcaTracker`,
 Below is a class diagram of `StorageManager`.
 
 .`StorageManager` class
-image::storage/UpdatedStorageClassDiagram.png[]
+image::UpdatedStorageClassDiagram.png[]
 
 Each feature of `Jarvis` is able to save its information to local storage
 in `JSON` format, by adapting each feature component into
@@ -297,22 +335,19 @@ in `JSON` format, by adapting each feature component into
 Below are the class diagrams for these adapted classes.
 
 .`JsonSerializableHistoryManager`
-image::storage/HistoryManagerStorageClassDiagram.png[300,200]
+image::HistoryManagerStorageClassDiagram.png[300,200]
 
 .`JsonSerializableCcaTracker`
-image::storage/CcaTrackerStorageClassDiagram.png[600,400]
+image::CcaTrackerStorageClassDiagram.png[600,400]
 
 .`JsonSerializableCoursePlanner`
-image::storage/CoursePlannerStorageClassDiagram.png[300,200]
+image::CoursePlannerStorageClassDiagram.png[300,200]
 
 .`JsonSerializableFinanceTracker`
-image::storage/FinanceTrackerStorageClassDiagram.png[600,400]
+image::FinanceTrackerStorageClassDiagram.png[600,400]
 
 .`JsonSerializablePlanner`
-image::storage/PlannerStorageClassDiagram.png[600,400]
-
-Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/Storage.java[[API\]]
-link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/[[Package\]]
+image::PlannerStorageClassDiagram.png[600,400]
 
 [[Design-Commons]]
 === Commons Component
@@ -562,10 +597,10 @@ any point, all changes made by the command should be rolled back. This is
 reflected in the Activity Diagrams below.
 
 .Activity Diagram for undo command
-image::undoredo/UndoCommandActivityDiagram.png[]
+image::UndoCommandActivityDiagram.png[]
 
 .Activity Diagram for redo command
-image::undoredo/RedoCommandActivityDiagram.png[]
+image::RedoCommandActivityDiagram.png[]
 
 Therefore there is a need to remember commands that change the state of the
 `Model`. Commands that just render a view without actually changing the
@@ -589,7 +624,7 @@ The following activity diagram illustrates how commands are remembered when a
 user types in a command:
 
 .Activity Diagram for how commands are remembered after their successful execution
-image::undoredo/InverseCommandActivityDiagram.png[]
+image::InverseCommandActivityDiagram.png[]
 
 The section below will discuss in more detail how undo/redo is implemented.
 
@@ -659,7 +694,7 @@ Below is a class diagram between `Model`, `ModelManager`, `HistoryManager`,
 `CommandDeque` and `Command`.
 
 .Class Diagram for `Model`, `ModelManager`, `HistoryManager`, `CommandDeque` and `Command`
-image::undoredo/HistoryManagerModelClassDiagram.png[]
+image::HistoryManagerModelClassDiagram.png[]
 
 Undo and redo operations are executed with `UndoCommand` and `RedoCommand`
 These commands store an integer value referencing the number of commands to
@@ -668,7 +703,7 @@ undo or redo, represented by `UndoCommand#numberOfTimes` and
 `UndoCommand` and `RedoCommand`.
 
 .Class Diagram for `UndoCommand`, `RedoCommand` and `Command`
-image::undoredo/CommandClassDiagram.png[]
+image::CommandClassDiagram.png[]
 
 Below are two sequence diagrams of how a `UndoCommand` and `RedoCommand`
 executes in the program. The sequence diagrams below show the process of undo
@@ -678,13 +713,13 @@ Below is a Sequence Diagram of how an `UndoCommand` to undo a single command
 executes in the program.
 
 .Sequence Diagram for `UndoCommand` (undo a single command)
-image::undoredo/UndoSequenceDiagramNew.png[]
+image::UndoSequenceDiagramNew.png[]
 
 Below is a Sequence Diagram of how a `RedoCommand` to redo a single command
 executes in the program.
 
 .Sequence Diagram for `RedoCommand` (redo a single command)
-image::undoredo/RedoSequenceDiagramNew.png[]
+image::RedoSequenceDiagramNew.png[]
 
 Given below is an example usage scenario of how undo/redo mechanism behaves.
 
@@ -771,8 +806,6 @@ The Course Planner feature allows the user to track what courses they
 
 The feature offers updated information on courses offered by NUS, along with
 convenient add, delete and check operations on the user's course list.
-
-The `CoursePlanner`
 
 ==== The Course Planner Model
 
@@ -1110,103 +1143,116 @@ image::CheckCommandSequenceDiagram.png[]
 === Finance Tracker feature
 
 ==== Overview
-The Finance Tracker feature allows the user to track what purchases they have
-made for the month and the list of installments that they have subscribed to.
-Such installments would be added to their purchases once a month. The user
-can store the information of the description and the amount of both purchases
-and installments. Furthermore, the user can set a monthly limit to keep track
-of his expenses for the month.
+The Finance Tracker feature allows the user to track their
 
-==== Implementation
+1. Purchases
+2. Monthly subscriptions (aka Installments)
+3. Total & remaining spending
 
-The Finance Tracker feature closely follows the extendable OOP solution already
-implemented within AB3. In the Finance Tracker, the `Installment` objects
-(containing `InstallmentDescription` and `InstallmentMoneyPaid` objects) and
-the `Purchase` objects (containing `PurchaseDescription` and
-`PurchaseMoneySpent` objects) manage most aspects related to this feature.
+The feature offers the user to view his purchases and installments in two
+separate lists, as well as be able to add, delete, find, edit these items.
+Furthermore, the feature keeps track of the overall spending by the user
+for the month, and if the user has set a limit, the feature tracks their
+remaining available spending.
 
-The finance tracker mechanism is facilitated by `FinanceTrackerModel`.
+==== The Finance Tracker Model
 
-* `Model#getFinanceTracker()` - Gets the `FinanceTracker` instance
+The `FinanceTracker` class within the model provides an interface between the
+components of the feature and the updating of the overall model. Like other
+features, `Model` is associated with the finance tracker feature by
+implementing `FinanceTrackerModel`, from which `Model` implements.
 
-* `Model#getPurchase(index)` - Retrieves the purchase at that index
+Some of the more significant methods within the `FinanceTracker` are shown
+below:
 
-* `Model#updateFilteredPurchaseList(Predicate)` - Updates the filter of the
-  purchase list with the predicate
+* `Model#addPurchase(Purchase)` - Adds a single use payment to the top of the
+list
 
-* `Model#getFilteredPurchaseList()` - Retrieves the list of purchases with
-  current predicate applied
-
-* `Model#addPurchase(Purchase)` - Adds a single use payment to the top of the list
-
-* `Model#deletePurchase(index)` - Deletes single use payment at that index
-
-* `Model#hasPurchase(Purchase)` - Checks for the existence of the purchase
-
-* `Model#getInstallment(index)` - Retrieves the installment at that index
-
-* `Model#updateFilteredInstallmentList(Predicate)` - Updates the filter of the
-  installment list with the predicate
-
-* `Model#getFilteredInstallmentList()` - Retrieves the list of installments
-  with current predicate applied
+* `Model#deletePurchase(Index)` - Deletes single use payment at that index
 
 * `Model#addInstallment(Installment)` - Adds an installment
 
-* `Model#deleteInstallment(index)` - Deletes installment at that index
-
-* `Model#hasInstallment(Installment)` - Checks for the existence of the same
-    installment in the finance tracker
+* `Model#deleteInstallment(Index)` - Deletes installment at that index
 
 * `Model#hasSimilarInstallment(Installment)` - Checks for the existence of an
     installment with the same description in the finance tracker
 
 * `Model#setInstallment(Installment, Installment)` - Replaces an existing
-    installment with a new installment for editing
-
-* `Model#setMonthlyLimit(MonthlyLimit)` - Sets the monthly limit for spending
-
-* `Model#getMonthlyLimit()` - Retrieves the monthly limit if it has been set
-  by user
+    installment with a new installment
 
 * `Model#calculateTotalSpending()` - Calculates the total expenditure by the
     user for this month
 
-* `Model#getTotalSpending()` - Returns the total expenditure by the user to be
-    rendered onto Ui
-
-* `Model#calculateRemainingAmount()` - Calculates the remaining amount
+* `Model#calculateRemainingAmount()` - Calculates the remaining spending amount
     available to user
 
-* `Model#getRemainingAmount()` - Returns the remaining amount available to
-    user to be rendered onto Ui
+The Finance Tracker feature closely follows the extendable OOP solution already
+implemented within AB3. In the Finance Tracker, the `Installment` objects and
+the `Purchase` objects manage most aspects related to this feature. These
+objects are stored in their respective `ObservableList` - `InstallmentList`
+and `PurchaseList`, which provide an abstraction with `add`, `delete`, and
+`set` operations that are called by `FinanceTracker` and its model.
 
-==== Installments
+Shown below is the class diagram for the Finance Tracker.
 
-Installments are added by the user to the FinanceTracker and are stored in an
-`InstallmentList`. The current codebase requires that all installments
-**must** have the following attributes:
+.Finance Tracker Class Diagram
+image::finance-tracker/ModelFinanceTrackerClassDiagram.png[]
+
+==== Finance Tracker Components
+
+As mentioned above, the Finance Tracker contains `Installment` and `Purchase`
+objects.
+
+===== Installments
+
+Installments are monthly subscriptions added by the user to the Finance
+Tracker and are stored in an `InstallmentList`. The current codebase requires
+that all installments **must** have the following *non-nullable* attributes:
 
 * `InstallmentDescription`
 * `InstallmentMoneyPaid`
 
-These attributes are *non-nullable**.
-
-==== Purchases
-
-Purchases are added by the user to the FinanceTracker and are stored in a
-`PurchaseList`. The current codebase requires that all purchases **must** have
-the following attributes:
+===== Purchases
+Purchases are single use payments added by the user to the Finance Tracker
+and are stored in a `PurchaseList`. The current codebase requires that all
+purchases **must** have the following *non-nullable* attributes:
 
 * `PurchaseDescription`
 * `PurchaseMoneySpent`
 
-These attributes are *non-nullable**.
+==== Feature Details
+
+The application should be able to add and delete both types of objects.
+Furthermore, it should be able to find specific purchases and allow editing of
+installments by their index in the `InstallmentList`.
+
+We will be focusing on the editing of
+installments.
+
+===== Editing an installment
+
+The user has to specify the index of the installment he wishes
+to edit, as well as any of the fields he wishes to change. If the index does
+not exist, the system will inform the user of the error. As long as the
+fields provided by the user to be edited are valid (prefixed with "d/" and
+"a/"), then the correct installment will be accurately edited. This is
+reflected in the Activity Diagram below.
+
+NOTE: An index is considered invalid if the numerical value provided is less
+than or equal to zero, or greater than the largest index in `InstallmentList`.
+
+.Activity Diagram for edit-install command
+image::finance-tracker/EditInstallmentActivityDiagram.png[]
 
 ==== Command Execution
 
-For brevity's sake, we will illustrate only 1 specific command and its
-execution on model. The following activity diagram illustrates how an
+For brevity's sake, we will illustrate only 2 specific commands and its
+executions on model. These two commands are the `edit-install` and the
+`delete-paid` commands.
+
+===== Command `edit-install`
+
+The following activity diagram illustrates how an
 `Installment` is edited when a user types in a `edit-install` command:
 
 Step 1. The user launches the application for the first time. The
@@ -1236,72 +1282,102 @@ methods in the `FinanceTracker` class. As such, the
 This in turns calls the
 `#InstallmentList#setInstallment(Installment, Installment)` method.
 
-Step 5. This `#InstallmentList#setInstallment(Installment, Installment)`
+Step 5. This `InstallmentList#setInstallment(Installment, Installment)`
 method first finds the `Installment` based on its corresponding index. Then,
 it sets the edited installment at the index found earlier.
 
 [NOTE]
-TLDR: The calling of the `#setInstallment` method at the `FinanceTracker`
+TLDR: The calling of the `#setInstallment` method at the `Model`
 level triggers a cascading series of `#setInstallment` method which culminates
 in target installment being edited with the corresponding fields.
 
+.Sequence Diagram for edit-install command
+image::finance-tracker/EditInstallmentSequenceDiagram.png[]
+
+===== Command `delete-paid`
+
+The following activity diagram illustrates how a
+`Purchase` is deleted when a user types in a `delete-paid` command:
+
+Step 1. The user launches the application for the first time. The
+`FinanceTracker` is initialized. Assume that a valid `Purchase` has already
+been added to the `PurchaseList` in `FinanceTracker`.
+
+Step 2. The user executes `delete-paid 1` command to delete an existing
+Purchase in the FinanceTracker. An `RemovePaidCommandParser` object is
+created and its `#parse` method is called. The parse method returns a new
+`RemovePaidCommand` object.
+
+Step 3. The `RemovePaidCommand` object is executed on the model. The
+`RemovePaidCommand#execute` method is called. In this method,
+`Model#deletePurchase(Index)` method is called.
+
+[NOTE]
+The `RemovePaidCommand#execute` method first checks for whether the
+index is within the size of PurchaseList.
+
+Step 4. As mentioned in section 2, the methods in `Model` merely mirrors the
+methods in the `FinanceTracker` class. As such, the
+`FinanceTracker#deletePurchase(Index)` method is called.
+This in turns calls the`#PurchaseList#deletePurchase(Index)` method.
+
+Step 5. This `PurchaseList#deletePurchase(Index)` method will then delete
+the corresponding purchase at the given index.
+
+[NOTE]
+TLDR: The calling of the `#deletePurchase` method at the `Model`
+level triggers a cascading series of `#deletePurchase` method which
+culminates in target purchase being deleted from model.
+
+.Sequence Diagram for delete-paid command
+image::finance-tracker/DeletePurchaseSequenceDiagram.png[]
+
 ==== Design Considerations
 
-==== Aspect: Whether to encapsulate fields for `Installment` and `Purchase` objects.
+There were several design choices that we had to consider for the
+implementation of the Finance Tracker feature.
 
-* *Alternative 1 (Current choice):* Encapsulate fields into separate classes.
+===== Aspect: Encapsulation of fields for `Installment` and `Purchase` objects.
 
-** Pros:
+====== Current choice
 
-Increases OOP to allow better manipulation of objects and makes objects more
-extensible.
+Our current choice was to encapsulate the constituent objects in `Installment`
+and `Purchase` objects in their own wrapper classes. As mentioned above,
+`Installment` would contain `InstallmentDescription` and `InstallmentMoneyPaid`
+objects while `Purchase` would contain `PurchaseDescription` and
+`PurchaseMoneySpent` objects.
 
-** Cons:
+This would increase OOP, which would provide a clearer modular structure to
+hide implementation details. Furthermore, this would also allow the objects to
+be re-used as they are more extensible, which is something we had to consider
+for subsequent features.
 
-More code needed.
+In further development of our application, increasing OOP would also allow
+developers to maintain the application more easily and hopefully aid in
+quicker development since the code is easier to read and maintain.
 
-* *Alternative 2:* Use primitive Java data types for fields in `Installment`
-and `Purchase` objects.
+However, as we had already begun implementing some basic methods, making
+this decision resulted in a steep increase in code as everything had to
+abstracted into separate classes. Regardless, we still believed that the
+right decision was made as it made subsequent implementation easier.
 
-** Pros:
+====== *Alternative*
 
-Less code needed.
+The alternative would have been to leave the corresponding fields as
+primitive data types. This would have been the easier alternative at the time
+as it was the original implementation. Furthermore, our team thought that
+since the `Installment` and `Purchase` objects were not extremely complex,
+we could go without further encapsulation.
 
-** Cons:
+However, we decided that in the long-term vision of the application to
+continue to be developed, we should increase OOP as much as possible.
 
-Less extensible as all data contained is primitive.
+===== Our Thoughts
 
-We ultimately went with alternative #1 as it allowed us to better practice
-OOP, providing a clear modular structure for abstracting data types in which
-implementation details are hidden. Furthermore, it would make the codebase
-easier to maintain. The objects created can also be reused across the
-application.
-
-==== Aspect: Whether `ObservableList`s should be used for `InstallmentList`
-and `PurchaseList`.
-
-* *Alternative 1 (Current choice):* Implement them as `ObservableList`.
-
-** Pros:
-
-Easier to manipulate for JavaFx.
-
-** Cons:
-
-Potentially complicated nesting when passing arguments to it
-
-* *Alternative 2:* Implement them as normal `List`s e.g. `ArrayList`.
-
-** Pros:
-
-Does not require predicates to be passed in.
-
-** Cons:
-
-Might be more complicated when rendering in Javafx.
-
-We ultimately went with alternative #1 as it provided better support for
-rendering when implementing the Ui of `Jarvis`.
+In general, our decision was based primarily on following good software
+engineering principles and providing the ability to allow for better
+understanding and maintenance of our code base in the future. Thus,
+we went with the first choice.
 
 === Planner Feature
 

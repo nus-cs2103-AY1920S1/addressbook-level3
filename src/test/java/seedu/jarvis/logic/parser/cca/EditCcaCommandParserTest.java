@@ -1,13 +1,12 @@
 package seedu.jarvis.logic.parser.cca;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.EQUIPMENT_DESC_PADDLE;
 import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.INVALID_EQUIPMENT_DESC;
+import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.INVALID_NAME_DESC;
 import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.INVALID_TYPE_DESC;
 import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.TYPE_DESC_CANOEING;
 import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.VALID_NAME_CANOEING;
-import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_TAG;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
@@ -18,8 +17,6 @@ import seedu.jarvis.model.cca.CcaType;
 import seedu.jarvis.model.cca.Equipment;
 
 public class EditCcaCommandParserTest {
-
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCcaCommand.MESSAGE_USAGE);

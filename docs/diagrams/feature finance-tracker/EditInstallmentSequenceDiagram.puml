@@ -1,0 +1,71 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":JarvisParser" as JarvisParser LOGIC_COLOR
+participant ":EditInstallmentCommandParser" as EditInstallmentCommandParser LOGIC_COLOR
+participant "d:EditInstallmentCommand" as EditInstallmentCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("edit-install 1\nd/Spotify student a/7.50")
+activate LogicManager
+
+LogicManager -> JarvisParser : parseCommand("edit-install 1\nd/Spotify student a/7.50")
+activate JarvisParser
+
+create EditInstallmentCommandParser
+JarvisParser -> EditInstallmentCommandParser
+activate EditInstallmentCommandParser
+
+EditInstallmentCommandParser --> JarvisParser
+deactivate EditInstallmentCommandParser
+
+JarvisParser -> EditInstallmentCommandParser : parse("1\nd/Spotify student a/7.50")
+activate EditInstallmentCommandParser
+
+create EditInstallmentCommand
+EditInstallmentCommandParser -> EditInstallmentCommand
+activate EditInstallmentCommand
+
+EditInstallmentCommand --> EditInstallmentCommand : createEditedInstallment(Installment,\nEditInstallmentDescriptor)
+
+EditInstallmentCommand --> EditInstallmentCommandParser : d: EditInstallmentCommand
+deactivate EditInstallmentCommand
+
+EditInstallmentCommandParser --> JarvisParser : d: EditInstallmentCommand
+deactivate EditInstallmentCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditInstallmentCommandParser -[hidden]-> JarvisParser
+destroy EditInstallmentCommandParser
+
+JarvisParser --> LogicManager : d : EditInstallmentCommand
+deactivate JarvisParser
+
+LogicManager -> EditInstallmentCommand : execute()
+activate EditInstallmentCommand
+
+EditInstallmentCommand -> Model : setInstallment(originalInstallment,\neditedInstallment)
+activate Model
+
+Model --> EditInstallmentCommand
+deactivate Model
+
+create CommandResult
+EditInstallmentCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditInstallmentCommand
+deactivate CommandResult
+
+EditInstallmentCommand --> LogicManager : result
+deactivate EditInstallmentCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
