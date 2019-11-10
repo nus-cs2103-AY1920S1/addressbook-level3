@@ -1,0 +1,35 @@
+@startuml
+
+' Style
+hide empty members
+skinparam classAttributeIconSize 0
+skinparam genericDisplay old
+skinparam packageStyle rectangle
+skinparam lineType polyline
+skinparam shadowing false
+
+package Logic {
+    class StorageManager implements ModelDataListener {
+        - modelManager : ModelManager
+        - eventsFile : Path
+        - tasksFile : Path
+        + load()
+        + onModelDataChange(data : ModelData)
+        + setEventsFile(path : Path)
+        + setTasksFile(path : Path)
+    }
+}
+
+package Model {
+    interface ModelDataListener {
+        + onModelDataChange(data : ModelData)
+    }
+    class ModelManager {
+        + setModelData(data : ModelData)
+    }
+    class ModelData
+}
+
+StorageManager o--"1" ModelManager
+StorageManager ..> ModelData
+@enduml

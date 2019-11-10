@@ -390,16 +390,16 @@ Additionally, if a variable argument is defined, it will be treated as the last 
 
 The `ModelManager` is responsible for the reading and writing of events and tasks in Horo.
 
-.Structure of the Model Component
+.Class diagram of the ModelManager
 image::ModelManagerClassDiagram.png[]
 
-The `ModelManager` has three main functions,
+The `ModelManager` has three main functions:
 
 . Stores all events and tasks in a wrapper class `ModelData`.
 . Notifies all `ModelDataListeners` whenever the `ModelData` changes.
 . Allows any class with a reference to `ModelManager` to update the current `ModelData`.
 
-To give a more concrete example of how ModelManager notifies its listeners, refer to the sequence diagram below of *adding a task* to Horo:
+To give a more concrete example of how `ModelManager` notifies its listeners, refer to the sequence diagram below of *adding a task* to Horo:
 
 .Sequence diagram of adding a task
 image::ModelManagerAddTaskSequenceDiagram.png[]
@@ -461,17 +461,27 @@ TaskSource t = TaskSource.newBuilder("Buy Groceries")
 ----
 
 [[Design-StorageManager]]
-=== Storage component
+=== Storage Component
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+The `StorageManager` is responsible for the saving and loading of Horo's Model to the external disk.
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+.Class diagram of StorageManager
+image::StorageManagerClassDiagram.png[]
 
-The `Storage` component,
+The `StorageManager` has four main functions:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+. Load the model on Horo startup.
+. Save the model whenever the model changes (notified via `ModelDataListener`).
+. Serialize the model into Javascript Object Notation (JSON) before saving.
+. Deserialize the model from JSON before passing it to `ModelManager`.
+
+For serialization and deserialization of the model, our team has decided to use the well known https://github.com/FasterXML/jackson[Jackson library].
+`EventSource`, `TaskSource` and their respective builders, have appropriate annotations to facilitate serialization and deserialization.
+
+To give a more concrete example of how `StorageManager` saves the model, refer to the sequence diagram below of *adding a task* to Horo:
+
+.Sequence diagram of adding a task
+image::StorageManagerAddTaskSequenceDiagram.png[]
 
 == Implementation
 
