@@ -1,6 +1,5 @@
 package dream.fcard.logic.storage;
 
-import dream.fcard.util.json.jsontypes.JsonArray;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,15 +9,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import dream.fcard.logic.stats.DeckStats;
+import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
-import dream.fcard.logic.stats.UserStats;
 import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.model.TestCase;
@@ -31,6 +29,7 @@ import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.json.JsonParser;
 import dream.fcard.util.json.exceptions.JsonFormatException;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
+import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 import dream.fcard.util.stats.DateTimeUtil;
@@ -50,6 +49,8 @@ public class StorageManager {
     private static String deckStatsFileName = "deckstats.json";
     private static String deckStatsFileFullPath;
     private static String codeSubDir = "./code";
+
+    private Logger logger = LogsCenter.getLogger(StorageManager.class);
 
     /**
      * Determine root directory of the application:
