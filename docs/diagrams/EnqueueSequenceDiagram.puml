@@ -17,10 +17,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("enqueue 001A")
+[-> LogicManager : execute("enqueue E0000001A ")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("enqueue 001A")
+LogicManager -> AddressBookParser : parseCommand("enqueue E0000001A ")
 activate AddressBookParser
 
 create EnqueueCommandParser
@@ -30,7 +30,7 @@ activate EnqueueCommandParser
 EnqueueCommandParser --> AddressBookParser
 deactivate EnqueueCommandParser
 
-AddressBookParser -> EnqueueCommandParser : parse("001A")
+AddressBookParser -> EnqueueCommandParser : parse("E0000001A ")
 activate EnqueueCommandParser
 
 create ReferenceId
