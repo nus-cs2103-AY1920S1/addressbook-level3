@@ -3,148 +3,102 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":MooLahParser" as MooLahParser LOGIC_COLOR
 participant ":StatsCommandParser" as StatsCommandParser LOGIC_COLOR
-participant ":StatsCommand" as StatsCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
-
+participant "desc:StatsDescriptor" as StatsDescriptor LOGIC_COLOR
+participant "cmd:StatsCommand" as StatsCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
-
 
 box Model MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
-participant "statistics: Statistics" as Statistics MODEL_COLOR
+participant "statistics:PieChartStatistics" as Statistics MODEL_COLOR
 end box
 
-
-
-[-> LogicManager : execute("stats sd/01-10-2019 ed/01-11-2019")
+[-> LogicManager : execute("statsbasic \n sd/01-10-2019 \n ed/01-11-2019")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("stats \n sd/01-10-2019 \n ed/01-11-2019")
-activate AddressBookParser
-
+LogicManager -> MooLahParser : parseCommand(statsbasic \n sd/01-10-2019 \n ed/01-11-2019")
+activate MooLahParser
 
 create StatsCommandParser
-
-
-AddressBookParser -> StatsCommandParser : parse("stats \n sd/01-10-2019 \n ed/01-11-2019)
+MooLahParser -> StatsCommandParser
 activate StatsCommandParser
 
-StatsCommandParser --> AddressBookParser
+StatsCommandParser --> MooLahParser
 deactivate StatsCommandParser
 
-AddressBookParser -> StatsCommandParser : parse("stats \n sd/01-10-2019 \n ed/01-11-2019)
+MooLahParser -> StatsCommandParser : parse("statsbasic \n sd/01-10-2019 \n ed/01-11-2019)
 activate StatsCommandParser
 
+create StatsDescriptor
+StatsCommandParser -> StatsDescriptor
+activate StatsDescriptor
+
+StatsDescriptor --> StatsCommandParser : desc
+
+
+StatsCommandParser -> StatsDescriptor
+
+
+StatsDescriptor --> StatsCommandParser
+deactivate StatsDescriptor
+
+ref over StatsCommandParser, StatsDescriptor : Sets the Optional parameters for StatsDescriptor
+
+
 create StatsCommand
-StatsCommandParser -> StatsCommand
+StatsCommandParser -> StatsCommand : (desc)
 activate StatsCommand
 
-ref over StatsCommandParser, StatsCommand : create StatsCommand with start date and end date
-
-StatsCommand --> StatsCommandParser
+StatsCommand --> StatsCommandParser : cmd
 deactivate StatsCommand
 
+StatsCommandParser --> MooLahParser : cmd
+deactivate StatsCommandParser
 
-
-StatsCommandParser --> AddressBookParser
-destroy StatsCommandParser
-
-AddressBookParser --> LogicManager
-deactivate AddressBookParser
+MooLahParser --> LogicManager : cmd
+deactivate MooLahParser
 
 LogicManager -> StatsCommand : execute()
 activate StatsCommand
 
-
-
-
-StatsCommand -> ModelManager:  getFilteredExpenseList()
+StatsCommand -> ModelManager : getPrimaryBudget()
 activate ModelManager
 
-ModelManager --> StatsCommand : statsExpenses
+ModelManager --> StatsCommand : primaryBudget
 deactivate ModelManager
 
-
-StatsCommand -> Statistics : startStatistic(statsExpenses)
+create Statistics
+StatsCommand -> Statistics : createPieChartStatistics(\n primaryBudget, \n desc)
 activate Statistics
 
-Statistics --> StatsCommand: statistics
-deactivate Statistics
-
-StatsCommand -> Statistics : calculateStats("stats", startDate, endDate, null)
-activate Statistics
-
-Statistics -> Statistics : basicStats(startDate, endDate)
-Statistics -> Statistics : extractRelevantExpenses(startDate, endDate)
-Statistics -> Statistics : generatePercentages()
+ref over Statistics, Statistics : create populated Statistics \n with start date and end date
+Statistics --> Statistics
 
 
-
-
-
-
-
-
-Statistics --> StatsCommand : statsResult
+Statistics -> StatsCommand : statistics
 deactivate Statistics
 
 
+StatsCommand -> ModelManager : setStatistic(statistics)
+activate ModelManager
 
-
-
-
-StatsCommand -> Statistics : getFormattedPercentages()
-activate Statistics
-
-Statistics --> StatsCommand : percentages
-deactivate Statistics
-
-
-StatsCommand -> Statistics : getFormattedCategories()
-activate Statistics
-
-Statistics --> StatsCommand : categories
-deactivate Statistics
-
-StatsCommand -> Statistics : getTitle()
-activate Statistics
-
-Statistics --> StatsCommand : title
-deactivate Statistics
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ModelManager --> StatsCommand
+deactivate ModelManager
 
 create CommandResult
-
-StatsCommand -> CommandResult : CommandResult(statsResult, false, false, true, false, \n PanelName.CURRENT, categories, percentages, title)
+StatsCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> StatsCommand
+CommandResult --> StatsCommand : result
 deactivate CommandResult
 
-StatsCommand --> LogicManager
-destroy StatsCommand
+StatsCommand --> LogicManager : result
+deactivate StatsCommand
 
-<-- LogicManager
+[<--LogicManager : result
 deactivate LogicManager
-
 
 
 

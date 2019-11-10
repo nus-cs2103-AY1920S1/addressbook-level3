@@ -9,14 +9,13 @@
 
 == Overview
 
-This portfolio aims to document the contributions my contributions to MooLah
+This portfolio aims to document my contributions to MooLah
 
 My team of 4 Computer Science students and I were tasked with enhancing a basic Command
 Line Interface desktop application AddressBook - Level 3 for our Software Engineering project.
 Over 6 weeks, we chose to morph it into a finance tracker application called MooLah. This enhanced application
-allows the typical NUS student to manage past expenses with the use of budgets, be reminded of
-future and recurring expenses, with added convenience coming from user-friendly input formats, aliases
-and helpful statistics. It is written in Java, and has about XXX kLoC(TO BE CONFIRMED).
+allows the typical NUS student to manage past expenses with the use of budgets, reminders for
+future expenses, helpful statistics and user-friendly input formats. It is written in Java, and has about 27k LoC.
 My main developer responsibility in the team consists of the statistics features across every component.
 
 
@@ -25,15 +24,16 @@ My main developer responsibility in the team consists of the statistics features
 * *Big feature*: I have added *the ability to generate statistics* in MooLah
 ** What it does: This features consists of a basic summary of expenses, a side-to-side comparison
 as well as a trend analysis across different periods of time.
-** Justification: This feature improves the product significantly because the problem
-of untracked expenditure is greatly solved by allowing users to monitor their spending habits,
-with the added flexibility of choosing their visual representation as well as varying levels of depth.
-** Highlights: As the feature is closely coupled to the budget component and requires to support other dependencies such as
+** Justification: This feature improves the product significantly because the lack of analytic tools
+to make sense of data is a potential reasons for the problem of poor spending habits to be snowballed.
+The inclusion of a statistics feature addresses this directly, with varying levels of depths and
+visual representation the user can choose from.
+** Highlights: As the feature is closely coupled to the budget features and requires to support other dependencies such as
 undo/redo, constant coordination with other developers is required.
 
 
 
-* *Code contributed*: TO BE FILLED IN
+* *Code contributed*:(https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qweiping31415&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional Code])
 
 * *Other contributions*:
 
@@ -42,6 +42,9 @@ undo/redo, constant coordination with other developers is required.
 *** Reviewed pull requests of team mates
 *** Facilitated meetings every Wednesday and Friday and consolidated discussion minutes,
 *** Scheduled milestone tasks and ensure that project deliverables are completed on time in the right format.
+*** Wrote additional tests for existing features to increase coverage from 52% to 59%
+(https://github.com/AY1920S1-CS2103T-T11-1/main/pull/254[#254])
+
 
 
 ** Enhancements to existing features:
@@ -56,9 +59,9 @@ undo/redo, constant coordination with other developers is required.
 
 
 |===
-|_We had to update the original AddressBook - Level 3 with instruction for the enhancement that we have added.
-THe following is an excerpt from our MooLah User Guide, showing additions that I have made for
-the Statistics features. [Work in Progress]
+|We had to update the original AddressBook - Level 3 with instruction for the enhancement that we have added.
+The following is an excerpt from our MooLah User Guide, showing additions that I have made for
+the Statistics features.
 
 |===
 
@@ -67,11 +70,9 @@ include::../UserGuide.adoc[tag=statsug]
 == Contributions to the Developer Guide
 
 |===
-
-|_The following section shows my additions to the MooLah Developer Guide for the Statistics features.
+|The following section shows my additions to the MooLah Developer Guide for the Statistics features.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
-_
 |===
 
 include::../DeveloperGuide.adoc[tag=statsdg]

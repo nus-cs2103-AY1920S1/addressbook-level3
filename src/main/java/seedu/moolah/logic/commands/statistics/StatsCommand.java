@@ -57,7 +57,6 @@ public class StatsCommand extends Command {
         }
     }
 
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
