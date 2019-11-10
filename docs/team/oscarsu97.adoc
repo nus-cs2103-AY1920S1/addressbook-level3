@@ -72,5 +72,4 @@ include::../UserGuide.adoc[tag=autoschedule]
 
 include::../DeveloperGuide.adoc[tag=uicomponent]
 include::../DeveloperGuide.adoc[tag=scheduleactivity]
-
 include::../DeveloperGuide.adoc[tag=autoschedule]
