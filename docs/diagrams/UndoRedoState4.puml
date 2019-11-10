@@ -6,11 +6,11 @@ skinparam ClassBorderColor #000000
 title After command "patient S9482963D"
 
 package "CommandHistory" {
-    class add1 as "RegisterPatientCommand    "
-    class cancel1 as "unregisterPatientCommand    "
+    class add1 as "__a0:RegisterPatientCommand____"
+    class cancel1 as "__i0:unregisterPatientCommand____ "
 
-    class add2 as "EnqueueCommand    "
-    class cancel2 as "DequeueCommand    "
+    class add2 as "__a1:EnqueueCommand____"
+    class cancel2 as "__i1:DequeueCommand____"
 
 
     class State1 as "__action0:ReversibleActionPairCommand____"
@@ -20,8 +20,8 @@ package "CommandHistory" {
     }
 
 package "commandRedoHistory" {
-    class add3 as "RegisterPatientCommand    "
-    class cancel3 as "UnregisterPatientCommand    "
+    class add3 as "__a2:RegisterPatientCommand____"
+    class cancel3 as "__i2:UnregisterPatientCommand____"
 
     class State3 as "__action2:ReversibleActionPairCommand____"
 

@@ -5,11 +5,16 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager   " as LogicManager LOGIC_COLOR
 participant ":SystemCommandParser   " as Parser LOGIC_COLOR
 participant "u:UndoCommand  " as UndoCommand LOGIC_COLOR
+participant ":CommandHistory  " as CommandHistory LOGIC_COLOR
+
+participant "action2:RegisterPatientCommand      " as ActionPair LOGIC_COLOR
+participant "i2:UnregisterPatientCommand    " as UnregisterPatientCommand LOGIC_COLOR
+
+participant "result : CommandResult   " as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
 end box
 [-> LogicManager : execute("undo")
 activate LogicManager
@@ -30,18 +35,33 @@ deactivate Parser
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> CommandHistory : performUndo()
+activate CommandHistory
+
+CommandHistory -> ActionPair : undo()
+activate ActionPair
+
+ActionPair -> UnregisterPatientCommand : execute()
+activate UnregisterPatientCommand
+
+UnregisterPatientCommand -> Model : deletePatient()
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+return
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+create CommandResult
+UnregisterPatientCommand -> CommandResult
+activate CommandResult
+return
 
-Model --> UndoCommand
-deactivate Model
+UnregisterPatientCommand --> ActionPair : result
+deactivate UnregisterPatientCommand
+
+ActionPair --> CommandHistory : result
+deactivate ActionPair
+
+CommandHistory --> UndoCommand : result
+deactivate CommandHistory
 
 UndoCommand --> LogicManager : result
 deactivate UndoCommand
