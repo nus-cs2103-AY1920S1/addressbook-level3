@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.autocomplete.AutoCompleteResult;
+import seedu.address.logic.autocomplete.AutoCompleteResultGenerator;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;

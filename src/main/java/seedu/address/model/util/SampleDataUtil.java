@@ -33,26 +33,85 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    public static Customer[] getSampleCustomers() {
-        return new Customer[] {
-            new Customer(new CustomerName("Alex Yeoh"), new ContactNumber("87438807"),
-                  new Email("alexyeoh@example.com"), getTagSet("friends")),
-            new Customer(new CustomerName("Bernice Yu"), new ContactNumber("99272758"),
-                  new Email("berniceyu@example.com"), getTagSet("colleagues", "friends")),
-            new Customer(new CustomerName("Charlotte Oliveiro"), new ContactNumber("93210283"),
-                new Email("charlotte@example.com"), getTagSet("neighbours")),
-            new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
-                new Email("lidavid@example.com"), getTagSet("family")),
-            new Customer(new CustomerName("Irfan Ibrahim"), new ContactNumber("92492021"),
-                new Email("irfan@example.com"), getTagSet("classmates")),
-            new Customer(new CustomerName("Roy Balakrishnan"), new ContactNumber("92624417"),
-                new Email("royb@example.com"), getTagSet("colleagues")),
-            new Customer(new CustomerName("Roy tan"), new ContactNumber("92626617"),
-                new Email("roy2@example.com"), getTagSet("Friends")),
-            new Customer(new CustomerName("albert Oon"), new ContactNumber("88626617"),
-                new Email("albert2@example.com"), getTagSet("family")),
+    // Customers, Phones and Schedules - common data that are reused in orders
 
-        };
+    private static final Customer ALEX_YEOH = new Customer(new CustomerName("Alex Yeoh"), new ContactNumber("87438807"),
+            new Email("alexyeoh@example.com"), getTagSet("friends"));
+    private static final Customer BERNICE_YU = new Customer(new CustomerName("Bernice Yu"),
+            new ContactNumber("99272758"), new Email("berniceyu@example.com"), getTagSet("colleagues", "friends"));
+    private static final Customer CHARLOTTE_OLIVEIRO = new Customer(new CustomerName("Charlotte Oliveiro"),
+            new ContactNumber("93210283"), new Email("charlotte@example.com"), getTagSet("neighbours"));
+    private static final Customer DAVID_LI = new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
+            new Email("lidavid@example.com"), getTagSet("family"));
+    private static final Customer IRFAN_IBRAHIM = new Customer(new CustomerName("Irfan Ibrahim"),
+            new ContactNumber("92492021"), new Email("irfan@example.com"), getTagSet("classmates"));
+    private static final Customer ROY_BALAKRISHNAN = new Customer(new CustomerName("Roy Balakrishnan"),
+            new ContactNumber("92624417"), new Email("royb@example.com"), getTagSet("colleagues"));
+    private static final Customer ROY_TAN = new Customer(new CustomerName("Roy tan"), new ContactNumber("92626617"),
+            new Email("roy2@example.com"), getTagSet("Friends"));
+    private static final Customer ALBERT_OON = new Customer(new CustomerName("Albert Oon"),
+            new ContactNumber("88626617"), new Email("albert2@example.com"), getTagSet("family"));
+    private static final Customer MARY_LEE = new Customer(new CustomerName("Mary lee"), new ContactNumber("98574682"),
+            new Email("marylee@example.com"), getTagSet("neighbours"));
+    private static final Customer JOHNNY_TOH = new Customer(new CustomerName("Johnny Toh"),
+            new ContactNumber("85742568"), new Email("johnnytoh@example.com"), getTagSet("classmates"));
+
+    private static final Phone IPHONE_11 = new Phone(new IdentityNumber("990003709954321"),
+            new SerialNumber("28xa9q2ns"), new PhoneName("iPhone 11"), new Brand("Apple"), Capacity.SIZE_128GB,
+            new Colour("Jet Black"), new Cost("$1100"), getTagSet("New"));
+    private static final Phone IPHONE_8 = new Phone(new IdentityNumber("990001940227978"),
+            new SerialNumber("1d27s9az"), new PhoneName("iPhone 8"), new Brand("Apple"), Capacity.SIZE_64GB,
+            new Colour("White"), new Cost("$400"), getTagSet("Used"));
+    private static final Phone GALAXY_S11 = new Phone(new IdentityNumber("352039075644270"),
+            new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"), Capacity.SIZE_256GB,
+            new Colour("Black"), new Cost("$1000"), getTagSet("New"));
+    private static final Phone IPHONE_XR = new Phone(new IdentityNumber("013373005371667"),
+            new SerialNumber("29asdn1mx"), new PhoneName("iPhone XR"), new Brand("Apple"), Capacity.SIZE_256GB,
+            new Colour("Coral"), new Cost("$750"), getTagSet("Used"));
+    private static final Phone PIXEL_3 = new Phone(new IdentityNumber("358373060612446"), new SerialNumber("129zn28xa"),
+            new PhoneName("Pixel 3"), new Brand("Google"), Capacity.SIZE_64GB, new Colour("White"), new Cost("$800"),
+            getTagSet("New"));
+    private static final Phone IPHONE_X = new Phone(new IdentityNumber("990002722150925"),
+            new SerialNumber("x82n10zm1a"), new PhoneName("iPhone X"), new Brand("Apple"), Capacity.SIZE_256GB,
+            new Colour("Purple"), new Cost("$1300"), getTagSet("New"));
+    private static final Phone GALAXY_NOTE10 = new Phone(new IdentityNumber("587415962587452"),
+            new SerialNumber("2nyn7sma"), new PhoneName("Galaxy Note 10"), new Brand("Samsung"), Capacity.SIZE_512GB,
+            new Colour("Pink"), new Cost("$1111"), getTagSet("New"));
+    private static final Phone MATE_30PRO = new Phone(new IdentityNumber("857294851478523"),
+            new SerialNumber("kd8v5e2t"), new PhoneName("Mate 30 Pro"), new Brand("Huawei"), Capacity.SIZE_256GB,
+            new Colour("Gold"), new Cost("$740"), getTagSet("Old"));
+    private static final Phone P30 = new Phone(new IdentityNumber("895714852032015"), new SerialNumber("8c5dd22g"),
+            new PhoneName("P30"), new Brand("Huawei"), Capacity.SIZE_512GB, new Colour("Blue"),
+            new Cost("$900"), getTagSet("New"));
+    private static final Phone PIXEL_2XL = new Phone(new IdentityNumber("859217582461854"),
+            new SerialNumber("8ssd525e"), new PhoneName("Pixel 2 XL"), new Brand("Google"), Capacity.SIZE_64GB,
+            new Colour("Silver"), new Cost("$550"), getTagSet("Old"));
+    private static final Phone IPHONE_7 = new Phone(new IdentityNumber("825974185296852"), new SerialNumber("85rd85ed"),
+            new PhoneName("iPhone 7"), new Brand("Apple"), Capacity.SIZE_64GB, new Colour("Black"), new Cost("$300"),
+            getTagSet("Old"));
+    private static final Phone IPHONE_8S = new Phone(new IdentityNumber("985247852145236"),
+            new SerialNumber("85rdd5f2"), new PhoneName("iPhone 8s"), new Brand("Apple"), Capacity.SIZE_256GB,
+            new Colour("Rose Gold"), new Cost("$700"), getTagSet("New"));
+
+    private static final Schedule MONDAY = new Schedule(UUID.randomUUID(), getCalendar(2019, 10, 9, 12, 30),
+            new Venue("School"), getTagSet("Gate"));
+    private static final Schedule TUESDAY = new Schedule(UUID.randomUUID(), getCalendar(2019, 10, 11, 14, 10),
+            new Venue("KFC"), getTagSet("Late"));
+    private static final Schedule WEDNESDAY = new Schedule(UUID.randomUUID(), getCalendar(2019, 10, 13, 10, 45),
+            new Venue("GBTB"), getTagSet("Early"));
+    private static final Schedule THURSDAY = new Schedule(UUID.randomUUID(), getCalendar(2019, 10, 15, 12, 30),
+            new Venue("Jurong East MRT"), getTagSet("Early"));
+    private static final Schedule FRIDAY = new Schedule(UUID.randomUUID(), getCalendar(2019, 10, 17, 20, 30),
+            new Venue("Kent Ridge MRT"), getTagSet("Nice"));
+    private static final Schedule SATURDAY = new Schedule(UUID.randomUUID(), getCalendar(2019, 10, 12, 9, 30),
+            new Venue("Raffles Place"), getTagSet("Early"));
+    private static final Schedule SUNDAY = new Schedule(UUID.randomUUID(), getCalendar(2019, 10, 5, 17, 0),
+            new Venue("Cafe"), getTagSet("Late"));
+
+
+    public static Customer[] getSampleCustomers() {
+        return new Customer[] { ALEX_YEOH, BERNICE_YU, CHARLOTTE_OLIVEIRO, DAVID_LI, IRFAN_IBRAHIM, ROY_BALAKRISHNAN,
+            ROY_TAN, ALBERT_OON, MARY_LEE, JOHNNY_TOH };
     }
 
     public static ReadOnlyDataBook<Customer> getSampleCustomerBook() {
@@ -64,32 +123,8 @@ public class SampleDataUtil {
     }
 
     public static Phone[] getSamplePhones() {
-        return new Phone[] {
-            new Phone(new IdentityNumber("990003709954321"),
-                new SerialNumber("28xa9q2ns"), new PhoneName("iPhone 11"), new Brand("Apple"),
-                Capacity.SIZE_128GB, new Colour("Jet Black"), new Cost("$1100"),
-                getTagSet("New")),
-            new Phone(new IdentityNumber("990001940227978"),
-                new SerialNumber("1d27s9az"), new PhoneName("iPhone 8"), new Brand("Apple"),
-                Capacity.SIZE_64GB, new Colour("White"), new Cost("$400"),
-                getTagSet("Used")),
-            new Phone(new IdentityNumber("352039075644270"),
-                new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
-                Capacity.SIZE_256GB, new Colour("Black"), new Cost("$1000"),
-                getTagSet("New")),
-            new Phone(new IdentityNumber("013373005371667"),
-                new SerialNumber("29asdn1mx"), new PhoneName("iPhone XR"), new Brand("Apple"),
-                Capacity.SIZE_256GB, new Colour("Coral"), new Cost("$750"),
-                getTagSet("Used")),
-            new Phone(new IdentityNumber("358373060612446"),
-                new SerialNumber("129zn28xa"), new PhoneName("Pixel 3"), new Brand("Google"),
-                Capacity.SIZE_64GB, new Colour("White"), new Cost("$800"),
-                getTagSet("New")),
-            new Phone(new IdentityNumber("990002722150925"),
-                new SerialNumber("x82n10zm1a"), new PhoneName("iPhone 11"), new Brand("Apple"),
-                Capacity.SIZE_256GB, new Colour("Purple"), new Cost("$1300"),
-                getTagSet("New"))
-        };
+        return new Phone[] { IPHONE_11, IPHONE_8, GALAXY_S11, IPHONE_XR, PIXEL_3, IPHONE_X, GALAXY_NOTE10, MATE_30PRO,
+            P30, PIXEL_2XL, IPHONE_7, IPHONE_8S };
     }
 
     public static ReadOnlyDataBook<Phone> getSamplePhoneBook() {
@@ -101,12 +136,7 @@ public class SampleDataUtil {
     }
 
     public static Schedule[] getSampleSchedule() {
-        return new Schedule[] {
-            new Schedule(UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66"), Calendar.getInstance(),
-                    new Venue("Kovan"), getTagSet("Rush")),
-            new Schedule(UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66"), Calendar.getInstance(),
-                    new Venue("Orchard"), getTagSet("Office"))
-        };
+        return new Schedule[] { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY };
     }
 
     public static ReadOnlyDataBook<Schedule> getSampleScheduleBook() {
@@ -127,51 +157,51 @@ public class SampleDataUtil {
     }
 
     public static Order[] getSampleOrders() {
-        return new Order[] {
-            new Order(UUID.randomUUID(),
-                   new Customer(new CustomerName("Charlotte Oliveiro"), new ContactNumber("93210283"),
-                        new Email("charlotte@example.com"), getTagSet("neighbours")),
-                    new Phone(new IdentityNumber("990003709954321"),
-                            new SerialNumber("28xa9q2ns"), new PhoneName("iPhone 11"), new Brand("Apple"),
-                            Capacity.SIZE_128GB, new Colour("Jet Black"), new Cost("$98.23"),
+        return new Order[]{
+            new Order(UUID.randomUUID(), CHARLOTTE_OLIVEIRO, IPHONE_11, new Price("$1023.89"), Status.SCHEDULED,
+                    Optional.of(MONDAY), getTagSet("Urgent")),
+            new Order(UUID.randomUUID(), ALEX_YEOH, IPHONE_8, new Price("$1300.12"), Status.SCHEDULED,
+                    Optional.of(TUESDAY), getTagSet("New")),
+            new Order(UUID.randomUUID(), DAVID_LI, GALAXY_S11, new Price("$1105.12"), Status.SCHEDULED,
+                    Optional.of(WEDNESDAY), getTagSet("New")),
+            new Order(UUID.randomUUID(), JOHNNY_TOH, PIXEL_3, new Price("$708"), Status.UNSCHEDULED,
+                    Optional.empty(), getTagSet("Good")),
+            new Order(UUID.randomUUID(), IRFAN_IBRAHIM, IPHONE_X, new Price("$1300"), Status.SCHEDULED,
+                    Optional.of(THURSDAY), getTagSet("Urgent")),
+            new Order(UUID.randomUUID(), ROY_TAN, IPHONE_XR, new Price("$1412.35"), Status.SCHEDULED,
+                    Optional.of(FRIDAY), getTagSet("Freebie")),
+            new Order(UUID.randomUUID(), ROY_BALAKRISHNAN, P30, new Price("$905.12"), Status.SCHEDULED,
+                    Optional.of(SATURDAY), getTagSet("New")),
+            new Order(UUID.randomUUID(), ALBERT_OON, GALAXY_NOTE10, new Price("$1500.85"), Status.SCHEDULED,
+                    Optional.of(SUNDAY), getTagSet("Urgent")),
+            new Order(UUID.randomUUID(), MARY_LEE, PIXEL_2XL, new Price("$903.25"), Status.UNSCHEDULED,
+                    Optional.empty(), getTagSet("Box")),
+            new Order(UUID.randomUUID(), JOHNNY_TOH, MATE_30PRO, new Price("$995.12"), Status.UNSCHEDULED,
+                    Optional.empty(), getTagSet("New")),
+
+        };
+    }
+
+    public static ReadOnlyDataBook<Order> getSampleOrderBook() {
+        DataBook<Order> sampleOrderBook = new DataBook<>();
+        for (Order sampleOrder : getSampleOrders()) {
+            sampleOrderBook.add(sampleOrder);
+        }
+        return sampleOrderBook;
+    }
+
+
+    public static Order[] getSampleArchiveOrders() {
+        return new Order[]{
+            new Order(UUID.randomUUID(), DAVID_LI,
+                    new Phone(new IdentityNumber("352039075644273"),
+                            new SerialNumber("2ncs82ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
+                            Capacity.SIZE_256GB, new Colour("Black"), new Cost("$110.50"),
                             getTagSet("New")),
-                   new Price("$99.89"),
-                    Status.SCHEDULED,
-                    Optional.of(sampleSchedule()),
-                   getTagSet("Urgent")),
-            new Order(UUID.randomUUID(),
-                  new Customer(new CustomerName("Alex Yeoh"), new ContactNumber("87438807"),
-                        new Email("alexyeoh@example.com"), getTagSet("friends")),
-                  new Phone(new IdentityNumber("990001940227978"),
-                        new SerialNumber("1d27s9az"), new PhoneName("iPhone 8"), new Brand("Apple"),
-                        Capacity.SIZE_64GB, new Colour("White"), new Cost("$99.12"),
-                        getTagSet("Used")),
-                  new Price("$100.12"),
-                    Status.SCHEDULED,
-                    Optional.of(sampleSchedule()), getTagSet("New")),
-            new Order(UUID.randomUUID(),
-                  new Customer(new CustomerName("David Li"), new ContactNumber("91031283"),
-                        new Email("lidavid3@example.com"), getTagSet("family")),
-                  new Phone(new IdentityNumber("352039075644275"),
-                        new SerialNumber("2ncs86ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
-                        Capacity.SIZE_256GB, new Colour("Black"), new Cost("$104.32"),
-                        getTagSet("New")),
-                  new Price("$105.12"),
-                    Status.SCHEDULED,
-                    Optional.of(sampleSchedule()), getTagSet("New")),
-            new Order(UUID.randomUUID(),
-                        new Customer(new CustomerName("David Li"), new ContactNumber("91031281"),
-                                new Email("lidavid1@example.com"), getTagSet("family")),
-                        new Phone(new IdentityNumber("352039075644273"),
-                                new SerialNumber("2ncs82ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
-                                Capacity.SIZE_256GB, new Colour("Black"), new Cost("$110.50"),
-                                getTagSet("New")),
-                        new Price("$104.52"),
-                        Status.COMPLETED,
-                        Optional.of(sampleSchedule2()), getTagSet("New")),
-            new Order(UUID.randomUUID(),
-                        new Customer(new CustomerName("David Li"), new ContactNumber("91031282"),
-                                new Email("lidavid2@example.com"), getTagSet("family")),
+                    new Price("$104.52"),
+                    Status.COMPLETED,
+                    Optional.of(sampleSchedule2()), getTagSet("New")),
+            new Order(UUID.randomUUID(), DAVID_LI,
                         new Phone(new IdentityNumber("352039075644271"),
                                 new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
                                 Capacity.SIZE_256GB, new Colour("Black"), new Cost("$99.65"),
@@ -310,7 +340,6 @@ public class SampleDataUtil {
                         Status.COMPLETED,
                         Optional.of(sampleSchedule4(6,
                                 28)), getTagSet("New")),
-
             new Order(UUID.randomUUID(),
                         new Customer(new CustomerName("mto"), new ContactNumber("06415526"),
                                 new Email("1ad@example.com"), getTagSet("smallCustomer")),
@@ -325,6 +354,21 @@ public class SampleDataUtil {
         };
     }
 
+    public static ReadOnlyDataBook<Order> getSampleArchivedOrderBook() {
+        DataBook<Order> sampleArchivedOrderBook = new DataBook<>();
+        for (Order sampleOrder : getSampleArchiveOrders()) {
+            sampleArchivedOrderBook.add(sampleOrder);
+        }
+        return sampleArchivedOrderBook;
+    }
+
+    /**
+     * Return a calendar object given necessary fields
+     */
+    private static Calendar getCalendar(int year, int month, int date, int hour, int min) {
+        return new Calendar.Builder().setDate(year, month, date).setTimeOfDay(hour, min, 0).build();
+    }
+
     /**
      *Return sample Schedule object
      */
@@ -332,7 +376,7 @@ public class SampleDataUtil {
         return new Schedule(
                 UUID.randomUUID(),
                 new Calendar.Builder().setDate(2019, 10, 02).build(),
-                new Venue("test venue"),
+                new Venue("NUS"),
                 getTagSet("New"));
     }
 
@@ -343,9 +387,10 @@ public class SampleDataUtil {
         return new Schedule(
                 UUID.randomUUID(),
                 new Calendar.Builder().setDate(2019, 1, 31).build(),
-                new Venue("test venue"),
-                getTagSet("New"));
+                new Venue("Starbucks"),
+                getTagSet("Freebie"));
     }
+
     /**
      *Return sample Schedule object
      */
@@ -353,8 +398,8 @@ public class SampleDataUtil {
         return new Schedule(
                 UUID.randomUUID(),
                 new Calendar.Builder().setDate(2019, 4, 31).build(),
-                new Venue("test venue"),
-                getTagSet("New"));
+                new Venue("Utown"),
+                getTagSet("Carrier"));
     }
 
     /**
@@ -364,20 +409,9 @@ public class SampleDataUtil {
         return new Schedule(
                 UUID.randomUUID(),
                 new Calendar.Builder().setDate(2019, month, day).build(),
-                new Venue("test venue"),
-                getTagSet("New"));
+                new Venue("MRT"),
+                getTagSet("Urgent"));
     }
 
-
-
-
-
-    public static ReadOnlyDataBook<Order> getSampleOrderBook() {
-        DataBook<Order> sampleOrderBook = new DataBook<>();
-        for (Order sampleOrder : getSampleOrders()) {
-            sampleOrderBook.add(sampleOrder);
-        }
-        return sampleOrderBook;
-    }
 
 }
