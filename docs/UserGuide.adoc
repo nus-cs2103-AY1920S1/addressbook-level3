@@ -58,6 +58,7 @@ AddMin+ is an app that is mainly used through the Command Line Interface (CLI), 
 === Understanding the GUI Components
 **To be filled**
 
+//tag::DeXun1[]
 === CLI Usage & Command Formatting
 
 *Command Format*
@@ -135,6 +136,8 @@ a|
 
 |===
 
+//end::DeXun1[]
+
 [[Features]]
 == Features
 
@@ -191,7 +194,6 @@ Employee Format: `list_em`
 
 Event Format: `list_ev`
 
-//tag::DeXun1[]
 
 
 ==== Adding: `add_em | add_ev`
@@ -339,7 +341,7 @@ Deletes the 2nd employee in the displayed employee list.
 * `delete_ev 1` +
 Deletes the 1st event in the displayed event list shown (Works on both __Main__ and __Schedule__ tab)
 
-//end::DeXun1[]
+
 
 === Employee-Specific Management
 
@@ -502,51 +504,59 @@ as shown in the 2nd figure in <<Manually allocation of Employees to Events: `all
 [[set_ev_dt]]
 ==== Setting a Date&Time to an Event: `set_ev_dt`
 
-Sets a Date-Time mapping to an specific Event.
+Sets a Date-Time Schedule Mapping for a specific Event.
 
 [NOTE]
-Events are initialized without any schedule, other than their stated start and end date with a default time of 0800-1800.
-Hence, the mapping _declares_ the schedule for the dates that the event is being held.
+Even though the start date and end dates of each event is stated, the event is not assumed to be held for the entire range. Hence, the Date-Time setting feature enables the user to _declare and set_ the schedule of the event. Events are initialized without any schedule, other than their stated start and end date with a default time of __0800-1800__.
 
-[TIP]
-Fields in [] are optional. +
-If `EVENT_DATE` is not stated, then all dates inclusive of the start to end date will be filled with the stated `EVENT_DAYTIME`
-
-Format: `set_ev_dt EVENT_INDEX [on/EVENT_DATE] time/EVENT_DAYTIME`
+Format: `set_ev_dt EVENT_INDEX [on/EVENT_DATE] [till/EVENT_DATE] time/EVENT_DAYTIME`
 
 ****
 * Note the <<Constraints>> for *INDEX*, *DATE*, and *TIME PERIOD*.
-* THE `EVENT_DATE` *must be within the Event's Start and End Date*
+* If *both* the `on/` and `till/` prefixes are *not used*, then all dates inclusive of the start to end date of the target event will be set with the stated `EVENT_DAYTIME`. 
+* If *both* the `on/` and `till/` prefixes are used, then the date range (inclusive) from the start to end date stated will be set with the stated `EVENT_DAYTIME`.
+* If *only* the `on/` prefix is used, it will just set the `EVENT_DAYTIME` for the __single__ stated `EVENT_DATE`.
+* The `till/` prefix must be used with the `on/` prefix, and not by itself.
+* All `EVENT_DATE` *must be within the range of the Target Event's Start and End Date*
+* The `EVENT_DATE` declared by the `on/` prefix cannot be after the `EVENT_DATE` declared by the `till/` prefix
 ****
 
 Examples:
 
 * `set_ev_dt 2 on/02/10/2019 time/1000-2000` +
-Sets the 2nd Event from the Event List a time period of 10am-10pm on the date 2nd of October 2019.
+Sets the 2nd Event from the Event List a time period of 10am-8pm on the 2nd of October 2019.
 
 * `set_ev_dt 3 time/0500-1500` +
-Sets the 1st Event from the Event List a time period of 5am-3pm on all dates from the start to the end date (inclusive).
+Sets the 3rd Event from the Event List a time period of 5am-3pm on all dates from the start to the end date (inclusive) of the Event.
+
+* `set_ev_dt 1 on/02/10/2019 till/10/10/2019 time/0500-1500` +
+Sets the 1st Event from the Event List a time period of 5am-3pm on all dates from the 2nd of October to the 10th of October (inclusive).
 
 ==== Delete a DateTime Mapping from an Event: `delete_ev_dt`
 
-Deletes a mapping on a specific date for a specific event.
+Deletes Date-Time mappings for a specific event by stating a single date or a range of dates.
 
-Format: `delete_ev_dt EVENT_INDEX on/EVENT_DATE`
+Format: `delete_ev_dt EVENT_INDEX on/EVENT_DATE [till/EVENT_DATE]`
 
 ****
-* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * Note the <<Constraints>> for *INDEX* and *DATE*.
+* If *both* the `on/` and `till/` prefixes are used, then the Date-Time mapping for the date range (inclusive) from the start to end date stated will be deleted.
+* If *only* the `on/` prefix is used, it will just delete the Date_Time mapping for the __single__ stated `EVENT_DATE`.
+* All `EVENT_DATE` *must be within the range of the Target Event's Start and End Date*
+* The `EVENT_DATE` declared by the `on/` prefix cannot be after the `EVENT_DATE` declared by the `till/` prefix
 ****
 
 Example:
 
 * `delete_ev_dt 2 on/18/10/2019` +
-Deletes the mapping on 18th October from the 2nd Event on the Event list.
+Deletes the Date-Time mapping on 18th October from the 2nd Event on the Event list.
+
+* `delete_ev_dt 2 on/18/10/2019 till/22/10/2019` +
+Deletes all Date-Time mappings that lie in the range of 18th - 22nd of October 2019 from the 2nd Event on the Event list.
 
 ==== Clear all DateTime Mappings from an Event: `clear_ev_dt`
 
-Clears all date-time mappings for a specific event.
-As a side effect, all manpower allocated to the event will be de-allocated.
+Clears all Date-Time mappings for a specific event.
 
 Format: `clear_ev_dt EVENT_INDEX`
 
