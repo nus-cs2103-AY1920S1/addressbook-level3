@@ -80,7 +80,9 @@ public class ExportCommand extends Command {
         BufferedReader customerReader = new BufferedReader(new FileReader(String.valueOf(customerFile)));
         String currCustomerLine;
         while ((currCustomerLine = customerReader.readLine()) != null) {
-            customerData.append(currCustomerLine);
+            if (!currCustomerLine.contains("tagged")) {
+                customerData.append(currCustomerLine);
+            }
         }
         JSONObject jsonObjectCustomerData;
         jsonObjectCustomerData = new JSONObject(customerData.toString());
@@ -93,7 +95,10 @@ public class ExportCommand extends Command {
         BufferedReader phoneReader = new BufferedReader(new FileReader(String.valueOf(phoneFile)));
         String currPhoneLine;
         while ((currPhoneLine = phoneReader.readLine()) != null) {
-            phoneData.append(currPhoneLine);
+            if (!currPhoneLine.contains("cost") && !currPhoneLine.contains("identityNumber") && !currPhoneLine.contains
+                    ("tagged")) {
+                phoneData.append(currPhoneLine);
+            }
         }
         JSONObject jsonObjectPhoneData;
         jsonObjectPhoneData = new JSONObject(phoneData.toString());
@@ -101,6 +106,7 @@ public class ExportCommand extends Command {
         String phoneCsv = "Phones list:" + "\n" + CDL.toString(phoneDataArray) + "\n" + "\n";
         phoneReader.close();
 
+        /*
         // Building Schedule CSV string.
         StringBuilder scheduleData = new StringBuilder();
         BufferedReader scheduleReader = new BufferedReader(new FileReader(String.valueOf(scheduleFile)));
@@ -114,6 +120,9 @@ public class ExportCommand extends Command {
         String scheduleCsv = "Schedule list:" + "\n" + CDL.toString(scheduleDataArray) + "\n" + "\n";
         scheduleReader.close();
 
+         */
+
+        /*
         // Building Order CSV string.
         StringBuilder orderData = new StringBuilder();
         BufferedReader orderReader = new BufferedReader(new FileReader(String.valueOf(orderFile)));
@@ -127,11 +136,13 @@ public class ExportCommand extends Command {
         String orderCsv = "Current orders:" + "\n" + CDL.toString(orderDataArray) + "\n" + "\n";
         orderReader.close();
 
+         */
+
         // Get CSVDataString
         data.append(customerCsv);
         data.append(phoneCsv);
-        data.append(scheduleCsv);
-        data.append(orderCsv);
+        //data.append(scheduleCsv);
+        //data.append(orderCsv);
 
         return data.toString();
     }
