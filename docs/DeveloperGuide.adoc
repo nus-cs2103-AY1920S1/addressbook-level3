@@ -397,14 +397,14 @@ Such an offline document is represented by `OfflineDocument`, which contains at 
 an annotation is added to a `Paragraph`. The annotation will be internally stored as an instance of `Annotation`.
 You can view the class structure of the annotation feature in the <<annotation-cd, figure above>>.
 
-There are three functionalities to the annotation feature:
+The annotation feature encompasses this functionality:
 
  * Add an annotation (triggered by `annotate` command and executed by `AddAnnotationCommand#execute()`).
  * Delete an annotation (triggered by `annotate-delete` command and executed by `DeleteAnnotationCommand#execute()`).
  * Edit an annotation (triggered by `annotate-edit` command and executed by `EditAnnotationCommand#execute()`).
 
 Command  words `annotate`, `annotate-delete` and `annotate-edit` make up the _family of annotation commands_.
-These functionalities, when activated each calls the respective command parser to create the corresponding `AnnotationCommand`.
+When activated, each calls the respective command parser to create the corresponding `AnnotationCommand`.
 Subsequently, when necessary the appropriate `Paragraph` is retrieved, and the annotation is handled according to the command.
 
 The following sequence diagram illustrates how a command of the _family of annotation commands_ operates:
@@ -476,11 +476,46 @@ There are hence a few alternatives in which we can combine these elements and st
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage and overheads from layers of abstraction.
 
-* **Alternative 2**: Let each cache keep only the original cache of the website. Use another class to store the annotations with the respective paragraph identifiers.
+* **Alternative 2:** Let each cache keep only the original cache of the website. Use another class to store the annotations with the respective paragraph identifiers.
 ** Pros: Will use less memory since the content of the website is not duplicated.
 ** Cons: Not straightforward to implement. Stray notes will need a different implementation to order and store them. Objects not well abstracted.
 
-//TODO: need do? ===== Aspect: How to save the
+===== Aspect: How to handle annotation commands
+The _family of annotation commands_ includes the three main aspects: add, delete and edit. Each aspect can encompass
+more than one kind of use case (e.g. `annotate-delete` can be used to delete the entire annotation from a paragraph; it can also
+be used to delete just the highlight of a paragraph, which also makes the attached note, if any, general).
+However, all of them manipulate annotations.
+This means there are multiple options to choose from to parse an annotation command:
+
+* **Alternative 1:**  Use a single parser to parse all annotation commands.
+
+* **Alternative 2:** Use a different parser for each command word.
+
+* **Alternative 3:** Use a different parser for each use case.
+
+===== Aspect: How to implement command to delete annotations
+There are multiple choices when it comes to deleting annotations, each specifically deletes a part or whole of an annotation. In particular, deleting
+only the highlight of a paragraph with a note will have a side effect where the note becomes general.
+Considering these variations, there are a few alternatives that we can consider to implement the delete function:
+
+* **Alternative 1:** Use
+
+===== Aspect: How to implement command to edit annotations
+The edit function for manipulating annotations also has multiple responsibilities: editing existing
+annotations and moving annotations from paragraph to paragraph.
+
+This means each command has multiple cases to handle.
+There are hence a few alternatives in which we can segregate the responsibility of parsing and executing:
+
+* **Alternative 1:** Use a single parser to parse all the annotation-related commands and for each command create
+** Pros:
+** Cons:
+
+* **Alternative 2:** For each of `annotate`, `annotate-delete` and `annotate-edit`, use a separate parser.
+** Pros:
+** Cons:
+
+* **Alternative 3:** For each small function, create
 
 // end::annotation[]
 
