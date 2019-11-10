@@ -1,5 +1,7 @@
 package com.typee.ui.game;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -36,7 +38,7 @@ public class MovingWord extends UiPart<Pane> {
         this.parent = parent;
         this.player = player;
         this.fallingRate = fallingRate;
-        word = Words.get(randomNumberWithin(Words.SIZE));
+        word = getRandomWord();
         setXCoordinate();
         parent.getChildren().add(getRoot());
         continuouslyUpdate();
@@ -53,8 +55,16 @@ public class MovingWord extends UiPart<Pane> {
         return random.nextInt(limit);
     }
 
+    private String getRandomWord() {
+        int randomIndex = randomNumberWithin(Words.SIZE);
+        requireNonNull(randomIndex);
+        return Words.get(randomIndex);
+    }
+
     private void setXCoordinate() {
-        getRoot().setLayoutX(randomNumberWithin(WINDOW_BOUNDARY));
+        int randomXCoordinate = randomNumberWithin(WINDOW_BOUNDARY);
+        requireNonNull(randomXCoordinate);
+        getRoot().setLayoutX(randomXCoordinate);
     }
 
     /**

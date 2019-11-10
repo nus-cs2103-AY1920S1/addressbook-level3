@@ -13,9 +13,6 @@ public class StartWindow extends UiPart<Region> {
 
     public static final String FXML = "StartWindow.fxml";
 
-    @FXML
-    private AnchorPane startWindow;
-
     public StartWindow() {
         super(FXML);
     }
