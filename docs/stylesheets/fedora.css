@@ -11,6 +11,7 @@
     --secondarycolor:#3c6eb4; /* Fedora Blue */
     --tertiarycolor:#CCCCCC;
     --highlightcolor:#e59728; /* Features Orange */
+    --lightgrey: #CDCDCD;
     --sidebarbackground:#CACACA;
     --linkcolor:#0D47A1;
     --linkcoloralternate:#db3279; /* Friends Magneta */
@@ -30,8 +31,8 @@ p{font-family: "Open Sans",sans-serif ! important}
 #toc.toc2 a:link{color:var(--linkcolor);}
 blockquote{color:var(--linkcoloralternate) !important}
 .quoteblock blockquote:before{color:var(--linkcoloralternate)}
-code{color:var(--white);background-color: var(--highlightcolor) !important}
-mark{background-color: var(--highlightcolor)} /* Text highlighting color */
+code{color:var(--highlightcolor); !important}
+mark{background-color: var(--highlightcolor);} /* Text highlighting color? */
 
 /* Table styles */
 th{background-color: var(--maincolor);color:var(--black) !important;}
