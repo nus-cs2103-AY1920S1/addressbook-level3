@@ -5,7 +5,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:sectnumlevels: 3
+:sectnumlevels: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -536,7 +536,11 @@ Example:
 
 * `score reset T-5 10` will reset the score of the team with ID T-5.
 
-=== List Team Ranking: `leaderboard`
+=== Team Rankings: `leaderboard` and `getTop k`
+
+In addition to assigning scores to teams, Alfred also facilitates viewing the leaderboard and fetching the top teams in the hackathon with ease as well. The following subsections explain how to use these commands within Alfred.
+
+==== View Leaderboard: `leaderboard`
 Use this command to display the ranking of all the teams in the hackathon in descending order of their points.
 
 ****
@@ -546,7 +550,7 @@ Use this command to display the ranking of all the teams in the hackathon in des
 
 Format: `leaderboard`
 
-=== Get the top k teams: `getTop K`
+==== Get the top k teams: `getTop K`
 Use this command to list the top k teams in the leaderboard, where k is a valid positive integer which you specify.
 
 ****
@@ -566,11 +570,11 @@ Example:
 
 * `getTop 20` will display the top 20 teams with the highest points in the hackathon.
 
-=== Extensions to `leaderboard` and `getTop K` Command
+==== Extensions to `leaderboard` and `getTop K` Command
 
-To provide additional functionalities to the `leaderboard` and `getTop k` commands within Alfred, there are few extensions that can be added to these two commands to allow you to see a representation of the leaderboard or top teams more accustomed to your needs. These extensions and how to use them within Alfred are explained in the subsections below.
+To provide additional functionalities to the `leaderboard` and `getTop k` commands within Alfred, there are few extensions that can be added to these two commands to allow you to see a representation of the leaderboard or top teams more accustomed to your needs. These extensions and how to use them within Alfred are listed below.
 
-==== Tie-Break
+===== Tie-Break
 
 By default Alfred `leaderboard` and `getTop k` commands fetch and display teams in descending order of their score, and by the order they were added into Alfred in case of tied scores.
 
@@ -600,7 +604,7 @@ Example:
 * `leaderboard tb/moreParticipants lowerId` will display the leaderboard on the UI with Alfred breaking the tie between teams with equals scores based on which team has more participants, and if the number of participants is equal then by which team has the lower ID.
 * `getTop 3 tb/lessParticipants random` will display the top 3 teams on the UI with Alfred breaking the tie between teams with equals scores based on which team has fewer participants, and if the number of participants is equal then Alfred will randomly pick the winners for the tie.
 
-==== Filter by Subject
+===== Filter by Subject
 
 By default, when running either the `leaderboard` or `getTop k` command, Alfred will show all the appropriate teams irrespective of their subject. However, in the situation that you need to select winners from a certain subject category, Alfred's filter by subject feature provides you the capability to achieve this. To view the leaderboard or top teams for a specific subject, follow the following format:
 
