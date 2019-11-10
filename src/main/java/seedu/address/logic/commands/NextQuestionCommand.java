@@ -28,12 +28,16 @@ abstract class NextQuestionCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         if (!model.hasTestFlashCard()) {
             logger.log(Level.INFO, "No more flashcards left to test!");
+
             keyboardFlashCardsParser.endTestMode();
             logger.log(Level.INFO, "Enabling KeyboardFlashCardsParser to accept normal commands");
+
             model.updatePerformance(model);
             logger.log(Level.INFO, "Updating performance");
+
             CommandResult result = new CommandResult(MESSAGE_SUCCESS_END_OF_TEST);
             result.setTestMode(false, true);
             return result;
@@ -42,6 +46,7 @@ abstract class NextQuestionCommand extends Command {
         model.setTestFlashCard();
         keyboardFlashCardsParser.setAwaitingAnswer(true);
         logger.log(Level.INFO, "Getting the next flashcard");
+
         return new CommandResult(
                 messageSuccess,
                 model.getTestFlashCardPanel());

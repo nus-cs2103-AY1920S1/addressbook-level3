@@ -36,6 +36,7 @@ public class RateQuestionCommandParser implements Parser<RateQuestionCommand> {
                 && !rating.equals(Rating.HARD)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RateQuestionCommand.MESSAGE_USAGE));
         }
+
         return new RateQuestionCommand(keyboardFlashCardsParser, new Rating(rating));
     }
 }

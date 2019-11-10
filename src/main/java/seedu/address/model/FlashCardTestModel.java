@@ -44,6 +44,7 @@ public class FlashCardTestModel {
 
     public TestFlashCardPanel getTestFlashCardPanel() {
         requireNonNull(currentFlashCard);
+
         setTestFlashCardPanel();
         return testFlashCardPanel;
     }

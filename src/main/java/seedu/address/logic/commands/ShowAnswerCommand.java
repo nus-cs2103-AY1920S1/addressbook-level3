@@ -21,12 +21,14 @@ public class ShowAnswerCommand extends Command {
 
     public ShowAnswerCommand(KeyboardFlashCardsParser keyboardFlashCardsParser) {
         requireNonNull(keyboardFlashCardsParser);
+
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         model.showAnswer();
         keyboardFlashCardsParser.setAwaitingAnswer(false);
         return new CommandResult(MESSAGE_SHOW_ANSWER_SUCCESS);

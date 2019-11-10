@@ -28,6 +28,7 @@ public class StartCommandParser implements Parser<StartCommand> {
         if (!args.matches(alphaNumericWithSpacesRegex) && !args.isEmpty()) {
             throw new ParseException(BAD_ARGUMENTS);
         }
+
         String trimmedArgs = args.trim();
         return new StartCommand(keyboardFlashCardsParser, trimmedArgs);
     }

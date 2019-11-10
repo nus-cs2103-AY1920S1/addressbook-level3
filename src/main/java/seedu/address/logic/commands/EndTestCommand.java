@@ -21,15 +21,20 @@ public class EndTestCommand extends Command {
 
     public EndTestCommand(KeyboardFlashCardsParser keyboardFlashCardsParser) {
         requireNonNull(keyboardFlashCardsParser);
+
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
 
     @Override
     public CommandResult execute(Model model) {
+        requireNonNull(model);
+
         model.updatePerformance(model);
         logger.log(Level.INFO, "Updating performance");
+
         keyboardFlashCardsParser.endTestMode();
         logger.log(Level.INFO, "Enabling KeyboardFlashCardsParser to accept normal commands");
+
         CommandResult result = new CommandResult("Test ended");
         result.setTestMode(false, true);
         return result;

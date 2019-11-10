@@ -48,12 +48,15 @@ public class StartCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         List<FlashCard> testList = searchTag(model);
         model.initializeTestModel(testList);
+
         if (!model.hasTestFlashCard()) {
             logger.log(Level.WARNING, String.format("No flashcards found with the following tag(s):\n%s", tagName));
             return new CommandResult(MESSAGE_NO_FLASHCARDS);
         }
+
         keyboardFlashCardsParser.startTestMode();
         model.setTestFlashCard();
         keyboardFlashCardsParser.setAwaitingAnswer(true);
@@ -63,6 +66,7 @@ public class StartCommand extends Command {
                 MESSAGE_START_TEST_SUCCESS,
                 model.getTestFlashCardPanel());
         result.setTestMode(true, false);
+
         return result;
 
     }
@@ -78,9 +82,11 @@ public class StartCommand extends Command {
     /** Searches the list of flashcard to fetch the relevant tags. */
     private List<FlashCard> searchTag(Model model) {
         assert model != null;
+
         if (tagName.isEmpty()) {
             return new LinkedList<>(model.getFlashCardList());
         }
+
         CategoryContainsAnyKeywordsPredicate predicate = getSearchTermPredicate();
         logger.log(Level.INFO, "Getting a list of flashcards to test");
         return model.getFilteredFlashCardListNoCommit(predicate);
