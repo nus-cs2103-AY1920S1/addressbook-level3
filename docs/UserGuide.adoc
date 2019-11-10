@@ -666,7 +666,7 @@ Format: `display_schedule_month for/MM/yyyy`
 
 ****
 * for/ represents the month and year in MM/yyyy that the user wants to display
-* * Note the <<Constraints>> for *DATE*.
+* Note the <<Constraints>> for *DATE*.
 ****
 
 **Example: To display schedule for a specific Month and Year (11/2019):**
