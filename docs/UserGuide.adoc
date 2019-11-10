@@ -442,44 +442,23 @@ image::calendarScreenshots/suggest2.png[Suggest result,width=600]
 
 == Itinerary
 
-Now that you have booked your flight, it's time to start planning your trip using _TravEzy's_ Itinerary.
+Now that you have book your flight, it's time to start planning your schedule with _TravEzy's_ itinerary. Here is our
+Itinerary!
 
-In _TravEzy_, we have broken down your events into 6 key parts, namely _Title_, _Date_, _Time_, _Location_,
-_Description_ and _Tag_.
+image::ItineraryInterface.png[]
+
+In _TravEzy_, we have broken down your events into 4 key parts, namely _Title_, _Date_, _Time_, and _Tag_.
 
 For example, here is an Itinerary entry about our trip to Japan
 
 . _Title_ -> Visit Tokyo DisneySea
 . _Date_ -> 12122019
 . _Time_ -> 1000
-. _Location_ -> DisneySea
-. _Description_ -> Remember to take pictures with the Disney Mascots!
 . _Tag_ -> Priority: Critical
 
 In the Itinerary, you will be able to add, delete, edit, list and show your entries. There are also a few more special
-tasks that you can do with your Itinerary. Read on to find out more! 😊
+tasks that you can do with your itinerary. Read on to find out more! 😊
 
-=== Interface
-
-This is how _TravEzy's_ Itinerary looks like:
-
-image::ItineraryInterface.png[width=800]
-
-=== Auto-completion feature
-
-Don't you wish there's a way to quickly type all your commands. Well _TravEzy's_ Itinerary got you covered! _TravEzy's_
-Itinerary _command box_ has auto-completion function which offers suggestions based on your input.
-
-This is how _TravEzy's_ Itinerary auto-complete looks like:
-
-image::ItineraryAuto.png[width=600]
-
-1. _Auto-complete dropdown bar_. Provides suggestions to complete your command base on your current input typed in the
-_command box_.
-
-[WARNING]
-The _auto-complete dropdown bar_ requires some time to sync with the input typed in the command box. Hence, give some time for
-it to read the input before hitting _Enter_
 
 === Adding an event: ``add``
 
@@ -495,9 +474,9 @@ Planning to visit DisneySea tomorrow? Add some rides that you plan to take then!
 
 *Step by step:*
 
-Step 1. Type ``add title/Ride DisneySea Electric Railway date/12122019 time/1500 l/DisneySea`` in the _command box_.
+Step 1. Type ``add title/Ride DisneySea Electric Railway date/12122019 time/1500 l/DisneySea`` in the command box.
 
-Step 2. Remember to prioritize your events using the _Priority dropdown box_, to one of the 5 different priorities:
+Step 2. Remember to prioritize your events using the Priority dropdown box, to one of the 5 different priorities:
 
 . Priority: None
 . Priority: Low
@@ -507,20 +486,20 @@ Step 2. Remember to prioritize your events using the _Priority dropdown box_, to
 
 After selecting the priority for the event, press _Enter_.
 
-image::ItineraryAdd1.png[width=600]
+image::ItineraryAdd1.png[]
 
-Step 3. The _result box_ will display the message "Processing...
+Step 3. The result box will display the message "Processing...
 Done!
 Your event has been successfully added! HAND, TravEzy! :D"
 
 Step 4. Now you can find your added event in the the event list.
 
-image::ItineraryAdd2.png[width=600]
+image::ItineraryAdd2.png[]
 
 === Deleting an event: ``delete``
 
-Had a change in plan during your trip but have already keyed in the event into _TravEzy's_ Itinerary? Don't worry
-you can always remove it from the _event list_.
+Had a change in plan during your trip but have already keyed in the event into _TravEzy's_ itinerary? Don't worry
+you can always remove it from the event list.
 
 Read on to find out more!
 
@@ -534,17 +513,17 @@ Read on to find out more!
 
 *Step by step:*
 
-Step 1. Type ``delete 4`` in the _command box_ and press _Enter_.
+Step 1. Type ``delete 4`` in the command box and press _Enter_.
 
-image::ItineraryDelete1.png[width=600]
+image::ItineraryDelete1.png[]
 
-Step 2. The _result box_ will display the message "Processing...
+Step 2. The result box will display the message "Processing...
 Done!
 Your event has been deleted successfully. Yay! :^)"
 
-Step 3. The new _event list_ will be shown with the specified event being removed.
+Step 3. Now _TravEzy's_ itinerary view panel will show the new event list with the specified event removed.
 
-image::ItineraryDelete2.png[width=600]
+image::ItineraryDelete2.png[]
 
 === Editing an event: ``edit``
 
@@ -555,7 +534,7 @@ Rather than deleting an event when you have a change of plans, why not edit the 
 ``edit INDEX [title/TITLE] [date/DATE] [time/TIME] [l/LOCATION] [d/DESCRIPTION] [tag/]``
 
 [TIP]
-If you wish to edit the tag field in the event, indicate it with the prefix ``tag/`` and use the _Priority Dropdown Box_
+If you wish to edit the tag field in the event, indicate it with the prefix ``tag/`` and use the Priority Dropdown Box
 to select the new priority.
 
 *Example:*
@@ -564,19 +543,19 @@ to select the new priority.
 
 *Step by step:*
 
-Step 1. Type ``edit 4 title/Explore DisneySea's Aquatopia d/Take photos of the fishes tag/`` in the _command box_.
+Step 1. Type ``edit 4 title/Explore DisneySea's Aquatopia d/Take photos of the fishes tag/`` in the command box.
 
 Step 2. If you indicate a change of the priority in the edit command using ``tag/``, do remember to select the new priority using
-the _Priority Dropdown Box_.
+the Priority Dropdown Box.
 
-image::ItineraryEdit1.png[width=600]
+image::ItineraryEdit1.png[]
 
-Step 3. The _result box_ will display the message "Updated successfully! :D
+Step 3. The result box will display the message "Updated successfully! :D
 HAND, TrazEzy~"
 
-Step 4. _TravEzy's_ Itinerary will showcase the new _event list_ with the edited event.
+Step 4. Now _TravEzy's_ itinerary view panel will show the new event list with the edited event.
 
-image::ItineraryEdit2.png[width=600]
+image::ItineraryEdit2.png[]
 
 === Checking a command as done: ``done``
 
@@ -593,17 +572,17 @@ event as done. ✅
 
 *Step by step:*
 
-Step 1. Type ``done 4`` in the _command box_ and press _Enter_.
+Step 1. Type ``done 4`` in the command box and press _Enter_.
 
-image::ItineraryDone1.png[width=600]
+image::ItineraryDone1.png[]
 
-Step 2. The _result box_ will display the message "Processing...
+Step 2. The result box will display the message "Processing...
 Done!
 Your event has been marked done successfully. Yay! :^)"
 
-Step 3. In the _event list_, that event will be marked as done. Great Job! 👍
+Step 3. Now _TravEzy_ itinerary view panel will mark that event as done. Good Job! 👍
 
-image::ItineraryDone2.png[width=600]
+image::ItineraryDone2.png[]
 
 === Listing all events: ``list``
 
@@ -620,30 +599,29 @@ convenient list!
 
 *Step by step:*
 
-Step 1. Type ``list`` in the _command box_ and press _Enter_.
+Step 1. Type ``list`` in the command box and press _Enter_.
 
-image::ItineraryList1.png[width=600]
+image::ItineraryList1.png[]
 
-Step 2. The _result box_ will display the message "Processing...
+Step 2. The result box will display the message "Processing...
 Done!
 Your event has been marked done successfully. Yay! :^)"
 
-Step 3. A continuous _event list_ will be shown with all the events in the Itinerary.
+Step 3. Now _TravEzy_ itinerary view panel will showcase all the events in your itinerary.
 
-image::ItineraryList2.png[width=600]
+image::ItineraryList2.png[]
 
 === Clearing all entries: ``clear``
 
-After using _TravEzy_ Itinerary for a long time, you might find that your Itinerary is cluttered with many past events.
-However, it might be a hassle to delete each events one by one.
-
-Don't worry, _TravEzy's_ Itinerary got you covered and allows you to clear the entire _event list_ instead.
+After using _TravEzy_ itinerary for a long time, you might find that your itinerary is cluttered with many past events.
+However, it might be a hassle to delete each events one by one. Don't worry, _TravEzy's_ itinerary got you covered and allows
+ you to clear the entire event list instead.
 
 How convenient is that! 😄
 
 [WARNING]
-The clear function removes *ALL* the events that you have planned in your _event list_. This action *CANNOT* be
-undone. Hence, only click on the *Proceed* button if you are sure that you want to clear your _event list_.
+The clear function removes *ALL* the events that you have planned in your event itinerary. This action *CANNOT* be
+undone. Hence, only click on the *Proceed* button if you are sure that you want to clear your event list.
 
 *Format:*
 
@@ -655,26 +633,29 @@ undone. Hence, only click on the *Proceed* button if you are sure that you want 
 
 *Step by step:*
 
-Step 1. Type ``clear`` in the _command box_ and press _Enter_.
+Step 1. Type ``clear`` in the command box and press _Enter_.
 
-image::ItineraryClear1.png[width=600]
+image::ItineraryClear1.png[]
 
 Step 2. A popup window will appear prompting whether you would like to _Proceed_ in clearing all your events from the
-_event list_.
+itinerary list.
 
-Step 3. The _result box_ will display the message "Currently viewing clear window warning.".
+Step 3. The result box will display the message "Currently viewing clear window warning.".
 
-image::ItineraryClear2.png[width=600]
+image::ItineraryClear2.png[]
 
-Step 4. Upon selecting _Proceed_, a notification will be shown on the screen with the message, "Done! We have wiped off
+Step 3. Upon selecting _Proceed_, a notification will be shown on the screen with the message, "Done! We have wiped off
 all your events from the face of this Earth! ( ﾟヮﾟ)".
 
-image::ItineraryClear3.png[width=600]
+Step 4. The result box will proceeed to display the message ""
+
+
+image::ItineraryClear3.png[]
 
 ===  Greet TravEzy itinerary: ``greet``
 
-Start you day right by saying hello to _TravEzy_ Itinerary and it will greet you back with the current _time_ and _date_.
-_TravEzy_ will also filter the _event list_ to showcase events that are due today.
+Start you day right by saying hello to _TravEzy_ itinerary and it will greet you back with the current _time_ and _date_.
+_TravEzy_ will also filter the event list to showcase events that are due today.
 
 *Format:*
 
@@ -686,21 +667,21 @@ _TravEzy_ will also filter the _event list_ to showcase events that are due toda
 
 *Step by step:*
 
-Step 1. Type ``greet`` in the _command box_ and press _Enter_.
+Step 1. Type ``greet`` in the command box and press _Enter_.
 
-image::ItineraryGreet1.png[width=600]
+image::ItineraryGreet1.png[]
 
-Step 2. The _result box_ will display the message "Hello! Welcome to the itinerary page!" this will be followed by the
+Step 2. The result box will display the message "Hello! Welcome to the itinerary page!" this will be followed by the
 current _date_ and _time_.
 
-Step 3. The _event list_ in the Itinerary will only showcase events that are due for the day.
+Step 3. _TravEzy_ itinerary view panel will showcase all the events that are due today.
 
-image::ItineraryGreet2.png[width=600]
+image::ItineraryGreet2.png[]
 
 === Showing past commands: ``history``
 
 Curious on what are the past commands that you have inputted during the current session? _TravEzy_ will show you a list of
-your past commands for the Itinerary.
+your past commands for the itinerary.
 
 Let's find out how!
 
@@ -714,22 +695,24 @@ Let's find out how!
 
 *Step by step:*
 
-Step 1. Type ``history`` in the _command box_ and press _Enter_.
+Step 1. Type ``history`` in the command box and press _Enter_.
 
-image::ItineraryHistory1.png[width=600]
+image::ItineraryHistory1.png[]
 
-Step 2. The _result box_ will display the message "Commands called for this session (Most recent → Earliest):"
-followed by the list of past commands that are being called in the Itinerary for that session.
+Step 2. The result box will display the message "Commands called for this session (Most recent → Earliest):"
+followed by the list of past commands that are being called in _TravEzy's_ itinerary for that session.
 
-image::ItineraryHistory2.png[width=600]
+image::ItineraryHistory2.png[]
 
 === Searching for an event: ``search``
 
-Does your _event list_ too many events to browse through? Let _TravEzy_ Itinerary help you by searching for events that matches specific
-keywords. 😊
+Is your event list too cluttered up with events? Let _TravEzy_ help you by searching for events that matches specific
+keywords.
+
+Let _TravEzy_ help you zoom into specific events! 😊
 
 [TIP]
-If your _event list_ is too cluttered up, try using the ``clear`` command instead to reset the *whole* _event list_ instead.
+If your event list is too cluttered up, try using the ``clear`` command instead to reset the whole event list instead.
 
 *Format:*
 
@@ -744,21 +727,21 @@ where ``SEARCH CONDITION`` can be any of the following: ``title/TITLE``, ``date/
 
 *Step by step:*
 
-Step 1. Type ``search`` in the _command box_ and press _Enter_.
+Step 1. Type ``search`` in the command box and press _Enter_.
 
-image::ItinerarySearch1.png[width=600]
+image::ItinerarySearch1.png[]
 
-Step 2. The _result box_ will display the message "Processing...
+Step 2. The result box will display the message "Processing...
 Done!
 Here are the events that matches the details. ( ͡° ͜ʖ ͡°)"
 
-Step 3. The filtered _event list_ will be shown containing events that matches the keywords given.
+Step 3. _TravEzy_ itinerary view panel will showcase the events which matches the specified keyword.
 
-image::ItinerarySearch2.png[width=600]
+image::ItinerarySearch2.png[]
 
 === Sorting the events: ``sort``
 
-Organizing your events in the _event list_ has never been easier the Itinerary's awesome sorting capabilities. 💯
+Need some way to categorize your events in the event list, let _TravEzy_ itinerary sort out all the events for you.
 
 Format:
 
@@ -773,17 +756,17 @@ where ``SORT CONDITION`` can be any of the following: ``title``, ``location``, `
 
 *Step by step:*
 
-Step 1. Type ``sort by/priority`` in the _command box_ and press _Enter_.
+Step 1. Type ``sort by/priority`` in the command box and press _Enter_.
 
-image::ItinerarySort1.png[width=600]
+image::ItinerarySort1.png[]
 
-Step 2. The _result box_ will display the message "Processing...
+Step 2. The result box will display the message "Processing...
 Done!
 TravEzy has helped sorted out your life!"
 
-Step 3. The Itinerary will present the sorted _event list_ based on the sort condition given.
+Step 3. _TravEzy_ itinerary view panel will sort all the events in the event list based on the sort condition given.
 
-image::ItinerarySort2.png[width=600]
+image::ItinerarySort2.png[]
 
 == Address Book
 
@@ -1539,16 +1522,13 @@ In the Address Book Achievements, you will be able to see:
 *A:* Currently, it is not possible to connect to social media using TravEzy. However, we will consider implementing this feature in the future! Stay tuned for that! 😉
 
 *Q:* Is there any in-app purchase for this application? +
-*A:* NO there isn’t. _TravEzy_ is created from a non-profit organization and we are not here to milk any of your gold coins! It is absolutely free! It cost nothing, zilch, nada, 零, nil, kosong. So what are you waiting for get?  Get TravEzy today!
+*A:* NO there isn’t. TravEzy is created from a non-profit organization and we are not here to milk any of your gold coins! It is absolutely free! It cost nothing, zilch, nada, 零, nil, kosong. So what are you waiting for get?  Get TravEzy today!
 
 *Q:* I’m having difficulties uploading the pictures onto the travel diary. +
-*A:* At the moment, _TravEzy_ does not have any feature where it allows the user to store their travel photos. However, this will definitely be implemented in v2.0. We intend for the pictures to be stored in the user's local drive and subsequently in a cloud database which is stored online.
+*A:* At the moment, TravEzy does not have any feature where it allows the user to store their travel photos. However, this will definitely be implemented in v2.0. We intend for the pictures to be stored in the user's local drive and subsequently in a cloud database which is stored online.
 
 *Q:* Who can I contact should there be a bug or feedback that I would like to share? +
 *A:* Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve TravEzy. Thank you and we looking forward to serving you better!
-
-*Q:* Is it advisable to edit the storage files in _TravEzy_ so that the changes will be reflected when I start the application? +
-*A:* _TravEzy_ gives you a caveat and strongly advise against tempering with the storage files in _TravEzy_ as this could result in falsification of the data.
 
 *Q:* What are some of the cool features that are available in TravEzy currently? +
 *A:* TravEzy currently boast a plethora of features such as calendar, itinerary, address book, travelling diary, financial tracker and achievements page. All these features work in tandem with each other to give you the best and only the best travelling experience. Not only that, the TravEzy team also decided to spice things up and included some easter eggs scattered throughout the
@@ -1598,19 +1578,19 @@ Here are summary lists of commands for the different features.
 
 |``add``
 |Add an event entry to the itinerary
-|``add title/TITLE date/DATE time/TIME [l/LOCATION] [d/DESCRIPTION]``
+|``add title/title date/date time/time [l/location] [d/description]``
 
 |``delete``
 |Delete a certain entry from the itinerary
-|``delete INDEX``
+|``delete index``
 
 |``edit``
 |Edit a certain entry from the itinerary
-|``edit INDEX [title/TITLE] [date/DATE] [time/TIME] [l/LOCATION] [d/DESCRIPTION] [tag/]``
+|``edit index title/title date/date time/time l/location d/description t/[tag]``
 
 |``done``
 |Mark an event as done from the itinerary
-|``done INDEX``
+|``done index``
 
 |``list``
 |List all the events that are currently in the itinerary
@@ -1634,11 +1614,11 @@ Here are summary lists of commands for the different features.
 
 |``search``
 |Search the whole event list and filter out events which meets the search condition
-|``search [title/TITLE] [date/DATE] [time/TIME] [l/LOCATION] [d/DESCRIPTION] [tag/]
+|``search [title \| date \| time \| location]/[keyword]``
 
 |``sort``
 |Sort the event list based on the sorting condition
-|``sort by/[title] [location] [chronological] [completion] [priority]``
+|``sort by/[title \| location \| chronological \| completion \| priority]``
 
 |===
 
