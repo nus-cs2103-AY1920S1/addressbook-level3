@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SystemCommandParser" as AddressBookParser LOGIC_COLOR
 participant ":CommandHistory" as CommandHistory LOGIC_COLOR
 participant ":EnqueueCommandParser" as EnqueueCommandParser LOGIC_COLOR
 participant "refId : ReferenceId" as ReferenceId LOGIC_COLOR

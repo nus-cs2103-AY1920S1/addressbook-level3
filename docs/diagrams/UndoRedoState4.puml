@@ -6,11 +6,11 @@ skinparam ClassBorderColor #000000
 title After command "patient S9482963D"
 
 package "CommandHistory" {
-    class add1 as "RegisterPatientCommand    "
-    class cancel1 as "unregisterPatientCommand    "
+    class add1 as "__a0:RegisterPatientCommand____"
+    class cancel1 as "__i0:unregisterPatientCommand____ "
 
-    class add2 as "EnqueueCommand    "
-    class cancel2 as "DequeueCommand    "
+    class add2 as "__a1:EnqueueCommand____"
+    class cancel2 as "__i1:DequeueCommand____"
 
 
     class State1 as "__action0:ReversibleActionPairCommand____"
@@ -20,14 +20,18 @@ package "CommandHistory" {
     }
 
 package "commandRedoHistory" {
-    class add3 as "RegisterPatientCommand    "
-    class cancel3 as "UnregisterPatientCommand    "
+    class add3 as "__a2:RegisterPatientCommand____"
+    class cancel3 as "__i2:UnregisterPatientCommand____"
 
     class State3 as "__action2:ReversibleActionPairCommand____"
 
     class Hidden5 as "__action:ReversibleActionPairCommand____"
     class Hidden6 as "__action:ReversibleActionPairCommand____"
 }
+
+class TopOfUndoStack as " Top Of Undo Stack    " #FFFFF
+class TopOfRedoStack as " Top Of Redo Stack    " #FFFFF
+
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> Hidden4
 
@@ -47,13 +51,16 @@ State3 -up-> add3
 State3 -up-> cancel3
 add3 -[hidden]down-> cancel3
 
-add3 -[hidden]up-> State1
-Hidden5 -[hidden]up-> State2
-Hidden6 -[hidden]up-> Hidden4
+add3 -[hidden]up--> State1
+Hidden5 -[hidden]up--> State2
+Hidden6 -[hidden]up--> Hidden4
 
 hide Hidden4
 hide Hidden5
 hide Hidden6
+
+TopOfUndoStack -up-> State2
+TopOfRedoStack -up-> State3
 
 @end
 
