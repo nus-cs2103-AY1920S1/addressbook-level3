@@ -19,11 +19,12 @@ For the project, my main role was
 
 * *Code contributed*: https://ay1920s1-cs2103t-w12-3.github.io/publish-RepoSense/#search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=joloong&tabRepo=AY1920S1-CS2103T-W12-3%2Fmain%5Bmaster%5D[RepoSense]
 
-* *Major enhancement*:
+* *Major enhancement*: Implemented the ability to undo and redo previous commands.
 
-** What it does:
+** What it does: Undo command allows the user to undo all previous commands one at a time. Redo command reverses
+preceding undo command.
 
-** Justification:
+** Justification: It gives users the ability to
 
 
 ** Highlights:
