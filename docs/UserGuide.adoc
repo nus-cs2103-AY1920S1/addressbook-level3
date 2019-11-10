@@ -764,7 +764,7 @@ through changes to orders assigned to him.
 . Your deliveryman, Donald Trump, was on sick leave and his status is currently *UNAVAILABLE*. However, he just informed you
 that he has recovered and is ready to work again! You want to set his status back to *AVAILABLE*.
 
-. You search for his name and identify his index as '2', as shown in the red border. Then you type in the command `status 2`.
+. You search for his name and identify his index as `2`, as shown in the red border. Then you type in the command `status 2`.
 
 image::userguide\BeforeStatusSwitch.png[width="790"]
 
