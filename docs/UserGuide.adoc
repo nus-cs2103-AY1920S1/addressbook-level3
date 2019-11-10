@@ -251,7 +251,7 @@ Finds all expenses that contain the keyword ‘lunch’ or 'book' and amount bet
 and date between 1 Jan 2019 to 1 Oct 2019 in any of its attributes. +
 {nbsp} +
 
-=== Sorting expenses by attributes: `[Coming in v1.3]`
+=== Sorting expenses by attributes: `[Coming in v2.0]`
 
 . _Sort by name:_ +
 Sort expenses by name in alphabetical order. +
