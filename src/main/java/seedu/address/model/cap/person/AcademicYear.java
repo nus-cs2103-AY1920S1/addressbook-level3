@@ -56,14 +56,17 @@ public class AcademicYear {
             int firstYear = Integer.parseInt(academicYear.substring(0, 2)); //first year input
             int secondYear = Integer.parseInt(academicYear.substring(2, 4)); //second year input
 
-            if (secondYear > (formattedDate + 6) || firstYear > (formattedDate + 5)) {
+            if ((firstYear - secondYear) < -1 || secondYear < firstYear) {
+                // first year and second year can only be at most one year apart
+                return false;
+            } else if (secondYear > (formattedDate + 6) || firstYear > (formattedDate + 5)) {
                 return false;
             } else if (secondYear < (formattedDate - 4) || firstYear < (formattedDate - 5)) {
                 return false;
             } else {
                 return true;
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             return false;
         }
     }

@@ -1,6 +1,7 @@
 package seedu.address.model.cap.person;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.ArrayList;
 
@@ -37,7 +38,16 @@ public class Semester {
      * @param semester
      */
     public Semester(String semester) {
-        requireNonNull(semester);
+        AcademicYear academicYear;
+        SemesterPeriod semesterPeriod;
+        try {
+            requireNonNull(semester);
+            academicYear = new AcademicYear(semester.substring(0, 4));
+            semesterPeriod = new SemesterPeriod(Integer.valueOf(semester.substring(5, 6)));
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            checkArgument(false, MESSAGE_CONSTRAINTS);
+        }
+
         this.academicYear = new AcademicYear(semester.substring(0, 4));
         this.semesterPeriod = new SemesterPeriod(Integer.valueOf(semester.substring(5, 6)));
         modules = new ArrayList<>();
