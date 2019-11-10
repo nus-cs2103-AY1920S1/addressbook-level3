@@ -707,8 +707,9 @@ a|Use child class of `ShoppingItem` for boughtItem: `BoughtShoppingItem` with *E
 ** Extra Class ,i.e., extra code
 ** Extra steps for conversion from `BoughtShoppingItem` to `GroceryItem` while merging boughtItems to `GroceryList`.
 
-//end::mergeBoughtFeature[]
 |===
+
+//end::mergeBoughtFeature[]
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -1011,6 +1012,9 @@ tlist template add 1 n/rice a/100g e/10/10/2020 +
 tlist add n/Surprise Party +
 tlist undo +
 tlist redo +
+slist bought +
+slist urgent +
+slist mergebought +
 slist undo +
 slist redo
 
@@ -1080,6 +1084,62 @@ The estimated food wastage is predicted by taking the weighted average of waste 
 .. Other invalid test cases: `wlist report sm/Oct 2019 em/Jul 2019`, `wlist report sm/in 12 weeks`
 
 //end::wastelistmanualtesting[]
+
+//tag::shoppinglistmanualtesting[]
+=== Shopping List Manual Testing
+. List all items in shopping list
+.. Test case: `slist list` +
+Expected: The shopping list is displayed, with 3 sections (urgent, not urgent and not fully bought, fully bought). Within each of the three sections  of the shopping items, items are sorted alphabetically.
+
+. Adding an item to the shopping list
+.. Test case: `slist add n/Grapes a/500g` +
+Expected: Shopping item with name `Grapes` and amount `500g` is created and added to the shopping list. The details of the added shopping item are displayed. The new shopping item appears after urgent items and before fully bought items in the shopping list.
+.. Test case: `slist add n/Grapes a/invalidAmount` +
+Expected: Error message displayed indicating invalid amount entered.
+.. Test case: `slist add n/Grapes` +
+Expected: Error message displayed that indicates that the command format is wrong. The correct format for the add shopping command is also displayed.
+.. Test case: `slist add a/5g` +
+Expected: Error message displayed that indicates that the command format is wrong. The correct format for the add shopping command is also displayed.
+.. Test case: `slist add` +
+Expected: Error message displayed that indicates that the command format is wrong. The correct format for the add shopping command is also displayed.
+
+. Editing an item in the shopping list
+.. Test case: `slist edit 1 n/Oranges` +
+Expected: First shopping item's name is edited to 'Oranges'. Details of the edited shopping item are displayed. If some or all of the item was bought, the name of the corresponding bought item is also changed in storage to avoid inconsistencies.
+.. Test case: `slist edit 1 a/50g` +
+Expected: First shopping item's amount is edited to 50g. Details of the edited shopping item are displayed.
+.. Test case: `slist edit 1` +
+Expected: Error message displayed indicating that at least one field to be edited must be provided.
+
+. Deleting an item in the shopping list
+.. Test case: `slist delete 1` +
+Expected: First shopping item is deleted from the shopping list. Details of the removed shopping item are displayed.
+
+. Marking a shopping item as urgent
+.. Test case: `slist urgent 1` +
+Expected: Marks the first shopping item as urgent. Details of the shopping item marked as urgent are displayed. The shopping item gets an `Urgent!` tag and moves towards the upper section of the shopping list (with other urgent items).
+.. Test case: `slist urgent` +
+Expected: Error message displayed indicating wrong command format. The correct format of an urgent shopping command is also displayed.
+
+. Buying a shopping item (Marking a shopping item as Bought)
+.. Test case: `slist bought 1 a/50g e/24/11/2019` +
+Expected: First shopping item is marked as bought. A bought item is created with the name of the shopping item and with the amount and expiry date provided in the command. It gets a `Partially Bought` tag if the amount bought is less than the amount of the shopping item, and it gets a `Fully Bought` tag if the bought amount is greater than or equal to the amount of the shopping item. In either case, the tag also displays the amount of shopping item bought. *If an item is fully bought, it moves to the bottom of the shopping list (regardless of whether it is urgent or not)*. Details of the shopping item marked as bought are also shown.
+.. Test case: `slist bought 2 a/0g e/24/11/2019` +
+Expected: Error message displayed indicating that the amount specified cannot be 0 or negligible. The guidelines of how to use amount are also specified.
+.. Test case: `slist bought 1 a/50g` +
+Expected: Error message displayed indicating that the command format is wrong. The correct format for a bought shopping command is also displayed.
+.. Test case: `slist bought 1 e/23/04/2019` +
+Expected: Error message displayed indicating that the command format is wrong. The correct format for a bought shopping command is also displayed.
+
+. Merging bought items into the grocery list (moving bought items into fridge)
+
+.. Prerequisites +
+Some of the items in the shopping list must be bought for changes in the lists to take place.
+
+.. Test case: `slist mergebought` +
+Expected: All bought items are added to the grocery list according to the following conditions: If a bought item does not have a corresponding grocery item (same name and expiry date) in the grocery list, a new grocery item with the bought item's details is added to the grocery list. If a bought item has a corresponding grocery item in the grocery list, the grocery item's amount is added instead of creating a new grocery item. +
+If a shopping item was fully bought, it is removed from the shopping list while merging. If the item is only partially bought, the quantity that is bought is subtracted from the shopping item's quantity and the bought tag will be removed.
+//end::shoppinglistmanualtesting[]
 
 === Saving data
 
