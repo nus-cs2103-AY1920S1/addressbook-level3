@@ -649,7 +649,7 @@ Still confused? You can refer to the following diagram for a better understandin
 
 
 .Overview of Diary Feature
-image::diaryoverview.png[]
+image::diaryOverview.png[]
 
 
 ==== Adding a diary
@@ -710,7 +710,7 @@ image::editDiary_before.png[]
 +
 . If the command succeeds, the following result will be displayed and the diary will be edited as shown below.
 +
-image::editDiary_after.png[]
+image::editDiary_before.png[]
 
 ==== Viewing a diary
 
@@ -729,7 +729,7 @@ image::viewDiary_before.png[]
 . If the command succeeds, the following result will be displayed and both the diary view and page view will switch.
 In this case, the diary will be switched to "Healthy Living" and its corresponding pages will be displayed as shown below.
 +
-image::viewDiary_after.png[]
+image::viewDiary_before.png[]
 
 ==== Finding a diary
 
@@ -780,7 +780,7 @@ Example usage: `add page`
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image:addPage_before.png[]
+image::addPage_before.png[]
 +
 . You will then be taken to the Page Input Form to provide details of the page.
 In this case, we will be adding a page to the specified diary "Asian Cuisines". You may choose to use your own images
