@@ -83,6 +83,9 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LeowWB&sort=totalComm
 *** Wrote the FAQ and an early version of the Command Summary section for the User Guide (
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19]
     )
+*** Wrote the Introduction section of the Developer Guide (
+    https://github.com/AY1920S1-CS2103T-T12-4/main/pull/236[#236]
+    )
 *** Wrote the User Guide and Developer Guide content pertaining to the exporting and importing of flashcards (
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/137[#137],
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/141[#141],
