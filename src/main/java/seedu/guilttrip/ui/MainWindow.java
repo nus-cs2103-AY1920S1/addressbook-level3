@@ -7,15 +7,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.logic.Logic;
@@ -31,9 +35,9 @@ import seedu.guilttrip.ui.expense.ExpenseListPanel;
 import seedu.guilttrip.ui.income.IncomeListPanel;
 import seedu.guilttrip.ui.reminder.ReminderPanel;
 import seedu.guilttrip.ui.stats.StatisticsBarChart;
-import seedu.guilttrip.ui.stats.StatisticsPieChartHolder;
 import seedu.guilttrip.ui.stats.StatisticsWindow;
 import seedu.guilttrip.ui.util.FontManager;
+import seedu.guilttrip.ui.util.FontName;
 import seedu.guilttrip.ui.util.PanelName;
 import seedu.guilttrip.ui.util.Theme;
 import seedu.guilttrip.ui.wishlist.WishListPanel;
@@ -45,11 +49,6 @@ import seedu.guilttrip.ui.wishlist.WishListPanel;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private final String lightThemeUrl = getClass().getResource("/view/LightTheme.css").toExternalForm();
-    private final String lightExtensionsUrl = getClass().getResource("/view/ExtensionsLight.css")
-            .toExternalForm();
-    private final String darkThemeUrl = getClass().getResource("/view/DarkTheme.css").toExternalForm();
-    private final String darkExtensionsUrl = getClass().getResource("/view/ExtensionsDark.css").toExternalForm();
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -60,18 +59,16 @@ public class MainWindow extends UiPart<Stage> {
     private EntryListPanel entryListPanel;
     private ExpenseListPanel expenseListPanel;
     private IncomeListPanel incomeListPanel;
+    private ReminderPanel reminderPanel;
     private BudgetPanel budgetPanel;
     private WishListPanel wishListPanel;
     private AutoExpensesPanel autoExpensesPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private PopupWindow popupWindow;
     private StatisticsWindow statsListPanel;
-    private StatisticsPieChartHolder statsGraphics;
     private StatisticsBarChart statsBar;
     private BudgetPanel budgetsPanel;
-
-    private boolean isStatsWindow;
-    private boolean isStatsGraphicsWindow;
 
     // Customisable GUI elements
     private String font;
@@ -87,7 +84,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private VBox entryList;
+    private VBox mainPanel;
 
     @FXML
     private StackPane expenseListPanelPlaceholder;
@@ -126,15 +123,13 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
-        this.isStatsGraphicsWindow = false;
-        this.isStatsWindow = false;
-
         // Configure the UI
         setUpGui(logic.getGuiSettings());
 
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        //popupWindow = new PopupWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -186,7 +181,7 @@ public class MainWindow extends UiPart<Stage> {
 
         this.expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
         this.incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
-        entryList.getChildren().addAll(this.expenseListPanel.getRoot(), this.incomeListPanel.getRoot());
+        mainPanel.getChildren().addAll(this.expenseListPanel.getRoot(), this.incomeListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -203,8 +198,8 @@ public class MainWindow extends UiPart<Stage> {
         this.budgetPanel = new BudgetPanel(logic.getFilteredBudgetList());
         budgetsPlaceHolder.getChildren().add(this.budgetPanel.getRoot());
 
-        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
-        remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
+        this.reminderPanel = new ReminderPanel(logic.getFilteredReminders());
+        remindersPlaceHolder.getChildren().add(this.reminderPanel.getRoot());
 
         this.autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
         autoExpensesPlaceHolder.getChildren().add(this.autoExpensesPanel.getRoot());
@@ -282,8 +277,8 @@ public class MainWindow extends UiPart<Stage> {
      * Toggles the isVisible and isManaged property for the specified panel.
      * Checks if the entire side panel needs to be toggled as well.
      */
-    private void handleTogglePanel(String panelNameString) throws CommandException {
-        togglePanel(panelNameString);
+    private void handleTogglePanel(PanelName panelName) throws CommandException {
+        togglePanel(panelName);
         toggleEntireSidePanelIfNecessary();
     }
 
@@ -292,21 +287,27 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @param panelName name of the specified panel to be toggled.
      */
-    private void togglePanel(String panelName) throws CommandException {
+    private void togglePanel(PanelName panelName) throws CommandException {
         switch (panelName) {
-        case "wishlist":
+        case WISH:
+            if (mainPanel.getChildren().contains(wishListPanel.getRoot())) {
+                throw new CommandException("The panel you want to toggle is already shown in the main panel!");
+            }
             togglePlaceHolder(wishesPlaceHolder);
             break;
-        case "budget":
-            if (entryList.getChildren().contains(budgetPanel.getRoot())) {
+        case BUDGET:
+            if (mainPanel.getChildren().contains(budgetPanel.getRoot())) {
                 throw new CommandException("The panel you want to toggle is already shown in the main panel!");
             }
             togglePlaceHolder(budgetsPlaceHolder);
             break;
-        case "reminder":
+        case REMINDER:
+            if (mainPanel.getChildren().contains(reminderPanel.getRoot())) {
+                throw new CommandException("The panel you want to toggle is already shown in the main panel!");
+            }
             togglePlaceHolder(remindersPlaceHolder);
             break;
-        case "autoexpense":
+        case AUTOEXPENSE:
             togglePlaceHolder(autoExpensesPlaceHolder);
             break;
         default:
@@ -370,11 +371,12 @@ public class MainWindow extends UiPart<Stage> {
                 && !autoExpensesPlaceHolder.isManaged()) {
             sidePanelsPlaceHolder.setManaged(false);
             sidePanelsPlaceHolder.setVisible(false);
+            logger.info("Toggled entire side panel off");
         } else { // any one of the side panels are managed and visible
             sidePanelsPlaceHolder.setManaged(true);
             sidePanelsPlaceHolder.setVisible(true);
+            logger.info("Toggled entire side panel on");
         }
-        logger.info("Toggled entire side panel");
     }
 
     /**
@@ -383,7 +385,7 @@ public class MainWindow extends UiPart<Stage> {
     private String handleListFonts(String oldFeedbackToUser) {
         FontManager fontManager = new FontManager();
         String feedbackToUserWithFontList = oldFeedbackToUser + ": "
-                + Arrays.toString(fontManager.getFonts().toArray());
+                + Arrays.toString(fontManager.getFontsAsStrings().toArray());
         logger.info("Listed all fonts");
         return feedbackToUserWithFontList;
     }
@@ -414,21 +416,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills the entryListPanel with the type of Panel passed in.
      */
     private void fillEntryListPanel(UiPart typeOfPanel) {
-        entryList.getChildren().clear();
-        entryList.getChildren().add((Node) typeOfPanel.getRoot());
-    }
-
-    /**
-     * Fills the entryListPanel with either the StatisticsWindow or the EntryListPanel.
-     * entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
-     */
-    private void toggleStatsPanel() {
-        entryList.getChildren().clear();
-        if (isStatsGraphicsWindow) {
-            entryList.getChildren().add(statsGraphics.getRoot());
-        } else {
-            entryList.getChildren().add(statsListPanel.getRoot());
-        }
+        mainPanel.getChildren().clear();
+        mainPanel.getChildren().add((Node) typeOfPanel.getRoot());
     }
 
     /**
@@ -439,26 +428,26 @@ public class MainWindow extends UiPart<Stage> {
         String oldExtensionsUrl = null;
         String newThemeUrl = null;
         String newExtensionsUrl = null;
+        Theme oldTheme = null;
 
         switch (newTheme) {
         case LIGHT:
             this.theme = Theme.LIGHT;
-            oldThemeUrl = darkThemeUrl;
-            oldExtensionsUrl = darkExtensionsUrl;
-            newThemeUrl = lightThemeUrl;
-            newExtensionsUrl = lightExtensionsUrl;
+            oldTheme = Theme.DARK;
             break;
         case DARK:
             this.theme = Theme.DARK;
-            oldThemeUrl = lightThemeUrl;
-            oldExtensionsUrl = lightExtensionsUrl;
-            newThemeUrl = darkThemeUrl;
-            newExtensionsUrl = darkExtensionsUrl;
+            oldTheme = Theme.LIGHT;
             break;
         default:
             // Do nothing.
             break;
         }
+
+        oldThemeUrl = theme.getThemeUrl(oldTheme);
+        oldExtensionsUrl = theme.getThemeExtensionUrl(oldTheme);
+        newThemeUrl = theme.getThemeUrl(newTheme);
+        newExtensionsUrl = theme.getThemeExtensionUrl(newTheme);
 
         removeAndAddStylesheets(oldThemeUrl, newThemeUrl);
         removeAndAddStylesheets(oldExtensionsUrl, newExtensionsUrl);
@@ -478,11 +467,11 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Resets the main panel (i.e. entry list panel) to contain just incomes and expenses.
      */
-    private void resetMainPanel() throws CommandException {
-        entryList.getChildren().removeAll(entryList.getChildren());
-        entryList.getChildren().addAll(expenseListPanel.getRoot(), incomeListPanel.getRoot());
+    private void resetMainPanel() {
+        mainPanel.getChildren().removeAll(mainPanel.getChildren());
+        mainPanel.getChildren().addAll(expenseListPanel.getRoot(), incomeListPanel.getRoot());
 
-        // Add the respective panels to their placeholders and turn them on
+        // Add the respective panels back to their placeholders and turn them on
         if (!budgetsPlaceHolder.getChildren().contains(budgetPanel.getRoot())) {
             budgetsPlaceHolder.getChildren().add(budgetPanel.getRoot());
             togglePlaceHolder(budgetsPlaceHolder);
@@ -498,6 +487,27 @@ public class MainWindow extends UiPart<Stage> {
             togglePlaceHolder(autoExpensesPlaceHolder);
         }
 
+        if (!remindersPlaceHolder.getChildren().contains(reminderPanel.getRoot())) {
+            remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
+            togglePlaceHolder(remindersPlaceHolder);
+        }
+
+    }
+
+    /**
+     * Shows the reminder popup alert window.
+     */
+    private void showReminderPopup() {
+        final Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.getDialogPane().getStylesheets().add(this.theme.getThemeUrl());
+        alert.initStyle(StageStyle.DECORATED);
+        alert.getDialogPane().setGraphic(new ImageView(new Image("images/guiltTrip()_32.png")));
+        alert.initOwner(this.primaryStage);
+        alert.setTitle("reminder");
+        alert.setHeaderText("headerText");
+        alert.setContentText("contentText");
+        alert.getDialogPane().setId("alertDialogPane");
+        alert.showAndWait();
     }
 
     public EntryListPanel getEntryListPanel() {
@@ -509,8 +519,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.guilttrip.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText)
-            throws CommandException, ParseException, IllegalArgumentException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
+            IllegalArgumentException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -526,8 +536,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isTogglePanel()) {
                 PanelName panelName = commandResult.getPanelName();
-                String panelNameString = panelName.getName();
-                handleTogglePanel(panelNameString);
+                handleTogglePanel(panelName);
             }
 
             if (commandResult.isListFonts()) {
@@ -537,7 +546,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isChangeFont()) {
-                String fontNameString = commandResult.getFontName().toString();
+                String fontNameString = FontName.toLowerCaseString(commandResult.getFontName());
                 handleChangeFont(fontNameString);
             }
 
@@ -556,7 +565,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isToggleEntryPanel()) {
                 this.togglePlaceHolderForStats(false);
                 this.toggleAllTrue();
-                this.entryList.getChildren().setAll(expenseListPanel.getRoot(), incomeListPanel.getRoot());
+                this.mainPanel.getChildren().setAll(expenseListPanel.getRoot(), incomeListPanel.getRoot());
             }
 
             if (commandResult.isToggleBarChart()) {
@@ -568,33 +577,45 @@ public class MainWindow extends UiPart<Stage> {
                 showConditionPanel();
             }
 
-            if (!(commandResult.toShowConditionPanel())) {
+            /*if (!(commandResult.toShowConditionPanel())) {
                 showReminderPanel();
-            }
+            }*/
 
-            if (commandResult.isListEntry()) {
-                String entryToList = commandResult.getEntryToList();
-                assert(entryToList.equals("main") || entryToList.equals("budget") || entryToList.equals("wish")
-                        || entryToList.equals("autoexpense")); // allow only these possible values of entryToList
+            if (commandResult.isList()) {
+                String toList = commandResult.getToList();
+                // allow only these possible values of toList
+                assert (toList.equals("main") || toList.equals("budget") || toList.equals("wish")
+                        || toList.equals("reminder"));
 
-                switch (entryToList) {
+                switch (toList) {
                 case "main":
                     resetMainPanel();
                     break;
                 case "budget":
                     resetMainPanel();
-                    entryList.getChildren().add(this.budgetPanel.getRoot());
-                    togglePlaceHolder(budgetsPlaceHolder);
+                    mainPanel.getChildren().removeAll(mainPanel.getChildren());
+                    mainPanel.getChildren().add(this.budgetPanel.getRoot());
+                    if (budgetsPlaceHolder.isVisible() && budgetsPlaceHolder.isManaged()) {
+                        togglePlaceHolder(budgetsPlaceHolder);
+                    }
                     break;
                 case "wish":
                     resetMainPanel();
-                    entryList.getChildren().add(this.wishListPanel.getRoot());
-                    togglePlaceHolder(wishesPlaceHolder);
+                    mainPanel.getChildren().removeAll(mainPanel.getChildren());
+                    mainPanel.getChildren().add(this.wishListPanel.getRoot());
+                    if (wishesPlaceHolder.isVisible() && wishesPlaceHolder.isManaged()) {
+                        togglePlaceHolder(wishesPlaceHolder);
+                    }
                     break;
-                case "autoexpense":
+                case "reminder":
                     resetMainPanel();
-                    entryList.getChildren().add(this.autoExpensesPanel.getRoot());
-                    togglePlaceHolder(autoExpensesPlaceHolder);
+                    if (remindersPlaceHolder.isVisible() && remindersPlaceHolder.isManaged()) {
+                        togglePlaceHolder(remindersPlaceHolder);
+                    }
+                    mainPanel.getChildren().removeAll(mainPanel.getChildren());
+                    mainPanel.getChildren().add(this.reminderPanel.getRoot());
+
+                    showReminderPopup();
                     break;
                 default:
                     // Do nothing.

@@ -11,7 +11,7 @@ public class BudgetAmount {
 
     public static final double MAX_VALUE = Double.parseDouble("9999999.99");
     public static final String MESSAGE_CONSTRAINTS =
-            "Amount should only contain numbers, and it should be only 2 decimal points at maximum. It "
+            "Budget Amount should only contain numbers, and it should be only 2 decimal points at maximum. It "
                     + "should also not be bigger than " + MAX_VALUE;
     public static final String VALIDATION_REGEX = "[0-9]+([.][0-9]{1,2})?";
     public final double value;

@@ -20,16 +20,20 @@ public class ReminderPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ReminderPanel.class);
 
     @FXML
-    private ListView<Reminder> reminderListView;
+    private ListView<Reminder> reminderListView1;
+    @FXML
+    private ListView<Reminder> reminderListView2;
 
     public ReminderPanel(ObservableList<Reminder> remindersList) {
         super(FXML);
-        reminderListView.setItems(remindersList);
-        reminderListView.setCellFactory(listView -> new ReminderListViewCell());
+        reminderListView1.setItems(remindersList);
+        reminderListView1.setCellFactory(listView -> new ReminderListViewCell());
+        reminderListView2.setItems(remindersList);
+        reminderListView2.setCellFactory(listView -> new ReminderListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code reminder} using a {@code ReminderCard}.
      */
     class ReminderListViewCell extends ListCell<Reminder> {
         @Override

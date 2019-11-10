@@ -66,7 +66,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(guiltTrip, userPrefs);
 
-        logger.fine("Initializing with guilttrip book: " + guiltTrip + " and user prefs " + userPrefs);
+        logger.fine("Initializing with GuiltTrip: " + guiltTrip + " and user prefs " + userPrefs);
 
         versionedGuiltTrip = new VersionedGuiltTrip(guiltTrip);
         this.userPrefs = new UserPrefs(userPrefs);

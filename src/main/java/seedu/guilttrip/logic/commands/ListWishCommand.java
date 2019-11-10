@@ -7,12 +7,12 @@ import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.model.Model;
 
 /**
- * Lists all wishes in the guilttrip to the user.
+ * Lists all wishes in GuiltTrip to the user.
  */
-public class WishListCommand extends Command {
+public class ListWishCommand extends Command {
 
-    public static final String COMMAND_WORD = "wishList";
-    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Lists all wishes in the guilttrip to the user.;";
+    public static final String COMMAND_WORD = "listWish";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Lists all wishes in GuiltTrip to the user.";
     public static final String MESSAGE_USAGE = ONE_LINER_DESC;
 
     public static final String MESSAGE_SUCCESS = "Listed all wishes";
@@ -22,6 +22,6 @@ public class WishListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredWishes(PREDICATE_SHOW_ALL_ENTRIES);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true, "wish");
     }
 }

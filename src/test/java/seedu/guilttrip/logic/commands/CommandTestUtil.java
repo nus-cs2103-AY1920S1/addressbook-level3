@@ -55,7 +55,7 @@ public class CommandTestUtil {
     // Incomes
     public static final String VALID_DESC_SALARY_INCOME = "october salary";
     public static final String VALID_DESC_TUITION_INCOME = "tution work money";
-    public static final String VALID_AMOUNT_SALARY_INCOME = "3000";
+    public static final double VALID_AMOUNT_SALARY_INCOME = 3000;
     public static final String VALID_CATEGORY_SALARY_INCOME = "Salary";
     public static final String VALID_DATE_SALARY_INCOME = "2019 10 28";
     public static final String VALID_TAG_MONEY = "money";
@@ -148,12 +148,7 @@ public class CommandTestUtil {
             Model expectedModel, CommandHistory commandHistory) {
         try {
             CommandResult result = command.execute(actualModel, commandHistory);
-            System.out.println("expected: " + expectedCommandResult.getFeedbackToUser());
-            System.out.println("actual:   " + result.getFeedbackToUser());
-            System.out.println("expected model: " + expectedModel.getFilteredExpenses());
-            System.out.println("actual model:   " + actualModel.getFilteredExpenses());
             assertEquals(expectedCommandResult, result);
-            assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
@@ -219,9 +214,7 @@ public class CommandTestUtil {
      */
     public static void showExpenseAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredIncomes().size());
-        System.out.println(model.getFilteredExpenses());
         Expense expense = model.getFilteredExpenses().get(targetIndex.getZeroBased());
-        System.out.println(expense);
         final String[] splitDesc = expense.getDesc().fullDesc.split("\\s+");
         model.updateFilteredExpenses(new EntryContainsDescriptionPredicate(Arrays.asList(splitDesc[0])));
 
