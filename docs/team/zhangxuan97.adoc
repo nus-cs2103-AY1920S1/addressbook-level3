@@ -71,7 +71,7 @@ include::../UserGuide.adoc[tag=wastelistfeatures]
 
 //include::../UserGuide.adoc[tag=commandsummary]
 
-include::../UserGuide.adoc[tag=wastelistfuture]
+//include::../UserGuide.adoc[tag=wastelistfuture]
 
 == Contributions to the Developer Guide
 
