@@ -670,9 +670,9 @@ entered.
 ==== Adding a course: `add-course`
 To get started, you can add specific course(s) to your list. You may add one or more courses at one go.
 
-Format: `add-course c/COURSE-CODE...`
+Format: `add-course c/COURSECODE...`
 
-where `COURSE-CODE` is the course code of the {nusmods-modules}[NUS course] you
+where `COURSECODE` is the course code of the {nusmods-modules}[NUS course] you
 want to add.
 
 ===== Example
@@ -680,6 +680,26 @@ want to add.
 add-course c/CS1010
 add-course c/CS1010 c/CS2030 c/CS2040
 ----
+
+==== Adding a course with grades: `add-course` [v2.0]
+If you wish, you may add a course that has a grade attached to it. This is to
+facilitate courses that you have already taken. Jarvis will use such
+information in the calculation of your CAP (Cumulative Average Point).
+
+Format: `add-course c/COURSECODE g/GRADE [c/COURSECODE g/GRADE]...`
+
+where `GRADE` can be any
+http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[valid NUS grade].
+
+===== Example
+----
+add-course c/CS1010 g/B+
+add-course c/CS2040 g/A+ c/CS2100 g/B- c/MA1521 g/B+
+----
+
+[NOTE]
+Every `GRADE` is tethered to the preceding `COURSECODE`, so the parameters to
+this command must be entered in the specified order!
 
 ==== Deleting a course: `delete-course`
 You can easily delete a course from your list - either by the index of the course in the list,
@@ -726,6 +746,17 @@ Format: `check c/COURSECODE`
 ----
 check c/CS1010
 ----
+
+==== Checking your CAP: `cap` [v2.0]
+If you wish to check your current CAP (Cumulative Average Point), you can do
+so with the command `cap`. Jarvis assumes that any course that does not have
+a grade attached to it in your list have not, or are currently being taken
+and will not be counted towards you CAP.
+
+Information on the CAP system can be found
+http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[here].
+
+Format: `cap`
 
 ////
 Undo/Redo
