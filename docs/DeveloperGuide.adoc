@@ -481,7 +481,8 @@ The `glist use` feature in the grocery list allows user to use their food items 
 
 This implementation of this feature is highly dependent on the `Amount` class as deduction of values is done by the `Amount` class itself.
 
-The sequence diagrams for interactions between the Logic and Model components when a user executes the `glist use` command is shown below. Their relations to the `Amount` class is shown in the subsequent diagram.
+The sequence diagram for interactions between the Logic and Model components when a user executes the `glist use` command is shown below.
+The subsequent sequence diagram shows a lower level picture of how a grocery item is used.
 
 .The sequence diagram to show how use grocery command is parsed and executed.
 image::UseGrocerySequenceDiagram.png[align="center", width="900"]
@@ -489,15 +490,37 @@ image::UseGrocerySequenceDiagram.png[align="center", width="900"]
 .The sequence diagram for the reference frame to show the process of how a grocery item is used.
 image::UseGrocerySequenceDiagramRef.png[align="center", width="800"]
 
-The current implementation for using a grocery item is by overwriting the existing grocery item with a new grocery item object with its amount field deducted. The rest of the fields are copied over without any other modifications.
+The current implementation for using a grocery item is by overwriting the existing grocery item with a new grocery item object with its amount field deducted, as shown in the diagram above. The rest of the fields are copied over without any other modifications.
 
-The `glist use` command is also able to support unit conversion.
+The `glist use` command is also able to support unit conversion. Currently, the implementation of the unit conversion are calculated manually inside the `Amount` class. No external library is used. (Refer to <<amount-parameter, About the amount parameter>>)
 
 The following activity diagram summarises how the unit conversion is done.
 
 image::UseGroceryActivityDiagram.png[align="center", width="400"]
 
 The conversions of units are done in the `Amount` class. Unit type is necessary in the implementation to allow for keeping track of different unit groups across different lists in the application. For example, `kg`, `g`, `lbs`, and `oz` are all categorised under the unit type `Weight`.
+
+[[amount-parameter]]
+====
+*About the Amount Parameter*
+
+* Several commands involve computation of amounts. Units are classified under three unit types:
+- *Volume:* ml, L
+- *Weight:* g, kg, oz, lbs
+- *Quantity:* units
+* Conversion of units can only be applied on the same classification. The conversion implemented in this app is shown in the table below. +
+[width="100%",options="header"]
+|===
+| Amount in the unit specified | Amount in standard form (kg, L, units)
+
+| 1ml | 0.001L
+| 1g  | 0.001kg
+| 1oz | 0.00283495kg
+| 1lbs| 0.453592kg
+|===
+* A certain minimum value is imposed on the `Amount` class (0.1ml for Volume, 0.1kg for Weight, and 0.1units for Quantity) to ensure consistency.
+Any value below the restriction would result in an error.
+====
 
 ==== Design Considerations
 
@@ -511,8 +534,7 @@ The conversions of units are done in the `Amount` class. Unit type is necessary 
 a|Create a new grocery item and replace it with the old one.
 
 * Pros:
-** Easy to implement.
-** Less bug-prone.
+** This method is easier to implement and would be less prone to bugs.
 
 * Cons:
 ** May have performance issues in terms of memory usage.
@@ -523,7 +545,7 @@ a|Modify the Amount in the grocery item.
 ** Will be more efficient and use less memory.
 
 * Cons:
-** Amount would be modifiable (not `final` anymore), thus is vulnerable to alterations.
+** Mutable amount field may result in unforeseen changes.
 |===
 
 ===== Aspect: Keeping track of unit type
@@ -544,7 +566,7 @@ a|Keeping the original unit of the item.
 a|Changing the original unit of item to the one input by user.
 
 * Pros:
-** Will be more intuitive to the user. e.g. After using `900ml` of a `1L` milk, it is more intuitive to show `100ml` instead of `0.1L`.
+** Will be more intuitive to the user. e.g. After using `650ml` of a `1L` milk, it is more intuitive to show `350ml` instead of `0.35L`.
 
 * Cons:
 ** Difficult to implement and maintain, due to its subjectiveness.

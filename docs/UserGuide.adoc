@@ -52,6 +52,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
+*Item types*
+
+* There are two types of items in this application: grocery item (which is a concrete item that you own) and food item (which is an item you think you would like to own in the future).
+* A grocery item is like a purchased/owned item. Thus, it must have a name, an expiry date, and amount. A grocery item can have one or more tags depending on preferences.
+* A food item must have a name and amount. A food item cannot have any expiry date and tag. Food item is usually used to arrange for shopping or template in this application.
+====
+
+====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `glist add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT`, `ITEM_NAME`, `EXPIRY_DATE`, and `AMOUNT` are parameters which can be used as `glist add n/apple e/23/10/2019 a/3units`.
@@ -68,8 +76,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ml, L, oz, lbs, kg, g, units.
 * Several commands involve computation of amounts. Units are classified under three unit types:
 - *Volume:* ml, L
-- *Quantity:* units
 - *Weight:* g, kg, oz, lbs
+- *Quantity:* units
 * Conversion of units can only be applied on the same classification. The conversion implemented in this app is shown in the table below. +
 [width="100%",options="header"]
 |===
@@ -80,6 +88,8 @@ ml, L, oz, lbs, kg, g, units.
 | 1oz | 0.00283495kg
 | 1lbs| 0.453592kg
 |===
+* The amount displayed for each item is rounded off to 4 decimal points to provide a reasonable level of precision.
+* A certain minimum value is imposed on the `Amount` class (0.1ml for Volume, 0.1kg for Weight, and 0.1units for Quantity) to ensure consistency.
 * When adding or editing items, the system will only allow items with similar names (checking is non-case-sensitive) to have similar unit types. However,
 the adding of items with conflicting unit types will not be allowed.
 ====
