@@ -35,6 +35,7 @@ My role was to:
 . configure the basic AddressBook software to accommodate Json-type storage for a catalog, a record of borrowers,
 and a record of loans
 . design the *Find Command* to execute given a set of parameters - such as searching by title, genre, loan status etc
+. Add a *Clear Command* to clear user searches
 . design the GUI in terms of color schemes
 . create the *Toggle UI Command* to allow users to switch the GUI between 'light mode' and 'dark mode' themes
 . Create sample data for testing
@@ -65,7 +66,7 @@ As the predicate used has multiple possible combinations, extensive tests were w
 Allows the user to toggle the GUI between 'light mode' and 'dark mode'.
 
 ==== Justification +
-This command allows users to switch into a more eye-friendly mode when using the software at night.
+As a librarian who may work after the sun has set, this command helps to switch the GUI into a more eye-friendly mode when using the software.
 
 ==== Highlights +
 This feature was rather challenging as it required a decent amount of CSS knowledge and the ability to manipulate JavaFx elements.
@@ -73,42 +74,51 @@ This feature was rather challenging as it required a decent amount of CSS knowle
 === *Code contributed* +
 [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shiyao821&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2019-11-10[Code changes made by me (Tracked by RepoSense)]]
 
-=== *Other contributions*:
-// TODO update this
-* Project management:
-** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-* Enhancements to existing features:
-** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-* Documentation:
-** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-* Community:
-** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-
-==== Project management:
-* Managed the release of https://github.com/AY1920S1-CS2103T-F13-1/main/releases/tag/v1.4[`v1.4`] on GitHub. This is the final version of our software. The improvements made to `v1.3` are:
+=== *Other contributions*
+==== Project management
+* Managed the release of https://github.com/AY1920S1-CS2103T-F13-1/main/releases/tag/v1.4-alpha[`v1.4-alpha`] on GitHub.
+This is the final version of our software at Alpha release for final pre-release testing. The improvements made to `v1.3` are:
 ** Feature: Undo and Redo
-** Bug fixes
+** Feature: Toggle UI theme
 ** GUI theme update
-** Feature: the `toggle UI` command
 ** Additional sample data on startup
+** Bug fixes
+
+==== Enhancements to existing features
+Done through the following pull requests:
+* [https://github.com/AY1920S1-CS2103T-F13-1/main/pull/292[#292]]: Updated sample data for users to test on
+* [https://github.com/AY1920S1-CS2103T-F13-1/main/pull/255[#255]]: Updated the GUI color scheme
+* [https://github.com/AY1920S1-CS2103T-F13-1/main/pull/84[#84]]: Created the relevant Storage classes for others to build on
+
+==== Documentation
+Done through the following pull requests:
+* [https://github.com/AY1920S1-CS2103T-F13-1/main/pull/277[#277]]: Styled the aesthetics of the LiBerry Netlify main page and sub-pages (including User Guide (UG) and Developer Guide (DG))
+* [https://github.com/AY1920S1-CS2103T-F13-1/main/pull/94[#94]]: Create the broad User Guide structure for others to build on
+
+==== Community
+* Left a [https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/58[DG review]] on another group's PR as a group
+* Posted a https://github.com/nus-cs2103-AY1920S1/forum/issues/115[tip] in the module forum (as a group) on making a code coverage check shortcut
+* Left a [https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/49[User Stories review] on another group's PR as a group
+* Tested another team's [https://github.com/AY1920S1-CS2103T-F12-3/main/releases[PR]] and submitted bugs during Practical Exam Dry Run.
 
 == Contributions to the User Guide
 |===
-|_Given below are sections I have contributed to in the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I have contributed to in the User Guide. They showcase my ability to write documentation targeting end-users.
+The official User Guide is linked [https://ay1920s1-cs2103t-f13-1.github.io/main/UserGuide.html[here]]._
 |===
 
-include::../UserGuide.adoc[tag=UGshiyao3]
+=== User Guide: Find Command
+The following segment shows my description of the `find` command which I have implemented in LiBerry.
+
+'''
 
 include::../UserGuide.adoc[tag=UGshiyao1]
 
-|===
-| *Purpose of Command*: +
-This command allows users to search through the entire catalog._
-|===
+=== User Guide: Command Summary
+The following segment shows my summary of all the commands in LiBerry. I made this so that users can have an overview of
+all the commands and be able to find the relevant one quickly without having to go through the entire User Guide.
+
+'''
 
 include::../UserGuide.adoc[tag=UGshiyao2]
 
@@ -123,3 +133,10 @@ Book Finding is the main feature that I have implemented in LiBerry. The followi
 
 '''
 include::../DeveloperGuide.adoc[tag=bookFinding]
+
+'''
+
+== End of PPP
+Thank you for reading this Portfolio Page. If you have any suggestions for LiBerry, for this page, or for me in general, contact me at wangshiyao@u.nus.edu!
+
+Special thanks to my team for making this project a success!
