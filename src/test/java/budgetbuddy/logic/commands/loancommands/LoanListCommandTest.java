@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import budgetbuddy.logic.commands.accountcommands.AccountListCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,12 +48,6 @@ public class LoanListCommandTest {
         }
     }
 
-    @Test
-    public void constructor_nullArguments_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new LoanListCommand(null, null));
-        assertThrows(NullPointerException.class, () -> new LoanListCommand(null, new ArrayList<>()));
-        assertThrows(NullPointerException.class, () -> new LoanListCommand(Optional.empty(), null));
-    }
 
     @Test
     public void execute_emptyList_listSuccess() {
