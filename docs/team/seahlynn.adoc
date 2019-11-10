@@ -94,17 +94,16 @@ Example: `add-member mn/New Member mi/NM mt/UG` can be executed as follows:
 
 *Step 1:* +Work initially contains a list of 6 project members, as shown below.
 
-image::BeforeAdd.png[width="400", align="center"]
+image::BeforeAdd.png[width="", align="center"]
 
 *Step 2:* To add a new project member into +Work, you enter the command `add-member mn/New Member mi/NM mt/UG` into the
 command prompt box.
 
-image::DuringAdd.png[width="400", align="center"]
-{empty} +
-{empty} +
+image::DuringAdd.png[width="", align="center"]
+
 *Step 3:* After you hit  kbd:[Enter] , the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
 
-image::DoneAdd.png[width="400", align="center"]
+image::DoneAdd.png[width="", align="center"]
 
 [IMPORTANT]
 Member ID is an alphanumeric ID set by you, and cannot be changed once the member is created.
@@ -124,7 +123,7 @@ Example: `set-image mi/NM im/C:\Desktop\NewUserImage.png` can be executed as fol
 
 *Step 1:* +Work initially contains a list of project members with default profile pictures, as shown below.
 
-image::BeforeSet.png[width="400", align="center"]
+image::BeforeSet.png[width="", align="center"]
 
 *Step 2:* To update the profile picture of the project member with member ID 'NM' in +Work to a specified image, you
 enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the command prompt box.
@@ -132,7 +131,7 @@ enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the comm
 *Step 3:* After you  kbd:[Enter]  the command, the member 'New Member' with member ID 'NM' has a new profile
 picture, specified by the image path you entered.
 
-image::SetImage.png[width="400", align="center"]
+image::SetImage.png[width="", align="center"]
 
 [NOTE]
 Image Path refers to the folder path of the image stored in your computer, and should end with .png
@@ -148,7 +147,7 @@ It is recommended that you store all the images in a central folder to prevent t
 To get statistics relating to the members in +Work, use the statistics command following the format: `member-stats` +
 Calling the `member-stats` command will result in the statistics being displayed as follows:
 
-image::MemberStats.png[width="450", align="center"]
+image::MemberStats.png[align="center"]
 
 [NOTE]
 The resultant statistics displayed shows the proportion and number of tasks and inventory items allocated to each
@@ -188,7 +187,7 @@ The `task-stats` command obtains lists of all the members, tasks and mappings sa
 The following sequence diagram shows how the `task-stats` operation works.
 
 .Operational flow of `GetStatisticsCommand`
-image::GetStatisticsSequenceDiagram.png[width="600", align="center"]
+image::GetStatisticsSequenceDiagram.png[align="center"]
 
 *Step 3.* In order for task statistics to be displayed in a comprehensive manner, when the `task-stats` command is called,
 `TaskStatisticsView` class is also called to display the task stats. To allow the `UI` to be responsive, `getStatistics()`
@@ -237,19 +236,12 @@ more than Alternative 2 does.
 The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks.
 This makes +Work a more comprehensive application because project tasks and members can be kept track of together.
 
-{empty} +
-{empty} +
-{empty} +
-{empty} +
-{empty} +
-{empty} +
-
 ===== Implementation
 +Work's members and their related commands are supported by a `Member` class that resides within model.
 The following class diagram exposes the structure of the `Member` class, and shows how the different components relating to the Member class works together.
 
 .Class diagram of `Member` package
-image::MemberClassDiagram.png[width="500", align="center"]
+image::MemberClassDiagram.png[align="center"]
 
 Apart from the typical commands (`add-member`, `delete-member`, `find-member`) involved in such a central class, the member feature also introduces a `set-image` command.
 The `set-image` command allows users to set an image in their computer as the profile picture of a member in +Work.
@@ -269,11 +261,7 @@ The `set-image` command calls `Model#getFilteredMembersList()` to retrieve the M
 A new member object is formed, with all the same parameters as the specified member object, and a new Image Filepath parameter.
 `Model#setMember` is called to replace the old member object with the new one in +Work.
 
-{empty} +
-{empty} +
-{empty} +
-{empty} +
-{empty} +
+
 The following sequence diagram shows how the `set-image` operation works.
 
 .Operational flow of `SetImageCommand`
