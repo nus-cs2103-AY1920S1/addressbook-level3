@@ -215,6 +215,8 @@ Deleting a user will search for all incidents created by the user and place a `d
 // tag::new[]
 === Create New Incident: `new`
 
+When new incidents are reported, vehicles are to be dispatched to the incident site. As of now, when there is no vehicle available in the district of incident, a new report cannot be generated.
+
 This command works in two ways:
 
 *1. auto/Y* +
@@ -232,29 +234,28 @@ Valid district numbers are from 1 to 28!
 
 * Example usage:
 
-image::newCommandAutoYBeforeSS.png[]
+image::newCommandAutoYBeforeSS.png[width="500"]
 
 * Expected outcome: In this case, there is no vehicle available in district 1.
 
-image::newCommandAutoYAfterSS.png[]
+image::newCommandAutoYAfterSS.png[width="500"]
 
 *2. auto/N* +
-Format: `new dist/DISTRICT auto/N`
+Format: `new dist/DISTRICT auto/N v/INDEX`
 
 ****
 * A list of available vehicles in the given district will be shown.
-* A message will also appear to prompt user to also include the index of the chosen vehicle.
+** `INDEX` is the index of the chosen vehicle, based on the list of available vehicles in the district.
+** If `v/INDEX` is not included, a message will appear to prompt user to also include the index of the chosen vehicle.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
 * After the new incident is successfully created, the vehicle pane will show all vehicles in the given district.
 ****
 
 * Example usage:
 
-image::newCommandAutoNPromptSS.png[]
+image::newCommandAutoNPromptSS.png[width="500"]
 
-image::newCommandAutoNAfterPromptSS.png[]
-
-image::newCommandAutoNAfterSS.png[]
+Once user adds `v/1`, a new incident will be drafted.
 
 [NOTE]
 If multiple flags of the same prefix is provided by user, the command will take the last valid parameter of each prefix. +
@@ -559,10 +560,6 @@ Format: `list-v`
 * The listing returns all vehicles and their relevant details.
 * All keywords and parameters used are ignored.
 ****
-
-Example usage and expected outcome:
-
-image::listVSS.png[]
 // end::list-v[]
 
 // tag::find-v[]
@@ -580,8 +577,8 @@ Format: `find-v dist/DISTRICT [MORE DISTRICTS]`
 
 Example usage:
 
-image::findVDsBeforeSS.png[]
-image::findVDsAfterSS.png[]
+image::findVDsBeforeSS.png[width="500"]
+image::findVDsAfterSS.png[width="500"]
 
 *2. Find by vehicle number*
 Format: `find-v vnum/NUMBER`
@@ -592,8 +589,8 @@ Format: `find-v vnum/NUMBER`
 
 Example usage:
 
-image::findVVnumBeforeSS.png[]
-image::findVVnumAfterSS.png[]
+image::findVVnumBeforeSS.png[width="500"]
+image::findVVnumAfterSS.png[width="500"]
 
 *3. Find by vehicle type*
 Format: `find-v vtype/VEHICLE TYPE`
@@ -604,8 +601,8 @@ Format: `find-v vtype/VEHICLE TYPE`
 
 Example usage:
 
-image::findVVtypeBeforeSS.png[]
-image::findVVtypeAfterSS.png[]
+image::findVVtypeBeforeSS.png[width="500"]
+image::findVVtypeAfterSS.png[width="500"]
 
 // end::find-v[]
 
@@ -655,7 +652,7 @@ Data files will be encrypted by default. Users can decrypt the file with the com
 // end::dataencryption[]
 
 // tag::newincidentwithoutvehicle[]
-=== Creating new incidents even when no vehicle is available in the given district. `[comin in v2.0]`
+=== Creating new incidents even when no vehicle is available in the given district. `[coming in v2.0]`
 
 User can choose to create an incident pending vehicle dispatchment.
 Format: `new dist/DISTRICT auto/Y r/pending`
@@ -683,7 +680,8 @@ e.g. `list-a Admin`
 e.g. `find-a James Jake`
 * *Delete Account* : `delete-a INDEX` +
 e.g. `delete-a 3`
-* *New* `new dist/DISTRICT auto/Y`
+* *New* : `new dist/DISTRICT auto/[Y/N] [v/INDEX]` +
+e.g. `new dist/1 auto/n v/1`
 * *Fill*
 1. `fill` (to list all draft incidents ready for filling)
 2. `fill [INDEX] [p/CALLER_NUMBER] [desc/DESCRIPTION]` (to fill specified incident report) +

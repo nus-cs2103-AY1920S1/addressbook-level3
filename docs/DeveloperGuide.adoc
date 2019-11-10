@@ -168,7 +168,7 @@ The `Vehicle`:
 image::VehicleClassDiagram.png[]
 
 * Represents a vehicle that can be dispatched to incident sites.
-* Contains the attributes `VehicleNumber`, `VehicleType`, `district` and `availability`.
+* Contains the attributes `VehicleNumber`, `VehicleType`, `District` and `Availability`.
 * Is assigned to an incident in the same district.
 
 [[Design-Storage]]
@@ -316,7 +316,7 @@ In the code base, Persons represent user accounts. See person model for more inf
 ** Cons: Hard to implement.
 * **Alternative:** Having account information display alongside incidents and vehicles in a separate pane.
 ** Pros: Easy to implement.
-** Cons: User might be overloaded with information in one screen, and text might get truncate in lower resolutions, decreases user experience.
+** Cons: User might be overloaded with information in one screen, and text might get truncated in lower resolutions, decreases user experience.
 
 ===== Aspect: How Update executes
 
@@ -342,7 +342,8 @@ In the code base, Persons represent user accounts. See person model for more inf
 === Incident Draft Creation feature
 ==== Implementation
 
-The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
+The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment. As of now, when there is no vehicle available in the district of incident, a new report cannot be generated.
+
 If created successfully, the draft incident only has three fields filled: operator, district and vehicle dispatched.
 
 There are two ways to use the New Command:
@@ -355,29 +356,42 @@ Vehicle will be automatically assigned to the incident draft if any is available
 
 Below is a sequence diagram of a successful case:
 
-image::NewDraftSequenceDiagramAuto.png[]
+image::NewDraftSequenceDiagramAuto.png[width="500"]
 
 ==== Manual Vehicle Dispatchment:
 
-User needs to key in the index of vehicle based on the list of available vehicle in given district to dispatch. Note that this list can only be obtained with the input `new dist/DISTRICT auto/N`, and not based on the list of vehicles currently displayed. If no index is provided, or the index is not valid, an exception will be thrown and user will be prompted to provide a valid index.
+User first obtains list of vehicles available in specified district with `new dist/DISTRICT auto/n`, which prompts user for index of vehicle to dispatch. Note that this list can only be obtained with the input `new dist/DISTRICT auto/N`, and not based on the list of vehicles currently displayed.
 
-Below is a sequence diagram of a successful case:
+User then inputs the index of vehicle based on the list of available vehicle in given district to dispatch. If no index is provided, or the index is not valid, an exception will be thrown and user will be prompted to provide a valid index.
 
-image::NewDraftSequenceDiagramManual.png[]
+Below is an activity diagram illustrating the above:
+
+image::DraftingActivityDiagram.png[width="500"]
 
 
 ==== Design Considerations
 
 ===== Aspect: How incident draft creation executes
 
-* **Current Choice:** Auto assignment of vehicles
+For auto vehicle assignment:
+
+* **Current Choice:** Taking first vehicle on list of available vehicles in district.
+** Pros: Easy to implement
+** Cons: May not be the vehicle nearest to the incident site in real life, thus may not be optimal.
+* **Alternative:** Add details to location of vehicles to actually allocate the vehicle closest to the incident site.
+** Pros: Optimal efficiency in dispatching vehicles.
+** Cons: Difficult to implement; we do not have enough time.
+
+Fro manual vehicle assignment:
+
+* **Current Choice:** Throw exception to prompt user to enter index of vehicle to dispatch.
 ** Pros:
-*** Reduces number of steps of execution.
-*** User need not waste time on decision making; an available vehicle will be dispatched directly, and if no vehicles are available, user will be notified as well.
-** Cons: User does not get to choose vehicle to dispatch, especially if vehicle of a specific type is wanted.
-* **Alternative:** Manual assignment of vehicles
-** Pros: User is able to choose vehicle to dispatch, especially if a specific vehicle type is wanted.
-** Cons: More number of steps, potentially a waste of time.
+*** User need not key in the entire new command again, only need to add the relevant prefix and index.
+*** Easy to implement.
+** Cons: May not seem logical to throw an exception for this.
+* **Alternative:** Show prompt message as a command result instead of exception message.
+** Pros: Logically seems to make more sense.
+** Cons: User has to retype the entire command, potentially a waste of time.
 // end::incidentdraftcreation[]
 
 // tag::incidentfillandsubmit[]
@@ -701,8 +715,6 @@ The vehicle search mechanism is facilitated by `ModelManager`, which implements 
 ** Pros: Intuitive for some.
 ** Cons: Appears separate from other list commands even though they are of the same nature and implemented similarly.
 //end::vehiclesearch[]
-
-// end::vehiclesearch[]
 
 //tag::vehicleedit[]
 
