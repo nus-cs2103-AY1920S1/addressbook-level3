@@ -477,85 +477,28 @@ How so? Just ask _TravEzy_ to suggest a suitable time!
 
 == Itinerary
 
-It's always good to plan ahead for each day of your trip. Start planning your schedule with TravEzy Itinerary planner today and be amazed by
-the increase in your day's productivity!
+Now that you have book your flight, it's time to start planning your schedule with _TravEzy's_ itinerary.Simply inform
+_TravEzy_ of the events that you plan to do for that day and _TravEzy_ will help to sort and organize your schedule.
 
-Each entry in your Itinerary has 6 key sections:
+In _TravEzy_, we have broken down your events into 4 key parts, namely _Title_, _Date_, _Time_, and _Tag_.
 
-. Title
-. Date
-. Time
-. Location
-. Description
-. Tag
+For example, here is an Itinerary Entry about my trip to Japan
 
-The title is the name of the event. This is followed by the date and time for the execution of that event.
-Lastly, the location and description are additional details of the event. Example of your events could include
-hiking Mt. Everest, visiting Tokyo Disneyland, or even doing CS2103T user guide! Be amazed with how much you can actually
-do within the 24 hours you are given everyday. Let's stop skiving and dive right into productivity.
+. _Title_ -> Visit Tokyo Disneysea
+. _Date_ -> 12122019
+. _Time_ -> 1000
+. _Tag_ -> Priority: Critical
+
+In the Itinerary, you will be able to add, delete, edit, list and show your entries. There are also a few more special
+tasks that you can do with your itinerary. Read on to find out how you can make your day more productive using
+_TravEzy_ itinerary!
 
 === Interface
 
-Upon navigating to the itinerary page, this is how the itinerary page looks like:
+This is what you will see when navigated to the itinerary:
 
 .Itinerary Interface
 image::/images/ItineraryInterface.png[]
-
-=== Parameter
-
-Let's start off with understanding how each parameter work first!
-
-When inputting an event into the Itinerary, every fields are *compulsory*. However, the *location* and
-*description* fields need not be specified. If you did not indicate the *location* and *description* field, the default
-value "-" will be used instead.
-
-Below are the _PREFIX_ convention that TravEzy's Itinerary will be using.
-
-. Title: The _PREFIX_ is ``title/``. This is the crux of every event as it provides a name to the event that you
-intend to do. For example:
-
-    title/Do CS2103T developer guide
-
-. Date: The _PREFIX_ is ``date/``. TravEzy itinerary allows dates that starts from the year 1000 up till the year 3999.
-
-Note that the format TravEzy's Itinerary using is "ddMMyyyy". For example:
-
-
-    date/30102019
-
-. Time: The _PREFIX_ is ``time/``. Note that the format TravEzy's Itinerary is using is 24-Hour format. However,
-TravEzy Itinerary will reformat the time into 12 hour format when shown on the card. For example:
-
-    time/0000
-
-. Location: The _PREFIX_ is ``l/``. This is the place where your event is happening at it could be a country or just
-a venue. For example:
-
-    location/Singapore      or      location/Outer Space
-
-. Description: The _PREFIX_ is ``d/``. You can type in just a word, phrase or sentence.
-
-    d/pen       or      d/pen pineapple apple pen
-
-. Tag: You can select from the dropdown menu to select the importance of each event is through the various priority tagging
-available. The default priority tagging is set to *Priority: None*. There is no prefix for the tagging field and you're
-not allowed to edit it :(
-
-=== Viewing help: ``help``
-
-Unsure on how to navigate your way through the TravEzy Itinerary feature? Don't worry we got your back!
-
-Just call for ``help`` and the help window will come to the rescue!
-
-The _Command Word_ is help without further parameters.
-
-[TIP]
-You can click on the *copy* button beside each feature to copy onto your own clipboard the syntax for calling each feature
-in the TravEzy Itinerary page.
-
-Example:
-
-``help``
 
 === Adding an event: ``add``
 
