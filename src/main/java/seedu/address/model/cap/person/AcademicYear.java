@@ -3,6 +3,10 @@ package seedu.address.model.cap.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Represents an Academic year of a NUS student.
  * Guarantees: immutable.
@@ -15,9 +19,9 @@ public class AcademicYear {
     private final String academicYear;
 
     /**
-     * Constructs a {@code Phone}.
+     * Constructs an {@code AcademicYear}.
      *
-     * @param academicYear A valid phone number.
+     * @param academicYear A valid academic year.
      */
     public AcademicYear(String academicYear) {
         requireNonNull(academicYear);
@@ -32,7 +36,7 @@ public class AcademicYear {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AcademicYear // instanceof handles nulls
+            || (other instanceof AcademicYear // instanceof handles nulls
                 && this.academicYear == academicYear); // state check
     }
 
@@ -42,23 +46,24 @@ public class AcademicYear {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid Academic Year i.e. +5 or -5 years of current year.
      */
     public static boolean isValidAcademicYear(String academicYear) {
-        switch (academicYear.toLowerCase()) {
-        case "1415":
-        case "1516":
-        case "1617":
-        case "1718":
-        case "1819":
-        case "1920":
-        case "2021":
-        case "2122":
-        case "2223":
-        case "2324":
-        case "2425":
-            return true;
-        default:
+        try {
+            DateFormat df = new SimpleDateFormat("yy");
+            int formattedDate = Integer.parseInt(df.format(Calendar.getInstance().getTime()));
+
+            int firstYear = Integer.parseInt(academicYear.substring(0, 2)); //first year input
+            int secondYear = Integer.parseInt(academicYear.substring(2, 4)); //second year input
+
+            if (secondYear > (formattedDate + 6) || firstYear > (formattedDate + 5)) {
+                return false;
+            } else if (secondYear < (formattedDate - 4) || firstYear < (formattedDate - 5)) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (NumberFormatException e) {
             return false;
         }
     }

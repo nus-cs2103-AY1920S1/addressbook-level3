@@ -199,6 +199,8 @@ public class ModelCapManager implements Model {
 
     @Override
     public double getFilteredCapInformation() {
+        logger.info("Calculating CAP information...");
+
         double result = 0.0;
         String letterGrade;
         GradeHash gradeConverter = new GradeHash();
@@ -217,11 +219,14 @@ public class ModelCapManager implements Model {
         if (denominator != 0.0) {
             result = numerator / denominator;
         }
+        updateRank(result);
         return result;
     }
 
     @Override
     public double getFilteredMcInformation() {
+        logger.fine("Calculating total number of modular credit done...");
+
         double result = 0.0;
         if (getModuleCount() != 0) {
             for (Module module : getFilteredModuleList()) {
@@ -235,6 +240,8 @@ public class ModelCapManager implements Model {
     //=========== PieChart =============================================================
 
     public ObservableList<PieChart.Data> getFilteredGradeCounts() {
+        logger.info("Calibrating pie chart for the grades...");
+
         ObservableList<PieChart.Data> result = FXCollections.observableArrayList();
         ObservableList<Module> filteredModules = getFilteredModuleList();
 
@@ -268,10 +275,10 @@ public class ModelCapManager implements Model {
     }
 
     /**
-     * updates the class for the student based on his/her new CAP.
+     * updates the rank for the student based on his/her new CAP.
      */
-    public void updateRank() {
-        achievementManager.updateCap(getFilteredCapInformation());
+    public void updateRank(double cap) {
+        achievementManager.updateCap(cap);
         if (achievementManager.hasAchievementChanged()) {
             isPromoted = achievementManager.isPromoted();
             isDowngraded = achievementManager.isDownGraded();

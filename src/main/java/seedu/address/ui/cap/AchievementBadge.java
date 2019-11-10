@@ -1,5 +1,7 @@
 package seedu.address.ui.cap;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -23,5 +25,11 @@ public class AchievementBadge extends UiPart<Region> {
         super(FXML);
         badgeImage.setImage(img);
         achievementTitle.setText(title);
+    }
+
+    public void setUpdatedRankToUser(Image img, String updatedRankToUser) {
+        requireNonNull(updatedRankToUser);
+        badgeImage.setImage(img);
+        achievementTitle.setText(updatedRankToUser);
     }
 }
