@@ -207,9 +207,9 @@ The difference between `in` and `out` transactions is that the `handleBalance()`
 ===== Example
 Given that the `BankAccount` balance initially starts with 0 dollars.
 
-* `in` Transaction of `$1000` will increase the `BankAccount` balance from $0 to $1000
+* `in` Transaction of `$1000` will increase the `BankAccount` balance from $0 to $1000.
 * `out` Transaction of `$250` will subsequently decrease the `BankAccount` balance from $1000 to $250.
-* The Activity Diagram shown below will provide a visual representation of the two alternative Transaction routes
+* The Activity Diagram shown below will provide a visual representation of the two routes a Transaction object can take.
 
 .Activity Diagram for In and Out Transactions
 image::InActivityDiagram.png[]
@@ -241,7 +241,7 @@ that deal with `Ledger` implements the `LedgerOperation` interface. +
 ** This reduces code coupling as there are different models to handle different balance amounts.
 
 * A `Transaction` entry can affect a `Budget` which has similar categories.
-** Only `Out` Transactions will affect `Budget`
+** Only `Out` Transactions will affect `Budget`.
 ** Activity diagram below shows how and when a `Transaction` object affects `Budget`.
 
 .Activity diagram for Out Transaction affecting Budget
@@ -526,11 +526,11 @@ image::DeleteActivityDiagram.png[]
 ===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
 
 * **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction, Budget, Ledger or Projection list. (e.g. `delete b1` deletes item index 1 from budget).
-** Pros: Requires lesser user steps to be taken before executing a `delete` command
+** Pros: Requires lesser user steps to be taken before executing a `delete` command.
 ** Cons: Requires four unique lists to be created instead of 1. (e.g. the `UniqueTransactionList` stores Transaction items and the `UniqueBudgetList` to store Budget items).
 ** For example, when a new command is executed, we must remember to delete both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `delete 1 ..`)
-** Pros: Requires only one unique list required to store both Transactions and Budgets.
+* **Alternative 2:** Change to **Transaction**, **Budget**, **Ledger** or **Projection** mode and keying in only index (e.g. `delete 1`)
+** Pros: Requires only one unique list required to store all operation types.
 ** Cons: Requires additional user step to switch between modes before executing a updating command.
 
 // end::delete[]
@@ -542,12 +542,12 @@ This feature allows users to update `Transaction`, `Budget` or `Projection` entr
 
 ==== Current Implementation
 
-*  The update feature is facilitated by the Logic and Model components of the application
+*  The update feature is facilitated by the Logic and Model components of the application.
 * The parameter requirements differs for the type of entry:
-** `Transaction` type requires at least one of it's `Amount`, `Description`, `Date` or `Category` fields to be updated
-** `Budget` type requires at least one of it's `Amount`, `Date` or `Category` fields to be updated
+** `Transaction` type requires at least one of it's `Amount`, `Description`, `Date` or `Category` fields to be updated.
+** `Budget` type requires at least one of it's `Amount`, `Date` or `Category` fields to be updated.
 ** `Project` type only requires it's `Date` field to be updated.
-* At least one valid parameter must be changed when executing an `update` command. (i.e. `update b1` will result in an error as no fields are being changed)
+* At least one valid parameter must be changed when executing an `update` command. (i.e. `update b1` will result in an error as no fields are being changed).
 * The following activity diagram summarizes what happens when a user executes an update command:
 
 .Activity Diagram for update
@@ -562,11 +562,11 @@ More often than not, users do not need to change an entire Transaction or Budget
 ===== Aspect 1: Update requires `TYPE+INDEX` as one of its parameter
 
 * **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to update an item from Transaction, Budget or Projection list. (e.g. `delete b1` deletes item index 1 from budget).
-** Pros: Requires lesser user steps to be taken before executing a `update` command
+** Pros: Requires lesser user steps to be taken before executing a `update` command.
 ** Cons: Requires three unique lists to be utilized instead of 1. (e.g. the `UniqueTransactionList` stores Transaction items and the `UniqueBudgetList` to store Budget items).
 ** For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `update 1 ..`)
-** Pros: Requires only one unique list required to store both Transactions and Budgets.
+* **Alternative 2:** Change to **Transaction**, **Budget** or **Projection** mode and keying in only index (e.g. `update 1 ..`).
+** Pros: Requires only one unique list required to store all operation types.
 ** Cons: Requires additional user step to switch between modes before executing a updating command.
 
 ===== Aspect 2: Update can not edit Ledger Operations
@@ -576,10 +576,10 @@ More often than not, users do not need to change an entire Transaction or Budget
 ** Cons: Requires excessive user operations. The user has to first delete the `Ledger` operation that he/she wishes to change, then input the `Ledger` operation with the amended fields.
 ** For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Update Command to also work with `Ledger` operations.
-** Pros: Requires only one user command to append or change `Ledger` entries
+** Pros: Requires only one user command to append or change `Ledger` entries.
 ** Cons: Results in convoluted implementation and user experience. This will also hinder future permeability of the `Split` feature.
-*** `Ledger` operations such as `split` includes many repeated fields (i.e. multiple `Persons` and `shares` list)
-*** Will require several conditional user inputs to differentiate between the various repeated entities that the user wishes to ammend.
+*** `Ledger` operations such as `split` includes many repeated fields (i.e. multiple `Persons` and `shares` list).
+*** Will require several conditional user inputs to differentiate between the various repeated entities that the user wishes to amend.
 // end::update[]
 
 // tag::sort[]
