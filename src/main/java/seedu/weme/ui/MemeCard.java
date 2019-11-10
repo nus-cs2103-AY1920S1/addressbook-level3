@@ -66,7 +66,7 @@ public class MemeCard extends UiPart<Region> {
         id.setText(displayedIndex + "");
         Image image = new Image(meme.getImagePath().toUrl().toString(), IMAGE_MAX_WIDTH, IMAGE_MAX_HEIGHT,
                 true, true, true);
-        int limit = getTagLimit(meme);
+        int limit = getTagLimit();
         display.setImage(image);
         description.setText(meme.getDescription().value);
         meme.getTags().stream()
@@ -94,7 +94,7 @@ public class MemeCard extends UiPart<Region> {
         id.setText(newIndex + "");
         description.setText(meme.getDescription().value);
         tags.getChildren().clear();
-        int limit = getTagLimit(meme);
+        int limit = getTagLimit();
         meme.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .limit(limit)
@@ -115,8 +115,11 @@ public class MemeCard extends UiPart<Region> {
     /**
      * Returns the limit on the number of tags a meme card can contain such that there is no overflow of content.
      */
-    private int getTagLimit(Meme meme) {
-        Image imageCopy = new Image(meme.getImagePath().toUrl().toString());
+    private int getTagLimit() {
+        Image imageCopy = display.getImage();
+        if (imageCopy == null) {
+            return 0;
+        }
         int limit = 0;
 
         // get the number of rows for tag display.
@@ -137,13 +140,13 @@ public class MemeCard extends UiPart<Region> {
         int row = 1;
         for (int i = 0; i < meme.getTags().size(); i++) {
             numOfCharInCurrLine += lengths.get(i) + TAGS_GAP_BY_CHAR;
-            limit++;
             if (numOfCharInCurrLine > MAX_CHAR_PER_LINE) {
                 if (++row > rowsForTags) {
                     break;
                 }
                 numOfCharInCurrLine = 0;
             }
+            limit++;
         }
         return limit;
     }
