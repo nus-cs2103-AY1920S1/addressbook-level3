@@ -285,6 +285,11 @@ public class FundBook implements ReadOnlyFundBook {
 
     /// loan-level operations
 
+
+    public void payLoan(Loan target) {
+        loans.remove(target);
+    }
+
     /**
      * Checks boolean value for if loan exists in Loans.
      * @param loan
