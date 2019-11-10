@@ -20,7 +20,6 @@ public class SwitchCommandParser implements Parser<SwitchCommand> {
         requireNonNull(args);
         args = args.trim();
         String country = (args.substring(0, 1).toUpperCase() + args.substring(1));
-        System.out.println(country);
         if (CountriesDropdown.isValidDropdownCountry(country)) {
             return new SwitchCommand(country);
         } else {

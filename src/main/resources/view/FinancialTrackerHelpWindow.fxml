@@ -22,7 +22,7 @@
   </icons>
   <scene>
     <Scene>
-         <VBox prefHeight="360.0" prefWidth="496.0">
+         <VBox prefHeight="417.0" prefWidth="581.0">
             <children>
                <HBox alignment="CENTER">
                   <children>
@@ -44,45 +44,46 @@
                      <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                   </padding>
                </HBox>
-               <TabPane prefHeight="314.0" prefWidth="496.0" tabClosingPolicy="UNAVAILABLE">
+               <TabPane prefHeight="376.0" prefWidth="582.0" tabClosingPolicy="UNAVAILABLE">
                  <tabs>
                      <Tab text="Basic">
                         <content>
                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="233.0" prefWidth="496.0">
                               <children>
-                                 <Text layoutX="11.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here are the basics to navigate through itinerary:" />
-                                 <HBox layoutY="32.0" prefHeight="152.0" prefWidth="316.0">
+                                 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="305.0" prefWidth="578.0">
                                     <children>
-                                       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="196.0" prefWidth="496.0">
-                                          <children>
-                                             <ToolBar prefHeight="40.0" prefWidth="232.0">
-                                                <items>
-                                                   <Label text="help: Help window with the commands to use financial tracker feature" />
-                                                   <Region prefHeight="31.0" prefWidth="21.0" />
-                                                   <Button fx:id="helpCommand" mnemonicParsing="false" onAction="#copyHelp" text="Copy" />
-                                                </items>
-                                             </ToolBar>
-                                             <ToolBar prefHeight="40.0" prefWidth="232.0">
-                                                <items>
-                                                   <Label text="goto PAGE: Navigate to the desired page" />
-                                                   <Region prefHeight="33.0" prefWidth="174.0" />
-                                                   <Button fx:id="gotoCommand" mnemonicParsing="false" onAction="#copyGoto" text="Copy" />
-                                                </items>
-                                             </ToolBar>
-                                             <ToolBar prefHeight="68.0" prefWidth="496.0">
-                                                <items>
-                                                   <Text fontSmoothingType="LCD" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="exit: Quits TravEzy and closes the application">
-                                                      <font>
-                                                         <Font name="System Font" size="13.0" />
-                                                      </font></Text>
-                                                   <Region prefHeight="59.0" prefWidth="136.0" />
-                                                   <Button fx:id="exitCommand" mnemonicParsing="false" onAction="#copyExit" text="Copy" />
-                                                </items>
-                                             </ToolBar>
-                                          </children>
-                                       </VBox>
+                                       <Label minHeight="-Infinity" prefHeight="28.0" prefWidth="578.0" text="Here are the basic commands to navigate through financial tracker:">
+                                          <padding>
+                                             <Insets left="5.0" />
+                                          </padding>
+                                       </Label>
+                                       <ToolBar prefHeight="42.0" prefWidth="558.0">
+                                          <items>
+                                             <Label text="help: Help window with the commands to use financial tracker feature" />
+                                             <Region prefHeight="34.0" prefWidth="118.0" />
+                                             <Button fx:id="helpCommand" mnemonicParsing="false" onAction="#copyHelp" text="Copy" />
+                                          </items>
+                                       </ToolBar>
+                                       <ToolBar prefHeight="40.0" prefWidth="232.0">
+                                          <items>
+                                             <Label text="goto PAGE: Navigate to the desired page" />
+                                             <Region prefHeight="35.0" prefWidth="272.0" />
+                                             <Button fx:id="gotoCommand" mnemonicParsing="false" onAction="#copyGoto" text="Copy" />
+                                          </items>
+                                       </ToolBar>
+                                       <ToolBar prefHeight="68.0" prefWidth="496.0">
+                                          <items>
+                                             <Text fontSmoothingType="LCD" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="exit: Quits TravEzy and closes the application">
+                                                <font>
+                                                   <Font name="System Font" size="13.0" />
+                                                </font>
+                                             </Text>
+                                             <Region prefHeight="63.0" prefWidth="231.0" />
+                                             <Button fx:id="exitCommand" mnemonicParsing="false" onAction="#copyExit" text="Copy" />
+                                          </items>
+                                       </ToolBar>
                                     </children>
-                                 </HBox>
+                                 </VBox>
                               </children>
                            </AnchorPane>
                         </content>
@@ -91,50 +92,71 @@
                      <content>
                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="258.0" prefWidth="496.0">
                               <children>
-                                 <Text layoutX="11.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here are the commands which requires parameters in the financial tracker:" />
-                                 <HBox layoutY="32.0" prefHeight="152.0" prefWidth="316.0">
+                                 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="582.0">
                                     <children>
-                                       <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="194.0" prefWidth="497.0">
-                                          <children>
-                                             <ToolBar prefHeight="29.0" prefWidth="493.0">
-                                               <items>
-                                                   <Label prefHeight="41.0" prefWidth="382.0" text="Add expense: add a/AMOUNT d/DESCRIPTION t/TYPE [date/DATE] [time/TIME]" wrapText="true" />
-                                                   <Region prefHeight="13.0" prefWidth="14.0" />
-                                                 <Button fx:id="addCommand" mnemonicParsing="false" onAction="#copyAdd" text="Copy" />
-                                               </items>
-                                             </ToolBar>
-                                             <ToolBar prefHeight="59.0" prefWidth="498.0">
-                                               <items>
-                                                   <Label text="Delete expense: delete INDEX" />
-                                                   <Region prefHeight="17.0" prefWidth="240.0" />
-                                                 <Button fx:id="deleteCommand" mnemonicParsing="false" onAction="#copyDelete" text="Copy" />
-                                               </items>
-                                             </ToolBar>
-                                             <ToolBar prefHeight="37.0" prefWidth="498.0">
-                                                <items>
-                                                   <Label prefHeight="52.0" prefWidth="330.0" text="Edit expense: edit INDEX a/AMOUNT d/DESCRIPTION t/TYPE [date/DATE] [time/TIME]" wrapText="true" />
-                                                   <Region prefHeight="30.0" prefWidth="68.0" />
-                                                   <Button fx:id="editCommand" mnemonicParsing="false" onAction="#copyEdit" text="Copy" />
-                                                </items>
-                                             </ToolBar>
-                                             <ToolBar prefHeight="46.0" prefWidth="498.0">
-                                                <items>
-                                                   <Label prefHeight="34.0" prefWidth="383.0" text="Sort expense: sort amount | sort date | sort time | sort type | sort default" wrapText="true" />
-                                                   <Region prefHeight="38.0" prefWidth="13.0" />
-                                                   <Button fx:id="sortCommand" mnemonicParsing="false" onAction="#copySort" text="Copy" />
-                                                </items>
-                                             </ToolBar>
-                                             <ToolBar prefHeight="46.0" prefWidth="498.0">
-                                                <items>
-                                                   <Label prefHeight="34.0" prefWidth="383.0" text="Switch expense list: switch COUNTRY" wrapText="true" />
-                                                   <Region prefHeight="38.0" prefWidth="13.0" />
-                                                   <Button fx:id="switchCommand" mnemonicParsing="false" onAction="#copySwitch" text="Copy" />
-                                                </items>
-                                             </ToolBar>
-                                          </children>
-                                       </VBox>
+                                       <Label minHeight="-Infinity" prefHeight="28.0" prefWidth="582.0" text="Here are the commands to mangae your expenses in the financial tracker:">
+                                          <padding>
+                                             <Insets left="5.0" />
+                                          </padding>
+                                       </Label>
+                                       <ToolBar prefHeight="30.0" prefWidth="582.0">
+                                         <items>
+                                             <Label prefHeight="26.0" prefWidth="431.0" text="Add expense: add a/AMOUNT d/DESCRIPTION t/TYPE [date/DATE] [time/TIME]" wrapText="true" />
+                                             <Region prefHeight="0.0" prefWidth="43.0" />
+                                           <Button fx:id="addCommand" mnemonicParsing="false" onAction="#copyAdd" text="Copy" />
+                                         </items>
+                                       </ToolBar>
+                                       <ToolBar prefHeight="42.0" prefWidth="582.0">
+                                         <items>
+                                             <Label text="Delete expense: delete INDEX" />
+                                             <Region prefHeight="0.0" prefWidth="319.0" />
+                                           <Button fx:id="deleteCommand" mnemonicParsing="false" onAction="#copyDelete" text="Copy" />
+                                         </items>
+                                       </ToolBar>
+                                       <ToolBar prefHeight="25.0" prefWidth="582.0">
+                                          <items>
+                                             <Label prefHeight="20.0" prefWidth="462.0" text="Edit expense: edit INDEX a/AMOUNT d/DESCRIPTION t/TYPE [date/DATE] [time/TIME]" wrapText="true" />
+                                             <Region prefHeight="0.0" prefWidth="13.0" />
+                                             <Button fx:id="editCommand" mnemonicParsing="false" onAction="#copyEdit" text="Copy" />
+                                          </items>
+                                       </ToolBar>
+                                       <ToolBar prefHeight="33.0" prefWidth="582.0">
+                                          <items>
+                                             <Label prefHeight="22.0" prefWidth="383.0" text="Sort expense: sort amount | sort date | sort time | sort type | sort default" wrapText="true" />
+                                             <Region prefHeight="29.0" prefWidth="93.0" />
+                                             <Button fx:id="sortCommand" mnemonicParsing="false" onAction="#copySort" text="Copy" />
+                                          </items>
+                                       </ToolBar>
+                                       <ToolBar prefHeight="8.0" prefWidth="582.0">
+                                          <items>
+                                             <Label prefHeight="17.0" prefWidth="383.0" text="Switch expense list: switch COUNTRY" wrapText="true" />
+                                             <Region prefHeight="29.0" prefWidth="92.0" />
+                                             <Button fx:id="switchCommand" mnemonicParsing="false" onAction="#copySwitch" text="Copy" />
+                                          </items>
+                                       </ToolBar>
+                                       <ToolBar prefHeight="18.0" prefWidth="582.0">
+                                          <items>
+                                             <Label text="Generate overview: summary" />
+                                             <Region prefHeight="29.0" prefWidth="320.0" />
+                                             <Button fx:id="summaryCommand" mnemonicParsing="false" onAction="#copySummary" text="Copy" />
+                                          </items>
+                                       </ToolBar>
+                                       <ToolBar prefHeight="18.0" prefWidth="582.0">
+                                          <items>
+                                             <Label text="Clears your expense list: clear" />
+                                             <Region prefHeight="29.0" prefWidth="319.0" />
+                                             <Button fx:id="clearCommand" mnemonicParsing="false" onAction="#copyClear" text="Copy" />
+                                          </items>
+                                       </ToolBar>
+                                       <ToolBar prefHeight="18.0" prefWidth="582.0">
+                                          <items>
+                                             <Label text="Undo your previous action: undo" />
+                                             <Region prefHeight="31.0" prefWidth="301.0" />
+                                             <Button fx:id="undoCommand" mnemonicParsing="false" onAction="#copyUndo" text="Copy" />
+                                          </items>
+                                       </ToolBar>
                                     </children>
-                                 </HBox>
+                                 </VBox>
                               </children></AnchorPane>
                      </content>
                    </Tab>

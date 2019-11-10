@@ -30,7 +30,7 @@ public class Model {
     }
 
     /**
-     * Initialise model with a default financial tracker.
+     * Initialises model with a default financial tracker.
      */
     public Model(FinancialTracker financialTracker) {
         this.financialTracker = financialTracker;
@@ -45,14 +45,14 @@ public class Model {
     }
 
     /**
-     * Delete an expense from the financial tracker.
+     * Deletes an expense from the financial tracker.
      */
     public void deleteExpense(int index) {
         this.financialTracker.deleteExpense(index);
     }
 
     /**
-     * Set the country key in financial tracker.
+     * Sets the country key in financial tracker.
      */
     public void setCountry(String country) {
         this.financialTracker.setCurrentCountry(country);
@@ -63,7 +63,7 @@ public class Model {
     }
 
     /**
-     * Set the comparator methods in financial tracker.
+     * Sets the comparator methods in financial tracker.
      */
     public void setComparator(String comparator) {
         this.financialTracker.setComparator(comparator);
@@ -98,7 +98,14 @@ public class Model {
     }
 
     /**
-     * Introduce Ui dependencies using model.
+     * Undo previous user action.
+     */
+    public void undo() throws CommandException {
+        this.financialTracker.undo();
+    }
+
+    /**
+     * Introduces Ui dependencies using model.
      * Purpose is to modify the countries dropdown menu based on user input.
      * @param countriesDropdown from financial tracker page
      */
@@ -107,7 +114,7 @@ public class Model {
     }
 
     /**
-     * Update countries drop down menu from user input {@Code SwitchCommand}.
+     * Updates countries drop down menu from user input {@Code SwitchCommand}.
      */
     public void updateDropDownMenu(String country) throws CommandException {
         countriesDropdown.handleUpdateFromUserInput(country);

@@ -9,7 +9,7 @@ class ExpenseTest {
 
     @Test
     void testNullCountryField() {
-        Expense ep1 = new Expense(new Date("271016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
+        Expense ep1 = new Expense(new Date("27102016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
                 new Type("Food"));
 
         assertTrue(ep1.getCountry() == null);
@@ -17,11 +17,11 @@ class ExpenseTest {
 
     @Test
     void testEquals() {
-        Expense ep1 = new Expense(new Date("271016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
+        Expense ep1 = new Expense(new Date("27102016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
                 new Type("Food"), new Country("Singapore"));
-        Expense ep2 = new Expense(new Date("271016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
+        Expense ep2 = new Expense(new Date("27102016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
                 new Type("Food"), new Country("Singapore"));
-        Expense ep3 = new Expense(new Date("271011"), new Time("1720"), new Amount("4"), new Description("breakfast"),
+        Expense ep3 = new Expense(new Date("27102011"), new Time("1720"), new Amount("4"), new Description("breakfast"),
                 new Type("Food"), new Country("Singapore"));
 
         //same object -> true

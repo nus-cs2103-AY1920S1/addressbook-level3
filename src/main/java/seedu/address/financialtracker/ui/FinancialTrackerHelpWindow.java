@@ -30,8 +30,11 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
             + "[date/DATE] [time/TIME]";
     private static final String SORT_MESSAGE = "sort amount";
     private static final String SWITCH_MESSAGE = "switch Japan";
+    private static final String CLEAR_MESSAGE = "clear";
+    private static final String UNDO_MESSAGE = "undo";
     private static final Logger logger = LogsCenter.getLogger(FinancialTrackerHelpWindow.class);
     private static final String FXML = "FinancialTrackerHelpWindow.fxml";
+
 
     @FXML
     private Button copyButton;
@@ -62,6 +65,12 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
 
     @FXML
     private Button switchCommand;
+
+    @FXML
+    private Button clearCommand;
+
+    @FXML
+    private Button undoCommand;
 
     @FXML
     private Label helpMessage;
@@ -151,7 +160,7 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
     }
 
     /**
-     * Copies the summary command template to the clipboard.
+     * Copies the help command template to the clipboard.
      */
     @FXML
     private void copyHelp() {
@@ -206,7 +215,7 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
     }
 
     /**
-     * Copies the delete command template to the clipboard.
+     * Copies the edit command template to the clipboard.
      */
     @FXML
     private void copyEdit() {
@@ -235,6 +244,28 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent url = new ClipboardContent();
         url.putString(SWITCH_MESSAGE);
+        clipboard.setContent(url);
+    }
+
+    /**
+     * Copies the clear command template to the clipboard.
+     */
+    @FXML
+    private void copyClear() {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent url = new ClipboardContent();
+        url.putString(CLEAR_MESSAGE);
+        clipboard.setContent(url);
+    }
+
+    /**
+     * Copies the undo command template to the clipboard.
+     */
+    @FXML
+    private void copyUndo() {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent url = new ClipboardContent();
+        url.putString(UNDO_MESSAGE);
         clipboard.setContent(url);
     }
 }

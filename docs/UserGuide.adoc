@@ -1000,6 +1000,70 @@ image::/images/FinancialTrackerEdit2.png[]
 
 image::/images/FinancialTrackerEdit3.png[]
 
+=== Clears an expense list: ``clear``
+Messed up your expense list? Don't worry, just clear it! (But be careful :o)
+
+The _Command Word_ is ``clear`` without any parameter +
+This command clears the current expense list that you are looking at.
+
+Format: ``clear``
+
+Example: Clears your current expense list.
+
+ clear
+
+Illustration:
+
+. type ``clear`` in the command box and press _Enter_.
+
+image::/images/FinancialTrackerClear1.png[]
+
+[start = 2]
+. The result box will display the message "Expense list cleared!".
+
+image::/images/FinancialTrackerClear2.png[]
+
+[start = 3]
+. Now your expense list has been cleared.
+
+image::/images/FinancialTrackerClear3.png[]
+
+=== Undo your previous action: ``undo``
+Did something wrong? We heard you! Simply undo your previous action :)
+
+The _Command Word_ is ``undo`` without any parameter +
+This command undo your previous action that has been done *on this expense list*.
+
+[NOTE]
+You can only undo your previous `add`, `edit`, `delete` and `clear` action.
+
+Format: ``undo``
+
+Example: Undo your previous action
+
+ clear
+
+Illustration:
+
+. Add any expense you want using add command.
+
+image::/images/FinancialTrackerUndo1.png[]
+
+[start = 2]
+. type ``undo`` in the command box and press _Enter_.
+
+image::/images/FinancialTrackerUndo2.png[]
+
+[start = 3]
+. The result box will display the message "Done!".
+
+image::/images/FinancialTrackerUndo3.png[]
+
+[start = 4]
+. Previous action has been undone.
+
+image::/images/FinancialTrackerUndo4.png[]
+
 // tag::financialtracker[]
 === Switching between countries: ``switch``
 Currently in somewhere else? Switch to that expense list instead!

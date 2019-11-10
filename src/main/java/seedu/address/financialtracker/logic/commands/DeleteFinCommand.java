@@ -39,4 +39,11 @@ public class DeleteFinCommand extends Command<Model> {
         model.deleteExpense(index.getOneBased());
         return new CommandResult(MESSAGE_SUCCESS, false, false);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteFinCommand // instanceof handles nulls
+                && index.equals(((DeleteFinCommand) other).index));
+    }
 }

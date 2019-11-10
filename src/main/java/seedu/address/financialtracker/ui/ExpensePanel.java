@@ -32,7 +32,7 @@ public class ExpensePanel extends UiPart<Region> {
 
 
     /**
-     * Perform ListView update whenever the {@code CountriesDropdown } changed country.
+     * Performs ListView update whenever the {@code CountriesDropdown } changed country.
      */
     public void update() {
         expenseListView.setItems(financialTrackerLogic.getExpenseList());

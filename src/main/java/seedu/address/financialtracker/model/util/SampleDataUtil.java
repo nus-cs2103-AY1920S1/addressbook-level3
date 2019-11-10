@@ -11,7 +11,7 @@ import seedu.address.financialtracker.model.expense.Type;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
- * A class to store sample data for financial tracker
+ * A class to stores sample data for financial tracker
  */
 public class SampleDataUtil {
 

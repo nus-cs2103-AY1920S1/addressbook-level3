@@ -28,6 +28,7 @@ class DateTest {
         assertFalse(Date.isValidDate(" ")); // spaces only
         assertFalse(Date.isValidDate("27-10-2016")); // with dashes only
         assertFalse(Date.isValidDate("15159999")); // off-world
+        assertFalse(Date.isValidDate("271016"));
 
         // valid dates
         assertTrue(Date.isValidDate("27102016"));
