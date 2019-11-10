@@ -5,23 +5,54 @@
 
 == PROJECT: Seller Manager Lite Junior
 
----
-
 == Overview
 
-Seller Manager Lite is a desktop application used for managing a business operational and logistical needs. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 27 kLoC.
+Seller Manager Lite is a desktop application, written in Java, for managing phone sales.
+The user interacts with it using a Command Line Interface, and views data using a Graphical
+User Interface, where data is displayed in the form of lists. As the database was designed
+specifically to support phone sales, database objects such as Customers, Phones and Orders
+have predefined relationships between them.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to autocomplete commands*
-** What it does: allows the user to input commands with ease. As the user enters input, suggestions will be shown.
-** Justification: This feature improves the product significantly because a user does not need to remember what commands are available or constantly refer to the user guide.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _UI code for displaying a dropdown menu was inspired by this StackOverflow post: https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions_
+* *Major enhancement*: Added the ability to autocomplete commands.
+** What it does: allows the user to input commands with ease. As the user types into the
+command line, suggestions will be shown.
+** Justification: This feature improves the product significantly because a user does not need
+to remember what commands are available or constantly refer to the user guide. It also allows
+the user to determine if he is entering duplicated data in real time, instead of waiting for
+feedback after entering the command.
+** Highlights: This enhancement supports all existing commands of varying formats and was
+designed to be easily extensible to commands added in future.
+** Credits: UI code for displaying a dropdown menu was inspired by this StackOverflow post:
+https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions
 
-* *Minor enhancement*: Planned how objects in the model should be designed and interact with each other.
+* *Minor enhancement*: Refactored the Model to use generic DataBook and UniqueList that
+store Identifiable objects.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: Implemented the Phone class.
+
+* *Minor enhancement*: Implemented "cascading" effects for edit and delete for database objects.
+
+* *Code contributed*:
+
+** Autocomplete:
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/122[#122]
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/143[#143]
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/155[#155]
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/277[#277]
+
+** Refactor:
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/137[#137]
+
+** Phone:
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/62[#62]
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/77[#77]
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/101[#101]
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/111[#111]
+
+** Cascading:
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/117[#117]
 
 * *Other contributions*:
 
