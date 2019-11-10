@@ -80,6 +80,7 @@ public class ModelManager implements Model {
 
     //=========== Mapping ====================================================================================
 
+    //@@author KxxMxxx
     /**
      * Initiates mapping of {@code Activity} and {@code Accommodation} to {@code Contact}, vice versa.
      */
@@ -89,6 +90,7 @@ public class ModelManager implements Model {
         populateDayMap(this.itinerary.getItinerary());
     }
 
+    //@@author KxxMxxx
     /**
      * Iterates through the {@code List} of {@code Activity} and creates a mapping between it's {@code Contact},
      * if it possesses one, to itself.
@@ -106,6 +108,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Iterates through the {@code List} of {@code Accommodation} and creates a mapping between it's {@code Contact},
      * if it possesses one, to itself.
@@ -123,6 +126,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Iterates through the {@code Itinerary} and creates a mapping between an {@code Activity} and the {@code Day}
      * containing it.
@@ -140,6 +144,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Creates a mapping between an {@code Activity} and it's {@code Contact}, if it possesses one.
      */
@@ -153,6 +158,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Creates a mapping between an {@code Activity} and the {@code Day} containing it.
      */
@@ -164,6 +170,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Removes the mapping of an {@code Activity} in all the relevant {@code Contact} related {@code HashMap}.
      */
@@ -180,6 +187,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Removes the mapping of an {@code Accommodation} in all the relevant {@code Contact} related {@code HashMap}.
      */
@@ -196,6 +204,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Removes the mapping of an {@code Activity} in the {@code Day} related {@code HashMap} when an activity is
      * deleted.
@@ -209,6 +218,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Removes the mapping of an {@code Activity} in the {@code Day} related {@code HashMap} when an activity is
      * undscheduled.
@@ -219,6 +229,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Creates a mapping between an {@code Accommodation} and it's {@code Contact}, if it possesses one.
      */
@@ -232,6 +243,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Removes the mapping of a {@code Contact} and it's related {@code Activity} and {@code Accommodation}.
      */
@@ -252,6 +264,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Updates the mapping when there is a change to an {@code Activity}.  When the {@code Activity} is changed,
      * the {@code Day} containing it is updated.
@@ -273,6 +286,7 @@ public class ModelManager implements Model {
         activityDayMap.put(newAct, newListOfDays);
     }
 
+    //@@author KxxMxxx
     /**
      * Updates the mapping when there is a change to an {@code Activity}. When the {@code Contact} of the
      * {@code Activity} is changed, the {@code Contact} is also updated.
@@ -308,6 +322,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Updates the mapping when there is a change to an {@code Activity}. When the {@code Contact} of the
      * {@code Activity} is changed, the {@code Contact} is also updated.
@@ -337,6 +352,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Updates the mapping when there is a change to a {@code Contact}. When the {@code Contact} changes, the
      * {@code Activity} and {@code Accommodation} sharing the same contact is also updated.
@@ -359,6 +375,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Updates the mapping when there is a change in a {@code Day}.
      */
@@ -377,6 +394,7 @@ public class ModelManager implements Model {
         }
     }
 
+    //@@author KxxMxxx
     /**
      * Clears all mappings related to {@code Accommodation} and re-populates the mappings.
      */
@@ -385,6 +403,7 @@ public class ModelManager implements Model {
         populateAccommodationMap(accommodations);
     }
 
+    //@@author KxxMxxx
     /**
      * Clears all mappings related to {@code Activity} and re-populates the mappings.
      */
@@ -393,6 +412,7 @@ public class ModelManager implements Model {
         populateActivityMap(activities);
     }
 
+    //@@author KxxMxxx
     /**
      * A method to map a new contact to existing Activity or Accommodation if they share the same name and address
      * fields.

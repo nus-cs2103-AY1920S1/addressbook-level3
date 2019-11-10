@@ -34,6 +34,7 @@ import seedu.planner.model.field.Address;
 import seedu.planner.model.field.Name;
 import seedu.planner.model.tag.Tag;
 
+//@@author KxxMxxx
 /**
  * Edits the details of an existing accommodation in the itinerary.
  */

@@ -16,6 +16,7 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 
+//@authod KxxMxxx
 /**
  * Removes an accommodation from the accommodation list.
  */

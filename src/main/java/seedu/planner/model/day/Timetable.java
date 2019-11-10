@@ -57,6 +57,7 @@ public class Timetable {
         return timetable.get(index.getZeroBased());
     }
 
+    //@@author KxxMxxx
     /**
      * Find the next activity in the list such that there is no overlaps unless the activity is the last in the list.
      */
@@ -71,6 +72,7 @@ public class Timetable {
         return Optional.empty();
     }
 
+    //@@author KxxMxxx
     /**
      * Finds all activities that overlaps with the current activity.
      */
