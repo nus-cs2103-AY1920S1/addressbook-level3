@@ -1,0 +1,63 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":AddTaskForNoteCommand" as AddTaskForNoteCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "n:Note" as Note MODEL_COLOR
+participant "t:Title" as Title MODEL_COLOR
+participant "c:Content" as Content MODEL_COLOR
+participant "model:Model" as Model MODEL_COLOR
+participant ":AppData" as AppData MODEL_COLOR
+participant ":UniqueNoteList" as UniqueNoteList MODEL_COLOR
+end box
+
+[--> AddTaskForNoteCommand : execute(model)
+activate AddTaskForNoteCommand LOGIC_COLOR
+AddTaskForNoteCommand -> AddTaskForNoteCommand : hasValidNoteForTask(model)
+activate AddTaskForNoteCommand
+
+create Note
+AddTaskForNoteCommand -> Note : Note()
+activate Note
+
+    create Title
+    Note -> Title : Title("UML diagram")
+    activate Title
+    return t
+    deactivate Title
+
+    create Content
+    Note -> Content :Content("dummy entry")
+    activate Content
+    Content --> Note : c
+    deactivate Content
+
+Note --> AddTaskForNoteCommand : n
+deactivate Note
+
+AddTaskForNoteCommand -> Model : hasNote(n)
+activate Model
+
+Model -> AppData : hasNote(n)
+activate AppData
+
+AppData -> UniqueNoteList : contains(n)
+activate UniqueNoteList
+UniqueNoteList --> AppData
+deactivate UniqueNoteList
+
+AppData --> Model
+deactivate AppData
+
+Model --> AddTaskForNoteCommand
+deactivate Model
+
+AddTaskForNoteCommand --> AddTaskForNoteCommand
+deactivate AddTaskForNoteCommand
+[<-- AddTaskForNoteCommand : CommandResult
+deactivate AddTaskForNoteCommand
+
+@enduml

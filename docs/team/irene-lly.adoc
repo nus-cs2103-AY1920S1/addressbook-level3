@@ -1,4 +1,4 @@
-= NUStudy Project Portfolio for Irene Lee
+= Irene Lee (irene-lly) - Project Portfolio for NUStudy
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

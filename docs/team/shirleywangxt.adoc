@@ -1,4 +1,4 @@
-= NUStudy project portfolio for Wang Xueting (ShirleyWangxt)
+= Wang Xueting (ShirleyWangxt) - Project Portfolio for NUStudy
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

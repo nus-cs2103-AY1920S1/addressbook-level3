@@ -1,4 +1,4 @@
-= NUStudy project portfolio for Zhang Dongjun (Auxinnn)
+= Zhang Dongjun (Auxinnn) - Project Portfolio for NUStudy
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -8,9 +8,9 @@
 This portfolio is used to showcase my contribution to the CS2103T project in National University of Singapore. There
 are five students in our group, all majoring in Computer Science. We are given a task to enhance a desktop application
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address book 3] with JavaFX GUI. It supports the command line
-interface for use input.We decided to morph it in to a study management application called NUStudy which is targeted to
+interface for use input. We decided to morph it into a study management application called NUStudy which is targeted to
 university students. NUStudy is used to manage students' lecture notes, test questions and revision tasks. It also
-allows students to do mock quiz and view the statistics for better revision.
+allows students to do mock quiz and view the statistics of the results for better revision.
 
 This is the interface of our project：
 
@@ -71,8 +71,8 @@ https://github.com/Auxinnn/ped/issues/6[#6]).
 
 == User guide contributions
 
-We have updated the User Guide of Address Book to fit the commands of our project. The following part shows my
-contribution to the modification of *NUStudy User Guide* for quiz feature.
+We have modified the User Guide of Address Book to demonstrate the commands of our project. The following part shows my
+contribution to the *NUStudy User Guide* for quiz feature.
 
 '''
 
@@ -84,10 +84,10 @@ include::../UserGuide.adoc[tag=quizFuture]
 
 == Developer guide contributions
 
-We also updated the Developer Guide so that the style and architecture fit our project. The following part shows my
-contribution to the modification of *NUStudy Developer Guide* for quiz feature.
+We also modified the Developer Guide so that the style and architecture fit our project. The following part shows my
+contribution to the *NUStudy Developer Guide* for quiz feature.
 
-NOTE: In this sections, `monospace` indicates both user command and class objects and methods.
+NOTE: In this sections, `monospace` indicates user command, class objects and methods.
 
 '''
 

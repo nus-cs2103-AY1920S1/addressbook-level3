@@ -1,4 +1,4 @@
-= NUStudy user guide
+= NUStudy User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -475,26 +475,27 @@ To see an overview of your results:
 image::statistics/overview.PNG[600, 600]
 // end::statistics[]
 
+// tag::task_1[]
 === Revision tasks
 
-This section provides instructions to manipulate revision tasks. The revision tasks help you plan your revision of notes
-and questions.
+You will know more about how to work with revision tasks in this section. The revision tasks help you plan your revision of notes
+and questions. You can do various operations on tasks, including addition, deletion, searching etc.
+
+The revision tasks are not synchronised with the note or the question. Once created, the task content will not
+change if you modify the corresponding note or question. +
+Revision tasks with the same heading, date *and* time are considered duplicate tasks and cannot co-exist.
+
+// end::task_1[]
 
 The diagram below shows how a revision task looks like:
 
 image::UserGuideRes/TaskUI.png[600, 600]
 
-NOTE: The revision tasks are not synchronised with the note or the question. Once created, the task content will not
-change if you modify the corresponding note or question. We deliberately disassociate the task from notes and questions once created
-because we would like to allow you to customise the task headings in *version v2.0* of the app.
-
-NOTE: Revision tasks with the same heading, date *and* time are considered duplicate tasks and cannot co-exist
-in the revision task list. Even if they have different status, they still cannot co-exist
-because it does not make sense to have same tasks but different status.
+// tag::task_2[]
 
 ==== Adding a revision task for a note: `rn`
 You can add a revision task for a note to the current revision task list with this command.
-The heading will copy the title. +
+The heading will copy the title.
 The GUI will display all tasks upon completing the command. +
 Format: `rn t/TITLE_OF_NOTE dt/DATE tm/TIME` +
 
@@ -502,15 +503,18 @@ NOTE: `TITLE_OF_NOTE` is case sensitive.
 
 Example: +
 
-1. Type `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900` in the command input box, and press `Enter` to execute it.
+1. Type `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900` in the command input box, and press `Enter` to execute it, as
+shown in the diagram below.
 +
 image::UserGuideRes/TaskCommands/AddTaskForNote_command.png[600, 600]
 +
 2. The result box will display the message "Revision task added: [N] NOTE : CS2103T UML diagram by: 01 November 2019 09:00".
-The task is added to the task list shown in the middle panel.
+The task is added to the task list shown in the middle panel, as shown in the diagram below.
 +
 image::UserGuideRes/TaskCommands/AddTaskForNote_success.png[600, 600]
 +
+
+// end::task_2[]
 
 ====
 
@@ -518,25 +522,22 @@ image::UserGuideRes/TaskCommands/AddTaskForNote_success.png[600, 600]
 
 * All numerical inputs must be integers.
 * `DATE` input format should follow Singapore local date convention (i.e. dd/MM/yyyy).
-* `YEAR` is 4-digit. 0000 < yyyy < 9999.
-* `MONTH` is 2-digit. 00 < MM < 13.
-* `DATE` is 2-digit. 00 < dd < 32.
-* `HOUR` is 2-digit and follows 24-hour format. -01 < HH < 24.
-* `MINUTE` is 2-digit. -01 < mm < 60.
+* `YEAR` is 4-digit, 0000 < yyyy < 9999. `MONTH` is 2-digit, 00 < MM < 13. `DAY` is 2-digit, 00 < dd < 32.
+* `HOUR` is 2-digit and follows 24-hour format, -01 < HH < 24. `MINUTE` is 2-digit, -01 < mm < 60.
+* "2400" and "0000" for `TIME` are both valid and represent 12am on the same day.
 
-NOTE: There are some days of month which are valid for some months but invalid for others, eg. *31* is invalid for February, April,
+NOTE: Some days of month are valid for some months but invalid for others, eg. *31* is invalid for February, April,
 June, September, November; *30* is invalid for February; *29* is invalid for February in common years. But they are valid
-for other scenarios. Sometimes you may get confused about the number of days in a month. For example, you may happen to think
-that there are 31 days in September and you key in "31/09/2019". In this case, the day of month will automatically run
-down to the last valid day of that month.
-
-NOTE: "2400" and "0000" for `TIME` are both considered valid and represent 12am on the same day.
+for other scenarios. The day of month will automatically run down to the last valid day of that month in case you remember
+the number of days of a month wrongly.
 
 ====
 
+// tag::task_3[]
+
 ==== Adding a revision task for a question: `rq`
 You can add a revision task for a question to the current revision task list with this command.
-The heading will copy the question body. +
+The heading will copy the question body.
 The GUI will display all tasks upon completing the command. +
 Format: `rq i/INDEX_OF_QUESTION dt/DATE tm/TIME` +
 Example: +
@@ -545,33 +546,43 @@ Example: +
 NOTE: For constraints on `DATE` and `TIME` input, you may refer to <<Adding a revision task for a note: `rn`>>.
 
 ==== Removing revision task: `rdelete`
-You can remove a particular revision task from current list with this command. +
+You can remove a particular revision task from current list with this command.
 The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
 Format: `rdelete INDEX_OF_TASK` +
-Example: +
+Example: `rdelete 2` +
 
-1. Type `rdelete 2` in the command input box, and press `Enter` to execute it.
+// end::task_3[]
+
+Detailed steps: +
+
+1. Type `rdelete 2` in the command input box, and press `Enter` to execute it. You can refer to the diagram below for a visual guide.
+
+
 +
 image::UserGuideRes/TaskCommands/DeleteTaskCommand.png[600, 600]
 +
-2. The result box will display the message "Deleted task: ..." with the task details. The deleted task will be removed from the task list.
+
+2. The result box will display the message "Deleted task: ..." with the task details. The deleted task will be removed from the task list, as shown by the diagram below.
+
 +
 image::UserGuideRes/TaskCommands/DeleteTaskCommand_success.png[600, 600]
 +
 
+// tag::task_4[]
+
 ==== Marking the revision task as done: `rdone`
-You can mark a task as done once you finished it. +
+You can mark a task as done once you finished it.
 The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
 Format: `rdone INDEX` +
 
 Example: +
 
-1. Type `rdone 1` in the command input box, and press `Enter` to execute it.
+1. Type `rdone 1` in the command input box, and press `Enter` to execute it, as shown by the diagram below.
 +
 image::UserGuideRes/TaskCommands/DoneTaskCommand.png[600, 600]
 +
 2. The result box will display the message "Revision task marked as done: [Y] ..." with the task details. The status icon
-of the task turns from "[N]" (not done) to "[Y]" (done).
+of the task turns from "[N]" (not done) to "[Y]" (done). You may refer to the diagram below.
 +
 image::UserGuideRes/TaskCommands/DoneTaskCommand_success.png[600, 600]
 +
@@ -587,14 +598,9 @@ Format: `redit INDEX [h/HEADING] [dt/DATE] [tm/TIME]` +
 Example: +
 `redit 1 h/CS2100 Logic Circuit dt/15/08/2019 tm/1200`
 
-NOTE: Please note that the prefix for the heading of a task is no longer `t/` (for note task) or `i/` (for question task).
-Instead, the prefix becomes `h/` for both types of tasks. `HEADING` can be the title of a note or the question body of a question.
-The edited `HEADING` must be an existing title or question body.
-
-NOTE: `HEADING` is case sensitive.
-
-NOTE: You cannot edit the status (done or not done) of a task with this command. Instead, you may use `rdone`.
-You cannot do "undone" operation as explained in `rdone` feature.
+NOTE: `HEADING` can be the title of a note or the question body of a question.
+The edited `HEADING` must be an existing title or question body. +
+`HEADING` is case sensitive.
 
 ==== Viewing all revision tasks: `rlist`
 You may view the whole revision task list using this command. +
@@ -614,7 +620,7 @@ Format: `overdue`
 
 ==== Finding tasks with specified details: `rfind`
 You may use this command to search for tasks with specified details. You may key in keyword(s) of the heading, or the date, or the time,
-with prefix `h/` `dt/` `tm/` respectively. +
+with prefix `h/` `dt/` `tm/` respectively.
 The GUI will display a task list of all tasks with the field (heading or date or time) that matches your input. +
 Format:
 `rfind h/WORD [WORD]...` or `rfind dt/DATE` or `rfind tm/TIME`
@@ -632,6 +638,8 @@ the field with the highest priority will be considered. The rest will be ignored
 NOTE: A heading is considered matching with the keywords as long as one of the words in the heading is the same as one of the words in the input keywords.
 Please note that the minimum matching unit is a word (*not characters*) in the heading. Words in the headings are separated by a space. +
 
+//end::task_4[]
+
 ====
 For example, suppose we have a task list with tasks of headings {"hello", "hello?", "Hello", "helloworld", "hello world", "HelloWorld"},
 here are the use cases:
@@ -647,9 +655,13 @@ here are the use cases:
 |=======================================================================
 ====
 
+// tag::task_5[]
+
 ==== Clearing current revision plan: `rclear`
 You can remove all revision tasks with this command. +
 Format: `rclear`
+
+// end::task_5[]
 
 // tag::v2.0[]
 === Other features coming in v2.0
@@ -662,6 +674,7 @@ You can set a time limit before you start a quiz to train yourself under exam co
 Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT tl/TIME_LIMIT`
 // end::quizFuture[]
 
+// tag::task_2.0[]
 ==== Enabling push notification: `notify -e`
 You can enable the push notification feature to send a desktop reminder when the task is about to start. +
 Format: `notify -e [-A]`
@@ -676,6 +689,7 @@ Format: `sort o/ORDER f/FIELD` +
 Example: +
 `sort o/a f/dt` - You can sort the tasks according to date in ascending order. +
 `sort o/d f/h` - You can sort the tasks according to heading in descending alphabetical order.
+// end::task_2.0[]
 
 ==== Sharing notes and questions with other users
 You can share your notes and questions with other NUStudy users with Internet connection.
@@ -689,6 +703,7 @@ You can create an account in the application and login with your email and passw
 NUStudy will intelligently suggest groupings of lecture notes based on their content.
 // end::lngroup[]
 
+// tag::command_summary[]
 == Command summary
 
 *Adding lecture notes:* `addnote t/TITLE c/CONTENT [i/]` +
@@ -783,6 +798,7 @@ eg. `rfind h/hello world` or `rfind dt/01/11/2019` or `rfind tm/1200` +
 *Exitting the app:* `exit` +
 
 *Opening help window:* `help`
+// end::command_summary[]
 
 == FAQ
 
