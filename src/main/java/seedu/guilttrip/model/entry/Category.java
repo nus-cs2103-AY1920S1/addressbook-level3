@@ -21,8 +21,8 @@ public class Category {
 
     public static final String[] VALIDATIONLIST = new String[] {"Expense", "Income"};
 
-    public final String categoryName;
-    public final CategoryType categoryType;
+    private final String categoryName;
+    private final CategoryType categoryType;
 
     public Category(String categoryName, CategoryType categoryType) {
         requireNonNull(categoryName);

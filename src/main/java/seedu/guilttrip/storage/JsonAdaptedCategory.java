@@ -32,8 +32,8 @@ class JsonAdaptedCategory {
      * Converts a given {@code Tag} into this class for Jackson use.
      */
     public JsonAdaptedCategory(Category source) {
-        categoryName = source.categoryName;
-        categoryType = source.categoryType.getCatType();
+        categoryName = source.getCategoryName();
+        categoryType = source.getCategoryType().getCatType();
     }
 
     /**

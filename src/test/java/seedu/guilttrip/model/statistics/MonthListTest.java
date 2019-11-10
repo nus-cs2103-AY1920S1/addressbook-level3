@@ -66,7 +66,7 @@ public class MonthListTest {
     @Test
     public void monthList_calculateBarChart_returnsCorrectValue() {
         //0 is clothing Expense.
-        ObservableList<DailyStatistics> toVerify = monthList.calculateBarChart();
+        ObservableList<DailyStatistics> toVerify = monthList.calculateStatisticsForBarChart();
         DailyStatistics statsForClothing = new DailyStatistics(CLOTHING_EXPENSE.getDate().getDate(),
                 CLOTHING_EXPENSE.getAmount().value, 0.00);
         DailyStatistics statsForSalary = new DailyStatistics(SALARY_INCOME.getDate().getDate(),

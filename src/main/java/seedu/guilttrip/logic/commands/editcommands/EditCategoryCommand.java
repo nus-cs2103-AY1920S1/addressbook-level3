@@ -59,7 +59,7 @@ public class EditCategoryCommand extends Command {
         requireNonNull(model);
         //ensures that the category old Name specified does not exist in GuiltTrip
         if (!model.hasCategory(toEditCategory)) {
-            throw new CommandException(String.format(MESSAGE_NONEXISTENT_CATEGORY, toEditCategory.categoryType));
+            throw new CommandException(String.format(MESSAGE_NONEXISTENT_CATEGORY, toEditCategory.getCategoryType()));
         }
         ObservableList<Category> typeOfCategoryList = model.getCategoryList()
                 .determineWhichList(editCategoryDescriptor.getCategoryType());

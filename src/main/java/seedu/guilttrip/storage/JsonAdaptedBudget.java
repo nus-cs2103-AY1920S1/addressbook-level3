@@ -58,7 +58,7 @@ class JsonAdaptedBudget {
      * Converts a given {@code Budget} into this class for Jackson use.
      */
     public JsonAdaptedBudget(Budget source) {
-        category = source.getCategory().categoryName;
+        category = source.getCategory().getCategoryName();
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
         date = source.getDate().toString();

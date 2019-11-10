@@ -51,7 +51,7 @@ class JsonAdaptedExpense {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedExpense(Expense source) {
-        category = source.getCategory().categoryName;
+        category = source.getCategory().getCategoryName();
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
         date = source.getDate().toString();

@@ -50,7 +50,7 @@ class JsonAdaptedEntry {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedEntry(Entry source) {
-        category = source.getCategory().categoryName;
+        category = source.getCategory().getCategoryName();
         desc = source.getDesc().fullDesc;
         time = source.getDate().toString();
         amt = source.getAmount().toString();

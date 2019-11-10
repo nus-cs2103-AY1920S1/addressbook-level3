@@ -57,7 +57,7 @@ class JsonAdaptedAutoExpense {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedAutoExpense(AutoExpense source) {
-        category = source.getCategory().categoryName;
+        category = source.getCategory().getCategoryName();
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
         date = source.getDate().toString();

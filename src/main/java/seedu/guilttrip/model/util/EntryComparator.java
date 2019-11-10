@@ -145,7 +145,7 @@ public class EntryComparator implements Comparator<Entry> {
 
             return helperSortByTag(e1, e2);
         default:
-            //TODO
+            //Should not reach this point as valid checks were carried out beforehand.
             return 1;
         }
     }

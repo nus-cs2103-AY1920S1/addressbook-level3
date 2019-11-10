@@ -1,0 +1,35 @@
+@startuml
+
+class CategoryList {
+ -internalListForIncome: ObservableList<Income>
+ -internalListForExpense: ObservableList<Expense>
+ +determineWhichList(ct: CategoryType): ObservableList<Category>
+ +contains(c: Category): boolean
+ +setCategories(ExpenseList: List<Category>, IncomeList: List<Category>)
+ +getInternalListForIncome(): ObservableList<Category>
+ +getInternalListForOtherEntries(): ObservableList<Category>
+ +setCategory(target: Category, edited: Category): void
+ +add(c: Category): void
+ +remove(c: Category): void
+}
+
+class Category {
+-categoryName: String
+-categoryType: CategoryType
++ Category(categoryName: String, catType: CategoryType)
++ {static} parseCategory(catName: String, catType: String): Category
++ {static} isValidCategoryType(catType: String): boolean
++ {static} isNotEmptyCategoryName(catName: String): boolean
++ getCategoryName(): String
++ getCategoryType(): categoryType
+
+}
+enum CategoryType {
+    EXPENSE
+    INCOME
+}
+
+CategoryList o--> "*" Category
+Category *--> "1" CategoryType
+
+@enduml

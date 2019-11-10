@@ -25,8 +25,8 @@ public class StatisticsWindow extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Logic logic;
-    private StatisticsTableHolder statsTable;
-    private StatisticsPieChartHolder statsPie;
+    private StatisticsTablePanel statsTable;
+    private StatisticsPieChartPanel statsPie;
     private ObservableList<CategoryStatistics> expenseStats;
     private ObservableList<CategoryStatistics> incomeStats;
     private DoubleProperty totalBalance;
@@ -49,8 +49,8 @@ public class StatisticsWindow extends UiPart<Region> {
                             ObservableList<CategoryStatistics> incomeStats, DoubleProperty totalExpense,
                             DoubleProperty totalIncome) {
         super(FXML);
-        this.statsTable = new StatisticsTableHolder(expenseStats, incomeStats);
-        this.statsPie = new StatisticsPieChartHolder(expenseStats, incomeStats);
+        this.statsTable = new StatisticsTablePanel(expenseStats, incomeStats);
+        this.statsPie = new StatisticsPieChartPanel(expenseStats, incomeStats);
         // Set dependencies
         this.logic = logic;
         this.expenseLabel.textProperty().bind(Bindings.convert(totalExpense));

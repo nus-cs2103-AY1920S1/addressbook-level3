@@ -57,9 +57,17 @@ a parameter which can be used as `n/mala at deck`.
 ====
 
 === Categories
-Ever feel like your list of expenses are extremely messy? This is where categories come in handy! Every entry belongs to one category, which makes it easier for you to organize your data! Categories can be either grouped under Expense or Income. Wishes and Budgets share the same category as Expense.
+Ever feel like your list of expenses are extremely messy? This is where categories come in handy! Every entry belongs to one category, which makes it easier for you to organize your data! Categories can be either grouped under Expense or Income.
+GuiltTrip comes with a default set of Categories as listed below. All entries must have a category.
+
+* Income: `Business,Salary,Gifts,Loans`
+* Expense: `Food,Travel,Family,Bills,Entertainment,Transport,Shopping,HealthCare,Groceries,Rent`
+
+Categories for Expense, Budget and Wish all belong under the Expense Category. Categories for Income belong under the Income Category.
+An example would be when creating a new Budget, the category that the budget was created must belong to one of the existing categories in Expense.
 
 ==== Adding Category : `addCategory`
+If the default set of categories does not cover your needs, you can add more by calling addCategory.
 
 Adds a new Category for either Income or Expense. The category added must not currently exist in the application.
 

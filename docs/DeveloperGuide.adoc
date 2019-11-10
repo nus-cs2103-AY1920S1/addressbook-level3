@@ -159,25 +159,83 @@ image::StatisticsClass.png[]
 == Implementation
 This section describes some details on how certain features are implemented.
 
+=== Data Presentation: Categories
+==== Implementation
+For all entries in guiltTrip, the entries should always belong to one category.
+Creation of categories are also helpful for breakdown of statistics to be complete.
+The implementation of `Category` and `CategoryList` are largely similar to UniqueEntryList in
+the original AddressBook. However, the slight difference lies in that `Category` is a field of
+`Entry` instead of being a child of `Entry` itself. A `Category` can only belong under Expense or Income, which
+is defined by the Enum `CategoryType.EXPENSE` or `CategoryType.INCOME`.
+When the user launches the application for the first time or if there are errors with `data/guiltTrip.json`,
+the application will load the default set of `Category` by `SampleDataUtil#getSampleCategories()`.
+
+There are 2 main checks to be carried out when interacting with `Category`.
+
+* When adding and editing a `Category`, there is a need to check that the new Category added does not
+exist in the existing guiltTrip, hence the need for `CategoryList#contains(Category)`.
+* When deleting a `Category`, there is a need to check if there are any entries that have the `Category` as a field.
+
+Given below is an example of an activity diagram for editing a category to illustrate the point above.
+
+As the rest of the implementation is similar to AB3's CRUD, it won't be covered.
+
+==== Design Considerations
+*Aspect: Deciding whether to allow addition of Categories*
+
+* *Alternative 1*: Having a fixed set of Categories in the CategoryList, users are unable to add delete or edit the existing set of Categories.
+    ** Pros: Easy to implement.
+    ** Cons: Results in less flexibility for the user.
+* *Alternative 2*: Users are allowed to have any category names for their entries. There is no CategoryList to carry out validation checks on.
+    ** Pros: Intuitive and convenient for the user.
+    ** Cons: Calculation of Statistics would be messy if the user adds many different categories for their entries on a whim, the breakdown of statistics by category could be huge.
+* *Alternative 3(Current)*: There is a fixed set of categories, with users able to add delete or edit the existing set of Categories, but a command must be called by the user to modify the categories in the CategoryList.
+    ** Pros: Allows the flexibility for addition of additional categories as well as solving the many different categories problem if alternative 2 was taken as users have to make the conscious effort to create a new category.
+    ** Cons: Slightly more complicated to implement.
+
 === Data Presentation: Sort Command
 
 ==== Implementation
 
-The sort command extends the Command class. It works on the SortedList by adding a Comparator to the List. By default, the EntryList is sorted by date.
+The sort command extends the Command class. It works on the `ObservableList` by wrapping the `ObservableList` on a
+`SortedList` and adding a `EntryComparator` to the List.
+By default, the `Entry` in GuiltTrip are sorted by `Date`, followed by `Amount`,
+`Description`, `Category`, and finally `Tags`.
+In addition, after every CRUD command, the list is sorted by default for the user's convenience.
 
-. The user executes the command `sort typ/Expense s/ascending`
-.  `Logic` uses the `guiltTripParser` class to parse the user command.
-.  This results in a `SortCommand` object which is executed by the `LogicManager`.
-.  The `SortCommand` calls the `Model` 's sortFilteredEntryList to sort the list of entries.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  `Logic` returns the `CommandResult` object.
+A Sort Command contains:
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("sort typ/Expense s/ascending")` API call.
+* `SortType` : `Date`, `Amount`, `Description`, `Category`, and `Tags`.
+* `SortSequence`: Ascending, Descending
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+An Example of Sorting the Expense List is shown below
+.  The user executes the command `sortExpense typ/Amount s/ascending`
+.  `Logic` uses the `guiltTripParser` class to parse the user command
+.  This results in a `SortCommand` object which is executed by the `LogicManager`
+.  The `SortCommand` calls the `Model#sortFilteredExpenseList` to sort the list of expenses
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+.  `Logic` returns the `CommandResult` object
+
+[NOTE]
+The `Model#sortFilteredExpenseList` creates an `EntryComparator` which takes in `SortType` and `SortSequence` to sort the list.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("sortExpense typ/Amount s/ascending")` API call.
+
+.Interactions Inside the Logic Component for the `sortExpense typ/Amount s/ascending` Command
 image::SortSequence.png[]
 
-=== ViewPie/ViewTable Command
+=== Data Presentation: Find Command
+Finding is similar to the implementation of AB3, hence it will not be covered in detail.
+However, the find command is expanded to include finding by multiple predicates at once.
+For Example, the user can find by both `Amount` and `Description`. These are the relevant predicates:
+
+* `EntryContainsAmountPredicate`: Will filter the list to include those with equal or higher amounts than the amount specified.
+* `EntryContainsCategoryPredicate`: Will filter the list to include the category specified.
+* `EntryContainsDatePredicate`: Will filter the list to include the Date specified. Currently only supports searching within the month.
+* `EntryContainsTagsPredicate`: Will filter the list to include those with all the specified tags.
+* `EntryContainsDescriptionPredicate`: Will filter the list to include only those with descriptions that contain the keywords.
+
+=== Data Presentation: ViewPie/ViewTable Command
 
 ==== Implementation
 

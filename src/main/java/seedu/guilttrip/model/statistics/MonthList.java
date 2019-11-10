@@ -107,7 +107,7 @@ public class MonthList {
     public Double updateListOfStats(Category cat) {
         double newTotal = 0.00;
         updateMapOfEntries(cat);
-        if (cat.categoryType.equals(CategoryType.INCOME)) {
+        if (cat.getCategoryType().equals(CategoryType.INCOME)) {
             FilteredList<Income> toCalculate = this.mapOfIncomeCategories.get(cat);
             double calculatedTotal = 0.00;
             for (int i = 0; i < toCalculate.size(); i++) {
@@ -130,14 +130,14 @@ public class MonthList {
      * @param cat Category to update.
      */
     private void updateMapOfEntries(Category cat) {
-        if (cat.categoryType.equals(CategoryType.INCOME)) {
-            if (!mapOfIncomeCategories.containsKey(cat.categoryName)) {
+        if (cat.getCategoryType().equals(CategoryType.INCOME)) {
+            if (!mapOfIncomeCategories.containsKey(cat.getCategoryName())) {
                 FilteredList<Income> filteredByCategory = new FilteredList<Income> (this.filteredListForIncome,
                         new EntryContainsCategoryPredicate(cat));
                 this.mapOfIncomeCategories.put(cat, filteredByCategory);
             }
         } else {
-            if (!mapOfExpenseCategories.containsKey(cat.categoryName)) {
+            if (!mapOfExpenseCategories.containsKey(cat.getCategoryName())) {
                 FilteredList<Expense> filteredByCategory = new FilteredList<Expense>(this.filteredListForExpense,
                         new EntryContainsCategoryPredicate(cat));
                 this.mapOfExpenseCategories.put(cat, filteredByCategory);

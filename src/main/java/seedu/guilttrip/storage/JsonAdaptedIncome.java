@@ -51,7 +51,7 @@ class JsonAdaptedIncome {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedIncome(Income source) {
-        category = source.getCategory().categoryName;
+        category = source.getCategory().getCategoryName();
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
         time = source.getDate().toString();

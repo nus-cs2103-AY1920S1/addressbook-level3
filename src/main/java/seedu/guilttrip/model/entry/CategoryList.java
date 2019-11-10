@@ -58,7 +58,7 @@ public class CategoryList {
      */
     public boolean contains(Category toCheck) {
         requireNonNull(toCheck);
-        ObservableList<Category> typeOfCategory = determineWhichList(toCheck.categoryType);
+        ObservableList<Category> typeOfCategory = determineWhichList(toCheck.getCategoryType());
         return typeOfCategory.stream().anyMatch(toCheck::equals);
     }
 
@@ -86,7 +86,7 @@ public class CategoryList {
      */
     public void setCategory(Category target, Category editedCategory) {
         requireAllNonNull(target, editedCategory);
-        ObservableList internalList = determineWhichList(target.categoryType);
+        ObservableList internalList = determineWhichList(target.getCategoryType());
         int index = internalList.indexOf(target);
         if (index == -1) {
             logger.info("Category isn't contained in GuiltTrip.");
@@ -112,7 +112,7 @@ public class CategoryList {
             throw new DuplicateCategoryException();
         }
 
-        if (category.categoryType.getCatType().equalsIgnoreCase("Income")) {
+        if (category.getCategoryType().getCatType().equalsIgnoreCase("Income")) {
             typeOfCategory = internalListForIncome;
         } else {
             typeOfCategory = internalListForOtherEntries;

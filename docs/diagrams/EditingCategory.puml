@@ -1,0 +1,21 @@
+@startuml
+(*)  --> "User executes command"
+--> "GuiltTrip parses the users command and checks if the category to be edited exists"
+if ""
+--> [Category to be edited exists in the CategoryList] "Checks if the edited category will be a duplicate in the CategoryList"
+    if ""
+        --> [No] "Checks if there are any existing entries with the original category"
+        if ""
+            --> [Yes] Replace entries with a new entry with the new category name
+            --> (*)
+            else
+            --> [No] (*)
+        endif
+    else
+        --> [Yes] Returns and throw an exception message
+    endif
+else
+--> [Category to be edited does not exist] Returns and throw an exception message
+-->(*)
+endif
+@enduml

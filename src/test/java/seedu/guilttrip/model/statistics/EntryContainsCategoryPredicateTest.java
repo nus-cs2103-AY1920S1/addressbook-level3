@@ -47,7 +47,8 @@ public class EntryContainsCategoryPredicateTest {
         // Contains Same Category
         EntryContainsCategoryPredicate firstPredicate =
                 new EntryContainsCategoryPredicate(firstPredicateCategory);
-        assertTrue(firstPredicate.test(new ExpenseBuilder().withCategory(firstPredicateCategory.categoryName).build()));
+        assertTrue(firstPredicate.test(new ExpenseBuilder().withCategory(firstPredicateCategory.getCategoryName())
+                .build()));
     }
 
     @Test
@@ -56,7 +57,7 @@ public class EntryContainsCategoryPredicateTest {
         // Contains Different Category
         EntryContainsCategoryPredicate firstPredicate =
                 new EntryContainsCategoryPredicate(firstPredicateCategory);
-        assertFalse(firstPredicate.test(new ExpenseBuilder().withCategory(FOOD_EXPENSE.getCategory().categoryName)
+        assertFalse(firstPredicate.test(new ExpenseBuilder().withCategory(FOOD_EXPENSE.getCategory().getCategoryName())
                 .build()));
     }
 }

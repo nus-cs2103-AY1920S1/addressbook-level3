@@ -53,7 +53,7 @@ class JsonAdaptedWish {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedWish(Wish source) {
-        category = source.getCategory().categoryName;
+        category = source.getCategory().getCategoryName();
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
         date = source.getDate().toString();
