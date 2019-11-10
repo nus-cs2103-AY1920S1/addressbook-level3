@@ -180,6 +180,10 @@ public class CentralDisplay extends UiPart<Region> {
         helpListPanel.generateCommandHelpSummary();
     }
 
+    /**
+     * Makes the agenda disappear if there are 0 days.
+     * Otherwise, Agenda appears in the agendaTab.
+     */
     private void emptyAgendaTabIfNoDays() {
         if (dayList.size() == 0) {
             agendaTab.setContent(null);
