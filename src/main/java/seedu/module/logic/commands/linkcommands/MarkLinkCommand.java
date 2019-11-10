@@ -12,6 +12,8 @@ import seedu.module.model.module.TrackedModule;
  * Launches a link in the module in the system's default browser
  */
 public class MarkLinkCommand extends LinkCommand {
+    public static final String MESSAGE_ALREADY_MARKED = "Link is already marked";
+    public static final String MESSAGE_ALREADY_UNMARKED = "Link is already unmarked.";
     private final String linkTitle;
     private final boolean mark;
 
@@ -33,7 +35,7 @@ public class MarkLinkCommand extends LinkCommand {
                 return link;
             }
         }
-        throw new CommandException("Link with matching title not found");
+        throw new CommandException(MESSAGE_LINK_NOT_FOUND);
     }
 
     /**
@@ -58,12 +60,19 @@ public class MarkLinkCommand extends LinkCommand {
         TrackedModule moduleToAccess = this.currentDisplayed(model);
         Link target = find(moduleToAccess, linkTitle);
         if (target.isMarked() && this.mark) {
-            return new CommandResult("Link is already marked");
+            return new CommandResult(MESSAGE_ALREADY_MARKED);
         } else if (!target.isMarked() && !this.mark) {
-            return new CommandResult("Link is already unmarked.");
+            return new CommandResult(MESSAGE_ALREADY_UNMARKED);
         }
         markLink(target, moduleToAccess);
         return new CommandResult((MESSAGE_MARK_SUCCESS), false, true, false);
+    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this //short circuit
+                || (other instanceof MarkLinkCommand)
+                && linkTitle.equals(((MarkLinkCommand) other).linkTitle)
+                && mark == ((MarkLinkCommand) other).mark;
     }
 
 }

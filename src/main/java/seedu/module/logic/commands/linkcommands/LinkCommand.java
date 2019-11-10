@@ -27,6 +27,7 @@ public abstract class LinkCommand extends Command {
     public static final String MESSAGE_DELETE_SUCCESS = "Link deleted successfully.";
     public static final String MESSAGE_EDIT_SUCCESS = "Link edited successfully.";
     public static final String MESSAGE_MARK_SUCCESS = "Link marked successfully.";
+    public static final String MESSAGE_LINK_NOT_FOUND = "Link with matching title not found";
 
     /**
      * Returns the current TrackedModule that is being viewed, if any.

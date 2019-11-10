@@ -12,21 +12,20 @@ import seedu.module.model.module.exceptions.LinkAccessException;
  * Represents a Link in a TrackedModule
  */
 public class Link {
-    public static final String MESSAGE_CONSTRAINTS = "Not a valid URL";
 
     public final String url;
     public final String name;
     private boolean marked = false;
 
     public Link(String name, String url) {
-
+        requireNonNull(name);
         requireNonNull(url);
         this.name = name;
         this.url = url;
     }
 
     public Link(String name, String url, boolean marked) {
-
+        requireNonNull(name);
         requireNonNull(url);
         this.name = name;
         this.url = url;
@@ -49,7 +48,6 @@ public class Link {
                     runtime.exec("open " + url);
                 } else if (runningSystem.contains("nix") || runningSystem.contains("nux")) { // Linux flavours
                     runtime.exec("xdg-open " + url);
-                } else {
                     throw new LinkAccessException("Unable/unwilling to launch a browser in your OS.");
                 }
             }

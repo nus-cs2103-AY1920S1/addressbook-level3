@@ -11,6 +11,7 @@ import seedu.module.model.module.TrackedModule;
  * Deletes a Link with matching title from TrackedModule.
  */
 public class DeleteLinkCommand extends LinkCommand {
+    public static final String MESSAGE_LINK_NOT_FOUND = "Link with matching title not found. No links deleted";
     private final String linkTitle;
 
     public DeleteLinkCommand(String linkTitle) {
@@ -27,7 +28,7 @@ public class DeleteLinkCommand extends LinkCommand {
     private void delete(TrackedModule targetModule, String linkTitle) throws CommandException {
         boolean removed = targetModule.getLink().removeIf(module -> module.name.equals(linkTitle));
         if (!removed) {
-            throw new CommandException("Link with matching title not found. No links deleted");
+            throw new CommandException(MESSAGE_LINK_NOT_FOUND);
         }
     }
     @Override
@@ -38,4 +39,10 @@ public class DeleteLinkCommand extends LinkCommand {
         return new CommandResult((MESSAGE_DELETE_SUCCESS), false, true, false);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this //short circuit
+                || (other instanceof DeleteLinkCommand)
+                && linkTitle.equals(((DeleteLinkCommand) other).linkTitle);
+    }
 }

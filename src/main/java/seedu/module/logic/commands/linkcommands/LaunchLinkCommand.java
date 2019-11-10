@@ -31,7 +31,7 @@ public class LaunchLinkCommand extends LinkCommand {
                 return link;
             }
         }
-        throw new CommandException("Link with matching title not found");
+        throw new CommandException(MESSAGE_LINK_NOT_FOUND);
     }
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -40,6 +40,13 @@ public class LaunchLinkCommand extends LinkCommand {
         Link target = find(moduleToAccess, linkTitle);
         target.launch();
         return new CommandResult((MESSAGE_LAUNCH_SUCCESS));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this //short circuit
+                || (other instanceof LaunchLinkCommand)
+                && linkTitle.equals(((LaunchLinkCommand) other).linkTitle);
     }
 
 }

@@ -28,4 +28,11 @@ public class AddLinkCommand extends LinkCommand {
         moduleToAddLink.addLink(webLink);
         return new CommandResult(MESSAGE_LINK_SUCCESS, false, true, false);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this //short circuit
+                || (other instanceof AddLinkCommand)
+                && webLink.equals(((AddLinkCommand) other).webLink);
+    }
 }

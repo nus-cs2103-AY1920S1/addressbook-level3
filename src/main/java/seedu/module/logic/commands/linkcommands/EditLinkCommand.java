@@ -14,6 +14,7 @@ import seedu.module.model.module.TrackedModule;
  * Edits a Link with matching title from TrackedModule.
  */
 public class EditLinkCommand extends LinkCommand {
+    public static final String MESSAGE_NO_EDIT_INFO = "No edit information given.";
     private final String linkTitle;
     private final Optional<String> newTitle;
     private final Optional<String> newLink;
@@ -38,7 +39,7 @@ public class EditLinkCommand extends LinkCommand {
                 return i;
             }
         }
-        throw new CommandException("Link with matching title not found");
+        throw new CommandException(MESSAGE_LINK_NOT_FOUND);
     }
 
 
@@ -47,7 +48,7 @@ public class EditLinkCommand extends LinkCommand {
         requireNonNull(model);
         TrackedModule moduleToAccess = this.currentDisplayed(model);
         if (!this.newLink.isPresent() && !this.newTitle.isPresent()) {
-            throw new CommandException("No edit information given.");
+            throw new CommandException(MESSAGE_NO_EDIT_INFO);
         }
 
         int editIndex = this.findIndex(moduleToAccess, this.linkTitle);
@@ -59,5 +60,14 @@ public class EditLinkCommand extends LinkCommand {
         }
         moduleToAccess.getLink().set(editIndex, editedLink);
         return new CommandResult((MESSAGE_EDIT_SUCCESS), false, true, false);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this //short circuit
+                || (other instanceof EditLinkCommand)
+                && linkTitle.equals(((EditLinkCommand) other).linkTitle)
+                && newTitle.equals(((EditLinkCommand) other).newTitle)
+                && newLink.equals(((EditLinkCommand) other).newLink);
     }
 }
