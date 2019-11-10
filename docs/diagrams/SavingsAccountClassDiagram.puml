@@ -1,4 +1,5 @@
 @startuml
+
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
@@ -6,23 +7,12 @@ skinparam classBackgroundColor UI_COLOR
 
 package Model <<Rectangle>> {
     Interface ReadOnlySavingsAccount <<Interface>>
-    Class Savings
-    Class Withdrawal
+    Class CurrentSavings
     Class SavingsAccount
-    Class SavingsHistory
-    Class AccountMoney
-    Class Amount
-    Class TimeStamp
+    Class Money
 }
-SavingsAccount .up.|> ReadOnlySavingsAccount
-SavingsAccount *--> "1" SavingsHistory
-SavingsHistory o--> "0..*" Savings
-SavingsHistory o--> "0..*" Withdrawal
-
-Savings *--> "1" AccountMoney
-Withdrawal *--> "1" AccountMoney
-
-AccountMoney *--> "1" Amount
-AccountMoney *--> "1" TimeStamp
+SavingsAccount ..|> ReadOnlySavingsAccount
+SavingsAccount *--> "1" CurrentSavings
+CurrentSavings *--> "1" Money
 
 @enduml

@@ -310,7 +310,7 @@ Within `CurrentSavings`, there is an unmodifiable `Money` class. Once a `Current
 
 The `SavingsAccount` Class Diagram below shows the relationship between the classes mentioned above.
 
-TODO ADD CLASS DIAGRAM
+image::SavingsAccountClassDiagram.png[align=center,width=400]
 
 ==== Classes for Savings History feature in Model
 
@@ -333,7 +333,7 @@ made by the user.
 
 The `SavingsHistory` Class Diagram is shown below to reflect the interactions above.
 
-TODO ADD CLASS DIAGRAM.
+image::SavingsHistoryClassDiagram.png[align=center,width=400]
 
 ==== Making a saving in $aveNUS
 

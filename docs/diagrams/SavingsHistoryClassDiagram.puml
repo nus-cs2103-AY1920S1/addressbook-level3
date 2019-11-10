@@ -1,0 +1,21 @@
+@startuml
+
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package Model <<Rectangle>> {
+    Interface ReadOnlySavingsHistory <<Interface>>
+    Class SavingsHistoryList
+    Class Savings
+    Class Money
+    Class TimeStamp
+}
+
+SavingsHistoryList ..|> ReadOnlySavingsHistory
+SavingsHistoryList *--> "0..*" Savings
+Savings *--> "1" Money
+Savings *--> "1" TimeStamp
+
+@enduml
