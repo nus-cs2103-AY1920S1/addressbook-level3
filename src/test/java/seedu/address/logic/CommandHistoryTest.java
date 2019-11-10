@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 public class CommandHistoryTest {
 
-    private CommandHistory commandHistory = CommandHistory.getCommandHistory();
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_withCommandHistory_copiesCommandHistory() {
