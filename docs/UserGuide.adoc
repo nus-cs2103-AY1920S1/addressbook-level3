@@ -31,7 +31,7 @@ Happy working!
 .  Copy the file to the folder you want to use as the home folder for your +Work.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="400"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -113,7 +113,7 @@ Format: `home` +
 
 Calling the `home` command will bring you to the following page:
 
-image::Home.png[width=790]
+image::Home.png[width=400]
 
 
 ==== Accessing time management page: `calendar` +
@@ -130,7 +130,7 @@ Format: `settings` +
 
 Entering the `settings` command will bring you to the following page:
 
-image::Settings.png[width=790]
+image::Settings.png[width=400]
 
 [NOTE]
 You can refer to section 3.7 on specific settings-related commands to apply.
@@ -142,12 +142,14 @@ Displays a list of possible commands for the user +
 You can toggle through the command list (either through up down keys or mouse) and it will paste the correct syntax into the command line. +
 Format: `help`
 
-image::Help.png[width=790]
+image::Help.png[width=400]
 
 '''
 // end::UniversalCommands[]
 
+// tag::MemberCommandsPart1[]
 // tag::MemberCommands[]
+
 === Member-related Commands
 
 ==== Adding a member: `add-member` +
@@ -159,20 +161,20 @@ Example: `add-member mn/New Member mi/NM mt/UG` can be executed as follows:
 
 *Step 1:* +Work initially contains a list of 6 project members, as shown below.
 
-image::BeforeAdd.png[width="790"]
+image::BeforeAdd.png[width="400"]
 
 *Step 2:* To add a new project member into +Work, you enter the command `add-member mn/New Member mi/NM mt/UG` into the
 command prompt box.
 
-image::DuringAdd.png[width="790"]
+image::DuringAdd.png[width="400"]
 
 *Step 3:* After you hit kbd:[Enter], the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
 
-image::DoneAdd.png[width="790"]
+image::DoneAdd.png[width="400']
 
-The addition of a new member can also be seen from the list of members as shown down below:
+The addition of a new member can also be seen from the list of members as shown below:
 
-image::ListAdd.png[width="790"]
+image::ListAdd.png[width="400"]
 
 [IMPORTANT]
 Member ID is an alphanumeric ID set by you, and cannot be changed once the member is created.
@@ -184,6 +186,8 @@ Member ID is an alphanumeric ID set by you, and cannot be changed once the membe
 `add-member mn/New Member mi/NM mt/UG mt/DG mt/...`
 ====
 
+
+
 ==== Set image for member: `set-image` +
 To set a profile picture for a member in +Work, use the command `set-image` following the format below.
 
@@ -193,7 +197,7 @@ Example: `set-image mi/NM im/C:\Desktop\NewUserImage.png` can be executed as fol
 
 *Step 1:* +Work initially contains a list of project members with default profile pictures, as shown below.
 
-image::BeforeSet.png[width="790"]
+image::BeforeSet.png[width="400"]
 
 *Step 2:* To update the profile picture of the project member with member ID 'NM' in +Work to a specified image, you
 enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the command prompt box.
@@ -201,7 +205,7 @@ enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the comm
 *Step 3:* After you kbd:[Enter] the command, the member 'New Member' with member ID 'NM' has a new profile
 picture, specified by the image path you entered.
 
-image::SetImage.png[width="790"]
+image::SetImage.png[width="400"]
 
 
 [NOTE]
@@ -212,6 +216,8 @@ If you shift the image's location in your computer, +Work will be unable to find
 display a warning message, before displaying the default profile picture.
 It is recommended that you store all the images in a central folder to prevent this from happening.
 
+
+// end::MemberCommandsPart1[]
 
 ==== Editing a member : `edit-member`
 To edit a member in +Work, using the command `edit-member` following the format below.
@@ -229,7 +235,7 @@ Example: `edit-member mi/NM mn/No Longer New mt/edited` can be executed as follo
 
 *Step 1:* +Work initially contains a list of 7 project members, as shown below.
 
-image::BeforeEdit.png[width="790"]
+image::BeforeEdit.png[width="400"]
 
 *Step 2:* To edit the member name and tag of 'New Member' with member ID 'NM', you enter the command
 `edit-member mi/NM mn/No Longer New mt/edited` into the command prompt box.
@@ -237,8 +243,7 @@ image::BeforeEdit.png[width="790"]
 *Step 3:* After you kbd:[Enter] the command, the member with member ID 'NM' and tag 'UG' is edited,
 with a new member name 'No Longer New' and new tag 'edited'.
 
-image::AfterEdit.png[width="790"]
-
+image::AfterEdit.png[width="400"]
 
 ==== List existing members: `list-members` +
 To get a list of all members added to +Work, used the command `list-members` following the format below. +
@@ -246,7 +251,7 @@ Format: `list-members` +
 
 Example: Entering `list-members` into the command prompt will result in the following:
 
-image::ListMembers.png[width="790"]
+image::ListMembers.png[width="400"]
 
 As seen from the above, all existing project members in +Work will be listed.
 
@@ -258,7 +263,7 @@ Example: `remove-member mi/GS` can be executed as follows:
 
 *Step 1:* +Work now contains a list of 7 project members, as shown below.
 
-image::BeforeRemove.png[width="790"]
+image::BeforeRemove.png[width="400"]
 
 *Step 2:* To remove project member 'No Longer New', with member ID 'NM' from +Work, you enter the command
 `remove-member mi/NM` into the command prompt box.
@@ -266,7 +271,7 @@ image::BeforeRemove.png[width="790"]
 *Step 3:* After you kbd:[Enter] the command, the member 'No Longer New' is no longer a project member in +Work, as
 seen from the list of members below.
 
-image::AfterRemove.png[width="790"]
+image::AfterRemove.png[width="400"]
 
 
 ==== Assign a task to a member: `assign` +
@@ -280,12 +285,12 @@ Example: `assign ti/1 mi/GS` can be executed as follows:
 'Gabriel Seow' with member ID 'GS'. The task 'Review Budget' has task ID 1, prompting you to enter the command
 `assign ti/1 mi/GS`.
 
-image::BeforeAssign.png[width="790"]
+image::BeforeAssign.png[width="400"]
 
 *Step 2:* After you kbd:[Enter] the command, the task 'Review Budget' with task ID '1' is added under member
 'Gabriel Seow' with member id 'GS', as seen from the image below.
 
-image::AfterAssign.png[width="790"]
+image::AfterAssign.png[width="400"]
 
 ==== Removing a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
@@ -298,12 +303,12 @@ Example: `fire ti/1 mi/GS` can be executed as follows:
 from being assigned to task 'Review Budget'. The task 'Review Budget' has task ID 1, prompting you to enter the command
 `fire ti/1 mi/GS`.
 
-image::BeforeFire.png[width="790"]
+image::BeforeFire.png[width="400"]
 
 *Step 2:* After you kbd:[Enter] the command, the task 'Review Budget' with  task id 1 is removed from member
 'Gabriel Seow' with member id 'GS'  as seen from the image below.
 
-image::AfterFireMember.png[width="790"]
+image::AfterFireMember.png[width="400"]
 
 '''
 // end::MemberCommands[]
@@ -591,11 +596,12 @@ Format: `member-stats` +
 
 Calling the `member-stats` command will result in the statistics being displayed as follows:
 
-image::MemberStats.png[width="790"]
+image::MemberStats.png[width="400"]
 
 [NOTE]
 The resultant statistics displayed shows the proportion and number of tasks and inventory items allocated to each
 project member in +Work.
+// end::Statistics[]
 
 ==== Getting statistics of tasks: `task-stats` +
 To get statistics relating to the tasks in +Work, use the statistics command following the format below. +
@@ -603,14 +609,14 @@ Format: `task-stats` +
 
 Calling the `task-stats` command will result in the statistics being displayed as follows:
 
-image::TaskStats.png[width="790"]
+image::TaskStats.png[width="400"]
 
 [NOTE]
 The resultant statistics displayed shows the proportion of tasks that are undone, in progress and completed,
 as well as the time taken for each task inputted into +Work.
 
 '''
-// end::Statistics[]
+
 
 // start::Multiline[]
 === Multiline Commands

@@ -3,7 +3,6 @@ package seedu.pluswork.ui.views;
 import java.util.logging.Logger;
 
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
@@ -13,7 +12,6 @@ import javafx.scene.layout.Region;
 import seedu.pluswork.commons.core.LogsCenter;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
-import seedu.pluswork.model.task.TaskStatus;
 import seedu.pluswork.ui.UiPart;
 
 public class TaskStatisticsView extends UiPart<Region> {
@@ -32,10 +30,7 @@ public class TaskStatisticsView extends UiPart<Region> {
         taskListView.setCellFactory(listView -> new TaskListViewCell());
 
         //For PieChart taskByStatus
-        ObservableList<PieChart.Data> taskByStatusData = FXCollections.observableArrayList(
-                new PieChart.Data("NOT STARTED", stats.getPortionTasksByStatus().get(TaskStatus.UNBEGUN)),
-                new PieChart.Data("DOING", stats.getPortionTasksByStatus().get(TaskStatus.DOING)),
-                new PieChart.Data("DONE", stats.getPortionTasksByStatus().get(TaskStatus.DONE)));
+        ObservableList<PieChart.Data> taskByStatusData = stats.getPieChartDataForTasksByStatus();
 
         taskByStatus.setData(taskByStatusData);
 

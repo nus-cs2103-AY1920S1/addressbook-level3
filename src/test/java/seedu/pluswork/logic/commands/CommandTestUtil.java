@@ -2,6 +2,7 @@ package seedu.pluswork.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
@@ -31,6 +32,7 @@ import seedu.pluswork.model.member.MemberNameContainsKeywordsPredicate;
 import seedu.pluswork.model.task.NameContainsKeywordsPredicate;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.TaskStatus;
+import seedu.pluswork.testutil.EditMemberDescriptorBuilder;
 import seedu.pluswork.testutil.EditTaskDescriptorBuilder;
 
 /**
@@ -57,11 +59,14 @@ public class CommandTestUtil {
     public static final String TASK_NAME_DESC_FINANCE = " " + PREFIX_TASK_NAME + VALID_TASK_NAME_FINANCE;
     public static final String MEMBER_NAME_DESC_FINANCE = " " + PREFIX_MEMBER_NAME + VALID_MEMBER_NAME_FINANCE;
     public static final String TASK_NAME_DESC_PUBLICITY = " " + PREFIX_TASK_NAME + VALID_TASK_NAME_PUBLICITY;
+    public static final String MEMBER_NAME_DESC_PUBLICITY = " " + PREFIX_MEMBER_NAME + VALID_MEMBER_NAME_PUBLICITY;
     public static final String TASK_STATUS_DESC_FINANCE = " " + PREFIX_TASK_STATUS + VALID_TASK_STATUS_FINANCE;
     public static final String TASK_STATUS_DESC_PUBLICITY = " " + PREFIX_TASK_STATUS + VALID_TASK_STATUS_PUBLICITY;
     public static final String TAG_DESC_PUBLICITY = " " + PREFIX_TASK_TAG + VALID_TAG_PUBLICITY;
     public static final String TAG_DESC_URGENCY = " " + PREFIX_TASK_TAG + VALID_TAG_URGENCY;
     public static final String TAG_DESC_FINANCE = " " + PREFIX_TASK_TAG + VALID_TAG_FINANCE;
+    public static final String MEMBER_NAME_JOHN_DOE = " " + PREFIX_MEMBER_NAME + "John Doe";
+    public static final String MEMBER_ID_JOHN_DOE = " " + PREFIX_MEMBER_ID + "JD";
     public static final String TASK_DEADLINE_DESC = " " + PREFIX_DEADLINE + VALID_TASK_DEADLINE;
 
     public static final String VALID_INVENTORY_NAME_SPORTS = "Sports equipments";
@@ -69,12 +74,16 @@ public class CommandTestUtil {
     public static final double VALID_INVENTORY_PRICE_SPORTS = 79.50;
     public static final double VALID_INVENTORY_PRICE_MUSIC = 999;
     public static final String INVENTORY_NAME_DESC_SPORTS = " " + PREFIX_INVENTORY_NAME + VALID_INVENTORY_NAME_SPORTS;
-    public static final String INVENTORY_PRICE_DESC_SPORTS = " " + PREFIX_INVENTORY_PRICE + VALID_INVENTORY_PRICE_SPORTS;
+    public static final String INVENTORY_PRICE_DESC_SPORTS = " " + PREFIX_INVENTORY_PRICE
+            + VALID_INVENTORY_PRICE_SPORTS;
     public static final String INVENTORY_TASKID_DESC_SPORTS = " " + PREFIX_TASK_INDEX + 1;
     public static final String INVENTORY_MEMBERID_DESC_SPORTS = " " + PREFIX_MEMBER_ID + "AR";
 
     public static final String INVALID_TASK_NAME_DESC = " " + PREFIX_TASK_NAME
             + "Project Review&"; // '&' not allowed in names
+    public static final String INVALID_MEMBER_NAME_DESC = " " + PREFIX_MEMBER_NAME
+            + "Project Review&"; // '&' not allowed in names
+
     public static final String INVALID_TASK_STATUS_DESC = " " + PREFIX_TASK_STATUS
             + "reviewing"; // invalid status - statuses are determined in {@code TaskStatus}
     public static final String INVALID_TAG_DESC = " " + PREFIX_TASK_TAG
@@ -87,6 +96,8 @@ public class CommandTestUtil {
     public static final EditTaskCommand.EditTaskDescriptor TASK_DESC_PUBLICITY;
     public static final EditTaskCommand.EditTaskDescriptor TASK_DESC_DEADLINE;
     public static final EditInventoryCommand.EditInventoryDescriptor INVENTORY_DESC_TOY;
+    public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_FINANCE;
+    public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_PUBLICITY;
 
     static {
         TASK_DESC_FINANCE = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_FINANCE)
@@ -104,6 +115,11 @@ public class CommandTestUtil {
         INVENTORY_DESC_TOY.setPrice(new Price(1));
         INVENTORY_DESC_TOY.setTaskId(new Index(1));
         INVENTORY_DESC_TOY.setMemId(new MemberId("rak"));
+
+        MEMBER_DESC_FINANCE = new EditMemberDescriptorBuilder().withName(VALID_MEMBER_NAME_FINANCE)
+                .withTags(VALID_TAG_FINANCE).build();
+        MEMBER_DESC_PUBLICITY = new EditMemberDescriptorBuilder().withName(VALID_MEMBER_NAME_PUBLICITY)
+                .withTags(VALID_TAG_PUBLICITY).build();
     }
 
     /**

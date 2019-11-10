@@ -20,7 +20,7 @@ public class StatisticsTest {
     private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
 
     @Test
-    public void execute_correct_tasks_by_status_stats() {
+    public void executecorrectTasksByStatusStats() {
         HashMap<TaskStatus, Integer> expectedResult = new HashMap<>();
         expectedResult.put(TaskStatus.UNBEGUN, 3);
         expectedResult.put(TaskStatus.DOING, 2);
@@ -30,7 +30,7 @@ public class StatisticsTest {
     }
 
     @Test
-    public void execute_correct_members_by_tasks_stats() {
+    public void execute_correctMembersByTasksStats() {
         HashMap<Member, Integer> expectedResult = new HashMap<>();
         List<Member> members = model.getFilteredMembersList();
 
@@ -46,7 +46,7 @@ public class StatisticsTest {
     }
 
     @Test
-    public void execute_correct_members_by_inv_stats() {
+    public void execute_correctMembersByInvStats() {
         HashMap<Member, Integer> expectedResult = new HashMap<>();
         List<Member> members = model.getFilteredMembersList();
 

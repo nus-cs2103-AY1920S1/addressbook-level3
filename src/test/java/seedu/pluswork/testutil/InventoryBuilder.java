@@ -4,6 +4,9 @@ import seedu.pluswork.model.inventory.InvName;
 import seedu.pluswork.model.inventory.Inventory;
 import seedu.pluswork.model.inventory.Price;
 
+/**
+ * A utility class to help with building {@code Inventory} objects.
+ */
 public class InventoryBuilder {
     public static final String DEFAULT_NAME = "Sample Inventory Name";
 

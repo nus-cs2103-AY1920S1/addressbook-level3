@@ -96,7 +96,7 @@ public class EditMemberCommand extends Command {
         MemberName updatedName = editMemberDescriptor.getName().orElse(memberToEdit.getName());
         MemberId updatedMemberId = memberToEdit.getId();
         Set<Tag> updatedTags = editMemberDescriptor.getTags().orElse(memberToEdit.getTags());
-        String imagePath = memberToEdit.getImageUrl();
+        String imagePath = memberToEdit.getImagePath();
 
         return new Member(updatedName, updatedMemberId, updatedTags, imagePath);
     }
