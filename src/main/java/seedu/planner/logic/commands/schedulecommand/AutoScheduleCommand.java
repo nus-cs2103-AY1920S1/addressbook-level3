@@ -171,7 +171,7 @@ public class AutoScheduleCommand extends UndoableCommand {
             // Check if it is the last activity in the draftSchedule to schedule
             if (currentIndex == draftSchedule.size() - 1) {
                 if (currentActivityEndTime.isBefore(currentTiming)) {
-                    throw new CommandException(MESSAGE_INVALID_SCHEDULE);
+                    continue;
                 }
                 return Optional.of(activityWithCount.getActivity());
             }
