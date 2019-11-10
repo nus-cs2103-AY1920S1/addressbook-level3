@@ -217,7 +217,7 @@ The sequence diagram is as explained below:
 .. (Not shown in sequence diagram to reduce its complexity) It also checks if the wishlist is already shown in the main panel.
 .. If it is, then a `CommandException` is thrown to prevent the user from toggling the wishlist side panel when the wishlist is shown in the main method.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarizes what happens when a user executes a `toggle` command:
 
 image::ToggleActivityDiagram.png[width="240"]
 
@@ -254,6 +254,10 @@ The sequence diagram is as explained below:
 . `MainWindow` checks if the `changeFont` attribute in `commandResult` is true.
 . Since it is true, it retrieves the `FontName` `ROCKWELL` from `commandResult` and calls on its own method `handleChangeFont`.
 . This method then converts the `FontName` `ROCKWELL` to a `String "rockwell"` and sets the `font-family` attribute of `window`, that contains all the child nodes, to `rockwell`.
+
+The following activity diagram summarizes what happens when a user executes a `changeFont` command:
+
+image::ChangeFontActivityDiagram.png[]
 
 ==== Design Considerations
 
