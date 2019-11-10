@@ -101,7 +101,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 * Different changes in each tab or panel is controlled via the enum `UiChange`
 
-// end::UiUG[] s
+// end::UiUG[]
 
 [[Design-Logic]]
 === Logic component
@@ -110,7 +110,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[][height=60%, scaledwidth=12cm]
+image::LogicClassDiagram.png[]
 
 // end::logicDiagram[]
 
