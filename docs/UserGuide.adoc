@@ -451,6 +451,7 @@ image::GroupView3.png[]
 The questions feature is the starting point for creating quizzes and starting a slideshow.
 With questions, you are able to manage your existing questions, and add new ones which will be automatically saved.
 
+// tag::questions-management[]
 [[Feature-Question-Add]]
 ==== Creating a question
 
@@ -492,11 +493,12 @@ choices _'1965', '1963', '1968', '1970'_.
 .Creating an open ended question.
 image::questions/AddQuestion.png[]
 
+// end::questions-management[]
 '''
 
 ==== Editing a question
 
-Edit a question currently stored. All keywords are *optional*. +
+Edit a question from the question list. All keywords are *optional*. +
 {empty} +
 
 [big]*Format:* `question [INDEX] question/... answer/... type/... (MCQ KEYWORDS IF APPLICABLE)`
@@ -575,9 +577,9 @@ The keywords supported by this feature includes: +
 Example:
 
 * `question list` +
-Lists the question list.
+Displays the question list.
 
-.Listing saved questions.
+.Listing questions currently stored.
 image::questions/ListQuestionResult.png[]
 
 '''
@@ -612,6 +614,7 @@ image::questions/FindQuestion.png[]
 
 '''
 
+// tag::questions-slideshow[]
 ==== Starting a Slideshow
 
 Start a slideshow based on the questions selected. The sequence of the questions displayed will follow the ordering of input. +
@@ -682,6 +685,8 @@ Here is a summary of the various components of the slideshow feature:
 .Description of the various components.
 image::questions/SlideshowFeatureDescription.png[]
 
+
+// end::questions-slideshow[]
 '''
 
 === Quizzes ​-​ `quiz`

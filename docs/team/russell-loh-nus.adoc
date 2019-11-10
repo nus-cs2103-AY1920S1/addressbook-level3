@@ -1,0 +1,96 @@
+== Russell Loh - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+==== Project Title: Njoy Teaching Assistant
+
+---
+
+=== Overview
+
+*Njoy Teaching Assistant* is a command line interface(CLI) desktop application built by a team for 5 computing students for our Software Engineering project.
+It enables teachers of various disciplines to create a more interactive classroom through the use of slideshow and polling. Outside the classroom, it
+allows them to manage their classes, timetables, notes, questions and quizzes.
+
+Below is an example image of the application:
+
+image::InterfaceWithLabels.png[width=80%, scaledwidth=12cm]
+_Njoy Teaching Assistant application._
+
+I was tasked to brainstorm a solution that could enhance classroom learning and implement it. Eventually, I came up with the solution of using question prompts through
+a slideshow that is able to facilitate discussions in the classroom and at the same time, allow teachers to manage these questions more efficiently.
+The following sections includes my contribution to the project and selected key snippets of documentation that I wrote pertaining to my features for both the user and developer guides.
+
+Certain special formatting are used in this document and their description is as follows:
+
+|==============================
+| Format | Description
+
+| `command` | Indicates a command, keyword or control for the user guide. For the developer guide, it indicates that it is a class, method or variable name.
+| `https://github.com/AY1920S1-CS2103T-W13-2/main[command]` | Indicates a link to a section in the document or to a web page.
+|==============================
+
+=== Summary of contributions
+
+* *Major enhancement*: Added the ability for teachers to manage their questions.
+** *What it does:* Allows teachers to manage their questions more efficiently by providing a simple interface to create, edit, delete and find questions.
+** *Justification:* With teachers having to constantly prepare their questions before lessons and organise their questions for quizzes or homework, this feature will help to cut down
+the preparation time needed for such tasks.
+** *Highlights:* This enhancement is the basis for both the slideshow and quiz features and required an in-depth analysis on how teachers will use this feature, and how the questions can be presented in a simple yet intuitive manner.
+Moreover, it was challenging to adjust this feature such that it can be easily reused by both the slideshow and quiz features as they rely heavily on these questions.
+
+* *Major enhancement*: Added the ability for teachers to start a slideshow
+** *What it does:* Allows teachers to start an in-class activity with their students through a slideshow of questions that has an additional polling feature to garner responses from students.
+** *Justification:* Slideshow reduces the need for teachers to constantly write questions on the whiteboard and at the same time, interact with students through the use of polling to
+question their understanding about a topic before revealing the answer.
+** *Highlights:* This enhancement adds additional purpose to existing questions and required an in-depth analysis on how typical presentation software works so that using the slideshow feature will not feel foreign to the teachers.
+It was challenging to ensure that the controls are familiar to the teachers and the layout is simple enough for the students to view.
+
+* *Minor enhancement 1*: Restyled the general application interface.
+* *Minor enhancement 2*: Designed the *Njoy* logo and banner.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Russell-Loh-NUS&tabRepo=AY1920S1-CS2103T-W13-2%2Fmain%5Bmaster%5D[Functional and test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed milestones and deadlines on Github.
+*** Managed issue tracker and enforce feature assignment on Github.
+*** Managed milestone version 1.3 release on Github.
+** Enhancements to existing features:
+*** Wrote skeleton for commands and related prefix that the team can reuse. (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/32[#32], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/33[#33])
+*** Added command summary and adjusted application help guide user interface. (Pull request https://github.com/AY1920S1-CS2103T-W13-2/main/pull/121[#121])
+*** Refactored and removed address book related commands and parser. (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/106[#106], https://github.com[#34])
+*** Added tests for questions. (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/185[#185], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/189[#189])
+** Documentation:
+*** Added documentation for features implemented. (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/185[#185], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/121[#121], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/106[#106], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/74[#74])
+*** Added first draft user guide, use cases and UI mockup to the developer guide. (Pull request https://github.com/AY1920S1-CS2103T-W13-2/main/pull/18[#18])
+** Community:
+*** Team pull requests that I reviewed and merged. [https://github.com/AY1920S1-CS2103T-W13-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+commenter%3ARussell-Loh-NUS+[Github]]
+*** Reviews done for other teams (Pull request https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/122[#122])
+** Tools:
+*** Integrated a third party library (commons-text by Apache) to the project
+
+---
+
+=== Contributions to the User Guide
+
+|===
+|_Given below are the sections that I contributed to the User Guide. However, only a few key snippets of my contribution are included, which showcase my ability to write user documentation targeting end-users. The full User Guide can be found https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/docs/UserGuide.adoc[here]_
+|===
+
+include::../UserGuide.adoc[tag=questions-management]
+
+include::../UserGuide.adoc[tag=questions-slideshow]
+
+=== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. Similar to the User Guide, only a few key snippets of my contribution are included, which showcase my ability to write detailed and comprehensive technical documentation that can be referenced by fellow developers. The full Developer Guide can be found https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/docs/DeveloperGuide.adoc[here]_
+|===
+
+include::../DeveloperGuide.adoc[tag=questions-find]
+
+include::../DeveloperGuide.adoc[tag=questions-slideshow]
+
