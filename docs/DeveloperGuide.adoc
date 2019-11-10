@@ -1127,7 +1127,7 @@ Additionally, the `GameStatisticsBuilder` is updated with every `GuessCommand` o
 It receives the timestamp from the `GameTimer` which also resides in `AppManager`.
 
 .Sequence diagram when user makes a guess.
-image::UpdateStatisticsSequenceDiagram.png[]
+image::UpdateStatisticsSequenceDiagram.png[width=530]
 
 ===== [underline]#5. User finishes the game# +
 When the user finishes the game, a `GameStatistics` is created from the `GameStatisticsBuilder`. The `GameStatistics`
@@ -1144,7 +1144,7 @@ The work done in step 4 and 5 is executed in `AppManager` and the checks to deci
 the same method `updateGameStatisticsBuilder(CommandResult)`.
 
 .Activity diagram when `AppManager` receives a `CommandResult` (Details unrelated to statistics are omitted).
-image::GameStatisticsBuilderActivityDiagram.png[]
+image::GameStatisticsBuilderActivityDiagram.png[width=500]
 
 ==== Design Considerations
 
