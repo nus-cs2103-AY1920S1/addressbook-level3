@@ -142,6 +142,7 @@ public class LoansManager {
         }
         checkIndexValidityInFilteredList(toEdit);
         internalList.set(filteredLoans.getSourceIndex(toEdit.getZeroBased()), editedLoan);
+        internalList.sort(sorter);
     }
 
     /**
