@@ -29,7 +29,7 @@ Responsibilities: Tagging and Cheatsheet feature
 
 === Jasmine Yeo Jia Min
 image::jaesimin.png[width="150", align="left"]
-{empty}[http://github.com/jaesimin[github]] [<<jaesiminn#, portfolio>>]
+{empty}[http://github.com/jaesimin[github]] [<<jaesiminn.adoc#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Cheatsheet feature

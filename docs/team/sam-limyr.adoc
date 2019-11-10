@@ -1,4 +1,7 @@
 = Samuel Lim - Project Portfolio for StudyBuddyPro
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == About the Project
 Me and my team of four other software engineering coursemates were tasked with morphing a given codebase for a
