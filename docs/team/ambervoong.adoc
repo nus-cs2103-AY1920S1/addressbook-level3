@@ -39,11 +39,8 @@ The sections below detail my contributions as well as the documentation I wrote 
 You will encounter the following symbols and formatting in this document:
 
 ====
-* `undo`:  Grey text with a white background (also known as a mark-up) indicating that the text
-is something the user can enter into the CLI.
-
-is a command that can be inputted into the command line and executed by the application.
-* `[subheader]#GenReportCommand.java#`: Maroon text with grey highlight indicates a component, class or object in the architecture of the application.
+* `undo`:  Dark red text with monospace font indicates that this text is a command or part of a command that can be entered into the CLI.
+* `[purple]#GenReportCommand.java#`: Purple text in monospace font indicates a component, class, function or object in the application's architecture.
 ====
 
 == 2. Summary of Contributions
@@ -82,12 +79,12 @@ to update the fields of an entity is essential, as the states of entities must b
 It was vital that the command didn't require every field to be supplied, as it would require excessive user effort.
 
 ** Highlights: The `update` command took a lot of effort to implement because Mortago's entities contain many fields.
-For instance, the `Body` class contains 16 fields. To make updating more efficient and easy to undo or redo, `update` makes use of special descriptors
+For instance, the [purple]`Body` class contains 16 fields. To make updating more efficient and easy to undo or redo, `update` makes use of special descriptors
 to store the fields' values.
 
 *Minor enhancement*: I added storage functionality for Mortago's entities.
 
-** What it does: The storage functionality allows Mortago's `Body`, `Worker`, `Fridge`, and `Photo` objects to be stored on the user's
+** What it does: The storage functionality allows Mortago's [purple]`Body`, [purple]`Worker`, [purple]`Fridge`, and [purple]`Photo` objects to be stored on the user's
 computer. Data is automatically saved after every change to Mortago.
 
 ** Justification: The storage functionality is critical to Mortago, as its core purpose is to act
@@ -106,8 +103,7 @@ Other contributions I have made to the team and the project are listed in this s
 *** Maintained the issue tracker and project discussion board on GitHub (https://github.com/AY1920S1-CS2103T-T13-2/main/issues?q=is%3Aissue+is%3Aclosed[link to issue tracker], https://github.com/AY1920S1-CS2103T-T13-2/main/projects/1[link to discussion board])
 *** Managed release `v1.2` on GitHub. (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/88[#88])
 ** Enhancements to existing features:
-*** Added storage functionality for Mortago's `Body`, `Worker`, `Fridge`, and `Photo` classes (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/128[#128], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/91[#91])
-*** Wrote additional tests for existing features to increase coverage from []% to []% (Pull requests https://github.com[#00], https://github.com[#00])
+*** Added storage functionality for Mortago's [purple]`Body`, [purple]`Worker`, [purple]`Fridge`, and [purple]`Photo` classes (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/128[#128], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/91[#91])
 ** Documentation:
 *** Wrote the UG and DG for the `undo`, `redo`, and `update` features (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/113[#113], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/229/files[#229], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/70[#70])
 *** Morphed the AB3 User Guide for Mortago (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/22[#22])
