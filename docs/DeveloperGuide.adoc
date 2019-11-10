@@ -99,18 +99,18 @@ ScheduleViewPanel implements the following function:
 
 Given below is an example scenario of what will be displayed to the user.
 
-*Step 1. The user launches the application. The Ui will start and the MainWindow will be displayed first.
-*Step 2. MainWindow will call all the children such as the HelpWindow, CommandBox, Result Display, StatusBarFooter, ScheduleViewPanel, IntervieweeListPanel
+* Step 1. The user launches the application. The Ui will start and the MainWindow will be displayed first.
+* Step 2. MainWindow will call all the children such as the HelpWindow, CommandBox, Result Display, StatusBarFooter, ScheduleViewPanel, IntervieweeListPanel
 and InterviewerListPanel.
-*Step 3. Once ScheduleViewPanel is called, it will take in a list of titles and ObservableList data from the Logic class. The list of titles
+* Step 3. Once ScheduleViewPanel is called, it will take in a list of titles and ObservableList data from the Logic class. The list of titles
 consist of the title column for each schedule table and the ObservableList data consists of the time slots allocated to each interviewee.
-*Step 4. ScheduleViewPanel will call the ScheduleView class to fill each table and populate each table with the data given by the Logic class.
-*Step 5. ScheduleView will have a .fxml file of a table and it will first be filled with the column titles, followed by the time slots and the
+* Step 4. ScheduleViewPanel will call the ScheduleView class to fill each table and populate each table with the data given by the Logic class.
+* Step 5. ScheduleView will have a .fxml file of a table and it will first be filled with the column titles, followed by the time slots and the
 interviewee allocated to each time slots. The slot that has no interviewee will be displayed as "0".
-*Step 6. ScheduleViewPanel will call and instantiate the ScheduleView object into a list card.
-*Step 7. Once all the ScheduleView objects are instantiated into the respective list cards, the ScheduleView Panel will form a list of tables
+* Step 6. ScheduleViewPanel will call and instantiate the ScheduleView object into a list card.
+* Step 7. Once all the ScheduleView objects are instantiated into the respective list cards, the ScheduleView Panel will form a list of tables
 containing the schedules of the day.
-*Step 8. The MainWindow class will fill the Ui with the ScheduleViewPanel.
+* Step 8. The MainWindow class will fill the Ui with the ScheduleViewPanel.
 
 .Schedule View Sequence Diagram
 image::ScheduleViewSequenceDiagram.png[]
@@ -124,42 +124,43 @@ the table with data:
 * `initialise()` -- To first set the columns, and afterwards fill the columns with the data provided.
 
 Interviewee list will provide the following information:
-*1. Name
-*2. NUS/Personal emails
-*3. Faculty
-*4. Academic Year
-*5. Department Choice
-*6. Available Time Slots
-*7. Allocated Time Slot
-*8. Tags
+* 1. Name
+* 2. NUS/Personal emails
+* 3. Faculty
+* 4. Academic Year
+* 5. Department Choice
+* 6. Available Time Slots
+* 7. Allocated Time Slot
+* 8. Tags
 
 Interviewer list view has the similar steps of displaying information of the interviewers. The difference is in the details of the interviewers.
 
 The interviewer list will provide the following information:
-*1. Name
-*2. Department
-*3. Available Time Slots
+
+* 1. Name
+* 2. Department
+* 3. Available Time Slots
 
 Given below is a scenario of how the IntervieweeListPanel/InterviewerListPanel is filled.
 
-*Step 1. The user launches the application. The Ui will start and the MainWindow will be displayed first.
-*Step 2. MainWindow will call all the children such as the HelpWindow, CommandBox, Result Display, StatusBarFooter, ScheduleViewPanel, IntervieweeListPanel
+* Step 1. The user launches the application. The Ui will start and the MainWindow will be displayed first.
+* Step 2. MainWindow will call all the children such as the HelpWindow, CommandBox, Result Display, StatusBarFooter, ScheduleViewPanel, IntervieweeListPanel
 and InterviewerListPanel.
-*Step 3. Once IntervieweeListPanel is called, it will take in an ObservableList data from the Logic class. It contains all the information of the list
+* Step 3. Once IntervieweeListPanel is called, it will take in an ObservableList data from the Logic class. It contains all the information of the list
 of interviewees
-*Step 4. The class will initialise, setting the necessary columns.
-*Step 5. Using the method `setItems()` from the tableView, data will be populated to their respective columns and form the interviewee list.
+* Step 4. The class will initialise, setting the necessary columns.
+* Step 5. Using the method `setItems()` from the tableView, data will be populated to their respective columns and form the interviewee list.
 
 
 ==== Interviewer List View
 
 ==== UI Refresh During Data Import
 
-*Step 1. Once User imports a new .csv file, it will call the RefreshListener Interface.
-*Step 2. UiManager will receive this method through the RefreshListener, thus calling dataUpdated to MainWindow class.
-*Step 3. The RefreshListenerManager will call the MainWindow to refresh the ScheduleViewPanel.
-*Step 4. ScheduleViewPanel will firstly clear all the data and input the updated data from the .csv file.
-*Step 5. ScheduleViewPanel object will then be returned to the MainWindow and display the updated data.
+* Step 1. Once User imports a new .csv file, it will call the RefreshListener Interface.
+* Step 2. UiManager will receive this method through the RefreshListener, thus calling dataUpdated to MainWindow class.
+* Step 3. The RefreshListenerManager will call the MainWindow to refresh the ScheduleViewPanel.
+* Step 4. ScheduleViewPanel will firstly clear all the data and input the updated data from the .csv file.
+* Step 5. ScheduleViewPanel object will then be returned to the MainWindow and display the updated data.
 
 .UI Refresh During Data Import Sequence Diagram
 image::ImportUIRefreshSequenceDiagram.png[]
@@ -174,26 +175,39 @@ image::ImportUIRefreshSequenceDiagram.png[]
 This section shows how the `Logic` component is structured. The class diagram below shows an overview of the `Logic` component:
 
 .Structure of the Logic Component
-image::LogicClassDiagram1_2.png[]
+image::LogicClassDiagram.png[]
 
+====
+* `XYZ` in `XYZCommand` can either be: Add, Edit, Delete, Clear, Exit, Help, Import, Export, Email, Schedule or Display.
+* `XYZ` in `XYZCommandParser` can either be Add, Edit, Delete, Import, Export, Email, Schedule or Display.
+* The dependencies of `XYZCommand` with the `graph` package shown in the Class Diagram only applies to `ScheduleCommand`.
+====
 
 *API* :
 link:{repoURL}/src/main/java/seedu/scheduler/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+The `Logic` component mainly handles the parsing of user input and creation of commands to execute, which in turn affects
+the `Model` and `Storage` components.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+A command entered by the user is processed as follows:
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+. `Logic` uses the `SchedulerParser` class to parse the user command, producing a `Command` object.
+. This `Command` object is executed by `LogicManager`, which may affect `Model` (e.g adding an interviewee).
+. The execution produces a result, which is encapsulated in a `CommandResult` object and returned to `LogicManager`.
+. `LogicManager` the processes the `CommandResult`. The `CommandResult` can instruct to `Ui` to perform certain actions,
+such as displaying help to the user.
+. Finally, `LogicManager` calls the `Storage` components to save the current `Model` to the hard disk.
+
+Given below is the general Sequence Diagram for interactions within the `Logic` component for the execution of the `add`,
+`edit` and `delete` API calls. Refer to <<Implementation, Section 3: Implementation>> for how different `Command` objects
+are executed and how they influence other components.
+
+.General interactions Inside the Logic Component for the `add`, `edit` and `delete` Commands
+image::LogicGeneralSequenceDiagram.png[]
+
+NOTE: The lifeline for `XYZCommandParser` and `XYZCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 // end::logic[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -238,36 +252,63 @@ Classes used by multiple components are in the `seedu.scheduler.commons` package
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::KendrickFeatures[]
+
+=== Add, Edit and Delete feature
+The `add`, `edit` and `delete` features allow interviewees and interviewers to be manually added to Scheduler.
+
+An `Interviewee` is associated with the following `Prefix`:
+
+* `n/NAME`, `p/PHONE`, `t/TAG`, `f/FACULTY`, `y/YEAR_OF_STUDY`, `d/DEPARTMENT`, `s/SLOT`, `ep/PERSONAL_EMAIL` and `ew/NUS_WORK_EMAIL`.
+
+An `Interviewer` is associated with the following `Prefix`:
+
+* `n/NAME`, `p/PHONE`, `t/TAG`, `s/SLOT`, `d/DEPARTMENT` and `ew/NUS_WORK_EMAIL`.
+
+The Activity Diagram below illustrates the general flow of logic from command input (by a user) to command execution:
+
+.A general Activity Diagram illustrating logic flow in the `Logic` component.
+image::LogicGeneralActivityDiagram.png[]
+
+NOTE: The box labelled "Command execution" is a *rake*. It indicates that part of the activity is given as a separate diagram.
+Each of <<Add Interviewee/Interviewer feature, add>>, <<Edit Interviewee/Interviewer feature, edit>> and <<Delete Interviewee/Interviewer feature, delete>> provide their own versions of "Command execution".
+
+// end::KendrickFeatures[]
+
 // tag::add[]
 
-=== Add Interviewee/Interviewer feature
-The add command is facilitated by the `AddCommandParser` class. It extends `AddCommandParser` by allowing it to parse
-prefixes specific to our Scheduler app, namely:
+==== Add Interviewee/Interviewer feature
+The `add` command feature essentially allows a user to add an `Interviewee` or `Interviewer` object to the underlying `IntervieweeList`
+ or `InterviewerList` of `ModelManager`. The underlying `UniquePersonList` of `IntervieweeList` and `InterviewerList` ensures
+that no duplicate entities are present at any time, checked by Interviewee#isSamePerson() and Interviewer#isSamePerson().
 
-* r/ROLE
-* f/FACULTY
-* ep/PERSONAL_EMAIL and ew/NUS_WORK_EMAIL
-* y/YEAR_OF_STUDY
-* d/DEPARTMENT
-* s/SLOT
-
-This command also requires access to the Model package, where the AddressBook implementation lives, as well as the
-Storage package, where the `JsonSerializableAddressBook` implementation lives. Consequently, the following json-friendly
-classes were added:
-
-* JsonAdaptedInterviewee, JsonAdaptedInterviewer, JsonAdaptedDepartment, JsonAdaptedSlot
-
-The following *sequence diagram* describes how the add command works when adding an interviewee:
+The following *Sequence Diagram* illustrates how the `add` interviewee command works. The `add` interviewer command works in a similar manner.
 
 .Add Interviewee Sequence Diagram
-image::AddSequenceDiagram_1_2.png[]
+image::AddSequenceDiagram.png[]
 
-The following activity diagram shows the steps needed to add a new interviewee:
+NOTE: The lifeline for `AddCommandParser` and `AddIntervieweeCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-.Add Interviewee Activity Diagram
-image::AddActivityDiagram_1_2.png[]
+====
+* See the general logic sequence diagram in <<Logic component, Section 2.3: Logic component>> for a more complete view of how
+`Storage` is affected.
+====
 
 // end::add[]
+
+// tag::edit[]
+
+==== Edit Interviewee/Interviewer feature
+
+
+
+// end::edit[]
+
+// tag::delete[]
+
+==== Delete Interviewee/Interviewer feature
+
+// end::delete[]
 
 === Scheduling Feature
 ==== Algorithm
