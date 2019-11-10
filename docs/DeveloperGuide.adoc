@@ -137,7 +137,9 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the IchiFund data.
+* stores the IchiFund data (in e.g. `UniqueBudgetList`)
+* keeps track of a `TransactionContext` object that represents the current filter applied to `TransactionList`.
+* exposes an unmodifiable version of the `TransactionContext` object (as `ObservableValue<TransactionContext>`) that can be observed by the UI.
 * exposes unmodifiable lists (e.g. `ObservableList<Transaction>`) that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -261,12 +263,18 @@ The control flow for this handler is similar to that of the shortcut keys.
 In designing the specific commands for tab switching, we considered an alternative implementation for
 passing information about tab switching to `Ui`.
 
-* **Alternative 1 (current choice):** `Ui` detects change through an `InvalidationListener`.
-** Pros: `Logic` does not need to be aware of `Ui`.
-** Cons: Requires greater understanding of JavaFX API to implement.
-* **Alternative 2:** `Logic` directly calls `Ui` whenever the specific command is made.
-** Pros: Easy to implement.
-** Cons: Creates a dependency from `Logic` to `Ui`.
+|====================
+| Description of Implementation | Pros and Cons
+| `Ui` detects change through an `InvalidationListener` (current choice) |
+*Pros*: `Logic` does not need to be aware of `Ui`.
+
+*Cons*: Requires greater understanding of JavaFX API to implement.
+
+| `Logic` directly calls `Ui` whenever the specific command is made. |
+*Pros*: Easy to implement.
+
+*Cons*: Creates a dependency from `Logic` to `Ui`.
+|====================
 
 While Alternative 2 is much simpler to implement, we chose Alternative 1
 as we prioritised preserving the independence of `Logic` from `Ui`.
@@ -296,11 +304,85 @@ image::TaskCode.png[]
 
 === Transaction
 
+[[overviewtx]]
+==== Overview of Model
+
+===== Implementation
+
+The transactions in IchiFund are represented using the `Transaction` class. While users are able to edit transactions,
+objects of the `Transaction` class are immutable in the internal structure. The following class diagram summarizes
+the details of the `Transaction` class:
+
+image::TransactionClassDiagram.png[]
+
+Of note, we differentiate transactions into income and expenditure items using the `TransactionType` field, which accepts
+two unique string values, `"in"` for income and `"exp"` for expenditure in the constructor.
+
+In addition, the list of transactions is subject to a filter created by `TransactionContext`.
+`TransactionContext` keeps track of the `Month`, `Year`, `Category` (optional) and `TransactionType` (optional) in the current filter.
+We defer the demonstration of how `TransactionContext` is used to filter the list of transactions to <<filtertx>>
+
+The `TransactionContext` is also used to fill in optional fields that are not specified by the user when adding transactions.
+Later, in <<addtx>>, we demonstrate how this is implemented.
+
+We summarise the role of the `TransactionContext` class in the following conceptual class diagram:
+
+image::TransactionContextOodm.png[]
+
+===== Design Considerations
+
+We encountered two major decisions when implementing our model for transactions. Here, we discuss the alternatives
+we considered, as well as the rationale for the current implementation.
+
+====== Multiplicity of `Category`
+Currently, each `Transaction` object can have only one `Category` object associated to it. In the problem domain, it is
+also natural to think of transactions being associated with multiple categories. The table below summarizes the pros and cons of each choice.
+|====================
+| Description of Implementation | Pros and Cons
+| Each `Transaction` only has one `Category`  (current choice) |
+*Pros*: Simple to implement. No overlaps in apportionment of expenditure to categories.
+
+*Cons*: Less flexibility for the user to classify transactions.
+
+| Each `Transaction` can have more than one `Category` |
+*Pros*: More flexibility for the user to classify transactions.
+
+*Cons*: Overlaps in apportionment of expenditure to categories.
+|====================
+While both implementations are visible, we chose to only have one `Category` associated to each
+`Transaction` as the absence of overlaps in expenditure allows us to eventually implement a clean visual
+breakdown of expenditure by category in the future.
+
+Developers, however, are welcome to implement an additional `Tags` field for `Transaction` objects, to allow
+for multiple associations.
+
+====== Differentiating between Income and Expenditure
+Currently, we differentiate transactions that are income items and expenditure items using the `TransactionType` field in
+`Transaction`. We considered the natural alternative of using inheritance as well.
+|====================
+| Description of Implementation | Pros and Cons
+| Using the field `TransactionType` (current choice) |
+*Pros*: Fits the parsing methods used in the current architecture well.
+
+*Cons*: More tedious to code for different behaviours for income and expenditure items in the future.
+
+| Using inheritance. |
+*Pros*: Allows for polymorphism of methods from a `Transaction` interface in the long run.
+
+*Cons*: Requires either the use of separate commands, or asymmetry in the parsing of command arguments.
+|====================
+While it was a tough decision, we eventually decided to use `TransactionType` for differentiation as we valued maintaining the
+symmetry in the implementation of parsing in our current architecture, and we did not want to use separate commands for adding transactions.
+
+Furthermore, we did not envision further use of polymorphism in future developments. Hence the benefit of using inheritance becomes
+very limited.
+
 // tag::transfilter[]
+[[filtertx]]
 ==== Filtering Transactions
 
 The filter transactions feature allows the user to change the filter for the list of transactions.
-This feature is facilitated by `TransactionFeatureParser`, `FilterTransactionCommandParser`, and `TransactionCommand`.
+This feature is facilitated by `TransactionFeatureParser`, `FilterTransactionCommandParser`, and `FilterTransactionCommand`.
 The arguments supported by this feature includes:
 
 - `Month` (optional)
@@ -312,14 +394,18 @@ Although all arguments are optional, the user has to input at least one argument
 to be valid.
 
 ===== Implementation
+
+As prefaced in <<overviewtx>>,
+
 ===== Design Considerations
 // end::transfilter[]
 
 // tag::transadd[]
+[[addtx]]
 ==== Adding Transactions
 
 The add transaction feature allows the user to add a transaction into IchiFund.
-This feature is facilitated by `BudgetFeatureParser`, `AddBudgetCommandParser`, and `AddBudgetCommand`.
+This feature is facilitated by `TransactionFeatureParser`, `AddTransactionCommandParser`, and `AddTransactionCommand`.
 The arguments supported by this feature includes:
 
 - `Description`
