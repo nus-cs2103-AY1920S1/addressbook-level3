@@ -32,7 +32,7 @@ public class ActivityTest {
         assertTrue(ACTIVITY_ONE.isSameActivity(ACTIVITY_ONE));
 
         // null -> returns false
-        assertFalse(ACTIVITY_ONE.isSameActivity(null));
+        assertFalse(ACTIVITY_ONE.isSameActivity((Activity) null));
 
         // different address -> returns false
         Activity editedActivity = new ActivityBuilder(ACTIVITY_ONE).withAddress(VALID_ACTIVITY_ADDRESS_A).build();
