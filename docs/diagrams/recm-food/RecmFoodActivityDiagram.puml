@@ -1,17 +1,18 @@
 @startuml
 start
-:User executes recmf -f -sv fn/Chickencommand;
+:User executes recmf command;
 
-if () then ([command is called for the first time])
+if () then ([command is used for the first time])
     :Create food storage file with sample data;
 else ([else])
     :Initialize UniqueFoodList from storage;
 endif
-:Update the display of foods with filters;
+:User executes `recmf -f -m +sort/gi` command;
+:Predicates and FoodComparator are supplied to update the display;
 :User executes addfood command;
 if () then ([food info is correct])
-    :Create a new food and add to food list;
-    :Switch display to show full food list;
+    :Create a new food, add to food list, and update storage;
+    :Switch the display to show full food list;
 else ([else])
 endif
 stop
