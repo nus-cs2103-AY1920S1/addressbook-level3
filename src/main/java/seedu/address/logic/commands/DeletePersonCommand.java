@@ -40,7 +40,7 @@ public class DeletePersonCommand extends Command {
             model.deletePerson(name);
 
             // update main window display
-            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.HOME);
+            model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.HOME);
 
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);

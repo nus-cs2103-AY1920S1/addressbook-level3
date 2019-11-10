@@ -45,7 +45,7 @@ public class ScheduleCommand extends Command {
         }
 
         // update main window
-        model.updateDisplayWithPersons(persons, LocalDateTime.now(), ScheduleState.GROUP);
+        model.updateScheduleWithPersons(persons, LocalDateTime.now(), ScheduleState.GROUP);
 
         return new CommandResultBuilder(MESSAGE_SUCCESS).build();
     }
