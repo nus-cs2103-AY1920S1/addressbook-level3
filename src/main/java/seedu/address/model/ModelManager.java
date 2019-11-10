@@ -530,7 +530,7 @@ public class ModelManager implements Model {
             boolean isSuccessful = targetTeam.addParticipant(participant);
             if (!isSuccessful) {
                 logger.severe("Participant is already present in team");
-                throw new AlfredModelException("Participant is already present in team");
+                throw new AlfredModelException("Participant is already present in the team");
             }
             this.saveList(PrefixType.T);
         } catch (Exception e) {
@@ -614,6 +614,7 @@ public class ModelManager implements Model {
             logger.severe("Team does not have this Mentor");
             throw new AlfredModelException("Team does not have this Mentorr");
         }
+
         this.saveList(PrefixType.T);
     }
 
@@ -733,8 +734,9 @@ public class ModelManager implements Model {
      *
      * @param type
      */
-    private void saveList(PrefixType type) {
+    private void saveList(PrefixType type){
         try {
+
             switch (type) {
             case T:
                 this.storage.saveTeamList(this.teamList);

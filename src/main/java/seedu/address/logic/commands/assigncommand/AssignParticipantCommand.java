@@ -22,7 +22,7 @@ public class AssignParticipantCommand extends AssignCommand {
             + "invalid or does not exist.";
     public static final String MESSAGE_ASSIGN_PARTICIPANT_SUCCESS =
             "Assigned Participant %1$s(%2$s) to Team %3$s(%4$s) ";
-    public static final String MESSAGE_PARTICIPANT_ALREADY_ASSIGNED = "Participant already has Team.";
+    public static final String MESSAGE_PARTICIPANT_ALREADY_ASSIGNED = "Participant already in the Team.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + "participant"
             + ": Assigns the specified participant by ID to a Team with Team-ID\n"
             + "Format: " + COMMAND_WORD + " participant [participant ID] [team ID]\n"
