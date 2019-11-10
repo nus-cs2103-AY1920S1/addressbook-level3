@@ -403,7 +403,7 @@ broad overview of the project's and member's project.
 ==== Implementation
 
 The commands introduced by this statistics feature includes: `task-stats` and `member-stats`. These commands are facilitated by the class 'Statistics'
-that resides within model. The 'Statistics' class implements the following operations:
+that resides within model. The `Statistics` class implements the following operations:
 
 * `Statistics#doCalculations()` -- Calculates the statistics needed using existing list of tasks, members and mappings.
 * `Statistics#getPortionMembersByTasks()` -- Retrieves statistics of all the members and number of tasks completed by the each individual member.
@@ -414,11 +414,11 @@ These operations are exposed in the `Model` interface as `Model#doCalculations`,
 
 [NOTE]
 
-To allow the `UI` to be responsive, one of the operations is similarly exposed in the `Logic` interface as `Logic#getStatistics()'
+To allow the `UI` to be responsive, one of the operations is similarly exposed in the `Logic` interface as `Logic#getStatistics()`.
 
 Given below is an example usage scenario and how the Statistics mechanism behaves at each step.
 
-*Step 1.* The user launches the application for the first time. The 'Statistics' object stored by ProjectDashboard is initialised based on the data previously saved.
+*Step 1.* The user launches the application for the first time. The `Statistics` object stored by ProjectDashboard is initialised based on the data previously saved.
 
 [NOTE]
 
@@ -429,7 +429,7 @@ Data previously saved refers to the statistics calculation done based on list of
 The `task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` to obtain lists of all the members, tasks and mappings saved in the application.
 Using the lists, a Statistics object is formed. `Model#setStatistics` is called to updated the statistics in ProjectDashboard.
 
-The following sequence diagram (Figure 10) shows how the 'task-stats' operation works.
+The following sequence diagram (Figure 10) shows how the `task-stats` operation works.
 
 image::GetStatisticsSequenceDiagram.png[]
 Figure 10. Operational flow of `GetStatisticsCommand`
@@ -441,9 +441,9 @@ Step 3. In order for task statistics to be displayed in a comprehensive manner, 
 `TaskStatisticsView` class is also called to display the task stats.
 
 [NOTE]
-To allow the `UI` to be responsive, `getStatistics()` is similarly exposed in the `Logic` interface as `Logic#getStatistics()'
+To allow the `UI` to be responsive, `getStatistics()` is similarly exposed in the `Logic` interface as `Logic#getStatistics()`
 
-The following sequence diagram (Figure 11) shows how calling the 'task-stats' operation leads to the comprehensive UI display of task statistics.
+The following sequence diagram (Figure 11) shows how calling the `task-stats` operation leads to the comprehensive UI display of task statistics.
 
 image::GetStatisticsUISequenceDiagram.png[]
 Figure 11. Operational flow of displaying statistics in +Work
@@ -515,10 +515,10 @@ The `set-image` command calls `Model#getFilteredMembersList()` to retrieve the M
 A new member object is formed, with all the same parameters as the specified member object, and a new Image Filepath parameter.
 `Model#setMember` is called to replace the old member object with the new one in +Work.
 
-The following sequence diagram shows how the 'set-image' operation works.
+The following sequence diagram shows how the `set-image` operation works.
 
 image::SetImageSequenceDiagram.png[]
-Figure 14. Operational flow of 'SetImageCommand'
+Figure 14. Operational flow of `SetImageCommand`
 
 [NOTE]
 The image's file path is stored in the Member object. If the image is shifted to another location, the file path stored becomes invalid, and the user has to call the `set-image` command again, with the new file path.

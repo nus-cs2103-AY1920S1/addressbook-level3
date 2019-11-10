@@ -161,20 +161,20 @@ Example: `add-member mn/New Member mi/NM mt/UG` can be executed as follows:
 
 *Step 1:* +Work initially contains a list of 6 project members, as shown below.
 
-image::BeforeAdd.png[width="400"]
+image::BeforeAdd.png[]
 
 *Step 2:* To add a new project member into +Work, you enter the command `add-member mn/New Member mi/NM mt/UG` into the
 command prompt box.
 
-image::DuringAdd.png[width="400"]
+image::DuringAdd.png[]
 
 *Step 3:* After you hit kbd:[Enter], the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
 
-image::DoneAdd.png[width="400']
+image::DoneAdd.png[]
 
 The addition of a new member can also be seen from the list of members as shown below:
 
-image::ListAdd.png[width="400"]
+image::ListAdd.png[]
 
 [IMPORTANT]
 Member ID is an alphanumeric ID set by you, and cannot be changed once the member is created.
@@ -197,7 +197,7 @@ Example: `set-image mi/NM im/C:\Desktop\NewUserImage.png` can be executed as fol
 
 *Step 1:* +Work initially contains a list of project members with default profile pictures, as shown below.
 
-image::BeforeSet.png[width="400"]
+image::BeforeSet.png[]
 
 *Step 2:* To update the profile picture of the project member with member ID 'NM' in +Work to a specified image, you
 enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the command prompt box.
@@ -205,7 +205,7 @@ enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the comm
 *Step 3:* After you kbd:[Enter] the command, the member 'New Member' with member ID 'NM' has a new profile
 picture, specified by the image path you entered.
 
-image::SetImage.png[width="400"]
+image::SetImage.png[]
 
 
 [NOTE]
@@ -235,7 +235,7 @@ Example: `edit-member mi/NM mn/No Longer New mt/edited` can be executed as follo
 
 *Step 1:* +Work initially contains a list of 7 project members, as shown below.
 
-image::BeforeEdit.png[width="400"]
+image::BeforeEdit.png[]
 
 *Step 2:* To edit the member name and tag of 'New Member' with member ID 'NM', you enter the command
 `edit-member mi/NM mn/No Longer New mt/edited` into the command prompt box.
@@ -243,7 +243,7 @@ image::BeforeEdit.png[width="400"]
 *Step 3:* After you kbd:[Enter] the command, the member with member ID 'NM' and tag 'UG' is edited,
 with a new member name 'No Longer New' and new tag 'edited'.
 
-image::AfterEdit.png[width="400"]
+image::AfterEdit.png[]
 
 ==== List existing members: `list-members` +
 To get a list of all members added to +Work, used the command `list-members` following the format below. +
@@ -251,7 +251,7 @@ Format: `list-members` +
 
 Example: Entering `list-members` into the command prompt will result in the following:
 
-image::ListMembers.png[width="400"]
+image::ListMembers.png[]
 
 As seen from the above, all existing project members in +Work will be listed.
 
@@ -263,7 +263,7 @@ Example: `remove-member mi/GS` can be executed as follows:
 
 *Step 1:* +Work now contains a list of 7 project members, as shown below.
 
-image::BeforeRemove.png[width="400"]
+image::BeforeRemove.png[]
 
 *Step 2:* To remove project member 'No Longer New', with member ID 'NM' from +Work, you enter the command
 `remove-member mi/NM` into the command prompt box.
@@ -271,7 +271,7 @@ image::BeforeRemove.png[width="400"]
 *Step 3:* After you kbd:[Enter] the command, the member 'No Longer New' is no longer a project member in +Work, as
 seen from the list of members below.
 
-image::AfterRemove.png[width="400"]
+image::AfterRemove.png[]
 
 
 ==== Assign a task to a member: `assign` +
@@ -285,12 +285,12 @@ Example: `assign ti/1 mi/GS` can be executed as follows:
 'Gabriel Seow' with member ID 'GS'. The task 'Review Budget' has task ID 1, prompting you to enter the command
 `assign ti/1 mi/GS`.
 
-image::BeforeAssign.png[width="400"]
+image::BeforeAssign.png[]
 
 *Step 2:* After you kbd:[Enter] the command, the task 'Review Budget' with task ID '1' is added under member
 'Gabriel Seow' with member id 'GS', as seen from the image below.
 
-image::AfterAssign.png[width="400"]
+image::AfterAssign.png[]
 
 ==== Removing a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
@@ -303,12 +303,12 @@ Example: `fire ti/1 mi/GS` can be executed as follows:
 from being assigned to task 'Review Budget'. The task 'Review Budget' has task ID 1, prompting you to enter the command
 `fire ti/1 mi/GS`.
 
-image::BeforeFire.png[width="400"]
+image::BeforeFire.png[]
 
 *Step 2:* After you kbd:[Enter] the command, the task 'Review Budget' with  task id 1 is removed from member
 'Gabriel Seow' with member id 'GS'  as seen from the image below.
 
-image::AfterFireMember.png[width="400"]
+image::AfterFireMember.png[]
 
 '''
 // end::MemberCommands[]
@@ -645,7 +645,7 @@ Format: `member-stats` +
 
 Calling the `member-stats` command will result in the statistics being displayed as follows:
 
-image::MemberStats.png[width="400"]
+image::MemberStats.png[]
 
 [NOTE]
 The resultant statistics displayed shows the proportion and number of tasks and inventory items allocated to each
@@ -658,7 +658,7 @@ Format: `task-stats` +
 
 Calling the `task-stats` command will result in the statistics being displayed as follows:
 
-image::TaskStats.png[width="400"]
+image::TaskStats.png[]
 
 [NOTE]
 The resultant statistics displayed shows the proportion of tasks that are undone, in progress and completed,
