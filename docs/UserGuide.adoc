@@ -378,20 +378,20 @@ Deletes the 1st problem in the results of the `findplan` command (will be introd
 ==== Editing a plan : `editplan`
 
 Edits an existing plan. +
-Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
+Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE] [f/]`
 
 * Edits the plan at the specified `INDEX`. The index refers to the index number shown in the displayed plan list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * `START_DATE` should be before or equal to `END_DATE`.
-* The time range of the edited plan should cover due dates of its tasks.
+* The time range of the edited plan should cover due dates of its tasks. However, adding `f/` will force inconsistent due dates to change to the plan's end date.
 
 Examples:
 
 * `editplan 1 d/past year questions of sit-in labs` +
 Edits the description of the 1st plan to be `past year questions of sit-in labs` respectively.
-* `editplan 2 start/2019-08-13` +
-Edits the starting date of the 2nd plan to be `2019-08-13`.
+* `editplan 2 start/2019-08-13 f/` +
+Edits the starting date of the 2nd plan and any task with due date after `2019-08-13` to be `2019-08-13`.
 
 ==== Listing all plans : `listplan`
 
@@ -726,9 +726,9 @@ e.g. `editprob 2 n/permutations t/`
 e.g. `deleteprob 3`
 ** *Sort Problems* : `sortprob m/METHOD [ord/ORDER]` +
 e.g. `sortprob m/difficulty ord/ascend`
-** *Find Problems* : `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
+** *Find Problems* : `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]` +
 e.g. `findprob t/algorithm diff/2.0-4.0`
-** *Add Find Rule*: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
+** *Add Find Rule*: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]` +
 e.g. `addfindrule MediumDiffAlgo t/algorithm diff/2.0-4.0`
 ** *Apply Find Rule*: `apply INDEX` +
 e.g. `apply 2`
@@ -750,8 +750,8 @@ e.g. `edittag 1 t/sort c/BLUE`
 * Plans
 ** *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `addplan n/CS2040`
-** *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
-e.g. `editplan 1 n/training start/2020-02-02`
+** *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE] [f/]` +
+e.g. `editplan 1 n/training start/2020-02-02 f/`
 ** *Find Training Plans* : `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [task/TASK_NAME]` +
 e.g. `find n/CS2040 start/2019-03-01 end/2019-03-31`
 ** *List Training Plans* : `listplan`

@@ -2,6 +2,7 @@ package seedu.algobase.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.algobase.logic.parser.CliSyntax.FLAG_FORCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
@@ -27,12 +28,14 @@ public class EditPlanCommandParser {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION,
-                        PREFIX_START_DATE, PREFIX_END_DATE);
+                        PREFIX_START_DATE, PREFIX_END_DATE, FLAG_FORCE);
 
         Index index;
+        boolean isForced;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            isForced = argMultimap.getValue(FLAG_FORCE).isPresent();
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPlanCommand.MESSAGE_USAGE), pe);
         }
@@ -57,9 +60,7 @@ public class EditPlanCommandParser {
             throw new ParseException(EditPlanCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditPlanCommand(index, editPlanDescriptor);
+        return new EditPlanCommand(index, editPlanDescriptor, isForced);
     }
-
-    // TODO: edit problems in a plan
 
 }

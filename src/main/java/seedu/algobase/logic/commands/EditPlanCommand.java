@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.algobase.commons.core.Messages;
@@ -60,17 +61,20 @@ public class EditPlanCommand extends Command {
 
     private final Index index;
     private final EditPlanDescriptor editPlanDescriptor;
+    private final boolean isForced;
 
     /**
      * @param index of the Plan in the filtered Plan list to edit
      * @param editPlanDescriptor details to edit the Plan with
      */
-    public EditPlanCommand(Index index, EditPlanDescriptor editPlanDescriptor) {
+    public EditPlanCommand(Index index, EditPlanDescriptor editPlanDescriptor, boolean isForced) {
         requireNonNull(index);
         requireNonNull(editPlanDescriptor);
+        requireNonNull(isForced);
 
         this.index = index;
         this.editPlanDescriptor = new EditPlanDescriptor(editPlanDescriptor);
+        this.isForced = isForced;
     }
 
     @Override
@@ -83,15 +87,34 @@ public class EditPlanCommand extends Command {
         }
 
         Plan planToEdit = lastShownList.get(index.getZeroBased());
-        Plan editedPlan = createEditedPlan(planToEdit, editPlanDescriptor);
+        Plan prototypePlan = createEditedPlan(planToEdit, editPlanDescriptor);
+        PlanName planName = prototypePlan.getPlanName();
+        PlanDescription planDescription = prototypePlan.getPlanDescription();
+        LocalDate startDate = prototypePlan.getStartDate();
+        LocalDate endDate = prototypePlan.getEndDate();
+        Set<Task> tasks = prototypePlan.getTasks();
+        Plan editedPlan;
 
-        if (!isValidRange(editedPlan.getStartDate(), editedPlan.getEndDate())) {
+        if (!isValidRange(prototypePlan.getStartDate(), prototypePlan.getEndDate())) {
             throw new CommandException(ORDER_CONSTRAINTS);
         }
 
-        Stream<LocalDate> dueDates = editedPlan.getTasks().stream().map(Task::getTargetDate);
-        if (!dueDates.allMatch(editedPlan::checkWithinDateRange)) {
+        Stream<LocalDate> dueDates = prototypePlan.getTasks().stream().map(Task::getTargetDate);
+        boolean existsUnmatchDueDates = !dueDates.allMatch(prototypePlan::checkWithinDateRange);
+
+        if (!isForced && existsUnmatchDueDates) {
             throw new CommandException(MESSAGE_INVALID_TIME_RANGE);
+        } else if (isForced && existsUnmatchDueDates) {
+            Set<Task> forcedTasks = tasks
+                .stream()
+                .map(
+                    task -> prototypePlan.checkWithinDateRange(task.getTargetDate())
+                        ? task
+                        : task.updateDueDate(prototypePlan.getEndDate()))
+                .collect(Collectors.toSet());
+            editedPlan = new Plan(planName, planDescription, startDate, endDate, forcedTasks);
+        } else {
+            editedPlan = new Plan(planName, planDescription, startDate, endDate, tasks);
         }
 
         if (!planToEdit.isSamePlan(editedPlan) && model.hasPlan(editedPlan)) {
