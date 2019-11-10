@@ -1160,7 +1160,7 @@ image::GotoReminderUi3.png[]
 
 Other examples:
 
-* `*goto-reminder* 1` +
+* `*reminder-goto* 1` +
 If reminder 1 points to bookmark 5, this command is equivalent to
 `*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
 
