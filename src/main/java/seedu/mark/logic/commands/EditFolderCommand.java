@@ -69,9 +69,10 @@ public class EditFolderCommand extends Command {
         }
 
         model.renameFolder(folder, newFolder);
-        model.saveMark(String.format(MESSAGE_SUCCESS, newFolder));
+        String resultMessage = String.format(MESSAGE_SUCCESS, newFolder);
+        model.saveMark(resultMessage);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, newFolder));
+        return new CommandResult(resultMessage);
     }
 
 

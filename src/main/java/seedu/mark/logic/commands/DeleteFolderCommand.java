@@ -57,9 +57,10 @@ public class DeleteFolderCommand extends Command {
         }
 
         model.deleteFolder(folder);
-        model.saveMark(String.format(MESSAGE_SUCCESS, folder));
+        String resultMessage = String.format(MESSAGE_SUCCESS, folder);
+        model.saveMark(resultMessage);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, folder));
+        return new CommandResult(resultMessage);
     }
 
 
