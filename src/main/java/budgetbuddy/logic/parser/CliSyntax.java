@@ -54,5 +54,5 @@ public class CliSyntax {
     public static final String KEYWORD_MULTIPLE_ID_VARARGS = "<id... ";
 
     // Date examples
-    public static final String DATE_EXAMPLE = "4/20/2420";
+    public static final String DATE_EXAMPLE = "20/4/2420";
 }

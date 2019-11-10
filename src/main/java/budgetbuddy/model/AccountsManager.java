@@ -13,7 +13,9 @@ import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exceptions.AccountNotFoundException;
 import budgetbuddy.model.account.exceptions.EmptyAccountListException;
 import budgetbuddy.model.attributes.Description;
+import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 import javafx.collections.ObservableList;
@@ -215,13 +217,34 @@ public class AccountsManager {
         filteredTransactions.setPredicate(t -> true);
     }
 
+    /**
+     * Updates the sorted transaction list with a new transaction comparator.
+     * The comparator must not be null.
+     */
     public void updateSortedTransactionList(Comparator<Transaction> comparator) {
         requireNonNull(comparator);
         sortedTransactions.setComparator(comparator);
     }
 
+    /**
+     * Resets the sorted transaction list to the default.
+     */
     public void resetSortedTransactionList() {
         sortedTransactions.setComparator(SORT_BY_DESCENDING_DATE);
+    }
+
+    /**
+     * Gets the nett outflow/inflow of money within a filtered transaction list.
+     * When the filter is default, the value should be the same as account balance.
+     */
+    public Amount getFilteredTransactionListNettFlow() {
+        long total = 0;
+        for (Transaction t : filteredTransactions) {
+            total += t.getDirection().equals(Direction.IN)
+                    ? t.getAmount().toLong()
+                    : -t.getAmount().toLong();
+        }
+        return new Amount(total);
     }
 
     @Override

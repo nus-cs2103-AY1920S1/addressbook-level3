@@ -57,7 +57,8 @@ public class TransactionListCommand extends Command {
             + PREFIX_DESCRIPTION + "lunch "
             + PREFIX_SORT + SORT_ASCENDING_AMOUNT;
 
-    public static final String MESSAGE_SUCCESS = "Transactions listed from account %1$s.";
+    public static final String MESSAGE_SUCCESS = "Transactions listed from account %1$s, "
+            + "total nett flow of transactions is %2$s.";
 
     private final TransactionMatchesConditionsPredicate predicate;
     private Comparator<Transaction> transactionComparator = SORT_BY_DESCENDING_DATE;
@@ -65,7 +66,7 @@ public class TransactionListCommand extends Command {
     public TransactionListCommand(TransactionMatchesConditionsPredicate predicate,
                                   Optional<Comparator<Transaction>> optionalTransactionComparator) {
         this.predicate = predicate;
-        if(optionalTransactionComparator.isPresent()) {
+        if (optionalTransactionComparator.isPresent()) {
             transactionComparator = optionalTransactionComparator.get();
         }
     }
@@ -80,7 +81,8 @@ public class TransactionListCommand extends Command {
         String resultMessage = MESSAGE_SUCCESS;
 
         return new CommandResult(String.format(resultMessage,
-                model.getAccountsManager().getActiveAccount().getName()),
+                model.getAccountsManager().getActiveAccount().getName(),
+                model.getAccountsManager().getFilteredTransactionListNettFlow().toString()),
                 CommandCategory.TRANSACTION);
     }
 

@@ -79,6 +79,7 @@ public class TransactionMatchesConditionsPredicate implements Predicate<Transact
                 && untilOptional.equals(((TransactionMatchesConditionsPredicate) other).untilOptional)
                 && fromAmtOptional.equals((((TransactionMatchesConditionsPredicate) other).fromAmtOptional))
                 && untilAmtOptional.equals((((TransactionMatchesConditionsPredicate) other).untilAmtOptional))
-                && descriptionOptional.equals((((TransactionMatchesConditionsPredicate) other).descriptionOptional))); // state check
+                && descriptionOptional.equals((((
+                        TransactionMatchesConditionsPredicate) other).descriptionOptional))); // state check
     }
 }

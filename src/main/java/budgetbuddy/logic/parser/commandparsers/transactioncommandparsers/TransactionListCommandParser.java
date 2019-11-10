@@ -89,7 +89,7 @@ public class TransactionListCommandParser implements CommandParser {
                         ? Optional.of(CommandParserUtil.parseTransactionComparator(optionalComparatorString.get()))
                         : Optional.empty();
 
-        if(optionalFrom.isPresent() && optionalUntil.isPresent()) {
+        if (optionalFrom.isPresent() && optionalUntil.isPresent()) {
             if (optionalFrom.get().isAfter(optionalUntil.get())) {
                 throw new ParseException("The start date of the range cannot be after the end date.");
             }
