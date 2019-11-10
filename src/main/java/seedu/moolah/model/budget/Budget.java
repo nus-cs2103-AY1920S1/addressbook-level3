@@ -118,6 +118,7 @@ public class Budget {
      * Normalizes the budget window to the period containing the specified timestamp.
      *
      * @param anchor The timestamp to anchor the period.
+     * @return A deep copy of this budget, normalized according to the anchor.
      */
     public Budget normalize(Timestamp anchor) {
         requireNonNull(anchor);
