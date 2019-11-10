@@ -35,6 +35,7 @@ import seedu.savenus.model.info.RemoveLikeInfo;
 import seedu.savenus.model.info.SaveInfo;
 import seedu.savenus.model.info.ShowInfo;
 import seedu.savenus.model.info.SortInfo;
+import seedu.savenus.model.info.ThemeInfo;
 import seedu.savenus.model.info.TopUpInfo;
 import seedu.savenus.model.info.ViewSortInfo;
 import seedu.savenus.model.info.WithdrawInfo;
@@ -277,6 +278,12 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(SortInfo.INFORMATION);
             usageExample.setText(SortInfo.USAGE);
             output.setText(SortInfo.OUTPUT);
+            break;
+        case InfoCommand.THEME_INFO :
+            commandWord.setText(ThemeInfo.COMMAND_WORD);
+            infoMessage.setText(ThemeInfo.INFORMATION);
+            usageExample.setText(ThemeInfo.USAGE);
+            output.setText(ThemeInfo.OUTPUT);
             break;
         case InfoCommand.TOP_UP_INFO :
             commandWord.setText(TopUpInfo.COMMAND_WORD);

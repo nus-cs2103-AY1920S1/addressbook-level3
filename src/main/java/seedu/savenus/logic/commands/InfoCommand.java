@@ -67,6 +67,8 @@ public class InfoCommand extends Command {
 
     public static final String SORT_INFO = COMMAND_INDICATOR + SortCommand.COMMAND_WORD;
 
+    public static final String THEME_INFO = COMMAND_INDICATOR + ThemeCommand.COMMAND_WORD;
+
     public static final String TOP_UP_INFO = COMMAND_INDICATOR + TopUpCommand.COMMAND_WORD;
 
     public static final String VIEW_SORT_INFO = COMMAND_INDICATOR + ViewSortCommand.COMMAND_WORD;
@@ -142,6 +144,8 @@ public class InfoCommand extends Command {
             return new CommandResult(SAVE_INFO);
         case SortCommand.COMMAND_WORD :
             return new CommandResult(SORT_INFO);
+        case ThemeCommand.COMMAND_WORD :
+            return new CommandResult(THEME_INFO);
         case TopUpCommand.COMMAND_WORD :
             return new CommandResult(TOP_UP_INFO);
         case ViewSortCommand.COMMAND_WORD :

@@ -435,6 +435,7 @@ public class MainWindow extends UiPart<Stage> {
                     || commandResult.getFeedbackToUser().equals(InfoCommand.REMOVELIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SAVE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.THEME_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.TOP_UP_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.WITHDRAW_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SHOW_INFO)) {
