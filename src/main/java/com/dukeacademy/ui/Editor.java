@@ -97,10 +97,15 @@ public class Editor extends UiPart<Region> {
         });
     }
 
+    /**
+     * Checks if the line the caret is currently on is empty.
+     * @param string The String retrieved from textOutput.
+     * @param caret the position of the caret in the string
+     * @return the boolean true if the line is empty, false otherwise.
+     */
     private boolean isEmptyLine(String string, int caret) {
         char[] chars = string.toCharArray();
-        for (int i = caret - 1; i >= 0; i--)
-        {
+        for (int i = caret - 1; i >= 0; i--) {
             if (chars[i] == '\n') {
                 return true;
             }
@@ -113,12 +118,17 @@ public class Editor extends UiPart<Region> {
         return true;
     }
 
+    /**
+     * Counts the number of unclosed braces in the editor.
+     * @param string the String retrieved from the textOutput.
+     * @param caret the position of the caret in the textOutput.
+     * @return an non-negative integer.
+     */
     private int countUnclosedBraces(String string, int caret) {
         char[] chars = string.toCharArray();
         int count = 0;
 
-        for (int i = caret - 1; i >= 0; i--)
-        {
+        for (int i = caret - 1; i >= 0; i--) {
             if (chars[i] == '{') {
                 count++;
             } else if (chars[i] == '}') {
@@ -129,6 +139,11 @@ public class Editor extends UiPart<Region> {
         return count < 0 ? 0 : count;
     }
 
+    /**
+     * Retrives the position of the nearest newline character in the textOutput.
+     * @param caret the position of the caret in the textOutput
+     * @return a non-negative integer.
+     */
     private int getClosestNewlineCharPosition(int caret) {
         char[] s = textOutput.getText().toCharArray();
 
@@ -150,6 +165,11 @@ public class Editor extends UiPart<Region> {
         return new UserProgram("Main", textOutput.getText().strip());
     }
 
+    /**
+     * Generates the line counter String to be displayed in the lineCounter beside the Editor.
+     * @param n the observable number of lines in the editor
+     * @return a string
+     */
     private String generateLineCounterInput(SimpleIntegerProperty n) {
         StringBuilder sb = new StringBuilder();
 
