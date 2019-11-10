@@ -45,7 +45,7 @@ class SortReverseCommandTest {
     }
 
     @Test
-    public void execute_validReverseContactFilterName() throws CommandException {
+    public void execute_validReverseContactFilterName_gotoSuccessful() throws CommandException {
         UiManager.changeState("contacts");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("name", 1);
@@ -54,7 +54,7 @@ class SortReverseCommandTest {
     }
 
     @Test
-    public void execute_validReverseClaimFilterName() throws CommandException {
+    public void execute_validReverseClaimFilterName_gotoSuccessful() throws CommandException {
         UiManager.changeState("claims");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("name", 1);
@@ -63,7 +63,7 @@ class SortReverseCommandTest {
     }
 
     @Test
-    public void execute_validReverseClaimFilterDate() throws CommandException {
+    public void execute_validReverseClaimFilterDate_gotoSuccessful() throws CommandException {
         UiManager.changeState("claims");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("date", 2);
@@ -73,7 +73,7 @@ class SortReverseCommandTest {
     }
 
     @Test
-    public void execute_validReverseClaimFilterStatus() throws CommandException {
+    public void execute_validReverseClaimFilterStatus_gotoSuccessful() throws CommandException {
         UiManager.changeState("claims");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("status", 3);
@@ -83,7 +83,7 @@ class SortReverseCommandTest {
     }
 
     @Test
-    public void execute_validReverseIncomeFilterName() throws CommandException {
+    public void execute_validReverseIncomeFilterName_gotoSuccessful() throws CommandException {
         UiManager.changeState("incomes");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("name", 1);
@@ -92,7 +92,7 @@ class SortReverseCommandTest {
     }
 
     @Test
-    public void execute_validReverseIncomeFilterDate() throws CommandException {
+    public void execute_validReverseIncomeFilterDate_gotoSuccessful() throws CommandException {
         UiManager.changeState("incomes");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("date", 2);
@@ -102,7 +102,23 @@ class SortReverseCommandTest {
     }
 
     @Test
-    public void execute_invalidFilter() {
+    public void execute_invalidIncomeFilterNameWithWrongState_throwsCommandException() throws CommandException {
+        UiManager.changeState("asd");
+        ModelStubForValidList model = new ModelStubForValidList();
+        SortFilter validFilter = new SortFilter("name", 1);
+        assertThrows(CommandException.class, () -> new SortReverseCommand(validFilter).execute(model));
+    }
+
+    @Test
+    public void execute_invalidIncomeFilterStatus_throwsCommandException() throws CommandException {
+        UiManager.changeState("incomes");
+        ModelStubForValidList model = new ModelStubForValidList();
+        SortFilter validFilter = new SortFilter("status", 3);
+        assertThrows(CommandException.class, () -> new SortReverseCommand(validFilter).execute(model));
+    }
+
+    @Test
+    public void execute_invalidFilter_throwsNullPointerException() {
         SortFilter invalidFilter;
         try {
             invalidFilter = new SortFilter("invalid", 4);

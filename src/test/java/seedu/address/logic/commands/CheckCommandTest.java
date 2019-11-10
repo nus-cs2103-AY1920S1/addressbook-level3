@@ -43,7 +43,7 @@ class CheckCommandTest {
     }
 
     @Test
-    public void checkValidIndexInClaims() throws CommandException {
+    public void execute_checkValidIndexInClaims_checkSuccess() throws CommandException {
         UiManager.changeState("claims");
         ModelStubForValidViewClaims model = new ModelStubForValidViewClaims();
         Index validIndex = Index.fromZeroBased(0);
@@ -54,7 +54,7 @@ class CheckCommandTest {
     }
 
     @Test
-    public void checkValidIndexInContacts() throws CommandException {
+    public void execute_checkValidIndexInContacts_checkSuccess() throws CommandException {
         UiManager.changeState("contacts");
         ModelStubForValidViewContacts model = new ModelStubForValidViewContacts();
         Index validIndex = Index.fromZeroBased(0);
@@ -65,7 +65,7 @@ class CheckCommandTest {
     }
 
     @Test
-    public void checkInvalidIndexInContacts() throws CommandException {
+    public void execute_checkInvalidIndexInContacts_throwsCommandException() throws CommandException {
         UiManager.changeState("contacts");
         ModelStubForValidViewContacts model = new ModelStubForValidViewContacts();
         Index invalidIndex = Index.fromZeroBased(1);
@@ -75,7 +75,7 @@ class CheckCommandTest {
     }
 
     @Test
-    public void checkInvalidInIncomes() throws CommandException {
+    public void execute_checkInvalidInIncomes_throwsCommandException() throws CommandException {
         UiManager.changeState("incomes");
         ModelStubForValidViewContacts model = new ModelStubForValidViewContacts();
         Index validIndex = Index.fromZeroBased(1);

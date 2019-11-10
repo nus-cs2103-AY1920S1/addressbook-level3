@@ -44,14 +44,14 @@ class GotoCommandTest extends GotoCommand {
     }
 
     @Test
-    public void execute_invalidView() throws CommandException {
+    public void execute_invalidView_throwsCommandException() throws CommandException {
         ModelStubForValidView model = new ModelStubForValidView();
         View view = new View("lost", 6);
         assertThrows(CommandException.class, () -> new GotoCommand(view).execute(model));
     }
 
     @Test
-    public void execute_validContactView() throws CommandException {
+    public void execute_validContactView_gotoSuccess() throws CommandException {
         ModelStubForValidView model = new ModelStubForValidView();
         View view = new View("contacts", 1);
         CommandResult commandResult = new GotoCommand(view).execute(model);
@@ -59,7 +59,7 @@ class GotoCommandTest extends GotoCommand {
     }
 
     @Test
-    public void execute_validClaimView() throws CommandException {
+    public void execute_validClaimView_gotoSuccess() throws CommandException {
         ModelStubForValidView model = new ModelStubForValidView();
         View view = new View("claims", 2);
         CommandResult commandResult = new GotoCommand(view).execute(model);
@@ -67,7 +67,7 @@ class GotoCommandTest extends GotoCommand {
     }
 
     @Test
-    public void execute_validIncomeView() throws CommandException {
+    public void execute_validIncomeView_gotoSuccess() throws CommandException {
         ModelStubForValidView model = new ModelStubForValidView();
         View view = new View("incomes", 3);
         CommandResult commandResult = new GotoCommand(view).execute(model);

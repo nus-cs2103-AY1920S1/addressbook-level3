@@ -17,6 +17,11 @@ public class ClearCommand extends Command {
             + "Alternatively, enter \"N\"` to continue. ";
 
 
+    /**
+     * Executes a clearcommand
+     * @param model {@code Model} which the command should operate on.
+     * @return
+     */
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

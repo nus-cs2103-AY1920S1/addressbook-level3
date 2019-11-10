@@ -34,7 +34,7 @@ public class ConfigTest {
 
     //@@author{lawncegoh}
     @Test
-    public void checkGetMethods() {
+    public void execute_getMethods_success() {
         Config defaultConfig = new Config();
         defaultConfig.setLogLevel(Level.INFO);
         assertEquals(defaultConfig.getLogLevel(), Level.INFO);
@@ -45,7 +45,7 @@ public class ConfigTest {
 
     //@@author{lawncegoh}
     @Test
-    public void checkHashCode() {
+    public void execute_getHashCode_success() {
         Config defaultConfig = new Config();
         assertEquals(defaultConfig.hashCode(), Objects.hash(defaultConfig.getLogLevel(),
                 defaultConfig.getUserPrefsFilePath()));
