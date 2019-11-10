@@ -34,6 +34,7 @@ import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.ReopenCommand;
 import seedu.address.logic.commands.SaveTodoCommand;
 import seedu.address.logic.commands.ShowCommand;
+import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.EateryAttributesContainsKeywordsPredicate;
@@ -153,6 +154,12 @@ public class AddressBookParserTest {
         ShowCommand command = (ShowCommand) parser.parseCommand(
                 ShowCommand.COMMAND_WORD + " " + INDEX_FIRST_EATERY.getOneBased(), true);
         assertEquals(new ShowCommand(INDEX_FIRST_EATERY), command);
+    }
+
+    @Test
+    public void parseCommand_stats() throws Exception {
+        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD, true) instanceof StatsCommand);
+        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD , false) instanceof StatsCommand);
     }
 
     @Test

@@ -12,6 +12,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFeedList;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Review;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * API of the Logic component
@@ -78,4 +79,9 @@ public interface Logic {
      * Saves the feed list to disk.
      */
     void saveFeedList();
+
+    /**
+     * Gets the statistics of the eateries and reviews.
+     */
+    Statistics getStatistics();
 }

@@ -1,12 +1,16 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.eatery.Address;
 import seedu.address.model.eatery.Category;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Name;
+import seedu.address.model.eatery.Review;
 import seedu.address.model.eatery.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -20,11 +24,19 @@ public class EateryBuilder {
     public static final String DEFAULT_CATEGORY = "Western";
     public static final String DEFAULT_TAG = "fastfood";
 
+    public static final Review DEFAULT_GOOD_REVIEW = new Review("good place", 5, 5,
+            new Date());
+    public static final Review DEFAULT_NEUTRAL_REVIEW = new Review("ok place", 3, 3,
+            new Date());
+    public static final Review DEFAULT_BAD_REVIEW = new Review("bad place", 5, 1,
+            new Date());
+
     private Name name;
     private boolean isOpen;
     private Address address;
     private Category category;
     private Set<Tag> tags;
+    private List<Review> reviews;
 
     public EateryBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,6 +45,7 @@ public class EateryBuilder {
         category = new Category(DEFAULT_CATEGORY);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        reviews = new ArrayList<>();
     }
 
     /**
@@ -44,6 +57,7 @@ public class EateryBuilder {
         address = eateryToCopy.getAddress();
         category = eateryToCopy.getCategory();
         tags = new HashSet<>(eateryToCopy.getTags());
+        reviews = new ArrayList<>();
     }
 
     /**
@@ -86,7 +100,26 @@ public class EateryBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Eatery} that we are building with some default reviews.
+     */
+    public EateryBuilder withReviews() {
+        this.reviews.add(DEFAULT_GOOD_REVIEW);
+        this.reviews.add(DEFAULT_NEUTRAL_REVIEW);
+        this.reviews.add(DEFAULT_BAD_REVIEW);
+        return this;
+    }
+
     public Eatery build() {
         return new Eatery(name, isOpen, address, category, tags);
+    }
+
+    /**
+     * Builds an eatery with some default reviews.
+     */
+    public Eatery buildWithReviews() {
+        Eatery eatery = new Eatery(name, isOpen, address, category, tags);
+        eatery.setReviews(reviews);
+        return eatery;
     }
 }

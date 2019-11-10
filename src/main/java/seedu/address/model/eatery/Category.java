@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * Represents an Eatery's category in the EatMe application.
  */
-public class Category {
+public class Category implements Comparable<Category> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Categories should only contain alphabets and spaces, and it should not be blank";
@@ -84,5 +84,10 @@ public class Category {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    @Override
+    public int compareTo(Category otherCategory) {
+        return name.compareTo(otherCategory.getName());
     }
 }

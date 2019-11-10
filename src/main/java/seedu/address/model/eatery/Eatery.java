@@ -88,6 +88,19 @@ public class Eatery {
         return reviews;
     }
 
+    public int getNumberOfReviews() {
+        return reviews.size();
+    }
+
+    public double getTotalExpense() {
+        double totalExpenditure = 0;
+        for (Review r : reviews) {
+            totalExpenditure = totalExpenditure + r.getCost();
+        }
+
+        return totalExpenditure;
+    }
+
     public void setReviews(List<Review> reviews) {
         this.reviews.clear();
         this.reviews.addAll(reviews);

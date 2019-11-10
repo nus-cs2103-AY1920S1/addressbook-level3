@@ -17,6 +17,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFeedList;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Review;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -111,5 +112,10 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             logger.warning(FILE_OPS_ERROR_MESSAGE + ioe);
         }
+    }
+
+    @Override
+    public Statistics getStatistics() {
+        return model.getStatistics();
     }
 }
