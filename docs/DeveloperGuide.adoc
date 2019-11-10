@@ -724,6 +724,8 @@ As its name suggests, this feature's intended purpose is to aid users in the pro
 3. `score set`: allows users to set a team's score to a certain number of points
 4. `score reset`: allows users reset a team's score to 0
 
+==== Implementation Overview
+
 This feature and its varieties have been implemented in a relatively straightforward manner, as the Class Diagram below showing the high level representation of the Object Oriented solution devised to implement this feature highlights.
 
 .Scoring Feature Class Diagram
@@ -731,7 +733,7 @@ image::ScoringClassDiagram.png[]
 
 From the above diagram it can be seen that each different implementation of the `score` command inherits from the same `ScoreCommand` abstract class. The `ScoreCommand` abstract class provides a base for the implementation of the current specific `score` commands and in the future any further additions made to the `score` command functionality must also follow this same convention.
 
-Secondly, it can also be noted that there is not `ResetScoreCommand` class. This is done intentionally as the `SetScoreCommand` can be reused to reset a particular team's score, thereby making better use of abstraction.
+Secondly, there is no `ResetScoreCommand` class. This is done intentionally as the `SetScoreCommand` can be reused to reset a particular team's score, thereby making better use of abstraction.
 
 A representation of how the above classes interact to provide execute a user's command is highlighted in the sequence diagram below. This sequence diagram illustrates the object interactions when a user types the command `score add T-1 40`. For context, this command adds 40 points to the team with ID "T-1".
 
@@ -749,17 +751,22 @@ As seen from the above diagram, the execution of the `score add` command can be 
     ** Parsing the Score specified by the user and ensuring it is a valid score.
 
 * Step 4: `ScoreCommandParser` then creates a new `AddScoreCommand` object with the above parsed Team ID and Score, which is then returned all the way to `LogicManager`
-* Step 5: `LogicManager` then executes the `AddScoreCommand` object upon which the `AddScoreCommand` object calls `Model` 's `addTeamScore()` method which updates the specific team's score within `Model`.
+* Step 5: `LogicManager` then executes the `AddScoreCommand` object upon which the `AddScoreCommand` object calls `Model` 's `addTeamScore()` method which updates the specific team's score within `Model`. The updating is done by the `updateTeam(teamID, updatedTeam)` method of `Model` which updates the Team object with ID "teamID" within `Model` to match the "updatedTeam" team object.
 * Step 6: Upon updating the team's score in `Model`, the `AddScoreCommand` object creates a new `CommandResult` object which is returned to the UI component (not shown in the diagram) to display a feedback message to the user.
 
-Though the above diagram and steps are designed in the context of a `score add` command, the above logic applies to every other type of `score` command as well. The only difference though is the `ScoreCommandParser` creates the appropriate command object and each command object calls a different method from logic, as per the following:
+Though the above diagram and steps are designed in the context of a `score add` command, the logic applies to every other type of `score` command as well. The only difference is that the `ScoreCommandParser` creates the appropriate command object for the command and each command object calls a different method from `Model`, as per the following:
 
 1. `score subtract`: `ScoreCommandParser` creates a new `SubtractScoreCommand` instead of an `AddScoreCommand` and this `SubtractScoreCommand` object calls the `subtractTeamScore()` method of `Model`.
 2. `score set` and `score reset`: `ScoreCommandParser` creates a new `SetScoreCommand` instead of an `AddScoreCommand` and this `SetScoreCommand` object calls the `setTeamScore()` of method `Model`.
 
 ==== Design Considerations
 
-To develop the `score` feature a few considerations and decisions had to be made with regards to how to implement the feature at various steps. This section focuses on some of the aspects wherein we faced dillemas and how we addressed them.
+To develop the `score` feature a few considerations and decisions had to be made with regards to how to implement the feature at various steps. This section focuses on some of the aspects wherein we faced dilemmas and how we addressed them.
+
+
+*Aspect:* How to implement the Score Commands
+
+Currently, Alfred's score commands all inherit from a single `ScoreCommand` abstract class rather than each command class inheriting directly from the command class. This was done in order to provide a concrete base for the score commands, but more importantly also to make better use of polymorphism within our codebase. This use of polymorphism allows the Alfred codebase to avoid several code repetitions, for example by facilitating the use of a single parser class to parse the `score` commands as it can then simply return a `ScoreCommand` object regardless of which specific `score` command is called. Thanks to this, we avoid having to make a parser for every single `score` command.
 
 *Aspect:* How to implement `score sub` (Subtract Score Command)
 
@@ -790,7 +797,7 @@ The `leaderboard` and `getTop K` commands are two very important features of Alf
 
 The implementation of these two commands is very similar in nature. They both:
 
-* rely on updating a `SortedList` of teams present within the `ModelManager` class, which will be referred to as `sortedTeamList` in subsequent sections. This list is used to display the command results on the UI.
+* rely on updating a `SortedList` of teams present within the `ModelManager` class, which will be referred to as `sortedTeamList` in subsequent sections. This list is used to display the command's results on the UI.
 * use an ArrayList of `Comparator<Team>` objects to contain additional comparators. These are used to break ties between teams on a basis other than score.
 
 The class diagram below provides a high level representation of the Object-Oriented solution devised to implement the aforementioned features.
@@ -801,7 +808,7 @@ image::LeaderBoardClassDiagram.png[]
 From the above class diagram, there are two important matters to note regarding the implementation of these features:
 
 [none]
-* 1. The `LeaderboardCommand` and `GetTopTeamsCommand` are implemented as abstract classes which extend the `Command` abstract class. Any command to do with leaderboards or getting the top teams implements either one of these interfaces depending on which command it is.
+* 1. The `LeaderboardCommand` and `GetTopTeamsCommand` are implemented as abstract classes which extend the `Command` abstract class. Any command to do with leaderboards or getting the top teams extends either one of these abstract classes depending on which command it is.
 * 2. The `ModelManager` class uses another class `LeaderboardUtil` which provides utility methods for the Leaderboard and Get Top Teams commands, such as fetching an appropriate number of teams for the `getTop K` command and breaking ties between teams for both commands.
 
 With the class structure covered, the following sub-sections seek to explain how the different classes in Alfred interact to produce a result for the user, and finally the design considerations that were made for each command.
@@ -824,7 +831,9 @@ In the above, the `LeaderboardCommandParser` class parses the tie-break part of 
 
 When the `SimpleLeaderboardCommand` is then executed, it calls `Model` 's `setSimpleLeaderboard(comparators)` method with the input parameter being the `ArrayList<Comparator<Team>>` passed as parameter for the former's creation.
 
-`Model` 's `setSimpleLeaderboard(comparators)` method updates the `SortedList` of teams within `Model` itself, which is then displayed on the UI when the new `CommandResult` object is created and returned. This flow of events, albeit a few differences, is the same for every variation of the `leaderboard` and `getTop K` commands explored subsequently.
+`Model` 's `setSimpleLeaderboard(comparators)` method updates the `SortedList` of teams within `Model` itself, which is then displayed on the UI when the new `CommandResult` object is created and returned.
+
+This flow of events, albeit a few differences, is the same for every variation of the `leaderboard` and `getTop K` commands explored subsequently.
 
 Do note that if the user's input did not specify any tie-break methods, hence just being `leaderboard` then the `SimpleLeaderboardCommand` object would be created with an empty ArrayList of comparators. The flow of events for this particular scenario would be unchanged from the above illustration.
 
@@ -962,18 +971,18 @@ We decided to prioritise user convenience in this situation and rather than disp
 
 The reason "Alternative 2" was selected was because `ModelManager` 's `setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators)` method resets the `SortedList` of teams within `ModelManager` and applies the relevant comparators to it to sort it as desired. Hence, it is abstracting away this process into a single method so a better re-usage of code can take place in other methods. This method is reused by `ModelManager` 's `setTopK()` method when using the `getTop K` command, whereas the `setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators)` method is sufficient to sort *all* the teams in the desired order. So instead of calling it again within another method, the `setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators)` method which was meant to abstract away some processes is itself used to handle the `leaderboard` command. So indeed in the end, "Alternative 2" does not introduce duplication of code, but rather introduces better use of abstraction.
 
-==== Tiebreaking
+==== Tiebreaking and Filtering by Subject
 
-In the above sections, the UML diagrams gloss over how tiebreaking is really parsed and understood by Alfred. The basic of tie-breaking revolves around using `Comparator` s to sort the teams in a particular order. Each tiebreak method available in Alfred has a `Comparator` associated to it and all these can be found in the `Comparators` class.
+In the above sections, the UML diagrams gloss over how tiebreaking and filtering by subjects is parsed and understood by Alfred. The basic of tie-breaking revolves around using `Comparator` s to sort the teams in a particular order. Each tiebreak method available in Alfred has a `Comparator` associated to it and all these can be found in the `Comparators` class.
 
-The activity diagram below illustrates the internal workings within the `LeaderboardCommandParser" and `TopTeamsCommandParser` when parsing tiebreak methods. Do note that in the below diagram the term `parser` encapsulates both of these `Parser` s as they operate in almost identical ways.
+The activity diagram below illustrates the internal workings within the `LeaderboardCommandParser` and `TopTeamsCommandParser` when parsing tiebreak methods. Do note that in the below diagram the term `Parser` encapsulates both of these `Parser` s as they operate in almost identical ways.
 
 .Handling of Tiebreak Methods
 image::TieBreakActivityDiagram.png[]
 
 From the above there is one important aspect to note: the `ArrayList` of `Comparator<Team>` objects created in the second step. This is the `ArrayList` referred to in the previous sections which is tasked with containing and transferring the comparators which will be used to sort the teams in their appropriate order to form the leaderboard or top teams. This `ArrayList` is used as an input parameter for both `leaderboard` and `getTop K` command related classes, as explored in previous sections.
 
-Additionally, before `comparators` can be passed as an argument to the commands, it is reversed. This is done intently so the comparators related to each tiebreak method are applied in an order such that they preserve the oder the user wants the tiebreak methods to be applied.
+Additionally, before `comparators` can be passed as an argument to the commands, it is reversed. This is done intentionally so the comparators related to each tiebreak method are applied in an order such that they preserve the oder the user wants the tiebreak methods to be applied.
 
 Secondly, do note that the diagram above assumes there are no syntax errors made by the user when typing out the command. In case of any errors in the command, a `ParseException` would be thrown warning the user of such a situation. These have been excluded from the above diagram to prevent overcrowding and a deviation from the basic logic.
 
