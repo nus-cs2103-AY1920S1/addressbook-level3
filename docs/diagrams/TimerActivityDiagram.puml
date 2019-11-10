@@ -17,7 +17,7 @@ repeat
         != timeForNextHint])
         endif
 
-    :Decrease timeLeft by 1ms;
+    :Decrease timeLeft by 50ms;
     else ([timeLeft <= 0])
     :Notify (callback) to
     update TimerDisplay;

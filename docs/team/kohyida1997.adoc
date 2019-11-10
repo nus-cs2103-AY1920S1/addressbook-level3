@@ -16,7 +16,7 @@ Github: https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon] image:github-mar
 {nbsp} {nbsp} {nbsp} {nbsp}
 RepoSense: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kohyida1997&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kohyida1997&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[Code]
 
-== image:address_book_32.png[icon, 30, 36] Overview of _Dukemon_
+== image:address_book_32.png[icon, 27, 36] Overview of _Dukemon_
 
 .The Home Page of Dukemon upon initial start-up.
 image::Ui.png[width="500"]
@@ -39,12 +39,12 @@ Below are some *highlights* of the important contributions that I have made to t
 development of *_Dukemon_*.
 
 <<<
-== image:work-icon.png[width=35] Contributions - Summary
+== image:work-icon.png[width=32] Contributions - Summary
 
-=== image:game_timer_icon.png[width="16"] Primary Enhancements - Timer and Hints
+=== image:game_timer_icon.png[width="13"] Main Enhancements - Timer and Hints
 
-.UI Display of Dukemon in Game Mode, showing the dynamic Timer and Hint features I implemented.
-image::UserGuideGameSessionDiagram1.png[width="450"]
+.UI of Dukemon in Game Mode, showing the dynamic Timer and Hint features I implemented.
+image::UserGuideGameSessionDiagram1.png[width="430"]
 
 * *Added a Timer and automatic Hint feature*
 
@@ -53,19 +53,15 @@ image::UserGuideGameSessionDiagram1.png[width="450"]
 are also automatically generated and shown to the user (region in blue box above).
 
 ** [underline]#_Justification_#:
-*** This enhancement greatly improves the product as it achieves the intended goal of creating a *game-like environment* for learning.
-The User is also thus able to access his own performance and capability in a fun and engaging way.
-*** The Hints also aids in learning, especially for weaker students or when trying out unfamiliar words.
-*** Introducing Hints incrementally is also a conscious design as it is gives the User time to think,
-as opposed to one-shot hints that risk making the game too easy with hints.
-
-<<<
+*** This enhancement greatly improves the product as it achieves the intended goal of creating a *game-like learning environment* for the User that is fun and engaging.
+*** Hints aids in learning, especially for weaker students or when trying out unfamiliar words.
+*** Incremental as opposed to one-shot hints gives the User time to think, and doesn't potentially render the _Game_ too easy with hints.
 
 ** [underline]#_Highlights_#:
 *** Challenging as it required *seamless integration* and *synchronization* between
 the GUI (Graphical User Interface) and internal logical components in *real time*.
-*** Utilized *advanced programming design concepts* such as _Observer Patterns_, _Callbacks_ and _Functional Programming_ to preserve the
-quality and structural integrity of the existing code base. API like `java.util.concurrent.CountdownLatch` and `java.lang.reflect` to run tests for _Callbacks_ and
+*** Utilized *advanced programming concepts* such as _Observer Patterns_, _Callbacks_ and _Functional Programming_ to preserve quality
+and structural integrity of existing code base. API like `java.util.concurrent.CountdownLatch` and `java.lang.reflect` were used to run tests for _Callbacks_ and
 the _Timer_ effectively.
 *** Integrated external _TestFX_ library to allow for testing of _Timer_ and other components that run on the _JavaFX Application Thread_.
 
@@ -80,7 +76,7 @@ the _Timer_ effectively.
 * *Code contributed*: +
 [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/appmanager[Functional (Timer)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/card/FormattedHint.java[Functional (Hints)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/appmanager[Tests (Timer)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/test/java/seedu/address/model/card/FormattedHintTest.java[Tests (Hints)]] +
 
-=== image:game_mode_icon.png[width=35] Other Enhancements - Game
+=== image:game_mode_icon.png[width=32] Other Enhancement - Game
 
 * *Implemented and designed the _Game_ logic, UI and Difficulty.*
 
@@ -90,45 +86,119 @@ the _Timer_ effectively.
 * *Code contributed*: +
 [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/game[Functional(Game Logic)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/appsettings/DifficultyEnum.java[Functional (Game Difficulty)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/model/game[Tests (Game)]] +
 
-=== image:documents_icon.png[width=23] Other contributions
+=== image:documents_icon.png[width=20] Other contributions
 
 ** [underline]#_Project management_#:
 *** Managed releases `v1.2` - `v1.3` (2 releases) on GitHub
-*** *Designed and prototyped* the general _Game_ program flow (and commands)
-which was adopted by the team.
+*** *Designed and prototyped* the general _Game_ program flow and commands, which was adopted by the team.
 *** Worked closely with teammates in *discovering and resolving bugs* in other areas of code.
 https://github.com/AY1920S1-CS2103T-T11-2/main/commit/348951bf148ac4c19bfe1f635c4e76de631e5430[#133]
 *** Actively resolved and fixed project wide issues and code warnings. (*Housekeeping* of Dukemon and its releases)
 https://github.com/AY1920S1-CS2103T-T11-2/main/pull/141[#141] https://github.com/AY1920S1-CS2103T-T11-2/main/pull/96/commits/1727566c7058e5f25ba45e98a23ce121b2858bb1[#96]
-*** Researched and implemented about the concept of _Callbacks_ and _Event-Driven Design_ which was adopted in other teammate's features.
+*** Researched about and implemented _Callbacks_ and _Event-Driven Design_ which was adopted in other teammate's features.
 https://github.com/AY1920S1-CS2103T-T11-2/main/commit/d88513c8c11c6e10b0852c078db84e8ad507408a#diff-88f06211563ad55170a8a9c11829abf0[#185]
-** [underline]#_Documentation_#:
+** [underline]#_Documentation_# (_Details in next section_):
 *** Added icons and diagrams to *User Guide* to aid in reading: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/137[#137]
-*** Added upon _Dukemon_ Introduction, Installation process and Quickstart in *User Guide*: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/149[#149]
+*** Edited and wrote Introduction, Installation, and Quickstart sections in *User Guide*: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/149[#149]
 *** Drew and explained overall architecture of _Dukemon_ in *Developer Guide* https://github.com/AY1920S1-CS2103T-T11-2/main/pull/94/files[#94]
 ** [underline]#_Community_#:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T11-2/main/pull/49[#49], https://github.com/AY1920S1-CS2103T-T11-2/main/pull/71[#71]
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/154[1])
 ** [underline]#_Tools_#:
-*** Integrated a 3rd-party testing library (https://github.com/TestFX/TestFX[TestFX]) to the project (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/79[#79])
-*** Integrated https://github.com/TestFX/TestFX[TestFX] with team repo's automatic Travis CI builds. (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/113[#113])
+*** Integrated external testing library (https://github.com/TestFX/TestFX[TestFX]) to the project (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/79[#79]) and Travis CI builds (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/113[#113]).
 
-== image:user-manual-icon.png[width=45] Contributions - User Guide
+== image:user-manual-icon.png[width=40] Contributions - User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are the highlights of what I contributed to the User Guide, showcasing my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=yida-intro]
 
 include::../UserGuide.adoc[tag=yida-quickstart]
 
-include::../UserGuide.adoc[tag=yida-game]
+=== Game Commands image:game_mode_icon.png[width="30"]
+(Available in Game mode)
 
-== image:source-code-icon.png[width=40] Contributions - Developer Guide
+.UI regions that are relevant when a Game session is in progress.
+image::UserGuideGameSessionDiagram1.png[width="450"]
+
+
+This section covers the actions and feedback that are relevant to the _Game_ mode.  The general layout of the UI when a _Game_ is in progress is as seen above.
+
+1. The timer will be activated to reflect the time left before the _Game_ skips over to the next card. (region in yellow box)
+
+2. The _Meaning_ of the current _Card_ is shown in the region contained by the red box. Based on this _Meaning_ you will  make a _Guess_ for the _Word_ it is describing.
+
+3. _Hints_ (if enabled) will be periodically shown as time passes (region in the blue box) in a Hangman-style. The number of hints given
+differs across each _Difficulty_.
+
+==== Game Mode - [underline]#Starting# image:game_mode_icon.png[width="30"]
+
+The relevant command(s) are:
+
+1. *Starting new game session:*
++
+Format: `start [EASY/MEDIUM/HARD]`
+
+- Starts a game session with the currently selected _WordBank_ and specified _Difficulty_.
+(_WorkBank_ selection is done in _Home_ mode.)
+
+- If no _Difficuty_ is specfied, the default _Difficulty_ in _Settings_
+will be used.
+
+
+
+
+==== Game Mode - [underline]#Playing# image:game_mode_icon.png[width="30"]
+
+.UI regions that show feedback during a Game session.
+image::UserGuideGameSessionDiagram2.png[width="550"]
+
+
+During a _Game_, the _Timer_ will change colour according to the time left (region in green box). Feedback for each _Guess_ is shown via the _ResultDisplay_ (region in the red box). +
+ +
+The relevant command(s) are:
+
+1. *Making a _Guess_ for a _Word_*: +
++
+Format: `guess WORD`
+
+- Makes a guess for the _Word_ described by the currently shown _Meaning_. (*non case-sensitive*)
+
+2. *Skipping over a _Word_:*
++
+Format: `skip`
+
+- Skips over the current _Word_. (*is counted as a wrong answer*)
+
+
+==== Game Mode - [underline]#Terminating & Statistics# image:game_mode_icon.png[width="30"]
+
+.Comparison of UI Regions between Game finished vs. Game forcibly stopped.
+image::GameFinishedGameStoppedComparison.png[width="1000"]
+
+
+A _Game_ finishes when *all _Cards_ have been attempted*. _Statistics_ are
+*automatically shown* upon completion of a _Game_ (see Fig. above). +
+ +
+The user can choose to `stop` a _Game_ before it has finished. This will result in all current _Game_ progress being lost, and
+no _Statistics_ being collected or generated (see Fig. above). +
+ +
+The relevant command(s) are:
+
+1. *Stopping a _Game_ (before it has finished)*: +
++
+Format: `stop`
+
+- Forcibly terminates the current active _Game_ session (*all progress will be lost, and no _Statistics_ will
+be reported.*)
+
+
+== image:source-code-icon.png[width=34] Contributions - Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are the highlights I contributed to the Developer Guide, showcasing my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=yida-design]
@@ -139,7 +209,7 @@ include::../DeveloperGuide.adoc[tag=yida-game]
 
 include::../DeveloperGuide.adoc[tag=yida-timer]
 
-== image:bag-icon.png[width=35] Other Works
+== image:bag-icon.png[width=30] Other Works
 
 ---
 

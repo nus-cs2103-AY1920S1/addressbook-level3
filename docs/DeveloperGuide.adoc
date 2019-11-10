@@ -496,7 +496,7 @@ allows the `Timer` to enact changes in other components of the system without di
 components.
 
 Internally, the `Timer`
-works by using the method `java.util.Timer.schedule()` that will schedule `java.util.TimerTasks` at a fixed rate (_every 1ms_).
+works by using the method `java.util.Timer.schedule()` that will schedule `java.util.TimerTasks` at a fixed rate (_every 50ms_).
 
 An _Observer Pattern_ is loosly followed between the `Timer` and the other components. As opposed to defining an
 _Observable_ interface, the `AppManager` simply passes in _method pointers_ into the `Timer` to _callback_ when an
@@ -581,8 +581,8 @@ these polled _timestamps_ to update the `Hints` provided periodically. +
  +
 The described activity is visualized via the activity diagram as *shown above*. The internal `Timer` is started when
 `GameTimerManager` calls the `.schedule()` method of its internal `java.util.Timer`, which schedules `TimerTasks` immediately,
-every millisecond until the `java.util.Timer` is cancelled. The field `timeLeft` is initialized
-to be the amount of time allowed per _Card_ (in milliseconds), and is updated every 1ms.
+every 50 milliseconds until the `java.util.Timer` is cancelled. The field `timeLeft` is initialized
+to be the amount of time allowed per _Card_ (in milliseconds), and is updated every 50ms.
 
 ==== Design Considerations
 
