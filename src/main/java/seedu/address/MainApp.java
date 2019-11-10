@@ -44,7 +44,7 @@ public class MainApp extends Application {
     public static final Version VERSION = new Version(1, 4, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
-    private static final String MESSAGE_DATA_NOT_FOUND = "Data file not found. "
+    private static final String MESSAGE_DATA_NOT_FOUND = "Data file(s) not found. "
         + "Will be starting with sample library records";
     private static final String MESSAGE_DATA_INCORRECT_FORMAT = "Data file(s) not in the correct format. "
         + "Will be starting with sample library records";
@@ -104,7 +104,7 @@ public class MainApp extends Application {
             loanRecordsOptional = storage.readLoanRecords();
             if (loanRecordsOptional.isEmpty()) {
                 logger.info(MESSAGE_DATA_NOT_FOUND);
-                return getSampleModelManager(userPrefs, "");
+                return getSampleModelManager(userPrefs, MESSAGE_DATA_NOT_FOUND);
             }
             initialLoanRecords = loanRecordsOptional.get();
             catalogOptional = storage.readCatalog(initialLoanRecords);
