@@ -25,7 +25,6 @@ public class BackCommandTest {
     public void execute_back_success() {
         model.setDisplayedModule(new ArchivedModuleBuilder().build());
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_BACK_COMMAND_SUCCESS, false, true, false);
-        System.out.printf("%s %s %s %s\n", new BackCommand(), model, expectedCommandResult, expectedModel);
         assertCommandSuccess(new BackCommand(), model, expectedCommandResult, expectedModel);
     }
 
