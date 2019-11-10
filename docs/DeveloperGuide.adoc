@@ -618,7 +618,7 @@ Only vehicles with the status `Avaliable` are valid for editing or deleting. Thi
 Implementation of `edit-v` is similar to `edit-i` where `EditVehicleCommand` makes use of `EditVehicle` class to create a new `Vehicle` object with the modified fields and replaces the original object. Design considerations are also similar to that of `edit-i`.
 Below is a sequence diagram to illustrate the process and classes involved in the `edit-v` command:
 
-image::editVehicleCommand.png[]
+image::editVehicleCommand.png[width=500]
 
 //end::vehicleedit[]
 
@@ -634,7 +634,7 @@ image::editVehicleCommand.png[]
 
 Below is a sequence diagram to illustrate add-v:
 
-image::addVehicleCommand.png[]
+image::addVehicleCommand.png[width=500]
 
 //end::vehicleadd[]
 
@@ -650,7 +650,7 @@ image::addVehicleCommand.png[]
 
 Below is a sequence diagram to illustrate delete-v:
 
-image::deleteVehicleCommand.png[]
+image::deleteVehicleCommand.png[width=500]
 //end::vehicledelete[]
 
 //end::vehicleManagement[]
