@@ -6,8 +6,10 @@ start
 'diamond we place it as the true branch instead.
 
 if () then ([command generates PDF])
+    :Parse bodyId and signature;
     :Execute Report Generator;
-    :Generate PDF Report;
+    :Generate PDF report for bodyId
+    and add signature;
 else ([command does not generate PDF])
 endif
 stop

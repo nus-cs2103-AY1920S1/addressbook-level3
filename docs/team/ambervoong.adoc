@@ -1,0 +1,119 @@
+= Voong Yu Xuan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Mortago
+
+== 1. Introduction
+
+This project portfolio showcases the contributions I have made to Mortago, a software project my team and I built
+for a software engineering module.
+
+=== About the Team
+Our team comprises 5 dedicated Year 2 Computer Science students taking CS2103T, a compulsory software engineering module.
+
+=== About the Project
+
+Our task for CS2103T was to build upon and enhance https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)],
+a sample address book application used to teach software engineering. It primarily uses a command line interface (CLI) for user interaction,
+and our enhanced application was required to have this as well.
+
+Given a 3 month time span, we decided to morph the application into Mortago, a mortuary management application.
+Written in Java, the software totals to around 20,000 lines of code (20 kLoC).
+Mortago is a desktop application and is designed to make the mortuary workflow faster and smarter
+for mortuary managers in Singapore.
+
+Mortago's primary purpose is to act as a user-friendly database for mortuaries. A neat and appealing dashboard allows users to see important data with one glance.
+Mortago is comprehensive and tracks a mortuary's bodies, workers, and fridges. Other than basic commands to manipulate and find data, Mortago also automates fridge management for bodies and
+generates critical reminders according to Singapore's laws. It also automatically shows key statistics and allows reports to be easily generated.
+
+Singapore's mortuaries are still using paper records. This idea was conceived because we noticed a gap in the market for
+modern mortuary solutions. The user interacts with Mortago using a CLI, and it has a graphical user interface (GUI) created with JavaFX. Knowing that Singapore's
+mortuary managers are familiar with Microsoft Excel and are comfortable with typing, Mortago's CLI is the perfect fit for them.
+
+I designed and implemented the undo, redo, and update functionality in Mortago. I was responsible for
+the largest base class in Mortago, and also added storage functionality for almost everything in Mortago.
+The sections below detail my contributions as well as the documentation I wrote for the user and developer guides.
+
+You will encounter the following symbols and formatting in this document:
+
+====
+* `undo`:  Grey text with a white background (also known as a mark-up) indicating that the text
+is something the user can enter into the CLI.
+
+is a command that can be inputted into the command line and executed by the application.
+* `[subheader]#GenReportCommand.java#`: Maroon text with grey highlight indicates a component, class or object in the architecture of the application.
+====
+
+
+== Summary of Contributions
+
+* *Major enhancement*: added *the ability to undo/redo commands*
+
+** What it does: allows the user to undo all previous commands one at a time.
+Previously undone commands can be reversed by using the redo command.
+
+** Justification: This feature improves the product significantly because a user can
+make mistakes and needs a convenient way of undoing them. Undo and redo are utility functions that many users have come to expect.
+
+** Highlights: This feature affects existing commands and has to support future commands.
+It required a careful analysis of design choices. Among the different alternatives, the chosen design is more difficult to implement but provides much better scalability.
+*** Undo/redo implemented through saving state was given as an example of a feature deserving an 'A' grade in the module.
+*** The current implementation requires an individual command to have undo/redo functionality, which is more challenging to implement than the example given by the module.
+
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: morphed the `edit` command in AB3 to an `update` command.
+* *Minor enhancement*: added the `Body` class, a foundational class in Mortago.
+
+*Code Contributed:* [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambervoong&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via Reposense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Maintained the issue tracker on GitHub
+*** Managed release `v1.2` on GitHub. https://github.com/AY1920S1-CS2103T-T13-2/main/pull/88[#88]
+** Enhancements to existing features: [to add more]
+*** Wrote additional tests for existing features to increase coverage from []% to []% (Pull requests https://github.com[#00], https://github.com[#00])
+** Documentation:
+*** Wrote the UG and DG for the `undo` and `update` features.
+*** Updated all parts of the User Guide that are not feature-specific. https://github.com/AY1920S1-CS2103T-T13-2/main/pull/22[#22]
+*** Added tags to the User Guide for all features. https://github.com/AY1920S1-CS2103T-T13-2/main/pull/70[#70]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#00]
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/88[88], https://github.com/nus-cs2103-AY1920S1/forum/issues/135[135])
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-T11-3/main/pull/114[114 (AddMin+)], https://github.com[2], https://github.com[3])
+** Tools:
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+=== User Commands
+These sections of the User Guide teach the user how to use the undo, redo, and update commands. It contains relevant examples,
+useful pictorial guides, and tips for the user.
+
+_{start of extract}_
+
+include::../UserGuide.adoc[tag=update]
+
+include::../UserGuide.adoc[tag=undoredo]
+
+_{end of extract}_
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+
+== PROJECT: Isextreme
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

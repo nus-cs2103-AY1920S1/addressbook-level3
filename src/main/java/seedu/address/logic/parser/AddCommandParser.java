@@ -71,7 +71,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        // todo delete
         if (flag.isEmpty()) {
             Name namePerson = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE_NUMBER).get());
@@ -127,6 +126,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private static Worker parseFieldsWorker(ArgumentMultimap argMultimap) throws ParseException {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        checkIfNameNull(name);
         Sex sex = ParserUtil.parseSex(argMultimap.getValue(PREFIX_SEX).get());
         Date dateOfBirth = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).orElse(""));
         PhoneNumber phone = ParserUtil.parsePhoneNumber(argMultimap.getValue(PREFIX_PHONE_NUMBER).orElse(""));
@@ -144,6 +144,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private static Body parseFieldsBody(ArgumentMultimap argMultimap) throws ParseException {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        checkIfNameNull(name);
         Sex sex = ParserUtil.parseSex(argMultimap.getValue(PREFIX_SEX).get());
         Date dateOfBirth = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).orElse(""));
         Date dateOfDeath = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_DEATH).orElse(""));
@@ -173,6 +174,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         return new Body(dateOfAdmission, name, sex, nric, religion,
                 causeOfDeath, organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nameNok, relationship,
                         phoneNok, details);
+    }
+
+    /**
+     * Checks if the given {@code Name name} is a null.
+     * @throws ParseException thrown when name is null.
+     */
+    private static void checkIfNameNull(Name name) throws ParseException {
+        if (name == null) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
     }
 
     /**
