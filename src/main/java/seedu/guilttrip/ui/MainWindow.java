@@ -1,6 +1,5 @@
 package seedu.guilttrip.ui;
 
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -207,8 +206,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setUpGui(GuiSettings guiSettings) {
         setWindowDefaultSize(guiSettings);
-        setFont(guiSettings);
-        setTheme(guiSettings);
+        setFont(guiSettings.getFont());
+        setTheme(guiSettings.getTheme());
     }
 
     /**
@@ -226,8 +225,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Sets the font based on {@code guiSettings}.
      */
-    private void setFont(GuiSettings guiSettings) {
-        FontName savedFont = guiSettings.getFont();
+    private void setFont(FontName savedFont) {
         this.font = savedFont;
         String style = "-fx-font-family: " + FontName.toLowerCaseString(savedFont);
         window.setStyle(style);
@@ -236,9 +234,9 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Sets the theme based on {@code guiSettings}.
      */
-    private void setTheme(GuiSettings guiSettings) {
-        Theme savedTheme = guiSettings.getTheme();
-        this.theme = savedTheme;
+    private void setTheme(Theme savedTheme) {
+        this.theme = savedTheme; // this.theme = light
+        System.out.println("saved theme: " + Theme.getThemeAsString(savedTheme));
         switchThemeTo(savedTheme);
     }
 
@@ -410,19 +408,14 @@ public class MainWindow extends UiPart<Stage> {
      * Switches the current to the {@code newTheme}.
      */
     private void switchThemeTo(Theme newTheme) {
-        Theme oldTheme = this.theme;
         this.theme = newTheme;
 
-        String oldThemeUrl = theme.getThemeUrl(oldTheme);
-        String oldExtensionsUrl = theme.getThemeExtensionUrl(oldTheme);
         String newThemeUrl = theme.getThemeUrl(newTheme);
         String newExtensionsUrl = theme.getThemeExtensionUrl(newTheme);
 
         // Replace stylesheets with new theme's stylesheets
-        if (this.scene.getStylesheets().containsAll(Arrays.asList(oldThemeUrl, oldExtensionsUrl))) {
-            this.scene.getStylesheets().removeAll(oldThemeUrl, oldExtensionsUrl);
-            this.scene.getStylesheets().addAll(newThemeUrl, newExtensionsUrl);
-        }
+        this.scene.getStylesheets().removeAll(this.scene.getStylesheets());
+        this.scene.getStylesheets().addAll(newThemeUrl, newExtensionsUrl);
     }
 
     /**

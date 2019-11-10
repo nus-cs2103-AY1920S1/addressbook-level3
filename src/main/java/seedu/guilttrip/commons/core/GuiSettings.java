@@ -76,12 +76,13 @@ public class GuiSettings implements Serializable {
         return windowWidth == o.windowWidth
                 && windowHeight == o.windowHeight
                 && Objects.equals(windowCoordinates, o.windowCoordinates)
-                && font.equals(o.font);
+                && font.equals(o.font)
+                && theme.equals(o.theme);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates, font);
+        return Objects.hash(windowWidth, windowHeight, windowCoordinates, font, theme);
     }
 
     @Override
@@ -91,6 +92,7 @@ public class GuiSettings implements Serializable {
         sb.append("Height : " + windowHeight + "\n");
         sb.append("Position : " + windowCoordinates + "\n");
         sb.append("Font: " + font);
+        sb.append("Theme: " + theme);
         return sb.toString();
     }
 }
