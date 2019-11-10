@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.logic.commands.SyncCommand.MESSAGE_SUCCESS;
 import static seedu.ezwatchlist.logic.commands.SyncCommand.MESSAGE_UNSUCCESFUL2;
 import static seedu.ezwatchlist.logic.commands.SyncCommand.MESSAGE_UNSUCCESSFUL;
+import static seedu.ezwatchlist.logic.commands.SyncCommand.MESSAGE_UNSUCCESSFUL3;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
@@ -32,7 +33,6 @@ import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Genre;
-import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.ShowBuilder;
@@ -102,7 +102,8 @@ public class SyncCommandTest {
         List<Show> search2 = new ArrayList<>();
         search2.add(new ShowBuilder().build());
         modelManager.updateSearchResultList(search2);
-        assertThrows(CommandException.class, MESSAGE_UNSUCCESSFUL + " " + MESSAGE_UNSUCCESFUL2, ()->
+        assertThrows(CommandException.class, MESSAGE_UNSUCCESSFUL + " "
+                + MESSAGE_UNSUCCESFUL2 + "\n" + MESSAGE_UNSUCCESSFUL3, ()->
                 syncCommand1.execute(modelManager));
 
     }
@@ -235,11 +236,6 @@ public class SyncCommandTest {
         @Override
         public void updateSearchResultList(List<Show> searchResult) {
             throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void syncMovie(List<Movie> syncMovie) {
-
         }
 
         @Override

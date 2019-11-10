@@ -27,6 +27,9 @@ public class SyncCommand extends Command {
     public static final String MESSAGE_UNSUCCESSFUL = "No matching name found in local internal storage.";
     public static final String MESSAGE_UNSUCCESFUL2 = "You may use the add INDEX command to add searched-online shows"
             + " into Watchlist.";
+    public static final String MESSAGE_UNSUCCESSFUL3 = "You can only sync show of the same type. "
+            + "For example: Sync show of type 'Movie' from search page with show of Type 'Movie'"
+            + " found in local internal storage.";
     private Index toSync;
 
     public SyncCommand(Index toSync) {
@@ -43,15 +46,18 @@ public class SyncCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
         }
         Show fromImdb = searchResultList.get(toSync.getZeroBased());
-        Name name = fromImdb.getName();
+        Name name = new Name(fromImdb.getName().toString().toLowerCase());
+        String fromImdbType = fromImdb.getType();
         boolean matchingShowName = false;
         int matchingIndex = -1;
         for (int i = 0; i < unWatchedList.size(); i++) {
-            Name nameFromUnWatched = unWatchedList.get(i).getName();
+            Name nameFromUnWatched = new Name(unWatchedList.get(i).getName().toString().toLowerCase());
             if (name.equals(nameFromUnWatched)) {
-                matchingShowName = true;
-                matchingIndex = i;
-                break;
+                if (unWatchedList.get(i).getType().equals(fromImdbType)) {
+                    matchingShowName = true;
+                    matchingIndex = i;
+                    break;
+                }
             }
         }
         if (matchingShowName) {
@@ -59,7 +65,8 @@ public class SyncCommand extends Command {
             model.setShow(fromUnWatchedList, fromImdb);
             return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb), true);
         } else {
-            throw new CommandException(MESSAGE_UNSUCCESSFUL + " " + MESSAGE_UNSUCCESFUL2);
+            throw new CommandException(MESSAGE_UNSUCCESSFUL + " " + MESSAGE_UNSUCCESFUL2
+                    + "\n" + MESSAGE_UNSUCCESSFUL3);
         }
     }
 
