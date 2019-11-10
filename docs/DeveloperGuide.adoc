@@ -392,6 +392,7 @@ image::GameWindowClassDiagram.png[]
 | To allow user to know the next word to type.
 |===
 
+//tag::sort[]
 === Sort feature
 ==== Implementation
 
@@ -448,7 +449,7 @@ image::SortUpdateActivityDiagram.png[width="190", align="center"]
 * **Alternative 2:** Replace the `FilteredList` in `ModelManager` with a `SortedList`.
 ** Pros: Sorting the list is more intuitive, and the ordering of the engagements is automatically preserved whenever a command that modifies the list elements is executed.
 ** Cons: Features like `find` command may lose functionality and needs extra modification.
-
+//end::sort[]
 
 == Documentation
 
@@ -478,6 +479,7 @@ Refer to the guide <<DevOps#, here>>.
 increasing typing speed.
 
 [appendix]
+
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -669,6 +671,7 @@ Use case resumes at step 2.
 +
 Use case resumes at step 2.
 
+//tag::undoredo-uc[]
 [discrete]
 === Use case: (UC09) Undo previous command
 *MSS*
@@ -700,6 +703,7 @@ Use case ends.
 * 2a. There is no previous undone command
 +
 Use case ends.
+//end::undoredo-uc[]
 
 // Updated by Kevin
 [discrete]
@@ -841,7 +845,9 @@ Use case ends.
 
 _{More to be added}_
 
+//tag::glossary[]
 [appendix]
+
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
@@ -856,7 +862,7 @@ The person that the secretary is assigned to work for.
 
 [[appointment]] Appointment::
 An arrangement, managed and maintained by a secretary, for the manager to meet someone at a particular time and place.
-
+//end::glossary[]
 
 
 [appendix]

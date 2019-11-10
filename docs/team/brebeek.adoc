@@ -1,61 +1,102 @@
-= Hu Yuchen - Project Portfolio [To be modified]
+= Hu Yuchen - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+
+[PROFILE]
+====
+--
+image::brebeek.png[width="130", align="left"]
+--
+[blue]#This page serves as my _CS2103T_ project portfolio page on project *_Typee_*.# The following technologies
+and software were used in the development of *_Typee_* application:
+--
+image::java-logo.png[width="80", height="80", float="left"]
+image::javafx-logo.png[width="80", height="80", float="left"]
+image::junit5-logo.png[width="80", height="80", 66,70, float="left"]
+image::json-logo.png[width="80", height="80", 67,70, float="left"]
+image::travis-logo.png[width="80", height="80", 68,70,float="left"]
+//image::appveyor-logo.png[width="80", height="80", float="left"]
+//image::coveralls-logo.png[width="80", height="80", float="left"]
+image::github-logo.png[width="80", height="80"]
+
+====
 
 == PROJECT: Typee
 
 == Overview
 
-Typee is a desktop engagement management application. It has a GUI created with JavaFX, but most of the user interactions happen using a CLI (Command Line Interface).
-It is an appointment manager for secretaries and receptionists to better schedule and manage appointments. It is written in Java, and has about 15 kLoC.
+*_Typee_* is a desktop engagement management application. It has a GUI created with JavaFX, but most of the user interactions happen using a CLI (Command Line Interface).
+It is an appointment manager for secretaries and receptionists to better schedule and manage appointments. *_Typee_* comes with a dynamic parsing input structure and productivity enhancing features like graphical calendar view,
+conflict checker, sorting and undo/redo. All data required is stored locally, and Internet connection is not necessary for full functionality. +
+*_Typee_* is written in Java and contains around 17kLoC.
+
+This is what our project looks like:
+
+.The graphical user interface for *_Typee_*
+image::Ui.png[width="450"]
+
+My role was to enhance functionality by designing and implementing new features to the program. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
+
+Note the following symbols and formatting used in this document:
+
+TIP: This symbol indicates useful information for users to utilise *_Typee_*.
+
+NOTE: This symbol indicates additional or important information.
+
+`undo` : A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
 
 == Summary of contributions
 
-* *Major enhancement*: added the ability to *undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+|===
+|_Given below is a brief summary of my contribution to the project._
+|===
+
+=== *Major enhancement*:
+* Added the ability to *undo/redo previous commands*
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command. The undo/redo feature supports operations that modify the engagement list, and provides instant feedback on the graphical interface.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them. Especially for secretaries whose nature of work requires high productivity over certain periods of time,
+undo/redo features are efficient ways to revert and start over.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
+* Added the ability to *sort engagements by customisable order*
+** What it does: the sort feature takes in a parameter of engagements to sort by (e.g. starting time, priority, name etc.) and an ordering method (ascending and descending), and sorts the displayed engagement list accordingly.
+Operations that require an index of an arrangement can be specified based on the order of such sorted lists. Moreover, the ordering is preserved when operations that modify the engagement list (e.g. adding a new engagement) take place.
+** Justification: This feature is of significant value in actual scenarios, as secretaries usually deal with a massive amount of engagements, ranging from urgent to long-term, and important to less important. Sorting is thus needed in
+displaying all entries in a customisable order, such that all engagements can be managed in an organised manner.
+** Highlights: This enhancement requires a large number of customised comparators, which is managed using an Enum class. It also affects existing features that depend on the order of the displayed list or modify the list, which requires a good design of implementation and
+careful tweaks to existing structures.
 
-* *Major enhancement*: added the ability to *sort engagements by custom order*
-** What it does: allows the user to sort.
-** Justification: This feature improves the product significantly because it sorts.
-** Highlights:
-** Credits: _
+* *Minor enhancement*: refactored code from [https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book - Level 3]] to fit the context of *_Typee_*
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=brebeek&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=brebeek&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed milestones `v1.2` - `v1.4` on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated part of the find feature (Pull request https://github.com/AY1920S1-CS2103T-F14-3/main[#111])
+*** Wrote additional tests for existing features to increase coverage from 50% to 65% (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main[#36], https://github.com/AY1920S1-CS2103T-F14-3/main[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-F14-3/main[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F14-3/main[#69], https://github.com/AY1920S1-CS2103T-F14-3/main[#32]
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/addressbook-level3[#11], https://github.com/nus-cs2103-AY1920S1/addressbook-level3[#1], https://github.com/nus-cs2103-AY1920S1/addressbook-level3[#13])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/brebeek/ped/issues[#1], https://github.com/brebeek/ped/issues[#2], https://github.com/brebeek/ped/issues[#3])
 
-_{you can add/remove categories in the list above}_
+** Tools:
+*** Used graphviz and PlantUML plugins to aid in editing
+*** Added Codacy code review to repository (Pull request https://github.com/AY1920S1-CS2103T-F14-3/main[#197])
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=sort]
+include::../UserGuide.adoc[tag=undo-redo]
 
 == Contributions to the Developer Guide
 
@@ -63,12 +104,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=sort]
+include::../DeveloperGuide.adoc[tag=undoredo-uc]
+include::../DeveloperGuide.adoc[tag=glossary]
 
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
