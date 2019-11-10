@@ -1059,7 +1059,7 @@ This command enables you to set a financial goal.
 
 [NOTE]
 The amount should be non-negative, and the maximum amount you may set is 10,000,000
-(10 million). +
+(10 million). If more than 2 decimal places are specified, the amount will be rounded to 2 decimal places. +
 To reset the goal, simply set it to 0.
 
 * Steps:
@@ -1081,9 +1081,6 @@ The user interface reflects this under the respective section.
 This command allows you to set a percentage threshold for notifications. +
 For example, an 80 percent threshold will mean that you will receive a notification once you have reached 80% of the
 goal set for that particular financial goal.
-
-[NOTE]
-
 
 * Command:
 ** To set budget goal notification: `notify b/PERCENTAGE`
