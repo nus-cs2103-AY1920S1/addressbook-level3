@@ -149,13 +149,10 @@ image::mainInterface.png[Main interface,width=800]
 
 === Going to another page: ``goto``
 
-Trying to open up the _itinerary page_? Use this command!
+Trying to open up the another _page_? Use this command!
 
 *Format:* +
 ``goto PAGE TYPE`` +
-{empty} + 
-
-WARNING: The only available ``PAGE TYPE``s are ``calendar``, ``itinerary``, ``address_book``, ``financial_tracker``, ``diary`` and ``achievements``.
 
 *Example:* 
 
@@ -170,6 +167,9 @@ image::mainGoto1.png[Goto command]
 Step 2. You will be directed to the _itinerary page_.
 
 image::mainGoto2.png[Goto result]
+
+
+WARNING: The only available ``PAGE TYPE``s are ``calendar``, ``itinerary``, ``address_book``, ``financial_tracker``, ``diary`` and ``achievements``.
 
 === Viewing help: ``help``
 
