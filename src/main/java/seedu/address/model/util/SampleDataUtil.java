@@ -1,30 +1,15 @@
 package seedu.address.model.util;
 
+import seedu.address.model.IncidentManager;
+import seedu.address.model.ReadOnlyIncidentManager;
+import seedu.address.model.incident.*;
+import seedu.address.model.person.*;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.vehicle.*;
+
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import seedu.address.model.IncidentManager;
-import seedu.address.model.ReadOnlyIncidentManager;
-
-import seedu.address.model.incident.CallerNumber;
-import seedu.address.model.incident.Description;
-import seedu.address.model.incident.Incident;
-import seedu.address.model.incident.IncidentDateTime;
-import seedu.address.model.incident.IncidentId;
-
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Password;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Username;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.vehicle.Availability;
-import seedu.address.model.vehicle.District;
-import seedu.address.model.vehicle.Vehicle;
-import seedu.address.model.vehicle.VehicleNumber;
-import seedu.address.model.vehicle.VehicleType;
 
 /**
  * Contains utility methods for populating {@code IncidentManager} with sample data.
@@ -236,7 +221,7 @@ public class SampleDataUtil {
                     new District(27), new Availability("BUSY")),
             new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("HFJ3029F"),
                     new District(21), new Availability("BUSY")),
-            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("HFJ3029F"),
+            new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("HFJ3099F"),
                     new District(11), new Availability("BUSY")),
 
         };

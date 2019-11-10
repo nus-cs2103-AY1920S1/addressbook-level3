@@ -1,9 +1,9 @@
 package seedu.address.model.vehicle;
 
+import java.util.Arrays;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-
-import java.util.Arrays;
 
 /**
  * Represents a Person's name in the address book.
@@ -38,7 +38,7 @@ public class VehicleType {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is one of the existing vehicle types.
      */
     public static boolean isValidVehicleType(String vehicleType) {
         return vehicleType.matches(VALIDATION_REGEX);
