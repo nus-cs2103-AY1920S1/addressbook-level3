@@ -14,7 +14,6 @@ import seedu.address.model.note.NoteContainsTagPredicate;
 /**
  * Command to filter note(s) with the related tag(s).
  */
-
 public class FilterNoteByTagCommand extends Command {
 
     public static final String COMMAND_WORD = FILTER;

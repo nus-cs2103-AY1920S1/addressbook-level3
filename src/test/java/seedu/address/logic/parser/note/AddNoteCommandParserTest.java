@@ -8,9 +8,11 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.SPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_PIPELINE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_CONTENT_FRAGMENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_CONTENT_PIPELINE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_TAG_1_PIPELINE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_TAG_2_PIPELINE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_TITLE_FRAGMENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_TITLE_PIPELINE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CS2100;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_PIPELINE;
@@ -56,6 +58,26 @@ public class AddNoteCommandParserTest {
         assertParseSuccess(getParser(),
                 VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE + VALID_NOTE_TAG_1_PIPELINE
                         + VALID_NOTE_TAG_2_PIPELINE, new AddNoteCommand(expectedNote));
+    }
+
+    @Test
+    public void parse_multipleCompulsoryFields_parserReadsOnlyMostRecentFieldWithSuccess() {
+        Note expectedNote = new NoteBuilder(PIPELINE).withTags(VALID_TAG_CS2100).build();
+
+        // multiple title tags - only latest one accepted
+        assertParseSuccess(getParser(),
+                VALID_NOTE_TITLE_FRAGMENT + VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_PIPELINE
+                        + VALID_NOTE_TAG_1_PIPELINE, new AddNoteCommand(expectedNote));
+
+        // multiple content tags - only latest one accepted
+        assertParseSuccess(getParser(),
+                VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_CONTENT_FRAGMENT + VALID_NOTE_CONTENT_PIPELINE
+                        + VALID_NOTE_TAG_1_PIPELINE, new AddNoteCommand(expectedNote));
+
+        // multiple title and content tags - only latest one accepted for both
+        assertParseSuccess(getParser(),
+                VALID_NOTE_TITLE_FRAGMENT + VALID_NOTE_TITLE_PIPELINE + VALID_NOTE_TITLE_PIPELINE
+                        + VALID_NOTE_CONTENT_PIPELINE + VALID_NOTE_TAG_1_PIPELINE, new AddNoteCommand(expectedNote));
     }
 
     @Test

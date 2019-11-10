@@ -19,10 +19,11 @@ public class FilterAllByTagCommand extends Command {
 
     public static final String COMMAND_WORD = FILTER_ALL;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters and displays every StudyBuddy item by tag(s)."
-            + "\nExample usage : filterall tag/cs2100 tag/important";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters and displays every StudyBuddyPro item by tag"
+            + "(s).\nExample usage : filterall tag/cs2100 tag/important";
 
-    public static final String FILTER_TAG_MESSAGE_SUCCESS = "Listing the whole StudyBuddy after filtering by tag(s): ";
+    public static final String FILTER_TAG_MESSAGE_SUCCESS = "Listing the whole StudyBuddyPro after filtering by tag(s)"
+            + ": ";
 
     public static final String NO_ITEM_FOUND = "There is no such StudyBuddyItem with the specified "
             + "tag(s) in StudyBuddy!";
