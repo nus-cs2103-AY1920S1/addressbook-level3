@@ -5,6 +5,7 @@ import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
+import mams.commons.core.Messages;
 import mams.logic.commands.ModCommand;
 import mams.logic.commands.RemoveModCommand;
 import mams.logic.parser.exceptions.ParseException;
@@ -41,6 +42,12 @@ public class RemoveModCommandParser implements Parser<RemoveModCommand> {
 
         if (argMultimap.getAllValues(PREFIX_STUDENT).size() > 1) {
             throw new ParseException(ModCommand.MESSAGE_MORE_THAN_ONE_IDENTIFIER);
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    ModCommand.MESSAGE_NO_PREAMBLE +
+                            ModCommand.MESSAGE_USAGE_REMOVE_MOD));
         }
 
         studentIdentifier = argMultimap.getAllValues(PREFIX_STUDENT).get(0);
