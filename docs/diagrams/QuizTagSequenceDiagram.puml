@@ -1,0 +1,135 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":FlashcardListParser" as FlashcardListParser LOGIC_COLOR
+participant ":QuizTagCommandParser" as QuizTagCommandParser LOGIC_COLOR
+participant "d1:QuizTagCommand" as QuizTagCommand LOGIC_COLOR
+participant "d2:FlipCommand" as FlipCommand LOGIC_COLOR
+participant "cr1:CommandResult" as CommandResult1 LOGIC_COLOR
+participant "cr2:CommandResult" as CommandResult2 LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "quizCard:Flashcard" as Flashcard MODEL_COLOR
+end box
+
+[-> FlashcardListParser: parseCommand(quiztag ...)
+activate FlashcardListParser
+
+FlashcardListParser -> FlashcardListParser: setQuizMode(true)
+activate FlashcardListParser
+
+deactivate FlashcardListParser
+
+FlashcardListParser -> QuizTagCommandParser : parse(arguments)
+activate QuizTagCommandParser
+
+create QuizTagCommand
+QuizTagCommandParser -> QuizTagCommand
+activate QuizTagCommand
+
+QuizTagCommand --> QuizTagCommandParser
+deactivate QuizTagCommand
+
+QuizTagCommandParser --> FlashcardListParser : nextQuizCommand
+deactivate QuizTagCommandParser
+
+
+deactivate FlashcardListParser
+
+[-> QuizTagCommand: execute()
+activate QuizTagCommand
+
+QuizTagCommand -> Model:getFilteredFlashcardList(model.getHasTagPredicate(target))
+activate Model
+
+Model --> QuizTagCommand: filteredList: ObservableList<Flashcard>
+deactivate Model
+
+QuizTagCommand -> Model : setQuiz(filteredList)
+activate Model
+
+Model --> QuizTagCommand
+deactivate Model
+
+QuizTagCommand -> Model: getQuiz().quizCard()
+activate Model
+
+Model -> QuizTagCommand: quizCard
+deactivate Model
+
+create CommandResult1
+QuizTagCommand -> CommandResult1: quizCard
+activate CommandResult1
+
+CommandResult1 --> QuizTagCommand : cr1
+deactivate CommandResult1
+
+[<-- QuizTagCommand : cr1
+deactivate QuizTagCommand
+
+loop FlashcardListParser.quizMode = true
+    [--> FlipCommand : execute()
+    activate FlipCommand
+
+    FlipCommand -> Model : getQuiz().quizCard()
+    activate Model
+
+    Model -> FlipCommand : quizCard
+    deactivate Model
+
+    FlipCommand -> Flashcard : checkAnswer(answer)
+    activate Flashcard
+
+    alt answer is correct
+
+        Flashcard -> Flashcard : incrementCorrectAnswer()
+        activate Flashcard
+
+        deactivate Flashcard
+
+    else answer is wrong
+
+        Flashcard -> Flashcard : incrementWrongAnswer()
+        activate Flashcard
+
+        deactivate Flashcard
+
+    end
+
+    Flashcard --> FlipCommand : isCorrect:boolean
+    deactivate Flashcard
+
+    create CommandResult2
+
+    alt quiz is not empty
+
+        FlipCommand -> CommandResult2 : result, nextCard
+        activate CommandResult2
+
+        CommandResult2 --> FlipCommand : cr2
+        deactivate CommandResult2
+
+    else quiz is empty
+
+         FlipCommand -> FlashcardListParser : setQuizMode(false)
+         activate FlashcardListParser
+
+         FlashcardListParser --> FlipCommand
+         deactivate FlashcardListParser
+
+         FlipCommand -> CommandResult2 : result
+         activate CommandResult2
+
+         CommandResult2 --> FlipCommand : cr2
+         deactivate CommandResult2
+
+    end
+end
+
+[<-- FlipCommand : cr2
+deactivate FlipCommand
+
+@enduml
