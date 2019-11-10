@@ -46,17 +46,15 @@ The user interacts with TutorAid using a Command Line Interface (CLI), with a Gr
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase code coverage (Pull requests https://github.com/AY1920S1-CS2103T-F14-2/main/pull/232[#232], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/311[#311], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/320[#320])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added detailed implementation documentation for undo/redo feature and most part of the calendar feature in User Guide, including diagrams. (Pull requests https://github.com/AY1920S1-CS2103T-F14-2/main/pull/220[#220], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/341[#341])
+*** Added detailed implementation documentation with diagrams for undo/redo feature and add task command, class diagrams of Storage and Model, as well as user stories and use cases in Developer Guide. (Pull requests https://github.com/AY1920S1-CS2103T-F14-2/main/pull/118[#118], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/161[#161], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/220/files[#220], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/311/files[#311])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reviewed Pull Request with feedback : https://github.com/AY1920S1-CS2103T-F14-2/main/pull/164[#164], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/343[#343]
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Set up Coveralls for the test coverage of the project.
 
-_{you can add/remove categories in the list above}_
+
+
 
 == Contributions to the User Guide
 
@@ -65,9 +63,10 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=tasks]
+include::../UserGuide.adoc[tag=undoAndRedo]
+include::../UserGuide.adoc[tag=commandSummary]
 
-include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -75,14 +74,11 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=Calendar]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=undoAndRedo]
+
+include::../DeveloperGuide.adoc[tag=userStoriesAndCase]
 
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_ +
 

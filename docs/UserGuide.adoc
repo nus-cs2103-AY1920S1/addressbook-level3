@@ -104,8 +104,11 @@ Examples (All available destinations listed):
 * `change_tab tab/notepad`
 * `change_tab tab/task`
 
+
+
 === Calender
 
+// tag::tasks[]
 ==== Adding task: `add_task`
 
 Adds a task to one or more time slots. +
@@ -204,6 +207,7 @@ image:UserGuide/find_task_4.png[width="500"]
 List all tasks. +
 Format: `list_task`
 
+// end::tasks[]
 
 ==== Setting Reminder Details  : `addReminder`
 
@@ -526,6 +530,7 @@ Examples:
 Clears all entries from the address book. +
 Format: `clear`
 
+// tag::undoAndRedo[]
 === Undoing previous command : `undo`
 
 Restores the Tutor Aid to the state before the previous _undoable_ command was executed. +
@@ -584,6 +589,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `edit_task 1 mark/N` command) +
 
+// end::undoAndRedo[]
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -622,6 +628,7 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+// tag::commandSummary[]
 == Command Summary
 * *Help* : `help`
 * *Log* : +
@@ -665,4 +672,4 @@ _{explain how the user can enable/disable data encryption}_
 * *Redo* : `redo`
 * *Clear* : `clear`
 * *Exit* : `exit`
-
+// end::commandSummary[]
