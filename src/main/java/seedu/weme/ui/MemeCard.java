@@ -137,13 +137,13 @@ public class MemeCard extends UiPart<Region> {
         int row = 1;
         for (int i = 0; i < meme.getTags().size(); i++) {
             numOfCharInCurrLine += lengths.get(i) + TAGS_GAP_BY_CHAR;
-            limit++;
             if (numOfCharInCurrLine > MAX_CHAR_PER_LINE) {
                 if (++row > rowsForTags) {
                     break;
                 }
                 numOfCharInCurrLine = 0;
             }
+            limit++;
         }
         return limit;
     }
