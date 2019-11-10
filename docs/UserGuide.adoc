@@ -22,23 +22,23 @@ By: `CS2103T-F14-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-DukeAcademy is a coding practice platform that operates entirely on your local machine without the need for an internet
+Duke Academy is a coding practice platform that operates entirely on your local machine without the need for an internet
 connection. Whether you are revising for a test, practicing for a tech interview, or just coding for the sheer joy of
 it, DukeAcademy gives you access to a wide range of programming problems from various categories. Easily find something
 that suits your needs and interests and start honing your skills today!
 
-DukeAcademy features a built-in list of problem sets and its very own text editor. Simply choose a problem statement
-that catches your eye, load it up in the problem display panel and start coding away! DukeAcademy also features your
+Duke Academy features a built-in list of problem sets and its very own text editor. Simply choose a problem statement
+that catches your eye, load it up in the problem display panel and start coding away! Duke Academy also features your
 very own profile page for you to immediately view all of your accomplishments at a glance. Your profile page also helps
 you keep track of the problems that you have attempted and those you have bookmarked, so that you can get back to them
 easily at a later time.
 
-For educators, you can use DukeAcademy as a platform to administer your assignments or practice questions. If you have
+For educators, you can use Duke Academy as a platform to administer your assignments or practice questions. If you have
 questions of your own you would like to test your students, you can use the built-in question loader in DukeAcademy to
 set your own questions and then distribute the updated _questionBank.json_ file to your students through your favourite
 communication channels.
 
-DukeAcademy is optimized for those who prefer to work with a CLI (Command Line Interface) while still enjoying the
+Duke Academy is optimized for those who prefer to work with a CLI (Command Line Interface) while still enjoying the
 benefits of a GUI (Graphical User Interface). If you are unfamiliar with using a CLI (which is an important skill for all
 programmers), you can get used to it while working on your coding skills here in DukeAcademy!
 
@@ -75,7 +75,9 @@ The User Interfaces that are important for now:
 +
 This will be the field where you input all your commands. After you press the kbd:[Enter] button, your command will be executed.
 +
-e.g. typing *`showall`* and pressing kbd:[Enter] will display all the questions in the app.
+e.g. typing *`showall`*, followed by pressing kbd:[Enter] will display all the questions in the app.
++
+To find out about the commands available in Duke Academy, please visit <<Features>>.
 
 2. *Result Box*
 +
@@ -85,7 +87,7 @@ e.g. after executing *`showall`* command, "List all questions..." will be displa
 
 3. *Tab Panes*
 +
-Consists of 4 different tabs: _Home_, _Questions_, _Workspace_ and _Help_
+Consists of 5 different tabs: _Home_, _Questions_, _Workspace_, _Notes_ and _Help_
 
 . After executing *`showall`* in the *CommandBox*, find a question that interests you and type `attempt <Qn Index>`
   into the *CommandBox* to start your DukeAcademy experience.
@@ -95,32 +97,39 @@ _Note: the index of a question is the number displayed next to its title._
 +
 image::questionindex.png[width="1000"]
 +
-. Refer to <<Features>> to view our full list of commands.
+
 
 [[Overview]]
 == Overview
 
-The application is divided into 3 separate tabs, each one of them serving a specific purpose. You can toggle between the
+The application is divided into 5 separate tabs, each one of them serving a specific purpose. You can toggle between the
 different tabs by entering `tab` into the *CommandBox*.
 
 === Home
-The *Home* tab contains an introduction of the application along with a brief overview of your user profile.
+The *Home* tab contains an introduction of the application, and more importantly, a *Personal Dashboard* for you to keep track of your progress made in Duke Academy.
 
 image::homepage.png[width="1000"]
 
-On the "Home" page, you can:
+On the *Personal Dashboard* you can:
 
-. See your completion percentage and current skill tier!
+. See the percentage of questions you completed and your current skill tier.
++
+Novice 0 - 29 % {nbsp} +
+Apprentice 30 - 49 % {nbsp} +
+Master 50 - 69 % {nbsp} +
+Grandmaster 70 - 89 % {nbsp} +
+Duke 90 - 100 %
++
 . Keep track of the questions that you are currently attempting.
-. View your bookmarked questions.
+. Keep track of the questions that you bookmarked.
 
 === Questions
 The *Questions* tab contains a list of all the available questions and also a window to view your problem statements.
 
 You can use commands such as `browse` and `find` to filter through the list of questions in order to find what you
-are looking for. `browse` can lookup any keywords in titles, difficulty, description, topics, etc. `find` only finds by titles._(View <<Features>> for more details.)_
+are looking for. `browse` can lookup any keywords in titles, difficulty, description, topics, etc. `find` only finds by titles. _(View <<Features>> for more details.)_
 
-. To quickly see all questions, enter `showall` into the *CommandBox*.
+. To quickly see all questions, enter `showall` into the *Command Box*.
 . To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
   on the right.
 
@@ -134,22 +143,69 @@ The workspace is where you will work on the various questions.
 
 image::workspace.png[width="1000"]
 
-. *ProblemStatementDisplay*
+. *Problem Statement Display*
 +
 Displays the question that you are currently attempting.
 
-. *ProgramEvaluationDisplay*
+. *Program Evaluation Panel*
 +
-This window displays the results after DukeAcademy has finished evaluating the correctness of your program.
+This panel displays the correctness of your program when evaluated against the pre-defined list of test cases tied to the question you are solving.
 . *Editor*
 +
 A built-in editor for you to write your code.
 
-To submit your attempt, enter `submit` into the *CommandBox*.
+To submit your attempt, enter `submit` into the *Command Box*.
 
-To begin your attempt on a question, enter `attempt <Qn Index>` into the *CommandBox*.
+To begin your attempt on a question, enter `attempt <Qn Index>` into the *Command Box*.
 
-To submit your attempt, enter `submit` into the *CommandBox*.
+To submit your attempt, enter `submit` into the *Command Box*.
+
+=== Notes
+The notes page is where you can record notes or even sketch out some of your ideas to aid your learning process.
+
+image::notespage.png[width="1000"]
+
+. NotesListDisplay
++
+Displays all of the notes that you have previously created.
++
+
+. CurrentNoteTitle
++
+Shows the title of the note that you are currently viewing/editing.
++
+
+. NoteTextInput
++
+Input space for any text-based notes that you wish to record.
++
+
+. Sketchpad
++
+A canvas for you to draw any ideas you may have pertaining to data structures!
++
+
+
+To create a new note, enter `newnote <Title>` into the *CommandBox*
+
+To open an exiting note, enter `opennote <Id> into the *CommandBox*.
+
+The id of the note is the number that appears next to the title in the *NotesListDisplay*.
+
+To save any changes to your notes, enter `savenote` into the *CommandBox*.
+
+=== Help
+The help page is where you can get a quick summary of all of the features and commands in the application.
+
+[[BeforeStart]]
+== Before you start
+
+. The program evaluator uses *stdin* to feed your program inputs and *stdout* to receive your program's outputs. Thus,
+it is important that your program uses the `Scanner` class to read inputs and for you to print your results.
+
+. Take note that your program is being evaluated *on your local machine* and not within a container or a virtual machine.
+Thus, *do not write any code that you would not want to run on your local machine*.
+
 
 [[Features]]
 == Features
@@ -170,9 +226,18 @@ e.g. `browse [category]...` can be used as
 `browse easy linkedlist hashtable recursion` (i.e. 4 entries), etc.
 ====
 
-=== Access Homepage: `home`
+=== Access Help Tab: `help`
 
-Navigates back to the *HomePage*.
+Navigates to the *Help* Tab.
+
+*Format:* `help`
+
+image::help.png[width="1000"]
+
+
+=== Access Home Tab: `home`
+
+Navigates to the *Home* Tab.
 
 *Format:* `home`
 
@@ -191,26 +256,26 @@ image::listallquestions.png[width="1000"]
 //end::showall[]
 === Adding bookmark: `bookmark`
 
-Bookmarks a question by its id.
+Bookmarks a specific question.
 
 *Format:* `bookmark [id]`
 
 ****
 * The id of a question can be found next to its title.
-* The bookmarked question will appear in the list of bookmarked questions under the *Home* Tab.
+* The bookmarked question will appear in the list of bookmarked questions located within your *Personal Dashboard*.
 ****
 
 image::bookmark.png[width="1000"]
 
 === Removing bookmark: `deletebookmark`
 
-Removes a bookmark from a question by its id.
+Removes the bookmark from a specific question.
 
 *Format:* `deletebookmark [id]`
 
 ****
 * The id of a question can be found next to its title.
-* The question with the bookmark removed will disappear from the list of bookmarked questions under the *Home* Tab.
+* The question with the bookmark removed will disappear from the list of bookmarked questions located within your *Personal Dashboard*.
 ****
 
 //tag::find[]
@@ -322,7 +387,67 @@ the *ProgramEvaluationDisplay* on the bottom left of the GUI.
 
 image::submit.png[width="1000"]
 
-//tag::load[]
+=== Creating a new note: `newnote`
+
+Navigates to the *Notes* tab and creates a new note with the given title.
+
+*Format:* `newnote [title]`
+
+****
+* The new note will be loaded immediately into the notes tab
+* You can start writing/drawing your ideas in the note text input or the sketchpad.
+* Save any changes you wish to make using the `savenote` command.
+****
+
+*Examples:*
+
+image::newnotecommand.png[width="1000"]
+
+* `newnote Linked Lists` +
+Creates a new note titled "Linked Lists" and loads it into the Notes page for you to edit/view.
+
+
+
+=== Saving changes to a note: `savenote`
+
+Navigates to the *Notes* tab and saves any changes made to the note that you were previously viewing/editing.
+
+*Format:* `savenote`
+
+****
+* The saved changes will be reflected the next time you open the note again.
+****
+
+=== Opening an existing note: `opennote`
+
+Navigates to the *Notes* tab and opens the note corresponding to the id for viewing/editing.
+
+*Format:* `opennote [id]`
+
+****
+* Be careful as there is no way to retrieve your notes once they are deleted!
+****
+
+image::opennotecommand.png[width="1000"]
+
+* `opennote 1` +
+Navigates to the *Notes* page after opening the note with the id 1.
+
+=== Deleting an existing note: `deletenote`
+
+Navigates to the *Notes* tab and deleting the note corresponding to the id.
+
+*Format:* `deletenote [id]`
+
+****
+* Displays the text content of the note into the note text input
+* Displays the sketch of the note into the sketchpad
+****
+
+* `deletenote 1` +
+Navigates to the *Notes* page after deleting the note with the id 1.
+
+
 === Loading new questions: `loadquestions`
 
 Imports new questions into the application through a text file.
@@ -343,6 +468,8 @@ image::loadquestions.png[width="1000"]
 * `loadquestions my_problem_set.txt` +
 Loads the questions from the file "my_problem_set.txt" located on your desktop.
 //end::load[]
+
+
 === Exit the application: `exit`
 
 Exits the application
@@ -380,13 +507,15 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 * Attempt a question: `attempt​ [id]`
 * Submit:​ `submit`
 * Load questions: ​`loadquestions​ [filename]`
+* Create a new note: `newnote [title]`
+* Save current note: `savenote`
+* Open a  note: `opennote [id]`
+* Delete a note: `deletenote [id]`
 * Exit: `exit`
 
 //end::summary[]
 
 == Question storage file format
-
-image::samplequestions.png[width="920"]
 
 ****
 * The text file is a json list of json objects representing each question.
@@ -402,7 +531,6 @@ image::samplequestions.png[width="920"]
 //tag::customqn[]
 [[Custom-Questions]]
 == Load Your Custom Questions
-image::custom_questions.png[width="920"]
 
 * Create a .txt file.
 * The format of a question goes like follows:

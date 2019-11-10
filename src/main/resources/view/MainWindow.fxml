@@ -43,8 +43,8 @@
                 </HBox>
 
                 <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-                    <Tab text="Home">
-                        <AnchorPane fx:id="homePagePlaceholder" />
+                    <Tab text="Dashboard">
+                        <AnchorPane fx:id="dashboardPlaceholder" />
                     </Tab>
 
                     <Tab text="Questions">
@@ -54,11 +54,14 @@
                     <Tab text="Workspace">
                         <AnchorPane fx:id="workspacePlaceholder" />
                     </Tab>
-               <Tab text="Help">
-                  <content>
-                     <AnchorPane fx:id="helpPagePlaceholder" />
-                  </content>
-               </Tab>
+
+                    <Tab text="Notes">
+                        <AnchorPane fx:id="notesPagePlaceholder" />
+                    </Tab>
+
+                    <Tab text="Help">
+                        <AnchorPane fx:id="helpPagePlaceholder" />
+                    </Tab>
                 </TabPane>
             </VBox>
         </Scene>

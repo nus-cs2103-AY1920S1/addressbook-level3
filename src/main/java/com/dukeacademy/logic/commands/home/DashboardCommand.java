@@ -12,27 +12,28 @@ import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.state.Activity;
 import com.dukeacademy.model.state.ApplicationState;
+import com.dukeacademy.ui.Dashboard;
 
 /**
- * Encapsulates a command used to navigate to the Home tab. Any unsaved work is automatically
- * saved before navigating to the Home tab.
+ * Encapsulates a command used to navigate to the Dashboard tab. Any unsaved work is automatically
+ * saved before navigating to the Dashboard tab.
  */
-public class HomeCommand implements Command {
+public class DashboardCommand implements Command {
     private final Logger logger;
     private final ProgramSubmissionLogic programSubmissionLogic;
     private final QuestionsLogic questionsLogic;
     private final ApplicationState applicationState;
 
     /**
-     * Instantiates a new Home command.
+     * Instantiates a new Dashboard command.
      *
      * @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
      * @param applicationState       the application state
      */
-    public HomeCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic,
-                       ApplicationState applicationState) {
-        this.logger = LogsCenter.getLogger(HomeCommand.class);
+    public DashboardCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic,
+                             ApplicationState applicationState) {
+        this.logger = LogsCenter.getLogger(Dashboard.class);
         this.programSubmissionLogic = programSubmissionLogic;
         this.questionsLogic = questionsLogic;
         this.applicationState = applicationState;
@@ -55,9 +56,9 @@ public class HomeCommand implements Command {
             logger.info("No question attempt found. Skipping program save.");
         }
 
-        applicationState.setCurrentActivity(Activity.HOME);
+        applicationState.setCurrentActivity(Activity.DASHBOARD);
 
-        return new CommandResult("Returning to home page...", false);
+        return new CommandResult("Returning to your dashboard...", false);
     }
 
     /**
