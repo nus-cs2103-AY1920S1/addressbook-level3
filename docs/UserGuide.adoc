@@ -308,12 +308,12 @@ Too stressed from all the work? Check out these features to take a short break s
 
 `game` switches your list of tasks into a game of Snakes!
 
-There are 2 modes to the game: `easy` and `hard`. Type `game hard` to enter the hard mode of the game! 
+There are 2 modes to the game: `easy` and `hard`. Type `game hard` to enter the hard mode of the game!
 
 Controls: `UP`, `DOWN`, `LEFT`, `RIGHT`
 
 .Snake game `EASY` +
-image::SnakeGame.PNG[Snake, 600, 600] 
+image::SnakeGame.PNG[Snake, 600, 600]
 
 
 `EASY`
