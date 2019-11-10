@@ -154,7 +154,7 @@ _This section breakdown the logic package into its internal components_
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[width="600"]
 
 Logic is primarily built by two segments: Command and Parser.
 
@@ -201,7 +201,7 @@ UiLogicHelper APIs is a subset of Logic APIs and only contains transactions for 
 The following sequence diagram shows how the AutoComplete operation runs when user keys in "st" into command box.
 
 .Sequence Diagram of AutoComplete
-image::AutoCompleteSequenceDiagram.png[]
+image::AutoCompleteSequenceDiagram.png[width="600"]
 
 
 *API* :
@@ -324,7 +324,7 @@ The above implementation empowers the application with the following features :
    The below activity diagram demonstrates four possible states and a typical user flow.
 
 .Activity diagram of a typical application flow
-image::StateActivityDiagram.PNG[]
+image::StateActivityDiagram.PNG[width="400"]
 
 *   Definitions of Switch and Mode in table above
 **   SwitchCommands = (commands that change mode)
@@ -334,21 +334,14 @@ image::StateActivityDiagram.PNG[]
 
 *   SpecificModeParsers use  ClassUtil to handle instantiation of Parser and Command objects.
 *   ClassUtil holds a list of references to Command and Parsers classes. In Java class references are passed using .class attribute. Example: AddCommand.class
-*   Internally, ClassUtil employs java reflections to find attributes of classes without instantiating them. Code for it is succinct and shown in the snippet below.
+*   Internally, ClassUtil employs java reflections to find attributes of classes without instantiating them. Code for it is succinct and shown in the snippet https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/docs/images/reflectionsSnippet.PNG[linked here].
 
-.Code snippet from ClassUtil.java
-image::reflectionsSnippet.PNG[width="500"]
 
 *   Also, when a command needs to be executed, it instantiates the Parser object (if any) and Command object at runtime.
 
-*   Below snippet is from ParserManager. Just one line of code is necessary to include a new command with its parser. Example:
+*   https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/docs/images/reflectionsSnippet2.PNG[Here] is a snippet is from ParserManager. Just one line of code is necessary to include a new command with its parser. Example:
 
     temp.add(NewCommand.class, NewCommandParser.class);
-
-.Code snippet from ParserManager.java
-image::reflectionsSnippet2.PNG[width="500"]
-
-
 
 
 ==== Design Considerations

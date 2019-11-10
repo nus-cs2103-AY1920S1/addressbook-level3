@@ -1,4 +1,4 @@
-= Sree Subbash - Project Portfolio
+= https://subbash.com[Sree Subbash] - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -28,7 +28,7 @@ Under the hood, it required major restructuring of input handling. In that proce
 
 image::subbashcontentpageB.png[width=300]
 
-https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=sreesubbash[***Link to codebase***]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=subbash&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=sreesubbash&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[***Link to codebase***]
 
 *AutoComplete with Dynamic Command Parsers*
 
@@ -117,9 +117,5 @@ include::../DeveloperGuide.adoc[tag=autocompleteimplementation]
 
 
 
-
-== Other Projects
-
-https://subbash.com
 
 ---
