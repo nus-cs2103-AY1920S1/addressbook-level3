@@ -394,7 +394,7 @@ The following steps explain <<FindActivityDiagram>>:
 Listed in the table below are the design considerations for the `find` command.
 
 .Design considerations for `find` command
-[width="90%", cols="1,2,2", options="header",]
+[#FindDesignConsiderations,width="90%", cols="1,2,2", options="header",]
 |===
 |Aspect |Alternative 1 (current choice) |Alternative 2
 
@@ -415,7 +415,7 @@ Poor abstraction +
 Requires prior knowledge of the structure of the entire code
 |===
 
-Alternative 1 was chosen as it was the easiest to implement and obeys the Open-Closed Principle (OCP) of the SOLID principles. Although Alternative 2 enables checking of the related objects directly, it has poor abstraction and changes in the function require prior knowledge of the structure of the entire code, making it difficult to implement.
+Based on <<FindDesignConsiderations>>, Alternative 1 was chosen as it was the easiest to implement and obeys the Open-Closed Principle (OCP) of the SOLID principles. Although Alternative 2 enables checking of the related objects directly, it has poor abstraction and changes in the function require prior knowledge of the structure of the entire code, making it difficult to implement.
 // end::find[]
 
 // tag::sort[]
