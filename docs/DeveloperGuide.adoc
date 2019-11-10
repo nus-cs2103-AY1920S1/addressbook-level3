@@ -1004,9 +1004,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 1a. Mark does not have internet access.
+* 1a. Mark does not have internet access or url input is invalid.
 [none]
-** 1a1. Mark tells user that there is no internet access and suggests that user view offline copies instead.
+** 1a1. Mark tells user that to check that there is internet access and the url given is correct.
+
 +
 Use case ends.
 
@@ -1242,3 +1243,70 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Making annotations
+
+. Adding an annotation to a paragraph of web page
+
+.. Prerequisites: Bookmark must have an offline copy available. You can check the bookmark list to see if an offline copy is available.
+The offline copy should also have content to annotate.
+.. Test case: `annotate 1 p/p1 n/added a note h/orange` +
+Expected: Offline copy of the first bookmark is annotated. The first paragraph is highlighted orange and a note "adding a note" is added on the right of the paragraph. Details of the
+annotation added can be found in the status message.
+.. Test case: `annotate 0 p/p1` +
+Expected: No annotation is made. Error details are shown in the status message.
+.. Test case: `annotate 1 p/incorrectIdentifier eg. 1` +
+Expected: No annotation is made. Error details are shown in the status message.
+
+. Adding a general note to the offline copy of a bookmark
+
+.. Prerequisites: Bookmark must have an offline copy available.
+.. Test case: `annotate 1 p/null n/added a general note` +
+Expected: Offline copy of the first bookmark is annotated. A general note "added a general note" is added to the bottom of the document.
+.. Test case: `annotate 1 p/null` +
+Expected: No annotation is made. Error details are shown in the status message.
+
+. Deleting all annotations of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available.
+.. Test case: `annotate-delete 1 p/all` +
+Expected: Offline copy of the first bookmark is clear of any annotations.
+.. Test case: `annotate-delete 1 p/all n/anything` +
+Expected: Offline copy of the first bookmark is clear of any annotations.
+
+. Deleting only the highlight of a paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-delete 1 p/p1 n/true` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is no longer annotated.
+If paragraph 1 had a note, it is now found at the bottom of the page.
+
+. Deleting only the note of a paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must have a note.
+.. Test case: `annotate-delete 1 p/p1 h/true` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 no longer has a note.
+
+. Deleting the annotation of a paragraph of an offline copy (general)
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-delete 1 p/p1` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is no longer annotated.
+.. Test case: `annotate-delete 1 p/p1 n/true h/true` +
+Expected: No annotation is deleted. Error details are shown in the status message.
+
+. Moving an annotation from paragraph to paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph to move annotation from must be annotated. Target paragraph must also exist and its id must not start with `G`.
+.. Test case: `annotate-edit 1 p/p1 to/p2` +
+Expected: Annotation on the offline copy of the first bookmark is affected. The annotation of paragraph 1 is moved to paragraph 2.
+.. Test case: `annotate-edit 1 p/p1 to p/g1` +
+Expected: No annotation is edited. Error details are shown in the status message.
+
+. Editing the content of an annotation of an offline document
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-edit 1 p/p1 n/modify note h/green` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is now highlighted green and the content of its note is now "modify note".
+
+
