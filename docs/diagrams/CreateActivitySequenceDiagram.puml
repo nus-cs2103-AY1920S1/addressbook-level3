@@ -1,0 +1,92 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ActivityCommandParser" as ActivityCommandParser LOGIC_COLOR
+participant "a:ActivityCommand" as ActivityCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "ac:Activity" as Activity MODEL_COLOR
+participant "c:Context" as Context MODEL_COLOR
+end box
+
+[-> LogicManager : execute("activity t/Lunch p/dan")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("activity t/Lunch p/dan)
+activate AddressBookParser
+
+create ActivityCommandParser
+AddressBookParser -> ActivityCommandParser : ActivityCommandParser()
+activate ActivityCommandParser
+
+ActivityCommandParser --> AddressBookParser
+deactivate ActivityCommandParser
+
+AddressBookParser -> ActivityCommandParser : parse("t/Lunch p/dan")
+activate ActivityCommandParser
+
+create ActivityCommand
+ActivityCommandParser -> ActivityCommand : ActivityCommand("Lunch",{"dan"})
+activate ActivityCommand
+
+ActivityCommand --> ActivityCommandParser : a
+deactivate ActivityCommand
+
+ActivityCommandParser --> AddressBookParser : a
+deactivate ActivityCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ActivityCommandParser -[hidden]-> AddressBookParser
+destroy ActivityCommandParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+
+LogicManager -> ActivityCommand : execute()
+activate ActivityCommand
+
+loop number of keywords times
+  ActivityCommand -> Model : findPersonByName(keyword)
+  activate Model
+
+  Model--> ActivityCommand : Contact
+  deactivate Model
+end
+
+create Activity
+ActivityCommand -> Activity : Activity("Lunch", {Contact})
+activate Activity
+
+Activity --> ActivityCommand : ac
+deactivate Activity
+
+ActivityCommand -> Context : Context(ac)
+activate Context
+
+Context --> ActivityCommand : c
+deactivate Context
+
+ActivityCommand -> Model : setContext(c)
+activate Model
+
+Model--> ActivityCommand
+deactivate Model
+
+create CommandResult
+ActivityCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ActivityCommand
+deactivate CommandResult
+
+ActivityCommand --> LogicManager : result
+deactivate ActivityCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

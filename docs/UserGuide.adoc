@@ -48,7 +48,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 SplitWiser data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually - you don't have to worry about forgetting to save!
 
-=== Persistent app state
+=== Persistent app state (v2.0 only)
 
 SplitWiser also saves its application state with your data - meaning you can re-launch the app and continue where you left off!
 

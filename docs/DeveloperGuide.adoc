@@ -57,7 +57,7 @@ Each of the four components
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
+ac
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
@@ -181,7 +181,7 @@ Participants are saved internally under `participantIds`, which only stores the 
 
 * Expenses incurred by this activity
 
-Expenses are stored as `Expense`. Refer to <<Expense>> for more details. (TBD)
+Expenses are stored as `Expense`. Refer to <<Expense class>> for more details.
 
 * Outstanding balance for each participant
 
@@ -216,19 +216,28 @@ It extends `AddressBook` with an `ActivityBook`, stored internally as an `activi
 
 All `Activity` models are stored inside `ActivityBook`.
 
-When creating an activity, the title must be specified. It is optional to include participants, as they can be invited separately.
+When creating an activity, the title must be specified. It is optional to include participants, as they can be invited separately using the invite command. Refer to <<Invite/Disinvite feature>> for more information. 
 
 Adding of participant uses both exact-match and keyword-based search. First, the search term passed in is used to find an contact with an exact matching name. If no exact match is found, the search term is split into keywords via whitespace. Obtained keywords are then used to search the AddressBook for a matching person. The person is added in as a participant only if there is one exact match. Otherwise, a warning message will be displayed and no participant will be added for this set of keywords.
 
-Given below is an example usage scenario and how the create activity mechanism behaves at each step.
+The aforementioned mechanism was applied to minimize friction for users in using this feature. In early stages of development, it was concluded that making users type in the full name every time was seen as overly tedious. Making use of keyword-based search ensures that the users will only have to type in minimum amount of information to add a person.
 
-Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+Exact matching is always used first to overcome a specific edge case where a contact could not be added, if its name was a substring of another contact's name. Using exact-matching before applying keyword-based matching helps avoid this problem.
 
-Step 2. The user executes `activity t/Breakfast p/David` command to create an activity named Breakfast in the activity book, with David as a participant.
+Here is a sample use case in creating an expense:
 
-Step 3. The user executes `activity t/Lunch p/Alex p/David` command to create an activity named Lunch in the activity book. In this case, as there are two contacts with the name "Alex", only David is added into the Lunch activity as a participant.
+**Step 1.** The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
 
-//TODO: Add sequence diagram and Activity diagram showing how this works
+**Step 2.** The user executes `activity t/Breakfast p/David` command to create an activity named Breakfast in the activity book, with David as a participant.
+
+**Step 3.** The user executes `activity t/Lunch p/Alex p/David` command to create an activity named Lunch in the activity book. In this case, as there are two contacts with the name "Alex", this search term is considered invalid, and only David is added into the Lunch activity as a participant.
+
+The following sequence diagram demonstrates how creating activity works:
+
+image::CreateActivitySequenceDiagram.png[]
+
+NOTE: The lifeline for `ActivityCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 
 ==== Design Considerations
 
