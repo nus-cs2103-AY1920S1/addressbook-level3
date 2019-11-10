@@ -32,7 +32,7 @@ Note the following symbols and formatting used in this document
 
 [horizontal]
 
-NOTE: This symbol indicates important information
+NOTE: :: This symbol indicates important information
 
 `command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.
 
