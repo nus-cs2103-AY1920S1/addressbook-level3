@@ -97,21 +97,6 @@ public class Team extends Entity {
         this.location = location;
     }
 
-    /*
-    @Override
-    public HashMap<String, String> viewMinimal() {
-        HashMap<String, String> result = new HashMap<>();
-        Stream<String> participantStream = participants.stream()
-                .map(participant -> participant.toString());
-        String participantsString = Arrays.toString(participantStream.toArray());
-        result.put("name", getName().toString());
-        result.put("id", getId().toString());
-        result.put("participants", participantsString);
-        return result;
-    }
-
-     */
-
     /**
      * Updates the participant in the team.
      *

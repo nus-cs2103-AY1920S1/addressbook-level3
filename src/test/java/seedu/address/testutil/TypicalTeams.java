@@ -95,6 +95,16 @@ public class TypicalTeams {
                                           new Name("Project Epsilon"),
                                           new Location(5));
 
+    // Empty everything
+    public static final Team EMPTY = new Team(new Id(PrefixType.T, 6),
+            new Name("Team EMPTY"),
+            new LinkedList<Participant>(),
+            Optional.empty(),
+            SubjectName.HEALTH,
+            new Score(60),
+            new Name("Project Epsilon"),
+            new Location(6));
+
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Team ALFRED = new TeamBuilder().withName(VALID_NAME_ALFRED).withLocation(VALID_LOCATION_ALFRED)
@@ -179,6 +189,14 @@ public class TypicalTeams {
      */
     public static void clearTeamA() {
         TypicalTeams.A.setParticipants(initializeListA());
+    }
+
+    /**
+     * Resets the TEAM_EMPTY variable
+     */
+    public static void clearTeamEmpty() {
+        TypicalTeams.EMPTY.setParticipants(new ArrayList<Participant>());
+        TypicalTeams.EMPTY.setMentor(Optional.empty());
     }
 
 }
