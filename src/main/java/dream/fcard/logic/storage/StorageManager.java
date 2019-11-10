@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,6 +30,7 @@ import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.json.JsonParser;
 import dream.fcard.util.json.exceptions.JsonFormatException;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
+import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 import dream.fcard.util.stats.DateTimeUtil;
@@ -291,8 +293,6 @@ public class StorageManager {
                 Session session = new Session(
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_END).getObject()));
-                //session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getInt());
-                // todo: or abstract out and use this to load deck session list too?
                 arr.add(session);
             }
             StatsHolder.getUserStats().setSessionList(new SessionList(arr));
@@ -318,9 +318,74 @@ public class StorageManager {
     public static void saveDeckStats() {
         DeckStats deckStats = StatsHolder.getDeckStats();
         resolveRoot();
-        //FileReadWrite.write(deckStatsFileFullPath, deckStats.getDeckHashMap().toJson().toString());
+
+        // get the deckHashMap
+        HashMap<String, SessionList> deckHashMap = deckStats.getDeckHashMap();
+
+        // get the keys (i.e. deck names) of the deckHashMap as an ArrayList
+        ArrayList<String> deckNames = new ArrayList<>(deckHashMap.keySet());
+
+        // write the keys to file
+        //FileReadWrite.write(deckStatsFileFullPath, deckNames.toJson().toString());
+
+        // or this?
+        //JsonArray deckArray = new JsonArray();
+        //for (String s : deckNames) {
+        //    try {
+        //        deckArray.add(s.toJson().getObject());
+        //    } catch (JsonWrongValueException e) {
+        //        System.out.println();
+        //    }
+        //}
+        //JsonValue deckKeys = new JsonValue(deckArray);
+        //FileReadWrite.write(deckStatsFileFullPath, deckArray.toString());
+
+        // for each key, get the corresponding SessionList from the deckHashMap
+        //JsonArray deckSessionListArray = new JsonArray();
+        //for (String s: deckNames) {
+        //    try {
+        //        deckSessionListArray.add(deckHashMap.get(s).toJson().getObject());
+        //    } catch (JsonWrongValueException e) {
+        //        System.out.println("SESSION JSON EXPECTED TO BE OBJECT\n" + e.getMessage());
+        //    }
+        //}
+        //FileReadWrite.write(deckStatsFileFullPath, deckSessionListArray.toString());
     }
 
+    /**
+     * Initialise and load deck stats data, if any.
+     */
+    public static void loadDeckStats() {
+        resolveRoot();
+
+        // initialise DeckStats
+        DeckStats deckStats = StatsHolder.getDeckStats();
+
+
+        // for each session list
+        // get deckname first
+        //String deckName = "";
+        //try {
+        //    ArrayList<Session> arr = new ArrayList<>();
+        //    JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(
+        //        deckStatsFileFullPath));
+        //    for (JsonValue sessionJson : statsJson.getArray()) {
+        //        JsonObject sessionJsonObj = sessionJson.getObject();
+        //        Session session = new Session(
+        //            DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
+        //            DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_END).getObject()),
+        //            sessionJsonObj.get(Schema.SESSION_SCORE).getString());
+        //        arr.add(session);
+        //    }
+        //    deckStats.getDeckHashMap().put(deckName, new SessionList(arr));
+        //} catch (FileNotFoundException e) {
+        //    System.out.println("STATS FILE DOES NOT EXIST");
+        //} catch (JsonFormatException | NullPointerException e) {
+        //    System.out.println("STATS JSON IS ILL FORMED\n" + e.getMessage());
+        //} catch (JsonWrongValueException e) {
+        //    System.out.println("UNEXPECTED JSON FORMAT FOR STATS\n" + e.getMessage());
+        //}
+    }
     // STATS CODE -------------------------------------------------------------
 
     /**

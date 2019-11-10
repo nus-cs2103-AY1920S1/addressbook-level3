@@ -42,7 +42,9 @@ public class MainApp extends Application {
             // load code font
             Font.loadFont(MainApp.class.getResourceAsStream("/fonts/Inconsolata.otf"), 12);
 
+            // load user stats and deck stats
             StorageManager.loadUserStats();
+            StorageManager.loadDeckStats();
             // start a session. if UserStats has not been retrieved, it will do so at this point.
             StatsHolder.getUserStats().startCurrentSession();
 
@@ -51,7 +53,8 @@ public class MainApp extends Application {
                 logger.info("============================ [ Stopping FlashCard Pro ] =============================");
                 StatsHolder.getUserStats().endCurrentSession();
                 StorageManager.saveAll(StateHolder.getState().getDecks());
-                StorageManager.saveUserStats(StatsHolder.getUserStats());
+                StorageManager.saveUserStats();
+                StorageManager.saveDeckStats();
             });
         } catch (IOException e) {
             logger.severe("Failed to load app");

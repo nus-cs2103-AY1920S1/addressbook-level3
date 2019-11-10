@@ -83,6 +83,7 @@ public class MainWindow extends VBox {
         // save all files only on exit
         StorageManager.saveAll(StateHolder.getState().getDecks());
         StorageManager.saveUserStats();
+        StorageManager.saveDeckStats();
         System.exit(0);
     };
 
