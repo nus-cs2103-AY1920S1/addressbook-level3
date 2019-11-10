@@ -5,14 +5,14 @@
 
 == Introduction
 
-image::caesarpjz.png[width="200", align="left"]
+image::caesarpjz.png[width="150", align="left"]
 {empty}[https://github.com/caesarpjz[github]] [https://www.linkedin.com/in/caesarpangjianzhang/[linkedin]]
 
 Hi! My name is Caesar Pang. I'm currently a Year 2 student studying Computer Science, in School of Computing (SOC) in NUS.
 
 This portfolio page aims to document the contributions I have made in the development of TutorAid, which is a
 project that my team and I completed for the module CS2103T. This project has definitely taught me many skills that
-are extremely relevant in the real world and knowldege that I can use when I work in the future. It has allowed me
+are extremely relevant in the real world and in the future. It has allowed me
 to be a more competent and knowledgable software engineer.
 
 == PROJECT: TutorAid

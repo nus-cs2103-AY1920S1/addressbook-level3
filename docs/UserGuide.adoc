@@ -309,7 +309,7 @@ Changes the user the earnings status in the list of earnings. +
 Format: `claim_earnings INDEX c/CLASSID`
 
 .Claim Earnings Example
-image::ClaimEarnings.png[width="500", align="left"]
+image::ClaimEarnings.png[width="400", align="left"]
 
 Examples:
 

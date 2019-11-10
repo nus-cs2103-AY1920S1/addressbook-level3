@@ -200,7 +200,7 @@ The `add_earnings` mechanism is facilitated by `AddEarningsCommand` and `AddEarn
 following input from the user: `Date`, `Type`, `ClassId`, `Amount`, which will construct `Earnings` objects.
 
 .Add Earnings Command Sequence Diagram
-image::AddEarningsSequenceDiagram.png[]
+image::AddEarningsSequenceDiagram.png[width="600"]
 
 The `AddEarningsCommand` implements `Parser` with the following operation:
 
@@ -400,7 +400,7 @@ This command, `auto`, allows the user to add all the earnings that has been prev
  has been used on the particular earnings. You can refer to the activity diagram below to have a clearer understanding.
 
 .Auto Command Activity Diagram
-image::AutoActivityDiagram.png[][width="500"]
+image::AutoActivityDiagram.png[width="300"]
 
 *Overview*
 The auto command is facilitated by `AutoCommand`.
