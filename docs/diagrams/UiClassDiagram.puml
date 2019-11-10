@@ -14,21 +14,8 @@ Class HelpWindow
 Class ResultDisplay
 Class UserViewMain
 Class UserViewUpdate
-Class UserViewNavigator
-Class UserViewController
-Class TaskCard
-Class TaskListPanel
-Class InventoryCard
-Class InventoryListPanel
-Class MemberCard
-Class MemberListPanel
-Class ProjectDashboardView
 Class StatusBarFooter
 Class CommandBox
-}
-
-package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
 }
 
 package Logic <<Rectangle>> {
@@ -47,47 +34,17 @@ MainWindow *-down-> UserViewMain
 MainWindow *-down-> UserViewUpdate
 MainWindow *-down-> StatusBarFooter
 UserViewMain -right-> UserViewUpdate
-UserViewMain -down-> UserViewController
-UserViewMain -down-> UserViewNavigator
-UserViewNavigator -right-> UserViewController
-
-ProjectDashboardView -down-> TaskCard
-TaskListPanel -down-> TaskCard
-MemberListPanel -down-> MemberCard
-InventoryListPanel -down-> InventoryCard
-
-UserViewNavigator ..down-> TaskListPanel
-UserViewNavigator ..down-> MemberListPanel
-UserViewNavigator ..down-> InventoryListPanel
-UserViewNavigator ..down-> ProjectDashboardView
-
-UserViewController ..down-> TaskListPanel
-UserViewController ..down-> MemberListPanel
-UserViewController ..down-> InventoryListPanel
-UserViewController ..down-> ProjectDashboardView
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-TaskCard --|> UiPart
-TaskListPanel --|> UiPart
-MemberCard --|> UiPart
-MemberListPanel --|> UiPart
-InventoryCard --|> UiPart
-InventoryListPanel --|> UiPart
-ProjectDashboardView --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
 UiManager -right-> Logic
 MainWindow -left-> Logic
 UserViewMain -left-> Logic
-UserViewNavigator ..> Logic
-
-MemberCard ..> Model
-TaskCard ..> Model
-InventoryCard ..> Model
 
 UserViewMain -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
