@@ -618,6 +618,8 @@ The factors affecting the calculation of the recommendation value is summarized 
 |===
 //end::recommendationbonus[]
 
+{empty} +
+
 //tag::recommendationpenalty[]
 .Penalties applied by the recommendation system
 |===

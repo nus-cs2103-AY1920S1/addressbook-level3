@@ -521,16 +521,6 @@ Additionally, the `RecommendationSystem` class also contains a class `UserRecomm
 dislikes of the user. The functionality of `UserRecommendations` is specified by the `Recommendations` interface,
 encompassing the ability to add and remove likes and dislikes, among other features.
 
-.Design decisions for `RecommendationSystem`
-****
-`RecommendationSystem` was chosen to be a singleton because of the fact that it exists as a global class, encapsulating
-many seemingly unrelated classes such as `Budget`, `PurchaseHistory` and `UserRecommendations` in order to produce the
-required recommendation value.
-
-Furthermore, there should only be one unique `RecommendationSystem` and `UserRecommendations` in the application.
-To ensure the above requirements are met, we have decided to implement `RecommendationSystem` as a singleton class.
-****
-
 The `UserRecommendations` object contain 6 sets, namely:
 
 ****
@@ -598,6 +588,50 @@ is executed. Food with similar recommendation values are sorted based on their p
 Detailed below are the design considerations taken into account when engineering the
  `RecommendationSystem#calculateRecommendation()` function.
 
+.Design considerations of `RecommendationSystem` class
+[cols="50, 50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Implement `RecommendationSystem` a singleton class
+
+* Pros:
+** Versatile and easy to implement
+** Enforces the Singleton property
+
+* Cons:
+** Testability of class decreases
+** Hidden dependencies are introduced into the class
+
+a|Implement `RecommendationSystem` as a normal class
+
+* Pros:
+** Testability of class would be easier
+
+* Cons:
+** Hard to bring together the classes required by `RecommendationSystem`
+|===
+
+{empty} +
+
+****
+We decided to go with alternative 1 and implement `RecommendationSystem` as a singleton because of the fact that it
+exists as a global class, encapsulating many seemingly unrelated classes such as `Budget`, `PurchaseHistory` and
+`UserRecommendations` in order to produce the required recommendation value.
+
+Implementing `RecommendationSystem` as a singleton would be much simpler than linking together these seemingly
+unrelated classes as discussed in alternative 2.
+
+Additionally, there should only be one unique `RecommendationSystem` and `UserRecommendations` in the application due to
+our design requirements. To ensure the above requirements are met, we have decided to implement `RecommendationSystem`
+as a singleton class.
+
+Furthermore, we have thoroughly tested the implementation of
+`RecommendationSystem` and `UserRecommendations` to mitigate the downsides introduced when implementing a singleton.
+****
+
+{empty} +
+
 .Design considerations of the `RecommendationSystem#calculateRecommendation()` function
 [cols="50,50"]
 |===
@@ -626,6 +660,9 @@ the recommendation value
 ** An extra field `recommendationValue` has to be added to each `Food`
 |===
 
+{empty} +
+
+****
 We chose alternative 1 because of its simplicity of implementation. Adding a hidden `recommendationValue`
 field for each `Food` might not be the best solution in the design of our application. A `recommendationValue` might
 not make sense in the context of a `Food` object and thus it may not be justifiable to force a connection between the
@@ -633,6 +670,7 @@ two for the sake of efficiency.
 
 Furthermore, we do not have to manually update the recommendation of each `Food` item before every command with this
 design.
+****
 //end::recommendations2[]
 
 === Alias feature
