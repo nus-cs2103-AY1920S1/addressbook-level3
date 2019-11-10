@@ -383,11 +383,11 @@ Please refer to the table below for a summary of the file formats that we suppor
 NOTE: If you're on a Unix-based operating system (e.g. Mac OS, Linux), any absolute paths that you specify will have to begin from the root directory `/`, not the user directory `~`. For example, if you were on a Mac and your username was "jason", and you wanted to export to a document file on your desktop, the file path would be `/Users/jason/Desktop/document.docx`.
 
 CAUTION: Your file paths must be comprised solely of alphanumeric characters, spaces, and the following characters: `~\/-_!:[]()` +
-It must also end in one of the supported file extensions - either `.json` or `.docx`.
-
-CAUTION: Do note that some directories may be protected by your operating system (`C:\` on Windows, `/` on Unix). You may not be allowed to save files to these directories.
-
-CAUTION: Please take care not to modify exported JSON files - your friends might have trouble importing them otherwise.
+It must also end in one of the supported file extensions - either `.json` or `.docx`. +
+{blank} +
+Do note that some directories may be protected by your operating system (`C:\` on Windows, `/` on Unix). You may not be allowed to save files to these directories. +
+{blank} +
+Please take care not to modify exported JSON files - your friends might have trouble importing them otherwise.
 
 
 // end::flashcardexport[]
