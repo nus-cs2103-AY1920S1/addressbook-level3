@@ -26,7 +26,8 @@ public class Tag {
     public Tag(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+        this.tagName = tagName.equals("") ? ""
+            : tagName.substring(0, 1).toUpperCase() + tagName.substring(1).toLowerCase();
     }
 
     /**
@@ -52,7 +53,7 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
-        if (tagName == "") {
+        if (tagName.equals("")) {
             return "[untagged]";
         } else {
             return tagName;

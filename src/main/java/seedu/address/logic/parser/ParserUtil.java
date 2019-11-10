@@ -81,7 +81,7 @@ public class ParserUtil {
         requireNonNull(currency);
         String trimmedCurrency = currency.trim().toUpperCase();
         if (!Currency.isValidCurrency(trimmedCurrency)
-            && !ExchangeDataSingleton.getInstance().isValidCurrency(trimmedCurrency)) {
+            || !ExchangeDataSingleton.getInstance().isValidCurrency(trimmedCurrency)) {
             throw new ParseException(Currency.MESSAGE_CONSTRAINTS);
         }
         return new Currency(trimmedCurrency, ExchangeDataSingleton.getInstance().getRates().getRate(trimmedCurrency));
