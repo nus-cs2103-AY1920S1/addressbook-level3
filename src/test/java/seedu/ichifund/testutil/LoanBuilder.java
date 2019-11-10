@@ -22,7 +22,7 @@ public class LoanBuilder {
     public static final String DEFAULT_START_DAY = "12";
     public static final String DEFAULT_START_MONTH = "12";
     public static final String DEFAULT_START_YEAR = "2019";
-    public static final String DEFAULT_END_DAY = "01";
+    public static final String DEFAULT_END_DAY = "1";
     public static final String DEFAULT_END_MONTH = "11";
     public static final String DEFAULT_END_YEAR = "2024";
 
