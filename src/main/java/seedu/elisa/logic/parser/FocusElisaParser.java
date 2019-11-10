@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import seedu.elisa.logic.commands.Command;
 import seedu.elisa.logic.commands.DownCommand;
 import seedu.elisa.logic.commands.FindCommand;
+import seedu.elisa.logic.commands.GameCommand;
 import seedu.elisa.logic.commands.ShowCommand;
 import seedu.elisa.logic.commands.SortCommand;
 import seedu.elisa.logic.commands.UpCommand;
@@ -37,6 +38,7 @@ public class FocusElisaParser extends ElisaParser {
         case FindCommand.COMMAND_WORD:
         case UpCommand.COMMAND_WORD:
         case DownCommand.COMMAND_WORD:
+        case GameCommand.COMMAND_WORD:
             throw new FocusModeException();
         default:
             return super.parseCommandHelper(commandWord, description, flags);

@@ -117,11 +117,11 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+//tag::model[]
 [[Design-Model]]
 === Model component
-
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[500,500]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -131,8 +131,11 @@ The `Model`,
 * stores the Item Storage data
 * exposes four observable lists that can be viewed by the Ui and will cause an update in the Ui when it is updated
 
-[NOTE]
-The reason for using four observable list as opposed to having one observable list that is filtered every time we update the list is because we believe that this will lead to faster loading time every time we switch view as it is just a change in the Visualization List pointer. This is better than the O(n) method of filtering a single VisualizeList as it will require going through all the items in the list to find those that are relevant.
+==== Design Consideration
+The original implementation was to have one single observable list and modifying it whenever the view changes. We decided against it as we believe that this will result in O(n) time complexity for switching the different views as we need to iterate through all the items to find the relevant items.
+
+Using the four visualization list, we only need to change the pointer when we want to change the view of the viewing panel making it an O(1) time complexity solution. However, this makes it more complicated to maintain the different lists.
+//end::model[]
 
 [[Design-Storage]]
 === Storage component
@@ -155,6 +158,55 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Game feature
+
+This section talks about how the `game` function is implemented. This feature aims to encourage users to take a break by playing the traditional Nokia (phone) game: Snake.
+
+==== Implementation
+The game screen appears after the user enters the command `game` into the command box. A separate scene handled by a separate thread is created to run the game so that Elisa's scenes and threads are not overloaded. The following activity diagram shows how the game screen is launched.
+
+.Activity diagram for game mode
+image::GameActivityDiagram.png[500, 600]
+
+==== Internal workings of the Game
+
+Given below is an example usage scenario of how add behaves at each step:
+
+<LOGIC> +
+Step 1. The user enters the command "game". +
+Step 2. The LogicManager creates an ElisaParser to parse the user input. +
+Step 3. ElisaParser creates a GameCommandParser to parse the user input. +
+Step 4. LogicManager will execute the GameCommand. GameCommand will create a GameCommandResult. +
+Step 5. MainWindow will call its own method startgame().
+
+<GAME> +
+Step 6. startgame() calls the method resetgame(), which creates a Grid and GameLoop. +
+Step 7. startgame() calls the method gameCheck on the canvas to check the keys that are pressed during the game. +
+Step 8. startgame() creates a new scene and sets primaryStage's scene to this new scene. +
+Step 9. startgame() creates a new thread to run the game. +
+
+The figure below shows the sequence diagram on what happens after the startgame() method is called.
+
+.Sequence Diagram for game creation
+image::CreatingGameSequenceDiagram.png[500, 600]
+
+==== Game considerations
+The considerations for the choice of game is shown below:
+|===
+|Alternatives: |Pros: |Cons:
+|1. Minesweeper | It is a well-known popular desktop game. | It is difficult to understand the implied rules to this game and this game requires a long time to complete.
+|2. Sudoku | It is a well-known popular pen-and-paper game. | It is difficult to understand the implied rules to this game and this game requires a long time to complete.
+|3. *(Current)* Snake | It is a well-known popular Nokia (phone) game. The rules are simple to understand. The duration for each game is short. | It is addictive when users try to break their high score.
+|===
+
+==== Design considerations
+The design considerations for the placement of the game is shown below:
+|===
+|Alternatives: |Pros: |Cons:
+|1. Placing the game in one of the tabs (beside the Calendar) such that `show g` will switch tab to the game tab. | Users are able to see the chatbox while in the game. | Requires users to use the mouse (away from CLI) to switch between typing in the command box and hitting the keys on the keyboard.
+|2. *(Current)* Creating a separate scene such that the original scene (with ELISA) is hidden when game mode is entered. | Allows users to hit the keys on the keyboard without typing into the command box. | Users are unable to see the chatbox from Elisa.
+|===
 
 // tag::undobyreverse[]
 === [Implemented] Undo/Redo Feature
@@ -300,7 +352,7 @@ There are two ways to trigger priority mode, a normal priority mode that is cont
 
 ==== Example run of priority mode
 
-In this section, we will show a run of the priority mode and a overview of the mechanism at each step. In particular, we will be showing how the ```ScheduledPriorityMode``` works as it has a more complicated implementation than the normal ```PriorityMode```.
+In this section, we will show a run of the priority mode and a overview of the mechanism at each step. In particular, we will be showing how the ```ScheduledPriorityCommand``` works as it has a more complicated implementation than the normal ```PriorityCommand```.
 
 . The user opens his Task panel and types in `priority 30.min.later`.
 
@@ -311,7 +363,7 @@ In this section, we will show a run of the priority mode and a overview of the m
 . The user can type ```done 1``` when he is done with the current task to retrieve the next task. This carries on until there is no more undone task left to do in the ```PriorityQueue```. This is shown in the activity diagram below.
 
 .Activity diagram for priority mode
-image::PriorityModeActivityDiagram.png[400, 400]
+image::PriorityModeActivityDiagram.png[300, 300]
 
 [start=5]
 . ELISA will automatically disable the priority mode after 30 minutes and show *all* the task that the user have in his task list currently.
@@ -345,7 +397,7 @@ The following steps (except step 4) are also applicable to ```PriorityCommand```
 A normal ```PriorityCommand``` will end at this point and will only be deactivated by the user's input of `priority` again.
 
 .Sequence diagram for the scheduled turning off of priority mode
-image::PriorityMode2.png[400, 400]
+image::PriorityMode2.png[300, 300]
 
 [start=8]
 . As the ```Timer``` within the ```ItemModelManager``` is still running on a separate thread, it will trigger the ```TimerTask#run()``` when the user defined time is reached.
@@ -400,11 +452,11 @@ Both methods are not scalable in the long run, but at this moment, alternative 2
 |This implementation will clutter the ```ItemModelManager``` further and make it harder for maintaining the code.
 |===
 
-Alternative 2 was chosen as we believe that the ability to cancel a scheduled priority mode prematurely takes priority over the maintainability of the code and should be used until a better method can be created.
+Alternative 2 was chosen as we believe that the ability to cancel a scheduled priority mode prematurely is more important than the maintainability of the code at the moment.
 
 ==== Possible extension
 
-At the moment, the user is not able to keep track of the amount of time that he has before the schedule priority mode is over. This can be overcome by including a countdown timer in the Ui when the user toggles on the scheduled priority mode.
+At the moment, the user is not able to keep track of the amount of time that he has before the schedule priority mode is over. This can be improved by including a countdown timer in the Ui when the user toggles on the scheduled priority mode.
 
 // end::priority[]
 
@@ -525,7 +577,6 @@ The design considerations for the classes are shown below:
 |*(Current)* Singleton pattern for AutoRescheduleManager |Ensure that only one instance can be instantiated as there should only be one manager for all the RescheduleTask. If there are multiple managers, it would be hard to keep track of all of them and it would be difficult to coordinate all the tasks. | Difficult to create tests for AutoResheduleManager. Could have many hidden dependencies, which makes code harder to maintain.
 |===
 
-
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
@@ -586,7 +637,7 @@ Refer to the guide <<DevOps#, here>>.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[cols="20%,<20%,<25%,<35%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |add a new task | record tasks that need to be done 'some day'
@@ -844,19 +895,70 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Adding a task
 
-. Deleting a person while all persons are listed
+. Adding a task while on the task list panel
+.. Prerequisites: Switch to the task list panel using the `show T` command.
+.. Test case: `task testcase` +
+Expected: A task with the description "testcase" is added to the task list panel. The priority of the task is medium (the default value).
+.. Test case: `task testcase 2 -p high` +
+Expected: A task with the description "testcase 2" and of high priority is added to the task list panel.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+. Adding a task while not on the task list panel
+.. Prerequisites: Switch to the event list panel using the `show E` command.
+.. Test case: `task testcase 3 -p low -d 1.min.later` +
+Expected: ELISA will automatically switch to the task list panel and a new task with the description "testcase 3" and priority low should be added to the task list panel.
+
+. Adding a task that already exists
+.. Prerequisites: The task list panel must already be populated and a task on the list is already know.
+.. Test case: `task testcase` (in this case, we are using one of the earlier test case) +
+Expected: Elisa will prompt you that the task already exist in the list and cannot be added.
+.. As an additional test case, you can mark a current task as done and then try adding that task into ELISA again. ELISA will still flag it as a repeated object despite the different state of completeness.
+
+=== Deleting a task
+
+. Deleting a task while all tasks are listed
+
+.. Prerequisites: Switch to the task list panel using the `show T` command. There should be multiple tasks in the list
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First task is deleted from the list. Details of the deleted task will show in the result display.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No person is deleted. Error details shown in the result display.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is greater than the size of the list), `delete y` (where y is a negative index) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Priority mode testing
+. Toggling on priority mode
+.. Prerequisites: Switch to the task list panel using the `show T` command. There should be at least 1 incomplete task in the list and priority mode should be disabled at the moment.
+.. Test case: `priority` +
+Expected: The ELISA icon will turn red and only one task will be shown on the task list panel. You can try switching a panel (`show E`) or adding an event to make sure it works.
+.. Test case: `priority -f` +
+Expected: Same as above, except this time switching of panel or adding an event is not allowed.
+.. Test case: `priority 1.min.later -f` +
+Expected: Same as above, except this time priority mode will deactivate after 1 minute.
+.. Test case: `priority -d`
+Expected: Flag not recognized and ELISA will reject the command.
+
+. Toggling off priority mode
+.. Prerequisites: Switch to the task list panel using the `show T` command. Priority mode is already activated.
+.. Test case: `priority` +
+Expected: Deactivate priority mode and show you all your tasks.
+.. Test case: `priority 1.min.later`, `priority -f` +
+Expected: Same as above.
+
+. Manipulate list while in priority mode
+.. Prerequisites: Switch to the task list panel using the `show T` command. Priority mode is already activated.
+.. Test case: `done 1` +
+Expected: ELISA will mark the task as done and generate the next task. If there is no next task, ELISA will automatically take you out of priority mode.
+.. Test case: `delete 1` +
+Expected: ELISA will delete the task and generate the next task. If there is no next task, ELISA will automatically take you out of priority mode.
+.. Test case: `edit 1 -p low` (most effective for a task list with more than 1 task and the current task priority is high) +
+Expected: ELISA will edit the priority of the current task to low (any other priority can be used). A new task with a higher priority will be generated.
+.. Test case: `undo` (used after one of the above has taken place) +
+Expected: ELISA will reverse the previous process and the old task will be generated again.
+.. Test case: `redo` (used after an undo command) +
+Expected: ELISA will reverse the undo command and a new task is generated.
+.. Other test cases: You can try doing all of these commands in focus mode to ensure that they work.
 
 === Saving data
 
