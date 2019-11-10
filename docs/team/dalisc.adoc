@@ -42,7 +42,7 @@ This section shows a summary of my coding, documentation, and other helpful cont
 team project.
 
 * *Major enhancement 1*: I added the line chart display which shows admissions statistics.
-** What it does: The line chart displays the number of bodies admitted to the mortuary daily over the last ten days. This is the default view. With the `stats` command, users can toggle between a ten-day, weekly, monthly, or yearly display. Furthermore, any particular week, month, or year can be specified. 
+** What it does: The line chart displays the number of bodies admitted to the mortuary daily over the last ten days. This is the default view. With the `stats` command, users can toggle between a ten-day, weekly, monthly, or yearly display. Furthermore, any particular week, month, or year can be specified.
 ** Justification: It is important for users to know how many bodies are admitted daily as well as the trends for admission. As managers of the mortuary, they can make staffing decisions on various times of the year depending on the trends.
 ** Highlights: This feature can be further enhanced by adding more data to the display, for example, another line for bodies claimed daily which can show the average lag time between admission and claim dates.
 ** Credits: Support for rendering the line chart was provided by JavaFX.
@@ -61,7 +61,7 @@ team project.
 
 ** Enhancements to existing features: I wrote additional tests for existing features to increase coverage from __% to __%. (Pull request: https://github.com[#36])
 ** Documentation: I made cosmetic tweaks to existing contents of the User Guide to make it more reader-friendly.(Pull request: https://github.com[#36])
-** Community: 
+** Community:
 *** I reviewed PRs, offering non-trivial review comments. (Exampless: https://github.com[#36])
 *** I reported bugs and suggestions for other teams in the class (Examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
