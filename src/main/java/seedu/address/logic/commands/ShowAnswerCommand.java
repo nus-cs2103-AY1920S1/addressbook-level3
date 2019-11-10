@@ -14,21 +14,24 @@ public class ShowAnswerCommand extends Command {
     public static final String COMMAND_WORD = "ans";
     public static final String ERROR_MESSAGE = "Answer has already been displayed!\n"
             + "Next available command: rate, end";
+    private static final String MESSAGE_SHOW_ANSWER_SUCCESS = "Answer displayed! "
+            + "Please rate the FlashCard easy/good/hard.";
 
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
     public ShowAnswerCommand(KeyboardFlashCardsParser keyboardFlashCardsParser) {
         requireNonNull(keyboardFlashCardsParser);
+
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.showAnswer();
 
+        model.showAnswer();
         keyboardFlashCardsParser.setAwaitingAnswer(false);
-        return new CommandResult("To be change: better feedback message");
+        return new CommandResult(MESSAGE_SHOW_ANSWER_SUCCESS);
     }
 
     @Override

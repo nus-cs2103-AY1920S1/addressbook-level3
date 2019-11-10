@@ -155,19 +155,50 @@ public interface Model {
     void updateFilteredCategoryList(Predicate<Category> predicate);
 
     //@@author keiteo
+
+    /**
+     * Returns an entire list of FlashCards in the system.
+     * @return An ObservableList of FlashCards
+     */
     ObservableList<FlashCard> getFlashCardList();
+
+    /**
+     * Initializes the test mode model with a list of FlashCards.
+     *
+     * @param testList List of FlashCards to be tested.
+     */
     void initializeTestModel(List<FlashCard> testList);
 
+    /**
+     * Checks if the list of FlashCards in the test model is fully expended.
+     *
+     * @return A boolean to indicate if the test model still has FlashCards.
+     */
     boolean hasTestFlashCard();
 
+    /**
+     * Sets the current FlashCard in the TestFlashCardPanel GUI.
+     */
     void setTestFlashCard();
 
+    /**
+     * Gets the test FlashCard question.
+     */
     String getTestQuestion();
 
+    /**
+     * Gets the test FlashCard answer.
+     */
     String getTestAnswer();
 
+    /**
+     * Gets the TestFlashCardPanel GUI class.
+     */
     TestFlashCardPanel getTestFlashCardPanel();
 
+    /**
+     * Gets the current FlashCard in test mode.
+     */
     FlashCard getCurrentTestFlashCard();
 
     //@@author shutingy
