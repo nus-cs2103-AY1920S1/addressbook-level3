@@ -206,8 +206,8 @@ Tags can be in any sequence. User may enter multiple keywords after a tag.
 * `find` supports searching in multiple lists for multiple keywords. All items contains the keyword as a word or a part of word (See examples for more details).
 * Searching is case-insensitive.
 * In Appeal list, items that contains any of the keywords in Appeal Type, Appeal ID, Status(resolved/unresolved),
-Module Requested or Module to Drop will be displayed.
-* In Module list, items that contains any of the keywords in Module Code, Module Name, or Module Description wil be displayed.
+ Requested Module or Module to Drop will be displayed.
+* In Module list, items that contains any of the keywords in Module Code, Module Name, or Module Description (is be shown in expanded view) wil be displayed.
 * In Student list, items that contains any of the keywords in Student Name or Matric ID will be displayed.
 ====
 
@@ -282,7 +282,7 @@ Format: `clash s/INDEX`
 
 Examples:
 
-* `clash s/1`
+* `clash s/2`
 
 Sample output:
 
@@ -301,7 +301,7 @@ Sample output:
 
 image::NoClashDetectedResponse.png[width="790"]
 
-* `clash m/1 m/2`
+* `clash m/1 m/3`
 
 Sample output:
 
