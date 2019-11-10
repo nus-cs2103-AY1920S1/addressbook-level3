@@ -57,11 +57,13 @@ to ensure Scheduler was bug-free.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=add]
-
-include::../UserGuide.adoc[tag=edit]
-
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=add_interviewee]
+include::../UserGuide.adoc[tag=add_interviewer]
+include::../UserGuide.adoc[tag=add_constraints]
+---
+include::../UserGuide.adoc[tag=edit_interviewee]
+include::../UserGuide.adoc[tag=edit_interviewer]
+---
 
 == Contributions to the Developer Guide
 
@@ -70,5 +72,6 @@ include::../UserGuide.adoc[tag=delete]
 |===
 
 include::../DeveloperGuide.adoc[tag=logic]
-
+---
+include::../DeveloperGuide.adoc[tag=KendrickFeatures]
 include::../DeveloperGuide.adoc[tag=add]

@@ -268,7 +268,7 @@ An `Interviewer` is associated with the following `Prefix`:
 The Activity Diagram below illustrates the general flow of logic from command input (by a user) to command execution:
 
 .A general Activity Diagram illustrating logic flow in the `Logic` component.
-image::LogicGeneralActivityDiagram.png[]
+image::LogicGeneralActivityDiagram.png[200, 400]
 
 NOTE: The box labelled "Command execution" is a *rake*. It indicates that part of the activity is given as a separate diagram.
 Each of <<Add Interviewee/Interviewer feature, add>>, <<Edit Interviewee/Interviewer feature, edit>> and <<Delete Interviewee/Interviewer feature, delete>> provide their own versions of "Command execution".
@@ -894,6 +894,8 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+// tag::add_appendix[]
+
 === Adding an entity manually
 Please refer to the Add interviewees/interviewer section in the <<UserGuide#, user guide>> for more detailed information on the `add` command.
 
@@ -906,6 +908,10 @@ For simplicity, we refer to interviewees and interviewers as *entities* collecti
 . Expected: The Interviewees and Interviewers tab now reflects the newly added interviewee and interviewer, with each column in the tab corresponding to the various fields input.
 (i.e the column in the interviewees tab with header `name` now reflects `Ronald` as input by the user)
 . You can change the different prefix fields (e.g `n/Ronald`) to any valid value, as stated in the User Guide under the `add` command section.
+
+// end::add_appendix[]
+
+// tag::edit_appendix[]
 
 === Editing an entity
 Please refer to the Edit interviewees/interviewer section in the <<UserGuide#, user guide>> for more detailed information on the `edit` command.
@@ -920,6 +926,10 @@ This section follows directly from the previous section, <<Adding an entity manu
 . Expected: The Interviewers tab now reflects the edited interviewer, where `Delilah` now has an email `delilah1995@u.nus.edu`.
 . You can change, include or exclude the different prefix fields as long as within the boundaries specified in the User Guide under the `edit` command section.
 
+// end::edit_appendix[]
+
+// tag::delete_appendix[]
+
 === Deleting an entity
 Please refer to the Delete interviewees/interviewer section in the <<UserGuide#, user guide>> for more detailed information on the `delete` command.
 
@@ -932,6 +942,8 @@ This section follows directly from the previous section, <<Editing an entity, Ed
 .. `delete Delilah r/interviewer`
 . Expected: The Interviewers tab now similar reflects the deleted interviewer `Delilah`.
 . You can delete any entity as long as the entity's name is shown in the Interviewee/Interviewer tab. See the User Guide under the `delete` command section for specifics.
+
+// end::delete_appendix[]
 
 === Scheduling Interviews
 . Import .csv files of interviewers' availability and interviewees' details using the `import` command.

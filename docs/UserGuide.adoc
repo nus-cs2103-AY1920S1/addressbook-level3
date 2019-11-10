@@ -357,7 +357,7 @@ Provides a summary report of the number of interviewees with emails sent and the
 
 Format: `email ct/status`
 
-// tag::add[]
+// tag::add_interviewee[]
 
 === Add interviewees/interviewers manually `add`
 Manually add a new entity to the database. The command format differs on the `r/ROLE` prefix supplied:
@@ -374,6 +374,9 @@ Example:
 
  add r/interviewee n/John Doe p/88888888 t/CAP5 t/dogLover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-18:30
 
+// end::add_interviewee[]
+
+// tag::add_constraints[]
 
 ====
 Constraints:
@@ -399,6 +402,10 @@ by the value of `duration` in <<User Preferences, User Preferences>>. See <<Dura
 
 ====
 
+// end::add_constraints[]
+
+// tag::add_interviewer[]
+
 ==== Adding a new interviewer
 Manually add a new interviewer to the database.
 
@@ -407,6 +414,8 @@ Format: `add r/interviewer n/NAME p/PHONE ew/NUS_WORK_EMAIL d/DEPARTMENT  s/SLOT
 Example:
 
  add r/interviewer n/Mary Jane p/98765432 ew/mary_jane@u.nus.edu d/Marketing s/20/09/2019 18:00-18:30
+
+// end::add_interviewer[]
 
 ====
 Constraints:
@@ -430,9 +439,7 @@ by the value of `duration` in <<User Preferences, User Preferences>>. See <<Dura
 
 ====
 
-// end::add[]
-
-// tag::edit[]
+// tag::edit_interviewee[]
 
 === Edit interviewees/interviewers manually `edit`
 Manually edit an entity in the database. The command format depends on the `r/ROLE` prefix supplied:
@@ -455,6 +462,8 @@ Notes:
 Example:
 
  edit John Doe r/interviewee p/91234567 f/School of Computing s/05/11/2019 18:00-19:00
+
+// end::edit_interviewee[]
 
 ====
 Constraints:
@@ -484,6 +493,8 @@ by the value of `duration` in <<User Preferences, User Preferences>>. See <<Dura
 
 ====
 
+// tag::edit_interviewer[]
+
 ==== Edit an existing interviewer
 Manually edit an existing interviewer in the database.
 
@@ -497,6 +508,8 @@ Notes:
 Example:
 
  edit John Doe r/interviewee p/91234567 f/School of Computing s/05/11/2019 18:00-19:00
+
+// end::edit_interviewer[]
 
 ====
 Constraints:
@@ -523,8 +536,6 @@ The time elapsed from the start duration to end duration must also follow the nu
 by the value of `duration` in <<User Preferences, User Preferences>>. See <<Duration of Time slot, Duration of Time slot>> for more details.
 
 ====
-
-// end::edit[]
 
 // tag::delete[]
 
