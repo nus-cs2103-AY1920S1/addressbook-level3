@@ -93,10 +93,9 @@ public class UiPartTest {
         return testFileUrl;
     }
 
-
     /**
      * UiPart used for testing.
-     * It should only be used with invalid FXML files or the valid file located at validfilroot.
+     * It should only be used with invalid FXML files or the valid file located at validfileroot.
      */
     private static class TestUiPart<T> extends UiPart<T> {
 
