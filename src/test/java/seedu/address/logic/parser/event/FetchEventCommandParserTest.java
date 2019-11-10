@@ -6,9 +6,8 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseInvali
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseInvalidPreambleArgsFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseNegativeIndexFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseNoIndexAndFieldFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseZeroIndexFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseZeroIndexFailure;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
 import org.junit.jupiter.api.Test;
