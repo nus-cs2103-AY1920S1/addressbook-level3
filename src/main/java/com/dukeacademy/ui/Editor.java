@@ -147,22 +147,6 @@ public class Editor extends UiPart<Region> {
 
         return 0;
     }
-    /**
-     * Saves file into user's computer upon clicking the "Save" button.
-     *
-     * @param e the ActionEvent
-     * @throws IOException when the user's file cannot be accessed
-     */
-    @FXML
-    public void onSaveButtonClick(ActionEvent e) throws IOException {
-        Stage stage = new Stage();
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Save File");
-        File selectedFile = chooser.showOpenDialog(stage);
-        FileWriter fw = new FileWriter(selectedFile.getAbsolutePath());
-        fw.write(textOutput.getText());
-        fw.close();
-    }
 
     /**
      * Returns the current text in the editor.
