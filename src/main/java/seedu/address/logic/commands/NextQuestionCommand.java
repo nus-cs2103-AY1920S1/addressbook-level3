@@ -11,7 +11,7 @@ import seedu.address.model.Model;
  */
 abstract class NextQuestionCommand extends Command {
 
-    private static final String MESSAGE_SUCCESS_END_OF_TEST = "End of test!";
+    public static final String MESSAGE_SUCCESS_END_OF_TEST = "End of test!";
 
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
     private final String messageSuccess;
