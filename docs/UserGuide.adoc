@@ -150,10 +150,6 @@ image::questionCommandsDemo/addqresult.png[width = "600"]
 This command allows you to view the list of all questions. +
 Format: `listq`
 
-image::questionCommandsDemo/listqcommand.png[width = "600"]
-
-image::questionCommandsDemo/listqresult.png[width = "600"]
-
 ==== Editing a question: `editq`
 
 You can edit the fields of an existing question by providing the fields you want to change. +
@@ -168,7 +164,7 @@ question list. The index *must be a positive integer* 1, 2, 3, ...
 
 Examples:
 
-* `editq 7 a/16 d/easy`
+* `editq 6 a/16 d/easy`
 
 image::questionCommandsDemo/editqcommand.png[width = "600"]
 
@@ -185,15 +181,18 @@ Format: `findq KEYWORD [MORE KEYWORDS]`
 * The search is case insensitive.
 * The order of the keywords does not matter.
 * Only full words will be matched.
+* NUStudy will return a list of questions containing any one of the keywords you provided.
+For example, if you type the command `findq word1 word2`, questions with body or answer which contains
+"word1", "word2", "word 1 word2", "word2 word1", or "word1 word2 xxxxxx yyyy".
 ****
 
 Examples:
 
-* `findq UDP`
+* `findq coupling tcp`
 
 image::questionCommandsDemo/findqcommand.png[width = "600"]
 
-Finds the question whose body contains the keyword `UDP`.
+Finds the questions whose body or answer contains the keyword `coupling` or `tcp`.
 
 image::questionCommandsDemo/findqresult.png[width = "600"]
 
@@ -214,11 +213,7 @@ Example:
 * `listq` +
 `deleteq 3`
 
-image::questionCommandsDemo/deleteqcommand.png[width = "600"]
-
 Deletes the 2nd question from the question list.
-
-image::questionCommandsDemo/deleteqresult.png[width = "600"]
 
 * `findq character` +
 `deleteq 1`
@@ -270,9 +265,6 @@ image::questionCommandsDemo/subjectresult.png[width = "600"]
 You can delete all questions from the app. +
 Format: `clearq`
 
-image::questionCommandsDemo/clearcommand.png[width = "600"]
-
-image::questionCommandsDemo/clearresult.png[width = "600"]
 // end::question[]
 
 // tag::quiz[]

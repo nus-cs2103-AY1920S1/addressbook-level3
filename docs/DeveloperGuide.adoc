@@ -260,13 +260,20 @@ The `editq` command calls `Model#setQuestion(Question target, Question editedQue
 `Model#updateFilteredQuestionList(Predicate<Question> predicate)`, causing the `AppData` to be updated with the original
 question being replaced by the edited question.
 
-The following sequence diagram shows how the `addq` operation works:
+The following sequence diagram shows the interaction between classes when `EditQuestionCommand#execute(model)` is called:
 
-image::AddQuestionSequenceDiagram.png[]
+image::EditQuestionCommandExecuteSequenceDiagram.png[width = "600"]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarizes what happens when a user executes a new `addq` command:
 
 image::AddQuestionActivityDiagram.png[]
+
+Question is implemented as a concrete class with its relevant fields consist of `QuestionBody`, `Answer`,
+`Subject`, and `Difficulty`.
+
+The following class diagram illustrates how `Question` class is designed:
+
+image::QuestionClassDiagram.png[width = "600"]
 
 ===== Design considerations: How `addq`/`deleteq`/`editq` commands execute
 * _Alternative 1 (current choice):_ Update the internal storage `UniqueQuestionList` in `AppData` first, then save the updated appData
@@ -782,12 +789,13 @@ Use case ends
 
 // tag::usecasew[]
 [discrete]
-=== Use case: Specify difficulty level of questions (Xueting)
+=== Use case: Add a question to question bank in NUStudy (Xueting)
 
 *MSS*
 
-1. Student specifies the difficulty level as the last tag while adding a questions - `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
-2. Application shows and stores the question with its difficulty level
+1. Student keys in add question and specifies the relevant fields - `add q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
+2. Application adds the question with its fields.
+3. Application informs the user about the success addition of question.
 
 Use case ends
 
@@ -837,31 +845,32 @@ Use case ends
 * Use case resumes at step 1
 
 [discrete]
-=== Use case: Get statistics for a difficulty level (Xueting)
+=== Use case: Delete a question (Xueting)
 
 *MSS*
 
-1. Student gives the command to get the statistics of the number of questions attempted at the specific difficulty level for a subject stats - `-dif d/DIFFICULTY s/SUBJECT`
-2. Application returns a bar chart which consists of the questions index and the number of attempts for this difficulty level
+1. User requests to view a list of questions from another command (eg. `findq`, `difficulty`, `subject`).
+2. Application shows the list of questions retrieved from this command.
+3. User enters the delete command with the index of the question to be deleted.
+4. Application removes the question from the question bank.
+5. Application informs the user about the success of deletion.
 
 Use case ends
 
 *Extensions*
 
 [none]
-* 1a. Student does not provide the difficulty level or the subject after the -dif flag
+* 1a. There is no question listed from the previous command.
 [none]
-** 1a1. Application shows an error message requesting the corresponding inputs
-** 1a2. Student re-enter the necessary fields
-** Repeat 1a1 and 1a2 until valid inputs are provided
-* Use case resumes at step 2
+** 1a1. Application informs the user that the index is invalid since the question list is empty.
+* Use case ends
 
 [none]
-* 1b. Student inputs invalid difficulty level or subject
+* 1b. Student inputs invalid index for a question (either negative or out of range).
 [none]
-** 1b1. Application displays a list of difficulty levels and subjects available
-** 1b2. Student re-enter the necessary fields by choosing from the list
-** Repeat 1b1 and 1b2 until valid inputs are provided
+** 1b1. Application shows an error message to inform the user that the index is invalid.
+** 1b2. Student re-enter the command by providing a valid index.
+** Repeat 1b1 and 1b2 until valid index is provided
 * Use case resumes at step 2
 // end::usecasew[]
 
