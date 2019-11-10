@@ -18,6 +18,8 @@ import budgetbuddy.model.script.Script;
  * Evaluates scripts.
  */
 public class ScriptEngine {
+    static final String INCORRECT_ARITY_MESSAGE = "Incorrect number of arguments passed to function call";
+
     private final Logger logger = LogsCenter.getLogger(ScriptEngine.class);
 
     private final Object scriptEngineLock;
@@ -120,6 +122,8 @@ public class ScriptEngine {
      */
     private static Throwable unwrapNashornExceptions(Throwable t) {
         // Fixes silliness in jdk.nashorn.internal.runtime.ScriptRuntime#apply
+        // If a function throws a checked exception, Nashorn wraps it in a RuntimeException
+        // Unwrap it
         if (t.getCause() != null && t.getClass().equals(RuntimeException.class)) {
             StackTraceElement[] st = t.getStackTrace();
             if (st == null || st.length < 1) {
@@ -131,6 +135,9 @@ public class ScriptEngine {
             }
         }
 
+        // Fix a Nashorn bug that results in an NPE if a FunctionalInterface function
+        // is applied with the wrong number of parameters
+        // Throw an appropriate exception instead
         if (t instanceof NullPointerException) {
             StackTraceElement[] st = t.getStackTrace();
             if (st == null || st.length < 1) {
@@ -141,7 +148,7 @@ public class ScriptEngine {
 
             if (source.getClassName().equals("jdk.nashorn.internal.runtime.linker.NashornBeansLinker")
                     && source.getMethodName().equals("getGuardedInvocation")) {
-                return new ScriptException("Incorrect number of arguments passed to function call");
+                return new ScriptException(INCORRECT_ARITY_MESSAGE);
             }
         }
 
