@@ -173,7 +173,7 @@ we have divided the user interface into 5 partitions
 * Schedule
 * Archived
 
-Use our <<Switch>> commands to toggle between the tab panels!
+Use our Switch commands ( refer to  <<Switch>> ) to toggle between the tab panels!
 The cool thing about our commands is that it will automatically
 toggle to the Tab Panel that it belongs to.
 
@@ -189,6 +189,7 @@ toggle to the Tab Panel that it belongs to.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/CONTACT_NUMBER`, `c/CONTACT_NUMBER n/NAME` is also acceptable.
+*Note that this applies only to Customer, Phone, Order and statistics commands*
 ====
 
 === Viewing help : `help`
@@ -778,19 +779,30 @@ image::ug-command/ug-history.png[width="800"]
 // tag::statisticsCommandUG[]
 === Generate stats : `generate-s`
 
-`v1.4` only allows statistics on orders marked as `Completed` and has a  `Schedule`
+`v1.4` only allows statistics on orders marked as `Completed` and has a  `Schedule`.
 
 This function calculates the three type of
 statistics as shown below.
 
 All statistics that are calculated are only on orders in the `archived panel` that has been `completed` and with valid `schedule`.
 Lacking any of this will cause its non-inclusion into the statistics calculation.
+The value calculated is the sum over the total time period within a month, meaning that it will take the date period,
+calculate the statistics for orders within that time period, split it by month and display it.
 
-Accepts two types of input: Without date input and with date input +
+e.g `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between this 2 dates, sum up the revenue
+(as it falls within a single month) and
+display this value.
+
+* Accepts two types of input:
+** Without date input
+** with date input +
 
 Generates the statistics with no date input. +
+
+
 Used for calculating `total profit` , `total Revenue` and `total Cost`. +
 Format: `generate-s s/stat` +
+
 Type for `stat` includes: `profit`, `revenue`, `cost` +
 The argument must match this three words perfectly.
 
@@ -846,26 +858,30 @@ when the remaining statistic windows are closed manually.
 ** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
 we estimate at least a few seconds before the window will be loaded.
 
-Coming in `V2.0`:
 
-* Average Statistics
+==== Average Statistics `[coming in v2.0]`
 ** More advanced commands like `average profit` etc
 
-* Different Charts
+==== Different Charts `[coming in v2.0]`
 ** Instead of just being able to display via a line chart, users will be able to select the type of chart
 
-* Export Chart to PDF
+==== Export Chart to PDF `[coming in v2.0]`
 ** User will be able to export their charts to pdf with a click of a button.
 
 // end::statisticsCommandUG[]
 
-==== Exiting the program : `exit`
+=== Exiting the program : `exit`
 
 Exits the program. +
 
 [underline]#Format#: `exit`
 
+If there are any statistics window open when executing this, the application will not terminate until those windows are closed too
+
+
 === Export data : `export`
+
+
 Exports application data into csv file. +
 If csv file of the input file name exists, the application data will be exported to the existing file. +
 If csv file of the input file name does not exist, the application data will be exported into a new file. +
@@ -959,6 +975,8 @@ dates that already have orders scheduled on them. This is helpful in checking fo
 === Other commands
 
 ==== Import data : `import` `[coming in v2.0]`
+
+
 Imports csv file into application. +
 If csv file of the input file exists, the file will be imported. +
 If csv file of the input file does not exist, command will not be executed. +
@@ -966,18 +984,26 @@ If csv file of the input file does not exist, command will not be executed. +
 [underline]#Format#: `import FILE_NAME`
 
 ==== Saving the data
+
+
 SML data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 ==== Encrypting data files `[coming in v2.0]`
+
+
 All data files will be password-protected with a unique password of at least 8 characters long.
 
 [underline]#Format#: `encrypt PASSWORD`
 
 ==== Notification for reminders/alerts  `[coming in v2.0]`
+
+
 Notification page to show reminders or alerts of upcoming schedules.
 
 ==== Export data to PDF  `[coming in v2.0]`
+
+
 Export the application data in SML to PDF format.
 
 [underline]#Format#: `export pdf`
@@ -1033,7 +1059,6 @@ The hash tag represents the length of the valid input for the primary key.
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`switch-p` | Switches to phone tab panel.
 |`add-p i/IDENTITY NUMBER (IMEI) s/SERIAL NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`| Adds a new phone into SML
 |`edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`| Edits an existing phone.
 |`delete-p INDEX`| Deletes a phone and its associated orders and schedules.
@@ -1047,7 +1072,6 @@ The hash tag represents the length of the valid input for the primary key.
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`switch-o` | Switches to order tab panel.
 |`add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`| Adds a new order into SML
 |`edit-o INDEX [c/CUSTOMER_INDEX] [p/PHONE_INDEX] [$/PRICE] [t/TAG]…`| Edits an existing order.
 |`complete INDEX`| Completes an order and shift it into Archived Order Tab. Also deletes the associated phone.
@@ -1062,7 +1086,6 @@ The hash tag represents the length of the valid input for the primary key.
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`switch-s` | Switches to schedule tab panel.
 |`schedule cd/DATE`| Shows the week of the date specified by the user.
 |`add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]`| Adds a new schedule into SML
 |`edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]… [-allow]`| Edits an existing schedule.
@@ -1074,10 +1097,20 @@ The hash tag represents the length of the valid input for the primary key.
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`switch-a` | Switches to archived order tab panel.
 |`clear-a`| Deletes all archived orders.
 |=======================================================================
 
+[[Switch]]
+=== Switch Commands
+[width="100%",cols="20%,<30%",options="header",]
+|=======================================================================
+|Command | Summary
+|`switch-a` | Switches to archived order tab panel.
+|`switch-s` | Switches to schedule tab panel.
+|`switch-o` | Switches to order tab panel.
+|`switch-p` | Switches to phone tab panel.
+|`switch-c` | Switches to customer tab panel.
+|=======================================================================
 
 === General Commands
 [width="100%",cols="20%,<30%",options="header",]
