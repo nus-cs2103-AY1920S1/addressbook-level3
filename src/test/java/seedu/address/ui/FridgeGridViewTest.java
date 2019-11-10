@@ -18,7 +18,7 @@ public class FridgeGridViewTest extends GuiUnitTest {
     private static final ObservableList<Fridge> TYPICAL_FRIDGES =
         FXCollections.observableList(getTypicalFridges());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 4000;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 10000;
 
     private FridgeGridViewHandle fridgeGridViewHandle;
 
