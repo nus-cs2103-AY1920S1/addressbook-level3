@@ -15,7 +15,12 @@ Users can also set a budget, set reminders as well as get stats of the spending.
 MoneyGoWhere has a Command Line Interface(CLI) for user to interact with as well as a Graphical User Interface(GUI) built using JavaFx.
 It is written in Java, and has about 15 kLoC.
 
+== My Role
+
+I was tasked to implement the `Budget` feature of the program, as well as implemented the ability for users to press the up and down key to traverse their command history. I have also made notable contributions to the User Guide and Developer Guide.
+
 == Summary of contributions
+This section shows my contributions to the team project.
 
 * *Major enhancement*: Implemented the `Budget` feature of MoneyGoWhere
 ** What it does: Allows users to set a monthly budget.
@@ -46,7 +51,7 @@ It is written in Java, and has about 15 kLoC.
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The following sections showcase my contributions to the User Guide, which demonstrates my documentation skill to target end-user effectively._
 |===
 
 include::../UserGuide.adoc[tag=budget]
@@ -58,7 +63,7 @@ include::../UserGuide.adoc[tag=updown]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The following sections showcase my contributions to the Developer Guide, which demonstrates my documentation skill from a technical perspective._
 |===
 
 include::../DeveloperGuide.adoc[tag=budget]
