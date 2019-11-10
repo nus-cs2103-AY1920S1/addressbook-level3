@@ -151,6 +151,14 @@ public class TrainingManager {
         }
     }
 
+    public List<AttendanceRateEntry> getAttendanceRateOfAll(List<Person> persons) {
+        List<AttendanceRateEntry> attendanceRateEntries = new ArrayList<>();
+        for (Person person : persons) {
+            attendanceRateEntries.add(new AttendanceRateEntry(person, getPersonAttendanceRateString(person)));
+        }
+        return attendanceRateEntries;
+    }
+
     public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
         assert(this.hasTrainingOnDate(date));
         for (Training training : trainings) {
@@ -160,6 +168,7 @@ public class TrainingManager {
         }
         return null; // With assertion, code should not reach here.
     }
+
     public Training getTrainingOnDate(AthletickDate date) {
         assert (this.hasTrainingOnDate(date));
         for (Training training : trainings) {

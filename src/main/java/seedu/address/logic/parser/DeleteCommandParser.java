@@ -161,7 +161,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     private String removeFlag(String args) throws ParseException {
         try {
-            return args.substring(2).trim();
+            return args.substring(2);
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException(DeleteCommand.MESSAGE_USAGE);
         }
