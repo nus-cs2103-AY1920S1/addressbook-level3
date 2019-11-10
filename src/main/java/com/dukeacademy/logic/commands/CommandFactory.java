@@ -3,7 +3,7 @@ package com.dukeacademy.logic.commands;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
 
 /**
- * Encapsulates the creation of commands and its dependencies and exposes an interface that can be injected into
+ * Encapsulates the creation of commands and its dependencies and exposes an interface that can be registered in
  * the command logic.
  */
 public interface CommandFactory {
