@@ -36,6 +36,7 @@ public class EditDeckDisplay extends VBox {
     private int numCards;
 
     public EditDeckDisplay(Deck deck) {
+        //System.out.println("EditDeckDisplay");
         try {
             Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"

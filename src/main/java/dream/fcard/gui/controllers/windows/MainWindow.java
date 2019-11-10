@@ -58,7 +58,10 @@ public class MainWindow extends VBox {
     private Consumer<Pane> swapDisplays = p -> {
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(p);
+
+        //displayScrollPane
         //displayScrollPane.setVvalue(0);
+        //System.out.println(displayScrollPane.getVvalue());
     };
     private Consumer<String> displayMessage = message -> {
         messageLabel.setText(message);
