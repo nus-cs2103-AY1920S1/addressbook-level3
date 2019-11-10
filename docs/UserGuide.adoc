@@ -197,7 +197,7 @@ Example: Let's say I have to exit the calendar page -
 
 == Calendar
 
-It's the end of the semester but there are still orientation camps, internships, and family commitments to attend to. However, the desire to unwind by travelling after a long and tiring semester is just *too strong*. Sounds like you?
+It's the end of the semester but there are still orientation camps, internships, and family commitments to attend to. However, after a long and tiring semester, the desire to unwind by travelling is just *too strong*. Sounds like you?
 
 Well, _TravEzy_ has got you covered. Simply inform _TravEzy_ of your schedule (your _commitments_, _school breaks_, public _holidays_ and _trips_) and _TravEzy_ will suggest periods of time when you can travel! Excited to find out more? Well... Read on!
 
@@ -206,6 +206,8 @@ Well, _TravEzy_ has got you covered. Simply inform _TravEzy_ of your schedule (y
 This is how _TravEzy's calendar_ looks like:
 
 image::calendarScreenshots/calendarInterface.png[Calendar interface,width=800]
+
+{nbsp}
 
 To help you easily differentiate between various types of _events_, _TravEzy_ has categorised the _events_ into four types: _commitment_, _holiday_, _school break_ and _trip_. Visually, _TravEzy_ also uses different _labels_ for the different types of _events_, as shown in the image above.
 
@@ -252,7 +254,7 @@ Step 4. The _result box_ will also display a message to indicate that your _comm
 
 image::calendarScreenshots/add2.png[Add result,width=600]
 
-TIP: You do not have to specify the ``END YEAR``, ``END MONTH`` and/or ``END DAY`` if they are the same as ``START YEAR``, ``START MONTH`` and/or ``START DAY``, respectively.
+TIP: You do not have to specify the ``END YEAR``, ``END MONTH`` and/or ``END DAY`` if they are the same as ``START YEAR``, ``START MONTH`` and/or ``START DAY``, respectively. This applies to the following commands as well.
 
 WARNING: If you leave out the month and/or year, the current month and/or year will be used. This applies to the following commands as well.
 
@@ -359,7 +361,7 @@ Step 3. When you click at a region outside of the pop-up, the pop-up will disapp
 
 === Checking your availability for a trip: ``check``
 
-Do you need to find out whether you are available to go for a trip? You can get _TravEzy_ to find that out for you (i.e. when you happen to have a _school break_/_holiday_ then *and* do not have any _commitment_/_trip_ then).
+Do you need to find out whether you are available to go for a trip? You can get _TravEzy_ to find that out for you (i.e. when you happen to have a _school break_/_holiday_ *and* do not have any _commitment_/_trip_).
 
 Let's find out how!
 
