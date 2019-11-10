@@ -9,11 +9,11 @@ import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonValue;
 import dream.fcard.util.stats.DateTimeUtil;
+import dream.fcard.util.stats.SessionListUtil;
 
 /**
  * A list of Session objects.
  */
-
 public class SessionList implements JsonInterface {
 
     private ArrayList<Session> sessionArrayList;
@@ -68,6 +68,11 @@ public class SessionList implements JsonInterface {
     public String getAverageDurationAsString() {
         Duration averageDuration = DateTimeUtil.getAverageDuration(this);
         return DateTimeUtil.getStringFromDuration(averageDuration);
+    }
+
+    /** Returns the average score of all sessions contained in this SessionList, as a String. */
+    public String getAverageScore() {
+        return SessionListUtil.getAverageScore(this);
     }
 
     @Override

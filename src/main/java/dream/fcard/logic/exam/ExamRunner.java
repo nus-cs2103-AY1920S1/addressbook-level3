@@ -3,6 +3,7 @@ package dream.fcard.logic.exam;
 import java.util.ArrayList;
 
 import dream.fcard.gui.controllers.displays.test.EndOfTestAlert;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.model.cards.FlashCard;
 
 /**
@@ -37,6 +38,7 @@ public class ExamRunner {
      */
     public static void terminateExam() {
         String result = exam.getResult();
+        StatsHolder.getDeckStats().endCurrentSession(result);
         EndOfTestAlert.display("Results", "Final Score: " + result);
         examOngoing = false;
     }

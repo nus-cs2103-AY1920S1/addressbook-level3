@@ -33,5 +33,5 @@ public class Schema {
 
     public static final String SESSION_START = "start";
     public static final String SESSION_END = "end";
-    public static final String SESSION_RESULT = "result";
+    public static final String SESSION_SCORE = "score";
 }

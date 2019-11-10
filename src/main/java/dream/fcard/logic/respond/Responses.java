@@ -10,6 +10,7 @@ import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.commands.HelpCommand;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -402,7 +403,7 @@ public enum Responses {
             "^((?i)(edit)).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct "
                             + "format of the Edit command, type 'help command/edit");
                     return true;
                 }
@@ -421,7 +422,7 @@ public enum Responses {
                     boolean hasIndex = res.get(1).size() == 1;
 
                     if (!hasDeck) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the"
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the "
                                 + "correct format of the Delete command, type 'help command/delete'");
                         return true;
                     }
@@ -529,7 +530,6 @@ public enum Responses {
                     }
 
                     if (hasDeckName) {
-                        // todo: @PhireHandy where should I get the name of the deck?
                         try {
                             StatsDisplayUtil
                                     .openDeckStatisticsWindow(StateHolder.getState().getDeck(
@@ -539,7 +539,6 @@ public enum Responses {
                         }
                         return true;
                     } else {
-                        // todo: causes InvocationTargetException, due to regex PatternSyntaxException.
                         StatsDisplayUtil.openStatisticsWindow();
                         return true;
                     }
@@ -565,6 +564,12 @@ public enum Responses {
                             StateHolder.getState().setCurrState(StateEnum.DEFAULT);
                             return false;
                         } else {
+                            // inform DeckStats about the current deck
+                            StatsHolder.getDeckStats().setCurrentDeck(initDeck.getDeckName());
+
+                            // start the test session in DeckStats
+                            StatsHolder.getDeckStats().startCurrentSession();
+
                             ArrayList<FlashCard> testDeck = initDeck.getSubsetForTest();
                             int duration = Integer.parseInt(durationString);
                             ExamRunner.createExam(testDeck, duration);

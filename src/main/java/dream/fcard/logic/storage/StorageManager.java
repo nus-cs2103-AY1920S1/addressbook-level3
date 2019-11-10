@@ -9,14 +9,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.UserStats;
-import dream.fcard.logic.stats.UserStatsHolder;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;
@@ -28,6 +30,7 @@ import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.json.JsonParser;
 import dream.fcard.util.json.exceptions.JsonFormatException;
 import dream.fcard.util.json.exceptions.JsonWrongValueException;
+import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 import dream.fcard.util.stats.DateTimeUtil;
@@ -42,8 +45,10 @@ public class StorageManager {
     private static String root;
     private static String decksSubDir = "./decks";
     private static String statsSubDir = "./stats";
-    private static String statsFileName = "stats.json";
-    private static String statsFileFullPath;
+    private static String userStatsFileName = "stats.json";
+    private static String userStatsFileFullPath;
+    private static String deckStatsFileName = "deckstats.json";
+    private static String deckStatsFileFullPath;
     private static String codeSubDir = "./code";
 
     /**
@@ -84,7 +89,7 @@ public class StorageManager {
             root = System.getProperty("user.dir");
         }
         root = FileReadWrite.resolve(root, "./data");
-        resolveStatsPath();
+        resolveUserStatsPath();
         isRootResolved = true;
     }
 
@@ -95,7 +100,7 @@ public class StorageManager {
      */
     public static void provideRoot(String path) {
         root = path;
-        resolveStatsPath();
+        resolveUserStatsPath();
         isRootResolved = true;
     }
 
@@ -241,7 +246,6 @@ public class StorageManager {
             System.out.println("JSON file has errors\n" + e2.getMessage());
         }
         return null;
-        // todo: add parsing for session list in deck
     }
 
     /**
@@ -259,40 +263,39 @@ public class StorageManager {
     // DECK CODE --------------------------------------------------------------
 
     /**
-     * Resolve path to stats file.
+     * Resolve path to user stats file.
      */
-    public static void resolveStatsPath() {
-        statsFileFullPath = FileReadWrite.resolve(root, statsSubDir + "/" + statsFileName);
+    public static void resolveUserStatsPath() {
+        userStatsFileFullPath = FileReadWrite.resolve(root, statsSubDir + "/" + userStatsFileName);
     }
 
     /**
-     * Save stats data.
+     * Save user stats data.
      */
-    public static void saveStats(UserStats userStats) {
+    public static void saveUserStats() {
+        UserStats userStats = StatsHolder.getUserStats();
         resolveRoot();
-        FileReadWrite.write(statsFileFullPath, userStats.getSessionList().toJson().toString());
+        FileReadWrite.write(userStatsFileFullPath, userStats.getSessionList().toJson().toString());
     }
 
     /**
-     * Initialize and load stats data if any.
+     * Initialize and load user stats data if any.
      */
     public static void loadUserStats() {
         resolveRoot();
 
         try {
             ArrayList<Session> arr = new ArrayList<>();
-            JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(statsFileFullPath));
+            JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(
+                userStatsFileFullPath));
             for (JsonValue sessionJson : statsJson.getArray()) {
                 JsonObject sessionJsonObj = sessionJson.getObject();
                 Session session = new Session(
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_END).getObject()));
-                //session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getInt());
-                // todo: or abstract out and use this to load deck session list too?
                 arr.add(session);
             }
-            UserStatsHolder.getUserStats().setSessionList(new SessionList(arr));
-            // load login session
+            StatsHolder.getUserStats().setSessionList(new SessionList(arr));
         } catch (FileNotFoundException e) {
             System.out.println("STATS FILE DOES NOT EXIST");
         } catch (JsonFormatException | NullPointerException e) {
@@ -302,6 +305,87 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Resolve path to user stats file.
+     */
+    public static void resolveDeckStatsPath() {
+        deckStatsFileFullPath = FileReadWrite.resolve(root, statsSubDir + "/" + deckStatsFileName);
+    }
+
+    /**
+     * Save deck stats data.
+     */
+    public static void saveDeckStats() {
+        DeckStats deckStats = StatsHolder.getDeckStats();
+        resolveRoot();
+
+        // get the deckHashMap
+        HashMap<String, SessionList> deckHashMap = deckStats.getDeckHashMap();
+
+        // get the keys (i.e. deck names) of the deckHashMap as an ArrayList
+        ArrayList<String> deckNames = new ArrayList<>(deckHashMap.keySet());
+
+        // write the keys to file
+        //FileReadWrite.write(deckStatsFileFullPath, deckNames.toJson().toString());
+
+        // or this?
+        //JsonArray deckArray = new JsonArray();
+        //for (String s : deckNames) {
+        //    try {
+        //        deckArray.add(s.toJson().getObject());
+        //    } catch (JsonWrongValueException e) {
+        //        System.out.println();
+        //    }
+        //}
+        //JsonValue deckKeys = new JsonValue(deckArray);
+        //FileReadWrite.write(deckStatsFileFullPath, deckArray.toString());
+
+        // for each key, get the corresponding SessionList from the deckHashMap
+        //JsonArray deckSessionListArray = new JsonArray();
+        //for (String s: deckNames) {
+        //    try {
+        //        deckSessionListArray.add(deckHashMap.get(s).toJson().getObject());
+        //    } catch (JsonWrongValueException e) {
+        //        System.out.println("SESSION JSON EXPECTED TO BE OBJECT\n" + e.getMessage());
+        //    }
+        //}
+        //FileReadWrite.write(deckStatsFileFullPath, deckSessionListArray.toString());
+    }
+
+    /**
+     * Initialise and load deck stats data, if any.
+     */
+    public static void loadDeckStats() {
+        resolveRoot();
+
+        // initialise DeckStats
+        DeckStats deckStats = StatsHolder.getDeckStats();
+
+
+        // for each session list
+        // get deckname first
+        //String deckName = "";
+        //try {
+        //    ArrayList<Session> arr = new ArrayList<>();
+        //    JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(
+        //        deckStatsFileFullPath));
+        //    for (JsonValue sessionJson : statsJson.getArray()) {
+        //        JsonObject sessionJsonObj = sessionJson.getObject();
+        //        Session session = new Session(
+        //            DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
+        //            DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_END).getObject()),
+        //            sessionJsonObj.get(Schema.SESSION_SCORE).getString());
+        //        arr.add(session);
+        //    }
+        //    deckStats.getDeckHashMap().put(deckName, new SessionList(arr));
+        //} catch (FileNotFoundException e) {
+        //    System.out.println("STATS FILE DOES NOT EXIST");
+        //} catch (JsonFormatException | NullPointerException e) {
+        //    System.out.println("STATS JSON IS ILL FORMED\n" + e.getMessage());
+        //} catch (JsonWrongValueException e) {
+        //    System.out.println("UNEXPECTED JSON FORMAT FOR STATS\n" + e.getMessage());
+        //}
+    }
     // STATS CODE -------------------------------------------------------------
 
     /**
