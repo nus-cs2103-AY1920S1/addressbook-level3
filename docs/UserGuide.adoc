@@ -84,8 +84,11 @@ Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a sp
 
 =======
 
-Adds an income of your personal finance +
+Adds an income of your personal finance to PalPay +
 Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
+
+Have an income that you need to log down? PalPay accepts all income inputs through the `in` command. Inputting an `in` command will increase the overall balance value. Your income statements has the added option to be tagged under one or more categories, you can do so by including the `[c/CATEGORY]` parameter in your command line. All uncategorized incomes will be tagged under the `GENERAL` category.
+
 
 ****
 * `AMOUNT` accepts the value of this income. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
@@ -94,13 +97,46 @@ Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 * `CATEGORY` accepts the CATEGORY for this income. An in` Transaction can be created without `CATEGORY` inputs.
 * `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
 ****
-=======
+
+==== Example Usage
+
+ Example 1: in $/120 d/31122019 n/work
+
+. Inputs an income of $120 with description set to 'work' and date set on 31/12/2019.
+. The income has not utilized the optional `CATEGORY` field.
+. Initial balance (red box in Figure 1) has a value of $0.
+
+.Income Logging Example 1
+image::in_ug_1.png[]
+
+. The income is added to the top of the *Transactions* tab
+. The added income is given a `GENERAL` category.
+. Balance has increased from $0 to $120 (red box in Figure 2).
+
+.Sample Income 1 Added
+image::in_ug_2.png[]
+
+ Example 2: in $/500.50 n/allowance d/01012020 c/parents
+
+. Inputs an income of $500.50 with description set to 'allowance' and date set on 01/01/2020.
+. The income includes `parents` in the `CATEGORY` field.
+. Initial balance (red box in Figure 3) has a value of $120.
+
+.Income Logging Example 2
+image::in_ug_3.png[]
+
+. The income is added to the top of the *Transactions* tab
+. The added income is given a `parents` category.
+. Balance has increased from $120 to $620.50 (red box in Figure 4).
+
+.Sample Income 2 Added
+image::in_ug_4.png[]
 
 Examples:
 
-* `in $/100 d/01012019 n/errand c/work c/drinks`
-* `in $/200 d/29022020 n/mom c/family`
-* `in $/120 d/31122019 n/work`
+* `in $/100 d/01012019 n/errand c/work c/company`
+* `in $/250.50 d/29022020 n/mom c/family`
+* `in $/120 d/31122019 n/helping friend`
 
 [[Out]]
 === Logging Expense : `out`

@@ -1,0 +1,23 @@
+@startuml
+start
+:User executes set command;
+:Check for duplicate initial amount;
+
+if() then ([Existing initial amount])
+    :Check for duplicate deadline;
+    if() then([Existing deadline])
+        :Check for duplicate categories;
+        if() then([Existing categories])
+            :Duplicate budget detected;
+         else([else])
+            :New budget set;
+            endif
+     else([else])
+         :New budget set;
+         endif
+else([else])
+    :New budget set;
+    endif
+    stop
+
+@enduml

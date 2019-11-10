@@ -244,6 +244,13 @@ he has overspent beyond the set budget:
 .Example of an overspent budget
 image::overspentBudget.png[]
 
+When setting a new `Budget`, existence of a duplicate budget is checked through a sequence of checks.
+The activity diagram below shows a simple successful case of setting a new budget:
+
+.Activity Diagram of successfully setting a new Budget
+image::SetBudgetSimpleActivityDiagram.png[]
+
+
 ==== Design Considerations
 
 Currently, `Budget` does not extend from `Transaction` although the two behave in a similar way.
