@@ -270,7 +270,7 @@ Step 3. Open the html file in the exports folder to see the overview of all acco
 // tag::loans[]
 === Managing loans: `loan`
 
-image::LoanUG1.png[]
+image::LoanUG1.png[width=75%,scaledwidth=75%]
 
 This feature enables you to keep track of who owes you money - and exactly how much they owe you.
 Never again allow those small sums you lend out to accumulate into a massive pile of forgotten gold.
@@ -407,14 +407,17 @@ Examples:
 Calculates the money owed between `John`, `Mary` and `Peter` for a scenario where (initially) `Mary` paid `40` and `Peter` paid `60`. +
 The resulting display should show that `John` owes `Mary` *$6.66* and also owes `Peter` *$26.67*, as seen in the image below.
 
-image::LoanUG2.png[]
+image::LoanUG2.png[width=75%,scaledwidth=75%]
 
 * `loan split p/John x/0 max/10 p/Mary x/10 p/Peter x/90 me/Mary d/Dinner.` +
 In this scenario, `Mary` paid `10` and `Peter` paid `90`.
 `max/10` restricts the final amount `John` pays/owes to `10`, despite the total amount being `0 + 10 + 90 = 100`.
 Furthermore, `me/Mary` marks `Mary` as the user (you),
 so any debts `Mary` owes/is owed will be added to the normal loan list with the description `Dinner.`. +
-The resulting display should show that `John` owes `Peter` *$10* and `You` owe `Peter` *$35*.
+The resulting display should show that `John` owes `Peter` *$10* and `You` owe `Peter` *$35*, as seen below.
+
+image::LoanUG3.png[width=75%,scaledwidth=75%]
+
 The latter debt will also have been added to your loan list,
 which can be checked using the command `loan list` or by pressing the hotkey mentioned above.
 // end::loans[]
