@@ -63,6 +63,9 @@ public class ShoppingItem extends Food {
      */
     public static boolean isCompletelyBought(ShoppingItem shoppingItem,
                                              ObservableList<GroceryItem> internalBoughtList) {
+        if (!shoppingItem.isBought()) {
+            return false;
+        }
         Amount amountBought = shoppingItem.getAmountBought(internalBoughtList);
         return getValue(amountBought) >= getValue(shoppingItem.getAmount());
     }
