@@ -547,10 +547,10 @@ Data saved should not be manually edited to prevent files from being corrupted.
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous LiBerry folder.
 
 
-// tag::UGshiyao2[]
-== Command Summary
-This section contains the summary of LiBerry's commands. +
 
+== Command Summary
+// tag::UGshiyao2[]
+This section contains the summary of LiBerry's commands. +
 Commands applicable to both *Normal* and *Serve* mode:
 
 * *Help* : `help`
