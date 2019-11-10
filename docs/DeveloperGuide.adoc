@@ -241,10 +241,10 @@ image::training_class_diagram.png[]
 A training session is represented by a `[green]#Training#` class and it contains information like the date of
 training and training attendance. The `[green]#AthletickDate#` class represents the date of a training session in
 `[green]#Training#`. This class is shared across both the frontend and backend of the application, allowing training
-information to be used in other features, such as the `view calendar` command. A `[green]#HashMap<Person, Boolean>#`
-represents attendance in `[green]#Training#` and indicates whether a `[green]#Person#` has attended that training
-session. If a `[green]#Person#` attended, the value associated with him in the `[green]#HashMap<Person, Boolean>#`
-will be true, and false if he did not attend.
+information to be used in other features. A `[green]#HashMap<Person, Boolean>#` represents attendance in
+`[green]#Training#` and indicates whether a `[green]#Person#` has attended that training session. If a
+`[green]#Person#` attended, the value associated with him in the `[green]#HashMap<Person, Boolean>#` will be true,
+and false if he did not attend.
 
 The `[green]#TrainingCommand#` is an abstract class that extends the `[green]#Command#` class and allows users to
 record training sessions. Users have the ability to add training sessions by indicating members present or members
@@ -327,9 +327,8 @@ implementation allows us to easily do so.
 |Requires more effort to maintain and coding of new functions to edit data.
 |===
 
-Reason for choosing alternative 2: A hash table is used as the `select` and `attendance` commands require the
-attendance rate of only one person. A hash table provides us with the fastest access time to access attendance
-information of one person.
+Reason for choosing alternative 2: The `select` and `attendance` commands require the attendance rate of only one
+person and a hash table provides us with the fastest access time to access attendance information of one person.
 
 ===== Aspect: How to edit training information.
 
@@ -344,7 +343,7 @@ information of one person.
 
 |*Cons*
 |Unable to support multiple trainings on same date.
-|Lengthy commands. Users have the option to edit date, attendance and even add a person.
+|Users have the option to edit date, attendance and even add a person which will require lengthy commands.
 |===
 
 Reason for choosing alternative 1: Editing training information would require typing long time-consuming commands
