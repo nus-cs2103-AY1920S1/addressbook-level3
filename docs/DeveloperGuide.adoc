@@ -59,7 +59,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
+image::LogicClassDiagram.png[align="center"]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -75,7 +75,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
+image::UiClassDiagram.png[align="center"]
 
 *API* : link:{repoURL}/src/main/java/seedu/exercise/ui/Ui.java[`Ui.java`]
 
@@ -93,7 +93,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
+image::LogicClassDiagram.png[align="center"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/exercise/logic/Logic.java[`Logic.java`]
@@ -107,7 +107,7 @@ link:{repoURL}/src/main/java/seedu/exercise/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[align="center", width=85%, scaledwidth=15cm]
+image::DeleteSequenceDiagram.png[align="center"]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -115,7 +115,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
+image::ModelClassDiagram.png[align="center"]
 
 *API* : link:{repoURL}/src/main/java/seedu/exercise/model/Model.java[`Model.java`]
 
@@ -135,7 +135,7 @@ The `Model`
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
+image::StorageClassDiagram.png[align="center"]
 
 *API* : link:{repoURL}/src/main/java/seedu/exercise/storage/Storage.java[`Storage.java`]
 

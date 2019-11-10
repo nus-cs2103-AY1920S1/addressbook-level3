@@ -91,7 +91,7 @@ Views the help dialog box which will bring you to this UserGuide. You can expect
 Format: `help`
 
 .Here's how the help dialog box look like
-image::HelpDialogBox.png[align="center", width=85%, scaledwidth=15cm]
+image::HelpWindow.png[align="center", width=85%, scaledwidth=15cm]
 
 Clicking on the `Copy URL` button will copy the link to your clipboard and you can open any browser of your choice to access the UserGuide for `ExerHealth`.
 
@@ -135,7 +135,7 @@ image::AddRunResult.png[align="center", width=85%, scaledwidth=15cm]
 * `add t/exercise n/Sprinting d/11/11/2019 c/500 q/400 u/metres m/Thighs`
 
 .The exercise `Sprinting` is added
-image::AddExerciseWithMuscle.png[align="center", width=95%, scaledwidth=15cm]
+image::AddExerciseWithMuscle.png[align="center", width=85%, scaledwidth=15cm]
 
 ==== Adding exercises to scheduling regime +
 
