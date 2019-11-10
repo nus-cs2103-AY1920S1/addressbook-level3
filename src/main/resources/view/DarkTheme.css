@@ -57,6 +57,10 @@
     -fx-background-insets: 10 10 10 10;
 }
 
+.table-cell {
+    -fx-border-width: 0;
+}
+
 .table-view .scroll-bar {
     -fx-background-color: #121212;
 }
@@ -77,8 +81,12 @@
     -fx-background-color: #121212;
 }
 
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+.table-view:focused {
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:filled:focused:selected {
+    -fx-background-color: #3a3a3a;
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -292,7 +300,7 @@
 }
 
 .button:default {
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color: derive(#121212, 25%);
     -fx-text-fill: #ffffff;
 }
 
@@ -315,7 +323,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: #121212;
+    -fx-background-color: derive(#121212, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {

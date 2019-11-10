@@ -15,11 +15,11 @@ AddCommandParser -> Worker
 activate Worker
     Worker -> IdentificationNumber : generateNewWorkerId(this)
     activate IdentificationNumber
-        IdentificationNumber -> IdentificationNumber: new IdentificationNumber
+        IdentificationNumber -> IdentificationNumber: new IdentificationNumber(worker)
         activate IdentificationNumber
-            IdentificationNumber -> UniqueIdentificationNumberMaps : addEntity
+            IdentificationNumber -> UniqueIdentificationNumberMaps : addEntity(worker)
             activate UniqueIdentificationNumberMaps
-                UniqueIdentificationNumberMaps -> UniqueIdentificationNumberMaps : putWorker
+                UniqueIdentificationNumberMaps -> UniqueIdentificationNumberMaps : putWorker(worker)
                 activate UniqueIdentificationNumberMaps
                 return newId
             return newId
