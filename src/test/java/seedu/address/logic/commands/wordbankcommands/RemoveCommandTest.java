@@ -273,7 +273,7 @@ class RemoveCommandTest {
         }
 
         @Override
-        public FormattedHint getHintFormatFromCurrentGame() {
+        public FormattedHint getFormattedHintFromCurrGame() {
             return null;
         }
 
