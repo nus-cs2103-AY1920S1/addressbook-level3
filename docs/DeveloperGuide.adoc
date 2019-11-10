@@ -330,21 +330,19 @@ The following table shows the classes and methods that you may have to deal with
 [width="59%",cols="20%,35%,35%",options="header",]
 |====
 
-|**File format**                        |Document           |JSON
-
-|**File extension**                     |'.docx'            |'.json'
+|**File format**                        |Document ('.docx') |JSON ('.json')
 
 |**`ExportPath` subclass**              |`DocumentPath`     |`JsonExportPath`
 
-a|**Export utility class and method**
+a|**Export utility**
 a|`DocumentExportUtil#exportFlashCardsToDocument( List<FlashCard>, DocumentPath)`
 a|`JsonExportUtil#exportFlashCardsToJson( List<FlashCard>, JsonExportPath)`
 
-a|**Import utility class and method**
+a|**Import utility**
 a|_None - importing not supported_
 a|`JsonImportUtil#importFlashCardsFromJson( JsonExportPath)`
 
-|**External library used**              |Apache POI         |Jackson
+|**External library**              |Apache POI         |Jackson
 |====
 
 _Table 1: Overview of classes and methods involved in the Export/Import feature_
@@ -368,8 +366,8 @@ NOTE: Due to a limitation of PlantUML, object lifelines in the diagram extend be
 
 The following activity diagrams provide a general overview of the events that occur when a user executes an `export` or `import` command:
 
-image:ExportActivityDiagram.png[width=491,height=518]
-image:ImportActivityDiagram.png[width=427,height=513]
+image:ExportActivityDiagram.png[width=430,height=518]
+image:ImportActivityDiagram.png[width=373,height=513]
 
 _Left - Figure 3: Activity diagram of the execution of an `export` command_ +
 _Right - Figure 4: Activity diagram of the execution of an `import` command_
@@ -401,26 +399,6 @@ NOTE: **Alternative 1** was preferred for its ease of extensibility.
 ** Cons: Is harder to implement and might result in duplication of logic
 
 NOTE: **Alternative 2** was preferred as it provides users with an experience closer to what they would expect.
-
-===== Aspect: Parsing of file path from user input
-
-NOTE: The original AddressBook application, from which KeyboardFlashCards was morphed, delimited its command arguments using slash-containing flags
-(e.g. `c/CATEGORY`). This sometimes caused parsing problems due to the nature of file paths, which likewise contain slashes.
-
-* **Alternative 1:** Read file path as-is, using the existing AddressBook parser
-** Pros: Does not require further code changes
-** Cons: Means that errors may occur for certain file paths
-* **Alternative 2:** Disallow user from selecting file path - instead, always export to and import from a specific directory
-** Pros: Is somewhat easy to implement
-** Cons: Requires user to navigate to the specified directory; requires a means of finding alternatives if the default directory does not exist
-* **Alternative 3:** Ask user to replace slashes in file path with another character
-** Pros: Is very easy to implement
-** Cons: Greatly inconveniences the user; extra work must be done to restore the input to the original file path
-* **Alternative 4 (current choice):** Overhaul the AddressBook parser to use `>` rather than `/` as a delimiter
-** Pros: Provides the user with the most power and convenience
-** Cons: Might possibly break existing functional and test code; may require an additional button press from the user (`Shift`) in order to type `>`
-
-NOTE: **Alternative 4** was preferred as it provides users with the greatest overall convenience.
 
 // end::flashcardexportimport[]
 
