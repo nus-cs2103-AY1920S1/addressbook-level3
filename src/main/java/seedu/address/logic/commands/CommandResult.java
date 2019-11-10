@@ -21,10 +21,10 @@ public class CommandResult {
     private final boolean exit;
 
     /** The claim pop-up should appear*/
-    private boolean showClaim;
+    private boolean toShowClaim;
 
     /** The contact pop-up should appear*/
-    private boolean showContact;
+    private boolean toShowContact;
 
     /** User wants to create a shortcut **/
     private boolean createShortCut;
@@ -39,17 +39,18 @@ public class CommandResult {
     private Contact contact;
 
 
+    //@@author{lawncegoh}
     /**
      * Constructs a {@code CommandResult} with the specified fields that includes shortcut
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean createShortCut,
-                         boolean showClaim, boolean showContact) {
+                         boolean toShowClaim, boolean toShowContact) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.createShortCut = createShortCut;
-        this.showClaim = showClaim;
-        this.showContact = showContact;
+        this.toShowClaim = toShowClaim;
+        this.toShowContact = toShowContact;
     }
 
     //@@author{lawncegoh}
@@ -57,13 +58,13 @@ public class CommandResult {
      * Constructs a (@code CommandResult} with the clear boolean
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean createShortCut,
-                         boolean showClaim, boolean showContact, boolean toClear) {
+                         boolean toShowClaim, boolean toShowContact, boolean toClear) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.createShortCut = createShortCut;
-        this.showClaim = showClaim;
-        this.showContact = showContact;
+        this.toShowClaim = toShowClaim;
+        this.toShowContact = toShowContact;
         this.toClear = toClear;
     }
 
@@ -72,23 +73,23 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean showClaim, boolean showContact) {
+                         boolean toShowClaim, boolean toShowContact) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.showClaim = showClaim;
-        this.showContact = showContact;
+        this.toShowClaim = toShowClaim;
+        this.toShowContact = toShowContact;
     }
 
     //@@author{lawncegoh}
     /**
      * Constructs a {@code CommandResult} with the specified fields that includes a specific Claim instance
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showClaim, Claim claim) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean toShowClaim, Claim claim) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.showClaim = showClaim;
+        this.toShowClaim = toShowClaim;
         this.claim = claim;
     }
 
@@ -96,13 +97,13 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields that includes a specific Contact instance
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showClaim,
-                         boolean showContact, Contact contact) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean toShowClaim,
+                         boolean toShowContact, Contact contact) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.showClaim = showClaim;
-        this.showContact = showContact;
+        this.toShowClaim = toShowClaim;
+        this.toShowContact = toShowContact;
         this.contact = contact;
     }
 
@@ -128,12 +129,12 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isClaim() {
-        return showClaim;
+    public boolean hasClaim() {
+        return toShowClaim;
     }
 
-    public boolean isContact() {
-        return showContact;
+    public boolean hasContact() {
+        return toShowContact;
     }
 
     public boolean isCreateShortCut() {

@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.AddIncomeCommand;
+import seedu.address.logic.commands.CheckCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.DeleteIncomeCommand;
 import seedu.address.logic.commands.EditContactCommand;
@@ -18,7 +20,10 @@ import seedu.address.logic.commands.EditContactCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.EditIncomeCommand.EditIncomeDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.SortReverseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
@@ -93,21 +98,56 @@ public class FinSecParserTest {
     //=========== FinSec ================================================================================
 
 
+    //@@author{lawncegoh}
+    //=========== Goto ==================================================================================
+    @Test
+    public void parseCommand_goto() throws ParseException {
+        assertThrows(ParseException.class, () -> parser.parseCommand(GotoCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(GotoCommand.COMMAND_WORD + " contacts") instanceof GotoCommand);
+    }
+
+    //@@author{lawncegoh}
+    //=========== Check ==================================================================================
+    @Test
+    public void parseCommand_check() throws ParseException {
+        assertThrows(ParseException.class, () -> parser.parseCommand(CheckCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(CheckCommand.COMMAND_WORD + " 1") instanceof CheckCommand);
+    }
+
+    //@@author{lawncegoh}
+    //=========== Sort ==================================================================================
+
+    @Test
+    public void parseCommand_sort() throws ParseException {
+        assertThrows(ParseException.class, () -> parser.parseCommand(SortCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " name") instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " date") instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " status") instanceof SortCommand);
+    }
+
+    //@@author{lawncegoh}
+    //=========== Reverse ==================================================================================
+
+    @Test
+    public void parseCommand_reverse() throws ParseException {
+        assertThrows(ParseException.class, () -> parser.parseCommand(SortReverseCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(SortReverseCommand.COMMAND_WORD + " name") instanceof SortReverseCommand);
+        assertTrue(parser.parseCommand(SortReverseCommand.COMMAND_WORD + " date") instanceof SortReverseCommand);
+        assertTrue(parser.parseCommand(SortReverseCommand.COMMAND_WORD + " status") instanceof SortReverseCommand);
+    }
+
+    //@@author{lawncegoh}
+    //=========== Clear ==================================================================================
+    @Test
+    public void parseCommand_clear() throws Exception {
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
+    }
 
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
-    /*
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
-    }
-    */
 
     @Test
     public void parseCommand_help() throws Exception {

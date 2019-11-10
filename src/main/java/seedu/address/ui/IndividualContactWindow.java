@@ -63,6 +63,7 @@ public class IndividualContactWindow extends UiPart<Stage> {
     @FXML
     private VBox box;
 
+    //@@author{lawncegoh}
     /**
      * Creates a new Window.
      *
@@ -92,6 +93,7 @@ public class IndividualContactWindow extends UiPart<Stage> {
         claims.setItems(claimItems);
     }
 
+    //@@author{lawncegoh}
     /**
      * Creates a new IndividualContactWindow.
      */
@@ -106,6 +108,7 @@ public class IndividualContactWindow extends UiPart<Stage> {
         box.setStyle("-fx-background-color:POWDERBLUE");
     }
 
+    //@@author{lawncegoh}
     /**
      * Shows the IndividualContact window.
      * @throws IllegalStateException
@@ -131,6 +134,7 @@ public class IndividualContactWindow extends UiPart<Stage> {
         getRoot().centerOnScreen();
     }
 
+    //@@author{lawncegoh}
     /**
      * Returns true if the help window is currently being shown.
      */
@@ -138,6 +142,7 @@ public class IndividualContactWindow extends UiPart<Stage> {
         return getRoot().isShowing();
     }
 
+    //@@author{lawncegoh}
     /**
      * Hides the help window.
      */
@@ -145,6 +150,7 @@ public class IndividualContactWindow extends UiPart<Stage> {
         getRoot().hide();
     }
 
+    //@@author{lawncegoh}
     /**
      * Focuses on the help window.
      */

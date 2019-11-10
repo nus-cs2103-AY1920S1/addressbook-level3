@@ -1,5 +1,6 @@
 package seedu.address.model.commanditem;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -32,6 +33,18 @@ public class CommandTaskTest {
         assertTrue(CommandTask.isValidTask("add_contact"));
         assertTrue(CommandTask.isValidTask("exit"));
 
+    }
+
+    @Test
+    public void checkHashCode() {
+        CommandTask commandTask = new CommandTask("exit");
+        assertEquals(commandTask.hashCode(), commandTask.task.hashCode());
+    }
+
+    @Test
+    public void checkString() {
+        CommandTask commandTask = new CommandTask("exit");
+        assertEquals(commandTask.toString(), "exit");
     }
 
 }
