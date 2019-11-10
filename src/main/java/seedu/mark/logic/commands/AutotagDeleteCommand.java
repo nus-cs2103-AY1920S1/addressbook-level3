@@ -34,7 +34,7 @@ public class AutotagDeleteCommand extends Command {
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireAllNonNull(model, storage);
 
-        boolean taggerRemoved = model.removeTagger(taggerName);
+        boolean taggerRemoved = model.removeTagger(taggerName).isPresent();
 
         if (!taggerRemoved) {
             throw new CommandException(String.format(MESSAGE_AUTOTAG_DOES_NOT_EXIST, taggerName));

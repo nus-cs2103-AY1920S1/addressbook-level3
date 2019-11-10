@@ -5,6 +5,7 @@ import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -175,7 +176,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean removeTagger(String taggerName) {
+    public Optional<SelectiveBookmarkTagger> removeTagger(String taggerName) {
         requireNonNull(taggerName);
         return versionedMark.removeTagger(taggerName);
     }
