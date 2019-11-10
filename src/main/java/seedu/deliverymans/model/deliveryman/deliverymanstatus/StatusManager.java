@@ -6,7 +6,6 @@ import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatu
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
@@ -29,6 +28,9 @@ public class StatusManager {
      * Can only be called by higher-level classes that uses this class (ie. DeliverymenDatabase)
      */
     public void initStatusLists(UniqueDeliverymanList deliverymenList) {
+        availableMen.clear();
+        unavailableMen.clear();
+        deliveringMen.clear();
         for (Deliveryman man : deliverymenList) {
             switch (man.getStatus().getDescription()) {
             case "AVAILABLE":
@@ -49,12 +51,12 @@ public class StatusManager {
     /**
      * To be added
      */
-    public void switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
+    public Deliveryman switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
         String status = deliveryman.getStatus().getDescription();
         if (status.equals(AVAILABLE_STATUS)) {
-            updateStatusOf(deliveryman, UNAVAILABLE_STATUS);
+            return updateStatusOf(deliveryman, UNAVAILABLE_STATUS);
         } else if (status.equals(UNAVAILABLE_STATUS)) {
-            updateStatusOf(deliveryman, AVAILABLE_STATUS);
+            return updateStatusOf(deliveryman, AVAILABLE_STATUS);
         } else {
             throw new InvalidStatusChangeException();
         }
@@ -145,29 +147,22 @@ public class StatusManager {
             throw new NoMoreAvailableDeliverymanException();
         }
         Deliveryman removed = availableMen.remove(0);
-        updateStatusOf(removed, "DELIVERING");
-        return removed;
+        return updateStatusOf(removed, "DELIVERING");
     }
 
     /**
      * Resets the status of the deliveryman after an order has become inactive (ie. deleted or completed).
      */
-    public void updateDeliverymanStatusAfterChangesToOrder(Name nameOfDeliveryman) {
-        for (Deliveryman man : deliveringMen) {
-            if (man.getName().equals(nameOfDeliveryman)) {
-                Deliveryman deliveryman = man;
-                updateStatusOf(deliveryman, "AVAILABLE");
-                break;
-            }
-        }
+    public Deliveryman updateDeliverymanStatusAfterChangesToOrder(Deliveryman deliveryman) {
+        return updateStatusOf(deliveryman, "AVAILABLE");
     }
 
     /**
      * Updates the status of a deliveryman by removing the previous status and assigning the new status.
      */
-    public void updateStatusOf(Deliveryman deliveryman, String strStatus) {
+    public Deliveryman updateStatusOf(Deliveryman deliveryman, String strStatus) {
         removePreviousStatus(deliveryman);
-        assignStatusTagTo(deliveryman, strStatus);
+        return assignStatusTagTo(deliveryman, strStatus);
     }
 
     /**
@@ -192,22 +187,23 @@ public class StatusManager {
     /**
      * Assigns new status tag to a deliveryman.
      */
-    public void assignStatusTagTo(Deliveryman deliveryman, String strNewStatus) {
+    public Deliveryman assignStatusTagTo(Deliveryman deliveryman, String strNewStatus) {
+        Deliveryman updatedDeliveryman;
         switch (strNewStatus) {
         case "AVAILABLE":
-            deliveryman.setStatusTo(UniqueStatusList.getAvailableTag());
-            availableMen.add(deliveryman);
-            break;
+            updatedDeliveryman = deliveryman.setStatusTo(UniqueStatusList.getAvailableTag());
+            availableMen.add(updatedDeliveryman);
+            return updatedDeliveryman;
         case "UNAVAILABLE":
-            deliveryman.setStatusTo(UniqueStatusList.getUnavailableTag());
-            unavailableMen.add(deliveryman);
-            break;
+            updatedDeliveryman = deliveryman.setStatusTo(UniqueStatusList.getUnavailableTag());
+            unavailableMen.add(updatedDeliveryman);
+            return updatedDeliveryman;
         case "DELIVERING":
-            deliveryman.setStatusTo(UniqueStatusList.getDeliveringTag());
-            deliveringMen.add(deliveryman);
-            break;
+            updatedDeliveryman = deliveryman.setStatusTo(UniqueStatusList.getDeliveringTag());
+            deliveringMen.add(updatedDeliveryman);
+            return updatedDeliveryman;
         default:
-            return;
+            return deliveryman;
         }
     }
 

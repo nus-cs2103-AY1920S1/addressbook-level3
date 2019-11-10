@@ -42,7 +42,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     public DeliverymenDatabase(ReadOnlyDeliverymenDatabase toBeCopied) {
         this();
         resetData(toBeCopied);
-        statusManager.initStatusLists(deliverymen);
     }
 
     /**
@@ -60,6 +59,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         requireNonNull(newData);
 
         setDeliverymen(newData.getDeliverymenList());
+        statusManager.initStatusLists(deliverymen);
     }
 
     // ========== Basic functions related to deliverymen ==========================================================
@@ -150,15 +150,21 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     /**
      * Updates the deliveryman status after he has completed an order.
      */
-    public void updateDeliverymanStatusAfterChangesToOrder(Name deliveryman) {
-        statusManager.updateDeliverymanStatusAfterChangesToOrder(deliveryman);
+    public void updateDeliverymanStatusAfterChangesToOrder(Name name) {
+        getDeliverymenList().stream()
+                .filter(d -> d.getName().equals(name))
+                .findAny()
+                .ifPresent(deliveryman -> deliverymen.setDeliveryman(deliveryman,
+                        statusManager.updateDeliverymanStatusAfterChangesToOrder(deliveryman)));
     }
 
     /**
      * Switches the deliveryman status from AVAILABLE to UNAVAILABLE, or vice versa.
      */
-    public void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException {
-        statusManager.switchDeliverymanStatus(target);
+    public Deliveryman switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException {
+        Deliveryman editedDeliveryman = statusManager.switchDeliverymanStatus(target);
+        deliverymen.setDeliveryman(target, editedDeliveryman);
+        return editedDeliveryman;
     }
 
     // ========== Methods related to Statistics ================================================================

@@ -3,7 +3,6 @@ package seedu.deliverymans.model.deliveryman;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,7 +21,7 @@ public class Deliveryman {
     private final Phone phone;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Tag> tags;
     private StatusTag status;
 
     /**
@@ -32,7 +31,7 @@ public class Deliveryman {
         requireAllNonNull(name, phone);
         this.name = name;
         this.phone = phone;
-        this.tags.addAll(tags);
+        this.tags = Set.copyOf(tags);
         status = new StatusTag("UNAVAILABLE"); // editing field will affect status
     }
 
@@ -40,7 +39,7 @@ public class Deliveryman {
         requireAllNonNull(name, phone);
         this.name = name;
         this.phone = phone;
-        this.tags.addAll(tags);
+        this.tags = Set.copyOf(tags);
         this.status = status; // editing other fields will affect status
     }
 
@@ -64,8 +63,8 @@ public class Deliveryman {
         return status;
     }
 
-    public void setStatusTo(StatusTag status) {
-        this.status = status;
+    public Deliveryman setStatusTo(StatusTag status) {
+        return new Deliveryman(name, phone, tags, status);
     }
 
     /**
@@ -100,13 +99,14 @@ public class Deliveryman {
         Deliveryman otherPerson = (Deliveryman) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getStatus().equals(getStatus());
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, phone, tags);
+        return Objects.hash(name, phone, tags, status);
     }
 
     @Override

@@ -31,7 +31,7 @@ Responsibilities: Code Quality, Documentation, Integration, Testing
 
 === Ryan Tay
 image::ryantay232.png[width="150", align="left"]
-{empty}[http://github.com/ryantay232[github]]
+{empty}[http://github.com/ryantay232[github]] [<<ryantay232#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code Quality, Documentation, Integration, Testing
