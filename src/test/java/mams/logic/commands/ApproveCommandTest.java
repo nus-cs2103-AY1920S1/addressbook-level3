@@ -6,6 +6,12 @@ import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_STUDENT_REMOVE_MOD;
 import static mams.logic.commands.SetCredits.MESSAGE_STUDENT_CREDIT_CHANGE;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalIndexes.INDEX_FOURTH;
 import static mams.testutil.TypicalIndexes.INDEX_MAX_INT;
@@ -17,11 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 import mams.commons.core.Messages;
 import mams.commons.core.index.Index;
