@@ -1,5 +1,6 @@
 package com.typee.logic.interactive.parser.state.pdfmachine;
 
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_FROM;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_TO;
 import static java.util.Objects.requireNonNull;
 
@@ -18,9 +19,10 @@ import com.typee.model.person.Name;
  */
 public class ToState extends PenultimateState {
 
-    private static final String MESSAGE_CONSTRAINTS = "Sender name stored. Please enter the name of the receiver,"
-            + " i.e. the person who the report is sent to, prefixed by \"t/\".";
-    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid name after \"t/\".";
+    private static final String MESSAGE_CONSTRAINTS = "Who is the receiver of the document? Please enter the name "
+            + "prefixed by " + PREFIX_TO.getPrefix() + ". Example - [t/Damith]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid name after "
+            + PREFIX_TO.getPrefix() + ". Names must be in English and contain only alphanumeric characters.";
 
     protected ToState(ArgumentMultimap soFar) {
         super(soFar);
@@ -42,7 +44,7 @@ public class ToState extends PenultimateState {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> from)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(from, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(from, MESSAGE_INVALID_INPUT);
         enforceValidity(from);
     }
 
@@ -55,7 +57,7 @@ public class ToState extends PenultimateState {
     private void enforceValidity(Optional<String> to) throws StateTransitionException {
         String name = to.get();
         if (!Name.isValidName(name)) {
-            throw new StateTransitionException(Name.MESSAGE_CONSTRAINTS);
+            throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }
     }
 

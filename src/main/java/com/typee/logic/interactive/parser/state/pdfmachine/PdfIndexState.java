@@ -17,9 +17,10 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
  * Represents the initial state of the state machine that builds the {@code PdfCommand}.
  */
 public class PdfIndexState extends State {
-    private static final String MESSAGE_CONSTRAINTS = "PDF command initiated. Please enter the index of the"
-            + " engagement you would like to generate a report for. The index should be prefixed by \"i/\".";
-    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter an index prefixed by \"i/\".";
+    private static final String MESSAGE_CONSTRAINTS = "Which engagement would you like to make a PDF of? Please enter "
+            + "the index of the engagement prefixed by " + PREFIX_LIST_INDEX.getPrefix() + ". Example - [i/4]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter an index prefixed by " +
+            PREFIX_LIST_INDEX.getPrefix() + ". The index must be positive.";
 
     public PdfIndexState(ArgumentMultimap soFar) {
         super(soFar);
@@ -39,7 +40,7 @@ public class PdfIndexState extends State {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> index)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(index, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(index, MESSAGE_INVALID_INPUT);
         enforceValidity(index);
     }
 
@@ -53,7 +54,7 @@ public class PdfIndexState extends State {
         try {
             Index listIndex = InteractiveParserUtil.parseIndex(index.get());
         } catch (ParseException e) {
-            throw new StateTransitionException(e.getMessage());
+            throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }
     }
 
