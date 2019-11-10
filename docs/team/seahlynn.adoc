@@ -18,12 +18,12 @@ We are a group of 5 Year 2 NUS Computer Science students, who worked together to
 
 ==== About The Project
 +Work is a CLI application created by my team for NUS School of Computing's CS2103T Software Engineering module.
-In this module, each team is required to morph or enhance an exiting CLI AddressBook application, to fit the needs of a
+In this module, each team is required to morph or enhance an existing CLI AddressBook application, to fit the needs of a
 target group of users.
 
 Our application, +Work, is a project management tool aimed at NUS project leaders who are in charge of a small project
 group. It allows project leaders to manage their members, meeting times, task allocations as well as personal claims for items purchased.
-A user can use +Work to find the most popular meeting time among his project members, when calling for a meeting, and add project tasks, and members that are assigned under these tasks, into +Work to better manage the project
+A user can use +Work to find the most popular meeting time among his project members when calling for a meeting, and even add project tasks and members that are assigned under these tasks, into +Work to better manage the project
 manpower.
 
 ==== Formatting of Document
@@ -41,19 +41,19 @@ This section details all of my contributions to the project, and showcases how I
 * *Major enhancement*: I added the ability to retrieve the overall statistics of tasks and members in +Work.
 ** What it does: This feature allows the user to retrieve statistics relating to tasks and members in +Work, including the
 number of tasks and inventory items allocated to each member, and the proportion of tasks of different statuses, along with
-the time spent on each task inputted into +Work.
+the time spent on each task added into +Work.
 ** Justification: This feature increases the functionality of +Work because it gives the user a broad overview of the
 project's progress and members' responsibility allocation at a glance, which is one of the main goals of effective project management.
 ** Highlights: The statistics are displayed in the form of a Pie-Chart for easy comparison of data at a glance.
-Implementation of the statistics code also required the use of a newly introduced
+Implementation of the statistics code also requires the use of a newly introduced
 mapping concept our team added to +Work, and required extensive consideration in the integration of the two implementations.
 
 * *Major enhancement*: I added the ability for users to work with (add, delete, list, set image for) project members in +Work.
-** What it does: This feature allows both members and tasks can be managed in one application.
+** What it does: This feature allows both members and tasks to be managed in one application.
 ** Justification: This feature improves the product significantly because it adds another aspect of project management (member management) into +Work,
 and allows different tasks and members to be assigned to one another. This allows
 users to be able to draw connections between tasks and members when managing the project.
-** Highlights: One of the unique features that member has, is the ability to be assigned profile pictures. Users can
+** Highlights: One of the unique features that "Member" has is the ability to be assigned profile pictures. Users can
 link an image on their laptop to a specific member in +Work, to set the image as the member's profile photo. This was
 challenging to implement because I had to ensure the UI would be able to accurately display the profile picture of each
 member in an appealing way.
@@ -67,13 +67,13 @@ each member under individual member cards
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=seahlynn&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=seahlynn&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Functional code]]
  [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=seahlynn&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=seahlynn&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Test code]]
 
-==== Other Significant Contribution to Project
+==== Other Significant Contributions to Project
 ** Project management
 *** Set up the project organisation and repository at the beginning of the project
-*** Refactored sections of code to ensure the syntax of every command is consistent with +Work's User Guide (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/85[85])
+*** Refactored sections of code to ensure the syntax of every command is consistent with +Work's User Guide (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/85[#85])
 
 ** Enhancements to existing features
-*** Enhanced the UI display for tasks, to include information regarding member allocated to the different tasks, in individual task cards.
+*** Enhanced the UI display for tasks, to include information regarding member allocated to the different tasks in individual task cards.
 (Pull requests https://github.com/AY1920S1-CS2103T-T12-1/main/pull/85[#85], https://github.com/AY1920S1-CS2103T-T12-1/main/pull/158[#158])
 
 ** Documentation
@@ -175,7 +175,7 @@ They showcase my ability to write technical documentation and the technical dept
 
 ==== Statistics feature
 The Statistics feature allows users to retrieve statistics relating to members and tasks in +Work, so that users can get a
-broad overview of the project's and member's project.
+broad overview of the project and members' contribution to the project.
 
 ===== Implementation
 
@@ -265,7 +265,7 @@ The following class diagram exposes the structure of the Member class, and shows
 image::MemberClassDiagram.png[width="600"]
 Diagram 13. Class diagram of Member package
 
-Apart from the typical commands (`add-member`, `delete-member`, `find-member`) involved in such a central class, the member features also introduce a `set-image` command.
+Apart from the typical commands (`add-member`, `delete-member`, `find-member`) involved in such a central class, the member feature also introduces a `set-image` command.
 The `set-image` command allows users to set an image in their computer as the profile picture of a member in +Work.
 To accommodate the `set-image` command, the `Member` class has an alternative constructor that takes in the image filepath as a parameter to save it as an attribute to the member object, when `set-image` command is called.
 Additionally, to support the command, the `Member` class implements the following operation:
@@ -327,7 +327,7 @@ being final and unchangeable.
 ====== Aspect: Display of members
 * **Alternative 1:** Display each member with only its member name, ID and profile picture
 ** Pros: Concise display of each member in +Work, with only the essential information being exposed
-** Cons: Less details of individual members are displayed, making it difficult to draw links between members and the tasks they are involved in
+** Cons: Fewer details of individual members are displayed, making it difficult to draw links between members and the tasks they are involved in
 * **Alternative 2 (current choice):** Display members with its member name, ID, profile picture and tasks assigned
 ** Pros: Includes more details for individual members, which increases the ease in which the user can identify a member's responsibilities
 ** Cons: Display of members is cluttered, and may expose unnecessary information in certain situations
