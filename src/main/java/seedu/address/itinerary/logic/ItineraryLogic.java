@@ -101,6 +101,10 @@ public class ItineraryLogic {
         return new ItineraryStatisticsManager();
     }
 
+    public void clearModel() {
+        model.clearEvent();
+    }
+
     /**
      * Local class for {@link ItineraryStatistics}
      */

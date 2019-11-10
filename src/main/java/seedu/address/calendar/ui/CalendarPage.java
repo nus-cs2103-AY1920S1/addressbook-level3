@@ -19,6 +19,11 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CommandBox;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.CodeWindow;
+import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
@@ -37,7 +42,11 @@ public class CalendarPage extends UiPart<Region> implements Page {
     private CalendarLogic calendarLogic;
     private ReadOnlyDoubleProperty monthViewWidth;
     private ListWindow listWindow;
+
     private final Logger logger = LogsCenter.getLogger(getClass());
+
+    private CodeWindow codeWindow;
+    private HelpWindow helpWindow;
 
     @FXML
     StackPane commandBoxPlaceholder;
@@ -64,6 +73,8 @@ public class CalendarPage extends UiPart<Region> implements Page {
 
         fillInnerParts();
         listWindow = new ListWindow();
+        codeWindow = new CodeWindow();
+        helpWindow = new HelpWindow();
     }
 
     /**
@@ -122,8 +133,15 @@ public class CalendarPage extends UiPart<Region> implements Page {
         monthViewPlaceholder.getChildren().add(MonthView.generateMonthGrid(viewOnlyMonth, monthViewWidth));
     }
 
+    @Override
+    public void closeResources() {
+        helpWindow.hide();
+        codeWindow.hide();
+    }
+
     @FXML
     private void handleExit() {
+        closeResources();
         PageManager.closeWindows();
     }
 

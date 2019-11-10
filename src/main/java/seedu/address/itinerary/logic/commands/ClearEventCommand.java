@@ -1,15 +1,10 @@
 package seedu.address.itinerary.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.ArrayList;
 
 import javafx.collections.transformation.SortedList;
-import javafx.fxml.FXML;
-import seedu.address.address.logic.commands.ClearCommand;
 import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.model.event.Event;
-import seedu.address.itinerary.ui.ClearCommandWindow;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,37 +21,9 @@ public class ClearEventCommand extends Command<Model> {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears all event entries in the itinerary list\n";
     public static final String MESSAGE_WARNING = "Currently viewing clear window warning.";
 
-    private ClearCommandWindow clearCommandWindow;
-
-    public ClearEventCommand() {
-        clearCommandWindow = new ClearCommandWindow();
-    }
-
-    // For testing purposes
-    ClearEventCommand(ClearCommandWindow clearCommandWindow) {
-        this.clearCommandWindow = clearCommandWindow;
-    }
-
-    /**
-     * Opens the clear window or focuses on it if it's already opened.
-     */
-    @FXML
-    private void handleClear() {
-        if (!clearCommandWindow.isShowing()) {
-            clearCommandWindow.show();
-        } else {
-            clearCommandWindow.focus();
-        }
-    }
-
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-
-        clearCommandWindow.setModel(model);
-        handleClear();
-        return new CommandResult(MESSAGE_WARNING, false, false);
+        return new CommandResult(MESSAGE_WARNING, true);
     }
 
 
