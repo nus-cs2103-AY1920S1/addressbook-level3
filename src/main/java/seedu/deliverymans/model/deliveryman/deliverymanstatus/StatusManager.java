@@ -78,6 +78,9 @@ public class StatusManager {
      */
     public void removeDeliveryman(Deliveryman target) {
         requireNonNull(target);
+        assert (target.getStatus().getDescription().equals("AVAILABLE")
+                || target.getStatus().getDescription().equals("UNAVAILABLE")
+                || target.getStatus().getDescription().equals("DELIVERING"));
 
         for (Deliveryman man: availableMen) {
             if (target.isSameDeliveryman(man)) {
