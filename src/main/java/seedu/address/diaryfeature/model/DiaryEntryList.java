@@ -1,5 +1,6 @@
 package seedu.address.diaryfeature.model;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
@@ -28,25 +29,28 @@ public class DiaryEntryList {
 
     /**
      *
-     * @param index
+     * @param input
      * @return
      */
 
-    public DiaryEntry deleteDiaryEntry(int index) {
-        DiaryEntry removed = entries.remove(index - 1);
-        return removed;
+    public DiaryEntry deleteDiaryEntry(DiaryEntry input) {
+        if(entries.remove(input)) {
+            return input;
+        }
+        return null;
     }
+
 
     public void setDiaryEntryPrivate(int index) {
         DiaryEntry removed = entries.get(index - 1 );
         removed.setPrivate();
-        entries.set(index-1,removed);
+        //entries.set(index-1,removed);
     }
 
     public void setDiaryEntryUnPrivate(int index) {
         DiaryEntry removed = entries.get(index - 1);
         removed.unPrivate();
-        entries.set(index-1,removed);
+        //entries.set(index-1,removed);
     }
 
 

@@ -41,6 +41,8 @@ public class PrivateCommand extends Command<DiaryModel> {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(OVERFLOW);
         }
+        DiaryEntry privateEntry = lastShownList.get(targetIndex.getZeroBased());
+        System.out.println(privateEntry);
         model.setDiaryEntryPrivate(targetIndex.getOneBased());
         return new CommandResult(String.format(MESSAGE_PRIVATE_ENTRY_SUCCESS,targetIndex.getOneBased()));
     }

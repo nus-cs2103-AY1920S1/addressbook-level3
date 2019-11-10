@@ -45,12 +45,12 @@ public class DiaryModel {
 
     /**
      *
-     * @param target
+     * @param input
      * @return
      */
-    public DiaryEntry deleteDiaryEntry(int target) {
+    public DiaryEntry deleteDiaryEntry(DiaryEntry input) {
 
-        return diaryBook.deleteDiaryEntry(target);
+        return diaryBook.deleteDiaryEntry(input);
     }
 
 
@@ -78,6 +78,10 @@ public class DiaryModel {
     public DiaryEntry addDiaryEntry (DiaryEntry diaryEntry) {
 
         return diaryBook.addDiaryEntry(diaryEntry);
+    }
+
+    public boolean contains(DiaryEntry otherEntry) {
+        return diaryBook.contains(otherEntry);
     }
 
     public Optional<Details> getDetails() {

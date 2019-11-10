@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.diaryfeature.logic.commands.AddCommand;
 import seedu.address.diaryfeature.logic.commands.DeleteCommand;
@@ -43,7 +44,7 @@ public class DiaryBookParser {
         if (!matcher.matches()) {
             logger.info("Couldn't match the command word");
             logger.info(matcher.toString());
-            return new ErrorCommand(new ParseException(matcher.toString()));
+            throw new EmptyArgumentException("");
         }
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
@@ -88,9 +89,7 @@ public class DiaryBookParser {
                 default:
                     return new ErrorCommand(new DiaryUnknownException());
             }
-        //} catch (EmptyArgumentException error) {
-        //    return new ErrorCommand(error);
-      //  }
+
     }
 
 }

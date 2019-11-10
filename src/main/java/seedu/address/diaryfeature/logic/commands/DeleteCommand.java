@@ -45,7 +45,8 @@ public class DeleteCommand extends Command<DiaryModel> {
             throw new CommandException(OVERFLOW);
         }
 
-        DiaryEntry entryToDelete = model.deleteDiaryEntry(targetIndex.getOneBased());
+        DiaryEntry toDelete = lastShownList.get(targetIndex.getZeroBased());
+        DiaryEntry entryToDelete = model.deleteDiaryEntry(toDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, entryToDelete));
     }
 

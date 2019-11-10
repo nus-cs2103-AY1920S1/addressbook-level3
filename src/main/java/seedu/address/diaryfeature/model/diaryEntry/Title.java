@@ -6,7 +6,7 @@ package seedu.address.diaryfeature.model.diaryEntry;
 public class Title {
 
     public static final String MESSAGE_CONSTRAINTS = "" +
-            "Title can't be the empty string, can't only be spaces and has to be less than 50 characters ";
+            "Title can't be an empty string, can't only be spaces and has to be less than 50 characters ";
     public static final int TITLE_MAX_LENGTH = 50;
 
     public final String value;
@@ -21,7 +21,6 @@ public class Title {
 
     }
 
-
     @Override
     public String toString() {
         return value;
@@ -31,7 +30,7 @@ public class Title {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Title // instanceof handles nulls
-                && value.equals(((Title) other).value)); // state check
+                && value.equalsIgnoreCase(((Title) other).value)); // state check
     }
 
     @Override

@@ -6,6 +6,7 @@ import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.diaryfeature.model.DiaryModel;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Adds a diary entry to the Diary Book
@@ -15,6 +16,8 @@ public class AddCommand extends Command<DiaryModel> {
     public static final String COMMAND_WORD = "add";
     private static final String MESSAGE_SUCCESS = "New entry added:";
     private final DiaryEntry toAdd;
+    private static final String MESSAGE_DUPLICATE_ERROR = "This entry already exists!";
+
 
     /**
      * Generates the Add Command to add an diary entry to the diary book
@@ -32,8 +35,11 @@ public class AddCommand extends Command<DiaryModel> {
      */
 
     @Override
-    public CommandResult execute(DiaryModel model) {
+    public CommandResult execute(DiaryModel model)  throws CommandException {
         requireNonNull(model);
+        if(model.contains(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ERROR);
+        }
         model.addDiaryEntry(toAdd);
         return new CommandResult(MESSAGE_SUCCESS + "\n" +  toAdd);
     }

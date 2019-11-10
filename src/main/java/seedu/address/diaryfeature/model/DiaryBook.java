@@ -73,9 +73,9 @@ public class DiaryBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public DiaryEntry deleteDiaryEntry(int x) {
+    public DiaryEntry deleteDiaryEntry(DiaryEntry input) {
 
-        return entries.deleteDiaryEntry(x);
+        return entries.deleteDiaryEntry(input);
     }
 
     public void setDiaryEntryPrivate(int index) {
@@ -100,6 +100,10 @@ public class DiaryBook {
 
     public ObservableList<DiaryEntry> getDiaryEntryList() {
         return entries.asUnmodifiableObservableList();
+    }
+
+    public boolean contains(DiaryEntry otherEntry) {
+        return entries.contains(otherEntry);
     }
 
     @Override

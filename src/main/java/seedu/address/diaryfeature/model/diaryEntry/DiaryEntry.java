@@ -10,14 +10,14 @@ import java.util.Objects;
  * Represents a DiaryEntry
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class DiaryEntry {
+public class DiaryEntry  {
 
     // Identity fields
     private final Title title;
     private final Date date;
     private final Place place;
     private final Memory memory;
-    private boolean isPrivate = false;
+    private boolean isPrivate;
 
 
     /**
@@ -85,10 +85,11 @@ public class DiaryEntry {
             return false;
         }
 
-        DiaryEntry otherPerson = (DiaryEntry) other;
-        return otherPerson.getTitle().equals(getTitle())
-                && otherPerson.getDate().equals(getDate());
+        DiaryEntry otherEntry = (DiaryEntry) other;
+        return otherEntry.getTitle().equals(getTitle()) &&
+                otherEntry.getDateAsStringtoStore().equalsIgnoreCase(getDateAsStringtoStore());
     }
+
 
     @Override
     public int hashCode() {
