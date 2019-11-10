@@ -596,8 +596,10 @@ image::ug-command/ug-add-s.png[width="800"]
 Order index should be a positive integer and must exist in the order list.
 [TIP]
 Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
+*Month and date can be single digits if applicable.*
 [TIP]
 Time should be in the 24-hour format HH.MM with valid hour and minute.
+*Hour and minute can be single digits if applicable.*
 [TIP]
 Schedule can have any number of tags, including 0.
 
@@ -626,8 +628,6 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 - Existing values will be updated to the input values.
 - When editing tags, the existing tags of the schedule will be removed i.e adding of tags is not cumulative.
 - You can remove all the schedule's tags by typing `t/` without specifying any tags after it.
-- You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule.
-- Venue that is too long will be truncated / not visible on the calendar schedule. Simple hover your cursor over the schedule, the full venue should appear as a temporary pop-up in a while.
 ****
 
 [underline]#Examples#:
