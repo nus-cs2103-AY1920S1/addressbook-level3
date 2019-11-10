@@ -50,7 +50,7 @@ public class AddAssignmentCommand extends Command {
         model.addAssignment(toAdd);
         List<Student> studentList = model.getFilteredStudentList();
         for (Student student: studentList) {
-            toAdd.addOneStudentGrade(student.getName().fullName);
+            toAdd.addOneUncompletedStudentGrade(student.getName().fullName);
         }
         model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

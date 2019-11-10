@@ -356,6 +356,16 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+        boolean note = notebook.equals(other.notebook);
+        boolean pref = userPrefs.equals(other.userPrefs);
+        boolean stu = filteredStudents.equals(other.filteredStudents);
+        boolean ass = filteredAssignments.equals(other.filteredAssignments);
+        boolean les = filteredLessonLists.equals(other.filteredLessonLists);
+        boolean all = notebook.equals(other.notebook)
+                              && userPrefs.equals(other.userPrefs)
+                              && filteredStudents.equals(other.filteredStudents)
+                              && filteredAssignments.equals(other.filteredAssignments)
+                              && filteredLessonLists.equals(other.filteredLessonLists);
         return notebook.equals(other.notebook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredStudents.equals(other.filteredStudents)

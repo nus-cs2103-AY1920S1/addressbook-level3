@@ -381,6 +381,7 @@ public class Notebook implements ReadOnlyNotebook {
 
         // state check
         Notebook other = (Notebook) obj;
+
         return classrooms.equals(other.classrooms)
                 && lessonLists.equals(other.lessonLists);
     }

@@ -67,13 +67,16 @@ public class EditAssignmentCommand extends Command {
 
         Assignment assignmentToEdit = lastShownList.get(index.getZeroBased());
         Assignment editedAssignment = createEditedAssignment(assignmentToEdit, editAssignmentDescriptor);
-
-        if (!editedAssignment.isCompleted()) {
-            List<Student> studentList = model.getFilteredStudentList();
-            for (Student student: studentList) {
-                editedAssignment.addOneStudentGrade(student.getName().fullName);
+        List<Student> studentList = model.getFilteredStudentList();
+        for (Student student: studentList) {
+            if (editedAssignment.isCompleted()) {
+                editedAssignment.addOneCompletedStudentGrade(student.getName().fullName);
+            } else {
+                editedAssignment.addOneUncompletedStudentGrade(student.getName().fullName);
             }
+
         }
+
 
         if (!assignmentToEdit.isSameAssignment(editedAssignment) && model.hasAssignment(editedAssignment)) {
             throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);

@@ -128,7 +128,7 @@ public class Classroom implements ReadOnlyClassroom {
      * The assignment must not already exist in the classroom.
      */
     public void addAssignment(Assignment p) {
-        p.initialiseGrades(getStudentNameList());
+        //p.initialiseGrades(getStudentNameList());
         assignments.add(p);
     }
 
