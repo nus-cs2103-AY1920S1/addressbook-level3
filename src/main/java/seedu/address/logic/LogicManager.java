@@ -20,7 +20,7 @@ import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.SystemCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReferenceId;
@@ -41,7 +41,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final SystemCommandParser addressBookParser;
     private final CommandHistory commandHistory;
     private final QueueManager queueManager;
     private Thread lastEagerEvaluationThread;
@@ -51,7 +51,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         this.commandHistory = new CommandHistory();
-        this.addressBookParser = new AddressBookParser(commandHistory);
+        this.addressBookParser = new SystemCommandParser(commandHistory);
         this.queueManager = new QueueManager();
         this.lastEagerEvaluationThread = new Thread();
     }

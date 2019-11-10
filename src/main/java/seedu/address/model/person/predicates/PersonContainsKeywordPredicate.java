@@ -8,7 +8,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.Person;
 
 /**
- * Tests that a {@code Person}'s {@code ReferenceId}, {@code Name} or {@code Phone} matches the given keyword.
+ * Tests that a {@code Person}'s {@code ReferenceId}, {@code Name} or {@code Phone} contains the given keyword.
  */
 public class PersonContainsKeywordPredicate implements Predicate<Person> {
     private final String keyword;

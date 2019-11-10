@@ -32,11 +32,11 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.TestUtil;
 
-public class AddressBookParserTest {
+public class SystemCommandParserTest {
 
     private Model model = TestUtil.getTypicalModelManager();
     private final CommandHistory history = new CommandHistory();
-    private final AddressBookParser parser = new AddressBookParser(history);
+    private final SystemCommandParser parser = new SystemCommandParser(history);
 
     @Test
     public void parseCommand_add() throws Exception {
