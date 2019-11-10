@@ -41,7 +41,7 @@ Responsibilities: In charge of Transactions
 
 === Michaela Tang
 
-image::MichaelaTSH.png[width="150",align="left"]
+image::michaelatsh.png[width="150",align="left"]
 {empty}[http://github.com/MichaelaTSH[github]] [<<johndoe#, portfolio>>]
 
 Role: Documentation +

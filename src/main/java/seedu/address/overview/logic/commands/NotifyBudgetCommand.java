@@ -23,9 +23,11 @@ public class NotifyBudgetCommand extends NotifyCommand {
     public CommandResult execute(Model model) throws InvalidValueException {
 
         if (amount < 0 || amount > 100) {
+            logger.warning("Value not between 0 and 100, throwing exception.");
             throw new InvalidValueException(MESSAGE_INVALID_NOTIFY_AMOUNT);
         }
 
+        logger.info("Setting notification threshold for budget to " + amount);
         model.setBudgetThreshold(amount);
         return new CommandResult(String.format(MESSAGE_NOTIFY_BUDGET_SUCCESS, DECIMAL_FORMAT.format(amount)));
     }

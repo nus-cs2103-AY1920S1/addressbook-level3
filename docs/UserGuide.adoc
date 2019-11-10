@@ -477,7 +477,8 @@ for their expenditure.
 This command allows you to add a deadline to a person's reimbursement.
 
 [WARNING]
-You can set the deadline as any day you want. It is your responsibility to set a reasonable deadline.
+You can set the deadline as any valid day you want.
+It is your responsibility to set a reasonable deadline.
 
 * Command: `deadline p/NAME dt/dd-mmm-yyyy`
 * Example: [blue]`deadline p/Alex Yeoh dt/19-Dec-2019`
@@ -485,17 +486,17 @@ You can set the deadline as any day you want. It is your responsibility to set a
 * Steps:
 
 . Type the command with all parameters filled in, as shown in the screenshot below:
-
++
 //.Screenshot of the user input into Command Box for Deadline Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDeadlineCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 If the deadline is successfully added, Leo will respond with a success message and the
 deadline will now show for the specified person's reimbursement. +
 Otherwise, Leo will show an error message indicating that the person is not in the reimbursement list.
-
++
 //.Screenshot of a successful user input for Deadline Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDeadlineCommandSuccess.png[width="600"]
 
@@ -522,16 +523,16 @@ This command allows you to find the reimbursement for a specified person.
 * Steps:
 
 . Type the command, along with the person's name you'd like to find into command box:
-
++
 //.Screenshot of the user input into Command Box for Find Command in Reimbursement Tab
 image::Reimbursement/ReimbursementFindCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 Leo will respond with a success message and the tab will show the person's corresponding reimbursement, if it exists. +
 Otherwise, Leo will show an error message indicating that the person is not in reimbursement list.
-
++
 //.Diagram of successful find command in reimbursement tab
 image::Reimbursement/ReimbursementFindCommandSuccess.png[width="600"]
 
@@ -542,25 +543,25 @@ This command helps you to display the full reimbursement list after `find` and `
 
 * Steps:
 . Type [blue]`back` into the Command Box
-
++
 //.Screenshot of the user input into the Command Box for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 The tab will now show the full reimbursement list.
 
-
++
 //.Screenshot of a successful user input for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommandSuccess.png[width="600"]
 
-==== Marking a Command as Done
+==== Marking a Reimbursement as Done
 This command helps you to mark a reimbursement as done and remove it from reimbursement list.
 
 [NOTE]
-Transactions not shown in the Reimbursement Tab are already marked as done. +
-No indication will be shown in the Transaction Tab.
+Reimbursements only take transactions that have not been paid. +
+The reimbursement status is not shown in the transaction tab.
 
 * Command: `done p/NAME`
 * Example: [blue]`done p/Alex Yeoh`
@@ -569,16 +570,16 @@ No indication will be shown in the Transaction Tab.
 . Type the command, along with the person's name whose reimbursement is to be marked as done,
 as shown in the screenshot below:
 
-
++
 //.Screenshot of the user input into Command Box for Done Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDoneCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 The reimbursement for that person will be removed from the tab, as shown below:
 
-
++
 //.Screenshot of a successful user input for Done Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDoneCommandSuccess.png[width="600"]
 
@@ -591,17 +592,17 @@ This command helps you to sort the reimbursement lists based on amount, in desce
 * Steps:
 . Type the command [blue]`sort amount`, as shown in the screenshot below:
 
-
++
 //.Screenshot of the user input into Command Box for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommand.png[width="600"]
 
 
-[start = 2]
++
 . Hit `Enter`
-
++
 The reimbursements are sorted in descending order of the amount.
 
-
++
 //.Screenshot of a successful user input for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommandSuccess.png[width="600"]
 
@@ -612,15 +613,15 @@ This command helps you to sort the reimbursement lists based on name, in alphabe
 
 * Steps:
 . Type the command [blue]`sort name`, as shown in the screenshot below:
-
++
 //.Screenshot of the user input into Command Box for Sort Name Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortNameCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 The reimbursements are sorted in alphabetical order of person's name.
-
++
 //.Screenshot of a successful user input for Sort Name Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortNameCommandSuccess.png[width="600"]
 
@@ -631,15 +632,15 @@ This command helps you to sort the reimbursement lists based on deadline, in ord
 
 * Steps:
 . Type the command [blue]`sort date `, as shown in the screenshot below:
-
++
 //.Screenshot of the user input into Command Box for Sort Date Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortDateCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 The reimbursements are sorted by deadline date.
-
++
 //.Screenshot of a successful user input for Sort Date Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortDateCommandSuccess.png[width="600"]
 
@@ -826,20 +827,21 @@ description even if the category of the item does *not* match with the specified
 
 Steps:
 
-1. Type the command with a category specified as shown in the screenshot below:
+1. If you do not remember the exact description of the item to add, you can type the command "add" with a category
+specified as shown in the screenshot below.
 
 //.Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
 image::cashierUG/AddCommand1.png[width="620"]
 
 
 [start = 2]
-2. Enter the desired description and quantity according to the items suggested by Leo as shown below:
+2. Then, you can enter the desired description and quantity according to the items suggested by Leo as shown below.
 
 //.Screenshot of the user input (description, quantity) into Command Box for Add Command in Cashier Tab
 image::cashierUG/AddCommand2.png[width="600"]
 
 [start = 3]
-. Hit `Enter`
+. Now, you can hit `Enter`.
 
 //.Screenshot of the response message for Add Command in Cashier Tab
 image::cashierUG/AddCommand3.png[width="600"]
@@ -860,13 +862,13 @@ The specified index should correspond to the row index of the item in the table.
 
 * Steps:
 
-1. Type the command with an index specified as shown in the screenshot below:
+1. To delete an item, type the command "delete" with an index specified as shown in the screenshot below.
 
 //.Screenshot of the user input into Command Box for Delete Command in Cashier Tab
 image::cashierUG/DeleteCommand1.png[width="600"]
 
 [start = 2]
-. Hit `Enter`
+. Now, you can hit `Enter`.
 
 //.Screenshot of the response message for Delete Command in Cashier Tab
 image::cashierUG/DeleteCommand2.png[width="600"]
@@ -898,24 +900,24 @@ If the quantity is invalid, Leo will display the quantity of stock left.
 
 * Steps:
 
-1.1 To edit by *index*, enter the command with an index and quantity specified as shown in the screenshot below:
+1.1 To edit by its *index*, you can enter the command "edit" with an index and quantity specified as shown in the screenshot below.
 
 //.Screenshot of user input (index, description) into Command Box for Edit Command in Cashier Tab
 image::cashierUG/EditCommand1.png[width="600"]
 
 [start = 2]
-1.2. To edit by *description*, enter the required description and quantity as shown below:
+1.2. To edit by its *description*, you can enter the required description and quantity as shown below.
 
 //.Screenshot of user input (description, quantity) into Command Box for Edit Command in Cashier Tab
 image::cashierUG/EditCommand3.png[width="600"]
 
 [start = 2]
-. Hit `Enter`
+. Now, you can hit `Enter`.
 
 //.Screenshot of response message for Edit Command in Cashier Tab
 image::cashierUG/EditCommand2.png[width="600"]
 
-If successfully updated, Leo will respond with a response message. The quantity will then be updated in the table.
+If successfully updated, Leo will respond with a response message. The quantity will now be updated in the table.
 
 
 ==== Set the Cashier-In-Charge
@@ -937,13 +939,13 @@ This step must be executed before checking out. Else, checkout cannot proceed.
 
 * Steps:
 
-1. Type the command with the cashier's name specified as shown in the screenshot below:
+1. To set a cashier, type the command "cashier" with the cashier's name specified as shown in the screenshot below.
 
 //.Screenshot of user input into Command Box for Set Cashier Command in Cashier Tab
 image::cashierUG/SetCashierCommand1.png[width="600"]
 
 [start = 2]
-. Hit `Enter`
+. Now, you can hit `Enter`.
 
 //.Screenshot of response message for Set Cashier Command in Cashier Tab
 image::cashierUG/SetCashierCommand2.png[width="600"]
@@ -972,20 +974,20 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 
 * Steps:
 
-1. Type the command and specify the amount that the customer is paying as shown in the screenshot below:
+1. To checkout, you can type the command "checkout" and specify the amount that the customer is paying as shown in the screenshot below.
 
 //.Screenshot of user input into Command Box for Checkout Command in Cashier Tab
 image::cashierUG/CheckoutCommand1.png[width="600"]
 
 [start = 2]
-. Hit `Enter`
+. Now, you can hit `Enter`.
 
 //.Screenshot of response message for Checkout Command in Cashier Tab
 image::cashierUG/CheckoutCommand2.png[width="600"]
 
 
 If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset. +
-The `Home Tab` will be updated with this transaction and the remaining stock in the `Inventory Tab` will also be updated.
+The Home tab will be updated with this transaction and the remaining stock in the Inventory tab will also be updated.
 
 
 ==== Clears All the Sales Items in the Table
@@ -997,7 +999,7 @@ This command clears all the sales item in the table.
 After clearing, the cashier will be reset as well.
 
 [NOTE]
-This command enables you to disable the `Cashier Mode` footnote:[`Cashier Mode` automatically turns on when the table in the `Cashier Tab`
+This command enables you to disable the `Cashier Mode` footnote:[`Cashier Mode` automatically turns on when the table in the Cashier tab
 is not empty. While the `Cashier Mode` is turned on, any modification to the inventory is prohibited except addition of items.].
 
 [CAUTION]
@@ -1009,13 +1011,13 @@ This command is irreversible. Please use at your own discretion.
 
 * Steps:
 
-1. Type only the "clear" command word as shown in the screenshot below:
+1. To clear, type the "clear" command word only as shown in the screenshot below.
 
 //.Screenshot of user input into Command Box for Clear Command in Cashier Tab
 image::cashierUG/ClearCommand1.png[width="600"]
 
 [start = 2]
-. Hit `Enter`
+. Now, you can hit `Enter`.
 
 //.Screenshot of response message for Clear Command in Cashier Tab
 image::cashierUG/ClearCommand2.png[width="600"]
