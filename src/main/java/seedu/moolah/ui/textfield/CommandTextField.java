@@ -51,7 +51,7 @@ public class CommandTextField extends StyleClassedTextArea {
     private static final Border disabledBorder = new Border(
             new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, new BorderWidths(2)));
 
-    private static final double TEXTFIELD_HEIGHT = 25;
+    private static final double TEXTFIELD_HEIGHT = 30;
 
     private InputHistory inputHistory;
 
