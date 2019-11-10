@@ -38,12 +38,20 @@ image::Ui.png[width="750"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all appointments.
-* **`tab` ** `b/game`: switches main window to start window of the game.
-* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 a/Jason | Harry d/Meeting on Monday a/HIGH` : adds an engagement to the storage with an engagement type of `Appointment` followed by start time and end time 09-11-2019-12:00 ~ 09-11-2019-13:30, attendee as `Jason` and `Harry`, description written as `Meeting on Monday`, priority of `HIGH`.
-* **`pdf` ** `i/1 t/Jason f/Harry`: generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
-* **`delete`** `i/3` : deletes the 3rd appointment shown in the current list.
-* *`exit`* : exits the app.
+* *`list`* : Lists all appointments.
+* **`tab` ** `b/game` : Switches main window to start window of the game.
+* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 l/NUS a/Ben|Tom d/Meeting on Monday p/HIGH` : +
+Adds an engagement to the engagements list with the following details: +
+Engagement type: Appointment +
+Start time: 09/11/2019 at 1200 hours +
+End time: 09/11/2019 at 1330 hours +
+Location: NUS +
+Attendees: Ben and Tom +
+Description: Meeting on Monday +
+Priority: High +
+* **`pdf` ** `i/1 t/Jason f/Harry`: Generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
+* **`delete`** `i/3` : Deletes the 3rd appointment shown in the current list.
+* *`exit`* : Exits the app.
 
 Refer to <<Features>> for details of each command.
 //end::quick-start[]
@@ -62,15 +70,16 @@ Format: `help`
 Switches to a different menu in the application window. +
 Format: `tab b/MENU_NAME`
 
-* Typee application has mainly 4 major features/menus. User needs to switch to respective windows to perform different commands and features of the system.
-** Engagement
-** TypingGame
-** Calendar
-** Report
+* Typee has 4 major features/menus. They comprise of:
+** Engagements List
+** Typing Game
+** Calendar View
+** Report Generator
+Users can switch between respective windows in order to make full use of the application.
 
 [NOTE]
 `tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
-`Engagement` window will be the default window upon start up of the application.
+The `Engagement` window will be the default window upon starting the application.
 
 .Engagement (default) window displayed on start-up of the application.
 image::tab_1_default.png[width="520"]
@@ -223,69 +232,66 @@ image::undo-result.png[width="450", float="left"]
 image::redo-result.png[width="450"]
 --
 
-=== Changing to calendar view : `tab calendar`
-Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of
-engagements per day. More commands are provided for interaction with the calendar window.
-
-Format: `tab calendar`
-
-.Calendar view for October 2019
-image::calendar-view.png[width="450"]
-
-=== Displaying the list of engagements for a specified date (calendar view only): `calendar opendisplay`
+=== Displaying the list of engagements for a specified date (calendar view only): `calendar c/opendisplay`
 Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
-This means that nothing will happen if this command is used with a date which already has an open engagements list window.
+Nothing will happen if this command is used with a date which already has an open engagements list window.
 
-Format: `calendar opendisplay [date]`. The date must follow a DD/MM/YYYY format.
+Format: `calendar c/opendisplay d/[date]`. The date must follow a DD/MM/YYYY format. The range of allowable years is 0001 to 9999.
 
-If this command is used to open an engagement list window using a date from another month, the calendar's view will switch to
+If a date from another month is used to open an engagement list window, the calendar view will switch to
 display that specified month. This command can be used to quickly switch to another month which is not immediately before or
 after the currently displayed month.
 
 All engagement list windows will be closed if something is done to change the displayed calendar month
-(e.g. using the `calendar nextmonth` command). This includes using this command as in the above paragraph.
+(e.g. using the `calendar c/nextmonth` command). This includes using this command as mentioned in the above paragraph.
 
-Example: The calendar is currently displaying information for October 2019 and there are engagement list windows open for three dates
-in the display. If `calendar opendisplay 11/11/2019` is entered into the input box, then all three engagement list windows will be closed.
-The calendar's display then switches to November 2019 and the engagement list window for 11 November 2019 is opened up.
+Example: The calendar is currently displaying information for November 2019 and there are engagement list windows open for three dates
+in the display. If `calendar c/opendisplay d/11/12/2019` is entered into the input box, all three engagement list windows will be closed.
+The calendar's display then switches to December 2019 and the engagement list window for 11 December 2019 opens up.
 
-This command does not work if the application is in another tab (view) or the specified date is invalid.
+This command does not work if the application is in another tab or the specified date is invalid.
 
 .Engagement list for 01/11/2019
 image::calendar-open-display.png[width="450"]
 {empty} +
-After entering `calendar opendisplay 01/11/2019` into the input box while in calendar view for October 2019, the
-above window opens up. The date 01/11/2019 is still valid because it is displayed in the calendar view for October
-2019, albeit at the end of the grid.
+The above calendar window opens up after entering `calendar c/opendisplay d/29/10/2019` into the input box while in the
+calendar view for November 2019. This does not change the display to October 2019 because 29/10/2019 is displayed in
+the calendar view for November 2019, albeit at the top left corner.
 
-Alternatively, you may click on any of the individual cells within the calendar window to open the engagement list
+Alternatively, you may click on any of the individual cells within the calendar window grid to open the engagement list
 for that date.
 
-=== Changing the calendar display to the next month (calendar view only): `calendar nextmonth`
+=== Closing a displayed list of engagements for a specified date (calendar view only): `calendar c/closedisplay`
+Closes the open engagements list window for the specified date. This command does not work if the application
+if in another tab, the specified date is invalid, or there is no open engagements list window for the specified date.
+
+Format: `calendar c/closedisplay d/[date]`. The date must follow a DD/MM/YYYY format. The range of allowable years is 0001 to 9999.
+
+=== Changing the calendar display to the next month (calendar view only): `calendar c/nextmonth`
 Changes the calendar view to the month following the currently displayed one. This command does not work if the
-application is in another tab.
+application is in another tab or if attempting to go above the maximum allowable year of 9999.
 
-Format: `calendar nextmonth`
+Format: `calendar c/nextmonth`
 
-.Changing to the next month from October 2019
+.Changing to the next month from November 2019
 image::calendar-next-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
-to change the display to the next month.
+to change the display to the next month. The button will not work if the calendar is displaying December 9999.
 
 This command closes any open engagement windows from the current month before updating the display to the next month.
 
-=== Changing the calendar display to the previous month (calendar view only): `calendar previousmonth`
+=== Changing the calendar display to the previous month (calendar view only): `calendar c/previousmonth`
 Changes the calendar view to the month prior to the currently displayed one. This command does not work if the
-application is in another tab.
+application is in another tab or if attempting to go below the minimum allowable year of 0001.
 
-Format: `calendar previousmonth`
+Format: `calendar c/previousmonth`
 
-.Changing to the previous month from October 2019
+.Changing to the previous month from November 2019
 image::calendar-previous-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
-to change the display to the previous month.
+to change the display to the previous month. The button will not work if the calendar is displaying January 0001.
 
 This command closes any open engagement windows from the current month before updating the display to the previous month.
 
@@ -404,6 +410,13 @@ e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John | E
 ** *Calendar* : `tab b/calendar`
 ** *Game* : `tab b/game`
 ** *Report* : `tab b/report`
+* *Calendar* : `calendar c/CALENDAR_COMMAND`
+** *Open Display* : `calendar c/opendisplay d/DATE` +
+e.g. `calendar c/opendisplay d/11/11/2019`
+** *Close Display* : `calendar c/closedisplay d/DATE` +
+e.g. `calendar c/closedisplay d/11/11/2019`
+** *Next Month* : `calendar c/nextmonth`
+** *Previous Month* : `calendar c/previousmonth`
 * *Clear* : `clear`
 * *Delete* : `delete i/INDEX` +
 e.g. `delete i/3`
