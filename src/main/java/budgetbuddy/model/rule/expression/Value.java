@@ -8,12 +8,12 @@ import static java.util.Objects.requireNonNull;
  */
 public class Value {
 
-    private static final String SPECIAL_CHARACTERS = "!#$%&'*+=?`/[{|}]~^.-";
+    private static final String SPECIAL_CHARACTERS = "!#$%&'*+=?`/\\[{|}\\]~^.-";
     private static final int MAX_LENGTH = 180;
     public static final String MESSAGE_CONSTRAINTS =
             "Values, if present, should either be numerical, "
             + "or a string of alphanumeric characters and spaces, including these special characters,\n"
-            + "excluding the parentheses, (" + SPECIAL_CHARACTERS + "),\n"
+            + "excluding the parentheses, (" + SPECIAL_CHARACTERS.replace("\\", "") + "),\n"
             + "of length not more than " + MAX_LENGTH + " characters";
     private static final String VALIDATION_REGEX = "^[\\w\\s" + SPECIAL_CHARACTERS + "]{0," + MAX_LENGTH + "}$";
 

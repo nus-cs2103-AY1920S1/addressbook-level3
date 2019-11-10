@@ -377,7 +377,7 @@ Refer to <<Scripting>> for script usage.
 ** A value can be a number or a string of length not more than 180 characters
 It can contain the following special characters: _!#$%&'*+=?`/[{|}]~^.-_
 
-* **Action**: In the order of `<action operator> <value>`
+* **Action**: In the order of `<action operator> [<value>]`
 ** An action operator can be one of the following:
 *** `set_cat` : Adds a category to the transaction
 *** `remove_cat` : Removes a category from the transaction
@@ -387,7 +387,8 @@ It can contain the following special characters: _!#$%&'*+=?`/[{|}]~^.-_
 *** `set_in` : Sets the direction of the transaction to be inwards
 *** `set_out` : Sets the direction of the transaction to be outwards
 *** `switch_direct` : Switches the current direction of the transaction
-** A value is as described in a predicate expression
+** A value is as described in a predicate expression,
+and is not required for `set_in`, `set_out` and `switch_direct`
 ****
 
 ==== List rules: `rule list`

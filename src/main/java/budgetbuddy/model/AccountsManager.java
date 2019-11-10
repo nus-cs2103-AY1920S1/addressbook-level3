@@ -36,7 +36,7 @@ public class AccountsManager {
         filteredAccounts = new FilteredList<>(this.getAccounts());
         // TODO add proper default data
         addAccount(new Account(new Name("Default"), new Description("Default"), new TransactionList()));
-        setActiveAccount(Index.fromZeroBased(0));
+        setActiveAccountByIndex(Index.fromZeroBased(0));
         activeTransactionList = new TransactionList();
         activeTransactionList.setAll(getActiveAccount().getTransactionList());
     }
@@ -50,7 +50,7 @@ public class AccountsManager {
         requireNonNull(accounts);
         this.accounts = new UniqueAccountList(accounts);
         filteredAccounts = new FilteredList<>(this.getAccounts());
-        setActiveAccount(activeAccountIndex);
+        setActiveAccountByIndex(activeAccountIndex);
         activeTransactionList = new TransactionList();
         activeTransactionList.setAll(getActiveAccount().getTransactionList());
     }
@@ -80,10 +80,9 @@ public class AccountsManager {
      * Reset the filteredAccountList so that it contains all the accounts.
      */
     public void resetFilteredAccountList() {
-        unsetActiveAccount();
         filteredAccounts.setPredicate(s -> true);
         //activeAccountIndex is reset to the first account
-        setActiveAccount(Index.fromZeroBased(0));
+        setActiveAccountByIndex(Index.fromZeroBased(0));
     }
 
     /**
@@ -95,9 +94,7 @@ public class AccountsManager {
         resetFilteredAccountList();
         accounts.add(toAdd);
         //the new account will be the active account
-        //(it is always added in the last position of the account list)
-        unsetActiveAccount();
-        setActiveAccount(Index.fromOneBased(accounts.size()));
+        setActiveAccountByIndex(accounts.indexOfEquivalent(toAdd));
     }
 
     /**
@@ -110,7 +107,7 @@ public class AccountsManager {
         //editing the account may cause it to no longer be part of the filtered list,
         //so we have to reset the filtered account list.
         resetFilteredAccountList();
-        switchActiveAccount(accounts.indexOfEquivalent(editedAccount));
+        setActiveAccountByIndex(accounts.indexOfEquivalent(editedAccount));
     }
 
     /**
@@ -126,13 +123,17 @@ public class AccountsManager {
 
         Account accountToDelete = filteredAccounts.get(toDelete.getZeroBased());
         if (filteredAccounts.size() == 1) {
-            //there is one account left on the filtered list
+            //there is one account left on the filtered list and it is active
             accounts.remove(accountToDelete);
-            unsetActiveAccount();
             resetFilteredAccountList();
-            setActiveAccount(Index.fromZeroBased(0));
+            setActiveAccountByIndex(Index.fromZeroBased(0));
         } else {
-            accounts.remove(accountToDelete);
+            if (filteredAccounts.get(toDelete.getZeroBased()).isActive()) {
+                accounts.remove(accountToDelete);
+                setActiveAccountByIndex(Index.fromZeroBased(0));
+            } else {
+                accounts.remove(accountToDelete);
+            }
         }
     }
 
@@ -150,24 +151,11 @@ public class AccountsManager {
      */
     public void updateFilteredAccountList(Predicate<Account> predicate) throws EmptyAccountListException {
         requireNonNull(predicate);
-        unsetActiveAccount();
         filteredAccounts.setPredicate(predicate);
         if (filteredAccounts.size() == 0) {
             throw new EmptyAccountListException();
         }
-        setActiveAccount(Index.fromZeroBased(0));
-    }
-
-    /**
-     * Switches the active account to the index specified.
-     */
-    public void switchActiveAccount(Index targetAccountIndex) throws IndexOutOfBoundsException {
-        if (getFilteredAccountList().size() >= targetAccountIndex.getOneBased()) {
-            unsetActiveAccount();
-            setActiveAccount(targetAccountIndex);
-        } else {
-            throw new IndexOutOfBoundsException();
-        }
+        setActiveAccountByIndex(Index.fromZeroBased(0));
     }
 
     /**
@@ -181,14 +169,26 @@ public class AccountsManager {
      * Sets the provided Index to the active account.
      * The previous ActiveAccount will also be de-marked, so there can only be
      * one active account at any time.
-     * @param toSet the account to be set to the active account.
+     * @param toSet the Index of the account to be set to the active account.
      */
-    public void setActiveAccount(Index toSet) {
+    public void setActiveAccountByIndex(Index toSet) throws IndexOutOfBoundsException {
         if (!filteredAccounts.isEmpty()) {
             Account newActiveAccount = filteredAccounts.get(toSet.getZeroBased());
+            transactionListSwitchSource(newActiveAccount);
+            unsetActiveAccount();
             newActiveAccount.setActive();
+            activeAccountIndex = toSet;
         }
-        activeAccountIndex = toSet;
+    }
+
+    /**
+     * Sets the provided Account to the active account.
+     * It resets the filter on the filteredAccountList, if any.
+     */
+    public void setActiveAccount(Account account) {
+        unsetActiveAccount();
+        resetFilteredAccountList();
+        setActiveAccountByIndex(accounts.indexOfEquivalent(account));
     }
 
     @Override
@@ -240,14 +240,18 @@ public class AccountsManager {
      * Switches the account source for the TransactionList
      */
     public void transactionListSwitchSource(Account account) {
-        unsetActiveAccount();
-        //when we switch the source of the account, the account list filter gets cleared
-        //as transactionLists from any account can be edited(not just those that are filtered)
-        resetFilteredAccountList();
-        Index newActiveIndex = accounts.indexOfEquivalent(account);
-        setActiveAccount(newActiveIndex);
+        //when we switch the source account of the transactionList,
+        //if the account does not exist in the FilteredAccountList,
+        //the account list filter gets cleared.
+        if (!filteredAccounts.contains(account)) {
+            resetFilteredAccountList();
+            Index newActiveIndex = accounts.indexOfEquivalent(account);
+            setActiveAccountByIndex(newActiveIndex);
+        }
         account.getTransactionList().sortByDescendingDate();
-        activeTransactionList.setAll(account.getTransactionList());
+        if (activeTransactionList != null) {
+            activeTransactionList.setAll(account.getTransactionList());
+        }
     }
 
     /**

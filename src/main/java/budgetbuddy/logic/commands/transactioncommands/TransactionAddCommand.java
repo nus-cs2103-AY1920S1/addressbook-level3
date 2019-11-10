@@ -87,8 +87,7 @@ public class TransactionAddCommand extends ScriptCommand {
         }
         Index txnIndex = Index.fromOneBased(toAccount.getTransactionList().getTransactionsCount());
         RuleEngine.executeRules(model, scriptEngine, txnIndex, toAccount);
-
-        model.getAccountsManager().transactionListSwitchSource(toAccount);
+        model.getAccountsManager().setActiveAccount(toAccount);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.TRANSACTION);
     }
 }
