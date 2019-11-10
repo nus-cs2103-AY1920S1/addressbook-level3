@@ -171,7 +171,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL.get());
+        Email expectedEmail = new Email(Optional.of(VALID_EMAIL.get()));
         assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
     }
 
@@ -179,7 +179,7 @@ public class ParserUtilTest {
     public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
         Optional<String> emailWithWhitespace = Optional.of(WHITESPACE
                 + VALID_EMAIL.get() + WHITESPACE);
-        Email expectedEmail = new Email(VALID_EMAIL.get());
+        Email expectedEmail = new Email(Optional.of(VALID_EMAIL.get()));
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
     }
 
