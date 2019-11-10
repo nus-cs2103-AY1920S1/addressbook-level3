@@ -294,10 +294,12 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 .Overview of StudyBuddyItems and its sub-classes
 image::kaibindiagrams/studyBuddyItemClassDiagram.png[]
+_Diagram 5: Implementation of StudyBuddyItem_
 
 ==== Design Considerations
 
 ** As explained in the class diagram above, each StudyBuddyItem is limited to a total number of 10 tags.
+** The user is not able to create an item in StudyBuddyPro with more than 10 tags.
 ** It is designed as such to prevent users from over-cluttering the result display when they view items that have too many tags.
 ** To reduce confusion for the user, all tags will be converted to lower-case upon initialization.
 
@@ -317,6 +319,9 @@ _Diagram 7 : Code Snippet of `StudyBuddyItemContainsTagPredicate#test()`_
 * As such, there will be more correctness when auto-generating cheatsheets and filtering flashcards, as seen in the following example.
 ** If a user wishes to generate a cheatsheet and pull items with tags [cs2100] and [difficult], it would strictly only pull difficult CS2100 contents, and not pull other items
 that might have tags containing [difficult].
+* The rationale for this is that it would not make sense if a user wanted to create a cheatsheet for module [cs2100] and with tagged [midterm], that items containing tag [ma1521] (another math module) and [midterm] will be pulled over.
+* Such logic for filtering items by their tag is similar throughout the whole StudyBuddyPro.
+
 
 ==== Usage of Tags
 
@@ -326,6 +331,7 @@ that might have tags containing [difficult].
 *** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `filter tag/cs2100`).
 ** Searching using Tags globally
 *** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro (e.g. `filterall tag/ma1521`).
+*** The user can also call the global command, `taglist` to get a listview of all tags in StudyBuddyPRo.
 ** Currently, the user is able to specify multiple tags in his/her query (e.g. `filter tag/cs2100 tag/difficult`).
 ** If multiple tags are specified, only items that match all the specified tags will be listed.
 ** The sequence diagram below shows how listing all items across StudyBuddyPro by a specified tag works.

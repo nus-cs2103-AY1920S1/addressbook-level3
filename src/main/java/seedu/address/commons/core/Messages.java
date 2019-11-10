@@ -21,7 +21,7 @@ public class Messages {
     public static final String MESSAGE_NO_FLASHCARD_LOADED = "No flashcard has been loaded";
     public static final String MESSAGE_ANSWER_ALREADY_LOADED = "Answer has already been loaded";
     public static final String MESSAGE_WELCOME_STUDYBUDDYPRO = "Welcome to StudyBuddyPro!" + "\n"
-            + "Please enter one of the following modes, using the following command : \n"
+            + "Please enter one of the following modes, using one of the following commands : \n"
             + "Format: switch fc/notes/cs.\nExample usages:\n\t"
             + "switch fc -> to enter flashcard feature\n\t"
             + "switch notes -> to enter notes feature\n\t"
