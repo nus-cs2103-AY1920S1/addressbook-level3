@@ -140,6 +140,7 @@ public class MainWindow extends UiPart<Stage> {
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Students Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -160,6 +161,7 @@ public class MainWindow extends UiPart<Stage> {
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Earnings Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -180,6 +182,7 @@ public class MainWindow extends UiPart<Stage> {
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Reminders Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -200,6 +203,7 @@ public class MainWindow extends UiPart<Stage> {
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Tasks Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -222,6 +226,7 @@ public class MainWindow extends UiPart<Stage> {
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Tasks Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -241,6 +246,7 @@ public class MainWindow extends UiPart<Stage> {
         reminderBox = new ReminderBox();
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Notes Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
