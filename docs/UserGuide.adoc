@@ -55,7 +55,7 @@ named `Pro Git` to Mark.
 
 === Using Mark
 
-Here is an overview of Mark's layout.
+This section offers an overview of Mark's layout so that you can locate information more easily.
 
 There are three main areas in Mark:
 
@@ -64,18 +64,18 @@ There are three main areas in Mark:
 . A __main viewing area__ that occupies most of the right side of the screen
 
 // TODO: describe properly (this is very 'functional' but may not be user-friendly)
-The __command box__ is the area for you to enter commands. The result of each command will be shown
+The *_command box_* is the area for you to enter commands. The result of each command will be shown
 in the result display box, immediately below the command box.
 
-.Command box and result display box
+.The command box and result display box
 image::ui-screenshots/CommandBox.png[]
 
-The __bookmark list__ shows details about the bookmarks in Mark.
+The *_bookmark list_* shows details about the bookmarks in Mark.
 
-.Bookmark list
+.The bookmark list
 image::ui-screenshots/BookmarkList.png[]
 
-The __main viewing area__ shows one of three available tabs at any point in time.
+The *_main viewing area_* shows one of three available tabs at any point in time.
 Mark has three [[Tabs]] tabs: **Dashboard**, **Online** and **Offline**.
 
 * The **Dashboard** tab contains information about reminders, favorite bookmarks,
@@ -105,8 +105,22 @@ image::ui-screenshots/Ui_OfflineTab.png[@Offline Tab View, 600, 400]
 
 This section describes the main features of Mark and how to use them.
 
+The features are grouped into six categories:
+
+. <<General, General>> features
+. <<Bookmarks, Bookmark>> features
+. <<Folders, Folder>> features
+. <<Autotags, Autotag>> features
+. <<Offline Copies, Offline copy>> features
+. <<Reminders, Reminder>> features
+
+Additionally, the <<Upcoming, upcoming>> features section offers a
+preview of what you can expect in **Mark v2.0**.
+
 ====
 *Command Format*
+
+This document uses the following notation to describe command formats:
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. +
 E.g. In the command format `*add* u/URL`, `URL` is a parameter which can be used as `*add* u/https://luminus.nus.edu.sg`.
@@ -119,26 +133,11 @@ it is not provided.
 * Items with `...`​ after them can be used multiple times, including zero times. +
 E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
 `t/module t/read-later` etc.
-* Parameters can be in any order. +
+* Parameters can be used in any order. +
 E.g. if the command specifies `u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
 ====
 
-// TBC: might remove this if we can't update it on time
-|======
-|Parameter |Constraints
-|`FILENAME` |`FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
-|`FOLDER_NAME` |`FOLDER_NAME` must be alphanumeric
-|`URL` |`URL` should have the format: `scheme://authority[/path][?query][\#fragment][/]` and adhere to the following
-constraints: +
-1. The scheme should be either 'http', 'https', 'ftp', or 'file', followed by '://'. +
-2. The authority should only contain alphanumeric characters and any of the characters `(.-_~!$&'*+,;=:@)`. +
-3. This can be followed by zero or more path segments. Each path segment begins with a '/' followed by zero or more
-alphanumeric or special characters. +
-4. Next, a URL may contain a query string, which begins with a '?'. +
-5. It may also contain a fragment after the query string (if present), which begins with a '#'. +
-6. Finally, a URL can end with an optional slash '/'.
-|======
-
+'''
 
 === General
 
@@ -283,6 +282,7 @@ Exits the program.
 
 Format: `*exit*`
 
+'''
 
 === Bookmarks
 
@@ -358,17 +358,18 @@ For example:
 
 * While surfing the Internet in Mark, input `add u/this n/Homepage` into the command box.
 +
-image::AddCommandUi1.png[]
+image::ui-screenshots/AddCommandUi1.png[]
 // online tab, showing mark User Guide
-* Observe that a bookmark of the current page has been added and is visible in the bookmark list.
+* You can then check that a bookmark of the current page has been added and is visible in the bookmark list.
 The new bookmark has the name `Homepage`. Since the folder and remark are not specified,
 it is added to the root folder and has the default remark "-".
 +
-image::AddCommandUi2.png[]
+image::ui-screenshots/AddCommandUi2.png[]
 
 // More details about command constraints
+Parameter constraints:
 ****
-* A bookmark can have any number of tags (including 0).
+* Any number of tags can be added using `t/` (including 0).
 * `FOLDER` must be an existing folder (see <<folder>>).
 * The keyword `this` can be used in place of a URL to bookmark the current page,
 e.g. `*add* u/this n/Homepage`
@@ -379,17 +380,17 @@ Other examples:
 * `*add* u/https://nus-cs2103-ay1920s1.github.io/website/ n/Module Website
 f/CS2103T r/Contains textbook & important deadlines`
 +
-Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
-The new bookmark's remark is `Contains textbook & important deadlines`.
+image::ui-screenshots/AddCommandExample1.png[]
 +
-image::AddCommandExample1.png[]
+Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
+The new bookmark's remark is `Contains textbook & important deadlines`, as seen above.
 
 * `*add* u/https://www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watchLater`
 +
+image::ui-screenshots/AddCommandExample2.png[]
++
 Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
 `video` and `watchLater`.
-+
-image::AddCommandExample2.png[]
 
 [[editing-bookmarks]]
 ==== Editing a bookmark: *`edit`*
@@ -463,6 +464,7 @@ Adds a Favorite tag to the first bookmark in the bookmark manager.
 Adds a Favorite tag to the second bookmark in the bookmark manager.
 // end::favorite-command[]
 
+'''
 
 === Folders
 
@@ -532,77 +534,135 @@ Examples:
 Creates a new folder named `CS2103` under the parent folder `NUS`.
 //end::AddFolderCommand[]
 
+'''
+
+// tag::autotags[]
 === Autotags
 
-The following commands carry out autotag-related operations in Mark.
+_Autotags_ are tags that will be automatically applied to bookmarks which match their
+respective autotag conditions.
+You can view the details of existing autotags in the autotag panel at the bottom-right of
+the **Dashboard** tab, as seen below.
+
+.The autotag panel on the Dashboard tab
+image::ui-screenshots/AutotagPanel.png[]
+
+The commands in this section provide a way to add and remove autotags in Mark.
 
 // tag::autotagcommand[]
 [[Autotag-Command]]
 ==== Creating an automatic tag: *`autotag`*
 
-This command creates a tag that will be automatically applied to bookmarks which match
-the given conditions.
+If you are looking to tag a group of similar bookmarks without manually editing each one, you
+can use the `autotag` command to create an autotag that will do that for you. You can define
+the group of bookmarks to be tagged using _conditions_, which describe the key characteristics
+of those bookmarks.
 
+NOTE: Conditions fall into two categories: _normal conditions_, which are characteristics that
+bookmarks to be tagged should match, and _not-conditions_, which are conditions that bookmarks
+should *not* match.
+
+You can specify conditions relating to the name, URL, and/or folder (also known as _attributes_)
+of a bookmark. It is also possible not to specify any condition for an attribute if the attribute
+is not relevant. However, an autotag must have at least one condition specified; otherwise, it
+would automatically tag all your bookmarks!
+
+====
 Format: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
 [nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
+====
 
+For example:
+
+* To add a new autotag, input `*autotag* NUS n/NUS n/School n/Uni` into the command box.
++
+// show dashboard and bookmark list, with some bookmarks named NUS/School/Uni but no tags
+// also show the command in the command box
+image::ui-screenshots/AutotagCommandUi1.png[]
+
+* You can then check that an autotag named `NUS` with three name conditions (`NUS`, `School`, and `Uni`)
+has been added to the autotag panel of the Dashboard. Also, notice that bookmarks with names
+that contain `NUS`, `School` or `Uni` now have the tag `NUS`.
++
+// show updated dashboard and bookmark list, with the relevant bookmarks having been tagged
+image::ui-screenshots/AutotagCommandUi2.png[]
+
+Parameter constraints:
 ****
-* `TAG_NAME` should be a valid tag name. No existing autotag should have this tag name.
 * At least one condition (`n/`, `nn/`, `u/`, `nu/`, `f/`, or `nf/`) must be specified.
+* `TAG_NAME` should be a valid tag name. No existing autotag should have this tag name.
+However, `TAG_NAME` can still be used as a normal tag. E.g. if an autotag `YouTube` matches
+bookmarks with URLs containing `youtube.com`, other bookmarks can still be
+tagged with the tag `YouTube`.
 * `NAME_KEYWORD` and `URL_KEYWORD` are used to match bookmarks in a similar way
 as the keywords in `*find*` (see <<finding-bookmarks>>). The only difference is that a single
-keyword parameter can contain multiple words. E.g. `n/Module W` will match names `CS2103T Module Website` and
-`module work to do` but not `Future modules`.
+keyword parameter can contain multiple words. E.g. `n/Module W` will match names
+`CS2103T Module Website` and `module work to do` but not `Future modules`.
 * `FOLDER` should be the exact name of a folder (case insensitive). E.g. `wiki` will match
 `Wiki` but not `Wikipedia`.
 * `NOT_NAME_KEYWORD`, `NOT_URL_KEYWORD`, and `NOT_FOLDER` are name keywords,
 URL keywords, or folder names that bookmarks to be tagged should *not* match.
-* The tag `TAG_NAME` is still a normal tag. E.g. if an autotag `YouTube` matches
-bookmarks with URLs containing `youtube.com`, other bookmarks can still be
-tagged with the tag `YouTube`.
-
-* If multiple conditions are specified, bookmarks are matched in the following way:
-    ** For normal conditions (`n/`, `u/`, and `f/`), bookmarks that match at least one condition
-    within the same condition type are matched (i.e. OR search). E.g. `n/wiki n/comput` will match
-    names `WikiHow` and `Computer Science`.
-    ** For negative conditions (`nn/`, `nu/`, and `nf/`), bookmarks that match all of the conditions
-    within the same condition type are matched (i.e. AND search). E.g. `nf/Work nf/School` will
-    match bookmarks that are not in the folder `Work` and not in the folder `School`.
-    ** Bookmarks that match all conditions across different condition types are matched. E.g. `n/web
-    n/mod f/NUS` will match bookmarks with [names that match `web` and/or `mod`] AND [are in the
-    folder `NUS`].
-* Note that no bookmarks will be tagged if conditions contradict each other.
-E.g. `u/github.com/mark nu/github.com/`
 ****
 
-Examples:
+IMPORTANT: If an autotag's conditions contradict each other, no bookmarks will be tagged.
+E.g. an autotag with conditions `u/github.com/mark nu/github.com/` effectively does nothing as no
+bookmark can have a URL containing `github.com/mark` and not `github.com`.
 
-// TODO: add step-by-step screenshots of examples
-* `*autotag* NUS n/NUS n/School n/Uni` +
- Creates an autotag that adds the tag `NUS` to all bookmarks that have names containing
-the keywords `NUS`, `School`, and/or `Uni`.
+// TODO: move this somewhere else?
+[NOTE]
+====
+If multiple conditions are specified, bookmarks are matched in the following way:
+    * For normal conditions (`n/`, `u/`, and `f/`), bookmarks that match at least one condition
+    within the same attribute type will be matched (i.e. OR search). E.g. `n/wiki n/comput` will match
+    names `WikiHow` and `Computer Science`.
+    * For negative conditions (`nn/`, `nu/`, and `nf/`), bookmarks that match all of the conditions
+    within the same condition type are matched (i.e. AND search). E.g. `nf/Work nf/School` will
+    match bookmarks that are not in the folder `Work` and not in the folder `School`.
+    * Bookmarks that match all conditions across different condition types are matched. E.g. `n/web
+    n/mod f/NUS` will match bookmarks with [names that match `web` and/or `mod`] AND [are in the
+    folder `NUS`].
+====
 
-* `*autotag* LumiNUS u/luminus.nus.edu.sg nf/Miscellaneous` +
- Creates an autotag that adds the tag `LumiNUS` to all bookmarks with URLs
+Other examples:
+
+// TODO: add screenshots and improve descriptions
+* `*autotag* LumiNUS u/luminus.nus.edu.sg nf/Miscellaneous`
++
+image::ui-screenshots/AutotagCommandExample1.png[]
++
+Creates an autotag named `LumiNUS` which tags all bookmarks with URLs
 containing `luminus.nus.edu.sg` that are not in the folder `Miscellaneous`.
 
-* `*autotag* Quiz f/NUS f/Module nu/github nu/stackoverflow` +
- Creates an autotag that adds the tag `Quiz` to all bookmarks that are either in
- the folder `NUS` or in the folder `Module`, and that do not contain any of the
+* `*autotag* Quiz f/NUS f/Module nu/github nu/stackoverflow`
++
+image::ui-screenshots/AutotagCommandExample2.png[]
++
+Creates an autotag named `Quiz` which tags all bookmarks that are either in
+the folder `NUS` or in the folder `Module`, and that do not contain any of the
 keywords `github` or `stackoverflow` in their URLs.
 // end::autotagcommand[]
 
 ==== Deleting an automatic tag: *`autotag-delete`*
 
-This command deletes a previously created <<autotag, autotag>> from Mark. Tags that are already present will
-not be removed, but no bookmarks will be tagged by this autotag after it is deleted.
+If you no longer need an autotag, you can delete it from Mark using the `autotag-delete`
+command. None of your existing tags are affected when an autotag is deleted.
 
 Format: `*autotag-delete* TAG_NAME`
 
+For example:
+
+* If you want to delete the autotag `NUS`, input `*autotag-delete* NUS` into the command box.
++
+image::ui-screenshots/AutotagDeleteCommandUi1.png[]
+
+* You can then check that the autotag named `NUS` has been deleted from the autotag panel of the Dashboard.
+In addition, no bookmarks have been modified.
++
+image::ui-screenshots/AutotagDeleteCommandUi2.png[]
+
+Parameter constraints:
 ****
-* `TAG_NAME` should be the name of the autotag to be deleted, which is the same
-as the name of the tag which it applies. E.g. an autotag that adds the tag
-`ProgrammingHelp` to bookmarks is also named `ProgrammingHelp`.
+* `TAG_NAME` should be the name of an existing autotag.
 ****
 
 Example:
@@ -611,7 +671,9 @@ Example:
  Deletes the autotag that would have tagged bookmarks that match its conditions
 with the tag `Quiz`. No existing tags are removed, but new and edited bookmarks
 will no longer be automatically tagged with `Quiz`.
+// end::autotags[]
 
+'''
 
 === Offline Copies
 
@@ -868,6 +930,7 @@ This deletes the general note G1 in the offline copy of bookmark 2.
 * `*annotate-delete* 1 p/all` +
 This removes all annotations of the offline copy of bookmark 1.
 
+'''
 
 === Reminders
 
@@ -933,9 +996,11 @@ Delete the reminder of index 1.
 
 //end::ReminderCommand[]
 
-=== Coming Soon
+'''
 
-The following commands will be implemented in Mark v2.0.
+=== Upcoming `[coming in v2.0]`
+
+These features will be available in the next version of Mark.
 
 // tag::sort[]
 ==== Sorting bookmarks: *`sort`* `[coming in v2.0]`
@@ -1044,33 +1109,68 @@ General notes are found at the bottom of the rightmost column on the offline cop
 //TODO: Check
 == Command Summary
 
-* *Help*: `*help*`
-* *Add*: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]…​`
-* *List*: `*list*`
-* *Edit*: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...​`
-* *Find*: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
-* *Delete*: `*delete* INDEX`
-* *Goto*: `*goto* INDEX`
-* *Favorite*: `*favorite|fav* INDEX`
-* *Clear*: `*clear*`
-* *Undo*: `*undo* [STEP=1]`
-* *Redo*: `*redo* [STEP=1]`
-* *Exit*: `*exit*`
-* *Export*: `*export* FILENAME`
-* *Import*: `*import* FILENAME`
-* *Autotag (add)*: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
+.Summary of command formats
+[%autowidth]
+|=====
+|*Category* |*Commands*
+.8+|General
+| Help: `*help*`
+| Tab: `*tab* INDEX`
+| Undo: `*undo* [STEP=1]`
+| Redo: `*redo* [STEP=1]`
+| Export: `*export* FILENAME`
+| Import: `*import* FILENAME`
+| Clear: `*clear*`
+| Exit: `*exit*`
+
+.7+|Bookmarks
+| List: `*list*`
+| Find: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
+| Go to: `*goto* INDEX`
+| Add bookmark: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]…​`
+| Edit bookmark: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...​`
+| Delete bookmark: `*delete* INDEX`
+| Favorite bookmark: `*favorite\|fav* INDEX`
+
+.3+|Folders
+| Expand view: `*expand* [LEVEL=1]`
+| Collapse view: `*collapse* [LEVEL=1]`
+| Add folder: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
+
+.2+|Autotags
+| Add autotag: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
 [nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
-* *Autotag (delete)*: `*autotag-delete* TAG_NAME`
-* *Cache (add)*: `*cache* INDEX`
-* *Cache (delete)*: `*cache-delete* INDEX`
-* *Offline*: `*offline* INDEX`
-* *Annotate (add)*: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
-* *Annotate (edit)*: `*annotate-edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
-* *Annotate (delete)*: `*annotate-delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
-* *Reminder (add)*: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
-* *Reminder (edit)*: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
-* *Reminder (delete)*: `*reminder-delete* INDEX`
-* *Folder (add)*: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
-* *Expand*: `*expand* [LEVEL=1]`
-* *Collapse*: `*collapse* [LEVEL=1]`
-* *Tab*: `*tab* INDEX`
+| Delete autotag: `*autotag-delete* TAG_NAME`
+
+.6+|Offline Copies
+| Add cache: `*cache* INDEX`
+| Delete cache: `*cache-delete* INDEX`
+| Offline view: `*offline* INDEX`
+| Add annotation: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
+| Edit annotation: `*annotate-edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
+| Delete annotation: `*annotate-delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
+
+.4+|Reminders
+| Add reminder: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
+| Edit reminder: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
+| Delete reminder: `*reminder-delete* INDEX`
+| Go to reminder: `*goto-reminder* INDEX`
+|=====
+
+.Summary of common command parameters
+// TBC: might remove this if we can't update it on time
+[%autowidth]
+|======
+|*Parameter* | *Constraints*
+|`FILENAME` |`FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
+|`FOLDER_NAME` |`FOLDER_NAME` must be alphanumeric
+|`URL` |`URL` should have the format: `scheme://authority[/path][?query][\#fragment][/]` and adhere to the following
+constraints: +
+1. The scheme should be either 'http', 'https', 'ftp', or 'file', followed by '://'. +
+2. The authority should only contain alphanumeric characters and any of the characters `(.-_~!$&'*+,;=:@)`. +
+3. This can be followed by zero or more path segments. Each path segment begins with a '/' followed by zero or more
+alphanumeric or special characters. +
+4. Next, a URL may contain a query string, which begins with a '?'. +
+5. It may also contain a fragment after the query string (if present), which begins with a '#'. +
+6. Finally, a URL can end with an optional slash '/'.
+|======
