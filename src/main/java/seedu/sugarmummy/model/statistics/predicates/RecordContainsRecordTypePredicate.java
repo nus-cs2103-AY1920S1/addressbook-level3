@@ -12,7 +12,7 @@ import seedu.sugarmummy.model.records.RecordType;
 //@@author chen-xi-cx
 
 /**
- * Tests that a {@code Record} is an instance of a given {@code RecordType}.
+ * Tests that a {@code Record} object is an instance of a given {@code RecordType}.
  */
 public class RecordContainsRecordTypePredicate implements Predicate<Record> {
 
@@ -39,6 +39,6 @@ public class RecordContainsRecordTypePredicate implements Predicate<Record> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RecordContainsRecordTypePredicate // instanceof handles nulls
-                        && recordType.equals(((RecordContainsRecordTypePredicate) other).recordType)); // state check
+                && recordType.equals(((RecordContainsRecordTypePredicate) other).recordType)); // state check
     }
 }

@@ -14,6 +14,8 @@ import seedu.sugarmummy.model.records.Weight;
 import seedu.sugarmummy.model.statistics.predicates.RecordContainsRecordTypePredicate;
 import seedu.sugarmummy.model.time.DateTime;
 
+//@@author chen-xi-cx
+
 public class RecordContainsRecordTypePredicateTest {
 
     private RecordContainsRecordTypePredicate bloodSugarPredicate =

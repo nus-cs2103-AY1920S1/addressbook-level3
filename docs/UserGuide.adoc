@@ -974,7 +974,9 @@ If COUNT is given, SugarMummy shows **up to** COUNT most recent number of averag
 Else, COUNT is set to 5 by default and shows 5 most recent average values.
 
 NOTE: If SugarMummy **does not show exactly** COUNT number of average values,
-that means you do not have enough records in the database.
+that means you do not have enough records in the database. Also, if you enter a field
+more than once e.g `average a/daily rt/bloodsugar a/weekly`, only the last field will be
+taken. In the example, weekly average will be calculated instead of daily average.
 
 Example usage 1: `average a/weekly rt/bloodsugar`:
 Shows the 5 latest weekly average of blood sugar records.
