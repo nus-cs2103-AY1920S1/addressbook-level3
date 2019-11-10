@@ -180,7 +180,7 @@ public class MainWindow extends UiPart<Stage> {
      * Hides Vehicle & Incident Panels.
      */
     void initPreLogin() {
-        logic.isPersonView(true);
+        logic.setPersonView(true);
         personListPanelPlaceholder.getParent().setVisible(true);
         personListPanelPlaceholder.getParent().setManaged(true);
         incidentListPanelPlaceholder.getParent().setVisible(false);
@@ -193,7 +193,7 @@ public class MainWindow extends UiPart<Stage> {
      * Shows Vehicle & Incident Panels.
      */
     void initPostLogin() {
-        logic.isPersonView(false);
+        logic.setPersonView(false);
         personListPanelPlaceholder.getParent().setVisible(false);
         personListPanelPlaceholder.getParent().setManaged(false);
         incidentListPanelPlaceholder.getParent().setVisible(true);
