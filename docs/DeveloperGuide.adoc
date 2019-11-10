@@ -197,8 +197,12 @@ the item is automatically tagged as `#Expired`.**
 ==== Commands in the replenish list
 
 ===== Implementation
-As shown in  <<Logic component,Section 2.3>>, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
+As shown in the snippet of the `Logic` class diagram below, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
 `ReplenishParser` parses and handles the commands in the replenish list.
+
+.Snippet of Logic class diagram to highlight the relationship between the parsers
+image::ParserClassDiagram.png[]
+
 [NOTE]
 Certain commands such as sorting by date, or deleting
 of item quantities are not permitted, as items in the replenish list do not have expiry dates or quantities.
@@ -229,7 +233,10 @@ This will be further explained in a <<Spelling correction with alternative recom
 ==== Implementation
 Items in both lists are automatically sorted by their name then date in chronological order.
 This auto-sorting mechanism is facilitated by `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`
-that both implement `SortedUniqueItemList`, in a relationship summarised in  <<Model component,Section 2.4>>.
+that both implement `SortedUniqueItemList`, in a relationship summarised in the diagram below.
+
+.Snippet of Model class diagram to bring attention to the relationship between internal sorted lists
+image::SortedUniqueItemListClassDiagram.png[]
 
 `SortedUniqueXpireItemList` supports a new function, `SortedUniqueItemList#setMethodOfSorting()`, that specifies the
 `MethodOfSorting` and comparator to be used for the list.
@@ -258,8 +265,8 @@ The figure below pictures the process of retrieving the internal sorted list of 
 
 .Sequence Diagram : retrieve internal sorted list
 image::AutoSortViewPartSequenceDiagram.png[]
-As items in the replenish list lack expiry dates, items are automatically sorted by their names. Therefore, a `nameComparator` is returned by default, as depicted above.
-As the ability to sort manually by date is thereby also rendered irrelevant, it is disallowed entirely in the replenish list.
+As items in the replenish list lack expiry dates, the command to sort by date is rendered irrelevant and thereby disallowed entirely in the replenish list.
+Instead, items are automatically sorted by their names. Therefore, in the diagram above, a `nameComparator` is always returned by default.
 
 [NOTE]
 The list returned is the sortedInternalList wrapped as an unmodifiable list.
@@ -306,6 +313,8 @@ The ability to check for spelling errors of command arguments is explained in a 
 
 // tag::autosortPartThree[]
 ==== Design Considerations
+In the process of actualising this feature, I contemplated on when items should be automatically sorted by name and displayed.
+I also tried and tested varied options to derive an optimal data structure to store the sorted items. The following is a brief summary of my analysis and decisions.
 
 ===== Aspect: When items auto-sorted by their names are displayed
 
@@ -628,19 +637,19 @@ image::RecommendCommandArgumentsActivityDiagram.png[]
 [NOTE]
 Only search and sort commands support this operation.
 
-In the example below encapsulated in a sequence diagram, "date" is misspelled as "dat" in a sort command.
+In the example below encapsulated in a sequence diagram, the user has misspelled "date" as "dat" in a sort command.
 
 .Sequence diagram illustrating the recommendations mechanism for command "sort|dat"
 
 image::RecommendationsSortSequenceDiagram.png[]
 
-The sequence diagram titled `find similar words` here expands on the process omitted above.
+The sequence diagram titled `find similar words` below expands on the process omitted above.
 
 .Sequence diagram showing how "date" is found to be the most similar word to "dat"
 
 image::FindSimilarSequenceDiagram.png[]
 
-The function `findSimilar` in `StringUtil` is called upon to return a set of strings that are most similar to the misspelled argument, `dat`.
+The function `findSimilar` in `StringUtil` is called upon to return a set containing strings that are most similar to the misspelled argument, `dat`.
 In this process, `dat` is compared with a set of valid inputs, i.e. both `name` and `date`, and the corresponding edit distances are stored.
 `getSuggestions("dat")` then filters the results and finds `date` to be the best match.
 
@@ -648,6 +657,8 @@ At last, a `ParseException` which contains the recommendation `date`
 is then thrown to the user as feedback.
 
 ==== Design Considerations
+When tasked to implement this feature, I had to decide on what was the best way to display any form of recommendations to the user.
+I also evaluated multiple options to derive an optimal data structure to store the recommendations. The following is a brief summary of my analysis and decisions.
 
 ===== Aspect: How recommendations execute
 
