@@ -3,18 +3,12 @@ package seedu.address.ui;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -23,7 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
 
 /**
@@ -86,13 +79,14 @@ public class FullCalendarView extends UiPart<Region> {
         Button nextMonth = new Button(">>");
         nextMonth.setOnAction(e -> nextMonth());
         HBox titleBar = new HBox(previousMonth, calendarTitle, nextMonth);
+        titleBar.setSpacing(10);
         titleBar.setAlignment(Pos.BASELINE_CENTER);
         //titleBar.setStyle("-fx-background-color: #F0591E;");
         // Populate calendar with the appropriate day numbers
         populateCalendar(yearMonth);
         // Create the calendar view
         view = new VBox(titleBar, dayLabels, calendar);
-        view.setStyle("-fx-background-color: #FFDF2F;");
+        view.setStyle("-fx-background-color: #489D64;");
     }
 
     /**
@@ -152,10 +146,10 @@ public class FullCalendarView extends UiPart<Region> {
             for (Task t : tasks) {
                 Text names = new Text(t.toWindowString());
                 names.setFont(Font.font ("Serif", 10));
-                if (count<2) {
+                if (count < 2) {
                     newvb.getChildren().add(names);
-                    count = count +1 ;
-                } else if (count==2) {
+                    count = count + 1;
+                } else if (count == 2) {
                     Text dots = new Text("...");
                     dots.setFont(Font.font ("Serif", 10));
                     newvb.getChildren().add(dots);
@@ -216,7 +210,7 @@ public class FullCalendarView extends UiPart<Region> {
         protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
 
-            if (empty || task== null) {
+            if (empty || task == null) {
                 setText(null);
             } else {
                 setText(task.toWindowString());

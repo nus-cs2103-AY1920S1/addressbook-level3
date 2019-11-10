@@ -93,6 +93,10 @@ public class Task {
         return builder.toString();
     }
 
+    /**
+     * Returns a formatted String for the Calendar View.
+     *
+     */
     public String toWindowString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getClassId())

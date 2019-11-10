@@ -187,13 +187,27 @@ public class UiManager implements Ui {
     }
 
     /**
-     * To change tab to login window.
+     * To delete note with index.
      */
     public static void deleteNotesButton(int index) {
         logger.info("Deleting Note...");
 
         try {
             mainWindow.deleteNoteButton(index);
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during deletion", e);
+        }
+    }
+
+    /**
+     * To delete reminder with index.
+     */
+    public static void deleteReminderButton(int index) {
+        logger.info("Deleting Note...");
+
+        try {
+            mainWindow.deleteReminderButton(index);
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during deletion", e);
@@ -216,6 +230,11 @@ public class UiManager implements Ui {
         }
     }
 
+    /**
+     * To return a list of tasks for that date.
+     * @param date search for
+     * @return ObervableList of tasks of that date
+     */
     public static ObservableList<Task> returnTaskByDate(LocalDate date) {
         logger.info("Changing to Calendar showing Task by Date...");
 
