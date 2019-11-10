@@ -29,6 +29,7 @@ public class Activity {
     private final ArrayList<Integer> participantIds;
     private final ArrayList<Boolean> participantActive;
     private final ArrayList<Double> participantBalances;
+
     // A dictionary mapping id to position in participantIds.
     private final HashMap<Integer, Integer> idDict;
     // Each [i][j] entry with value E means i owes j -E amount.
@@ -99,10 +100,10 @@ public class Activity {
     }
 
     /**
-     * Gets the list of expenses in the activity.
-     * @return An ArrayList of expenses.
+     * Returns a {@code List} containing all expenses in this {@code Activity}.
+     * @return A {@code List} of {@code Expense} instances associated with this {@code Activity}.
      */
-    public ArrayList<Expense> getExpenses() {
+    public List<Expense> getExpenses() {
         return expenses;
     }
 
@@ -125,8 +126,19 @@ public class Activity {
     }
 
     /**
+     * Returns the total spending computed from all non-deleted expenses of this {@code Activity}.
+     * @return The total spending of this {@code Activity} as a {@code double}.
+     */
+    public double getTotalSpending() {
+        return this.getNonSettlementExpenses().stream()
+                .filter(expense -> !expense.isDeleted())
+                .map(expense -> expense.getAmount().value)
+                .reduce(0.00, (acc, amt) -> acc + amt);
+    }
+
+    /**
      * Gets the name of the activity.
-     * @return A String representation of the name of the activity.
+     * @return A {@code String} representation of the name of the activity.
      */
     public Title getTitle() {
         return title;
@@ -138,6 +150,14 @@ public class Activity {
      */
     public List<Integer> getParticipantIds() {
         return participantIds;
+    }
+
+    /**
+     * Returns the number of participants of this {@code Activity}.
+     * @return The number of participants as an {@code int}.
+     */
+    public int getParticipantCount() {
+        return participantIds.size();
     }
 
     /**

@@ -47,12 +47,10 @@ public class ActivityDetailsPanel extends UiPart<Region> {
                 .map((participant) -> participant.getName().toString())
                 .forEach(name -> participantTags.getChildren().add(new Label(name)));
 
-        int numParticipants = activity.getParticipantIds().size();
-        participantCount.setText(numParticipants + (numParticipants != 1 ? " participants" : " participant"));
+        int numParticipants = activity.getParticipantCount();
+        participantCount.setText(numParticipants + " " + pluralize("participant", numParticipants));
 
-        double totalSpending = activity.getExpenses().stream()
-                .map((expense) -> expense.getAmount().value)
-                .reduce(0.00, (acc, amt) -> acc + amt);
+        double totalSpending = activity.getTotalSpending();
         spending.setText(String.format("$%.2f", totalSpending));
 
         activity.getExpenses().stream()
@@ -84,5 +82,10 @@ public class ActivityDetailsPanel extends UiPart<Region> {
                 }
             }
         }
+    }
+
+    private String pluralize(String noun, int count) {
+        assert count >= 0;
+        return count != 1 ? noun : noun + "s";
     }
 }

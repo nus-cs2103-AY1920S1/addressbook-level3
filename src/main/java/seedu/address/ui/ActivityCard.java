@@ -29,8 +29,13 @@ public class ActivityCard extends UiPart<Region> {
         index.setText("#" + displayedIndex);
         title.setText(activity.getTitle().toString());
 
-        int numParticipants = activity.getParticipantIds().size();
-        participantCount.setText(numParticipants + (numParticipants != 1 ? " participants" : " participant"));
+        int numParticipants = activity.getParticipantCount();
+        participantCount.setText(numParticipants + " " + pluralize("participant", numParticipants));
+    }
+
+    private String pluralize(String noun, int count) {
+        assert count >= 0;
+        return count != 1 ? noun : noun + "s";
     }
 
     @Override
