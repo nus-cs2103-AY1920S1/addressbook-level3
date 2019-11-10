@@ -544,6 +544,10 @@ The following class diagram depicts the relations of the FilterCommand, FilterCo
 .Class Diagram for `Filter`
 image::FilterClassDiagram.png[]
 
+Given below is an example usage scenario and how the filter mechanism behaves at each step.
+
+**Step 1**.
+
 ==== Design Considerations
 
 ===== Aspect: Filtering by multiple categories
