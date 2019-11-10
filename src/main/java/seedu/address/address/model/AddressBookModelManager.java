@@ -3,9 +3,9 @@ package seedu.address.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,10 +13,10 @@ import javafx.scene.chart.XYChart;
 import seedu.address.address.model.person.Person;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.commons.util.TreeUtil;
+import seedu.address.commons.util.CountryData;
+import seedu.address.commons.util.StatisticsUtil;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-
 /**
  * Represents the in-memory addressBookModel of the address book data.
  */
@@ -119,13 +119,12 @@ public class AddressBookModelManager implements AddressBookModel {
     }
 
     @Override
-    public XYChart.Series<Integer, String> getAddressChartData() {
-        XYChart.Series<Integer, String> series = new XYChart.Series<>();
-        TreeUtil treeUtil = new TreeUtil();
-        filteredPersons.stream().forEach(p -> treeUtil.add(p.getCountry().toString()));
-        series.getData().addAll(treeUtil.stream().map(
-            ip -> new XYChart.Data<Integer, String>(ip.getKey(), ip.getValue())).collect(Collectors.toList()));
-        return series;
+    public XYChart.Series<Number, String> getAddressChartData() {
+        Function<Person, CountryData> toCountryDataFunction = person -> {
+            String country = person.getCountry().toString();
+            return new CountryData(0, country);
+        };
+        return StatisticsUtil.getCountryDataSeries(filteredPersons, toCountryDataFunction);
     }
 
     @Override

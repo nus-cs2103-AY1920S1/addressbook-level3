@@ -27,7 +27,6 @@ class MonthParser {
         String input = monthInput.get().trim();
 
         if (ParserUtil.hasCharInValue(input)) {
-            System.out.println("here");
             throw new ParseException(String.format(ParserUtil.MESSAGE_ARG_EXTRA, MONTH_EXTRA_ARG));
         }
 

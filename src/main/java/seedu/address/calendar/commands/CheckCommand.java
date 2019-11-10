@@ -11,17 +11,17 @@ public class CheckCommand extends Command<Calendar> {
     public static final String MESSAGE_AVAILABLE = "You are available.";
     public static final String MESSAGE_UNAVAILABLE = "You aren't available.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Checks whether you are free to travel "
-            + "during the specified period of time. "
+            + "during the specified period of time (for the entire period).\n"
             + "Parameters: "
-            + CliSyntax.PREFIX_START_DAY + " START DAY "
-            + "[" + CliSyntax.PREFIX_START_MONTH + " START MONTH] "
+            + CliSyntax.PREFIX_START_DAY + "START DAY "
+            + "[" + CliSyntax.PREFIX_START_MONTH + "START MONTH] "
             + "[" + CliSyntax.PREFIX_START_YEAR + "START YEAR] "
-            + "[" + CliSyntax.PREFIX_END_DAY + " END DAY]  "
-            + "[" + CliSyntax.PREFIX_END_MONTH + " END MONTH] "
-            + "[" + CliSyntax.PREFIX_END_YEAR + " END YEAR] "
-            + "[" + CliSyntax.PREFIX_PERIOD + " MIN NO. OF DAYS]" + "\n"
-            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + " 5 " + CliSyntax.PREFIX_START_MONTH
-            + " Dec " + CliSyntax.PREFIX_END_DAY + " 31 " + CliSyntax.PREFIX_PERIOD + " 5";
+            + "[" + CliSyntax.PREFIX_END_DAY + "END DAY]  "
+            + "[" + CliSyntax.PREFIX_END_MONTH + "END MONTH] "
+            + "[" + CliSyntax.PREFIX_END_YEAR + "END YEAR] "
+            + "[" + CliSyntax.PREFIX_PERIOD + "MIN NO. OF DAYS]" + "\n"
+            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + "5 " + CliSyntax.PREFIX_START_MONTH
+            + "Dec " + CliSyntax.PREFIX_END_DAY + "31 " + CliSyntax.PREFIX_PERIOD + "5";
 
     private EventQuery eventQuery;
 
@@ -29,6 +29,7 @@ public class CheckCommand extends Command<Calendar> {
         this.eventQuery = eventQuery;
     }
 
+    @Override
     public CommandResult execute(Calendar calendar) {
         boolean isAvailable = calendar.isAvailable(eventQuery);
 

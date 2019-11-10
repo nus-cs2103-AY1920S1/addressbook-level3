@@ -4,12 +4,13 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import seedu.address.address.model.person.Person;
 
 /**
  * The API of the AddressBookModel component.
  */
-public interface AddressBookModel extends AddressBookStatisticsModel {
+public interface AddressBookModel {
     /**
      * {@code Predicate} that always evaluate to true
      */
@@ -70,4 +71,16 @@ public interface AddressBookModel extends AddressBookStatisticsModel {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Get statistics of number of total contacts in Address Book.
+     * @return total number of contacts in Address Book
+     */
+    int getTotalPersons();
+
+    /**
+     * Horizontal bar chart data for Address Book.
+     * @return horizontal bar chart data for Address Book
+     */
+    XYChart.Series<Number, String> getAddressChartData();
 }

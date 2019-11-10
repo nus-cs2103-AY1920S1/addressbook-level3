@@ -1,8 +1,6 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.commands.CommandUtil;
 import seedu.address.calendar.commands.SuggestCommand;
-import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -26,20 +24,13 @@ public class SuggestCommandParser {
             throw new ParseException(ParserUtil.MESSAGE_ARG_DUPLICATED);
         }
 
-        Date startDate = DateParser.parseStartDate(argMultimap, CliSyntax.PREFIX_START_MONTH,
-                CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_START_DAY);
+        EventQuery eventQuery;
 
-        Date endDate = DateParser.parseEndDate(argMultimap, startDate, CliSyntax.PREFIX_END_MONTH,
-                CliSyntax.PREFIX_END_YEAR, CliSyntax.PREFIX_END_DAY);
-
-        boolean isValidPeriod = EventQuery.isValidEventTime(startDate, endDate);
-
-        if (!isValidPeriod) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    CommandUtil.MESSAGE_DATE_RESTRICTION));
+        try {
+            eventQuery = ParserUtil.getEventQuery(argMultimap);
+        } catch (ParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, e.getMessage()));
         }
-
-        EventQuery eventQuery = new EventQuery(startDate, endDate);
 
         boolean hasPeriodPrefix = ParserUtil.arePrefixesPresent(argMultimap, CliSyntax.PREFIX_PERIOD);
 
@@ -52,6 +43,11 @@ public class SuggestCommandParser {
 
         try {
             int minPeriod = Integer.parseInt(minPeriodStr);
+
+            if (minPeriod < 1) {
+                throw new ParseException("Minimum period must be positive.");
+            }
+
             return new SuggestCommand(eventQuery, minPeriod);
         } catch (NumberFormatException e) {
             throw new ParseException("Minimum period must be specified using an integer.");

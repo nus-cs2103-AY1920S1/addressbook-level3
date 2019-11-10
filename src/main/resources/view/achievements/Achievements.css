@@ -112,6 +112,14 @@
   -fx-bar-fill: #C471ED;
 }
 
+.default-color0.chart-series-line {
+  -fx-stroke: #C471ED;
+}
+
+.chart-line-symbol {
+    -fx-background-color: transparent;
+}
+
 /* Result Display */
 
 .result-display {

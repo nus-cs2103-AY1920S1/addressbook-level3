@@ -1,5 +1,6 @@
 package seedu.address.calendar.parser;
 
+import seedu.address.calendar.commands.CommandUtil;
 import seedu.address.calendar.commands.DeleteCommand;
 import seedu.address.calendar.commands.DeleteCommitmentCommand;
 import seedu.address.calendar.commands.DeleteHolidayCommand;
@@ -7,6 +8,7 @@ import seedu.address.calendar.commands.DeleteSchoolBreakCommand;
 import seedu.address.calendar.commands.DeleteTripCommand;
 import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.Commitment;
+import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.calendar.model.event.EventType;
 import seedu.address.calendar.model.event.Holiday;
 import seedu.address.calendar.model.event.Name;
@@ -37,7 +39,7 @@ public class DeleteCommandParser {
 
         try {
             eventType = EventType.valueOf(eventTypeStr);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_VALID_TYPES));
         }
 
@@ -47,6 +49,11 @@ public class DeleteCommandParser {
             throw new ParseException(ParserUtil.MESSAGE_ARG_DUPLICATED);
         }
 
+        if (ParserUtil.hasMismatchDatePrefixes(argMultimap)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ParserUtil.MESSAGE_DATE_INFO_MISMATCH));
+        }
+
         // assumptions: if no start month/year specified it is the current month/year
         Date startDate = DateParser.parseStartDate(argMultimap, CliSyntax.PREFIX_START_MONTH,
                 CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_START_DAY);
@@ -54,6 +61,13 @@ public class DeleteCommandParser {
         // assumptions: if nothing is specified, it will be the same as those of the start date
         Date endDate = DateParser.parseEndDate(argMultimap, startDate, CliSyntax.PREFIX_END_MONTH,
                 CliSyntax.PREFIX_END_YEAR, CliSyntax.PREFIX_END_DAY);
+
+        boolean isValidPeriod = EventQuery.isValidEventTime(startDate, endDate);
+
+        if (!isValidPeriod) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    CommandUtil.MESSAGE_DATE_RESTRICTION));
+        }
 
         Name name = new NameParser().parse(argMultimap.getValue(CliSyntax.PREFIX_NAME)).get();
 

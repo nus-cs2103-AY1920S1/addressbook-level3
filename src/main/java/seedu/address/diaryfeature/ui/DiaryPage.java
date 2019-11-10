@@ -30,7 +30,6 @@ import seedu.address.ui.ResultDisplay;
 public class DiaryPage extends UiPart<Region> implements Page {
     private static final PageType pageType = PageType.DIARY;
 
-
     private static final String FXML = "DiaryPage.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());

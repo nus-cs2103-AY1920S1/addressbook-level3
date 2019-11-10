@@ -1,8 +1,9 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.commands.*;
+import seedu.address.calendar.commands.AlternativeDeleteCommand;
+import seedu.address.calendar.commands.DeleteCommand;
 import seedu.address.calendar.model.date.Date;
-import seedu.address.calendar.model.event.*;
+import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
@@ -15,11 +16,6 @@ public class AlternativeDeleteCommandParser {
 
     DeleteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, prefixes);
-
-        String preamble = argMultimap.getPreamble();
-
-        String eventTypeStr = preamble.toUpperCase();
-        EventType eventType = EventType.valueOf(eventTypeStr);
 
         // assumptions: if no start month/year specified it is the current month/year
         Date startDate = DateParser.parseStartDate(argMultimap, CliSyntax.PREFIX_START_MONTH,

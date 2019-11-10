@@ -134,7 +134,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public XYChart.Series<Integer, String> getAddressChartData() {
+        public XYChart.Series<Number, String> getAddressChartData() {
             throw new AssertionError("This method should not be called.");
         }
     }

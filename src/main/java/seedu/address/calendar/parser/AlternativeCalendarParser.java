@@ -6,8 +6,6 @@ import seedu.address.calendar.model.Calendar;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.util.regex.Matcher;
-
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 public class AlternativeCalendarParser extends Parser {
