@@ -21,12 +21,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
- * Controller class for home page. The home page not only provides greetings and introductory messages to the users,
- * but also functions as a personal dashboard. This personal dashboard displays useful information pertaining to the
- * user's personal progress he/she made so far in Duke Academy.
+ * Controller class for Dashboard. This dashboard allows the user to conveniently keep track
+ * of the his personal progress and learning journey in Duke Academy.
  */
-public class HomePage extends UiPart<Region> {
-    private static final String FXML = "HomePage.fxml";
+public class Dashboard extends UiPart<Region> {
+    private static final String FXML = "Dashboard.fxml";
     private static final String[] skillTiers = {"Novice", "Apprentice", "Master", "Grandmaster", "Duke"};
     private static final int[] skillTierCeilings = {29, 49, 69, 89, 100};
 
@@ -77,17 +76,17 @@ public class HomePage extends UiPart<Region> {
      *
      * @param questions observable list of questions
      */
-    public HomePage(ObservableList<Question> questions) {
+    public Dashboard(ObservableList<Question> questions) {
         super(FXML);
-        this.populateHomePage(questions);
-        questions.addListener((ListChangeListener<Question>) c -> populateHomePage(new ArrayList<>(c.getList())));
+        this.populateDashboard(questions);
+        questions.addListener((ListChangeListener<Question>) c -> populateDashboard(new ArrayList<>(c.getList())));
     }
 
     /**
      * Helper method to populate the homepage with a new list of questions
      * @param questions questions to populate the homepage with
      */
-    private void populateHomePage(List<Question> questions) {
+    private void populateDashboard(List<Question> questions) {
         int done = computeNumDone(questions);
         int total = computeNumTotal(questions);
         updateNumDone(done);

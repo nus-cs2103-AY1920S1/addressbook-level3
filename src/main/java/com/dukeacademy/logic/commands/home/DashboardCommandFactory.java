@@ -6,24 +6,25 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.state.ApplicationState;
+import com.dukeacademy.ui.Dashboard;
 
 /**
- * Factory class encapsulating the necessary components for the creation of a Home command instance.
+ * Factory class encapsulating the necessary components for the creation of a Dashboard command instance.
  */
-public class HomeCommandFactory implements CommandFactory {
+public class DashboardCommandFactory implements CommandFactory {
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
     private final ApplicationState applicationState;
 
     /**
-     * Instantiates a new Home command factory.
+     * Instantiates a new Dashboard command factory.
      *
      * @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
      * @param applicationState       the application state
      */
-    public HomeCommandFactory(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic,
-                              ApplicationState applicationState) {
+    public DashboardCommandFactory(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic,
+                                    ApplicationState applicationState) {
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
         this.applicationState = applicationState;
@@ -31,7 +32,7 @@ public class HomeCommandFactory implements CommandFactory {
 
     @Override
     public String getCommandWord() {
-        return "home";
+        return "dashboard";
     }
 
     @Override
@@ -41,6 +42,6 @@ public class HomeCommandFactory implements CommandFactory {
                     + "take any arguments");
         }
 
-        return new HomeCommand(this.questionsLogic, this.programSubmissionLogic, applicationState);
+        return new DashboardCommand(this.questionsLogic, this.programSubmissionLogic, applicationState);
     }
 }
