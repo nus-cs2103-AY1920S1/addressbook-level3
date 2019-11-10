@@ -72,7 +72,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LeowWB&sort=totalComm
 
 ** Project management
 *** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
-*** Updated the project website with the team's details (
+*** Added the team's details to the project website (
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19],
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/24[#24]
     )
