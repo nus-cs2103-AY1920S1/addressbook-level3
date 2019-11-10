@@ -517,65 +517,66 @@ After taking the effort to record your expenditures, you want to ensure that you
 This is made simple with the budgeting features in IchiFund.
 
 Each budget that you create will have a description and a maximum expenditure limit.
-For advanced users who require finer control in their budgeting, you can also
-restrict which expenditures to include in the budget computation.
+If you are an advanced user who wants finer control in your budgeting,
+you can also restrict which expenditures to include in your budget computation.
 
-[NOTE]
-In v1.4, all budgets are restricted to monthly budget.
-
-In the budget tab, you can maintain a list of your monthly budgets, adding, deleting and filtering items
-as you like. The image below gives an overview of the GUI of the feature:
+Once you are in the budget tab, you will see a list of your budgets.
+Here, you can add, delete, and find budgets.
+The image below gives an overview of the budget interface
 
 [[budgetsScreenshot]]
-.Budgets tab
+.Overview of the budget interface
 image::BudgetsScreenshot.png[]
 
-The budget list comprises several budget cells. Each budget cell represents a single budget.
+The budget list comprises several budget cells.
+Each cell represents a single budget.
 We give a further breakdown of the information each budget cell displays in the following image:
 
 [[budgetCell]]
-.Information in a budget cell
+.Breakdown of the information of each budget cell
 image::BudgetCell.png[]
 
-[NOTE]
-The budget bar will turn from green to red when you spend over 80% of the total amount.
+On the left, you will see the index, description, and criteria.
+The index is used to reference a particular budget in the commands,
+the description is a phrase you set to identify your budget,
+and the criteria tell you which expenditure the budget takes into account.
 
 ==== Creating monthly budget: `add`
 
 Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
 
-You can use the `add` command to create a monthly budget.
-Let us walk through the process for creating a budget for tracking your spending on food.
+You can use the `add` command to create a budget.
+Let us first walk through the process of creating a budget for tracking your spending on food.
 
 1. Check to make sure you are in the budgets tab. If not, switch to it.
 
 image::addbud1.png[]
 
 [start=2]
-2. Type `addbud de/Saving my tummy a/82.69 c/food` into the command bar.
-This will create a $82.69 budget named _Saving my tummy_ that tracks this month's expenditures tagged with the _food_ category.
+2. Type `add de/Saving my tummy a/82.69 c/food` into the command bar.
+This will create an $82.69 budget named _Saving my tummy_
+that tracks this month's expenditures tagged with the _food_ category.
 
 [NOTE]
-If the optional arguments `m/MONTH` and `y/YEAR` are not provided, the budget will track on all transactions.
+If the optional arguments `m/MONTH` and `y/YEAR` are not provided, the budget will track all transactions.
 
 image::addbud2.png[]
 
 [start=3]
 3. Press enter to run the command.
-You should see the newly created budget in the budget list.
+You should see the newly created budget on the budget list.
 
 image::addbud3.png[]
 
 If you want to track all monthly expenditures, simply leave out the `c/CATEGORY` argument.
-For instance, the following command creates a $500.00 budget that is applicable to all expenditures:
+For instance, the following command creates a $500.00 budget that applies to all expenditures:
 `add de/General budgeting a/500`.
-
 
 ==== Deleting monthly budget: `delete`
 
 Format: `delete INDEX`
 
-You can use `delete` to delete the budget.
+You can use `delete` to delete a budget with a given index.
 Let us walk through the process of deleting the _Saving my tummy_ budget we created previously.
 
 1. Identify the index of the budget you are deleting. Here, the index is 2.
@@ -584,16 +585,23 @@ image::deletebud1.png[]
 
 [start=2]
 2. Type `delete 2` into the command bar and press enter.
-You should see the _Saving my tummy_ budget disappear from the budget list.
+You should see the _Saving my tummy_ budget disappear from the list.
 
 ==== Finding monthly budget by keywords: `find`
 
 Format: `find [KEYWORDS]...`
 
-You can use `find` to find budgets with description that matches all the given keywords. To illustrate this, let us suppose you want to find all budgets with the word _saving_ in its description.
+You can use `find` to find budgets with description that matches all the given keywords.
+To illustrate this, let us suppose you want to find all budgets with _saving_ in its description.
 To do so, type `find saving` into the command bar and press enter.
-You should see the search result in the budget list.
+You should see the search result on the budget list.
 
+[TIP]
+If you are unsure about which keywords the budget you are looking for contains,
+you can enter multiple keywords separated by space.
+IchiFund will return to you all results that match with at least one keyword.
+
+You can also revert the budget list to show all budgets by executing `find` without any argument.
 To revert the budget list so that all budgets are listed, simply execute `find` without any argument.
 
 === Loans [Coming in v2.0]
