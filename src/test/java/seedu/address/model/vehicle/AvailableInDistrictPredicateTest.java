@@ -27,11 +27,6 @@ public class AvailableInDistrictPredicateTest {
     }
 
     @Test
-    public void test_vehicleAvailableInDistrict_returnsTrue() {
-        assertTrue(p1.test(V1));
-    }
-
-    @Test
     public void test_vehicleNotAvailableInDistrict_returnsFalse() {
         assertFalse(p1.test(V6));
     }
