@@ -4,15 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Generic abstraction of budget.
+ * Generic abstraction of currency symbol.
  */
 public class Symbol {
     public static final String MESSAGE_CONSTRAINTS = "Symbol can take any integer between 1 to 7."
             + " Alternatively, it can contain a non-numerical string with no more than 3 characters";
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
+
     public static final String VALIDATION_REGEX = "^[1-7]";
 
     public static final String VALIDATION_REGEX_STRING = "([^\\w0-9]|[A-Za-z]){1,3}";

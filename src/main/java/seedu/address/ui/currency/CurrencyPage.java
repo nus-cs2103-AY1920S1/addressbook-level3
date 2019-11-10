@@ -30,11 +30,12 @@ import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.template.Page;
 
 /**
- * {@code Page} for displaying the currency details.
+ * {@code Page} for displaying and editing the customised currencies.
  */
 public class CurrencyPage extends Page<AnchorPane> {
 
     protected static final String FXML = "currency/CurrencyPage.fxml";
+    private static final String EXECUTE_COMMAND_FORMAT = EditCurrencyFieldCommand.COMMAND_WORD + " %1$s%2$s";
 
     private TextFormItem currencyNameFormItem;
     private DoubleFormItem currencyRateFormItem;
@@ -108,21 +109,17 @@ public class CurrencyPage extends Page<AnchorPane> {
     private void initFormWithModel() {
         //Initialise with new display data
         currencyNameFormItem = new TextFormItem("Name of Currency : ", nameFormValue -> {
-            mainWindow.executeGuiCommand(
-                    EditCurrencyFieldCommand.COMMAND_WORD
-                            + " " + PREFIX_NAME + nameFormValue);
+            mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_NAME, nameFormValue));
         });
         VBox symbolFormItem = new VBox();
 
         currencySymbolFormItem = new TextFormItem("Symbol of Currency : ", symbol -> {
-            mainWindow.executeGuiCommand(EditCurrencyFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_SYMBOL + symbol);
+            mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_SYMBOL, symbol));
         });
         symbolFormItem.getChildren().add(currencySymbolFormItem.getRoot());
         symbolFormItem.getChildren().add(new PresetSymbols(mainWindow).getRoot());
         currencyRateFormItem = new DoubleFormItem("SGD $1.00 = ", rate -> {
-            mainWindow.executeGuiCommand(EditCurrencyFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_RATE + rate);
+            mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_RATE, rate));
         });
 
         fillPage(); //update and overwrite with existing edit descriptor

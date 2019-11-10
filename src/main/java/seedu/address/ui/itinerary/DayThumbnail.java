@@ -5,8 +5,14 @@ import java.time.format.DateTimeFormatter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
 
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.itinerary.days.EnterDayCommand;
 import seedu.address.logic.commands.itinerary.days.EnterEditDayCommand;
@@ -33,6 +39,9 @@ public class DayThumbnail extends UiPart<AnchorPane> {
     @FXML
     private Label dateLabel;
 
+    @FXML
+    private AnchorPane anchorPane;
+
     private Day day;
     private Index displayedIndex;
     private MainWindow mainWindow;
@@ -53,6 +62,18 @@ public class DayThumbnail extends UiPart<AnchorPane> {
         dateLabel.setText(day.getStartDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
         destinationLabel.setWrapText(true);
         destinationLabel.setText(day.getDestination().toString());
+
+        Boolean isPhotoPresent = day.getPhoto().isPresent();
+
+        if (isPhotoPresent) {
+            Image img = day.getPhoto().get().getImage();
+            BackgroundImage bgImg = new BackgroundImage(img,
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.DEFAULT,
+                    new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO,
+                            false, false, true, true));
+            anchorPane.setBackground(new Background(bgImg));
+        }
     }
 
     @Override

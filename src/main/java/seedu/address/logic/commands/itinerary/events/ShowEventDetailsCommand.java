@@ -33,7 +33,7 @@ public class ShowEventDetailsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        requireNonNull(model.getPageStatus().getDay());
         // Assumes EnterDayCommand has already been called
         List<Event> lastShownList = model.getPageStatus().getDay().getEventList().internalList;
 
@@ -59,7 +59,7 @@ public class ShowEventDetailsCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || other instanceof EnterEditEventCommand;
+                || other instanceof ShowEventDetailsCommand;
     }
 
 }

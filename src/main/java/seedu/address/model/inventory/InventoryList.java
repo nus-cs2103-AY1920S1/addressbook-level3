@@ -16,7 +16,7 @@ import seedu.address.model.inventory.exceptions.InventoryNotFoundException;
  */
 public class InventoryList {
 
-    //public final ObservableList<Expenditure> internalList = FXCollections.observableArrayList();
+    //public final ObservableList<Expense> internalList = FXCollections.observableArrayList();
 
     public final ObservableList<Inventory> list = FXCollections.observableArrayList();
 
@@ -67,8 +67,8 @@ public class InventoryList {
         requireAllNonNull(occurrences);
 
         /*
-        if (!expendituresAreUnique(occurrences)) {
-            throw new DuplicateExpenditureException();
+        if (!expensesAreUnique(occurrences)) {
+            throw new DuplicateExpenseException();
         }*/
 
         list.setAll(occurrences);

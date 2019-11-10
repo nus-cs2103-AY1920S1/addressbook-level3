@@ -11,22 +11,25 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
-import seedu.address.model.expenditure.DayNumber;
-import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
+import seedu.address.model.expense.DayNumber;
+import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.PlannedExpense;
+import seedu.address.model.expense.exceptions.ExpenseNotFoundException;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.itinerary.Budget;
+import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
@@ -90,7 +93,7 @@ public class EditEventFieldCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditEventDescriptor)) {
+        if (!(other instanceof EditEventFieldCommand)) {
             return false;
         }
 
@@ -106,23 +109,24 @@ public class EditEventFieldCommand extends Command {
      */
     public static class EditEventDescriptor {
         private Optional<Name> name;
-        private Optional<LocalDateTime> startDate;
-        private Optional<LocalDateTime> endDate;
+        private Optional<LocalTime> startTime;
+        private Optional<LocalTime> endTime;
         private Optional<Location> destination;
         private Optional<Budget> totalBudget;
 
         private Optional<Inventory> inventory;
         private Optional<Booking> booking;
+        private Optional<Description> description;
 
         public EditEventDescriptor() {
             name = Optional.empty();
-            startDate = Optional.empty();
-            endDate = Optional.empty();
+            startTime = Optional.empty();
+            endTime = Optional.empty();
             destination = Optional.empty();
             totalBudget = Optional.empty();
             inventory = Optional.empty();
             booking = Optional.empty();
-
+            description = Optional.empty();
         }
 
         /**
@@ -131,12 +135,13 @@ public class EditEventFieldCommand extends Command {
          */
         public EditEventDescriptor(EditEventDescriptor toCopy) {
             name = toCopy.getName();
-            startDate = toCopy.getStartDate();
-            endDate = toCopy.getEndDate();
+            startTime = toCopy.getStartTime();
+            endTime = toCopy.getEndTime();
             destination = toCopy.getDestination();
             totalBudget = toCopy.getBudget();
             inventory = toCopy.getInventory();
             booking = toCopy.getBooking();
+            description = toCopy.getDescription();
         }
 
 
@@ -146,12 +151,13 @@ public class EditEventFieldCommand extends Command {
          */
         public EditEventDescriptor(Event toCopy) {
             setName(toCopy.getName());
-            setStartDate(toCopy.getStartDate());
-            setEndDate(toCopy.getEndDate());
+            setStartTime(toCopy.getStartDate().toLocalTime());
+            setEndTime(toCopy.getEndDate().toLocalTime());
             setDestination(toCopy.getDestination());
-            setBudget(toCopy.getExpenditure().get().getBudget());
+            setBudget(toCopy.getExpense().get().getBudget());
             setInventory(toCopy.getInventory());
             setBooking(toCopy.getBooking());
+            setDescription(toCopy.getDescription());
         }
 
 
@@ -168,17 +174,20 @@ public class EditEventFieldCommand extends Command {
             newDescriptor.name.ifPresentOrElse(this::setName, () ->
                     oldDescriptor.name.ifPresent(this::setName));
 
-            newDescriptor.startDate.ifPresentOrElse(this::setStartDate, () ->
-                    oldDescriptor.startDate.ifPresent(this::setStartDate));
+            newDescriptor.startTime.ifPresentOrElse(this::setStartTime, () ->
+                    oldDescriptor.startTime.ifPresent(this::setStartTime));
 
-            newDescriptor.endDate.ifPresentOrElse(this::setEndDate, () ->
-                    oldDescriptor.endDate.ifPresent(this::setEndDate));
+            newDescriptor.endTime.ifPresentOrElse(this::setEndTime, () ->
+                    oldDescriptor.endTime.ifPresent(this::setEndTime));
 
             newDescriptor.destination.ifPresentOrElse(this::setDestination, () ->
                     oldDescriptor.destination.ifPresent(this::setDestination));
 
             newDescriptor.totalBudget.ifPresentOrElse(this::setBudget, () ->
                     oldDescriptor.totalBudget.ifPresent(this::setBudget));
+
+            newDescriptor.description.ifPresentOrElse(this::setDescription, () ->
+                    oldDescriptor.description.ifPresent(this::setDescription));
             /*
             newDescriptor.inventory.ifPresentOrElse(this::setInventory,
                     () -> oldDescriptor.inventory.ifPresent(this::setInventory));
@@ -199,17 +208,25 @@ public class EditEventFieldCommand extends Command {
          * @throws NullPointerException If any of the fields are empty.
          */
         public Event buildEvent(Model model) {
-            if (isAllPresent(name, startDate, endDate, destination)) {
-                Optional<Expenditure> expenditure = Optional.empty();
+
+            if (isAllPresent(name, startTime, endTime, destination)) {
+                Optional<Expense> expense = Optional.empty();
+
                 if (totalBudget.isPresent()) {
                     DayList list = model.getPageStatus().getTrip().getDayList();
                     Day day = model.getPageStatus().getDay();
                     int index = list.internalList.indexOf(day);
-                    Expenditure newExpenditure = new Expenditure(name.get(), totalBudget.get(),
-                            new DayNumber(Integer.toString(index + 1)), false);
-                    expenditure = Optional.of(newExpenditure);
+                    Expense newExpense = new PlannedExpense(name.get(), totalBudget.get(),
+                            new DayNumber(Integer.toString(index + 1)));
+                    expense = Optional.of(newExpense);
                 }
-                return new Event(name.get(), startDate.get(), endDate.get(), expenditure, destination.get());
+
+                LocalDate currentDay = model.getPageStatus().getDay().getStartDate().toLocalDate();
+                LocalDateTime newStartDate = LocalDateTime.of(currentDay, startTime.get());
+                LocalDateTime newEndDate = LocalDateTime.of(currentDay, endTime.get());
+
+                return new Event(name.get(), newStartDate, newEndDate, expense, destination.get(), description);
+
             } else {
                 throw new NullPointerException();
             }
@@ -224,23 +241,28 @@ public class EditEventFieldCommand extends Command {
          * @param model Source {@code Model} instance.
          * @return Edited {@code Event} instance.
          */
-        public Event buildEvent(Event event, Model model) throws ExpenditureNotFoundException {
+        public Event buildEvent(Event event, Model model) throws ExpenseNotFoundException {
+            LocalDate currentDay = model.getPageStatus().getDay().getStartDate().toLocalDate();
+
             Name eventName = event.getName();
-            LocalDateTime startDate = event.getStartDate();
-            LocalDateTime endDate = event.getEndDate();
+            LocalTime startTime = event.getStartDate().toLocalTime();
+            LocalTime endTime = event.getEndDate().toLocalTime();
+            LocalDateTime startDate = currentDay.atTime(startTime);
+            LocalDateTime endDate = currentDay.atTime(endTime);
             Location destination = event.getDestination();
             Optional<Booking> booking = event.getBooking();
             Optional<Inventory> inventory = event.getInventory();
-            Optional<Expenditure> expenditure = event.getExpenditure();
+            Optional<Description> description = event.getDescription();
+            Optional<Expense> expense = event.getExpense();
 
             if (this.name.isPresent()) {
                 eventName = this.name.get();
             }
-            if (this.startDate.isPresent()) {
-                startDate = this.startDate.get();
+            if (this.startTime.isPresent()) {
+                startDate = this.startTime.get().atDate(currentDay);
             }
-            if (this.endDate.isPresent()) {
-                endDate = this.endDate.get();
+            if (this.endTime.isPresent()) {
+                endDate = this.endTime.get().atDate(currentDay);
             }
             if (this.destination.isPresent()) {
                 destination = this.destination.get();
@@ -248,9 +270,9 @@ public class EditEventFieldCommand extends Command {
             if (this.totalBudget.isPresent()) {
                 int index = model.getPageStatus().getTrip().getDayList()
                         .internalList.indexOf(model.getPageStatus().getDay());
-                Expenditure newExpenditure = new Expenditure(eventName, this.totalBudget.get(),
-                        new DayNumber(Integer.toString(index + 1)), false);
-                expenditure = Optional.of(newExpenditure);
+                Expense newExpense = new PlannedExpense(eventName, this.totalBudget.get(),
+                        new DayNumber(Integer.toString(index + 1)));
+                expense = Optional.of(newExpense);
             }
             if (this.inventory.isPresent()) {
                 inventory = this.inventory;
@@ -258,15 +280,19 @@ public class EditEventFieldCommand extends Command {
             if (this.booking.isPresent()) {
                 booking = this.booking;
             }
+            if (this.description.isPresent()) {
+                description = this.description;
+            }
 
-            return new Event(eventName, startDate, endDate, expenditure, destination);
+            return new Event(eventName, startDate, endDate, expense, destination, description);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(name, startDate, endDate, destination, totalBudget, booking, inventory);
+            return CollectionUtil.isAnyPresent(name, startTime, endTime, destination, totalBudget,
+                    booking, inventory, description);
         }
 
 
@@ -278,21 +304,21 @@ public class EditEventFieldCommand extends Command {
             return name;
         }
 
-        public void setStartDate(LocalDateTime startDate) {
-            this.startDate = Optional.of(startDate);
+        public void setStartTime(LocalTime startTime) {
+            this.startTime = Optional.of(startTime);
         }
 
-        public Optional<LocalDateTime> getStartDate() {
-            return startDate;
+        public Optional<LocalTime> getStartTime() {
+            return startTime;
         }
 
-        public void setEndDate(LocalDateTime endDate) {
-            this.endDate = Optional.of(endDate);
+        public void setEndTime(LocalTime endTime) {
+            this.endTime = Optional.of(endTime);
         }
 
-        public Optional<LocalDateTime> getEndDate() {
+        public Optional<LocalTime> getEndTime() {
             //end date is optional, but return null to conform with the rest.
-            return endDate;
+            return endTime;
         }
 
         public void setDestination(Location destination) {
@@ -304,7 +330,7 @@ public class EditEventFieldCommand extends Command {
         }
 
         public void setBudget(Budget totalBudget) {
-            this.totalBudget = Optional.of(totalBudget);
+            this.totalBudget = Optional.ofNullable(totalBudget);
         }
 
         public void setBudget(Optional<Budget> totalBudget) {
@@ -340,6 +366,17 @@ public class EditEventFieldCommand extends Command {
             this.booking = booking;
         }
 
+        public Optional<Description> getDescription() {
+            return description;
+        }
+
+        public void setDescription(Optional<Description> description) {
+            this.description = description;
+        }
+
+        public void setDescription(Description description) {
+            this.description = Optional.of(description);
+        }
 
         @Override
         public boolean equals(Object other) {
@@ -349,7 +386,7 @@ public class EditEventFieldCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditCommand.EditPersonDescriptor)) {
+            if (!(other instanceof EditEventDescriptor)) {
                 return false;
             }
 
@@ -357,10 +394,11 @@ public class EditEventFieldCommand extends Command {
             EditEventDescriptor e = (EditEventDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getStartDate().equals(e.getStartDate())
-                    && getEndDate().equals(e.getEndDate())
+                    && getStartTime().equals(e.getStartTime())
+                    && getEndTime().equals(e.getEndTime())
                     && getDestination().equals(e.getDestination())
-                    && getBudget().equals(e.getBudget());
+                    && getBudget().equals(e.getBudget())
+                    && getDescription().equals(e.getDescription());
 //                    && getInventory().equals((e.getInventory()))
 //                    && getBooking().equals((e.getBooking()));
         }
@@ -370,12 +408,13 @@ public class EditEventFieldCommand extends Command {
             StringBuilder builder = new StringBuilder();
 
             this.name.ifPresent(name -> builder.append(" Name of event: ").append(name));
-            this.startDate.ifPresent(startDate ->
-                    builder.append(" Start date: ").append(ParserDateUtil.getDisplayTime(startDate)));
-            this.endDate.ifPresent(endDate ->
-                    builder.append(" End date: ").append(ParserDateUtil.getDisplayTime(endDate)));
+            this.startTime.ifPresent(startDate ->
+                    builder.append(" Start time: ").append(ParserDateUtil.getDisplayTime(startDate)));
+            this.endTime.ifPresent(endDate ->
+                    builder.append(" End time: ").append(ParserDateUtil.getDisplayTime(endDate)));
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
+            this.description.ifPresent(description -> builder.append(" Description: ").append(description));
             /*
             this.inventory.ifPresent(inventory -> builder.append(" Inventory: ").append(inventory));
             this.booking.ifPresent(booking -> builder.append(" Booking/s: ").append(booking));

@@ -86,8 +86,12 @@ public abstract class ParserDateUtil {
      * @param dateTime The input LocalDateTime object.
      * @return The string representation of the localDateTime.
      */
-    public static String getDisplayTime(LocalDateTime dateTime) {
+    public static String getDisplayDateTime(LocalDateTime dateTime) {
         return DISPLAY_FORMATTER.format(dateTime);
+    }
+
+    public static String getDisplayTime(LocalTime time) {
+        return TIME_FORMATTER.format(time);
     }
 
     /**

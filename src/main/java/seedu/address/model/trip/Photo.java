@@ -19,7 +19,8 @@ public class Photo {
 
     public static final int MAXIMUM_DESCRIPTION_LENGTH = 20;
     public static final String MESSAGE_PATH_CONSTRAINTS =
-            "The image path specified should be valid, and must point to an existing file.";
+            "The image path specified should be valid, and must point to an existing file. "
+                    + "A default image will be used.";
     public static final String MESSAGE_IMAGE_CONSTRAINTS = "The file should point to a valid png or jpg image file.";
 
 

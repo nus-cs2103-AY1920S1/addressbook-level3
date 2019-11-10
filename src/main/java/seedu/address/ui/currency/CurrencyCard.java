@@ -10,9 +10,9 @@ import seedu.address.ui.UiPart;
 
 
 /**
- * TODO: Implement display for inventory and booking labels.
+ * A component for displaying the details of a singular {@code CustomisedCurrency}.
  */
-public class CurrencyCard extends UiPart<HBox> {
+public abstract class CurrencyCard extends UiPart<HBox> {
 
     @FXML
     private Label idLabel;
@@ -30,13 +30,13 @@ public class CurrencyCard extends UiPart<HBox> {
         super(fxmlFileName);
         this.currency = currency;
         this.displayedIndex = displayedIndex;
-        fillExpenditureCardLabels();
+        fillExpenseCardLabels();
     }
 
     /**
      * Fills the labels of this currency card.
      */
-    private void fillExpenditureCardLabels() {
+    private void fillExpenseCardLabels() {
         idLabel.setText(displayedIndex.getOneBased() + ".");
         nameLabel.setText(currency.getName().toString() + " (" + currency.getSymbol().toString() + ")");
         rateLabel.setText(String.format("%.2f", currency.getRate().getValue()));
