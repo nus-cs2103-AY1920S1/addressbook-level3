@@ -69,7 +69,7 @@ careful tweaks to existing structures.
 
 * *Minor enhancement*: refactored code from [https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book - Level 3]] to fit the context of *_Typee_*
 
-* *Code contributed*: [https://github.com/brebeek/main[Functional code]] [https://github.com/brebeek/main/tree/add-unit-test[Test code]] 
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=brebeek&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=brebeek&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Test code]]
 
 * *Other contributions*:
 
