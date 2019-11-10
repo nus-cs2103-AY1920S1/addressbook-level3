@@ -30,6 +30,7 @@ import seedu.address.model.person.Name;
 import seedu.address.testutil.TypicalWorkers;
 import seedu.address.testutil.WorkerBuilder;
 
+//@@author shaoyi1997
 class WorkerTest {
 
     @SuppressWarnings("checkstyle:Regexp")
@@ -158,3 +159,4 @@ class WorkerTest {
                 new WorkerBuilder().build().toString());
     }
 }
+//@@author

@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.ReadOnlyAddressBook;
 
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 /**
  * Contains helper methods that system tests require.
  */
@@ -73,3 +75,4 @@ public class SystemTestSetupHelper {
         }
     }
 }
+//@@author

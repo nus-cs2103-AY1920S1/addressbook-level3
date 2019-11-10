@@ -138,9 +138,7 @@ You can add a body, worker or fridge by entering an add command that follows the
 This table details how you can craft your add command to add an entity in Mortago.
 |===
 
-| Purpose |  Format
-
-| Add a new worker
+| Adding a Worker |  Adding a Body | Adding a Fridge
 
 a|
 ====
@@ -158,11 +156,10 @@ add -w +
 If you wish to provide a photo for the worker entry, please provide the absolute path of the image file.
 You can follow the steps <<Copy-File-Path, here>> to obtain the absolute path of the file.
 
+
 ====
 
----
 
-| Add a new body
 a|
 ====
 add -b +
@@ -180,22 +177,23 @@ add -b +
 (/cod causeOfDeath) +
 (/organsForDonation organsForDonation) +
 (/fridgeId fridgeId)
+
+
 ====
 
-[TIP]
-Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
-
----
-| Add a new fridge
 a|
 ====
 add -f
 ====
 
+
 [TIP]
 Default status: `UNOCCUPIED`
 
 |===
+
+[TIP]
+Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
 
 Example:
 
@@ -211,7 +209,6 @@ a|
  /dateJoined 18/08/2019
  /designation Autopsy Technician`
 
----
 
 | Worker added
 
@@ -232,7 +229,7 @@ a|
 /details Heavy bleeding and head injury
 /organsForDonation NIL`
 
----
+
 | Body added
 
 a|
@@ -313,10 +310,16 @@ Photo `/photo`
 Make sure you key in dates in the format DD/MM/YYYY.
 
 Example: +
-Imagine that someone (Jane Doe) just got promoted! You have to change her designation in Mortago.
+Imagine that someone (Jane Doe) just got promoted! You have to change her designation to 'Manager' in Mortago.
 
 Instead of typing out all the irrelevant attributes a Worker has, you just have to input her ID number
-and her new designation. You see that her ID number is W00001.
+and her new designation.
+
+To update Jane Doe's designation: +
+1. Locate her identification number on the dashboard. You see on the dashboard that her ID number is W00001. +
+2. Type `update -w /id 1 /designation Manager` into the command box, and press `Enter` to execute it. +
+3. The result box will indicate that the `delete` command has been undone. +
+4. You will also see  on the dashboard that Jane Doe's designation has been updated.
 
 |===
 | Command | Expected Output
@@ -480,7 +483,7 @@ All body entries with car accident as the cause of death and those that are male
 // tag::undoredo[]
 ==== Undoing a command: `undo`
 
-This command undoes the effects of the last command you executed. You can undo up to 10 of your most recent commands.
+This command undoes the effects of the last command you executed. You can undo up to 10 most recent commands.
 The commands are undone starting from the most recent to the least recent.
 
 Format: `undo` or `u`
@@ -488,8 +491,8 @@ Format: `undo` or `u`
 The `add`, `update`, `clear`, and `delete` commands can be undone.
 Commands like `list` or `find` cannot be undone.
 
-Changes caused by automated commands, such as a `NotifCommand` can be undone and redone.
-For example, the automatic status change of a `Body` from `ARRIVED` to `CONTACT_POLICE` can be undone. However, note that this feature does not support
+Commands caused by automated commands, such as a `NotifCommand` can be undone and redone.
+For example, the automatic status change of a `Body` from `ARRIVED` to `CONTACT_POLICE`  is caused by an `UpdateCommand` and can be undone. However, note that this feature does not support
 the `NotifCommand` itself.
 
 
