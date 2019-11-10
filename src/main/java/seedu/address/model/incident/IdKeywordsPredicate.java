@@ -18,6 +18,8 @@ public class IdKeywordsPredicate implements Predicate<Incident> {
 
     @Override
     public boolean test(Incident incident) {
+        assert incident.getIncidentId() != null : "Incident should have Incident ID";
+        assert incident.getIncidentId().getId() != "" : "Incident ID should not be empty.";
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(incident.getIncidentId().getId(), keyword));
     }
