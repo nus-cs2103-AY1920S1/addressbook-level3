@@ -26,7 +26,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[align="center", width=85%, scaledwidth=15cm]
+image::ArchitectureDiagram.png[align="center"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -285,6 +285,7 @@ and stored.
 *** Difficult to monitor multiple resource books (e.g. Regime books and Exercise books) as they all
 manage different types of resources that can be altered by commands.
 // end::undoredo[]
+
 ==== Design Patterns
 
 The Undo/Redo feature implementation is based on the Singleton, Command, and Factory design patterns
@@ -583,7 +584,7 @@ where each contains a `Collection` of `Muscle` or `CustomProperty`.
 
 .Class diagram of the classes behind the suggest possible feature
 
-image::SuggestCommandClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
+image::SuggestCommandClassDiagram.png[align="center"]
 
 Creating classes such as `ExerciseCustomPropertyPredicate` and `ExerciseMusclePredicate`
 allows us to conduct better testing because we can compare the `Collection` of `Muscle`/`CustomProperty` that is being considered.
@@ -1112,13 +1113,13 @@ exercises from database that are tagged `Chest` are also displayed.
                   the exercises at indices 1 to 3. The following test cases should be tried in order.
 .. Test case: `custom rm/Remark i/1` +
    Expected: `Remark` is removed from exercise 1. A message informing the user that `Remark` has been removed from
-   exercise 1 will be shown. The `Remark` property for exercises 1 and 2 will still be present.
+   exercise 1 will be shown. The `Remark` property for exercises 2 and 3 are still present.
 .. Test case: `custom rm/Remark`
    Expected: `Remark` is removed from the app. A message informing the user that `Remark` has been removed will be shown.
    The `Remark` property is removed from all exercises.
 .. Test case: `custom rm/Date`
    Expected: No custom property is removed. An error message informing the user that `Date` is not used by
-   an custom property will be shown.
+   a custom property will be shown.
 
 === Saving data
 
