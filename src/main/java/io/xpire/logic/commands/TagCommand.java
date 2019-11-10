@@ -152,6 +152,16 @@ public class TagCommand extends Command {
         stateManager.saveState(new ModifiedState(model));
         model.setItem(this.listType, itemToTag, taggedItem);
 
+        return getTagCommandResult(taggedItem);
+    }
+
+    /**
+     * Gets the appropriate CommandResult based on whether any tags in the item have been truncated.
+     *
+     * @param taggedItem Item that has been tagged.
+     * @return CommandResult
+     */
+    private CommandResult getTagCommandResult(Item taggedItem) {
         if (this.tagItemDescriptor.getTags().stream().anyMatch(Tag::isTruncated)) {
             this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, taggedItem);
             setShowInHistory(true);
