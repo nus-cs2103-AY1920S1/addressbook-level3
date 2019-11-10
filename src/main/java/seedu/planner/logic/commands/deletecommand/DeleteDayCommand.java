@@ -82,6 +82,9 @@ public class DeleteDayCommand extends DeleteCommand {
             DeleteDayCommand newCommand = new DeleteDayCommand(targetIndex, dayToDelete);
             updateEventStack(newCommand, model);
         }
+        model.shiftDatesInItineraryByDayBetweenRange(-1, Index.fromOneBased(targetIndex.getOneBased() + 1),
+                Index.fromOneBased(model.getNumberOfDays() + 1));
+
         model.deleteDay(dayToDelete);
 
         return new CommandResult(
