@@ -1,0 +1,72 @@
+= Ng Shi Wei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Tagline
+
+'''
+
+=== About the project
+My team of 5 software engineering students were tasked with enhancing a basic command line interface desktop AddressBook application for our Software Engineering project. We chose to morph it into a note management application called **TagLine**. This enhanced application enables students to store their notes in a centralised application; organise notes related to contact, topic or project group; and filter and find their notes with ease.
+
+This is  what our project looks like:
+
+.The graphical user interface for TagLine
+image::ui.png[]
+
+My role was to design and write the codes for the note commands, including basic add, delete, edit command as well as a filter feature. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
+
+=== Summary of contributions
+---
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+
+**Enhancement added:** I added the ability to store and filter notes
+
+* [.underline]#What it does#:
+** The `note create` command creates and stores a note to TagLine.
+** The `note delete` command deletes the note from TagLine.
+** The `note edit` command edits the note in TagLine.
+** The `note list` command filters and list notes according to the user input provided.
+
+* [.underline]#Justification#: In the case that the notes in TagLine grows, it will be difficult to find notes. The `note list` command allows users to easily find and filter the notes that they require.
+
+* [.underline]#Highlight#
+** Note filtering work with both keyword filtering as well as tag filtering. A user can specify a keyword, if the keyword is found in note content or title, the note will be displayed. Users can also tag their notes to organise them, as implemented by other members. The `note list` command can filter the notes using tags.
+** An in-depth analysis of design alternatives was necessary for the code style and design to be consistent with other features. Also, future changes and additions should be easy to be implemented if need be.
+** The implementation was challenging as TagLine has 3 different tags – Hashtags, Contact as tag, and Group name as tag. The note list command has to be implemented such that the filtering applies generally to all 3 tags.
+** Credit: The architecture and code of note create/delete/edit commands were reused and morphed from AddressBook commands.
+
+**Code contributed:** Please click these links to see a sample of my code: [Functional code ] [Test code]
+
+**Other contributions:**
+
+* Documentation:
+** Add the logic of note commands in developer guide after their addition to TagLine: link:../DeveloperGuide.html#Design-NoteLogic[NoteLogic]
+
+* Community:
+** Reviewed and offered suggestions for Developer Guide of other teams in class  (examples:  https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/62[SecureIT#22])
+
+
+=== Contributions to the User Guide
+---
+|===
+|We had to update the original AddressBook User Guide with instructions for the enhancements that we had added. The following is an excerpt from our **TagLine User Guide**, showing additions that I have made for the `note` commands.
+|===
+
+include::../UserGuide.adoc[tag=note-command]
+include::../UserGuide.adoc[tag=note-create]
+include::../UserGuide.adoc[tag=note-delete]
+include::../UserGuide.adoc[tag=note-edit]
+include::../UserGuide.adoc[tag=note-list]
+include::../UserGuide.adoc[tag=note-clear]
+
+=== Contributions to the Developer Guide
+---
+|===
+|The following section shows my additions to the TagLine Developer Guide for the `note` logic and filter feature.
+|===
+
+include::../DeveloperGuide.adoc[tag=note-filter]
+
+

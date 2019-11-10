@@ -145,6 +145,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `contact create --n Bob` Command
 image::ContactCreateSequenceDiagram.png[]
 
+[[Design-NoteLogic]]
 ==== Note Logic component
 
 [[fig-NoteLogicClassDiagram]]
@@ -572,6 +573,7 @@ image::ExecutingTagNoteCommand.png[]
 
 This whole process has executed the `TagNoteCommand`.
 
+// tag::note-filter[]
 === Note filtering feature
 ==== Description
 
@@ -645,6 +647,7 @@ The method will check if the tags in the `NoteFilter` exists via `Model#findTag(
 If all tags exist, the tags will be passed into the `NoteContainsTagsPredicate` and update the list of notes to be displayed via `Model#updateFilteredNoteList()`.
 
 image::FilterTagExample.png[]
+// end::note-filter[]
 
 === Logging
 

@@ -394,6 +394,7 @@ The display will display all remaining groups in a list.
 .Command executed Group deleted
 image::ug_groupdelete2.png[width="600"]
 
+// tag::note-command[]
 === Manage your notes: `note`
 
 Tagline can help people to manage their notes easily. When you use note commands, a view that displays a
@@ -401,7 +402,9 @@ list of notes will appear in the right pane. The left pane still displays a chat
 
 .An example of Note View
 image::NoteListExample.png[width="600"]
+// end::note-command[]
 
+// tag::note-create[]
 ==== Creates a note: `create`
 
 Creates a new note. If any tags are listed, the note will be tagged with them. +
@@ -428,7 +431,9 @@ The note created is displayed in the right pane.
 image::ug_notecreate2.png[width="600"]
 
 NOTE: Upload of image will be supported in v2.0
+// end::note-create[]
 
+// tag::note-delete[]
 ==== Delete a note: `delete`
 
 Deletes a note.
@@ -451,7 +456,9 @@ image::ug_notedelete1.png[width="600"]
 +
 .Note deleted after command execution
 image::ug_notedelete2.png[width="600"]
+// end::note-delete[]
 
+// tag::note-edit[]
 ==== Edit a note: `edit`
 
 Edits a saved note.
@@ -476,6 +483,7 @@ image::ug_noteedit2.png[width="600"]
 
 NOTE: Upload of image will be supported in v2.0 +
 Partial editing will be supported in v2.0
+// end::note-edit[]
 
 [#note-tag]
 ==== Tag a note: `tag`
@@ -506,6 +514,7 @@ Example:
 +
 Untags '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_' from note with id '_00002_'.
 
+// tag::note-list[]
 [#note-list]
 ==== List notes: `list`
 
@@ -583,7 +592,9 @@ image::ug_notelist7.png[width="600"]
 +
 .Filtered notes displayed
 image::ug_notelist8.png[width="600"]
+// end::note-list[]
 
+// tag::note-clear[]
 ==== Clear all notes: `clear`
 Clears all notes.
 
@@ -602,6 +613,7 @@ image::ug_noteclear.png[width="600"]
 
 If you answer "Y", the chatbot will clear all data in your contact list. +
 If you press the ESC key, the command will be aborted.
+// end::note-clear[]
 
 ==== Sort your notes: `sort` `[coming in v2.0]`
 Sort notes in different orders (i.e last updated date, alphabetically).
