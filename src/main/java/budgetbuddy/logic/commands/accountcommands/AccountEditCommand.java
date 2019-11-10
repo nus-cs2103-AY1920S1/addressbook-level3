@@ -71,7 +71,7 @@ public class AccountEditCommand extends Command {
         } catch (AccountUnchangedException e) {
             throw new CommandException(MESSAGE_UNEDITED);
         }
-        
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedAccount), CommandCategory.ACCOUNT);
     }
 
