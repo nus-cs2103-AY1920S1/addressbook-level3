@@ -71,19 +71,28 @@ The following sections document other contributions made towards the project.
 
 _{start of extract 1}_: Command Specifications
 
+
 include::../UserGuide.adoc[tag=commandspecs]
+
+'''
 
 _{end of extract 1}_
 
 _{start of extract 2}_: Add Command
 
+'''
+
 include::../UserGuide.adoc[tag=add]
+
+'''
 
 _{end of extract 2}_
 
 _{start of extract 3}_: Appendix
 
 include::../UserGuide.adoc[tag=appendix]
+
+'''
 
 _{end of extract 3}_
 

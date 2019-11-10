@@ -57,7 +57,7 @@ public class DeleteCommandTest extends GuiUnitTest {
     }
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_validIndexUnfilteredList_success() throws InterruptedException {
         UniqueIdentificationNumberMaps.clearAllEntries();
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -114,6 +114,7 @@ public class DeleteCommandTest extends GuiUnitTest {
                 ModelManager expectedFridgeModel = new ModelManager(model.getAddressBook(), new UserPrefs());
                 expectedFridgeModel.deleteEntity(fridge);
 
+                Thread.sleep(500);
                 assertCommandSuccess(deleteFridgeCommand, model, expectedFridgeMessage, expectedFridgeModel);
                 break;
             }
