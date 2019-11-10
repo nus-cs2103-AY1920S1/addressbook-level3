@@ -13,8 +13,8 @@ import seedu.billboard.logic.parser.Prefix;
  * Enum representing the supported statistics formats.
  */
 public enum StatisticsFormat {
-    TIMELINE("timeline", PREFIX_INTERVAL, PREFIX_GROUPING),
-    BREAKDOWN("breakdown"),
+    TIMELINE("timeline", PREFIX_GROUPING, PREFIX_INTERVAL),
+    BREAKDOWN("breakdown", PREFIX_GROUPING),
     HEAT_MAP("heatmap", PREFIX_GROUPING);
 
     private static Map<String, StatisticsFormat> nameToFormatMap;

@@ -51,6 +51,13 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     private final SeriesManager<Integer, Integer> seriesManager;
     private final DateRange currentYearRange = getCurrentYearRange();
 
+    /**
+     * Returns a new {@code ExpenseHeatMapChart} with the specified parameters.
+     *
+     * @param expenses           An observable wrapper of the currently displayed expenses.
+     * @param expenseGrouping    An observable wrapper of the currently selected grouping to group expenses by.
+     * @param heatMapGenerator   Instance of a generator that generates the heatmap to be viewed.
+     */
     public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses,
                                ObservableData<ExpenseGrouping> expenseGrouping,
                                HeatMapGenerator heatMapGenerator) {
@@ -69,7 +76,7 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     }
 
     /**
-     * Sets up listeners to observe for changes in the relevant observables and update the timeline accordingly.
+     * Sets up listeners to observe for changes in the relevant observables and update the heatmap accordingly.
      */
     private void setupListeners() {
         expenseGrouping.observe(grouping -> updateHeatMap(expenses, grouping));

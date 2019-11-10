@@ -35,24 +35,24 @@ public class BreakdownGeneratorTest {
     @Test
     public void generate_emptyList_returnsExpenseBreakdownWithEmptyMap() {
         ExpenseBreakdown actualBreakdown = breakdownGenerator.generate(new ArrayList<>());
-        assertTrue(actualBreakdown.getTagBreakdownValues().isEmpty());
+        assertTrue(actualBreakdown.getBreakdownValues().isEmpty());
     }
 
     @Test
     public void generate_listOfExpensesWithNoTags_returnsExpenseBreakdownWithEmptyMap() {
         // GROCERIES in TypicalExpenses has no tags
         ExpenseBreakdown actualBreakdown = breakdownGenerator.generate(Collections.singletonList(GROCERIES));
-        assertTrue(actualBreakdown.getTagBreakdownValues().isEmpty());
+        assertTrue(actualBreakdown.getBreakdownValues().isEmpty());
     }
 
     @Test
     public void generate_listOfOneExpenseWithSomeTags_returnsCorrectExpenseBreakdown() {
         // FOOD in TypicalExpenses has 2 tags, "monday" and "friends"
         ExpenseBreakdown actualBreakdown = breakdownGenerator.generate(Collections.singletonList(FOOD));
-        assertThat(actualBreakdown.getTagBreakdownValues(),
-                IsMapContaining.hasEntry(new Tag("monday"), Collections.singletonList(FOOD)));
-        assertThat(actualBreakdown.getTagBreakdownValues(),
-                IsMapContaining.hasEntry(new Tag("friends"), Collections.singletonList(FOOD)));
+        assertThat(actualBreakdown.getBreakdownValues(),
+                IsMapContaining.hasEntry("monday", Collections.singletonList(FOOD)));
+        assertThat(actualBreakdown.getBreakdownValues(),
+                IsMapContaining.hasEntry("friends", Collections.singletonList(FOOD)));
     }
 
     @Test
@@ -62,25 +62,25 @@ public class BreakdownGeneratorTest {
         List<Expense> expenses = List.of(FOOD, testExpense);
 
         ExpenseBreakdown actualBreakdown = breakdownGenerator.generate(expenses);
-        Map<Tag, List<Expense>> actualMap = actualBreakdown.getTagBreakdownValues();
+        Map<String, ? extends List<? extends Expense>> actualMap = actualBreakdown.getBreakdownValues();
 
-        assertThat(actualMap, IsMapContaining.hasEntry(new Tag("monday"), List.of(FOOD, testExpense)));
-        assertThat(actualMap, IsMapContaining.hasEntry(new Tag("friends"), List.of(FOOD, testExpense)));
+        assertThat(actualMap, IsMapContaining.hasEntry("monday", List.of(FOOD, testExpense)));
+        assertThat(actualMap, IsMapContaining.hasEntry("friends", List.of(FOOD, testExpense)));
         assertThat(actualMap,
-                IsMapContaining.hasEntry(new Tag("test"), Collections.singletonList(testExpense)));
+                IsMapContaining.hasEntry("test", Collections.singletonList(testExpense)));
     }
 
     // Based of the expenses in TypicalExpenses#getTypicalExpenses
     @Test
     public void generate_generalCase_returnsCorrectExpenseBreakdown() {
         ExpenseBreakdown actualBreakdown = breakdownGenerator.generate(TypicalExpenses.getTypicalExpenses());
-        Map<Tag, List<Expense>> actualMap = actualBreakdown.getTagBreakdownValues();
+        Map<String, ? extends List<? extends Expense>> actualMap = actualBreakdown.getBreakdownValues();
 
-        assertThat(actualMap, IsMapContaining.hasEntry(new Tag("bills"), Collections.singletonList(BILLS)));
-        assertThat(actualMap, IsMapContaining.hasEntry(new Tag("monday"), Collections.singletonList(FOOD)));
-        assertThat(actualMap, IsMapContaining.hasEntry(new Tag("friends"), Collections.singletonList(FOOD)));
+        assertThat(actualMap, IsMapContaining.hasEntry("bills", Collections.singletonList(BILLS)));
+        assertThat(actualMap, IsMapContaining.hasEntry("monday", Collections.singletonList(FOOD)));
+        assertThat(actualMap, IsMapContaining.hasEntry("friends", Collections.singletonList(FOOD)));
         assertThat(actualMap, not(IsMapContaining.hasValue(GROCERIES)));
-        assertThat(actualMap, IsMapContaining.hasEntry(new Tag("leisure"), Collections.singletonList(MOVIE)));
+        assertThat(actualMap, IsMapContaining.hasEntry("leisure", Collections.singletonList(MOVIE)));
     }
 
 }

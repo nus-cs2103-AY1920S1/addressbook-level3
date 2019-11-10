@@ -61,7 +61,7 @@ public class ChartBox extends UiPart<Region> {
             currentChart = new ExpenseTimelineChart(expenses, dateInterval, expenseGrouping, new TimelineGenerator());
             break;
         case BREAKDOWN:
-            currentChart = new ExpenseBreakdownChart(expenses, new BreakdownGenerator());
+            currentChart = new ExpenseBreakdownChart(expenses, expenseGrouping, new BreakdownGenerator());
             break;
         case HEAT_MAP:
             currentChart = new ExpenseHeatMapChart(expenses, expenseGrouping, new HeatMapGenerator());

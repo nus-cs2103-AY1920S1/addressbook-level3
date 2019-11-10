@@ -12,9 +12,9 @@ import seedu.billboard.model.tag.Tag;
 public interface ExpenseBreakdown {
 
     /**
-     * Getter for the the overall breakdown of expenses grouped by tags.
-     * @return A Map of tags to a list of expenses containing that tag.
+     * Getter for the the overall breakdown of expenses grouped according to some criteria.
+     * @return A map of string names of groupings to the list of expenses that are in that grouping
      */
-    Map<Tag, List<Expense>> getTagBreakdownValues();
+    Map<String, ? extends List< ? extends Expense>> getBreakdownValues();
 
 }
