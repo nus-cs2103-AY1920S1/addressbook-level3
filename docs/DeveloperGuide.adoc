@@ -182,14 +182,14 @@ A new `isWatched` value of the show is also determined based on the number of ep
 
 The following activity diagram below summarizes the calculation of the number of episodes watched:
 
-.Calculating the Number of Episodes Watched
+.WatchActivityDiagram showing how episodes are calculated
 image::WatchActivityDiagram.png[]
 
 Step 6. The show in the current show list is updated to the newly created copy with the updated watched status and latest episode watched, and a `CommandResult` with the new watched status of the show is created.
 
 The following sequence diagram shows how the watch operation works:
 
-.WatchSequenceDiagram Showing Events in Sequence
+.WatchSequenceDiagram showing flow of the watch command
 image::WatchSequenceDiagram.png[]
 
 ==== Design Considerations

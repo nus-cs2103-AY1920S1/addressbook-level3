@@ -293,22 +293,26 @@ Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 
 *Example Usage:*
 
-1. User wants to mark "The Office" as watched.
+1. You want to mark "The Office" in the watchlist page as watched. Navigate to the watchlist by clicking on the watchlist tab or hitting the keyboard shortcut `1`.
 
+.Viewing an unmarked show
 image::WatchTheOffice.png[width="790"]
 
 [start=2]
-2. User enters `watch 1` into the command box in the watchlist tab.
+2. Enter `watch 1` into the command box in the watchlist tab.
 
+.Entering the watch command
 image::Watch.png[width="790"]
 
 [start=3]
-3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `2`.
+3. You may now view the show under the watched tab by clicking the watched tab or hitting the keyboard shortcut `2`.
 
+.Viewing the newly marked show
 image::WatchedTheOffice.png[width="790"]
 
-Alternatively, users can click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
+Alternatively, you may click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
 
+.Clicking the checkbox to mark a show as watched
 image::TheOfficeWatchCommand.png[width="790"]
 
 ****

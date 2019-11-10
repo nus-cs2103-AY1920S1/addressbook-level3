@@ -2,51 +2,113 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:experimental:
 
-This document serves to show the various contributions that I have made in the development of *EzWatchlist* in an understandable manner.
+This document serves to show the various contributions that I have made in the development of https://ay1920s1-cs2103t-f13-4.github.io/main/index.html[EzWatchlist]
+in a concise and understandable manner.
 
 == More About The Project
-EzWatchlist is a desktop application that allows users to keep track of movies and tv series that they want to watch or have watched.
+EzWatchlist is a desktop application that allows forgetful users to keep track of movies and tv series that they want to watch or have watched.
 It was developed by a group of 5 students from the National University of Singapore taking the Software Engineering module including
-myself under the premise that we had to either optimize or morph an existing AddressBook application. We chose the latter. Another
-constraint was ensuring that the application had a command-line interface.
+myself under the premise that we had to either optimize or morph an existing https://github.com/se-edu/addressbook-level3[AddressBook] application. We chose the latter. Another
+constraint was ensuring that the application has a command-line interface, which means that all commands should be executable through typing.
+
+.Graphical User Interface of EzWacthlist
+image::Ui.png[width="790"]
+
 
 === Main Features
-* Adding, editing and deleting Shows
-* Keeping track of shows  that are watched
-* Online search functionality
+* Adding, editing and deleting shows
+* Keeping track of shows and episodes that are watched
+* Online search and syncing of shows
 * Statistics about user's watchlist
+
+[NOTE]
+Highlighted words indicate commands or components of the application. Eg. `watch` command, `WatchCommand` class
 
 == Summary of Contributions
 
-This section provides a summary of my coding, documentation and other helpful contributions to EzWatchlist.
+This section provides an overview of the contributions that I have made to the development of EzWatchlist. It also
+showcases some of my coding and documentation abilities, and the challenges I faced during the development of EzWatchlist.
+
+=== Role
+I was tasked with ensuring integration of the features of EzWatchlist. This means that I had to ensure that the commands
+work with one another well and perform their expected functions in the respective pages. This was a challenge
+since our application uses 4 different tabs, each with their unique functions and list of shows, so the implementation
+of the commands would vary from tab to tab.
 
 === Major Contributions
 
-* Implemented of the *watch* feature for users to keep track of episodes of their tv series and movies watched
-** The *watch* feature allows users to update the watch list if the show has been watched
-** The watch feature enables users to keep track of shows that they have and have not watched that they can plan
-out what they want to watch in the future
-** The watch feature also enables users to keep track of the episodes in a TV series that have been watched
+==== Implemented the `watch` feature
+
+===== What it does
+
+The `watch` feature allows users to update their watch list if a show has been watched.
+It also helps users to keep track of where they are in a TV series in terms
+of seasons and episodes.
+
+===== Justification
+The `watch` feature enables users to keep track of shows that they have and have not watched so that they can plan
+out what they want to watch in the future.
+
+===== Highlights
+
+This enhancement resulted in a need to change the storage structure of the shows to include the episodes and tv seasons.
+Its implementation was a challenge since it required structural change of the show objects, splitting them into movies and tv shows.
+The addition of the clickable checkbox to mark or unmark shows also increased the difficulty of the implementation.
 
 === Minor Contributions
 
-* Updating to the user and developer guides to make them more readable, including the use of diagrams and screenshots of the application
-* Updating to EzWatchlist *Contact Us* page
-* Writing of tests for EzWatchlist to reduce the possibility of bugs when using EzWatchlist
-* Integrating of the features of EzWatchlist to improve the user-experience of the application
+* Separated the the watchlist into different sections (not watched and watched).
+* Changed the storage structure of the shows to save them as either movies or tv shows. This feature was
+implemented with the intention of possibly retrieving season and episode details future versions.
 
-View code contributions link: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jcjjjared&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jcjjjared&tabRepo=AY1920S1-CS2103T-F13-4%2Fmain%5Bmaster%5D[here]].
+=== Code Contributions
+View my code contributions https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jcjjjared&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[here].
+
+=== Other Contributions
+
+[NOTE]
+*#Numbers* represent pull requests to the mentioned contributions.
+These links show the code that has been contributed to the team project
+
+*Project Management*
+
+* Provided the team with information about the tasks that need to be completed
+* Assigned tasks https://github.com/AY1920S1-CS2103T-F13-4/main/issues/25[1], https://github.com/AY1920S1-CS2103T-F13-4/main/issues/42[2]
+
+*Enhancements to Features:*
+
+* Improved `add` command by reducing amount of information needed to be entered https://github.com/AY1920S1-CS2103T-F13-4/main/pull/138[#138]
+* Changed storage structure to save shows as movies or tv shows https://github.com/AY1920S1-CS2103T-F13-4/main/pull/117[#117]
+* Writing of various tests for EzWatchlist to reduce the possibility of bugs when using EzWatchlist https://github.com/AY1920S1-CS2103T-F13-4/main/pull/132[#231], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/237[#237]
+
+*Documentation:*
+
+* Improved the structure of the user guide https://github.com/AY1920S1-CS2103T-F13-4/main/pull/15[#15], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/214[#214]
+* Updated the developer guide https://github.com/AY1920S1-CS2103T-F13-4/main/pull/241[#241]
+
+*Community:*
+
+* Reviewed team pull requests https://github.com/AY1920S1-CS2103T-F13-4/main/pull/77[#74], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/84[#84]
+* Reported bugs and suggestions for other teams in the class (examples: https://github.com/jcjjjared/ped/issues/1[1], https://github.com/jcjjjared/ped/issues/2[2], https://github.com/jcjjjared/ped/issues/4[3])
+
+*Tools:*
+
+* Set up Travis Continuous Integration
 
 == Contributions to User Guide
 
-This section serves to showcase my contributions to the User-Guide, as well as my ability to write
-documentation for users in a concise and understandable manner.
+This section serves to showcase my contributions to the User Guide, as well as my ability to write
+documentation for users in a concise and understandable manner. It also shows my ability to use asciidoc and
+markup language for formatting.
 
 include::../UserGuide.adoc[tag=watch]
 
 == Contributions to Developer Guide
 
-This sections showcases my contribution to the EzWatchlist Developer guide for the `watch` function.
+This sections showcases my contribution to the EzWatchlist Developer Guide. It exhibits my ability to use diagrams
+and technical terms to inform other developers of how the features were implemented and the possibility
+for enhancements.
 
 include::../DeveloperGuide.adoc[tag=markaswatched]
