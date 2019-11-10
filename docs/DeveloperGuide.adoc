@@ -219,13 +219,13 @@ which keeps track of the index of the `ModelData` being used presently, as well 
 implement the `ModelDataListener` interface which listens for any changes to this `ModelData` so that they can be updated accordingly.
 Every time a state-changing command (that is not `undo` or `redo`) is executed, the a new `ModelData` representing the modified version
 will replace the old one and this new version will then be deep-copied and added to `undoStateList`.
-Should there be a need to revert back to a past or future state (if undo or redo is called), `ModelManager`'s `ModelData` will retrieve their data from the
+Should there be a need to revert back to a past or future state (if undo or redo is called), `ModelManager#modelData` will retrieve their data from the
 appropriate copy of `ModelData` in the list of duplicates.
 
 `UndoRedoManager` also implements the following operations:
 
-* `UndoRedoManager#undo()` -- Restore `ModelData` in `ModelManager` to their previous versions from the appropriate duplicate in `undoStateList`
-* `UndoRedoManager#redo()` -- Restore `ModelData` in `ModelManager` to their future versions from the appropriate duplicate in `undoStateList`
+* `UndoRedoManager#undo()` -- Restore `ModelManager#modelData` to their previous versions from the appropriate duplicate in `undoStateList`
+* `UndoRedoManager#redo()` -- Restore `ModelManager#modelData` to their future versions from the appropriate duplicate in `undoStateList`
 * `UndoRedoManager#clearFutureHistory()` -- Delete all `ModelData` states that occur in `undoStateList` after the index given by the `undoIndex`
 
 The `UndoCommand` and `RedoCommand` will interact directly with `UndoRedoManager` while other state-changing commands
@@ -236,29 +236,29 @@ The `ModelDataListener` interface helps us achieve the desired undo-redo functio
 This listener interface contains a single method, `onModelDataChange(ModelData modelData)`.
 
 The `UndoRedoManager` implements the `ModelDataListener` interface’s method `onModelDataChange(ModelData modelData)` to “listen” for any changes to
-`ModelManager#ModelData` (e.g. when an event or task is added or deleted)
-If such a change exists, it will be handled by first instantiating a `ModelData` with a deep-copied version of the
+`ModelManager#modelData` (e.g. when an event or task is added or deleted)
+If such a change exists, it will be handled by first instantiating a model data with a deep-copied version of the
 `taskList` and the modified `eventList`, calling `UndoRedoManager#clearFutureHistory()`, and finally to committing the state to `undoStateList`
 
 On the other hand, whenever an undo or redo is executed, `ModelManager`'s `ModelData` is updated
-to match the data of the `ModelData` with index `undoIndex` in `undoStateList` so that the correct version of `ModelData` is being reflected in the GUI.
+to match the data of the model data with index `undoIndex` in `undoStateList` so that the correct version of model data is being reflected in the GUI.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
 Step 1. The user runs the program for the first time. The `UndoRedoManager` will be initialized with the initial `undoStateList`.
-A `ModelData` will be added to `undoStateList` and the `undoIndex` will point to that single `ModelData` in the list.
+A `ModelData` object will be added to `undoStateList` and the `undoIndex` will point to that single model data in the list.
 
-image::ModelData0.png[]
+image::process1.png[]
 
 Step 2. The user executes `add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”`.
 `ModelManager#ModelData` will be reset to a new `ModelData` object with the added event.
-Then, `UndoRedoManager#onModelDataChange(ModelData list)` will be called (as there has been a change to the `eventList`),
+Then, `UndoRedoManager#onModelDataChange(ModelData modelData)` will be called (as there has been a change to the `eventList`),
 deep-copying the modified `ModelData`.
 All future states beyond the `undoIndex` will be cleared as they are no longer useful. In this particular case, there are no future states to be cleared.
-Finally, the deep-copy of the new `ModelData` state will be committed; added to `undoStateList`.
+Finally, the deep-copy of the new model data state will be committed; added to `undoStateList`.
 The `undoIndex` is incremented by one to contain the index of the newly inserted model data state.
 
-image::ModelData1.png[]
+image::process2.png[]
 
 [NOTE]
 If a command fails its execution, it will not result in any change to `ModelManager#ModelData`.
@@ -266,10 +266,10 @@ Hence, there is no change to trigger the listener methods and thus no `ModelData
 
 Step 3. Suppose the user decides that adding the task was a mistake. He/she then executes the undo command to rectify the error.
 The undo command will decrement the `undoIndex` by one to contain the index of the previous undo redo state, thereafter triggering the
-`UndoRedoManager#notifyModelResetListeners` method. This method updates `ModelManager#ModelData` to match the data of the
-`ModelData` with index `undoIndex` in `undoStateList`.
+`UndoRedoManager#notifyModelResetListeners` method. This method updates `ModelManager#modelData` to match the data of the
+model data with index `undoIndex` in `undoStateList`.
 
-image::ModelData2.png[]
+image::process3.png[]
 
 [NOTE]
 If the `undoIndex` is 0, pointing to the initial model data state, then there are no previous model data states to restore.
@@ -280,43 +280,47 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[width=100%]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
 The redo command does the opposite — it calls `UndoRedoManager#redo()`, which increments the `undoIndex` by one to contain the index of the previously undone state.
-The `UndoRedoManager#notifyModelResetListeners` then causes `ModelManager#ModelData` to be reset to this state’s data.
+The `UndoRedoManager#notifyModelResetListeners` then causes `ModelManager#modelData` to be reset to this state’s data.
 
 [NOTE]
 If the `undoIndex` is at index `undoStateList.size() - 1`, pointing to the latest model data state, then there are no undone model data states to restore.
 The `redo` command uses `UndoRedoManager#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 4. The user decides to execute the command `log`. Non-state-changing commands such as `log` do not manipulate task and event data.
-Since no changes to `ModelData` have been made, the listener methods will not be triggered and no `ModelData` will be saved to `undoStateList`.
+Since no changes to `ModelManager#modelData` have been made, the listener methods will not be triggered and no model data will be saved to `undoStateList`.
 Thus, the `undoStateList` remains unchanged.
 
-image::ModelData3.png[]
+image::process4.png[]
 
-Step 5. The user executes `delete_event 1`, removing the event from the `eventList` in ModelManager#ModelData`.
+Step 5. The user executes `delete_event 1`, removing the event from the `eventList` in `ModelManager#modelData`.
 `UndoRedoManager#onModelDataChange(ModelData modelData)` will be called (as there has been a change to the `ModelData`),
 purging all future states beyond the `undoIndex` as they are no longer useful.
-The modified `ModelData` will be deep-copied and a new `ModelData` containing the deep-copies will also be added to `undoStateList`.
+The modified model data will be deep-copied and a new model data containing the deep-copies will also be added to `undoStateList`.
 The `undoIndex` is incremented by one to contain the index of the newly inserted model data state.
 
-image::ModelData4.png[]
+image::process5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+image::CommitActivityDiagram1.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+.Aspect: How undo & redo executes
+|===
+||Approach 1 (current choice) |Approach 2
 
-* **Alternative 1 (current choice):** Saves `EventSource` and `TaskSource` data every time a change has been made.
-** Pros: Easy to understand and implement.
-** Cons: Performance issues may arise due to the relatively larger memory usage required.
-* **Alternative 2:** Individual command knows how to undo/redo by itself; inverse functions have to be implemented (if I undo the deletion of a person, it would be equivalent to adding him back to the list)
-** Pros: Uses less memory as we only need to keep track of what commands have been executed and their parameters, as opposed to storing all task and event data between every change.
-** Cons: Every command will have to be implemented twice, since their inverse operations will all be different. This is compounded by the fact that we have to ensure the correctness of every inverse operation individually as well.
+|Pros
+|Easy to understand and implement.
+|Uses less memory as we only need to keep track of what commands have been executed and their parameters,
+as opposed to storing all task and event data between every change.
+
+|Cons
+|Performance issues may arise due to the relatively larger memory usage required.
+|Every command will have to be implemented twice, since their inverse operations will all be different. This is
+compounded by the fact that we have to ensure the correctness of every inverse operation individually as well.
+|===
 // end::undoredo[]
 
 // tag::notification[]
