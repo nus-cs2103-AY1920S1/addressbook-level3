@@ -293,11 +293,13 @@ When you update `bodyStatus` to `ARRIVED`, a `Notif` pop-up will be shown after 
 There are some attributes that you can update once the entity is created. For this command,
 the list of valid attributes and their command prefixes can be found below:
 
+[cols="2,2"]
 |===
-| Entity | Attribute
 
-| Body
+| Body | Worker
+
 a|
+====
 Name `/name` +
 Sex `/sex` +
 NRIC `/nric` +
@@ -313,9 +315,10 @@ Cause of Death `/cod` +
 Details `/details` +
 Organs For Donation `/organsForDonation` +
 Fridge ID `/fridgeId` +
+====
 
-| Worker
 a|
+====
 Phone Number `/phone` +
 Sex `/sex` +
 Date of Birth `/dob` +
@@ -323,8 +326,9 @@ Date Joined `/dateJoined` +
 Designation `/designation` +
 Employment Status `/status` +
 Photo `/photo`
-
+====
 |===
+
 [TIP]
 Make sure you key in dates in the format DD/MM/YYYY.
 
@@ -556,9 +560,8 @@ All body entries with car accident as the cause of death and those that are male
 
 // tag::undoredo[]
 ==== Undoing a command: `undo`
-
-This command undoes the effects of the last command you executed.
-You can undo up to 10 most recent commands.
+You can undo the effects of the last command you executed with `undo`.
+This command lets you undo up to 10 most recent commands, one at a time.
 The commands are undone starting from the most recent to the least recent.
 
 Format: `undo` or `u`
@@ -566,7 +569,7 @@ Format: `undo` or `u`
 The `add`, `update`, `clear`, and `delete` commands can be undone.
 Commands like `list` or `find` cannot be undone.
 
-Commands caused by automated commands, such as a `NotifCommand` can be undone and redone.
+Commands caused by automated commands, such as an `UpdateCommand` caused by `Notif` can be undone and redone.
 For example, the automatic status change of a `Body` from `ARRIVED` to `CONTACT_POLICE`  is caused by an `UpdateCommand` and can be undone and redone. However, note that this feature does not support
 the `NotifCommand` itself. For example, if a `Body` was added and deleted before the `NotifCommand` associated with it has executed,
 undoing the deletion will not restore the `NotifCommand`.
@@ -574,22 +577,35 @@ undoing the deletion will not restore the `NotifCommand`.
 Though you can `undo` a `clear` command, note that you cannot redo any past undone commands after that.
 
 Example: +
-Imagine that you've accidentally deleted the wrong Body (John Doe) from Mortago. You can easily reverse that mistake with the `undo` command instead of adding John Doe all over again!
+Imagine that you wanted to delete a `Body` with ID 10 from Mortago. However, your finger slips and you type `20` instead
+of `10`!
+
+image::Undo2.png[]
+
+You don't realise and execute the command. When you look at the dashboard, you realise you have deleted body 20.
+Even worse, you have no recollection of body 20's name or information.
+
+image::UndoBodyDeleted.png[]
+
+
+You can easily reverse that mistake with the `undo` command instead of adding body 20 all over again!
 
 To undo:
 
 1) Type `undo` or `u` into the command box.
 
+image::Undo4.png[]
+
 2) Press `Enter` to execute the command.
 
-3) Notice that the result box displays "Undid deleting this entity: <long descriptor of the body>" and John Doe is now
-back in the list of bodies.
+image::Undo5.png[]
+
+3) Notice that the result box shows text telling you what was undone, and body 20 is back in the list of bodies.
 
 
 ==== Redoing a command: `redo`
-
-This command redoes the effects of the last command you undid.
-You can redo up to 10 of your most recent undone commands.
+You can redo the effects of the last command you executed with `redo`.
+This command lets you redo up to 10 most recent undone commands, one at a time.
 All commands that can be undone can be redone. (See <<Undoing a command: `undo`>> for how `undo` can be used.)
 
 Format: `redo` or `r`
@@ -598,9 +614,9 @@ Format: `redo` or `r`
 A command can only be redone if it has been undone before.
 
 Example: +
-Imagine that you've previously executed `undo` to undo deleting John Doe. You look at the data again and realise you've deleted the right thing after all!
+Imagine that you've previously executed `undo` to undo deleting body 20. You look at the data again and realise you've deleted the right thing after all!
 
-Instead of manually deleting John Doe again, simply `redo` the command.
+Instead of deleting body 20 again, simply `redo` the command.
 
 To redo:
 
@@ -608,7 +624,7 @@ To redo:
 
 2) Press `Enter` to execute the command.
 
-3) Notice that the result box displays "Deleted this entity: <long descriptor of the body>" and John Doe is now absent
+3) Notice that the result box shows text telling you what was executed when redoing, and body 20 is now absent
 from the list of bodies.
 
 // end::undoredo[]
