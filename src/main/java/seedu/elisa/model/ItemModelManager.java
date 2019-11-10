@@ -326,9 +326,9 @@ public class ItemModelManager implements ItemModel {
      * @param newItem the item that will replace the previous item
      */
     public void replaceItem(Item item, Item newItem) {
-        int index = visualList.indexOf(item);
+        int index = itemStorage.indexOf(item);
 
-        if ((index = itemStorage.indexOf(item)) >= 0) {
+        if (index >= 0) {
             itemStorage.setItem(index, newItem);
         }
 
@@ -358,8 +358,6 @@ public class ItemModelManager implements ItemModel {
             }
         }
 
-        System.out.println("Boo");
-        System.out.println(reminderList.indexOf(item));
         if ((index = reminderList.indexOf(item)) >= 0) {
             if (newItem.hasReminder()) {
                 reminderList.setItem(index, newItem);
@@ -367,12 +365,8 @@ public class ItemModelManager implements ItemModel {
                 reminderList.remove(index);
             }
 
-            System.out.println("Help");
-
             if (!item.getReminder().equals(newItem.getReminder())) {
-                System.out.println("Hello?");
                 if (newItem.getReminder().isEmpty()) {
-                    System.out.println("Shabam");
                     if (activeReminders.contains(item)) {
                         activeReminders.remove(item);
                     }
@@ -386,14 +380,12 @@ public class ItemModelManager implements ItemModel {
                     //if old had nothing just add to corresponding
                     //if old had a reminder, remove it
                     if (item.getReminder().isPresent()) {
-                        System.out.println("Hi");
                         if (activeReminders.contains(item)) {
                             activeReminders.remove(item);
                         }
 
                         if (futureReminders.contains(item)) {
                             futureReminders.remove(item);
-                            System.out.println("Removed");
                         }
                     }
                     Reminder newReminder = newItem.getReminder().get();
@@ -407,8 +399,7 @@ public class ItemModelManager implements ItemModel {
             }
         }
 
-        System.out.println(index);
-        if (index >= 0) {
+        if ((index = visualList.indexOf(item)) >= 0) {
             if (visualList.belongToList(newItem)) {
                 visualList.setItem(index, newItem);
             } else {
