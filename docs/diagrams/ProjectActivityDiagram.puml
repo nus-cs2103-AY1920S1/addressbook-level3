@@ -7,15 +7,23 @@ else
 --> "Get user's budget list"
 if "" then
 --> [Category specified by user] "Filter user's transaction history"
---> "Filter user's budget list"
+--> "Get all budgets in specified category"
 --> "Get number of transactions"
 else
+--> "Get all general budgets"
 --> [Category not specified by user] "Get number of transactions"
 if "" then
---> [Minimum number of transactions met] "Display Success Message"
+--> [Minimum number of transactions not met] "Display error message"
 -->(*)
 else
---> [Minimum number of transactions not met] "Display error message"
+--> [Minimum number of transactions met] "Extract dates and balance amount from transaction history"
+--> "Perform feature scaling and mean normalization"
+--> "Perform gradient descent to get projection line graph"
+if "" then
+--> [Budgets present] "Predict budget states based on projection line"
+--> "Display Success Message"
+else
+--> "Display Success Message"
 Endif
 -->(*)
 @enduml

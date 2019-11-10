@@ -310,7 +310,7 @@ The `project` command is facilitated by the Logic and Model components of the ap
 The sequence diagram below demonstrates how the `project DATE [CATEGORY]` command is handled by the application.
 If a `CATEGORY` is not specified by the user, it will be set as `GENERAL` by default.
 
-.Sequence Diagram of Project Command
+.Sequence Diagram of the Project Command
 image::ProjectSequenceDiagram.png[ProjectCommand Sequence Diagram]
 
 ===== Projection by Date
@@ -333,6 +333,7 @@ than the latter.
 ===== Activity Diagram
 The activity diagram below depicts how a projection is made.
 
+.Activity Diagram of the Project Command
 image::ProjectActivityDiagram.png[]
 
 ===== Graphical Representation
@@ -347,6 +348,11 @@ may not be best represented by a straight line, but rather by a polynomial equat
 feature will choose a value, _n_, and perform a _n-th_ degree polynomial regression, such that the user's balance
 and budget states can be more accurately projected.
 
+[NOTE]
+Currently, the GradientDescent class implements feature scaling and mean normalisation. Although this
+is not entirely necessary for the current implementation (which uses linear regression), it is meant
+for optimizing polynomial regression in future updates.
+
 ===== Normal Equation
 Currently, the gradient descent algorithm is used to plot the projection graph, which is used for predicting the
 _user_'s balance and budget states at specified point in time. For smaller data sets, analytically computing the
@@ -358,6 +364,21 @@ a set number (e.g. 500) of transactions.
 // end::project[]
 
 === Display Feature `display`
+This feature provides a graphical view of an existing projection to the _user_. +
+
+==== Current Implementation
+The following activity diagram depicts how the `display` command is executed.
+
+.Activity Diagram of the Display Command
+image::DisplayActivityDiagram.png[]
+
+For a more concrete illustration of how the `display` command is handled by _PalPay_,
+a sequence diagram is provided below.
+
+.Sequence Diagram of the Display Command
+image::DisplaySequenceDiagram.png[]
+
+
 // end::display[]
 
 // tag::view[]
