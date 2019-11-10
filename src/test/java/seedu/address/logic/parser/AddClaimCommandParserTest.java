@@ -59,7 +59,7 @@ class AddClaimCommandParserTest {
         assertThrows(ParseException.class, () -> parser.parse(missingDate)); // no date prefix
     }
 
-    class TestAddClaimCommand{
+    class TestAddClaimCommand {
 
         static final String VALID_TEST_NAME = "Amy Bee";
         static final String VALID_TEST_DESCRIPTION = "Logistics";
