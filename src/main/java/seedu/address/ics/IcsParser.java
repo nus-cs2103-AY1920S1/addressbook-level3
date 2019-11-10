@@ -16,7 +16,9 @@ import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.EventSourceBuilder;
 import seedu.address.model.tasks.TaskSource;
+import seedu.address.model.tasks.TaskSourceBuilder;
 
+//@@author marcusteh1238
 /***
  * Parses an ICS file to allow importing into Horo.
  */
@@ -51,6 +53,7 @@ public class IcsParser {
         return file;
     }
 
+    //@@author marcusteh1238
     /**
      * Parses the file provided in the file path and returns an ArrayList of EventSources.
      * @return An ArrayList of EventSources from the file.
@@ -62,6 +65,7 @@ public class IcsParser {
         return getEventsFromFile(fileContent);
     }
 
+    //@@author marcusteh1238
     /**
      * Parses the file provided in the file path and returns an ArrayList of TaskSources.
      * @return An ArrayList of TaskSources from the file.
@@ -73,6 +77,7 @@ public class IcsParser {
         return getTasksFromFile(fileContent);
     }
 
+    //@@author marcusteh1238
     /**
      * Obtains the file content of the ics file specified in the filepath.
      * @return A single String of the whole file.
@@ -100,6 +105,7 @@ public class IcsParser {
         }
     }
 
+    //@@author marcusteh1238
     /**
      * Parses the Ics file for its Events only and returns an array of EventSource objects.
      * @param fileContent The contents of the Ics file.
@@ -119,6 +125,7 @@ public class IcsParser {
         return eventSourceArray(events);
     }
 
+    //@@author marcusteh1238
     /**
      * Parses the Ics file for its Tasks only and returns an array of TaskSource objects.
      * @param fileContent The contents of the Ics file.
@@ -138,6 +145,7 @@ public class IcsParser {
         return taskSourceArray(tasks);
     }
 
+    //@@author marcusteh1238
     /**
      * Converts an ArrayList of EventSource objects into an array.
      * @param events the ArrayList of EventSource objects.
@@ -152,6 +160,7 @@ public class IcsParser {
         return array;
     }
 
+    //@@author marcusteh1238
     /**
      * Converts an ArrayList of TaskSource objects into an array.
      * @param tasks the ArrayList of EventSource objects.
@@ -166,6 +175,7 @@ public class IcsParser {
         return array;
     }
 
+    //@@author marcusteh1238
     /**
      * Creates an EventSource object from the data provided in the ICS File.
      * Currently it will only parse the Start time and Description of the ICS VEvent.
@@ -178,6 +188,7 @@ public class IcsParser {
         String description = "";
         DateTime eventStart = null;
         DateTime eventEnd = null;
+        ArrayList<String> tags = new ArrayList<>();
         for (String line : lines) {
             if (line.startsWith("SUMMARY:")) {
                 description = line.replaceFirst("SUMMARY:", "");
@@ -194,6 +205,8 @@ public class IcsParser {
                 eventEnd = parseTimeStamp(timestamp);
             } else if (line.equals("END:VCALENDAR") && !line.equals(lines[lines.length - 1])) {
                 throw new IcsException(FILE_IS_CORRUPTED);
+            } else if (line.startsWith("DESCRIPTION:")) {
+                tags.addAll(getTagsFromIcsDescription(line));
             }
         }
         if (description.equals("") || eventStart == null) {
@@ -203,9 +216,13 @@ public class IcsParser {
         if (eventEnd != null) {
             builder.setEnd(eventEnd);
         }
+        if (tags.size() != 0) {
+            builder.setTags(tags);
+        }
         return builder.build();
     }
 
+    //@@author marcusteh1238
     /**
      * Creates an TaskSource object from the data provided in the ICS File.
      * @param segment A String that represents the Task object in the ICS File.
@@ -218,6 +235,7 @@ public class IcsParser {
         DateTime taskStart = null;
         DateTime due = null;
         Duration duration = null;
+        ArrayList<String> tags = new ArrayList<>();
         for (String line : lines) {
             if (line.startsWith("SUMMARY:")) {
                 description = line.replaceFirst("SUMMARY:", "");
@@ -241,6 +259,8 @@ public class IcsParser {
                 taskStart = startString.equals("")
                         ? DateTime.now()
                         : parseTimeStamp(startString);
+            } else if (line.startsWith("DESCRIPTION:")) {
+                tags.addAll(getTagsFromIcsDescription(line));
             }
         }
 
@@ -248,14 +268,22 @@ public class IcsParser {
             throw new IcsException(FILE_IS_CORRUPTED);
         }
 
+        TaskSourceBuilder builder = TaskSource.newBuilder(description);
+
         if (due == null && !(duration == null || taskStart == null)) {
             due = taskStart.plus(duration);
+            builder.setDueDate(due);
+        } else if (due != null) {
+            builder.setDueDate(due);
         }
-        return due != null
-                ? TaskSource.newBuilder(description).setDueDate(due).build()
-                : TaskSource.newBuilder(description).build();
+
+        if (tags.size() != 0) {
+            builder.setTags(tags);
+        }
+        return builder.build();
     }
 
+    //@@author marcusteh1238
     /**
      * Converts the timestamp from the format given in the ICS file to a DateTime object.
      * @param icsTimeStamp A timestamp in the default ICS file specification format.
@@ -268,5 +296,22 @@ public class IcsParser {
         } catch (ParseException e) {
             throw new IcsException(TIMESTAMP_IS_INVALID);
         }
+    }
+
+    //@@author marcusteh1238
+    /**
+     * Obtain a list of tags from the "DESCRIPTION" field of the ICS object.
+     * @param icsDescription The Description of the ICS object.
+     * @return An ArrayList of tags.
+     */
+    public static ArrayList<String> getTagsFromIcsDescription(String icsDescription) {
+        Matcher matcher = Pattern.compile("\\[([^\\]]+)").matcher(icsDescription);
+        ArrayList<String> tags = new ArrayList<>();
+        int pos = -1;
+        while (matcher.find(pos + 1)) {
+            pos = matcher.start();
+            tags.add(matcher.group(1));
+        }
+        return tags;
     }
 }
