@@ -37,8 +37,8 @@ Interested? Jump to the Section 2, “QuickStart” to get started. Enjoy!
 == Quick Start:
 
 . Ensure you have Java 11 or above installed in your Computer.
-. Download the latest myproject.jar here.
-. Copy the file to the folder you want to use as the home folder for your Address Book.
+. Download the latest myproject.jar https://github.com/AY1920S1-CS2103T-T17-1/main/releases[here].
+. Copy the file to the folder you want to use as the home folder for MyProject.
 . Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
 . Some example commands you can try:
 .. list : lists all contacts

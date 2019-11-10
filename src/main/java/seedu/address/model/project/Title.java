@@ -1,6 +1,7 @@
 package seedu.address.model.project;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Title {
 
@@ -17,6 +18,7 @@ public class Title {
 
     public Title(String title) {
         requireNonNull(title);
+        checkArgument(isValidTitle(title), MESSAGE_CONSTRAINTS);
         this.title = title;
     }
 

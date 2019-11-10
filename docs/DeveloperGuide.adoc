@@ -697,10 +697,10 @@ Use case resumes at step 2.
 *MSS*
 
 1. User [.underline]#checkout to a project(UC02)#.
-1. User requests to edit current project.
-2. MyProject requests for details of change.
-3. User enters the requested details.
-4. MyProject edits the details of the project and displays the information of the edited project.
+2. User requests to edit current project.
+3. MyProject requests for details of change.
+4. User enters the requested details.
+5. MyProject edits the details of the project and displays the information of the edited project.
 Use case ends.
 
 [none]

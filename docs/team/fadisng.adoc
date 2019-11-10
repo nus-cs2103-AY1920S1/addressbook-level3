@@ -61,7 +61,9 @@ me to understand the internal workings of other features like how these items ar
 *** Created the project model on GitHub and kept track of the progresses. https://github.com/AY1920S1-CS2103T-T17-1/main/projects/1[Project model on GitHub]
 ** Documentation:
 
-*** Edited images originially from addressbook to include the new features implemented by the whole team.
+*** Edited target user profile in DG.
+
+*** Edited images originally from addressbook to include the new features implemented by the whole team in DG.
  For example, edited the storage class diagram to include all the new storage classes that were added. https://github.com/AY1920S1-CS2103T-T17-1/main/pull/52[#52]
 
 == Contributions to the User Guide

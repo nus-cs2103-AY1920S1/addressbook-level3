@@ -35,7 +35,7 @@ public class EditTaskCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TIME + "TIME] "
-            + "[" + PREFIX_DONE + "] "
+            + "[" + PREFIX_DONE + "] \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DESCRIPTION + "Finish GUI "
             + PREFIX_TIME + "09/09/2019 1700";

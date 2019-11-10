@@ -2,6 +2,9 @@ package seedu.address.model.project;
 
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 public class Description {
 
     /*
@@ -16,6 +19,8 @@ public class Description {
     public final String description;
 
     public Description(String description) {
+        requireNonNull(description);
+        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         this.description = description;
     }
 
