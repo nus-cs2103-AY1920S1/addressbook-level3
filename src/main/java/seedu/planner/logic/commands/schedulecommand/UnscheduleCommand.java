@@ -46,7 +46,7 @@ public class UnscheduleCommand extends UndoableCommand {
             new ArrayList<>()
     );
 
-    public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity %d unscheduled from Day %d";
+    public static final String MESSAGE_UNSCHEDULE_SUCCESS = "Activity %d unscheduled from Day %d";
 
     private Index activityIndexToUnschedule;
     private final Index dayIndex;
@@ -91,6 +91,10 @@ public class UnscheduleCommand extends UndoableCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (dayIndex.getZeroBased() >= model.getFilteredItinerary().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DAY_DISPLAYED_INDEX);
+        }
+
         List<Day> lastShownDays = model.getFilteredItinerary();
         Day dayToEdit = lastShownDays.get(dayIndex.getZeroBased());
         List<ActivityWithTime> activitiesInDay = dayToEdit.getListOfActivityWithTime();
@@ -100,7 +104,7 @@ public class UnscheduleCommand extends UndoableCommand {
         }
 
         if (activityIndexToUnschedule.getZeroBased() >= activitiesInDay.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_WITH_TIME_INDEX);
         }
 
         if (!isUndoRedo) {
@@ -110,7 +114,7 @@ public class UnscheduleCommand extends UndoableCommand {
         model.unscheduleActivity(dayToEdit, activityIndexToUnschedule);
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
 
-        return new CommandResult(String.format(MESSAGE_UNSCHEDULE_TIME_SUCCESS, activityIndexToUnschedule.getOneBased(),
+        return new CommandResult(String.format(MESSAGE_UNSCHEDULE_SUCCESS, activityIndexToUnschedule.getOneBased(),
                 dayIndex.getOneBased()), new UiFocus[]{UiFocus.AGENDA});
     }
 
