@@ -113,9 +113,6 @@ public class LineChartPanel extends UiPart<Region> {
         lineChart.setTitle("Admission statistics");
         lineChart.setAnimated(false);
 
-        // defining a series to display data
-        // series.setName("Bodies admitted daily");
-
         // hide the legend because it takes up too much space
         lineChart.setLegendVisible(false);
 
