@@ -58,16 +58,16 @@ public class Editor extends UiPart<Region> {
             if (e1.getCode() == KeyCode.TAB) {
                 textOutput.insertText(currentCaretPosition, " ".repeat(2));
                 e1.consume();
-            } else if (e1.isShiftDown() && e1.getCode() == KeyCode.CLOSE_BRACKET) {
-                if (isEmptyLine(textOutput.getText(), textOutput.getCaretPosition())) {
-                    int previousNewlineCharPosition = getClosestNewlineCharPosition(currentCaretPosition);
-                    int diff = currentCaretPosition - previousNewlineCharPosition;
+            } else if (e1.isShiftDown()
+                    && e1.getCode() == KeyCode.CLOSE_BRACKET
+                    && isEmptyLine(textOutput.getText(), textOutput.getCaretPosition())) {
+                int previousNewlineCharPosition = getClosestNewlineCharPosition(currentCaretPosition);
+                int diff = currentCaretPosition - previousNewlineCharPosition;
 
-                    if (diff < 4) {
-                        textOutput.deleteText(previousNewlineCharPosition + 1, currentCaretPosition - 1);
-                    } else {
-                        textOutput.deleteText(currentCaretPosition - 2, currentCaretPosition - 1);
-                    }
+                if (diff < 4) {
+                    textOutput.deleteText(previousNewlineCharPosition + 1, currentCaretPosition - 1);
+                } else {
+                    textOutput.deleteText(currentCaretPosition - 2, currentCaretPosition - 1);
                 }
             }
         });
