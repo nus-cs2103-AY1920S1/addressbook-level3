@@ -1748,6 +1748,52 @@ _{ more test cases ... }_
 === Testing Inventory Tab Features
 
 === Testing Cashier Tab Features
+. Adding an item
+
+.. Prerequisites: There is an item with description "cup" and quantity of at least 3 in the inventory. +
+Test case: `add d/cup q/3` +
+Expected: 3 items of description "cup" are added into the cart on the Cashier tab.
+Response message that cup has been added successfully shown.
+
+.. Prerequisites: There is an item with description "cup" and quantity of at least 3 in the inventory. +
+Test case: `add d/cup q/-1` +
+Expected: No item is added into the cart.
+Response message prompting positive integer for quantity shown.
+
+. Deleting an item
+.. Prerequisites: There are some sales items in the Inventory tab. +
+Test case: `delete 1` +
+Expected: First item on the cart is deleted.
+Response message that cup has been deleted successfully shown.
+
+. Editing an item
+.. Prerequisites: There are some sales items in the Inventory tab. +
+Test case: `edit i/1 q/2` +
+Expected: Quantity of first item on the cart is updated to 2.
+Response message that cup has been edited successfully shown.
+
+. Setting cashier
+.. Prerequisites: There is an existing member called "Alice" on the Members tab. +
+Test case: `cashier Alice` +
+Expected: Cashier on the bottom row is updated to "Alice".
+Response message that cashier has been set successfully shown.
+
+. Clearing
+.. Prerequisites: A cashier is set and there are some sales item in the cart. +
+Test case: `clear` +
+Expected: Cashier on the bottom row is reset and all items in the cart are cleared.
+Response message that table has been cleared successfully shown.
+
+. Checking out
+.. Prerequisites: A cashier is set and there are some sales item in the cart. +
+Test case: `checkout 9` +
+Expected: If amount inputted is sufficient, the total amount and change is shown.
+Cashier on the bottom row is reset and all items in the cart are cleared.
+Response message that items has been checked out successfully shown.
+
 
 === Testing Overview Tab Features
+
+
+
 
