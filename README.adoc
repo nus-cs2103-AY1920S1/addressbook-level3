@@ -23,6 +23,6 @@ endif::[]
 == Acknowledgements
 
 * Some parts of this sample application were inspired by the AddressBook-Level3 project created by https://se-education.org[SE-EDU Initiative].
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://github.com/itext[itext]
 
 == Licence : link:LICENSE[MIT]
