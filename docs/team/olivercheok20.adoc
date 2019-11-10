@@ -40,6 +40,7 @@ future extensions convenient and simple.
 ** Enhancements to existing features:
 *** Created the Insurelytics logo
 *** Make right panel update appropriately during commands that update the expanded person/policy: https://github.com/AY1920S1-CS2103-F09-4/main/pull/228[#231]
+*** Make right panel update clear during commands that delete the expanded person/policy: https://github.com/AY1920S1-CS2103-F09-4/main/pull/228[#231]
 *** Add/maintain commands to add tags/criteria to people and policies: https://github.com/AY1920S1-CS2103-F09-4/main/pull/95[#95], https://github.com/AY1920S1-CS2103-F09-4/main/pull/117[#117]
 *** Format person and policy cards in the UI: https://github.com/AY1920S1-CS2103-F09-4/main/pull/117[#117]
 *** Formatting user messages: https://github.com/AY1920S1-CS2103-F09-4/main/pull/193[#193]
