@@ -335,28 +335,6 @@ The `SavingsHistory` Class Diagram is shown below to reflect the interactions ab
 
 TODO ADD CLASS DIAGRAM.
 
-===== CurrentSavings
-
-===== Money
-
-===== ReadOnlySavingsHistory
-
-===== ReadOnlySavingsAccount
-
-===== Savings
-
-===== SavingsAccount
-
-===== SavingsHistory
-
-===== SavingsHistoryList
-
-===== TimeStamp
-
-===== InsufficientSavingsException
-
-===== SavingsOutOfBoundException
-
 ==== Making a saving in $aveNUS
 
 When a user requests for a saving to be made in the application by calling the `save AMOUNT` command, the following processes
@@ -371,7 +349,7 @@ If the user enters an `AMOUNT` that is negative, a `ParseException` is thrown. T
 
 ===== Deduction of savings amount from user's wallet
 
-A `Savings` object is instantiated in the `SaveCommand` with the user's input. It contains information about the how much `Money`
+A `Savings` object is instantiated in the `SaveCommand` with the user's input. It contains information about how much `Money`
 was saved, and the `TimeStamp` of the savings made. The `Money` object contains the amount of savings made, and the `TimeStamp`
 object contains the time and date the saving was made by the user.
 
@@ -391,15 +369,16 @@ is called in the `Model` class. This method call will result in the addition of 
 After the savings is added into the user's savings account, `model#addToHistory(savingsAmount)` is called, and the details
 of the savings are added into the `SavingsHistoryList`, found within the `SavingsHistory` object.
 
-The following sequence diagram shows how the making of a savings works:
+The following sequence diagram shows how the making of a saving works:
 
 ADD SEQUENCE DIAGRAM HERE
 
-The following activity diagram summarises what happens when a user executes a new command:
+The following activity diagram summarises what happens when a user executes a `SaveCommand`:
 
 ADD ACTIVITY DIAGRAM HERE.
 
 ===== Design Considerations
+
 Detailed below are the design considerations taken into account when engineering the
  `model#depositInSavings(savingsAmount)` function.
 
@@ -429,6 +408,105 @@ calling methods from `Savings` and `Money` classes to obtain the savings amount.
 class.
 
 |===
+
+==== Making a withdrawal from user's savings account.
+
+Similar to making a saving, the following steps occur when the user requests for a withdrawal.
+
+- The `AMOUNT` specified by the user is deducted from the user's savings account.
+- The `AMOUNT` specified by the user is added into the user's wallet.
+- The withdrawal is reflected in the savings history.
+
+[NOTE]
+If the user enters an `AMOUNT` that is negative, a `ParseException` is thrown. This exception is thrown from `ParserUtil#parseSavings(savings)`.
+
+===== Deduction of withdrawal amount from user's savings account.
+
+A `Savings` object is instantiated in the `WithdrawCommand` with the user's input. Because a withdrawal is subtracted from the savings account, the withdrawal is a `Savings` object
+recorded with a negative value.
+
+It contains information about how much `Money` was withdrawn, and the `TimeStamp` of the withdrawal made. The `Money` object contains the amount to withdraw, and the `TimeStamp`
+object contains the time and date the withdrawal was made by the user.
+
+When `WithdrawCommand#execute()` is called, `model#withdrawFromSavings(savings)` is called. Within the `Model` of $aveNUS, the user's
+savings account is checked. If the user attempts to withdraw more money than he/she has in the savings account, they will be prompted that the command
+is invalid.
+
+Once the check is passed, a check is done in the wallet described in the section below.
+
+===== Adding of savings amount into user's wallet.
+
+Before the savings amount is deducted from the savings account, a check is done to make sure that the addition of the withdrawal
+into the user's wallet will not result in the budget amount in the wallet to be great than $1,000,000.
+
+Only when this check is passed, the savings amount is added into the user's wallet, using the command `wallet#setRemainingBudget(newRemainingBudget)`.
+The savings amount is subsequently deducted from the savings account using the command `savingsAccount#deductFromSavings(savings)`. Note again that the savings
+is of a negative value since this is a withdrawal.
+
+===== Adding of the withdrawals into the user's saving history
+
+After a successful deduction from the savings account, `model#addToHistory(savingsAmount)` is called, and the details
+of the savings are added into the `SavingsHistoryList`, found within the `SavingsHistory` object.
+
+The following sequence diagram shows how the making of a withdrawal works:
+
+ADD SEQUENCE DIAGRAM HERE
+
+The following activity diagram summarises what happens when a user executes a `WithdrawCommand`:
+
+ADD ACTIVITY DIAGRAM HERE.
+
+===== Design Considerations
+
+Detailed below are the design considerations taken into account when engineering the
+ `Savings` class.
+
+.Design considerations of the `Savings` class.
+[cols="50,50"]
+|===
+|Alternative 1 |Alternative 2 (Chosen Implementation)
+
+a|Make a `Savings` class and another `Withdrawals` class, both extending an abstract class called `SavingsItem`.
+
+* Pros:
+** Maintains better abstraction since `Savings` and `Withdrawals` should implement similar methods and have similar attributes. They
+are simply opposites of each other.
+** Allows `Money` to always be non-negative, since that is reasonable as in reality,
+there is no negative `Money` object, i.e. there are no negative dollar bills.
+
+* Cons:
+** Implementation of the `SavingsHistory` and `SavingsHistoryList` becomes complicated since both `Savings` and `Wtihdrawals`
+have to be included within the same `SavingsHistoryList`.
+** Converting the user's savings history from the the Jackson File to a `SavingsHistory` object would be more complicated,
+because through this implementation, we were trying to maintain a non-negative money object, but the withdrawal is saved with a
+negative value.
+** To read back the withdrawal from the Jackson file (savings.json) for savings account, an additional boolean might have to be saved persistently into the user's hard disk
+to differentiate savings from withdrawals. This is necessary since the value saved will always be positive in this implementation.
+** Implementation of `JsonAdaptedWithdrawals` and `JsonAdaptedSavingsItem` would be required,
+and complicated conversions between `SavingsItem` to the subclasses of `Savings` and `Withdrawals` have to be done.
+
+a|Make a `Savings` class that has a `Money` object which can be modified internally.
+
+* Pros:
+** Easier implementation since only `Savings` will be added to the `SavingsHistoryList`.
+** Easier to identify withdrawals in the Jackson file for the user's savings account, since the
+withdrawal is simply the saving with a negative value in it's savingsAmount field.
+** No need to maintain 2 separate list for the user's savings history.
+** Reading back from Jackson file for savings account is more direct as everything is converted back to a
+`JsonAdaptedSavings` object, which is then used to create a new `Savings` object within the application.
+** We can still add a boolean field within the `Savings` to identify if it is a savings/withdrawal efficiently, however,
+there is no need to save this boolean persistently in the Jackson File.
+
+* Cons:
+** Does not maintain abstraction because in reality a withdrawal is not a saving.
+** Methods have to be called to convert the withdrawal amount to a positive amount in order to pass
+the checks that have been put in place to identify if a `Money` object has a valid value. We cannot change these checks
+since the `Price` object (introduced in <<Budget Tracking feature>>) and
+did not intend to implement new ones just for the withdrawal.
+** `Money` should not be of a negative value since in reality that is illogical.
+
+|===
+
 //end::savings[]
 
 //tag::budgeting[]

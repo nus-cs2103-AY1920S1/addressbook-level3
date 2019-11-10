@@ -470,7 +470,6 @@ public class ModelManager implements Model {
                     .toString());
             this.getWallet().setRemainingBudget(newRemaining);
             savingsAccount.deductFromSavings(savings);
-            //savingsHistory.addToHistory(savings);
         }
     }
 
