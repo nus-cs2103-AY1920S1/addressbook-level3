@@ -127,8 +127,8 @@ public class BipartiteGraphGenerator {
             List<Slot> slots = interviewer.getAvailabilities();
             List<InterviewerSlotVertex> interviewSlotVertices = pair.getTail();
             for (Slot slot : slots) {
-                InterviewerSlot interviewerSlot = new InterviewerSlot(slot, interviewer);
-                interviewSlotVertices.add(new InterviewerSlotVertex(interviewerSlot, currNumSlots));
+                InterviewSlot interviewSlot = new InterviewSlot(slot, interviewer);
+                interviewSlotVertices.add(new InterviewerSlotVertex(interviewSlot, currNumSlots));
                 currNumSlots++;
             }
         }

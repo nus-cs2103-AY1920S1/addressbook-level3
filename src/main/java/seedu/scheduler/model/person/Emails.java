@@ -54,7 +54,7 @@ public class Emails {
      * @param nusEmail list of nus emails.
      * @param personalEmail list of personal emails.
      */
-    public void addAll(ArrayList<Email> nusEmail, ArrayList<Email> personalEmail) {
+    public void addAll(List<Email> nusEmail, List<Email> personalEmail) {
         for (Email email: nusEmail) {
             this.addNusEmail(email);
         }

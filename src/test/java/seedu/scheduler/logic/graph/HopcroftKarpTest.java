@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.scheduler.testutil.SampleGraph;
 
-class HopCroftKarpTest {
+class HopcroftKarpTest {
     @Test
     public void execute_sampleGraph1_allMatched() {
         BipartiteGraph subjectGraph = SampleGraph.getSampleGraphOne();
-        HopCroftKarp algorithm = new HopCroftKarp(subjectGraph);
+        HopcroftKarp algorithm = new HopcroftKarp(subjectGraph);
         algorithm.execute();
 
         int numInterviewees = subjectGraph.getNumInterviewees();

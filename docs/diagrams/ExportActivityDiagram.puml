@@ -1,10 +1,14 @@
 @startuml
 scale 3/4
 start
-:User executes export command;
+:User inputs export command with input file path;
 
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
+
+while () is ([incorrect command format])
+    :Shows correct command format and \nprompts user to try again;
+endwhile ([correct command format])
 
 if () then ([input file exists])
     :Clears file;
@@ -14,13 +18,12 @@ endif
 
 :Get schedules from model;
 
-if () then ([data != null])
-    if () then ([model.isScheduled])
-        : Writes to specified file;
-    else ([else])
-    endif
-
+if () then ([schedules != null && model.isScheduled])
+    :Writes to specified file;
+    :Show command result success;
 else ([else])
+    :Throw command exception \nand show error message;
+
 endif
 stop
 @enduml

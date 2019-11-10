@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
  * the bipartite graph of interviewees and interview slots and it's recorded through predecessor arrays. Note that in
  * the layered graph an interview slot may have multiple predecessors, which is interviewees.
  */
-public class DfsHopCroftKarp {
+public class DfsHopcroftKarp {
     private BipartiteGraph graph;
     private List<InterviewerSlotVertex> lastLayer;
     private List<InterviewerSlotVertex> intervieweePredecessor;
@@ -19,7 +19,7 @@ public class DfsHopCroftKarp {
     private boolean[] isUsedInterviewee;
     private boolean[] isUsedSlot;
 
-    public DfsHopCroftKarp(BipartiteGraph graph) {
+    public DfsHopcroftKarp(BipartiteGraph graph) {
         this.graph = graph;
     }
 

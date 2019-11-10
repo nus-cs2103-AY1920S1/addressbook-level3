@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.scheduler.testutil.SampleGraph;
 import seedu.scheduler.testutil.TestUtil;
 
-class DfsHopCroftKarpTest {
+class DfsHopcroftKarpTest {
     /**
      * Integration testing of bfs and dfs.
      */
@@ -27,9 +27,9 @@ class DfsHopCroftKarpTest {
         boolean[] isUsedSlot = new boolean[numSlots];
         TestUtil.fillWithSubLists(interviewSlotPredecessors, numSlots);
 
-        List<InterviewerSlotVertex> lastLayer = new BfsHopCroftKarp(subjectGraph).execute(intervieweePredecessor,
+        List<InterviewerSlotVertex> lastLayer = new BfsHopcroftKarp(subjectGraph).execute(intervieweePredecessor,
                 interviewSlotPredecessors);
-        DfsHopCroftKarp dfs = new DfsHopCroftKarp(subjectGraph);
+        DfsHopcroftKarp dfs = new DfsHopcroftKarp(subjectGraph);
         dfs.execute(lastLayer, intervieweePredecessor, interviewSlotPredecessors, isUsedInterviewee, isUsedSlot);
 
         // Check the graph

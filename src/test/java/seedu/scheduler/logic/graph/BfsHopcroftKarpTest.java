@@ -12,7 +12,7 @@ import seedu.scheduler.testutil.SampleGraph;
 import seedu.scheduler.testutil.SampleInterviewSlotVertex;
 import seedu.scheduler.testutil.TestUtil;
 
-public class BfsHopCroftKarpTest {
+public class BfsHopcroftKarpTest {
     @Test
     public void bfs_sampleGraphOneAfterOneIteration_success() {
         BipartiteGraph subjectGraph = SampleGraph.getSampleGraphOne();
@@ -24,7 +24,7 @@ public class BfsHopCroftKarpTest {
         TestUtil.fillWithSubLists(interviewSlotPredecessors, numSlots);
 
         List<InterviewerSlotVertex> expectedVertices = SampleInterviewSlotVertex.getSampleInterviewSlotVerticesGraph1();
-        List<InterviewerSlotVertex> resultVertices = new BfsHopCroftKarp(subjectGraph).execute(intervieweePredecessor,
+        List<InterviewerSlotVertex> resultVertices = new BfsHopcroftKarp(subjectGraph).execute(intervieweePredecessor,
             interviewSlotPredecessors);
 
         // resultVertices.forEach(System.out::println);

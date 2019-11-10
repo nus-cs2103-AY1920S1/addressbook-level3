@@ -1,0 +1,145 @@
+@startuml
+!include style.puml
+title Executing Schedule Command
+
+'Logic
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SchedulerParser" as SchedulerParser LOGIC_COLOR
+participant ":ScheduleCommandParser" as ScheduleCommandParser LOGIC_COLOR
+participant "s:ScheduleCommand" as ScheduleCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":BipartiteGraphGenerator" as BipartiteGraphGenerator LOGIC_COLOR
+participant "graph:BipartiteGraph" as BipartiteGraph LOGIC_COLOR
+participant ":HopcroftKarp" as HopcroftKarp LOGIC_COLOR
+participant ":BfsHopcroftKarp" as BfsHopcroftKarp LOGIC_COLOR
+participant ":DfsHopcroftKarp" as DfsHopcroftKarp LOGIC_COLOR
+
+end box
+
+'Model
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager: execute("schedule")
+activate LogicManager
+
+LogicManager -> SchedulerParser: parseCommand("schedule")
+activate SchedulerParser
+
+create ScheduleCommandParser
+SchedulerParser -> ScheduleCommandParser
+activate ScheduleCommandParser
+
+ScheduleCommandParser--> SchedulerParser
+deactivate ScheduleCommandParser
+
+SchedulerParser -> ScheduleCommandParser: parse("")
+activate ScheduleCommandParser
+
+create ScheduleCommand
+ScheduleCommandParser -> ScheduleCommand
+activate ScheduleCommand
+
+ScheduleCommand --> ScheduleCommandParser: s
+deactivate ScheduleCommand
+
+ScheduleCommandParser --> SchedulerParser: s
+deactivate ScheduleCommandParser
+
+SchedulerParser --> LogicManager: s
+deactivate SchedulerParser
+
+destroy ScheduleCommandParser
+
+LogicManager -> ScheduleCommand: execute(model)
+activate ScheduleCommand
+
+create BipartiteGraphGenerator
+ScheduleCommand -> BipartiteGraphGenerator: interviewers, interviewees
+activate BipartiteGraphGenerator
+
+BipartiteGraphGenerator --> ScheduleCommand
+deactivate BipartiteGraphGenerator
+
+ScheduleCommand -> BipartiteGraphGenerator: generate()
+activate BipartiteGraphGenerator
+
+create BipartiteGraph
+BipartiteGraphGenerator -> BipartiteGraph
+
+activate BipartiteGraph
+BipartiteGraph --> BipartiteGraphGenerator
+deactivate BipartiteGraph
+
+BipartiteGraphGenerator --> ScheduleCommand: graph
+deactivate BipartiteGraphGenerator
+
+create HopcroftKarp
+ScheduleCommand -> HopcroftKarp: graph
+activate HopcroftKarp
+
+HopcroftKarp --> ScheduleCommand
+deactivate HopcroftKarp
+
+ScheduleCommand -> HopcroftKarp: execute()
+activate HopcroftKarp
+
+loop lastLayer is not empty
+    create BfsHopcroftKarp
+    HopcroftKarp -> BfsHopcroftKarp: graph
+    activate BfsHopcroftKarp
+
+    BfsHopcroftKarp --> HopcroftKarp
+    deactivate BfsHopcroftKarp
+
+    HopcroftKarp -> BfsHopcroftKarp: execute(predecessors)
+    activate BfsHopcroftKarp
+
+        BfsHopcroftKarp --> HopcroftKarp: lastLayer
+        deactivate BfsHopcroftKarp
+
+        create DfsHopcroftKarp
+        HopcroftKarp -> DfsHopcroftKarp: graph
+        activate DfsHopcroftKarp
+
+        DfsHopcroftKarp --> HopcroftKarp
+        deactivate DfsHopcroftKarp
+
+        HopcroftKarp -> DfsHopcroftKarp: execute(lastLayer, predecessors, usedArrays)
+        activate DfsHopcroftKarp
+
+        DfsHopcroftKarp --> HopcroftKarp
+        deactivate DfsHopcroftKarp
+
+        destroy BfsHopcroftKarp
+        destroy DfsHopcroftKarp
+end
+
+HopcroftKarp --> ScheduleCommand
+deactivate HopcroftKarp
+
+ScheduleCommand -> Model: updateSchedulesAfterScheduling()
+
+activate Model
+Model --> ScheduleCommand
+deactivate Model
+
+create CommandResult
+ScheduleCommand -> CommandResult
+
+activate CommandResult
+CommandResult --> ScheduleCommand
+deactivate CommandResult
+
+ScheduleCommand --> LogicManager: result
+deactivate ScheduleCommand
+
+destroy BipartiteGraphGenerator
+destroy HopcroftKarp
+destroy BipartiteGraph
+
+[<-- LogicManager
+deactivate LogicManager
+@enduml

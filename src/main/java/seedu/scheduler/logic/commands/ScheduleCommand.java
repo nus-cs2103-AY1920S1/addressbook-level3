@@ -12,9 +12,9 @@ import seedu.scheduler.commons.exceptions.ScheduleException;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.logic.graph.BipartiteGraph;
 import seedu.scheduler.logic.graph.BipartiteGraphGenerator;
-import seedu.scheduler.logic.graph.HopCroftKarp;
+import seedu.scheduler.logic.graph.HopcroftKarp;
+import seedu.scheduler.logic.graph.InterviewSlot;
 import seedu.scheduler.logic.graph.IntervieweeVertex;
-import seedu.scheduler.logic.graph.InterviewerSlot;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.IntervieweeSlot;
@@ -52,7 +52,7 @@ public class ScheduleCommand extends Command {
             List<Interviewee> interviewees = new ArrayList<>(model.getUnfilteredIntervieweeList());
 
             BipartiteGraph optimumGraph = findOptimumGraph(model, interviewers, interviewees);
-            HopCroftKarp algorithm = new HopCroftKarp(optimumGraph);
+            HopcroftKarp algorithm = new HopcroftKarp(optimumGraph);
             algorithm.execute();
             assignSlots(optimumGraph);
 
@@ -89,9 +89,9 @@ public class ScheduleCommand extends Command {
 
             if (intervieweeVertex.isMatched()) {
                 Interviewee interviewee = intervieweeVertex.getItem();
-                InterviewerSlot interviewerSlot = intervieweeVertex.getPartner().getItem();
-                Interviewer interviewer = interviewerSlot.getInterviewer();
-                Slot slot = interviewerSlot.getSlot();
+                InterviewSlot interviewSlot = intervieweeVertex.getPartner().getItem();
+                Interviewer interviewer = interviewSlot.getInterviewer();
+                Slot slot = interviewSlot.getSlot();
 
                 interviewee.setAllocatedSlot(slot);
                 interviewer.addAllocatedSlot(new IntervieweeSlot(interviewee, slot));
@@ -109,14 +109,14 @@ public class ScheduleCommand extends Command {
                                             List<Interviewee> interviewees) {
         BipartiteGraph optimumGraph = null;
 
-        int maxMatching = 0;
+        int maxMatching = -1;
         for (int i = 0; i < 10; i++) {
             // To ensure fairer scheduling
             Collections.shuffle(interviewers);
             Collections.shuffle(interviewees);
 
             BipartiteGraph graph = new BipartiteGraphGenerator(interviewers, interviewees).generate();
-            HopCroftKarp algorithm = new HopCroftKarp(graph);
+            HopcroftKarp algorithm = new HopcroftKarp(graph);
             algorithm.execute();
             int currNumMatching = assignSlots(graph);
 
