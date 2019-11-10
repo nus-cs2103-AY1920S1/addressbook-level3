@@ -1,5 +1,8 @@
 package budgetbuddy.logic.script;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,22 +21,23 @@ public class ScriptEngine {
     private final Logger logger = LogsCenter.getLogger(ScriptEngine.class);
 
     private final Object scriptEngineLock;
-    private final ScriptEnvironmentInitialiser initialiser;
+    private final List<ScriptEnvironmentInitialiser> initialisers;
     private final javax.script.ScriptEngine scriptEngine;
 
     /**
      * Creates a new ScriptManager with the specified environment initialiser.
      *
-     * @param initialiser The environment initialiser.
+     * @param initialisers The environment initialisers.
      */
-    public ScriptEngine(ScriptEnvironmentInitialiser initialiser) {
-        this.initialiser = initialiser;
+    public ScriptEngine(ScriptEnvironmentInitialiser... initialisers) {
+        this.initialisers = new ArrayList<>();
+        Collections.addAll(this.initialisers, initialisers);
         scriptEngineLock = new Object();
         scriptEngine = new ScriptEngineManager().getEngineByName("nashorn");
         if (scriptEngine == null) {
             throw new IllegalStateException("Could not instantiate JavaScript engine");
         }
-        initialiser.initialise(this);
+        resetEnvironment();
     }
 
     /**
@@ -82,6 +86,19 @@ public class ScriptEngine {
         synchronized (scriptEngineLock) {
             Bindings newBindings = scriptEngine.createBindings();
             scriptEngine.setBindings(newBindings, ScriptContext.ENGINE_SCOPE);
+            for (ScriptEnvironmentInitialiser initialiser : initialisers) {
+                initialiser.initialise(this);
+            }
+        }
+    }
+
+    /**
+     * Adds to the script environment. The effects are immediate and the initialiser will be
+     * applied during future environment resets with {@link ScriptEngine#resetEnvironment}.
+     */
+    public void addToEnvironment(ScriptEnvironmentInitialiser initialiser) {
+        initialisers.add(initialiser);
+        synchronized (scriptEngineLock) {
             initialiser.initialise(this);
         }
     }

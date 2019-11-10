@@ -11,6 +11,7 @@ import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.CommandLineParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.script.ScriptEngine;
+import budgetbuddy.logic.script.ScriptEnvironmentInitialiser;
 import budgetbuddy.logic.script.ScriptModelBinding;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
@@ -57,6 +58,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public void addToScriptEnvironment(ScriptEnvironmentInitialiser sei) {
+        scriptEngine.addToEnvironment(sei);
     }
 
     @Override
