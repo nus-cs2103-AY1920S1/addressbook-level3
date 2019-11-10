@@ -12,7 +12,8 @@ public class ScrollCommand extends Command {
     public static final String COMMAND_WORD = "scroll";
 
     public static final String MESSAGE_SUCCESS = "Showing next view of schedule";
-    public static final String MESSAGE_FAILURE = "Nothing to scroll";
+    public static final String MESSAGE_FAILURE = "No schedule is shown.\n"
+            + "Scroll command requires an existing schedule to be present!";
 
     public ScrollCommand() {
     }
@@ -25,10 +26,8 @@ public class ScrollCommand extends Command {
                 || status == ScheduleState.GROUP) {
             return new CommandResultBuilder(MESSAGE_SUCCESS).setScroll().build();
         } else {
-            return new CommandResultBuilder(MESSAGE_FAILURE).build();
+            throw new CommandException(MESSAGE_FAILURE);
         }
-
-
     }
 
     @Override

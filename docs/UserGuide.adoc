@@ -60,14 +60,20 @@ We have used the following symbols to help you better understand our application
 
 == Quick Start
 
+====
+image:./icons/important.png[] Make sure that your screen resolution height is at least 720 pixels before you continue this section!
+====
+
 . Ensure you have Java `11` or above installed in your Computer.
 . Download the latest `timebook.jar` link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for your TimeBook.
 . Double-click the file to start the app.
+
++
 The GUI should appear in a few seconds.
+image:Ui.png[width="790"]
 +
-image::Ui.png[width="790"]
-+
+
 . Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
@@ -79,6 +85,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`addtogroup`* `n/John Doe` `g/CS2103` : Adds a person `John Doe` into the group `CS2103`.
 * *`exit`* : exits the app
 +
+
 [IMPORTANT]
 ====
 include::UserGuide.adoc[tag=alice-full]
@@ -125,8 +132,15 @@ Take note of the numbered green boxes you see below!
 
 image::freeTimeslot.png[]
 
-These are the common free time slot that you and your group members share! You can use
+These are the common free time slot that you and your *entire* group members share! You can use
 these numbered green boxes to arrange your meetings or share it with your group members to pick.
+
+****
+
+image:./icons/important.png[] Note that the labels for each of the coloured block will become hidden if each block becomes too small!
+To get more information about the coloured block, you can just hover your mouse over it! +
+
+****
 
 === Tabs
 
@@ -138,7 +152,7 @@ image::tabs.png[]
 === Result Display Box
 
 This box shows you whether your command executed is successful or unsuccessful.
-If you encounter an error message here, look at our errors meaning section to see what is the cause of error.
+If you encounter an error message here, look at our <<FAQ,*Frequently Asked Questions*>> section to see what is the cause of error.
 
 image::resultDisplayBox.png[]
 
@@ -217,7 +231,7 @@ The following sections will explain all the commands we have in TimeBook and wha
 
 ==== Home: `home`
 
-You can return back to the home page to see your upcoming schedule.
+You can return back to the home page to see your upcoming schedule for today.
 Format: `home`
 
 ==== Switch tabs: `switch-tab`
@@ -403,10 +417,13 @@ You should see a window similar to the one below.
 image::showpersonresult.png[]
 
 *****
-image:./icons/lightbulb.png[] You can use the command `n` to help you scroll the schedule view without touching your mouse!
+image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
 
-image:./icons/lightbulb.png[] You can use the command `nw` see next week's schedule!
-You may see this person's schedule up to 4 weeks in advance.
+image:./icons/lightbulb.png[] You can use the command `togglenext` see next week's schedule! You may see this person's schedule up to 4 weeks in advance.
+After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
+
+image:./icons/important.png[] Unfortunately, TimeBook does not let you see a schedule that has already passed.
+
 *****
 ___
 
@@ -746,10 +763,36 @@ image::showgroupcommand.png[]
 image::showgroupresult.png[]
 
 *****
-image:./icons/lightbulb.png[] You can use the command `n` to help you scroll the schedule view without touching your mouse!
+image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
 
-image:./icons/lightbulb.png[] You can use the command `nw` to help you show next week's schedule!
+image:./icons/lightbulb.png[] You can use the command `togglenext` to help you show next week's schedule!
+After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
 
+*****
+
+==== Look at some members: `lookat`
+Suppose that all of your group members are extremely busy and the common free time is too short to do any productive work,
+you may use the `lookat` command to see if you can meet with some of your group members. You must be viewing a group's
+schedule in order for this command to work.
+
+Format:
+
+* `lookat [n/Name]...`
+
+The `lookat` command takes in any number of `n/Name` and highlights the group members according to name.
+
+Example:
+
+Suppose your group schedule looks like the one below.
+//Image1
+
+* Simply type `lookat n/Bobby n/Denise` if you are interested in inspecting both of their schedules!
+You should see that Bobby's and Denise's schedule become highlighted.
+//Image2
+
+*****
+image:./icons/important.png[] Empty blocks represent the free time slots for the group members that you are looking at.
+The green blocks still represent the common free time slots for the entire group.
 *****
 
 
@@ -772,15 +815,20 @@ Opens up https://nusmods.com/modules/CS2103T on your default browser.
 Opens up https://nusmods.com/modules/CS2101 on your default browser.
 // end::showmod[]
 
-==== Export VR (Visual Representation): `export-vr`
+==== Export VR (Visual Representation): `export`
 
-This feature is currently work in progress!
+Want to share a schedule with your friends?
+This command exports a visualisation representation of the schedule (timetable) of a group or person to a PNG file! +
 
-Want to share your group's schedule with your friends?
-This command exports a visualisation representation of currently showing schedule (timetable) of a group or person(s) to a PNG file! +
+****
+image:./icons/warning.png[] Take note when exporting a person's schedule, *sensitive information* are omitted. Only the person's schedule is exported.
+
+image:./icons/warning.png[] Take note that if you are exporting a group's schedule, the *entire* group's schedule will be exported. If you have used the `lookat` command, this command disregards it.
+****
+
 Format:
 
-* `export-vr` +
+* `export` +
 
 === Closest Common Location
 
@@ -935,6 +983,24 @@ We understand that users occasionally make error while typing and it is frustrat
 of it. Thus for all commands that do not require any arguments(ie `help`, `home` and `exit`), TimeBook allows you to
 enter any value after the command word. For example `help 1` will execute `help` command eventhough `1` is irrelevant to
 the command. We hope with this feature you will have a seamless and pleasant experience with TimeBook.
++
+{nbsp} +
+Help! I encountered an error!::
+We understand that you may encounter a weird error message and are unsure of what it means so we prepared this section that describes the uncommon errors that you may see.
+
+[cols="25h, ~"]
+|===
+|Error message |What it means:
+| Invalid timing arguments | Ensure that the time you provide as argument follow the format. Example: 11 Nov 2019, 0800 to 0900 is represented as 11112019-0800-0900
+| Clash in events | There is already a pre-existing event that is happening at that time slot.
+| Duplicate Mapping | This person is already in the group.
+| Cannot find closest location | The closest common location cannot be determined because everyone is not in NUS.
+| XXX does not exist | This person or group does not exist in TimeBook. Some names are case-sensitive.
+| No schedule to XXX | This error occurs when you use `scroll` and `togglenext` command when there is no schedule shown.
+| No group schedule is shown | You'll see this error when you are invoking the `look at` command when a group schedule is not displayed.
+| Internal Error. Please try again later  | You'll see this error when our remote database cannot handle your requests.
+|===
+
 +
 {nbsp} +
 

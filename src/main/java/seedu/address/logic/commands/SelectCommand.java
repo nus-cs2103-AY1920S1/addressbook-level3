@@ -26,7 +26,7 @@ public class SelectCommand extends Command {
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_WEEK + "WEEK_NUMBER] "
             + PREFIX_ID + "ID" + "\n"
-            + "WEEK_NUMBER: 1 - 4   (if not specified, current week will be selected)";
+            + "WEEK_NUMBER: 1 - 4   (if not specified, first week will be selected)";
 
     public static final String MESSAGE_SUCCESS = "Selected timeslot";
     public static final String MESSAGE_FAILURE = "Unable to select: %s";
@@ -64,11 +64,9 @@ public class SelectCommand extends Command {
                         .setSelect().setPersonTimeslotData(personTimeslot).build();
 
             } catch (PersonNotFoundException e) {
-                return new CommandResultBuilder(
-                        String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
+                throw new CommandException(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
             } catch (PersonTimeslotNotFoundException e) {
-                return new CommandResultBuilder(
-                        String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
+                throw new CommandException(String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND));
             }
         } else if (status == ScheduleState.PERSON) {
             try {
@@ -80,11 +78,9 @@ public class SelectCommand extends Command {
                         .setSelect().setPersonTimeslotData(personTimeslot).build();
 
             } catch (PersonNotFoundException e) {
-                return new CommandResultBuilder(
-                        String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
+                throw new CommandException(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
             } catch (PersonTimeslotNotFoundException e) {
-                return new CommandResultBuilder(
-                        String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
+                throw new CommandException(String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND));
             }
         } else if (status == ScheduleState.HOME) {
             try {
@@ -96,14 +92,12 @@ public class SelectCommand extends Command {
                         .setSelect().setPersonTimeslotData(personTimeslot).build();
 
             } catch (PersonNotFoundException e) {
-                return new CommandResultBuilder(
-                        String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
+                throw new CommandException(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
             } catch (PersonTimeslotNotFoundException e) {
-                return new CommandResultBuilder(
-                        String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND)).build();
+                throw new CommandException(String.format(MESSAGE_FAILURE, MESSAGE_TIMESLOT_NOT_FOUND));
             }
         }
-        return new CommandResultBuilder(MESSAGE_INVALID_STATE).build();
+        throw new CommandException(MESSAGE_FAILURE);
     }
 
     @Override
