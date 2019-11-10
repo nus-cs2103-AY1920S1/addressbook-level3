@@ -48,7 +48,6 @@ public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
                 || (argMultimap.getValue(PREFIX_MONTH).isEmpty() && argMultimap.getValue(PREFIX_YEAR).isPresent())) {
             throw new ParseException(String.format(MESSAGE_INVALID_BUDGET_DATE, AddBudgetCommand.MESSAGE_USAGE));
         }
-
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Amount amount = ParserUtil.parsePositiveAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Month month = null;
