@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_SHOPPING_ITEMS;
+import static seedu.ifridge.model.food.Amount.MESSAGE_INCORRECT_UNIT;
 import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
 
 import java.util.List;
@@ -17,10 +18,13 @@ import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.ReadOnlyShoppingList;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Food;
+import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
+import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -43,6 +47,8 @@ public class EditShoppingCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_SHOPPING_ITEM = "The shopping list already has another item with"
             + " this name";
+    public static final String MESSAGE_GUIDELINES_FOR_WRONG_UNIT = "If the unit of the amount was wrong when "
+            + "adding the shopping item, please try deleting the item and adding again with correct unit.";
 
     private final Index index;
     private final EditShoppingItemDescriptor editShoppingItemDescriptor;
@@ -76,15 +82,28 @@ public class EditShoppingCommand extends Command {
 
         ShoppingItem shoppingItemToEdit = lastShownList.get(index.getZeroBased());
         ShoppingItem editedShoppingItem = createEditedShoppingItem(shoppingItemToEdit, editShoppingItemDescriptor);
-        editedShoppingItem = editedShoppingItem.setBought(shoppingItemToEdit.isBought());
-        if (isCompletelyBought(editedShoppingItem, model.getBoughtList().getGroceryList())) {
-            editedShoppingItem = editedShoppingItem.setUrgent(false);
+
+        UnitDictionary unitDictionary = model.getUnitDictionary();
+        try {
+            unitDictionary.checkUnitDictionary(editedShoppingItem, model);
+        } catch (InvalidUnitException e) {
+            throw new CommandException(MESSAGE_INCORRECT_UNIT + "\n" + MESSAGE_GUIDELINES_FOR_WRONG_UNIT);
         }
 
+        editedShoppingItem = editedShoppingItem.setBought(shoppingItemToEdit.isBought());
         if (readOnlyShoppingList.hasShoppingItem(editedShoppingItem)
                 && editShoppingItemDescriptor.isNameEdited(shoppingItemToEdit)) {
             throw new CommandException(MESSAGE_DUPLICATE_SHOPPING_ITEM);
         }
+
+        if (editShoppingItemDescriptor.getName().isPresent() && shoppingItemToEdit.isBought()) {
+            editBoughtItemsAccordingToEditedShoppingItem(shoppingItemToEdit, editedShoppingItem, model);
+        }
+
+        if (isCompletelyBought(editedShoppingItem, model.getBoughtList().getGroceryList())) {
+            editedShoppingItem = editedShoppingItem.setUrgent(false);
+        }
+
         model.setShoppingItem(shoppingItemToEdit, editedShoppingItem);
         model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
         model.commitShoppingList();
@@ -106,6 +125,19 @@ public class EditShoppingCommand extends Command {
             System.out.println(this.editShoppingItemDescriptor.getName());
             return this.index.equals(((EditShoppingCommand) o).index)
                     && this.editShoppingItemDescriptor.equals(((EditShoppingCommand) o).editShoppingItemDescriptor);
+        }
+    }
+
+    private static void editBoughtItemsAccordingToEditedShoppingItem(
+            ShoppingItem oldShoppingItem, ShoppingItem editedShoppingItem, Model model) {
+        List<GroceryItem> boughtList = model.getFilteredBoughtItemList();
+        for (GroceryItem boughtItem : boughtList) {
+            if (boughtItem.isSameName(oldShoppingItem)) {
+                GroceryItem editedBoughtItem = new GroceryItem(editedShoppingItem.getName(), boughtItem.getAmount(),
+                        boughtItem.getExpiryDate(), boughtItem.getTags());
+                System.out.println(editedBoughtItem);
+                model.setBoughtItem(boughtItem, editedBoughtItem);
+            }
         }
     }
 
