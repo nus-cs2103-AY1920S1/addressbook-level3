@@ -12,6 +12,7 @@ import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;
 
+//@@author 1nefootstep
 /**
  * Lists all contacts in the planner.
  */

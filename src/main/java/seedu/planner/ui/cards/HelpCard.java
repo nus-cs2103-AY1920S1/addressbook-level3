@@ -6,9 +6,10 @@ import javafx.scene.layout.Region;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.ui.UiPart;
 
-
+//@@author 1nefootstep
 /**
  * An UI component that displays information of a {@code Contact}.
+ * @author 1nefootstep
  */
 public class HelpCard extends UiPart<Region> {
 

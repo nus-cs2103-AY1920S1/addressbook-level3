@@ -3,6 +3,7 @@ package seedu.planner.ui;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import javafx.beans.value.ChangeListener;
@@ -13,6 +14,7 @@ import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.logic.autocomplete.AutoCompleteParser;
 import seedu.planner.logic.autocomplete.AutoCompleteSuggester;
 import seedu.planner.logic.autocomplete.exceptions.CommandWordNotFoundException;
@@ -22,16 +24,13 @@ import seedu.planner.logic.parser.Prefix;
 /**
  * This class is a TextField which implements an "autocomplete" functionality, based on AutoCompleteSuggester.
  *
- * @author Leong Sheu Xiang
  * Started from a code example written by Caleb Brinkman
  * at https://gist.github.com/floralvikings/10290131
  */
 public class AutoCompleteTextField extends TextField {
-    /**
-     * The popup used to select an entry.
-     */
-    private ContextMenu entriesPopup;
+    private static final Logger logger = LogsCenter.getLogger(AutoCompleteTextField.class);
 
+    private ContextMenu entriesPopup;
     private final AutoCompleteParser autoCompleteParser = new AutoCompleteParser();
     private final AutoCompleteSuggester autoCompleteSuggester = new AutoCompleteSuggester();
 
@@ -72,39 +71,6 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * Get the existing set of autocomplete entries.
-     *
-     * @return The existing autocomplete entries.
-     */
-    public List<String> getEntries(String input) {
-        if (input.contains("<") || input.contains(">")) {
-            return new LinkedList<>();
-        }
-
-        String command;
-        boolean preambleIsPresent;
-        List<Prefix> listOfPrefixPresent;
-        try {
-            command = autoCompleteParser.parseCommandWord(input);
-        } catch (CommandWordNotFoundException e) {
-            return autoCompleteSuggester.getPossibilities(input, false, new ArrayList<>());
-        }
-
-        if (input.charAt(input.length() - 1) != ' ') {
-            return new LinkedList<>();
-        }
-
-        try {
-            String preamble = autoCompleteParser.parsePreamble(input, command);
-            preambleIsPresent = !preamble.equals("");
-        } catch (PreambleNotFoundException e) {
-            preambleIsPresent = false;
-        }
-        listOfPrefixPresent = autoCompleteParser.parsePrefix(input);
-        return autoCompleteSuggester.getPossibilities(command, preambleIsPresent, listOfPrefixPresent);
-    }
-
-    /**
      * Populate the entry set with the given search results.  Display is limited to 5 entries, for performance.
      *
      * @param searchResult The set of matching strings.
@@ -131,6 +97,42 @@ public class AutoCompleteTextField extends TextField {
         entriesPopup.getItems().addAll(menuItems);
     }
 
+    //@@author 1nefootstep
+    /**
+     * Get the existing set of autocomplete entries.
+     *
+     * @return The existing autocomplete entries.
+     */
+    public List<String> getEntries(String input) {
+        if (input.contains("<") || input.contains(">")) {
+            logger.fine("input contains a preamble and should be edited first before making suggestions.");
+            return new LinkedList<>();
+        }
+
+        String command;
+        boolean preambleIsPresent;
+        List<Prefix> listOfPrefixPresent;
+        try {
+            command = autoCompleteParser.parseCommandWord(input);
+        } catch (CommandWordNotFoundException e) {
+            return autoCompleteSuggester.getPossibilities(input, false, new ArrayList<>());
+        }
+
+        if (input.charAt(input.length() - 1) != ' ') {
+            return new LinkedList<>();
+        }
+
+        try {
+            String preamble = autoCompleteParser.parsePreamble(input, command);
+            preambleIsPresent = !preamble.equals("");
+        } catch (PreambleNotFoundException e) {
+            preambleIsPresent = false;
+        }
+        listOfPrefixPresent = autoCompleteParser.parsePrefix(input);
+        return autoCompleteSuggester.getPossibilities(command, preambleIsPresent, listOfPrefixPresent);
+    }
+
+    //@@author 1nefootstep
     /**
      * Replaces the input with the given replacement.
      * Ensures that any half written part of replacement is removed before adding replacement.

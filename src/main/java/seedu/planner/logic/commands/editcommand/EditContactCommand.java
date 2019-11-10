@@ -61,7 +61,7 @@ public class EditContactCommand extends EditCommand {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            "INDEX",
+            "<INDEX>",
             new ArrayList<>(),
             new ArrayList<>(),
             Arrays.asList(PREFIX_NAME.toString(), PREFIX_PHONE.toString(), PREFIX_EMAIL.toString(),

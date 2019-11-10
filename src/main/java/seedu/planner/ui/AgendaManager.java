@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Skin;
@@ -13,16 +14,19 @@ import javafx.scene.layout.VBox;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
 
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.activity.Duration;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
 import seedu.planner.model.tag.Tag;
 
+//@@author 1nefootstep
 /**
  * The manager of Agenda.
  */
 public class AgendaManager {
+    private static final Logger logger = LogsCenter.getLogger(AgendaManager.class);
     private static final int CHAR_LIMIT_BEFORE_TRUNCATING_SUMMARY = 220;
     private static final int MAX_MULTIPLE_OF_DAYLIST_SIZE_BEFORE_CLEARING_HASHMAP = 3;
     private static final String FXML = "InfoListPanel.fxml";
@@ -95,7 +99,7 @@ public class AgendaManager {
     }
 
     /**
-     * Updates the agenda with activities in every day of {@code dayList}.
+     * Updates the agenda with activities of every day from {@code dayList}.
      *
      * @param dayList the latest dayList from model
      */
@@ -109,6 +113,8 @@ public class AgendaManager {
 
         if (activityToAppointmentGroupHashMap.size()
                 > totalNumberOfActivityWithTime * MAX_MULTIPLE_OF_DAYLIST_SIZE_BEFORE_CLEARING_HASHMAP) {
+            logger.fine("activityToAppointmentGroupHashMap has been cleared because there are too many "
+                    + "entries not in used.");
             activityToAppointmentGroupHashMap = new HashMap<>();
         }
     }
@@ -194,6 +200,7 @@ public class AgendaManager {
         int charLimit = CHAR_LIMIT_BEFORE_TRUNCATING_SUMMARY / numOfDays;
         String nameToDisplay = activity.getName().toString();
         if (nameToDisplay.length() > charLimit) {
+            logger.fine("Length of name of " + activity.getName() + " is too long and has been truncated.");
             textToDisplay.append(nameToDisplay, 0, charLimit + 1);
             textToDisplay.append("...");
         } else {
@@ -214,6 +221,7 @@ public class AgendaManager {
                 }
             }
             if (tagsToDisplay.length() > charLimit) {
+                logger.fine("Length of " + activity.getName() + " tags is too long and has been truncated.");
                 textToDisplay.append(tagsToDisplay.substring(0, charLimit + 1));
                 textToDisplay.append("...");
             } else {

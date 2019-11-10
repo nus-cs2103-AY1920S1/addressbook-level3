@@ -60,7 +60,7 @@ public class UnscheduleEvent implements Event {
         List<Day> lastShownDays = model.getFilteredItinerary();
         Day dayToEdit = lastShownDays.get(dayIndex.getZeroBased());
 
-        Activity activityUnscheduled = dayToEdit.getActivityWithTime(activityIndex).getActivity();
+        Activity activityUnscheduled = dayToEdit.getActivityWithIndex(activityIndex).getActivity();
 
         List<Activity> lastShownActivities = model.getFilteredActivityList();
         return Index.fromZeroBased(lastShownActivities.indexOf(activityUnscheduled));

@@ -12,6 +12,7 @@ import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 
+//@@author 1nefootstep
 /**
  * Lists all accommodations in the planner.
  */

@@ -426,15 +426,15 @@ Schedules the second activity in the activity list under day 2.
 Unschedules an activity from a day +
 Format: `unschedule ACTIVITY_INDEX d/DAY_INDEX`
 
-* The indices provided refers to the index of an activity in the activity list and the index of a day in the itinerary.
+* The `ACTIVITY_INDEX` provided refers to the index of an activity in the day list(can be checked with the `list day` command) and the `DAY_INDEX` is the index of a day in the itinerary.
 * The indices provided must be positive integers.
-* The indices provided must not exceed the number of activities in the activity list or the number of days in the itinerary.
+* The indices provided must not exceed the number of activities in the day or the number of days in the itinerary.
 
 Examples:
 
 * `unschedule 5 d/2`
 
-This remove the 5th activity from the activity list from day 2.
+This remove the 5th activity from day 2.
 
 [TIP]
 You can use the list day command to find out the index of the activity you wish to unschedule.

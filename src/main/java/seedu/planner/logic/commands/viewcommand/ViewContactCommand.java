@@ -15,6 +15,7 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;
 
+//@@author 1nefootstep
 /**
  * Views the specified contact.
  */
@@ -32,7 +33,7 @@ public class ViewContactCommand extends ViewCommand {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            "INDEX"
+            "<INDEX>"
     );
 
     public static final String MESSAGE_SUCCESS = "Opened the contact tab!";

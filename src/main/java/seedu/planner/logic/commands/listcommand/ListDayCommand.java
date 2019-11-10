@@ -13,8 +13,9 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.day.ActivityWithTime;
 
+//@@author 1nefootstep
 /**
- * Lists all activities in the planner.
+ * Lists all activities in day DAY_INDEX of the planner.
  */
 public class ListDayCommand extends ListCommand {
 
@@ -25,9 +26,9 @@ public class ListDayCommand extends ListCommand {
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
             "Lists the activities within day DAY_INDEX.",
-            COMMAND_WORD + " ("
+            COMMAND_WORD + " "
                     + SECOND_COMMAND_WORD
-                    + " <DAY_INDEX>",
+                    + " DAY_INDEX",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1"
     );
 

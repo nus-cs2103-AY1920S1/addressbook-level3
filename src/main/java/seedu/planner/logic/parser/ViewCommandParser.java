@@ -17,6 +17,7 @@ import seedu.planner.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new ViewCommand object
+ * @author 1nefootstep
  */
 public class ViewCommandParser implements Parser<ViewCommand> {
 

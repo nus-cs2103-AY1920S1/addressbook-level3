@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 import seedu.planner.model.activity.Activity;
 
+//@@author 1nefootstep
 /**
  * Wraps the Activity in an object with time and duration fields.
  */

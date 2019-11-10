@@ -8,6 +8,7 @@ import seedu.planner.logic.commands.ClearCommand;
 import seedu.planner.logic.commands.ExitCommand;
 import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.commands.RedoCommand;
+import seedu.planner.logic.commands.SetCommand;
 import seedu.planner.logic.commands.UndoCommand;
 import seedu.planner.logic.commands.addcommand.AddAccommodationCommand;
 import seedu.planner.logic.commands.addcommand.AddActivityCommand;
@@ -33,8 +34,9 @@ import seedu.planner.ui.UiPart;
 import seedu.planner.ui.cards.HelpCard;
 import seedu.planner.ui.cards.UserGuideHelpCard;
 
+//@@author 1nefootstep
 /**
- * Panel containing all the help for commands.
+ * Panel containing all the help explanations for commands.
  */
 public class HelpListPanel extends UiPart<Region> {
     private static final String FXML = "HelpListPanel.fxml";
@@ -53,6 +55,7 @@ public class HelpListPanel extends UiPart<Region> {
         if (helpListView.getItems().size() == 0) {
             helpListView.getItems().addAll(
                     new UserGuideHelpCard().getRoot(),
+                    new HelpCard(SetCommand.MESSAGE_USAGE).getRoot(),
                     new HelpCard(AddAccommodationCommand.MESSAGE_USAGE).getRoot(),
                     new HelpCard(AddActivityCommand.MESSAGE_USAGE).getRoot(),
                     new HelpCard(AddContactCommand.MESSAGE_USAGE).getRoot(),
