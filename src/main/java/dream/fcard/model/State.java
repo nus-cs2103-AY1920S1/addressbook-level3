@@ -293,6 +293,10 @@ public class State {
         this.decks = newCurr;
     }
 
+    public void resetUndoHistory() {
+        this.undoHistory = new Stack<>();
+    }
+
     /**
      * Checks if the ArrayList of Decks are the same for two different ArrayList of Decks. Checks the equivalency of
      * the ArrayList of Decks, then the equivalency of each individual deck.

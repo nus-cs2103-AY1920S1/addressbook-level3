@@ -104,6 +104,11 @@ public enum Responses {
                     Deck deck = StorageManager.loadDeck(path);
                     System.out.println(path);
                     if (deck != null) {
+                        //@@author PhireHandy
+                        StateHolder.getState().addCurrDecksToDeckHistory();
+                        StateHolder.getState().resetUndoHistory();
+                        //@@author
+
                         StorageManager.writeDeck(deck);
                         StateHolder.getState().addDeck(deck);
                         Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
@@ -132,7 +137,7 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     //@@author huiminlim
-                    LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT_ERROR");
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: EXPORT");
                     //@author
 
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat(
@@ -141,6 +146,11 @@ public enum Responses {
                     String deckName = res.get(0).get(0).trim();
 
                     try {
+                        //@@author PhireHandy
+                        StateHolder.getState().addCurrDecksToDeckHistory();
+                        StateHolder.getState().resetUndoHistory();
+                        //@@author
+
                         Deck d = StateHolder.getState().getDeck(deckName);
                         FileReadWrite.write(FileReadWrite.resolve(
                                 pathName, "./" + d.getDeckName() + ".json"), d.toJson().toString());
@@ -155,6 +165,9 @@ public enum Responses {
             "^((?i)export).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    //@@author PhireHandy
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: EXPORT_ERROR");
+                    //@author
 
                     return true;
                 }
@@ -179,7 +192,11 @@ public enum Responses {
                     //@author
 
                     if (StateHolder.getState().hasDeckName(deckName) == -1) {
+                        //@@author PhireHandy
                         StateHolder.getState().addCurrDecksToDeckHistory();
+                        StateHolder.getState().resetUndoHistory();
+                        //@@author
+
                         StateHolder.getState().addDeck(deckName);
                         Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
                         Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder
@@ -241,8 +258,11 @@ public enum Responses {
                     }
                     //@author
 
+                    //@@author PhireHandy
                     try {
                         StateHolder.getState().addCurrDecksToDeckHistory();
+                        StateHolder.getState().resetUndoHistory();
+
                         CreateCommand.createMcqFrontBack(res, StateHolder.getState());
                         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
                         return true;
@@ -259,17 +279,22 @@ public enum Responses {
                         return true;
                     }
                     return true;
+                    //@@author
                 }
     ),
+    //@@author PhireHandy
     ADD_CARD_ERROR(
             "^((?i)(add)).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: ADD_CARD_ERROR");
+
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct "
                             + "format of the Add command, type 'help command/add'");
                     return true;
                 }
     ),
+    //@@author
     EDIT_CARD(
             RegexUtil.commandFormatRegex("edit", new String[]{
                 "deck/",
@@ -292,6 +317,7 @@ public enum Responses {
 
                     if (hasValidEditField) {
                         StateHolder.getState().addCurrDecksToDeckHistory();
+                        StateHolder.getState().resetUndoHistory();
                     }
                     //@@author
 
@@ -398,15 +424,19 @@ public enum Responses {
                     return true;
                 }
     ),
+    //@@author PhireHandy
     EDIT_CARD_ERROR(
             "^((?i)(edit)).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: EDIT_CARD_ERROR");
+
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
                             + "format of the Edit command, type 'help command/edit");
                     return true;
                 }
     ),
+    //@@author
     DELETE_CARD(
             RegexUtil.commandFormatRegex("delete", new String[]{"deck/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -452,7 +482,11 @@ public enum Responses {
                         }
 
                          */
+                        //@@author PhireHandy
                         StateHolder.getState().addCurrDecksToDeckHistory();
+                        StateHolder.getState().resetUndoHistory();
+                        //@@author
+
                         deck.removeCard(index);
                     } catch (DeckNotFoundException d) {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
@@ -529,7 +563,6 @@ public enum Responses {
                     }
 
                     if (hasDeckName) {
-                        // todo: @PhireHandy where should I get the name of the deck?
                         try {
                             StatsDisplayUtil
                                     .openDeckStatisticsWindow(StateHolder.getState().getDeck(
@@ -595,10 +628,13 @@ public enum Responses {
                     return true;
                 } //todo
     ),
+    //@@author PhireHandy
     UNDO(
             "^((?i)undo)\\s*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: UNDO");
+
                     try {
                         StateHolder.getState().undoDeckChanges();
                         StorageManager.writeDecks(StateHolder.getState().getDecks());
@@ -614,6 +650,8 @@ public enum Responses {
             "^((?i)redo)\\s*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: UNDO");
+
                     try {
                         StateHolder.getState().redoDeckChanges();
                         StorageManager.writeDecks(StateHolder.getState().getDecks());
@@ -625,6 +663,7 @@ public enum Responses {
                     }
                 }
     ),
+    //@@author PhireHandy
 
 
     // DEFAULT GROUP ----------------------------------------------------------
