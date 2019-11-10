@@ -97,7 +97,7 @@ public class TransactionEditCommand extends ScriptCommand {
             Account oldAccount = accountsManager.getActiveAccount();
 
             //target account is set to the active account if not provided.
-            if (targetAccountName == null || model.getAccountsManager().getAccount(targetAccountName) == null ) {
+            if (targetAccountName == null || model.getAccountsManager().getAccount(targetAccountName) == null) {
                 targetAccount = model.getAccountsManager().getActiveAccount();
             } else {
                 targetAccount = model.getAccountsManager().getAccount(targetAccountName);
