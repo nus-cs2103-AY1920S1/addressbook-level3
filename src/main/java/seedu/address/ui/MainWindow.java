@@ -261,7 +261,7 @@ public class MainWindow extends UiPart<Stage> {
      * Change button images respectively via css.
      */
     private void setMaximiseButtonHandler() {
-        maximiseButton.setOnMousePressed(click -> {
+        maximiseButton.setOnMouseClicked(click -> {
             maximiseRestore();
         });
     }
