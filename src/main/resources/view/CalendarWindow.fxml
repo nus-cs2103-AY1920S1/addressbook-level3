@@ -18,12 +18,12 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@LightTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" styleClass="calendar-menu-bar" stylesheets="@DarkTheme.css" VBox.vgrow="NEVER">
+        <MenuBar fx:id="menuBar" styleClass="calendar-menu-bar" stylesheets="@LightTheme.css" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false">
                   <graphic>
                      <Label text="Calendar" />

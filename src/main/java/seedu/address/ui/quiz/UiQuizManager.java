@@ -64,7 +64,7 @@ public class UiQuizManager implements Ui {
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
         final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add("view/LightTheme.css");
         alert.getDialogPane().getStylesheets().add("view/quiz/Quiz.css");
         alert.initOwner(owner);
         alert.setTitle(title);

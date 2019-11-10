@@ -4,18 +4,22 @@
 
 #incomeEntryTypeCol {
     -fx-background-color: rgba(186, 37, 20, 0.74);
+    -fx-background-radius: 10 0 0 10;
 }
 
 #spendEntryTypeCol {
     -fx-background-color: rgba(12, 164, 60, 0.74);
+    -fx-background-radius: 10 0 0 10;
 }
 
 #borrowEntryTypeCol {
     -fx-background-color: rgba(186, 108, 18, 0.74);
+    -fx-background-radius: 10 0 0 10;
 }
 
 #lendEntryTypeCol {
     -fx-background-color: rgba(102, 102, 153, 0.74);
+    -fx-background-radius: 10 0 0 10;
 }
 
 .entry_type_label {
@@ -161,6 +165,7 @@
 .list-cell, #spendCardPane, #incomeCardPane, #borrowCardPane, #lendCardPane, #budgetCardPane {
     -fx-background-color: white;
     -fx-border-width: 0;
+    -fx-background-radius: 10;
 }
 
 .list-cell {
@@ -172,6 +177,7 @@
 #spendCardPane, #incomeCardPane, #borrowCardPane, #lendCardPane, #budgetCardPane {
     -fx-background-color: derive(#e1e1e1, 20%);
     -fx-border-width: 0;
+    -fx-background-radius: 10;
 }
 
 .list-cell:filled:odd #spendCardPane {
@@ -198,27 +204,37 @@
     -fx-background-color: derive(white, 20%);
     -fx-border-color: derive(black, 20%);
     -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 
 .list-cell:filled:selected #incomeCardPane {
     -fx-background-color: derive(white, 20%);
     -fx-border-color: derive(black, 20%);
     -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 
 .list-cell:filled:selected #borrowCardPane {
     -fx-background-color: derive(white, 20%);
     -fx-border-color: derive(black, 20%);
     -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 
 .list-cell:filled:selected #lendCardPane {
     -fx-background-color: derive(white, 20%);
     -fx-border-color: derive(black, 20%);
     -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 
 .list-cell:filled:selected #budgetCardPane {
     -fx-border-color: derive(black, 20%);
     -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
