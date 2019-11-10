@@ -1,14 +1,16 @@
 package budgetbuddy.logic.script;
 
-import static budgetbuddy.commons.util.AppUtil.getDateFormatter;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
+import java.util.OptionalLong;
 import java.util.Set;
 
 import budgetbuddy.commons.core.index.Index;
+import budgetbuddy.commons.util.AppUtil;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.script.exceptions.ScriptException;
@@ -39,37 +41,45 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     public void initialise(ScriptEngine engine) {
         engine.setVariable("bb", model);
 
-        engine.setVariable("refreshAccountView", (ScriptBindingInterfaces.Void) this::scriptRefreshAccountView);
+        engine.setVariable("refreshAccountView",
+                (ScriptBindingInterfaces.Void) this::scriptRefreshAccountView);
         engine.setVariable("refreshTxnView", (ScriptBindingInterfaces.Void) this::scriptRefreshTxnView);
 
         engine.setVariable("getAccounts", (ScriptBindingInterfaces.Void) this::scriptGetAccounts);
         engine.setVariable("getAccount", (ScriptBindingInterfaces.ObjectOnly) this::scriptGetAccount);
         engine.setVariable("getActiveAccount", (ScriptBindingInterfaces.Void) this::scriptGetActiveAccount);
-        engine.setVariable("setActiveAccount", (ScriptBindingInterfaces.ObjectOnly) this::scriptSetActiveAccount);
+        engine.setVariable("setActiveAccount",
+                (ScriptBindingInterfaces.ObjectOnly) this::scriptSetActiveAccount);
         engine.setVariable("addAccount", (ScriptBindingInterfaces.StringString) this::scriptAddAccount);
         engine.setVariable("morphAccount", (ScriptBindingInterfaces.AccountObjects) this::scriptMorphAccount);
         engine.setVariable("editAccount", (ScriptBindingInterfaces.ObjectObjects) this::scriptEditAccount);
         engine.setVariable("deleteAccount", (ScriptBindingInterfaces.ObjectOnly) this::scriptDeleteAccount);
 
         engine.setVariable("accountName", (ScriptBindingInterfaces.AccountOnly) this::scriptAccountName);
-        engine.setVariable("accountBalance", (ScriptBindingInterfaces.AccountOnly) this::scriptAccountBalance);
-        engine.setVariable("accountDescription", (ScriptBindingInterfaces.AccountOnly) this::scriptAccountDescription);
+        engine.setVariable("accountBalance",
+                (ScriptBindingInterfaces.AccountOnly) this::scriptAccountBalance);
+        engine.setVariable("accountDescription",
+                (ScriptBindingInterfaces.AccountOnly) this::scriptAccountDescription);
         engine.setVariable("accountTxns", (ScriptBindingInterfaces.AccountOnly) this::scriptAccountTxns);
 
         engine.setVariable("addTxn", (ScriptBindingInterfaces.LongStringStringObjects) this::scriptAddTxn);
-        engine.setVariable("editTxn", (ScriptBindingInterfaces.AccountTransactionObjects) this::scriptEditTxn);
+        engine.setVariable("editTxn",
+                (ScriptBindingInterfaces.AccountTransactionObjects) this::scriptEditTxn);
         engine.setVariable("morphTxn", (ScriptBindingInterfaces.TransactionObjects) this::scriptMorphTxn);
         engine.setVariable("deleteTxn", (ScriptBindingInterfaces.AccountTransaction) this::scriptDeleteTxn);
         engine.setVariable("getShownTxns", (ScriptBindingInterfaces.Void) this::scriptGetShownTxns);
-        engine.setVariable("getShownTxn", (ScriptBindingInterfaces.Int) this::scriptGetShownTxn);
+        engine.setVariable("getShownTxn", (ScriptBindingInterfaces.IntOnly) this::scriptGetShownTxn);
         engine.setVariable("editShownTxn", (ScriptBindingInterfaces.IntObjects) this::scriptEditShownTxn);
-        engine.setVariable("deleteShownTxn", (ScriptBindingInterfaces.Int) this::scriptDeleteShownTxn);
+        engine.setVariable("deleteShownTxn", (ScriptBindingInterfaces.IntOnly) this::scriptDeleteShownTxn);
 
         engine.setVariable("txnAmount", (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnAmount);
-        engine.setVariable("txnDescription", (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnDescription);
+        engine.setVariable("txnDescription",
+                (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnDescription);
         engine.setVariable("txnDate", (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnDate);
-        engine.setVariable("txnDirection", (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnDirection);
-        engine.setVariable("txnCategories", (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnCategories);
+        engine.setVariable("txnDirection",
+                (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnDirection);
+        engine.setVariable("txnCategories",
+                (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnCategories);
     }
 
     /**
@@ -93,7 +103,7 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     /**
      * Provides <code>getAccounts() -> List&lt;Account&gt;</code>.
      */
-    private Object scriptGetAccounts() throws Exception {
+    private List<Account> scriptGetAccounts() throws Exception {
         return model.getAccountsManager().getAccounts();
     }
 
@@ -154,12 +164,13 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
         Name name = acc.getName();
         Description desc = acc.getDescription();
 
-        String newName = opt.get("name", String.class);
+        // Can't use Optional properly here because our parser functions throw... sigh Java
+        String newName = opt.get("name", String.class).orElse(null);
         if (newName != null) {
             name = CommandParserUtil.parseName(newName);
         }
 
-        String newDesc = opt.get("description", String.class);
+        String newDesc = opt.get("description", String.class).orElse(null);
         if (newDesc != null) {
             desc = CommandParserUtil.parseDescription(newDesc);
         }
@@ -220,7 +231,7 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     /**
      * Provides <code>accountTxns(account) -> List&lt;Transaction&gt;</code>
      */
-    private Object scriptAccountTxns(Account account) throws Exception {
+    private List<Transaction> scriptAccountTxns(Account account) throws Exception {
         return account.getTransactionList().asUnmodifiableObservableList();
     }
 
@@ -233,17 +244,12 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
         ScriptObjectWrapper opt = new ScriptObjectWrapper(optional);
         requireAllNonNull(direction, description, opt);
 
-        Account target = opt.get("account", Account.class);
-        if (target == null) {
-            target = model.getAccountsManager().getActiveAccount();
-        }
+        Account target = opt.get("account", Account.class)
+                .orElseGet(() -> model.getAccountsManager().getActiveAccount());
 
-        LocalDate date = retrieveScriptDate("date", opt);
-        if (date == null) {
-            date = LocalDate.now();
-        }
+        LocalDate date = opt.getDate("date").orElseGet(LocalDate::now);
 
-        String[] catStrings = opt.getArray("categories", String.class);
+        String[] catStrings = opt.getArray("categories", String.class).orElse(null);
         Set<Category> cats = parseScriptTxnCategories(catStrings);
 
         Transaction txn =
@@ -266,30 +272,25 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
         Amount amt = txn.getAmount();
         Direction dir = txn.getDirection();
         Description desc = txn.getDescription();
-        LocalDate date = txn.getLocalDate();
+        LocalDate date = opt.getDate("date").orElseGet(txn::getLocalDate);
         Set<Category> cats = txn.getCategories();
 
-        Long newAmt = opt.getIntegral("amount");
-        if (newAmt != null) {
-            amt = new Amount(newAmt);
+        OptionalLong newAmt = opt.getIntegral("amount");
+        if (newAmt.isPresent()) {
+            amt = new Amount(newAmt.getAsLong());
         }
 
-        String newDir = opt.get("direction", String.class);
+        String newDir = opt.get("direction", String.class).orElse(null);
         if (newDir != null) {
             dir = CommandParserUtil.parseDirection(newDir);
         }
 
-        String newDesc = opt.get("description", String.class);
+        String newDesc = opt.get("description", String.class).orElse(null);
         if (newDesc != null) {
             desc = CommandParserUtil.parseDescription(newDesc);
         }
 
-        LocalDate newDate = retrieveScriptDate("date", opt);
-        if (newDate != null) {
-            date = newDate;
-        }
-
-        String[] newCats = opt.getArray("categories", String.class);
+        String[] newCats = opt.getArray("categories", String.class).orElse(null);
         if (newCats != null) {
             cats = parseScriptTxnCategories(newCats);
         }
@@ -354,14 +355,14 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     /**
      * Provides <code>getShownTxns() -> List&lt;Transaction&gt;</code>.
      */
-    private Object scriptGetShownTxns() throws Exception {
+    private List<Transaction> scriptGetShownTxns() throws Exception {
         return model.getFilteredTransactions();
     }
 
     /**
      * Provides <code>txnAmount(txn) -> number</code>.
      */
-    private Object scriptTxnAmount(Transaction txn) throws Exception {
+    private long scriptTxnAmount(Transaction txn) throws Exception {
         requireAllNonNull(txn);
         return txn.getAmount().toLong();
     }
@@ -369,7 +370,7 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     /**
      * Provides <code>txnDescription(txn) -> string</code>.
      */
-    private Object scriptTxnDescription(Transaction txn) throws Exception {
+    private String scriptTxnDescription(Transaction txn) throws Exception {
         requireAllNonNull(txn);
         return txn.getDescription().getDescription();
     }
@@ -416,23 +417,4 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
         }
         return cats;
     }
-
-    /**
-     * Retrieve a LocalDate from the script object wrapper which can be given as either a String or a
-     * LocalDate.
-     */
-    private LocalDate retrieveScriptDate(String key, ScriptObjectWrapper sow) {
-        LocalDate ret = sow.get(key, LocalDate.class, false);
-        if (ret != null) {
-            return ret;
-        }
-
-        String dateStr = sow.get("date", String.class);
-        if (dateStr != null) {
-            ret = LocalDate.parse(dateStr, getDateFormatter());
-        }
-
-        return ret;
-    }
-
 }

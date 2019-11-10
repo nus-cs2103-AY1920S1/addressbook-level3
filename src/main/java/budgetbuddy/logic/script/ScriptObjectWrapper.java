@@ -1,8 +1,12 @@
 package budgetbuddy.logic.script;
 
+import static budgetbuddy.commons.util.AppUtil.getDateFormatter;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.util.Optional;
+import java.util.OptionalLong;
 
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
@@ -33,41 +37,41 @@ public class ScriptObjectWrapper {
     /**
      * Gets the object corresponding to the key in the map if it is of the right type.
      */
-    public <A> A get(String key, Class<A> clazz, boolean shouldThrow) {
+    public <A> Optional<A> get(String key, Class<A> clazz, boolean shouldThrow) {
         requireAllNonNull(key, clazz);
         if (!has(key)) {
-            return null;
+            return Optional.empty();
         }
         Object a = so.get(key);
         if (clazz.isInstance(a)) {
-            return (A) a;
+            return Optional.of((A) a);
         } else if (a != null && shouldThrow) {
             throw new IllegalArgumentException(String.format(MESSAGE_WRONG_TYPE, key, clazz.getSimpleName(),
                     a.getClass().getSimpleName()));
         }
 
-        return null;
+        return Optional.empty();
     }
 
     /**
      * Gets the object corresponding to the key in the map if it is of the right type.
      */
-    public <A> A get(String key, Class<A> clazz) {
+    public <A> Optional<A> get(String key, Class<A> clazz) {
         return get(key, clazz, true);
     }
 
     /**
      * Gets the array corresponding to the key in the map if it is of the right type.
      */
-    public <A> A[] getArray(String key, Class<A> clazz, boolean shouldThrow) {
+    public <A> Optional<A[]> getArray(String key, Class<A> clazz, boolean shouldThrow) {
         requireAllNonNull(key, clazz);
         if (!has(key)) {
-            return null;
+            return Optional.empty();
         }
         Object a = so.get(key);
         if (a != null && a.getClass().isArray() && a.getClass().getComponentType().equals(clazz)) {
             // the array is already a Java array, just return it
-            return (A[]) a;
+            return Optional.of((A[]) a);
         } else if (a instanceof ScriptObjectMirror) {
             // it's a JavaScript object
             ScriptObjectMirror som = (ScriptObjectMirror) a;
@@ -94,7 +98,7 @@ public class ScriptObjectWrapper {
                     }
                 }
 
-                return ret;
+                return Optional.ofNullable(ret);
             } else if (shouldThrow) {
                 throw new IllegalArgumentException(
                         String.format(MESSAGE_WRONG_ARRAY_TYPE, key, clazz.getSimpleName(),
@@ -108,30 +112,36 @@ public class ScriptObjectWrapper {
                             a.getClass().getSimpleName()));
         }
 
-        return null;
+        return Optional.empty();
     }
 
     /**
      * Gets the array corresponding to the key in the map if it is of the right type.
      */
-    public <A> A[] getArray(String key, Class<A> clazz) {
+    public <A> Optional<A[]> getArray(String key, Class<A> clazz) {
         return getArray(key, clazz, true);
     }
 
-    public Long getIntegral(String key) {
+    /**
+     * Gets the integral value corresponding to the key in the map.
+     * <p>
+     * The value can be represented as an {@link Integer} or a {@link String}, if the value is too large
+     * to fit in an <code>int</code>.
+     */
+    public OptionalLong getIntegral(String key) {
         if (!has(key)) {
-            return null;
+            return OptionalLong.empty();
         }
 
-        Integer retInt = get(key, Integer.class, false);
-        if (retInt != null) {
-            return retInt.longValue();
+        Optional<Integer> retInt = get(key, Integer.class, false);
+        if (retInt.isPresent()) {
+            return OptionalLong.of(retInt.get().longValue());
         }
 
-        String retStr = get(key, String.class, false);
-        if (retStr != null) {
+        Optional<String> retStr = get(key, String.class, false);
+        if (retStr.isPresent()) {
             try {
-                return Long.parseLong(retStr, 10);
+                return OptionalLong.of(Long.parseLong(retStr.get(), 10));
             } catch (NumberFormatException e) {
                 // silence
             }
@@ -139,6 +149,18 @@ public class ScriptObjectWrapper {
 
         throw new IllegalArgumentException(String.format(MESSAGE_WRONG_TYPE, "int, or a long in a String",
                 so.get(key).getClass().getSimpleName()));
+    }
+
+    /**
+     * Gets the {@link LocalDate} corresponding to the key in the map.
+     */
+    public Optional<LocalDate> getDate(String key) {
+        if (!has(key)) {
+            return Optional.empty();
+        }
+
+        return get(key, LocalDate.class, false).or(() -> get("date", String.class)
+                .map(dateStr -> LocalDate.parse(dateStr, getDateFormatter())));
     }
 
     public boolean has(String key) {

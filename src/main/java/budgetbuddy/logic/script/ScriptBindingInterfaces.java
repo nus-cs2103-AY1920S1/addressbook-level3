@@ -114,7 +114,7 @@ public class ScriptBindingInterfaces {
      * Helps to bind a Java method with the same signature into the script environment.
      */
     @FunctionalInterface
-    public interface Int {
+    public interface IntOnly {
         Object apply(int a1) throws Exception;
     }
 
