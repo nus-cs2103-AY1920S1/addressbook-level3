@@ -715,8 +715,8 @@ Note fragment tags detected:
     Tags: [important][highlight]
 ```
 
-A `Note` has been added with the `Content` of 'Notes can be /* C/highlighted TAG/highlight TAG/important */ if 
-needed.', and a note fragment tag with `Content` 'highlighted' and two `Tags` 'cs2100' and 'important'. The `Note` 
+A `Note` has been added with the `Content` of 'Notes can be /* C/highlighted TAG/highlight TAG/important */ if
+needed.', and a note fragment tag with `Content` 'highlighted' and two `Tags` 'cs2100' and 'important'. The `Note`
 itself is instead tagged with the `Tag` 'about'.
 
 The sequence diagram below describes the process of adding a new `Note` that contains a note fragment tag:
