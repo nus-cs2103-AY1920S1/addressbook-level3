@@ -33,6 +33,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        assertEquals(new WatchList(), new WatchList((modelManager.getDatabase())));
         assertEquals(new WatchList(), new WatchList(modelManager.getWatchList()));
     }
 
@@ -145,6 +146,7 @@ public class ModelManagerTest {
         modelManager.addShow(show);
         assertTrue(modelManager.hasShowName(show.getName()));
     }
+
     @Test
     public void getShowIfHasNameTest() {
         Show show = new ShowBuilder(AVENGERSENDGAME).build();
