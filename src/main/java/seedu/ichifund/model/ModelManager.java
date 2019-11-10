@@ -34,6 +34,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Transaction> filteredTransactions;
     private final FilteredList<Repeater> filteredRepeaters;
+    private final FilteredList<Loan> filteredLoans;
     private final FilteredList<Budget> filteredBudgets;
     private final FilteredList<Data> datas;
 
@@ -52,6 +53,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTransactions = new FilteredList<>(this.fundBook.getTransactionList());
         filteredRepeaters = new FilteredList<>(this.fundBook.getRepeaterList());
+        filteredLoans = new FilteredList<>(this.fundBook.getLoanList());
         filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
         datas = new FilteredList<>(this.fundBook.getDataList());
         initTransactionContext();
@@ -186,7 +188,7 @@ public class ModelManager implements Model {
         fundBook.setRepeater(target, editedRepeater);
     }
 
-    // Loans ->
+    ///////////////////////////////////////////////////////////////////////// Loans ->
 
     @Override
     public boolean hasLoan(Loan loan) {
@@ -201,6 +203,24 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setLoan(Loan target, Loan editedLoan) {
+        requireNonNull(target);
+        requireNonNull(editedLoan);
+        fundBook.payLoan(target);
+        fundBook.addLoan(editedLoan);
+    }
+
+    /**
+     * Deletes the given loan.
+     * The loan must exist in the fund book.
+     */
+    @Override
+    public void payLoan(Loan target) {
+        requireNonNull(target);
+        fundBook.payLoan(target);
+    }
+
+    @Override
     public LoanId getCurrentLoanId() {
         return fundBook.getCurrentLoanId();
     }
@@ -210,6 +230,7 @@ public class ModelManager implements Model {
         fundBook.setCurrentLoanId(loanId);
     }
 
+    ////////////////////////////////////////////////////////////////////// Budget ->
 
     @Override
     public boolean hasBudget(Budget budget) {
@@ -272,6 +293,14 @@ public class ModelManager implements Model {
 
     public ObservableValue<TransactionContext> getTransactionContextProperty() {
         return transactionContext;
+    }
+
+
+    //=========== Filtered Loan List Accessors ===================================================================
+
+    @Override
+    public ObservableList<Loan> getFilteredLoanList() {
+        return filteredLoans;
     }
 
     //=========== Filtered Repeater List Accessors =============================================================

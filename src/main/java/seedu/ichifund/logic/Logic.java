@@ -12,6 +12,7 @@ import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
+import seedu.ichifund.model.loan.Loan;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.transaction.Transaction;
 
@@ -55,6 +56,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of repeaters */
     ObservableList<Repeater> getFilteredRepeaterList();
+
+    /** Returns an unmodifiable view of the filtered list of repeaters */
+    ObservableList<Loan> getFilteredLoanList();
 
     /** Returns an unmodifiable view of the filtered list of budgets */
     ObservableList<Budget> getFilteredBudgetList();

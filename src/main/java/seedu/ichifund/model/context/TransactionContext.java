@@ -74,58 +74,6 @@ public class TransactionContext implements Context<Transaction> {
         return year;
     }
 
-    /**
-     * Returns a new {@code TransitionContext} updated with the input month.
-     * Returns the same object if there is no month.
-     */
-    public TransactionContext withMonth(Optional<Month> month) {
-        if (month.isEmpty()) {
-            return this;
-        } else {
-            return new TransactionContext(month.get(), this.year, this.category, this.transactionType);
-        }
-    }
-
-    /**
-     * Returns a new {@code TransitionContext} updated with the input year.
-     * Returns the same object if there is no year.
-     */
-    public TransactionContext withYear(Optional<Year> year) {
-        if (year.isEmpty()) {
-            return this;
-        } else {
-            return new TransactionContext(this.month, year.get(), this.category, this.transactionType);
-        }
-    }
-
-    /**
-     * Returns a new {@code TransitionContext} updated with the input category.
-     * Returns the same object if there is no category.
-     */
-    public TransactionContext withCategory(Optional<Category> category) {
-        if (category.isEmpty()) {
-            return this;
-        } else if (category.get() == Category.CATEGORY_ALL) {
-            return new TransactionContext(this.month, this.year, Optional.empty(), this.transactionType);
-        } else {
-            return new TransactionContext(this.month, this.year, category, this.transactionType);
-        }
-    }
-
-    /**
-     * Returns a new {@code TransitionContext} updated with the input transaction type.
-     * Returns the same object if there is no transaction type.
-     */
-    public TransactionContext withType(Optional<TransactionType> transactionType) {
-        if (transactionType.isEmpty()) {
-            return this;
-        } else if (transactionType.get() == TransactionType.TRANSACTION_TYPE_ALL) {
-            return new TransactionContext(this.month, this.year, this.category, Optional.empty());
-        } else {
-            return new TransactionContext(this.month, this.year, this.category, transactionType);
-        }
-    }
-
     private boolean categoryMatches(Transaction transaction) {
         return category.isEmpty()
                 || category.get().equals(transaction.getCategory());
@@ -207,5 +155,86 @@ public class TransactionContext implements Context<Transaction> {
     @Override
     public int hashCode() {
         return Objects.hash(month, year, category);
+    }
+
+    /**
+     * Builder class to construct a TransactionContext object.
+     */
+    public static class TransactionContextBuilder {
+        private Month month;
+        private Year year;
+        private Optional<Category> category;
+        private Optional<TransactionType> transactionType;
+
+        public TransactionContextBuilder(TransactionContext transactionContext) {
+            this.month = transactionContext.month;
+            this.year = transactionContext.year;
+            this.category = transactionContext.category;
+            this.transactionType = transactionContext.transactionType;
+        }
+
+        /**
+         * Returns a new {@code TransitionContextBuilder} updated with the input month.
+         * Returns the same object if there is no month.
+         */
+        public TransactionContextBuilder withMonth(Optional<Month> month) {
+            if (!month.isEmpty()) {
+                this.month = month.get();
+            }
+
+            return this;
+        }
+
+        /**
+         * Returns a new {@code TransitionContextBuilder} updated with the input year.
+         * Returns the same object if there is no year.
+         */
+        public TransactionContextBuilder withYear(Optional<Year> year) {
+            if (!year.isEmpty()) {
+                this.year = year.get();
+            }
+
+            return this;
+        }
+
+        /**
+         * Returns a new {@code TransitionContextBuilder} updated with the input category.
+         * Returns the same object if there is no category.
+         */
+        public TransactionContextBuilder withCategory(Optional<Category> category) {
+            if (category.isEmpty()) {
+                // Modify nothing
+            } else if (category.get() == Category.CATEGORY_ALL) {
+                this.category = Optional.empty();
+            } else {
+                this.category = category;
+            }
+
+            return this;
+        }
+
+        /**
+         * Returns a new {@code TransitionContextBuilder} updated with the input transaction type.
+         * Returns the same object if there is no transaction type.
+         */
+        public TransactionContextBuilder withType(Optional<TransactionType> transactionType) {
+            if (transactionType.isEmpty()) {
+                // Modify nothing
+            } else if (transactionType.get() == TransactionType.TRANSACTION_TYPE_ALL) {
+                this.transactionType = Optional.empty();
+            } else {
+                this.transactionType = transactionType;
+            }
+
+            return this;
+        }
+
+        /**
+         * Returns the TransactionContext built by the builder.
+         */
+        public TransactionContext build() {
+            requireAllNonNull(month, year, category, transactionType);
+            return new TransactionContext(month, year, category, transactionType);
+        }
     }
 }

@@ -32,9 +32,8 @@
 
             <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="date" styleClass="cell_small_label" />
-                <Label text="|"/>
-                <Label fx:id="name" styleClass="cell_small_label" />
                 <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="name" styleClass="cell_small_label" />
             </HBox>
         </VBox>
     </GridPane>

@@ -42,7 +42,7 @@ public class AddLoanCommand extends Command {
             + "[" + PREFIX_END_YEAR + "YEAR loan is due] "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_AMOUNT + "420.42 "
-            + PREFIX_NAME + "Felix Kjellberg"
+            + PREFIX_NAME + "Felix Kjellberg "
             + PREFIX_START_DAY + "12 "
             + PREFIX_START_MONTH + "12 "
             + PREFIX_START_YEAR + "2019 "

@@ -164,6 +164,23 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+
+
+    @Override
+    public ObservableList<Loan> getFilteredLoanList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setLoan(Loan target, Loan editedLoan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void payLoan(Loan target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
     @Override
     public void addBudget(Budget budget) {
         throw new AssertionError("This method should not be called.");
