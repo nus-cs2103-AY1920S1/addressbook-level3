@@ -145,6 +145,8 @@ Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu'
 === Inviting contacts to an activity: `invite`
 This command invites the contacts specified to the current viewed activity.
 
+Format: `invite p/PERSON ...`
+
 Example: +
 Suppose you have already created an activity with Alice, Bob and Carl in it.
 
@@ -176,6 +178,8 @@ If the specified contact does not exist in the contact list, then the contact ca
 // tag::disinvite[]
 === Disinviting contacts from an activity: `disinvite`
 This command disinvites the contacts specified from the current viewed activity.
+
+Format: `disinvite p/PERSON ...`
 
 Example: +
 Suppose you have an activity with the same participants but with an expense shared by Alice, Bob and John
