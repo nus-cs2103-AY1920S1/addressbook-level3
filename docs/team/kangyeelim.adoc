@@ -155,13 +155,13 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/201[(PR #201)]
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/126[(PR #126)]
 
 * Integration
-** Integrated `Transaction Tab` with `Reimbursements Tab`:
+** Integrated the Logic of the Home Tab with the Logic of the Reimbursements Tab:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49[(PR #49)]
 
-** Integrated the Original `AddressBook` into the `Members Tab` in Graphical User Interface:
+** Integrated the Original `AddressBook` into the Members Tab in Graphical User Interface:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/42[(PR #42)]
 
-** Integrated the Edit and Delete Command of `AddressBook` with the Logic of `Transaction Tab`:
+** Integrated the Edit and Delete Command of `AddressBook` with the Logic of the Home Tab:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49/commits/af0e17f2d0b9101c91122329ccd676ee6c7bc0fe[(PR #49)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/85/commits/3aebcd9053985fcc07e9145cff89fb579d9fde9e[(PR #85)]
 
@@ -248,7 +248,7 @@ The undo sort command allows you to view the table of transactions in the order 
 
 :sectnums:
 ==  Contributions to the Developer Guide
-The following section shows my contribution to the treasurerPro Developer Guide for the `Home Tab` features which showcases
+The following section shows my contribution to the treasurerPro Developer Guide for the features of the Home tab which showcases
 my ability to write documentation of technical concepts and the technical-depth of my contributions to the project.
 
 === Current enhancement
@@ -334,7 +334,7 @@ When a user inputs the sort command, it is only checked that it is one of the 3 
 the incorrect user input. When it is successfully sorted, there will also be a response message shown.
 
 Similar to the delete command in <<DeleteCommandHome, 3.1.2. Delete Command Feature>>, the `Model#resetPredicate()` method is not called. If the UI table is showing a filtered
-list of transactions, the back command has to be entered to call that method from `BackCommand` to reset the predicate.
+list of transactions, the back command must be entered to call that method from `BackCommand` to reset the predicate.
 
 ==== 3.1.5. Overall Design Considerations
 
