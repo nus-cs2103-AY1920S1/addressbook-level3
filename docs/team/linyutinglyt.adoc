@@ -3,6 +3,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+This portfolio aims to highlight Lin Yuting's contributions to project 'LiBerry'.
+
 == LiBerry
 
 === Overview
@@ -24,16 +26,11 @@ application and were tasked to morph it to something else that is useful.
 We were also limited to designing software that takes in the majority of user input through a Command Line Interface
 (CLI), though displays information through a Graphical User Interface (GUI).
 
-This is what the GUI looks like:
-
-.Graphical User Interface (GUI) for *LiBerry*
-image::Ui.png[]
-
 My role was to:
 
 . configure the basic AddressBook software to create a `Borrower` class and its related classes.
 . implement borrower-related commands such as the *Register Command*, *Serve Command*, *Done Command*, +
-*EditBorrowerCommand* and *UnregisterCommand*.
+*EditBorrowerCommand* and *UnregisterCommand*
 
 == Summary of Contributions
 
@@ -55,7 +52,7 @@ It requires careful implementation and consideration for many different cases.
 * added a Borrower ID generator that auto generates a borrower's ID.
 
 === *Code contributed*: +
-* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=linyuting&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=linyuting&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Link for RepoSense]
 
 === *Other contributions*:
 
@@ -92,18 +89,15 @@ https://github.com/AY1920S1-CS2103T-F13-1/main/pull/262[#262]
 
 
 == Contributions to the User Guide
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 
+=== Borrower Feature
 include::../UserGuide.adoc[tag=UGyuting]
 include::../UserGuide.adoc[tag=UGyuting2]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
 include::../DeveloperGuide.adoc[tag=registerBorrower]
 
@@ -111,3 +105,5 @@ include::../DeveloperGuide.adoc[tag=registerBorrower]
 
 include::../DeveloperGuide.adoc[tag=yutingUseCase]
 
+=== Manual testing
+include::../DeveloperGuide.adoc[tag=borrowerTest]
