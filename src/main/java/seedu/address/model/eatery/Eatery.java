@@ -101,7 +101,7 @@ public class Eatery {
         return totalExpenditure;
     }
 
-    public void setReviews(Set<Review> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews.clear();
         this.reviews.addAll(reviews);
     }

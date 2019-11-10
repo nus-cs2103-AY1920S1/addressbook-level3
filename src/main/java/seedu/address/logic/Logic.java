@@ -14,7 +14,6 @@ import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Review;
 import seedu.address.model.statistics.Statistics;
 
-
 /**
  * API of the Logic component
  */

@@ -40,16 +40,21 @@ public class EateryCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public EateryCard(Eatery eatery, int displayedIndex) {
+    public EateryCard(Eatery eatery, int displayedIndex, boolean isMainMode) {
         super(FXML);
         this.eatery = eatery;
         id.setText(displayedIndex + ". ");
         name.setText(eatery.getName().fullName);
         address.setText(eatery.getAddress().value);
-        category.setText(eatery.getCategory().getName());
         eatery.getTags().stream()
-                .sorted(Comparator.comparing(Tag::getName))
-                .forEach(tag -> tags.getChildren().add(new Label(String.format("#%s", tag.getName()))));
+            .sorted(Comparator.comparing(Tag::getName))
+            .forEach(tag -> tags.getChildren().add(new Label(String.format("#%s", tag.getName()))));
+
+        if (isMainMode) {
+            category.setMinHeight(18);
+            category.setPrefHeight(18);
+            category.setText(eatery.getCategory().getName());
+        }
     }
 
     @Override

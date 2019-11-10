@@ -6,9 +6,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 import seedu.address.model.statistics.Statistics;
-import seedu.address.model.statistics.exceptions.CannotGenerateStatistics;
-import seedu.address.model.statistics.exceptions.NoAvailableData;
-
+import seedu.address.model.statistics.exceptions.CannotGenerateStatisticsException;
+import seedu.address.model.statistics.exceptions.NoAvailableDataException;
 /**
  * Shows overall statistics gathered from the reviews of all the eateries in the application.
  */
@@ -44,10 +43,10 @@ public class StatsCommand extends Command {
             model.setStatistics(stats);
             return new CommandResult(MESSAGE_STATS_SUCCESS, false, false, false, true);
 
-        } catch (NoAvailableData n) {
+        } catch (NoAvailableDataException n) {
             throw new CommandException(MESSAGE_STATS_ERROR_NODATA);
 
-        } catch (CannotGenerateStatistics c) {
+        } catch (CannotGenerateStatisticsException c) {
             throw new CommandException(MESSAGE_STATS_ERROR_UNKNOWN);
         }
     }

@@ -281,36 +281,73 @@ image::CloseCommitActivityDiagram.png[]
 // end::close[]
 
 // tag::modeCommand[]
-=== [Proposed] Mode Command feature
+=== Changing Mode of EatMe feature
 ==== Implementation
-Allows the user to toggle between Main mode and Todo mode. It extends `Command`, and once the mode has been switched, it will affect all other command functions.
-The mode is determined through the `isMainMode` boolean variable.
+Allows the user to toggle between Main mode and Todo mode. It extends `Command`, and once mode is switched, all other command functions would be affected.
+The mode is determined through the value of a boolean variable named `isMainMode`.
 
-Given below is an example usage scenario and how the mode mechanism behaves at each step.
+Given below is an example usage of how the mode command behaves.
 
-Step 1: The user launches the application. The `AddressBook` will be will be initialised as the *Main Mode* with the initial json data stored.
+Step 1: The user launches the application. Data from `eaterylist` will be fetched and will be initialised in Main Mode by default.
 
-Step 2: The user executes `mode` command to switch EatMe to the *Todo Mode* which displays `Eateries` in the *Todo* list.
+Step 2: The user execute `mode` command and the mode of the application will be switched to `todo` mode, displaying items in the `todo` list instead.
 
-Step 3: The user can execute `mode` command again to switch EatMe back to the *Main Mode* which displays the `Eateries` in the *Main* list.
+Step 3: The user can execute `mode` command again, returning the application to `main` mode, showing the items stored in the `main` list.
 
 The following sequence diagram shows how the `mode` command works:
-image::ModeCommandSequenceDiagram.png[]
+image::ModeCommandSequence.png[]
 
-The following activity diagram summarizes what happens when a user executes a new `mode` command:
+The following activity diagram summarizes what happens when a user executes a new command:
 image::ModeCommandActivity.png[]
 
 ==== Design Considerations
-===== Aspect: How Mode executes
-* **Current choice:** Toggles between mode through a boolean value.
-** Pros: Easily implemented.
-** Cons: An additional variable to check when executing other commands. Possibility of incorrect manipulation of an Eatery object.
+===== Aspect: How Mode execute
+* **Alternative 1 (current choice):** Toggle between mode through a boolean value.
+** Pros: Easy for implementation.
+** Cons: An additional factor to check when executing any other commands; Possibility of mis-manipulation of data.
 
 ===== Aspect: Data structure to support Mode Command
-* **Current choice:** Maintains two separate lists of Eateries for Main mode and Todo Mode.
-** Pros: Todo Eateries stored apart from Main Eateries. Commands executed will only affect Eateries stored in a particular list.
-** Cons: Requires proper handling of individual data structures to ensure each list is maintained and updated correctly.
+* **Alternative 1 (current choice):** Maintain two separate lists for Main mode and Todo Mode.
+** Pros: Data between the two modes will be separated. Commands executed will only affect data stored in the list for the particular mode.
+** Cons: More effort required for maintenance purposes. Need to make sure that data from main list should not go into todo list, and vice versa
 //end::modeCommand[]
+
+//tag::saveTodoCommand[]
+=== Saving Todo Eatery feature
+==== Implementation
+This command allows the user to save an eatery from the todo list to the main eatery list. It extends `Command`.
+
+Given below is an example usage of how the SaveTodo Command behaves.
+
+Step 1: The user launches the application. Data from `EateryList` will be fetched and initialised in main mode by default.
+
+Step 2: The user executes mode command and the mode of the application will be switched to Todo mode, displaying items in the todo list instead.
+
+Step 3: The user can execute `save 1`, indicating to the system the index of eatery to be saved.
+
+Step 4: The eatery in the todo list will be removed and an add command will be constructed in the CommandBox for the user to input any necessary fields before adding.
+
+The following sequence diagram shows how the `SaveTodo` command works:
+image::SaveTodoCommandSequence.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+image::SaveTodoCommandActivity.png[]
+
+==== Design Considerations
+===== Aspect: How SaveTodo execute
+* **Alternative 1 (current choice):** Construct the commands as a string before displaying to the user.
+** Pros: User-friendly. User will be able to add the eatery to the main list with minimum effort.
+** Cons: Unable to save directly to the main list from todo list. Possible situation can be that the user did not add the new eatery after executing `saveTodo` command.
+This situation will result in the user requiring to type the whole `add` command on his own as information will not be saved.
+
+* **Alternative 2** Allow eatery to have the same attributes fields as eatery in main list
+** Pros: As eatery in todo list and main list have the same attributes, it will be possible to `save` the eatery directly to the main list without further input from the user.
+** Cons: User will be required to include additional field when adding an eatery in the todo list. Field entered may be irrelevant as user had yet to visit the eatery.
+
+===== Aspect: Data structure to support SaveTodo Command
+* **Alternative 1 (current choice):** No additional data structure is required for `SaveTodo` command
+
+//end::saveTodoCommand[]
 
 === Logging
 
@@ -536,6 +573,29 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_
+
+=== Saving an eatery
+
+. Saving an eatery while eateries are present in todo list.
+
+.. Prerequisites:
+... Application is on todo mode.
+... Todo list is not empty
+.. Test case: Save 1 +
+    Expected: The application will toggle to main mode and a add command will be display in the commandbox.
+.. Test Case: Save 0 +
+    Expected: An error message will be shown in the status message.
+
+=== Deleting an eatery
+
+. Deleting an eatery while all eateries are listed
+
+.. Prerequisites: List all eateries using the list command. Multiple eateries in the list.
+.. Test case: delete 1 +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: delete 0 +
+   Expected: No eatery is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: delete, delete x (where x is larger than the list size) _{give more}_ +
 
 === Deleting an Eatery
 

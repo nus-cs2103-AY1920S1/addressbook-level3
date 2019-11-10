@@ -88,6 +88,6 @@ public class Category implements Comparable<Category> {
 
     @Override
     public int compareTo(Category otherCategory) {
-        return name.toLowerCase().compareTo(otherCategory.getName().toLowerCase());
+        return name.compareTo(otherCategory.getName());
     }
 }

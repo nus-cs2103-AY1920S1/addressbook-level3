@@ -144,6 +144,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setActiveEatery(Eatery eatery) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Eatery getActiveEatery() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Eatery> getFilteredEateryList() {
             throw new AssertionError("This method should not be called.");
         }

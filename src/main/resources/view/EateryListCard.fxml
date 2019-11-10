@@ -8,6 +8,6 @@
     <Label fx:id="id"/>
     <Label fx:id="name" wrapText="true" styleClass="h2"/>
     <Label fx:id="address" wrapText="true"/>
-    <Label fx:id="category" wrapText="true"/>
+    <Label fx:id="category" wrapText="true" minHeight="0" prefHeight="0" />
     <FlowPane fx:id="tags"/>
 </VBox>
