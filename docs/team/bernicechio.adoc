@@ -85,13 +85,17 @@ I have contributed 3 supportive enhancements for Mortago’s main feature Genera
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-_{start of extract}_
+_{start of extract 1: list command}_
 
 include::../UserGuide.adoc[tag=list]
 
+_{end of extract 1}_
+
+_{start of extract 2: document generation}_
+
 include::../UserGuide.adoc[tag=documentGeneration]
 
-_{end of extract}_
+_{end of extract 2}_
 
 == 4. Contributions to the Developer Guide
 

@@ -401,15 +401,15 @@ Format: `list -FLAG`
 Example: `list -b` +
 After filtering specific bodies, you may now want to view the full list of bodies:
 
-1. Mortago shows filtered list of bodies.
+* 1. Mortago shows filtered list of bodies.
 
 image::list1.png[]
 
-2. Type `list -b` in the Command Line Interface (CLI).
+* 2. Type `list -b` in the Command Line Interface (CLI).
 
 image::list2.png[]
 
-3. Mortago shows unfiltered list of bodies.
+* 3. Mortago shows unfiltered list of bodies.
 
 image::list3.png[]
 
