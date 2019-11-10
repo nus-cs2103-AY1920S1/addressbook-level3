@@ -55,7 +55,7 @@ make the feature more robust.
 *** Tracked and helped to fix bugs found during developer testing using GitHub issues (Issue https://github.com/AY1920S1-CS2103T-T12-1/main/issues/82[#82])
 *** Added additional tests to the repository to bump coverage up from 37% to 39% (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/166[#166])
 ** Enhancements to the application:
-*** Created a modular framework in `UI` to make it easier for teammates to add different user views for their respective features (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/51[#51])
+*** Created a modular framework in `Ui` to make it easier for teammates to add different user views for their respective features (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/51[#51])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-T12-1/main/pull/152[#152]
 ** Community:
