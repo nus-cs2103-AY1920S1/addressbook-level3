@@ -22,6 +22,7 @@ public class JsonAdaptedExpenseTest {
 
     private static final String VALID_NAME = FOOD.getName().toString();
     private static final String VALID_AMOUNT = FOOD.getAmount().toString();
+
     private static final JsonAdaptedCurrency VALID_CURRENCY = new JsonAdaptedCurrency(FOOD.getCurrency().name, 1);
     private static final String VALID_DATE = FOOD.getDate().toString();
     private static final String VALID_TAG = FOOD.getTag().tagName;

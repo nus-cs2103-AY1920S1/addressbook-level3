@@ -1,17 +1,16 @@
-97
-1000	add
+96
+1000	expense
 1000	clear
 1000	delete
-1000	edit
+1000	editExpense
 1000	exit
 1000	find
 1000	help
-1000	list
+1000	listDefaultExpenses
 1000	budget
 1000	view
-1000	undo
-1000	redo
-1000	budgetlist
+1000	history
+1000	listBudgets
 1000	editBudget
 100	n/
 100	a/

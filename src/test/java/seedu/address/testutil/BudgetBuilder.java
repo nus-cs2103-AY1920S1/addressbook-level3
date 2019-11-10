@@ -22,6 +22,10 @@ public class BudgetBuilder {
     public static final String DEFAULT_END_DATE = "25/10/2019";
     public static final ExpenseList DEFAULT_EXPENSE_LIST = getTypicalExpenseList();
 
+    public static final String VALID_DATE_BETWEEN_DEFAULT_START_AND_END_DATES = "17/10/2019";
+    public static final String VALID_DATE_BEFORE_DEFAULT_START_DATE = "10/10/2019";
+    public static final String VALID_DATE_AFTER_DEFAULT_END_DATE = "1/11/2019";
+
     private Name name;
     private Amount amount;
     private Amount amountLeft;
@@ -94,6 +98,6 @@ public class BudgetBuilder {
     }
 
     public Budget build() {
-        return new Budget(name, amount, amount, currency, startDate, endDate, expenseList);
+        return new Budget(name, amount, amountLeft, currency, startDate, endDate, expenseList);
     }
 }

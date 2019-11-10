@@ -129,11 +129,6 @@ public class ModelManagerTest {
         modelManager.updateFilteredExpenseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, exchangeData, userPrefs)));
 
-        // different filteredBudgetList -> returns false
-        // String[] budgetKeyword = JAPAN.getName().fullName.split("\\s+");
-        // modelManager.updateFilteredBudgetList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        // assertFalse(modelManager.equals(new ModelManager(expenseList, budgetList, userPrefs)));
-
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
 
