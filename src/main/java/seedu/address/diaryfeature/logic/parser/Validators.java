@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import seedu.address.diaryfeature.model.details.Username;
+import seedu.address.diaryfeature.model.diaryEntry.Memory;
+import seedu.address.diaryfeature.model.diaryEntry.Place;
 import seedu.address.diaryfeature.model.diaryEntry.Title;
 
 /**
@@ -52,6 +54,29 @@ class Validators {
     public static boolean isValidTitle(String input) {
         boolean answer = false;
         if (isNotEmpty(input)  && isCorrectLength(input,Title.TITLE_MAX_LENGTH)) {
+            answer = true;
+        }
+        return answer;
+    }
+
+    /**
+     * Check if user input is valid title
+     */
+    public static boolean isValidPlace(String input) {
+        boolean answer = false;
+        if (isNotEmpty(input)  && isCorrectLength(input, Place.PLACE_MAX_LENGTH)) {
+            answer = true;
+        }
+        return answer;
+    }
+
+
+    /**
+     * Check if user input is valid title
+     */
+    public static boolean isValidMemory(String input) {
+        boolean answer = false;
+        if (isNotEmpty(input)  && isCorrectLength(input, Memory.MEMORY_MAX_LENGTH)) {
             answer = true;
         }
         return answer;

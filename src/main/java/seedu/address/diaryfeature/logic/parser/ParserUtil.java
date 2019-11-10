@@ -80,7 +80,7 @@ public class ParserUtil {
     public static Place parsePlace(String place) throws PlaceParseException  {
         if(Validators.isNotNull(place)) {
             String trimmed = place.trim();
-            if (Validators.isNotEmpty(trimmed)) {
+            if (Validators.isValidPlace(trimmed)) {
                 return new Place(trimmed);
             }
         }
@@ -96,7 +96,7 @@ public class ParserUtil {
     public static Memory parseMemory(String memory) throws MemoryParseException {
         if(Validators.isNotNull(memory)) {
             String trimmed = memory.trim();
-            if (Validators.isNotEmpty(trimmed)) {
+            if (Validators.isValidMemory(trimmed)) {
                 return new Memory(trimmed);
             }
         }
