@@ -329,17 +329,19 @@ image::ModuleClashDetected.png[width="790"]
 === Add or remove modules `addmod` & `removemod`
 
 ==== Add a module to a student
-This command adds a module to specific student. Either Index or matric id
-can be used. If both are given, index takes priority.
+This command adds a module to specific student.
+For student identifier, it can either be the matric id or index in the student list.
+For module identifier, it can either be the module code or index in the module list.
 
 Format: `addmod s/STUDENT_ID m/MODULE_CODE` or
-`addmod i/INDEX m/MODULE_CODE`
+
+`addmod s/STUDENT_INDEX m/MODULE_INDEX`
 
 Examples:
 
 Sample input 1:
 
-* `addmod s/A0180000 m/CS1010`
+* `addmod s/1 m/7`
 
 image::AddModCommandDemoBefore1.png[width="790"]
 
@@ -351,28 +353,31 @@ image::AddModCommandDemoAfter1.png[width="790"]
 
 Sample input 2:
 
-* `addmod i/1 m/CS1010`
+* `addmod s/1 m/1`
 
 image::AddModCommandDemoBefore2.png[width="790"]
 
 Sample output:
 
-* `Student is already registered for this module.`
+* `Unable to add module to student as the student already has already completed the module `
 
 image::AddModCommandDemoAfter2.png[width="790"]
 
 ==== Removing a module from student's timetable
-This command removes a existing module from a student. Either Index or matric id
-can be used. If both are given, index takes priority.
+This command removes a existing module from a student.
+For student identifier, it can either be the matric id or index in the student list.
+For module identifier, it can either be the module code or index in the module list.
 
-Format: `removemod s/STUDENT_ID m/MODULE_CODE` or
-`removemod i/INDEX m/MODULE_CODE`
+
+Format: `removemod s/STUDENT_ID m/MODULE_CODE`
+
+`removemod s/STUDENT_INDEX m/MODULE_INDEX`
 
 Examples:
 
 Sample input 1:
 
-* `removemod s/A0180000 m/CS1010`
+* `removemod s/1 m/CS2101`
 
 image::RemoveModCommandDemoBefore1.png[width="790"]
 
@@ -384,7 +389,7 @@ image::RemoveModCommandDemoAfter1.png[width="790"]
 
 Sample input 2:
 
-* `removemod i/1 m/CS1010`
+* `removemod s/A0180001 m/CS2105`
 
 image::RemoveModCommandDemoBefore2.png[width="790"]
 
@@ -531,13 +536,13 @@ Or `clash m/2 m/4` to shows clash details between the modules at indices 2 and 4
 ** `clash a/INDEX`
 - e.g. `clash a/INDEX` to show if the module a student is requesting for clashes with his/her current existing modules.
 
-* **addmod**: `addmod s/STUDENT_ID m/MODULE_CODE` or `addmod i/INDEX m/MODULE_CODE`
-- e.g `addmod s/A0180000 m/CS2103` `addmod i/10 m/CS2103`
-To add module CS2103 to student A0180000
+* **addmod**: `addmod s/STUDENT_ID m/MODULE_CODE` or `addmod s/STUDENT_INDEX m/MODULE_INDEX`
+- e.g `addmod s/A0180009 m/CS1020`
+To add module CS1020 to student A0180009
 
-* **removemod**: `removemod s/STUDENT_ID m/MODULE_CODE` or `removemod i/INDEX m/MODULE_CODE`
-- e.g `removemod s/A0180000 m/CS1020` `removemod i/4 m/CS1020`
-To remove module CS2103 from student A0180000
+* **removemod**:`removemod s/STUDENT_ID m/MODULE_CODE` or `removemod s/STUDENT_INDEX m/MODULE_INDEX`
+- e.g `removemod s/A0180000 m/CS1020`
+To remove module CS1020 from student A0180000
 
 * **setcredits**: `setcredits INDEX NEW_MC`
 - e.g. `setcredits 2 c/28`
