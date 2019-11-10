@@ -50,7 +50,7 @@ the application.
 [blue]`*command*` :
 Text with blue font and grey highlight indicates a command that can be input by the user.
 
-=== Introduction of treasurerPro
+=== Introduction to treasurerPro
 
 The User Interface of treasurerPro is primarily divided into 6 tabs - Home, Members, Reimbursements, Inventory, Cashier
 and Overview. Each tab serves a particular function:
