@@ -132,6 +132,7 @@ image:UserGuide/add_task_2.png[width="500"]
 
 * `add_task c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
 
+// end::tasks[]
 ==== Editing task: `edit_task`
 
 Update task information. +
@@ -209,7 +210,7 @@ image:UserGuide/find_task_4.png[width="500"]
 List all tasks. +
 Format: `list_task`
 
-// end::tasks[]
+
 
 ==== Setting Reminder Details  : `addReminder`
 
@@ -603,6 +604,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `edit_task 1 mark/N` command) +
 `undo` (reverses the `delete 1` command) +
 
+
+// end::undoAndRedo[]
 === Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
@@ -630,7 +633,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `edit_task 1 mark/N` command) +
 
-// end::undoAndRedo[]
 === Exiting the program : `exit`
 
 Exits the program. +
