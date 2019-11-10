@@ -335,9 +335,12 @@ image::StartWithTagParam.png[width="600"]
 This command allows you to check the answer of the flashcard question.
 
 ==== Rate flashcard: `rate [easy/good/hard]`
-This command rates the flashcard, depending on how well you answered the question i.e. easy, good, hard.
+After seeing the answer, you can enter this command which rates the flashcard,
+depending on how well you answered the question i.e. easy, good, hard.
 
-`rate [rating]`, e.g. `rate hard`
+At the same time, the next question will be displayed if available.
+
+E.g. `rate hard`
 
 ==== Skip question: `skip`
 If you would like to manually filter and skip questions, the `skip` command helps you to skip FlashCards,
@@ -345,6 +348,8 @@ saving you extra time.
 
 ==== End test: `end`
 You can stop the test any time simply by typing `end`.
+
+By exiting the test mode, normal commands such as `listall` and `add` are re-enabled.
 
 //@@author LeowWB
 
