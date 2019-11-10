@@ -263,7 +263,7 @@ the index shown in the table or by the person's name. Inputting the person's nam
 that person to be deleted.
 The following activity diagram shows the steps needed to delete a new transaction:
 
-[caption = "Figure 17. "]
+[caption = "Figure 19. "]
 .Activity diagram of the delete command being executed in Home Tab (transaction package)
 image::HomeTabActivityDiagramDeleteCommand.png[width = "500"]
 
@@ -276,13 +276,13 @@ as a generic parser creates either a `DeleteIndexCommand` or `DeleteNameCommand`
 The following sequence diagram shows how the `DeleteNameCommand` is created with the definition of `CheckAndGetPersonByNameOnlyModel#getPersonByName` defined in
 https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#getPersonByName[3.1.1. Add Command Feature]:
 
-[caption = "Figure 18. "]
+[caption = "Figure 20. "]
 .Sequence diagram of the parser for the delete command to delete by the `Person` 's name
 image::DeleteCommandParser.png[]
 
 The following sequence diagram shows how the command to delete transactions according to the specified name works after it is created which is referenced in https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#GeneralLogicSD[2.3. Logic component: Figure 5]:
 
-[caption = "Figure 19. "]
+[caption = "Figure 21. "]
 .Sequence diagram of the delete command being executed in Home Tab (transaction package)
 image::HomeDeleteNameCommand.png[width = "300"]
 
@@ -294,8 +294,8 @@ To view the full transaction list, the user would be required to enter the
 back command where `BackCommand` calls `Model#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
 following section <<BackCommandSD, 3.1.3. Back Command Feature>>.
 
-After this, the list of transactions and Reimbursement Tab is updated as shown in https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#updateTL[3.1.1. Add Command feature: Figure 14]
-and https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#update-reimbursement[3.1.1. Add Command feature: Figure 15]
+After this, the list of transactions and Reimbursement Tab is updated as shown in https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#updateTL[3.1.1. Add Command feature: Figure 16]
+and https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#update-reimbursement[3.1.1. Add Command feature: Figure 17]
 respectively.
 
 The implementation of the command to delete transactions according to the specified index would be similar but does not require interaction with the `CheckAndGetPersonByNameOnlyModel` from the
@@ -312,7 +312,7 @@ The `BackCommand` is not initialised by a specific command parser as shown in as
 but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
 
-[caption = "Figure 20. "]
+[caption = "Figure 22. "]
 .Sequence diagram of the back command being executed in Home Tab (transaction package)
 image::HomeTabBackCommandSequenceDiagram.png[width = "500"]
 
@@ -325,7 +325,7 @@ alphabetical order, by amount (from least to most) and by date (from oldest to m
 The following sequence diagram shows how the sort command works which is referenced in
 https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#GeneralLogicSD[2.3. Logic component: Figure 5]:
 
-[caption = "Figure 21. "]
+[caption = "Figure 23. "]
 .Sequence diagram of the sort command being executed in Home Tab (transaction package)
 
 image::HomeTabSortSD.png[width = "300"]
@@ -348,14 +348,14 @@ object for viewing in the UI table that can be sorted such that when [blue]`sort
 |`ModelManager` contains only the shown `TransactionList` that can be sorted and reads from the data file to get
 the `TransactionList` object in original order when [blue]`sort reset` is called.
 |Alternative 1 was implemented. Alternative 1 allows the data file to be exported in the desired order anytime while treasurerPro is running while
-alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shown below the table in <<lists, Figure 22>>.
+alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shown in <<lists, Figure 24>>, below the table.
 
 |The Members Tab's `Model` interface is passed as parameters into Transaction Tab's `Logic` to give `Logic` access to all public methods
 of `ModelManager`.
 |A new interface is made to allow the only used method of Members Tab's `ModelManager` to be accessed in Transaction Tab's
 `Logic`.
 |Alternative 2 was implemented. The new interface acts as a facade for `ModelManager` which prevent unwanted modifications
-to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel` as shown below the table in <<facade, Figure 23>>.
+to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel` as shown in <<facade, Figure 25>>, below the table.
 
 |An `ArrayList` is used to store `Transaction` objects in `TransactionList`.
 |A `LinkedList` is used to store `Transaction` objects in `TransactionList`.
@@ -363,12 +363,12 @@ to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel
 |===
 
 [[lists]]
-[caption = "Figure 22. "]
+[caption = "Figure 24. "]
 .Code snippet of `ModelManager` class with 2 `TransactionList` objects
 image::homeDG/2lists.png[width = "450"]
 
 [[facade]]
-[caption = "Figure 23. "]
+[caption = "Figure 25. "]
 .Code snippet of `CheckAndGetPersonByNameOnly` facade class for `ModelManager` from Members Tab
 image::homeDG/facadeForDesignConsiderations.png[width = "450"]
 

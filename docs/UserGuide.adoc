@@ -333,7 +333,7 @@ image::homeUG/HomeFindStep2.png[width = "700"]
 
 [start = 3]
 3. Key in [blue]`back` and hit `Enter` to return to the table of all transactions, or enter your next command to be executed.
-The screenshot below shows the Edit Command being input as the next command:
+The screenshot below shows the Edit command being input as the next command:
 
 //.Screenshot of the user input for Edit Command according to filtered table's ID in Home Tab
 image::homeUG/HomeFindStep3cr.png[]

@@ -52,6 +52,8 @@ public class DeleteCommandParser implements CommandParserWithPersonModel {
             DeleteNameCommand deleteNameCommand = new DeleteNameCommand(person);
             return deleteNameCommand;
         } catch (PersonNotFoundException e) {
+            logger.info("The person inputted is not in the AddressBook: "
+                    + argMultimap.getValue(PREFIX_PERSON).get());
             throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
         }
     }

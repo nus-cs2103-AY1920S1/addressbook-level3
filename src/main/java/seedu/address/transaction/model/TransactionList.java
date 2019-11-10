@@ -17,7 +17,6 @@ public class TransactionList {
     private final ArrayList<Transaction> original;
     private ArrayList<Transaction> tArrList;
     private boolean isModifiable;
-    //private ObservableList<Transaction> tList;
 
     /**
      * Initialises the transaction list when there are no prior transactions inputted.
@@ -26,7 +25,6 @@ public class TransactionList {
         this.tArrList = new ArrayList<>();
         this.original = new ArrayList<>();
         this.isModifiable = true;
-        //this.tList = FXCollections.observableList(tArrList);
     }
 
     /**
@@ -37,7 +35,6 @@ public class TransactionList {
         this.tArrList = tArrList;
         this.original = new ArrayList<>(tArrList);
         this.isModifiable = true;
-        //this.tList = FXCollections.observableList(this.tArrList);
     }
 
     public void setAsUnmodifiable() {
@@ -128,7 +125,6 @@ public class TransactionList {
      */
     public void unSort() {
         tArrList = new ArrayList<>(original);
-        //tList = FXCollections.observableList(tArrList);
     }
 
     /**
@@ -166,7 +162,6 @@ public class TransactionList {
                 || (other instanceof TransactionList // instanceof handles nulls
                 && tArrList.equals(((TransactionList) other).getTarrList())
                 && original.equals(((TransactionList) other).getOriginal()));
-        //&& tList.equals(((TransactionList) other).gettList()));
     }
 }
 

@@ -8,7 +8,7 @@ import seedu.address.transaction.model.transaction.Transaction;
  * Comparator to compare by amount in transaction.
  */
 public class SortByAmount implements Comparator<Transaction> {
-    // Used for sorting in descending order
+    // Used for sorting in ascending order
     @Override
     public int compare(Transaction a, Transaction b) {
         if (a.getAmount() < b.getAmount()) {

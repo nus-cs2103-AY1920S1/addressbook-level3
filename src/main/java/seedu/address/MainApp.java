@@ -35,7 +35,7 @@ import seedu.address.person.storage.UserPrefsStorage;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.transaction.model.AddTransactionOnlyModel;
 import seedu.address.transaction.model.TransactionList;
-import seedu.address.transaction.storage.exception.FileReadWriteException;
+import seedu.address.transaction.storage.exception.FileReadException;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -213,7 +213,7 @@ public class MainApp extends Application {
         try {
             transactionList = storage.readTransactionList();
             return new seedu.address.transaction.model.ModelManager(transactionList);
-        } catch (FileReadWriteException e) {
+        } catch (FileReadException e) {
             logger.warning("Data file not in the correct format or problem reading from the file. "
                     + "Will be starting with an empty transaction list");
             transactionList = new TransactionList();
@@ -232,7 +232,7 @@ public class MainApp extends Application {
         try {
             ReimbursementList reimbursementList = storage.getReimbursementFromFile(transactionList);
             return new seedu.address.reimbursement.model.ModelManager(reimbursementList);
-        } catch (FileReadWriteException e) {
+        } catch (FileReadException e) {
             logger.warning("Data file not in the correct format or problem reading from the file. "
                     + "Will be starting with an empty reimbursement list");
             return new seedu.address.reimbursement.model.ModelManager(new ReimbursementList());

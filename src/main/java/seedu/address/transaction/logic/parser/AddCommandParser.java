@@ -79,10 +79,14 @@ public class AddCommandParser implements CommandParserWithPersonModel {
             AddCommand addCommand = new AddCommand(transaction);
             return addCommand;
         } catch (PersonNotFoundException e) {
+            logger.info("The person inputted is not in the AddressBook: "
+                    + argMultimap.getValue(PREFIX_PERSON).get());
             throw new NoSuchPersonException(MESSAGE_NO_SUCH_PERSON);
         } catch (DateTimeParseException e) {
+            logger.info("The date has a wrong format: " + datetime);
             throw new ParseException(MESSAGE_WRONG_DATE_FORMAT);
         } catch (NumberFormatException e) {
+            logger.info("The amount is in the wrong format: " + amountString);
             throw new ParseException(MESSAGE_WRONG_AMOUNT_FORMAT);
         }
     }
