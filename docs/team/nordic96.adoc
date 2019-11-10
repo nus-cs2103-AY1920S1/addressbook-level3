@@ -50,20 +50,16 @@ Document template is fully customisable, hence it makes the application flexible
     **** https://https://commons.apache.org/proper/commons-io/[Commons-IO] : file extension validation method is used for
     **** https://itextpdf.com/en[iTextPdf]
 
-* *Minor enhancement*: Updated the existing AB3 CSS dark theme file to customise our Typee UI color schemes; TreeListView, Functional button skins (Delete button, Refresh button, Next/Previous month button)
+* *Minor enhancement*: Updated the existing AB3 CSS dark theme file to customise our Typee UI color schemes; TreeListView, Functional button skins (Delete button, Refresh button, Next/Previous month button) (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main/pull/223[#223], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/65[#65])
 
 * *Code contributed*: [https://github.com/nordic96/main[Functional code]]
 
 * *Other contributions*:
 ** Enhancements to existing features:
-*** Major updates in Main Window UI with css styling (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main/pull/223[#223], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/65[#65])
 *** Wrote additional tests for existing features to increase coverage by roughly 9% (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main/pull/201[#201], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/200[#200],
 https://github.com/AY1920S1-CS2103T-F14-3/main/pull/226[#226])
 ** Tools:
-*** Integrated a third party library (iTextPdf) to the project
-*** Integrated a third party library (common-IO) to the project
-
-_{you can add/remove categories in the list above}_
+*** Integrated a third party library (iTextPdf, common-IO) to the project
 
 === Contributions to the User Guide
 

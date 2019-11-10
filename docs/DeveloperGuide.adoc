@@ -243,23 +243,24 @@ Tab switch function is implemented in using both CLI and GUI approach; user can 
 
 ==== Implementation Structure
 
-.TabCommand Implementation Class Diagram
-image::TabCommandClassDiagram.png[width="500"]
+[.float_group]
+[.clearfix]
+---
+.TabCommand Class Diagram and fetchTabInfo Activity Diagram
+image::tabcmd_and_tabFetch_activity.png[width="750", float="left"]
+---
 
-1. Tab Menu List, which displays the name of the tab/menus, which has respective separate UI windows. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
+1. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
 * Upon first startup of the system, by system default, system will display the `EngagementList` window.
 2. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner.
 
-.fetchTabInformation Activity Diagram
-image::fetchTabInformationActivityDiagram.png[width="300"]
-
 MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property. +
-
 Next, system checks whether the input name matches with one of the tab names in the system. If there is a match, system will fetch the tab information and return the `Tab` object. If no match is found, system will return withn an empty tab with only name attached.
 
 //end::tab-switch[]
 
 //tag::report[]
+
 === Engagement Report Generation
 This feature allows user to generate a pre-selected engagement in to a report and save it as a document file. The document file will be created in a .pdf format.
 
@@ -288,7 +289,7 @@ To fulfill the document format, `Report` class needs to be implemented in order 
 Below is the sequence diagram for document generation which displays the concept of how this feature will be implemented by multiple interaction between different architecture components.
 
 .Sequence diagram for document generation.
-image::GenerateReportSequenceDiagram.png[width="650"]
+image::GenerateReportSequenceDiagram.png[width="500"]
 
 ==== UI Design
 `ReportWindow` will be the UI container which helps the user to interact using `PdfCommand`.
@@ -314,11 +315,6 @@ Table below explains the components that are included in the `ReportWindow` with
 | Button
 | Deletes the selected document item in the tree-view file directory.
 | To assist users who prefer using mouse (GUI over CLI) deletes document easily.
-
-| `Status Label`
-| Label
-| Displays the status message after handling interaction with the user.
-| To assist user to give full information whenever the system is making action after interacting with the user.
 
 | `File_Explorer`
 | Scrollable Tree View
@@ -809,15 +805,9 @@ Use case ends.
 +
 Use case resumes at step 1.
 [none]
-* 2b. System fails to generate pdf file.
+* 2b. User inputs duplicate information that already exists in the directory.
 [none]
 ** 2b1. System shows error message.
-+
-Use case resumes at step 1.
-[none]
-* 2c. User inputs duplicate information that already exists in the directory.
-[none]
-** 2c1. System shows error message.
 +
 Use case resumes at step 1.
 //end::use-case-pdf[]
