@@ -200,17 +200,23 @@ The sequence diagram below illustrates how PalPay handles the command input `in 
 .Sequence diagram for executing an `InCommand`
 image::InSequenceDiagram.png[]
 
-The `in` and `out` transaction follows the same logic flow after they are parsed. The only difference is that the `handleBalance()` method called in the `BankAccount` results in an `addAmount` operation for the `inTransaction` and a `subtractAmount` operation for the `OutTransaction` class.
+The `in` and `out` transaction follows the same logic flow after they are parsed.
+
+The difference between `in` and `out` transactions is that the `handleBalance()` method called in the `BankAccount` results in an `addAmount` operation for the `inTransaction` and a `subtractAmount` operation for the `OutTransaction` class.
 
 ===== Example
 Given that the `BankAccount` balance initially starts with 0 dollars.
 
 * `in` Transaction of `$1000` will increase the `BankAccount` balance from $0 to $1000
 * `out` Transaction of `$250` will subsequently decrease the `BankAccount` balance from $1000 to $250.
+* The Activity Diagram shown below will provide a visual representation of the two alternative Transaction routes
+
+.Activity Diagram for In and Out Transactions
+image::InActivityDiagram.png[]
 
 ==== Design Considerations
 
-* `Transaction` is an abstract class which contains the default constructor and commonly used variables. `InTransaction` and `OutTransaction` extends the `Transaction` class as they typically store an *amount*, *date*, *description*, and a set of *categories*.
+* To prevent repetitive code implementation, the `Transaction` abstract class is used to facilitate income and expenditure logging.  `Transaction` is an abstract class which contains the default constructor and commonly used variables. `InTransaction` and `OutTransaction` extends the `Transaction` class as they typically store an *amount*, *date*, *description*, and a set of *categories*.
 A code snippet of the `Transaction` abstract class is shown below.
 
 ```
@@ -233,6 +239,14 @@ Therefore user operations that deal with `BankAccount` implements the `BankAccou
 that deal with `Ledger` implements the `LedgerOperation` interface. +
 ** This allows us to achieve polymorphism by overloading methods in `Model` to handle the different operations correctly.
 ** This reduces code coupling as there are different models to handle different balance amounts.
+
+* A `Transaction` entry can affect a `Budget` which has similar categories.
+** Only `Out` Transactions will affect `Budget`
+** Activity diagram below shows how and when a `Transaction` object affects `Budget`.
+
+.Activity diagram for Out Transaction affecting Budget
+image::OutbudgetActivityDiagram.png[]
+
 
 // end::transaction[]
 
@@ -515,6 +529,7 @@ image::DeleteActivityDiagram.png[]
 === Update: `update`
 
 This feature allows users to update either the **Amount**, **Date** or **Category** of either a Transaction or Budget.
+==== Implementation
 
 ==== Design Considerations
 
@@ -530,6 +545,17 @@ This `update` feature allows one or more fields of a Transaction or Budget to be
 ** Pros: Requires only one unique list required to store both Transactions and Budgets.
 ** Cons: Requires additional user step to switch between modes before executing a updating command.
 
+===== Aspect: Update can not edit Ledger Operations
+
+* **Alternative 1 (current choice):** Update Command only works with `Transaction`, `Budget` and `Projection` Operations.
+** Pros: Intuitive implementation and execution for the user.
+** Cons: Requires excessive user operations. The user has to first delete the `Ledger` operation that he/she wishes to change, then input the `Ledger` operation with the amended fields.
+** For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Update Command to also work with `Ledger` operations.
+** Pros: Requires only one user command to append or change `Ledger` entries
+** Cons: Results in convoluted implementation and user experience. This will also hinder future permeability of the `Split` feature.
+*** `Ledger` operations such as `split` includes many repeated fields (i.e. multiple `Persons` and `shares` list)
+*** Will require several conditional user inputs to differentiate between the various repeated entities that the user wishes to ammend.
 // end::update[]
 
 // tag::sort[]

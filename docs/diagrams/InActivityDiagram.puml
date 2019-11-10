@@ -1,0 +1,23 @@
+@startuml
+start
+:User logs Transaction;
+if() then ([In Transaction])
+
+:InCommandParser parses and validates user input;
+:InCommandParser creates InTransaction;
+:InTransaction calls handleBalance;
+:BankAccount adds InTransaction's amount to its initial balance;
+
+else([Out Transaction])
+
+:OutCommandParser parses and validates user input;
+:OutCommandParser creates OutTransaction;
+:OutTransaction calls handleBalance;
+:BankAccount subtracts OutTransaction's amount to its initial balance;
+endif
+
+:PalPay displays appends new Transaction to its UniqueTransactionList;
+
+stop
+@enduml
+
