@@ -1,10 +1,9 @@
 package seedu.savenus.logic.commands;
 
-//@@author robytanama
-
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 
+//@@author robytanama
 /**
  * Allows user to change the themes using the Command Line.
  */
@@ -19,10 +18,10 @@ public class ThemeCommand extends Command {
     public static final String MULTIPLE_THEMES_ERROR = "You can only enter one theme at a time!";
     public static final String NO_FIELDS_ERROR = "You did not choose any theme.";
     public static final String UNIDENTIFIED_THEME_ERROR = "No such theme exists!";
+    public static final String DARK_THEME = "dark";
+    public static final String LIGHT_THEME = "light";
 
     private String theme;
-    private final String DARK_THEME = "dark";
-    private final String LIGHT_THEME = "light";
 
     /**
      * Creates a {@code ThemeCommand}.
@@ -30,6 +29,14 @@ public class ThemeCommand extends Command {
      */
     public ThemeCommand(String theme) {
         this.theme = theme;
+    }
+
+    /**
+     * Used to obtain the theme in String.
+     * @return The theme.
+     */
+    public String getTheme() {
+        return theme;
     }
 
     @Override
@@ -45,5 +52,12 @@ public class ThemeCommand extends Command {
         default:
             throw new CommandException(UNIDENTIFIED_THEME_ERROR);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ThemeCommand // instanceof handles nulls
+                && getTheme().equals(((ThemeCommand) other).getTheme()));
     }
 }
