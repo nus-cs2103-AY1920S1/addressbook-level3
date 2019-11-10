@@ -20,6 +20,9 @@ import seedu.address.model.person.Person;
 public class ExpenseCard extends UiPart<Region> {
     private static final String FXML = "ExpenseCard.fxml";
 
+    private static final String DELETED_LABEL_CLASS = "deleted-label";
+    private static final String DELETED_TAGS_CLASS = "deleted-tags";
+
     public final Expense expense;
 
     @FXML
@@ -38,18 +41,16 @@ public class ExpenseCard extends UiPart<Region> {
         this.expense = expense;
 
         String expenseDescription = expense.getDescription();
-        if (expenseDescription.length() == 0) {
-            // Remove the description label if this expense has no description
-            detailsContainer.getChildren().remove(0);
-        } else {
+        boolean hasDescription = expenseDescription.length() > 0;
+
+        if (hasDescription) {
             description.setText(expense.getDescription());
+        } else {
+            // Remove the description label if this expense has no description
+            detailsContainer.getChildren().remove(description);
         }
 
         amount.setText(String.format("$%s", expense.getAmount().toString()));
-        // If the expense was soft-deleted, strike out the amount
-        if (expense.isDeleted()) {
-            amount.setStyle("-fx-strikethrough: true");
-        }
 
         Optional<Person> expenseOwnerOpt = activityParticipants.stream()
                 .filter((participant) -> participant.getPrimaryKey() == expense.getPersonId())
@@ -68,6 +69,26 @@ public class ExpenseCard extends UiPart<Region> {
                 .filter((participant) -> involvedIds.contains(participant.getPrimaryKey()))
                 .map((participant) -> participant.getName().toString())
                 .forEach(name -> sharedBy.getChildren().add(new Label(name)));
+
+        // If this expense was soft-deleted, apply the style classes for soft-deleted expenses
+        if (expense.isDeleted()) {
+            setSoftDeletedStyle(hasDescription);
+        }
+    }
+
+    /**
+     * Sets the component styles of this expense card to indicate a soft-deleted expense or settlement.
+     * @param hasDescription A {@code boolean} indicating if this expense card contains a description.
+     */
+    private void setSoftDeletedStyle(boolean hasDescription) {
+        // Grey out amount and description labels
+        amount.getStyleClass().add(DELETED_LABEL_CLASS);
+        if (hasDescription) {
+            description.getStyleClass().add(DELETED_LABEL_CLASS);
+        }
+
+        // Grey out all participant tags in the FlowPane of this expense card
+        sharedBy.getStyleClass().add(DELETED_TAGS_CLASS);
     }
 
     @Override

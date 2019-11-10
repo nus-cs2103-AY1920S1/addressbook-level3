@@ -165,12 +165,14 @@ public class MainWindow extends UiPart<Stage> {
         case VIEW_CONTACT:
             Person viewedContact = newContext.getContact().get();
             List<Activity> associatedActivities = logic.getAssociatedActivities(viewedContact);
+
             personDetailsPanel = new PersonDetailsPanel(viewedContact, associatedActivities);
             contentContainer.getChildren().add(personDetailsPanel.getRoot());
             break;
         case VIEW_ACTIVITY:
             Activity viewedActivity = newContext.getActivity().get();
             List<Person> associatedPersons = logic.getAssociatedPersons(viewedActivity);
+
             activityDetailsPanel = new ActivityDetailsPanel(viewedActivity, associatedPersons);
             contentContainer.getChildren().add(activityDetailsPanel.getRoot());
             break;

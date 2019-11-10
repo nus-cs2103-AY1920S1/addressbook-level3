@@ -11,6 +11,9 @@ import seedu.address.model.activity.Activity;
 public class ActivityHistoryCard extends UiPart<Region> {
     private static final String FXML = "ActivityHistoryCard.fxml";
 
+    private static final String ACTIVITY_OWED_CLASS = "activity-owed";
+    private static final String ACTIVITY_OWING_CLASS = "activity-owing";
+
     public final Activity activity;
     public final double transferAmt;
 
@@ -26,10 +29,10 @@ public class ActivityHistoryCard extends UiPart<Region> {
 
         title.setText(activity.getTitle().toString());
         if (transferAmt < 0) {
-            netTransfer.setStyle("-fx-text-fill: maroon");
+            netTransfer.getStyleClass().add(ACTIVITY_OWING_CLASS);
             netTransfer.setText(String.format("Owes $%.2f", -transferAmt));
         } else if (transferAmt > 0) {
-            netTransfer.setStyle("-fx-text-fill: darkgreen");
+            netTransfer.getStyleClass().add(ACTIVITY_OWED_CLASS);
             netTransfer.setText(String.format("Owed $%.2f", transferAmt));
         } else {
             netTransfer.setText("Not involved in any expenses yet.");

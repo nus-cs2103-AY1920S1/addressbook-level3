@@ -1,6 +1,31 @@
+/*
+ *  This CSS stylesheet contains all styles that are dynamically applied to
+ *  JavaFX elements depending on the app state.
+ *
+ *  Class selectors are chained in the following CSS rules to increase rule
+ *  specificity and avoid the use of !important (which is considered a bad
+ *  styling practice in web development).
+ */
 
 .error.error.error {
     /* Chain class to sufficiently high specificity to avoid using !important */
     /* The error class should always override the default text-fill style */
     -fx-text-fill: #ff2222;
+}
+
+.deleted-label.deleted-label.deleted-label {
+    -fx-text-fill: #b0b0b0;
+}
+
+.expense-card .deleted-tags.deleted-tags.deleted-tags .label {
+    -fx-background-color: #c0c0c0;
+    -fx-text-fill: #909090;
+}
+
+.activity-owed.activity-owed.activity-owed {
+    -fx-text-fill: darkgreen;
+}
+
+.activity-owing.activity-owing.activity-owing {
+    -fx-text-fill: maroon;
 }
