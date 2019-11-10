@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -30,54 +28,47 @@ import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 
 
-class ImportCommandTest {
+class CreateCommandTest {
     private static String validWordBankName = "testBank";
-    private static File validDirectory = Paths.get("data", "ImportCommandTest").toFile();
 
     @Test
     void constructor_nullWordBankName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ImportCommand(null, validDirectory));
+        assertThrows(NullPointerException.class, () -> new CreateCommand(null));
     }
 
     @Test
-    void constructor_nullDirectory_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ImportCommand(validWordBankName, null));
-    }
-
-    @Test
-    void execute_importToModel_importSuccessful() throws Exception {
+    void execute_createWordBank_createSuccessful() throws Exception {
         ModelStub modelStub = new ModelStub();
 
-        CommandResult commandResult = new ImportCommand(validWordBankName, validDirectory).execute(modelStub);
+        CommandResult commandResult = new CreateCommand(validWordBankName).execute(modelStub);
 
         assertEquals(String.format(
-                String.format(ImportCommand.MESSAGE_IMPORT_CARD_SUCCESS, validWordBankName, validDirectory)),
+                String.format(CreateCommand.MESSAGE_SUCCESS, validWordBankName)),
                 commandResult.getFeedbackToUser());
     }
 
     @Test
     void equals() {
         String validWordBankName2 = "testBank2";
-        File validDirectory2 = Paths.get("data", "ConfigUtilTest").toFile();
 
-        ImportCommand importTest1 = new ImportCommand(validWordBankName, validDirectory);
-        ImportCommand importTest2 = new ImportCommand(validWordBankName2, validDirectory2);
+        CreateCommand createTest1 = new CreateCommand(validWordBankName);
+        CreateCommand createTest2 = new CreateCommand(validWordBankName2);
 
         // same object -> returns true
-        assertEquals(importTest1, importTest1);
+        assertEquals(createTest1, createTest1);
 
         // same values -> returns true
-        ImportCommand importTest3 = new ImportCommand(validWordBankName, validDirectory);
-        assertEquals(importTest1, importTest3);
+        CreateCommand createTest3 = new CreateCommand(validWordBankName);
+        assertEquals(createTest1, createTest3);
 
         // different types -> returns false
-        assertNotEquals(1, importTest1);
+        assertNotEquals(1, createTest1);
 
         // null -> returns false
-        assertNotEquals(null, importTest1);
+        assertNotEquals(null, createTest1);
 
         // different Command -> returns false
-        assertNotEquals(importTest1, importTest2);
+        assertNotEquals(createTest1, createTest2);
     }
 
     private class ModelStub implements Model {

@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -30,54 +28,41 @@ import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 
 
-class ImportCommandTest {
-    private static String validWordBankName = "testBank";
-    private static File validDirectory = Paths.get("data", "ImportCommandTest").toFile();
+class RemoveCommandTest {
+    private static String validWordBankName = "pokemon";
 
     @Test
     void constructor_nullWordBankName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ImportCommand(null, validDirectory));
+        assertThrows(NullPointerException.class, () -> new RemoveCommand(null));
     }
 
     @Test
-    void constructor_nullDirectory_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ImportCommand(validWordBankName, null));
-    }
-
-    @Test
-    void execute_importToModel_importSuccessful() throws Exception {
+    void execute_createWordBank_createSuccessful() throws Exception {
         ModelStub modelStub = new ModelStub();
 
-        CommandResult commandResult = new ImportCommand(validWordBankName, validDirectory).execute(modelStub);
+        CommandResult commandResult = new RemoveCommand(validWordBankName).execute(modelStub);
 
         assertEquals(String.format(
-                String.format(ImportCommand.MESSAGE_IMPORT_CARD_SUCCESS, validWordBankName, validDirectory)),
+                String.format(RemoveCommand.MESSAGE_REMOVE_CARD_SUCCESS, validWordBankName)),
                 commandResult.getFeedbackToUser());
     }
 
     @Test
     void equals() {
-        String validWordBankName2 = "testBank2";
-        File validDirectory2 = Paths.get("data", "ConfigUtilTest").toFile();
-
-        ImportCommand importTest1 = new ImportCommand(validWordBankName, validDirectory);
-        ImportCommand importTest2 = new ImportCommand(validWordBankName2, validDirectory2);
+        RemoveCommand removeTest1 = new RemoveCommand(validWordBankName);
 
         // same object -> returns true
-        assertEquals(importTest1, importTest1);
+        assertEquals(removeTest1, removeTest1);
 
         // same values -> returns true
-        ImportCommand importTest3 = new ImportCommand(validWordBankName, validDirectory);
-        assertEquals(importTest1, importTest3);
+        RemoveCommand removeTest3 = new RemoveCommand(validWordBankName);
+        assertEquals(removeTest1, removeTest3);
 
         // different types -> returns false
-        assertNotEquals(1, importTest1);
+        assertNotEquals(1, removeTest1);
 
         // null -> returns false
-        assertNotEquals(null, importTest1);
-
-        // different Command -> returns false
-        assertNotEquals(importTest1, importTest2);
+        assertNotEquals(null, removeTest1);
     }
 
     private class ModelStub implements Model {
@@ -214,7 +199,7 @@ class ImportCommandTest {
 
         @Override
         public boolean hasWordBank(String name) {
-            return false;
+            return name.equals(validWordBankName);
         }
 
         @Override

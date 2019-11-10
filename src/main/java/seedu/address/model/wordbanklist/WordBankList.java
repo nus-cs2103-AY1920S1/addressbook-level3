@@ -47,16 +47,33 @@ public class WordBankList implements ReadOnlyWordBankList {
         wordBankList.remove((WordBank) wordBankName);
     }
 
+    /**
+     * Returns number of word banks in the word bank list.
+     *
+     * @return number of word banks in the word bank list.
+     */
     @Override
     public int size() {
         return wordBankList.size();
     }
 
+    /**
+     * Returns an unmodifiable view of the word bank.
+     * This list will not contain any duplicate word banks.
+     * Every word bank can be specified by its unique name.
+     * This is used so that any updates to the word bank list will be notified to the observer.
+     */
     @Override
     public ObservableList<WordBank> getFilteredWordBankList() {
         return wordBankList.asUnmodifiableObservableList();
     }
 
+    /**
+     * Retrieves a word bank from its unique name.
+     *
+     * @param name word bank name.
+     * @return word bank.
+     */
     @Override
     public WordBank getWordBankFromName(String name) {
         for (WordBank wb : wordBankList) {
@@ -79,6 +96,12 @@ public class WordBankList implements ReadOnlyWordBankList {
         return wordBankList.hashCode();
     }
 
+    /**
+     * Checks if the word bank list contain this particular word bank.
+     *
+     * @param name of word bank.
+     * @return true if word bank exist and false otherwise.
+     */
     @Override
     public boolean hasWordBankName(String name) {
         return wordBankList.contains(name);
