@@ -1,15 +1,35 @@
-= John Doe - Project Portfolio
+= Kerwin Lim - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== Introduction
 
----
+image::kerwin97.png[width="200", align="left"]
+{empty}[https://github.com/kerwin97[github]] [https://www.linkedin.com/in/kerwin-lim-a6442014b/[linkedin]]
+
+Hello! My name is Kerwin Lim. I'm a Computer Science Major at the National University of Singapore (NUS). I'm currently in my second year of studies.
+
+This portfolio page aims to document the contributions I have made in the development of TutorAid, which is a project that my team and I completed for the module CS2103T. This project has definitely been greatly beneficial to my own learning and self-development in becoming a more competent software engineer.
+
+== PROJECT: TutorAid
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+TutorAid is a handy application that was created for tutors and teaching assistants in NUS School of Computing to help improve their workflow and save time by better organizing all the information they require in one central location. It is a Command Line Interface (CLI) based tool to cater to computing professionals who are highly adept at typing but also provides a Graphical User Interface (GUI) interface for users to easily view and interact with TutorAid.
+
+TutorAid boasts well thought out features which have been carefully selected and reviewed to fit the exact needs of our target audience. All of TutorAid's features and implementations are well documented in guides for users and developers respectively.
+
+.The Graphical User Interface of TutorAid
+image::../images/Ui.png[width="500"]
+
+== Role
+
+My main role was to prototype and develop the Reminders feature, the Calendar feature and the Graphical User Interface.
+The login command required me to think of how to put up a login window that only shows the main window when the user
+has logged in successfully. It also required me to think of how to encrypt the passwords stored and how to check whether they
+are valid as well. I also did the Earning feature where it tracks what earnings you have earned throughout the weeks. It has a claim status that
+allows you to see if you have claimed your earnings from your respective faculties.
 
 == Summary of contributions
 
@@ -50,9 +70,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=reminders]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=calendar]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +80,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=reminders]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=calendar]

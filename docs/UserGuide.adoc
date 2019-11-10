@@ -101,7 +101,9 @@ Examples:
 
 * `login user/Steve pass/Pa55w0rd!`
 
-=== Change tab : `tab`
+=== User Interface
+
+==== Change tab : `tab`
 
 Change tab to any of the available ones. +
 The Tab that you are currently on will be shown on the bottom right corner +
@@ -118,7 +120,6 @@ Examples (All available destinations listed):
 * `change_tab tab/reminders`
 * `change_tab tab/notepad`
 * `change_tab tab/task`
-
 
 
 === Tasks
@@ -244,17 +245,6 @@ Format: `reminder INDEX INTEGER`
 Examples:
 
 * `deleteReminder 1`
-
-==== User Interface
-
-View in calendar format. +
-Format: `change_tab tab/FORMAT`
-
-Example:
-
-* `change_tab tab/calendar`
-* `change_tab tab/tasks`
-
 
 === Earnings
 
