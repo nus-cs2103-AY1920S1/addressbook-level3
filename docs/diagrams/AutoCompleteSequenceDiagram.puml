@@ -4,16 +4,16 @@
 box Ui UI_COLOR_T1
 participant ":CommandBox" as CommandBox UI_COLOR
 participant ":MainWindow" as MainWindow UI_COLOR
-participant ":AutoCompleteOverlay" as AutoCompleteOverlay UI_COLOR
 participant ":AutoCompleter" as AutoCompleter UI_COLOR
 participant ":Trie" as Trie UI_COLOR
 participant ":TrieNode" as TrieNode UI_COLOR
+participant ":AutoCompleteOverlay" as AutoCompleteOverlay UI_COLOR
 end box
 
 [-> CommandBox : handleTextChanged()
 activate CommandBox
 
-CommandBox -> MainWindow : updateCommandAutoComplete("a")
+CommandBox -> MainWindow : handleCommandBoxTextChanged("a")
 activate MainWindow
 
 MainWindow -> AutoCompleter : update("a")

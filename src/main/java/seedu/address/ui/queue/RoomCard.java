@@ -38,7 +38,6 @@ public class RoomCard extends UiPart<Region> {
         this.doctor = doctor;
         this.patient = patient;
         invisiblePane.setStyle("-fx-background-color: derive(#1d1d1d, 20%);");
-        doctorName.setStyle("-fx-text-fill: white;");
         roomCard.setStyle("-fx-background-color: #1abc9c;");
         if (isReadyToServe) {
             doctorName.setText(" " + displayedIndex + ". " + doctor.getName().toString());
@@ -49,22 +48,5 @@ public class RoomCard extends UiPart<Region> {
         }
 
         patientName.setText(patient.map(p -> " " + p.getName().toString()).orElse(" Not serving any patients"));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof RoomCard)) {
-            return false;
-        }
-
-        // state check
-        RoomCard card = (RoomCard) other;
-        return doctor.equals(card.doctor) && patient.equals(card.patient);
     }
 }

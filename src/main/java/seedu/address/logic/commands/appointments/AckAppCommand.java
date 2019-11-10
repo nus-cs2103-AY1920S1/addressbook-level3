@@ -19,12 +19,13 @@ public class AckAppCommand extends ReversibleCommand {
 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Ack a appointment to the address book. "
-            + "the specified keywords (case-insensitive).\n"
+            + "The specified keywords (case-insensitive).\n"
             + "Parameters: KEYWORD \n"
-            + "Example: " + COMMAND_WORD + " 001A";
+            + "Example: " + COMMAND_WORD + " E0000001A";
 
-    public static final String MESSAGE_SUCCESS = "This appointment has been acknowledged: %1$s";
-    public static final String MESSAGE_DUPLICATE_ACKED = "The upcoming appointment has been acknowledged already.";
+    public static final String MESSAGE_SUCCESS = "The upcoming appointment for [%1$s] %2$s has been acknowledged: %3$s";
+    public static final String MESSAGE_DUPLICATE_ACKED = "The upcoming appointment [%1$s] %2$s has already "
+            + "been acknowledged.";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -45,7 +46,10 @@ public class AckAppCommand extends ReversibleCommand {
         requireNonNull(model);
 
         if (model.hasExactAppointment(editedEvent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ACKED);
+            throw new CommandException(String.format(
+                    MESSAGE_DUPLICATE_ACKED,
+                    editedEvent.getPersonId(),
+                    editedEvent.getPersonName()));
         }
 
         try {
@@ -58,7 +62,11 @@ public class AckAppCommand extends ReversibleCommand {
                 new EventContainsKeywordOrRecentlyAcknowledgedPredicate(
                         editedEvent.getPersonId(), editedEvent));
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
+        return new CommandResult(String.format(
+                MESSAGE_SUCCESS,
+                editedEvent.getPersonId(),
+                editedEvent.getPersonName(),
+                editedEvent.getEventTiming()));
     }
 
     @Override

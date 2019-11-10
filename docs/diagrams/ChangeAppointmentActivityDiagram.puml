@@ -2,7 +2,7 @@
 
 start
 -Display the list of patient's appointments
--Enter change appointment command
+-Enter edit appointment command
         if() then ([Valid index])
         -find the target appointment
 

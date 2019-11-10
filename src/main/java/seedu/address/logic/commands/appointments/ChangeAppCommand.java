@@ -30,7 +30,7 @@ public class ChangeAppCommand extends ReversibleCommand {
             + PREFIX_START + "01/12/19 1000 "
             + PREFIX_END + "01/12/19 1040";
 
-    public static final String MESSAGE_SUCCESS = "The appointment's timing has been changed to\n%1$s";
+    public static final String MESSAGE_SUCCESS = "The appointment's timing for [%1$s] %2$s has been changed:\n%3$s";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -56,7 +56,11 @@ public class ChangeAppCommand extends ReversibleCommand {
         }
 
         model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(editedEvent.getPersonId()));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
+        return new CommandResult(String.format(
+                MESSAGE_SUCCESS,
+                editedEvent.getPersonId(),
+                eventToEdit.getPersonName(),
+                eventToEdit.getEventTiming()));
     }
 
     @Override

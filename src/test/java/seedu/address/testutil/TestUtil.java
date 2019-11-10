@@ -14,6 +14,8 @@ import java.nio.file.Paths;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.events.AppointmentBook;
+import seedu.address.model.person.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.userprefs.UserPrefs;
 
@@ -65,8 +67,14 @@ public class TestUtil {
      * Returns a {@code ModelManager} with all the typical persons and appointments.
      */
     public static ModelManager getTypicalModelManager() {
-        return new ModelManager(getTypicalPatientAddressBook(), getTypicalStaffAddressBook(),
-                getTypicalAppointmentBook(), getTypicalDutyRosterBook(),
+
+        AddressBook patientAddressBook = getTypicalPatientAddressBook();
+        AddressBook staffAddressBook = getTypicalStaffAddressBook();
+        AppointmentBook patientAppointmentBook = getTypicalAppointmentBook();
+        AppointmentBook staffAppointmentBook = getTypicalDutyRosterBook();
+
+        return new ModelManager(patientAddressBook, staffAddressBook,
+            patientAppointmentBook, staffAppointmentBook,
             new UserPrefs(), getTypicalQueueManager());
     }
 

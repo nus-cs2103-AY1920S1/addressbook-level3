@@ -1,0 +1,20 @@
+@startuml
+
+start
+-Display the list of doctor's duty shifts
+-Enter edit duty shift command
+        if() then ([Valid index])
+        -find the target duty shift
+
+            if() then ([Not conflict with other appointments])
+            -shift's timing changed
+            -Display the doctor's all duty shifts
+
+            else ([else])
+            -Display error message\n to input valid shift's timing
+            endif
+        else ([Not valid])
+        -Display error message\n to input valid duty shift's index
+        endif
+stop
+@enduml
