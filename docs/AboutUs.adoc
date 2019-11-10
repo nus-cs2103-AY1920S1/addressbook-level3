@@ -38,7 +38,7 @@ Responsibilities: Logic
 
 === Yoke Kai Xin
 image::kxyoke.png[width="150", align="left"]
-{empty}[https://github.com/kxyoke[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/kxyoke[github]] [<<kxyoke#, portfolio>>]
 
 Role: Documentation +
 Responsibilities: UI
