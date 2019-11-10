@@ -30,44 +30,43 @@ public class StatisticsTest {
 
         Statistics test = Statistics.generateStatistics(mockMealLog.getCurrentMonthMeals(), mockCalorieBudget);
 
-        assertEquals(test.getAverage(), Math.round(((double) (
+        assertEquals(Math.round(((double) (
                 TypicalMeals.SPAGHETTI.getDish().getCalories().getValue()
                         + TypicalMeals.MUSHROOM_SOUP.getDish().getCalories().getValue()
                         + TypicalMeals.CHICKEN_RICE.getDish().getCalories().getValue()))
-                / ((double) LocalDate.now().lengthOfMonth())));
+                / ((double) LocalDate.now().lengthOfMonth())), test.getAverage());
 
-        assertEquals(test.getMaximum(),
-                 TypicalMeals.SPAGHETTI.getDish().getCalories().getValue()
+        assertEquals(TypicalMeals.SPAGHETTI.getDish().getCalories().getValue()
                         + TypicalMeals.MUSHROOM_SOUP.getDish().getCalories().getValue()
-                        + TypicalMeals.CHICKEN_RICE.getDish().getCalories().getValue());
+                        + TypicalMeals.CHICKEN_RICE.getDish().getCalories().getValue(), test.getMaximum());
 
-        assertEquals(test.getMinimum(), 0);
+        assertEquals(0, test.getMinimum());
 
-        assertEquals(test.getCalorieExceedCount(), 1);
+        assertEquals(1, test.getCalorieExceedCount());
 
         assertTrue(test.getMostConsumedDishes().contains(TypicalMeals.SPAGHETTI.getDish()));
         assertTrue(test.getMostConsumedDishes().contains(TypicalMeals.MUSHROOM_SOUP.getDish()));
         assertTrue(test.getMostConsumedDishes().contains(TypicalMeals.CHICKEN_RICE.getDish()));
 
-        assertEquals(test.getFoodChartSeries().getData().get(0).getXValue(), "Spaghetti");
-        assertEquals(test.getFoodChartSeries().getData().get(1).getXValue(), "Chicken Rice");
-        assertEquals(test.getFoodChartSeries().getData().get(2).getXValue(), "Mushroom Soup");
+        assertEquals("Spaghetti", test.getFoodChartSeries().getData().get(0).getXValue());
+        assertEquals("Chicken Rice", test.getFoodChartSeries().getData().get(1).getXValue());
+        assertEquals("Mushroom Soup", test.getFoodChartSeries().getData().get(2).getXValue());
 
-        assertEquals(test.getFoodChartSeries().getData().get(0).getYValue(), 1);
-        assertEquals(test.getFoodChartSeries().getData().get(0).getYValue(), 1);
-        assertEquals(test.getFoodChartSeries().getData().get(0).getYValue(), 1);
+        assertEquals(1, test.getFoodChartSeries().getData().get(0).getYValue());
+        assertEquals(1, test.getFoodChartSeries().getData().get(0).getYValue());
+        assertEquals(1, test.getFoodChartSeries().getData().get(0).getYValue());
 
         for (int i = 0; i < LocalDate.now().lengthOfMonth(); i++) {
-            assertEquals(test.getCalorieChartSeries().getData().get(i).getXValue(),
-                    String.valueOf(i + 1));
+            assertEquals(String.valueOf(i + 1),
+                    test.getCalorieChartSeries().getData().get(i).getXValue());
             if (i + 1 == LocalDateTime.now().getDayOfMonth()) {
-                assertEquals(test.getCalorieChartSeries().getData().get(i).getYValue(),
-                        TypicalMeals.SPAGHETTI.getDish().getCalories().getValue()
+                assertEquals(TypicalMeals.SPAGHETTI.getDish().getCalories().getValue()
                                 + TypicalMeals.MUSHROOM_SOUP.getDish().getCalories().getValue()
-                                + TypicalMeals.CHICKEN_RICE.getDish().getCalories().getValue());
+                                + TypicalMeals.CHICKEN_RICE.getDish().getCalories().getValue(),
+                        test.getCalorieChartSeries().getData().get(i).getYValue());
 
             } else {
-                assertEquals(test.getCalorieChartSeries().getData().get(i).getYValue(), 0);
+                assertEquals(0, test.getCalorieChartSeries().getData().get(i).getYValue());
             }
         }
     }

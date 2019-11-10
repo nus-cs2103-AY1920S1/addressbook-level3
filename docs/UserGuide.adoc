@@ -24,11 +24,18 @@ CaloFit is suitable for those who prefer to track their calories gained from day
 
 == Quick Start
 
-* Ensure you have Java 11 or above installed in your Computer.
+Here are the steps to download CaloFit and start using it immediately!:
 
-* Download the latest version of CaloFit.
+1. Ensure you have Java 11 or above installed in your Computer.
 
-* Open Calofit and start using it now!
+2. Go to our [https://github.com/AY1920S1-CS2103T-W11-4/main/releases[GitHub Releases page]] and find our latest release! An example is shown in the picture below.
++
+image::UserGuideQuickStartReleasesPage.png[]
+{empty} +
+
+3. Download the latest version of CaloFit by clicking on the .jar file.
+
+4. Open Calofit and start using it now!
 
 Refer to <<Features>> for details of each command.
 
@@ -248,29 +255,42 @@ Examples:
 
 === Generating a Report: `report`
 
-To create your report that displays your progress over this month: +
+Want to have your very own report that summarises your calorie intake progress over this month? Here are the steps to create one now!:
 
 1. Type the word "report" in the command box. A picture is shown below highlighting the command box.
-
++
 image::UserGuideReportStep1.png[]
-
-2. Press "Enter" on your keyboard. A separate window which is the report will appear in the center of your screen.
+{empty} +
+2. Press "Enter" and a separate window which is the report will appear in the center of your screen as highlighted in the picture below.
 
 image::UserGuideReportStep2.png[]
+{empty} +
 
-The report displays:
+[NOTE]
+If an error message pops up like the one in the picture below, do not panic! This simply means that you have not entered a meal into CaloFit for this month. To fix this, go ahead and `add` a meal, and you should now be able to generate your report!
+
+image::ReportCommandError.png[]
+{empty} +
+
+Your report will display the following statistical data for you to monitor your own progress!:
 
 1. Your Maximum, Minimum and Average calorie intake per day of the current month.
 [NOTE]
-Average value is rounded down.
+Average value is rounded down. +
+Average value is calculated by totalling your calorie intake in that month so far and dividing it by the total number of days in that month, *NOT* the number of days that have passed in that month so far.
 2. The number of days where calorie intake exceeded calorie budget of the month.
 3. Your list of most consumed dishes of the month.
 4. Your calorie intake per day over the entire month.
 5. The quantity of each type of dish consumed in that month.
 
-Below is a picture of the report showing where each type of information mentioned above can be found.
+Below is a picture of the report showing where each type of information mentioned above can be found, corresponding to their number.
 
 image::UserGuideReportStep3.png[]
+{empty} +
+
+[NOTE]
+Changing your system time at any point while CaloFit is running may affect the report shown! +
+To ensure correct data is displayed to you, allow 2 minutes for CaloFit to update itself before creating your report.
 
 Format: `report`
 
