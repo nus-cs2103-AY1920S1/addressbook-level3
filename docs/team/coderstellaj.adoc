@@ -14,24 +14,21 @@ endif::[]
 
 == Introduction
 
-This project portfolio page (PPP) introduces the project, treasurerPro. The PPP outlines my contributions to the project
-and showcases the key features I implemented.
+This project portfolio page (PPP) introduces the project, treasurerPro.
+The PPP outlines my contributions to the project and showcases the key features I implemented.
 
 === About the project
 
 My team consists of 5 students from Computer Science/Computer Engineering.
-And the project is part of the module 'CS2103T Software Engineering Project' where we were tasked to develop a basic
-command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
+And the project is part of the module 'CS2103T Software Engineering Project' where we were tasked to develop a basic command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
 Our team decided to incorporate and morph the AddressBook application into our application **treasurerPro**.
-Our application enables treasurers of Co-Curricular Activities (CCA) Clubs to manage their club finances,
-reimbursements, inventory and member’s contact details easily. The duration of our project was 13 weeks.
+Our application enables treasurers of Co-Curricular Activities (CCA) Clubs to manage their club finances, reimbursements, inventory and member’s contact details easily.
+The duration of our project was 13 weeks.
 
 === About our application
-treasurerPro consists of home tab, members tab, reimbursements tab, inventory tab, cashier tab and overview tab,
-a command box for users to input their commands and a response box
-for Leo which is our lion mascot.
-Each tab serves a different purpose that helps treasurers and members better manage their club
-or society's finances.
+
+treasurerPro consists of home tab, members tab, reimbursements tab, inventory tab, cashier tab and overview tab, a command box for users to input their commands and a response box for Leo which is our lion mascot.
+Each tab serves a different purpose that helps treasurers and members better manage their club or society's finances.
 
 This is what our application looks like when it is first opened:
 
@@ -46,10 +43,12 @@ This symbol indicates extra information or definition.
 `Model` :
 The symbol indicates a component, class or object in the architecture of the application.
 
-[blue]`command` :
+[blue]
+`command` :
 The symbol indicates a command that can be inputted by the user.
 
 == Summary of contributions
+
 My role is designing and implementing the features of reimbursement tab as well as testing the functionality of this tab.
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
@@ -62,10 +61,10 @@ The reimbursements are grouped by person.
 And any updates to transactions will also be reflected in reimbursements.
 ** Justification:
 This feature helps the user to quickly view how much money the treasurer needs to pay to a member.
-The amount, descriptions are aggregated together for a member. So it will be very easy to manage reimbursements.
+The amount, descriptions are aggregated together for a member.
+So it will be very easy to manage reimbursements.
 ** Highlights:
-If there are any changes to transactions,
-the reimbursement records are also updated in accordance with new transaction information.
+If there are any changes to transactions, the reimbursement records are also updated in accordance with new transaction information.
 
 * Adding a deadline to a reimbursement
 ** What it does:
@@ -82,21 +81,18 @@ And if the user is reckless and keys in 30-Feb-2019, our app can correct it to 2
 The user can use [blue]`find` command to find a reimbursement for a member.
 And the treasurer can mark the reimbursement as done using [blue]`done` command.
 ** Justification:
-If the treasurer wants to check how much he should pay to a member,
-he can quickly find the details using [blue]`find` command.
+If the treasurer wants to check how much he should pay to a member, he can quickly find the details using [blue]`find` command.
 After paying back the member, he can use [blue]`done` command to remove the reimbursement from the tab.
 ** Highlights:
 The [blue]`done` command requires interactions with transactions.
-Integration is done between transactions and reimbursements
-to make sure the reimbursed transaction will not be accounted again in reimbursements.
+Integration is done between transactions and reimbursements to make sure the reimbursed transaction will not be accounted again in reimbursements.
 
 * Sorting reimbursements
 ** What it does:
 Each reimbursement contains the member's name, amount and a deadline.
 The reimbursement records can be sorted based on these 3 attributes using [blue]`sort` command.
 ** Justification:
-It is useful for the user to keep track of reimbursements
-and view the reimbursement records according to different priorities.
+It is useful for the user to keep track of reimbursements and view the reimbursement records according to different priorities.
 ** Highlights:
 The [blue]`sort` command can be extended easily to allow other types of sorting.
 
@@ -108,6 +104,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/a
 , https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/address/reimbursement[Test Code]
 
 === Other Contributions
+
 * Project management:
 ** Created issue labels and milestones v1.1, v1.2 on Github.
 
@@ -135,19 +132,21 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/42[(PR #42)].
 https://github.com/nus-cs2103-AY1920S1/forum/issues/134[(Example #134)]
 https://github.com/nus-cs2103-AY1920S1/forum/issues/135[(Example #135)].
 
-
 == Contributions to the user guide
+
 This section contains my contributions to the treasurerPro user guide for the reimbursement tab features.
-The following is an excerpt from our treasurerPro user guide, showing only part of the additions that I have
-made. As for the complete additions, please refer to
+The following is an excerpt from our treasurerPro user guide, showing only part of the additions that I have made.
+As for the complete additions, please refer to
 https://ay1920s1-cs2103t-t13-3.github.io/main/UserGuide.html#reimbursements-tab[reimbursement tab section]
 in the user guide.
 
 === Adding a deadline to a reimbursement
+
 This command allows you to add a deadline to a member's reimbursement record.
 
 [WARNING]
-You can set the deadline as any day you want. It is your responsibility to set a reasonable deadline.
+You can set the deadline as any day you want.
+It is your responsibility to set a reasonable deadline.
 
 * Command: `deadline p/NAME dt/dd-mmm-yyyy`
 * Example: [blue]`deadline p/Alex Yeoh dt/19-Dec-2019`
@@ -162,8 +161,7 @@ image::Reimbursement/ReimbursementDeadlineCommand.png[width="500"]
 [start = 2]
 . Hit `Enter`
 
-If the deadline is successfully added, Leo will respond with a success message and the
-deadline will now display for the specified person's reimbursement. +
+If the deadline is successfully added, Leo will respond with a success message and the deadline will now display for the specified person's reimbursement. +
 Otherwise, Leo will show an error message indicating that the person is not in the reimbursement list.
 
 .Result of deadline command in reimbursement tab
@@ -171,17 +169,17 @@ image::Reimbursement/ReimbursementDeadlineCommandSuccess.png[width="500"]
 
 [NOTE]
 You must provide the deadline in the format `dd-mmm-yyyy` e.g. `19-Dec-2019`. +
-If an invalid format is inputted, e.g. `01-AAA-2019` or `19-DEC-2019` or `-1-Dec-2019`,
-Leo will inform you that the input is invalid. +
+If an invalid format is inputted, e.g. `01-AAA-2019` or `19-DEC-2019` or `-1-Dec-2019`, Leo will inform you that the input is invalid. +
 
-If an invalid date is entered, e.g. `31-Feb-2019`, the app will round it  to `28-Feb-2019`
-and adds the rounded date as the deadline. But our app only checks up to `31` in day.
+If an invalid date is entered, e.g. `31-Feb-2019`, the app will round it to `28-Feb-2019`
+and adds the rounded date as the deadline.
+But our app only checks up to `31` in day.
 
 [NOTE]
-To modify the deadline for a reimbursement, you can use `deadline` command again
-to reassign a new deadline to a reimbursement.
+To modify the deadline for a reimbursement, you can use `deadline` command again to reassign a new deadline to a reimbursement.
 
 === Marking a reimbursement as done
+
 This command helps you to mark a reimbursement as done and remove it from reimbursement list.
 
 [NOTE]
@@ -192,8 +190,7 @@ No indication will be shown in the Transaction Tab.
 * Example: [blue]`done p/Alex Yeoh`
 
 * Steps:
-. Type the command, along with the person's name whose reimbursement is to be marked as done,
-as shown in the screenshot below:
+. Type the command, along with the person's name whose reimbursement is to be marked as done, as shown in the screenshot below:
 
 
 .Input done command in reimbursement tab
@@ -208,8 +205,8 @@ The reimbursement for that person will be removed from the tab, as shown below:
 .Result of done command in reimbursement tab
 image::Reimbursement/ReimbursementDoneCommandSuccess.png[width="500"]
 
-
 ==  Contributions to the developer guide
+
 This section contains my contributions to the treasurerPro developer guide for the reimbursement tab features.
 It only shows part of the additions I have made.
 As for the complete additions, please refer to
@@ -217,38 +214,34 @@ https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#reimbursements
 in the developer guide.
 
 === Deadline command feature
+
 This command is used to add a deadline date to a reimbursement for a person.
-Deadline command requires access to the `Model` of the
-person package which the `AddressBook` implementation is contained in.
-Deadline field should be provided in a valid date format. The
-person's name inputted has to match a person's name already existing in the `Reimbursement` which is shown in our Reimbursement
-Tab.
+Deadline command requires access to the `Model` of the person package which the `AddressBook` implementation is contained in.
+Deadline field should be provided in a valid date format.
+The person's name inputted has to match a person's name already existing in the `Reimbursement` which is shown in our Reimbursement Tab.
 
 The following sequence diagram shows the execution of deadline command:
 
 .Sequence diagram of deadline command in reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementDeadlineCommandSD.png[]
 
-As shown, a user needs to add a deadline to a reimbursement by specifying
-the person's name and providing a date.
+As shown, a user needs to add a deadline to a reimbursement by specifying the person's name and providing a date.
 The `DeadlineCommandParser` creates a `DeadlineCommand` with person and deadline date information.
 This `DeadlineCommand` is returned back to `LogicManager` of reimbursement and is executed by calling `addDeadline` method in
-`ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and displays the deadline in reimbursement list.
+`ModelManager`.
+After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and displays the deadline in reimbursement list.
 After that, the deadline is saved into a `.txt` file.
 
 .Activity diagram of deadline command in reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramDeadlineCommand.png[]
 
-As shown by the above activity diagram, when a user inputs a person who does not exist in any
-reimbursement or keys in an invalid data format, our app displays the expected format of the deadline command.
-Otherwise, when the execution is successful,
-a response informs the user that deadline is successfully added to the reimbursement.
-
+As shown by the above activity diagram, when a user inputs a person who does not exist in any reimbursement or keys in an invalid data format, our app displays the expected format of the deadline command.
+Otherwise, when the execution is successful, a response informs the user that deadline is successfully added to the reimbursement.
 
 === Find command feature
+
 This command is used to find a reimbursement that contains the person's name.
-The find command requires access to `Model` of the
-person package which the `AddressBook` implementation is contained in.
+The find command requires access to `Model` of the person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
 .Sequence diagram of find command in reimbursements tab (reimbursement package)
@@ -256,8 +249,8 @@ image::Reimbursement/ReimbursementFindCommandSD.png[]
 
 A user needs to find a reimbursement by providing the person's name.
 As shown in the above figure, `FindCommand` is executed by calling `findReimbursement` method in
-`ModelManager`. After the operations, that reimbursement is returned
-and reimbursement tab only shows a `filteredList` which contains this single reimbursement.
+`ModelManager`.
+After the operations, that reimbursement is returned and reimbursement tab only shows a `filteredList` which contains this single reimbursement.
 
 [[ReimbursementTabActivityDiagramFindCommand]]
 .Activity diagram of find command in reimbursements tab (reimbursement package)
@@ -265,11 +258,11 @@ image::Reimbursement/ReimbursementTabActivityDiagramFindCommand.png[]
 
 The above activity diagram shows the steps needed for find command.
 The person's name is checked whether it exists in reimbursement list.
-If not, our app informs the user that command is incorrect. If command is valid, the reimbursement
-is found and displayed in the tab.
-
+If not, our app informs the user that command is incorrect.
+If command is valid, the reimbursement is found and displayed in the tab.
 
 == Overall design considerations
+
 This section's table explains the design considerations for some implementations in the reimbursement tab.
 
 |===
