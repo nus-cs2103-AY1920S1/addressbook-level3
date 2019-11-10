@@ -165,10 +165,13 @@
                      <Insets top="5.0" />
                   </VBox.margin>
                </Label>
-               <ListView id="profileVisitView" fx:id="profileVisitList" styleClass="isProfile-visit-view" VBox.vgrow="ALWAYS">
+               <ListView id="profileVisitView" fx:id="profileVisitList" styleClass="profile-visit-view" VBox.vgrow="ALWAYS">
                   <VBox.margin>
                      <Insets top="4.0" />
                   </VBox.margin>
+                  <opaqueInsets>
+                     <Insets />
+                  </opaqueInsets>
                </ListView>
                <HBox alignment="CENTER" maxHeight="24.0" prefHeight="24.0" prefWidth="200.0">
                   <children>

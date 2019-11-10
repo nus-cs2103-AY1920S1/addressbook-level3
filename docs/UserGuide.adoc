@@ -18,9 +18,14 @@ endif::[]
 
 By: `Team UnrealUnity`      Since: `Sep 2019`      Licence: `MIT`
 
+
 == Introduction
 
-*VISIT* is a *desktop address book application* for Doctors to *plan their visits* and *manage their patient information*. Most notably, VISIT is *optimized for Doctors who prefer to use a Command Line Interface* (CLI) while still having a pleasant Graphical User Interface (GUI). If your typing speed is sufficiently quick, VISIT can *greatly increase your efficiency* in managing your patient profiles and appointments. Interested in spending less time resolving logistical hiccups and more time doing your job? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to the VISIT User Guide! +
+ +
+*VISIT* is a *desktop address book application* for Doctors to *plan their visits* and *manage their patient information*. Most notably, VISIT is *optimized for Doctors who prefer to use a Command Line Interface* (CLI) while still having a pleasant Graphical User Interface (GUI). If your typing speed is sufficiently quick, VISIT can *greatly increase your efficiency* in managing your patient profiles and appointments. +
+
+This user guide provides in-depth documentation on how to use quickly get up to speed on using VISIT. Interested in spending less time resolving logistical hiccups and more time doing your job? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -47,7 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
+*Using Commands in this Guide*
 
 * All commands listed are *case-insensitive*.
 * Words in `UPPER_CASE` represent the parameters to be specified.
@@ -138,28 +143,6 @@ Returns `john` and `John Doe`
 * `find ans` +
 Returns `Hans` and `Aziz Ansari`
 
-==== Viewing a Patient's Full Profile : `profile`
-
-Opens up a new pop-out panel showing the specified patient’s details (Name, Phone, Email, Address, Tags, Visitation reports). The panel can then be closed by pressing kbd:[q] or kbd:[esc] to quit, or kbd:[p] to generate a text file of the profile. +
-Format: `profile INDEX`
-
-[NOTE]
-Generated text version of profiles are saved under the `generated_profiles` folder of the application.
-
-****
-* Shows full profile for the patient at the specified INDEX.
-* The index refers to the index number shown in the displayed patient list.
-* The index must be a positive integer 1, 2, 3, …
-* The generated text file will be the following format:
-- `NAME_PHONE_dd-MM-yyyy hh-mm-ss`
-- e.g. `Alex Yeoh_87438807_02-11-2019 20-33-58`
-****
-
-*Examples*:
-
-* `profile 2` +
-Opens up a pop-up panel detailing the profile of the patient with the index of 2.
-
 // tag::delete[]
 ==== Deleting a patient : `delete`
 
@@ -189,6 +172,70 @@ Format: `clear`
 
 [WARNING]
 Be careful when entering this, as this will erase all patient data from VISIT!
+
+// tag::profile[]
+=== *Viewing and Generating a Patient's Profile* : `profile`
+
+VISIT allows you to visualize a specified patient’s full details on an easy to access panel. The command can be initiated as follows:  +
+Format: `profile INDEX`
+
+****
+* Shows full profile for the patient at the specified INDEX.
+* The index refers to the index number shown in the displayed patient list.
+* The index must be a positive integer 1, 2, 3, …
+****
+
+*Example:*
+[.text-center]
+image::UGProfile0.png[width="790"]
+
+Entering this command generates a pop out panel (seen below) detailing the various attributes of the specified Patient. This includes all attributes and visitation records.
+
+[.text-center]
+image::UGProfile1.png[width="790"]
+
+[WARNING]
+You must close this window before doing anything else with VISIT (Adding Visits, Deleting Patients, etc.).
+
+*Generating and Exporting a Profile as a .txt file*
+
+You can generate a text file containing the contents of the Patient's Profile, for your own archiving purposes and exporting.
+****
+To export a Profile in a text file: *press kbd:[p]  on your keyboard or click the kbd:[Generate Profile File] button.*
+****
+
+[.text-center]
+image::UGProfile2.png[width="500"]
+
+[NOTE]
+You will see a message saying "_Profile .txt created in /generated_profiles/_." once the Profile has been successfully generated.
+
+Generated text version of Profiles are saved under the `generated_profiles` folder located in the parent folder of _VISITapp.jar_. +
+
+[.text-center]
+image::UGProfile3.png[width="790"]
+
+[.text-center]
+image::UGProfile4.png[width="790"]
+
+[NOTE]
+The generated text file will be the following format: +
+`NAME_PHONE_dd-MM-yyyy hh-mm-ss.txt` +
+e.g. `Alex Yeoh_87438807_02-11-2019 20-33-58.txt`
+
+
+Below is an example of a generated profile .txt file:
+[.text-center]
+image::UGProfile5.png[width="500"]
+
+[WARNING]
+While files are write-protected, you can still create duplicate copies for editing. Data encryption and safer data handling is planned for VISIT v2.0 (See <<Upcoming-Features>>).
+
+*Closing the panel* +
+Clicking on the cross on the top-right of the panel or pressing kbd:[esc] button on your keyboard will close the panel.
+
+
+// end::profile[]
 
 // tag::visitreports[]
 === *Viewing and Managing Visits*
@@ -436,6 +483,7 @@ Shows all the existing aliases.
 VISIT's address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+[[Upcoming-Features]]
 === *Upcoming Features*
 The following features are intended for a later release of VISIT that will further expand on the managing power doctors will be able to execute using the application.
 
@@ -446,14 +494,18 @@ Doctors will be able to generate the list of medication in their stock and assig
 , which automatically deducts from that list. +
 Warnings of low stocks are also an intended feature.
 
+==== Profile Data Encryption and .pdf exporting `[Coming in v2.0]`
+
+In v2.0, VISIT will allow you to export Patient data from VISIT with greater assurances on confidentiality with .pdf exporting, enabling password encryption for exported Profiles.
+
 ==== Generating of Medical Certificates `[Coming in v2.0]`
 
-In v2.0, VISIT will allow doctors to easily generate an official Medical Certificate with a single command.
+In v2.0, VISIT will allow you to easily generate an official Medical Certificate with a single command.
 
 ==== Microsoft Azure Integration `[Coming in v2.0]`
 
 Microsoft Azure is a popular Cloud Computing platform that allows for data analysis, remote deployment and user
-authentication resources. We plan to leverage this power in VISIT v2.0 so that doctors may securely access
+authentication resources. We plan to leverage this power in VISIT v2.0 so that you may securely access
 VISIT from any location, truly bringing VISIT on-the-go.
 
 ==== Improved UI `[Coming in v2.0]`
@@ -488,11 +540,13 @@ e.g. `add n/Betsy Crowe t/cold e/betsycrowe@example.com a/Changi Hospital p/1234
 e.g. `edit 2 n/Betsy Crower t/`
 * *Locating patient by name* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find Betsy Tim John`
-* *Viewing Full Profile* : `profile INDEX` +
-e.g. `profile 1`
 * *Deleting a patient* : `delete INDEX` +
 e.g. `delete 2`
 * *Clearing all patient data* : `clear`
+
+=== *Viewing and Generating a Patient's Profile*
+* *Viewing and generating a Full Profile* : `profile INDEX` +
+e.g. `profile 1`
 
 === *Viewing and Managing Visits*
 
