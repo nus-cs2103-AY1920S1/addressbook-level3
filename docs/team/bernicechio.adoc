@@ -29,8 +29,8 @@ My role was to design and write the codes for the generate PDF reports feature. 
 Note the following symbols and formatting used in this document:
 
 ====
-* `genReports`:  A grey highlight (also known as a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
-* `[subheader]#GenReportCommand.java#`: Orange text with grey highlight indicates a component, class or object in the architecture of the application.
+* `genReports`:  A dark red text (also known as a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+* `[red]#GenReportCommand.java#`: Red text with grey highlight indicates a component, class or object in the architecture of the application.
 ====
 
 == 2. Summary of contributions
