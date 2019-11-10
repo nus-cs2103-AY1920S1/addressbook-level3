@@ -4,7 +4,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import seedu.billboard.commons.core.LogsCenter;
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Expense;
@@ -65,7 +64,7 @@ public class ChartBox extends UiPart<Region> {
             currentChart = new ExpenseBreakdownChart(expenses, new BreakdownGenerator());
             break;
         case HEAT_MAP:
-            currentChart = new ExpenseHeatMapChart(expenses, new HeatMapGenerator());
+            currentChart = new ExpenseHeatMapChart(expenses, expenseGrouping, new HeatMapGenerator());
             break;
         default:
             throw new UnsupportedOperationException("Chart not implemented for selected statistic");

@@ -1,14 +1,15 @@
 package seedu.billboard.ui.charts;
 
+import static java.util.stream.Collectors.summarizingLong;
 import static java.util.stream.Collectors.toList;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
+import java.util.LongSummaryStatistics;
 import java.util.Map;
 
 import javafx.application.Platform;
@@ -16,7 +17,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
@@ -29,6 +29,7 @@ import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.ExpenseGrouping;
 import seedu.billboard.model.statistics.formats.ExpenseTimeline;
 import seedu.billboard.model.statistics.generators.TimelineGenerator;
+import seedu.billboard.ui.charts.converters.FormattedDateConverter;
 
 /**
  * A chart showing the timeline for the currently displayed expenses.
@@ -38,56 +39,83 @@ public class ExpenseTimelineChart extends ExpenseChart {
     private static final String FXML = "ExpenseTimelineChart.fxml";
 
     @FXML
-    private LineChart<String, BigDecimal> timelineChart;
+    private LineChart<Long, BigDecimal> timelineChart;
 
     @FXML
-    private CategoryAxis xAxis;
+    private NumberAxis xAxis;
 
     @FXML
     private NumberAxis yAxis;
 
-    private final EnumMap<DateInterval, DateTimeFormatter> dateIntervalFormats;
-    private final ObservableData<DateInterval> interval;
+    private final ObservableData<DateInterval> dateInterval;
     private final ObservableData<ExpenseGrouping> expenseGrouping;
     private final TimelineGenerator timelineGenerator;
-    private final Map<String, XYChart.Series<String, BigDecimal>> seriesMap;
+    private final Map<String, XYChart.Series<Long, BigDecimal>> seriesMap;
+    private final FormattedDateConverter formattedDateConverter;
 
     /**
      * Returns a new {@code ExpenseTimelineChart} with the specified parameters.
      *
      * @param expenses          An observable wrapper of the currently displayed expenses.
-     * @param interval          Selected date interval to display.
+     * @param dateInterval      Selected date dateInterval to display.
      * @param expenseGrouping   Selected expense grouping to use.
      * @param timelineGenerator Instance of a class that generates the timeline to be viewed.
      */
-    public ExpenseTimelineChart(ObservableList<? extends Expense> expenses, ObservableData<DateInterval> interval,
+    public ExpenseTimelineChart(ObservableList<? extends Expense> expenses, ObservableData<DateInterval> dateInterval,
                                 ObservableData<ExpenseGrouping> expenseGrouping,
                                 TimelineGenerator timelineGenerator) {
 
         super(FXML, expenses);
-        this.interval = interval;
+        this.dateInterval = dateInterval;
         this.expenseGrouping = expenseGrouping;
         this.timelineGenerator = timelineGenerator;
         this.seriesMap = new HashMap<>();
 
-        dateIntervalFormats = new EnumMap<>(DateInterval.class);
-        setupDateIntervalFormats(dateIntervalFormats);
+        formattedDateConverter = new FormattedDateConverter(getDateIntervalFormats(dateInterval.getValue()));
+        xAxis.setTickLabelFormatter(formattedDateConverter);
 
-        setupSeriesMapping(groupExpenses(expenses, expenseGrouping.getValue()));
-        updateTimeline(expenses, expenseGrouping.getValue(), interval.getValue());
+        setupSeriesMapping(expenseGrouping.getValue().getGroupingFunction().group(expenses));
+        updateTimeline(expenses, expenseGrouping.getValue(), dateInterval.getValue());
 
         setupListeners();
     }
 
     /**
-     * Helper method to setup an enum map of date intervals to a formatter to format the date ranges for displaying
-     * on the chart.
+     * Helper method to get the appropriate {@code DateTimeFormatter} to format the range represented by the given
+     * interval.
      */
-    private void setupDateIntervalFormats(EnumMap<DateInterval, DateTimeFormatter> dateIntervalFormats) {
-        dateIntervalFormats.put(DateInterval.DAY, DateTimeFormatter.ofPattern("dd/MM/yy"));
-        dateIntervalFormats.put(DateInterval.WEEK, DateTimeFormatter.ofPattern("dd/MM/yy"));
-        dateIntervalFormats.put(DateInterval.MONTH, DateTimeFormatter.ofPattern("MMM/yy"));
-        dateIntervalFormats.put(DateInterval.YEAR, DateTimeFormatter.ofPattern("yyyy"));
+    private DateTimeFormatter getDateIntervalFormats(DateInterval interval) {
+        switch (interval) {
+        case DAY:
+            return DateTimeFormatter.ofPattern("dd/MM/yy");
+        case WEEK:
+            return DateTimeFormatter.ofPattern("dd/MM/yy");
+        case MONTH:
+            return DateTimeFormatter.ofPattern("MMM/yy");
+        case YEAR:
+            return DateTimeFormatter.ofPattern("yyyy");
+        default:
+            throw new UnsupportedOperationException("Date formatter not defined for given date interval.");
+        }
+    }
+
+    /**
+     * Helper method to get the appropriate tick unit to format xAxis of the chart. The units do not have to be exact,
+     * and thus are just an approximation.
+     */
+    private int getDateIntervalTickUnit(DateInterval interval) {
+        switch (interval) {
+        case DAY:
+            return 1;
+        case WEEK:
+            return 7;
+        case MONTH:
+            return 30;
+        case YEAR:
+            return 365;
+        default:
+            throw new UnsupportedOperationException("Tick unit not defined for given date interval.");
+        }
     }
 
     /**
@@ -97,7 +125,7 @@ public class ExpenseTimelineChart extends ExpenseChart {
     private void setupSeriesMapping(Map<String, ? extends List<? extends Expense>> expenseListMap) {
         seriesMap.clear();
         for (var entry : expenseListMap.entrySet()) {
-            XYChart.Series<String, BigDecimal> series = new XYChart.Series<>();
+            XYChart.Series<Long, BigDecimal> series = new XYChart.Series<>();
             series.setName(entry.getKey());
             seriesMap.put(entry.getKey(), series);
         }
@@ -110,12 +138,15 @@ public class ExpenseTimelineChart extends ExpenseChart {
      * timeline accordingly.
      */
     private void setupListeners() {
-        expenseGrouping.observe(grouping -> updateTimeline(expenses, grouping, interval.getValue()));
+        expenseGrouping.observe(grouping -> updateTimeline(expenses, grouping, dateInterval.getValue()));
 
         expenses.addListener((ListChangeListener<Expense>) c ->
-                updateTimeline(c.getList(), expenseGrouping.getValue(), interval.getValue()));
+                updateTimeline(c.getList(), expenseGrouping.getValue(), dateInterval.getValue()));
 
-        interval.observe(newInterval -> updateTimeline(expenses, expenseGrouping.getValue(), newInterval));
+        dateInterval.observe(newInterval -> {
+            formattedDateConverter.setFormatter(getDateIntervalFormats(newInterval));
+            updateTimeline(expenses, expenseGrouping.getValue(), newInterval);
+        });
     }
 
     /**
@@ -123,12 +154,19 @@ public class ExpenseTimelineChart extends ExpenseChart {
      * {@code setupSeriesMapping} will be called to reset the mappings.
      */
     private void updateTimeline(List<? extends Expense> expenses, ExpenseGrouping grouping, DateInterval interval) {
-        Map<String, ? extends List<? extends Expense>> expenseListMap = groupExpenses(expenses, grouping);
+        LongSummaryStatistics statistics = expenses.stream()
+                .collect(summarizingLong(expense -> expense.getCreated().dateTime.toLocalDate().toEpochDay()));
+
+        int tickUnit = getDateIntervalTickUnit(interval);
+        updateXAxisRange(statistics.getMin(), statistics.getMax(), tickUnit);
+
+
+        Map<String, ? extends List<? extends Expense>> expenseListMap = grouping.getGroupingFunction().group(expenses);
         if (!seriesMap.keySet().equals(expenseListMap.keySet())) {
             setupSeriesMapping(expenseListMap);
         }
 
-        List<XYChart.Series<String, BigDecimal>> unusedSeries = new ArrayList<>();
+        List<XYChart.Series<Long, BigDecimal>> unusedSeries = new ArrayList<>();
 
         for (var series : timelineChart.getData()) {
             String name = series.getName();
@@ -141,6 +179,15 @@ public class ExpenseTimelineChart extends ExpenseChart {
         timelineChart.getData().removeAll(unusedSeries);
     }
 
+    private void updateXAxisRange(long min, long max, double tickUnit) {
+        double maxTicks = 20.0;
+        long range = max - min;
+        double adjustedTickUnit = range / tickUnit > maxTicks ? range / maxTicks : tickUnit;
+        xAxis.setLowerBound(min - adjustedTickUnit);
+        xAxis.setUpperBound(max + adjustedTickUnit);
+        xAxis.setTickUnit(adjustedTickUnit);
+    }
+
 
     /**
      * Helper method called to asynchronously update each series.
@@ -148,7 +195,7 @@ public class ExpenseTimelineChart extends ExpenseChart {
     private void updateSeries(Task<ExpenseTimeline> newTimelineTask, String seriesName) {
         newTimelineTask.setOnSucceeded(event -> {
             ExpenseTimeline timeline = newTimelineTask.getValue();
-            List<XYChart.Data<String, BigDecimal>> data = transformToData(timeline);
+            List<XYChart.Data<Long, BigDecimal>> data = transformToData(timeline);
 
             if (!seriesMap.containsKey(seriesName)) {
                 logger.warning("Series: " + seriesName + " does not exist in chart.");
@@ -161,35 +208,19 @@ public class ExpenseTimelineChart extends ExpenseChart {
     /**
      * Maps a list of pairs of date range and amount into a list of formatted data ready to be displayed.
      */
-    private List<XYChart.Data<String, BigDecimal>> transformToData(ExpenseTimeline timeline) {
-        List<Pair<DateRange, Amount>> values = timeline.getTimelineValues();
-        return values.stream()
-                .map(entry -> dataFromPair(entry, timeline.getDateInterval()))
+    private List<XYChart.Data<Long, BigDecimal>> transformToData(ExpenseTimeline timeline) {
+        return timeline.getTimelineValues()
+                .stream()
+                .map(this::dataFromPair)
                 .collect(toList());
     }
 
     /**
      * Transforms a single pair of {@code DateRange} and {@code Amount} to a data object. The date range is
-     * formatted as a string according to the given date interval.
+     * formatted as a string according to the given date dateInterval.
      */
-    private XYChart.Data<String, BigDecimal> dataFromPair(Pair<DateRange, Amount> entry,
-                                                          DateInterval interval) {
+    private XYChart.Data<Long, BigDecimal> dataFromPair(Pair<DateRange, Amount> entry) {
 
-        return new XYChart.Data<>(formatDate(entry.getKey().getStartDate(), interval), entry.getValue().amount);
-    }
-
-    /**
-     * Formats a date as a string using the given date interval, as defined in {@code dateIntervalFormats}.
-     */
-    private String formatDate(LocalDate date, DateInterval dateInterval) {
-        return dateIntervalFormats.get(dateInterval).format(date);
-    }
-
-    /**
-     * Groups the expenses into a map of category names and list of expenses that fit that given category.
-     */
-    private Map<String, ? extends List<? extends Expense>> groupExpenses(List<? extends Expense> expenses,
-                                                                         ExpenseGrouping grouping) {
-        return grouping.getGroupingFunction().group(expenses);
+        return new XYChart.Data<>(entry.getKey().getStartDate().toEpochDay(), entry.getValue().amount);
     }
 }

@@ -19,10 +19,14 @@ import javafx.scene.chart.XYChart;
 
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.date.DateRange;
+import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.formats.ExpenseGrouping;
 import seedu.billboard.model.statistics.formats.ExpenseHeatMap;
 import seedu.billboard.model.statistics.generators.HeatMapGenerator;
+import seedu.billboard.ui.charts.converters.DayOfWeekConverter;
+import seedu.billboard.ui.charts.converters.MonthConverter;
 
 
 /**
@@ -46,7 +50,8 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     private final XYChart.Series<Integer, Integer> series;
     private final DateRange currentYearRange = getCurrentYearRange();
 
-    public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses, HeatMapGenerator heatMapGenerator) {
+    public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses, ObservableData<ExpenseGrouping> grouping,
+                               HeatMapGenerator heatMapGenerator) {
         super(FXML, expenses);
         this.heatMapGenerator = heatMapGenerator;
 

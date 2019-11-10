@@ -1,4 +1,4 @@
-package seedu.billboard.ui.charts;
+package seedu.billboard.ui.charts.converters;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.billboard.testutil.Assert.assertThrows;
@@ -9,6 +9,7 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
+import seedu.billboard.ui.charts.converters.DayOfWeekConverter;
 
 
 @SuppressWarnings("ResultOfMethodCallIgnored")

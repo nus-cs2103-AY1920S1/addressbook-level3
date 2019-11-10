@@ -1,4 +1,4 @@
-package seedu.billboard.ui.charts;
+package seedu.billboard.ui.charts.converters;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -29,7 +29,7 @@ public class MonthConverter extends StringConverter<Number> {
      * @param dateOffset Given date offset.
      * @param textStyle  Given text style for month name formatting.
      */
-    MonthConverter(LocalDate dateOffset, TextStyle textStyle) {
+    public MonthConverter(LocalDate dateOffset, TextStyle textStyle) {
         this.textStyle = textStyle;
         this.locale = Locale.getDefault();
         this.dateOffset = dateOffset;
@@ -51,7 +51,7 @@ public class MonthConverter extends StringConverter<Number> {
     @Override
     public String toString(Number number) {
         Objects.requireNonNull(number);
-        // 54 weeks / 12 months = roughly 4.5 weeks per month
+        // 54 weeks / 12 months = 4.5 weeks per month
         return Month.of(offsetNumberToMonthName((int) Math.floor(number.doubleValue() / 4.5)))
                 .getDisplayName(textStyle, locale);
     }

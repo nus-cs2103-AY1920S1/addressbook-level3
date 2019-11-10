@@ -1,4 +1,4 @@
-package seedu.billboard.ui.charts;
+package seedu.billboard.ui.charts.converters;
 
 import java.util.HashMap;
 import java.util.Locale;

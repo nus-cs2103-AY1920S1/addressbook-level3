@@ -4,24 +4,24 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 
-import javafx.util.Pair;
-import seedu.billboard.model.expense.Expense;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import javafx.util.Pair;
+import seedu.billboard.model.expense.Expense;
+
 
 /**
  * Represents a grouping that expenses can be partitioned by.
  */
 public enum ExpenseGrouping {
-    TAG("tag", expenses ->
-            expenses.stream()
-                    .flatMap(expense -> expense.getTags()
-                            .stream()
-                            .map(tag -> new Pair<>(tag, expense)))
-                    .collect(groupingBy(pair -> pair.getKey().tagName,
-                            mapping(Pair::getValue, toList())))),
+    TAG("tag", expenses -> expenses.stream()
+            .flatMap(expense -> expense.getTags()
+                    .stream()
+                    .map(tag -> new Pair<>(tag, expense)))
+            .collect(groupingBy(pair -> pair.getKey().tagName,
+                    mapping(Pair::getValue, toList())))),
 
     NONE("none", expenses -> Map.of("All expenses", expenses));
 

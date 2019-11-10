@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,8 +11,8 @@
                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
         <xAxis>
-            <CategoryAxis fx:id="xAxis" animated="false" label="Date">
-            </CategoryAxis>
+            <NumberAxis fx:id="xAxis" animated="false" label="Date" forceZeroInRange="false" autoRanging="false">
+            </NumberAxis>
         </xAxis>
 
         <yAxis>
