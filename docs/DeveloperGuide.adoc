@@ -209,7 +209,6 @@ public class MyCommand extends Command {
 }
 ----
 
-
 ==== CommandParser
 
 A `CommandParser` is defined to be able to parse a `String` of user input, and return a `Command`.
@@ -244,10 +243,8 @@ Examples of valid command phrases:
 - `’24/10/2019 07:00’`
 - `--description`
 
-A valid command contains exactly one command keyword, and zero or more command phrases.
-(i.e. `[keyword] [phrase] [phrase] [phrase] ...`)
-
-`CommandParser` is trying to tokenize any command input into a keyword and phrases.
+`CommandParser` is trying to tokenize any command input into one command keyword, and zero or more command phrases.
+(i.e. `[keyword] [phrase] [phrase] [phrase] ...`).
 To understand how the FSM works, study the activity diagram below:
 
 .Activity diagram of CommandParser
@@ -255,7 +252,6 @@ image::CommandParserActivityDiagram.png[]
 
 After tokenizing, the command keyword is sent to a `CommandKeywordParser`, which returns a `CommandBuilder`.
 The remaining command phrases are sent to the `CommandBuilder`, which builds the `Command` we want.
-
 
 ==== CommandKeywordParser
 
@@ -384,6 +380,10 @@ For example, a `VariableArgument<Integer>` which receives {1, 2, 3} will be pars
 A command is said to contain a list of arguments, and it’s options are said to contain a list of arguments too. Both are considered an `ArgumentList`. An `ArgumentList` is defined to contain zero or more `Arguments`, and zero or one `VariableArguments`.
 
 Additionally, if a variable argument is defined, it will be treated as the last argument in the `ArgumentList`. This is because a variable argument can accept zero or more command phrases, which will prevent other arguments from receiving command phrases if it is not the last argument.
+
+==== Design Considerations
+
+
 
 [[Design-ModelManager]]
 === ModelManager Component
