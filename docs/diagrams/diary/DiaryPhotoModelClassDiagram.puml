@@ -10,10 +10,12 @@ class LocalDateTime
 class Path
 class String
 
+Class HiddenOutside #FFFFFF
+DiaryEntry -right-> "1 " PhotoList
 PhotoList *-down-> "*" Photo
 
-Photo *---> "1" LocalDateTime : date taken <
-Photo *---> "1" Path : image file path <
-Photo *---> "1" String : description <
+Photo *--> "  1" LocalDateTime : Date Taken <
+Photo *---> "          1" Path : Image File Path <
+Photo *--> "                                                        1 " String : description <
 
 @enduml
