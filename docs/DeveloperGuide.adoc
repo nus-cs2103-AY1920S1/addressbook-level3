@@ -385,32 +385,36 @@ After the analysis described below, the Command pattern was thought to be the be
 
 === Notification Feature
 This feature in Mortago acts as a reminder to a mortuary manager to contact the police when the next-of-kin of a body
-has been uncontactable for a given period of time. He / She then needs to contact the police to proceed with a
+has been not been contactable for a given period of time. He / She then needs to contact the police to proceed with a
 more thorough investigation. In Singapore, this period is 24 hours. For testing purposes, it has been set to
 10 seconds in Mortago.
 
-If the status of a `Body` is `ARRIVED` after the 10 second window, it is updated to `CONTACT_POLICE` and a
-pop-up alert is displayed to remind regarding the same.
+If the status of a `Body` is `ARRIVED` after 10 seconds, it is updated to `CONTACT_POLICE` and a
+pop-up alert is displayed to remind the user.
+
+[TIP]
+If you want to change the time period, you can do so by modifying `NOTIF_PERIOD` and `NOTIF_TIME_UNIT` variables in
+AddCommand.java.
 
 This command is supported by the model component `Notif` and logic component `NotifCommand`.
 
 In `Notif` command, the following are the key private variables:
 
 * `body`: Refers to the `Body` for which the `Notif` is associated with. This is passed in as a parameter when a new
-object of the class is instantiated.
+instance of the class is instantiated.
 
 * `alert`: Refers to a `Runnable` function which checks if the current status of the body is `ARRIVED` and if so,
 changes it to `CONTACT_POLICE`.
 
-* `notifCreationTime`: Refers to a `Date` object which store the date and time at the point of addition of the body.
+* `notifCreationTime`: Refers to a `Date` object which stores the date and time at the point of addition of the body.
 
 The constructor of a `NotifCommand` must be provided with the following parameters:
 
-* `notif`: Refers to the the instance of the `Notif` which needs to be handled.
+* `notif`: Refers to the instance of the `Notif` which is handled by the `NotifCommand`.
 
 * `period`: Refers to a `long` value for which the NotifCommand needs to wait before executing the `alert` function
 of the `notif`. `long` is used because `notifCreationTime.getTime()` returns a `long` which is useful in storage.
- It will be explained in futher detail later.
+ It will be explained in further detail later.
 
 * `timeUnit`: Refers to a `TimeUnit` associated with the `period`.
 
@@ -422,36 +426,12 @@ Given below is the typical execution process of this command:
 3. The `AddCommand` instantiates a new `NotifCommand` with `Notif`, `period`, `unit` as parameters.
 `period` is as a `static final long` equal to 10 and `unit` is `static final TimeUnit` set to `TimeUnit.SECONDS` in `AddCommand`.
 4. `NotifCommand` has a static instance of the `ScheduledExecutorService` which schedules updating the status of the
-bodies to `CONTACT_POLICE` if there is no change in their status for the specified `period` using the `UpdateCommand`.
-5. After the `BodyStatus` is updated, a `NotifWindow` will be shown to alert the user of the automatic update in
-`BodyStatus`.
-
-Here is the code snippet of the `NotifCommand`:
-```
-Body body = notif.getBody();
-String notifContent = "Body Id: " + body.getIdNum()
-+ "\nName: " + body.getName()
-+ "\nNext of Kin has been uncontactable. Please contact the police";
-
-Runnable changeUi = () -> Platform.runLater(() -> {
-    if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
-        UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
-        up.setUpdateFromNotif(true);
-        try {
-            up.execute(model);
-            NotifWindow notifWindow = new NotifWindow();
-            notifWindow.setTitle("Contact Police!");
-            notifWindow.setContent(notifContent);
-            notifWindow.display();
-            storageManager.saveAddressBook(model.getAddressBook());
-        } catch (CommandException | IOException e) {
-            logger.info("Error updating the body and fridge ");
-        }
-    }
-    NotificationButton.getInstanceOfNotifButton().setIconNumber(model.getNumberOfNotifs());
-});
-ses.schedule(changeUi, period, timeUnit);
-```
+`Body` to `CONTACT_POLICE` if there is no change in its status for the specified `period`. The `UpdateCommand` is
+called to make the change.
+5. After the status of the `Body` is updated, a `NotifWindow` is shown to alert the user of the automatic
+update.
+6. On clicking the notification bell or using the `showNotif` command, a pop-over opens and lists all the bodies for
+which police needs to be contacted.
 
 The following sequence diagrams illustrate the execution of the notification feature:
 
@@ -461,7 +441,8 @@ image::NotifCommandSequenceDiagram.png[]
 .ChangeUI function Sequence Diagram
 image::ChangeUiFnSequenceDiagram.png[]
 
-The following activity diagram shows what happens when a user adds a new body and the `NotifCommand` is instantiated:
+The following activity diagram illustrates what happens when a user adds a new body and the `NotifCommand` is
+instantiated:
 
 .Notification Command Activity Diagram
 image::NotifCommandActivityDiagram.png[]
@@ -475,10 +456,14 @@ status of the body was updated.
 |===
 
 This command supports storage where each `Notif` with its associated `Body` and the `long` equivalent of the
-`notifCreationTime` are stored in a JSON file along with the other `Entities`. When the `MainApp` is initialized, all
-the `Notif` stored will be added in the `model`. During this process, for each `Notif`, the difference of the current system
-time and `notifCreationTime` is calculated. If it is more than the `period`, then the status of the associated `Body` is
+`notifCreationTime` are stored in a JSON file along with the other `Entities`. When the `MainApp` is initialized, the
+following happens:
+
+1. All the `Notif` s are fetched from the storage.
+2. For each `Notif`, the difference of the  current system time and `notifCreationTime` is calculated.
+3. If the difference is more than the `period`, then the status of the associated `Body` is
 changed to `CONTACT_POLICE`. Otherwise, the `NotifCommand` is scheduled to be executed after the calculated time difference.
+4. The `Notif` is added to the model.
 
 |===
 
@@ -486,6 +471,7 @@ a|[TIP]
 *When is the `NotifCommand` not executed?*
 a|* If the status of the `Body` is changed before the 10 second window.
 * If the `Body` is deleted before the time period.
+* If the difference between `notifCreationTime` and system time is more than `period` when the app is initialized.
 
 |===
 
@@ -500,14 +486,22 @@ a|* If the status of the `Body` is changed before the 10 second window.
 ** Pros: Straightforward way to delay a thread.
 ** Cons: May quickly run into OutOfMemory error.
 
-==== Aspect: How to reflect change in BodyStatus on UI
-* **Alternative 1 (current choice):** Use `UpdateCommand`.
-** Pros: Easy to implement.
-** Cons: Increases `NotifCommand`'s dependency.
+Alternative 1 is the current choice because of its simplicity and robustness as it abstracts away the need
+to manually deal with threads.
 
-* **Alternative 2:** Directly make changes to the model.
-** Pros: Does not increase dependency .
-** Cons: Cause a lot of repetition of code.
+==== Aspect: How the behaviour of `NotifCommand` differs when the app is initialized
+* **Alternative 1 (current choice):** Do not show a pop-up if the difference between system time and
+`notifCreationTime` exceeds `period` .
+** Pros: Prevents the situation of multiple pop-ups on app initialization.
+** Cons: Does not prompt the user who may in turn forget to contact the police.
+
+* **Alternative 2:** Show pop-up on app initialization for `Notif` s in storage for which the difference between system
+time and `notifCreationTime` exceeds `period`.
+** Pros: Ensures that the user does not forget about contacting the police.
+** Cons: May slow down the computer and lag the app if there are too many pop-up notifications at the same time.
+
+Alternative 1 is the current choice because we want the app to be responsive and scalable in the long term. The
+notification bell is placed beside the command box to prevent instances of user forgetting to contact the police.
 
 // tag::genpdf[]
 === Generate PDF Feature
