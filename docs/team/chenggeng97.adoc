@@ -14,7 +14,7 @@ This is a portfolio that documents my contributions towards a Calendar and Sched
 Here is a screenshot of our application in the default Calendar view.
 
 .Horo Calendar view screenshot
-image::HoroPPPScreenshot.png[]
+image::HoroMainViewDescription.png[]
 
 === Project Scope
 Horo was made for the CS2103T Software Engineering module, offered by the National University of Singapore's School of Computing. Over the course of 6 weeks, students were grouped into teams tasked with either enhancing or morphing a basic Command Line Interface (CLI) application. I contributed to the project by writing both functional and test code, as well as documenting these contributions in the product's User and Developer guides.
