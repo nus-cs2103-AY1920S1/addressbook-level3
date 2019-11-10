@@ -17,6 +17,7 @@ endif::[]
 By: `T12-4`      Since: `Sept 2019`
 
 //@@author LeowWB
+
 == Introduction
 
 This document details various aspects of the implementation of the _KeyboardFlashCards_ application. It serves as
@@ -40,6 +41,7 @@ CAUTION: A cautionary warning
 TIP: A tip or word of advice
 
 //@@author
+
 2. Quick Start
 
 == Setting up
