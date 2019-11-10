@@ -553,25 +553,25 @@ To learn the wrong command `plus` as `add`:
 
 . You want to do an `add` command but carelessly type in `plus` instead and hit Enter to execute.
 +
-image::step1.png[width="700", align="left"]
+image::step1.png[width="800", align="left"]
 
 . Oh no! TutorAid does not know what `plus` means! You realise you've entered an unknown command. Thankfully, TutorAid offers to help you learn `plus`. You should type in `add` now since it's what you actually intended to do. Hit Enter!
 +
-image::step2.png[width="700", align="left"]
+image::step2.png[width="800", align="left"]
 [NOTE]
 You can also choose to discard the wrong command at this stage and carry on with normal operations. If you do not want to map `plus` to `add`. Just type `cancel`.
 
 . The result box tells you that `plus` has now been mapped to `add`.
 +
-image::step3.png[width="700", align="left"]
+image::step3.png[width="800", align="left"]
 
 . Let's test our new command by trying to add a student named John in our CS2101 class. Type in `plus n/John c/CS2101` and hit Enter.
 +
-image::step4.png[width="700", align="left"]
+image::step4.png[width="800", align="left"]
 
 . You should see that the command is successful and a new student called John in CS2101 has been added!
 +
-image::step5.png[width="700", align="left"]
+image::step5.png[width="800", align="left"]
 
 
 ==== Delete a custom command: 'deleteCustomCommand'
@@ -583,11 +583,11 @@ Let's try to delete the `plus` command you learned as `add` previously.
 
 . Type in `deleteCustomCommand plus` and hit Enter.
 +
-image::step1Delete.png[width="700", align="left"]
+image::step1Delete.png[width="800", align="left"]
 
 . The result box informs you that they've deleted the custom command `plus`.
 +
-image::step2Delete.png[width="700", align="left"]
+image::step2Delete.png[width="800", align="left"]
 
 . You should no longer be able to use `plus` as `add`.
 [NOTE]
