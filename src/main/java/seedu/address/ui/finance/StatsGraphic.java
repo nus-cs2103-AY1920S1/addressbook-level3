@@ -54,10 +54,10 @@ public class StatsGraphic extends UiPart<Region> {
         // Bar chart
         xLabel.setLabel("Group");
         xLabel.tickLabelFontProperty().set(Font.font(15));
-        xLabel.setTickLabelFill(Color.WHITE);
+        xLabel.setTickLabelFill(Color.BLACK);
         yLabel.setLabel("Total Amount");
         yLabel.tickLabelFontProperty().set(Font.font(15));
-        yLabel.setTickLabelFill(Color.WHITE);
+        yLabel.setTickLabelFill(Color.BLACK);
 
         ArrayList<XYChart.Series> barSeriesList = gData.getBarChartData();
         for (XYChart.Series series : barSeriesList) {
