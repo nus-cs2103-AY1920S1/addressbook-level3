@@ -153,26 +153,6 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage, transactionLogic, reimbursementLogic);
 
-
-        //no config for ui yet
-        /*UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(new Config().getUserPrefsFilePath());
-        UserPrefs userPrefs = new UserPrefs();
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        seedu.address.person.storage.StorageManager personStorage =
-                new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
-
-        ReadOnlyAddressBook initialData;
-        try {
-            Optional<ReadOnlyAddressBook> addressBookOptional = personStorage.readAddressBook();
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-
-        } catch (Exception e) {
-
-            initialData = new AddressBook();
-        }*/
-        /*seedu.address.person.model.ModelManager personMM =
-                new seedu.address.person.model.ModelManager(initialData, userPrefs);*/
-
         ui = new UiManager(transactionLogic, reimbursementLogic, inventoryLogic, logic, cashierLogic, overviewLogic);
 
     }
