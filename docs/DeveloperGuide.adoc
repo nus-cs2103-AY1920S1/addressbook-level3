@@ -16,6 +16,32 @@ endif::[]
 
 By: `T12-4`      Since: `Sept 2019`
 
+//@@author LeowWB
+== Introduction
+
+This document details various aspects of the implementation of the _KeyboardFlashCards_ application. It serves as
+a guide for any software developer who wishes to maintain or add on to the project - as such, it is extremely
+detailed and technical, and a certain degree of expertise may be required to fully understand everything here.
+
+_KeyboardFlashCards_ (KFC) is a desktop flashcard manager application. It is primarily targeted at university
+undergraduates, particularly computing students. As such, it is optimized for users who prefer to work with a
+Command Line Interface (CLI) while still enjoying the benefits of a Graphical User Interface (GUI).
+
+The application is written entirely in the Java programming language, with a GUI implemented using JavaFX. Its code base
+currently contains an approximate 25 KLoC.
+
+The following admonitions will occasionally appear throughout this document; you may wish to take note of them.
+Here is what each of them means:
+
+NOTE: A point of information that you may wish to take note of
+
+CAUTION: A cautionary warning
+
+TIP: A tip or word of advice
+
+//@@author
+2. Quick Start
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
