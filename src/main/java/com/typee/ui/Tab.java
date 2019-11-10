@@ -11,6 +11,7 @@ public class Tab {
     private UiPart<Region> controller;
 
     public Tab() {
+        //Void constructor for allowing Jackson API to construct Tab object.
     }
 
     public Tab(String name) {
