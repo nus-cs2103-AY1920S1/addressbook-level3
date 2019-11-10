@@ -53,6 +53,8 @@ public class TripBuilder {
                 .setLocation(trip.getDestination())
                 .setTotalBudget(trip.getBudget())
                 .setDayList(trip.getDayList())
+                .setDiary(trip.getDiary())
+                .setInventoryList(trip.getInventoryList())
                 .setExpenseList(trip.getExpenseList())
                 .setDiary(trip.getDiary());
         //.setDayList(trip.getDayList());
@@ -111,6 +113,8 @@ public class TripBuilder {
      * Terminal method to construct new {@link Trip}.
      */
     public Trip build() {
+        requireAllNonNull(name, startDate, endDate, destination, totalBudget, dayList,
+                expenseList, diary, inventoryList);
         return new Trip(name, startDate, endDate, destination, totalBudget,
                 dayList, expenseList, diary, inventoryList, photo);
     }

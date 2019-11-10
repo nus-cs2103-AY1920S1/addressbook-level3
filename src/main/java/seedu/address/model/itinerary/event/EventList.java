@@ -55,7 +55,7 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
             Event event = internalList.get(i);
             if (event.getName().equals(expense.getName())) {
                 set(event, new Event(event.getName(),
-                        event.getStartDate(), event.getEndDate(), expense, event.getDestination()));
+                        event.getStartDate(), event.getEndDate(), expense, event.getDestination(), null));
                 updated = true;
             }
         }
@@ -109,14 +109,21 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
         if (index == -1) {
             throw new EventNotFoundException();
         }
-        boolean hasSameEventName = IntStream.range(0, internalList.size()).filter(i -> i != index)
-                .anyMatch(i -> internalList.get(i).hasSameName(edited));
-        System.out.println(hasSameEventName);
-        if (hasSameEventName) {
-            throw new DuplicatedEventNameException();
-        }
 
-        internalList.set(index, edited);
+        Event event = internalList.remove(index);
+
+        boolean hasSameEventName = IntStream.range(0, internalList.size())
+                .anyMatch(i -> internalList.get(i).hasSameName(edited));
+
+        if (hasSameEventName) {
+            internalList.add(event);
+            throw new DuplicatedEventNameException();
+        } else if (containsClashing(edited)) {
+            internalList.add(event);
+            throw new ClashingEventException();
+        } else {
+            internalList.add(edited);
+        }
     }
 
     @Override

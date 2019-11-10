@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
@@ -23,6 +24,7 @@ public class EventBuilder {
     private Location destination;
     private Expense totalBudget;
     private Inventory inventory;
+    private Description description;
 
     /**
      * Constructs an empty {@code EventBuilder}.
@@ -55,7 +57,13 @@ public class EventBuilder {
         event.getExpense().ifPresent(e::setTotalBudget);
         event.getInventory().ifPresent(e::setInventory);
         event.getBooking().ifPresent(e::setBooking);
+        event.getDescription().ifPresent(e::setDescription);
         return e;
+    }
+
+    public EventBuilder setDescription(Description description) {
+        this.description = description;
+        return this;
     }
 
     public EventBuilder setStartDate(LocalDateTime startTime) {
@@ -89,7 +97,7 @@ public class EventBuilder {
     }
 
     public Event build() {
-        return new Event(name, startDate, endDate, booking, totalBudget, inventory, destination);
+        return new Event(name, startDate, endDate, booking, totalBudget, inventory, destination, description);
     }
 
 }

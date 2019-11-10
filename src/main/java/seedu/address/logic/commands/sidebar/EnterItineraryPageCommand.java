@@ -25,4 +25,10 @@ public class EnterItineraryPageCommand extends Command {
 
         return new CommandResult(MESSAGE_SUCCESS, true);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || other instanceof EnterItineraryPageCommand;
+    }
 }

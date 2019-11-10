@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+
 import seedu.address.model.expense.Expense;
+import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
@@ -26,6 +28,7 @@ public class JsonAdaptedEvent {
     //private final Optional<Booking> booking;
     private final Optional<JsonAdaptedExpense> expense;
     //private final Optional<Inventory> inventory;
+    private final Optional<String> description;
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
@@ -35,6 +38,7 @@ public class JsonAdaptedEvent {
             @JsonProperty("startTime") LocalDateTime from,
             @JsonProperty("endTime") LocalDateTime to,
             @JsonProperty("destination") String destination,
+            @JsonProperty("description") Optional<String> description,
             @JsonProperty("expense") Optional<JsonAdaptedExpense> expense
     //, @JsonProperty("booking")Optional<Booking> booking,
     // @JsonProperty("inventory")Optional<Inventory> inventory
@@ -43,6 +47,7 @@ public class JsonAdaptedEvent {
         this.startTime = from;
         this.endTime = to;
         this.destination = destination;
+        this.description = description;
         this.expense = expense;
     }
 
@@ -58,6 +63,11 @@ public class JsonAdaptedEvent {
             this.expense = Optional.of(new JsonAdaptedExpense(source.getExpense().get()));
         } else {
             this.expense = Optional.empty();
+        }
+        if (source.getDescription().isPresent()) {
+            this.description = Optional.of(source.getDescription().get().description);
+        } else {
+            this.description = Optional.empty();
         }
     }
 
@@ -117,8 +127,19 @@ public class JsonAdaptedEvent {
             modelExpense = Optional.empty();
         }
 
+        final Optional<Description> modelDescription;
 
-        return new Event(modelName, modelStartTime, modelEndTime, modelExpense, modelDestination);
+        if (description.isPresent()) {
+            if (!Description.isValidDescription(description.get())) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            }
+            modelDescription = Optional.of(new Description(description.get()));
+        } else {
+            modelDescription = Optional.empty();
+        }
+
+        return new Event(modelName, modelStartTime, modelEndTime, modelExpense, modelDestination, modelDescription);
     }
 }
 

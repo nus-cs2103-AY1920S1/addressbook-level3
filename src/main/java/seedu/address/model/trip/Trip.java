@@ -1,5 +1,6 @@
 package seedu.address.model.trip;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
@@ -33,6 +34,8 @@ public class Trip {
     private final ExpenseList expenseList;
     private final Budget totalBudget;
     private final Diary diary;
+
+    //Optional Fields
     private final Photo photo;
 
     private final InventoryList inventoryList;
@@ -81,17 +84,25 @@ public class Trip {
      * Creates a list of days upon first initialization.
      */
     public void initializeDayList() {
-        int totalDays = endDate.getDayOfMonth() - startDate.getDayOfMonth() + 1;
-        assert(totalDays > 0);
-        this.dayList.internalList.clear();
+        int totalDays = (int) DAYS.between(startDate, endDate) + 1;
+        assert (totalDays > 0);
+
+        // Remove all days outside interval
+        dayList.setStartDate(startDate);
+        dayList.setEndDate(endDate);
+
+        // Add all days not in list
         for (int i = 0; i < totalDays; i++) {
             LocalDateTime currentDay = startDate.plusDays(i);
-            this.dayList.add(new Day(currentDay.withHour(0).withMinute(0),
+            Day toAdd = new Day(currentDay.withHour(0).withMinute(0),
                     currentDay.withHour(23).withMinute(59),
                     Optional.empty(),
                     destination,
                     Optional.empty(),
-                    new EventList(currentDay)));
+                    new EventList(currentDay), Optional.empty());
+            if (!this.dayList.containsClashing(toAdd)) {
+                this.dayList.add(toAdd);
+            }
         }
     }
 
@@ -201,9 +212,9 @@ public class Trip {
         builder.append("Name: ")
                 .append(name.toString())
                 .append(" From: ")
-                .append(ParserDateUtil.getDisplayTime(startDate))
+                .append(ParserDateUtil.getDisplayDateTime(startDate))
                 .append(" To: ")
-                .append(ParserDateUtil.getDisplayTime(endDate))
+                .append(ParserDateUtil.getDisplayDateTime(endDate))
                 .append(" Destination: ")
                 .append(destination.toString())
                 .append(" Total Budget: ")

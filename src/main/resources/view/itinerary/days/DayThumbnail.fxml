@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="135.333333333334" prefWidth="202.0" style="-fx-border-color: #757575; -fx-background-color: white;" stylesheets="@days.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane onMouseClicked="#handleEnterDay" prefHeight="133.3333" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="anchorPane" onMouseClicked="#handleEnterDay" prefHeight="133.3333" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label fx:id="destinationLabel" style="-fx-text-fill: grey; -fx-font-size: 25;" styleClass="DestinationLabel" stylesheets="@days.css" text="\$Destination" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
