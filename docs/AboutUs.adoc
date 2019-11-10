@@ -42,15 +42,15 @@ image::alexwxh.png[width="150", align="left"]
 {empty}[https://github.com/alexwxh[github]]
 
 Role: Developer +
-Responsibilities: Deadline Manager
+Responsibilities: Link Manager
 
 '''
 
 === Guo Zili
 image::cowsaysbaa.png[width="150", align="left"]
-{empty}[https://github.com/CowSaysBaa[github]]
+{empty}[https://github.com/CowSaysBaa[github]][<<cowsaysbaa#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Parser
+Responsibilities: Main view commands
 
 '''

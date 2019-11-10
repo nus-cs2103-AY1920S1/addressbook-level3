@@ -247,7 +247,7 @@ With the new data, users may be able to easier manage their tracked modules and 
 . pass:[<text style="color:darkgreen"><b>Completed modules</b></text>] and pass:[<text style="color:darkorange"><b>ongoing modules</b></text>] can be used to determine if a user fulfil the requirements for their pass:[<text style="color:blue"><b>planned modules</b></text>].
 // end::markmodulestatus[]
 
-// tag::searchfitering[]
+// tag::searchfiltering[]
 === Search filtering feature
 ==== Implementation
 

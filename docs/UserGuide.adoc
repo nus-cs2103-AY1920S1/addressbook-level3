@@ -98,6 +98,7 @@ Format: `back`
 
 // end::moduleview[]
 
+// tag::addFindDelete[]
 === Finding an archived module: `find`
 
 ==== Method 1: Using command lines
@@ -177,6 +178,7 @@ Format: `delete MODULE_CODE`
 Examples:
 
 * `delete cs2103t`
+// end::addFindDelete[]
 
 // tag::deadline[]
 === Manage deadline tasks: `deadline`
