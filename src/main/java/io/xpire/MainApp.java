@@ -49,7 +49,6 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-    protected ItemManager itemManager;
 
     @Override
     public void init() throws Exception {
@@ -71,10 +70,6 @@ public class MainApp extends Application {
         model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
-
-        itemManager = new ItemManager(model, storage);
-
-        initItemManager();
 
         ui = new UiManager(logic);
 
@@ -118,10 +113,6 @@ public class MainApp extends Application {
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
-    }
-
-    private void initItemManager() {
-        itemManager.updateItemTags();
     }
 
     /**

@@ -273,13 +273,15 @@ image::search-chicken-ham.png[width="790"]
 
 // tag::shift[]
 ==== Shifting an item from one list to another: `shift`
-Transfers items from main list to replenish list, or from replenish list to main list.
+Let's say that one of your items has expired and you want to stock up on your items.
+Simply use the `shift` command to transfer these items to the replenish list so that you will know which items you need to replenish.
+Once you have stocked up on your expired items, you can similarly use the `shift` command again
+to keep track of the item's new expiry date.
 
 ===== Shifting an item from the main list to the replenish list
-
 [TIP]
-Use this to shift any expired items (tagged as `#Expired`  by the system) to the replenish list.
-
+If you would like to view the list of expired items, simply type `check|0`.
+From this list of expired items, you can use the `shift` command to move any item into the replenish list.
 
 Format: `shift|<index>`
 
