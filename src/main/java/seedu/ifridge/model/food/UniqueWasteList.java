@@ -1,6 +1,9 @@
 package seedu.ifridge.model.food;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.ifridge.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
 
 import seedu.ifridge.model.waste.WasteMonth;
 
@@ -19,6 +22,12 @@ public class UniqueWasteList extends UniqueGroceryList {
 
     public WasteMonth getWasteMonth() {
         return wasteMonth;
+    }
+
+    @Override
+    public void setGroceryList(List<GroceryItem> foods) {
+        requireAllNonNull(foods);
+        internalList.setAll(foods);
     }
 
 }
