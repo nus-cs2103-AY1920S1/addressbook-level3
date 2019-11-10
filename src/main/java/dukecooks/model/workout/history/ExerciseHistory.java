@@ -33,7 +33,7 @@ public class ExerciseHistory {
         newPreviousRuns.add(runToAdd);
         return new ExerciseHistory(newPreviousRuns);
     }
-    
+
     private Duration getAverageRunTime() {
         if (previousRuns.isEmpty()) {
             return Duration.ZERO;
