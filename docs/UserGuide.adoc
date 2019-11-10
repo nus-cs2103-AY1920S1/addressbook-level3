@@ -448,7 +448,7 @@ There are three criteria in which you can sort the matches, namely:
 +
 * Sorting based on priority
 +
-* Sorting based on success rate of match
+* Sorting based on compatibility rate of match
 
 These criteria will be further explained below.
 
@@ -474,15 +474,15 @@ You can then run `sort priority` to obtain the list with higher priority patient
 Note that in the case where patients have the **same priority**, those with more matched donors will be displayed first.
 If these two factors are the same for a group of patients, they will be displayed according to their names in alphabetical order.
 
-==== Sorting based on success rate of match
+==== Sorting based on compatibility rate of match
 To determine which patient-donor pair is the most compatible, you can
-sort the list of compatible donors of that patient based on the success rate of the match (from highest to lowest).
-You can refer to <<Glossary>> for more information on success rate.
+sort the list of compatible donors of that patient based on the compatibility rate of the match (from highest to lowest).
+You can refer to <<Glossary>> for more information on the compatibility rate.
 
 Format: `sort rate`
 
 Take for instance, after running a match command on a specific patient with `match ic/**NRIC**`, you will get a list of donors that are compatible with said patient.
-You can then run `sort rate` to obtain the list of donors with higher success rates near the top of the list.
+You can then run `sort rate` to obtain the list of donors with higher compatibility rates near the top of the list.
 // end::sort[]
 
 // tag::process[]
@@ -638,18 +638,10 @@ It is further divided into two sub-sections: **Proposed New Features** and **Pro
 
 This section describes features that can be added to ORGANice in version 2.0.
 
-==== Filtering persons: `filter`
+==== Implementing tab completion
 
-Filters a patient/doctor/donor by specific attributes.
-
-Format: `filter [patient/donor/doctor] [options]`
-
-Returns a list of patients/doctors/doctors that has the specified attributes.
-
-Examples:
-
-* `filter t/patient g/M`
-* `filter t/donor g/M n/Chua`
+This feature allows the program to automatically fill in
+partially typed commands upon pressing the kbd:[Tab] key.
 
 === Proposed Extensions
 
@@ -657,14 +649,12 @@ This section describes features that can be improved on and its proposed improve
 
 ==== Mass addition of data
 
-Add more than one patient/doctor/donor from data in a specified text file.
-
-A duplicate is defined as: two persons of the same type having the same ID.
-When a duplicate is detected, it prompts the user to change the data in the text file.
+This extension to the 'add' feature allows users to add more than one
+patient/doctor/donor from data in a specified text file.
 
 ==== Supporting more types of transplants
 
-Currently ORGANice has patient-donor matching for kidneys only. Future versions can include matching for +
+Currently ORGANice has patient-donor matching for kidneys only. Future versions can include matching for
 more types of organs.
 
 ==== Processing a match: `process`
@@ -672,11 +662,6 @@ more types of organs.
 Emails the doctor in charge of a patient when an organ match for the patient is found.
 
 Format: `process **NRIC**`
-
-==== Advanced find
-
-Finding in v2.0 is more advanced with the implementation of fuzzy search and partial matching of keywords.
-
 
 == FAQ
 
@@ -691,8 +676,8 @@ that contains the data of your previous ORGANice folder.
 2. Do a tissue typing test to determine the HLA antigens of the patient and the donor.
 3. Do a cross match, which is a trial transfusion.
 
-*Q*: What is the success rate and how is it computed? +
-*A*: The success rate measures the tissue compatibility between a donor and a patient. It is computed via this formula: (number of common tissue types between donor and patient) / 6 * 100%
+*Q*: What is the compatibility rate and how is it computed? +
+*A*: The compatibility rate measures the tissue compatibility between a donor and a patient. It is computed via this formula: (number of common tissue types between donor and patient) / 6 * 100%
 
 == Command Summary
 
