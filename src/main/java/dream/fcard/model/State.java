@@ -164,6 +164,7 @@ public class State {
         return -1;
     }
 
+    //@@author PhireHandy
     /**
      * Adds the current deck to the deckHistory for Undo command
      */
@@ -181,9 +182,8 @@ public class State {
         System.out.println("CHECKING CURR DECKS END");
         */
 
-        if (deckHistory.empty() || !completelyEquals(deckHistory.peek())) {
-            deckHistory.push(currDeck);
-        }
+        deckHistory.push(currDeck);
+
         /*
         System.out.println("CHECKING NEW DECKHISTORY START");
         for (Deck d : deckHistory.peek()) {
@@ -198,9 +198,7 @@ public class State {
      */
     public void addCurrDecksToUndoHistory() {
         ArrayList<Deck> currDeck = DeepCopy.duplicateDecks(this.decks);
-        if (undoHistory.empty() || !completelyEquals(undoHistory.peek())) {
-            undoHistory.push(currDeck);
-        }
+        undoHistory.push(currDeck);
     }
 
     /**
@@ -318,7 +316,7 @@ public class State {
                 }
             }
         }
-
         return isEquals;
     }
+    //@@author
 }

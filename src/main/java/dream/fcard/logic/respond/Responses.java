@@ -45,14 +45,17 @@ import javafx.scene.layout.Pane;
  * In no other class should they take the responsibility.
  */
 public enum Responses {
+    //@@author PhireHandy
     HELP_WITH_COMMAND(
             RegexUtil.commandFormatRegex("help", new String[]{"command/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
+                    //@@author
                     //@@author huiminlim
                     LogsCenter.getLogger(Responses.class).info("COMMAND: HELP_WITH_COMMAND");
                     //@author
 
+                    //@@author PhireHandy
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("help",
                         new String[]{"command/"}, i);
 
@@ -81,15 +84,17 @@ public enum Responses {
             "^((?i)help)(\\s*)$",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-
+                    //@@author
                     //@@author huiminlim
                     LogsCenter.getLogger(Responses.class).info("COMMAND: HELP");
                     //@author
 
+                    //@@author PhireHandy
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, HelpCommand.generalHelp());
                     return true;
                 }
     ),
+    //@@author
     IMPORT(
             RegexUtil.commandFormatRegex("import", new String[]{"filepath/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -225,6 +230,7 @@ public enum Responses {
                     return true;
                 } //done
     ),
+    //@@author PhireHandy
     // ADD_CARD regex format: add deck/DECK_NAME [priority/PRIORITY_NAME] front/FRONT back/BACK [choice/CHOICE]
     // Only used for MCQ and FrontBack cards
     // Note that back for MCQ cards will be used for identifying the correct CHOICE
@@ -235,7 +241,7 @@ public enum Responses {
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
                             new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
                             i);
-
+                    //@@author
                     //@@author huiminlim
                     LogsCenter.getLogger(Responses.class).info("COMMAND: ADD_CARD");
 
