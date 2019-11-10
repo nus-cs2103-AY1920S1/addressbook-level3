@@ -43,7 +43,7 @@ public class FindPersonCommand extends Command {
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()),
                 COMMAND_TYPE
-            );
+        );
     }
 
     @Override

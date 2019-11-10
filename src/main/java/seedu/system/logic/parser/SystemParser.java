@@ -22,6 +22,8 @@ import seedu.system.logic.commands.outofsession.DeletePersonCommand;
 import seedu.system.logic.commands.outofsession.EditCompetitionCommand;
 import seedu.system.logic.commands.outofsession.EditPersonCommand;
 import seedu.system.logic.commands.outofsession.ExitCommand;
+import seedu.system.logic.commands.outofsession.FindCompetitionCommand;
+import seedu.system.logic.commands.outofsession.FindParticipationCommand;
 import seedu.system.logic.commands.outofsession.FindPersonCommand;
 import seedu.system.logic.commands.outofsession.ListCompetitionCommand;
 import seedu.system.logic.commands.outofsession.ListParticipationCommand;
@@ -41,6 +43,8 @@ import seedu.system.logic.parser.outofsession.DeleteParticipationCommandParser;
 import seedu.system.logic.parser.outofsession.DeletePersonCommandParser;
 import seedu.system.logic.parser.outofsession.EditCompetitionCommandParser;
 import seedu.system.logic.parser.outofsession.EditPersonCommandParser;
+import seedu.system.logic.parser.outofsession.FindCompetitionCommandParser;
+import seedu.system.logic.parser.outofsession.FindParticipationCommandParser;
 import seedu.system.logic.parser.outofsession.FindPersonCommandParser;
 import seedu.system.logic.parser.outofsession.ListParticipationCommandParser;
 import seedu.system.logic.parser.outofsession.StartSessionCommandParser;
@@ -73,26 +77,20 @@ public class SystemParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddPersonCommand.COMMAND_WORD:
-            return new AddPersonCommandParser().parse(arguments);
-
         case AddCompetitionCommand.COMMAND_WORD:
             return new AddCompetitionCommandParser().parse(arguments);
 
         case AddParticipationCommand.COMMAND_WORD:
             return new AddParticipationCommandParser().parse(arguments);
 
+        case AddPersonCommand.COMMAND_WORD:
+            return new AddPersonCommandParser().parse(arguments);
+
         case AttemptLiftedCommand.COMMAND_WORD:
             return new AttemptLiftedCommandParser().parse(arguments);
 
-        case EditPersonCommand.COMMAND_WORD:
-            return new EditPersonCommandParser().parse(arguments);
-
-        case EditCompetitionCommand.COMMAND_WORD:
-            return new EditCompetitionCommandParser().parse(arguments);
-
-        case DeletePersonCommand.COMMAND_WORD:
-            return new DeletePersonCommandParser().parse(arguments);
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
         case DeleteCompetitionCommand.COMMAND_WORD:
             return new DeleteCompetitionCommandParser().parse(arguments);
@@ -100,14 +98,29 @@ public class SystemParser {
         case DeleteParticipationCommand.COMMAND_WORD:
             return new DeleteParticipationCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case DeletePersonCommand.COMMAND_WORD:
+            return new DeletePersonCommandParser().parse(arguments);
+
+        case EditCompetitionCommand.COMMAND_WORD:
+            return new EditCompetitionCommandParser().parse(arguments);
+
+        case EditPersonCommand.COMMAND_WORD:
+            return new EditPersonCommandParser().parse(arguments);
+
+        case EndSessionCommand.COMMAND_WORD:
+            return new EndSessionCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case FindCompetitionCommand.COMMAND_WORD:
+            return new FindCompetitionCommandParser().parse(arguments);
+
+        case FindParticipationCommand.COMMAND_WORD:
+            return new FindParticipationCommandParser().parse(arguments);
 
         case FindPersonCommand.COMMAND_WORD:
             return new FindPersonCommandParser().parse(arguments);
-
-        case ListPersonCommand.COMMAND_WORD:
-            return new ListPersonCommand();
 
         case ListCompetitionCommand.COMMAND_WORD:
             return new ListCompetitionCommand();
@@ -115,17 +128,8 @@ public class SystemParser {
         case ListParticipationCommand.COMMAND_WORD:
             return new ListParticipationCommandParser().parse(arguments);
 
-        case RankCommand.COMMAND_WORD:
-            return new RankCommandParser().parse(arguments);
-
-        case RanklistCommand.COMMAND_WORD:
-            return new RanklistCommandParser().parse(arguments);
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case OutOfSessionHelpCommand.COMMAND_WORD:
-            return new OutOfSessionHelpCommand();
+        case ListPersonCommand.COMMAND_WORD:
+            return new ListPersonCommand();
 
         case NextLifterCommand.COMMAND_WORD:
             return new NextLifterCommand();
@@ -133,11 +137,17 @@ public class SystemParser {
         case StartSessionCommand.COMMAND_WORD:
             return new StartSessionCommandParser().parse(arguments);
 
+        case OutOfSessionHelpCommand.COMMAND_WORD:
+            return new OutOfSessionHelpCommand();
+
         case OverallRankCommand.COMMAND_WORD:
             return new OverallRankCommand();
 
-        case EndSessionCommand.COMMAND_WORD:
-            return new EndSessionCommand();
+        case RankCommand.COMMAND_WORD:
+            return new RankCommandParser().parse(arguments);
+
+        case RanklistCommand.COMMAND_WORD:
+            return new RanklistCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
