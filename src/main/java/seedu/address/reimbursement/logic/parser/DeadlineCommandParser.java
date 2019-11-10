@@ -32,7 +32,7 @@ public class DeadlineCommandParser implements CommandParserWithPersonModel<Deadl
      * @throws Exception if the command syntax is invalid.
      */
     public DeadlineCommand parse(String args, Model personModel)
-            throws Exception {
+            throws ParseException, NoSuchPersonReimbursementException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_PERSON);
 

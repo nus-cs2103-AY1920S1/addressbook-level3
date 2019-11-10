@@ -31,7 +31,7 @@ public class DoneCommandParser implements CommandParserWithPersonModel<DoneComma
      * @throws Exception if the command syntax is invalid.
      */
     public DoneCommand parse(String args, Model personModel)
-            throws Exception {
+            throws ParseException, NoSuchPersonReimbursementException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PERSON);
 

@@ -31,7 +31,7 @@ public class FindCommandParser implements CommandParserWithPersonModel<FindComma
      * @throws Exception if the command syntax is invalid.
      */
     public FindCommand parse(String args, Model personModel)
-            throws Exception {
+            throws ParseException, NoSuchPersonReimbursementException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PERSON);
 

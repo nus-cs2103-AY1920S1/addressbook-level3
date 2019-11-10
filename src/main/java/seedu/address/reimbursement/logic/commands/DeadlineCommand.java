@@ -12,6 +12,7 @@ import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.exception.InvalidDeadlineException;
+import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 
 /**
  * Represents a command to add a deadline.
@@ -28,7 +29,8 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws Exception {
+    public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
+            throws NoSuchPersonReimbursementException, InvalidDeadlineException {
         try {
             LocalDate deadline = LocalDate.parse(date, DATE_TIME_FORMATTER);
             Reimbursement rmb = model.addDeadline(person, deadline);
