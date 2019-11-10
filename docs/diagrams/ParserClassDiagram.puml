@@ -31,7 +31,7 @@ XYZCommandParser ..> OptionsSet
 XYZCommandParser ..> OptionsTokenizer
 OptionsSet ..> Option
 OptionsTokenizer ..> Option
-
+OptionsTokenizer .left.> OptionsSet
 
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
