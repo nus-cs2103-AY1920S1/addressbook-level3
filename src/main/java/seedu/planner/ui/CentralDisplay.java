@@ -9,9 +9,7 @@ import java.util.Random;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -21,33 +19,8 @@ import javafx.scene.layout.Region;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
 
-import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.ClearCommand;
-import seedu.planner.logic.commands.ExitCommand;
-import seedu.planner.logic.commands.OptimiseCommand;
-import seedu.planner.logic.commands.RedoCommand;
-import seedu.planner.logic.commands.UndoCommand;
-import seedu.planner.logic.commands.addcommand.AddAccommodationCommand;
-import seedu.planner.logic.commands.addcommand.AddActivityCommand;
-import seedu.planner.logic.commands.addcommand.AddContactCommand;
-import seedu.planner.logic.commands.addcommand.AddDayCommand;
-import seedu.planner.logic.commands.deletecommand.DeleteAccommodationCommand;
-import seedu.planner.logic.commands.deletecommand.DeleteActivityCommand;
-import seedu.planner.logic.commands.deletecommand.DeleteContactCommand;
-import seedu.planner.logic.commands.deletecommand.DeleteDayCommand;
-import seedu.planner.logic.commands.editcommand.EditAccommodationCommand;
-import seedu.planner.logic.commands.editcommand.EditActivityCommand;
-import seedu.planner.logic.commands.editcommand.EditContactCommand;
-import seedu.planner.logic.commands.listcommand.ListCommand;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
-import seedu.planner.logic.commands.schedulecommand.AutoScheduleCommand;
-import seedu.planner.logic.commands.schedulecommand.ScheduleCommand;
-import seedu.planner.logic.commands.schedulecommand.UnscheduleCommand;
-import seedu.planner.logic.commands.viewcommand.ViewAccommodationCommand;
-import seedu.planner.logic.commands.viewcommand.ViewActivityCommand;
-import seedu.planner.logic.commands.viewcommand.ViewCommand;
-import seedu.planner.logic.commands.viewcommand.ViewContactCommand;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.activity.Duration;
@@ -56,14 +29,10 @@ import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
 import seedu.planner.model.field.Name;
 import seedu.planner.model.tag.Tag;
-import seedu.planner.ui.cards.AccommodationCardFull;
-import seedu.planner.ui.cards.ActivityCardFull;
-import seedu.planner.ui.cards.ActivityWithTimeCardFull;
-import seedu.planner.ui.cards.ContactCardFull;
-import seedu.planner.ui.cards.HelpCard;
 import seedu.planner.ui.panels.AccommodationListPanel;
 import seedu.planner.ui.panels.ActivityListPanel;
 import seedu.planner.ui.panels.ContactListPanel;
+import seedu.planner.ui.panels.HelpListPanel;
 import seedu.planner.ui.panels.InfoListPanel;
 
 /**
@@ -98,11 +67,9 @@ public class CentralDisplay extends UiPart<Region> {
     private Tab infoTab;
     @FXML
     private Tab helpTab;
-    @FXML
-    private ListView<Node> infoList;
+
     private final InfoListPanel infoListPanel;
-    @FXML
-    private ListView<Node> helpList;
+    private final HelpListPanel helpListPanel;
     private final Agenda agenda;
 
     public CentralDisplay(ObservableList<Day> dayList, ObservableList<Accommodation> accommodationList,
@@ -115,6 +82,7 @@ public class CentralDisplay extends UiPart<Region> {
         this.nameProperty = nameProperty;
         this.activityToAppointmentGroupHashMap = new HashMap<>();
         this.infoListPanel = new InfoListPanel();
+        this.helpListPanel = new HelpListPanel();
 
         // initialising agenda
         this.agenda = new Agenda() {
@@ -170,6 +138,7 @@ public class CentralDisplay extends UiPart<Region> {
         sideDisplay.setExpandedPane(activityPane);
 
         infoTab.setContent(infoListPanel.getRoot());
+        helpTab.setContent(helpListPanel.getRoot());
 
         setupAgendaAppointmentGroups();
         agendaTab.setText(nameProperty.getValue().toString() + " Itinerary");
@@ -265,8 +234,6 @@ public class CentralDisplay extends UiPart<Region> {
         infoListPanel.changeInfo(resultInformation);
     }
 
-
-
     /**
      * Expands tabs according to the provided {@code uiFocus}.
      */
@@ -303,34 +270,7 @@ public class CentralDisplay extends UiPart<Region> {
      * Generates a complete summary of all commands available in plan2travel.
      */
     public void generateCommandHelpSummary() {
-        if (helpList.getItems().size() == 0) {
-            helpList.getItems().addAll(
-                    new HelpCard(AddAccommodationCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(AddActivityCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(AddContactCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(AddDayCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(DeleteAccommodationCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(DeleteActivityCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(DeleteContactCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(DeleteDayCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(EditAccommodationCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(EditActivityCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(EditContactCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(ViewAccommodationCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(ViewActivityCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(ViewContactCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(ViewCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(ListCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(ScheduleCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(AutoScheduleCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(OptimiseCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(UnscheduleCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(UndoCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(RedoCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(ClearCommand.MESSAGE_USAGE).getRoot(),
-                    new HelpCard(ExitCommand.MESSAGE_USAGE).getRoot()
-            );
-        }
+        helpListPanel.generateCommandHelpSummary();
     }
 
     /**

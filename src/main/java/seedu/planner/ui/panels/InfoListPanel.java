@@ -1,6 +1,5 @@
 package seedu.planner.ui.panels;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -17,6 +16,9 @@ import seedu.planner.ui.cards.ActivityCardFull;
 import seedu.planner.ui.cards.ActivityWithTimeCardFull;
 import seedu.planner.ui.cards.ContactCardFull;
 
+/**
+ * Panel containing activity/accommodation/contact/day information.
+ */
 public class InfoListPanel extends UiPart<Region> {
     private static final String FXML = "InfoListPanel.fxml";
 
