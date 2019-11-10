@@ -56,6 +56,10 @@ public class Person {
         return country;
     }
 
+    public String getCountryValue() {
+        return country.toString();
+    }
+
     public Address getAddress() {
         return address;
     }

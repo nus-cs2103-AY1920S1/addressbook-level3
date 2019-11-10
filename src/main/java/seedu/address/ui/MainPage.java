@@ -165,7 +165,7 @@ public class MainPage extends UiPart<Region> implements Page {
         try {
             CommandResult commandResult = mainLogic.execute(commandText);
             //check for right regex, if regex does not match, exception should be thrown
-            assert commandText.matches("(\\s)?+(goto+(\\s).*$|help+(\\s)|exit+(\\s))");;
+            assert commandText.matches("(\\s*)?+(goto+(\\s*).*$|help+(\\s*)?|exit+(\\s*)?)");
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

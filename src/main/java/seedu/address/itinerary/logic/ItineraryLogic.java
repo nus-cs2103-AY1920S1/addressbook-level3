@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 
+import javafx.scene.chart.XYChart;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.itinerary.logic.parser.ItineraryParser;
@@ -16,6 +17,7 @@ import seedu.address.itinerary.model.ItinerarySampleDataUtil;
 import seedu.address.itinerary.model.Model;
 import seedu.address.itinerary.model.ReadOnlyItinerary;
 import seedu.address.itinerary.model.event.Event;
+import seedu.address.itinerary.model.util.ItineraryStatistics;
 import seedu.address.itinerary.storage.ItineraryStorage;
 import seedu.address.itinerary.storage.JsonItineraryStorage;
 import seedu.address.logic.commands.Command;
@@ -93,5 +95,24 @@ public class ItineraryLogic {
 
     public ArrayList<String> getActionList() {
         return model.getActionList();
+    }
+
+    public ItineraryStatistics getStatistics() {
+        return new ItineraryStatisticsManager();
+    }
+
+    /**
+     * Local class for {@link ItineraryStatistics}
+     */
+    private class ItineraryStatisticsManager implements ItineraryStatistics {
+        @Override
+        public int getTotalItineraryEntries() {
+            return model.getTotalItineraryEntries();
+        }
+
+        @Override
+        public XYChart.Series<String, Number> getItineraryBarChartData() {
+            return model.getItineraryBarChart();
+        }
     }
 }

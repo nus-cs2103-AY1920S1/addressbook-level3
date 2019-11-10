@@ -11,6 +11,9 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parser to parse commands entered on the main page.
+ */
 public class MainParser {
     /**
      * Used for initial separation of command word and args.
