@@ -177,7 +177,7 @@ add -w +
 ====
 
 ---
-| Add a new fridge
+
 a|
 ====
 add -f
@@ -188,7 +188,6 @@ Default status: `UNOCCUPIED`
 
 ---
 
-| Add a new body
 =======
 
 a|
@@ -209,10 +208,11 @@ add -b +
 (/organsForDonation organsForDonation) +
 (/fridgeId fridgeId)
 
-|===
 
 [TIP]
 Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
+|===
+
 
 Example:
 
@@ -535,33 +535,6 @@ image::notif-command/Notif5.png[align="center"]
 If you delete a `Body` and add it back before the 10 second period,
 
 // end::notifs[]
-
-// tag::sort[]
-
-==== Sort all entries: `sort` `[coming in v2.0]`
-You can sort all displayed entries according to a given order by entering a sort command with the given format below.
-
-Only body and worker entries can be sorted.
-
-The following describes the types of ordering that can be executed:
-
-* `name`: entries are sorted by alphabetical order of their names
-* `id`: entries are sorted by their id number, in descending order (newest entry appear first)
-    ** `id asc`: entries are sorted in ascending order of id number
-    ** `id desc`: entries are sorted in descending order of id number
-         *** If neither 'asc' or 'desc' qualifiers are supplied, the ordering is by default descending.
-* `status`: entries are sorted by their statuses in this order:
-
-Format: `sort /order order`
-
-Example:
-
-* `sort /order status` +
-All entries will be sorted and grouped according to their statuses.
-* `sort /order id asc` +
-All entries will be sorted according to their id number in ascending order.
-// end::sort[]
-// tag::filter[]
 
 ==== Filter all entries: `filter`
 You can filter all entries according to the given keywords in any of an entry’s attributes by entering a filter command with the given format below.
@@ -886,9 +859,6 @@ Lists emergency help hotlines.
 
 * *View notifs* : `showNotifs`
 ** View all notifications brought up by the app.
-* *Sort* : `sort`
-** Sort all displayed entries according to a given order. +
-    Format: `sort /order order (/idOrder idOrder)`
 * *Filter* : `filter`
 ** Filter all entries according to the given keyword in any of an entry’s field. +
     Format: `filter -FLAG [/attribute attributeValue...]`
@@ -899,6 +869,9 @@ Lists emergency help hotlines.
 ** Redo the last undone command. +
     Format: `redo`
 * *Exit*: `exit`
+* *Sort* : `sort` [coming in v2.0]
+** Sort all displayed entries according to a given order. +
+    Format: `sort /order order (/idOrder idOrder)`
 
 * *Generate report* : `genReport`
 ** Generate an individual report in a PDF. +
@@ -937,6 +910,8 @@ Format: `help`
 *Worker* : an employee working in the mortuary +
 
 *Fridge* : a refrigerator used to store a body in the mortuary +
+
+*Notif* : a reminder to notify the mortuary manager about the `Body` for which police needs to be contacted +
 
 *Command Line Interface (CLI)* : a text-based user interface (UI) used to view and manage computer files +
 
