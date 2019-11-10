@@ -56,8 +56,9 @@ public class ClosestLocation {
      * This method is used to find the closes location from the location graph
      * @return
      */
-    public ClosestCommonLocationData closestLocationData(ArrayList<String> locationNameList) {
-        requireNonNull(locationNameList);
+    public ClosestCommonLocationData closestLocationData(ArrayList<String> locationNameListOriginal) {
+        requireNonNull(locationNameListOriginal);
+        ArrayList<String> locationNameList = (ArrayList<String>) locationNameListOriginal.clone();
         ClosestCommonLocationData closestCommonLocationData = new ClosestCommonLocationData();
         closestCommonLocationData.setLocationEntered(locationNameList);
         String firstClosest = null;

@@ -23,6 +23,10 @@ public class SampleEvents {
                             LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(11, 0)),
                             new Venue("I3")),
                     new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 30)),
+                            new Venue("Orchard")),
+                    new Timeslot(
                             LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(10, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(11, 0)),
                             new Venue("I3")),
@@ -93,6 +97,10 @@ public class SampleEvents {
                             LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(11, 30)),
                             new Venue("BIZ1")),
                     new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 30)),
+                            new Venue("Orchard")),
+                    new Timeslot(
                             LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(12, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(12, 30)),
                             new Venue("BIZ2")),
@@ -140,6 +148,10 @@ public class SampleEvents {
                             LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(13, 30)),
                             new Venue("S1A")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 30)),
+                            new Venue("Orchard")),
                     new Timeslot(
                             LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(13, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(13, 30)),
@@ -189,6 +201,10 @@ public class SampleEvents {
                             LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(12, 30)),
                             new Venue("LT19")),
                     new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 30)),
+                            new Venue("Orchard")),
+                    new Timeslot(
                             LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(10, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(11, 30)),
                             new Venue("LT20")),
@@ -237,6 +253,10 @@ public class SampleEvents {
                             LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(14, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(15, 30)),
                             new Venue("L51")),
+                    new Timeslot(
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 0)),
+                            LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(8, 30)),
+                            new Venue("Orchard")),
                     new Timeslot(
                             LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(16, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(17, 30)),
