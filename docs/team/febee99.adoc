@@ -91,7 +91,7 @@ allowing the user to add items and have them arranged in an organised fashion.
 
 include::../UserGuide.adoc[tag=view]
 
-include::../UserGuide.adoc[tag=sort]
+//include::../UserGuide.adoc[tag=sort]
 
 //include::../UserGuide.adoc[tag=tablesummary]
 
