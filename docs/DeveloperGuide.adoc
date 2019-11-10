@@ -912,7 +912,7 @@ A private `FoodComparator` constructor directly taking in `Comparator` is for in
 
 The following object diagram summaries the components in the food recommendation mechanism.
 
-image::RecmFoodObjectDiagram.png[, 500]
+image::RecmFoodObjectDiagram.png[]
 
 ===== _recmfmix_ command
 `UniqueFoodList#getMixedFoodList()` generates a temporary `ObservableList` from the existing food data. This list will eventually be supplied to `FoodFlowPane` via `Model` and then `Logic`.
@@ -1638,7 +1638,14 @@ Expected: Feedback message indicates that there is nothing to change.
 Expected: A new motivation quote is selected at random and shown in the pane showing motivational quotes at the bottom of the window.
 
 === Food Recommendation Feature
-
+. Recommending food with flag filters
+.. Test case: `recmf -f -p -m` +
+Expected: The display pane updates food recommendations that only contain foods of _fruit_, _protein_, and _meal_, indicated by three different colors.
+.. Test case: `recmf -f -p -f   -p -m -M` +
+Expected: Same as *a*
+.. Test case: `recmf -p -f -mk` +
+Expected: The main display pane remains unchanged. Error message indicating this invalid format will be shown.
+.. Test cases: `recmf `
 
 [appendix]
 == References

@@ -1015,18 +1015,18 @@ General Note::
 
 Recommends medically suggested foods for type II diabetes patients. The user can specify `Flags` and `Food Names` as two kinds of filters, as well as one type of sorting order:
 
-* *Flags:* specifies the wanted food type in the form of following flags:
+* *Flags:* specifies the wanted food types in the form of following flags:
 
 [frame=topbot]
 [cols=2*]
 |===
-|*-nsv*: non-starchy vegetable, such as _Broccoli_
-|*-sv*: starchy vegetable, such as _Potato_
-|*-f*: fruit, such as _Cherry_
+|*-nsv: non-starchy vegetable*, such as _Broccoli_
+|*-sv: starchy vegetable*, such as _Potato_
+|*-f: fruit*, such as _Cherry_
 
-|*-p*: protein, such as _Lean Lamb_
-|*-s*: snack, such _Fig Roll_
-|*-m*: meal, such as _Spanish Omelet_
+|*-p: protein*, such as _Lean Lamb_
+|*-s: snack*, such _Fig Roll_
+|*-m: meal*, such as _Spanish Omelet_
 |===
 
 ====
@@ -1035,12 +1035,12 @@ Recommends medically suggested foods for type II diabetes patients. The user can
 2. If no flag is specified, it is equivalent to specifying all flags. Namely, foods of all types will be shown.#
 ====
 
-* *Food Names:*: matches foods that contain *one of* given food names in the form of `fn/[FOOD_NAME]...`
+* *Food Names:* matches foods that contain *one of* given food names in the form of `fn/[FOOD_NAME]...`
 
 ====
 [small]#*Note:* +
-1. Food names are case-insensitive while matching is full-word matching. For example, "chicken" does not match "ch". +
-2. If no food name specified after `fn/`, it is equivalent to matching any food.#
+1. Matching is case-insensitive but is full-word matching. For example, "chicken" does not match "ch". +
+2. If no food name specified after `fn/`, it is equivalent to matching all foods.#
 ====
 
 * *Sorting Order*: determines the presentation order of food cards in *one* of the two forms: `+sort/SORT_ORDER_TYPE` and `-sort/SORT_ORDER_TYPE`

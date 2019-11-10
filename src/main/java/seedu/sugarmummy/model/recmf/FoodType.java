@@ -29,7 +29,7 @@ public enum FoodType {
         return type.abbr + "(" + type.typeName + ")";
     }
 
-    private static String getAllTypesInfo() {
+    public static String getAllTypesInfo() {
         StringBuilder stringBuilder = new StringBuilder();
         for (FoodType type : FoodType.values()) {
             stringBuilder.append(getTypeInfo(type) + " ");
