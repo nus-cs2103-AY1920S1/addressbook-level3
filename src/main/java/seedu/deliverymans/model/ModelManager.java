@@ -312,8 +312,8 @@ public class ModelManager implements Model {
     @Override
     public void switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
         requireNonNull(deliveryman);
-        deliverymenDatabase.switchDeliverymanStatus(deliveryman);
-        if (deliveryman.getStatus().getDescription().equals("AVAILABLE")) {
+        Deliveryman editedDeliveryman = deliverymenDatabase.switchDeliverymanStatus(deliveryman);
+        if (editedDeliveryman.getStatus().getDescription().equals("AVAILABLE")) {
             signalNewAvailableDeliveryman();
         }
     }

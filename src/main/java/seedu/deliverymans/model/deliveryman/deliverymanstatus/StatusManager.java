@@ -62,16 +62,8 @@ public class StatusManager {
         }
     }
 
-    public void addAvailableMan(Deliveryman deliveryman) {
-        availableMen.add(deliveryman);
-    }
-
     public void addUnavailableMan(Deliveryman deliveryman) {
         unavailableMen.add(deliveryman);
-    }
-
-    public void addDeliveringMan(Deliveryman deliveryman) {
-        deliveringMen.add(deliveryman);
     }
 
     /**
@@ -195,22 +187,23 @@ public class StatusManager {
 
     /**
      * Assigns new status tag to a deliveryman.
+     * This returns a new deliveryman with same data and identity fields but with the new status.
      */
     public Deliveryman assignStatusTagTo(Deliveryman deliveryman, String strNewStatus) {
-        Deliveryman edited;
+        Deliveryman updatedDeliveryman;
         switch (strNewStatus) {
-        case AVAILABLE_STATUS:
-            edited = deliveryman.setStatusTo(UniqueStatusList.getAvailableTag());
-            availableMen.add(edited);
-            return edited;
-        case UNAVAILABLE_STATUS:
-            edited = deliveryman.setStatusTo(UniqueStatusList.getAvailableTag());
-            unavailableMen.add(edited);
-            return edited;
-        case DELIVERING_STATUS:
-            edited = deliveryman.setStatusTo(UniqueStatusList.getDeliveringTag());
-            deliveringMen.add(edited);
-            return edited;
+        case "AVAILABLE":
+            updatedDeliveryman = deliveryman.setStatusTo(UniqueStatusList.getAvailableTag());
+            availableMen.add(updatedDeliveryman);
+            return updatedDeliveryman;
+        case "UNAVAILABLE":
+            updatedDeliveryman = deliveryman.setStatusTo(UniqueStatusList.getUnavailableTag());
+            unavailableMen.add(updatedDeliveryman);
+            return updatedDeliveryman;
+        case "DELIVERING":
+            updatedDeliveryman = deliveryman.setStatusTo(UniqueStatusList.getDeliveringTag());
+            deliveringMen.add(updatedDeliveryman);
+            return updatedDeliveryman;
         default:
             return deliveryman;
         }

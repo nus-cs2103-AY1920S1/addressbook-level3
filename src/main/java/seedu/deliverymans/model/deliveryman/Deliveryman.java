@@ -1,6 +1,7 @@
 package seedu.deliverymans.model.deliveryman;
 
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.UNAVAILABLE_STATUS;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -34,7 +35,7 @@ public class Deliveryman {
         this.name = name;
         this.phone = phone;
         this.tags = Set.copyOf(tags);
-        status = new StatusTag("UNAVAILABLE");
+        status = new StatusTag(UNAVAILABLE_STATUS);
     }
 
     // Second constructor primarily for setting status as "DELIVERING" or "UNAVAILABLE"
@@ -101,9 +102,8 @@ public class Deliveryman {
         Deliveryman otherPerson = (Deliveryman) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getTags().equals(getTags());
-                //&& otherPerson.getStatus().equals(getStatus());
-
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getStatus().equals(getStatus());
     }
 
     @Override

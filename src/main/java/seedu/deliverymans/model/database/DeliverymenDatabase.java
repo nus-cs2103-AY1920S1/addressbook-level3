@@ -5,7 +5,6 @@ import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatu
 
 import java.util.List;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
@@ -26,7 +25,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     private final UniqueDeliverymanList deliverymen;
     private final StatusManager statusManager;
     private final StatisticsManager statisticsManager;
-    private ObservableList<Deliveryman> statusSortedList = FXCollections.observableArrayList();
 
     {
         deliverymen = new UniqueDeliverymanList();
@@ -131,14 +129,6 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         return statusManager.listUnavailableMen();
     }
 
-    /**
-     * Returns true if the list contains an equivalent deliveryman as the given argument.
-     */
-    public boolean contains(Deliveryman toCheck) {
-        requireNonNull(toCheck);
-        return statusSortedList.stream().anyMatch(toCheck::isSameDeliveryman);
-    }
-
     // ========== Methods related to Order ====================================================================
 
     /**
@@ -162,8 +152,10 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     /**
      * Switches the deliveryman status from AVAILABLE to UNAVAILABLE, or vice versa.
      */
-    public void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException {
-        deliverymen.setDeliveryman(target, statusManager.switchDeliverymanStatus(target));
+    public Deliveryman switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException {
+        Deliveryman editedDeliveryman = statusManager.switchDeliverymanStatus(target);
+        deliverymen.setDeliveryman(target, editedDeliveryman);
+        return editedDeliveryman;
     }
 
     // ========== Methods related to Statistics ================================================================
