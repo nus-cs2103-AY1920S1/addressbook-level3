@@ -38,7 +38,8 @@ public class ExpenseListParserTest {
     public void parseCommand_add() throws Exception {
         Expense rawExpense = new RawExpenseBuilder().build();
         Expense expense = new ExpenseBuilder().build();
-        AddExpenseCommand command = (AddExpenseCommand) parser.parseCommand(ExpenseUtil.getAddExpenseCommand(rawExpense));
+        AddExpenseCommand command =
+            (AddExpenseCommand) parser.parseCommand(ExpenseUtil.getAddExpenseCommand(rawExpense));
         assertEquals(new AddExpenseCommand(expense), command);
     }
 
@@ -89,7 +90,8 @@ public class ExpenseListParserTest {
     @Test
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListDefaultExpensesCommand.COMMAND_WORD) instanceof ListDefaultExpensesCommand);
-        assertTrue(parser.parseCommand(ListDefaultExpensesCommand.COMMAND_WORD + " 3") instanceof ListDefaultExpensesCommand);
+        assertTrue(parser.parseCommand(ListDefaultExpensesCommand.COMMAND_WORD + " 3")
+            instanceof ListDefaultExpensesCommand);
     }
 
     @Test

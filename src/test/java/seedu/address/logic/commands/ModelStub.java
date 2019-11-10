@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Model;
@@ -11,6 +12,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.ReadOnlyBudgetList;
+import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -70,6 +72,26 @@ public class ModelStub implements Model {
 
     @Override
     public void setExpenseList(ReadOnlyExpenseList newData) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Path getExchangeDataFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setExchangeDataFilePath(Path exchangeDataFilePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ExchangeData getExchangeData() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setExchangeData(ExchangeData exchangeData) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -174,14 +196,14 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void setViewState(ViewState viewState) {
+    public ViewState getViewState() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ViewState getViewState() {
+    public void setViewState(ViewState viewState) {
         throw new AssertionError("This method should not be called.");
-    };
+    }
 
     @Override
     public Budget getLastViewedBudget() {

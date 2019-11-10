@@ -5,9 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,8 +43,8 @@ public class AddBudgetCommandTest {
         AddBudgetCommand addBudgetCommand = new AddBudgetCommand(validBudget);
         ModelStub modelStub = new ModelStubWithBudget(validBudget);
 
-        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_DUPLICATE_BUDGET,
-            () -> addBudgetCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_DUPLICATE_BUDGET, ()
+            -> addBudgetCommand.execute(modelStub));
     }
 
     @Test
@@ -53,15 +56,15 @@ public class AddBudgetCommandTest {
         Budget otherValidBudget = new BudgetBuilder().withStartDate(BudgetBuilder.VALID_DATE_BEFORE_DEFAULT_START_DATE)
             .build();
         AddBudgetCommand addBudgetCommand1 = new AddBudgetCommand(otherValidBudget);
-        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH,
-            () -> addBudgetCommand1.execute(modelStub));
+        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH, ()
+            -> addBudgetCommand1.execute(modelStub));
 
         // same start date but different end date
         otherValidBudget = new BudgetBuilder().withEndDate(BudgetBuilder.VALID_DATE_AFTER_DEFAULT_END_DATE)
             .build();
         AddBudgetCommand addBudgetCommand2 = new AddBudgetCommand(otherValidBudget);
-        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH,
-            () -> addBudgetCommand2.execute(modelStub));
+        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH, ()
+            -> addBudgetCommand2.execute(modelStub));
 
         // both start date and end date are within the period of another budget
         otherValidBudget = new BudgetBuilder()
@@ -69,8 +72,8 @@ public class AddBudgetCommandTest {
             .withEndDate(BudgetBuilder.VALID_DATE_BETWEEN_DEFAULT_START_AND_END_DATES)
             .build();
         AddBudgetCommand addBudgetCommand3 = new AddBudgetCommand(otherValidBudget);
-        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH,
-            () -> addBudgetCommand3.execute(modelStub));
+        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH, ()
+            -> addBudgetCommand3.execute(modelStub));
 
         // start date before period of another budget and end date after period of that same budget, overlapping
         otherValidBudget = new BudgetBuilder()
@@ -78,8 +81,8 @@ public class AddBudgetCommandTest {
             .withEndDate(BudgetBuilder.VALID_DATE_AFTER_DEFAULT_END_DATE)
             .build();
         AddBudgetCommand addBudgetCommand4 = new AddBudgetCommand(otherValidBudget);
-        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH,
-            () -> addBudgetCommand4.execute(modelStub));
+        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH, ()
+            -> addBudgetCommand4.execute(modelStub));
 
         // start date fall within period of another budget
         otherValidBudget = new BudgetBuilder()
@@ -87,8 +90,8 @@ public class AddBudgetCommandTest {
             .withEndDate(BudgetBuilder.VALID_DATE_AFTER_DEFAULT_END_DATE)
             .build();
         AddBudgetCommand addBudgetCommand5 = new AddBudgetCommand(otherValidBudget);
-        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH,
-            () -> addBudgetCommand5.execute(modelStub));
+        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH, ()
+            -> addBudgetCommand5.execute(modelStub));
 
         // end date fall within period of another budget
         otherValidBudget = new BudgetBuilder()
@@ -96,8 +99,8 @@ public class AddBudgetCommandTest {
             .withEndDate(BudgetBuilder.VALID_DATE_BETWEEN_DEFAULT_START_AND_END_DATES)
             .build();
         AddBudgetCommand addBudgetCommand6 = new AddBudgetCommand(otherValidBudget);
-        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH,
-            () -> addBudgetCommand6.execute(modelStub));
+        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_BUDGET_CLASH, ()
+            -> addBudgetCommand6.execute(modelStub));
     }
 
     @Test
@@ -123,8 +126,6 @@ public class AddBudgetCommandTest {
         // different budget -> returns false
         assertFalse(addShoppingCommand.equals(addFoodCommand));
     }
-
-
 
     /**
      * A Model stub that contains a single budget.
@@ -158,7 +159,7 @@ public class AddBudgetCommandTest {
     private class ModelStubAcceptingBudgetAdded extends ModelStub {
 
         final ArrayList<Budget> budgetsAdded = new ArrayList<>();
-        ViewState viewState = ViewState.BUDGETLIST;
+        private ViewState viewState = ViewState.BUDGETLIST;
 
         @Override
         public boolean hasBudget(Budget budget) {

@@ -36,6 +36,7 @@ import seedu.address.storage.StorageManager;
 import seedu.address.testutil.ExpenseBuilder;
 
 public class LogicManagerTest {
+
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @TempDir
@@ -92,7 +93,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addExpenseCommand = AddExpenseCommand.COMMAND_WORD + NAME_DESC_VODKA + AMOUNT_DESC_VODKA + DATE_DESC_VODKA;
+        String addExpenseCommand =
+            AddExpenseCommand.COMMAND_WORD + NAME_DESC_VODKA + AMOUNT_DESC_VODKA + DATE_DESC_VODKA;
         Expense expectedExpense = new ExpenseBuilder(VODKA).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addExpense(expectedExpense);
@@ -168,6 +170,7 @@ public class LogicManagerTest {
      * A stub class to throw an {@code IOException} when the save method is called.
      */
     private static class JsonExpenseListIoExceptionThrowingStub extends JsonExpenseListStorage {
+
         private JsonExpenseListIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
@@ -182,6 +185,7 @@ public class LogicManagerTest {
      * A stub class to throw an {@code IOException} when the save method is called.
      */
     private static class JsonBudgetListIoExceptionThrowingStub extends JsonBudgetListStorage {
+
         private JsonBudgetListIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }

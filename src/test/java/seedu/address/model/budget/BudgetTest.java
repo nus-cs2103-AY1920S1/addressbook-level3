@@ -5,11 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_AMOUNT_EGYPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_CURRENCY_EGYPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_END_DATE_EGYPT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_START_DATE_EGYPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_NAME_EGYPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_START_DATE_EGYPT;
 import static seedu.address.testutil.TypicalBudgets.JAPAN;
 import static seedu.address.testutil.TypicalBudgets.KOREA;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.BudgetBuilder;
 
 public class BudgetTest {

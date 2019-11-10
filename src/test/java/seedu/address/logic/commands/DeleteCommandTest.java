@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
+import static seedu.address.testutil.TypicalBudgets.getTypicalBudgetList;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExchangeData;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
@@ -20,7 +21,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.BudgetList;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -29,7 +29,7 @@ import seedu.address.model.expense.Expense;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpenseList(), new BudgetList(), getTypicalExchangeData(),
+    private Model model = new ModelManager(getTypicalExpenseList(), getTypicalBudgetList(), getTypicalExchangeData(),
         new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -40,7 +40,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getExpenseList(), model.getBudgetList(),
+        ModelManager expectedModel = new ModelManager(model.getExpenseList(), getTypicalBudgetList(),
             model.getExchangeData(), new UserPrefs());
         expectedModel.deleteExpense(expenseToDelete);
 
@@ -64,7 +64,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
-        Model expectedModel = new ModelManager(model.getExpenseList(), model.getBudgetList(),
+        Model expectedModel = new ModelManager(model.getExpenseList(), getTypicalBudgetList(),
             model.getExchangeData(), new UserPrefs());
         expectedModel.deleteExpense(expenseToDelete);
         showNoExpense(expectedModel);

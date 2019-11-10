@@ -94,25 +94,6 @@ public class EditExpenseCommandTest {
         assertCommandSuccess(editExpenseCommand, model, expectedMessage, expectedModel, commandHistory);
     }
 
-    //        @Test
-    //        public void execute_filteredList_success() {
-    //            showExpenseAtIndex(model, INDEX_FIRST_ITEM);
-    //
-    //            Expense expenseInFilteredList = model.getFilteredExpenseList().get(INDEX_FIRST_ITEM.getZeroBased());
-    //            Expense editedExpense = new ExpenseBuilder(expenseInFilteredList).withName(VALID_NAME_RUM).build();
-    //            EditExpenseCommand editExpenseCommand = new EditExpenseCommand(INDEX_FIRST_ITEM,
-    //                    new EditExpenseDescriptorBuilder().withName(VALID_NAME_RUM).build());
-    //
-    //            String expectedMessage = String.format(EditExpenseCommand.MESSAGE_EDIT_EXPENSE_SUCCESS,
-    //            editedExpense);
-    //
-    //            Model expectedModel = new ModelManager(new ExpenseList(model.getExpenseList()),
-    //                new BudgetList(), new UserPrefs());
-    //            expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
-    //
-    //            assertCommandSuccess(editExpenseCommand, model, expectedMessage, expectedModel);
-    //        }
-
     @Test
     public void execute_duplicateExpenseUnfilteredList_failure() {
         Expense firstExpense = model.getFilteredExpenseList().get(INDEX_FIRST_ITEM.getZeroBased());

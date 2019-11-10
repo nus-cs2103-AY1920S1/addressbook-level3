@@ -5,15 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_AMOUNT_EGYPT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBudgets.KOREA;
 import static seedu.address.testutil.TypicalBudgets.JAPAN;
+import static seedu.address.testutil.TypicalBudgets.KOREA;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
-import seedu.address.model.budget.exceptions.DuplicateBudgetException;
+
 import seedu.address.model.budget.exceptions.BudgetNotFoundException;
+import seedu.address.model.budget.exceptions.DuplicateBudgetException;
 import seedu.address.testutil.BudgetBuilder;
 
 public class UniqueBudgetListTest {

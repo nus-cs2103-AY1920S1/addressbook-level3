@@ -6,25 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ExpenseList;
-import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseList;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ViewState;
-import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.ReadOnlyBudgetList;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniqueExpenseList;
 import seedu.address.testutil.ExpenseBuilder;
@@ -53,7 +45,8 @@ public class AddExpenseCommandTest {
         AddExpenseCommand addExpenseCommand = new AddExpenseCommand(validExpense);
         ModelStub modelStub = new ModelStubWithExpense(validExpense);
 
-        assertThrows(CommandException.class, AddExpenseCommand.MESSAGE_DUPLICATE_EXPENSE, () -> addExpenseCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddExpenseCommand.MESSAGE_DUPLICATE_EXPENSE, ()
+            -> addExpenseCommand.execute(modelStub));
     }
 
     @Test
@@ -79,8 +72,6 @@ public class AddExpenseCommandTest {
         // different expense -> returns false
         assertFalse(addShoppingCommand.equals(addFoodCommand));
     }
-
-
 
     /**
      * A Model stub that contains a single expense.

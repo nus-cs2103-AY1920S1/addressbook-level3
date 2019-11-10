@@ -2,8 +2,8 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 import static seedu.address.testutil.TypicalBudgets.getTypicalBudgetList;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 
 import java.nio.file.Path;
 
@@ -76,6 +76,7 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getExchangeDataFilePath());
     }
 
+    @Test
     public void budgetListReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
@@ -92,6 +93,4 @@ public class StorageManagerTest {
     public void getBudgetListFilePath() {
         assertNotNull(storageManager.getBudgetListFilePath());
     }
-
-
 }
