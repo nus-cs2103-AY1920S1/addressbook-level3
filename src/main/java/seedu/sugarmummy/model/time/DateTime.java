@@ -20,6 +20,7 @@ public class DateTime implements Comparable<DateTime> {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(VALIDATION_PATTERN_STRING);
     public static final String MESSAGE_CONSTRAINTS = "DateTime should be in the format: yyyy-mm-dd hh:mm and it "
             + "should contain valid number";
+    public static final String MESSAGE_FUTURE_CONSTRAINTS = "DateTime should not be in the future";
 
     private LocalDate date;
     private LocalTime time;
@@ -131,6 +132,13 @@ public class DateTime implements Comparable<DateTime> {
      */
     public boolean isBeforeDateTime(DateTime dateTime) {
         return LocalDateTime.of(date, time).isBefore(LocalDateTime.of(dateTime.date, dateTime.time));
+    }
+
+    /**
+     * Returns true if current date time is after the given date time.
+     */
+    public boolean isAfterDateTime(DateTime dateTime) {
+        return LocalDateTime.of(date, time).isAfter(LocalDateTime.of(dateTime.date, dateTime.time));
     }
 
     /**

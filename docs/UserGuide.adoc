@@ -79,10 +79,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === DATA LOG
 
 ==== Add a data entry to the diabetes tracker app: `add`
-Format: `add rt/RECORD_TYPE dt/DATETIME` followed by any parameters that the RECORD_TYPE accepts.
-Note that rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
+Format: `add rt/RECORD_TYPE dt/DATETIME` followed by parameters that the RECORD_TYPE accepts.
 
-BMI must receive at least 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
+There must not be any duplicate parameters.
+Ordering of parameters is flexible (other than "add").
+
+rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
+dt/ value must not be in the future.
+
+BMI must receive exactly 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
 
 Height input (in meters) will be rounded to 2 decimal places.
 This rounded value must be less than 3 to be recorded successfully.
@@ -90,13 +95,9 @@ This rounded value must be less than 3 to be recorded successfully.
 Weight input (in kilograms) will be rounded to 2 decimal places.
 This rounded value must be less than 500 to be recorded successfully.
 
-BLOODSUGAR must receive at least 1 valid parameter for concentration: `con/VALUE`
+BLOODSUGAR must receive exactly 1 valid parameter for concentration: `con/VALUE`
 Concentration (mmol/L) will be rounded to 2 decimal places.
 This rounded value must be less than 33 to be recorded successfully.
-
-If there are duplicate parameters, the last parameter's value is captured and then tested for validity.
-
-Ordering of fields is flexible.
 
 `add` does not allow entries that have the same datetime and RECORD_TYPE.
 

@@ -506,7 +506,7 @@ A new `RecordListPanel` is created and populates each `ListViewCell` with `Blood
 `ObservableList<Record>` is used to populate the `ListViewCell`.
 
 Step 3. The user executes `add rt/BMI h/1 w/1 dt/2019-09-09 12:12` command.
-The add command parameters are parsed for validity.
+The add command parameters are parsed for validity and uniqueness.
 This job is delegated to the following classes:
 `SugarMummyParser`,`AddCommandParser` and `ParserUtil.
 This is illustrated in SequenceDiagram below.
