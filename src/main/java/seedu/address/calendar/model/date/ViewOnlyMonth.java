@@ -1,9 +1,9 @@
 package seedu.address.calendar.model.date;
 
 import seedu.address.calendar.model.event.Event;
-import seedu.address.calendar.model.event.EventManager;
 import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.calendar.model.event.EventType;
+import seedu.address.calendar.model.event.EventViewer;
 import seedu.address.calendar.model.util.DateUtil;
 
 import java.util.ArrayList;
@@ -32,8 +32,7 @@ public class ViewOnlyMonth {
         this.days = days;
     }
 
-    // todo: consider implementing an interface for eventmanager instead
-    public static ViewOnlyMonth getInstance(EventManager eventManager, EventQuery eventQuery) {
+    public static ViewOnlyMonth getInstance(EventViewer eventViewer, EventQuery eventQuery) {
         MonthOfYear startMonth = eventQuery.getStart().getMonth();
         Year startYear = eventQuery.getStart().getYear();
 
@@ -46,7 +45,7 @@ public class ViewOnlyMonth {
         Date lastDateOfMonth = DateUtil.getLastDateInMonth(startMonth, startYear);
         EventQuery monthQuery = new EventQuery(firstDateOfMonth, lastDateOfMonth);
 
-        Stream<Event> relevantEvents = eventManager.getEvents(monthQuery);
+        Stream<Event> relevantEvents = eventViewer.getEvents(monthQuery);
         relevantEvents.forEach(event -> addEventToDays(days, event, monthQuery));
         return new ViewOnlyMonth(startMonth, startYear, days);
     }

@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 /**
  * Manages all events.
  */
-public class EventManager {
+public class EventManager implements EventViewer {
     private IntervalSearchTree<Date, Event> engagedSchedule = new IntervalSearchTree<>();
     private IntervalSearchTree<Date, Event> vacationSchedule = new IntervalSearchTree<>();
 
@@ -538,8 +538,12 @@ public class EventManager {
      */
     public Stream<Event> getEvents(EventQuery eventQuery) {
         Event placeHolderEvent = Event.getEventPlaceHolder(eventQuery);
-        Stream<Event> requiredVacations = vacationSchedule.getCollisions(placeHolderEvent).stream();
-        Stream<Event> requiredEngagements = engagedSchedule.getCollisions(placeHolderEvent).stream();
+        Stream<Event> requiredVacations = vacationSchedule.getCollisions(placeHolderEvent)
+                .stream()
+                .flatMap(eventIdentifier -> vacations.get(eventIdentifier).stream());
+        Stream<Event> requiredEngagements = engagedSchedule.getCollisions(placeHolderEvent)
+                .stream()
+                .flatMap(eventIdentifier -> engagements.get(eventIdentifier).stream());
         return Stream.concat(requiredVacations, requiredEngagements);
     }
 

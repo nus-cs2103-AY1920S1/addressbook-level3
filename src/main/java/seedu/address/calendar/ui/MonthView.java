@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+/**
+ * Creates a viewable month that can be used to display on GUI.
+ */
 class MonthView {
     private static final int NUM_ROWS = 5;
     private static final int NUM_COLS = 7;
@@ -23,7 +26,12 @@ class MonthView {
     private static List<DayView> dayViews;
     private static MonthView monthView;
 
-    // todo: make constructor private, set monthViewWidth as static and have setMonthViewWidth --> defensive
+    /**
+     * Creates a month view.
+     *
+     * @param viewOnlyMonth The object which contains all relevant information about the month
+     * @param monthViewWidth Width of the month view
+     */
     private MonthView(ViewOnlyMonth viewOnlyMonth, ReadOnlyDoubleProperty monthViewWidth) {
         removeListeners();
         dayViews = new ArrayList<>();
@@ -31,6 +39,14 @@ class MonthView {
         this.monthViewWidth = monthViewWidth;
     }
 
+    /**
+     * Creates a {@code GridPane} with all relevant information about the month. This can then be used to display
+     * the relevant month information of the month.
+     *
+     * @param viewOnlyMonth The object which contains all relevant information about the month
+     * @param monthViewWidth Width of the month view
+     * @return
+     */
     static GridPane generateMonthGrid(ViewOnlyMonth viewOnlyMonth, ReadOnlyDoubleProperty monthViewWidth) {
         monthView = new MonthView(viewOnlyMonth, monthViewWidth);
 
@@ -74,10 +90,13 @@ class MonthView {
         return monthView;
     }
 
-    public void removeListeners() {
+    /**
+     * Removes all listeners of {@code this} children.
+     */
+    private void removeListeners() {
         if (dayViews == null) {
             return;
         }
-        dayViews.forEach(dayView -> dayView.removeListener());
+        dayViews.forEach(DayView::removeListener);
     }
 }
