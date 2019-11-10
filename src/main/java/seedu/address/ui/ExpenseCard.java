@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
@@ -22,10 +23,14 @@ public class ExpenseCard extends UiPart<Region> {
 
     private static final String DELETED_LABEL_CLASS = "deleted-label";
     private static final String DELETED_TAGS_CLASS = "deleted-tags";
+    private static final String SETTLEMENT_CARD_CLASS = "settlement-card";
+    private static final String SETTLEMENT_RECIPIENT_CLASS = "settlement-recipient-tag";
 
     private final int index;
     private final Expense expense;
 
+    @FXML
+    private VBox expenseCard;
     @FXML
     private VBox detailsContainer;
     @FXML
@@ -69,10 +74,17 @@ public class ExpenseCard extends UiPart<Region> {
                 .filter((participant) -> involvedIds.contains(participant.getPrimaryKey()))
                 .map((participant) -> participant.getName().toString())
                 .forEach(name -> sharedBy.getChildren().add(new Label(name)));
+
+        if (expense.isSettlement()) {
+            // Excludes the settlement owner
+            assert expense.getInvolved().length == 1;
+            setSettlementStyle();
+        }
     }
 
     /**
-     * Sets the component styles of this expense card to indicate a soft-deleted expense or settlement.
+     * Sets the component styles of this expense card to indicate a soft-deleted expense or
+     * settlement.
      */
     private void setSoftDeletedStyle() {
         // Grey out amount and description labels
@@ -81,6 +93,18 @@ public class ExpenseCard extends UiPart<Region> {
 
         // Grey out all participant tags in the FlowPane of this expense card
         sharedBy.getStyleClass().add(DELETED_TAGS_CLASS);
+    }
+
+    /**
+     * Sets the component styles of this expense card to visually distinguish a setlement from a
+     * typical expense.
+     */
+    private void setSettlementStyle() {
+        expenseCard.getStyleClass().add(SETTLEMENT_CARD_CLASS);
+
+        // Apply settlement styling directly to the tag with recipient's name
+        Node recipientTag = sharedBy.getChildren().get(1);
+        recipientTag.getStyleClass().add(SETTLEMENT_RECIPIENT_CLASS);
     }
 
     /**

@@ -17,6 +17,15 @@
     -fx-text-fill: #b0b0b0;
 }
 
+.expense-card-pane.settlement-card.settlement-card.settlement-card {
+    -fx-border-color: dimgray;
+    -fx-border-radius: 2px;
+}
+
+.expense-card .expense-sharing-list .settlement-recipient-tag.settlement-recipient-tag {
+    -fx-background-color: indigo;
+}
+
 .expense-card .deleted-tags.deleted-tags.deleted-tags .label {
     -fx-background-color: #c0c0c0;
     -fx-text-fill: #909090;

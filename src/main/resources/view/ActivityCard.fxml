@@ -12,7 +12,7 @@
 <HBox styleClass="activity-card" fx:id="activityCard" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS" hgap="8">
     <columnConstraints>
-      <ColumnConstraints hgrow="NEVER" prefWidth="60" />
+      <ColumnConstraints hgrow="NEVER" prefWidth="55" />
       <ColumnConstraints hgrow="SOMETIMES" prefWidth="300" />
       <ColumnConstraints hgrow="NEVER" prefWidth="70" />
     </columnConstraints>

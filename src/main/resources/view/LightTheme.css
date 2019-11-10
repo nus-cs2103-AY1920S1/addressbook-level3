@@ -176,7 +176,7 @@
     -fx-alignment: center;
 }
 
-.history-container .activity-history {
+.history-container .activity-history, .transfers-container .activity-transfers-list {
     -fx-padding: 0 0 8 0;
 }
 
