@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="title" alignment="CENTER" maxWidth="1.7976931348623157E308" text="/TYPE" VBox.vgrow="NEVER">
          <padding>
@@ -23,7 +23,7 @@
       </Label>
       <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <children>
-            <StackedBarChart fx:id="barGraph" HBox.hgrow="ALWAYS">
+            <StackedBarChart fx:id="barGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
               <xAxis>
                 <CategoryAxis side="BOTTOM" fx:id="xBarAxis" />
               </xAxis>
@@ -41,14 +41,21 @@
             </LineChart>
          </children>
       </HBox>
-      <Label text="All Records">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </Label>
-      <ListView fx:id="sideView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <children>
+            <Label fx:id="allRecordsLabel" styleClass="allRecordsLabel" text="All Records">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <ListView fx:id="sideView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+         </children>
+         <VBox.margin>
+            <Insets left="30.0" right="30.0" />
+         </VBox.margin>
+      </VBox>
    </children>
 </VBox>
