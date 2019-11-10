@@ -769,15 +769,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="90%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |Team coach |Input attendance of my team  |Keep track of their attendance rate and commitment level
+|`* * *` |Team coach who values commitment |Input attendance of my team  |Keep track of their attendance rate and commitment level
+
+|`* * *` |Efficient team coach |Take attendance quickly |Focus on coaching my team
 
 |`* * *` |Team coach |Track performance of my team |Know how to help them improve
 
+|`* * *` |Motivational Team coach |Performance data analysis of the performance of my team |Provide detailed feedback to my athletes 
+
+|`* * *` |Detailed team coach |Retrieve past training and performance records on a specific date |Know what happened on a specific date
+
+|`* * *` |Team coach |View profile of specific members |Monitor their individual progress
+
 |`* * *` |Careless user |Undo my previous commands |Redo any mistakes
 
-|`* * *` |Team coach |Assign tags to my team members |Differentiate roles of team members
+|`* * *` |New user |Know the available commands |Be able to use all the app functionalities
 
-|`* *` |Team coach |See all past and scheduled training sessions |Plan better to prepare for competitions
+|`* *` |Team coach |Assign tags to my team members |Differentiate roles of team members
+
+|`* *` |Team coach |Filter out my best performers for each event |Plan my team to send for competitions
+
+|`*` |Coach who is in-charge of multiple teams |Add multiple teams |Manage my teams separately
+
+|`*` |Forgetful coach |See past commands issued |Know what changes I have made
+
+|`*` |User who wants customisation |Change the app’s colour |Customise the app according to my preference
 
 |`*` |Coach who wants fit players |Filter players by overweight BMIs |Single them out and get them to lose weight
 |=======================================================================
