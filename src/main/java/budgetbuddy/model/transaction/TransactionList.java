@@ -69,10 +69,7 @@ public class TransactionList implements Iterable<Transaction> {
      */
     public void setAll(TransactionList toCopy) {
         requireNonNull(toCopy);
-        if (toCopy.getTransactionsCount() > 0) {
-            //there are transactions to be copied over
-            internalList.setAll(toCopy.internalList);
-        }
+        internalList.setAll(toCopy.internalList);
     }
 
     /**
