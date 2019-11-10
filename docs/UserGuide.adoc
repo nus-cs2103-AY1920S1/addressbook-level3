@@ -137,6 +137,8 @@ Example Commands:
 * `in $/250.50 d/29022020 n/mom c/family`
 * `in $/120 d/31122019 n/helping friend`
 
+=======
+
 [[Out]]
 === Logging Expense : `out`
 
