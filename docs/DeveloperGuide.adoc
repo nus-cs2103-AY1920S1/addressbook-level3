@@ -34,9 +34,8 @@ considerations for the implementation of Athletick's features.
 
 The intended audience of this document includes the developers and software testers of Athletick.
 
+// tag::symbol[]
 Note the following symbols and formatting used in this document
-
-
 
 NOTE:  This symbol indicates important information
 
@@ -46,6 +45,8 @@ NOTE:  This symbol indicates important information
 line and executed by the application.
 
 `[green]#component#`:: Green text with grey highlight indicates a component, class, object or method in the architecture of the application.
+// end::symbol[]
+
 //====
 
 === Design goals
