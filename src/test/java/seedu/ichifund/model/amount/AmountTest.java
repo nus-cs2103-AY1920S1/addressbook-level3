@@ -47,16 +47,22 @@ public class AmountTest {
         assertFalse(Amount.isValidAmount("050.00"));
         assertFalse(Amount.isValidAmount("00.00"));
 
+        // invalid amount - too long
+        assertFalse(Amount.isValidAmount("500000"));
+        assertFalse(Amount.isValidAmount("500000.00"));
+
         // valid amount - positive
         assertTrue(Amount.isValidAmount("50.00"));
-        assertTrue(Amount.isValidAmount("50"));
+        assertTrue(Amount.isValidAmount("5"));
+        assertTrue(Amount.isValidAmount("99999.99"));
         assertTrue(Amount.isValidAmount("0.50"));
         assertTrue(Amount.isValidAmount("0.00"));
         assertTrue(Amount.isValidAmount("0"));
 
         // valid amount - negative
         assertTrue(Amount.isValidAmount("-49.70"));
-        assertTrue(Amount.isValidAmount("-50"));
+        assertTrue(Amount.isValidAmount("-99999.99"));
+        assertTrue(Amount.isValidAmount("-5"));
         assertTrue(Amount.isValidAmount("-0.50"));
     }
 
