@@ -21,6 +21,11 @@ public class TaskManager {
         tasks.add(new ComputeBudgetTask());
     }
 
+    /**
+     * Executes all  task.
+     *
+     * @param model {@code Model} which all tasks should operate on.
+     */
     public void executeAll(Model model) {
         tasks.forEach(task -> {
             task.execute(model);
