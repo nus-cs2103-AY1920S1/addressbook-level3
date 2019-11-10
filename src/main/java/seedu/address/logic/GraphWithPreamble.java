@@ -33,8 +33,10 @@ public abstract class GraphWithPreamble<T> extends GraphBuiltFromModel<T> implem
             // suggest indexes
             int minIndex = 1;
             int maxIndex = dataList.size();
-            values.add(String.valueOf(minIndex));
-            values.add(String.valueOf(maxIndex));
+            if (maxIndex > 0) {
+                values.add(String.valueOf(minIndex));
+                values.add(String.valueOf(maxIndex));
+            }
             stringToCompare = "";
         } else {
             int secondSpace = input.stripLeading().indexOf(" ");
@@ -43,8 +45,10 @@ public abstract class GraphWithPreamble<T> extends GraphBuiltFromModel<T> implem
                 // suggest indexes
                 int minIndex = 1;
                 int maxIndex = dataList.size();
-                values.add(String.valueOf(minIndex));
-                values.add(String.valueOf(maxIndex));
+                if (maxIndex > 0) {
+                    values.add(String.valueOf(minIndex));
+                    values.add(String.valueOf(maxIndex));
+                }
                 stringToCompare = input.stripLeading();
             } else {
                 String preamble = input.stripLeading().substring(0, secondSpace);
@@ -58,8 +62,10 @@ public abstract class GraphWithPreamble<T> extends GraphBuiltFromModel<T> implem
                     // suggest indexes
                     int minIndex = 1;
                     int maxIndex = dataList.size();
-                    values.add(String.valueOf(minIndex));
-                    values.add(String.valueOf(maxIndex));
+                    if (maxIndex > 0) {
+                        values.add(String.valueOf(minIndex));
+                        values.add(String.valueOf(maxIndex));
+                    }
                     stringToCompare = "";
                 }
             }
