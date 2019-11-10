@@ -426,27 +426,27 @@ Examples:
 Feeling overwhelmed by the sheer amount of tasks to do? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
 
 .ELISA before priority mode with a long list of tasks
-image::BeforePriority.PNG[600,600]
+image::BeforePriority.PNG[500,500]
 
 
 By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA base on priority and the order in which the task was added to the list.
 
 
 .ELISA in priority mode
-image::AfterPriority.PNG[600, 600]
+image::AfterPriority.PNG[500,500]
 
 Notice that the ELISA icon turns red to signify that you are in priority mode and your task list has shrunk from 5 tasks down to the 1 most important task.
 
 When you are done with your current task, just tell ELISA you are done by simply typing `done 1` and ELISA will generate the next task for you.
 
 .ELISA after completing the first task
-image::AfterDone.PNG[600, 600]
+image::AfterDone.PNG[500,500]
 
 Feeling less stressed? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone tasks and you will be automatically brought out of priority mode.
 
 
 .ELISA after all tasks are completed
-image::AllDone.PNG[600, 600]
+image::AllDone.PNG[500,500]
 
 Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hhmm` and ELISA will turn it off at that specific time for you.
 
