@@ -53,8 +53,8 @@ public class EventCard extends UiPart<HBox> {
         idLabel.setText(displayedIndex.getOneBased() + ".");
         nameLabel.setText(event.getName().toString());
         destinationLabel.setText("Destination :" + event.getDestination().toString());
-        startDateLabel.setText("Start: " + ParserDateUtil.getDisplayTime(event.getStartDate()));
-        endDateLabel.setText("End: " + ParserDateUtil.getDisplayTime(event.getEndDate()));
+        startDateLabel.setText("Start: " + ParserDateUtil.getDisplayDateTime(event.getStartDate()));
+        endDateLabel.setText("End: " + ParserDateUtil.getDisplayDateTime(event.getEndDate()));
     }
     @Override
     public boolean equals(Object other) {

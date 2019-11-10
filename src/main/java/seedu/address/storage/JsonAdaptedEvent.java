@@ -10,9 +10,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.expenditure.Expenditure;
+
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.InventoryList;
+
+
+import seedu.address.model.expense.Expense;
+import seedu.address.model.itinerary.Description;
+
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
@@ -31,8 +36,9 @@ public class JsonAdaptedEvent {
     private final LocalDateTime endTime;
     private final String destination;
     //private final Optional<Booking> booking;
-    private final Optional<JsonAdaptedExpenditure> expenditure;
+    private final Optional<JsonAdaptedExpense> expense;
     //private final Optional<Inventory> inventory;
+    private final Optional<String> description;
 
     //Added by Karan Dev Sapra
     private final Optional<List<JsonAdaptedInventory>> inventoryList;
@@ -44,18 +50,20 @@ public class JsonAdaptedEvent {
     public JsonAdaptedEvent(@JsonProperty("name") String name,
             @JsonProperty("startTime") LocalDateTime from,
             @JsonProperty("endTime") LocalDateTime to,
-            @JsonProperty("destination") String destination,
-            @JsonProperty("expenditure") Optional<JsonAdaptedExpenditure> expenditure,
-                            @JsonProperty("inventoryList") Optional<List<JsonAdaptedInventory>> inventoryList
-    //, @JsonProperty("booking")Optional<Booking> booking,
-    // @JsonProperty("inventory")Optional<Inventory> inventory
-    ) {
+            @JsonProperty("destination") String destination, @JsonProperty("description") Optional<String> description,
+                            @JsonProperty("expense") Optional<JsonAdaptedExpense> expense,
+                            @JsonProperty("inventoryList") Optional<List<JsonAdaptedInventory>> inventoryList) {
+    //, @JsonProperty("booking")Optional<Booking> booking
         this.name = name;
         this.startTime = from;
         this.endTime = to;
         this.destination = destination;
-        this.expenditure = expenditure;
+
         this.inventoryList = inventoryList;
+
+        this.description = description;
+        this.expense = expense;
+
     }
 
     /**
@@ -69,10 +77,15 @@ public class JsonAdaptedEvent {
         this.startTime = source.getStartDate();
         this.endTime = source.getEndDate();
         this.destination = source.getDestination().value;
-        if (source.getExpenditure().isPresent()) {
-            this.expenditure = Optional.of(new JsonAdaptedExpenditure(source.getExpenditure().get()));
+        if (source.getExpense().isPresent()) {
+            this.expense = Optional.of(new JsonAdaptedExpense(source.getExpense().get()));
         } else {
-            this.expenditure = Optional.empty();
+            this.expense = Optional.empty();
+        }
+        if (source.getDescription().isPresent()) {
+            this.description = Optional.of(source.getDescription().get().description);
+        } else {
+            this.description = Optional.empty();
         }
 
         //System.out.println("BEFORE ENTERING THE PRESENCE with inventoryList " + source.getInventoryList());
@@ -140,17 +153,16 @@ public class JsonAdaptedEvent {
         final Location modelDestination = new Location(destination);
 
         //No check for TotalBudget (defaults endTime 0)
-        final Optional<Expenditure> modelExpenditure;
+        final Optional<Expense> modelExpense;
 
-        if (expenditure.isPresent()) {
+        if (expense.isPresent()) {
 
-            modelExpenditure = Optional.of(expenditure.get().toModelType());
+            modelExpense = Optional.of(expense.get().toModelType());
         } else {
-            modelExpenditure = Optional.empty();
+            modelExpense = Optional.empty();
         }
 
         Optional<List<Inventory>> modelInventoryList;
-
 
         if (inventoryList.isPresent()) {
 
@@ -168,9 +180,20 @@ public class JsonAdaptedEvent {
         }
 
 
+        final Optional<Description> modelDescription;
 
+        if (description.isPresent()) {
+            if (!Description.isValidDescription(description.get())) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            }
+            modelDescription = Optional.of(new Description(description.get()));
+        } else {
+            modelDescription = Optional.empty();
+        }
 
-        return new Event(modelName, modelStartTime, modelEndTime, modelExpenditure, modelDestination, modelInventoryList);
+        return new Event(modelName, modelStartTime, modelEndTime, modelExpense, modelDestination, modelDescription, modelInventoryList);
+
     }
 }
 

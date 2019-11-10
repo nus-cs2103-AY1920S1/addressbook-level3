@@ -9,16 +9,24 @@ import java.util.List;
 import java.util.Optional;
 
 import seedu.address.model.booking.Booking;
-import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.inventory.Inventory;
+
 import seedu.address.model.inventory.InventoryList;
+
+import seedu.address.model.itinerary.Description;
+
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 
 /**
  * Represents a Event in TravelPal.
  * Compulsory fields: name, startDate, endDate, destination.
+<<<<<<< HEAD
  * Optional fields: expenditure, booking, inventoryList.
+=======
+ * Optional fields: expense, booking, inventory.
+>>>>>>> af43df1e8b6160ddf82ae3e7121d8e7e74d6f158
  */
 public class Event {
     public static final String MESSAGE_INVALID_DATETIME = "Start date should be before end date";
@@ -30,15 +38,21 @@ public class Event {
     private final Location destination;
 
     // Optional fields
+
     private final Optional<List<Inventory>> inventoryList;
-    private final Expenditure expenditure;
+
+    private final Expense expense;
+
     private final Booking booking;
+    private final Description description;
 
     /**
      * Constructs an {@code Event}.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate, Booking booking,
-                 Expenditure expenditure, Optional<List<Inventory>> inventoryList, Location destination) {
+                 Expense expense, Location destination, Description description, Optional<List<Inventory>> inventoryList) {
+
+
         requireAllNonNull(name, startDate, endDate);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
 
@@ -47,40 +61,57 @@ public class Event {
         this.endDate = endDate;
         this.booking = booking;
         this.destination = destination;
-        this.expenditure = expenditure;
+
         this.inventoryList = inventoryList;
+
+        this.expense = expense;
+        this.description = description;
+
     }
 
     // temporary constructor until we implement booking and inventoryList, accepts null for now
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Expenditure expenditure, Location destination, Optional<List<Inventory>> inventoryList) {
-        requireAllNonNull(name, startDate, endDate, expenditure);
+                 Expense expense, Location destination, Description description, Optional<List<Inventory>> inventoryList) {
+
+        requireAllNonNull(name, startDate, endDate, expense, description);
+
+
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.booking = null;
         this.destination = destination;
-        this.expenditure = expenditure;
+
+
+        this.expense = expense;
         this.inventoryList = inventoryList;
+        this.description = description;
 
     }
 
     /**
-     * Constructs a trip with optional expenditure field.
+     * Constructs a trip with optional expense field.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Optional<Expenditure> expenditure, Location destination, Optional<List<Inventory>> inventoryList) {
-        requireAllNonNull(name, startDate, endDate, expenditure);
+
+                 Optional<Expense> expense, Location destination, Optional<Description> description, Optional<List<Inventory>> inventoryList) {
+
+
+        requireAllNonNull(name, startDate, endDate, expense);
+
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.booking = null;
         this.destination = destination;
-        this.expenditure = expenditure.orElse(null);
 
+
+        this.expense = expense.orElse(null);
         this.inventoryList = inventoryList;
+        this.description = description.orElse(null);
+
     }
 
 
@@ -106,8 +137,8 @@ public class Event {
     }
 
     // Optional field getters
-    public Optional<Expenditure> getExpenditure() {
-        return Optional.ofNullable(expenditure);
+    public Optional<Expense> getExpense() {
+        return Optional.ofNullable(expense);
     }
 
     public Optional<List<Inventory>> getInventoryList() {
@@ -116,6 +147,10 @@ public class Event {
 
     public Optional<Booking> getBooking() {
         return Optional.ofNullable(booking);
+    }
+
+    public Optional<Description> getDescription() {
+        return Optional.ofNullable(description);
     }
 
     /**
@@ -171,8 +206,11 @@ public class Event {
                 && otherTrip.getEndDate().equals(getEndDate())
                 && otherTrip.getDestination().equals(getDestination())
                 && otherTrip.getBooking().equals(getBooking())
-                && otherTrip.getExpenditure().equals(getExpenditure())
-                && otherTrip.getInventoryList().equals(getInventoryList());
+                && otherTrip.getExpense().equals(getExpense())
+                && otherTrip.getInventoryList().equals(getInventoryList())
+                && otherTrip.getDescription().equals(getDescription());
+
+
     }
 
 }

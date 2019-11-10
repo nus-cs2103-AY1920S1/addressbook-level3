@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -9,22 +10,29 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.time.LocalDateTime;
+import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyTravelPal;
+import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TravelPal;
-import seedu.address.model.itinerary.Budget;
-import seedu.address.model.itinerary.Location;
-import seedu.address.model.itinerary.Name;
+import seedu.address.model.appstatus.PageStatus;
+import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.trip.Trip;
+import seedu.address.model.trip.exceptions.ClashingTripException;
+import seedu.address.model.trip.exceptions.TripNotFoundException;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -76,9 +84,9 @@ public class CommandTestUtil {
     public static final String VALID_ENDDATE_DAY_1_1 = "01/02/2019";
     public static final String VALID_ENDDATE_DAY_1_2 = "01/11/2019 1200";
     public static final String VALID_ENDDATE_DAY_1_3 = "1500";
-    public static final String VALID_ENDDATE_DAY_2_1 = "05/05/2018";
-    public static final String VALID_ENDDATE_DAY_2_2 = "07/07/2018 1300";
-    public static final String VALID_ENDDATE_DAY_2_3 = "2100";
+    public static final String VALID_ENDDATE_DAY_2_1 = "02/02/2018";
+    public static final String VALID_ENDDATE_DAY_2_2 = "02/02/2018 1400";
+    public static final String VALID_ENDDATE_DAY_2_3 = "1400";
     public static final String VALID_DESTINATION_DAY_1 = "Gambia";
     public static final String VALID_DESTINATION_DAY_2 = "Bali";
     public static final String VALID_TOTAL_BUDGET_DAY_1 = "120.00";
@@ -102,6 +110,9 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String VALID_SYMBOL_POUND = "£";
+    public static final String VALID_SYMBOL_RUPEE = "Rs";
 
     /** The required input date format to use. */
     public static final String DATE_TIME_FORMAT = "d/M/y HHmm";
@@ -128,7 +139,6 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
-    public static final EditTripFieldCommand.EditTripDescriptor DESC_AFRICA;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -137,13 +147,6 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-
-        DESC_AFRICA = new EditTripFieldCommand.EditTripDescriptor();
-        DESC_AFRICA.setName(new Name(VALID_NAME_AFRICA));
-        DESC_AFRICA.setBudget(new Budget(VALID_TOTAL_BUDGET_AFRICA));
-        DESC_AFRICA.setStartDate(LocalDateTime.parse(VALID_STARTDATE_AFRICA_2, DATE_TIME_FORMATTER));
-        DESC_AFRICA.setDestination(new Location(VALID_DESTINATION_AFRICA));
-        DESC_AFRICA.setEndDate(LocalDateTime.parse(VALID_ENDDATE_AFRICA_2, DATE_TIME_FORMATTER));
     }
 
     /**
@@ -169,6 +172,16 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage} and contains booleans {@code doSwitchPage}.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel, Boolean doSwitchPage) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, doSwitchPage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
@@ -201,5 +214,196 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
+    /**
+     * A default model stub that have all of the methods failing.
+     */
+    private class ModelStub implements Model {
+        @Override
+        public FilteredList<Trip> getFilteredTripList() {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public FilteredList<CustomisedCurrency> getFilteredCurrencyList() {
+            return null;
+        }
+
+        @Override
+        public void deleteTrip(Trip target) throws TripNotFoundException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTrip(Trip target, Trip replacement) throws ClashingTripException, TripNotFoundException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTrip(Trip trip) throws ClashingTripException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public PageStatus getPageStatus() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPageStatus(PageStatus editedPageStatus) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //tests from AB3 ----------------------------------------------------
+
+        @Override
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyUserPrefs getUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GuiSettings getGuiSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getTravelPalFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTravelPalFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTravelPal(ReadOnlyTravelPal newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyTravelPal getTravelPal() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCurrency(CustomisedCurrency target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void selectCurrency(CustomisedCurrency target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCurrency(CustomisedCurrency currency) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrency(CustomisedCurrency target, CustomisedCurrency editedCurrency) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+    }
+
+    /**
+     * A Model stub that contains a single person.
+     */
+    public class ModelStubWithPerson extends ModelStub {
+        private final Person person;
+
+        ModelStubWithPerson(Person person) {
+            requireNonNull(person);
+            this.person = person;
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return this.person.isSamePerson(person);
+        }
+    }
+
+    /**
+     * A Model stub that always accept the person being added.
+     */
+    public class ModelStubAcceptingPersonAdded extends ModelStub {
+        final ArrayList<Person> personsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            requireNonNull(person);
+            personsAdded.add(person);
+        }
+
+        @Override
+        public ReadOnlyTravelPal getTravelPal() {
+            return new TravelPal();
+        }
+    }
+
+    /**
+     * A Model stub that contains a single person.
+     */
+    private class ModelStubWith extends ModelStub {
+        private final Person person;
+
+        ModelStubWith(Person person) {
+            requireNonNull(person);
+            this.person = person;
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return this.person.isSamePerson(person);
+        }
+    }
 }

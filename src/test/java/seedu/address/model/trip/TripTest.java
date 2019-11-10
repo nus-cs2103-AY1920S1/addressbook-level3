@@ -10,7 +10,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ENDDATE_AFRICA_
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ENDDATE_DAY_1_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AFRICA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BALI;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_DAY_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTDATE_BALI_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTDATE_DAY_1_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TOTAL_BUDGET_AFRICA;
@@ -105,7 +104,7 @@ public class TripTest {
         // different daylist -> returns false
         DayList days = new DayList(LocalDateTime.parse(VALID_STARTDATE_DAY_1_2, DATE_TIME_FORMATTER),
                 LocalDateTime.parse(VALID_ENDDATE_DAY_1_2, DATE_TIME_FORMATTER));
-        days.add(DayBuilder.newInstance().setName(new Name(VALID_NAME_DAY_1))
+        days.add(DayBuilder.newInstance()
                 .setDescription(new Description(VALID_DESCRIPTION_DAY_1))
                 .setStartDate(LocalDateTime.parse(VALID_STARTDATE_DAY_1_2, DATE_TIME_FORMATTER))
                 .setEndDate(LocalDateTime.parse(VALID_ENDDATE_DAY_1_2, DATE_TIME_FORMATTER))

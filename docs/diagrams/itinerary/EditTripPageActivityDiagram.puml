@@ -1,0 +1,17 @@
+@startuml
+start
+:User executes done command;
+if () then ([has valid start date])
+    if() then ([has valid name])
+        if() then ([has valid start date/end date])
+    :Confirm details and save form;
+        else([else])
+        endif
+    else ([else])
+    endif
+else ([else])
+endif
+:Returns to previous page;
+stop
+
+@enduml

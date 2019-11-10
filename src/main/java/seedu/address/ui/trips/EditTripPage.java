@@ -77,7 +77,7 @@ public class EditTripPage extends Page<AnchorPane> {
         currentEditDescriptor.getEndDate().ifPresent(endDate ->
                 tripEndDateFormItem.setValue(endDate.toLocalDate()));
         currentEditDescriptor.getBudget().ifPresent(budget ->
-                tripTotalBudgetFormItem.setValue(budget.value));
+                tripTotalBudgetFormItem.setValue(budget.getValue()));
         currentEditDescriptor.getPhoto().ifPresent(photo ->
                 tripPhotoFormItem.setValue(photo));
     }
@@ -136,7 +136,7 @@ public class EditTripPage extends Page<AnchorPane> {
                 mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_DATE_END,
                         ParserDateUtil.getStringFromDate(endDate.atTime(23, 59, 59)))));
 
-        tripTotalBudgetFormItem = new DoubleFormItem("Total budget : ", totalBudget ->
+        tripTotalBudgetFormItem = new DoubleFormItem("Total budget (in Singapore Dollar): ", totalBudget ->
                 mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_BUDGET,
                         String.format("%.2f", totalBudget))));
 

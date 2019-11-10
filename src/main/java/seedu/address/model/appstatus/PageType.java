@@ -17,6 +17,6 @@ public enum PageType {
     ADD_TRIP,
     ADD_DAY,
     ADD_EVENT,
-    ADD_EXPENDITURE,
+    ADD_EXPENSE,
     ADD_CURRENCY
 }

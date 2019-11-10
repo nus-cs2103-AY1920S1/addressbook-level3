@@ -50,7 +50,7 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
     private ListView<Inventory> inventoryListView;
 
 
-
+    private Label descriptionLabel;
 
 
     public EventsPage(MainWindow mainWindow, Logic logic, Model model) {
@@ -134,17 +134,22 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
     private void handleShowEventDetails() {
         // ShowEventDetailsCommand sets event in PageStatus as the event with details to show
         Event event = model.getPageStatus().getEvent();
-        if (event.getExpenditure().isPresent()) {
+        if (event.getExpense().isPresent()) {
             totalBudgetLabel.setText("Total Budget: "
-                                                + event.getExpenditure().get().getBudget()
+                                                + event.getExpense().get().getBudget()
                                                 .getValueStringInCurrency(model.getTravelPal().getCurrencies().get(0)));
-        } else {
-            totalBudgetLabel.setText("Total Budget: 0");
         }
+
         nameLabel.setText(event.getName().toString());
+
 
         if (event.getInventoryList().isPresent()) {
             inventoryListView.setItems(FXCollections.observableList(event.getInventoryList().get()));
+        }
+
+        if (event.getDescription().isPresent()) {
+            descriptionLabel.setText("Description: " + event.getDescription().get().toString());
+
         }
     }
 

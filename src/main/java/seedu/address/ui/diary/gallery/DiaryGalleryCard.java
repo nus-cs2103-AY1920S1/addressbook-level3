@@ -59,7 +59,7 @@ class DiaryGalleryCard extends UiPart<AnchorPane> {
     private void initialiseGalleryCard() {
         photoIndexLabel.setText(displayIndex.getOneBased() + "");
         photoDescriptionLabel.setText(photo.getDescription());
-        photoDateLabel.setText(ParserDateUtil.getDisplayTime(photo.getDateTaken()));
+        photoDateLabel.setText(ParserDateUtil.getDisplayDateTime(photo.getDateTaken()));
         photoImageView.setImage(photo.getImage());
     }
 

@@ -20,7 +20,7 @@ import seedu.address.model.inventory.exceptions.InventoryNotRemovableException;
  */
 public class InventoryList {
 
-    //public final ObservableList<Expenditure> internalList = FXCollections.observableArrayList();
+    //public final ObservableList<Expense> internalList = FXCollections.observableArrayList();
 
     private HashMap<String, Integer> eventInstances;
 
@@ -146,8 +146,8 @@ public class InventoryList {
         requireAllNonNull(occurrences);
 
         /*
-        if (!expendituresAreUnique(occurrences)) {
-            throw new DuplicateExpenditureException();
+        if (!expensesAreUnique(occurrences)) {
+            throw new DuplicateExpenseException();
         }*/
 
         list.setAll(occurrences);

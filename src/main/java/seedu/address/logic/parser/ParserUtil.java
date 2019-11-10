@@ -23,6 +23,7 @@ import seedu.address.model.tag.Tag;
 public abstract class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_PROPERTY = "Expenses can only be sorted by name or amount.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -140,6 +141,25 @@ public abstract class ParserUtil {
         }
 
         throw new ParseException(MESSAGE_INVALID_GENERIC_BOOLEAN);
+    }
+
+    /**
+     * Parses the given {@code String} representing a property of expense as sorting category.
+     * It is case insensitive.
+     *
+     * @param prop The property string to parse.
+     * @throws ParseException If the string is neither "name" nor "amount" (case-insensitive).
+     */
+    public static String parseProperty(String prop) throws ParseException {
+        requireNonNull(prop);
+        String trimmed = prop.trim();
+        if (trimmed.equalsIgnoreCase("name")) {
+            return "name";
+        } else if (trimmed.equalsIgnoreCase("amount")) {
+            return "amount";
+        } else {
+            throw new ParseException(MESSAGE_INVALID_PROPERTY);
+        }
     }
 
 }

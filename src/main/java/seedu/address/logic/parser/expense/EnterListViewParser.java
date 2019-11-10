@@ -1,6 +1,6 @@
 package seedu.address.logic.parser.expense;
 
-import seedu.address.logic.commands.expenditure.EnterListViewCommand;
+import seedu.address.logic.commands.expense.EnterListViewCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 

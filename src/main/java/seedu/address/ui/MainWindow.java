@@ -29,8 +29,8 @@ import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
 import seedu.address.ui.currency.CurrencyPage;
 import seedu.address.ui.diary.DiaryPage;
-import seedu.address.ui.expenditure.EditExpenditurePage;
-import seedu.address.ui.expenditure.ExpensesPage;
+import seedu.address.ui.expense.EditExpensePage;
+import seedu.address.ui.expense.ExpensesPage;
 import seedu.address.ui.inventory.InventoryPage;
 import seedu.address.ui.itinerary.DaysPage;
 import seedu.address.ui.itinerary.EditDayPage;
@@ -246,8 +246,8 @@ public class MainWindow extends UiPart<Stage> {
         case EXPENSE_MANAGER:
             newPage = new ExpensesPage(this, logic, model);
             break;
-        case ADD_EXPENDITURE:
-            newPage = new EditExpenditurePage(this, logic, model);
+        case ADD_EXPENSE:
+            newPage = new EditExpensePage(this, logic, model);
             break;
         case ADD_CURRENCY:
             newPage = new CurrencyPage(this, logic, model);

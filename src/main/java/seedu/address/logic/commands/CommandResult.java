@@ -116,12 +116,14 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && shouldExit == otherCommandResult.shouldExit
-                && doSwitchPage == otherCommandResult.doSwitchPage;
+                && doSwitchPage == otherCommandResult.doSwitchPage
+                && doChangeUi == otherCommandResult.doChangeUi
+                && (Objects.equals(commandWord, otherCommandResult.commandWord));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, shouldExit);
+        return Objects.hash(feedbackToUser, showHelp, shouldExit, doChangeUi, commandWord);
     }
 
 }

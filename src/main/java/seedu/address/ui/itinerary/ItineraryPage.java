@@ -102,8 +102,8 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
         dayButtonsContainer.getChildren().addAll(FXCollections.observableArrayList(dayButtons));
 
         // Set background
-        boolean photoPresent = model.getPageStatus().getTrip().getPhoto().isPresent();
-        if (photoPresent) {
+        boolean isPhotoPresent = model.getPageStatus().getTrip().getPhoto().isPresent();
+        if (isPhotoPresent) {
             Image img = model.getPageStatus().getTrip().getPhoto().get().getImage();
             BackgroundImage bgImg = new BackgroundImage(img,
                     BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,

@@ -41,8 +41,6 @@ public class EditCurrencyFieldParser implements Parser<EditCurrencyFieldCommand>
             index = Optional.ofNullable(ParserUtil.parseIndex(argMultimap.getPreamble()));
         } catch (ParseException pe) {
             index = Optional.empty();
-            //throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-            //        EditCurrencyFieldCommand.MESSAGE_USAGE), pe);
         }
 
         if (!index.isEmpty()) {

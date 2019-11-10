@@ -62,12 +62,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setTravelPalFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setTravelPalFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setTravelPalFilePath_validPath_setsTravelPalFilePath() {
         Path path = Paths.get("address/book/file/path");
         modelManager.setTravelPalFilePath(path);
         assertEquals(path, modelManager.getTravelPalFilePath());
@@ -78,21 +78,18 @@ public class ModelManagerTest {
         assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
     }
 
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
-    }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
+
+    // TripList accessors
+    @Test
+    public void getFilteredTripList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredTripList().remove(0));
+    }
+
 
     @Test
     public void equals() {
