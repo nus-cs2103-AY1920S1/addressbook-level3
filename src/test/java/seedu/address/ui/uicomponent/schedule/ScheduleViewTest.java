@@ -1,4 +1,4 @@
-package seedu.address.ui.uicomponent;
+package seedu.address.ui.uicomponent.schedule;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -101,7 +101,7 @@ public class ScheduleViewTest extends ApplicationTest {
 
     @Test
     public void checkIfTimeSlotsTitleDisplayedInOrder() {
-        String timeSlotLabelsId = SCHEDULE_CONTENT_ID + " #timeslotLabelContainer .label";
+        String timeSlotLabelsId = SCHEDULE_CONTENT_ID + " #timeSlotLabelContainer .label";
         ArrayList<Node> timeSlotLabel = new ArrayList<>(lookup(timeSlotLabelsId).queryAll());
         //Titles are labelled in ascending order.
         for (int i = 0; i < timeSlotLabel.size(); i++) {
@@ -112,7 +112,7 @@ public class ScheduleViewTest extends ApplicationTest {
 
     @Test
     public void checkIfTimeSlotsLabelEquallySpaced() {
-        String timeSlotLabelContainerId = SCHEDULE_CONTENT_ID + " #timeslotLabelContainer";
+        String timeSlotLabelContainerId = SCHEDULE_CONTENT_ID + " #timeSlotLabelContainer";
         ArrayList<Node> timeSlotLabelContainers = new ArrayList<>(lookup(timeSlotLabelContainerId).queryAll());
         for (Node titleContainer : timeSlotLabelContainers) {
             assertEquals(ScheduleView.ONE_HOUR_LENGTH, ((StackPane) titleContainer).getHeight());
@@ -121,7 +121,7 @@ public class ScheduleViewTest extends ApplicationTest {
 
     @Test
     public void checkIfColouredTimeSlotsBlockHasTextDisplayedCorrectly() {
-        String colouredTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeslotContainer #colouredBlockWithText";
+        String colouredTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeSlotContainer #colouredBlockWithText";
         String colouredTimeSlotBlockTextId = colouredTimeSlotBlockId + " .label";
         ArrayList<Node> colouredBlocksText = new ArrayList<>(lookup(colouredTimeSlotBlockTextId).queryAll());
         ArrayList<PersonTimeslot> flattenedTimeSlots = new ArrayList<>();
@@ -140,7 +140,7 @@ public class ScheduleViewTest extends ApplicationTest {
 
     @Test
     public void checkIfNumberOfColouredTimeSlotBlocksAreCorrect() {
-        String colouredTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeslotContainer #colouredBlockWithText";
+        String colouredTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeSlotContainer #colouredBlockWithText";
         ArrayList<Node> colouredBlocks = new ArrayList<>(lookup(colouredTimeSlotBlockId).queryAll());
         // Check to see the number of blocks correspond to the total number of time slots occupied.
         int totalNumOfEventsInSchedule = 0;
@@ -152,7 +152,7 @@ public class ScheduleViewTest extends ApplicationTest {
 
     @Test
     public void checkIfColouredTimeSlotBlocksHaveCorrectSize() {
-        String colouredTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeslotContainer #colouredBlockWithText";
+        String colouredTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeSlotContainer #colouredBlockWithText";
         ArrayList<Node> colouredBlocks = new ArrayList<>(lookup(colouredTimeSlotBlockId).queryAll());
         //Check to see if the height (in px) corresponds to the duration of the block.
         ArrayList<PersonTimeslot> flattenedTimeSlots = new ArrayList<>();
@@ -174,7 +174,7 @@ public class ScheduleViewTest extends ApplicationTest {
 
     @Test
     public void checkIfNumberOfEmptyBlocksAreCorrect() {
-        String emptyTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeslotContainer #emptyBlock";
+        String emptyTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeSlotContainer #emptyBlock";
         //Calculate the spaces between time slots.
         int spacesBetweenTimeSlot = 0;
         for (int i = 1; i <= 7; i++) {
@@ -193,7 +193,7 @@ public class ScheduleViewTest extends ApplicationTest {
 
     @Test
     public void checkIfEmptyBlocksHaveCorrectSize() {
-        String emptyTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeslotContainer #emptyBlock";
+        String emptyTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeSlotContainer #emptyBlock";
         ArrayList<Node> emptyBlocks = new ArrayList<>(lookup(emptyTimeSlotBlockId).queryAll());
         //Calculate the duration of every empty block.
         ArrayList<Double> emptyBlockDuration = new ArrayList<>();
@@ -215,8 +215,8 @@ public class ScheduleViewTest extends ApplicationTest {
 
     @Test
     public void checkIfBlocksArePlacedCorrectly() {
-        String colouredTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeslotContainer #colouredBlockWithText";
-        String emptyTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeslotContainer #emptyBlock";
+        String colouredTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeSlotContainer #colouredBlockWithText";
+        String emptyTimeSlotBlockId = SCHEDULE_CONTENT_ID + " #timeSlotContainer #emptyBlock";
         //Way to test is to read the blocks' position and convert it to actual start and end times.
         //Strategy: Put all the nodes in one list and the time slots in another list. Map one to one equivalence.
         //Test using stub's fixed data set.
@@ -259,7 +259,7 @@ public class ScheduleViewTest extends ApplicationTest {
 
     @Test
     public void checkIfFreeTimeSlotBlocksHaveCorrectNumberAndSize() {
-        String freeTimeSlotId = SCHEDULE_CONTENT_ID + " #freeTimeSlotContainer #freeTimeslot";
+        String freeTimeSlotId = SCHEDULE_CONTENT_ID + " #freeTimeSlotContainer #freeTimeSlot";
         ArrayList<Node> freeTimeSlotBlocks = new ArrayList<>(lookup(freeTimeSlotId).queryAll());
         ArrayList<FreeTimeslot> freeTimeSlots = new ArrayList<>();
         for (int i = 1; i <= 7; i++) {
@@ -284,7 +284,7 @@ public class ScheduleViewTest extends ApplicationTest {
     public void checkIfFreeTimeSlotBlocksArePlacedCorrectly() {
         //Check if free time slot blocks are placed correctly in terms of pixels.
         //Strategy is to count based on stub data.
-        String freeTimeSlotId = SCHEDULE_CONTENT_ID + " #freeTimeSlotContainer #freeTimeslot";
+        String freeTimeSlotId = SCHEDULE_CONTENT_ID + " #freeTimeSlotContainer #freeTimeSlot";
         String emptyBlockForFreeScheduleId = SCHEDULE_CONTENT_ID + " #freeTimeSlotContainer #emptyBlock";
         ArrayList<Node> freeTimeSlotBlocks = new ArrayList<>(lookup(freeTimeSlotId).queryAll());
         ArrayList<Node> emptyBlocks = new ArrayList<>(lookup(emptyBlockForFreeScheduleId).queryAll());

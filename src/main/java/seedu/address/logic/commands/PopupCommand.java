@@ -29,7 +29,7 @@ public class PopupCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " "
             + "[" + PREFIX_WEEK + "WEEK_NUMBER] "
             + PREFIX_ID + "FREETIMESLOTID" + "\n"
-            + "WEEK_NUMBER: 1 - 4   (if not specified, current week will be selected)";
+            + "WEEK_NUMBER: 1 - 4   (if not specified, the first week will be selected)";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
@@ -60,9 +60,9 @@ public class PopupCommand extends Command {
                         errorResponse = commonLocationData.getErrorResponse();
                     } else {
                         logger.warning("Unknown error for time slot: " + freeTimeslot.toString());
-                        return new CommandResultBuilder(INTERNAL_ERROR).build();
+                        throw new CommandException(INTERNAL_ERROR);
                     }
-                    return new CommandResultBuilder(MESSAGE_USER_ERROR + errorResponse).build();
+                    throw new CommandException(MESSAGE_USER_ERROR + errorResponse);
                 }
 
                 return new CommandResultBuilder(MESSAGE_SUCCESS)
@@ -73,7 +73,7 @@ public class PopupCommand extends Command {
                         + "shown in the GUI.").build();
             }
         } else {
-            return new CommandResultBuilder(ERROR_NOTHING_TO_POPUP).build();
+            throw new CommandException(ERROR_NOTHING_TO_POPUP);
         }
 
 
