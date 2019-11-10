@@ -174,8 +174,8 @@ Given below is an example usage scenario of how add behaves at each step:
 Step 1. The user enters the command "game". +
 Step 2. The LogicManager creates an ElisaParser to parse the user input. +
 Step 3. ElisaParser creates a GameCommandParser to parse the user input. +
-Step 4. LogicManager will execute the GameCommand. GameCommand will create a GameCommandResult +
-Step 5. MainWindow will call its own method startgame()
+Step 4. LogicManager will execute the GameCommand. GameCommand will create a GameCommandResult. +
+Step 5. MainWindow will call its own method startgame().
 
 <GAME> +
 Step 6. startgame() calls the method resetgame(), which creates a Grid and GameLoop. +
