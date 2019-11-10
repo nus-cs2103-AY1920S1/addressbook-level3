@@ -346,22 +346,126 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 === Calendar Window
 
-The calendar window provides a visual representation of stored engagements over a monthly period.
+The `CalendarWindow` provides a visual representation of stored engagements over a monthly period.
 Users can choose to change the month being displayed and also open scrolling text windows which
 show more detailed descriptions of the stored engagements for a particular day.
 
 ==== Implementation Structure
 .Structure of the Calendar Window
 image::CalendarWindowClassDiagram.png[]
-
+{empty} +
 The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
 displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
 
+The following sequence diagram shows the creation of a `CalendarWindow` instance when the user switches to the
+calendar window tab.
+
 .CalendarWindow Initialization Sequence Diagram
 image::CalendarWindowSequenceDiagram.png[]
+{empty} +
 
-The controller is set after constructing the `CalendarWindow` because there were some issues with
-using constructors containing at least one argument.
+==== UI Design
+The `CalendarWindow` class was designed with the observer pattern in mind. The calendar's display and any open engagements
+list windows are automatically updated as engagements are added to or deleted from the application. `CalendarDateCell` and
+`EngagementListViewCell` both have a reference to an `ObervableList` of engagements in order to conform to the observer pattern.
+The following table shows all UI components which are used and their respective purposes.
+
+.Calendar Window UI Components
+[%header, cols=4*]
+|===
+|
+|UI Component Type
+|Feature
+|Purpose
+
+| `DateDisplayGrid`
+| GridPane
+| Displays a grid which represents 35 calendar dates.
+| Shows the user the days of the month which is currently being displayed.
+
+| `CalendarDateStackPane`
+| StackPane
+| Displays the date of a single `CalendarDateCell` and the number of engagements for that date.
+| Provides the user with some general engagement information for a particular date.
+
+| `PreviousMonthButton`
+| Button
+| Switches the calendar's display to the previous month.
+| Allows the user to navigate to the previous month.
+
+| `CalendarTitle`
+| Text
+| Indicates the month and year currently being displayed by the calendar window.
+| Informs the month and year currently being displayed by the calendar window.
+
+| `NextMonthButton`
+| Button
+| Switches the calendar's display to the next month.
+| Allows the user to navigate to the next month.
+
+| `EngagementListView`
+| ListView
+| Displays a list of engagements for a particular date.
+| Lets the user see more detailed information about all of his/her engagements for a particular date
+
+| `EngagementListViewCell`
+| ListCell
+| Displays information for a single engagement.
+| Allows the user to see detailed information about a single engagement. This is used as the cell factory for ListView.
+
+|===
+
+==== Command Execution Workflows
+
+The following are the four commands which interact with `CalendarWindow`. They are accompanied by their respective activity diagrams
+which are used to model their workflows:
+
+* `CalendarOpenDisplayCommand` -- Opens the engagements list window for the specified date.
+
+.Open Display Activity Diagram
+image::CalendarOpenDisplayActivityDiagram.png[]
+{empty} +
+
+* `CalendarCloseDisplayCommand` -- Closes the engagements list window for the specified date.
+
+.Close Display Activity Diagram
+image::CalendarCloseDisplayActivityDiagram.png[]
+{empty} +
+
+* `CalendarNextMonthCommand` -- Changes the calendar window's display to the month after the currently displayed month.
+
+.Next Month Activity Diagram
+image::CalendarNextMonthActivityDiagram.png[]
+{empty} +
+
+* `CalendarOpenDisplayCommand` -- Changes the calendar window's display to the month prior to the currently displayed month.
+
+.Previous Month Activity Diagram
+image::CalendarPreviousMonthActivityDiagram.png[]
+{empty} +
+
+==== Design Considerations
+
+===== Aspect: Deciding whether to let engagements list windows from other months remain open when changing the displayed month
+
+* **Alternative 1 (current choice):** Only engagements list windows from the current month can be opened. Switching to other months
+causes all opened engagements list windows to be closed.
+** Pros: Easier to implement and does not take up much memory.
+** Cons: Does not let users view engagement lists from different months simultaneously.
+* **Alternative 2:** Letting engagements list windows remain open, regardless of the month, until they are closed by users.
+** Pros: Users are able to view side-by-side comparisons of their engagement lists across different months.
+** Cons: Introduces additional dependencies because many references to `ObervableList` instances must be maintained.
+
+===== Aspect: Information being displayed in each calendar cell
+
+* **Alternative 1 (current choice):** Only display the number of engagements for each date.
+** Pros: Does not take up a lot of on-screen space. More detailed information about each day's engagements can be viewed
+by opening the engagements list window for that particular date.
+** Cons: The information shown in the calendar window is very generalized.
+* **Alternative 2:** Display the descriptions (and maybe more detailed information) of each date's engagements.
+** Pros: Shows more detailed information in the calendar window.
+** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
+The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
 
 === Game Window
 
@@ -440,6 +544,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 image::SortUpdateActivityDiagram.png[width="190", align="center"]
 
 ==== Design Considerations
+
 
 ===== Aspect: How sort executes
 
