@@ -70,8 +70,10 @@ public class FindEndState extends EndState {
      */
     private void checkPredicateValidity(EngagementPredicate engagementPredicate) throws CommandException {
         if (!engagementPredicate.hasEditedFields()) {
-            throw new CommandException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            String errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
+
+            logger.severe(String.format(LOG_BUILD_FAILURE, FindCommand.class, errorMessage));
+            throw new CommandException(errorMessage);
         }
     }
 
