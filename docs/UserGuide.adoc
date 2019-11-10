@@ -80,6 +80,21 @@ should disappear.
 
 * If everything above executes as stated, you can use $aveNUS to plan your expenditure in NUS now!
 
+//tag::roby1[]
+[NOTE]
+This application is optimized for screen resolution of 1400x900 pixels and higher. Anything lower than that and you
+might experienced some bugs.
+
+[NOTE]
+You might experience some truncated detail on smaller laptop screens. As such, we would advice you to not to input
+really long names, description, etc.
+
+[IMPORTANT]
+Ensure that your scaling setting is set to 100% as anything higher might result in text being cut off.
+
+image::ScalingSetting.png[]
+//end::roby1[]
+
 === Navigating $aveNUS
 
 * TODO insert when we complete the user interface.
@@ -116,11 +131,12 @@ For example, `delete INDEX...` works with commands such as `delete 1`, `delete 1
 This section highlights the commands that $aveNUS supports. These include information about the command's
 function, format as well as example usages of the command.
 
-//tag::general[]
+//tag::roby2[]
+
 === General Commands
 
-$aveNUS provides the user with a set of commands that are not feature-specific to
-enhance the user's experience as a whole.
+General commands are used to enhance the user's experience when using the app and also provide some useful information
+to make the user more familiar with the app.
 
 ==== Viewing help: `help`
 
@@ -128,9 +144,15 @@ Display the help screen that allows you to view the list of commands available a
 by clicking the `Guide` button.
 
 ****
-*Format*: `help`
+*Format*: `help` +
 *Example*: `help`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see the help the help window, diplaying the list of commands available.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see the help the help window, diplaying the list of commands available.]
+|===
 
 ==== Viewing previously typed commands: `history`
 
@@ -145,6 +167,10 @@ The user can view up to 10 previously typed commands.
 
 [NOTE]
 A message stating that "You have not entered any commands." is displayed if you have not input any commands prior to the call to `history`.
+
+[IMPORTANT]
+This command only allows you to see previously typed commands. Any commands done through the buttons on the menu pane
+will not be shown.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -164,24 +190,59 @@ The `history` command will only display previous commands with no duplicate comm
 
 ==== Viewing information about a command: `info`
 
-Displays the information of the command specified. A new window will be opened.
+Displays the information of the command specified. A new window will be opened showing additional information about the
+specified command, usage example, and expected output of the command.
 
 ****
 *Format*: `info COMMAND` +
 *Example*: `info edit`
 ****
 
+[NOTE]
+$aveNUS can only display one information window at a time. Therefore, subsequent usage of the `info` command will only
+display the latest command specified.
+
+[TIP]
+You will not have to worry about opening too many new information window as older information window closes as soon as
+a new one is opened!
+
 [width="100%",cols="5%,95%", grid=none]
 |===
 ifdef::env-github[| :white_check_mark: a| You will see a window pop-up specifying the details of the command you wanted more information about.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a window pop-up specifying the details of the command you wanted more information about.]
+
+.Example of view of information window after user inputs `info edit`.
+image::InfoEditUI.png[]
+|===
+
+==== Changing the application's theme: `theme`
+
+Changes the look of the application depending on the desired theme. +
+List of themes available are `light` and `dark`
+
+The default theme of the application is `dark`
+
+[NOTE]
+You are able to subsequently set the same theme one after another but it would not result in any change in themes. +
+e.g. calling `theme dark` and then `theme dark` again will only result in one time change to dark theme.
+
+****
+*Format*: `theme THEME` +
+*Example*: `theme dark`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The application's theme will now change to dark theme.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The application's theme will now change to dark theme.]
 |===
 
 ==== Exiting the application: `exit`
 Exits the app. +
 
 ****
-*Format*: `exit`
+*Format*: `exit` +
+*Example*: `exit`
 ****
 
 [width="100%",cols="5%,95%", grid=none]
@@ -189,27 +250,50 @@ Exits the app. +
 ifdef::env-github[| :white_check_mark: a| Application closes.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| Application closes.]
 |===
-//end::general[]
+//end::roby2[]
 
 === Food Items
 
+
 [[add]]
 ==== Add a food item: `add`
-Adds a food item to the food list.
+Adds a food item to the food list. Do note of the following:
+
+****
+*  You are only allowed to give one of `NAME`, `DESCRIPTION`, `CATEGORY`, `LOCATION`, `RESTRICTIONS`, `PRICE` and `OPENING HOURS`.
+Providing more than one of these `FIELD` will throw an error.
+*  You are allowed to give one or more `TAGS`.
+* `PRICE` must be a number wth 0 or 2 decimal places, it cannot exceed more than 5000.00 and it should not contain leading zeros.
+* `OPENING HOURS` must be in HHMM HHMM format. The start time must be earlier than or equal to the end time.
+* `NAME` `DESCRIPTION` `CATEGORY` `LOCATION` and `RESTRICTIONS` must all be alphanumeric.
+* `TAG` is limited to 20 characters per tag, and only limited to one word per tag.
+****
+
+[IMPORTANT]
+The list will scroll to the end when the food is added. +
+If `autosort` is turned on, it will not scroll to the end of the list.
 
 [IMPORTANT]
 NAME, PRICE and CATEGORY are mandatory fields.
-Price must be an integer or a double with 2 decimal places and the maximum Price for a food item is $5000.
-Opening Hours must be in HHMM format.
 
 [NOTE]
 The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
 by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
 ****
-*Format*: `add n/NAME d/DESCRIPTION p/PRICE c/CATEGORY l/LOCATION o/OPENING HOURS r/RESTRICTIONS` +
-*Example*: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NIL`
+*Format*: `add n/NAME p/PRICE c/CATEGORY [d/DESCRIPTION] [l/LOCATION] [o/OPENING HOURS] [r/RESTRICTIONS] [t/TAG]...` +
+*Example*: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NI t/Chicken t/RiceL`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The food list will scroll to the bottom, where the new food item is added.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food list will scroll to the bottom, where the new food item is added.]
+
+image::addsuccess.png[]
+
+{empty}
+|===
 
 ==== List all food items: `list`
 List all the food items in the list.
@@ -222,27 +306,70 @@ by using the `recommend` command again (see <<Getting a list of recommended food
 *Format*: `list`
 ****
 
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| All the items in the food list will be shown.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| All the items in the food list will be shown.]
+
+image::listsuccess.png[]
+
+{empty}
+|===
+
 ==== Edit a food item: `edit`
 Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be a positive integer. At least one FIELD must be given.
+Do take note of the following:
 
 ****
-*Format*: `edit INDEX n/NAME d/DESCRIPTION ...` +
+*  You are only allowed to give one of `NAME`, `DESCRIPTION`, `CATEGORY`, `LOCATION`, `RESTRICTIONS`, `PRICE` and `OPENING HOURS`.
+Providing more than one of these `FIELD` will throw an error.
+*  You are allowed to give one or more `TAGS`.
+* `PRICE` must be a number wth 0 or 2 decimal places, it cannot exceed more than 5000.00 and it should not contain leading zeros.
+* `OPENING HOURS` must be in HHMM HHMM format. The start time must be earlier than or equal to the end time.
+* `NAME` `DESCRIPTION` `CATEGORY` `LOCATION` and `RESTRICTIONS` must all be alphanumeric.
+* `TAG` is limited to 20 characters per tag, and only limited to one word per tag.
+****
+
+****
+*Format*: `edit INDEX n/NAME ...` +
 *Example*: `edit 2 n/Fried Rice`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The food item's fields will be updated.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food item's fields will be updated.]
+
+image::editsuccess.png[]
+
+{empty}
+|===
 
 ==== Finds food items based on keywords: `find`
 Finds a food items based on specific keywords. Following which, the food items names containing the specific keywords will
 be shown in the food list.
 
 ****
-*Format*: `find KEYWORD [MORE_KEYWORDS]..` +
+*Format*: `find KEYWORD ...` +
 *Example*: `find Chicken Rice`
 ****
 
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The food items containing any of the specific keywords will be shown.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food items containing any of the specific keywords will be shown.]
+
+image::findsuccess.png[]
+
+{empty}
+|===
+
 //tag::filters[]
 ==== Filters food items based on criteria: `filter`
-Filters the food items based on the criteria specified. Note: You can need to
-have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
+Filters the food items based on the criteria specified. Take note of the following:
+****
+*  The `VALUE` of the `PRICE` must be a number wth 0 or 2 decimal places, and it cannot exceed more than 1000000.
+****
 
 [NOTE]
 Based on v1.4, you are only allowed to enter `PRICE` as a `FIELD`. Other fields will be available for use
@@ -252,46 +379,81 @@ in v2.0 and above.
 *Format*: `filter FIELD QUANTIFIER VALUE` +
 *Example*: `filter PRICE LESS_THAN 4.00`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The food items satisfying the conditions will be shown.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food items satisfying the conditions will be shown.]
+
+image::filtersuccess.png[]
+
+{empty}
+|===
 //end::filters[]
 
 ==== Deletes a food item: `delete`
 Deletes a food items based on the given INDEX. INDEX must be a positive integer.
-Note: You are allowed to have more than one `INDEX`.
+
+[NOTE]
+You are allowed to have more than one `INDEX`.
 
 ****
 *Format*: `delete INDEX ...` +
 *Example*: `delete 2`
 ****
 
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| A confirmation message will appear, informing that the food item has been deleted.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| A confirmation message will appear, informing that the food item has been deleted.]
+
+image::deletesuccess.png[]
+
+{empty}
+|===
+
 ==== Clears wallet purchase history and food items: `clear`
-Clears wallet, purchase history, savings account, wallet, likes, dislikes and aliases in the application.
+Clears wallet, purchase history, savings account, likes, dislikes and aliases in the application.
 
 ****
 *Format*: `clear`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| Wallet, Purchase History, Savings History, Savings Account, likes, dislikes and aliases will all be cleared..]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| Wallet, Purchase History, Savings History, Savings Account, likes, dislikes and aliases will all be cleared..]
+
+image::clearsuccess.png[]
+
+{empty}
+|===
 
 //tag::sorting[]
 === Sorting
 Allows the user to sort the food items based on his liking.
 This is done so that the user is able to get the food which is most relevant to his or her preferences.
 
-[NOTE]
-You must always provide pairs of FIELD and DIRECTION to execute the Sorting commands.
-The fields are as followed: `NAME`, `DESCRIPTION`, `PRICE`,
-`CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
-The directions are as follows: `ASC` or `DESC`.
+You must always provide pairs of `FIELD` and `DIRECTION` to execute the Sorting commands.
+****
+* The various `FIELD` are as followed: `NAME`, `DESCRIPTION`, `PRICE`,
+`CATEGORY`, `LOCATION`, `OPENING_HOURS` and `RESTRICTIONS`.
+* The `DIRECTION` are as follows: `ASC` or `DESC`.
+****
 
 [IMPORTANT]
 Ordering of pairs matters! For example, specifying: `PRICE ASC NAME DESC` sorts the food items first based on
 price in ascending order. Following which, sorts the food items based on names in descending order.
 
 ==== Sorts food items based on fields: `sort`
-Sorts all the food items by some specific FIELD.
+Sorts all the food items by some specific `FIELD`.
 
-Note: You can have more than one pair of FIELD and DIRECTION.
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
-[IMPORTANT]
-The usage of `sort` will turn the recommendation system OFF it is in use.
+[NOTE]
+You can have more than one pair of `FIELD` and `DIRECTION`.
 
 ****
 *Format*: `sort FIELD DIRECTION ...` +
@@ -330,8 +492,9 @@ image::makesortsuccess.png[]
 ==== Sort based on your custom comparator: `customsort`
 Sort Using your own custom comparator, which you have creating from MakeSort.
 
-[IMPORTANT]
-The usage of `customsort` will turn the recommendation system OFF it is in use.
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
 ****
 *Format*: `customsort`
@@ -351,17 +514,18 @@ image::customsortsuccess.png[]
 Turns on and off auto sorting, based on your own custom comparator, every time you make changes to the food list.
 There are only two states, ON or OFF.
 
-[IMPORTANT]
-The usage of `autosort` will turn the recommendation system OFF it is in use.
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
+
+[NOTE]
+Once you turn auto sorting on, `customsort`, `sort` and `default` will not work. They will only work if and only if you
+turn auto sorting off.
 
 ****
 *Format*: `autosort STATE` +
 *Example*: `autosort ON`
 ****
-
-[NOTE]
-Once you turn auto sorting on, `customsort`, `sort` and `default` will not work. They will only work if and only if you
-turn auto sorting off.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -377,10 +541,9 @@ image::autosortsuccess.png[]
 ==== Views the fields for the custom comparator: `viewsort`
 Views the current Custom Sorter.
 
-====
+****
 *Format*: `viewsort`
-====
-
+****
 [width="100%",cols="5%,95%", grid=none]
 |===
 ifdef::env-github[| :white_check_mark: a| A message will inform you of the fields of your custom comparator.]
@@ -394,8 +557,9 @@ image::viewsortsuccess.png[]
 ==== Sorts food items based on natural order: `default`
 Sorts the food items based on their default ordering, where it is based on ascending category, name and then price.
 
-[IMPORTANT]
-The usage of `default` will turn the recommendation system OFF it is in use.
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
 ****
 *Format*: `default`
@@ -617,6 +781,8 @@ The factors affecting the calculation of the recommendation value is summarized 
 |+0.50
 |===
 //end::recommendationbonus[]
+
+{empty} +
 
 //tag::recommendationpenalty[]
 .Penalties applied by the recommendation system
@@ -892,10 +1058,10 @@ Unfortunately, you are unable to change the app’s language.
 | ```clear```
 | <<Sort based on your custom comparator: `customsort`, `customsort`>>
 | Sorts items based on a created custom comparator.
-| `customsort`
+| ```customsort```
 | <<Sorts food items based on natural order: `default`, `default`>>
 | Sorts the food items based on their natural ordering.
-| `default`
+| ```default```
 | <<Deletes a food item: `delete`, `delete`>>
 | Deletes a food items based on the given index.
 | ```delete 2```
@@ -904,13 +1070,13 @@ Unfortunately, you are unable to change the app’s language.
 | ```dislike c/International t/Spicy l/The Deck l/The Terrace```
 | <<Edit a food item: `edit`, `edit`>>
 | Edits a food item at a index based on a specific field or fields.
-| `edit 2 n/Fried Rice`
+| ```edit 2 n/Fried Rice```
 | <<Exiting the application: `exit`, `exit`>>
 | Exits the app.
 | ```exit```
 | <<Filters food items based on criteria: `filter`, `filter`>>
 | Filters the food items based on the criteria specified.
-| `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
+| ```filter PRICE LESS_THAN 4.00```
 | <<Finds food items based on keywords: `find`, `find`>>
 | Finds food items based on specified keywords.
 | ```find Chicken Rice```
@@ -925,7 +1091,7 @@ Unfortunately, you are unable to change the app’s language.
 | ```info edit```
 | <<Adding likes and dislikes to the recommendation system: `like` or `dislike`, `like`>>
 | Specifies the user's liked categories, tags and locations.
-| `like c/Chinese c/Western t/Healthy l/Univeristy Town`
+| ```like c/Chinese c/Western t/Healthy l/Univeristy Town```
 | <<List all food items: `list`, `list`>>
 | List all saved food items.
 | ```list```

@@ -35,6 +35,9 @@ public class QuantifierParserTest {
                 QuantifierParser.INVALID_FIELD_USAGE, () -> parser.parse("OOPS "
                         + QUANTIFY_LESS_THAN + " 321"));
         assertThrows(ParseException.class,
+                QuantifierParser.WRONG_CASE_FIELD_USAGE, () -> parser.parse("prIcE "
+                        + QUANTIFY_LESS_THAN + " 321"));
+        assertThrows(ParseException.class,
                 QuantifierParser.INVALID_FIELD_USAGE, () -> parser.parse("zasbd "
                         + QUANTIFY_LESS_THAN + " 321"));
     }
@@ -43,6 +46,9 @@ public class QuantifierParserTest {
     public void parse_invalidQuantifiers_failure() {
         assertThrows(ParseException.class,
                 QuantifierParser.INVALID_QUANTIFIER_USAGE, () -> parser.parse(FIELD_NAME_PRICE + " less 321"));
+        assertThrows(ParseException.class,
+                QuantifierParser.WRONG_CASE_QUANTIFIER_USAGE, () -> parser.parse(FIELD_NAME_PRICE
+                        + " leSS_tHaN 321"));
         assertThrows(ParseException.class,
                 QuantifierParser.INVALID_QUANTIFIER_USAGE, () -> parser.parse(FIELD_NAME_PRICE + " equals 4.00"));
     }

@@ -83,22 +83,28 @@
     -fx-text-fill: derive(black, 20%);
 }
 
-.cell_purchase_history {
-    -fx-font-family: "Franklin Gothic Medium";
-    -fx-font-size: 20px;
-    -fx-text-fill: #3b5998;
-}
-
 .cell_savings {
     -fx-font-family: "Franklin Gothic Medium";
-    -fx-font-size: 20px;
-    -fx-text-fill: #32CD32;
+    -fx-font-size: 22px;
+    -fx-text-fill: white;
+    -fx-padding: 1 8 1 8;
+    -fx-background-color: #007846;
+    -fx-background-radius: 20;
+}
+
+.cell_savings_timing {
+    -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-size: 22px;
+    -fx-text-fill: #3b5998;
 }
 
 .cell_withdrawal {
     -fx-font-family: "Franklin Gothic Medium";
-    -fx-font-size: 20px;
-    -fx-text-fill: #ff000d;
+    -fx-font-size: 22px;
+    -fx-text-fill: white;
+    -fx-padding: 1 8 1 8;
+    -fx-background-color: #ff000d;
+    -fx-background-radius: 20;
 }
 
 .cell_small_label {
@@ -125,6 +131,12 @@
     -fx-background-radius: 10;
     -fx-font-family: "Franklin Gothic Medium";
     -fx-font-size: 20;
+}
+
+.cell_purchase_history_time {
+    -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-size: 20px;
+    -fx-text-fill: derive(black, 20%);
 }
 
 .menu-pane-with-border {

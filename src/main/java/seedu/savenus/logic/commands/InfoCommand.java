@@ -3,6 +3,7 @@ package seedu.savenus.logic.commands;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 
+//@@author robytanama
 /**
  * Displays information on a particular command.
  */
@@ -66,6 +67,8 @@ public class InfoCommand extends Command {
 
     public static final String SORT_INFO = COMMAND_INDICATOR + SortCommand.COMMAND_WORD;
 
+    public static final String THEME_INFO = COMMAND_INDICATOR + ThemeCommand.COMMAND_WORD;
+
     public static final String TOP_UP_INFO = COMMAND_INDICATOR + TopUpCommand.COMMAND_WORD;
 
     public static final String VIEW_SORT_INFO = COMMAND_INDICATOR + ViewSortCommand.COMMAND_WORD;
@@ -95,6 +98,8 @@ public class InfoCommand extends Command {
         switch(input) {
         case AddCommand.COMMAND_WORD :
             return new CommandResult(ADD_INFO);
+        case AliasCommand.COMMAND_WORD :
+            return new CommandResult(ALIAS_INFO);
         case AutoSortCommand.COMMAND_WORD :
             return new CommandResult(AUTO_SORT_INFO);
         case BudgetCommand.COMMAND_WORD :
@@ -141,6 +146,8 @@ public class InfoCommand extends Command {
             return new CommandResult(SAVE_INFO);
         case SortCommand.COMMAND_WORD :
             return new CommandResult(SORT_INFO);
+        case ThemeCommand.COMMAND_WORD :
+            return new CommandResult(THEME_INFO);
         case TopUpCommand.COMMAND_WORD :
             return new CommandResult(TOP_UP_INFO);
         case ViewSortCommand.COMMAND_WORD :

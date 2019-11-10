@@ -167,10 +167,61 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Food>`, `ObservableList<Savings>` and `ObservableList<Purchase>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in either of the lists change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Menu`, which `Food` can reference. This would allow `Menu` to only require one `Tag` object per unique `Tag`, instead of each `Food` needing their own `Tag` object. +
- +
+//tag::food[]
+==== Food component in Model
+
+The `Food`,
+
+* stores information on `Name`, `Price` and `Category` which are compulsory fields.
+* stores information on `Description`, `Opening Hours` and `Restrictions` which are optional fields.
+* stores information `Tag` which are retrieved from the `UniqueTagList`.
+
+.Structure of the Food Component
 image:BetterModelClassDiagram.png[]
+
+[NOTE]
+As a more OOP model, we can store a `Tag` list in `Menu`, which `Food` can reference.
+This would allow `Menu` to only require one `Tag` object per unique `Tag`,
+instead of each `Food` needing their own `Tag` object.
+
+==== Design considerations for Food-related Models
+
+When implementing Food-related models, it is important not to add duplicate foods. As the user only requires
+to enter the name, price and category as they are compulsory fields, we need to ensure that this does not happen.
+
+For example, you would not want to add Chicken Rice twice into the food list. As a result, our team went through several alternatives
+to deal with this consideration.
+
+.Design considerations of the for `Food` model
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|`equals(Food food)` method should rely on Name, and have an additional check for equality of Location, Opening Hours
+and Restrictions
+
+* Pros:
+** Multiple foods with different Location, Opening Hours and Restrictions are allowed.
+** Multiple food with same Price and Category but different Name are also allowed.
+
+* Cons:
+** Harder to Implement.
+
+a|`equals(Food food)` method should return true if the foods have same name, price or category.
+
+* Pros:
+** Easier Implementation
+** Ensures that the compulsory fields are always distinct
+
+* Cons:
+** Multiple foods with different Location, Opening Hours and Restrictions are not allowed.
+** Multiple foods with same Category or Price are not allowed too.
+|===
+
+We chose alternative 1 because there can be multiple instances of `Food` with different `Name` but same `Category`. For
+example, an instance of Chicken Rice from a Chinese stall may be different from an instance of Chicken Rice from an Indian
+stall. As a result, we would want to be able to add these 2 food items into the food list.
+//end::food[]
 
 [[Design-Storage]]
 === Storage component
@@ -197,10 +248,6 @@ Classes used by multiple components are in the `seedu.savenus.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== [Proposed] Data Encryption
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -223,14 +270,18 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 //tag::sorting[]
 === Sorting feature
-The Sorting feature allows users to sort their food items based on certain `FIELD` and `DIRECTION`.
+The Sorting feature allows users to sort their food items based on certain `FIELD` and `DIRECTION`. The `FIELD` and
+`DIRECTION` are as followed:
 
 ****
-1. The `FIELD` are as follows: `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
-2. The `DIRECTION` are as follows: `ASCENDING` or `DESCENDING`.
+1. `FIELD` : `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
+2. `DIRECTION` : `ASC` or `DESC`.
 ****
 
-First and foremost, they will be able to sort the food items based on their default ordering.
+[NOTE]
+The `FIELD` and `DIRECTION` can be entirely in Upper or Lower Case.
+
+First and foremost, users will be able to sort the food items based on their default ordering.
 The default ordering is based on ascending price, name and then category. This is done using the `default` command.+
 
 Not only that, they will be able to implement their own custom comparator using `makesort`. From this, they should be able to use `customsort` and autosort`.  +
@@ -247,8 +298,41 @@ From the model, the `CustomSorter` stores the comparator for `autosort` and `mak
 
 From which, you will need to call `makesort FIELD DIRECTION` to create the custom comparator. The `CustomSorter` contains a `FoodComparator`. +
 
-The `FoodComparator` stores fields which will be needed for various `FOOD` to be compared. The `DefaultComparator` helps to sort food items based on their natural ordering. This is called via the `default` command.
-Finally, the `FieldComparator` helps to compare between various `FIELD`.
+The `FoodComparator` stores fields which will be needed for various `Food` to be compared.
+The `DefaultComparator` helps to sort food items based on their natural ordering. This is called via the `default` command.
+When `default` is called, the food list will be sorted according to ascending category, ascending name and ascending price.
+
+Detailed below are the design considerations taken into account when engineering the `DefaultComparator` and `FoodComparator`
+classes.
+
+.Design considerations of `
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|`DefaultComparator` should extend from `FoodComparator`
+
+* Pros:
+** Duplicate Code is not needed.
+** This from of relationship follows Liskov Substitution Principle, as `DefaultComparator` can be easily substituted
+by an instance of `FoodComparator`.
+
+* Cons:
+** Necessary to specify fields while constructing the `DefaultComparator`.
+
+a|`DefaultComparator` and `FoodComparator` should be standalone classes.
+
+* Pros:
+** Both can implement their own `compareTo()` methods.
+
+* Cons:
+** This Implementation is wasteful as duplicate code is written.
+** Makes it complicated for future developers when they wish to change the `DefaultComparator`.
+|===
+
+As a result, we have chosen alternative 1. By specifying the specific fields in the body of constructor in
+the `DefaultComparator`, it makes it easier for future developers to create their own form of `DefaultComparator`.
+Not only that, it saves time and reduces duplicate code.
 
 ==== Creation of new Custom Comparator
 
@@ -261,11 +345,11 @@ image::MakeSortSequenceDiagram.png[]
 
 The user may want to create a new custom comparator. This can be done with the `makesort` command.
 
-The fields are stored in the SavingsAccount in the CustomSorter object, which stores the necessary
+The fields are stored in the `FoodComparator` in the CustomSorter object, which stores the necessary fields
 as a list.
 
-The current implementation for creating a new CustomSorter is done by overwriting the existing CustomSorter, with a new
-CustomSorter with the desired fields.
+The current implementation for creating a new `CustomSorter` is done by overwriting the existing `CustomSorter`, with a new
+`CustomSorter` with the desired fields.
 
 The command is read as a text string from the command box in the UI and then is executed by calling MainWindow#executeCommand(),
 which passes this string (named commandText) to the Logic component by calling Logic#execute(Model model).
@@ -278,6 +362,51 @@ image::MakeSortActivityDiagram.png[align="center", width="500"]
 
 If fields are given, the original CustomSorter is overridden by a new CustomSorter with new fields. Else, the original
 CustomSorter is overridden by a new CustomSorter with no fields.
+
+==== Sorting of the Food list
+After the customization of the Custom Comparator, the user can now call the `customsort` command to sort the food items based
+on the fields specified. For example, if the fields specified are `PRICE ASC NAME DESC`, the system will sort the food items in order
+of ascending price. If two items have the same price, they will be ranked according to their names using lexicographic
+comparison.
+
+.Activity diagram for a sample sort command
+
+image::SortingActivityDiagram.png[align="center", width="500"]
+
+If two foods have the same price, they will compared using lexicographical ordering based on their names. If they
+are lexicographically similar, their ranks do not change.
+
+.Ranking of food items
+|===
+
+|Name |Price ($) |Ranking (Price) | Overall Ranking
+
+|Chicken Rice
+|2.80
+|2
+|2
+|Nasi Lemak
+|2.80
+|2
+|3
+|Fried Rice
+|4.00
+|4
+|4
+|Dim Sum
+|1.80
+|1
+|1
+
+|===
+
+From the table above, we can see Dim Sum will be ranked at the top as it is the cheapest. On the other hand, Fried Rice will
+be ranked at the bottom as it is the most expensive food item.
+
+As Chicken Rice and Nasi Lemak have the same price, they will compared
+using lexicographical ordering based on their names. Chicken Rice still has a higher ranking than Nasi Lemak as Chicken Rice is
+lexicographically smaller than Nasi Lemak.
+
 //end::sorting[]
 
 //tag::savings[]
@@ -522,16 +651,6 @@ Additionally, the `RecommendationSystem` class also contains a class `UserRecomm
 dislikes of the user. The functionality of `UserRecommendations` is specified by the `Recommendations` interface,
 encompassing the ability to add and remove likes and dislikes, among other features.
 
-.Design decisions for `RecommendationSystem`
-****
-`RecommendationSystem` was chosen to be a singleton because of the fact that it exists as a global class, encapsulating
-many seemingly unrelated classes such as `Budget`, `PurchaseHistory` and `UserRecommendations` in order to produce the
-required recommendation value.
-
-Furthermore, there should only be one unique `RecommendationSystem` and `UserRecommendations` in the application.
-To ensure the above requirements are met, we have decided to implement `RecommendationSystem` as a singleton class.
-****
-
 The `UserRecommendations` object contain 6 sets, namely:
 
 ****
@@ -595,9 +714,59 @@ image::RecValueActivityDiagram.png[width=650, align="center"]
 The calculated recommendation values are used to sort the food items when the `recommend` command
 is executed. Food with similar recommendation values are sorted based on their price.
 
-===== Design Considerations
-Detailed below are the design considerations taken into account when engineering the
- `RecommendationSystem#calculateRecommendation()` function.
+==== Design Considerations
+
+Detailed below are the design considerations taken into account when engineering the Recommendation System.
+
+===== Design Considerations of `RecommendationSystem` class
+
+Explained below are our considerations when designing the `RecommendationSystem` class.
+
+.Design considerations of `RecommendationSystem` class
+[cols="50, 50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Implement `RecommendationSystem` a singleton class
+
+* Pros:
+** Versatile and easy to implement
+** Enforces the Singleton property
+
+* Cons:
+** Testability of class decreases
+** Hidden dependencies are introduced into the class
+
+a|Implement `RecommendationSystem` as a normal class
+
+* Pros:
+** Testability of class would be easier
+
+* Cons:
+** Hard to bring together the classes required by `RecommendationSystem`
+|===
+
+****
+We decided to go with alternative 1 and implement `RecommendationSystem` as a singleton because of the fact that it
+exists as a global class, encapsulating many seemingly unrelated classes such as `Budget`, `PurchaseHistory` and
+`UserRecommendations` in order to produce the required recommendation value.
+
+Implementing `RecommendationSystem` as a singleton would be much simpler than linking together these seemingly
+unrelated classes as discussed in alternative 2.
+
+Additionally, there should only be one unique `RecommendationSystem` and `UserRecommendations` in the application due to
+our design requirements. To ensure the above requirements are met, we have decided to implement `RecommendationSystem`
+as a singleton class.
+
+Furthermore, we have thoroughly tested the implementation of
+`RecommendationSystem` and `UserRecommendations` to mitigate the downsides introduced when implementing a singleton.
+****
+
+{empty} +
+
+===== Design Considerations of `RecommendationSystem#calculateRecommendation()` function.
+
+Explained below are our considerations when designing the `RecommendationSystem#calculateRecommendation()` function.
 
 .Design considerations of the `RecommendationSystem#calculateRecommendation()` function
 [cols="50,50"]
@@ -627,6 +796,7 @@ the recommendation value
 ** An extra field `recommendationValue` has to be added to each `Food`
 |===
 
+****
 We chose alternative 1 because of its simplicity of implementation. Adding a hidden `recommendationValue`
 field for each `Food` might not be the best solution in the design of our application. A `recommendationValue` might
 not make sense in the context of a `Food` object and thus it may not be justifiable to force a connection between the
@@ -634,6 +804,7 @@ two for the sake of efficiency.
 
 Furthermore, we do not have to manually update the recommendation of each `Food` item before every command with this
 design.
+****
 //end::recommendations2[]
 
 === Alias feature

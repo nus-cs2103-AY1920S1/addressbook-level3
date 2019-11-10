@@ -18,7 +18,7 @@
                      <Font name="Franklin Gothic Heavy" size="52.0" />
                   </font>
                </Label>
-                    <Label fx:id="infoMessage" styleClass="info-small-label" text="Label" textFill="WHITE">
+                    <Label fx:id="infoMessage" maxWidth="600.0" prefWidth="600.0" styleClass="info-small-label" text="Label" textFill="WHITE" wrapText="true">
                   <font>
                      <Font name="Franklin Gothic Demi Cond" size="20.0" />
                   </font>
@@ -28,7 +28,7 @@
                      <Font name="Franklin Gothic Heavy" size="25.0" />
                   </font>
                </Label>
-               <Label fx:id="usageExample" styleClass="info-small-label" text="Label" textFill="WHITE">
+               <Label fx:id="usageExample" maxWidth="600.0" prefWidth="600.0" styleClass="info-small-label" text="Label" textFill="WHITE" wrapText="true">
                   <font>
                      <Font name="Courier New" size="20.0" />
                   </font>
@@ -38,7 +38,7 @@
                      <Font name="Franklin Gothic Heavy" size="25.0" />
                   </font>
                </Label>
-               <Label fx:id="output" styleClass="info-small-label" text="Label" textFill="WHITE">
+               <Label fx:id="output" maxWidth="600.0" prefWidth="600.0" styleClass="info-small-label" text="Label" textFill="WHITE" wrapText="true">
                   <font>
                      <Font name="Courier New" size="20.0" />
                   </font>
