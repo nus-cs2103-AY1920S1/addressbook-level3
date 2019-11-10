@@ -357,25 +357,37 @@ image::RemoveCommandExample2.png[width="790"]
 === Show Command History: `history`
 Shows you up to the last 50 commands that you executed.
 
+[[history_diagram]]
+image::UndoRedoExplanation.png[width="790"]
+
 ****
-* This command is to facilitate the undo/redo commands, as it becomes easier for you to track what changes were made before.
-* The "History" section of Alfred displays all the previously-executed commands as panels. There are 3 main delimiters.
+* This command is to facilitate the undo/redo commands, as it becomes easier for you to track what changes were made before, and which
+commands can be undone/redone.
+* Executing the command will bring you to the "History" section of Alfred, which displays all the previously-executed
+commands as panels. There are 3 main delimiters. Each delimiter is just a visual representation of the limits for the undo/redo commands.
 * You cannot redo any command beyond the "redo" delimiter.
 * You cannot undo any command beyond the "undo" delimiter.
-* The "current" delimiter tells you where you are at relative to the rest of the commands you have executed.
+* The "current" delimiter tells you where you are at relative to the rest of the commands you have executed. It represents the
+current state of the data.
 * Note that only commands that change the state of the data in Alfred will be displayed in the "History" section and are undo/redo-able.
 For instance, `list participants` will not be undo/redo-able, as it simply shows you the participants in Alfred and does not change any information in Alfred.
 On the other hand, invoking `add participant` with the suitable parameters will be undo/redo-able and will be shown in the "History" section by the `history` command.
 * In total, only 50 states will be stored, so this serves as a limit for the number of commands you can undo/redo to.
 ****
 
+[NOTE]
+The following commands are not undo/redo-able: `help`, list`, `find`, `history`, `leaderboard`, `getTop`, `export`, `help`, `home`, `undo`, `redo`.
+All other commands are undo/redo-able.
+
 Example:
 
 After running the following commands:
 
 1. `list participants`
-2. `add participant n/Bartholomew Lim p/+6593121212 e/barrytheflash@gmail.com`
-3. `add participant n/Diana Prince p/+6593111111 e/singaporewonderwoman@hotmail.com`
+2. `add participant n/SuperHero1 p/+6591111111 e/superhero1@gmail.com`
+3. `add participant n/SuperHero2 p/+6592222222 e/superhero2@gmail.com`
+4. `add participant n/SuperHero3 p/+6593333333 e/superhero3@gmail.com`
+5. `edit participant P-4 n/The Flash`
 
 Running `history` will show you the following output in the "History" section of the Graphical User Interface:
 
@@ -385,8 +397,12 @@ image::HistoryCommandExampleOutput.png[width="790"]
 The topmost panel is the "redo" delimiter. +
 The second panel from the top is the "current" delimiter. +
 The bottommost panel shows you the "undo" delimiter. +
-This means that you can invoke the `undo` command twice, as both AddParticipantCommands can be undone.
-Notice that the `list participants` command is not shown in the "History" section as it does not change data.
+In this example, the output of the `history` command shows you can invoke the `undo` command four times.
+Notice that the `list participants` command is not shown in the "History" section as it does not change data. +
+Also note that the undo-able commands are numbered, with the 1st undo-able command being the most recently executed command (the EditParticipantCommand),
+and the 4th undo-able command being the oldest executed command. You are unable to undo beyond the 4th undo-able command. Doing so will result in an error (see <<Undo Previous Commands: `undo [NUM_COMMANDS_TO_UNDO]`>>) +
+Also note that in this case, no commands are redo-able, that's why there are no panels between the "redo" and "current" delimiters. Hence, executing `redo` command will result in an error (see <<Redo Previous Commands: `redo [NUM_COMMANDS_TO_REDO]`>>) +
+
 
 === Undo Previous Commands: `undo [NUM_COMMANDS_TO_UNDO]`
 Undoes previously executed commands.
@@ -403,12 +419,13 @@ undo, as per the output of the `history` command.
 * All commands that can be undone can be found in the output of the `history` command. Use this to see the total number of commands and which commands you can undo.
 * To be certain which command you are actually undo-ing, first run the `history` command and examine the output.
 * Only the commands that actually change the data in Alfred will be undo-able. Commands that perform read operations
-(such as `find` and `list`) will not be found in the output of the `history` command.
-* Note that `NUM_COMMANDS_TO_UNDO` must be an integer, and if `NUM_COMMANDS_TO_UNDO` exceeds the number of commands that can be undone, Alfred will indicate
+(such as `find` and `list`) will not be found in the output of the `history` command. See <<Show Command History: `history`>> for a full list of commands that are not undo-able.
+* Note that `NUM_COMMANDS_TO_UNDO` must be an integer, and must be a number between 1 and 49 (because only a maximum of 50 states are stored).
+If `NUM_COMMANDS_TO_UNDO` exceeds the number of commands that can be undone, Alfred will indicate
 that the undo command cannot be executed.
 ****
 
-Format: `undo`
+Format: `undo [NUM_COMMANDS_TO_UNDO]`
 
 === Redo Previous Commands: `redo [NUM_COMMANDS_TO_REDO]`
 Redoes previously executed commands.
@@ -424,12 +441,14 @@ redo, as per the output of the `history` command.
 (as though you re-executed the `NUM_COMMANDS_TO_REDO` previous commands)
 * All commands that can be redone can be found in the output of the `history` command. Use this to see the total number of commands and which commands you can redo.
 * To be certain which command you are actually redo-ing, first run the `history` command and examine the output.
-* Only the commands that actually change the data in Alfred will be redo-able. Commands that perform read operations (such as `find` and `list`) will not be found in the output of the `history` command.
-* Note that `NUM_COMMANDS_TO_REDO` must be an integer, and if `NUM_COMMANDS_TO_REDO` exceeds the number of commands that can be redone, Alfred will indicate
-that the undo command cannot be executed.
+* Only the commands that actually change the data in Alfred will be redo-able.
+Commands that perform read operations (such as `find` and `list`) will not be found in the output of the `history` command. See <<Show Command History: `history`>> for a full list of commands that are not redo-able.
+* Note that `NUM_COMMANDS_TO_REDO` must be an integer, and must be a number between 1 and 49 (because only a maximum of 50 states are stored).
+If `NUM_COMMANDS_TO_REDO` exceeds the number of commands that can be redone, Alfred will indicate
+that the redo command cannot be executed.
 ****
 
-Format: `redo`
+Format: `redo [NUM_COMMANDS_TO_REDO]`
 
 === Command History Navigation
 Navigate to previous commands by pressing the alt key kbd:[Alt], together with the up kbd:[&uparrow;] or down kbd:[&downarrow;] arrow keys.
@@ -437,12 +456,14 @@ For Mac users, press the option key kbd:[Opt] in place of the alt key kbd:[Alt] 
 alt key kbd:[Alt], press the remapped key on your keyboard instead.
 
 ****
-* Every time you execute a command, the command is saved in Alfred, so you can navigate to a previous command without re-typing the whole thing.
+* Every time you execute a command *_successfully_*, the command is saved in Alfred, so you can navigate to a previous command without re-typing the whole thing.
+There is only 1 exception to this rule: the `import` command can be navigated to even if there are errors raised during execution.
+This is because the `import` command will do its best to import as many Entities into Alfred as possible, before finally notifying the user of any incorrect entries (so there is partial successin the command's execution).
 * Press kbd:[Alt] + up kbd:[&uparrow;] to navigate to the previous command.
 * Press kbd:[Alt] + down kbd:[&downarrow;] to navigate to the next command.
 * Unlike most of the other features in Alfred, this is not a command you type into Alfred's command input box. This is a keyboard shortcut that is mainly for your convenience as it allows you to quickly re-use previously executed commands.
 * Note that Alfred's command input box must be in focus (the cursor is active in the command input box) for the keyboard shortcuts for this feature to work
-* This feature only allows you to navigate up to the previous 50 successfully executed commands. Invalid commands cannot be navigated to.
+* This feature only allows you to navigate up to the previous 50 successfully executed commands.
 ****
 
 === Scoring: `score`
