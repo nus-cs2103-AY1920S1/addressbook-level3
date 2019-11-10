@@ -23,9 +23,15 @@ Budget Buddy is able to maintain separate accounts, handle a multitude of transa
 loans that the user might have made. Rules can be added to make repetitive tasks automated, and scripts can even allow the user
 to create mass changes to data in their own way by themselves.
 
-My task in this project is the rule engine feature, which allows for the automation in the application, executing certain tasks
-automatically upon the addition of a new transaction. The following sections will elaborate on the feature, which includes
-the additions I have made to both the user and developer guides.
+== Project Role
+
+My task in this project is the Rule Engine feature, which allows for the automation in the application, executing certain tasks
+automatically upon the addition of a new transaction. This consists of allowing the user to add, list, edit, and delete rules
+from the Rule Engine. The main part of my implementation however, comes from the parsing and processing of expressions that the
+user has created, whenever a transaction is added or edited in Budget Buddy. This requires the extraction of relevant components
+from the target transaction which will be used to carry out specific operations.
+
+The following sections will elaborate on this feature, which includes the additions I have made to both the user and developer guides.
 
 '''
 
@@ -46,6 +52,10 @@ Take note of the following formatting used in the rest of this portfolio.
 
 == Summary of contributions
 
+|===
+|This section provides an overview of my contribution to this application.
+|===
+
 (Clear description of purpose, enhancement added: what does it do + justification)
 
 * *Major enhancement*: added *the ability to add/remove/edit rules*
@@ -61,7 +71,7 @@ more, depending on how the user uses it.
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=tcgj[RepoSense Contribution]]
 
 * *Other contributions*:
 
