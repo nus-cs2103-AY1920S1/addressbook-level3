@@ -3,6 +3,7 @@ package seedu.address.financialtracker.ui;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -12,7 +13,9 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.ui.PageManager;
 import seedu.address.ui.UiPart;
 
 /**
@@ -49,6 +52,23 @@ public class FinancialTrackerSummaryWindow extends UiPart<Stage> {
         this.pieChart.setData(pieChartData);
         this.pieChart.setLabelLineLength(10);
         this.barChart.getData().addAll(seriesArray);
+
+        // Adapted from pohlinwei
+        getRoot().focusedProperty().addListener(((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
+                delay.setOnFinished(event -> getRoot().hide());
+                delay.play();
+            }
+        }));
+
+        getRoot().setOnShowing(event -> {
+            getRoot().setHeight(600);
+            getRoot().setWidth(800);
+            // centralise
+            getRoot().setX(PageManager.getXPosition() - 400);
+            getRoot().setY(PageManager.getYPosition() - 300);
+        });
     }
 
     /**

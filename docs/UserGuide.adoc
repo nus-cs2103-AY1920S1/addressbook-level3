@@ -894,13 +894,16 @@ The Date and Time specify when you spend your expenses, followed by the amount, 
 === Interface
 This is what you will see when navigated to the financial tracker:
 
-.Financial Tracker Interface
-image::FinancialTrackerInterface.png[]
+image::FinancialTrackerInterface.png[Financial Tracker interface,width=800]
 
 === Adding an expense: ``add``
 Adding the expense of milk you've bought at the grocery shop you stopped by?
 
-*Format:* ``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
+WARNING: You can only add a total maximum amount of one trillion!
+
+*Format:*
+
+``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
 
 *Example:*
 
@@ -910,18 +913,20 @@ Adding the expense of milk you've bought at the grocery shop you stopped by?
 
 Step 1.  Type ``add a/2.89 d/Meiji Milk t/grocery`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerAdd1.png[]
+image::FinancialTrackerAdd1.png[width=600]
 
 Step 2. The _Result box_ will display the message "Expense added".
 
 Step 3. Now you can find your added expense in the _Expense list panel_.
 
-image::FinancialTrackerAdd2.png[]
+image::FinancialTrackerAdd2.png[width=600]
 
 === Deleting an expense: ``delete``
 Added a wrong expense? Of course you can delete it if you want to :)
 
-*Format:* ``delete INDEX``
+*Format:*
+
+``delete INDEX``
 
 *Example:* Delete the first expense you saw on your expense list.
 
@@ -931,16 +936,18 @@ Added a wrong expense? Of course you can delete it if you want to :)
 
 Step 1. Type ``delete 1`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerDelete1.png[]
+image::FinancialTrackerDelete1.png[width=600]
 
 Step 2. The _Result box_ will display the message "Your expense has been deleted".
 
-image::FinancialTrackerDelete2.png[]
+image::FinancialTrackerDelete2.png[width=600]
 
 === Editing an expense: ``edit``
 Add a wrong expense? Why not edit it instead!
 
-*Format:* ``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] [date/DATE] [time/TIME]``
+*Format:*
+
+``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE OF EXPENDITURE] [date/DATE] [time/TIME]``
 
 *Example:* Edit the 1st expense you saw on your expense list.
 
@@ -952,18 +959,20 @@ Step 1. Notice the first expense's fields in the _Expense list panel_.
 
 Step 2. Now, type ``edit 1 a/29.80 d/Nike bottle`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerEdit1.png[]
+image::FinancialTrackerEdit1.png[width=600]
 
 Step 3. The _Result box_ will display the message "The expense updated successfully!".
 
 Step 4. Now the first expense's amount and description fields have been changed to `29.80` and `Nike bottle` respectively.
 
-image::FinancialTrackerEdit2.png[]
+image::FinancialTrackerEdit2.png[width=600]
 
 === Clears an expense list: ``clear``
 Messed up your expense list? Don't worry, just clear it!
 
-*Format:* ``clear``
+*Format:*
+
+``clear``
 
 *Example:* Clears your current country's expense list.
 
@@ -973,20 +982,22 @@ Messed up your expense list? Don't worry, just clear it!
 
 Step 1. Type ``clear`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerClear1.png[]
+image::FinancialTrackerClear1.png[width=600]
 
 Step 2. The _Result box_ will display the message "Expense list cleared!".
 
 Step 3. Now in your _Expense list panel_, your expense list has been cleared!
 
-image::FinancialTrackerClear2.png[]
+image::FinancialTrackerClear2.png[width=600]
 
 === Undo your previous action: ``undo``
 Did something wrong? We heard you! Simply undo your previous action :)
 
 WARNING: You can only undo your previous `add`, `edit`, `delete` and `clear` command.
 
-*Format:* ``undo``
+*Format:*
+
+``undo``
 
 *Example:* Undo your previous `clear` command.
 
@@ -996,19 +1007,21 @@ WARNING: You can only undo your previous `add`, `edit`, `delete` and `clear` com
 
 Step 1. Type ``undo`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerUndo1.png[]
+image::FinancialTrackerUndo1.png[width=600]
 
 Step 2. The _Result box_ will display the message "Done!".
 
 Step 3. Notice that your expense list has been recovered. Nice save!
 
-image::FinancialTrackerUndo2.png[]
+image::FinancialTrackerUndo2.png[width=600]
 
 // tag::financialtracker[]
 === Switching between countries: ``switch``
 Currently in somewhere else? Switch to that expense list instead!
 
-*Format:* `switch COUNTRY`
+*Format:*
+
+`switch COUNTRY`
 
 TIP: Do realise that you can always use the drop down menu instead!
 
@@ -1022,41 +1035,24 @@ WARNING: You can only type in countries which are only listed from the _Countrie
 
 Step 1. Type ``switch Japan`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerSwitch1.png[]
+image::FinancialTrackerSwitch1.png[width=600]
 
 Step 2. The _Result box_ will display the message "Expense list switched".
 
 Step 3. Now your expense list inside the _Expense list panel_ has been switched to that which is in Japan!
 
-image::FinancialTrackerSwitch2.png[]
-
-=== Requesting help: ``help``
-At anytime, not sure what to do? Simply ask for help!
-
-*Format:* `help`
-
-*Example:*
-
- help
-
-*Step by step:*
-
-Step 1. Type ``help`` in the _Command box_ and press _Enter_.
-
-image::FinancialTrackerHelp1.png[]
-
-Step 2. The _Result box_ will display the message "Currently viewing the financial tracker help window".
-
-Step 3. As you should have noticed, the help window has been popped out for your reference!
-
-image::FinancialTrackerHelp2.png[]
+image::FinancialTrackerSwitch2.png[width=600]
 
 === Sort out your expense list: ``sort``
 The default sorting way of the expense list is not your thing? Just sort your expense list according your needs!
 
 TIP: All of the sorting is done in reversed order :)
 
-*Format:* ``sort date`` | ``sort time`` | ``sort amount`` | ``sort type`` | ``sort default``
+*Format:*
+
+``sort CRITERIA``
+
+Where ``CRITERIA`` can be ``amount``, ``date``, ``time``, ``type`` and ``default``
 
 *Example:* to sort by amount
 
@@ -1068,18 +1064,20 @@ Step 1. Notice the amount field in each expenses are currently not in order.
 
 Step 2. Now, type ``sort amount`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerSort1.png[]
+image::FinancialTrackerSort1.png[width=600]
 
 Step 3. The _Result box_ will display the message "Expense List sorted!".
 
 Step 4. Now all your expenses are sorted in descending order of your amount!
 
-image::FinancialTrackerSort2.png[]
+image::FinancialTrackerSort2.png[width=600]
 
 === Generate an overview of your spending: ``summary``
 Do you ever have difficulty summarising your spending? Afraid not! You can view you expenses statistics easily!
 
-*Format:* `summary`
+*Format:*
+
+`summary`
 
 *Example:*
 
@@ -1089,13 +1087,13 @@ Do you ever have difficulty summarising your spending? Afraid not! You can view 
 
 Step 1. Type `summary` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerSummary1.png[]
+image::FinancialTrackerSummary1.png[width=600]
 
 Step 2. The result box will display the message "Currently viewing the Summary Window".
 
 Step 3. As you should have noticed, the Summary Window has been popped out showing you statistics of your expenses in a nice-looking pie chart and bar chart form!
 
-image::FinancialTrackerSummary2.png[]
+image::FinancialTrackerSummary2.png[width=600]
 // end::financialtracker[]
 
 == Diary
@@ -1369,39 +1367,31 @@ In the Address Book Achievements, you will be able to see:
 == FAQ
 
 *Q:* How do I backup my data onto cloud storage? +
-*A:* Locate The Traveller Diary folder in your local drive and compact it into a zip file before uploading it onto a cloud storage online.
+*A:* Locate the ``data`` folder in the same directory where you saved you jar file. Compact it into zip file before uploading it onto cloud storage.
 
 *Q:* How do I transfer my data onto another computer? +
-*A:* Install The Traveller Diary in the other computer and overwrite the empty data file it creates with during start up with the file that contains the data of your previous TTD. Alternatively, you can store it in a cloud storage it first before retrieving it and transferring it into your new computer.
+*A:* Backup your data first. Then, download TravEzy in the other computer and put your ``data`` folder on the same directory where you saved the jar file. Execute TravEzy and you should see your data has been safely transferred.
 
 *Q:* Can I change the theme of the application? I prefer to work with a night theme interface. +
-*A:* Stay tuned for TravEzy v2.0 for this features! The TravEzy theme also aims to provide user with a UI that they are
-comfortable with. Hence, we strongly believe giving users the option to personalize their theme is extremely useful
-and would greatly consider adding it for the upcoming major update on TravEzy! Stay tuned for that!
+*A:* Stay tuned for TravEzy v2.0 for this features! The TravEzy theme also aims to provide user with a UI that they are comfortable with. Hence, we strongly believe giving users the option to personalize their theme is extremely useful and would greatly consider adding it for the upcoming major update on TravEzy! Stay tuned for that!
 
-*Q:* Who can view my travel posts in my TTD? +
-*A:* As TTD is a single user application, it is not opened to the public, and unable to be viewed by others. Hence, it is called “diary” for a reason, which stores discrete entries reporting events that happened throughout the day. Users can however, showcase their application in front of their friends to show off their overseas trips. +
+*Q:* Who can view my travel posts in my TravEzy? +
+*A:* As TravEzy is a single user application, it is not opened to the public, and unable to be viewed by others. You can however, showcase your application in front of your friends to show off your overseas trips. +
 
 *Q:* Is it possible to connect to social media such as Facebook, Snapchat, Instagram? +
-*A:* Currently, it is not possible to connect to social media using TTD. However, we will consider implementing this feature in the future! Stay tuned for that! 😉
+*A:* Currently, it is not possible to connect to social media using TravEzy. However, we will consider implementing this feature in the future! Stay tuned for that! 😉
 
 *Q:* Is there any in-app purchase for this application? +
-*A:* NO there isn’t. TTD is created from a non-profit organization and we are not here to milk any of your gold coins! It is absolutely free! It cost nothing, zilch, nada, 零, nil, kosong. So what are you waiting for get TTD today!
+*A:* NO there isn’t. TravEzy is created from a non-profit organization and we are not here to milk any of your gold coins! It is absolutely free! It cost nothing, zilch, nada, 零, nil, kosong. So what are you waiting for get?  Get TravEzy today!
 
 *Q:* I’m having difficulties uploading the pictures onto the travel diary. +
-*A:* At the moment, TravEzy does not have any feature where it allows the user to store their travel photos. However,
-this will definitely be implemented in v2.0. We intend for the pictures to be stored in the user's local drive and
-subsequently in a cloud database which is stored online. The Traveller Diary initial uploads will only allow uploads
-of pictures that are in jpg or png. Unfortunately, we do not support gif.
-Do ensure that your pictures are below 25MB with the dimensions no bigger than 1920px x 1080px.
+*A:* At the moment, TravEzy does not have any feature where it allows the user to store their travel photos. However, this will definitely be implemented in v2.0. We intend for the pictures to be stored in the user's local drive and subsequently in a cloud database which is stored online.
 
 *Q:* Who can I contact should there be a bug or feedback that I would like to share? +
-*A:* Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve TTD. Thank you and looking forward to serving you better!
+*A:* Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve TravEzy. Thank you and we looking forward to serving you better!
 
 *Q:* What are some of the cool features that are available in TravEzy currently? +
-*A:* TravEzy currently boast a plethora of features such as calendar, itinerary, address book, travelling diary,
-financial tracker and achievements page. All these features work in tandem with each other to give you the best and only
-the best travelling experience. Not only that, the TravEzy team also decided to spice things up and included some easter eggs scattered throughout the
+*A:* TravEzy currently boast a plethora of features such as calendar, itinerary, address book, travelling diary, financial tracker and achievements page. All these features work in tandem with each other to give you the best and only the best travelling experience. Not only that, the TravEzy team also decided to spice things up and included some easter eggs scattered throughout the
 application for users to discuss and discover. Hope that you have fun finding these cool easter egg features! 🐰🐰🐰
 
 == Command Summary
@@ -1536,19 +1526,35 @@ Here are summary lists of commands for the different features.
 
 |``add``
 |Adds an expense to the Financial Tracker
-|``add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE [date/DATE] [time/TIME]``
+|``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
 
 |``edit``
 | Edits an existing expense in the Financial Tracker
-|``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] [date/DATE] [time/TIME]``
+|``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE OF EXPENDITURE] [date/DATE] [time/TIME]``
 
 |``delete``
 |Deletes the specified expense from the Financial Tracker
 |``delete INDEX``
 
-|``help``
-|View Help
-|``help``
+|``clear``
+|Clears all your expenses in your current country's expense list
+|``clear``
+
+|``undo``
+|Undo your previous action
+|``undo``
+
+|``switch``
+|Switch to another country's expense list
+|``switch COUNTRY``
+
+|``sort``
+|Sort your expense list based on amount, type, date, time or default
+|``sort CRITERIA``
+
+|``summary``
+|Generate an overview of your expenses statistics
+|``summary``
 
 |===
 
