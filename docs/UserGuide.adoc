@@ -793,7 +793,7 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* `add-inventory [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]`: *Adds an inventory*
+* `add-inv [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]`: *Adds an inventory*
 
 * `add-meeting [at/dd-mm-yyyy hh:mm - hh:mm] [l/LOCATION]`: *Adds a meeting*
 
@@ -801,9 +801,15 @@ _{explain how the user can enable/disable data encryption}_
 
 * `add-task [tn/TASK_NAME] s/TASK_STATUS tt/TASK_TAG`: *Adds a task*
 
+* `edit-member [mi/MEMBER_ID] mn/MEMBER_NAME mt/MEMBER_TAG`: *Edits a member*
+
+* `edit-inv [ii/ITEM_ID] i/ITEM_NAME p/PRICE ti/TASK_ID mi/MEMBER_ID`: *Edits a inventory*
+
 * `assign [ti/TASK_ID] [mi/MEMBER_ID]`: *Adds a task to a member*
 
 * `calendar`: *Switches to the time management page*
+
+* `pdf [ty/TYPE]`: *Creates a PDF document of inventory list*
 
 * `clock twelve`: *Switches deadline display to the 12 hour clock format*
 
@@ -811,7 +817,7 @@ _{explain how the user can enable/disable data encryption}_
 
 * `set-deadline [ti/TASK_ID] [at/dd-mm-yyyy hh:mm]`: *Assigns a deadline to a task*
 
-* `delete-inventory [ii/ITEM_ID]`: *Deletes an inventory*
+* `delete-inv [ii/ITEM_ID]`: *Deletes an inventory*
 
 * `doing-task [ti/TASK_ID]`: *Marks a task as `doing`*
 
@@ -834,6 +840,8 @@ _{explain how the user can enable/disable data encryption}_
 * `list-members`: *Lists all members*
 
 * `list-tasks`: *Lists all tasks*
+
+* `list-inv`: *Lists all inventories*
 
 * `remove-member [mi/MEMBER_ID]`: *Removes a member*
 
