@@ -373,13 +373,14 @@ Edits the name and actor name of the 1st show in the list to be `Joker` and `Joa
 * `edit 2 a/` +
 Clears all existing actors of the 2nd show in the list.
 
+// tag::search[]
 ==== Search for a show: `search`
 ====
 Note: Search results will appear in the Search Page, click kbd:[3] to go straight to the search page.
 ====
 
-Searches for shows whose names contain any of the given keywords from the watchlist, watched list and online/internal
-database. +
+Searches for shows whose names contain any of the given keywords from the online database, unless specified to be from
+the watchlist or watched list. +
 
 Format:
 
@@ -389,66 +390,98 @@ Format:
 * by genre: +
 `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
 
-* by actor (from watchlist/internal database): +
+* by actor (from watchlist): +
 `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
 
+[NOTE]
+To be able to search from watchlist or watched list, do specify `o/no`. To search specifically from watchlist, include
+`o/no w/no` and to search specifically from watchlist, include `o/no w/yes`. +
+Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error. +
+For `FROM_ONLINE` and `HAS_WATCHED`, only `yes`, `true`, `no` and `false` would be accepted. +
+For `[o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered.
+e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv". +
+When searching based on actor, only shows from the watchlist will be searched. +
+When searching based on genre online, only movies will be searched.
 
-****
-* The search is case insensitive. e.g "avengers" will match "Avengers"
-* The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris"
-* Not only full words will be matched. e.g. "Joke" will also match with "Joker"
-* Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers"
-* Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error.
-* For `FROM_ONLINE` and `HAS_WATCHED`, only `yes`, `true`, `no` and `false` would be accepted.
-* For `[o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered.
-e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv"
-* When searching based on actor, only shows from the watchlist will be searched.
-* When searching based on genre online, only movies will be searched.
-****
+[TIP]
+The search is case insensitive. e.g "avengers" will match "Avengers". +
+The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris". +
+Not only full words will be matched. e.g. "Joke" will also match with "Joker". +
+Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
 
-*Example Usage*
+*Example Usage:* +
+You may want to search for movies named "Avengers" and also movies with an actor called "Tom".
+As shown below, assume that your watchlist only has a movie "Avengers: Endgame" that you have watched.
+
+.Current *Watched list* with a movie "Avengers: Endgame"
+image::watchedPageWithAvengerEndgame.png[width="790"]
 
 [start=1]
-1. You want to search for the movie "Avengers". +
-Navigate to the *Search page* by one of the following ways: +
-* clicking on the search tab
+1. Navigate to the *Search page* by one of the following ways: +
+* clicking on the *search* tab
 * hitting the keyboard shortcut kbd:[3]
 * typing `3` in the command box and pressing kbd:[enter]
-* typing `search` in the command box and pressing kbd:[enter]
+* typing `search` in the command box and pressing kbd:[enter] as shown in the figure below
 
-image::SearchPage.png[width="790"]
+.Entering of the `search` command
+image::searchCommand.png[width="790"]
 
-*Scenario 1: You are offline*
+After you have entered the command, you will be led to the *Search page* as shown below.
+
+.User Interface of the search page
+image::emptySearchPage.png[width="790"]
+
+[TIP]
+You may skip Step 1 as you will be automatically be navigated to the *Search page* when you key in any valid `search`
+command, such as the one in Step 2.
 
 [start=2]
-2. User enters `watch 1` into the command box in the watchlist tab.
+2. Enters `search n/Avengers a/Tom t/movie` into the command box in the search tab as shown below.
 
-image::SearchAvengerUserInput.png[width="790"]
+.Entering of the `search` command to search for shows
+image::searchAvengerUserInput.png[width="790"]
+
+Press kbd:[enter] after entering the information shown above and wait for the information to load.
+
+.Loading Screen of the *Search page*
+image::searchPageLoadingScreen.png[width="790"]
+
+The loading page as shown above will appear while EzWatchlist searches for your shows.
+
+[TIP]
+You can go to the other pages in the mean time. Do allow some time for the search to load.
 
 [start=3]
-3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `2`.
+3. Search page shows the list of shows based on `search n/Avengers a/Tom t/movie`.
 
-image::SearchAvengers.png[width="790"]
+*Scenario A: You are offline* +
+Only movies from the watchlist or offline database with the movie name "Avengers" or actor name "Tom" will be shown,
+as seen in the figure below.
 
-Alternatively, users can click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
+.*Search Page* showing the search results when offline
+image::searchPageSearchedForAvengersWhenOffline.png[width="790"]
 
-image::TheOfficeWatchCommand.png[width="790"]
+*Scenario B: You are online* +
+Only movies from the online database with the movie name "Avengers" or actor name "Tom" will be shown, as seen in the
+figure below.
 
-*Scenario 2: You are online*
+.*Search Page* showing the search results when online
+image::searchPageSearchedForAvengersWhenOnline.png[width="790"]
 
 Examples:
 
 * By name:
-** `search n/Joker i/yes` +
+** `search n/Joker o/no` +
 Returns shows with the name "Joker" within the watchlist
 ** `search n/Avengers g/Science Fiction t/movie n/Spiderman` +
-Returns movies with the name "Avenger" or "Spiderman" and movies with "Science Fiction" as genre
+Returns movies from the online database with the name "Avenger" or "Spiderman" and movies with the genre "Science Fiction"
 * By genre:
 ** `search g/Action t/movie` +
-Returns movies with the genre "Action"
+Returns movies from the online database with the genre "Action"
 * By actor:
-** `search a/Tom w/no` +
+** `search a/Tom o/no w/no` +
 Returns shows within the watchlist with actor named "Tom"
+// end::search[]
 
 // tag::sync[]
 ==== Synchronise user's show data: `sync`
@@ -572,9 +605,9 @@ e.g. `delete 3`
 e.g. `edit 2 n/John Wick a/Johnny Depp`
 * *Search*
 ** *by name* : `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
-e.g. `search n/Joker i/yes` searches for shows with the name 'Joker' within the watchlist
+e.g. `search n/Joker o/no` searches for shows with the name 'Joker' within the watchlist
 ** *by genre* `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
-e.g. `search g/Action t/movie` searches for movies with the genre 'Action'
+e.g. `search g/Action t/movie` searches for movies from the online database with the genre 'Action'
 ** *by actor from watchlist* `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/IS_WATCH]` +
 e.g. `search a/Tom` searches from shows within the watchlist with actor named 'Tom'
 

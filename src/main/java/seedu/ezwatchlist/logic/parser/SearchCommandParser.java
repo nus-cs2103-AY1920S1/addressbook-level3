@@ -23,6 +23,11 @@ import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new SearchCommand object.
  */
 public class SearchCommandParser implements Parser<SearchCommand> {
+    private static final String INPUT_TRUE = "true";
+    private static final String INPUT_YES = "yes";
+    private static final String INPUT_FALSE = "false";
+    private static final String INPUT_NO = "no";
+
     private HashMap<SearchKey, List<String>> searchShowsHashMap = new HashMap<>();
 
     /**
@@ -137,10 +142,14 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * Parses whether the show is watched.
      * @param isWatchedOptional True/Yes if is watched, else, False/No
      */
-    private void parseIsWatchedToBeSearched(Optional<String> isWatchedOptional) {
-        ArrayList<String> listOfIsWatched = new ArrayList<String>(); // Empty if can be any
-        if (isWatchedOptional.isPresent()) { // true or yes || false or no
+    private void parseIsWatchedToBeSearched(Optional<String> isWatchedOptional) throws ParseException {
+        ArrayList<String> listOfIsWatched = new ArrayList<String>();
+        if (isWatchedOptional.isPresent()) {
             String isWatched = isWatchedOptional.get().trim();
+            if (!(isWatched.equals(INPUT_FALSE) || isWatched.equals(INPUT_NO) || isWatched.equals(INPUT_TRUE)
+                    || isWatched.equals(INPUT_YES))) {
+                throw new ParseException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
+            }
             listOfIsWatched.add(isWatched);
         }
         searchShowsHashMap.put(SearchKey.KEY_IS_WATCHED, listOfIsWatched);
@@ -150,10 +159,14 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * Parses whether the show searched should be from online.
      * @param fromOnlineOptional True/Yes if is from online, else, False/No.
      */
-    private void parseFromOnlineToBeSearched(Optional<String> fromOnlineOptional) {
-        ArrayList<String> listOfFromOnline = new ArrayList<String>(); // Empty if can be any
-        if (fromOnlineOptional.isPresent()) { // true or yes || false or no
+    private void parseFromOnlineToBeSearched(Optional<String> fromOnlineOptional) throws ParseException {
+        ArrayList<String> listOfFromOnline = new ArrayList<String>();
+        if (fromOnlineOptional.isPresent()) {
             String fromOnline = fromOnlineOptional.get().trim();
+            if (!(fromOnline.equals(INPUT_FALSE) || fromOnline.equals(INPUT_NO) || fromOnline.equals(INPUT_TRUE)
+                    || fromOnline.equals(INPUT_YES))) {
+                throw new ParseException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
+            }
             listOfFromOnline.add(fromOnline);
         }
         searchShowsHashMap.put(SearchKey.KEY_FROM_ONLINE, listOfFromOnline);

@@ -276,6 +276,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return watchList.equals(other.watchList)
+                && watchedList.equals(other.watchedList)
+                && database.equals(other.database)
                 && userPrefs.equals(other.userPrefs)
                 && filteredShows.equals(other.filteredShows);
     }
