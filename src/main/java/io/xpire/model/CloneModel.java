@@ -11,10 +11,10 @@ import io.xpire.model.state.State.StateType;
 public class CloneModel {
 
     private final Xpire xpire;
-    private final ReadOnlyListView<Item> replenishList;
+    private final ReplenishList replenishList;
     private final ReadOnlyUserPrefs userPrefs;
 
-    public CloneModel(Xpire xpire, ReadOnlyListView<Item> replenishList,
+    public CloneModel(Xpire xpire, ReplenishList replenishList,
                       ReadOnlyUserPrefs userPrefs, StateType stateType) {
         switch(stateType) {
         case FILTERED:

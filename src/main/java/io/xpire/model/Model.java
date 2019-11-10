@@ -65,7 +65,7 @@ public interface Model {
     /**
      * Returns the {@code ReplenishList}
      */
-    ReadOnlyListView<Item> getReplenishList();
+    ReplenishList getReplenishList();
 
     /**
      * Overrides the current {@code Xpire}'s data with another existing {@code Xpire}.

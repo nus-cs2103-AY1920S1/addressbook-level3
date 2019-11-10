@@ -425,16 +425,27 @@ change in the user's operating system.
 === Undo/Redo feature
 ==== Implementation
 
-The undo/redo mechanism is facilitated by `CloneModel` and `StackManager`.
-It is a separate class that stores a state of the model at any command in time. Internally, it runs three private functions that copy the data over.
+The undo/redo mechanism is facilitated by 4 different components, namely `CloneModel`,  `State`, `StackManager`, and `UndoableHistoryManager`.
 
-The mechanism is supported by a StackManager which stores internally all the states and +
+A `CloneModel` is a cloned version of the `Model` class and contains the items in Xpire and ReplenishList and UserPrefs.
+
+A `State` represents the status of Xpire at that point in history and contains the corresponding CloneModel as well as the `ListType` which is the current view of the application (either the main list or the replenish list), a `XpireMethodOfSorting` which determines how the items in Xpire are sorted, as well as a predicate which is set on the filter of the current list in view.
+
+The undo/redo mechanism is supported by a StackManager which stores internally all the states and +
 decides when to pop or clear, depending on the command.
-There are two stacks that are stored in StackManager internally, the Undo and the Redo stack.
+There are two stacks that are stored in StackManager internally, the Undo and the Redo Stacks.
+The Undo stack is a double-ended Queue which functions as a stack whilst the Redo stack is a typical stack.
 These stacks are initialised and cleared upon beginning/ending every session.
 
-At every command (Other than undo/redo/help/exit), the state is stored internally. +
-When an undo command is executed, it will pop the previous state and update the model via `updateModel`. +
+[NOTE]
+Currently, the undo/redo mechanism only supports up to 10 undo commands. This is enforced in order to save memory by not storing too many states in one session which may slow down the application. +
+Consequently, this implementation would mean that the Undo Stack has to drop the first state from the front if there are already 10 states store, thus influencing the design of the two stacks. +
+Therefore, an double-ended queue was used to replicate a Stack as well as support O(1) deleting operations from the front.
+
+The `UndoableHistoryManager` is a generic class that stores inputs as well as Commands so that Undo/Redo commands are able to feedback to the user what commands have been undone or redid.
+
+At every command (Other than `undo`/`redo`/`help`/`exit`/`export`/`tag (show)`, the state is stored internally. +
+When an undo command is executed, it will pop the previous state and update the model via `update`. +
 The state that was undid will then be pushed into the Redo stack, should the user types in a redo command.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
@@ -445,7 +456,7 @@ Both stacks should be empty as there are no previous commands by the user. The c
 
 image::UndoRedo/UndoRedoStep1.png[]
 
-Step 2. The user executes `delete|5` command to delete the 5th item in Xpire. The `delete` will then save the previous state, s0 by pushing it into the Undo Stack.
+Step 2. The user executes `delete|5` command to delete the 5th item in Xpire. The `delete` will then save the previous state, s0, by pushing it into the Undo Stack.
 
 The current state will be the new state `s1` that has the 5th item in Xpire deleted.
 
@@ -458,7 +469,7 @@ The current state will be the new state `s2` with the item Apple added.
 image::UndoRedo/UndoRedoStep3.png[]
 
 [NOTE]
-If a command fails its execution, it will not save the previous state, thus the Xpire state will not be pushed into the UndoStack.
+If a command fails its execution, it will not save the previous state, thus the state will not be pushed into the UndoStack.
 
 Step 4. The user now decides that adding the item was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will then update the current model with the model in the previous state.
 
@@ -471,7 +482,7 @@ If there are no commands to undo (e.g. at the start of a new Xpire session), und
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
+image::UndoRedo/UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -502,35 +513,44 @@ When this happens, the existing states in the Redo Stack will be cleared. The st
 
 image::UndoRedo/UndoRedoStep5c.png[]
 
-[PROPOSED] A CommandHistory will also be integrated into the application so that it delivers feedback on what commands it has undo/redo.
+[PROPOSED] [v2.0] A CommandHistory that is integrated and allows users to fast-forward or go back in time to a state/version of the application instantly, as well as view the changes for each item instantly.
 
 [NOTE]
 Not all commands will save states to StackManager. Exit and Help commands will not save states. Undo and Redo commands should only act on commands that update the items or change the view of the items to the user.
 
 The following activity diagram summarises what happens when a user executes a new command:
 
-image::UndoRedo/UndoRedoActivityDiagram.png[]
+.Activity Diagram for Undo/Redo Commands
+image::UndoRedo/ActivityDiagramUndoRedoCommand.png[]
 
 ==== Design Considerations
 
+The following class diagram shows the entirety of the Undo/Redo system and its associations.
+
+image::UndoRedo/UndoRedoSystemClassDiagram.png[]
+
+There are two classes that inherit from the abstract class `State` which are `FilteredState` and `ModifiedState`. +
+The states that are stored at each valid and undoable command depends on the type of command itself as `FilteredState` only copies over the predicate and method of sorting but not the backend Xpire or ReplenishList data. Thus, commands that do not alter Items such as `Sort` and `Check` commands will instantiate a `FilteredState`. +
+On the other hand, `ModifiedState` is created with commands that alters the item of the data, thus a new Xpire and ReplenishList will be stored within the state. Commands that instantiate a `ModifiedState` include Add, Tag and Delete commands.
+
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire model.
+* **Alternative 1 (current choice):** Saves and clones the entire model.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
+** Cons: May have performance issues in terms of memory usage, need to have a limit for the amount of states that we can save.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the item being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct. +
+** Pros: Will use less memory (e.g. for `delete`, just save the item being deleted and apply the reverse command which is `add`).
+** Cons: Ensure that the implementation of each individual command are correct. +
 Hard to do when we are applying stackable search/sort commands.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of model states.
+* **Alternative 1 (current choice):** Use a stack to store the different commands and states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update the filtered list shown to the user and the backend Xpire data.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update the filtered list shown to the user and the backend Xpire/ReplenishList data.
+* **Alternative 2:** Use `HistoryManager` for undo/redo that stores previous versions of Item/XpireItem
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: Requires Item/XpireItem to have a history of its edits. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` and each `Item` now needs to do two different things which is to store data and retrieve the previous versions.
 // end::undoredo[]
 
 // tag::dataencryption[]
@@ -565,6 +585,26 @@ The following activity diagram summarizes what happens when a user executes a ne
 ** Pros:
 ** Cons:
 // end::dataencryption[]
+
+// tag::tag[]
+=== Tag
+
+This feature allows users to tag specific items in the list. Items can only have a maximum of 5 tags and all of the tags are parsed in Sentence-Case and must not be more than 20 characters long each.
+
+If the user simply enters `tag`, all the tags in the current list view will be collected and displayed to the user.
+
+This implementation is under `Logic` and `Model` components.
+
+==== Implementation
+
+Below is an activity diagram of what happens when a user keys in a Tag Command.
+
+.Activity Diagram for executing Tag Command
+image::Tag/ActivityDiagramTagCommand.png[]
+
+
+// end::tag[]
+
 
 // tag::search[]
 === Search

@@ -1,6 +1,7 @@
 package io.xpire.logic.commands;
 
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
+import static io.xpire.logic.commands.util.CommandUtil.MESSAGE_DUPLICATE_ITEM_REPLENISH;
 import static io.xpire.logic.commands.util.CommandUtil.MESSAGE_REPLENISH_SHIFT_SUCCESS;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
@@ -222,8 +223,11 @@ public class DeleteCommand extends Command {
     /**
      * Shifts Item to ReplenishList.
      */
-    private void shiftItemToReplenishList(Model model, XpireItem itemToShift) {
+    private void shiftItemToReplenishList(Model model, XpireItem itemToShift) throws CommandException {
         Item remodelledItem = itemToShift.remodel();
+        if (model.hasItem(REPLENISH, remodelledItem)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ITEM_REPLENISH);
+        }
         model.addItem(REPLENISH, remodelledItem);
         model.deleteItem(XPIRE, itemToShift);
     }
