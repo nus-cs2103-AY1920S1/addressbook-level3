@@ -4,7 +4,7 @@ import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.addcommand.AddDayCommand;
 import seedu.planner.logic.commands.system.DeleteDaysCommand;
 import seedu.planner.logic.events.Event;
-
+//@@author OneArmyj
 /**
  * An event representing an 'add day' command.
  */

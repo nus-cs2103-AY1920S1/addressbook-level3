@@ -23,7 +23,7 @@ import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.day.Day;
 import seedu.planner.storage.Storage;
-
+//@@author OneArmyj
 /**
  * The main LogicManager of the app.
  */

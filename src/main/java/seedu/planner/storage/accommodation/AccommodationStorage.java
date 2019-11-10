@@ -7,7 +7,7 @@ import java.util.Optional;
 import seedu.planner.commons.exceptions.DataConversionException;
 import seedu.planner.model.ReadOnlyAccommodation;
 import seedu.planner.model.accommodation.Accommodation;
-
+//@@author OneArmyj
 /**
  * Represents a storage for {@link Accommodation}.
  */

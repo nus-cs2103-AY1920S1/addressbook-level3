@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.planner.model.day.Day;
 import seedu.planner.model.field.Name;
-
+//@@author OneArmyj
 /**
  * Unmodifiable view of an Itinerary
  */

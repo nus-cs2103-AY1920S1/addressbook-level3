@@ -17,7 +17,7 @@ import seedu.planner.model.field.Name;
 import seedu.planner.model.tag.Tag;
 import seedu.planner.storage.JsonAdaptedTag;
 import seedu.planner.storage.contact.JsonAdaptedContact;
-
+//@@author OneArmyj
 /**
  * Jackson-friendly version of {@link Contact}.
  */

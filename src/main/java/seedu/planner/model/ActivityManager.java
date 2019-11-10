@@ -10,9 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.activity.UniqueActivityList;
-
-
-
+//@@author OneArmyj
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameContact comparison)

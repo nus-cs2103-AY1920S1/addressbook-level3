@@ -11,7 +11,7 @@ import seedu.planner.model.ActivityManager;
 import seedu.planner.model.ContactManager;
 import seedu.planner.model.Itinerary;
 import seedu.planner.model.Model;
-
+//@@author OneArmyj
 /**
  * Clears the address book.
  */

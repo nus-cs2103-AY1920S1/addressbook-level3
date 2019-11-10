@@ -6,7 +6,7 @@ import seedu.planner.logic.commands.editcommand.EditAccommodationCommand;
 import seedu.planner.logic.commands.editcommand.EditAccommodationCommand.EditAccommodationDescriptor;
 import seedu.planner.logic.events.Event;
 import seedu.planner.model.accommodation.Accommodation;
-
+//@@author OneArmyj
 /**
  * An event representing a 'edit accommodation' command.
  */

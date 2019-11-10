@@ -5,7 +5,7 @@ import seedu.planner.logic.commands.addcommand.AddContactCommand;
 import seedu.planner.logic.commands.deletecommand.DeleteContactCommand;
 import seedu.planner.logic.events.Event;
 import seedu.planner.model.contact.Contact;
-
+//@@author OneArmyj
 /**
  * An event representing an 'add contact' command
  */

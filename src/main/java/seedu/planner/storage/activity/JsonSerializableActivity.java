@@ -12,7 +12,7 @@ import seedu.planner.commons.exceptions.IllegalValueException;
 import seedu.planner.model.ActivityManager;
 import seedu.planner.model.ReadOnlyActivity;
 import seedu.planner.model.activity.Activity;
-
+//@@author OneArmyj
 /**
  * An Immutable Activity that is serializable to JSON format.
  */

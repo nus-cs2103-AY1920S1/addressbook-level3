@@ -14,7 +14,7 @@ import seedu.planner.model.Itinerary;
 import seedu.planner.model.ReadOnlyItinerary;
 import seedu.planner.model.day.Day;
 import seedu.planner.model.field.Name;
-
+//@@author OneArmyj
 /**
  * An Immutable Itinerary that is serializable to JSON format.
  */

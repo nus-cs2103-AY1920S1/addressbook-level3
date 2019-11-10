@@ -15,7 +15,7 @@ import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.day.Day;
-
+//@@author OneArmyj
 /**
  * API of the Logic component
  */

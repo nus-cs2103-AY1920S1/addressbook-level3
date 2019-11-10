@@ -6,7 +6,7 @@ import seedu.planner.logic.commands.addcommand.AddDayCommand;
 import seedu.planner.logic.commands.deletecommand.DeleteDayCommand;
 import seedu.planner.logic.events.Event;
 import seedu.planner.model.day.Day;
-
+//@@author OneArmyj
 /**
  * An event representing a 'delete day' command.
  */

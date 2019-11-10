@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.planner.commons.exceptions.IllegalValueException;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
-
+//@@author OneArmyj
 /**
  * Jackson-friendly version of {@link Day}.
  */

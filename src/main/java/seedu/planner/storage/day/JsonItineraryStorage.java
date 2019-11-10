@@ -13,7 +13,7 @@ import seedu.planner.commons.exceptions.IllegalValueException;
 import seedu.planner.commons.util.FileUtil;
 import seedu.planner.commons.util.JsonUtil;
 import seedu.planner.model.ReadOnlyItinerary;
-
+//@@author OneArmyj
 /**
  * A class to access Itinerary data stored as a json file on the hard disk.
  */

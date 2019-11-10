@@ -2,7 +2,7 @@ package seedu.planner.model;
 
 import javafx.collections.ObservableList;
 import seedu.planner.model.accommodation.Accommodation;
-
+//@@author OneArmyj
 /**
  * Unmodifiable view of an Accommodation List
  */
