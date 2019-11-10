@@ -12,6 +12,12 @@ import seedu.address.model.classroom.Classroom;
 public class TypicalClassrooms {
 
     public static final Classroom CLASSROOM_ONE = new ClassroomBuilder()
+            .withClassroomName("Classroom One")
+            .withStudents(TypicalStudents.getTypicalStudents())
+            .withAssignments(TypicalAssignments.getTypicalAssignments()).build();
+
+    public static final Classroom CLASSROOM_TWO = new ClassroomBuilder()
+            .withClassroomName("Classroom Two")
             .withStudents(TypicalStudents.getTypicalStudents())
             .withAssignments(TypicalAssignments.getTypicalAssignments()).build();
 

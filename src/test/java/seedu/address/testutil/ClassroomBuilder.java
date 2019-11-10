@@ -6,6 +6,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.student.Student;
 
+//@@author weikiat97
 /**
  * A utility class to help with building Classroom objects.
  * Example usage: <br>
@@ -21,6 +22,14 @@ public class ClassroomBuilder {
 
     public ClassroomBuilder(Classroom classroom) {
         this.classroom = classroom;
+    }
+
+    /**
+     * Adds a classroom name to the {@code Classroom} that we are building.
+     */
+    public ClassroomBuilder withClassroomName(String classroomName) {
+        classroom.setClassroomName(classroomName);
+        return this;
     }
 
     /**
