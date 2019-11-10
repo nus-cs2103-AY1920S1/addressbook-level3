@@ -18,7 +18,7 @@ This is how the main page of our app looks like:
 .Horo's Graphical User Interface (GUI)
 image::HoroMainViewDescription.png[]
 
-n this project, my role was to design and implement the code for the export and import commands.
+In this project, my role was to design and implement the code for the export and import commands.
 The following sections illustrate these enhancements in more detail,
 including some of the relevant documentation I have added
 to the User Guide and Developer Guide in relation to these enhancements.
@@ -27,8 +27,9 @@ Note the following symbols and formatting used in this document:
 
 [cols="2,5"]
 |===
-|`export`  | A grey highlight (called a mark-up) indicates that
+| `export`  | A grey highlight (called a mark-up) indicates that
 this is a command that can be inputted into the command line and executed by the application.|
+`*IcsExporter*`| A text with a grey highlight as well as a bold font indicates a component, class or object in Horo.
 |===
 
 == Summary of Contributions
@@ -76,55 +77,13 @@ _Other contributions:_
 As part of the requirements, we had to update the original User Guide with instructions
 regarding how to use our new features.
 This section contains an excerpt from the User Guide showing how to use the export command.
-
 ---
 
-=== iCalendar (ICS) Integration
-
-Horo stores data in the ICS format. Files saved in this format have the extension `.ics`.
-This allows for data to be imported to and exported from other calendar applications that also use the `.ics` format.
-
-==== Export current calendar : `export --directory ["DIRECTORY"]`
-
-.Export Command
-image::ExportCommandScreenShot.png[]
-
-.Exported File
-image::ExportFileScreenShot.png[]
-
-{empty} +
-The `export` command exports your current calendar as an ICS file to the specified directory.
-If no directory is specified, the file will be created in the same directory as Horo.
-{empty} +
-
-Format: +
-`export` +
-`export --directory ["DIRECTORY"]`
-{empty} +
-
-Example: +
-`export --directory "C:\Users\USER_NAME\Desktop\Horo"`
-{empty} +
+include::../UserGuide.adoc[tag=ics]
 
 == Contributions to the Developer Guide
 The following section shows my additions to the Horo Developer Guide for the import and export features.
 
+include::../DeveloperGuide.adoc[tag=ics]
+
 ---
-
-=== Ics Component
-
-*API* : link:{repoURL}/src/main/java/seedu/address/ics/IcsParser.java[`IcsParser.java`]
-
-The ICS component is made up of two parts: ICS file importer, and ICS file exporter.
-
-The file importer makes use of a custom parser that converts files with the `.ics` file extension
-to `EventSource` objects in Horo.
-
-The file exporter takes the `EventSource` objects stored in the `Model` singleton object and
-generates ICS String representations of them. Check out the
-link:https://en.wikipedia.org/wiki/ICalendar[ICalendar Wiki Page] for more information on the specifications.
-
-
-* Can export Horo's save data as a file
-The `ICS` Component,with a `.ics` extension.
-* Can import other Horo's save data from a `.ics` file.
