@@ -79,7 +79,12 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(customerBook, phoneBook, orderBook, scheduleBook, userPrefs);
 
-        logger.fine("Initializing with customer book: " + customerBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with customer book: " + customerBook
+                + " phone book : " + phoneBook
+                + " order book: " + orderBook
+                + " schedule book: " + scheduleBook
+                + " archived order book: " + archivedOrderBook
+                + " and user prefs " + userPrefs);
 
         this.customerBook = new DataBook<>(customerBook);
         this.phoneBook = new DataBook<>(phoneBook);
@@ -146,6 +151,8 @@ public class ModelManager implements Model {
         customerBook.remove(target);
 
         // cascade
+        logger.info("Cascade deleting order in OrderBook.");
+
         List<Order> orders = orderBook.getList();
         for (int i = orders.size() - 1; i >= 0; i--) {
             Order order = orders.get(i);
@@ -168,6 +175,8 @@ public class ModelManager implements Model {
         customerBook.set(target, editedCustomer);
 
         // cascade
+        logger.info("Cascade editing order in OrderBook.");
+
         List<Order> orders = orderBook.getList();
         for (int i = orders.size() - 1; i >= 0; i--) {
             Order order = orders.get(i);
@@ -220,6 +229,7 @@ public class ModelManager implements Model {
         phoneBook.remove(target);
 
         // cascade
+        logger.info("Cascade deleting orders in OrderBook.");
 
         List<Order> orders = orderBook.getList();
 
@@ -244,6 +254,8 @@ public class ModelManager implements Model {
         phoneBook.set(target, editedPhone);
 
         // cascade
+        logger.info("Cascade editing Orders in OrderBook.");
+
         List<Order> orders = orderBook.getList();
 
         for (int i = orders.size() - 1; i >= 0; i--) {
@@ -297,6 +309,7 @@ public class ModelManager implements Model {
         orderBook.remove(target);
 
         // cascade
+        logger.info("Cascade delete schedule in ScheduleBook.");
         Optional<Schedule> targetSchedule = target.getSchedule();
         if (targetSchedule.isPresent() && hasSchedule(targetSchedule.get())) {
             deleteSchedule(targetSchedule.get());
@@ -358,6 +371,7 @@ public class ModelManager implements Model {
 
 
         // cascade
+        logger.info("Cascade deleting schedules in OrderBook.");
         List<Order> orders = orderBook.getList();
         for (Order order : orders) {
             order.getSchedule().ifPresent(schedule -> {
@@ -385,6 +399,7 @@ public class ModelManager implements Model {
         setCalendarDate(editedSchedule.getCalendar());
 
         // cascade
+        logger.info("Cascade edited schedules in OrderBook.");
         List<Order> orders = orderBook.getList();
         for (Order order : orders) {
             order.getSchedule().ifPresent(schedule -> {
@@ -513,7 +528,8 @@ public class ModelManager implements Model {
     public void resolveOrderBooksConflict() {
         List<Order> orders = orderBook.getList();
 
-        //Remove completed/cancelled orders from orderBook and place them in archivedOrderBook
+        logger.info("Remove completed/cancelled orders from orderBook and place them in archivedOrderBook");
+
         for (int i = orders.size() - 1; i >= 0; i--) {
             Order o = orders.get(i);
 
@@ -533,7 +549,8 @@ public class ModelManager implements Model {
 
         List<Order> archivedOrders = archivedOrderBook.getList();
 
-        //Remove unscheduled/scheduled orders from archivedOrderBook and place them in orderBook
+        logger.info("Remove unscheduled/scheduled orders from archivedOrderBook and place them in orderBook");
+
         for (int i = archivedOrders.size() - 1; i >= 0; i--) {
             Order o = archivedOrders.get(i);
 
@@ -556,8 +573,9 @@ public class ModelManager implements Model {
         List<Phone> phones = phoneBook.getList();
         List<Customer> customers = customerBook.getList();
 
-        //Ensure that all orders in orderBooks have an exact copy of phone and customer in their respective books
-        //If not, cancel the order and dump it into archives.
+        logger.info("Ensure that all orders in orderBooks have an exact copy of phone and customer in their " +
+                        "respective books. If not, cancel the order and dump it into archives.");
+
         for (int i = orders.size() - 1; i >= 0; i--) {
             Order o = orders.get(i);
             assert (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED));
@@ -591,8 +609,9 @@ public class ModelManager implements Model {
         ArrayList<Integer> toCancelIndexList = new ArrayList<>();
         archivedOrders = archivedOrderBook.getList();
 
-        // Ensure that archived orders list has no completed orders with duplicate phones.
-        // if not cancel the orders.
+        logger.info("Ensure that archived orders list has no completed orders with duplicate phones. " +
+                "If not, cancel the orders.");
+
         for (int i = archivedOrders.size() - 1; i >= 0; i--) {
             Order o = archivedOrders.get(i);
             assert (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED));
@@ -635,10 +654,10 @@ public class ModelManager implements Model {
 
         phones = phoneBook.getList();
 
-        //Ensure that completed orders do not have phones in the existing phone book.
-        //If not, delete the phones
-        //Also ensure that completed orders are scheduled.
-        //If not, cancel the orders.
+        logger.info("Ensure that completed orders do not have phones in the existing phone book. " +
+                "If not, delete the phones");
+        logger.info("Also ensure that completed orders are scheduled. " +
+                "If not, cancel the orders.");
         for (int i = archivedOrders.size() - 1; i >= 0; i--) {
             Order o = archivedOrders.get(i);
             assert (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED));
@@ -675,7 +694,9 @@ public class ModelManager implements Model {
 
         List<Schedule> schedules = scheduleBook.getList();
 
-        //Ensure that schedules that do not have an order attached to it in ScheduleBook are deleted
+        logger.info("Ensure that schedules that do not have " +
+                "an order attached to it in ScheduleBook are deleted.");
+
         for (int i = schedules.size() - 1; i >= 0; i--) {
 
             Schedule s = schedules.get(i);
@@ -697,7 +718,7 @@ public class ModelManager implements Model {
             }
         }
 
-        //Ensure that all schedules in OrderBook exist in ScheduleBook.
+        logger.info("Ensure that all schedules in OrderBook exist in ScheduleBook.");
         for (int i = orders.size() - 1; i >= 0; i--) {
             Order o = orders.get(i);
 

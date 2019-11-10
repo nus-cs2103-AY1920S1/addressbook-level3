@@ -55,6 +55,9 @@ public class LogicManager implements Logic {
 
         try {
             Command command = sellerManagerParser.parseCommand(commandText);
+
+            logger.info("----------------[COMMAND][" + command + "]");
+
             commandResult = command.execute(model, commandHistory, undoRedoStack);
             storage.saveCustomerBook(model.getCustomerBook());
             storage.savePhoneBook(model.getPhoneBook());
