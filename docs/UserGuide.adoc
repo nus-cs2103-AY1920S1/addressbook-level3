@@ -203,7 +203,13 @@ Well, _TravEzy_ has got you covered. Simply inform _TravEzy_ of your schedule (y
 
 === Interface
 
-EMPHASISE THAT THE LABEL IS ONLY FOR EVENT TYPE
+This is how _TravEzy's calendar_ looks like:
+
+image::calendarScreenshots/calendarInterface.png[Calendar interface,width=600]
+
+To help you easily differentiate between various types of _events_, _TravEzy_ has categorised the _events_ into four types: _commitment_, _holiday_, _school break_ and _trip_. Visually, _TravEzy_ also uses different _labels_ for the different types of _events_, as shown in the image above.
+
+WARNING: The _labels_ indicate the *type* of _event_ you have for that particular day. It does not indicate the number of _events_.
 
 === Adding an event to your calendar: ``add``
 
