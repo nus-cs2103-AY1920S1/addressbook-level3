@@ -253,6 +253,10 @@ Below is a picture of the report showing where each type of information mentione
 image::UserGuideReportStep3.png[]
 {empty} +
 
+[NOTE]
+Changing your system time at any point while CaloFit is running may affect the report shown! +
+To ensure correct data is displayed to you, allow 2 minutes for CaloFit to update itself before creating your report.
+
 Format: `report`
 
 === Notification that a meal is missed

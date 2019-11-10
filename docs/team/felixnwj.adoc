@@ -75,3 +75,5 @@ include::../UserGuide.adoc[tag=report]
 |===
 
 include::../DeveloperGuide.adoc[tag=report]
+
+include::../DeveloperGuide.adoc[tag=reportTesting]

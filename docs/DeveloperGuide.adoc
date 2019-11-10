@@ -781,12 +781,61 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+// tag::reportTesting[]
 
-. Dealing with missing/corrupted data files
+=== Generating the report
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+[NOTE]
+All test cases assume an empty meal log prior to the inputs. To ensure this, you can go to the directory where you installed CaloFit, click on the "data" directory, and delete the mealLog.json file before restarting the application.
 
-_{ more test cases ... }_
-////
+. Generation of Report.
+
+.. Test case: No meals in input for current month. +
+   Expected: Report is *NOT* generated. An error message will be shown in the result display box of CaloFit.
+.. Test case: Any number of meals has been entered for current month. +
+   Expected: Report is generated normally.
+.. Test case: Any number of meals has been entered for current month and system time is changed to a different month or year. +
+   Expected: Report may initially be wrong as stated in the [https://github.com/AY1920S1-CS2103T-W11-4/main/blob/master/docs/UserGuide.adoc[Report Feature of our User Guide]]. The data in CaloFit will be updated in 2 minutes to fit this change in system time, after which the scenario will be similiar to the previous test case.
+
+. Testing validity of number of days where Calorie of the month
+
+.. Test case: `add n/carbonara c/689`, `set 500`, followed by `report`. +
+Expected: Number of days calorie intake exceeded budget will be 1.
+.. Test case: same as previous, with additional `set 1000` at the end. +
+Expected: Number of days calorie intake exceeded budget will be 0.
+
+. Testing validity of list of most consumed dishes.
+
+.. Test case: `add n/carbonara c/689`, `add n/beef stew c/200`, followed by `report`. +
+Expected: Carbonara and Beef Stew will be in list.
+.. Test case: same as previous, with additional `add n/carbonara c/690` before `report`. +
+Expected: Only Carbonara will be in the list.
+
+. Testing validity of Calorie Over Time graph.
+
+.. Test case: `add n/carbonara c/689`, `add n/beef stew c/200`, followed by `report`. +
+Expected: Calorie intake for today's date will be 889.
+.. Test case: same as previous, with additional `add n/beef stew c/200` before `report`. +
+Expected: Calorie intake for today's date will be 1089.
+
+. Testing validity of Quantity of Food Consumed graph.
+
+.. Test case: `add n/carbonara c/689`, followed by `report` +
+Expected: Quantity of carbonara consumed will be 1.
+.. Test case: `add n/carbonara c/689`, `add n/beef stew c/200`, followed by `report`. +
+Expected: Quantity of carbonara consumed will be 1. Quantity of beef stew consumed will be 1.
+
+. Testing validity of Maximum, Minimum, and Average calorie intake of the month.
+
+.. Test Case: `add n/carbonara c/689`, followed by `report`. +
+Expected: Maximum will be 689, Minimum will be 0, and Average will be 22.
+.. Test case: `add n/carbonara c/689`, `add n/beef stew c/200`, followed by `report`. +
+Expected: Maximum will be 889, Minimum will be 0, and Average will be 29(for 30 day months) or 28(for 31 day months).
+.. Test case: same as previous, with additional `add n/beef stew c/200` before `report` on a different day in the same month. +
+Expected: Maximum will be 889, Minimum will be 0, and Average will be 36(for 30 day months) or 35(for 31 day months).
+[NOTE]
+As the above test case requires a change in system time, do allow 2 minutes for CaloFit to be updated, as stated in Point 1(Generation of Report).
+
+// end::reportTesting[]
+
 
