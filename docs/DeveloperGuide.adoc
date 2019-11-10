@@ -226,6 +226,7 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::undoredo[]
 === Undo/Redo feature
+
 ==== Implementation
 
 The undo/redo mechanism is facilitated by `VersionedMark`.
@@ -889,11 +890,10 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
-// tag::use-case-undo-redo[]
 [[UC09]]
 [discrete]
 === Use case: UC09 - Undo previous <<undoable-commands,undoable commands>>
-
+// tag::use-case-undo[]
 *MSS*
 
 1. User requests to undo the previous undoable command.
@@ -910,11 +910,12 @@ Use case ends.
 Mark shows an error message.
 +
 Use case ends.
+// end::use-case-undo[]
 
 [[UC10]]
 [discrete]
 === Use case: UC10 - Redo previously undone commands
-
+// tag::use-case-redo[]
 *MSS*
 
 1. User requests to redo the previously undone command.
@@ -930,7 +931,7 @@ Use case ends.
 Mark shows an error message.
 +
 Use case ends.
-// end::use-case-undo-redo[]
+// end::use-case-redo[]
 
 [[UC11]]
 [discrete]
@@ -1136,8 +1137,8 @@ Windows, Linux, Unix, OS-X
 The collection of offline copies of a specific bookmark
 
 [[undoable-commands]] Undoable commands::
-Commands that modify the bookmark list or reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
-`reminder edit`, and `reminder delete`
+Commands that modify the bookmark list, reminders, folders or annotations, which include `add`, `edit`, `delete`, `clear`, `reminder`,
+`reminder-edit`, `reminder-delete`, `folder`, `folder-edit`, `folder-delete`, `autotag`, `autotag-delete`, `annotate`, `annotate-delete`, `annotate-edit`, etc
 
 [appendix]
 == Instructions for Manual Testing

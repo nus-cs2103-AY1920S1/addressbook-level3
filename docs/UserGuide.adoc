@@ -18,7 +18,7 @@ By: `Team CS2103T-T13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-Mark is for those who *prefer to use a desktop app for managing
+Mark is for those who *prefer to use a desktop application for managing
 bookmarks*. More importantly, it is *optimized for those who prefer to
 work with a Command Line Interface* (CLI) while still having the
 benefits of a Graphical User Interface (GUI). If you can type fast, Mark
@@ -34,7 +34,8 @@ Here are a few steps to get you started on Mark: +
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `mark.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Mark.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the application. The GUI should appear in a few seconds.
+//TODO: update UI screenshot
 +
 image::Ui.png[width="790"]
 +
@@ -45,11 +46,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Here are some example commands that you can try:
 
 * *`list`* : lists all bookmarks
-* *`folder Tutorials`* : create a folder named `Tutorials`
+* *`folder Tutorials`* : creates a folder named `Tutorials`
 * *`add u/https://git-scm.com/book/en/v2 n/Pro Git f/Tutorials`* : adds a bookmark
-named `Pro Git` to Mark.
+named `Pro Git` to Mark
 * *`delete 3`* : deletes the 3rd bookmark shown in the current bookmark list
-* *`exit`* : exits the app
+* *`exit`* : exits the application
 
 .  Refer to <<Features>> for details of each command.
 
@@ -59,7 +60,7 @@ This section offers an overview of Mark's layout so that you can locate informat
 
 There are three main areas in Mark:
 
-. A __command box__ at the top of the screen
+. A __command box__ and __result display box__ at the top of the screen
 . A __bookmark list__ on the left of the screen
 . A __main viewing area__ that occupies most of the right side of the screen
 
@@ -92,7 +93,7 @@ and view web pages.
 .Mark's Online tab
 image::ui-screenshots/Ui_OnlineTab.png[@Online Tab View, 600, 400]
 
-* The **Offline** tab displays offline copies of bookmarked web pages,
+* The **Offline** tab displays the most recently opened offline copy of bookmarked web pages,
 which you can browse and annotate directly.
 +
 [#imgId-offline]
@@ -133,9 +134,8 @@ it is not provided.
 * Items with `...`​ after them can be used multiple times, including zero times. +
 E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
 `t/module t/read-later` etc.
-* Parameters can be used in any order. +
+* Parameters can be used in any order unless otherwise specified. +
 E.g. if the command specifies `u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
-====
 
 '''
 
@@ -173,9 +173,8 @@ Goes to the Online tab which is a web view.
 * `*tab* 3` +
 Goes to the Offline tab which shows the offline copy of bookmarks.
 
-// tag::undo-redo-command[]
 ==== Undoing previous commands: *`undo`*
-
+// tag::undo-command[]
 Restores the list to the state before the given number of previous undoable commands were
 executed.
 
@@ -186,30 +185,44 @@ Format: `*undo* [STEP=1]`
 ****
 * Undoable commands include commands that modify the bookmark list or
 reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
-`reminder edit`, `reminder delete`, etc).
-* The step must be a positive integer `1`, `2`, `3`, …​
+`reminder-edit`, `reminder-delete`, etc).
+* `STEP` must be a positive integer `1`, `2`, `3`, ...
 ****
 
 Examples:
 
 * `*undo*` +
-Restores the list to the state before the previous undoable command was executed.
+Restores the bookmark list to the state before the previous undoable command was executed.
+
+* `*delete* 1` +
+`*delete* 2` +
+`*undo* 2` +
+Restores the bookmark list to the state before the 2 `*delete*` commands were executed.
+// end::undo-command[]
 
 ==== Redoing previously undone commands: *`redo`*
-
-Reverses the given number of `*undo*` commands.
+// tag::redo-command[]
+This command reverses the given number of undone actions.
 
 Format: `*redo* [STEP=1]`
 
 ****
-* The step must be a positive integer `1`, `2`, `3`, …​
+* `STEP` must be a positive integer `1`, `2`, `3`, ...
 ****
 
 Examples:
 
 * `*redo*` +
 Reverses the most recent `*undo*` command.
-// end::undo-redo-command[]
+
+* `*delete* 1` +
+`*delete* 2` +
+`*undo* 2` +
+`*redo* 2` +
+Restores the bookmark list to the state before the `*undo* 2` command was executed. The
+two bookmarks get deleted again.
+
+// end::redo-command[]
 
 // tag::exportcommand[]
 [[exporting-bookmarks]]
@@ -300,13 +313,13 @@ Format: `*list*`
 ==== Locating bookmarks by name, URL, tag or folder: *`find`*
 
 Finds bookmarks that contain any of the given keywords in their name or
-URL, or that are tagged with the given tag(s).
+URL, or that are tagged with the given tag(s) or stored under the given folder(s).
 
 Format: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 
 ****
 * At least one keyword, tag or folder must be provided.
-* Keyword search is case insensitive. e.g video will match Video.
+* Search for keywords, tags and folders is case insensitive. e.g video will match Video.
 * The order of the keywords does not matter. e.g. `Website Video` will match `Video Website`.
 * Keywords are only searched in the URL and name.
 * For keywords, words will be partially matched e.g. `Video` will match `Videos`.
@@ -325,9 +338,8 @@ Returns any bookmark with CS2103T, CS2101, or CS2105 in its name or in its URL.
 * `*find* GitHub t/School f/CS2103T` +
 Returns any bookmark with the tag School or folder CS2103T or that contains github in either name or URL.
 
-// tag::goto-command[]
 ==== Opening a bookmark: *`goto`*
-
+// tag::goto-command[]
 Opens the specified the bookmark from the bookmark manager.
 
 Format: `*goto* INDEX`
@@ -441,9 +453,8 @@ Deletes the 2nd bookmark in the bookmark manager.
 `*delete* 1` +
 Deletes the 1st bookmark in the results of the find command.
 
-// tag::favorite-command[]
 ==== Adding a bookmark to Favorites: *`favorite|fav`*
-
+// tag::favorite-command[]
 Adds a Favorite tag to the specified bookmark.
 
 Format: `*favorite|fav* INDEX`
