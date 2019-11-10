@@ -89,7 +89,7 @@ public class StatsDisplayUtil {
      * @return The TableView object showing the user's test sessions.
      */
     public static TableView<Session> getTestSessionsTableView(Deck deck) {
-        SessionList testSessionList = StatsHolder.getDeckStats().getSessionListForDeck(deck.getDeckName());
+        SessionList testSessionList = deck.getTestSessionList();
         TableView<Session> testSessionTableView = getSessionsTableView(testSessionList);
 
         TableColumn<Session, String> scoreColumn = new TableColumn<>("Score");
@@ -113,8 +113,8 @@ public class StatsDisplayUtil {
         TableColumn<Deck, Integer> numCardsColumn = new TableColumn<>("Number of cards");
         numCardsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
 
-        TableColumn<Deck, Integer> numSessionsColumn = new TableColumn<>("Number of sessions");
-        numSessionsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfSessions"));
+        //TableColumn<Deck, Integer> numSessionsColumn = new TableColumn<>("Number of sessions");
+        //numSessionsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfSessions"));
 
         //TableColumn<Deck, Double> avgScoreColumn = new TableColumn<>("Average score");
         //avgScoreColumn.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
@@ -123,7 +123,7 @@ public class StatsDisplayUtil {
 
         deckTableView.getColumns().add(nameColumn);
         deckTableView.getColumns().add(numCardsColumn);
-        deckTableView.getColumns().add(numSessionsColumn);
+        //deckTableView.getColumns().add(numSessionsColumn);
         //deckTableView.getColumns().add(avgScoreColumn);
 
         return deckTableView;

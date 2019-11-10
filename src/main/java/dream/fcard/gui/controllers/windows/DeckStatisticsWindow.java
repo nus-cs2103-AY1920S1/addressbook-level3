@@ -32,6 +32,8 @@ public class DeckStatisticsWindow extends ScrollPane {
     @FXML
     private Label sessionsThisWeek;
     @FXML
+    private ScrollPane testSessionsScrollPane;
+    @FXML
     private TableView<Session> testSessionsTableView;
 
     private Deck deck;
@@ -55,13 +57,12 @@ public class DeckStatisticsWindow extends ScrollPane {
 
         windowTitle.setText("My statistics for deck: " + deck.getDeckName());
         this.deck = deck;
-        this.testSessionList = StatsHolder.getDeckStats().getSessionListForDeck(deck.getDeckName());
+        this.testSessionList = deck.getTestSessionList();
 
         displaySummaryStats();
 
         this.testSessionsTableView = StatsDisplayUtil.getTestSessionsTableView(deck);
-        //this.sessionsScrollPane.setContent(sessionsTableView);
-        //sessionsTableView = StatsDisplayUtil.getSessionsTableView(deckStats.getSessionList());
+        this.testSessionsScrollPane.setContent(testSessionsTableView);
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
@@ -77,10 +78,10 @@ public class DeckStatisticsWindow extends ScrollPane {
             + (numSessionsThisWeek == 1 ? " session" : " sessions"));
 
         int numSessions = this.testSessionList.getNumberOfSessions();
-        totalSessions.setText("Total login sessions: " + numSessions
+        totalSessions.setText("Total test sessions: " + numSessions
             + (numSessions == 1 ? " session" : " sessions"));
 
         String duration = this.testSessionList.getTotalDurationAsString();
-        totalDuration.setText("Total login duration: " + duration);
+        totalDuration.setText("Total test duration: " + duration);
     }
 }
