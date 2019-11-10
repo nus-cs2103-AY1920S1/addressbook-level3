@@ -5,7 +5,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import seedu.address.commons.core.LogsCenter;
+import unrealunity.visit.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
