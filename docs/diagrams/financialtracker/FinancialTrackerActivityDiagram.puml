@@ -5,7 +5,7 @@ start
 - User selects the appropriate country expense list
 
 if () then ([valid format])
-    :Financial Tracker try to edit the expense;
+    :Financial Tracker try to delete the expense;
     if () then ([at least 1 changes of the expense entries made])
         :add and store the expense into the list;
         :sort the expense list;
