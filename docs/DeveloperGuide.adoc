@@ -31,7 +31,7 @@ This document serves to give an introduction to the architecture of IchiFund for
 modify the software, or simply to understand how it works. We describe the high-level architecture, and also delve into
 important details of the implementation of each feature.
 
-== Setting up
+== Setting Up
 
 Refer to the guide <<SettingUp#, here>>.
 
@@ -87,7 +87,7 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== UI Component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
@@ -106,7 +106,7 @@ The `UI` component,
 * Sets the `FeatureParser` used by the `Logic` component when the user manually changes tabs.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic Component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -127,7 +127,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 [[Design-Model]]
-=== Model component
+=== Model Component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -147,7 +147,7 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
 image:ModelClassDiagram.png[]
 
 [[Design-Storage]]
-=== Storage component
+=== Storage Component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -160,7 +160,7 @@ The `Storage` component,
 * can save the Address Book data in json format and read it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Common Classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
@@ -337,15 +337,31 @@ The arguments supported by this feature includes:
 ===== Design Considerations
 // end::transadd[]
 
+// tag::transedit[]
+==== Editing Transactions
+
+===== Implementation
+
+===== Design Considerations
+// end::transedit[]
+
+// tag::transdel[]
+==== Deleting Transactions
+
+===== Implementation
+
+===== Design Considerations
+// end::transdel[]
+
 === Repeaters
 
 // tag::repeateradd[]
-=== Adding Repeater : `add`
+==== Adding Repeater : `add`
 
-==== Overview
+===== Overview
 This feature allows the user to add a repeater in IchiFund. Adding a repeater also creates the transactions associated with the added repeater.
 
-==== Implementation
+===== Implementation
 The `addrep` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `addrep` behaves at each step.
 
 *Step 1*: The user executes `addrep de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sd/1 sm/1 sy/2019 ed/31 em/12 ey/2019` to add a repeater for phone bills with an amount of $42.15 on the third and second last day of every month between 1st January 2019 and 31st December 2019.
@@ -362,12 +378,12 @@ The `addrep` command is facilitated by the Logic and Model components of the app
 // end::repeateradd[]
 
 // tag::repeaterdelete[]
-=== Deleting Repeater : `delete`
+==== Deleting Repeater : `delete`
 
-==== Overview
+===== Overview
 This feature allows the user to delete repeater in IchiFund. Delete a repeater also deletes the transactions associated with the deleted repeater.
 
-==== Implementation
+===== Implementation
 The `delrep` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `delrep` behaves at each step.
 
 *Step 1*: The user executes `delrep 2` to delete the repeater in the 2nd index.
@@ -425,7 +441,7 @@ image::AddBudgetSequenceDiagram.png[]
 === Analytics
 
 // tag::analyticsexpenditure[]
-==== View expenditure trend
+==== View Expenditure Trend
 
 The view expenditure trend feature allows the user to view monthly expenditure trend for a year.
 This feature is facilitated by `AnalyticsFeatureParser`, `ExpenditureTrendCommandParser`, and `ExpenditureTrendCommand`.
@@ -453,7 +469,7 @@ When the user input the `expenditure` command in the Analytics tab, the followin
 // end::analyticsexpenditure[]
 
 // tag::analyticsincome[]
-==== View income trend
+==== View Income Trend
 
 The view income trend feature allows the user to view monthly income trend for a year.
 This feature is facilitated by `AnalyticsFeatureParser`, `IncomeTrendCommandParser`, and `IncomeTrendCommand`.
@@ -481,7 +497,7 @@ When the user input the `income` command in the Analytics tab, the following cha
 // end::analyticsincome[]
 
 // tag::analyticsbalance[]
-==== View balance trend
+==== View Balance Trend
 
 The view balance trend feature allows the user to view monthly balance trend for a year.
 This feature is facilitated by `AnalyticsFeatureParser`, `BalanceTrendCommandParser`, and `BalanceTrendCommand`.
@@ -750,9 +766,9 @@ Use case ends.
 *MSS*
 
 1.  User +++<u>finds transaction item</u>+++.
-1.  User specifies transaction to be edited and information to edit.
-1.  System updates the transaction item.
-1.  System shows newly updated list of transaction items.
+2.  User specifies transaction to be edited and information to edit.
+3.  System updates the transaction item.
+4.  System shows newly updated list of transaction items.
 +
 Use case ends.
 
@@ -762,9 +778,19 @@ Use case ends.
 *MSS*
 
 1.  User +++<u>finds transaction item</u>+++.
-1.  User specifies transaction to be deleted.
-1.  System removes the transaction item.
-1.  System shows newly updated list of transaction items.
+2.  User specifies transaction to be deleted.
+3.  System removes the transaction item.
+4.  System shows newly updated list of transaction items.
++
+Use case ends.
+
+[discrete]
+=== Use case: Change filter of transaction list
+
+*MSS*
+
+1.  User specifies month, year, category and/or type of the transaction
+2.  System updates filter of list of transaction items.
 +
 Use case ends.
 
@@ -773,8 +799,19 @@ Use case ends.
 
 *MSS*
 
-1.  User specifies month, year, and/or category of the transaction
-1.  System shows filtered list of transaction items.
+1.  User specifies keywords of the transactions to be found.
+2.  System updates list of transaction items to show applicable transactions.
++
+Use case ends.
+
+[discrete]
+=== Use case: Archive transaction item
+
+*MSS*
+
+1.  User specifies index of transaction to be archived
+2.  System moves transaction to archive.
+3.  System shows newly updated list of transaction items.
 +
 Use case ends.
 

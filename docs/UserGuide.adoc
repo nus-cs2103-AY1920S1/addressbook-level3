@@ -125,19 +125,23 @@ clipboard. Then, paste and enter the URL into any browser to access this user gu
 
 ==== Exiting IchiFund : `exit`
 
-Exits your IchiFund. +
 Format: `exit`
+
+If you want to exit from IchiFund, entering the `exit` command allows you to exit the program through
+our CLI.
 
 ==== Saving IchiFund data
 
-IchiFund data are saved in the hard disk automatically after you enter any command that changes the data. +
+IchiFund data is saved in the hard disk automatically after you enter any command that changes the data. +
 There is no need for you to save manually.
-
+// tag::tx[]
 === Transactions
 
 Do you ever feel overwhelmed by the ever-growing number of transactions you have to keep track of?
 With our transactions feature, you can organise your transactions in a fuss-free manner!
 
+//tag::overviewtx[]
+[[overviewtx]]
 ==== Overview
 
 In the transactions tab, you can maintain a list of your transactions, adding, editing, deleting and filtering items
@@ -182,6 +186,8 @@ If there are no transactions recorded, the current date in the system is used to
 generate the the filter.
 This makes it easier for you to access the transactions in the current month!
 
+// end::overviewtx[]
+
 // tag::filtertx[]
 [[filtertx]]
 ==== Filtering transaction: `filter`
@@ -218,6 +224,9 @@ The GUI will update accordingly, as follows:
 image::filtertx5.png[]
 
 [NOTE]
+Categories are case-insensitive, and can contain up to 50 alphanumerical characters, including spaces.
+
+[TIP]
 To see only expenditure items, enter `filter ty/exp`; to see only income items, enter `filter ty/in`. This
 also applies when you are adding transactions in <<addtx>>
 
@@ -237,6 +246,7 @@ the command word `filter` is keyed in at the start.
 
 // end::filtertx[]
 
+// tag::addtx[]
 [[addtx]]
 ==== Creating transaction: `add`
 Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
@@ -307,9 +317,9 @@ The feature for adding transactions is built to work best under these constraint
 |==============================
 | Argument | Constraints
 
-| Description | Up to 50 alphanumeric characters, case-sensitive
-| Amount | Positive number, with up to 2 decimal places; maximum value of $100000 for each transaction
-| Category | Up to 50 alphanumeric characters, case-insensitive
+| Description | Up to 50 alphanumeric characters with spaces; case-sensitive
+| Amount | Positive number with up to 2 decimal places; maximum value of $99999.99 for each transaction
+| Category | Up to 50 alphanumeric characters with spaces; case-insensitive
 | Day | Whole number from 1-31
 | Month | Whole number from 1-12
 | Year | Whole number from 2000-9999
@@ -318,11 +328,13 @@ The feature for adding transactions is built to work best under these constraint
 
 Additionally, the transaction feature works best when the system time functions normally, with no change in time zone.
 
+// end::addtx[]
+
 [[edittx]]
 ==== Editing transaction: `edit`
 Format: `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
-Occasionally, you may make a mistake entering your transactions. Perhaps you entered the wrong amount, or made
+Occasionally, you may make a mistake entering your transactions. Perhaps you keyed in the wrong amount, or made
 a heinous spelling error in your description. Fret not! You can correct these mistakes using `edit`, and it would
 be as if it never happened.
 
@@ -345,6 +357,9 @@ the filter of the transaction list changes accordingly such that the edited tran
 [NOTE]
 Unfortunately, transactions created from repeaters cannot be edited or deleted directly.
 For a more detailed guide on how to modify these transactions, refer to <<repeaters>>
+
+[NOTE]
+The constraints in <<addtx>> apply to this command as well.
 
 [[deletetx]]
 ==== Deleting transaction: `delete`
@@ -370,6 +385,48 @@ transaction list.
 [NOTE]
 Unfortunately, transactions created from repeaters cannot be edited or deleted directly.
 For a more detailed guide on how to modify these transactions, refer to <<repeaters>>
+
+// end::tx[]
+
+==== Reducing clutter (coming in v2.0)
+
+Naturally, you may find your transaction list to be flooded with transactions. Beyond the
+filtering introduced in <<filtertx>>, we have in store several features to be released in the
+next major version of IchiFund.
+
+===== Archiving transactions: `archive`
+Format: `archive [INDEX]`
+
+If you want to hide transactions from your view, but do not wish to delete it entirely, you can simply
+use the upcoming `archive` command!
+
+Suppose you want to archive the second transaction in the current list. Simply use the command `archive 2`
+to send that transaction into the archive.
+
+You can switch between the main and archived transaction lists using the command `archive`.
+
+From the archive, you can unarchive transactions with the same command. To unarchive the third transaction
+in the archive list, simply use `archive 3`, and the transaction is transferred to the main transaction list.
+
+===== Finding transactions: `find`
+Format: `find [KEYWORDS]...`
+
+If you want to quickly search for a transaction in your transaction list, you can further refine your search
+using the upcoming `find` command!
+
+The `find` command takes in keywords as parameters, allowing you to search for transactions containing
+specific keywords in their respective descriptions.
+
+For example, `find dinner steak` updates the list to show transactions from the current filter that have the words
+"dinner" and "steak" in their descriptions.
+
+==== Setting wealth (coming in v2.0)
+Format: `wealth a/AMOUNT`
+
+If you want a quick simple summary of how much money you have left to spend, you can use our upcoming
+wealth setting feature, where you can set the amount of money you have. The wealth value is automatically updated
+with every change to your transactions list, so you do not have to worry about manually resetting wealth with every
+transaction made!
 
 [[repeaters]]
 === Repeaters
@@ -689,7 +746,7 @@ Displays expenditure ranking chart for July 2019.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous IchiFund folder.
 
-== Command Summary
+== Command Summary (v1.4)
 
 * *Help* : `help`
 * *Exit* : `exit`
@@ -709,7 +766,7 @@ Displays expenditure ranking chart for July 2019.
 * *Loan Sort By Value* : `sort s/BY`  (Coming in v2.0)
 * *Budget Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
 * *Budget Delete* : `delete INDEX`
-* *Budget Find* : `find KEYWORD [MORE_KEYWORDS]`
+* *Budget Find* : `find [KEYWORDS]...`
 * *Expenditure Trend* : `expenditure [y/YEAR]`
 * *Income Trend* : `income [y/YEAR]`
 * *Balance Trend* : `balance [y/YEAR]`
