@@ -586,7 +586,6 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 
 
-
 Step 1. The user launches the application for the first time. The `UndoRedoStack` will be initialized.
 
 image::dg-diagram/UndoRedoStackObjectDiagram0.png[]
@@ -612,7 +611,8 @@ The following sequence diagram shows how the undo operation works:
 image::dg-diagram/UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-NOTE: XYZBook here refers to CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
+
+NOTE: XYZ here refers to Customer, Phone, Order, Schedule and ArchivedOrder.
 
 The `redo` command does the opposite -- it calls `UndoableCommand#redo()`.
 
