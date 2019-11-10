@@ -1102,7 +1102,7 @@ e.g. `display i/policy-popularity-breakdown f/piechart`
 * *List Command History*: `history`
 * *Undo the most recent data change*: `undo`
 * *Redo the most recent data change*: `redo`
-* *Set expiry time of bin items*: `binitemexpiry` +
+* *Set expiry time of bin items*: `binitemexpiry UNIT/AMOUNT` +
 e.g. `binitemexpiry days/30`
 * *Clear* : `clear`
 * *Help* : `help`
