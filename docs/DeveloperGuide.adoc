@@ -1346,7 +1346,22 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Saving Data
+
+. Dealing with missing data files
+.. Prerequisite: Enter any valid command, such as `help` or `exit`.
+.. Within the same directory of SugarMummy.jar, click the subfolder: `data`
+Expected: There are five json files of different lists.
+.. Delete any of the json file.
+.. Enter any valid command, either in the same launch or a new launch of the jar file.
+Expected: In the `data` folder, a new json file corresponding to the missing one is created with sample data. +
+
+. Dealing with corrupted data files
+.. Prerequisite: *Close the window.* Otherwise, there is no effect of manually modifying the file since data are saved (overwritten) after every single command, including closing the window.
+.. Access any json file in `data` directory (Refer to _Dealing with missing data files_ steps a and b).
+.. Use a text editor to randomly add or delete some lines in the json file and save it.
+.. Re-launch the app and enter a command related to the modified json file. For example, if `foodlist.json` is modified, enter 'recmf'. +
+Expected: A message indicating the list is empty will be shown.
 
 === Deleting a Record
 
@@ -1359,16 +1374,6 @@ _{ more test cases ... }_
    Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving Data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
 
 === Average Command
 
@@ -1631,6 +1636,9 @@ Expected: Feedback message indicates that there is nothing to change.
 .. Prerequisites: NIL
 ... Test action: Restart the application +
 Expected: A new motivation quote is selected at random and shown in the pane showing motivational quotes at the bottom of the window.
+
+=== Food Recommendation Feature
+
 
 [appendix]
 == References

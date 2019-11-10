@@ -30,9 +30,8 @@ public class RecmFoodCommand extends Command {
             + "Usage: " + COMMAND_WORD + " [-FLAG]... [fn/FOOD_NAME][±sort/SORT_ORDER_TYPE]\n"
             + "Example: recmf -p -nsv +sort/gi";
 
-    public static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "Oops! There are no matches in the current database "
-            + ":( "
-            + "Try adding more new foods or reducing some filters~";
+    public static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "Oops! There is no food to recommend :(\n"
+            + "It may be due to empty food database or too many filters ^~^.";
     private static final String MESSAGE_RESPONSE_NORMAL_LIST = "Hope you like what I've found for you~";
 
     private final FoodTypeIsWantedPredicate typePredicate;
