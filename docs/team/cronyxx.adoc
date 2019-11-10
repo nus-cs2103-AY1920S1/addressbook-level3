@@ -22,7 +22,7 @@ application is designed to not require any internet connection to function.
 The figure below displays the graphical user interface of our application.
 
 .Screenshot of LiBerry user interface
-image::Ui.png[width=500]
+image::Ui.png[width=500, align=center]
 
 The *Graphical User Interface* (GUI) of *LiBerry*, as shown above,
 is created with *JavaFX* while the entire software is written in *Java*.
