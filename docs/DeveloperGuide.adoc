@@ -158,6 +158,7 @@ Classes used by multiple components are in the `seedu.exercise.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 // tag::undoredo[]
 === Undo/Redo feature
+
 ==== Implementation
 
 The undo/redo mechanism is facilitated by the `events` package consisting of `EventHistory`, `EventFactory`,
