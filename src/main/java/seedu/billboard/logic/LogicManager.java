@@ -17,7 +17,6 @@ import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.DeleteArchiveCommand;
 import seedu.billboard.logic.commands.DeleteCommand;
 import seedu.billboard.logic.commands.EditCommand;
-import seedu.billboard.logic.commands.FilterTagCommand;
 import seedu.billboard.logic.commands.RemoveTagCommand;
 import seedu.billboard.logic.commands.RevertArchiveCommand;
 import seedu.billboard.logic.commands.exceptions.CommandException;
