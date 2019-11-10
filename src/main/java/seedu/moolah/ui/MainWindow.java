@@ -1,6 +1,5 @@
 package seedu.moolah.ui;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
@@ -19,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -85,12 +85,7 @@ import seedu.moolah.logic.parser.statistics.StatsCompareCommandParser;
 import seedu.moolah.logic.parser.statistics.StatsTrendCommandParser;
 import seedu.moolah.model.Timekeeper;
 import seedu.moolah.model.expense.Event;
-import seedu.moolah.model.expense.Timestamp;
-import seedu.moolah.model.statistics.FiveElementTableEntry;
-import seedu.moolah.model.statistics.PieChartStatistics;
 import seedu.moolah.model.statistics.Statistics;
-import seedu.moolah.model.statistics.TabularStatistics;
-import seedu.moolah.model.statistics.TrendStatistics;
 import seedu.moolah.ui.alias.AliasListPanel;
 import seedu.moolah.ui.budget.BudgetListPanel;
 import seedu.moolah.ui.budget.BudgetPanel;
@@ -100,7 +95,10 @@ import seedu.moolah.ui.panel.PanelName;
 import seedu.moolah.ui.panel.PlaceholderPanel;
 import seedu.moolah.ui.panel.SinglePanelView;
 import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
+import seedu.moolah.ui.statistics.StatisticsRegionFactory;
+import seedu.moolah.ui.statistics.StatsPanel;
 import seedu.moolah.ui.textfield.CommandBox;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -444,32 +442,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void populateStatisticsPanel() {
         Statistics statistics = logic.getStatistics();
-        String title = statistics.getTitle();
-
-        if (statistics instanceof PieChartStatistics) {
-            PieChartStatistics pieChartStatistics = (PieChartStatistics) statistics;
-            List<String> names = pieChartStatistics.getFormattedCategories();
-            List<Double> percentages = pieChartStatistics.getFormattedPercentages();
-            singlePanelView.setPanel(StatsPanel.PANEL_NAME, new StatsPanel(names, percentages, title));
-        } else if (statistics instanceof TabularStatistics) {
-            TabularStatistics tabularStatistics = (TabularStatistics) statistics;
-            List<FiveElementTableEntry> unionDifferenceTable = tabularStatistics.getUnionDifferenceTable();
-            singlePanelView.setPanel(StatsPanel.PANEL_NAME, new StatsPanel(unionDifferenceTable, title));
-        } else if (statistics instanceof TrendStatistics) {
-            TrendStatistics trendStatistics = (TrendStatistics) statistics;
-            List<Timestamp> dates = trendStatistics.getDates();
-            if (trendStatistics.isBudgetLimitMode()) {
-                List<Double> periodicTotalExpenses = trendStatistics.getPeriodicTotalExpenditure();
-                List<Double> periodicBudgetLimits = trendStatistics.getPeriodicBudgetLimits();
-                singlePanelView.setPanel(StatsPanel.PANEL_NAME, new StatsPanel(dates, periodicTotalExpenses,
-                        periodicBudgetLimits, title));
-            } else {
-                List<ArrayList<Double>> periodicCategoricalExpenses = trendStatistics.getPeriodicCategoricalExpenses();
-                singlePanelView.setPanel(StatsPanel.PANEL_NAME,
-                        new StatsPanel(title, dates, periodicCategoricalExpenses));
-            }
-
-        }
+        StatisticsRegionFactory factory = statistics.createFactory();
+        Region data = factory.createRegion();
+        String localTitle = factory.getTitle();
+        singlePanelView.setPanel(StatsPanel.PANEL_NAME, new StatsPanel(data, localTitle));
     }
 
 

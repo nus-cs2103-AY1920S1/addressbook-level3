@@ -29,7 +29,7 @@ public class SampleDataUtil {
             new Budget(new Description("Holiday"), new Price("3000"),
                     Timestamp.createTimestampIfValid("01-01").get(), BudgetPeriod.YEAR),
             new Budget(new Description("Outside School"), new Price("500"),
-                    Timestamp.createTimestampIfValid("01-11").get(), BudgetPeriod.MONTH),
+                    Timestamp.createTimestampIfValid("01-11").get(), BudgetPeriod.DAY),
             new Budget(new Description("NUS Canteens"), new Price("300"),
                 Timestamp.createTimestampIfValid("28-10").get(), BudgetPeriod.MONTH)
         };
