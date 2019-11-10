@@ -53,7 +53,7 @@
 
 #textOutput {
     -fx-border-color: #7d2277;
-    -fx-background-insets: 0;
+    -fx-background-insets: 0px;
     -fx-background-color: transparent, white, transparent, white;
 }
 
@@ -70,7 +70,35 @@
 }
 
 #textOutput .content {
-    -fx-padding: 10px;
+    -fx-padding: 0px;
     -fx-text-fill: gray;
     -fx-highlight-fill: #7ecfff;
+}
+
+#lineCounter {
+    -fx-border-color: #7d2277;
+    -fx-background-insets: 0px;
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#lineCounter .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#lineCounter:focused .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#lineCounter:focused {
+    -fx-highlight-fill: #7ecfff;
+}
+
+#lineCounter .content {
+    -fx-text-fill: gray;
+    -fx-highlight-fill: #7ecfff;
+}
+
+#lineCounter .scroll-pane {
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
 }
