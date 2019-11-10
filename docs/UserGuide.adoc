@@ -69,6 +69,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * If multiple arguments of the same type are provided, the last argument for that field will be taken as the input. Eg: `glist add n/FirstName n/Apple a/5units e/28/11/2019` will create a GroceryItem with the name 'Apple'.
 ====
 
+[[same-name]]
+====
+*About the Name Parameter*
+
+* Name is considered the same if they match exactly while ignoring case sensitivity. For example, `Chicken marinade` is the same as `chicken mARINADE`.
+====
+
+[[amount-parameter]]
 ====
 *About the Amount Parameter*
 
@@ -142,8 +150,8 @@ Format: `glist add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]`
 * `a/AMOUNT` must have a magnitude i.e. measurable quantity. Magnitude and unit can be separated by a space.
 * There may be more than one tag field.
 * The input fields can be in any order.
-* Item with *either same name or expiry date* as the existing ones can be added.
-* Items with *same name and expiry date* as the existing ones cannot be added.
+* Item with *either <<same-name, same name>> or expiry date* as the existing ones can be added.
+* Item with *same name and expiry date* as the existing ones cannot be added.
 ****
 
 Examples:
@@ -163,7 +171,7 @@ Format: `glist list`
 ==== Deleting a grocery item: `glist delete`
 
 Deletes the specified grocery item from the grocery list when it is done being used.
-If the amount of the food item left > 0, the item will be moved to the waste list. +
+If the grocery item is not completely used up when deleted (i.e. `amount` > 0), the item will be moved to the waste list. +
 Format: `glist delete INDEX`
 
 ==== Use a grocery item: `glist use`
@@ -172,14 +180,13 @@ Reduces the amount left of a grocery item by the specified amount. +
 Format: `glist use INDEX a/AMOUNT`
 
 ****
-* The system only recognises metric units. e.g. kilogram, liter. The system does not support unrecognised units such as tablespoon (not precise), and pint (not a metric unit).
 * Only the units in the following unit categories are supported:
 ** `Weight`: `kg`, `g`, `oz`, `lbs`
 ** `Volume`: `L`, `ml`
 ** `Quantity`: `units`
-* Whitespace between magnitude and unit is allowed.
-* Cross conversion between units of the same categories is supported.
-** If the unit of input amount is different from the unit of item, the resultant amount would follow the unit of the original item. e.g. If an item of `1kg` is used by `300g`, it would become `0.7kg` and not `700g`.
+* Spaces between magnitude and unit is allowed.
+* Cross conversion between units of the same categories is supported. (Refer <<amount-parameter, here>> for more info)
+* If the unit of input amount is different from the unit of item, the resultant amount would follow the unit of the original item. e.g. If an item of `1kg` is used by `300g`, it would become `0.7kg` and not `700g`.
 ****
 
 Examples:
@@ -196,11 +203,14 @@ Format: `glist edit INDEX [n/ITEM_NAME] [e/EXPIRY_DATE] [t/TAG]`
 
 ****
 * Edits an item at the specified `INDEX`. The index refers to the number shown in the displayed list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional field must be provided.
+* At least one of the optional fields must be provided. At least one of the provided fields must be different from the original item's field.
 * Amount cannot be edited, but can only be modified through `use`.
 * Existing values will be updated to input values.
 * When editing tags, the existing tags of the item will be removed. i.e. adding of tags is not cumulative.
 * You can remove all the item's tags by typing `t/` without specifying any tags after it.
+* *As the grocery list does not allow duplicates (items with <<same-name, same name>> and expiry date), any attempt of edit to achieve duplication is not allowed and would result in an error.*
+* *User is encouraged to practise discretion when editing an item as iFridge is unable to recognise items based on its name and compare between the name and amount of an item.*
+For example, if an item named `Milk` with amount `2L` is edited to have name `Beef`, iFridge would allow the edit, even though `Beef` with amount `2L` does not sound logical.
 ****
 
 Examples:
@@ -219,8 +229,8 @@ Sorting is done on the original grocery list. Hence, for example, when `sort` is
 
 The type of sorting supported is as follows:
 ****
-* Alphabetical: Sort the grocery list in ascending alphabetical order
-* Expiry date: Sort the grocery list in ascending expiry date. i.e. from oldest to newest.
+* `alphabetical`: Sort the grocery list in ascending alphabetical order
+* `expiry`: Sort the grocery list in ascending expiry date. i.e. from oldest to newest.
 ****
 
 Examples:
