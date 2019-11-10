@@ -82,7 +82,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Format: `add rt/RECORD_TYPE dt/DATETIME` followed by parameters that the RECORD_TYPE accepts.
 
 There must not be any duplicate parameters.
-Ordering of fields is flexible.
+Ordering of parameters is flexible (other than "add").
 
 rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
 dt/ value must not be in the future.
