@@ -15,6 +15,7 @@ import seedu.planner.logic.autocomplete.exceptions.CommandNotFoundException;
 import seedu.planner.logic.commands.ClearCommand;
 import seedu.planner.logic.commands.ExitCommand;
 import seedu.planner.logic.commands.HelpCommand;
+import seedu.planner.logic.commands.LoadCommand;
 import seedu.planner.logic.commands.NewCommand;
 import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.commands.RedoCommand;
@@ -72,6 +73,7 @@ public class AutoCompleteSuggester {
         ScheduleCommand.COMMAND_INFORMATION,
         UnscheduleCommand.COMMAND_INFORMATION,
         NewCommand.COMMAND_INFORMATION,
+        LoadCommand.COMMAND_INFORMATION,
         OptimiseCommand.COMMAND_INFORMATION,
         UndoCommand.COMMAND_INFORMATION,
         RedoCommand.COMMAND_INFORMATION,
