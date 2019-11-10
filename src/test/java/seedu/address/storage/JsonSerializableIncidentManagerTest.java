@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 /*import seedu.address.model.IncidentManager;
-import seedu.address.testutil.TypicalEntities;*/
+import seedu.address.testutil.TypicalIncidents;*/
 
 public class JsonSerializableIncidentManagerTest {
 
@@ -28,7 +28,7 @@ public class JsonSerializableIncidentManagerTest {
         JsonSerializableIncidentManager dataFromFile = JsonUtil.readJsonFile(TYPICAL_ENTITIES_FILE,
                 JsonSerializableIncidentManager.class).get();
         IncidentManager incidentManagerFromFile = dataFromFile.toModelType();
-        IncidentManager typicalPersonsIncidentManager = TypicalEntities.getTypicalIncidentManager();
+        IncidentManager typicalPersonsIncidentManager = TypicalIncidents.getTypicalIncidentManager();
         assertEquals(incidentManagerFromFile, typicalPersonsIncidentManager);
     }*/
 

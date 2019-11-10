@@ -16,6 +16,7 @@ import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 
+//@@author atharvjoshi
 /**
  * Fills a draft incident report, if specified, otherwise lists all draft incident reports ready for filling.
  */
@@ -30,7 +31,7 @@ public class FillCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION " + "to fill a given draft.\n"
             + "Existing completed reports will be overwritten. Submitted reports can be edited using 'edit' command.";
 
-    private static final String MESSAGE_FILL_DRAFT_SUCCESS = "Incident report filled: %1$s";
+    public static final String MESSAGE_FILL_DRAFT_SUCCESS = "Incident report filled: %1$s";
 
     private final Index targetIndex;
     private final CallerNumber callerNumber;
@@ -100,7 +101,6 @@ public class FillCommand extends Command {
 
     /**
      * Returns a new updated incident report by filling callerNumber and description fields.
-     * Triggered by 'fill' command.
      * @param toUpdate the incident to be filled.
      * @param callerNumber phone number of the caller reporting the incident.
      * @param description description of this incident.

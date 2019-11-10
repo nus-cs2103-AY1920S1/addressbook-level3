@@ -116,10 +116,6 @@ public class Incident {
         return this.vehicle; // should never be null
     }
 
-    public IncidentDateTime getDateTime() {
-        return this.incidentDateTime;
-    }
-
     public Description getDesc() {
         return this.description;
     }
@@ -210,7 +206,7 @@ public class Incident {
         }
 
         return otherIncident != null
-                && otherIncident.getDateTime().equals(getDateTime())
+                && otherIncident.getIncidentDateTime().equals(getIncidentDateTime())
                 && otherIncident.getCallerNumber().equals(getCallerNumber())
                 && otherIncident.getDesc().equals(getDesc())
                 && otherIncident.getDistrict().equals(getDistrict());
@@ -241,7 +237,7 @@ public class Incident {
 
         Incident otherIncident = (Incident) other;
 
-        return otherIncident.getDateTime().equals(getDateTime())
+        return otherIncident.getIncidentDateTime().equals(getIncidentDateTime())
                 && otherIncident.getCallerNumber().equals(getCallerNumber())
                 && otherIncident.getDistrict().equals(getDistrict())
                 && otherIncident.getIncidentId().equals(getIncidentId());

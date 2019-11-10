@@ -115,6 +115,12 @@ public class ListIncidentsCommand extends Command {
         } else {
             return Messages.MESSAGE_ALL_SUBMITTED_INCIDENTS_LISTED;
         }
+    }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListIncidentsCommand // instanceof handles nulls
+                && predicate.equals(((ListIncidentsCommand) other).predicate));
     }
 }

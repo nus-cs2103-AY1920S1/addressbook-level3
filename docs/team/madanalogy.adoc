@@ -24,28 +24,15 @@ The Incident Management System is a desktop application used for managing incide
 
 * *Other contributions*:
 
-** Project Management:
+** Project Management & Team Tasks:
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
-** Team Tasks:
 *** Implemented the Session API for all developers to access account features [https://github.com/AY1920S1-CS2103-T11-1/main/pull/66[#66]]
 *** Morphed Person Model to deal with new Account Features [https://github.com/AY1920S1-CS2103-T11-1/main/pull/48[#48]]
 *** Refactored Address Book references to Incident Manager [https://github.com/AY1920S1-CS2103-T11-1/main/pull/111[#111]]
-** Enhancements to existing features:
-*** Improved the GUI to function in varying screen resolutions [https://github.com/AY1920S1-CS2103-T11-1/main/pull/69[#69]]
-** Tools:
+** Tools & Enhancements to existing features:
 *** Integrated new Github plugins (Coveralls & Codacy) to the team repo
+*** Improved the GUI to function in varying screen resolutions [https://github.com/AY1920S1-CS2103-T11-1/main/pull/69[#69]]
 
-
-== Contributions to the User Guide
-
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=access]
-
-include::../UserGuide.adoc[tag=account]
 
 == Contributions to the Developer Guide
 
@@ -56,3 +43,14 @@ include::../UserGuide.adoc[tag=account]
 include::../DeveloperGuide.adoc[tag=accessControl]
 
 include::../DeveloperGuide.adoc[tag=accountManagement]
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=access]
+
+include::../UserGuide.adoc[tag=account]

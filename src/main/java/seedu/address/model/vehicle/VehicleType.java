@@ -3,22 +3,26 @@ package seedu.address.model.vehicle;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Arrays;
+
 /**
  * Represents a Person's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidVehicleType(String)}
  */
 public class VehicleType {
 
+    public static final String[] VEHICLE_TYPES = new String[] {"Ambulance", "Patrol Car"};
+
     public static final String MESSAGE_CONSTRAINTS =
-            "VehicleTypes should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Current VehicleTypes only include: "
+            + Arrays.toString(VEHICLE_TYPES)
+            + ".\nIt should also only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-
-    public static final String[] VEHICLE_TYPES = new String[] {"Ambulance", "Patrol Car"};
 
     private final String vehicleType;
 
@@ -34,12 +38,11 @@ public class VehicleType {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is one of the existing vehicle types.
      */
     public static boolean isValidVehicleType(String vehicleType) {
-        return vehicleType.matches(VALIDATION_REGEX);
+        return vehicleType.matches(VALIDATION_REGEX) && Arrays.stream(VEHICLE_TYPES).anyMatch(vehicleType::equals);
     }
-
 
     @Override
     public String toString() {

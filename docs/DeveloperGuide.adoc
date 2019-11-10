@@ -212,7 +212,7 @@ The guard statement throws a command exception and informs the user of the avail
 
 Activity Diagram for illustration:
 
-image::AccessActivityDiagram.png[width="400"]
+image::AccessActivityDiagram.png[width="600"]
 
 ===== Identity Verification
 
@@ -223,7 +223,7 @@ Session details are displayed on the status bar in the GUI to reflect whether a 
 
 Class Diagram for illustration:
 
-image::SessionClassDiagram.png[width="400"]
+image::SessionClassDiagram.png[width="500"]
 
 Uniqueness of a username is ensured by preventing duplicates during the account creation [`RegisterCommand`] and account update [`UpdateCommand`] processes. The respective commands will check the list of accounts in the model and throw an exception if a duplicate is found.
 
@@ -249,7 +249,7 @@ The checks described above all function in the command execution stage. The `Reg
 
 Simplified Sequence Diagram for illustration:
 
-image::AccessSequenceDiagram.png[width="600"]
+image::AccessSequenceDiagram.png[width="800"]
 
 NOTE: The lifeline for DeleteCommand should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of the diagram.
 
@@ -340,14 +340,16 @@ In the code base, Persons represent user accounts. See person model for more inf
 
 // tag::incidentdraftcreation[]
 === Incident Draft Creation feature
-==== Proposed Implementation
+==== Implementation
 
 The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
+If created successfully, the draft incident only has three fields filled: operator, district and vehicle dispatched.
+
 There are two ways to use the New Command:
 1. Auto dispatchment
 2. Manual dispatchment, which requires user to provide a valid index that selects a vehicle
 
-=== Automatic Vehicle Dispatchment:
+==== Automatic Vehicle Dispatchment:
 
 Vehicle will be automatically assigned to the incident draft if any is available in the district. If no vehicle is available, an exception will be thrown.
 
@@ -355,7 +357,7 @@ Below is a sequence diagram of a successful case:
 
 image::NewDraftSequenceDiagramAuto.png[]
 
-=== Manual Vehicle Dispatchment:
+==== Manual Vehicle Dispatchment:
 
 User needs to key in the index of vehicle based on the list of available vehicle in given district to dispatch. Note that this list can only be obtained with the input `new dist/DISTRICT auto/N`, and not based on the list of vehicles currently displayed. If no index is provided, or the index is not valid, an exception will be thrown and user will be prompted to provide a valid index.
 
@@ -385,14 +387,15 @@ The incident filling and submission subroutines are facilitated by the `fill` an
 In the IMS, each incident can have one of three statuses - `INCOMPLETE_DRAFT`, `COMPLETE_DRAFT`, and `SUBMITTED REPORT`.
 These three statuses are maintained by an `enum` in `Incident`. Executing the `fill` command changes the status of
 drafts (complete or incomplete) into `COMPLETE_DRAFT` while the `submit` command changes the status of only `COMPLETE_DRAFTS` to `SUBMITTED_REPORT`.
+To prevent potential misuse, only the operator who has created the incident report is allowed access to execute the fill and submit commands on that report.
 
 ===== Overview of `Fill` and `Submit`
 
 Each command works in two modes:
 
-1. Without parameters: +
+1. *Without parameters:*
 In this mode, the command - `fill` or `submit` - lists the incidents that are ready for Filling (i.e. only all complete and incomplete drafts) or Submitting (i.e. only all complete drafts).
-2. With parameters:
+2. *With parameters:*
 In this mode, the command - `fill` or `submit` - actually fills (i.e. makes incident status `COMPLETE_DRAFT`) or submits (i.e. changes incident status from `COMPLETE_DRAFT` to `SUBMITTED_REPORT`) the specified incident.
 
 The implementation of these two modes is discussed below. As both `fill` and `submit` are rather similar in their implementation, a detailed discussion of only the `fill` command is given below.
@@ -405,7 +408,7 @@ with predicate `Incident::isDraft`. This `ListIncidentsCommand` is then executed
 
 For the `submit` command, the predicate `Incident::isCompleteDraft` is used instead.
 
-image::FillCommandNoParamsSequenceDiagram.png[]
+image::FillCommandNoParamsSequenceDiagram.png[width="600"]
 
 ===== Parameter mode (modifying incidents)
 * For the `fill` command with parameters, the `FillCommandParser` will be invoked to parse the fields `targetIndex`, `callerNumber`, and `description` and return a `FillCommand` containing these non-null fields.
@@ -414,10 +417,11 @@ image::FillCommandNoParamsSequenceDiagram.png[]
 * The old incident report will be removed from the system and be replaced with the new updated incident report.
 * The new incident report is placed at the front of the incident list for easy access.
 
-image::FillCommandWithParamsSequenceDiagram.png[]
-.In this sequence diagram, the helper methods within `FillCommand` are omitted for clarity.
+In this sequence diagram, the helper methods within `FillCommand` are omitted for clarity.
 
 The `SubmitCommand` functions similarly, with one crucial difference. As no Incident fields are to be updated, the specified incident is simply retrieved, and its fields are copied into a new `Incident` object with a `SUBMITTED_REPORT` status.
+
+image::FillCommandWithParamsSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -427,21 +431,17 @@ The `SubmitCommand` functions similarly, with one crucial difference. As no Inci
 ** Pros: +
 1. Intuitive and convenient to use. If user needs easy access to reports that can be filled or submitted, they do not need to remember a new command keyword. +
 2. Requires lesser code. Abstraction of the filtered listing subroutine reduces the amount of redundant code. +
-** Cons: +
-1. Might be potentially confusing to user as `FillCommand` is performing a function of listing that is extraneous to the function of filling.
-2. This mode might be redundant **if** the user follows a strict incident management workflow where any newly generated incident is promptly filled and submitted without it remaining in the system as a draft.
+** Con: 1. Might be potentially confusing to user as `FillCommand` is performing a function of listing that is extraneous to the function of filling.
 * **Alternative 1:** Extend `FillCommand` to create two child classes `FillCommandNoParams` and `FillCommandWithParams`. +
 ** Pros: +
 1. Better use of the OOP principle of inheritance. +
 2. Reduce coupling between `ListIncidentsCommand` and `FillCommand`.
-** Con: +
+** Cons: +
 1. Increases amount of code and hence marginally reduces app performance as one additional new class needs to be created.
 2. Misleading use of abstraction as the `FillCommandNoParams` is technically not performing the function of filling but that of listing.
 * **Alternative 2:** Separate the 'listing' and the 'filling' aspect by using separate command words.
-** Pro: +
-1. Most appropriate use of abstraction and single responsibility principle, which are crucial OOP concepts.
-** Con: +
-1. User needs to either remember an additional command word or type a longer `list-i` command by specifying the filter predicate, which reduces user convenience.
+** Pro: 1. Most appropriate use of abstraction and single responsibility principle, which are crucial OOP concepts.
+** Con: 1. User needs to either remember an additional command word or type a longer `list-i` command by specifying the filter predicate, which reduces user convenience.
 
 ===== Aspect: How incident `fill` and `submit` commands execute in parameter mode
 
@@ -449,24 +449,20 @@ The `SubmitCommand` functions similarly, with one crucial difference. As no Inci
 ** Pros: +
 1. Improved accountability. Prevents a user from changing the most important fields of the incident report, such as `incidentId`, `incidentDateTime`, and `vehicle`, without first committing the report into the system. +
 2. More convenient for the user as they only have to specify 2 report fields instead of 6 or 7.
-** Cons: +
-1. User is unable to fill `callerNumber` independently of `description` unless they first submit the incident report and then use the `edit` command.
-2. If an incident report has a very long description, then this way of filling the report can be troublesome.
+** Con: 1. User is unable to fill `callerNumber` independently of `description` unless they first submit the incident report and then use the `edit` command.
 * **Alternative 1:** Combine `fill` and `submit` functions i.e. filling a report completely will automatically submit it.
 ** Pros: +
 1. Easier to implement as Incident reports have two statuses - DRAFT or SUBMITTED - instead of three.
 2. More convenient as this results in one less step in the user's workflow and one less command word for the user to remember.
-** Con: +
-1. Less adaptable and modular. If new fields are added to the incident report, then the user might want to enter / replace those fields by executing repeated fill commands in parameter mode without committing the report into the system and possibly alerting their supervisors and/or relevant agencies with incomplete / likely to change information.
+** Con: 1. Less adaptable and modular. If new fields are added to the incident report, then the user might want to enter / replace those fields by executing repeated fill commands without committing the report into the system with incomplete / likely to change information.
 * **Alternative 2:** Allow `fill` command to fill variable number of fields.
-** Pro: +
-1. Satisfies the cons of the two approaches above as it is versatile enough to allow the user to independently fill different incident report fields as well as adaptable enough to accommodate extra fields.
-** Con: +
-1. Harder to implement as we would need to make elaborate and thorough methods to parse the variable arguments.
+** Pro: 1. Satisfies the cons of the two approaches above as it is versatile enough to allow the user to independently fill different incident report fields as well as adaptable enough to accommodate extra fields.
+** Con: 1 . Harder to implement as we would need more elaborate methods to parse the variable arguments.
 
 ==== Known Issues
 
 A user cannot independently fill the various incident report fields unless they first submit the incident report.
+This might be an acceptable issue it encourages users to completely fill a new incident report before submitting it, which reduces the likelihood of finding incomplete drafts in the system.
 
 ==== Activity diagram summarising Incident creation, filling, and submission features
 
@@ -556,11 +552,13 @@ The key difference is the utility of the `SearchIncidentsCommandParser` to parse
 
 // tag::incidentedit[]
 === Incident Edit feature
-==== Proposed Implementation
+==== Implementation
 
 The incident edit mechanism is facilitated by `EditCommand` class. Validity of user input is checked when `execute()` is called and an exception is thrown if invalid.
+The user can choose to put in any number of fields for editing. There are 2 ways to use the “edit-I” command: 1. ‘edit-I’ without any inputs will filter the incident list to display all incidents available for editing 2. ‘edit-I’ with fields identified for editing.
 
 An exception will be thrown under these 2 conditions:
+
 * `index.getZeroBased() >= listOfIncidents.size()`
 * `!incidentToEdit.equals(editedIncident) && model.hasIncident(editedIncident)`
 
@@ -568,25 +566,89 @@ Below is an activity diagram to illustrate the process that the user may go thro
 
 image::EditCommandActivity.png[]
 
-To prevent direct access and modification to the attributes in an incident object, a new incident object is created
-using `EditIncident` each time the command is executed and then replaced at the specified index in a
-`List<Incident>` that is facilitated by `FilteredIncidentList` class. This is all done in the execution stage.
+EditIncidentCommand` class makes use of `EditIncident` object to create a new
+`Incident` object with the fields identified by user as well as the untouched
+fields from the original incident. This new `Incident` will replace the original
+`Incident` object in the incident list.
 
 Below is a sequence diagram to illustrate how the command executes:
 
-image::EditCommandSequence.png[]
+image::EditIncidentCommand.png[]
+
+[Note]
+The command can only be used by admin accounts or accounts that created/filled/submitted
+the incident report. This is to prevent sabotage or accidental edits from operators who
+may not be familiar with the incident.
 
 ==== Design Considerations
 
 ===== Aspect: How incident edit executes
 
-* **Current choice:** Create a new incident object and replace the old copy in the list
-** Pros: able to control access to attributes in incident objects
-** Cons: more tedious implementation and more objects created
-* **Alternative:** Directly access the attributes of the incident and change it
-** Pros: less objects created, do not need to worry much about `IncidentId` of instance.
-** Cons: More prone to errors since attributes can be directly access and changed outside the class.
+* Current Choice: A new incident object with edited fields is created and used to replace the old incident object in the list.
+** Pros: This reduces direct changes to incident objects, hence `EditIncidentCommand` does not have access to `Incident` internal structure. This helps reduce content coupling between the 2 classes and also makes the program easier to test.
+** Cons: A new `Incident` object is created every time user input is valid, hence may require more memory to run. It also requires the usage of the “EditIncident” class, increasing the complexity of the codebase.
+
+* Alternative: Direct edit of the attributes of incident to be modified
+** Pros: Easier to implement. Less objects created and less classes involved in the function.
+** Cons: High coupling since `EditIncidentCommand` will need to have access to internal details of `Incident` class in order to directly modify the contents of the object. This will cause the system to be harder to test and maintain.
+
 // end::incidentedit[]
+
+
+//tag::vehicleManagement[]
+=== Vehicle Management
+==== Implementation
+These are the commands available to the user related to vehicle management:
+
+* Changing the details of a vehicle: `edit-v`
+* Adding a new vehicle: `add-v`
+* Deleting a vehicle: `delete-v`
+
+[NOTE]
+Only vehicles with the status `Avaliable` are valid for editing or deleting. This is to prevent removing or changing the details of a vehicle that is currently being dispatched.
+
+//tag::vehicleedit[]
+
+==== Editing Vehicles: `edit-v`
+Implementation of `edit-v` is similar to `edit-i` where `EditVehicleCommand` makes use of `EditVehicle` class to create a new `Vehicle` object with the modified fields and replaces the original object. Design considerations are also similar to that of `edit-i`.
+Below is a sequence diagram to illustrate the process and classes involved in the `edit-v` command:
+
+image::editVehicleCommand.png[]
+
+//end::vehicleedit[]
+
+//tag::vehicleadd[]
+==== Adding and Deleting Vehicles: `add-v`/`delete-v`
+===== Design Considerations: Adding vehicles
+* Current Choice: new Vehicle object is created in the parser and `AddVehicleCommand` takes a `Vehicle` object in the constructor.
+** Pros: compliant with principle of data abstraction since `AddVehicleCommand` only receives a vehicle object that needs to be added and does not need to know how the object is created.
+** Cons: Vehicle object needs to be created in the parser. Increases coupling of parser and vehicle model.
+* Alternative: `AddVehicleCommand` takes in the fields from parser and creates the `Vehicle` object in the `execute()` method of `AddVehicleCommand` class
+** Pros: Vehicle object does not need to be created in the parser.
+** Cons: Constructor for `AddVehicleCommand` and `Vehicle` will be highly similar and almost overlap in functionality. The parameters for creating a vehicle will have to be passed twice.
+
+Below is a sequence diagram to illustrate add-v:
+
+image::addVehicleCommand.png[]
+
+//end::vehicleadd[]
+
+//tag::vehicledelete[]
+===== Design Considerations: Deleting vehicles
+* Current Choice: Vehicle object is taken from the list in model and `DeleteVehicleCommand` takes in the `Vehicle` object to be deleted and identifies it from the list using the signatures of the object.
+** Pros: Reduces coupling. By passing a vehicle object instead of the index will mean that `DeleteVehicleCommand` need not know the state of the filtered vehicle list.
+** Cons: Requires the vehicle list in to be unique and the signatures of `Vehicle` objects need to be specific. Methods from `ModelManager` needs to be access from both `DeleteVehicleCommandParser` and `EditVehicleParser`. Increases coupling.
+
+* Alternative: `DeleteVehicleCommand` can take in the index of the vehicle to be deleted and delete from the list by identifying the vehicle using the index.
+** Pros: Easier implementation
+** Cons: DeleteVehicleCommand needs to know the state of the filtered list. Increases coupling.
+
+Below is a sequence diagram to illustrate delete-v:
+
+image::deleteVehicleCommand.png[]
+//end::vehicledelete[]
+
+//end::vehicleManagement[]
 
 // tag::vehiclesearch[]
 === Vehicle Search feature
@@ -888,8 +950,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -902,12 +962,168 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+=== Creating an incident report
+
+. Attempting to execute `new` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `new dist/1 auto/y` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `new` with valid inputs and successful auto vehicle dispatchment
+
+.. Prerequisites: User must be logged in, and there must be at least one available vehicle in the given district.
+.. Test case: `new dist/1 auto/y` +
+    Expected: Message "New incident drafted!" with the newly drafted incident appears at the top of the incident pane. All vehicles in district 1 will be listed in the vehicle pane, and the vehicle dispatched will change it availability from "AVAILABLE" to "BUSY".
+
+. Executing `new` with no inputs for manual vehicle dispatchment
+
+.. Prerequisites: User must be logged in.
+.. Test case: `new dist/1 auto/n` +
+    Expected: User prompted to fill in index of vehicle to dispatch with message "Please include the index of the vehicle you would like to assign, with the district prefix! eg new l/1 auto/n v/1 Note that the index must be a positive integer!"
+
+. Executing `new` with valid inputs for manual vehicle dispatchment
+
+.. Prerequisites: User must be logged in.
+.. Test case: `new dist/1 auto/n v/1` +
+    Expected: Message "New incident drafted!" with the newly drafted incident appears at the top of the incident pane. All vehicles in district 1 will be listed in the vehicle pane, and the vehicle dispatched will change it availability from "AVAILABLE" to "BUSY".
+
+. Executing `new` with invalid inputs for manual vehicle dispatchment
+
+.. Prerequisites: User must be logged in.
+.. Test case: `new dist/1 auto/n v/1.2` +
+    Expected: Message "The index must be a positive integer!"
+
+. Executing `new` with no vehicle available for dispatchment.
+
+.. Prerequisites: User must be logged in, and no vehicle is available in the district.
+.. Test case: `new dist/28 auto/y` +
+    Expected: Message "No vehicle available in this district!", for both auto and manual dispatchment.
+
+=== Filling an incident report
+
+. Attempting to execute `fill` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `fill` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+.. Test case: `fill 1 p/92034950 desc/There was an incident` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `fill` in both no-parameter and parameter modes one after the other.
+
+.. Prerequisites: User must be logged in. There must be incomplete and/or complete draft incident reports in the system. Index, caller number, and description specified for `fill` in parameter mode must all be valid. User must have created the incident report.
+.. Test case: `fill` +
+   Expected: All drafts are listed in the incident panel view, with incidents whose status was most recently changed being listed first.
+   Message: "Listed all draft incident reports".
+.. Test case: `fill 1 p/95860594 desc/There was an incident` +
+   Expected: If selected draft was an incomplete draft, its status changes to 'Complete Draft' and the caller number and description fields are added according to the data specified.
+   If selected draft was a complete draft, its status remains 'Complete Draft' and the caller number and description fields are overwritten with the data specified.
+   The incident panel view lists all incidents in the system, with the just modified incident at the top of the list.
+   Message: "Incident report filled: Incident #[ID]"
+
+. Executing `fill` in parameter mode with valid parameters.
+
+.. Prerequisites: User must be logged in. There must be incomplete and/or complete draft incident reports in the system. Incident panel view must show all incidents (use `list-i` to return to this view if needed). Index, caller number, and description specified for `fill` in parameter mode must all be valid.
+.. Test case: `fill 1 p/95860594 desc/There was an incident` +
+   Expected: If first incident in the list is a draft and the user has created the report, same expected behaviour as case 2 (iii) above.
+   If user has not created the selected incident, the message "You do not have access to fill this draft as another operator has created it." is displayed.
+   If selected incident has already been submitted and user has created the incident, the message "This report has already been submitted" is displayed.
+
+. Executing `fill` in parameter mode with invalid parameters (including invalid - zero or out of bounds - index).
+
+.. Prerequisites: User must be logged in.
+.. Test case: `fill 0 p/95860594 desc/There was an incident` or `fill 1 c/95860594 desc/There was an incident` or `fill 1 p/95860594 d/There was an incident`
+   Expected: Message "Invalid command format!" is displayed along with command usage message.
+
+. Executing `fill` with no drafts present in the system.
+
+.. Prerequisites: User must be logged in. There must be no complete or incomplete drafts in the system.
+.. Test case: `fill`
+   Expected: Message "No drafts present in the system" shown while the incident panel view remains unchanged.
+.. Test case: `fill 1 p/95860594 desc/There was an incident`
+   Expected: Message "No drafts present in the system" shown while the incident panel view remains unchanged.
+
+=== Submitting an incident report
+
+. Attempting to execute `submit` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `submit` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+.. Test case: `submit 1` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `submit` in both no-parameter and parameter modes one after the other.
+
+.. Prerequisites: User must be logged in. There must be complete draft incident reports in the system. Index specified for `submit` in parameter mode must be valid. User must have created the incident report.
+.. Test case: `submit` +
+   Expected: All complete drafts are listed in the incident panel view, with incidents whose status was most recently changed being listed first.
+Message: "Listed all incident reports ready for submission".
+.. Test case: `submit 1` +
+   Expected: The status of the selected complete draft changes to 'Submitted'.
+   The incident panel view lists all incidents in the system, with the just submitted incident at the top of the list.
+   Message: "New incident report submitted: Incident #[ID]"
+
+. Executing `submit` in parameter mode with valid index.
+
+.. Prerequisites: User must be logged in. There must be complete draft incident reports in the system. Incident panel view must show all incidents (use `list-i` to return to this view if needed). Index specified for `submit` in parameter mode must be valid.
+.. Test case: `submit 1` +
+   Expected: If first incident in the list is a complete draft and the user has created the report, same expected behaviour as case 2 (iii) above.
+   If user has not created the selected incident, the message "You do not have access to submit this report as another operator has created it." is displayed.
+   If selected incident has already been submitted and user has created the incident, the message "This report has already been submitted" is displayed.
+
+. Executing `submit` in parameter mode with invalid - zero or out of bounds - index.
+
+.. Prerequisites: User must be logged in.
+.. Test case: `submit 0`
+   Expected: Message "Invalid command format!" is displayed along with command usage message.
+
+=== Finding vehicles
+
+. Attempting to execute `find-v` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `find-v dist/1` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `find-v` with a single district keyword.
+
+.. Prerequisites: User must be logged in, and there are vehicles in the district specified.
+.. Test case: `find-v dist/1` +
+    Expected: Message "3 vehicles listed!", and vehicles in the given district will be listed in the vehicle pane.
+
+. Executing `find-v` with multiple district keywords.
+.. Prerequisites: User must be logged in, and there are vehicles in the districts specified.
+.. Test case: `find-v dist/1 2 3` +
+    Expected: Message "10 vehicles listed!", and vehicles in the given districts will be listed in the vehicle pane.
+
+. Executing `find-v` with a single vehicle type keyword.
+.. Prerequisites: User must be logged in, the vehicle type must match exactly, and must be either "Ambulance" or "Patrol car", though case insensitive.
+.. Test case: `find-v vtype/ambuLANce` +
+    Expected: Message "15 vehicles listed!", and vehicles of `Ambulance` type will be listed in the vehicle pane.
+
+. Executing `find-v` with a single character/ number of a vehicle number as keyword.
+.. Prerequisites: User must be logged in, and there must be at least one vehicle with vehicle number containing this keyword.
+.. Test case: `find-v vnum/2` +
+    Expected: Message "27 vehicles listed!", and vehicles with vehicle numbers containing "2" will be listed in the vehicle pane.
+
+=== Listing vehicles
+
+. Attempting to execute `list-v` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `list-v` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `list-v`.
+
+.. Prerequisites: User must be logged in.
+.. Test case: `list-v` +
+    Expected: Message "Listed all vehicles", and all vehicles in database will be listed in the vehicle pane.

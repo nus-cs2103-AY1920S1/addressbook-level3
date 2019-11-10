@@ -74,6 +74,35 @@ public class IncidentBuilder {
     }
 
     /**
+     * Initializes the IncidentBuilder with the data of incomplete draft {@code IncidentToCopy} and supplied caller
+     * number and description.
+     */
+    public IncidentBuilder(Incident incidentToCopy, CallerNumber callerNumber, Description description) {
+        district = incidentToCopy.getDistrict();
+        dateTime = incidentToCopy.getIncidentDateTime();
+        id = incidentToCopy.getIncidentId();
+        operator = incidentToCopy.getOperator();
+        status = Status.COMPLETE_DRAFT;
+        vehicle = incidentToCopy.getVehicle();
+        caller = callerNumber;
+        desc = description;
+    }
+
+    /**
+     * Initializes the IncidentBuilder with the data of incomplete draft {@code IncidentToCopy} and supplied status.
+     */
+    public IncidentBuilder(Incident incidentToCopy, Status updatedStatus) {
+        district = incidentToCopy.getDistrict();
+        dateTime = incidentToCopy.getIncidentDateTime();
+        id = incidentToCopy.getIncidentId();
+        operator = incidentToCopy.getOperator();
+        status = updatedStatus;
+        vehicle = incidentToCopy.getVehicle();
+        caller = incidentToCopy.getCallerNumber();
+        desc = incidentToCopy.getDesc();
+    }
+
+    /**
      * Sets the {@code District} of the {@code Incident} that we are building.
      */
     public IncidentBuilder withDistrict(String district) {
