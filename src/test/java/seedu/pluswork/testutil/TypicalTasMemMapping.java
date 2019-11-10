@@ -10,21 +10,21 @@ import seedu.pluswork.model.mapping.TasMemMapping;
  * A utility class containing a list of {@code TasMemMapping} objects to be used in tests.
  */
 public class TypicalTasMemMapping {
-    public static final TasMemMapping firstMemFirstTask = new MappingBuilder().withMember(1).withTask(1)
+    private static final TasMemMapping firstMemFirstTask = new MappingBuilder().withMember(1).withTask(1)
             .tasMemMappingBuild();
-    public static final TasMemMapping firstMemSecondTask = new MappingBuilder().withMember(1).withTask(2)
+    private static final TasMemMapping firstMemSecondTask = new MappingBuilder().withMember(1).withTask(2)
             .tasMemMappingBuild();
-    public static final TasMemMapping secondMemThirdTask = new MappingBuilder().withMember(2).withTask(3)
+    private static final TasMemMapping secondMemThirdTask = new MappingBuilder().withMember(2).withTask(3)
             .tasMemMappingBuild();
-    public static final TasMemMapping thirdMemThirdTask = new MappingBuilder().withMember(3).withTask(3)
+    private static final TasMemMapping thirdMemThirdTask = new MappingBuilder().withMember(3).withTask(3)
             .tasMemMappingBuild();
-    public static final TasMemMapping fourthMemFirstTask = new MappingBuilder().withMember(4).withTask(1)
+    private static final TasMemMapping fourthMemFirstTask = new MappingBuilder().withMember(4).withTask(1)
             .tasMemMappingBuild();
-    public static final TasMemMapping fourthMemSecondTask = new MappingBuilder().withMember(4).withTask(2)
+    private static final TasMemMapping fourthMemSecondTask = new MappingBuilder().withMember(4).withTask(2)
             .tasMemMappingBuild();
-    public static final TasMemMapping fourthMemFifthTask = new MappingBuilder().withMember(4).withTask(5)
+    private static final TasMemMapping fourthMemFifthTask = new MappingBuilder().withMember(4).withTask(5)
             .tasMemMappingBuild();
-    public static final TasMemMapping fifthMemFirstTask = new MappingBuilder().withMember(5).withTask(1)
+    private static final TasMemMapping fifthMemFirstTask = new MappingBuilder().withMember(5).withTask(1)
             .tasMemMappingBuild();
 
     public static List<TasMemMapping> getTypicalTasMemMapping() {

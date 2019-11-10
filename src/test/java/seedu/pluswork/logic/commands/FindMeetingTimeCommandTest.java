@@ -103,10 +103,10 @@ public class FindMeetingTimeCommandTest {
         ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
         ModelStub modelStubEmptyList = new ModelStubWithMeetingQuery(validMeetingQueryEmptyList);
 
-        FindMeetingTimeCommand validCommand1
-                = new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE1, SAMPLE_DURATION1);
-        FindMeetingTimeCommand validCommand2
-                = new FindMeetingTimeCommand(SAMPLE_START_DATE2, SAMPLE_END_DATE2, SAMPLE_DURATION2);
+        FindMeetingTimeCommand validCommand1 =
+                new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE1, SAMPLE_DURATION1);
+        FindMeetingTimeCommand validCommand2 =
+                new FindMeetingTimeCommand(SAMPLE_START_DATE2, SAMPLE_END_DATE2, SAMPLE_DURATION2);
 
         CommandResult commandSuccess1 = validCommand1.execute(modelStub);
         CommandResult commandSuccess2 = validCommand2.execute(modelStub);
@@ -133,94 +133,94 @@ public class FindMeetingTimeCommandTest {
                 commandFail2.getFeedbackToUser());
     }
 
-//    @Test
-//    public void execute_duplicateMeeting_throwsCommandException() {
-//        Index validIndex = new Index(1);
-//        MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
-//        Meeting validMeeting = validMeetingQuery.getMeetingList().get(validIndex.getZeroBased());
-//
-//        ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
-//        modelStub.addMeeting(validMeeting);
-//
-//        AddMeetingCommand addMeetingCommand = new AddMeetingCommand(validIndex);
-//        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_DUPLICATE_MEETING, () ->
-//                addMeetingCommand.execute(modelStub));
-//    }
-//
-//    @Test
-//    public void execute_meetingIndexOutOfBounds_throwsCommandException() {
-//        MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
-//        ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
-//        int validIndexUpperBound = validMeetingQuery.getMeetingList().size();
-//
-//        Index invalidIndex1 = new Index(20);
-//        Index invalidIndex2 = new Index(validIndexUpperBound);
-//        Index invalidIndex3 = new Index(validIndexUpperBound + 1);
-//        Index invalidIndex4 = new Index(validIndexUpperBound + 200);
-//
-//        assert(invalidIndex1.getZeroBased() >= validIndexUpperBound);
-//        assert(invalidIndex2.getZeroBased() >= validIndexUpperBound);
-//        assert(invalidIndex3.getZeroBased() >= validIndexUpperBound);
-//        assert(invalidIndex4.getZeroBased() >= validIndexUpperBound);
-//
-//        AddMeetingCommand invalidCommand1 = new AddMeetingCommand(invalidIndex1);
-//        AddMeetingCommand invalidCommand2 = new AddMeetingCommand(invalidIndex2);
-//        AddMeetingCommand invalidCommand3 = new AddMeetingCommand(invalidIndex3);
-//        AddMeetingCommand invalidCommand4 = new AddMeetingCommand(invalidIndex4);
-//
-//        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
-//                invalidCommand1.execute(modelStub));
-//        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
-//                invalidCommand2.execute(modelStub));
-//        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
-//                invalidCommand3.execute(modelStub));
-//        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
-//                invalidCommand4.execute(modelStub));
-//    }
-//
-//    @Test
-//    public void execute_nullMeetingQuery_throwsCommandException() {
-//        MeetingQuery nullMeetingQuery = null;
-//        ModelStub modelStub = new ModelStubWithMeetingQuery(nullMeetingQuery);
-//
-//        Index validIndex1 = new Index(1);
-//        Index validIndex2 = new Index(123934);
-//        Index validIndex3 = new Index(99999999);
-//        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(validIndex1);
-//        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(validIndex2);
-//        AddMeetingCommand addMeetingCommand3 = new AddMeetingCommand(validIndex3);
-//
-//        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
-//                addMeetingCommand1.execute(modelStub));
-//        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
-//                addMeetingCommand2.execute(modelStub));
-//        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
-//                addMeetingCommand3.execute(modelStub));
-//    }
-//
-//    @Test
-//    public void equals() {
-//        Index testIndex1 = new Index(1);
-//        Index testIndex2 = new Index(200000000);
-//        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(testIndex1);
-//        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(testIndex2);
-//
-//        // same object -> returns true
-//        assertTrue(addMeetingCommand1.equals(addMeetingCommand1));
-//
-//        // same values -> returns true
-//        AddMeetingCommand addMeetingCommand1Copy = new AddMeetingCommand(testIndex1);
-//        assertTrue(addMeetingCommand1.equals(addMeetingCommand1Copy));
-//
-//        // different types -> returns false
-//        assertFalse(addMeetingCommand2.equals(1));
-//
-//        // null -> returns false
-//        assertFalse(addMeetingCommand2.equals(null));
-//
-//        // different task -> returns false
-//        assertFalse(addMeetingCommand1.equals(addMeetingCommand2));
-//    }
+    //@Test
+    // public void execute_duplicateMeeting_throwsCommandException() {
+    // Index validIndex = new Index(1);
+    // MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
+    // Meeting validMeeting = validMeetingQuery.getMeetingList().get(validIndex.getZeroBased());
+    //
+    // ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
+    // modelStub.addMeeting(validMeeting);
+    //
+    // AddMeetingCommand addMeetingCommand = new AddMeetingCommand(validIndex);
+    // assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_DUPLICATE_MEETING, () ->
+    // addMeetingCommand.execute(modelStub));
+    // }
+    //
+    // @Test
+    // public void execute_meetingIndexOutOfBounds_throwsCommandException() {
+    // MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
+    // ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
+    // int validIndexUpperBound = validMeetingQuery.getMeetingList().size();\
+    //
+    // Index invalidIndex1 = new Index(20);
+    // Index invalidIndex2 = new Index(validIndexUpperBound);
+    // Index invalidIndex3 = new Index(validIndexUpperBound + 1);
+    // Index invalidIndex4 = new Index(validIndexUpperBound + 200);
+    //
+    // assert(invalidIndex1.getZeroBased() >= validIndexUpperBound);
+    // assert(invalidIndex2.getZeroBased() >= validIndexUpperBound);
+    // assert(invalidIndex3.getZeroBased() >= validIndexUpperBound);
+    // assert(invalidIndex4.getZeroBased() >= validIndexUpperBound);
+    //
+    // AddMeetingCommand invalidCommand1 = new AddMeetingCommand(invalidIndex1);
+    // AddMeetingCommand invalidCommand2 = new AddMeetingCommand(invalidIndex2);
+    // AddMeetingCommand invalidCommand3 = new AddMeetingCommand(invalidIndex3);
+    // AddMeetingCommand invalidCommand4 = new AddMeetingCommand(invalidIndex4);
+    //
+    // assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+    // invalidCommand1.execute(modelStub));
+    // assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+    // invalidCommand2.execute(modelStub));
+    // assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+    // invalidCommand3.execute(modelStub));
+    // assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+    // invalidCommand4.execute(modelStub));
+    // }
+    //
+    // @Test
+    // public void execute_nullMeetingQuery_throwsCommandException() {
+    // MeetingQuery nullMeetingQuery = null;
+    // ModelStub modelStub = new ModelStubWithMeetingQuery(nullMeetingQuery);
+    //
+    // Index validIndex1 = new Index(1);
+    // Index validIndex2 = new Index(123934);
+    // Index validIndex3 = new Index(99999999);
+    // AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(validIndex1);
+    // AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(validIndex2);
+    // AddMeetingCommand addMeetingCommand3 = new AddMeetingCommand(validIndex3);
+    //
+    // assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
+    // addMeetingCommand1.execute(modelStub));
+    // assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
+    // addMeetingCommand2.execute(modelStub));
+    // assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
+    // addMeetingCommand3.execute(modelStub));
+    // }
+    //
+    // @Test
+    // public void equals() {
+    // Index testIndex1 = new Index(1);
+    // Index testIndex2 = new Index(200000000);
+    // AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(testIndex1);
+    // AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(testIndex2);
+    //
+    // same object -> returns true
+    // assertTrue(addMeetingCommand1.equals(addMeetingCommand1));
+    //
+    // same values -> returns true
+    // AddMeetingCommand addMeetingCommand1Copy = new AddMeetingCommand(testIndex1);
+    // assertTrue(addMeetingCommand1.equals(addMeetingCommand1Copy));
+    //
+    // different types -> returns false
+    // assertFalse(addMeetingCommand2.equals(1));
+    //
+    //null -> returns false
+    // assertFalse(addMeetingCommand2.equals(null));
+    //
+    // different task -> returns false
+    // assertFalse(addMeetingCommand1.equals(addMeetingCommand2));
+    // }
 
     /**
      * A default model stub that have all of the methods failing.

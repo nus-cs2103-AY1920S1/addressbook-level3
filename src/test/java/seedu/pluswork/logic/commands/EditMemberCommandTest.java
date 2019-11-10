@@ -42,7 +42,7 @@ public class EditMemberCommandTest {
 
         EditMemberCommand.EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder()
                 .withName(VALID_MEMBER_NAME_FINANCE).withTags(VALID_TAG_FINANCE).build();
-        EditMemberCommand EditMemberCommand = new EditMemberCommand(lastMember.getId(), descriptor);
+        EditMemberCommand editMemberCommand = new EditMemberCommand(lastMember.getId(), descriptor);
 
         String expectedMessage = String.format(EditMemberCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember);
 
@@ -50,12 +50,12 @@ public class EditMemberCommandTest {
                 model.getProjectDashboard()), new UserPrefs(), new UserSettings());
         expectedModel.setMember(lastMember, editedMember);
 
-        assertCommandSuccess(EditMemberCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editMemberCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditMemberCommand EditMemberCommand = new EditMemberCommand(ID_FIRST_MEMBER,
+        EditMemberCommand editMemberCommand = new EditMemberCommand(ID_FIRST_MEMBER,
                 new EditMemberCommand.EditMemberDescriptor());
 
         int memIndex = 0;
@@ -75,7 +75,7 @@ public class EditMemberCommandTest {
         Model expectedModel = new ModelManager(new ProjectDashboard(
                 model.getProjectDashboard()), new UserPrefs(), new UserSettings());
 
-        assertCommandSuccess(EditMemberCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editMemberCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -85,7 +85,7 @@ public class EditMemberCommandTest {
         MemberId memId = memInFilteredList.getId();
         Member editedMember = new MemberBuilder(memInFilteredList).withName(VALID_MEMBER_NAME_FINANCE).withId(memId)
                 .build();
-        EditMemberCommand EditMemberCommand = new EditMemberCommand(memId,
+        EditMemberCommand editMemberCommand = new EditMemberCommand(memId,
                 new EditMemberDescriptorBuilder().withName(VALID_MEMBER_NAME_FINANCE).build());
 
         String expectedMessage = String.format(EditMemberCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember);
@@ -94,7 +94,7 @@ public class EditMemberCommandTest {
                 model.getProjectDashboard()), new UserPrefs(), new UserSettings());
         expectedModel.setMember(model.getFilteredMembersList().get(0), editedMember);
 
-        assertCommandSuccess(EditMemberCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editMemberCommand, model, expectedMessage, expectedModel);
     }
 
 
@@ -103,9 +103,9 @@ public class EditMemberCommandTest {
         MemberId invalidId = new MemberId("invalid id");
         EditMemberCommand.EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder()
                 .withName(VALID_MEMBER_NAME_FINANCE).build();
-        EditMemberCommand EditMemberCommand = new EditMemberCommand(invalidId, descriptor);
+        EditMemberCommand editMemberCommand = new EditMemberCommand(invalidId, descriptor);
 
-        assertCommandFailure(EditMemberCommand, model, Messages.MESSAGE_INVALID_MEMBER_ID);
+        assertCommandFailure(editMemberCommand, model, Messages.MESSAGE_INVALID_MEMBER_ID);
     }
 
     /**
@@ -117,10 +117,10 @@ public class EditMemberCommandTest {
         MemberId invalidId = new MemberId("invalid id");
         // ensures that outOfBoundIndex is still in bounds of address book list
 
-        EditMemberCommand EditMemberCommand = new EditMemberCommand(invalidId,
+        EditMemberCommand editMemberCommand = new EditMemberCommand(invalidId,
                 new EditMemberDescriptorBuilder().withName(VALID_MEMBER_NAME_FINANCE).build());
 
-        assertCommandFailure(EditMemberCommand, model, Messages.MESSAGE_INVALID_MEMBER_ID);
+        assertCommandFailure(editMemberCommand, model, Messages.MESSAGE_INVALID_MEMBER_ID);
     }
 
     @Test
@@ -128,7 +128,8 @@ public class EditMemberCommandTest {
         final EditMemberCommand standardCommand = new EditMemberCommand(ID_FIRST_MEMBER, MEMBER_DESC_FINANCE);
 
         // same values -> returns true
-        EditMemberCommand.EditMemberDescriptor copyDescriptor = new EditMemberCommand.EditMemberDescriptor(MEMBER_DESC_FINANCE);
+        EditMemberCommand.EditMemberDescriptor copyDescriptor =
+                new EditMemberCommand.EditMemberDescriptor(MEMBER_DESC_FINANCE);
         EditMemberCommand commandWithSameValues = new EditMemberCommand(ID_FIRST_MEMBER, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

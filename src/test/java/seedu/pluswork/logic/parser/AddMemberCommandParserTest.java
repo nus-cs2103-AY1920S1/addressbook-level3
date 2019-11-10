@@ -74,15 +74,16 @@ public class AddMemberCommandParserTest {
     @Test
     public void parse_invalidValue_failure() throws CommandException {
         // invalid name
-        assertParseFailure(parser, INVALID_MEMBER_NAME_DESC + MEMBER_ID_JOHN_DOE + TAG_DESC_FINANCE + TAG_DESC_PUBLICITY,
-                MemberName.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_MEMBER_NAME_DESC + MEMBER_ID_JOHN_DOE + TAG_DESC_FINANCE
+                        + TAG_DESC_PUBLICITY, MemberName.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, MEMBER_NAME_DESC_PUBLICITY + MEMBER_ID_JOHN_DOE + INVALID_TAG_DESC + VALID_TAG_PUBLICITY,
-                Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, MEMBER_NAME_DESC_PUBLICITY + MEMBER_ID_JOHN_DOE + INVALID_TAG_DESC
+                        + VALID_TAG_PUBLICITY, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_MEMBER_NAME_DESC + MEMBER_ID_JOHN_DOE + INVALID_TAG_DESC, MemberName.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_MEMBER_NAME_DESC + MEMBER_ID_JOHN_DOE + INVALID_TAG_DESC,
+                MemberName.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + MEMBER_NAME_DESC_PUBLICITY + MEMBER_ID_JOHN_DOE
