@@ -312,7 +312,6 @@ image::WatchedTheOffice.png[width="790"]
 
 Alternatively, you may click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
 
-.Clicking the checkbox to mark a show as watched
 image::TheOfficeWatchCommand.png[width="790"]
 
 ****
@@ -396,6 +395,36 @@ e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers 
 * When searching based on actor, only shows from the watchlist will be searched.
 * When searching based on genre online, only movies will be searched.
 ****
+
+*Example Usage*
+
+[start=1]
+1. You want to search for the movie "Avengers". +
+Navigate to the *Search page* by one of the following ways: +
+* clicking on the search tab
+* hitting the keyboard shortcut kbd:[3]
+* typing `3` in the command box and pressing kbd:[enter]
+* typing `search` in the command box and pressing kbd:[enter]
+
+image::SearchPage.png[width="790"]
+
+*Scenario 1: You are offline*
+
+[start=2]
+2. User enters `watch 1` into the command box in the watchlist tab.
+
+image::SearchAvengerUserInput.png[width="790"]
+
+[start=3]
+3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `2`.
+
+image::SearchAvengers.png[width="790"]
+
+Alternatively, users can click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
+
+image::TheOfficeWatchCommand.png[width="790"]
+
+*Scenario 2: You are online*
 
 Examples:
 
