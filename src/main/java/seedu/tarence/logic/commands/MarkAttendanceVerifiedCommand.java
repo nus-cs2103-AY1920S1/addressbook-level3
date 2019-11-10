@@ -51,4 +51,16 @@ public class MarkAttendanceVerifiedCommand extends Command {
                 || command instanceof ConfirmNoCommand
                 || command instanceof DisplayCommand;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof MarkAttendanceVerifiedCommand)) {
+            return false;
+        }
+
+        return (o == this)
+                || ((MarkAttendanceVerifiedCommand) o).targetTutorial.equals(this.targetTutorial)
+                    && ((MarkAttendanceVerifiedCommand) o).week.equals(this.week)
+                    && ((MarkAttendanceVerifiedCommand) o).targetStudent.equals(this.targetStudent);
+    }
 }

@@ -1,10 +1,14 @@
 package seedu.tarence.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.tarence.logic.commands.DeleteTutorialCommand.MESSAGE_CONFIRM_DELETE_NONEMPTY_TUTORIAL;
+import static seedu.tarence.testutil.Assert.assertThrows;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
+import static seedu.tarence.testutil.TypicalIndexes.INDEX_SECOND_IN_LIST;
 import static seedu.tarence.testutil.TypicalPersons.getTypicalApplication;
 
 import org.junit.jupiter.api.Test;
@@ -16,9 +20,11 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
 import seedu.tarence.model.builder.ModuleBuilder;
+import seedu.tarence.model.builder.StudentBuilder;
 import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 
@@ -73,6 +79,70 @@ public class DeleteTutorialCommandTest {
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
 
+    @Test
+    public void execute_validTutNameAndModCode_success() throws CommandException {
+        TutorialBuilder.DEFAULT_STUDENTS.clear();
+        Tutorial tutorialToDelete = new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(VALID_TUTNAME).build();
+        Module moduleContainingTutorial = new ModuleBuilder().withModCode(VALID_MODCODE).build();
+        model.addTutorial(tutorialToDelete);
+        model.addModule(moduleContainingTutorial);
+        model.addTutorialToModule(tutorialToDelete);
+        DeleteTutorialCommand deleteTutorialCommand = new DeleteTutorialCommand(new ModCode(VALID_MODCODE),
+                new TutName(VALID_TUTNAME));
+
+        String expectedMessage = String.format(DeleteTutorialCommand.MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete);
+
+        assertEquals(new CommandResult(expectedMessage), deleteTutorialCommand.execute(model));
+    }
+
+    @Test
+    public void execute_validTutNameOnly_success() throws CommandException {
+        TutorialBuilder.DEFAULT_STUDENTS.clear();
+        Tutorial tutorialToDelete = new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(VALID_TUTNAME).build();
+        Module moduleContainingTutorial = new ModuleBuilder().withModCode(VALID_MODCODE).build();
+        model.addTutorial(tutorialToDelete);
+        model.addModule(moduleContainingTutorial);
+        model.addTutorialToModule(tutorialToDelete);
+        DeleteTutorialCommand deleteTutorialCommand = new DeleteTutorialCommand(new TutName(VALID_TUTNAME));
+
+        String expectedMessage = String.format(DeleteTutorialCommand.MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete);
+
+        assertEquals(new CommandResult(expectedMessage), deleteTutorialCommand.execute(model));
+    }
+
+    @Test
+    public void execute_multipleTutorialsOfName_throwsCommandException() {
+        TutorialBuilder.DEFAULT_STUDENTS.clear();
+        Tutorial tutorialOne = new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(VALID_TUTNAME).build();
+        Tutorial tutorialTwo = new TutorialBuilder().withModCode(SIMILAR_MODCODE).withTutName(VALID_TUTNAME).build();
+        model.addTutorial(tutorialOne);
+        model.addTutorial(tutorialTwo);
+        DeleteTutorialCommand deleteTutorialCommand = new DeleteTutorialCommand(new TutName(VALID_TUTNAME));
+
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_INVALID_TUTORIAL_MULTIPLE, () -> deleteTutorialCommand.execute(model));
+    }
+
+    @Test
+    public void execute_nonEmptyTutorial_showsConfirmationPrompt() throws CommandException {
+        TutorialBuilder.DEFAULT_STUDENTS.clear();
+        Tutorial tutorialToDelete = new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(VALID_TUTNAME).build();
+        Module moduleContainingTutorial = new ModuleBuilder().withModCode(VALID_MODCODE).build();
+        Student studentInTutorial = new StudentBuilder().withTutName(VALID_TUTNAME).withModCode(VALID_MODCODE).build();
+        model.addTutorial(tutorialToDelete);
+        model.addModule(moduleContainingTutorial);
+        model.addStudent(studentInTutorial);
+        model.addTutorialToModule(tutorialToDelete);
+        model.addStudentToTutorial(studentInTutorial);
+        DeleteTutorialCommand deleteTutorialCommand = new DeleteTutorialCommand(new TutName(VALID_TUTNAME));
+
+        String expectedMessage = String.format(MESSAGE_CONFIRM_DELETE_NONEMPTY_TUTORIAL,
+                tutorialToDelete,
+                tutorialToDelete.getStudents().size());
+
+        assertEquals(new CommandResult(expectedMessage), deleteTutorialCommand.execute(model));
+    }
+
     /* TODO: implement later?
     @Test
     public void execute_moduleWithTutorials_delayed() {
@@ -121,6 +191,8 @@ public class DeleteTutorialCommandTest {
 
         assertCommandFailure(deleteTutorialCommand, model, Messages.MESSAGE_INVALID_TUTORIAL_IN_APPLICATION);
     }
+
+    */
 
     @Test
     public void equals() {

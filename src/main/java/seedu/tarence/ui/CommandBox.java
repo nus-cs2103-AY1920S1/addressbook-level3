@@ -61,6 +61,7 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
             setStyleToDefault();
             try {
+                handlePastInput(null);
                 handleAutocomplete();
             } catch (ParseException | CommandException e) {
                 e.printStackTrace();
@@ -152,8 +153,10 @@ public class CommandBox extends UiPart<Region> {
     private void handlePastInput(KeyCode keyCode) throws CommandException, ParseException {
         if (keyCode.equals(KeyCode.UP)) {
             pastInputExecutor.execute("up");
-        } else {
+        } else if (keyCode.equals(KeyCode.DOWN)) {
             pastInputExecutor.execute("down");
+        } else {
+            pastInputExecutor.execute("");
         }
     }
 

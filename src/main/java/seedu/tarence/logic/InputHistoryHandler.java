@@ -16,6 +16,11 @@ public class InputHistoryHandler {
     }
 
     public String getPastInput(String arrowDirection) {
+        if (arrowDirection.equals("")) {
+            model.resetInputHistoryIndex();
+            return null;
+        }
+
         List<String> inputHistory = model.getInputHistory();
 
         if (inputHistory.size() == 0) {

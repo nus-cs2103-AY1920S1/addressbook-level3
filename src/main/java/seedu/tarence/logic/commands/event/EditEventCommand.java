@@ -29,7 +29,7 @@ import seedu.tarence.storage.Storage;
  */
 public class EditEventCommand extends EventCommand {
 
-    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "%1$s edited successfully";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "%1$s edited successfully";
     public static final String COMMAND_WORD = "editEvent";
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "edev", "editev", "edite"};
 
@@ -132,7 +132,7 @@ public class EditEventCommand extends EventCommand {
         targetTutorial.addEvent(editedEvent);
 
         return new CommandResult(
-                    String.format(MESSAGE_DELETE_EVENT_SUCCESS, editedEvent.eventName));
+                    String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent.eventName));
     }
 
     @Override

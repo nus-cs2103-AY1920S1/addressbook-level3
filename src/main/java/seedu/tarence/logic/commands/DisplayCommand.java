@@ -24,4 +24,13 @@ public class DisplayCommand extends Command {
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         return execute(model);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof DisplayCommand)) {
+            return false;
+        }
+
+        return (o == this) || ((DisplayCommand) o).message.equals(this.message);
+    }
 }

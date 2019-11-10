@@ -1,6 +1,7 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,6 +9,7 @@ import static seedu.tarence.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -25,6 +27,8 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
 import seedu.tarence.model.ReadOnlyUserPrefs;
 import seedu.tarence.model.builder.ModuleBuilder;
+import seedu.tarence.model.builder.StudentBuilder;
+import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Name;
@@ -40,36 +44,77 @@ public class ExportAttendanceCommandTest {
     public static final String VALID_TUT_NAME = "T02";
     public static final Integer VALID_TUT_INDEX = 1;
 
-    // TODO: Test fails in TravisCI but not locally
-    // @Test
-    // public void execute_personAcceptedByModel_exportAttendanceSuccessful() throws Exception {
-    //     ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
+    @Test
+    public void execute_validTutNameAndModCode_exportAttendanceSuccessful() {
+        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
 
-    //     final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
-    //     final Student validStudent = new StudentBuilder()
-    //             .withModCode(VALID_MOD_CODE)
-    //             .withTutName(VALID_TUT_NAME)
-    //             .build();
-    //     final Tutorial validTutorial = new TutorialBuilder()
-    //             .withModCode(VALID_MOD_CODE)
-    //             .withTutName(VALID_TUT_NAME)
-    //             .withStudents(new ArrayList<>(Arrays.asList(validStudent)))
-    //             .build();
-    //     modelStub.addModule(validModule);
-    //     modelStub.addTutorial(validTutorial);
-    //     modelStub.addTutorialToModule(validTutorial);
+        final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
+        final Student validStudent = new StudentBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .build();
+        final Tutorial validTutorial = new TutorialBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .withStudents(new ArrayList<>(Arrays.asList(validStudent)))
+                .build();
+        modelStub.addModule(validModule);
+        modelStub.addTutorial(validTutorial);
+        modelStub.addTutorialToModule(validTutorial);
 
-    //     final ModCode validModCode = new ModCode(VALID_MOD_CODE);
-    //     final TutName validTutName = new TutName(VALID_TUT_NAME);
+        final ModCode validModCode = new ModCode(VALID_MOD_CODE);
+        final TutName validTutName = new TutName(VALID_TUT_NAME);
 
-    //     CommandResult commandResult = new ExportAttendanceCommand(
-    //             validModCode, validTutName, null, null).execute(modelStub);
+        // Locally, the test should pass with a CommandResult being returned
+        // In Travis, due to different directory structures an IO/InvalidPathException is thrown.
+        // Here we assert that the correct exception is thrown instead.
+        try {
+            CommandResult commandResult = new ExportAttendanceCommand(
+                    validModCode, validTutName, null, null).execute(modelStub);
+            assertEquals(String.format(ExportAttendanceCommand.MESSAGE_EXPORT_ATTENDANCE_SUCCESS,
+                    validTutName),
+                    commandResult.getFeedbackToUser());
+        } catch (CommandException e) {
+            assertEquals(e.getMessage(), Messages.MESSAGE_INVALID_FILE);
+        }
+        // TODO: Assert presence of exported file
+    }
 
-    //     assertEquals(String.format(ExportAttendanceCommand.MESSAGE_EXPORT_ATTENDANCE_SUCCESS,
-    //             validTutName),
-    //             commandResult.getFeedbackToUser());
-    //     // TODO: Assert presence of exported file
-    // }
+    @Test
+    public void execute_validIndex_exportAttendanceSuccessful() throws Exception {
+        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
+
+        final Module validModule = new ModuleBuilder().withModCode(VALID_MOD_CODE).build();
+        final Student validStudent = new StudentBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .build();
+        final Tutorial validTutorial = new TutorialBuilder()
+                .withModCode(VALID_MOD_CODE)
+                .withTutName(VALID_TUT_NAME)
+                .withStudents(new ArrayList<>(Arrays.asList(validStudent)))
+                .build();
+        modelStub.addModule(validModule);
+        modelStub.addTutorial(validTutorial);
+        modelStub.addTutorialToModule(validTutorial);
+
+        final ModCode validModCode = new ModCode(VALID_MOD_CODE);
+        final TutName validTutName = new TutName(VALID_TUT_NAME);
+
+        // Locally, the test should pass with a CommandResult being returned
+        // In Travis, due to different directory structures an IO/InvalidPathException is thrown.
+        // Here we assert that the correct exception is thrown instead.
+        try {
+            CommandResult commandResult = new ExportAttendanceCommand(
+                    null, null, Index.fromOneBased(1), null).execute(modelStub);
+            assertEquals(String.format(ExportAttendanceCommand.MESSAGE_EXPORT_ATTENDANCE_SUCCESS,
+                    validTutName),
+                    commandResult.getFeedbackToUser());
+        } catch (CommandException e) {
+            assertEquals(e.getMessage(), Messages.MESSAGE_INVALID_FILE);
+        }
+        // TODO: Assert presence of exported file
+    }
 
     @Test
     public void execute_invalidModule_throwsCommandException() {
