@@ -1,18 +1,23 @@
+@font-face {
+    font-family: 'Inconsolata';
+    src: url('../font/Inconsolata-Regular.ttf');
+}
+
 .background {
-    -fx-background-color: #101010;
+    -fx-background-color: black;
     background-color: #101010; /* Used in the default.html file */
 }
 
 .label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 12pt;
+    -fx-font-family: "Inconsolata";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inconsolata";
 }
 
 .tab-pane {
@@ -52,21 +57,21 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
+    -fx-font-family: "Inconsolata";
+    -fx-font-size: 12pt;
     -fx-text-fill: white;
 }
 
 .cell_small_label {
-    -fx-font-family: "Segoe UI Semilight";
-    -fx-font-size: 16px;
+    -fx-font-family: "Inconsolata";
+    -fx-font-size:  12pt;
     -fx-text-fill: white;
 }
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-family: "Inconsolata";
+    -fx-font-size: 12pt;
     -fx-text-fill: white;
 }
 
@@ -74,41 +79,12 @@
     -fx-text-fill: white
 }
 
-.grid-pane {
-    -fx-background-color: derive(#101010, 30%);
-    -fx-border-color: derive(#101010, 30%);
-    -fx-border-width: 1px;
-}
-
-.grid-pane {
-    -fx-background-color: derive(#101010, 30%);
-}
-
-.context-menu {
-    -fx-background-color: derive(#101010, 50%);
-}
-
-.context-menu .label {
-    -fx-text-fill: white;
-}
-
-.menu-bar {
-    -fx-background-color: derive(#101010, 20%);
-}
-
-.menu-bar .label {
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-opacity: 0.9;
-}
-
 .scroll-bar {
-    -fx-background-color: #101010;
+    -fx-background-color: black;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #101010;
+    -fx-background-color: black;
     -fx-background-insets: 3;
 }
 
@@ -134,10 +110,8 @@
 }
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
-    -fx-background-color : #101010;
-    -fx-border-color :transparent;
-    -fx-background-radius : 2.0em;
-    -fx-border-radius :2.0em;
+    -fx-background-color : black;
+    -fx-border-color: #8ac0a6;
 }
 
 .scroll-bar:horizontal .increment-button ,
@@ -170,20 +144,19 @@
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color : #3e3e3e;
+    -fx-background-color : #8ac0a6;
+    -fx-background-radius: 0;
     -fx-background-insets : 2.0, 0.0, 0.0;
-    -fx-background-radius : 2.0em;
 }
 
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover {
-    -fx-background-color : #8A8A8A;
+    -fx-background-color : white;
     -fx-background-insets : 2.0, 0.0, 0.0;
-    -fx-background-radius : 2.0em;
 }
 
 #resultView {
-    -fx-background-color: #333333;
+    -fx-background-color: transparent;
 }
 
 #defaultTag {
@@ -192,8 +165,8 @@
 }
 
 #userTag {
-    -fx-text-fill: black;
-    -fx-background-color: white;
+    -fx-text-fill: #8ac0a6;
+    -fx-background-color: black;
 }
 
 
@@ -203,43 +176,48 @@
 }
 
 #commandTypeLabel {
-    -fx-font-size: 11px;
+    -fx-font-size:  12pt;
     -fx-text-fill: #F70D1A;
 }
 
 #commandTextField {
-    -fx-background-color: #333333;
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
     -fx-background-insets: 0;
-    -fx-background-radius: 15;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-font-family: "Inconsolata";
+    -fx-font-size:  12pt;
+    -fx-text-fill: #8ac0a6;
 }
 
 #commandTextField .label{
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-family: "Inconsolata";
+    -fx-font-size:  12pt;
     -fx-text-fill: white;
 }
 
 #commandTextField .context-menu {
-    -fx-background-color: #101010;
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
 
 #commandTextField .menu-item {
-    -fx-background-color: #101010;
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 0.5;
     -fx-background-insets: 0;
 }
 
 #commandTextField .menu-item:focused{
-    -fx-background-color: #282828;
+    -fx-background-color: #8ac0a6;
     -fx-background-insets: 0;
 }
 
 #resultDisplay {
-    -fx-background-color: #333333;
+    -fx-background-color: transparent;
 }
 
 #resultDisplay .scroll-pane {
@@ -255,8 +233,9 @@
 }
 
 #resultHolder {
-    -fx-background-color: #333333;
-    -fx-background-radius: 15;
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
 }
 
 #highPriority {
@@ -271,7 +250,7 @@
 
 #lowPriority {
     -fx-text-fill: white;
-    -fx-background-color: YELLOW;
+    -fx-background-color: #676700;
 }
 
 #tags {
@@ -282,8 +261,6 @@
 #tags .label {
     -fx-padding: 1 5 1 5;
     -fx-border-color: white;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
     -fx-font-size: 11;
 }
 
@@ -292,52 +269,39 @@
 }
 
 #semesterCardPane {
-    -fx-background-color: #101010;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
-}
-
-#semesterCardPane.currentSemester {
-    -fx-background-color: #101010;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-border-color: #454545;
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
     -fx-border-width: 1;
 }
 
+#semesterCardPane.currentSemester {
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 4;
+}
+
 #blockedSemesterCardPane {
-    -fx-background-color: #575757;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
+    -fx-background-color: #8ac0a6;
 }
 
 #tagListView {
     -fx-background-color: transparent;
 }
 
-#tagCardPane {
-    -fx-background-color: #101010;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
-}
-
 #moduleCardPane {
-    -fx-background-color: #333333;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
 }
 
 #modulePill {
-    -fx-background-color: #333333;
-    -fx-border-radius: 15 15 15 15;
-    -fx-background-radius: 15 15 15 15;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
 }
 
 #modulePill.prereqsNotMet, #moduleCardPane.prereqsNotMet {
-    -fx-background-color: #500000;
+    -fx-background-color: #2b0000;
     -fx-border-color: #ee6060;
     -fx-border-width: 1;
 }
@@ -356,46 +320,40 @@
 }
 
 #simpleModuleCardPane {
-    -fx-background-color: #101010;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
 }
 
 #studyPlan {
-    -fx-background-color: #333333;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
 }
 
 #title {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 24;
+    -fx-font-family: "Inconsolata";
+    -fx-font-size: 12pt;
 }
 
 #prereqs {
     -fx-text-fill: white;
-    -fx-background-color: #800000;
-    -fx-padding: 1 4 1 4;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-background-color: black;
+    -fx-border-color: #ee6060;
+    -fx-border-width: 1;
+    -fx-padding: 0 3 0 3;
     -fx-font-size: 12;
-    -fx-font-family: "Segoe UI Semibold";
 }
 
 #blockedFont {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 12pt;
     -fx-text-fill: #EEEEEE;
-    -fx-opacity: 0.9;
 }
 
 #blockedReason {
-    -fx-font-size: 13pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 12pt;
     -fx-text-fill: #EEEEEE;
-    -fx-opacity: 0.9;
 }
-
 
 .scroll-pane > .viewport {
     -fx-background-color: transparent;

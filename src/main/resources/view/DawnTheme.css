@@ -1,32 +1,41 @@
+@font-face {
+    font-family: 'Inconsolata Regular';
+    src: url('../font/Inconsolata-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Inconsolata Bold';
+    src: url('../font/Inconsolata-Bold.ttf');
+}
+
 .background {
-    -fx-background-color: #c4c4c4;
-    background-color: #c4c4c4; /* Used in the default.html file */
+    -fx-background-color: linear-gradient(#FFDEE9 30%, #B5FFFC 110%);
 }
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inconsolata Bold";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inconsolata Bold";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Inconsolata Regular";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inconsolata Bold";
 }
 
 .tab-pane {
@@ -66,7 +75,7 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Inconsolata Regular";
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
@@ -114,13 +123,13 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inconsolata Bold";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-family: "Inconsolata Regular";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
@@ -137,7 +146,7 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Inconsolata Regular";
     -fx-font-size: 13pt;
     -fx-text-fill: black;
 }
@@ -147,7 +156,7 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Inconsolata Regular";
     -fx-text-fill: white;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
@@ -187,7 +196,7 @@
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Inconsolata Regular";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
@@ -301,7 +310,7 @@
 }
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
-    -fx-background-color : #F0F0F0;
+    -fx-background-color : linear-gradient(#FFDEE9 30%, #B5FFFC 110%);
     -fx-border-color :transparent;
     -fx-background-radius : 2.0em;
     -fx-border-radius :2.0em;
@@ -337,14 +346,14 @@
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color : #c4c4c4;
+    -fx-background-color : white;
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
 }
 
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover {
-    -fx-background-color : #8A8A8A;
+    -fx-background-color : #e8e8e8;
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
 }
@@ -355,12 +364,12 @@
 
 #defaultTag {
     -fx-text-fill: #1f1f1f;
-    -fx-background-color: white;
+    -fx-background-color: #FFDEE9;
 }
 
 #userTag {
-    -fx-text-fill: white;
-    -fx-background-color: #1f1f1f;
+    -fx-text-fill: #1f1f1f;
+    -fx-background-color: #b5fffc;
 }
 
 
@@ -375,16 +384,17 @@
 }
 
 #commandTextField {
+    -fx-effect: dropshadow(gaussian, #b5b5b5, 3, 0, 1, 1);
     -fx-background-color: #fff;
     -fx-background-insets: 0;
-    -fx-background-radius: 15;
-    -fx-font-family: "Segoe UI Light";
+    -fx-background-radius: 0;
+    -fx-font-family: "Inconsolata Regular";
     -fx-font-size: 13pt;
     -fx-text-fill: black;
 }
 
 #commandTextField .label{
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Inconsolata Regular";
     -fx-font-size: 13pt;
     -fx-text-fill: black;
 }
@@ -401,7 +411,7 @@
 }
 
 #commandTextField .menu-item:focused{
-    -fx-background-color: #c4c4c4;
+    -fx-background-color: #b5fffc;
     -fx-background-insets: 0;
 }
 
@@ -426,8 +436,9 @@
 }
 
 #resultHolder {
+    -fx-effect: dropshadow(gaussian, #b5b5b5, 3, 0, 1, 1);
     -fx-background-color: white;
-    -fx-background-radius: 15;
+    -fx-background-radius: 0;
 }
 
 #highPriority {
@@ -452,9 +463,7 @@
 
 #tags .label {
     -fx-padding: 1 5 1 5;
-    -fx-border-color: black;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-background-radius: 20;
     -fx-font-size: 11;
 }
 
@@ -463,17 +472,14 @@
 }
 
 #semesterCardPane {
-    -fx-background-color: #f0f0f0;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
+    -fx-background-color: #FFDEE9;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
 }
 
 #semesterCardPane.currentSemester {
-    -fx-background-color: #c4c4c4;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-border-color: #454545;
-    -fx-border-width: 1;
+    -fx-background-color: #b5fffc;
+    -fx-background-radius: 0;
 }
 
 .prereqsNotMet .label {
@@ -481,9 +487,9 @@
 }
 
 #blockedSemesterCardPane {
-    -fx-background-color: #575757;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
+    -fx-background-color: white;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
 }
 
 #tagListView {
@@ -492,8 +498,8 @@
 
 #tagCardPane {
     -fx-background-color: #f0f0f0;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
 }
 
 #moduleCardPane {
@@ -506,7 +512,7 @@
     -fx-background-color: #ffffff;
     -fx-border-radius: 15 15 15 15;
     -fx-background-radius: 15 15 15 15;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inconsolata Bold";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
@@ -537,13 +543,14 @@
 }
 
 #studyPlan {
+    -fx-effect: dropshadow(gaussian, #b5b5b5, 3, 0, 1, 1);
     -fx-background-color: #ffffff;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
 }
 
 #title {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inconsolata Bold";
     -fx-font-size: 24;
 }
 
@@ -554,20 +561,20 @@
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-font-size: 12;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Inconsolata Bold";
 }
 
 #blockedFont {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #EEEEEE;
+    -fx-font-family: "Inconsolata Bold";
+    -fx-text-fill: #616161;
     -fx-opacity: 0.9;
 }
 
 #blockedReason {
     -fx-font-size: 13pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #EEEEEE;
+    -fx-font-family: "Inconsolata Bold";
+    -fx-text-fill: #616161;
     -fx-opacity: 0.9;
 }
 

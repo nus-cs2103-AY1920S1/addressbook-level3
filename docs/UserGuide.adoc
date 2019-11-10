@@ -485,13 +485,15 @@ Collapses all semesters so that most details are hidden. Will hide module titles
 Format: `collapseall`
 
 ==== Changing the theme of the GUI: `theme`
-Changes the theme of the GUI. Existing themes are: light, dark. +
+Changes the theme of the GUI. Existing themes are: light, dark, hacker, dawn. +
 Format: `theme THEME_NAME`
 
 Examples:
 
 * `theme light`
 * `theme dark`
+* `theme hacker`
+* `theme dawn`
 
 // end::gui[]
 

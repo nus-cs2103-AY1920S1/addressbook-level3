@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -14,11 +13,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.module.Module;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
-import seedu.address.model.tag.Tag;
-import seedu.address.ui.exceptions.InvalidResultViewTypeException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -184,7 +180,7 @@ public class MainWindow extends UiPart<Stage> {
             }
             ResultViewType resultViewType = commandResult.getResultViewType();
             if (resultViewType != null) {
-                handleResult(resultViewType, commandResult.getResultContent());
+                resultDisplay.handleResult(resultViewType, commandResult.getResultContent());
             }
 
             return commandResult;
@@ -192,39 +188,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
-        }
-    }
-
-    /**
-     * Handles the result by assigning the appropriate nodes to the result display.
-     */
-    private <T> void handleResult(ResultViewType resultViewType, ObservableList<T> resultContent) {
-        switch (resultViewType) {
-        case TEXT:
-            TextArea textArea = new TextArea();
-            ObservableList<String> textContent = (ObservableList<String>) resultContent;
-            for (String text : textContent) {
-                textArea.setText(text);
-            }
-            resultDisplayPlaceholder.getChildren().add(textArea);
-            break;
-        case TAG:
-            ObservableList<Tag> tagContent = (ObservableList<Tag>) resultContent;
-            TagListPanel tagListPanel = new TagListPanel(tagContent);
-            resultDisplay.setResultView(tagListPanel.getRoot());
-            break;
-        case MODULE:
-            ObservableList<Module> moduleContent = (ObservableList<Module>) resultContent;
-            ModuleListPanel moduleListPanel = new ModuleListPanel(moduleContent);
-            resultDisplay.setResultView(moduleListPanel.getRoot());
-            break;
-        case SEMESTER:
-            ObservableList<Semester> studyPlanContent = (ObservableList<Semester>) resultContent;
-            SimpleSemesterListPanel simpleSemesterListPanel = new SimpleSemesterListPanel(studyPlanContent);
-            resultDisplay.setResultView(simpleSemesterListPanel.getRoot());
-            break;
-        default:
-            throw new InvalidResultViewTypeException(resultViewType.name());
         }
     }
 
