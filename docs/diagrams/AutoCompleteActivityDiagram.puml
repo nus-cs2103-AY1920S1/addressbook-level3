@@ -1,0 +1,14 @@
+@startuml
+start
+:User types input;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+repeat
+:Command suggestions created;
+:Contextmenu displays suggestions;
+
+repeat while () is ([User types new inputs])
+->
+stop
+@enduml

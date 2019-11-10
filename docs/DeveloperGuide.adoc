@@ -155,6 +155,90 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::autocomplete[]
+=== Autocomplete feature
+
+==== Current Implementation
+
+The AutoComplete feature is facilitated by 2 classes: the `AutoCompleteTextField`, and the class `Styles`.
+Both are represented in the class diagram below.
+
+image::SebastianDG/AutoCompleteClassDiagram.png[auto_,300,300,pdfwidth=50%,scaledwidth=50%]
+
+The `AutoCompleteTextField` adds a `ChangeListener` to textProperty() that notifies `AutoCompleteTextField`
+whenever the user inputs new text, i.e when the text entered changes.
+
+Step 1.  User triggers the listener when user enters text.
+
+Step 2. From the text entered, `AutoCompleteTextField` attempts suggesting existing commands.
+If input matches any existing commands, it proceeds to step 3. Otherwise, it does nothing and waits user input.
+
+Step 3. `AutoCompleteTextField` calls `Styles#buildTextFlow`to highlight the portion of each
+command suggestion where the user's input matches the suggestion.
+
+Step 4. `AutoCompleteTextField` then displays a popup menu using the javafx class `ContextMenu`.
+
+Step 5. If the user selects a suggestion, the textfield is set to that suggestion, and the popup menu is
+closed. If the user enters more text, `AutoCompleteTextField` returns to step 1.
+
+Step 6. Otherwise, the popup menu is closed.
+
+This sequence of steps is illustrated below with an activity diagram.
+
+image::SebastianDG/auto_activity.JPG[auto_,500,500,pdfwidth=50%,scaledwidth=50%]
+// end::autocomplete[]
+
+// tag::upload[]
+=== Upload feature
+
+==== Current Implementation
+
+The uploading of a student's picture is facilitated by UploadPictureCommandParser, UploadPictureCommand, ModelManager, FileChooser and DisplayPicture,
+while the displaying of the student's picture is facilitated by MainWindow and StudentCard. +
+`UploadPictureCommandParser` implements `Parser`. `UploadPictureCommand` extends `Command`,
+and represents the logic that will be executed once the user activates the upload command and chooses a file. +
+The `UploadPictureCommand` command communicates with `ModelManager` to replace the old `Student` object with
+a new `Student` object that has its display picture field changed. +
+
+This change is then reflected in the UI when `MainWindow` loads the `StudentCard` for the new student,
+which will load the image and display it in the UI.
+
+The main operation implemented is `UploadPictureCommand#execute`.
+
+Step 1. The user wants to upload a display picture for their student. User identifies the student's index
+number and enters the command `upload INDEX`.
+
+Step 2. `MainWindow` detects the `upload` command word and uses `FileChooser` to open a window for the user to select a picture from their computer.
+`MainWindow` then saves the path of the selected file as a string and adds a prefix "f/" to the input arguments.
+The path of the file is also appended to the end of the input string before the input arguments are passed to `NotebookParser`
+
+Step 3. `NotebookParser` parses the input and detects the `upload` command word, and calls `UploadPictureCommandParser`.
+This in turn checks user's input for errors before calling `UploadPictureCommand`, which checks whether the file
+is a PNG or JPG file.
+
+Step 4. `LogicManager` executes the `UploadPictureCommand`, which checks the validity of the index provided,
+as well as whether the picture selected is different from the picture already displayed.
+A visual representation of the order of checks for the input arguments are displayed in the diagram below.
+
+image::upload/upload_dg_1.JPG[checksdiagram,400,480,pdfwidth=50%,scaledwidth=50%]
+
+Step 5. After these checks, the `createEditedStudent` method in `UploadPictureCommand` is called to create a new `Student` object, editedStudent,
+which has its display filepath changed to the file the user chose.
+
+Step 6. `UploadPictureCommand` calls Model to replace the current student with the editedStudent.
+The command result is then passed back all the way to `MainWindow` which refreshes the GUI,
+and displays the new picture for the chosen student.
+
+The following diagram illustrates the process above.
+
+image::SebastianDG/UploadSequenceDiagram.png[]
+
+==== Design Considerations
+
+Alternative implementations:
+
+// end::upload[]
+
 // tag::undoredo[]
 === Undo and Redo feature
 ==== Implementation

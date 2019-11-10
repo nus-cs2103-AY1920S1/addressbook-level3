@@ -35,7 +35,7 @@ public class UploadPictureCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) ";
 
     public static final String MESSAGE_WRONG_FORMAT = "Please only upload a PNG or JPG file.";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the classroom.";
+    public static final String MESSAGE_SAME_PICTURE = "This student's display picture is the same as the current one.";
     public static final String MESSAGE_FILE_NOT_FOUND = "File not found! Please upload another file.";
 
     private final Index index;
@@ -105,10 +105,12 @@ public class UploadPictureCommand extends Command {
         }
 
         Student studentToEdit = lastShownList.get(index.getZeroBased());
-        Student editedStudent = createEditedStudent(studentToEdit, fileName);
-        if (!studentToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
+        String currentFileName = studentToEdit.getDisplayPictureFilePath();
+        if (currentFileName.equals(fileName)) {
+            throw new CommandException(MESSAGE_SAME_PICTURE);
         }
+        Student editedStudent = createEditedStudent(studentToEdit, fileName);
+
         String messageSuccess = "Uploaded " + editedStudent.getName() + "'s photo successfully.";
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);

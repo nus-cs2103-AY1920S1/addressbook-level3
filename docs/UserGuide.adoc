@@ -14,7 +14,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T14-1/main
-By: 'Team CS2103-T14-1'     Since: 'Sep 2019'
+
+
+By: `CS2103-T14-1`      Since: `October 19`      Licence: `MIT`
 
 == Introduction
 
@@ -46,7 +48,7 @@ tasks and students’ information. It is optimized for teachers who prefer to wo
 === Classes
 The user can view his or her classes in the middle panel of the GUI of Teacher's Notebook as shown below. +
 
-image::class/class1.JPG[class, scaledwidth="50%"]
+image::class/class1.JPG[class,500,480,pdfwidth=50%,scaledwidth=50%]
 
 The class colored in blue shows the class that the user is currently viewing.
 Viewing a class enables a user to see the full profiles of the students, +
@@ -166,7 +168,7 @@ Examples:
 Allows a user to upload a PNG/JPG file to set the display picture of the student at the specified index in the student list of the current class. +
 Upon entering the command, a window will popup as shown below:
 
-image::upload/upload_1.jpg[]
+image::upload/upload_1.JPG[500,480,pdfwidth=50%,scaledwidth=50%]
 
 And the user will be prompted to select a PNG/JPG file from their computer to set as the new display picture of the student. +
 The user may cancel the upload operation by clicking on cancel in the window that pops up. +
@@ -310,4 +312,15 @@ e.g. `deletestudent 3`
 e.g. `upload 2`
 * Find Student: `findstudent STUDENT_NAME` +
 e.g. `findstudent John Doe`
+
+* Undo Action `undo` +
+
+* Redo Action `redo` +
+
+* Clear data `clear` +
+
+* Bring up help window `help` +
+
+* Exit the application `exit` +
+
 
