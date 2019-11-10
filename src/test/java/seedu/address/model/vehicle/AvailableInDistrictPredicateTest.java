@@ -1,17 +1,17 @@
 package seedu.address.model.vehicle;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalVehicles.V1;
 import static seedu.address.testutil.TypicalVehicles.V6;
 
+import org.junit.jupiter.api.Test;
+
 public class AvailableInDistrictPredicateTest {
-    AvailableInDistrictPredicate p1 = new AvailableInDistrictPredicate(new District(1));
-    AvailableInDistrictPredicate p2 = new AvailableInDistrictPredicate(new District(1));
-    AvailableInDistrictPredicate p3 = new AvailableInDistrictPredicate(new District(10));
+    private AvailableInDistrictPredicate p1 = new AvailableInDistrictPredicate(new District(1));
+    private AvailableInDistrictPredicate p2 = new AvailableInDistrictPredicate(new District(1));
+    private AvailableInDistrictPredicate p3 = new AvailableInDistrictPredicate(new District(10));
 
     @Test
     public void equals() {

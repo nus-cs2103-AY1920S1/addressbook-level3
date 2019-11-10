@@ -67,7 +67,8 @@ public class Vehicle {
         }
 
         Vehicle otherVehicle = (Vehicle) other;
-        return otherVehicle.getVehicleNumber().equals(getVehicleNumber());
+        return otherVehicle.getVehicleNumber().equals(getVehicleNumber())
+                && otherVehicle.getVehicleType().equals(getVehicleType());
     }
 
     @Override

@@ -1,7 +1,5 @@
 package seedu.address.model.vehicle;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.TypicalVehicles.V1;
@@ -10,6 +8,8 @@ import static seedu.address.testutil.TypicalVehicles.V3;
 import static seedu.address.testutil.TypicalVehicles.V4;
 import static seedu.address.testutil.TypicalVehicles.V5;
 import static seedu.address.testutil.TypicalVehicles.V6;
+
+import org.junit.jupiter.api.Test;
 
 public class VehicleTest {
 

@@ -1,23 +1,23 @@
 package seedu.address.model.vehicle;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.TypicalVehicles;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.TypicalVehicles;
 
 public class DistrictKeywordsPredicateTest {
 
-    List<District> districts1 = new ArrayList<>();
-    List<District> districts2 = new ArrayList<>();
-    List<District> districts3 = new ArrayList<>();
+    private List<District> districts1 = new ArrayList<>();
+    private List<District> districts2 = new ArrayList<>();
+    private List<District> districts3 = new ArrayList<>();
 
-    List<Vehicle> vehicles = TypicalVehicles.getTypicalVehicles();
+    private List<Vehicle> vehicles = TypicalVehicles.getTypicalVehicles();
 
     @Test
     public void equals() {

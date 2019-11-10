@@ -1,13 +1,5 @@
 package seedu.address.model.vehicle;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.vehicle.exceptions.DuplicateVehicleException;
-import seedu.address.model.vehicle.exceptions.VehicleNotFoundException;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,6 +8,14 @@ import static seedu.address.testutil.TypicalVehicles.V1;
 import static seedu.address.testutil.TypicalVehicles.V2;
 import static seedu.address.testutil.TypicalVehicles.V3;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.vehicle.exceptions.DuplicateVehicleException;
+import seedu.address.model.vehicle.exceptions.VehicleNotFoundException;
 
 public class UniqueVehicleListTest {
 

@@ -1,8 +1,9 @@
 package seedu.address.model.vehicle;
 
+import static seedu.address.model.vehicle.Availability.VEHICLE_AVAILABLE_TAG;
+
 import java.util.function.Predicate;
 
-import static seedu.address.model.vehicle.Availability.VEHICLE_AVAILABLE_TAG;
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  * Only used for manual vehicle assignment, where model shows only the available

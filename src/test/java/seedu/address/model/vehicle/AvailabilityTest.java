@@ -1,15 +1,15 @@
 package seedu.address.model.vehicle;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
 public class AvailabilityTest {
-    Availability a1 = new Availability(Availability.VEHICLE_AVAILABLE_TAG);
-    Availability a2 = new Availability(Availability.VEHICLE_AVAILABLE_TAG);
-    Availability a3 = new Availability(Availability.VEHICLE_BUSY_TAG);
+    private Availability a1 = new Availability(Availability.VEHICLE_AVAILABLE_TAG);
+    private Availability a2 = new Availability(Availability.VEHICLE_AVAILABLE_TAG);
+    private Availability a3 = new Availability(Availability.VEHICLE_BUSY_TAG);
 
     @Test
     public void equals() {

@@ -1,7 +1,5 @@
 package seedu.address.model.vehicle;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,12 +8,14 @@ import static seedu.address.testutil.TypicalVehicles.V2;
 import static seedu.address.testutil.TypicalVehicles.V3;
 import static seedu.address.testutil.TypicalVehicles.V4;
 
+import org.junit.jupiter.api.Test;
+
 public class VNumKeywordsPredicateTest {
 
-    VNumKeywordsPredicate p1 = new VNumKeywordsPredicate("A");
-    VNumKeywordsPredicate p2 = new VNumKeywordsPredicate("2");
-    VNumKeywordsPredicate p3 = new VNumKeywordsPredicate("2");
-    VNumKeywordsPredicate p4 = new VNumKeywordsPredicate("FKH1221P");
+    private VNumKeywordsPredicate p1 = new VNumKeywordsPredicate("A");
+    private VNumKeywordsPredicate p2 = new VNumKeywordsPredicate("2");
+    private VNumKeywordsPredicate p3 = new VNumKeywordsPredicate("2");
+    private VNumKeywordsPredicate p4 = new VNumKeywordsPredicate("FKH1221P");
 
     @Test
     public void equals() {

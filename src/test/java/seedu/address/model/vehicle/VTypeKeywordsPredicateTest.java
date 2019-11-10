@@ -1,17 +1,17 @@
 package seedu.address.model.vehicle;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalVehicles.V1;
 
+import org.junit.jupiter.api.Test;
+
 public class VTypeKeywordsPredicateTest {
 
-    VTypeKeywordsPredicate p1 = new VTypeKeywordsPredicate(new VehicleType("Ambulance"));
-    VTypeKeywordsPredicate p2 = new VTypeKeywordsPredicate(new VehicleType("Ambulance"));
-    VTypeKeywordsPredicate p3 = new VTypeKeywordsPredicate(new VehicleType("Patrol Car"));
+    private VTypeKeywordsPredicate p1 = new VTypeKeywordsPredicate(new VehicleType("Ambulance"));
+    private VTypeKeywordsPredicate p2 = new VTypeKeywordsPredicate(new VehicleType("Ambulance"));
+    private VTypeKeywordsPredicate p3 = new VTypeKeywordsPredicate(new VehicleType("Patrol Car"));
 
     @Test
     public void equals() {

@@ -1,5 +1,16 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_VEHICLE_NUMBER;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_VTYPE;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -8,18 +19,16 @@ import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Password;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Username;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.vehicle.Availability;
 import seedu.address.model.vehicle.District;
 import seedu.address.model.vehicle.VehicleNumber;
 import seedu.address.model.vehicle.VehicleType;
-
-import java.util.*;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_VEHICLE_NUMBER;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_VTYPE;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

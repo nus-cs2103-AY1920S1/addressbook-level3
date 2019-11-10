@@ -1,11 +1,15 @@
 package seedu.address.testutil;
 
-import seedu.address.model.IncidentManager;
-import seedu.address.model.vehicle.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.address.model.IncidentManager;
+import seedu.address.model.vehicle.Availability;
+import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.Vehicle;
+import seedu.address.model.vehicle.VehicleNumber;
+import seedu.address.model.vehicle.VehicleType;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
