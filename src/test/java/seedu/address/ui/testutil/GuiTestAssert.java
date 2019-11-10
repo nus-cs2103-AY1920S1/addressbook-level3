@@ -4,9 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import guitests.guihandles.FridgeCardHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.WorkerCardHandle;
 import guitests.guihandles.WorkerListPanelHandle;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.ui.WorkerCard;
 
@@ -47,6 +49,16 @@ public class GuiTestAssert {
                 : "-", actualCard.getDesignation());
         assertEquals(expectedWorker.getEmploymentStatus().isPresent()
                 ? expectedWorker.getEmploymentStatus().get() : "-", actualCard.getEmploymentStatus());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedFridge}.
+     */
+    public static void assertCardDisplaysFridge(Fridge expectedFridge, FridgeCardHandle actualCard) {
+        assertEquals(expectedFridge.getIdNum().toString(), actualCard.getFridgeId());
+        assertEquals(expectedFridge.getBody().isPresent() ? expectedFridge.getBody().get().getIdNum().toString()
+                : "No body assigned", actualCard.getBodyId());
+        assertEquals(expectedFridge.getFridgeStatus().toString(), actualCard.getStatus());
     }
 
     /**

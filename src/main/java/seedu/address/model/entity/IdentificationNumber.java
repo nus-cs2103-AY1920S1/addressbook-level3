@@ -23,8 +23,8 @@ public class IdentificationNumber {
     private static final String ID_PREFIX_BODY = "B";
     private static final String ID_PREFIX_WORKER = "W";
     private static final String ID_PREFIX_FRIDGE = "F";
-    private static final String INVALID_ENTITY_SUBCLASS
-            = "IdentificationNumber is not implemented for this entity subclass.";
+    private static final String INVALID_ENTITY_SUBCLASS =
+            "IdentificationNumber is not implemented for this entity subclass.";
 
     private static UniqueIdentificationNumberMaps uniqueIds = new UniqueIdentificationNumberMaps();
 

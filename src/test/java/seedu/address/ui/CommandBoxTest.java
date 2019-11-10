@@ -47,7 +47,7 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     @Test
-    public void commandBox_startingWithFailedCommand() {
+    public void commandBox_startingWithFailedCommand() throws InterruptedException {
         assertBehaviorForFailedCommand();
         assertBehaviorForSuccessfulCommand();
 
@@ -55,12 +55,14 @@ public class CommandBoxTest extends GuiUnitTest {
         assertBehaviorForSuccessfulCommand();
         assertBehaviorForFailedCommand();
         assertBehaviorForFailedCommand();
+        Thread.sleep(100);
     }
 
     @Test
-    public void commandBox_startingWithSuccessfulCommand() {
+    public void commandBox_startingWithSuccessfulCommand() throws InterruptedException {
         assertBehaviorForSuccessfulCommand();
         assertBehaviorForFailedCommand();
+        Thread.sleep(100);
     }
 
     /**

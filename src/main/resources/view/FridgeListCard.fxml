@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="fridgeCardPane" maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox id="cardPane" fx:id="cardPane" alignment="CENTER" prefWidth="100.0" AnchorPane.topAnchor="0.0">
+      <VBox id="cardPane" alignment="CENTER" prefWidth="100.0" AnchorPane.topAnchor="0.0">
          <StackPane fx:id="fridgeIdPlaceholder">
             <VBox.margin>
                <Insets bottom="7.0" />

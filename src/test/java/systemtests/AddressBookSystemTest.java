@@ -35,7 +35,7 @@ import seedu.address.testutil.TypicalWorkers;
 import seedu.address.ui.CommandBox;
 
 //@@author shaoyi1997
-//Reused from SE-EDU Address Book Level 4
+//Reused from SE-EDU Address Book Level 4 with modifications
 /**
  * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
  * for test verification.
