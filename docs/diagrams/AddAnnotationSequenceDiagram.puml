@@ -2,63 +2,20 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":MarkParser" as MarkParser LOGIC_COLOR
-participant ":AddAnnotationCommandParser" as AddAnnotationCommandParser LOGIC_COLOR
 participant "a:AddAnnotationCommand" as AddAnnotationCommand LOGIC_COLOR
-participant ":OfflineCommandResult" as OfflineCommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
 participant "b:Bookmark" as Bookmark MODEL_COLOR
 participant "doc:OfflineDocument" as OfflineDocument MODEL_COLOR
 participant "an:Annotation" as Annotation MODEL_COLOR
 participant ":TrueParagraph" as TrueParagraph MODEL_COLOR
 end box
 
-[-> LogicManager : execute("annotate 1 p/p1 n/some remark")
-activate LogicManager
-
-LogicManager -> MarkParser : parseCommand("annotate \n1 p/p1 n/some remark")
-activate MarkParser
-
-create AddAnnotationCommandParser
-MarkParser -> AddAnnotationCommandParser
-activate AddAnnotationCommandParser
-
-AddAnnotationCommandParser --> MarkParser
-deactivate AddAnnotationCommandParser
-
-MarkParser -> AddAnnotationCommandParser : parse("1 p/p1 n/a remark")
-activate AddAnnotationCommandParser
-
-create AddAnnotationCommand
-AddAnnotationCommandParser -> AddAnnotationCommand
+[->  AddAnnotationCommand
 activate AddAnnotationCommand
 
-AddAnnotationCommand --> AddAnnotationCommandParser : a
-deactivate AddAnnotationCommand
-
-AddAnnotationCommandParser --> MarkParser : a
-deactivate AddAnnotationCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddAnnotationCommandParser -[hidden]-> MarkParser
-destroy AddAnnotationCommandParser
-
-MarkParser --> LogicManager : a
-deactivate MarkParser
-
-LogicManager -> AddAnnotationCommand : execute()
-activate AddAnnotationCommand
-
-AddAnnotationCommand -> Model : getFilteredBookmarkList()
-activate Model
-
-Model --> AddAnnotationCommand : b
-deactivate Model
-
-AddAnnotationCommand -> Bookmark : getCachedCopyOfflineDoc(index, cacheVersion)
+AddAnnotationCommand -> Bookmark : getRequiredDoc(index, cacheVersion)
 activate Bookmark
 
 Bookmark --> AddAnnotationCommand : doc

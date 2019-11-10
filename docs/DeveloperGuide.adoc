@@ -89,11 +89,11 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/mark/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookmarkListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow` and 'TabView' components (not shown in the above figure), inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookmarkListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow` and `*TabView*` components (components are shown in the figure below), inherit from the abstract `UiPart` class.
 
-The structure of the `TabView` is depicted here:
+The structure of the `*TabView*` is depicted here:
 
-.Structure of the TabView Component, which is a part of the UI component
+.Structure of the `*TabView*` Component, which is a part of the UI component
 image::UiTabViewClassDiagram.png[]
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/mark/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
@@ -165,6 +165,7 @@ when the list data are changed.
 Mark. Each `Mark`, in turn, comprises a `UniqueBookmarkList`, a `ReminderAssociation` object, an
 `AutotagController`, and a `FolderStructure`.
 
+[[annotation-cd]]
 .Structure of the Annotation package
 image::AnnotationPackageClassDiagram.png[]
 
@@ -391,25 +392,36 @@ image::AutotagActivityDiagram.png[]
 // tag::annotation[]
 === Annotation feature
 ==== Implementation
-The annotation feature builds upon the structure of an offline document used to represent a _Readability-derived cache_.
-Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. As each annotation is targeted to an entire paragraph,
-we can simply add an annotation to a `Paragraph`. The annotation will be internally stored as an `annotation`.
-You can view the class structure of the annotation feature in the Figure above.
-//TODO: link to annotation class diagram
+The annotation feature builds upon the structure of an offline document used to represent a _Readability4J-derived cache_.
+Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. Each annotation is targeted to an entire paragraph;
+an annotation is added to a `Paragraph`. The annotation will be internally stored as an instance of `Annotation`.
+You can view the class structure of the annotation feature in the <<annotation-cd, figure above>>.
 
+There are three functionalities to the annotation feature:
 
-There are three parts to the annotation feature:
+ * Add an annotation (triggered by `annotate` command and executed by `AddAnnotationCommand#execute()`).
+ * Delete an annotation (triggered by `annotate-delete` command and executed by `DeleteAnnotationCommand#execute()`).
+ * Edit an annotation (triggered by `annotate-edit` command and executed by `EditAnnotationCommand#execute()`).
 
- * Add an annotation (executed by `AddAnnotationCommand#execute()`).
- * Delete an annotation (executed by `DeleteAnnotationCommand#execute()`).
- * Edit an annotation (executed by `EditAnnotationCommand#execute()`).
+`annotate`, `annotate-delete` and `annotate-edit` make up the _family of annotation commands_.
+These functionalities, when activated each calls the respective command parser to create the corresponding `AnnotationCommand`.
+Subsequently, when necessary the appropriate `Paragraph`(s) is retrieved, and the annotation is handled according to the command.
 
-These executions are triggered by `annotation` command inputs entered into the `CommandBox`, which calls the respective command parser to create the command.
-Subsequently, the appropriate `Paragraph`(s) is retrieved and the annotation is handled according to the command.
+The following sequence diagram illustrates how a command of the _family of annotation commands_ operates:
 
-The following sequence diagram illustrates how the adding annotation operation works:
+[[sd-annotation-general]]
+.Sequence diagram showing how annotation commands generally work.
+//TODO: sd - general for annotation; when done make this line newline
+image::AnnotationSequenceDiagram.png[]
 
-image::AddAnnotationSequenceDiagram.png[]
+In the <<sd-annotation-general, figure above>>, the specifics of how `Parser#parse` and `AnnotationCommand#execute` are abstracted out.
+This is because each of the annotation commands have different input criteria. Hence each command is parsed and handled differently.
+The sub-sections below will show some examples illustrating how each command works.
+
+===== Adding an annotation
+When adding an annotati
+
+image::AddAnnotationExecuteSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 

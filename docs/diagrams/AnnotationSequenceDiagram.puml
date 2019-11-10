@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MarkParser" as MarkParser LOGIC_COLOR
+participant ":_AnnotationCommandParser" as AddAnnotationCommandParser LOGIC_COLOR
+participant "a:_AnnotationCommand" as AddAnnotationCommand LOGIC_COLOR
+participant "result:OfflineCommandResult" as OfflineCommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "b:Bookmark" as Bookmark MODEL_COLOR
+end box
+
+[-> LogicManager : execute( cmdStr )
+activate LogicManager
+
+LogicManager -> MarkParser : parseCommand( cmdStr )
+activate MarkParser
+
+create AddAnnotationCommandParser
+MarkParser -> AddAnnotationCommandParser
+activate AddAnnotationCommandParser
+
+note right
+    _AnnotationCommandParser and _AnnotationCommand represent the
+    respective parser and command objects of the command.
+end note
+
+AddAnnotationCommandParser --> MarkParser
+deactivate AddAnnotationCommandParser
+
+MarkParser -> AddAnnotationCommandParser : parse( arguments )
+activate AddAnnotationCommandParser
+
+create AddAnnotationCommand
+AddAnnotationCommandParser -> AddAnnotationCommand : _AnnotationCommand( ARGS )
+activate AddAnnotationCommand
+note right of AddAnnotationCommandParser : ARGS must include a bookmarkIndex
+note right of AddAnnotationCommand : Each _AnnotationCommand is\nconstructed by passing different\nsequence of arguments (ARGS)\nto the constructor.\nSee the details in the figures below.
+
+AddAnnotationCommand --> AddAnnotationCommandParser : a
+deactivate AddAnnotationCommand
+
+AddAnnotationCommandParser --> MarkParser : a
+deactivate AddAnnotationCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddAnnotationCommandParser -[hidden]-> MarkParser
+destroy AddAnnotationCommandParser
+
+MarkParser --> LogicManager : a
+deactivate MarkParser
+
+LogicManager -> AddAnnotationCommand : execute()
+activate AddAnnotationCommand
+
+AddAnnotationCommand -> AddAnnotationCommand : getRequiredBookmark(bookmarkIndex)
+activate AddAnnotationCommand
+AddAnnotationCommand --> AddAnnotationCommand : b
+deactivate AddAnnotationCommand
+
+ref over AddAnnotationCommand, Bookmark : respective annotation command execution
+
+create OfflineCommandResult
+AddAnnotationCommand -> OfflineCommandResult
+activate OfflineCommandResult
+
+OfflineCommandResult --> AddAnnotationCommand : result
+deactivate OfflineCommandResult
+
+AddAnnotationCommand --> LogicManager : result
+deactivate AddAnnotationCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+destroy AddAnnotationCommand
+@enduml
