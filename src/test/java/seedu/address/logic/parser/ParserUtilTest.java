@@ -235,7 +235,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseAmount_invalidAmount_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAmount("$100.00"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount(""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount("0"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount("-1000"));
         assertThrows(ParseException.class, () -> ParserUtil.parseAmount("100.005"));
         assertThrows(ParseException.class, () -> ParserUtil.parseAmount("10000000000000000"));
     }
