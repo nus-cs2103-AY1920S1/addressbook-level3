@@ -122,7 +122,7 @@ Examples:
 //tag::dataclassificationandmanagement1[]
 
 ==== Finding modules using the module code : `findmod`
-Shows which semester the specified module is located at. +
+Shows the semester that the specified module is located at. +
 Format: `findmod MODULE_CODE`
 
 Examples:
@@ -379,12 +379,12 @@ Examples:
 
 ==== Removing priority tags from study plan: `removepriority`
 Removes the priority tag from the study plan. +
-Format: `removepriority PRIORITY_LEVEL STUDY_PLAN_ID`
+Format: `removepriority STUDY_PLAN_ID`
 
 Examples
 
-* `removepriority high 1`
-* `removepriority low 3`
+* `removepriority 1`
+* `removepriority 3`
 
 ==== Listing study plans by priority: `listbypriority`
 Lists all study plans in the order of their priorities. +

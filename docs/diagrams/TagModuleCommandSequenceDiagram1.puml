@@ -1,0 +1,68 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModulePlannerParser" as ModulePlannerParser LOGIC_COLOR
+participant ":TagModuleCommandParser" as TagModuleCommandParser LOGIC_COLOR
+participant "a:TagModuleCommand" as TagModuleCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addtag someModuleCode someTagName")
+activate LogicManager
+
+LogicManager -> ModulePlannerParser : parseCommand("addtag some ModuleCode someTagName")
+activate ModulePlannerParser
+
+create TagModuleCommandParser
+ModulePlannerParser -> TagModuleCommandParser
+activate TagModuleCommandParser
+
+TagModuleCommandParser --> ModulePlannerParser
+deactivate TagModuleCommandParser
+
+ModulePlannerParser -> TagModuleCommandParser : parse("someModuleCode someTagName")
+activate TagModuleCommandParser
+
+create TagModuleCommand
+TagModuleCommandParser -> TagModuleCommand
+activate TagModuleCommand
+
+TagModuleCommand --> TagModuleCommandParser : a
+deactivate TagModuleCommand
+
+TagModuleCommandParser --> ModulePlannerParser : a
+deactivate TagModuleCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+TagModuleCommandParser -[hidden]-> ModulePlannerParser
+destroy TagModuleCommandParser
+
+ModulePlannerParser --> LogicManager : a
+deactivate ModulePlannerParser
+
+LogicManager -> TagModuleCommand : execute()
+activate TagModuleCommand
+
+ref over TagModuleCommand, Model : Add tag in model
+
+opt tag added
+    create CommandResult
+    TagModuleCommand -> CommandResult
+    activate CommandResult
+
+    CommandResult --> TagModuleCommand
+    deactivate CommandResult
+
+    TagModuleCommand --> LogicManager : result
+    deactivate TagModuleCommand
+
+    [<--LogicManager
+    deactivate LogicManager
+end
+
+@enduml

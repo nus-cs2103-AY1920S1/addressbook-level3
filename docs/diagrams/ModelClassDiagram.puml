@@ -10,10 +10,13 @@ Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Class ModulePlanner
 Class ReadOnlyModulePlanner
+Class VersionedModulePlanner
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class ModuleInfo
+Class ModulesInfo
 
 Package StudyPlan {
 Class StudyPlan
@@ -27,7 +30,7 @@ Class Module
 Class ModuleCode
 Class Name
 Class Color
-Class PrereqTree
+Interface PrereqTree <<Interface>>
 }
 
 Package Tag {
@@ -51,9 +54,12 @@ Class StudyPlanCommitManager
 Class CommitList
 Class Commit
 }
+}
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
+
+StudyPlan -[hidden]- Tag
 
 VersionTrackingManager *--> StudyPlanCommitManagerList
 StudyPlanCommitManagerList o--> "*" StudyPlanCommitManager
@@ -62,30 +68,36 @@ CommitList o--> "*" Commit
 Commit *--> StudyPlan
 
 ModulePlanner .up.|> ReadOnlyModulePlanner
+VersionedModulePlanner -up-|> ModulePlanner
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" ModulePlanner
+ModelManager o--> "1" VersionedModulePlanner
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-ModulePlanner *--> ModulesInfo
-ModulePlanner *--> VersionTrackingManager
-ModulePlanner *--> SemesterName
+ModulePlanner *-down-> ModulesInfo
+ModulePlanner *-down-> VersionTrackingManager
+ModulePlanner *-right-> SemesterName : currentSemester
+
+ModulesInfo o-down-> ModuleInfo
 
 ModulePlanner *--> "1" UniqueStudyPlanList
 UniqueStudyPlanList o--> "*" StudyPlan
-StudyPlan *--> SemesterName
-StudyPlan *--> "2" UniqueTagList
+StudyPlan *-----> SemesterName : currentSemester
+StudyPlan *-down-> "2" UniqueTagList : tags
 StudyPlan *--> Title
-StudyPlan *--> UniqueSemesterList
+StudyPlan *-right-> UniqueSemesterList
+StudyPlan *--> "129" Module : megaModuleHashMap
+
+Semester -[hidden]- Module
 
 UniqueModuleList o--> "*" Module
 Module *--> Name
 Module *--> PrereqTree
 Module *--> Color
 Module *--> ModuleCode
-Module *--> "1" UniqueTagList
+Module *-right-> "1" UniqueTagList
 
 UniqueTagList o--> "*" Tag
 UserTag .up.|> Tag

@@ -117,21 +117,15 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the module planner data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the data in the module planner, which consists of module information, study plans, semesters, modules, tags and version tracking history.
+* exposes an unmodifiable `ObservableList<StudyPlan>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `module planner`, which `Person` can reference. This would allow `module planner` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
-
-//end::
 []
 
 // tag::storage[]
@@ -380,30 +374,46 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-//tag::moduletagging[]
-=== Module Tagging Feature
+//tag::tagging[]
+=== Tagging Feature
 
 ==== Implementation
-The module tagging mechanism is facilitated by `UserTag`, `DefaultTag` and `UniqueTagList`.
+The tagging mechanism is facilitated by `UserTag`, `DefaultTag`, `PriorityTag` and `UniqueTagList`.
 
-`UserTag` and `DefaultTag` implement the `Tag` interface. The former represents user-created tags while the latter
+`UserTag`, `DefaultTag` and `PriorityTag` all implement the `Tag` interface.
+Specifically, `UserTag` and `DefaultTag` are attached to modules and `PriorityTag` is attached to study plans.
+
+===== Module Tags
+`UserTag` represents user-created tags while the `DefaultTag`
 represents default tags of one of the types in `DefaultTagType`. The key difference between `UserTag` and `DefaultTag`
 is that the first is user-modifiable while the second is not and is essentially immutable. The operation
-`Tag#isDefault()` is implemented to differentiate between the two classes of `Tag`.
+`Tag#isDefault()` is implemented to identify a `Tag` as a `DefaultTag`.
 
+===== Study Plan Tags
+`PriorityTag` represents a priority tag of one of the types in `PriorityTagType`. The user can attach a `PriorityTag` to a study plan to indicate its priority level.
+The operation `Tag#isPriority()` is implemented to identify a `Tag` as a `PriorityTag`.
+
+===== UniqueTagList
 Each `Tag` is stored in a `UniqueTagList`, which implements `Iterable<Tag>` and is stored internally in `Module` and
-`StudyPlan` as `tags`.  It represents a list of tags that can be of type `UserTag` or `DefaultTag` and enforces the
-uniqueness between the tags. Additionally, it implements the following operations:
+`StudyPlan`. It represents a list of tags that can be of type `UserTag`, `DefaultTag` or `PriorityTag` and enforces the
+uniqueness between them. Each `StudyPlan` has two unique tag lists, one for its `PriorityTag` and another for all of its modules' tags. The purpose
+of storing the `PriorityTag` in a `UniqueTagList` instead of as independent attribute is to allow for further extensions
+to study plan tagging, i.e. allowing study plans to have other kinds of tags.
+`UniqueTagList` implements the following operations:
 
 - `UniqueTagList#addTag(Tag toAdd)` -- Adds the given `Tag` to the list.
 - `UniqueTagList#removeTag(Tag toRemove)` -- Removes the given `Tag` from the list.
 - `UniqueTagList#containsTagWithName(String tagName)` -- Checks if the list contains a `Tag` with the given `tagName`.
 - `UniqueTagList#getTag(String tagName)` -- Returns the `Tag` with the given `tagName`.
 
-Given below is an example usage scenario of the `UniqueTagList#addTag(Tag toAdd)` operation and how the module tagging
+.Class diagram for the tag model
+image::TagClassDiagram.png[]
+
+There are many operations that can be done in relation to tagging modules. Some examples are _adding_, _deleting_,
+and _renaming_ tags. Given below is an example usage scenario of the `UniqueTagList#addTag(Tag toAdd)` operation and how the module tagging
 mechanism behaves at each step.
 
-Step 1. The user executes the `addtag MODULE_CODE TAG_NAME`. command to add a tag with the name _TAG_NAME_ to the
+Step 1. The user executes the `addtag MODULE_CODE TAG_NAME` command to add a tag with the name _TAG_NAME_ to the
 module with the module code _MODULE_CODE_.  A `toAdd` variable of type `Tag` and a boolean value `newTagCreated` is
 maintained during the execution of the command to represent the tag that is to be added and whether or not a new tag
 has been created respectively. The `addtag` command calls `Model#activeSpContainsTag(String tagName)` to check if the
@@ -451,9 +461,19 @@ Step 6: If the tag had been added, a `CommandResult` with a success message is r
 
 The following sequence diagram and activity diagram show how the `addtag` command works:
 
-image::TagModuleCommandSequenceDiagram.png[]
+.`addtag` command execution
+image::TagModuleCommandSequenceDiagram1.png[]
 
+.Adding the module tag in the model
+image::TagModuleCommandSequenceDiagram2.png[]
+
+.Activity diagram for module tagging
 image::TagModuleCommandActivityDiagram.png[]
+
+[NOTE]
+The command exceptions in the above activity diagram should actually point to a single _stop_ at the end.
+There are multiple _stops_ in the above diagram as PlantUML does not support having a single _stop_ and []
+for branch labels in one syntax.
 
 ==== Design Considerations
 
@@ -461,17 +481,17 @@ image::TagModuleCommandActivityDiagram.png[]
 
 * **Alternative 1 (current choice):** A tag with a given name is only created once. Adding a tag to a module simply
 creates a reference from the module to the existing tag.
-** Pros: Reduces memory usage and makes duplication checking easier (simply check the `UniqueTagList` of the `StudyPlan`
+** Pros: Reduces memory usage, promotes consistency and makes duplication checking easier (simply check the `UniqueTagList` of the `StudyPlan`
 instead of checking the list in every `Module`).
 ** Cons: More difficult to implement and requires searching and reassignment of pointers every time the command is
 executed.
 * **Alternative 2:** A new tag is created every time a tag is added even if there is already an existing tag with the
 same name.
 ** Pros: Easier to implement as no searching of previous tags need to be done.
-** Cons: Increases memory usage and duplication checking might be more difficult (have to check the `UniqueTagList` of
+** Cons: Increases memory usage, ensuring consistency and duplication checking might be more difficult (have to check the `UniqueTagList` of
 every `Module` instead of just the one in the `StudyPlan`.
 
-//end::moduletagging[]
+//end::tagging[]
 
 //tag::moduleinformationandverification[]
 

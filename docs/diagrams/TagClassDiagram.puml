@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor TAG_COLOR
+skinparam classBackgroundColor TAG_COLOR
+
+Interface Tag <<Interface>>
+
+Class StudyPlan
+Class Module
+Class UniqueTagList
+
+Class UserTag
+Class DefaultTag
+Class PriorityTag
+
+StudyPlan -down-> "2" UniqueTagList
+Module -down-> "1" UniqueTagList
+UniqueTagList o-down-> Tag
+
+UserTag .up.|> Tag
+DefaultTag .up.|> Tag
+PriorityTag .up.|> Tag
+
+@enduml

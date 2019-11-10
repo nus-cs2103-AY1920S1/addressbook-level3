@@ -1,0 +1,128 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box ModulePlanner MODULE_PLANNER_COLOR_T1
+participant ":ModulePlanner" as ModulePlanner MODULE_PLANNER_COLOR
+end box
+
+box StudyPlan STUDY_PLAN_COLOR_T1
+participant ":ActiveStudyPlan" as StudyPlan STUDY_PLAN_COLOR
+end box
+
+box UserTag TAG_COLOR_T1
+participant ":UserTag" as UserTag TAG_COLOR
+end box
+
+box Module MODULE_COLOR_T1
+participant ":Module" as Module MODULE_COLOR
+end box
+
+box UniqueTagList #d1b9a8
+participant ":ModuleTagList" as ModuleTagList #bd9870
+participant ":StudyPlanModuleTagList" as StudyPlanModuleTagList #bd9870
+end box
+
+[-> Model : activeSpContainsTag(someTagName)
+activate Model
+
+Model -> ModulePlanner : activeSpContainsTag(someTagName)
+activate ModulePlanner
+
+ModulePlanner -> StudyPlan : containsTag(someTagName)
+activate StudyPlan
+
+StudyPlan -> StudyPlanModuleTagList : containsTag(someTagName)
+activate StudyPlanModuleTagList
+
+StudyPlanModuleTagList --> StudyPlan : containsTag
+deactivate StudyPlanModuleTagList
+
+StudyPlan --> ModulePlanner : containsTag
+deactivate StudyPlan
+
+ModulePlanner --> Model : containsTag
+deactivate ModulePlanner
+
+[<-- Model : containsTag
+deactivate Model
+
+alt active study plan contains tag
+    [-> Model: getTagFromActiveSp(someTagName)
+    activate Model
+
+    Model -> ModulePlanner : getTagFromActiveSp(someTagName)
+    activate ModulePlanner
+
+    ModulePlanner -> StudyPlan : getTagFromActiveSp(someTagName)
+    activate StudyPlan
+
+    StudyPlan -> StudyPlanModuleTagList : getTag(someTagName)
+    activate StudyPlanModuleTagList
+
+    StudyPlanModuleTagList --> StudyPlan : toAdd
+    deactivate StudyPlanModuleTagList
+
+    StudyPlan --> ModulePlanner : toAdd
+    deactivate StudyPlan
+
+    ModulePlanner --> Model : toAdd
+    deactivate ModulePlanner
+
+    [<-- Model : toAdd
+    deactivate Model
+
+else else
+    create UserTag
+    [-> UserTag : createNewTag()
+    activate UserTag
+
+    [<-- UserTag : toAdd
+    deactivate UserTag
+
+end
+
+[-> Model : addTagToActiveSp(toAdd, someModuleCode)
+activate Model
+
+Model -> ModulePlanner : addTagToActiveSp(toAdd, someModuleCode)
+activate ModulePlanner
+
+ModulePlanner -> StudyPlan : addTag(toAdd, someModuleCode)
+activate StudyPlan
+
+StudyPlan -> Module: addTag(toAdd)
+activate Module
+
+Module -> Module : hasTag(toAdd)
+activate Module
+
+Module -> ModuleTagList : containsTag(toAdd)
+activate ModuleTagList
+
+ModuleTagList --> Module: hasTag
+deactivate ModuleTagList
+deactivate Module
+
+opt hasTag
+    Module -> ModuleTagList : addTag(toAdd)
+    activate ModuleTagList
+    deactivate ModuleTagList
+end
+
+Module --> StudyPlan: added
+deactivate Module
+
+StudyPlan --> ModulePlanner : added
+deactivate StudyPlan
+
+ModulePlanner --> Model : added
+deactivate ModulePlanner
+
+[<-- Model : added
+deactivate Model
+
+@enduml
