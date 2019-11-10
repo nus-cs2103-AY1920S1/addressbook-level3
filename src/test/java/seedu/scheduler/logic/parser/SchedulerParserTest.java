@@ -125,17 +125,17 @@ public class SchedulerParserTest {
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE), ()
                 -> parser.parseCommand(ImportCommand.COMMAND_WORD
-                + " interviewer src/test/data/ImportsTest/InterviewerTestData.csv"));
+                + " interviewer src/test/data/ImportsTest/validInterviewerList.csv"));
         //No prefix, interviewee
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE), ()
                 -> parser.parseCommand(ImportCommand.COMMAND_WORD
-                + " interviewee src/test/data/ImportsTest/InterviewerTestData.csv"));
+                + " interviewee src/test/data/ImportsTest/validInterviewerList.csv"));
         //No type
         assertThrows(ParseException.class,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE), ()
                 -> parser.parseCommand(ImportCommand.COMMAND_WORD
-                + " " + PREFIX_FILE_PATH + "src/test/data/ImportsTest/InterviewerTestData.csv"));
+                + " " + PREFIX_FILE_PATH + "src/test/data/ImportsTest/validInterviewerList.csv"));
         //File does not exist
         assertThrows(ParseException.class,
                 FILE_DOES_NOT_EXIST, () -> parser.parseCommand(ImportCommand.COMMAND_WORD
@@ -143,12 +143,12 @@ public class SchedulerParserTest {
         //Success
         assertTrue(parser.parseCommand(
                 ImportCommand.COMMAND_WORD
-                        + " interviewer " + PREFIX_FILE_PATH + "src/test/data/ImportsTest/InterviewerTestData.csv")
+                        + " interviewer " + PREFIX_FILE_PATH + "src/test/data/ImportsTest/validInterviewerList.csv")
                 instanceof ImportCommand);
         //Success
         assertTrue(parser.parseCommand(
                 ImportCommand.COMMAND_WORD
-                        + " interviewee " + PREFIX_FILE_PATH + "src/test/data/ImportsTest/InterviewerTestData.csv")
+                        + " interviewee " + PREFIX_FILE_PATH + "src/test/data/ImportsTest/validInterviewerList.csv")
                 instanceof ImportCommand);
     }
 

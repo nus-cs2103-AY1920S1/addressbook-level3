@@ -98,7 +98,7 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
 
     @Override
     public String toString() {
-        return interviewers.asUnmodifiableObservableList().size() + " interviewees";
+        return interviewers.asUnmodifiableObservableList().size() + " interviewers";
     }
 
     @Override

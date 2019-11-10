@@ -1,7 +1,9 @@
 package seedu.scheduler.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.scheduler.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -36,5 +38,10 @@ public class NameTest {
         assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+    }
+
+    @Test
+    public void hashCode_validName_success() {
+        assertEquals(VALID_NAME_AMY.hashCode(), new Name(VALID_NAME_AMY).hashCode());
     }
 }
