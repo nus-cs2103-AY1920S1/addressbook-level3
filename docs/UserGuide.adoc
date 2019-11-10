@@ -20,7 +20,9 @@ By: `Vortex`      Since: `Sep 2019`      Licence: `MIT`
 
 Ever did group activities where everyone paid different amounts, and it became so troublesome and confusing to figure out how to redistribute costs evenly? Fret no more because with *SplitWiser* is here! *SplitWiser* is a free tool for friends and roommates to track bills and other shared expenses, so that everyone gets paid back, and everyone is happy.
 
-Coming in v2.0:
+image::./Ui.png[width="600"]
+
+As part of the v2.0 release, *SplitWiser* will also launch with a mobile version for Android and iOS devices, allowing seamless integration across all your computing devices.
 
 image::./minified-mockups/main.png[width="251"]
 
@@ -34,9 +36,10 @@ image::./minified-mockups/main.png[width="251"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list c/`* : displays list of all contacts
+* *`list c/`* : displays a list of all your contacts
 * **`contact`**`n/John Doe p/98765432` : adds a new contact named `John Doe` with mobile number `98765432` to SplitWiser.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list a/`* : displays a list of all tracked activities
+* *`view a/1`* : view details of the 1st activity shown in the list of activities
 * *`exit`* : exits and closes the app
 
 .  Refer to <<Commands>> for details of each command.
@@ -64,9 +67,10 @@ No need receipt-collecting and number-crunching anymore -- SplitWiser does it al
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact n/CONTACT_NAME`, `CONTACT_NAME` is a parameter which can be used as `contact n/John Doe`.
-* Parameters in square brackets are optional e.g `n/ACTIVITY_NAME [p/PERSON_1]` can be used as `n/Drinks p/John Doe` or as `n/Drinks`.
+* Successive parameters are separated by one or more spaces.
+* Parameters in square brackets are optional, e.g `n/ACTIVITY_NAME [p/PERSON_1]` can be used as `n/Drinks p/John Doe` or as `n/Drinks`.
 * Parameters with `…`​ may be supplied multiple times, including 0 times for optional parameters, e.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/friend tag/family` etc.
-* Parameters may be supplied in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters may be supplied in any order unless specified otherwise, e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -76,7 +80,7 @@ Format: `help`
 
 === List all contacts or activities : `list`
 
-Switches the current view to list all contacts or activities. +
+Switches the current view to list either all contacts or activities. +
 
 ****
 * Argument values supplied with parameters are ignored for this command.
@@ -86,16 +90,16 @@ Format: `list c/` for contacts *OR* `list a/` for activities
 
 === View a contact or activity : `view`
 
-Switches the current view to show details of a contact or activity based on their index number in the currently/last viewed list. +
+Switches the current view to show details of a contact or activity based on their display index in the current/last viewed list. +
 
 Format: `view a/ACTIVITY_ID` *OR* `view c/CONTACT_ID` +
 
 Examples:
 
 * `view a/1` +
-Views the first activity in the last viewed activity list, e.g. Chalet
+Views the details of the first activity, if the activity list was last displaying one or more activities
 * `view c/2` +
-views the second contact in the last viewed contacts list, e.g. John Smith
+Views the details of the second contact, if the contact list was last displaying at least two contacts
 
 === Create new contact: `contact`
 
@@ -202,7 +206,9 @@ This adds an expense of $15 by John Doe called `Cab` where only John himself is 
 
 Settles the debt between two people within the currently viewed activity.
 Specify two people, and optionally an amount `AMOUNT_PAID` to settle.
+
 There are two options available:
+
 * `AMOUNT_PAID` is not provided: then the command will automatically calculate the minumum needed to settle the debt and use that as the amount.
 * `AMOUNT_PAID` is provided: the command will use this amount.
 
@@ -336,19 +342,6 @@ Examples:
 
 * `assign 3 5`
 If viewing an activity with title 'Family trip', assigns the activities with IDs 3 and 5 as sub-activities of 'Family trip'. Otherwise does nothing.
-
-=== Update an activity as resolved: `close` (*v2.0 only*)
-
-Marks an activity as resolved, clearing (removing) the debts within from each contact.
-
-Multiple activities can be resolved at once.
-
-Format: `close a/ACTIVITY_ID ...`
-
-Examples:
-
-* `close 3 4` +
-Marks the activities with activity ID 3 and 4 as resolved, updating the aggregated debt of their participants.
 
 === Exiting the program : `exit`
 
