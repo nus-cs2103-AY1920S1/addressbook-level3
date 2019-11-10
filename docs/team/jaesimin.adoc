@@ -2,12 +2,6 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-:important-caption: :heavy_exclamation_mark:
-:warning-caption: :warning:
-endif::[]
 
 === Done By: Jasmine Yeo Jia Min
 
