@@ -1,0 +1,47 @@
+= Abdul Haliq - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FlashCard Pro
+
+== Overview
+
+FlashCardPro is a program to manage flash cards each with three properties; front, back and evaluation.
+The simplest form of a flash card is a `FrontBackCard` where the front and back are texts and evaluation
+is checking that the user's input is the same as back.
+
+The app also has a review mode where users can test themselves with the cards they have created.
+
+Cards can also easily be shared via a json file per deck of cards.
+
+== Code Contribution
+
+* Came up with initial structure for the model of abstract flash cards
+
+* Came up with high level design for input parsing via enums; `Responses` and `Responder`.
+
+* Implemented `FileReadWrite` library used by the team to store and read files in a centralized location.
+
+* Implemented JSON parsing algorithm from scratch that takes a string input and creates `JsonValue` objects that can be interpreted in java to reconstruct objects that it represents.
+
+* Contributed to storage for stats objects i.e. `Sessions`.
+
+* Implemented a cli that reads keystrokes and based on that action determines how to edit and present text
+for the user. It is to emulate a terminal window. It also has multiline editing capabilities (a mini text editor).
+
+* JUnit tests for StorageManager, FileReadWrite, Printer and all the JSON classes tests
+
+== Documentation Contribution
+
+* Wrote a [tutorial](https://gist.github.com/AHaliq/cf948272854c75267d4bf3a7af757eca) for the team to understand `Responses` at its most basic form
+
+* include::../DeveloperGuide.adoc[tag=storage]
+
+* include::../DeveloperGuide.adoc[tag=parsejson]
+
+* include::../DeveloperGuide.adoc[tag=regexutil]
+
+* include::../UserGuide.adoc[tag=cli]
+
+
