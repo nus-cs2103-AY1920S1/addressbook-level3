@@ -292,7 +292,7 @@ NOTE: The `NUMBER_OF_QUESTIONS` must be a positive integer. +
 
 _**Example:**_
 
-Step 1: Types `quiz n/2 d/Easy s/CS2040` in the command box and presses `Enter` to execute the command. The following
+Step 1: Types `quiz n/2 d/easy s/cs2040` in the command box and presses `Enter` to execute the command. The following
 graph specifies how you can input the command. +
 
 .Typing `quiz` command
