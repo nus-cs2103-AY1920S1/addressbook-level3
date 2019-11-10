@@ -395,8 +395,8 @@ Format: `clear`
 
 // tag::list[]
 
-==== List all entries: `list`
-You can list all entries of bodies, workers, or fridges by entering a list command with the given format below.
+==== List all entries : `list`
+You can list all entries of bodies, workers, or fridges.
 
 Format: `list -FLAG`
 
@@ -408,7 +408,19 @@ Format: `list -FLAG`
 |===
 
 Example: `list -b` +
-Lists all bodies currently in Mortago.
+After filtering specific bodies, you may now want to view the full list of bodies:
+
+* 1. Mortago shows filtered list of bodies.
+
+image::list1.png[]
+
+* 2. Type `list -b` in the Command Line Interface (CLI).
+
+image::list2.png[]
+
+* 3. Mortago shows unfiltered list of bodies.
+
+image::list3.png[]
 
 // end::list[]
 
@@ -565,33 +577,34 @@ You must ensure that all existing reports are closed before executing any report
 // tag::genReport[]
 
 ==== Generate report for a specific body: `genReport`
-You can generate an individual report in a PDF filename `[subheader]#Report <body_ID>.pdf#` located in the folder containing the jar file by entering a genReport command with the given format below.
+You can generate an individual report in a PDF filename `[red]#Report <body_ID>.pdf#` located in the folder containing the jar file as shown in the screenshot below:
 
 image::reportlocation.png[width="790"]
 You can also add your signature name to the report by following the command format below.
 
 [IMPORTANT]
-Your signature should not contain numbers and must be less than 40 characters.
+Your signature should only contain alphabets and whitespaces and must be less than 40 characters.
 
 Format: `genReport bodyId (yourSignatureName)`
 
 Example:
 
-* `genReport 123 John Doe` +
-Outputs the PDF report for body ID B00000123 in the folder containing the jar file. The report contains signature of John Doe.
-* `genReport 123` +
-Outputs the PDF report for body ID B00000123 in the folder containing the jar file. The report does not contain any signature.
+* `genReport 1 John Doe` +
+Outputs the PDF report for body ID B00000001 in the folder containing the jar file. The report contains signature of John Doe.
+* `genReport 1` +
+Outputs the PDF report for body ID B00000001 in the folder containing the jar file. The report does not contain any signature.
 // end::genReport[]
 
 // tag::genReports[]
 
 ==== Generate reports for all bodies: `genReports`
-You can generate all individual reports in a PDF filename `[subheader]#Report (ALL BODIES).pdf#` located in the folder containing the jar file by entering a genReports command with the given format below.
+You can generate all individual reports in a PDF filename `[red]#Report (ALL BODIES).pdf#` located in the folder containing the jar file.
+
 
 You can also add your signature name to the report by following the command format below.
 
 [IMPORTANT]
-Your signature should not contain numbers and must be less than 40 characters.
+Your signature should only contain alphabets and whitespaces and must be less than 40 characters.
 
 Format: `genReports (yourSignatureName)`
 
@@ -606,12 +619,12 @@ Outputs the PDF containing reports for all bodies in the folder containing the j
 // tag::genReportSummary[]
 
 ==== Generate summary report for all bodies: `genReportSummary`
-You can generate a tabular report overview containing key information for all bodies in a PDF filename `[subheader]#Report Summary.pdf#` located in the folder containing the jar file by entering a genReportSummary command with the given format below.
+You can generate a tabular report overview containing key information for all bodies in a PDF filename `[red]#Report Summary.pdf#` located in the folder containing the jar file.
 
 You can also add your signature name to the report by following the command format below.
 
 [IMPORTANT]
-Your signature should not contain numbers and must be less than 40 characters.
+Your signature should only contain alphabets and whitespaces and must be less than 40 characters.
 
 Format: `genReportSummary (yourSignatureName)`
 
@@ -677,6 +690,7 @@ Archives body entry with ID 2
 Archives all entries of workers who are inactive
 
 ==== View archived entries: `archives` `[coming in v2.0]`
+
 You can display all archived entries by entering an archives command with the given format below.
 
 Format: `archives -FLAG`
@@ -693,6 +707,7 @@ Displays all archived worker entries, in order of archive date.
 ==== Give and view feedback: `feedback` `[coming in v2.0]`
 You can give workers feedback and display a history of all feedback entered by entering a feedback command with the given format below.
 
+
 Format:
 
 * `feedback /workerId workerId /details details` to assign feedback
@@ -701,7 +716,7 @@ Format:
 Example:
 
 * `feedback /id 10 /details very meticulous` +
-Note down feedback for worker with ID W10010 with custom details
+Notes down feedback for worker with ID W10010 with custom details
 
 // end::feedback[]
 
@@ -712,9 +727,7 @@ You can assign a body and task to a worker by entering an assign command with th
 
 Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
 
-Example:
-
-* `assign /bodyId 2 /workerId 1 /task send blood sample to lab for analysis` +
+Example: `assign /bodyId 2 /workerId 1 /task send blood sample to lab for analysis` +
 Assigns worker with worker ID W00001 to body with ID B00000002 with a task description.
 
 // end::assign[]
@@ -726,6 +739,7 @@ Assigns worker with worker ID W00001 to body with ID B00000002 with a task descr
 ==== View all commands: `help`
 You can view a summary of all available commands and their flags by entering a help command with the given format below.
 Use the `-v` flag to view the detailed description of all commands and their flags.
+
 
 Format: `help`
 
