@@ -539,6 +539,7 @@ image::UndoRedoState4.png[]
 Step 6. The user executes `clear`, which calls `Model#commitTutorAid()`. Since the `currentStatePointer` is not pointing at the end of the `tutorAidStateList`, all tutor aid states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add_task c/CS2103T ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
+// end::undoAndRedo[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -554,7 +555,7 @@ image::CommitActivityDiagram.png[]
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
-// end::undoAndRedo[]
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -636,7 +637,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |caring tutor user |check the upcoming events |remind my students
 |=======================================================================
-
+// end::userStoriesAndCase[]
 _{More to be added}_
 
 [appendix]
@@ -673,7 +674,7 @@ Use case ends.
 +
 Use case resumes at step 2. +
 
-// end::userStoriesAndCase[]
+
 
 
 [discrete]

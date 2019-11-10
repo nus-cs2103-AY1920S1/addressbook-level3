@@ -60,25 +60,24 @@ The user interacts with TutorAid using a Command Line Interface (CLI), with a Gr
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are some sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. Because of the limitation of number of pages, some contributions like the detailed implementation of task commands and undo/redo commands are not shown below._
 |===
 
 include::../UserGuide.adoc[tag=tasks]
-include::../UserGuide.adoc[tag=undoAndRedo]
 include::../UserGuide.adoc[tag=commandSummary]
 
+'''
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are some sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. Because of the limitation of number of pages, some contributions like the explanation of the add_task command, the considerations for undo/redo command, as well as the use case are not shown below._
 |===
-
-include::../DeveloperGuide.adoc[tag=Calendar]
 
 include::../DeveloperGuide.adoc[tag=undoAndRedo]
 
 include::../DeveloperGuide.adoc[tag=userStoriesAndCase]
 
+'''
 
 
