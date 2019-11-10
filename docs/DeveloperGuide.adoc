@@ -203,9 +203,10 @@ image::storage_classdiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`[green]#Storage.java#`]
 
-The `[green]#Storage#` component the following data in json format and read it back
+The `[green]#Storage#` component saves the following data in json format and reads it back as objects when
+a new session of Athletick is started.
 
-* `[green]#UserPref#` objects
+* `[green]#UserPref#` data
 * `[green]#Athletick#` data (athlete list)
 * `[green]#Performance#` data (`[green]#Event#` and `[green]#Record#`)
 * `[green]#TrainingManager#` data (`[green]#Training#`)
