@@ -1681,6 +1681,12 @@ Expected: A new motivation quote is selected at random and shown in the pane sho
 === Reference on Healthy Blood Sugar Level Ranges for Diabetic Patients
 https://www.diabetes.co.uk/diabetes_care/blood-sugar-level-ranges.html
 
+=== References on Food Recommendations
+** https://www.safefood.eu/SafeFood/media/SafeFoodLibrary/Documents/Publications/Consumer/Diabetes-Type-2-Booklet-July-12.pdf
+** http://main.diabetes.org/dorg/PDFs/awareness-programs/hhm/what_can_i_eat-best_foods-American_Diabetes_Association.pdf
+** https://www.cdc.gov/diabetes/ndep/pdfs/54-tasty-recipes-508.pdf
+** https://www.diabeteswa.com.au/wp-content/uploads/2016/09/food-choices-for-people-with-diabetes.pdf
+
 === Sources of Motivational Quotes
 * http://www.wiseoldsayings.com/healthy-eating-quotes/
 * https://www.centralofsuccess.com/diabetes-slogans-quotes-funny-inspiring/
@@ -1701,3 +1707,4 @@ from https://www.flaticon.com/free-icon/user_149068
 * Doge Profile Picture in User Guide Screenshot: https://pdxmonthly.com/articles/2015/1/5/who-let-the-doge-out-january-2015
 * Mountains Background Image in User Guide Screenshot: https://www.pexels.com/photo/landscape-photography-of-mountains-covered-in-snow-691668/
 * Space Background Image in User Guide Screenshot: Andy Holmes via https://unsplash.com/photos/LUpDjlJv4_c (with minor edits)
+* SugarMummy Logo: https://www.flaticon.com/authors/popcorns-arts

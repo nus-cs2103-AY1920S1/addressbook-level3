@@ -1,8 +1,5 @@
 ﻿Some code adapted from http://code.makery.ch/library/javafx-8-tutorial/ by Marco Jakob
 
-Copyright by FlatIcon - "https://www.flaticon.com/authors/popcorns-arts
-- sugar_mummy_logo.png
-
 Copyright by Jan Jan Kovařík - http://glyphicons.com/
 - calendar.png
 - edit.png
