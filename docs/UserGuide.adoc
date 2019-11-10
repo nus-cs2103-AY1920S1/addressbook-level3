@@ -26,7 +26,7 @@ This desktop application is targeted at clerks working in small clinics. It is d
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `ClerkPro.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for ClerkPro.
-.  Double-click the file to start the app. The User Interface (UI) should appear in a few seconds.
+.  Double-click the file to start the app. The User Interface (UI) should appear in a few seconds. For testing purposes, ClerkPro is pre-loaded with sample data to allow you to explore and familiarise with the application.
 +
 image::Ui.png[]
 +
@@ -44,6 +44,8 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window. Alternati
 * `exit` : exits the application.
 
 .  Refer to <<Features>> for details of each command.
+
+Do not directly edit any of the  following json files: e.g. `appointments.json`, `dutyRoster.json`, `patientDetails.json`, `staffDetails.json`, `preferences.json`, `config.json`
 
 [[Features]]
 
