@@ -134,6 +134,7 @@ our CLI.
 
 IchiFund data is saved in the hard disk automatically after you enter any command that changes the data. +
 There is no need for you to save manually.
+
 // tag::tx[]
 === Transactions
 
