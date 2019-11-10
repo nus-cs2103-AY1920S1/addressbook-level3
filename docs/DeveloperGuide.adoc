@@ -624,6 +624,56 @@ A Participation is an association class we have created for every Person who has
 Competition. A person can take part in many competitions, and for each competition he/she takes part in, there will be a
 corresponding Participation class associated to that Person and Competition instance.
 
+===== Supporting the create, read, update and delete of the instances of the Participation association class
+To support the add, delete, and reading of the participation instances using the commands below,
+the JSON storage system was modified (please refer to the Storage section above) in order to support
+the many-to-many relationship between competition and person. This allows the association class to
+be saved which the original Address Book architecture did not allow.
+
+===== Choice of Design Pattern
+Optimally, such many-to-many relationships should be handled by some form of join table on a database. Due to
+the project restrictions, we mapped a similar structure the the JSON storage system treating each file as a table,
+attempting to parallel the way real databases worked while still using JSON storage.
+
+===== Implementation
+To achieve this we treated each file saved as a table. Hence, there is a save file for each of the participation,
+competition and person models. When reading from the JSON storage, the competition and person data are read first,
+before the participation data is read. This is because the Competition and Person objects need to be created first
+in order to be associated with the Participation class. Since the names of competitions and persons are unique,
+we used that to identify the competition and person instances the participation instance that was originally
+saved was associated with.
+
+Pros:
+
+1. By using a Json Storage, the amount of changes to the Storage system was substantial but minimized, while
+still being able to support the Participation association class which helped decouple the Person and Competition
+classes.
+
+Con:
+
+1. The uploading of the participation class from JSON relies on the property that there is some unique data
+signature of a person and the competitions, which can be determined from the data stored as JSON. Since
+both Person and Competition extend UniqueELementList, they will certainly be have some unique data
+signature (i.e. in this case each person and competition have unique names), which can be used to determine the instances the
+Participation object was originally associated with before it was saved. Hence, the current JSON storage
+system is not designed extensibly for the developer to move away from using the UniqueElement class for its instances
+or store data in a way that is not unique to the instances as instances with the same data signature cannot be
+distinguished from each other using the current JSON storage system.
+
+
+Alternative:
+
+We have considered using XML storage and/or creating foreign keys using the JSON storage. However, due to the
+limitations of time and the complexity of achieving such a feature, we settled with modifying the JSON storage.
+
+Please see the following Structure of the Storage Component diagram and check the repository to understand the utility
+of the Storage system to support the many-to-many relationship.
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/system/storage/Storage.java[`Storage.java`]
+
 ===== Create a new Participation
 To create a new Participation, the associated Person and Competition must exist. If either doesnt,
 an exception will be thrown to the user through the result box to prompt the user to input an existing one.
