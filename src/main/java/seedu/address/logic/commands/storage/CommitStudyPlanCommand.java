@@ -9,7 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Commits current active study plan with a commit message.
+ * Commits the current active study plan with a commit message.
  */
 public class CommitStudyPlanCommand extends Command {
 
@@ -19,13 +19,13 @@ public class CommitStudyPlanCommand extends Command {
             + "Parameters: "
             + "commit message \n"
             + "Example: " + COMMAND_WORD + " "
-            + "NOC halfyear";
-    public static final String MESSAGE_SUCCESS = "study plan commited: %1$s";
+            + "NOC half year";
+    public static final String MESSAGE_SUCCESS = "Current study plan committed with a message: %1$s";
 
     private final String commitMessage;
 
     /**
-     * Creates a CommitStudyPlanCommand to commit with the specified {@code commitMessage}
+     * Creates a CommitStudyPlanCommand to commit with the specified {@code commitMessage}.
      */
     public CommitStudyPlanCommand(String commitMessage) {
         requireNonNull(commitMessage);

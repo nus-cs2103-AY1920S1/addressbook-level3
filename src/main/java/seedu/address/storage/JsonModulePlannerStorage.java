@@ -16,7 +16,7 @@ import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
 
 /**
- * A class to access ModulePlanner data stored as a json file on the hard disk.
+ * A class to access ModulePlanner data stored as a JSON file on the hard disk.
  */
 public class JsonModulePlannerStorage implements ModulePlannerStorage {
 
@@ -65,6 +65,7 @@ public class JsonModulePlannerStorage implements ModulePlannerStorage {
     @Override
     public void saveModulePlanner(ReadOnlyModulePlanner modulePlanner) throws IOException {
         saveModulePlanner(modulePlanner, filePath);
+        logger.info("Saving the module planner...");
     }
 
     /**

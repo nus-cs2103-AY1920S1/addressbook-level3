@@ -22,7 +22,7 @@ public class CommitStudyPlanCommandParserTest {
     }
 
     @Test
-    public void parse_nonEmptyArg_returnsEditTitleCommand() {
+    public void parse_nonEmptyArg_returnsCommitStudyPlanCommand() {
         String validCommitMessage = "non-empty";
         CommitStudyPlanCommand expectedCommitStudyPlanCommand = new CommitStudyPlanCommand(validCommitMessage);
         assertParseSuccess(parser, validCommitMessage, expectedCommitStudyPlanCommand);

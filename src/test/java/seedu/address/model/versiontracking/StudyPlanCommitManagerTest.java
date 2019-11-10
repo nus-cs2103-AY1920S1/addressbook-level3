@@ -52,7 +52,7 @@ public class StudyPlanCommitManagerTest {
         // then revert to an old commit
         manager.revertToCommit(0);
         Commit commit2 = manager.getCommitList().getCommitByIndex(2); // should be equal to commit1
-        Commit revertedCommit = manager.getCommitList().getCommitByIndex(3); // should be have the same study plan as 0
+        Commit revertedCommit = manager.getCommitList().getCommitByIndex(3); // should have the same study plan as 0
 
         assertEquals(commit2, commit1);
         assertEquals(revertedCommit.getStudyPlan(), SP_1);

@@ -7,51 +7,60 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
+import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ModulePlanner;
+import seedu.address.model.ModulesInfo;
 import seedu.address.model.ReadOnlyModulePlanner;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.studyplan.Title;
 import seedu.address.storage.JsonModulePlannerStorage;
 import seedu.address.storage.JsonModulesInfoStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.ModulesInfoStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.StudyPlanBuilder;
 
-//import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-//import seedu.address.logic.commands.CreateStudyPlanCommand;
-//import seedu.address.model.ModelManager;
-//import seedu.address.model.UserPrefs;
-//import seedu.address.model.studyplan.StudyPlan;
-//import seedu.address.testutil.StudyPlanBuilder;
-
+/**
+ * A test class for {@code LogicManager}.
+ */
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
-
-    // TODO modify tests
 
     @TempDir
     public Path temporaryFolder;
 
-    //private Model model = new ModelManager();
+    private Model model;
     private Logic logic;
+    private ModulesInfo modulesInfo;
 
     @BeforeEach
     public void setUp() {
         JsonModulePlannerStorage modulePlannerStorage =
                 new JsonModulePlannerStorage(temporaryFolder.resolve("modulePlanner.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        JsonModulesInfoStorage modulesInfoStorage =
+        JsonModulesInfoStorage jsonModulesInfoStorage =
                 new JsonModulesInfoStorage(temporaryFolder.resolve("modulesInfo.json"));
-        StorageManager storage = new StorageManager(modulePlannerStorage, userPrefsStorage, modulesInfoStorage);
-        //logic = new LogicManager(model, storage);
+        StorageManager storage = new StorageManager(modulePlannerStorage, userPrefsStorage, jsonModulesInfoStorage);
+
+        ModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(Paths.get("modules_cs.json"));
+        modulesInfo = initModulesInfo(modulesInfoStorage);
+        model = new ModelManager(new ModulePlanner(), new UserPrefs(), modulesInfo);
+        logic = new LogicManager(model, storage);
     }
 
     @Test
@@ -62,15 +71,18 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_STUDY_PLAN_DISPLAYED_INDEX);
+        String deleteStudyPlanCommand = "removeplan 9";
+        assertCommandException(deleteStudyPlanCommand, MESSAGE_INVALID_STUDY_PLAN_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validCommand_success() throws Exception {
+        model.addStudyPlan(new StudyPlanBuilder().build()); // so that there's something to list
+        String listAllStudyPlansCommand = ListAllStudyPlansCommand.COMMAND_WORD;
+        assertCommandSuccess(listAllStudyPlansCommand,
+                ListAllStudyPlansCommand.MESSAGE_SUCCESS + "[ID: 1] Title: Test Study Plan\n", model);
     }
 
-    /*
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonModulePlannerIoExceptionThrowingStub
@@ -83,21 +95,20 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(modulePlannerStorage, userPrefsStorage, modulesInfoStorage);
         logic = new LogicManager(model, storage);
 
-        // Execute add command
-        String addCommand = CreateStudyPlanCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        StudyPlan expectedStudyPlan = new StudyPlanBuilder(AMY).withModuleTags().build();
-        ModelManager expectedModel = new ModelManager();
+        // Execute create study plan command to create one without a title
+        String createStudyPlanCommand = CreateStudyPlanCommand.COMMAND_WORD;
+        StudyPlan expectedStudyPlan = new StudyPlanBuilder().withTitle(new Title("")).build();
+        ModelManager expectedModel = new ModelManager(new ModulePlanner(), new UserPrefs(), modulesInfo);
         expectedModel.addStudyPlan(expectedStudyPlan);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+
+        assertThrows(CommandException.class, expectedMessage, () -> logic.execute(createStudyPlanCommand));
     }
 
     @Test
     public void getFilteredStudyPlanList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredStudyPlanList().remove(0));
     }
-     */
 
     /**
      * Executes the command and confirms that
@@ -111,7 +122,7 @@ public class LogicManagerTest {
                                       Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
-        //assertEquals(expectedModel, model);
+        assertEquals(expectedModel, model);
     }
 
     /**
@@ -120,7 +131,7 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
-        //assertCommandFailure(inputCommand, ParseException.class, expectedMessage);
+        assertCommandFailure(inputCommand, ParseException.class, expectedMessage);
     }
 
     /**
@@ -129,20 +140,18 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
-        //assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
+        assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
     }
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
      * @see #assertCommandFailure(String, Class, String, Model)
      */
-    /*
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getModulePlanner(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getModulePlanner(), new UserPrefs(), modulesInfo);
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
-     */
 
     /**
      * Executes the command and confirms that
@@ -155,7 +164,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
-        //assertEquals(expectedModel, model);
+        assertEquals(expectedModel, model);
     }
 
     /**
@@ -171,4 +180,19 @@ public class LogicManagerTest {
             throw DUMMY_IO_EXCEPTION;
         }
     }
+
+    /**
+     * Initialises modules info from storage.
+     */
+    protected ModulesInfo initModulesInfo(ModulesInfoStorage storage) {
+        ModulesInfo initializedModulesInfo;
+        try {
+            Optional<ModulesInfo> prefsOptional = storage.readModulesInfo();
+            initializedModulesInfo = prefsOptional.orElse(new ModulesInfo());
+        } catch (DataConversionException | IOException e) {
+            initializedModulesInfo = new ModulesInfo();
+        }
+        return initializedModulesInfo;
+    }
+
 }

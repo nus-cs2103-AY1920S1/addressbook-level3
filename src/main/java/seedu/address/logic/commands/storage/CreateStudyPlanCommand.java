@@ -13,14 +13,12 @@ import seedu.address.model.studyplan.Title;
 import seedu.address.model.studyplan.exceptions.InvalidTitleException;
 
 /**
- * Creates a new studyPlan.
+ * Creates a new study plan.
  */
 public class CreateStudyPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "newplan";
-
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Creating a new study plan with a new unique ID";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new study plan with a new unique ID."
             + "Parameters: "
             + "PLAN_TITLE \n"

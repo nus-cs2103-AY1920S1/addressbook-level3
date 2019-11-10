@@ -13,7 +13,6 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
-// NOTE: this has been changed to support module planner instead of address book
 public interface Storage extends ModulePlannerStorage, UserPrefsStorage, ModulesInfoStorage {
 
     @Override

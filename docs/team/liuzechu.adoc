@@ -5,7 +5,21 @@
 
 == PROJECT: CS ModBuddy
 
----
+ifndef::env-github[]
+image::title.png[width="250"]
+endif::[]
+
+ifdef::env-github[]
+image::title.png[width="250"]
+endif::[]
+
+ifdef::env-github[]
+image::../docs/images/Ui.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
+image::../images/Ui.png[width="600"]
+endif::[]
 
 == Overview
 
@@ -47,7 +61,7 @@ local files in JSON format.
 *** Updated the GUI panel to display simplified study plan information (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/212/files[#212])
 *** Wrote additional tests to increase coverage from 69% to 74% (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/301[#301])
 ** Documentation:
-*** Updated the Storage section of the Developer Guide: https://github.com[#14] (NOT YET)
+*** Updated the Storage section of the Developer Guide: https://github.com/AY1920S1-CS2103-F09-3/main/pull/314[#314]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-3/main/pull/232[#232]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/LiuZechu/ped/issues/1[1], https://github.com/LiuZechu/ped/issues/3[2], https://github.com/LiuZechu/ped/issues/4[3], https://github.com/LiuZechu/ped/issues/5[4], https://github.com/LiuZechu/ped/issues/7[5])
@@ -76,3 +90,9 @@ include::../UserGuide.adoc[tag=movingasemester]
 include::../DeveloperGuide.adoc[tag=storage]
 
 include::../DeveloperGuide.adoc[tag=versiontracking]
+
+include::../DeveloperGuide.adoc[tag=uc01]
+
+include::../DeveloperGuide.adoc[tag=uc03]
+
+include::../DeveloperGuide.adoc[tag=glossary]

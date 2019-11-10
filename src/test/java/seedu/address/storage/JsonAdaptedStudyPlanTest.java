@@ -72,7 +72,7 @@ public class JsonAdaptedStudyPlanTest {
      * Returns a boolean to indicate whether the study plan has been loaded correctly from JSON.
      */
     public static boolean studyPlanLoadedCorrectly(StudyPlan originalStudyPlan, StudyPlan skeletalStudyPlan) {
-        // test whether this study plan is rendered properly. compare between original and loaded (from Json)
+        // test whether this study plan is rendered properly. compare between original and loaded (from JSON)
         boolean result = true;
         // semesters
         List<Semester> originalSemesters = originalStudyPlan.getSemesters().asUnmodifiableObservableList();
@@ -99,6 +99,7 @@ public class JsonAdaptedStudyPlanTest {
             String loadedModuleCode = loadedModules.get(originalModuleCode).getModuleCode().value;
             if (!originalModuleCode.equals(loadedModuleCode)) {
                 result = false;
+                break;
             }
         }
 
@@ -110,6 +111,7 @@ public class JsonAdaptedStudyPlanTest {
             Tag loadedTag = loadedTags.get(i);
             if (!originalTag.equals(loadedTag)) {
                 result = false;
+                break;
             }
         }
 
@@ -121,6 +123,7 @@ public class JsonAdaptedStudyPlanTest {
             Tag loadedStudyPlanTag = loadedStudyPlanTags.get(i);
             if (!originalStudyPlanTag.equals(loadedStudyPlanTag)) {
                 result = false;
+                break;
             }
         }
         return result;

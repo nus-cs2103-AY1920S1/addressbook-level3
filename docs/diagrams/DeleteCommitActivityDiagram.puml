@@ -1,17 +1,26 @@
 @startuml
 start
-:User executes command 'deletecommit';
+:User executes command 'removecommit';
 
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
 if () then ([active study plan is null])
-    :Informs user no study plan currently;
+    :Informs user no
+    study plan currently;
 else ([else])
-    if () then ([commit index invalid])
-        :Informs user no such commit;
+    if () then ([input ID different from active study plan])
+        :Informs user to remove
+        commit that belongs to
+        the active study plan only;
     else ([else])
-        :Deletes the commit from history;
+        if () then ([commit index invalid])
+            :Informs user no
+             such commit;
+        else ([else])
+            :Deletes the commit
+            from history;
+        endif
     endif
 endif
 stop

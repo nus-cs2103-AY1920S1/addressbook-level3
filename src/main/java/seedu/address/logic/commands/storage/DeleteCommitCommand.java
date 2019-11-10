@@ -18,9 +18,7 @@ import seedu.address.model.versiontracking.exception.CommitNotFoundException;
 public class DeleteCommitCommand extends Command {
 
     public static final String COMMAND_WORD = "removecommit";
-
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Deleting a commit";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the commit identified by the index number used in the displayed commit list.\n"
             + "Parameters: STUDY_PLAN_ID.COMMIT_INDEX (must be non-negative integers)\n"
@@ -39,7 +37,6 @@ public class DeleteCommitCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
 
         // if the current active study plan is null

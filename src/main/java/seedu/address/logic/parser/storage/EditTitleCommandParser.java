@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new EditTitleCommand object.
  */
-public class EditStudyPlanTitleParser implements Parser<EditTitleCommand> {
+public class EditTitleCommandParser implements Parser<EditTitleCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
      * EditTitleCommand and returns an EditTitleCommand object for

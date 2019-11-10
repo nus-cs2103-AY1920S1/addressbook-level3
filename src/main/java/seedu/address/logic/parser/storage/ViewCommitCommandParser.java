@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class ViewCommitCommandParser implements Parser<ViewCommitCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
-     * ViewCommitCommand and returns an ViewCommitCommand object for
+     * ViewCommitCommand and returns a ViewCommitCommand object for
      * execution.
      *
      * @throws ParseException if the user input does not conform the expected format.

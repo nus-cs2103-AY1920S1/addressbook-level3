@@ -32,9 +32,6 @@ public class DefaultStudyPlanUtil {
         defaultStudyPlan.addModuleToSemester(new ModuleCode("CS2100"), SemesterName.Y1S2);
         defaultStudyPlan.addModuleToSemester(new ModuleCode("IS1103X"), SemesterName.Y1S2);
 
-        // Y1ST1 special terms (Orbital is not in our json file)
-        // defaultStudyPlan.addModuleToSemester(new ModuleCode("CP2106"), SemesterName.Y1ST1);
-
         // Y2S1
         defaultStudyPlan.addModuleToSemester(new ModuleCode("CS2103T"), SemesterName.Y2S1);
         defaultStudyPlan.addModuleToSemester(new ModuleCode("CS2101"), SemesterName.Y2S1);

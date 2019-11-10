@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.storage.EditTitleCommand;
 
 /**
- * Test class for {@code EditStudyPlanTitleParser}.
+ * Test class for {@code EditTitleCommandParser}.
  */
 public class EditTitleCommandParserTest {
 
-    private EditStudyPlanTitleParser parser = new EditStudyPlanTitleParser();
+    private EditTitleCommandParser parser = new EditTitleCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {

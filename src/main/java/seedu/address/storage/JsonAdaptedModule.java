@@ -13,7 +13,8 @@ import seedu.address.model.module.ModuleCode;
 import seedu.address.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Module}.
+ * Jackson-friendly version of {@link Module}. Compared to {@link JsonAdaptedSkeletalModule}, this version
+ * saves more information for each module, and is used to save modules in a study plan's "Mega HashMap" of modules.
  */
 class JsonAdaptedModule {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";

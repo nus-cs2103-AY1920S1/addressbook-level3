@@ -32,7 +32,7 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/blob/master/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/blob/master/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -77,13 +77,13 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.
 `SemesterListPanel`, `ResultDisplay`, `CommandBox`, `StudyPlanTagPanel`, etc.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -101,7 +101,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `modulePlannerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -228,7 +228,7 @@ image::CommitActivityDiagram.png[]
 ** Pros: Will use less memory (e.g. for `removemod`, just save the person being deleted).
 ** Cons: Tedious because there are a lot of commands and we must ensure that the implementation of each individual command are correct.
 
-//end::undoredo[]
+// end::undoredo[]
 
 // tag::parser[]
 
@@ -292,17 +292,17 @@ initial module planner state, and its `StudyPlanCommitManagerList` will only con
 
 image::VersionTrackingClassDiagram.png[]
 
-Step 2. After changing the state of the current active study plan (e.g. by calling `addmodule y1s1 cs1101s`),
+Step 2. After changing the state of the current active study plan (e.g. by calling `addmod cs1101s y1s1`),
 the user executes `commit first draft` command to save the current state of this study plan with the commit message
 `first draft`. The `commit` command calls `Model#commitActiveStudyPlan(String commitMessage)`,
-causing the modified state of the current active study plan after the `commit first draft command executes to be cloned and saved
+causing the modified state of the current active study plan after the execution of the `commit first draft` command to be cloned and saved
 in the `StudyPlanCommitManager` corresponding to this study plan, inside the `VersionTrackingManager` under
 `ModulePlanner`.
 
 image::CommitStudyPlan.png[]
 
 Step 3. The user executes `revert 1.1` to revert to the commit indexed by `1` in the active study plan which
-has an index of `1`. The `revert` command also calls `Model#revertCommit(int studyPlanIndex, int commitNumber)`,
+has an ID of `1`. The `revert` command also calls `Model#revertCommit(int studyPlanIndex, int commitNumber)`,
 causing the state of the study plan stored in this commit to be made active, and this reverted state to be saved
 into the `StudyPlanCommitManager` inside the `VersionTrackingManager` as a revert commit.
 
@@ -310,12 +310,12 @@ image::RevertCommitSequenceDiagram.png[]
 
 [NOTE]
 If a study plan does not have any commit history, it will not call `Model#revertCommit(int studyPlanIndex, int commitNumber)`,
-so the no commit will be made active. Instead it will prompt the user to create commits first.
+so that no commit will be made active. Instead it will prompt the user to create commits first.
 
 Step 4. The user now decides that there is a commit that they want to delete from the history completely,
-and decides to delete that commit by executing the `deletecommit` command. The `deletecommit` command
+and decides to delete that commit by executing the `removecommit` command. The `removecommit` command
 will call `Model#deleteCommit(int studyPlanIndex, int commitNumber)`,
-which will delete the commit specified by the `commitNumber` from the history of the study plan with index `studyPlanIndex`.
+which will delete the commit specified by the `commitNumber` from the history of the study plan with ID `studyPlanIndex`.
 
 // image::UndoRedoState3.png[]
 
@@ -323,19 +323,9 @@ which will delete the commit specified by the `commitNumber` from the history of
 If the commit number entered does not refer to a valid commit (e.g. there is no commit at all or the index is out of bounds),
 no deletion will take place. Instead the user will be prompted by an error message.
 
-The following sequence diagram shows how the `deletecommit` operation works:
+The following activity diagram shows how the `removecommit` operation works:
 
 image::DeleteCommitActivityDiagram.png[]
-
-// Step 5. The user then decides to execute the command `history`.
-// image::UndoRedoState4.png[]
-
-//Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`.
-// image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a commit command:
-
-// image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
 
@@ -345,12 +335,12 @@ The following activity diagram summarizes what happens when a user executes a co
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Only saves the difference of the current state from the state of the last commit.
-** Pros: Will use less memory (e.g. for `addmodule`, just store the module being added).
+** Pros: Will use less memory (e.g. for `addmod`, just store the module being added).
 ** Cons: We must ensure that the differences in states are stored and loaded correctly when we switch between commits.
 
 ===== Aspect: Data structure to support the commit commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of commits for each study plan.
+* **Current choice:** Use a list to store the history of commits for each study plan.
 ** Pros: Easy to implement. Each study plan has a clear history of its own.
 ** Cons: Hard to handle the possibility of branching (which is currently disallowed).
 // end::versiontracking[]
@@ -799,7 +789,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 == Use Cases
 
 (For all use cases below, the *System* is the `ModBuddy` and the *Actor* is the `Student`, unless specified otherwise)
-
+// tag::uc01[]
 === Use case: UC01 - Create study plan
 
 *MSS*
@@ -820,7 +810,7 @@ Use case ends.
 
 +
 Use case ends.
-
+// end::uc01[]
 === Use case: UC02 - Add module
 
 *MSS*
@@ -842,6 +832,7 @@ Steps 1a1-1a2 are repeated until the data entered are correct.
 +
 Use case ends.
 
+// tag::uc03[]
 === Use case: UC03 - Commit a study plan
 
 *MSS*
@@ -858,6 +849,7 @@ Use case ends.
 ** 1a1. ModBuddy informs Student that the current version has already been saved.
 +
 Use case ends.
+// end::uc03[]
 
 // tag::tagusecase[]
 
@@ -950,6 +942,7 @@ Use case ends.
 .  The product should be free for all NUS CS undergraduate students.
 .  Should warn the user that the developers will not be held liable for any failure to graduate within normal candidature period due to the use of the product.
 
+// tag::glossary[]
 [appendix]
 == Glossary
 
@@ -1055,6 +1048,10 @@ of time, usually one semester. Students may be granted leave of absence for the 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X.
 
+[[mainstream-semester]] Mainstream semester::
+Semesters 1 and 2 in Years 1, 2, 3 and 4. These are the default semesters for a CS single-degree undergraduate.
+In contrast, a _non-mainstream semester_ is a special term (e.g. Y1ST1) or a Year 5 semester (e.g. Y5S1).
+
 [[major]] Major::
 An academic major is the academic discipline to which an undergraduate student formally commits. A student who
 successfully completes all modules required for the major qualifies for an undergraduate degree.
@@ -1147,7 +1144,7 @@ taken at the same time as the student takes that particular module.
 [[year-of-study]] Year of study::
 A student's year refers to whether the student is in their first (Y1), second (Y2), third (Y3), fourth (Y4), or fifth (Y5)
 year of undergraduate studies in NUS.
-
+// end::glossary[]
 
 // [appendix]
 // == Instructions for Manual Testing

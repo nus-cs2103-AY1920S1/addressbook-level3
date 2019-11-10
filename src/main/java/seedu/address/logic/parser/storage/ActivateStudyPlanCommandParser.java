@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new ActivateStudyPlanCommand object.
  */
-public class ActivateStudyPlanParser implements Parser<ActivateStudyPlanCommand> {
+public class ActivateStudyPlanCommandParser implements Parser<ActivateStudyPlanCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
      * ActivateStudyPlanCommand and returns an ActivateStudyPlanCommand object for

@@ -14,7 +14,7 @@ public class CreateStudyPlanCommandParserTest {
 
     @Test
     public void parse_anyArg_returnsCreateStudyPlanCommand() {
-        String validTitle = "non-empty";
+        String validTitle = "title";
         CreateStudyPlanCommand expectedCreateStudyPlanCommand = new CreateStudyPlanCommand(validTitle);
         assertParseSuccess(parser, validTitle, expectedCreateStudyPlanCommand);
     }

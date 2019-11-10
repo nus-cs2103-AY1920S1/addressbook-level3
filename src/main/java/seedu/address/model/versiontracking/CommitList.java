@@ -57,15 +57,6 @@ public class CommitList {
     }
 
     /**
-     * Deletes all the commits after a given index.
-     */
-    public void deleteAllLaterCommits(int index) {
-        for (int i = commits.size() - 1; i > index; i--) {
-            commits.remove(i);
-        }
-    }
-
-    /**
      * Adds a study plan to this commit list.
      *
      * @param studyPlan study plan to be committed.
@@ -81,9 +72,9 @@ public class CommitList {
         if (commits.size() == 0) {
             toReturn.append("There are zero commits in this study plan!");
         } else {
-            for (int i = 0; i < commits.size(); i++) { // do not change to for commit : commits due to Commit#equals()
+            for (int i = 0; i < commits.size(); i++) { // do not change to for(commit : commits) due to Commit#equals()
                 Commit commit = commits.get(i);
-                toReturn.append(String.format(commit.toString(), i) + "\n");
+                toReturn.append(String.format(commit.toString(), i)).append("\n");
             }
         }
 

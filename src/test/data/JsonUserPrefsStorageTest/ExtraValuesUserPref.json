@@ -1,13 +1,13 @@
 {
-  "guiSettings": {
-    "windowWidth": 1000.0,
-    "windowHeight": 500.0,
+  "guiSettings" : {
+    "windowWidth" : 1440.0,
+    "windowHeight" : 811.0,
     "extra": "some value ",
-    "windowCoordinates": {
-      "x": 300,
-      "y": 100,
-      "z": 99
-    }
+    "windowCoordinates" : {
+      "x" : 0,
+      "y" : 23
+    },
+    "guiTheme" : "LIGHT"
   },
-  "addressBookFilePath": "addressbook.json"
+  "modulePlannerFilePath" : "data/moduleplanner.json"
 }

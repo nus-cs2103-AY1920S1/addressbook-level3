@@ -171,33 +171,11 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
             return activeStudyPlan;
         }
 
-        // construct the mega list of modules
-        HashMap<String, Module> megaModuleHash = activeStudyPlan.getModules();
-        for (Module module : megaModuleHash.values()) {
-            ModuleInfo moduleInfo = modulesInfo.find(module.getModuleCode().toString());
-            module.setName(new Name(moduleInfo.getName()));
-            module.setMcCount(moduleInfo.getMc());
-            module.setPrereqTree(moduleInfo.getPrereqTree());
+        // constructs the Mega HashMap of modules
+        HashMap<String, Module> megaModuleHash = constructMegaHashMapOfModules();
 
-            // adds default tags to each module
-            UniqueTagList defaultTags = activeStudyPlan.assignDefaultTags(moduleInfo);
-            for (Tag defaultTag : defaultTags) {
-                module.getTags().addTag(defaultTag);
-            }
-
-        }
-
-        // replace skeletal modules under semesters with the actual reference to modules in mega list
-        for (Semester semester : activeStudyPlan.getSemesters()) {
-            UniqueModuleList uniqueModuleList = semester.getModules();
-            for (Module skeletalModule : uniqueModuleList) {
-                Module actualModule = megaModuleHash.get(skeletalModule.getModuleCode().toString());
-                // if (skeletalModule != actualModule) {
-                if (!skeletalModule.equals(actualModule)) {
-                    uniqueModuleList.setModule(skeletalModule, actualModule);
-                }
-            }
-        }
+        // replaces skeletal modules under semesters with the actual reference to modules in mega list
+        convertSkeletalToActualModules(megaModuleHash);
 
         // replaces the module tags with the reference to the actual tags in study plan mega tag list
         UniqueTagList megaModuleTagList = activeStudyPlan.getModuleTags();
@@ -211,6 +189,41 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         activeStudyPlan.setActivated(true);
 
         return activeStudyPlan;
+    }
+
+    /**
+     * Constructs the Mega HashMap of modules when a study plan gets activated.
+     */
+    private HashMap<String, Module> constructMegaHashMapOfModules() {
+        HashMap<String, Module> megaModuleHash = activeStudyPlan.getModules();
+        for (Module module : megaModuleHash.values()) {
+            ModuleInfo moduleInfo = modulesInfo.find(module.getModuleCode().toString());
+            module.setName(new Name(moduleInfo.getName()));
+            module.setMcCount(moduleInfo.getMc());
+            module.setPrereqTree(moduleInfo.getPrereqTree());
+
+            // adds default tags to each module
+            UniqueTagList defaultTags = activeStudyPlan.assignDefaultTags(moduleInfo);
+            for (Tag defaultTag : defaultTags) {
+                module.getTags().addTag(defaultTag);
+            }
+        }
+        return megaModuleHash;
+    }
+
+    /**
+     * Replaces skeletal modules under semesters with the actual reference to modules in mega list.
+     */
+    private void convertSkeletalToActualModules(HashMap<String, Module> megaModuleHash) {
+        for (Semester semester : activeStudyPlan.getSemesters()) {
+            UniqueModuleList uniqueModuleList = semester.getModules();
+            for (Module skeletalModule : uniqueModuleList) {
+                Module actualModule = megaModuleHash.get(skeletalModule.getModuleCode().toString());
+                if (!skeletalModule.equals(actualModule)) {
+                    uniqueModuleList.setModule(skeletalModule, actualModule);
+                }
+            }
+        }
     }
 
     /**
@@ -262,8 +275,6 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     }
 
     /**
-     * =======
-     * >>>>>>> Undo redo updates, still not working
      * Returns the current semester. The user cannot change any module before the current semester. But they can
      * still change those in the current semester and after the current semester.
      *
@@ -274,7 +285,6 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
     }
 
     /**
-     * <<<<<<< HEAD
      * Sets the current semester. The user cannot change any module before the current semester. But they can
      * still change those in the current semester and after the current semester.
      */
@@ -498,8 +508,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
     @Override
     public String toString() {
-        return studyPlans.asUnmodifiableObservableList().size() + " studyPlans";
-        // TODO: refine later
+        return studyPlans.asUnmodifiableObservableList().size() + " study plans";
     }
 
     @Override
@@ -509,12 +518,6 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
     @Override
     public boolean equals(Object other) {
-        /*
-        return other == this // short circuit if same object
-                || (other instanceof ModulePlanner // instanceof handles nulls
-                && studyPlans.equals(((ModulePlanner) other).studyPlans));
-         */
-
         if (other == this) {
             // short circuit if same object
             return true;
@@ -525,6 +528,7 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
         }
 
         ModulePlanner otherMp = (ModulePlanner) other;
+
         // check study plan list
         try {
             for (int i = 0; i < studyPlans.getSize(); i++) {

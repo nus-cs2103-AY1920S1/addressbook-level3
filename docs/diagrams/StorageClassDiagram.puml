@@ -4,6 +4,9 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
+scale 900 width
+scale 673 height
+
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
 Interface ModulePlannerStorage <<Interface>>

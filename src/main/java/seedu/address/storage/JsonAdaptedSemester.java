@@ -57,7 +57,7 @@ class JsonAdaptedSemester {
         Iterator<Module> iterator = source.getModules().iterator();
         while (iterator.hasNext()) {
             Module module = iterator.next();
-            // only store module ID i.e. module code as String
+            // only store module ID, i.e. module code, as a String
             String moduleCode = module.getModuleCode().value;
             modules.add(new JsonAdaptedSkeletalModule(moduleCode));
         }

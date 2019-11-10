@@ -22,7 +22,7 @@ public class EditTitleCommand extends Command {
             + "PLAN_TITLE \n"
             + "Example: "
             + "title Algo and Graphics";
-    public static final String MESSAGE_EDIT_STUDY_PLAN_SUCCESS = "Edited StudyPlan: %1$s";
+    public static final String MESSAGE_SUCCESS = "Edited study plan: %1$s";
 
     private final String newTitle;
 
@@ -40,7 +40,7 @@ public class EditTitleCommand extends Command {
         } catch (InvalidTitleException e) {
             throw new CommandException(Title.MESSAGE_CONSTRAINTS);
         }
-        return new CommandResult(String.format(MESSAGE_EDIT_STUDY_PLAN_SUCCESS, newTitle), true, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, newTitle), true, false);
     }
 
     @Override

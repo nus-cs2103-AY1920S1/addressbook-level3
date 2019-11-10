@@ -23,11 +23,10 @@ public class ViewStudyPlanCommand extends Command {
     public static final String COMMAND_WORD = "viewplan";
 
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Viewing another study plan";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Views the simplified study plan identified by the unique ID of the target study plan.\n"
             + "Parameters: PLAN_ID (must be a positive integer)\n";
-    public static final String MESSAGE_SUCCESS = "Here is a simple view of your study plan"
+    public static final String MESSAGE_SUCCESS = "Here is a simple view of your study plan "
             + "[ID: %1$d, Title: %2$s]";
     public static final String MESSAGE_INVALID_STUDY_PLAN_ID = "The study plan ID you have entered is invalid!";
 

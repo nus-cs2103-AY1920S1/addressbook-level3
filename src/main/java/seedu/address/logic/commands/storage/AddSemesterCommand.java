@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -28,7 +29,6 @@ public class AddSemesterCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New semester added: %1$s";
     public static final String MESSAGE_DUPLICATE_SEMESTER = "This semester already exists in the module planner";
-    public static final String MESSAGE_NO_ACTIVE_STUDYPLAN = "You have no active study plan now.";
 
     private final SemesterName semesterName;
 
@@ -45,7 +45,7 @@ public class AddSemesterCommand extends Command {
 
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
         if (activeStudyPlan == null) {
-            throw new CommandException(MESSAGE_NO_ACTIVE_STUDYPLAN);
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
         }
 
         try {

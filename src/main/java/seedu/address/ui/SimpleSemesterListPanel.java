@@ -12,7 +12,6 @@ import seedu.address.model.semester.Semester;
  */
 public class SimpleSemesterListPanel extends UiPart<Region> {
     private static final String FXML = "SimpleSemesterListPanel.fxml";
-    // private final Logger logger = LogsCenter.getLogger(SimpleSemesterListPanel.class);
 
     @FXML
     private ListView<Semester> simpleSemesterListView;

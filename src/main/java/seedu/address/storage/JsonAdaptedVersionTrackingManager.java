@@ -14,7 +14,7 @@ import seedu.address.model.versiontracking.VersionTrackingManager;
 
 
 /**
- * Jackson-friendly version of {@link seedu.address.model.versiontracking.VersionTrackingManager}.
+ * Jackson-friendly version of {@link VersionTrackingManager}.
  */
 class JsonAdaptedVersionTrackingManager {
 

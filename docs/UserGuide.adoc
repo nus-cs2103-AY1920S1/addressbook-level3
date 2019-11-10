@@ -93,7 +93,7 @@ Redo the previous undone command. The state of the application will revert back 
 
 Format:  `redo`
 
-//end::undoredo[]
+// end::undoredo[]
 
 ==== Error messages
 Displays a useful error message if the input is invalid. For example,
@@ -371,7 +371,9 @@ Format: `default`
 
 // end::studyplan[]
 
-//tag::datathree[]
+
+
+// tag::datathree[]
 
 ==== Adding priority tags to a study plan : `setpriority`
 Attaches a priority tag to the study plan. +

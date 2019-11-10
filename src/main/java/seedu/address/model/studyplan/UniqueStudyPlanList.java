@@ -18,7 +18,7 @@ import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
  * A study plan is considered unique by comparing using {@code StudyPlan#isSameStudyPlan(StudyPlan)}.
  * As such, adding and updating of study plans uses StudyPlan#isSameStudyPlan(StudyPlan) for equality so as
  * to ensure that the StudyPlan being added or updated is unique in terms of identity in the UniqueStudyPlanList.
- * However, the removal of a StudyPlan uses StudyPlan#equals (Object) so as to ensure that the study plan with
+ * However, the removal of a study plan uses StudyPlan#equals (Object) so as to ensure that the study plan with
  * exactly the same fields will be removed.
  * Supports a minimal set of list operations.
  *
@@ -170,7 +170,7 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
     }
 
     /**
-     * Returns true if {@code StudyPlans} contains only unique StudyPlans.
+     * Returns true if {@code studyPlans} contain only unique study plans.
      */
     private boolean studyPlansAreUnique(List<StudyPlan> studyPlans) {
         for (int i = 0; i < studyPlans.size() - 1; i++) {

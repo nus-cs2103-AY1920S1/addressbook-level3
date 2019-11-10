@@ -1,5 +1,7 @@
 package seedu.address.model.versiontracking;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
@@ -15,6 +17,7 @@ public class Commit {
      * given details.
      */
     public Commit(StudyPlan studyPlan, String commitMessage) {
+        requireAllNonNull(studyPlan, commitMessage);
         this.studyPlan = studyPlan;
         this.commitMessage = commitMessage;
     }
@@ -29,7 +32,7 @@ public class Commit {
 
     @Override
     public String toString() {
-        return "Commit no. " + studyPlan.getIndex() + ".%1$d"
+        return "Commit no. " + studyPlan.getIndex() + ".%1$d:"
                 + " " + commitMessage;
     }
 

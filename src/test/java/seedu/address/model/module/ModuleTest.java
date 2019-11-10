@@ -82,8 +82,7 @@ public class ModuleTest {
         assertEquals(new Name("Machine Learning"), cs3244Copy.getName());
         assertEquals("CS3244", cs3244Copy.getModuleCode().toString());
         assertFalse(cs3244Copy.getPrereqsSatisfied());
-        // assertEquals("MA1101R and MA1521 and ST2334 and (CS2010 or CS2020 or CS2040)",
-        //        CS3244.getPrereqString());
+
         cs3244Copy.setName(new Name(VALID_NAME_ST2334));
         cs3244Copy.setColor(Color.AQUAMARINE);
         cs3244Copy.setMcCount(5);

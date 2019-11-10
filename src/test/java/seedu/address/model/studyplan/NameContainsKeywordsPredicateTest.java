@@ -9,11 +9,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-//import seedu.address.testutil.StudyPlanBuilder;
+import seedu.address.testutil.StudyPlanBuilder;
 
 public class NameContainsKeywordsPredicateTest {
-
-    // TODO modify tests
 
     @Test
     public void equals() {
@@ -40,40 +38,31 @@ public class NameContainsKeywordsPredicateTest {
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
-    /*
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new StudyPlanBuilder().withName("Alice Bob").build()));
-
-        // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new StudyPlanBuilder().withName("Alice Bob").build()));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("planA"));
+        assertTrue(predicate.test(new StudyPlanBuilder().withTitle(new Title("planA")).build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new StudyPlanBuilder().withName("Alice Carol").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("planA", "planB"));
+        assertTrue(predicate.test(new StudyPlanBuilder().withTitle(new Title("planA")).build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new StudyPlanBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("pLaNa", "PlaNB"));
+        assertTrue(predicate.test(new StudyPlanBuilder().withTitle(new Title("planA")).build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new StudyPlanBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new StudyPlanBuilder().withTitle(new Title("planA")).build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new StudyPlanBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("notaplan"));
+        assertFalse(predicate.test(new StudyPlanBuilder().withTitle(new Title("planA")).build()));
 
-        // Keywords match phone, email and address, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new StudyPlanBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
     }
-     */
+
 }

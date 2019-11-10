@@ -45,16 +45,16 @@ public class StudyPlan implements Cloneable {
     private SemesterName currentSemester;
     private boolean isActivated = false;
 
-    // the "Mega-List" of modules of this study plan. All modules in an *active* study plan refer to a module here.
-    // note: this Mega-List is only constructed when a study plan gets activated.
+    // The "Mega HashMap" of modules of this study plan. Every module in an *active* study plan refers to a module here.
+    // note: this Mega HashMap is only constructed when a study plan gets activated.
     private HashMap<String, Module> modules;
 
-    // the unique list of tags for the modules of this study plan.
-    // All tags in an *active* study plan refer to a tag here.
+    // The unique list of tags for the modules of this study plan.
+    // Every tag in an *active* study plan refers to a tag here.
     // note: this unique list of tags is only constructed when a study plan gets activated.
     private UniqueTagList moduleTags;
 
-    // the unique list of tags for the current study plan.
+    // The unique list of priority tags for the current study plan.
     private UniqueTagList studyPlanTags;
 
     // to create a study plan without a Title
@@ -69,12 +69,11 @@ public class StudyPlan implements Cloneable {
         this.currentSemester = currentSemester;
         setDefaultSemesters();
 
-        // switch the current active plan to the newly created one. Reason: user can directly add modules to it.
+        // switch the current active plan to the newly created one so that user can directly modify it.
         isActivated = true;
 
         moduleTags = new UniqueTagList();
         moduleTags.initDefaultTags();
-
         studyPlanTags = new UniqueTagList();
 
         setMegaModuleHashMap(modulesInfo);
@@ -136,7 +135,7 @@ public class StudyPlan implements Cloneable {
         this.index = index;
     }
 
-    // "Mega-list" of modules
+    // "Mega HashMap" of modules
     public HashMap<String, Module> getModules() {
         return modules;
     }
@@ -250,7 +249,7 @@ public class StudyPlan implements Cloneable {
      * @param moduleInfo The module info of the module.
      * @return A {@code UniqueTagList} with the default tags.
      */
-    // made public so as to be accessible from activate method from ModulePlanner
+    // made public so as to be accessible from activate() method from ModulePlanner
     public UniqueTagList assignDefaultTags(ModuleInfo moduleInfo) {
         UniqueTagList moduleTagList = new UniqueTagList();
         UniqueTagList studyPlanTagList = moduleTags;
@@ -269,8 +268,6 @@ public class StudyPlan implements Cloneable {
 
         // assign core tag
         assignCoreTag(moduleInfo, moduleTagList, studyPlanTagList);
-
-        //TODO ue and ulr tags?
 
         return moduleTagList;
     }

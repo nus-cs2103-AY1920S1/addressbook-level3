@@ -14,7 +14,7 @@ public class DeleteSemesterCommandParser implements Parser<DeleteSemesterCommand
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteSemesterCommand
-     * and returns an DeleteSemesterCommand object for execution.
+     * and returns a DeleteSemesterCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format.
      */

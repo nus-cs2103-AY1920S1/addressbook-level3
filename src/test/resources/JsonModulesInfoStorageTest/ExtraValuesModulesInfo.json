@@ -1,18 +1,124 @@
 {
   "modulesInfo": [
     {
+      "code": "CS1101S",
+      "name": "Programming Methodology",
+      "mc": 4,
+      "su": true,
+      "isCore": true,
+      "extra": "EXTRA STUFF",
+      "focusPrimaries": [
+      ],
+      "focusElectives": [
+      ],
+      "description": "This module introduces the concepts of programming and computational problem solving, and is the first and foremost introductory module to computing. Starting from a small core of fundamental abstractions, the module introduces programming as a method for communicating computational processes. The module begins with purely functional programming based on a simple substitution-based execution model, and ends with a powerful modern imperative language based on a realistic environment-based execution model. Topics covered include: functional abstraction, recursion, higher-order functions, data abstraction, algorithmic strategies, state mutation, loops and arrays, evaluation strategies, sorting and searching, debugging and testing.",
+      "prereqTreeString": ""
+    },
+    {
+      "code": "CS1231S",
+      "name": "Discrete Structures",
+      "mc": 4,
+      "su": true,
+      "isCore": true,
+      "focusPrimaries": [
+      ],
+      "focusElectives": [
+      ],
+      "description": "This module introduces mathematical tools required in the study of computer science. Topics include: (1) Logic and proof techniques: propositions, conditionals, quantifications. (2) Relations and Functions: Equivalence relations and partitions. Partially ordered sets. Well-Ordering Principle. Function equality. Boolean/identity/inverse functions. Bijection. (3) Mathematical formulation of data models (linear model, trees, graphs). (4) Counting and Combinatoric: Pigeonhole Principle. Inclusion-Exclusion Principle. Number of relations on a set, number of injections from one finite set to another, Diagonalization proof: An infinite countable set has an uncountable power set; Algorithmic proof: An infinite set has a countably infinite subset. Subsets of countable sets are countable.",
+      "prereqTreeString": ""
+    },
+    {
+      "code": "MA1521",
+      "name": "Calculus for Computing",
+      "mc": 4,
+      "su": true,
+      "isCore": true,
+      "focusPrimaries": [
+      ],
+      "focusElectives": [
+      ],
+      "description": "This module provides a basic foundation for calculus and its related subjects required by computing students. The objective is to train the students to be able to handle calculus techniques arising in their courses of specialization. In addition to the standard calculus material, the course also covers simple mathematical modeling techniques and numerical methods in connection with ordinary differential equations. \n\n\n\nMajor topics: \n\nPreliminaries on sets and number systems. \n\nCalculus of functions of one variable and applications. \n\nSequences, series and power series.   \n\nFunctions of several variables. Extrema.\n\nFirst and second order differential equations. \n\nBasic numerical methods for ordinary differential equations.",
+      "prereqTreeString": ""
+    },
+    {
+      "code": "IS1103X",
+      "name": "IS Innovations in Organisation",
+      "mc": 4,
+      "su": true,
+      "isCore": true,
+      "focusPrimaries": [
+      ],
+      "focusElectives": [
+      ],
+      "description": "The module gives a wide yet insightful understanding of the impact of IT on organisation and society. Issues such as Internet and “new economy” geographies; impacts of IT and creation of IT innovation for public\nhealth, urban planning, and regional equity, food systems, climate change can be discussed. Other issues for consideration could be dark web and IT security advancement, open vs. closed innovation creation. Misuse of IT that put ethics and professionalism into question will be also discussed.",
+      "prereqTreeString": ""
+    },
+    {
+      "code": "CS2030",
+      "name": "Programming Methodology II",
+      "mc": 4,
+      "su": false,
+      "isCore": true,
+      "focusPrimaries": [
+      ],
+      "focusElectives": [
+      ],
+      "description": "This module is a follow up to CS1010. It explores two modern programming paradigms, object-oriented programming and functional programming. Through a series of integrated assignments, students will learn to develop medium-scale software programs in the order of thousands of lines of code and tens of classes using objectoriented design principles and advanced programming constructs available in the two paradigms. Topics include\nobjects and classes, composition, association, inheritance, interface, polymorphism, abstract classes, dynamic binding, lambda expression, effect-free programming, first class functions, closures, continuations, monad, etc.",
+      "prereqTreeString": "CS1101S"
+    },
+    {
       "code": "CS2040S",
       "name": "Data Structures and Algorithms",
       "mc": 4,
       "su": false,
       "isCore": true,
-      "extra": "look at me!",
       "focusPrimaries": [
       ],
       "focusElectives": [
       ],
-      "description": "CS2040S description",
+      "description": "This module introduces students to the design and\nimplementation of fundamental data structures and\nalgorithms. The module covers basic data structures\n(linked lists, stacks, queues, hash tables, binary heaps,\ntrees, and graphs), searching and sorting algorithms, and\nbasic analysis of algorithms.",
       "prereqTreeString": "(AND CS1231S CS1101S)"
+    },
+    {
+      "code": "CS2100",
+      "name": "Computer Organisation",
+      "mc": 4,
+      "su": false,
+      "isCore": true,
+      "focusPrimaries": [
+      ],
+      "focusElectives": [
+      ],
+      "description": "The objective of this module is to familiarise students with the fundamentals of computing devices. Through this module students will understand the basics of data representation, and how the various parts of a computer work, separately and with each other. This allows students to understand the issues in computing devices, and how these issues affect the implementation of solutions. Topics covered include data representation systems, combinational and sequential circuit design techniques, assembly language, processor execution cycles, pipelining, memory hierarchy and input/output systems.",
+      "prereqTreeString": "CS1101S"
+    },
+    {
+      "code": "CS2103T",
+      "name": "Software Engineering",
+      "mc": 4,
+      "su": false,
+      "isCore": true,
+      "focusPrimaries": [
+        "SE"
+      ],
+      "focusElectives": [
+      ],
+      "description": "This module introduces the necessary conceptual and analytical tools for systematic and rigorous development of software systems. It covers four main areas of software development, namely object-oriented system analysis, object-oriented system modelling and design, implementation, and testing, with emphasis on system modelling and design and implementation of software modules that work cooperatively to fulfill the requirements of the system. Tools and techniques for software development, such as Unified Modelling Language (UML), program specification, and testing methods, will be taught. Major software engineering issues such as modularisation criteria, program correctness, and software quality will also be covered.",
+      "prereqTreeString": "(AND CS2030 CS2040S)"
+    },
+    {
+      "code": "CS3230",
+      "name": "Design and Analysis of Algorithms",
+      "mc": 4,
+      "su": false,
+      "isCore": true,
+      "focusPrimaries": [
+        "Algo"
+      ],
+      "focusElectives": [
+      ],
+      "description": "This module introduces different techniques of designing and analysing algorithms. Students will learn about the framework for algorithm analysis, for example, lower bound arguments, average case analysis, and the theory of NP-completeness. In addition, students are exposed to various algorithm design paradigms. The module serves two purposes: to improve the students' ability to design algorithms in different areas, and to prepare students for the study of more advanced algorithms. The module covers lower and upper bounds, recurrences, basic algorithm paradigms (such as prune-and-search, dynamic programming, branch-and-bound, graph traversal, and randomised approaches), amortized analysis, NP-completeness, and some selected advanced topics.",
+      "prereqTreeString": "(AND CS2040S CS1231S)"
     },
     {
       "code": "CS4248",
@@ -26,11 +132,8 @@
       ],
       "focusElectives": [
       ],
-      "extra": "extra bullshit",
-      "description": "CS4248 description",
+      "description": "This module deals with computer processing of human languages, emphasizing a corpus-based empirical approach. The topics covered include: 1. Linguistic essentials. 2. Basic techniques and algorithms: Hidden Markov model, Viterbi algorithm, supervised learning algorithms. 3. Words: part-of-speech tagging. 4. Syntax: noun phrase chunking, named entity tagging, parsing (top down, bottom up, probabilistic). 5. Semantics: word sense disambiguation. 6. Pragmatics: discourse, co-reference resolution. 7. Applications: text categorisation, text summarisation, language identification, information extraction, question answering, machine translation.",
       "prereqTreeString": "(AND (OR CS3243 CS3245) ST2334)"
     }
-  ],
-  "extra": "some value"
+  ]
 }
-

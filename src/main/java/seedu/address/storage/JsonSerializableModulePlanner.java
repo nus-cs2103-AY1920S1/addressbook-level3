@@ -23,10 +23,10 @@ import seedu.address.model.versiontracking.VersionTrackingManager;
  */
 @JsonRootName(value = "moduleplanner")
 class JsonSerializableModulePlanner {
-
-    public static final int NO_ACTIVE_STUDY_PLAN = -1;
-
     public static final String MESSAGE_DUPLICATE_STUDY_PLAN = "Study Plan list contains duplicate study plan(s).";
+
+    private static final int NO_ACTIVE_STUDY_PLAN = -1;
+    private static final String defaultSemester = "Y1S1";
 
     private final List<JsonAdaptedStudyPlan> studyPlans = new ArrayList<>();
     private final int activeStudyPlanIndex;
@@ -66,7 +66,7 @@ class JsonSerializableModulePlanner {
 
         manager = new JsonAdaptedVersionTrackingManager(source.getVersionTrackingManager());
         if (source.getCurrentSemester() == null) {
-            currentSemester = "Y1S1";
+            currentSemester = defaultSemester;
         } else {
             currentSemester = source.getCurrentSemester().toString();
         }

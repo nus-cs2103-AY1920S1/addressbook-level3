@@ -42,7 +42,7 @@ public class EditTitleCommandTest {
 
         EditTitleCommand command = new EditTitleCommand(newTitle);
         CommandResult expectedResult =
-                new CommandResult(String.format(EditTitleCommand.MESSAGE_EDIT_STUDY_PLAN_SUCCESS, newTitle),
+                new CommandResult(String.format(EditTitleCommand.MESSAGE_SUCCESS, newTitle),
                         true, false);
 
         // check command result

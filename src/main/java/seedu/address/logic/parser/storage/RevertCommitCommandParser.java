@@ -9,10 +9,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new RevertCommitCommand object.
  */
-public class RevertCommitParser implements Parser<RevertCommitCommand> {
+public class RevertCommitCommandParser implements Parser<RevertCommitCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
-     * RevertCommitCommand and returns an RevertCommitCommand object for
+     * RevertCommitCommand and returns a RevertCommitCommand object for
      * execution.
      *
      * @throws ParseException if the user input does not conform the expected format.

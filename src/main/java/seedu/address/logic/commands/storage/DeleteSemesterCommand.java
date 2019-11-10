@@ -38,7 +38,6 @@ public class DeleteSemesterCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
 
         if (activeStudyPlan == null) {

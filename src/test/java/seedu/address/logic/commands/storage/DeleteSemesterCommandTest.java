@@ -39,15 +39,9 @@ public class DeleteSemesterCommandTest {
 
     @Test
     public void execute_deleteMainstreamSemester_success() throws CommandException {
-        // a mainstream semester is non-special term or non-Year 5
+        // a mainstream semester is a non-special term or non-Year 5
         SemesterName semesterName = SemesterName.Y1S1;
-
-        Model expectedModel = new ModelManager(getTypicalModulePlanner(), new UserPrefs(), getTypicalModulesInfo());
-        UniqueSemesterList semesters = new UniqueSemesterList();
-        semesters.add(new Semester(semesterName));
-        StudyPlan studyPlan = new StudyPlanBuilder().withSemesters(semesters).build();
-        expectedModel.addStudyPlan(studyPlan);
-        expectedModel.activateStudyPlan(studyPlan.getIndex());
+        Model expectedModel = generateExpectedModel(semesterName);
         expectedModel.deleteAllModulesInSemester(semesterName);
 
         DeleteSemesterCommand command = new DeleteSemesterCommand(semesterName);
@@ -69,13 +63,7 @@ public class DeleteSemesterCommandTest {
     public void execute_deleteNonMainstreamSemester_success() throws CommandException {
         // a non-mainstream semester is a special term or a Year 5 semester
         SemesterName specialSemesterName = SemesterName.Y1ST1;
-
-        Model expectedModel = new ModelManager(getTypicalModulePlanner(), new UserPrefs(), getTypicalModulesInfo());
-        UniqueSemesterList semesters = new UniqueSemesterList();
-        semesters.add(new Semester(specialSemesterName));
-        StudyPlan studyPlan = new StudyPlanBuilder().withSemesters(semesters).build();
-        expectedModel.addStudyPlan(studyPlan);
-        expectedModel.activateStudyPlan(studyPlan.getIndex());
+        Model expectedModel = generateExpectedModel(specialSemesterName);
         expectedModel.deleteSemester(specialSemesterName);
 
         DeleteSemesterCommand command = new DeleteSemesterCommand(specialSemesterName);
@@ -91,6 +79,21 @@ public class DeleteSemesterCommandTest {
         UniqueSemesterList expectedSemesters = expectedModel.getActiveStudyPlan().getSemesters();
         UniqueSemesterList actualSemesters = model.getActiveStudyPlan().getSemesters();
         assertEquals(expectedSemesters, actualSemesters);
+    }
+
+    /**
+     * Generates an expected model for testing, given a semester name.
+     * @param semesterName can be mainstream or non-mainstream
+     * @return expected model which will be used for testing
+     */
+    private Model generateExpectedModel(SemesterName semesterName) {
+        Model expectedModel = new ModelManager(getTypicalModulePlanner(), new UserPrefs(), getTypicalModulesInfo());
+        UniqueSemesterList semesters = new UniqueSemesterList();
+        semesters.add(new Semester(semesterName));
+        StudyPlan studyPlan = new StudyPlanBuilder().withSemesters(semesters).build();
+        expectedModel.addStudyPlan(studyPlan);
+        expectedModel.activateStudyPlan(studyPlan.getIndex());
+        return expectedModel;
     }
 
 }

@@ -12,8 +12,9 @@ import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
  * Represents the command to activate a study plan of a given index.
  */
 public class ActivateStudyPlanCommand extends Command {
+
     public static final String COMMAND_WORD = "activate";
-    public static final String HELP_MESSAGE = COMMAND_WORD + ": Activating study plans";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Activating a study plan";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Activates the study plan with the given ID. "
             + "Parameters: "
             + "PLAN_ID \n"
@@ -21,8 +22,7 @@ public class ActivateStudyPlanCommand extends Command {
             + "3";
 
     public static final String MESSAGE_SUCCESS = "StudyPlan %1$d activated: %2$s";
-    //todo: this?
-    public static final String MESSAGE_NO_SUCH_STUDYPLAN = "The study plan with this ID does not exists!";
+    public static final String MESSAGE_NO_SUCH_STUDY_PLAN = "The study plan with this ID does not exist!";
 
     private final int studyPlanIndex;
 
@@ -39,11 +39,10 @@ public class ActivateStudyPlanCommand extends Command {
         try {
             model.activateStudyPlan(studyPlanIndex);
         } catch (StudyPlanNotFoundException e) {
-            throw new CommandException(MESSAGE_NO_SUCH_STUDYPLAN);
+            throw new CommandException(MESSAGE_NO_SUCH_STUDY_PLAN);
         }
 
         String studyPlanName = model.getActiveStudyPlan().getTitle().toString();
-
         model.addToHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, studyPlanIndex, studyPlanName),
                 true, false);
@@ -55,4 +54,5 @@ public class ActivateStudyPlanCommand extends Command {
                 || (other instanceof ActivateStudyPlanCommand // instanceof handles nulls
                 && studyPlanIndex == ((ActivateStudyPlanCommand) other).studyPlanIndex);
     }
+
 }

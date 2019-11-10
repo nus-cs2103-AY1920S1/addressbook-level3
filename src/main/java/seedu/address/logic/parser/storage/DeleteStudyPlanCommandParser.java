@@ -8,12 +8,12 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteStudyPlanParser object.
+ * Parses input arguments and creates a new DeleteStudyPlanCommandParser object.
  */
-public class DeleteStudyPlanParser implements Parser<DeleteStudyPlanCommand> {
+public class DeleteStudyPlanCommandParser implements Parser<DeleteStudyPlanCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
-     * DeleteStudyPlanCommand and returns an DeleteStudyPlanCommand object for
+     * DeleteStudyPlanCommand and returns a DeleteStudyPlanCommand object for
      * execution.
      *
      * @throws ParseException if the user input does not conform the expected format

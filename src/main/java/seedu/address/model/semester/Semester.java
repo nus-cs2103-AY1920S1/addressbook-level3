@@ -105,14 +105,13 @@ public class Semester implements Cloneable {
         modules = new UniqueModuleList();
     }
 
-    // NOTE: this is for the GUI to use for Milestone 2
+    // this is for the GUI to use for Milestone 2
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append(semesterName).append(":").append("\n");
         for (Module module : modules) {
             result.append(module.toString()).append("\n");
-            //result.append(module.getModuleCode().value).append("\n");
         }
 
         return result.toString();
@@ -137,14 +136,6 @@ public class Semester implements Cloneable {
         } else if (obj instanceof Semester) {
             Semester other = (Semester) obj;
             return this.semesterName == other.getSemesterName(); // so that no two semesters can have the same name
-            /*
-                    this.modules.equals(other.getModules())
-                    && this.isBlocked == other.isBlocked
-                    && (this.reasonForBlocked == null || this.reasonForBlocked.equals(other.reasonForBlocked))
-                    && this.isExpanded == other.isExpanded
-                    && this.semesterName == other.getSemesterName();
-
-             */
         }
         return false;
     }

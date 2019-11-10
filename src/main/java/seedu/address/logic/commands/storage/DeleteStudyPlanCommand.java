@@ -25,7 +25,7 @@ public class DeleteStudyPlanCommand extends Command {
             + ": Deletes the study plan identified by the unique ID as shown in the displayed study plan list.\n"
             + "Parameters: ID (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    public static final String MESSAGE_SUCCESS = "Deleted StudyPlan: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted study plan: %1$s";
 
     private final Index targetIndex;
 
@@ -38,10 +38,12 @@ public class DeleteStudyPlanCommand extends Command {
         requireNonNull(model);
         List<StudyPlan> lastShownList = model.getFilteredStudyPlanList();
 
+        // index out of bounds
         if (targetIndex.getZeroBased() > StudyPlan.getTotalNumberOfStudyPlans()) {
             throw new CommandException(Messages.MESSAGE_INVALID_STUDY_PLAN_DISPLAYED_INDEX);
         }
 
+        // finds the study plan with the specified index
         StudyPlan studyPlanToDelete = null;
         for (StudyPlan studyPlan : lastShownList) {
             if (studyPlan.getIndex() == targetIndex.getZeroBased()) {

@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class ViewStudyPlanCommandParser implements Parser<ViewStudyPlanCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
-     * ViewStudyPlanCommand and returns an ViewStudyPlanCommand object for
+     * ViewStudyPlanCommand and returns a ViewStudyPlanCommand object for
      * execution.
      *
      * @throws ParseException if the user input does not conform the expected format
