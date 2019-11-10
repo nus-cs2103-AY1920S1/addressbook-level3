@@ -81,8 +81,9 @@ Types include: +
 `api` (for advanced users who want to know the inner workings of the command)
 
 Friendly tip 1 :bulb: +
-If you type `help` without any other parameters, a help window such as the one below will appear and display a command
-list with similar instructions to this page!
+Cant remember all of FinSec's commands or the command format for `help`? No worries! Even if you mistakenly
+type `help` without the other parameters or get the parameters confused, a default help window such as the one below
+will appear and display a command list with similar instructions to this page!
 
 [[UG-HelpWindow]]
 [reftext="Figure 3.1.1"]
@@ -111,7 +112,7 @@ This shows you a brief description of what the `add_contact` command does and ho
 ....
 help cmd/goto type/api
 ....
-This opens up a page in your browser and displays our API for the `goto` command +
+This generates an 'API.html' file containing our API for the `goto` command, and opens it up+
 ....
 help cmd/help type/guide
 ....
