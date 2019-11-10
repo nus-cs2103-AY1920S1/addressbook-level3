@@ -38,6 +38,8 @@ public class CommandTestUtil {
     public static final String VALID_TF_QUESTION_1 = "As per the textbook, " +
             "PR reviews is one of the two ways of reviewing code";
     public static final String VALID_TF_QUESTION_2 = "Linters are a subset of dynamic (not static) analysis tools";
+    public static final String VALID_SAQ_QUESTION_1 = "What does Boundary Value Analysis suggests?";
+
 
     public static final String VALID_QUESTION_TYPE_MCQ = "mcq";
     public static final String VALID_DIFFICULTY_ALPHA = "1";
