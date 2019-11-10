@@ -274,7 +274,7 @@ The `comment` command calls `Model#setQuestion()` to parse in an additional para
 // end::createquestion1[]
 
 [NOTE]
-Users can also utilize the undo/redo command when they realize that they have execute a command that they shouldn't do (Will be explained in [3.5.2]).
+Users can also utilize the undo/redo command when they realize that they have execute a command that they shouldn't do (Will be explained in [3.4.2]).
 
 // tag::createquestion2[]
 The following activity diagram summarizes the basic question creation process:
