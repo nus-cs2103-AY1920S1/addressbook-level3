@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.WHITESPACE;
@@ -15,10 +16,17 @@ class SelectFreeTimeCommandParserTest {
     private SelectFreeTimeParser parser = new SelectFreeTimeParser();
 
     @Test
-    void parse_success() {
+    void parse_successNoWeek() {
         assertParseSuccess(parser,
                 WHITESPACE + PREFIX_ID + 1,
                 new SelectFreeTimeCommand(0, 1));
+    }
+
+    @Test
+    void parse_successWeek() {
+        assertParseSuccess(parser,
+                WHITESPACE +PREFIX_WEEK + 1 + WHITESPACE + PREFIX_ID + 1,
+                new SelectFreeTimeCommand(1, 1));
     }
 
     @Test
