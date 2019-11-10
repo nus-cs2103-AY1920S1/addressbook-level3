@@ -402,7 +402,7 @@ Alternative 1 was chosen as it causes almost no overhead, guarantees data integr
 
 === Notification Feature
 This feature in Mortago reminds a mortuary manager to contact the police when the next-of-kin of a body
-has been not been contactable for a given period of time from the point of admission of the `Body`. He / She then needs
+has not been contactable for a given period of time from the point of admission of the `Body`. He / She then needs
 to
 contact
 the police
@@ -420,7 +420,7 @@ AddCommand.java.
 
 ==== Implementation
 
-This command is supported by the model component `Notif` and logic component `NotifCommand`.
+This command is supported by the model component `Notif` and the logic component `NotifCommand`.
 
 In `Notif` command, the following are the key private variables:
 
@@ -476,7 +476,7 @@ status of the body was updated.
 following happens:
 
 1. All the `Notif` (s) are fetched from the storage.
-2. For each `Notif`, the difference of the  current system time and `notifCreationTime` is calculated.
+2. For each `Notif`, the difference of the  current <<System-Time, system time>> and `notifCreationTime` is calculated.
 3. If the difference is more than the `period`, then the status of the associated `Body` is
 changed to `CONTACT_POLICE`. Otherwise, the `NotifCommand` is scheduled to be executed after the calculated time difference.
 4. The `Notif` is added to the model.
@@ -486,7 +486,7 @@ changed to `CONTACT_POLICE`. Otherwise, the `NotifCommand` is scheduled to be ex
 a|[TIP]
 *When is the `NotifCommand` not executed?*
 a|* If the status of the `Body` is changed before the 10 second window.
-* If the `Body` is deleted before the time period.
+* If the `Body` is deleted before the specified `period`.
 * If the difference between `notifCreationTime` and system time is more than `period` when the app is initialized.
 
 |===
@@ -512,8 +512,8 @@ that updates to the model happen sequentially and not concurrently and the relev
 UI.
 
 Moreover, all these operations are wrapped inside a try-catch block. Either the `NullPointerException` or
-`DuplicateNotifException` are directly thrown in the form of `CommandException` or they are logged in `Logger`. A
-code snippet of `NotifCommand` to illustrate this is show below:
+`DuplicateNotifException` is directly thrown in the form of `CommandException` or it is logged in `Logger`. A
+code snippet of `NotifCommand` to illustrate this is show below.
 
 ```
  if (model.hasNotif(notif)) {
@@ -536,7 +536,7 @@ Platform.runLater(() -> {
 ```
 
 ==== Design Considerations
-===== Aspect: How to delay change in BodyStatus
+===== Aspect: How to delay change in status of the `Body`
 * **Alternative 1 (current choice):** Use `ScheduledExecutorService`.
 ** Pros: Does not depend on thread synchronization and avoids the need to deal with threads directly.
 ** Cons: May cause memory leaks if cache is not cleared.
@@ -548,13 +548,14 @@ Platform.runLater(() -> {
 Alternative 1 is the current choice because of its simplicity and robustness as it abstracts away the need
 to manually deal with threads.
 
-==== Aspect: How the behaviour of `NotifCommand` differs when the app is initialized
+===== Aspect: How the behaviour of `NotifCommand` differs when the app is initialized
 * **Alternative 1 (current choice):** Do not show a pop-up if the difference between system time and
 `notifCreationTime` exceeds `period` .
 ** Pros: Prevents the situation of multiple pop-ups on app initialization.
 ** Cons: Does not prompt the user who may in turn forget to contact the police.
 
-* **Alternative 2:** Show pop-up on app initialization for `Notif` s in storage for which the difference between system
+* **Alternative 2:** Show pop-up on app initialization for `Notif` (s) in storage for which the difference between
+system
 time and `notifCreationTime` exceeds `period`.
 ** Pros: Ensures that the user does not forget about contacting the police.
 ** Cons: May slow down the computer and lag the app if there are too many pop-up notifications at the same time.
@@ -848,7 +849,10 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: Mortago replaces and improves upon the traditional whiteboard system. It provides a convenient dashboard for the mortuary manager to keep track of all bodies and fridges, outstanding tasks, and alerts. Mortago unites the different aspects of a mortuary and allows the mortuary management to be more accurate in managing tasks, calculate the availability of space, and generates reports automatically.
+*Value proposition*: Mortago replaces and improves upon the traditional whiteboard system. It provides a convenient
+dashboard for the mortuary manager to keep track of all bodies and fridges, outstanding tasks, and notifications.
+Mortago unites
+the different aspects of a mortuary and allows the mortuary management to be more accurate in managing tasks, calculate the availability of space, and generates reports automatically.
 
 [appendix]
 == User Stories
@@ -886,7 +890,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |mortuary manager |read up on the use of a specific command of the app |understand a specific command which the app offers in more detail
 
-|`* *` |mortuary manager |be alerted to bodies unclaimed after 24hours |know when to start the administrative process for donation to medical research
+|`* *` |mortuary manager |be alerted to bodies unclaimed after 24hours |know when to start the administrative process
+of contacting the police
 
 |`* *` |mortuary manager |receive routine reports from the app automatically |need not manually write in each and every single report
 
@@ -1056,21 +1061,21 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Alert for unclaimed bodies.
-*Precondition*: Mortuary manager closes all existing report PDFs.
+=== Use case: Notification for unclaimed bodies.
 
 *MSS*
 
 1.  Mortuary manager wants to be reminded of the next line of action if next of kin cannot be contacted within 24 hours.
-2.  Mortago maintains a record of all the alerts about unidentified and unclaimed bodies until their status is changed.
-3.  Mortago shows pop-up alerts after 24 hours from the point of arrival of the body in the mortuary.
+2.  Mortago maintains a record of all the notifications about bodies until their status is
+changed.
+3.  Mortago shows pop-up notification after 24 hours from the point of arrival of the body in the mortuary.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. There are no alerts
+* 1a. There are no notifications
 +
 Use case ends.
 
@@ -1143,13 +1148,18 @@ An employee in the mortuary
 [[fridge]] Fridge::
 A fridge used to store a body in the mortuary
 
-[[notif]]
+[[notif]] Notif::
+A notification to remind the mortuary manager of the bodies for which police needs to be contacted.
 
 [[command-line-interface]] Command-Line-Interface (CLI)::
 A text-based user interface (UI) used to view and manage computer files
 
 [[graphical-user-interface]] Graphical User Interface (GUI)::
 An interface through which a user interacts with electronic devices such as computers, hand-held devices and other appliances. This interface uses icons, menus and other visual indicator (graphics) representations to display information and related user controls, unlike text-based interfaces, where data and commands are in text
+
+
+[[system-time]] System-Time::
+A computer's current time and date
 
 [appendix]
 == Product Survey
