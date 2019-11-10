@@ -1061,7 +1061,7 @@ in its data folder.
 .. Relaunch the application. _The app should not throw an exception, merely not display any images._
 .. Add back the images to the lecture notes using `editnote`. _This operation should succeed._
 
-== Question management
+=== Question management
 . Adding a question with all necessary fields
 .. Type `addq q/MVC design pattern refers to (  ). a/Model View Controller s/CS2103T d/Medium` in the command line.
 .. The application will show the success of adding the question if all fields are present and valid.
@@ -1083,17 +1083,17 @@ The question will be removed from the list.
 NOTE: Ensure the application has at least one question to do the quiz.
 
 . Entering the quiz mode
-.. Type `quiz n/1 d/easy s/cs2040` in the command line. If the application has the questions which fit the requirement,
-it will enter the quiz mode and display the quiz questions.
+.. Type `quiz n/1 d/easy s/cs2040` in the command line.
+.. If the application has the questions which fit the requirement, it will enter the quiz mode and display the quiz questions.
 . Answering the question
-.. Type your answer in the command line after entering the quiz mode. The result of your answer will be displayed under
-the command box.
+.. Type your answer in the command line after entering the quiz mode.
+.. The result of your answer will be displayed under the command box.
 . Showing the answer of the question
-.. Type `show` in the command line when the application is in the quiz mode. The correct answer of the current quiz question
-will be displayed under the command box.
+.. Type `show` in the command line when the application is in the quiz mode.
+.. The correct answer of the current quiz question will be displayed under the command box.
 . Skipping current question
-.. Type `skip` in the command line when the application is in the quiz mode. The current question will be skipped and
-the next question will be displayed if there are still available questions.
+.. Type `skip` in the command line when the application is in the quiz mode.
+.. The current question will be skipped and the next question will be displayed if there are still available questions.
 . Quiting from the quiz mode
-.. Type `quit` in the command line when the application is in the quiz mode. The application will exit from the quiz mode
-and return to the original mode.
+.. Type `quit` in the command line when the application is in the quiz mode.
+.. The application will exit from the quiz mode and return to the original mode.
