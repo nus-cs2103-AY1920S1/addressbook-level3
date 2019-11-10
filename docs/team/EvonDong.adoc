@@ -88,20 +88,6 @@ available. This eliminates any hindrance involving manual checks for the availab
 Furthermore, upon any mistyped words or descriptions that do not match an existing item in the inventory,
 suggestions will be offered. This further augments the hassle-free aspect of this tab.
 
-//
-//* Setting the Cashier-In-Charge
-//** What it does:
-//This feature allows the user to set an existing member as the cashier-in-charge. This cashier will be accountable for
-//all the sales made.
-//
-//** Justification:
-//As there is someone accountable for the sales made, it is easier to solve conflicts if any issue arises.
-//This also ensures a transparent system where the whereabouts of the funds are apparent and can be tracked.
-//
-//** Highlights:
-//This feature only allows an existing member to be set as the cashier in order to prevent a dubious person from being
-//involved in the financial matters of the organisation. This existing member must be registered in the database with all
-//his/her contact details.
 
 * Checking Out the Cart
 ** What it does:
@@ -187,38 +173,9 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/230[(PR #230)]
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/301[(PR #301)]
 
 == Contributions to the User Guide
-The following section illustrates my contribution to the User Guide for features specific to the Cashier tab.
+The following section showcases my contribution to the user guide for features specific to the Cashier tab.
 
 {Start of First Extract from User Guide}
-
-//
-//[big]##5.5. Cashier Tab##
-//This section will contain the details on all commands available on the Cashier Tab.
-//
-//====
-//*Summary of Features of the Cashier Tab*
-//
-//* The Cashier tab allows you to key in, calculate and record the items sold from the inventory.
-//* To key in an item, it must first be recorded in the Inventory tab.
-//* The columns of this tab will show the description of the item being sold, the price per quantity, the total quantity selected
-//and the subtotal for that row of items.
-//* The bottom row will display the name of the cashier who is in-charge of the sales, as well as the total amount of all
-//the sales items in the table.
-//* At the side, just like other tabs, our mascot lion 'Leo' will reply to indicate successful addition, deletion and
-//update of items.
-//* Upon wrong inputs, Leo will prompt you and guide you along to key in the correct inputs.
-//* Upon successful checkout, the Inventory tab will be immediately updated with the remaining stock left in
-//the inventory.
-//* After every checkout, the sales made will be recorded as one transaction which will be then labelled as "Items sold"
-//under the category "Sales" and person will be the cashier-in-charge. The Home tab will be updated with this transaction.
-//
-//[NOTE]
-//Items with zero price are not available for sale. Such items cannot be added into the table.
-//
-//[WARNING]
-//Due to size limitation, you will not be allowed to add any items into the table if the total amount exceeds $999999.99. You
-//are advised to reduce the quantity of items or checkout separately in another cart.
-//====
 
 :sectnums!:
 === 5.5.1. Add a Sales Item to the Table
@@ -228,9 +185,9 @@ This command enables you to add a sales item into the table.
 * Command:
 `add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
 
-The quantity that you input must be less than or equal to the stock available in the Inventory Tab.
+The quantity that you input must be less than or equal to the stock available in the Inventory tab.
 The category field is optional. If you are unsure about the description of the desired item, you can refer to
-the Inventory Tab or simply key in the category without any other fields. Leo will display all the items in the
+the Inventory tab or simply key in the category without any other fields. Leo will display all the items in the
 specified category that are available for sale.
 
 Additionally, if the description is misspelled or does not match any of the items in the inventory, Leo will recommend
@@ -254,21 +211,15 @@ specified category inputted.
 Steps:
 1. Type the command with a category specified as shown in the screenshot below:
 
-//.Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
-
 image::cashierUG/AddCommand1.png[width=600"]
 
 [start = 2]
 2. Enter the desired description and quantity according to the items suggested by Leo as shown below:
 
-//.Screenshot of the user input (description, quantity) into Command Box for Add Command in Cashier Tab
-
 image::cashierUG/AddCommand2.png[width="600"]
 
 [start = 3]
 . Hit `Enter`
-
-//.Screenshot of the response message for Add Command in Cashier Tab
 
 image::cashierUG/AddCommand3.png[width="600"]
 
@@ -287,7 +238,7 @@ This command enables you to perform a checkout of all the sales items in the tab
 * Command:
 `checkout AMOUNT_PAID_BY_CUSTOMER`
 
-The amount inputted should be the amount that the customer will be paying. This amount must be greater than or equal to the
+You should input the amount that the customer is paying. This amount must be greater than or equal to the
 total amount listed on the bottom row of the table. If the amount paid is greater than the total amount, Leo will display
 the amount of change that the cashier should return.
 
@@ -304,14 +255,11 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 
 1. Type the command and specify the amount that the customer is paying as shown in the screenshot below:
 
-//.Screenshot of user input into Command Box for Checkout Command in Cashier Tab
-
 image::cashierUG/CheckoutCommand1.png[width="600"]
 
 [start = 2]
 . Hit `Enter`
 
-//.Screenshot of response message for Checkout Command in Cashier Tab
 
 image::cashierUG/CheckoutCommand2.png[width="600"]
 
@@ -321,7 +269,7 @@ The Home tab will be updated with this transaction and the remaining stock in th
 {End of Second Extract from User Guide}
 
 ==  Contributions to the Developer Guide
-The following section shows my contribution to the Developer Guide for features specific to the Cashier tab.
+The following section showcases my contribution to the developer guide for features specific to the Cashier tab.
 
 {Start of First Extract from Developer Guide}
 
@@ -339,23 +287,18 @@ The following section shows my contribution to the Developer Guide for features 
 //[italic small red]*Figure 9. Class Diagram of Cashier Tab (cashier package)*
 
 :sectnums!:
-=== 3.1.1 Add Sales Item feature
+=== 3.5.1 Add Sales Item Feature
 
-This feature allows the addition of sales items to the cart.
+This feature allows the adding of sales items to the cart.
 
-//
-//Only sales items can be added to the cart. If the price of an item is zero, it is not available for sale. The
-//system will prohibit any addition of such an item to the cart.
-
-Adding of a sales item to the cart will require an input of its description and quantity. If the category field is input with other unspecified
-description and quantity fields, `Model` will search all the sales items in the `Inventory List`
-according to the specified category and suggestions would be shown by Leo. +
-If description and quantity are both valid, the `ModelManager` will add the item into the sales list.
+Adding of a sales item to the cart will require an input of its description and quantity. If only the category field is inputted,
+`Model` will search all the sales items in the `Inventory List`
+according to the specified category and suggestions would be shown by Leo.
 
 If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method,
 which will in turn call `getCombination(arr, arr.length)` method to return an ArrayList containing all subsets of
-the inputted description that are of at least length 3. These subsets are then compared
-with the actual descriptions of all items in the inventory to check if either contains the other.
+the inputted description that are of at least length 3. These subsets strings are then compared
+with the actual description of all items in the inventory to check if either contains the other.
 
 The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
@@ -378,37 +321,16 @@ The following is a code snippet from `getCombination(char[] arr, int n)` method:
                         .toCollection(ArrayList::new));
     }
 
-//
-//            if (description.length() >= 3) {
-//                char[] arr = description.toCharArray();
-//                ArrayList<String> combinations = getCombination(arr, arr.length);
-//                for (int j = 0; j < combinations.size(); j++) {
-//                    if (combinations.get(j).contains(itemDescription) // itemDescription refers to the actual description of an item in the inventory
-//                            || itemDescription.contains(combinations.get(j))) {
-//                        recommendedItems.add(item.getDescription());
-//                        continue;
-//                    }
-//                }
-//            }
-
-//            ArrayList<String> newList = recommendedItems.stream()
-//            .distinct()
-//            .collect(Collectors
-//            .toCollection(ArrayList::new));
-//            return newList;
-
 The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
 starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
-The last loop appends characters from the starting character to the ending character. After the nested loops, the ArrayList
-is passed into a stream to filter out all subsets of length less than 3.
-
-//
-//As shown in the second code snippet, after adding all the suggested words into the `recommendedItems` list, the list
-//is passed into a stream to remove duplicates.
+The last loop appends characters from the starting character to the ending character. After the nested loops, the ArrayList `result`
+is passed into a stream to filter out all subsets strings that are of length less than 3.
 
 //
 //[NOTE]
 //If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
+
+If description and quantity are both valid, the `ModelManager` will add the item into the sales list as shown in Figure 2.
 
 The following sequence diagram shows how the `AddCommand` works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
@@ -420,9 +342,9 @@ image::AddCommandCashierSeq.png[width="270"]
 and `hasSufficientQuantityToAdd(description, quantity)` methods will be called to ensure the item has sufficient stock
 left in the inventory. There will also be checks to ensure that the item specified is available for sale.
 
-//[NOTE]
-//After every add command, the quantity of items in the Inventory Tab will still remain the same. The remaining stock
-//will only be updated after the Checkout Command.
+[NOTE]
+Once the item is added, boolean `onCashierMode` in ModelManager  will be immediately set to true if
+it is initially false.
 
 The following activity diagram shows the steps proceeding after the user input an add command:
 
@@ -432,43 +354,11 @@ image::AddCommandCashierActivity.png[width="600"]
 
 {End of First Extract from Developer Guide}
 
-//[big]##3.1.2 Set Cashier Feature##
-//
-//This feature allows an existing person in the `Address Book` to be set as a cashier. The only field required is
-//the name of an existing person.
-//
-//To set a cashier, the person's name inputted has to match an existing name in the `AddressBook` as shown on `Members Tab`.
-//This means that SetCommandParser requires access to the `Model` of the person package where the `AddressBook` implementation is. +
-//If the person's name cannot be found in the `Model` of the person package, a response message will be shown by Leo,
-//informing the user that there is no such person.
-//
-//The following sequence diagram shows how the SetCashierCommandParser checks for an existing person:
-//
-//.Sequence Diagram of SetCashierCommandParser (cashier package)
-//
-//image::SetCashierCommandSeq1.png[width="300"]
-//
-//If the specified name is valid, the `Model` of the cashier package will set the person as cashier.
-//
-//The following sequence diagram shows how the set cashier command works and is the reference
-//from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
-//
-//.Sequence Diagram of Set Cashier Command (cashier package)
-//
-//image::SetCashierCommandSeq2.png[width="300"]
-//
-//If the inputted name is invalid, the user will be prompted to enter a valid name.
-//
-//The following activity diagram shows the steps after the user input a set cashier command:
-//
-//.Activity Diagram of Set Cashier Command (cashier package)
-//
-//image::SetCashierCommandActivity.png[width="450"]
 
 {Start of Second Extract from Developer Guide}
 
 :sectnums!:
-=== 3.1.2 Checkout Feature
+=== 3.5.3 Checkout Feature
 
 This feature records all the sales items in the table as one transaction under the `Sales` category.
 
@@ -476,13 +366,17 @@ The Home tab will be updated with the new transaction labelled as `Items sold`. 
 will also be updated on the Inventory tab.
 
 During the execution of the command, `getCashier()` method will be called which will return a person. This person will
-be used to create a `Transaction` object. If the cashier is null, the command cannot proceed and Leo will
-prompt the user to set a cashier. +
+be used to create a `Transaction` object. If the cashier is null, the execution of the command cannot proceed and Leo will
+prompt the user to set a cashier.
 Else, if the amount inputted is valid and cashier has been set, the `ModelManager` will create a new
 transaction of the sales made.
 
 [NOTE]
 After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
+
+[NOTE]
+After checkout command is executed, boolean `onCashierMode` in ModelManager  will be
+immediately set to false.
 
 The following sequence diagram shows how the checkout command is executed:
 
@@ -492,8 +386,8 @@ image::CheckoutCommandCashierSeq1.png[width="280"]
 
 The `Cashier Logic` will call relevant methods to update the inventory list and newly-generated transaction
 to the respective `.txt file`. +
-To update the view on the Inventory tab and Transaction tab,`readInUpdatedList()` method of inventory model will
-called to read in the entire inventory data file and transaction will be added to the transaction model.
+To update the view on the Inventory tab and Transaction tab,`readInUpdatedList()` method of inventory `Model` will
+called to read in the entire inventory data file and transaction will be added to the transaction `Model`.
 
 The following sequence diagram shows how the transaction and inventory are updated:
 
@@ -529,20 +423,20 @@ This section explains the design considerations for some crucial implementations
 
 |A LinkedList is used to store the list of sales item.
 
-*Pros*: Time performance is better when elements are accessed from the head of the list.
+*Pros*: Elements can be accessed from the head and tail of the list in constant time.
 
-*Cons*: Performance is poor when accessing directly via the index.
+*Cons*: When accessing directly via the index, performance is poor with respect to time.
 
 |Alternative 1 is selected. An ArrayList has better performance with respect to time when accessing each elements directly. As the sales list will be updated and accessed regularly, an ArrayList is more fitting.
 
-|The Transaction, Inventory and Person `Model` interfaces are passed as parameters into Cashier's `Logic`
+|The Transaction, Inventory and Person `Model` interfaces are passed as parameters into the constructor of Cashier's `Logic`
 to call relevant methods to update the inventory and transactions.
 
 *Pros*: Cashier's Logic can access all public methods in the respective `Model`.
 
 *Cons*: It might result in unintended modification to some of the data in the Models.
 
-|Interfaces that only contains required methods are created. The methods are called via these interfaces
+|Interfaces that only contains the required methods are created. The methods are called via these interfaces
 to update the data.
 
 *Pros*: Prevents any unwanted changes through other methods. This adheres to the Facade Pattern.
@@ -550,16 +444,16 @@ to update the data.
 *Cons*: If more methods are needed, they need to be added to these interfaces.
 
 |Alternative 2 was implemented as only a few methods are required from each `Model`, so the new interfaces can act as facades
-and restrict access to all public methods in the models. This prevents in Cashier’s `Logic` from causing any
+and restrict access to all public methods in the models. This prevents Cashier’s `Logic` from causing any
 unintended modification to any of the data in the Models.
 
-|The Cashier Storage directly writes to and from the data file of the inventory and transaction.
+|The Cashier's `Storage` directly writes to and from the data file of the inventory and transaction.
 
 *Pros*: It can access the data file directly without any dependencies.
 
-*Cons*: The data files can be modified from 2 sources, introducing more chances of bugs.
+*Cons*: The data files can be modified from 2 sources, increasing chances of bugs.
 
-|The Cashier Storage accesses the methods from the Transaction and Inventory storage via their `Logic`
+|The Cashier's `Storage` accesses the methods from the Transaction and Inventory storage via their `Logic`
 to update the data.
 
 *Pros*: The data files are only modified from 1 source, ensuring cohesiveness in the format of data stored.
@@ -567,7 +461,7 @@ to update the data.
 *Cons*: It introduces more dependencies on the storage of other packages.
 
 |Alternative 2 is implemented to enforce defensive programming, so that the data files are not modified via 2 different
-methods and eliminate any chances of uncoordinated data in the data files.
+methods from different sources and eliminates any chances of uncoordinated data in the data files.
 
 |===
 
