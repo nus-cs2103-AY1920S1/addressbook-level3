@@ -66,7 +66,6 @@ public class FinancialTrackerLogic {
 
     /**
      * Use this logic class to execute commands which utilize model and storage.
-     * 
      * @param commandText user input
      * @return CommandResult, see {@Code CommandResult}
      * @throws CommandException if the command executed with error
@@ -98,7 +97,6 @@ public class FinancialTrackerLogic {
 
     /**
      * Set the Financial Tracker's current country key.
-     * 
      * @param field country to be set
      */
     public void setCountry(String field) {

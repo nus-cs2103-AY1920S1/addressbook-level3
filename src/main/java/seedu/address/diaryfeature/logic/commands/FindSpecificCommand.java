@@ -18,6 +18,7 @@ public class FindSpecificCommand extends Command<DiaryModel> {
 
     public static final String COMMAND_WORD = "findSpecific";
     private static String MESSAGE_ENTRIES_LISTED_OVERVIEW = "%1$d entries listed";
+    private static String MESSAGE_ENTRy_LISTED_OVERVIEW = "1 entry listed. Type list to get the original list back";
     private final FindSpecificPredicate predicate;
 
     /**
@@ -38,6 +39,10 @@ public class FindSpecificCommand extends Command<DiaryModel> {
     public CommandResult execute(DiaryModel diaryModel) {
         requireNonNull(diaryModel);
         diaryModel.updateFilteredDiaryList(predicate);
+        int size = diaryModel.getTotalDiaryEntries();
+        if(size == 1) {
+            return new CommandResult(MESSAGE_ENTRy_LISTED_OVERVIEW);
+        }
         return new CommandResult(
                 String.format(MESSAGE_ENTRIES_LISTED_OVERVIEW,
                         diaryModel.getFilteredDiaryEntryList().size()));
