@@ -69,6 +69,10 @@ public class YearMonthDay {
         return new YearMonth(yearMonthDay.getYear(), yearMonthDay.getMonthValue());
     }
 
+    public static YearMonthDay getToday() {
+        return new YearMonthDay(LocalDate.now());
+    }
+
     @Override
     public String toString() {
         return yearMonthDay.format(DATE_TIME_FORMATTER);

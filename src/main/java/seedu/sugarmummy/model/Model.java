@@ -2,6 +2,7 @@ package seedu.sugarmummy.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -316,6 +317,11 @@ public interface Model {
      * Returns a Today object represents the date of today.
      */
     Today getToday();
+
+    /**
+     * Returns the date time when the app starts.
+     */
+    LocalDateTime getAppStartingDateTime();
 
     //=========== Aesthetics =============================================================
 
