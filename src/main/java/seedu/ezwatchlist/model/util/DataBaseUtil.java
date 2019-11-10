@@ -22,22 +22,12 @@ import seedu.ezwatchlist.model.show.Show;
  * Contains utility methods for populating {@code WatchList} with sample data.
  */
 public class DataBaseUtil {
-    private static final Genre GENRE_ACTION = new Genre("action");
-    private static final Genre GENRE_COMEDY = new Genre("comedy");
-    private static final Genre GENRE_ADVENTURE = new Genre("adventure");
-    private static final Genre GENRE_FANTASY = new Genre("fantasy");
-    private static final Genre GENRE_FAMILY = new Genre("family");
-    private static final Genre GENRE_SCIENCE_FICTION = new Genre("science fiction");
-
-    private static final Show SHOW_JOKER = new Movie(
-            new Name("Joker"),
-            new Description("In Gotham City, mentally-troubled comedian Arthur Fleck embarks on a downward-spiral of "
-                    + "social revolution and bloody crime. This path brings him face-to-face with his infamous "
-                    + "alter-ego: \"The Joker\"."),
-            new IsWatched("false"),
-            new Date("2019-10-04"),
-            new RunningTime(122),
-            getActorSet("Joaquin Phoenix, Robert De Niro"));
+    private static final Genre GENRE_ACTION = new Genre("Action");
+    private static final Genre GENRE_COMEDY = new Genre("Comedy");
+    private static final Genre GENRE_ADVENTURE = new Genre("Adventure");
+    private static final Genre GENRE_FANTASY = new Genre("Fantasy");
+    private static final Genre GENRE_FAMILY = new Genre("Family");
+    private static final Genre GENRE_SCIENCE_FICTION = new Genre("Science Fiction");
 
     private static final Show SHOW_AVENGER_INFINITY_WAR = new Movie(
             new Name("Avengers: Infinity War"),
@@ -134,11 +124,6 @@ public class DataBaseUtil {
 
     public static ArrayList<Show> getShowData() {
         ArrayList<Show> showDataList = new ArrayList<>();
-
-        Set<Genre> genreSetComedy = new HashSet<>();
-        genreSetComedy.add(GENRE_COMEDY);
-        SHOW_JOKER.addGenres(genreSetComedy);
-        showDataList.add(SHOW_JOKER);
 
         Set<Genre> genreSetActionAdventureScienceFiction = new HashSet<>();
         genreSetActionAdventureScienceFiction.add(GENRE_ACTION);

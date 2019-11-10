@@ -70,8 +70,8 @@ public class SearchCommand extends Command {
         }
 
         searchByName(model);
-        searchByActor(model);
         searchByGenre(model);
+        searchByActor(model);
 
         filterOutDuplicatesInSearchResult(model);
 
@@ -104,7 +104,6 @@ public class SearchCommand extends Command {
                 }
             } else if (!requestedFromOnline()) {
                 for (String showName : nameList) {
-                    addShowFromWatchListIfSameNameAs(showName, model);
                     addShowFromOnlineIfSameNameAs(showName);
                 }
             } else {
@@ -140,10 +139,9 @@ public class SearchCommand extends Command {
         if (requestedSearchFromInternal()) {
             addShowFromWatchListIfHasActor(actorSet, model);
         } else if (requestedSearchFromOnline()) {
-            addShowFromDatabaseIfHasActor(actorSet, model);
+            throw new CommandException(SearchMessages.MESSAGE_UNABLE_TO_SEARCH_FROM_ONLINE_WHEN_SEARCHING_BY_ACTOR);
         } else if (!requestedFromOnline()) {
             addShowFromWatchListIfHasActor(actorSet, model);
-            addShowFromDatabaseIfHasActor(actorSet, model);
         } else {
             throw new CommandException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
         }
@@ -174,7 +172,6 @@ public class SearchCommand extends Command {
             } else if (requestedSearchFromOnline()) {
                 addMovieFromOnlineIfIsGenre(genreSet);
             } else if (!requestedFromOnline()) {
-                addShowFromWatchListIfIsGenre(genreSet, model);
                 addMovieFromOnlineIfIsGenre(genreSet);
             } else {
                 throw new CommandException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
@@ -191,7 +188,7 @@ public class SearchCommand extends Command {
      * @param showName name of the given show.
      * @param model current model of the program.
      */
-    private void addShowFromWatchListIfSameNameAs(String showName, Model model) {
+    private void addShowFromWatchListIfSameNameAs(String showName, Model model) throws CommandException {
         if (showName.isBlank()) {
             return;
         }
@@ -204,7 +201,7 @@ public class SearchCommand extends Command {
      * @param showName name of the given show.
      * @param model current model of the program.
      */
-    private void addShowFromDatabaseIfSameNameAs(String showName, Model model) {
+    private void addShowFromDatabaseIfSameNameAs(String showName, Model model) throws CommandException {
         if (showName.isBlank()) {
             return;
         }
@@ -217,7 +214,7 @@ public class SearchCommand extends Command {
      * @param actorSet Set of actors to be searched for.
      * @param model current model of the program.
      */
-    private void addShowFromWatchListIfHasActor(Set<Actor> actorSet, Model model) {
+    private void addShowFromWatchListIfHasActor(Set<Actor> actorSet, Model model) throws CommandException {
         if (actorSet.isEmpty()) {
             return;
         }
@@ -230,7 +227,7 @@ public class SearchCommand extends Command {
      * @param actorSet Set of actors to be searched for.
      * @param model current model of the program.
      */
-    private void addShowFromDatabaseIfHasActor(Set<Actor> actorSet, Model model) {
+    private void addShowFromDatabaseIfHasActor(Set<Actor> actorSet, Model model) throws CommandException {
         if (actorSet.isEmpty()) {
             return;
         }
@@ -243,7 +240,7 @@ public class SearchCommand extends Command {
      * @param genreSet set of actors to be searched for.
      * @param model current model of the program.
      */
-    private void addShowFromWatchListIfIsGenre(Set<Genre> genreSet, Model model) {
+    private void addShowFromWatchListIfIsGenre(Set<Genre> genreSet, Model model) throws CommandException {
         if (genreSet.isEmpty()) {
             return;
         }
@@ -256,7 +253,7 @@ public class SearchCommand extends Command {
      * @param genreSet set of actors to be searched for.
      * @param model current model of the program.
      */
-    private void addShowFromDatabaseIfIsGenre(Set<Genre> genreSet, Model model) {
+    private void addShowFromDatabaseIfIsGenre(Set<Genre> genreSet, Model model) throws CommandException {
         if (genreSet.isEmpty()) {
             return;
         }
@@ -268,7 +265,7 @@ public class SearchCommand extends Command {
      * Add show to search result.
      * @param showList List of shows to be added.
      */
-    private void addShowToSearchResult(List<Show> showList) {
+    private void addShowToSearchResult(List<Show> showList) throws CommandException {
         for (Show show : showList) {
             if (requestedSearchFromWatched() && !show.isWatched().getIsWatchedBoolean()) {
                 continue; // skip if request to be watched but show is not watched
@@ -290,7 +287,7 @@ public class SearchCommand extends Command {
      * @throws CommandException If command exception occurred.
      */
     private void addShowFromOnlineIfSameNameAs(String showName) throws OnlineConnectionException, CommandException {
-        if (!requestedIsWatched() && !showName.isBlank()) {
+        if (!requestedSearchFromWatched() && !showName.isBlank()) {
             if (requestedSearchForMovie()) {
                 addOnlineMovieSearchedByNameToResult(showName);
             } else if (requestedSearchForTv()) {
@@ -389,7 +386,13 @@ public class SearchCommand extends Command {
      * Returns true if user requests to search from watch or watched list.
      * @return True if user requests to search from watch or watched list.
      */
-    private boolean requestedIsWatched() {
+    private boolean requestedIsWatched() throws CommandException {
+        for (String input : isWatchedList) {
+            if (!(input.equals(INPUT_FALSE) || input.equals(INPUT_NO) || input.equals(INPUT_TRUE)
+                    || input.equals(INPUT_YES))) {
+                throw new CommandException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
+            }
+        }
         return !isWatchedList.isEmpty();
     }
 
@@ -397,7 +400,7 @@ public class SearchCommand extends Command {
      * Returns true if user requests to search from watched list.
      * @return True if user requests to search from watched list.
      */
-    private boolean requestedSearchFromWatched() {
+    private boolean requestedSearchFromWatched() throws CommandException {
         return requestedIsWatched()
                 && (isWatchedList.get(0).equals(INPUT_TRUE) || isWatchedList.get(0).equals(INPUT_YES));
     }
@@ -406,7 +409,7 @@ public class SearchCommand extends Command {
      * Returns true if user requests to search from watch list.
      * @return True if user requests to search from watch list.
      */
-    private boolean requestedSearchFromWatchList() {
+    private boolean requestedSearchFromWatchList() throws CommandException {
         return requestedIsWatched()
                 && (isWatchedList.get(0).equals(INPUT_FALSE) || isWatchedList.get(0).equals(INPUT_NO));
     }
@@ -459,6 +462,9 @@ public class SearchCommand extends Command {
      */
     private void filterOutDuplicatesInSearchResult(Model model) {
         List<Show> result = searchResult.stream().distinct().collect(Collectors.toList());
+
+
+
         model.updateSearchResultList(result);
     }
 
