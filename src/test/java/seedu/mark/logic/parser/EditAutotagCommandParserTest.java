@@ -48,13 +48,13 @@ public class EditAutotagCommandParserTest {
         // no tag name specified
         assertParseFailure(parser, NAME_DESC_1, MESSAGE_INVALID_FORMAT);
 
-        // no condition specified
-        assertParseFailure(parser, VALID_TAG, MESSAGE_INVALID_FORMAT);
+        // no field specified
+        assertParseFailure(parser, VALID_TAG, EditAutotagCommand.MESSAGE_NO_FIELD_EDITED);
 
         // empty condition
         assertParseFailure(parser, VALID_TAG + " " + PREFIX_URL, EditAutotagCommand.MESSAGE_CONDITION_EMPTY);
 
-        // no tag name and no condition specified
+        // empty input
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 

@@ -28,6 +28,7 @@ public class EditAutotagCommand extends Command {
     public static final String MESSAGE_AUTOTAG_EDITED = "Autotag successfully edited: %1$s";
     public static final String MESSAGE_MULTIPLE_TAG_NAMES = "Only one new tag name can be specified";
     public static final String MESSAGE_AUTOTAG_DOES_NOT_EXIST = "No autotag with this tag name was found: %1$s";
+    public static final String MESSAGE_NO_FIELD_EDITED = "Autotag name or conditions must be edited";
     public static final String MESSAGE_CONDITION_EMPTY = "Conditions cannot be blank. E.g. the empty condition "
             + "u/ is invalid";
 

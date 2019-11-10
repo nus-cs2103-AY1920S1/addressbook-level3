@@ -82,7 +82,7 @@ public class EditAutotagCommandParser implements Parser<EditAutotagCommand> {
         }
 
         if (newTagName.equals(tagNameToEdit) && predicate.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAutotagCommand.MESSAGE_USAGE));
+            throw new ParseException(EditAutotagCommand.MESSAGE_NO_FIELD_EDITED);
         }
 
         SelectiveBookmarkTagger newTagger = new SelectiveBookmarkTagger(ParserUtil.parseTag(newTagName), predicate);
