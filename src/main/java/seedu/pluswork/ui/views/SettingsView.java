@@ -15,6 +15,8 @@ import seedu.pluswork.ui.UiPart;
 
 /**
  * Layout displaying the current settings in +Work.
+ * Responsive highlighting is adapted from CS2103 course mate (found using RepoSense)
+ * https://github.com/AY1920S1-CS2103T-T11-2/main/blame/master/src/main/java/seedu/address/ui/modules/SettingsPanel.java
  */
 public class SettingsView extends UiPart<Region> {
     private static final String FXML = "SettingsWindow.fxml";

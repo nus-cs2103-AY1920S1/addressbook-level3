@@ -10,7 +10,7 @@ a desktop application, +Work, targeted at NUS students who are project leaders.
 
 === About the Project
 +Work is a project management tool with a graphical user interface (GUI) that helps project leaders to manage their projects details. +Work uses a command line interface (CLI) to operate, in other words, users mainly interact with +Work by typing specific commands and pressing the enter key. +
-The main features of +Work include; managing tasks, managing members, managing inventory, generating statistics, generating PDF reports and finding optimal meeting times among members.
+The main features of +Work include; managing tasks, managing members, managing inventory, generating statistics, generating PDF reports and finding optimal meeting times for members.
 
 === Important Symbols
 Shown below are a few symbols that will appear in this document, along with their significance.
@@ -24,7 +24,9 @@ Information listed here should be noted by users to help them improve their expe
 Information listed here is essential to users. They need to understand this in order for +Work to work optimally.
 
 == Summary of Contributions
-This section serves to summarise my major contributions to the project.
+This section serves to summarise my major contributions to the project as well other noteworthy contributions such as project management.
+
+=== Enhancements
 
 * *Major enhancement one*: I added the ability for users to *customise the appearance* of +Work to suit their viewing preferences.
 ** What it does: This feature allows the user to toggle the theme of the entire application between light and dark. Also, it allows the user to toggle the
@@ -38,23 +40,23 @@ in the event more user settings are to be added. I tried to incorporate as much 
 make the feature more robust.
 ** Credits: I adapted some code that does responsive highlighting for the settings panel in +Work from a course mate.
 
-* *Major enhancement two*: I added a dashboard to +Work that helps users see important information when the application is started.
+* *Major enhancement two*: I added a *project dashboard* to +Work that helps users see important information when the application opens.
 ** What it does: This feature allows the user to view their tasks based on their current completion status. Furthermore, users can view their upcoming deadlines as well as any upcoming project meetings.
-** Justification: This feature improves the current product as students decide which tasks demand their attention, so that they can remain on track for their project. Furthermore, they can prepare for upcoming meetings more efficiently.
+** Justification: This feature improves the current product as students decide which tasks demand their attention so that they can remain on track for their project. Furthermore, they can prepare for upcoming meetings more efficiently.
 ** Highlights: The dashboard is responsive to changes in task status, deadlines and any project meetings. The implementation was relatively simple as I was also responsible for integrating task management into the project.
 
 * *Minor enhancement*: I added cosmetic improvements to +Work's dashboard so as to make it more appealing to students.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambhinav&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambhinav&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Test code]]
 
-* *Other contributions*:
+=== Other Contributions
 
 ** Project management:
 *** Managed releases `v1.1`, `v1.2.1` and `v1.4` (3 releases) on GitHub
 *** Tracked and helped to fix bugs found during developer testing using GitHub issues (Issue https://github.com/AY1920S1-CS2103T-T12-1/main/issues/82[#82])
 *** Added additional tests to the repository to bump coverage up from 37% to 39% (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/166[#166])
 ** Enhancements to the application:
-*** Created a modular framework in `UI` to make it easier for teammates to add different user views for their respective features (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/51[#51])
+*** Created a modular framework in `Ui` to make it easier for teammates to add different user views for their respective features (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/51[#51])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-T12-1/main/pull/152[#152]
 ** Community:
@@ -65,16 +67,16 @@ make the feature more robust.
 
 == Contributions to the User Guide
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+The following is an excerpt taken from the User Guide of +Work. I wrote instructions to help users customise their preferences using the
+settings feature.
 
 include::../UserGuide.adoc[tag=settings]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+The following is an excerpt taken from the Developer Guide of +Work, showing additions I have made to explain the technical
+aspects of the settings and dashboard feature.
 
 include::../DeveloperGuide.adoc[tag=settings]
+
+include::../DeveloperGuide.adoc[tag=dashboard]
