@@ -47,7 +47,6 @@ public class Amount implements Comparable<Amount> {
      */
     public Amount(int amount) {
         requireNonNull(amount);
-        checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         checkArgument(isWithinLimits(amount), INT_CONSTRAINTS);
         this.amount = amount;
     }
