@@ -23,7 +23,7 @@ public class CommandHistoryTest {
 
     @Test
     public void add() {
-        String validCommand = "clear";
+        String validCommand = "clear-c";
         String invalidCommand = "adds Boy";
 
         commandHistory.clear();
