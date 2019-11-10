@@ -794,8 +794,8 @@ e.g `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between
 display this value.
 
 * Accepts two types of input:
-** Without date input
-** with date input +
+** Without date input - display total value for that particular statistics
+** with date input - displays chart and total value for that particular statistics  +
 
 Generates the statistics with no date input. +
 

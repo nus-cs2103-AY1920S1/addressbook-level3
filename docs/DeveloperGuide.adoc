@@ -101,7 +101,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 * Different changes in each tab or panel is controlled via the enum `UiChange`
 
-// end::UiUG[]
+// end::UiUG[] s
 
 [[Design-Logic]]
 === Logic component
@@ -110,7 +110,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[][height=60%, scaledwidth=12cm]
 
 // end::logicDiagram[]
 
@@ -278,7 +278,7 @@ this object, which the `UI` will then use to communicate to `Logic`.
 
 The resulting change is that the `commandResult` type will have a slightly different behaviour. *All `commands` that
 are not `statsCommand` will call the default constructor of the `commandResult` class, where there is  an
-`Optional.empty()` in place of the `StatsPayload` * .
+`Optional.empty()` in place of the `StatsPayload`* .
 
 All `statsCommand` type will have call the constructor of `commandResult` class and pass the `StatsPayload` object in.
 
@@ -314,7 +314,7 @@ Seen here is the sequence diagram of the first step
 
 image::StatsCommandSequenceDiagram1.png[]
 
-Step 2: the logic then calls `command.execute(command)` (refer to the second set of arrow coming out of `LogicManager`)
+Step 2: the logic then calls `command.execute(command)`
 
 When this happens, the `StatsCommand` execute triggering a call to create the new `StatsPayload`. Then this is used to
 create a new `CommandResult` object and returns that to `Logic` , completing the execution of the user input command.
@@ -337,9 +337,13 @@ where the appropriate calculation will take place.
 Step 4: `Statistic Manager` calculates the date
 
 Depending on the input, the `Statistic Manager` will calculate the value and return that, either in the form of
-a `String` or a `XYChart.Series<String, Number>`
+a `String` or a `XYChart.Series<String, Number>`.
 
-Step 5: with this output from logic, `Statistic Window` will then handle the diplaying of the statistic, be it in chart
+Note that in date input mode, the methods that return the `String` and
+`XYChart.Series<String, Number>` is called as both are displayed in the popup window
+
+Step 5: with this output from logic, `Statistic Window` or `DefaultStatisticWindow` will
+then handle the displaying of the statistic, be it in chart
 form or string form. With this the feature has finished executing! Attached below is the summary for step 3-5:
 
 image::StatisticsCalculationUI.png[]
