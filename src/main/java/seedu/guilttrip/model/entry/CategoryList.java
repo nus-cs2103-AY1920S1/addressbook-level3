@@ -1,7 +1,6 @@
 package seedu.guilttrip.model.entry;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
 import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
@@ -46,14 +45,6 @@ public class CategoryList {
             typeOfCategory = internalListForOtherEntries;
         }
         return typeOfCategory;
-    }
-
-    /**
-     * Returns true if the new Category to be added and created is not in the CategoryList.
-     */
-    public boolean isValidAndNotInList(Category category) {
-        ObservableList<Category> typeOfCategory = determineWhichList(category.categoryType);
-        return !typeOfCategory.stream().anyMatch(t -> t.toString().equalsIgnoreCase(category.categoryName));
     }
 
     /**
@@ -108,9 +99,11 @@ public class CategoryList {
      */
     public void add(Category category) {
         requireNonNull(category);
-        checkArgument(isValidAndNotInList(category), String.format(MESSAGE_CONSTRAINTS_IN_LIST,
-                category.getCategoryType()));
         ObservableList<Category> typeOfCategory;
+        if (contains(category)) {
+            throw new DuplicateCategoryException();
+        }
+
         if (category.categoryType.equalsIgnoreCase("Income")) {
             typeOfCategory = internalListForIncome;
         } else {
@@ -126,8 +119,6 @@ public class CategoryList {
     public void remove(Category toRemove) {
         requireNonNull(toRemove);
         //checks if it is in list. Also works for cases where List has 0 categories.
-        checkArgument(!isValidAndNotInList(toRemove), String.format(MESSAGE_CONSTRAINTS_NOT_IN_LIST,
-                toRemove.getCategoryType()));
         ObservableList internalList = determineWhichList(toRemove.categoryType);
 
         if (!internalList.remove(toRemove)) {

@@ -385,6 +385,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean categoryHasAnyEntries(Category category) {
+        return versionedGuiltTrip.categoryHasAnyEntries(category);
+    }
+
+    @Override
     public void updateListOfStats() {
         this.stats.updateListOfStats();
     }
