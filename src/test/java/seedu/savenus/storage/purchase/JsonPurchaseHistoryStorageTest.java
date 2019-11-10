@@ -66,7 +66,7 @@ public class JsonPurchaseHistoryStorageTest {
         ReadOnlyPurchaseHistory readBack = jsonPurchaseHistoryStorage.readPurchaseHistory(filePath).get();
         assertEquals(original, readBack);
 
-        // Modify data, overwrite exiting file, and read back
+        // Modify data, overwrite existing file, and read back
         original.addPurchase(new Purchase(TONKATSU_RAMEN, new TimeOfPurchase("1570680000000")));
         jsonPurchaseHistoryStorage.savePurchaseHistory(original, filePath);
         readBack = jsonPurchaseHistoryStorage.readPurchaseHistory(filePath).get();

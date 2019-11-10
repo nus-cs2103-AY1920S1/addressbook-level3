@@ -90,7 +90,6 @@ public class SavingsAccount implements ReadOnlySavingsAccount {
         Money toSubtract = savings.getSavingsAmount();
         Money currentSavingsMoney = this.currentSavings.getCurrentSavingsMoney();
         currentSavings.setCurrentSavings(currentSavingsMoney.add(toSubtract));
-
     }
 
     /**
