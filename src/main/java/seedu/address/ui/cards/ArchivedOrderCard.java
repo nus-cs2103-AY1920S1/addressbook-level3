@@ -17,8 +17,11 @@ import seedu.address.ui.UiPart;
  * An UI component that displays information of a {@code Order} that had been archived.
  */
 public class ArchivedOrderCard extends UiPart<Region> {
-    private final Logger logger = LogsCenter.getLogger(ArchivedOrderCard.class);
+
     private static final String FXML = "ArchivedOrderListCard.fxml";
+    public final Order archivedOrder;
+
+    private final Logger logger = LogsCenter.getLogger(ArchivedOrderCard.class);
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -27,8 +30,6 @@ public class ArchivedOrderCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
-
-    public final Order archivedOrder;
 
     @FXML
     private HBox cardPane;
@@ -65,6 +66,7 @@ public class ArchivedOrderCard extends UiPart<Region> {
     @FXML
     private FlowPane customerTags;
 
+
     public ArchivedOrderCard(Order order, int displayedIndex) {
         super(FXML);
         this.archivedOrder = order;
@@ -92,7 +94,7 @@ public class ArchivedOrderCard extends UiPart<Region> {
             } catch (NoSuchElementException e) {
                 logger.severe("ERROR: This order should not appear here");
                 orderStatus.setText("ERROR: This order should not appear here, each order can only be here "
-                        +  "if they have schedule and is completed");
+                        + "if they have schedule and is completed");
             }
         } else {
             orderStatus.setText(order.getStatus().toString());
