@@ -452,9 +452,6 @@ When the Ranklist feature is used, RanklistCommand interacts with other classes 
 a given ranking method before sorting the list and displaying it on the screen as seen above. Please refer to the
 sequence diagram for a high level depiction of how RanklistCommand interacts with other classes.
 
-.Sequence Diagram of the RanklistCommand
-image::RanklistCommand.png[]
-
 ===== Choice of Design Pattern
 Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands,
 without the programme knowing which type of command is being executed. Furthermore, the original AB3 code base achieves

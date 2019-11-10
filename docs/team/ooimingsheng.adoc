@@ -33,7 +33,7 @@ competitions can be tracked and used to track performance across time and compet
 immediately enabled as the storage that was intended was mainly for entities
 with a one-to-one/one-to-many relationship and definitely not a many-to-many relationship.
 It required an in-depth analysis of design alternatives, one of which was to possible store the data in XML form, since using a
-database was not allowed for the project. I did not user the XML storage as it would require too
+database was not allowed for the project. I did not use the XML storage as it would require too
 much time to implement. The modification of the JSON storage was still challenging as it required a deep
 understanding of the underlying JSON storage infrastructure and how everything was saved in order to
 be able to save the association class properly.
@@ -225,111 +225,6 @@ of the powerlifting competitions. During competition mode, the system has real t
 rankings within their respective weight classes allowing the organizer track the participants'
 standings at all times throughout the duration of the competition.
 
-=== Core team
-
-Powerlifting Competition Coordinator  was developed and is maintained by
-https://github.com/AY1920S1-CS2103-T11-3[Team T11-3].
-Feel free to https://github.com/AY1920S1-CS2103-T11-3/main/issues[contact us] for any enquries.
-
-=== Contributing
-
-Powerlifting Competition Coordinator is an open source project and we would love to involve any contributor
-who has a passion for powerlifting. To get involved, start by reading <<SettingUp#, Section 2, “Setting up”>>.
-
-== Setting up
-
-This section includes the instructions to set up your development environment.
-
-=== Prerequisites
-
-Prior to setting up the project proper, make sure you have the following.
-
-. *JDK `1.8.0_60`* or later
-+
-[NOTE]
-Having any Java 11 version is not enough. +
-This app will not work with earlier versions of Java 11. +
-You can get the latest Java 1 JDK at http://www.oracle.com/technetwork/java/javase/downloads[this link].
-+
-
-. *IntelliJ* IDE
-+
-[NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
-Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
-
-
-=== Setting up the project in your computer
-
-To setup the project in IntelliJ, follow the steps below.
-
-. Fork this repo, and clone the fork to your computer.
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
-. Set up the correct JDK version for Gradle.
-.. Click `Configure` > `Project Defaults` > `Project Structure`.
-.. Click `New...` and find the directory of the JDK.
-. Click `Import Project`.
-. Locate the `build.gradle` file and select it. Click `OK`.
-. Click `Open as Project`.
-. Click `OK` to accept the default settings.
-. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`).
-It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
-
-=== Verifying the setup
-
-To verify that the setup is completed successfully, you should:
-
-. Run the `seedu.system.MainApp` and try a few commands.
-. <<Testing, Run the tests>> to ensure they all pass.
-
-=== Configurations to do before writing code
-
-This subsection includes configurations that you may find necessary or useful as you work on this project.
-We recommend that you make these configuration changes and additions before you start writing code.
-
-==== Configuring the coding style
-
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. Follow the instructions below to rectify this.
-
-. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
-. Select `Editor` > `Code Style` > `Java`.
-. Click on the `Imports` tab to set the order.
-
-* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements.
-* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`.
-
-Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, links in the documentation will still point to the `se-edu/addressbook-level3` repo.
-If you plan to develop this as a separate product (i.e. instead of contributing to the
-`se-edu/addressbook-level3`) , you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
-
-==== Setting up CI
-
-Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
-
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
-
-[NOTE]
-Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
-
-Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
-
-[NOTE]
-Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based).
-
-==== Getting started with coding
-
-When you are ready to start coding:
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
-
-
-
 == Design
 
 This section documents the design and interaction of components in Powerlifting Competition Coordinator.
@@ -348,11 +243,6 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
  `CompetitionListPanel`, `ParticipationListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`,
 inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
-are in the `src/main/resources/view` folder. For example, the layout of the
-link:{repoURL}/src/main/java/seedu/system/ui/MainWindow.java[`MainWindow`] is specified in
-link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
-
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
@@ -367,7 +257,7 @@ image::ModelClassDiagram.png[]
 
 Please note that due to the limitations of PlantUml, the diagram above is unable
 to show the java generics being used here (e.g. Data, UniqueElementList and others).
-We also did not delve into the session classes as we felt the diagram would be overly
+We also did not delve into the Session class as we felt the diagram would be overly
 convoluted. For more details, regarding the class interactions for session, please refer
 to the implementation of competition sessions below.
 
@@ -484,9 +374,6 @@ When the Ranklist feature is used, RankCommand interacts with other classes to r
 a given ranking method before sorting the list and displaying it on the screen as seen above. Please refer to the
 sequence diagram for a high level depiction of how RanklistCommand interacts with other classes.
 
-.Sequence Diagram of the RanklistCommand
-image::RanklistCommand.png[]
-
 ===== Choice of Design Pattern
 Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands,
 without the programme knowing which type of command is being executed. Furthermore, the original AB3 code base achieves
@@ -494,258 +381,6 @@ a Command Design Pattern by requiring different types of command classes to exte
 
 Due to time constraint and to achieve consistency with the Command Design Pattern of the original Code Base,
 we decide to apply the Command Design Pattern for the Ranklist command too.
-
-
-[appendix]
-== Use Cases
-
-[discrete]
-==== Use case: UC7 - View list of people
-
-*MSS*
-
-1.  User requests to list all people in the system.
-2.  Powerlifting Competition Coordinator shows a list of all people in the system.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-[discrete]
-==== Use case: UC8 - Find people
-
-*MSS*
-
-1.  User performs a search with some keywords.
-2.  System lists people that have fields containing those keywords.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. System does not find any people containing fields with those keywords.
-+
-[none]
-** 2a1. System shows an empty list.
-
-[discrete]
-==== Use case: UC9 - Add a person to the system
-
-*MSS*
-
-1. User requests for a person to be added to the system.
-2. User inputs person data.
-3. System adds the new person to the system's list of people.
-4. System shows a success message.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. Person data is invalid.
-+
-[none]
-** 2a1. System shows an error message.
-+
-Use case resume at step 2.
-
-* 2b. The person is already in the system's list of people.
-+
-[none]
-** 2b1. System tells user that the person is already in the system's list of people.
-+
-Use case ends.
-
-
-[discrete]
-==== Use case: UC10 - Edit a specific person
-
-*MSS*
-
-1. User obtains a list of competitions by listing (<<Use case: UC7 - View list of people, *UC7*>>)
-or by (<<Use case: UC8 - Find people, *UC8*>>)
-2. User requests certain data about the athlete to be updated.
-3. System shows success message.
-+
-Use case ends.
-
-*Extensions*
-
-* 2a. User gives invalid data.
-+
-[none]
-** 2a1. System shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-==== Use case: UC11 - Delete a specific person
-
-*MSS*
-
-1. User views a list of people (<<Use case: UC7 - View list of people, *UC7*>>) or
-(<<Use case: UC8 - Find people, *UC8*>>)
-2. User requests for a person to be deleted from the list of people.
-3. System shows success message.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. User gives an invalid index.
-+
-[none]
-** 2a1. System shows an error message.
-+
-Use case resume at step 2.
-
-
-[discrete]
-==== Use case: UC12 - View my participation list
-
-*MSS*
-
-1.  User requests to list all participants.
-2.  System shows a list of all participants.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-[discrete]
-==== Use case: UC12 - Find participations
-
-*MSS*
-
-1.  User performs a search with some keywords.
-2.  System lists participations that have with certain fields containing those keywords.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. System does not find any participations containing fields with those keywords.
-+
-[none]
-** 2a1. System shows an empty list.
-
-[discrete]
-==== Use case: UC13 - Edit a specific participation (Available in v2.0)
-
-*MSS*
-
-1. User views a list of participations (<<Use case: UC12 - View my participation list, *UC12*>>) or
-(<<Use case: UC13 - Find participations, *UC13*>>)
-2. User requests certain data about the participation to be updated.
-3. System shows success message.
-+
-Use case ends.
-
-*Extensions*
-
-* 2a. User gives invalid data.
-+
-[none]
-** 2a1. System shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-==== Use case: UC14 - Add a new participation
-
-*MSS*
-
-1. User requests for a new participation to be added.
-2. User inputs the initial participation data (e.g. person and competition name) to be inputted.
-3. System adds the new participation to the user's participation list.
-4. System shows a success message.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. Participation data is invalid (e.g. Competition or person with inputted name does not exist in system).
-+
-[none]
-** 2a1. System shows an error message.
-+
-Use case resume at step 2.
-
-* 2b. A participation with the same person and competition has already been used in user's participation list.
-+
-[none]
-** 2b1. System tells user that the participation is already in his participation list.
-+
-Use case ends.
-
-[discrete]
-==== Use case: UC15 - Delete a specific participation
-
-*MSS*
-
-1. User views a list of participation (<<Use case: UC12 - View my participation list, *UC12*>>) or
-(<<Use case: UC13 - Find participations, *UC13*>>)
-2. User requests for a participation to be deleted from the list of participations.
-3. System shows success message.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. User gives an invalid index.
-+
-[none]
-** 2a1. System shows an error message.
-+
-Use case resume at step 2.
-
-[discrete]
-==== Use case: UC18 - Get a list of participations based on their score by some ranking method
-
-*MSS*
-
-1. User requests for participations in the current competition in-session to be ranked based on
-their score given by some ranking method.
-2. System shows the participations sorted by the ranking method with their scores.
-3. System shows success message.
-+
-Use case ends.
-
-
-
-[appendix]
-== Non Functional Requirements
-
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
-.  Should work on both 32-bit and 64-bit environments.
-.  Should come with automated unit tests and open source code.
-.  Should come with a user guide and a developer guide.
-.  Should favor <<dos-style-commands,DOS style commands>> over Unix-style commands.
-.  Should be intuitive such that a new user can learn to search and organize a powerlifting competition within 10 minutes.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-_{More to be added}_
-
-[appendix]
-== Glossary
-
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
