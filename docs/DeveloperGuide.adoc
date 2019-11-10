@@ -1032,17 +1032,16 @@ Besides, the food cards can be customized for each `ListView`, such as omitting 
 ==== Future Developments [Proposed Features]
 
 ** Recovering data after resetting `[coming in v2.0]` +
-This would be useful if the user wrongly enter `resetf` command, or another user want to temporarily use the same jar file on the same PC.
 This may be implemented by using a separate file to store the food data before executing `resetf` command.
+This file will be updated with the current food list before the `resetf` command is executed.
 
 ** Editing Foods `[coming in v2.0]` +
-This would provide more flexibility to the user to manipulate food data, instead of directly deleting a food.
-This can be adapted from exiting `edit` command from `AddressBook3`. However, since foods are identified by names instead of indexes, may consider using a `Map` that maps food names to food objects.
+This can be adapted from exiting `edit` command from `AddressBook3`.
+However, since foods are identified by names instead of indexes, may consider using a `Map` that maps food names to food objects.
 
 ** Recording and Analyzing diets `[coming in v2.0]` +
-This would allow the user to have an overview of his food consumption statistics.
 This can be adapted from existing `Record` model for daily, weekly, and monthly data summaries.
-Bases on such statistics, more specific suggestions can be proposed to to balance the user's nutrition intake.
+The suggestions can be made via (1)calculating ideal nutrition value intake based the user's BMI value, and (2) comparing the ideal intake amounts with the user's actual intake amounts.
 // end::recmf[]
 
 === Logging
