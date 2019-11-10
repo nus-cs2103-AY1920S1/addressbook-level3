@@ -156,11 +156,17 @@ public class UpdateCommand extends UndoableCommand {
                 UpdateBodyDescriptor originalBodyDescriptor = (UpdateBodyDescriptor) originalEntityDescriptor;
                 UpdateBodyDescriptor updateBodyDescriptor = (UpdateBodyDescriptor) updateEntityDescriptor;
 
+                if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CLAIMED))
+                        && !updateBodyDescriptor.getFridgeId().equals(Optional.ofNullable(null)))) {
+                    throw new CommandException(MESSAGE_CANNOT_ASSIGN_FRIDGE);
+                }
+
                 if (!originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())
                         && updateBodyDescriptor.getFridgeId().isPresent()) {
                     handleUpdatingFridgeAndEntity(model, originalBodyDescriptor, updateBodyDescriptor);
                 }
                 //@@author
+
 
                 if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))
                         && updateBodyDescriptor.getBodyStatus().isPresent()
@@ -181,10 +187,6 @@ public class UpdateCommand extends UndoableCommand {
                     removeBodyFromFridge(model);
                 }
 
-                if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CLAIMED))
-                        && !updateBodyDescriptor.getFridgeId().equals(Optional.ofNullable(null)))) {
-                    throw new CommandException(MESSAGE_CANNOT_ASSIGN_FRIDGE);
-                }
 
                 // add notif when a user manually sets the bodyStatus to CONTACT_POLICE
                 // Also adds notifs when automatically updated.

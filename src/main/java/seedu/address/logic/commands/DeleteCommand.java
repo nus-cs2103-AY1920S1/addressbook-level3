@@ -140,6 +140,14 @@ public class DeleteCommand extends UndoableCommand {
                 notifsToRemove.add(notif);
             }
         }
+
+        for (NotifCommand nc : NotifCommand.getNotifCommands()) {
+            if (nc.getNotif().getBody().equals(body)) {
+                nc.getChangeBodyStatusEvent().cancel(true);
+                nc.getChangeUiEvent().cancel(true);
+            }
+        }
+
         this.notifList = new ArrayList<>(notifsToRemove);
         for (Notif notif : notifsToRemove) {
             model.deleteNotif(notif);

@@ -5,10 +5,12 @@ import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -33,11 +35,14 @@ public class NotifCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(NotifCommand.class);
 
     private static ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+    private static ArrayList<NotifCommand> notifCommands = new ArrayList<>();
     private static Storage storageManager;
 
     private Notif notif;
     private long period;
     private TimeUnit timeUnit;
+    private ScheduledFuture changeUiEvent;
+    private ScheduledFuture changeBodyStatusEvent;
 
     public NotifCommand(Notif notif, long period, TimeUnit timeUnit) {
         this.notif = notif;
@@ -48,6 +53,7 @@ public class NotifCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        notifCommands.add(this);
         if (!model.hasNotif(notif)) {
             model.addNotif(notif);
         }
@@ -88,8 +94,8 @@ public class NotifCommand extends Command {
     /**
      * Updates the BodyStatus after a specified time.
      */
-    public void startSesChangeBodyStatus() {
-        ses.schedule(notif.getAlert(), period, timeUnit);
+    private void startSesChangeBodyStatus() {
+        changeBodyStatusEvent = ses.schedule(notif.getAlert(), period, timeUnit);
     }
 
     /**
@@ -97,7 +103,7 @@ public class NotifCommand extends Command {
      *
      * @param model refers to the ModelManager
      */
-    public void startSesChangeBodyStatusUi(Model model) {
+    private void startSesChangeBodyStatusUi(Model model) {
 
         Runnable changeUi = () -> Platform.runLater(() -> {
             Body body = notif.getBody();
@@ -133,7 +139,7 @@ public class NotifCommand extends Command {
             }
         });
 
-        ses.schedule(changeUi, period, timeUnit);
+        changeUiEvent = ses.schedule(changeUi, period, timeUnit);
     }
 
     @Override
@@ -154,12 +160,24 @@ public class NotifCommand extends Command {
         return Objects.hash(notif, period, timeUnit);
     }
 
-    public ScheduledExecutorService getSes() {
-        return ses;
-    }
-
     public static void setStorage(Storage storage) {
         storageManager = storage;
+    }
+
+    public ScheduledFuture getChangeUiEvent() {
+        return changeUiEvent;
+    }
+
+    public ScheduledFuture getChangeBodyStatusEvent() {
+        return changeBodyStatusEvent;
+    }
+
+    public Notif getNotif() {
+        return notif;
+    }
+
+    public static ArrayList<NotifCommand> getNotifCommands() {
+        return notifCommands;
     }
 }
 

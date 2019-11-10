@@ -279,6 +279,7 @@ public class UpdateCommandTest extends GuiUnitTest {
 
         String expectedMessage = MESSAGE_CANNOT_ASSIGN_FRIDGE;
         assertCommandFailure(updateCommand, model, expectedMessage);
+        assertEquals(f1.getFridgeStatus(), UNOCCUPIED);
     }
 
     @Test
