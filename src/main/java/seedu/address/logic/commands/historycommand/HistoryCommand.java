@@ -15,7 +15,7 @@ public class HistoryCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the history of previously-executed commands "
                                                             + "that are undo-able and redo-able.\n"
                                                             + "Format: history\n"
-                                                            + "Note that this command takes no additional parameters.";
+                                                            + "Note: this command takes no additional parameters.\n";
 
     /**
      * Executes the command and returns a CommandResult with a message.

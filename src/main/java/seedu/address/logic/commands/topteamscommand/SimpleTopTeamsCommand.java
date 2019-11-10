@@ -34,6 +34,8 @@ public class SimpleTopTeamsCommand extends TopTeamsCommand {
         checkNoTeams(model);
         model.setTopK(this.numberOfTeams, comparators, subject);
         logger.info("Showing Top " + this.numberOfTeams + " Teams.");
+        model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfTeams), CommandType.L);
     }
 

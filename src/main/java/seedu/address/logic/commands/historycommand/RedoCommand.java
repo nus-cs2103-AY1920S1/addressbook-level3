@@ -11,12 +11,16 @@ import seedu.address.model.Model;
  */
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
-    public static final String MESSAGE_SUCCESS = "Un-did %1$s command(s)";
+    public static final String MESSAGE_SUCCESS = "Re-did %1$s command(s)";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the previous command.\n"
-                                                + "Format: " + COMMAND_WORD + " [NUMBER_OF_COMMANDS_TO_REDO]\n"
-                                                + "Note that NUMBER_OF_COMMANDS_TO_REDO must be a number from 1 to 49\n"
-                                                + "and must be less than or equal to the number of commands that can\n"
-                                                + "be redone (see the output of the `history` command for this";
+                                               + "Format: " + COMMAND_WORD + " [NUMBER_OF_COMMANDS_TO_REDO]\n"
+                                               + "Note: NUMBER_OF_COMMANDS_TO_REDO must be a number from 1 to 49\n"
+                                               + "\tand must be less than or equal to the number of commands that can\n"
+                                               + "\tbe redone (see the output of the `history` command for this).\n"
+                                               + "\tNUMBER_OF_COMMANDS_TO_REDO is an optional parameter.\n"
+                                               + "\tIf absent, `redo 1` is called implicitly.\n"
+                                               + "Example 1: redo\n"
+                                               + "Example 2: redo 2";
     private int numToRedo;
 
     /**

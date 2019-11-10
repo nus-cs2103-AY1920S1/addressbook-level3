@@ -2,11 +2,9 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.TrackableState;
 import seedu.address.model.entitylist.MentorList;
@@ -103,7 +101,6 @@ public class ModelHistoryManager implements ModelHistory {
      * @return boolean indicating whether an undo is possible.
      */
     public boolean canUndo(int numToUndo) {
-        System.out.println("Current index of canUndo: " + this.history.indexOf(this.current));
         if (this.history.indexOf(this.current) - numToUndo + 1 > 0) {
             return true;
         } else {
@@ -160,57 +157,6 @@ public class ModelHistoryManager implements ModelHistory {
         }
         commandHistory.add(CommandRecord.getUndoEndPoint());
         return commandHistory;
-    }
-
-    /**
-     * Returns a String representing undo-able and redo-able Command History, separated by `=` delimiter.
-     * @return String representing undo-able and redo-able Command History.
-     */
-    public String getCommandHistoryString() {
-        String commandHistory = "-------------<< Cannot Redo Beyond This Point >>-------------\n";
-        //Obtain Redo-able Command History
-        int currentIndex = this.history.indexOf(this.current);
-        for (int j = this.history.size() - 1; j > currentIndex; j--) {
-            Command futureCommand = this.history.get(j).getCommand();
-            commandHistory += ((j - currentIndex) + ": " + futureCommand.getClass().getSimpleName());
-        }
-
-        //Delimiter
-        commandHistory += "=====================<< Current State >>=====================\n";
-
-        //Obtain Undo-able Command History
-        int index = 1;
-        for (int j = this.history.indexOf(this.current); j >= 1; j--) {
-            Command histCommand = this.history.get(j).getCommand();
-            commandHistory += (index + ": " + histCommand.getClass().getSimpleName() + "\n");
-            index++;
-        }
-        commandHistory += "-------------<< Cannot Undo Beyond This Point >>-------------\n";
-
-        return commandHistory;
-    }
-
-    public List<String> getUndoCommandHistory() {
-        List<String> undoHistory = new LinkedList<>();
-        int index = 1;
-        for (int j = this.history.indexOf(this.current); j >= 1; j--) {
-            Command histCommand = this.history.get(j).getCommand();
-            undoHistory.add(index + ": " + histCommand.getClass().getSimpleName());
-            index++;
-        }
-        undoHistory.add("-------------<< Cannot Undo Beyond This Point >>-------------");
-        return undoHistory;
-    }
-
-    public List<String> getRedoCommandHistory() {
-        List<String> redoHistory = new LinkedList<>();
-        redoHistory.add("-------------<< Cannot Redo Beyond This Point >>-------------");
-        int currentIndex = this.history.indexOf(this.current);
-        for (int j = this.history.size() - 1; j > currentIndex; j--) {
-            Command futureCommand = this.history.get(j).getCommand();
-            redoHistory.add((j - currentIndex) + ": " + futureCommand.getClass().getSimpleName());
-        }
-        return redoHistory;
     }
 
     /**

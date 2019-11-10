@@ -51,12 +51,12 @@ public class RemoveParticipantCommand extends RemoveCommand {
 
         try {
             model.removeParticipantFromTeam(teamId, participantToBeRemoved);
-            model.updateHistory(this);
-            model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_TEAM_DOES_NOT_HAVE_PARTICIPANT);
         }
 
+        model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(String.format(MESSAGE_REMOVE_PARTICIPANT_SUCCESS,
                 participantToBeRemoved.getName(), participantToBeRemoved.getId(),
                 assignedTeam.getName(), assignedTeam.getId()), CommandType.T);

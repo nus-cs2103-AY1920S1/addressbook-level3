@@ -119,8 +119,11 @@ public class ImportCommand extends Command implements TrackableState {
                     errorFileMessage,
                     MESSAGE_INVALID_FORMAT
             );
+            model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
             throw new CommandException(message);
         }
+
         model.updateHistory(this);
         model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS);

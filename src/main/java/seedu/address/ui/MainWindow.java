@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
@@ -181,7 +180,7 @@ public class MainWindow extends UiPart<Stage> {
         final KeyCombination upCombo = new KeyCodeCombination(KeyCode.UP, KeyCombination.ALT_DOWN);
         final KeyCombination downCombo = new KeyCodeCombination(KeyCode.DOWN, KeyCombination.ALT_DOWN);
 
-        this.commandBoxPlaceholder.addEventHandler(KeyEvent.ANY, new EventHandler<KeyEvent>() {
+        this.commandBoxPlaceholder.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {
                 if (upCombo.match(ke)) {
@@ -237,23 +236,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    /**
-     * Displays the list of Participants in Model and Storage on Graphical User
-     * Interface.
-     */
-    private void handleHistory() {
-        List<String> undoHistory = logic.getUndoCommandHistory();
-        List<String> redoHistory = logic.getRedoCommandHistory();
-        System.out.println("Inside handleHistory: printing");
-        for (String h : redoHistory) {
-            System.out.println(h);
-        }
-        System.out.println("=====================<< Current State >>=====================");
-        for (String h : undoHistory) {
-            System.out.println(h);
-        }
     }
 
     /**

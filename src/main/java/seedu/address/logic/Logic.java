@@ -2,10 +2,8 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.logic.commands.CommandResult;
@@ -80,15 +78,8 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns a List of Strings describing the commands that can be undone.
+     * Get statistics on EntityLists.
      */
-    List<String> getUndoCommandHistory();
-
-    /**
-     * Returns a List of Strings describing the commands that can be redone.
-     */
-    List<String> getRedoCommandHistory();
-
     Statistics getStatistics();
 
     /**

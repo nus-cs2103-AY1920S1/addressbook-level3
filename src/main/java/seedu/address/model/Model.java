@@ -201,25 +201,6 @@ public interface Model {
     void redo(int numToRedo) throws AlfredModelHistoryException;
 
     /**
-     * Gets a String detailing the previously executed commands that can be undone
-     * by the user.
-     *
-     * @return String representing the previously executed commands that can be
-     * undone by the user.
-     */
-    String getCommandHistoryString();
-
-    /**
-     * Returns a List of Strings describing the commands that can be undone.
-     */
-    List<String> getUndoCommandHistory();
-
-    /**
-     * Returns a List of Strings describing the commands that can be redone.
-     */
-    List<String> getRedoCommandHistory();
-
-    /**
      * Returns a List of CommandsRecords describing the commands that can be
      * undone/redone
      *
@@ -228,14 +209,9 @@ public interface Model {
     ArrayList<CommandRecord> getCommandHistory();
 
     /**
-     * Records the
-     * execution of
-     * the command.
-     * This is for
-     * the Command
-     * Navigation feature.
+     * Records the execution of the command.
+     * This is for the Command Navigation feature.
      */
-
     void recordCommandExecution(String commandInputString);
 
     /**

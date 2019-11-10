@@ -50,12 +50,12 @@ public class RemoveMentorCommand extends RemoveCommand {
 
         try {
             model.removeMentorFromTeam(teamId, mentorToBeRemoved);
-            model.updateHistory(this);
-            model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_TEAM_DOES_NOT_HAVE_MENTOR);
         }
 
+        model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(String.format(MESSAGE_REMOVE_MENTOR_SUCCESS,
                 mentorToBeRemoved.getName(), mentorToBeRemoved.getId(),
                 assignedTeam.getName(), assignedTeam.getId()), CommandType.T);
