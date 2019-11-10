@@ -531,7 +531,7 @@ Redoing a template item list will display which template is redone.
 //end::templatelistfeatures[]
 
 //end::tlistundoredo[]
-//tag::shoppinglistfeatures[]
+//tag::shoppinglistfeatures1[]
 === Shopping List Management
 
 ==== Add new item to shopping list: `slist add`
@@ -549,7 +549,7 @@ Examples:
 * `slist add n/milk a/1L`
 * `slist add n/banana a/3units`
 
-
+//end::shoppinglistfeatures1[]
 //tag::addTempfeature[]
 ==== Add items in template into shopping list: `slist addTemp`
 
@@ -561,6 +561,7 @@ Examples:
 * `slist addTemp 1`
 
 //end::addTempfeature[]
+//tag::shoppinglistfeatures2[]
 ==== Edit item in shopping list: `slist edit`
 
 Edits the name of a specified item in a shopping list. +
@@ -641,6 +642,7 @@ Format: `slist mergebought`
 ****
 **_Important Note_**: This command cannot be undone/redone.
 
+//end::shoppinglistfeatures2[]
 ==== Mark shopping item as Urgent: `slist urgent`
 
 Marks the specified item in the shopping list as *urgent!*
@@ -673,7 +675,6 @@ Format: `slist redo`
 'slist merge bought' command cannot be redone.
 
 //end::slistundoredo[]
-//end::shoppinglistfeatures[]
 === Exiting the program : `exit`
 
 Exits the program. +

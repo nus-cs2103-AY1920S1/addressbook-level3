@@ -672,6 +672,7 @@ The following activity diagram delineates how the unit conversion takes place.
 image::MergeBoughtActivityDiagram2.png[]
 The conversions of units are done by `Amount` class. Unit type is necessary in the implementation to allow for keeping track of different unit groups. For example, `kg`, `g`, `lbs`, and `oz` are all categorised under the unit type `Weight`.
 
+//end::mergeBoughtFeature[]
 ==== Design Considerations
 ===== Aspect: Storing BoughtItems
 .Design considerations for the storage of boughtItems
@@ -711,7 +712,6 @@ a|Use child class of `ShoppingItem` for boughtItem: `BoughtShoppingItem` with *E
 
 |===
 
-//end::mergeBoughtFeature[]
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
