@@ -7,6 +7,6 @@
 == Contributions to the User Guide
 
 == Contributions to the Developer Guide
-\
+
 == PROJECT: PowerPointLabs
 
