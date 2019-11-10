@@ -21,7 +21,6 @@ import seedu.address.model.entity.Score;
 import seedu.address.model.entity.SubjectName;
 import seedu.address.model.entity.Team;
 import seedu.address.model.entitylist.ReadOnlyEntityList;
-import seedu.address.model.person.Person;
 
 /**
  * The API of the Model component.
@@ -30,7 +29,6 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluate to true
      */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -115,9 +113,9 @@ public interface Model {
 
     Team getTeam(Id teamId) throws AlfredException;
 
-    Team getTeamByParticipantId(Id participantId) throws AlfredException;
+    List<Team> getTeamByParticipantId(Id participantId) throws AlfredException;
 
-    Team getTeamByMentorId(Id mentorId) throws AlfredException;
+    List<Team> getTeamByMentorId(Id mentorId) throws AlfredException;
 
     void addTeam(Team team) throws AlfredException;
 
@@ -130,12 +128,6 @@ public interface Model {
     void removeMentorFromTeam(Id teamId, Mentor mentor) throws AlfredException;
 
     void updateTeam(Id teamId, Team team) throws AlfredException;
-
-    void setTeamScore(Team team, Score score) throws AlfredException;
-
-    void addTeamScore(Team team, Score score) throws AlfredException;
-
-    void subtractTeamScore(Team team, Score score) throws AlfredException;
 
     Team deleteTeam(Id id) throws AlfredException;
 
@@ -156,6 +148,16 @@ public interface Model {
     List<Team> findTeam(Predicate<Team> predicate);
 
     List<Mentor> findMentor(Predicate<Mentor> predicate);
+
+    /* Score methods */
+
+    void setTeamScore(Team team, Score score) throws AlfredException;
+
+    void addTeamScore(Team team, Score score) throws AlfredException;
+
+    void subtractTeamScore(Team team, Score score) throws AlfredException;
+
+    /* Leaderboard methods */
 
     void setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators, SubjectName subject);
 
@@ -199,25 +201,6 @@ public interface Model {
     void redo(int numToRedo) throws AlfredModelHistoryException;
 
     /**
-     * Gets a String detailing the previously executed commands that can be undone
-     * by the user.
-     *
-     * @return String representing the previously executed commands that can be
-     * undone by the user.
-     */
-    String getCommandHistoryString();
-
-    /**
-     * Returns a List of Strings describing the commands that can be undone.
-     */
-    List<String> getUndoCommandHistory();
-
-    /**
-     * Returns a List of Strings describing the commands that can be redone.
-     */
-    List<String> getRedoCommandHistory();
-
-    /**
      * Returns a List of CommandsRecords describing the commands that can be
      * undone/redone
      *
@@ -226,14 +209,9 @@ public interface Model {
     ArrayList<CommandRecord> getCommandHistory();
 
     /**
-     * Records the
-     * execution of
-     * the command.
-     * This is for
-     * the Command
-     * Navigation feature.
+     * Records the execution of the command.
+     * This is for the Command Navigation feature.
      */
-
     void recordCommandExecution(String commandInputString);
 
     /**

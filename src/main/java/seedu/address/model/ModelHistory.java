@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
 import seedu.address.logic.commands.Command;
@@ -24,12 +23,6 @@ public interface ModelHistory {
     public ModelHistoryRecord undo(int numToUndo) throws AlfredModelHistoryException;
 
     public ModelHistoryRecord redo(int numToRedo) throws AlfredModelHistoryException;
-
-    public String getCommandHistoryString();
-
-    public List<String> getUndoCommandHistory();
-
-    public List<String> getRedoCommandHistory();
 
     public ArrayList<CommandRecord> getCommandHistory();
 }

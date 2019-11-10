@@ -3,7 +3,7 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After ListParticipantCommand: `list participants`
+title After Step 3
 
 package States {
     class State1 as "__mhr0:ModelHistoryRecord__"

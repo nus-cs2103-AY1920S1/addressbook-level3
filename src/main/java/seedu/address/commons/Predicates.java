@@ -15,57 +15,57 @@ import seedu.address.model.entity.Team;
  */
 public class Predicates {
     public static Predicate<Participant> getPredicateFindParticipantByName(String name, boolean neg) {
-        return neg
-                ? (participant) -> !participant.getName().toString().contains(name)
-                : (participant) -> participant.getName().toString().contains(name);
+        Predicate<Participant> predicate = (participant) -> participant.getName().toString().toLowerCase()
+                        .contains(name.toLowerCase());
+        return neg ? predicate.negate() : predicate;
     }
 
     public static Predicate<Team> getPredicateFindTeamByName(String name, boolean neg) {
-        return neg
-                ? (team) -> !team.getName().toString().contains(name)
-                : (team) -> team.getName().toString().contains(name);
+        Predicate<Team> predicate = (participant) -> participant.getName().toString()
+                .toLowerCase().contains(name.toLowerCase());
+        return neg ? predicate.negate() : predicate;
     }
 
     public static Predicate<Mentor> getPredicateFindMentorByName(String name, boolean neg) {
-        return neg
-                ? (mentor) -> !mentor.getName().toString().contains(name)
-                : (mentor) -> mentor.getName().toString().contains(name);
+        Predicate<Mentor> predicate = (mentor) -> mentor.getName().toString()
+                .toLowerCase().contains(name.toLowerCase());
+        return neg ? predicate.negate() : predicate;
     }
 
     public static Predicate<Team> getPredicateFindTeamByProjectName(String name, boolean neg) {
-        return neg
-                ? (team) -> !team.getProjectName().toString().contains(name)
-                : (team) -> team.getProjectName().toString().contains(name);
+        Predicate<Team> predicate = (team) -> team.getProjectName().toString()
+                .toLowerCase().contains(name.toLowerCase());
+        return neg ? predicate.negate() : predicate;
     }
 
     public static Predicate<Participant> getPredicateFindParticipantByEmail(String email, boolean neg) {
-        return neg
-                ? (participant) -> !participant.getEmail().toString().contains(email)
-                : (participant) -> participant.getEmail().toString().contains(email);
+        Predicate<Participant> predicate = (participant) -> participant.getEmail().toString()
+                .toLowerCase().contains(email.toLowerCase());
+        return neg ? predicate.negate() : predicate;
     }
 
     public static Predicate<Mentor> getPredicateFindMentorByEmail(String email, boolean neg) {
-        return neg
-                ? (mentor) -> !mentor.getEmail().toString().contains(email)
-                : (mentor) -> mentor.getEmail().toString().contains(email);
+        Predicate<Mentor> predicate = (mentor) -> mentor.getEmail().toString()
+                .toLowerCase().contains(email.toLowerCase());
+        return neg ? predicate.negate() : predicate;
     }
 
     public static Predicate<Participant> getPredicateFindParticipantByPhone(String phone, boolean neg) {
-        return neg
-                ? (participant) -> !participant.getPhone().toString().contains(phone)
-                : (participant) -> participant.getPhone().toString().contains(phone);
+        Predicate<Participant> predicate = (participant) -> participant.getPhone().toString()
+                .toLowerCase().contains(phone.toLowerCase());
+        return neg ? predicate.negate() : predicate;
     }
 
     public static Predicate<Mentor> getPredicateFindMentorByPhone(String phone, boolean neg) {
-        return neg
-                ? (mentor) -> !mentor.getPhone().toString().contains(phone)
-                : (mentor) -> mentor.getPhone().toString().contains(phone);
+        Predicate<Mentor> predicate = (mentor) -> mentor.getPhone().toString()
+                .toLowerCase().contains(phone.toLowerCase());
+        return neg ? predicate.negate() : predicate;
     }
 
     public static Predicate<Mentor> getPredicateFindMentorByOrganization(String org, boolean neg) {
-        return neg
-                ? (mentor) -> !mentor.getOrganization().toString().contains(org)
-                : (mentor) -> mentor.getOrganization().toString().contains(org);
+        Predicate<Mentor> predicate = (mentor) -> mentor.getOrganization().toString()
+                .toLowerCase().contains(org.toLowerCase());
+        return neg ? predicate.negate() : predicate;
     }
 
     public static <T> Predicate<T> predicateReducer(List<Predicate<T>> predicates) {

@@ -24,15 +24,15 @@ public class FindMentorCommand extends FindCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds the mentor by the name "
             + "given. Parameters: name to search for "
             + "and/or phone and/or email and/or organization to search for "
-            + "Example: " + COMMAND_WORD + " n/John Doe";
-    public static final String MESSAGE_SUCCESS = "Successfully ran the find command.";
+            + "Example: " + COMMAND_WORD + "<OR/AND> n/John Doe <EXCLUDE> ...other params";
+    public static final String MESSAGE_SUCCESS = "Successfully ran the find command with the following args: \n";
 
     private String nameNorm;
     private String emailNorm;
     private String phoneNorm;
     private String organizationNorm;
     private String nameExclude;
-    private String emailExcude;
+    private String emailExclude;
     private String phoneExclude;
     private String organizationExclude;
     private Predicate<Mentor> findPredicate;
@@ -83,13 +83,16 @@ public class FindMentorCommand extends FindCommand {
                     Predicates.getPredicateFindMentorByOrganization(organizationExclude.get(), true));
         }
 
-        this.findPredicate = Predicates.predicateReducer(filterPredicates);
+        this.findPredicate = type == FindCommandUtilEnum.AND
+                ? Predicates.predicateReducer(filterPredicates)
+                : Predicates.predicateReducerOr(filterPredicates);
+
         this.nameNorm = nameNorm.orElse("");
         this.emailNorm = emailNorm.orElse("");
         this.phoneNorm = phoneNorm.orElse("");
         this.organizationNorm = organizationNorm.orElse("");
         this.nameExclude = nameExclude.orElse("");
-        this.emailExcude = emailExclude.orElse("");
+        this.emailExclude = emailExclude.orElse("");
         this.phoneExclude = phoneExclude.orElse("");
         this.organizationExclude = organizationExclude.orElse("");
     }
@@ -102,7 +105,13 @@ public class FindMentorCommand extends FindCommand {
         listResults(results, PrefixType.P);
         model.updateHistory(this);
         model.recordCommandExecution(this.getCommandInputString());
-        return new CommandResult(MESSAGE_SUCCESS, CommandType.M);
+        return new CommandResult(MESSAGE_SUCCESS
+                + "n/" + nameNorm + " " + "e/" + emailNorm + " " + "p/" + phoneNorm + " "
+                + "o/" + organizationNorm + "\n"
+                + "Excluded the following: \n"
+                + "n/" + nameExclude + " " + "e/" + emailExclude + " " + "p/" + phoneExclude + " "
+                + "o/" + organizationExclude + "\n",
+                CommandType.M);
     }
 
     @Override
@@ -120,7 +129,7 @@ public class FindMentorCommand extends FindCommand {
                 && phoneNorm.equals(((FindMentorCommand) otherFindCommand).phoneNorm)
                 && organizationNorm.equals(((FindMentorCommand) otherFindCommand).organizationNorm)
                 && nameExclude.equals(((FindMentorCommand) otherFindCommand).nameExclude)
-                && emailExcude.equals(((FindMentorCommand) otherFindCommand).emailExcude)
+                && emailExclude.equals(((FindMentorCommand) otherFindCommand).emailExclude)
                 && phoneExclude.equals(((FindMentorCommand) otherFindCommand).phoneExclude)
                 && organizationExclude.equals(((FindMentorCommand) otherFindCommand).organizationExclude);
     }

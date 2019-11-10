@@ -32,7 +32,10 @@ public class FindTeamCommandTest {
                 Optional.empty(),
                 Optional.empty()
         );
-        String expectedMessage = FindTeamCommand.MESSAGE_SUCCESS;
+        String expectedMessage = FindTeamCommand.MESSAGE_SUCCESS + "n/" + "teamname" + " " + "pn/"
+                + "" + "\n"
+                + "Excluded the following: \n"
+                + "n/" + "" + " " + "pn/" + "" + "\n";
 
         assertCommandSuccess(command,
                 this.modelManager, expectedMessage, this.modelManager);
@@ -50,7 +53,10 @@ public class FindTeamCommandTest {
                 Optional.empty(),
                 Optional.empty()
         );
-        String expectedMessage = FindTeamCommand.MESSAGE_SUCCESS;
+        String expectedMessage = FindTeamCommand.MESSAGE_SUCCESS + "n/" + "P" + " " + "pn/"
+                + "projectname" + "\n"
+                + "Excluded the following: \n"
+                + "n/" + "" + " " + "pn/" + "" + "\n";;
 
         assertCommandSuccess(command,
                 this.modelManager, expectedMessage, this.modelManager);

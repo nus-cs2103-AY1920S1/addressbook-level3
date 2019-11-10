@@ -54,6 +54,11 @@ AddScoreCommand -> Model : addTeamScore(teamT-1, 40)
 note over CommandResult: note that "teamT-1" above denotes \n a Team Object with Id T-1 whereas \n "40" is a Score Object with value 40
 activate Model
 
+Model -> Model : updateTeam(teamID, updatedTeam)
+activate Model
+Model -> Model
+deactivate Model
+
 Model --> AddScoreCommand
 deactivate Model
 

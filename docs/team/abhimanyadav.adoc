@@ -3,13 +3,13 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: Alfred - The Hackathon Butler
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+For our software engineering project, my team of five software engineering students, including myself, were tasked with either improving an existing addressbook application's codebase, or completely modifying it into a new application. We decided to opt for the latter of the two options and morph the addressbook codebase into a command-line based hackathon organizing tool which we named "*Alfred*". Alfred is a desktop application targeted towards hackathon organizers and intends to aid them with several organizational and logistical needs, such as tracking the participants, teams and mentors involved in the hackathon; managing the relations between different these entities; and judging and determining winners within the hackathon. All of this intends to package the various complex tools required to organise a hackathon into a single application.
 
 == Summary of contributions
 

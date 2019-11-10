@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -42,7 +41,7 @@ public class ImportCommand extends Command implements TrackableState {
     public static final String MESSAGE_INVALID_FILE_PATH = "%s is not a valid file path";
     public static final String MESSAGE_FILE_NOT_FOUND = "File not found at %s"; // %s -> this.csvFileName
     public static final String MESSAGE_IO_EXCEPTION =
-            "Something went wrong while accessing your file! Please try again...";
+            "Something went wrong while accessing or writing to your file/folder! Please try again...";
     public static final String MESSAGE_INVALID_DATA = "CSV file contains invalid data";
     public static final String MESSAGE_INVALID_FORMAT = "CSV file must contain Entity data in the following format:\n"
             + "\tMentors: " + CsvUtil.HEADER_MENTOR + "\n"
@@ -76,7 +75,7 @@ public class ImportCommand extends Command implements TrackableState {
         if (!FileUtil.isValidPath(csvFilePath)) {
             throw new CommandException(String.format(MESSAGE_INVALID_FILE_PATH, csvFilePath));
         }
-        this.csvFilePath = Paths.get(csvFilePath);
+        this.csvFilePath = FileUtil.getPath(csvFilePath);
         this.shouldCreateErrorFile = false;
         this.teamBuffers = new LinkedList<>();
         this.errors = new ErrorTracker();
@@ -91,9 +90,9 @@ public class ImportCommand extends Command implements TrackableState {
         } else if (!FileUtil.isValidPath(errorFilePath)) {
             throw new CommandException(String.format(MESSAGE_INVALID_FILE_PATH, errorFilePath));
         }
-        this.csvFilePath = Paths.get(csvFilePath);
+        this.csvFilePath = FileUtil.getPath(csvFilePath);
         this.shouldCreateErrorFile = true;
-        this.errorFilePath = Paths.get(errorFilePath);
+        this.errorFilePath = FileUtil.getPath(errorFilePath);
         this.teamBuffers = new LinkedList<>();
         this.errors = new ErrorTracker();
     }
@@ -107,6 +106,7 @@ public class ImportCommand extends Command implements TrackableState {
         try {
             this.parseFile(csvFile, model);
         } catch (IOException ioe) {
+            System.out.println(ioe.toString());
             throw new CommandException(MESSAGE_IO_EXCEPTION);
         }
         if (!errors.isEmpty()) {
@@ -119,8 +119,11 @@ public class ImportCommand extends Command implements TrackableState {
                     errorFileMessage,
                     MESSAGE_INVALID_FORMAT
             );
+            model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
             throw new CommandException(message);
         }
+
         model.updateHistory(this);
         model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS);

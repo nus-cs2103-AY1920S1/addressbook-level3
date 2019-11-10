@@ -39,6 +39,9 @@ deactivate UndoCommand
 
 UndoCommandParser --> AlfredParser : u
 deactivate UndoCommandParser
+UndoCommandParser -[hidden]-> AlfredParser
+destroy UndoCommandParser
+
 
 AlfredParser -> UndoCommand : setCommandInputString("undo 3")
 activate UndoCommand

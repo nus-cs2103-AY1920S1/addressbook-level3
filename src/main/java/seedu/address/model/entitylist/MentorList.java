@@ -109,7 +109,7 @@ public class MentorList extends EntityList {
                 return m;
             }
         }
-        throw new AlfredModelException("Mentor to delete does not exist.");
+        throw new MissingEntityException("Mentor to delete does not exist.");
     }
 
     /**

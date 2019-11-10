@@ -3,7 +3,7 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After AddParticipantCommand: `add participant n/Clark Kent p/+6598321212 e/clark.kent@supermail.com`
+title After Step 1
 
 package States {
     class State1 as "__mhr0:ModelHistoryRecord__"

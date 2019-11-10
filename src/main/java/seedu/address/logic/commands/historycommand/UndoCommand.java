@@ -13,10 +13,14 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
     public static final String MESSAGE_SUCCESS = "Un-did %1$s command(s)";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undoes the previous command.\n"
-                                                + "Format: " + COMMAND_WORD + " [NUMBER_OF_COMMANDS_TO_UNDO]\n"
-                                                + "Note that NUMBER_OF_COMMANDS_TO_UNDO must be a number from 1 to 49\n"
-                                                + "and must be less than or equal to the number of commands that can\n"
-                                                + "be undone (see the output of the `history` command for this";
+                                               + "Format: " + COMMAND_WORD + " [NUMBER_OF_COMMANDS_TO_UNDO]\n"
+                                               + "Note: NUMBER_OF_COMMANDS_TO_UNDO must be a number from 1 to 49\n"
+                                               + "\tand must be less than or equal to the number of commands that can\n"
+                                               + "\tbe undone (see the output of the `history` command for this).\n"
+                                               + "\tNUMBER_OF_COMMANDS_TO_UNDO is an optional parameter.\n"
+                                               + "\tIf absent, `undo 1` is called implicitly.\n"
+                                               + "Example 1: undo\n"
+                                               + "Example 2: undo 2";
     private int numToUndo;
 
     /**

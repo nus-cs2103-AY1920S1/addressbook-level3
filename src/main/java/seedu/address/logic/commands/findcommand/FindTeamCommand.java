@@ -23,8 +23,8 @@ public class FindTeamCommand extends FindCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds the team by the name "
             + "given. Parameters: name to search for "
             + "and/or project name to search for"
-            + "Example: " + COMMAND_WORD + " n/Team01";
-    public static final String MESSAGE_SUCCESS = "Successfully ran the find command.";
+            + "Example: " + COMMAND_WORD + "<OR/AND> n/Team01 <EXCLUDE> ...other params";
+    public static final String MESSAGE_SUCCESS = "Successfully ran the find command with the following args: \n";
 
     private String nameNorm;
     private String projectNameNorm;
@@ -78,7 +78,11 @@ public class FindTeamCommand extends FindCommand {
         listResults(results, PrefixType.P);
         model.updateHistory(this);
         model.recordCommandExecution(this.getCommandInputString());
-        return new CommandResult(MESSAGE_SUCCESS, CommandType.T);
+        return new CommandResult(MESSAGE_SUCCESS
+                + "n/" + nameNorm + " " + "pn/" + projectNameNorm + "\n"
+                + "Excluded the following: \n"
+                + "n/" + nameExclude + " " + "pn/" + projectNameExclude + "\n",
+                CommandType.T);
     }
 
     @Override

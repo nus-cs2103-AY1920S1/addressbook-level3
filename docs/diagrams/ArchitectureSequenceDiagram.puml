@@ -7,10 +7,10 @@ Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "delete Participant P-1"
+user -[USER_COLOR]> ui : "delete participant P-1"
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> logic : execute("delete Participant P-1")
+ui -[UI_COLOR]> logic : execute("delete participant P-1")
 activate logic LOGIC_COLOR
 
 logic -[LOGIC_COLOR]> model : deleteParticipant(P-1)
@@ -19,7 +19,7 @@ activate model MODEL_COLOR
 model -[MODEL_COLOR]-> logic
 deactivate model
 
-model -[MODEL_COLOR]> storage : saveParticipantList(ParticipantList)
+model -[MODEL_COLOR]> storage : saveParticipantList(participantList)
 activate storage STORAGE_COLOR
 
 storage -[STORAGE_COLOR]> storage : Save to file

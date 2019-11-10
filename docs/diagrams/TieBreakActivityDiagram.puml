@@ -1,26 +1,38 @@
 @startuml
-(*) --> "Parser receives arguments" as first
---> Parser creates a new empty ArrayList \n of "Comparator<Team>" objects \n called comparators
 
----> if are tiebreak methods \n present? then
---> [no] return new \nSimpleLeaderboardCommand \n with input parameter "comparators"
-----> (*)
+start
+:Parser receives arguments;
+:Parser creates new SubjectName \nwith value null;
+:Parser creates a new empty ArrayList \n of "Comparator<Team>" objects \n called comparators;
 
-else
---> [yes] select the first tiebreak \n method present
---> "find the appropriate comparator \n for this tiebreak method" as loop
---> add the comparator to the ArrayList \n "comparators"
+if (is subject specified) then (yes)
+: Parse subject name and set \n variable SubjectName to its value;
+else (no)
+: Leave SubjectName as null;
+endif
 
-    --> if more tiebreak \n methods present? then
-    --> [no] Reverse the \n"comparators" ArrayList
-             if "random" specified as \na tiebreak method? then
-                --> [yes] return new \nLeaderboardWithRandomCommand \nwith input paramter "comparators"
-                --> (*)
-             else
-                --> [no] return new \nSimpleLeaderboardCommand \nwith input paramter "comparators"
-                --> (*)
-             Endif
-    else
-    --> [yes] Select next tiebreak method
-    --> loop
+if (are tiebreak methods \npresent?) then (no)
+:return new \nSimpleLeaderboardCommand \n with input parameter "comparators";
+
+else (yes)
+:split tiebreak methods\n into Array of String;
+while (tiebreak methods \npresent in Array) is (yes)
+:select tiebreak \n method;
+note right
+on every iteration the next
+item from the Array is selected
+end note
+:find the appropriate comparator \n for this tiebreak method;
+:add the comparator to the ArrayList \n "comparators";
+endwhile
+: Reverse the \n"comparators" ArrayList;
+if ("random" specified as \na tiebreak method?) then (yes)
+: return new \nLeaderboardWithRandomCommand \nwith input paramter "comparators";
+else (no)
+: return new \nSimpleLeaderboardCommand \nwith input parameter "comparators";
+endif
+endif
+
+stop
+
 @enduml

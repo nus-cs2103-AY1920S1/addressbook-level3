@@ -5,7 +5,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:sectnumlevels: 3
+:sectnumlevels: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -97,10 +97,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **Team**
 
 ** A team has a team name, a subject to focus on, score, its project name, and its location (table number).
-** A team may also contain one mentor and an arbitrary number of participants (setting of restrictions coming in v2.0).
+(For now, many teams can be grouped in 1 location. setting of restrictions coming in v2.0).
+** A team may also contain one mentor and 5 participants (setting of restrictions coming in v2.0).
 ** Two teams are considered as the same team if and only if they have the same team names or project names.
 
-All entities will also receive a unique ID, which means no two entity will share the same ID. That is, entities with same ID will also be considered as a same entity. This is to be considered for specific commands such as the <<CSV File Formatting>> under the <<Bulk Registration: `import fp/PATH_TO_CSV_FILE [fp/PATH_TO_ERROR_FILE]`, Bulk Registration>> command.
+All entities will also receive a unique ID, which means no two entity will share the same ID.
+That is, entities with same ID will also be considered as a same entity. This is to be considered for specific commands such as the <<CSV File Formatting>> under the <<Bulk Registration: `import fp/PATH_TO_CSV_FILE [fp/PATH_TO_ERROR_FILE]`, Bulk Registration>> command.
+Also, do not that entities are randomly generated and are not necessarily in ascending order.
 
 **`Parameters`**
 
@@ -122,7 +125,8 @@ Must be one of the values below:
 
 `Score` - must be an integer ranging from 0 to 100.
 
-`Location` - must be an integer ranging from 1 to 1000, indicating a table number. Only one team is allowed per table
+`Location` - must be an integer ranging from 1 to 1000, indicating a table number.
+Restrictions of the number of teams per table will be coming in v2.0.
 
 ****
 
@@ -165,6 +169,8 @@ help page in a separate pop-up window.
 * Should you require further information, the pop-up window also includes links to further references and documentation.
 ****
 
+To close the window, run any non-`help` command.
+
 Format: `help`
 
 === Adding an Entity: `add {participant/mentor/team}`
@@ -183,6 +189,7 @@ Use this command to add a new Participant to Alfred to keep track of for your ha
 
 ****
 * Participants have the fields "Name", "Phone number" and "Email address" which you must provide.
+* For now, to cater to an international audience, we do not check for validity of phone numbers.
 ****
 
 Format: `add participant n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS`
@@ -267,7 +274,7 @@ Deletes an Entity, so that Alfred will no longer keep track of that Entity.
 
 ****
 * Deletes the Entity with the ID that you specify.
-* Note that when you delete a Team, all the participants that are part of that team will also be deleted as well.
+* Note that when you delete a Team, it does not delete the participants or mentors associated with the teams.
 ****
 
 Examples:
@@ -286,16 +293,19 @@ Searches for Entities by selected fields, instead of their ID, in case you find 
 * Take note that the `find` command only searches
 and matches the fields whose strings are a substring of the given value. It also does an intersection
 search in the event where one or more fields are provided, that is, the entities found would have the selected values
-for each of the fields you key in
+for each of the fields you key in. This search is case insensitive.
 ****
 
 Examples:
 
-* `find mentor n/Joshua Wong` will display a list of all mentors in the Hackathon who are named "Joshua Wong", or have "Joshua Wong" in their name.
+* `find mentor n/Joshua Wong` will display a list of all mentors in the Hackathon who are named "Joshua Wong",
+or have "Joshua Wong" in their name.
 
-* `find participant n/John Doe` will display a list of all participants in the Hackathon who are named "John Doe", or have "John Doe" in their name.
+* `find participant n/John Doe` will display a list of all participants in the Hackathon who are named "John Doe",
+or have "John Doe" in their name.
 
-* `find team n/FutureHackathonWinner` will display a list of all teams in the Hackathon that are named "FutureHackathonWinner", or have "FutureHackathonWinner" in their name.
+* `find team n/FutureHackathonWinner` will display a list of all teams in the Hackathon that are named "FutureHackathonWinner",
+or have "FutureHackathonWinner" in their name.
 
 Each entity will have different fields available to find.
 
@@ -307,8 +317,57 @@ For mentor, `n/NAME, e/EMAIL, p/PHONE o/ORGANIZATION` are all available
 
 Example for multiple fields:
 
-* `find participant n/Damith e/damith.com` finds all participants whose name contains the string "Damith" (this is case
-sensitive) and whose emails contain "damith.com"
+* `find participant n/Damith e/damith.com` finds all participants
+whose name contains the string "Damith" and whose emails contain "damith.com"
+
+=== Advanced Finding of a Specific Entity by Union or Negative: `find [AND/OR] {mentor/team/participant} n/NAME ... [EXCLUDE] ...`
+
+The default find command for single and multiple fields works via a find by intersection. That is, entities
+must be true for all the predicates for it to be displayed. However, Alfred also supports finding by union.
+
+As above, all find commands are case insensitive.
+
+The commands for this is as such:
+
+* `find participant OR n/Damith e/nus` will do a search for all Participants whose name contains "Damith" or whose
+email contains "nus" in it.
+
+Also do note that for this command, the OR key must be placed before all the arguments to the command. Also,
+the OR key can be replaced by the AND key to do a search by intersection. If none are provided, then a search by
+intersection is done by default. The AND/OR keyword must be in caps.
+
+Next, Alfred also supports negative searches, if you wish to do it. Simply run
+
+* `find mentor n/Boss EXCLUDE e/boss.com` will return all mentors whose name has a "boss"
+and whose email does not contain "boss.com"
+
+Also, you can do negative searches by union as well.
+
+* `find mentor OR n/boss EXCLUDE e/boss.com` will now return all mentors whose
+name has a "boss" in it or whose email does not contain "boss.com"
+
+However, there are also some caveats when it comes to using `find`.
+
+1. The `AND/OR` keyword must be placed at the front before all parameters and the `EXCLUDE` keyword
+2. Anything after the `EXCLUDE` keyword will be processed using negative find.
+3. No `AND/OR` keywords are allowed after the `EXCLUDE` keyword.
+4. You can only search by `AND` or `OR`. You cannot do a search by both `AND` and `OR`
+
+****
+Some notes on the logic used in find.
+
+* The logic used in find obeys normal boolean, probabilistic logic.
+* Hence commands like `find participant n/Ki EXCLUDE n/Ki` will return an empty list
+* Likewise, commands like `find participant OR n/Ki EXCLUDE n/Ki` will return the full list.
+****
+
+Other examples of valid commands are also provided here for your reference:
+
+1. `find team OR EXCLUDE n/ArsenalFC pn/Football` will do a search of all teams whose name does not
+contain "ArsenalFC" or whose project name does not contain "Football".
+2. `find participant AND n/Abramov EXCLUDE e/react` will do a search where participant names contain "Abramov"
+and whose email does not contain "react". In this case, the `AND` keyword could have been omitted because
+the default find does a search by intersection.
 
 //tag::assign[]
 === Assigning a Entity to a Team: `assign {mentor/participant} ID TEAM_ID ...`
@@ -357,25 +416,38 @@ image::RemoveCommandExample2.png[width="790"]
 === Show Command History: `history`
 Shows you up to the last 50 commands that you executed.
 
+[[history_diagram]]
+image::UndoRedoExplanation.png[width="790"]
+
 ****
-* This command is to facilitate the undo/redo commands, as it becomes easier for you to track what changes were made before.
-* The "History" section of Alfred displays all the previously-executed commands as panels. There are 3 main delimiters.
+* This command is to facilitate the undo/redo commands, as it becomes easier for you to track what changes were made before, and which
+commands can be undone/redone. This is especially useful when many commands have been executed and it is difficult to remember the sequence of
+execution of the commands.
+* Executing the command will bring you to the "History" section of Alfred, which displays all the previously-executed
+commands as panels. There are 3 main delimiters. Each delimiter is just a visual representation of the limits for the undo/redo commands.
 * You cannot redo any command beyond the "redo" delimiter.
 * You cannot undo any command beyond the "undo" delimiter.
-* The "current" delimiter tells you where you are at relative to the rest of the commands you have executed.
+* The "current" delimiter tells you where you are at relative to the rest of the commands you have executed. It represents the
+current state of the data.
 * Note that only commands that change the state of the data in Alfred will be displayed in the "History" section and are undo/redo-able.
 For instance, `list participants` will not be undo/redo-able, as it simply shows you the participants in Alfred and does not change any information in Alfred.
 On the other hand, invoking `add participant` with the suitable parameters will be undo/redo-able and will be shown in the "History" section by the `history` command.
 * In total, only 50 states will be stored, so this serves as a limit for the number of commands you can undo/redo to.
 ****
 
+[NOTE]
+The following commands are not undo/redo-able: `help`, `list`, `find`, `history`, `leaderboard`, `getTop`, `export`, `help`, `home`, `undo`, `redo`.
+All other commands are undo/redo-able.
+
 Example:
 
 After running the following commands:
 
 1. `list participants`
-2. `add participant n/Bartholomew Lim p/+6593121212 e/barrytheflash@gmail.com`
-3. `add participant n/Diana Prince p/+6593111111 e/singaporewonderwoman@hotmail.com`
+2. `add participant n/SuperHero1 p/+6591111111 e/superhero1@gmail.com`
+3. `add participant n/SuperHero2 p/+6592222222 e/superhero2@gmail.com`
+4. `add participant n/SuperHero3 p/+6593333333 e/superhero3@gmail.com`
+5. `edit participant P-4 n/The Flash`
 
 Running `history` will show you the following output in the "History" section of the Graphical User Interface:
 
@@ -385,8 +457,12 @@ image::HistoryCommandExampleOutput.png[width="790"]
 The topmost panel is the "redo" delimiter. +
 The second panel from the top is the "current" delimiter. +
 The bottommost panel shows you the "undo" delimiter. +
-This means that you can invoke the `undo` command twice, as both AddParticipantCommands can be undone.
-Notice that the `list participants` command is not shown in the "History" section as it does not change data.
+In this example, the output of the `history` command shows you can invoke the `undo` command four times.
+Notice that the `list participants` command is not shown in the "History" section as it does not change data. +
+Also note that the undo-able commands are numbered, with the 1st undo-able command being the most recently executed command (the EditParticipantCommand),
+and the 4th undo-able command being the oldest executed command. You are unable to undo beyond the 4th undo-able command. Doing so will result in an error (see <<Undo Previous Commands: `undo [NUM_COMMANDS_TO_UNDO]`>>) +
+Also note that in this case, no commands are redo-able, that's why there are no panels between the "redo" and "current" delimiters. Hence, executing `redo` command will result in an error (see <<Redo Previous Commands: `redo [NUM_COMMANDS_TO_REDO]`>>) +
+
 
 === Undo Previous Commands: `undo [NUM_COMMANDS_TO_UNDO]`
 Undoes previously executed commands.
@@ -403,12 +479,13 @@ undo, as per the output of the `history` command.
 * All commands that can be undone can be found in the output of the `history` command. Use this to see the total number of commands and which commands you can undo.
 * To be certain which command you are actually undo-ing, first run the `history` command and examine the output.
 * Only the commands that actually change the data in Alfred will be undo-able. Commands that perform read operations
-(such as `find` and `list`) will not be found in the output of the `history` command.
-* Note that `NUM_COMMANDS_TO_UNDO` must be an integer, and if `NUM_COMMANDS_TO_UNDO` exceeds the number of commands that can be undone, Alfred will indicate
+(such as `find` and `list`) will not be found in the output of the `history` command. See <<Show Command History: `history`>> for a full list of commands that are not undo-able.
+* Note that `NUM_COMMANDS_TO_UNDO` must be an integer, and must be a number between 1 and 49 (because only a maximum of 50 states are stored).
+If `NUM_COMMANDS_TO_UNDO` exceeds the number of commands that can be undone, Alfred will indicate
 that the undo command cannot be executed.
 ****
 
-Format: `undo`
+Format: `undo [NUM_COMMANDS_TO_UNDO]`
 
 === Redo Previous Commands: `redo [NUM_COMMANDS_TO_REDO]`
 Redoes previously executed commands.
@@ -424,12 +501,14 @@ redo, as per the output of the `history` command.
 (as though you re-executed the `NUM_COMMANDS_TO_REDO` previous commands)
 * All commands that can be redone can be found in the output of the `history` command. Use this to see the total number of commands and which commands you can redo.
 * To be certain which command you are actually redo-ing, first run the `history` command and examine the output.
-* Only the commands that actually change the data in Alfred will be redo-able. Commands that perform read operations (such as `find` and `list`) will not be found in the output of the `history` command.
-* Note that `NUM_COMMANDS_TO_REDO` must be an integer, and if `NUM_COMMANDS_TO_REDO` exceeds the number of commands that can be redone, Alfred will indicate
-that the undo command cannot be executed.
+* Only the commands that actually change the data in Alfred will be redo-able.
+Commands that perform read operations (such as `find` and `list`) will not be found in the output of the `history` command. See <<Show Command History: `history`>> for a full list of commands that are not redo-able.
+* Note that `NUM_COMMANDS_TO_REDO` must be an integer, and must be a number between 1 and 49 (because only a maximum of 50 states are stored).
+If `NUM_COMMANDS_TO_REDO` exceeds the number of commands that can be redone, Alfred will indicate
+that the redo command cannot be executed.
 ****
 
-Format: `redo`
+Format: `redo [NUM_COMMANDS_TO_REDO]`
 
 === Command History Navigation
 Navigate to previous commands by pressing the alt key kbd:[Alt], together with the up kbd:[&uparrow;] or down kbd:[&downarrow;] arrow keys.
@@ -437,12 +516,14 @@ For Mac users, press the option key kbd:[Opt] in place of the alt key kbd:[Alt] 
 alt key kbd:[Alt], press the remapped key on your keyboard instead.
 
 ****
-* Every time you execute a command, the command is saved in Alfred, so you can navigate to a previous command without re-typing the whole thing.
+* Every time you execute a command *_successfully_*, the command is saved in Alfred, so you can navigate to a previous command without re-typing the whole thing.
+There is only 1 exception to this rule: the `import` command can be navigated to even if there are errors raised during execution.
+This is because the `import` command will do its best to import as many Entities into Alfred as possible, before finally notifying the user of any incorrect entries (so there is partial successin the command's execution).
 * Press kbd:[Alt] + up kbd:[&uparrow;] to navigate to the previous command.
 * Press kbd:[Alt] + down kbd:[&downarrow;] to navigate to the next command.
 * Unlike most of the other features in Alfred, this is not a command you type into Alfred's command input box. This is a keyboard shortcut that is mainly for your convenience as it allows you to quickly re-use previously executed commands.
 * Note that Alfred's command input box must be in focus (the cursor is active in the command input box) for the keyboard shortcuts for this feature to work
-* This feature only allows you to navigate up to the previous 50 successfully executed commands. Invalid commands cannot be navigated to.
+* This feature only allows you to navigate up to the previous 50 successfully executed commands.
 ****
 
 === Scoring: `score`
@@ -515,7 +596,11 @@ Example:
 
 * `score reset T-5 10` will reset the score of the team with ID T-5.
 
-=== List Team Ranking: `leaderboard`
+=== Team Rankings: `leaderboard` and `getTop k`
+
+In addition to assigning scores to teams, Alfred also facilitates viewing the leaderboard and fetching the top teams in the hackathon with ease as well. The following subsections explain how to use these commands within Alfred.
+
+==== View Leaderboard: `leaderboard`
 Use this command to display the ranking of all the teams in the hackathon in descending order of their points.
 
 ****
@@ -525,7 +610,7 @@ Use this command to display the ranking of all the teams in the hackathon in des
 
 Format: `leaderboard`
 
-=== Get the top k teams: `getTop K`
+==== Get the top k teams: `getTop K`
 Use this command to list the top k teams in the leaderboard, where k is a valid positive integer which you specify.
 
 ****
@@ -545,11 +630,11 @@ Example:
 
 * `getTop 20` will display the top 20 teams with the highest points in the hackathon.
 
-=== Extensions to `leaderboard` and `getTop K` Command
+==== Extensions to `leaderboard` and `getTop K` Command
 
-To provide additional functionalities to the `leaderboard` and `getTop k` commands within Alfred, there are few extensions that can be added to these two commands to allow you to see a representation of the leaderboard or top teams more accustomed to your needs. These extensions and how to use them within Alfred are explained in the subsections below.
+To provide additional functionalities to the `leaderboard` and `getTop k` commands within Alfred, there are few extensions that can be added to these two commands to allow you to see a representation of the leaderboard or top teams more accustomed to your needs. These extensions and how to use them within Alfred are listed below.
 
-==== Tie-Break
+===== Tie-Break
 
 By default Alfred `leaderboard` and `getTop k` commands fetch and display teams in descending order of their score, and by the order they were added into Alfred in case of tied scores.
 
@@ -579,7 +664,7 @@ Example:
 * `leaderboard tb/moreParticipants lowerId` will display the leaderboard on the UI with Alfred breaking the tie between teams with equals scores based on which team has more participants, and if the number of participants is equal then by which team has the lower ID.
 * `getTop 3 tb/lessParticipants random` will display the top 3 teams on the UI with Alfred breaking the tie between teams with equals scores based on which team has fewer participants, and if the number of participants is equal then Alfred will randomly pick the winners for the tie.
 
-==== Filter by Subject
+===== Filter by Subject
 
 By default, when running either the `leaderboard` or `getTop k` command, Alfred will show all the appropriate teams irrespective of their subject. However, in the situation that you need to select winners from a certain subject category, Alfred's filter by subject feature provides you the capability to achieve this. To view the leaderboard or top teams for a specific subject, follow the following format:
 
@@ -728,6 +813,9 @@ The help command will list all the commands you need to use this
 application properly!
 
 Simply run `help`.
+
+If you want the help window to close, simply run another command that is not `help` and the window
+will close by itself.
 
 //tag::home[]
 === Home command: `home`

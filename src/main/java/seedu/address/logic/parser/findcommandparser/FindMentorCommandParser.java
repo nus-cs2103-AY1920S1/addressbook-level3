@@ -60,7 +60,7 @@ public class FindMentorCommandParser implements Parser<FindMentorCommand> {
         }
 
         // Checks the position of the AND/OR
-        AlfredParserUtil.isFindTypeAtStart(args.trim().substring("mentor".length()));
+        AlfredParserUtil.isFindTypeAtStart(args.trim());
 
         return new FindMentorCommand(type, nameNorm, emailNorm, phoneNorm, organizationNorm,
                 nameExclude, emailExclude, phoneExclude, organizationExclude);

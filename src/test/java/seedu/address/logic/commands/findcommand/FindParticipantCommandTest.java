@@ -34,7 +34,10 @@ public class FindParticipantCommandTest {
                 Optional.empty(),
                 Optional.empty()
         );
-        String expectedMessage = FindParticipantCommand.MESSAGE_SUCCESS;
+        String expectedMessage = FindParticipantCommand.MESSAGE_SUCCESS + "n/" + "P" + " " + "e/"
+                + "" + " " + "p/" + "" + "\n"
+                + "Excluded the following: \n"
+                + "n/" + "" + " " + "e/" + "" + " " + "p/" + "" + "\n";
 
         assertCommandSuccess(command,
                 this.modelManager, expectedMessage, this.modelManager);
@@ -54,7 +57,10 @@ public class FindParticipantCommandTest {
                 Optional.empty(),
                 Optional.empty()
         );
-        String expectedMessage = FindParticipantCommand.MESSAGE_SUCCESS;
+        String expectedMessage = FindParticipantCommand.MESSAGE_SUCCESS + "n/" + "P" + " " + "e/"
+                + "example" + " " + "p/" + "" + "\n"
+                + "Excluded the following: \n"
+                + "n/" + "" + " " + "e/" + "" + " " + "p/" + "" + "\n";
 
         assertCommandSuccess(command,
                 this.modelManager, expectedMessage, this.modelManager);

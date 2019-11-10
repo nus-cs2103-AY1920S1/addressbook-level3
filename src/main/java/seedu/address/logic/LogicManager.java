@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -73,6 +72,16 @@ public class LogicManager implements Logic {
         return model.getCommandHistory();
     }
 
+    @Override
+    public String getPrevCommandString() {
+        return model.getPrevCommandString();
+    }
+
+    @Override
+    public String getNextCommandString() {
+        return model.getNextCommandString();
+    }
+
     // TODO: May update the three methods below to get Alfred file path instead
     @Override
     public Path getParticipantListFilePath() {
@@ -99,18 +108,6 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
-    // TODO: Marked for deprecation
-    @Override
-    public List<String> getUndoCommandHistory() {
-        return model.getUndoCommandHistory();
-    }
-
-    // TODO: Marked for deprecation
-    @Override
-    public List<String> getRedoCommandHistory() {
-        return model.getRedoCommandHistory();
-    }
-
     @Override
     public Statistics getStatistics() {
         Statistics result = new Statistics();
@@ -119,9 +116,7 @@ public class LogicManager implements Logic {
         setTeamStatistics(result);
         setMentorStatistics(result);
         return result;
-
     }
-
 
     private void setParticipantStatistics(Statistics statistics) {
         FilteredList<Participant> participantList = model.getFilteredParticipantList();
@@ -129,7 +124,6 @@ public class LogicManager implements Logic {
 
         statistics.setTotalParticipants(numParticipants);
     }
-
 
     private void setMentorStatistics(Statistics statistics) {
         FilteredList<Mentor> mentorList = model.getFilteredMentorList();
@@ -148,7 +142,6 @@ public class LogicManager implements Logic {
         statistics.setHealthMentors(numHealthMentor);
     }
 
-
     private void setTeamStatistics(Statistics statistics) {
         FilteredList<Team> teamList = model.getFilteredTeamList();
 
@@ -164,12 +157,5 @@ public class LogicManager implements Logic {
         statistics.setEnvTeams(numEnvTeams);
         statistics.setSocialTeams(numSocialTeams);
         statistics.setHealthTeams(numHealthTeams);
-    }
-    public String getPrevCommandString() {
-        return model.getPrevCommandString();
-    }
-
-    public String getNextCommandString() {
-        return model.getNextCommandString();
     }
 }

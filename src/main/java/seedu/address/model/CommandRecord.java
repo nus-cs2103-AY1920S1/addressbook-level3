@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import seedu.address.ui.EntityCard;
-
 /**
  * Represents a record of a previously executed command in ModelHistory.
  */
@@ -58,11 +56,11 @@ public class CommandRecord {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EntityCard)) {
+        if (!(other instanceof CommandRecord)) {
             return false;
         }
 
-        // state check(if two EntityCard are equal)
+        // state check(if two CommandRecord are equal)
         CommandRecord commandRecord = (CommandRecord) other;
         return index.equals(commandRecord.getIndex()) && commandString.equals(commandRecord.getCommandString())
                 && commandType.equals(commandRecord.getCommandType());

@@ -56,7 +56,7 @@ public class FindParticipantCommandParser implements Parser<FindParticipantComma
         }
 
         // Checks the position of the AND/OR
-        AlfredParserUtil.isFindTypeAtStart(args.trim().substring("participant".length()));
+        AlfredParserUtil.isFindTypeAtStart(args.trim());
 
         return new FindParticipantCommand(type, nameNorm, emailNorm, phoneNorm,
             nameExclude, emailExclude, phoneExclude);

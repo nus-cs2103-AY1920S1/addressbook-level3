@@ -3,7 +3,7 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After AddTeamCommand: `add team n/Justice League s/Social pn/BetterThanAvengers l/12`
+title After Step 5
 
 package States {
     class State1 as "__mhr0:ModelHistoryRecord__"
