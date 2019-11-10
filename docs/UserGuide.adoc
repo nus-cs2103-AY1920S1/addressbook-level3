@@ -105,7 +105,7 @@ Multi-purpose mobile computing device. Also known as smartphones.
 A request for goods.
 
 . *Schedule* +
-A meetup with buyer to pass the goods. There can only be 1 schedule associated with an order at any one time.
+A meetup with buyer to pass the goods. There can only be 1 schedule associated with an order at any one time. Duration of schedule is set to be 1 hour.
 
 === SML-specific Terms
 
@@ -574,6 +574,8 @@ Shows the week of the date specified by the user. +
 [underline]#Format#: `schedule cd/DATE`
 [TIP]
 Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
+[TIP]
+Month and date can be *single digits* where applicable.
 
 ==== Add a schedule : `add-s`
 Adds a schedule. +
@@ -618,7 +620,7 @@ Deletes a schedule. +
 
 ==== Edit a schedule : `edit-s`
 Edits an existing schedule. +
-If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules. +
+If the edited schedule has conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules. +
 *Note*: You can add multiple schedules at the same time slot but it will affect the *visibility of the order index and schedule venue* on the calendar. +
 
 [underline]#Format#: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]… [-allow]`
@@ -639,6 +641,9 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 Clears every schedule in SML. +
 
 [underline]#Format#: `clear-s`
+
+==== Customise schedule duration `[coming in v2.0]`
+There will be an additional attribute in schedule which takes in the duration of the event (in minutes).
 
 // end::schedule[]
 
