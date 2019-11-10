@@ -789,8 +789,8 @@ The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
 The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
 starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
-The last loop appends characters from the starting character to the ending character. After the nested loops, the ArrayList
-is passed into a stream to filter out all subsets of length less than 3.
+The last loop appends all the characters from the starting character to the ending character. After iterating through the nested loops,
+the ArrayList `result` is passed into a stream to filter out all subsets of length less than 3.
 
 If description and quantity are both valid, the `ModelManager` will add the item into the sales list as shown in Figure 2.
 

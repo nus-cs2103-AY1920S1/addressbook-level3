@@ -53,12 +53,12 @@ This desktop application consists of 6 tabs, a command box for user inputs and a
 for Leo, our lion mascot. Each tab serves a different purpose, but every tab aims to facilitate seamless and effortless
 managing of the organisation's finances. The following shows the various tabs and their respective purposes:
 
-** Home Tab: keeps track of individual transactions
-** Members Tab: records contact details of all members
-** Reimbursement Tab: handles reimbursement records for members who fork in their money
-** Inventory Tab: keeps track of items in the inventory
-** Cashier Tab: supports cashiering duties and directly input sales into the system
-** Overview Tab: gives an analysis of the organisation's finances for future planning
+** *Home Tab*: keeps track of individual transactions
+** *Members Tab*: records contact details of all members
+** *Reimbursement Tab*: handles reimbursement records for members who fork in their money
+** *Inventory Tab*: keeps track of items in the inventory
+** *Cashier Tab*: supports cashiering duties and directly input sales into the system
+** *Overview Tab*: gives an analysis of the organisation's finances for future planning
 
 This is what the application looks like when it starts up:
 
@@ -73,7 +73,7 @@ The following sections present the enhancements that I have implemented in great
 === Main Enhancements
 The following section illustrates some crucial enhancements that I have added for Cashier tab.
 
-* Adding, Deleting and Editing of Sales Items
+* *Adding, Deleting and Editing of Sales Items*
 ** What it does:
 It allows the user to add, delete and update the sales items in the table shown on the tab.
 
@@ -89,7 +89,7 @@ Furthermore, upon any mistyped words or descriptions that do not match an existi
 suggestions will be offered. This further augments the hassle-free aspect of this tab.
 
 
-* Checking Out the Cart
+* *Checking Out the Cart*
 ** What it does:
 This checkout feature calculates and displays the total amount and the change to be returned.
 
@@ -102,7 +102,7 @@ This feature ensures accountability by prohibiting checkout if the cashier has n
 the sales made will be recorded on the Home tab as a transaction. This transaction will contribute towards the
 revenue and be used in the finance analysis.
 
-* Cashier Mode
+* *Cashier Mode*
 ** What it does:
 `Cashier Mode` will be automatically turned on when there are items in the table of the Cashier tab.
 When all the items in the table are cleared, `Cashier Mode` will automatically turn off.
@@ -128,7 +128,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/a
 The following section documents other contributions I have made and it includes relevant GitHub pull
 requests in relation to the relevant contributions.
 
-* Enhancements
+* *Enhancements*
 ** Wrote tests for several `Inventory` classes:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/148[(PR #148)]
 
@@ -136,7 +136,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/148[(PR #148)]
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/202[(PR #202)]
 
 
-* Community
+* *Community*
 ** Reviewed pull requests and offered suggestions (with non-trivial review comments):
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/221[(PR #221)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/196[(PR #196)]
@@ -149,16 +149,16 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/94[(PR #94)]
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/297[(PR #297)]
 
 
-* Documentation
+* *Documentation*
 ** Updated the developer guide with diagrams and information about `Inventory` and `Cashier` parsers:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)]
 
-** Added implementation details for the `Cashier Tab` in Developer Guide:
+** Added implementation details for the Cashier tab in Developer Guide:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/164[(PR #164)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/162[(PR #162)]
 
-** Added guide to use `Cashier Tab` in user guide:
+** Added guide to use Cashier tab in user guide:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/212[(PR #212)]
 
@@ -209,17 +209,19 @@ The system will allow a valid item to be added even if the category of the item 
 specified category inputted.
 
 Steps:
-1. Type the command with a category specified as shown in the screenshot below:
+
+1. If you do not remember the exact description of the item to add, you can type the command "add" with a category
+specified as shown in the screenshot below.
 
 image::cashierUG/AddCommand1.png[width=600"]
 
 [start = 2]
-2. Enter the desired description and quantity according to the items suggested by Leo as shown below:
+2. Then, you can enter the desired description and quantity according to the items suggested by Leo as shown below.
 
 image::cashierUG/AddCommand2.png[width="600"]
 
 [start = 3]
-. Hit `Enter`
+. Now, you can hit `Enter`.
 
 image::cashierUG/AddCommand3.png[width="600"]
 
@@ -253,12 +255,14 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 
 * Steps:
 
-1. Type the command and specify the amount that the customer is paying as shown in the screenshot below:
+1.
+To checkout, you can type in the command "checkout" and specify the amount that the customer is paying as
+shown in the screenshot below.
 
 image::cashierUG/CheckoutCommand1.png[width="600"]
 
 [start = 2]
-. Hit `Enter`
+. Now, you can hit `Enter`.
 
 
 image::cashierUG/CheckoutCommand2.png[width="600"]
@@ -323,8 +327,8 @@ The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
 The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
 starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
-The last loop appends characters from the starting character to the ending character. After the nested loops, the ArrayList `result`
-is passed into a stream to filter out all subsets strings that are of length less than 3.
+The last loop appends all the characters from the starting character to the ending character. After iterating through the nested loops,
+the ArrayList `result` is passed into a stream to filter out all subsets strings that are of length less than 3.
 
 //
 //[NOTE]
@@ -334,8 +338,8 @@ If description and quantity are both valid, the `ModelManager` will add the item
 
 The following sequence diagram shows how the `AddCommand` works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
+[caption = "Figure 38. "]
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
-
 image::AddCommandCashierSeq.png[width="270"]
 
 `AddCommandParser` will carry out multiple checks to check the validity of the inputs. `hasItemInInventory(description)`
@@ -348,8 +352,8 @@ it is initially false.
 
 The following activity diagram shows the steps proceeding after the user input an add command:
 
+[caption = "Figure 39. "]
 .Activity Diagram of Add Command (cashier package)
-
 image::AddCommandCashierActivity.png[width="600"]
 
 {End of First Extract from Developer Guide}
@@ -375,13 +379,13 @@ transaction of the sales made.
 After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
 
 [NOTE]
-After checkout command is executed, boolean `onCashierMode` in ModelManager  will be
+After checkout command is executed, boolean `onCashierMode` in ModelManager will be
 immediately set to false.
 
 The following sequence diagram shows how the checkout command is executed:
 
+[caption = "Figure 43. "]
 .Sequence Diagram of Checkout Command (cashier package)
-
 image::CheckoutCommandCashierSeq1.png[width="280"]
 
 The `Cashier Logic` will call relevant methods to update the inventory list and newly-generated transaction
@@ -391,8 +395,8 @@ called to read in the entire inventory data file and transaction will be added t
 
 The following sequence diagram shows how the transaction and inventory are updated:
 
+[caption = "Figure 44. "]
 .Sequence Diagram of how transaction and inventory get updated (cashier package)
-
 image::CheckoutCommandCashierSeq2.png[width="600"]
 
 //As seen below, if the amount inputted is less than the total amount of items, the user will be prompted to key in a valid value.
