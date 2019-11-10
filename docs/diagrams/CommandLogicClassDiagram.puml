@@ -1,0 +1,7 @@
+@startuml
+
+interface CommandLogic {
+    CommandResult : executeCommand(commandText)
+}
+
+@enduml

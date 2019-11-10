@@ -57,7 +57,7 @@ programmers), you can get used to it while working on your coding skills here in
 - Save the text file as a .bat file in the same location as the .jar file.
 - Then double-click on the newly created .bat file to run the app.
 
-. When launching the app for the first time, it will create a folder in your User home directory.
+. When launching the app for the first time, it will create a folder named _DukeAcademy_ in the directory where your jar is located.
 - This folder will contain all of your app's data. To fix any errors related to corrupted data, delete this folder and the app will be reinstalled.
 
 +
@@ -199,6 +199,8 @@ The help page is where you can get a quick summary of all of the features and co
 
 [[BeforeStart]]
 == Before you start
+. The programe evaluator searches for a class with the class name `Main` as the entry point into your program. Please ensure
+that you declare your *main method* in a class called `Main`.
 
 . The program evaluator uses *stdin* to feed your program inputs and *stdout* to receive your program's outputs. Thus,
 it is important that your program uses the `Scanner` class to read inputs and for you to print your results.

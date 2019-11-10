@@ -11,7 +11,9 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
 
 /**
- * Helper class used by CommandLogicManager to keep track and instantiate registered Command classes.
+ * Helper class used by CommandLogicManager to keep track and instantiate registered Command classes. Any text passed
+ * into parseCommandText method will be split into its command keyword and arguments, which will be used to generate
+ * the corresponding Command.
  */
 class CommandParser {
     private static final String commandNotRecognizedMessage = "Command word not recognized : ";
