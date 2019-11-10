@@ -34,12 +34,16 @@ we *promise* to make travel easy, with TravEzy.
 So, is TravEzy for you?
 
 . Are you a busy university student with a passion for travelling?
-. Are your summers and winters filled with internships, projects and CCA activities?
+. Are your summers and winters swamped with internships, projects and CCA activities?
 . Do your numerous commitments get in the way of your travel plans?
 
 IF you answered yes to the questions above, then __yes__ it is. If not, it still is :)
 
-What is TravEzy? TravEzy is a desktop application with a command line interface (CLI) and is *perfect* for NUS students who love travelling as much as we do. What's more, with a (CLI), you will be able to type in your commands much faster than similar applications which require you to keep using your mouse
+What is TravEzy? TravEzy is a desktop application with a command line
+interface (CLI) and is *perfect* for NUS students who love
+travelling as much as we do. What's more, with a (CLI), you will be
+able to type in your commands much faster than similar applications which
+require you to keep using your mouse
 
 
 TravEzy is perfect for:
@@ -52,7 +56,7 @@ TravEzy is perfect for:
 
 . Journaling in your travel diary and effortlessly looking at old entries to recall your exchange trip to Sweden.
 
-. Calling old and new friends using the address book in TravEzy
+. Calling old and new friends from your address book
 
 What are you waiting for? Hop on to this user guide and we will
 travel to +++<u>+++Section 2, “Quick Start”+++</u>+++ to start TravEzy 😊

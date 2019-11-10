@@ -45,7 +45,6 @@ public class DiaryEntryCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         title.setText("TITLE: " + entry.getTitle().toString());
         date.setText("DATE: " + entry.getDate().toString());
-        System.out.println(entry.getPlace());
         place.setText("PLACE: " + entry.getPlace());
         memory.setText("MEMORY: " + entry.getMemory());
     }

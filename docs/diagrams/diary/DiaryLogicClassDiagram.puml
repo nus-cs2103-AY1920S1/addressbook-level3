@@ -1,0 +1,83 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+namespace Logic {
+}
+
+namespace Storage {
+}
+
+namespace Address {
+namespace Model {
+}
+namespace Logic {
+Interface AddressBookLogic <<interface>>
+Class AddressBookLogicManager
+namespace Commands {
+Class XYZCommand
+}
+namespace Parser {
+Class AddressBookParser
+Class CliSyntax
+Class XYZCommandParser
+}
+}
+}
+
+Interface ObservableList <<Interface>>
+Class HiddenOutside #FFFFFF
+
+''''''''''LOGIC''''''''''
+HiddenOutside ..> Logic
+Logic..> Address.Logic.AddressBookLogic
+
+
+'''''''''''''''''''''''''''''''''
+
+''''''''''ADDRESS''''''''''
+
+''''''''''AddressBookLogic
+Address.Logic.AddressBookLogic .down.> Storage
+Address.Logic.AddressBookLogic .left.> ObservableList
+Address.Logic.AddressBookLogic .right.> Address.Model
+''''''''''
+
+''''''''''AddressBookLogicManager
+Address.Logic.AddressBookLogicManager .up.|> Address.Logic.AddressBookLogic
+Address.Logic.AddressBookLogicManager .up.> Logic
+
+Address.Logic.AddressBookLogicManager o--> "1" Storage
+Address.Logic.AddressBookLogicManager o--> "1" Address.Model
+Address.Logic.AddressBookLogicManager *-down-> "1" Address.Logic.Parser.AddressBookParser
+
+
+''''''''''XYZCommand
+Address.Logic.Commands.XYZCommand -up-|> Logic
+
+''''''''''Parser
+Address.Logic.Parser.AddressBookParser .down.> Logic
+Address.Logic.Parser.AddressBookParser .down.> Address.Logic.Parser.XYZCommandParser :creates >
+
+''''''''''XYZCommandParser
+Address.Logic.Parser.XYZCommandParser .left.> Address.Logic.Commands.XYZCommand :creates >
+Address.Logic.Parser.XYZCommandParser .up.> Logic
+Address.Logic.Parser.XYZCommandParser ..> Address.Logic.Parser.CliSyntax
+
+''''''''''CliSyntax
+Address.Logic.Parser.CliSyntax .up.> Logic
+
+''''''''''''''''''''''''''
+
+''''''''''LAYOUT''''''''''
+HiddenOutside .[hidden]down.> Storage
+HiddenOutside .[hidden]down.> Logic
+Logic .[hidden]left.> Storage
+Logic .[hidden]down.> Address
+'Logic .[hidden]down.> Logic
+'Logic.Commands.Command .[hidden]down.> Address
+'Logic.Commands .[hidden]left.> Address
+''''''''''''''''''''''''''
+@enduml

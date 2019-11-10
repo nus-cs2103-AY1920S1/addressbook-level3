@@ -1,0 +1,18 @@
+@startuml
+start
+:User enters tries to unlock a private entry;
+
+if () then ([valid date and range])
+    :Calendar looks for suitable slot(s);
+    if () then ([free slot(s) found])
+        :Calendar ranks slots;
+        :User selects one of the slots;
+    else ([else])
+        :Calendar informs user that no slot is found;
+    endif
+
+else ([else])
+    :Informs user of error;
+endif
+stop
+@enduml
