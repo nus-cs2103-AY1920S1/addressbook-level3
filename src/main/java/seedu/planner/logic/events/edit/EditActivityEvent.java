@@ -6,7 +6,7 @@ import seedu.planner.logic.commands.editcommand.EditActivityCommand;
 import seedu.planner.logic.commands.editcommand.EditActivityCommand.EditActivityDescriptor;
 import seedu.planner.logic.events.Event;
 import seedu.planner.model.activity.Activity;
-
+//@@author OneArmyj
 /**
  * An event representing a 'edit activity' command.
  */

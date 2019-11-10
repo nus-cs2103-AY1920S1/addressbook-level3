@@ -6,7 +6,7 @@ import seedu.planner.logic.commands.editcommand.EditContactCommand;
 import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDescriptor;
 import seedu.planner.logic.events.Event;
 import seedu.planner.model.contact.Contact;
-
+//@@author OneArmyj
 /**
  * An event representing a 'edit contact' command.
  */

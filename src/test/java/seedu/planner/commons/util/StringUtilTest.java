@@ -10,39 +10,39 @@ import org.junit.jupiter.api.Test;
 
 public class StringUtilTest {
 
-    //---------------- Tests for isNonZeroUnsignedInteger --------------------------------------
+    //---------------- Tests for isNonZeroSignedInteger --------------------------------------
 
     @Test
-    public void isNonZeroUnsignedInteger() {
+    public void isNonZeroSignedInteger() {
 
         // EP: empty strings
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("")); // Boundary value
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("  "));
+        assertFalse(StringUtil.isNonZeroSignedInteger("")); // Boundary value
+        assertFalse(StringUtil.isNonZeroSignedInteger("  "));
 
         // EP: not a number
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("a"));
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("aaa"));
+        assertFalse(StringUtil.isNonZeroSignedInteger("a"));
+        assertFalse(StringUtil.isNonZeroSignedInteger("aaa"));
 
         // EP: zero
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("0"));
+        assertFalse(StringUtil.isNonZeroSignedInteger("0"));
 
         // EP: zero as prefix
-        assertTrue(StringUtil.isNonZeroUnsignedInteger("01"));
+        assertTrue(StringUtil.isNonZeroSignedInteger("01"));
 
         // EP: signed numbers
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("-1"));
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("+1"));
+        assertFalse(StringUtil.isNonZeroSignedInteger("-1"));
+        assertFalse(StringUtil.isNonZeroSignedInteger("+1"));
 
         // EP: numbers with white space
-        assertFalse(StringUtil.isNonZeroUnsignedInteger(" 10 ")); // Leading/trailing spaces
-        assertFalse(StringUtil.isNonZeroUnsignedInteger("1 0")); // Spaces in the middle
+        assertFalse(StringUtil.isNonZeroSignedInteger(" 10 ")); // Leading/trailing spaces
+        assertFalse(StringUtil.isNonZeroSignedInteger("1 0")); // Spaces in the middle
 
         // EP: number larger than Integer.MAX_VALUE
-        assertFalse(StringUtil.isNonZeroUnsignedInteger(Long.toString(Integer.MAX_VALUE + 1)));
+        assertFalse(StringUtil.isNonZeroSignedInteger(Long.toString(Integer.MAX_VALUE + 1)));
 
         // EP: valid numbers, should return true
-        assertTrue(StringUtil.isNonZeroUnsignedInteger("1")); // Boundary value
-        assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
+        assertTrue(StringUtil.isNonZeroSignedInteger("1")); // Boundary value
+        assertTrue(StringUtil.isNonZeroSignedInteger("10"));
     }
 
 

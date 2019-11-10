@@ -11,7 +11,7 @@ import seedu.planner.logic.events.Event;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.day.ActivityWithTime;
-
+//@@author OneArmyj
 /**
  * An event representing a 'schedule' command.
  */

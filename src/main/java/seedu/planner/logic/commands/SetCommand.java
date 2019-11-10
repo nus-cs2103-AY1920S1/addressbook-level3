@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import seedu.planner.logic.autocomplete.CommandInformation;
 import seedu.planner.logic.commands.exceptions.CommandException;
@@ -20,6 +21,7 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.field.Name;
 
+//@@author 1nefootstep
 /**
  * Sets the name and start date of the trip.
  */
@@ -28,7 +30,8 @@ public class SetCommand extends Command {
     public static final String COMMAND_WORD = "set";
     public static final String DIRECTORY_OPS_ERROR_MESSAGE = "Could not list files in planner: ";
     public static final String DUPLICATE_PLANNER_MESSAGE = "This planner already exists";
-    public static final String MESSAGE_NOTHING_TO_SET = "Neither name nor start date is being set.";
+    public static final String MESSAGE_NOTHING_TO_SET = "There is nothing to set!";
+
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD,
@@ -57,7 +60,7 @@ public class SetCommand extends Command {
     private final LocalDate startDate;
 
     /**
-     * Creates an AddContactCommand to add the specified {@code Person}
+     * Creates an SetCommand to set name and start date of the trip.
      */
     public SetCommand(Name name, LocalDate date) {
         this.name = name;
@@ -101,7 +104,7 @@ public class SetCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SetCommand // instanceof handles nulls
-                && this.name.equals(((SetCommand) other).name)
-                && this.startDate.equals(((SetCommand) other).startDate));
+                && Optional.ofNullable(name).equals(Optional.ofNullable(((SetCommand) other).name))
+                && Optional.ofNullable(startDate).equals(Optional.ofNullable(((SetCommand) other).startDate)));
     }
 }

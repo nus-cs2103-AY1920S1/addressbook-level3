@@ -80,6 +80,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    //@@author 1nefootstep
     /**
      * Initialises the {@code CentralDisplay} of the UI.
      */
@@ -98,6 +99,7 @@ public class MainWindow extends UiPart<Stage> {
         centralDisplay.getRoot().prefWidthProperty().bind(centralDisplayPlaceholder.widthProperty());
     }
 
+    //@@author 1nefootstep
     private void initFeedbackDisplay() {
         feedbackDisplay = new FeedbackDisplay();
         feedbackDisplayPlaceholder.getChildren().add(feedbackDisplay.getRoot());
@@ -158,6 +160,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    //@@author 1nefootstep
     /**
      * Updates the UI and changes the focus to the relevant tab.
      */
@@ -165,6 +168,7 @@ public class MainWindow extends UiPart<Stage> {
         centralDisplay.changeFocus(uiFocus);
     }
 
+    //@@author 1nefootstep
     /**
      * Updates the UI and changes the focus to the relevant tab.
      */

@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.model.activity.exceptions.ActivityNotFoundException;
 import seedu.planner.model.activity.exceptions.DuplicateActivityException;
+import seedu.planner.model.field.Address;
+import seedu.planner.model.field.Name;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -37,6 +39,15 @@ public class UniqueActivityList implements Iterable<Activity> {
     public boolean contains(Activity toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameActivity);
+    }
+
+    /**
+     * Returns the first instance of an activity possessing the specified name and address.
+     */
+    public Optional<Activity> getActivity(Name name, Address address) {
+        requireAllNonNull(name, address);
+        return internalList.stream().filter(x -> x.getName().equals(name) && x.getAddress().equals(address))
+                .findFirst();
     }
 
     /**

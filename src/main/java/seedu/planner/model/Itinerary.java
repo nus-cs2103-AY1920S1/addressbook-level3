@@ -19,7 +19,6 @@ import seedu.planner.model.day.DayList;
 import seedu.planner.model.day.exceptions.EndOfTimeException;
 import seedu.planner.model.field.Name;
 
-
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameContact comparison)

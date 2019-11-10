@@ -16,7 +16,7 @@ import seedu.planner.storage.accommodation.AccommodationStorage;
 import seedu.planner.storage.activity.ActivityStorage;
 import seedu.planner.storage.contact.ContactStorage;
 import seedu.planner.storage.day.ItineraryStorage;
-
+//@@author OneArmyj
 /**
  * API of the Storage component
  */

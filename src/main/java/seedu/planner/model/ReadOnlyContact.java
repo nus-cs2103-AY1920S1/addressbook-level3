@@ -2,7 +2,7 @@ package seedu.planner.model;
 
 import javafx.collections.ObservableList;
 import seedu.planner.model.contact.Contact;
-
+//@@author OneArmyj
 /**
  * Unmodifiable view of an Contact List
  */

@@ -16,6 +16,7 @@ import seedu.planner.ui.cards.ActivityCardFull;
 import seedu.planner.ui.cards.ActivityWithTimeCardFull;
 import seedu.planner.ui.cards.ContactCardFull;
 
+//@@author 1nefootstep
 /**
  * Panel containing activity/accommodation/contact/day information.
  */
@@ -30,7 +31,7 @@ public class InfoListPanel extends UiPart<Region> {
     }
 
     /**
-     * Displays the relevant information in infoList from command executed.
+     * Displays the relevant information in infoList from the command executed.
      */
     public void changeInfo(ResultInformation[] resultInformation) {
         infoListView.getItems().clear();

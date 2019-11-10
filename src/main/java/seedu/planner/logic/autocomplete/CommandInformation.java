@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
 
+//@@author 1nefootstep
 /**
  * CommandInformation represents the format of a command.
  */

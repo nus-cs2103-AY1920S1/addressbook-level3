@@ -16,6 +16,7 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 
+//@@author KxxMxxx
 /**
  * Removes an activity from the activity list.
  */

@@ -41,6 +41,7 @@ import seedu.planner.model.field.Cost;
 import seedu.planner.model.field.Name;
 import seedu.planner.model.tag.Tag;
 
+//@@author KxxMxxx
 /**
  * Edits the details of an existing activity in the itinerary.
  */
@@ -66,7 +67,7 @@ public class EditActivityCommand extends EditCommand {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            "INDEX",
+            "<INDEX>",
             new ArrayList<>(),
             new ArrayList<>(),
             Arrays.asList(PREFIX_NAME.toString(), PREFIX_ADDRESS.toString(), PREFIX_PHONE.toString(),

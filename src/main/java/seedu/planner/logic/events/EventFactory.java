@@ -20,7 +20,7 @@ import seedu.planner.logic.events.schedule.AutoScheduleEvent;
 import seedu.planner.logic.events.schedule.ScheduleEvent;
 import seedu.planner.logic.events.schedule.UnscheduleEvent;
 import seedu.planner.model.Model;
-
+//@@author OneArmyj
 /**
  * A factory class to generate the corresponding events according to the command input.
  */

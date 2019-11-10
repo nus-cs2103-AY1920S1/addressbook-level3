@@ -26,6 +26,7 @@ import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.field.Cost;
 
+//@@author KxxMxxx
 /**
  * Adds an activity to the itinerary.
  */
@@ -40,6 +41,8 @@ public class AddActivityCommand extends AddCommand {
                     + PREFIX_NAME + "NAME "
                     + PREFIX_ADDRESS + "ADDRESS "
                     + PREFIX_DURATION + "DURATION "
+                    + "[" + PREFIX_COST + "COST] "
+                    + "[" + PREFIX_PRIORITY + "PRIORITY] "
                     + "[" + PREFIX_TAG + "TAG]...",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
                     + PREFIX_NAME + "visit mt Fuji "

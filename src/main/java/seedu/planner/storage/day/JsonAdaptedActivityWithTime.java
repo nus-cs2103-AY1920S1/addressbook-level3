@@ -12,7 +12,7 @@ import seedu.planner.model.activity.Activity;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
 import seedu.planner.storage.activity.JsonAdaptedActivity;
-
+//@@author OneArmyj
 /**
  * Jackson-friendly version of {@link Day}.
  */

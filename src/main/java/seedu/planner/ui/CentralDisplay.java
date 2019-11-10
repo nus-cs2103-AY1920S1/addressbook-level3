@@ -1,6 +1,7 @@
 package seedu.planner.ui;
 
 import java.time.LocalDate;
+import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
 
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.model.accommodation.Accommodation;
@@ -24,12 +26,14 @@ import seedu.planner.ui.panels.ContactListPanel;
 import seedu.planner.ui.panels.HelpListPanel;
 import seedu.planner.ui.panels.InfoListPanel;
 
+//@@author 1nefootstep
 /**
- * A ui for the split window that is displayed at the center of the application.
+ * A UI for the window that is displayed below the command box and feedbackDisplay.
  */
 public class CentralDisplay extends UiPart<Region> {
 
     private static final String FXML = "CentralDisplay.fxml";
+    private static final Logger logger = LogsCenter.getLogger(CentralDisplay.class);
     private SimpleObjectProperty<LocalDate> startDateProperty;
     private SimpleObjectProperty<Name> nameProperty;
     private ObservableList<Day> dayList;
@@ -60,6 +64,8 @@ public class CentralDisplay extends UiPart<Region> {
                           SimpleObjectProperty<LocalDate> startDateProperty,
                           SimpleObjectProperty<Name> nameProperty) {
         super(FXML);
+        logger.fine("Initializing with the following: " + dayList + accommodationList + activityList + contactList
+                + startDateProperty + " and " + nameProperty);
         this.startDateProperty = startDateProperty;
         this.dayList = dayList;
         this.nameProperty = nameProperty;
@@ -97,11 +103,7 @@ public class CentralDisplay extends UiPart<Region> {
         agendaTab.setText(nameProperty.getValue().toString() + " Itinerary");
         agendaManager.updateAgenda(dayList);
 
-        if (dayList.size() == 0) {
-            agendaTab.setContent(null);
-        } else {
-            agendaTab.setContent(agendaManager.getAgenda());
-        }
+        emptyAgendaTabIfNoDays();
     }
 
 
@@ -120,6 +122,7 @@ public class CentralDisplay extends UiPart<Region> {
             if (agendaTab.isSelected()) {
                 agendaManager.updateAgenda(dayList);
                 agendaManager.updateSkin(dayList, startDateProperty.getValue());
+                emptyAgendaTabIfNoDays();
             }
         });
         helpTab.setOnSelectionChanged((event) -> {
@@ -131,7 +134,7 @@ public class CentralDisplay extends UiPart<Region> {
     }
 
     /**
-     * Displays the relevant information in infoList from command executed.
+     * Displays the relevant information in the infoTab.
      */
     public void changeInfo(ResultInformation[] resultInformation) {
         infoListPanel.changeInfo(resultInformation);
@@ -147,6 +150,7 @@ public class CentralDisplay extends UiPart<Region> {
                 tabDisplay.getSelectionModel().select(agendaTab);
                 agendaManager.updateSkin(dayList, startDateProperty.getValue());
                 agendaManager.updateAgenda(dayList);
+                emptyAgendaTabIfNoDays();
                 break;
             case INFO:
                 tabDisplay.getSelectionModel().select(infoTab);
@@ -174,5 +178,17 @@ public class CentralDisplay extends UiPart<Region> {
      */
     public void generateCommandHelpSummary() {
         helpListPanel.generateCommandHelpSummary();
+    }
+
+    /**
+     * Makes the agenda disappear if there are 0 days.
+     * Otherwise, Agenda appears in the agendaTab.
+     */
+    private void emptyAgendaTabIfNoDays() {
+        if (dayList.size() == 0) {
+            agendaTab.setContent(null);
+        } else {
+            agendaTab.setContent(agendaManager.getAgenda());
+        }
     }
 }

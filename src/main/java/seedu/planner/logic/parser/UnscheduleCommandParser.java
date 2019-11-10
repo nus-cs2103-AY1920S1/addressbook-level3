@@ -9,8 +9,9 @@ import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.schedulecommand.UnscheduleCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
+//@@author 1nefootstep
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new UnscheduleCommand object
  */
 public class UnscheduleCommandParser implements Parser<UnscheduleCommand> {
 

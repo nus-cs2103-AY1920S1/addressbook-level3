@@ -12,7 +12,7 @@ import seedu.planner.logic.events.Event;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
-
+//@@author OneArmyj
 /**
  * A factory class to generate the corresponding edit Events according to the edit Commands parsed.
  */

@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.model.accommodation.exceptions.AccommodationNotFoundException;
 import seedu.planner.model.accommodation.exceptions.DuplicateAccommodationException;
+import seedu.planner.model.field.Address;
+import seedu.planner.model.field.Name;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -42,6 +44,15 @@ public class UniqueAccommodationList implements Iterable<Accommodation> {
     }
 
     /**
+     * Returns the first instance of an accommodation possessing the specified name and address.
+     */
+    public Optional<Accommodation> getAccommodation(Name name, Address address) {
+        requireAllNonNull(name, address);
+        return internalList.stream().filter(x -> x.getName().equals(name) && x.getAddress().equals(address))
+                .findFirst();
+    }
+
+    /**
      * Returns the Index of the accommodation to find. Else returns empty optional.
      */
     public Optional<Index> indexOf(Accommodation toFind) {
@@ -53,6 +64,7 @@ public class UniqueAccommodationList implements Iterable<Accommodation> {
             return Optional.of(Index.fromZeroBased(indexOfToFind));
         }
     }
+
     /**
      Adds an accommodation to the list.
      */

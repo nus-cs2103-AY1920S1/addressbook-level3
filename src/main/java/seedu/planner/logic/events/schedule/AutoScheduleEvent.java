@@ -13,7 +13,7 @@ import seedu.planner.model.Model;
 import seedu.planner.model.ReadOnlyItinerary;
 import seedu.planner.model.field.Address;
 import seedu.planner.model.field.NameOrTagWithTime;
-
+//@@author OneArmyj
 /**
  * An event representing an 'autoschedule' command.
  */

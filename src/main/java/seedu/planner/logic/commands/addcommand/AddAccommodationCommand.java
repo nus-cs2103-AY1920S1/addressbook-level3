@@ -22,6 +22,7 @@ import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.contact.Contact;
 
+//@@author KxxMxxx
 /**
  * Adds an accommodation to the itinerary.
  */

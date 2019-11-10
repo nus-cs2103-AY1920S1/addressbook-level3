@@ -52,6 +52,7 @@ public class CommandUtil {
         return indexOfContact.get();
     }
 
+    //@@author 1nefootstep
     /**
      * Throws an AssertionError if there is no one and only one non-null object.
      */
@@ -69,6 +70,7 @@ public class CommandUtil {
         }
     }
 
+    //@@author 1nefootstep
     /**
      * Calculates and returns the endDateTime of an activity.
      */

@@ -22,7 +22,7 @@ public class AddDayCommand extends AddCommand {
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
             "Adds the number of days specified to the itinerary.",
-            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " NUMBER OF DAYS",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " NUMBER_OF_DAYS",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 5"
     );
 

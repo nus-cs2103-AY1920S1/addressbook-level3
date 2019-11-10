@@ -12,7 +12,7 @@ import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
-
+//@@author OneArmyj
 /**
  * An event representing a 'unschedule' command.
  */
@@ -60,7 +60,7 @@ public class UnscheduleEvent implements Event {
         List<Day> lastShownDays = model.getFilteredItinerary();
         Day dayToEdit = lastShownDays.get(dayIndex.getZeroBased());
 
-        Activity activityUnscheduled = dayToEdit.getActivityWithTime(activityIndex).getActivity();
+        Activity activityUnscheduled = dayToEdit.getActivityWithIndex(activityIndex).getActivity();
 
         List<Activity> lastShownActivities = model.getFilteredActivityList();
         return Index.fromZeroBased(lastShownActivities.indexOf(activityUnscheduled));
