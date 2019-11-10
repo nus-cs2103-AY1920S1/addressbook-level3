@@ -109,7 +109,7 @@ public interface Model {
     /**
      * returns an int[] of performance values.
      */
-    ArrayList<Integer> getPerformance();
+    ArrayList<Float> getPerformance();
 
     /**
      * updates the int[] that holds all performance values from test mode.

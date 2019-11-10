@@ -51,11 +51,13 @@ public class StartCommand extends Command {
         keyboardFlashCardsParser.startTestMode();
         model.setTestFlashCard();
         keyboardFlashCardsParser.setAwaitingAnswer(true);
+
         CommandResult result = new CommandResult(
                 MESSAGE_START_TEST_SUCCESS,
                 model.getTestFlashCardPanel());
         result.setTestMode(true, false);
         return result;
+
     }
 
     @Override
