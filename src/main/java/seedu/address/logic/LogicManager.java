@@ -36,13 +36,13 @@ public class LogicManager implements Logic {
     private final Statistic statistic;
     private final CommandHistory commandHistory = CommandHistory.getCommandHistory();
     private final UndoRedoStack undoRedoStack = UndoRedoStack.getUndoRedoStack();
-    private final GraphGenerator graphGenerator;
+    private final AutoCompleteResultGenerator autoCompleteResultGenerator;
 
     public LogicManager(Model model, Storage storage, Statistic statistic) {
         this.model = model;
         this.storage = storage;
         this.statistic = statistic;
-        graphGenerator = new GraphGenerator(model);
+        autoCompleteResultGenerator = new AutoCompleteResultGenerator(model);
         sellerManagerParser = new SellerManagerParser();
     }
 
@@ -158,8 +158,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public AutoCompleteResult getAutocompleteValues(String input) {
-        return graphGenerator.process(input);
+    public AutoCompleteResult getAutoCompleteResult(String input) {
+        return autoCompleteResultGenerator.process(input);
     }
 
 }

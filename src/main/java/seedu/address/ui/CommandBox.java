@@ -48,7 +48,7 @@ public class CommandBox extends UiPart<Region> {
             if (enteredText == null || enteredText.isEmpty()) {
                 commandTextField.getEntriesPopup().hide();
             } else {
-                AutoCompleteResult result = logic.getAutocompleteValues(enteredText);
+                AutoCompleteResult result = logic.getAutoCompleteResult(enteredText);
 
                 // add possible values
                 commandTextField.getEntries().clear();

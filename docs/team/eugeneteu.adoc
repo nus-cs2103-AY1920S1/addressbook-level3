@@ -4,9 +4,6 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: Seller Manager Lite Junior
-
----
-
 == Overview
 
 Seller Manager Lite is a desktop application used for managing a business operational and logistical needs.
@@ -26,7 +23,7 @@ It required an in-depth analysis of design alternatives. This design choice is e
 *** The implementation was also challenging as I made very sure no to violate any of the SOLID principles. At the same time, we were also still deciding how to implement the rest of the architecture for the other features.
 *** A total of 4 attempts of refactoring was needed for me to reach the current version of the main feature.
 
-** Credits: The [apache commons math libraries](https://commons.apache.org/proper/commons-math/) was used in the actual calculation. However, the main difficulty of this feature does not come from the actual calculation but extracting the correct and appropiate data needed for this in the appropiate manner.
+** Credits: The https://commons.apache.org/proper/commons-math/[apache commons math libraries] was used in the actual calculation. However, the main difficulty of this feature does not come from the actual calculation but extracting the correct and appropiate data needed for this in the appropiate manner.
 
 * *Other Major enhancement*:
 ** My other contributions to the codebase is as follows:
@@ -37,8 +34,7 @@ It required an in-depth analysis of design alternatives. This design choice is e
 
 * contributed total almost 7k LOC:
 
-** 3k+ functional: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=EugeneTeu&tabRepo=AY1920S1-CS2103T-T09-4%2Fmain%5Bmaster%5D[functional code]
-** 3k+ test code: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=EugeneTeu&tabRepo=AY1920S1-CS2103T-T09-4%2Fmain%5Bmaster%5D[test code]
+** 3k+ functional & 3k+ test code: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false[code]
 
 
 * *Other contributions*:
@@ -94,7 +90,7 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/136[#136], https://github.co
 
 == Contributions to the User Guide
 
-*****
+
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -108,16 +104,17 @@ include::../UserGuide.adoc[tag=statisticsCommandUG]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-
+* My Contributions are:
 ** Created the architecture diagram
-
-include::../DeveloperGuide.adoc[tag=architectureDiagram]
-
+** Created logic diagram
 ** Wrote the User Interface part of the DG
-
-include::../DeveloperGuide.adoc[tag=UiUG]
-
 ** Wrote the Statistic Feature in the DG
 
-include::../DeveloperGuide.adoc[tag=statisticsCommand]
 
+include::../DeveloperGuide.adoc[tag=architectureDiagram]\
+***
+include::../DeveloperGuide.adoc[tag=logicDiagram]
+***
+include::../DeveloperGuide.adoc[tag=UiUG]
+***
+include::../DeveloperGuide.adoc[tag=statisticsCommand]

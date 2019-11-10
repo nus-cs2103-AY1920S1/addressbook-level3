@@ -119,6 +119,6 @@ public interface Logic {
      * @param input The input string.
      * @return A matching {@code AutoCompleteResult}.
      */
-    AutoCompleteResult getAutocompleteValues(String input);
+    AutoCompleteResult getAutoCompleteResult(String input);
 
 }
