@@ -14,6 +14,7 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
+import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import javafx.collections.ObservableList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
+import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.ReadOnlyUserPrefs;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.WatchList;
@@ -92,7 +94,31 @@ public class AddCommandTest {
 
 
     @Test
-    void fromSearch() {
+    void fromSearch() throws CommandException {
+        ModelManager modelManager = new ModelManager();
+        Show validShow = new ShowBuilder().build();
+        AddCommand addCommand = new AddCommand(INDEX_FIRST_SHOW.getZeroBased());
+        assertThrows(CommandException.class, () -> addCommand.fromSearch(modelManager));
+
+        modelManager.addShow(new ShowBuilder().build());
+        ArrayList<Show> arrayList = new ArrayList<>();
+        arrayList.add(validShow);
+        modelManager.updateSearchResultList(arrayList);
+        AddCommand addCommand2 = new AddCommand(2);
+        assertThrows(CommandException.class, () -> addCommand2.fromSearch(modelManager));
+
+        modelManager.addShow(new ShowBuilder().withName("test").build());
+        arrayList.add(validShow);
+        modelManager.updateSearchResultList(arrayList);
+        AddCommand addCommand3 = new AddCommand(1);
+        assertThrows(CommandException.class, () -> addCommand3.fromSearch(modelManager));
+
+        ModelManager modelManager2 = new ModelManager();
+        ArrayList<Show> arrayList2 = new ArrayList<>();
+        arrayList2.add(validShow);
+        modelManager2.updateSearchResultList(arrayList2);
+        AddCommand addCommand4 = new AddCommand(1);
+        assertTrue(addCommand4.fromSearch(modelManager2) instanceof CommandResult);
     }
 
     @Test
@@ -113,7 +139,19 @@ public class AddCommandTest {
     }
 
     @Test
+    public void test() throws CommandException {
+        ModelManager modelManager2 = new ModelManager();
+        ArrayList<Show> arrayList2 = new ArrayList<>();
+        Show validShow2 = new ShowBuilder().build();
+        AddCommand addCommand = new AddCommand(1);
+        arrayList2.add(validShow2);
+        modelManager2.updateSearchResultList(arrayList2);
+        assertTrue(addCommand.execute(modelManager2) instanceof CommandResult);
+    }
+    @Test
     void testFromSearch() {
+        AddCommand addCommand = new AddCommand(INDEX_FIRST_SHOW.getZeroBased());
+        assertTrue(addCommand.isFromSearch());
     }
 
     @Test
