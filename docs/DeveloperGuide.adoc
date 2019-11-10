@@ -241,10 +241,10 @@ image::training_class_diagram.png[]
 A training session is represented by a `[green]#Training#` class and it contains information like the date of
 training and training attendance. The `[green]#AthletickDate#` class represents the date of a training session in
 `[green]#Training#`. This class is shared across both the frontend and backend of the application, allowing training
-information to be used in other features, such as the `view calendar` command. A `[green]#HashMap<Person, Boolean>#`
-represents attendance in `[green]#Training#` and indicates whether a `[green]#Person#` has attended that training
-session. If a `[green]#Person#` attended, the value associated with him in the `[green]#HashMap<Person, Boolean>#`
-will be true, and false if he did not attend.
+information to be used in other features. A `[green]#HashMap<Person, Boolean>#` represents attendance in
+`[green]#Training#` and indicates whether a `[green]#Person#` has attended that training session. If a
+`[green]#Person#` attended, the value associated with him in the `[green]#HashMap<Person, Boolean>#` will be true,
+and false if he did not attend.
 
 The `[green]#TrainingCommand#` is an abstract class that extends the `[green]#Command#` class and allows users to
 record training sessions. Users have the ability to add training sessions by indicating members present or members
@@ -260,11 +260,12 @@ stored after a user executes the `training` command.
 .Activity diagram showing execution of `training` command
 image::training_command_activity_diagram.png[]
 
-`[green]#TrainingManager#` also provides the functionality for users to calculate the attendance rate of one
-individual, or the entire team. The following operations provides this feature:
+`[green]#TrainingManager#` also provides functions for users to calculate the attendance rate of one individual, or
+the entire team. The following operations are used for this feature:
 
-* `TrainingManager#getPersonAttendanceRateString` -- Returns the person's overall attendance rate in String format.
-* `TrainingManager#getAttendanceRateOfAll` - Returns a list of everyone's attendance rate.
+* `[green]#TrainingManager#getPersonAttendanceRateString#` -- Returns the person's overall attendance rate in String
+format.
+* `[green]#TrainingManager#getAttendanceRateOfAll#` - Returns a list of everyone's attendance rate.
 
 
 These operations are used by the `select`, `attendance` and `view attendance` commands. The following sequence diagram
@@ -276,7 +277,7 @@ image::view_attendance_sequence_diagram.png[]
 `[green]#TrainingManager#` also allows users to get the attendance of one particular training using the following
 operation:
 
-* `TrainingManager#getTrainingAttendanceListOnDate` -- Returns training attendance on the specified date.
+* `[green]#TrainingManager#getTrainingAttendanceListOnDate#` -- Returns training attendance on the specified date.
 
 The sequence diagram below shows a use case of how training attendance is obtained from `[green]#TrainingManager#`
 when a `calendar` command is executed.
@@ -285,8 +286,9 @@ when a `calendar` command is executed.
 image::calendar_sequence_diagram.png[]
 
 ==== Design Considerations
+This section contains some of our considerations for the training feature.
 
-Aspect: How to store attendance information of an individual.
+===== Aspect: How to store attendance information of an individual.
 
 [width="100%", cols="1, 5, 5"]
 |===
@@ -305,11 +307,11 @@ detailed information (attendance on specific date) about a training session.
 |More time needed to design system architecture.
 |===
 
-Reason of choice: `[green]#Training#` and `[green]#TrainingManager#` are created as standalone classes to
-contain training information. We intend to introduce new features (e.g. training category) in the future and this
+Reason for choosing alternative 2: `[green]#Training#` and `[green]#TrainingManager#` are created as standalone
+classes to contain training information. We intend to introduce new features (e.g. training category) in the future and this
 implementation allows us to easily do so.
 
-Aspect: Which data structure to store training attendance.
+===== Aspect: Which data structure to store training attendance.
 
 [width="100%", cols="1, 5, 5"]
 |===
@@ -325,10 +327,10 @@ Aspect: Which data structure to store training attendance.
 |Requires more effort to maintain and coding of new functions to edit data.
 |===
 
-Reason of choice: A hash table is used as the `select` and `attendance` commands require the attendance rate of only
-one person. A hash table provides us with the fastest access time to access attendance information of one person.
+Reason for choosing alternative 2: The `select` and `attendance` commands require the attendance rate of only one
+person and a hash table provides us with the fastest access time to access attendance information of one person.
 
-Aspect: How to edit training information.
+===== Aspect: How to edit training information.
 
 [width="100%", cols="1, 5, 5"]
 |===
@@ -341,11 +343,12 @@ Aspect: How to edit training information.
 
 |*Cons*
 |Unable to support multiple trainings on same date.
-|Lengthy commands. Users have the option to edit date, attendance and even add a person.
+|Users have the option to edit date, attendance and even add a person which will require lengthy commands.
 |===
 
-Reason of choice: Editing training information would require long commands which defeats the purpose of having a command
-line interface. Editing training by replacing an old one with the `training` command makes it quicker.
+Reason for choosing alternative 1: Editing training information would require typing long time-consuming commands
+which defeats the purpose of having a command line interface. Editing training by replacing an old one with the
+`training` command makes it quicker.
 
 // end::training[]
 === Performance feature
@@ -778,7 +781,7 @@ was executed, we then resets the `[green]#Athletick#` state to this retrieved
 The following sequence diagram shows how the undo operation works:
 
 .Sequence diagram for undo implementation
-image::undoSQ.png[width=450]
+image::undoSQ.png[width="450"]
 
 
 ==== Redo Implementation
@@ -801,7 +804,7 @@ Implementation.]
 The activity diagram for `redo` command is as follows:
 
 .Activity diagram for `redo` command
-image::redoactivity.png[width=450]
+image::redoactivity.png[width="450"]
 
 ==== Design Considerations
 This section describes the pros and cons of the current and other alternative implementations of the undo and redo features.

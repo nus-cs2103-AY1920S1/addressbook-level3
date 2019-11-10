@@ -212,19 +212,19 @@ were present.
 
 *What you should do*
 
-Type in the `training` command, date and the indexes of athletes who were present in the following format and press
-`Enter` to execute it.
+Type in the `training` command, date of training and the indexes of athletes who were present in the following format
+and press `Enter` to execute it.
 
 Format : `training [d/DDMMYYYY] #/INDEX [INDEX] [INDEX ] …`
 
-NOTE: If no date is entered, the training will be recorded under today's date.
-
 Examples : `training d/28112019 #/2 4` or `training #/1 3 4 7`
+
+NOTE: If no date is entered, the training will be recorded under today's date.
 
 image::training_without_flag_before.png[width=450]
 *What you should see*
 
-If successfully added, the result box will display the following result in the diagram below. A green dot will
+If successfully added, the result box will display the following result as shown in the diagram below. A green dot will
 also appear at the date on the calendar, indicating that the training has been recorded.
 
 image::training_without_flag_after.png[width=350]
@@ -238,7 +238,8 @@ Let's say you want to record a training session that took place today and everyo
 
 *What you should do*
 
-Type in the `training` command, the absent flag `-a`, date and the indexes of athletes who were absent in the following
+Type in the `training` command, the absent flag `-a`, date of training and the indexes of athletes who were absent in
+the following
 format and
 press `Enter` to execute it.
 
@@ -309,11 +310,11 @@ at the date will also disappear, indicating that it has been removed.
 image::delete_training_after.png[width=350]
 
 === Attendance
-To save you the trouble of manually checking your team member's attendance, Athletick has an attendance tracker that
-checks your team's overall attendance rate as you record trainings.
+To save you the trouble of manually calculating your team's attendance, Athletick has an attendance tracker that
+checks your team's overall attendance for you as you record trainings.
 
 After recording a training, you can check the attendance of an athlete
-(see <<Check attendance of an athlete : `attendance`>>) or check overall team attendance (see: <<Check overall attendance of your team : `view attendance`>>)
+(see <<Check attendance of an athlete : `attendance`>>) or check your team's attendance (see: <<Check overall attendance of your team : `view attendance`>>)
 
 ==== Check attendance of an athlete : `attendance`
 This command allows you to check the attendance of an athlete.
@@ -341,7 +342,7 @@ image::attendance_command_after.png[width=350]
 ==== Check overall attendance of your team : `view attendance`
 This command allows you to check the overall attendance of your team.
 
-Let's say you would like to track your team's overall attendance rate but don't want to manually type the attendance
+Let's say you would like to track your team's overall attendance but don't want to manually type the attendance
 command multiple times.
 
 *What you should do*
@@ -606,7 +607,7 @@ Type in the command in the following format.
 
 Format : `select INDEX`
 
-Example : `select 4`
+Example : `select 2`
 
 image::beforeSelect.png[width=450]
 
@@ -931,10 +932,13 @@ Record performance:: `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 Redo an undone command:: `redo`
 View athlete details:: `select INDEX`
 Sort athletes:: `sort`
-Take attendance (by present):: `training d/DDMMYYYY #/INDEX [INDEX]...`
-Take attendance (by absent):: `training -a d/DDMMYYYY #/INDEX [INDEX]...`
-Undo a command:: `undo`
+Record a training (by athletes present):: `training d/DDMMYYYY #/INDEX [INDEX]...`
+Record a training (by athletes absent):: `training -a d/DDMMYYYY #/INDEX [INDEX]...`
+Edit attendance of a training:: `training` or `training -a`
+Delete a training session:: `delete -t d/DDMMYYYY`
+View attendance of an athlete:: `attendance INDEX`
 View team's attendance:: `view attendance`
+Undo a command:: `undo`
 View calendar:: `view calendar`
 View all created events:: `view performance`
 

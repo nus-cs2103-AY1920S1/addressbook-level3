@@ -28,15 +28,15 @@ management desktop application called Athletick. Athletick is designed for capta
 coaches of timing-based performance sports to help take and keep track of attendance
 and performance of their teams.
 
-Some of the main features of Athletick include
+Some of the main features of Athletick include:
 
-* Taking and tracking of team's attendance
-* Recording and tracking of team's performance
-* Viewing of training calendar and performance graph
-* Viewing of an athlete's profile
-* Undoing and redoing of commands
+* Taking and tracking of team's attendance.
+* Recording and tracking of team's performance.
+* Viewing of training calendar and performance graph.
+* Viewing of an athlete's profile.
+* Undoing and redoing of commands.
 
-This is what users see when they first start Athletick:
+This is what users see when they first launch Athletick:
 
 .The graphical user interface for Athletick.
 image::athletick.png[]
@@ -69,56 +69,56 @@ In the event that users have made a mistake or changed their minds about executi
 a command, the `undo` command enables them to revert to a version immediately before the mistaken command
 was executed. If they change their minds again and decide to execute the command after all,
 then the `redo` command enables them to do so easily.
- * Highlights
-
+ * Highlights:
 ** This enhancement works with existing as well as future commands.
-** As there were
-a few ways to implement this enhancement, an in-depth analysis of design alternatives was
-necessary to weigh the different alternatives and decide on the implementation for this enhancement.
+
+** As there were a few ways to implement this enhancement, an in-depth analysis of design
+alternatives was necessary to weigh the different alternatives and decide on the implementation for this enhancement.
+
 ** The implementation too was challenging as it required a full understanding of
 the major components of the application and the existing features implementations.
 Also, as the enhancement is able to work with future commands, the implementation of
 this enhancement has to be considerable of the future features implementations and
 allow the future enhancement for such features to be easily integrated into the current implementation.
 
-*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+*Code contributed*: The links provided show my code contribution for the project. 
+(https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=junhup&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false[Reposense], https://github.com/junhuplim/main[Github Repository])
 
 *Other contributions*
 
 * Project management
-//** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Introduced Trello for tasks and deadlines management
+** Served as the team's Backend Engineer and assisted in the logic of the program whenever needed. 
 * Enhancements to existing features
 ** Implemented Training and Attendance classes (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63])
 ** Added the Gender attribute (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/130[#130])
 * Documentation
-** Did major tweaks to the User Guide and Developer Guide to make it more
-reader-friendly: (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/188[#188],
+** Added documentation for `undo` and `redo` for both User Guide and Developer Guide: 
+(Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/188[#188],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/219[#219])
+** Standardised product screenshots for `clear` and `help` in User Guide to make it more reader-friendly.
+(Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/223[#223])
 * Community
 ** Reviewed PRs with non-trivial review comments (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/210[#210],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/225[#225])
 ** Commented and provided suggestions on other team's PR
-(example: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/29[1])
-//** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-** Reported bugs and suggestions for other teams (examples:  https://github.com/junhuplim/ped/issues/5[1], https://github.com/junhuplim/ped/issues/8[2],
+(https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/29[Review])
+** Reported bugs and suggestions for other teams (Bug reports and suggestions:  https://github.com/junhuplim/ped/issues/5[1], https://github.com/junhuplim/ped/issues/8[2],
 https://github.com/junhuplim/ped/issues/9[3])
 
 
 == Contributions to the User Guide
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+This section showcases my contribution to the User Guide. They showcase my ability to write
+documentation targeting end-users.
 
 include::../UserGuide.adoc[tag=undoredo]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+This section showcases my contribution to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project.
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
