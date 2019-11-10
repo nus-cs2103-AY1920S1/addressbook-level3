@@ -3,6 +3,7 @@ package seedu.revision.ui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +20,14 @@ class LevelLabelTest extends GuiUnitTest {
     private LevelLabel levelLabel;
     private LevelLabelHandle levelLabelHandle;
 
+    @BeforeAll
+    public static void runHeadless() {
+        System.setProperty("testfx.robot", "glass");
+        System.setProperty("testfx.headless", "true");
+        System.setProperty("prism.order", "sw");
+        System.setProperty("prism.text", "t2k");
+    }
+
     @BeforeEach
     public void setUp() {
         levelLabel = new LevelLabel(VALID_LEVEL_1); //set to default level 1
@@ -33,13 +42,13 @@ class LevelLabelTest extends GuiUnitTest {
      */
     @Test
     public void levelLabel_updateLevel_shouldShowNextLevel() {
-        guiRobot.pauseForHuman();
+        guiRobot.pause();
         assertEquals("Level 1", levelLabelHandle.getText()); //default level 1
         levelLabel.updateLevelLabel(VALID_LEVEL_2);
-        guiRobot.pauseForHuman();
+        guiRobot.pause();
         assertEquals("Level 2", levelLabelHandle.getText()); //update to level 2
         levelLabel.updateLevelLabel(VALID_LEVEL_3);
-        guiRobot.pauseForHuman();
+        guiRobot.pause();
         assertEquals("Level 3", levelLabelHandle.getText()); //update to level 3
     }
 
