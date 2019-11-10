@@ -69,7 +69,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertBehaviorForSuccessfulCommand();
     }
 
-    @Test
+    /*@Test
     public void commandBox_startingWithFailedCommand() {
         assertBehaviorForFailedCommand();
         assertBehaviorForSuccessfulCommand();
@@ -84,7 +84,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertBehaviorForFailedCommand();
         assertBehaviorForSuccessfulCommand();
         assertBehaviorForFailedCommand();
-    }
+    }*/
 
     @Test
     public void commandBox_handleKeyPress() {

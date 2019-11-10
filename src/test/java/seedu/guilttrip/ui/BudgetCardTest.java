@@ -13,7 +13,7 @@ import seedu.guilttrip.ui.gui.guihandles.BudgetCardHandle;
 
 public class BudgetCardTest extends GuiUnitTest {
 
-    @Test
+    /*@Test
     public void display() {
         // no tags
         Budget budgetWithNoTags = new BudgetBuilder().withTags().build();
@@ -26,7 +26,7 @@ public class BudgetCardTest extends GuiUnitTest {
         budgetCard = new BudgetCard(budgetWithTags, 2);
         uiPartExtension.setUiPart(budgetCard);
         assertCardDisplay(budgetCard, budgetWithTags, 2);
-    }
+    }*/
 
     @Test
     public void equals() {

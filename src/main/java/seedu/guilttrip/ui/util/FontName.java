@@ -57,6 +57,9 @@ public enum FontName {
         return fontNameStrings;
     }
 
+    /**
+     * Returns given {@code fontName} as a String in lower case, except for {@code SEGOE_UI} which is case sensitive.
+     */
     public static String toLowerCaseString(FontName fontName) {
         if (fontName == SEGOE_UI) {
             return "segoe UI";

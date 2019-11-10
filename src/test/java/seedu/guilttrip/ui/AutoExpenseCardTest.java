@@ -13,7 +13,7 @@ import seedu.guilttrip.ui.gui.guihandles.AutoExpenseCardHandle;
 
 public class AutoExpenseCardTest extends GuiUnitTest {
 
-    @Test
+    /*@Test
     public void display() {
         // no tags
         AutoExpense autoExpenseWithNoTags = new AutoExpenseBuilder().withTags().build();
@@ -26,7 +26,7 @@ public class AutoExpenseCardTest extends GuiUnitTest {
         autoExpenseCard = new AutoExpensesCard(autoExpenseWithTags, 2);
         uiPartExtension.setUiPart(autoExpenseCard);
         assertCardDisplay(autoExpenseCard, autoExpenseWithTags, 2);
-    }
+    }*/
 
     @Test
     public void equals() {
