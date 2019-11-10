@@ -350,6 +350,11 @@ progress in specific events.
 
 ==== Implementation
 
+This section explains how `[green]#Performance#` is implemented in Athletick. It is split into x sections:
+x, y, z.
+
+===== Overview
+
 To facilitate this, `[green]#ModelManager#` has a `[green]#Performance#`, which has a `[green]#UniqueEventList#`.
 Every `[green]#Event#` in Athletick is stored in this `[green]#UniqueEventList#`.
 The class diagram below shows how the different components mentioned interact with one another.
@@ -377,10 +382,6 @@ their progress over time can be analysed using the `[green]#AthletickDate#` and 
 attributes in `[green]#Record#`. Additionally, athlete's records can be easily retrieved by calling the
 `[green]#HashMap#get()#` method.
 
-A `[green]#Person#` will only be in the HashMap if they have a `[green]#Record#` under the `[green]#Event#`.
-If their only `[green]#Record#` is removed from Athletick (using ``[green]#DeleteRecordCommand#`), they will
-be removed from the HashMap as well.
-
 `[green]#Event#` s are added using the `[green]#EventCommand#`, and `[green]#Record#` s are added using the
  `[green]#PerformanceCommand#`. In these commands, changes to `[green]#UniqueEventList#` are called through
   `[green]#Model#` in `[green]#EventCommand#execute()#` and `[green]#PerformanceCommand#execute()#` since
@@ -391,6 +392,8 @@ The _Observer Pattern_ is adopted when displaying `[green]#Performance#` data th
 `[green]#Model#getPerformance#` that returns a `[green]#ReadOnlyPerformance#`. It can be 'observed'
 and is updated accordingly when data in`[green]#Performance#` changes.
 
+===== Function 1: Adding and Deleting of Event
+
 The following sequence diagram illustrates what happens in `[green]#Logic#` and `[green]#Model#` when in an
 example scenario when `event freestyle 50m` is given as a user input.
 
@@ -400,6 +403,8 @@ image::addevent_sequencediagram.png[width="700"]
 Deleting an event (with `[green]#DeleteEventCommand#`) does the opposite. The input `delete -e freestyle
 50m` will call `[green]#Model#deleteEvent()#`, after making sure the event exists in Athletick by getting a
 boolean from `[green]#Model#hasEvent()#`.
+
+===== Function 2: Adding and Deleting of Record
 
 Operations for `[green]#Record#` - adding and deleting - work similarly as well, though there are more
 methods involved as there is a greater degree of nesting.
@@ -418,6 +423,31 @@ The sequence diagram below illustrates how the Ui is involved when `[green]#Reco
 image::viewrecords_sequencediagram.png[width="700"]
 
 ==== Design Considerations
+
+===== Aspect: Method of storing performance records for athletes.
+
+[width="100%", cols="1, 5, 5"]
+|===
+|| *Alternative 1 (Current Choice): Use a HashMap of Persons as keys and a list of Records as values.*
+| *Alternative 2: Create a class that has Persons and list of Records as attributes and store instances of
+this class in a list.*
+
+|**Pros**
+a|* Retrieving athlete's individual records is fast - O(1) time
+a|* Checking of records can be done with a simple for-loop
+
+|**Cons**
+a|* Checking requires using an iterator or a lambda operation that requires only final variables
+a|* Adding of records is susceptible to errors duplicate persons can be added
+* Creating our own data structure results in overheads in testing and creating our own helper methods
+|===
+
+**Reason for choice of Alternative 1:**
+
+* HashMap supports fast retrieval, which fulfils one of our non-functional requirements of being able
+to support a database of 1000 athletes
+* Concept of key-value is very similar to our athlete-records relationship so the existing methods
+that are in the HashMap API are very useful
 
 === Calendar feature
 
