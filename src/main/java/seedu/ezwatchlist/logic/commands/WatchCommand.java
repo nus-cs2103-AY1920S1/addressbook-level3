@@ -13,7 +13,6 @@ import java.util.Set;
 
 import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.commons.core.messages.Messages;
-import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.actor.Actor;
@@ -40,7 +39,7 @@ public class WatchCommand extends Command {
             + "by the index number used in the displayed show list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "[" + PREFIX_NUM_OF_EPISODES + "NUMBER OF EPISODES] "
-            + "Example: " + COMMAND_WORD + " 1"
+            + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NUM_OF_EPISODES + "12 ";
 
     public static final String MESSAGE_WATCH_SHOW_SUCCESS = "Marked show as watched: %1$s";
@@ -49,11 +48,11 @@ public class WatchCommand extends Command {
     public static final String MESSAGE_DUPLICATE_SHOW = "This show already exists in the watchlist.";
     public static final String MESSAGE_EDITING_MOVIE_EPISODES_OR_SEASONS = "Movies do not have episodes and seasons.";
     public static final String MESSAGE_INVALID_EPISODE_NUMBER = "The provided number of episodes is too large, there"
-            + " are only %1$s episodes in %2$s.";
+            + " are only %1$s episode(s) in %2$s.";
     public static final String MESSAGE_INVALID_SEASON_NUMBER = "The provided number of seasons is too large, there are"
-            + " only %1$s seasons in %2$s.";
+            + " only %1$s season(s) in %2$s.";
     public static final String MESSAGE_INVALID_EPISODE_NUMBER_OF_SEASON = "Season %1$s of %2$s only has"
-            + " %3$s episodes.";
+            + " %3$s episode(s).";
 
     private final Index index;
     private final WatchShowDescriptor watchShowDescriptor;
@@ -143,7 +142,7 @@ public class WatchCommand extends Command {
             editedShow.addGenres(genres);
 
             return editedShow;
-        } else { //show is a tv show
+        } else { // show is a tv show
 
             int numOfEpisodesWatched = watchShowDescriptor.getNumOfEpisodesWatched();
             int numOfSeasonsWatched = watchShowDescriptor.getNumOfSeasonsWatched();
@@ -154,17 +153,7 @@ public class WatchCommand extends Command {
                 updatedIsWatched = new IsWatched(Boolean.toString(!showToEdit.isWatched().value));
             }
 
-            if (seasonsArePresent && !isValidSeasonNumber(showToEdit, numOfSeasonsWatched)) {
-                throw new CommandException(String.format(MESSAGE_INVALID_SEASON_NUMBER,
-                        showToEdit.getNumOfSeasons(), showToEdit.getName()));
-            }
-            if (seasonsArePresent && episodesArePresent
-                    && !isValidEpisodeNumberOfSeason(showToEdit, numOfEpisodesWatched, numOfSeasonsWatched)) {
-                throw new CommandException(String.format(MESSAGE_INVALID_EPISODE_NUMBER_OF_SEASON,
-                        showToEdit.getNumOfSeasons(),
-                        showToEdit.getName(),
-                        showToEdit.getNumOfEpisodesOfSeason(numOfSeasonsWatched)));
-            }
+            checkValidityOfArguments(showToEdit, numOfEpisodesWatched, numOfSeasonsWatched);
 
             if (seasonsArePresent && episodesArePresent) {
                 numOfEpisodesWatched = calcEpisodesWatched(showToEdit, numOfSeasonsWatched, numOfEpisodesWatched);
@@ -172,10 +161,7 @@ public class WatchCommand extends Command {
                 numOfEpisodesWatched = calcEpisodesWatched(showToEdit, numOfSeasonsWatched);
             }
 
-            if (numOfEpisodesWatched > totalNumOfEpisodes) {
-                throw new CommandException(String.format(MESSAGE_INVALID_EPISODE_NUMBER,
-                        totalNumOfEpisodes, showToEdit.getName()));
-            }
+            checkIfValidNumOfEpisodesWatched(showToEdit, numOfEpisodesWatched, totalNumOfEpisodes);
 
             if (isToggle) {
                 if (updatedIsWatched.value) {
@@ -201,7 +187,44 @@ public class WatchCommand extends Command {
     }
 
     /**
-     * Calculates the total number of episodes watched given the season
+     * Checks the validity of {@code numOfEpisodesWatched} and {@code numOfSeasonsWatched} user inputs.
+     * @param showToEdit show that is being edited.
+     * @param numOfEpisodesWatched number of episodes given by user.
+     * @param numOfSeasonsWatched number of seasons given by user.
+     * @throws CommandException if there is any invalid input.
+     */
+    private void checkValidityOfArguments(Show showToEdit, int numOfEpisodesWatched, int numOfSeasonsWatched)
+            throws CommandException {
+        if (seasonsArePresent && !isValidSeasonNumber(showToEdit, numOfSeasonsWatched)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_SEASON_NUMBER,
+                    showToEdit.getNumOfSeasons(), showToEdit.getName()));
+        }
+        if (seasonsArePresent && episodesArePresent
+                && !isValidEpisodeNumberOfSeason(showToEdit, numOfEpisodesWatched, numOfSeasonsWatched)) {
+            throw new CommandException(String.format(MESSAGE_INVALID_EPISODE_NUMBER_OF_SEASON,
+                    showToEdit.getTvSeasons().get(numOfSeasonsWatched - 1).getSeasonNum(),
+                    showToEdit.getName(),
+                    showToEdit.getNumOfEpisodesOfSeason(numOfSeasonsWatched)));
+        }
+    }
+
+    /**
+     * Checks the validity of {@code numOfEpisodesWatched} and {@code numOfSeasonsWatched} user inputs.
+     * @param showToEdit show that is being edited.
+     * @param numOfEpisodesWatched number of episodes given by user.
+     * @param totalNumOfEpisodes total number of episodes.
+     * @throws CommandException if there is any invalid input.
+     */
+    private void checkIfValidNumOfEpisodesWatched(Show showToEdit, int numOfEpisodesWatched, int totalNumOfEpisodes)
+            throws CommandException {
+        if (numOfEpisodesWatched > totalNumOfEpisodes) {
+            throw new CommandException(String.format(MESSAGE_INVALID_EPISODE_NUMBER,
+                    totalNumOfEpisodes, showToEdit.getName()));
+        }
+    }
+
+    /**
+     * Calculates the total number of episodes watched given and the season
      * number and number of episodes watched in that particular season.
      * @param show The show to be edited.
      * @param numOfSeasons the number of seasons provided by the user.
@@ -239,6 +262,24 @@ public class WatchCommand extends Command {
     private boolean isValidEpisodeNumberOfSeason(Show showToEdit, int episodeNum, int seasonNum) {
         return showToEdit.getType().equals("Tv Show")
                 && episodeNum <= showToEdit.getTvSeasons().get(seasonNum - 1).getTotalNumOfEpisodes();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof WatchCommand)) {
+            return false;
+        }
+
+        // state check
+        WatchCommand e = (WatchCommand) other;
+        return index.equals(e.index)
+                && watchShowDescriptor.equals(e.watchShowDescriptor);
     }
 
     /**
@@ -280,13 +321,6 @@ public class WatchCommand extends Command {
             setNumOfSeasonsWatched(toCopy.numOfSeasonsWatched);
             setTotalNumOfEpisodes(toCopy.totalNumOfEpisodes);
             setSeasons(toCopy.seasons);
-        }
-
-        /**
-         * Returns true if isWatched is edited.
-         */
-        public boolean isAnyFieldWatched() {
-            return CollectionUtil.isAnyNonNull(isWatched);
         }
 
         public void setName(Name name) {
@@ -430,15 +464,8 @@ public class WatchCommand extends Command {
 
             // state check
             WatchShowDescriptor e = (WatchShowDescriptor) other;
-
-            return getName().equals(e.getName())
-                    && getType().equals(e.getType())
-                    && getDateOfRelease().equals(e.getDateOfRelease())
-                    && getIsWatched().equals(e.getIsWatched())
-                    && getDescription().equals(e.getDescription())
-                    && getRunningTime().equals(e.getRunningTime())
-                    && getActors().equals(e.getActors())
-                    && getPoster().equals(e.getPoster());
+            return getNumOfEpisodesWatched() == e.getNumOfEpisodesWatched()
+                    && getNumOfSeasonsWatched() == e.getNumOfSeasonsWatched();
         }
     }
 }

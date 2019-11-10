@@ -74,17 +74,25 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(watchListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
+        String description = "Forever alone in a crowd, failed comedian Arthur Fleck
+        seeks connection as he walks the streets of Gotham "
+                + "City. Arthur wears two masks -- the one he paints for his day job as a clown, and the guise he "
+                + "projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied "
+                + "and disregarded by society, Fleck begins a slow descent into madness as he transforms into the "
+                + "criminal mastermind known as the Joker.";
+
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_ANNABELLE + TYPE_DESC_ANNABELLE
-                + WATCHED_DESC_ANNABELLE + DESCRIPTION_DESC_ANNABELLE
-                + DATE_DESC_ANNABELLE + RUNNING_TIME_DESC_ANNABELLE;
-        Show expectedShow = new ShowBuilder(ANNABELLE).withActors().build();
+        String addCommand = AddCommand.COMMAND_WORD + " n/Joker" + " s/" + description
+                + " w/false" + " d/3/10/2019" + " t/movie"
+                + " r/122";
+        Show expectedShow = new ShowBuilder(JOKER).withActors().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addShow(expectedShow);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        //assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
-    }*/
+        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
 
+    }
+*/
     @Test
     public void getFilteredShowList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredShowList().remove(0));

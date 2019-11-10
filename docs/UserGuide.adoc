@@ -69,9 +69,9 @@ through a button press on the graphical interface.
 image::commandline.png[width="900"]
 
 EzWatchlist uses <<UserCommands, Commands>> entered through the command line interface in figure 2 to interact with the application.
-Typing a command into the interface and entering it (by pressing kbd:[Enter] or clicking `_Go!_`) are the main way of interaction in the application.
+The following is an example of adding a movie into your watch list:
 
-Steps to quickly add a movie
+===== Steps to quickly add a movie
 
 * **`search`** `n/ip man` : Searched for movie named `ip man` in the offline and online database which will bring you to the search page automatically.
 
@@ -83,6 +83,12 @@ image::searchIpMan.png[width='500']
 .Watchlist page after entry.
 image::watchlistIpMan.png[width='500']
 
+And that's it. Our <<Quick Start, quick start guide>> will guide you to set up our application. If you like to learn more head straight into our <<Features, features guide>> for a run down on our major features, or
+go to our <<UserCommands, commands guide>> to learn more on our commands. Otherwise, if you're a developer and are interested to
+understand how each of our features were implemented, our <<DeveloperGuide#, developer guide>> breaks down each of our major components.
+
+
+What are you waiting for? Start using `EzWatchlist` now!
 
 == Quick Start
 
@@ -107,7 +113,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Watchlist Page
 
-The watchlist is the default page that is opened upon start-up of ezwatchlist.
+The watchlist is the default page that is opened upon start-up of `EzWatchlist`.
 It shows the user’s unwatched movies and television series.
 The watchlist page also contains a command bar to allow the user to input commands.
 The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `1`.
@@ -165,24 +171,35 @@ Upon clicking a movie or tv show title, a pop-up window will emerge, with a deta
 === Advanced Features
 
 ==== Parsing of Movie and Tv Show Information
-In Ezwatchlist, an online database is accessed so that all the information about your favourite Movies and
+In EzWatchlist, an online database is accessed so that all the information about your favourite Movies and
 Television Shows is updated, informative, and concise. What this means for you is that:
 
-* Posters of your Ezwatchlist shows,
-can be displayed in Ezwatchlist's sleek dark interface.
+* Posters of your EzWatchlist shows,
+can be displayed in EzWatchlist's sleek dark interface.
 
 * Moreover, your offline shows can be synced with this database allowing the application to fill in
 the minor details for you.
 
-* Unsure of what actors played in your favourite movie? Ezwatchlist will find that information for you.
+* Unsure of what actors played in your favourite movie? EzWatchlist will find that information for you.
 
 ****
 You don't need to do anything other than be connected to the internet. It is that easy!
 ****
 
 ==== Movie and Tv Show Recommendations
-Ezwatchlist has the ability to recommend Movies and TvShows to you based on
-your Ezwatchlist usage. Ezwatchlist will create your own personalized recommendations for you.
+EzWatchlist has the ability to recommend Movies and TvShows to you based on
+your EzWatchlist usage. EzWatchlist will create your own personalized recommendations for you.
+
+===== How to get your recommendations
+1. First, make sure that you have added at least one  (offline or online) into `EzWatchlist` so that we can use that to generate recommendations for you.
+
+2. Then head to the <<Statistics Page, Statistics Page>> by clicking kbd:[3] or pressing the `Statistics.` button on the
+in the interface.
+
+3. Now your recommendations as seen in Figure 5 will be shown prominently on the bottom of the Statistics Page, with movie recommendations on the left, and Tv Series recommendations on the right.
+
+.Recommendations shown in the Statistics Page.
+image::recommendations.png[width="900]
 
 ****
 Excited? Enter your statistics page to get started on your recommendations. You might
@@ -191,7 +208,7 @@ just find your next favourite!
 
 
 ==== Auto-Correct (Coming in v2.0)
-Ezwatchlist aims to provide a smooth experience for our typing users. All typing in Ezwatchlist will be automatically
+EzWatchlist aims to provide a smooth experience for our typing users. All typing in EzWatchlist will be automatically
 corrected for you when typing in your commands.
 
 ****
@@ -272,7 +289,7 @@ image::WatchTheOffice.png[width="790"]
 [start=2]
 2. User enters `watch 1` into the command box in the watchlist tab.
 
-image::Watch1.png[width="790"]
+image::Watch.png[width="790"]
 
 [start=3]
 3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `2`.
@@ -291,7 +308,6 @@ image::TheOfficeWatchCommand.png[width="790"]
 * Having the index and the season number of the show will update the cumulative number of seasons of the show that are watched.
 * Having the index, season number and the episode number of the show will update the last watched episode to be the indicated episode of the indicated season of the show.
 ****
-
 [TIP]
 Using the `watch` command on an already watched show will un-mark the show as watched.
 [NOTE]
@@ -397,19 +413,13 @@ Format: `exit`
 
 ==== Saving the data
 
-Ezwatchlist data are saved in the hard disk automatically after any command that changes the data. +
+EzWatchlist data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-==== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Ezwatchlist folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EzWatchlist folder.
 
 == Command Summary
 

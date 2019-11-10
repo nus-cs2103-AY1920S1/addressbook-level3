@@ -1,11 +1,27 @@
 package seedu.ezwatchlist.storage;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvSeason;
+import seedu.ezwatchlist.model.show.TvShow;
+import seedu.ezwatchlist.testutil.ShowBuilder;
 
 public class JsonAdaptedShowsTest {
     private static final String INVALID_NAME = "";
@@ -95,6 +111,28 @@ public class JsonAdaptedShowsTest {
         assertThrows(IllegalValueException.class, show::toModelType);
 
          */
+    }
+
+    @Test
+    void jsonAdaptedShowsConstructorTest() {
+        List<Show> shows = new ArrayList<>();
+
+        List<JsonAdaptedTvShow> jsonAdaptedTvShowList = new ArrayList<>();
+        Set<Actor> actors = new HashSet<>();
+        List<JsonAdaptedMovie> jsonAdaptedMovieList = new ArrayList<>();
+        Movie movie = new Movie(new Name("test"), new Description("123"), new IsWatched("false"),
+                new Date("24/09/1997"), new RunningTime(1), actors);
+
+        TvShow tvShow = new TvShow(new Name("test"), new Description("123"), new IsWatched("false"),
+                new Date("24/09/1997"), new RunningTime(1), actors, 1, 1,
+                new ArrayList<TvSeason>());
+        Show show = new ShowBuilder(AVENGERSENDGAME).withType("Movie").build();
+        shows.add(movie);
+        shows.add(tvShow);
+        jsonAdaptedMovieList.add(new JsonAdaptedMovie(show));
+        assertTrue(new JsonAdaptedShows(shows).getMovies() instanceof List);
+        assertTrue(new JsonAdaptedShows(shows).getTvShows() instanceof List);
+
     }
 
 }
