@@ -53,10 +53,10 @@ public class MassReject extends Reject {
                                 "");
                         model.setAppeal(appealToReject, rejectedAppeal);
                         rejectedSuccessfully.add(appealId);
-                    } else if (appealToReject.isResolved() == true
+                    } else if (appealToReject.isResolved()
                             && appealToReject.getResult().equalsIgnoreCase("APPROVED")) {
                         alreadyApproved.add(appeal.getAppealId());
-                    } else if (appealToReject.isResolved() == true
+                    } else if (appealToReject.isResolved()
                             && appealToReject.getResult().equalsIgnoreCase("REJECTED")) {
                         alreadyRejected.add(appeal.getAppealId());
                     }

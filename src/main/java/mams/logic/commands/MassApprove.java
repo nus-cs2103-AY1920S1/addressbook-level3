@@ -270,10 +270,10 @@ public class MassApprove extends Approve {
                         model.setAppeal(appealToApprove, approvedAppeal);
                         approvedSuccessfully.add(appealId);
 
-                    } else if (appealToApprove.isResolved() == true
+                    } else if (appealToApprove.isResolved()
                             && appealToApprove.getResult().equalsIgnoreCase("APPROVED")) {
                         alreadyApproved.add(appeal.getAppealId());
-                    } else if (appealToApprove.isResolved() == true
+                    } else if (appealToApprove.isResolved()
                             && appealToApprove.getResult().equalsIgnoreCase("REJECTED")) {
                         alreadyRejected.add(appeal.getAppealId());
                     }
