@@ -281,7 +281,7 @@ Question is implemented as a concrete class with its relevant fields consist of 
 The following class diagram illustrates how `Question` class is designed:
 
 .Class diagram for `Question`
-image::QuestionClassDiagram.png[width = "600"]
+image::QuestionClassDiagram.png[width = "500"]
 
 ===== Design considerations: How `addq`/`deleteq`/`editq` commands execute
 * _Alternative 1 (current choice):_ Update the internal storage `UniqueQuestionList` in `AppData` first, then save the updated appData
@@ -969,27 +969,6 @@ Use case ends
 ** Repeat 1c1 and 1c2 until a valid index is provided
 * Use case resumes at step 1
 
-
-[discrete]
-=== Use case: Delete an existing question (Dongjun)
-
-*MSS*
-
-1. Student gives the command to delete an existing question `deleteq INDEX`
-2. Application shows the question being deleted
-3. Application deletes the question indicated by the student from the application
-
-Use case ends
-
-*Extensions*
-
-[none]
-* 1a. The index given by student is out of the range
-[none]
-** 1a1. Application shows the error of invalid index
-** 1a2. Student enters the valid index
-* Use case resumes from step 1
-
 // tag::quizUseCase[]
 [discrete]
 === Use case: Take a quiz (Dongjun)
@@ -1081,6 +1060,24 @@ _This image should appear in place of the old image, if any, even if the filenam
 in its data folder.
 .. Relaunch the application. _The app should not throw an exception, merely not display any images._
 .. Add back the images to the lecture notes using `editnote`. _This operation should succeed._
+
+== Question management
+. Adding a question with all necessary fields
+.. Type `addq q/MVC design pattern refers to (  ). a/Model View Controller s/CS2103T d/Medium` in the command line.
+.. The application will show the success of adding the question if all fields are present and valid.
+. Editing a question
+.. Type `editq 1 d/Hard` to change the difficulty of the question at index 1 to hard.
+.. The application will show the success of updating the question's difficulty and display all the fields.
+The question at index 1 will have a new difficulty of Hard.
+. Finding a question
+.. Type `findq java python` in the command line.
+.. The application will return a list of questions which contain the keyword "java" or "python" in either its
+question body or answer. If no question contains these keywords, the application will return an empty list.
+. Deleting a question
+.. Type `listq` in the command line to view a list of all questions.
+.. Type `deleteq 2` in the command line to delete the second question from the list.
+.. The application will display the success of deletion of this question and its relevant fields.
+The question will be removed from the list.
 
 === Quiz mode
 NOTE: Ensure the application has at least one question to do the quiz.
