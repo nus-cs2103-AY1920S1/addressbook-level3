@@ -54,8 +54,9 @@ _Enhancement added:_ The ability to import and export *Horo*’s Event and Task 
     * Although there are existing libraries for ICS files, my code is not dependant on any of them,
         as I did not want to introduce bugs into our app, thus I wrote a custom parser that better suited our needs.
 
-_Code Contributed:_ I mainly contributed code to the “ics” package of our repository.
-    Click the link link:{repoURL}/blob/master/src/main/java/seedu/address/ics/IcsParser.java[here] for a sample of my code!
+_Code Contributed:_ I mainly contributed code to the `**ics**` package of our repository.
+To view a breakdown of my contributions to the repository, click
+link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=marcusteh1238&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[here]!
 
 _Other contributions:_
 
@@ -74,16 +75,19 @@ _Other contributions:_
     * Integrated a Github webhook to the team’s Discord server.
 
 == Contributions to the User Guide
-As part of the requirements, we had to update the original User Guide with instructions
+|===
+| As part of the requirements, we had to update the original User Guide with instructions
 regarding how to use our new features.
 This section contains an excerpt from the User Guide showing how to use the export command.
+This shows how I am able to give an understandable guide to new users of Horo.
+|===
 ---
 
 include::../UserGuide.adoc[tag=ics]
 
 == Contributions to the Developer Guide
-The following section shows my additions to the Horo Developer Guide for the import and export features.
-
+|===
+| The following section shows my additions to the Horo Developer Guide for the import and export features,
+showing how I can write documentation that can be useful to other developers.
+|===
 include::../DeveloperGuide.adoc[tag=ics]
-
----

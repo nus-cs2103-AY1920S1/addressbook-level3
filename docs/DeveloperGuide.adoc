@@ -578,8 +578,8 @@ Here is an overview of how the ICS component looks like:
 
 image::IcsComponentDiagram.png[]
 
-The file exporter uses the `IcsConverter` class to convert `EventSource` and `TaskSource` objects
-stored in the `ModelManager` singleton object into their ICS String representations. Check out the
+The file exporter uses the `*IcsConverter*` class to convert `*EventSource*` and `*TaskSource*` objects
+stored in the `*ModelManager*` singleton object into their ICS String representations. Check out the
 link:https://en.wikipedia.org/wiki/ICalendar[iCalendar Wiki Page] for more information on the specifications.
 
 
