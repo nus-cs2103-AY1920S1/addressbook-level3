@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
+//@@author Kyzure
 /**
  * An UI component that displays the feedback to the user.
  */

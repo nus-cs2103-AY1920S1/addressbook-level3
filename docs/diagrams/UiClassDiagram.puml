@@ -16,9 +16,13 @@ Class LogPanel
 Class PopUpBox
 }
 
-
 package Logic <<Rectangle>> {
     Class UiManager
+}
+
+package Model <<Rectangle>> {
+    Interface UserOutputListener <<Interface>>
+    Interface ModelDataListener <<Interface>>
 }
 
 package List <<Rectangle>> {
@@ -35,6 +39,8 @@ HiddenOutside .down.> Ui
 
 '==== UiManager ====
 UiManager .left.|> Ui
+UiManager -right-|> ModelDataListener
+UiManager -right-|> UserOutputListener
 UiManager *-down-> MainWindow
 
 '==== MainWindow ====
@@ -67,5 +73,6 @@ PopUpBox -down--> UiPart
 '==== Positioning ====
 MainWindow -[hidden]-|> UiPart
 UiManager -[hidden]-|> MainWindow
+ModelDataListener -[hidden]down-|> UserOutputListener
 
 @enduml

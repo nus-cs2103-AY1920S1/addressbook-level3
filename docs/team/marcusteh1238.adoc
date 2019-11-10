@@ -18,7 +18,7 @@ This is how the main page of our app looks like:
 .Horo's Graphical User Interface (GUI)
 image::HoroMainViewDescription.png[]
 
-n this project, my role was to design and implement the code for the export and import commands.
+In this project, my role was to design and implement the code for the export and import commands.
 The following sections illustrate these enhancements in more detail,
 including some of the relevant documentation I have added
 to the User Guide and Developer Guide in relation to these enhancements.
@@ -27,8 +27,9 @@ Note the following symbols and formatting used in this document:
 
 [cols="2,5"]
 |===
-|`export`  | A grey highlight (called a mark-up) indicates that
+| `export`  | A grey highlight (called a mark-up) indicates that
 this is a command that can be inputted into the command line and executed by the application.|
+`*IcsExporter*`| A text with a grey highlight as well as a bold font indicates a component, class or object in Horo.
 |===
 
 == Summary of Contributions
@@ -53,8 +54,9 @@ _Enhancement added:_ The ability to import and export *Horo*’s Event and Task 
     * Although there are existing libraries for ICS files, my code is not dependant on any of them,
         as I did not want to introduce bugs into our app, thus I wrote a custom parser that better suited our needs.
 
-_Code Contributed:_ I mainly contributed code to the “ics” package of our repository.
-    Click the link link:{repoURL}/blob/master/src/main/java/seedu/address/ics/IcsParser.java[here] for a sample of my code!
+_Code Contributed:_ I mainly contributed code to the `**ics**` package of our repository.
+To view a breakdown of my contributions to the repository, click
+link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=marcusteh1238&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[here]!
 
 _Other contributions:_
 
@@ -73,58 +75,19 @@ _Other contributions:_
     * Integrated a Github webhook to the team’s Discord server.
 
 == Contributions to the User Guide
-As part of the requirements, we had to update the original User Guide with instructions
+|===
+| As part of the requirements, we had to update the original User Guide with instructions
 regarding how to use our new features.
 This section contains an excerpt from the User Guide showing how to use the export command.
-
+This shows how I am able to give an understandable guide to new users of Horo.
+|===
 ---
 
-=== iCalendar (ICS) Integration
-
-Horo stores data in the ICS format. Files saved in this format have the extension `.ics`.
-This allows for data to be imported to and exported from other calendar applications that also use the `.ics` format.
-
-==== Export current calendar : `export --directory ["DIRECTORY"]`
-
-.Export Command
-image::ExportCommandScreenShot.png[]
-
-.Exported File
-image::ExportFileScreenShot.png[]
-
-{empty} +
-The `export` command exports your current calendar as an ICS file to the specified directory.
-If no directory is specified, the file will be created in the same directory as Horo.
-{empty} +
-
-Format: +
-`export` +
-`export --directory ["DIRECTORY"]`
-{empty} +
-
-Example: +
-`export --directory "C:\Users\USER_NAME\Desktop\Horo"`
-{empty} +
+include::../UserGuide.adoc[tag=ics]
 
 == Contributions to the Developer Guide
-The following section shows my additions to the Horo Developer Guide for the import and export features.
-
----
-
-=== Ics Component
-
-*API* : link:{repoURL}/src/main/java/seedu/address/ics/IcsParser.java[`IcsParser.java`]
-
-The ICS component is made up of two parts: ICS file importer, and ICS file exporter.
-
-The file importer makes use of a custom parser that converts files with the `.ics` file extension
-to `EventSource` objects in Horo.
-
-The file exporter takes the `EventSource` objects stored in the `Model` singleton object and
-generates ICS String representations of them. Check out the
-link:https://en.wikipedia.org/wiki/ICalendar[ICalendar Wiki Page] for more information on the specifications.
-
-
-* Can export Horo's save data as a file
-The `ICS` Component,with a `.ics` extension.
-* Can import other Horo's save data from a `.ics` file.
+|===
+| The following section shows my additions to the Horo Developer Guide for the import and export features,
+showing how I can write documentation that can be useful to other developers.
+|===
+include::../DeveloperGuide.adoc[tag=ics]

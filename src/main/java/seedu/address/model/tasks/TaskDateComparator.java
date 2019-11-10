@@ -2,6 +2,7 @@ package seedu.address.model.tasks;
 
 import java.util.Comparator;
 
+//@@author Kyzure
 /**
  * Represents a Comparator to compare the events by their date, followed by their name in lexicographic order.
  */

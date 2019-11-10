@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
 
+//@@author Kyzure
 /**
  * An UI component that displays information of a {@code Event}.
  */
