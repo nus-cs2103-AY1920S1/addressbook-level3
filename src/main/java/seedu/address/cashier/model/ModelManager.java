@@ -433,11 +433,11 @@ public class ModelManager implements Model {
     public ArrayList<String> getCombination(char[] arr, int n) {
         assert arr != null : "Array to get combination from cannot be null.";
         ArrayList<String> result = new ArrayList<>();
-        for (int len = 1; len <= n; len++) {
+        for (int start = 1; start <= n; start++) {
             String word = "";
-            for (int i = 0; i <= n - len; i++) {
-                //  Print characters from current starting point to current ending point
-                int j = i + len - 1;
+            for (int i = 0; i <= n - start; i++) {
+                //  Adds characters from current starting point to current ending point
+                int j = i + start - 1;
                 for (int k = i; k <= j; k++) {
                     word += String.valueOf(arr[k]);
                 }

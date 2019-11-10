@@ -746,34 +746,36 @@ description and quantity fields, `Model` will search all the sales items in the 
 according to the specified category and suggestions would be shown by Leo, the assistant. +
 If description and quantity field are both valid, the `ModelManager` will add the item into the sales list.
 
-If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method
-to show a list of suggestions.
+If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method,
+which will in turn call `getCombination(arr, arr.length)` to return an ArrayList containing all subsets of
+the inputted description that are of at least length 3. These subsets are then compared
+with the actual descriptions of all items in the inventory to check if either contains the other.
 
-The following are two code snippets from `getRecommendedItems(description)`:
+The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
-            if (description.length() >= 3) {
-                char[] arr = description.toCharArray();
-                ArrayList<String> combinations = getCombination(arr, arr.length);
-                for (int j = 0; j < combinations.size(); j++) {
-                    if (combinations.get(j).contains(itemDescription) // itemDescription refers to the actual description of an item in the inventory
-                            || itemDescription.contains(combinations.get(j))) {
-                        recommendedItems.add(item.getDescription());
-                        continue;
-                    }
+    public ArrayList<String> getCombination(char[] arr, int n) {
+        ArrayList<String> result = new ArrayList<>();
+        for (int start = 1; start <= n; start++) {
+            String word = "";
+            for (int i = 0; i <= n - start; i++) {
+                //  Adds characters from current starting character to current ending character
+                int j = i + start - 1;
+                for (int k = i; k <= j; k++) {
+                    word += String.valueOf(arr[k]);
                 }
+                result.add(word);
             }
+        }
+        return result.stream()
+                .filter(str -> str.length() >= 3)
+                .collect(Collectors
+                        .toCollection(ArrayList::new));
+    }
 
-            ArrayList<String> newList = recommendedItems.stream()
-            .distinct()
-            .collect(Collectors
-            .toCollection(ArrayList::new));
-            return newList;
-
-The `getCombination(arr, arr.length)` method in line 3 of the first snippet returns an ArrayList of all subsets of
-descriptions that are of at least length 3. While iterating through the `InventoryList`, these subsets are compared with the actual descriptions of all items in the inventory to check if either contains the other.
-
-As shown in the second code snippet, after adding all the suggested words into the `recommendedItems` list, the list
-is passed into a stream to remove duplicates.
+The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
+starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
+The last loop appends characters from the starting character to the ending character. After the nested loops, the ArrayList
+is passed into a stream to filter out all subsets of length less than 3.
 
 [NOTE]
 If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
