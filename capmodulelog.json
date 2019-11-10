@@ -4,5 +4,5 @@
     "windowHeight" : 800.0,
     "windowCoordinates" : null
   },
-  "capLogFilePath" : "data/capmodulelog.json"
+  "capLogFilePath" : "data\\capmodulelog.json"
 }
