@@ -66,6 +66,7 @@ Example: `switch quiz`
 Exits the program.
 Format: `exit`
 
+//tag::calendar[]
 === Calendar
 
 Calendar displays a weekly list of tasks and modules which the user has added. To enter the Calendar section
@@ -123,10 +124,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Only the title is searched.
 * Only full words will be matched e.g. `CS210` will not match `CS2100`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `CS2100 Lab` will return `CS2100 Tutorial`, `CS2105 Lab`
+* If the user switch to another feature or enter another command, the calendar would be reset to list all tasks.
 ****
 
 Examples:
-
 * `find CS2100` +
 Returns `cs2100` and `CS2100 Lab`
 * `find lab ger tutorial` +
@@ -151,7 +152,8 @@ Format: `sort  SORT_TYPE` +
 e.g. `sort deadline`
 
 ==== Change week: `go`
-Go to the specified week `WEEK_NUMBER`. The `WEEK_NUMBER` must between 0 to 14 inclusive.
+Go to the specified week `WEEK_NUMBER`. The `WEEK_NUMBER` must between 0 to 14 inclusive. The default week is week 0 and
+would be shown every time the application is launched.
 
 Format: `go WEEK_NUMBER`
 e.g. `go 2`
@@ -165,6 +167,8 @@ Format: `clearweek`
 Delete all all `ToDoTask` and `ModuleTask` from all weeks.
 
 Format: `clear`
+
+//end::calendar[]
 
 === Modules
 

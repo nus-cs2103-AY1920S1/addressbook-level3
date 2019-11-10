@@ -163,7 +163,6 @@
      -fx-background-color: derive(white, 20%);
      -fx-border-color: derive(white, 10%);
      -fx-border-top-width: 1px;
-
  }
 
 .pane-without-border {
@@ -403,7 +402,7 @@
 .calendar-label-header {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: black;
+    -fx-text-fill: #362949;
     -fx-opacity: 1;
 }
 
@@ -413,49 +412,74 @@
 }
 
 #calendartags .label {
-    -fx-text-fill: black;
-    -fx-background-color: #383838;
+    -fx-text-fill: #362949;
+    -fx-background-color: white;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
+    -fx-border-color: derive(#dadada, 10%);
+    -fx-border-width: 0.5;
     -fx-font-size: 11;
 }
 
 .moduleTaskCard {
-    -fx-background-color: #9e9edb;
+    -fx-background-color: #c395ff;
     -fx-padding: 5 5 5 10;
-    -fx-border-color: white;
+    -fx-border-color: #e8dbfc;
     -fx-border-width: 1.5;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
 
 .moduleTaskCard .label {
-    -fx-text-fill: black;
+    -fx-text-fill: #392949;
 }
 
 .moduleTaskCard .cell_big_label {
-    -fx-text-fill: #383854;
+    -fx-text-fill: #392949;
 }
 
 .todoTaskCard {
-    -fx-background-color: #ffcccc;
+    -fx-background-color: #ffb6c1;
     -fx-padding: 5 5 5 10;
-    -fx-border-color: white;
+    -fx-border-color: #ffdde2;
     -fx-border-width: 1.5;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
 
 .todoTaskCard .label {
-    -fx-text-fill: black;
+    -fx-text-fill: #40000a;
 }
 
 .todoTaskCard .cell_big_label {
-    -fx-text-fill: #383854;
+    -fx-text-fill: #40000a;
 }
 
 .calendar-menu-bar {
-    -fx-background-color: #383854;
+    -fx-background-color: #b48af6;
 }
+
+.calendar-top-pane-skin {
+    -fx-background-color: derive(#b48af6, 20%);
+    -fx-box-border: transparent;
+}
+
+.calendar-pane-with-border {
+    -fx-background-color: derive(white, 20%);
+    -fx-border-color: derive(#b48af6, 10%);
+    -fx-border-top-width: 1px;
+}
+
+.calendar-result-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-background-radius: 20;
+    -fx-text-fill: #362949;
+    -fx-border-color: derive(#b48af6, 10%);
+    -fx-border-radius: 20;
+    -fx-padding: 5;
+}
+
 

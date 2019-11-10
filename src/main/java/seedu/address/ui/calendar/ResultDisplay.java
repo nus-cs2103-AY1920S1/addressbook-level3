@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
  */
 public class ResultDisplay extends UiPart<Region> {
 
-    private static final String FXML = "ResultDisplay.fxml";
+    private static final String FXML = "CalendarResultDisplay.fxml";
 
     @FXML
     private TextArea resultDisplay;
