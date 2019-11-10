@@ -14,8 +14,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_DIRECTION = new Prefix("dn/");
     public static final Prefix PREFIX_FROM = new Prefix("f/");
+    public static final Prefix PREFIX_AMOUNT_FROM = new Prefix("af/");
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PREDICATE = new Prefix("pred/");
+    public static final Prefix PREFIX_AMOUNT_UNTIL = new Prefix("au/");
     public static final Prefix PREFIX_UNTIL = new Prefix("u/");
 
     // Sorting
@@ -23,6 +25,12 @@ public class CliSyntax {
     public static final String SORT_ARG_DATE = "w";
     public static final String SORT_ARG_PERSON = "p";
     public static final String SORT_ARG_AMOUNT = "x";
+    public static final String SORT_ASCENDING_DATE = "aw";
+    public static final String SORT_DESCENDING_DATE = "dw";
+    public static final String SORT_ASCENDING_AMOUNT = "ax";
+    public static final String SORT_DESCENDING_AMOUNT = "dx";
+    public static final String SORT_ASCENDING_DESCRIPTION = "ad";
+    public static final String SORT_DESCENDING_DESCRIPTION = "dd";
 
     // Loans
     public static final Prefix PREFIX_PERSON = new Prefix("p/");

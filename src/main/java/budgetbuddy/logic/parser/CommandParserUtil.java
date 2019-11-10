@@ -1,10 +1,23 @@
 package budgetbuddy.logic.parser;
 
 import static budgetbuddy.commons.util.AppUtil.getDateFormatter;
+import static budgetbuddy.logic.parser.CliSyntax.SORT_ASCENDING_AMOUNT;
+import static budgetbuddy.logic.parser.CliSyntax.SORT_ASCENDING_DATE;
+import static budgetbuddy.logic.parser.CliSyntax.SORT_ASCENDING_DESCRIPTION;
+import static budgetbuddy.logic.parser.CliSyntax.SORT_DESCENDING_AMOUNT;
+import static budgetbuddy.logic.parser.CliSyntax.SORT_DESCENDING_DATE;
+import static budgetbuddy.logic.parser.CliSyntax.SORT_DESCENDING_DESCRIPTION;
+import static budgetbuddy.model.transaction.ComparatorUtil.SORT_BY_ASCENDING_AMOUNT;
+import static budgetbuddy.model.transaction.ComparatorUtil.SORT_BY_ASCENDING_DATE;
+import static budgetbuddy.model.transaction.ComparatorUtil.SORT_BY_ASCENDING_DESCRIPTION;
+import static budgetbuddy.model.transaction.ComparatorUtil.SORT_BY_DESCENDING_AMOUNT;
+import static budgetbuddy.model.transaction.ComparatorUtil.SORT_BY_DESCENDING_DATE;
+import static budgetbuddy.model.transaction.ComparatorUtil.SORT_BY_DESCENDING_DESCRIPTION;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 
 import budgetbuddy.commons.core.index.Index;
@@ -25,6 +38,7 @@ import budgetbuddy.model.rule.script.ActionScript;
 import budgetbuddy.model.rule.script.PredicateScript;
 import budgetbuddy.model.script.ScriptName;
 import budgetbuddy.model.transaction.Amount;
+import budgetbuddy.model.transaction.Transaction;
 
 /**
  * Contains utility methods used for parsing strings in the various *CommandParser classes.
@@ -134,6 +148,32 @@ public class CommandParserUtil {
         return new Description(trimmedDescription);
     }
 
+    /**
+     * Parses a {@code String sortInstruction} into a {@code Comparator<Transaction>}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortInstruction} is invalid.
+     */
+    public static Comparator<Transaction> parseTransactionComparator(String sortInstruction) throws ParseException {
+        requireNonNull(sortInstruction);
+        String trimmedInstruction = sortInstruction.trim();
+        switch (sortInstruction) {
+        case SORT_ASCENDING_DATE:
+            return SORT_BY_ASCENDING_DATE;
+        case SORT_DESCENDING_DATE:
+            return SORT_BY_DESCENDING_DATE;
+        case SORT_ASCENDING_AMOUNT:
+            return SORT_BY_ASCENDING_AMOUNT;
+        case SORT_DESCENDING_AMOUNT:
+            return SORT_BY_DESCENDING_AMOUNT;
+        case SORT_ASCENDING_DESCRIPTION:
+            return SORT_BY_ASCENDING_DESCRIPTION;
+        case SORT_DESCENDING_DESCRIPTION:
+            return SORT_BY_DESCENDING_DESCRIPTION;
+        default:
+            throw new ParseException("Invalid sort style!");
+        }
+    }
 
     /**
      * Parses a {@code String date} into a {@code LocalDate}.

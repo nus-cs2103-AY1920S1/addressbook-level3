@@ -1,7 +1,9 @@
 package budgetbuddy.model;
 
+import static budgetbuddy.model.transaction.ComparatorUtil.SORT_BY_DESCENDING_DATE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -16,6 +18,7 @@ import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 
 /**
@@ -27,6 +30,8 @@ public class AccountsManager {
 
     private Index activeAccountIndex = Index.fromZeroBased(0);
     private final TransactionList activeTransactionList;
+    private final SortedList<Transaction> sortedTransactions;
+    private final FilteredList<Transaction> filteredTransactions;
 
     /**
      * Creates a new list of accounts, with a default account set as the active account.
@@ -39,6 +44,8 @@ public class AccountsManager {
         setActiveAccountByIndex(Index.fromZeroBased(0));
         activeTransactionList = new TransactionList();
         activeTransactionList.setAll(getActiveAccount().getTransactionList());
+        sortedTransactions = new SortedList<>(activeTransactionList.asUnmodifiableObservableList());
+        filteredTransactions = new FilteredList<>(sortedTransactions);
     }
 
     /**
@@ -50,23 +57,25 @@ public class AccountsManager {
         requireNonNull(accounts);
         this.accounts = new UniqueAccountList(accounts);
         filteredAccounts = new FilteredList<>(this.getAccounts());
-        setActiveAccountByIndex(activeAccountIndex);
         activeTransactionList = new TransactionList();
+        sortedTransactions = new SortedList<>(activeTransactionList.asUnmodifiableObservableList());
+        filteredTransactions = new FilteredList<>(sortedTransactions);
+        setActiveAccountByIndex(activeAccountIndex);
         activeTransactionList.setAll(getActiveAccount().getTransactionList());
     }
 
     /**
-     * Returns an unmodifiable view of the list of Account
+     * Returns an unmodifiable view of the list of filtered Accounts
      */
     public ObservableList<Account> getFilteredAccountList() {
         return filteredAccounts;
     }
 
     /**
-     * Returns an unmodifiable view of the current active account's transactionlist.
+     * Returns an unmodifiable view of the list of filtered Transactions.
      */
-    public ObservableList<Transaction> getActiveTransactionList() {
-        return activeTransactionList.asUnmodifiableObservableList();
+    public FilteredList<Transaction> getFilteredTransactionList() {
+        return filteredTransactions;
     }
 
     /**
@@ -191,6 +200,30 @@ public class AccountsManager {
         setActiveAccountByIndex(accounts.indexOfEquivalent(account));
     }
 
+    /**
+     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
+     */
+    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+        requireNonNull(predicate);
+        filteredTransactions.setPredicate(predicate);
+    }
+
+    /**
+     * Resets the filter of the filtered transaction list.
+     */
+    public void resetFilteredTransactionList() {
+        filteredTransactions.setPredicate(t -> true);
+    }
+
+    public void updateSortedTransactionList(Comparator<Transaction> comparator) {
+        requireNonNull(comparator);
+        sortedTransactions.setComparator(comparator);
+    }
+
+    public void resetSortedTransactionList() {
+        sortedTransactions.setComparator(SORT_BY_DESCENDING_DATE);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -248,18 +281,18 @@ public class AccountsManager {
             Index newActiveIndex = accounts.indexOfEquivalent(account);
             setActiveAccountByIndex(newActiveIndex);
         }
-        account.getTransactionList().sortByDescendingDate();
         if (activeTransactionList != null) {
             activeTransactionList.setAll(account.getTransactionList());
         }
+        resetSortedTransactionList();
     }
 
     /**
      * Updates the transactionList linked to the currentActiveAccount.
      */
     public void transactionListUpdateSource() {
-        getActiveAccount().getTransactionList().sortByDescendingDate();
         activeTransactionList.setAll(getActiveAccount().getTransactionList());
+        resetSortedTransactionList();
     }
 
 }

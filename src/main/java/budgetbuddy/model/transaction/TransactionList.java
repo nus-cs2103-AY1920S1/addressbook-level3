@@ -108,19 +108,6 @@ public class TransactionList implements Iterable<Transaction> {
         internalList.sort(c);
     }
 
-    /**
-     * Sorts the backing list by ascending date
-     */
-    public void sortByAscendingDate() {
-        internalList.sort((Transaction t1, Transaction t2) -> t1.getLocalDate().compareTo(t2.getLocalDate()));
-    }
-
-    /**
-     * Sorts the backing list by descending date
-     */
-    public void sortByDescendingDate() {
-        internalList.sort((Transaction t2, Transaction t1) -> t1.getLocalDate().compareTo(t2.getLocalDate()));
-    }
 
     @Override
     public Iterator<Transaction> iterator() {
