@@ -20,8 +20,8 @@ public class EventAddCommand extends EventCommand {
             + "endDateTime/ [ENDDATETIME]\n"
             + "recur/ [DAILY/WEEKLY/NONE]\n"
             + "color/ [0 - 23]\n"
-            + "Example: event eventName/cs2100 lecture startDateTime/2019-11-02T08:00 "
-            + "endDateTime/2019-11-02T09:00 recur/none color/1";
+            + "Example: event eventName/cs2103 Practical startDateTime/2019-11-15T08:00 "
+            + "endDateTime/2019-11-15T09:00 recur/none color/1";
     public static final String MESSAGE_SUCCESS = "Added Event: %1$s";
 
     private final VEvent toAdd;

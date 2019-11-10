@@ -8,16 +8,16 @@
 == Overview
 
 My team and I were tasked with enhancing AddressBook3 - a given CLI (Command Line Interface) application into a better product.
-Through the ideation phase, we decided to morph the application into the Njoy Teaching Assistant.
-We aim to improve the quality of life for teachers by assisting them with daily administrative tasks
-that have been traditionally resolved for years. In particular, the Njoy Teaching Assistant enables
+Through the ideation phase, we decided to morph the application into the Njoy Teaching Assistant. We realised that many teachers
+had issues with managing large groups of students and keeping track of the many physical documents that they require
+to perform their daily tasks. Therefore, we came up with a solution for them : nJoyAssistant. In particular, the Njoy Teaching Assistant enables
 teachers to maintain student records to manage students better
 ; set questions and quizzes to enhance students learning; and keep track of
 their schedules with an interactive timetable.
 
 This is what our project looks like:
 
-image::Ui.png[]
+image::NjoyMainPage.png[]
 _Figure 1. The graphical user interface for Njoy._
 
 My role was to design and write code for the `student`, `group`, `tag` and `mark` features. The rest of the sections will cover the
