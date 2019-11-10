@@ -14,17 +14,6 @@ activate AddFindRuleCommandParser
     activate ProblemSearchRule
         ProblemSearchRule --> AddFindRuleCommandParser
     deactivate ProblemSearchRule
-    alt argument for name is present
-        ref over AddFindRuleCommandParser
-            namePredicate :=
-            parseNamePredicate(argument, msg)
-        endref
-    else else
-        ref over AddFindRuleCommandParser
-            namePredicate := null
-        endref
-    end
-    ref over AddFindRuleCommandParser: check if other fields are present
     create AddFindRuleCommand
     AddFindRuleCommandParser -> AddFindRuleCommand : AddFindRuleCommand(predicates)
     activate AddFindRuleCommand

@@ -44,9 +44,9 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/107[#107]
 
 * *Minor enhancement*: Implemented the command history feature.
 
-** What it does: allows the user to navigate to previous commands using ↑ and ↓ keyboard shortcut.
+** What it does: allows the user to navigate to previous commands using `Up` and `Down` keyboard shortcut.
 
-** Justification: This feature makes `addfindrule` more useful - the user can first check if their problem find rule is working as expected by executing it using `findprob` command, then press ↑ to restore the command text, change the command word to `addfindrule` and assign a name to the added find rule.
+** Justification: This feature makes `addfindrule` more useful - the user can first check if their problem find rule is working as expected by executing it using `findprob` command, then press `Up` to restore the command text, change the command word to `addfindrule` and assign a name to the added find rule.
 
 ** Relevant pull request
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/105[#105]

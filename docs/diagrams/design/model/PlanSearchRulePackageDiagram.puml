@@ -32,13 +32,13 @@ Predicate <|.. PlanNameContainsKeywordsPredicate
 Predicate <|.. PlanDescriptionContainsKeywordsPredicate
 Predicate <|.. TimeRangePredicate
 
-PlanNameContainsKeywordsPredicate <--* FindPlanDescriptor
-PlanDescriptionContainsKeywordsPredicate <--* FindPlanDescriptor
-TimeRangePredicate <--* FindPlanDescriptor
-TimeRange <--* LocalDate : startDate
-TimeRange <--* LocalDate : endDate
+PlanNameContainsKeywordsPredicate "1" <--* FindPlanDescriptor
+PlanDescriptionContainsKeywordsPredicate "1" <--* FindPlanDescriptor
+TimeRangePredicate "1" <--* FindPlanDescriptor
+TimeRange *--> "1" LocalDate : startDate
+TimeRange *--> "1" LocalDate : endDate
 
 
-TimeRange <-down- TimeRangePredicate
+TimeRange "1" <-down- TimeRangePredicate
 
 @enduml

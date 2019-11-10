@@ -193,7 +193,7 @@ Finds problems fulfilling all provided constraints. +
 Format: `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]`
 
 .The result of `findprob` is shown in the problems list
-image::findprob_1.png[width="70%"]
+image::findprob_1.png[width="70%", scaledwidth=10cm]
 
 [NOTE]
 When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `addprob` command). Also at least one search restriction should be provided.
@@ -246,7 +246,7 @@ Format: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] 
 Alias: `afr`
 
 .Information related to find rules is displayed in the "Find Rules" panel
-image::find_rule_1.png[width="70%"]
+image::find_rule_1.png[width="70%", scaledwidth=10cm]
 
 [TIP]
 If you want to "keep a list of problems" that fulfills certain conditions, say "graph theory questions from Kattis", you may store these rules using `addfindrule` and `apply` them later. +
