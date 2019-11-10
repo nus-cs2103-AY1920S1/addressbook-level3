@@ -1083,12 +1083,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* diagnosed with type 2 diabetes
+* is diagnosed with type 2 diabetes
 * consults a professional health practitioner
 * has a need to manage a significant number of health-related records and tasks
 * is diligent in immediately recording events but subsequently forgets events
 * wants to gain a deeper understanding of his/her condition
-* is struggling with obesity and lack of sleep
+* is struggling with obesity
+* finds it difficult to get quick and customized suggestions about diets
 * is motivated by challenges
 * enjoys a personalised experience
 * needs to know his/her effectiveness in managing diabetes at a glance
@@ -1213,6 +1214,7 @@ that is always easily accessible |instantly calculate all my medical costs when 
 
 (For all use cases below, the *System* is the `Sugar Mummy` and the *Actor* is the `user`, unless specified otherwise)
 
+[discrete]
 === Use case: Add blood sugar record
 *MSS*
 
@@ -1355,23 +1357,6 @@ Use case resumes at step 2.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

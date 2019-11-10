@@ -1,4 +1,4 @@
-package seedu.sugarmummy.testutil.foodrecommendations;
+package seedu.sugarmummy.testutil.recmf;
 
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FAT;
@@ -6,10 +6,10 @@ import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_GI;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_SUGAR;
-import static seedu.sugarmummy.testutil.foodrecommendations.FoodBuilder.DEFAULT_CALORIE;
-import static seedu.sugarmummy.testutil.foodrecommendations.FoodBuilder.DEFAULT_FAT;
-import static seedu.sugarmummy.testutil.foodrecommendations.FoodBuilder.DEFAULT_GI;
-import static seedu.sugarmummy.testutil.foodrecommendations.FoodBuilder.DEFAULT_SUGAR;
+import static seedu.sugarmummy.testutil.recmf.FoodBuilder.DEFAULT_CALORIE;
+import static seedu.sugarmummy.testutil.recmf.FoodBuilder.DEFAULT_FAT;
+import static seedu.sugarmummy.testutil.recmf.FoodBuilder.DEFAULT_GI;
+import static seedu.sugarmummy.testutil.recmf.FoodBuilder.DEFAULT_SUGAR;
 
 import java.util.ArrayList;
 import java.util.Arrays;

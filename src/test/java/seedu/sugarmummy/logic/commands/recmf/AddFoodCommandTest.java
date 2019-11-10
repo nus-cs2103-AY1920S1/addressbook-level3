@@ -15,7 +15,7 @@ import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.model.ModelStub;
 import seedu.sugarmummy.model.recmf.Food;
-import seedu.sugarmummy.testutil.foodrecommendations.FoodBuilder;
+import seedu.sugarmummy.testutil.recmf.FoodBuilder;
 
 class AddFoodCommandTest {
 

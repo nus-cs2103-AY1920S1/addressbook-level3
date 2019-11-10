@@ -1,4 +1,4 @@
-package seedu.sugarmummy.testutil.foodrecommendations;
+package seedu.sugarmummy.testutil.recmf;
 
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.recmf.Calorie;
