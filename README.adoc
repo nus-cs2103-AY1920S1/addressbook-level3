@@ -10,8 +10,8 @@ ifndef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop project management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* The application is targetted at NUS students who have to manage a group during a project, CCA etc.
+* +Work is a desktop project management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* The application is targeted at NUS students who are project leaders for organisations, school work or CCA.
 
 == Site Map
 
