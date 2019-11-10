@@ -403,11 +403,11 @@ check with the rest of the prior `Reminder` object, to ensure that there is no d
 
 // tag::learncustomcommands[]
 === Learn wrong commands as custom commands feature
-==== Implementation
 The main point of this feature is to learn a user's typing habits so as to give them a more seamless experience
 while using TutorAid by adapting to their typing style so that they do not have to memorize
 built in commands. This is done by having TutorAid trigger in and out of "learner" mode.
 
+==== Implementation
 A `CommandResult` object now has an added boolean `isUnknown` instance variable to indicate if the command entered is
 an unknown command. Using this, TutorAid shifts between "learner" mode and normal mode:
 
@@ -420,15 +420,9 @@ image::changeNormal.png[width="800"]
 The effect of being in "learner" mode results in the `TutorAidParser` using different methods to parse the command. This will be elaborated on in the sample use scenario below.
 
 While in "learner" mode, TutorAid can map wrong commands to the actions of known commands. These wrong/custom command keywords and their mappings are stored locally in TutorAid.json with
-the help of `JsonAdaptedCommand`.
+the help of `JsonAdaptedCommand` and the fact that commands are now modelled as a `CommandObject` that contains their `CommandWord` and `CommandAction`.
 
 A TreeMap is now being used in the process of parsing commands. New command classes such as `UnknownCommand`, `NewCommand` and `CancelCommand` were also created.
-
-* `TutorAidParser#checkCommand` -- Separate "parser" functions for unknown command operations.
-Checks if the command a user wants to map his unknown command to is valid and exists or if the user wishes
-to exit the operation.
-* `TutorAidParser#initialiseBasicCommands` -- Initialises the functionality of the `TutorAidParser` by adding
-the basic command mappings to its TreeMap.
 
 Given below is an example usage scenario and how the learn custom command mechanism behaves at each step.
 
@@ -440,13 +434,10 @@ the TreeMap does not contain the keyword "plus".
 
 Step 3. The `UnknownCommand` is executed by `Logic` and "plus" is saved on `savedCommand` in the `Model` component. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. This `CommandResult` triggers TutorAid into "learner" mode via the earlier explained implementation.
 
-Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". Since TutorAid is in "learner" mode, the method `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is now called instead of `TutorAidParser#parseCommand(String userInput)`.
+Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". Since TutorAid is in "learner" mode, the method `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is now called instead of `TutorAidParser#parseCommand(String userInput)`. Note that `prevUnknownCommand` is the last saved command retrieved from the `savedCommand` stack.
 
 [NOTE]
 Logic#execute(String userInput) has been changed to Logic#execute(String userInput, boolean isUnknown) to account for different execution pathways when in normal and "learner" mode.
-
-[NOTE]
-`prevUnknownCommand` variable is retrieved from executing a `peek()` command on the `savedCommand` stack in `Model`.
 
 Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned and "ad" is also saved.
 Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in "cancel".
