@@ -21,7 +21,8 @@ import seedu.address.model.tasks.TaskSource;
  */
 public class IcsExporter {
 
-    private static final String EXPORT_ERROR_MESSAGE = "Error occurred while exporting file!";
+    private static final String EXPORT_ERROR_MESSAGE = "Error occurred while exporting file! "
+            + "Please ensure that the filepath specified is valid!";
     private static final String PROD_ID = "-//Horo//Exported Calendar// v1.0//EN";
     private static final String CALENDAR_VERSION = "2.0";
 
