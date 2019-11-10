@@ -55,8 +55,6 @@ public class SearchCommandParserTest {
 
         // leading whitespaces
         assertParseSuccess(parser, "         n/Annabelle t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
-        // multiple type input, the last type input will be considered only
-        assertParseSuccess(parser, "n/Annabelle t/tv t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
     }
 
 }
