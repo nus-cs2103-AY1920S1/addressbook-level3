@@ -54,12 +54,11 @@ public class AddInventoryCommandTest {
         Inventory validInventory = new InventoryBuilder().build();
 
         //Commented out for assertion error
-//        CommandResult commandResult = new AddInventoryCommand(new Index(0),
-//                validInventory.getName(), validInventory.getPrice(), new MemberId("GS")).execute(modelStub);
-//
-//        assertEquals(String.format(AddInventoryCommand.MESSAGE_SUCCESS, validInventory),
-//                                                        commandResult.getFeedbackToUser());
-//        assertEquals(Collections.singletonList(validInventory), modelStub.inventoriesAdded);
+        //CommandResult commandResult = new AddInventoryCommand(new Index(0),
+        //       validInventory.getName(), validInventory.getPrice(), new MemberId("GS")).execute(modelStub);
+        //assertEquals(String.format(AddInventoryCommand.MESSAGE_SUCCESS, validInventory),
+        //                                                commandResult.getFeedbackToUser());
+        //assertEquals(Collections.singletonList(validInventory), modelStub.inventoriesAdded);
     }
 
     @Test
@@ -68,19 +67,20 @@ public class AddInventoryCommandTest {
         AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(0),
                 validInventory.getName(), validInventory.getPrice(), new MemberId("GS"));
         ModelStub modelStub = new ModelStubWithInventory(validInventory);
-        //Commented out for assertion error
-//        assertThrows(CommandException.class, AddInventoryCommand.MESSAGE_DUPLICATE_INVENTORY, () ->
-//                addInventoryCommand.execute(modelStub));
+        /*Commented out for assertion error
+        assertThrows(CommandException.class, AddInventoryCommand.MESSAGE_DUPLICATE_INVENTORY, () ->
+                addInventoryCommand.execute(modelStub));*/
     }
 
     @Test
     public void execute_inValidMemberId_throwsCommandException() {
         AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(0),
                 new InvName("Toy"), new Price(1), new MemberId("invalidId"));
-        AddInventoryCommandTest.ModelStubAcceptingInventoryAdded modelStub = new AddInventoryCommandTest.ModelStubAcceptingInventoryAdded();
-        //Commented out for assertion error
-//        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEMBER_ID, () ->
-//                addInventoryCommand.execute(modelStub));
+        AddInventoryCommandTest.ModelStubAcceptingInventoryAdded modelStub =
+                new AddInventoryCommandTest.ModelStubAcceptingInventoryAdded();
+        /*Commented out for assertion error
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEMBER_ID, () ->
+               addInventoryCommand.execute(modelStub));*/
     }
 
     @Test
@@ -89,9 +89,9 @@ public class AddInventoryCommandTest {
                 new InvName("Toy"), new Price(1), new MemberId("GS"));
         AddInventoryCommandTest.ModelStubAcceptingInventoryAdded modelStub = new ModelStubAcceptingInventoryAdded();
 
-        //Commented out for assertion error
-//        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, () ->
-//                addInventoryCommand.execute(modelStub));
+        /*Commented out for assertion error
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, () ->
+                addInventoryCommand.execute(modelStub));*/
     }
 
     @Test
@@ -452,11 +452,12 @@ public class AddInventoryCommandTest {
      * A Model stub that contains a single task.
      */
     private class ModelStubWithInventory extends AddInventoryCommandTest.ModelStub {
-        final ObservableList<Member> membersAdded = FXCollections.observableArrayList(new MemberBuilder().withId(new MemberId("GS")).build());
+        final ObservableList<Member> membersAdded = FXCollections.observableArrayList(
+                new MemberBuilder().withId(new MemberId("GS")).build());
         private final FilteredList<Member> filteredMembers = new FilteredList<Member>(membersAdded);
-        final ObservableList<Task> tasksAdded = FXCollections.observableArrayList();
+        private final ObservableList<Task> tasksAdded = FXCollections.observableArrayList();
         private final FilteredList<Task> filteredTasks = new FilteredList<Task>(tasksAdded);
-        final ObservableList<Inventory> invAdded = FXCollections.observableArrayList();
+        private final ObservableList<Inventory> invAdded = FXCollections.observableArrayList();
         private final FilteredList<Inventory> filteredInv = new FilteredList<Inventory>(invAdded);
         private final Inventory inventory;
 
@@ -509,15 +510,16 @@ public class AddInventoryCommandTest {
      * A Model stub that always accept the inventory being added.
      */
     private class ModelStubAcceptingInventoryAdded extends AddInventoryCommandTest.ModelStub {
-        final ObservableList<Member> membersAdded = FXCollections.observableArrayList(new MemberBuilder().withId(new MemberId("GS")).build());
+        final ObservableList<Member> membersAdded = FXCollections.observableArrayList(
+                new MemberBuilder().withId(new MemberId("GS")).build());
         private final FilteredList<Member> filteredMembers = new FilteredList<Member>(membersAdded);
-        final ObservableList<Task> tasksAdded = FXCollections.observableArrayList();
+        private final ObservableList<Task> tasksAdded = FXCollections.observableArrayList();
         private final FilteredList<Task> filteredTasks = new FilteredList<Task>(tasksAdded);
-        final ObservableList<Inventory> invAdded = FXCollections.observableArrayList();
+        private final ObservableList<Inventory> invAdded = FXCollections.observableArrayList();
         private final FilteredList<Inventory> filteredInv = new FilteredList<Inventory>(invAdded);
-        final ObservableList<Mapping> mappingAdded = FXCollections.observableArrayList();
+        private final ObservableList<Mapping> mappingAdded = FXCollections.observableArrayList();
         private final FilteredList<Mapping> filteredMappings = new FilteredList<Mapping>(mappingAdded);
-        final ArrayList<Inventory> inventoriesAdded = new ArrayList<>();
+        private final ArrayList<Inventory> inventoriesAdded = new ArrayList<>();
 
         @Override
         public boolean hasInventory(Inventory inventory) {

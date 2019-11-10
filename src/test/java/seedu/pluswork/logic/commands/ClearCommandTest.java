@@ -18,7 +18,7 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
 
         //Commented out for assertion error
-//        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        //assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class ClearCommandTest {
         expectedModel.setProjectDashboard(new ProjectDashboard());
 
         //Commented out for assertion error
-//        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        // assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

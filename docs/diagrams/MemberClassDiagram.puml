@@ -1,0 +1,37 @@
+@startuml
+
+MemberName "1" <-- Member : contains
+MemberId "1" <-- Member : contains
+Tags "*" <-- Member : contains
+
+class Member {
+- imagePath: String
+
++ getId(): MemberId
++ getName(): MemberName
++ getTags(): Set<Tag>
++ getImage(): Image
++ getImagePath(): String
++ isSameMember(m: Member): boolean
++ toStringOnlyId(): String
+}
+
+class MemberName {
+- fullName: String
+
++ {static} isValidMemberName(test: String): boolean
+}
+
+class MemberId {
+- displayId: String
+
++ {static} isValidId(test: String): boolean
++ getDisplayId(): String
+}
+
+class Tags {
++ tagName: String
+
++ {static} isValidTagName(test: String): boolean
+}
+@enduml

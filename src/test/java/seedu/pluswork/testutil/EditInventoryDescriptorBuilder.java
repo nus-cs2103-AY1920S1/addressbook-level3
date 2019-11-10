@@ -2,20 +2,14 @@ package seedu.pluswork.testutil;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import seedu.pluswork.logic.commands.EditInventoryCommand;
 import seedu.pluswork.model.inventory.InvName;
 import seedu.pluswork.model.inventory.Inventory;
 import seedu.pluswork.model.inventory.Price;
-import seedu.pluswork.model.tag.Tag;
-import seedu.pluswork.model.task.Name;
-import seedu.pluswork.model.task.Task;
-import seedu.pluswork.model.task.TaskStatus;
 
+/**
+ * A utility class to help with building EditInventoryDescriptor objects.
+ */
 public class EditInventoryDescriptorBuilder {
     private EditInventoryCommand.EditInventoryDescriptor descriptor;
 

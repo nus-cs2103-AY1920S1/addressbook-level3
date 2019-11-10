@@ -17,7 +17,8 @@ public class FindMemberCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() throws CommandException {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMemberCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                FindMemberCommand.MESSAGE_USAGE));
     }
 
     @Test

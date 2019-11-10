@@ -91,8 +91,6 @@ public class UserViewNavigator {
     }
 
 
-    // TODO get filtered member list from logic interface
-
     /**
      * Relays to controller to swap current user view with member list.
      *
@@ -144,7 +142,7 @@ public class UserViewNavigator {
         Member specificMember = filteredMembers.get(filteredMembers.size() - 1);
 
         List<TasMemMapping> tasMemMappings = logic.getProjectDashboard().getTasMemMappingList();
-        List<Task> tasks = logic.getProjectDashboard().getTaskList();
+        List<Task> taskList = logic.getProjectDashboard().getTaskList();
         List<Member> members = logic.getProjectDashboard().getMemberList();
 
         ArrayList<Task> specificTasks = new ArrayList<>();
@@ -152,7 +150,7 @@ public class UserViewNavigator {
 
         for (TasMemMapping mapping : tasMemMappings) {
             if (mapping.hasMember(memIndex)) {
-                specificTasks.add(tasks.get(mapping.getTaskIndex()));
+                specificTasks.add(taskList.get(mapping.getTaskIndex()));
             }
         }
 

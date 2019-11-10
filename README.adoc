@@ -10,8 +10,8 @@ ifndef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop project management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* The application is targetted at NUS students who have to manage a group during a project, CCA etc.
+* +Work is a desktop project management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* The application is targeted at NUS students who are project leaders for organisations, school work or CCA.
 
 == Site Map
 
@@ -23,6 +23,6 @@ endif::[]
 == Acknowledgements
 
 * Some parts of this sample application were inspired by the AddressBook-Level3 project created by https://se-education.org[SE-EDU Initiative].
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://github.com/itext[itext], https://github.com/ical4j[iCal4j]
 
 == Licence : link:LICENSE[MIT]

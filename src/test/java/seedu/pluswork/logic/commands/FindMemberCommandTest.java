@@ -27,8 +27,10 @@ public class FindMemberCommandTest {
 
     @Test
     public void equals() {
-        MemberNameContainsKeywordsPredicate firstPredicate = new MemberNameContainsKeywordsPredicate(Collections.singletonList("John"));
-        MemberNameContainsKeywordsPredicate secondPredicate = new MemberNameContainsKeywordsPredicate(Collections.singletonList("Gabriel"));
+        MemberNameContainsKeywordsPredicate firstPredicate =
+                new MemberNameContainsKeywordsPredicate(Collections.singletonList("John"));
+        MemberNameContainsKeywordsPredicate secondPredicate =
+                new MemberNameContainsKeywordsPredicate(Collections.singletonList("Gabriel"));
 
         FindMemberCommand findFirstCommand = new FindMemberCommand(firstPredicate);
         FindMemberCommand findSecondCommand = new FindMemberCommand(secondPredicate);

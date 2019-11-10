@@ -6,7 +6,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import seedu.pluswork.commons.util.DateTimeUtil;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
@@ -14,7 +13,7 @@ import seedu.pluswork.model.calendar.Meeting;
 import seedu.pluswork.model.member.MemberName;
 
 /**
- * A utility class to help with building {@code Task} objects.
+ * A utility class to help with building {@code Meeting} objects.
  */
 public class MeetingBuilder {
 

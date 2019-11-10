@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import seedu.pluswork.model.mapping.InvMemMapping;
 import seedu.pluswork.model.mapping.TasMemMapping;
 import seedu.pluswork.model.member.Member;
@@ -105,6 +108,16 @@ public class Statistics {
     public HashMap<TaskStatus, Integer> getPortionTasksByStatus() {
         return portionTasksByStatus;
     }
+
+    public ObservableList<PieChart.Data> getPieChartDataForTasksByStatus() {
+        ObservableList<PieChart.Data> taskByStatusData = FXCollections.observableArrayList(
+                new PieChart.Data("NOT STARTED", getPortionTasksByStatus().get(TaskStatus.UNBEGUN)),
+                new PieChart.Data("DOING", getPortionTasksByStatus().get(TaskStatus.DOING)),
+                new PieChart.Data("DONE", getPortionTasksByStatus().get(TaskStatus.DONE)));
+
+        return taskByStatusData;
+    }
+
 
     /**
      * Returns true if both persons have the same identity and data fields.
