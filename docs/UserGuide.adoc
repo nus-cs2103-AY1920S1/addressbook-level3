@@ -47,7 +47,7 @@ Start time: 09/11/2019 at 1200 hours +
 End time: 09/11/2019 at 1330 hours +
 Location: NUS +
 Attendees: Ben and Tom +
-Descrption: Meeting on Monday +
+Description: Meeting on Monday +
 Priority: High +
 * **`pdf` ** `i/1 t/Jason f/Harry`: Generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
 * **`delete`** `i/3` : Deletes the 3rd appointment shown in the current list.
