@@ -101,3 +101,7 @@ include::../UserGuide.adoc[tag=statisticsCommandUG]
 include::../DeveloperGuide.adoc[tag=UiUG]
 ***
 include::../DeveloperGuide.adoc[tag=statisticsCommand]
+
+The following were things that were omitted here due to length constraint:
+** Limitations to User for `statistics` in the User guide
+** Architecture/UI/Logic diagram
