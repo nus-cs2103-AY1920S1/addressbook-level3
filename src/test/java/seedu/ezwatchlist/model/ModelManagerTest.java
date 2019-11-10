@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.model.Model.PREDICATE_ALL_SHOWS;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
-import static seedu.ezwatchlist.testutil.TypicalShows.*;
+import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
+import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
+import static seedu.ezwatchlist.testutil.TypicalShows.JOKER;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -101,7 +103,8 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         WatchList watchList = new WatchListBuilder().withShow(AVENGERSENDGAME).withShow(FIGHTCLUB).build();
-        WatchList database = new WatchListBuilder().withShow(AVENGERSENDGAME).withShow(FIGHTCLUB).withShow(JOKER).build();
+        WatchList database = new WatchListBuilder().withShow(AVENGERSENDGAME).withShow(FIGHTCLUB).withShow(JOKER)
+                .build();
         WatchList differentWatchList = new WatchList();
         UserPrefs userPrefs = new UserPrefs();
 

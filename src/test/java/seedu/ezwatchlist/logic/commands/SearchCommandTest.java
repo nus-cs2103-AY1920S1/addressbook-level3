@@ -1,13 +1,22 @@
 package seedu.ezwatchlist.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.*;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_ANNABELLE;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
+
 import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -18,16 +27,18 @@ import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
 import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
  */
 public class SearchCommandTest {
-    private Model model = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
-
     private static final Show SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM = new Movie(
             new Name("Fantastic Beasts and Where to Find Them"),
             new Description("In 1926, Newt Scamander arrives at the Magical Congress of the United States of America "
@@ -97,6 +108,9 @@ public class SearchCommandTest {
                     "Derek Riddell", "Keith Chanter", "Sean Gislingham", "Katherine Waterston", "Aykut Hilmi",
                     "Sabine Crossen", "Alfie Mailley", "Natalie Lauren", "Deano Bugatti", "Brontis Jodorowsky",
                     "Isaac Cortinovis Johnson", "Nick Owenford", "Joshua Shea"));
+
+    private Model model = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
 
     @Test
     public void equals() {

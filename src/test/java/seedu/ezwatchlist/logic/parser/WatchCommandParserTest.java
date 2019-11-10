@@ -30,10 +30,12 @@ public class WatchCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + EPISODES_DESC_BOB_THE_BUILDER, MESSAGE_INVALID_FORMAT, CURRENT_TAB_WATCHED_TAB);
+        assertParseFailure(parser, "-5" + EPISODES_DESC_BOB_THE_BUILDER, MESSAGE_INVALID_FORMAT,
+                CURRENT_TAB_WATCHED_TAB);
 
         // zero index
-        assertParseFailure(parser, "0" + EPISODES_DESC_BOB_THE_BUILDER, MESSAGE_INVALID_FORMAT, CURRENT_TAB_WATCHED_TAB);
+        assertParseFailure(parser, "0" + EPISODES_DESC_BOB_THE_BUILDER, MESSAGE_INVALID_FORMAT,
+                CURRENT_TAB_WATCHED_TAB);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT, CURRENT_TAB_WATCHED_TAB);

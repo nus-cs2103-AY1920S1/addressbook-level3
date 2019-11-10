@@ -131,7 +131,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidShowIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredShowList().size() + 1);
-        EditShowDescriptor descriptor = new EditShowDescriptorBuilder().withName(VALID_SHOW_NAME_BOB_THE_BUILDER).build();
+        EditShowDescriptor descriptor = new EditShowDescriptorBuilder().withName(VALID_SHOW_NAME_BOB_THE_BUILDER)
+                .build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);

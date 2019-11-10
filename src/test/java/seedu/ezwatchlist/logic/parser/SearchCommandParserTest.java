@@ -1,9 +1,8 @@
 package seedu.ezwatchlist.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.*;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.CURRENT_TAB_SEARCH_TAB;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_ANNABELLE;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_TYPE_MOVIE;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -12,21 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.commons.core.messages.SearchMessages;
 import seedu.ezwatchlist.logic.commands.SearchCommand;
-import seedu.ezwatchlist.logic.parser.SearchCommandParser;
-import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
 public class SearchCommandParserTest {
     private  SearchCommandParser parser = new SearchCommandParser();
-
-    @Test
-    public void test_parseNameToBeSearched(List<String> nameList) throws ParseException {
-        /*assertThrows(ParseException.class, () -> parser.isValidActorName(null));
-        assertThrows();*/
-
-    }
 
     @Test
     public void parse_emptyArg_throwsParseException() {

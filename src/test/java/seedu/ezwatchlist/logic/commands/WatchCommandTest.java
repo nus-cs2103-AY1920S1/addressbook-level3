@@ -2,7 +2,11 @@ package seedu.ezwatchlist.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.*;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.WATCH_DESC_ANNABELLE;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.WATCH_DESC_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIFTH_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;

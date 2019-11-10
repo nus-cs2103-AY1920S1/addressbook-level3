@@ -96,7 +96,8 @@ public class CommandTestUtil {
     public static final WatchCommand.WatchShowDescriptor WATCH_DESC_BOB_THE_BUILDER;
 
     static {
-        DESC_ANNABELLE = new EditShowDescriptorBuilder().withName(VALID_SHOW_NAME_ANNABELLE).withType(VALID_TYPE_ANNABELLE)
+        DESC_ANNABELLE = new EditShowDescriptorBuilder().withName(VALID_SHOW_NAME_ANNABELLE)
+                .withType(VALID_TYPE_ANNABELLE)
                 .withDescription(VALID_DESCRIPTION_ANNABELLE).withIsWatched(VALID_WATCHED_ANNABELLE)
                 .withDateOfRelease(VALID_DATE_ANNABELLE)
                 .withRunningTime(VALID_RUNNING_TIME_ANNABELLE).withActors(VALID_ACTOR_ANNABELLE).build();
