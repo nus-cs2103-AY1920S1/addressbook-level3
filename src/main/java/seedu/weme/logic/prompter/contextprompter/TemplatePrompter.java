@@ -4,6 +4,7 @@ import static seedu.weme.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.weme.logic.parser.contextparser.WemeParser.ARGUMENTS;
 import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.contextparser.WemeParser.COMMAND_WORD;
+import static seedu.weme.logic.prompter.util.PrompterUtil.COMMAND_DELIMITER;
 import static seedu.weme.logic.prompter.util.PrompterUtil.GENERAL_COMMANDS;
 import static seedu.weme.logic.prompter.util.PrompterUtil.TEMPLATE_COMMANDS;
 import static seedu.weme.logic.prompter.util.PrompterUtil.TEMPLATE_COMMANDS_DESCRIPTION_MAP;
@@ -47,7 +48,7 @@ public class TemplatePrompter extends WemePrompter {
                     .map(command -> TEMPLATE_COMMANDS_DESCRIPTION_MAP.get(command))
                     .reduce((x, y) -> x + '\n' + y)
                     .orElse(""),
-                    TEMPLATE_COMMANDS.stream().sorted().findFirst().orElse(""));
+                    TEMPLATE_COMMANDS.stream().sorted().findFirst().orElse("") + COMMAND_DELIMITER);
         }
 
         final String commandWord = matcher.group(COMMAND_WORD);
