@@ -877,46 +877,49 @@ have if special characters were included.
 
 === Filter feature
 
-The filter command enables filtering of athletes based on their tags.
-Currently, only filtering by one tag is supported.
-Filtering by multiple tags will be available by `v1.2`.
+The filter command enables filtering of athletes based on their tags. Users are able to filter by multiple
+tags, and any athlete that has any of the given tags will be in the results.
 
 ==== Implementation
 
 Filter makes use of a `[green]#TagMatchesPredicate#` class to determine if the athlete has tags matching the user input.
-Given below is the Sequence Diagram to show how filter works, with an example input of filter captain.
+Given below is the Sequence Diagram to show how `[green]#Logic#` and `[green]#Model#` are involved when an
+example input of `filter captain freestyle` is called.
 
-image::filter_sequence_diagram.png[]
-
-Once filtering by multiple tags is implemented, the parsing of tag from `[green]#AddressBookParser#` to
-`[green]#FilterCommandParser#`
-will involve splitting them by spaces and storing the tag queries in a list.
-Thereafter, each tag query will be compared against every athlete’s tags to determine if the athlete should be filtered.
-
-However, since currently only filtering by one tag is supported,
-the parsing of tag simply involves trimming the tag of white spaces.
-
-Finally, the list shown to the user is updated through `[green]#Model#updateFilteredPersonsList()#`.
+.Sequence diagram for execution of FilterCommand.
+image::filter_sequencediagram.png[width="700"]
 
 ==== Design considerations
 
-===== Aspect: How a tag match is determined
+This section explains the factors that we took into consideration when making decision on how
+`[green]#FilterCommand#` should be implemented.
 
-* **Alternative 1 (current choice):** Case-insensitive.
-** Pros: More user-friendly.
-** Cons: Requires converting tags to lower-case on the back-end.
-* **Alternative 2:** Case-sensitive.
-** Pros: Allows for more accurate filtering.
-** Cons: Difficult for users to search, as generally filtering and searching are case-insensitive.
+===== Aspect: Method of determining an athlete match when multiple tags are given.
 
-===== Aspect: How matches for multiple tags are determined
+Given an example search of `filter captain freestyle`, athletes will be shown in the results if they
+contain either the `captain` or `freestyle` tag. They need not have both `captain` and `freestyle`.
 
-* **Alternative 1:** Exclusive matching.
-** Pros: Allows for more accurate filtering.
-** Cons: Users get fewer filter results.
-* **Alternative 2:** Optional matching.
-** Pros: Allows for more flexible searching.
-** Cons: Users may get results that they are not interested in.
+[width="100%", cols="1, 5, 5"]
+|===
+|| *Alternative 1 (Current Choice): Match athletes who contain either tag.*
+| *Alternative 2: Match athletes who contain every tag.*
+
+|**Pros**
+a|* Searching for athletes is flexible
+a|* Retrieving a specific type of athlete is possible
+
+|**Cons**
+a|* Filtering can yield results that the user is not interested in
+a|* Filtering will yield limited results and a separate filter operation is required if users want a more
+lenient filtering
+|===
+
+**Reason for choice of Alternative 1:**
+
+Our choice of "lenient" filtering may give users results that they may not be interested in
+especially if they are looking for very specific athletes. However, we find that it is a good compromise
+for users who want this "lenient" filtering as the athlete's tags will be listed in the search as well, so
+specific athletes can be found from this filtered list.
 
 === Sort Command
 
