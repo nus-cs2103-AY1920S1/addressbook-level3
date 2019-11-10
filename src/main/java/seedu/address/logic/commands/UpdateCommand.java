@@ -26,14 +26,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
+import static seedu.address.model.entity.fridge.FridgeStatus.OCCUPIED;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
@@ -92,6 +95,12 @@ public class UpdateCommand extends UndoableCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid updates to entity: %1$s";
     public static final String MESSAGE_CANNOT_ASSIGN_FRIDGE = "A fridge cannot be assigned to a claimed fridge";
+    public static final String MESSAGE_UNABLE_TO_RUN_NOTIF_COMMAND = "Notification command cannot be run for the "
+            + "given body";
+    public static final String MESSAGE_NOTIF_DOES_NOT_EXIST = "Notif does not exist";
+    public static final String MESSAGE_FRIDGE_OCCUPIED = "The fridge is already occupied";
+
+    private static final Logger logger = LogsCenter.getLogger(NotifCommand.class);
 
     private final IdentificationNumber id;
     private final UpdateEntityDescriptor updateEntityDescriptor;
@@ -195,7 +204,11 @@ public class UpdateCommand extends UndoableCommand {
                     Notif notif = new Notif((Body) entity);
                     Platform.runLater(() -> {
                         if (!model.hasNotif(notif)) {
-                            model.addNotif(notif);
+                            try {
+                                model.addNotif(notif);
+                            } catch (NullPointerException exp) {
+                                logger.info(MESSAGE_NOTIF_DOES_NOT_EXIST);
+                            }
                         }
                     });
                 }
@@ -240,10 +253,19 @@ public class UpdateCommand extends UndoableCommand {
             if (!(updateBodyDescriptor.getFridgeId() == null)) {
 
                 if (fridge.getIdNum().equals(updateBodyDescriptor.getFridgeId().get())) {
-                    this.updatedFridge = fridge;
+                    if (fridge.getFridgeStatus().equals(OCCUPIED)) {
+                        throw new CommandException(MESSAGE_FRIDGE_OCCUPIED);
+                    } else {
+                        this.updatedFridge = fridge;
+                    }
                 }
+
                 if (Optional.ofNullable(fridge.getIdNum()).equals(updateBodyDescriptor.getFridgeId())) {
-                    this.updatedFridge = fridge;
+                    if (fridge.getFridgeStatus().equals(OCCUPIED)) {
+                        throw new CommandException(MESSAGE_FRIDGE_OCCUPIED);
+                    } else {
+                        this.updatedFridge = fridge;
+                    }
                 }
             }
         }
@@ -268,20 +290,25 @@ public class UpdateCommand extends UndoableCommand {
      *
      * @param model refers to the AddressBook model.
      */
-    private void handleRemovingNotifs(Model model) {
+    private void handleRemovingNotifs(Model model) throws CommandException {
         List<Notif> notifList = model.getFilteredNotifList();
         this.toDeleteNotif = new ArrayList<>();
         IdentificationNumber bodyId = entity.getIdNum();
+
         for (Notif notif : notifList) {
             if (notif.getBody().getIdNum().equals(bodyId)) {
                 toDeleteNotif.add(notif);
             }
         }
 
-        for (Notif notif : toDeleteNotif) {
-            model.deleteNotif(notif);
+        try {
+            for (Notif notif : toDeleteNotif) {
+                model.deleteNotif(notif);
+            }
+            model.setEntity(entity, updateEntityDescriptor.apply(entity));
+        } catch (NullPointerException exp) {
+            throw new CommandException(MESSAGE_NOTIF_DOES_NOT_EXIST);
         }
-        model.setEntity(entity, updateEntityDescriptor.apply(entity));
     }
 
     /**
@@ -291,9 +318,13 @@ public class UpdateCommand extends UndoableCommand {
      * @throws CommandException if NotifCommand could not be executed.
      */
     private void addNotificationsForBody(Model model) throws CommandException {
-        Body body = (Body) entity;
-        NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
-        notifCommand.execute(model);
+        try {
+            Body body = (Body) entity;
+            NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
+            notifCommand.execute(model);
+        } catch (CommandException exp) {
+            throw new CommandException(MESSAGE_UNABLE_TO_RUN_NOTIF_COMMAND);
+        }
     }
 
     /**

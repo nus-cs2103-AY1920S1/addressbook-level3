@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_BODY_COULD_NOT_BE_UPDATED;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_NOTIF;
+import static seedu.address.commons.core.Messages.MESSSAGE_NOTIF_DOES_NOT_EXIST;
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
@@ -21,6 +24,7 @@ import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.notif.Notif;
+import seedu.address.model.notif.exceptions.DuplicateNotifException;
 import seedu.address.storage.Storage;
 import seedu.address.ui.NotifWindow;
 
@@ -30,7 +34,6 @@ import seedu.address.ui.NotifWindow;
  * Notifies a user when there is an automatic change in BodyStatus.
  */
 public class NotifCommand extends Command {
-    public static final String MESSAGE_DUPLICATE_NOTIF = "This notif already exists in the address book";
     public static final String MESSAGE_SUCCESS = "New notif added: %1$s";
     private static final Logger logger = LogsCenter.getLogger(NotifCommand.class);
 
@@ -55,7 +58,11 @@ public class NotifCommand extends Command {
         requireNonNull(model);
         notifCommands.add(this);
         if (!model.hasNotif(notif)) {
-            model.addNotif(notif);
+            try {
+                model.addNotif(notif);
+            } catch (DuplicateNotifException exp) {
+                throw new CommandException(MESSAGE_DUPLICATE_NOTIF);
+            }
         }
         startSesChangeBodyStatus();
         startSesChangeBodyStatusUi(model);
@@ -105,39 +112,52 @@ public class NotifCommand extends Command {
      */
     private void startSesChangeBodyStatusUi(Model model) {
 
-        Runnable changeUi = () -> Platform.runLater(() -> {
-            Body body = notif.getBody();
-            String notifContent = "Body Id: " + body.getIdNum()
-                    + "\nName: " + body.getName()
-                    + "\nNext of Kin has been uncontactable. Please contact the police";
-            if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
-                UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
-                up.setUpdateFromNotif(true);
-                body.setBodyStatus(ARRIVED);
-
-                if (model.hasNotif(notif)) {
-                    model.deleteNotif(notif);
-                }
-
+        Runnable changeUi = new Runnable() {
+            @Override
+            public void run() {
                 Platform.runLater(() -> {
-                    if (!model.hasNotif(notif)) {
-                        model.addNotif(notif);
+                    Body body = notif.getBody();
+                    String notifContent = "Body Id: " + body.getIdNum()
+                            + "\nName: " + body.getName()
+                            + "\nNext of Kin has been uncontactable. Please contact the police";
+                    if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
+                        UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
+                        up.setUpdateFromNotif(true);
+                        body.setBodyStatus(ARRIVED);
+
+                        if (model.hasNotif(notif)) {
+                            try {
+                                model.deleteNotif(notif);
+                            } catch (NullPointerException exp) {
+                                logger.info(MESSSAGE_NOTIF_DOES_NOT_EXIST);
+                            }
+                        }
+
+                        Platform.runLater(() -> {
+                            if (!model.hasNotif(notif)) {
+                                try {
+                                    model.addNotif(notif);
+                                } catch (DuplicateNotifException exp) {
+                                    logger.info(MESSAGE_DUPLICATE_NOTIF);
+                                }
+                            }
+                        });
+
+                        try {
+                            up.execute(model);
+                            NotifWindow notifWindow = new NotifWindow();
+                            notifWindow.setTitle("Contact Police!");
+                            notifWindow.setContent(notifContent);
+                            notifWindow.display();
+                            storageManager.saveAddressBook(model.getAddressBook());
+
+                        } catch (CommandException | IOException e) {
+                            logger.info(MESSAGE_BODY_COULD_NOT_BE_UPDATED);
+                        }
                     }
                 });
-
-                try {
-                    up.execute(model);
-                    NotifWindow notifWindow = new NotifWindow();
-                    notifWindow.setTitle("Contact Police!");
-                    notifWindow.setContent(notifContent);
-                    notifWindow.display();
-                    storageManager.saveAddressBook(model.getAddressBook());
-
-                } catch (CommandException | IOException e) {
-                    logger.info("Error updating the body and fridge ");
-                }
             }
-        });
+        };
 
         changeUiEvent = ses.schedule(changeUi, period, timeUnit);
     }

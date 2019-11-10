@@ -41,6 +41,7 @@ Class JsonUserPrefsStorage STORAGE_COLOR
 Class JsonAddressBookStorage STORAGE_COLOR
 }
 
+
 JsonUserPrefsStorage .up.|> UserPrefsStorage
 StorageManager .up.|> Storage
 JsonAddressBookStorage .up.|> AddressBookStorage

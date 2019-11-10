@@ -42,6 +42,7 @@ public class DeleteCommand extends UndoableCommand {
 
     public static final String MESSAGE_DELETE_ENTITY_SUCCESS = "Deleted Entity: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid deleting this entity: %1$s";
+    public static final String MESSAGE_NOTIF_DOES_NOT_EXITS = "Notif does not exist in the model.";
 
     private final Index targetIndexNum;
     private final String entityType;
@@ -132,7 +133,7 @@ public class DeleteCommand extends UndoableCommand {
      * @param body refers to the body being deleted.
      * @param model refers to the model in use.
      */
-    private void removeBodyNotifFromList(Body body, Model model) {
+    private void removeBodyNotifFromList(Body body, Model model) throws CommandException {
         List<Notif> lastShownNotificationList = model.getFilteredNotifList();
         List<Notif> notifsToRemove = new ArrayList<>();
         for (Notif notif : lastShownNotificationList) {
@@ -150,7 +151,11 @@ public class DeleteCommand extends UndoableCommand {
 
         this.notifList = new ArrayList<>(notifsToRemove);
         for (Notif notif : notifsToRemove) {
-            model.deleteNotif(notif);
+            try {
+                model.deleteNotif(notif);
+            } catch (NullPointerException exp) {
+                throw new CommandException(MESSAGE_NOTIF_DOES_NOT_EXITS);
+            }
         }
 
         Platform.runLater(() -> model.updateFilteredFridgeList(fridge -> true));
