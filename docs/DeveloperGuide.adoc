@@ -531,6 +531,7 @@ In Figure 2, the user first launches the app. After the user input a search comm
 *** Cons: User has to input either a name or actor to be searched.
 *** Cons: Logic is repetitive when searching based on actor or name.
 
+// tag::add[]
 === [Feature] Add feature
 ==== Implementation
 The `AddCommand` extends `Command` and uses `AddCommandParser` to process the command entered by the user.
@@ -592,6 +593,9 @@ In Figure 4, User input search(online) command. User then input `add INDEX` comm
 ** Current choice: Retrieve the show object found in `searchList` of INDEX from ModelManager and add it to `filteredShowList`.
 *** Pros: Easy to implement and make use of.
 *** Cons: May have performance issues in terms of memory usage.
+
+// end::add[]
+
 
 // tag::sync[]
 === [Feature] Synchronise user's show data

@@ -258,6 +258,8 @@ Examples:
 * `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
 * `add n/Joker t/movie d/3 OCTOBER 2019 w/false r/122 s/In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker". a/Joaquin Phoenix`
 
+
+// tag::addsecond[]
 ==== Adding a show from search result page: `add`
 
 Adds a show from search result page after user has already search for show +
@@ -278,6 +280,7 @@ Examples:
 Add the movie - Titanic found in search list into watchlist
 * Result of Watchlist page:
 ** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+// end::addsecond[]
 
 ==== Clear the WatchList: `clear`
 
@@ -393,6 +396,7 @@ Returns movies with the genre "Action"
 ** `search a/Tom w/no` +
 Returns shows within the watchlist with actor named "Tom"
 
+// tag::sync[]
 ==== Synchronise user's show data: `sync`
 Synchronise a show found in watchlist with online searched show data by modifying ALL of the parameters in user selected show with online searched show data. +
 Format:
@@ -437,6 +441,8 @@ returns and display error because Titanic show is not found in watchlist page.
 * `add 1`
 * Result of Watchlist page:
 ** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+
+// end::sync[]
 
 // tag::delete[]
 ==== Deleting a show : `delete`
