@@ -7,19 +7,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddBudgetCommand;
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddExpenseCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditBudgetCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditExpenseCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListBudgetsCommand;
+import seedu.address.logic.commands.ListDefaultExpensesCommand;
 import seedu.address.logic.commands.ViewBudgetCommand;
-import seedu.address.logic.commands.ViewBudgetListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -49,11 +49,11 @@ public class MymParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case AddExpenseCommand.COMMAND_WORD:
+            return new AddExpenseCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case EditExpenseCommand.COMMAND_WORD:
+            return new EditExpenseCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
@@ -64,14 +64,14 @@ public class MymParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListDefaultExpensesCommand.COMMAND_WORD:
+            return new ListDefaultExpensesCommand();
 
         case ViewBudgetCommand.COMMAND_WORD:
             return new ViewBudgetCommandParser().parse(arguments);
 
-        case ViewBudgetListCommand.COMMAND_WORD:
-            return new ViewBudgetListCommand();
+        case ListBudgetsCommand.COMMAND_WORD:
+            return new ListBudgetsCommand();
 
         case EditBudgetCommand.COMMAND_WORD:
             return new EditBudgetCommandParser().parse(arguments);

@@ -30,7 +30,7 @@ import static seedu.address.testutil.TypicalExpenses.VODKA;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddExpenseCommand;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
@@ -39,9 +39,9 @@ import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ExpenseBuilder;
 
-public class AddCommandParserTest {
+public class AddExpenseCommandParserTest {
 
-    private AddCommandParser parser = new AddCommandParser();
+    private AddExpenseCommandParser parser = new AddExpenseCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -50,33 +50,33 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser,
             PREAMBLE_WHITESPACE + NAME_DESC_RUM + AMOUNT_DESC_RUM + CURRENCY_DESC_RUM + DATE_DESC_RUM
-                + TAG_DESC_DRINKS, new AddCommand(expectedExpense));
+                + TAG_DESC_DRINKS, new AddExpenseCommand(expectedExpense));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_VODKA + NAME_DESC_RUM + AMOUNT_DESC_RUM + CURRENCY_DESC_RUM + DATE_DESC_RUM
-            + TAG_DESC_DRINKS, new AddCommand(expectedExpense));
+            + TAG_DESC_DRINKS, new AddExpenseCommand(expectedExpense));
 
         // multiple amounts - last amount accepted
         assertParseSuccess(parser,
             NAME_DESC_RUM + AMOUNT_DESC_VODKA + AMOUNT_DESC_RUM + CURRENCY_DESC_RUM + DATE_DESC_RUM
-                + TAG_DESC_DRINKS, new AddCommand(expectedExpense));
+                + TAG_DESC_DRINKS, new AddExpenseCommand(expectedExpense));
 
         // multiple currencies - last currency accepted
         assertParseSuccess(parser,
             NAME_DESC_RUM + AMOUNT_DESC_RUM + CURRENCY_DESC_VODKA + CURRENCY_DESC_RUM + DATE_DESC_RUM
-                + TAG_DESC_DRINKS, new AddCommand(expectedExpense));
+                + TAG_DESC_DRINKS, new AddExpenseCommand(expectedExpense));
 
         // multiple dates - last date accepted
         assertParseSuccess(parser,
             NAME_DESC_RUM + AMOUNT_DESC_RUM + CURRENCY_DESC_RUM + DATE_DESC_VODKA + DATE_DESC_RUM
-                + TAG_DESC_DRINKS, new AddCommand(expectedExpense));
+                + TAG_DESC_DRINKS, new AddExpenseCommand(expectedExpense));
 
         // multiple tags - all accepted
         Expense expectedExpenseMultipleTags = new ExpenseBuilder(RUM).withTags(VALID_TAG_DRINKS, VALID_TAG_ALCOHOL)
             .build();
         assertParseSuccess(parser,
             NAME_DESC_RUM + AMOUNT_DESC_RUM + CURRENCY_DESC_RUM + DATE_DESC_RUM + TAG_DESC_ALCOHOL
-                + TAG_DESC_DRINKS, new AddCommand(expectedExpenseMultipleTags));
+                + TAG_DESC_DRINKS, new AddExpenseCommand(expectedExpenseMultipleTags));
     }
 
     @Test
@@ -84,12 +84,12 @@ public class AddCommandParserTest {
         // zero tags
         Expense expectedExpense = new ExpenseBuilder(VODKA).withTags().build();
         assertParseSuccess(parser, NAME_DESC_VODKA + AMOUNT_DESC_VODKA + DATE_DESC_VODKA,
-            new AddCommand(expectedExpense));
+            new AddExpenseCommand(expectedExpense));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExpenseCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_RUM + AMOUNT_DESC_RUM + DATE_DESC_RUM,
@@ -134,6 +134,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser,
             PREAMBLE_NON_EMPTY + NAME_DESC_RUM + AMOUNT_DESC_RUM + CURRENCY_DESC_RUM + DATE_DESC_RUM
                 + TAG_DESC_ALCOHOL + TAG_DESC_DRINKS,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExpenseCommand.MESSAGE_USAGE));
     }
 }

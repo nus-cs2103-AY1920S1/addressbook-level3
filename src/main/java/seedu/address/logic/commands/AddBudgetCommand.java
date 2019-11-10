@@ -37,7 +37,7 @@ public class AddBudgetCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New budget added: %1$s";
     public static final String MESSAGE_DUPLICATE_BUDGET = "This budget already exists in the budget list";
     public static final String MESSAGE_BUDGET_CLASH = "This budget period clashes with another budget";
-    public static final String MESSAGE_START_BEFORE_END = "The budget end date has to be after its start date";
+    public static final String MESSAGE_START_BEFORE_END_ERROR = "The budget end date has to be after its start date";
 
     private final Budget toAdd;
 
@@ -54,19 +54,26 @@ public class AddBudgetCommand extends Command {
         requireNonNull(model);
 
         if (toAdd.getEndDate().localDate.isBefore(toAdd.getStartDate().localDate)) {
-            throw new CommandException(MESSAGE_START_BEFORE_END);
-        }
-
-        if (model.hasBudgetPeriodClash(toAdd)) {
-            throw new CommandException(MESSAGE_BUDGET_CLASH);
+            throw new CommandException(MESSAGE_START_BEFORE_END_ERROR);
         }
 
         if (model.hasBudget(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
         }
 
+        if (model.hasBudgetPeriodClash(toAdd)) {
+            throw new CommandException(MESSAGE_BUDGET_CLASH);
+        }
+
         model.addBudget(toAdd);
         model.setViewState(ViewState.BUDGETLIST);
         return new CommandResult(null, model.getFilteredBudgetList(), null, String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof AddBudgetCommand // instanceof handles nulls
+            && toAdd.equals(((AddBudgetCommand) other).toAdd));
     }
 }

@@ -31,9 +31,9 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing expense in the expense list.
  */
-public class EditCommand extends Command {
+public class EditExpenseCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editExpense";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expense identified "
         + "by the index number used in the displayed expense list. "
@@ -63,7 +63,7 @@ public class EditCommand extends Command {
      * @param index                 of the expense in the filtered expense list to edit
      * @param editExpenseDescriptor details to edit the expense with
      */
-    public EditCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
+    public EditExpenseCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
         requireNonNull(index);
         requireNonNull(editExpenseDescriptor);
 
@@ -157,12 +157,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditExpenseCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditExpenseCommand e = (EditExpenseCommand) other;
         return index.equals(e.index)
             && editExpenseDescriptor.equals(e.editExpenseDescriptor);
     }
