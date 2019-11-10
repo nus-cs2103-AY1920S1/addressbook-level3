@@ -1,6 +1,8 @@
 //@@author tanlk99
 package tagline.logic.parser;
 
+import static tagline.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -11,16 +13,17 @@ import java.util.stream.Stream;
 public class ParserUtil {
     /**
      * Parses an argument {@code String} and a {@code List} of {@code Prompt} objects, to produce
-     * a {@code String} including the prompt responses.
+     * a {@code String} including the prompt responses. Parameters must not be null.
      */
     public static String getArgsWithFilledPrompts(String args, List<Prompt> filledPrompts) {
+        requireAllNonNull(args, filledPrompts);
         StringBuilder argsBuilder = new StringBuilder(args);
         for (Prompt prompt : filledPrompts) {
             if (prompt.getArgumentPrefix().isEmpty()) {
                 argsBuilder.insert(0, " ").insert(0, prompt.getPromptResponse());
             } else {
                 argsBuilder.append(" ").append(prompt.getArgumentPrefix())
-                        .append(" ").append(prompt.getPromptResponse());
+                        .append(prompt.getPromptResponse());
             }
         }
 
@@ -29,9 +32,10 @@ public class ParserUtil {
 
     /**
      * Gets the response corresponding to an argument prefix from a list of {@code Prompt} objects.
-     * If no such prompt exists, returns an empty string.
+     * If no such prompt exists, returns an empty string. Parameters must not be null.
      */
     public static String getPromptResponseFromPrefix(String prefix, List<Prompt> filledPrompts) {
+        requireAllNonNull(prefix, filledPrompts);
         Optional<Prompt> promptWithPrefix = filledPrompts.stream()
                 .filter(prompt -> prompt.getArgumentPrefix().equals(prefix))
                 .findFirst();

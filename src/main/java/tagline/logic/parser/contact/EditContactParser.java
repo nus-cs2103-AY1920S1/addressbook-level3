@@ -22,7 +22,7 @@ import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.contact.ContactId;
 
 /**
- * Parses input arguments and creates a new EditContactCommand object
+ * Parses input arguments and creates a new EditContactCommand object.
  */
 public class EditContactParser implements Parser<EditContactCommand> {
     public static final String EDIT_CONTACT_MISSING_ID_PROMPT_STRING = "Please enter the ID of the contact to edit.";

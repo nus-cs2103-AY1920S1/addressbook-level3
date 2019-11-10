@@ -15,7 +15,7 @@ import tagline.model.tag.HashTag;
 import tagline.model.tag.Tag;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing tags.
  */
 public class TagParserUtil {
     public static final String TAG_USAGE = "A tag starts with '@' for contact, '%' for group, and '#' for hash tag";

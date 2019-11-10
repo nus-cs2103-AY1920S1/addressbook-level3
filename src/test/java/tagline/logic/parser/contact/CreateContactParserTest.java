@@ -11,8 +11,8 @@ import static tagline.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static tagline.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static tagline.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tagline.logic.parser.CommandParserTestUtil.assertPromptRequest;
-import static tagline.logic.parser.contact.AddContactParser.ADD_CONTACT_EMPTY_NAME_PROMPT_STRING;
 import static tagline.logic.parser.contact.ContactCliSyntax.PREFIX_NAME;
+import static tagline.logic.parser.contact.CreateContactParser.ADD_CONTACT_EMPTY_NAME_PROMPT_STRING;
 import static tagline.testutil.contact.TypicalContacts.AMY;
 import static tagline.testutil.contact.TypicalContacts.BOB;
 
@@ -25,8 +25,8 @@ import tagline.logic.parser.Prompt;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
 
-public class AddContactParserTest {
-    private AddContactParser parser = new AddContactParser();
+public class CreateContactParserTest {
+    private CreateContactParser parser = new CreateContactParser();
 
     @Test
     public void parse_allFieldsPresent_success() {

@@ -20,7 +20,7 @@ import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.group.MemberId;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *GroupParser classes.
  */
 public class GroupParserUtil {
 

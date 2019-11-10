@@ -18,7 +18,7 @@ import tagline.logic.parser.tag.TagParserUtil;
 import tagline.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new ListNoteCommand object
+ * Parses input arguments and creates a new ListNoteCommand object.
  */
 public class ListNoteParser implements Parser<ListNoteCommand> {
     /**

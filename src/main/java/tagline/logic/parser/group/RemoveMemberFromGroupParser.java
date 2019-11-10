@@ -20,7 +20,7 @@ import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 
 /**
- * Parses input arguments and creates a new RemoveMemberFromGroupCommand object
+ * Parses input arguments and creates a new RemoveMemberFromGroupCommand object.
  */
 public class RemoveMemberFromGroupParser implements Parser<RemoveMemberFromGroupCommand> {
     public static final String REMOVE_MEMBER_FROM_GROUP_NO_CONTACTS_PROMPT_STRING =

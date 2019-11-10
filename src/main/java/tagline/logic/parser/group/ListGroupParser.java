@@ -18,7 +18,7 @@ import tagline.model.group.GroupMembersContainsSearchIdsPredicate;
 import tagline.model.group.MemberId;
 
 /**
- * Parses input arguments and creates a new ListGroupCommand object
+ * Parses input arguments and creates a new ListGroupCommand object.
  */
 public class ListGroupParser implements Parser<ListGroupCommand> {
     /**

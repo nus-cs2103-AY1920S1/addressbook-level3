@@ -19,7 +19,7 @@ import tagline.model.note.NoteId;
 import tagline.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new TagNoteCommand Object
+ * Parses input arguments and creates a new TagNoteCommand object.
  */
 public class TagNoteParser implements Parser<TagNoteCommand> {
     public static final String TAG_NOTE_MISSING_ID_PROMPT_STRING = "Please enter the ID of the note to tag.";

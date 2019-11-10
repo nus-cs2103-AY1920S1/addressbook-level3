@@ -13,7 +13,7 @@ import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.note.NoteId;
 
 /**
- * Parses input arguments and creates a new DeleteNoteCommand object
+ * Parses input arguments and creates a new DeleteNoteCommand object.
  */
 public class DeleteNoteParser implements Parser<DeleteNoteCommand> {
     public static final String DELETE_NOTE_MISSING_ID_PROMPT = "Please enter the ID of the note to delete.";

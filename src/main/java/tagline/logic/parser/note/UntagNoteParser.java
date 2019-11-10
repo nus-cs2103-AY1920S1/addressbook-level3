@@ -20,7 +20,7 @@ import tagline.model.note.NoteId;
 import tagline.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new UntagNoteCommand Object
+ * Parses input arguments and creates a new UntagNoteCommand object.
  */
 public class UntagNoteParser implements Parser<UntagNoteCommand> {
     public static final String UNTAG_NOTE_MISSING_ID_PROMPT_STRING = "Please enter the ID of the note to untag.";

@@ -20,7 +20,7 @@ import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 
 /**
- * Parses input arguments and creates a new AddMemberToGroupCommand object
+ * Parses input arguments and creates a new AddMemberToGroupCommand object.
  */
 public class AddMemberToGroupParser implements Parser<AddMemberToGroupCommand> {
     public static final String ADD_MEMBER_TO_GROUP_NO_CONTACTS_PROMPT_STRING =

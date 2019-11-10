@@ -20,7 +20,7 @@ import tagline.model.note.Content;
 import tagline.model.note.NoteId;
 
 /**
- * Parses input arguments and creates a new EditNoteCommand object
+ * Parses input arguments and creates a new EditNoteCommand object.
  */
 public class EditNoteParser implements Parser<EditNoteCommand> {
     public static final String EDIT_NOTE_MISSING_ID_PROMPT_STRING = "Please enter the ID of the note to edit.";

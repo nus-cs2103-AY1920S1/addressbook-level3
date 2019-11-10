@@ -16,7 +16,7 @@ import tagline.model.group.GroupName;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 
 /**
- * Parses input arguments and creates a new DeleteGroupCommand object
+ * Parses input arguments and creates a new DeleteGroupCommand object.
  */
 public class DeleteGroupParser implements Parser<DeleteGroupCommand> {
     public static final String DELETE_GROUP_EMPTY_ARGS_PROMPT_STRING =

@@ -23,7 +23,7 @@ import tagline.model.group.GroupName;
 import tagline.model.group.MemberId;
 
 /**
- * Parses input arguments and creates a new CreateGroupCommand object
+ * Parses input arguments and creates a new CreateGroupCommand object.
  */
 public class CreateGroupParser implements Parser<CreateGroupCommand> {
 

@@ -16,7 +16,7 @@ import tagline.model.note.Title;
 import tagline.model.tag.Tag;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *NoteParser classes.
  */
 public class NoteParserUtil {
     public static final String ERROR_INVALID_INDEX = "Note index is not a non-zero unsigned number: %1$s";

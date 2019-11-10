@@ -26,7 +26,7 @@ import tagline.model.note.Title;
 import tagline.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new CreateNoteCommand object
+ * Parses input arguments and creates a new CreateNoteCommand object.
  */
 public class CreateNoteParser implements Parser<CreateNoteCommand> {
     public static final String CREATE_NOTE_MISSING_CONTENT_PROMPT = "Please enter the content of the note.";

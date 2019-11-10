@@ -12,7 +12,7 @@ import tagline.logic.commands.tag.ListTagCommand;
 import tagline.logic.parser.exceptions.ParseException;
 
 /**
- * Parses user input.
+ * Parses user input for tag commands.
  */
 public class TagCommandParser {
     /**

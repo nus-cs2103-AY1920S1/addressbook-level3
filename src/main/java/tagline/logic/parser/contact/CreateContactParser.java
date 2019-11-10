@@ -23,9 +23,9 @@ import tagline.model.contact.Name;
 import tagline.model.contact.Phone;
 
 /**
- * Parses input arguments and creates a new CreateContactCommand object
+ * Parses input arguments and creates a new CreateContactCommand object.
  */
-public class AddContactParser implements Parser<CreateContactCommand> {
+public class CreateContactParser implements Parser<CreateContactCommand> {
     public static final String ADD_CONTACT_EMPTY_NAME_PROMPT_STRING = "Please enter a name.";
 
     /**

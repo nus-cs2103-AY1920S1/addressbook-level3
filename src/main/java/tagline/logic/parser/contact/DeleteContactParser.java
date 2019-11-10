@@ -12,7 +12,7 @@ import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.contact.ContactId;
 
 /**
- * Parses input arguments and creates a new DeleteContactCommand object
+ * Parses input arguments and creates a new DeleteContactCommand object.
  */
 public class DeleteContactParser implements Parser<DeleteContactCommand> {
     public static final String DELETE_CONTACT_EMPTY_ID_PROMPT_STRING = "Please enter the ID of the contact to delete.";

@@ -3,8 +3,8 @@ package tagline.logic.parser.contact;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static tagline.logic.parser.contact.ContactCommandParser.CONTACT_CLEAR_COMMAND_CONFIRM_STRING;
-import static tagline.logic.parser.contact.ContactCommandParser.CONTACT_CLEAR_CONFIRM_CHARACTER;
+import static tagline.logic.parser.contact.ClearContactParser.CONTACT_CLEAR_COMMAND_CONFIRM_STRING;
+import static tagline.logic.parser.contact.ClearContactParser.CONTACT_CLEAR_CONFIRM_STRING;
 import static tagline.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
@@ -44,19 +44,12 @@ public class ContactCommandParserTest {
     @Test
     public void parseCommand_clear() throws Exception {
         assertThrows(PromptRequestException.class, () -> parser.parseCommand(ClearContactCommand.COMMAND_WORD));
-        assertThrows(PromptRequestException.class, () -> parser.parseCommand(ClearContactCommand.COMMAND_WORD + " 3"));
 
         Prompt validFilledPrompt = new Prompt("", CONTACT_CLEAR_COMMAND_CONFIRM_STRING);
-        validFilledPrompt.setPromptResponse(CONTACT_CLEAR_CONFIRM_CHARACTER);
-        Prompt invalidFilledPrompt = new Prompt("", CONTACT_CLEAR_COMMAND_CONFIRM_STRING);
-        invalidFilledPrompt.setPromptResponse("Z");
+        validFilledPrompt.setPromptResponse(CONTACT_CLEAR_CONFIRM_STRING);
 
         assertTrue(parser.parseCommand(ClearContactCommand.COMMAND_WORD,
                 Arrays.asList(validFilledPrompt)) instanceof ClearContactCommand);
-        assertTrue(parser.parseCommand(ClearContactCommand.COMMAND_WORD + " 3",
-                Arrays.asList(validFilledPrompt)) instanceof ClearContactCommand);
-        assertThrows(ParseException.class, () -> parser.parseCommand(ClearContactCommand.COMMAND_WORD,
-                Arrays.asList(invalidFilledPrompt)));
     }
 
     @Test

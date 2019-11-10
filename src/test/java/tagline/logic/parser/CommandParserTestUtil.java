@@ -54,4 +54,13 @@ public class CommandParserTestUtil {
             throw new AssertionError("The expected PromptRequestException was not thrown.");
         }
     }
+
+    /**
+     * Gets a {@code Prompt} with given prefix and question filled with the given response.
+     */
+    public static Prompt getFilledPrompt(String argumentPrefix, String question, String response) {
+        Prompt prompt = new Prompt(argumentPrefix, question);
+        prompt.setPromptResponse(response);
+        return prompt;
+    }
 }

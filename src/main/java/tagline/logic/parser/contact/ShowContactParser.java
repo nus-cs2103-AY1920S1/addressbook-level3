@@ -12,7 +12,7 @@ import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.contact.ContactId;
 
 /**
- * Parses input arguments and creates a new DeleteContactCommand object
+ * Parses input arguments and creates a new ShowContactCommand object.
  */
 public class ShowContactParser implements Parser<ShowContactCommand> {
     public static final String SHOW_CONTACT_EMPTY_ID_PROMPT_STRING = "Please enter the ID of the contact to show.";

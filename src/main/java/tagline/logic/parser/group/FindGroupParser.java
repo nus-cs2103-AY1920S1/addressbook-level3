@@ -16,7 +16,7 @@ import tagline.model.group.GroupName;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 
 /**
- * Parses input arguments and creates a new FindGroupCommand object
+ * Parses input arguments and creates a new FindGroupCommand object.
  */
 public class FindGroupParser implements Parser<FindGroupCommand> {
     public static final String FIND_GROUP_EMPTY_ARGS_PROMPT_STRING =

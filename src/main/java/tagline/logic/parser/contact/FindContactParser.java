@@ -11,7 +11,7 @@ import tagline.logic.parser.exceptions.PromptRequestException;
 import tagline.model.contact.NameContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindContactCommand object
+ * Parses input arguments and creates a new FindContactCommand object.
  */
 public class FindContactParser implements Parser<FindContactCommand> {
     public static final String FIND_CONTACT_EMPTY_ARGS_PROMPT_STRING = "Please enter at least one keyword to find by.";

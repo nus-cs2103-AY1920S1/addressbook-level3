@@ -13,7 +13,7 @@ import tagline.model.contact.Name;
 import tagline.model.contact.Phone;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *ContactParser classes.
  */
 public class ContactParserUtil {
 
