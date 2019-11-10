@@ -10,6 +10,7 @@ import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.model.recmf.Food;
 import seedu.sugarmummy.model.recmf.FoodComparator;
+import seedu.sugarmummy.model.recmf.FoodType;
 import seedu.sugarmummy.model.recmf.predicates.FoodTypeIsWantedPredicate;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
@@ -19,20 +20,15 @@ import seedu.sugarmummy.ui.DisplayPaneType;
 public class RecmFoodCommand extends Command {
 
     public static final String COMMAND_WORD = "recmf";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets a list of food recommendations."
-            + "Recommendations can be filtered by keywords and flags:\n"
-            + "-nsv: breakfast recommendations\n"
-            + "-sv: lunch recommendations\n"
-            + "-f: fruit recommendations\n"
-            + "-p: protein recommendations\n"
-            + "-s: snack recommendations\n"
-            + "-m: meal recommendations\n"
-            + "Usage: " + COMMAND_WORD + " [-FLAG]... [fn/FOOD_NAME][±sort/SORT_ORDER_TYPE]\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets food recommendations, which can be filtered "
+            + "(by flags or food names) and sorted.\n"
+            + "Flags are based on the following food types: "
+            + FoodType.getAllTypesInfo() + "\n"
+            + "Usage: " + COMMAND_WORD + " [-FLAG]... [fn/FOOD_NAME...] [±sort/SORT_ORDER_TYPE]\n"
             + "Example: recmf -p -nsv +sort/gi";
 
-    public static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "Oops! There are no matches in the current database "
-            + ":( "
-            + "Try adding more new foods or reducing some filters~";
+    public static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "Oops! There is no food to recommend :(\n"
+            + "It may be due to empty food database or no matching foods.";
     private static final String MESSAGE_RESPONSE_NORMAL_LIST = "Hope you like what I've found for you~";
 
     private final FoodTypeIsWantedPredicate typePredicate;

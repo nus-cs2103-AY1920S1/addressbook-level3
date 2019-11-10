@@ -80,6 +80,7 @@ public class MainDisplayPane {
             }
 
         case CHANGE_FOOD:
+        case RESET_FOOD:
             return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFoodList()),
                 newPaneIsToBeCreated);
 
@@ -105,7 +106,7 @@ public class MainDisplayPane {
         case NONE:
             return null;
         default:
-            assert false : "DisplayPaneType is not recognised inside MainDisplayPane class.";
+            assert false : displayPaneType + " is not recognised inside MainDisplayPane class.";
             return null;
         }
     }

@@ -28,7 +28,7 @@ public class AddFoodCommand extends Command {
             + PREFIX_CALORIE + "CALORIE " + PREFIX_GI + "GI " + PREFIX_SUGAR + "SUGAR " + PREFIX_FAT + "FAT\n"
             + "Food type can be one of the following:\n"
             + "nsv: non-starchy vegetables; sv: starchy vegetables; f: fruit; p: protein; s: snack; m: meal\n"
-            + "Calorie(Cal), GI, sugar(g), and fat(g) are all numbers.\n"
+            + "CALORIE, GI, SUGAR, and FAT are all numbers.\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FOOD_NAME + "Cucumber " + PREFIX_FOOD_TYPE + "nsv "
             + PREFIX_CALORIE + "15 " + PREFIX_GI + "15 " + PREFIX_SUGAR + "1.7 " + PREFIX_FAT + "0\n";

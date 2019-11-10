@@ -44,6 +44,5 @@ and its GUI is created with JavaFx. It is written in Java and has about 24 kLOC.
 == Contributions to the User Guide
 include::../UserGuide.adoc[tag=recmf]
 
-
 == Contributions to the Developer Guide
 include::../DeveloperGuide.adoc[tag=recmf]

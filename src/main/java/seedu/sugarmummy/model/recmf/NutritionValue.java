@@ -3,6 +3,7 @@ package seedu.sugarmummy.model.recmf;
 import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 import seedu.sugarmummy.commons.core.LogsCenter;
@@ -15,7 +16,9 @@ public abstract class NutritionValue implements Comparable<NutritionValue> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Nutrition value should only contain one number (with no more than 4 decimals) and should be non-negative.";
-    public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d{1,4}$";
+    private static final String VALIDATION_REGEX = "^[+]?\\d{0,}\\.?\\d{0,4}$";
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.####");
+
     public final String value;
     private final Logger logger = LogsCenter.getLogger(UniqueFoodList.class);
 
@@ -28,14 +31,22 @@ public abstract class NutritionValue implements Comparable<NutritionValue> {
         requireNonNull(value);
         logger.info("----------------[Nutriention Value][Adding " + value + "]");
         checkArgument(isValidValue(value), MESSAGE_CONSTRAINTS);
-        this.value = value;
+        this.value = DECIMAL_FORMAT.format(Double.parseDouble(value));
     }
 
     /**
      * Returns true if a given string is a valid nutrition value.
      */
     public static boolean isValidValue(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (!test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
+        try {
+            Double.parseDouble(test);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 
     /**

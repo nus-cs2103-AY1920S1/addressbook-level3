@@ -6,9 +6,9 @@
 <ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainScrollPanel" hbarPolicy="NEVER" vbarPolicy="ALWAYS"
             fitToWidth="true" fitToHeight="true" style="-fx-background: transparent; -fx-background-color: transparent"
             xmlns="http://javafx.com/javafx/8" styleClass="commonScrollPane">
-    <FlowPane fx:id="flowPane" orientation="HORIZONTAL" hgap="10" vgap="12">
+    <FlowPane fx:id="flowPane" orientation="HORIZONTAL" hgap="7" vgap="7">
         <padding>
-            <Insets top="5" bottom="5" left="12" right="0"/>
+            <Insets top="5" bottom="5" left="0" right="0"/>
         </padding>
     </FlowPane>
 </ScrollPane>

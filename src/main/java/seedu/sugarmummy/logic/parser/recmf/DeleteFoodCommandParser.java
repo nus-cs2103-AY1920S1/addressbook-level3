@@ -22,7 +22,7 @@ public class DeleteFoodCommandParser implements Parser<DeleteFoodCommand> {
         if (Parser.arePrefixesPresent(argMultimap, PREFIX_FOOD_NAME)
                 && argMultimap.getPreamble().isEmpty()) {
 
-            FoodName foodName = RecmFoodParserUtil.parseFoodName(argMultimap.getValue(PREFIX_FOOD_NAME).get());
+            FoodName foodName = RecmFoodParserUtil.parseFoodName(argMultimap.getValue(PREFIX_FOOD_NAME).get().trim());
 
             return new DeleteFoodCommand(foodName);
         } else {
