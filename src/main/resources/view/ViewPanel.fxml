@@ -11,7 +11,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="cardPane" xmlns="http://javafx.com/javafx/8">
-    <ScrollPane fx:id="scroll" hbarPolicy="NEVER" minWidth="250" prefWidth="500" HBox.hgrow="ALWAYS">
+    <ScrollPane fx:id="scroll" hbarPolicy="NEVER" minWidth="250" prefWidth="500" HBox.hgrow="ALWAYS" styleClass="pane-with-border">
         <AnchorPane>
             <StackPane fx:id="stackPane" alignment="CENTER" HBox.hgrow="ALWAYS" minHeight="${scroll.height}" styleClass="pane-with-border">
                 <VBox alignment="CENTER" minWidth="${scroll.width}" spacing="5" >
