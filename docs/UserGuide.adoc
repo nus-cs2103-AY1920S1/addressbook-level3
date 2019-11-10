@@ -820,7 +820,6 @@ Format : `undo`
 
 image::Undo0.png[width="450"]
 
-
 *What you should see*
 
 The result box will display a success message and you can check that

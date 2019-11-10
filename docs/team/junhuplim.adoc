@@ -18,21 +18,28 @@ Security.
 
 === About the project
 
-This project is a 6 weeks long project for our software engineering module. We were given
-an existing address book application and were tasked to either enhance or to morph it. One of
-the main constraints of this project is that the application has to be used as a command line interface.
+This project is a 6 weeks long project for our software engineering module.
+We were tasked to either enhance or morph a basic command line interface (CLI) desktop
+Address Book application and one of the main constraints of this project is that
+the application has to remain as a command line interface.
 
 What my team and I decided to do was to morph the existing address book application to a team
 management desktop application called Athletick. Athletick is designed for captains and
 coaches of timing-based performance sports to help take and keep track of attendance
-and performance of their teams. Some of the main features of Athletick include
-taking the team's attendance, viewing the team's attendance rate and also tracking
-the team's performance with a visual graph.
+and performance of their teams.
+
+Some of the main features of Athletick include
+
+* Taking and tracking of team's attendance
+* Recording and tracking of team's performance
+* Viewing of training calendar and performance graph
+* Viewing of an athlete's profile
+* Undoing and redoing of commands
 
 This is what users see when they first start Athletick:
 
+.The graphical user interface for Athletick.
 image::athletick.png[]
-Figure 1. The graphical user interface for Athletick.
 
 My role was to design and implement the code for the `undo` and `redo` features.
 The following sections illustrate these enhancements in more detail, as
