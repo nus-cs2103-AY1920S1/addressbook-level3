@@ -224,7 +224,7 @@ Now you should have completed all the necessary fields and are ready to finish t
 
 Congratulations, you have created/edited an event!
 
-=== Deleting an Trip/Event
+==== Deleting an Trip/Event
 Deleting a Trip/Day/Event is executed in exactly the same way as each other. You first have to begin on the Trip Page/Days Page/Events Page respectively. Each of the pages will show a list of trips/days/events each labelled by an index. Below are 3 different list format elements and the indication where you can find the index.
 
 image::indexExamples.png[title="Examples of different indexes displayed"]
@@ -241,7 +241,7 @@ image::deleteResult.png[title="Result of executing `delete 1`"]
 
 Congratulations, you have deleted a trip/day/event!
 
-=== Showing Event Details
+==== Showing Event Details
 The details of each event are displayed on the right half the **Events Page**. You can access the events page by using the navigation feature (<<How to navigate>>) found on most pages.
 
 Upon accessing the events page, the information panel on the right should be empty except the prompt "Click on an event to show details here!". The left panel holds the list of events in the particular day in chronological order.
