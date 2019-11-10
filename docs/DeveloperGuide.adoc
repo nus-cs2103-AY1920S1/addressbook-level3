@@ -250,7 +250,6 @@ The activity diagram below shows a simple successful case of setting a new budge
 .Activity Diagram of successfully setting a new Budget
 image::SetBudgetSimpleActivityDiagram.png[]
 
-
 ==== Design Considerations
 
 Currently, `Budget` does not extend from `Transaction` although the two behave in a similar way.
@@ -502,7 +501,7 @@ invalid, `SortCommandParser` throws an exception and terminates. Else, it return
 
 **Step 8**. `SortCommand` uses `SortCommand#sortTransactionHistory()` to sort the transactions.
 
-**Step 9**. `SortCommand` uses `Model#setTransactions()` to store the sorted transactions and `Model#commitUserState` to
+**Step 9**. `SortCommand` uses `Model#setTransactions()` to store the sorted transactions and `Model#commitUserState()` to
 save the latest state of the application.
 
 **Step 10**. `SortCommand` returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user
@@ -541,10 +540,10 @@ transaction tab.
 ==== Current Implementation
 
 The `filter` command is facilitated by the `FilterCommandParser` and `FilterCommand` of the application.
-PalPay filters the list of transactions by checking if any of the specified fields exist in the transaction.
+PalPay filters the list of transactions by checking if the specified fields exist in the transaction.
 
-For instance, the command `filter c/breakfast c/dinner` would display a list of transactions with categories
-of breakfast or dinner or both.
+For instance, the command `filter c/breakfast m/11 y/2019` would display a list of transactions that were made during
+breakfast in November 2019.
 
 The following class diagram depicts the relations of the FilterCommand, FilterCommandParser and its related classes.
 
@@ -553,20 +552,30 @@ image::FilterClassDiagram.png[]
 
 Given below is an example usage scenario and how the filter mechanism behaves at each step.
 
-**Step 1**.
+**Step 1**. The user launches the application and views an unfiltered list of transactions.
 
-==== Design Considerations
+**Step 2**. The user now executes `filter c/breakfast m/11 y/2019` to filter the list of transactions.
 
-===== Aspect: Filtering by multiple categories
+**Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
 
-* **Alternative 1 (Current Choice):** Creating one predicate for all categories to be sorted.
-** **Pros:** Extremely flexible for the users as they are not limited to the number of categories to be filtered.
-** **Cons:** Difficult to implement.
-* **Alternative 2:** Creating a predicate for each category to be sorted.
-** **Pros:** Easy to implement.
-** **Cons:** Users can only filter by predicates that have been implemented.
-Developers have to create a new predicate class to filter a new category.
+**Step 4**. `MainParser` determines which command is being used and creates `FilterCommandParser` to further parse
+the input from the user.
 
+**Step 5**. `FilterCommandParser` parses the argument and checks if category, description, month or year exists.
+If all field are not present, `FilterCommandParser` throws an exception and terminates, as depicted in the following
+activity diagram.
+Else, it returns a `FilterCommand` that contains a `TransactionPredicate`.
+
+**Step 6**. `LogicManager` uses `FilterCommand#execute()` to update the list of transactions that satisfies the
+given `TransactionPredicate`.
+
+**Step 7**. `FilterCommand` uses `Model#commitUserState()` to save the latest state of the application. It then
+returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user at the end.
+
+Below is an activity diagram shows the process of invoking the `filter` command.
+
+.Activity Diagram for `Filter`
+image::FilterActivityDiagram.png[]
 // end::filter[]
 
 // tag::undoredo[]
@@ -659,20 +668,19 @@ check if this is the case. If so, it will return an error to the user rather tha
 ** Pros: Will use less memory (e.g. for `delete t1`, just save the transaction being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-//===== Aspect: Data Structure to Support the Undo/Redo Commands
-//
-//* **Alternative 1 (current choice):** Use a list to store the history of user states.
-//** Pros: Easy for new Computer Science student undergraduates to understand,
-//who are likely to be the new incoming developers of our project.
-//** Cons: Logic is duplicated twice.
-//For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-//* **Alternative 2:** Use `HistoryManager` for undo/redo
-//** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-//** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
-//Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+===== Aspect: Which Data Structure to Support the Undo/Redo Commands
+
+* **Alternative 1 (current choice):** Use a list and a pointer to store the history of user states.
+** Pros: Easy for new Computer Science student undergraduates to understand,
+who are likely to be the new incoming developers of our project.
+** Cons: Need to manage the list and pointer carefully as the pointer has to point to the correct position in
+the list at all times.
+For example, when a new command is executed, we must remember to update both `userStateList` and `currentStatePointer`.
+* **Alternative 2:** Use two stacks. One stack stores the commands to undo and the other stores the commands to redo.
+** Pros: Do not need to manage a pointer for the stacks.
+** Cons: Need to manage both stacks carefully. For instance, when a command is popped from the undo stack, it needs to
+be pushed into the redo stack.
 // end::undoredo[]
-
-
 
 
 === Logging
