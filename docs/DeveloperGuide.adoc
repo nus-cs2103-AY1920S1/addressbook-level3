@@ -750,9 +750,9 @@ Use case ends.
 *MSS*
 
 1.  User +++<u>finds transaction item</u>+++.
-1.  User specifies transaction to be edited and information to edit.
-1.  System updates the transaction item.
-1.  System shows newly updated list of transaction items.
+2.  User specifies transaction to be edited and information to edit.
+3.  System updates the transaction item.
+4.  System shows newly updated list of transaction items.
 +
 Use case ends.
 
@@ -762,9 +762,19 @@ Use case ends.
 *MSS*
 
 1.  User +++<u>finds transaction item</u>+++.
-1.  User specifies transaction to be deleted.
-1.  System removes the transaction item.
-1.  System shows newly updated list of transaction items.
+2.  User specifies transaction to be deleted.
+3.  System removes the transaction item.
+4.  System shows newly updated list of transaction items.
++
+Use case ends.
+
+[discrete]
+=== Use case: Change filter of transaction list
+
+*MSS*
+
+1.  User specifies month, year, category and/or type of the transaction
+2.  System updates filter of list of transaction items.
 +
 Use case ends.
 
@@ -773,8 +783,19 @@ Use case ends.
 
 *MSS*
 
-1.  User specifies month, year, and/or category of the transaction
-1.  System shows filtered list of transaction items.
+1.  User specifies keywords of the transactions to be found.
+2.  System updates list of transaction items to show applicable transactions.
++
+Use case ends.
+
+[discrete]
+=== Use case: Archive transaction item
+
+*MSS*
+
+1.  User specifies index of transaction to be archived
+2.  System moves transaction to archive.
+3.  System shows newly updated list of transaction items.
 +
 Use case ends.
 
