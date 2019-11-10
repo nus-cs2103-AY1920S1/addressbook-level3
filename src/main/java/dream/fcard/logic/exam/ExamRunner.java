@@ -22,7 +22,7 @@ public class ExamRunner {
      * @param duration contains duration of exam in seconds.
      */
     public static void createExam(ArrayList<FlashCard> deck, int duration) {
-        exam = new UntimedExam(deck, duration);
+        exam = new StandardExam(deck, duration);
         examOngoing = true;
     }
 
