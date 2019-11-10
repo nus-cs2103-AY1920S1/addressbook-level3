@@ -93,12 +93,12 @@ Nobody likes to read long documents, especially when you have something as excit
 
 We've split up this guide into the different features of our application, namely:
 
-. Main
-. Calendar
-. Itinerary
-. Address Book
-. Diary
-. Achievements
+* Main
+* Calendar
+* Itinerary
+* Address Book
+* Diary
+* Achievements
 
 
 In each of the above sections, you will be introduced to the *interface* of the feature and the *commands* that will do the menial tasks for you. 
@@ -107,7 +107,7 @@ In each of the above sections, you will be introduced to the *interface* of the 
 
 Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's find out more about what they mean in this document!
 
-.Symbols and fonts (rows)
+.Symbols and fonts 
 [grid="rows", frame="none"]
 |===
 | Symbol/font | What does it mean?
@@ -141,50 +141,71 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 
 Main is the welcome screen for _TravEzy_. From here, you can easily navigate to the other _pages_ (which contains the interface of the features): _calendar_, _itinerary_, _address book_, _financial tracker_, _diary_ and _achievements_. You can also the exit the application from here.
 
-=== Go To Command
+=== Interface
 
-Trying to open up the achievements page? Use the *Go To Command*:
+This is how _TravEzy's main_ page looks like:
 
-*Go To another page: ``goto``*
+image::mainInterface.png[Main interface,width=800]
 
-Allows you to navigate to different _pages_ (from any page), with the possible pages being:
+=== Going to another page: ``goto``
 
-. main
-. calendar
-. itinerary
-. address_book
-. financial_tracker
-. diary
-. achievements
+Trying to open up the achievements page? Use this command!
 
-The _Command Word_ is `goto` and the parameter can be any of the pages listed above. There is no
-need for a _Prefix_.
+*Format:* +
+``goto PAGE TYPE`` +
+{empty} + 
+Note that the only available ``PAGE TYPE``s are ``calendar``, ``itinerary``, ``address_book``, ``financial_tracker``, ``diary`` and ``achievements``.
 
-Format: ``goto page``
+*Example:* 
 
-Example: Let's say I want to go back to the main page to see the beautiful TravEzy logo -
+    goto itinerary
 
-``goto main``
+*Step by step:*
 
+Step 1. Type ``goto itinerary`` in the _command box_ and click _Enter_. +
 
-=== Exit Command
+image::mainGoto1.png[Goto command]
 
-It's time to catch your flight! Better exit TravEzy using the *Exit Command* and
-start your trip!
+Step 2. You will be directed to the _itinerary page_.
 
-*Exit TravEzy: ``exit``*
+image::mainGoto2.png[Goto result]
 
-Allows you to exit from TravEzy
+=== Viewing help: ``help``
 
-The _Command Word_ is `exit` and there are no additonal parameters.
+If you are lost, this command will be helpful.
 
-Format: ``exit``
+*Format:* + 
 
-Example: Let's say I have to exit the calendar page -
+``help``
 
+*Step by step:*
+
+Step 1. Type ``help`` in the _command box_ and click _Enter_. + 
+
+image::mainHelp1.png[Help command]
+
+Step 2. The message in the _result box_ will be updated to indicate that the help window has been opened.
+
+Step 3. The help window will appear as a pop-up and you may click the "copy link". This link will direct you to _TravEzy's_ user guide (i.e. this document).😊 + 
+
+image::mainHelp2.png[Help result]
+
+=== Exiting the application: ``exit``
+
+It's time to catch your flight, exit  _TravEzy_ and start your trip!
+
+*Format:* +
 ``exit``
 
-IMPORTANT: The above commands can also be executed from the other _pages_.
+*Step by step:*
+
+Step 1. Type ``exit`` in the _command box_ and click _Enter_. + 
+
+image::exit1.png[Exit command]
+
+Step 2. All _TravEzy's_ windows will close.
+
+WARNING: The above commands ``goto``, ``help`` and ``exit`` can also be executed from the other _pages_.
 
 == Calendar
 
@@ -1453,4 +1474,3 @@ NUS trips: +
 
 ``selectSoc``   : select a certain society to load trips
 
-= Glossary
