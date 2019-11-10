@@ -564,7 +564,7 @@ An exception will be thrown under these 2 conditions:
 
 Below is an activity diagram to illustrate the process that the user may go through
 
-image::EditCommandActivity.png[width=500]
+image::EditCommandActivity.png[width=300]
 
 EditIncidentCommand` class makes use of `EditIncident` object to create a new
 `Incident` object with the fields identified by user as well as the untouched
@@ -573,7 +573,7 @@ fields from the original incident. This new `Incident` will replace the original
 
 Below is a sequence diagram to illustrate how the command executes:
 
-image::EditIncidentCommand.png[width=500]
+image::EditIncidentCommand.png[width=300]
 
 [Note]
 The command can only be used by admin accounts or accounts that created/filled/submitted
@@ -618,7 +618,7 @@ Only vehicles with the status `Avaliable` are valid for editing or deleting. Thi
 Implementation of `edit-v` is similar to `edit-i` where `EditVehicleCommand` makes use of `EditVehicle` class to create a new `Vehicle` object with the modified fields and replaces the original object. Design considerations are also similar to that of `edit-i`.
 Below is a sequence diagram to illustrate the process and classes involved in the `edit-v` command:
 
-image::editVehicleCommand.png[width=500]
+image::editVehicleCommand.png[width=300]
 
 //end::vehicleedit[]
 
@@ -634,7 +634,7 @@ image::editVehicleCommand.png[width=500]
 
 Below is a sequence diagram to illustrate add-v:
 
-image::addVehicleCommand.png[width=500]
+image::addVehicleCommand.png[width=300]
 
 //end::vehicleadd[]
 
@@ -650,7 +650,7 @@ image::addVehicleCommand.png[width=500]
 
 Below is a sequence diagram to illustrate delete-v:
 
-image::deleteVehicleCommand.png[width=500]
+image::deleteVehicleCommand.png[width=300]
 //end::vehicledelete[]
 
 //end::vehicleManagement[]
