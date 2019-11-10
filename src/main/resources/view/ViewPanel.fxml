@@ -3,24 +3,29 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.FlowPane?>
 
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="cardPane" xmlns="http://javafx.com/javafx/8">
-    <StackPane fx:id="stackPane" alignment="CENTER" HBox.hgrow="ALWAYS">
-        <VBox alignment="CENTER" minWidth="250" spacing="5" GridPane.columnIndex="0">
-            <padding>
-                <Insets bottom="5" left="5" right="5" top="5"/>
-            </padding>
-            <Label fx:id="id" styleClass="cell_big_label"/>
-            <ImageView fx:id="display" cache="true" cacheHint="SPEED" fitHeight="400" fitWidth="400" pickOnBounds="true"
-                       preserveRatio="true"/>
-            <FlowPane fx:id="tags" alignment="CENTER"/>
-            <Label fx:id="description" alignment="CENTER" contentDisplay="CENTER" styleClass="cell_view_label"
-                   text="\$description"/>
-        </VBox>
-    </StackPane>
+    <ScrollPane fx:id="scroll" hbarPolicy="NEVER" minWidth="250" prefWidth="500" HBox.hgrow="ALWAYS" styleClass="pane-with-border">
+        <AnchorPane>
+            <StackPane fx:id="stackPane" alignment="CENTER" HBox.hgrow="ALWAYS" minHeight="${scroll.height}" styleClass="pane-with-border">
+                <VBox alignment="CENTER" minWidth="${scroll.width}" spacing="5" >
+                    <padding>
+                        <Insets bottom="5" left="5" right="5" top="5"/>
+                    </padding>
+                    <Label fx:id="id" styleClass="cell_big_label"/>
+                    <ImageView fx:id="display" cache="true" cacheHint="SPEED" fitWidth="400" pickOnBounds="true"
+                               preserveRatio="true"/>
+                    <FlowPane fx:id="tags" alignment="CENTER"/>
+                    <Label fx:id="description" alignment="CENTER" contentDisplay="CENTER" styleClass="cell_view_label"
+                           text="\$description"/>
+                </VBox>
+            </StackPane>
+        </AnchorPane>
+    </ScrollPane>
 </HBox>

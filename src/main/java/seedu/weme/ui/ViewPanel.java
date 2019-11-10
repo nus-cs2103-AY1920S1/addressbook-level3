@@ -36,9 +36,7 @@ public class ViewPanel extends UiPart<Region> {
     public ViewPanel(ObservableValue<Meme> observableMeme) {
         super(FXML);
         observableMeme.addListener((observable, oldValue, newValue) -> {
-            display.setImage(new Image(newValue.getImagePath().toUrl().toString(),
-                    400, 400,
-                    true, true, true));
+            display.setImage(new Image(newValue.getImagePath().toUrl().toString()));
             description.setText(newValue.getDescription().value);
             tags.getChildren().clear();
             newValue.getTags().stream()
