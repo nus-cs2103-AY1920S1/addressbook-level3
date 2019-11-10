@@ -50,7 +50,7 @@ public class ActiveBudgetCard extends BudgetCard {
         } else if (proportion >= 0.8) {
             progressBar.setStyle("-fx-accent: rgba(186, 108, 18, 0.74);");
         } else {
-            progressBar.setStyle("-fx-accent: rgba(12, 164, 60, 0.74)");
+            progressBar.setStyle("-fx-accent: rgba(12, 164, 60, 0.74);");
         }
     }
 
@@ -60,15 +60,15 @@ public class ActiveBudgetCard extends BudgetCard {
         limitAmt.setText("/ " + budgetData.getLimitAmt().toString());
         // Different colour based on proportion
         if (proportion >= 1) {
-            String cssRed = "-fx-text-fill: rgba(235,47,23,0.74);";
+            String cssRed = "-fx-text-fill: rgba(200,41,21,0.74);";
             currAmt.setStyle(cssRed);
             limitAmt.setStyle(cssRed);
         } else if (proportion >= 0.8) {
-            String cssOrange = "-fx-text-fill: rgba(235,136,23,0.74);";
+            String cssOrange = "-fx-text-fill: rgba(186, 108, 18, 0.74);";
             currAmt.setStyle(cssOrange);
             limitAmt.setStyle(cssOrange);
         } else {
-            String cssGreen = "-fx-text-fill: rgba(19,235,90,0.74)";
+            String cssGreen = "-fx-text-fill: rgba(12, 164, 60, 0.74)";
             currAmt.setStyle(cssGreen);
             limitAmt.setStyle(cssGreen);
         }
@@ -76,9 +76,9 @@ public class ActiveBudgetCard extends BudgetCard {
 
     protected void setBalance() {
         Double proportion = budgetData.getProportion();
-        String cssRed = "-fx-text-fill: rgba(235,47,23,0.74);";
-        String cssOrange = "-fx-text-fill: rgba(235,136,23,0.74);";
-        String cssGreen = "-fx-text-fill: rgba(19,235,90,0.74)";
+        String cssRed = "-fx-text-fill: rgba(200,41,21,0.74);";
+        String cssOrange = "-fx-text-fill: rgba(186, 108, 18, 0.74);";
+        String cssGreen = "-fx-text-fill: rgba(12, 164, 60, 0.74)";
         if (proportion >= 1) {
             balance.setStyle(cssRed);
         } else if (proportion >= 0.8) {

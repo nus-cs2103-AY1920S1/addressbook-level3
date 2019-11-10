@@ -20,53 +20,39 @@ The user interacts with Modulo using a CLI, and it features an outstanding user-
 * *Major enhancement*: added *finance* feature
 1. Allow 4 different types of entries (**spend**, **income**, **borrow**, **lend**)
 2. Added *budget* component
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
-3. **Enhancement**: added *stats* component
+** _What it does:_ allows the user to set budgets (with option of making it more specific to a type of spending). Budgets can be set retrospectively, or in the future, in addition to those that are ongoing in present time.
+** _Justification:_ This feature adds an additional dimension to the feature aside from the passive recording of financial activities. User can now set goals (in the form of budgets) and the application will tabulate the total amount spent so far for the user.
+** _Highlights:_ The portion of budget spent is depicted through a progress bar. When the user's spending is close to exceeding or has exceeded a budget, the feature will notify the user instantaneously. To provide usual feedback to the user, the colour of text, numbers and progress bar will change accordingly, reflecting the status of the budget.
+3. Added *stats* component
+** _What it does:_ Display pie and bar charts summarising the numbers in the finance log. Pie charts depict the total amount associated with various groups. Entries can be grouped by their entry type (spend, income, borrow, lend), their transaction method, their place of spending or the categories they were tagged with. Bar charts show the total number of entries in the various groups.
+** _Justification:_ With the addition of more entries over time, it can be overwhelming for the user to look through those entries to determine his pattern of spending. A graph that summarises these numbers will make it easier to judge what kind of expenses should be reduced.
+** _Highlights:_ This command has 8 possible combination of inputs possible, which is all supported. The number of log entries and total amounts are sorted in descending order, with the largest value first.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: find command that allows the filtering of entries by their type, in addition to searching by keywords (partial keyword match is also enabled for item descriptions).
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=tohcejasmine[Functional code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Set deadlines for milestones `v1.0` - `v1.4` on GitHub
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Wrote introduction to the https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/UserGuide.adoc#introduction[User Guide]
+*** Added command usage for _Finance_ feature in the https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/UserGuide.adoc#finances[User Guide]
+*** Wrote detailed process and implementation of the Budget command in the https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/DeveloperGuide.adoc#budgets-in-finances[Developer Guide]
+*** Added some https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/DeveloperGuide.adoc#user-stories[user stories] and https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/DeveloperGuide.adoc#appendix-c-use-cases[use cases] in the Developer Guide
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T16-2/main/pull/146[#146], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/46[#46]
+*** Reported bugs and suggestions for other teams in the class (example:  https://github.com/tohcejasmine/ped/issues[PE Dry Run])
 
 == Contributions to the User Guide
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+This is a subset of the _Finance_ section, for the full version, please refer to the link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/UserGuide.adoc#finances[User Guide].
 
-include::../UserGuide.adoc[tag=intro]
-
-include::../UserGuide.adoc[tag=finance]
+include::../UserGuide.adoc[tag=finance1]
+include::../UserGuide.adoc[tag=finance2]
 
 == Contributions to the Developer Guide
-
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-
-include::../DeveloperGuide.adoc[tag=rationale]
 
 === Class diagrams
 
@@ -76,11 +62,95 @@ image::FinanceModelClassDiagram.png[]
 .Structure of the Storage Component for the feature _Finance_
 image::FinanceStorageClassDiagram.png[]
 
-=== Implementation
+=== Budgets in finances
 
-include::../DeveloperGuide.adoc[tag=budget]
+==== Implementation
+
+A budget is an estimate or threshold of spending set for a specified period of time. In _Modulo_, a budget can be set to only include spendings of a particular characteristic (i.e. transaction method, place of spending or category). For example, budgets of spendings at a particular place can be set. _Modulo_ will only take into account spendings recorded to be associated with this place and falling within the specified period of time.
+
+To compute the current total amount spent so far and see whether this total amount still falls within the budget, amounts associated with entries are summed together.
+
+These entries have to fulfill the following requirements set by the budget to be considered in the tabulation:
+
+* Has to be a log entry of type `Spend`
+* Transaction date has to fall within budget period (i.e. between the start and end dates)
+* (If addition field of transaction method, place of spending or categorys specified) Has to either have the same transaction method, place of spending or be tagged with the same category
+
+There are some classes in the `Model` component necessary for the computation of budgets:
+
+* `Budget` - Contains the basic information about a budget (amount, start and end dates, additional characteristic `Spend` entry has to fall under (if any))
+* `BudgetData` - The `Budget` object associated to it, the limit set by the budget and the current total amount tabulated from the `Spend` entries matching the budget requirements
+
+In `ModelFinanceManager` which implements the `Model` interface, `Model#getFilteredBudgetDataList()` will return the list of `BudgetData` objects mapped from the list of `Budget` objects stored in the _Modulo_. These `BudgetData` are instantiated using information from the list of entries stored in _Modulo_. They filter out entries which do not match the requirements of the budget they are associated with, and then add up all the amounts of the entries to obtain the current total amount spent.
+
+If the total amount of spending is close to exceeding the budget (more than or equals to 80% of budget spent), an orange label at the menu bar will be shown to notify the user that a budget is near to reaching its limit.
+
+And if the total amount of spending has exceeding the limit set by the budget, the menu bar will have a red label indicating that the budget has been exceeded. The amount of money spend has gone over the estimate set and is now in deficit.
+
+Given below is an example usage scenario for what happens when a budget is set, and how _Modulo_ behaves at each step.
+
+This assumes that the user has not set any budget in the application before but has some entries recorded in the finance log. These entries are:
+
+1. (Income) Amount: 800, Item: Internship Pay, From: ABCompany,  Transaction Method: Bank Transfer, Day:  7-11-2019
+2. (Spend) Amount: 50, Item: EzLink TopUp, Transaction Method: NETS, Place: Caldecott MRT, Day:  4-11-2019
+3. (Spend) Amount: 107.70, Item: Bicycle, Transaction Method: Cash, Day:  5-11-2019, Place: Toa Payoh Lor 4, Categories: bike
+4. (Spend) Amount: 1.10, Item: KopiO, Transaction Method: Cash, Day:  2-11-2019, Categories: drink, kopitiam
+
+*Step 1.* The user launches the application and switch to the *finance* mode by executing `switch finance`.
+
+*Step 2.* The user wants to set a budget of 300 dollars for November for spendings done using cash. He executes the `budget <amt> 300 <month> 11-2019 <met> Cash` command to set this budget. The `budget` command calls `Model#addBudget(b)`, where upon the finance log will add `Budget` object `b` to `budgetList`, the list of budgets.
+
+The interactions inside the Logic Component for `budget <amt> 300 <month> 11-2019 <met> cash` Command are shown in the sequence diagram below.
+
+_{Please refer to sequence diagram link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/images/BudgetLogicSequenceDiagram.png[here].}_
+
+The interactions in the Model Component for the same command are shown in the sequence diagram below.
+
+image::BudgetModelSequenceDiagram.png[]
+
+The budget is added to the list of budgets (this being the first budget in the list). The list of budgets will update with the status of each budget.
+
+Modulo will change the view after a `budget` command to show the list of budgets stored in Modulo.
+
+[NOTE]
+If the exact same budget already exists in the budget list, it will not call `Model#addBudget(b)`, and this budget will not be added to the list of budgets. Modulo will show an error message that this budget already exists.
+
+*Step 3.* The user now decides to add another entry of spending. This time the user has recently spent 400 dollars on a Nintendo Switch and paid for it using cash. He enters this record with the `spend <amt> 400 <item> Nintendo Switch <met> Cash <day> 7-11-2019` command. This entry is added to the list of entries.
+
+Since this entry is paid using cash, transaction date was in November 2019 it is included in the tabulation of the budget. It causes the total amount spent to exceed the budget of 300 dollars, and a red label in the menu bar appears to notify the user that a budget has exceeded.
+
+*Step 4.* The user views the list of budgets (in this example, there is only one budget) using the `listb` command.
+
+The window changes to a view of the budget, with information about its status shown.
+
+These information include:
+
+* Type of budget (for all `Spend` entries, for entries done using a specific transaction method, conducted at a specific place or tagged with a specific category)
+* Start and end date of budget
+* Progress bar of how much money has been spent (for entries fulfilling budget requirements)
+* Whether the budget is active (current date falls between start and end dates) or not (end date of budget has passed or start date has yet to come)
+* Total amount spend so far
+* Limit set by budget
+* Amount of money left to limit or how much has the budget been exceeded by
+
+The flow on how what happens when the user enters a new entry is shown in the activity diagram below.
+
+_{Please refer to activity diagram link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/images/AddNewEntryActivityDiagram.png[here].}_
+
+==== Design Considerations
+
+===== Aspect: Data structure to support tabulation of spendings
+
+* **Alternative 1 (current choice):** Save just the basic details related to the budget - amount (limit to amount to be spent), start and end date, optional requirements `Spend` entries should fufill (transaction method, place of spending or category).
+** Pros: Less information to store, flexible to changes such as updates to entries during edits (e.g. changes in amounts etc). Budgets can be retrospective (even if dates have past, budgets can still be set to see spending was kept within limits).
+** Cons: Additional step of filtering to obtain entries matching budget requirements before tabulating the total amount - may have performance issues when number of entries is large in terms of time complexity.
+* **Alternative 2:** Budget stores the same information as above, and also the list of entries that fulfill the budget requirements.
+** Pros: Removes the need for filtering entries before tabulation, simply calculate total amount from list of entries stored under the budget.
+** Cons: Will use more memory (now storing the list of entries). Difficult when an entry is delete or modified, have to delete and modify entry accordingly in the list of entries stored under the budget.
 
 === User Stories
+
+For more user stories related to financial management, please refer to the link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/DeveloperGuide.adoc#user-stories[Developer Guide].
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -91,12 +161,67 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | cash-strapped student | set a budget for the month | limit my spending
 
-|`*` |student who often lends money to people | keep track of the people who have not returned my money | chase after them for their unpaid debt or refuse to lend to people who consistently borrow but don't return
-
-|`*` |student who prefers graphical representation to numbers | see plots and charts summarising my finances over time and in different categories | understand the overall status of my finances at a glance and see the trends and changes in my spending habit
 |=======================================================================
 
 === Use Cases
 
-include::../DeveloperGuide.adoc[tag=financeMSS]
+For more use cases, please refer to the link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/DeveloperGuide.adoc#use-cases[Developer Guide].
 
+[discrete]
+=== Use case: Record down an entry of borrowing to finance log
+Preconditions: User has switched to the _finance_ feature
+
+*MSS*
+
+1.  User enters details of money borrowed.
+2.  User requests to add a Borrow entry.
+3.  Modulo adds Borrow entry and displays it in list of log entries.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Modulo detects an error in command/details entered.
+[none]
+** 2a1. Modulo shows an error message.
+** 2a2. Modulo requests for command to be entered in the correct format.
+** 2a3. User enters new line of command with new details.
+* Steps 2a1-2a3 are repeated until the command and details entered are in the correct format.
+* Use case resumes from step 3.
+
+[discrete]
+=== Use case: Record down an entry of borrowing to finance log
+Preconditions: User has switched to the _finance_ feature, a budget exists in finance log
+
+*MSS*
+
+1.  User enters details of money spend.
+2.  User requests to add a Spend entry.
+3.  Modulo adds Spend entry and displays it in list of log entries.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Modulo detects an error in command/details entered.
+[none]
+** 2a1. Modulo shows an error message.
+** 2a2. Modulo requests for command to be entered in the correct format.
+** 2a3. User enters new line of command with new details.
+* Steps 2a1-2a3 are repeated until the command and details entered are in the correct format.
+* Use case resumes from step 3.
+
+[none]
+* 3a. Spend entry is included under budget and budget is exceeded (i.e. limit set by budget is crossed).
+[none]
+** 3a1. Modulo notifies that budget has been exceeded.
+** 3a2. Exceeded budget is marked as so.
+* Use case ends.
+
+[none]
+* 3b. Spend entry is included under budget and budget is close to being exceeded.
+[none]
+** 3b1. Modulo notifies that budget is close to exceeding.
+* Use case ends.

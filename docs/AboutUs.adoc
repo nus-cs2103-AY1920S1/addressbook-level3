@@ -18,7 +18,7 @@ Tutor: Kyler Wong
 
 === Joanna Sara Susan Purba
 image::joannasara.png[width="150", align="left"]
-{empty}About: [https://github.com/joannasara[Github]] [<<johndoe#, portfolio>>]
+{empty}About: [https://github.com/joannasara[Github]] [<<joannasara#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Calendar
@@ -27,7 +27,7 @@ Responsibilities: Calendar
 
 === Tuan Ding Wei
 image::tuandingwei.png[width="150", align="left"]
-{empty}About: [https://github.com/tuandingwei[Github]] [<<johndoe#, portfolio>>]
+{empty}About: [https://github.com/tuandingwei[Github]] [<<tuandingwei#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Modules
@@ -45,7 +45,7 @@ Responsibilities: Quizzes
 
 === Jasmine Toh
 image::tohcejasmine.png[width="150", align="left"]
-{empty}About: [https://github.com/tohcejasmine[Github]] [<<johndoe#, portfolio>>]
+{empty}About: [https://github.com/tohcejasmine[Github]] [<<tohcejasmine#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Finance
