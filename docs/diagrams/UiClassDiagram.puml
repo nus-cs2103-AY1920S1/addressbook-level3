@@ -11,21 +11,16 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class EntryListPanel
-Class BudgetPanel
-Class WishListPanel
-Class ReminderPanel
-Class EntryCard
+Class ExpenseListPanel
+Class IncomeListPanel
+Class XYZPanel
 Class ExpenseCard
 Class IncomeCard
-Class BudgetCard
-Class WishListCard
-Class ExpenseReminderCard
-Class WishReminderCard
+Class XYZCard
 Class StatusBarFooter
 Class CommandBox
 Class FontName
-Class FontManager
+Class Theme
 }
 
 package Model <<Rectangle>> {
@@ -44,64 +39,60 @@ UiManager --> MainWindow
 MainWindow --> HelpWindow
 MainWindow *--> CommandBox
 MainWindow *--> ResultDisplay
-MainWindow *--> EntryListPanel
-MainWindow --> WishListPanel
-MainWindow --> BudgetPanel
-MainWindow --> ReminderPanel
+MainWindow *--> ExpenseListPanel
+MainWindow *--> IncomeListPanel
+MainWindow --> XYZPanel
 MainWindow *--> StatusBarFooter
-MainWindow --> FontManager
-MainWindow ..> FontName
+MainWindow *--> FontName
+MainWindow *--> Theme
 
-EntryListPanel -up-> EntryCard
+ExpenseListPanel --> ExpenseCard
 
-EntryListPanel -right-> ExpenseCard
+IncomeListPanel --> IncomeCard
 
-EntryListPanel -down-> IncomeCard
+XYZPanel --> XYZCard
 
-WishListPanel --> WishListCard
-
-BudgetPanel --> BudgetCard
-
-ReminderPanel --> ExpenseReminderCard
-
-ReminderPanel --> WishReminderCard
-
-FontManager --> FontName
-
-MainWindow --|> UiPart
+MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-EntryListPanel --|> UiPart
-WishListPanel --|> UiPart
-BudgetPanel --|> UiPart
-ReminderPanel --|> UiPart
-EntryCard --|> UiPart
-WishListCard --|> UiPart
-BudgetCard --|> UiPart
-ExpenseReminderCard --|> UiPart
-WishReminderCard --|> UiPart
+ExpenseListPanel --|> UiPart
+IncomeListPanel --|> UiPart
+XYZPanel --|> UiPart
+XYZCard --|> UiPart
+ExpenseCard --|> UiPart
+IncomeCard --|> UiPart
 
 StatusBarFooter -down-|> UiPart
 HelpWindow -down-|> UiPart
 
-EntryCard .down.> Model
 ExpenseCard .down.> Model
 IncomeCard .down.> Model
-WishListCard .down.> Model
-BudgetCard .down.> Model
-ExpenseReminderCard .down.> Model
-WishReminderCard .down.> Model
+XYZCard .down.> Model
 
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-EntryListPanel -[hidden]left- HelpWindow
-EntryListPanel -[hidden]left- ReminderPanel
+HelpWindow -[hidden]right- ExpenseListPanel
+ExpenseListPanel -[hidden]right- IncomeListPanel
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
-StatusBarFooter -[hidden]left- FontManager
+StatusBarFooter -[hidden]left- FontName
+FontName -[hidden]left- Theme
 
 MainWindow -[hidden]-|> UiPart
+
+note right of XYZPanel: XYZPanel refers to\n\
+BudgetPanel,\n\
+WishListPanel,\n\
+AutoExpensesPanel,\n\
+ReminderPanel\n\
+
+note right of XYZCard: XYZCard refers to\n\
+BudgetCard,\n\
+WishListCard,\n\
+AutoExpensesCard\n\
+ReminderCard\n\
+
 @enduml
