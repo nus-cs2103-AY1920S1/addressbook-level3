@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor #000000
+skinparam classBackgroundColor LOGIC_COLOR
+
+package EventsCenter #bcdfe3 {
+Class ScheduledExecutorService #5f9ca3
+}
+
+package Logic LOGIC_COLOR_T1{
+package Command {
+Class "{abstract}\nCommand" as Command
+Class NotifCommand
+Class AddCommand
+Class UpdateCommand
+}
+
+package Parser {
+Interface UpdateEntityDescriptor <<Interface>>
+Class UpdateCommandDescriptor
+}
+
+}
+
+package UI UI_COLOR_T1{
+Class NotifWindow UI_COLOR
+}
+
+package Model MODEL_COLOR_T1 {
+Class Notif MODEL_COLOR
+Class Body MODEL_COLOR
+}
+
+package Storage STORAGE_COLOR_T1 {
+Interface Storage <<Interface>> STORAGE_COLOR
+Interface UserPrefsStorage <<Interface>> STORAGE_COLOR
+Interface AddressBookStorage <<Interface>> STORAGE_COLOR
+Class StorageManager STORAGE_COLOR
+Class JsonUserPrefsStorage STORAGE_COLOR
+Class JsonAddressBookStorage STORAGE_COLOR
+}
+
+
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+StorageManager .up.|> Storage
+JsonAddressBookStorage .up.|> AddressBookStorage
+
+StorageManager -right-> JsonUserPrefsStorage
+StorageManager -left-> JsonAddressBookStorage
+
+AddCommand -up-|> Command
+NotifCommand -up-|> Command
+UpdateCommand -up-|> Command
+
+UpdateCommandDescriptor .left.|> UpdateEntityDescriptor
+UpdateCommandDescriptor o--> Body
+
+NotifCommand .right.> UpdateCommand :creates >
+NotifCommand -right-> Notif
+NotifCommand ..> NotifWindow :creates >
+NotifCommand ..> UpdateCommandDescriptor :creates >
+NotifCommand -up-> StorageManager
+NotifCommand -down-> ScheduledExecutorService :creates >
+
+
+AddCommand -right-> NotifCommand :creates >
+AddCommand --> Notif :creates >
+AddCommand --> Body
+
+Notif -right-> Body
+
+UpdateCommand --> UpdateCommandDescriptor
+
+@enduml
