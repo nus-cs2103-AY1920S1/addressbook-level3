@@ -3,8 +3,6 @@
 
 box UI UI_COLOR_T1
 participant ":MainWindow" as MainWindow UI_COLOR
-participant ":UserViewUpdate" as UserViewUpdate UI_COLOR
-participant ":UserViewMain" as UserViewMain UI_COLOR
 participant ":UserViewNavigator" as UserViewNavigator UI_COLOR
 participant ":UserViewController" as UserViewController UI_COLOR
 participant "taskStatsView : TaskStatisticsView" as TaskStatisticsView UI_COLOR
@@ -29,13 +27,9 @@ end box
 [-> MainWindow : executeCommand(task-stats)
 activate MainWindow
 
-MainWindow -> UserViewUpdate : parseUserCommand(task-stats)
-activate UserViewUpdate
+ref over MainWindow: UI process from MainWindow to UserView Update,\nUser View Main, then UserViewNavigator
 
-UserViewUpdate -> UserViewMain : loadTaskStats()
-activate UserViewMain
-
-UserViewMain -> UserViewNavigator : loadTaskStats(logic)
+MainWindow -> UserViewNavigator : loadTaskStats(logic)
 activate UserViewNavigator
 
 UserViewNavigator -> Logic : getStatistics()
@@ -87,14 +81,8 @@ activate UserViewController
 UserViewController --> UserViewNavigator
 deactivate UserViewController
 
-UserViewNavigator --> UserViewMain
+UserViewNavigator --> MainWindow
 deactivate UserViewNavigator
-
-UserViewMain --> UserViewUpdate
-deactivate UserViewMain
-
-UserViewUpdate --> MainWindow
-deactivate UserViewUpdate
 
 [<--MainWindow
 deactivate MainWindow
