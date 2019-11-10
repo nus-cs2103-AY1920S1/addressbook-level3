@@ -17,7 +17,7 @@
 <?import javafx.scene.control.Label?>
 <fx:root minHeight="600" minWidth="700.0" onCloseRequest="#handleExit" title="iFridge" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/i_fridge_icon.png" />
   </icons>
   <scene>
     <Scene>

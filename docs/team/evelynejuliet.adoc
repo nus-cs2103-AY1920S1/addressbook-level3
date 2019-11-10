@@ -53,7 +53,7 @@ be visible and easily understandable by the users.
 //*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Updated Acknowledge in README.adoc and Website Heading (Pull Request https://github.com/AY1920S1-CS2103-F10-2/main/pull/8[#8])
+*** Updated Acknowledgement in README.adoc and Website Heading (Pull Request https://github.com/AY1920S1-CS2103-F10-2/main/pull/8[#8])
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/evelynejuliet/ped/issues/16[1], https://github.com/evelynejuliet/ped/issues/7[2], https://github.com/evelynejuliet/ped/issues/2[3])
 ** Tools:
