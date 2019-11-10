@@ -513,6 +513,65 @@ HistoryManager and VersionedAddressBook.
 Violates Single Responsibility Principle and Separation of Concerns as HistoryManager now needs to do two different things.
 // end::undoredo[]
 
+// tag::eligibility[]
+=== Eligibility Feature
+==== Implementation
+
+Eligibility was implemented as part of the overall search feature. It comprises the following two separate but related
+functionalities: searching for eligible policies given a person and searching for eligible people given a policy. These
+features can be accessed by the user from the `eligiblepolicies` and `eligiblepeople` commands respectively. The feature
+is supported by the `Person`, `Policy` and `Tag`, `StartAge` and `EndAge` classes from the model component. The
+eligibility functionality is supported by the following main operations:
+
+* `Policy#isEligible(Person person)` -- Checks if a person is eligible for the policy the method is called from
+* `Policy#isEligibleAge(int age)` -- Checks if an age is eligible for the policy the method is called from
+* `Person#getTags()` -- Returns a `Set<Tag>` of all the tags a person possesses
+* `Tag#equals(Object other)` -- Checks if a tag is equal to another object
+
+The following is a class diagram illustrating the relationship between the classes involved in determining eligibility:
+
+image::EligibilityClassDiagram.png[]
+
+Given below is an example usage scenario of `eligiblepeople` and how the eligibility mechanism works at each step. The
+eligibility mechanism for `eligiblepolicies` is similar.
+
+Step 1. The user enters the `eligiblepeople` command with a valid policy index (e.g. `eligiblepeople 1`) to display the
+list of people eligible for the policy, resulting in the `EligiblePeopleCommand#execute()` command being called.
+
+Step 2. A `PersonEligibleForPolicy` predicate is created from the specified policy and passed into the
+`model#updateFilteredPersonList` command.
+
+Step 3. The `FilteredList` object entitled 'filteredList' is then updated through testing of each person with
+`PersonEligibleForPolicyPredicate#test(Person person)`.
+
+- For each iteration, the `Policy#isEligible(Person person)` method is called, which checks if the person
+possesses all the policy's criteria in its tags (from `Person#getTags()`) and that his or her age (calculated from his
+date of birth), lies between the policy's start and end age.
+- If both of these conditions are met, the item passes the predicate and remains on the filtered list; otherwise it is
+removed.
+
+Step 4. The `EligiblePeopleCommand#execute()` method returns a `CommandResult` with the `listPeople` attribute set as true.
+
+Following is the sequence diagram that illustrates the above process:
+
+image::EligibilitySequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Format to store criteria
+
+* **Alternative 1 (current choice):** Store each criteria as a `Tag` object
+** Pros: Since criteria are stored as tags, checking to see if a person's tag and a policy's criterion match is extremely
+simple, utilizing the `Tag#equals(Other object)` method. Repetition of code can therefore be avoided.
+** Cons: Future developers unaware of this design choice may be confused by the method of checking eligibility.
+
+* **Alternative 2:** Create a separate `Criteria` class for criteria
+** Pros: Separation of concerns and Single Responsibility Principle for `Tag` and `Criteria` is maintained.
+** Cons: An equivalence function will need to be written to compare `Tag` and `Criteria` objects, which is unnecessary
+code to be written and maintained. Increases coupling between `Tag` and `Criteria`, changing the format of one will
+inevitably need to be reflected in the other. Failing to do so would introduce bugs.
+// end::eligibility[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
