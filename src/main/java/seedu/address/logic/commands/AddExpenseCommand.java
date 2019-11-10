@@ -54,7 +54,6 @@ public class AddExpenseCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         ViewState viewState = model.getViewState();
-        Budget lastViewedBudget = model.getLastViewedBudget();
 
         if (model.hasExpense(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
@@ -69,6 +68,7 @@ public class AddExpenseCommand extends Command {
             return new CommandResult(null, model.getFilteredBudgetList(), null,
                 String.format(MESSAGE_SUCCESS, toAdd));
         } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
+            Budget lastViewedBudget = model.getLastViewedBudget();
             return new CommandResult(model.getExpenseListFromBudget(lastViewedBudget), null, lastViewedBudget,
                 String.format(MESSAGE_SUCCESS, toAdd));
         } else {
