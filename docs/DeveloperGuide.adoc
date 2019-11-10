@@ -968,7 +968,14 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Creating an incident report
 
-.
+. Attempting to execute `new` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `new` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+.. Test case: `new dist/1 auto/y` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
 === Filling an incident report
 
 . Attempting to execute `fill` without logging in.
