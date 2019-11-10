@@ -452,7 +452,7 @@ The following sequence diagram shows how the making of a withdrawal works:
 
 ADD SEQUENCE DIAGRAM HERE
 
-The following activity diagram summarises what happens when a user executes a `WithdrawCommand`:
+The following activity diagram summarises what happens when a user wishes to withdraw $10 from his savings account:
 
 ADD ACTIVITY DIAGRAM HERE.
 
@@ -507,6 +507,29 @@ did not intend to implement new ones just for the withdrawal.
 
 |===
 
+==== Viewing only the savings/withdrawals made by the user.
+
+Upon the request of the user to display only the savings he/she makes using, for example, `show savings`, a
+`ShowCommand` object is created. It is then executed in the application's `Logic`, and this returns
+a `CommandResult` which is instantiated with two booleans: `showSavingsOnly` and `showWithdrawalsOnly`.
+
+Within the `MainWindow` class of the application, these booleans are checked upon the calling of `mainWindow#executeCommand(commandText)`.
+In the example of the `show savings` input by the user, `showSavingsOnly` will be `true` and `showWithdrawalsOnly` will be `false`.
+
+This leads to the call to `ReadOnlySavingsHistory#getSavingsOnly()` method within the `ReadOnlySavingsHistory` class. This call
+returns an unmodifiable list of savings made by the user thus far.
+
+Finally, the savings history panel in the `MainWindow` class is updated with this unmodifiable list. The result
+is that the user will see only his savings being displayed within the application's savings history panel.
+
+The following sequence diagram shows how the displaying of only savings/withdrawals works:
+
+ADD SEQUENCE DIAGRAM HERE
+
+The following activity diagram summarises what happens when a user requests to only view his savings:
+
+ADD ACTIVITY DIAGRAM HERE.
+
 //end::savings[]
 
 //tag::budgeting[]
@@ -554,7 +577,7 @@ The budget duration is correspondingly updated based on the difference between t
 [NOTE]
 Due to development constraints, we have decided to only update the budget duration every time the application is started up instead of constantly monitoring the actual time to update this property.
 
-==== Design considerations for Budget-related models
+===== Design considerations
 
 Below are some design considerations when implementing Budget-related models.
 
