@@ -92,7 +92,7 @@ public class CommandBox extends UiPart<Region> {
             case DOWN:
                 notifyObserversKeyPressed(event.getCode());
                 try {
-                    String textToPassWhenUpDownKeyPressed = receiveFromSender()[1];
+                    String textToPassWhenUpDownKeyPressed = receiveDataFromSender()[1];
                     notifyObserversToChange(event.getCode(), textToPassWhenUpDownKeyPressed);
                 } catch (NullPointerException e) {
                     logger.info("Suggested word list is empty, thus cannot receive anything from sender.");
@@ -101,7 +101,7 @@ public class CommandBox extends UiPart<Region> {
                 break;
             case SHIFT:
                 try {
-                    String textToDisplay = receiveFromSender()[0];
+                    String textToDisplay = receiveDataFromSender()[0];
                     commandTextField.setText(textToDisplay);
                     // Notify observers to update based on textToBeDisplayed
                     notifyObserversKeyPressed(event.getCode());
@@ -143,7 +143,7 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-    private String[] receiveFromSender() {
+    private String[] receiveDataFromSender() {
         return dataSender.sendData();
     }
 }

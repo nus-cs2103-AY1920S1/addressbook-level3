@@ -17,7 +17,28 @@ public class AutoCompleteListHandler {
     }
 
     /**
+     * Generate final list to be set in autocomplete panel
+     *
+     * @param matchedWords Linkedlist of matched words
+     * @param segments Array of segments(splited by " ") of the full command in textfield
+     * @return An observable list of final suggested autocomplete words
+     */
+    public ObservableList<AutoCompleteWord> generateList(LinkedList<AutoCompleteWord> matchedWords, String[] segments) {
+        // Choose initial list
+        ObservableList<AutoCompleteWord> chosenList = chooseList(matchedWords);
+        // Filter list based on previous matched words
+        ObservableList<AutoCompleteWord> filteredList = filterList(matchedWords, chosenList);
+        // Update list based on userinput
+        ObservableList<AutoCompleteWord> updatedList = updateList(matchedWords, filteredList, segments);
+
+        return updatedList;
+    }
+
+    /**
      * Choose initial list to be suggested
+     *
+     * @param matchedAutoCompleteWords Linkedlist of matched words
+     * @return chosenList
      */
     public ObservableList<AutoCompleteWord> chooseList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords) {
         ObservableList<AutoCompleteWord> currentList;
@@ -51,14 +72,15 @@ public class AutoCompleteListHandler {
     /**
      * Update list of autocomplete words to be suggested according to current phrase in command box textfield
      *
-     * @param currentList       list to be updated
+     * @param matchedAutoCompleteWords Linkedlist of matched words
+     * @param currentList       List to be updated
      * @param segments          Array of segments of the full command in textfield
-     * @param firstSegmentParts Linkedlist of parts in first segment of segments array
      * @return updatedList
      */
     public ObservableList<AutoCompleteWord> updateList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords,
-                                                       ObservableList<AutoCompleteWord> currentList, String[] segments,
-                                                       LinkedList<String> firstSegmentParts) {
+                                                       ObservableList<AutoCompleteWord> currentList,
+                                                       String[] segments) {
+        LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(segments[0]);
         ObservableList<AutoCompleteWord> updatedList = FXCollections.observableArrayList();
 
         LinkedList<String> combinedList = new LinkedList<>(firstSegmentParts);

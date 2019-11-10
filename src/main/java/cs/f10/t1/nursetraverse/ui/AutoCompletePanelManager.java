@@ -16,7 +16,7 @@ import javafx.scene.input.KeyCode;
 
 /**
  * A manager class of AutoCompletePanel UI
- * This class was created to handle requests to update autocomplete panel
+ * This class was created to process and handle requests to update autocomplete panel
  */
 public class AutoCompletePanelManager implements UiObserver, DataSender {
     private AutoCompleteListHandler autoCompleteListHandler;
@@ -39,7 +39,7 @@ public class AutoCompletePanelManager implements UiObserver, DataSender {
     }
 
     public AutoCompleteWord getSelected() {
-        return autoCompletePanel.getAutoCompleteWordListView().getSelectionModel().getSelectedItem();
+        return autoCompletePanel.getSelected();
     }
 
     public void setSelected(int index) {
@@ -63,22 +63,14 @@ public class AutoCompletePanelManager implements UiObserver, DataSender {
      * @param currentPhraseInCommandBox current String in command
      */
     public void updateListView(String currentPhraseInCommandBox) {
+        // Pre-parse userinput before passing to list handling methods
         String[] segments = UserinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
-        LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(segments[0]);
-        // Check and update matched words
-        matchedWordUpdater.updateMatchedWords(segments, firstSegmentParts);
-        // Choose initial list
-        ObservableList<AutoCompleteWord> chosenList = autoCompleteListHandler
-                .chooseList(matchedWordUpdater.getMatchedAutoCompleteWords());
-        // Filter list based on previous matched words
-        ObservableList<AutoCompleteWord> filteredList = autoCompleteListHandler
-                .filterList(matchedWordUpdater.getMatchedAutoCompleteWords(), chosenList);
-        // Update list based on userinput
-        ObservableList<AutoCompleteWord> updatedList = autoCompleteListHandler
-                .updateList(matchedWordUpdater.getMatchedAutoCompleteWords(),
-                        filteredList, segments, firstSegmentParts);
 
-        autoCompletePanel.updateListView(updatedList);
+        // Check and update matched words
+        LinkedList<AutoCompleteWord> matchedWords = matchedWordUpdater.findMatchedWords(segments);
+
+        // Generate list using autoCompleteListHandler and and set list in autoCompletePanel
+        autoCompletePanel.setList(autoCompleteListHandler.generateList(matchedWords, segments));
     }
 
     @Override

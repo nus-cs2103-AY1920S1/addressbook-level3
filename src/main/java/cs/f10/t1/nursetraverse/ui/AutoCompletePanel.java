@@ -41,9 +41,13 @@ public class AutoCompletePanel extends UiPart<Region> {
      *
      * @param updatedList new list to be set in autocomplete panel
      */
-    public void updateListView(ObservableList<AutoCompleteWord> updatedList) {
+    public void setList(ObservableList<AutoCompleteWord> updatedList) {
         autoCompleteWordListView.setItems(updatedList);
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
+    }
+
+    public AutoCompleteWord getSelected() {
+        return autoCompleteWordListView.getSelectionModel().getSelectedItem();
     }
 
     public ListView<AutoCompleteWord> getAutoCompleteWordListView() {

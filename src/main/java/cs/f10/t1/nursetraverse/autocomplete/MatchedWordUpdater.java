@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * Update current matching words based on string in command box text field
  */
 public class MatchedWordUpdater {
-    private LinkedList<AutoCompleteWord> matchedAutoCompleteWords;
+    private LinkedList<AutoCompleteWord> matchedAutoCompleteWords = new LinkedList<>();
     private AutoCompleteWordStorage autoCompleteWordStorage;
     private AutoCompleteListHandler autoCompleteListHandler;
 
@@ -14,19 +14,19 @@ public class MatchedWordUpdater {
                               AutoCompleteListHandler autoCompleteListHandler) {
         this.autoCompleteWordStorage = autoCompleteWordStorage;
         this.autoCompleteListHandler = autoCompleteListHandler;
-        this.matchedAutoCompleteWords = new LinkedList<>();
     }
 
     /**
-     * Update matchedAutoCompleteWords list given userinput
+     * Match userinputs with sets of default list to check for correctness
      *
      * @param segments segments of the userinputs splited by " "
-     * @param firstSegmentParts parts of the first segment of userinput
+     * @return A linked list of matched words
      */
-    public void updateMatchedWords(String[] segments, LinkedList<String> firstSegmentParts) {
+    public LinkedList<AutoCompleteWord> findMatchedWords(String[] segments) {
         // segments[0] -> object-command format
         // segments[1] -> either prefix or index
         // segments[2] onwards -> prefix
+        LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(segments[0]);
         matchedAutoCompleteWords.clear();
 
         boolean isCorrectFirstSegment = matchFirstSegment(firstSegmentParts);
@@ -40,6 +40,8 @@ public class MatchedWordUpdater {
                 matchRestOfSegment(segments);
             }
         }
+
+        return matchedAutoCompleteWords;
     }
 
     /**
@@ -135,9 +137,5 @@ public class MatchedWordUpdater {
                     .append(autoCompleteWord.getConnectorChar());
         }
         return combinedMatchedWords.toString();
-    }
-
-    public LinkedList<AutoCompleteWord> getMatchedAutoCompleteWords() {
-        return matchedAutoCompleteWords;
     }
 }
