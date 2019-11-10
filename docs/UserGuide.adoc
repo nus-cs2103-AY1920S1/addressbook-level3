@@ -366,6 +366,8 @@ Format:
 * Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers"
 * Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error.
 * For `FROM_ONLINE` and `HAS_WATCHED`, only `yes`, `true`, `no` and `false` would be accepted.
+* For `[o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered.
+e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv"
 * When searching based on actor, only shows from the watchlist will be searched.
 * When searching based on genre online, only movies will be searched.
 ****

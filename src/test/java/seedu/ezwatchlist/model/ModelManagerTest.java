@@ -148,7 +148,7 @@ public class ModelManagerTest {
         modelManager.addShow(show);
         List<Show> showList = new ArrayList<>();
         showList.add(show);
-        assertEquals(modelManager.getShowIfHasName(show.getName()), showList);
+        assertEquals(modelManager.getShowFromWatchlistIfHasName(show.getName()), showList);
     }
 
     @Test
@@ -163,7 +163,7 @@ public class ModelManagerTest {
         modelManager.addShow(show);
         List<Show> showList = new ArrayList<>();
         showList.add(show);
-        assertEquals(modelManager.getShowIfHasActor(show.getActors()), showList);
+        assertEquals(modelManager.getShowFromWatchlistIfHasActor(show.getActors()), showList);
     }
     @Test
     public void getShowIfIsGenreTest() {
@@ -171,7 +171,7 @@ public class ModelManagerTest {
         modelManager.addShow(show);
         List<Show> showList = new ArrayList<>();
         showList.add(show);
-        assertEquals(modelManager.getShowIfIsGenre(show.getGenres()), new ArrayList<>());
+        assertEquals(modelManager.getShowFromWatchlistIfIsGenre(show.getGenres()), new ArrayList<>());
     }
 
     @Test

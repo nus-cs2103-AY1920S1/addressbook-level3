@@ -13,7 +13,7 @@ import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.show.UniqueShowList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the EzWatchlist level
  * Duplicates are not allowed (by .isSameShow comparison)
  */
 public class WatchList implements ReadOnlyWatchList {

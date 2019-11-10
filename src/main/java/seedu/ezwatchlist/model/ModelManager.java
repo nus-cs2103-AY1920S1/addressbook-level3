@@ -122,7 +122,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Show> getShowIfHasName(Name showName) {
+    public List<Show> getShowFromWatchlistIfHasName(Name showName) {
         requireNonNull(showName);
         return watchList.getShowIfHasName(showName);
     }
@@ -134,13 +134,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
+    public List<Show> getShowFromWatchlistIfHasActor(Set<Actor> actorSet) {
         requireNonNull(actorSet);
         return watchList.getShowIfHasActor(actorSet);
     }
 
     @Override
-    public List<Show> getShowIfIsGenre(Set<Genre> genreSet) {
+    public List<Show> getShowFromWatchlistIfIsGenre(Set<Genre> genreSet) {
         requireNonNull(genreSet);
         return watchList.getShowIfIsGenre(genreSet);
     }
@@ -248,6 +248,24 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyWatchList getDatabase() {
         return database;
+    }
+
+    @Override
+    public List<Show> getShowFromDatabaseIfHasName(Name showName) {
+        requireNonNull(showName);
+        return database.getShowIfHasName(showName);
+    }
+
+    @Override
+    public List<Show> getShowFromDatabaseIfHasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        return database.getShowIfHasActor(actorSet);
+    }
+
+    @Override
+    public List<Show> getShowFromDatabaseIfIsGenre(Set<Genre> genreSet) {
+        requireNonNull(genreSet);
+        return database.getShowIfIsGenre(genreSet);
     }
 
     @Override
