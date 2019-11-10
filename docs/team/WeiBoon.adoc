@@ -71,7 +71,7 @@ not just during the office hours, but also to schedule errands or other preparat
 * *Highlights:* This enhancement works with existing as well as future commands. Some challenging portions include,
 ensuring there were no duplicate events created as well as implementing the recurring feature.
 
-=== Student Editing
+=== Event Editing
 
 * *What it does:* Users can edit events that are currently in their calendar.
 
@@ -109,7 +109,7 @@ taking the screenshot. This is a "best-effort" approach to capture as much detai
 
 === Event Export
 
-* *What it does:* Users can take export all their events into a ics file.
+* *What it does:* Users can export all their events into a ics file.
 
 * *Justification:* Teachers may want to view and manager their events in alternative applications such as Google Calendar or
 iCalendar. The ics file type is one of the most common and well recognised calendar file types, and thus allows users to easily import their
@@ -145,6 +145,7 @@ Please click these links to see a sample of my code.
 
 ==== View Event
 [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/event/EventViewCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/event/EventViewCommandTest.java[Test code]] _{Links to samples of my code.}_
+
 === Other contributions
 
 * Project management:
@@ -160,14 +161,6 @@ Please click these links to see a sample of my code.
 ** Made cosmetic tweaks to the existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/176[#176]
 
 ** Made relevant changes for the Developer Guide: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/188[#188]
-
-* Community:
-** Reviewed Pull Requests: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/191[#191],
-https://github.com/AY1920S1-CS2103T-W13-2/main/pull/184[#184], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/177[#177],
-https://github.com/AY1920S1-CS2103T-W13-2/main/pull/123[#123], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/119[#119],
-https://github.com/AY1920S1-CS2103T-W13-2/main/pull/99[#99], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/94[#94],
-https://github.com/AY1920S1-CS2103T-W13-2/main/pull/35[#35],
-
 
 == Contributions to the User Guide
 
@@ -197,14 +190,9 @@ have created. Also, some of the command hyperlinks will obviously not work becau
 
 *The following is the `EventRecord` class overview section of the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=1307..1316]
+include::../DeveloperGuide.adoc[lines=1297..1306]
 
 
 *The following is the delete `Event` section of the Developer Guide:*
 
 include::../DeveloperGuide.adoc[lines=1402..1421]
-
-
-*The following shows the index of `Event` section of the Developer Guide:*
-
-include::../DeveloperGuide.adoc[lines=1340..1378]
