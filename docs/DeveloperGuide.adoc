@@ -593,6 +593,63 @@ In Figure 4, User input search(online) command. User then input `add INDEX` comm
 *** Pros: Easy to implement and make use of.
 *** Cons: May have performance issues in terms of memory usage.
 
+// tag::sync[]
+=== [Feature] Synchronise user's show data
+
+The synchronise feature allows user to sync a show found in watchlist with online searched show data. It modifies all of the
+parameters/information is user selected show with online searched show data. +
+User may have added their show with their own information. However, user might not know some of the parameters such as actors.
+Thus, user can use the search online command `search n/` to look up information regarding that show. +
+Then, Synchronise command `sync` can be used to update information/modify on that show.
+
+==== Implementation
+
+The Synchronise feature is facilitated by `SyncCommand` object which can be found under the commands package.
+It extends `Command` and uses the `SyncCommandParser` to process the command entered by the user.
+
+Given below is an example usage scenario and how the Synchronise command work as Sync mechanism works at each step.
+
+Pre-Condition: User has already added a certain show into watchlist manually. That show must have at least `name` and `type` parameters.
+Example of Pre-Condition: User has added Titanic movie into watchlist.
+
+Step 1. The user launches the application, go to Search page and execute `search n/titanic`.
+
+Step 2. The user execute `sync 1` command to synchronise index 1 of result page with a show in watchlist with same name (case-insensitive).
+
+Step 3. Entering the command calls `SyncCommandParser#parseCommand()`, which in turn returns a new `SyncCommandParser` and the `SyncCommandParser#parse()` command is called.
+
+Step 4. A new `SyncCommand` is created, with the index of the show being parsed as a field of the `SyncCommand`.
+
+Step 5. The `SyncCommand#execute()` method is called, referencing the current `model`, and the show that is in the current `FilteredShowList` is referenced based off the current `model`.
+
+[NOTE]
+If the `index` is out of bounds, a new `CommandException` is thrown.
+
+Step 6. A list of shows found in search page and watchlist are retrieved from `model`. The show according to the Index of the `searchpagelist` are retrieved as well.
+Then, the list of show in watchlist will be checked through to match the name of the index show.
+
+Step 7. If a show in watchlist matched with the name of the index show, `model.setShow` will be called to replace the show found in watchlist with index show.
+`CommandResult` will be return which contains information regarding the feedback result. Else, `CommandException` is thrown to notify user no similar show name is found in watchlist as index show.
+
+The following sequence diagram shows how the sync operation works:
+
+image::SyncSequenceDiagram.png[]
+
+The following activity diagram summarises the workflow of Sync:
+
+image::SyncActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Creating a new Synchronise instead of an altered EditCommand and AddCommand
+
+* **Alternative 1 (current choice):** Creating a new Synchronise class for replace information of a certain show found in search page with one in watchlist.
+** Pros: Enables for greater cohesion since there is a specific command for replacing/modifying information of a show in watchlist.
+** Cons: Requires longer code, and the code is also repetitive since its implementation is similar to that of the add and edit command
+* **Alternative 2:** Use the SyncCommandParser to create a new EditCommand object that edits the information of a certain show found in search page with one in watchlist.
+** Pros: Less code repetition and shorter code in general.
+** Cons: This will mean that there is less cohesion of the code and perhaps greater dependencies since more classes depend on the EditCommand class.
+// end::sync[]
 
 == Documentation
 
@@ -747,6 +804,7 @@ Use case ends.
 * 2a. The given index is invalid.
 [none]
 ** 2a1. System shows an error message.
+image::CommitActivityDiagram.png[]
 +
 Use case ends.
 
