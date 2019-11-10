@@ -51,4 +51,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_SCHEDULE_VIEW_MODE = "Invalid schedule view mode."
             + " Please input weekly or daily only";
     public static final String MESSAGE_INVALID_DATE = "Invalid date format passed. Should be of format YYYY-MM-DD";
+    public static final String MESSAGE_EVENT_NAME_BACKSLASH = "Event name contains backslash.";
 }
