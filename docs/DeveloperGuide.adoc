@@ -340,14 +340,14 @@ In the code base, Persons represent user accounts. See person model for more inf
 
 // tag::incidentdraftcreation[]
 === Incident Draft Creation feature
-==== Proposed Implementation
+==== Implementation
 
 The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
 There are two ways to use the New Command:
 1. Auto dispatchment
 2. Manual dispatchment, which requires user to provide a valid index that selects a vehicle
 
-=== Automatic Vehicle Dispatchment:
+==== Automatic Vehicle Dispatchment:
 
 Vehicle will be automatically assigned to the incident draft if any is available in the district. If no vehicle is available, an exception will be thrown.
 
@@ -355,7 +355,7 @@ Below is a sequence diagram of a successful case:
 
 image::NewDraftSequenceDiagramAuto.png[]
 
-=== Manual Vehicle Dispatchment:
+==== Manual Vehicle Dispatchment:
 
 User needs to key in the index of vehicle based on the list of available vehicle in given district to dispatch. Note that this list can only be obtained with the input `new dist/DISTRICT auto/N`, and not based on the list of vehicles currently displayed. If no index is provided, or the index is not valid, an exception will be thrown and user will be prompted to provide a valid index.
 
@@ -971,10 +971,38 @@ These instructions only provide a starting point for testers to work on; testers
 . Attempting to execute `new` without logging in.
 
 .. Prerequisites: User not logged in.
-.. Test case: `new` +
-   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
 .. Test case: `new dist/1 auto/y` +
    Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `new` with valid inputs and successful auto vehicle dispatchment
+
+.. Prerequisites: User must be logged in, and there must be at least one available vehicle in the given district.
+.. Test case: `new dist/1 auto/y` +
+    Expected: Message "New incident drafted!" with the newly drafted incident appears at the top of the incident pane. All vehicles in district 1 will be listed in the vehicle pane, and the vehicle dispatched will change it availability from "AVAILABLE" to "BUSY".
+
+. Executing `new` with no inputs for manual vehicle dispatchment
+
+.. Prerequisites: User must be logged in.
+.. Test case: `new dist/1 auto/n` +
+    Expected: User prompted to fill in index of vehicle to dispatch with message "Please include the index of the vehicle you would like to assign, with the district prefix! eg new l/1 auto/n v/1 Note that the index must be a positive integer!"
+
+. Executing `new` with valid inputs for manual vehicle dispatchment
+
+.. Prerequisites: User must be logged in.
+.. Test case: `new dist/1 auto/n v/1` +
+    Expected: Message "New incident drafted!" with the newly drafted incident appears at the top of the incident pane. All vehicles in district 1 will be listed in the vehicle pane, and the vehicle dispatched will change it availability from "AVAILABLE" to "BUSY".
+
+. Executing `new` with invalid inputs for manual vehicle dispatchment
+
+.. Prerequisites: User must be logged in.
+.. Test case: `new dist/1 auto/n v/1.2` +
+    Expected: Message "The index must be a positive integer!"
+
+. Executing `new` with no vehicle available for dispatchment.
+
+.. Prerequisites: User must be logged in, and no vehicle is available in the district.
+.. Test case: `new dist/28 auto/y` +
+    Expected: Message "No vehicle available in this district!", for both auto and manual dispatchment.
 
 === Filling an incident report
 
@@ -1054,3 +1082,46 @@ Message: "Listed all incident reports ready for submission".
 .. Prerequisites: User must be logged in.
 .. Test case: `submit 0`
    Expected: Message "Invalid command format!" is displayed along with command usage message.
+
+=== Finding vehicles
+
+. Attempting to execute `find-v` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `find-v dist/1` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `find-v` with a single district keyword.
+
+.. Prerequisites: User must be logged in, and there are vehicles in the district specified.
+.. Test case: `find-v dist/1` +
+    Expected: Message "3 vehicles listed!", and vehicles in the given district will be listed in the vehicle pane.
+
+. Executing `find-v` with multiple district keywords.
+.. Prerequisites: User must be logged in, and there are vehicles in the districts specified.
+.. Test case: `find-v dist/1 2 3` +
+    Expected: Message "10 vehicles listed!", and vehicles in the given districts will be listed in the vehicle pane.
+
+. Executing `find-v` with a single vehicle type keyword.
+.. Prerequisites: User must be logged in, the vehicle type must match exactly, and must be either "Ambulance" or "Patrol car", though case insensitive.
+.. Test case: `find-v vtype/ambuLANce` +
+    Expected: Message "15 vehicles listed!", and vehicles of `Ambulance` type will be listed in the vehicle pane.
+
+. Executing `find-v` with a single character/ number of a vehicle number as keyword.
+.. Prerequisites: User must be logged in, and there must be at least one vehicle with vehicle number containing this keyword.
+.. Test case: `find-v vnum/2` +
+    Expected: Message "27 vehicles listed!", and vehicles with vehicle numbers containing "2" will be listed in the vehicle pane.
+
+=== Listing vehicles
+
+. Attempting to execute `list-v` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `list-v` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `list-v`.
+
+.. Prerequisites: User must be logged in.
+.. Test case: `list-v` +
+    Expected: Message "Listed all vehicles", and all vehicles in database will be listed in the vehicle pane.
