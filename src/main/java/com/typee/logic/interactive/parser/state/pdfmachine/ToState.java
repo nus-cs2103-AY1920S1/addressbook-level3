@@ -1,6 +1,5 @@
 package com.typee.logic.interactive.parser.state.pdfmachine;
 
-import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_FROM;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_TO;
 import static java.util.Objects.requireNonNull;
 

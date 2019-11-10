@@ -19,8 +19,8 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 public class PdfIndexState extends State {
     private static final String MESSAGE_CONSTRAINTS = "Which engagement would you like to make a PDF of? Please enter "
             + "the index of the engagement prefixed by " + PREFIX_LIST_INDEX.getPrefix() + ". Example - [i/4]";
-    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter an index prefixed by " +
-            PREFIX_LIST_INDEX.getPrefix() + ". The index must be positive.";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter an index prefixed by "
+            + PREFIX_LIST_INDEX.getPrefix() + ". The index must be positive.";
 
     public PdfIndexState(ArgumentMultimap soFar) {
         super(soFar);
