@@ -38,6 +38,8 @@ import seedu.address.model.loan.LoanList;
  * Represents the in-memory model of the Library data.
  */
 public class ModelManager implements Model {
+
+    private static final String MESSAGE_LOAD_SUCCESS = "Data successfully loaded";
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
@@ -46,8 +48,9 @@ public class ModelManager implements Model {
     private final BorrowerRecords borrowerRecords;
     private final FilteredList<Book> filteredBooks;
     private final CommandHistory commandHistory;
-
     private Optional<Borrower> servingBorrower;
+
+    private String initLoadMessage;
 
     /**
      * Initializes a ModelManager with the given catalog, loan records, borrower records and userPrefs.
@@ -75,10 +78,23 @@ public class ModelManager implements Model {
         this.commandHistory = new CommandHistoryManager();
 
         this.servingBorrower = Optional.empty();
+
+        this.initLoadMessage = MESSAGE_LOAD_SUCCESS;
     }
 
     public ModelManager() {
         this(new Catalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
+    }
+
+    public ModelManager(ReadOnlyCatalog sampleCatalog, ReadOnlyLoanRecords initialLoanRecords,
+                        ReadOnlyBorrowerRecords sampleBorrowerRecords, ReadOnlyUserPrefs userPrefs, String message) {
+        this(sampleCatalog, initialLoanRecords, sampleBorrowerRecords, userPrefs);
+        this.initLoadMessage = message;
+    }
+
+    @Override
+    public String getLoadStatus() {
+        return initLoadMessage;
     }
 
     //=========== UserPrefs ==================================================================================

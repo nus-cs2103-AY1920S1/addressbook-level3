@@ -44,6 +44,12 @@ public class MainApp extends Application {
     public static final Version VERSION = new Version(1, 4, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final String MESSAGE_DATA_NOT_FOUND = "Data file not found. "
+        + "Will be starting with sample library records";
+    private static final String MESSAGE_DATA_INCORRECT_FORMAT = "Data file(s) not in the correct format. "
+        + "Will be starting with sample library records";
+    private static final String MESSAGE_PROBLEM_READING_FILE = "Problem while reading from file(s). "
+        + "Will be starting with sample library records";
 
     protected Ui ui;
     protected Logic logic;
@@ -64,10 +70,10 @@ public class MainApp extends Application {
         LoanRecordsStorage loanRecordsStorage = new JsonLoanRecordsStorage(userPrefs.getLoanRecordsFilePath());
         CatalogStorage catalogStorage = new JsonCatalogStorage(userPrefs.getCatalogFilePath());
         BorrowerRecordsStorage borrowerRecordsStorage =
-                new JsonBorrowerRecordsStorage(userPrefs.getBorrowerRecordsFilePath());
+            new JsonBorrowerRecordsStorage(userPrefs.getBorrowerRecordsFilePath());
 
         storage = new StorageManager(userPrefsStorage,
-                loanRecordsStorage, catalogStorage, borrowerRecordsStorage);
+            loanRecordsStorage, catalogStorage, borrowerRecordsStorage);
 
         initLogging(config);
 
@@ -81,7 +87,7 @@ public class MainApp extends Application {
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s catalog, borrower records, loan records
      * and {@code userPrefs}. <br>
-     *
+     * <p>
      * The data from the sample catalog will be used instead if {@code storage}'s catalog is not found,
      * or an empty catalog will be used instead if errors occur when reading {@code storage}'s catalog.
      */
@@ -97,36 +103,36 @@ public class MainApp extends Application {
         try {
             loanRecordsOptional = storage.readLoanRecords();
             if (loanRecordsOptional.isEmpty()) {
-                logger.info("Data file not found. Will be starting with sample library records");
-                return getSampleModelManager(userPrefs);
+                logger.info(MESSAGE_DATA_NOT_FOUND);
+                return getSampleModelManager(userPrefs, "");
             }
             initialLoanRecords = loanRecordsOptional.get();
             catalogOptional = storage.readCatalog(initialLoanRecords);
             borrowerRecordsOptional = storage.readBorrowerRecords(initialLoanRecords);
 
             if (catalogOptional.isEmpty() || borrowerRecordsOptional.isEmpty()) {
-                logger.info("Data file not found. Will be starting with sample library records");
-                return getSampleModelManager(userPrefs);
+                logger.info(MESSAGE_DATA_NOT_FOUND);
+                return getSampleModelManager(userPrefs, MESSAGE_DATA_NOT_FOUND);
             }
             initialCatalog = catalogOptional.get();
             initialBorrowerRecords = borrowerRecordsOptional.get();
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with sample library records");
-            return getSampleModelManager(userPrefs);
+            logger.warning(MESSAGE_DATA_INCORRECT_FORMAT);
+            return getSampleModelManager(userPrefs, MESSAGE_DATA_INCORRECT_FORMAT);
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with sample library records");
-            return getSampleModelManager(userPrefs);
+            logger.warning(MESSAGE_PROBLEM_READING_FILE);
+            return getSampleModelManager(userPrefs, MESSAGE_PROBLEM_READING_FILE);
         }
 
         return new ModelManager(initialCatalog, initialLoanRecords, initialBorrowerRecords, userPrefs);
     }
 
-    private Model getSampleModelManager(ReadOnlyUserPrefs userPrefs) {
+    private Model getSampleModelManager(ReadOnlyUserPrefs userPrefs, String message) {
         ReadOnlyLoanRecords initialLoanRecords = SampleDataUtil.getSampleLoanRecords();
         return new ModelManager(
             SampleDataUtil.getSampleCatalog(initialLoanRecords), initialLoanRecords,
-            SampleDataUtil.getSampleBorrowerRecords(initialLoanRecords), userPrefs);
+            SampleDataUtil.getSampleBorrowerRecords(initialLoanRecords), userPrefs, message);
     }
 
     private void initLogging(Config config) {
@@ -156,7 +162,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
+                + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -184,10 +190,10 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+                + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting default user prefs");
             initializedPrefs = new UserPrefs();
         }
 

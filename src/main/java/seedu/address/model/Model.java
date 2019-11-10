@@ -236,4 +236,9 @@ public interface Model {
      * Resets the command history.
      */
     void resetCommandHistory();
+
+    /**
+     * gets the initial load status message on start up
+     */
+    String getLoadStatus();
 }
