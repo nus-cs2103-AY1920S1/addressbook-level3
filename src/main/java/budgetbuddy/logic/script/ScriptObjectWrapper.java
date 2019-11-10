@@ -22,16 +22,28 @@ public class ScriptObjectWrapper {
 
     private final ScriptObjectMirror so;
 
-    public ScriptObjectWrapper(Object[] varargs) {
-        if (varargs != null && varargs.length > 0) {
-            Object obj = varargs[0];
-            if (obj instanceof ScriptObjectMirror) {
-                so = (ScriptObjectMirror) obj;
-                return;
+    private ScriptObjectWrapper(ScriptObjectMirror so) {
+        this.so = so;
+    }
+
+    /**
+     * Creates a {@link ScriptObjectWrapper} from the varargs array argument of a script helper function.
+     *
+     * @throws IllegalArgumentException if more than one object is in the array
+     */
+    public static ScriptObjectWrapper fromOptionalVarargs(Object[] varargs) {
+        if (varargs != null) {
+            if (varargs.length == 1) {
+                Object obj = varargs[0];
+                if (obj instanceof ScriptObjectMirror) {
+                    return new ScriptObjectWrapper((ScriptObjectMirror) obj);
+                }
+            } else if (varargs.length > 1) {
+                throw new IllegalArgumentException("Too many optional arguments provided to function");
             }
         }
 
-        so = null;
+        return new ScriptObjectWrapper(null);
     }
 
     /**
