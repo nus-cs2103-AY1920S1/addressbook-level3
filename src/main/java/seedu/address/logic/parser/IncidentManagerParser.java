@@ -69,6 +69,7 @@ public class IncidentManagerParser {
      */
     private void checkAccess(String commandWord) throws ParseException {
         // Guard Statement for available commands prior to login.
+        assert(commandWord != null);
         if (!isLoggedIn && !(commandWord.equals(LoginCommand.COMMAND_WORD)
                 || commandWord.equals(RegisterCommand.COMMAND_WORD)
                 || commandWord.equals(ExitCommand.COMMAND_WORD)
@@ -84,6 +85,7 @@ public class IncidentManagerParser {
      */
     private void checkInterface(String commandWord) throws ParseException {
         // Guard Statement for command suite corresponding to interface swaps.
+        assert(commandWord != null);
         if (!isPersonView && (commandWord.equals(RegisterCommand.COMMAND_WORD)
                 || commandWord.equals(UpdateCommand.COMMAND_WORD)
                 || commandWord.equals(DeleteCommand.COMMAND_WORD)
