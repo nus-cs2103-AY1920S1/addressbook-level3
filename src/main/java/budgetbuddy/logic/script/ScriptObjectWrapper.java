@@ -66,13 +66,17 @@ public class ScriptObjectWrapper {
         }
         Object a = so.get(key);
         if (a != null && a.getClass().isArray() && a.getClass().getComponentType().equals(clazz)) {
+            // the array is already a Java array, just return it
             return (A[]) a;
         } else if (a instanceof ScriptObjectMirror) {
+            // it's a JavaScript object
             ScriptObjectMirror som = (ScriptObjectMirror) a;
             if (som.isArray()) {
+                // it's a JavaScript array
                 int len = (int) som.get("length");
                 A[] ret = (A[]) Array.newInstance(clazz, len);
 
+                // manually take each element in the array and check its type
                 for (int i = 0; i < len; ++i) {
                     Object elem = som.getSlot(i);
                     if (elem == null) {
