@@ -12,6 +12,8 @@
 <?import javafx.stage.Stage?>
 
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <fx:root minHeight="600" minWidth="750" resizable="true" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/address_book_32.png" />
@@ -22,10 +24,14 @@
                 <URL value="@SMLTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
-            <HBox alignment="CENTER" minHeight="500" minWidth="650">
+            <HBox alignment="CENTER" minHeight="500" minWidth="650" HBox.hgrow="ALWAYS"  >
+                <GridPane HBox.hgrow="ALWAYS" >
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10" />
+                    </columnConstraints>
                 <children>
-                    <VBox alignment="CENTER" minHeight="500" minWidth="650" styleClass="cell_big_label">
-                        <LineChart fx:id="testChart"  styleClass="pane-with-border">
+                    <VBox alignment="CENTER"  styleClass="cell_big_label" VBox.vgrow="ALWAYS">
+                        <LineChart fx:id="testChart"  styleClass="pane-with-border" minHeight="500" minWidth="650"  >
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                             </xAxis>
@@ -33,7 +39,7 @@
                                 <NumberAxis fx:id="yAxis" side="LEFT" />
                             </yAxis>
                         </LineChart>
-                  <HBox alignment="CENTER" prefHeight="200.0" prefWidth="550">
+                  <HBox alignment="CENTER" >
                      <children>
                          <VBox>
                              <children>
@@ -53,7 +59,7 @@
                                  </HBox>
                                  <HBox alignment="CENTER">
                                      <Label fx:id="summaryLabel"/>
-                                     <Label fx:id="summaryValue"/>
+                                     <Label fx:id="summaryValue" wrapText="false" textOverrun="CLIP" />
                                      <padding>
                                          <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                                      </padding>
@@ -68,6 +74,7 @@
                 <padding>
                     <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                 </padding>
+                </GridPane>
             </HBox>
         </Scene>
     </scene>
