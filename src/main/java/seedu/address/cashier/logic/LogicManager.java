@@ -64,6 +64,14 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    public InventoryList getInventoryList() {
+        return model.getInventoryList();
+    }
+
+    public ArrayList<Item> getSalesList() {
+        return model.getSalesList();
+    }
+
     /**
      * Updates the inventory and transaction list from the data file.
      */
@@ -75,14 +83,6 @@ public class LogicManager implements Logic {
     @Override
     public void writeInInventoryFile() throws Exception {
         storage.writeToInventoryFile(model.getInventoryList());
-    }
-
-    public InventoryList getInventoryList() {
-        return model.getInventoryList();
-    }
-
-    public ArrayList<Item> getSalesList() {
-        return model.getSalesList();
     }
 
     @Override

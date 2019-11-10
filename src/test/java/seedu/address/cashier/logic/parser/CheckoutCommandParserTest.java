@@ -11,7 +11,6 @@ import static seedu.address.cashier.ui.CashierMessages.AMOUNT_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_AMOUNT;
 import static seedu.address.cashier.ui.CashierMessages.NO_CASHIER;
 import static seedu.address.testutil.TypicalItem.CHIPS;
-import static seedu.address.testutil.TypicalItem.FISH_BURGER;
 import static seedu.address.testutil.TypicalItem.STORYBOOK;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -52,13 +51,6 @@ public class CheckoutCommandParserTest {
                 new CheckoutCommand(0, VALID_PRICE_PAID), model,
                 (CheckAndGetPersonByNameModel) personModel);
 
-        // with sales item added
-        model.addItem(FISH_BURGER);
-        model.addItem(STORYBOOK);
-        double totalAmount = FISH_BURGER.getSubtotal() + STORYBOOK.getSubtotal();
-        assertCommandParserSuccess(parser, DESC_PRICE_PAID,
-                new CheckoutCommand(totalAmount, VALID_PRICE_PAID - totalAmount), model,
-                (CheckAndGetPersonByNameModel) personModel);
         model.clearSalesList();
     }
 

@@ -18,8 +18,6 @@ public class CommandParserTestUtil {
                                                   seedu.address.person.model.CheckAndGetPersonByNameModel personModel) {
         try {
             Command command = parser.parse(userInput, model, personModel);
-            System.out.println("expected: " + expectedCommand);
-            System.out.println("actual: " + command);
             assertEquals(expectedCommand, command);
         } catch (Exception pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
@@ -37,7 +35,6 @@ public class CommandParserTestUtil {
             parser.parse(userInput, model, personModel);
             throw new AssertionError("The expected exception was not thrown.");
         } catch (Exception e) {
-            System.out.println("actuasl: " + e.getMessage());
             assertEquals(expectedMessage, e.getMessage());
         }
     }

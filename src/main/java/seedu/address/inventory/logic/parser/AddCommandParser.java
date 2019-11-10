@@ -59,7 +59,7 @@ public class AddCommandParser {
 
             if (!isValidNumeric(String.valueOf(item.getTotalCost()))
                     || !isValidNumeric(String.valueOf(item.getSubtotal()))) {
-                throw new InvalidNumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
+                throw new InvalidNumberException(InventoryMessages.MESSAGE_TOTAL_TOO_LARGE);
             }
 
             AddCommand addCommand = null;
@@ -69,8 +69,13 @@ public class AddCommandParser {
                 }
                 int itemIndex = inventoryList.getIndex(description);
                 Item current = inventoryList.get(itemIndex);
-                current.setQuantity(current.getQuantity() + quantity);
+                int qty = current.getQuantity() + quantity;
+                double cst = (current.getTotalCost() + item.getTotalCost()) / qty;
+                current.setCost(cst);
+                current.setQuantity(qty);
                 current.setPrice(price);
+                current.updateSubtotal();
+                current.updateTotalCost();
                 addCommand = new AddCommand(current, true);
             } else {
                 addCommand = new AddCommand(item, false);
@@ -96,6 +101,10 @@ public class AddCommandParser {
             }
 
             int quantity = Integer.parseInt(quantityString);
+
+            if (quantity == 0) {
+                throw new InvalidNumberException(InventoryMessages.MESSAGE_QUANTITY_CANNOT_BE_ZERO);
+            }
             double cost = Double.parseDouble(costString);
             Item item = new Item(description, category, quantity, cost, index);
 
@@ -110,7 +119,11 @@ public class AddCommandParser {
                 }
                 int itemIndex = inventoryList.getIndex(description);
                 Item current = inventoryList.get(itemIndex);
-                current.setQuantity(current.getQuantity() + quantity);
+                int qty = current.getQuantity() + quantity;
+                double cst = (current.getTotalCost() + item.getTotalCost()) / qty;
+                current.setCost(cst);
+                current.setQuantity(qty);
+                current.updateTotalCost();
                 addCommand = new AddCommand(current, true);
             } else {
                 addCommand = new AddCommand(item, false);
@@ -129,7 +142,7 @@ public class AddCommandParser {
     private static boolean isValidNumeric(String strNum) throws InvalidNumberException {
         boolean isValid = false;
         try {
-            isValid = Double.parseDouble(strNum) > 0 && Double.parseDouble(strNum) < 10000;
+            isValid = Double.parseDouble(strNum) >= 0 && Double.parseDouble(strNum) < 10000;
         } catch (Exception e) {
             throw new InvalidNumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
         }

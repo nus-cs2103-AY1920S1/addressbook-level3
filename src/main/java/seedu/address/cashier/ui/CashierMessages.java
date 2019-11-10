@@ -14,7 +14,7 @@ public class CashierMessages {
     public static final String CLEARED_SUCCESSFULLY = "Cleared successfully!\n";
 
     public static final String NO_CASHIER = "Sorry! Please enter the cashier's name before proceeding:\n "
-            + " cashier NAME\n\n";
+            + "cashier NAME\n\n";
 
     public static final String NO_ITEM_TO_CHECKOUT = "Sorry! There is no item to checkout! "
             + "To add an item to the table, please type add with parameters:\n"
@@ -40,10 +40,7 @@ public class CashierMessages {
 
     public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = MESSAGE_BEGINNING_FOR_INVALID_COMMAND
             + "add: Adds an item into the cart for checkout.\n"
-            + "Paramters:\n[c/CATEGORY]\nd/DESCRIPTION\nq/QUANTITY\n";
-
-    /*public static final String MESSAGE_INVALID_CASHIERCOMMAND_FORMAT = "To set cashier, please type "
-            + "\"cashier NAME\" \n";*/
+            + "Parameters:\n[c/CATEGORY]\nd/DESCRIPTION\nq/QUANTITY\n";
 
     public static final String MESSAGE_INVALID_EDITCOMMAND_FORMAT = MESSAGE_BEGINNING_FOR_INVALID_COMMAND
             + "edit: Changes quantity of an item in the cart by index or description.\n"
@@ -56,7 +53,7 @@ public class CashierMessages {
             + "to be sold.\n\n";
 
     public static final String QUANTITY_NOT_POSITIVE = "Please input a "
-            + "positive integer for the quantity of item to be sold. 0 is also not allowed\n";
+            + "positive integer for the quantity of item to be sold. 0 is also not allowed.\n";
 
     public static final String MESSAGE_ADD_CASHIER = "Added cashier successfully. Cashier-in-charge is: %s.\n";
 
@@ -66,7 +63,7 @@ public class CashierMessages {
     public static final String MESSAGE_EDIT_SUCCESS = "Item: %s,\nquantity is now : %s\nEdited successfully.\n";
 
     public static final String MESSAGE_INSUFFICIENT_AMOUNT = "The total price is $%s. The amount is insufficient.\n"
-            + "Please input an amount of at least %s.\n";
+            + "Please input an amount of at least $%s.\n";
 
     public static final String MESSAGE_INSUFFICIENT_STOCK = "There is insufficient stock. Only %s %s left."
             + " Please input a valid quantity.\n";

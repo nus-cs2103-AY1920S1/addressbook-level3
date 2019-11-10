@@ -185,7 +185,7 @@ This command allows you to delete either all transactions of a person or a singl
 
 * Examples
 ** Delete by ID: [blue]`delete 1` - Deletes the transaction at the index shown in the table. If the table shows a filtered
-list of transactions due to the Find Command detailed in <<findCommandHome, Section 5.1.5 To Find Transactions that Match Keywords in the Home Tab>>,
+list of transactions due to the Find command detailed in <<findCommandHome, Section 5.1.5 To Find Transactions that Match Keywords in the Home Tab>>,
 the 1st transaction in the filtered list is deleted.
 ** Delete by Person: [blue]`delete p/Alex Yeoh` - Deletes all transactions of the person in full list of transactions.
 
@@ -216,7 +216,7 @@ image::homeUG/HomeDeletePStep1cr.png[]
 //.Screenshot of a successful user input for Delete by Person Command in Home Tab
 image::homeUG/HomeDeletePStep2cr.png[]
 
-For both delete commands, if the transaction(s) deleted was part of a pending reimbursement record, it will also be removed from that
+For both Delete commands, if the transaction(s) deleted was part of a pending reimbursement record, it will also be removed from that
 reimbursement record. On the other hand, if the person entered is not part of our database as shown in the Members Tab,
 Leo will respond with a message to inform you.
 ////
@@ -238,7 +238,7 @@ include at least one.
 
 * Examples:
 ** [blue]`edit 1 p/Bernice Yu dt/23-Aug-2019` - Edits the transaction at the index shown in the table. If the table shows a filtered
-list of transactions due to the Find Command detailed in <<findCommandHome, Section 5.1.5 To Find Transactions that Match Keywords in the Home Tab>>,
+list of transactions due to the Find command detailed in <<findCommandHome, Section 5.1.5 To Find Transactions that Match Keywords in the Home Tab>>,
 the 1st transaction in the filtered list is edited.
 
 * Steps:
@@ -248,7 +248,7 @@ the 1st transaction in the filtered list is edited.
 image::homeUG/HomeEditStep1cr.png[]
 
 [NOTE]
-Similar to the Add Command, there is no restriction to the number of characters allowed for the description and
+Similar to the Add command, there is no restriction to the number of characters allowed for the description and
 category.
 
 [start = 2]
@@ -260,7 +260,7 @@ Leo will respond with a success message and the updated transaction will be show
 image::homeUG/HomeEditStep2cr.png[]
 
 
-If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Add Command>>.
+If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Add command>>.
 
 ==== To Sort Transactions in the Home Tab
 This command enables you to sort the table of transactions into a specified order for viewing and carrying out of subsequent commands.
@@ -273,16 +273,16 @@ This command enables you to sort the table of transactions into a specified orde
 
 * Examples:
 ** [blue]`find Alex` +
-[blue]`sort date` - Sorts both the results of the [blue]`find` command shown and the actual transaction list. The Find Command is detailed
+[blue]`sort date` - Sorts both the results of the [blue]`find` command shown and the actual transaction list. The Find command is detailed
 in <<findCommandHome, Section 5.1.5. To Find Transactions that Match Keywords in the Home Tab>>. To view the full sorted list,
 enter [blue]`back` command which is detailed in <<homeBackCommand, Section 5.1.6. To Go Back to Display the Full List in the Home Tab>>
 
 
 [NOTE]
-The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
+The Undo Sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
 
 * Steps
-1. Type the any one of the above command in blue font into the command box.
+1. Type any one of the above commands in blue font into the command box.
 
 2. Hit `Enter`. The table will now be sorted in the specified order for you.
 
@@ -292,7 +292,7 @@ This command transactions matching the specified keywords for viewing and for ca
 based on the filtered table of transactions shown. The subsequent commands will include: delete, edit and sort.
 
 [NOTE]
-An add command after a find command will cause the table to show all transactions. A find command will always
+An Add command after a Find command will cause the table to show all transactions. A Find command will always
 find from the full list transactions and show the results.
 
 * Command:
@@ -333,7 +333,7 @@ image::homeUG/HomeFindStep2.png[width = "700"]
 
 [start = 3]
 3. Key in [blue]`back` and hit `Enter` to return to the table of all transactions, or enter your next command to be executed.
-The screenshot below shows the Edit Command being input as the next command:
+The screenshot below shows the Edit command being input as the next command:
 
 //.Screenshot of the user input for Edit Command according to filtered table's ID in Home Tab
 image::homeUG/HomeFindStep3cr.png[]
@@ -341,12 +341,12 @@ image::homeUG/HomeFindStep3cr.png[]
 
 The table will continue to show the filtered table with the transaction edited according to the command, shown in the screenshot above.
 [NOTE]
-If an Add Command is entered, the table will automatically reverse back to the previous view to show the full list of all transactions.
+As mentioned, if an Add command is entered, the table will automatically reverse back to the previous view to show the full list of all transactions.
 All other commands require you to input [blue]`back` to return to the full list of all transactions.
 
 The screenshot below shows the table after entering [blue]`back` which shows all the transactions in the table again:
 
-.Screenshot of the user input for Back Command after entering Find Command in Home Tab
+//.Screenshot of the user input for Back command after entering Find command in Home Tab
 image::homeUG/HomeFindStep3Back.png[width="700"]
 
 [[homeBackCommand]]
@@ -355,7 +355,7 @@ This command helps you to display the full transaction list after Find Commands.
 before entering the Back Command to display the full list.
 
 [NOTE]
-There is no need for you to enter a Back Command after an Add Command since the Add Command automatically resets the
+There is no need for you to enter a Back command after an Add Command since the Add command automatically resets the
 table to show the full list of transactions.
 
 * Command: [blue]`back`
@@ -366,8 +366,8 @@ table to show the full list of transactions.
 
 === Members Tab
 
-==== Add a Person
-This command allows you to add a person to the database.
+==== To Add a Person
+The Add command allows you to add a person or member to the database.
 
 * Command:
 `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
@@ -380,14 +380,14 @@ A person can have any number of tags (including 0).
 ** [blue]`add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 ** [blue]`add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-==== List all Persons
-This command shows you a list of all persons in the database.
+==== To List all Persons
+The List command shows you a list of all persons in the database.
 
 * Command:
 [blue]`list`
 
-==== Edit a Person
-This command enables you to edit an existing person in the database at a specified index.
+==== To Edit a Person
+The Edit command enables you to edit an existing person in the database at a specified index.
 
 * Command:
 `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
@@ -405,8 +405,8 @@ This command enables you to edit an existing person in the database at a specifi
 ** [blue]`edit 1 p/91234567 e/johndoe@example.com` - Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 ** [blue]`edit 2 n/Betsy Crower t/` - Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-==== Locating Persons by Name
-This command enables you to find every person whose name contain any of the inputted keywords.
+==== To Locate Persons by Name
+The Find command enables you to find every person whose name contain any of the inputted keywords.
 
 * Command:
 `find KEYWORD [MORE_KEYWORDS]`
@@ -425,8 +425,8 @@ This command enables you to find every person whose name contain any of the inpu
 ** [blue]`find Betsy Tim John` - Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
-==== Deleting a Person
-This command enables you to delete the specified person from the database.
+==== To Delete a Person
+The Delete command enables you to delete the specified person from the database.
 
 * Command:
 `delete INDEX`
@@ -773,6 +773,8 @@ update of items.
 the inventory.
 * After every checkout, the sales made will be recorded as one transaction which will be then labelled as "Items sold"
 under the category "Sales" and person will be the cashier-in-charge. The Home tab will be updated with this transaction.
+* Once there are items on the cart, `Cashier Mode` will automatically be turned on. When `Cashier Mode` is turned on, you cannot
+make any modification to existing items in the inventory except for the adding of new items.
 
 [NOTE]
 Items with zero price are not available for sale. Such items cannot be added into the table.
@@ -780,6 +782,9 @@ Items with zero price are not available for sale. Such items cannot be added int
 [WARNING]
 Due to size limitation, you will not be allowed to add any items into the table if the total amount exceeds $999999.99. You
 are advised to reduce the quantity of items or checkout separately in another cart.
+
+[NOTE]
+The description is case-insensitive. Regardless of the case, as long as the description matches, it can be added to the cart.
 
 ====
 
@@ -817,8 +822,6 @@ according to the mistyped description.
 [NOTE]
 If both category and description are specified and valid, the system will allow the item to be added according the
 description even if the category of the item does *not* match with the specified category inputted.
-
-
 
 Steps:
 
@@ -981,7 +984,7 @@ image::cashierUG/CheckoutCommand2.png[width="600"]
 
 
 If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset. +
-The `Home Tab` will be updated with this transaction and the remaining stock in the `Inventory Tab` will also be updated.
+The Home tab will be updated with this transaction and the remaining stock in the Inventory tab will also be updated.
 
 
 ==== Clears All the Sales Items in the Table
@@ -993,7 +996,7 @@ This command clears all the sales item in the table.
 After clearing, the cashier will be reset as well.
 
 [NOTE]
-This command enables you to disable the `Cashier Mode` footnote:[`Cashier Mode` automatically turns on when the table in the `Cashier Tab`
+This command enables you to disable the `Cashier Mode` footnote:[`Cashier Mode` automatically turns on when the table in the Cashier tab
 is not empty. While the `Cashier Mode` is turned on, any modification to the inventory is prohibited except addition of items.].
 
 [CAUTION]
@@ -1091,12 +1094,12 @@ goal set for that particular financial goal.
 ** To set sales goal notification: `notify s/PERCENTAGE`
 
 * Examples:
-** To set budget goal notification: [blue]`notify b/PERCENTAGE`
-** To set expense goal notification: [blue]`notify e/PERCENTAGE`
-** To set sales goal notification: [blue]`notify s/PERCENTAGE`
+** To set budget goal notification: [blue]`notify b/80`
+** To set expense goal notification: [blue]`notify e/80`
+** To set sales goal notification: [blue]`notify s/80`
 
 [NOTE]
-The percentage value should be a value from 0 - 100. +
+The percentage value should be a whole number from 0 - 100. +
 This feature will not work if no goals have previously been set with the `set` command, or if the goal is currently
 set to 0. +
 To disable notifications for a particular financial goal, simply set its notifications threshold to 0.
@@ -1144,7 +1147,7 @@ Data in treasurerPro is saved automatically after executing any command. There i
 *Q*: What is `Cashier Mode`? How can I switch it off? +
 *A*: `Cashier Mode` is a feature implemented for security reasons. It is considered turned on when there are sales items
 in the cart on the `Cashier Tab`. While on `Cashier Mode`, any modification to the inventory is prohibited except adding of
-items. +
+new items. +
 To switch it off, please enter `clear` on the Command Line Interface (CLI) of the `Cashier Tab`.
 
 == Command Summary
