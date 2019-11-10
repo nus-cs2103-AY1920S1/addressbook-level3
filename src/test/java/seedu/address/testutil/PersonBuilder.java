@@ -88,7 +88,11 @@ public class PersonBuilder {
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
-        this.email = new Email(Optional.of(email));
+        if (email.equals("")) {
+            this.email = new Email(Optional.empty());
+        } else {
+            this.email = new Email(Optional.of(email));
+        }
         return this;
     }
 

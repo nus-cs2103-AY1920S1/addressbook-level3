@@ -57,7 +57,11 @@ class JsonAdaptedPerson {
         primaryKey = source.getPrimaryKey();
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        email = source.getEmail().value.get();
+        if (source.getEmail().value.isEmpty()) {
+            email = null;
+        } else {
+            email = source.getEmail().value.get();
+        }
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -91,13 +95,15 @@ class JsonAdaptedPerson {
         }
         final Phone modelPhone = new Phone(phone);
 
+        final Email modelEmail;
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            modelEmail = new Email(Optional.empty());
+        } else {
+            if (!Email.isValidEmail(email)) {
+                throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+            }
+            modelEmail = new Email(Optional.of(email));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(Optional.of(email));
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
