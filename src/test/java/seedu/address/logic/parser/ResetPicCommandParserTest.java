@@ -14,7 +14,7 @@ public class ResetPicCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsResetPicCommand() {
-        assertParseSuccess(parser, "1", new ResetDisplayPictureCommand(INDEX_FIRST_OBJECTT));
+        assertParseSuccess(parser, "1", new ResetDisplayPictureCommand(INDEX_FIRST_OBJECT));
     }
 
     @Test
