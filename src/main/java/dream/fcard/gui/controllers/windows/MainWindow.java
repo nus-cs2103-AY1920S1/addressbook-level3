@@ -59,8 +59,8 @@ public class MainWindow extends VBox {
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(p);
 
-        //displayScrollPane
-        //displayScrollPane.setVvalue(0);
+        displayScrollPane.setVvalue(displayScrollPane.getVmin());
+        //
         //System.out.println(displayScrollPane.getVvalue());
     };
     private Consumer<String> displayMessage = message -> {
