@@ -7,7 +7,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.logic.cap.parser.ParserUtil;
 import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Faculty;
 import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
 import seedu.address.model.cap.person.Semester;
@@ -24,7 +23,6 @@ class JsonAdaptedModule {
     private final String moduleCode;
     private final String title;
     private final String semester;
-    private final String faculty;
     private final String credit;
     private final String grade;
 
@@ -34,13 +32,12 @@ class JsonAdaptedModule {
     @JsonCreator
     public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode, @JsonProperty("title") String title,
                              @JsonProperty("semester") String semester,
-                             @JsonProperty("credit") String credit, @JsonProperty("faculty") String faculty,
+                             @JsonProperty("credit") String credit,
                              @JsonProperty("grade") String grade) {
         this.moduleCode = moduleCode;
         this.title = title;
         this.semester = semester;
         this.credit = credit;
-        this.faculty = faculty;
         this.grade = grade;
     }
 
@@ -52,7 +49,6 @@ class JsonAdaptedModule {
         title = source.getTitle().title;
         semester = source.getSemester().toString();
         credit = String.valueOf(source.getCredit().getCredit());
-        faculty = source.getFaculty().getFaculty();
         grade = source.getGrade().getGrade();
     }
 
@@ -106,11 +102,10 @@ class JsonAdaptedModule {
         final Title modelTitle = new Title(title);
         final Semester modelSemester = ParserUtil.parseSemester(semester);
         final Credit modelCredit = new Credit(Integer.parseInt(credit));
-        final Faculty modelFaculty = new Faculty(faculty);
         final Grade modelGrade = new Grade(grade);
 
         return new Module(modelName, modelTitle, modelSemester,
-                modelCredit, modelFaculty, modelGrade);
+                modelCredit, modelGrade);
     }
 
 }

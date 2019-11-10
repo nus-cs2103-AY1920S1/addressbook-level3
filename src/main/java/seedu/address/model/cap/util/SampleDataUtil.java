@@ -4,7 +4,6 @@ import seedu.address.model.cap.CapLog;
 import seedu.address.model.cap.ReadOnlyCapLog;
 import seedu.address.model.cap.person.AcademicYear;
 import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Faculty;
 import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
 import seedu.address.model.cap.person.Semester;
@@ -22,16 +21,16 @@ public class SampleDataUtil {
             new Module[] {
                 new Module(new ModuleCode("CS2103"), new Title("Software Engineering"),
                     new Semester(new SemesterPeriod(1), new AcademicYear("1920")),
-                    new Credit(4), new Faculty("Computing"), new Grade("A")),
+                    new Credit(4), new Grade("A")),
                 new Module(new ModuleCode("CS2030"), new Title("Programming Methodology II"),
                     new Semester(new SemesterPeriod(1), new AcademicYear("1920")),
-                    new Credit(4), new Faculty("Computing"), new Grade("A-")),
+                    new Credit(4), new Grade("A-")),
                 new Module(new ModuleCode("CS3233"), new Title("Competitive Programming"),
                     new Semester(new SemesterPeriod(2), new AcademicYear("1920")),
-                    new Credit(4), new Faculty("Computing"), new Grade("B+")),
+                    new Credit(4), new Grade("B+")),
                 new Module(new ModuleCode("CS3226"), new Title("Web Programming and Applications"),
                     new Semester(new SemesterPeriod(2), new AcademicYear("1920")),
-                    new Credit(4), new Faculty("Computing"), new Grade("A")),
+                    new Credit(4), new Grade("A")),
                 };
         return modules;
     }

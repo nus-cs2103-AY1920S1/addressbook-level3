@@ -3,7 +3,6 @@ package seedu.address.logic.cap.commands;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_FACULTY;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_SEMESTER;
@@ -27,7 +26,6 @@ public class AddCommand extends Command {
             + PREFIX_MODULE_CODE + "MODULE CODE "
             + PREFIX_TITLE + "TITLE "
             + PREFIX_SEMESTER + "SEMESTER"
-            + PREFIX_FACULTY + "FACULTY "
             + PREFIX_CREDIT + "CREDIT "
             + PREFIX_GRADE + "GRADE ";
 

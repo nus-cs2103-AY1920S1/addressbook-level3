@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import seedu.address.model.cap.person.AcademicYear;
 import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Faculty;
 import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
 import seedu.address.model.cap.person.Semester;

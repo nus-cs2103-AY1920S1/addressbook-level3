@@ -2,12 +2,9 @@ package seedu.address.logic.cap.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 import seedu.address.model.cap.person.AcademicYear;
 import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Faculty;
 import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
 import seedu.address.model.cap.person.Semester;
@@ -58,18 +55,6 @@ public class ParserUtil {
         requireNonNull(title);
         String trimmedTitle = title.trim();
         return new Title(trimmedTitle);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Faculty parseFaculty(String faculty) throws ParseException {
-        requireNonNull(faculty);
-        String trimmedEmail = faculty.trim();
-        return new Faculty(trimmedEmail);
     }
 
     /**

@@ -21,7 +21,6 @@
                      <Label fx:id="moduleCode" styleClass="cell_big_label" text="\$modulecode" />
                      <Label fx:id="title" styleClass="cell_small_label" text="\$title" />
                      <Label fx:id="semester" styleClass="cell_small_label" text="\$semester" />
-                     <Label fx:id="faculty" styleClass="cell_small_label" text="\$faculty" />
                  </VBox>
                  <padding>
                      <Insets bottom="5" left="10" right="200" top="5" />
