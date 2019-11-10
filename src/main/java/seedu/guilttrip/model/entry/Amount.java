@@ -23,6 +23,7 @@ public class Amount {
      */
     public Amount(String amount) {
         requireNonNull(amount);
+        System.out.println("amount: " + amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         double amt = Double.parseDouble((amount));
         checkArgument(isValidValue(amt), MESSAGE_CONSTRAINTS);

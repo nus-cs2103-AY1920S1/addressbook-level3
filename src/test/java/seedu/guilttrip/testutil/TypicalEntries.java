@@ -80,9 +80,6 @@ public class TypicalEntries {
      */
     public static GuiltTrip getTypicalGuiltTrip() {
         GuiltTrip gt = new GuiltTrip(false);
-        for (Category category : getTypicalCategories()) {
-            gt.addCategory(category);
-        }
         for (Expense expense : getTypicalExpenses()) {
             gt.addExpense(expense);
         }
