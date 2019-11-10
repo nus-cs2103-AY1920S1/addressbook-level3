@@ -429,29 +429,28 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 14px;
-     -fx-text-fill: black;
-     -fx-background-color: orange;
+    -fx-text-fill: black;
+    -fx-background-color: orange;
     -fx-cursor: hand;
 }
 
 #favoriteBookmarkList .label:hover {
-    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+    -fx-background-color: #07847A;
 }
 
 #favoriteBookmarkListPlaceholder {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;
     -fx-background-color: #1d1d1d;
-    -fx-border-color: #383838 #383838 -fx-cyan-line-color -fx-cyan-line-color;
-    -fx-padding: 10;
+    -fx-border-color: #383838 #383838 #383838 -fx-cyan-line-color;
 }
 
-#treeView {
+#folderTreeView {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;
     -fx-background-color: #1d1d1d;
-    -fx-border-color: -fx-cyan-line-color -fx-cyan-line-color #383838 #383838;
-    -fx-padding: 5;
+    -fx-border-color: -fx-cyan-line-color #383838 #383838 #383838;
 }
 
 #reminderList {

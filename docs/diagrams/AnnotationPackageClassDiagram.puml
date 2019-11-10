@@ -16,8 +16,8 @@ Class PhantomParagraph
 Class TrueParagraph
 }
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> OfflineDocument
+Class CachedCopy
+CachedCopy -down-> "1" OfflineDocument
 
 OfflineDocument *--> "*" Paragraph
 TrueParagraph -up-|> Paragraph

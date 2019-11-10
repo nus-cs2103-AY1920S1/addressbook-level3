@@ -89,11 +89,11 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/mark/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookmarkListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow` and `*TabView*` components (components are shown in the figure below), inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookmarkListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow` and 'TabView' components (not shown in the above figure), inherit from the abstract `UiPart` class.
 
-The structure of the `*TabView*` is depicted here:
+The structure of the `TabView` is depicted here:
 
-.Structure of the `*TabView*` Component, which is a part of the UI component
+.Structure of the TabView Component, which is a part of the UI component
 image::UiTabViewClassDiagram.png[]
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/mark/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
@@ -140,16 +140,17 @@ The `Logic` component does the following:
 [[Design-Model]]
 === Model component
 
-The `Model` component:
-
-* Stores the data of Mark.
-* Does not depend on any of the other three components.
+The following class diagram illustrates the structure of the `Model` component:
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[Model Class Diagram, 700]
 
 *API* : link:{repoURL}/src/main/java/seedu/mark/model/Model.java[`Model.java`]
 
+The `Model` component is in charge of storing the data of Mark. As such, it does not depend on any of
+the other three components.
+
+// TODO: update from here
 The `Model` consists of the following:
 
 1. `VersionedMark` - contains Mark data
@@ -165,9 +166,16 @@ when the list data are changed.
 Mark. Each `Mark`, in turn, comprises a `UniqueBookmarkList`, a `ReminderAssociation` object, an
 `AutotagController`, and a `FolderStructure`.
 
+.Structure of the Bookmark Package
+image::BookmarkPackageClassDiagram.png[Bookmark Package Class Diagram, 600]
+
+More details regarding the implementation of Folders can be found in <<Folder feature>>.
+
+// TODO: Mention that Tags and Folders are not very OOP (new object created for each bookmark)
+
 [[annotation-cd]]
 .Structure of the Annotation package
-image::AnnotationPackageClassDiagram.png[]
+image::AnnotationPackageClassDiagram.png[Annotation Package Class Diagram, 600]
 
 The above diagram shows the structure of the Annotation package, which is accessed by `ModelManager` via `OfflineDocument`.
 An `OfflineDocument` consists of zero or more `Paragraph` objects. A `Paragraph` can be either a `PhantomParagraph`, which
@@ -175,6 +183,25 @@ contains only an `AnnotationNote` and a `ParagraphIdentifier`, or a `TrueParagra
 `ParagraphIdentifier`, `Highlight`, and `ParagraphContent`. `Highlight` is an optional field
 whenever it is used, i.e. in `PhantomParagraph` and/or `TrueParagraph`. However, `PhantomParagraph` must have an `AnnotationNote`.
 You may find that `AnnotationNote` and `Highlight` are collected in `Annotation` and `Paragraph` stores `Annotation` instead.
+
+More details regarding the implementation of Annotations can be found in <<Annotation feature>>.
+
+.Structure of the Autotag package
+image::AutotagPackageClassDiagram.png[Autotag Package Class Diagram, 500]
+
+The Autotag package consists of a main `AutotagController` class, which controls one or more `SelectiveBookmarkTaggers`.
+The `SelectiveBookmarkTagger` class inherits the method `#applyTag(Bookmark)` from its parent class `BookmarkTagger`.
+
+More details regarding the implementation of Autotags can be found in <<Autotag feature>>.
+
+.Structure of the Reminder package
+image::ReminderPackageClassDiagram.png[Reminder Package Class Diagram, 350]
+
+The Reminder package is managed by the `ReminderAssociation` class. It handles the association between a set of
+`Reminders` and a set of `Bookmarks`. Each `Reminder` consists of a `Note` that describes the task to be done
+and the `Url` of the `Bookmark` it is associated with.
+
+More details regarding the implementation of Reminders can be found in <<Reminder feature>>.
 
 [[Design-Storage]]
 === Storage component

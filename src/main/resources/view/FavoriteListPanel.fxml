@@ -4,13 +4,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ScrollPane?>
 
-<VBox spacing="5" xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml" fx:id="favoriteBookmarkListPlaceholder">
-    <Label text="Favorites" styleClass="label-bright" alignment="TOP_LEFT" />
-    <FlowPane fx:id="favoriteBookmarkList" alignment="TOP_CENTER" >
-        <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-        </padding>
-    </FlowPane>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:id="favoriteBookmarkListPlaceholder" prefWidth="200" prefHeight="400">
+    <AnchorPane>
+        <Label text="Favorites" textFill="ivory" fx:id="title" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+    </AnchorPane>
+
+    <ScrollPane minWidth="200">
+        <FlowPane fx:id="favoriteBookmarkList" alignment="TOP_CENTER" prefHeight="400" prefWidth="200">
+            <padding>
+                <Insets bottom="5" left="5" right="5" top="5" />
+            </padding>
+        </FlowPane>
+    </ScrollPane>
 </VBox>
