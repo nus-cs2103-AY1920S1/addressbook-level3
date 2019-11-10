@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
+
 <VBox id="startWindow" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <Button mnemonicParsing="false" onAction="#handleStart" styleClass="button" text="Start" translateX="150.0" translateY="150.0" />
+    <Button id="start-button" mnemonicParsing="false" onAction="#handleStart" text="Start" translateX="150.0" translateY="150.0" />
 </VBox>

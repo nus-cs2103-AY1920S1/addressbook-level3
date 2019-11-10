@@ -241,6 +241,44 @@
     -fx-background-color: black;
 }
 
+#start-button {
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-background-color: #3a3a3a;
+    -fx-pref-height: 50;
+    -fx-pref-width: 120;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 13pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+#start-button:hover {
+    -fx-background-color: #108041;
+}
+
+#start-button:pressed, .button:default:hover:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
+}
+
+#start-button:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 50, 50;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+#start-button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
 /*
  * Metro style Push Button
  * Author: Pedro Duque Vieira

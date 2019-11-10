@@ -6,7 +6,7 @@ import javafx.scene.text.TextFlow;
 /**
  * Adds highlight to words.
  */
-public class TextHighlighter {
+public class TextHighlighterUtil {
     /**
      * Returns the TextFlow of {@code word} with highlighting on text that player has typed.
      *
