@@ -27,6 +27,8 @@ Typing fast allows you to complete your tasks much faster than GUI apps.
 
 Interested? Refer to <<Quick Start>> to get started. Enjoy!
 
+// tag::quickStart[]
+
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -54,11 +56,16 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window. Alternati
 
 Do not directly edit any of the  following json files: e.g. `appointments.json`, `dutyRoster.json`, `patientDetails.json`, `staffDetails.json`, `preferences.json`, `config.json`
 
+// end::quickStart[]
+
 [[Features]]
 
 == Features
 
 ====
+
+// tag::autoCompleteAndHistoryUG[]
+
 *AutoComplete & History*
 
 * When the command box is blank, kbd:[UP] & kbd:[DOWN] will auto-fill the command box with commands previously entered. kbd:[UP] gives older commands and kbd:[DOWN] gives newer commands.
@@ -71,6 +78,8 @@ Do not directly edit any of the  following json files: e.g. `appointments.json`,
 
 * kbd:[TAB] changes focus from TabBar/OmniPanel to CommandBox and from CommandBox to TabBar.
 
+// end::autoCompleteAndHistoryUG[]
+// tag::reactiveSearchUG[]
 
 *Reactive search*
 
@@ -81,6 +90,8 @@ Do not directly edit any of the  following json files: e.g. `appointments.json`,
 
 * When searching for a specific appointment or duty shift, using the `appointments` or `shifts` command, the results are filtered based
     on whether the events involves a person whose reference Id contains the given keyword.
+
+// end::reactiveSearchUG[]
 
 *Validity of Appointment's timings*
 
@@ -93,7 +104,7 @@ Do not directly edit any of the  following json files: e.g. `appointments.json`,
     insufficient staffing to accommodate already scheduled appointments.
 
 ====
-// end::ui[]
+
 ====
 *Command Format*
 
