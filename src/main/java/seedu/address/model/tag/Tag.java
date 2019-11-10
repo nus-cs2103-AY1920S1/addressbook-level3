@@ -52,7 +52,7 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
-        if (tagName == "") {
+        if (tagName.equals("")) {
             return "[untagged]";
         } else {
             return tagName;

@@ -53,7 +53,7 @@ public class ExpenseCard extends UiPart<Region> {
         }
 
         date.setText(expense.getDate().value);
-        if (expense.getTag().tagName == "") {
+        if (expense.getTag().tagName.equals("")) {
             return;
         }
         tags.getChildren().add(new Label(expense.getTag().tagName));
