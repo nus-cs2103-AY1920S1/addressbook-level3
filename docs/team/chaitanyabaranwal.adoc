@@ -3,56 +3,120 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: Insurelytics
 
 ---
+ifndef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
+
+ifdef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Insurelytics is a desktop client management application for insurance agents.
+Insurelytics facilitates the tracking of client and policies, and also generate statistical analytics to provide insights for the agent.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 85 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to undo/redo previous data changes, and view previous history of commands*
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** *What it does:* The features relating to this enhancement can be divided into two components:
+*** *Undo/redo previous data changes*: This allows the user to undo any data changes made to the insurance data in the
+current session. An ability to redo previously undone changes in the current session is also provided. The commands are
+very intuitive, including only the word `undo` and `redo`.
+*** *View a history of previously entered valid commands*: This allows the user to view a history of previously entered
+commands, given that the commands did not lead to an exception and were not performed during a merge. The commands are
+displayed on the right panel, and are dynamically updated on entering new commands. This command is also
+very intuitive, using only the word `history`.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** *Justification:* This feature improves the product significantly because a user can make mistakes in commands and the
+app should provide a convenient way to rectify them. Given the sensitivity and size of data handled by a single insurance
+agent, it is quite possible to mistakenly enter erroneous data, and although this data can always be corrected using other
+CLI commands, an `undo` and `redo` makes it all the more convenient and fast. Moreover, the `history` command is also very useful,
+since the user would often want to see the previously entered commands to note the changes he/she made, to make a more informed
+decision on how to perform an undo/redo.
+
+** *Highlights:* This enhancement affects existing commands and commands to be added in future. An alternative I considered was to maintain separate state lists for persons and policies, as seen in
+https://github.com/AY1920S1-CS2103-F09-4/main/pull/108/commits/06b9eb35fd607cff8611e3c13e8bebd08f0b686f[#108]. However,
+I realised this was not extensible, which led me to changing the final implementation. The implementation too was challenging
+as it required changes to existing commands and models. The `history` command required changing the `LogicManager` and `AddressBookParser`.
+
+** *Credits:* The code for `StatefulAddressBook.java` is adapted from https://github.com/se-edu/addressbook-level4[this repo],
+although I made sure that I completely understood the implementation and wrote the code for this application myself. The
+`history` command did not use any previously existing code.
+
+* *Minor enhancement*: added a functionality that allows the user to navigate to previous commands using up/down keys.
+
+** Different from the `history` command, because this stores the entered commands in a separate list, and provides all commands
+entered regardless of whether they were valid or not. The idea is to provide incorrectly entered commands so that the user
+can quickly navigate to that command and perform the required changes to enter the correct command.
+
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chaitanyabaranwal&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tP Dashboard]
+
+* *Functional Code contributed*:
+
+** Model: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/model/StatefulAddressBook.java[StatefulAddressBook]]
+ [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/model/CommandHistory.java[CommandHistory]]
+ [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/model/ModelManager.java[ModelManager]]
+
+*** `saveAddressBookState()`, `undoAddressBook()`, `redoAddressBook()`
+
+** UI: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/resources/view/HistoryListCard.fxml[HistoryListCard]]
+ [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/ui/HistoryListPanel.java[HistoryListPanel]]
+
+** Commands: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/logic/commands/UndoCommand.java[UndoCommand]]
+ [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/logic/commands/RedoCommand.java[RedoCommand]]
+ [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/logic/commands/HistoryCommand.java[HistoryCommand]]
+ and their relevant parsers
+
+* *Test Code Contributed*:
+
+** Model: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/test/java/seedu/address/model/StatefulAddressBookTest.java[StatefulAddressBookTest]]
+ [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/test/java/seedu/address/model/CommandHistoryTest.java[CommandHistoryTest]]
+
+** Commands: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/test/java/seedu/address/logic/commands/UndoCommandTest.java[UndoCommandTest]]
+ [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/test/java/seedu/address/logic/commands/RedoCommandTest.java[RedoCommandTest]]
+ [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/test/java/seedu/address/logic/commands/HistoryCommandTest.java[HistoryCommandTest]]
+ [... other tests added to `ModelManager`, `LogicManager` and `AddressBookParser`]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Added commands (complete with tests) for assigning and unassigning policies (Pull requests
+https://github.com/AY1920S1-CS2103-F09-4/main/pull/88[#88] and https://github.com/AY1920S1-CS2103-F09-4/main/pull/94[#94]).
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated the existing Developer Guide diagrams to reflect the new application and models
+https://github.com/AY1920S1-CS2103-F09-4/main/pull/127/commits/90e39d9f0803ae6e828460a09f94b96e5198b7ee[#127]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-4/main/pull/95[#95],
+https://github.com/AY1920S1-CS2103-F09-4/main/pull/196[#196], https://github.com/AY1920S1-CS2103-F09-4/main/pull/132[#132],
+https://github.com/AY1920S1-CS2103-F09-4/main/pull/228[#228]
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=edit]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=editpolicy]
+
+include::../UserGuide.adoc[tag=assignpolicy]
+
+include::../UserGuide.adoc[tag=unassignpolicy]
+
+include::../UserGuide.adoc[tag=undo]
+
+include::../UserGuide.adoc[tag=redo]
+
+include::../UserGuide.adoc[tag=history]
+
+include::../UserGuide.adoc[tag=navhistory]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +124,12 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=history]
+
 include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=editperson]
 
+include::../DeveloperGuide.adoc[tag=assignpolicy]
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=undo]

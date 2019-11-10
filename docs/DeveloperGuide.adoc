@@ -682,43 +682,32 @@ Use case ends.
 //tag::editperson[]
 [discrete]
 === Use case: Edit person
-Guarantees: +
-
-1. Person is edited even if input fields might be invalid (see 3a).
 
 *MSS*
 
-1.  User requests to find a person
-2.  Insurelytics shows details of the person
-3.  User requests to edit that specific person.
+1.  User requests to list persons.
+2.  Insurelytics shows a list of persons.
+3.  User requests to edit a specific person in the list.
 4.  Insurelytics edits the person.
+5.  The person's edited details are now visible in the address book.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Person is not found
+* 2a. The list is empty.
 +
-[none]
-** 1a1. Insurelytics shows an error message.
-+
-Use case resumes at step 1.
-
-* 3a. Either of the given NRIC, contact number, or email address is invalid.
-+
-[none]
-** 3a1. Insurelytics adds the person into address book.
-** 3a2. Insurelytics shows a warning.
-+
-
-* *a. At any time, User requests to cancel the edit.
-+
-[none]
-** *a1. Address books requests to confirm the cancellation.
-** *a1. User confirms the cancellation.
 Use case ends.
-// end::editperson[]
+
+* 3a. The given index is invalid.
+* 3b. The given edited details are invalid.
++
+[none]
+** 3*1. Insurelytics shows an error message.
++
+Use case resumes at step 2.
+//end::editperson[]
 
 //tag::deleteperson[]
 [discrete]
@@ -749,15 +738,16 @@ Use case ends.
 Use case resumes at step 2.
 //end::deleteperson[]
 
+//tag::assignpolicy[]
 [discrete]
 === Use case: Assigning a policy to a person
 
 *MSS*
 
-1.  User requests to list persons
-2.  Insurelytics shows a list of persons
-3.  User requests to assign a policy to a specific person
-4.  The policy gets assigned to the person
+1.  User requests to list persons.
+2.  Insurelytics shows a list of persons.
+3.  User requests to assign a policy to a specific person.
+4.  The policy gets assigned to the person.
 +
 Use case ends.
 
@@ -769,19 +759,38 @@ Use case ends.
 Use case ends.
 
 * 3a. The given index is invalid.
+* 3b. The person is not eligible for the policy.
+* 3c. The policy is not present in the global list of policies.
++
+[none]
+** 3*1. Insurelytics shows an error message.
++
+Use case resumes at step 2.
+//end::assignpolicy[]
+
+//tag::undo[]
+[discrete]
+=== Use case: Undoing a data change
+
+*MSS*
+
+1.  User enters a command.
+2.  Insurelytics performs the entered command.
+3.  User requests to undo the previously entered command.
+4.  The previously entered command gets undone and the data is reverted back to the previous state.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The previously entered command did not perform a data change.
 +
 [none]
 ** 3a1. Insurelytics shows an error message.
 +
-Use case resumes at step 2.
-
-* 3b. The person is not eligible for the policy.
-+
-[none]
-** 3b1. Insurelytics shows an error message and returns a list of policies the person is eligible for.
-+
-Use case resumes at step 2.
-
+Use case ends.
+//end::undo[]
 
 //tag::restore[]
 [discrete]
@@ -853,27 +862,10 @@ _{More to be added}_
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, macOS
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
