@@ -1,0 +1,133 @@
+= Jeong Yu Han - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+{nbsp} +
+
+== Introduction and Overview
+
+The purpose of this document is to display the author's (Jeong Yu Han) contribution to the software engineering module project and his technical skills.
+
+My team and I were tasked with enhancing a command line, desktop application for our Software Engineering project.
+We chose to morph it into a teaching assistant called the Njoy Teaching Assistant, targeted at tech-savvy teachers who wish to improve
+the efficiency of their daily tasks such as creating quizzes, schedules, notes and tracking student performances.
+
+This is what our project looks like:
+
+image::Ui.png[]
+_Figure 1. The graphical user interface for Njoy._
+
+My role was to design and write code for the notes and statistics features. The rest of the sections covers the
+summary of my contributions to the codebase, user guide and developer guide.
+
+The following are icons and symbols that I will be using for the Project Portfolio:
+
+[NOTE]
+This symbol indicates a note to the user.
+
+`This indicates a component, class or object of Njoy or other external softwares.`
+
+*This indicates important text.*
+
+== Summary of contributions
+
+This section details a summary of my enhancements, code contributions and other tasks.
+
+I implemented the note commands which include: *Creating*, *Editing*, *Deleting*, *Listing* and *Sorting* notes. +
+Another feature I implemented was the ability to *generate and store Statistics reports*.
+
+=== Enhancements
+
+==== Creating, Editing and Deleting Notes (Major Enhancement)
+
+* *What it does:* Users can add notes with a title, description and an optional priority.
+The default priority is unmarked and different priorities are color coded. The features can be edited/deleted by specifying their index and the fields to edit.
+
+* *Justification:* Teachers often have a dizzying array of tasks to handle. The notes feature allows teachers to deal with work and other worries, allowing them to handle the most pressing issues. Editing and deleting
+gives the flexibility of shifting priorities, typing errors and task completion.
+
+* *Highlights:* The implementation for this feature required contemplation in terms of UX. While additional features such as re/un-doing was considered, the main principle of the notes UX is to be
+lightweight and easy to use. I decided to give the simplest set of commands while making prioritising optional. Validation for the input command
+was also challenging, in particular for the edit command.
+
+==== Sorting Notes
+
+* *What it does:* Users can sort the notes in the list in descending order of priority.
+
+* *Justification:* Users should be easily able to identify more pressing tasks.
+
+==== Listing Notes
+
+* *What it does:* Users can show the list of notes in the command result box. This feature is an alternative solution to the issue of notes having
+content length that exceed its allocated space in the User Interface.
+
+==== Generating and Storing Statistics (Major Enhancement)
+
+* *What it does:* Users can pass student score data from an excel file for processing to generate some descriptive statistics on performance. Store as optionally specified image file.
+
+* *Justification:* Give teachers the ability to see class performance at a glance and identify weaker students to help.
+
+* *Highlights:* The implementation for this feature required contemplation on the decision of storing and rendering formats for the report.
+
+=== Code contributed
+
+Please click the following link to see my code contributions dashboard. https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jeongyh99&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Report]
+
+=== Other contributions
+
+* Project management:
+** Reviewed team's code coverage, resolved issues in the tracker, update project Ui.png.
+
+* Enhancements to team documentation:
+** Updated README and ContactUs with missing acknowledgements and developer contacts.
+** Updated Glossary and Product Survey : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/24[#24]
+
+* Enhancements to team code:
+** Wrote the skeleton for storage using the Student entity : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/47[#47]
+** Wrote the skeleton for the generic printable interface for print/export functions : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/105[#105]
+** Refactor poor practices to follow better scalability and readability : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/91[#91]
+** Wrote additional tests and generic model stubs for testing : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/123[#123]
+
+* Documentation:
+** Made modifications to the Developer Guide and improved readability: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/25[#25]
+** Documented the implemented features: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/77[#77],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/97[#97], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/181[#181], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/190[#190]
+
+* Community:
+** Reviewed Pull Requests of Other Teams: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/190[#190], review under username 'lumwb' : https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23[#23]
+
+* Tools:
+** Change team's dependencies to be compatible with both Mac and Windows.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write comprehensive documentation targeting end-users.
+I have decided to select one command for each feature as a representation of my abilities. The full document can be seen here: https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/docs/UserGuide.adoc[User Guide]_
+|===
+
+*The following is an example of Creating Notes*:
+
+include::../UserGuide.adoc[lines=1056..1085]
+
+*The following is an example of Statistics Generation*:
+
+include::../UserGuide.adoc[lines=1157..1226]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation. As with the User Guide, I will only showcase
+one example from each feature to demonstrate the depth of my technical capacities and my contributions. The full document can be seen here: https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]_
+|===
+
+*The following is an example of Adding Notes*:
+
+include::../DeveloperGuide.adoc[lines=1112..1135]
+
+{nbsp} +
+
+*The following is an example of Statistics Generation*:
+
+include::../DeveloperGuide.adoc[lines=1223..1263]
