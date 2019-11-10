@@ -231,7 +231,7 @@ This command adds a general deadline into a list of deadlines. The list will be 
 Note: [DUE DATE] has to be in dd/MM/yyyy format.
 
 You can refer to the example below:
-`deadline t>CS2103 Exam d>10/11/2019`
+`deadline t>CS2103 Exam d>10/12/2019`
 
 Key the above mentioned into the command box
 
@@ -241,14 +241,32 @@ After which, the result box will show the success message. The new deadline will
 
 image::deadline-entered.png[width="600"]
 
-=== Set Flashcard as "Bad", with reminder to re-test: `bad index`
+NOTE: Note that deadlines entered will be sorted in ascending order i.e. Earliest deadline on index 1
+
+CAUTION: Deadlines can only be after the current date. Earlier dates are invalid.
+
+=== Remove deadline from list: `remove index`
+
+Removes a specific deadline into the deadline list. The list on the right-side pane will no longer have the deadline.
+
+`remove 2`
+
+****
+* Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+NOTE: When a deadline of re-test questions is removed, the list of questions will still be stored in the specific date.
+To remove questions, refer to _____
+
+
+=== Set Flashcard as "Bad", with deadline to re-test: `bad index`
 
 Sets a specific flashcard as a "bad" flashcard. The flashcard will be stored as a deadline in the list on the right-side pane.
 
 `bad 2`
 
 ****
-* Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
+* Sets the FlashCard specified at `INDEX` as 'bad'. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 You can refer to the example below:
@@ -265,24 +283,20 @@ A new deadline will now be shown at the right side-bar, 3 days later from the da
 
 image::BadFlashcardAdded.png[width="600"]
 
-=== Remove deadline from list: `remove index`
-
-Removes a specific deadline into the deadline list. The list on the right-side pane will no longer have the deadline.
-
-`remove 2`
-
-****
-* Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
-****
-
-NOTE: When a deadline of re-test questions is removed, the list of questions will still be stored in the specific date.
-To remove questions, refer to _____
+NOTE: Bad Questions will be added to a deadline which is due 3 days later. This is an approximated value that based on the theory of Spaced Repitition, referring to Ebbinghaus Forgetting Curve by Hermann Ebbinghaus who hypothesised this theory in 1985.
 
 === Show monthly calendar with all deadlines: `calendar`
 
 Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
 
 `calendar`
+
+The calendar will pop up, seen below.
+
+image::calendar.png[width="600"]
+
+NOTE: Calendar does not show the specific deadline names, but an overview of all your deadlines for the month ahead.
+
 
 //end::deadline[]
 
