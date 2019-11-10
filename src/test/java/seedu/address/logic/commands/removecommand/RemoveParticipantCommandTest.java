@@ -98,7 +98,7 @@ public class RemoveParticipantCommandTest {
     public void execute_participantNotInTeam_throwsCommandException() throws AlfredException {
         ModelManagerStub modelStub = new ModelManagerStub();
         Participant validParticipant = new ParticipantBuilder().build();
-        Team validTeam = new TeamBuilder().build();
+        Team validTeam = new TeamBuilder().withId(10).build();
 
         modelStub.addTeam(validTeam);
         modelStub.addParticipant(validParticipant);
