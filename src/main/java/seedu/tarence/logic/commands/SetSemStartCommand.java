@@ -66,7 +66,7 @@ public class SetSemStartCommand extends Command {
         String previousDateMessage = "";
 
         // Check if semStart is null
-        if (Module.hasSemesterStartBeenSet()) {
+        if (Module.getSemStart() != null) {
 
             if (isSameDate()) {
                 throw new CommandException(String.format(
@@ -78,11 +78,10 @@ public class SetSemStartCommand extends Command {
                     dateFormat.format(previousSemesterStart));
         }
 
-
         Module.setSemStart(semStart);
 
         String successMessage = String.format(MESSAGE_SET_SEM_START_SUCCESS + "\n",
-                dateFormat.format(semStart));
+                dateFormat.format(Module.getSemStart()));
         String outputMessage = previousDateMessage + successMessage;
 
         return new CommandResult(outputMessage);

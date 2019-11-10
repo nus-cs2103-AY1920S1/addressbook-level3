@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Stack;
@@ -91,14 +92,14 @@ public class JsonStateStorage implements ApplicationStateStorage {
         Path filePath = getNextFilePath();
 
         try {
+            Date currSemStart = Module.getSemStart();
             // Only save the state if the incoming application is different from the latest application
             ReadOnlyApplication latestApplication = getLatestState();
-
-            // System.out.println("Current app sem start date: " + Module.getSemStart());
-            //System.out.println("Saved semester start date: " + getSemesterStartDateOfLatestState());
+            Date prevSemStart = Module.getSemStart();
+            Module.setSemStart(currSemStart);
 
             // Only saves the state when there is a change with the current state
-            if (!latestApplication.equalsUsingStringComparison(application)) {
+            if (!latestApplication.equalsUsingStringComparison(application) || !prevSemStart.equals(currSemStart)) {
 
                 // Save the application state
                 FileUtil.createIfMissing(filePath);

@@ -59,7 +59,7 @@ public class LogicManager implements Logic {
         Optional<DisplayFormat> displayFormat = Optional.empty();
         Optional<List<Assignment>> assignmentsToDisplay = Optional.empty();
 
-        // processes multiple commands in user input if they exit
+        // processes multiple commands in user input if they exist
         String[] commandStrings = commandText.split("\\+");
         // pushes commands from back to front on top of the pending commands stack
         for (int i = commandStrings.length - 1; i >= 0; i--) {
@@ -119,7 +119,6 @@ public class LogicManager implements Logic {
                 assignmentsToDisplay = Optional.of(currCommandResult.getAssignmentsToDisplay());
             }
 
-            // TODO: Temporarily disabling storage
             // TODO: Check if error thrown disables the bug
             try {
                 storage.saveApplication(model.getApplication());

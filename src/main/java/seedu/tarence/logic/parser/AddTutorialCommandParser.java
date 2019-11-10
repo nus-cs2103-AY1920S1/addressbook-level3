@@ -70,7 +70,12 @@ public class AddTutorialCommandParser implements Parser<AddTutorialCommand> {
         ArrayList<Student> emptyListOfStudents = new ArrayList<Student>();
 
         // Creates a new Tutorial object with the user String.
-        Tutorial newTutorial = new Tutorial(tutName, day, startTime, weeks, duration, emptyListOfStudents, modCode);
+        Tutorial newTutorial;
+        try {
+            newTutorial = new Tutorial(tutName, day, startTime, weeks, duration, emptyListOfStudents, modCode);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
+        }
 
         return new AddTutorialCommand(newTutorial);
     }

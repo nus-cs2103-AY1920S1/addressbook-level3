@@ -48,23 +48,10 @@ public class Module {
     }
 
     /**
-     * Non-static getter function for semester start.
-     *
-     * @return Date semester start.
-     */
-    public Date getSemesterStart() {
-        return semStart;
-    }
-
-    /**
      * Sets the start of semester date. Does not modify event log of tutorials.
      */
     public static void setSemStart(Date semStart) {
         Module.semStart = semStart;
-    }
-
-    public static Boolean hasSemesterStartBeenSet() {
-        return semStart != null;
     }
 
     //============================ Tutorial operations =================================================================
