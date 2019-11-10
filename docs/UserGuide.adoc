@@ -425,7 +425,7 @@ e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John | E
 e.g. `delete i/3`
 * *PDF* : `pdf i/INDEX to/RECEIVER from/SENDER`
 * *Redo* : `redo`
-* *Sort* : `sort ORDER`
+* *Sort* : `sort p/PROPERTY o/ORDER`
 * *Undo* : `undo`
 * *List* : `list`
 * *Help* : `help`
