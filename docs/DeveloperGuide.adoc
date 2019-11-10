@@ -228,16 +228,23 @@ New `MatchedPatient` and `MatchedDonor` objects are created and stored in the li
 Given below is an example usage scenario and how the match feature works at each step:
 
 Step 1. The user opens up the application with an existing list of patients and donors.
-//add object diagram
+
+image::MatchState0.png[]
 
 Step 2. The user types in the command `match ic/all`. Each patient will be matched with
-all donors via the `MatchCommand#match` operation. A `MatchedPatient` object will be created
+all donors via the `MatchCommand#match` operation. A `MatchedPatient` object is created
 for each patient, which stores the patient's attributes and the number of potential donors the patient has.
-//add object diagram.
 
-Step 3. The user types in the command `match ic/S7016432I`. Existing `MatchedPatient` or `MatchedDonor` objects
-in the `listOfMatches` are removed. For each potential donors of the patient with the NRIC S7016432I, a `MatchedDonor`
-object is created, accompanied with the compatibility rate.
+image::MatchState1.png[]
+
+Step 3. The user types in the command `match ic/**PATIENT NRIC**`, where **PATIENT NRIC** is the NRIC of a patient in
+ORGANice.
+Existing objects in the `listOfMatches` are removed.
+For each potential donor of the specified patient, a `MatchedDonor`object is created,
+accompanied with the compatibility rate.
+
+image::MatchState2.png[]
+
 
 The following activity diagram summarises what happens when a user executes the match feature:
 

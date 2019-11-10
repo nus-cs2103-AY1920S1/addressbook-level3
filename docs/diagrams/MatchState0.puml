@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title Initial State
+
+package ORGANice {
+    class Patient1 as "__p1:Patient__"
+    class Patient2 as "__p2:Patient__"
+    class Donor1 as "__d1:Donor__"
+    class Donor2 as "__d2:Donor__"
+}
+
+package listOfMatches {
+}
+
+Patient1 -[hidden]right-> Patient2
+Patient2 -[hidden]right-> Donor1
+Donor1 -[hidden]right-> Donor2
+@end
