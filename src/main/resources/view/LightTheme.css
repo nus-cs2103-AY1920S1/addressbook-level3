@@ -475,11 +475,14 @@
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-background-radius: 20;
-    -fx-text-fill: #362949;
-    -fx-border-color: derive(#b48af6, 10%);
-    -fx-border-radius: 20;
-    -fx-padding: 5;
+    -fx-text-fill: black;
 }
+
+.pane-with-border-grey {
+    -fx-background-color: transparent;
+    -fx-background-radius: 25;
+    -fx-border-top-width: 1px;
+}
+
 
 
