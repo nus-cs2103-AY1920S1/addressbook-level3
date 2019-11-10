@@ -2252,6 +2252,144 @@ Expected: Shows appropriate error messages of why the command failed.
 .. Other incorrect sort commands to try: `note sort list`, `note 1 sort` +
    Expected: Shows appropriate error messages of why the command failed.
 
+=== Student
+
+. Adding a student to the student list.
+.. Prerequisites: The student list already already contains one student "Test Student".
+
+.. Test case: `student name/New Student` +
+   Expected: Adds student "New Student" to the list of students.
+.. Test case: `student name/Test Student` +
+   Expected: Shows error message that a student with the same name already exists in the student list.
+.. Test case: `student name/2231` +
+   Expected: Shows error message that student names can only contain alphabets and spaces.
+.. Test case: `student name/Test Student tag/Tag` +
+   Expected: Adds student "Test Student" with tag "Tag"
+.. Other incorrect add commands to try: `student name/new student tag/`, `student name/new student tag/tag with space` +
+   Expected: Shows error message regarding reason for command failure or the correct command syntax.
+
+. Editing an existing student in the student list.
+
+.. Prerequisites: The student list contains two students. "Test One" at index one and "Test Two" at index two.
+
+.. Test case: `student 1 name/changed name ` +
+   Expected: First Student in the student list is edited to "Test One"
+.. Test case: `student 1 name/Test Two` +
+   Expected: Error message stating that "Test Two" already exists in the student list is shown.
+.. Test case: `student 0 name/Test Zero` +
+   Expected: Shows error message that index provided is not valid.
+.. Test case: `student 5 name/Test Five` +
+   Expected: Shows error message that index provided is out of bounds.
+
+. Deleting a student from the student list.
+
+.. Prerequisites: The student list has one student at index 1.
+
+.. Test case: `student delete 1` +
+   Expected: First student is deleted from the list.
+.. Test case: `student delete 0` +
+   Expected: Error message stating that index is invalid is shown
+.. Test case: `student delete 5` +
+   Expected: Error message stating that index is out of bounds is shown.
+
+. Listing students in the student panel.
+
+.. Prerequisites: The student list is populated with some students.
+
+.. Test case: `student list` +
+   Expected: A string representation of the student list is shown in the status result.
+
+=== Tag
+
+. Adding a tag to a student in the student list.
+.. Prerequisites: The student list already already contains one student "Test Student".
+
+.. Test case: `tag index/1 tag/Tag` +
+   Expected: Adds tag "Tag" to the student in the student list.
+.. Test case: `tag index/0 tag/Tag` +
+   Expected: Shows error message that the index is not valid.
+.. Test case: `tag index/5 tag/Tag` +
+   Expected: Shows error message that the index is out of bounds.
+.. Test case: `tag index/1 tag/Tag@` +
+   Expected: Shows error message that tags can only contain alphanumeric characters
+.. Other incorrect add commands to try: `tag index/1 tag/`, `tag index/ tag/` , `tag index/1 tag/tag space` +
+   Expected: Shows error message regarding reason for command failure or the correct command syntax.
+
+=== Mark
+
+. Adding a mark to a student in the student list.
+.. Prerequisites: The student list already already contains two students, "Marked Student" at index 1, who is already marked,
+and "Unmarked Student" at index 2, who is not marked.
+
+.. Test case: `mark index/2` +
+   Expected: Marks "Unmarked Student" at index 2.
+.. Test case: `mark index/1` +
+   Expected: Shows error message that the student is already marked.
+.. Test case: `mark index/5` +
+   Expected: Shows error message that the index is out of bounds.
+.. Test case: `mark index/0` +
+   Expected: Shows error message that the index is invalid.
+
+. Removing a mark from a marked student in the student list.
+.. Prerequisites: The student list already already contains two students, "Marked Student" at index 1, who is already marked,
+and "Unmarked Student" at index 2, who is not marked.
+
+.. Test case: `mark unmark index/1` +
+   Expected: Removes mark from "Marked Student" at index 1.
+.. Test case: `mark unmark index/2` +
+   Expected: Shows error message that the student is not previously marked.
+.. Test case: `mark unmark index/5` +
+   Expected: Shows error message that the index is out of bounds.
+.. Test case: `mark unmark index/0` +
+   Expected: Shows error message that the index is invalid.
+
+=== Group
+
+. Creating a group with students in the student list.
+.. Prerequisites: The student list already already contains 3 students, and there is already a group with GroupId "G02" present.
+
+.. Test case: `group manual/ groupID/G01 studentNumber/1 2 3` +
+   Expected: Adds student "New Student" to the list of students.
+.. Test case: `student name/Test Student` +
+   Expected: Shows error message that a student with the same name already exists in the student list.
+.. Test case: `student name/2231` +
+   Expected: Shows error message that student names can only contain alphabets and spaces.
+.. Test case: `student name/Test Student tag/Tag` +
+   Expected: Adds student "Test Student" with tag "Tag"
+.. Other incorrect add commands to try: `student name/new student tag/`, `student name/new student tag/tag with space` +
+   Expected: Shows error message regarding reason for command failure or the correct command syntax.
+
+. Editing an existing student in the student list.
+
+.. Prerequisites: The student list contains two students. "Test One" at index one and "Test Two" at index two.
+
+.. Test case: `student 1 name/changed name ` +
+   Expected: First Student in the student list is edited to "Test One"
+.. Test case: `student 1 name/Test Two` +
+   Expected: Error message stating that "Test Two" already exists in the student list is shown.
+.. Test case: `student 0 name/Test Zero` +
+   Expected: Shows error message that index provided is not valid.
+.. Test case: `student 5 name/Test Five` +
+   Expected: Shows error message that index provided is out of bounds.
+
+. Deleting a student from the student list.
+
+.. Prerequisites: The student list has one student at index 1.
+
+.. Test case: `student delete 1` +
+   Expected: First student is deleted from the list.
+.. Test case: `student delete 0` +
+   Expected: Error message stating that index is invalid is shown
+.. Test case: `student delete 5` +
+   Expected: Error message stating that index is out of bounds is shown.
+
+. Listing students in the student panel.
+
+.. Prerequisites: The student list is populated with some students.
+
+.. Test case: `student list` +
+   Expected: A string representation of the student list is shown in the status result.
+
 
 === Saving data
 
