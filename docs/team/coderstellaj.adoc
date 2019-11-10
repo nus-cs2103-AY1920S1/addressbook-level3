@@ -42,8 +42,7 @@ This symbol indicates extra information or definition.
 `Model` :
 The symbol indicates a component, class or object in the architecture of the application.
 
-[blue]
-`command` :
+[blue]`command` :
 The symbol indicates a command that can be inputted by the user.
 
 == Summary of contributions
@@ -125,8 +124,10 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/191[(PR #191)].
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/192[(PR #192)].
 
 * Community:
-** Reviewed Pull Requests (With Non-trivial Review Comments)
+** Reviewed pull requests (With Non-trivial Review Comments)
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/42[(PR #42)].
+** Helped team members to fix bugs
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/196[(PR #196)].
 ** Contributed to forum discussion
 https://github.com/nus-cs2103-AY1920S1/forum/issues/134[(Example #134)]
 https://github.com/nus-cs2103-AY1920S1/forum/issues/135[(Example #135)].
@@ -252,7 +253,7 @@ After the operations, that reimbursement is returned and reimbursement tab only 
 
 [[ReimbursementTabActivityDiagramFindCommand]]
 .Activity diagram of find command in reimbursements tab (reimbursement package)
-image::Reimbursement/ReimbursementTabActivityDiagramFindCommand.png[width="300"]
+image::Reimbursement/ReimbursementTabActivityDiagramFindCommand.png[width="200"]
 
 The above activity diagram shows the steps needed for find command.
 The person's name is checked whether it exists in reimbursement list.
@@ -286,6 +287,6 @@ So, alternative 2 is more efficient.
 
 [[facade]]
 .Code snippet of `transactionLogic` facade class in `MainWindow`
-image::Reimbursement/codeSnippetTransactionLogic.png[width = "500"]
+image::Reimbursement/codeSnippetTransactionLogic.png[width = "700"]
 
 
