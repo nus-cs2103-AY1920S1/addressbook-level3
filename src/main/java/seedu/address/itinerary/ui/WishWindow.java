@@ -6,6 +6,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.UiPart;
 
+/**
+ * Wish command will be implemented in v2.0.
+ */
 public class WishWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(WishWindow.class);
     private static final String FXML = "WishWindow.fxml";

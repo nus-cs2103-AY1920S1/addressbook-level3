@@ -33,7 +33,7 @@ public class DateParser {
                 .orElse(startDateYear);
         Day endDay = new DayParser().parse(argMultimap.getValue(dayPrefix), Optional.of(endMonth),
                 Optional.of(endYear))
-                .orElse(new DayParser().parse(startDateDay, Optional.of(endMonth), Optional.of(endYear)));
+                .orElse(startDateDay);
 
         // assumptions: if nothing is specified, it will be the same as those of the start date
         return new Date(endDay, endMonth, endYear);

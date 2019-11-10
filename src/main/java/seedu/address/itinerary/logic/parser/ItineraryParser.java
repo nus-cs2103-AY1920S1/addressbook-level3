@@ -4,7 +4,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.itinerary.logic.commands.*;
+import seedu.address.itinerary.logic.commands.AddEventCommand;
+import seedu.address.itinerary.logic.commands.ClearEventCommand;
+import seedu.address.itinerary.logic.commands.DeleteEventCommand;
+import seedu.address.itinerary.logic.commands.DoneEventCommand;
+import seedu.address.itinerary.logic.commands.EditCommand;
+import seedu.address.itinerary.logic.commands.GreetCommand;
+import seedu.address.itinerary.logic.commands.HelpCommand;
+import seedu.address.itinerary.logic.commands.HistoryCommand;
+import seedu.address.itinerary.logic.commands.ListCommand;
+import seedu.address.itinerary.logic.commands.SearchCommand;
+import seedu.address.itinerary.logic.commands.SortCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;
