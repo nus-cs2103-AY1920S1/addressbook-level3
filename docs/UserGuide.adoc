@@ -391,7 +391,7 @@ Examples:
 * `editplan 1 d/past year questions of sit-in labs` +
 Edits the description of the 1st plan to be `past year questions of sit-in labs` respectively.
 * `editplan 2 start/2019-08-13 f/` +
-Edits the starting date of the 2nd plan and any task with due date after `2019-08-13` to be `2019-08-13`.
+Edits the starting date of the 2nd plan to be `2019-08-13` and any task with due date before `2019-08-13` to the plan's end date.
 
 ==== Listing all plans : `listplan`
 
