@@ -27,7 +27,6 @@ Information listed here is essential to users. They need to understand this in o
 This section serves to summarise my major contributions to the project as well other noteworthy contributions such as project management.
 
 === Enhancements
-
 * *Major enhancement one*: I added the ability for users to *customise the appearance* of +Work to suit their viewing preferences.
 ** What it does: This feature allows the user to toggle the theme of the entire application between light and dark. Also, it allows the user to toggle the
 display of task deadlines format of the app between 24hr and 12hr.
