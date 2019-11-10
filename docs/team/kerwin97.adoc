@@ -8,10 +8,11 @@
 image::kerwin97.png[width="200", align="left"]
 {empty}[https://github.com/kerwin97[github]] [https://www.linkedin.com/in/kerwin-lim-a6442014b/[linkedin]]
 
+****
 Hello! My name is Kerwin Lim. I'm a Computer Science Major at the National University of Singapore (NUS). I'm currently in my second year of studies.
 
-This portfolio page aims to document the contributions I have made in the development of TutorAid, which is a project that my team and I completed for the module CS2103T. This project has definitely been greatly beneficial to my own learning and self-development in becoming a more competent software engineer.
-
+This portfolio page aims to document the contributions I have made in the development of TutorAid. Tutoraid is a project that my team and I completed for our CS2103T module. We have put in our heart and soul creating Tutoraid. It has been a tremendous learning journey for my team and I and we hope that user will enjoy and benefit from our product.
+****
 == PROJECT: TutorAid
 
 == Overview
@@ -69,6 +70,8 @@ _{you can add/remove categories in the list above}_
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+include::../UserGuide.adoc[tag=userinterface]
 
 include::../UserGuide.adoc[tag=reminders]
 

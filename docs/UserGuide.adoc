@@ -101,15 +101,18 @@ Examples:
 
 * `login user/Steve pass/Pa55w0rd!`
 
+//tag::userinterface[]
 === User Interface
+
+==== Tab Status
+
+The Tab that you are currently on will be shown on the bottom right corner +
+
+image::tabstatus.png[width=600"]
 
 ==== Change tab : `tab`
 
 Change tab to any of the available ones. +
-The Tab that you are currently on will be shown on the bottom right corner +
-
-image::tabstatus.png[width="790"]
-
 Format: `change_tab tab/DESTINATION`
 
 Examples (All available destinations listed):
@@ -121,6 +124,11 @@ Examples (All available destinations listed):
 * `change_tab tab/notepad`
 * `change_tab tab/task`
 
+.Figure 1. Tab Change GUI
+image::tabchange.png[width=600]
+
+The user may alternatively choose to change tab by using the Items on the Menu Bar.
+//end::userinterface[]
 
 === Tasks
 
@@ -134,7 +142,10 @@ Format: `add_task c/MODULE mark/STATUS tt/TASK_TIME...`
 A task can have more than one time slots. +
 STATUS should only be Y or N. +
 `TASK_TIME` should be in the format "dd/MM/YYYY HH:mm, dd/MM/YYYY HH:mm". +
-If there are multiple task times, they will be automatically sorted based on their starting time.
+If there are multiple task times, they will be automatically sorted based on their starting time. +
+Mark indicates whether a Reminder will be created for this task. +
+The Reminder created will have the Task's `MODULE` as its `DESCRIPTION` and the Task's `TASK_TIME` as its `DATE`.
+
 
 
 Examples:
@@ -224,27 +235,100 @@ image:UserGuide/find_task_4.png[width="500"]
 List all tasks. +
 Format: `list_task`
 
+//tag::calendar[]
+==== Calendar View
 
+Views the Task in Calendar View
 
-=== Setting Reminder Details  : `addReminder`
+[TIP]
+Clicking on a date will show the user the Tasks with that date as its Start Time in normal list view. +
+The Calendar will display the tasks starting on that date and the amount of tasks starting on that date.
 
-===== Add Reminder
+****
+* The maximum number of tasks that can be shown on each date is 2. If there are more than *2* tasks on a date, a `...` will be added at the bottom of that date to indicate that there are more tasks not shown.
+****
+
+image:calendarview.png[width="700"]
+//end::calendar[]
+
+//tag::reminders[]
+=== Reminders
+
+==== Add Reminder
 
 Adds reminders. +
-Format: `addReminder rd/DESCRIPTION rt/TIME`
+Format: `addReminder rd/DESCRIPTION rt/DATE` +
+
+****
+* The `DATE` should be in the format dd/MM/YYYY. e.g 12/10/2019
+****
 
 Examples:
 
-* `addReminder rd/Cs2103T homework rt/21/9/2019 13:00, 21/9/2019 15:00`
+* `add_reminder rd/CS2103T Homework rt/13/10/2019 13:00, 13/10/2019 15:00`
 
-===== Delete Reminder
+==== Delete Reminder
 
 Removes the reminder. +
-Format: `reminder INDEX INTEGER`
+Format: `reminder INDEX`
 
 Examples:
 
 * `deleteReminder 1`
+
+==== Finding Reminders based on Description : `find_reminder_by_description`
+
+Find specific reminders by description and list them. +
+Format: `find_reminder_by_description DESCRIPTION ...`
+
+****
+* The `DESCRIPTION` is case insensitive. e.g `cs2100` will match `CS2100`
+* Only full words will be matched. e.g. `2100` will not match `CS2100`
+* Can find using more than one `DESCRIPTION` at a time.
+****
+
+Examples:
+
+* `find_reminder_by_description CS2103T`
+
+image:reminders/find_reminder_1.png[width="500"]
+image:reminders/find_reminder_2.png[width="500"]
+
+* `find_reminder_by_description CS2103T, cs2100`
+
+==== Finding Reminders based on Date : `find_reminder_by_date`
+
+Find specific reminders by date and list them. +
+Format: `find_reminders_by_date DATE ...`
+
+****
+* The `DATE` should be in the format dd/MM/YYYY. e.g 12/10/2019
+****
+
+Examples:
+
+* `find_reminders_by_date 13/10/2019`
+
+image:reminders/find_reminder_3.png[width="500"]
+image:reminders/find_reminder_4.png[width="500"]
+
+
+==== Listing all reminders : `list_reminder`
+
+List all reminders. +
+Format: `list_reminder`
+
+****
+* Reminders are automatically sorted by Start `DATE` with the most upcoming being on top.
+****
+
+==== Reminder Window
+
+The Reminder Window will pop up when Tutoraid is first loaded up. +
+It will list all the Reminders at hand.
+
+image:reminders/reminderwindow.png[width="500"]
+//end::reminders[]
 
 === Earnings
 
