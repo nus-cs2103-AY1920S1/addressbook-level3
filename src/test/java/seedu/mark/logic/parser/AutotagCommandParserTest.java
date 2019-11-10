@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.predicates.BookmarkPredicate;

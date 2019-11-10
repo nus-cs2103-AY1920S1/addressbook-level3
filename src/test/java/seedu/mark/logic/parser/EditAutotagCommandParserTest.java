@@ -15,14 +15,13 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.logic.commands.EditAutotagCommand;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.tag.Tag;
 
 public class EditAutotagCommandParserTest {
-
-    private final EditAutotagCommandParser parser = new EditAutotagCommandParser();
 
     private static final String VALID_TAG = "myTag";
     private static final String VALID_TAG_2 = "myTag2";
@@ -42,6 +41,8 @@ public class EditAutotagCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAutotagCommand.MESSAGE_USAGE);
+
+    private final EditAutotagCommandParser parser = new EditAutotagCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
