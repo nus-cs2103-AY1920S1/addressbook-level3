@@ -234,29 +234,30 @@ Valid district numbers are from 1 to 28!
 
 * Example usage:
 
-image::newCommandAutoYBeforeSS.png[width="400"]
+image::newCommandAutoYBeforeSS.png[width="500"]
 
 * Expected outcome: In this case, there is no vehicle available in district 1.
 
-image::newCommandAutoYAfterSS.png[width="400"]
+image::newCommandAutoYAfterSS.png[width="500"]
 
 *2. auto/N* +
-Format: `new dist/DISTRICT auto/N`
+Format: `new dist/DISTRICT auto/N v/INDEX`
 
 ****
 * A list of available vehicles in the given district will be shown.
-* A message will also appear to prompt user to also include the index of the chosen vehicle.
+** `INDEX` is the index of the chosen vehicle, based on the list of available vehicles in the district.
+** If `v/INDEX` is not included, a message will appear to prompt user to also include the index of the chosen vehicle.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
 * After the new incident is successfully created, the vehicle pane will show all vehicles in the given district.
 ****
 
 * Example usage:
 
-image::newCommandAutoNPromptSS.png[width="400"]
+image::newCommandAutoNPromptSS.png[width="500"]
 
-image::newCommandAutoNAfterPromptSS.png[width="400"]
+image::newCommandAutoNAfterPromptSS.png[width="500"]
 
-image::newCommandAutoNAfterSS.png[width="400"]
+image::newCommandAutoNAfterSS.png[width="500"]
 
 [NOTE]
 If multiple flags of the same prefix is provided by user, the command will take the last valid parameter of each prefix. +
@@ -555,7 +556,7 @@ Format: `list-v`
 
 Example usage and expected outcome:
 
-image::listVSS.png[width="400"]
+image::listVSS.png[width="500"]
 // end::list-v[]
 
 // tag::find-v[]
@@ -573,8 +574,8 @@ Format: `find-v dist/DISTRICT [MORE DISTRICTS]`
 
 Example usage:
 
-image::findVDsBeforeSS.png[width="400"]
-image::findVDsAfterSS.png[width="400"]
+image::findVDsBeforeSS.png[width="500"]
+image::findVDsAfterSS.png[width="500"]
 
 *2. Find by vehicle number*
 Format: `find-v vnum/NUMBER`
@@ -585,8 +586,8 @@ Format: `find-v vnum/NUMBER`
 
 Example usage:
 
-image::findVVnumBeforeSS.png[width="400"]
-image::findVVnumAfterSS.png[width="400"]
+image::findVVnumBeforeSS.png[width="500"]
+image::findVVnumAfterSS.png[width="500"]
 
 *3. Find by vehicle type*
 Format: `find-v vtype/VEHICLE TYPE`
@@ -597,8 +598,8 @@ Format: `find-v vtype/VEHICLE TYPE`
 
 Example usage:
 
-image::findVVtypeBeforeSS.png[width="400"]
-image::findVVtypeAfterSS.png[width="400"]
+image::findVVtypeBeforeSS.png[width="500"]
+image::findVVtypeAfterSS.png[width="500"]
 
 // end::find-v[]
 
@@ -677,7 +678,8 @@ e.g. `list-a Admin`
 e.g. `find-a James Jake`
 * *Delete Account* : `delete-a INDEX` +
 e.g. `delete-a 3`
-* *New* `new dist/DISTRICT auto/Y`
+* *New* : `new dist/DISTRICT auto/[Y/N] [v/INDEX]` +
+e.g. `new dist/1 auto/n v/1`
 * *Fill*
 1. `fill` (to list all draft incidents ready for filling)
 2. `fill [INDEX] [p/CALLER_NUMBER] [desc/DESCRIPTION]` (to fill specified incident report) +

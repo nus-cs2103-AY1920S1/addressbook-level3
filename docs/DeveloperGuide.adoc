@@ -168,7 +168,7 @@ The `Vehicle`:
 image::VehicleClassDiagram.png[]
 
 * Represents a vehicle that can be dispatched to incident sites.
-* Contains the attributes `VehicleNumber`, `VehicleType`, `district` and `availability`.
+* Contains the attributes `VehicleNumber`, `VehicleType`, `District` and `Availability`.
 * Is assigned to an incident in the same district.
 
 [[Design-Storage]]
@@ -356,7 +356,7 @@ Vehicle will be automatically assigned to the incident draft if any is available
 
 Below is a sequence diagram of a successful case:
 
-image::NewDraftSequenceDiagramAuto.png[width="400"]
+image::NewDraftSequenceDiagramAuto.png[width="500"]
 
 ==== Manual Vehicle Dispatchment:
 
@@ -364,7 +364,7 @@ User needs to key in the index of vehicle based on the list of available vehicle
 
 Below is a sequence diagram of a successful case:
 
-image::NewDraftSequenceDiagramManual.png[width="400"]
+image::NewDraftSequenceDiagramManual.png[width="500"]
 
 
 ==== Design Considerations
