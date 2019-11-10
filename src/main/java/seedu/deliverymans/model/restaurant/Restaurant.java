@@ -164,10 +164,11 @@ public class Restaurant {
      */
     public Restaurant updateQuantity(int quantity) {
         List<Food> updatedMenu = new ArrayList<>();
+        int updatedQuantity = this.quantityOrdered + quantity;
         for (Food food : this.menu) {
-            updatedMenu.add(food.updateTag(this.quantityOrdered, this.menu.size()));
+            updatedMenu.add(food.updateTag(updatedQuantity, this.menu.size()));
         }
-        return new Restaurant(name, location, rating, tags, updatedMenu, quantityOrdered + quantity);
+        return new Restaurant(name, location, rating, tags, updatedMenu, updatedQuantity);
     }
 
     /**

@@ -409,6 +409,27 @@ This feature necessitates the tracking of the orders each deliveryman has comple
 
 // end::deliverymen statistics
 
+// tag::auto tagging customer cuisine
+=== Automated tagging of customer
+
+Tags determine the customer's favourite cuisine. It is helpful to the user as having this information will enable the user to make better analysis on the current trend of food. Although we can opt for the user to manually add in tags, it might be problematic once the number of customers in the database gets too large for a single user to handle. Thus, this feature aids the user by automatically tagging the customer based on the customer's order history.
+
+==== Implementation
+
+The `Tag` of the `Customer` is related to the `Tag` of the `Restaurant`. If an `Order` has been added to the database, the `Tag` of the `Restaurant` will be added to the `Tag` of the `Customer`. If the `Customer` has multiple `Order` s, the `Tag` that will be shown on the `CustomerCard` will be the highest two `Tag` s. This is the main process on how the application automatically tags the customers.
+
+An activity diagram below shows the automated tagging process.
+
+ activity diagram
+
+
+
+==== Design considerations
+
+
+
+// end::auto tagging customer cuisine
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -435,11 +456,13 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::editMode[]
+
 === EditMode
 A `Restaurant` object contains many attributes. On top of a `Name`, `Location`, `Rating` and a list of `Tag`,
-it also includes a list of `Food` as its menu. This makes it difficult to edit an entire `Restaurant` object
-using just one `Command`. The EditMode feature allows editing of a specific `Restaurant` object's details and menu
-separately under 1 mode, using different commands.
+it also includes a list of `Food` as its menu, as well as a list of `Order`. This makes it difficult to edit
+an entire `Restaurant` object using just one `Command`. The EditMode feature allows editing of a
+specific `Restaurant` object's details, menu and orders separately under 1 mode, using different commands.
 
 ==== Implementation
 * **Model**:
@@ -483,8 +506,8 @@ NOTE: Insert PNG for ParserActivityDiagram.puml
 
 Commands that change the `Context`, and hence the UI, will pass the new `Context` to `MainWindow` in the Ui package
 via the `CommandResult` returned by the command.
-When `MainWindow` receives this , it will do the changes to the Ui accordingly via the function call
-`MainWindow#changeDisplay()`.
+When `MainWindow` receives this new `Context`, it will do the changes to the Ui accordingly via the function call
+`MainWindow#changeDisplay(Context context)`.
 
 `editModeCommand` changes the `Context` to `Context.EDITING`. `MainWindow` will then display an extra `StackPane`
 showing the restaurant under EditMode, while the `StackPane` displaying the list of Restaurants
@@ -497,8 +520,20 @@ The following sequence diagram summarises how the `editModeCommand` changes the 
 NOTE: Insert PNG for MainWindowSequenceDiagram.puml
 
 ==== Design Considerations
-* **Alternative 1:**
-* **Alternative 2:**
+
+===== Aspect: Structure of the Parsers
+* **Alternative:** LogicManager contains all 4 parsers instead of Containing only UniversalParser whcih then creates
+the other 3 parsers.
+** Pros: Makes more sense to have LogicManager containing all 4 parsers which are activated separately based
+on the current context.
+** Cons: Every single universal command would have to be checked repeatedly in each context-specific parser.
+
+===== Aspect: Changing of User Interface
+* **Alternative:**
+** Pros: Will only need 1 method signature to change the display of User Interface.
+** Cons: It will create many unnecessary contexts that the Parser will never be in apart from this situation.
+
+// end::editMode[]
 
 == Documentation
 

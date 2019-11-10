@@ -16,7 +16,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
-import seedu.deliverymans.logic.parser.universal.Context;
+import seedu.deliverymans.logic.Context;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.DeliverymenDatabase;
@@ -193,11 +193,14 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Order> getCustomerOrders() {
         ArrayList<Order> orders = new ArrayList<>();
+        int count = 0;
         for (Order order : getFilteredOrderList()) {
             if (order.getCustomer().equals(customerDatabase.getCustomerOrders().getUserName())) {
                 orders.add(order);
+                count++;
             }
         }
+        customerDatabase.getCustomerOrders().setNoOfOrders(count);
         ObservableList<Order> modelOrders = FXCollections.observableArrayList();
         modelOrders.addAll(orders);
         return modelOrders;
@@ -395,7 +398,7 @@ public class ModelManager implements Model {
 
     @Override
     public Name getFreeOrderName() {
-        int n = 1;
+        int n = 0;
         for (Order order : getFilteredOrderList()) {
             String orderNumber = order.getOrderName().fullName.split("\\s")[1];
             if (Integer.parseInt(orderNumber) >= n) {

@@ -1,5 +1,7 @@
 package seedu.deliverymans.ui;
 
+import java.nio.file.Paths;
+
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -16,12 +18,12 @@ import javafx.stage.Stage;
 
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
+import seedu.deliverymans.logic.Context;
 import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.LogicManager;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -72,6 +74,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private SplitPane splitPane;
+
     @FXML
     private VBox personList;
 
@@ -139,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getOrderBookFilePath()); // to be edited
+        StatusBarFooter statusBarFooter = new StatusBarFooter(Paths.get("")); // to be edited
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic);
