@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -342,10 +343,18 @@ The user executes the command `edit 1 t/CS students be like` to edit the text la
 `MemeCreation` changes the text of this `MemeText` from "cs students be like" to "CS students be like".
 Upon request by the UI, `MemeCreation` generates the updated image for the UI for display.
 
-Step 6. The user executes `create d/A meme about CS students t/funny t/CS` to complete the creation session.
+Step 6. The user wants to move the text.
+The user types `move 1` into the command box and uses arrow keys to adjust the text position.
+The user holds kbd:[Shift] to make large adjustments at first, then holds kbd:[Alt] to make small adjustments until the text is at the desired position.
+`CommandBox` listens to key presses and dispatches a `TextMoveCommand` on each key press.
+It also throttles the key press rate to prevent firing commands too frequently.
+`MemeCreation` generates a new image on each command received and the UI keeps the displayed image up-to date.
+
+Step 7. The user executes `create d/A meme about CS students t/funny t/CS` to complete the creation session.
 Weme will create a new image with the text added and save it to the data directory.
 Weme will also create a new `Meme` entry with that image, with description "A meme about CS students" and tags "funny" and "CS".
 The description and tag arguments are similar to those for `Meme` add command.
+Weme displays the newly created meme, as if from a `view` command.
 
 [NOTE]
 The user can abort any meme creation session by typing `abort`.
@@ -372,15 +381,18 @@ image::TextAddCommandSequenceDiagram.png[]
 
 ===== Aspect: How the user adds/deletes text
 
-* **Alternative 1 (current choice):** The user enters commands to add/delete text.
-** Pros: Easier to implement.
-** Cons: User might not be able to position the text accurately.
-** Mitigation measure: Provide rules as visual aid for the user.
-* **Alternative 2:** The user controls the UI through individual key strokes.
+* **Alternative 1 (current choice):** The user enters commands to add/edit/move/delete text.
+** Pros: Easier to implement. Integrates well with the rest of the product.
+** Cons: It is troublesome to type in the coordinates and difficult to position the text accurately.
+** Mitigation measure: Provide rulers beside the image as visual aid for the user, support using arrow keys to move text.
+* **Alternative 2:** The user manipulates the UI through individual key strokes (Vim-like modal key-bindings)
 For example, `a` to add a piece of text, arrow keys to adjust the position of the currently selected text,
 `1` to select text labelled *1* and `d` to delete the currently selected text.
 ** Pros: The user can accurately adjust the position of the text.
-** Cons: Very hard to implement. Requires major work on the UI.
+** Cons: Very hard to implement. Requires major work on the UI. Must use extra care to make sure the state transitions are correct.
+* **Alternative 3:** The user moves the text using the mouse
+** Pros: Might be more intuitive for new users. New users do not need to learn the commands.
+** Cons: Breaks the keyboard-driven workflow. Using the mouse might actually be less accurate when positioning text.
 
 // end::templates[]
 

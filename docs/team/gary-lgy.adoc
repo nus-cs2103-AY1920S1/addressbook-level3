@@ -19,13 +19,15 @@ The user can:
 *** add, list, edit, search, and delete templates
 *** place text anywhere on the template image and see the effect immediately
 *** customize the font size, color, and style of the text they add to the template
+*** move the text conveniently using arrow keys
 ** Justification: This feature forms an integral part of the product because generating memes is something that meme lovers do on a regular basis.
-** Highlights: This enhancement required extending all levels of the architecture: model and storage components were extended to support storing templates; UI was extended to display templates and the current meme creation session.
+** Highlights: This enhancement required extending all levels of the architecture: model and storage components were extended to support storing templates; UI was extended to display meme creation session and listen to arrow key presses.
 It required an in-depth analysis of how the user should interact with the product, given our target user group are those who prefer Command Line Interfaces.
 The implementation was challenging as it involved graphics processing.
 
 * *Minor enhancement*:
-** Implement front-end for tabs [https://github.com/AY1920S1-CS2103-T16-3/main/pull/50[#50]]
+** Implemented the GUI for tabs [https://github.com/AY1920S1-CS2103-T16-3/main/pull/50[#50]]
+** Optimized the GUI performance. Reduced lag and memory usage, expanding the capacity of the GUI from lagging with 10 memes to being able to hold 1000 memes without significant lag. [https://github.com/AY1920S1-CS2103-T16-3/main/pull/231[#231]]
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=gary-lgy&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=gary-lgy&tabRepo=AY1920S1-CS2103-T16-3%2Fmain%5Bmaster%5D[RepoSense data]]
 
