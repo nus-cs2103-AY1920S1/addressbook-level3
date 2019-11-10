@@ -342,7 +342,8 @@ In the code base, Persons represent user accounts. See person model for more inf
 === Incident Draft Creation feature
 ==== Implementation
 
-The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
+The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment. As of now, when there is no vehicle available in the district of incident, a new report cannot be generated.
+
 If created successfully, the draft incident only has three fields filled: operator, district and vehicle dispatched.
 
 There are two ways to use the New Command:
@@ -355,7 +356,7 @@ Vehicle will be automatically assigned to the incident draft if any is available
 
 Below is a sequence diagram of a successful case:
 
-image::NewDraftSequenceDiagramAuto.png[]
+image::NewDraftSequenceDiagramAuto.png[width="400"]
 
 ==== Manual Vehicle Dispatchment:
 
@@ -363,7 +364,7 @@ User needs to key in the index of vehicle based on the list of available vehicle
 
 Below is a sequence diagram of a successful case:
 
-image::NewDraftSequenceDiagramManual.png[]
+image::NewDraftSequenceDiagramManual.png[width="400"]
 
 
 ==== Design Considerations
@@ -696,8 +697,6 @@ The vehicle search mechanism is facilitated by `ModelManager`, which implements 
 ** Pros: Intuitive for some.
 ** Cons: Appears separate from other list commands even though they are of the same nature and implemented similarly.
 //end::vehiclesearch[]
-
-// end::vehiclesearch[]
 
 //tag::vehicleedit[]
 

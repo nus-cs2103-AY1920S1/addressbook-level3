@@ -215,6 +215,8 @@ Deleting a user will search for all incidents created by the user and place a `d
 // tag::new[]
 === Create New Incident: `new`
 
+When new incidents are reported, vehicles are to be dispatched to the incident site. As of now, when there is no vehicle available in the district of incident, a new report cannot be generated.
+
 This command works in two ways:
 
 *1. auto/Y* +
@@ -232,11 +234,11 @@ Valid district numbers are from 1 to 28!
 
 * Example usage:
 
-image::newCommandAutoYBeforeSS.png[]
+image::newCommandAutoYBeforeSS.png[width="400"]
 
 * Expected outcome: In this case, there is no vehicle available in district 1.
 
-image::newCommandAutoYAfterSS.png[]
+image::newCommandAutoYAfterSS.png[width="400"]
 
 *2. auto/N* +
 Format: `new dist/DISTRICT auto/N`
@@ -250,11 +252,11 @@ Format: `new dist/DISTRICT auto/N`
 
 * Example usage:
 
-image::newCommandAutoNPromptSS.png[]
+image::newCommandAutoNPromptSS.png[width="400"]
 
-image::newCommandAutoNAfterPromptSS.png[]
+image::newCommandAutoNAfterPromptSS.png[width="400"]
 
-image::newCommandAutoNAfterSS.png[]
+image::newCommandAutoNAfterSS.png[width="400"]
 
 [NOTE]
 If multiple flags of the same prefix is provided by user, the command will take the last valid parameter of each prefix. +
@@ -553,7 +555,7 @@ Format: `list-v`
 
 Example usage and expected outcome:
 
-image::listVSS.png[]
+image::listVSS.png[width="400"]
 // end::list-v[]
 
 // tag::find-v[]
@@ -571,8 +573,8 @@ Format: `find-v dist/DISTRICT [MORE DISTRICTS]`
 
 Example usage:
 
-image::findVDsBeforeSS.png[]
-image::findVDsAfterSS.png[]
+image::findVDsBeforeSS.png[width="400"]
+image::findVDsAfterSS.png[width="400"]
 
 *2. Find by vehicle number*
 Format: `find-v vnum/NUMBER`
@@ -583,8 +585,8 @@ Format: `find-v vnum/NUMBER`
 
 Example usage:
 
-image::findVVnumBeforeSS.png[]
-image::findVVnumAfterSS.png[]
+image::findVVnumBeforeSS.png[width="400"]
+image::findVVnumAfterSS.png[width="400"]
 
 *3. Find by vehicle type*
 Format: `find-v vtype/VEHICLE TYPE`
@@ -595,8 +597,8 @@ Format: `find-v vtype/VEHICLE TYPE`
 
 Example usage:
 
-image::findVVtypeBeforeSS.png[]
-image::findVVtypeAfterSS.png[]
+image::findVVtypeBeforeSS.png[width="400"]
+image::findVVtypeAfterSS.png[width="400"]
 
 // end::find-v[]
 
@@ -647,7 +649,7 @@ Data files will be encrypted by default. Users can decrypt the file with the com
 // end::dataencryption[]
 
 // tag::newincidentwithoutvehicle[]
-=== Creating new incidents even when no vehicle is available in the given district. `[comin in v2.0]`
+=== Creating new incidents even when no vehicle is available in the given district. `[coming in v2.0]`
 
 User can choose to create an incident pending vehicle dispatchment.
 Format: `new dist/DISTRICT auto/Y r/pending`
