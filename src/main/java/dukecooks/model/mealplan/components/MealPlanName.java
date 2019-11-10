@@ -10,13 +10,13 @@ import static java.util.Objects.requireNonNull;
 public class MealPlanName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names should only contain alphanumeric characters and spaces, limited to 40 characters";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{1,40}";
 
     public final String fullName;
 
