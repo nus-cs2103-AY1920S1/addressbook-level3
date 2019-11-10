@@ -408,6 +408,7 @@ image:./icons/lightbulb.png[] You can use the command `n` to help you scroll the
 image:./icons/lightbulb.png[] You can use the command `nw` see next week's schedule!
 You may see this person's schedule up to 4 weeks in advance.
 *****
+___
 
 === Schedule Management
 
@@ -514,7 +515,6 @@ After adding the event into our TimeBook, Bobby's schedule is automatically upda
 
 
 ==== Delete an Event from a Schedule: `deleteevent`
-
 ____
 What should I do if an event is cancelled? Simply delete it from TimeBook with our `deletevent` command!
 ____
@@ -544,60 +544,181 @@ image::ugalvin/deleteevent.png[width=100%]
 
 After deleting that event from TimeBook, Bobby's schedule is automatically updated!
 
+==== View a Schedule: `schedule`
+____
+Want to see a schedule between you and your friends? Simple use the `schedule` command!
+____
+
+To generate a schedule for you and your friends, simply execute the `schedule` command and
+specify who to add to this schedule!
+
+Format:
+
+* `schedule n/NAME...`
+
+****
+* The `n/` prefix specifies the name of the person whom we want to add to this schedule
+* You can add multiple people into a schedule
+****
+
+Lets try and generate a schedule between you, Bobby and Charlie! Execute the following command!
+
+Example:
+
+* `schedule n/Bobby n/Charlie`
+
+image::ugalvin/schedule.png[width=100%]
+
+When executing the command, TimeBook will calculate the free time slots among the schedule members!
+
 === Group Management
 
 ==== Adding a group: `addgroup`
+____
+In TimeBook, we allow you to organise your contacts too! This can be done through making groups!
+This can be done using our `addgroup` command!
+____
 
-Adds a group to the TimeBook +
-Format: `addgroup g/GROUP_NAME [d/GROUP_DESCRIPTION] [r/GROUP_REMARK] [role/USER_ROLE]`
+To add a new group into TimeBook, simply execute the `addgroup` command
+and specify the name of the group you want to make!
+
+Format:
+
+* `addgroup g/GROUP_NAME [d/GROUP_DESCRIPTION] [role/USER_ROLE]`
 
 ****
-* Creates a with name `GROUP_NAME`.
-* A group can be optionally created with a description, a remark, and your role in the Group.
+* image:./icons/important.png[] Whenever a new group is created, you are automatically added into that group!
+* The `g/` prefix specifies the name of the group you want to create.
+** A group name must be alphanumeric
+* The `d/` prefix (optional) gives a description to the group
+** A group description must be alphanumeric
+* The `role/` prefix (optional) specifies the role you play in that group
+** A role must be alphanumeric
 ****
 
-[IMPORTANT]
-====
-include::UserGuide.adoc[tag=alice-full]
-====
+Suppose you want to create a new group for your CS2103 project, and you are appointed as
+the leader for this group!
 
-Examples:
+Let's try to add a new group with the following command!
 
-* `addgroup g/Friends` +
-Creates a group called `Friends`
-* `addgroup g/CS2103 d/Project Group role/Leader` +
-Creates a group called `CS2103` with a description of `Project Group` and your role in the Group as the `Leader`.
+Example:
+
+* `addgroup g/CS2103 d/A CS2103 project group role/Leader`
+
+image::ugalvin/addgroup.png[width=100%]
+
+When a new group is added, it is automatically added into the list of groups!
 
 ==== Editing a group: `editgroup`
+____
+The details for your group has changed? Edit it with our `editgroup` command!
+____
 
-Edits an existing group in the TimeBook. +
-Format: `editgroup ed/GROUP_NAME [g/GROUP_NAME] [d/GROUP_DESCRIPTION] [r/GROUP_REMARK] [role/USER_ROLE]`
+To edit an existing group, simply use the `editgroup` command
+and specify the name of the group you wish to edit with the `ed/` prefix!
+
+Format: `editgroup ed/GROUP [g/GROUP_NAME] [d/GROUP_DESCRIPTION] [role/USER_ROLE]`
 
 ****
-* Edits the group specified by `GROUP_NAME`.
+* The `ed/` tag specifies the group to be edited
+** This group must exist in the TimeBook
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
 ****
 
-Examples:
+Suppose we entered the details for our group wrongly, no worries we can edit them!
 
-* `editgroup ed/CS2103 g/CS3203 r/Project Discussion Group` +
-Edits the group specified by group name `CS2103` with a new group name `CS3203` and group remark `Project Discussion Group` respectively.
+Example:
+
+* `editgroup ed/CS2103 g/CS3203 d/A CS3203 project group role/Member`
+
+image::ugalvin/editgroup.png[width=100%]
+
+When a group is edited, it is automatically updated as shown above!
+
+
+==== Add Person to Group: `addtogroup`
+____
+After you have created your group, you can add people into the group with our `addtogroup` command!
+____
+
+To add a person into a group, simply execute the `addtogroup` command,
+and specify the person's name and the group's name!
+
+Format: `addtogroup n/PERSON_NAME g/GROUP_NAME role/ROLE`
+
+****
+* The `n/` prefix specifies the name of the existing `person` in TimeBook
+* The `g/` prefix specifies the name of the existing `group` in TimeBook
+* The `role/` prefix (optional) specifies the role this person would play in the group
+****
+
+Let's add a new person Denise into our CS3203 project group!
+
+Example:
+
+* `addtogroup n/Denise g/CS3203 role/Manager`
+
+image::ugalvin/addtogroup.png[width=100%]
+
+When a new person is added into the group, it automatically updates the group's schedule as well!
+
+==== Delete a Person from Group: `deletefromgroup`
+____
+What if I want to remove a person from my group? You can! With our `deletefromgroup` command!
+____
+
+To delete a person from a group, simply execute the `deletefromgroup` command,
+and specify the person's name and the group's name and the person will be removed from the group!
+
+Format:
+
+* `deletefromgroup n/NAME g/GROUP_NAME`
+
+****
+* The `n/` prefix specifies the name of the `person`
+* The `g/` prefix specifies the name of the `group`
+* This person must be in the group
+* image:./icons/important.png[] deleting a person from group does not delete your contacts!
+Your contacts still exists in your persons tab!
+****
+
+Let's remove Charlie from our group! We can simply execute the following command!
+
+Example:
+
+* `deletefromgroup n/Charlie g/CS3203`
+
+image::ugalvin/deletefromgroup.png[width=100%]
+
+When a person is removed from the group, the group's schedule will automatically be updated as well!
 
 ==== Deleting a group: `deletegroup`
+____
+The project is over, and there is no need for this group anymore? Delete it!
+____
 
-Deletes the specified group from the TimeBook. +
-Format: `deletegroup g/GROUP_NAME`
+To delete a group, simply execute the `deletegroup` command and
+specify the group's name!
+
+Format:
+
+* `deletegroup g/GROUP_NAME`
 
 ****
-* Deletes the group specified by 'GROUP_NAME'
-* The people who were in this group will not be deleted.
+* The `g/` prefix specifies the name of the `group`
+* image:./icons/important.png[] deleting a group does not delete your contacts!
+Your contacts still exists in your persons tab!
 ****
 
-Examples:
+Let's delete CS3203 group from our TimeBook! Simply use this command!
 
-* `deletegroup g/CS2103` +
-Deletes the `CS2103` group from the TimeBook.
+Example:
+
+* `deletegroup g/CS3203`
+
+image::ugalvin/deletegroup.png[width=100%]
+
+Deleteing a group will automatically update your groups tab!
 
 ==== Show group: `show`
 
@@ -631,35 +752,6 @@ image:./icons/lightbulb.png[] You can use the command `nw` to help you show next
 
 *****
 
-==== Add Person to Group: `addtogroup`
-
-Adds a person specified by `NAME` with a role specified by `ROLE` into a group specified by `GROUP_NAME` in the
-TimeBook.
-
-Format:
-
-* `addtogroup n/NAME g/GROUP_NAME [role/ROLE]`
-
-Examples:
-
-* `addtogroup n/John g/CS2103` +
-Adds `John` into group `CS2103`
-
-* `addtogroup n/Bobby g/CS3203 role/Leader` +
-Adds `Bobby` into group `CS3203` with a role `Leader`
-
-==== Delete a Person from Group: `deletefromgroup`
-
-Deletes a person specified by `NAME` from a group specified by `GROUP_NAME`
-
-Format:
-
-* `deletefromgroup n/NAME g/GROUP_NAME`
-
-Examples:
-
-* `deletefromgroup n/Bobby g/CS2103` +
-Removes `Bobby` from the group `CS2103`
 
 === Advanced Features
 
