@@ -1,0 +1,76 @@
+= Aidil F - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:experimental:
+
+== Project: TimeBook
+
+== Overview
+
+TimeBook is a scheduling application that helps busy NUS undergraduates keep track of their own and their friends' schedules. With this information, TimeBook shows the common free time among the user and their friends, and even finds a convenient place to meet. The user interacts with TimeBook through a Command Line Interface (CLI), and its Graphical User Interface (GUI) is created with JavaFX as seen below.
+
+.What users see when they use TimeBook
+image::Ui.png[]
+
+TimeBook was built by a team of five NUS Computer Science undergraduates over the course of eleven weeks, as part of the CS2103T module. It is written in Java, and has about 25 kLoC. This project portfolio document details my contributions to the project.
+
+== Summary of contributions
+
+* *Major enhancement*: added *fuzzy matching for commands auto-completion and context-sensitive suggestions for command parameters*
+** _What it does_ +
+Provides real-time context-sensitive suggestions for commands and parameter values.
+This feature works in two parts. The first is centered around the commands itself and the second are the parameters that a command accepts. In both cases, they can use keyboard keys to select and autocomplete the commands and parameters.
++
+{nbsp} +
+In terms of commands, this feature will dynamically filter all the valid commands based on what the user has keyed in. As seen in the below figure, the user has typed `d` and only the relevant commands are suggested. Additionally, users can create their own abbreviations when typing in commands. Instead of typing `deletefromgroup`, they can type any of its letters as long as the sequence is maintained. For example, the abbreviations `dfg`, `delfromgroup`, `dfgr`, `delfgroup`, `dmg` will also suggest the `deletefromgroup` command.
++
+.Command suggestions with fuzzy matching
+image::command-suggestions/project-portfolio-commands.png[]
++
+{nbsp} +
++
+In terms of context-sensitive parameter values, let's say the user wants to remove someone from their CS2103 group using the command `deletefromgroup`. As the user has already specified the group (i.e. `g/CS2103`), this feature only suggests the names of the people within the "CS2103" group when the user is specifying a name to delete (using `n/`). The real-time nature of the feature is evident as the user begins typing "Charlie" and the suggestions are dynamically filtered to exclude "Bobby" and "Denise".
++
+.Example of context-sensitive suggestion for the name parameter (`n/`) in the `deletefromgroup` command
+image::command-suggestions/project-portfolio-deletefromgroup.png[]
++
+
+
+** _Justification_ +
+This feature significantly improves the product's user experience, especially for novices, because users can discover what commands are available while using the app instead of having to recall or continuously reference the user guide. For advanced or longtime users of TimeBook, the flexibility of personalized command abbreviations allows them to use TimeBook more efficiently to solve scheduling problems instead of being slowed down by command entry. The parameter value suggestions also let all kinds of users quickly see, select then autocomplete what they intended to type with just one additional keypress.
+** _Highlights_ +
+This enhancement affects existing and future commands. It required the consideration of design trade offs to ensure scalability. Currently, it is effortless for other developers to add this feature to their own commands. At the same time, this feature scales by letting them build more complex suggestion behaviours if needed (e.g. suggesting different values for each `class/` argument based on the left-closest `mod/` argument for the following command: `addmod mod/CS2103T class/ mod/CS2101 class/`).
+** _Credits_ +
+The feature was inspired by https://www.jetbrains.com/help/idea/auto-completing-code.html[IntelliJ's Code Completion feature].
+
+* *Minor enhancement* +
+Added a history feature that allows the user to navigate to previous commands using the kbd:[Up]/kbd:[Down] arrow keys.
+
+* *Code contributed*: Please view https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=aidilfbk&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=aidilfbk&tabRepo=AY1920S1-CS2103T-T10-4%2Fmain%5Bmaster%5D[the code that I contributed at Reposense].
+
+* *Other contributions*:
+
+** Project management:
+*** Managed https://github.com/AY1920S1-CS2103T-T10-4/main/releases/tag/v1.3[release `v1.3` on GitHub]
+
+== User Guide Contributions
+
+|===
+|_Below are the sections that I contributed to the User Guide. They showcase my ability to write documentation targeting our end-users of NUS students. Each section is separated with a line to indicate when one section ends and another begins._
+|===
+
+include::../UserGuide.adoc[tag=suggestions-autocomplete]
+
+'''
+
+How do I store my details and schedule?::
+include::../UserGuide.adoc[tag=alice-full]
+
+== Developer Guide Contributions
+
+|===
+|_Below are the sections that I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=suggestions]

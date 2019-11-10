@@ -148,6 +148,7 @@ Type your commands here to execute them!
 
 image::commandBox.png[]
 
+// tag::suggestions-autocomplete[]
 === Suggestions Autocomplete
 
 TimeBook comes with a helpful feature that provides suggested commands or relevant values so you can spend less time typing commands and more time on your group meetings.
@@ -198,7 +199,9 @@ a|image::command-suggestions/user-guide-example-step7.png[] | –kbd:[Tab]–> a
 |=======
 
 Congratulations!
-You've now mastered the suggestions feature using just three simple keys, the kbd:[Up] and kbd:[Down] arrow keys to navigate between suggestions and the kbd:[Tab] key to select it. +
+You've now mastered the suggestions feature using just three simple keys, the kbd:[Up] and kbd:[Down] arrow keys to navigate between suggestions and the kbd:[Tab] key to select it.
+// end::suggestions-autocomplete[]
+
 The following sections will explain all the commands we have in TimeBook and what they do.
 
 [[Features]]
