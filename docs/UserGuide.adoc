@@ -802,7 +802,7 @@ Create your own difficulties with customized time durations.
 
 *Q*: _Dukemon_ is not starting up/crashes upon load-up, how can I rectify this? +
 *A*: Move _Dukemon_ to a new, *empty* file directory. Ensure that all data and configuration files in the same directory are
-deleted (_some files may be corrupted_). _Dukemon_ will perform clean start from the new directory.
+deleted (_some files may be corrupted_). _Dukemon_ will perform a clean start from the new directory.
 
 *Q*: The _Game_ failed to start, what can I do? +
 *A*: Ensure that your selected _WordBank_ has at least three _Cards_ to be able to start. Also note that
@@ -816,7 +816,7 @@ if you want to switch to certain modes.
 *A*: Think _Pokemon_.
 
 *Q*: The GUI (Graphical User Interface) seems to be lagging, is this an issue? +
-*A*: _Dukemon_ aims to run at around 60fps, but performance varies across machines.
+*A*: _Dukemon_ aims to run at around 60fps, but performance varies across machines. 
 
 *Q*: How can I transfer/share _WordBanks_ across machines? +
 *A*: Use the `export` and `import` functionalities to move data to specific file directories. From there you can

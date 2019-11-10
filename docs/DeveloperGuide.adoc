@@ -600,7 +600,7 @@ these polled _timestamps_ to update the `Hints` provided periodically.
 
 ==== Design Considerations
 
-There were a few considerations for designing the `Timer` this way.
+There were a few reasons for designing the `Timer` and `Hints` this way.
 
 |===
 ||**Alternative 1**|**Alternative 2**
@@ -623,11 +623,35 @@ _Cons:_ +
 Relies on developer to register correct call-back methods with the `Timer`. Different actions need to be
 implemented as different call-backs separately. Possible overhead in performing few levels of call-backs.
 
-3+|**Why did we choose Alternative 2:** +
+3+|**Why we chose Alternative 2:** +
 To ensure better extendability of our code for future expansion, we felt it was important to maintain as much
 abstraction between components. This is also to make life easier when there comes a need to
 debug and resolve problems in the code.
  +
+ ||**Alternative 1**|**Alternative 2**
+ |**Aspect 2**: +
+ Where and how to perform string formatting for `Hints` to be displayed.
+ | **Move retrieval of individual Hint characters and all formatting outside of the Game component completely**: +
+
+ _Pros:_ +
+Maintains immutability of each `Card` inside `Game` component.  +
+
+ _Cons:_ +
+Breaking abstraction as higher level components should not have to deal with string formatting.
+
+ |**Perform formatting at the lowest level possible, using a `FormattedHint` class.** +
+
+ _Pros:_ +
+Higher level components need not know about string formatting at all, maintains good abstraction.  +
+
+ _Cons:_ +
+Individual `Game` components like each `Card` become stateful, need to make deep copies to prevent
+state from carrying across `Game` sessions.
+
+ 3+|**Why we chose Alternative 2:** +
+Implementing cloning of `Cards` affects other areas of code the least, and reduces unnecessary coupling. Since changes to higher level
+elements can potentially affect all other components, it was safer to modify more atomic areas of code.
+  +
 |===
 
 // end::yida-timer[]
