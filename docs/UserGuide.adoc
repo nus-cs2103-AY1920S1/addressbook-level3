@@ -240,6 +240,7 @@ Examples:
 
 Displays details of policy at index 1 on the right panel.
 
+// tag::edit[]
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
@@ -266,7 +267,9 @@ NRIC: S0000001A; Phone: 91234567; Email: johndoe@example.com; Address: Blk 30 Ge
 Policies: [Teenage]
 Tags: [diabetic]
 ```
+// end::edit[]
 
+// tag::editpolicy[]
 === Editing a policy : `editpolicy`
 
 Edits an existing policy in the address book. +
@@ -295,6 +298,7 @@ Description: Honda Insurance; Coverage: 12 years, 11 months, 10 days; Price: $10
 Criteria: [diabetic]
 Tags: [sample]
 ```
+// end::editpolicy[]
 
 === Locating persons by name: `find`
 
@@ -624,13 +628,15 @@ Format: `assignpolicy INDEX pol/POLICY NAME`
 ****
 
 Examples:
+```
+`find Betsy`
+`assignpolicy 1 pol/Accident Insurance`
+```
 
-* `listpeople` +
-`assignpolicy 2 pol/Senior Care` +
-Assigns the 'Senior Care' (the second policy in the list) policy to the 2nd person in the list of people.
-* `find Betsy` +
-`assignpolicy 1 pol/Accident Insurance` +
-Assigns the 'Accident Insurance' (the first policy in the list) policy to the 1st person in the results of the `find` command.
+Expected output:
+```
+Assigned Policy: Accident Insurance to Person: Betsy Kumar
+```
 //end::assignpolicy[]
 
 //tag::unassignpolicy[]
@@ -648,12 +654,15 @@ Format: `unassignpolicy INDEX pol/POLICY NAME`
 
 Examples:
 
-* `listpeople` +
-`unassignpolicy 2 pol/Accident Insurance` +
-Removes the policy 'Accident Insurance' in the absolute list from the 2nd person in the displayed list of people.
-* `find Betsy` +
-`unassignpolicy 1 pol/Health insurance` +
-Removes the policy 'Health Insurance' in the absolute list from the 1st person in the results of the `find` command.
+```
+`find Betsy`
+`unassignpolicy 1 pol/Accident Insurance`
+```
+
+Expected output:
+```
+Unssigned Policy: Accident Insurance from Person: Betsy Kumar
+```
 //end::unassignpolicy[]
 
 //tag::deletetag[]
@@ -901,7 +910,7 @@ Restores first index of the list of bin items.
 >>> restore 1
 ```
 
-Expected Output: +
+Expected Output:
 ```
 Restored item: David Georgia NRIC: S0000010T Phone: 94820001 Email: davegeorge@example.com Address: 10th Fly street
 Date of birth: 5 March 1980 Gender: Male Date deleted: 22 Oct 2019 at 09:57 PM Expiry Date: 21 Nov 2019 at 09:57 PM
@@ -930,16 +939,17 @@ Format:
 
 Example:
 
-`binitemexpiry days/30` +
+`binitemexpiry days/30`
 
 Set all BinItems to expire 30 days their deletion. They will be removed permanently once they exceed their expiry date.
 
-Expected Output: +
+Expected Output:
 ```
 Changed bin item expiry time! Items in the Bin will be removed permanently 30 days after their deletion.
 ```
 // end::binitemexpiry[]
 
+// tag::undo[]
 === Undo recently entered commands : `undo`
 User can simply enter the command `undo` to undo the most recent address book data change.
 
@@ -952,8 +962,9 @@ An undo has been performed!
 
 [NOTE]
 An undo does not work for commands which do not make a change in the address book data (like `listpeople` for instance).
+// end::undo[]
 
-
+// tag::redo[]
 === Redo recently undone commands : `redo`
 User can simply enter the command `redo` to redo the most recent address book data change. A redo is possible only when
 an undo has been previously performed.
@@ -967,7 +978,9 @@ A redo has been performed!
 
 [NOTE]
 A redo does not work for commands which do not make a change in the address book data (like `listpeople` for instance).
+// end::redo[]
 
+// tag::history[]
 === Listing command history : `history`
 
 Shows a list of all previously entered (valid) commands in the right panel. Commands entered during the merging
@@ -989,7 +1002,9 @@ Example:
 Expected Output:
 
 image::HistoryCommandExample.png[]
+// end::history[]
 
+// tag::navhistory[]
 === Navigating command history by pressing up/down keys
 
 Previously entered commands can be navigated in the `CommandBox` without explicity entering them by pressing
@@ -997,6 +1012,7 @@ UP/DOWN keyboard keys. This is different from the above mentioned `history` comm
 entered which were invalid.
 
 Format: No command, simply press up/down keyboard keys.
+// end::navhistory[]
 
 === Exiting the program : `exit`
 
@@ -1032,8 +1048,8 @@ Suggestions of correct command words will be listed immediately once an incorrec
 
 * *Add Person* `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH​ g/GENDER` +
 e.g. `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 dob/12.09.1980 g/MALE`
-* *Add Policy* `addpolicy  addpolicy n/NAME d/DESCRIPTION c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID]  pr/PRICE [sa/START_AGE] [ea/END_AGE]...` +
-e.g. `addpolicy n/Senior Care d/care for seniors c/months/10 pr/$50000 [sa/50 ea/75]`
+* *Add Policy* `addpolicy n/NAME d/DESCRIPTION c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID] pr/PRICE [sa/START_AGE] [ea/END_AGE]...` +
+e.g. `addpolicy n/Senior Care d/care for seniors c/months/10 pr/$50000 sa/50 ea/75`
 * *List People* : `listpeople`
 * *List Policy* : `listpolicy`
 * *List Bin Items* : `listbin`

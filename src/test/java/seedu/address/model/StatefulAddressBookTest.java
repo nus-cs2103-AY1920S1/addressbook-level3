@@ -3,6 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
@@ -23,6 +24,17 @@ class StatefulAddressBookTest {
     private void setUp() {
         addressBook = new StatefulAddressBook(getTypicalAddressBook());
         expectedAddressBook = new StatefulAddressBook(addressBook);
+    }
+
+    @Test
+    public void undo_withoutSavingState_throwsCannotUndoException() {
+        assertThrows(StatefulAddressBook.CannotUndoException.class, () -> addressBook.undo());
+    }
+
+    @Test
+    public void redo_withoutUndoing_throwsCannotRedoException() {
+        addressBook.saveAddressBookState();
+        assertThrows(StatefulAddressBook.CannotRedoException.class, () -> addressBook.redo());
     }
 
     @Test
