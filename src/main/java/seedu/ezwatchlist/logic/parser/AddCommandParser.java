@@ -37,7 +37,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args, String currentPanel) throws ParseException {
-        if (currentPanel.equals("search-list")) {
+        if (currentPanel.equals("3")) {
             int index = ParserUtil.parseAddIndex(args);
             return new AddCommand(index);
         }
