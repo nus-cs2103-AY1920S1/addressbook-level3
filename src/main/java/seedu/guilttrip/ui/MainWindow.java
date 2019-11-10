@@ -129,7 +129,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        //popupWindow = new PopupWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -380,17 +379,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns a {@code String} for the updated feedback to user that includes a list of all the fonts.
-     */
-    private String handleListFonts(String oldFeedbackToUser) {
-        FontManager fontManager = new FontManager();
-        String feedbackToUserWithFontList = oldFeedbackToUser + ": "
-                + Arrays.toString(fontManager.getFontsAsStrings().toArray());
-        logger.info("Listed all fonts");
-        return feedbackToUserWithFontList;
-    }
-
-    /**
      * Changes font in the application to the specified font.
      */
     private void handleChangeFont(String font) {
@@ -525,12 +513,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isTogglePanel()) {
                 PanelName panelName = commandResult.getPanelName();
                 handleTogglePanel(panelName);
-            }
-
-            if (commandResult.isListFonts()) {
-                String feedbackToUser = commandResult.getFeedbackToUser();
-                String feedbackToUserWithFontList = handleListFonts(feedbackToUser);
-                resultDisplay.setFeedbackToUser(feedbackToUserWithFontList);
             }
 
             if (commandResult.isChangeFont()) {

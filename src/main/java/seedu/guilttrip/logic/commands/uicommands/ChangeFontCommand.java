@@ -32,7 +32,7 @@ public class ChangeFontCommand extends Command {
     public CommandResult execute(Model model, CommandHistory commandHistory) {
         requireNonNull(model);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, fontName), fontName, false, true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, fontName), fontName, true);
     }
 
 }
