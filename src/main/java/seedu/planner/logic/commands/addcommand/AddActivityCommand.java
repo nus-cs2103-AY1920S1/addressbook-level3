@@ -26,6 +26,7 @@ import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.field.Cost;
 
+//@@author KxxMxxx
 /**
  * Adds an activity to the itinerary.
  */
