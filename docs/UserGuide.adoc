@@ -298,7 +298,7 @@ Step 3. Open the html file in the exports folder to see the overview of all acco
 // tag::kenneth-ppp-loan-intro[]
 === Managing loans: `loan`
 
-image::LoanUG1.png[width=75%,scaledwidth=75%]
+image::LoanUG1.png[width=85%,scaledwidth=85%]
 
 This feature enables you to keep track of who owes you money - and exactly how much they owe you.
 Never again allow those small sums you lend out to accumulate into a massive pile of forgotten gold.
@@ -394,7 +394,7 @@ Lists all loans, then edits the amount and description of the first loan in the 
 This command marks one or more loans in the list as *paid*.
 A paid loan can be visually distinguished by a large "tick" icon to the left of its index:
 
-image::LoanUG2.png[width=40%,scaledwidth=40%]
+image::LoanUG2.png[width=50%,scaledwidth=50%]
 
 Multiple loans can be marked at once.
 This can be done by specifying several indices or at least one person to target.
@@ -424,7 +424,7 @@ Marks all loans pertaining to John and Adam as *paid*.
 This command marks one or more loans in the list as *unpaid*.
 When a paid loan is marked as unpaid, its tick icon will disappear:
 
-image::LoanUG3.png[width=40%,scaledwidth=40%]
+image::LoanUG3.png[width=50%,scaledwidth=50%]
 
 This command is executed in an identical manner to `loan paid`.
 Its format is as follows.
@@ -440,7 +440,7 @@ Its format is as follows.
 Format: `loan delete [<index ...>] [<p/person ...>]`
 
 [[loan-split]]
-// tag::kenneth-ppp-loan-split[]
+// tag::kenneth-ppp-loan-split-1[]
 ==== Calculate loans: `loan split`
 
 This command takes a group of persons and a list of amounts each person has paid,
@@ -478,7 +478,9 @@ This is to allow you to enter limits only for those persons who require them.
 * Adding `w/` will set the `<date>` of the loans added to your loan list.
 * Adding `d/` will set the `<description>` of the loans added to your loan list.
 ****
+// end::kenneth-ppp-loan-split-1[]
 
+// tag::kenneth-ppp-loan-split-2[]
 To switch between your loan list and split list, press kbd:[Ctrl+D] (or kbd:[Cmd+D] for Mac) while on the Loan tab.
 
 [NOTE]
@@ -491,7 +493,7 @@ Examples:
 Calculates the money owed between `John`, `Mary` and `Peter` for a scenario where (initially) `Mary` paid `40` and `Peter` paid `60`. +
 The resulting display should show that `John` owes `Mary` *$6.66* and also owes `Peter` *$26.67*, as seen in the image below.
 
-image::LoanUG4.png[width=75%,scaledwidth=75%]
+image::LoanUG4.png[width=85%,scaledwidth=85%]
 
 * `loan split p/John x/0 max/10 p/Mary x/10 p/Peter x/90 me/Mary d/Dinner.` +
 In this scenario, `Mary` paid `10` and `Peter` paid `90`.
@@ -500,11 +502,11 @@ Furthermore, `me/Mary` marks `Mary` as the user (you),
 so any debts `Mary` owes/is owed will be added to the normal loan list with the description `Dinner.`. +
 The resulting display should show that `John` owes `Peter` *$10* and `You` owe `Peter` *$35*, as seen below.
 
-image::LoanUG5.png[width=75%,scaledwidth=75%]
+image::LoanUG5.png[width=85%,scaledwidth=85%]
 
 The latter debt will also have been added to your loan list,
 which can be checked using the command `loan list` or by pressing the hotkey mentioned above.
-// end::kenneth-ppp-loan-split[]
+// end::kenneth-ppp-loan-split-2[]
 // end::loans[]
 
 // tag::rules[]

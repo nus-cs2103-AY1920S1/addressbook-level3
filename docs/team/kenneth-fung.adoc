@@ -90,7 +90,13 @@ include::../UserGuide.adoc[tag=kenneth-ppp-loan-intro]
 
 include::../UserGuide.adoc[tag=kenneth-ppp-loan-paid]
 
-include::../UserGuide.adoc[tag=kenneth-ppp-loan-split]
+<<<
+
+include::../UserGuide.adoc[tag=kenneth-ppp-loan-split-1]
+
+<<<
+
+include::../UserGuide.adoc[tag=kenneth-ppp-loan-split-2]
 
 <<<
 
