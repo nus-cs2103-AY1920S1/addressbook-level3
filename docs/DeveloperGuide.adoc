@@ -156,6 +156,8 @@ An example of how such `UniqueList<Tag>` and `UniqueList<Customer>` interacts is
  +
 image:BetterModelClassDiagram.png[]
 
+// tag::storage[]
+
 [[Design-Storage]]
 === Storage component
 
@@ -169,6 +171,8 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Customer Book data, Phone Book data, Order Book data and Schedule Book data in json format and read them
  back.
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -518,6 +522,8 @@ as one would need to understand the parsing.
 ** Cons: Harder to maintain.
 
 // end::find[]
+
+// tag::export[]
 
 === Export feature
 ==== Implementation
@@ -998,10 +1004,17 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+// tag:: savingData[]
+
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. If all files are missing, sample data files will be loaded.
+.. Dependency flows from schedulebook to orderbook to phonebook and customerbook.
+.. If file "a" has dependency on file "b", and file "a" is missing, both sample file "a" and "b" will be loaded.
+.. If file is corrupted i.e. wrong string input, sample file will be loaded.
 
 _{ more test cases ... }_
+
+// end:: savingData[]

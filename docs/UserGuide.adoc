@@ -878,6 +878,7 @@ Exits the program. +
 
 If there are any statistics window open when executing this, the application will not terminate until those windows are closed too
 
+// tag::export[]
 
 === Export data : `export`
 
@@ -887,6 +888,8 @@ If csv file of the input file name exists, the application data will be exported
 If csv file of the input file name does not exist, the application data will be exported into a new file. +
 
 [underline]#Format#: `export FILE_NAME` +
+
+// end::export[]
 
 === Autocomplete
 As you enter characters into the command line, suggestions will appear.
@@ -974,6 +977,8 @@ dates that already have orders scheduled on them. This is helpful in checking fo
 
 === Other commands
 
+// tag:: import[]
+
 ==== Import data : `import` `[coming in v2.0]`
 
 
@@ -982,6 +987,8 @@ If csv file of the input file exists, the file will be imported. +
 If csv file of the input file does not exist, command will not be executed. +
 
 [underline]#Format#: `import FILE_NAME`
+
+// end:: import[]
 
 ==== Saving the data
 

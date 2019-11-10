@@ -1,0 +1,60 @@
+= Yeo Dong Han - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Seller Manager Lite
+
+---
+
+== Overview
+
+Seller Manager Lite is a desktop application used for managing a business operational and logistical needs. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 28 kLoC. It was morph from the original Address-Book 3 application.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the export to csv feature*
+** What it does: allows the user to export current data into excel readable CSV files. Using export command, user can easily export the current customer and phone data into CSV file available for printing.
+** Justification: This feature improves the product significantly because a user seller can easily create a CSV file containing the business data such as the inventory of phones and import into excel to print easily. This allows the seller to easily create a hard copy of the current inventory to do easy stock take in real life.
+** Highlights: I have written the command [Export] that reads present Json files to create JsonObjects. The creation of CSV file using JsonObject uses a third-party library to convert Json string into JsonObjects and then into JsonArray to be finally converted into CSV format string. To make the feature useful for the users, I have designed the printable CSV file to display just the necessary attributes so as to keep the customer list and phone inventory neat and easy to read.
+** Credits: Used org.json library to handle JsonObjects, JsonArrays and support comma delimiter to create CSV.
+
+* *Other Major enhancement*: Designed and implemented the Json saving feature that is used to save data of the different models in our application. The feature is inspired by AB3 use of Json saving feature. This is done by morphing present AB3 saving features to be integrated into our application.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=yeodonghan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false&tabOpen=true&tabType=zoom[Reposense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+
+** Enhancements to existing features:
+*** Added Customer, Phone, Order and schedule storage. (Pull requests https://github.com[#133], https://github.com[#118], https://github.com[#121], https://github.com[#125])
+
+** Documentation:
+*** Tweaked AB3 user guide to fit our application: https://github.com[#176]
+*** Edited and added diagrams to Developer Guide: https://github.com[#157] https://github.com[#190]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#101], https://github.com[#119]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=export]
+include::../UserGuide.adoc[tag=import]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=storage]
+include::../DeveloperGuide.adoc[tag=export]
+include::../DeveloperGuide.adoc[tag=savingData]
