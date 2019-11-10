@@ -24,10 +24,10 @@ import budgetbuddy.logic.commands.loancommands.LoanEditCommand;
 import budgetbuddy.logic.commands.loancommands.LoanEditCommand.LoanEditDescriptor;
 import budgetbuddy.logic.parser.commandparsers.loancommandparsers.LoanEditCommandParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Loan;
-import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.testutil.TypicalIndexes;
 import budgetbuddy.testutil.loanutil.LoanEditDescriptorBuilder;
 

@@ -8,23 +8,23 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane HBox.hgrow="always" maxWidth="500">
+    <GridPane HBox.hgrow="ALWAYS" maxWidth="500">
         <columnConstraints>
-            <ColumnConstraints percentWidth="20"/>
+            <ColumnConstraints percentWidth="15"/>
         </columnConstraints>
         <columnConstraints>
-            <ColumnConstraints percentWidth="40" />
+            <ColumnConstraints percentWidth="60" />
         </columnConstraints>
         <columnConstraints>
-            <ColumnConstraints percentWidth="40"/>
+            <ColumnConstraints percentWidth="55"/>
         </columnConstraints>
-        <VBox alignment="CENTER" minHeight="105" GridPane.columnIndex="0">
+        <VBox alignment="CENTER" minHeight="45" GridPane.columnIndex="0">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15"/>
             </padding>
             <Label fx:id="id" styleClass="cell_big_label"/>
         </VBox>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="1">
+        <VBox alignment="CENTER_LEFT" minHeight="45" GridPane.columnIndex="1">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
@@ -33,7 +33,7 @@
             <Label fx:id="direction" styleClass="cell_small_label" text="\$direction" />
             <FlowPane fx:id = "categories" />
         </VBox>
-        <VBox alignment="CENTER" minHeight="105" GridPane.columnIndex="2">
+        <VBox alignment="CENTER" minHeight="45" GridPane.columnIndex="2">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>

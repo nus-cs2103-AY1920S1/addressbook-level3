@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.ui.card.LoanSplitCard;
-
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;

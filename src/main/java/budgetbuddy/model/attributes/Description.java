@@ -33,6 +33,12 @@ public class Description implements Comparable<Description> {
         return description;
     }
 
+    /**
+     * Returns true if the test description is contained within the description.
+     */
+    public boolean contains(Description test) {
+        return description.contains(test.description);
+    }
     @Override
     public int compareTo(Description other) {
         return description.compareTo(other.description);

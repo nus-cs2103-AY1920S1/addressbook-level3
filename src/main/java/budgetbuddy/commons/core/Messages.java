@@ -10,7 +10,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_DISPLAYED_INDEX = "The index provided is invalid";
 
     public static final String MESSAGE_TRANSACTIONS_LISTED_OVERVIEW = "%1$d transactions listed!";
-    public static final String MESSAGE_TRANSACTION_ADDITION_FAILED = "The transaction could not be added";
     public static final String MESSAGE_ACCOUNTS_LISTED_OVERVIEW = "%1$d account(s) listed!";
     public static final String MESSAGE_ACCOUNT_SEARCH_RESULTS_EMPTY = "There are no results matching your search,"
             + " listing all %1$d account(s)   ";

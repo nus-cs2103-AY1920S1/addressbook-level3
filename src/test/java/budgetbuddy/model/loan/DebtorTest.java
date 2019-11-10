@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.testutil.loanutil.DebtorBuilder;
 import budgetbuddy.testutil.loanutil.TypicalDebtors;
 

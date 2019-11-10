@@ -4,7 +4,6 @@ import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.ui.panel.LoanPanel;
 import budgetbuddy.ui.panel.LoanSplitPanel;
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 

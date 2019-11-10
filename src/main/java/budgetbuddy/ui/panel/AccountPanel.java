@@ -46,8 +46,6 @@ public class AccountPanel extends DisplayPanel {
                     accountCard.getRoot().getStyleClass().add("account-active");
                 }
             }
-
-
         }
     }
 

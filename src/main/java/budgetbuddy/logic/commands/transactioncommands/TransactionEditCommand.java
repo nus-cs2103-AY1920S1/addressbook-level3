@@ -1,5 +1,6 @@
 package budgetbuddy.logic.commands.transactioncommands;
 
+import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.DATE_EXAMPLE;
 import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_SINGLE_ID;
@@ -26,11 +27,11 @@ import budgetbuddy.logic.script.ScriptEngine;
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.exceptions.TransactionNotFoundException;
 import javafx.collections.ObservableList;
@@ -112,6 +113,8 @@ public class TransactionEditCommand extends ScriptCommand {
 
         } catch (TransactionNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandException(MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
         return new CommandResult(

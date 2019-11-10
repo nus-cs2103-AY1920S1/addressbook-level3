@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.ui.card.LoanCard;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;

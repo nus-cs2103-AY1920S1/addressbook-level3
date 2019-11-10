@@ -13,7 +13,6 @@ import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.exceptions.DuplicateLoanException;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

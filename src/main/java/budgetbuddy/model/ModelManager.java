@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.model.transaction.Transaction;
-
 import javafx.collections.transformation.FilteredList;
 
 /**
@@ -41,7 +40,7 @@ public class ModelManager implements Model {
         this.accountsManager = accountsManager;
         this.userPrefs = new UserPrefs(userPrefs);
         this.scriptLibrary = scriptLibrary;
-        this.filteredTransactions = new FilteredList<Transaction>(accountsManager.getActiveTransactionList());
+        this.filteredTransactions = accountsManager.getFilteredTransactionList();
     }
 
     public ModelManager() {

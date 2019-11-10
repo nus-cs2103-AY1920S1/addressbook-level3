@@ -14,11 +14,11 @@ import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.script.exceptions.ScriptException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 
@@ -112,7 +112,7 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
 
         Account toSet = scriptGetAccount(nameOrIndex);
         int toSetIndex = model.getAccountsManager().getAccounts().indexOf(toSet);
-        model.getAccountsManager().setActiveAccount(Index.fromZeroBased(toSetIndex));
+        model.getAccountsManager().setActiveAccountByIndex(Index.fromZeroBased(toSetIndex));
 
         return toSet;
     }

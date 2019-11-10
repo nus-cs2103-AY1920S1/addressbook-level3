@@ -5,8 +5,8 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.HashMap;
 import java.util.Objects;
 
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.transaction.Amount;
 
 /**
  * Represents money owed between a debtor and several creditors when splitting a payment.

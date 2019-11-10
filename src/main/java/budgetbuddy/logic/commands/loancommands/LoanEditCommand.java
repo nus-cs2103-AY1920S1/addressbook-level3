@@ -17,6 +17,7 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.loan.Loan;
@@ -24,7 +25,6 @@ import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.loan.exceptions.DuplicateLoanException;
 import budgetbuddy.model.loan.exceptions.LoanNotFoundException;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.transaction.Amount;
 
 /**
  * Edits a loan.
