@@ -1,5 +1,8 @@
 package seedu.pluswork.ui.views;
 
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,9 +14,6 @@ import seedu.pluswork.model.mapping.TasMemMapping;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.ui.UiPart;
-
-import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of tasks.

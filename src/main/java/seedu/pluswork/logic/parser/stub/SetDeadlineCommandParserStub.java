@@ -1,27 +1,27 @@
 package seedu.pluswork.logic.parser.stub;
 
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.commons.util.DateTimeUtil;
 import seedu.pluswork.logic.commands.SetDeadlineCommand;
 import seedu.pluswork.logic.parser.Parser;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new EditTaskCommand object
  */
 public class SetDeadlineCommandParserStub implements Parser<SetDeadlineCommand> {
 
     private static int count = 1;
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditTaskCommand
+     * and returns an EditTaskCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

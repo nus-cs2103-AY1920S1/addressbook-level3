@@ -1,5 +1,7 @@
 package seedu.pluswork.ui.views;
 
+import java.util.logging.Logger;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -12,8 +14,6 @@ import seedu.pluswork.commons.core.LogsCenter;
 import seedu.pluswork.ui.HelpCard;
 import seedu.pluswork.ui.MainWindow;
 import seedu.pluswork.ui.UiPart;
-
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of commands.

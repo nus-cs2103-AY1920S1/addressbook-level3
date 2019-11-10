@@ -1,14 +1,54 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.logic.commands.*;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.pluswork.logic.commands.AddCalendarCommand;
+import seedu.pluswork.logic.commands.AddDCommand;
+import seedu.pluswork.logic.commands.AddICommand;
+import seedu.pluswork.logic.commands.AddInventoryCommand;
+import seedu.pluswork.logic.commands.AddMeetingCommand;
+import seedu.pluswork.logic.commands.AddMemberCommand;
+import seedu.pluswork.logic.commands.AddTaskCommand;
+import seedu.pluswork.logic.commands.AssignCommand;
+import seedu.pluswork.logic.commands.ClearCommand;
+import seedu.pluswork.logic.commands.ClockCommand;
+import seedu.pluswork.logic.commands.Command;
+import seedu.pluswork.logic.commands.DeleteCalendarCommand;
+import seedu.pluswork.logic.commands.DeleteInventoryCommand;
+import seedu.pluswork.logic.commands.DeleteMeetingCommand;
+import seedu.pluswork.logic.commands.DeleteMemberCommand;
+import seedu.pluswork.logic.commands.DeleteTaskCommand;
+import seedu.pluswork.logic.commands.DoingTaskCommand;
+import seedu.pluswork.logic.commands.DoneTaskCommand;
+import seedu.pluswork.logic.commands.EditInventoryCommand;
+import seedu.pluswork.logic.commands.EditMemberCommand;
+import seedu.pluswork.logic.commands.EditTaskCommand;
+import seedu.pluswork.logic.commands.ExitCommand;
+import seedu.pluswork.logic.commands.FindMeetingTimeCommand;
+import seedu.pluswork.logic.commands.FindMemberCommand;
+import seedu.pluswork.logic.commands.FindTaskCommand;
+import seedu.pluswork.logic.commands.FireCommand;
+import seedu.pluswork.logic.commands.GeneratePDFCommand;
+import seedu.pluswork.logic.commands.GetStatisticsCommand;
+import seedu.pluswork.logic.commands.HelpCommand;
+import seedu.pluswork.logic.commands.HomeCommand;
+import seedu.pluswork.logic.commands.ListInventoryCommand;
+import seedu.pluswork.logic.commands.ListMemberCommand;
+import seedu.pluswork.logic.commands.ListTaskCommand;
+import seedu.pluswork.logic.commands.NoCommand;
+import seedu.pluswork.logic.commands.RedoCommand;
+import seedu.pluswork.logic.commands.SetDeadlineCommand;
+import seedu.pluswork.logic.commands.SetImageCommand;
+import seedu.pluswork.logic.commands.SettingsCommand;
+import seedu.pluswork.logic.commands.ThemeCommand;
+import seedu.pluswork.logic.commands.UndoCommand;
+import seedu.pluswork.logic.commands.YesCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
@@ -44,13 +84,13 @@ public class ProjectDashboardParser {
             case DeleteTaskCommand.COMMAND_WORD:
                 return new DeleteTaskCommandParser().parse(arguments);
 
-            case FindCommand.COMMAND_WORD:
+            case FindTaskCommand.COMMAND_WORD:
                 return new FindCommandParser().parse(arguments);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+            case ListTaskCommand.COMMAND_WORD:
+                return new ListTaskCommand();
 
-            case EditCommand.COMMAND_WORD:
+            case EditTaskCommand.COMMAND_WORD:
                 return new EditCommandParser().parse(arguments);
 
             case DoingTaskCommand.COMMAND_WORD:
@@ -98,8 +138,8 @@ public class ProjectDashboardParser {
             case DeleteInventoryCommand.COMMAND_WORD:
                 return new DeleteInventoryCommandParser().parse(arguments);
 
-            // case GeneratePDFCommand.COMMAND_WORD:
-            //     return new GeneratePDFCommandParser().parse(arguments);
+            case GeneratePDFCommand.COMMAND_WORD:
+                return new GeneratePDFCommandParser().parse(arguments);
 
             // STATS
             case GetStatisticsCommand.COMMAND_WORD_MEMBER:

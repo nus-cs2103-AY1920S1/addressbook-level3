@@ -1,14 +1,14 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.logic.commands.DeleteCalendarCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
-import seedu.pluswork.model.member.MemberName;
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 
 import java.io.FileNotFoundException;
 import java.util.stream.Stream;
 
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
+import seedu.pluswork.logic.commands.DeleteCalendarCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
+import seedu.pluswork.model.member.MemberName;
 
 /**
  * Parses input arguments and creates a new AddCommand object

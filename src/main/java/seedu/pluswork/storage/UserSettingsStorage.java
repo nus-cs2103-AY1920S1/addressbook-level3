@@ -1,12 +1,12 @@
 package seedu.pluswork.storage;
 
-import seedu.pluswork.commons.exceptions.DataConversionException;
-import seedu.pluswork.model.ReadOnlyUserSettings;
-import seedu.pluswork.model.UserSettings;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import seedu.pluswork.commons.exceptions.DataConversionException;
+import seedu.pluswork.model.ReadOnlyUserSettings;
+import seedu.pluswork.model.UserSettings;
 
 /**
  * Represents a storage for {@link seedu.pluswork.model.UserSettings}.

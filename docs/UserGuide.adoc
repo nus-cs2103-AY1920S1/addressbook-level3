@@ -477,22 +477,22 @@ User chooses the meeting time from the grid displayed from generate timings comm
 
 ==== Adding an inventory: `add-inv`
 
-This command allows you to add an inventory bought or retrieved for a specific task by a specific member.This command allows you to add an inventory bought or retrieved for a specific task by a specific member.
+This command allows you to add an inventory bought or retrieved for a specific task by a specific member.
 
 Format: `add-inv [i/ITEM_NAME] [p/PRICE(optional)] [ti/TASK_ID] [mi/MEMBER_ID]`
 
-[NOTE]
+[IMPORTANT]
 The item name, task id and member id are compulsory inputs. An input without any price value will automatically set the price to $0.
-Ensure that an existing task id and member id (as displayed by list-tasks and list-members respectively) is being typed into the command box.
+Ensure that an existing task id and member id (as displayed by `list-tasks` and `list-members` respectively) is being typed into the command box.
 
 
 Examples:
 
 * `add-inv i/scissors ti/4 mi/GS` +
-Entering this command adds the inventory “scissors” to the inventory list. The item is tagged to task with id as 4 (id is shown by list-tasks) and is provided by member with the member id “GS” for a price of $0.
+When you enter this command, it adds the inventory “scissors” to the inventory list. The item is tagged to task with id as 4 (id is shown by `list-tasks`) and is provided by member with the member id “GS” for a price of $0.
 
 * `add-inv i/eggs p/2.40 ti/2 mi/AR` +
-Entering this command adds the item “eggs” for $2.40 to the inventory list. This item is tagged to task tagged to task with id as 2 (id is shown by list-tasks) and was paid for by the member with member id “AR”. The following pictures show how this command is to be executed.
+When you enter this command, it adds the item “eggs” for $2.40 to the inventory list. This item is tagged to task tagged to task with id as 2 (id is shown by `list-tasks`) and was paid for by the member with member id “AR”. The following pictures show how this command is to be executed.
 
 ** First, type `add-inv i/eggs p/2.40 ti/2 mi/AR` into the command box as shown below.
 
@@ -513,11 +513,11 @@ Examples:
 * `delete-inv ii/3` +
 This command deletes the third item from the inventory list. The following pictures show how this command is to be executed
 
-** First, find the index of inventory that you want to delete, by navigating to inventory list view using list-inv.
+** First, find the index of inventory that you want to delete, by navigating to inventory list view using `list-inv`.
 
 image::Delete-inv_1.PNG[]
 
-** Then, type delete-inv ii/6 into the command box as shown below.
+** Then, type `delete-inv ii/6` into the command box as shown below.
 
 image::Delete-inv_2.PNG[]
 
@@ -547,9 +547,9 @@ However, this command is valid: `edit-inv ii/4 i/toys ti/4 mi/AR`
 Example:
 
 * `edit-inv ii/4 i/toys ti/4 mi/AR` +
-This command edits the 4th inventory from the inventory list as shown by list-inv. It changes the inventory name to toys, the task attached to 4, and the member attached to the member with member ID “AR”. The following pictures show how this command is to be executed.
+This command edits the 4th inventory from the inventory list as shown by `list-inv`. It changes the inventory name to toys, the task attached to 4, and the member attached to the member with member ID “AR”. The following pictures show how this command is to be executed.
 
-** First, type edit-inv ii/4 i/toys ti/4 mi/AR into the command box as shown below.
+** First, type `edit-inv ii/4 i/toys ti/4 mi/AR` into the command box as shown below.
 
 image::Edit-inv_1.PNG[]
 
@@ -565,9 +565,9 @@ This command allows you to create a PDF report of the existing inventories class
 
 Format: `pdf [ty/TYPE]`
 
-[NOTE]
+[IMPORTANT]
 The only two attributes for TYPE are `members` and `tasks`. Other inputs will not work.
-If a PDF created and is currently open, it has to be closed before another pdf can be created.
+If a PDF created and is currently open, it has to be closed before another PDF can be created.
 
 Example:
 
@@ -622,7 +622,7 @@ as well as the time taken for each task inputted into +Work.
 === Multiline Commands
 
 ==== Adding a task: `add-task`
-As mentioned in the earlier part of user guide, to add a task to the project, use the add-task command in the format below. This will result in a series of questions that allow you to add deadline and a member to the task. The following flowchart shows this series of feedbacks from the application and user inputs.
+As mentioned in the earlier part of user guide, to add a task to the project, use the `add-task` command in the format below. This will result in a series of questions that allow you to add deadline and a member to the task. The following flowchart shows this series of feedbacks from the application and user inputs.
 
 image::ml-task_1.PNG[]
 
@@ -633,14 +633,15 @@ Format (to add deadline and member): `add-d [at/DEADLINE] [mi/MEMBER_ID]`
 
 [NOTE]
 `add-d` command does not work unless it is typed after `add-task` and `yes`. +
-Either deadline or member or both can be added using the `add-d` command. However at least one attribute must be present.
+Either deadline or member or both can be added using the `add-d` command. However at least one attribute must be present. +
+Remember to input deadline using the 24 hour time format of dd-mm-yyyy hh:mm
 
 Example:
 
 * `add-task tn/Finish Portfolio s/unbegun tt/Education`  +
 A new task will be added to the project dashboard, which prompts a sequence of questions, as shown in the following pictures
 
-** First, type the add-task command
+** First, type the `add-task` command
 
 image::ml-task_2_1.PNG[]
 
@@ -648,7 +649,7 @@ image::ml-task_2_1.PNG[]
 
 image::ml-task_2_2.PNG[]
 
-** Type yes to add deadline or member
+** Type `yes` to add deadline or member
 
 image::ml-task_2_3.PNG[]
 
@@ -656,7 +657,7 @@ image::ml-task_2_3.PNG[]
 
 image::ml-task_2_4.PNG[]
 
-** Type `add-d at/10/12/2019 18:00 mi/AR` to set deadline at 10/10/2019 18:00 and assign the member with member id “AR” to the task.
+** Type `add-d at/10-12-2019 18:00 mi/AR` to set deadline at 10-10-2019 18:00 and assign the member with member id “AR” to the task.
 
 image::ml-task_2_5.PNG[]
 
@@ -665,9 +666,10 @@ image::ml-task_2_5.PNG[]
 image::ml-task_2_6.PNG[]
 
 ==== Changing a task status to done: `done-task` +
-(for tasks that are tagged “Inventory”)
+[IMPORTANT]
+only for tasks that are tagged “Inventory”
 
-As mentioned in the earlier part of user guide, to change the task status to “done”, use the done-task command in the format below. If the task is tagged as kbd:[Inventory], this will result in a series of questions that allow you to add the task as an inventory. The following flowchart shows this series of feedbacks from the application and user inputs.
+As mentioned in the earlier part of user guide, to change the task status to “done”, use the `done-task` command in the format below. If the task is tagged as "Inventory", this will result in a series of questions that allow you to add the task as an inventory. The following flowchart shows this series of feedbacks from the application and user inputs.
 
 image::ml-task_3.PNG[]
 
@@ -685,7 +687,7 @@ Example:
 * `done-task ti/8` +
 The task with index 8 will have its task status changed to done. Since the task is tagged as “Inventory”, this will prompt a series of questions, as shown in the pictures below.
 
-** First, type done-task ti/8
+** First, type `done-task ti/8`
 
 image::ml-task_4_1.PNG[]
 

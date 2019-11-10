@@ -2,6 +2,7 @@ package seedu.pluswork.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.pluswork.commons.exceptions.IllegalValueException;
 import seedu.pluswork.model.mapping.InvMemMapping;
 

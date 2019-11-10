@@ -1,17 +1,17 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.util.AppUtil;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.task.NameContainsKeywordsPredicate;
 
-import static java.util.Objects.requireNonNull;
-
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "find-task";
     public static final String PREFIX_USAGE = "{keyword}";
@@ -23,7 +23,7 @@ public class FindCommand extends Command {
 
     private final NameContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindTaskCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -39,7 +39,7 @@ public class FindCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                || (other instanceof FindTaskCommand // instanceof handles nulls
+                && predicate.equals(((FindTaskCommand) other).predicate)); // state check
     }
 }

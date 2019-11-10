@@ -1,14 +1,14 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.DoingTaskCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+
+import java.util.stream.Stream;
+
+import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.logic.commands.DoingTaskCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 /*import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
@@ -20,14 +20,14 @@ import java.util.Set;*/
 //import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new EditTaskCommand object
  */
 public class DoingTaskCommandParser implements Parser<DoingTaskCommand> {
     public static final String MESSAGE_NO_ID = "Please enter the task ID of the task you want to mark as Doing.";
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditTaskCommand
+     * and returns an EditTaskCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

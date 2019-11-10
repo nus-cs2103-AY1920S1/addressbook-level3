@@ -9,7 +9,7 @@ import static seedu.pluswork.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBL
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.logic.commands.EditCommand.EditTaskDescriptor;
+import seedu.pluswork.logic.commands.EditTaskCommand.EditTaskDescriptor;
 import seedu.pluswork.model.task.TaskStatus;
 import seedu.pluswork.testutil.EditTaskDescriptorBuilder;
 
@@ -18,7 +18,7 @@ public class EditTaskDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditTaskDescriptor descriptorWithSameValues = new EditCommand.EditTaskDescriptor(TASK_DESC_FINANCE);
+        EditTaskDescriptor descriptorWithSameValues = new EditTaskCommand.EditTaskDescriptor(TASK_DESC_FINANCE);
         assertTrue(TASK_DESC_FINANCE.equals(descriptorWithSameValues));
 
         // same object -> returns true

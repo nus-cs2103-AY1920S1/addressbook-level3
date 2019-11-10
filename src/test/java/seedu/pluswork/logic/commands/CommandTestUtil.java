@@ -2,13 +2,20 @@ package seedu.pluswork.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.pluswork.testutil.Assert.assertThrows;
+import static seedu.pluswork.testutil.TypicalTasksMembers.ORDER_SHIRTS;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,6 +54,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_PUBLICITY = "publicity";
     public static final String VALID_MEMBER_TAG_PUBLICITY = "UIdesigner";
     public static final String VALID_TAG_URGENCY = "urgent";
+    public static final String VALID_TASK_DEADLINE = "20-12-2020 10:00";
 
     public static final String TASK_NAME_DESC_FINANCE = " " + PREFIX_TASK_NAME + VALID_TASK_NAME_FINANCE;
     public static final String MEMBER_NAME_DESC_FINANCE = " " + PREFIX_MEMBER_NAME + VALID_MEMBER_NAME_FINANCE;
@@ -59,11 +67,16 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FINANCE = " " + PREFIX_TASK_TAG + VALID_TAG_FINANCE;
     public static final String MEMBER_NAME_JOHN_DOE = " " + PREFIX_MEMBER_NAME + "John Doe";
     public static final String MEMBER_ID_JOHN_DOE = " " + PREFIX_MEMBER_ID + "JD";
+    public static final String TASK_DEADLINE_DESC = " " + PREFIX_DEADLINE + VALID_TASK_DEADLINE;
 
     public static final String VALID_INVENTORY_NAME_SPORTS = "Sports equipments";
     public static final String VALID_INVENTORY_NAME_MUSIC = "Drums";
     public static final double VALID_INVENTORY_PRICE_SPORTS = 79.50;
     public static final double VALID_INVENTORY_PRICE_MUSIC = 999;
+    public static final String INVENTORY_NAME_DESC_SPORTS = " " + PREFIX_INVENTORY_NAME + VALID_INVENTORY_NAME_SPORTS;
+    public static final String INVENTORY_PRICE_DESC_SPORTS = " " + PREFIX_INVENTORY_PRICE + VALID_INVENTORY_PRICE_SPORTS;
+    public static final String INVENTORY_TASKID_DESC_SPORTS = " " + PREFIX_TASK_INDEX + 1;
+    public static final String INVENTORY_MEMBERID_DESC_SPORTS = " " + PREFIX_MEMBER_ID + "AR";
 
     public static final String INVALID_TASK_NAME_DESC = " " + PREFIX_TASK_NAME
             + "Project Review&"; // '&' not allowed in names
@@ -78,8 +91,9 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditTaskDescriptor TASK_DESC_FINANCE;
-    public static final EditCommand.EditTaskDescriptor TASK_DESC_PUBLICITY;
+    public static final EditTaskCommand.EditTaskDescriptor TASK_DESC_FINANCE;
+    public static final EditTaskCommand.EditTaskDescriptor TASK_DESC_PUBLICITY;
+    public static final EditTaskCommand.EditTaskDescriptor TASK_DESC_DEADLINE;
     public static final EditInventoryCommand.EditInventoryDescriptor INVENTORY_DESC_TOY;
     public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_FINANCE;
     public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_PUBLICITY;
@@ -91,6 +105,9 @@ public class CommandTestUtil {
         TASK_DESC_PUBLICITY = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_PUBLICITY)
                 .withStatus(TaskStatus.DOING)
                 .withTags(VALID_TAG_PUBLICITY).build();
+        TASK_DESC_DEADLINE = new EditTaskDescriptorBuilder(ORDER_SHIRTS)
+                .withDeadline(LocalDateTime.now()
+                        .plusMonths(3)).build();
 
         INVENTORY_DESC_TOY = new EditInventoryCommand.EditInventoryDescriptor();
         INVENTORY_DESC_TOY.setName(new InvName("toy"));

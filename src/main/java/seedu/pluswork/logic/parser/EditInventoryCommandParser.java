@@ -1,14 +1,18 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.EditInventoryCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_INDEX;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 
 import java.util.stream.Stream;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.logic.parser.CliSyntax.*;
+import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.logic.commands.EditInventoryCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new EditInventoryCommand object

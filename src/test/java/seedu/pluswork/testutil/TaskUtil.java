@@ -7,7 +7,7 @@ import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import java.util.Set;
 
 import seedu.pluswork.logic.commands.AddTaskCommand;
-import seedu.pluswork.logic.commands.EditCommand;
+import seedu.pluswork.logic.commands.EditTaskCommand;
 import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Task;
 
@@ -37,7 +37,7 @@ public class TaskUtil {
     /**
      * Returns the part of command string for the given {@code EditTaskDescriptor}'s details.
      */
-    public static String getEditTaskDescriptorDetails(EditCommand.EditTaskDescriptor descriptor) {
+    public static String getEditTaskDescriptorDetails(EditTaskCommand.EditTaskDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_TASK_NAME).append(name.fullName).append(" "));
         descriptor.getTaskStatus().ifPresent(taskStatus -> sb.append(PREFIX_TASK_STATUS).append(taskStatus.toString()

@@ -1,14 +1,14 @@
 package seedu.pluswork.model;
 
-import seedu.pluswork.commons.util.DateTimeUtil;
-import seedu.pluswork.model.settings.ClockFormat;
-import seedu.pluswork.model.settings.Theme;
+import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
+import seedu.pluswork.commons.util.DateTimeUtil;
+import seedu.pluswork.model.settings.ClockFormat;
+import seedu.pluswork.model.settings.Theme;
 
 /**
  * Represents user settings of +Work.

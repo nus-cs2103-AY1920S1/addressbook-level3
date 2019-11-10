@@ -1,12 +1,12 @@
 package seedu.pluswork.logic.commands;
 
-import seedu.pluswork.logic.commands.exceptions.CommandException;
-import seedu.pluswork.model.Model;
-import seedu.pluswork.model.calendar.CalendarWrapper;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
+
+import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.model.Model;
+import seedu.pluswork.model.calendar.CalendarWrapper;
 
 
 /**
@@ -26,7 +26,8 @@ public class AddCalendarCommand extends Command {
             + PREFIX_FILE_PATH + "C:\\Users\\gbrls\\Downloads";
 
     public static final String MESSAGE_SUCCESS = "New calendar added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CALENDAR = "This calendar already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CALENDAR = "This member already has a calendar in " +
+            "the address book. Please delete the existing calendar if you wish to change the calendar file.";
 
     private final CalendarWrapper toAdd;
 

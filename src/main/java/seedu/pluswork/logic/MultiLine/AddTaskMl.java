@@ -1,18 +1,23 @@
 package seedu.pluswork.logic.MultiLine;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.*;
+import seedu.pluswork.logic.commands.AddDCommand;
+import seedu.pluswork.logic.commands.AssignCommand;
+import seedu.pluswork.logic.commands.Command;
+import seedu.pluswork.logic.commands.CommandResult;
+import seedu.pluswork.logic.commands.SetDeadlineCommand;
+import seedu.pluswork.logic.commands.YesCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.member.MemberId;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-public class AddTaskDetails {
-    public static CommandResult manageOne(CommandResult commandResult, Command command,
-                                          Model model, ArrayList<Command> commands) throws CommandException, ParseException {
+class AddTaskMl extends MultiLine{
+    CommandResult manageOne(CommandResult commandResult, Command command,
+                                   Model model, ArrayList<Command> commands) throws CommandException, ParseException {
         String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
         switch (commandWord) {
             case "Type-3":
@@ -25,7 +30,7 @@ public class AddTaskDetails {
             case "continue":
                 commands.add(command);
                 return new CommandResult("Please add the the deadline and member in the following format: " +
-                        "\n" + "add-d at/[DEADLINE] mi/[MEMBER ID]");
+                        "\n" + "add-d at/[dd-mm-yyyy hh:mm] mi/[MEMBER ID]");
             case "final2":
                 if (!commands.get(commands.size() - 1).equals(new YesCommand())) {
                     throw new CommandException("Invalid Command for this situation");
@@ -39,7 +44,7 @@ public class AddTaskDetails {
         }
     }
 
-    public static boolean isMultiLine(CommandResult commandResult) {
+    boolean isMultiLine(CommandResult commandResult) {
         String commandWord = commandResult.getFeedbackToUser().trim();
         switch (commandWord) {
             case "continue":

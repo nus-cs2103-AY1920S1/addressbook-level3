@@ -1,15 +1,15 @@
 package seedu.pluswork.model.inventory;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.pluswork.model.inventory.exceptions.DuplicateInventoryException;
-import seedu.pluswork.model.inventory.exceptions.InventoryNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.pluswork.model.inventory.exceptions.DuplicateInventoryException;
+import seedu.pluswork.model.inventory.exceptions.InventoryNotFoundException;
 
 /**
  * A list of inventories that enforces uniqueness between its elements and does not allow nulls.

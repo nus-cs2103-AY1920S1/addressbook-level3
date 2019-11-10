@@ -1,5 +1,9 @@
 package seedu.pluswork.logic.MultiLine;
 
+import static seedu.pluswork.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.util.ArrayList;
+
 import seedu.pluswork.logic.commands.Command;
 import seedu.pluswork.logic.commands.CommandResult;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
@@ -7,16 +11,12 @@ import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ProjectDashboard;
 
-import java.util.ArrayList;
-
-import static seedu.pluswork.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-public class ClearQuestion {
+public class ClearMl extends MultiLine{
 
     public static final String MESSAGE_SUCCESS = "Dashboard has been cleared!";
 
-    public static CommandResult manageOne(CommandResult commandResult, Command command,
-                                          Model model, ArrayList<Command> commands) throws CommandException, ParseException {
+    CommandResult manageOne(CommandResult commandResult, Command command,
+                                   Model model, ArrayList<Command> commands) throws CommandException, ParseException {
         String commandWord = commandResult.getFeedbackToUser().trim();
         switch (commandWord) {
             case "Type-2":
@@ -34,7 +34,7 @@ public class ClearQuestion {
         }
     }
 
-    public static boolean isMultiLine(CommandResult commandResult) {
+    boolean isMultiLine(CommandResult commandResult) {
         String commandWord = commandResult.getFeedbackToUser().trim();
         switch (commandWord) {
             case "halt":

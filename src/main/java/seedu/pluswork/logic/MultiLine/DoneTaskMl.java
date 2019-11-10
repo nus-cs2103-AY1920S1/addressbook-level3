@@ -1,8 +1,15 @@
 package seedu.pluswork.logic.MultiLine;
 
 
+import java.util.ArrayList;
+
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.*;
+import seedu.pluswork.logic.commands.AddICommand;
+import seedu.pluswork.logic.commands.AddInventoryCommand;
+import seedu.pluswork.logic.commands.Command;
+import seedu.pluswork.logic.commands.CommandResult;
+import seedu.pluswork.logic.commands.DoneTaskCommand;
+import seedu.pluswork.logic.commands.YesCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
@@ -12,12 +19,10 @@ import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
 
-import java.util.ArrayList;
+class DoneTaskMl extends MultiLine{
 
-public class DoneTaskInvTag {
-
-    public static CommandResult manageOne(CommandResult commandResult, Command command,
-                                          Model model, ArrayList<Command> commands) throws CommandException, ParseException {
+    CommandResult manageOne(CommandResult commandResult, Command command,
+                                   Model model, ArrayList<Command> commands) throws CommandException, ParseException {
         String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
         switch (commandWord) {
             case "Type-1":
@@ -43,7 +48,7 @@ public class DoneTaskInvTag {
         }
     }
 
-    public static boolean isMultiLine(CommandResult commandResult) {
+    boolean isMultiLine(CommandResult commandResult) {
         String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
         switch (commandWord) {
             case "continue":
@@ -54,7 +59,7 @@ public class DoneTaskInvTag {
         }
     }
 
-    public static AddInventoryCommand createCommandOne(Command command, Model model, ArrayList<Command> commands) throws ParseException {
+    private static AddInventoryCommand createCommandOne(Command command, Model model, ArrayList<Command> commands) throws ParseException {
         try {
             Index index;
             Name name;

@@ -1,14 +1,14 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.DeleteMeetingCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEETING_INDEX;
 
 import java.io.FileNotFoundException;
 import java.util.stream.Stream;
 
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEETING_INDEX;
+import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.logic.commands.DeleteMeetingCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AddCommand object
