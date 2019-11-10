@@ -1204,6 +1204,64 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+
+==== Adding a reminder
+
+. Adding a reminder while all bookmarks are listed
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `reminder 1 t/12/12/2030 1200` +
+    Expected: The reminder of the first bookmark is added into reminder list.
+.. Test case: `reminder 0 t/12/12/2030 1200` +
+Expected: No reminder is added into the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder 1 t/30/02/2030 1200` +
+Expected: No reminder is added into the reminder list. Error details shown in the status message. Status bar remains the same.
+
+_{ more test cases ... }_
+
+==== Editing a reminder
+
+. Editing a reminder
+.. Prerequisites: The reminder list has 5 reminder.
+
+.. Test case: `reminder-edit 1 n/Read` +
+Expected: The note of the first reminder changes to "Read".
+.. Test case: `reminder-edit 0 n/Read` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-edit 6 n/Read` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
+
+_{ more test cases ... }_
+
+==== Deleting a reminder
+
+. Deleting a reminder
+
+.. Prerequisites: The reminder list has 5 reminder.
+
+.. Test case: `reminder-delete 1` +
+Expected: The first reminder in the list is deleted.
+.. Test case: `reminder-delete 0 ` +
+Expected: No reminder is deleted in the reminder list. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-delete 6` +
+Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
+
+_{ more test cases ... }_
+
+==== Goto a reminder
+
+. Opening a bookmark using a reminder
+
+.. Prerequisites: The reminder list has 5 reminder.
+
+.. Test case: `reminder-goto 1` +
+Expected: The first reminder in the list is opened.
+.. Test case: `reminder-goto 0 ` +
+Expected: No website will show. Error details shown in the status message. Status bar remains the same.
+.. Test case: `reminder-goto 6` +
+Expected: No website will show. Error details shown in the status message. Status bar remains the same.
+
+_{ more test cases ... }_
+
 === Saving data
 
 . Dealing with missing/corrupted data files
