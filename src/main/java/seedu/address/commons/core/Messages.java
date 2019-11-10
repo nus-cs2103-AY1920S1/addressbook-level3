@@ -38,6 +38,8 @@ public class Messages {
                     + "The number of days between your stated Start Date [%s] and your End Date [%s] is %s days";
     public static final String MESSAGE_DATE_START_AFTER_END =
             "Your stated Start Date [%s] is after your End Date [%s]!";
+    public static final String MESSAGE_DATE_NOT_IN_EVENT_RANGE =
+            "The Date provided is not within the range of the current Event!";
     public static final String MESSAGE_EMPLOYEE_ALREADY_ALLOCATED = "Employee to allocate is already "
             + "allocated to the event!";
     public static final String MESSAGE_EMPLOYEE_DOES_NOT_EXIST = "Employee to free is currently"

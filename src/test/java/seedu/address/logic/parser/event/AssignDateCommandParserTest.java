@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.event;
 
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_INVALID;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_START_AFTER_END;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_1;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_STRING_1;
@@ -8,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_DAYTIME_1;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_END_DATE_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_3;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_4;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DAYTIME_1;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TIME;
@@ -19,6 +21,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseNoInde
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseNoIndexFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseZeroIndexFailure;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.testutil.TypicalEventDates.OCT_19_2019;
 import static seedu.address.testutil.TypicalEventDates.OCT_20_2019;
 import static seedu.address.testutil.TypicalEventDates.OCT_22_2019;
 import static seedu.address.testutil.TypicalEventDayTimes.TIME_0800_TO_1800;
@@ -87,6 +90,11 @@ class AssignDateCommandParserTest {
         //time is not valid
         assertParseCorrectIndexFailure(parser, MAP_MUSICAL_WITHOUT_DATE + PREFIX_EVENT_TIME + INVALID_DAYTIME_1,
                 EventDayTime.MESSAGE_CONSTRAINTS);
+
+        //dates and time is valid, but startDate > endDate
+        assertParseCorrectIndexFailure(parser, PREFIX_DATE + VALID_DATE_1
+                        + VALID_DATE_4 + VALID_DAYTIME_1,
+                String.format(MESSAGE_DATE_START_AFTER_END, OCT_20_2019, OCT_19_2019));
     }
 
 }

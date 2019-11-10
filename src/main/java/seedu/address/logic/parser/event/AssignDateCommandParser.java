@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_START_AFTER_END;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE;
@@ -48,6 +49,10 @@ public class AssignDateCommandParser implements Parser<AssignDateCommand> {
         if (startOrTargetDateStated && endDateStated) {
             EventDate startDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENT_START_DATE).get());
             EventDate endDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENT_END_DATE).get());
+            if (startDate.isAfter(endDate)) {
+                throw new ParseException(String.format(MESSAGE_DATE_START_AFTER_END, startDate, endDate));
+            }
+
             return new AssignDateCommand(eventIndex, startDate, endDate, timePeriod);
         } else if (startOrTargetDateStated) {
             EventDate targetDate = ParserUtil.parseEventDate(argMultimap.getValue(PREFIX_EVENT_START_DATE).get());

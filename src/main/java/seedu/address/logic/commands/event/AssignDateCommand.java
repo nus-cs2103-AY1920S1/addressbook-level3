@@ -5,6 +5,7 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_NOT_IN_EVENT_RANGE;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +40,6 @@ public class AssignDateCommand extends Command {
     private static final String MESSAGE_SUCCESS_TARGET = "[%s:%s] has been successfully assigned to Event: [%s]";
     private static final String MESSAGE_SUCCESS_RANGE =
             "Dates [%s] to [%s] of Event: [%s] has been successfully assigned with Time: [%s]";
-    private static final String EVENT_DATE_INVALID = "Date provided is not within range of the current Event!";
 
     private final Index index;
     private final Optional<EventDate> startOrTargetEventDate;
@@ -112,7 +112,7 @@ public class AssignDateCommand extends Command {
             EventContainsKeyDatePredicate dateCheck =
                     new EventContainsKeyDatePredicate(startOrTargetEventDate.get());
             if (!dateCheck.test(eventToAssign)) { //date provided is out of range of Event
-                throw new CommandException(EVENT_DATE_INVALID);
+                throw new CommandException(MESSAGE_DATE_NOT_IN_EVENT_RANGE);
             }
 
             eventToAssign.assignDateTime(startOrTargetEventDate.get(), eventDayTime);
@@ -127,7 +127,7 @@ public class AssignDateCommand extends Command {
             EventDate eventEndDate = eventToAssign.getEndDate();
 
             if (eventStartDate.isAfter(startDate) || eventEndDate.isBefore(endDate)) {
-                throw new CommandException(EVENT_DATE_INVALID);
+                throw new CommandException(MESSAGE_DATE_NOT_IN_EVENT_RANGE);
             }
 
             startDate.datesUntil(endDate)

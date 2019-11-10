@@ -118,6 +118,7 @@ public class CommandTestUtil {
     public static final String VALID_DATE_1 = " " + PREFIX_DATE + "20/10/2019";
     public static final String VALID_DATE_2 = " " + PREFIX_DATE + "22/10/2019";
     public static final String VALID_DATE_3 = " " + PREFIX_EVENT_END_DATE + "22/10/2019";
+    public static final String VALID_DATE_4 = " " + PREFIX_EVENT_END_DATE + "19/10/2019";
     public static final String VALID_YEAR_MONTH_1 = " " + PREFIX_YEAR_MONTH + "10/2019";
     public static final String VALID_YEAR_MONTH_2 = " " + PREFIX_YEAR_MONTH + "01/2019";
     public static final String VALID_DATE_RANGE_1 = " " + PREFIX_EVENT_SCHEDULE_START
