@@ -89,7 +89,7 @@ public class StatsDisplayUtil {
      * @return The TableView object showing the user's test sessions.
      */
     public static TableView<Session> getTestSessionsTableView(Deck deck) {
-        SessionList testSessionList = deck.getTestSessionList();
+        SessionList testSessionList = StatsHolder.getDeckStats().getSessionListForDeck(deck.getDeckName());
         TableView<Session> testSessionTableView = getSessionsTableView(testSessionList);
 
         TableColumn<Session, String> scoreColumn = new TableColumn<>("Score");

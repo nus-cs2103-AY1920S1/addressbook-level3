@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import dream.fcard.core.commons.core.LogsCenter;
+import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.util.stats.SessionListUtil;
+import dream.fcard.util.stats.StatsDisplayUtil;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +32,7 @@ public class DeckStatisticsWindow extends ScrollPane {
     @FXML
     private Label sessionsThisWeek;
     @FXML
-    private TableView<Deck> testSessionsTableView;
+    private TableView<Session> testSessionsTableView;
 
     private Deck deck;
     private SessionList testSessionList;
@@ -52,19 +55,17 @@ public class DeckStatisticsWindow extends ScrollPane {
 
         windowTitle.setText("My statistics for deck: " + deck.getDeckName());
         this.deck = deck;
-        this.testSessionList = deck.getTestSessionList();
-        //ArrayList<Deck> decks = State.getDecks();
+        this.testSessionList = StatsHolder.getDeckStats().getSessionListForDeck(deck.getDeckName());
 
         displaySummaryStats();
 
-        //this.testSessionsTableView = StatsDisplayUtil.getTestSessionsTableView(deck);
+        this.testSessionsTableView = StatsDisplayUtil.getTestSessionsTableView(deck);
         //this.sessionsScrollPane.setContent(sessionsTableView);
         //sessionsTableView = StatsDisplayUtil.getSessionsTableView(deckStats.getSessionList());
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displaySummaryStats() {
-        SessionList testSessionList = deck.getTestSessionList();
         int numberOfCards = deck.getNumberOfCards();
         this.numCards.setText("Number of cards in deck: " + numberOfCards
             + (numberOfCards == 1 ? " card" : " cards"));
@@ -75,11 +76,11 @@ public class DeckStatisticsWindow extends ScrollPane {
         this.sessionsThisWeek.setText("Total test sessions this week: " + numSessionsThisWeek
             + (numSessionsThisWeek == 1 ? " session" : " sessions"));
 
-        //int numSessions = testSessionList.getNumberOfSessions();
-        //totalSessions.setText("Total login sessions: " + numSessions
-        //    + (numSessions == 1 ? " session" : " sessions"));
-        //
-        //String duration = testSessionList.getTotalDurationAsString();
-        //totalDuration.setText("Total login duration: " + duration);
+        int numSessions = this.testSessionList.getNumberOfSessions();
+        totalSessions.setText("Total login sessions: " + numSessions
+            + (numSessions == 1 ? " session" : " sessions"));
+
+        String duration = this.testSessionList.getTotalDurationAsString();
+        totalDuration.setText("Total login duration: " + duration);
     }
 }

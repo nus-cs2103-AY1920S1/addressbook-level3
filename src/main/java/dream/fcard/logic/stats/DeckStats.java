@@ -23,6 +23,9 @@ public class DeckStats extends Stats {
         this.currentSession = null;
         this.currentDeck = null;
         logger.info("New DeckStats object created.");
+
+        // temporary, for testing
+        this.deckHashMap.put("test", new SessionList());
     }
 
     /** Gets the hash map containing session lists for all decks. */
