@@ -1054,7 +1054,7 @@ image::FinancialTrackerSummary2.png[]
 The sweetest part of any holiday is looking back at your fond memories. TravEzy's
 Diary allows you to do just that! Here is our Diary!
 
-image::DiaryInterface.png[]
+image::DiaryInterface.png[width=800]
 
 
 In TravEzy, we have broken down your memories into 4 key parts, namely _Title_, _Date and Time_, _Place_ and _Memory_.
@@ -1081,14 +1081,14 @@ Example: Lets take the example of our midnight fishing trip!
 
 Step 1: Enter ``add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!``
 
-image::DiaryAddBefore.png[]
+image::DiaryAddBefore.png[width=600]
 
 Step 2: TravEzy will tell you if your `add` command was successful in the _Result Display_
 
 Step 3: You can see you added entry in the _Diary List_
 
 
-image::DiaryAddAfter.png[]
+image::DiaryAddAfter.png[width=600]
 
 
 
@@ -1104,14 +1104,14 @@ that trip ever again :(
 Step 1: Enter ``delete 2``
 
 
-image::DiaryDeleteBefore.png[]
+image::DiaryDeleteBefore.png[width=600]
 
 Step 2: TravEzy will tell you if your `delete` command was successful in the _Result Display_
 
 Step 3: You can see your updated _Diary List_ without the horrible memory
 
 
-image::DiaryDeleteAfter.png[]
+image::DiaryDeleteAfter.png[width=600]
 
 
 
@@ -1127,14 +1127,14 @@ Example: I want to relive *EVERYTHING*
 Step 1: Enter ``list``
 
 
-image::DiaryListBefore.png[]
+image::DiaryListBefore.png[width=600]
 
 Step 2: TravEzy will tell you if your `list` command was successful in the _Result Display_
 
 Step 3: You can see all your entries in the _Diary List_
 
 
-image::DiaryListAfter.png[]
+image::DiaryListAfter.png[width=600]
 
 === Find diary entries ``find``
 
@@ -1149,7 +1149,7 @@ Example: I want to see what I wrote about the Rugby World Cup
 Step 1: Enter ``find rugby``
 
 
-image::DiaryFindBefore.png[]
+image::DiaryFindBefore.png[width=600]
 
 Step 2: TravEzy will tell you if your `find` command was successful in the _Result Display_
 
@@ -1157,7 +1157,7 @@ Step 3: You can see the matching entries in your _Diary List_
 
 
 
-image::DiaryFindAfter.png[]
+image::DiaryFindAfter.png[width=600]
 
 
 
@@ -1175,7 +1175,7 @@ Step 1: Enter ``findSpecific d/12/12/2019``
 
 
 
-image::DiaryFindSpecificBefore.png[]
+image::DiaryFindSpecificBefore.png[width=600]
 
 Step 2: TravEzy will tell you if your `findSpecific` command was successful in the _Result Display_
 
@@ -1183,7 +1183,7 @@ Step 3: You can see the specific matching entries in your _Diary List_
 
 
 
-image::DiaryFindSpecificAfter.png[]
+image::DiaryFindSpecificAfter.png[width=600]
 
 
 === Private personal memories ``private``
@@ -1197,7 +1197,7 @@ Example: I had my first sip of wine today at the restaurant! I don't want my mum
 Step 1: Enter ``private  4``
 
 
-image::DiaryPrivateBefore.png[]
+image::DiaryPrivateBefore.png[width=600]
 
 Step 2: TravEzy will tell you if your `private` command was successful in the _Result Display_
 
@@ -1205,7 +1205,7 @@ Step 3: You can see your updated _Diary List_, after the memory has been hidden
 
 
 
-image::DiaryPrivateAfter.png[]
+image::DiaryPrivateAfter.png[width=600]
 
 
 === Unprivate personal memories ``unprivate``
@@ -1220,14 +1220,14 @@ Step 1: Enter ``unprivate 4``
 
 
 
-image::DiaryUnPrivateBefore.png[]
+image::DiaryUnPrivateBefore.png[width=600]
 
 Step 2: TravEzy will tell you if your `unprivate` command was successful in the _Result Display_
 
 Step 3: You can see your updated _Diary List_, after the memory is visible again
 
 
-image::DiaryUnPrivateAfter.png[]
+image::DiaryUnPrivateAfter.png[width=600]
 
 
 === Keep your diary protected ``setDetails``
@@ -1243,24 +1243,24 @@ Step 1: Enter ``setDetails user/youcanthackme password/youreallycanthackme``
 
 
 
-image::DiarySetDetailsBefore.png[]
+image::DiarySetDetailsBefore.png[width=600]
 
 
 Step 2: TravEzy will tell you if your `unprivate` command was successful in the _Result Display_
 
 
 
-image::DiarySetDetailsAfter.png[]
+image::DiarySetDetailsAfter.png[width=600]
 
 
 Step 1: Lets say someone tries to hack you
 
-image::DiarySetDetailsHack.png[]
+image::DiarySetDetailsHack.png[width=600]
 
 Step 1: TravEzy will protect you if someone else tries to change your details
 
 
-image::DiarySetDetailsHackFail.png[]
+image::DiarySetDetailsHackFail.png[width=600]
 
 
 
@@ -1276,24 +1276,24 @@ Step 1: Enter ``unlock 4 user/youcanthackme password/youreallycanthackme``
 
 
 
-image::DiaryUnLockBefore.png[]
+image::DiaryUnLockBefore.png[width=600]
 
 
 Step 2: TravEzy will tell you if your `unlock` command was successful in the _Result Display_
 
 
 
-image::DiaryUnLockAfter.png[]
+image::DiaryUnLockAfter.png[width=600]
 
 
 Step 1: Lets say someone tries to hack you
 
-image::DiaryUnLockHackBefore.png[]
+image::DiaryUnLockHackBefore.png[width=600]
 
 Step 1: TravEzy will protect you if someone else tries to change your details
 
 
-image::DiaryUnLockHackAfter.png[]
+image::DiaryUnLockHackAfter.png[width=600]
 
 
 
@@ -1357,37 +1357,39 @@ application for users to discuss and discover. Hope that you have fun finding th
 
 == Command Summary
 
-Here is a summary for the list of features available:
+Here are summary lists of commands for the different features.
 
 === Calendar
-``addCommitment``      : adds commitment to indicate that you won’t be able to travel on a day or over a duration of time due to commitments during the public holidays/school vacation +
 
-``addCommitments``     : similar to the above, but we can add multiple commitments at once +
+.Calendar Commands Summary
+|===
+|Command |Function |Syntax
 
-``addPublicHoliday``   : adds a public holiday from your calendar +
+|``add``
+|Adds a new event to your calendar
+|``add EVENT TYPE n/NAME d/START DAY [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
 
-``addSchoolBreak``     : adds the start and end date of your school vacation +
+|``delete``
+|Deletes an event from your calendar
+|``delete EVENT TYPE n/NAME d/START DAY [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
 
-``addTrip``             :  adds your trip to the calendar +
+|``show``
+|Shows the requested month view
+|``show m/MONTH [y/YEAR]``
 
-``checkAvailability``   :  checks whether you are available for the stated duration of time +
+|``list``
+|Lists your events 
+|``list [d/START DAY] [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
 
-``clearCommitments``    :  clears all commitments for the stated duration of time +
+|``check``
+|Checks whether you are available to travel during the specified time
+|``check d/START DAY [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR]``
 
-``deleteCommitment``    :  deletes commitment from your calendar +
+|``suggest``
+|Suggests suitable time periods to travel
+|``suggest d/START DAY [m/START MONTH] [y/START YEAR] [D/END DAY] [M/END MONTH] [Y/END YEAR] [p/PERIOD]``
 
-``deleteSchoolBreak``   :  deletes school break from your calendar +
-
-``deletePublicHoliday`` :  deletes public holiday from your calendar +
-
-``editBreak``           : edits the start and/or end date of your school vacation  +
-
-``editCommitment``      : edits the duration of your commitment +
-
-``showAvailability``    : shows you when you have 3 or more “free” days in the given duration of time which you have specified +
-
-``suggestDate``         : suggests when you can travel for numDays
-
+|===
 
 === Itinerary
 
