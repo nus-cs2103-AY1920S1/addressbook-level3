@@ -34,8 +34,7 @@ import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
 public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     private static final String messageCreationError = "Failed to create ProgramSubmissionLogic instance.";
     private static final String messageInvalidDirectoryError = "Could not locate give directory";
-    private static final String messageCouldNotClearEnvironmentWarning =
-            "Warning: Could not clear compiler environment, some test files may persist.";
+
     private static final Logger logger = LogsCenter.getLogger(ProgramSubmissionLogicManager.class);
 
     private StandardObservable<TestResult> resultObservable;
@@ -61,7 +60,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
             Path compilerEnvironmentPath = Paths.get(outputDirectoryPath).resolve("temp");
             this.compilerEnvironment = new StandardCompilerEnvironment(compilerEnvironmentPath);
             this.testExecutor = new TestExecutor(this.compilerEnvironment, new StandardCompiler(),
-                    new StandardProgramExecutor());
+                    new StandardProgramExecutor(), 4);
 
             this.resultObservable = new StandardObservable<>();
             this.currentQuestionObservable = new StandardObservable<>();

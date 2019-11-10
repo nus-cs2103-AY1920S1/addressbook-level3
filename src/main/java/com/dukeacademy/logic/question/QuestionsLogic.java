@@ -60,18 +60,18 @@ public interface QuestionsLogic {
     /**
      * Returns the question corresponding to the index in the list returned by getFilteredQuestionsList.
      *
-     * @param index the index of the question to be returned
+     * @param id the id of the question to be returned
      * @return the corresponding question
      */
-    Question getQuestion(int index);
+    Question getQuestion(int id);
 
     /**
-     * Sets the question corresponding to the index in the list returned by getFilteredQuestionsList to a new question.
+     * Sets the question corresponding to the id to a new question.
      *
-     * @param index       the index of the question to be replaced
+     * @param id       the id of the question to be replaced
      * @param newQuestion the new question
      */
-    void setQuestion(int index, Question newQuestion);
+    void setQuestion(int id, Question newQuestion);
 
     /**
      * Replaces the old question with a new question.
@@ -80,13 +80,6 @@ public interface QuestionsLogic {
      * @param newQuestion the new question
      */
     void replaceQuestion(Question oldQuestion, Question newQuestion);
-
-    /**
-     * Deletes the question corresponding to the index in the list returned by getFilteredQuestionsList.
-     *
-     * @param index the index of the question to be deleted
-     */
-    void deleteQuestion(int index);
 
     /**
      * Deletes all the stored questions in the application.
@@ -100,9 +93,8 @@ public interface QuestionsLogic {
     Observable<Question> getSelectedQuestion();
 
     /**
-     * Sets the current selected question. Selects the question corresponding to the index in the list returned by
-     * getFilteredQuestionsList.
-     * @param index the index of the question to be selected.
+     * Sets the current selected question corresponding to the id.
+     * @param id the id of the question to be selected.
      */
-    void selectQuestion(int index);
+    void selectQuestion(int id);
 }

@@ -1,5 +1,7 @@
 package com.dukeacademy.testexecutor.executor;
 
+import java.util.concurrent.CompletableFuture;
+
 import com.dukeacademy.testexecutor.executor.exceptions.ProgramExecutorException;
 import com.dukeacademy.testexecutor.models.ClassFile;
 import com.dukeacademy.testexecutor.models.ProgramInput;
@@ -17,7 +19,8 @@ public interface ProgramExecutor {
      * @return the program output
      * @throws ProgramExecutorException if the execution fails
      */
-    ProgramOutput executeProgram(ClassFile program, ProgramInput input) throws ProgramExecutorException;
+    CompletableFuture<ProgramOutput> executeProgram(ClassFile program, ProgramInput input)
+            throws ProgramExecutorException;
 
     /**
      * Executes the given Java class file with no input

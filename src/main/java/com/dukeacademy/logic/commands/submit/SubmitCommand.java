@@ -30,7 +30,8 @@ public class SubmitCommand implements Command {
 
     /**
      * Instantiates a new Submit command.
-     *  @param questionsLogic         the questions logic
+     *
+     * @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
      * @param applicationState
      */
@@ -47,6 +48,8 @@ public class SubmitCommand implements Command {
         Optional<Question> currentlyAttemptingQuestion = this.programSubmissionLogic.getCurrentQuestion();
         UserProgram userProgram = programSubmissionLogic.getUserProgramFromSubmissionChannel();
 
+        applicationState.setCurrentActivity(Activity.WORKSPACE);
+
         if (currentlyAttemptingQuestion.isEmpty()) {
             logger.warning("No question being attempted at the moment, command will not be executed");
             throw new CommandException("You have not attempted a question yet.");
@@ -56,7 +59,7 @@ public class SubmitCommand implements Command {
         logger.info("Saving user program first : " + userProgram);
         Question question = currentlyAttemptingQuestion.get();
         Question questionWithNewProgram = question.withNewUserProgram(userProgram);
-        this.questionsLogic.replaceQuestion(question, questionWithNewProgram);
+        this.updateQuestion(question, questionWithNewProgram);
 
         // Submit the user's program
         Optional<TestResult> resultsOptional;
@@ -82,7 +85,8 @@ public class SubmitCommand implements Command {
 
         if (isSuccessful) {
             Question successfulQuestion = questionWithNewProgram.withNewStatus(Status.PASSED);
-            this.questionsLogic.replaceQuestion(questionWithNewProgram, successfulQuestion);
+
+            this.updateQuestion(questionWithNewProgram, successfulQuestion);
         }
 
         // Give user feedback
@@ -93,9 +97,17 @@ public class SubmitCommand implements Command {
             feedback = feedback + "failed";
         }
 
-        applicationState.setCurrentActivity(Activity.WORKSPACE);
+        return new CommandResult(feedback, false);
+    }
 
-        return new CommandResult(feedback, false, false
-        );
+    /**
+     * Helper method to automatically update the current attempting question in both the QuestionsLogic and the
+     * ProgramSubmissionLogic
+     * @param oldQuestion the old question
+     * @param newQuestion the new question
+     */
+    private void updateQuestion(Question oldQuestion , Question newQuestion) {
+        this.programSubmissionLogic.setCurrentQuestion(newQuestion);
+        this.questionsLogic.replaceQuestion(oldQuestion, newQuestion);
     }
 }

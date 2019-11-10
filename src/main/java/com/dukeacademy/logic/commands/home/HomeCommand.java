@@ -14,8 +14,8 @@ import com.dukeacademy.model.state.Activity;
 import com.dukeacademy.model.state.ApplicationState;
 
 /**
- * Home command used to exit the application. Any unsaved work is automatically
- * saved before the application is exited.
+ * Encapsulates a command used to navigate to the Home tab. Any unsaved work is automatically
+ * saved before navigating to the Home tab.
  */
 public class HomeCommand implements Command {
     private final Logger logger;
@@ -42,7 +42,6 @@ public class HomeCommand implements Command {
     public CommandResult execute() {
         Optional<Question> currentlyAttemptingQuestion = this.programSubmissionLogic.getCurrentQuestion();
         UserProgram latestUserProgram = this.programSubmissionLogic.getUserProgramFromSubmissionChannel();
-
         if (currentlyAttemptingQuestion.isPresent()) {
             Question oldQuestion = currentlyAttemptingQuestion.get();
             String loggerMessage = "Latest question attempt : " + oldQuestion.getTitle()
@@ -58,10 +57,14 @@ public class HomeCommand implements Command {
 
         applicationState.setCurrentActivity(Activity.HOME);
 
-        return new CommandResult("Returning to home page...", false,
-                false);
+        return new CommandResult("Returning to home page...", false);
     }
 
+    /**
+     * Helper method to save changes to a question.
+     * @param oldQuestion the old question to be replaced
+     * @param newQuestion the new question.
+     */
     private void saveQuestion(Question oldQuestion, Question newQuestion) {
         this.questionsLogic.replaceQuestion(oldQuestion, newQuestion);
     }

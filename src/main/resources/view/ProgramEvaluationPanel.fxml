@@ -4,20 +4,32 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.TextFlow?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
 
+<?import javafx.scene.Cursor?>
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" spacing="20.0">
+    <Label text="Compile errors:" textFill="#63075d">
+        <font>
+            <Font name="Century Gothic" size="20.0" />
+        </font>
+    </Label>
+    <TextArea fx:id="compileError" maxHeight="150.0" VBox.vgrow="ALWAYS"
+              wrapText="true" editable="false"
+              style="-fx-cursor: DEFAULT; -fx-fill: RED"
+              promptText="There are no compile errors!">
+        <font>
+            <Font name="Consolas Bold" size="12.0"/>
+        </font>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TextFlow prefHeight="23.0" prefWidth="200.0">
-         <children>
-            <Label fx:id="feedback" textFill="RED">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </TextFlow>
-      <ListView fx:id="evaluationListView" prefHeight="200.0" prefWidth="200.0" />
-   </children>
+        <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+        </padding>
+    </TextArea>
+    <Label text="Results:" textFill="#63075d">
+        <font>
+            <Font name="Century Gothic" size="20.0" />
+        </font>
+    </Label>
+    <ListView fx:id="evaluationListView" VBox.vgrow="ALWAYS"/>
 </VBox>

@@ -1,0 +1,39 @@
+Question::
+Title::
+Apple
+Description::
+Test Apple
+Difficulty::
+EASY
+Topics::
+ARRAY, HASHTABLE
+TestCase::
+Input::
+1
+Output::
+1
+TestCase::
+Input::
+2
+Output::
+2
+
+Question::
+Title::
+Banana
+Description::
+Test Banana
+Difficulty::
+MEDIUM
+Topics::
+LINKED_LIST, HASHTABLE
+TestCase::
+Input::
+1
+Output::
+11
+TestCase::
+Input::
+2
+Output::
+22

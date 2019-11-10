@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -12,10 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.ScrollPane?>
-<fx:root minHeight="518.0" minWidth="792.0" onCloseRequest="#handleExit" title="DukeAcademy" type="javafx.stage.Stage"
+<fx:root minHeight="580" minWidth="700" onCloseRequest="#handleExit" title="DukeAcademy" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/dukeacademy-icon.png"/>
@@ -27,9 +26,6 @@
                 <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                     <Menu mnemonicParsing="false" text="File">
                         <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
-                    </Menu>
-                    <Menu mnemonicParsing="false" text="Help">
-                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
                     </Menu>
                 </MenuBar>
 
@@ -51,7 +47,7 @@
                     </StackPane>
                 </HBox>
 
-                <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                     <Tab text="Home">
                         <AnchorPane fx:id="homePagePlaceholder"/>
                     </Tab>
@@ -62,6 +58,14 @@
 
                     <Tab text="Workspace">
                         <AnchorPane fx:id="workspacePlaceholder"/>
+                    </Tab>
+
+                    <Tab text="Notes">
+                        <AnchorPane fx:id="notesPagePlaceholder"/>
+                    </Tab>
+
+                    <Tab text="Help">
+                        <AnchorPane fx:id="helpPagePlaceholder"/>
                     </Tab>
                 </TabPane>
             </VBox>

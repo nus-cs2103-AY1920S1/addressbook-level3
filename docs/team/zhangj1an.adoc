@@ -1,0 +1,119 @@
+= Zhang Jian - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images/zj_ppp
+:stylesDir: ../stylesheets
+
+== PROJECT: Duke Academy
+
+'''
+
+== Overview
+
+Duke Academy is a Java programming platform equipped with a library of programming questions related to the field of Data Structures and Algorithms, as well as an automated judging system. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 15 kLoC.
+
+This is what our project looks like:
+
+
+image::homepage_annotated.png[width="1000"]
+Figure 1. The graphical user interface for Duke Academy.
+
+== Summary of contributions
+
+* *Major enhancement*:
+
+Model
+
+1. Created the `Question` object and the corresponding attributes, such as `title`, `description`, `topics`, etc.
+
+Storage
+
+1. Changed the json serializer and the deserializer.
+** What it does: Duke Academy is able to save data into json format and load questions from json files.
+** Justification: prevents loss of user data.
+** Highlights: requires interaction between logic and storage. Requires knowledge about json serializer/deserializer's API and its command usage.
+
+2. Implemented the `loadquestions` command.
+** What it does: Imports new questions into the application through a text file.
+** Justification: User is able to load external questions into this app. As such, professors can distribute practice assignments through this platform despite the fact that the materials may change yearly.
+** Highlights: Requires knowledge on reading files from a given directory, create objects based on the string parsed, interaction with the storage model, update the new changes onto the user interface.
+
+Command
+
+1. added *the `browse` command*
+** What it does: allows the user to search through all questions with the specified keyword(s). A question is listed as a search result as long as it
+contains one of the keyword(s) in their _title, topics, description, status_ or _difficulty_.
+
+** Justification: This feature improves the product significantly because it would be convenient for a user who want to search questions by a specific category or certain keywords.
+** Highlights: This enhancement involves all the questions in the question bank. It requires interaction between models and storage to actively filter questions by certain predicates. It also requires the UI to reflect the changes in the question list after the filtering conditions have been updated. It required a comprehensive understanding of the code base architecture.
+** Credits: _{part of it is re-used from the `find` command in the original AB3 code base.}_
+2. added *the `find` command*
+** What it does: Searches for question of which the title contains *strictly* the keywords entered.
+** Justification: benefits the user if they only want to search by question title.
+** Credits: _{part of it is re-used from the `find` command in the original AB3 code base.}
+3. added *the `showall` command*
+** What it does: Navigates to the *Questions* Tab and displays all available questions.
+** Justification: after user searches for questions with certain keywords, they may want to restore to the original question list.
+** Credits: _{part of it is re-used from the `list` command in the original AB3 code base.}
+4. added *the `view` command*
+** What it does: Displays the problem statement of the question.
+** Justification: the user need to view the problem description in order to understand the requirement of the problem context, as well as the specified input/output format.
+** Highlights: requires user interface to be updated based on the data obtained from the storage.
+
+* *Minor enhancement*: Added a Problem Display Panel to the Questions and Workspace Tab.
+
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=zhangj1an&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=zhangj1an&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Assigned milestones for `v1.2`.
+*** Created tags for the issues, such as `Type.Enhancement`, `Severity.High`.
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide's quickstart section.
+*** Contributed to Developer Guide and User Guide as shown below.
+** Community:
+*** PRs reviewed: https://github.com/AY1920S1-CS2103T-F14-1/main/pull/13[#13], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/15[#15], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/13[#20], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/13[#21], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/36[#36], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/50[#50], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/52[#52], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/53[#53], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/57[#57], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/64[#64], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/70[#70], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/71[#71], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/87[#87], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/91[#91], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/102[#102], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/104[#104], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/133[#133], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/173[#173]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S1-CS2103T-W12-4/main/issues/193[Typos in UG], https://github.com/AY1920S1-CS2103T-W12-4/main/issues/192[Feature not present: 6 Load commands stated in UG not implemented], https://github.com/AY1920S1-CS2103T-W12-4/main/issues/191[Budget command not working with only amount and description entered])
+** Tools:
+*** Integrated 2 third party library (Travis, Codacy) to the project.
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=showall]
+
+include::../UserGuide.adoc[tag=find]
+
+include::../UserGuide.adoc[tag=load]
+
+include::../UserGuide.adoc[tag=summary]
+
+include::../UserGuide.adoc[tag=customqn]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=storage]
+
+include::../DeveloperGuide.adoc[tag=problem_description]
+
+include::../DeveloperGuide.adoc[tag=appendix]
+
+
+
+
+== PROJECT: PowerPointLabs
+
+'''
+
+_{Optionally, you may include other projects in your portfolio.}_

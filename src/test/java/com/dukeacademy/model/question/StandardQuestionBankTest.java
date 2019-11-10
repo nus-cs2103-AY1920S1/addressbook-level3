@@ -17,7 +17,7 @@ import com.dukeacademy.model.question.entities.Difficulty;
 import com.dukeacademy.model.question.entities.Status;
 import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
-import com.dukeacademy.model.question.exceptions.QuestionNotFoundException;
+import com.dukeacademy.model.question.exceptions.QuestionNotFoundRuntimeException;
 import com.dukeacademy.testutil.TypicalQuestions;
 
 import javafx.collections.ObservableList;
@@ -122,7 +122,7 @@ public class StandardQuestionBankTest {
         assertTrue(this.matchListData(questionObservableList, mockQuestions));
 
         Question testQuestion = this.getMockQuestion("abc");
-        assertThrows(QuestionNotFoundException.class, () -> this.standardQuestionBank
+        assertThrows(QuestionNotFoundRuntimeException.class, () -> this.standardQuestionBank
                 .replaceQuestion(testQuestion, testQuestion));
     }
 

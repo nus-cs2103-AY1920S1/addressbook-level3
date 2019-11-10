@@ -8,7 +8,7 @@ import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.state.ApplicationState;
 
 /**
- * Factory class encapsulating the necessary components for the creation of a Exit command instance.
+ * Factory class encapsulating the necessary components for the creation of a Home command instance.
  */
 public class HomeCommandFactory implements CommandFactory {
     private final QuestionsLogic questionsLogic;

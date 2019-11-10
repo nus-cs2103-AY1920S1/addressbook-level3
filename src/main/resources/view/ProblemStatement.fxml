@@ -7,6 +7,6 @@
 <StackPane fx:id="problemStatementPanel" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <TextArea fx:id="problemStatementDisplay" editable="false" prefHeight="400.0"
+    <TextArea fx:id="problemStatementDisplay" editable="false" promptText="No question selected!"
               style="-fx-background-color: transparent;" wrapText="true"/>
 </StackPane>

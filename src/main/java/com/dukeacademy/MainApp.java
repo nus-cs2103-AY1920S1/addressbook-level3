@@ -1,16 +1,15 @@
 package com.dukeacademy;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.Config;
 import com.dukeacademy.commons.core.LogsCenter;
-import com.dukeacademy.commons.core.Mode;
 import com.dukeacademy.commons.core.Version;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.commons.util.ConfigUtil;
@@ -24,22 +23,27 @@ import com.dukeacademy.logic.commands.bookmark.DeleteBookmarkCommandFactory;
 import com.dukeacademy.logic.commands.browse.BrowseCommandFactory;
 import com.dukeacademy.logic.commands.exit.ExitCommandFactory;
 import com.dukeacademy.logic.commands.find.FindCommandFactory;
+import com.dukeacademy.logic.commands.help.HelpCommandFactory;
 import com.dukeacademy.logic.commands.home.HomeCommandFactory;
 import com.dukeacademy.logic.commands.list.ListCommandFactory;
 import com.dukeacademy.logic.commands.load.LoadCommandFactory;
+import com.dukeacademy.logic.commands.notes.DeleteNoteCommandFactory;
+import com.dukeacademy.logic.commands.notes.NewNoteCommandFactory;
+import com.dukeacademy.logic.commands.notes.OpenNoteCommandFactory;
+import com.dukeacademy.logic.commands.notes.SaveNoteCommandFactory;
 import com.dukeacademy.logic.commands.submit.SubmitCommandFactory;
 import com.dukeacademy.logic.commands.tab.TabCommandFactory;
 import com.dukeacademy.logic.commands.view.ViewCommandFactory;
+import com.dukeacademy.logic.notes.NotesLogic;
+import com.dukeacademy.logic.notes.NotesLogicManager;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.logic.question.QuestionsLogicManager;
-import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
-import com.dukeacademy.model.prefs.UserPrefs;
 import com.dukeacademy.model.state.ApplicationState;
-import com.dukeacademy.storage.prefs.JsonUserPrefsStorage;
-import com.dukeacademy.storage.prefs.UserPrefsStorage;
+import com.dukeacademy.storage.notes.JsonNoteBankStorage;
+import com.dukeacademy.storage.notes.NoteBankStorage;
 import com.dukeacademy.storage.question.JsonQuestionBankStorage;
 import com.dukeacademy.storage.question.QuestionBankStorage;
 import com.dukeacademy.ui.Ui;
@@ -56,9 +60,9 @@ public class MainApp extends Application {
     /**
      * The constant VERSION.
      */
-    private static final Version VERSION = new Version(0, 6, 0, true);
-
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static Config config;
+    private static final Version VERSION = new Version(1, 3, 1, true);
+    private static Logger logger = LogsCenter.getLogger(MainApp.class);
 
     /**
      * The Ui.
@@ -66,32 +70,32 @@ public class MainApp extends Application {
     private Ui ui;
     private QuestionsLogic questionsLogic;
     private ProgramSubmissionLogic programSubmissionLogic;
+    private NotesLogic notesLogic;
     private ApplicationState applicationState;
+
+    public static Config getConfig() {
+        return config;
+    }
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing DukeAcademy ]===========================");
         super.init();
 
         // Retrieves config parameters
         AppParameters appParameters = AppParameters.parse(getParameters());
-        Config config = initConfig(appParameters.getConfigPath());
+        config = initConfig(appParameters.getConfigPath());
 
         // Sets logging level as described
         initLogging(config);
+        logger = LogsCenter.getLogger(MainApp.class);
+        logger.info("=============================[ Initializing DukeAcademy ]===========================");
 
-        // Configures user preferences
-        UserPrefs userPrefs = initPrefs(config);
-
-        if (userPrefs == null) {
-            logger.warning("Fatal: Unrecognized mode in config file. Unable to initialize preferences.");
-            this.stop();
-            return;
-        }
+        initAppPaths(config);
 
         applicationState = this.initApplicationState();
-        questionsLogic = this.initQuestionsLogic(userPrefs);
-        programSubmissionLogic = this.initProgramSubmissionLogic(userPrefs);
+        questionsLogic = this.initQuestionsLogic(config);
+        programSubmissionLogic = this.initProgramSubmissionLogic(config);
+        notesLogic = this.initNotesLogic(config);
 
         CommandLogicManager commandLogic = this.initCommandLogic();
 
@@ -148,87 +152,75 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
+     * Helper method to initialize all of the folders necessary for the app according to the path files specified
+     * in the config instance.
+     * @param config a config instance.
      */
-    private UserPrefs initPrefs(Config config) {
-        logger.info("=============================[ Configuring preferences ]===========================");
+    private void initAppPaths(Config config) {
+        Path testOutputPath = config.getTestOutputPath();
+        Path dataOutputPath = config.getDataPath();
+        Path loadPath = config.getLoadPath();
 
-        if (config.getMode() == Mode.PRODUCTION) {
-            logger.info("Production mode detected, using development prefs.");
-            return getUserPrefsInProduction();
-        } else if (config.getMode() == Mode.DEVELOPMENT) {
-            logger.info("Development mode detected, using custom prefs.");
-            return getUserPrefsInDevelopment(config);
-        } else {
-            return null;
+        if (!testOutputPath.toFile().exists()) {
+            logger.info("Test output folder not found at : " + testOutputPath);
+            logger.info("Creating test output folder at : " + testOutputPath);
+
+            if (!testOutputPath.toFile().mkdirs()) {
+                logger.warning("Unable to create test executor output directory : " + testOutputPath);
+            }
+        }
+
+        if (!loadPath.toFile().exists()) {
+            logger.info("Loading new question folder not found at : " + loadPath);
+            logger.info("Creating load new questions folder at : " + loadPath);
+
+            if (!loadPath.toFile().mkdirs()) {
+                logger.warning("Unable to create load new questions directory"
+                    + " : " + testOutputPath);
+            }
+
+            createCustomQuestionFile(loadPath.resolve("NewProblems.txt"));
+        }
+
+        if (!dataOutputPath.toFile().exists()) {
+            logger.info("Data folder not found at : " + dataOutputPath);
+            logger.info("Creating data folder at : " + testOutputPath);
+
+            createQuestionBankFile(dataOutputPath.resolve("QuestionBank.json"));
+            createNoteBankFile(dataOutputPath.resolve("NoteBank.json"));
         }
     }
 
-    private UserPrefs getUserPrefsInDevelopment(Config config) {
-        Path prefsFilePath = config.getUserPrefsFilePath();
-        UserPrefsStorage storage = new JsonUserPrefsStorage(prefsFilePath);
-
-        logger.info("Using prefs file : " + prefsFilePath);
-
-        UserPrefs initializedPrefs;
-
+    /**
+     * Helper method to create a custom question file at the specified
+     * location. Default custom questions are copied.
+     * @param loadPath the path at which to create the file.
+     */
+    private void createCustomQuestionFile(Path loadPath) {
         try {
-            initializedPrefs = storage.readUserPrefs().orElse(new UserPrefs(Paths.get("development")));
-        } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
-            initializedPrefs = new UserPrefs(Paths.get("development"));
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Using default user prefs.");
-            initializedPrefs = new UserPrefs(Paths.get("development"));
+            logger.info("Creating custom question text file.");
+            // Copy default questions
+            FileUtil.createIfMissing(loadPath);
+            InputStream customQuestionsInputStream =
+                this.getClass().getClassLoader().getResourceAsStream(
+                    "NewProblems.txt");
+            if (customQuestionsInputStream != null) {
+                logger.info("Copying custom questions into the specified "
+                    + "sample \"DukeAcademy/newQuestions\" directory");
+                Files.copy(customQuestionsInputStream, loadPath,
+                    StandardCopyOption.REPLACE_EXISTING);
+                customQuestionsInputStream.close();
+            } else {
+                logger.warning("Fatal: custom questions for loadquestions "
+                    + "command not found.");
+                this.stop();
+            }
+        } catch (IOException | NullPointerException e) {
+            logger.warning("Unable to create custom question data file for "
+                + "loadquestions usage.");
         }
-
-        return initializedPrefs;
     }
 
-    private UserPrefs getUserPrefsInProduction() {
-        Path appRootDirectory = Paths.get(System.getProperty("user.home")).resolve("DukeAcademy");
-        Path testExecutorOutputPath = appRootDirectory.resolve("tests");
-        Path questionBankFilePath = appRootDirectory.resolve("questionBank.json");
-
-        // If app is opened for the first time...
-        if (!appRootDirectory.toFile().exists()) {
-            logger.info("Opening app for the first time. Creating new app directory at : " + appRootDirectory);
-
-            if (!appRootDirectory.toFile().mkdirs()) {
-                logger.warning("Unable to create create app directory.");
-                return null;
-            }
-
-            if (!testExecutorOutputPath.toFile().mkdir()) {
-                logger.warning("Unable to create create test executor output directory.");
-                return null;
-            }
-
-            createQuestionBankFile(questionBankFilePath);
-            return new UserPrefs(appRootDirectory);
-        }
-
-        // If test output directory not found
-        if (!testExecutorOutputPath.toFile().exists()) {
-            logger.info("Tests output folder not found. Creating folder at : " + testExecutorOutputPath);
-            if (!testExecutorOutputPath.toFile().mkdir()) {
-                logger.warning("Unable to create create test executor output directory.");
-                return null;
-            }
-        }
-
-        // If questions data not found
-        if (!appRootDirectory.resolve("questionBank.json").toFile().exists()) {
-            logger.info("Question storage file not found. Loading questions to : " + questionBankFilePath);
-
-            createQuestionBankFile(appRootDirectory);
-        }
-
-        return new UserPrefs(appRootDirectory);
-    }
 
     /**
      * Helper method to create a question bank json file at the specified location. Default questions are copied.
@@ -237,12 +229,42 @@ public class MainApp extends Application {
     private void createQuestionBankFile(Path questionBankFilePath) {
         try {
             logger.info("Creating new question bank.");
+
             // Copy default questions
-            Path defaultQuestions = Paths.get("questionBank.json");
             FileUtil.createIfMissing(questionBankFilePath);
-            Files.copy(defaultQuestions, questionBankFilePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
+            InputStream defaultQuestionsInputStream = this.getClass().getClassLoader()
+                    .getResourceAsStream("questionBank.json");
+            if (defaultQuestionsInputStream != null) {
+                logger.info("Copying default questions into the new question bank");
+                Files.copy(defaultQuestionsInputStream, questionBankFilePath, StandardCopyOption.REPLACE_EXISTING);
+                defaultQuestionsInputStream.close();
+            } else {
+                logger.warning("Fatal: default questions not found.");
+                this.stop();
+            }
+
+        } catch (IOException | NullPointerException e) {
             logger.warning("Unable to create default question bank data file.");
+        }
+    }
+
+    /**
+     * Helper method to create a note bank json file at the specified location. Default note bank will be empty.
+     * @param noteBankFilePath the path at which to create the file.
+     */
+    private void createNoteBankFile(Path noteBankFilePath) {
+        try {
+            logger.info("Creating new note bank.");
+            FileUtil.createIfMissing(noteBankFilePath);
+            InputStream emptyNoteBankInputStream = this.getClass().getClassLoader()
+                    .getResourceAsStream("noteBank.json");
+            if (emptyNoteBankInputStream != null) {
+                logger.info("Copying note bank template into new note bank");
+                Files.copy(emptyNoteBankInputStream, noteBankFilePath, StandardCopyOption.REPLACE_EXISTING);
+                emptyNoteBankInputStream.close();
+            }
+        } catch (IOException | NullPointerException e) {
+            logger.warning("Unable to create new note bank data file.");
         }
     }
 
@@ -251,7 +273,7 @@ public class MainApp extends Application {
      * in the CommandLogicManager is done in this method.
      *
      * @return a CommandLogicManger instance.
-     */
+     * */
     private CommandLogicManager initCommandLogic() {
         logger.info("============================ [ Initializing command logic ] =============================");
 
@@ -264,7 +286,7 @@ public class MainApp extends Application {
 
         // Registering exit command
         ExitCommandFactory exitCommandFactory = new ExitCommandFactory(this.questionsLogic,
-                this.programSubmissionLogic);
+                this.programSubmissionLogic, this.notesLogic);
         commandLogicManager.registerCommand(exitCommandFactory);
         // Registering attempt command
         AttemptCommandFactory attemptCommandFactory = new AttemptCommandFactory(this.questionsLogic,
@@ -308,6 +330,26 @@ public class MainApp extends Application {
         DeleteBookmarkCommandFactory deleteBookmarkCommandFactory =
                 new DeleteBookmarkCommandFactory(this.questionsLogic);
         commandLogicManager.registerCommand(deleteBookmarkCommandFactory);
+        // Registering help command
+        HelpCommandFactory helpCommandFactory = new HelpCommandFactory(this.questionsLogic,
+                this.programSubmissionLogic, this.applicationState);
+        commandLogicManager.registerCommand(helpCommandFactory);
+        // Registering new note command
+        NewNoteCommandFactory newNoteCommandFactory = new NewNoteCommandFactory(this.notesLogic, this.applicationState
+        );
+        commandLogicManager.registerCommand(newNoteCommandFactory);
+        // Registering open note command
+        OpenNoteCommandFactory openNoteCommandFactory = new OpenNoteCommandFactory(this.notesLogic,
+                this.applicationState);
+        commandLogicManager.registerCommand(openNoteCommandFactory);
+        // Registering save note command
+        SaveNoteCommandFactory saveNoteCommandFactory = new SaveNoteCommandFactory(this.applicationState,
+                this.notesLogic);
+        commandLogicManager.registerCommand(saveNoteCommandFactory);
+        // Registering delete note command
+        DeleteNoteCommandFactory deleteNoteCommandFactory = new DeleteNoteCommandFactory(this.notesLogic,
+                this.applicationState);
+        commandLogicManager.registerCommand(deleteNoteCommandFactory);
 
         return commandLogicManager;
     }
@@ -321,14 +363,26 @@ public class MainApp extends Application {
     /**
      * Returns a new QuestionLogicManager based on the UserPrefs passed into the function.
      *
-     * @param userPrefs a UserPrefs instance.
+     * @param config a Config instance.
      * @return a QuestionsLogicManager instance.
-     */
-    private QuestionsLogicManager initQuestionsLogic(ReadOnlyUserPrefs userPrefs) {
+     * */
+    private QuestionsLogicManager initQuestionsLogic(Config config) {
         logger.info("============================ [ Initializing question logic ] =============================");
-        QuestionBankStorage storage = new JsonQuestionBankStorage(userPrefs.getQuestionBankFilePath());
+        QuestionBankStorage storage = new JsonQuestionBankStorage(config.getDataPath().resolve("QuestionBank.json"));
 
         return new QuestionsLogicManager(storage);
+    }
+
+    /**
+     * Returns a new NotesLogicManager based on the given config preferences.
+     * @param config a Config instance
+     * @return a NotesLogicManager instance
+     */
+    private NotesLogicManager initNotesLogic(Config config) {
+        logger.info("============================ [ Initializing notes logic ] =============================");
+        NoteBankStorage storage = new JsonNoteBankStorage(config.getDataPath().resolve("NoteBank.json"));
+
+        return new NotesLogicManager(storage);
     }
 
     /**
@@ -336,11 +390,11 @@ public class MainApp extends Application {
      *
      * @return a ProgramSubmissionLogicManager instance.
      */
-    private ProgramSubmissionLogic initProgramSubmissionLogic(ReadOnlyUserPrefs userPrefs) {
+    private ProgramSubmissionLogic initProgramSubmissionLogic(Config config) {
         logger.info("============================ [ Initializing program submission logic ] "
                 + "=============================");
         try {
-            String outputPath = userPrefs.getTestExecutorOutputPath().toString();
+            String outputPath = config.getTestOutputPath().toString();
             return new ProgramSubmissionLogicManager(outputPath);
         } catch (LogicCreationException e) {
             return null;
@@ -351,7 +405,7 @@ public class MainApp extends Application {
                       ProgramSubmissionLogic programSubmissionLogic, ApplicationState applicationState) {
         logger.info("============================ [ Initializing UI ] =============================");
         return new UiManager(commandLogic, questionsLogic,
-            programSubmissionLogic, applicationState);
+            programSubmissionLogic, notesLogic, applicationState);
     }
 
     @Override

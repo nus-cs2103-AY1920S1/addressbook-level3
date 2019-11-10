@@ -42,7 +42,7 @@ class SubmitCommandFactoryTest {
         assertTrue(command instanceof SubmitCommand);
 
         assertThrows(InvalidCommandArgumentsException.class,
-                "Exit command does not take any arguments", () -> factory
+                "Submit command does not take any arguments", () -> factory
                         .getCommand("123"));
     }
 }

@@ -3,7 +3,7 @@ package com.dukeacademy.model.question;
 import java.util.Collection;
 import java.util.stream.IntStream;
 
-import com.dukeacademy.model.question.exceptions.QuestionNotFoundException;
+import com.dukeacademy.model.question.exceptions.QuestionNotFoundRuntimeException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,7 +76,7 @@ public class StandardQuestionBank implements QuestionBank {
         int oldQuestionIndex = IntStream.range(0, questionList.size())
                 .filter(i -> questionList.get(i).equals(oldQuestion))
                 .findFirst()
-                .orElseThrow(QuestionNotFoundException::new);
+                .orElseThrow(QuestionNotFoundRuntimeException::new);
 
         questionList.remove(oldQuestionIndex);
         questionList.add(oldQuestionIndex, newQuestion);

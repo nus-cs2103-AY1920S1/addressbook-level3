@@ -57,7 +57,6 @@ class ConfigUtilTest {
     private Config getTypicalConfig() {
         Config config = new Config();
         config.setLogLevel(Level.INFO);
-        config.setUserPrefsFilePath(Paths.get("preferences.json"));
         return config;
     }
 

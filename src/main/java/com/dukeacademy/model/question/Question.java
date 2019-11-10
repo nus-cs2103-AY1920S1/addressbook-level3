@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 
 import com.dukeacademy.model.question.entities.Difficulty;
 import com.dukeacademy.model.question.entities.Status;
@@ -22,8 +21,9 @@ import com.dukeacademy.model.question.entities.Topic;
  */
 public class Question {
     private static final String TITLE_VALIDATION_REGEX = "[^\\s].*";
+    private static int questionCount = 1;
 
-    private final UUID uuid;
+    private final int id;
     private final String title;
     private final Status status;
     private final Difficulty difficulty;
@@ -37,7 +37,7 @@ public class Question {
     /**
      * Every field must be present and not null.
      *
-     * @param uuid         the uuid
+     * @param id         the id
      * @param title        the title
      * @param status       the status
      * @param difficulty   the difficulty
@@ -47,7 +47,7 @@ public class Question {
      * @param isBookmarked the bookmark flag
      * @param description  the description
      */
-    public Question(UUID uuid, String title, Status status, Difficulty difficulty, Set<Topic> topics,
+    private Question(int id, String title, Status status, Difficulty difficulty, Set<Topic> topics,
                     List<TestCase> testCases, UserProgram userProgram,
                     boolean isBookmarked, String description) {
         requireAllNonNull(title, status, difficulty, topics, testCases, userProgram);
@@ -55,7 +55,7 @@ public class Question {
             throw new IllegalArgumentException();
         }
 
-        this.uuid = uuid;
+        this.id = id;
         this.title = title;
         this.status = status;
         this.difficulty = difficulty;
@@ -88,7 +88,7 @@ public class Question {
             throw new IllegalArgumentException();
         }
 
-        this.uuid = UUID.randomUUID();
+        this.id = questionCount++;
         this.title = title;
         this.status = status;
         this.difficulty = difficulty;
@@ -97,6 +97,10 @@ public class Question {
         this.description = description;
         this.userProgram = new UserProgram(userProgram.getCanonicalName(), userProgram.getSourceCode());
         this.isBookmarked = isBookmarked;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     /**
@@ -181,7 +185,7 @@ public class Question {
      * @return a new instance of the question.
      */
     public Question withNewIsBookmarked(boolean isBookmarked) {
-        return new Question(this.uuid, this.title, this.status, this.difficulty, this.topics,
+        return new Question(this.id, this.title, this.status, this.difficulty, this.topics,
                 this.testCases, this.userProgram, isBookmarked, this.description);
     }
 
@@ -193,7 +197,7 @@ public class Question {
      * @return a new instance of the question.
      */
     public Question withNewStatus(Status status) {
-        return new Question(this.uuid, this.title, status, this.difficulty, this.topics,
+        return new Question(this.id, this.title, status, this.difficulty, this.topics,
                 this.testCases, this.userProgram, this.isBookmarked, this.description);
     }
 
@@ -205,7 +209,7 @@ public class Question {
      * @return a new instance of the question.
      */
     public Question withNewUserProgram(UserProgram userProgram) {
-        return new Question(this.uuid, this.title, this.status, this.difficulty, this.topics,
+        return new Question(this.id, this.title, this.status, this.difficulty, this.topics,
                 this.testCases, userProgram, this.isBookmarked, this.description);
     }
 
@@ -252,7 +256,7 @@ public class Question {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Question) {
-            return this.uuid.equals(((Question) o).uuid);
+            return this.id == ((Question) o).id;
         }
 
         return false;

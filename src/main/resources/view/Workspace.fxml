@@ -1,82 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
-            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-            style="-fx-background-color: #7d2277;">
 
+<AnchorPane style="-fx-background-color: #7d2277;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
-        <Insets left="45.0" right="45.0"/>
+        <Insets left="45.0" right="45.0" />
     </padding>
 
-    <GridPane AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              style="-fx-background-color: white">
+    <GridPane style="-fx-background-color: white" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS"
-                  style="-fx-border-color: #7d2277">
-            <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" spacing="15.0">
+        <GridPane style="-fx-border-color: #7d2277" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0">
+            <VBox spacing="15.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                 <Label text="Currently attempting:" textFill="#63075d">
                     <font>
-                        <Font name="Century Gothic" size="20.0"/>
+                        <Font name="Century Gothic" size="20.0" />
                     </font>
                 </Label>
-                <StackPane fx:id="problemStatementPanelPlaceholder" VBox.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"/>
+                <StackPane fx:id="problemStatementPanelPlaceholder" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
                 <padding>
-                    <Insets top="35.0" right="35.0" left="35.0"/>
+                    <Insets bottom="15.0" left="35.0" right="35.0" top="15.0" />
                 </padding>
             </VBox>
 
-            <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="15.0">
-                <Label text="Results:" textFill="#63075d">
-                    <font>
-                        <Font name="Century Gothic" size="20.0"/>
-                    </font>
-                </Label>
-                <StackPane fx:id="programEvaluationPanelPlaceholder" VBox.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"/>
+            <VBox spacing="15.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <StackPane fx:id="programEvaluationPanelPlaceholder" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
                 <padding>
-                    <Insets topRightBottomLeft="35.0"/>
+                    <Insets bottom="15.0" left="35.0" right="35.0" top="15.0" />
                 </padding>
             </VBox>
 
             <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES" percentHeight="50"/>
-                <RowConstraints vgrow="SOMETIMES" percentHeight="50"/>
+                <RowConstraints percentHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints percentHeight="70.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="100"/>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="100" />
             </columnConstraints>
         </GridPane>
 
-        <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="15.0"
-              style="-fx-border-color: #7d2277">
+        <VBox spacing="15.0" style="-fx-border-color: #7d2277" GridPane.columnIndex="1" GridPane.rowIndex="0">
             <Label text="Your program:" textFill="#63075d">
                 <font>
-                    <Font name="Century Gothic" size="20.0"/>
+                    <Font name="Century Gothic" size="20.0" />
                 </font>
             </Label>
             <AnchorPane fx:id="editorPlaceholder" VBox.vgrow="ALWAYS">
 
             </AnchorPane>
             <padding>
-                <Insets topRightBottomLeft="35.0"/>
+                <Insets bottom="15.0" left="35.0" right="35.0" top="15.0" />
             </padding>
         </VBox>
 
         <rowConstraints>
-            <RowConstraints vgrow="ALWAYS" percentHeight="100"/>
+            <RowConstraints vgrow="ALWAYS" />
         </rowConstraints>
+
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="50"/>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="40" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="60" />
         </columnConstraints>
 
     </GridPane>

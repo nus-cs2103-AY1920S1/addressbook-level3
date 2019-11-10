@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.ExecutionException;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,12 +35,13 @@ class StandardProgramExecutorTest {
         assertEquals(expectedOutput, output.getOutput());
     }
 
-    @Test void testExecuteValidProgramWithInput() throws IOException, ProgramExecutorException {
+    @Test void testExecuteValidProgramWithInput() throws IOException, ProgramExecutorException,
+            ExecutionException, InterruptedException {
         StandardProgramExecutor executor = new StandardProgramExecutor();
 
         ClassFile program = new ClassFile("WithInputTest", testProgramsFolder.toString());
         String input = Files.readString(testProgramsFolder.resolve("Input.txt"));
-        ProgramOutput output = executor.executeProgram(program, new ProgramInput(input));
+        ProgramOutput output = executor.executeProgram(program, new ProgramInput(input)).get();
 
         String expectedOutput = Files.readString(testProgramsFolder.resolve("WithInputTestResult.txt"));
         assertFalse(output.getRuntimeError().isPresent());

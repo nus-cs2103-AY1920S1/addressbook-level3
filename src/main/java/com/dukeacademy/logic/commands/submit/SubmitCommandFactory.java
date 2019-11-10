@@ -38,7 +38,7 @@ public class SubmitCommandFactory implements CommandFactory {
     @Override
     public Command getCommand(String commandArguments) throws InvalidCommandArgumentsException {
         if (!commandArguments.matches("\\s*")) {
-            throw new InvalidCommandArgumentsException("Exit command does not take any arguments");
+            throw new InvalidCommandArgumentsException("Submit command does not take any arguments");
         }
 
         return new SubmitCommand(this.questionsLogic, this.programSubmissionLogic, applicationState);

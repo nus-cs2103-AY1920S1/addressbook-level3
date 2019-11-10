@@ -43,7 +43,6 @@ public class FindCommand implements Command {
         String feedback = "List all questions that contains the corresponding"
             + " keywords.";
         applicationState.setCurrentActivity(Activity.QUESTION);
-        return new CommandResult(feedback, false, false
-        );
+        return new CommandResult(feedback, false);
     }
 }

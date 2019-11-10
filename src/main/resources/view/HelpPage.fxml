@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+    <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="1337.0" style="-fx-background-color: #7d2277;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+        <padding>
+            <Insets left="45.0" right="45.0" />
+        </padding>
+
+        <VBox fx:id="main_container" spacing="45.0" style="-fx-background-color: white;">
+
+            <padding>
+                <Insets bottom="40.0" left="45.0" right="45.0" top="40.0" />
+            </padding>
+
+            <Label text="Having trouble with the commands? Don't worry, we are here to help." textFill="#63075d" translateX="20.0" translateY="15.0" wrapText="true">
+                <font>
+                    <Font name="Century Gothic" size="26.0" />
+                </font>
+            </Label>
+
+            <Separator translateY="10.0">
+            </Separator>
+         <AnchorPane focusTraversable="true" prefHeight="349.0" prefWidth="1157.0" translateY="10.0">
+            <children>
+               <Label layoutX="22.0" layoutY="-10.0" text="Quick overview of Duke Academy commands:" textFill="#7d2277" AnchorPane.leftAnchor="22.0">
+                  <font>
+                     <Font size="22.0" />
+                  </font>
+               </Label>
+               <TextFlow layoutX="22.0" layoutY="63.0" AnchorPane.leftAnchor="22.0">
+                  <children>
+                     <Label text="home">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Home tab">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+               <TextFlow layoutX="22.0" layoutY="214.0" AnchorPane.leftAnchor="22.0">
+                  <children>
+                     <Label text="browse [keyword]...">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Searches for question by title, topic, description, status or difficulty">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+               <TextFlow layoutX="22.0" layoutY="273.0" AnchorPane.leftAnchor="22.0">
+                  <children>
+                     <Label text="attempt [id]">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Questions tab where you can code your solution for a specific question">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+               <TextFlow layoutX="22.0" layoutY="183.0" AnchorPane.leftAnchor="22.0">
+                  <children>
+                     <Label text="find [keyword]...">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Searches for a question by title">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+               <TextFlow layoutX="22.0" layoutY="91.0" AnchorPane.leftAnchor="22.0">
+                  <children>
+                     <Label text="showall">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Questions tab and displays all available questions">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+               <TextFlow layoutX="22.0" layoutY="121.0" AnchorPane.leftAnchor="22.0">
+                  <children>
+                     <Label text="bookmark [id]">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Bookmarks a specific question">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+               <TextFlow layoutX="22.0" layoutY="152.0" AnchorPane.leftAnchor="22.0">
+                  <children>
+                     <Label text="deletebookmark [id]">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Removes the bookmark from a specific question">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+               <TextFlow layoutX="22.0" layoutY="243.0" AnchorPane.leftAnchor="22.0">
+                  <children>
+                     <Label text="view [id]">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Displays the problem statement of a specific question">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+               <TextFlow layoutX="22.0" layoutY="302.0" AnchorPane.leftAnchor="22.0">
+                  <children>
+                     <Label text="submit">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Submits your solution, which will be compiled and run against test cases">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+               <TextFlow layoutX="22.0" layoutY="35.0">
+                  <children>
+                     <Label text="help">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Help tab (the current tab)">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+            </children>
+         </AnchorPane>
+
+<!--            <HBox spacing="25.0">-->
+<!--                <Button fx:id="userGuideButton" alignment="CENTER" prefWidth="195.0" text="User Guide"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false"-->
+<!--                        onAction="#handleUserGuideButtonClick">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
+
+<!--                <Button fx:id="devGuideButton" prefWidth="195.0" text="Developer Guide"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
+
+<!--                <Button fx:id="aboutUsButton" prefWidth="195.0" text="About us"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
+
+<!--                <Button fx:id="contactUsButton" prefWidth="195.0" text="Contact us"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
+
+<!--                <padding>-->
+<!--                    <Insets top="10.0"/>-->
+<!--                </padding>-->
+<!--            </HBox>-->
+
+            <Separator prefHeight="0.0" prefWidth="1157.0">
+                <padding>
+                    <Insets top="10.0" />
+                </padding>
+            </Separator>
+
+            <VBox spacing="10.0" translateX="20.0" translateY="25.0">
+            <Label text="For our detailed User Guide, please refer to" textFill="#7d2277">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <TextField editable="false" focusTraversable="false" prefHeight="29.0" prefWidth="1157.0" text="https://github.com/AY1920S1-CS2103T-F14-1/main/blob/master/docs/UserGuide.adoc">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            </VBox>
+
+            <GridPane VBox.vgrow="ALWAYS">
+
+                <VBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0" VBox.vgrow="ALWAYS">
+
+                    <padding>
+                        <Insets left="40.0" right="40.0" />
+                    </padding>
+                </VBox>
+
+                <VBox spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="0" VBox.vgrow="ALWAYS">
+
+                    <padding>
+                        <Insets left="40.0" right="40.0" />
+                    </padding>
+                </VBox>
+
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="36.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="32.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="32.0" />
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints percentHeight="100" vgrow="ALWAYS" />
+                </rowConstraints>
+
+                <padding>
+                    <Insets left="5.0" right="5.0" />
+                </padding>
+            </GridPane>
+         <VBox />
+
+            <!--        <AnchorPane layoutX="29.0" layoutY="6.0" prefHeight="188.0" prefWidth="652.0" AnchorPane.leftAnchor="0.0"-->
+            <!--                    AnchorPane.topAnchor="0.0">-->
+
+
+            <!--            <AnchorPane fx:id="userGuidePane" layoutX="334.0" layoutY="18.0" prefHeight="188.0"-->
+            <!--                        prefWidth="278.0"-->
+            <!--                        style="-fx-background-color: white; -fx-border-color: #63065d; -fx-border-width: 2;"-->
+            <!--                        visible="false">-->
+            <!--                <HBox layoutX="2.0" layoutY="2.0" prefHeight="39.0" prefWidth="276.0"-->
+            <!--                      style="-fx-background-color: lightgrey;" AnchorPane.leftAnchor="1.0"-->
+            <!--                      AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">-->
+            <!--                    <Button fx:id="closeUserGuideButton" alignment="CENTER" mnemonicParsing="false"-->
+            <!--                            onAction="#handleCloseUserGuideButtonClick" text="Close" translateX="180.0"-->
+            <!--                            translateY="2.5"/>-->
+            <!--                </HBox>-->
+            <!--                <TextArea editable="false" layoutX="12.0" layoutY="113.0" prefHeight="52.0"-->
+            <!--                          prefWidth="254.0" style="-fx-border-color: silver;"-->
+            <!--                          text="https://github.com/AY1920S1-CS2103T-F14-1/main/blob/master/docs/UserGuide.adoc"-->
+            <!--                          wrapText="true"/>-->
+            <!--                <Text layoutX="12.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0"-->
+            <!--                      text="Please copy the link below and paste it in your preferred web browser."-->
+            <!--                      wrappingWidth="254.0">-->
+            <!--                    <font>-->
+            <!--                        <Font size="14.0"/>-->
+            <!--                    </font>-->
+            <!--                </Text>-->
+            <!--            </AnchorPane>-->
+            <!--        </AnchorPane>-->
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

@@ -6,5 +6,7 @@ package com.dukeacademy.model.state;
 public enum Activity {
     HOME,
     QUESTION,
-    WORKSPACE;
+    WORKSPACE,
+    NOTE,
+    HELP
 }

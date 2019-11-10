@@ -17,6 +17,7 @@ import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.question.entities.Status;
+import com.dukeacademy.testutil.MockNotesLogic;
 import com.dukeacademy.testutil.MockQuestionsLogic;
 import com.dukeacademy.testutil.TypicalQuestions;
 
@@ -27,14 +28,16 @@ class ExitCommandTest {
 
     private MockQuestionsLogic questionsLogic;
     private ProgramSubmissionLogic submissionLogic;
+    private MockNotesLogic notesLogic;
 
     @BeforeEach void initializeTest() throws LogicCreationException {
         this.questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
         this.submissionLogic = new ProgramSubmissionLogicManager(tempFolder.toString());
+        this.notesLogic = new MockNotesLogic();
     }
 
     @Test void execute() {
-        ExitCommand command = new ExitCommand(questionsLogic, submissionLogic);
+        ExitCommand command = new ExitCommand(questionsLogic, submissionLogic, notesLogic);
         UserProgram program = new UserProgram("Main", "abc123");
         this.submissionLogic.setUserProgramSubmissionChannel(() -> program);
 
@@ -44,7 +47,7 @@ class ExitCommandTest {
         List<Question> expectedQuestions = TypicalQuestions.getTypicalQuestions();
         this.matchListData(questionsLogic.getFilteredQuestionsList(), expectedQuestions);
 
-        Question currentQuestion = this.questionsLogic.getQuestion(0);
+        Question currentQuestion = this.questionsLogic.getAllQuestionsList().get(0);
         this.submissionLogic.setCurrentQuestion(currentQuestion);
         this.submissionLogic.setUserProgramSubmissionChannel(() -> program);
 
@@ -53,6 +56,9 @@ class ExitCommandTest {
         List<Question> expectedQuestions1 = TypicalQuestions.getTypicalQuestions();
         expectedQuestions1.set(0, currentQuestion.withNewStatus(Status.ATTEMPTED).withNewUserProgram(program));
         this.matchListData(questionsLogic.getFilteredQuestionsList(), expectedQuestions1);
+
+        //Check that the latest note is saved
+        assertTrue(this.notesLogic.getAllNotesList().get(0).equals(MockNotesLogic.AFTER_SAVE_NOTE));
     }
 
 

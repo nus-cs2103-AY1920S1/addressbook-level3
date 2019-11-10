@@ -26,6 +26,7 @@ import com.dukeacademy.model.question.entities.Difficulty;
 import com.dukeacademy.model.question.entities.Status;
 import com.dukeacademy.model.question.entities.TestCase;
 import com.dukeacademy.model.question.entities.Topic;
+import com.dukeacademy.model.question.exceptions.QuestionNotFoundRuntimeException;
 import com.dukeacademy.storage.question.JsonQuestionBankStorage;
 import com.dukeacademy.storage.question.QuestionBankStorage;
 import com.dukeacademy.testutil.TypicalQuestions;
@@ -219,39 +220,17 @@ class QuestionsLogicManagerTest {
 
         // Check the question is replaced both in the logic manager and in the storage
         Question newQuestion = this.getMockQuestion("Test4");
-        questionsLogicManager.setQuestion(1, newQuestion);
-        List<Question> expectedQuestions = TypicalQuestions.getTypicalQuestions();
-        expectedQuestions.remove(1);
-        expectedQuestions.add(1, newQuestion);
-        assertTrue(this.matchListData(questionsObservableList, expectedQuestions));
+        Question oldQuestion = questionsObservableList.get(1);
+        questionsLogicManager.setQuestion(oldQuestion.getId(), newQuestion);
+        typicalQuestions.remove(1);
+        typicalQuestions.add(1, newQuestion);
+        assertTrue(this.matchListData(questionsObservableList, typicalQuestions));
         ObservableList<Question> storageQuestions = storage.readQuestionBank()
                 .get().getReadOnlyQuestionListObservable();
-        assertTrue(this.matchListData(storageQuestions, expectedQuestions));
+        assertTrue(this.matchListData(storageQuestions, typicalQuestions));
 
-        assertThrows(IndexOutOfBoundsException.class, () -> questionsLogicManager.setQuestion(100, newQuestion));
-        assertThrows(IndexOutOfBoundsException.class, () -> questionsLogicManager.setQuestion(-1, newQuestion));
-    }
-
-    @Test
-    void deleteQuestionByIndex() throws IOException, DataConversionException {
-        // Load typical questions
-        QuestionBankStorage storage = new JsonQuestionBankStorage(typicalQuestionBankPath);
-        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
-        ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
-        List<Question> typicalQuestions = TypicalQuestions.getTypicalQuestions();
-        assertTrue(this.matchListData(questionsObservableList, typicalQuestions));
-
-        // Check that the questions are deleted in both the logic manager and in the storage
-        questionsLogicManager.deleteQuestion(1);
-        List<Question> expectedQuestions = TypicalQuestions.getTypicalQuestions();
-        expectedQuestions.remove(1);
-        assertTrue(this.matchListData(questionsObservableList, expectedQuestions));
-        ObservableList<Question> storageQuestions = storage.readQuestionBank().get()
-                .getReadOnlyQuestionListObservable();
-        assertTrue(this.matchListData(storageQuestions, expectedQuestions));
-
-        assertThrows(IndexOutOfBoundsException.class, () -> questionsLogicManager.deleteQuestion(100));
-        assertThrows(IndexOutOfBoundsException.class, () -> questionsLogicManager.deleteQuestion(-1));
+        assertThrows(QuestionNotFoundRuntimeException.class, () -> questionsLogicManager.setQuestion(100, newQuestion));
+        assertThrows(QuestionNotFoundRuntimeException.class, () -> questionsLogicManager.setQuestion(-1, newQuestion));
     }
 
     @Test
@@ -282,7 +261,7 @@ class QuestionsLogicManagerTest {
         assertTrue(this.matchListData(questionsObservableList, typicalQuestions));
 
         // Check that question replaced in both the logic manager and in the question bank
-        Question oldQuestion = questionsLogicManager.getQuestion(1);
+        Question oldQuestion = questionsObservableList.get(1);
         Question newQuestion = this.getMockQuestion("abc");
         questionsLogicManager.replaceQuestion(oldQuestion, newQuestion);
         typicalQuestions.remove(1);
