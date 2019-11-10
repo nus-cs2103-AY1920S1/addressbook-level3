@@ -59,7 +59,7 @@ public class ExpenseCard extends UiPart<Region> {
         Optional<Person> expenseOwnerOpt = activityParticipants.stream()
                 .filter((participant) -> expenseOwnerId == participant.getPrimaryKey())
                 .findFirst();
-        assert expenseOwnerOpt.isPresent();
+        assert expenseOwnerOpt.isPresent() : "Expense is missing a participant as owner!";
 
         Person expenseOwner = expenseOwnerOpt.get();
         // Expense owner's label always appears first in the FlowPane and is coloured differently
@@ -69,7 +69,7 @@ public class ExpenseCard extends UiPart<Region> {
                 .boxed()
                 .collect(Collectors.toUnmodifiableSet());
 
-        // Retrieve the name of each participant and create a separate tag to display it
+        // Retrieve the name of each participant and create a separate tag to display each
         activityParticipants.stream()
                 .filter((participant) -> involvedIds.contains(participant.getPrimaryKey()))
                 .map((participant) -> participant.getName().toString())
@@ -77,7 +77,7 @@ public class ExpenseCard extends UiPart<Region> {
 
         if (expense.isSettlement()) {
             // Excludes the settlement owner
-            assert expense.getInvolved().length == 1;
+            assert expense.getInvolved().length == 1 : "Settlement should only involve one other participant!";
             setSettlementStyle();
         }
     }

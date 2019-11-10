@@ -34,7 +34,7 @@ public class ActivityCard extends UiPart<Region> {
     }
 
     private String pluralize(String noun, int count) {
-        assert count >= 0;
+        assert count >= 0 : "Number of participants is non-negative!";
         return count != 1 ? noun : noun + "s";
     }
 

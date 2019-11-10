@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.commons.util.Triplet;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Expense;
 import seedu.address.model.person.Person;
@@ -62,34 +62,25 @@ public class ActivityDetailsPanel extends UiPart<Region> {
                     expenseHistory.getChildren().add(newNode.getRoot());
                 });
 
-        List<Integer> participantIds = activity.getParticipantIds();
         Map<Integer, Person> idMapping = participants.stream()
                 .collect(Collectors.toMap(p -> p.getPrimaryKey(), p -> p));
 
-        ArrayList<ArrayList<Double>> transfersMatrix = activity.getTransferMatrix();
-        for (int i = 0; i < numParticipants; i++) {
-            ArrayList<Double> row = transfersMatrix.get(i);
-            for (int j = i; j < numParticipants; j++) {
-                // i and j do not owe each other any amount
-                if (row.get(j) == 0.0) {
-                    continue;
-                }
+        // Retrieve required transfers to settle all debts within this activity
+        List<Triplet<Integer, Integer, Double>> listTransfers = activity.getSolution();
 
-                Person personI = idMapping.get(participantIds.get(i));
-                Person personJ = idMapping.get(participantIds.get(j));
-                if (row.get(j) < 0) {
-                    // i owes j some amount (i --> j)
-                    transferList.getChildren().add(new TransferCard(personI, personJ, -row.get(j)).getRoot());
-                } else {
-                    // j owes i some amount (j --> i)
-                    transferList.getChildren().add(new TransferCard(personJ, personI, row.get(j)).getRoot());
-                }
-            }
-        }
+        listTransfers.stream()
+                .forEach(transfer -> {
+                    Person sender = idMapping.get(transfer.getFirst());
+                    Person recipient = idMapping.get(transfer.getSecond());
+                    double transferAmt = transfer.getThird();
+
+                    TransferCard newNode = new TransferCard(sender, recipient, transferAmt);
+                    transferList.getChildren().add(newNode.getRoot());
+                });
     }
 
     private String pluralize(String noun, int count) {
-        assert count >= 0;
+        assert count >= 0 : "Number of participants is non-negative!";
         return count != 1 ? noun : noun + "s";
     }
 }
