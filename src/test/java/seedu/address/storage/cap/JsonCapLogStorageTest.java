@@ -3,8 +3,6 @@ package seedu.address.storage.cap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalModule.CS2101;
-import static seedu.address.testutil.TypicalModule.CS2103;
 import static seedu.address.testutil.TypicalModule.CS3226;
 import static seedu.address.testutil.TypicalModule.getTypicalCapLog;
 
@@ -90,12 +88,12 @@ public class JsonCapLogStorageTest {
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code capLog} at the specified {@code filePath}.
      */
-    private void saveCapLog(ReadOnlyCapLog addressBook, String filePath) {
+    private void saveCapLog(ReadOnlyCapLog capLog, String filePath) {
         try {
             new JsonCapStorage(Paths.get(filePath))
-                    .saveCapLog(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveCapLog(capLog, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
