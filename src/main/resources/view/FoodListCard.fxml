@@ -37,7 +37,7 @@
                                     <Insets />
                                  </VBox.margin>
                                  <children>
-                                <Label fx:id="name" alignment="CENTER" maxWidth="470.0" styleClass="cell_big_label" text="\$first" wrapText="true" />
+                                <Label fx:id="name" alignment="CENTER" maxWidth="460.0" styleClass="cell_big_label" text="\$first" wrapText="true" />
                                     <Label fx:id="recommendation" styleClass="cell_recommendation" text="\$recommendation" wrapText="true" />
                                  </children>
                               </HBox>

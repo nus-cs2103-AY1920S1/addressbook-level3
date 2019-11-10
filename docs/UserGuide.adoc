@@ -85,6 +85,10 @@ should disappear.
 This application is optimized for screen resolution of 1400x900 pixels and higher. Anything lower than that and you
 might experienced some bugs.
 
+[NOTE]
+You might experience some truncated detail on smaller laptop screens. As such, we would advice you to not to input
+really long names, description, etc.
+
 [IMPORTANT]
 Ensure that your scaling setting is set to 100% as anything higher might result in text being cut off.
 
