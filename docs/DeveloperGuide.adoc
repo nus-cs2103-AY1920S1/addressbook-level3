@@ -254,11 +254,12 @@ stored after a user executes the `training` command.
 .Activity diagram showing execution of `training` command
 image::training_command_activity_diagram.png[]
 
-`[green]#TrainingManager#` also provides the functionality for users to calculate the attendance rate of one
-individual, or the entire team. The following operations are used for this feature:
+`[green]#TrainingManager#` also provides functions for users to calculate the attendance rate of one individual, or
+the entire team. The following operations are used for this feature:
 
-* `TrainingManager#getPersonAttendanceRateString` -- Returns the person's overall attendance rate in String format.
-* `TrainingManager#getAttendanceRateOfAll` - Returns a list of everyone's attendance rate.
+* `[green]#TrainingManager#getPersonAttendanceRateString#` -- Returns the person's overall attendance rate in String
+format.
+* `[green]#TrainingManager#getAttendanceRateOfAll#` - Returns a list of everyone's attendance rate.
 
 
 These operations are used by the `select`, `attendance` and `view attendance` commands. The following sequence diagram
@@ -270,7 +271,7 @@ image::view_attendance_sequence_diagram.png[]
 `[green]#TrainingManager#` also allows users to get the attendance of one particular training using the following
 operation:
 
-* `TrainingManager#getTrainingAttendanceListOnDate` -- Returns training attendance on the specified date.
+* `[green]#TrainingManager#getTrainingAttendanceListOnDate#` -- Returns training attendance on the specified date.
 
 The sequence diagram below shows a use case of how training attendance is obtained from `[green]#TrainingManager#`
 when a `calendar` command is executed.
