@@ -506,12 +506,22 @@ This feature allows the user to delete an existing transaction, budget, ledger o
 
 ==== Current Implementation
 
-The following activity diagram summarizes what happens when a user executes Delete command:
+* The delete feature is facilitated by the Logic and Model components of the application.
+* The delete feature works for `Transaction`, `Budget`, `Ledger` and `Projection` entries.
+* The following activity diagram summarizes what happens when a user executes Delete command:
 
 .Activity Diagram of Delete Command
 image::DeleteActivityDiagram.png[]
 
 ==== Design Consideration
+
+* The `delete` command is followed by a `TYPE+INDEX` parameter.
+** `Transaction` entries takes in `t` as its `TYPE` parameter.
+** `Budget` entries takes in `b` as its `TYPE` parameter.
+** `Ledger` entries takes in `l` as its `TYPE` parameter.
+** `Projection` entries takes in `p` as its `TYPE` parameter.
+* The `index` parameter refers to the entry number within the `TYPE` entry's view tab.
+* Example: `delete t5` deletes the 5th transaction from the list of transaction if that particular entry exists.
 
 ===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
 
@@ -528,14 +538,28 @@ image::DeleteActivityDiagram.png[]
 // tag::update[]
 === Update: `update`
 
-This feature allows users to update either the **Amount**, **Date** or **Category** of either a Transaction or Budget.
-==== Implementation
+This feature allows users to update `Transaction`, `Budget` or `Projection` entries. The user is unable to perform this feature on `Ledger` and operations the rationale will be further explained in **Aspect 2**.
+
+==== Current Implementation
+
+*  The update feature is facilitated by the Logic and Model components of the application
+* The parameter requirements differs for the type of entry:
+** `Transaction` type requires at least one of it's `Amount`, `Description`, `Date` or `Category` fields to be updated
+** `Budget` type requires at least one of it's `Amount`, `Date` or `Category` fields to be updated
+** `Project` type only requires it's `Date` field to be updated.
+* At least one valid parameter must be changed when executing an `update` command. (i.e. `update b1` will result in an error as no fields are being changed)
+* The following activity diagram summarizes what happens when a user executes an update command:
+
+.Activity Diagram for update
+image::UpdateActivityDiagram.png[]
 
 ==== Design Considerations
 
-This `update` feature allows one or more fields of a Transaction or Budget to be updated. (e.g. `update t1 $/2` and `update t1 $/2 d/10102019` will both work as intended). This will minimize the need to input all non-required parameters if a user does not require all parameters of a Transaction or Budget to be changed.
+The `update` feature allows one or more fields of a Transaction or Budget to be updated. (e.g. `update t1 $/2` and `update t1 $/2 d/10102019` will both work as intended).
 
-===== Aspect: Update requires `TYPE+INDEX` as one of its parameter
+More often than not, users do not need to change an entire Transaction or Budget entry. This will minimize inputs for users if they do not require every single parameters of a Transaction or Budget to be changed.
+
+===== Aspect 1: Update requires `TYPE+INDEX` as one of its parameter
 
 * **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to update an item from Transaction, Budget or Projection list. (e.g. `delete b1` deletes item index 1 from budget).
 ** Pros: Requires lesser user steps to be taken before executing a `update` command
@@ -545,7 +569,7 @@ This `update` feature allows one or more fields of a Transaction or Budget to be
 ** Pros: Requires only one unique list required to store both Transactions and Budgets.
 ** Cons: Requires additional user step to switch between modes before executing a updating command.
 
-===== Aspect: Update can not edit Ledger Operations
+===== Aspect 2: Update can not edit Ledger Operations
 
 * **Alternative 1 (current choice):** Update Command only works with `Transaction`, `Budget` and `Projection` Operations.
 ** Pros: Intuitive implementation and execution for the user.
