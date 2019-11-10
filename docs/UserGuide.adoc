@@ -124,10 +124,17 @@ Examples (All available destinations listed):
 * `change_tab tab/notepad`
 * `change_tab tab/task`
 
-.Figure 1. Tab Change GUI
+.Tab Change GUI
 image::tabchange.png[width=600]
 
 The user may alternatively choose to change tab by using the Items on the Menu Bar.
+
+==== Delete Button
+
+Delete Button for Reminders and Notes for quick and easy removal of Reminder or Note.
+
+.Delete Button GUI
+image::reminders/deletebutton.png[width=600]
 //end::userinterface[]
 
 === Tasks
@@ -242,10 +249,14 @@ Views the Task in Calendar View
 
 [TIP]
 Clicking on a date will show the user the Tasks with that date as its Start Time in normal list view. +
-The Calendar will display the tasks starting on that date and the amount of tasks starting on that date.
+The Calendar will display the tasks starting on that date and the amount of tasks starting on that date. +
+If there is a Task starting on that date, only the Task's `DESCRIPTION` and `START_TIME` will be displayed on the calendar.
+
 
 ****
 * The maximum number of tasks that can be shown on each date is 2. If there are more than *2* tasks on a date, a `...` will be added at the bottom of that date to indicate that there are more tasks not shown.
+* The Calendar will display the tasks starting on that date and the amount of tasks starting on that date. +
+* If there is a Task starting on that date, only the Task's `DESCRIPTION` and `START_TIME` will be displayed on the calendar.
 ****
 
 image:calendarview.png[width="700"]
@@ -257,24 +268,46 @@ image:calendarview.png[width="700"]
 ==== Add Reminder
 
 Adds reminders. +
-Format: `addReminder rd/DESCRIPTION rt/DATE` +
+Format: `add_reminder rd/DESCRIPTION rt/START_TIME, END_TIME` +
+
+[TIP]
+A Reminder can have more than one time slots.
 
 ****
-* The `DATE` should be in the format dd/MM/YYYY. e.g 12/10/2019
+* `START_TIME` and `END_TIME` must be in the format "dd/MM/YYYY HH:mm, dd/MM/YYYY HH:mm".
+* If there are multiple task times, they will be automatically sorted based on their `START_TIME`.
 ****
 
 Examples:
 
 * `add_reminder rd/CS2103T Homework rt/13/10/2019 13:00, 13/10/2019 15:00`
 
+image:reminders/add_reminder.png[width="500"]
+
+image:reminders/add_reminder_2.png[width="500"]
+
+
 ==== Delete Reminder
 
 Removes the reminder. +
-Format: `reminder INDEX`
+Format: `delete_reminder INDEX`
 
 Examples:
 
-* `deleteReminder 1`
+* `delete_reminder 1`
+
+****
+* `INDEX` must be a positive integer.
+****
+
+image:reminders/delete_reminder.png[width="500"]
+
+image:reminders/delete_reminder_2.png[width="500"]
+
+.Deleting a Reminder using the delete button
+image::reminders/deletebutton.png[width="500"]
+
+Reminders can also be deleted easily by clicking the delete button
 
 ==== Finding Reminders based on Description : `find_reminder_by_description`
 
@@ -292,6 +325,7 @@ Examples:
 * `find_reminder_by_description CS2103T`
 
 image:reminders/find_reminder_1.png[width="500"]
+
 image:reminders/find_reminder_2.png[width="500"]
 
 * `find_reminder_by_description CS2103T, cs2100`
@@ -310,6 +344,7 @@ Examples:
 * `find_reminders_by_date 13/10/2019`
 
 image:reminders/find_reminder_3.png[width="500"]
+
 image:reminders/find_reminder_4.png[width="500"]
 
 
@@ -727,7 +762,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Tutoraid data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 === Logout : `logout`
