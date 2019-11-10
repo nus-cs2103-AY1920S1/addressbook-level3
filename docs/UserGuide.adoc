@@ -320,13 +320,13 @@ If you want to play the game again, click the kbd:[Start] button shown in the St
 === Generating a PDF file of engagement : `pdf`
 ==== Usage
 Pdf Command allows user to create a document of selected engagement in a given format of document template.
-Document template can be customised based on the customers's requirements, however, default document format will be in an eamil format,
+Document template can be customised based on the customers's requirements, however, default document format will be in an email format,
 where the user can set who the user is going to send this document to inform an engagement. +
 
 Format: `pdf i/LIST_INDEX t/RECEIVER f/FROM` +
 
 For example, if the user wants to create a document of an engagement, which has a list index of 1, which can by observed in `engagement` window.
-User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 to/Harry from/John` to generate the document.
+User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 t/Harry f/John` to generate the document.
 
 NOTE: User can generate multiple report documents with the same engagement, but with different SENDER and RECEIVER names. System will not allow generating documents that already exists in the directory.
 
@@ -344,10 +344,10 @@ image::pdf_function_btns.png[width="450", float="left"]
 .After clicking refresh button
 image::pdf_2.png[width="450"]
 
-User can double click the list item to open the document file on their local computer file system. Below is the sample of generated document from our system.
+Once document generation is executed, system will automatically open the document file. Alternatively, user can double click the list item to open the document file on their local computer file system. Below is the sample of generated document from our system.
 
 .pdf document sample
-image::pdf_sample.png[width="520"]
+image::pdf_sample.png[width="600", align="center"]
 
 If the user does not want to keep the document, instead of directing the actual directory in the local system, user can simply click the red `x` button, next to the refresh
 button to delete the selected document list item. Once system displays the popup message to confirm the user's decision, user will click the `OK` button to confirm deletion. Delete function will only available when user has pre-selected the document list item and the selected item must be a .pdf form, not directory.
@@ -364,6 +364,12 @@ NOTE: PDF generation and deletion operations cannot be undone via `undo` command
 
 ==== Error Handling
 
+1. Documents Explorer in Report Window only displays files with .pdf format in reports/ directory. Files with different format will not be displayed in the explorer.
+2. System will not allow user to delete directories in the documents explorer tree view.
+3. System will throw an exception message in the status field if user locks the document.
++
+.file deletion exception message displayed in the status text field.
+image::pdf_error_1.png[width="600"]
 
 // end::pdf-command[]
 
@@ -388,15 +394,15 @@ Relevant data will be loaded from the external file when the application starts.
 == Command Summary
 
 * *Add* `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY` +
-e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High`
-* *Tab*: `tab MENU_NAME`
-** *Add Engagement* : `tab engagement`
-** *Calendar* : `tab calendar`
-** *Game* : `tab game`
-** *Report* : `tab report`
+e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John | Elijah | Sam d/CS2103T Discussion p/HIGH`
+* *Tab*: `tab b/MENU_NAME`
+** *Add Engagement* : `tab b/engagement`
+** *Calendar* : `tab b/calendar`
+** *Game* : `tab b/game`
+** *Report* : `tab b/report`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
+* *Delete* : `delete i/INDEX` +
+e.g. `delete i/3`
 * *PDF* : `pdf i/INDEX to/RECEIVER from/SENDER`
 * *Redo* : `redo`
 * *Sort* : `sort ORDER`
