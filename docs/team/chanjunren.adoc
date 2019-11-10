@@ -44,7 +44,7 @@ Indicates information that are note-worthy. Do read them for more information an
 ** Justification: Pushes the user to test his understanding / familiarity of a certain topic.
 ** Highlights: This enhancement works with existing as well as future commands. An in-depth analysis of design
 alternatives was necessary to implement the feature in a way that doesn’t disrupt other features. The implementation was also challenging because there was a need to read up on an existing API that I did not have prior experience in.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Credits: Usage of the timeline api and linking the timer to a label was inspired by: https://asgteach.com/2011/10/javafx-animation-and-binding-simple-countdown-timer-2/
 
 * *Minor enhancement*: Designed the overall GUI of the StudyBuddyPro application.
 
