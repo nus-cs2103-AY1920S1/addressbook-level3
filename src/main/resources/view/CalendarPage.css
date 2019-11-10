@@ -60,8 +60,3 @@
     -fx-border-color: #000;
     -fx-border-style: solid none;
 }
-
-.text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI";
-}

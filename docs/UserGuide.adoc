@@ -1637,7 +1637,7 @@ Here are summary lists of commands for the different features.
 
 |``search``
 |Search the whole event list and filter out events which meets the search condition
-|``search [title/TITLE] [date/DATE] [time/TIME] [l/LOCATION] [d/DESCRIPTION] [tag/]
+|``search [title/TITLE] [date/DATE] [time/TIME] [l/LOCATION] [d/DESCRIPTION] [tag/]``
 
 |``sort``
 |Sort the event list based on the sorting condition
