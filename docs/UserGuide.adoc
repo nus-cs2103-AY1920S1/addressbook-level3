@@ -708,11 +708,11 @@ Resets the scripting environment.
 Format: `script reset`
 // end::scripting[]
 
-== Coming In v2.0
+== Coming in v2.0
 
 Look forward to these features coming up in version 2.0 of Budget Buddy!
 
-=== Managing defaults *(Coming in v2.0)* : `default`
+=== Managing defaults *(coming in v2.0)*: `default`
 
 ==== Set default account: `default account`
 
@@ -720,7 +720,7 @@ Sets the default account.
 
 Format: `default account <id>`
 
-=== Managing the main transaction view *(Coming in v2.0)* : `view`
+=== Managing the main transaction view *(coming in v2.0)*: `view`
 
 ==== Filter transactions: `view filter`
 
@@ -738,7 +738,7 @@ If omitted, sort in ascending order.
 Format: `view sort s/<a|c|d|x> [o/<a|d>]`
 
 // tag::budget[]
-=== Managing budgets *(Coming in v2.0)* : `budget`
+=== Managing budgets *(coming in v2.0)*: `budget`
 
 Budgets allow you to keep you on track with your spending limits!
 See how much money you still have left for the week, month, or year! With budgets,
@@ -764,7 +764,7 @@ This command removes a budget from the list given the budget ID.
 Format: `budget delete <budget ID>`
 // end::budget[]
 
-=== Goal setting *(Coming in v2.0)* : `goal`
+=== Goal setting *(coming in v2.0)*: `goal`
 
 ==== Add a goal: `goal add`
 
@@ -778,7 +778,7 @@ List all goals.
 
 Deletes the goal with the specified goal ID.
 
-=== Managing categories *(Coming in v2.0)* : `category`
+=== Managing categories *(coming in v2.0)*: `category`
 
 ==== Add a category
 
@@ -803,7 +803,7 @@ Note that this is the same as un-categorising all transactions under the specifi
 Format: `category delete n/<name>`
 
 
-=== Viewing reports *(Coming in v2.0)*: `report`
+=== Viewing reports *(coming in v2.0)*: `report`
 
 Displays a report.
 
@@ -818,7 +818,7 @@ If the type is omitted, it defaults to a total report.
 ****
 
 // tag::aliases[]
-=== Aliases *(Coming in v1.4)* : `alias`
+=== Aliases *(coming in v2.0)*: `alias`
 
 ==== Add an alias: `alias add`
 
@@ -845,7 +845,7 @@ Format: `alias delete <alias name>`
 // end::aliases[]
 
 // tag::importexport[]
-=== Import and export *(Coming in v1.4)* : `import`, `export`
+=== Import and export *(coming in v2.0)*: `import`, `export`
 
 ==== Import a file: `import`
 
@@ -871,7 +871,7 @@ If the path is omitted, a file browser is opened for you to select where to save
 ****
 // end::importexport[]
 
-=== Getting help with specific commands *(Coming in v2.0)*: `help`
+=== Getting help with specific commands *(coming in v2.0)*: `help`
 
 Displays detailed help for a specific command.
 
