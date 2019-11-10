@@ -499,7 +499,8 @@ an `*Operator*` which takes in two arguments, an `*Attribute*` to represent an a
 a `*Value*` to represent a given value to test against the attribute.
 
 ****
-Here is an example of a part of what a user may type as a predicate expression: `p/outamt < 10`
+Here is an example of a part of what a user may type as a predicate expression: +
+`p/outamt < 10`
 
 This is split into the *Attribute:* `outamt` , the *Operator:* `<` , as well as the *Value:* `10` .
 ****
@@ -508,7 +509,8 @@ Action expressions are unary operations, which means that each expression is for
 only a single argument, a `*Value*` to represent a given value to carry out the operation with.
 
 ****
-Again, here is an example of a part of what a user may type as an action expression: `a/set_cat Cheap`
+Again, here is an example of a part of what a user may type as an action expression: +
+`a/set_cat Cheap`
 
 This is split into the *Operator:* `set_cat` , as well as the *Value:* `Cheap` .
 ****
@@ -517,7 +519,8 @@ Predicate and actions implemented as scripts on the other hand are defined with 
 name of the script it represents.
 
 ****
-Predicate and action scripts are defined the same way. An example of both: `p/CheckIsTransport a/SetTransportFare`
+Predicate and action scripts are defined the same way. An example of both: +
+`p/CheckIsTransport a/SetTransportFare`
 
 In this case, both `CheckIsTransport` and `SetTransportFare` are `*ScriptNames*` .
 ****
@@ -551,19 +554,87 @@ much more complicated, as the entire script will be contained within the class.
 
 === Rule Execution Feature
 
+The structure of rules were separated from the logic of rule execution to maintain the separation of concerns between the
+`*Model*` and `*Logic*` components.
+
+Rule execution is hooked into the evaluation of adding or editing a `*Transaction*`. This means that for every new transaction,
+all rules within the Rule Engine will be executed on that transaction. The same can be said for modifying a transaction.
+
+The implementation of the Rule execution is elaborated on below.
+
 ==== Implementation
+
+The `*RuleEngine*` is a static class used for interfacing with all the rule processings functionality.
+
+Two executable classes are used in the execution of a rule, `*Testable*` and `*Performable*`.
+A `*Testable*` represents the executable form of a `*RulePredicate*`, which may be either an expression or a script.
+Correspondingly, a `*Performable*` represents the executable form of a `*RuleAction*`, which may also be either an
+expression or a script.
+
+Before executing the existing rules, the index of the transaction and the account that the transaction belongs to are
+supplied to the `*RuleEngine*` through the `*RuleEngine#executeRules*` method. This allows for the retrieval of the transaction
+when a rule is executed against it.
+
+When a rule is executed, this is firstly represented as the execution of the `*Testable#test*` method on the given transaction.
+If the test passes, the predicate is true, and therefore the action is performed. This is represented as the execution of
+the `*Performable#perform*` method on the given transaction.
+
+The following sequence diagram shows the interaction between the `*RuleEngine*` and the different objects involved in the
+execution of the rules on a transaction:
 
 .Sequence diagram representing Rule Execution after adding a new Transaction
 image::RuleExecutionSequenceDiagram.png[]
 
-_TODO: sequence diagram_
+Shown above is a reference frame sequence diagram which takes place during the execution of the `*TransactionAddCommand*`,
+after the new transaction has already been added. The `*RuleEngine*` takes over, and retrieves the relevant handlers from
+`*Model*`.
 
-image::RuleActivityDiagram.png[]
+Thereafter, the list of rules is retrieved from the `*RuleManager*`. The `*RuleEngine*` iterates through the list,
+using the `*RulePredicate*` and `*RuleAction*` of each rule to create the required `*Testable*` for testing on the
+transaction, as well as the `*Performable*` for performing the action.
 
-_TODO: activity diagram_
+The following activity diagram shows in greater detail the workflow of executing rules.
+
+.Activity diagram of the different paths involved in the workflow of executing rules
+image::RuleExecutionActivityDiagram.png[]
+
+The activity diagram above has a slightly different context as the sequence diagram, to show a separate use case. In this
+diagram, instead of a new transaction that is added, we have a transaction that is edited. Both types of commands do not affect
+the workflow of rule execution.
+
+In this diagram, the generation of a `*Testable*` and `*Performable*` is shown in greater detail.
+
+`*Testable*` is an interface which, like `*RulePredicate*`, have its implementations split into expressions and scripts,
+namely `*TestableExpression*` and `*TestableScript*`.
+
+Similarly, `*Performable*` is an interface which, like `*RuleAction*`, have its implementations split into expressions
+and scripts, namely `*PerformableExpression*` and `*PerformableScript*`.
+
+Expressions are generated by the `*RuleEngine*` when either the `*RulePredicate*` or `*RuleAction*` are of the expression type.
+The `*RuleEngine*` will retrieve the correct expression constructor from an internal hash map based on the `*Operator*`,
+and create the expression using the given attribute and/or value.
+
+****
+For example, one of the classes implementing `*TestableExpression*`, `*ContainsExpression*`, is created when a `*PredicateExpression*`
+has the *Operator:* `contains`. The corresponding attribute and value for the expression will be provided into the
+`*ContainsExpression*`.
+****
+
+Scripts, on the other hand, are generated by the `*RuleEngine*` when either the `*RulePredicate*` or `*RuleAction*` are of
+the script type. The `*RuleEngine*` will generate the corresponding `*Testable*` or `*Performable*` by first retrieving
+the script from the `*ScriptLibrary*` based on its `*ScriptName*`. Following that, a `*TestableScript*` or `*PerformableScript*`
+is instantiated with a function `*ScriptEvaluator*`, which evaluates the script given the transaction and account. This
+function is then called when `*Testable#test*` or `*Performable#perform*` is executed.
 
 ==== Design Considerations
-
+===== Aspect: Duplication of predicates and actions in model and logic
+* **Alternative 1 (current choice)**: Both predicates and actions have their corresponding versions in both model and logic.
+** Pros: Able to split the logic flow and execution code from the data in model.
+** Cons: Seemingly duplicate classes, such as `*PredicateExpression*` and `*TestableExpression*`, which increases the number
+of classes.
+* **Alternative 2**: All execution data and logic is stored in the rule model rather than logic.
+** Pros: Reduce class duplication, less confusion.
+** Cons: `*Model*` and `*Logic*` will have unnecessary coupling which reduces testability and makes maintenance and integration harder.
 // end::rules[]
 
 // tag::importexport[]
