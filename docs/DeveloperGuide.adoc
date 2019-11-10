@@ -248,17 +248,10 @@ image::TabCommandClassDiagram.png[width="500"]
 
 1. Tab Menu List, which displays the name of the tab/menus, which has respective separate UI windows. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
 * Upon first startup of the system, by system default, system will display the `EngagementList` window.
-2. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner. Below is the class diagram for `Tab` class
+2. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner.
 
-[.float-group]
-[.clearfix]
---
-.Tab Class Diagram
-image::TabClassDiagram.png[width="350", float="left"]
-[.left]
 .fetchTabInformation Activity Diagram
 image::fetchTabInformationActivityDiagram.png[width="300"]
---
 
 MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property. +
 
@@ -273,18 +266,13 @@ This feature allows user to generate a pre-selected engagement in to a report an
 ==== Implementation Structure
 
 .PdfCommand Implementation Class Diagram
-image::PdfCommandClassDiagram.png[width="600"]
+image::PdfCommandClassDiagram.png[width="500"]
 
 The feature will be implemented as an additional type of Command; `PdfCommand`
 
 * Proposed syntax of the PdfCommand is as follow: `pdf i/ENGAGEMENT_LIST_INDEX t/RECEIVER f/SENDER`.
 
-Util class `PdfUtil` will be implemented for handling all pdf document creation related methods. Figure below is the class diagram for PdfUtil class.
-
-.PdfUtil Class Diagram
-image::PdfUtilClassDiagram.png[width="700"]
-
-PdfUtil class will be implemented under `util` package and it will be able to deliver few essential features
+Util class `PdfUtil` will be implemented for handling all pdf document creation related methods. It will be implemented under `util` package and it will be able to deliver few essential features
 that are necessary for document creation.
 
 ** Able to generate a full report document based on the `Engagement` as input.

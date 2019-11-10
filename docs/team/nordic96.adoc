@@ -5,7 +5,7 @@
 
 == CS2103T Team Project: Typee
 
-== Overview
+=== Overview
 
 Typee is an engagement management application built on JavaFX framework, where users can manage engagements and schedule accordingly. Our main users are targeted in corporation's receptionists and secretaries
 whose main tasks is to manage and arrange engagements.
@@ -20,12 +20,14 @@ Main UI is composed of 4 parts;
 * *Menu Window*: Each feature/menu window is displayed and can be interacted.
 * *Command Output Display*: Command output after execution displays here.
 * *Command Input text field*: User enters command
-* Typee divides engagements into 3 types; Appointments, Meetings and Interviews.
+* Typee divides engagements into 3 types; _Appointments_, _Meetings_ and _Interviews_.
 * Typee application interacts with the users by separating application features into different menu windows. Each menu name is displayed in
 the left-end of the application window, where user can switch to different windows anytime by using command.
 * Typee is a CLI (Command Line Interface) based application, with a mixture of simple GUI interacting features.
 
-== Summary of contributions
+=== Summary of contributions
+
+* *Role*: Software Engineer [UI Design, Implementation]
 
 * *Major enhancement*:
 1. added *the ability to switch windows to other menu windows*
@@ -57,34 +59,31 @@ Document template is fully customisable, hence it makes the application flexible
 *** Major updates in Main Window UI with css styling (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main/pull/223[#223], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/65[#65])
 *** Wrote additional tests for existing features to increase coverage by roughly 9% (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main/pull/201[#201], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/200[#200],
 https://github.com/AY1920S1-CS2103T-F14-3/main/pull/226[#226])
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 ** Tools:
 *** Integrated a third party library (iTextPdf) to the project
 *** Integrated a third party library (common-IO) to the project
 
 _{you can add/remove categories in the list above}_
 
-== Contributions to the User Guide
+=== Contributions to the User Guide
 
 
-|===
+|====
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+|====
 
-include::../UserGuide.adoc[tag=quick-start]
+//include::../UserGuide.adoc[tag=quick-start]
 
 include::../UserGuide.adoc[tag=tab-command]
 
 include::../UserGuide.adoc[tag=pdf-command]
 
 
-== Contributions to the Developer Guide
+=== Contributions to the Developer Guide
 
-|===
+|====
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+|====
 
 include::../DeveloperGuide.adoc[tag=tab-switch]
 
