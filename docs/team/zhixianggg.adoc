@@ -89,9 +89,7 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/119[#119], https://github.co
 |===
 
 
-include::../UserGuide.adoc[tag=glossary]
 include::../UserGuide.adoc[tag=customer]
-include::../UserGuide.adoc[tag=phone]
 
 == Contributions to the Developer Guide
 
@@ -99,6 +97,5 @@ include::../UserGuide.adoc[tag=phone]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=find]
 include::../DeveloperGuide.adoc[tag=undoredo]
 

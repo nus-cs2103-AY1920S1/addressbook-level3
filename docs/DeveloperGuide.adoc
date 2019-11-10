@@ -562,7 +562,7 @@ The undo/redo mechanism is facilitated by `UndoRedoStack`.
 `UndoableCommand` extends Command and has the following attributes and methods.
 
 
-image::dg-diagram/UndoableCommandClassDiagram.png[]
+image::dg-diagram/UndoableCommandClassDiagram.png[width="450"]
 
 When an UndoableCommand is being executed, the methods `saveCustomerBookSnapshot(Model model)`, `savePhoneBookSnapshot(Model model)`, `saveOrderBookSnapshot(Model model)`, `saveScheduleBookSnapshot(Model model)`
 and `saveArchivedOrderBookSnapshot(Model model)` will be called. This ensures that the states of all 5 books are being stored.
@@ -570,7 +570,7 @@ and `saveArchivedOrderBookSnapshot(Model model)` will be called. This ensures th
 After a command is executed, `LogicManager` will add it into the `UndoRedoStack`.
 This will be explained in the activity diagram below.
 
-image::dg-diagram/UndoRedoStackPushActivityDiagram.png[]
+image::dg-diagram/UndoRedoStackPushActivityDiagram.png[width="450"]
 
 Next, when `UndoCommand` is being performed, `UndoStack` will remove the first command in its stack and add it to `RedoStack`.
 It will then call `UndoableCommand#undo()` of the command that is removed.
@@ -588,27 +588,27 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `UndoRedoStack` will be initialized.
 
-image::dg-diagram/UndoRedoStackObjectDiagram0.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram0.png[[width="450"]
 
 Step 2. The user executes `delete-c 5` command to delete the 5th customer. The `delete-c 5` command will be pushed into the `UndoRedoStack`.
 
-image::dg-diagram/UndoRedoStackObjectDiagram1.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram1.png[[width="450"]
 
 Step 3. The user executes `add-c n/David ...` to add a new customer. The `add-c` command will save all states of CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
 
-image::dg-diagram/UndoRedoStackObjectDiagram2.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram2.png[[width="450"]
 
 Step 4. The user now decides that adding the customer was a mistake, and decides to undo that action by executing the `undo` command.
 
 
-image::dg-diagram/UndoRedoStackObjectDiagram3.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram3.png[[width="450"]
 
 [NOTE]
 UndoCommand will check whether if there is any command to be undone by calling the `UndoRedoStack#canUndo()` method.
 
 The following sequence diagram shows how the undo operation works:
 
-image::dg-diagram/UndoSequenceDiagram.png[]
+image::dg-diagram/UndoSequenceDiagram.png[[width="450"]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -618,11 +618,11 @@ The `redo` command does the opposite -- it calls `UndoableCommand#redo()`.
 
 Step 5. The user then decides to execute the command `list-c`. Commands that do not modify the 5 books (Customer, Phone, Order, Schedule and Archived Order), such as `list-c`, do not extend UndoableCommand.
 
-image::dg-diagram/UndoRedoStackObjectDiagram4.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram4.png[[width="450"]
 
 Step 6. The user executes `clear-c`.
 
-image::dg-diagram/UndoRedoStackObjectDiagram5.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram5.png[[width="450"]
 
 ==== Design Considerations
 
@@ -634,6 +634,7 @@ image::dg-diagram/UndoRedoStackObjectDiagram5.png[]
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete-c`, just save the customer being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
+// end::undoredo[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
@@ -643,7 +644,7 @@ image::dg-diagram/UndoRedoStackObjectDiagram5.png[]
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

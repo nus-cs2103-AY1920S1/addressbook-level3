@@ -227,7 +227,7 @@ Customers cannot share the same contact number or email.
 * Adds a single customer
 . `add-c n/Steve Jobs c/12345678 e/stevejobs@apple.com`
 
-image::ug-command/ug-add-c.png[width="900"]
+image::ug-command/ug-add-c.png[width="600"]
 
 ==== Delete a customer : `delete-c`
 Deletes a customer in SML. Note that deleting a customer will also delete the orders and schedules associated with the customer. +
@@ -269,13 +269,13 @@ Finds customers whose fields contain any of the given keywords. +
 * Find customers with keyword `colleague` +
 . `find-c colleague` +
 
-image::ug-command/ug-find-c-1.png[width="800"]
+image::ug-command/ug-find-c-1.png[width="600"]
 
 * Find customers with keywords `charlotte` `oliveiro` +
 . `find-c charlotte oliveiro` +
 
-image::ug-command/ug-find-c-2.png[width="800"]
-
+image::ug-command/ug-find-c-2.png[width="600"]
+// end::customer[]
 
 ==== List the customers : `list-c`
 
@@ -341,7 +341,7 @@ Emails a customer in SML. Opens Gmail on web browser and drafts an email to cust
 [underline]#Format#: `email-c INDEX`
 
 
-// end::customer[]
+
 
 // tag::phone[]
 === Phone Commands
