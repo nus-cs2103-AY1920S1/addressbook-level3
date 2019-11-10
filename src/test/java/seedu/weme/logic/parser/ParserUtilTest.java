@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.logic.parser.util.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.weme.model.ModelContext.CONTEXT_MEMES;
+import static seedu.weme.model.ModelContext.CONTEXT_VIEW;
 import static seedu.weme.testutil.Assert.assertThrows;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
 
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import seedu.weme.logic.parser.contextparser.MemeParser;
+import seedu.weme.logic.parser.contextparser.ViewParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.logic.parser.util.ParserUtil;
 import seedu.weme.model.meme.Description;
@@ -37,6 +39,7 @@ public class ParserUtilTest extends ApplicationTest {
     @Test
     public void forContext_success() {
         assertEquals(MemeParser.class, ParserUtil.forContext(CONTEXT_MEMES).getClass());
+        assertEquals(ViewParser.class, ParserUtil.forContext(CONTEXT_VIEW).getClass());
     }
 
     @Test

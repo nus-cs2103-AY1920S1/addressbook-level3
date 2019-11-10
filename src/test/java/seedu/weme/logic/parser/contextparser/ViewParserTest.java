@@ -8,45 +8,29 @@ import static seedu.weme.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.weme.logic.commands.generalcommand.ExitCommand;
 import seedu.weme.logic.commands.generalcommand.HelpCommand;
 import seedu.weme.logic.commands.generalcommand.RedoCommand;
 import seedu.weme.logic.commands.generalcommand.TabCommand;
 import seedu.weme.logic.commands.generalcommand.UndoCommand;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
-public class WemeParserTest {
+public class ViewParserTest {
 
-    private final WemeParser parser = new WemeParser();
+    private final WemeParser parser = new ViewParser();
 
     @Test
-    public void parseCommand_undo() throws Exception {
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 2") instanceof UndoCommand);
+    public void parseCommand_undoRedo_throwsParseException() {
+        // ensure undo and redo are overridden
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, (
+            ) -> parser.parseCommand(UndoCommand.COMMAND_WORD));
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, (
+            ) -> parser.parseCommand(RedoCommand.COMMAND_WORD));
     }
 
     @Test
-    public void parseCommand_redo() throws Exception {
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 2") instanceof RedoCommand);
-    }
-
-    @Test
-    public void parseCommand_tab() throws Exception {
+    public void parseCommand_otherGeneralCommands() throws Exception {
         assertTrue(parser.parseCommand(TabCommand.COMMAND_WORD + " "
                 + CONTEXT_MEMES.getContextName()) instanceof TabCommand);
-    }
-
-    @Test
-    public void parseCommand_exit() throws Exception {
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
-    }
-
-    @Test
-    public void parseCommand_help() throws Exception {
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
 
     @Test
@@ -59,4 +43,5 @@ public class WemeParserTest {
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
+
 }
