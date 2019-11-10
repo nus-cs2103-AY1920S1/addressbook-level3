@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_INTEGER_LARGE;
+import static seedu.address.model.ModelTestUtil.VALID_INTEGER_1;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,7 +51,7 @@ class InventoryListTest {
         InventoryList inventoryList = new InventoryList();
         assertDoesNotThrow(() -> {
             inventoryList.add(INVENTORY_A);
-            Inventory editedInventoryA = InventoryBuilder.of(INVENTORY_A).setEventInstances(VALID_INTEGER_LARGE)
+            Inventory editedInventoryA = InventoryBuilder.of(INVENTORY_A).setEventInstances(VALID_INTEGER_1)
                     .build();
             assertTrue(inventoryList.contains(editedInventoryA));
         });

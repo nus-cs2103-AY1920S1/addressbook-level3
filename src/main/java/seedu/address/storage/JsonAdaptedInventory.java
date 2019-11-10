@@ -43,7 +43,6 @@ public class JsonAdaptedInventory {
      */
     public Inventory toModelType() throws IllegalValueException {
 
-        /*
         if (name == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -51,11 +50,6 @@ public class JsonAdaptedInventory {
 
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        }*/
-
-        if (name == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
         }
 
         final Name modelName = new Name(name);

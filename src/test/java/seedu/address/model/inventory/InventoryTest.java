@@ -7,9 +7,9 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AFRICA;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_INTEGER_LARGE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BALI;
+import static seedu.address.model.ModelTestUtil.VALID_NAME_AFRICA;
+import static seedu.address.model.ModelTestUtil.VALID_INTEGER_LARGE;
+import static seedu.address.model.ModelTestUtil.VALID_NAME_BALI;
 
 class InventoryTest {
 

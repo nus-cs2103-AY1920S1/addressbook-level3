@@ -9,11 +9,11 @@ import java.util.Optional;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.inventory.Inventory;
-<<<<<<< HEAD
+
 import seedu.address.model.inventory.InventoryList;
-=======
+
 import seedu.address.model.itinerary.Description;
->>>>>>> af43df1e8b6160ddf82ae3e7121d8e7e74d6f158
+
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
@@ -30,14 +30,12 @@ public class EventBuilder {
     private LocalDateTime endDate;
     private Booking booking;
     private Location destination;
-<<<<<<< HEAD
-    private Expenditure totalBudget;
-    private Optional<List<Inventory>> inventoryList;
-=======
+
+    //Default State (If it is not set)
+    private Optional<List<Inventory>> inventoryList = Optional.empty();
+
     private Expense totalBudget;
-    private Inventory inventory;
     private Description description;
->>>>>>> af43df1e8b6160ddf82ae3e7121d8e7e74d6f158
 
     /**
      * Constructs an empty {@code EventBuilder}.
@@ -67,13 +65,11 @@ public class EventBuilder {
                 .setStartDate(event.getStartDate())
                 .setEndDate(event.getEndDate())
                 .setLocation(event.getDestination());
-<<<<<<< HEAD
-        event.getExpenditure().ifPresent(e::setTotalBudget);
-        event.getInventoryList().ifPresent(e::setInventoryList);
-=======
+
         event.getExpense().ifPresent(e::setTotalBudget);
-        event.getInventory().ifPresent(e::setInventory);
->>>>>>> af43df1e8b6160ddf82ae3e7121d8e7e74d6f158
+
+        event.getInventoryList().ifPresent(e::setInventoryList);
+
         event.getBooking().ifPresent(e::setBooking);
         event.getDescription().ifPresent(e::setDescription);
         return e;
@@ -115,11 +111,10 @@ public class EventBuilder {
     }
 
     public Event build() {
-<<<<<<< HEAD
-        return new Event(name, startDate, endDate, booking, totalBudget, inventoryList, destination);
-=======
-        return new Event(name, startDate, endDate, booking, totalBudget, inventory, destination, description);
->>>>>>> af43df1e8b6160ddf82ae3e7121d8e7e74d6f158
+
+
+        return new Event(name, startDate, endDate, booking, totalBudget, destination, description, inventoryList);
+
     }
 
 }
