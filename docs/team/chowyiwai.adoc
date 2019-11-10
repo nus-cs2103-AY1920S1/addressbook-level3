@@ -5,20 +5,12 @@
 
 == PROJECT: CS ModBuddy
 
-ifndef::env-github[]
-image::title.png[width="250"]
-endif::[]
-
 ifdef::env-github[]
-image::title.png[width="250"]
-endif::[]
-
-ifdef::env-github[]
-image::../docs/images/Ui.png[width="600"]
+image::title.png[width="100"]
 endif::[]
 
 ifndef::env-github[]
-image::../images/Ui.png[width="600"]
+image::title.png[width="100"]
 endif::[]
 
 == Overview
@@ -31,9 +23,9 @@ has about 85kLoC.
 
 * *Major enhancement*: Added *the ability to manage and classify modules and study plans with tag-related commands*
 ** What it does:
-*** For pass:q[<u>modules</u>]: Users can _add_, _delete_, _rename_ and _view_ tags, as well as view modules
+*** For *modules*: Users can _add_, _delete_, _rename_ and _view_ tags, as well as view modules
 that are filtered according to their tags
-*** For pass:q[<u>study plans</u>]: Users can add _priority_ tags to study plans to indicate the relative importance
+*** For *study plans*: Users can add _priority_ tags to study plans to indicate the relative importance
 of different study plans and view a list of study plans that are sorted according to their priorities
 ** Justification: This feature improves the product significantly because module planning is considerably complex given
 the variety of modules that one can choose from. Hence, the application should provide a convenient way to manage and
@@ -54,13 +46,17 @@ within the active study plan.
 
 ** Project management:
 *** In charge of managing documentations and deadlines and deliverables
-*** Managed some milestones (assigned issues to other members and closed milestone)
+*** Managed some milestones (assigned issues to members and assigned issue labels, set milestone deadlines and closed milestone)
 ** Enhancements to existing features:
 *** Did basic refactoring of AddressBook, Person and other related classes (e.g. Name, Address, etc.) in AB3 to Module Planner and Study Plan classes (Pull request https://https://github.com/AY1920S1-CS2103-F09-3/main/pull/111.com[#111])
 *** Added result view panel in GUI to show different result types (e.g. tag cards, module cards) depending on executed command (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/184[#184])
 *** Modified Tag class to an interface that supports different types of tags and changed existing tests (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/104[#104], https://github.com/AY1920S1-CS2103-F09-3/main/pull/221[#221], https://github.com/AY1920S1-CS2103-F09-3/main/pull/145[#145])
+*** Wrote tests for tagging related commands and Tag classes, with 100% and 95% of lines covered respectively.
 ** Documentation:
-*** Contributed to modification of overall design part of the developer’s guide
+
+*** Contributed to documentation of Model Component in Developer's Guide (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/327[#327])
+
+
 ** Community:
 *** Helped to fix minor bugs in teammates’ codes
 
@@ -70,13 +66,13 @@ within the active study plan.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=dataclassificationandmanagement1]
+include::../UserGuide.adoc[tag=dataone]
 
-include::../UserGuide.adoc[tag=dataclassificationandmanagement2]
+include::../UserGuide.adoc[tag=datatwo]
 
-include::../UserGuide.adoc[tag=dataclassificationandmanagement3]
+include::../UserGuide.adoc[tag=datathree]
 
-include::../UserGuide.adoc[tag=dataclassificationandmanagement4]
+include::../UserGuide.adoc[tag=datafour]
 
 == Contributions to the Developer Guide
 
@@ -84,14 +80,8 @@ include::../UserGuide.adoc[tag=dataclassificationandmanagement4]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=modelcomponent]
-
-include::../DeveloperGuide.adoc[tag=moduletagging]
+include::../DeveloperGuide.adoc[tag=tagging]
 
 include::../DeveloperGuide.adoc[tag=tagusecase]
 
-== PROJECT: PowerPointLabs
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_

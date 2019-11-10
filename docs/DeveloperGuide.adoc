@@ -111,11 +111,12 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 //end::logic[]
 
+//tag::model[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[width="350"]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -126,7 +127,7 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<StudyPlan>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[]
+//end::model[]
 
 // tag::storage[]
 
@@ -407,7 +408,7 @@ to study plan tagging, i.e. allowing study plans to have other kinds of tags.
 - `UniqueTagList#getTag(String tagName)` -- Returns the `Tag` with the given `tagName`.
 
 .Class diagram for the tag model
-image::TagClassDiagram.png[]
+image::TagClassDiagram.png[width="170"]
 
 There are many operations that can be done in relation to tagging modules. Some examples are _adding_, _deleting_,
 and _renaming_ tags. Given below is an example usage scenario of the `UniqueTagList#addTag(Tag toAdd)` operation and how the module tagging
@@ -423,13 +424,13 @@ in steps 2 and 3.
 
 Step 2. If such a tag does not exist, a new `UserTag` is created and is assigned to `toAdd`.
 
-image::TagModuleCommandDiagram1.png[]
+image::TagModuleCommandDiagram1.png[width="275"]
 
 Step 3. If such a tag exists, `Model#getTagFromActiveSp(String tagName)` is called. The `Tag` in the `UniqueTagList`
 of the active study plan is returned and assigned to `toAdd`. `Tag#isDefault()` is called to check if the returned `Tag`
 is a `DefaultTag`. If so, a `CommandException` is thrown as default tags cannot be added by users.
 
-image::TagModuleCommandDiagram2.png[]
+image::TagModuleCommandDiagram2.png[width="275"]
 
 [NOTE]
 We only have to handle the case of adding default tags in this step and not in the previous step as default tags are
@@ -446,9 +447,7 @@ The above scenario should not occur if a new tag had been created as described i
 
 Otherwise, the `toAdd` will be added and the method will return `true`. (Step 6)
 
-image::TagModuleCommandDiagram3.png[]
-
-image::TagModuleCommandDiagram4.png[]
+image::TagModuleCommandDiagram4.png[width="350"]
 
 Step 5. If the tag had not been added, it would indicate that an essentially identical tag had already been attached to
 the target module. Hence, a `CommandException` will be thrown.
@@ -468,7 +467,12 @@ image::TagModuleCommandSequenceDiagram1.png[]
 image::TagModuleCommandSequenceDiagram2.png[]
 
 .Activity diagram for module tagging
-image::TagModuleCommandActivityDiagram.png[]
+image::TagModuleCommandActivityDiagram.png[width="270"]
+
+[NOTE]
+The command exceptions in the above activity diagram should actually point to a single _stop_ at the end.
+There are multiple _stops_ in the above diagram as PlantUML does not support having a single _stop_ and []
+for branch labels in one syntax.
 
 [NOTE]
 The command exceptions in the above activity diagram should actually point to a single _stop_ at the end.

@@ -116,7 +116,7 @@ Examples:
 * `addmod y1s1 CS1101s`
 * `addmod y2s2 CS3244 CS3245 CS3233`
 
-==== Removing a module from a given semester. `removemod`
+==== Removing a module from a given semester: `removemod`
 Removes the specified module to a given semester of the current study plan. +
 Format: `removemod SEMESTER MODULE ...` +
 Examples:
@@ -125,17 +125,17 @@ Examples:
 * `removemod y2s2 CS3244`
 
 // end::addremovemod[]
-//tag::dataclassificationandmanagement1[]
 
-==== Finding modules using the module code : `findmod`
+// tag::dataone[]
+==== Finding modules using module code: `findmod`
 Shows the semester that the specified module is located at. +
 Format: `findmod MODULE_CODE`
 
 Examples:
 
 * `findmod cs1101s`
-* `findmod cs2103`
-//end::dataclassificationandmanagement1[]
+
+// end::dataone[]
 
 ==== Viewing description of a module: `description`
 Shows the description of a particular module, including its prerequisites.
@@ -198,33 +198,42 @@ Example:
 
 * `validmods y2s1`
 
-//tag::dataclassificationandmanagement2[]
+// tag::datatwo[]
+
 === Tagging
 
 [IMPORTANT]
 All tag names must be single words and cannot be more than 25 characters long.
 
 ==== Viewing default tags : `viewdefaulttags`
-Shows all default tag types. +
+Shows all default tag types.
+
 Format: `viewdefaulttags`
-****
+
+====
 List of default tags:
 
-* `Completed` +
+- `Completed` :
 _Completed_ modules are modules that are in any semester before the *current semester*.
-* `Core` +
+
+- `Core` :
 _Core_ modules are *Computer Science Foundation* modules that count towards *Programme Requirements*.
-* `S/U-able` +
+
+- `S/U-able` :
 _S/U-able_ modules are modules that permit the *Satisfactory/Unsatisfactory option*.
-* `UE` +
+
+- `UE` :
 _UE_ modules are *Unrestricted Elective* modules.
-* `ULR` +
+
+- `ULR` :
 _ULR_ modules are modules that count towards *University Level Requirements*.
-* `FOCUS_AREA_NAME:P` +
+
+- `FOCUS_AREA_NAME:P` :
 _P_ modules are modules that count towards Focus Area Primaries for _FOCUS_AREA_NAME_.
-* `FOCUS_AREA_NAME:E` +
+
+- `FOCUS_AREA_NAME:E` :
 _E_ modules are modules that count towards Focus Area Electives for _FOCUS_AREA_NAME_.
-****
+====
 
 ==== Tagging modules : `addtag`
 Attaches a tag to a module. +
@@ -294,10 +303,8 @@ Examples:
 
 ==== Removing all tags from the study plan : `removealltags`
 Removes all user-created tags in the entire study plan. +
-Format: `removeallmodtags`
-
-//end::dataclassificationandmanagement2[]
-
+Format: `removealltags`
+// end::datatwo[]
 // tag::studyplan[]
 === Study Plan
 
@@ -364,7 +371,7 @@ Format: `default`
 
 // end::studyplan[]
 
-//tag::dataclassificationandmanagement3[]
+//tag::datathree[]
 
 ==== Adding priority tags to a study plan : `setpriority`
 Attaches a priority tag to the study plan. +
@@ -395,7 +402,8 @@ Examples
 ==== Listing study plans by priority: `listbypriority`
 Lists all study plans in the order of their priorities. +
 Format: `listbypriority`
-//end::dataclassificationandmanagement3[]
+
+// end::datathree[]
 
 ==== Checking a study plan's feasibility : `check`
 Shows details about what graduation requirements are left to be fulfilled,
@@ -559,18 +567,12 @@ Examples:
 
 * `movemod CS3243 y2s1 y2s2`
 
-
 === Tagging
-//tag::dataclassificationandmanagement4[]
+
+// tag::datafour[]
 ==== Setting focus area tags to study plans: `[coming in v2.0]`
 A tag with the declared focus area will automatically appear when the user declares his/her focus area. +
 Refer to <<Declaring a focus area: `[coming in v2.0]`>>.
-
-==== Change colour theme of tags: `[coming in v2.0]`
-Changes the colour theme of all the tags in the study plan with the specified one.
-
-==== Change colour of specific tags: `[coming in v2.0]`
-Changes the colour of a specific tag.
 
 ==== Get module codes from keywords: `[coming in v2.0]`
 Shows all module codes of modules with names containing the specified keywords.
@@ -578,7 +580,14 @@ Shows all module codes of modules with names containing the specified keywords.
 ==== Tagging modules across all study plans: `[coming in v2.0]`
 Attaches a specified tag to a module across all study plans. For example, a tag `difficult` can be attached to a
 given module across all study plans instead of tagging them individually in every study plan.
-//end::dataclassificationandmanagement4[]
+// end::datafour[]
+
+==== Change colour theme of tags: `[coming in v2.0]`
+Changes the colour theme of all the tags in the study plan with the specified one.
+
+==== Change colour of specific tags: `[coming in v2.0]`
+Changes the colour of a specific tag.
+
 === Study Plan
 
 ==== Declaring a focus area: `[coming in v2.0]`
