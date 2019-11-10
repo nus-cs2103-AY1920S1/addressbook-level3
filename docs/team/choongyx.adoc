@@ -52,22 +52,22 @@ This helps them to better analyze their spending habits.
 * *Other contributions*:
 
 ** Project management:
-*** Helped track issues on the team repository using labels, milestones and project card.
+*** Helped track issues on the team repository using labels, milestones and project card
 
 ** Enhancements to existing features:
-*** Refactored and modified existing class `Address` to `Cost` to fit the needs of our application.
+*** Refactored and modified existing class `Address` to `Cost` to fit the needs of our application
 (Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/61)[#61],
 https://github.com/AY1920S1-CS2103T-F13-3/main/pull/67[#67],
 https://github.com/AY1920S1-CS2103T-F13-3/main/pull/71[#71])
 
 ** Documentation:
-*** Vetted and formatted the entire User Guide after individual contributions by team members. (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/101[#101])
-*** Reviewed team member's documentations. (Pull requests
+*** Vetted and formatted the entire User Guide after individual contributions by team members (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/101[#101])
+*** Reviewed team member's documentations (Pull requests
 https://github.com/AY1920S1-CS2103T-F13-3/main/pull/80[#80],
 https://github.com/AY1920S1-CS2103T-F13-3/main/pull/85[#85],
 https://github.com/AY1920S1-CS2103T-F13-3/main/pull/98[#98])
 *** Updated Quick Start section and created a set of symbols/legends for User Guide (Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/50/files[#50], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/101[#101])
-*** Collated and updated profiles for all members of the team. (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/7/files[#7])
+*** Collated and updated profiles for all members of the team (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/7/files[#7])
 *** Updated Setting Up, Documentation, Testing and DevOps sections of Developer Guide (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/244/files[#244])
 
 ** Community:
