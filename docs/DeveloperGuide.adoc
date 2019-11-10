@@ -78,18 +78,19 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassUml.png[]
+image::UiClassUmlDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/difficulty/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of 7 parts e.g.`CommandBox`, `ResultDisplay`, `Workspace`, `NotesPage`, `HelpPage`, `Dashboard` and `QuestionsPage`. All these parts, including the `MainWindow`, inherit from the abstract `UiPart` class.
+Some of the 7 UI parts are also made up of other UI parts. For example, listed on the UML diagram, `QuestionsPage` is made up of `QuestionsListPanel`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/difficulty/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/difficulty/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes through the Observer pattern. The UI updates as the `ObservableList` changes.
 
 [[Design-Logic]]
 === Logic component
