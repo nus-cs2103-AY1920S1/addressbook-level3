@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static seedu.jarvis.commons.core.Messages.MESSAGE_PURCHASES_LISTED_OVERVIEW;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.jarvis.logic.commands.finance.FindPurchaseCommand.MESSAGE_NO_PURCHASES_FOUND;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.finance.TypicalPurchases.DINNER_REEDZ;
 import static seedu.jarvis.testutil.finance.TypicalPurchases.LUNCH_JAPANESE;
@@ -76,7 +76,7 @@ public class FindPurchaseCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPurchaseFound() {
-        String expectedMessage = String.format(MESSAGE_PURCHASES_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_NO_PURCHASES_FOUND, 0);
         PurchaseNameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindPurchaseCommand command = new FindPurchaseCommand(predicate);
         expectedModel.updateFilteredPurchaseList(predicate);
@@ -88,12 +88,10 @@ public class FindPurchaseCommandTest {
     public void execute_multipleKeywords_multiplePurchasesFound() {
         model.addPurchase(LUNCH_JAPANESE);
         model.addPurchase(DINNER_REEDZ);
-        String expectedMessage = String.format(MESSAGE_PURCHASES_LISTED_OVERVIEW, 2);
         PurchaseNameContainsKeywordsPredicate predicate = preparePredicate("Lunch Dinner");
         FindPurchaseCommand command = new FindPurchaseCommand(predicate);
         expectedModel.updateFilteredPurchaseList(predicate);
         assertEquals(Arrays.asList(DINNER_REEDZ, LUNCH_JAPANESE), model.getFilteredPurchaseList());
-        //assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     /**

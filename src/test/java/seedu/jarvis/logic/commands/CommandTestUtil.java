@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
-import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_DESCRIPTION;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
@@ -12,42 +11,20 @@ import java.util.Arrays;
 
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.planner.predicates.TaskDesContainsKeywordsPredicate;
 import seedu.jarvis.model.planner.tasks.Task;
-import seedu.jarvis.testutil.finance.EditInstallmentDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
 
-    public static final String VALID_DESC_NETFLIX = "Netflix";
-    public static final String VALID_MONEY_NETFLIX = "13.50";
-    public static final String VALID_DESC_SPOTIFY = "Spotify";
-    public static final String VALID_MONEY_SPOTIFY = "9.50";
-    public static final String VALID_DESC_LUNCH = "Lunch at Reedz";
-    public static final String VALID_MONEY_LUNCH = "5.50";
-    public static final String VALID_DESC_EARPHONES = "Earphones";
-    public static final String VALID_MONEY_EARPHONES = "30.50";
-
     public static final String VALID_CCA_DESC_TRACK = "Track";
     public static final String VALID_CCA_TYPE_TRACK = "sport";
 
     public static final String CCA_DESC = " " + PREFIX_CCA_NAME + VALID_CCA_DESC_TRACK;
     public static final String CCA_TYPE = " " + PREFIX_CCA_TYPE + VALID_CCA_TYPE_TRACK;
-
-    public static final String INSTAL_DESC_NETFLIX = " " + PREFIX_DESCRIPTION + VALID_DESC_NETFLIX;
-    public static final String INSTAL_MONEY_NETFLIX = " " + PREFIX_MONEY + VALID_MONEY_NETFLIX;
-
-    public static final String INSTAL_DESC_SPOTIFY = " " + PREFIX_DESCRIPTION + VALID_DESC_SPOTIFY;
-    public static final String INSTAL_MONEY_SPOTIFY = " " + PREFIX_MONEY + VALID_MONEY_SPOTIFY;
-
-    public static final String PURCHASE_DESC_LUNCH = " " + PREFIX_DESCRIPTION + VALID_DESC_LUNCH;
-    public static final String PURCHASE_MONEY_LUNCH = " " + PREFIX_MONEY + VALID_MONEY_LUNCH;
-
-    public static final String HIGH_MONTHLY_LIMIT = " " + PREFIX_MONEY + "800.0";
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_CCA_NAME + "James&"; // '&' not allowed in names
 
@@ -58,20 +35,6 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
-    public static final EditInstallmentCommand.EditInstallmentDescriptor INSTALL_NETFLIX;
-    public static final EditInstallmentCommand.EditInstallmentDescriptor INSTALL_SPOTIFY;
-
-    static {
-        INSTALL_NETFLIX = new EditInstallmentDescriptorBuilder()
-                .withDescription(VALID_DESC_NETFLIX)
-                .withSubscriptionFee(VALID_MONEY_NETFLIX)
-                .build();
-        INSTALL_SPOTIFY = new EditInstallmentDescriptorBuilder()
-                .withDescription(VALID_DESC_SPOTIFY)
-                .withSubscriptionFee(VALID_MONEY_SPOTIFY)
-                .build();
-    }
 
     /**
      * Executes the given {@code command}, confirms that <br>
