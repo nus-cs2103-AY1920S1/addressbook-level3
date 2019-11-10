@@ -1,20 +1,17 @@
 package dream.fcard.gui.controllers.windows;
 
-import dream.fcard.logic.respond.Responder;
-import dream.fcard.model.StateHolder;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import dream.fcard.logic.respond.Responder;
+import dream.fcard.model.StateHolder;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
