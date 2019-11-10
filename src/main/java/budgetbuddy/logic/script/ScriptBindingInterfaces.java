@@ -8,7 +8,7 @@ import budgetbuddy.model.transaction.Transaction;
  * Nashorn requires functional interfaces to be public in order for them to be recognised as functions
  * but we can hide them in a private inner class to prevent them from being accessed from outside.
  */
-class ScriptBindingInterfaces {
+public class ScriptBindingInterfaces {
     /**
      * Prevents construction of an instance of this static-only class.
      */
