@@ -1,6 +1,7 @@
 package seedu.deliverymans.model.database;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.DELIVERING_STATUS;
 
 import java.util.List;
 
@@ -100,7 +101,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      * {@code key} must exist in the deliverymen database.
      */
     public void removeDeliveryman(Deliveryman key) throws UnableToDeleteDeliveringDeliverymanException {
-        if (key.getStatus().getDescription().equals("DELIVERING")) {
+        if (key.getStatus().getDescription().equals(DELIVERING_STATUS)) {
             throw new UnableToDeleteDeliveringDeliverymanException();
         }
         deliverymen.remove(key);

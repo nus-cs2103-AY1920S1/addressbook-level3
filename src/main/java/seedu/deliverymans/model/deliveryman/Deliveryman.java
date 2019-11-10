@@ -13,6 +13,8 @@ import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusTag;
 
 /**
  * Represents a deliveryman
+ *
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Deliveryman {
 
@@ -32,15 +34,16 @@ public class Deliveryman {
         this.name = name;
         this.phone = phone;
         this.tags = Set.copyOf(tags);
-        status = new StatusTag("UNAVAILABLE"); // editing field will affect status
+        status = new StatusTag("UNAVAILABLE");
     }
 
+    // Second constructor primarily for setting status as "DELIVERING" or "UNAVAILABLE"
     public Deliveryman(Name name, Phone phone, Set<Tag> tags, StatusTag status) {
         requireAllNonNull(name, phone);
         this.name = name;
         this.phone = phone;
         this.tags = Set.copyOf(tags);
-        this.status = status; // editing other fields will affect status
+        this.status = status;
     }
 
     /**
@@ -68,7 +71,7 @@ public class Deliveryman {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both persons have the same name and phone number.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSameDeliveryman(Deliveryman otherDeliveryman) {
@@ -78,12 +81,11 @@ public class Deliveryman {
 
         return otherDeliveryman != null
                 && otherDeliveryman.getName().equals(getName())
-                && otherDeliveryman.getPhone().equals(getPhone())
-                && otherDeliveryman.getStatus().getDescription().equals(getStatus().getDescription());
+                && otherDeliveryman.getPhone().equals(getPhone());
     }
 
     /**
-     * Returns true if both persons have the same identity. Data fields need not be same.
+     * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
     @Override
@@ -100,12 +102,13 @@ public class Deliveryman {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getTags().equals(getTags());
+                //&& otherPerson.getStatus().equals(getStatus());
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, phone, tags);
+        return Objects.hash(name, phone, tags, status);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package seedu.deliverymans.model.deliveryman.deliverymanstatus;
 
 /**
- * Represents the current status of a deliveryman.
+ * A tag that represents the current status of a deliveryman.
  */
 public class StatusTag {
 
@@ -21,8 +21,7 @@ public class StatusTag {
     }
 
     /**
-     * Returns true if both persons have the same identity. Data fields need not be same.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both tags have the same description.
      */
     @Override
     public boolean equals(Object other) {
