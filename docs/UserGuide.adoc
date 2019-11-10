@@ -644,29 +644,35 @@ This command allows you to view a the statistics of the number of bodies admitte
 
 The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised and updated automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days. You can change the time frame with the `stats` command.
 
+The following screenshot shows where the `stats` command should be inputted and where the line chart changes:
+
+)The line chart's position on the dashboard with respect to the command box.
+image::statsMonth.png[width="790"]
+
 The following are the correct formats for typing in stats commands, with example usage:
 
 * To display the last 10 days: `stats` +
 The line chart will display statistics over the last 10 days. The line chart will appear as below:
 
-.Line chart displaying the last ten days
+)Line chart displaying the last ten days
 image::statsTenDays.png[width="790"]
 
 * To display a specific week: `stats /week 25/10/2019` +
 The line chart will display statistics for the week which contains the specified day. In this case, it is the date 12/10/2019. The line chart will appear as below:
 
-.Line chart displaying the week containing the day 25/10/2019
+)Line chart displaying the week containing the day 25/10/2019
 image::statsWeek.png[width="790"]
 
 * To display a specific month: `stats /month 5/2019` +
 The line chart will display statistics or the month specified. In this case, it is May 2019. The line chart will appear as below:
 
-.Line chart displaying the month of October
+)Line chart displaying the month of October
 image::statsMonth.png[width="790"]
 
 * To display a specific year: `stats /year 2019` +
 The line chart will display statistics for the year specified. In this case is it 2019. The line chart will appear as below:
 
+)Line chart displaying the year 2019
 image::statsYear.png[width="790"]
 
 // end::stats[]
