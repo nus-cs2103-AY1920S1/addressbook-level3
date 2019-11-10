@@ -15,7 +15,7 @@ My team decided to morph an existing address book software into a
 desktop finance management application for university students who prefer
 using a command-line interface. We call this application IchiFund.
 
-My role was to develop the https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#Budget[Budgets]
+My role was to develop the https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#budgets[Budgets]
 component and design the user interface for the application.
 
 == Summary of contributions
