@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
+import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.reimbursement.logic.commands.DoneCommand;
 import seedu.address.reimbursement.logic.parser.exception.ParseException;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
@@ -39,8 +40,13 @@ public class DoneCommandParser implements CommandParserWithPersonModel<DoneComma
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(ReimbursementMessages.MESSAGE_INVALID_DONECOMMAND_FORMAT);
         }
-        Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
-        DoneCommand doneCommand = new DoneCommand(person);
-        return doneCommand;
+
+        try {
+            Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
+            DoneCommand doneCommand = new DoneCommand(person);
+            return doneCommand;
+        } catch (PersonNotFoundException e) {
+            throw new NoSuchPersonReimbursementException();
+        }
     }
 }

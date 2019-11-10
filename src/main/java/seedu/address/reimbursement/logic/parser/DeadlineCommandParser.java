@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
+import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.reimbursement.logic.commands.DeadlineCommand;
 import seedu.address.reimbursement.logic.parser.exception.ParseException;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
@@ -42,9 +43,12 @@ public class DeadlineCommandParser implements CommandParserWithPersonModel<Deadl
         }
 
         String datetime = argMultimap.getValue(PREFIX_DATETIME).get();
-
-        Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
-        DeadlineCommand deadlineCommand = new DeadlineCommand(person, datetime);
-        return deadlineCommand;
+        try {
+            Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
+            DeadlineCommand deadlineCommand = new DeadlineCommand(person, datetime);
+            return deadlineCommand;
+        } catch (PersonNotFoundException e) {
+            throw new NoSuchPersonReimbursementException();
+        }
     }
 }
