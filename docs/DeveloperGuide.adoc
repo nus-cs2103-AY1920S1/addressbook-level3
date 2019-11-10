@@ -989,9 +989,29 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: First exercise is deleted from the list. Details of the deleted exercise shown in the status message.
 .. Test case: `delete t/exercise i/0` +
    Expected: No exercise is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+.. Other incorrect delete commands to try: `delete t/exercise`, `delete t/exercise i/x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+=== Deleting an exercise in regime
+. Deleting an exercise in regime while all regimes are listed.
+
+.. Prerequisites: List all regimes using the `list` command. Regime named `Level 1` has multiple exercises and is in the list.
+.. Test case: `delete t/regime n/Level 1 i/1` +
+   Expected: The first exercise in `Level 1` regime is deleted.
+.. Test case: `delete t/regime n/Level 1 i/0` +
+   Expected: No exercise is deleted in `Level 1` regime.
+.. Other incorrect delete commands to try: `delete t/regime`, `delete t/regime i/x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Deleting a regime
+. Deleting a regime while all regimes are listed.
+
+.. Prerequisites: List all regimes using the `list` command. Regime named `Power set` is in the list.
+.. Test case: `delete t/regime n/Power set` +
+   Expected: The regime named `Power set` is deleted from the list.
+.. Test case: `delete t/regime n/power set` +
+   Expected: `Power set` regime is not deleted as name is case-sensitive. Error details shown in the status message.
+=======
 === Scheduling a regime
 
 . Scheduling an exercise regime
@@ -1019,7 +1039,6 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Test case: `resolve n/new cardio i/1 r/2` +
    Expected: A new regime is created called `new cardio` with the exercises from scheduled regime's first index and conflicting regime's second index. Resolve window should close. The newly made regime is now scheduled on conflicting date. Details of the schedule shown on the center information panel.
-
 === Suggest
 . Suggest basic exercises
 .. Test case: `suggest s/basic`
@@ -1054,6 +1073,17 @@ exercises from database that are tagged `Chest` are also displayed.
 .. Test case: `suggest s/possible o/or` +
    Expected: Similar to previous.
 
+=== Statistic
+. Display charts and statistic for completed exercises
+
+.. Test case: `stats t/calories h/barchart s/01/11/2019 e/30/11/2019` +
+   Expected: The chart in the right panel will be updated to a bar chart. Total and average will be shown below the chart.
+.. Test case: `stats t/calories h/piechart s/01/11/2019 e/30/11/2019` +
+   Expected: The chart in the right panel will be updated to a pie chart. Total and average will be shown below the chart.
+.. Test case: `stats t/calories h/linechart s/01/11/2019 e/30/11/2019` +
+   Expected: The chart in the right panel will be updated to a line chart. Total and average will be shown below the chart.
+.. Test case: `stats t/calories h/barchart s/01/01/2019 e/02/02/2019` +
+   Expected: The chart in the right panel is not updated. Error message shown in the status message.
 
 === Saving data
 
