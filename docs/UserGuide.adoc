@@ -268,9 +268,11 @@ Step 4. The _result box_ will also display a message to indicate that your _comm
 
 image::calendarScreenshots/add2.png[Add result,width=600]
 
+WARNING: If you leave out the month and/or year, the current month and/or year will be used. This applies to the following commands as well.
+
 TIP: You do not have to specify the ``END YEAR``, ``END MONTH`` and/or ``END DAY`` if they are the same as ``START YEAR``, ``START MONTH`` and/or ``START DAY``, respectively. This applies to the following commands as well.
 
-WARNING: If you leave out the month and/or year, the current month and/or year will be used. This applies to the following commands as well.
+TIP: _TravEzy's calendar_ understands that ``12`` refers to ``Dec`` as well! Furthermore, it understands that ``Decem`` refers to ``Dec``. This means that you can either type a *1 or 2 digit number* to represent a month *or* you can indicate a month with *at least first three letters* of the month.
 
 === Deleting an event from your calendar: ``delete``
 
