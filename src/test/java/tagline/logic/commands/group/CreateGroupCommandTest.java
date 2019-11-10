@@ -29,6 +29,7 @@ import tagline.model.contact.ContactId;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.group.Group;
 import tagline.model.group.GroupBook;
+import tagline.model.group.GroupName;
 import tagline.model.group.MemberId;
 import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
@@ -266,12 +267,17 @@ public class CreateGroupCommandTest {
         }
 
         @Override
-        public boolean hasGroup(Group note) {
+        public boolean hasGroup(Group group) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addGroup(Group note) {
+        public boolean hasGroupName(GroupName groupName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addGroup(Group group) {
             throw new AssertionError("This method should not be called.");
         }
 

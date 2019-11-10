@@ -2,6 +2,7 @@ package tagline.model.tag;
 
 import java.util.Objects;
 
+import tagline.model.Model;
 import tagline.model.contact.ContactId;
 
 /**
@@ -24,6 +25,11 @@ public class ContactTag extends Tag {
 
     public ContactId getContactId() {
         return contactId;
+    }
+
+    @Override
+    public boolean isValidInModel(Model model) {
+        return model.findContact(contactId).isPresent();
     }
 
     @Override

@@ -20,6 +20,7 @@ import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.group.Group;
 import tagline.model.group.GroupBook;
 import tagline.model.group.GroupManager;
+import tagline.model.group.GroupName;
 import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteBook;
@@ -281,6 +282,12 @@ public class ModelManager implements Model {
     public boolean hasGroup(Group group) {
         requireNonNull(group);
         return groupManager.hasGroup(group);
+    }
+
+    @Override
+    public boolean hasGroupName(GroupName groupName) {
+        requireNonNull(groupName);
+        return groupManager.hasGroupName(groupName);
     }
 
     @Override

@@ -2,6 +2,8 @@ package tagline.model.tag;
 
 import java.util.Objects;
 
+import tagline.model.Model;
+
 /**
  * Tag a contact.
  */
@@ -27,6 +29,11 @@ public class HashTag extends Tag {
 
     public static boolean isValidValue(String value) {
         return value.length() <= HashTag.LENGTH_LIMIT;
+    }
+
+    @Override
+    public boolean isValidInModel(Model model) {
+        return true;
     }
 
     @Override

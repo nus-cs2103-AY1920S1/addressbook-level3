@@ -2,6 +2,7 @@ package tagline.model.tag;
 
 import java.util.Objects;
 
+import tagline.model.Model;
 import tagline.model.group.GroupName;
 
 /**
@@ -24,6 +25,11 @@ public class GroupTag extends Tag {
 
     public GroupName getGroupName() {
         return groupName;
+    }
+
+    @Override
+    public boolean isValidInModel(Model model) {
+        return model.hasGroupName(groupName);
     }
 
     @Override

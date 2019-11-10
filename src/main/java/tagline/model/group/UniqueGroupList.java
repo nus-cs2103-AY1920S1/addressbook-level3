@@ -38,6 +38,14 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 
     /**
+     * Returns true if the list contains an equivalent group name as the given argument.
+     */
+    public boolean containsGroupName(GroupName toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(group -> group.getGroupName().equals(toCheck));
+    }
+
+    /**
      * Adds a group to the list.
      * The group must not already exist in the list.
      */

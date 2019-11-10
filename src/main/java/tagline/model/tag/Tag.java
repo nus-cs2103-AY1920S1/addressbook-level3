@@ -1,5 +1,7 @@
 package tagline.model.tag;
 
+import tagline.model.Model;
+
 /**
  * Represents a tag in tagline.
  */
@@ -9,6 +11,11 @@ public abstract class Tag {
      */
     public Tag() {
     }
+
+    /**
+     * Returns true if this tag is considered as a valid tag in the given model.
+     */
+    public abstract boolean isValidInModel(Model model);
 
     /**
      * Returns true if {@code other} has the same data and ID as this object.

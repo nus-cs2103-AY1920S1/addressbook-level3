@@ -59,6 +59,11 @@ public interface GroupModel {
     boolean hasGroup(Group group);
 
     /**
+     * Returns true if a group with the same name as {@code groupName} exists in the address book.
+     */
+    boolean hasGroupName(GroupName groupName);
+
+    /**
      * Deletes the given group.
      * The group must exist in the address book.
      */
