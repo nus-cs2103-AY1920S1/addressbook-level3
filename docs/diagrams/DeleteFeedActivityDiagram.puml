@@ -1,0 +1,36 @@
+@startuml
+title DeleteFeed
+
+start
+
+:User executes ""deletefeed"" command;
+note left
+  Feed name must be
+  supplied as an argument
+end note
+
+if (command is valid) then (yes)
+    :Parse argument into an
+    ""DeleteFeedCommand"" object;
+
+    :Execute ""DeleteFeedCommand"";
+    note left
+        Deletes feed and
+        its associated
+        feed posts
+    end note
+
+    :Delete feed from feed list;
+
+    :Delete associated feed posts;
+
+    :Show success message to the user;
+else (no)
+    :Throw an exception;
+
+    :Show error message to the user;
+endif
+
+stop
+
+@enduml

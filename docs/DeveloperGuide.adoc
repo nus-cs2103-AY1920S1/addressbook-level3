@@ -312,6 +312,75 @@ image::ModeCommandActivity.png[]
 ** Cons: More effort required for maintenance purposes. Need to make sure that data from main list should not go into todo list, and vice versa
 //end::modeCommand[]
 
+// tag::newsFeedFeature
+=== News Feed Feature
+As people who really love food, we are interested in keeping up-to-date with the latest food trends and newest eateries to try.
+The news feed allows the user to save their favorite food blogs to EatMe and have access to the latest food-related articles right from within the app.
+Should a food blog become irrelevant, the user also has the option to remove it and no longer display its articles.
+
+==== Terminology
+Some terms are used in this feature:
+
+- `Feed` - A food blog
+- `Feed Post` - An article from a feed
+- `News Feed Panel` - The right column of the app showing news articles
+
+==== Implementation
+The current news feed supports two commands:
+
+- `AddFeed` - Add a new feed
+- `DeleteFeed` - Delete a feed and its associated feed posts
+
+===== `AddFeed` - Add a new feed
+The following activity diagram shows the flow when the user wants to add a new feed.
+
+image::AddFeedActivityDiagram.png[]
+
+Step 1. The user launches the application.
+
+Step 2. EatMe fetches the latest feed posts from the user's existing feeds and displays them to the user in the news feed panel.
+
+Step 3. The user finds a new favorite food blog called _Eatbook_ and wants to add it into the app. The user executes `addfeed \n Eatbook \a https://eatbook.sg/feed` to add the new feed. `AddFeedCommand` calls `Model#addFeed` with the new feed object, which will in turn add the new feed to the Model's internal feed list.
+
+The following sequence diagram shows how the `AddFeed` command executes.
+
+image::AddFeedSequenceDiagram.png[]
+
+===== `DeleteFeed` - Delete a feed and its associated feed posts
+The following activity diagram shows the flow when the user wants to delete a feed.
+
+image::DeleteFeedActivityDiagram.png[]
+
+Step 1. The user launches the application.
+
+Step 2. EatMe fetches the latest feed posts from the user's existing feeds and displays them to the user in the news feed panel.
+
+Step 3. The user is no longer interested in the food blog _Eatbook_ and wants to delete it from the app. The user executes `deletefeed \n Eatbook` to delete the feed. `DeleteFeedCommand` calls `Model#deleteFeed` with the feed to delete, which will in turn remove the feed to the Model's internal feed list.
+
+The following sequence diagram shows how the `DeleteFeed` command executes.
+
+image::DeleteFeedSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: Storage of feed list
+* Alternative 1: Store the feed list in the existing Eatery list JSON file.
+** Pros: Single JSON file for all of the user's data (eateries, todos, feeds).
+** Cons: When sharing your JSON file with another user, the feeds would be transferred as well - Poor user experience because favorite food blogs are a personal choice and should not be transferred when sharing eateries.
+* Alternative 2 (current choice): Store the feed list as a separate JSON file.
+** Pros: Separation of eatery-related and feed-related information into two separate JSON files - Allows sharing of eateries without affecting feeds.
+** Cons: Two separate files - Minor inconvenience if the user wants to backup their data to another location.
+
+==== Aspect: Offline behavior of news feed
+* Alternative 1 (current implementation): Store the feed posts from the last successful update in the feed list JSON file
+** Pros: Allows for offline access to feed posts.
+** Cons:
+*** Feed posts may be outdated if the user has not opened the app with Internet connectivity for a long time.
+*** Larger feed list JSON file size.
+* Alternative 2: Show an error message when offline.
+** Pros: Small and simple feed list JSON file.
+** Cons: Unable to view feed posts when offline.
+// end::newsFeedFeature
+
 //tag::saveTodoCommand[]
 === Saving Todo Eatery feature
 ==== Implementation
