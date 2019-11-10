@@ -38,10 +38,6 @@ public class SecondaryCommand {
     public final String value;
 
 
-    public static ArrayList<String> getCommandList() {
-        return commandList;
-    }
-
     /**
      * Constructs an {@code SecondaryCommand}.
      *
@@ -53,6 +49,16 @@ public class SecondaryCommand {
         checkArgument(isValidSecondaryCommand(secondaryCommand), MESSAGE_CONSTRAINTS);
         value = secondaryCommand;
     }
+
+
+    /**
+     * Returns the list of commands.
+     */
+
+    public static ArrayList<String> getCommandList() {
+        return commandList;
+    }
+
 
     /**
      * Returns if a given string is a valid secondary command.
