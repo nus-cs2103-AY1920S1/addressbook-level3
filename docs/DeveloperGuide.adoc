@@ -96,7 +96,7 @@ The _figure_ below displays the high-level design of our StudyBuddy Pro.
 image::ArchitectureDiagram.png[]
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+The `.puml` files used to create some of the diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 The architecture diagram describes the relationships between the components, and here is a quick overview of each component:
