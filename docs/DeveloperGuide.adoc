@@ -342,13 +342,14 @@ When designing the undo/redo feature, scalability and speed were the key conside
 There was also an extra layer of difficulty as Mortago has automated commands that are both time-based and user-triggered.
 After the analysis described below, the Command pattern was thought to be the best solution.
 
-===== Aspect: Designing the mechanism
+===== Aspect: Designing the undo/redo mechanism
+Alternative 1 was chosen despite its difficult implementation because it is faster and more scalable.
 
-* **Alternative 1 (current choice):** Individual command knows how to undo/redo by itself.
+* **Alternative 1:** Individual command knows how to undo/redo by itself.
 ** Pros:
-    *** Better scalability. Will use less memory (e.g. for `add`, only the added entity needs to be saved).
+    *** Better scalability. Will use less memory (e.g. For `add`, only the added entity needs to be saved).
     *** Faster for big programs.
-    *** Elegant.
+    *** Easier to implement defensive measures.
 ** Cons:
     *** Must implement custom undo functions for each command.
     *** More difficult to implement and maintain.
@@ -360,10 +361,29 @@ After the analysis described below, the Command pattern was thought to be the be
     *** Likely to use a lot of memory.
     *** Slower for big programs.
 
-===== Aspect: Handling automated commands
-* ** Alternative 1 : Allow automated commands to be undone
+===== Aspect: Handling automated timed commands
+Mortago has a Notification feature, which are user-triggered automated commands that are triggered by time.
+Though the undo/redo feature does not support it directly, the Notification can make changes to
+program state at any time. When undoing or redoing, it was essential that data integrity was preserved.
 
-* ** Alterative 2 : Do not undo the automated command
+Alternative 1 was chosen as it causes almost no overhead, guarantees data integrity, and causes the user the least inconvenience.
+
+* ** Alternative 1:** Allow automated commands to be undone
+** Pros:
+    *** Causes minimal overhead as only one additional command needs to be stored.
+    *** Maintains data integrity.
+    *** Allows the user to undo automated changes, if it is not desired.
+    *** Shows consistency and will not cause visual jumps between states.
+** Cons:
+    *** Confuses the user initially.
+
+* ** Alternative 2:** Do not undo the automated command
+** Pros:
+    *** Easiest to implement.
+** Cons:
+    *** Confuses the user initially.
+    *** Causes visible jumps between states (e.g. The user might see changes to 2 fields being undone even though his `update` command only changed one field).
+    *** Loss of data integrity.
 
 ===== Aspect: Storing executed/undone commands
 
