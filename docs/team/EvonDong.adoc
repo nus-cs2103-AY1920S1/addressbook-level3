@@ -78,14 +78,14 @@ The following section illustrates some crucial enhancements that I have added fo
 It allows the user to add, delete and update the sales items in the table shown on the tab.
 
 ** Justification:
-These feature incorporate the essential elements of a cash register and are fundamental for the Cashier tab.
+These feature incorporate the essential elements of a cash register and is fundamental for the Cashier tab.
 By expediting the process of calculating and recording the quantity of sales items, it enables the cashier-in-charge to
 perform cashiering duties more efficiently.
 
 ** Highlights:
-The tab monitors the current stock in the inventory to ensure that the quantity keyed in does not exceed the stock
+It monitors the current stock in the inventory to ensure that the quantity keyed in does not exceed the stock
 available. This eliminates any hindrance involving manual checks for the availability of a certain item. +
-Furthermore, upon any mistyped words or description inputs that does not match an existing item in the inventory,
+Furthermore, upon any mistyped words or descriptions that do not match an existing item in the inventory,
 suggestions will be offered. This further augments the hassle-free aspect of this tab.
 
 //
@@ -112,9 +112,25 @@ This feature allows the stock to be updated accordingly automatically on the Inv
 and abolish any need for manual logging of the stock.
 
 ** Highlights:
-This feature ensures accountability by prohibiting checkout if the cashier has not been set. Additionally, the sales
-made will be recorded and updated on the Home tab. The sales made will also contribute towards the revenue and
-be used in the financial analysis.
+This feature ensures accountability by prohibiting checkout if the cashier has not been set. Additionally,
+the sales made will be recorded on the Home tab as a transaction. This transaction will contribute towards the
+revenue and be used in the finance analysis.
+
+* Cashier Mode
+** What it does:
+`Cashier Mode` will be automatically turned on when there are items in the table of the Cashier tab.
+When all the items in the table are cleared, `Cashier Mode` will automatically turn off.
+
+** Justification:
+This feature prevents the users from modifying any of the existing items in the inventory whenever `Cashier Mode`
+is turned on. This feature serves as a security measure to ensure that no one can tamper with the existing data
+in the inventory while a purchase is being made.
+
+** Highlights:
+While on `Cashier Mode`, only adding of items with new description is allowed in the inventory. Any changes to
+existing items are strictly prohibited. Users can only alter the items in the inventory after clearing all
+the items on the Cashier tab.
+
 
 === Code contributed
 The code that I wrote for my features can be found in the following links:
@@ -123,13 +139,14 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/a
 https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/address/cashier[Test Code]
 
 === Other contributions
-The following section leads to the relevant GitHub pull requests <<PR>> in relation to the specific contributions.
+The following section documents other contributions I have made and it includes relevant GitHub pull
+requests in relation to the relevant contributions.
 
 * Enhancements
 ** Wrote tests for several `Inventory` classes:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/148[(PR #148)]
 
-** Refactored code to write to and from `Inventory` and `Transaction` package and update the respective models:
+** Refactored code to write to and from `Inventory` and `Transaction` package and updated the respective models:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/202[(PR #202)]
 
 
@@ -153,7 +170,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)]
 ** Added implementation details for the `Cashier Tab` in Developer Guide:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/164[(PR #164)],
-,https://github.com/AY1920S1-CS2103T-T13-3/main/pull/162[(PR #162)]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/162[(PR #162)]
 
 ** Added guide to use `Cashier Tab` in user guide:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)],
