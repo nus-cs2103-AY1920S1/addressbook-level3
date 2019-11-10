@@ -1,5 +1,6 @@
 package seedu.scheduler.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DEPARTMENT_BOB;
@@ -15,6 +16,8 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_YEAR_OF_STUDY
 import static seedu.scheduler.testutil.Assert.assertThrows;
 import static seedu.scheduler.testutil.TypicalPersons.ALICE_INTERVIEWEE;
 import static seedu.scheduler.testutil.TypicalPersons.BENSON_INTERVIEWEE;
+
+import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 
@@ -101,5 +104,17 @@ class IntervieweeTest {
         // different slots -> returns false
         editedAlice = new IntervieweeBuilder(ALICE_INTERVIEWEE).withTimeslots(VALID_SLOT_BOB).build();
         assertFalse(ALICE_INTERVIEWEE.equals(editedAlice));
+    }
+
+    @Test
+    public void hashCode_validInterviewee_success() {
+        int expectedHash = Objects.hash(ALICE_INTERVIEWEE.getEmails(), ALICE_INTERVIEWEE.getFaculty(),
+                ALICE_INTERVIEWEE.getYearOfStudy(), ALICE_INTERVIEWEE.getDepartmentChoices(),
+                ALICE_INTERVIEWEE.getAvailableTimeslots(), ALICE_INTERVIEWEE.getName(),
+                ALICE_INTERVIEWEE.getPhone(), ALICE_INTERVIEWEE.getTags());
+
+        Interviewee interviewee = new IntervieweeBuilder(ALICE_INTERVIEWEE).build();
+
+        assertEquals(expectedHash, interviewee.hashCode());
     }
 }

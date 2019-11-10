@@ -1,5 +1,6 @@
 package seedu.scheduler.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -38,6 +39,13 @@ public class PersonNameHasKeywordsPredicateTest {
 
         // different person -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
+    }
+
+    @Test
+    public void getKeywords_validInput_success() {
+        List<String> keywordList = Arrays.asList("first", "second");
+        PersonNameHasKeywordsPredicate predicate = new PersonNameHasKeywordsPredicate(keywordList);
+        assertEquals(keywordList, predicate.getKeywords());
     }
 
     @Test

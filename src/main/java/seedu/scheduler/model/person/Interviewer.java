@@ -51,6 +51,10 @@ public class Interviewer extends Person {
             this.tags = tags;
         }
 
+        public InterviewerBuilder(Person p) {
+            this(p.getName(), p.getPhone(), p.getTags());
+        }
+
         /**
          * Sets the optional {@code Department} to create the Interviewer object.
          */

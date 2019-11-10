@@ -2,7 +2,7 @@ package seedu.scheduler;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -23,11 +23,10 @@ import seedu.scheduler.model.Model;
 import seedu.scheduler.model.ModelManager;
 import seedu.scheduler.model.ReadOnlyList;
 import seedu.scheduler.model.ReadOnlyUserPrefs;
-import seedu.scheduler.model.Schedule;
+import seedu.scheduler.model.SampleData;
 import seedu.scheduler.model.UserPrefs;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
-import seedu.scheduler.model.util.SampleDataUtil;
 import seedu.scheduler.storage.IntervieweeListStorage;
 import seedu.scheduler.storage.InterviewerListStorage;
 import seedu.scheduler.storage.JsonIntervieweeListStorage;
@@ -103,7 +102,7 @@ public class MainApp extends Application {
                         + "Interviewees");
             }
 
-            initialIntervieweeList = intervieweeListOptional.orElseGet(SampleDataUtil::getSampleIntervieweeList);
+            initialIntervieweeList = intervieweeListOptional.orElseGet(SampleData::getSampleIntervieweeList);
         } catch (DataConversionException e) {
             logger.warning("Interviewee data file not in the correct format. Will be starting with an "
                     + "empty list of Interviewees");
@@ -122,7 +121,7 @@ public class MainApp extends Application {
                         + "Interviewers");
             }
 
-            initialInterviewerList = interviewerListOptional.orElseGet(SampleDataUtil::getSampleInterviewerList);
+            initialInterviewerList = interviewerListOptional.orElseGet(SampleData::getSampleInterviewerList);
         } catch (DataConversionException e) {
             logger.warning("Interviewer data file not in the correct format. Will be starting with an "
                     + "empty list of Interviewers");
@@ -133,10 +132,7 @@ public class MainApp extends Application {
             initialInterviewerList = new InterviewerList();
         }
 
-        // For now ModelManager is always initialised with sample schedulesList first
-        List<Schedule> schedules = SampleDataUtil.getSampleSchedulesList();
-
-        return new ModelManager(initialIntervieweeList, initialInterviewerList, userPrefs, schedules);
+        return new ModelManager(initialIntervieweeList, initialInterviewerList, userPrefs, new LinkedList<>());
     }
 
     private void initLogging(Config config) {

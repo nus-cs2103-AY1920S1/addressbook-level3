@@ -4,59 +4,105 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
-package Logic {
-
-package Parser {
-Interface Parser <<Interface>>
-Class AddressBookParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
-Class ArgumentMultimap
-Class ArgumentTokenizer
-Class Prefix
-}
-
-package Command {
-Class XYZCommand
-Class CommandResult
-Class "{abstract}\nCommand" as Command
-}
-
-Interface Logic <<Interface>>
-Class LogicManager
-}
-
-package Model{
-Class HiddenModel #FFFFFF
-}
-
+'hacky workaround to allow arrow going into Logic pkg
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
+'classes and interfaces used in Logic
+package Logic {
+    Interface Logic <<interface>>
+    Class LogicManager
+    package parser {
+        Interface Parser <<interface>>
+        Class SchedulerParser
+        Class XYZCommandParser
+        Class CliSyntax
+        Class ParserUtil
+        Class ArgumentMultimap
+        Class ArgumentTokenizer
+        Class Prefix
+        package "exceptions (parser)" {
+            Class ParseException
+        }
+    }
+    package commands {
+        Class XYZCommand
+        Class CommandResult
+        Class "{abstract}\nCommand" as Command
+        package "exceptions (commands)" {
+            Class CommandException
+        }
+    }
+    package graph {
+        Class "{abstract}\nVertex" as Vertex
+        Class IntervieweeVertex
+        Class InterviewerSlot
+        Class InterviewerSlotVertex
+        Class BipartiteGraph
+        Class BipartiteGraphGenerator
+        Class HopcroftKarp
+        Class DfsHopcroftKarp
+        Class BfsHopcroftKarp
+    }
+}
+package Model {
+    Class HiddenModel #FFFFFF
+}
+package Storage {
+    Class HiddenStorage #FFFFFF
+}
 
+'mapping and arrows
+HiddenOutside .down.> Logic
+
+'mapping and arrows for Parser
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
-
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
+LogicManager --> SchedulerParser
+SchedulerParser ..> XYZCommandParser: creates >
+XYZCommandParser ..> XYZCommand: creates >
+XYZCommandParser .right.> ParseException: throws >
+XYZCommandParser --|> Parser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
 XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
+ArgumentTokenizer ..> ArgumentMultimap
+ArgumentTokenizer ..> Prefix
+CliSyntax ..> Prefix
+ParserUtil ..> Prefix
 
+'mapping and arrows for commands
+Logic .down.> CommandResult
+LogicManager ..> Command: executes >
+LogicManager .down.>CommandResult
 LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
-
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
+LogicManager --> Storage
 Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
+Command .left.> Model
+XYZCommand -up-|> Command
+XYZCommand .right.> CommandException: throws >
+
+'mapping and arrows for graph
+XYZCommand ..> InterviewerSlot
+XYZCommand ..> IntervieweeVertex
+XYZCommand ..>BipartiteGraph
+XYZCommand ..> BipartiteGraphGenerator
+XYZCommand ..> HopcroftKarp
+BipartiteGraph --> IntervieweeVertex
+BipartiteGraph --> InterviewerSlotVertex
+BipartiteGraphGenerator ..> BipartiteGraph
+BipartiteGraphGenerator ..> IntervieweeVertex
+BipartiteGraphGenerator ..> InterviewerSlotVertex
+HopcroftKarp ..> InterviewerSlotVertex
+HopcroftKarp --> IntervieweeVertex
+HopcroftKarp --> BipartiteGraph
+IntervieweeVertex --|> Vertex
+InterviewerSlotVertex --|> Vertex
+DfsHopcroftKarp ..> IntervieweeVertex
+DfsHopcroftKarp ..> InterviewerSlotVertex
+DfsHopcroftKarp ..> Vertex
+DfsHopcroftKarp --> BipartiteGraph
+BfsHopcroftKarp --> BipartiteGraph
+BfsHopcroftKarp ..> Vertex
+BfsHopcroftKarp ..> IntervieweeVertex
+BfsHopcroftKarp ..> InterviewerSlotVertex
+
 @enduml

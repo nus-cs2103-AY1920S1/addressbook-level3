@@ -1,7 +1,9 @@
 package seedu.scheduler.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.scheduler.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -36,5 +38,10 @@ public class PhoneTest {
         assertTrue(Phone.isValidPhone("911")); // exactly 3 numbers
         assertTrue(Phone.isValidPhone("93121534"));
         assertTrue(Phone.isValidPhone("124293842033123")); // long phone numbers
+    }
+
+    @Test
+    public void hashCode_validInput_success() {
+        assertEquals(VALID_PHONE_AMY.hashCode(), new Phone(VALID_PHONE_AMY).hashCode());
     }
 }
