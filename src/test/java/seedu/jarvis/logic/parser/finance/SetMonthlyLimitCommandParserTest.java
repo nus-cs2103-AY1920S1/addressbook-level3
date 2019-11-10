@@ -1,9 +1,9 @@
 package seedu.jarvis.logic.parser.finance;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.commands.CommandTestUtil.HIGH_MONTHLY_LIMIT;
 import static seedu.jarvis.logic.commands.CommandTestUtil.INVALID_MONTHLY_LIMIT;
 import static seedu.jarvis.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.HIGH_MONTHLY_LIMIT;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
 

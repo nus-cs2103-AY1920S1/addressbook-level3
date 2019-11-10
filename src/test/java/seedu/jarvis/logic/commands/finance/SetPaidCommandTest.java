@@ -11,6 +11,7 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
+import seedu.jarvis.model.finance.MonthlyLimit;
 import seedu.jarvis.model.finance.purchase.Purchase;
 import seedu.jarvis.model.finance.purchase.PurchaseDescription;
 import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
@@ -144,6 +146,11 @@ public class SetPaidCommandTest {
         public boolean hasPurchase(Purchase purchase) {
             requireNonNull(purchase);
             return purchasesAdded.contains(purchase);
+        }
+
+        @Override
+        public Optional<MonthlyLimit> getMonthlyLimit() {
+            return model.getMonthlyLimit();
         }
 
         @Override

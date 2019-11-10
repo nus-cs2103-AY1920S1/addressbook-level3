@@ -1,7 +1,19 @@
 @startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
 skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFFF
 
-interface Model
+Package HistoryManager <<Rectangle>> {
+    Class HistoryManager
+    Class CommandDeque
+}
+
+Interface Model <<interface>>
+Class ModelManager
+Class "{abstract}\nCommand" as Command
 
 ModelManager .up.|> Model
 ModelManager .left.> "1" HistoryManager
@@ -11,10 +23,10 @@ CommandDeque o-right-> "*" Command
 Command .up.> Model
 
 class HistoryManager {
--CommandDeque executedCommands
--CommandDeque inverselyExecutedCommands
-+rollback(Model)
-+commit(Model)
+-executedCommands: CommandDeque
+-inverselyExecutedCommands: CommandDeque
++rollback(Model): boolean
++commit(Model): boolean
 }
 
 @enduml

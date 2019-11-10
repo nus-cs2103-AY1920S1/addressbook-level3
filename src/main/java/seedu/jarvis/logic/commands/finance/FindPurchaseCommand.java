@@ -2,7 +2,6 @@ package seedu.jarvis.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
@@ -27,6 +26,11 @@ public class FindPurchaseCommand extends Command {
             + "Example: " + COMMAND_WORD + " lunch";
 
     public static final String MESSAGE_NO_INVERSE = COMMAND_WORD + " command cannot be undone.";
+
+    public static final String MESSAGE_PURCHASES_LISTED_OVERVIEW = "Here you go, Jarvis has found %1$d purchases with "
+            + "that keyword! \nIf you wish to return your list of purchases, type 'list-finances' in the command box.";
+    public static final String MESSAGE_NO_PURCHASES_FOUND = "Sorry, Jarvis did not find any purchases with that "
+            + "keyword. \nIf you wish to return your list of purchases, type 'list-finances' in the command box.";
 
     public static final boolean HAS_INVERSE = false;
 
@@ -65,8 +69,14 @@ public class FindPurchaseCommand extends Command {
         model.updateFilteredPurchaseList(predicate);
         model.setViewStatus(ViewType.LIST_FINANCE);
 
+        if (model.getFilteredPurchaseList().size() == 0) {
+            return new CommandResult(
+                    String.format(MESSAGE_NO_PURCHASES_FOUND, model.getFilteredPurchaseList().size()),
+                    true);
+        }
+
         return new CommandResult(
-                String.format(Messages.MESSAGE_PURCHASES_LISTED_OVERVIEW, model.getFilteredPurchaseList().size()),
+                String.format(MESSAGE_PURCHASES_LISTED_OVERVIEW, model.getFilteredPurchaseList().size()),
                 true);
 
     }

@@ -363,21 +363,9 @@ public class FinanceTracker {
      */
     public double calculateRemainingAmount() {
         totalSpending = calculateTotalSpending();
-        double remainingAmount = -1;
-        if (getMonthlyLimit().isPresent()) {
-            remainingAmount = monthlyLimit.getMonthlyLimit() - totalSpending;
-        }
+        double remainingAmount;
+        remainingAmount = monthlyLimit.getMonthlyLimit() - totalSpending;
         return remainingAmount;
-    }
-
-    /**
-     * Lists all purchases and payments from this month.
-     */
-    public void listSpending() {
-        totalSpending = purchaseList.getTotalSpending() + installmentList.getTotalMoneySpentOnInstallments();
-        System.out.println("Here are your expenditures this month! Your current expenses are at: $" + totalSpending);
-        installmentList.toString();
-        purchaseList.toString();
     }
 
     //=========== Common Methods ==================================================================================

@@ -376,7 +376,7 @@ Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/commons/[[Package\
 
 == Implementation
 
-T   his section describes some noteworthy details on how certain features are
+This section describes some noteworthy details on how certain features are
 implemented.
 
 === Undo / Redo Feature
@@ -1194,9 +1194,11 @@ The finance tracker mechanism is facilitated by `FinanceTrackerModel`.
 * `Model#getFilteredPurchaseList()` - Retrieves the list of purchases with
   current predicate applied
 
-* `Model#addPurchase(Purchase)` - Adds a single use payment
+* `Model#addPurchase(Purchase)` - Adds a single use payment to the top of the list
 
 * `Model#deletePurchase(index)` - Deletes single use payment at that index
+
+* `Model#hasPurchase(Purchase)` - Checks for the existence of the purchase
 
 * `Model#getInstallment(index)` - Retrieves the installment at that index
 
@@ -1211,15 +1213,30 @@ The finance tracker mechanism is facilitated by `FinanceTrackerModel`.
 * `Model#deleteInstallment(index)` - Deletes installment at that index
 
 * `Model#hasInstallment(Installment)` - Checks for the existence of the same
-  installment in the finance tracker
+    installment in the finance tracker
+
+* `Model#hasSimilarInstallment(Installment)` - Checks for the existence of an
+    installment with the same description in the finance tracker
 
 * `Model#setInstallment(Installment, Installment)` - Replaces an existing
-  installment with a new installment for editing
+    installment with a new installment for editing
 
 * `Model#setMonthlyLimit(MonthlyLimit)` - Sets the monthly limit for spending
 
 * `Model#getMonthlyLimit()` - Retrieves the monthly limit if it has been set
   by user
+
+* `Model#calculateTotalSpending()` - Calculates the total expenditure by the
+    user for this month
+
+* `Model#getTotalSpending()` - Returns the total expenditure by the user to be
+    rendered onto Ui
+
+* `Model#calculateRemainingAmount()` - Calculates the remaining amount
+    available to user
+
+* `Model#getRemainingAmount()` - Returns the remaining amount available to
+    user to be rendered onto Ui
 
 ==== Installments
 

@@ -72,3 +72,5 @@ skinparam DefaultTextAlignment center
 skinparam packageStyle Rectangle
 
 hide circle
+hide footer
+hide members

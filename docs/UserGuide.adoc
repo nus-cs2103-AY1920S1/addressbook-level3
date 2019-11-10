@@ -33,8 +33,6 @@ productivity, you can now always be on top of your:
 
 all in one handy, nifty application. Our aim is to build an intuitive, user-friendly student life organiser
 to, as far as possible, alleviate the stress of NUS life.
-//Jarvis also supports undo and redo functionality, allowing you easily
-//undo and redo any mistakes that you may make in your application.
 
 == Let's get started
 
@@ -46,23 +44,34 @@ on your PC.
 2. Move `Jarvis` to the directory you would like to use as the
 home folder for the application.
 
-3. Run `jarvis.jar` to start the app. You should see the following on starting the application up:
+3. Run `jarvis.jar` to start the app. You should see something similar when starting the application up:
 
 .Jarvis' Graphical User Interface (GUI)
-image::StartUpGUI.png[]
+image::ug/StartUpUI.png[]
 
 {sp} +
 
-Jarvis' <<link-main-features, four main features>> have been split into four distinct tabs. You can
-toggle between tabs by either clicking on the tabs themselves, pressing the `tab` key or by using
-the `list` command in each feature.
+In Figure 1, there are three boxes labelled with numbers - these are the shared GUI sections across all the features:
 
-[NOTE]
-You can also use the `enter` key to return focus to the command box.
+1. `HelpDesk` - Unique to each feature's tab, it will display a list of commands you can use so you do not need to
+remember them all!
 
-You can learn more about each feature's individual GUI and its respective commands in the coming sections.
+2. Feature Tabs - The <<link-main-features, four main features>> of `Jarvis` have been split into distinct tabs.
+The tab that you are currently on would be underlined in red, as seen in Figure 1.
+You can also toggle between tabs by either clicking on the tabs themselves, pressing the `tab` key or by using the
+features' `list` commands.
+
+3. Command Result (top) & Command Entry (bottom) Boxes - Keying commands into the Command Entry Box will cause the
+respective Command Results to show in the Command Result Box. An invalid command will result in a red border around
+the Command Entry Box and an appropriate error message will be displayed in the Command Result Box, as shown in an
+example in Figure 2 below.
+
+.Adding a non-existent course into the Course Planner will result in a display like this
+image::ug/ErrorMessage.png[]
 
 {sp} +
+
+You can learn more about the each feature's individual GUI and its respective commands in the coming sections.
 
 == Symbols and command format.
 
@@ -174,7 +183,6 @@ Task Scheduler
 Feature by
 -> Anisha Nicole Joseph
 ////
-{sp} +
 
 :sectnums:
 === Task Planner
@@ -182,6 +190,22 @@ Feature by
 A digital planner to help you stay organized; `Jarvis` can help you cope with your interminable lists of deadlines,
 events, errands and more. Tagging and prioritizing tasks are just two of the many ways `Jarvis` will
 enable you to stay on top of everything you need to do!
+
+.GUI for the Task Planner
+image::ug/PlannerUI.png[]
+
+{sp} +
+
+The Planner feature of `Jarvis` has a very intuitive user interface, with three main sections - as seen in Figure 3.
+
+Each task is represented by a task card (an example of which is boxed in green in Figure 3). Each task card has the task
+description right at the top, followed by the task type, and the optional fields (if present). The icon at the bottom
+of each task card indicates whether a task has been done, or not - a red cross for tasks that have not been completed
+and a green tick for tasks that have.
+
+The default display ia a column on the left for all the tasks in the planner, and a column on the right for your
+schedule. The schedule consists two lists stacked on top of each other - the top one showing tasks happening on that
+day and the bottom showing tasks happening that week.
 
 ==== Adding a task: `add-task`
 The most fundamental command for the Planner - `add-task` adds a task to the Planner.
@@ -242,6 +266,11 @@ delete-task 3
 Too many tasks to comb through? Ask `Jarvis` to find a task for you based on one or more keywords that match the
 descriptions of your tasks.
 
+.Display for find-task
+image::ug/find-task.png[]
+
+{sp} +
+
 Format: `find-task KEYWORD...`
 
 NOTE: There must be at least one keyword & this command is case-insensitive.
@@ -255,7 +284,12 @@ find-task homework cs ma1101r
 ==== Updating a task's status: `done-task`
 Once you have completed a task (hooray!), you can let `Jarvis` know. By default on
 `add-task`, all tasks are marked as undone, represented by a `[✗]`. Upon marking the task as done, the task will be
-represented with a `[✓]`.
+represented with a `[✓]`, as seen in Figure 5 below.
+
+.Comparison between a task that is marked as done, and one that is not
+image::ug/done-task.png[]
+
+{sp} +
 
 Format: `done-task INDEX`
 
@@ -264,6 +298,11 @@ where `INDEX` is the **one-based** index of the task list.
 ==== Sorting tasks by attribute: `pull-task`
 To get a quick glimpse of all the tasks you have in your Planner that match a certain <<link-attributes, attribute>>,
 simply pull all tasks relating to that attribute.
+
+.Display for pull-task
+image::ug/pull-task.png[]
+
+{sp} +
 
 Format: `pull-task { t/TYPE | #TAG | p/PRIORITY-LEVEL | f/FREQUENCY-LEVEL | d/DATE }`
 
@@ -327,16 +366,19 @@ Feature by
 
 === Finance Tracker
 Introducing the Finance Tracker feature of Jarvis - responsible for keeping track of all your purchases,
-monthly subscriptions and debts owed.
-
-//todo: add a ui ss
-
-On switching to the Finance tab, you will be able to see a list of purchases on
-the left and a list of your monthly subscriptions on the right. On the bottom left, Jarvis will show the accumulative
-spending for that month, as well as how much you are left with (if you have set a spending limit).
+monthly subscriptions and monthly spending amount.
 
 As students, we often fail to keep our spending habits in check. But do not worry, as with `Jarvis`, you will never
 have to worry about not saving enough for that new laptop or yet another trip with your friends.
+
+.GUI for the Finance Tracker
+image::ug/FinanceUI.png[]
+
+{sp} +
+
+In Figure 7, you will be able to see a list of purchases on
+the left and a list of your monthly subscriptions on the right. On the bottom left, Jarvis will show the accumulative
+spending for that month, as well as how much you are left with (if you have set a spending limit).
 
 ==== Add a single-use purchase: `add-paid`
 
@@ -370,6 +412,11 @@ This also means that the index must exist within this list!
 ==== Searching for a purchase: `find-paid`
 To have a quick view of the number of cups of Gongcha you have bought over the last month, you can used `find-paid`
 to pull up purchases with descriptions matching `KEYWORD` provided.
+
+.Display for find-paid
+image::ug/find-paid.png[]
+
+{sp} +
 
 Format: `find-paid KEYWORD`
 
@@ -447,70 +494,6 @@ export txt f/MyFile
 
 NOTE: Jarvis will export the file containing all expenditures to its current directory.
 
-==== Adding owed amounts: `owe` & `debt` [v2.0]
-A night out with friends usually ends in someone paying first and subsequently, splitting the tab with the rest of the
-group. If you need an easy way of remembered who owes whom, let `Jarvis` take care of your debts.
-
-`add-owe`: someone else paid the bill, and now you owe him/her.
-
-`add-debt`: you paid the bill, and now people owe you.
-
-Format:
-
-`add-owe d/DESCRIPTION n/PERSON a/AMOUNT`
-
-or
-
-`add-debt d/DESCRIPTION n/PERSON a/AMOUNT`
-
-===== Example
-----
-add-owe n/Jamie a/5.50
-add-debt n/Sean a/10
-----
-
-==== Splitting a Tab: `add-tab` [v2.0]
-You settled the bill first this time? Let `Jarvis` do the math!
-
-Format: `add-tab d/DESCRIPTION a/TOTAL-AMOUNT n/PERSON...`
-
-===== Example
-----
-add-tab d/pizza party a/20 n/Alice n/Bob n/Charlie
-----
-
-NOTE: The above example is equivalent to adding these commands separately: +
-`add paid d/pizza party a/5` +
-`add-debt n/Alice a/5` +
-`add-debt n/Bob a/5` +
-`add-debt n/Charlie a/5`
-
-
-==== Mark a debt/owe as paid: `paid-debt` - [v2.0]
-Updating settled debts can be easily done through `paid-debt`. Soon `Jarvis` will be able to mark your debts or owed
-amounts as done.
-
-`done-owe` should be used when someone has paid you back for money they have owed you.
-
-`done-debt` should be used when you have paid someone back from money you owed them.
-
-Format:
-
-`done-debt INDEX`
-
-or
-
-`done-owe INDEX`
-
-where `INDEX` corresponds to the *one based* index shown on the list of debts under the Finance tab. This also
-means that the index must exist within this list!
-
-===== Example
-----
-done-owe INDEX 1
-done-debt INDEX 2
-----
-
 ////
 CCA tracker
 
@@ -523,6 +506,22 @@ Feature by
 The CCA tracker is a feature unique to `Jarvis`. Entirely customizable based on individual interest,
 `Jarvis` can support milestone tracking, equipment management and so much more! Never has being in multiple
 CCAs been so easy.
+
+.GUI for the CCA Tracker
+image::ug/CcaUI.png[]
+
+{sp} +
+
+All CCAs are added to a main list, with each CCA having a Progress Tracker and an Equipment List, as seen in
+Figure 9.
+Within the Progress Tracker:
+
+1. Box 1 displays the percentage of milestones of the CCA that have been completed.
+
+2. Box 2 shows all the milestones assigned to that CCA.
+
+3. The area below Box 2 displays the current milestone you are at, the next milestone succeeding the current
+one, and the fraction of milestones that have been completed.
 
 ==== Adding a CCA: `add-cca`
 To start, we can add some CCAs to the CCA Tracker. You will need to specify
@@ -585,6 +584,11 @@ Format: `list-cca`
 ==== Finding a CCA: `find-cca`
 For a quick view of CCAs matching one or more keywords, `find-cca` will come in useful.
 
+.Display for find-cca
+image::ug/find-cca.png[]
+
+{sp} +
+
 Format: `find-cca KEYWORD...`
 
 ===== Example
@@ -594,8 +598,8 @@ find-cca canoeing guitar
 ----
 
 ==== Adding progress levels for a CCA: `add-progress`
-Often, we strive to reach certain milestones in our CCAs. For example, in learning piano, you might be aiming to
-progress through the various grade levels (shown in the example below) available. With `add-progress`,
+Often, we strive to reach certain milestones in our CCAs. For example, in learning the piano, you might be aiming to
+progress through the various grade levels available. With `add-progress`,
 `Jarvis` can help you set and keep track of your progress towards each milestone in each of your CCAs.
 
 Format: `add-progress INDEX p/MILESTONE...`
@@ -609,6 +613,14 @@ add-progress 2 p/LCP p/Corporal p/Sergeant p/Staff Sergeant p/Warrant Officer p/
 ==== Incrementing progress level: `increment-progress`
 Each time you have made progress towards any of your milestones, let `Jarvis` know! The progress bar for each CCA
 provides a clear view of how much closer you are to their respective milestones.
+
+.Display for increment-progress
+image::ug/increment-progress.png[]
+
+{sp} +
+
+In Figure 11 above, using `increment-progress` on Swimming will raise the progress percentage from 50% to
+62.5%.
 
 Format: `increment-progress INDEX`
 
@@ -643,8 +655,17 @@ Feature by
 === Course Planner
 NUSMods serves as a complete knowledge bank of all modules in NUS. We often use it to plan our timetables,
 map out academic routes and learn more about the variety of courses NUS has to offer.
-As the Course Planner section of `Jarvis` is thoroughly integrated with NUSMods, you will be able to consolidate all
+As the Course Planner is thoroughly integrated with NUSMods, you will be able to consolidate all
 the courses you have taken in NUS to date, as well as figure out what courses you could possibly take in the future.
+
+.GUI for the Course Planner
+image::ug/CoursePlannerUI.png[]
+
+{sp} +
+
+The default display for the Course Planner is a list of courses on the left and an empty Result Box on the right -
+as shown in Figure 12. This box will display different pieces of information depending on the commands
+entered.
 
 ==== Adding a course: `add-course`
 To get started, you can add specific course(s) to your list. You may add one or more courses at one go.
@@ -673,8 +694,14 @@ delete-course 2
 ----
 
 ==== Looking up a course's information: `lookup`
-You can also retrieve information about a specific course - such as name, course code,
-number of credits and its prerequisites.
+You can also retrieve information about a specific course - such as course title, course code,
+number of credits and its prerequisites. The information will be displayed in the Result Box on the right of
+the Course Planner, as seen below in Figure 13.
+
+.Display for lookup
+image::ug/lookup.png[]
+
+{sp} +
 
 Format: `lookup c/COURSECODE`
 
@@ -687,6 +714,11 @@ lookup c/CS1010
 If you are not sure if you can take a certain course next semester, this command would come in handy. Simply `check`
 the course in question.The result is dependent on the courses you have added to your list. `Jarvis` will
 display a very helpful tree to show you what requirements you need for each course.
+
+.Display for check
+image::ug/check.png[]
+
+{sp} +
 
 Format: `check c/COURSECODE`
 
@@ -812,6 +844,14 @@ If you have entered new commands after undoing previous commands, you will not b
 commands.
 
 ==== list the number of commands you can undo or redo: `list-history`
+`Jarvis` can provide you with the maximum number of commands you can `undo` and `redo` - which will be shown
+in the Command Result Box.
+
+.Display for list-history
+image::ug/list-history.png[]
+
+{sp} +
+
 Format: `list-history`
 
 Lists the number of available commands to be undone, number of available commands to be redone,
@@ -873,11 +913,13 @@ A convenient summary of all the commands you can use in `Jarvis`.
 * `set-limit a/AMOUNT`
 * `list-finances`
 * `export {csv | txt | xlsx} f/FILENAME` [v2.0]
-* `add-owe d/DESCRIPTION n/PERSON a/AMOUNT` [v2.0]
-* `add-debt d/DESCRIPTION n/PERSON a/AMOUNT` [v2.0]
-* `add-tab d/DESCRIPTION a/TOTAL-AMOUNT n/PERSON...`
-* `done-debt INDEX`
-* `done-owe INDEX`
+
+=== Course Planner
+
+* `add-course c/COURSECODE...`
+* `delete-course {c/COURSECODE | INDEX}`
+* `lookup c/COURSECODE`
+* `check c/COURSECODE`
 
 === Cca Tracker
 
