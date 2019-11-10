@@ -17,6 +17,7 @@ public class Budget {
 
     public static final String MESSAGE_CONSTRAINTS = "Budget values should be positive number";
     private static final String VALIDATION_REGEX = "^[+]?([0-9]+(?:[.][0-9]*)?|\\.[0-9]+)$";
+    private static final int MAX_BUDGET_LIMIT = 1000000000;
 
     private double amount;
     private double sum;
@@ -64,14 +65,51 @@ public class Budget {
      * Returns true if a given string is a valid budget value. (Not non-negative)
      */
     public static boolean isValidBudget(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX)
+                && isValidBudget(Double.parseDouble(test))
+                && digitsAfterPoint(test) <= 2;
     }
 
     /**
      * Returns true if a given string is a valid budget value. (Not non-negative)
      */
-    public static boolean isValidBudget(double test) {
-        return test >= 0.0;
+    private static boolean isValidBudget(double test) {
+        return test >= 0.0 && test <= MAX_BUDGET_LIMIT;
+    }
+
+    /**
+     * Counts the number of digits in a double in string format.
+     * If the numbers after the decimal point are only zeroes, returns 0.
+     *
+     * @param str The input string to count the number of characters after the decimal point.
+     * @return The number of characters after the first decimal point.
+     */
+    private static int digitsAfterPoint(String str) {
+        int output = 0;
+        if (str.contains(".")) {
+            String splitPoint[] = str.split("[.]");
+            String afterPoint = splitPoint[1];
+            if (!isZeroOnly(afterPoint)) {
+                output = afterPoint.length();
+            }
+        }
+        return output;
+    }
+
+    /**
+     * Checks whether the given string of numbers contain only zeroes.
+     * Assumes the input contains only numbers.
+     *
+     * @param str The string to be checked
+     * @return whether or not the string consists of only zeros
+     */
+    private static boolean isZeroOnly(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) != '0') {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

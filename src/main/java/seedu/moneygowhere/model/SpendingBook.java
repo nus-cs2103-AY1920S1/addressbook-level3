@@ -107,8 +107,8 @@ public class SpendingBook implements ReadOnlySpendingBook {
         spendings.add(spendingList);
         budget.addSpending(spendingList);
     }
-    //@@author
 
+    //@@author
     /**
      * Replaces the given Spending {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the MoneyGoWhere list.
@@ -200,6 +200,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
         return budget;
     }
 
+    //@@author austinsantoso
     /**
      * Replaces the {@code Budget} in the MoneyGoWhere.
      */
@@ -207,6 +208,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
         this.budget.setBudget(budget);
     }
 
+    //@@author austinsantoso
     /**
      * Replaces the {@code Budget} in the MoneyGoWhere.
      */
@@ -214,6 +216,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
         this.budget.setBudgetAmount(budget);
     }
 
+    //@@author austinsantoso
     /**
      * Resets the Budget sum to 0.
      */
@@ -223,7 +226,6 @@ public class SpendingBook implements ReadOnlySpendingBook {
 
 
     //// util methods
-    //@@author
     @Override
     public String toString() {
         return spendings.asUnmodifiableObservableList().size() + " spendings";
