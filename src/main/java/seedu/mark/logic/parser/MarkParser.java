@@ -2,7 +2,6 @@ package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import static seedu.mark.logic.parser.ParserUtil.NoArgumentParser;
 
 import java.util.regex.Matcher;
@@ -21,9 +20,11 @@ import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.DeleteAnnotationCommand;
 import seedu.mark.logic.commands.DeleteCacheCommand;
 import seedu.mark.logic.commands.DeleteCommand;
+import seedu.mark.logic.commands.DeleteFolderCommand;
 import seedu.mark.logic.commands.DeleteReminderCommand;
 import seedu.mark.logic.commands.EditAnnotationCommand;
 import seedu.mark.logic.commands.EditCommand;
+import seedu.mark.logic.commands.EditFolderCommand;
 import seedu.mark.logic.commands.EditReminderCommand;
 import seedu.mark.logic.commands.ExitCommand;
 import seedu.mark.logic.commands.ExpandCommand;
@@ -120,6 +121,12 @@ public class MarkParser {
 
         case AddFolderCommand.COMMAND_WORD:
             return new AddFolderCommandParser().parse(arguments);
+
+        case EditFolderCommand.COMMAND_WORD:
+            return new EditFolderCommandParser().parse(arguments);
+
+        case DeleteFolderCommand.COMMAND_WORD:
+            return new DeleteFolderCommandParser().parse(arguments);
 
         case ExpandCommand.COMMAND_WORD:
             return new ExpandCommandParser().parse(arguments);

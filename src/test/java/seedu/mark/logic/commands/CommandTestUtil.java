@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_NEW_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_PARENT_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -57,6 +58,7 @@ public class CommandTestUtil {
     public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
     public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
     public static final String PARENT_FOLDER_DESC_CS2103T = " " + PREFIX_PARENT_FOLDER + VALID_FOLDER_CS2103T;
+    public static final String NEW_FOLDER_DESC_CS2103T = " " + PREFIX_NEW_FOLDER + VALID_FOLDER_CS2103T;
     public static final String FOLDER_DESC_CS2103T = " " + PREFIX_FOLDER + VALID_FOLDER_CS2103T;
     public static final String FOLDER_DESC_CS2101 = " " + PREFIX_FOLDER + VALID_FOLDER_CS2101;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;

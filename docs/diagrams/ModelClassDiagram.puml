@@ -4,7 +4,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model <<Rectangle>>{
+Package Model <<Rectangle>> {
 Interface ReadOnlyMark <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
@@ -15,34 +15,27 @@ Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class VersionedMark.MarkStateRecord
 
 Package FolderStructure {
 Class FolderStructure
 }
 
 Package Reminder {
-Class Reminder
-Class Note
-Class ReminderAssociation
+'Class ReminderAssociation #FFFFFF
 }
 
 Package Autotag {
-Class AutotagController
-Class BookmarkTagger
-Class SelectiveBookmarkTagger
+'Class AutotagController #FFFFFF
 }
 
 Package Bookmark {
-Class Bookmark
-Class Name
-Class Url
-Class Remark
-Class Folder
-Class UniqueBookmarkList
+Class HiddenB1 #FFFFFF
+Class HiddenB2 #FFFFFF
 }
 
 Package Annotation {
-Class OfflineDocument
+Class A #FFFFFF
 }
 
 Package Tag {
@@ -54,15 +47,16 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" VersionedMark
-ModelManager o-left-> "1" UserPrefs
-ModelManager --> "*" Bookmark : filtered list
-ModelManager -up-> "1" OfflineDocument
-ModelManager --> "1" Url : < current URL of
+Model .left.> ObservableList
+ModelManager o-left-> "1" VersionedMark
+ModelManager o-right-> "1" UserPrefs
+ModelManager -down-> Bookmark
+'ModelManager --> "1" Url : < currently viewed online in
+'ModelManager --> "1" Bookmark : < currently viewed offline in
 
 UserPrefs .up.|> ReadOnlyUserPrefs
 
+<<<<<<< HEAD
 Mark .up.|> ReadOnlyMark
 VersionedMark -|> Mark
 VersionedMark *-up-> "*" ReadOnlyMark : contains >
@@ -91,5 +85,32 @@ Reminder --> Note
 AutotagController o--> "*" SelectiveBookmarkTagger
 SelectiveBookmarkTagger -down-|> BookmarkTagger
 BookmarkTagger --> Tag
+=======
+Mark .right.|> ReadOnlyMark
+VersionedMark -down-|> Mark
+VersionedMark +-left "*" VersionedMark.MarkStateRecord : contains >
+VersionedMark.MarkStateRecord *-down> ReadOnlyMark
+
+Mark *--> Bookmark
+Mark *-right-> "1" FolderStructure
+Mark *--> Reminder
+Mark *--> Autotag
+
+FolderStructure -[hidden]left-> Autotag
+Autotag -[hidden]left-> Reminder
+
+'UniqueBookmarkList o--> Bookmark
+Bookmark *-left-> Tag
+Bookmark --> Annotation
+
+HiddenB1 -[hidden]right-> HiddenB2
+
+'should I show this?
+'Reminder --> Url
+Reminder -right-> Bookmark
+
+Autotag --> Tag
+Autotag ..> Bookmark
+>>>>>>> master
 
 @enduml

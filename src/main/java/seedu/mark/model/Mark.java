@@ -16,7 +16,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.collections.transformation.SortedList;
 import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.annotation.ParagraphIdentifier;
@@ -26,6 +25,7 @@ import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.UniqueBookmarkList;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.model.reminder.ReminderAssociation;
@@ -168,6 +168,38 @@ public class Mark implements ReadOnlyMark {
      */
     public void addFolder(Folder folder, Folder parentFolder) {
         this.folderStructure.addFolder(folder, parentFolder);
+    }
+
+    /**
+     * Renames a folder with name {@code from} to {@code to}.
+     * {@code from} must exist.
+     * {@code to} must not exist.
+     */
+    public void renameFolder(Folder from, Folder to) {
+        this.folderStructure.renameFolder(from, to);
+        changeFolderOfBookmarks(from, to);
+    }
+
+    /**
+     * Deletes folder {@code folder} from Mark.
+     * @param folder
+     */
+    public void deleteFolder(Folder folder) {
+        this.folderStructure.deleteFolder(folder);
+        changeFolderOfBookmarks(folder, Folder.ROOT_FOLDER);
+    }
+
+    /**
+     * Renames folder of bookmarks from {@code from} to {@code to}.
+     * @param from
+     * @param to
+     */
+    private void changeFolderOfBookmarks(Folder from, Folder to) {
+        for (Bookmark bookmark: bookmarks) {
+            if (bookmark.getFolder().equals(from)) {
+                setBookmark(bookmark, new BookmarkBuilder(bookmark).withFolder(to.folderName).build());
+            }
+        }
     }
 
     //// reminder operations
