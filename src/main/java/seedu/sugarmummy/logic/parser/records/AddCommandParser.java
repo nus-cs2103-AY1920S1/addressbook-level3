@@ -55,7 +55,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         RecordType rt = ParserUtil.parseRecordType(argMultimap.getValue(PREFIX_RECORDTYPE).get());
-        DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
+        DateTime dateTime = ParserUtil.parsePastDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
 
         switch (rt) {
         case BLOODSUGAR:

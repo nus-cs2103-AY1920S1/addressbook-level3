@@ -81,6 +81,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ==== Add a data entry to the diabetes tracker app: `add`
 Format: `add rt/RECORD_TYPE dt/DATETIME` followed by any parameters that the RECORD_TYPE accepts.
 Note that rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
+Note that dt/ value must not be in the future.
 
 BMI must receive at least 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
 
