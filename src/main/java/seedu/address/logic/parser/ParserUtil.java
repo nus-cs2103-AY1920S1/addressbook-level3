@@ -328,6 +328,7 @@ public class ParserUtil {
     /**
      * Parses a {@code String timePeriod} into a {@code EventDayTime}.
      * Leading and trailing whitespaces will be trimmed.
+     * StartTime must be < EndTime.
      *
      * @param timePeriod Valid String example: "1000-2000"
      * @throws ParseException if the given {@code timePeriod} format is incorrect
@@ -340,8 +341,11 @@ public class ParserUtil {
             String[] timeSplit = trimmed.split("-");
             LocalTime startTime = LocalTime.parse(timeSplit[0], EventDayTime.FORMATTER);
             LocalTime endTime = LocalTime.parse(timeSplit[1], EventDayTime.FORMATTER);
+            if (!startTime.isBefore(endTime)) {
+                throw new IllegalArgumentException();
+            }
             return new EventDayTime(startTime, endTime);
-        } catch (ArrayIndexOutOfBoundsException | DateTimeException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeException | IllegalArgumentException e) {
             throw new ParseException(EventDayTime.MESSAGE_CONSTRAINTS);
         }
     }
@@ -399,7 +403,7 @@ public class ParserUtil {
         if (manpowerToAllocate == null) {
             return null;
         }
-        requireNonNull(manpowerToAllocate);
+
         String trimmed = manpowerToAllocate.trim();
         Integer manpowerToAdd;
         try {
