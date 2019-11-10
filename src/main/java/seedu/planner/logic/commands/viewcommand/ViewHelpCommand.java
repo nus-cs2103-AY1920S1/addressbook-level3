@@ -9,9 +9,9 @@ import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 
+//@@author 1nefootstep
 /**
  * Views the help tab.
- * @author 1nefootstep
  */
 public class ViewHelpCommand extends ViewCommand {
 

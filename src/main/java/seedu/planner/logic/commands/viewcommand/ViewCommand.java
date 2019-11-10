@@ -3,9 +3,9 @@ package seedu.planner.logic.commands.viewcommand;
 import seedu.planner.logic.commands.Command;
 import seedu.planner.logic.commands.util.HelpExplanation;
 
+//@@author 1nefootstep
 /**
  * Represents ViewActivityCommand, ViewContactCommand, ViewAccommodationCommand, ViewItineraryCommand.
- * @author 1nefootstep
  */
 public abstract class ViewCommand extends Command {
 

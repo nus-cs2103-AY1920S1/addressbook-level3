@@ -15,9 +15,9 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 
+//@@author 1nefootstep
 /**
  * Views the specified accommodation.
- * @author 1nefootstep
  */
 public class ViewAccommodationCommand extends ViewCommand {
 

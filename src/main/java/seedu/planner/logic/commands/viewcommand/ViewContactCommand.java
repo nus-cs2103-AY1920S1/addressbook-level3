@@ -15,9 +15,9 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;
 
+//@@author 1nefootstep
 /**
  * Views the specified contact.
- * @author 1nefootstep
  */
 public class ViewContactCommand extends ViewCommand {
 

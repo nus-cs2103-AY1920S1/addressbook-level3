@@ -9,9 +9,9 @@ import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 
+//@@author 1nefootstep
 /**
  * Views the itinerary tab.
- * @author 1nefootstep
  */
 public class ViewItineraryCommand extends ViewCommand {
 

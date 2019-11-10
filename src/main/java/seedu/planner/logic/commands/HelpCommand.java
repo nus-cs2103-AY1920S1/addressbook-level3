@@ -6,9 +6,9 @@ import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 
+//@@author 1nefootstep
 /**
  * Format full help instructions for every command for display.
- * @author 1nefootstep
  */
 public class HelpCommand extends Command {
 

@@ -15,9 +15,9 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
 
+//@@author 1nefootstep
 /**
  * Views the specified activity.
- * @author 1nefootstep
  */
 public class ViewActivityCommand extends ViewCommand {
 
