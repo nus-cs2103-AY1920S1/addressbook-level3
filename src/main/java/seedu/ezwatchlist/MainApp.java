@@ -24,7 +24,14 @@ import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.util.DataBaseUtil;
 import seedu.ezwatchlist.model.util.SampleDataUtil;
 import seedu.ezwatchlist.statistics.Statistics;
-import seedu.ezwatchlist.storage.*;
+import seedu.ezwatchlist.storage.DatabaseStorage;
+import seedu.ezwatchlist.storage.JsonDatabaseStorage;
+import seedu.ezwatchlist.storage.JsonUserPrefsStorage;
+import seedu.ezwatchlist.storage.JsonWatchListStorage;
+import seedu.ezwatchlist.storage.Storage;
+import seedu.ezwatchlist.storage.StorageManager;
+import seedu.ezwatchlist.storage.UserPrefsStorage;
+import seedu.ezwatchlist.storage.WatchListStorage;
 import seedu.ezwatchlist.ui.Ui;
 import seedu.ezwatchlist.ui.UiManager;
 

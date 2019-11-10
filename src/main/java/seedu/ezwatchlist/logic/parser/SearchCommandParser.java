@@ -7,8 +7,11 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+
 import java.util.stream.Stream;
 
 import seedu.ezwatchlist.commons.core.messages.Messages;
