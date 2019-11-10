@@ -39,7 +39,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Creates information related to word banks.
      * It also initialises the folder and sample data if necessary.
      *
-     * @param filePath of storage. By default, it is at data folder.
+     * @param filePath          of storage. By default, it is at data folder.
      * @param isSampleInitiated checks to see if sample data has been initiated before.
      */
     public JsonWordBankListStorage(Path filePath, boolean isSampleInitiated) {
@@ -52,8 +52,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Allows you to specify the folder to contain the word banks.
      * It also initialises the folder and sample data if necessary.
      *
-     * @param filePath of storage. By default, it is at data folder.
-     * @param folder specifies another layer of folder to contain word banks.
+     * @param filePath          of storage. By default, it is at data folder.
+     * @param folder            specifies another layer of folder to contain word banks.
      * @param isSampleInitiated checks to see if sample data has been initiated before.
      */
     public JsonWordBankListStorage(Path filePath, String folder, boolean isSampleInitiated) {
@@ -62,12 +62,12 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
     /**
-     /**
+     * /**
      * Creates the wordBanks folder if it has not been initialised.
      * By default, it is located at data/wordBanks.
      * Initialises some default word banks upon first initialisation.
      *
-     * @param filePath of storage. By default, it is data.
+     * @param filePath          of storage. By default, it is data.
      * @param isSampleInitiated checks to see if sample data has been initiated before.
      */
     private void initDataByDefault(Path filePath, boolean isSampleInitiated) {
@@ -87,8 +87,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * By default, it is located at data/wordBanks.
      * Also creates a sample.json file if there are no word banks when initialising.
      *
-     * @param filePath of storage. By default, it is data.
-     * @param folder specifies another layer of folder to contain word banks.
+     * @param filePath          of storage. By default, it is data.
+     * @param folder            specifies another layer of folder to contain word banks.
      * @param isSampleInitiated checks to see if sample data has been initiated before.
      */
     private void initData(Path filePath, String folder, boolean isSampleInitiated) {
@@ -131,7 +131,6 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     /**
      * Initialise word bank list from the word banks directory on creation.
      * All json files will initialise a word bank.
-     *
      */
     private void initWordBankList() {
         List<WordBank> wordBankList = new ArrayList<>();
@@ -147,15 +146,11 @@ public class JsonWordBankListStorage implements WordBankListStorage {
                     WordBank wbToAdd = (WordBank) readOnlyWordBank;
                     wordBankList.add(wbToAdd);
                 } catch (Exception e) {
-                    logger.info("Bad files found, deleting them.");
-                    File badFile =  wordBankPath.toFile();
-                    badFile.delete();
+                    logger.info("User added bad files. Will not read them.");
                     e.printStackTrace();
                 }
             } else {
-                logger.info("Bad files found, deleting them.");
-                File badFile =  wordBankPath.toFile();
-                badFile.delete();
+                logger.info("User added bad files. Will not read them.");
             }
         }
         this.wordBankList = new WordBankList(wordBankList);
@@ -167,7 +162,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * @param filePath location of the .json word bank file. Cannot be null.
      * @return an optional ReadOnlyWordBank.
      * @throws DataConversionException if word bank file is corrupted.
-     * @throws IllegalValueException if the word banks contain duplicate cards.
+     * @throws IllegalValueException   if the word banks contain duplicate cards.
      */
     public Optional<ReadOnlyWordBank> jsonToWordBank(Path filePath)
             throws DataConversionException, IllegalValueException {
@@ -289,7 +284,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Creates the word bank specified by the file path, add to internal list, and then add to storage.
      *
      * @param wordBankName cannot be null.
-     * @param filePath cannot be null.
+     * @param filePath     cannot be null.
      */
     @Override
     public void importWordBank(String wordBankName, Path filePath)
@@ -313,7 +308,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Retrieves the word bank, add to internal list, then add to storage.
      *
      * @param wordBankName cannot be null.
-     * @param filePath cannot be null.
+     * @param filePath     cannot be null.
      */
     @Override
     public void exportWordBank(String wordBankName, Path filePath) {
