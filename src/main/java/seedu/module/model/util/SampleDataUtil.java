@@ -25,9 +25,9 @@ public class SampleDataUtil {
     );
 
     private static final List<Deadline> deadlines = List.of(
-        new Deadline("Assignment 3 due this Sunday", "9/11/2019 2359", "HIGH"),
-        new Deadline("Lab 10 due next Wednesday", "12/11/2019 0900", "MEDIUM"),
-        new Deadline("Tutorial 7 due this Friday", "7/11/2019 1200", "LOW")
+        new Deadline("Assignment 3", "9/11/2019 2359", "HIGH"),
+        new Deadline("Lab 10", "12/11/2019 0900", "MEDIUM"),
+        new Deadline("Tutorial 7", "7/11/2019 1200", "LOW")
     );
 
     private static final List<Link> links = List.of(
