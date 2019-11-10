@@ -164,7 +164,7 @@ This section talks about how the `game` function is implemented. This feature ai
 The game screen appears after the user enters the command `game` into the command box. A separate scene handled by a separate thread is created to run the game so that Elisa's scenes and threads are not overloaded. The following activity diagram shows how the game screen is launched.
 
 .Activity diagram for game mode
-image::GameActivityDiagram.png[400, 400]
+image::GameActivityDiagram.png[500, 600]
 
 ==== Internal workings of the Game
 
