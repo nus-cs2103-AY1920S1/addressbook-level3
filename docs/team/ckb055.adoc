@@ -211,7 +211,7 @@ The following shows my additions to the StudyBuddyPro Developer Guide for the ta
 
 === Tagging Feature
 
-===== Implementation
+==== Implementation
 
 The current implementation of StudyBuddyItems in StudyBuddyPro is such that it contains a Set of Tags.
 
@@ -223,6 +223,8 @@ _Figure 2. Implementation of StudyBuddyItem_
 * Design Considerations
 
 ** As explained in the class diagram above, each StudyBuddyItem is limited to a total number of 10 tags.
+
+** The user is not able to create an item in StudyBuddyPro with more than 10 tags.
 
 ** It is designed as such to prevent users from over-cluttering the result display when they view items that have too many tags.
 
@@ -242,11 +244,12 @@ image::kaibindiagrams/tagPredicateCodeSnippet.png[]
 
 _Figure 4 : Code Snippet of StudyBuddyItemContainsTagPredicate#test()_
 
-The current implementation is that test() only returns true if all tags specified by the user matches the current Item.
-
-As such, there will be more correctness when auto-generating cheatsheets and filtering flashcards, as seen in the following example.
-
-If a user wishes to generate a cheatsheet and pull items with tags [cs2100] and [difficult], it would strictly only pull difficult CS2100 contents, and not pull other items that might have tags containing [difficult].
+* The current implementation is that test() only returns true if *all* tags specified by the user matches the current Item.
+* As such, there will be more correctness when auto-generating cheatsheets and filtering flashcards, as seen in the following example.
+** If a user wishes to generate a cheatsheet and pull items with tags [cs2100] and [difficult], it would strictly only pull difficult CS2100 contents, and not pull other items
+that might have tags containing [difficult].
+* The rationale for this is that it would not make sense if a user wanted to create a cheatsheet for module [cs2100] and with tagged [midterm], that items containing tag [ma1521] (another math module) and [midterm] will be pulled over.
+* Such logic for filtering items by their tag is similar throughout the whole StudyBuddyPro.
 
 ==== Usage of Tags
 
@@ -260,6 +263,8 @@ Searching using Tags globally
 
 * The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro (e.g. `filterall tag/ma1521`).
 
+* The user can also call the global command, `taglist` to get a listview of all tags in StudyBuddyPro.
+
 * Currently, the user is able to specify multiple tags in his/her query (e.g. `filter tag/cs2100 tag/difficult`).
 If multiple tags are specified, only items that match all the specified tags will be listed.
 
@@ -269,15 +274,6 @@ image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
 _Figure 5. Sequence diagram of listing items by a specified tag_
 
 [Proposed] Future improvements (Coming in v2.0)
-
-Supporting deletion/editing of Tags
-
-Allow the user to delete/edit a specified Tag.
-
-All StudyBuddyItems must be updated in response to the deletion/edit.
-
-* A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure.
-* As such, we can apply an Observer pattern to update each StudyBuddyItem upon deletion of a tag.
 
 b) For Auto-generation of CheatSheets
 
@@ -296,3 +292,18 @@ c) For TimeTrial Mode
 The syntax used here is slightly different. The user need not specify the `tag/` keyword to indicate that the item is a tag.
 ====
 ** The TimeTrial feature will be further elaborated in Section 4.5.
+
+[Proposed] Future improvements (Coming in v2.0)
+
+
+== Supporting deletion/editing of Tags
+
+=== Allows the user to delete/edit a specified Tag.
+
+All StudyBuddyItems must be updated in response to the deletion/edit.
+
+* Allow the user to delete a specified Tag.
+* All StudyBuddyItems must be updated in response to the deletion.
+
+* A proposed implementation would be to store all Tags in a Global Data Structure, and have each StudyBuddyItem reference to that Data Structure.
+* As such, we can apply an Observer pattern to update each StudyBuddyItem upon deletion of a tag.
