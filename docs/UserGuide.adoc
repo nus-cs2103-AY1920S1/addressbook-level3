@@ -327,7 +327,7 @@ An example is shown below.
 [#SortOutput, align="center"]
 image::SortPreviewUG.png[width="350", pdfwidth="50%"]
 
-Spending entries are sorted based on the example <<SortOutput>>.
+Spending entries are sorted in alphabetical order where uppercase letters appear first, and a message is displayed based on the example in <<SortOutput>>.
 
 // end::sort[]
 
