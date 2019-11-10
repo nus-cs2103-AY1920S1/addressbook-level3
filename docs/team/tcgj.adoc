@@ -7,7 +7,7 @@
 
 == PROJECT: Budget Buddy
 
-This portfolio serves to provide an extract of what I have contributed as a student in the software engineering project,
+This portfolio serves to provide a breakdown of what I have contributed as a student in the software engineering project,
 *Budget Buddy*.
 
 == About Budget Buddy
@@ -50,7 +50,8 @@ Take note of the following formatting used in the rest of this portfolio.
 
 * *Major enhancement*: added *the ability to add/remove/edit rules*
 ** What it does: Allows the user to define a set of rules in the rule engine which will be executed by the rule engine upon
-the addition of every new transaction. A rule may carry out an action depending on whether the transaction satisfies the rule's requirement.
+adding/editing a transaction. A rule may carry out an action depending on whether the transaction satisfies the rule's requirement,
+or "predicate".
 ** Justification: This feature improves the application significantly because for day-to-day transactions, there may be many
 repetitions in what the user types. The app can therefore help users save time by automating such repetitive processes, or even
 more, depending on how the user uses it.

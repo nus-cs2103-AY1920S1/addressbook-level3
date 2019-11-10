@@ -497,9 +497,9 @@ or equal to $100, prepend the transaction's description with "[Large Spending]".
 Adds a new rule that specifies that if a transaction description contains "food",
 add the category "Food" to that transaction.
 
-* `rule add pred/desc = m act/set_desc Monthly Allowance` +
-Adds a new rule that specifies that if a transaction description is exactly "m",
-change its description to "Monthly Allowance".
+* `rule add pred/IsMonthlyAllowance act/set_desc Monthly Allowance` +
+Adds a new rule that specifies that if the script named "IsMonthlyAllowance"
+returns true, change the transaction's description to "Monthly Allowance".
 
 ==== List rules: `rule list`
 
