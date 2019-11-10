@@ -40,9 +40,18 @@ If you can type fast, TutorAid can get your tasks done faster than traditional G
 .  Copy the file to the folder you want to use as the home folder for your TutorAid.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::LoginUI.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Login with your account or if you do not have one, register within Tutoraid.
+.  After logging in, you will be directed to the Student Page.
++
+image::UI.png[width="790"]
++
+.  The Reminders Window should pop up as well.
++
+image::reminderwindow.png[width="400"]
++
+.  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
@@ -95,6 +104,10 @@ Examples:
 === Change tab : `tab`
 
 Change tab to any of the available ones. +
+The Tab that you are currently on will be shown on the bottom right corner +
+
+image::tabstatus.png[width="790"]
+
 Format: `change_tab tab/DESTINATION`
 
 Examples (All available destinations listed):
@@ -108,7 +121,7 @@ Examples (All available destinations listed):
 
 
 
-=== Calender
+=== Tasks
 
 // tag::tasks[]
 ==== Adding task: `add_task`
@@ -212,7 +225,7 @@ Format: `list_task`
 
 
 
-==== Setting Reminder Details  : `addReminder`
+=== Setting Reminder Details  : `addReminder`
 
 ===== Add Reminder
 
@@ -678,15 +691,21 @@ _{explain how the user can enable/disable data encryption}_
 `login user/USERNAME pass/PASSWORD` +
 `register user/USERNAME pass/PASSWORD` +
 `logout`
-* *Tab* : `tab TAB_DESTINATION`
-* *Calendar:* +
+* *Tab* : +
+`change_tab tab/TAB_DESTINATION`
+* *Task:* +
 `add_task c/MODULE mark/STATUS tt/TASK_TIME...` +
 `edit_task INDEX [mark/STATUS] [tt/TASK_TIME]` +
 `delete_task 1` +
 `find_task_by_module MODULE ...` +
 `find_task_by_date DATE ...` +
 `list_task`
-* *Reminder* : `reminder INDEX STATUS`
+* *Reminder* : +
+`add_reminder rd/DESCRIPTION rt/REMINDER_TIME...` +
+`delete_reminder 1` +
+`find_reminder_by_description DESCRIPTION ...` +
+`find_reminder_by_date DATE ...` +
+`list_reminder`
 * *Earnings* : +
 `add_earnings d/DATE c/CLASSID amt/AMOUNT` +
 `update_earnings d/DATE c/CLASSID amt/AMOUNT type/TYPE` +
