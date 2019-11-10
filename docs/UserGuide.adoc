@@ -361,12 +361,12 @@ Examples: +
 `*untag_task* 1 2 3` +
 `*untag_task* 1 2 3 *--tag* Birthdays`
 
+// tag::uiCalendarView[]
 === UI
 The following commands are related to the changing the display of the UI.
 
 Take note that UI-related commands are not affected by the `undo` and `redo` commands (For more information, see <<Undo-Redo>>).
 
-// tag::uiCalendarView[]
 ==== Changing Screen View to Calendar View
 
 .Calendar View Command for Calendar
@@ -388,7 +388,7 @@ Argument Format: +
 `MONTH_YEAR` : `MM/YYYY`
 
 Example: +
-`*calendar*` : Switch back to calendar view, without changing the date. +
+`*calendar*` : Switches back to calendar view without changing the date. +
 `*calendar* *--date* 10/2019`
 
 // end::uiCalendarView[]
@@ -399,7 +399,7 @@ Example: +
 .Day View Command for the Timeline
 image::DayViewCommandScreenShot.png[]
 
-The `day` command sets the timeline in the Calendar View to that of the specified day. In addition, this command will cause a switch to the Calendar View if it is not the current display.
+The `day` command sets the timeline in the Calendar View to that of the specified day. Furthermore, this command will switch the current view to Calendar View as well.
 
 Command Format: +
 `*day* DATE`
@@ -410,12 +410,14 @@ Argument Format: +
 Example: +
 `*day* 11/10/2019`
 
+// end::uiTimelineDay[]
+
 ==== Changing Timeline to a given week
 
 .Week View Command for the Timeline
 image::WeekViewCommandScreenShot.png[]
 
-The `week` command sets the timeline in the Calendar View to the week of the specified day of the month. In addition, this command will cause a switch to the Calendar View if it is not the current display.
+The `week` command sets the timeline in the Calendar View to the week of the specified day of the month, as well as switching the current view to Calendar View.
 
 Command Format: +
 `*week* DATE`
@@ -426,14 +428,12 @@ Argument Format: +
 Example: +
 `*week* 01/11/2019`
 
-// end::uiTimelineDay[]
-
 ==== Changing Timeline to a given month
 
 .Month View Command for the Timeline
 image::MonthViewCommandScreenShot.png[]
 
-The `month` command sets the timeline in the Calendary view to that of the specified month. In addition, this command will cause a switch to the Calendar View if it is not the current display.
+The `month` command sets the timeline in the Calendar view to that of the specified month and switches the current view to Calendar View.
 
 Command Format: +
 `*month* MONTH_YEAR`
@@ -454,7 +454,6 @@ The `list` command will switch the display to the List View, which displays a li
 Command Format and Example: +
 `*list*`
 
-
 ==== Changing Screen View to Log View
 
 .Log View Command
@@ -464,8 +463,6 @@ The `log` command switches the display to the Log View, which displays a catalog
 
 Command Format and Example: +
 `*log*`
-
-{empty} +
 
 // tag:notification[]
 // tag:chenggengppp[]
