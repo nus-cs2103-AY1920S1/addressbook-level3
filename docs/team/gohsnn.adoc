@@ -180,8 +180,8 @@ https://github.com/AY1920S1-CS2103T-T10-1/main/pull/368[#368],
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/371[#371], and
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/373[#373].
 
-The following are examples of diagrams I was tasked with helping my fellow
-team mates create on plantUML.
+The following are examples of diagrams that I had helped my fellow team mates
+create on plantUML.
 
 .AndOrNodeInheritanceClassDiagram for the Course Planner feature
 image::course-planner/AndOrNodeInheritanceClassDiagram.png[]
@@ -202,8 +202,8 @@ documentation in the user guide. Thus, the Finance Tracker section was done
 mostly by me.
 
 The section will contain excerpts from our Jarvis User Guide, showing additions
-that I have made with my Finance Tracker feature. The commands that I would be
-illustrating is the `find-paid` command and the `edit-install` command.
+that I have made with my Finance Tracker feature. The command that I would be
+illustrating is the `find-paid` command.
 
 === Search for a purchase with keyword(s)
 This command searches through the existing purchases stored in Jarvis and
@@ -354,9 +354,8 @@ Our current choice was to encapsulate the constituent objects in `Installment`
 and `Purchase` objects in their own wrapper classes. As mentioned above,
 `Installment` would contain `InstallmentDescription` and `InstallmentMoneyPaid`
 objects while `Purchase` would contain `PurchaseDescription` and
-`PurchaseMoneySpent` objects.
-
-This is the analysis surrounding this design choice.
+`PurchaseMoneySpent` objects. The following is the analysis surrounding this
+design choice.
 
 Pros: Increases OOP (hides implementation; increases extensibility and
 maintainability of objects)
@@ -369,8 +368,8 @@ abstraction
 The alternative would have been to leave the corresponding fields as
 primitive data types. This would have been the easier alternative at the time
 as it was the original implementation. Furthermore, since the `Installment`
-and `Purchase` objects were not extremely complex, further encapsulation was
-unnecessary.
+and `Purchase` objects were not extremely complex, further encapsulation might
+not have been imperative.
 
 ==== Our Thoughts
 
