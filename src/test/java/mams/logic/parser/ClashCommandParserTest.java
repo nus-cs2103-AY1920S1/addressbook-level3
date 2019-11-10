@@ -1,8 +1,10 @@
 package mams.logic.parser;
 
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import static mams.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static mams.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalIndexes.INDEX_SECOND;
 import static mams.testutil.TypicalModules.CS1010;
