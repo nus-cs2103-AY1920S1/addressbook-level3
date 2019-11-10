@@ -222,6 +222,14 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Closes the help window.
+     */
+    @FXML
+    public void closeHelp() {
+        helpWindow.hide();
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -349,6 +357,8 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            } else {
+                closeHelp();
             }
 
             if (commandResult.isExit()) {
