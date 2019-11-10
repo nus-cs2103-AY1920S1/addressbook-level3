@@ -1,0 +1,99 @@
+= Tang Shi Hui, Michaela – Project Portfolio for treasurerPro (tP)
+:site-section: ProjectPortfolio
+:toc:
+:toc-title:
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:icons: font
+ifdef::env-github[]
+:note-caption: :information_source:
+endif::[]
+
+== Introduction
+This project portfolio briefly introduces the project, treasurerPro (tP), and showcases my contributions.
+
+=== About the Team
+Our team consists of five members. Four, including me, are Year 2 Computer Science Undergraduate students, and one is a
+Year 4 Computer Engineering Undergraduate student.
+
+=== About the Project
+This project was created as part of the “CS2103T Software Engineering” module, a project-driven software engineering
+module offered by the National University of Singapore (NUS). We were tasked with the assignment of morphing or
+enhancing an existing desktop application called AddressBook over the course of 13 weeks and chose the former. I am
+proud to present to you the end result of our hard work – treasurerPro.
+
+=== About the Product
+treasurerPro is a desktop application that enables treasurers or members of Co-Curricular Activities (CCA) clubs to
+manage their club’s finances, members’ details, reimbursements, and inventory, as well as oversee their financial
+growth and long-term goals. It can operate entirely using text commands typed into the command box found at the top of
+the application.
+
+This is the application’s appearance when first opened:
+
+.Graphical User Interface of treasurerPro
+image::AnnotatedUi.png[width="700"]
+
+As seen from the above Figure, the application has 6 tabs with unique roles. All tabs are integrated. The 6 tabs are:
+
+** The Home tab, which keeps track of all transactions made.
+** The Members tab, which records all of the club members’ details.
+** The Reimbursements tab, which keeps track of all reimbursements that must be made to individual members.
+** The Inventory tab, which keeps track of all items bought by the club.
+** The Cashier tab, which simulates a cash register and supports the management of sales.
+** The Overview tab, which presents a summary of the data of the other tabs in easy-to-decipher diagrams and allows you
+to plan the club’s finances.
+
+===  Legend
+
+[NOTE]
+This symbol indicates extra information or definition.
+
+`Model` :
+Text with this font and grey highlight indicates a component, class or object in the architecture of
+the application. It also indicates a generic command format for the command box in the User Guide.
+
+[blue]`command` :
+Text with this blue font and grey highlight indicates a command that can be inputted by the user.
+
+== Summary of Contributions
+My role was to design and write the code for the Inventory tab. This section will describe my contributions in greater
+detail.
+
+=== Main Contributions
+* Addition, Deletion and Editing of Items
+** Function: These features allow you to add, delete and update the items in the inventory tab.
+** Justification: These features are essential for the proper management of items in the inventory. They allow you to
+have full control of the details of the items owned by the club.
+** Highlights: When adding an item with the same description, the quantity of the new input is added to the current
+quantity and the cost per unit is recalculated appropriately.
+* Sorting of Items
+** Function: This feature allows you to sort the list of items in 3 distinct ways – description, category and quantity.
+** Justification: It aids you in re-ordering the list as you please. This can help you with various matters such as
+spotting items low in quantity and in need of restocking.
+** Highlights: If you change your mind, the `sort reset` command allows you to revert the list to the order it was in
+when the application was first opened.
+
+=== Other Contributions
+* Documentation:
+* Community:
+** Helped to fix teammates' test cases.
+** Cleaned checkstyle errors in other teammates' packages.
+
+== Contributions to the User Guide
+This section showcases some of my contributions to the User Guide.
+
+{Start of the first extract from the User Guide}
+{End of the first extract from the User Guide}
+{Start of the second extract from the User Guide}
+{End of the second extract from the User Guide}
+
+== Contributions to the Developer Guide
+This section showcases some of my contributions to the User Guide.
+
+{Start of the first extract from Developer Guide}
+{End of the first extract from Developer Guide}
+{Start of the second extract from Developer Guide}
+{End of the second extract from Developer Guide}
+
