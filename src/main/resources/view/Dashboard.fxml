@@ -22,10 +22,10 @@
             <Insets left="45.0" right="45.0" />
         </padding>
 
-        <VBox fx:id="main_container" spacing="25.0" style="-fx-background-color: white;">
+        <VBox fx:id="main_container" spacing="45.0" style="-fx-background-color: white;">
 
             <padding>
-                <Insets bottom="40.0" left="45.0" right="45.0" top="25.0" />
+                <Insets bottom="40.0" left="45.0" right="45.0" top="40.0" />
             </padding>
 
             <Label text="Welcome to Duke Academy!" textFill="#63075d" wrapText="true">
@@ -38,13 +38,13 @@
             </Separator>
 
             <VBox spacing="10.0">
-                <Label prefWidth="${main_container.width}" text="Here, you will embark on a learning journey to discover about the fascinating world of Data Structures and Algorithms." textFill="black" wrapText="true">
+                <Label prefWidth="${main_container.width}" text="Here, you will embark on a journey to hone your programming and problem solving skills." textFill="black" wrapText="true">
                     <font>
                         <Font name="Century Gothic" size="14.0" />
                     </font>
                 </Label>
 
-                <Label prefWidth="${main_container.width}" text="As you go on to hone your programming and problem solving skills, you will move up the skill tiers, from Novice all the way up to Duke, the hallmark of an elite programmer." textFill="black" wrapText="true">
+                <Label prefWidth="${main_container.width}" text="As your skills improve, you will rise through the ranks from Novice all the way up to Duke, the hallmark of an elite programmer." textFill="black" wrapText="true">
                     <font>
                         <Font name="Century Gothic" size="14.0" />
                     </font>
@@ -112,8 +112,8 @@
                         </padding>
                     </Label>
 
-                    <VBox alignment="CENTER" spacing="20.0" style="-fx-border-color: #63075d" VBox.vgrow="ALWAYS">
-                        <ProgressIndicator fx:id="indicator" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" progress="0.22" />
+                    <VBox alignment="CENTER" spacing="30.0" style="-fx-border-color: #63075d" VBox.vgrow="ALWAYS">
+                        <ProgressIndicator fx:id="indicator" minHeight="250.0" minWidth="250.0" progress="0.22" />
 
                         <TextFlow textAlignment="CENTER">
                             <Text fx:id="numDone" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="22">

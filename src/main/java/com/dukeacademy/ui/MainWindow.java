@@ -51,7 +51,7 @@ class MainWindow extends UiPart<Stage> {
     private TabPane tabPane;
 
     @FXML
-    private AnchorPane homePagePlaceholder;
+    private AnchorPane dashboardPlaceholder;
 
     @FXML
     private AnchorPane questionsPagePlaceholder;
@@ -112,8 +112,8 @@ class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        HomePage homePage = new HomePage(questionsLogic.getAllQuestionsList());
-        homePagePlaceholder.getChildren().add(homePage.getRoot());
+        Dashboard dashboard = new Dashboard(questionsLogic.getAllQuestionsList());
+        dashboardPlaceholder.getChildren().add(dashboard.getRoot());
 
         QuestionsPage questionsPage = new QuestionsPage(questionsLogic.getFilteredQuestionsList(),
                 questionsLogic.getSelectedQuestion());
@@ -181,7 +181,7 @@ class MainWindow extends UiPart<Stage> {
      * @param activity the user's current activity
      */
     private void selectTabFromActivity(Activity activity) {
-        if (activity == Activity.HOME) {
+        if (activity == Activity.DASHBOARD) {
             this.tabPane.getSelectionModel().select(0);
         }
 
@@ -209,7 +209,7 @@ class MainWindow extends UiPart<Stage> {
         @Override
         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
             if (newValue.intValue() == 0) {
-                resultDisplay.setFeedbackToUser(TabCommand.FEEDBACK + Activity.HOME.toString());
+                resultDisplay.setFeedbackToUser(TabCommand.FEEDBACK + Activity.DASHBOARD.toString());
             }
 
             if (newValue.intValue() == 1) {

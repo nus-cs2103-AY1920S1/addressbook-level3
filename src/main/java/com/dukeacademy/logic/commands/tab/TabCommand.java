@@ -25,8 +25,8 @@ public class TabCommand implements Command {
         Activity currentActivity = applicationState.getCurrentActivity();
 
         if (currentActivity == null) {
-            this.applicationState.setCurrentActivity(Activity.HOME);
-            String userFeedback = FEEDBACK + Activity.HOME.toString();
+            this.applicationState.setCurrentActivity(Activity.DASHBOARD);
+            String userFeedback = FEEDBACK + Activity.DASHBOARD.toString();
             return new CommandResult(userFeedback, false);
         }
 
@@ -37,8 +37,8 @@ public class TabCommand implements Command {
                 .filter(i -> activities[i] == currentActivity).findFirst();
 
         if (currentActivityIndex.isEmpty()) {
-            this.applicationState.setCurrentActivity(Activity.HOME);
-            String userFeedback = FEEDBACK + Activity.HOME.toString();
+            this.applicationState.setCurrentActivity(Activity.DASHBOARD);
+            String userFeedback = FEEDBACK + Activity.DASHBOARD.toString();
             return new CommandResult(userFeedback, false);
         }
 
