@@ -966,6 +966,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
+=== Creating an incident report
+
+.
 === Filling an incident report
 
 . Attempting to execute `fill` without logging in.
