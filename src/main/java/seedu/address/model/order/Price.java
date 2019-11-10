@@ -10,9 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Prices must start with $, have at most 2 decimals and be non-negative.";
+            "Prices must start with $, have at most 2 decimals and be non-negative."
+                    + "The maximum valid price is $999,999,999.99.";
 
-    public static final String VALIDATION_REGEX = "\\$(0|([1-9]\\d*))(\\.\\d{1,2})?";
+    public static final String VALIDATION_REGEX = "\\$(0|([1-9]\\d{0,8}))(\\.\\d{1,2})?";
 
     public final String value;
 

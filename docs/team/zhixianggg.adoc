@@ -1,0 +1,107 @@
+= Oon Zhi Xiang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+Hi! I am Zhi Xiang, a Year 2 Computer Science student at National University of Singapore (NUS).
+Below is a summary of my contributions for this project.
+
+== PROJECT: Seller Manager Lite
+
+== Overview
+
+For our module CS2103T: Software Engineering, my team and I were tasked to enhance a desktop address book application called AddressBook.
+
+We eventually turned it into a product called Seller Manager Lite (SML), which aims to help small-scale handphone resellers manage their sales and inventory with ease.
+Users interact with it using a Command Line Interface (CLI) and it has a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 10,000 lines of code.
+
+My role was being in charge of the Logic Component, implementing the commands and parsers for Customer, Phone and Order data.
+Additionally, I was tasked to implement an undo/redo feature, find feature and copy feature.
+
+
+
+== Summary of contributions
+
+* *Major enhancement*: I added *the ability to undo/redo previous commands*
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: https://github.com/yamgent[yamgent] - I re-used some of his code to implement the UndoRedoStack. Other than that,
+
+* *Minor enhancement*: I added *the ability to create/read/update/delete customer, phone and order*
+
+* *Minor enhancement*: I added find command(s) that allows the user to search for customer, phone or order that matches certain keywords.
+This required enhancing the existing find command.
+
+* *Minor enhancement*: I added copy command(s) that allows the user to copy the data that they want onto their clipboard.
+This would make it convenient for them to copy data out of the application.
+
+
+* *Code contributed*:
+
+* Functional
+
+** Undo/Redo: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/161[#161]
+
+** Find: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/124[#124], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/165[#165]
+
+** CRUD: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/80[#80], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/102[#102],
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/124[#124], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/183[#183]
+
+
+** DevOps: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/120[#120], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/123[#123]
+
+
+* Test
+
+** Order: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/168[#168]
+
+** Model Manager: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/106[#106]
+
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+
+** Enhancements to existing features:
+*** Created an Archived Order Tab Panel (backend) as we realise that there was too much clutter in the order tab. https://github.com/AY1920S1-CS2103T-T09-4/main/pull/148[#148]
+*** Added a history command to allow forgetful users to remember what they typed in. https://github.com/AY1920S1-CS2103T-T09-4/main/pull/154[#154]
+*** Helped to implement Model Manager https://github.com/AY1920S1-CS2103T-T09-4/main/pull/75[#75]
+
+
+** Documentation:
+*** Restructured User Guide to make it more reader-friendly: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/168/files[#168], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/258[#258]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-4/main/pull/137[#137]
+*** Reported bugs and suggestions for other teams in the class: #
+
+** Tools:
+*** Set-up Netlify
+*** Set-up Codacy https://github.com/AY1920S1-CS2103T-T09-4/main/pull/123[#123]
+*** Added reposense config.json file https://github.com/AY1920S1-CS2103T-T09-4/main/pull/120[#120]
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+
+include::../UserGuide.adoc[tag=glossary]
+include::../UserGuide.adoc[tag=customer]
+include::../UserGuide.adoc[tag=phone]
+include::../UserGuide.adoc[tag=summary]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=find]
+include::../DeveloperGuide.adoc[tag=undoredo]
+

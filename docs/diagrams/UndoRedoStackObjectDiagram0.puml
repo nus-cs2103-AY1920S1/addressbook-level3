@@ -1,0 +1,16 @@
+@startuml
+object UndoRedoStack {
+}
+
+object UndoStack {
+
+}
+
+object RedoStack {
+
+}
+
+
+UndoRedoStack *-- UndoStack
+UndoRedoStack *-- RedoStack
+@enduml

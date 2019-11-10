@@ -62,12 +62,18 @@ public class DeleteScheduleCommand extends UndoableCommand {
             // do nothing
         }
 
-        // additional check for invalid order (order is scheduled but optional is null)
+        // additional check for invalid order (order is scheduled but optional is empty)
         if (orderToUnschedule.getSchedule().isEmpty()) {
             throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED_INVALID);
         }
 
         Schedule toDelete = orderToUnschedule.getSchedule().get();
+
+        // additional check for missing schedule in databook
+        if (!model.hasSchedule(toDelete)) {
+            throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED_INVALID);
+        }
+
         model.deleteSchedule(toDelete);
 
         return new CommandResult(String.format(MESSAGE_DELETE_SCHEDULE_SUCCESS, toDelete), UiChange.SCHEDULE);

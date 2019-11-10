@@ -1,6 +1,7 @@
 = Seller Manager Lite - Developer Guide
 :site-section: DeveloperGuide
 :toc:
+:toclevels: 2
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -21,6 +22,8 @@ By: `Team T09-4`      Since: `Sep 2019`      Licence: `MIT`
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
+
+// tag::architectureDiagram[]
 
 [[Design-Architecture]]
 === Architecture
@@ -50,7 +53,7 @@ The rest of the App consists of five components.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-* <<Design-Statistics,*`Statistics`*>>: Generate statistics and charts.
+* <<Design-Statistics,*`Statistics`*>>: Generate statistics and charts. (The use of this module is covered in the Statistic Section)
 
 Each of the five components
 
@@ -59,18 +62,22 @@ Each of the five components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
+// end::architectureDiagram[]
+
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete-c 1`.
 
 .Component interactions for `delete-c 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
+
+// tag::UiUG[]
 
 [[Design-Ui]]
 === UI component
@@ -94,12 +101,18 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 * Different changes in each tab or panel is controlled via the enum `UiChange`
 
+// end::UiUG[]
+
 [[Design-Logic]]
 === Logic component
+
+// tag::logicDiagram[]
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
+
+// end::logicDiagram[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -166,7 +179,11 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::statisticsCommand[]
+
 === Statistics Calculation and Chart generation feature
+
+
 ==== Implementation
 
 This statistic calculation and chart generation feature extends `Seller Manager Lite` which allows seller to quickly
@@ -192,6 +209,7 @@ Here is the sequence of steps taken by SMLJ when it receives a `StatCommand`:
 
 image::StatisticsCalculationAcitvityDiagram.png[]
 
+[[Design-Statistics]]
 ===== Statistic Module
 The statistic module exposes the calculation operations in the `Statistics` interface.
 analogous to the output mode, there are 2 types of methods in this module, one that returns a
@@ -199,20 +217,20 @@ analogous to the output mode, there are 2 types of methods in this module, one t
 
 * Methods that return a `String`:
 
-** `calculateTotalProfitOnCompleted()`
-** `calculateTotalRevenueOnCompleted()`
-** `calculateTotalCostOnCompleted()`
+** `calculateTotalProfitOnCompleted(...)`
+** `calculateTotalRevenueOnCompleted(...)`
+** `calculateTotalCostOnCompleted(...)`
 
 * Methods that return a `XYChart.Series<String,Number>`:
 
-** `calculateTotalProfitOnCompletedGraph()`
-** `calculateTotalRevenueOnCompletedGraph()`
-** `calculateTotalCostOnCompletedGraph()`
+** `calculateTotalProfitOnCompletedGraph(...)`
+** `calculateTotalRevenueOnCompletedGraph(...)`
+** `calculateTotalCostOnCompletedGraph(...)`
 
 All methods were written using java8 Stream() feature. This is such that there are no loops in the code to make it
 more readable and maintainable.
 
-`org.apache.commons.math3.stat.StatUtils` library is used to calculate the raw data inside a `double[]` .
+`org.apache.commons.math3.stat.StatUtils` library is used to calculate the raw data inside a `double[]`  (primitive double array).
 While the current `v1.4` only use `sum` to calculate the exact `profit` , `revenue` and `cost` , `v2.0` implementation
 will make use of the `linear regression` / `average` methods inside the library to generate more advanced statistics.
 
@@ -221,27 +239,37 @@ will make use of the `linear regression` / `average` methods inside the library 
 Given that the number of orders in a seller database might be scaled to be very large in the future
 the main focus of this feature was to *calculate statistics only when needed*.
 
-One way that was initially considered was actually to maintain a running statistic
-counter upon loading of the main app, update this counter when calculation is needed ,
-and then display it. This implementation would be much easier to implement within the existing AB3 code
+* Alternative design :
+** To implement statistics, maintain a few running statistic
+counter upon loading of the main app, update these counters/values when calculation is needed
+and then display it. This implementation would have been easy to implement within the existing AB3 code
 since it meant extending the `Model` class with a statistic model, than having the `UI` class to read from
-this value *However, we dropped this due to the consideration
-mentioned in the previous paragraph*
+this value.
+*** Pros: Easy to implement on top of AB3
+*** cons: Seller will be unable to obtain an instance of past statistics at each point without storing the history of the statistics somewhere, since any change in the database / models will cause the values to change
+*** cons: Will bloat the UI since there will be extra details to be displayed and there is an extra panel on screen.
 
-====== Decision 1:
+* Alternative Design (current design) :
+** `Statistics` module will exist outside of the current packages and be standalone. `Logic` will handle communication with
+this module from `UI`. Respective Statistics will then be obtained from `Logic` to be displayed by the `StatsWindow`.
+*** Pros: Ensure that the respective tasks are properly abstracted, adhering to Single Responsibility Principle.
+*** Pros: Being standalone means the way of calculating the statistics can be changed without affecting the rest of the codebase
+*** Cons: `Logic` will have to handle more calls and increases its responsibilities
+
+====== Design Decision 1:
 
 Given that consideration, we decided that it will be the `UI` to trigger this call to `Logic` for calculation
 and then display the result of that call. Thus when Statistics need to be shown, the `UI` module will query the
 `Logic` for the respective data
 
-One of the motivation for this approach was to maintain the architecture that is already in place in AB3.
+One of the motivation for this approach was to, as much as possible, maintain the architecture that is already in place in AB3.
 
 Furthermore, given that this feature requires date input from the user, we will need to find a way to get `UI` to send
 the data to make that query to logic. For the old AB3 implementation, `CommandResult` only contains a feedback to user
 with the actual changes on data done with a call to model during `execute(model)`.
 
 
-====== Decision 2:
+====== Design Decision 2:
 
 We decided to extend this command pattern by creating a `statsPayload` object. This object will hold the user
 queries for the statistic calculation (if there is any) and be bundled along with the `CommandResult` class to the
@@ -256,19 +284,25 @@ All `statsCommand` type will have call the constructor of `commandResult` class 
 
 The key motivation behind this idea of a payload was to be able to encapsulate details about the calculation inside a
 single object, passed it to the appropriate place to be "unwrapped" when needed. This unwrapping is done by the
-`mainWindow` class in SMLJ and subsequently the data is passed to the  `statistic` module.
+`mainWindow` class in the application and subsequently the data is passed to the  `statistic` module.
 
 
 A high level view of the packages working together:
 
 image::statsOverallClassDiagram.png[]
 
+==== Current Implementation
+
 ====== Step-by-step breakdown
 
-Below is a more in-depth explanation at each step:
+Below is a more in-depth explanation at each step.
+
+*Note that this breakdown is for the mode with date input.
+For the default mode with no date, the steps are almost the same, except that
+ `DefaultStatisticsWindow` is called in place of `StatisticsWindow`*
 
 
-step 1: User inputs a stats command e.g `generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13`.
+Step 1: User inputs a stats command e.g `generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13`.
 
 The commandBox executes it and the `MainWindow` runs its `executeCommand(commandText)` method.
 
@@ -276,42 +310,75 @@ Referring to the sequence diagram below,this results in `logic.execute(commandTe
 the `statsCommandParser` parses the input from the user, returning a
 `Command` object
 
-step 2: the logic then calls `command.execute(command)` (refer to the second set of arrow coming out of `LogicManager`)
+Seen here is the sequence diagram of the first step
+
+image::StatsCommandSequenceDiagram1.png[]
+
+Step 2: the logic then calls `command.execute(command)` (refer to the second set of arrow coming out of `LogicManager`)
 
 When this happens, the `StatsCommand` execute triggering a call to create the new `StatsPayload`. Then this is used to
 create a new `CommandResult` object and returns that to `Logic` , completing the execution of the user input command.
 
-Shown below is a quick summary of step 1-2:
+Seen here is the sequence diagram of the second step
+
+image::StatsCommandSequenceDiagram2.png[]
+
+Shown below is a quick summary of step 1-2 (Full complete diagram):
 
 image::StatsCommandSequenceDiagram.png[]
 
-step 3: After the logic component completes it execution and return a `CommandResult`, the `UI` will call
+Step 3: After the logic component completes it execution and return a `CommandResult`, the `UI` will call
 `performUiChanges` that handles the specific `UI` change.
 
 This then results in the `statsPayload` class being passed to `Logic` class and subsequently the `statistics` module,
 where the appropriate calculation will take place.
 
 
-step 4: `Statistic Manager` calculates the date
+Step 4: `Statistic Manager` calculates the date
 
 Depending on the input, the `Statistic Manager` will calculate the value and return that, either in the form of
 a `String` or a `XYChart.Series<String, Number>`
 
-step 5: with this output from logic, `Statistic Window` will then handle the diplaying of the statistic, be it in chart
+Step 5: with this output from logic, `Statistic Window` will then handle the diplaying of the statistic, be it in chart
 form or string form. With this the feature has finished executing! Attached below is the summary for step 3-5:
 
 image::StatisticsCalculationUI.png[]
 
-Limitations:
+==== Current Version `v1.4`:
 
-Below are some limitations that we have put in place for `v1.4` of SMLJ:
+Here are some screenshots of the current product:
 
-*Date range starts from 1970 onwards
-** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
+image::StatsExampleGraph.png[width="600"]
+
+image::StatsExampleDefault.png[width="600"]
+
+==== Limitations / note to developers:
+
+Developers working on adding features to this module should take note of these limitations that we have put in place for `v1.4` of SMLJ:
 
 
+* Date range starts from 1970 onwards
+** Date of year input starts from 1970 onwards.
+This is enough to fit our use case.
+Anything lower will be rejected.
+
+* Extension of additional Calculation methods
+** To easily extend the behaviour with additional
+methods to calculate, reference the current
+implementation in `StatisticsManager`;
+There are utility methods to help you with
+extracting the relevant information from your data.
+
+* UI Changes
+** Any additional Ui Changes should be handled by the controllers for the UI classes `StatisticWindow` and `DefaultStatisticWindow`
+class.
+
+// end::statisticsCommand[]
 
 === Autocomplete feature
+
+image::AutoCompleteClassDiagram.png[]
+
 ==== Current Implementation
 
 This feature is visible in the UI as a dropdown menu when the user enters input into the command box.
@@ -399,60 +466,58 @@ Hence, we decided to use a listener instead.
 `CalendarDate` is then placed in `Model` so that it can be edited right away when `Model` executes any schedule related commands.
 Also, this ensures that `CommandResult` remains unchanged and kept as simple as possible.
 
+// tag::find[]
+
 === Find Customer/Phone/Order feature
-The find feature allows the user to find the customer/phone/order according to its data field(e.g. CustomerName, ContactNumber)
-or without any data field. We wanted to implement an OR search and so long as the customer/phone/order contained the keyword
+The find feature allows the user to find the customer/phone/order with matching keywords.
+We wanted to implement an AND search and so long as the customer/phone/order contained the keyword
 in its data, it would be shown to the user.
 For simplicity's sake, we will only focus on Customer in this section.
 
 
-The commands that we wanted to implement are:
+The command that we wanted to implement is:
 
-* e.g. `find-c n/Alice` -- allows the user to find the customer with customer name "Alice".
 * e.g. `find-c Alice` -- would allow the user to find the customer with any data field that matches "Alice".
 
 ==== Current Implementation
+In order to implement this feature, we decided to introduce a new predicate, `CustomerContainsKeywordsPredicate`.
+Similar to AddressBook3's `NameContainsKeywordsPredicate`, the customer predicate tests that all keyword matches at least 1 data field of Customer.
 
-In order to implement the find function, we decided to create multiple predicates for each data field of Customer.
-By doing this, we could do chaining of predicates by using the static `or()` provided in `java.util.Predicate` package.
-Thus, we would be able to find the customer easily with the keywords given in the input.
 
-image::CustomerPredicateClassDiagram.png[]
+image::dg-diagram/CustomerPredicateClassDiagram.png[]
 
-Below is a diagram to show you how `find-c n/Alice` runs in the program.
+Below is a diagram to show you how `find-c Alice` runs in the program.
 
-image::FindCustomerCommandSequenceDiagram1.png[]
+image::dg-diagram/FindCustomerCommandSequenceDiagram1.png[]
 
-Below is another diagram to show you how `find-c n/Alice e/alex` runs in the program.
-
-image::FindCustomerCommandSequenceDiagram2.png[]
-
-Notice that chaining takes place by creating new instances of XYZContainsKeywordsPredicates.
 
 
 ==== Design Considerations / Alternative designs considered
 
-Alternative 2: The other alternative that we considered in implementing the find feature was using a single predicate.
+Alternative 2: The other alternative that we considered in implementing the find feature was allowing the user to specify which field to check for.
 First, we create a `FindCustomerDescriptor` that would store all the strings that were to be searched under the various data fields.
-The `FindCustomerCommandParser` would store the relevant keywords in the FindCustomerDescriptor and generate a predicate,
-`CustomerContainsKeywordsPredicate`, using the FindCustomerDescriptor and pass it to `FindCustomerCommand`. `FindCustomerCommand` would then be executed.
+e.g. The `a/` prefix would mean to search for all the data fields of Customer. The `n/` prefix would mean to search for the name of Customers only.
+The `FindCustomerCommandParser` would store the relevant key-phrases in the FindCustomerDescriptor and generate a different predicate,
+`CustomerContainsKeyPhrasesPredicate`, using the FindCustomerDescriptor and pass it to `FindCustomerCommand`. `FindCustomerCommand` would then be executed.
 
-The predicate `CustomerContainsKeywordsPredicate` would do the heavy lifting by doing further parsing of the keywords
+However, the predicate `CustomerContainsKeyPhrasesPredicate` would do the heavy lifting by doing further parsing of the keywords
 and test whether Customer contains the relevant keywords.
 
-However, we did not do this as `CustomerContainsKeywordsPredicate` violated the Single-Responsibility Principle.
+We did not implement this as `CustomerContainsKeyPhrasesPredicate` violated the Single-Responsibility Principle.
 It had to do further parsing of the keywords instead of simply testing whether the Customer contains the keywords.
 Also, if there was a change to the `Customer` class, it would be less intuitive to modify `CustomerContainsKeywordsPredicate`
 as one would need to understand the parsing.
 
 
 
-* **Alternative 1 (current choice):** Multiple predicates.
+* **Alternative 1 (current choice):** `CustomerContainsKeywordsPredicate`
 ** Pros: Easy to implement.
-** Cons: Duplicated code due to multiple predicates.
-* **Alternative 2:** Single predicate.
+** Cons: Cannot search based on the exact data field.
+* **Alternative 2:** `CustomerContainsKeyPhrasesPredicate`
 ** Pros: Less code written in total.
 ** Cons: Harder to maintain.
+
+// end::find[]
 
 === Export feature
 ==== Implementation
@@ -485,82 +550,95 @@ At the end, the strings are appended to get the full CSV file containing the var
 
 // end::export[]
 
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+// tag::undoredo[]
+=== Undo/Redo feature
+==== Current Implementation
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+The undo/redo mechanism is facilitated by `UndoRedoStack`.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+`UndoRedoStack` contains 2 stacks, `undoStack` and `redoStack`.
+`undoStack` and `redoStack` contains commands that are of type `UndoableCommand`.
+`UndoableCommand` extends Command and has the following attributes and methods.
+
+
+image::dg-diagram/UndoableCommandClassDiagram.png[]
+
+When an UndoableCommand is being executed, the methods `saveCustomerBookSnapshot(Model model)`, `savePhoneBookSnapshot(Model model)`, `saveOrderBookSnapshot(Model model)`, `saveScheduleBookSnapshot(Model model)`
+and `saveArchivedOrderBookSnapshot(Model model)` will be called. This ensures that the states of all 5 books are being stored.
+
+After a command is executed, `LogicManager` will add it into the `UndoRedoStack`.
+This will be explained in the activity diagram below.
+
+image::dg-diagram/UndoRedoStackPushActivityDiagram.png[]
+
+Next, when `UndoCommand` is being performed, `UndoStack` will remove the first command in its stack and add it to `RedoStack`.
+It will then call `UndoableCommand#undo()` of the command that is removed.
+The `undo()` method will then set the model to the previous snapshots of CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
+Afterwhich, it will save the original state of the model (e.g. before Undo took place) by calling `UndoableCommand#save(Model model)`.
+
+Likewise, when `RedoCommand` is being performed, `RedoStack` will remove the first command in its stack and add it to `UndoStack`.
+It will then call `UndoableCommand#redo()` of the command that is removed.
+The `redo()` method will then set the model to the previous snapshots of CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
+
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
-image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
-image::UndoRedoState1.png[]
+Step 1. The user launches the application for the first time. The `UndoRedoStack` will be initialized.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+image::dg-diagram/UndoRedoStackObjectDiagram0.png[]
 
-image::UndoRedoState2.png[]
+Step 2. The user executes `delete-c 5` command to delete the 5th customer. The `delete-c 5` command will be pushed into the `UndoRedoStack`.
+
+image::dg-diagram/UndoRedoStackObjectDiagram1.png[]
+
+Step 3. The user executes `add-c n/David ...` to add a new person. The `add-c` command will save all states of CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
+
+image::dg-diagram/UndoRedoStackObjectDiagram2.png[]
+
+Step 4. The user now decides that adding the customer was a mistake, and decides to undo that action by executing the `undo` command.
+
+
+image::dg-diagram/UndoRedoStackObjectDiagram3.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+UndoCommand will check whether if there is any command to be undone by calling the `UndoRedoStack#canUndo()` method.
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
+image::dg-diagram/UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `UndoableCommand#redo()`.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+Step 5. The user then decides to execute the command `list-c`. Commands that do not modify the 5 books (Customer, Phone, Order, Schedule and Archived Order), such as `list-c`, do not extend UndoableCommand.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+image::dg-diagram/UndoRedoStackObjectDiagram4.png[]
 
-image::UndoRedoState4.png[]
+Step 6. The user executes `clear-c`.
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram5.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire mdodel.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete-c`, just save the customer being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use 2 stacks to store the history of the Models.
 ** Pros: Easy to implement.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a command is undone, we must remember to save the previous model state to the command.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -906,15 +984,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a customer
 
-. Deleting a person while all persons are listed
+. Deleting a customer while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all customers using the `list` command. Multiple customers in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No customer is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

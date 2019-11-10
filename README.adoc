@@ -1,4 +1,4 @@
-= SELLER MANAGER Lite
+= Seller Manager Lite
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-T09-4[image:https://travis-ci.org/AY1920S1-CS2103T-T09-4/main.svg?branch=master[Build Status]]
@@ -6,7 +6,7 @@ https://ci.appveyor.com/project/EugeneTeu/main/branch/master[image:https://ci.ap
 https://coveralls.io/github/AY1920S1-CS2103T-T09-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T09-4/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/manual/AY1920S1-CS2103T-T09-4/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2103T-T09-4/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/ecdd0bab29a34f7ba5209d25f2b5eee9[Codacy Badge]]
 
-= The ultimate management system for your business needs! Tailored to fufil the needs of the solo Handphone retailer!
+= Sell Easy with Seller Manager Lite
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -16,8 +16,21 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Sales Management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for handphone sellers selling their goods on online platforms such as Carousell.
+
+* *Aesthetic User Interface*: Smooth User Experience
+
+* *Clutter-free*: Compartmentalize your data with SML!
+
+* *Save Time*: Automate troublesome tasks with SML!
+
+* *Track your sales performance*: Generate charts instantly!
+
+* Tailored for single-user or small team handphone resellers.
+
+* You'll love our application if you hate to deal with order and schedule conflicts.
+
+* This is a desktop sales management application intended for handphone sellers selling their goods on online platforms such as Carousell.. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+
 
 == Site Map
 

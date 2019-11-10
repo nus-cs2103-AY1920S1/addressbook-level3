@@ -225,20 +225,23 @@ public class MainWindow extends UiPart<Stage> {
             //calculate stats with input to logic manager
             switch (statsPayload.getStatisticType()) {
             case PROFIT:
+                String profitResultValue = this.logic.calculateTotalProfit(statsPayload);
                 XYChart.Series<String, Number> profitResult = this.logic.calculateTotalProfitGraph(statsPayload);
-                this.statsWindow = new StatisticsWindow("Total Profit", profitResult);
+                this.statsWindow = new StatisticsWindow("Total Profit", profitResult, profitResultValue);
                 logger.info("displaying chart");
                 this.statsWindow.show();
                 break;
             case REVENUE:
+                String revenueResultValue = this.logic.calculateTotalRevenue(statsPayload);
                 XYChart.Series<String, Number> revenueResult = this.logic.calculateTotalRevenueGraph(statsPayload);
-                this.statsWindow = new StatisticsWindow("Total Revenue", revenueResult);
+                this.statsWindow = new StatisticsWindow("Total Revenue", revenueResult, revenueResultValue);
                 logger.info("displaying chart");
                 this.statsWindow.show();
                 break;
             case COST:
+                String costResultValue = this.logic.calculateTotalCost(statsPayload);
                 XYChart.Series<String, Number> costResult = this.logic.calculateTotalCostGraph(statsPayload);
-                this.statsWindow = new StatisticsWindow("Total Cost", costResult);
+                this.statsWindow = new StatisticsWindow("Total Cost", costResult, costResultValue);
                 logger.info("displaying chart");
                 this.statsWindow.show();
                 break;

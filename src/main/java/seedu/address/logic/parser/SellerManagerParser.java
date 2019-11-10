@@ -20,6 +20,7 @@ import seedu.address.logic.commands.addcommand.AddCustomerCommand;
 import seedu.address.logic.commands.addcommand.AddOrderCommand;
 import seedu.address.logic.commands.addcommand.AddPhoneCommand;
 import seedu.address.logic.commands.addcommand.AddScheduleCommand;
+import seedu.address.logic.commands.clearcommand.ClearArchivedOrderCommand;
 import seedu.address.logic.commands.clearcommand.ClearCustomerCommand;
 import seedu.address.logic.commands.clearcommand.ClearOrderCommand;
 import seedu.address.logic.commands.clearcommand.ClearPhoneCommand;
@@ -161,6 +162,9 @@ public class SellerManagerParser {
 
         case ClearScheduleCommand.COMMAND_WORD:
             return new ClearScheduleCommand();
+
+        case ClearArchivedOrderCommand.COMMAND_WORD:
+            return new ClearArchivedOrderCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

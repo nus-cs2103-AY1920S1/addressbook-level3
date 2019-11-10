@@ -44,7 +44,7 @@ public class AutoCompleteTextField extends TextField {
      */
     public void populatePopup(List<String> searchResults, String searchWord) {
         List<CustomMenuItem> menuItems = new ArrayList<>();
-        int maxEntries = 7;
+        int maxEntries = 8;
         int count = Math.min(searchResults.size(), maxEntries);
 
         for (int i = 0; i < count; i++) {
@@ -87,7 +87,7 @@ public class AutoCompleteTextField extends TextField {
             wholeText.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
             return new TextFlow(wholeText);
         } else {
-            int filterIndex = text.toLowerCase().indexOf(filter.toLowerCase());
+            int filterIndex = text.indexOf(filter);
             Text textBefore = new Text(text.substring(0, filterIndex));
             Text textAfter = new Text(text.substring(filterIndex + filter.length()));
             Text textFilter = new Text(text.substring(filterIndex, filterIndex + filter.length()));

@@ -1,0 +1,36 @@
+@startuml
+object UndoRedoStack {
+}
+
+object UndoStack {
+
+}
+
+object RedoStack {
+
+}
+
+
+object ClearCustomerCommand {
+    - previousCustomerBook
+    - previousPhoneBook
+    - previousOrderBook
+    - previousScheduleBook
+    - previousArchivedOrderBook
+
+}
+
+object DeleteCustomerCommand {
+    - previousCustomerBook
+    - previousPhoneBook
+    - previousOrderBook
+    - previousScheduleBook
+    - previousArchivedOrderBook
+    - targetIndex
+}
+
+UndoRedoStack *-- UndoStack
+UndoRedoStack *-- RedoStack
+UndoStack o-- ClearCustomerCommand
+UndoStack o-- DeleteCustomerCommand
+@enduml

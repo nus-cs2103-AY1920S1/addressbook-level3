@@ -1,0 +1,40 @@
+@startuml
+
+abstract class Command {
+
+    + CommandResult execute(Model model, CommandHistory commandHistory,
+                   UndoRedoStack undoRedoStack) {abstract}
+}
+
+abstract class UndoableCommand {
+
+    - ReadOnlyDataBook<Customer> previousCustomerBook
+    - ReadOnlyDataBook<Order> previousOrderBook
+    - ReadOnlyDataBook<Phone> previousPhoneBook
+    - ReadOnlyDataBook<Schedule> previousScheduleBook
+    - ReadOnlyDataBook<Order> previousArchivedOrderBook
+
+    - void saveCustomerBookSnapshot(Model model)
+    - void saveOrderBookSnapshot(Model model)
+    - void savePhoneBookSnapshot(Model model)
+    - void saveScheduleBookSnapshot(Model model)
+    - void saveArchivedOrderBookSnapshot(Model model)
+
+    # final void undo(Model model)
+    # final void redo(Model model)
+
+
+    + void save(Model model)
+    + CommandResult execute(Model model, CommandHistory commandHistory,
+                       UndoRedoStack undoRedoStack)
+
+
+
+    # CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                             UndoRedoStack undoRedoStack) {abstract}
+
+}
+
+
+Command <|-- UndoableCommand
+@enduml

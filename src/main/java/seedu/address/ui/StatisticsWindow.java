@@ -27,10 +27,11 @@ public class StatisticsWindow extends UiPart<Stage> {
     @FXML
     private Label valueLabel;
     @FXML
-    private Label startingDateLabel;
+    private Label infoLabel;
     @FXML
-    private Label endingDateLabel;
-
+    private Label summaryLabel;
+    @FXML
+    private Label summaryValue;
 
     /**
      * Create a new Statistic window
@@ -49,14 +50,16 @@ public class StatisticsWindow extends UiPart<Stage> {
      * @param statsLabel the title of the stats
      * @param axisSeries  graph data from logic
      */
-    public StatisticsWindow(String statsLabel, XYChart.Series<String, Number> axisSeries) {
+    public StatisticsWindow(String statsLabel, XYChart.Series<String, Number> axisSeries,
+                            String revenueResultValue) {
         this(new Stage(), Optional.of(axisSeries));
         this.testChart.setTitle(statsLabel);
-        setMiscStatsLabel(statsLabel, axisSeries);
+        setMiscStatsLabel(statsLabel, axisSeries, revenueResultValue);
 
     }
 
-    private void setMiscStatsLabel(String statsLabel, XYChart.Series<String, Number> axisSeries) {
+    private void setMiscStatsLabel(String statsLabel, XYChart.Series<String, Number> axisSeries,
+                                   String revenueResultValue) {
         this.valueLabel.setText("Displaying monthly view of " + statsLabel);
         ObservableList<XYChart.Data<String, Number>> axisSeriesData = axisSeries.getData();
         XYChart.Data<String, Number> firstData = axisSeriesData
@@ -65,16 +68,11 @@ public class StatisticsWindow extends UiPart<Stage> {
         XYChart.Data<String, Number> lastData = axisSeriesData
                 .stream()
                 .reduce((first, second) -> second).get();
-        this.startingDateLabel.setText(
-                "Showing Initial value of " + statsLabel
-                        + "\n" + " from " + firstData.getXValue()
+        this.infoLabel.setText(
+               " From " + firstData.getXValue() + " to " + lastData.getXValue()
         );
-        this.startingDateLabel.setWrapText(true);
-        this.endingDateLabel.setText(
-                "Final value of " + statsLabel + "\n"
-                        + " ending on " + lastData.getXValue()
-        );
-        this.endingDateLabel.setWrapText(true);
+        this.summaryLabel.setText(statsLabel + " for this period: ");
+        this.summaryValue.setText(revenueResultValue);
     }
 
     /**
@@ -87,7 +85,7 @@ public class StatisticsWindow extends UiPart<Stage> {
         yAxis.setLabel("Value in $");
         this.testChart.getData().add(axisSeries);
         this.testChart.setLegendVisible(false);
-        this.testChart.setCreateSymbols(false);
+        this.testChart.setCreateSymbols(true);
     }
 
     /**
