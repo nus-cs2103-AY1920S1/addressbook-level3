@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+
+Participant ":LogicManager" as logic LOGIC_COLOR
+Participant "command:StatsCommand" as ec LOGIC_COLOR
+Participant "statsPayload:StatsPayload" as sp LOGIC_COLOR
+Participant "commandResult:CommandResult" as cr LOGIC_COLOR
+
+
+[-> logic : execute
+
+logic -> ec ++: execute, model
+create sp
+ec -> sp ++: startingDate, endingDate, statisticType
+sp --> ec --: statsPayload
+
+ec -> cr ++: StatsPayload, UiChange
+cr -> ec --: commandResult
+ec -> logic --: commandResult
+
+<- logic :commandResult
+
+
+@enduml
