@@ -153,6 +153,8 @@ Trying to open up the another _page_? Use this command!
 
 *Format:* +
 ``goto PAGE TYPE`` +
+{nbsp} + 
+where ``PAGE TYPE`` can be any of the following: ``calendar``, ``itinerary``, ``address_book``, ``financial_tracker``, ``diary`` or ``achievements``
 
 *Example:* 
 
@@ -168,8 +170,6 @@ Step 2. You will be directed to the _itinerary page_.
 
 image::mainGoto2.png[Goto result]
 
-
-WARNING: The only available ``PAGE TYPE``s are ``calendar``, ``itinerary``, ``address_book``, ``financial_tracker``, ``diary`` and ``achievements``.
 
 === Viewing help: ``help``
 
