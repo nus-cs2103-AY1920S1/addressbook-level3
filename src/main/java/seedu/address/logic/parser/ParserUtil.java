@@ -183,6 +183,12 @@ public class ParserUtil {
      */
     public static Amount parseAmount(String s) throws ParseException {
         requireNonNull(s);
+        /* handles empty amount*/
+        if (s.length() == ZERO_AMOUNT) {
+            throw new ParseException(Messages.MESSAGE_AMOUNT_EMPTY);
+        }
+
+        /* handles negative amount*/
         char first = s.toCharArray()[0];
         if (first == NEGATIVE_AMOUNT_SIGN) {
             throw new ParseException(Messages.MESSAGE_AMOUNT_NEGATIVE);

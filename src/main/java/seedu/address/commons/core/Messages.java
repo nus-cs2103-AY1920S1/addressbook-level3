@@ -18,6 +18,7 @@ public class Messages {
     public static final String MESSAGE_AMOUNT_OVERFLOW = "Amount cannot exceed 1 million (i.e. 1000000)";
     public static final String MESSAGE_AMOUNT_NEGATIVE = "Amount cannot be negative";
     public static final String MESSAGE_AMOUNT_ZERO = "Amount cannot be zero";
+    public static final String MESSAGE_AMOUNT_EMPTY = "Amount field cannot be left empty";
 
     protected static String getMessageUnknownCommand() {
         return Messages.MESSAGE_UNKNOWN_COMMAND;
