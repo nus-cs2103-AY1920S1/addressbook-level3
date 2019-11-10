@@ -283,10 +283,16 @@ prefixes like `t>` and `d>`
 // tag::flashcardexportimport[]
 
 === Exporting/Importing of FlashCards
+
+==== About
+
+Our application currently supports the exporting of `FlashCards` to two file formats ('.docx' and '.json'), and importing of `FlashCards` from one
+file format ('.json'). Through these features, a user can easily transfer their _KFC_ data to an external file, and another user
+can just as easily transfer the same data back into their own copy of _KFC_.
+
 ==== Implementation
 
-Our application currently supports the exporting of `FlashCards` to two file formats (`.docx` and `.json`) and importing of `FlashCards` from one
-file format (`.json`). These mechanisms are primarily facilitated by the following classes:
+The Export/Import feature is primarily facilitated by the following classes:
 
 * `ExportCommand` -- Embodies an `export` command by the user; carries information about which `FlashCards` are to be exported, and to where
 * `ExportCommandParser` -- Parses user input and uses it to construct an `ExportCommand` instance
@@ -315,9 +321,9 @@ dealing with exactly. Each `ExportPath` subclass will implement its own `export`
 without any further hassle. Of course, due to the Separation of Concerns principle, the `ExportPath` subclasses will not handle these directly.
 Instead, they will delegate the work to other utility classes, which, in turn, interface with the external libraries necessary to complete the task.
 
-TIP: The exporting/importing functionality is extremely easy to extend - support for new formats can be added simply through the creation of new subclasses of `ExportPath`.
+TIP: The exporting/importing functionality is extremely easy to extend - you can add support for a new format simply through the creation of new subclasses of `ExportPath`.
 
-NOTE: All relevant classes can be found in the `seedu.address.model.export` package. The only exceptions are `ExportCommand`, `ImportCommand`, `ExportCommandParser`, and `ImportCommandParser`, which can be found in the `seedu.address.logic` package.
+NOTE: You can find all relevant classes in the `seedu.address.model.export` package. The only exceptions are `ExportCommand`, `ImportCommand`, `ExportCommandParser`, and `ImportCommandParser`, which can be found in the `seedu.address.logic` package.
 
 The following table shows the classes and methods that you may have to deal with when exporting to or importing from each format:
 
@@ -326,7 +332,7 @@ The following table shows the classes and methods that you may have to deal with
 
 |**File format**                        |Document           |JSON
 
-|**File extension**                     |`.docx`            |`.json`
+|**File extension**                     |'.docx'            |'.json'
 
 |**`ExportPath` subclass**              |`DocumentPath`     |`JsonExportPath`
 
@@ -341,32 +347,36 @@ a|`JsonImportUtil#importFlashCardsFromJson( JsonExportPath)`
 |**External library used**              |Apache POI         |Jackson
 |====
 
-The number of classes supporting the import/export feature is rather large. The following class diagram will help to clarify the associations
+_Table 1: Overview of classes and methods involved in the Export/Import feature_
+
+The number of classes supporting the Export/Import feature is rather large. These classes also span more than one
+package in the application. The following class diagram will help you to better understand the associations and relationships
 between these classes:
 
 image::ExportClassDiagram.png[]
 
-_Figure 1: Class diagram showing the classes directly relevant to importing and exporting_
+_Figure 1: Class diagram of the classes directly relevant to importing and exporting_
 
-The following sequence diagram shows how the export operation works when the user tries to export to a document (`.docx`) file:
+The following sequence diagram shows the classes, methods, and interactions involved
+when the user tries to `export` to a document file:
 
 image::ExportSequenceDiagram.png[width = "600"]
 
 _Figure 2: Sequence diagram showing the process of exporting to a document file_
 
-NOTE: Due to a limitation of PlantUML, object lifelines in the diagram extend beyond the destroy markers. This, of course, should be ignored.
+NOTE: Due to a limitation of PlantUML, object lifelines in the diagram extend beyond the destroy markers. Of course, you should ignore this.
 
-The following activity diagram summarizes what happens when a user executes an export command:
+The following activity diagram provides a general overview of the events that occur when a user executes an `export` command:
 
 image::ExportActivityDiagram.png[width="300"]
 
-_Figure 3: Activity diagram of when the user executes an export command_
+_Figure 3: Activity diagram of when the user executes an `export` command_
 
-The following activity diagram summarizes what happens when a user executes an import command:
+The following activity diagram provides a general overview of the events that occur when a user executes an `import` command:
 
 image::ImportActivityDiagram.png[width=475,height=550]
 
-_Figure 4: Activity diagram of when the user executes an import command_
+_Figure 4: Activity diagram of when the user executes an `import` command_
 
 ==== Design considerations
 
@@ -389,7 +399,7 @@ NOTE: **Alternative 1** was preferred for its ease of extensibility.
 
 * **Alternative 1:** Update the `Model` to show all desired `FlashCards`, then export all of said `FlashCards`
 ** Pros: Is easy to implement as it makes use of existing logic in `Model`; user receives immediate visual feedback regarding which specific `FlashCards` were exported
-** Cons: May cause confusion - `export` command does not imply that the selected `FlashCards` will also be shown to the user
+** Cons: May cause confusion - name of `export` command does not imply that the selected `FlashCards` will also be shown to the user
 * **Alternative 2 (current choice):** Implement a new method in `Model` that returns the selected `FlashCards`, without updating the on-screen list
 ** Pros: Will not cause confusion to user - `export` command does exactly what one would expect it to do
 ** Cons: Is harder to implement and might result in duplication of logic
