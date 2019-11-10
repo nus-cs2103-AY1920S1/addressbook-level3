@@ -39,7 +39,7 @@ import seedu.deliverymans.logic.parser.deliveryman.DeliverymanParser;
 import seedu.deliverymans.logic.parser.restaurant.RestaurantParser;
 
 /**
- * TO fill
+ * TrieManager to handle all searching using the relevant Trie.
  */
 class TrieManager {
     private final Trie universalTrie;
@@ -62,7 +62,7 @@ class TrieManager {
     }
 
     /**
-     * TO fill
+     * Customer commandWords to add to the customerTrie;
      */
     private void addCustomerCommands() {
         customerTrie.insertCommand(CustomerAddCommand.COMMAND_WORD);
@@ -74,7 +74,7 @@ class TrieManager {
     }
 
     /**
-     * TO fill
+     * Deliveryman commandWords to add to the deliverymanTrie;
      */
     private void addDeliverymanCommands() {
         deliverymanTrie.insertCommand(DeliverymanAddCommand.COMMAND_WORD);
@@ -87,7 +87,7 @@ class TrieManager {
     }
 
     /**
-     * TO fill
+     * Restaurant commandWords to add to the restaurantTrie;
      */
     private void addRestaurantCommands() {
         restaurantTrie.insertCommand(AddRestaurantCommand.COMMAND_WORD);
@@ -96,7 +96,7 @@ class TrieManager {
     }
 
     /**
-     * TO fill
+     * Editing commandWords to add to the editingTrie;
      */
     private void addEditingCommands() {
         editingTrie.insertCommand(AddFoodCommand.COMMAND_WORD);
@@ -107,7 +107,7 @@ class TrieManager {
     }
 
     /**
-     * TO fill
+     * Universal commandWords to add to all Tries;
      */
     private void addUniversalCommands() {
         insertCommandToAllTries(AddOrderCommand.COMMAND_WORD, AddOrderCommand.getPrefixesList());
@@ -126,7 +126,7 @@ class TrieManager {
     }
 
     /**
-     * TO fill
+     * CommandWords to add to all Tries;
      */
     private void insertCommandToAllTries(String command) {
         universalTrie.insertCommand(command);
@@ -137,7 +137,7 @@ class TrieManager {
     }
 
     /**
-     * TO fill
+     * CommandWords to add to all Tries;
      */
     private void insertCommandToAllTries(String command, LinkedList<Prefix> prefixes) {
         universalTrie.insertCommand(command, prefixes);
@@ -148,14 +148,20 @@ class TrieManager {
     }
 
     /**
-     * TO fill
+     * Returns a list of autocomplete results.
+     *
+     * @param input   The String to search.
+     * @param context The Context to search in.
      */
     LinkedList<String> getAutoCompleteResults(String input, Context context) {
         return autoCompleteCommandWord(input, context);
     }
 
     /**
-     * TO fill
+     * Returns a list of matching commandWords depending on the input search String and Context to search in.
+     *
+     * @param input   The String to search.
+     * @param context The Context to search in.
      */
     private LinkedList<String> autoCompleteCommandWord(String input, Context context) {
         switch (context) {
@@ -173,7 +179,7 @@ class TrieManager {
     }
 
     /**
-     * TO fill
+     * Returns a boolean value depending on whether the output Trie contains prefixes.
      */
     boolean hasPrefixes(String input) {
         LinkedList<Prefix> prefixList = universalTrie.getPrefixes(input);
