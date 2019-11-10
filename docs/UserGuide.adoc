@@ -79,10 +79,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === DATA LOG
 
 ==== Add a data entry to the diabetes tracker app: `add`
-Format: `add rt/RECORD_TYPE dt/DATETIME` followed by any parameters that the RECORD_TYPE accepts.
-Note that rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
+Format: `add rt/RECORD_TYPE dt/DATETIME` followed by parameters that the RECORD_TYPE accepts.
 
-BMI must receive at least 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
+There must not be any duplicate parameters.
+Ordering of parameters is flexible (other than "add").
+
+rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
+dt/ value must not be in the future.
+
+BMI must receive exactly 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
 
 Height input (in meters) will be rounded to 2 decimal places.
 This rounded value must be less than 3 to be recorded successfully.
@@ -90,13 +95,9 @@ This rounded value must be less than 3 to be recorded successfully.
 Weight input (in kilograms) will be rounded to 2 decimal places.
 This rounded value must be less than 500 to be recorded successfully.
 
-BLOODSUGAR must receive at least 1 valid parameter for concentration: `con/VALUE`
+BLOODSUGAR must receive exactly 1 valid parameter for concentration: `con/VALUE`
 Concentration (mmol/L) will be rounded to 2 decimal places.
 This rounded value must be less than 33 to be recorded successfully.
-
-If there are duplicate parameters, the last parameter's value is captured and then tested for validity.
-
-Ordering of fields is flexible.
 
 `add` does not allow entries that have the same datetime and RECORD_TYPE.
 
@@ -120,16 +121,18 @@ The index refers to the index number shown in the displayed entries list
 //tag::calendar[]
 === CALENDAR AND REMINDER
 
-Command arguments:
+Command arguments for calendar and reminder:
 
-    - `d/DESCRIPTION` Description can take any values, and it should not be blank.
+    - `d/DESCRIPTION` Description can take any values, and it should not be blank. If more than one are present, the last argument is taken.
     - `dt/DATETIME` The format of date time is: `yyyy-mm-dd hh:mm` and the number should be valid.
-    - `r/REPETITION` Repetition can only take value `once`, `daily` or `weekly`(case insensitive).
+If more than one are present and the command only accepts one `dt/`, the last argument is taken. Otherwise, see below in `event` command for more details.
+    - `r/REPETITION` Repetition can only take value `once`, `daily` or `weekly`(case insensitive). If more than one are present, the last argument is taken.
     - `td/TIMEDURATION` The format of time duration is: `hh:mm` and it should not be blank. e.g.
-    `01:30` represents 1 hour and 30 minutes.
-    - `ym/YEAR_MONTH` The format of year month is: `yyyy-mm` and the number should be valid.
-    - `ymd/YEAR_MONTH_DAY` The format of year month day is: `yyyy-mm-dd` and the number should be valid.
-    - `ymw/YEAR_MONTH_DAY` The format of year month day is: `yyyy-dd-dd` and the number should be valid(same as year month day).
+    `01:30` represents 1 hour and 30 minutes. If more than one are present, the last argument is taken.
+    - `ym/YEAR_MONTH` The format of year month is: `yyyy-mm` and the number should be valid. If more than one are present, the last argument is taken.
+    - `ymd/YEAR_MONTH_DAY` The format of year month day is: `yyyy-mm-dd` and the number should be valid. If more than one are present, the last argument is taken.
+    - `ymw/YEAR_MONTH_DAY` The format of year month day is: `yyyy-dd-dd` and the number should be valid(same as year month day). If more than one are present, the last argument is taken.
+        See below in `calendar` command for more details if more than one of `ym/`, `ymd`, `ymw/` are present.
 
 ==== Add a reminder: `reminder`
 
@@ -172,7 +175,7 @@ User can also create a reminder for this event by specifying a time duration and
 For example, `event d/appointment dt/2019-12-20 14:00 dt/2019-12-20 15:00 td/01:30` adds an appointment event on 2019 Dec 20 15:00 to the calendar and a reminder for it at
 13:30 on that day.
 
-If only one `dt/` is presented, it will be recognized as the starting date time. If there are more than one `dt/`, the first and second one are interpreted as starting and ending
+If only one `dt/` is present, it will be recognized as the starting date time. If there are more than one `dt/`, the first and second one are interpreted as starting and ending
 date time. Starting date time should come before ending date time. If they are equal, then ending date time is discarded.
 A duplicate event(same description and starting date time) will be rejected. However, events that overlap with existing ones are accepted with a message shown to the user.
 For example, `event d/appointment dt/2019-12-20 14:00 dt/2019-12-20 16:00` will be rejected after the previous event commands. `event d/test dt/2019-12-20 13:00 dt/2019-12-20 14:10`
@@ -185,8 +188,8 @@ Format: `calendar [ym/YEAR_MONTH] [ymw/YEAR_MONTH_DAY] [ymd/YEAR_MONTH_DAY]`
 
 View all calendar entries or calendar entries in a month or in a week or on a day.
 
-** If none of the three arguments is presented, it will show all calendar entries added by the user.
-** If one or more of the three arguments are presented, it accepts the one with the smallest time unit. e.g. if `ymw` and `ymd` are
+** If none of the three arguments is present, it will show all calendar entries added by the user.
+** If one or more of the three arguments are present, it accepts the one with the smallest time unit. e.g. if `ymw` and `ymd` are
 both typed in, it only shows entries on the given date if the date is valid.
 *** `ymd/` shows the monthly calendar of given date and below the calendar is a list of reminders and events on that day. Particularly, if
 no date is provided, it will show calendar entries on the current date.
@@ -207,7 +210,7 @@ Silence the current reminder and activate it after a time period.
 
 ==== Complete a task: `complete` `[coming in v2.0]`
 
-Format: `complete [INDEX]... [t/TIME]`
+Format: `complete [INDEX] [t/TIME]`
 
 Mark all the reminders before now as completed if no argument provided.
 Otherwise, mark only those tasks with indices provided or before the specific time as completed.

@@ -30,8 +30,12 @@ public class CalendarCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_YEAR_MONTH + "2019-12";
 
-    public static final String MESSAGE_SUCCESS = "Here's the calendar of %1$s that I'm showing you! Any reminders "
-            + "that you've added will be indicated here.";
+    public static final String MESSAGE_SUCCESS_YEAR_MONTH = "Here's the calendar of %1$s that I'm showing you! "
+            + "Any reminders and events in %1$s that you've added will be indicated here.";
+    public static final String MESSAGE_SUCCESS_YEAR_MONTH_DAY = "Here's the calendar of %1$s that I'm showing you! "
+            + "Any reminders and events on %2$s that you've added will be indicated here.";
+    public static final String MESSAGE_SUCCESS_YEAR_MONTH_WEEK = "Here's the calendar of %1$s that I'm showing you! "
+            + "Any reminders and events in the week containing %2$s that you've added will be indicated here.";
     public static final String MESSAGE_SUCCESS_RAW = "Here are all the reminders and events that you have added.";
 
     private final YearMonth yearMonth;
@@ -74,10 +78,13 @@ public class CalendarCommand extends Command {
             return new CommandResult(MESSAGE_SUCCESS_RAW);
         }
         if (yearMonthDay.isPresent()) {
-            return new CalendarCommandResult(String.format(MESSAGE_SUCCESS, yearMonth),
-                    yearMonthDay.get(), isShowingWeek);
+            String feedback = String.format(MESSAGE_SUCCESS_YEAR_MONTH_DAY, yearMonth, yearMonthDay.get());
+            if (isShowingWeek) {
+                feedback = String.format(MESSAGE_SUCCESS_YEAR_MONTH_WEEK, yearMonth, yearMonthDay.get());
+            }
+            return new CalendarCommandResult(feedback, yearMonthDay.get(), isShowingWeek);
         } else {
-            return new CalendarCommandResult(String.format(MESSAGE_SUCCESS, yearMonth), yearMonth);
+            return new CalendarCommandResult(String.format(MESSAGE_SUCCESS_YEAR_MONTH, yearMonth), yearMonth);
         }
     }
 

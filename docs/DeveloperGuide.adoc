@@ -308,7 +308,7 @@ A new `RecordListPanel` is created and populates each `ListViewCell` with `Blood
 `ObservableList<Record>` is used to populate the `ListViewCell`.
 
 Step 3. The user executes `add rt/BMI h/1 w/1 dt/2019-09-09 12:12` command.
-The add command parameters are parsed for validity.
+The add command parameters are parsed for validity and uniqueness.
 This job is delegated to the following classes:
 `SugarMummyParser`,`AddCommandParser` and `ParserUtil.
 This is illustrated in SequenceDiagram below.
@@ -374,30 +374,73 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 //tag::calendar[]
 === Calendar feature
+
 ==== Implementation
 
-The calendar feature works along with a scheduler. Calendar stores internally a `calendarEntries` list and a `pastReminders` list.
-Calendar entries consists of reminders and events. Past reminders list is dynamically determined by time and all reminders in this
-list is shown to the user. The scheduler acts as a wrapper for the Java ScheduledExecutorService, which updates past reminder list at specific time.
-See the class diagram below for calendar related classes.
-
-image:CalendarClassDiagram.png[width=75%]
-
-The following activity diagram shows how event command and scheduler works:
-
-image:CalendarActivityDiagram.png[width=90%]
+===== Overview
+The calendar feature is mainly supported by `Calendar` along with a `Scheduler`. `Calendar` stores internally a `calendarEntries` list, a `pastReminders` list and a `Scheduler`.
+It also handles checking for duplicate and overlapping calendar entries.
+Calendar entries consists of `Reminder`s and `Event`s. `calendarEntries` list is an unique list for all calendar entries added
+by the user. Aside from it, `pastReminders` list is dynamically determined by time. The `Scheduler`, which utilizes java `ScheduledExecutorService` is responsible for adding reminders at specific time to the
+`pastReminders` list and all reminders in this list is shown to the user. The read-time reminder works parallel with all other features in this app. Also `Scheduler` keeps track of the current date and the starting
+time of running the app.
 
 It implements the following operations:
 
-* 'Calendar#addCalendarEntry' -- Adds a new calendar entry to the calendar.
-* 'Calendar#addPastReminder' -- Adds a reminder to the past reminders list.
-* 'Calendar#getCalendarEntryList' -- Gets a list of calendar entries.
-* 'Calendar#getPastReminderList' -- Gets a list of past reminders.
-* 'Calendar#schedule' -- Schedules a series of upcoming reminders.
+* `Calendar#addCalendarEntry` -- Adds a new calendar entry to the calendar.
+* `Calendar#addPastReminder` -- Adds a reminder to the past reminders list.
+* `Calendar#getCalendarEntryList` -- Gets a list of calendar entries.
+* `Calendar#getPastReminderList` -- Gets a list of past reminders.
+* `Calendar#schedule` -- Schedules a series of upcoming reminders.
 
 These operations are exposed in the `Model` interface as `Model#addCalendarEntry()`, `Model#addPastReminder()`,
- `Model#getFilteredCalendarEntryList()`, `Model#getPastReminderList` and `Model#schedule` respectively.
+ `Model#getFilteredCalendarEntryList()`, `Model#getPastReminderList()` and `Model#schedule()` respectively.
 
+See the class diagram below for calendar related classes.
+
+image::CalendarClassDiagram.png[]
+
+===== Reminder and Event class
+Basically, both `Reminder` and `Event` which extend from the abstract class `CalendarEntry` consist of a `Description` and a `DateTime` field.
+
+For `Reminder`, the `DateTime` field represents the time of the reminder and the date from which the reminder starts.
+It has a field of `Repetition`, which is an enum class representing `Daily`, `Weekly` or `Once` repetition type of the reminder.
+
+For `Event`, it has another optional `DateTime` field and an optional `Reminder` field. The compulsory `DateTime` field is the starting date time while the optional one is the ending date time. The `Reminder`
+is for an auto reminder created by the app if the user requires in the command.
+
+===== EventCommand and ReminderCommand class
+To add events or reminders, the calendar system implemented `EventCommand` and `ReminderCommand`. Before adding an event, the calendar system will check whether any duplicate event exists and any events overlap
+with the new event by comparing the `DateTime` attributes.
+
+The execution of the `ReminderCommand` involves checking whether any duplicate reminder exists also. Due to probable recurrence of reminders, it also
+checks if any reminder can fully cover the new reminder by comparing `DateTime` and `Repetition`. In this case, the new reminder will not be added. Besides, if the new reminder can cover other reminders, new reminder
+will replace them. For those overlap but cannot be resolved, the system will not add the new reminder either.
+
+===== Scheduler class
+To show reminders at certain time, the `Scheduler` utilizes java `ScheduledExecutorService` to schedule a future task with a delay. It creates two inner classes implementing the `Runnable` interface for tasks. The `ReminderAdder`
+class represents a task of adding a reminder to the past reminder list. `Initializer` class represents a task of initializing the scheduler at the beginning of a day.
+
+- **Range of tasks scheduled** +
+** To calculate the accurate delay time for each reminder, the scheduler keeps track of starting time for all the scheduled tasks and the delay is the time duration between this starting time and the reminder time.
+Apart from the starting time, there is a deadline for the scheduler which limits the time range for scheduled reminder tasks. So the scheduler only schedules tasks for reminders between the starting time and the deadline.
+In addition, before scheduling tasks, all reminders with the same time are grouped together by using a `TreeMap` to map from each time to a list of reminders so they can be added to the past reminder list together.
+
+** After the app is launched, the `Scheduler` is called to initialize tasks. The starting time is set to be the starting date time and the deadline is set to be 23:59 on the same day. Thus only reminders on the current date is scheduled.
+During the app running, `Scheduler` can be called to reschedule tasks because of adding new reminders or removing reminders. This will adjust the starting time for scheduling to the current time while the deadline remains the same.
+Due to the limited number of threads and unknown number of upcoming reminders, the scheduler will cancel all the tasks that have not been executed and then schedule upcoming reminders that fall between the new starting time and the deadline.
+Each time any reminder being added or removed, the scheduler is triggered to reschedule tasks.
+
+- **How to move on to next day** +
+Besides scheduling tasks of adding reminders, the scheduler always schedules a task with `Initializer` class for initializing right after the current deadline, so that it can transfer smoothly to the next day if the app is open overnight. This initializer will set the
+deadline to be end of the next day, update date and schedule tasks.
+
+
+The following activity diagram shows an example of how event command and scheduler work together:
+
+image::CalendarActivityDiagram.png[]]
+
+===== Example usage scenario
 Given below is an example usage scenario and how the calendar behaves at each step.
 
 Step 1. The user launches the application for the first time on Dec 14 2019 09:00(local time). The `Calendar` will be initialized with the initial calendar state, which includes an empty calendar
@@ -414,12 +457,13 @@ update the upcoming reminders.
 [NOTE]
 If an event or reminder command fails its execution, it will not call `Model#addCalendarEntry()`, so the calendar state will not be saved into the `calendarEntryList`.
 
-Step 4. At 14:00, a scheduled task is executed to call `Model#addPastReminder()` and it adds the dinner event reminder to the `pastReminders` list.
+Step 4. At 14:00, a scheduled task is executed to call `Calendar#addPastReminder()` and it adds the dinner event reminder to the `pastReminders` list.
 
-Step 5. At 17:30, a scheduled task is executed to call `Model#addPastReminder()` and it adds the dinner event reminder to the `pastReminders` list.
+Step 5. At 17:30, a scheduled task is executed to call `Calendar#addPastReminder()` and it adds the dinner event reminder to the `pastReminders` list.
 
 The following sequence diagram shows how a single `reminder` command works:
-image:CalendarSequenceDiagram.png[]
+
+image::CalendarSequenceDiagram.png[]
 
 ==== Design Considerations
 
@@ -427,7 +471,7 @@ image:CalendarSequenceDiagram.png[]
 
 * **Alternative 1 (current choice):** Cancels all scheduled reminders and reschedule according to the updated reminder entries.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of time.
+** Cons: May have to do duplicate work of scheduling. May have performance issues in terms of time.
 * **Alternative 2:** Updates scheduled reminders according to the newly added reminder.
 ** Pros: Will has less repeated work.
 ** Cons: More work to do on deciding which tasks to cancel.
@@ -435,12 +479,20 @@ image:CalendarSequenceDiagram.png[]
 ===== Aspect: Period of updating scheduler.
 
 * **Alternative 1 (current choice):** Updates scheduler at 23:59(local time) every day.
-** Pros: Easy to implement.
-** Cons: May have a large number of scheduled tasks which will not be executed before the applicaion is closed.
+** Pros: Good consistency.
+** Cons: May have a large number of scheduled tasks which will not be executed before the application is closed.
 * **Alternative 2:** Updates scheduler every hour.
 ** Pros: More flexible scheduling without concerning date and less scheduled tasks.
 ** Cons: May cause overhead due to frequently updating.
 
+===== Aspect: Resolution of overlapping reminders
+
+* **Alternative 1 (current choice):** Force to replace subset reminders with new superset reminders which fully cover existing reminders.
+** Pros: Avoid duplicate reminders added which the user may not be aware of.
+** Cons: May remove some reminders that the user was not intent to do.
+* **Alternative 2:** Asks for user's permission before proceeding.
+** Pros: Can avoid unintentionally reminders deleting.
+** Cons: May cause some duplicate reminders.
 //end::calendar[]
 
 //tag::personalisedUserExperienceDgPppPart0[]
@@ -1636,6 +1688,74 @@ Expected: Feedback message indicates that there is nothing to change.
 .. Prerequisites: NIL
 ... Test action: Restart the application +
 Expected: A new motivation quote is selected at random and shown in the pane showing motivational quotes at the bottom of the window.
+
+//tag::calendarcommand[]
+
+=== Reminder and Event Command
+
+.. Prerequisites: The calendar entry list is empty.
+... Test case: `reminder d/insulin inject dt/2019-11-30 17:00` +
+Expected: Feedback message indicates that a new reminder: insulin inject On 2019-11-30 17:00 is added and the pane of all calendar entries shown.
+... Test case: `reminder d/test dt/2019-12-10 12:00 r/daily` +
+Expected: Feedback message indicates that a new reminder: test At 12:00 everyday From 2019-12-10 is added and the pane of all calendar entries shown.
+... Test case: `event d/test dt/2019-12-01 11:00 dt/2019-12-01 11:30 td/01:00` +
+Expected: Feedback message indicates that a new event: test From 2019-12-01 11:00 To: 2019-12-01 11:30 is added along with a new reminder for the event:
+Event: test in 1 hours 0 minutes On 2019-12-01 10:00. And the pane of all calendar entries shown.
+... Test case: `event d/test dt/2019-12-01 11:00 dt/2019-12-01 10:00` +
+Expected: Error message shown: The ending date time of an event should come after starting date time.
+
+.. Prerequisites: The calendar entry list contains the following entries: +
+reminder: insulin inject On 2019-11-30 17:00 +
+reminder: test At 12:00 everyday From 2019-12-10 +
+event: test From 2019-12-01 11:00 To: 2019-12-01 11:30 +
+reminder: Event: test in 1 hours 0 minutes On 2019-12-01 10:00 +
+The following commands are typed in the order they present.
+... Test case: `reminder d/insulin inject dt/2019-11-30 17:00` +
+Expected: Error message shown: This reminder already exists in the calendar
+... Test case: `reminder d/insulin inject dt/2019-11-30 17:00 r/daily` +
+Expected: Feedback message indicates that a new reminder: insulin inject At 17:00 everyday From 2019-11-30 is added and the following reminder(s) were removed because they are covered by the new reminder:
+insulin inject On 2019-11-30 17:00. Also the pane of all all calendar entries shown.
+... Test case: `reminder d/insulin inject dt/2019-12-20 17:00 r/weekly` +
+Expected: Error message shown: This reminder is covered by insulin inject At 17:00 everyday From 2019-11-30.
+... Test case: `reminder d/insulin inject dt/2019-11-20 17:00 r/weekly` +
+Expected: Error message shown: This reminder and the following reminder(s) conflict: insulin inject At 17:00 everyday From 2019-11-30.
+... Test case: `event d/test dt/2019-12-01 11:00 dt/2019-12-01 11:30` +
+Expected: Error message shown: This event already exists in the calendar.
+... Test case: `event d/test2 dt/2019-12-01 10:00 dt/2019-12-01 11:30` +
+Expected: Feedback message indicates that a new event: test2 From 2019-12-01 10:00 To: 2019-12-01 11:30 is added. However, it overlaps with the following events: test From 2019-12-01 11:00 To: 2019-12-01 11:30.
+
+=== Reminder list side pane
+
+.. Prerequisites: The calendar entry list contains the following entries: +
+reminder: insulin inject At 17:00 everyday From 2019-11-30 +
+reminder: test At 12:00 everyday From 2019-12-10 +
+event: test From 2019-12-01 11:00 To: 2019-12-01 11:30 +
+reminder: Event: test in 1 hours 0 minutes On 2019-12-01 10:00 +
+reminder: test2 At 16:00 everyday From 2019-11-20 +
+The user opens the app on 2019-12-11 15:00 and does not close it until 18:00.
+
+... Expected: The side pane shows reminders that the user might miss today: +
+test at 12:00 +
+At 16:00, a reminder of test2 is shown in the side pane.
+... Test case: `reminder d/test3 dt/2019-12-11 16:30`(typed in at 16:10) +
+Expected: At 16:30, a reminder of test3 is shown in the side pane. +
+At 17:00, a reminder of insulin inject is shown in the side pane. +
+
+=== Calendar Command
+.. Prerequisites: The calendar entry list contains the following entries: +
+reminder: test At 12:00 everyday From 2019-12-10 +
+event: test From 2019-12-01 11:00 To: 2019-12-01 11:30 +
+The user opens the app on 2019-11-20
+... Test case: `calendar` +
+Expected: A pane of all the calendar entries added is shown.
+... Test case: `calendar ym/2019-12` +
+Expected: A monthly calendar of 2019 Dec is shown. Below are calendar entries on each day of 2019 Dec.
+In this case, there is a reminder of test at 12:00 listed in list for each day from Dec 10. An event of
+test from 11:00 to 11:30 is listed in Dec 1's list.
+... Test case: `calendar ymw/` +
+Expected: A monthly calendar of 2019 Nov is shown. Below are calendar entries on each day from Nov 16 to
+Nov 22.
+//end::calendarcommand[]
 
 === Food Recommendation Feature
 . Recommending food with specified flags
