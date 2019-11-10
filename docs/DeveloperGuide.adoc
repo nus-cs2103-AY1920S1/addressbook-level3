@@ -191,7 +191,6 @@ The commands when executed, will interface with the methods exposed by the `Mode
 image::QuestionsClassDiagram.png[]
 _Figure 5. Overview of questions classes_
 
-// tag::questions[]
 [[Feature-Question-Add]]
 ==== Add command
 
@@ -201,7 +200,7 @@ The following is a detailed explanation of the operations `QuestionAddCommand` p
 The type defined will dictate if the resulting question will be a `OpenEndedQuestion` or `McqQuestion` question type.
 
 *Step 2*. The question is then searched through the `QuestionBank#questions` list using the `Model#hasQuestion(Question question)` method
-to check if the question already exists.
+to check if the question already exists. If the question already exists, `CommandException` will be thrown with the error message.
 
 *Step 3*. The method `Model#addQuestion(Question question)` will then be called to add the question and the question added,
 will be appended with the `QuestionAddCommand#MESSAGE_SUCCESS` constant and a new `CommandResult` will be returned with the message.
@@ -219,7 +218,7 @@ the `Question` object.
 If the question type is changed from open ended to mcq, it is necessary for the user to define all four options i.e a/ b/ c/ d/.
 
 *Step 2*. A new `Question` with the updated values will be created and the question is then searched through the `QuestionBank#questions` list
-using the `Model#hasQuestion(Question question)` method to check if the question already exists.
+using the `Model#hasQuestion(Question question)` method to check if the question already exists. If the question already exists, `CommandException` will be thrown with the error message.
 
 *Step 3*. The newly created `Question` will replace the existing question object through the `Model#setQuestion(Index index, Question question)` method
 at the specified `Index` defined by the user.
@@ -252,6 +251,7 @@ does not write to the question list.
 *Step 2*. The `Model#getQuestionsSummary()` method is then called and the questions are returned as a `String` to the new `CommandResult`
 object.
 
+// tag::questions-find[]
 [[Feature-Question-Find]]
 ==== Find command
 
@@ -284,6 +284,8 @@ they will be added to the temporary `similarAl` list instead.
 
 image::QuestionsSearchActivityDiagram.png[]
 _Figure 6. Activity diagram of questions search_
+
+// end::questions-find[]
 
 ==== Design Considerations
 
@@ -319,10 +321,11 @@ using a longer search term as compared to a shorter one. Long search terms are a
 ** Using a calibration percentage above 70 percent. This is not optimal for our use case as words with similar spelling but
 different meanings e.g 'moon' and 'noon', will be more often included in the search results.
 
+// tag::questions-slideshow[]
 [[Feature-Slideshow]]
 === Slideshow feature
 
-The slideshow feature is dependent on the questions added by the `question slideshow [question no(s).]` command and
+The slideshow feature is dependent on the questions added by the `question slideshow [QUESTIONS INDEX]` command and
 interacts with the `ModelManager` to retrieve the list of questions to be displayed in the slideshow.
 The logic control for displaying the ui resides in the `SlideshowWindow` class and handles the controls and instantiation
 of the various `QuestionPanel` that contains each question. +
@@ -330,7 +333,7 @@ of the various `QuestionPanel` that contains each question. +
 Below is the sequence diagram of the interactions that happen from when the slideshow command is entered, to the corresponding
 questions displayed in the slideshow.
 
-image::SlideshowFeatureSequenceDiagram.png[]
+image::SlideshowFeatureSequenceDiagram.png[scaledwidth=16cm]
 _Figure 7. Sequence diagram illustrating the interactions happening_
 
 The following is an example and detailed explanation as to how the questions are fetched and displayed on the slideshow. +
@@ -381,7 +384,7 @@ that they want the questions to be displayed.
 ** Placement of the question numbering, topic, options and answer follows the common convention where
 the question numbering will be at the top followed by the topic, options and then the answer. This is such that viewers
 will not be confused by the layout.
-** *Font sizes* are displayed in the following descending order to allow the text for easy viewing:
+** Font sizes are displayed in the following descending order to allow the text for easy viewing:
 *** [.big]##Question Number##
 *** Question Topic & Options
 *** [.small]#Answer#
@@ -391,7 +394,7 @@ will not be confused by the layout.
 However, this is not feasible as it will break the standard formatting of the answers display since both *Open Ended* and *MCQ*
 questions will have 2 different answer formats and may cause confusion to the user.
 
-// end::questions[]
+// end::questions-slideshow[]
 
 === Quiz feature
 

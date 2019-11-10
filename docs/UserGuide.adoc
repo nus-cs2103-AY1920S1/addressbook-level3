@@ -422,7 +422,7 @@ _Creating an open ended question._
 
 ==== Editing a question
 
-Edit a question currently stored. All keywords are *optional*. +
+Edit a question from the question list. All keywords are *optional*. +
 {empty} +
 
 [big]*Format:* `question [INDEX] question/... answer/... type/... (MCQ KEYWORDS IF APPLICABLE)`
@@ -501,14 +501,13 @@ The keywords supported by this feature includes: +
 Example:
 
 * `question list` +
-Lists the question list.
+Displays the question list.
 
 image::questions/ListQuestionResult.png[]
-_Listing saved questions._
+_Listing questions currently stored._
 
 '''
 
-// tag::questions-slideshow[]
 [[Feature-Question-Find]]
 ==== Searching for a question
 
@@ -539,6 +538,7 @@ _Finding questions that matches search term._
 
 '''
 
+// tag::questions-slideshow[]
 ==== Starting a Slideshow
 
 Start a slideshow based on the questions selected. The sequence of the questions displayed will follow the ordering of input. +
