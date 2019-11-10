@@ -2,7 +2,9 @@ package seedu.savenus.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.savenus.logic.commands.CommandTestUtil.assertCommandSuccess;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.savenus.logic.commands.CommandResult;
 import seedu.savenus.logic.commands.ThemeCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
