@@ -19,7 +19,7 @@ practice questions under exam conditions and plan revision tasks effectively.
 
 This is what our project looks like:
 
-image::full.png[width = "700"]
+image::full.png[width = "600"]
 
 My job is to design and write the code for question management features. Details of the enhancements and
 relevant documentation I have completed will be further explained in sections below.

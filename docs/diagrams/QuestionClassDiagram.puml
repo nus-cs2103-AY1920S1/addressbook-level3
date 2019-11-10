@@ -1,4 +1,8 @@
 @startuml
+!include ClassDiagramStyle.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
 
 class Question {
 getQuestionBody(): QuestionBody
