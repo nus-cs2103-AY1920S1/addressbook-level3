@@ -53,7 +53,7 @@ public interface WordBankListStorage {
     void exportWordBank(String wordBankName, Path filePath);
 
     /**
-     * Updates any changes to word banks that were manipulated in ModelManager.
+     * Updates any changes to word banks that were changed.
      *
      * @param wordBank cannot be null.
      */

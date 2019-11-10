@@ -14,6 +14,7 @@ public interface ReadOnlyWordBankList {
      * Returns an unmodifiable view of the word bank.
      * This list will not contain any duplicate word banks.
      * Every word bank can be specified by its unique name.
+     * This is used so that any updates to the word bank list will be notified to the observer.
      */
     ObservableList<WordBank> getFilteredWordBankList();
 
@@ -22,11 +23,21 @@ public interface ReadOnlyWordBankList {
      *
      * @param name word bank name.
      * @return word bank.
-     * @throws WordBankNotFoundException
      */
-    WordBank getWordBankFromName(String name) throws WordBankNotFoundException;
+    WordBank getWordBankFromName(String name);
 
+    /**
+     * Checks if the word bank list contain this particular word bank.
+     *
+     * @param name of word bank.
+     * @return true if word bank exist and false otherwise.
+     */
     boolean hasWordBankName(String name);
 
+    /**
+     * Returns number of word banks in the word bank list.
+     *
+     * @return number of word banks in the word bank list.
+     */
     int size();
 }
