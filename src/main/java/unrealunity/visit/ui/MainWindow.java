@@ -70,8 +70,9 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
+
         // Load font
-        Font.loadFont(getClass().getResourceAsStream("/font/Gill-Sans-MT.TTF"), 10);
+        Font.loadFont(getClass().getResourceAsStream("/font/Gill-Sans-MT.ttf"), 10);
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -318,7 +319,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowProfile()) {
                 profilePanel.setup(commandResult.getProfilePerson(), logic);
-                profilePanel.populateVisitList(commandResult.getObservableVisitList());
                 handleProfilePanel();
             }
 

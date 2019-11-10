@@ -80,4 +80,13 @@ public class FileUtil {
         Files.write(file, content.getBytes(CHARSET));
     }
 
+    /**
+     * Writes given string to a file.
+     * Will create the file if it does not exist yet.
+     */
+    public static void writeToProtectedFile(Path file, String content) throws IOException {
+        Files.write(file, content.getBytes(CHARSET));
+        file.toFile().setReadOnly();
+    }
+
 }

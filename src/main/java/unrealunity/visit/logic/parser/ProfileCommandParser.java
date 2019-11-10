@@ -9,12 +9,12 @@ import unrealunity.visit.logic.commands.ProfileCommand;
 import unrealunity.visit.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@code RemarkCommand} object
+ * Parses input arguments and creates a new {@code ProfileCommand} object
  */
 public class ProfileCommandParser implements Parser<ProfileCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the {@code RemarkCommand}
-     * and returns a {@code RemarkCommand} object for execution.
+     * Parses the given {@code String} of arguments in the context of the {@code ProfileCommand}
+     * and returns a {@code ProfileCommand} object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ProfileCommand parse(String args) throws ParseException {

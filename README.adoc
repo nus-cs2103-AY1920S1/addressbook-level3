@@ -44,8 +44,8 @@
 ** Can't remember when your next appointment is? VISIT reminds you when your next consultation is.
 * *Alias / Macro command support* 🔤
 ** No need to type the same commands over and over, simply add an alias from within the CLI!
-* *Save patient information as a .pdf file* 📄
-** VISIT allows you to export and store a patient's profile as a .pdf in your own file system!
+* *Save patient information as a text file* 📄
+** VISIT allows you to export and store a patient's profile in your own file system!
 * *Sleek and modern UI* 💼
 * *Tagging and Search functionality* 🔎
 * *Cross platform* 🖥️
