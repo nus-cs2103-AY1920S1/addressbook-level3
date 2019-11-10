@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
@@ -27,6 +28,8 @@ import seedu.address.model.expense.Expense;
 import seedu.address.testutil.ExpenseBuilder;
 
 public class AddCommandTest {
+
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullExpense_throwsNullPointerException() {
@@ -50,7 +53,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validExpense);
         ModelStub modelStub = new ModelStubWithExpense(validExpense);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EXPENSE, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EXPENSE, () -> addCommand.execute(modelStub,
+            commandHistory));
     }
 
     @Test

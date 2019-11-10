@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -22,6 +23,7 @@ import seedu.address.testutil.ExpenseBuilder;
 public class AddCommandIntegrationTest {
 
     private Model model;
+    private CommandHistory commandHistory = new CommandHistory();
 
     @BeforeEach
     public void setUp() {
@@ -38,21 +40,21 @@ public class AddCommandIntegrationTest {
         expectedModel.addExpense(validExpense);
 
         assertCommandSuccess(new AddCommand(validExpense), model,
-            String.format(AddCommand.MESSAGE_SUCCESS, validExpense), expectedModel);
+            String.format(AddCommand.MESSAGE_SUCCESS, validExpense), expectedModel, commandHistory);
     }
 
     @Test
     public void execute_duplicateExpense_throwsCommandException() {
         Expense expenseInList = model.getExpenseList().getExpenseList().get(0);
-        assertCommandFailure(new AddCommand(expenseInList), model, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
+        assertCommandFailure(new AddCommand(expenseInList), model, AddCommand.MESSAGE_DUPLICATE_EXPENSE,
+            commandHistory);
     }
-
-    //
 
     @Test
     public void execute_clashBudget_throwsCommandException() {
         Budget budgetInList = model.getBudgetList().getBudgetList().get(0);
-        assertCommandFailure(new AddBudgetCommand(budgetInList), model, AddBudgetCommand.MESSAGE_BUDGET_CLASH);
+        assertCommandFailure(new AddBudgetCommand(budgetInList), model, AddBudgetCommand.MESSAGE_BUDGET_CLASH,
+            commandHistory);
     }
 
 }

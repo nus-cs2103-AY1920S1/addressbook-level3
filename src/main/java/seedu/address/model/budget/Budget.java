@@ -96,7 +96,6 @@ public class Budget {
         recalculateAmountLeft();
     }
 
-
     /**
      * @param expense target expense in the budget
      */

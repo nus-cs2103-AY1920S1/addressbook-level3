@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
@@ -62,11 +63,11 @@ public class CommandTestUtil {
 
     static {
         DESC_VODKA = new EditExpenseDescriptorBuilder().withName(VALID_NAME_VODKA)
-                .withCurrency(VALID_CURRENCY_VODKA).withAmount(VALID_AMOUNT_VODKA).withDate(VALID_DATE_VODKA)
-                .withTags(VALID_TAG_DRINKS).build();
+            .withCurrency(VALID_CURRENCY_VODKA).withAmount(VALID_AMOUNT_VODKA).withDate(VALID_DATE_VODKA)
+            .withTags(VALID_TAG_DRINKS).build();
         DESC_RUM = new EditExpenseDescriptorBuilder().withName(VALID_NAME_RUM)
-                .withCurrency(VALID_CURRENCY_RUM).withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_RUM)
-                .withTags(VALID_TAG_ALCOHOL, VALID_TAG_DRINKS).build();
+            .withCurrency(VALID_CURRENCY_RUM).withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_RUM)
+            .withTags(VALID_TAG_ALCOHOL, VALID_TAG_DRINKS).build();
     }
 
     /**
@@ -75,24 +76,26 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+                                            Model expectedModel, CommandHistory actualCommandHistory) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model, CommandHistory)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel, CommandHistory actualCommandHistory) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel, actualCommandHistory);
     }
 
     /**
@@ -101,16 +104,21 @@ public class CommandTestUtil {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the address book, filtered expense list and selected expense in {@code actualModel} remain unchanged
      */
-    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
+    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
+                                            CommandHistory actualCommandHistory) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         ExpenseList expectedExpenseList = new ExpenseList(actualModel.getExpenseList());
         List<Expense> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExpenseList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, actualCommandHistory));
         assertEquals(expectedExpenseList, actualModel.getExpenseList());
         assertEquals(expectedFilteredList, actualModel.getFilteredExpenseList());
+        assertEquals(expectedCommandHistory, actualCommandHistory);
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the expense at the given {@code targetIndex} in the
      * {@code model}'s address book.
@@ -124,5 +132,4 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredExpenseList().size());
     }
-
 }

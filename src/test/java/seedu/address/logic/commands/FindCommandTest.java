@@ -15,6 +15,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -30,6 +31,7 @@ public class FindCommandTest {
         getTypicalExchangeData(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalExpenseList(), new BudgetList(),
         getTypicalExchangeData(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_zeroKeywords_noExpenseFound() {
@@ -37,7 +39,7 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel, commandHistory);
         assertEquals(Collections.emptyList(), model.getFilteredExpenseList());
     }
 
@@ -47,7 +49,7 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate("shoe Chocolates Socks");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenseList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel, commandHistory);
         assertEquals(Arrays.asList(SHOPPING, VALENTINES, CHRISTMAS), model.getFilteredExpenseList());
     }
 
