@@ -88,20 +88,6 @@ available. This eliminates any hindrance involving manual checks for the availab
 Furthermore, upon any mistyped words or descriptions that do not match an existing item in the inventory,
 suggestions will be offered. This further augments the hassle-free aspect of this tab.
 
-//
-//* Setting the Cashier-In-Charge
-//** What it does:
-//This feature allows the user to set an existing member as the cashier-in-charge. This cashier will be accountable for
-//all the sales made.
-//
-//** Justification:
-//As there is someone accountable for the sales made, it is easier to solve conflicts if any issue arises.
-//This also ensures a transparent system where the whereabouts of the funds are apparent and can be tracked.
-//
-//** Highlights:
-//This feature only allows an existing member to be set as the cashier in order to prevent a dubious person from being
-//involved in the financial matters of the organisation. This existing member must be registered in the database with all
-//his/her contact details.
 
 * Checking Out the Cart
 ** What it does:
@@ -191,35 +177,6 @@ The following section showcases my contribution to the user guide for features s
 
 {Start of First Extract from User Guide}
 
-//
-//[big]##5.5. Cashier Tab##
-//This section will contain the details on all commands available on the Cashier Tab.
-//
-//====
-//*Summary of Features of the Cashier Tab*
-//
-//* The Cashier tab allows you to key in, calculate and record the items sold from the inventory.
-//* To key in an item, it must first be recorded in the Inventory tab.
-//* The columns of this tab will show the description of the item being sold, the price per quantity, the total quantity selected
-//and the subtotal for that row of items.
-//* The bottom row will display the name of the cashier who is in-charge of the sales, as well as the total amount of all
-//the sales items in the table.
-//* At the side, just like other tabs, our mascot lion 'Leo' will reply to indicate successful addition, deletion and
-//update of items.
-//* Upon wrong inputs, Leo will prompt you and guide you along to key in the correct inputs.
-//* Upon successful checkout, the Inventory tab will be immediately updated with the remaining stock left in
-//the inventory.
-//* After every checkout, the sales made will be recorded as one transaction which will be then labelled as "Items sold"
-//under the category "Sales" and person will be the cashier-in-charge. The Home tab will be updated with this transaction.
-//
-//[NOTE]
-//Items with zero price are not available for sale. Such items cannot be added into the table.
-//
-//[WARNING]
-//Due to size limitation, you will not be allowed to add any items into the table if the total amount exceeds $999999.99. You
-//are advised to reduce the quantity of items or checkout separately in another cart.
-//====
-
 :sectnums!:
 === 5.5.1. Add a Sales Item to the Table
 
@@ -254,21 +211,15 @@ specified category inputted.
 Steps:
 1. Type the command with a category specified as shown in the screenshot below:
 
-//.Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
-
 image::cashierUG/AddCommand1.png[width=600"]
 
 [start = 2]
 2. Enter the desired description and quantity according to the items suggested by Leo as shown below:
 
-//.Screenshot of the user input (description, quantity) into Command Box for Add Command in Cashier Tab
-
 image::cashierUG/AddCommand2.png[width="600"]
 
 [start = 3]
 . Hit `Enter`
-
-//.Screenshot of the response message for Add Command in Cashier Tab
 
 image::cashierUG/AddCommand3.png[width="600"]
 
@@ -304,14 +255,11 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 
 1. Type the command and specify the amount that the customer is paying as shown in the screenshot below:
 
-//.Screenshot of user input into Command Box for Checkout Command in Cashier Tab
-
 image::cashierUG/CheckoutCommand1.png[width="600"]
 
 [start = 2]
 . Hit `Enter`
 
-//.Screenshot of response message for Checkout Command in Cashier Tab
 
 image::cashierUG/CheckoutCommand2.png[width="600"]
 
@@ -343,10 +291,6 @@ The following section showcases my contribution to the developer guide for featu
 
 This feature allows the adding of sales items to the cart.
 
-//
-//Only sales items can be added to the cart. If the price of an item is zero, it is not available for sale. The
-//system will prohibit any addition of such an item to the cart.
-
 Adding of a sales item to the cart will require an input of its description and quantity. If only the category field is inputted,
 `Model` will search all the sales items in the `Inventory List`
 according to the specified category and suggestions would be shown by Leo.
@@ -377,33 +321,10 @@ The following is a code snippet from `getCombination(char[] arr, int n)` method:
                         .toCollection(ArrayList::new));
     }
 
-//
-//            if (description.length() >= 3) {
-//                char[] arr = description.toCharArray();
-//                ArrayList<String> combinations = getCombination(arr, arr.length);
-//                for (int j = 0; j < combinations.size(); j++) {
-//                    if (combinations.get(j).contains(itemDescription) // itemDescription refers to the actual description of an item in the inventory
-//                            || itemDescription.contains(combinations.get(j))) {
-//                        recommendedItems.add(item.getDescription());
-//                        continue;
-//                    }
-//                }
-//            }
-
-//            ArrayList<String> newList = recommendedItems.stream()
-//            .distinct()
-//            .collect(Collectors
-//            .toCollection(ArrayList::new));
-//            return newList;
-
 The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
 starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
 The last loop appends characters from the starting character to the ending character. After the nested loops, the ArrayList `result`
 is passed into a stream to filter out all subsets strings that are of length less than 3.
-
-//
-//As shown in the second code snippet, after adding all the suggested words into the `recommendedItems` list, the list
-//is passed into a stream to remove duplicates.
 
 //
 //[NOTE]
@@ -425,9 +346,6 @@ left in the inventory. There will also be checks to ensure that the item specifi
 Once the item is added, boolean `onCashierMode` in ModelManager  will be immediately set to true if
 it is initially false.
 
-//After every add command, the quantity of items in the Inventory Tab will still remain the same. The remaining stock
-//will only be updated after the Checkout Command.
-
 The following activity diagram shows the steps proceeding after the user input an add command:
 
 .Activity Diagram of Add Command (cashier package)
@@ -436,38 +354,6 @@ image::AddCommandCashierActivity.png[width="600"]
 
 {End of First Extract from Developer Guide}
 
-//[big]##3.1.2 Set Cashier Feature##
-//
-//This feature allows an existing person in the `Address Book` to be set as a cashier. The only field required is
-//the name of an existing person.
-//
-//To set a cashier, the person's name inputted has to match an existing name in the `AddressBook` as shown on `Members Tab`.
-//This means that SetCommandParser requires access to the `Model` of the person package where the `AddressBook` implementation is. +
-//If the person's name cannot be found in the `Model` of the person package, a response message will be shown by Leo,
-//informing the user that there is no such person.
-//
-//The following sequence diagram shows how the SetCashierCommandParser checks for an existing person:
-//
-//.Sequence Diagram of SetCashierCommandParser (cashier package)
-//
-//image::SetCashierCommandSeq1.png[width="300"]
-//
-//If the specified name is valid, the `Model` of the cashier package will set the person as cashier.
-//
-//The following sequence diagram shows how the set cashier command works and is the reference
-//from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
-//
-//.Sequence Diagram of Set Cashier Command (cashier package)
-//
-//image::SetCashierCommandSeq2.png[width="300"]
-//
-//If the inputted name is invalid, the user will be prompted to enter a valid name.
-//
-//The following activity diagram shows the steps after the user input a set cashier command:
-//
-//.Activity Diagram of Set Cashier Command (cashier package)
-//
-//image::SetCashierCommandActivity.png[width="450"]
 
 {Start of Second Extract from Developer Guide}
 
