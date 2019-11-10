@@ -22,12 +22,10 @@ public class NewCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Drafts an incident report to the incident management "
             + "system. \n" + "Parameters: "
-            + PREFIX_DISTRICT + "DISTRICT NUMBER "
+            + PREFIX_DISTRICT + "DISTRICT_NUMBER "
             + PREFIX_AUTO + "[y/n]";
 
     public static final String MESSAGE_SUCCESS = "New incident drafted!";
-    public static final String MESSAGE_DUPLICATE_REPORT = "This draft already exists in the incident "
-            + "management system";
 
     private final District district;
     private final boolean isAuto;
@@ -95,6 +93,6 @@ public class NewCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof NewCommand // instanceof handles nulls
                 && district.equals(((NewCommand) other).district))
-                && draft.equals(((NewCommand) other).draft);
+                && isAuto == (((NewCommand) other).isAuto);
     }
 }

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 class IncidentDateTimeTest {
 
     private static final String VALID_DATETIME = "2016-12-20T14:30:40";
-    private static final String VALID_DISPLAY_DATETIME = "Dec 20, 2016, 2:30:40 PM";
 
     @Test
     public void constructorValidDateTimeSuccess() {
@@ -78,11 +77,5 @@ class IncidentDateTimeTest {
         assertTrue(IncidentDateTime.isValidIncidentDateTimeFormat("2016-01-04T11:00:00")); // valid date time am
         assertTrue(IncidentDateTime.isValidIncidentDateTimeFormat("2029-12-04T11:00:00")); // future date time
         assertTrue(IncidentDateTime.isValidIncidentDateTimeFormat("1009-12-04T11:00:00")); // past date time
-    }
-
-    @Test
-    public void toDisplayString() {
-        IncidentDateTime nonDisplayDateTime = new IncidentDateTime (VALID_DATETIME);
-        assertEquals(VALID_DISPLAY_DATETIME, nonDisplayDateTime.toDisplayString());
     }
 }

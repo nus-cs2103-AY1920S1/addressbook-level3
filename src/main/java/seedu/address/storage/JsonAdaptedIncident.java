@@ -66,13 +66,13 @@ class JsonAdaptedIncident {
         Description sourceD = source.getDesc();
 
         if (sourceC == null) {
-            callerNumber = "12345678";
+            callerNumber = "00000000";
         } else {
             callerNumber = sourceC.toString();
         }
 
         if (sourceD == null) {
-            description = "default description";
+            description = "[TO BE FILLED]";
         } else {
             description = sourceD.toString();
         }
