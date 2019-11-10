@@ -451,14 +451,14 @@ Format: `sort` or `sort <criteria>`
 Examples:
 
 * `sort` - a simple sort that follows the criteria mentioned above for the different panel.
-* `sort priority` - sorts the item within the panel by their priority (from high to low).
-* `sort description` - sorts the item within the panel by their description (lexicographic order)
+* `sort pri` - sorts the item within the panel by their priority (from high to low).
+* `sort desc` - sorts the item within the panel by their description (lexicographic order)
 //end::sort[]
 
 //tag::find[]
 ==== Finding a task: `find`
 
-Is your task list getting too long and you are not able to find what you are looking for? Introducing the `find` function which will allow you to find what you want within the specific panel. Just type `find` and the keyword that you want to search for within the command box and ELISA will find the relevant items for you.
+Is your task list getting too long and you are not able to find what you are looking for? Introducing the `find` function which will allow you to find what you want within the specific panel. Just type `find` and the keywords that you want to search for within the command box and ELISA will find the relevant items for you.
 
 .ELISA before find command
 image::BeforeFind.PNG[]
@@ -477,30 +477,31 @@ Examples:
 //end::find[]
 
 //tag::priority[]
-Feeling stress? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
+==== Entering priority mode: `priority`
+Feeling overwhelmed by the sheer amount of tasks to do? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
 
+.ELISA before priority mode with a long list of tasks
+image::BeforePriority.PNG[600,600]
 
-.ELISA before priority mode with a long list of task
-image::BeforePriority.PNG[800,800]
 
 By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA base on priority and the order in which the task was added to the list.
 
 
 .ELISA in priority mode
-image::AfterPriority.PNG[800, 800]
+image::AfterPriority.PNG[600, 600]
 
-Notice that the ELISA icon turns red to signify that you are in priority mode and your task list has shrink from 5 tasks to the 1 most important task.
+Notice that the ELISA icon turns red to signify that you are in priority mode and your task list has shrunk from 5 tasks down to the 1 most important task.
 
 When you are done with your current task, just tell ELISA you are done by simply typing `done 1` and ELISA will generate the next task for you.
 
 .ELISA after completing the first task
-image::AfterDone.PNG[800, 800]
+image::AfterDone.PNG[600, 600]
 
-Feeling less stress? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone task and you will be automatically brought out of priority mode.
+Feeling less stressed? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone tasks and you will be automatically brought out of priority mode.
 
 
 .ELISA after all tasks are completed
-image::AllDone.PNG[800, 800]
+image::AllDone.PNG[600, 600]
 
 Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hhmm` and ELISA will turn it off at that specific time for you.
 
@@ -516,6 +517,7 @@ Examples:
 
 ****
 * Note that this command can only be called in the task panel and when you have incomplete tasks to be completed.
+* Note that if priority mode is currently on, any variation of `priority` will turn it off.
 * Note that all command such as `edit`, `undo` and `redo` still works in priority mode. However, if a `done` or `delete` command takes you out of priority mode and then you `undo` it, it will only `undo` the command but will not take you back into priority mode.
 ****
 //end::priority[]
