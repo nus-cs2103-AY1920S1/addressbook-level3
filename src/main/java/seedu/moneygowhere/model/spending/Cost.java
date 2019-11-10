@@ -37,7 +37,7 @@ public class Cost implements Comparable<Cost> {
      * Returns true if a given string is a valid cost.
      */
     public static boolean isValidCost(String test) {
-        return test.matches(VALIDATION_REGEX) && Double.parseDouble(test) <= 1000000000;
+        return test.matches(VALIDATION_REGEX) && Double.parseDouble(test) <= 1000000000 && Double.parseDouble(test) > 0;
     }
 
     @Override
