@@ -72,7 +72,9 @@ as a form of "Restart", as most of our default questions are taken from the week
 |===
 
 include::../UserGuide.adoc[tag=shaun-autocomplete]
+
 include::../UserGuide.adoc[tag=shaun-restore]
+
 include::../UserGuide.adoc[tag=shaun-AcTip]
 
 == Contributions to the Developer Guide
@@ -82,6 +84,9 @@ include::../UserGuide.adoc[tag=shaun-AcTip]
 |===
 
 include::../DeveloperGuide.adoc[tag=shaun-logic]
+
 include::../DeveloperGuide.adoc[tag=shaun-designmodel]
+
 include::../DeveloperGuide.adoc[tag=shaun-storage]
+
 include::../DeveloperGuide.adoc[tag=shaun-add]
