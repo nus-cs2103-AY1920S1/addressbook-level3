@@ -338,7 +338,7 @@ _Figure 7. Sequence diagram illustrating the interactions happening_
 
 The following is an example and detailed explanation as to how the questions are fetched and displayed on the slideshow. +
 
-*Step 1.* The user requests to start a slideshow with a selection of questions using the `question slideshow [question no(s).]` command.
+*Step 1.* The user requests to start a slideshow with a selection of questions using the `question slideshow [QUESTIONS INDEX]` command.
 This will add questions based on the `Index` specified and will be added to the `slideshowQuestions` list under the `SavedQuestions` class.
 The usage of `Index` here is such that it follows the same convention of when the user edits or deletes a question.
 [NOTE]
@@ -370,7 +370,7 @@ _Figure 8. Activity diagram of the actions performed_
 * ** Current Implementation: **
 ** The choice of using the arrow keys for navigation and the `Escape` key to quit the slideshow is such that it will feel
 familiar to users who uses presentation programs often as they have similar controls. The only difference will be the usage
-of the `Space` key to show answers as it will be something new to the users and is unique to Njoy.
+of the `Space` key to show answers as it will be something new to the users and is unique to *Njoy*.
 
 * ** Alternatives Considered: **
 ** Usage of the `A` key to show answers. However, this is not very feasible as it is easily forgotten and not as user-friendly
@@ -391,7 +391,7 @@ will not be confused by the layout.
 
 * ** Alternatives Considered: **
 ** Having a separate answer format for MCQ such that it will have an arrow beside the correct option _e.g A) 1965_ *< (Answer)*.
-However, this is not feasible as it will break the standard formatting of the answers display since both *Open Ended* and *MCQ*
+However, this is not feasible as it will break the standard formatting of the answers display since both `open` and `mcq`
 questions will have 2 different answer formats and may cause confusion to the user.
 
 // end::questions-slideshow[]
