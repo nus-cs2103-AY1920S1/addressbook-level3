@@ -70,7 +70,7 @@ public class TypicalShows {
                     + "projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied "
                     + "and disregarded by society, Fleck begins a slow descent into madness as he transforms into the "
                     + "criminal mastermind known as the Joker."
-    ).withIsWatched("true").withDateOfRelease("3 october 2019").withType("Movie")
+    ).withIsWatched("true").withDateOfRelease("3/10/2019").withType("Movie")
             .withRunningTime(122).withActors("Joaquin Phoenix").build();
 
     public static final Show THEOFFICE = new ShowBuilder().withName("The Office").withDescription("A mockumentary"
