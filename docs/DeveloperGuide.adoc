@@ -204,24 +204,41 @@ if the user wants to toggle a specified panel. If so, it toggles the `isVisible`
 holder for that panel.
 
 
-The following sequence diagram shows how the toggle panel command work:
+The following sequence diagram shows how an example usage scenario would work:
 
 image::ToggleSequenceDiagram.png[]
 
+The sequence diagram is explained below:
+
+. The user launches the application and enters in `toggle wishlist` command to toggle the `wishlist` panel.
+. The `commandResult` is obtained in MainWindow after the command is parsed and executed.
+. MainWindow checks if the `togglePanel` attribute in `commandResult` is true.
+. Since it is true, it retrives the `PanelName` `WISH` from `commandResult` and calls on its own method `handleTogglePanel`.
+. This method then calls on another method `togglePanel()` that toggles the panel and takes in the `PanelName` `WISH` as a parameter.
+.. (Not shown in sequence diagram) It also checks if the wishlist is already shown in the main panel.
+.. If it is, then a `CommandException` is thrown to prevent the user from toggling the wishlist side panel when the wishlist is shown in the main method.
+
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::ToggleActivityDiagram.png[]
+image::ToggleActivityDiagram.png[width="200"]
 
 ==== Design Considerations
 
-*Current method:* Toggle the panels from within MainWindow class.
+* *Alternative 1 (current method):* Toggle the panels from within MainWindow class.
 
-Pros: Easy to implement.
+** Pros: Easy to implement.
 
-Cons: Might not be as OOP as other designs.
+** Cons: Might not be as OOP as other designs.
 
+* *Alternative 2:* MainWindow has a PanelManager class that manages all the side panels (toggling them on and off).
 
-=== ChangeFontCommand
+** Pros: More OOP, reduces number of methods and lines of code in MainWindow.
+
+** Cons: May introduce cyclic dependency.
+
+=== Change Font Command
+
+=== Set Light/Dark Theme Command
 
 === Reminders
 
