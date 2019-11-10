@@ -211,7 +211,7 @@ table.tableblock > .title,
     #site-header {
         display: none;
     }
-    
+
     a[href]:after {
         content: none !important;
     }
