@@ -148,9 +148,8 @@ This command invites the contacts specified to the current viewed activity.
 Format: `invite p/PERSON ...`
 
 Example: +
-Suppose you have already created an activity with Alice, Bob and Carl in it.
-
-image::Activity.png[]
+Suppose you have already created an activity with Alice, Bob and Carl in it. +
+`activity t/Holiday Trip p/Alice p/Bob p/Carl`
 
 And you have friends that wants to join an activity midway.
 
@@ -158,7 +157,7 @@ To invite:
 
 Step 1: Type `invite` into the command box and specify the contacts you want to invite from the contact list with the `p/` prefix e.g. `invite p/Mary p/John p/Carl` and press `Enter` to execute it.
 
-image::../images/InviteExample.png[]
+image::../images/InviteCommand.png[]
 
 Step 2: Observe the output in result box and the activity details box.
 

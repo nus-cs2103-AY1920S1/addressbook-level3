@@ -24,8 +24,6 @@ Note the following formatting used in this document. +
 
 `delete`: A grey highlight indicates that this is a command that can be inputted into the command line and executed by the application
 
-
-
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to invite contacts to current viewed activity*
