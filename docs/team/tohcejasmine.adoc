@@ -9,6 +9,8 @@
 
 == Overview
 
+_{Overview written by Tuan Ding Wei}_
+
 Modulo is a NUS student life application specially designed for busy and motivated NUS students.
 
 As busy students in NUS, we understand that it can be daunting to keep track of various tasks and concurrently do well for exams. Modulo features a one-stop application to keep track of one's timetable, finances and academic progress. It also includes a quiz feature that facilitates students with actively recalling their study concepts to improve their study outcomes.
