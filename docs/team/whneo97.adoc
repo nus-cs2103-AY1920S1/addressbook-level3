@@ -48,7 +48,7 @@ https://github.com/AY1920S1-CS2103-T16-1/main/pull/151[#151])
 *** Updated `Contact Us` page, `User Stories` and `References` in the Developer Guide. (Pull requests
 https://github.com/AY1920S1-CS2103-T16-1/main/pull/16[#16], https://github.com/AY1920S1-CS2103-T16-1/main/pull/17[#17], https://github.com/AY1920S1-CS2103-T16-1/main/pull/191[#191])
 *** Updated `Readme` and application screenshots. (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/22[#22],
-https://github.com/AY1920S1-CS2103-T16-1/main/pull/163[#163])
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/163[#163], https://github.com/AY1920S1-CS2103-T16-1/main/pull/220[#220])
 ** Community:
 *** Implemented seamless switching of panes from one feature to another with caching abilities for optimised performance
 through a helper class with `Supplier` methods for other features' use as well.
