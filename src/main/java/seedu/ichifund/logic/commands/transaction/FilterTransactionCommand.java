@@ -14,6 +14,7 @@ import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
+import seedu.ichifund.model.context.TransactionContext.TransactionContextBuilder;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.transaction.Category;
@@ -60,11 +61,12 @@ public class FilterTransactionCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.setTransactionContext(
-                model.getTransactionContext()
+                new TransactionContextBuilder(model.getTransactionContext())
                         .withMonth(month)
                         .withYear(year)
                         .withCategory(category)
                         .withType(transactionType)
+                        .build()
         );
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
