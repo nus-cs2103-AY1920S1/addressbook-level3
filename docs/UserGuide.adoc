@@ -428,7 +428,7 @@ image::watchedPageWithAvengerEndgame.png[width="790"]
 image::searchCommand.png[width="790"]
 {sp} +
 After you have entered the command, you will be led to the *Search page* as shown below.
-{sp} +
+
 .User Interface of the search page
 image::emptySearchPage.png[width="790"]
 
