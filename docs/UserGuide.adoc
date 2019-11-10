@@ -389,7 +389,8 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 // tag::delete[]
 
 ==== Deleting an entry : `delete` +
-You can delete a body, worker or fridge entry, using its Identification Number by entering a delete command with the given format below.. +
+You can delete a body, worker or fridge entry, using its Identification Number by entering a delete command with the
+given format below. +
 
 Format: `delete -FLAG  id`
 
@@ -399,7 +400,7 @@ you want to delete a `Fridge` with id `F01`, you need to only enter `delete -f 1
 When you delete a `Body`:
 
 * Mortago automatically deletes its associated `Notifs`. You can learn more
-about `Notifs` in <<add, Section 3.2.1>>.
+about `Notifs` in <<showNotifs, Section 3.2.1>>.
 * If you had assigned a `Fridge` to this `Body`, Mortago automatically sets the status of the `Fridge` to
 `UNOCCUPIED`.
 
@@ -488,9 +489,9 @@ View a body with the ID B00000001.
 === General
 
 // tag::notifs[]
-
+[[showNotifs]]
 ==== View notifs panel: `showNotifs` +
-This command allows you to view all `Notif`.
+This command allows you to view all `Notif`(s).
 
 A `Notif` is a notification associated with a `Body`. In Singapore, if the next-of-kin is not contactable for more
 than 24 hours from the time of admission of a `Body`,
@@ -503,12 +504,13 @@ automatically
 changes its status to `CONTACT_POLICE` if its status is still `ARRIVED` after 10 seconds. It then shows a pop-up
 to
 remind you to
-contact the police. It creates a `Notif` for this `Body` and you can view all `Notif` by either clicking on the
+contact the police. It creates a `Notif` for this `Body` and you can view all `Notif`(s) by either clicking on the
 notification bell or typing the `showNotif` command.
 
 Format: `showNotifs`
 
-Once you change the status of the `Body` from `CONTACT_POLICE` to any other possible status <<bodyStatus, Section 8.1>>,
+Once you change the status of the `Body` from `CONTACT_POLICE` to any other possible status as described in
+<<bodyStatus, Section 8.1>>,
 its associated `Notif` is deleted.
 
 If you change the status of the `Body` before 10 seconds, no pop-up and `Notif` are created.
@@ -827,8 +829,6 @@ Assigns worker with worker ID W00001 to body with ID B00000002 with a task descr
 
 ==== View all commands: `help`
 You can view a summary of all available commands and their flags by entering a help command with the given format below.
-Use the `-v` flag to view the detailed description of all commands and their flags.
-
 
 Format: `help`
 
@@ -859,7 +859,7 @@ Lists emergency help hotlines.
 ** Add a new worker, body, or fridge with the
 `add -FLAG [/attributeName attributeValue...]`
 * *Update* an entry: `update`
-** Update the status of each worker, body, or fridge with the `update -FLAG (/attributeName attributeValue)`
+** Update the status of each worker, or body with the `update -FLAG (/attributeName attributeValue)`
 * *Find* : `find [keyword...]` +
     ** Find entries using a keyword. +
     Format: `find keyword`
@@ -930,7 +930,8 @@ Format: `help`
 
 *Graphical User Interface (GUI)* : an interface through which a user interacts with electronic devices such as computers, hand-held devices and other appliances. This interface uses icons, menus and other visual indicator (graphics) representations to display information and related user controls, unlike text-based interfaces, where data and commands are in text +
 
-*Operating System (OS)* :the low-level software that supports a computer's basic functions, such as scheduling tasks and controlling peripherals +
+*Operating System (OS)* : the low-level software that supports a computer's basic functions, such as scheduling tasks
+and controlling peripherals +
 
 *Portable Document Format (PDF)* : a file format for capturing and sending electronic documents in exactly the intended format
 
