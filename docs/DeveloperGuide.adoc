@@ -173,7 +173,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
@@ -594,7 +594,7 @@ Step 2. The user executes `delete-c 5` command to delete the 5th customer. The `
 
 image::dg-diagram/UndoRedoStackObjectDiagram1.png[]
 
-Step 3. The user executes `add-c n/David ...` to add a new person. The `add-c` command will save all states of CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
+Step 3. The user executes `add-c n/David ...` to add a new customer. The `add-c` command will save all states of CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
 
 image::dg-diagram/UndoRedoStackObjectDiagram2.png[]
 
@@ -708,8 +708,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
 
 |`* * *` |handphone seller |schedule my orders| deconflict and view the schedule of my sales meetings.
 
@@ -918,7 +916,7 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 customers/phones/orders without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Single User for each session
 .  No internet required
@@ -932,17 +930,74 @@ _ {More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
+. *Mainstream OS* +
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+. *SML* +
+Initialism for our application, Seller Manager Lite.
 
-[[order]] Order::
-A order consisting of customer and phone
+. *Customer* +
+A person who buys from the seller.
 
-[[Phone]] Phone::
-Any mobile device being sold by seller
+. *Phone* +
+Multi-purpose mobile computing device. Also known as smartphones.
+
+. *Order* +
+A request for goods.
+
+. *Schedule* +
+A meetup with buyer to pass the goods. There can only be 1 schedule associated with an order at any one time.
+
+=== SML-specific Terms
+
+. *Command* +
+An instruction that will produce an output once entered in SML.
+
+. *CustomerBook* +
+A CustomerBook is a list that stores Customer(s) that has been added into SML.
+Each customer entry comprises of CustomerName, ContactNumber and Email fields and others.
+
+. *PhoneBook* +
+A PhoneBook is a list that stores Phone(s) that has been added in SML.
+Each phone entry comprises of IdentityNumber, SerialNumber, Brand, PhoneName, Colour, Cost and Capacity.
+
+. *OrderBook* +
+A OrderBook is a list that stores Order(s) that has been added in SML.
+Each order entry comprises of a customer, a phone, OrderID, Price and OrderStatus.
+
+. *ScheduleBook* +
+A ScheduleBook is a list that stores Schedules(s) that has been added in SML.
+Each schedule entry comprises a Venue and Calendar with date and time.
+
+. *Archived* +
+Archived is a list that stores Completed or Cancelled orders ONLY.
+
+. *TabPanel* +
+A view that is similar to web browser Tabs.
+
+. *Add* +
+The action of putting an entry into CustomerBook, PhoneBook, OrderBook or ScheduleBook.
+
+. *Edit* +
+If you want to make changes to any entry, you can do so with this command.
+
+. *Delete* +
+Remove an entry from CustomerBook, PhoneBook or ScheduleBook.
+
+. *Find* +
+The action of searching for customers, phones or orders that contains the keywords that you specify.
+
+. *Switch* +
+Change the Tab Panel to Customer, Phone, Order, Schedule or Archived.
+
+. *Undo* +
+If you've made a mistake, you can simply revert to the previous command.
+
+. *Redo* +
+Inverse of undo.
+
+. *Copy* +
+Action of copying an entry into clipboard.
 
 [appendix]
 == Product Survey
@@ -987,7 +1042,7 @@ _{ more test cases ... }_
 
 === Deleting a customer
 
-. Deleting a customer while all persons are listed
+. Deleting a customer while all customers are listed
 
 .. Prerequisites: List all customers using the `list` command. Multiple customers in the list.
 .. Test case: `delete 1` +

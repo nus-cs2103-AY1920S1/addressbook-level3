@@ -192,8 +192,7 @@ public class ModelManager implements Model {
     //=========== Filtered Customer List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Customer} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Customer}
      */
     @Override
     public ObservableList<Customer> getFilteredCustomerList() {
@@ -272,8 +271,7 @@ public class ModelManager implements Model {
     //=========== Filtered Phone List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Phone} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Phone}
      */
     @Override
     public ObservableList<Phone> getFilteredPhoneList() {
@@ -332,8 +330,7 @@ public class ModelManager implements Model {
     //=========== Filtered Order List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Order} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Order}
      */
     @Override
     public ObservableList<Order> getFilteredOrderList() {
@@ -443,8 +440,7 @@ public class ModelManager implements Model {
     //=========== Filtered Schedule List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Schedule} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Schedule}
      */
     @Override
     public ObservableList<Schedule> getFilteredScheduleList() {
@@ -510,8 +506,7 @@ public class ModelManager implements Model {
     //=========== Filtered Order List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code ArchivedOrder} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code ArchivedOrder}
      */
     @Override
     public ObservableList<Order> getFilteredArchivedOrderList() {

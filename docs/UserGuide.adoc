@@ -1053,12 +1053,12 @@ Corrects any typos that you may have while typing the commands.
 |=======================================================================
 |Command | Summary
 |`switch-c` | Switches to customer tab panel.
-|`add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`| Adds a new customer into SML
-|`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​ `| Edits an existing customer.
+|`add-c n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]…`| Adds a new customer into SML
+|`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​ `| Edits an existing customer.
 |`delete-c INDEX`| Deletes a customer and its associated orders and schedules.
 |`clear-c`| Deletes all customers and their associated orders and schedules.
 |`find-c KEYWORD [MORE_KEYWORDS]`| Finds the customers that contains the keywords in its field.
-|`copy-c INDEX`| Copies a customer into clipboard
+|`copy-c INDEX`| Copies a customer into clipboard.
 |=======================================================================
 
 
