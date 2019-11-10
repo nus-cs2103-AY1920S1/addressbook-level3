@@ -33,9 +33,10 @@ import seedu.planner.model.activity.Activity;
  * An utility class containing a list of {@code Activity} objects to be used in tests.
  */
 public class TypicalActivity {
+
     //Contact: name phone (OPT)email (OPT)address tags
     //Activity: name address (OPT)contact tags
-    public static final Activity ACTIVITYONE = new ActivityBuilder().withName("Visit Golden Pavilion")
+    public static final Activity ACTIVITY_ONE = new ActivityBuilder().withName("Visit Golden Pavilion")
             .withAddress("Kyoto")
             .withContact("Sam Smith",
                     "92007122",
@@ -46,7 +47,8 @@ public class TypicalActivity {
             .withDuration("30")
             .withPriority("1")
             .withCost("10").build();
-    public static final Activity ACTIVITYTWO = new ActivityBuilder().withName("Visit Mount Fuji")
+
+    public static final Activity ACTIVITY_TWO = new ActivityBuilder().withName("Visit Mount Fuji")
             .withAddress("Tokyo")
             .withContact("Matsafushi",
                     "82337121",
@@ -57,7 +59,8 @@ public class TypicalActivity {
             .withDuration("60")
             .withPriority("2")
             .withCost("20").build();
-    public static final Activity ACTIVITYTHREE = new ActivityBuilder().withName("sushi making")
+
+    public static final Activity ACTIVITY_THREE = new ActivityBuilder().withName("sushi making")
             .withAddress("Kodaira, Tokyo")
             .withContact("Yui",
                     "93619823",
@@ -66,7 +69,8 @@ public class TypicalActivity {
             .withDuration("90")
             .withPriority("3")
             .withCost("30").build();
-    public static final Activity ACTIVITYFOUR = new ActivityBuilder().withName("Visit Nagoya Castle")
+
+    public static final Activity ACTIVITY_FOUR = new ActivityBuilder().withName("Visit Nagoya Castle")
             .withAddress("Tokyo")
             .withContact("Himari",
                     "94523656",
@@ -76,7 +80,8 @@ public class TypicalActivity {
             .withDuration("120")
             .withPriority("4")
             .withCost("40").build();
-    public static final Activity ACTIVITYFIVE = new ActivityBuilder().withName("Shop at Dontobori")
+
+    public static final Activity ACTIVITY_FIVE = new ActivityBuilder().withName("Shop at Dontobori")
             .withAddress("Tokyo")
             .withContact("kosuke",
                     "95255523",
@@ -86,7 +91,8 @@ public class TypicalActivity {
             .withDuration("180")
             .withPriority("5")
             .withCost("50").build();
-    public static final Activity ACTIVITYSIX = new ActivityBuilder().withName("Visit Monkey Park")
+
+    public static final Activity ACTIVITY_SIX = new ActivityBuilder().withName("Visit Monkey Park")
             .withAddress("Yokoyu River")
             .withContact("Kakashi",
                     "95131415",
@@ -97,7 +103,8 @@ public class TypicalActivity {
             .withDuration("210")
             .withPriority("6")
             .withCost("60").build();
-    public static final Activity ACTIVITYSEVEN = new ActivityBuilder().withName("Walk through Bamboo Forest")
+
+    public static final Activity ACTIVITY_SEVEN = new ActivityBuilder().withName("Walk through Bamboo Forest")
             .withAddress("Kyoto")
             .withContact("Maylin",
                     "95123444",
@@ -110,7 +117,7 @@ public class TypicalActivity {
             .withCost("70").build();
 
     // Manually added
-    public static final Activity ACTIVITYEIGHT = new ActivityBuilder().withName("Visit Ramen Museum")
+    public static final Activity ACTIVITY_EIGHT = new ActivityBuilder().withName("Visit Ramen Museum")
             .withAddress("Shitamachi")
             .withContact("Jack",
                     "81241034",
@@ -119,7 +126,8 @@ public class TypicalActivity {
             .withDuration("270")
             .withPriority("4")
             .withCost("80").build();
-    public static final Activity ACTIVITYNINE = new ActivityBuilder().withName("Watch Kabuki show")
+
+    public static final Activity ACTIVITY_NINE = new ActivityBuilder().withName("Watch Kabuki show")
             .withAddress("Osaka")
             .withContact("Gaara",
                     "91037493",
@@ -138,6 +146,7 @@ public class TypicalActivity {
             .withDuration(VALID_DURATION_A)
             .withPriority(VALID_PRIORITY_SIX)
             .withCost(VALID_COST_HUNDRED).build();
+
     public static final Activity ACTIVITY_B = new ActivityBuilder().withName(VALID_ACTIVITY_NAME_B)
             .withAddress(VALID_ACTIVITY_ADDRESS_B)
             .withContact(VALID_NAME_BOB, VALID_PHONE_BOB,
@@ -163,7 +172,7 @@ public class TypicalActivity {
     }
 
     public static List<Activity> getTypicalActivities() {
-        return new ArrayList<>(Arrays.asList(ACTIVITYONE, ACTIVITYTWO, ACTIVITYTHREE,
-                ACTIVITYFOUR, ACTIVITYFIVE, ACTIVITYSIX, ACTIVITYSEVEN));
+        return new ArrayList<>(Arrays.asList(ACTIVITY_ONE, ACTIVITY_TWO, ACTIVITY_THREE,
+                ACTIVITY_FOUR, ACTIVITY_FIVE, ACTIVITY_SIX, ACTIVITY_SEVEN));
     }
 }

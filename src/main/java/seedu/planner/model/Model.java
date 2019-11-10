@@ -367,6 +367,8 @@ public interface Model {
 
     void setDay(Day oldDay, Day newDay);
 
+    Day getDay(Index index);
+
     void scheduleActivity(Day day, ActivityWithTime toAdd);
 
     void unscheduleActivity(Day day, Index toRemove);

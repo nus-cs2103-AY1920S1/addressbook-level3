@@ -366,6 +366,10 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public Day getDay(Index index) {
+            throw new AssertionError("This method should not be called");
+        }
+
         public int getNumberOfDays() {
             throw new AssertionError("This method should not be called.");
         }
