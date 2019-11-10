@@ -263,6 +263,7 @@ The control flow for this handler is similar to that of the shortcut keys.
 In designing the specific commands for tab switching, we considered an alternative implementation for
 passing information about tab switching to `Ui`.
 
+[options='header']
 |====================
 | Description of Implementation | Pros and Cons
 | `Ui` detects change through an `InvalidationListener` (current choice) |
@@ -305,7 +306,7 @@ image::TaskCode.png[]
 === Transaction
 
 [[overviewtx]]
-==== Overview of Model
+==== Overview of Transaction Model
 
 ===== Implementation
 
@@ -338,6 +339,7 @@ we considered, as well as the rationale for the current implementation.
 ====== Multiplicity of `Category`
 Currently, each `Transaction` object can have only one `Category` object associated to it. In the problem domain, it is
 also natural to think of transactions being associated with multiple categories. The table below summarizes the pros and cons of each choice.
+[options='header']
 |====================
 | Description of Implementation | Pros and Cons
 | Each `Transaction` only has one `Category`  (current choice) |
@@ -360,6 +362,8 @@ for multiple associations.
 ====== Differentiating between Income and Expenditure
 Currently, we differentiate transactions that are income items and expenditure items using the `TransactionType` field in
 `Transaction`. We considered the natural alternative of using inheritance as well.
+
+[options='header']
 |====================
 | Description of Implementation | Pros and Cons
 | Using the field `TransactionType` (current choice) |
@@ -405,8 +409,8 @@ in the following chain of events:
 1. The `FilterTransactionCommand` retrieves the current `TransactionContext` from the model.
 2. The `FilterTransactionCommand` creates a new `TransactionContext`, facilitated by `TransactionContextBuilder`
 3. The `FilterTransactionCommand` sets the new context in model as the newly created `TransactionContext`.
-4. The `ModelManager` retrieves a `Predicate<Transaction>` from the new `TransactionContext`.
-5. The `ModelManager` filters the list of transactions using the `Predicate<Transaction>`.
+4. `ModelManager` retrieves a `Predicate<Transaction>` from the new `TransactionContext`.
+5. `ModelManager` filters the list of transactions using the `Predicate<Transaction>`.
 
 The above sequence of events is shown in greater detail in the following sequence diagram:
 image::FilterTransactionSequenceDiagram.png[]
@@ -416,7 +420,8 @@ image::FilterTransactionSequenceDiagram.png[]
 [[addtx]]
 ==== Adding Transactions
 
-The add transaction feature allows the user to add a transaction into IchiFund.
+The add transaction feature allows the user to add a transaction into IchiFund. It further ensures that the current
+filter of the list of transactions is changed to allow the user to view the transaction.
 As described in <<Design-Logic>>, this feature is facilitated by `TransactionFeatureParser`, `AddTransactionCommandParser`, and `AddTransactionCommand`.
 The arguments supported by this feature includes:
 
@@ -429,23 +434,107 @@ The arguments supported by this feature includes:
 - `TransactionType` (optional)
 
 ===== Implementation
+
+As prefaced in <<overviewtx>>, the `add` command interacts with `TransactionContext` to create new `Transaction` objects.
+
+The execution of an `AddTransactionCommand` results in the following sequence of events:
+
+1. The `AddTransactionCommand` retrieves the current `TransactionContext` from the model.
+2. The `AddTransactionCommand` generates a new `Transaction` based on the arguments and `TransactionContext`
+3. The `AddTransactionCommand` adds the new `Transaction` to the model.
+4. `ModelManager` automatically sorts the list of transactions.
+5. The `AddTransactionCommand` calls model to execute `updateTransactionContext`
+6. `ModelManager` updates `TransactionContext` such that the new `Transaction` is shown.
+
+When generating a new `Transaction`, `AddTransactionCommand` fills in the missing optional arguments by using
+values obtained from `TransactionContext`, or default values. This is illustrated in the following activity diagram:
+
+image::AddTransactionActivityDiagram.png[]
+
+The above activity diagram shows the decision flow for a general optional argument. However, some optional
+arguments are never stored in `TransactionContext`, and some are always stored in `TransactionContext`. The
+following table describes the particular details for each optional argument, including the default values.
+
+[options='header']
+|====
+| Argument | Present in `TransactionContext`? | Default value
+| `Day` | Never | Current day of month from system time
+| `Month` | Always | Not applicable
+| `Year` | Always | Not applicable
+| `Category` | Sometimes | Uncategorised
+| `TransactionType` | Sometimes | Expenditure
+|====
+
+After adding the `Transaction`, a new `TransactionContext` is created such that the new `Transaction` is displayed
+on the list of transactions. Specifically, the `Month` and `Year` filters are set to the `Month` and `Year` of the
+new `Transaction` respectively, and the `Category` and `TransactionType` filters are removed if necessary.
+
 ===== Design Considerations
+In implementing the `add` and `filter` commands, we had to decide on the underlying data structure for the list of
+transactions. Currently, we store all transactions in a single iterable list. Given the use of a mandatory
+month and year filter, a natural alternative would be to store each month's worth of transactions in a
+list, and stores these lists in another list, forming a multi-level list.
+
+[options='header']
+|====================
+| Description of Implementation | Pros and Cons
+| Storing all transactions in a single list (current choice) |
+*Pros*: Suits existing architecture of software very well, easy to implement
+
+*Cons*: Slow performance anticipated with large number of transactions
+
+| Storing transactions in multi-level list |
+*Pros*: Faster performance, more scalable
+
+*Cons*: May disrupt abstractions in current architecture, more time needed to implement
+|====================
+
+Ultimately, we prioritised developing a minimal viable product for v1.4, and decided to avoid disrupting the
+existing architecture, and instead focus our efforts on developing more features to better address the needs of
+the target user profile.
+
+However, moving forward, we recognise that the current architecture severely lacks scalability,
+especially given the constantly growing number of transactions we expect users to create. Hence, we eventually
+intend to switch to a multi-level list. Developers who choose to undertake this heavy task need to bear in mind
+that many other component (Repeaters, Budget, Analytics) depend on the model of this component, and care must
+be taken to ensure that these components still work well.
+
 // end::transadd[]
 
 // tag::transedit[]
 ==== Editing Transactions
 
+The edit transaction feature allows the user to edit a transaction into IchiFund. It further ensures that the current
+filter of the list of transactions is changed to allow the user to view the transaction.
+As described in <<Design-Logic>>, this feature is facilitated by `TransactionFeatureParser`, `EditTransactionCommandParser`, and `EditTransactionCommand`.
+The arguments supported by this feature includes:
+
+- `Index`
+- `Description` (optional)
+- `Amount` (optional)
+- `Category` (optional)
+- `Day` (optional)
+- `Month` (optional)
+- `Year` (optional)
+- `TransactionType` (optional)
+
 ===== Implementation
 
-===== Design Considerations
 // end::transedit[]
 
 // tag::transdel[]
 ==== Deleting Transactions
 
+The delete transaction feature allows the user to delete a transaction into IchiFund using its index in the displayed list.
+As described in <<Design-Logic>>, this feature is facilitated by `TransactionFeatureParser`, `DeleteTransactionCommandParser`, and `DeleteTransactionCommand`.
+The arguments supported by this feature includes:
+
+- `Index`
+
 ===== Implementation
 
-===== Design Considerations
+The execution of the `delete` command is almost identical to that of the budget deleting command.
+
 // end::transdel[]
 
 === Repeaters
