@@ -10,8 +10,8 @@ import static seedu.algobase.testutil.TypicalProblemSearchRules.NAME_SEQUENCES;
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.exceptions.IllegalValueException;
-import seedu.algobase.model.problem.Name;
 import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.Name;
 
 class JsonAdaptedProblemSearchRuleTest {
 
