@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.result.CommandResult;
+import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.model.Model;
 import seedu.planner.model.ReadOnlyAccommodation;
 import seedu.planner.model.ReadOnlyActivity;
@@ -42,6 +43,9 @@ public class UndoClearCommand extends UndoableCommand {
         model.setAccommodations(accommodation);
         model.setActivities(activity);
         model.setItinerary(itinerary);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(
+                MESSAGE_SUCCESS,
+                new UiFocus[] {UiFocus.AGENDA}
+        );
     }
 }
