@@ -109,20 +109,19 @@ public class MassApproveTest {
     @Test
     public void execute_validInput_Success() {
 
-        ArrayList<String> inputValidIDs = new ArrayList<>();
-        ArrayList<String> inputInvalidIDs = new ArrayList<>();
+        ArrayList<String> inputValidIds = new ArrayList<>();
+        ArrayList<String> inputInvalidIds = new ArrayList<>();
         String expectedMessage = "";
 
-        inputValidIDs.add("C000001");
-//        inputValidIDs.add("C000002");
-//        inputValidIDs.add("C000003");
-        inputInvalidIDs.add("C0123");
-        inputInvalidIDs.add("C0132");
+        inputValidIds.add("C000001");
 
-        MassApprove command = new MassApprove(inputValidIDs, inputInvalidIDs);
+        inputInvalidIds.add("C0123");
+        inputInvalidIds.add("C0132");
+
+        MassApprove command = new MassApprove(inputValidIds, inputInvalidIds);
 
         List<String> appealsWithClash = new ArrayList<>();
-        List<String> cannotFindIDList = new ArrayList<>();
+        List<String> cannotFindIdList = new ArrayList<>();
         List<String> alreadyApproved = new ArrayList<>();
         List<String> alreadyRejected = new ArrayList<>();
         List<String> approvedSuccessfully = new ArrayList<>();
@@ -131,9 +130,9 @@ public class MassApproveTest {
         List<Student> fullStudentList = expectedModel.getFullStudentList();
         List<Module> fullModuleList = expectedModel.getFullModuleList();
         List<Appeal> fullAppealList = expectedModel.getFullAppealList();
-        boolean foundID;
-        for (String appealId : inputValidIDs) {
-            foundID = false;
+        boolean foundId;
+        for (String appealId : inputValidIds) {
+            foundId = false;
             for (Appeal appeal : fullAppealList) {
                 if (appealId.equalsIgnoreCase(appeal.getAppealId())) {
                     Appeal approvedAppeal;
@@ -333,27 +332,42 @@ public class MassApproveTest {
                             && appealToApprove.getResult().equalsIgnoreCase("REJECTED")) {
                         alreadyRejected.add(appeal.getAppealId());
                     }
-                    foundID = true;
+                    foundId = true;
                     break;
                 }
             }
-            if (!foundID) {
-                cannotFindIDList.add(appealId);
+            if (!foundId) {
+                cannotFindIdList.add(appealId);
             }
         }
 
-        expectedMessage += resultGenerator(approvedSuccessfully, alreadyApproved, alreadyRejected, inputInvalidIDs, appealsWithClash, cannotFindIDList);
+        expectedMessage += resultGenerator(approvedSuccessfully,
+                alreadyApproved,
+                alreadyRejected,
+                inputInvalidIds,
+                appealsWithClash,
+                cannotFindIdList);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
 
     }
 
+    /**
+     * Generates feedback message
+     * @param approvedSuccessfully
+     * @param alreadyApproved
+     * @param alreadyRejected
+     * @param invalidIds
+     * @param appealsWithClash
+     * @param cannotFindIDList
+     * @return
+     */
     private String resultGenerator(List<String> approvedSuccessfully,
                                    List<String> alreadyApproved,
                                    List<String> alreadyRejected,
                                    List<String> invalidIds,
                                    List<String> appealsWithClash,
-                                   List<String> cannotFindIDList) {
+                                   List<String> cannotFindIdList) {
         String result = "";
         if (approvedSuccessfully.isEmpty()) {
             result += MESAGE_NO_APPEALS_APPROVED;
@@ -372,8 +386,8 @@ public class MassApproveTest {
         if (!appealsWithClash.isEmpty()) {
             result += "\nAppeals with module clash: " + appealsWithClash.toString();
         }
-        if (!cannotFindIDList.isEmpty()) {
-            result += "\nThese appeal IDs do not exist: " + cannotFindIDList.toString();
+        if (!cannotFindIdList.isEmpty()) {
+            result += "\nThese appeal IDs do not exist: " + cannotFindIdList.toString();
         }
         return result;
     }

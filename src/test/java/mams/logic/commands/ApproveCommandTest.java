@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 
 import mams.commons.core.Messages;
 import mams.commons.core.index.Index;
-
 import mams.model.appeal.Appeal;
 import mams.model.Model;
 import mams.model.ModelManager;
@@ -74,9 +73,9 @@ public class ApproveCommandTest {
     @Test
     public void execute_invalidAppealIndex_throwsCommandException() {
 
-       ApproveCommand command = new ApproveCommand(INDEX_MAX_INT, "");
-       // index > size of appeal list
-       assertCommandFailure(command, model, Messages.MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX);
+        ApproveCommand command = new ApproveCommand(INDEX_MAX_INT, "");
+        // index > size of appeal list
+        assertCommandFailure(command, model, Messages.MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX);
 
     }
 
@@ -489,10 +488,17 @@ public class ApproveCommandTest {
         } else {
             secondExpectedMessage += (generateSuccessMessageModule(secondApprovedAppeal, feedback, target, change));
         }
-       assertCommandSuccess(secondCommand, model, secondExpectedMessage, expectedModel);
+        assertCommandSuccess(secondCommand, model, secondExpectedMessage, expectedModel);
     }
 
-
+    /**
+     * Formats feedback message for resolving add and remove mod appeals
+     * @param appealToApprove
+     * @param feedback
+     * @param target
+     * @param change
+     * @return
+     */
     private String generateSuccessMessageModule(Appeal appealToApprove,
                                                 String feedback,
                                                 String target,
@@ -504,7 +510,14 @@ public class ApproveCommandTest {
                 + target;
     }
 
-
+    /**
+     * Formats feedback message for resolving increase workload appeals
+     * @param appealToApprove
+     * @param feedback
+     * @param workLoad
+     * @param target
+     * @return
+     */
     private String generateSuccessMessageWorkload(Appeal appealToApprove,
                                                   String feedback,
                                                   int workLoad,
