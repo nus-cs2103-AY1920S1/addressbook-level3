@@ -1597,48 +1597,35 @@ Here is a summary for the list of features available:
 
 |``add``
 |Add a diary entry to the diary
-|``add t/title d/date [p/place] [m/memory]``
+|``add t/TITLE d/DATE [p/PLACE] [m/MEMORY]``
 
 |``delete``
 |Delete a certain entry from the diary
-|``delete index``
+|``delete INDEX``
+
+|``find``
+|Find a certain entry from the diary
+|``find TARGET``
+
+|``findSpecific``
+|Find a specific entry, filtered by diary entry sections, from the diary
+|``findSpecific [t/TITLE] [d/DATE TIME] [p/PLACE] [m/MEMORY]``
+
+|``private``
+|Private diary entries which you want to keep hidden
+|``private INDEX``
+
+|``unprivate``
+|Unprivate diary entries which you want to want to show
+|``unprivate INDEX``
+
+|``setDetails``
+Password protect your diary entries
+|``setDetails user/USERNAME password/PASSWORD``
+
+|``unlock``
+Unlock your hidden memories
+|``unlock INDEX user/USERNAME password/PASSWORD``
 
 |===
 
-
-=== TRIVAGO (Coming in V2.0)
-``addData``     : add a new data to be used for price comparison +
-
-``showData``    : show the prices for a selected data +
-
-``deleteData``  : delete data used for price comparison +
-
-``compareData`` : compare prices between two data +
-
-``reviewData``  : review the previous few comparisons that user did +
-
-``listData``    : list out all the data that user has inputted into TTD
-
-Travel Recommendations: +
-``setDates``    : set the dates for your proposed trip +
-
-``setPrice``    : set your price range +
-
-``setType``     : set the type of trip (Fun, educational etc) +
-
-``generate``    : generate recommendations from stored diaries
-
-NUS trips: +
-``loadTrips``   : download trips from NUS societies +
-
-``deleteTrips`` : delete certain NUS trips +
-
-``showTrip``    : show your whole trip in a calendar view +
-
-``getSoc``      : get societies from NUS which organise trips +
-
-``deleteSoc``   : delete certain societies +
-
-``selectSoc``   : select a certain society to load trips
-
-= Glossary
