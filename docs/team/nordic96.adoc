@@ -11,7 +11,7 @@ Typee is an engagement management application, where users can manage engagement
 whose main tasks is to manage and arrange engagements.
 
 .default window of Typee upon start-up
-image::ppp_nordic96/ppp_1.png[width="700"]
+image::ppp_nordic96/ppp_1.png[width="550"]
 
 * Main UI is composed of 4 parts;
 ** Tab/Menu Pane: List of Name/Feature/Menu is displayed here.

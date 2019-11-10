@@ -243,7 +243,7 @@ Tab switch feature is a type of Command that allows users to switch to respectiv
 ==== Implementation Structure
 
 .TabCommand Implementation Class Diagram
-image::TabCommandClassDiagram.png[]
+image::TabCommandClassDiagram.png[width="550"]
 
 1. `MainWindow` which contains necessary text input for `Command` inputs and output display for displaying the `CommandResult`
 2. Window component, which is a type of `VBox`, that acts as a container for other different UI windows.
@@ -253,14 +253,14 @@ image::TabCommandClassDiagram.png[]
 
 [.text-center]
 .Tab Class Diagram
-image::TabClassDiagram.png[align="center"]
+image::TabClassDiagram.png[width="400"]
 
 From figure 9, MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property.
 The method will compare the `Tab` in `CommandResult` and once there is a matching result, the method will load the respective fxml file in the MainWindow to display the respective feature window.
 Below is the basic activity diagram of fetchTabInformation method
 
 .fetchTabInformation method Activity Diagram
-image::fetchTabInformationActivityDiagram.png[align="center"]
+image::fetchTabInformationActivityDiagram.png[]
 
 //end::tab-switch[]
 
@@ -280,14 +280,15 @@ The feature will be implemented as an additional type of Command; `PdfCommand`
 Util class `PdfUtil` will be implemented for handling all pdf document creation related methods.
 
 .PdfUtil Class Diagram
-image::PdfUtilClassDiagram.png[align="center"]
+image::PdfUtilClassDiagram.png[]
 
 PdfUtil class will be implemented under `util` package and it will be able to deliver few essential features
 that are necessary for document creation.
 
 ** Able to generate a full report document based on the `Engagement` as input.
 ** Use different templates for each other types of `Engagement` such as `Appointment`, `Interview` and `Meeting`. Document template will follow general email format:
-Receiver, Content contained in a table, Sender and signature with address and company logo (Refer to Figure 12).
+Receiver, Engagement Information written in a table, Sender and signature with address and company logo.
++
 To fulfill the document format, `Report` class needs to be implemented in order to model all necessary properties that has to be in the document. It 3 following properties;
 
 ***  `engagement`: specific engagement information to include in the document
@@ -295,8 +296,8 @@ To fulfill the document format, `Report` class needs to be implemented in order 
 *** `from`: A `Person` who is either a receptionist or a secretary who is sending the document.
 
 ==== UI Design
-`ReportWindow` will be the UI container which helps the user to interact using `PdfCommand`. UI will consist of 2 main scrollable panes; Engagement list with index numbers,
-and the directory explorer for `reports/` as a item list.
+`ReportWindow` will be the UI container which helps the user to interact using `PdfCommand`.
+The window will include dynamic tree-view that is directly linked to the external directory in the file-system; `reports/`
 
 ===== UI Components & Features
 Table below explains the components that are included in the `ReportWindow` with its purpose and features.
@@ -309,13 +310,23 @@ Table below explains the components that are included in the `ReportWindow` with
 |Feature
 |Purpose
 
-| `EngagementList`
-| Scrollable Stack Pane
-| Displays the sorted engagement list
-| To guide user to help recognize the list index number that the user wants to generate document from.
+| `Refresh Button`
+| Button
+| Refreshes the tree-view file directory.
+| To help user to refresh the directory when there is a system glitch or manually adds document (.pdf) in the `reports/` directory.
+
+| `Delete Button`
+| Button
+| Deletes the selected document item in the tree-view file directory.
+| To assist users who prefer using mouse (GUI over CLI) deletes document easily.
+
+| `Status Label`
+| Label
+| Displays the status message after handling interaction with the user.
+| To assist user to give full information whenever the system is making action after interacting with the user.
 
 | `File_Explorer`
-| Scrollable Stack Pane
+| Scrollable Tree View
 |
 1. Displays the list of document generated previously and stored under the directory `reports/`.
 
@@ -788,25 +799,32 @@ Use case ends.
 
 *MSS*
 
-1. User requests for generating PDF of an engagement for a selected engagement.
+1. User enters information for generating PDF of an engagement for a selected engagement.
 2. System generates a PDF file in a specific external directory
 3. System shows successful message
+4. System opens the generated document.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 3a. User enters invalid credentials.
+* 2a. System receives invalid input.
 [none]
-** 3a1. System shows error message.
+** 2a1. System shows error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
 [none]
-* 3b. System fails to generate pdf file.
+* 2b. System fails to generate pdf file.
 [none]
-** 3b1. System shows error message.
+** 2b1. System shows error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
+[none]
+* 2c. User inputs duplicate information that already exists in the directory.
+[none]
+** 2c1. System shows error message.
++
+Use case resumes at step 1.
 //end::use-case-pdf[]
 
 [discrete]
