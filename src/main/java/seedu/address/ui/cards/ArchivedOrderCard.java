@@ -1,12 +1,14 @@
 package seedu.address.ui.cards;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Status;
 import seedu.address.ui.UiPart;
@@ -15,7 +17,7 @@ import seedu.address.ui.UiPart;
  * An UI component that displays information of a {@code Order} that had been archived.
  */
 public class ArchivedOrderCard extends UiPart<Region> {
-
+    private final Logger logger = LogsCenter.getLogger(ArchivedOrderCard.class);
     private static final String FXML = "ArchivedOrderListCard.fxml";
 
     /**
@@ -88,9 +90,9 @@ public class ArchivedOrderCard extends UiPart<Region> {
                 orderStatus.setText(String.format("%s : %s | Venue: %s", order.getStatus().toString(),
                         order.getSchedule().get().getCalendarString(), order.getSchedule().get().getVenue()));
             } catch (NoSuchElementException e) {
-                System.out.println(e.toString());
+                logger.severe("ERROR: This order should not appear here");
                 orderStatus.setText("ERROR: This order should not appear here, each order can only be here "
-                        + "if they have schedule and is completed");
+                        +  "if they have schedule and is completed");
             }
         } else {
             orderStatus.setText(order.getStatus().toString());

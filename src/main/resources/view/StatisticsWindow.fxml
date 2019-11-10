@@ -12,6 +12,8 @@
 <?import javafx.stage.Stage?>
 
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <fx:root minHeight="600" minWidth="750" resizable="true" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/address_book_32.png" />
@@ -23,6 +25,10 @@
                 <URL value="@Extensions.css" />
             </stylesheets>
             <HBox alignment="CENTER" minHeight="500" minWidth="650" HBox.hgrow="ALWAYS"  >
+                <GridPane HBox.hgrow="ALWAYS" >
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10" />
+                    </columnConstraints>
                 <children>
                     <VBox alignment="CENTER"  styleClass="cell_big_label" VBox.vgrow="ALWAYS">
                         <LineChart fx:id="testChart"  styleClass="pane-with-border" minHeight="500" minWidth="650"  >
@@ -68,6 +74,7 @@
                 <padding>
                     <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
                 </padding>
+                </GridPane>
             </HBox>
         </Scene>
     </scene>
