@@ -98,10 +98,10 @@ public class Event {
      * Checks if an employee is available for this event.
      *
      * @param employee          to check
-     * @param filteredEventList a complete event list.
+     * @param fullEventList a complete event list.
      */
-    public boolean isAvailableForEvent(Employee employee, List<Event> filteredEventList) {
-        List<Event> containsEmployeeEventList = filteredEventList.stream()
+    public boolean isAvailableForEvent(Employee employee, List<Event> fullEventList) {
+        List<Event> containsEmployeeEventList = fullEventList.stream()
                 .filter(x -> x.manpowerAllocatedList.getManpowerList().contains(employee.getEmployeeId()))
                 .collect(Collectors.toList());
         long nonOverlapEventsCount = containsEmployeeEventList.stream()
@@ -193,7 +193,6 @@ public class Event {
 
         return otherEvent != null
                 && otherEvent.getName().equals(getName())
-                && otherEvent.getVenue().equals(getVenue())
                 && otherEvent.getStartDate().equals(getStartDate())
                 && otherEvent.getEndDate().equals(getEndDate());
     }
