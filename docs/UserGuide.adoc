@@ -258,6 +258,21 @@ Removes a specific deadline into the deadline list. The list on the right-side p
 NOTE: When a deadline of re-test questions is removed, the list of questions will still be stored in the specific date.
 To remove questions, refer to _____
 
+=== Show monthly calendar with all deadlines: `calendar`
+
+Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
+
+`calendar`
+
+The calendar will pop up, seen below.
+
+image::calendar.png[width="600"]
+
+NOTE: Calendar does not show the specific deadline names, but an overview of all your deadlines for the month ahead.
+
+//end::deadline[]
+
+// tag::badflashcard[]
 
 === Set Flashcard as "Bad", with deadline to re-test: `bad index`
 
@@ -285,20 +300,47 @@ image::BadFlashcardAdded.png[width="600"]
 
 NOTE: Bad Questions will be added to a deadline which is due 3 days later. This is an approximated value that based on the theory of Spaced Repitition, referring to Ebbinghaus Forgetting Curve by Hermann Ebbinghaus who hypothesised this theory in 1985.
 
-=== Show monthly calendar with all deadlines: `calendar`
+=== List all "Bad" FlashCards for a specific date `bad d>DATE`
 
-Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
+List all the "Bad" rated FlashCards from a specific date. The FlashCard Questions will be shown.
 
-`calendar`
+`listbad d>12/11/2019`
 
-The calendar will pop up, seen below.
+You can refer to the example below:
 
-image::calendar.png[width="600"]
+`listbad d>12/11/2019`
 
-NOTE: Calendar does not show the specific deadline names, but an overview of all your deadlines for the month ahead.
+Key the above mentioned into the command box. After which, the list questions from the "Bad" rated FlashCards for the specific date is shown.
 
+image::listbad.png[width="600"]
 
-//end::deadline[]
+NOTE: The automated test mode for the "Bad" FlashCards is not functional at this point and will be implemented in KFC v2.0.
+
+=== Remove a specific "Bad" FlashCard for a specific date `bad d>DATE i>INDEX`
+
+You can remove a specific "Bad" rated FlashCard from the list
+
+`removebad d>12/11/2019 i>2`
+
+You can refer to the example below:
+
+`removebad d>12/11/2019 i>2`
+
+As seen from before, after listing all the "Bad" rated FlashCards for a specific date using `listbad d>12/11/2019`, you can observe the full list as seen below.
+
+image::listbad.png[width="600"]
+
+Afterwards, you can choose to remove as specific "Bad" rated FlashCard from that list. Using the example `removebad d>12/11/2019 i>2`, you can observe this.
+
+image::removebad.png[width="600"]
+
+Once removed, a success message will be shown!
+
+image::removebadsuccess.png[width="600"]
+
+CAUTION: Using the Remove Deadline command to remove a "ToDo: Bad Questions" Deadline does not remove all the "Bad" FlashCards stored for that date.
+
+//end::badflashcard[]
 
 === Test mode
 
