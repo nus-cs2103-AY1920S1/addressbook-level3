@@ -406,8 +406,13 @@ Format: `list -FLAG`
 |===
 
 Example: `list -b` +
-Lists all bodies currently in Mortago.
+After filtering specific bodies, you may now want to view the full list of bodies:
 
+1. Mortago shows filtered list of bodies.
+
+2. Type `list -b` in the Command Line Interface (CLI).
+
+3. Mortago shows unfiltered list of bodies.
 // end::list[]
 
 // tag::select[]
@@ -577,7 +582,7 @@ You must ensure that all existing reports are closed before executing any report
 // tag::genReport[]
 
 ==== Generate report for a specific body: `genReport`
-You can generate an individual report in a PDF filename `[subheader]#Report <body_ID>.pdf#` located in the folder containing the jar file.
+You can generate an individual report in a PDF filename `[subheader]#Report <body_ID>.pdf#` located in the folder containing the jar file as shown in the screenshot below:
 
 image::reportlocation.png[width="790"]
 You can also add your signature name to the report by following the command format below.
@@ -589,10 +594,10 @@ Format: `genReport bodyId (yourSignatureName)`
 
 Example:
 
-* `genReport 123 John Doe` +
-Outputs the PDF report for body ID B00000123 in the folder containing the jar file. The report contains signature of John Doe.
-* `genReport 123` +
-Outputs the PDF report for body ID B00000123 in the folder containing the jar file. The report does not contain any signature.
+* `genReport 1 John Doe` +
+Outputs the PDF report for body ID B00000001 in the folder containing the jar file. The report contains signature of John Doe.
+* `genReport 1` +
+Outputs the PDF report for body ID B00000001 in the folder containing the jar file. The report does not contain any signature.
 // end::genReport[]
 
 // tag::genReports[]
@@ -618,7 +623,7 @@ Outputs the PDF containing reports for all bodies in the folder containing the j
 // tag::genReportSummary[]
 
 ==== Generate summary report for all bodies: `genReportSummary`
-This command allows you to generate a tabular report overview containing key information for all bodies in a PDF filename `[subheader]#Report Summary.pdf#` located in the folder containing the jar file.
+You can generate a tabular report overview containing key information for all bodies in a PDF filename `[subheader]#Report Summary.pdf#` located in the folder containing the jar file.
 
 You can also add your signature name to the report by following the command format below.
 
@@ -644,7 +649,7 @@ Outputs the PDF report summary for all bodies in the folder containing the jar f
 // tag::stats[]
 
 ==== View admission statistics: `stats`
-This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
+You can view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
 
 The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised and updated automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days. You can change the time frame with the `stats` command.
 
@@ -673,7 +678,7 @@ image::statsYear.png[width="790"]
 // end::stats[]
 
 ==== Archive entries: `archive` `[coming in v2.0]`
-This command allows you to archive old or irrelevant entries. One entry can be archived at a time, or all entries of a certain specification can be archived at once.
+You can archive old or irrelevant entries. One entry can be archived at a time, or all entries of a certain specification can be archived at once.
 
 Format:
 
@@ -688,7 +693,7 @@ Archives body entry with ID 2
 Archives all entries of workers who are inactive
 
 ==== View archived entries: `archives` `[coming in v2.0]`
-This command allows you to display all archived entries.
+You can view all archived entries.
 
 Format: `archives -FLAG`
 
@@ -702,7 +707,7 @@ Displays all archived worker entries, in order of archive date.
 // tag::feedback[]
 
 ==== Give and view feedback: `feedback` `[coming in v2.0]`
-This command allows you to give workers feedback (for the manager’s own reference), and can display a history of all feedback entered.
+You can give workers feedback (for the manager’s own reference), and can view a history of all feedback entered.
 
 Format:
 
@@ -712,22 +717,20 @@ Format:
 Example:
 
 * `feedback /id 10 /details very meticulous` +
-Note down feedback for worker with ID W10010 with custom details
+Notes down feedback for worker with ID W10010 with custom details
 * `feedback` +
-Display of all feedback entered
+Displays of all feedback entered
 
 // end::feedback[]
 
 // tag::assign[]
 
 ==== Assign tasks to worker: `assign` `[coming in v2.0]`
-Assign a body and task to a worker.
+You can assign a body and task to a worker.
 
 Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
 
-Example:
-
-* `assign /bodyId 2 /workerId 1 /task send blood sample to lab for analysis` +
+Example: `assign /bodyId 2 /workerId 1 /task send blood sample to lab for analysis` +
 Assigns worker with worker ID W00001 to body with ID B00000002 with a task description.
 
 // end::assign[]

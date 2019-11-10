@@ -87,6 +87,8 @@ I have contributed 3 supportive enhancements for Mortago’s main feature Genera
 
 _{start of extract}_
 
+include::../UserGuide.adoc[tag=list]
+
 include::../UserGuide.adoc[tag=documentGeneration]
 
 _{end of extract}_
