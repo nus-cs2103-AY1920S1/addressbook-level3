@@ -61,7 +61,7 @@ _Debt_:: Words in italics indicate the literals used in the example commands.
 [[BudgetTag]]
 === Setting monthly budget: `budget`
 
-You are able to set a budget for each month in THRIFT. This allows THRIFT to display your remaining balance for the month and lets you keep your spending in check.
+Ready to save? One of the key steps in saving money is to clearly define your monthly budget. With a budget set, you will always see your remaining balance! This will definitely encourage you to spend wisely and to keep your spending in check. Take the first step in saving by setting your budget for each month in THRIFT!
 
 NOTE: It is not compulsory to set a budget for each month and you can use THRIFT normally without setting budgets.
 
