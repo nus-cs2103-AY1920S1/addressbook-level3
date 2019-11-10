@@ -25,8 +25,8 @@ import seedu.address.model.events.parameters.Status;
  */
 public class SettleAppCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_NOT_MISSEDLIST =
-            "Safety check: Appointments displayed must be missing appointment.\n"
-                    + "Please first display the missing appointment listing "
+            "Safety check: Appointments displayed must be missed appointments.\n"
+                    + "Please first display the missed appointment listing "
                     + "by using <missappt>";
 
     private Model model;

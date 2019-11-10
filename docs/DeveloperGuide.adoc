@@ -143,7 +143,7 @@ image::NextSequenceDiagram.png[]
 === Model component
 
 .Structure of the Model Component
-image::ModelOverviewClassDiagramV2.png[]
+image::ModelOverviewClassDiagramV3.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -446,8 +446,8 @@ Step 3: Patient will then displayed in the queue.
 === Appointment feature
 The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User is also able to find missed appointments and settle each missed appointment efficiently.
 
-* e.g. `newappt -id E0000001A -start 01/11/19 1800 -reoccur m -num 2` - creates two monthly reoccurring appointments to patient whose `referenceId` is E0000001A.
-* e.g. `editappt - entry 1 -start 02/11/19 1800` - edits a patient's first appointment timing to be the input timing if there is no conflict with doctor's duty shift.
+* e.g. `newappt -id E0000001A -start 01/12/19 0900 -end 01/12/19 0940 -reoccur m -num 2` - creates two monthly reoccurring appointments to patient whose `referenceId` is E0000001A.
+* e.g. `editappt -entry 1 -start 01/12/19 1000 -end 01/12/19 1040` - edits a patient's first appointment timing to be the input timing if there is no conflict with doctor's duty shift.
 
 ==== Current Implementation
 The Appointment feature contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
@@ -1084,8 +1084,8 @@ _{ more test cases ... }_
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missed/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. _{explain how to simulate a missed/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
