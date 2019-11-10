@@ -144,7 +144,7 @@ in the user guide.
 This command allows you to add a deadline to a member's reimbursement record.
 
 [WARNING]
-You can set the deadline as any day you want.
+You can set the deadline as any valid day you want.
 It is your responsibility to set a reasonable deadline.
 
 * Command: `deadline p/NAME dt/dd-mmm-yyyy`
@@ -159,7 +159,8 @@ image::Reimbursement/ReimbursementDeadlineCommand.png[width="500"]
 +
 . Hit `Enter`
 +
-If the deadline is successfully added, Leo will respond with a success message and the deadline will now display for the specified person's reimbursement. +
+If the deadline is successfully added, Leo will respond with a success message
+and the deadline will now be displayed for the specified person's reimbursement. +
 Otherwise, Leo will show an error message indicating that the person is not in the reimbursement list.
 +
 .Result of deadline command in reimbursement tab
@@ -181,8 +182,8 @@ To modify the deadline for a reimbursement, you can use `deadline` command again
 This command helps you to mark a reimbursement as done and remove it from reimbursement list.
 
 [NOTE]
-Transactions not shown in the Reimbursement Tab are already marked as done. +
-No indication will be shown in the Transaction Tab.
+Reimbursements only take transactions that have not been paid. +
+The reimbursement status is not shown in the transaction tab.
 
 * Command: `done p/NAME`
 * Example: [blue]`done p/Alex Yeoh`
@@ -198,7 +199,6 @@ image::Reimbursement/ReimbursementDoneCommand.png[width="500"]
 . Hit `Enter`
 +
 The reimbursement for that person will be removed from the tab, as shown below:
-
 +
 .Result of done command in reimbursement tab
 image::Reimbursement/ReimbursementDoneCommandSuccess.png[width="500"]
@@ -214,9 +214,9 @@ in the developer guide.
 === Deadline command feature
 
 This command is used to add a deadline date to a reimbursement for a person.
-Deadline command requires access to the `Model` of the person package which the `AddressBook` implementation is contained in.
+Deadline command requires access to the `Model` of the person package.
 Deadline field should be provided in a valid date format.
-The person's name inputted has to match a person's name already existing in the `Reimbursement` which is shown in our Reimbursement Tab.
+The person's name inputted has to match a person's name already existing in a `Reimbursement`.
 
 The following sequence diagram shows the execution of deadline command:
 
@@ -228,7 +228,7 @@ The `DeadlineCommandParser` creates a `DeadlineCommand` with person and deadline
 This `DeadlineCommand` is returned back to `LogicManager` of reimbursement and is executed by calling `addDeadline` method in
 `ModelManager`.
 After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and displays the deadline in reimbursement list.
-After that, the deadline is saved into a `.txt` file.
+After that, the deadline is saved into a `reimbursementInformation.txt` file.
 
 .Activity diagram of deadline command in reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramDeadlineCommand.png[width="300"]
@@ -239,7 +239,7 @@ Otherwise, when the execution is successful, a response informs the user that de
 === Find command feature
 
 This command is used to find a reimbursement that contains the person's name.
-The find command requires access to `Model` of the person package which the `AddressBook` implementation is contained in.
+The find command requires access to `Model` of the person package.
 Person field should be provided and the person's name should exist in reimbursement list.
 
 .Sequence diagram of find command in reimbursements tab (reimbursement package)
@@ -256,13 +256,14 @@ image::Reimbursement/ReimbursementTabActivityDiagramFindCommand.png[width="300"]
 
 The above activity diagram shows the steps needed for find command.
 The person's name is checked whether it exists in reimbursement list.
-If not, our app informs the user that command is incorrect.
-If command is valid, the reimbursement is found and displayed in the tab.
+If not, our app informs the user that person is not in the list.
+If command is valid, the found reimbursement is displayed in the tab.
 
 == Overall design considerations
 
 This section's table explains the design considerations for some implementations in the reimbursement tab.
 
+.Table of design considerations and comparisons
 |===
 |Aspect|Alternative 1 |Alternative 2 |Conclusion and Explanation
 |How [blue]`done` command in reimbursement tab updates transactions model and storage.

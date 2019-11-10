@@ -476,7 +476,8 @@ for their expenditure.
 This command allows you to add a deadline to a person's reimbursement.
 
 [WARNING]
-You can set the deadline as any day you want. It is your responsibility to set a reasonable deadline.
+You can set the deadline as any valid day you want.
+It is your responsibility to set a reasonable deadline.
 
 * Command: `deadline p/NAME dt/dd-mmm-yyyy`
 * Example: [blue]`deadline p/Alex Yeoh dt/19-Dec-2019`
@@ -558,8 +559,8 @@ image::Reimbursement/ReimbursementBackCommandSuccess.png[width="600"]
 This command helps you to mark a reimbursement as done and remove it from reimbursement list.
 
 [NOTE]
-Transactions not shown in the Reimbursement Tab are already marked as done. +
-No indication will be shown in the Transaction Tab.
+Reimbursements only take transactions that have not been paid. +
+The reimbursement status is not shown in the transaction tab.
 
 * Command: `done p/NAME`
 * Example: [blue]`done p/Alex Yeoh`
