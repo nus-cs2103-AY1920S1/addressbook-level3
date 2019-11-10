@@ -48,9 +48,10 @@ class AddFindRuleCommandTest {
         AddFindRuleCommand command = new AddFindRuleCommand(validRule);
         ModelStubWithFindRule modelStubWithFindRule = new ModelStubWithFindRule(validRule);
 
+        String expectedMessage = String.format(AddFindRuleCommand.MESSAGE_DUPLICATE_FIND_RULE, validRule.getName());
+
         assertThrows(
-            CommandException.class,
-            String.format(AddFindRuleCommand.MESSAGE_DUPLICATE_FIND_RULE, validRule.getName()), ()
+            CommandException.class, expectedMessage, ()
                 -> command.execute(modelStubWithFindRule, commandHistory)
         );
     }

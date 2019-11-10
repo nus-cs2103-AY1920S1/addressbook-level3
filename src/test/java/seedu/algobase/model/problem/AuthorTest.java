@@ -2,7 +2,6 @@ package seedu.algobase.model.problem;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.algobase.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;

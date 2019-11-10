@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 class NameContainsKeywordsPredicateTest {
 
     private static final NameContainsKeywordsPredicate VALID_PREDICATE_ONE =
-        new NameContainsKeywordsPredicate(Collections.singletonList(new Keyword("Steven Halim")));
+        new NameContainsKeywordsPredicate(Collections.singletonList(new Keyword("Quick sort")));
     private static final NameContainsKeywordsPredicate VALID_PREDICATE_ONE_COPY =
-        new NameContainsKeywordsPredicate(Collections.singletonList(new Keyword("Steven Halim")));
+        new NameContainsKeywordsPredicate(Collections.singletonList(new Keyword("Quick sort")));
     private static final NameContainsKeywordsPredicate VALID_PREDICATE_TWO =
-        new NameContainsKeywordsPredicate(Collections.singletonList(new Keyword("Tan Sun Teck")));
+        new NameContainsKeywordsPredicate(Collections.singletonList(new Keyword("Slow sort")));
 
     @Test
     void equals() {

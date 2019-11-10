@@ -9,9 +9,11 @@ import static seedu.algobase.testutil.Assert.assertThrows;
 import static seedu.algobase.testutil.TypicalAlgoBase.getTypicalAlgoBase;
 import static seedu.algobase.testutil.TypicalProblems.QUICK_SORT;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,7 @@ import seedu.algobase.logic.commands.problem.FindCommand;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
@@ -43,7 +46,6 @@ class FindCommandTest {
     private static final List<String> VALID_DESCRIPTION_KEYWORDS =
         Arrays.asList(VALID_DESCRIPTION_QUICK_SORT.split(" "));
     private static final String VALID_SOURCE_KEYWORD = QUICK_SORT.getSource().value;
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
     private static final List<String> VALID_TAG_STRING_LIST =
         Arrays.stream(QUICK_SORT.getTags().toArray(new Tag[] {}))
             .map(tag -> tag.tagName)
@@ -52,10 +54,30 @@ class FindCommandTest {
     private Model expectedModel = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
+    /**
+     * Converts a list of strings into a list of keywords. Returns an empty list if there is any invalid string.
+     * @param strings list of strings to be converted
+     */
     private List<Keyword> stringListToKeywordList(List<String> strings) {
+        if (strings.stream().anyMatch(str -> !Keyword.isValidKeyword(str))) {
+            return new ArrayList<>();
+        }
         return strings.stream()
             .map(Keyword::new)
             .collect(Collectors.toList());
+    }
+
+    /**
+     * Asserts the current filtered problem list only contains {@link seedu.algobase.testutil.TypicalProblems}'s
+     * {@code QUICK_SORT}.
+     */
+    private void assertQuickSortAsTheOnlyResult(FindProblemDescriptor descriptor,
+                                                Predicate<Problem> predicate,
+                                                String expectedMessage) {
+        FindCommand command = new FindCommand(descriptor);
+        expectedModel.updateFilteredProblemList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
     }
 
     @Test
@@ -71,10 +93,7 @@ class FindCommandTest {
                 .map(keyword -> new Keyword(keyword.toUpperCase()))
                 .collect(Collectors.toList()));
         FindProblemDescriptor descriptor = new FindProblemDescriptorBuilder().withNamePredicate(predicate).build();
-        FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
+        assertQuickSortAsTheOnlyResult(descriptor, predicate, expectedMessage);
     }
 
     @Test
@@ -83,13 +102,22 @@ class FindCommandTest {
         AuthorMatchesKeywordPredicate predicate =
             new AuthorMatchesKeywordPredicate(new Keyword(VALID_AUTHOR_KEYWORD));
         FindProblemDescriptor descriptor = new FindProblemDescriptorBuilder().withAuthorPredicate(predicate).build();
-        FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
+        assertQuickSortAsTheOnlyResult(descriptor, predicate, expectedMessage);
     }
 
-    // TODO: description case insensitive match
+    @Test
+    public void execute_descriptionCaseInsensitiveMatch_problemFound() {
+        String expectedMessage = String.format(Messages.MESSAGE_PROBLEMS_LISTED_OVERVIEW, 1);
+        List<String> allCapitalKeywords =
+            VALID_DESCRIPTION_KEYWORDS.stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
+        DescriptionContainsKeywordsPredicate predicate =
+            new DescriptionContainsKeywordsPredicate(stringListToKeywordList(allCapitalKeywords));
+        FindProblemDescriptor descriptor = new FindProblemDescriptorBuilder()
+            .withDescriptionPredicate(predicate).build();
+        assertQuickSortAsTheOnlyResult(descriptor, predicate, expectedMessage);
+    }
 
     @Test
     public void execute_descriptionExactMatch_problemFound() {
@@ -98,10 +126,7 @@ class FindCommandTest {
             new DescriptionContainsKeywordsPredicate(stringListToKeywordList(VALID_DESCRIPTION_KEYWORDS));
         FindProblemDescriptor descriptor = new FindProblemDescriptorBuilder()
             .withDescriptionPredicate(predicate).build();
-        FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
+        assertQuickSortAsTheOnlyResult(descriptor, predicate, expectedMessage);
     }
 
     @Test
@@ -110,14 +135,8 @@ class FindCommandTest {
         SourceMatchesKeywordPredicate predicate =
             new SourceMatchesKeywordPredicate(new Keyword(VALID_SOURCE_KEYWORD));
         FindProblemDescriptor descriptor = new FindProblemDescriptorBuilder().withSourcePredicate(predicate).build();
-        FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
+        assertQuickSortAsTheOnlyResult(descriptor, predicate, expectedMessage);
     }
-
-    // TODO: tag inclusive match - find t/Recursion Brute-Force will match Recursion+Brute-Force+Playful
-    // TODO: tag exclusive mismatch - but not Recursion+Adhoc
 
     @Test
     public void execute_tagExactMatch_problemFound() {
@@ -125,10 +144,7 @@ class FindCommandTest {
         TagIncludesKeywordsPredicate predicate =
             new TagIncludesKeywordsPredicate(stringListToKeywordList(VALID_TAG_STRING_LIST));
         FindProblemDescriptor descriptor = new FindProblemDescriptorBuilder().withTagPredicate(predicate).build();
-        FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
+        assertQuickSortAsTheOnlyResult(descriptor, predicate, expectedMessage);
     }
 
     @Test
@@ -138,10 +154,7 @@ class FindCommandTest {
             new DifficultyIsInRangePredicate(QUICK_SORT.getDifficulty().value, QUICK_SORT.getDifficulty().value);
         FindProblemDescriptor descriptor = new FindProblemDescriptorBuilder()
             .withDifficultyPredicate(predicate).build();
-        FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredProblemList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(QUICK_SORT), model.getFilteredProblemList());
+        assertQuickSortAsTheOnlyResult(descriptor, predicate, expectedMessage);
     }
 
     @Test

@@ -19,10 +19,6 @@ public class FindProblemDescriptorBuilder {
         descriptor = new FindProblemDescriptor();
     }
 
-    public FindProblemDescriptorBuilder(FindProblemDescriptor descriptor) {
-        this.descriptor = descriptor;
-    }
-
     /**
      * Sets the {@code NameContainsKeywordsPredicate} of the {@code FindProblemDescriptor} that we are building.
      */

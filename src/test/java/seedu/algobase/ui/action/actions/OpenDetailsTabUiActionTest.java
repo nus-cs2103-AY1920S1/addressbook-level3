@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.DefaultModelStub;
 import seedu.algobase.model.Id;

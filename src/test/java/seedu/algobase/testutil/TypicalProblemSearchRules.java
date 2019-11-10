@@ -5,6 +5,7 @@ import static seedu.algobase.testutil.TypicalProblems.getTypicalProblems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,7 @@ public class TypicalProblemSearchRules {
 
     public static final ProblemSearchRule NAME_SEQUENCES = new ProblemSearchRule(
         new Name("Sequences"),
-        new NameContainsKeywordsPredicate(Arrays.asList(new Keyword("Sequences"))),
+        new NameContainsKeywordsPredicate(Collections.singletonList(new Keyword("Sequences"))),
         null,
         null,
         null,
@@ -48,7 +49,7 @@ public class TypicalProblemSearchRules {
 
     public static final ProblemSearchRule NAME_SEQUENCES_DUPLICATE = new ProblemSearchRule(
         new Name("Sequences"),
-        new NameContainsKeywordsPredicate(Arrays.asList(new Keyword("Sequences"))),
+        new NameContainsKeywordsPredicate(Collections.singletonList(new Keyword("Sequences"))),
         null,
         null,
         null,
@@ -58,7 +59,7 @@ public class TypicalProblemSearchRules {
 
     public static final ProblemSearchRule NAME_SEQUENCES_SAME_NAME_DIFFERENT_PREDICATE = new ProblemSearchRule(
         new Name("Sequences"),
-        new NameContainsKeywordsPredicate(Arrays.asList(new Keyword("Hello"))),
+        new NameContainsKeywordsPredicate(Collections.singletonList(new Keyword("Hello"))),
         null,
         null,
         null,
@@ -68,12 +69,12 @@ public class TypicalProblemSearchRules {
 
     public static final ProblemSearchRule ALL_PREDICATE = new ProblemSearchRule(
         new Name("All predicates search rule"),
-        new NameContainsKeywordsPredicate(Arrays.asList(new Keyword("hello"))),
+        new NameContainsKeywordsPredicate(Collections.singletonList(new Keyword("hello"))),
         new AuthorMatchesKeywordPredicate(new Keyword("steven")),
-        new DescriptionContainsKeywordsPredicate(Arrays.asList(new Keyword("des"))),
+        new DescriptionContainsKeywordsPredicate(Collections.singletonList(new Keyword("des"))),
         new SourceMatchesKeywordPredicate(new Keyword("src")),
         new DifficultyIsInRangePredicate(1.0, 3.0),
-        new TagIncludesKeywordsPredicate(Arrays.asList(new Keyword("tags")))
+        new TagIncludesKeywordsPredicate(Collections.singletonList(new Keyword("tags")))
     );
 
     public static final ProblemSearchRule QUICK_SORT_PREDICATE = new ProblemSearchRule(
