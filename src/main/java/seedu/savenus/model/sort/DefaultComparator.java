@@ -1,28 +1,21 @@
 package seedu.savenus.model.sort;
 
-import java.util.Comparator;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_CATEGORY;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_PRICE;
 
-import seedu.savenus.model.food.Food;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 //@@author seanlowjk
 /**
  * A Simple Comparator that compares by category, name and then price.
  */
-public class DefaultComparator implements Comparator<Food> {
-    @Override
-    public int compare(Food a, Food b) {
-        int categoryComparisonFactor = a.getCategory().compareTo(b.getCategory());
-        int nameComparisonFactor = a.getName().compareTo(b.getName());
-        int priceComparisonFactor = a.getPrice().compareTo(b.getPrice());
+public class DefaultComparator extends FoodComparator {
 
-        if (categoryComparisonFactor != 0) {
-            return categoryComparisonFactor;
-        } else {
-            if (nameComparisonFactor != 0) {
-                return nameComparisonFactor;
-            } else {
-                return priceComparisonFactor;
-            }
-        }
+    public DefaultComparator() {
+        super(new ArrayList<>(Arrays.asList(FIELD_NAME_CATEGORY, "ASC", FIELD_NAME_NAME, "ASC",
+                FIELD_NAME_PRICE, "ASC")));
     }
+
 }
