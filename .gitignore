@@ -22,3 +22,6 @@ src/test/data/sandbox/
 
 # Ignore all pdf files
 *.pdf
+
+# Ignore Inkscape files
+drawing.svg
