@@ -3,7 +3,7 @@ package seedu.algobase.storage;
 import static seedu.algobase.testutil.Assert.assertThrows;
 import static seedu.algobase.testutil.TypicalProblemSearchRules.INVALID_ADAPTED_KEYWORD;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ class JsonAdaptedTagIncludesKeywordsPredicateTest {
     @Test
     public void toModelType_invalidAdaptedKeyword_throwsIllegalValueException() {
         JsonAdaptedTagIncludesKeywordsPredicate adaptedTagIncludesKeywordsPredicate =
-            new JsonAdaptedTagIncludesKeywordsPredicate(Arrays.asList(INVALID_ADAPTED_KEYWORD));
+            new JsonAdaptedTagIncludesKeywordsPredicate(Collections.singletonList(INVALID_ADAPTED_KEYWORD));
         String expectedMessage = Keyword.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage,
             adaptedTagIncludesKeywordsPredicate::toModelType);

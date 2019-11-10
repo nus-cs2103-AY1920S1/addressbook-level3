@@ -24,7 +24,6 @@ public class ProblemBuilder {
     public static final String DEFAULT_AUTHOR = "Alice Pauline";
     public static final String DEFAULT_WEBLINK = "http://open.kattis.com";
     public static final String DEFAULT_DESCRIPTION = "This returns the maximum sum of a contiguous substring";
-    public static final String DEFAULT_DIFFICULTY = "3.0";
     public static final String DEFAULT_REMARK = "This is a remark.";
     public static final String DEFAULT_SOURCE = "UVa";
 

@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 class SourceMatchesKeywordPredicateTest {
 
     private static final SourceMatchesKeywordPredicate VALID_PREDICATE_ONE =
-        new SourceMatchesKeywordPredicate(new Keyword("Steven Halim"));
+        new SourceMatchesKeywordPredicate(new Keyword("Kattis"));
     private static final SourceMatchesKeywordPredicate VALID_PREDICATE_ONE_COPY =
-        new SourceMatchesKeywordPredicate(new Keyword("Steven Halim"));
+        new SourceMatchesKeywordPredicate(new Keyword("Kattis"));
     private static final SourceMatchesKeywordPredicate VALID_PREDICATE_TWO =
-        new SourceMatchesKeywordPredicate(new Keyword("Tan Sun Teck"));
+        new SourceMatchesKeywordPredicate(new Keyword("Onlinejudge.org"));
 
     @Test
     void equals() {

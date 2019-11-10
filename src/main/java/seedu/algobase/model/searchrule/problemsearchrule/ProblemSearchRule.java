@@ -29,7 +29,7 @@ public class ProblemSearchRule extends FindProblemDescriptor {
     /**
      * Returns true when {@code other} has the same identity field(s) as {@code this}.
      *
-     * @param other
+     * @param other the other problem search rule to be compared
      */
     public boolean isSameProblemSearchRule(ProblemSearchRule other) {
         if (other == this) {

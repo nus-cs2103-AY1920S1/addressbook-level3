@@ -33,7 +33,7 @@ class SortCommandTest {
      * in content and order.
      */
     private void assertSuccessfullySorted(SortCommand command, Comparator<Problem> comparator) throws CommandException {
-        String expectedMessage = String.format(MESSAGE_SUCCESS);
+        String expectedMessage = MESSAGE_SUCCESS;
         CommandResult actualResult = command.execute(model, commandHistory);
         assertEquals(new CommandResult(expectedMessage), actualResult);
         List<Problem> expectedList = new ArrayList<>(expectedModel.getFilteredProblemList());

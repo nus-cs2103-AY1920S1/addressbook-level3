@@ -48,7 +48,7 @@ public class SwitchDisplayTabUiActionTest {
     /**
      * A Model stub that always accepts the display tab index being added.
      */
-    private class ModelStubAcceptingDisplayTabIndex extends DefaultModelStub {
+    private static class ModelStubAcceptingDisplayTabIndex extends DefaultModelStub {
         private GuiState guiState = new GuiState();
 
         @Override

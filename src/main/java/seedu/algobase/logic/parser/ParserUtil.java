@@ -465,10 +465,9 @@ public class ParserUtil {
     /**
      * Parses a string into a {@code NameContainsKeywordsPredicate}.
      * @param arg argument string to be parsed
-     * @param messageUsage target command's usage message
      * @throws ParseException if the argument string is of invalid format.
      */
-    public static NameContainsKeywordsPredicate parseNamePredicate(String arg, String messageUsage)
+    public static NameContainsKeywordsPredicate parseNamePredicate(String arg)
         throws ParseException {
         List<String> nameKeywords = getArgumentValueAsList(arg);
         checkKeywordStringList(nameKeywords);
@@ -478,13 +477,11 @@ public class ParserUtil {
 
     /**
      * Parses a string into a {@code AuthorMatchesKeywordPredicate}.
-     * @param arg argument string to be parsed
-     * @param messageUsage target command's usage message
+     * @param authorKeyword argument string to be parsed
      * @throws ParseException if the argument string is of invalid format.
      */
-    public static AuthorMatchesKeywordPredicate parseAuthorPredicate(String arg, String messageUsage)
+    public static AuthorMatchesKeywordPredicate parseAuthorPredicate(String authorKeyword)
         throws ParseException {
-        String authorKeyword = arg;
         checkKeywordString(authorKeyword);
         return new AuthorMatchesKeywordPredicate(new Keyword(authorKeyword));
     }
@@ -492,10 +489,9 @@ public class ParserUtil {
     /**
      * Parses a string into a {@code DescriptionContainsKeywordsPredicate}.
      * @param arg argument string to be parsed
-     * @param messageUsage target command's usage message
      * @throws ParseException if the argument string is of invalid format.
      */
-    public static DescriptionContainsKeywordsPredicate parseDescriptionPredicate(String arg, String messageUsage)
+    public static DescriptionContainsKeywordsPredicate parseDescriptionPredicate(String arg)
         throws ParseException {
         List<String> descriptionKeywords = getArgumentValueAsList(arg);
         checkKeywordStringList(descriptionKeywords);
@@ -505,13 +501,11 @@ public class ParserUtil {
 
     /**
      * Parses a string into a {@code SourceMatchesKeywordPredicate}.
-     * @param arg argument string to be parsed
-     * @param messageUsage target command's usage message
+     * @param sourceKeyword argument string to be parsed
      * @throws ParseException if the argument string is of invalid format.
      */
-    public static SourceMatchesKeywordPredicate parseSourcePredicate(String arg, String messageUsage)
+    public static SourceMatchesKeywordPredicate parseSourcePredicate(String sourceKeyword)
         throws ParseException {
-        String sourceKeyword = arg;
         checkKeywordString(sourceKeyword);
         return new SourceMatchesKeywordPredicate(new Keyword(sourceKeyword));
     }
@@ -519,10 +513,9 @@ public class ParserUtil {
     /**
      * Parses a string into a {@code TagIncludesKeywordsPredicate}.
      * @param arg argument string to be parsed
-     * @param messageUsage target command's usage message
      * @throws ParseException if the argument string is of invalid format.
      */
-    public static TagIncludesKeywordsPredicate parseTagPredicate(String arg, String messageUsage)
+    public static TagIncludesKeywordsPredicate parseTagPredicate(String arg)
         throws ParseException {
         List<String> tagKeywords = getArgumentValueAsList(arg);
         checkKeywordStringList(tagKeywords);

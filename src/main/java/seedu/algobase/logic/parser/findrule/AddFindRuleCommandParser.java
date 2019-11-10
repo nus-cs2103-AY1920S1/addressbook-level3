@@ -77,16 +77,16 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
 
         final NameContainsKeywordsPredicate nameContainsKeywordsPredicate;
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
-            nameContainsKeywordsPredicate = parseNamePredicate(argumentMultimap.getValue(PREFIX_NAME).get(),
-                AddFindRuleCommand.MESSAGE_USAGE);
+            nameContainsKeywordsPredicate = parseNamePredicate(argumentMultimap.getValue(PREFIX_NAME).get()
+            );
         } else {
             nameContainsKeywordsPredicate = null;
         }
 
         final AuthorMatchesKeywordPredicate authorMatchesKeywordPredicate;
         if (argumentMultimap.getValue(PREFIX_AUTHOR).isPresent()) {
-            authorMatchesKeywordPredicate = parseAuthorPredicate(argumentMultimap.getValue(PREFIX_AUTHOR).get(),
-                AddFindRuleCommand.MESSAGE_USAGE);
+            authorMatchesKeywordPredicate = parseAuthorPredicate(argumentMultimap.getValue(PREFIX_AUTHOR).get()
+            );
         } else {
             authorMatchesKeywordPredicate = null;
         }
@@ -94,24 +94,24 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
         final DescriptionContainsKeywordsPredicate descriptionContainsKeywordsPredicate;
         if (argumentMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             descriptionContainsKeywordsPredicate = parseDescriptionPredicate(
-                argumentMultimap.getValue(PREFIX_DESCRIPTION).get(),
-                AddFindRuleCommand.MESSAGE_USAGE);
+                argumentMultimap.getValue(PREFIX_DESCRIPTION).get()
+            );
         } else {
             descriptionContainsKeywordsPredicate = null;
         }
 
         final SourceMatchesKeywordPredicate sourceMatchesKeywordPredicate;
         if (argumentMultimap.getValue(PREFIX_SOURCE).isPresent()) {
-            sourceMatchesKeywordPredicate = parseSourcePredicate(argumentMultimap.getValue(PREFIX_SOURCE).get(),
-                AddFindRuleCommand.MESSAGE_USAGE);
+            sourceMatchesKeywordPredicate = parseSourcePredicate(argumentMultimap.getValue(PREFIX_SOURCE).get()
+            );
         } else {
             sourceMatchesKeywordPredicate = null;
         }
 
         final TagIncludesKeywordsPredicate tagIncludesKeywordsPredicate;
         if (argumentMultimap.getValue(PREFIX_TAG).isPresent()) {
-            tagIncludesKeywordsPredicate = parseTagPredicate(argumentMultimap.getValue(PREFIX_TAG).get(),
-                AddFindRuleCommand.MESSAGE_USAGE);
+            tagIncludesKeywordsPredicate = parseTagPredicate(argumentMultimap.getValue(PREFIX_TAG).get()
+            );
         } else {
             tagIncludesKeywordsPredicate = null;
         }

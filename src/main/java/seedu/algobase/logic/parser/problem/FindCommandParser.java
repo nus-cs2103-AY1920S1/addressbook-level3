@@ -55,26 +55,26 @@ public class FindCommandParser implements Parser<FindCommand> {
         FindProblemDescriptor findProblemDescriptor = new FindProblemDescriptor();
 
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
-            findProblemDescriptor.setNamePredicate(parseNamePredicate(argumentMultimap.getValue(PREFIX_NAME).get(),
-                FindCommand.MESSAGE_USAGE));
+            findProblemDescriptor.setNamePredicate(parseNamePredicate(argumentMultimap.getValue(PREFIX_NAME).get()
+            ));
         }
 
         if (argumentMultimap.getValue(PREFIX_AUTHOR).isPresent()) {
             findProblemDescriptor.setAuthorPredicate(parseAuthorPredicate(
-                argumentMultimap.getValue(PREFIX_AUTHOR).get(),
-                FindCommand.MESSAGE_USAGE));
+                argumentMultimap.getValue(PREFIX_AUTHOR).get()
+            ));
         }
 
         if (argumentMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             findProblemDescriptor.setDescriptionPredicate(parseDescriptionPredicate(
-                argumentMultimap.getValue(PREFIX_DESCRIPTION).get(),
-                FindCommand.MESSAGE_USAGE));
+                argumentMultimap.getValue(PREFIX_DESCRIPTION).get()
+            ));
         }
 
         if (argumentMultimap.getValue(PREFIX_SOURCE).isPresent()) {
             findProblemDescriptor.setSourcePredicate(
-                parseSourcePredicate(argumentMultimap.getValue(PREFIX_SOURCE).get(),
-                FindCommand.MESSAGE_USAGE));
+                parseSourcePredicate(argumentMultimap.getValue(PREFIX_SOURCE).get()
+                ));
         }
 
         if (argumentMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
@@ -84,8 +84,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (argumentMultimap.getValue(PREFIX_TAG).isPresent()) {
-            findProblemDescriptor.setTagPredicate(parseTagPredicate(argumentMultimap.getValue(PREFIX_TAG).get(),
-                FindCommand.MESSAGE_USAGE));
+            findProblemDescriptor.setTagPredicate(parseTagPredicate(argumentMultimap.getValue(PREFIX_TAG).get()
+            ));
         }
 
         if (!findProblemDescriptor.isAnyFieldProvided()) {

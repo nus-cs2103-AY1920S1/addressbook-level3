@@ -4,18 +4,21 @@ package seedu.algobase.model.searchrule.problemsearchrule;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
 class DescriptionContainsKeywordsPredicateTest {
 
     private static final DescriptionContainsKeywordsPredicate VALID_PREDICATE_ONE =
-        new DescriptionContainsKeywordsPredicate(Arrays.asList(new Keyword("Steven Halim")));
+        new DescriptionContainsKeywordsPredicate(
+            Collections.singletonList(new Keyword("This is a valid description")));
     private static final DescriptionContainsKeywordsPredicate VALID_PREDICATE_ONE_COPY =
-        new DescriptionContainsKeywordsPredicate(Arrays.asList(new Keyword("Steven Halim")));
+        new DescriptionContainsKeywordsPredicate(
+            Collections.singletonList(new Keyword("This is a valid description")));
     private static final DescriptionContainsKeywordsPredicate VALID_PREDICATE_TWO =
-        new DescriptionContainsKeywordsPredicate(Arrays.asList(new Keyword("Tan Sun Teck")));
+        new DescriptionContainsKeywordsPredicate(Collections.singletonList(
+            new Keyword("This is a valid description, but different from last one.")));
 
     @Test
     void equals() {

@@ -70,7 +70,7 @@ class SwitchTabCommandTest {
     /**
      * A Model stub that always accepts the display tab index being added.
      */
-    private class ModelStubAcceptingDisplayTabIndex extends DefaultModelStub {
+    private static class ModelStubAcceptingDisplayTabIndex extends DefaultModelStub {
 
         @Override
         public GuiState getGuiState() {
@@ -81,7 +81,7 @@ class SwitchTabCommandTest {
     /**
      * A Model stub that always accepts the problem being added.
      */
-    private class ModelStubAcceptingDetailsTabIndex extends DefaultModelStub {
+    private static class ModelStubAcceptingDetailsTabIndex extends DefaultModelStub {
 
         @Override
         public GuiState getGuiState() {
