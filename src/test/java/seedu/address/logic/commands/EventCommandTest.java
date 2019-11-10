@@ -319,7 +319,7 @@ public class EventCommandTest {
         }
 
         @Override
-        public boolean hasTrainingOnDate(AthletickDate training) {
+        public boolean hasTrainingOn(AthletickDate training) {
             throw new AssertionError("This method should not be called.");
         }
 
