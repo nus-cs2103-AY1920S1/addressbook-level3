@@ -193,8 +193,8 @@ public class XpireItem extends Item {
             builder.append(this.name).append("\n")
                     .append(String.format("Expiry date: %s\n", this.expiryDate.toStringWithCountdown()))
                     .append(String.format("Quantity: %s\n", this.quantity))
-                    .append("Tags: ");
-            this.getTags().forEach(builder::append);
+                    .append("Tags:");
+            this.getTags().forEach(tag -> builder.append(" " + tag));
         } else {
             builder.append(this.name).append("\n")
                     .append(String.format("Expiry date: %s\n", this.expiryDate.toStringWithCountdown()))

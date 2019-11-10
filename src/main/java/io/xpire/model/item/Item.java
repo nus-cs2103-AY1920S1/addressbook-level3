@@ -126,8 +126,8 @@ public class Item {
         final StringBuilder builder = new StringBuilder();
         builder.append(this.name.toString());
         if (!this.getTags().isEmpty()) {
-            builder.append("\nTags: ");
-            this.getTags().forEach((builder::append));
+            builder.append("\nTags:");
+            this.getTags().forEach(tag -> builder.append(" " + tag));
         }
         return builder.toString();
     }

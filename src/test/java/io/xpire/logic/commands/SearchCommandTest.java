@@ -1,8 +1,11 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.commons.core.Messages.MESSAGE_EMPTY_LIST;
 import static io.xpire.commons.core.Messages.MESSAGE_SUGGESTIONS;
+import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.SearchCommand.MESSAGE_ITEMS_LISTED_OVERVIEW;
+import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.TypicalItems.BANANA;
 import static io.xpire.testutil.TypicalItems.DUCK;
@@ -17,11 +20,13 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import io.xpire.logic.parser.Parser;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;
 import io.xpire.model.item.ContainsKeywordsPredicate;
 
+//@@author JermyTan
 /**
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
  */
@@ -54,6 +59,20 @@ public class SearchCommandTest {
 
         // different xpireItem -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
+    }
+
+    @Test
+    public void execute_emptyXpire_failure() {
+        Model model = new ModelManager();
+
+        assertCommandFailure(new SearchCommand(XPIRE, preparePredicate("test")), model, MESSAGE_EMPTY_LIST);
+    }
+
+    @Test
+    public void execute_emptyReplenishList_failure() {
+        Model model = new ModelManager();
+
+        assertCommandFailure(new SearchCommand(REPLENISH, preparePredicate("test")), model, MESSAGE_EMPTY_LIST);
     }
 
     @Test
@@ -90,7 +109,7 @@ public class SearchCommandTest {
     @Test
     public void execute_allMatchingKeywords_someItemsFoundWithRecommendations() {
         String expectedMessage = String.format(MESSAGE_ITEMS_LISTED_OVERVIEW, 0)
-                + String.format(MESSAGE_SUGGESTIONS, "[[Fridge]]")
+                + String.format(MESSAGE_SUGGESTIONS, "[#Fridge]")
                 + String.format(MESSAGE_SUGGESTIONS, "[Banana]");
         ContainsKeywordsPredicate predicate = preparePredicate("Banaan|#Fridg");
         SearchCommand command = new SearchCommand(XPIRE, predicate);
@@ -123,6 +142,6 @@ public class SearchCommandTest {
      * Parses {@code userInput} into a {@code ContainsKeywordsPredicate}.
      */
     private ContainsKeywordsPredicate preparePredicate(String parsedUserInput) {
-        return new ContainsKeywordsPredicate(Arrays.asList(parsedUserInput.split("\\|")));
+        return new ContainsKeywordsPredicate(Arrays.asList(parsedUserInput.split(Parser.SEPARATOR)));
     }
 }

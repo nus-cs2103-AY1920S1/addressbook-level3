@@ -1,6 +1,5 @@
 package io.xpire.ui;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -21,8 +20,6 @@ public class ViewPanel extends UiPart<VBox> {
     private static final String FXML = "ViewPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ViewPanel.class);
 
-    private Collection<ItemCard> oldCardList = new ArrayList<>();
-
     @FXML
     private VBox card;
     @FXML
@@ -40,7 +37,7 @@ public class ViewPanel extends UiPart<VBox> {
     void displayItems(ObservableList<? extends Item> itemList) {
         card.getChildren().clear();
         Collection<ItemCard> cardList;
-        //@@author febee99
+        //@@author febee99 xiaoyu-nus
         if (!itemList.isEmpty() && itemList.get(0) instanceof XpireItem) {
             cardList = IntStream.range(0, itemList.size())
                                 .mapToObj(i -> new ItemCard((XpireItem) itemList.get(i), i + 1))
@@ -50,10 +47,8 @@ public class ViewPanel extends UiPart<VBox> {
                                 .mapToObj(i -> new ItemCard(itemList.get(i), i + 1))
                                 .collect(Collectors.toList());
         }
-        //@@author
         for (ItemCard itemCard : cardList) {
             card.getChildren().add(itemCard.getRoot());
         }
-        oldCardList = cardList;
     }
 }

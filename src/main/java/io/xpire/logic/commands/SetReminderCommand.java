@@ -2,7 +2,6 @@ package io.xpire.logic.commands;
 
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import static io.xpire.model.ListType.XPIRE;
-import static java.util.Objects.requireNonNull;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
@@ -54,7 +53,8 @@ public class SetReminderCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(model, stateManager);
+        this.requireNonEmptyCurrentList(model);
         stateManager.saveState(new ModifiedState(model));
         ObservableList<? extends Item> currentList = model.getCurrentList();
 

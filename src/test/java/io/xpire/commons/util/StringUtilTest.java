@@ -162,7 +162,7 @@ public class StringUtilTest {
 
         // EP: signed numbers
         assertFalse(StringUtil.isNonNegativeInteger("-1"));
-        assertFalse(StringUtil.isNonNegativeInteger("+1")); //"+1" is successfully parsed by Integer#parseInt(String)
+        assertFalse(StringUtil.isNonNegativeInteger("+1")); // "+1" is successfully parsed by Integer#parseInt(String)
 
         // EP: numbers with white space
         assertFalse(StringUtil.isNonNegativeInteger(" 101 ")); // Leading/trailing spaces

@@ -1,5 +1,6 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.commons.core.Messages.MESSAGE_EMPTY_LIST;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showReplenishItemAtIndex;
@@ -189,7 +190,7 @@ public class TagCommandTest {
         TagCommand tagCommand = new TagCommand(XPIRE);
         assertEquals(tagCommand.getMode(), TagCommand.TagMode.SHOW);
         ModelManager expectedModel = new ModelManager();
-        assertCommandSuccess(tagCommand, expectedModel, TagCommand.MESSAGE_TAG_SHOW_FAILURE, expectedModel);
+        assertCommandFailure(tagCommand, expectedModel, MESSAGE_EMPTY_LIST);
     }
 
 

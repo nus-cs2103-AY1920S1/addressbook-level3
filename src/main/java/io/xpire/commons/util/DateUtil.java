@@ -89,6 +89,7 @@ public class DateUtil {
      */
     public static LocalDate getPreviousDate(LocalDate date, int offsetDays) {
         requireNonNull(date);
+        AppUtil.checkArgument(offsetDays >= 0);
         return date.minusDays(offsetDays);
     }
 
