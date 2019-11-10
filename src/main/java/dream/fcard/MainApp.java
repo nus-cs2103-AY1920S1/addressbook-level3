@@ -29,6 +29,9 @@ public class MainApp extends Application {
         logger.info("=============================[ Starting FlashCard Pro ]===========================");
 
         try {
+            // load code font
+            Font.loadFont(MainApp.class.getResourceAsStream("/fonts/Inconsolata.otf"), 12);
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/Windows/MainWindow.fxml"));
             VBox vbox = fxmlLoader.load();
             Scene scene = new Scene(vbox);
@@ -38,9 +41,6 @@ public class MainApp extends Application {
             stage.setTitle("FlashCard Pro");
             stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/icon_black_resized.png")));
             stage.show();
-
-            // load code font
-            Font.loadFont(MainApp.class.getResourceAsStream("/fonts/Inconsolata.otf"), 12);
 
             StorageManager.loadUserStats();
             // start a session. if UserStats has not been retrieved, it will do so at this point.

@@ -58,6 +58,11 @@ image::Ui.png[width="790"]
 [[Features]]
 == Features
 
+
+Note: GUI deck displays work ideally for decks with 10 or less cards. Better GUI support will be included for display of decks in V2.0.
+
+Please use scroll bar to view the windows properly.
+
 //@@author huiminlim
 ====
 *Command Format*

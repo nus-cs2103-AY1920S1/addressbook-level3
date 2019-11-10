@@ -102,6 +102,8 @@ include::../UserGuide.adoc[tag=delete]
 
 include::../UserGuide.adoc[tag=stats]
 
+include::../UserGuide.adoc[tag=quit]
+
 include::../UserGuide.adoc[tag=FAQ]
 
 include::../UserGuide.adoc[tag=summary]

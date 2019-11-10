@@ -1,25 +1,24 @@
+//@@auth AHaliq
 package dream.fcard.gui.controllers.windows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import dream.fcard.logic.respond.Responder;
+import dream.fcard.model.StateHolder;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
  * JavaFX Application experimenting CLIEditor for user inputs.
- * TODO constructor takes in textarea
  */
-public class CliEditor extends Application {
+public class CliEditor {
 
     /**
      * Caret character.
@@ -40,13 +39,13 @@ public class CliEditor extends Application {
     /**
      * Number of rows to be rendered.
      */
-    private final int renderRows = 5;
+    private final int renderRows = 10;
     // setup constants --------------------------------------------------------
 
     /**
      * Text area itself.
      */
-    private TextArea textArea = new TextArea();
+    private TextArea textArea;
     /**
      * Cursor blinker.
      */
@@ -100,28 +99,21 @@ public class CliEditor extends Application {
      * Blink flag.
      */
     private boolean showCaret = false;
+    /**
+     * Just Displayed message
+     */
+    private boolean justDisplayed = false;
     // variables --------------------------------------------------------------
 
-    @Override
-    public void start(Stage primaryStage) {
-
+    public CliEditor(TextArea ta) {
+        textArea = ta;
         textArea.setEditable(false);
         textArea.setText("");
         textArea.setOnKeyPressed(this::processKeyInput);
-        textArea.setFont(Font.loadFont(
-                getClass().getClassLoader().getResource("fonts/Inconsolata.otf").toExternalForm(), 12));
+        textArea.setFont(Font.font("Inconsolata", 12));
         textArea.setWrapText(true);
-
-        StackPane root = new StackPane();
-        root.getChildren().add(textArea);
-        primaryStage.setScene(new Scene(root, 500, 250));
-        primaryStage.show();
-
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
-        printNewLine("Welcome to FlashCardPro", false, false);
-        printMultiEdit("{\n  \"key\" : 123\n}");
     }
 
     /**
@@ -146,12 +138,14 @@ public class CliEditor extends Application {
         }
         characterInput(str);
         newLine();
-        if (!multi) {
-            printPrompt();
-        } else {
+        multiline = multi;
+        if (multi) {
             editableLine = line;
             editableCaret = linecaret;
+        } else {
+            printPrompt();
         }
+        justDisplayed = true;
     }
 
     /**
@@ -207,13 +201,21 @@ public class CliEditor extends Application {
      * User wants to submit input
      */
     private void sendInput() {
+        justDisplayed = false;
         String str = getInput();
         if (!multiline) {
             history.add(str);
         }
-        System.out.println("YOUR TEXT:\n" + str + "\n---");
-        //TODO call responder with str
         historyIndex = -1;
+        Responder.takeInput(str);
+        if (!justDisplayed) {
+            gotoEnd();
+            boolean old = multiline;
+            multiline = true;
+            newLine();
+            multiline = old;
+            printPrompt();
+        }
     }
 
     /**
@@ -221,10 +223,6 @@ public class CliEditor extends Application {
      */
     private void multilineEscape() {
         sendInput();
-        gotoEnd();
-        newLine();
-        multiline = false;
-        printPrompt();
     }
 
     /**
@@ -310,8 +308,6 @@ public class CliEditor extends Application {
             linecaret = 0;
         } else {
             sendInput();
-            lines.add("");
-            printPrompt();
         }
     }
 
@@ -370,9 +366,9 @@ public class CliEditor extends Application {
      * Print user prompt.
      */
     private void printPrompt() {
-        String status = "default";
         gotoEnd();
-        characterInput("(" + status + ")" + promptChar);
+        String statestr = StateHolder.getState().getCurrState().toString().toLowerCase();
+        characterInput("(" + statestr + ")" + promptChar);
         editableLine = line;
         editableCaret = linecaret;
         multiline = false;
