@@ -241,11 +241,16 @@ The `Model` API is responsible for interacting with the data in JARVIS including
 the various aspects such as user's preferences, command history,
 finance management, cca information, courses and schedule information.
 
+Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/Model.java[[API\]]
+link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/[[Package\]]
+
+The `Model` API acts as a facade that handles interaction with the data of Jarvis.
+
 Below is a class diagram involving the `Model` interface, which inherits
 from the feature specific model interfaces.
 
 .Model Interface
-image::model/ModelInterfaceClassDiagram.png[]
+image::ModelInterfaceClassDiagram.png[]
 
 The `Model` component,
 
@@ -256,8 +261,38 @@ The `Model` component,
 * Stores the `CoursePlanner` Data
 * Stores the `Planner` data
 
-Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/Model.java[[API\]]
-link:{repoURL}/blob/master/src/main/java/seedu/jarvis/model/[[Package\]]
+The concrete class `ModelManager` implements `Model` and manages the data
+for Jarvis. `ModelManager` contains `UserPrefs`, `HistoryManager`, `CcaTracker`,
+`CoursePlanner`, `FinanceTracker` and `Planner`. These classes manages the
+data related to their specific features.
+
+Below is a class diagram for `ModelManager`.
+
+.`ModelManager` class
+image::UpdatedModelClassDiagram.png[]
+
+Each feature has a class managing the data related to that feature as mentioned
+earlier.
+
+Below are the class diagrams of these classes.
+
+.`UserPrefs`
+image::ModelUserPrefsClassDiagram.png[]
+
+.`HistoryManager`
+image::ModelHistoryManagerClassDiagram.png[]
+
+.`CcaTracker`
+image::ModelCcaTrackerClassDiagram.png[]
+
+.`CoursePlanner`
+image::ModelCoursePlannerClassDiagram.png[]
+
+.`FinanceTracker`
+image::ModelFinanceTrackerClassDiagram.png[]
+
+.`Planner`
+image::ModelPlannerClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -266,6 +301,9 @@ The `Storage` API is responsible for reading and writing data in json format.
 This allows the application is remember information in json format when the
 user closes the application.
 
+Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/Storage.java[[API\]]
+link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/[[Package\]]
+
 The `Storage` API acts as a facade that handles interaction regarding
 storage related components.
 
@@ -273,7 +311,7 @@ Below is a class diagram involving the `Storage` interface, which
 inherits from feature specific storage interfaces.
 
 .Storage Interface
-image::storage/StorageInterfaceClassDiagram.png[]
+image::StorageInterfaceClassDiagram.png[]
 
 The `Storage` component,
 
@@ -288,7 +326,7 @@ the storage for `UserPrefs`, `FinanceTracker`, `CcaTracker`,
 Below is a class diagram of `StorageManager`.
 
 .`StorageManager` class
-image::storage/UpdatedStorageClassDiagram.png[]
+image::UpdatedStorageClassDiagram.png[]
 
 Each feature of JARVIS is able to save its information to local storage
 in `JSON` format, by adapting each feature component into
@@ -297,22 +335,19 @@ in `JSON` format, by adapting each feature component into
 Below are the class diagrams for these adapted classes.
 
 .`JsonSerializableHistoryManager`
-image::storage/HistoryManagerStorageClassDiagram.png[300,200]
+image::HistoryManagerStorageClassDiagram.png[300,200]
 
 .`JsonSerializableCcaTracker`
-image::storage/CcaTrackerStorageClassDiagram.png[600,400]
+image::CcaTrackerStorageClassDiagram.png[600,400]
 
 .`JsonSerializableCoursePlanner`
-image::storage/CoursePlannerStorageClassDiagram.png[300,200]
+image::CoursePlannerStorageClassDiagram.png[300,200]
 
 .`JsonSerializableFinanceTracker`
-image::storage/FinanceTrackerStorageClassDiagram.png[600,400]
+image::FinanceTrackerStorageClassDiagram.png[600,400]
 
 .`JsonSerializablePlanner`
-image::storage/PlannerStorageClassDiagram.png[600,400]
-
-Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/Storage.java[[API\]]
-link:{repoURL}/blob/master/src/main/java/seedu/jarvis/storage/[[Package\]]
+image::PlannerStorageClassDiagram.png[600,400]
 
 [[Design-Commons]]
 === Commons Component
@@ -562,10 +597,10 @@ any point, all changes made by the command should be rolled back. This is
 reflected in the Activity Diagrams below.
 
 .Activity Diagram for undo command
-image::undoredo/UndoCommandActivityDiagram.png[]
+image::UndoCommandActivityDiagram.png[]
 
 .Activity Diagram for redo command
-image::undoredo/RedoCommandActivityDiagram.png[]
+image::RedoCommandActivityDiagram.png[]
 
 Therefore there is a need to remember commands that change the state of the
 `Model`. Commands that just render a view without actually changing the
@@ -589,7 +624,7 @@ The following activity diagram illustrates how commands are remembered when a
 user types in a command:
 
 .Activity Diagram for how commands are remembered after their successful execution
-image::undoredo/InverseCommandActivityDiagram.png[]
+image::InverseCommandActivityDiagram.png[]
 
 The section below will discuss in more detail how undo/redo is implemented.
 
@@ -659,7 +694,7 @@ Below is a class diagram between `Model`, `ModelManager`, `HistoryManager`,
 `CommandDeque` and `Command`.
 
 .Class Diagram for `Model`, `ModelManager`, `HistoryManager`, `CommandDeque` and `Command`
-image::undoredo/HistoryManagerModelClassDiagram.png[]
+image::HistoryManagerModelClassDiagram.png[]
 
 Undo and redo operations are executed with `UndoCommand` and `RedoCommand`
 These commands store an integer value referencing the number of commands to
@@ -668,7 +703,7 @@ undo or redo, represented by `UndoCommand#numberOfTimes` and
 `UndoCommand` and `RedoCommand`.
 
 .Class Diagram for `UndoCommand`, `RedoCommand` and `Command`
-image::undoredo/CommandClassDiagram.png[]
+image::CommandClassDiagram.png[]
 
 Below are two sequence diagrams of how a `UndoCommand` and `RedoCommand`
 executes in the program. The sequence diagrams below show the process of undo
@@ -678,13 +713,13 @@ Below is a Sequence Diagram of how an `UndoCommand` to undo a single command
 executes in the program.
 
 .Sequence Diagram for `UndoCommand` (undo a single command)
-image::undoredo/UndoSequenceDiagramNew.png[]
+image::UndoSequenceDiagramNew.png[]
 
 Below is a Sequence Diagram of how a `RedoCommand` to redo a single command
 executes in the program.
 
 .Sequence Diagram for `RedoCommand` (redo a single command)
-image::undoredo/RedoSequenceDiagramNew.png[]
+image::RedoSequenceDiagramNew.png[]
 
 Given below is an example usage scenario of how undo/redo mechanism behaves.
 
