@@ -159,6 +159,55 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Game feature
+
+This section talks about how the `game` function is implemented. This feature aims to encourage users to take a break by playing the traditional Nokia (phone) game: Snake.
+
+==== Implementation
+The game screen appears after the user enters the command `game` into the command box. A separate scene handled by a separate thread is created to run the game so that Elisa's scenes and threads are not overloaded. The following activity diagram shows how the game screen is launched.
+
+.Activity diagram for game mode
+image::GameActivityDiagram.png[500, 600]
+
+==== Internal workings of the Game
+
+Given below is an example usage scenario of how add behaves at each step:
+
+<LOGIC> +
+Step 1. The user enters the command "game". +
+Step 2. The LogicManager creates an ElisaParser to parse the user input. +
+Step 3. ElisaParser creates a GameCommandParser to parse the user input. +
+Step 4. LogicManager will execute the GameCommand. GameCommand will create a GameCommandResult. +
+Step 5. MainWindow will call its own method startgame().
+
+<GAME> +
+Step 6. startgame() calls the method resetgame(), which creates a Grid and GameLoop. +
+Step 7. startgame() calls the method gameCheck on the canvas to check the keys that are pressed during the game. +
+Step 8. startgame() creates a new scene and sets primaryStage's scene to this new scene. +
+Step 9. startgame() creates a new thread to run the game. +
+
+The figure below shows the sequence diagram on what happens after the startgame() method is called.
+
+.Sequence Diagram for game creation
+image::CreatingGameSequenceDiagram.png[500, 600]
+
+==== Game considerations
+The considerations for the choice of game is shown below:
+|===
+|Alternatives: |Pros: |Cons:
+|1. Minesweeper | It is a well-known popular desktop game. | It is difficult to understand the implied rules to this game and this game requires a long time to complete.
+|2. Sudoku | It is a well-known popular pen-and-paper game. | It is difficult to understand the implied rules to this game and this game requires a long time to complete.
+|3. *(Current)* Snake | It is a well-known popular Nokia (phone) game. The rules are simple to understand. The duration for each game is short. | It is addictive when users try to break their high score.
+|===
+
+==== Design considerations
+The design considerations for the placement of the game is shown below:
+|===
+|Alternatives: |Pros: |Cons:
+|1. Placing the game in one of the tabs (beside the Calendar) such that `show g` will switch tab to the game tab. | Users are able to see the chatbox while in the game. | Requires users to use the mouse (away from CLI) to switch between typing in the command box and hitting the keys on the keyboard.
+|2. *(Current)* Creating a separate scene such that the original scene (with ELISA) is hidden when game mode is entered. | Allows users to hit the keys on the keyboard without typing into the command box. | Users are unable to see the chatbox from Elisa.
+|===
+
 // tag::undobyreverse[]
 === [Implemented] Undo/Redo Feature
 ==== Current Implementation Logic
@@ -516,7 +565,6 @@ The design considerations for the classes are shown below:
 |Creating a AutoRescheduleManager for every RescheduleTask | Easy for the Timer in AutoRescheduleManager to keep track of its TimerTask. | There could potentially be many Timer threads.
 |*(Current)* Singleton pattern for AutoRescheduleManager |Ensure that only one instance can be instantiated as there should only be one manager for all the RescheduleTask. If there are multiple managers, it would be hard to keep track of all of them and it would be difficult to coordinate all the tasks. | Difficult to create tests for AutoResheduleManager. Could have many hidden dependencies, which makes code harder to maintain.
 |===
-
 
 === [Proposed] Data Encryption
 
