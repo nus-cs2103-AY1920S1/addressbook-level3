@@ -32,22 +32,23 @@ on businesses and improve data security.
 
 *Highlights*
 
-* This enhancement requires good adherence to the existing architecture as it touches all components
-of the architecture. A new `Password` model was created to support the storage of passwords.
-In addition, numerous commands were implemented for this enhancement. Besides, several Software Engineering Principles,
-such as SOLID, YAGNI and DRY Principles, were closely followed.
+*  A new `Password` model was created to support the management of passwords.
+Numerous commands were also implemented for this enhancement.
+This enhancement requires in depth analysis of the current structure of the architecture as it relies on all the existing components.
+In addition, Software Engineering Principles, such as SOLID, YAGNI and DRY Principles, were used.
+Defensive programming is also evident throughout the enhancement.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 *Other contributions*:
 
 ** Project management:
-*** Set up team repository and other essential tools such as Travis and Coverall on GitHub
+*** Set up team repository and other essential tools such as Travis on GitHub
 *** Maintained the team repository by managing issue tracking, issue assigment and milestones.
 
 ** Enhancements to existing features:
 *** Enhanced the UI of the existing application (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com[#36], https://github.com[#38])
 
 ** Documentation:
 *** Developer Guide:
