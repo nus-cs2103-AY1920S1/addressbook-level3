@@ -72,9 +72,10 @@ public class AutoCompleteTextField extends TextField {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
-        entries.addAll(CommandMasterList.getCommandWords());
+        List<String> commandMasterList = new ArrayList<String>(CommandMasterList.getCommandWords());
+        assert !commandMasterList.isEmpty() : "Command master list cannot be empty!";
+        entries.addAll(commandMasterList);
         setListener();
-
     }
 
     /**

@@ -11,6 +11,9 @@ public class AssignmentBuilder {
 
     public static final String DEFAULT_ASSIGNMENT_NAME = "Math Assignment 1";
     public static final String DEFAULT_ASSIGNMENT_DEADLINE = "31/12/2019 2359";
+    public static final String EDITED_ASSIGNMENT_NAME = "Science Assignment 1";
+    public static final String EDITED_ASSIGNMENT_DEADLINE = "31/10/2019 2359";
+
 
 
     private AssignmentName assignmentName;

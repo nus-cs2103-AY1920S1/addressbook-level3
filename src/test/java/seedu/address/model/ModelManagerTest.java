@@ -11,19 +11,17 @@ import static seedu.address.testutil.TypicalStudents.ALICE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-//import java.util.Arrays;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-//import seedu.address.model.student.NameContainsKeywordsPredicate;
+import seedu.address.model.student.NameContainsKeywordsPredicate;
 import seedu.address.testutil.NotebookBuilder;
-//import seedu.address.testutil.TypicalClassrooms;
 
 public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
-
 
     @Test
     public void constructor() {
@@ -32,13 +30,10 @@ public class ModelManagerTest {
         assertEquals(new Notebook(), new Notebook(modelManager.getNotebook()));
     }
 
-
-
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
     }
-
 
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
@@ -54,12 +49,10 @@ public class ModelManagerTest {
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
-
     @Test
     public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
     }
-
 
     @Test
     public void setGuiSettings_validGuiSettings_setsGuiSettings() {
@@ -68,13 +61,10 @@ public class ModelManagerTest {
         assertEquals(guiSettings, modelManager.getGuiSettings());
     }
 
-
-
     @Test
     public void setNotebookFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setNotebookFilePath(null));
     }
-
 
     @Test
     public void setNotebookFilePath_validPath_setsNotebookFilePath() {
@@ -83,12 +73,10 @@ public class ModelManagerTest {
         assertEquals(path, modelManager.getNotebookFilePath());
     }
 
-
     @Test
     public void hasStudent_nullStudent_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasStudent(null));
     }
-
 
     @Test
     public void hasStudent_studentNotInNotebook_returnsFalse() {
@@ -105,7 +93,6 @@ public class ModelManagerTest {
     public void getFilteredStudentList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredStudentList().remove(0));
     }
-
 
     @Test
     public void equals() {
@@ -132,9 +119,9 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentNotebook, userPrefs)));
 
         // different filteredList -> returns false
-        //String[] keywords = ALICE.getName().fullName.split("\\s+");
-        //modelManager.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        //assertFalse(modelManager.equals(new ModelManager(Notebook, userPrefs)));
+        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        modelManager.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelManager(notebook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);

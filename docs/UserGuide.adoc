@@ -46,7 +46,7 @@ tasks and students’ information. It is optimized for teachers who prefer to wo
 === Classes
 The user can view his or her classes in the middle panel of the GUI of Teacher's Notebook as shown below. +
 
-image::class/class1.jpg[]
+image::class/class1.JPG[class, scaledwidth="50%"]
 
 The class colored in blue shows the class that the user is currently viewing.
 Viewing a class enables a user to see the full profiles of the students, +
@@ -211,7 +211,7 @@ of Teacher's Notebook and make using the application a more forgiving, painless 
 The Autocomplete feature allows a user to toggle through suggestions that guess at what command the user wants to type in. +
 Upon typing any letters that resemble commands, a popup menu will appear as shown below:
 
-image::autocorrect/autocomplete2.jpg[]
+image::autocorrect/autocomplete2.jpg[auto,500,480,pdfwidth=50%,scaledwidth=50%]
 
 The user can then choose the first option of the menu using CTRL, use SHIFT + UP and SHIFT + DOWN to cycle through menu options, +
 or use ESC to close the pop window. If the popup menu is closed, no autocomplete features will be available. +
