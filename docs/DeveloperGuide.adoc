@@ -304,14 +304,14 @@ This section describes some noteworthy details on how certain features are imple
 === AutoComplete and Dynamic Parsers
 _This section explains how the design choice of Dynamic Parsers fulfils AutoComplete and Command Execution._
 
-ParserManager dynamically changes parser depending on current mode the game is at. This is modeled using the Strategy Pattern. https://en.wikipedia.org/wiki/Strategy_pattern. 
+ParserManager dynamically changes parser depending on current mode the game is at. This is modeled using the Strategy Pattern. https://en.wikipedia.org/wiki/Strategy_pattern.
 
-Instead of choosing a  single parser to use at compile time, they are chosen at runtime depending on runtime state. This supports a variety of benefits which are explained under design considerations.  
+Instead of choosing a  single parser to use at compile time, they are chosen at runtime depending on runtime state. This supports a variety of benefits which are explained under design considerations.
 
 The above implementation empowers the application with the following features :
 
 .   Every user keystroke only auto completes the right commands
-.   Only the right commands get parsed and executed. What are the right commands? They are the commands that belong to the current mode and switch commands when preconditions are met. 
+.   Only the right commands get parsed and executed. What are the right commands? They are the commands that belong to the current mode and switch commands when preconditions are met.
 
 
 ==== Implementation details of ParserManager
@@ -329,7 +329,7 @@ image::StateActivityDiagram.PNG[]
 
 *   Definitions of Switch and Mode in table above
 **   SwitchCommands = (commands that change mode)
-**   ModeCommands = (commands that belong to a specific mode ie Home, Open, Game and Settings) 
+**   ModeCommands = (commands that belong to a specific mode ie Home, Open, Game and Settings)
 
 ==== Implementation details of SpecificModeParser
 
