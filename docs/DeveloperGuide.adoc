@@ -384,8 +384,13 @@ After the analysis described below, the Command pattern was thought to be the be
 // end::undoredo[]
 
 === Notification Feature
-This feature in Mortago acts as a reminder to a mortuary manager to contact the police when the next-of-kin of a body
-has been not been contactable for a given period of time. He / She then needs to contact the police to proceed with a
+This feature in Mortago reminds a mortuary manager to contact the police when the next-of-kin of a body
+has been not been contactable for a given period of time from the point of admission of the `Body`. He / She then needs
+to
+contact
+the police
+to
+proceed with a
 more thorough investigation. In Singapore, this period is 24 hours. For testing purposes, it has been set to
 10 seconds in Mortago.
 
@@ -396,11 +401,13 @@ pop-up alert is displayed to remind the user.
 If you want to change the time period, you can do so by modifying `NOTIF_PERIOD` and `NOTIF_TIME_UNIT` variables in
 AddCommand.java.
 
+==== Implementation
+
 This command is supported by the model component `Notif` and logic component `NotifCommand`.
 
 In `Notif` command, the following are the key private variables:
 
-* `body`: Refers to the `Body` for which the `Notif` is associated with. This is passed in as a parameter when a new
+* `body`: Refers to the `Body` for which the `Notif` is created. This is passed in as a parameter when a new
 instance of the class is instantiated.
 
 * `alert`: Refers to a `Runnable` function which checks if the current status of the body is `ARRIVED` and if so,
@@ -414,26 +421,16 @@ The constructor of a `NotifCommand` must be provided with the following paramete
 
 * `period`: Refers to a `long` value for which the NotifCommand needs to wait before executing the `alert` function
 of the `notif`. `long` is used because `notifCreationTime.getTime()` returns a `long` which is useful in storage.
- It will be explained in further detail later.
+It will be explained in further detail later. Currently, this value is set to `10`.
 
-* `timeUnit`: Refers to a `TimeUnit` associated with the `period`.
+* `timeUnit`: Refers to a `TimeUnit` associated with the `period`. Currently, this value is set to `TimeUnit.SECONDS`.
 
-==== Current Implementation
-Given below is the typical execution process of this command:
+The following class diagram (Figure 14) models the relationships and dependencies among classes in this feature:
 
-1. The user executes `add -b /name John ...` to add a new `Body` to Mortago.
-2. The `AddCommand` creates a new `Notif` using this `Body` as the parameter.
-3. The `AddCommand` instantiates a new `NotifCommand` with `Notif`, `period`, `unit` as parameters.
-`period` is as a `static final long` equal to 10 and `unit` is `static final TimeUnit` set to `TimeUnit.SECONDS` in `AddCommand`.
-4. `NotifCommand` has a static instance of the `ScheduledExecutorService` which schedules updating the status of the
-`Body` to `CONTACT_POLICE` if there is no change in its status for the specified `period`. The `UpdateCommand` is
-called to make the change.
-5. After the status of the `Body` is updated, a `NotifWindow` is shown to alert the user of the automatic
-update.
-6. On clicking the notification bell or using the `showNotif` command, a pop-over opens and lists all the bodies for
-which police needs to be contacted.
+.Notification Class Diagram
+image::NotifCommandClassDiagram.png[]
 
-The following sequence diagrams illustrate the execution of the notification feature:
+The following sequence diagrams (Figure 15 and 16) illustrate the execution of the notification feature:
 
 .Notification Command Sequence Diagram
 image::NotifCommandSequenceDiagram.png[]
@@ -441,11 +438,12 @@ image::NotifCommandSequenceDiagram.png[]
 .ChangeUI function Sequence Diagram
 image::ChangeUiFnSequenceDiagram.png[]
 
-The following activity diagram illustrates what happens when a user adds a new body and the `NotifCommand` is
+The following activity diagram summarizes what happens when a user adds a new body and a `NotifCommand` is
 instantiated:
 
 .Notification Command Activity Diagram
 image::NotifCommandActivityDiagram.png[]
+
 
 |===
 a|[TIP]
@@ -455,11 +453,12 @@ executed. The `Notif` is scheduled to be executed after the specified `period` f
 status of the body was updated.
 |===
 
-This command supports storage where each `Notif` with its associated `Body` and the `long` equivalent of the
-`notifCreationTime` are stored in a JSON file along with the other `Entities`. When the `MainApp` is initialized, the
+===== Storing executed and pending `Notifs`
+`NotifCommand` supports storage where each `Notif` with its associated `Body` and the `long` equivalent of the
+`notifCreationTime` is stored in a JSON file along with the other `Entities`. When the `MainApp` is initialized, the
 following happens:
 
-1. All the `Notif` s are fetched from the storage.
+1. All the `Notif` (s) are fetched from the storage.
 2. For each `Notif`, the difference of the  current system time and `notifCreationTime` is calculated.
 3. If the difference is more than the `period`, then the status of the associated `Body` is
 changed to `CONTACT_POLICE`. Otherwise, the `NotifCommand` is scheduled to be executed after the calculated time difference.
@@ -475,6 +474,49 @@ a|* If the status of the `Body` is changed before the 10 second window.
 
 |===
 
+===== Defensive programming
+
+The `NotifCommand` heavily makes use of the `ScheduledExecutorService` and `Platform.runLater(Runnable runnable)` to
+make changes to the `Body` status and `Notif`. They use threading to allow tasks to be handled concurrently. For instance,
+even after scheduling a `Runnable` function, the user is still able to carry on with other commands of Mortago such
+as updating the status of the `Body`, adding a new `Fridge` etc.
+
+As per the official Java Documentation, `Platform.runLater(Runnable runnable)` runs the specified runnable function
+on a thread dedicated to JavaFX application at some unspecified time in the future. So,
+if some updates to the model are wrapped inside it as a `Runnable` while others are not, it can result in a
+mismatch of model. For instance, you may want to delete a `Notif` which already exists in the model. The usual
+process will be to first check whether it exists and if it does, then proceed with deletion. However, due to
+threading, you may end up in a situation when the app finds the `Notif` at the point of checking but throws a
+`NullPointerException` when proceeding with the deletion.
+
+To prevent this, in Mortago, any addition or deletion of `Notif` in the model during the execution of the
+`NotifCommand` and parts of `UpdateCommand` are wrapped inside `Platform.runLater(Runnable runnable)`. This ensures
+that updates to the model happen sequentially and not concurrently and the relevant changes can be reflected on the
+UI.
+
+Moreover, all these operations are wrapped inside a try-catch block. Either the `NullPointerException` or
+`DuplicateNotifException` are directly thrown in the form of `CommandException` or they are logged in `Logger`. A
+code snippet of `NotifCommand` to illustrate this is show below:
+
+```
+ if (model.hasNotif(notif)) {
+    try {
+        model.deleteNotif(notif);
+    } catch (NullPointerException exp) {
+        logger.info(MESSSAGE_NOTIF_DOES_NOT_EXIST);
+    }
+}
+
+Platform.runLater(() -> {
+    if (!model.hasNotif(notif)) {
+        try {
+            model.addNotif(notif);
+        } catch (DuplicateNotifException exp) {
+            logger.info(MESSAGE_DUPLICATE_NOTIF);
+        }
+    }
+});
+```
 
 ==== Design Considerations
 ===== Aspect: How to delay change in BodyStatus
@@ -1072,6 +1114,8 @@ An employee in the mortuary
 
 [[fridge]] Fridge::
 A fridge used to store a body in the mortuary
+
+[[notif]]
 
 [[command-line-interface]] Command-Line-Interface (CLI)::
 A text-based user interface (UI) used to view and manage computer files
