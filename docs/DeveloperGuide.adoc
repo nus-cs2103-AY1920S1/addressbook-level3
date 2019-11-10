@@ -992,6 +992,34 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+=== Scheduling a regime
+
+. Scheduling an exercise regime
+
+.. Prerequisites: Have an exercise regime of name `cardio`.
+
+.. Test case: `schedule n/cardio d/12/12/2019` with no other schedule on `12/12/2019` +
+   Expected: Regime `cardio` is now scheduled on `12/12/2019`. Details of schedule should be shown in the center information panel and the left panel should switch to show schedule list.
+
+.. Test case: `schedule n/cardio d/12/12/2019` with a conflicting schedule on `12/12/2019` +
+   Expected: Scheduling conflict exist and the resolve window should pop up showing the already scheduled regime on the left panel and the conflicting `cardio` schedule on the right panel.
+
+=== Resolving scheduling conflict
+
+. Resolves a scheduling conflict by taking one whole regime
+
+.. Prerequisites: Resolve window should be shown on scheduling conflict
+
+.. Test case: `resolve n/conflicting` +
+   Expected: The conflicting schedule on the right panel should be taken as the resolved schedule and the resolve window should close. The conflicting schedule should now be scheduled on the conflicting date. Details of the schedule is shown on the center information panel.
+
+. Resolves a scheduling conflict by taking some exercise from both regime
+
+.. Prerequisites: Resolve window should be shown on scheduling conflict and `new cardio` should not exist in the user's regime list
+
+.. Test case: `resolve n/new cardio i/1 r/2` +
+   Expected: A new regime is created called `new cardio` with the exercises from scheduled regime's first index and conflicting regime's second index. Resolve window should close. The newly made regime is now scheduled on conflicting date. Details of the schedule shown on the center information panel.
+
 === Suggest
 . Suggest basic exercises
 .. Test case: `suggest s/basic`

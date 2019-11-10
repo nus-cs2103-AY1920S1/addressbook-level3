@@ -96,9 +96,9 @@ public class SampleDataUtil {
     public static Schedule[] getSampleSchedules() {
         Regime[] sampleRegimes = getSampleRegimes();
         return new Schedule[]{
-            new Schedule(sampleRegimes[0], new Date("12/11/2019")),
-            new Schedule(sampleRegimes[1], new Date("13/11/2019")),
-            new Schedule(sampleRegimes[2], new Date("14/11/2019"))
+            new Schedule(sampleRegimes[0], new Date("12/12/2019")),
+            new Schedule(sampleRegimes[1], new Date("13/12/2019")),
+            new Schedule(sampleRegimes[2], new Date("14/12/2019"))
         };
     }
 

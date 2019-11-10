@@ -143,7 +143,7 @@ public class MainWindow extends UiPart<Stage> {
         infoDisplayPanel = new InfoDisplayPanel();
         infoDisplayPanelPlaceholder.getChildren().add(infoDisplayPanel.getRoot());
 
-        initListenersForResourceListPanels();
+        initListeners();
         displayInitialList();
     }
 
@@ -183,16 +183,24 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Initialises a listener for each list panel on the left of the window
      */
-    private void initListenersForResourceListPanels() {
-        exerciseListPanel.setOnItemSelectListener(getListener());
-        regimeListPanel.setOnItemSelectListener(getListener());
-        scheduleListPanel.setOnItemSelectListener(getListener());
-        suggestionListPanel.setOnItemSelectListener(getListener());
+    private void initListeners() {
+        exerciseListPanel.setOnItemSelectListener(getOnItemSelectListener());
+        regimeListPanel.setOnItemSelectListener(getOnItemSelectListener());
+        scheduleListPanel.setOnItemSelectListener(getOnItemSelectListener());
+        suggestionListPanel.setOnItemSelectListener(getOnItemSelectListener());
+        resolveWindow.setOnResolveSuccessListener(getResolveSuccessListener());
 
-        logger.info("Listeners for resource list panels set");
+        logger.info("Listeners for main window set");
     }
 
-    private ResourceListPanel.OnItemSelectListener getListener() {
+    private ResolveWindow.OnResolveSuccessListener getResolveSuccessListener() {
+        return result -> {
+            updateResourceListTab(result, -1);
+            resultDisplay.setFeedbackToUser(result.getFeedbackToUser());
+        };
+    }
+
+    private ResourceListPanel.OnItemSelectListener getOnItemSelectListener() {
         return new ResourceListPanel.OnItemSelectListener() {
             @Override
             public void onItemSelect(Resource selected) {
