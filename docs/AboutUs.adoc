@@ -37,7 +37,7 @@ Responsibilities: Main Logic
 
 === Wong Chuan Kai
 image::wongchuankai.png[width="150", align="left"]
-{empty}[http://github.com/wongchuankai[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/wongchuankai[github]] [<<wongchuankai#, portfolio>>]
 
 Role: Testing +
 Responsibilities: Component Logic

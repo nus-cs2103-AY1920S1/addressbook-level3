@@ -47,7 +47,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New show added: %1$s";
     public static final String MESSAGE_DUPLICATE_SHOW = "This show already exists in the watchlist";
-    public static final String MESSAGE_SUCCESS2 = "Sync movie: %1$s";
+    public static final String MESSAGE_SUCCESS2 = "Add movie: %1$s";
 
     public static final String UNSUCCESSFUL_INDEX = "Search Result Page is currently empty.";
     public static final String UNSUCCESSFUL_LARGER = "The index is larger than the total number"
