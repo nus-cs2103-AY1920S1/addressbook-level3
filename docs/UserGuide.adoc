@@ -312,17 +312,23 @@ There are 2 modes to the game: `easy` and `hard`. Type `game hard` to enter the 
 
 Controls: `UP`, `DOWN`, `LEFT`, `RIGHT`
 
-.Snake game [EASY] of ELISA
+.Snake game `EASY`
 image::SnakeGame.PNG[Snake, 600, 600]
+
++
 
 `EASY`
 New to the game? Try out the `easy` mode, where all you have to do is collect the food, which is indicated by the pink box. Biting your own tail will result in GAME OVER! Be careful!
 
-.Snake game [HARD] of Elisa
+.Snake game `HARD`
 image::snakegamehard.PNG[SnakeHard, 600, 600]
+
++
 
 `HARD`
 Find the game too easy? Enter the `hard` mode and there will be 20 random walls (indicated by blue box) placed all around the game. Colliding with any of these walls will result in a GAME OVER! You will need to navigate through these walls to collect your food!
+
++
 
 `EXIT`
 Realised that you have played for too long and want to get back to work? Hitting the `ESC` key will exit the game and return you to your list of tasks!
