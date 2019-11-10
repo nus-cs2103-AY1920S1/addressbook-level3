@@ -22,7 +22,6 @@ import seedu.address.model.vehicle.exceptions.VehicleNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Vehicle#isSameVehicle(Vehicle)
  */
 public class UniqueVehicleList implements Iterable<Vehicle> {
 
@@ -35,7 +34,7 @@ public class UniqueVehicleList implements Iterable<Vehicle> {
      */
     public boolean contains(Vehicle toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameVehicle);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -79,7 +78,7 @@ public class UniqueVehicleList implements Iterable<Vehicle> {
             throw new VehicleNotFoundException();
         }
 
-        if (!target.isSameVehicle(editedVehicle) && contains(editedVehicle)) {
+        if (!target.equals(editedVehicle) && contains(editedVehicle)) {
             throw new DuplicateVehicleException();
         }
 
@@ -145,7 +144,7 @@ public class UniqueVehicleList implements Iterable<Vehicle> {
     private boolean vehiclesAreUnique(List<Vehicle> vehicles) {
         for (int i = 0; i < vehicles.size() - 1; i++) {
             for (int j = i + 1; j < vehicles.size(); j++) {
-                if (vehicles.get(i).isSameVehicle(vehicles.get(j))) {
+                if (vehicles.get(i).equals(vehicles.get(j))) {
                     return false;
                 }
             }

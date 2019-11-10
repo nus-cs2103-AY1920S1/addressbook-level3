@@ -26,7 +26,7 @@ public class Vehicle {
         this.vehicleType = vehicleType;
         this.vehicleNumber = vehicleNumber;
         this.district = district;
-        this.availability = availability; // vehicles start off available
+        this.availability = availability;
     }
 
     public VehicleType getVehicleType() {
@@ -52,23 +52,9 @@ public class Vehicle {
     public boolean isAvailable() {
         return this.getAvailability().getAvailabilityTag().equals(VEHICLE_AVAILABLE_TAG);
     }
-    /**
-     * Returns true if both Vehicles of the same VehicleType have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two Vehicles.
-     */
-    public boolean isSameVehicle(Vehicle otherVehicle) {
-        if (otherVehicle == this) {
-            return true;
-        }
-
-        return otherVehicle != null
-                && otherVehicle.getVehicleType().equals(getVehicleType())
-                && otherVehicle.getVehicleNumber().equals(getVehicleNumber());
-    }
 
     /**
-     * Returns true if both Vehicles have the same identity and data fields.
-     * This defines a stronger notion of equality between two Vehicles.
+     * Returns true iff both Vehicles have the same vehicle number.
      */
     @Override
     public boolean equals(Object other) {
@@ -81,8 +67,8 @@ public class Vehicle {
         }
 
         Vehicle otherVehicle = (Vehicle) other;
-        return otherVehicle.getVehicleType().equals(getVehicleType())
-                && otherVehicle.getVehicleNumber().equals(getVehicleNumber());
+        return otherVehicle.getVehicleNumber().equals(getVehicleNumber())
+                && otherVehicle.getVehicleType().equals(getVehicleType());
     }
 
     @Override

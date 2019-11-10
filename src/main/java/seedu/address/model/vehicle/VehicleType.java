@@ -38,12 +38,11 @@ public class VehicleType {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is one of the existing vehicle types.
      */
     public static boolean isValidVehicleType(String vehicleType) {
-        return vehicleType.matches(VALIDATION_REGEX);
+        return vehicleType.matches(VALIDATION_REGEX) && Arrays.stream(VEHICLE_TYPES).anyMatch(vehicleType::equals);
     }
-
 
     @Override
     public String toString() {

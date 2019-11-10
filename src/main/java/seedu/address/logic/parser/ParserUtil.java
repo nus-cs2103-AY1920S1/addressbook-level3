@@ -213,7 +213,7 @@ public class ParserUtil {
         }
         String[] vehicleTypes = VehicleType.VEHICLE_TYPES;
         for (String type: vehicleTypes) {
-            if (parsedVType.equals(type.toLowerCase())) {
+            if (parsedVType.equalsIgnoreCase(type)) {
                 return new VehicleType(type);
             }
         }
