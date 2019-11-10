@@ -99,10 +99,11 @@ public class MassApproveTest {
         validIDs.add("C999999");
         MassApprove command = new MassApprove(validIDs, invalidIDs);
         expectedMessage += MESAGE_NO_APPEALS_APPROVED + "\nThese appeal IDs do not exist: " + validIDs.toString();
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
 
     }
 
-    
+
 
     /**
      * Generates feedback message
