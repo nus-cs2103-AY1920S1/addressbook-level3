@@ -54,7 +54,7 @@ public class Budget {
     }
 
     public Money calculateRemaining(Money amount, List<Spending> spendings) {
-        BigDecimal result = new BigDecimal(amount.toString());
+        BigDecimal result = amount.getAmount();
         for (Spending spending : spendings) {
             result = result.subtract(spending.getMoney().getAmount());
         }

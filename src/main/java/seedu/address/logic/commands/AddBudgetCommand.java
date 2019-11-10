@@ -25,7 +25,7 @@ public class AddBudgetCommand extends Command {
             + "[" + PREFIX_BUDGET + "BUDGET]...\n"
             + "[" + PREFIX_EXPENSE + "EXPENSE]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_BUDGET + "equipment"
+            + PREFIX_BUDGET + "equipment "
             + PREFIX_EXPENSE + "3000.00";
 
     public static final String MESSAGE_SUCCESS = "New budgets added";

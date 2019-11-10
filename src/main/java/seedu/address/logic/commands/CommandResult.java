@@ -33,16 +33,19 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.commandWord = commandWord;
-        List<String> list = Arrays.asList(CheckoutCommand.COMMAND_WORD,
-                ListCommand.COMMAND_WORD,
-                ListBudgetCommand.COMMAND_WORD,
-                AddProjectCommand.COMMAND_WORD,
-                ShowPerformanceOverviewCommand.COMMAND_WORD,
-                GenerateSlotCommand.COMMAND_WORD);
+        List<String> list = Arrays.asList(LogOutCommand.COMMAND_WORD,
+                SendMailCommand.COMMAND_WORD,
+                BroadcastMailCommand.COMMAND_WORD,
+                SendReminderCommand.COMMAND_WORD,
+                SignInCommand.COMMAND_WORD,
+                BackCommand.COMMAND_WORD,
+                HelpCommand.COMMAND_WORD,
+                ExitCommand.COMMAND_WORD
+        );
         if (list.contains(commandWord)) {
-            this.changeInUi = true;
-        } else {
             this.changeInUi = false;
+        } else {
+            this.changeInUi = true;
         }
         if (commandWord.equals(BackCommand.COMMAND_WORD)) {
             back = true;

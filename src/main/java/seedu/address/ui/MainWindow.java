@@ -197,10 +197,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleBack() throws CommandException, IllegalValueException {
         State temp = currentState;
+        logger.severe("current state: " + temp);
         if (currentState == State.PROJECT_LIST) {
             throw new CommandException("Oops can't go back any further!");
         }
         UiEvent event = logic.getPreviousEvent();
+        logger.severe("previous state: " + event.getState());
         if (!event.getProjectIndex().isEmpty()) {
             logic.setWorkingProject(logic.getFilteredProjectList().get(event.getProjectIndex().get()));
         }
@@ -210,7 +212,6 @@ public class MainWindow extends UiPart<Stage> {
             if (!logic.getWorkingProject().isEmpty()) {
                 logic.removeWorkingProject();
             }
-            logger.severe(currentState + "");
             if (temp != State.ADDRESS_BOOK) {
                 resultDisplay.setFeedbackToUser("You've checked out of the project!");
             }
@@ -234,13 +235,22 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             String commandWord = commandResult.getCommandWord();
-            // Only change Ui if certain command demands it
-            if (currentState.equals(State.PERFORMANCE_OVERVIEW) && !commandWord.equals(ShowPerformanceOverviewCommand.COMMAND_WORD)) {
-                UiEvent event = logic.getPreviousEvent();
-                changeUiDisplay(event.getState());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowHelp()) {
+                handleHelp();
             }
+
+            if (commandResult.isExit()) {
+                handleExit();
+            }
+
+            if (commandResult.isBack()) {
+                handleBack();
+            }
+
+            // Only change Ui if certain command demands it
             if (commandResult.changeNeeded()) {
                 State nextState = stateOf(commandWord);
                 if (logic.getWorkingProject().isEmpty()) {
@@ -255,18 +265,6 @@ public class MainWindow extends UiPart<Stage> {
                 if (!commandWord.equals("back")) {
                     changeUiDisplay(currentState);
                 }
-            }
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
-            if (commandResult.isBack()) {
-                handleBack();
             }
 
             return commandResult;
@@ -287,12 +285,14 @@ public class MainWindow extends UiPart<Stage> {
 
         case PROJECT_LIST:
             projectListPanelPlaceholder.getChildren().setAll(projectListPanel.getRoot());
+            logic.removeWorkingProject();
             currentState = nextState;
             break;
 
         case PROJECT_OVERVIEW:
             projectOverview = new ProjectOverview(logic.getFilteredProjectList(), logic.getWorkingProject().get());
             projectListPanelPlaceholder.getChildren().setAll(projectOverview.getRoot());
+            logger.severe("???");
             currentState = nextState;
             break;
 
@@ -325,13 +325,57 @@ public class MainWindow extends UiPart<Stage> {
             state = State.PROJECT_LIST;
             break;
 
+        case AddBudgetCommand.COMMAND_WORD:
+
+        case AddFromContactsCommand.COMMAND_WORD:
+
+        case AddMemberCommand.COMMAND_WORD:
+
+        case AddProjectMeetingCommand.COMMAND_WORD:
+
+        case AddTaskCommand.COMMAND_WORD:
+
+        case AddTimetableCommand.COMMAND_WORD:
+
+        case AssignTaskCommand.COMMAND_WORD:
+
+        case DeleteProjectMeetingCommand.COMMAND_WORD:
+
+        case DeleteTaskCommand.COMMAND_WORD:
+
+        case EditTaskCommand.COMMAND_WORD:
+
+        case MarkAttendanceCommand.COMMAND_WORD:
+
+        case RemoveMemberCommand.COMMAND_WORD:
+
+        case SortMeetingCommand.COMMAND_WORD:
+
+        case SortSpendingCommand.COMMAND_WORD:
+
+        case SortTaskCommand.COMMAND_WORD:
+
+        case UnassignTaskCommand.COMMAND_WORD:
+
         case CheckoutCommand.COMMAND_WORD:
             state = State.PROJECT_OVERVIEW;
             break;
 
+        case AddSpendingCommand.COMMAND_WORD:
+
         case ListBudgetCommand.COMMAND_WORD:
             state = State.PROJECT_FINANCE;
             break;
+
+        case AddCommand.COMMAND_WORD:
+
+        case AddProfilePictureCommand.COMMAND_WORD:
+
+        case DeleteCommand.COMMAND_WORD:
+
+        case EditCommand.COMMAND_WORD:
+
+        case FindCommand.COMMAND_WORD:
 
         case ListCommand.COMMAND_WORD:
             state = State.ADDRESS_BOOK;
