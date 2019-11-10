@@ -1,12 +1,12 @@
 @startuml
 
-class Command {
+abstract class Command {
 
     + CommandResult execute(Model model, CommandHistory commandHistory,
                    UndoRedoStack undoRedoStack) {abstract}
 }
 
-class UndoableCommand {
+abstract class UndoableCommand {
 
     - ReadOnlyDataBook<Customer> previousCustomerBook
     - ReadOnlyDataBook<Order> previousOrderBook

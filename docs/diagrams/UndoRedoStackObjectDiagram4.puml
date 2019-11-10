@@ -10,6 +10,17 @@ object RedoStack {
 
 }
 
+
+object AddCustomerCommand {
+    - previousCustomerBook
+    - previousPhoneBook
+    - previousOrderBook
+    - previousScheduleBook
+    - previousArchivedOrderBook
+    - toAdd:Customer
+
+}
+
 object DeleteCustomerCommand {
     - previousCustomerBook
     - previousPhoneBook
@@ -21,5 +32,6 @@ object DeleteCustomerCommand {
 
 UndoRedoStack *-- UndoStack
 UndoRedoStack *-- RedoStack
+RedoStack o-- AddCustomerCommand
 UndoStack o-- DeleteCustomerCommand
 @enduml

@@ -637,6 +637,8 @@ public class ModelManager implements Model {
 
         //Ensure that completed orders do not have phones in the existing phone book.
         //If not, delete the phones
+        //Also ensure that completed orders are scheduled.
+        //If not, cancel the orders.
         for (int i = archivedOrders.size() - 1; i >= 0; i--) {
             Order o = archivedOrders.get(i);
             assert (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED));
@@ -646,6 +648,7 @@ public class ModelManager implements Model {
             if (isCompletedOrder) {
                 Phone phone = o.getPhone();
                 boolean hasPhoneInPhoneBook = false;
+
 
                 for (int j = phones.size() - 1; j >= 0; j--) {
 
@@ -657,6 +660,15 @@ public class ModelManager implements Model {
                         deletePhone(otherPhone);
                         break;
                     }
+                }
+
+
+                boolean isScheduledOrder = o.getSchedule().isPresent();
+
+                if (!isScheduledOrder) {
+                    Order editedOrder = new Order(o.getId(), o.getCustomer(), o.getPhone(),
+                            o.getPrice(), Status.CANCELLED, o.getSchedule(), o.getTags());
+                    archivedOrderBook.set(o, editedOrder);
                 }
             }
         }

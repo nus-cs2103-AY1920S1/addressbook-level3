@@ -24,15 +24,15 @@
                 <VBox>
                     <Label text="Customer details" styleClass="cell_big_label" />
                     <HBox>
-                        <Label text="Name:" styleClass="cell_small_label_header" />
+                        <Label text="Name: " styleClass="cell_small_label_header" />
                         <Label fx:id="customerName" styleClass="cell_small_label" />
                     </HBox>
                     <HBox>
-                        <Label text="Email:" styleClass="cell_small_label_header" />
+                        <Label text="Email: " styleClass="cell_small_label_header" />
                         <Label fx:id="customerEmail" styleClass="cell_small_label" />
                     </HBox>
                     <HBox>
-                        <Label text="Number:" styleClass="cell_small_label_header" />
+                        <Label text="Number: " styleClass="cell_small_label_header" />
                         <Label fx:id="customerContactNumber" styleClass="cell_small_label"  />
                     </HBox>
                     <padding>
@@ -42,27 +42,27 @@
                 <VBox >
                     <Label text="Phone details" styleClass="cell_big_label" />
                     <HBox>
-                        <Label text="Name:" styleClass="cell_small_label_header" />
+                        <Label text="Name: " styleClass="cell_small_label_header" />
                         <Label fx:id="phoneName" styleClass="cell_small_label" text="\$phoneName"/>
                     </HBox>
                     <HBox>
-                        <Label text="Colour:" styleClass="cell_small_label_header" />
+                        <Label text="Colour: " styleClass="cell_small_label_header" />
                         <Label fx:id="phoneColour" styleClass="cell_small_label" text="\$phoneName"/>
                     </HBox>
                     <HBox>
-                        <Label text="Capacity:" styleClass="cell_small_label_header" />
+                        <Label text="Capacity: " styleClass="cell_small_label_header" />
                         <Label fx:id="phoneCapacity" styleClass="cell_small_label" text="\$phoneName"/>
                     </HBox>
                     <HBox>
-                        <Label text="Cost:" styleClass="cell_small_label_header" />
+                        <Label text="Cost: " styleClass="cell_small_label_header" />
                         <Label fx:id="phoneCost" styleClass="cell_small_label" text="\$phoneCost" />
                     </HBox>
                     <HBox>
-                        <Label text="IMEI number:" styleClass="cell_small_label_header" />
+                        <Label text="IMEI number: " styleClass="cell_small_label_header" />
                         <Label fx:id="phoneIdentityNumber" styleClass="cell_small_label" text="\$phoneId" />
                     </HBox>
                     <HBox>
-                        <Label text="Serial number:" styleClass="cell_small_label_header" />
+                        <Label text="Serial number: " styleClass="cell_small_label_header" />
                         <Label fx:id="phoneSerialNumber" styleClass="cell_small_label" text="\$phoneId" />
                     </HBox>
                     <padding>
@@ -72,27 +72,27 @@
                 <VBox >
                     <Label text="Order details" styleClass="cell_big_label" />
                     <HBox>
-                        <Label text="Id:" styleClass="cell_small_label_header" />
+                        <Label text="Id: " styleClass="cell_small_label_header" />
                         <Label fx:id="orderId" styleClass="cell_small_label" text="\$orderId" />
                     </HBox>
                     <HBox>
-                        <Label text="Price:" styleClass="cell_small_label_header" />
+                        <Label text="Price: " styleClass="cell_small_label_header" />
                         <Label fx:id="orderPrice" styleClass="cell_small_label" text="\$orderId" />
                     </HBox>
                     <HBox>
-                        <Label text="Status:" styleClass="cell_small_label_header" />
+                        <Label text="Status: " styleClass="cell_small_label_header" />
                         <Label fx:id="orderStatus" styleClass="cell_small_label" text="\$orderId" />
                     </HBox>
                     <HBox>
-                        <Label text="Schedule Tags:" styleClass="cell_small_label_header" />
+                        <Label text="Schedule Tags: " styleClass="cell_small_label_header" />
                         <FlowPane fx:id="scheduleTags" />
                     </HBox>
                     <HBox>
-                        <Label text="Order Tags:" styleClass="cell_small_label_header" />
+                        <Label text="Order Tags: " styleClass="cell_small_label_header" />
                         <FlowPane fx:id="tags" />
                     </HBox>
                     <HBox>
-                        <Label text="Customer Tags:" styleClass="cell_small_label_header" />
+                        <Label text="Customer Tags: " styleClass="cell_small_label_header" />
                         <FlowPane fx:id="customerTags" />
                     </HBox>
                     <padding>

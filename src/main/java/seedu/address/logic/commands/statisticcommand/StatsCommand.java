@@ -28,9 +28,9 @@ public class StatsCommand extends Command {
             + PREFIX_STAT_TYPE
             + "{Type of stat}  "
             + PREFIX_STARTING_DATE
-            + "/{starting date (YYYY.MM.DD)}  "
+            + "{starting date (YYYY.MM.DD)}  "
             + PREFIX_ENDING_DATE
-            + "/{ending date}\n"
+            + "{ending date}\n"
             + "Example (Date input mode) : generate-s s/revenue d1/2018.12.13 d2/2019.11.13\n"
             + "Example (No Date input mode) : generate-s s/revenue";
 
