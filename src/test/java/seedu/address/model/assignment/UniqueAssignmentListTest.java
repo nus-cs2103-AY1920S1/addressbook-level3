@@ -154,7 +154,7 @@ public class UniqueAssignmentListTest {
 
     @Test
     public void setAssignments_listWithDuplicateAssignments_throwsDuplicateAssignmentException() {
-        List<Assignment> listWithDuplicateAssignments = Arrays.asList(ASSIGNMENT_MATH, ASSIGNMENT_MATH;
+        List<Assignment> listWithDuplicateAssignments = Arrays.asList(ASSIGNMENT_MATH, ASSIGNMENT_MATH);
         assertThrows(
                 DuplicateAssignmentException.class, () ->
                         uniqueAssignmentList.setAssignments(listWithDuplicateAssignments));
