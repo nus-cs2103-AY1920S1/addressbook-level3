@@ -26,6 +26,7 @@ public class SuggestionsField extends TextField {
 
     public SuggestionsField() {
         super();
+        assert TutorAidParser.getCommandList() != null : "list of commands need to be initialised first";
         commandList = TutorAidParser.getCommandList();
         resultBox = new ContextMenu();
         resultBox.setOpacity(0.7);

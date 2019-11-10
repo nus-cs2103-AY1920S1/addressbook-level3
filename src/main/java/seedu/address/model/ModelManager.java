@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -39,7 +41,7 @@ public class ModelManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Reminder> filteredReminder;
     private final FilteredList<Notes> filteredNotes;
-
+    private HashMap<String, ArrayList<Earnings>> earningsAuto;
 
     /**
      * Initializes a ModelManager with the given versionedTutorAid and userPrefs.
@@ -59,16 +61,12 @@ public class ModelManager implements Model {
         filteredTasks = new FilteredList<>(this.versionedTutorAid.getTaskList());
         filteredReminder = new FilteredList<>(this.versionedTutorAid.getReminderList());
         filteredNotes = new FilteredList<>(this.versionedTutorAid.getNotesList());
+        earningsAuto = new HashMap<String, ArrayList<Earnings>>();
     }
 
     public ModelManager() {
         this(new TutorAid(), new UserPrefs());
     }
-
-    /*public ModelManager(Account acc) {
-        this(new TutorAid(), new UserPrefs());
-        this.account = acc;
-    }*/
 
     public ModelManager(ReadOnlyTutorAid versionedTutorAid, ReadOnlyUserPrefs userPrefs, Account acc) {
         this(versionedTutorAid, userPrefs);
@@ -203,6 +201,21 @@ public class ModelManager implements Model {
     @Override
     public String getSavedCommand() {
         return this.savedCommand.peek();
+    }
+
+    @Override
+    public void saveToMap(String key, ArrayList<Earnings> list) {
+        this.earningsAuto.put(key, list);
+    }
+
+    @Override
+    public void saveListToMap(String key, Earnings earnings) {
+        this.earningsAuto.get(key).add(earnings);
+    }
+
+    @Override
+    public HashMap<String, ArrayList<Earnings>> getMap() {
+        return this.earningsAuto;
     }
 
     /**

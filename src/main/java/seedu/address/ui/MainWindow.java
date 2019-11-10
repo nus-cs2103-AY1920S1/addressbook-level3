@@ -477,11 +477,13 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText, this.isUnknown);
             if (this.isUnknown) {
                 if (!commandResult.isUnknown()) {
+                    logger.info("TutorAid back to normal mode.");
                     setUnknownFalse();
                 }
             }
 
             if (commandResult.isUnknown()) {
+                logger.info("TutorAid going to learner mode.");
                 setUnknownTrue();
             } else if (commandResult.isExit()) {
                 handleExit();
@@ -497,8 +499,6 @@ public class MainWindow extends UiPart<Stage> {
                 UiManager.startNotes();
             } else if (commandResult.isReminder()) {
                 UiManager.startReminders();
-            } else if (commandResult.isLogin()) {
-                UiManager.startLoginWindow();
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());

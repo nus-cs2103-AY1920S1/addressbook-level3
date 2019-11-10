@@ -26,7 +26,6 @@ public class CommandResult {
     private boolean showTasks;
     private boolean showPersons;
     private boolean showReminder;
-    private boolean showLogin;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -70,9 +69,6 @@ public class CommandResult {
         return showEarnings;
     }
 
-    public boolean isLogin() {
-        return showLogin;
-    }
 
     public boolean isUnknown() {
         return isUnknown;
