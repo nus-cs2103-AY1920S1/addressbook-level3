@@ -460,13 +460,25 @@ The notification feature prompts the user with new window if a meal have been mi
 
 The notification feature is automatically activated when the application starts up. On start up, it is implemented through a  `NotificationHelper` that gets information from `Model#getMealLog().getTodayMeals()` method to check if there are any meal consumed and if a meal has been consumed. The `NotificationHelper` class would the do a check on the timestamp of the latest meals by using various methods in the `Notification` class, more details explain below. If a meal have been missed, a notification will be prompted to the user to consume their meal, this prompt will constantly pop up every 10 minutes until a meal have been consumed. If a meal have been consumed within the period then the user can continue using the application without any prompt.
 
+[NOTE]
+Notification will be prompted: +
+- After 10am for breakfast +
+- After 2pm for lunch +
+- After 8pm for dinner
+
+[NOTE]
+Meals that will be counted:
+- As breakfast - anytime +
+- As lunch - after 11am +
+- As dinner - after 4pm +
+
 Additionally, it implements the following operation:
 
 * A "timer" object that is in the `UIManager` class will ensure that the notifications are executed on a 10 minutes interval.
 
 * `Notification#eatenBreakfast` -- returns a boolean value to indicate have the user eaten their breakfast.
 
-* `Notification#eatenLunch` -- returns a boolean value to indicate have the user eaten their lucnh.
+* `Notification#eatenLunch` -- returns a boolean value to indicate have the user eaten their lunch.
 
 * `Notification#eatenDinner` -- returns a boolean value to indicate have the user eaten their dinner.
 
@@ -475,7 +487,7 @@ Given below is an example usage scenario and how the notification mechanism beha
 Step 1. The user starts up CaloFit for the first time. The `DishDatabase` will be loaded with the initial data by calling `MainApp#loadDishDatabase` with an empty MealLog.
 
 [NOTE]
-The application will immediately check once when the application is launched, then followed by every 10 minutes interval.
+The application will immediately check once, when the application is launched, followed by every 10 minutes interval.
 
 Step 2. The application will then execute `NotificationHelper` once to check if any meal have been missed. If there is none then no notification will be prompted. If a meal is missed it will prompt to the user, and notify them every 10 minutes.
 

@@ -19,9 +19,9 @@ public class Notification {
      */
     public boolean eatenBreakfast() {
         if (currDateTime.getHour() > 10) {
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 
@@ -32,17 +32,13 @@ public class Notification {
      */
     public boolean eatenLunch(Timestamp dishDateTime) {
         if (currDateTime.getDayOfYear() != dishDateTime.getDateTime().getDayOfYear()) {
-            return false;
-        }
-
-        if (currDateTime.getHour() < 14 || currDateTime.getHour() > 19) {
             return true;
         }
 
         if (dishDateTime.getDateTime().getHour() > 11) {
             return true;
         } else {
-            return false;
+            return currDateTime.getHour() <= 13 || currDateTime.getHour() >= 20;
         }
     }
 
@@ -53,17 +49,13 @@ public class Notification {
      */
     public boolean eatenDinner(Timestamp dishDateTime) {
         if (currDateTime.getDayOfYear() != dishDateTime.getDateTime().getDayOfYear()) {
-            return false;
-        }
-
-        if (currDateTime.getHour() <= 20) {
             return true;
         }
 
         if (dishDateTime.getDateTime().getHour() > 16) {
             return true;
         } else {
-            return false;
+            return (currDateTime.getHour() < 20);
         }
     }
 
