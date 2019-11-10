@@ -28,7 +28,7 @@
          <Region fx:constant="USE_PREF_SIZE" />
        </minWidth>
             <font>
-               <Font size="18.0" />
+               <Font name="System Bold" size="18.0" />
             </font>
      </Label>
       <HBox alignment="CENTER" fillHeight="false" spacing="5.0">
@@ -80,7 +80,10 @@
          </VBox>
          <VBox prefHeight="0.0" prefWidth="129.0">
             <children>
-               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Organs For Donation" />
+               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Organs For Donation">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font></Text>
                <FlowPane fx:id="organs">
                   <VBox.margin>
                      <Insets />
@@ -124,8 +127,14 @@
                   <VBox.margin>
                      <Insets />
                   </VBox.margin>
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
                </Text>
-            <Label fx:id="selectedBodyCauseOfDeath" text="COD" />
+            <Label fx:id="selectedBodyCauseOfDeath" text="COD">
+                  <VBox.margin>
+                     <Insets top="10.0" />
+                  </VBox.margin></Label>
             </children>
             <padding>
                <Insets bottom="30.0" top="20.0" />

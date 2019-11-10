@@ -56,11 +56,11 @@ The following sections document other contributions made towards the project.
 
 ** Community
 *** Reviewed PRs with non-trivial comments: https://github.com/AY1920S1-CS2103T-T13-2/main/pull/9[#9], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/100[#100]
-*** Contributed to forum discussions in the following issues: https://github.com/nus-cs2103-AY1920S1/forum/issues/111[#111], https://github.com/nus-cs2103-AY1920S1/forum/issues/130[#130], https://github.com/nus-cs2103-AY1920S1/forum/issues/150[#150]
+*** Contributed to forum discussions in the following issues: https://github.com/nus-cs2103-AY1920S1/forum/issues/111[#111], https://github.com/nus-cs2103-AY1920S1/forum/issues/133[#133], https://github.com/nus-cs2103-AY1920S1/forum/issues/150[#150]
 *** Reported bugs and offered suggestions for other teams (view at https://github.com/shaoyi1997/ped/issues[this repo])
 ** Tools:
 *** Integrated a third party library (ControlsFX) to the project in PR https://github.com/AY1920S1-CS2103T-T13-2/main/pull/79[#79]
-*** Integrated a Mac-based continuous integration plugin for Github (AppVeyor) to the team repo.
+*** Integrated a Continuous Integration platform for Github (AppVeyor) to the team repo.
 
 == 3. Contributions to the User Guide
 
@@ -69,13 +69,23 @@ The following sections document other contributions made towards the project.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-_{start of extract}_
+_{start of extract 1}_: Command Specifications
 
 include::../UserGuide.adoc[tag=commandspecs]
+
+_{end of extract 1}_
+
+_{start of extract 2}_: Add Command
+
 include::../UserGuide.adoc[tag=add]
 
+_{end of extract 2}_
 
-_{end of extract}_
+_{start of extract 3}_: Appendix
+
+include::../UserGuide.adoc[tag=appendix]
+
+_{end of extract 3}_
 
 == 4. Contributions to the Developer Guide
 

@@ -103,7 +103,7 @@ public class NotifCommand extends Command {
             Body body = notif.getBody();
             String notifContent = "Body Id: " + body.getIdNum()
                     + "\nName: " + body.getName()
-                    + "\nNext of Kin has been uncontactable. Please contact the police";
+                    + "\n\nNext of Kin has been uncontactable. Please contact the police";
             if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
                 UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
                 up.setUpdateFromNotif(true);
