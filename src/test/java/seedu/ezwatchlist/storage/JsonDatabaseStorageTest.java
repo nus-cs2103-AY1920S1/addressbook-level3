@@ -45,22 +45,6 @@ public class JsonDatabaseStorageTest {
     }
 
     @Test
-    public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readWatchList("notJsonFormatDatabase.json"));
-    }
-
-    @Test
-    public void readWatchList_invalidShowWatchList_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readWatchList("invalidShowDatabase.json"));
-    }
-
-    @Test
-    public void readWatchList_invalidAndValidShowWatchList_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readWatchList("invalidAndValidShowDatabase.json"));
-    }
-
-
-    @Test
     public void readAndSaveWatchList_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempWatchList.json");
         WatchList original = getTypicalWatchList();
