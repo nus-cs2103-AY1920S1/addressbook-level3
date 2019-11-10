@@ -57,7 +57,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_FOOD_SUCCESS = "Edited Food: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field of the food to be edited must be provided.";
-    public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists in the menu.";
+    public static final String MESSAGE_DUPLICATE_FOOD = "This food name already exists in the menu.";
 
     private final Index index;
     private final EditFoodDescriptor editFoodDescriptor;
