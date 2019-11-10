@@ -490,13 +490,13 @@ image::deleterecord_wyss.png[width=450]
 
 This command shows you what events you have stored in *Athletick*.
 
-Let's say you want to know what events you have added to *Athletick*.
+Let's say that you want to know what events you have added to *Athletick*.
 
 *What you should do*
 
 Type in the command in the following format and press `Enter` to execute it.
 
-Format: `view performance`
+Format : `view performance`
 
 image::viewevents_wysd.png[width=450]
 
@@ -508,6 +508,32 @@ in Athletick_" followed, as shown in the diagram below.
 Additionally, the feature box (orange box) will show the list of events you have in Athletick.
 
 image::viewevents_wyss.png[width=450]
+
+==== Viewing records : `view records`
+
+This command shows you the records stored under a particular event in Athletick.
+
+Let's say that you want to see the records under the freestyle 50m event.
+
+*What you should do*
+
+Type in the command in the following format and press `Enter` to execute it.
+
+Format : `view records EVENT_NAME`
+
+Example : `view records freestyle 50m`
+
+image::viewrecords_wysd.png[width=450]
+
+*What you should see*
+
+If successfully executed, the result box will display the message "_Here are the records for_"
+followed by the event name you requested, as shown in the red box in the diagram below.
+
+Additionally, the feature box (orange box) will show the athletes who have records under this event,
+followed by a graph of their progress over time.
+
+image::viewrecords_wyss.png[width=450]
 
 === Calendar
 
