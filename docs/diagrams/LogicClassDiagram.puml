@@ -36,11 +36,11 @@ HiddenOutside ..> UiLogicHelper
 Logic -up-|> UiLogicHelper
 
 LogicManager .up.|> Logic
-LogicManager -->"1" ParserManager
+LogicManager -->ParserManager
 
-ParserManager ..> ModeEnum
-ParserManager ..>"2" SpecificModeParser
-SpecificModeParser ..> ClassUtil
+ParserManager --> ModeEnum
+ParserManager *-->"2" SpecificModeParser
+SpecificModeParser --> ClassUtil
 
 ClassUtil .down.> Command : creates >
 YCommand -up-|> XCommand
