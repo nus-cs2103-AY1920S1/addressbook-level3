@@ -70,13 +70,12 @@ a command, the `undo` command enables them to revert to a version immediately be
 was executed. If they change their minds again and decide to execute the command after all,
 then the `redo` command enables them to do so easily.
  * Highlights:
- 
-**This enhancement works with existing as well as future commands. 
- 
-**As there were a few ways to implement this enhancement, an in-depth analysis of design alternatives was
-necessary to weigh the different alternatives and decide on the implementation for this enhancement.
+** This enhancement works with existing as well as future commands.
 
-**The implementation too was challenging as it required a full understanding of
+** As there were a few ways to implement this enhancement, an in-depth analysis of design
+alternatives was necessary to weigh the different alternatives and decide on the implementation for this enhancement.
+
+** The implementation too was challenging as it required a full understanding of
 the major components of the application and the existing features implementations.
 Also, as the enhancement is able to work with future commands, the implementation of
 this enhancement has to be considerable of the future features implementations and
