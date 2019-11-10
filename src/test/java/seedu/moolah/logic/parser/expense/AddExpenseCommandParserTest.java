@@ -1,5 +1,6 @@
 package seedu.moolah.logic.parser.expense;
 
+import static seedu.moolah.commons.core.Messages.MESSAGE_EXPENSE_WITH_FUTURE_TIMESTAMP;
 import static seedu.moolah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.moolah.commons.core.Messages.MESSAGE_REPEATED_PREFIX_COMMAND;
 import static seedu.moolah.logic.commands.CommandTestUtil.EXPENSE_CATEGORY_DESC_CHICKEN;
@@ -12,6 +13,7 @@ import static seedu.moolah.logic.commands.CommandTestUtil.INVALID_EXPENSE_CATEGO
 import static seedu.moolah.logic.commands.CommandTestUtil.INVALID_EXPENSE_DESCRIPTION_DESC;
 import static seedu.moolah.logic.commands.CommandTestUtil.INVALID_EXPENSE_PRICE_DESC;
 import static seedu.moolah.logic.commands.CommandTestUtil.INVALID_EXPENSE_TIMESTAMP_DESC;
+import static seedu.moolah.logic.commands.CommandTestUtil.INVALID_FUTURE_TIMESTAMP_EXPENSE_TIMESTAMP_DESC;
 import static seedu.moolah.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EXPENSE_CATEGORY_TAXI;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EXPENSE_DESCRIPTION_TAXI;
@@ -105,4 +107,10 @@ public class AddExpenseCommandParserTest {
                 + EXPENSE_CATEGORY_DESC_CHICKEN + EXPENSE_CATEGORY_DESC_CHICKEN, MESSAGE_REPEATED_PREFIX_COMMAND);
     }
 
+    @Test
+    public void parse_expenseWithFutureTimestamp_throwsParseException() {
+        assertParseFailure(parser, EXPENSE_DESCRIPTION_DESC_TAXI + EXPENSE_PRICE_DESC_TAXI
+                        + INVALID_FUTURE_TIMESTAMP_EXPENSE_TIMESTAMP_DESC + EXPENSE_CATEGORY_DESC_TAXI,
+                MESSAGE_EXPENSE_WITH_FUTURE_TIMESTAMP);
+    }
 }

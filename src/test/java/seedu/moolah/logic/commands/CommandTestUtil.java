@@ -113,6 +113,8 @@ public class CommandTestUtil {
     public static final String INVALID_EXPENSE_PRICE_DESC = " " + PREFIX_PRICE + "911a";
     // Non Natty-recognised input not allowed in timestamps
     public static final String INVALID_EXPENSE_TIMESTAMP_DESC = " " + PREFIX_TIMESTAMP + "asdf";
+    // Future timestamps not allowed in expense timestamps
+    public static final String INVALID_FUTURE_TIMESTAMP_EXPENSE_TIMESTAMP_DESC = " " + PREFIX_TIMESTAMP + "tomorrow";
     // '*' not allowed in categories
     public static final String INVALID_EXPENSE_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*";
     // unsupported menu not allowed in menu items
@@ -126,6 +128,8 @@ public class CommandTestUtil {
     public static final String INVALID_EVENT_PRICE_DESC = " " + PREFIX_PRICE + "911a";
     // Non Natty-recognised input not allowed in timestamps
     public static final String INVALID_EVENT_TIMESTAMP_DESC = " " + PREFIX_TIMESTAMP + "asdf";
+    // Past timestamps not allowed in Event timestamps
+    public static final String INVALID_PAST_TIMESTAMP_EVENT_TIMESTAMP_DESC = " " + PREFIX_TIMESTAMP + "yesterday";
     // '*' not allowed in categories
     public static final String INVALID_EVENT_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*";
 

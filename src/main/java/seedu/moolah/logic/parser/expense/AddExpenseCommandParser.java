@@ -65,7 +65,7 @@ public class AddExpenseCommandParser implements Parser<AddExpenseCommand> {
         if (isTimestampPresent) {
             Timestamp timestamp = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
             if (Timekeeper.isFutureTimestamp(timestamp)) {
-                throw new ParseException("Expense cannot be in the future");
+                throw new ParseException("An expense cannot be in the future! Add an event instead.");
             }
             Expense expense = new Expense(description, price, category, timestamp,
                     UniqueIdentifierGenerator.generateRandomUniqueIdentifier());

@@ -1,5 +1,7 @@
 package seedu.moolah.model;
 
+import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -28,6 +30,7 @@ public class Timekeeper {
     private ObservableList<Budget> budgets;
 
     public Timekeeper(Logic logic) {
+        requireAllNonNull(logic);
         this.logic = logic;
         events = logic.getFilteredEventList();
         budgets = logic.getMooLah().getBudgetList();
@@ -71,19 +74,13 @@ public class Timekeeper {
      */
     public List<Event> getTranspiredEvents() {
         List<Event> eventsToNotify = new ArrayList<>();
-        List<Event> eventsToBeRemoved = new ArrayList<>();
 
         for (Event event : events) {
             Timestamp timestamp = event.getTimestamp();
-            if (hasTranspired(timestamp)) {
-                eventsToBeRemoved.add(event);
-                if (logic.hasBudgetWithName(event.getBudgetName())) {
-                    eventsToNotify.add(event);
-                }
+            if (hasTranspired(timestamp) && logic.hasBudgetWithName(event.getBudgetName())) {
+                eventsToNotify.add(event);
             }
         }
-
-        logic.deleteTranspiredEvents(eventsToBeRemoved);
 
         return eventsToNotify;
     }
@@ -170,7 +167,7 @@ public class Timekeeper {
         return daysLeft < UPPER_THRESHOLD && !hasTranspired(timestamp);
     }
 
-    private static boolean hasTranspired(Timestamp timestamp) {
+    static boolean hasTranspired(Timestamp timestamp) {
         return timestamp.isBefore(systemTime);
     }
 

@@ -67,12 +67,12 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
             Timestamp timestamp = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
             if (Timekeeper.isFutureTimestamp(timestamp)) {
                 Event event = new Event(description, price, category, timestamp, null);
-                return new seedu.moolah.logic.commands.event.AddEventCommand(event);
+                return new AddEventCommand(event);
             } else {
-                throw new ParseException("Event must occur in the future");
+                throw new ParseException("An event must occur in the future!");
             }
         } else {
-            throw new ParseException("Event must occur in the future");
+            throw new ParseException("An event must occur in the future!");
         }
     }
 
