@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-F13-4/main.git
+:repoURL: https://github.com/AY1920S1-CS2103T-F13-4/main/tree/master
 
 By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 
@@ -34,7 +34,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/ezwatchlist/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/ezwatchlist/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -78,9 +78,9 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/ezwatchlist/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ShowListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -97,11 +97,11 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/ezwatchlist/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `WatchListParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a show).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -118,17 +118,17 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/ezwatchlist/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Ezwatchlist data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Show>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Actor` list in `Watch List`, which `Show` can reference. This would allow `Watch List` to only require one `Actor` object per unique `Actor`, instead of each `Show` needing their own `Actor` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -138,12 +138,12 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/ezwatchlist/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Watch list data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -170,32 +170,38 @@ Step 1. The user launches the application, and executes `watch 1 s/2 e/3` comman
 
 Step 2. Entering the command calls `WatchListParser#parseCommand()`, which in turn returns a new `WatchCommandParser` and the `WatchCommandParser#parse()` command is called.
 
-Step 3. A new `WatchCommand` is created, with the index of the show being parsed as a field of the `WatchCommand`. A new WatchShowDescriptor is also created to relay the episode number and season number to the WatchCommand object.
+Step 3. A new `WatchCommand` is created, with the index of the show being parsed as a field of the `WatchCommand`. A new `WatchShowDescriptor` is also created to relay the episode number and season number to the `WatchCommand` object.
 
 Step 4. The `WatchCommand#execute()` method is called, referencing the current `model`, and the show that is in the current `FilteredShowList` is referenced based off the current `model`.
 
 [NOTE]
 If the `index` is out of bounds, a new `CommandException` is thrown.
 
-Step 5. A copy of the show is created through the use of `WatchCommand#createEditedShow()`, which determines the new total number of episodes watched from the given seasons and episodes.
-A new isWatched value of the show is also determined based on the number of episodes that are watched.
+Step 5. A copy of the show is created through the use of `WatchCommand#createEditedShow()`, with the new total number of seasons and episodes updated if there are any changes.
+A new `isWatched` value of the show is also determined based on the number of episodes that are watched.
+
+The following activity diagram below summarizes the calculation of the number of episodes watched:
+
+.WatchActivityDiagram showing how episodes are calculated
+image::WatchActivityDiagram.png[]
 
 Step 6. The show in the current show list is updated to the newly created copy with the updated watched status and latest episode watched, and a `CommandResult` with the new watched status of the show is created.
 
 The following sequence diagram shows how the watch operation works:
 
+.WatchSequenceDiagram showing flow of the watch command
 image::WatchSequenceDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: Creating a new WatchCommand instead of an altered EditCommand
 
-* **Alternative 1 (current choice):** Creating a new WatchCommand class for changing the 'watch' status of a show.
+* **Alternative 1 (current choice):** Creating a new `WatchCommand` class for changing the 'watch' status of a show.
 ** Pros: Enables for greater cohesion since there is a specific command for editing the 'watch' status of a show.
-** Cons: Requires longer code, and the code is also repetitive since its implementation is similar to that of the edit command
-* **Alternative 2:** Use the WatchCommandParser to create a new EditCommand object that edits the watch status of the show.
+** Cons: Requires longer code, and the code is also repetitive since its implementation is similar to that of the `EditCommand`.
+* **Alternative 2:** Use the `WatchCommandParser` to create a new `EditCommand` object that edits the watch status of the show.
 ** Pros: Less code repetition and shorter code in general.
-** Cons: This will mean that there is less cohesion of the code and perhaps greater dependencies since more classes depend on the EditCommand class.
+** Cons: This will mean that there is less cohesion of the code and greater dependencies since more classes depend on the `EditCommand` class.
 // end::markaswatched[]
 
 // tag::statistics[]

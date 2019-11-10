@@ -51,12 +51,15 @@ public class StatisticsPanel extends UiPart<Region> {
             forgottenPlaceHolder.getChildren().add(new Label("You currently do not have any forgotten entry!"));
         }
         //favourite
-        List<String> favouriteKeys = new ArrayList<>();
-        favouriteKeys.addAll(favourite.keySet());
-        Collections.sort(favouriteKeys, (key1, key2) -> favourite.get(key2) - favourite.get(key1));
-        favouriteKeys.stream().forEach(genre -> favouriteGenres.getChildren()
-                .add(new Label(genre + " (" + favourite.get(genre) + " entries) ")));
-
+        if (favourite.size() > 0) {
+            List<String> favouriteKeys = new ArrayList<>();
+            favouriteKeys.addAll(favourite.keySet());
+            Collections.sort(favouriteKeys, (key1, key2) -> favourite.get(key2) - favourite.get(key1));
+            favouriteKeys.stream().forEach(genre -> favouriteGenres.getChildren()
+                    .add(new Label(genre + " (" + favourite.get(genre) + " entries) ")));
+        } else {
+            favouriteGenres.getChildren().add(new Label("You currently have no favourite genres"));
+        }
         if (movieRecommendations == null && tvRecommendations == null) {
             recommendationPlaceHolder.getChildren().add(new Label("You currently do not have any recommendation!"));
         } else {
