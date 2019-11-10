@@ -256,7 +256,7 @@ Creates a new Multiple Choice card in deck `german`, with the answer as the firs
 
 The edit command allows the user to edit flashcards in any existing deck.
 
-Format: `edit deck/DECK_NAME index/INDEX [front/FRONT_TEXT] [back/BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]`
+Format: `edit deck/DECK_NAME index/CARD_INDEX [front/FRONT_TEXT] [back/BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]`
 
 Note:
 
@@ -266,11 +266,11 @@ Note:
 
 ** If no deck with `DECK_NAME` exist in the FlashCard Pro library, there will be an error message and no card will be edited.
 
-* The `INDEX` refers to the index of a card in the deck.
+* The `CARD_INDEX` refers to the index of a card in the deck.
 
-** `INDEX` must be a valid integer from 1, 2, ..., Number of cards in deck.
+** `CARD_INDEX` must be a valid integer from 1, 2, ..., Number of cards in deck.
 
-** If the `INDEX` is invalid, there will be an error message and no card will be edited.
+** If the `CARD_INDEX` is invalid, there will be an error message and no card will be edited.
 
 * If you want to edit the front of the card, `FRONT_TEXT` should be supplied.
 
@@ -393,7 +393,7 @@ Do note that premature ending of a test will still count towards your Statistics
 * They can type `front` when they are on the card back to relook at the question.
 ====
 
-==== Multiple Choice Cards: `<USER_INPUT>`, `front`
+==== Multiple Choice Cards: `<INDEX_OF_CORRECT_ANSWER>`, `front`
 ====
 * Upon loading the card, users will be presented with the question and several choices.
 
@@ -486,8 +486,8 @@ e.g. `view deck/science_deck`
 ** *add FrontBack:* `add deck/DECK_NAME front/CARD_FRONT back/CARD_BACK [priority/HIGH_OR_LOW]` +
 ** *add MCQ:* `add deck/DECK_NAME front/CARD_FRONT back/INDEX_OF_CORRECT_OPTION choice/CHOICE_A choice/CHOICE_B [priority/HIGH_OR_LOW]`
 ====
-* *edit*: `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]`
-- only applicable for Front-Back Cards and Multiple Choice Cards
+* *edit* - only applicable for Front-Back Cards and Multiple Choice Cards
+* *edit*: `edit deck/DECK_NAME index/CARD_INDEX [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]` +
 e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
 * *undo* : `undo`
 * *redo* : `redo`
@@ -505,7 +505,7 @@ e.g. `test deck/science_deck duration/100`
 **** wrong answer: `wrong`
 **** see question: `front`
 ** *TEST_MODE: Multiple Choice Cards:*
-*** indicate choice: `<USER_INPUT>` which is any integer
+*** indicate choice: `<INDEX_OF_CORRECT_ANSWER>` which must be a positive integer between 1 and the total number of choices
 *** see question: `front`
 ** *TEST_MODE: Java/Javascript Cards:*
 *** open coding playground: `code`
