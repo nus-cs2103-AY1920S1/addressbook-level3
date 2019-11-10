@@ -51,6 +51,10 @@ public class Id {
         return new Id(idCount.toString());
     }
 
+    public static void setIdCount(int count) {
+        idCount = count;
+    }
+
     @Override
     public String toString() {
         return value;
