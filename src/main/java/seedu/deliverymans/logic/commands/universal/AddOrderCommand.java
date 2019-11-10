@@ -23,7 +23,7 @@ import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
- * Order command
+ * Adds an Order.
  */
 public class AddOrderCommand extends Command {
     public static final String COMMAND_WORD = "-add_order";
