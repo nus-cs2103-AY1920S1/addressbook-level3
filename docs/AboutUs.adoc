@@ -19,7 +19,7 @@ Role: Project Advisor
 
 === Tan Likai
 image::tanlk99.png[width="150", align="left"]
-{empty}[https://github.com/tanlk99[github]] [<<tanlikai#, portfolio>>]
+{empty}[https://github.com/tanlk99[github]] [<<tanlk99#, portfolio>>]
 
 Roles:
 
