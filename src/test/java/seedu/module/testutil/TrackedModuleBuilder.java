@@ -44,7 +44,7 @@ public class TrackedModuleBuilder {
     }
 
     /**
-     * Sets the description of the {@code TrackedModule} that we are building.
+     * Sets the deadline of the {@code TrackedModule} that we are building.
      */
     public TrackedModuleBuilder withDeadline(List<Deadline> deadline) {
         this.deadline = deadline;
