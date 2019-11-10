@@ -24,10 +24,21 @@ public class DeleteBySerialNumberCommand extends DeleteCommand {
 
     private final SerialNumber targetSerialNumber;
 
+    /**
+     * Constructor for DeleteByIndexCommand.
+     * @param targetSerialNumber serial number of book to be deleted.
+     */
     public DeleteBySerialNumberCommand(SerialNumber targetSerialNumber) {
         this.targetSerialNumber = targetSerialNumber;
     }
 
+    /**
+     * Executes the DeleteBySerialNumberCommand and returns the result message.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return Feedback message of the operation result for display.
+     * @throws CommandException If an error occurs during command execution.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

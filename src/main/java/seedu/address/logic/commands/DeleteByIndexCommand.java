@@ -17,10 +17,21 @@ public class DeleteByIndexCommand extends DeleteCommand {
 
     private final Index targetIndex;
 
+    /**
+     * Constructor for DeleteByIndexCommand.
+     * @param targetIndex index of book to be deleted.
+     */
     public DeleteByIndexCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Executes the DeleteByIndexCommand and returns the result message.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return Feedback message of the operation result for display.
+     * @throws CommandException If an error occurs during command execution.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
