@@ -108,7 +108,7 @@ public class JsonAdaptedActivity {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Duration.class.getSimpleName()));
         }
-        if (!StringUtil.isNonZeroUnsignedInteger(duration) && (Integer.parseInt(duration) >= 0)) {
+        if (!StringUtil.isNonZeroSignedInteger(duration) && (Integer.parseInt(duration) >= 0)) {
             throw new IllegalValueException(String.format(Duration.MESSAGE_CONSTRAINTS));
         }
         final Duration modelDuration = new Duration(Integer.parseInt(duration));
