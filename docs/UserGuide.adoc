@@ -235,14 +235,16 @@ Whew! After reading so much, it is time to find out how you can add your _event_
 *Step by step:*
 
 Step 1. Type ``add commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and click _Enter_. +
-image::images/calendarScreenshots/add1.png[Add command]
+
+image::calendarScreenshots/add1.png[Add command]
 
 Step 2. The _month and year panel_ will change to "December" and the relevant view will be shown.
 
-Step 3. In the _month view panel_, you will be able to see the newly added _labels_.
+Step 3. In the _month view panel_, you will be able to see the newly added _commitment labels_.
 
 Step 4. The _result box_ will also display a message to indicate that your _commitment_ has been successfully added. +
-image::images/calendarScreenshots/add2.png[Add result]
+
+image::calendarScreenshots/add2.png[Add result]
 
 TIP: You do not have to specify the ``END YEAR``, ``END MONTH`` and/or ``END DAY`` if they are the same as ``START YEAR``, ``START MONTH`` and/or ``START DAY``, respectively.
 
@@ -278,7 +280,18 @@ But how? Well, this is the section for you. 😀
 ****
 
 *Step by step:*
-(You have accidentally indicated that 13 August 2019 is an observed holiday for national day and you would like to delete it from TravEzy. MORE COMING SOON...)
+
+Step 1. Type ``delete commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and click _Enter_. +
+
+image::calendarScreenshots/delete1.png[Delete command]
+
+Step 2. The _month and year panel_ will change to "December" and the relevant view will be shown.
+
+Step 3. In the _month view panel_, you will be able to see that the _commitment labels_ have been removed.
+
+Step 4. The _result box_ will also display a message to indicate that your _commitment_ has been successfully deleted. + 
+
+image::calendarScreenshots/delete2.png[Delete result]
 
 === Showing your schedule for the month: ``show``
 
@@ -292,12 +305,20 @@ How easy is it?
 *Example:* +
 
     show m/Dec
+    
+*Step by step:*
 
+Step 1. Type ``show m/Dec`` in the _command box_ and click _Enter_. +
+
+image::calendarScreenshots/show1.png[Show command]
+
+Step 2. The _month and year panel_ and _month view panel_ will change to show you your schedule for this December.
+
+Step 3. The _result box_ will also display a message to indicate that _TravEzy_ is currently showing you your schedule for December. + 
+
+image::calendarScreenshots/show2.png[Show result]
 
 WARNING: Do remember that if you leave out the year (as we have done in this example), the current year will be used. This applies to the following commands as well.
-
-*Step by step:*
-(COMING SOON)
 
 === Listing your events: ``list``
 
@@ -308,19 +329,31 @@ If you would like to view your events as a list instead, this command would be h
 
 *Examples:*
 ****
-* To list all events,
+* To list all _events_,
 
     list
 
-* To list all events that happen between 2 December 2019 to 10 December 2019,
+* To list all _events_ that happen between 2 December 2019 to 10 December 2019,
 
     list d/2 m/Dec y/2019 D/10 M/Dec Y/2019
 
 ****
 
+*Step by step:*
+
+Step 1. Type ``list`` in the _command box_ and click _Enter_. + 
+
+image::calendarScreenshots/list1.png[List command]
+
+Step 2. A pop-up will appear to show you all your _events_. 
+
+image::calendarScreenshots/list2.png[List result]
+
+Step 3. When you click at a region outside of the pop-up, the pop-up will disappear. How neat is that? 
+
 === Checking your availability for a trip: ``check``
 
-Do you need to find out whether you are available to go for a trip? You can get _TravEzy_ to find that out for you (i.e. when you happen to have a school break/holiday then *and* do not have any commitment/trip then).
+Do you need to find out whether you are available to go for a trip? You can get _TravEzy_ to find that out for you (i.e. when you happen to have a _school break_/_holiday_ then *and* do not have any _commitment_/_trip_ then).
 
 Let's find out how!
 
@@ -331,7 +364,7 @@ Let's find out how!
 ****
 * To check whether you are available on 9 December 2019,
 
-    check d/9 m/12 y/2019
+    check d/9 m/Dec y/2019
 
 * To check whether you are available from 9 to 20 December 2019,
 
@@ -340,11 +373,21 @@ Let's find out how!
 ****
 
 *Step by step:*
-(COMING SOON)
+
+Step 1. Type ``check d/9 m/Dec y/2019`` in the _command box_ and click _Enter_. + 
+
+image::calendarScreenshots/check1.png[Check command]
+
+Step 2. The _month and year panel_ and _month view panel_ will change to show you your schedule for this December.
+
+Step 3. The _result box_ will display a message to indicate whether you are available to travel during the specified time. If you happen to be free (like in this case), you may start booking your trip! 😀 +
+
+image::calendarScreenshots/check2.png[Check result]
+
 
 === Suggesting a suitable time for a trip: ``suggest``
 
-The end of the semester is near. It is time to look for some cheap flights🛫! However, before deciding which flight to book, you need to find out whether it suits your schedule. No worries! _TravEzy_ has got you covered. 😊
+The end of the semester is near. It is time to look for some cheap flights🛫! However, before deciding which flight to book, you need to find out when you can travel. Need some help with that? No worries! _TravEzy_ has got you covered. 😊
 
 How so? Just ask _TravEzy_ to suggest a suitable time!
 
@@ -362,6 +405,18 @@ How so? Just ask _TravEzy_ to suggest a suitable time!
     suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019 p/5
 
 ****
+
+*Step by step:*
+
+Step 1. Type ``suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019`` in the _command box_ and click _Enter_. + 
+
+image::calendarScreenshots/suggest1.png[Suggest command]
+
+Step 2. The _month and year panel_ and _month view panel_ will change to show you your schedule for this December.
+
+Step 3. The _result box_ will display a message to indicate when you are able to travel during the specified time. +
+
+image::calendarScreenshots/suggest2.png[Suggest result]
 
 == Itinerary
 
