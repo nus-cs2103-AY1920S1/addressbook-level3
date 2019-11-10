@@ -411,9 +411,9 @@ e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John | E
 ** *Game* : `tab b/game`
 ** *Report* : `tab b/report`
 * *Calendar* : `calendar c/CALENDAR_COMMAND`
-** *Open Display* : `calendar c/opendisplay d/DATE`
+** *Open Display* : `calendar c/opendisplay d/DATE` +
 e.g. `calendar c/opendisplay d/11/11/2019`
-** *Close Display* : `calendar c/closedisplay d/DATE`
+** *Close Display* : `calendar c/closedisplay d/DATE` +
 e.g. `calendar c/closedisplay d/11/11/2019`
 ** *Next Month* : `calendar c/nextmonth`
 ** *Previous Month* : `calendar c/previousmonth`
