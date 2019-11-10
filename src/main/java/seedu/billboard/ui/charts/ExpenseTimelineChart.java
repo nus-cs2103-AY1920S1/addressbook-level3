@@ -6,7 +6,6 @@ import static java.util.stream.Collectors.toList;
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.LongSummaryStatistics;
@@ -134,8 +133,7 @@ public class ExpenseTimelineChart extends ExpenseChart {
     }
 
     /**
-     * Initializes the timeline values and adds a listener to observe for changes in the underlying list and update the
-     * timeline accordingly.
+     * Sets up listeners to observe for changes in the relevant observables and update the timeline accordingly.
      */
     private void setupListeners() {
         expenseGrouping.observe(grouping -> updateTimeline(expenses, grouping, dateInterval.getValue()));

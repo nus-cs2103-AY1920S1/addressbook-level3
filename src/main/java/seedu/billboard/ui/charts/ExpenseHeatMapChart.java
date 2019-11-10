@@ -46,32 +46,35 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     @FXML
     private NumberAxis yAxis;
 
+    private final ObservableData<ExpenseGrouping> expenseGrouping;
     private final HeatMapGenerator heatMapGenerator;
     private final XYChart.Series<Integer, Integer> series;
     private final DateRange currentYearRange = getCurrentYearRange();
 
-    public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses, ObservableData<ExpenseGrouping> grouping,
+    public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses,
+                               ObservableData<ExpenseGrouping> expenseGrouping,
                                HeatMapGenerator heatMapGenerator) {
         super(FXML, expenses);
+        this.expenseGrouping = expenseGrouping;
         this.heatMapGenerator = heatMapGenerator;
-
-        series = new XYChart.Series<>();
-        series.setName("All expenses");
 
         xAxis.setTickLabelFormatter(new MonthConverter(currentYearRange.getStartDate(), TextStyle.SHORT));
         yAxis.setTickLabelFormatter(new DayOfWeekConverter(TextStyle.SHORT));
 
-        initChart();
-    }
-
-    /**
-     * Initializes the chart.
-     */
-    private void initChart() {
+        series = new XYChart.Series<>();
+        series.setName("All expenses");
         ExpenseHeatMap expenseHeatMap = heatMapGenerator.generate(expenses, currentYearRange);
 
         series.getData().setAll(mapToData(expenseHeatMap.getHeatMapValues()));
         heatMapChart.getData().add(series);
+
+        setupListeners();
+    }
+
+    /**
+     * Sets up listeners to observe for changes in the relevant observables and update the timeline accordingly.
+     */
+    private void setupListeners() {
 
         expenses.addListener((ListChangeListener<Expense>) c ->
                 onDataChange(heatMapGenerator.generateAsync(c.getList(), currentYearRange)));
