@@ -1156,10 +1156,12 @@ General notes are found at the bottom of the rightmost column on the offline cop
 | Delete bookmark: `*delete* INDEX`
 | Favorite bookmark: `*favorite\|fav* INDEX`
 
-.3+|Folders
+.5+|Folders
 | Expand view: `*expand* [LEVEL=1]`
 | Collapse view: `*collapse* [LEVEL=1]`
 | Add folder: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
+| Edit folder: `*folder-edit* FROM_FOLDER_NAME t/TO_FOLDER_NAME`
+| Delete folder: `*folder-delete* FOLDER_NAME`
 
 .2+|Autotags
 | Add autotag: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
