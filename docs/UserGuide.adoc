@@ -339,12 +339,49 @@ image::clear-after.png[width="790"]
 // tag::export[]
 ==== Exporting data (multi-platform) : `export`
 
-.Items in current list exported to QR code
+Thinking of viewing the list of currently tracked items on your mobile phone? Want to have a
+copy of the to-buy items on your mobile phone so that you can refer to it while shopping?
+With Xpire's `export` feature, you can easily transfer the list of items to any platform
+by simply scanning the generated QR code.
+
+Xpire can not only help you track your items' expiry dates, it can also export the current
+list of items through a QR code (see Figure 12). Any device with a QR code reader will be
+able to download the list of items (see Figure 13).
+
+Format: `export`
+
+.QR code containing the data of the items in the current view list
 image::export.png[width="790"]
 
-Exports the current list of items through a QR code. +
-Any device with a QR code reader will be able to download the list of items. +
-Format: `export`
+.List of items received when scanning the QR code through a mobile phone
+image::export-phone.png[width="250"]
+
+[NOTE]
+====
+`export` is designed to work only on the current view list. In other words, `export` will only
+export all items which exists in the current view list.
+
+Depending on the operating system of your mobile phone, you may be directed to a google search
+page after scanning the QR code. Follow the steps below to rectify this issue if necessary.
+====
+
+* Upon scanning the QR code, you may see a pop-up prompt suggesting to you to search the content
+received on the web (see Figure 14).
+
+.Pop-up prompt to suggest to search the content on the web
+image::export-prompt.png[width="250"]
+
+* Instead of immediately accepting the suggestion, press and hold on the prompt to reveal the other
+options available (see Figure 15). Choose "Copy" or any other similar options.
+
+.Additional options to handle the content
+image::export-other-options.png[width="250"]
+
+* Once the content has been copied, you can simply paste and save the content on Notes or any other
+notepad application on your mobile phone (see Figure 16).
+
+.Pasting and saving exported content onto the mobile phone's built-in notepad application
+image::export-save-in-notes.png[width="250"]
 
 // end:export[]
 
@@ -721,7 +758,9 @@ The table below summarises the commands only available for use in the main list.
 
 == Command Shorthands
 
-Commands also come with command shorthands which can be used in place of the full command word. For instance, `a|Strawberry|31/12/2019` is the same as `add|Strawberry|31/12/2019`.
+If you are looking for a quick way to type and execute the commands, then this section is just
+for you. Commands also come with command shorthands which can be used in place of the full command word.
+For instance, `a|Strawberry|31/12/2019` is the same as `add|Strawberry|31/12/2019`.
 
 Below is a list of commands and their corresponding command shorthands:
 
