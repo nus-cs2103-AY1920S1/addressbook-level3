@@ -390,9 +390,10 @@ as the duration between 8am and the start time of the first `PersonTimeslot` obj
 . For each `PersonTimeslot` object in the list, stack a coloured `Block` in the same *container*. This `Block` should have the same height as the duration between the start and end time of the `PersonTimeslot` object.
 . Stack in empty `Block` to fill the gaps between the end time of the current `PersonTimeslot` and the start time of the next `PersonTimeslot` in the list.
 
-After having the `ScheduleView` class that creates the graphics for TimeBook, we have to control what graphics to show. As such,
+After having a class that creates the graphics for TimeBook, we require another class to control what graphics to show. As such,
  we made use of an abstract class `ScheduleViewManager` to control the creation of `ScheduleView` objects.
-The two classes that extend from `ScheduleViewManager` are `IndividualScheduleViewManager` and `GroupScheduleViewManager`.
+The two classes that extend from `ScheduleViewManager` are `IndividualScheduleViewManager` and `GroupScheduleViewManager` and each of them
+controls the creation of individual and group schedules respectively.
 
 The following methods are implemented in `ScheduleViewManager` to control the schedules displayed in the window.
 
@@ -419,8 +420,9 @@ executes the `lookat` command to inspect Alice's and Carl's schedules. The state
 
 image::./yijie/gsvm_state3.png[]
 
+Now that we have the full picture of how the graphics are created and controlled, we are ready to show how the user obtain a visual representation of a person or group's schedule using the `show` command.
 The following sequence diagram shows how the `show` command eventually lead to changes in the UI to show the visual representation
-of an individual's or group's schedule.
+of Bobby's individual schedule.
 
 image::./yijie/showCommandSequenceDiagram.png[]
 
@@ -429,6 +431,7 @@ In order to make the diagram look less messy, a reference diagram shown below is
 image::./yijie/showCommandSdFrame.png[]
 
 Details of how the graphics are created within the `ScheduleView` have been described above and thus, are omitted in the diagram.
+
 
 ==== Design Considerations
 
