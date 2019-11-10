@@ -357,11 +357,11 @@ Simpler implementation and better performance outweighs the cost of using an ext
 // tag::find[]
 ==== Find feature
 
-The find feature display the result of the searched dish on the right pane to the user.
+The find feature displays the result of the searched dish on the right pane to the user.
 
 ===== Implementation
 
-The find mechanism is toggled when the user type in the "find" command. Through a `FindCommand` that extends from the abstract `Command` class. It interacts with the object that implements `Model` interface by updating the observable list with a predicate that contains what the user is searching for.
+The find mechanism is toggled when the user types in the "find" command. Through a `FindCommand` that extends from the abstract `Command` class. It interacts with the object that implements `Model` interface by updating the observable list with a predicate that contains what the user is searching for.
 
 Given below is a Class Diagram that shows how the FindCommand interacts with other components of CaloFit.
 
@@ -424,7 +424,7 @@ If the DishDatabase is empty, or the daily calorie budget have exceeded the set 
 
 Step 2. The user enters "suggest" in the Command Line Input to invoke the `SuggestCommand` command which will run `SuggestCommand#execute()`. `Model#getRemainingCalories()` will be executed to get the remaining calories, which will provide `#Model#updateFilteredDishList` with the calories budget to update the list accordingly.
 
-Step 3. The success message will be return, while printing the updated dish list on CaloFit right pane.
+Step 3. The success message will be returns, while printing the updated dish list on CaloFit right pane.
 
 The following sequence diagram shows how the suggest operation works:
 
@@ -435,7 +435,7 @@ image::SuggestCommand.png[]
 ===== Aspect: How suggest executes
 
 * **Alternative 1 (current choice):** Update dish list with calorie budget
-** Pros: Neater code, easier to maintain and uses lesser memory.
+** Pros: Neater code, easier to maintain and uses less memory.
 ** Cons: Unable to get history of suggest list.
 * **Alternative 2:** Create a new list for every `SuggestCommand`.
 ** Pros: Easier to understand and customise if require data for method.
@@ -446,7 +446,7 @@ image::SuggestCommand.png[]
 
 * **Alternative 1 (current choice):** Stores the value in a dish list.
 ** Pros: Commonly used, thus easier to understand and easier to deal with. It can also be easily updated.
-** Cons: Would constantly require `Model` with a responsibility that is not relevant to it's current.
+** Cons: Would constantly require `Model` with a responsibility that is not relevant to its current.
 * **Alternative 2:** Wrap the values in a `Suggest` object
 ** Pros: Neater and easier to maintain, since all suggest-related values are stored in the `Suggest` object.
 ** Cons: Additional class to maintain, harder for newcomers to understand code with too many classes.
@@ -454,11 +454,11 @@ image::SuggestCommand.png[]
 
 // tag::notification[]
 ==== Notification feature
-The notification feature prompts the user with new window if a meal have been missed.
+The notification feature prompts the user with new window if a meal had been missed.
 
 ===== Implementation
 
-The notification feature is automatically activated when the application starts up. On start up, it is implemented through a  `NotificationHelper` that gets information from `Model#getMealLog().getTodayMeals()` method to check if there are any meal consumed and if a meal has been consumed. The `NotificationHelper` class would the do a check on the timestamp of the latest meals by using various methods in the `Notification` class, more details explain below. If a meal have been missed, a notification will be prompted to the user to consume their meal, this prompt will constantly pop up every 10 minutes until a meal have been consumed. If a meal have been consumed within the period then the user can continue using the application without any prompt.
+The notification feature is automatically activated when the application starts up. On start up, it is implemented through a  `NotificationHelper` that gets information from `Model#getMealLog().getTodayMeals()` method to check if there are any meal consumed and if a meal had been consumed. The `NotificationHelper` class would the do a check on the timestamp of the latest meals by using various methods in the `Notification` class, more details are given below. If a meal had been missed, a notification will be prompted to the user to consume his meal, this prompt will constantly pop up every 10 minutes until a meal had been consumed. If a meal had been consumed within the period then the user can continue using the application without any prompt.
 
 [NOTE]
 Notification will be prompted: +
@@ -474,13 +474,13 @@ Meals that will be counted:
 
 Additionally, it implements the following operation:
 
-* A "timer" object that is in the `UIManager` class will ensure that the notifications are executed on a 10 minutes interval.
+* A "timer" object that is in the `UIManager` class will ensure that the notifications are executed in 10 minutes interval.
 
-* `Notification#eatenBreakfast` -- returns a boolean value to indicate have the user eaten their breakfast.
+* `Notification#eatenBreakfast` -- returns a boolean value to indicate whether the user has eaten their breakfast.
 
-* `Notification#eatenLunch` -- returns a boolean value to indicate have the user eaten their lunch.
+* `Notification#eatenLunch` -- returns a boolean value to indicate whether the user has eaten their lunch.
 
-* `Notification#eatenDinner` -- returns a boolean value to indicate have the user eaten their dinner.
+* `Notification#eatenDinner` -- returns a boolean value to indicate whether the user has eaten their dinner.
 
 Given below is an example usage scenario and how the notification mechanism behaves at each step.
 
@@ -491,7 +491,7 @@ The application will immediately check once, when the application is launched, f
 
 Step 2. The application will then execute `NotificationHelper` once to check if any meal have been missed. If there is none then no notification will be prompted. If a meal is missed it will prompt to the user, and notify them every 10 minutes.
 
-Step 3. After 10 minutes, `UIManager` will then execute `NotificationHelper` and check if the user have keyed in any meals. This process will carry on for every 10 mintues till the user key in their meal.
+Step 3. After 10 minutes, `UIManager` will then execute `NotificationHelper` and check if the user has keyed in any meals. This process will carry on for every 10 minutes utill the user keys in his meal.
 
 The following sequence diagram shows how the notification operation works:
 
@@ -502,12 +502,12 @@ image::NotificationActivityDiagram.png[]
 ===== Aspect: How notification executes
 
 * **Alternative 1 (current choice):** Refocus the notification Window.
-** Pros: Ensure that lesser memory is used, so that buffer overflow is not possible. Furthermore user would not be annoying by multiple tabs.
+** Pros: Ensure that less memory is used, so that buffer overflow is not possible. Furthermore user would not be annoyed by multiple tabs.
 ** Cons: Higher chance of notification not showing up due to a single error.
 * **Alternative 2:** Create a new Window for each notification
-** Pros: Less prone to mistake as previous notification will still stay till user clear it.
+** Pros: Less prone to mistake as previous notification will still stay until the user clears it.
 ** Cons: Require much more memory as a new window is created, if the user was away for a period of time and the application was left opened, user would be required to clear quite a number of tabs.
-* **Explanation of Choice:** Since this feature provide the user as an assistance, we should not bring in more hassle and inconvenience to the user. Thus even with a higher risk of notification not showing up due to error. After 10 more minutes the notification will be prompted.
+* **Explanation of Choice:** Since this feature serves as an assistance to the user, we should not bring in more hassle and inconvenience to the user. Thus even with a higher risk of notification not showing up due to error. After 10 more minutes the notification will be prompted.
 // end::notification[]
 
 // end::assistance[]

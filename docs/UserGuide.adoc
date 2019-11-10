@@ -20,6 +20,8 @@ By: `Team AY1920S1-CS2103T-W11-4`      Since: `Sep 2019`      Licence: `MIT`
 
 CaloFit is suitable for those who prefer to track their calories gained from day-to-day meals. CaloFit is primarily uses a Command Line Interface(CLI) while still displaying the results through a Graphical User Interface(GUI). You can set your daily calorie target and CaloFit will do its best to help you stay on track.
 
+
+
 == Quick Start
 
 * Ensure you have Java 11 or above installed in your Computer.
@@ -34,14 +36,17 @@ Refer to <<Features>> for details of each command.
 == Features
 
 ====
+
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/MEAL_NAME`, `MEAL_NAME` is a parameter which can be used as `add n/Carbonara`.
+
 * Items in square brackets are optional e.g `add n/MEAL_NAME [c/CALORIES]` can be used as `add n/Carbonara c/430` or as `add n/Carbonara`.
+
 ====
 
-// tag::mealTracking[]
 === Meal Tracking
+
 ==== Adding a meal: `add`
 
 Adds a meal that the user ate to be tracked by CaloFit. +
@@ -156,7 +161,7 @@ Commands below are come other example commands:
 
 === Find meals in the meal database: `find`
 
-Searches for meals that contains the words the user have input. +
+Searches for meals that contains the words the user has inputted. +
 The search results will be shown under the "Suggested Meals" section of the application. +
 The find feature will replace the suggest feature when being used, vise versa. Thus, in order to get the suggest feature back, the user would have to type "suggest" into the command box.
 
@@ -172,7 +177,6 @@ image::FindCommandFindApplePie.png[]
 relevant calorie information.
 
 image::FindCommandFindApplePieSuccess.png[]
-// end::mealTracking[]
 
 Format: `find MEAL_WORD`
 
@@ -186,7 +190,7 @@ Example usage:
 You're tired from work and you don't want to think about what to eat for the day, you just want to have a meal to keep yourself full and stay within the calorie budget that you want set for yourself.
 
 [NOTE]
-Type "suggest" into the command bar and press the 'enter' key, if you have previously use the find feature to look for a meal.
+Type "suggest" into the command bar and press the 'enter' key, if you have previously used the find feature to look for a meal.
 
 image::SuggestCommandToggle.png[]
 
