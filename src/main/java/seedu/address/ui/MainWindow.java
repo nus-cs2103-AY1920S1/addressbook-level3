@@ -213,18 +213,17 @@ public class MainWindow extends UiPart<Stage> {
                 if (commandResult.getBudget() != null) {
                     statsDisplay.setDisplayDataBudget(commandResult.getExpenseList(), commandResult.getBudget());
                     resultListTitle.setText(commandResult.getBudget().getName().toString());
-
                 } else {
                     statsDisplay.setDisplayData(commandResult.getExpenseList());
                     resultListTitle.setText("Default Expenses");
                 }
-                // List Budget on Right panel
+            // List Budget on Right panel
             } else if (commandResult.getExpenseList() == null && commandResult.getBudgetList() != null) {
                 budgetListPanel = new BudgetListPanel(commandResult.getBudgetList());
                 rightListPanelPlaceHolder.getChildren().add(budgetListPanel.getRoot());
                 resultListTitle.setText("All Budgets");
             } else {
-                statsDisplay.setDisplayData(logic.getFilteredExpenseList());
+                // Don't do anything
             }
 
             //TODO: remove this hack

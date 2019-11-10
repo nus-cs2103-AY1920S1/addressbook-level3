@@ -89,12 +89,12 @@ public class EditExpenseCommand extends Command {
         requireNonNull(model);
         ViewState viewState = model.getViewState();
         List<Expense> lastShownList;
+        Budget lastViewedBudget = model.getLastViewedBudget();
 
         if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
             lastShownList = model.getFilteredExpenseList();
         } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
-            Budget viewingBudget = model.getLastViewedBudget();
-            lastShownList = viewingBudget.getObservableExpenseList();
+            lastShownList = lastViewedBudget.getObservableExpenseList();
         } else {
             throw new CommandException(MESSAGE_EDIT_WHEN_NOT_VIEWING_EXPENSELIST_ERROR);
         }
@@ -139,7 +139,7 @@ public class EditExpenseCommand extends Command {
             return new CommandResult(model.getFilteredExpenseList(), null,
                 null, String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
         } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
-            return new CommandResult(model.getExpenseListFromBudget(b1.get()), null, null,
+            return new CommandResult(model.getExpenseListFromBudget(b1.get()), null, lastViewedBudget,
                 String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
         } else {
             throw new CommandException(MESSAGE_EDIT_WHEN_NOT_VIEWING_EXPENSELIST_ERROR);

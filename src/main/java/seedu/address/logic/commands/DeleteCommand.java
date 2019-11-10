@@ -40,6 +40,7 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
 
         ViewState viewState = model.getViewState();
+        Budget lastViewedBudget = model.getLastViewedBudget();
 
         if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
             List<Expense> lastShownList = model.getFilteredExpenseList();
@@ -73,7 +74,7 @@ public class DeleteCommand extends Command {
 
             Expense expenseToDelete = expenseListInsideBudget.get(targetIndex.getZeroBased());
             viewingBudget.deleteExpenseInBudget(expenseToDelete);
-            return new CommandResult(model.getExpenseListFromBudget(viewingBudget), null, null,
+            return new CommandResult(model.getExpenseListFromBudget(viewingBudget), null, lastViewedBudget,
                 String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete));
         } else {
             throw new CommandException(MESSAGE_DELETE_ERROR);
