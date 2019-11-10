@@ -109,14 +109,15 @@ public class ParserUtil {
      * @throws ParseException if the given {@code email} is invalid.
      */
     public static Email parseEmail(Optional<String> email) throws ParseException {
-        if (!email.isPresent()) {
-            return new Email("no@email.provided");
+        if (email.isEmpty()) {
+            return new Email(Optional.empty());
         }
         String trimmedEmail = email.get().trim();
         if (!Email.isValidEmail(trimmedEmail)) {
+            System.out.println("Given email: " + trimmedEmail);
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new Email(Optional.of(trimmedEmail));
     }
 
     /**
