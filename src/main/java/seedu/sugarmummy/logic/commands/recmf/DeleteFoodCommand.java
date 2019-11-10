@@ -8,6 +8,7 @@ import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.model.recmf.FoodName;
+import seedu.sugarmummy.model.recmf.exceptions.FoodNotFoundException;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
@@ -15,7 +16,7 @@ import seedu.sugarmummy.ui.DisplayPaneType;
  */
 public class DeleteFoodCommand extends Command {
 
-    public static final String COMMAND_WORD = "delfood";
+    public static final String COMMAND_WORD = "deletef";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the food identified by the food name.\n"
@@ -33,6 +34,11 @@ public class DeleteFoodCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        try {
+            model.deleteFood(foodName);
+        } catch (FoodNotFoundException e) {
+            throw new CommandException(e.getMessage());
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, foodName));
     }
 

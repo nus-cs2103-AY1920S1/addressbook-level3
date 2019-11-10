@@ -15,7 +15,7 @@ public abstract class NutritionValue implements Comparable<NutritionValue> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Nutrition value should only contain one number (with no more than 4 decimals) and should be non-negative.";
-    public static final String VALIDATION_REGEX = "^[+]?\\d{0,}\\.?\\d{0,4}?$";
+    public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d{1,4}$";
     public final String value;
     private final Logger logger = LogsCenter.getLogger(UniqueFoodList.class);
 
@@ -28,7 +28,7 @@ public abstract class NutritionValue implements Comparable<NutritionValue> {
         requireNonNull(value);
         logger.info("----------------[Nutriention Value][Adding " + value + "]");
         checkArgument(isValidValue(value), MESSAGE_CONSTRAINTS);
-        this.value = String.valueOf(Double.parseDouble(value));
+        this.value = value;
     }
 
     /**
