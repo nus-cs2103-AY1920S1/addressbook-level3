@@ -16,7 +16,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.phone.Phone;
 
 /**
- * A class to access PhoneBook data stored as a json file on the hard disk.
+ * A class to access Phone DataBook data stored as a json file on the hard disk.
  */
 public class JsonPhoneBookStorage implements PhoneBookStorage {
 

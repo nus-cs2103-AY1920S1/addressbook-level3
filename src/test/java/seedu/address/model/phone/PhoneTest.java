@@ -24,35 +24,36 @@ class PhoneTest {
     @Test
     void isSamePhone() {
         // same object -> returns true
-        assertTrue(IPHONEONE.isSamePhone(IPHONEONE));
+        assertTrue(IPHONEONE.isSameAs(IPHONEONE));
 
         // null -> returns false
-        assertFalse(IPHONEONE.isSamePhone(null));
+        assertFalse(IPHONEONE.isSameAs(null));
 
-        // different IMEI -> returns false
+        // different IMEI and serial number -> returns false
         assertFalse(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE)
-                .withIdentityNumber(VALID_IDENTITYNUMBER).build()));
+                .withIdentityNumber(VALID_IDENTITYNUMBER)
+                .withSerialNumber(VALID_SERIALNUMBER).build()));
 
-        // different serial number -> returns false
-        assertFalse(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).withSerialNumber(VALID_SERIALNUMBER).build()));
+        // different serial number and same IMEI -> returns true
+        assertTrue(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).build()));
 
         // different phone name -> returns true
-        assertTrue(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).withName(VALID_NAME).build()));
+        assertTrue(IPHONEONE.isSameAs(new PhoneBuilder(IPHONEONE).withName(VALID_NAME).build()));
 
         // different brand -> returns true
-        assertTrue(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).withName(VALID_BRAND).build()));
+        assertTrue(IPHONEONE.isSameAs(new PhoneBuilder(IPHONEONE).withName(VALID_BRAND).build()));
 
         // different capacity -> returns true
-        assertTrue(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).withCapacity(VALID_CAPACITY).build()));
+        assertTrue(IPHONEONE.isSameAs(new PhoneBuilder(IPHONEONE).withCapacity(VALID_CAPACITY).build()));
 
         // different colour -> returns true
-        assertTrue(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).withColour(VALID_COLOUR).build()));
+        assertTrue(IPHONEONE.isSameAs(new PhoneBuilder(IPHONEONE).withColour(VALID_COLOUR).build()));
 
         // different cost -> returns true
-        assertTrue(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).withCost(VALID_COST).build()));
+        assertTrue(IPHONEONE.isSameAs(new PhoneBuilder(IPHONEONE).withCost(VALID_COST).build()));
 
         // different tags -> returns true
-        assertTrue(IPHONEONE.isSamePhone(new PhoneBuilder(IPHONEONE).withTags(VALID_TAG).build()));
+        assertTrue(IPHONEONE.isSameAs(new PhoneBuilder(IPHONEONE).withTags(VALID_TAG).build()));
     }
 
     @Test

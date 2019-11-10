@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Yan Wei Liang
 image::ubersaiyan.png[width="150", align="left"]
-{empty} [https://github.com/uberSaiyan[github]]
+{empty} [https://github.com/uberSaiyan[github]] [<<ubersaiyan#, portfolio>>]
 
 Role: Project Architect, Testing, Team Lead
 
@@ -22,11 +22,11 @@ In Charge of: Storage
 
 === Eugene Teu
 image::eugeneteu.png[width="150", align="left"]
-{empty}[https://github.com/EugeneTeu[github]] [https://eugeneteu.github.io/myWebsite/[Portfolio]]
+{empty}[https://github.com/EugeneTeu[github]] [<<eugeneteu#, portfolio>>]
 
 Role:  DevOps, deliverables and deadlines
 
-In Charge of: Statistics generation
+In Charge of: Statistics generation, User Interface (UI)
 
 '''
 
@@ -42,7 +42,7 @@ In Charge of: Schedule + CRUD
 
 === Oon Zhi Xiang
 image::zhixianggg.png[width="150", align="left"]
-{empty}[https://github.com/zhixianggg[github]]
+{empty}[https://github.com/zhixianggg[github]][<<zhixianggg#, portfolio>>]
 
 Role: Code Quality, Logic
 
@@ -52,7 +52,7 @@ In Charge of: Parsing + CRUD
 
 === Ooi Qiu Jia
 image::qiujiaaa.png[width="150", align="left"]
-{empty}[https://github.com/qiujiaaa[github]]
+{empty}[https://github.com/qiujiaaa[github]][<<qiujiaaa#, portfolio>>]
 
 Role: Documentation, Code Coverage
 

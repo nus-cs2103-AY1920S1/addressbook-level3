@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalCustomers.CUSTOMERTWO;
 import static seedu.address.testutil.TypicalOrders.ORDERONE;
 import static seedu.address.testutil.TypicalPhones.IPHONETWO;
-import static seedu.address.testutil.TypicalSchedules.SCHEDULETWO;
+import static seedu.address.testutil.TypicalSchedules.FRIDAY_SCHEDULE;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -26,38 +26,38 @@ class OrderTest {
     private static final Phone VALID_PHONE = IPHONETWO;
     private static final String VALID_PRICE = "$1021";
     private static final Status VALID_STATUS = Status.CANCELLED;
-    private static final Schedule VALID_SCHEDULE = SCHEDULETWO;
+    private static final Schedule VALID_SCHEDULE = FRIDAY_SCHEDULE;
     private static final String VALID_TAG = "Cancelled";
 
     @Test
     void isSameOrder() {
         // same object -> returns true
-        assertTrue(ORDERONE.isSameOrder(ORDERONE));
+        assertTrue(ORDERONE.isSameAs(ORDERONE));
 
         // null -> returns false
-        assertFalse(ORDERONE.isSameOrder(null));
+        assertFalse(ORDERONE.isSameAs(null));
 
-        // different id -> returns false
-        assertFalse(ORDERONE.isSameOrder(new OrderBuilder(ORDERONE).withId(VALID_ID).build()));
+        // different id -> returns true
+        assertTrue(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withId(VALID_ID).build()));
 
         // different customer -> returns true
-        assertTrue(ORDERONE.isSameOrder(new OrderBuilder(ORDERONE).withCustomer(VALID_CUSTOMER).build()));
+        assertTrue(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withCustomer(VALID_CUSTOMER).build()));
 
-        // different phone -> returns true
-        assertTrue(ORDERONE.isSameOrder(new OrderBuilder(ORDERONE).withPhone(VALID_PHONE).build()));
+        // different phone -> returns false
+        assertFalse(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withPhone(VALID_PHONE).build()));
 
         // different price -> returns true
-        assertTrue(ORDERONE.isSameOrder(new OrderBuilder(ORDERONE).withPrice(VALID_PRICE).build()));
+        assertTrue(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withPrice(VALID_PRICE).build()));
 
         // different status -> returns true
-        assertTrue(ORDERONE.isSameOrder(new OrderBuilder(ORDERONE).withStatus(VALID_STATUS).build()));
+        assertTrue(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withStatus(VALID_STATUS).build()));
 
         // different schedule -> returns true
-        assertTrue(ORDERONE.isSameOrder(new OrderBuilder(ORDERONE)
+        assertTrue(ORDERONE.isSameAs(new OrderBuilder(ORDERONE)
                 .withSchedule(Optional.of(VALID_SCHEDULE)).build()));
 
         // different tags -> returns true
-        assertTrue(ORDERONE.isSameOrder(new OrderBuilder(ORDERONE).withTags(VALID_TAG).build()));
+        assertTrue(ORDERONE.isSameAs(new OrderBuilder(ORDERONE).withTags(VALID_TAG).build()));
     }
 
     @Test

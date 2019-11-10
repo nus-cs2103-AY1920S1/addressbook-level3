@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import jfxtras.scene.control.agenda.Agenda;
+import seedu.address.model.CalendarDate;
 import seedu.address.model.order.Order;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.ui.UiPart;
@@ -22,23 +23,33 @@ public class CalendarPanel extends UiPart<Region> {
     private Agenda agenda;
     private ObservableList<Schedule> scheduleList;
     private ObservableList<Order> orderList;
+    private CalendarDate calendarDate;
 
     @FXML
     private VBox calendarBox;
 
-    public CalendarPanel(ObservableList<Schedule> scheduleList, ObservableList<Order> orderList) {
+    public CalendarPanel(ObservableList<Schedule> scheduleList, ObservableList<Order> orderList,
+                         CalendarDate calendarDate) {
         super(FXML);
 
         this.scheduleList = scheduleList;
         this.orderList = orderList;
+        this.calendarDate = calendarDate;
 
         agenda = new Agenda();
+
+        // disallow any non-command line actions (mouse) to alter events
+        agenda.setAllowDragging(false);
+        agenda.setAllowResize(false);
+        agenda.setEditAppointmentCallback((appointment) -> null);
+
         calendarBox.getChildren().add(agenda);
         populateAgenda();
+        setAgendaView(Calendar.getInstance());
 
         // set up listener
         scheduleList.addListener((ListChangeListener<Schedule>) change -> populateAgenda());
-
+        calendarDate.getProperty().addListener((observableValue, calendar, t1) -> setAgendaView(t1));
     }
 
     /**
@@ -51,26 +62,28 @@ public class CalendarPanel extends UiPart<Region> {
             int orderIndex = 0;
             for (Order order : orderList) {
                 Optional<Schedule> s = order.getSchedule();
-                if (s.isPresent() && s.get().isSameSchedule(schedule)) {
+                if (s.isPresent() && s.get().isSameAs(schedule)) {
                     // change to 1-based
                     orderIndex = orderList.indexOf(order) + 1;
                     break;
                 }
             }
-            agenda.appointments().addAll(
-                    new Agenda.AppointmentImplLocal()
-                            .withStartLocalDateTime(scheduleToLocalDateTime(schedule))
-                            .withEndLocalDateTime(scheduleToLocalDateTime(schedule).plusHours(1))
-                            .withSummary("Order " + orderIndex)
-            );
+            // additional check to ensure only schedules that are valid (in orders) are shown.
+            if (orderIndex != 0) {
+                agenda.appointments().addAll(
+                        new Agenda.AppointmentImplLocal()
+                                .withStartLocalDateTime(calendarToLocalDateTime(schedule.getCalendar()))
+                                .withEndLocalDateTime(calendarToLocalDateTime(schedule.getCalendar()).plusHours(1))
+                                .withSummary(String.format("Order %d: %s", orderIndex, schedule.getVenue().toString()))
+                );
+            }
         }
     }
 
     /**
-     * Helper method to convert the calendar attribute in the schedule object into LocalDateTime object
+     * Helper method to convert the calendar object into LocalDateTime object
      */
-    private LocalDateTime scheduleToLocalDateTime(Schedule schedule) {
-        Calendar calendar = schedule.getCalendar();
+    private LocalDateTime calendarToLocalDateTime(Calendar calendar) {
         int year = calendar.get(Calendar.YEAR);
         // offset to 1-based
         int month = calendar.get(Calendar.MONTH) + 1;
@@ -82,6 +95,14 @@ public class CalendarPanel extends UiPart<Region> {
 
     public Agenda getAgenda() {
         return agenda;
+    }
+
+    /**
+     * Switch the agenda view according to the date input by the user
+     */
+    private void setAgendaView(Calendar calendar) {
+        LocalDateTime localDateTime = calendarToLocalDateTime(calendar);
+        agenda.setDisplayedLocalDateTime(localDateTime);
     }
 
 }

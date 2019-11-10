@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import seedu.address.commons.util.StatsPayload;
+import seedu.address.statistic.StatsPayload;
 
 /**
  * Represents the result of a command execution.

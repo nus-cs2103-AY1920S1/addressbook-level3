@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -16,7 +17,7 @@ import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 
 /**
- * A class to access OrderBook data stored as a json file on the hard disk.
+ * A class to access Order DataBook data stored as a json file on the hard disk.
  */
 public class JsonOrderBookStorage implements OrderBookStorage {
 
@@ -54,7 +55,7 @@ public class JsonOrderBookStorage implements OrderBookStorage {
 
         try {
             return Optional.of(jsonOrderBook.get().toModelType());
-        } catch (IllegalValueException ive) {
+        } catch (IllegalValueException | ParseException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }

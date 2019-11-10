@@ -6,9 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BRAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITYNUM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONENAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIALNUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITY_NUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -39,7 +39,7 @@ public class EditPhoneCommandParser implements Parser<EditPhoneCommand> {
     public EditPhoneCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_IDENTITYNUM, PREFIX_SERIALNUM, PREFIX_PHONENAME,
+                ArgumentTokenizer.tokenize(args, PREFIX_IDENTITY_NUM, PREFIX_SERIAL_NUM, PREFIX_PHONE_NAME,
                         PREFIX_BRAND, PREFIX_CAPACITY, PREFIX_COLOUR, PREFIX_COST, PREFIX_TAG);
 
         Index index;
@@ -52,19 +52,19 @@ public class EditPhoneCommandParser implements Parser<EditPhoneCommand> {
         }
 
         EditPhoneDescriptor editPhoneDescriptor = new EditPhoneDescriptor();
-        if (argMultimap.getValue(PREFIX_IDENTITYNUM).isPresent()) {
+        if (argMultimap.getValue(PREFIX_IDENTITY_NUM).isPresent()) {
             editPhoneDescriptor.setIdentityNumber(
-                    ParserUtil.parseIdentityNumber(argMultimap.getValue(PREFIX_IDENTITYNUM).get()));
+                    ParserUtil.parseIdentityNumber(argMultimap.getValue(PREFIX_IDENTITY_NUM).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_SERIALNUM).isPresent()) {
+        if (argMultimap.getValue(PREFIX_SERIAL_NUM).isPresent()) {
             editPhoneDescriptor.setSerialNumber(
-                    ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIALNUM).get()));
+                    ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUM).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_PHONENAME).isPresent()) {
+        if (argMultimap.getValue(PREFIX_PHONE_NAME).isPresent()) {
             editPhoneDescriptor.setPhoneName(
-                    ParserUtil.parsePhoneName(argMultimap.getValue(PREFIX_PHONENAME).get()));
+                    ParserUtil.parsePhoneName(argMultimap.getValue(PREFIX_PHONE_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_BRAND).isPresent()) {
             editPhoneDescriptor.setBrand(

@@ -11,10 +11,20 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class CustomerCard
+Class CustomerListPanel
+Class OrderCard
+Class OrderListPanel
+Class ArchivedOrderListPanel
+Class PhoneCard
+Class PhoneListPanel
+
+Class CalendarPanel
 Class StatusBarFooter
 Class CommandBox
+Class TabPanel
+Class StatisticWindow
+Class DefaultStatisticWindow
 }
 
 package Model <<Rectangle>> {
@@ -31,30 +41,56 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
+MainWindow -----> StatisticWindow
+MainWindow -right--> DefaultStatisticWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> TabPanel
 MainWindow *-down-> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+
+TabPanel *-down-> CustomerListPanel
+TabPanel *-down-> PhoneListPanel
+TabPanel *-down-> ArchivedOrderListPanel
+TabPanel *-down-> OrderListPanel
+TabPanel *-down-> CalendarPanel
+
+CustomerListPanel -down-> CustomerCard
+PhoneListPanel -down-> PhoneCard
+ArchivedOrderListPanel -down->OrderCard
+OrderListPanel -down-> OrderCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
 UiManager -right-> Logic
-MainWindow -left-> Logic
+MainWindow -right-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+CustomerListPanel ----|> UiPart
+PhoneListPanel ----|> UiPart
+OrderListPanel----|> UiPart
+CalendarPanel ----|> UiPart
+StatisticWindow ----|> UiPart
+DefaultStatisticWindow ----|> UiPart
+CustomerCard -down-|> UiPart
+PhoneCard -down-|> UiPart
+OrderCard -down-|> UiPart
+
+CustomerCard .right.> Model
+PhoneCard .right.> Model
+OrderCard .right.> Model
+CalendarPanel .right.> Model
+
+TabPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+StatisticWindow -[hidden]right- StatusBarFooter
 
 MainWindow -[hidden]-|> UiPart
 @enduml

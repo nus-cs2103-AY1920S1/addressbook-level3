@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.CustomerBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.Customer;
 
 /**
- * An Immutable CustomerBook that is serializable to JSON format.
+ * An Immutable Customer DataBook that is serializable to JSON format.
  */
 @JsonRootName(value = "customerbook")
 class JsonSerializableCustomerBook {
@@ -41,18 +41,18 @@ class JsonSerializableCustomerBook {
     }
 
     /**
-     * Converts this customer book into the model's {@code CustomerBook} object.
+     * Converts this customer book into the model's {@code DataBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public CustomerBook toModelType() throws IllegalValueException {
-        CustomerBook customerBook = new CustomerBook();
+    public DataBook<Customer> toModelType() throws IllegalValueException {
+        DataBook<Customer> customerBook = new DataBook<>();
         for (JsonAdaptedCustomer jsonAdaptedCustomer : customers) {
             Customer customer = jsonAdaptedCustomer.toModelType();
-            if (customerBook.hasCustomer(customer)) {
+            if (customerBook.has(customer)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_CUSTOMER);
             }
-            customerBook.addCustomer(customer);
+            customerBook.add(customer);
         }
         return customerBook;
     }

@@ -6,9 +6,11 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
@@ -17,7 +19,7 @@ import seedu.address.model.schedule.Schedule;
 /**
  * Deletes a schedule identified using it's order's displayed index in the SML.
  */
-public class DeleteScheduleCommand extends Command {
+public class DeleteScheduleCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete-s";
 
@@ -31,19 +33,23 @@ public class DeleteScheduleCommand extends Command {
     private final Index targetIndex;
 
     public DeleteScheduleCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
 
         List<Order> lastShownList = model.getFilteredOrderList();
 
+        // check if the order index is valid
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
+        // Check if the order status is valid - only SCHEDULED is valid
         Order orderToUnschedule = lastShownList.get(targetIndex.getZeroBased());
         switch (orderToUnschedule.getStatus()) {
         case UNSCHEDULED:
@@ -56,7 +62,18 @@ public class DeleteScheduleCommand extends Command {
             // do nothing
         }
 
+        // additional check for invalid order (order is scheduled but optional is empty)
+        if (orderToUnschedule.getSchedule().isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED_INVALID);
+        }
+
         Schedule toDelete = orderToUnschedule.getSchedule().get();
+
+        // additional check for missing schedule in databook
+        if (!model.hasSchedule(toDelete)) {
+            throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED_INVALID);
+        }
+
         model.deleteSchedule(toDelete);
 
         return new CommandResult(String.format(MESSAGE_DELETE_SCHEDULE_SUCCESS, toDelete), UiChange.SCHEDULE);

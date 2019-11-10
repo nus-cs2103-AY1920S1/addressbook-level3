@@ -1,34 +1,34 @@
 package seedu.address.testutil;
 
-import seedu.address.model.PhoneBook;
+import seedu.address.model.DataBook;
 import seedu.address.model.phone.Phone;
 
 /**
- * A utility class to help with building PhoneBook objects.
+ * A utility class to help with building {@code Phone} {@code DataBook}.
  * Example usage: <br>
- *     {@code PhoneBook ab = new PhoneBookBuilder().withPhone("John", "Doe").build();}
+ *     {@code DataBook<Phone> ab = new PhoneBookBuilder().withPhone("John", "Doe").build();}
  */
 public class PhoneBookBuilder {
 
-    private PhoneBook phoneBook;
+    private DataBook<Phone> phoneBook;
 
     public PhoneBookBuilder() {
-        phoneBook = new PhoneBook();
+        phoneBook = new DataBook<>();
     }
 
-    public PhoneBookBuilder(PhoneBook phoneBook) {
+    public PhoneBookBuilder(DataBook<Phone> phoneBook) {
         this.phoneBook = phoneBook;
     }
 
     /**
-     * Adds a new {@code Phone} to the {@code PhoneBook} that we are building.
+     * Adds a new {@code Phone} to the {@code DataBook} that we are building.
      */
     public PhoneBookBuilder withPhone(Phone phone) {
-        phoneBook.addPhone(phone);
+        phoneBook.add(phone);
         return this;
     }
 
-    public PhoneBook build() {
+    public DataBook<Phone> build() {
         return phoneBook;
     }
 }

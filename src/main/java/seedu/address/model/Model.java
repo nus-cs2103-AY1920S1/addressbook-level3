@@ -1,13 +1,13 @@
 package seedu.address.model;
 
-import java.nio.file.Path;
+import java.util.Calendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
-import seedu.address.model.person.Person;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 
@@ -15,8 +15,6 @@ import seedu.address.model.schedule.Schedule;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
@@ -50,57 +48,6 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
-
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setAddressBookFilePath(Path addressBookFilePath);
-
-    /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
     ////customer operations
 
     /**
@@ -108,7 +55,7 @@ public interface Model {
      */
     void setCustomerBook(ReadOnlyDataBook<Customer> customerBook);
 
-    /** Returns the CustomerBook */
+    /** Returns the customer DataBook */
     ReadOnlyDataBook<Customer> getCustomerBook();
 
     /**
@@ -151,7 +98,7 @@ public interface Model {
      */
     void setPhoneBook(ReadOnlyDataBook<Phone> phoneBook);
 
-    /** Returns the PhoneBook */
+    /** Returns the Phone DataBook */
     ReadOnlyDataBook<Phone> getPhoneBook();
 
     /**
@@ -194,7 +141,7 @@ public interface Model {
      */
     void setOrderBook(ReadOnlyDataBook<Order> orderBook);
 
-    /** Returns the AddressBook */
+    /** Returns the Order DataBook */
     ReadOnlyDataBook<Order> getOrderBook();
 
     /**
@@ -237,7 +184,7 @@ public interface Model {
      */
     void setScheduleBook(ReadOnlyDataBook<Schedule> scheduleBook);
 
-    /** Returns the AddressBook */
+    /** Returns the Schedule DataBook */
     ReadOnlyDataBook<Schedule> getScheduleBook();
 
     /**
@@ -273,4 +220,68 @@ public interface Model {
      */
     void updateFilteredScheduleList(Predicate<Schedule> predicate);
 
+    /**
+     * Gets the list conflicting schedules if any.
+     */
+    List<Schedule> getConflictingSchedules(Schedule schedule);
+
+    /**
+     * Returns the CalendarDate object.
+     */
+    CalendarDate getCalendarDate();
+
+    /**
+     * Sets the calendar object in the property
+     */
+    void setCalendarDate(Calendar calendar);
+
+    ////order operations
+
+    /**
+     * Replaces archived order book data with the data in {@code orderBook}.
+     */
+    void setArchivedOrderBook(ReadOnlyDataBook<Order> archivedOrderBook);
+
+    /** Returns the AddressBook */
+    ReadOnlyDataBook<Order> getArchivedOrderBook();
+
+    /**
+     * Returns true if a order with the same identity as {@code order} exists in the archived order book.
+     */
+    boolean hasArchivedOrder(Order order);
+
+    /**
+     * Deletes the given order.
+     * The order must exist in the address book.
+     */
+    void deleteArchivedOrder(Order target);
+
+    /**
+     * Adds the given archived order.
+     * {@code order} must not already exist in the archived order book.
+     */
+    void addArchivedOrder(Order order);
+
+    /**
+     * Replaces the given order {@code target} with {@code editedOrder}.
+     * {@code target} must exist in the archived order book.
+     * The order identity of {@code editedOrder} must not be the same as another
+     * existing order in the archived order book.
+     */
+    void setArchivedOrder(Order target, Order editedOrder);
+
+    /** Returns an unmodifiable view of the filtered archived order list */
+    ObservableList<Order> getFilteredArchivedOrderList();
+
+    /**
+     * Updates the filter of the filtered archived order list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredArchivedOrderList(Predicate<Order> predicate);
+
+    /**
+     * Places all completed and cancelled orders in archivedOrderBook or
+     * orderBook if otherwise.
+     */
+    void resolveOrderBooksConflict();
 }

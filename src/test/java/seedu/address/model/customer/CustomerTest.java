@@ -21,28 +21,25 @@ class CustomerTest {
     @Test
     void isSameCustomer() {
         // same object -> returns true
-        assertTrue(CUSTOMERONE.isSameCustomer(CUSTOMERONE));
+        assertTrue(CUSTOMERONE.isSameAs(CUSTOMERONE));
 
         // null -> returns false
-        assertFalse(CUSTOMERONE.isSameCustomer(null));
+        assertFalse(CUSTOMERONE.isSameAs(null));
 
         // different phone and email -> returns false
-        assertFalse(CUSTOMERONE.isSameCustomer(new CustomerBuilder(CUSTOMERONE).withContactNumber(VALID_CONTACTNUMBER)
+        assertFalse(CUSTOMERONE.isSameAs(new CustomerBuilder(CUSTOMERONE).withContactNumber(VALID_CONTACTNUMBER)
                 .withEmail(VALID_EMAIL).build()));
 
-        // different name -> returns false
-        assertFalse(CUSTOMERONE.isSameCustomer(new CustomerBuilder(CUSTOMERONE).withName(VALID_NAME).build()));
+        // different email, same contact number -> returns true
+        assertTrue(CUSTOMERONE.isSameAs(new CustomerBuilder(CUSTOMERONE).withEmail(VALID_EMAIL)
+                .build()));
 
-        // same name, same phone, different attributes -> returns true
-        assertTrue(CUSTOMERONE.isSameCustomer(new CustomerBuilder(CUSTOMERONE).withEmail(VALID_EMAIL)
-                .withTags(VALID_TAG).build()));
+        // different contact number, same email -> returns true
+        assertTrue(CUSTOMERONE.isSameAs(new CustomerBuilder(CUSTOMERONE).withContactNumber(VALID_CONTACTNUMBER)
+                .build()));
 
-        // same name, same email, different attributes -> returns true
-        assertTrue(CUSTOMERONE.isSameCustomer(new CustomerBuilder(CUSTOMERONE).withContactNumber(VALID_CONTACTNUMBER)
-                .withTags(VALID_TAG).build()));
-
-        // same name, same phone, same email, different attributes -> returns true
-        assertTrue(CUSTOMERONE.isSameCustomer(new CustomerBuilder(CUSTOMERONE).withTags(VALID_TAG).build()));
+        // different attributes -> returns true
+        assertTrue(CUSTOMERONE.isSameAs(new CustomerBuilder(CUSTOMERONE).withTags(VALID_TAG).build()));
     }
 
     @Test

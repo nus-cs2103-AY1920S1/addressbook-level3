@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
+import static seedu.address.testutil.TypicalSchedules.MONDAY_SCHEDULE;
 
 import java.util.Calendar;
 import java.util.UUID;
@@ -24,42 +24,42 @@ class ScheduleTest {
     @Test
     void isSameSchedule() {
         // same object -> returns true
-        assertTrue(SCHEDULEONE.isSameSchedule(SCHEDULEONE));
+        assertTrue(MONDAY_SCHEDULE.isSameAs(MONDAY_SCHEDULE));
 
         // null -> returns false
-        assertFalse(SCHEDULEONE.isSameSchedule(null));
+        assertFalse(MONDAY_SCHEDULE.isSameAs(null));
 
         // different id -> returns false
-        assertFalse(SCHEDULEONE.isSameSchedule(new ScheduleBuilder(SCHEDULEONE).withId(VALID_ID).build()));
+        assertFalse(MONDAY_SCHEDULE.isSameAs(new ScheduleBuilder(MONDAY_SCHEDULE).withId(VALID_ID).build()));
 
         // different calendar -> returns true
-        assertTrue(SCHEDULEONE.isSameSchedule(new ScheduleBuilder(SCHEDULEONE).withCalendar(VALID_CALENDAR).build()));
+        assertTrue(MONDAY_SCHEDULE.isSameAs(new ScheduleBuilder(MONDAY_SCHEDULE).withCalendar(VALID_CALENDAR).build()));
 
         // different venue -> returns true
-        assertTrue(SCHEDULEONE.isSameSchedule(new ScheduleBuilder(SCHEDULEONE).withVenue(VALID_VENUE).build()));
+        assertTrue(MONDAY_SCHEDULE.isSameAs(new ScheduleBuilder(MONDAY_SCHEDULE).withVenue(VALID_VENUE).build()));
 
         // different tags -> returns true
-        assertTrue(SCHEDULEONE.isSameSchedule(new ScheduleBuilder(SCHEDULEONE).withTags(VALID_TAG).build()));
+        assertTrue(MONDAY_SCHEDULE.isSameAs(new ScheduleBuilder(MONDAY_SCHEDULE).withTags(VALID_TAG).build()));
     }
 
     @Test
     void testEquals() {
         // same object -> equals
-        assertEquals(SCHEDULEONE, SCHEDULEONE);
+        assertEquals(MONDAY_SCHEDULE, MONDAY_SCHEDULE);
 
         // null -> not equals
-        assertNotEquals(null, SCHEDULEONE);
+        assertNotEquals(null, MONDAY_SCHEDULE);
 
         // different id -> not equals
-        assertNotEquals(SCHEDULEONE, new ScheduleBuilder(SCHEDULEONE).withId(VALID_ID).build());
+        assertNotEquals(MONDAY_SCHEDULE, new ScheduleBuilder(MONDAY_SCHEDULE).withId(VALID_ID).build());
 
         // different calendar -> not equals
-        assertNotEquals(SCHEDULEONE, new ScheduleBuilder(SCHEDULEONE).withCalendar(VALID_CALENDAR).build());
+        assertNotEquals(MONDAY_SCHEDULE, new ScheduleBuilder(MONDAY_SCHEDULE).withCalendar(VALID_CALENDAR).build());
 
         // different venue -> not equals
-        assertNotEquals(SCHEDULEONE, new ScheduleBuilder(SCHEDULEONE).withVenue(VALID_VENUE).build());
+        assertNotEquals(MONDAY_SCHEDULE, new ScheduleBuilder(MONDAY_SCHEDULE).withVenue(VALID_VENUE).build());
 
         // different tags -> not equals
-        assertNotEquals(SCHEDULEONE, new ScheduleBuilder(SCHEDULEONE).withTags(VALID_TAG).build());
+        assertNotEquals(MONDAY_SCHEDULE, new ScheduleBuilder(MONDAY_SCHEDULE).withTags(VALID_TAG).build());
     }
 }

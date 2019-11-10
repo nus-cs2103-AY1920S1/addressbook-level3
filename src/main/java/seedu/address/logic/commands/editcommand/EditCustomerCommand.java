@@ -16,9 +16,11 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.ContactNumber;
@@ -30,7 +32,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing customer in the address book.
  */
-public class EditCustomerCommand extends Command {
+public class EditCustomerCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit-c";
 
@@ -66,7 +68,8 @@ public class EditCustomerCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                                UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
         List<Customer> lastShownList = model.getFilteredCustomerList();
 
@@ -77,8 +80,28 @@ public class EditCustomerCommand extends Command {
         Customer customerToEdit = lastShownList.get(index.getZeroBased());
         Customer editedCustomer = createEditedCustomer(customerToEdit, editCustomerDescriptor);
 
-        if (!customerToEdit.isSameCustomer(editedCustomer) && model.hasCustomer(editedCustomer)) {
+        // If both email and contact number not edited, proceed to next check
+        // If both email and contact number edited, check if same as any existing
+        if (!customerToEdit.isSameAs(editedCustomer) && model.hasCustomer(editedCustomer)) {
             throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
+        }
+
+        // Only email is edited, check if email already in
+        if (!customerToEdit.getEmail().equals(editedCustomer.getEmail())) {
+            boolean clash = model.getCustomerBook().getList().stream()
+                    .anyMatch(customer -> customer.getEmail().equals(editedCustomer.getEmail()));
+            if (clash) {
+                throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
+            }
+        }
+
+        // Only contact number is edited, check if contact number already in
+        if (!customerToEdit.getContactNumber().equals(editedCustomer.getContactNumber())) {
+            boolean clash = model.getCustomerBook().getList().stream()
+                    .anyMatch(customer -> customer.getContactNumber().equals(editedCustomer.getContactNumber()));
+            if (clash) {
+                throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
+            }
         }
 
         model.setCustomer(customerToEdit, editedCustomer);
