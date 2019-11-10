@@ -238,3 +238,8 @@
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
+
+.finance-command-box {
+    -fx-background-color: derive(#71c867, 20%);
+    -fx-box-border: transparent;
+}
