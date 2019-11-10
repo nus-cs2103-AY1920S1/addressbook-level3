@@ -14,6 +14,8 @@ Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class ProjectList
+Interface ReadOnlyProjectList <<Interface>>
 
 Package Person {
 Class Person
@@ -43,10 +45,12 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 AddressBook .up.|> ReadOnlyAddressBook
+ProjectList .up.|> ReadOnlyProjectList
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" AddressBook
+ModelManager o--> "1" ProjectList
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
@@ -58,7 +62,7 @@ Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
 
-AddressBook *--> "1" UniqueProjectList
+ProjectList *--> "1" UniqueProjectList
 UniqueProjectList o--> "*" Project
 Project *--> "*" Task
 Project *--> "*" Meeting

@@ -1,4 +1,4 @@
-:imagesDir: images
+:imagesDir: ../images
 
 = Philip Alexander Boediman - Project Portfolio for MyProject
 

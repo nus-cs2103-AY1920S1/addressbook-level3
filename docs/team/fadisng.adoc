@@ -1,13 +1,5 @@
 = Fadi Sng - Project Portfolio
-:site-section: About us
-:imagesDir: images
-:stylesDir: stylesheets
-:xrefstyle: full
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-:warning-caption: :warning:
-endif::[]
+:imagesDir: ../images
 
 == PROJECT: MyProject
 
@@ -68,6 +60,7 @@ me to understand the internal workings of other features like how these items ar
 *** Generally in charge of issuing and assigning issues/tasks on GitHub for each milestone.
 *** Created the project model on GitHub and kept track of the progresses. https://github.com/AY1920S1-CS2103T-T17-1/main/projects/1[Project model on GitHub]
 ** Documentation:
+
 *** Edited images originially from addressbook to include the new features implemented by the whole team.
  For example, edited the storage class diagram to include all the new storage classes that were added. https://github.com/AY1920S1-CS2103T-T17-1/main/pull/52[#52]
 
