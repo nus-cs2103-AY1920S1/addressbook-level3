@@ -7,7 +7,9 @@ import static seedu.address.commons.util.FileUtil.writeToFile;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.DateTime;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
@@ -22,6 +24,8 @@ public class IcsExporter {
     private static final String EXPORT_ERROR_MESSAGE = "Error occurred while exporting file!";
     private static final String PROD_ID = "-//Horo//Exported Calendar// v1.0//EN";
     private static final String CALENDAR_VERSION = "2.0";
+
+    private static final Logger logger = LogsCenter.getLogger(IcsExporter.class);
 
     private List<EventSource> eventList;
     private List<TaskSource> taskList;
@@ -41,10 +45,12 @@ public class IcsExporter {
      */
     public void export(String filepathString) throws IcsException {
         try {
+            logger.info("Attempting to create file at " + filepathString);
             Path filepath = Path.of(filepathString);
             createIfMissing(filepath);
 
             writeToFile(filepath, generateIcsFileContent(this.eventList, this.taskList));
+            logger.info("File successfully created at: " + filepathString);
         } catch (IOException e) {
             throw new IcsException(EXPORT_ERROR_MESSAGE);
         }
