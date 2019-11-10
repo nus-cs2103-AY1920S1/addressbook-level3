@@ -1,7 +1,8 @@
 package seedu.sugarmummy.ui.calendar;
 
+import java.util.Comparator;
+
 import javafx.beans.binding.Bindings;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -20,16 +21,9 @@ public class CalendarEntryRawList extends UiPart<Region> {
 
     public CalendarEntryRawList(ObservableList<CalendarEntry> calendarEntries) {
         super(FXML);
-        calendarEntryListView.setItems(calendarEntries);
+        calendarEntryListView.setItems(calendarEntries.sorted(Comparator.comparing(CalendarEntry::getDateTime)));
         calendarEntryListView.setCellFactory(listView -> new CalendarListViewCell());
         calendarEntryListView.prefHeightProperty().bind(Bindings.size(calendarEntries).multiply(54));
-        calendarEntryListView.scrollTo(calendarEntryListView.getItems().size() - 1);
-        calendarEntries.addListener(new ListChangeListener<CalendarEntry>() {
-            @Override
-            public void onChanged(Change<? extends CalendarEntry> c) {
-                calendarEntryListView.scrollTo(calendarEntryListView.getItems().size() - 1);
-            }
-        });
     }
 
     /**

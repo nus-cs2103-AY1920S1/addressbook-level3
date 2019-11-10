@@ -1,8 +1,6 @@
 package seedu.sugarmummy.ui.calendar;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
@@ -39,10 +37,10 @@ public class ReminderListPanel extends UiPart<Region> {
     private ListView<CalendarEntry> missedReminders;
 
     public ReminderListPanel(ObservableList<CalendarEntry> reminders, ObservableList<CalendarEntry> calendarEntries,
-                             Today today) {
+                             Today today, LocalDateTime appStartingDateTime) {
         super(FXML);
         initializeTodayDate(today);
-        initializeMissedReminders(calendarEntries);
+        initializeMissedReminders(calendarEntries, appStartingDateTime);
         initializePastReminders(reminders);
     }
 
@@ -53,7 +51,7 @@ public class ReminderListPanel extends UiPart<Region> {
     private void initializeTodayDate(Today today) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy MMM dd EEE");
         StringBinding stringBinding = Bindings.createStringBinding(()->
-                dateTimeFormatter.format(today.dateProperty().get()), today.dateProperty());
+                dateTimeFormatter.format(today.getDateProperty().get()), today.getDateProperty());
         this.today.textProperty().bind(stringBinding);
         this.today.setStyle("-fx-background-color: #818A9E; -fx-text-fill: white; ");
     }
@@ -61,9 +59,10 @@ public class ReminderListPanel extends UiPart<Region> {
     /**
      * Initializes missed reminder list.
      */
-    private void initializeMissedReminders(ObservableList<CalendarEntry> calendarEntries) {
-        DateTime start = new DateTime(LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0)));
-        DateTime end = new DateTime(LocalDateTime.now().minusMinutes(1));
+    private void initializeMissedReminders(ObservableList<CalendarEntry> calendarEntries,
+                                           LocalDateTime appStartingDateTime) {
+        DateTime start = new DateTime(appStartingDateTime.withHour(0).withMinute(0));
+        DateTime end = new DateTime(appStartingDateTime);
         missedReminders.setItems(calendarEntries.filtered(calendarEntry -> calendarEntry instanceof Reminder
                 && calendarEntry.isBetween(start, end)));
         missedReminders.setCellFactory(listView -> new ReminderListViewCell());

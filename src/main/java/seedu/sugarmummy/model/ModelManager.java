@@ -10,6 +10,7 @@ import static seedu.sugarmummy.model.motivationalquotes.MotivationalQuotes.MOTIV
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -313,6 +314,11 @@ public class ModelManager implements Model {
     @Override
     public Today getToday() {
         return calendar.getToday();
+    }
+
+    @Override
+    public LocalDateTime getAppStartingDateTime() {
+        return calendar.getAppStartingDateTime();
     }
 
     @Override

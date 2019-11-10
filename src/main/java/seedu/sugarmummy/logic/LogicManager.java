@@ -3,6 +3,7 @@ package seedu.sugarmummy.logic;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -173,6 +174,11 @@ public class LogicManager implements Logic {
     @Override
     public Today getToday() {
         return model.getToday();
+    }
+
+    @Override
+    public LocalDateTime getAppStartingDateTime() {
+        return model.getAppStartingDateTime();
     }
 
     //=========== Statistics List =============================================================

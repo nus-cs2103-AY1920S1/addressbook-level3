@@ -11,6 +11,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.sugarmummy.commons.core.LogsCenter;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
+import seedu.sugarmummy.model.time.Today;
 import seedu.sugarmummy.model.time.YearMonth;
 import seedu.sugarmummy.model.time.YearMonthDay;
 import seedu.sugarmummy.ui.UiPart;
@@ -28,9 +29,9 @@ public class CalendarMonthScrollPanel extends UiPart<Region> {
     private VBox monthlyCalendarEntries;
 
     public CalendarMonthScrollPanel(YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay, boolean isShowingWeek,
-            ObservableList<CalendarEntry> calendarEntries) {
+                                    ObservableList<CalendarEntry> calendarEntries, Today today) {
         super(FXML);
-        calendarMonthVBox.getChildren().add(0, new MonthlyCalendar(yearMonth, calendarEntries).getRoot());
+        calendarMonthVBox.getChildren().add(0, new MonthlyCalendar(yearMonth, calendarEntries, today).getRoot());
         initializeDailyCalendarEntries(yearMonth, yearMonthDay, isShowingWeek, calendarEntries);
     }
 

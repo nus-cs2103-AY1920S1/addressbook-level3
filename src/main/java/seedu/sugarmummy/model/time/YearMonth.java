@@ -23,11 +23,6 @@ public class YearMonth {
         this.yearMonth = java.time.YearMonth.parse(yearMonth, DATE_TIME_FORMATTER);
     }
 
-    public YearMonth(java.time.YearMonth yearMonth) {
-        requireNonNull(yearMonth);
-        this.yearMonth = yearMonth;
-    }
-
     public YearMonth(int year, int month) {
         this.yearMonth = java.time.YearMonth.of(year, month);
     }

@@ -18,7 +18,6 @@ import seedu.sugarmummy.model.ReadOnlyData;
 import seedu.sugarmummy.model.recmf.exceptions.DuplicateFoodException;
 import seedu.sugarmummy.model.recmf.exceptions.FoodNotFoundException;
 
-
 /**
  * This class represents a list of foods that enforces uniqueness between its elements and does not allow nulls. A food
  * is considered unique by comparing using {@code Food#isSameFood(Food)}.
@@ -27,11 +26,11 @@ import seedu.sugarmummy.model.recmf.exceptions.FoodNotFoundException;
  */
 public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
 
-    private final Logger logger = LogsCenter.getLogger(UniqueFoodList.class);
-
     protected final ObservableList<Food> internalList = FXCollections.observableArrayList();
     protected final ObservableList<Food> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    private final Logger logger = LogsCenter.getLogger(UniqueFoodList.class);
 
     /**
      * Returns true if the list contains an equivalent food as the given argument.

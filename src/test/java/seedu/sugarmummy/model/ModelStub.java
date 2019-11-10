@@ -2,6 +2,7 @@ package seedu.sugarmummy.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -199,6 +200,11 @@ public class ModelStub implements Model {
 
     @Override
     public Today getToday() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public LocalDateTime getAppStartingDateTime() {
         throw new AssertionError("This method should not be called.");
     }
 

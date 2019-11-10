@@ -116,7 +116,7 @@ public class MainDisplayPane {
     public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated,
             YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay, boolean isShowingWeek) {
         return getMappedPane(displayPaneType, () -> new CalendarMonthScrollPanel(yearMonth, yearMonthDay, isShowingWeek,
-                logic.getFilteredCalendarEntryList()), newPaneIsToBeCreated);
+                logic.getFilteredCalendarEntryList(), logic.getToday()), newPaneIsToBeCreated);
 
     }
 

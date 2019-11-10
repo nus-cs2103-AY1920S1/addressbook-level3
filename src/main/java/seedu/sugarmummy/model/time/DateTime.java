@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a date and a time.
  */
-public class DateTime {
+public class DateTime implements Comparable<DateTime> {
 
     public static final String VALIDATION_REGEX = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) "
             + "(2[0-3]|[01][0-9]):[0-5][0-9]$";
@@ -187,4 +187,8 @@ public class DateTime {
         return LocalDateTime.of(date, time).format(formatter);
     }
 
+    @Override
+    public int compareTo(DateTime dateTime) {
+        return toLocalDateTime().compareTo(dateTime.toLocalDateTime());
+    }
 }
