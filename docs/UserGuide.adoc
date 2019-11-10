@@ -174,7 +174,7 @@ Since reimbursements are aggregated by member, if the member already has other o
 it will simply be added to his existing row. This is shown in the screenshot below:
 
 //.Screenshot of the Reimbursement Tab after successfully adding a transaction
-image::homeUG/HomeAddShowInR.png[width = "400"]
+image::homeUG/HomeAddShowInR.png[width = "700"]
 
 
 ==== To Delete Transactions in the Home Tab
@@ -261,8 +261,9 @@ image::homeUG/HomeEditStep2cr.png[]
 
 
 If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Add command>>.
+In addition, if there is no matching transactions, en empty table will be shown.
 
-==== To Sort Transactions in the Home Tab
+==== To Sort Transactions in Different Orders
 This command enables you to sort the table of transactions into a specified order for viewing and carrying out of subsequent commands.
 
 * To sort:
@@ -380,7 +381,7 @@ A person can have any number of tags (including 0).
 ** [blue]`add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 ** [blue]`add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-==== To List all Persons
+==== To List All Persons
 The List command shows you a list of all persons in the database.
 
 * Command:
@@ -476,7 +477,8 @@ for their expenditure.
 This command allows you to add a deadline to a person's reimbursement.
 
 [WARNING]
-You can set the deadline as any day you want. It is your responsibility to set a reasonable deadline.
+You can set the deadline as any valid day you want.
+It is your responsibility to set a reasonable deadline.
 
 * Command: `deadline p/NAME dt/dd-mmm-yyyy`
 * Example: [blue]`deadline p/Alex Yeoh dt/19-Dec-2019`
@@ -484,17 +486,17 @@ You can set the deadline as any day you want. It is your responsibility to set a
 * Steps:
 
 . Type the command with all parameters filled in, as shown in the screenshot below:
-
++
 //.Screenshot of the user input into Command Box for Deadline Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDeadlineCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 If the deadline is successfully added, Leo will respond with a success message and the
 deadline will now show for the specified person's reimbursement. +
 Otherwise, Leo will show an error message indicating that the person is not in the reimbursement list.
-
++
 //.Screenshot of a successful user input for Deadline Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDeadlineCommandSuccess.png[width="600"]
 
@@ -521,16 +523,16 @@ This command allows you to find the reimbursement for a specified person.
 * Steps:
 
 . Type the command, along with the person's name you'd like to find into command box:
-
++
 //.Screenshot of the user input into Command Box for Find Command in Reimbursement Tab
 image::Reimbursement/ReimbursementFindCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 Leo will respond with a success message and the tab will show the person's corresponding reimbursement, if it exists. +
 Otherwise, Leo will show an error message indicating that the person is not in reimbursement list.
-
++
 //.Diagram of successful find command in reimbursement tab
 image::Reimbursement/ReimbursementFindCommandSuccess.png[width="600"]
 
@@ -541,16 +543,16 @@ This command helps you to display the full reimbursement list after `find` and `
 
 * Steps:
 . Type [blue]`back` into the Command Box
-
++
 //.Screenshot of the user input into the Command Box for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 The tab will now show the full reimbursement list.
 
-
++
 //.Screenshot of a successful user input for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommandSuccess.png[width="600"]
 
@@ -558,8 +560,8 @@ image::Reimbursement/ReimbursementBackCommandSuccess.png[width="600"]
 This command helps you to mark a reimbursement as done and remove it from reimbursement list.
 
 [NOTE]
-Transactions not shown in the Reimbursement Tab are already marked as done. +
-No indication will be shown in the Transaction Tab.
+Reimbursements only take transactions that have not been paid. +
+The reimbursement status is not shown in the transaction tab.
 
 * Command: `done p/NAME`
 * Example: [blue]`done p/Alex Yeoh`
@@ -568,16 +570,16 @@ No indication will be shown in the Transaction Tab.
 . Type the command, along with the person's name whose reimbursement is to be marked as done,
 as shown in the screenshot below:
 
-
++
 //.Screenshot of the user input into Command Box for Done Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDoneCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 The reimbursement for that person will be removed from the tab, as shown below:
 
-
++
 //.Screenshot of a successful user input for Done Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDoneCommandSuccess.png[width="600"]
 
@@ -590,17 +592,17 @@ This command helps you to sort the reimbursement lists based on amount, in desce
 * Steps:
 . Type the command [blue]`sort amount`, as shown in the screenshot below:
 
-
++
 //.Screenshot of the user input into Command Box for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommand.png[width="600"]
 
 
-[start = 2]
++
 . Hit `Enter`
-
++
 The reimbursements are sorted in descending order of the amount.
 
-
++
 //.Screenshot of a successful user input for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommandSuccess.png[width="600"]
 
@@ -611,15 +613,15 @@ This command helps you to sort the reimbursement lists based on name, in alphabe
 
 * Steps:
 . Type the command [blue]`sort name`, as shown in the screenshot below:
-
++
 //.Screenshot of the user input into Command Box for Sort Name Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortNameCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 The reimbursements are sorted in alphabetical order of person's name.
-
++
 //.Screenshot of a successful user input for Sort Name Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortNameCommandSuccess.png[width="600"]
 
@@ -630,15 +632,15 @@ This command helps you to sort the reimbursement lists based on deadline, in ord
 
 * Steps:
 . Type the command [blue]`sort date `, as shown in the screenshot below:
-
++
 //.Screenshot of the user input into Command Box for Sort Date Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortDateCommand.png[width="600"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 The reimbursements are sorted by deadline date.
-
++
 //.Screenshot of a successful user input for Sort Date Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortDateCommandSuccess.png[width="600"]
 

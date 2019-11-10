@@ -1700,48 +1700,170 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-Expected: Shows the GUI with a set of sample contacts.
-The window size may not be optimum.
+Expected: Shows the GUI with an empty table for Home tab, Reimbursements tab, Inventory tab,
+Cashier tab and Overview tab.
+Shows a set of sample members in the Members Tab.
+The window size will be optimum and cannot be re-sized.
+The window position may not be optimum but can be moved.
 
-. Saving window preferences
+. Shutdown after adding data into the tabs
 
-.. Resize the window to an optimum size.
-Move the window to a different location.
-Close the window.
+.. Type [blue]`exit` to exit the application
 .. Re-launch the app by double-clicking the jar file. +
-Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
+Expected: The data of all the tabs except Cashier tab is retained.
 
 === Navigating Between Tabs
 
+.  Navigating between tabs
+
+.. Type `go [home] [members] [reimbursement] [inventory] [cashier] [overview]` +
+Expected: The specified tab should be showing in the UI
+
 === Testing Home Tab Features
 
+. Adding transactions
+
+.. Prerequisites: The member 'Alex Yeoh' is present in the Members Tab and 'Jack' is not present in the Members Tab.
+.. Test case 1: [blue]`add dt/03-Sep-2019 d/grab ride c/transport a/-12 p/Alex Yeoh` +
+Expected: The transaction with the specified parameters is added to the table.
+Leo responds with the details of the transaction that is a spending.
+
+.. Test case 2: [blue]`add dt/03-Sep-2019 d/grab ride c/transport a/-12 p/Jack` +
+Expected: Leo responds with a message indicating that the person is not a valid member.
+Transaction is not added.
+
+.. Other incorrect Delete commands to try: [blue]`add`, [blue]`add p/Alex Yeoh` +
+Expected: Leo responds with error and no transaction is added.
+
+. Deleting transactions
+
+.. Prerequisites: There are at least one transaction at all times in the Home tab and
+there are some transactions linked to 'Alex Yeoh'.
+.. Test case 1: [blue]`delete p/Alex Yeoh` +
+Expected: The transaction with the 'Alex Yeoh' linked to it is deleted from the table.
+Leo responds with the number of transactions deleted.
+
+.. Test case 2: [blue]`delete 1` +
+Expected: Transaction at ID 1 is deleted.
+Leo responds with details of the transaction deleted.
+
+.. Test case 2: [blue]`delete 0` +
+Expected: No Transaction is deleted.
+Leo responds with details of the invalid index inputted.
+
+.. Other incorrect Delete commands to try: [blue]`delete`, `delete x` (where x is more than the last ID
+in the table), [blue]`delete p/Jack` (Jack is not linked
+to any transactions) +
+Expected: Leo responds with error and no transaction is deleted.
+
+. Editing transactions
+
+.. Prerequisites: There are at least one transaction at all times in the Home tab.
+.. Test case 1: [blue]`edit 1 a/-15 d/mahjong paper` +
+Expected: The transaction with ID 1 is edited with the specified parameters.
+Leo responds with the details of the transaction edited that is a spending.
+
+.. Test case 2: [blue]`edit 1 a/15` +
+Expected: The transaction with ID 1 is edited with the specified parameters.
+Leo responds with the details of the transaction edited that is an earning.
+
+.. Other incorrect Edit commands to try: [blue]`edit`, `edit x a/12` (where x is more than the last ID
+in the table), [blue]`edit 1 p/Jack` (Jack is not linked
+to any transactions) +
+Expected: Leo responds with error and no transaction is edited.
+
+. Finding transactions
+
+.. Prerequisites: There are a few transactions at all times in the Home tab with some
+with linked to 'Alex Yeoh' and 'Alex Low'.
+.. Test case 1: [blue]`find alex` +
+Expected: The transactions linked to 'Alex Yeoh' and 'Alex Low' are shown.
+Leo responds with the number of matching transactions.
+
+.. Test case 2a: [blue]`find alex yeoh` +
+Expected: The transactions linked to 'Alex Yeoh' are shown.
+Leo responds with the number of matching transactions.
+
+.. Test case 2b: Any other subsequent commands except Add command +
+Expected: The transactions linked to 'Alex Yeoh' are shown and the commands are carried out
+according to the filtered table. If a Sort command is entered, the filtered table is sorted.
+.. Test case 2c: Type [blue]`back` +
+Expected: The full list of transactions are shown. If a Sort command was entered,
+the full list of transactions would be sorted.
+
+. Sorting transactions
+
+.. Prerequisites: There are some transactions in the table with varied dates, person and amounts.
+.. Test case 1: [blue]`sort name` +
+Expected: The transactions are sorted by their names, without taking into account
+of upper or lower cases.
+
+.. Test case 2: [blue]`sort amount` +
+Expected: The transactions are sorted by their amounts from the smallest (most negative) to
+largest amount.
+
+.. Test case 3: [blue]`sort date` +
+Expected: The transactions are sorted by their dates from the oldest to the most
+recent.
+
 === Testing Members Tab Features
+
+. Adding a person
+
+.. Test case 1: [blue]`add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` +
+Expected: Person with specified parameters are added into the list.
+
 . Deleting a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command.
 Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Test case 1: [blue]`delete 1` +
 Expected: First contact is deleted from the list.
 Details of the deleted contact shown in the status message.
 Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case 2: [blue]`delete 0` +
 Expected: No person is deleted.
 Error details shown in the status message.
 Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: [blue]`delete`, `delete x` (where x is larger than the list size) _{give more}_ +
 Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Deleting a person when it has a transaction record
 
-=== Saving data
+.. Prerequisites: The person in the list to be deleted to have transaction records in
+the Home tab.
+.. Test case 1: `delete ID` (where ID is the index of the person with a linked transaction) +
+Expected: Unable to delete the person.
 
-. Dealing with missing/corrupted data files
+. Editing a person
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: There is at least one person in the list.
+. Test case 1: [blue]`edit 1 p/91234567 e/johndoe@example.com` +
+Expected: The person at the index of 1 is edited with the specified parameters.
+. Test case 2: [blue]`edit 1` +
+Expected: Nothing is edited and Leo responds to inform of this.
+. Test case 3: [blue]`edit 0 p/91234567 e/johndoe@example.com` +
+Expected: No person is edited and Leo responds to inform of this.
+.. Other incorrect delete commands to try: [blue]`edit`, `edit x` (where x is larger than the list size) +
+Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Finding a person
+
+.. Prerequisites: There are a few people at all times in the Members tab. 'Alex Yeoh' and 'Alex Low'
+are present in the list.
+.. Test case 1: [blue]`find alex` +
+Expected: 'Alex Yeoh' and 'Alex Low' are shown.
+Leo responds with the number of matching person.
+
+.. Test case 2a: [blue]`find alex yeoh` +
+Expected: The person 'Alex Yeoh' is shown.
+Leo responds with the number of matching person.
+
+.. Test case 2b: Any other subsequent commands except Add command +
+Expected: The person 'Alex Yeoh' is shown and the commands are carried out
+according to the filtered table.
+.. Test case 2c: Type [blue]`list` +
+Expected: The full list of people are shown.
 
 === Testing Reimbursements Tab Features
 
@@ -1794,6 +1916,15 @@ Response message that items has been checked out successfully shown.
 
 === Testing Overview Tab Features
 
+=== Saving data
 
+. Dealing with missing/corrupted data files
 
-
+.. Prerequisites: There is existing data in the various data files.
+.. Before the application is open, corrupt some of the text files by deleting parts of it. +
+Then, open the application. +
+Expected: If the transactionHistory.txt file is changed, the Home and Reimbursements tab will start with an empty
+table. If the inventoryInformation.txt file is changed, the Inventory tab will start with an empty
+table. If the mytasks.txt and tasks.txt files are changed, the Overview tab lose the notification reminders
+set. If the addressbook.json is changed, the sample address book data would be populated in the Members tab.
+Changing the reimbursementInformation should not cause any issues.
