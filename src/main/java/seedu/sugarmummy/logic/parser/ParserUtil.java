@@ -11,7 +11,6 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,7 +18,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 import javax.imageio.ImageIO;
 
 import seedu.sugarmummy.commons.core.index.Index;

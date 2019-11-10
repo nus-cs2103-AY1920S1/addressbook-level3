@@ -135,7 +135,7 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     /**
-     * Returns true if current date time is before the given date time.
+     * Returns true if current date time is after the given date time.
      */
     public boolean isAfterDateTime(DateTime dateTime) {
         return LocalDateTime.of(date, time).isAfter(LocalDateTime.of(dateTime.date, dateTime.time));
