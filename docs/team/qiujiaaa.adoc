@@ -5,12 +5,10 @@
 
 == PROJECT: Seller Manager Lite (SML)
 
----
-
 == Overview
 
 Seller Manager Lite (SML) is a desktop application used for handphone resellers to manage their customers, phones, orders and schedules.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 28 kLoC.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
@@ -23,22 +21,23 @@ To make the application more user friendly, the application automatically switch
 ** Integrated library in PR https://github.com/AY1920S1-CS2103T-T09-4/main/pull/105[#105]
 
 * *Other complementing enhancement*:
-** Schedule commands (in Logic) to complement the calendar display. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/115[#115], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/138/files[#138], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/162[#162], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/187[#187])
+** Schedule commands (Logic) to complement the calendar display. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/115[#115], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/138/files[#138], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/162[#162], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/187[#187])
 
-* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qiujiaaa&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qiujiaaa&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense tP Code Dashboard]
 
 * *Other contributions*:
 ** Project management:
 *** Added some issues in issue tracker. (https://github.com/AY1920S1-CS2103T-T09-4/main/issues/created_by/qiujiaaa[Issues])
 
 ** Enhancements to existing features:
-*** Assisted to set up some part in Model initially. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/65[#65])
+*** Assisted to set up some parts in Model initially. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/65[#65])
 *** Wrote tests for Logic and Model modules.(https://github.com/AY1920S1-CS2103T-T09-4/main/pull/167[#167], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/172[#172], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/187[#187], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/265/files[#265], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/81[#81])
 
 ** Documentation:
 *** Wrote Contact Us page. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/47[#47])
 *** Initial tweak of AB3 User Guide to fit our application. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/52[#52])
 *** Edited and added some diagrams in Developer Guide. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/150/files[#150])
+*** Added test cases in Appendix G (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/268[#268])
 
 ** Community:
 *** Reviewed PRs (with non-trivial review comments). (examples: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/61[#61], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/102[#102], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/111[#111], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/133[#133])
@@ -61,4 +60,5 @@ include::../UserGuide.adoc[tag=schedule]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=logicsequencediagram]
 include::../DeveloperGuide.adoc[tag=schedule]

@@ -113,6 +113,8 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
+// tag::logicsequencediagram[]
+
 .  `Logic` uses the `SellerManagerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a customer/phone/order/schedule).
@@ -125,6 +127,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCustomerCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+// end::logicsequencediagram[]
 
 [[Design-Model]]
 === Model component
@@ -427,20 +431,21 @@ Basically, after the setCalendarDate(calendar) method in `Model` is executed, `C
 
 ===== Design Considerations / Alternative designs considered
 
-We do not keep a list of `Appointment` in `CalendarPanel` as `Appointment` is only used for `Agenda` while the rest of our code uses `Schedule`.
-Instead, we have decided to only convert `Schedule` into `Appointment` when needed - during the creation of `CalendarPanel` or when there are changes made to the `UniqueList<Schedule>` variable.
+* Whether schedules should be kept as `Appointment` objects instead of `Schedule` objects.
+** We felt that the existence of our own `Schedule` object ensures that we can design it the way we want.
+** We decided to not keep a list of `Appointment` in `CalendarPanel` as `Appointment` is only used for `Agenda` while the rest of our code uses `Schedule`.
+** Instead, we have decided to only convert `Schedule` into `Appointment` when needed - during the creation of `CalendarPanel` or when there are changes made to the `UniqueList<Schedule>` variable.
 Not keeping a list of `Appointment` ensures that we do not keep duplicate information.
 
-The changes to `CalendarDate` was initially done in the `CalendarPanel` itself.
+* Where to store and change the date shown on Calendar Panel.
+** The changes to `CalendarDate` was initially done in the `CalendarPanel` itself.
 So, `CommandResult` was made to have one more variable `Optional<Calendar>`.
 In that case, every time a schedule command was executed, a specific `Calendar` (if any) will be placed inside the constructor while creating the `CommandResult` object.
 Else, Optional.Empty() will be placed inside.
-
-When the `MainWindow` executes the method performUiChanges(CommandResult), it will call the handleSchedule method with `Calendar` (from CommandResult) as an argument.
+** When the `MainWindow` executes the method performUiChanges(CommandResult), it will call the handleSchedule method with `Calendar` (from CommandResult) as an argument.
 If `Optional<Calendar>` in `CommandResult` is empty, today's date and time will be used instead.
-Then, `CalendarPanel` will be called in the handleSchedule method to set the agenda view.
-
-This implementation was however changed because we thought that the date shown on the panel should be updated automatically.
+Then, `CalendarPanel` will be called in handleSchedule() to set the agenda view.
+** This implementation was however changed because we thought that the date shown on the panel should be updated automatically.
 Hence, we decided to use a listener instead.
 `CalendarDate` is then placed in `Model` so that it can be edited immediately when `Model` executes any schedule related commands.
 Also, this ensures that `CommandResult` remains unchanged and kept as simple as possible.
@@ -677,7 +682,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: Keep track of your phone, orders and customers faster than a typical mouse/GUI driven app
+*Value proposition*: Keep track of your phone, orders, schedules and customers faster than a typical mouse/GUI driven application.
 
 [appendix]
 == User Stories
@@ -967,12 +972,10 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect edit commands to try: `edit-c 1 c/abc`, c/ is the prefix for contact number but alphabets are entered instead +
    Expected: Error message shown due to erroneous input.
 
-_{ more test cases ... }_
-
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Data is automatically saved after every command.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. When the application is relaunched, it will check for the validity of the data.
+Any corrupted data in any of the data files (customer, phone, order, schedule, archived order) will cause SML to start with an empty data book for that particular corrupted type of data.
 
-_{ more test cases ... }_
