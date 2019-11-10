@@ -424,17 +424,53 @@ Tags determine the customer's favourite cuisine. It is helpful to the user as ha
 
 ==== Implementation
 
-The `Tag` of the `Customer` is related to the `Tag` of the `Restaurant`. If an `Order` has been added to the database, the `Tag` of the `Restaurant` will be added to the `Tag` of the `Customer`. If the `Customer` has multiple `Order` s, the `Tag` that will be shown on the `CustomerCard` will be the highest two `Tag` s. This is the main process on how the application automatically tags the customers.
+The `Tag` of the `Customer` is related to the `Tag` of the `Restaurant`. If an `Order` has been added to the database, the `Tag` of the `Restaurant` will be added to the `Tag` of the `Customer`. If the `Customer` has multiple ``Order``s, the `Tag` that will be shown on the `CustomerCard` will be the highest two ``Tag``s. This is the main process on how the application automatically tags the customers.
 
-An activity diagram below shows the automated tagging process.
+An activity diagram below shows the automated tagging process when adding an order:
 
- activity diagram
+[[fig-AutoTaggingDiagram]]
+.Activity diagram of tagging process
+image::plantuml/AutoTagAddActivityDiagram.png[]
 
+Another function called `changeMainTag()` is used to change the main ``Tag``s of the `Customer` to show on the `CustomerCard`. The activity diagram below shows how the application determines the top two ``Tag``s:
 
+[[fig-ChangingTagsDiagram]]
+.Activity diagram of changing ``Customer``'s main ``Tag``s
+image::plantuml/ChangeTagActivityDiagram.png[]
 
 ==== Design considerations
 
+*Aspect: Method of editing ``Customer``'s ``Tag``s*
 
+* *Alternative 1 (current choice):* Adding, deleting and editing of `Order` will edit the ``Tag``s in `Customer`.
+
+** Pros: Only the commands that add, delete or edit an `Order` will require editing the ``Customer``'s ``Tag``s.
+
+** Cons: Creates more dependency between `Customer` and `Command` classes.
+
+* *Alterative 2:* `Customer` storing a list of ``Order``s and iterate through that list to get the number of ``Tag``s.
+
+** Pros: Editing ``Customer``'s ``Tag``s only happen in the `Customer` object itself and doesn't need to depend on information from other objects.
+
+** Cons: Every single change to any `Order` has to be reflected on ``Customer``'s `Order` list. Including edits to ``Order``s made in `Deliverymen` and `Restaurant` context. This makes `Customer` have a lot of dependency with other classes.
+
+We chose to go with the first alternative as `Customer` class will have lesser dependency with other classes when editing tags. In addition, displaying the ``Customer``'s order history will only require `Customer` to access the `OrderDatabase` to get the list of orders. Both of these requirements together still makes the `Customer` class have lesser dependency with other classes compared to implementing the second alternative that makes the `Customer` class have dependencies with every `Order` related classes.
+
+*Aspect: Method of storing ``Tag``s*
+
+* *Alternative 1 (current choice):* Using a map to store the ``Customer``'s ``Tag``s where key is the `Tag` and value is the number of tags.
+
+** Pros: Faster access of ``Tag``s in the map and getting the number of a certain ``Tag`` only takes O(1) time.
+
+** Cons: More memory is needed to store the information. A map to store all ``Tag``s and a set to store the main ``Tag``(s) to display on `CustomerCard`.
+
+* *Alternative 2:* Using a list that stores all ``Tag``s that are in `Customer`.
+
+** Pros: The list is capable of storing all of the ``Tag``s that `Customer` has.
+
+** Cons: The list needs to be iterated through to determine the top ``Tag``(s) of `Customer`.
+
+We chose to go with alternative 1 as we believe speed is more important to the user and sacrificing memory space is the better choice.
 
 // end::auto tagging customer cuisine
 

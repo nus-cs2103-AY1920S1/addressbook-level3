@@ -1,0 +1,7 @@
+@startuml
+:Make a List that contains the Map of Tags;
+:Sort the List according to the value of the Map of Tags;
+:Change the Customer's main tags to be the 2
+highest Tags of the sorted List;
+stop
+@enduml
