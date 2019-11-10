@@ -12,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -29,7 +30,7 @@ public class RecordListPanel extends UiPart<Region> {
     private Label title;
 
     @FXML
-    private ListView<Record> sideView;
+    private ListView<Record> allRecordsView;
 
     @FXML
     private FlowPane flowPaneView;
@@ -37,10 +38,19 @@ public class RecordListPanel extends UiPart<Region> {
     @FXML
     private VBox recordTypeView;
 
+    @FXML
+    private VBox healthTypePage;
+
+    @FXML
+    private ScrollPane overviewPage;
+
+    @FXML
+    private Label allRecordsLabel;
+
     public RecordListPanel(ObservableList<Record> recordList) {
         super(FXML);
         initializeFlowPaneView(recordList);
-        initializeSidePanel(recordList);
+        initializeAllRecordsPanel(recordList);
         initializeReviewTypeView(recordList);
     }
 
@@ -57,10 +67,10 @@ public class RecordListPanel extends UiPart<Region> {
             private ObservableList<Record> summaryList = CustomRecordList.filterSummary(recordList);
         };
 
-        // Creates a RecordListCard for each Record and adds to FlowPane
+        // Creates a RecordTypeCard for each Record and adds to FlowPane
         int i = 0;
         for (Record record : ref.summaryList) {
-            flowPaneView.getChildren().add(new RecordListCard(record, i).getRoot());
+            flowPaneView.getChildren().add(new RecordTypeCard(record, i).getRoot());
             i++;
         }
         //add listener for new record changes
@@ -70,20 +80,20 @@ public class RecordListPanel extends UiPart<Region> {
             ref.summaryList = CustomRecordList.filterSummary(recordList);
             int x = 0;
             for (Record r: ref.summaryList) {
-                flowPaneView.getChildren().add(new RecordListCard(r, x).getRoot());
+                flowPaneView.getChildren().add(new RecordTypeCard(r, x).getRoot());
                 x++;
             }
         });
     }
 
     /**
-     * Initialises SidePanel Config.
+     * Initialises AllRecordsPanel Config.
      * Shows the type of health records that can be recorded
      */
     //TODO: TO CONTINUE REFINING - INCOMPLETE!
-    void initializeSidePanel(ObservableList<Record> recordList) {
-        sideView.setItems(recordList);
-        sideView.setCellFactory(listView -> new RecordListViewCell());
+    void initializeAllRecordsPanel(ObservableList<Record> recordList) {
+        allRecordsView.setItems(recordList);
+        allRecordsView.setCellFactory(listView -> new RecordListViewCell());
     }
 
     void initializeReviewTypeView(ObservableList<Record> recordList) {
@@ -95,7 +105,7 @@ public class RecordListPanel extends UiPart<Region> {
      * Hide all inner components within Health Record Panel.
      */
     private void hidePanels() {
-        sideView.setVisible(false);
+        allRecordsView.setVisible(false);
         flowPaneView.setVisible(false);
         recordTypeView.setVisible(false);
     }
@@ -103,17 +113,16 @@ public class RecordListPanel extends UiPart<Region> {
     /**
      * Display inner components within Health Record Panel.
      * Make use of boolean variables to decide which components to show/hide.
+     * Make use of boolean variables to decide which components to show/hide.
      */
-    private void showPanels(boolean isShowMainHeader, boolean isShowSideView, boolean isShowCardView,
-                            boolean isShowRecordTypeView) {
+    private void showPanels(boolean isShowMainHeader, boolean isShowOverview,
+                            boolean isShowHealthTypeView) {
         title.setVisible(isShowMainHeader);
         title.setManaged(isShowMainHeader);
-        sideView.setVisible(isShowSideView);
-        sideView.setManaged(isShowSideView);
-        flowPaneView.setVisible(isShowCardView);
-        flowPaneView.setManaged(isShowCardView);
-        recordTypeView.setVisible(isShowRecordTypeView);
-        recordTypeView.setManaged(isShowRecordTypeView);
+        overviewPage.setVisible(isShowOverview);
+        overviewPage.setManaged(isShowOverview);
+        healthTypePage.setVisible(isShowHealthTypeView);
+        healthTypePage.setManaged(isShowHealthTypeView);
     }
 
     /**
@@ -123,11 +132,11 @@ public class RecordListPanel extends UiPart<Region> {
     void handleSwitch(String type) {
         switch (type) {
         case "all":
-            showPanels(true, false, true, false);
+            showPanels(true, true, false);
             break;
 
         case "type":
-            showPanels(false, false, false, true);
+            showPanels(false, false, true);
             break;
 
         default:
@@ -136,7 +145,7 @@ public class RecordListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordListCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordTypeCard}.
      */
     class RecordListViewCell extends ListCell<Record> {
         @Override
@@ -146,8 +155,10 @@ public class RecordListPanel extends UiPart<Region> {
             if (empty || record == null) {
                 setGraphic(null);
                 setText(null);
+                allRecordsLabel.setText(null);
             } else {
-                setGraphic(new RecordListView(record, getIndex() + 1).getRoot());
+                setGraphic(new RecordListCard(record, getIndex() + 1).getRoot());
+                allRecordsLabel.setText("All Records");
             }
         }
     }

@@ -139,6 +139,7 @@ public class RecordTypeListPanel extends UiPart<Region> {
 
     public void setUpLineGraph(ObservableList<Record> record) {
         title.setText(getRecordType(record));
+        xBarAxis.setLabel("Date");
         yAxis.setLabel("Value (" + getRecordUnit(record) + ")");
         ObservableList<XYChart.Data<String, Double>> data =
                 FXCollections.<XYChart.Data<String, Double>>observableArrayList();
@@ -176,6 +177,7 @@ public class RecordTypeListPanel extends UiPart<Region> {
 
     public void setUpBarGraph(ObservableList<Record> record) {
         title.setText(getRecordType(record));
+        xBarAxis.setLabel("Date");
         yBarAxis.setLabel("Value (" + getRecordUnit(record) + ")");
         ObservableList<XYChart.Data<String, Double>> data =
                 FXCollections.<XYChart.Data<String, Double>>observableArrayList();
@@ -187,7 +189,7 @@ public class RecordTypeListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordListCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Record} using a {@code RecordTypeCard}.
      */
     class RecordListViewCell extends ListCell<Record> {
         @Override
@@ -198,7 +200,7 @@ public class RecordTypeListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new RecordListView(record, getIndex() + 1).getRoot());
+                setGraphic(new RecordTypeListCard(record, getIndex() + 1).getRoot());
             }
         }
     }

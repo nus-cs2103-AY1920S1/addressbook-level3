@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: asciidoctor.css
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
@@ -24,9 +25,9 @@ DukeCooks is a revolutionary lifestyle application, specially designed for healt
 runs on the Command-Line Interface (CLI), allowing you to execute different commands, all within a single line.
 You will be able to manage various aspects of your lifestyle, from your diet, to exercises and health records.
 
-(Think of a nice one-liner?)
+You can use DukeCooks to manage all your lifestyle needs, all within one single app.
 
-Now you can use DukeCooks to manage all your lifestyle needs, all within a single app.
+With DukeCooks, being healthy has never been easier!
 
 
 === Using the User Guide
@@ -87,7 +88,7 @@ Start making a task list for the things you plan to do and never have to forget 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `DukeCooks`.
+.  Download the latest `DukeCooks` from here (Include link).
 .  Copy the file to the folder you want to use as the home folder for DukeCooks.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -754,94 +755,206 @@ Format: `run <index>`
 Want to share great recipes and workout tips with your friends? Look through the available commands in this section and
 start sharing!
 
-==== pass:[<u>Adding a diary</u>]
+==== Taking a closer look into the Diary feature
 
-Let's first get started by creating diaries with our `add diary` command
+In the diary feature, you will be able to look through all your available diaries and pages at one quick glance!
+Not only that, you can also enter different commands within the command box.
+
+Still confused? You can refer to the following diagram for a better understanding.
+
+
+.Overview of Diary Feature
+image::diaryOverview.png[]
+
+
+==== Adding a diary
+
+Let's get started by adding a diary using the `add diary` command!
 
 Command: `add diary` +
 Format: `add diary n/ <diary name>`
 
-Example usage: `add diary n/ Asian Cuisines`
+Example usage: `add diary n/ Desserts Galore`
 
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::addDiary_before.png[width="450"]
+image::addDiary_before.png[]
 +
-. If the command succeeds, you should see the following message in the result display and a new diary will be added.
+. If the command succeeds, you should see the following message in the result display
+and a new diary named "Dessert Galore" will be added.
 +
-image::addDiary_after.png[width="450"]
+image::addDiary_after.png[]
+
+[WARNING]
+Diary names are only limited to 25 characters.
 
 
-==== pass:[<u>Deleting a diary</u>]
+==== Deleting a diary
 
 Accidentally created an unwanted diary? No worries! You can remove it with our `delete diary` command.
 
-Command: `delete diary`
-Format: `delete diary <index>`
+Command: `delete diary` +
+Format: `delete diary <diary index>`
 
-Example usage: `delete diary 1`
-
-.Steps
-. Enter the command in the command box and hit the kbd:[Enter] key.
-+
-image::deleteDiary_before.png[width="450"]
-+
-. If the command succeeds, you will see the following message in the result display and the diary wll be removed.
-+
-image::deleteDiary_after.png[width="450"]
-
-==== pass:[<u>Adding a page</u>]
-
-Want to customise your diary further? You can do so by adding pages with our `add page` command.
-
-Command: `add page`
-Command format: `add page n/ <diary name> t/ <page title> i/ <image path> desc/ <page description>`
-
-Example usage: `add page n/ Asian Food t/ Pho i/ src/main/resources/images/pho.jpg desc/ Simply the best!`
+Example usage: `delete diary 8`
 
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image:addPage_before.png[width="450"]
+image::deleteDiary_before.png[]
 +
-. If the command is successful, you should see that a new page will be added and the screen shows the following.
+. If the command succeeds, you will see the following message in the result display and the diary "Dessert Galore"
+will be removed.
 +
-image::addPage_after.png[width="450"]
+image::deleteDiary_after.png[]
 
-==== pass:[<u>Deleting a page</u>]
+==== Editing a diary
 
-Want to remove a page? We've got that covered with our `delete page` command.
+Made a minor mistake and would like to correct it? You can do so with our `edit diary` command!
 
-Command: `delete page`
-Format: `delete page <index> n/ <diary name>`
+Command: `edit diary` +
+Format: `edit diary <diary index> n/ <new diary name>`
+
+Example usage: `edit diary 1 n/ Asian Cuisines`
 
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::deletePage_before.png[width="450"]
+image::editDiary_before.png[]
 +
-. If the command is successful, the page will be removed and you will see the following in the result display.
+. If the command succeeds, the following result will be displayed and the diary will be edited as shown below.
 +
-image::deletePage_after.png[width="450"]
+image::editDiary_before.png[]
 
-==== pass:[<u>Viewing a diary</u>]
+==== Viewing a diary
 
-Want to switch over to another diary? You can do so through our `view diary` command.
+Want to take a look into another diary? Use the `view diary` command!
 
-Command: `view diary`
-Format: `view diary <index>`
+Command: `view diary` +
+Format: `view diary <diary index>`
 
 Example usage: `view diary 2`
 
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::viewDiary_before.png[width="450"]
+image::viewDiary_before.png[]
 +
-. If the command is successful, you should see the following result.
+. If the command succeeds, the following result will be displayed and both the diary view and page view will switch.
+In this case, the diary will be switched to "Healthy Living" and its corresponding pages will be displayed as shown below.
 +
-image::viewDiary_after.png[width="450"]
+image::viewDiary_before.png[]
+
+==== Finding a diary
+
+Having difficulty with locating a particular diary? You can use the `find diary` command to quickly find your desired diary.
+
+Command: `find diary` +
+Format: `find diary <keywords>`
+
+Example usage: `find diary singapore`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::findDiary_before.png[]
++
+. If the command succeeds, only the found diaries would be displayed as shown below. In this case, all diaries with the
+keyword "singapore" would be found.
++
+image::findDiary_after.png[]
+
+==== Listing all diaries
+
+Want to see all the available diaries? You can use our `list diary` command to list all available diaries!
+
+Command: `list diary` +
+Format: `list diary`
+
+Example usage: `list diary`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::listDiary_before.png[]
++
+. If the command succeeds, all the available diaries would be listed as shown below.
++
+image::listDiary_after.png[]
+
+==== Adding a page
+
+Looking to customise your diary further? You can do so by adding pages with our `add page` command.
+
+Command: `add page` +
+Command format: `add page`
+
+Example usage: `add page`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::addPage_before.png[]
++
+. You will then be taken to the Page Input Form to provide details of the page.
+In this case, we will be adding a page to the specified diary "Asian Cuisines". You may choose to use your own images
+or you could use our images from <<Appendix, here>>.
++
+image::addPage_mid.png[]
++
+. If the command succeeds, the page will be added to the specified diary as shown below.
++
+image::addPage_after.png[]
+
+[WARNING]
+Page titles are limited to 40 characters.
+
+[TIP]
+If you made some mistake when filling up the Page Input Form, you can use the kbd:[F2] key to quickly return focus to
+the top of the Page Input Form.
+
+==== Deleting a page
+
+Want to remove a page? We've got that covered with our `delete page` command.
+
+Command: `delete page` +
+Format: `delete page <page index> n/ <diary name>`
+
+Example usage: `delete page 4 n/ Asian Cuisines`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. In this case, we are deleting page 4 from the diary
+"Asian Cuisines".
++
+image::deletePage_before.png[]
++
+. If the command is successful, the page will be removed and you will see the following in the result display.
++
+image::deletePage_after.png[]
+
+==== Editing a page
+
+Making minor changes to a page? You can do so with the `edit page` command!
+
+Command: `edit page` +
+Format: `edit page <page index> n/ <diary name> t/ [new title] tp/ [new type] desc/ [new description] i/ [new image]`
+
+Example usage: `edit page 1 n/ Asian Cuisines t/ Beef Pho`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. In this case, we are editing page 1 from the diary
+"Asian Cuisines", looking to change it's title to "Beef Pho".
++
+image::editPage_before.png[]
++
+. If the command is successful, the page will be edited and you will see the following in the result display.
++
+image::editPage_after.png[]
+
+[NOTE]
+You are able to edit all different fields within a page. You can make changes to the page title, page type, page description
+or even the page image!
 
 ==== Link Recipes: `[Coming in v2.0]`
 Creates a new food page in the specified diary, using pre-existing recipes +
@@ -894,29 +1007,6 @@ Examples:
 * `link records BP129391 /to Healthy Living` +
  Creates a health page about “BP129391” and adds it to the diary named “Healthy Living”
 
-==== Edit Diary: `[Coming in v2.0]`
-Allows user to edit some basic information in the diary +
-Format: `edit <diary exerciseName>`
-
-* Diary should already exist
-
-Examples:
-
-* `edit Healthy Living` +
- Users will now be able to edit basic information in the diary named “Healthy Living”
-
-==== Edit Page: `[Coming in v2.0]`
-Allows user to edit basic information in the specified page of the specified diary +
-Format: `edit page <index> <diary exerciseName>`
-
-* Diary should already exist
-* Index should be a positive integer
-
-Examples:
-
-* `edit page 2 Healthy Living` +
- Users will be able to edit some basic information in page 2 of the diary named “Healthy Living”
-
 == Command Summary
 
 *Recipe Book*
@@ -963,15 +1053,45 @@ e.g. `add exercise Inclined Bench Press`
 * *Delete workout* : `delete workout <index>`
 * *Run workout* : `run <index>`
 
-*Food Diary*
+*Diary*
 
-* *Create Diary* : `create diary` +
-e.g. `create diary Healthy Living`
-* *Delete Diary* : `delete diary <diary exerciseName>` +
-e.g. `delete diary Healthy Living`
-* *Add page* : `add page <type> <diary exerciseName>` +
-e.g. `add page health Healthy Living`
-* *Delete page* : `delete page <index> <diary exerciseName>` +
-e.g. `delete page 2 Healthy Living`
+* *Adding diary* : `add diary n/ <diary name>` +
+e.g. `add diary n/ Healthy Living`
+* *Deleting diary* : `delete diary <diary index>` +
+e.g. `delete diary 1`
+* *Editing diary* : `edit diary <diary index> n/ <new diary name>` +
+e.g. `edit diary 1 n/ Student Life`
+* *Viewing diary* : `view diary <diary index>` +
+e.g. `view diary 1`
+* *Finding diary* : `find diary <keyword>` +
+e.g. `find diary Singapore`
+* *Listing diary* : `list diary` +
+e.g. `list diary`
+* *Adding pages* : `add page` +
+e.g. `add page`
+* *Deleting pages* : `delete page <page index> n/ <diary name>` +
+e.g. `delete page 1 n/ Healthy Living`
+* *Editing pages* : `edit page <page index> n/ <diary name> t/ [new title] tp/ [new type] desc/ [new description] i/ [new image]` +
+e.g. `edit page 1 n/ Healthy Living t/ Yoga`
+
 
 == Glossary
+
+== Appendix
+
+Here are some pre-defined images that you can use.
+
+*Pho Image* +
+Image URL: /images/pho.jpg +
+
+image::pho.jpg[width="500"]
+
+*Planks Image* +
+Image URL: /images/planks.jpg +
+
+image::planks.jpg[width="500"]
+
+*Low Sugar Foods Image* +
+Image URL: /images/lowsugar.jpg +
+
+image::lowsugar.jpg[width="500"]

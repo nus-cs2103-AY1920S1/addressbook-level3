@@ -60,6 +60,6 @@ public class ListHealthByTypeCommand extends ListCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ListHealthByTypeCommand // instanceof handles nulls
-                && predicate.equals(((ListHealthByTypeCommand) other).predicate)); // state check
+                && predicate.equals(((ListHealthByTypeCommand) other).predicate));
     }
 }

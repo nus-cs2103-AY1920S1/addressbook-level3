@@ -29,23 +29,24 @@ public class RecordListCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label timestamp;
-    @FXML
     private Label type;
+    @FXML
+    private Label timestamp;
     @FXML
     private Label value;
     @FXML
-    private FlowPane pages;
+    private FlowPane remarkPages;
 
     public RecordListCard(Record record, int displayedIndex) {
         super(FXML);
         this.record = record;
+        id.setText(displayedIndex + ". ");
+        type.setText(record.getType().name());
         timestamp.setText(record.getTimestamp().toString());
-        type.setText(record.getType().toString());
         value.setText(record.getValue().value + record.getType().getUnit());
 
         record.getRemarks().stream()
-                .forEach(remark -> pages.getChildren().add(new Label(remark.remarkName)));
+                .forEach(remark -> remarkPages.getChildren().add(new Label(remark.remarkName)));
     }
 
     @Override
