@@ -2,23 +2,15 @@
 <!-- @@author SakuraBlossom -->
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="100" >
-  <GridPane HBox.hgrow="SOMETIMES">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
-    </columnConstraints>
-    <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0" fx:id="roomCard">
-      <HBox spacing="5" alignment="CENTER_LEFT" fx:id="doctorPane" prefHeight="50">
-        <Label fx:id="doctorName" text="\$doctorName" styleClass="cell_big_label" />
-      </HBox>
-      <HBox spacing="5" alignment="CENTER_LEFT" fx:id="patientPane" prefHeight="50">
-        <Label fx:id="patientName" text="\$patientName" styleClass="cell_big_label" />
-      </HBox>
-    </VBox>
-  </GridPane>
-</HBox>
+<VBox alignment="CENTER_LEFT" fx:id="roomCard" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+  <HBox alignment="CENTER_LEFT" fx:id="doctorPane" prefHeight="40">
+    <Label fx:id="doctorName" text="\$doctorName" styleClass="cell_big_label" />
+  </HBox>
+  <HBox alignment="CENTER_LEFT" fx:id="patientPane" prefHeight="40">
+    <Label fx:id="patientName" text="\$patientName" styleClass="cell_big_label" />
+  </HBox>
+  <HBox fx:id="invisiblePane" prefHeight="40"/>
+</VBox>

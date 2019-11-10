@@ -58,7 +58,7 @@ public class AutoCompleteOverlay extends UiPart<Region> {
                 break;
             }
             Text prefixText = new Text(prefix);
-            prefixText.setFill(Paint.valueOf("#0FF"));
+            prefixText.setFill(Paint.valueOf("#ff9f1a"));
             Text suggestionText = new Text(suggestion);
             suggestionText.setFill(Paint.valueOf("#FFF"));
             TextFlow textFlow = new TextFlow(prefixText, suggestionText);
