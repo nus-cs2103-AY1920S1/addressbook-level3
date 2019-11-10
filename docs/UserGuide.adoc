@@ -659,7 +659,7 @@ Data files will be encrypted by default. Users can decrypt the file with the com
 User can choose to create an incident pending vehicle dispatchment.
 Format: `new dist/DISTRICT auto/Y r/pending`
 
-// end:newincidentwithoutvehicle[]
+// end::newincidentwithoutvehicle[]
 
 == FAQ
 

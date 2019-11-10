@@ -654,7 +654,7 @@ image::deleteVehicleCommand.png[]
 === Vehicle Search feature
 ==== Implementation
 
-The vehicle search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:{websiteURL}/main/UserGuide.html. The types of searches are as listed:
+The vehicle search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:https://ay1920s1-cs2103-t11-1.github.io/main/UserGuide.html. The types of searches are as listed:
 
 * Unfiltered - Displays all vehicles in `Model`.
 * District - Displays all vehicles with `District district` in list of specified districts.
