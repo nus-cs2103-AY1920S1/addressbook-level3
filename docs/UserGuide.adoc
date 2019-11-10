@@ -508,9 +508,8 @@ All body entries with car accident as the cause of death and those that are male
 
 // tag::undoredo[]
 ==== Undoing a command: `undo`
-
-This command undoes the effects of the last command you executed.
-You can undo up to 10 most recent commands.
+You can undo the effects of the last command you executed with `undo`.
+This command lets you undo up to 10 most recent commands, one at a time.
 The commands are undone starting from the most recent to the least recent.
 
 Format: `undo` or `u`
@@ -526,22 +525,34 @@ undoing the deletion will not restore the `NotifCommand`.
 Though you can `undo` a `clear` command, note that you cannot redo any past undone commands after that.
 
 Example: +
-Imagine that you've accidentally deleted the wrong Body (John Doe) from Mortago. You can easily reverse that mistake with the `undo` command instead of adding John Doe all over again!
+Imagine that you wanted to delete a `Body` with ID 10 from Mortago. However, your finger slips and you type `10` instead
+of `20`!
+
+image::Undo2.png[]
+
+You don't realise and execute the command. <add what you see in command box>
+
+image::UndoBodyDeleted.png[]
+
+
+You can easily reverse that mistake with the `undo` command instead of adding John Doe all over again!
 
 To undo:
 
-1. Type `undo` or `u` into the command box.
+1) Type `undo` or `u` into the command box.
 
-image::Undo1.png[]
+image::Undo4.png[]
 
-2. Press `Enter` to execute the command.
-3. Notice that the result box displays "Undid deleting this entity: <long descriptor of the body>" and John Doe is now back in the list of bodies.
+2) Press `Enter` to execute the command.
+
+image::Undo5.png[]
+
+3) Notice that the result box displays "Undid deleting this entity: <long descriptor of the body>" and John Doe is now back in the list of bodies.
 
 
 ==== Redoing a command: `redo`
-
-This command redoes the effects of the last command you undid.
-You can redo up to 10 of your most recent undone commands.
+You can redo the effects of the last command you executed with `redo`.
+This command lets you redo up to 10 most recent undone commands, one at a time.
 All commands that can be undone can be redone. (See <<Undoing a command: `undo`>> for how `undo` can be used.)
 
 Format: `redo` or `r`
