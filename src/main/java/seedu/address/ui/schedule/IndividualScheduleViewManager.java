@@ -28,8 +28,8 @@ public class IndividualScheduleViewManager extends ScheduleViewManager {
     private void update() {
         LocalDate dateToShow = currentDate.plusDays(weekNumber * 7);
         super.scheduleView = new ScheduleView(List.of(personSchedule
-                .getScheduleDisplay().get(weekNumber)),
-                personSchedule.getPersonDisplay().getName().fullName, dateToShow);
+                .getScheduleDisplay().get(weekNumber)), "Week " + (weekNumber + 1) + " "
+                + personSchedule.getPersonDisplay().getName().fullName, dateToShow);
         super.scheduleView.generateSchedule();
     }
 

@@ -22,7 +22,7 @@ public class SwitchTabCommand extends Command {
         if (model.getState() == ScheduleState.HOME) {
             return new CommandResultBuilder(MESSAGE_SUCCESS).setSwitchTabs().build();
         } else {
-            return new CommandResultBuilder(MESSAGE_FAILURE).setSwitchTabs().build();
+            throw new CommandException(MESSAGE_FAILURE);
         }
 
     }

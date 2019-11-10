@@ -295,10 +295,14 @@ public class ScheduleView extends UiPart<Region> {
      */
     class Block {
         private double heightOfTimeSlot;
-        private double width;
+        private double width = BLOCK_WIDTH;
 
         public Block(int duration) {
-            this.width = BLOCK_WIDTH / schedulesShown.size();
+
+            if (schedulesShown.size() != 0) {
+                this.width = BLOCK_WIDTH / schedulesShown.size();
+            }
+
             int hours = duration / 60;
             double minutes = duration % 60;
             this.heightOfTimeSlot = hours * ONE_HOUR_LENGTH + (minutes / 60.0) * ONE_HOUR_LENGTH;

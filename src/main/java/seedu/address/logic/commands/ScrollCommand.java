@@ -26,7 +26,7 @@ public class ScrollCommand extends Command {
                 || status == ScheduleState.GROUP) {
             return new CommandResultBuilder(MESSAGE_SUCCESS).setScroll().build();
         } else {
-            return new CommandResultBuilder(MESSAGE_FAILURE).setScroll().build();
+            throw new CommandException(MESSAGE_FAILURE);
         }
     }
 

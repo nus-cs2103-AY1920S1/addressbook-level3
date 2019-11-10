@@ -28,7 +28,7 @@ public class ToggleNextWeekCommand extends Command {
                 || status == ScheduleState.GROUP) {
             return new CommandResultBuilder(MESSAGE_SUCCESS).setToggleNextWeek().build();
         } else {
-            return new CommandResultBuilder(MESSAGE_FAILURE).build();
+            throw new CommandException(MESSAGE_FAILURE);
         }
     }
 
