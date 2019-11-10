@@ -24,6 +24,11 @@ class UniqueEngagementListTest {
     private static final String GOOGLE = "Googs";
     private final UniqueEngagementList uniqueEngagementList = new UniqueEngagementList();
 
+    /**
+     * Builds an {@code Interview} that matches the interview in {@code TypicalEngagements}.
+     *
+     * @return google interview.
+     */
     private Engagement buildGoogleInterview() {
         EngagementBuilder engagementBuilder = new EngagementBuilder();
         engagementBuilder.withDescription(GOOGLE);
