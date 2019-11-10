@@ -865,7 +865,7 @@ There is no need to save manually.
 == Financial Tracker
 Scare that you're gonna overspend whenever you're on a trip? Afraid no more! TravEzy's Financial Tracker allow you to track your expenses seamlessly!
 
-Each entry in your expense has 6 key sections:
+Each of your expense has 6 key fields:
 
 . Date
 . Time
@@ -880,12 +880,12 @@ The Date and Time specify when you spend your expenses, followed by the amount, 
 This is what you will see when navigated to the financial tracker:
 
 .Financial Tracker Interface
-image::/images/FinancialTrackerInterface.png[]
+image::FinancialTrackerInterface.png[]
 
 === Adding an expense: ``add``
-Adding the milk you've spent at the grocery shop you stopped by?
+Adding the expense of milk you've bought at the grocery shop you stopped by?
 
-*Format:* ``add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE [date/DATE] [time/TIME]``
+*Format:* ``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
 
 *Example:*
 
@@ -893,15 +893,15 @@ Adding the milk you've spent at the grocery shop you stopped by?
 
 *Step by step:*
 
-Step 1.  Type ``add a/2.89 d/Meiji Milk t/grocery`` in the command box and press _Enter_.
+Step 1.  Type ``add a/2.89 d/Meiji Milk t/grocery`` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerAdd1.png[]
+image::FinancialTrackerAdd1.png[]
 
-Step 2. The result box will display the message "Expense added".
+Step 2. The _Result box_ will display the message "Expense added".
 
-Step 3. Now you can find your added expense in the expense list.
+Step 3. Now you can find your added expense in the _Expense list panel_.
 
-image::/images/FinancialTrackerAdd2.png[]
+image::FinancialTrackerAdd2.png[]
 
 === Deleting an expense: ``delete``
 Added a wrong expense? Of course you can delete it if you want to :)
@@ -914,221 +914,173 @@ Added a wrong expense? Of course you can delete it if you want to :)
 
 *Step by step:*
 
-. type ``delete 3`` in the command box and press _Enter_.
+Step 1. Type ``delete 1`` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerDelete1.png[]
+image::FinancialTrackerDelete1.png[]
 
-[start = 2]
-. The result box will display the message "Your expense has been deleted".
+Step 2. The _Result box_ will display the message "Your expense has been deleted".
 
-image::/images/FinancialTrackerDelete2.png[]
-
-[start = 3]
-. Now your expense has been deleted from the expense list.
-
-image::/images/FinancialTrackerDelete3.png[]
-
+image::FinancialTrackerDelete2.png[]
 
 === Editing an expense: ``edit``
 Add a wrong expense? Why not edit it instead!
 
-The _Command Word_ is ``edit`` with an parameter index. +
-This command edits an expense in your Financial Tracker by specifying the index of the expense you want to edit, followed by the fields you want to edit. The index must be an integer which is greater than 1 and corresponds to ID of the expense you want to edit.
+*Format:* ``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] [date/DATE] [time/TIME]``
 
-Format: ``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] [date/DATE] [time/TIME]``
+*Example:* Edit the 1st expense you saw on your expense list.
 
-Example: Edit the 3rd expense you saw on your expense list.
+ edit 1 a/29.80 d/Nike bottle
 
- edit 3 a/29.80 d/Nike bottle
+*Step by step:*
 
-Illustration:
+Step 1. Notice the first expense's fields in the _Expense list panel_.
 
-. Notice the current fields in the expense with id number 1. Now, type ``edit 3 a/22.90 time/2200`` in the command box and press _Enter_.
+Step 2. Now, type ``edit 1 a/29.80 d/Nike bottle`` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerEdit1.png[]
+image::FinancialTrackerEdit1.png[]
 
-[start = 2]
-. The result box will display the message "The expense updated successfully!".
+Step 3. The _Result box_ will display the message "The expense updated successfully!".
 
-image::/images/FinancialTrackerEdit2.png[]
+Step 4. Now the first expense's amount and description fields have been changed to `29.80` and `Nike bottle` respectively.
 
-[start = 3]
-. Now the first expense's time and amount fields have been changed to `22.90` and `10:00 p.m.` respectively.
-
-image::/images/FinancialTrackerEdit3.png[]
+image::FinancialTrackerEdit2.png[]
 
 === Clears an expense list: ``clear``
-Messed up your expense list? Don't worry, just clear it! (But be careful :o)
+Messed up your expense list? Don't worry, just clear it!
 
-The _Command Word_ is ``clear`` without any parameter +
-This command clears the current expense list that you are looking at.
+*Format:* ``clear``
 
-Format: ``clear``
-
-Example: Clears your current expense list.
+*Example:* Clears your current country's expense list.
 
  clear
 
-Illustration:
+*Step by step:*
 
-. type ``clear`` in the command box and press _Enter_.
+Step 1. Type ``clear`` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerClear1.png[]
+image::FinancialTrackerClear1.png[]
 
-[start = 2]
-. The result box will display the message "Expense list cleared!".
+Step 2. The _Result box_ will display the message "Expense list cleared!".
 
-image::/images/FinancialTrackerClear2.png[]
+Step 3. Now in your _Expense list panel_, your expense list has been cleared!
 
-[start = 3]
-. Now your expense list has been cleared.
-
-image::/images/FinancialTrackerClear3.png[]
+image::FinancialTrackerClear2.png[]
 
 === Undo your previous action: ``undo``
 Did something wrong? We heard you! Simply undo your previous action :)
 
-The _Command Word_ is ``undo`` without any parameter +
-This command undo your previous action that has been done *on this expense list*.
+WARNING: You can only undo your previous `add`, `edit`, `delete` and `clear` command.
 
-TIP: You can only undo your previous `add`, `edit`, `delete` and `clear` action.
+*Format:* ``undo``
 
-Format: ``undo``
+*Example:* Undo your previous `clear` command.
 
-Example: Undo your previous action
+ undo
 
- clear
+*Step by step:* (A continue from above `clear` command)
 
-Illustration:
+Step 1. Type ``undo`` in the _Command box_ and press _Enter_.
 
-. Add any expense you want using add command.
+image::FinancialTrackerUndo1.png[]
 
-image::/images/FinancialTrackerUndo1.png[]
+Step 2. The _Result box_ will display the message "Done!".
 
-[start = 2]
-. type ``undo`` in the command box and press _Enter_.
+Step 3. Notice that your expense list has been recovered. Nice save!
 
-image::/images/FinancialTrackerUndo2.png[]
-
-[start = 3]
-. The result box will display the message "Done!".
-
-image::/images/FinancialTrackerUndo3.png[]
-
-[start = 4]
-. Previous action has been undone.
-
-image::/images/FinancialTrackerUndo4.png[]
+image::FinancialTrackerUndo2.png[]
 
 // tag::financialtracker[]
 === Switching between countries: ``switch``
 Currently in somewhere else? Switch to that expense list instead!
 
-The _Command Word_ is ``switch`` followed by a country field. This command switched your current view of expense list to the country specified. Note that the list of countries that are valid is only shown on the _countries drop down menu_. +
-Do realise that you can always use the drop down menu instead!
+*Format:* `switch COUNTRY`
 
-Example:
+TIP: Do realise that you can always use the drop down menu instead!
+
+WARNING: You can only type in countries which are only listed from the _Countries dropdown box_
+
+*Example:*
 
  switch Japan
 
-Illustration:
+*Step by step:*
 
-. Type ``switch Japan`` in the command box and press _Enter_.
+Step 1. Type ``switch Japan`` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerSwitch1.png[]
+image::FinancialTrackerSwitch1.png[]
 
-[start = 2]
-. The result box will display the message "Expense list switched".
+Step 2. The _Result box_ will display the message "Expense list switched".
 
-image::/images/FinancialTrackerSwitch2.png[]
+Step 3. Now your expense list inside the _Expense list panel_ has been switched to that which is in Japan!
 
-[start = 3]
-. Now your expense list has been switched to that which is in Japan!
-
-image::/images/FinancialTrackerSwitch3.png[]
+image::FinancialTrackerSwitch2.png[]
 
 === Requesting help: ``help``
 At anytime, not sure what to do? Simply ask for help!
 
-The _Command Word_ is ``help`` without further parameters. A help window will pop out to guide you how to use the commands in Financial Tracker.
+*Format:* `help`
 
-Example:
+*Example:*
 
  help
 
-Illustration:
+*Step by step:*
 
-. Type ``help`` in the command box and press _Enter_.
+Step 1. Type ``help`` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerHelp1.png[]
+image::FinancialTrackerHelp1.png[]
 
-[start = 2]
-. The result box will display the message "Currently viewing the financial tracker help window".
+Step 2. The _Result box_ will display the message "Currently viewing the financial tracker help window".
 
-image::/images/FinancialTrackerHelp2.png[]
+Step 3. As you should have noticed, the help window has been popped out for your reference!
 
-[start = 3]
-. As you should have noticed, the help window has been popped out for your reference!
-
-image::/images/FinancialTrackerHelp3.png[]
+image::FinancialTrackerHelp2.png[]
 
 === Sort out your expense list: ``sort``
-Sort your expenses according your needs!
+The default sorting way of the expense list is not your thing? Just sort your expense list according your needs!
 
-The _Command Word_ is ``sort`` with parameters "date", "time", "amount", "type" or "default". +
-"default": Sort by default, which is sorting by dates followed by time.
+TIP: All of the sorting is done in reversed order :)
 
-This command sort your current expense list according to the stated specification in decensing order.
+*Format:* ``sort date`` | ``sort time`` | ``sort amount`` | ``sort type`` | ``sort default``
 
-Format: ``sort date`` | ``sort time`` | ``sort amount`` | ``sort type`` | ``sort default``
-
-Example: to sort by amount
+*Example:* to sort by amount
 
  sort amount
 
-Illustration:
+*Step by step:*
 
-. Notice the amount field in each expenses are currently not in order. Now, type ``sort amount`` in the command box and press _Enter_.
+Step 1. Notice the amount field in each expenses are currently not in order.
 
-image::/images/FinancialTrackerSort1.png[]
+Step 2. Now, type ``sort amount`` in the _Command box_ and press _Enter_.
 
-[start = 2]
-. The result box will display the message "Expense List sorted!".
+image::FinancialTrackerSort1.png[]
 
-image::/images/FinancialTrackerSort2.png[]
+Step 3. The _Result box_ will display the message "Expense List sorted!".
 
-[start = 3]
-. Now all your expenses are sorted in descending order of your amount!
+Step 4. Now all your expenses are sorted in descending order of your amount!
 
-image::/images/FinancialTrackerSort3.png[]
+image::FinancialTrackerSort2.png[]
 
 === Generate an overview of your spending: ``summary``
-View your expenses all at once!
+Do you ever have difficulty summarising your spending? Afraid not! You can view you expenses statistics easily!
 
-The _Command Word_ is ``summary`` without any parameter. +
-This command generate statistics of your financial expenses in a Pie Chart form and also in a Bar Char form.
-You can now view your total spending easily!
+*Format:* `summary`
 
-Example:
+*Example:*
 
  summary
 
-Illustration:
+*Step by step:*
 
-. Type `summary` in the command box and press _Enter_.
+Step 1. Type `summary` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerSort1.png[]
+image::FinancialTrackerSummary1.png[]
 
-[start = 2]
-. The result box will display the message "Currently viewing the Summary Window".
+Step 2. The result box will display the message "Currently viewing the Summary Window".
 
-image::/images/FinancialTrackerSummary2.png[]
+Step 3. As you should have noticed, the Summary Window has been popped out showing you statistics of your expenses in a nice-looking pie chart and bar chart form!
 
-[start = 3]
-. As you should have noticed, the Summary Window has been popped out showing you statistics of your expenses in a nice-looking pie chart and bar chart form!
-
-image::/images/FinancialTrackerSummary3.png[]
-
+image::FinancialTrackerSummary2.png[]
 // end::financialtracker[]
 
 == Diary
