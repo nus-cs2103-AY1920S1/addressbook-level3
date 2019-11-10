@@ -82,8 +82,6 @@ Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a sp
 [[In]]
 === Logging Income : `in`
 
-=======
-
 Have an income that you need to log down? PalPay accepts all income inputs through the `in` command. Inputting an `in` command will increase the overall balance value. Your income statements have the added option to be tagged under one or more categories. You can do so by including the `[c/CATEGORY]` parameter in your command line. All uncategorized incomes will be tagged under the `GENERAL` category.
 
 Adds an income of your personal finance to PalPay +
@@ -137,7 +135,6 @@ Example Commands:
 * `in $/250.50 d/29022020 n/mom c/family`
 * `in $/120 d/31122019 n/helping friend`
 
-=======
 
 [[Out]]
 === Logging Expense : `out`
@@ -147,8 +144,6 @@ Have you recently made an expenditure that requires logging down? PalPay accepts
 Adds an expenditure of your personal finance +
 Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
-Note that the `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
-
 ****
 * `AMOUNT` accepts the value of this expenditure. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
 * Users should not input negative values into `AMOUNT` (i.e. `out $/-100 ...`) as PalPay has already accounted for the difference between incomes and expenditures.
@@ -157,6 +152,9 @@ Note that the `out` transactions differ from `in` transactions in the display am
 * `CATEGORY` accepts the CATEGORY for this expenditure. An `out` Transaction can be created without any `CATEGORY`.
 * `out` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
 ****
+
+Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
+
 
 ==== Example Usage
 
