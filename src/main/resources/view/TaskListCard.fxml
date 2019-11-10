@@ -29,8 +29,8 @@
       </HBox>
       <FlowPane fx:id="tags" />
       <HBox>
-        <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="Target date:" />
-        <Label fx:id="targetDate" styleClass="cell_small_label" text="\$targetDate" />
+        <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="Due Date:" />
+        <Label fx:id="dueDate" styleClass="cell_small_label" text="\$dueDate" />
       </HBox>
       <HBox>
         <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="Author:" />

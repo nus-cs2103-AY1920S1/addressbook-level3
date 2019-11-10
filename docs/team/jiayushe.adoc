@@ -11,42 +11,69 @@ AlgoBase is a desktop algorithmic problem manager.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX.
 It is written in Java, and has about 20 kLoC.
 
+.UI of AlgoBase
+image::Ui.png[]
+
 == Summary of contributions
 
-* *Major enhancement*: implemented *task management feature*
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=jiayushe[View on RepoSense]]
+
+* *Major enhancement*: Implemented task management feature
 ** What it does:
-This feature allows the user to keep track of the problems to be done as upcoming tasks
+This feature allows the user to keep track of the problems to be done as upcoming tasks in separate plans
 and thus manage his/her progress for each plan.
 ** Justification:
-This feature is the core feature of AlgoBase.
-It allows the user to manage the problems to meet different needs,
-such as interviews for different companies or different rounds.
+Task management is the core feature of AlgoBase.
+It allows the user to manage the problems as tasks in separate plans for different purposes,
+such as interviews for different companies or different rounds,
+instead of managing all problems stored in the database all together.
 By introducing the notion of tasks, user can add more details to the problems
-such as due dates and whether each problem has been solved, without modifying the original problem.
+such as due dates and whether each problem has been solved, without modifying the original problems.
 This adds significant value to AlgoBase as an algorithmic problem manager.
 ** Highlights:
-This feature is highly coupled with the problem feature and plan feature.
+*** This feature involves full-stack development in all five main components in AlgoBase,
+including `Logic`, `Model`, `Storage`, `Ui` and `UiLogic`.
+*** This feature is highly coupled with the problem tracking feature and training plan feature.
 It requires in-depth analysis of all existing features in order to avoid unintended behaviours.
-For example, since each task stores a problem, when the corresponding problem is deleted or updated,
-all tasks in all plans that are related to this problem need to be updated at the same time.
-Moreover, to avoid user mistakes when deleting problems that are used in some tasks,
+*** For example, since each task stores a problem, when a problem is deleted or updated,
+all corresponding tasks in all plans need to be deleted or updated simultaneously.
+*** Moreover, to avoid user mistakes when deleting problems that are used in some tasks,
 which may cause additional overhead to bring back the tasks,
-a forced mode is introduced to reduce such possibilities.
-It involves all main components in AlgoBase, including `Model`, `Logic`, `Storage` and `Ui`.
+a distinction between normal mode and "forced" mode is introduced to reduce such risks.
+(User command to delete problems that are used in tasks will fail gracefully,
+unless a "forced" flag is added to the end of his/her command to enable "forced" mode.)
+*** A task management pane is also added in the main display
+to allow user direct and convenient access to the current plan he/she is doing.
 
-* *Minor enhancement*: Implemented *data management feature* +
+** Relevant pull requests:
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/62[#62]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/70[#70]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/73[#73]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/75[#75]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/116[#116]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/143[#143]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/150[#150]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/164[#164]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/210[#210]
+https://github.com/AY1920S1-CS2103T-W11-1/main/pull/237[#237]
+
+* *Minor enhancement*: Implemented data management feature +
 It allows the user to export their data into JSON format and import new data from JSON files.
-
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=jiayushe[View on RepoSense]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.0`, `v1.3.2` and `v1.3.3` (3 releases) on GitHub
+*** Managed releases `v1.1`, `v1.3.2` and `v1.3.3` (3 releases) on GitHub
+*** Updated logo of AlgoBase
+
 ** Enhancements to existing features:
-*** TBA
+*** Implement relational storage of models in database [https://github.com/AY1920S1-CS2103T-W11-1/main/pull/80[#80]] +
+This allows integrity check on the storage file upon each launch of AlgoBase.
+
 ** Documentation:
-*** TBA
+*** Updated documentation for UI, Logic and Storage in Developer Guide
+*** Added documentation for Task Management feature in Developer Guide and User Guide
+
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/65[#65]
@@ -55,11 +82,11 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/81[#81]
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/90[#90]
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/106[#106]
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/214[#214]
-*** Contributed to forum discussions: TBA
 *** Reported bugs and suggestions for other teams in the class:
-https://github.com/jiayushe/ped[PE Dry Run]
+https://github.com/jiayushe/ped[Reported 17 bugs during PE Dry Run]
+
 ** Tools:
-*** Integrated Github plugins (AppVeyor, Coveralls, Netlify, Traivs) to the team repository
+*** Integrated Github plugins (AppVeyor, Coveralls, Netlify, Travis) to the team repository
 
 == Contributions to the User Guide
 
@@ -73,13 +100,19 @@ include::../UserGuide.adoc[tag=task]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#task-management-feature[Implementation - Task Management] +
-https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#Design-Ui[Design - UI] +
-https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#Design-Storage[Design - Storage]
+include::../DeveloperGuide.adoc[tag=design-storage]
+
+include::../DeveloperGuide.adoc[tag=design-ui]
+
 include::../DeveloperGuide.adoc[tag=task]
 
-== PROJECT: https://sourceacademy.nus.edu.sg/sourcecast[SourceCast]
+=== More Contributions to the Developer Guide
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#Design-Logic[Design - Logic] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#use-cases[Use Cases for Problems, Tasks and Storage] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#non-functional-requirements[Non Functional Requirements]
 
-An interactive code recorder and player to support e-teaching and e-learning, used in Source Academy,
+== PROJECT: SourceCast
+
+https://sourceacademy.nus.edu.sg/sourcecast[SourceCast] is an interactive code recorder and player to support e-teaching and e-learning, used in Source Academy,
 an immersive experiential learning environment for NUS freshman programming methodology course, CS1101S.
 

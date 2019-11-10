@@ -128,8 +128,8 @@ public class MainWindow extends UiPart<Stage> {
         TaskManagementPane taskManagementPane = new TaskManagementPane(
             logic.getProcessedTaskList(),
             logic.getCurrentPlan(),
-            logic.getCurrentSolvedCount(),
-            logic.getCurrentUnsolvedCount(),
+            logic.getCurrentDoneCount(),
+            logic.getCurrentUndoneCount(),
             logic.getCurrentTaskCount()
         );
 

@@ -36,7 +36,7 @@ public class TaskTest {
         assertEquals(TWO_SUM_TASK, editedTwoSumTask);
 
         // different isSolved -> returns true
-        editedTwoSumTask = new TaskBuilder(TWO_SUM_TASK).withIsSolved(true).build();
+        editedTwoSumTask = new TaskBuilder(TWO_SUM_TASK).withIsDone(true).build();
         assertEquals(TWO_SUM_TASK, editedTwoSumTask);
     }
 

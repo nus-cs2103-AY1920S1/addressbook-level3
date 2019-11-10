@@ -14,11 +14,11 @@ public class TaskBuilder {
     private Id id;
     private Problem problem = new ProblemBuilder().build();
     private LocalDate dueDate;
-    private boolean isSolved;
+    private boolean isDone;
 
     public TaskBuilder() {
         dueDate = LocalDate.now();
-        isSolved = false;
+        isDone = false;
     }
 
     /**
@@ -26,8 +26,8 @@ public class TaskBuilder {
      */
     public TaskBuilder(Task taskToCopy) {
         problem = taskToCopy.getProblem();
-        dueDate = taskToCopy.getTargetDate();
-        isSolved = taskToCopy.getIsSolved();
+        dueDate = taskToCopy.getDueDate();
+        isDone = taskToCopy.getIsDone();
     }
 
     /**
@@ -55,15 +55,15 @@ public class TaskBuilder {
     }
 
     /**
-     * Sets the {@code isSolved} of the {@code Task} that we are building.
+     * Sets the {@code isDone} of the {@code Task} that we are building.
      */
-    public TaskBuilder withIsSolved(boolean isSolved) {
-        this.isSolved = isSolved;
+    public TaskBuilder withIsDone(boolean isDone) {
+        this.isDone = isDone;
         return this;
     }
 
     public Task build() {
-        return new Task(problem, dueDate, isSolved);
+        return new Task(problem, dueDate, isDone);
     }
 
 }

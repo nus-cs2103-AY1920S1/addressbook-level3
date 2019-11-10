@@ -34,7 +34,8 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/algobase/Main.java[`Main`]
+and link:{repoURL}/src/main/java/seedu/algobase/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -65,7 +66,8 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deleteprob 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario
+where the user issues the command `deleteprob 1`.
 
 .Component interactions for `deleteprob 1` command
 image::ArchitectureSequenceDiagram.png[]
@@ -78,25 +80,40 @@ image::ArchitectureSequenceDiagram1.png[]
 The sections below give more details of each component.
 
 //@@author jiayushe
+
+// tag::design-ui[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[width="100%", scaledwidth=18cm]
 
 *API* : link:{repoURL}/src/main/java/seedu/algobase/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts
+The `UI` component consists of a `MainWindow` that is made up of parts
 e.g.`CommandBox`, `ResultDisplay`, `DetailsTabPane`, `DisplayTabPane`, `TaskManagementPane`, `StatusBarFooter` etc.
-All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+All these components, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/algobase/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+// end::design-ui[]
+.Structure of the DisplayTabPane Component
+image::UiDisplayTabClassDiagram.png[width="100%", scaledwidth=18cm]
+// tag::design-ui[]
+
+The `DetailsTabPane` consists of `FindRuleListPanel`, `PlanListPanel`, `ProblemListPanel` and `TagListPanel`,
+which are used for displaying entries of `FindRule`, `Plan`, `Problem` and `Tag` stored in AlgoBase respectively.
+
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/algobase/ui/MainWindow.java[`MainWindow`]
+is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+// end::design-ui[]
 
+// tag::design-logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -119,6 +136,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+// end::design-logic[]
 //@@author
 
 //@@author tiuweehan
@@ -150,7 +168,6 @@ NOTE: The lifeline for `EditProblemUiActionParser` should end at the destroy mar
 
 //@@author le0tan
 [[Design-Model]]
-
 // tag::model[]
 
 === Model component
@@ -193,24 +210,27 @@ image::design/model/GuiPackageDiagram.png[width='60%']
 //@@author
 
 //@@author jiayushe
+// tag::design-storage[]
 [[Design-Storage]]
+
 === Storage component
 
 .Structure of the Storage Component
-image::storage/StorageClassDiagram.png[]
+image::storage/StorageClassDiagram.png[width="70%", scaledwidth=12cm]
 
 .Structure of the JsonAdaptedProblemSearchRule Component
-image::storage/ProblemSearchRuleClassDiagram.png[]
+image::storage/ProblemSearchRuleClassDiagram.png[width="65%", scaledwidth=10cm]
 
 *API* : link:{repoURL}/src/main/java/seedu/algobase/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can store `UserPref` objects in json format.
-* can retrieve `UserPref` objects from json format.
+* can store `UserPref` objects in `JSON` format.
+* can retrieve `UserPref` objects from `JSON` format.
 * can store the AlgoBase app data including `GuiState`, `Plan`, `Problem`, `ProblemSearchRule`, `Tag`, `Task`
-objects in relational manner in json format.
-* can retrieve `GuiState`, `Plan`, `Problem`, `ProblemSearchRule`, `Tag`, `Task` objects from json format.
+objects in relational manner in `JSON` format.
+* can retrieve `GuiState`, `Plan`, `Problem`, `ProblemSearchRule`, `Tag`, `Task` objects from data stored in `JSON` format.
+// end::design-storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -230,8 +250,8 @@ This section describes some noteworthy details on how certain features are imple
 
 === Task Management Feature
 
-As a algorithmic problem management tool, one of the most important features will be manage tasks that have been done
-and are to be done.
+As an algorithmic problem management tool, one of the most important features will be managing tasks that have been done
+or are to be done.
 
 This section will describe in details the current implementation and design considerations of
 the task management feature.
@@ -246,15 +266,24 @@ The task management feature supports eight main operations:
 * `DoneTask` - marks a task as done in a specified plan.
 * `EditTask` - edits the due date of a task in a specified plan.
 * `MoveTask` - moves a task from one plan to another.
-* `UndoneTask` - marks a task as undone in a specified plan.
 * `SetPlan` - sets a plan as the current plan in main display.
+* `UndoneTask` - marks a task as undone in a specified plan.
+
+This feature is mainly supported by the `Task` class.
+Given below are class diagrams of the `Task` class.
+
+.High Level Class Diagram for Task
+image::task/HighLevelTaskClassDiagram.png[width="40%", scaledwidth=8cm]
+
+.Detailed Class Diagram for Task
+image::task/TaskClassDiagram.png[width="30%", scaledwidth=6cm]
 
 Given below is an example usage scenario and how the mechanism for adding tasks behaves at each step.
 
 The following activity diagram summarizes what happens when a user executes the `AddTaskCommand`:
 
 .Activity Diagram for the Execution of `AddTaskCommand`
-image::task/AddTaskCommandActivityDiagram.png[]
+image::task/AddTaskCommandActivityDiagram.png[width="80%", scaledwidth=14cm]
 
 Step 1. The user launches the application.
 
@@ -264,10 +293,17 @@ Step 3. The user executes `addtask plan/1 prob/1` to add the problem with index 
 The `AddTaskCommand` calls `Model#updateTasks` to create a new plan from the original plan with this additional task,
 and replace the original plan with this updated plan in the `PlanList` stored in `AlgoBase`.
 
-The following sequence diagram shows how the `AddTaskCommand` executes:
+The sequence diagram below shows the high-level abstraction of how AlgoBase processes user request
+to execute `addtask plan/1 prob/1`:
+
+.High Level Sequence Diagram for the Execution of `addtask plan/1 prob/1`
+image::task/HighLevelAddTaskSequenceDiagram.png[width="80%", scaledwidth=16cm]
+
+The following sequence diagram illustrates the interaction between the `Logic` and `Model` component
+while executing `AddTaskCommand`:
 
 .Sequence Diagram for the Execution of `AddTaskCommand`
-image::task/AddTaskSequenceDiagram.png[]
+image::task/AddTaskSequenceDiagram.png[width="100%", scaledwidth=18cm]
 
 ==== Design Considerations
 
@@ -297,10 +333,8 @@ image::task/AddTaskSequenceDiagram.png[]
 * Alternative 2: Use object hash to identify problems and tasks.
 ** Pros: No need to store another additional field in the models.
 ** Cons: Object hash can change over time.
-
 // end::task[]
 //@@author
-
 
 //@@author LuWenQ
 //tag::tag[]
@@ -309,10 +343,10 @@ image::task/AddTaskSequenceDiagram.png[]
 ==== Implementation
 The tag mechanism is facilitated by UniqueTagList. It creates a list of Tag, stored internally as an uniqueTagList. Additionally, it implements the following operations:
 
-* `addTag` - create a new tag in AlgoBase's uniqueTagList in the algobase history.
-* `deleteTag` - delete a current tag which have already in the uniqueTagList.
-* `listTag` - show the tags in the uniqueTagList in the algobase GUI for users
-* `editTag` - edit the current tag name which have already been in the uniqueTagList
+* `AddTag` - creates a new tag in AlgoBase's uniqueTagList in the algobase history.
+* `DeleteTag` - deletes a current tag which have already in the uniqueTagList.
+* `EditTag` - edits the current tag name which have already been in the `uniqueTagList`.
+* `ListTag` - shows the tags in the uniqueTagList in the algobase GUI for users.
 
 .Class Diagram for Tag
 image::tag/TagClassDiagram.png[]
@@ -325,12 +359,12 @@ Step 1. The user launches the application for the first time. The UniqueTagList 
 
 Step 2. The user executes `addtag t/easy` to add a tag named [easy] with default color which have not applied in any problems. The addtag command calls `Model#addtag()`, causing the taglist added a tag after the ‘addtag t/easy’ command executes to be saved in the uniqueTagList.
 
-The following sequence diagram shows how the `deletetag` operation works:
+The following sequence diagram shows how the `addtag` operation works:
 
 .Sequence Diagram for `AddTagCommand`
 image::tag/AddTagSequenceDiagram.png[]
 
-Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls `Model#listtag()`, causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
+Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls `Model#listtag()`, causing the taglist shows the current components of uniqueTagList. Commands that do not modify the data, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
 
 Step 4.The user executes `edittag 1 t/hard c/BLUE` to edit the current tag [easy] to [hard] in the `uniqueTagList`. The `edittag 1 t/hard c/BLUE`
 Command executes `edittag`, causing the taglist find the tag with index 1 in the tag list and change tag [easy] into [hard] and change tag color from default color to blue, and change all [easy] tag into [hard] in blue color in all problems.
@@ -358,7 +392,6 @@ image::tag/TagCommandActivityDiagram.png[]
 
 //@@author le0tan
 // tag::find[]
-
 === Find Problem Feature
 
 Since AlgoBase is a management tool for algorithmic questions, the search functionality is crucial to the user’s experience with AlgoBase. For instance, the planning feature heavily relies on `findprob` command to determine the exact set of problems the user wants to include in a training plan.
@@ -1021,7 +1054,6 @@ Use case ends.
 ** 2a1. AlgoBase informs user that at least one constraint should be provided.
 +
 Use case ends.
-
 // end::find_uc[]
 
 // tag::sort_uc[]
@@ -1048,6 +1080,7 @@ Use case ends.
 ** 2a1. AlgoBase informs user that no sorting method is given.
 +
 Use case ends.
+// end::sort_uc[]
 
 [discrete]
 === Use Case 7: Add Tag
@@ -1093,7 +1126,6 @@ Use case ends.
 [discrete]
 === Use Case 9: Edit Tag
 
-
 *MSS*
 
 1.  User requests to edit a tag.
@@ -1114,7 +1146,6 @@ Use case ends.
 [discrete]
 === Use Case 10: List Tag
 
-
 *MSS*
 
 1.  User requests to list the tags.
@@ -1132,38 +1163,12 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 11: Sort Problems
-
-*Guarantees*
-
-A list of tags will be displayed in UI.
+=== [[uc-11]] Use Case 11: Add Tasks to Plan
 
 *MSS*
 
-1.  User requests to add a tag.
-2.  AlgoBase creates the tag with taq name and tag color.
-3.  AlgoBase displays the tag list.
-+
-Use case ends.
-
-*Extensions*
-[none]
-* 2a. AlgoBase detects that tag name or tag color has an invalid format.
-+
-[none]
-** 2a1. AlgoBase informs user that the form of new tag is invalid.
-+
-Use case ends.
-
-// end::sort_uc[]
-
-[discrete]
-=== Use Case 12: Add Tasks to Plan
-
-*MSS*
-
-1.  User requests to add a new task by entering the index of the problem and index of the plan.
-2.  AlgoBase creates a new task with the specified problem.
+1.  User requests to add a new task by entering the index of the problem, index of the plan and optionally a due date.
+2.  AlgoBase creates a new task with the specified problem (and due date).
 3.  AlgoBase adds the newly created task to the specified plan.
 4.  AlgoBase indicates successful addition of new task to plan.
 5.  AlgoBase displays details of task added.
@@ -1180,15 +1185,23 @@ Use case ends.
 Use case ends.
 
 [none]
-* 3a. AlgoBase detects that the index of plan is out of bounds.
+* 3a. [[uc-11-3a]] AlgoBase detects that the index of plan is out of bounds.
 +
 [none]
 ** 3a1. AlgoBase informs user that the addition is unsuccessful because the index of plan is out of bounds.
 +
 Use case ends.
 
+[none]
+* 3b. [[uc-11-3b]] AlgoBase detects that the given due date is outside the range of the target plan.
++
+[none]
+** 3b1. AlgoBase informs user that the addition is unsuccessful because the given due date is not within range of target plan.
++
+Use case ends.
+
 [discrete]
-=== Use Case 13: Copy Tasks between Plans
+=== [[uc-12]] Use Case 12: Copy Tasks between Plans
 
 *MSS*
 
@@ -1202,15 +1215,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. AlgoBase detects that the index of either plan is out of bounds.
-+
-[none]
-** 2a1. AlgoBase informs user that the update is unsuccessful because the index of plan is out of bounds.
-+
-Use case ends.
+* 2a. Similar to <<uc-11-3a, 3a>> in <<uc-11, Use Case 11>>.
 
 [none]
-* 2b. AlgoBase detects that the index of task is out of bounds.
+* 2b. [[uc-12-2b]] AlgoBase detects that the index of task is out of bounds.
 +
 [none]
 ** 2b1. AlgoBase informs user that the update is unsuccessful because the index of task is out of bounds.
@@ -1218,15 +1226,18 @@ Use case ends.
 Use case ends.
 
 [none]
-* 2c. AlgoBase detects that task to be copied already exists in the "to" plan.
+* 2c. [[uc-12-2c]] AlgoBase detects that task to be copied already exists in the target plan.
 +
 [none]
 ** 2c1. AlgoBase informs user that the update is unsuccessful because the task already exists.
 +
 Use case ends.
 
+[none]
+* 2d. Similar to <<uc-11-3b, 3b>> in <<uc-11, Use Case 11>>.
+
 [discrete]
-=== Use Case 14: Delete Tasks from Plan
+=== Use Case 13: Delete Tasks from Plan
 
 *MSS*
 
@@ -1239,14 +1250,13 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. Similar to `2a` in Use Case 8.
+* 2a. Similar to <<uc-11-3a, 3a>> in <<uc-11, Use Case 11>>.
 
 [none]
-* 2b. Similar to `2b` in Use Case 8.
-
+* 2b. Similar to <<uc-12-2b, 2b>> in <<uc-12, Use Case 12>>.
 
 [discrete]
-=== Use Case 15: Edit Due Dates of Tasks
+=== Use Case 14: Edit Due Dates of Tasks
 
 *MSS*
 
@@ -1260,13 +1270,16 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. Similar to `2a` in Use Case 8.
+* 2a. Similar to <<uc-11-3a, 3a>> in <<uc-11, Use Case 11>>.
 
 [none]
-* 2b. Similar to `2b` in Use Case 8.
+* 2b. Similar to <<uc-12-2b, 2b>> in <<uc-12, Use Case 12>>.
+
+[none]
+* 2c. Similar to <<uc-11-3b, 3b>> in <<uc-11, Use Case 11>>.
 
 [discrete]
-=== Use Case 16: Mark Tasks as Done in Plan
+=== [[uc-15]] Use Case 15: Mark Tasks as Done in Plan
 
 *MSS*
 
@@ -1279,13 +1292,21 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. Similar to `2a` in Use Case 8.
+* 2a. Similar to <<uc-11-3a, 3a>> in <<uc-11, Use Case 11>>.
 
 [none]
-* 2b. Similar to `2b` in Use Case 8.
+* 2b. Similar to <<uc-12-2b, 2b>> in <<uc-12, Use Case 12>>.
+
+[none]
+* 2c. [[uc-15-2c]] AlgoBase detects that target task is already marked as done.
++
+[none]
+** 2c1. AlgoBase informs user that the update is unsuccessful because the task is already done.
++
+Use case ends.
 
 [discrete]
-=== Use Case 17: Mark Tasks as Undone in Plan
+=== Use Case 16: Mark Tasks as Undone in Plan
 
 *MSS*
 
@@ -1298,13 +1319,16 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. Similar to `2a` in Use Case 8.
+* 2a. Similar to <<uc-11-3a, 3a>> in <<uc-11, Use Case 11>>.
 
 [none]
-* 2b. Similar `2b` in Use Case 8.
+* 2b. Similar <<uc-12-2b, 2b>> in <<uc-12, Use Case 12>>.
+
+[none]
+* 2c. Similar <<uc-15-2c, 2c>> in <<uc-15, Use Case 15>>.
 
 [discrete]
-=== Use Case 18: Move Tasks between Plans
+=== Use Case 17: Move Tasks between Plans
 
 *MSS*
 
@@ -1318,16 +1342,19 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. Similar to `2a` in Use Case 8.
+* 2a. Similar to <<uc-11-3a, 3a>> in <<uc-11, Use Case 11>>.
 
 [none]
-* 2b. Similar to `2b` in Use Case 8.
+* 2b. Similar to <<uc-12-2b, 2b>> in <<uc-12, Use Case 12>>.
 
 [none]
-* 2c. Similar to `2c` in Use Case 8.
+* 2c. Similar to <<uc-12-2c, 2c>> in <<uc-12, Use Case 12>>.
+
+[none]
+* 2d. Similar to <<uc-11-3b, 3b>> in <<uc-11, Use Case 11>>.
 
 [discrete]
-=== Use Case 19: Set Current Plan in Main Display
+=== Use Case 18: Set Current Plan in Main Display
 
 *MSS*
 
@@ -1340,10 +1367,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 2a. Same as `2a` in Use Case 9.
+* 2a. Similar to <<uc-11-3a, 3a>> in <<uc-11, Use Case 11>>.
 
 [discrete]
-=== Use Case 20: Switch between View of Items
+=== Use Case 19: Switch between View of Items
 
 *MSS*
 
@@ -1358,6 +1385,16 @@ Use case ends.
 +
 [none]
 ** 2a1. AlgoBase informs user that the specified view of items does not exist.
++
+Use case ends.
+
+[discrete]
+=== Use Case 20: See details of an item
+
+*MSS*
+
+1.  User requests to see the details of a specified item from the list of items.
+2.  AlgoBase displays the details of that item.
 +
 Use case ends.
 
@@ -1454,7 +1491,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Adding a problem
+=== Adding problems
 
 . Adding a new problem to AlgoBase.
 .. Test case: `addprob n/Sequences d/find number of inversions t/algorithm` +
@@ -1462,7 +1499,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `addprob n/ d/unnamed problem` +
 Expected: No problem is added. The problem's name shouldn't be blank. Error details shown in the status message.
 
-=== Deleting a problem
+=== Deleting problems
 
 . Deleting a problem from AlgoBase.
 .. Prerequisites: List all problems using the `listprob` or `findprob` or  `sortprob` command. Multiple problems in the list.
@@ -1473,7 +1510,7 @@ Expected: No problem is added. The problem's name shouldn't be blank. Error deta
 .. Other incorrect delete commands to try: `delete`, `deletedeleteprob x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-=== Editing a problem
+=== Editing problems
 
 . Changing fields of an existing problem in AlgoBase.
 .. Prerequisites: List all problems using the `listprob` or `findprob` or  `sortprob` command. Multiple problems in the list.
@@ -1502,7 +1539,7 @@ Expected: All problems in AlgoBase are listed in the problem panel.
 .. Test case: `sortprob m/name m/diff` +
    Expected: The current problem list remains unchanged and an error is thrown to inform the user that the method name is incorrect.
 
-=== Adding a tag
+=== Adding tags
 
 . Adding a tag to the existing AlgoBase
 
@@ -1511,7 +1548,7 @@ Expected: All problems in AlgoBase are listed in the problem panel.
 .. Test case: type in `addtag t/test c/BLUE` for twice +
    Expected: Tag [test] already exists in AlgoBase.
 
-=== Deleting a tag
+=== Deleting tags
 
 . Deleting a tag in the existing AlgoBase
 
@@ -1520,8 +1557,7 @@ Expected: All problems in AlgoBase are listed in the problem panel.
 .. Test case: `deletetag 9999` +
    Expected: The Tag index provided is invalid
 
-
-=== Editing a tag
+=== Editing tags
 
 . Editing a tag in the existing AlgoBase
 .. Test case: `edittag 1 t/edited c/RED` +
@@ -1628,13 +1664,91 @@ Expected: The starting date of the first displayed plan is changed to `2019-01-3
 Expected: All plans in Algobase are listed in the plan display tab.
 // end::plan_test[]
 
+=== Setting a plan as current plan
+.. Prerequisites
+... There are exactly 2 training plans in AlgoBase.
+.. Test case: `setplan 2` +
+   Expected: Plan 2 is set as the current plan. The task management pane is updated.
+Current plan in the task management is updated to plan 1.
+.. Test case: `setplan 20` +
+   Expected: No task is added. Error details shown in the status message, indicating that the given plan index is invalid.
+
+=== Adding a task to an existing plan
+.. Prerequisites
+... There is at least 1 training plan and 10 problems in AlgoBase.
+... Plan 1 is empty.
+... Start and end dates of plan 1 are `2019-11-15` and `2019-12-15` respectively.
+.. Test case: `addtask plan/1 prob/1` +
+   Expected: A new task is created from problem 1 with due date on `2019-12-15`, and added to task list in plan 1.
+Current plan in the task management is updated to plan 1.
+.. Test case: `addtask plan/1 prob/2 due/3030-01-01` +
+   Expected: No task is added. Error details shown in the status message, indicating that the due date is not within the range of plan.
+
+=== Editing due date of a task
+.. Prerequisites
+... There is at least 1 training plan in AlgoBase.
+... Plan 1 has at least 1 task.
+... Start and end dates of plan 1 are `2019-11-15` and `2019-12-15` respectively.
+.. Test case: `edittask plan/1 task/1 due/2019-11-20` +
+   Expected: The due date of the first task in plan 1 is updated to `2019-11-20`.
+.. Test case: `edittask plan/1 task/1 due/3030-01-01` +
+   Expected: Error details shown in the status message, indicating that the due date is not within the range of plan.
+
+=== Deleting a task
+.. Prerequisites
+... There is exactly 1 training plan in AlgoBase.
+... Plan 1 has at least 1 task.
+.. Test case: `deletetask plan/1 task/1` +
+   Expected: The first task in plan 1 is deleted.
+.. Test case: `deletetask plan/100 task/1` +
+   Expected: Error details shown in the status message, indicating that the plan index is invalid.
+
+=== Marking a task as done
+.. Prerequisites
+... There is at least 1 training plan in AlgoBase.
+... Plan 1 has at least 2 tasks.
+... The first task in plan 1 is not yet done.
+... The second task in plan 1 is already done.
+.. Test case: `donetask plan/1 task/1` +
+   Expected: The first task in plan 1 is marked as done.
+.. Test case: `donetask plan/1 task/2` +
+   Expected: Error details shown in the status message, indicating that the specified task is already done.
+
+=== Marking a task as undone
+.. Prerequisites
+... There is at least 1 training plan in AlgoBase.
+... Plan 1 has at least 2 tasks.
+... The first task in plan 1 is already done.
+... The second task in plan 1 is not yet done.
+.. Test case: `undonetask plan/1 task/1` +
+   Expected: The first task in plan 1 is marked as undone.
+.. Test case: `undonetask plan/1 task/2` +
+   Expected: Error details shown in the status message, indicating that the specified task is not yet done.
+
+=== Copying a task between plans
+.. Prerequisites
+... There are at least 2 training plans in AlgoBase.
+... Plan 1 has at least 2 tasks.
+... Plan 2 has exactly 1 task, which is the same the the first task in plan 1.
+.. Test case: `copytask task/2 from/1 to/2` +
+   Expected: The second task in plan 1 is copied to plan 2.
+.. Test case: `copytask task/1 from/1 to/2` +
+   Expected: Error details shown in the status message, indicating that the specified task is already in plan 2.
+
+=== Moving a task between plans
+.. Prerequisites
+... There are at least 2 training plans in AlgoBase.
+... Plan 1 has at least 2 tasks.
+... Plan 2 has exactly 1 task, which is the same the the first task in plan 1.
+.. Test case: `movetask task/2 from/1 to/2` +
+   Expected: The second task in plan 1 is copied to plan 2.
+.. Test case: `movetask task/1 from/1 to/2` +
+   Expected: Error details shown in the status message, indicating that the specified task is already in plan 2.
+
 === Saving Data
-
 . Dealing with missing/corrupted data files
-
 .. Delete the `data` folder in project root folder and launch AlgoBase. +
    Expected: No errors shown. A new data file is created silently.
-
 .. Delete some mandatory fields in the data file located at `data/algobase.json` and launch AlgoBase. +
    Expected: Error details shown in the status message, indicating corrupted data file.
 

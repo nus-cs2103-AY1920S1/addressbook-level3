@@ -77,7 +77,7 @@ public class AddTaskCommand extends Command {
         LocalDate taskDate = addTaskDescriptor.targetDate;
         LocalDate planDate = planToUpdate.getEndDate();
         if (taskDate != null) {
-            if (!planToUpdate.checkWithinDateRange(taskDate)) {
+            if (!planToUpdate.checkIsWithinDateRange(taskDate)) {
                 throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
             }
             task = new Task(problem, taskDate, false);

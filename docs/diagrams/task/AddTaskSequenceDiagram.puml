@@ -4,7 +4,7 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AlgoBaseParser" as AlgoBaseParser LOGIC_COLOR
-participant "addTaskCommand:AddTaskCommand" as AddTaskCommand LOGIC_COLOR
+participant "command:AddTaskCommand" as AddTaskCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -13,10 +13,10 @@ participant ":AlgoBase" as AlgoBase MODEL_COLOR
 participant ":PlanList" as PlanList MODEL_COLOR
 end box
 
-[-> LogicManager : execute(addTask)
+[-> LogicManager : execute(addtask)
 activate LogicManager
 
-LogicManager -> AlgoBaseParser : parseCommand(addTask)
+LogicManager -> AlgoBaseParser : parseCommand(addtask)
 activate AlgoBaseParser
 
 create AddTaskCommand
@@ -26,19 +26,19 @@ activate AddTaskCommand
 AddTaskCommand --> AlgoBaseParser
 deactivate AddTaskCommand
 
-AlgoBaseParser --> LogicManager : addTaskCommand
+AlgoBaseParser --> LogicManager : command
 deactivate AlgoBaseParser
 
 LogicManager -> AddTaskCommand : execute()
 activate AddTaskCommand
 
-AddTaskCommand -> Model : updateTasks(tasks, originalPlan)
+AddTaskCommand -> Model : updateTasks(tasks, plan)
 activate Model
 
-Model -> AlgoBase : updateTasks(tasks, originalPlan)
+Model -> AlgoBase : updateTasks(tasks, plan)
 activate AlgoBase
 
-AlgoBase -> PlanList : setPlan(originalPlan, updatedPlan)
+AlgoBase -> PlanList : setPlan(plan, updatedPlan)
 activate PlanList
 
 PlanList --> AlgoBase

@@ -23,7 +23,7 @@ class JsonAdaptedTask {
     private final String id;
     private final String problemId;
     private final String dueDate;
-    private final String isSolved;
+    private final String isDone;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given Task details.
@@ -32,11 +32,11 @@ class JsonAdaptedTask {
     public JsonAdaptedTask(@JsonProperty("id") String id,
                            @JsonProperty("problemId") String problemId,
                            @JsonProperty("dueDate") String dueDate,
-                           @JsonProperty("isSolved") String isSolved) {
+                           @JsonProperty("isDone") String isDone) {
         this.id = id;
         this.problemId = problemId;
         this.dueDate = dueDate;
-        this.isSolved = isSolved;
+        this.isDone = isDone;
     }
 
     /**
@@ -45,8 +45,8 @@ class JsonAdaptedTask {
     public JsonAdaptedTask(Task task) {
         id = task.getId().toString();
         problemId = task.getProblem().getId().toString();
-        dueDate = task.getTargetDate().format(ParserUtil.FORMATTER);
-        isSolved = Boolean.toString(task.getIsSolved());
+        dueDate = task.getDueDate().format(ParserUtil.FORMATTER);
+        isDone = Boolean.toString(task.getIsDone());
     }
 
     /**
@@ -58,7 +58,7 @@ class JsonAdaptedTask {
         final Id modelId = retrieveId(id);
         final Problem modelProblem = algoBase.findProblemById(retrieveId(problemId));
         final LocalDate modelDueDate = retrieveDate(dueDate);
-        final boolean modelIsSolved = retrieveIsSolved(isSolved);
+        final boolean modelIsSolved = retrieveIsDone(isDone);
 
         return new Task(modelId, modelProblem, modelDueDate, modelIsSolved);
     }
@@ -106,16 +106,16 @@ class JsonAdaptedTask {
     /**
      * Converts a boolean in string format to a boolean.
      *
-     * @param isSolved boolean in string format.
+     * @param isDone boolean in string format.
      * @return the corresponding boolean.
      * @throws IllegalValueException if {@code date} is invalid.
      */
-    private boolean retrieveIsSolved(String isSolved) throws IllegalValueException {
-        if (isSolved == null) {
+    private boolean retrieveIsDone(String isDone) throws IllegalValueException {
+        if (isDone == null) {
             throw new IllegalValueException(
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, "IsSolved"));
         }
 
-        return Boolean.parseBoolean(isSolved);
+        return Boolean.parseBoolean(isDone);
     }
 }

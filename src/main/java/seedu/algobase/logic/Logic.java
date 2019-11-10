@@ -65,11 +65,11 @@ public interface Logic {
     /** Returns the current plan. */
     StringProperty getCurrentPlan();
 
-    /** Returns the number of solved tasks in current plan. */
-    IntegerProperty getCurrentSolvedCount();
+    /** Returns the number of done tasks in current plan. */
+    IntegerProperty getCurrentDoneCount();
 
-    /** Returns the number of unsolved tasks in current plan. */
-    IntegerProperty getCurrentUnsolvedCount();
+    /** Returns the number of undone tasks in current plan. */
+    IntegerProperty getCurrentUndoneCount();
 
     /** Returns the total number of tasks in current plan. */
     IntegerProperty getCurrentTaskCount();

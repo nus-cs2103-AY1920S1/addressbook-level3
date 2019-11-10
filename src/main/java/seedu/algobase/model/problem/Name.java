@@ -4,19 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Problem's name in the algobase.
+ * Represents a Problem's name in the AlgoBase.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name implements Comparable<Name> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters spaces and underscores, and it should not be blank";
+        "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * A name is any combination of the following characters: 0-9, A-Z, a-z, ', . or whitespace.
+     * A name is any combination of alphanumeric characters or whitespace.
      * A name must contain at least one non-whitespace character.
      */
-    public static final String VALIDATION_REGEX = "^([0-9A-Za-z\\'\\.]+(\\s)*)*$";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String fullName;
 

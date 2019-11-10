@@ -31,7 +31,6 @@ class NameTest {
         assertFalse(Name.isValidName("*Subset Sum*")); // contains non-whitelisted characters
 
         // valid name
-        assertTrue(Name.isValidName("'.")); // "," and "." are allowed
         assertTrue(Name.isValidName("VertexCover")); // only alphabets
         assertTrue(Name.isValidName("Dominating Set")); // alphabets with spaces
         assertTrue(Name.isValidName("123456789")); // only numbers

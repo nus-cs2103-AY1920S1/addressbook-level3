@@ -73,7 +73,7 @@ public class Plan {
      * Check whether a given date lies inside its own date range.
      * @return true/false based on whether the given date is within plan date range.
      */
-    public boolean checkWithinDateRange(LocalDate date) {
+    public boolean checkIsWithinDateRange(LocalDate date) {
         requireAllNonNull(date);
 
         return date.compareTo(this.getStartDate()) >= 0 && date.compareTo(this.getEndDate()) <= 0;
@@ -116,19 +116,17 @@ public class Plan {
     }
 
     /**
-     * Returns number of solved tasks within plan.
-     * @return number of solved tasks.
+     * Returns number of done tasks within plan.
      */
-    int getSolvedTaskCount() {
-        return (int) this.getTasks().stream().filter(Task::getIsSolved).count();
+    int getDoneTaskCount() {
+        return (int) this.getTasks().stream().filter(Task::getIsDone).count();
     }
 
     /**
-     * Returns number of unsolved tasks within plan.
-     * @return number of unsolved tasks.
+     * Returns number of undone tasks within plan.
      */
-    int getUnsolvedTaskCount() {
-        return (int) this.getTasks().stream().filter((task) -> !task.getIsSolved()).count();
+    int getUndoneTaskCount() {
+        return (int) this.getTasks().stream().filter((task) -> !task.getIsDone()).count();
     }
 
     public Id getId() {

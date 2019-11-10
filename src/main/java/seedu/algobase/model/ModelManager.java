@@ -310,13 +310,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public IntegerProperty getCurrentSolvedCount() {
-        return this.algoBase.getCurrentSolvedCount();
+    public IntegerProperty getCurrentDoneCount() {
+        return this.algoBase.getCurrentDoneCount();
     }
 
     @Override
-    public IntegerProperty getCurrentUnsolvedCount() {
-        return this.algoBase.getCurrentUnsolvedCount();
+    public IntegerProperty getCurrentUndoneCount() {
+        return this.algoBase.getCurrentUndoneCount();
     }
 
     @Override
