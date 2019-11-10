@@ -420,7 +420,7 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     }
 
     /**
-     * Provides <code>addTxn(amount, direction, person, { description, date, paid })
+     * Provides <code>addLoan(amount, direction, person, { description, date, paid })
      * -> Loan</code>.
      */
     private Loan scriptAddLoan(long inAmount, String direction, String person, Object... optional) throws
