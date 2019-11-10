@@ -153,7 +153,7 @@ public class ModelManager implements Model {
                     return true;
                 }
             }
-        } catch (Exception e) {
+        } catch (NoSuchIndexException e) {
             return false;
         }
         return false;
