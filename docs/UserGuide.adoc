@@ -38,12 +38,20 @@ image::Ui.png[width="750"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all appointments.
-* **`tab` ** `b/game`: switches main window to start window of the game.
-* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 a/Jason | Harry d/Meeting on Monday a/HIGH` : adds an engagement to the storage with an engagement type of `Appointment` followed by start time and end time 09-11-2019-12:00 ~ 09-11-2019-13:30, attendee as `Jason` and `Harry`, description written as `Meeting on Monday`, priority of `HIGH`.
-* **`pdf` ** `i/1 t/Jason f/Harry`: generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
-* **`delete`** `i/3` : deletes the 3rd appointment shown in the current list.
-* *`exit`* : exits the app.
+* *`list`* : Lists all appointments.
+* **`tab` ** `b/game`: Switches main window to start window of the game.
+* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 l/NUS a/Jason|Harry d/Meeting on Monday p/HIGH` : Adds an engagement to the
+engagements list with the following details: +
+Engagement type: Appointment
+Start time: 09/11/2019 at 1200 hours
+End time: 09/11/2019 at 1330 hours
+Location: NUS
+Attendees: Jason and Harry
+Descrption: Meeting on Monday
+Priority: High
+* **`pdf` ** `i/1 t/Jason f/Harry`: Generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
+* **`delete`** `i/3` : Deletes the 3rd appointment shown in the current list.
+* *`exit`* : Exits the app.
 
 Refer to <<Features>> for details of each command.
 //end::quick-start[]
