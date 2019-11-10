@@ -424,7 +424,8 @@ Creates a new meme with all the added text applied. The new meme will be saved i
 Format: `create [d/DESCRIPTION] [t/TAG]...`
 
 ****
-* This command does not modify the template you used to start the creation session.
+* This command does not modify the template you used to start the creation session. You can use the same template to make more memes.
+* You will be directly to view the meme you have created. To continue making new memes, use `tab templates` to go to the templates tab.
 ****
 
 Examples:

@@ -51,7 +51,8 @@ public class CreateCommand extends Command {
         }
         Meme newMeme = new Meme(new ImagePath(newPath.toString()), description, tags);
         model.addMeme(newMeme);
-        model.setContext(ModelContext.CONTEXT_TEMPLATES);
+        model.setViewableMeme(newMeme);
+        model.setContext(ModelContext.CONTEXT_VIEW);
         CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, newMeme.toString()));
         model.commitWeme(result.getFeedbackToUser());
         return result;
