@@ -467,6 +467,14 @@ Adds a Favorite tag to the second bookmark in the bookmark manager.
 === Folders
 
 The following commands carry out operations on folders in Mark.
+The results of these operations can be viewed in the folder hierarchy of dashboard tab.
+
+IMPORTANT: The bookmarks that are displayed in the folder hierarchy correspond to the bookmarks in the bookmarks list on the left. +
+ +
+For example, if you have have just performed a `find` command and the bookmark list shrinks from 100 entries to just 10, the folder hierarchy will also
+shrink from showing 100 bookmarks to 10.
+
+TIP: You can use the `list` command to see all your bookmarks in the folder hierarchy.
 
 ==== Expanding the folder hierarchy: *`expand`*
 

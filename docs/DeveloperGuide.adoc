@@ -455,7 +455,14 @@ There are hence a few alternatives in which we can combine these elements and st
 
 // tag::folders[]
 === Folders feature
+
+This section aims to explore the implementation of Mark's folders and some design considerations.
+
 ==== Implementation
+
+The following two sections will explain in more detail how the backend and frontend of this feature works.
+
+===== Model implementation of folders
 
 A bookmark can be in a folder, and a folder can be nested within other folders for traditional directory organization.
 
@@ -490,18 +497,54 @@ NOTE: The lifeline for `AddFolderCommand` should end at the destroy marker (X) b
 
 Finally, the user sees his folder added successfully in the folder hierarchy.
 
-==== Design Considerations
+===== UI implementation of the expand command
+
+Mark displays the folders and their bookmarks in a JavaFX `TreeView`, and listens for any updates to the bookmarks
+or the folder structure via `Observable` s so that the UI can also be updated accordingly.
+
+As Mark is mainly a CLI-based application, the `expand` command is provided to allow users to "click" on all unexpanded folders.
+
+As the underlying folder structure is not altered, `Oberservable` s cannot help us and so the command must send a signal to the UI that
+an `expand` command needs to be performed.
+
+Then, the following method is called to perform the expansion:
+
+.Code snippet from `seedu.mark.ui.FolderStructureTreeView`
+```java
+ private void expand(TreeItem<String> node, int levels) {
+    if (levels <= 0) {
+        return;
+    }
+    if (node.isExpanded()) {
+        node.getChildren().forEach(child -> expand(child, levels));
+    } else {
+        node.expandedProperty().set(true); // we expand it
+        // make sure all children are not expanded
+        node.getChildren().forEach(child -> child.setExpanded(false));
+        expand(node, levels - 1);
+    }
+}
+```
+
+The method recursively expands a folder, and then recursively calls itself on all of that folder's subfolders until the desired level of expansion is achieved.
+
+==== Design considerations
 
 The following are a few design considerations made in deciding how to implement the folders feature:
 
-===== Aspect: How the folder hierarchy is saved into storage.
+===== Aspect: How the folder hierarchy is saved into storage
 
 * **Alternative 1 (current choice):** Saves bookmark folder as its own field, and the hierarchy as a separate data structure.
-** Pros: Easy to implement
-** Cons: Easy for model to get into invalid state (e.g. bookmark has a folder that is not in the hierarchy)
-* **Alternative 2:** Change the bookmarks from being stored in a list to being stored as a hierarchy
-** Pros: Single source of truth, its folder is simply where it's located
-** Cons: The whole `BookmarkList` abstraction will have to be rewritten
+** Pros: Easy to implement. Adding another field to a bookmark is simple, and storing the folder structure
+on its own makes it more modular and easy to test as well.
+** Cons: Easy for model to get into invalid state. For example, when renaming folders, the bookmarks containing the old folder names needs to be updated separately.
+This leads to tight coupling and potential future maintenance issues.
+* **Alternative 2:** Change the bookmarks from being stored in a list to being stored in a tree structure.
+** Pros: Single source of truth, a bookmark's folder is simply which part of the tree it resides in. When a folder is renamed,
+the bookmarks in that folder will still be in the same folder, so there is no extra step needed to update the bookmarks. This reduces coupling between the bookmarks and folders too.
+** Cons: The whole `BookmarkList` abstraction will have to be rewritten. It is also significantly harder (in terms of ease of implementation) to filter, edit, and add bookmarks due to having to use
+more advanced tree traversal algorithms as compared to naive list or array operations.
+
 // end::folders[]
 
 // tag::reminder[]
@@ -1120,7 +1163,13 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+//start AB3 test cases
+
+=== Testing of AddressBook 3 features
+
+The following are some tests for the original AddressBook 3.
+
+==== Launch and Shutdown
 
 . Initial launch
 
@@ -1134,9 +1183,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
-=== Deleting a bookmark
+==== Deleting a bookmark
 
 . Deleting a bookmark while all bookmarks are listed
 
@@ -1147,6 +1194,77 @@ _{ more test cases ... }_
    Expected: No bookmark is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
+
+//end AB3 test cases
+
+=== Testing of folders
+
+TIP: The `ROOT` folder is the top-level folder where all other folders are descendents of. It cannot be added, deleted, edited, or be renamed to. +
+
+Do use `ROOT` as a folder name in folder commands in testing.
+
+==== Expanding the folder hierarchy
+
+. Expanding the folder hierarchy all the way
+
+.. Prerequisites: There is at least one folder not expanded.
+.. Test case: `expand 9999` (assuming you have less than 9999 levels of folders) +
+Expected: The folder hierarchy should show all folders expanded.
+
+. Expanding the folder hierarchy while there is nothing left to expand
+
+.. Prerequisites: Expand the folder hierarchy all the way, using `expand 9999` as in the previous test case.
+.. Test case: `expand` / `expand 10` / `expand 9999` +
+Expected: The folder hierarchy should not change.
+
+
+==== Collapsing the folder hierarchy
+
+. Collapsing the folder hierarchy all the way
+
+.. Prerequisites: There is at least one folder expanded.
+.. Test case: `collapse 9999` (assuming you have less than 9999 levels of folders) +
+Expected: The folder hierarchy should show all folders collapsed.
+
+. Collapsing the folder hierarchy while there is nothing left to collapse
+
+.. Prerequisites: Collapse the folder hierarchy all the way, using `collapse 9999` as in the previous test case.
+.. Test case: `collapse` / `collapse 10` / `collapse 9999` +
+Expected: The folder hierarchy should not change.
+
+==== Adding folders
+
+. Adding an existing folder
+
+.. Prerequisites: At least one folder exists in Mark. Let the name of the folder be `X`.
+.. Test case: `folder X` / `folder X p/ROOT` +
+Expected: An error occurs, saying `X` already exists.
+
+. Adding a folder without specifiying its parent
+.. Prerequisites: A folder named `X` that does not exist in Mark.
+.. Test case: `folder X` +
+Expected: Folder `X` is added successfully to the `ROOT` folder.
+
+==== Editing folders
+
+. Editing a non-existing folder
+
+.. Prerequisites: A folder named `X` that does not exist in Mark.
+.. Test case: `folder-edit X t/anything` +
+Expected: An error occurs, saying `X` does not exist.
+
+. Renaming an existing folder to another existing folder
+.. Prerequisites: Two different folders named `X` and `Y` that exist in Mark.
+.. Test case: `folder-edit X t/Y` / `folder-edit Y t/X` +
+Expected: An error occurs, saying that `X` (or `Y`) already exists.
+
+==== Deleting folders
+
+. Deleting a folder containing other bookmarks and/or folders
+
+.. Prerequisites: A folder named `X` that contains other subfolders.
+.. Test case: `folder-delete X` +
+Expected: An error occurs, saying that there are still bookmarks/folders in `X` and so cannot be deleted.
 
 _{ more test cases ... }_
 
