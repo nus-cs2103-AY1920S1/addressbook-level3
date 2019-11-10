@@ -1,7 +1,13 @@
 = Lim Jun Hup - Project Portfolio for Athletick
+
+++++
+<link rel="stylesheet"  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
+++++
+
 :site-section: AboutUs
 :imagesDir: ../images
 :sectnums:
+:icons: font
 ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
@@ -50,10 +56,10 @@ in relation to these enhancements.
 
 Note the following symbols and formatting used in this document:
 
-[horizontal]
 
 NOTE: This symbol indicates important information
 
+[horizontal]
 `command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.
 
 `[green]#component#`:: Green text with grey highlight indicates a component, class, object or method in the architecture of the application.
