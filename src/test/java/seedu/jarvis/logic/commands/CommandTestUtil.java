@@ -2,11 +2,6 @@ package seedu.jarvis.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_ADDRESS;
-import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_EMAIL;
-import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_NAME;
-import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_PHONE;
-import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_TAG;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.testutil.Assert.assertThrows;
@@ -30,11 +25,7 @@ public class CommandTestUtil {
     public static final String CCA_DESC = " " + PREFIX_CCA_NAME + VALID_CCA_DESC_TRACK;
     public static final String CCA_TYPE = " " + PREFIX_CCA_TYPE + VALID_CCA_TYPE_TRACK;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_NAME_DESC = " " + PREFIX_CCA_NAME + "James&"; // '&' not allowed in names
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
