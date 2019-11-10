@@ -22,4 +22,7 @@ public abstract class Approve extends ResolveCommand {
             + "Example: " + COMMAND_WORD_APPROVE_APPEAL + " " + PREFIX_MASS_RESOLVE + "C000001 C000012 C000007 C000020";
 
     public static final String MESSAGE_APPROVE_FAIL = "Not able to approve appeal %s.";
+    public static final String MESSAGE_ONLY_ONE_ITEM_ALLOWED = "Please approve only one index at a time.";
+    public static final String MESSAGE_ONLY_ARGUMENT_ALLOWED = "Please enter only one 'mass/' prefix at a time.";
+    public static final String MESAGE_NO_APPEALS_APPROVED = "No appeals were approved";
 }

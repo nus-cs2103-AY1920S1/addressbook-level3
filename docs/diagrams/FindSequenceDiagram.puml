@@ -11,15 +11,13 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":NameContainsKeywordsPredicate" as NameContainsKeywordsPredicate MODEL_COLOR
 participant ":ModuleContainsKeywordsPredicate" as ModuleContainsKeywordsPredicate MODEL_COLOR
-participant ":AppealContainsKeywordsPredicate" as AppealContainsKeywordsPredicate MODEL_COLOR
 end box
 
-[-> LogicManager : execute("clash a/c000001")
+[-> LogicManager : execute("find m/cs1010")
 activate LogicManager
 
-LogicManager -> MamsParser : parseCommand("clash a/c000001")
+LogicManager -> MamsParser : parseCommand("find m/cs1010")
 activate MamsParser
 
 create FindCommandParser
@@ -29,28 +27,14 @@ activate FindCommandParser
 FindCommandParser --> MamsParser
 deactivate FindCommandParser
 
-MamsParser -> FindCommandParser : parse("s/paul bob")
+MamsParser -> FindCommandParser : parse("m/cs1010")
 activate FindCommandParser
-
-create NameContainsKeywordsPredicate
-FindCommandParser -> NameContainsKeywordsPredicate
-activate NameContainsKeywordsPredicate
-
-NameContainsKeywordsPredicate -> FindCommandParser
-deactivate
 
 create ModuleContainsKeywordsPredicate
 FindCommandParser -> ModuleContainsKeywordsPredicate
 activate ModuleContainsKeywordsPredicate
 
 ModuleContainsKeywordsPredicate -> FindCommandParser
-deactivate
-
-create AppealContainsKeywordsPredicate
-FindCommandParser -> AppealContainsKeywordsPredicate
-activate AppealContainsKeywordsPredicate
-
-AppealContainsKeywordsPredicate -> FindCommandParser
 deactivate
 
 create FindCommand
@@ -72,13 +56,13 @@ deactivate MamsParser
 LogicManager -> FindCommand : execute()
 activate FindCommand
 
-FindCommand -> Model : updateFilteredStudentList(NameContainsKeywordsPredicate)
+FindCommand -> Model : updateFilteredModuleList(ModuleContainsKeywordsPredicate)
 activate Model
 
-Model -> NameContainsKeywordsPredicate : test()
-activate NameContainsKeywordsPredicate
+Model -> ModuleContainsKeywordsPredicate : test()
+activate ModuleContainsKeywordsPredicate
 
-NameContainsKeywordsPredicate -> Model
+ModuleContainsKeywordsPredicate -> Model
 deactivate
 
 Model --> FindCommand

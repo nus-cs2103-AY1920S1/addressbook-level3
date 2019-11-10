@@ -18,7 +18,12 @@ By: `ay1920s1-cs2103-t11-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-The Module Appeal Management System (MAMS) is a desktop app that aims to combine Command Line Interface (CLI) style commands with a dual-pane GUI for easy navigation of module appeals, module information, and student particulars. This app is particularly aimed towards *module appeal administrators who prefer to work through their heavy backload of module appeals without ever having to leave the comfort of the keyboard for their mouse*. The MAMS system can quickly bring up entire lists of students, appeals, and modules for side-by-side comparison, with specific display commands to view the expanded details of any particular object in question. Once reviewing of the information is complete, the MAMS system also provides a suite of commands for resolving appeals, overriding MC limits, and leaving special notes on students.
+The Module Appeal Management System (MAMS) is a desktop app that aims to combine Command Line Interface (CLI) style commands
+with a triple-pane GUI for easy navigation of appeals, module information, and student particulars. This app is particularly
+aimed towards *module appeal administrators who prefer to work through their heavy backload of module appeals without ever having to
+leave the comfort of the keyboard for their mouse*. The MAMS system can quickly bring up entire lists of students, appeals, and modules for
+side-by-side comparison, with specific display commands to view the expanded details of any particular object in question. The MAMS system also provides
+a suite of commands for resolving appeals, overriding MC limits, and leaving special notes on students.
 
 == Quick Start
 
@@ -199,6 +204,7 @@ image:HistoryWindowCopyDemo.png[width="790"]
 Command history is automatically saved to disk whenever it is updated with new inputs.
 Upon the next MAMS startup, previous command history will be loaded from disk as well.
 
+//tag::find[]
 === Find keywords: `find`
 
 Displays item(s) that contain(s) any of the keyword(s) in the specified list(s).
@@ -214,8 +220,8 @@ Tags can be in any sequence. User may enter multiple keywords after a tag.
 * `find` supports searching in multiple lists for multiple keywords. All items contains the keyword as a word or a part of word (See examples for more details).
 * Searching is case-insensitive.
 * In Appeal list, items that contains any of the keywords in Appeal Type, Appeal ID, Status(resolved/unresolved),
-Module Requested or Module to Drop will be displayed.
-* In Module list, items that contains any of the keywords in Module Code, Module Name, or Module Description wil be displayed.
+ Requested Module or Module to Drop will be displayed.
+* In Module list, items that contains any of the keywords in Module Code, Module Name, or Module Description (is be shown in expanded view) wil be displayed.
 * In Student list, items that contains any of the keywords in Student Name or Matric ID will be displayed.
 ====
 
@@ -251,6 +257,9 @@ All items containing "cs10" in Module list are displayed. (i.e. CS1010, CS1020, 
 CS2030 is also displayed since it contains "cs10" in its module description.
 
 image::FindDemoModuleSearch.png[width="790"]
+// end::find[]
+
+//tag::clash[]
 
 === Show clashes: `clash`
 
@@ -264,7 +273,7 @@ Checks if there is clash between the module which a student is requesting to add
 Only appeals requesting to add or drop module will need for clash checks. If the target appeal is not of any of the two
 types, a reminder message will be shown.
 
-Format: `clash [a/INDEX]`
+Format: `clash a/INDEX`
 
 Examples:
 
@@ -286,11 +295,11 @@ Checks if there are clashes in a student’s (pre-allocated) timetable. This com
 there is really a timetable clash in the student's pre-allocated timetable if the student submits an appeal to drop a
 pre-allocated module due to timetable clash.
 
-Format: `clash [s/INDEX]`
+Format: `clash s/INDEX`
 
 Examples:
 
-* `clash s/1`
+* `clash s/2`
 
 Sample output:
 
@@ -299,7 +308,7 @@ image::StudentClashDetected.png[width="790"]
 ==== Show clashes between 2 modules
 This command checks to see if the lecture slots of 2 modules clashes, and displays the result to the user.
 
-Format: `clash [m/MODULE_CODE] [m/MODULE_CODE]` or `clash [m/INDEX] [m/INDEX]`
+Format: `clash m/MODULE_CODE m/MODULE_CODE` or `clash m/INDEX m/INDEX`
 
 Examples:
 
@@ -309,12 +318,13 @@ Sample output:
 
 image::NoClashDetectedResponse.png[width="790"]
 
-* `clash m/1 m/2`
+* `clash m/1 m/3`
 
 Sample output:
 
 image::ModuleClashDetected.png[width="790"]
 
+// end::clash[]
 
 === Add or remove modules `addmod` & `removemod`
 
@@ -516,14 +526,14 @@ Sample Output: `Backup "data/mamshistory_Backup_1" restored!`
 - e.g. `find a/cs1010 m/data algorithm`
 
 * **clash**:
-** `clash [m/MODULE_CODE] [m/MODULE_CODE]` or `clash [m/INDEX] [M/INDEX]`
+** `clash m/MODULE_CODE m/MODULE_CODE` or `clash m/INDEX m/INDEX`
 - e.g. `clash m/cs1010 m/cs1020` shows clash details between CS1010 and CS1020;
 Or `clash m/2 m/4` to shows clash details between the modules at indices 2 and 4 respectively.
 
-** `clash [s/INDEX]`
+** `clash s/INDEX`
 - e.g. `clash s/2` to shows clash details in a student’s (prea-llocated) timetable.
 
-** `clash [a/INDEX]`
+** `clash a/INDEX`
 - e.g. `clash a/INDEX` to show if the module a student is requesting for clashes with his/her current existing modules.
 
 * **addmod**: `addmod s/STUDENT_ID m/MODULE_CODE` or `addmod s/STUDENT_INDEX m/MODULE_INDEX`
