@@ -547,18 +547,18 @@ immediately without pressing kbd:[Enter] key. This does not account for invalid 
 no meme of index 5.
 
 Example 1: +
-When user types in "a" in the meme context, the following suggestions will appear: +
+When user types in `a` in the meme context, the following suggestions will appear: +
 `add: adds a meme to Weme. +
 archive: archive a meme by index. +
 archives: list all archived memes.` +
-If kbd:[Tab] is pressed, "a" in the command box will be replaced by "add".
+If kbd:[Tab] is pressed, `a` in the command box will be replaced by `add`.
 
 Example 2: +
-When user types in "add p/pathToMeme t/c", the following suggestions will appear: +
+When user types in `add p/pathToMeme t/c`, the following suggestions will appear: +
 `CS +
 cute +
 CS2103` +
-If kbd:[Tab] is pressed, "c" in the command box will be replaced by "CS".
+If kbd:[Tab] is pressed, `c` in the command box will be replaced by `CS`.
 
 // end::command-suggestion[]
 == FAQ
