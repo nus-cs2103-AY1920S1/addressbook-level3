@@ -9,21 +9,16 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
-import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
 import seedu.moneygowhere.commons.core.index.Index;
 import seedu.moneygowhere.logic.commands.EditCommand.EditSpendingDescriptor;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
-import seedu.moneygowhere.model.ModelManager;
 import seedu.moneygowhere.model.SpendingBook;
-import seedu.moneygowhere.model.UserPrefs;
 import seedu.moneygowhere.model.spending.NameContainsKeywordsPredicate;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.testutil.EditSpendingDescriptorBuilder;
@@ -141,26 +136,4 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredSpendingList().size());
     }
-
-    @Test
-    public void getGraphData() {
-        Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
-        Command command = new ExitCommand();
-        assertEquals(command.getGraphData(model), null);
-    }
-
-    @Test
-    public void getStatsData() {
-        Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
-        Command command = new ExitCommand();
-        assertEquals(command.getStatsData(model), null);
-    }
-
-    @Test
-    public void getStatsMessage() {
-        Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
-        Command command = new ExitCommand();
-        assertEquals(command.getStatsMessage(model), null);
-    }
-
 }

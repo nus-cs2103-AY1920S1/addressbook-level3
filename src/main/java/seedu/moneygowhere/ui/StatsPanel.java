@@ -31,7 +31,7 @@ public class StatsPanel extends UiPart<Region> {
     /**
      * Constructs the pie chart with the data.
      */
-    private void loadData(LinkedHashMap<String, Double> statsData, String commandResult, Currency currency) {
+    private void loadData(LinkedHashMap<String, Double> statsData, String statsLabel, Currency currency) {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         for (Map.Entry<String, Double> i : statsData.entrySet()) {
@@ -43,8 +43,9 @@ public class StatsPanel extends UiPart<Region> {
         Text text = new Text();
         if (pieChartData.size() == 0) {
             text.setText("No data to show");
+            text.setStyle("-fx-font: 21 segoeui;");
         }
-        pieChart.setTitle(commandResult);
+        pieChart.setTitle(statsLabel);
         pieChart.setLegendVisible(false);
         panePlaceholder.getChildren().addAll(pieChart, text);
     }

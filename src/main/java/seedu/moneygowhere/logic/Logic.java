@@ -54,12 +54,12 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns a map of spending with key and value pair representing data for the statistics chart.
+     * Returns a map of spending with key and value pair for the statistics chart.
      */
     LinkedHashMap<String, Double> getStatsData();
 
     /**
-     * Returns a map of spending with key and value pair representing data for the graph.
+     * Returns a map of spending with key and value pair for the graph.
      */
     LinkedHashMap<String, Double> getGraphData();
 

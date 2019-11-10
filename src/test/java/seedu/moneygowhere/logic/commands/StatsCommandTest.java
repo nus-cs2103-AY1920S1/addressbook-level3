@@ -27,20 +27,18 @@ class StatsCommandTest {
     private Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
 
-    //Testing logic of calculating totalCost, budget and budgetRemaining
-    //Testing whether list has been filtered correctly (no date parameters specified)
-
     @Test
-    public void execute_statsMessage_success() {
-        CommandResult expectedCommandResult = new CommandResult("Statistics for all dates\n", false, true, false);
+    public void execute_noDateRange_success() {
+        CommandResult expectedCommandResult = new CommandResult("Statistics panel updated for all spending!\n"
+            + "To view statistics for a more specific date range, type: stats d/DATE_START d/DATE_END.\n",
+            false, true, false);
         assertCommandSuccess(new StatsCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
-    public void execute_statsMessageValidDateRange_success() {
+    public void execute_validDateRange_success() {
         CommandResult expectedCommandResult = new CommandResult(
-            String.format("Statistics for spending between %s and %s\n",
-            APPLE.getDate(), GLASSES.getDate()), false, true, false);
+            "Statistics panel updated for spending between specified date range!\n", false, true, false);
         assertCommandSuccess(new StatsCommand(APPLE.getDate(), GLASSES.getDate()), model,
             expectedCommandResult, expectedModel);
     }

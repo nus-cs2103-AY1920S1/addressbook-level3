@@ -1,0 +1,51 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":SpendingBook" as SpendingBook MODEL_COLOR
+participant ":Budget" as Budget MODEL_COLOR
+participant ":newSpending:Spending" as Spending MODEL_COLOR
+participant ":Cost" as Cost MODEL_COLOR
+end box
+
+[-> Model : addSpending(newSpending)
+activate Model
+
+Model -> SpendingBook : addSpending(newSpending)
+activate SpendingBook
+
+SpendingBook -> Budget : addSpending(newSpending)
+activate Budget
+
+Budget -> Budget : isSameMonth(newSpending)
+activate Budget
+deactivate Budget
+
+opt isSameMonth(newSpending)
+'  this is to place the box in the right place
+  Budget -[hidden]-> Budget
+  Budget -> Spending : getCost()
+  activate Spending
+    Spending --> Budget
+    deactivate Spending
+
+    Budget -> Cost
+    activate Cost
+
+    Cost --> Budget
+    deactivate Cost
+end
+
+
+
+Budget --> SpendingBook
+deactivate Budget
+
+SpendingBook --> Model
+deactivate SpendingBook
+
+[<-- Model
+deactivate Model
+
+@enduml

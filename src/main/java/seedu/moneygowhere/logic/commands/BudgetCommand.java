@@ -33,6 +33,7 @@ public class BudgetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+
         Currency currencyInUse = model.getCurrencyInUse();
 
         double budgetAmount = budget.getAmount();
@@ -42,7 +43,9 @@ public class BudgetCommand extends Command {
             budget = new Budget(budgetAmount / currencyInUse.rate);
         }
 
-        if (budget.getAmount() < 0 || budget.getAmount() > 1000000000) {
+        if (budget.getAmount() < 0 || budget.getAmount() > 1000000000
+                // to prevent user input of 0.0000001, which is displayed as 0
+                || (budget.getAmount() != 0 && budget.getAmount() < 0.01)) {
             throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_AMOUNT);
         }
 

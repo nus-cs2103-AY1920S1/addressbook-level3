@@ -38,8 +38,18 @@ class BudgetCommandTest {
     }
 
     @Test
-    public void execute_invalidBudgetAmount_fail() {
+    public void execute_veryLargeBudgetAmount_fail() {
         Budget budget = new Budget(1000000001);
+        BudgetCommand budgetCommand = new BudgetCommand(budget);
+
+        String expectedMessage = Messages.MESSAGE_INVALID_BUDGET_AMOUNT;
+
+        assertCommandFailure(budgetCommand, model , expectedMessage);
+    }
+
+    @Test
+    public void execute_invalidBudgetAmount_fail() {
+        Budget budget = new Budget(0.0000000000000000001);
         BudgetCommand budgetCommand = new BudgetCommand(budget);
 
         String expectedMessage = Messages.MESSAGE_INVALID_BUDGET_AMOUNT;

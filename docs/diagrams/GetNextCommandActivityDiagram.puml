@@ -1,0 +1,13 @@
+@startuml
+start
+:User presses the down key;
+:CommandHistory increments index;
+if () then (index not out of bounds)
+:retrieves command at index;
+:return command;
+else (index out of bounds)
+:index set to list size;
+:return empty string;
+endif
+stop
+@enduml

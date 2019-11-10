@@ -16,9 +16,9 @@ import seedu.moneygowhere.model.spending.Date;
 public class GraphCommandParser implements Parser<GraphCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the GraphCommand
-     * and returns a GraphCommand object
-     * for execution.
+     * and returns a GraphCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
+     * or if the date range provided is invalid.
      */
     public GraphCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);

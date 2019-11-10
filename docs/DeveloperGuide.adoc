@@ -16,6 +16,34 @@ endif::[]
 
 By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
+
+
+== Introduction
+
+*MoneyGoWhere* is a personal finance application targeted to students at the National University of Singapore (NUS).
+It allows students to keep track of all their spending and their related information such as date, cost and tags.
+Users can also set budget goals, view statistics, set reminders for bills and export their data to a .csv file.
+With an easy-to-use Graphical User Interface (GUI) and employment of Command Line Interface (CLI), users can easily navigate through the application, contributing to its user-friendliness and efficiency.
+
+
+== How To Use This Guide
+
+The following section details and previews a few legends and formatting that will
+be used throughout the user guide. These legends are used to represent
+special information such as tips.
+
+[NOTE]
+Important information that should be noted.
+
+[TIP]
+Tips that can help you better navigate the application.
+
+`test`: Command to be executed, or a component, class or object in the architecture of the application.
+
+====
+Useful information for a deeper understanding of the command.
+====
+
 == Setting up
 
 
@@ -66,9 +94,9 @@ After forking the repo, the documentation will still have the SE-EDU branding an
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `AY1920S1-CS2103T-F13-3/main`), you should do the following:
 
-. Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in link:https://github.com/AY1920S1-CS2103T-F13-3/main/blob/master/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+. Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/blob/master/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
-. Replace the URL in the attribute `repoURL` in link:https://github.com/AY1920S1-CS2103T-F13-3/main/blob/master/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:https://github.com/ay1920s1-cs2103t-f13-3/main/blob/master/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+. Replace the URL in the attribute `repoURL` in link:{repoURL}/blob/master/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/blob/master/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -253,13 +281,13 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 [[Implementation-UpDown]]
 === Up/Down key
 
-Similar to a typical Command Line Interface(CLI), the up and down key allows the users to through their previous commands.
+Similar to a typical Command Line Interface(CLI), the up and down key allows the users to cycle through their previous commands.
 
 ==== Implementation
 
 The up and down key mechanism is facilitated by the `logic` component of `MoneyGoWhere`.
-When ever a user inputted command is entered, it is stored internally as an `ArrayList` in the `commandHistory` component of `Storage`.
-`CommandHistory` uses an internal index to keep track of its current position in the list.
+When ever a user inputted command is entered, it is stored internally in a list in `commandHistory` component of `Storage`.
+`CommandHistory` has an internal index to keep track of its current position in the list.
 
 Additionally, it implements the following operations:
 
@@ -270,106 +298,55 @@ The index is initially set to -1, to indicate that that no user input has been i
 When ever a user inputs a command, the command is stored at the end of the list and
 the index is set to the size of the list, to indicate that there are no commands beyond after this point.
 
-When the up key is pressed, the index will decrement by 1 and show the user input command stored at that index.
-When the index is currently 0, the first user command inputted, pressing the up key will cause the index to move to -1.
-this returns the empty string, since there are no commands before this point. Any further up key press will have the same
+Calling `getNextCommand()` will cause the index to decrement by 1 and show the user input command stored at that index.
+When the index is currently 0, or the first user command inputted, pressing the up key will cause the index to result in -1.
+This returns the empty string, since there are no commands before this point. Any further up key press will have the same
 outcome, but the index will stay at -1.
 
-When the down key is pressed, the index will increment by 1 and the user inputted command at that index will be returned.
+Calling `getPrevCommand()` will cause the index to increment by 1 and the user inputted command at that index will be returned.
 If the index is currently the last possible value, the last user inputted command, pressing the down key will cause the
-index to increment by 1, which is beyond the index of the list, the empty string will be returned. Any further down key press
+index to increment by 1, which is outside the list, the empty string will be returned. Any further down key press
 will have the same outcome but the index will stay the list size or last possible index + 1.
-
-Given below is an example usage scenario and how the up/down mechanism behaves at each step:
-
-1. The user launches the application for the first time. The `commandHistory` will be initialized with an empty storage ,
-and the `commandHistoryIndex` will have value -1.
-
-image::UpDownState0.png[]
-Initially the storage is empty and the index is set to -1, as shown in the picture above.
-
-2. The user executes `delete 5` command to delete the 5th Spending in the spending book.
-The `delete 5` command is added to the back of  `commandHistory`.
-
-image::UpDownState1.png[]
-
-The user input is stored as a string in the commandHistoryList,
-and the index is set to the size of the list.
-
-[NOTE]
-The index is the same as the size of the list,
-but the index does not point to any particular command, since it is out of bounds
-
-3. The user executes `add n/David ...` to add a new Spending.
-The `add n/David ...` command is added to the back of  `commandHistory`.
-
-image::UpDownState2.png[]
-
-The user input is stored as a string in the commandHistoryList,
-and the index is set to the size of the list, in this case 2.
-
-[NOTE]
-Any command, whether it is valid or not will be stored in `CommandHistory`
-
-4. The user presses the up key.
-
-image::UpDownState3.png[]
-
-The index is decremented by 1, and the user input command at that point is returned
-
-5. The user presses the down key.
-
-image::UpDownState4.png[]
-The index is incremented by 1, resulting it to be out of bounds in the list,
-the empty string is returned.
 
 The following sequence diagram shows how the up/down key mechanism works:
 
+.Sequence diagram for `getNextCommand()`
 image::UpDownSequenceDiagram.png[]
+
+[NOTE]
 `getPrevCommand()` works the same way as the the sequence diagram above for `getNextCommand()`.
 The only difference is which commands get returned.
 
-==== Design Considerations
+The following steps explain the sequence diagram:
 
-===== Aspect: How up & undo executes
+1. The user presses the down key.
+2. `LogicManager` calls  `StorageManager#getNextCommand()`.
+3. `StorageManager#getNextCommand()` calls `CommandHistory#getNextCommand()`
+4. `CommandHistory` returns the next user inputted command.
+5. The returned command is then showed to the user in the `CommandBox`.
 
-[width="90%", cols="1,2,2", options="header",]
-|===
-|Aspect |Alternative 1 (current choice)|Alternative 2
+To summarize what happens when the user presses the down key:
 
-|Where the commands stored.
-|commands are stored in storage. +
-*Pros:* +
-Intuitive. +
-Follows current Architecture.
- +
-*Cons:* +
-more lines of code.
+.Activity diagram for `getNextCommand()`
+image::GetNextCommandActivityDiagram.png[]
 
-|Commands are stored in logic. +
-*Pros:* +
-less oop.
- +
-*Cons:* +
-Does not follow single responsibility principle
-|===
+The following steps explain the activity diagram:
 
-Option 1 was chosen due to it staying with the current Architecture.
+1. The user presses the down key.
+2. `CommandHistory` will increment its index.
+3. If the index is not out of bounds, the user inputted command at the index will be returned
+4. Else, the index is set to the size of the list, and an empty string is returned.
 // end::updown[]
 
 // tag::find[]
 [[Implementation-Find]]
 === Find feature
 
-The find feature allows the user to search for a spending based on specified field. If search results are too broad, fields may be combined to increase specificity.
-
-For example, `find n/Apple c/2.50-3.00` will find an `Apple` of cost range $`2.50` to $`3.00`.
+The find feature allows the user to search for a spending based on specified fields. More fields may added to increase specificity. For example, `find n/Apple c/2.50-3.00` will find an `Apple` of cost range $`2.50` to $`3.00`.
 
 ==== Implementation
 
-Find is supported by having a `Predicate` implemented for every field in Spending. Predicates are added based on valid input entered by the user.
-
-The `FindCommandParser` class stores these predicates, which are combined using Java 8 streams with an `AND` operation to form a more specific search query.
+Find is supported by having a `Predicate` implemented for every field in Spending. Predicates are added based on valid input entered by the user. The `FindCommandParser` class stores these predicates, which are combined using Java 8 streams with an `AND` operation to form a more specific search query.
 
 The sequence diagram below demonstrates how the `find` command is executed:
 
@@ -422,20 +399,17 @@ Able to manipulate objects directly +
   +
 *Cons:* +
 Poor abstraction +
-Change in comparison requires prior knowledge of the structure of the entire code  +
-Difficult to implement
+Requires prior knowledge of the structure of the entire code
 |===
 
-Alternative 1 was chosen as it was the easiest to implement and obeys the Open-Closed Principle (OCP) of the SOLID principles. Although Alternative 2 enables checking of the related objects directly, it has poor abstraction and changes in the function require prior knowledge of the structure of the entire code. It is also difficult to implement
+Alternative 1 was chosen as it was the easiest to implement and obeys the Open-Closed Principle (OCP) of the SOLID principles. Although Alternative 2 enables checking of the related objects directly, it has poor abstraction and changes in the function require prior knowledge of the structure of the entire code, making it difficult to implement.
 // end::find[]
 
 // tag::sort[]
 [[Implementation-Sort]]
 === Sort feature
 
-The sort feature allows users to sort all currently displayed Spending entries automatically. The default sorting sequence is by Date, followed by Cost. Both are in descending order.
-
-The user may choose to modify how the displayed entries are sorted using the `sort` command.
+The sort feature allows users to sort all currently displayed Spending entries automatically using the `sort` command. The default sorting sequence is by: Date (Descending), Cost (Descending), Name (Ascending) and Remark (Ascending).
 
 For example, `sort n/ASC d/DESC` applies sorting by name in ascending order, followed by Date in descending order. This applies to any future commands entered.
 
@@ -450,7 +424,7 @@ This operation is exposed in the `Model` interface as `Model#updateSortedSpendin
 At a high level view, `SpendingComparator` and `SortField` interacts in the manner shown below.
 
 .High-level view of package interaction
-image::SortPackageDiagram.png[Sort Package Diagram]
+image::SortPackageDiagram.png[Sort Package Diagram,width=20%]
 
 The sequence diagram below demonstrates how the `sort` command is executed:
 
@@ -490,7 +464,7 @@ The following steps explain the activity diagram:
 |How sort is executed
 |Set a new comparator +
 *Pros:* Easy to implement +
-*Cons:* `Comparator` is coupled to many field classes
+*Cons:* `SpendingComparator` may be updated when new fields are added
 |Sort the underlying list without a comparator +
 *Pros:* Able to manipulate objects directly +
 *Cons:* Violates fundamental Object Oriented Principles
@@ -504,11 +478,7 @@ The following steps explain the activity diagram:
 *Cons:* Large code structure changes
 |===
 
-Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. The only downside of this approach is that changing any field classes might require a change in the Comparator.
-
-In contrast, for Alternative 2, manipulating the internal elements of the list directly is dangerous and can cause unintended side effects.
-
-There was also a huge difference for the method design for sort, and Alternative 1 was the easier approach to avoid side effects in Alternative 2.
+Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. The only downside of this approach is that changing any field classes may require modifying `SpendingComparator`. In contrast, for Alternative 2, manipulating the internal elements of the list directly is dangerous and can cause unintended side effects. There was also a huge difference for the method design for sort, and Alternative 1 was the easier approach to avoid side effects in Alternative 2.
 // end::sort[]
 
 // tag::reminder[]
@@ -649,6 +619,10 @@ The `StatsCommandParser` differentiates these 2 commands based on whether a vali
 .Activity Diagram showing behaviour of StatsCommandParser
 image::StatsActivityDiagram.png[width="600"]
 
+. If a valid date range is provided in the `stats` command given by the user, `StatsCommand(DATE_START, DATE_END)` with the respective date parameters is created. The command will execute based on this date range.
+. If no date range is provided by the user, `StatsCommand()` is created, which will execute the command based on the whole date range in the list.
+. Else, if the parameters are invalid, a `ParseException` is thrown and the application waits for a new user input.
+
 The implementation of the Statistics feature can be split into 2 phases, preparation and execution. Given below is an explanation of how the Statistics mechanism behaves at each phase.
 
 ===== Preparation
@@ -661,7 +635,7 @@ image::StatsSequenceDiagram.png[]
 
 NOTE: The lifeline for `StatsCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-1. User first enters the command `stats d/01/01/2019 d/07/01/2019`.
+1. User first enters a `stats` command.
 
 2. `SpendingBookParser` will parse and identify the command as a `StatsCommand` and pass on the argument to `StatsCommandParser`.
 
@@ -669,7 +643,8 @@ NOTE: The lifeline for `StatsCommandParser` should end at the destroy marker (X)
 Otherwise, `StatsCommandParser` will verify whether the arguments provided were valid.
 .. If they are valid, `StatsCommand#StatsCommand(DATE_START, DATE_END)` is called to create a `StatsCommand` with the specified parameters.
 .. Else, a `ParseException` will be thrown and an error message will be shown to the user.
-4. `StatsCommand` is returned to `LogicManager` which then calls `StatsCommand#execute()`, which updates the `statsPredicate` in `Model`.
+4. `StatsCommand` is returned to `LogicManager` which then calls `StatsCommand#execute()`.
+5. `Model#updateFilteredSpendingList(predicate)` is subsequently called to update the list.
 
 ===== Execution
 
@@ -691,15 +666,16 @@ image::StatsDataSequenceDiagram.png[width = "600"]
 
 [width="90%", cols="1,2,2", options="header",]
 |===
-|Aspect |Alternative 1 (Current choice) |Alternative 2 (Planned for future releases)
+|Aspect |Alternative 1 (Current choice) |Alternative 2
 
-|How to handle statistics data and parameters
-|Data and each parameter is handled as separate objects +
-*Pros:* Easy to implement +
-*Cons:* Need to call multiple methods to get parameters
-|Create Statistics object which contains data and all the parameters +
-*Pros:* More scalable. Less method calls to get parameters +
-*Cons:* None
+|Visual Representation of Statistics
+|Represent data in the form of a pie chart. +
+*Pros:* Limits the number of tags to the tags that are the most significant. Will not encounter any errors in the event there is a large number of tags. +
+*Cons:* Unable to display the data of other tags that are less significant.
+
+|Represent data in the form of a table. +
+*Pros:* Able to view the data of more tags. +
+*Cons:* Less reader-friendly option due to the large amount of data. Data is not summarized easily for the user to analyze his spending habits.
 
 |===
 // end::statistics[]
@@ -717,6 +693,12 @@ The `GraphCommandParser` differentiates these 2 commands based on whether a vali
 .Activity Diagram showing behaviour of GraphCommandParser
 image::GraphActivityDiagram.png[width="600"]
 
+
+. If a valid date range is provided in the `graph` command given by the user, `GraphCommand(DATE_START, DATE_END)` with the respective date parameters is created. The command will execute based on this date range.
+. If no date range is provided by the user, `GraphCommand()` is created, which will execute the command based on the whole date range in the list.
+. Else, if the parameters are invalid, a `ParseException` is thrown and the application waits for a new user input.
+
+
 The implementation of the Graph feature can be split into 2 phases, preparation and execution. Given below is an explanation of how the Graph mechanism behaves at each phase.
 
 ===== Preparation
@@ -729,7 +711,7 @@ image::GraphSequenceDiagram.png[]
 
 NOTE: The lifeline for `GraphCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-1. User first enters the command `graph d/01/01/2019 d/07/01/2019`.
+1. User first enters a `graph` command.
 
 2. `SpendingBookParser` will parse and identify the command as a `GraphCommand` and pass on the argument to `GraphCommandParser`.
 
@@ -737,7 +719,8 @@ NOTE: The lifeline for `GraphCommandParser` should end at the destroy marker (X)
 Otherwise, `GraphCommandParser` will verify whether the arguments provided were valid.
 .. If they are valid, `GraphCommand#GraphCommand(DATE_START, DATE_END)` is called to create a `GraphCommand` with the specified parameters.
 .. Else, a `ParseException` will be thrown and an error message will be shown to the user.
-4. `GraphCommand` is returned to `LogicManager` which then calls `GraphCommand#execute()`, which updates the `statsPredicate` in `Model`.
+4. `GraphCommand` is returned to `LogicManager` which then calls `GraphCommand#execute()`.
+5. `Model#updateFilteredSpendingList(predicate)` is subsequently called to update the list.
 
 ===== Execution
 
@@ -755,8 +738,28 @@ image::GraphDataSequenceDiagram.png[width = "600"]
 
 4. Finally, the `graphData` is returned to the `MainWindow`. The data will be displayed on the Ui through `GraphPanel#loadData(graphData)` call.
 
+==== Design Considerations
+
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 (Current choice) |Alternative 2
+
+|Whether to merge Graph and Statistics features into one command
+|Distinct commands for Graph and Statistics features. +
+*Pros:* Distinct commands with similar parameters make it easy for the user to remember and use.
+One feature could be easily modified without affecting the other feature. +
+*Cons:* Code duplication due to similarity of implementation.
+
+|Merge Graph and Statistics features into one command. +
+*Pros:* Reduces code duplication due to  similarity of implementation. +
+*Cons:* Another parameter needed for user to indicate the mode he prefers to view his statistics.
+Difficult to modify one feature without needing to modify the other as well.
+
+|===
+
 // end::graph[]
 
+// tag::budget[]
 === Budget Feature
 The `Budget` component has two core features:
 
@@ -764,7 +767,7 @@ The `Budget` component has two core features:
 2. Calculating the remanding budget after all the spending in the same month.
 
 The budget component allows the users to modify the current monthly budget `budget AMOUNT` command, where AMOUNT is a
-double representing the desired monthly budget.
+double representing the desired monthly budget. The amount cannot exceed 1,000,000,000 Singapore dollars.
 
 For example `budget 10000` sets the current monthly budget to 10000.
 
@@ -774,43 +777,69 @@ the sum from the budget.
 ==== Current Implementation
 The current `Budget` component keeps track of three variables:
 
-1. the monthly budget
-2. the current month
-3. the sum of all spending in the same month.
+1. The monthly budget amount.
+2. The month the budget is set.
+3. The sum of all spending in the month.
 
-All of which are saved with the SpendingBook.
+The budget amount and the month the budget is set are saved in the save file, whereas the sum is not.
+Upon initialization, if a save file is found it will automatically set the monthly budget based on the save file's options.
+Once the save file is loaded, the program will check today's month.
+If the month has changed, the budget's set month will change to the current month, and the budget amount will carry over.
+Once the month has been set, it will go through all spending available and sum up all the spending that are in the set month.
+It will then keep track of this sum.
 
-Upon initialization, if a save file is found it will automatically set the monthly budget based on the
-save file's options. If the current month is different from the current month
-the total spending will reset to 0, but the monthly budget will remain the same.
-
-The sum of spending will only be modified when `add` and `delete` commands are called.
-
+Once done initializing, users can set a new monthly budget by executing the `budget` command.
 The sequence diagram below demonstrates how the budget command is executed:
 
 .Sequence Diagram when setting Budget
 image::SetBudgetSequenceDiagram.png[]
-The figure above shows the sequence of events that occur to set the monthly budget.
-The `LogicManager` receives the user input and passes it to the `SpendingBookParser` to parse the user input,
-resulting in a `BudgetCommand`.
-If the user input is valid, the command is then executed to access the Budget in Model and modify the value.
+The figure above shows the sequence of events that occur to set the monthly budget:
+
+1. User first enters "budget 100000".
+2. The `LogicManager` receives the user input and passes it to the `SpendingBookParser`, which passes it to `BudgeCommandParser`
+to parse the user input.
+3. If the user input is valid, a `BudgetCommand` is then created.
+4. The `BudgetCommand` is then executed.
+5. The Budget in Model then set to the new amount.
+
+Budget also keeps track of the sum of all spending in order to show the user how much budget the user has left.
+Initially, it has totaled up all spending in the save file, and then the value is modified with when `add`, `delete` and `edit` commands are called.
+
+The following sequence diagram will demonstrate how Budget modifies its value when the `add` command is used:
+
+.Sequence Diagram for `Budget` when `add` command is called
+image::BudgetAddSpendingSequenceDiagram.png[]
+The diagram above shows what happens when an `addCommand` is being executed. It focuses only on the components that affect `Budget`.
+
+When adding a new `Spending` the following steps happen:
+
+1. The new `Spending` is passed to Model to be added.
+2. The new `Spending` is then passed to `SpendingBook` to be added.
+3. SpendingBook passes the `Spending` to `Budget`.
+4. `Budget` checks whether the `Spending` is in the same month as it is set or not.
+5. If they are in the same month, the sum of `Budget` is updated accordingly.
+
+The same applies to `delete` commands, instead of adding to the sum, it is subtracting from the sum.
+As well as `edit` command, which utilizes both `add` and `delete`.
 
 ==== Design Consideration
 
 [width="90%", cols="1,2,2", options="header",]
 |===
-|Aspect |Alternative 1 (current choice) |Alternative 2
+|Aspect |Alternative 1 |Alternative 2
 
-|Method to calculate total spending
-|Keep track of the sum and modifies the sum when `add` and `delete` commands are added +
-Pros: does not waste time to calculate sum, easy to implement +
-Cons: none
+|Method to calculate sum of spending
+|Keep track of the sum and modifies the sum when `add`, `delete` and `edit` commands are called +
+Pros: Does not waste time to calculate sum, easy to implement. +
+Cons:
 |Calculate from `SpendingList` each time +
-Pros: seems intuitive +
-Cons: not efficient, requires Budget to access Model, resulting in circular dependency
+Pros: Seems intuitive. +
+Cons: Is not efficient, we need to go through the entire each time/
 
 |===
-The first option is chosen to prevent circular dependency.
+A combination of the two was chosen. During the initialization phase, we read through
+all spending available, but we handle `add`, `delete` and `edit` commands using option 1.
+// end::budget[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -915,24 +944,192 @@ Violates Single Responsibility Principle and Separation of Concerns as `HistoryM
 |===
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 == Documentation
 
-Refer to the guide <<Documentation#, here>>.
+
+We use asciidoc for writing documentation.
+
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+=== Editing Documentation
+
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+
+=== Editing Diagrams
+
+See <<UsingPlantUml#, UsingPlantUml.adoc>> to find out how to create and update the UML diagrams in the developer guide.
+
+=== Publishing Documentation
+
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+
+=== Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+
+.Saving documentation as PDF files in Chrome
+image::chrome_save_as_pdf.png[width="300"]
+
+[[Docs-SiteWideDocSettings]]
+=== Site-wide Documentation Settings
+
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+
+[TIP]
+Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of site-wide attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-name`
+|The name of the website.
+If set, the name will be displayed near the top of the page.
+|_not set_
+
+|`site-githuburl`
+|URL to the site's repository on https://github.com[GitHub].
+Setting this will add a "View on GitHub" link in the navigation bar.
+|_not set_
+
+|`site-seedu`
+|Define this attribute if the project is an official SE-EDU project.
+This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
+|_not set_
+
+|===
+
+[[Docs-PerFileDocSettings]]
+=== Per-file Documentation Settings
+
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+
+Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
+
+[TIP]
+Attributes left unset in `.adoc` files will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of per-file attributes, excluding Asciidoctor's built-in attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-section`
+|Site section that the document belongs to.
+This will cause the associated item in the navigation bar to be highlighted.
+One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
+
+_{asterisk} Official SE-EDU projects only_
+|_not set_
+
+|`no-site-header`
+|Set this attribute to remove the site navigation bar.
+|_not set_
+
+|===
+
+=== Site Template
+
+The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+You can modify them to change some properties of the site's design.
+
+The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
+
+[WARNING]
+====
+Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
+The SE-EDU team does not provide support for modified template files.
+====
+
 
 == Testing
 
-Refer to the guide <<Testing#, here>>.
+
+=== Running Tests
+
+There are two ways to run tests.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
+
+[NOTE]
+See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+
+=== Types of tests
+
+We have three types of tests:
+
+.  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `seedu.moneygowhere.commons.StringUtilTest`
+.  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `seedu.moneygowhere.storage.StorageManagerTest`
+.  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `seedu.moneygowhere.logic.LogicManagerTest`
+
+
+=== Troubleshooting Testing
+**Problem: Keyboard and mouse movements are not simulated on macOS Mojave, resulting in GUI Tests failure.**
+
+* Reason: From macOS Mojave onwards, applications without `Accessibility` permission cannot simulate certain keyboard and mouse movements.
+* Solution: Open `System Preferences`, click `Security and Privacy` -> `Privacy` -> `Accessibility`, and check the box beside `Intellij IDEA`.
+
+.`Accessibility` permission is granted to `IntelliJ IDEA`
+image::testfx-idea-accessibility-permissions.png[width="600"]
+
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
+=== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Documentation Previews
+
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/src/main/java/seedu/moneygowhere/MainApp.java[`MainApp.java`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+=== Managing Dependencies
+
+A project often depends on third-party libraries. For example, MoneyGoWhere depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+
+[loweralpha]
+. Include those libraries in the repo (this bloats the repo size)
+. Require developers to download those libraries manually (this creates extra work for developers)
 
 // tag::productscope[]
 [appendix]

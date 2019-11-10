@@ -16,7 +16,6 @@ endif::[]
 
 By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
-// tag::introduction[]
 == Introduction
 
 *MoneyGoWhere* is a personal finance application targeted to students at the National University of Singapore (NUS).
@@ -44,6 +43,8 @@ Tips that can help you better navigate the application.
 Useful information for a deeper understanding of the command.
 ====
 
+Without further ado, let's head over to <<Quick Start>> to get started!
+
 == Quick Start
 
 These steps will guide you in installing MoneyGoWhere on your computer.
@@ -69,9 +70,12 @@ e.g. typing *`help`* will display the help information.
 
 . When you are ready to get started on tracking your own finances, do type `clear` in the command box and press kbd:[Enter].
 This removes all the sample data from the application.
-. You can refer to <<Features>> for more details about each command.
 
-// end::introduction[]
+This is the end of the Quick Start tutorial. You can refer to <<Features>> for more details about each command.
+
+[NOTE]
+Your data is saved in the `data/` folder by default. You are advised not to modify any of the system created files within the folder,
+else *MoneyGoWhere* may not perform as expected.
 
 [[Features]]
 == Features
@@ -106,32 +110,39 @@ Help can be accessed from the menu bar by clicking on the `Help` button.
 // tag::flexibledateformats[]
 === Flexible date formats
 
-Whenever a particular command requires a `DATE` field, you can choose either of the following formats.
+Whenever a particular command requires a `DATE` field, you can choose either of the following formats in the table below.
 
-* *Formal Dates*
-** 1978-01-28
-** 1984/04/02
-** 1/02/1980 _(1st February 1980)_
-** 26/2/2019
-* *Relaxed Dates*
-** The 31st of April in the year 2008
-** 21 Nov 1997
-** Jan 21,'97
-** jan 1st
-** february twenty-eight
-* *Relative Dates*
-** next thursday/ last wednesday
-** today/ tomorrow/ yesterday
-** next week/ next month / next year
-** 3 days from now
-** three weeks ago
-* *Date Alternatives*
-** next wed or thurs
-** oct 3rd or 4th
-* *Prefixes*
-** day after/ the day before
-** the monday after/ the monday before
-** 2 fridays before/ 4 tuesdays after
+.Date format table
+[width="100%",cols="20%,80%",options="header"]
+|====
+|Date Type|Formats
+|*Formal Date* |
+1978-01-28 +
+1984/04/02 +
+1/02/1980 _(1st February 1980)_ +
+26/2/2019 +
+|*Relaxed Date* |
+The 31st of April in the year 2008 +
+21 Nov 1997 +
+Jan 21,'97 +
+jan 1st +
+february twenty-eight
+|*Relative Dates* |
+next thursday/ last wednesday +
+today/ tomorrow/ yesterday +
+next week/ next month / next year +
+3 days from now +
+three weeks ago
+|*Date Alternatives* |
+next wed or thurs +
+oct 3rd or 4th
+|*Prefixes* |
+day after/ the day before +
+the monday after/ the monday before +
+2 fridays before/ 4 tuesdays after
+|====
+
+Listed above are the date formats that can be used.
 
 [TIP]
 You do not need to specify which date format you would like to use as MoneyGoWhere will be able to differentiate it from the input received. However, if today is Wednesday and `wednesday` is entered, it will be considered next's week Wednesday.
@@ -141,6 +152,7 @@ MoneyGoWhere will also automatically check whether a given date is valid.
 Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019. MoneyGoWhere may automatically try to correct dates *best possible date*.
 // end::flexibledateformats[]
 
+// tag::updown[]
 === Going through your command history:
 Similar to a typical command line interface (CLI), the user may press the up and down key
 to go through the previous user input history, and display it in the command box. Pressing the up key would go back to the earlier user input command.
@@ -149,6 +161,7 @@ Whereas pressing the down key would move towards the most recent user input key.
 [NOTE]
 If the user is at the most recent, or the earliest user inputted command, then press the up and down key respectively,
 no text will be displayed.
+// end::updown[]
 
 === Adding a spending : `add`
 
@@ -183,7 +196,7 @@ Edits a spending at a specified index in the list. +
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the spending will be removed i.e adding of tags is not cumulative.
-* Tags can have up to 64 characters.
+* Tags can have up to 15 characters.
 * You can remove all the spending's tags by typing `t/` without specifying any tags after it.
 * If a spending date is in the future, it can only be up to end of this month.
 * Spending entries that are added using a different currency will have output displayed in SGD.
@@ -248,11 +261,11 @@ Sorts all spending based on a given order. +
 *Format:* `sort [PREFIX/SORT_ORDER]...`
 
 ****
+* At least one of the optional fields *must be provided*.
 * Valid prefixes are: Cost (`c`), Date (`d`), Name (`n`), Remarks (`r`).
 * Valid sort orders are: `ASC`, `DESC`.
-* At least one of the optional fields *must be provided*.
 * If the given sort order is `c/ASC n/DESC`, Cost will be sorted in ascending order, followed by name in descending order.
-* Sorting names or remarks by default will sort uppercase letters first, followed by lowercase letters.
+* Sorting names or remarks in Ascending order will sort uppercase letters first, followed by lowercase letters.
 ****
 
 *Examples:*
@@ -264,7 +277,12 @@ Sorts current spending displayed by Name in descending order.
 
 *Expected Output:*
 
-Spending entries are sorted based on the given order.
+An example is shown below.
+
+.Output of `sort n/ASC d/DESC`
+image::SortPreviewUG.png[width="350"]
+
+Spending entries are sorted based on the example above.
 
 // end::sort[]
 
@@ -276,40 +294,31 @@ Searches for spending based on given keywords, cost range, date range, remarks o
 *Format:* `find [n/NAME_KEYWORDS] [c/COST_MIN] [c/COST_MAX] [d/DATE_START] [d/DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
 
 ****
-* At least one search field must be present.
-* The search is case-insensitive. For example, `apple` and `Apple` will output the same search results.
-* The order of the keywords do not matter for name and remarks. For example, `ticket concert` will match `concert ticket`.
+* At least one search field must be present and the search is case-insensitive. For example, `apple` and `Apple` will output the same search results.
+* The order of the keywords do not matter for name and remarks. For example, `ticket concert` will match `concert ticket` and only full words will be matched. For example, `app` will not match `apple`.
 * Spending matching at least one keyword will be returned. For example, `Phone` will return `New Phone`, `Phone Bill`.
-* When searching for multiple tags, any tag listed will be matched along with the previous criteria. For example, if there the search keyword was `d/yesterday d/today t/food t/entertainment`, spending entries within `yesterday` and `today` that have either tags `food` or `entertainment` will be matched.
-* Only full words will be matched. For example, `app` will not match `apple`.
-* Date range can only be input in the following ways:
-
-** `d/DATE_START d/DATE_END`
-** `d/DATE_START to DATE_END`
-** `d/DATE_START - DATE_END`
-
-* Cost range can only be input in the following ways:
-
-** `c/COST_MIN c/COST_MAX`
-** `c/COST_MIN-COST_MAX`
-** `c/COST_MIN - COST_MAX`
+* When searching for multiple tags, any tag listed will be matched along with the previous criteria. For example, if the search keyword was `d/yesterday d/today t/food t/entertainment`, spending entries within `yesterday` and `today` that have either tags `food` or `entertainment` will be matched.
 ****
 
 [NOTE]
 DATE_START must be earlier or the same as DATE_END, and COST_MIN must be smaller or the same as COST_MAX.
 
+[TIP]
+Date range can be input in the following ways: +
+`d/DATE_START d/DATE_END` +
+`d/DATE_START to DATE_END` +
+`d/DATE_START - DATE_END`
+
+[TIP]
+Cost range can be input in the following ways: +
+`c/COST_MIN c/COST_MAX` +
+`c/COST_MIN-COST_MAX` +
+`c/COST_MIN - COST_MAX`
+
 *Examples:*
 
-* `find n/apple c/1.50-2.00 d/01/09/2019 d/30/09/2019` +
-Returns a list of spending with `apple` keyword within the cost range `1.50` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
 * `find n/Java book c/100.20-150.00 d/01/09/2019 - 30/09/2019` +
 Returns a list of spending with matching the keywords `Java` or `book` within the cost range `100.20` to `150.00` and date range within `01/09/2019` to `30/09/2019`.
-* `find n/apple c/1-2 d/01/09/2019 to 30/09/2019` +
-Returns a list of spending with `apple` keyword within the cost range `1.00` to `2.00` and date range within `01/09/2019` to `30/09/2019`.
-* `find r/breakfast meal` +
-Returns a list of spending with matching the keywords `breakfast` or `meal` in remarks.
-* `find t/food t/leisure` +
-Returns a list of spending with `food` or `leisure` tags.
 * `find d/yesterday d/today t/food t/leisure` +
 Returns a list of spending within `yesterday` and `today` that have `food` or `leisure` tags.
 
@@ -319,8 +328,11 @@ Spending entries which match the search criteria are listed.
 
 // end::find[]
 
+// tag::budget[]
 === Setting monthly budget : `budget`
-Sets a budget for the current month in Singapore dollars. +
+Sets a budget for the current month in the currency set . +
+The monthly budget cannot exceed 1,000,000,000 Singapore Dollars. +
+
 *Format:* `budget MONTHLY_BUDGET` +
 
 [NOTE]
@@ -333,15 +345,18 @@ Sets a budget of $`500000` for this month
 
 *Expected Output:*
 
-The budget for the current month is changed.
+The budget for the current month is changed to the set amount.
+// end::budget[]
 
+// tag::showbudget[]
 === Showing current budget : `showbudget`
-Returns the current monthly budget. +
+Returns the current monthly budget, total spending and remaining budget in Singapore Dollars. +
 *Format:* `showbudget`
 
 *Expected Output:*
 
-The budget for the current month is shown.
+The budget for the current month along with the total spending in the month as well as remaining budget is shown.
+// end::showbudget[]
 
 // tag::currency[]
 === Setting the currency : `currency`
@@ -373,8 +388,13 @@ Displays current stored exchange rates. +
 * If AMOUNT and CURRENCYCODE are specified, the indicated values are converted to SGD.
 * CURRENCYCODE can be `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
 * Entering `SGD` as CURRENCYCODE will display an error since the entered value is already in SGD.
-* Due to network limitations, exchange rates are fixed and locally stored. Note that exchange rates may vary across different websites.
 ****
+
+[TIP]
+Due to network limitations, exchange rates are fixed and locally stored. Exchange rates may also vary across different websites.
+
+[NOTE]
+v1.4 does not have networking support for exchange rates. This will be available from v2.0 onwards.
 
 *Example:*
 
@@ -394,6 +414,11 @@ All available exchange rates are shown, or a conversion of an input currency is 
 Organises the spending based on tags.
 A pie chart is generated, with each sector representing the total amount of money spent on a tag.
 This enables users to be more informed of their spending habits as they are now aware of where they have spent most of their money on.
+An example is shown below.
+
+.Output of `stats`
+image::stats.png[width="700"]
+
 
 *Format:* `stats d/DATE_START d/DATE_END`
 
@@ -427,13 +452,8 @@ The statistics panel will update with the currency set.
 
 * `stats`: Generates statistics for all spending.
 
-.Output of `stats`
-image::allstats.png[width="700"]
-
 * `stats d/20/10/2019 d/25/10/2019`: Generates statistics for spending between and including 20/10/2019 and 25/10/2019.
 
-.Output of `stats d/20/10/2019 d/25/10/2019`
-image::daterangestats.png[width=700"]
 
 *Expected Output:*
 
@@ -445,6 +465,10 @@ Statistics is shown.
 === Generating a graph : `graph`
 Organises the spending based on date. A line graph is generated, with each point representing the total amount of money spent on a particular date.
 This enables users to analyze trends in their spending amount over a particular period of time.
+An example is shown below.
+
+.Output of `graph`
+image::graph.png[width="700"]
 
 *Format:* `graph d/DATE_START d/DATE_END`
 
@@ -476,14 +500,7 @@ The graph panel will update with the currency set.
 *Examples:*
 
 * `graph`: Generates a graph for all spending.
-
-.Output of `graph`
-image::allgraph.png[width="700"]
-
 * `graph d/20/10/2019 d/25/10/2019`: Generates a graph for spending between and including 20/10/2019 and 25/10/2019.
-
-.Output of `graph d/20/10/2019 d/25/10/2019`
-image::daterangegraph.png[width="700"]
 
 *Expected Output:*
 
@@ -706,9 +723,9 @@ e.g. `exchangerate`, `exchangerate 5 USD`
 e.g. `budget 18000`
 | *Show Budget* | `showbudget` +
 e.g. `showbudget`
-| *Generate statistics*| `stats d/STARTDATE d/ENDDATE` +
+| *Generate statistics*| `stats d/DATE_START d/DATE_END` +
 e.g. `stats d/01/01/2019 d/07/01/2019` +
-| *Graph*| `graph d/STARTDATE d/ENDDATE` +
+| *Graph*| `graph d/DATE_START d/DATE_END` +
 e.g. `graph d/01/01/2019 d/07/01/2019` +
 | *Import data*| `import p/FILE_PATH` +
 e.g. `import p/C:\Users\User\Documents\importfile.csv` +

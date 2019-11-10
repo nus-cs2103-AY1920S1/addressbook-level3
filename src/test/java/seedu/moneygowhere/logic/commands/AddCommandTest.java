@@ -214,10 +214,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void updateStatsPredicate(Predicate<Spending> statsPredicate) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
     /**
      * A Model stub that contains a single Spending.
