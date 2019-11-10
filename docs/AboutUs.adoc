@@ -9,20 +9,20 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team Members
 
-=== Daniel Wong
+=== Daniel Wong Yong Shen
 
 image::dawo5010.png[width="150",align="left"]
-{empty}[https://dawo.me/[homepage]] [https://github.com/dawo5010[github]] [<<johndoe#, portfolio>>]
+{empty}[https://dawo.me/[homepage]] [https://github.com/dawo5010[github]] [<<dawo5010#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: In charge of Home
 
 '''
 
-=== Evon Dong
+=== Evon Dong Bing Bing
 
 image::evondong.png[width="150",align="left"]
-{empty}[http://github.com/EvonDong[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/EvonDong[github]] [<<evondong#, portfolio>>]
 
 Role: Code Quality +
 Responsibilities: In charge of Cashier
@@ -32,17 +32,17 @@ Responsibilities: In charge of Cashier
 === Lim Kang Yee
 
 image::kangyeelim.png[width="150",align="left"]
-{empty}[http://github.com/kangyeelim[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/kangyeelim[github]] [<<kangyeelim#, portfolio>>]
 
 Role: Deliverables and deadlines, Scheduling and Tracking +
 Responsibilities: In charge of Transactions
 
 '''
 
-=== Michaela Tang
+=== Tang Shu Hui, Michaela
 
 image::michaelatsh.png[width="150",align="left"]
-{empty}[http://github.com/MichaelaTSH[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/MichaelaTSH[github]] [<<michealatsh#, portfolio>>]
 
 Role: Documentation +
 Responsibilities: In charge of Inventory
@@ -52,7 +52,7 @@ Responsibilities: In charge of Inventory
 === Jin Shuyuan
 
 image::coderstellaj.png[width="150",align="left"]
-{empty}[http://github.com/CoderStellaJ[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/CoderStellaJ[github]] [<<coderstellaj#, portfolio>>]
 
 Role: Testing +
 Responsibilities: In charge of Reimbursements
