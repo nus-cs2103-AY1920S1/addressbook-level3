@@ -236,6 +236,7 @@ You can do an AND search, e.g. search for items that contains BOTH `red` and `ap
 * For tag search, only exact words will be matched e.g. `#Fruit` will match `#Fruit` but `#Fru` will not match `#Fruit`.
 * Items matching at least one keyword will be returned (an OR search). e.g. `Apple|Pear` will return `Granny Smith Apple` and `Japanese Pear`.
 * If no items are found, any closely related keywords, if any, will be displayed.
+****
 
 Examples:
 
