@@ -84,15 +84,134 @@ when the application was first opened.
 == Contributions to the User Guide
 This section showcases some of my contributions to the User Guide.
 
-{Start of the first extract from the User Guide}
-{End of the first extract from the User Guide}
-{Start of the second extract from the User Guide}
-{End of the second extract from the User Guide}
+{Start of the extract from the User Guide}
+
+:sectnums!:
+[[AddCommandInventory]]
+==== 5.4.1. Add an Item:
+This command allows you to add an item to the table and saves it into the system.
+
+* Command:
+`add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
+
+* Examples:
+. [blue]`add d/T-Shirt c/Clothing q/20 co/5 p/14`
+. [blue]`add d/Cupcake c/Food q/10 co/2`
+
+[NOTE]
+The attributes can also be inputted in any order.
+
+* Steps:
+. Type the command with all parameters filled in, as shown in the screenshot below:
+
+//.Screenshot of the user input into the Command Box for the Add Command in the Inventory tab
+image::inventoryUG/AddStep1.png[width="600"]
+
+[start = 2]
+. Hit `Enter`
+
+If the command is successfully added, Leo will respond with a success message and the item
+will be shown in the table. This is shown in the screenshot below:
+
+//.Screenshot of a successful user input for the Add Command in the Inventory tab
+image::inventoryUG/AddSuccess.png[width="600"]
+
+[NOTE]
+If the description of the input matches that of an existing item, a new item will not be added.
+Instead, the quantity will reflect the combined quantity of the input and the existing item, and the price and cost/unit
+will be updated. However, the category will not change, even if it differs from that of the original item.
+
+:sectnums!:
+[[DeleteCommandInventory]]
+==== 5.4.2. Delete an Item:
+This command allows you to delete an item in the table by ID or by description.
+
+[NOTE]
+This command is case-insensitive.
+
+* Command:
+`delete ID`
+`delete DESCRIPTION`
+
+Example:
+[blue]`delete 1`
+[blue]`delete t-shirt`
+
+* Steps:
+. Type the command with the ID or description of the item to be deleted. An example of deleting using the ID is shown
+below:
+
+//.Screenshot of the user input into Command Box for the Delete Command in the Inventory tab
+image::inventoryUG/DeleteStep1.png[width="600"]
+[start = 2]
+. Hit `Enter`
+
+Leo will respond with a success message and the item will be removed from the table as shown below:
+
+//.Screenshot of a successful user input for the Delete Command in the Inventory tab
+image::inventoryUG/DeleteSuccess.png[width="600"]
+{End of the extract from the User Guide}
 
 == Contributions to the Developer Guide
 This section showcases some of my contributions to the User Guide.
 
 {Start of the first extract from Developer Guide}
+:sectnums!:
+[[AddCommandInventory]]
+==== 3.4.1. Add Item Feature
+This section explains the implementation of the add command feature of the Inventory Tab,
+which allows the addition of items to the inventory. These items are represented by `Item` objects.
+The addition of an `Item` to the inventory requires an input of the `Item`’s description, category, quantity, and cost.
+The price field is optional and may be added only to an `Item` meant for sale.
+
+Due to the usage of `ArgumentMultimap`, the fields can be in any order as they are retrieved via the prefixes that
+precede them.
+
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
+AddCommand works:
+
+.Sequence Diagram of the Add Command in the Inventory Tab (inventory package)
+image::inventoryDG/AddCommandSeqDiagram.png[]
+
+If the description of the `Item` being added matches that of an existing `Item`, the new `Item`’s quantity is added to
+that of the existing `Item` and the cost per unit is recalculated. This is handled within the `AddCommandParser`,
+which also checks the validity of the input.
+
+It prohibits the addition of an `Item` with any value equivalent to or greater than 10,000. This includes the total cost
+and expected revenue of each `Item`. It also prohibits non-numeric inputs where numeric inputs are expected.
+This is conducted through the isValidNumericString(string) method which performs the aforementioned checks and
+returns a `Boolean` that represents the validity of the input.
+
+The following Sequence Diagram shows how the AddCommandParser creates an `Item`:
+
+.Sequence Diagram of the Add Command Parser in the Inventory Tab (inventory package)
+image::inventoryDG/AddCommandParserSeqDiagram.png[]
+
+After the `Item` is created and the command is executed, the `LogicManager` updates the in-app `InventoryList` via the
+`ModelManager` and updates the data file via the `StorageManager`.
+
+For a greater understanding of the flow of events and checks, you may consult the following activity diagram that shows
+the steps that follow the input of an add command:
+
+.Activity Diagram of the Add Command in the Inventory Tab (inventory package)
+image::inventoryDG/AddCommandFlowChart.png[]
+
+:sectnums!:
+[[DeleteCommandInventory]]
+==== 3.4.2. Delete Item Feature
+
+This section explains the implementation of the delete command feature of the Inventory Tab, which allows the deletion
+of items from the inventory. This feature requires only the command keyword and an index or description as input.
+
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
+DeleteCommand works:
+
+.Sequence Diagram of the Delete Command in the Inventory Tab (inventory package)
+image::inventoryDG/DeleteCommandSeqDiagram.png[]
+
+The `DeleteCommandParser` is responsible for checking the validity of the input, and does not allow any indexes that
+are less than 1 or greater than the largest index currently in the list. It can also take in a description as input and
+compares it against existing `Item` s in the `InventoryList`. This comparison is case-insensitive.
 {End of the first extract from Developer Guide}
 {Start of the second extract from Developer Guide}
 {End of the second extract from Developer Guide}

@@ -680,21 +680,27 @@ will be shown in the table. This is shown in the screenshot below:
 image::inventoryUG/AddSuccess.png[width="600"]
 
 [NOTE]
-If the description and category of the input matches that of an existing item, a new item will not be added.
-Instead, the quantity will reflect the combined quantity of the input and the existing item, and the price will be updated.
+If the description of the input matches that of an existing item, a new item will not be added.
+Instead, the quantity will reflect the combined quantity of the input and the existing item, and the price and cost/unit
+will be updated. However, the category will not change, even if it differs from that of the original item.
 
 ==== Delete an Item:
-This command allows you to delete an item in the table by ID.
+This command allows you to delete an item in the table by ID or by description.
+
+[NOTE]
+This command is case-insensitive.
 
 * Command:
 `delete ID`
+`delete DESCRIPTION`
 
 Example:
 [blue]`delete 1`
+[blue]`delete t-shirt`
 
 * Steps:
-. Type the command with the ID of the item to be deleted as shown below:
-
+. Type the command with the ID or description of the item to be deleted. An example of deleting using the ID is shown
+below:
 
 //.Screenshot of the user input into Command Box for the Delete Command in the Inventory tab
 image::inventoryUG/DeleteStep1.png[width="600"]
