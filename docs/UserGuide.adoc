@@ -280,33 +280,49 @@ when you and said friends wake in the morning after an expensive night out.
 
 ==== Add a new loan: `loan out|in`
 
-Adds a new loan out/in entry.
-If a date is not given, it is set to the current date. The description is also optional.
+This command adds a new entry to the loan list in the main display panel.
+The loan will be inserted in an appropriate position based on the list's current sorted order.
+For example, if the list is sorted by amount in descending order and the new loan has the largest amount,
+it will appear at the top of the list.
+
+To execute this command, type the details of the loan in the following format.
 
 Format: `loan out|in p/<person> x/<amount> [w/<date>] [d/<description>]`
 
+If a date is not provided, the loan's date is set to the current date.
+
 Examples:
 
-* `loan out p/John Doe x/50 w/23/04/2018`
-* `loan in p/Jane Doe x/100 d/Lent me some money for booze.`
+* `loan out p/John Doe x/50 w/23/04/2019` +
+Adds a new loan of $50 out to John Doe on the date 23/04/2019.
+* `loan in p/Jane Doe x/100 d/Lent me some money for booze.` +
+Adds a new loan of $100 in from Jane Doe, with the description "Lent me some money for booze.".
 
 ==== List loans: `loan list`
 
-Displays a list of all loans. Optionally, filters and/or sorts the list.
+This command displays the list of loans in the main display panel.
+Arguments can be added to sort and filter the list.
+The full command format with all its possible arguments is as follows.
 
 Format: `loan list [out|in|unpaid|paid ...] [p/<person> ...] [x/<amount> ...] [w/<date> ...] [d/<description> ...] [s/w|x|p]`
+
 ****
+*Filtering*
+
 * Filter loans using one or two of the `out`, `in`, `unpaid`, `paid` filters.
 If two are used, they should not be duplicates.
 Contrasting filters can be used (e.g. `out in`) but they will be joined with logical `AND`,
 so the resulting list would be empty.
 * Filter loans by persons, amounts, dates and descriptions
-by adding one or more of the `p/<person>`, `x/<amount>`, `w/<date>`, `d/<description>` filters.
+by adding one or more of the `p/<person>`, `x/<amount>`, `w/<date>`, `d/<description>` filters respectively.
 * If more than one filter is used, filters will be joined using logical `AND`.
 For example, `loan list out p/Duke` will result in the filter: loans out `AND` loans involving Duke.
 * Adding a new loan to the list will reset all filters. Other list operations (edit, paid/unpaid, delete) will not.
+
+*Sorting*
+
 * Sort loans by date, amount, or persons' names using `s/w`, `s/x`, or `s/p` respectively.
-** Sorting the list by a property when it is already sorted by that property will reverse the order of sorting
+* Sorting the list by a property when it is already sorted by that property will reverse the order of sorting
 (e.g. newest date first to oldest date first).
 ****
 
@@ -320,14 +336,19 @@ Lists all loans sorted by persons in alphabetical order. Then lists all loans ag
 
 ==== Edit loan: `loan edit`
 
-Edits the specified field(s) of the loan entry with the specified index.
+This command edits the details of an existing loan in the list.
+Once edited, the loan will be re-sorted into an appropriate position based on its new details and the current sort order.
+For example, if the list is sorted by date with the newest loan first,
+editing the loan at the top of the list to have the oldest date will move it to the bottom of the list.
+
+To execute this command, type the index of the loan (as seen in the main display panel) and the details to be edited
+in the following format.
 
 Format: `loan edit <index> [<p/person>] [x/<amount>] [d/<description>] [w/<date>]`
 
 ****
-* Edits the loan with the specified index.
-The index refers to the index number shown in the currently displayed loan list.
-The index must be a positive integer (e.g. 1, 2, 3...).
+* The index refers to the index number shown in the currently displayed loan list.
+It must be a positive integer (e.g. 1, 2, 3...).
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -336,11 +357,18 @@ Examples:
 
 * `loan list` +
 `loan edit 1 x/500 d/Dude owes me so much money I can't even.` +
-Lists all loans, then edits the amount and description of the first person in the list to the given values.
+Lists all loans, then edits the amount and description of the first loan in the list to the given values.
 
 ==== Mark loan(s) as paid: `loan paid`
 
-Marks the specified loan(s) as paid.
+This command marks one or more loans in the list as *paid*.
+A paid loan can be visually distinguished by a large "tick" icon to the left of its index:
+
+image::LoanUG2.png[width=40%,scaledwidth=40%]
+
+Multiple loans can be marked at once.
+This can be done by specifying several indices or at least one person to target.
+The format of the command is as follows.
 
 Format: `loan paid [<index ...>] [<p/person ...>]`
 
@@ -362,44 +390,67 @@ Marks all loans pertaining to John and Adam as *paid*.
 
 ==== Mark loan(s) as unpaid: `loan unpaid`
 
-Marks the specified loan(s) as unpaid.
-This feature works identically to `loan paid`, except the command word is `unpaid` instead of `paid`
-and the loans are marked as *unpaid* instead of *paid*.
+This command marks one or more loans in the list as *unpaid*.
+When a paid loan is marked as unpaid, its tick icon will disappear:
+
+image::LoanUG3.png[width=40%,scaledwidth=40%]
+
+This command is executed in an identical manner to `loan paid`.
+Its format is as follows.
 
 Format: `loan unpaid [<index ...>] [<p/person ...>]`
 
 ==== Delete loan(s): `loan delete`
 
-Deletes the loan(s) with the specified loan index/indices.
-This feature works identically to `loan paid`, except the command word is `delete` instead of `paid`
-and the loans are deleted from the list instead of being marked.
+This command deletes one or more loans from the list.
+Similarly to `loan paid` and `loan unpaid`, multiple loans can be deleted at once.
+Its format is as follows.
 
 Format: `loan delete [<index ...>] [<p/person ...>]`
 
 ==== Calculate loans: `loan split`
 
-Splits a joint payment equally among group members, then displays a list of who owes who how much.
+This command takes a group of persons and a list of amounts each person has paid,
+before calculating which persons need to pay which other persons
+such that the total amount paid is split equally among all the group's members.
+
+For example, let's say you're out for dinner with two friends.
+When the hundred-dollar bill arrives, you pay for the first sixty and one of your two friends pays for the remaining forty.
+The `loan split` command can now help you to calculate how much your two friends owe you,
+such that the hundred-dollar bill is split equally among you three.
+
+This command comes with many optional arguments, all of which are explained below.
+The format of the command is as follows.
 
 Format: `loan split p/<person> x/<amount paid> [max/<limit>] ... [me/<your name> w/<date> d/<description>]`
 ****
 * Each `<person>` corresponds to an `<amount paid>`, representing how much the `person` paid for the group initially. +
-The order of each `person` should match the order of their `amount paid`.
+The order of a `person` in the list should match the order of their `amount paid`.
+
+*Limiting a Person's Share*
+
 * The final amount a `person` ends up paying can be restricted to a `<limit>`.
-Persons with limits should be placed at the *head* of the list of persons,
-and the order of all `limits` should match the order of all `persons`
-i.e. the first `<limit>` in the input will correspond to the first `<person>` in the input.
+* The order of all `limits` should match the order of all `persons`
+i.e. the first `<limit>` in the input will correspond to the first `<person>`,
+the second `<limit>` the second `<person>`, and so on.
+As such, persons with limits should be placed at the head of the list.
 This is to allow you to enter limits only for those persons who require them.
-+
-The sum of all limits cannot exceed the total amount already paid by all persons.
+* The sum of all limits should not exceed the total amount paid by all persons.
+
+*Automatically Adding Debts to Your Loan List*
+
 * Adding the optional `me/` will add all debts from the resulting list to your loan list.
 +
 `<your name>` must match one of the persons among the other `p/<person>` names.
 * Adding `w/` will set the `<date>` of the loans added to your loan list.
 * Adding `d/` will set the `<description>` of the loans added to your loan list.
-* To switch between your loan list and split list, press `Ctrl + D` (or `Cmd + D` for Mac) while on the Loans tab.
-** The split list will initially be empty,
-but once a list is calculated it will persist in the Loans tab across sessions (until a new calculation is made).
 ****
+
+To switch between your loan list and split list, press kbd:[Ctrl+D] (or kbd:[Cmd+D] for Mac) while on the Loan tab.
+
+[NOTE]
+The split list will initially be empty,
+but once a list is calculated it will persist in the Loan tab across sessions (until a new calculation is made).
 
 Examples:
 
@@ -407,7 +458,7 @@ Examples:
 Calculates the money owed between `John`, `Mary` and `Peter` for a scenario where (initially) `Mary` paid `40` and `Peter` paid `60`. +
 The resulting display should show that `John` owes `Mary` *$6.66* and also owes `Peter` *$26.67*, as seen in the image below.
 
-image::LoanUG2.png[width=75%,scaledwidth=75%]
+image::LoanUG4.png[width=75%,scaledwidth=75%]
 
 * `loan split p/John x/0 max/10 p/Mary x/10 p/Peter x/90 me/Mary d/Dinner.` +
 In this scenario, `Mary` paid `10` and `Peter` paid `90`.
@@ -416,7 +467,7 @@ Furthermore, `me/Mary` marks `Mary` as the user (you),
 so any debts `Mary` owes/is owed will be added to the normal loan list with the description `Dinner.`. +
 The resulting display should show that `John` owes `Peter` *$10* and `You` owe `Peter` *$35*, as seen below.
 
-image::LoanUG3.png[width=75%,scaledwidth=75%]
+image::LoanUG5.png[width=75%,scaledwidth=75%]
 
 The latter debt will also have been added to your loan list,
 which can be checked using the command `loan list` or by pressing the hotkey mentioned above.
