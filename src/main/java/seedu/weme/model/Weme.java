@@ -88,9 +88,10 @@ public class Weme implements ReadOnlyWeme {
     public void resetData(ReadOnlyWeme newData) {
         requireNonNull(newData);
 
+        // load stats first as memes require stats loaded to prevent error
+        setStats(newData.getStats());
         setMemes(newData.getMemeList());
         setTemplates(newData.getTemplateList());
-        setStats(newData.getStats());
         updateStats(newData.getMemeList());
         setRecords(newData.getRecords());
         setMemeCreation(newData.getMemeCreation());
