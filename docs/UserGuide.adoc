@@ -253,10 +253,25 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| Application closes.
 //end::roby2[]
 
 === Food Items
+For Food Items, do take note of the following:
+
+****
+*  You are only allowed to give one of `NAME`, `DESCRIPTION`, `CATEGORY`, `LOCATION`, `RESTRICTIONS`, `PRICE` and `OPENING HOURS`.
+Providing more than one of these `FIELD` will throw an error.
+*  You are allowed to give one or more `TAGS`.
+* `PRICE` must be a number wth 0 or 2 decimal places, and it cannot exceed more than 1000000.
+* `OPENING HOURS` must be in HHMM HHMM format. The start time must be earlier than or equal to the end time.
+* `NAME` `DESCRIPTION` `CATEGORY` `LOCATION` and `RESTRICTIONS` must all be alphanumeric.
+* `TAG` is limited to 20 characters per tag, and only limited to one word per tag.
+****
 
 [[add]]
 ==== Add a food item: `add`
 Adds a food item to the food list.
+
+[IMPORTANT]
+The list will scroll to the end when the food is added. +
+If `autosort` is turned on, it will not scroll to the end of the list.
 
 [IMPORTANT]
 NAME, PRICE and CATEGORY are mandatory fields.
@@ -266,9 +281,19 @@ The list of recommendations would be cleared if you use the this command. You ca
 by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
 ****
-*Format*: `add n/NAME d/DESCRIPTION p/PRICE c/CATEGORY l/LOCATION o/OPENING HOURS r/RESTRICTIONS` +
-*Example*: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NIL`
+*Format*: `add n/NAME p/PRICE c/CATEGORY ...` +
+*Example*: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NI t/Chicken t/RiceL`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The food list will scroll to the bottom, where the new food item is added.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food list will scroll to the bottom, where the new food item is added.]
+
+image::addsuccess.png[]
+
+{empty}
+|===
 
 ==== List all food items: `list`
 List all the food items in the list.
@@ -281,6 +306,16 @@ by using the `recommend` command again (see <<Getting a list of recommended food
 *Format*: `list`
 ****
 
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| All the items in the food list will be shown.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| All the items in the food list will be shown.]
+
+image::listsuccess.png[]
+
+{empty}
+|===
+
 ==== Edit a food item: `edit`
 Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be a positive integer. At least one FIELD must be given.
 
@@ -289,14 +324,34 @@ Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be 
 *Example*: `edit 2 n/Fried Rice`
 ****
 
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The food item's fields will be updated.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food item's fields will be updated.]
+
+image::editsuccess.png[]
+
+{empty}
+|===
+
 ==== Finds food items based on keywords: `find`
 Finds a food items based on specific keywords. Following which, the food items names containing the specific keywords will
 be shown in the food list.
 
 ****
-*Format*: `find KEYWORD [MORE_KEYWORDS]..` +
+*Format*: `find KEYWORD ...` +
 *Example*: `find Chicken Rice`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The food items containing any of the specific keywords will be shown.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food items containing any of the specific keywords will be shown.]
+
+image::findsuccess.png[]
+
+{empty}
+|===
 
 //tag::filters[]
 ==== Filters food items based on criteria: `filter`
@@ -311,6 +366,16 @@ in v2.0 and above.
 *Format*: `filter FIELD QUANTIFIER VALUE` +
 *Example*: `filter PRICE LESS_THAN 4.00`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The food items satisfying the conditions will be shown.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The food items satisfying the conditions will be shown.]
+
+image::filtersuccess.png[]
+
+{empty}
+|===
 //end::filters[]
 
 ==== Deletes a food item: `delete`
@@ -322,35 +387,58 @@ Note: You are allowed to have more than one `INDEX`.
 *Example*: `delete 2`
 ****
 
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| A confirmation message will appear, informing that the food item has been deleted.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| A confirmation message will appear, informing that the food item has been deleted.]
+
+image::deletesuccess.png[]
+
+{empty}
+|===
+
 ==== Clears wallet purchase history and food items: `clear`
-Clears wallet, purchase history, savings account, wallet, likes, dislikes and aliases in the application.
+Clears wallet, purchase history, savings account, likes, dislikes and aliases in the application.
 
 ****
 *Format*: `clear`
 ****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| Wallet, Purchase History, Savings History, Savings Account, likes, dislikes and aliases will all be cleared..]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| Wallet, Purchase History, Savings History, Savings Account, likes, dislikes and aliases will all be cleared..]
+
+image::clearsuccess.png[]
+
+{empty}
+|===
 
 //tag::sorting[]
 === Sorting
 Allows the user to sort the food items based on his liking.
 This is done so that the user is able to get the food which is most relevant to his or her preferences.
 
-[NOTE]
-You must always provide pairs of FIELD and DIRECTION to execute the Sorting commands.
-The fields are as followed: `NAME`, `DESCRIPTION`, `PRICE`,
-`CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
-The directions are as follows: `ASC` or `DESC`.
+You must always provide pairs of `FIELD` and `DIRECTION` to execute the Sorting commands.
+****
+* The various `FIELD` are as followed: `NAME`, `DESCRIPTION`, `PRICE`,
+`CATEGORY`, `LOCATION`, `OPENING_HOURS` and `RESTRICTIONS`.
+* The `DIRECTION` are as follows: `ASC` or `DESC`.
+****
 
 [IMPORTANT]
 Ordering of pairs matters! For example, specifying: `PRICE ASC NAME DESC` sorts the food items first based on
 price in ascending order. Following which, sorts the food items based on names in descending order.
 
 ==== Sorts food items based on fields: `sort`
-Sorts all the food items by some specific FIELD.
+Sorts all the food items by some specific `FIELD`.
 
-Note: You can have more than one pair of FIELD and DIRECTION.
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
-[IMPORTANT]
-The usage of `sort` will turn the recommendation system OFF it is in use.
+[NOTE]
+You can have more than one pair of `FIELD` and `DIRECTION`.
 
 ****
 *Format*: `sort FIELD DIRECTION ...` +
@@ -389,8 +477,9 @@ image::makesortsuccess.png[]
 ==== Sort based on your custom comparator: `customsort`
 Sort Using your own custom comparator, which you have creating from MakeSort.
 
-[IMPORTANT]
-The usage of `customsort` will turn the recommendation system OFF it is in use.
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
 ****
 *Format*: `customsort`
@@ -410,17 +499,18 @@ image::customsortsuccess.png[]
 Turns on and off auto sorting, based on your own custom comparator, every time you make changes to the food list.
 There are only two states, ON or OFF.
 
-[IMPORTANT]
-The usage of `autosort` will turn the recommendation system OFF it is in use.
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
+
+[NOTE]
+Once you turn auto sorting on, `customsort`, `sort` and `default` will not work. They will only work if and only if you
+turn auto sorting off.
 
 ****
 *Format*: `autosort STATE` +
 *Example*: `autosort ON`
 ****
-
-[NOTE]
-Once you turn auto sorting on, `customsort`, `sort` and `default` will not work. They will only work if and only if you
-turn auto sorting off.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -453,8 +543,9 @@ image::viewsortsuccess.png[]
 ==== Sorts food items based on natural order: `default`
 Sorts the food items based on their default ordering, where it is based on ascending category, name and then price.
 
-[IMPORTANT]
-The usage of `default` will turn the recommendation system OFF it is in use.
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
 ****
 *Format*: `default`
