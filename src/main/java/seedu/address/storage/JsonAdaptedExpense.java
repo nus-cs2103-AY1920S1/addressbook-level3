@@ -75,7 +75,16 @@ public class JsonAdaptedExpense {
         }
 
         if (!Budget.isValidBudget(budget.toString())) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Budget.MESSAGE_CONSTRAINTS);
+        }
+
+        if (dayNumber == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, DayNumber.class.getSimpleName()));
+        }
+
+        if (!DayNumber.isValidDayNumber(dayNumber)) {
+            throw new IllegalValueException(DayNumber.MESSAGE_CONSTRAINTS);
         }
 
         final DayNumber modelDayNumber = new DayNumber(dayNumber);
