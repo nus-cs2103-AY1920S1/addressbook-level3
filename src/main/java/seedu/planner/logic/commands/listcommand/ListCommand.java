@@ -5,6 +5,7 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 
 /**
  * Represents ListActivityCommand, ListContactCommand and ListAccommodationCommand.
+ * @author 1nefootstep
  */
 public abstract class ListCommand extends Command {
 

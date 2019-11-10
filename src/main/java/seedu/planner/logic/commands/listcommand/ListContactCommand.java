@@ -14,6 +14,7 @@ import seedu.planner.model.contact.Contact;
 
 /**
  * Lists all contacts in the planner.
+ * @author 1nefootstep
  */
 public class ListContactCommand extends ListCommand {
 

@@ -6,6 +6,7 @@ import java.util.Objects;
 
 /**
  * Explains how to use a command.
+ * @author 1nefootstep
  */
 public class HelpExplanation {
     private final String name;

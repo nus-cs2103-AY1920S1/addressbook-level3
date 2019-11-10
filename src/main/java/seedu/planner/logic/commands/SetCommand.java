@@ -17,6 +17,7 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.field.Name;
 
+//@@author 1nefootstep
 /**
  * Sets the name and start date of the trip.
  */

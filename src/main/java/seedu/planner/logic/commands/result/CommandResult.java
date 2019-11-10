@@ -8,6 +8,7 @@ import java.util.Optional;
 
 /**
  * Represents the result of a command execution.
+ * @author 1nefootstep
  */
 public class CommandResult {
 

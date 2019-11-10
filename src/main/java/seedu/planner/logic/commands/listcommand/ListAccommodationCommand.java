@@ -14,6 +14,7 @@ import seedu.planner.model.accommodation.Accommodation;
 
 /**
  * Lists all accommodations in the planner.
+ * @author 1nefootstep
  */
 public class ListAccommodationCommand extends ListCommand {
 

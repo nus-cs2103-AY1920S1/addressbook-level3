@@ -14,7 +14,8 @@ import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Contact}.
+ * An UI component that displays information of a {@code ActivityWithTime}.
+ * @author 1nefootstep
  */
 public class ActivityWithTimeCardFull extends UiPart<Region> {
 

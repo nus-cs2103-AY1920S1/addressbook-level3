@@ -17,6 +17,7 @@ import seedu.planner.model.activity.Activity;
 
 /**
  * Views the specified activity.
+ * @author 1nefootstep
  */
 public class ViewActivityCommand extends ViewCommand {
 

@@ -14,6 +14,7 @@ import seedu.planner.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Contact}.
+ * @author 1nefootstep
  */
 public class ContactCardFull extends UiPart<Region> {
 

@@ -11,6 +11,7 @@ import seedu.planner.model.activity.Activity;
 /**
  * Represents the timetable of a {@code Day}.
  * Guarantees: {@code Timetable} is filled with {@code HalfHour}.
+ * @author 1nefootstep
  */
 public class Timetable {
     private List<ActivityWithTime> timetable;

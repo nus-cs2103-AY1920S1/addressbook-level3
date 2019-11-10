@@ -17,6 +17,7 @@ import seedu.planner.model.contact.Contact;
 
 /**
  * Views the specified contact.
+ * @author 1nefootstep
  */
 public class ViewContactCommand extends ViewCommand {
 

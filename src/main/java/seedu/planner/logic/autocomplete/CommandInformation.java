@@ -9,6 +9,7 @@ import java.util.Optional;
 
 /**
  * CommandInformation represents the format of a command.
+ * @author 1nefootstep
  */
 public class CommandInformation {
     private final String command;

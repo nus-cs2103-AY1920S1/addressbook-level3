@@ -8,6 +8,7 @@ import seedu.planner.model.Model;
 
 /**
  * Format full help instructions for every command for display.
+ * @author 1nefootstep
  */
 public class HelpCommand extends Command {
 

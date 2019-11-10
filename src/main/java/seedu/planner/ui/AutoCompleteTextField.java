@@ -22,7 +22,7 @@ import seedu.planner.logic.parser.Prefix;
 /**
  * This class is a TextField which implements an "autocomplete" functionality, based on AutoCompleteSuggester.
  *
- * @author Leong Sheu Xiang
+ * @author 1nefootstep
  * Started from a code example written by Caleb Brinkman
  * at https://gist.github.com/floralvikings/10290131
  */

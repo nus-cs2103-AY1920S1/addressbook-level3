@@ -11,6 +11,7 @@ import seedu.planner.model.Model;
 
 /**
  * Views the itinerary tab.
+ * @author 1nefootstep
  */
 public class ViewItineraryCommand extends ViewCommand {
 

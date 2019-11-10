@@ -11,6 +11,7 @@ import seedu.planner.model.Model;
 
 /**
  * Views the help tab.
+ * @author 1nefootstep
  */
 public class ViewHelpCommand extends ViewCommand {
 

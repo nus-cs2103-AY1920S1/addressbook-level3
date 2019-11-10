@@ -14,6 +14,7 @@ import seedu.planner.model.activity.Activity;
 
 /**
  * Lists all activities in the planner.
+ * @author 1nefootstep
  */
 public class ListActivityCommand extends ListCommand {
 

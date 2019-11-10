@@ -8,7 +8,7 @@ import seedu.planner.model.activity.Activity;
 
 /**
  * Represents a Day in the travel planner's planner.
- * Guarantees: timetable is present and not null, field values are validated, immutable.
+ * @author 1nefootstep
  */
 public class Day {
     public static final String MESSAGE_CONSTRAINTS = "Number of days should be a non-negative integer less "
