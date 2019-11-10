@@ -396,12 +396,12 @@ Instantiation of the `Event` object when the app is started will be more complic
 === Generate Schedule Feature
 ==== Proposed Implementation
 
-The Generate Schedule Feature is implemented to allow users to have an overview the event schedule. It will display all dates that has an event and the
-specific events that happens on those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
+The Generate Schedule Feature is implemented to allow users to have an overview of the event schedule. It will display all dates that have an event that is mapped to it and the
+specific events that are happening on those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
 new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
 
 The `DistinctDateProcessor` processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
-process through these events to create specific `DistinctDate` Objects which stores a list of events which occurs on the date
+process through these events to create specific `DistinctDate` Objects which stores a list of events that occurs on the date
 they are representing. These DistinctDate Objects are then used, to create `DateCard` which will be displayed on the GUI. This feature
 can be seen in the generate schedule window as well as the employee fetch window.
 
@@ -409,43 +409,43 @@ The `DistinctDateProcessor` utilises the following operations in the `generate_s
 
 * `generateAllDistinctDateList(Model model)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDistinctDateList() operations.
 * `generateDistinctDateList(List<Event> eventList)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDateList() and generateListOfEventForDate() operations.
-* `generateDateList(List<Event> eventList)` -- Takes in the entire list of events, identify all the dates that has at least one event and returns it as a list.
+* `generateDateList(List<Event> eventList)` -- Takes in the entire list of events, identify all the dates that have been mapped to which that has at least one event and returns it as a list.
 * `generateListOfEventForDate(EventDate date, Model model)` -- Takes in an `EventDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
 
-The following class diagram shows how the relationships between the different classes used by the `generate_schedule` command:
+The following class diagram shows the relationships between the different classes used by the `generate_schedule` command:
 
 ._Class Diagram for GenerateScheduleCommand_
 image::GenerateScheduleClassDiagram.png[align="center"]
 
 ---
-Given below is an example usage scenario and how the `display_schedule` command behaves at each step.
+Below is an example usage scenario and how the `display_schedule` command behaves at each step.
 ._Program flow of the Generate Schedule Feature_
 image::GenerateScheduleFlowChart.png[align="center"]
 
 **Step 1**. The user launches the application for the first time.
 
-**Step 2**. The `distinctDatesList` will be initialized based on the initial event book state.
+**Step 2**. The `distinctDatesList` will be initialised based on the initial event book state.
 
 **Step 3**. The user executes `add_ev n/Free Coffee ...` to add a new event into the Eventlist.
 The distinctDatesList will not be updated, and will not contain the new event that is added.
 [NOTE]
 Any command that alters the eventBook will not change the distinctDatesList. The distinctDatesList will continue to store the
-original list until the User requires it by calling the `generate_schedule` command. Where the distinctDateList will be generated
-again using the current EventList
+original list until the User requires it by calling the `generate_schedule` command, where the distinctDateList will be generated
+again using the current EventList.
 
 
-**Step 4**. The user executes `generate_schedule` to see all the dates and the respective events on those dates.
+**Step 4**. The user executes `generate_schedule` to see all the dates that have a set time mapping and the respective events on those dates.
 
-**Step 5**. The distinctDateList will be generated again based on the current list of events in the EventList and is displayed on a separate window.
+**Step 5**. The distinctDateList will be generated again based on the current list of events in the EventList and will be displayed on a separate window.
 
 **Step 6**. The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored,
-however the DistinctDateList would not.
+however, the DistinctDateList would not.
 
 [NOTE]
 Note that the Display Schedule Feature does not load and store the DistinctDate Objects. It processes and generates the list when
 it is called upon or when the application starts.
 
-**Step 5**. Done.
+**Step 7**. Done.
 
 The following sequence diagram shows how the `generate_schedule` operation works:
 
@@ -464,12 +464,12 @@ NOTE: The lifeline for `GenerateScheduleCommand` ends at the destroy marker (X).
 
 *Pros*: Easy to implement and requires less Storage Capacity and storage infrastructure to support the entire feature.
 
-*Cons*: May have performance issues in terms of speed and time Complexity if database gets extremely big. The program will have to iterate through the entire list of events and create
+*Cons*: May have performance issues in terms of speed and time Complexity if the user's database gets extremely big. The program will have to iterate through the entire list of events and create
 the corresponding `DistinctDate` objects, whenever `generate_schedule` command is called.
 
 **Decision: Alternative 1
 ** Alternative 1 makes more logical sense and will be more efficient as compared to Alternative 2. Alternative 1 requires less intermediate processing and storage units to support the feature.
-Processing is only done when it is needed. Looking at the use case of the `generate_schedule` command, it is likely to be used when the users have finalise all the events and details before generating
+Processing is only done when it is needed. Looking at the use case of the `generate_schedule` command, it is likely to be used when the users have finalised all the events and details before generating
 the schedule.
 
 |Creates and Stores the DistinctDate object whenever a new event is added.
@@ -477,7 +477,7 @@ the schedule.
 *Pros*: Do not have to create a new list of DistinctDate object every time it is called.
 
 *Cons*: May have performance issues in terms of storage and processing needed, requires new storage unit to store a new entity which is not as important
-and frequently used. This implementation can cause speed and time complexity issues as well, whenever edits are made to the existing eventList - add_ev, delete_ev etc
+and frequently used. This implementation can cause speed and time complexity issues as well, whenever edits are made to the existing eventList - add_ev, delete_ev, etc
 the program is required to process through all DistinctDate Object to make the necessary changes. If the user does not even want to call the `generate_schedule` command
 after the changes, then this process is actually unnecessary and redundant.
 
@@ -486,17 +486,17 @@ after the changes, then this process is actually unnecessary and redundant.
 
 *Pros*: Users are able to view the generated schedule directly from the application's schedule tab, without the need of another window.
 
-*Cons*: May cause confusion, as the list being displayed might be outdated, if user forgets to call the `generate_schedule` command after altering the events.
+*Cons*: May cause confusion, as the list being displayed might be outdated if the user forgets to call the `generate_schedule` command after altering the events.
 
-| Display on a separate window, generates and display the list on the new window when `generate_schedule` command is called. (Current choice)
+| Display on a separate window generates and display the list on the new window when `generate_schedule` command is called. (Current choice)
 
-*Pros*: Allows for better user experience, since the generated list is only displayed when the user needs it. Ensures that the list being
+*Pros*: Allows for better user experience since the generated list is only displayed when the user needs it. Ensures that the list being
 displayed is always updated as of when the user needs it, since the window is only produced when `generate_schedule` command is called.
 
 *Cons*: Harder to implement, requires additional JavaFx windows and implementations. Will require additional windows being opened.
 
 **Decision: Alternative 2
-** Alternative 2 is a cleaner and more user friendly approach compared to Alternative 1. Alternative 2 helps to prevent the Schedule Tab from being filled with too many list and information.
+** Alternative 2 is a cleaner and more user-friendly approach compared to Alternative 1. Alternative 2 helps to prevent the Schedule Tab from being filled with too many lists and information.
 Alternative 2 also helps prevent user confusion, as the list that is displayed is always updated as of when it is called upon.
 |========================================================================================
 
@@ -580,7 +580,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Employee of a Company |able to see payslip| for documenting purposes
 
-|`* * *` |Admin Staff |be able to track the employee's paid and medical leave| ensure the workers are not abusing the leave system
+|`* * *` |Admin Staff |be able to track the employee's pay status| to ensure the workers are paid correctly
 
 |`* * *` |Admin Staff |view my company's available manpower| decide on the manpower allocation
 
@@ -691,13 +691,13 @@ Use case resumes at step 3.
 Use case resumes at step 3.
 
 [discrete]
-=== Use case: View Schedule on a specific date
+=== Use case: Displaying the Schedule on a specific date
 
 *MSS*
 
 1.  User requests to list events
 2.  EventBook shows a list of events
-3.  User requests see schedule on a specific date
+3.  User requests to display schedule on a specific date
 4.  AddMin+ display a list of events that is on that date
 
 +
