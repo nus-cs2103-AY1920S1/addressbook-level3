@@ -92,6 +92,67 @@ Examples:
 
 // tag::lessons[]
 === Lessons
+The user can view his or her lessons on the left panel of the GUI of the Teacher's Notebook. +
+There are several fields in each lesson as shown below:
+
+* LessonName - Prefix: l/
+** LessonNames should be alphanumerical, and cannot be empty.
+* StartTime - Prefix: st/
+** StartTime should be in the format dd/mm/yyyy hhmm e.g. 12/01/2020 1200
+* EndTime - Prefix: et/
+** EndTime should be in the format dd/mm/yyyy hhmm e.g. 12/01/2020 1300
+* repeat - Prefix: r/
+* Day - Prefix: day/
+** Day should be an integer between 1-7.
+
+=== Adding: addlesson
+
+Adds a lesson to the lesson list of the notebook, +
+feature to repeat lessons will be implemented in v2.0 +
+Format: addlesson l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm
+
+Examples:
+
+* 'addlesson l/Math 4E7 st/12/01/2020 1200 et/12/01/2020 1300'
+* 'addlesson l/English 3E8 st/06/01/2020 1200 et/06/01/2020 1300'
+
+==Editing: editlesson
+Edits a lesson at the specific index in the day list of reminder panel. +
+Day index represents day in week, e.g. Monday: 1, Tuesday: 2 +
+Format: 'editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME]'
+
+Examples:
+
+'editlesson 1 day/3 l/English 4E2'
+'editlesson 2 day/4 st/05/01/2020 1200 et/05/01/2020 1300'
+
+[NOTE]
+The index and day index provided must be valid and at least one field must be edited.
+
+=== Deleting: deletelesson
+
+Deletes a lesson at the specified index in the day list of reminder panel. +
+Day index represents day in week, e.g. Monday: 1, Tuesday: 2 +
+Format: 'deletelesson LESSON_INDEX day/DAY_INDEX'
+
+Examples:
+
+'deletelesson 1 day/2'
+'deletelesson 3 day/4'
+
+[NOTE]
+The index and day index provided must be valid and at least one field must be edited.
+
+=== Finding: findlesson
+
+Finds lessons which match the given keyword. +
+Format: 'findlesson KEYWORD'
+
+Examples:
+
+'findlesson Math'
+'findlesson 12:00'
+
 // end::lessons[]
 
 // tag::students[]
