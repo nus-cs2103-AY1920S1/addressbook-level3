@@ -44,6 +44,7 @@ public class ClaimPlotter {
                 if (claim.getDate().date.getDayOfMonth() == day) {
                     currentExpenses += Double.parseDouble(claim.getAmount().value);
                     currentExpenses = Math.round(currentExpenses * 100) / 100.0;
+                    assert currentExpenses >= 0 : "A negative claim value managed to get into the claim list";
                 }
             }
             claimSeries.add(day, currentExpenses);
@@ -56,12 +57,15 @@ public class ClaimPlotter {
      */
 
     private void findClaimValueAtStartOfMonth() {
+        assert currentMonthNumber <= 12: "There is an error with LocalDate Month";
+        assert currentYearNumber > 0: "There is an error with LocalDate Year";
         LocalDate firstDayOfMonth = LocalDate.of(currentYearNumber, currentMonthNumber, 2);
         for (Claim claim : claimList) {
             if (claim.getStatus() == Status.APPROVED) {
                 if (claim.getDate().date.isBefore(firstDayOfMonth)) {
                     startingExpenses += Double.parseDouble(claim.getAmount().value);
                     startingExpenses = Math.round(startingExpenses * 100) / 100.0;
+                    assert startingExpenses >= 0 : "A negative claim value managed to get into the claim list";
                 }
             }
         }
@@ -77,6 +81,8 @@ public class ClaimPlotter {
             if ((claim.getStatus() == Status.APPROVED)
                     && (currentMonthNumber == claim.getDate().date.getMonthValue()
                     && currentYearNumber == claim.getDate().date.getYear())) {
+                assert currentMonthNumber <= 12: "There is an error with LocalDate Month";
+                assert currentYearNumber > 0: "There is an error with LocalDate Year";
                 updatedClaimList.add(claim);
             }
         }
