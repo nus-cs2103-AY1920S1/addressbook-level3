@@ -1,15 +1,15 @@
 package seedu.jarvis.logic.parser.finance;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.commands.CommandTestUtil.INSTAL_DESC_NETFLIX;
-import static seedu.jarvis.logic.commands.CommandTestUtil.INSTAL_DESC_SPOTIFY;
-import static seedu.jarvis.logic.commands.CommandTestUtil.INSTAL_MONEY_NETFLIX;
-import static seedu.jarvis.logic.commands.CommandTestUtil.INSTAL_MONEY_SPOTIFY;
-import static seedu.jarvis.logic.commands.CommandTestUtil.INVALID_INSTAL_MONEY;
-import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_DESC_NETFLIX;
-import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_DESC_SPOTIFY;
-import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_MONEY_NETFLIX;
-import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_MONEY_SPOTIFY;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INSTAL_DESC_NETFLIX;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INSTAL_DESC_SPOTIFY;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INSTAL_MONEY_NETFLIX;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INSTAL_MONEY_SPOTIFY;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INVALID_INSTAL_MONEY;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.VALID_DESC_NETFLIX;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.VALID_DESC_SPOTIFY;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.VALID_MONEY_NETFLIX;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.VALID_MONEY_SPOTIFY;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_INSTALLMENT;
@@ -87,7 +87,7 @@ public class EditInstallmentCommandParserTest {
 
     @Test
     public void parse_oneFieldSpecified_success() {
-        // name
+        // description
         Index targetIndex = INDEX_SECOND_INSTALLMENT;
         String userInput = targetIndex.getOneBased() + INSTAL_DESC_SPOTIFY;
         EditInstallmentCommand.EditInstallmentDescriptor descriptor =
@@ -97,7 +97,7 @@ public class EditInstallmentCommandParserTest {
         EditInstallmentCommand expectedCommand = new EditInstallmentCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // phone
+        // subscription fee
         userInput = targetIndex.getOneBased() + INSTAL_MONEY_SPOTIFY;
         descriptor = new EditInstallmentDescriptorBuilder()
                 .withSubscriptionFee(VALID_MONEY_SPOTIFY)
@@ -134,6 +134,5 @@ public class EditInstallmentCommandParserTest {
                         .build();
         EditInstallmentCommand expectedCommand = new EditInstallmentCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
-
     }
 }

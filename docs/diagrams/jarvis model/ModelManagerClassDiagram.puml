@@ -1,12 +1,11 @@
 @startuml
-!include ../style.puml
+!include ../style2.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>> {
     Interface Model <<interface>>
-    Interface AddressModel <<interface>>
     Interface UserPrefsModel <<interface>>
     Interface HistoryModel <<interface>>
     Interface FinanceTrackerModel <<interface>>
@@ -17,12 +16,10 @@ Package Model <<Rectangle>> {
 }
 
 ModelManager .up.|> Model
-Model -up-|> AddressModel
 Model -up-|> UserPrefsModel
 Model -up-|> HistoryModel
 Model -up-|> FinanceTrackerModel
 Model -up-|> CcaTrackerModel
 Model -up-|> PlannerModel
 Model -up-|> CoursePlannerModel
-
 @enduml

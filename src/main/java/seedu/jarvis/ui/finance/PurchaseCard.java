@@ -38,9 +38,9 @@ public class PurchaseCard extends UiPart<Region> {
     public PurchaseCard(Purchase purchase, int displayedIndex) {
         super(FXML);
         this.purchase = purchase;
-        id.setText(Integer.toString(displayedIndex) + ".");
+        id.setText(displayedIndex + ".");
         description.setText(purchase.getDescription().getPurchaseDescription());
-        moneySpent.setText("i paid $" + purchase.getMoneySpent().toString());
+        moneySpent.setText("I paid $" + purchase.getMoneySpent().toString());
         dateOfPurchase.setText("on " + purchase.getDateOfPurchase().toString());
     }
 

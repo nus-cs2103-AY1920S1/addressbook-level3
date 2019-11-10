@@ -1,12 +1,11 @@
 @startuml
-!include ../style.puml
+!include ../style2.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>> {
     Interface Model <<interface>>
-    Interface AddressModel <<interface>>
     Interface UserPrefsModel <<interface>>
     Interface HistoryModel <<interface>>
     Interface FinanceTrackerModel <<interface>>
@@ -17,7 +16,6 @@ Package Model <<Rectangle>> {
 }
 
 ModelManager .up.|> Model
-Model -up-|> AddressModel
 Model -up-|> UserPrefsModel
 Model -up-|> HistoryModel
 Model -up-|> FinanceTrackerModel
@@ -28,11 +26,27 @@ Model -up-|> CoursePlannerModel
 Package Planner <<Rectangle>> {
     Class Planner
     Class TaskList
-    abstract Class Task
+    Class "{abstract}\nTask" as Task
+    Class Event
+    Class Deadline
+    Class Todo
+    Class Priority
+    Class Frequency
+    Class Tag
+    Class Status
+    Class TaskType
 }
 
 Planner *--> "1" TaskList
 TaskList o--> "*" Task
+Event -up-|> Task
+Deadline -up-|> Task
+Todo -up-|> Task
+Task *-up-> "0..1" Frequency
+Task *-left-> "*" Tag
+Task *-up-> "0..1" Priority
+Task *-right-> "1" Status
+Task *-up-> "1" TaskType
 
 Package Course <<Rectangle>> {
     Class CoursePlanner
@@ -49,11 +63,11 @@ Package Course <<Rectangle>> {
     Class FulfillRequirements
 }
 
-Course *--> "1" Title
-Course *--> "1" CourseCode
-Course *--> "1" CourseCredit
-Course *--> "1" Faculty
-Course *--> "1" Description
+Course *-up-> "1" Title
+Course *-up-> "1" CourseCode
+Course *-up-> "1" CourseCredit
+Course *-left-> "1" Faculty
+Course *-right-> "1" Description
 Course *--> "0..1" PrereqTree
 Course *--> "0..1" Preclusion
 Course *--> "0..1" FulfillRequirements
@@ -68,14 +82,22 @@ Package Cca {
     Class CcaType
     Class EquipmentList
     Class Equipment
+    Class CcaProgress
+    Class CcaCurrentProgress
+    Class CcaMilestoneList
+    Class CcaMilestone
 }
 
-CcaTracker *--> "1" CcaList
-CcaList o--> "*" Cca
-Cca *--> "1" CcaName
-Cca *--> "1" CcaType
-Cca *--> "1" EquipmentList
-EquipmentList o--> "*" Equipment
+CcaTracker *-down-> "1" CcaList
+CcaList o-down-> "*" Cca
+Cca *-down-> "1" CcaName
+Cca *-down-> "1" CcaType
+Cca *-left-> "1" EquipmentList
+EquipmentList o-down-> "*" Equipment
+Cca *-up-> "1" CcaProgress
+CcaProgress *-up-> "1" CcaCurrentProgress
+CcaProgress *-down-> "1" CcaMilestoneList
+CcaMilestoneList *-down-> "*" CcaMilestone
 
 Package Finance <<Rectangle>> {
     Class FinanceTracker
@@ -89,12 +111,12 @@ Package Finance <<Rectangle>> {
     Class InstallmentMoneyPaid
 }
 
-FinanceTracker *--> "1" PurchaseList
+FinanceTracker *-left-> "1" PurchaseList
 FinanceTracker *--> "1" InstallmentList
 
 PurchaseList o--> "*" Purchase
 Purchase *--> "1" PurchaseDescription
-Purchase *--> "1" PurchaseMoneySpent
+Purchase *-left-> "1" PurchaseMoneySpent
 
 InstallmentList o--> "*" Installment
 Installment *--> "1" InstallmentDescription
@@ -103,32 +125,11 @@ Installment *--> "1" InstallmentMoneyPaid
 Package History <<Rectangle>> {
     Class HistoryManager
     Class CommandDeque
-    abstract Class Command
+    Class "{abstract}\nCommand" as Command
 }
 
 HistoryManager *--> "2" CommandDeque
 CommandDeque *--> "*" Command
-
-Package AddressBook <<Rectangle>> {
-    Class AddressBook
-    Interface ReadOnlyAddressBook <<interface>>
-    Class UniquePersonList
-    Class Person
-    Class Name
-    Class Phone
-    Class Address
-    Class Email
-    Class Tag
-}
-
-AddressBook ..|> ReadOnlyAddressBook
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> "1" Name
-Person *--> "1" Phone
-Person *--> "1" Address
-Person *--> "*" Tag
-Person *--> "1" Email
 
 Package UserPrefs <<Rectangle>> {
     Class UserPrefs
@@ -139,14 +140,12 @@ UserPrefs ..|> ReadOnlyUserPrefs
 
 'Combine all models together'
 
-ModelManager o--> "1" Planner
-ModelManager o--> "1" AddressBook
-ModelManager o--> "1" HistoryManager
+ModelManager o-up-> "1" HistoryManager
 ModelManager o--> "1" FinanceTracker
 ModelManager o--> "1" CcaTracker
-ModelManager o--> "1" Planner
+ModelManager o-up-> "1" Planner
 ModelManager o--> "1" CoursePlanner
-ModelManager o--> "1" UserPrefs
+ModelManager o-up-> "1" UserPrefs
 
 
 @enduml
