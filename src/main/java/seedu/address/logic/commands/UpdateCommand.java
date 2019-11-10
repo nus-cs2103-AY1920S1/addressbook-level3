@@ -4,25 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_FRIDGE_DOES_NOT_EXIST;
 import static seedu.address.logic.commands.AddCommand.NOTIF_PERIOD;
 import static seedu.address.logic.commands.AddCommand.NOTIF_TIME_UNIT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_DEATH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESIGNATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FRIDGE_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_NOK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANS_FOR_DONATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NOK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
@@ -50,47 +31,18 @@ import seedu.address.model.notif.Notif;
 
 
 //@@author ambervoong
-
 /**
  * Updates the details of an existing body or worker in Mortago.
  */
 public class UpdateCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "update";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Updates the details of a body or worker, identified "
-            + "by the identification number that was automatically assigned to the entity. "
-            + "Existing fields will be overwritten by the input values.\n"
-            + "Details that were not changed in this command will remain the same as before."
-            + "Compulsory fields: "
-            + PREFIX_FLAG + "w, b, or f "
-            + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION NUMBER \n"
-            + "Optional fields are listed below. \n"
-            + "Update fields for a Body object: \n"
-            + PREFIX_NAME + "NAME "
-            + PREFIX_SEX + "SEX "
-            + PREFIX_NRIC + "NRIC "
-            + PREFIX_RELIGION + "RELIGION "
-            + PREFIX_CAUSE_OF_DEATH + "CAUSE_OF_DEATH "
-            + PREFIX_ORGANS_FOR_DONATION + "ORGANS_FOR_DONATION "
-            + PREFIX_STATUS + "STATUS "
-            + PREFIX_FRIDGE_ID + "FRIDGE_ID "
-            + PREFIX_DATE_OF_BIRTH + "DATE_OF_BIRTH "
-            + PREFIX_DATE_OF_DEATH + "DATE_OF_DEATH "
-            + PREFIX_NAME_NOK + "NAME_NOK "
-            + PREFIX_RELATIONSHIP + "RELATIONSHIP "
-            + PREFIX_PHONE_NOK + "PHONE_NOK "
-            + "\nUpdate fields for a Worker object: \n"
-            + PREFIX_PHONE_NUMBER + "PHONE "
-            + PREFIX_SEX + "SEX "
-            + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
-            + PREFIX_DATE_JOINED + "DATE JOINED "
-            + PREFIX_DESIGNATION + "DESIGNATION "
-            + PREFIX_EMPLOYMENT_STATUS + "EMPLOYMENT STATUS";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update a worker or body in Mortago.\n"
+            + "Please refer to the User Guide for more details on how to update an entity.";
 
-    public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "Edited Entity: %1$s";
+    public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "This entity was successfully updated. ID Number: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_UNDO_SUCCESS = "Undid updates to entity: %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid update(s) made. ID Number: %1$s";
     public static final String MESSAGE_CANNOT_ASSIGN_FRIDGE = "A fridge cannot be assigned to a claimed fridge";
 
     private final IdentificationNumber id;
@@ -213,7 +165,7 @@ public class UpdateCommand extends UndoableCommand {
         setUndoable();
         model.addExecutedCommand(this);
 
-        return new CommandResult(String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, entity));
+        return new CommandResult(String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, entity.getIdNum()));
     }
 
     //@@author arjavibahety
@@ -377,7 +329,7 @@ public class UpdateCommand extends UndoableCommand {
         }
         setRedoable();
         model.addUndoneCommand(this);
-        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, entity));
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, entity.getIdNum()));
     }
 
     /**
@@ -396,9 +348,7 @@ public class UpdateCommand extends UndoableCommand {
             }
         }
 
-        for (Notif notif : autoNotif) {
-            model.deleteNotif(notif);
-        }
+        autoNotif.forEach((notif) -> model.deleteNotif(notif));
     }
 
     public void setUpdateFromNotif(boolean isUpdatedFromNotif) {
