@@ -56,4 +56,8 @@ public class Description implements Comparable<Description> {
                     && description.equals(((Description) other).description));
     }
 
+    @Override
+    public int hashCode() {
+        return description.hashCode();
+    }
 }
