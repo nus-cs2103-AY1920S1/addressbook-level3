@@ -38,9 +38,12 @@ public class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
 
     private PhotoList photoList;
 
+    private ObservableList<CharSequence> observableParagraphs;
+
     public DiaryEntryDisplay(ObservableList<CharSequence> observableParagraphs) {
         super(FXML);
         this.photoList = new PhotoList();
+        this.observableParagraphs = observableParagraphs;
         getRoot().setItems(observableParagraphs);
         getRoot().setCellFactory(listViewCell -> new DiaryTextLineCell());
     }
@@ -56,15 +59,18 @@ public class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
         @Override
         protected void updateItem(CharSequence item, boolean empty) {
             super.updateItem(item, empty);
+            String lineNumber = getIndex() == -1 || getIndex() >= observableParagraphs.size()
+                    ? ""
+                    : String.valueOf(getIndex() + 1);
 
             DiaryLine diaryLine;
             if (empty || item == null) {
-                diaryLine = new DiaryLine("");
+                diaryLine = new DiaryLine("", lineNumber);
             } else {
                 Matcher m = IMAGE_SEPARATOR_PATTERN.matcher(item);
 
                 if (!m.matches()) {
-                    diaryLine = new DiaryLine(item.toString());
+                    diaryLine = new DiaryLine(item.toString(), lineNumber);
                 } else {
                     String preText = m.group("pretext");
                     String postText = m.group("posttext");
@@ -73,14 +79,15 @@ public class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
 
                     ArrayList<Photo> photos = parseImageSeparator(numbers);
                     if (preText.trim().isEmpty() && postText.trim().isEmpty()) {
-                        diaryLine = new DiaryLine(photos);
+                        diaryLine = new DiaryLine(photos, lineNumber);
                     } else if (photos.size() == 0) {
-                        diaryLine = new DiaryLine(preText.stripTrailing() + postText);
+                        diaryLine = new DiaryLine(preText.stripTrailing() + postText, lineNumber);
                     } else {
                         diaryLine = new DiaryLine(
                                 preText.stripTrailing() + postText,
                                 photos.get(0),
-                                position.equalsIgnoreCase(IMAGE_POSITION_LEFT_PATTERN));
+                                position.equalsIgnoreCase(IMAGE_POSITION_LEFT_PATTERN),
+                                lineNumber);
                     }
                 }
             }

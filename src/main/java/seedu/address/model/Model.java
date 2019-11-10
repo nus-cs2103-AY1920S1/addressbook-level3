@@ -8,6 +8,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appstatus.PageStatus;
+import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.person.Person;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.exceptions.ClashingTripException;
@@ -123,6 +124,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered trip list */
     FilteredList<Trip> getFilteredTripList();
 
+    /** Returns an unmodifiable view of the filtered currency list */
+    FilteredList<CustomisedCurrency> getFilteredCurrencyList();
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -131,4 +135,31 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Deletes the given currency.
+     * The currency must exist in the currency list.
+     */
+    void deleteCurrency(CustomisedCurrency target);
+
+    /**
+     * Selects the given currency.
+     * The currency must exist in the currency list.
+     */
+    void selectCurrency(CustomisedCurrency target);
+
+    /**
+     * Adds the given currency.
+     * {@code currency} must not already exist in the currency list.
+     */
+    void addCurrency(CustomisedCurrency currency);
+
+
+    /**
+     * Replaces the given currency {@code target} with {@code editedCurrency}.
+     * {@code target} must exist in the currency list.
+     * The currency identity of {@code editedCurrency} must not be the same as another existing currency
+     * in the currency list.
+     */
+    void setCurrency(CustomisedCurrency target, CustomisedCurrency editedCurrency);
 }

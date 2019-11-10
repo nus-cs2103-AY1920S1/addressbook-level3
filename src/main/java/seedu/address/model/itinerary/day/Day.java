@@ -3,20 +3,18 @@ package seedu.address.model.itinerary.day;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import seedu.address.model.common.Photo;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
-import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.EventList;
 
 /**
  * Represents a Day in TravelPal.
- * Compulsory fields: name, startDate, endDate, destination, eventList.
+ * Compulsory fields: startDate, endDate, destination, eventList.
  * Optional fields: totalBudget, description.
  */
 public class Day {
-    // Compulsory Fields
-    private final Name name;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final Location destination;
@@ -25,34 +23,32 @@ public class Day {
     // Optional Fields
     private final Budget totalBudget;
     private final Description description;
+    private final Photo photo;
 
     /** Constructs a Day */
-    public Day(Name name, LocalDateTime startDate, LocalDateTime endDate, Description description,
-               Location destination, Budget totalBudget, EventList eventList) {
-        this.name = name;
+    public Day(LocalDateTime startDate, LocalDateTime endDate, Description description,
+               Location destination, Budget totalBudget, EventList eventList, Photo photo) {
+        assert(startDate.isBefore(endDate));
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
         this.destination = destination;
         this.totalBudget = totalBudget;
         this.eventList = eventList;
+        this.photo = photo;
     }
 
     /** Constructs a day with optional fields */
-    public Day (Name name, LocalDateTime startDate, LocalDateTime endDate, Optional<Description> description,
-                Location destination, Optional<Budget> totalBudget, EventList eventList) {
-        this.name = name;
+    public Day(LocalDateTime startDate, LocalDateTime endDate, Optional<Description> description,
+               Location destination, Optional<Budget> totalBudget, EventList eventList, Optional<Photo> photo) {
+        assert(startDate.isBefore(endDate));
         this.startDate = startDate;
         this.endDate = endDate;
-        this.description = description.isPresent() ? description.get() : null;
+        this.description = description.orElse(null);
         this.destination = destination;
-        this.totalBudget = totalBudget.isPresent() ? totalBudget.get() : null;
+        this.totalBudget = totalBudget.orElse(null);
         this.eventList = eventList;
-    }
-
-    // Compulsory Field getters
-    public Name getName() {
-        return name;
+        this.photo = photo.orElse(null);
     }
 
     public LocalDateTime getStartDate() {
@@ -77,9 +73,12 @@ public class Day {
     }
 
     public Optional<Budget> getTotalBudget() {
-        return Optional.of(totalBudget);
+        return Optional.ofNullable(totalBudget);
     }
 
+    public Optional<Photo> getPhoto() {
+        return Optional.ofNullable(photo);
+    }
 
     /**
      * Soft check of whether the days clash.
@@ -91,8 +90,7 @@ public class Day {
         if (otherDay == this) {
             return true;
         } else {
-            return otherDay.getName().equals(getName())
-                    && otherDay.getStartDate().equals(getStartDate())
+            return otherDay.getStartDate().equals(getStartDate())
                     && otherDay.getEndDate().equals(getEndDate())
                     && otherDay.getDestination().equals(getDestination());
         }
@@ -109,8 +107,7 @@ public class Day {
         }
 
         Day otherDay = (Day) other;
-        return otherDay.getName().equals(getName())
-                && otherDay.getStartDate().equals(getStartDate())
+        return otherDay.getStartDate().equals(getStartDate())
                 && otherDay.getEndDate().equals(getEndDate())
                 && otherDay.getDescription().equals(getDescription())
                 && otherDay.getDestination().equals(getDestination())
@@ -130,5 +127,12 @@ public class Day {
                 && this.getEndDate().compareTo(other.getEndDate()) <= 0);
     }
 
-
+    @Override
+    public String toString() {
+        return "Start Date:" + startDate
+                + ", End Date: " + endDate
+                + ", Destination: " + destination
+                + ", TotalBudget: " + totalBudget
+                + ", Description: " + description;
+    }
 }

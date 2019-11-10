@@ -17,7 +17,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.diary.photo.Photo;
 import seedu.address.model.diary.photo.PhotoList;
-import seedu.address.storage.diary.photo.JsonAdaptedPhoto;
+import seedu.address.storage.diary.photo.JsonAdaptedDiaryPhoto;
 
 /**
  * Jackson-friendly version of {@link DiaryEntry}.
@@ -27,7 +27,7 @@ class JsonAdaptedDiaryEntry {
 
     private final int dayIndex;
     private final String diaryText;
-    private final List<JsonAdaptedPhoto> photos;
+    private final List<JsonAdaptedDiaryPhoto> photos;
 
     /**
      * Constructs a {@code JsonAdaptedDiary} with the given diary details.
@@ -36,7 +36,7 @@ class JsonAdaptedDiaryEntry {
     public JsonAdaptedDiaryEntry(
             @JsonProperty("dayIndex") int dayOneBasedIndex,
             @JsonProperty("diaryText") String diaryText,
-            @JsonProperty("photos") List<JsonAdaptedPhoto> photos) {
+            @JsonProperty("photos") List<JsonAdaptedDiaryPhoto> photos) {
         requireAllNonNull(dayOneBasedIndex, diaryText);
         this.dayIndex = dayOneBasedIndex;
         this.diaryText = diaryText;
@@ -55,7 +55,7 @@ class JsonAdaptedDiaryEntry {
         this.diaryText = source.getDiaryText();
         this.photos = FXCollections.observableArrayList();
         for (Photo photo : source.getPhotoList().getObservablePhotoList()) {
-            this.photos.add(new JsonAdaptedPhoto(photo));
+            this.photos.add(new JsonAdaptedDiaryPhoto(photo));
         }
     }
 
@@ -66,7 +66,7 @@ class JsonAdaptedDiaryEntry {
      */
     public DiaryEntry toModelType() throws IllegalValueException {
         List<Photo> photoList = new ArrayList<Photo>();
-        for (JsonAdaptedPhoto photo : photos) {
+        for (JsonAdaptedDiaryPhoto photo : photos) {
             photoList.add(photo.toModelType());
         }
         PhotoList modelPhotoList = new PhotoList(photoList);

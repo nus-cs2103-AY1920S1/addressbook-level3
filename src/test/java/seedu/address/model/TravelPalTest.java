@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.person.Person;
@@ -109,6 +110,7 @@ public class TravelPalTest {
     @Disabled
     private static class TravelPalStub implements ReadOnlyTravelPal {
         private final ObservableList<Trip> trips = FXCollections.observableArrayList();
+        private final ObservableList<CustomisedCurrency> currencies = FXCollections.observableArrayList();
 
         TravelPalStub(Collection<Trip> trips) {
             this.trips.setAll(trips);
@@ -122,6 +124,11 @@ public class TravelPalTest {
         @Override
         public ObservableList<Trip> getTripList() {
             return trips;
+        }
+
+        @Override
+        public ObservableList<CustomisedCurrency> getCurrencies() {
+            return currencies;
         }
     }
 

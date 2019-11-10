@@ -34,7 +34,7 @@ public class NavigationSidebarRight extends UiPart<VBox> {
     }
 
     @FXML
-    private void handleEnterExpenditureManager() {
+    private void handleEnterExpenseManager() {
         mainWindow.executeGuiCommand(EnterExpenseManagerCommand.COMMAND_WORD);
     }
 

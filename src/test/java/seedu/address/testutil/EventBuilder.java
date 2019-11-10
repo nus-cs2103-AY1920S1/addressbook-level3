@@ -5,8 +5,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 
 import seedu.address.model.booking.Booking;
-import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
@@ -15,14 +16,15 @@ import seedu.address.model.itinerary.event.Event;
  * Builder class to accommodate optional properties using builder pattern.
  * Can be used to construct {@link Event} without optional fields.
  */
-class EventBuilder {
+public class EventBuilder {
     private Name name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Booking booking;
     private Location destination;
-    private Expenditure totalBudget;
+    private Expense totalBudget;
     private Inventory inventory;
+    private Description description;
 
     /**
      * Constructs an empty {@code EventBuilder}.
@@ -47,14 +49,21 @@ class EventBuilder {
      */
     public static EventBuilder of(Event event) {
         requireAllNonNull(event.getName(), event.getStartDate(), event.getEndDate(), event.getDestination());
-        return EventBuilder.newInstance()
+        EventBuilder e = EventBuilder.newInstance()
                 .setName(event.getName())
                 .setStartDate(event.getStartDate())
                 .setEndDate(event.getEndDate())
-                .setLocation(event.getDestination())
-                .setTotalBudget(event.getExpenditure().get())
-                .setInventory(event.getInventory().get())
-                .setBooking(event.getBooking().get());
+                .setLocation(event.getDestination());
+        event.getExpense().ifPresent(e::setTotalBudget);
+        event.getInventory().ifPresent(e::setInventory);
+        event.getBooking().ifPresent(e::setBooking);
+        event.getDescription().ifPresent(e::setDescription);
+        return e;
+    }
+
+    public EventBuilder setDescription(Description description) {
+        this.description = description;
+        return this;
     }
 
     public EventBuilder setStartDate(LocalDateTime startTime) {
@@ -77,7 +86,7 @@ class EventBuilder {
         return this;
     }
 
-    public EventBuilder setTotalBudget(Expenditure totalBudget) {
+    public EventBuilder setTotalBudget(Expense totalBudget) {
         this.totalBudget = totalBudget;
         return this;
     }
@@ -88,7 +97,7 @@ class EventBuilder {
     }
 
     public Event build() {
-        return new Event(name, startDate, endDate, booking, totalBudget, inventory, destination);
+        return new Event(name, startDate, endDate, booking, totalBudget, inventory, destination, description);
     }
 
 }

@@ -31,7 +31,7 @@ import seedu.address.model.appstatus.PageType;
  * of the application is {@code DIARY}.
  */
 public class DiaryParser implements PageParser {
-    private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
+    static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
             + FlipDiaryCommand.COMMAND_WORD + " "
             + AppendEntryTextCommand.COMMAND_WORD + " "
             + EditEntryTextCommand.COMMAND_WORD + " "
@@ -42,7 +42,7 @@ public class DiaryParser implements PageParser {
             + DoneEditEntryTextCommand.COMMAND_WORD + " "
             + AddPhotoCommand.COMMAND_WORD + " "
             + DeletePhotoCommand.COMMAND_WORD + " | "
-            + NavbarViewParser.MESSAGE_COMMAND_TYPES;
+            + NavbarViewParser.MESSAGE_COMMAND_TYPES.replace("diary ", "");
 
     @Override
     public Command parse(String command, String arguments) throws ParseException {

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.person.Person;
 import seedu.address.model.trip.Trip;
 
@@ -16,6 +17,6 @@ public interface ReadOnlyTravelPal {
      */
     ObservableList<Person> getPersonList();
     ObservableList<Trip> getTripList();
-
+    ObservableList<CustomisedCurrency> getCurrencies();
 
 }

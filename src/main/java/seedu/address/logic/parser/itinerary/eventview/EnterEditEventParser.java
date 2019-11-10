@@ -9,7 +9,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Placeholder javadoc.
+ * Parses user input index and returns {@link EnterEditEventCommand} by index.
  */
 public class EnterEditEventParser implements Parser<EnterEditEventCommand> {
     @Override

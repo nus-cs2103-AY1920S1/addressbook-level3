@@ -11,11 +11,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.common.HelpCommand;
 import seedu.address.logic.parser.bookings.BookingsParser;
 import seedu.address.logic.parser.common.CommonParser;
+import seedu.address.logic.parser.currency.EditCurrencyParser;
 import seedu.address.logic.parser.diary.DiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.expense.DaysViewParser;
 import seedu.address.logic.parser.expense.ExpenseManagerParser;
-import seedu.address.logic.parser.expense.edit.EditExpenditureParser;
+import seedu.address.logic.parser.expense.edit.EditExpenseParser;
 import seedu.address.logic.parser.inventory.InventoryViewParser;
 import seedu.address.logic.parser.itinerary.dayview.DayViewParser;
 import seedu.address.logic.parser.itinerary.dayview.edit.EditDayParser;
@@ -24,7 +24,6 @@ import seedu.address.logic.parser.itinerary.eventview.edit.EditEventParser;
 import seedu.address.logic.parser.itinerary.overallview.ItineraryViewParser;
 import seedu.address.logic.parser.navbar.NavbarCommand;
 import seedu.address.logic.parser.navbar.NavbarViewParser;
-import seedu.address.logic.parser.preferences.PreferencesParser;
 import seedu.address.logic.parser.trips.TripManagerParser;
 import seedu.address.logic.parser.trips.edit.EditTripParser;
 import seedu.address.model.appstatus.PageStatus;
@@ -76,8 +75,6 @@ public class TravelPalParser {
         PageType currentPage = pageStatus.getPageType();
 
         switch (currentPage) {
-        case PREFERENCES:
-            return new PreferencesParser().parse(commandWord, arguments);
         case TRIP_MANAGER:
             return new TripManagerParser().parse(commandWord, arguments);
         case ADD_TRIP:
@@ -91,15 +88,15 @@ public class TravelPalParser {
         case OVERALL_VIEW:
             return parseNavbarPageCommand(commandWord, arguments, new DayViewParser(), NavbarCommand.DAYS);
         case EVENT_PAGE:
-            return new EventViewParser().parse(commandWord, arguments);
+            return parseNavbarPageCommand(commandWord, arguments, new EventViewParser());
         case PRETRIP_INVENTORY:
             return parseNavbarPageCommand(commandWord, arguments, new InventoryViewParser(), NavbarCommand.INVENTORY);
         case EXPENSE_MANAGER:
             return parseNavbarPageCommand(commandWord, arguments, new ExpenseManagerParser(), NavbarCommand.EXPENSE);
-        case EXPENSE_MANAGER_DAYS:
-            return parseNavbarPageCommand(commandWord, arguments, new DaysViewParser(), null);
-        case ADD_EXPENDITURE:
-            return new EditExpenditureParser().parse(commandWord, arguments);
+        case ADD_EXPENSE:
+            return new EditExpenseParser().parse(commandWord, arguments);
+        case ADD_CURRENCY:
+            return new EditCurrencyParser().parse(commandWord, arguments);
         case DIARY:
             return parseNavbarPageCommand(commandWord, arguments, new DiaryParser(), NavbarCommand.DIARY);
         case BOOKINGS:
@@ -134,4 +131,27 @@ public class TravelPalParser {
             return altPageParser.parse(commandWord, arguments);
         }
     }
+
+    /**
+     * Parser for navigation bar for pages not navigable to by the bar and does not require a
+     * precluding page.
+     *
+     * @param commandWord The String command word to parse.
+     * @param arguments The String arguments to parse.
+     * @param altPageParser The alternative {@link PageParser} to use if NavbarViewParser fails.
+     * @return The parsed {@link Command}.
+     * @throws ParseException If the alternate page parser fails to parse the given commandWord or arguments.
+     */
+    private Command parseNavbarPageCommand(String commandWord, String arguments,
+                                           PageParser altPageParser) throws ParseException {
+        try {
+            NavbarViewParser navbarViewParser = new NavbarViewParser();
+            Command command = navbarViewParser.parse(commandWord, arguments);
+            return command;
+        } catch (ParseException ex) {
+            logger.info("User command executed was not a navbar command.");
+            return altPageParser.parse(commandWord, arguments);
+        }
+    }
+
 }

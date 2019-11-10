@@ -7,10 +7,12 @@ import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 
+
 /**
  * Collection of methods for parsing trip's abstractions.
  */
 public abstract class TripParserUtil {
+
 
     /**
      * Parses a {@code String name} into a {@code Name}.

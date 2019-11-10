@@ -15,7 +15,6 @@ import seedu.address.model.trip.exceptions.TripNotFoundException;
  * Abstraction of a list containing trips, backed by ConsecutiveOccurenceList.
  */
 public class TripList extends ConsecutiveOccurrenceList<Trip> {
-
     @Override
     public boolean contains(Trip toCheck) {
         requireNonNull(toCheck);
@@ -77,7 +76,6 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
         if (!areConsecutive(trips)) {
             throw new ClashingTripException();
         }
-
         internalList.setAll(trips);
     }
 

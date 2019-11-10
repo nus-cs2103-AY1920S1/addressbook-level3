@@ -8,7 +8,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
-import seedu.address.model.diary.EditDiaryEntryDescriptor;
 
 /**
  * {@link Command} that creates a new diary entry with the provided {@code dayIndex}.
@@ -26,6 +25,8 @@ public class CreateDiaryEntryCommand extends Command {
 
     private static final String MESSAGE_CREATE_SUCCESS = "Created a new diary entry!";
 
+    private static final String MESSAGE_DAY_OUT_OF_BOUNDS = "Your trip only has %1$d days!";
+
     private final Index dayIndex;
 
     public CreateDiaryEntryCommand(Index dayIndex) {
@@ -36,6 +37,8 @@ public class CreateDiaryEntryCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        validateWithinTrip(model.getPageStatus().getTrip().getDayList().internalUnmodifiableList.size());
+
         DiaryEntry diaryEntry = new DiaryEntry(dayIndex);
         try {
             model.getPageStatus().getCurrentTripDiary().addDiaryEntry(diaryEntry);
@@ -44,13 +47,24 @@ public class CreateDiaryEntryCommand extends Command {
                     model.getPageStatus().getCurrentTripDiary().getDiaryEntry(dayIndex).get()));
         }
 
-        EditDiaryEntryDescriptor editDescriptor = new EditDiaryEntryDescriptor(diaryEntry);
-
         model.setPageStatus(model.getPageStatus()
-                .withNewEditDiaryEntryDescriptor(editDescriptor)
-                .withNewDiaryEntry(diaryEntry));
+                .withNewDiaryEntry(diaryEntry)
+                .withNewEditDiaryEntryDescriptor(null));
 
         return new CommandResult(MESSAGE_CREATE_SUCCESS);
+    }
+
+    /**
+     * Ensures that the positive day index provided is between the first to last day of the trip, inclusive.
+     *
+     * @param dayListSize The size of the current {@link seedu.address.model.itinerary.day.DayList} of the
+     * {@link seedu.address.model.trip.Trip}.
+     * @throws CommandException If the {@code dayIndex} refers to a day beyond the last day of the trip.
+     */
+    private void validateWithinTrip(int dayListSize) throws CommandException {
+        if (dayIndex.getZeroBased() >= dayListSize) {
+            throw new CommandException(String.format(MESSAGE_DAY_OUT_OF_BOUNDS, dayListSize));
+        }
     }
 
     @Override

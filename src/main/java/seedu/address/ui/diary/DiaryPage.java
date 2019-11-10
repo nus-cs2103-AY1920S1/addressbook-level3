@@ -62,6 +62,9 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
     private DiaryEditBox diaryEntryEditBox;
     private DiaryEntryDisplay diaryEntryDisplay;
 
+    private Button doneButton;
+    private Button editButton;
+    private Button addPhotoButton;
 
     @FXML
     private StackPane diaryEntryPlaceholder;
@@ -86,14 +89,53 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
      * Initialises the javafx components of the page, to be placed inside the various placeholders.
      */
     private void initPlaceholders() {
-        diaryGallery = new DiaryGallery();
-        diaryEntryEditBox = new DiaryEditBox(editBoxText ->
-                mainWindow.executeGuiCommand(String.format("%1$s %2$s%3$s",
-                        EditEntryTextCommand.COMMAND_WORD,
-                        PREFIX_DESCRIPTION,
-                        editBoxText)));
+        initRightPlaceholderButtons();
 
-        //Setup background of diary entry display placeholder
+        diaryGallery = new DiaryGallery();
+        diaryEntryEditBox = new DiaryEditBox(editBoxText -> {
+            mainWindow.executeGuiCommand(String.format("%1$s %2$s%3$s",
+                    EditEntryTextCommand.COMMAND_WORD,
+                    PREFIX_DESCRIPTION,
+                    editBoxText));
+
+            //Workaround for done button click handler not executing
+            //occurring due to loss of focus event from edit box taking priority
+            if (doneButton.isPressed()) {
+                doneButton.onMouseClickedProperty().get().handle(null);
+            }
+        });
+        diaryEntryDisplay = new DiaryEntryDisplay(diaryEntryEditBox.getObservableParagraphs());
+
+        initDiaryEntryPlaceholder();
+
+        fillButtonBar();
+        addButtonBarListeners();
+    }
+
+    /**
+     * Initialises the gui buttons used for the gallery or edit box, to be placed under {@code dayRightButtonBar}.
+     */
+    private void initRightPlaceholderButtons() {
+        doneButton = new Button("Done");
+        ButtonBar.setButtonData(doneButton, ButtonBar.ButtonData.LEFT);
+        doneButton.setOnMouseClicked(ev -> mainWindow.executeGuiCommand(DoneEditEntryTextCommand.COMMAND_WORD));
+
+        editButton = new Button("Edit");
+        addPhotoButton = new Button("Add");
+
+        ButtonBar.setButtonData(editButton, ButtonBar.ButtonData.LEFT);
+        ButtonBar.setButtonData(addPhotoButton, ButtonBar.ButtonData.LEFT);
+
+        editButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(ShowTextEditorCommand.COMMAND_WORD));
+        addPhotoButton.setOnMouseClicked(buttonEvent ->
+                mainWindow.executeGuiCommand(AddPhotoCommand.COMMAND_WORD + " " + PREFIX_FILE_CHOOSER));
+    }
+
+    /**
+     * Initialises the {@code diaryEntryPlaceholder}'s background image and adds the {@code diaryEntryDisplay}
+     * as one of its children.
+     */
+    private void initDiaryEntryPlaceholder() {
         Background diaryEntryBackground = new Background(new BackgroundImage(
                 getImage(DIARY_ENTRY_BACKGROUND_IMAGE),
                 BackgroundRepeat.REPEAT,
@@ -103,13 +145,28 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
                         false, false, false, false)));
         diaryEntryPlaceholder.setBackground(diaryEntryBackground);
 
-        diaryEntryDisplay = new DiaryEntryDisplay(diaryEntryEditBox.getObservableParagraphs());
         diaryEntryPlaceholder.getChildren().add(diaryEntryDisplay.getRoot());
-
-        fillButtonBar();
-        addButtonBarListeners();
     }
 
+    /**
+     * Adds a listener to the sorted list of diary entries to update the {@code dayIndexButtonBar}
+     * whenever a change is detected in the sorted list.
+     * The method {@code fillButtonBar} is called to refresh the {@code dayIndexButtonBar}.
+     */
+    private void addButtonBarListeners() {
+        model.getPageStatus()
+                .getCurrentTripDiaryEntryList()
+                .getDiaryEntrySortedList()
+                .addListener((ListChangeListener<DiaryEntry>) change -> fillButtonBar());
+    }
+
+    /**
+     * The callback method to run after command execution.
+     * If no diary entry is currently being viewed, the method returns immediately.
+     * Otherwise, the user interface is updated based on whether the user is using the {@code diaryEntryEditBox},
+     * as indicated by the null status of {@code editDiaryEntryDescriptor} in the
+     * {@link seedu.address.model.appstatus.PageStatus}.
+     */
     @Override
     public void fillPage() {
         currentEntry = model.getPageStatus().getDiaryEntry();
@@ -125,6 +182,7 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
 
             diaryEntryDisplay.setPhotoList(currentEntry.getPhotoList());
             diaryEntryEditBox.setText(currentEntry.getDiaryText());
+            diaryGallery.setPhotoList(currentEntry.getPhotoList());
             swapRightToGallery();
         } else if (!diaryRightPlaceholder.getChildren().contains(diaryEntryEditBox.getRoot())) {
             logger.log(Level.INFO, "Diary page is switching to edit box mode.");
@@ -135,14 +193,11 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
 
             diaryEntryEditBox.setText(editDiaryEntryDescriptor.getDiaryText());
         }
-
-        //Fill bottom gallery / edit window bar depending on which is open
-        fillRightPlaceholderButtons();
     }
 
     /**
      * Populates the {@code dayIndexButtonBar} with diary day navigation buttons using
-     * the current {@link DiaryEntryList}.
+     * the current {@link DiaryEntry}s contained in current {@link DiaryEntryList} of the trip.
      */
     private void fillButtonBar() {
         DiaryEntryList diaryEntryList = model.getPageStatus().getCurrentTripDiaryEntryList();
@@ -185,22 +240,18 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
     }
 
     /**
-     * Adds a listener to the sorted list of diary entries to update the button bar whenever it is changed.
+     * Fills the {@code diaryRightPlaceholder} {@link VBox} with the {@code diaryEntryEditBox},
+     * removing the {@code diaryGallery}.
+     * Also updates the {@code diaryRightButtonBar} with the buttons for the edit box.
      */
-    private void addButtonBarListeners() {
-        model.getPageStatus().getCurrentTripDiaryEntryList()
-                .getDiaryEntrySortedList()
-                .addListener((ListChangeListener<DiaryEntry>) change -> fillButtonBar());
-    }
+    private void swapRightToEditBox() {
+        if (!diaryRightPlaceholder.getChildren().contains(diaryEntryEditBox.getRoot())) {
+            ObservableList<Node> placeHolderChildren = diaryRightPlaceholder.getChildren();
+            placeHolderChildren.remove(diaryGallery.getRoot());
+            diaryEntryEditBox.setText(editDiaryEntryDescriptor.getDiaryText());
+            placeHolderChildren.add(diaryEntryEditBox.getRoot());
+            diaryEntryEditBox.requestFocus();
 
-    /**
-     * Fills the smaller button bar on the right, depending on whether the gallery or edit box
-     * is currently shown.
-     */
-    private void fillRightPlaceholderButtons() {
-        if (editDiaryEntryDescriptor == null) {
-            fillGalleryButtons();
-        } else {
             fillEditBoxButtons();
         }
     }
@@ -209,58 +260,30 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
      * Fills the {@code diaryRightButtonBar} with functional gui buttons for the edit box.
      */
     private void fillEditBoxButtons() {
-        Button doneButton = new Button("Done");
-        ButtonBar.setButtonData(doneButton, ButtonBar.ButtonData.LEFT);
-
-        doneButton.setOnMouseClicked(buttonEvent ->
-                mainWindow.executeGuiCommand(DoneEditEntryTextCommand.COMMAND_WORD));
-
         diaryRightButtonBar.getButtons().clear();
         diaryRightButtonBar.getButtons().add(doneButton);
     }
 
     /**
-     * Fills the {@code diaryRightButtonBar} with functional gui buttons for the gallery.
-     */
-    private void fillGalleryButtons() {
-        Button editButton = new Button("Edit");
-        Button addPhotoButton = new Button("Add");
-
-        ButtonBar.setButtonData(editButton, ButtonBar.ButtonData.LEFT);
-        ButtonBar.setButtonData(addPhotoButton, ButtonBar.ButtonData.LEFT);
-
-        editButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(ShowTextEditorCommand.COMMAND_WORD));
-        addPhotoButton.setOnMouseClicked(buttonEvent ->
-                mainWindow.executeGuiCommand(AddPhotoCommand.COMMAND_WORD + " " + PREFIX_FILE_CHOOSER));
-
-        diaryRightButtonBar.getButtons().clear();
-        diaryRightButtonBar.getButtons().addAll(editButton, addPhotoButton);
-    }
-
-    /**
-     * Fills the {@code diaryRightPlaceholder} {@link VBox} with the {@code diaryEntryEditBox},
-     * removing the {@code diaryGallery}.
-     */
-    private void swapRightToEditBox() {
-        ObservableList<Node> placeHolderChildren = diaryRightPlaceholder.getChildren();
-        placeHolderChildren.remove(diaryGallery.getRoot());
-        diaryEntryEditBox.setText(editDiaryEntryDescriptor.getDiaryText());
-        placeHolderChildren.add(diaryEntryEditBox.getRoot());
-        diaryEntryEditBox.requestFocus();
-    }
-
-    /**
      * Fills the {@code diaryRightPlaceholder} {@link VBox} with the {@code diaryGallery},
      * removing the {@code diaryEntryEditBox}, if the {@code diaryGallery} is not already inside.
-     * Also updates the current {@code photoList} instance of the {@code diaryGallery} to the current
-     * {@code currentEntry}'s photo list.
+     * Also updates the {@code diaryRightButtonBar} with the buttons for the gallery.
      */
     private void swapRightToGallery() {
         if (!diaryRightPlaceholder.getChildren().contains(diaryGallery.getRoot())) {
             ObservableList<Node> placeHolderChildren = diaryRightPlaceholder.getChildren();
             placeHolderChildren.clear();
             placeHolderChildren.add(diaryGallery.getRoot());
+
+            fillGalleryButtons();
         }
-        diaryGallery.setPhotoList(currentEntry.getPhotoList());
+    }
+
+    /**
+     * Fills the {@code diaryRightButtonBar} with functional gui buttons for the gallery.
+     */
+    private void fillGalleryButtons() {
+        diaryRightButtonBar.getButtons().clear();
+        diaryRightButtonBar.getButtons().addAll(editButton, addPhotoButton);
     }
 }

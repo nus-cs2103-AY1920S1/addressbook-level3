@@ -3,6 +3,8 @@ package seedu.address.model.itinerary;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.currency.CustomisedCurrency;
+
 /**
  * Generic abstraction of budget.
  */
@@ -14,14 +16,15 @@ public class Budget {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[+]?[0-9]+([.][0-9]{1,2})?$";
 
-    public final Double value;
+    public static final String VALIDATION_REGEX = "^(\\d+(?:,\\d{1,2})?).*";
+
+    private final Double value;
 
     /**
      * Constructs an {@code Budget}.
      *
-     * @param value A valid budget.
+     * @param value A valid budget amount.
      */
     public Budget(String value) {
         requireNonNull(value);
@@ -40,14 +43,20 @@ public class Budget {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public static boolean isValidBudget(double test) {
-        return test > 0;
+    public double getValue() {
+        return this.value;
+    }
+
+    public String getValueStringInCurrency(CustomisedCurrency customisedCurrency) {
+        return customisedCurrency.getSymbol() + String.format("%.2f", (
+                customisedCurrency.getRate().getValue() * value));
     }
 
     @Override
     public String toString() {
-        return value.toString();
+        return String.format("%.2f", value);
     }
+
 
     @Override
     public boolean equals(Object other) {
