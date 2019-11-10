@@ -3,18 +3,18 @@
 skinparam backgroundColor #EEEBDC
 
 skinparam sequence {
-	ArrowColor MediumSpringGreen
-	LifeLineBorderColor MidnightBlue
-	LifeLineBackgroundColor MediumAquaMarine
+	ArrowColor Olive
+	LifeLineBorderColor DarkSlateGray
+	LifeLineBackgroundColor DarkSeaGreen
 
-	ParticipantBorderColor MidnightBlue
-	ParticipantBackgroundColor MediumVioletRed
+	ParticipantBackgroundColor Green
 	ParticipantFontName Impact
 	ParticipantFontSize 17
-	ParticipantFontColor MOTIVATION
+	ParticipantFontColor DarkSeaGreen
+
 
 }
-box Logic LOGIC_COLOR_T1
+box Logic
 participant ":DoneTaskCommandParser" as A
 participant ":DoneTaskCommand" as B
 participant "CommandResult" as D

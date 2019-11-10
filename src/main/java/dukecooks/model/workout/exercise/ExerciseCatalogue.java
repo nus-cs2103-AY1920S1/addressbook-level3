@@ -85,6 +85,7 @@ public class ExerciseCatalogue implements ReadOnlyExerciseCatalogue {
      * The exercise must not already exist in the Workout Planner.
      */
     public void addExercise(Exercise p) {
+        requireNonNull(p);
         exercises.add(p);
     }
 
@@ -92,6 +93,7 @@ public class ExerciseCatalogue implements ReadOnlyExerciseCatalogue {
      * Returns an exercise in the List with the ExerciseName specified.
      */
     public Exercise findExercise(ExerciseName name) {
+        requireNonNull(name);
         for (Exercise exercise : exercises) {
             if (exercise.getExerciseName().equals(name)) {
                 return exercise;
@@ -112,7 +114,7 @@ public class ExerciseCatalogue implements ReadOnlyExerciseCatalogue {
 
     @Override
     public String toString() {
-        return exercises.asUnmodifiableObservableList().size() + " persons";
+        return exercises.asUnmodifiableObservableList().size() + " exercises";
         // TODO: refine later
     }
 

@@ -40,7 +40,7 @@ public class ExerciseIndexListCard extends UiPart<Region> {
         this.exercise = exercise;
         id.setText(displayedIndex + ". ");
         name.setText(exercise.getExerciseName().exerciseName);
-        primaryMuscle.setText("Primary Muscle:" + exercise.getMusclesTrained().getPrimaryMuscle().muscleType);
+        primaryMuscle.setText("Primary Muscle: " + exercise.getMusclesTrained().getPrimaryMuscle().muscleType);
         intensity.setText("Intensity: " + exercise.getIntensity().toString());
     }
 

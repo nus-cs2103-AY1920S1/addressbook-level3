@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+    ArrowColor Olive
+    BorderColor DarkSlateGray
+    backgroundColor DarkSeaGreen
+}
+
+actor user
+actor Dukecooks
+rectangle dashboard {
+  user -- (add task)
+  user -- (edit task)
+  user -- (delete task)
+  user -- (find task)
+  user -- (list taskcomplete)
+  user -- (list taskincomplete)
+  user -- (edit task)
+  user -- (done task)
+
+  Dukecooks -- (Checks if there are 5 completed tasks)
+  (Checks if there are 5 completed tasks) <. (Display congratulatory message) : extends
+
+}
+@enduml

@@ -15,7 +15,7 @@ public class ExerciseWeight<Float> extends ExerciseDetail {
 
     private WeightUnit unit;
 
-    public ExerciseWeight(float weight, WeightUnit unit) {
+    public ExerciseWeight(java.lang.Float weight, WeightUnit unit) {
         requireAllNonNull(weight, unit);
         super.magnitude = weight;
         this.unit = unit;

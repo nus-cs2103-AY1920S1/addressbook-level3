@@ -1,5 +1,7 @@
 package dukecooks.model.workout.history;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -15,6 +17,7 @@ public class ExerciseHistory {
     private final ArrayList<ExerciseRun> previousRuns;
 
     public ExerciseHistory(ArrayList<ExerciseRun> previousRuns) {
+        requireNonNull(previousRuns);
         noTimesRan = previousRuns.size();
         this.previousRuns = previousRuns;
         averageRunTime = getAverageRunTime();
@@ -24,6 +27,7 @@ public class ExerciseHistory {
      * Creates a new ExerciseHistory that accounts for a new ExerciseRun
      */
     public ExerciseHistory addRun(ExerciseRun runToAdd) {
+        requireNonNull(runToAdd);
         ArrayList<ExerciseRun> newPreviousRuns = new ArrayList<>();
         newPreviousRuns.addAll(previousRuns);
         newPreviousRuns.add(runToAdd);
@@ -36,7 +40,7 @@ public class ExerciseHistory {
         }
         Duration totalDuration = Duration.ZERO;
         for (ExerciseRun run : previousRuns) {
-            totalDuration.plus(run.getTotalTimeTaken());
+            totalDuration = totalDuration.plus(run.getTotalTimeTaken());
         }
         return totalDuration.dividedBy((long) previousRuns.size());
     }
@@ -47,6 +51,24 @@ public class ExerciseHistory {
 
     public ArrayList<ExerciseRun> getPreviousRuns() {
         return previousRuns;
+    }
+
+    public ExerciseHistory clone() {
+        return new ExerciseHistory(previousRuns);
+    }
+
+    /**
+     * Returns the average run time in a standard format.
+     */
+    public String getAverageRunTimeString() {
+        long seconds = averageRunTime.getSeconds();
+        long absSeconds = Math.abs(seconds);
+        String positive = String.format(
+                "%d:%02d:%02d",
+                absSeconds / 3600, (
+                        absSeconds % 3600) / 60,
+                absSeconds % 60);
+        return seconds < 0 ? "-" + positive : positive;
     }
 
     @Override
