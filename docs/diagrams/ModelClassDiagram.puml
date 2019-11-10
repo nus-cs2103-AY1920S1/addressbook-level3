@@ -9,8 +9,10 @@ Interface ReadOnlyExpenseList <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Class ExpenseList
+Class BudgetList
 Class ExchangeData
 Class ReadOnlyExpenseList
+Class ReadOnlyBudgetList
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -21,7 +23,16 @@ Class Expense
 Class Amount
 Class Date
 Class Name
+Class Currency
 Class UniqueExpenseList
+}
+
+Package Budget {
+Class Budget
+Class Amount
+Class Date
+Class Name
+Class UniqueBudgetList
 }
 
 Package Tag {
@@ -33,19 +44,30 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 ExpenseList .up.|> ReadOnlyExpenseList
+BudgetList .up.|> ReadOnlyBudgetList
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" ExpenseList
+ModelManager o--> "1" BudgetList
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 ExpenseList *--> "1" UniqueExpenseList
 UniqueExpenseList o--> "*" Expense
-Expense *--> Name
-Expense *--> Amount
-Expense *--> Date
-Expense *--> "*" Tag
+Expense *--> "1" Name
+Expense *--> "1" Amount
+Expense *--> "1" Date
+Expense *--> "1" Tag
+Expense *--> "1" Currency
+
+BudgetList *--> "1" UniqueBudgetList
+UniqueBudgetList o--> "*" Budget
+Budget *--> "1" Name
+Budget *--> "1" Amount
+Budget *--> "1" Date
+Budget *--> "1" Currency
+Budget *--> "1" ExpenseList
 
 Name -[hidden]right-> Amount
 Amount -[hidden]right-> Date
