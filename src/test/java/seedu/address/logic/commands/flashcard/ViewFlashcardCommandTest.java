@@ -20,7 +20,6 @@ import seedu.address.model.flashcard.Flashcard;
 
 public class ViewFlashcardCommandTest {
     private Model model = new ModelManager(getTypicalStudyBuddyPro(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalStudyBuddyPro(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -54,9 +53,9 @@ public class ViewFlashcardCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showFlashcardAtIndex(model, INDEX_FIRST_FLASHCARD);
-
-        Flashcard flashcardToView = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
+        Model expectedModel = new ModelManager(getTypicalStudyBuddyPro(), new UserPrefs());
+//        showFlashcardAtIndex(expectedModel, INDEX_FIRST_FLASHCARD);
+        Flashcard flashcardToView = expectedModel.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
         ViewFlashcardCommand viewFlashcardCommand = new ViewFlashcardCommand(INDEX_FIRST_FLASHCARD);
 
         String expectedMessage = String.format(ViewFlashcardCommand.VIEW_FLASHCARD_SUCCESS, flashcardToView);
