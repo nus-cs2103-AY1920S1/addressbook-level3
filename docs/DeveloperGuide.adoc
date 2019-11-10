@@ -1326,3 +1326,62 @@ paid by +
 Borrower: [K0004] Hiap Seng +
 Outstanding fine: $0.00 +
 Change given: $0.90" appears on the command results display. The borrower panel now shows "Fines $0.00".
+
+//tag::borrowerTest[]
+
+==== Serving a borrower
+
+. Serving a registered borrower while not in Serve mode.
+
+.. Prerequisites: LiBerry is in not Serve mode, Borrower ID is valid
+.. Test case: `serve id/VALID_BORROWER_ID` +
+Expected: LiBerry enters Serve Mode. Borrower panel is shown.
+.. Using the original sample data when you first load up LiBerry without any changes made, you can enter the following test case: `serve id/K0001`.
+.. Other incorrect loan commands to try: `serve`, `serve abc`,`serve id/INVALID_BORROWER_ID`,
+`serve id/BORROWER_ID_THAT_DOES_NOT_EXIST` +
+Expected: Borrower is not served. Error details shown in the command results display.
+
+. Serving a borrower while already in Serve mode.
+.. Prerequisites: LiBerry is in Serve mode, command format is correct and Borrower ID is valid.
+.. Test case: `serve id/VALID_BORROWER_ID` +
+Expected: Borrower is not served. An error prompting to exit Serve mode is shown.
+
+. Using serve command with an invalid borrower ID. An invalid borrower ID is one which does not have 4 digits following a
+capital 'K' character.
+.. Prerequisites: Command format is correct.
+.. Test Case: `serve id/INVALID_BORROWER_ID` +
+Expected: Borrower is not served. An error stating the correct format of a borrower ID is shown.
+
+
+==== Unregistering a borrower
+
+. Unregistering a registered borrower while not in Serve mode.
+
+.. Prerequisites: LiBerry is in not Serve mode, Borrower ID is valid, borrower to be unregistered has no loans.
+.. Test case: `unregister id/VALID_BORROWER_ID` +
+Expected: Borrower with `VALID_BORROWER_ID` will be unregistered.
+.. Using the original sample data when you first load up LiBerry without any changes made, you can enter the following test case:
+ `unregister id/K0069`.
+.. Other incorrect loan commands to try: `unregister`, `unregister abc`,`unregister id/INVALID_BORROWER_ID`,
+`unregister id/BORROWER_ID_THAT_DOES_NOT_EXIST` +
+Expected: Borrower is not served. Error details shown in the command results display.
+
+. Unregistering the currently serving borrower.
+.. Prerequisites: LiBerry is in Serve mode, command format is correct, Borrower ID is valid and borrower to be unregistered
+is currently being served.
+.. Test case: `serve id/BORROWER_ID_CURRENTLY_SERVING` +
+Expected: Borrower is not served. An error stating that borrower currently served cannot be unregistered.
+
+. Unregistering a borrower with loaned books.
+.. Prerequisites: Command format is correct, borrower to be unregistered is not currently being served, borrower ID
+is valid and borrower has loans.
+.. Test Case: `unregister id/BORROWER_ID_WITH_LOANS
+Expected: Borrower is not served. An error stating that borrower currently has loans and cannot be unregistered.
+
+. Using serve command with an invalid borrower ID. An invalid borrower ID is one which does not have 4 digits following a
+capital 'K' character.
+.. Prerequisites: Command format is correct.
+.. Test Case: `unregister id/INVALID_BORROWER_ID` +
+Expected: Borrower is not served. An error stating the correct format of a borrower ID is shown.
+
+//end::borrowerTest[]
