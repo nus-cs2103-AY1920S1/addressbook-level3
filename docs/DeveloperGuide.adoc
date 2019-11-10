@@ -146,7 +146,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some important details on how the features are implemented
 
 === Help feature
-The `help` command allows for users to generate a `HelpCommand` object in FinSec. It then provides one of various types of help dependant on the request of the user.
+The `help` command allows for users to generate a `**HelpCommand**` object in FinSec. It then provides one of various
+types of help dependant on the request of the user.
 
 The format for the `help` command is as follows:
 
@@ -154,14 +155,15 @@ The format for the `help` command is as follows:
 
 ==== Overview
 
-The `Help` mechanism is facilitated by `HelpCommand` and `HelpCommandParser`, taking in the following inputs from the user: `SecondaryCommand` and `Type`.
-After the parameters have been parsed, the relevant `CommandResult` object will be instantiated based on the input `Type` and pertaining to the input `SecondaryCommand`.
+The `help` mechanism is facilitated by `**HelpCommand**` and `**HelpCommandParser**`, taking in the following inputs from the
+user: `SecondaryCommand` and `Type`.
+After the parameters have been parsed, the relevant `**CommandResult**` object will be instantiated based on the input `Type` and pertaining to the input `SecondaryCommand`.
 
 ==== Current Implementation
 
-The activity diagram below shows how it would look like from a user's point of view during the creation of a `HelpCommand` object.
+The activity diagram below shows how it would look like from a user's point of view during the creation of a `**HelpCommand**` object.
 
-<<helpActDiagram>> describes the workflow of the `help` command
+<<helpActDiagram>> describes the workflow of FinSec when the `help` command
 command is entered.
 [[helpActDiagram]]
 [reftext="Figure 2.1.2.1"]
@@ -173,18 +175,18 @@ The series of steps below explain the process and current implementation of the 
 
 *Step 1 :* The user requests for help.
 
-*Step 2 :* The `HelpParser` then calls the execute function of the `HelpCommand`.
+*Step 2 :* The `**HelpParser**` then calls the execute function of the `**HelpCommand**`.
 
-*Step 3 :* The `HelpCommand` then returns a `CommandResult` based on what parameters the user enters.
+*Step 3 :* The `**HelpCommand**` then returns a `**CommandResult**` based on what parameters the user enters.
 
-* If no parameters are entered, the `HelpCommand` class returns with a `CommandResult` requesting to show a basic `helpWindow`
-* If the incorrect parameters are entered, an error message will be sent as feedback to the user in the `CommandResult`
+* If no parameters are entered, the `**HelpCommand**` class returns with a `**CommandResult**` requesting to show a basic `helpWindow`
+* If the incorrect parameters are entered, an error message will be sent as feedback to the user in the `**CommandResult**`
 
 *Step 4 :* If the correct parameters are entered, the appropriate type of help is given.
 
-* If the user chooses `Type` brief, a brief description will be returned as feedback to the user in the `CommandResult`
-* If the user chooses `Type` guide, the `HelpCommand` class accesses the `WebLinks` class to get the String value of the respective command. It then utilises your default web browser to open up the FinSec User Guide and centers on the requested command.
-* If the user chooses `Type` api, the `HelpCommand` class accesses the `ApiLinks` class to get the String value of the respective command. It then generates an API.html file of the requested command on the local system and accesses it.
+* If the user chooses `brief`, a brief description will be returned as feedback to the user in the `**CommandResult**`
+* If the user chooses `guide`, the `**HelpCommand**` class accesses the `**WebLinks**` class to get the String value of the respective command. It then utilises your default web browser to open up the FinSec User Guide and centers on the requested command.
+* If the user chooses `api`, the `**HelpCommand**` class accesses the `**ApiLinks**` class to get the String value of the respective command. It then generates an API.html file of the requested command on the local system and accesses it.
 
 *Step 5 :* The `help` command resolves
 
@@ -563,12 +565,15 @@ XYSeries  public CommandResult execute(Model model) throws CommandException {
 
 === Budget feature
 
-The `budget` command allows for users to Generate a `Budget` object in FinSec. It also creates a `Budget Graph` object and displays it via the User Interface.
+The `budget` command allows for users to Generate a `**Budget**` object in FinSec. It also creates a `**BudgetGraph**`
+object and displays it via the User Interface.
 
 ==== Overview
-The `Budget` feature relies primarily on the `Claim` and `Income` features, and serves as an extension to calculate their difference.
-The `Budget` object calculates the cash `amount` values of all existing `Income` objects and all cash `amount` values of `Claims` that have a `status` of `approved`.
-It then returns the difference in values as the `budget` value and creates a graph detailing the statistics for the month.
+The `**Budget**` feature relies primarily on the `**Claim**` and `**Income**` features, and serves as an extension to
+calculate their difference.
+The `**Budget**` object calculates the cash amount values of all existing `**Income**` objects and all cash amount
+values of `**Claims**` that have a status of 'approved'.
+It then returns the difference in values as the budget value and creates a graph detailing the statistics for the month.
 
 ==== Current Implementation
 <<budgetSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `budget`
@@ -579,44 +584,60 @@ command is entered.
 .Execution sequence of the `budget` command
 image::BudgetSequenceDiagram.png[width="800"]
 
-*Step 1 :* The `budget` command is passed on to the `LogicManager` as `commandText` +
+*Step 1 :* The `budget` command is passed on to the `**LogicManager**` as commandText +
 
-*Step 2 :* The LogicManager::execute method then calls FinSecParser::parseCommand which receives the user input (`budget`) as a parameter. +
+*Step 2 :* The `**LogicManager::execute**` method then calls `**FinSecParser::parseCommand**` which receives the user
+input (`budget`) as a parameter. +
 
-*Step 3 :* FinSecParser then references the various command words and identifies the command to be a `budget` command. It then calls the `BudgetCommand` method.
+*Step 3 :* FinSecParser then references the various command words and identifies the command to be a `budget` command
+. It then calls the `**BudgetCommand**` class.
 
-*Step 4 :* This newly created `BudgetCommand` object is returned to the LogicManager class, which then calls the BudgetCommand::execute method.
+*Step 4 :* This newly created `**BudgetCommand**` object is returned to the LogicManager class, which then calls the
+`**BudgetCommand::execute**` method.
 
-*Step 5 :* The `BudgetCommand` then interacts with the model component of our software architecture to create a filteredList of all `Income` and `Claim` objects using the `model.getFilteredClaimList()` and `model.getFilteredIncomeList()` commands.
+*Step 5 :* The `**BudgetCommand**` then interacts with the model component of our software architecture to create a
+filteredList of all `**Income**` and `**Claim**` objects using the `**model.getFilteredClaimList()**` and `**model
+.getFilteredIncomeList()**` methods.
 
-*Step 6 :* It instantiates a `Budget` object which contains classes such as `calculateTotalExpenses()` and `calculateBudget()` to calculate the `Amount` values of all the `Claims`, `Incomes` and thus use them to find the budget amount. +
-A `BudgetGraph` object is also created in parallel (Details expanded upon below)
+*Step 6 :* It instantiates a `**Budget**` object which contains methods such as `**calculateTotalExpenses()**` and
+`**calculateBudget()**` to calculate the amount values of all the `**Claims**`, `**Incomes**` and thus use them to find
+the budget amount. +
+A `**BudgetGraph**` object is also created in parallel (Details expanded upon below)
 
-*Step 7:* The `BudgetCommand::execute` finally completes by constructing a message string containing all these values and returning a new `CommandResult` with the specific message string to its calling method which is `LogicManager::execute`.
+*Step 7:* The `**BudgetCommand::execute**` finally completes by constructing a message string containing all these
+values and returning a new `**CommandResult**` with the specific message string to its calling method which is
+`**LogicManager::execute**`.
 
-*Step 8 :* `LogicManager::execute` method returns a `CommandResult` to the calling method which is `MainWindow::executeCommand`
+*Step 8 :* `**LogicManager::execute**` method returns a `**CommandResult**` to the calling method which is
+`**MainWindow::executeCommand**`
 
-*Step 9 :* The specific feedback is then retrieved through `CommandResult::getFeedbackToUser` and set in the result display of the MainWindow. +
+*Step 9 :* The specific feedback is then retrieved through `**CommandResult::getFeedbackToUser**` and set in the result
+display of the MainWindow. +
 
-While creating the `Budget` object, a `BudgetGraph` object is also created in parallel. The activity diagram below shows how it would look like from a user's point of view.
+While creating the `**Budget**` object, a `**BudgetGraph**` object is also created in parallel. The activity diagram
+below
+shows how it would look like from a user's point of view.
 
-<<budgetActDiagram>> describes the workflow of the budget command
-command is entered.
+<<budgetActDiagram>> describes the workflow of FinSec when the `budget` command is entered.
 [[budgetActDiagram]]
-[reftext="Figure 2.5.2.2"]
-[caption="Figure 2.5.2.2: "]
+[reftext="Figure 2.6.2.2"]
+[caption="Figure 2.6.2.2: "]
 .Activity diagram of the `budget` command
 image::DG-BudgetActivityDiagram.PNG[width="800"]
 
-The series of steps below demonstrates what the `BudgetGraph` object does in parallel to Step 6 above.
+The series of steps below demonstrates what the `**BudgetGraph**` object does in parallel to Step 6 above.
 
-*Step 6a :* At the same time the `Budget` object is created, the `BudgetGraph` object is also instantiated, which is basically an XY-graph.
+*Step 6a :* At the same time the `**Budget**` object is created, the `**BudgetGraph**` object is also instantiated,
+which is
+basically an XY-graph.
 
-*Step 6b :* The `BudgetGraph` object creates a dataset by taking in the list of `Claims` and `Incomes` and parsing them to the `ClaimPlotter`, `IncomePlotter` and `BudgetPlotter` classes.
+*Step 6b :* The `**BudgetGraph**` object creates a dataset by taking in the list of `**Claims**` and `**Incomes**` and
+parsing
+them to the `**ClaimPlotter**`, `**IncomePlotter**` and `**BudgetPlotter**` classes.
 
 *Step 6c :* The 3 plotter classes then filter their respective lists to create new lists for the current month and start adding the points to the series.
 
-* The code snippet below shows the `ClaimPlotter::plotClaims` method +
+The code snippet below shows the `**ClaimPlotter::plotClaims**` method +
 
 [source, java]
 
@@ -636,18 +657,21 @@ XYSeries plotClaims() {
         return claimSeries;
     }
 
-*Step 6d :* Once the 3 series have been returned, the BudgetGraph then returns the completed dataset to the `BudgetGraph` class which then renders the image.
+*Step 6d :* Once the 3 series have been returned, the plotter classes then return the completed dataset to the
+`**BudgetGraph**` class which then renders the image.
 
-*Step 6e :* The `BudgetCommand::execute` method then calls the `BudgetGraph::displayBudgetGraph` method to display the graph image.
+*Step 6e :* The `**BudgetCommand::execute**` method then calls the `**BudgetGraph::displayBudgetGraph**` method to
+display the graph image.
 
 
 
 ==== Why was it implemented this way?
 With so many claims and incomes, all having differing dates, it can be hard to keep track of how much money one should have on hand at any one time.
 
-* We felt that while knowing how much our prospective budget would be is good, knowing it over a range of time (such as a month in the case of `BudgetGraph`) would help with better planning
+* We felt that while knowing how much our prospective budget would be is good, knowing it over a range of time (such as a month in the case of `**BudgetGraph**`) would help with better planning
 
-* We also wanted to keep track of the history of said `Claims` and `Incomes` and doing it over a 1 month period ensures there will not be too visual data cluttering the screen.
+* We also wanted to keep track of the history of said `**Claims**` and `**Incomes**` and doing it over a 1 month period
+ensures there will not be too visual data cluttering the screen.
 
 ==== Design Considerations
 
@@ -1088,7 +1112,33 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `FinSec` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is _FinSec_ and the *Actor* is the _user_, unless specified otherwise)
+
+[discrete]
+=== Use case: Requesting help from FinSec
+
+*MSS*
+
+1. User requests for help in FinSec
+2. FinSec dispenses the appropriate type of help as requested by the user
++
+Use case ends.
+
+*Extensions*
+
+
+* 1a. The user does not type in any parameters.
+** 1a1. FinSec displays a help window showing a list of commands as well as the usage parameters of the help command
+
++
+Use case resumes at step 1
++
+* 1b. The given parameters are incorrect.
+** 1b1. FinSec shows an error message
+** 1b2. FinSec displays a help window showing a list of commands
+
++
+Use case resumes at step 1.
 
 [discrete]
 === Use case: Adding a contact
@@ -1400,7 +1450,7 @@ Use case resumes at step 2.
 *MSS*
 
 1. User requests to view current budget
-2. FinSec shows current budget
+2. FinSec shows current budget and displays budget graph
 
 +
 Use case ends.
@@ -1542,26 +1592,55 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Viewing Help
 
-=== Deleting a person
+. Requesting help from FinSec
 
-. Deleting a person while all persons are listed
+.. Prerequisites: None
+.. Test case: `help` +
+   Expected: A help window pops up displaying the list of all FinSec commands and advanced help usage
+.. Test case: `help cmd/add_claim type/brief` +
+   Expected: FinSec displays a brief description of the `add_claim` command, as well as usage instructions
+.. Test case: `help cmd/edit_income_claim type/guide` +
+   Expected: FinSec opens up your default web browser and brings you to the `edit_income` section of our User Guide
+.. Test case: `help cmd/help type/api` +
+   Expected: FinSec generates an API.html file containing the `help` command and opens it up.
+.. Test case: `help cmd/randomstuff type/lalala` +
+   Expected: FinSec displays an error message and usage instructions for help
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+
+=== Deleting a contact
+
+. Deleting a contact while all contacts are listed
+
+.. Prerequisites: List all contacts using the `goto_contacts` command. Multiple contacts in the list.
+.. Test case: `delete_contact 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No person is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
-=== Saving data
 
-. Dealing with missing/corrupted data files
+=== Displaying budget values
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Display budget values without any incomes or claims present
+.. Prerequisites: No claims or incomes are present
+.. Test case: `budget` +
+   Expected: Budget displayed should be $0.00. Graph should reflect the same result
 
-_{ more test cases ... }_
+. Display budget values without any approved claims present
+.. Prerequisites: No claims have been approved
+.. Test case: `budget` +
+   Expected: Budget displayed should be the same as the income value. The red line in the graph representing claim
+amounts should remain at 0.
+
+. Display budget values with an assortment of varied approved claims and incomes
+.. Prerequisites: All claims and incomes have been set to varying dates that predate and postdate the current date.
+.. Test case: `budget` +
+   Expected: Budget displayed should be the total income value minus total approved claim value. Budget Graph
+should reflect accurate statistics for the current month.
+.. Test case: `budget 99` +
+   Expected: An error pops up stating that `budget` is a standalone command and does not require additional parameters
+

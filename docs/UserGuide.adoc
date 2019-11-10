@@ -654,8 +654,8 @@ Format: `sort status`
 *Warning*
 `sort status` only applies to the claims list
 
-<<UG-BudgetExample>> shows what you can expect to see when typing in the `sort status` command in claims list.
-[[UG-BudgetExample]]
+<<UG-SortExample>> shows what you can expect to see when typing in the `sort status` command in claims list.
+[[UG-SortExample]]
 [reftext="Figure 3.15.1"]
 [caption="Figure 3.15.1: "]
 .FinSec Status of the claim is shown and the right and sorted as stated above. Pending, Approved then Rejected.
@@ -737,8 +737,8 @@ Format: `budget`
 
 <<UG-BudgetExample>> shows what you can expect to see when typing in the `budget` command.
 [[UG-BudgetExample]]
-[reftext="Figure 3.13.1"]
-[caption="Figure 3.13.1: "]
+[reftext="Figure 3.21.1"]
+[caption="Figure 3.21.1: "]
 .FinSec calculates your budget from the income and claim totals on the left while simultaneously displaying a graph of the income, claim and budget values for the current month on the right
 image::UG-BudgetExample.PNG[width="800"]
 
