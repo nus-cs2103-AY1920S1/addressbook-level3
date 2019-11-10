@@ -4,16 +4,16 @@ import java.util.HashSet;
 import java.util.Optional;
 
 /**
- * Standard implementation of the observable interface.
+ * Standard implementation of the Observable interface.
  *
- * @param <T> the type parameter
+ * @param <T> the type parameter of the object to be observed
  */
 public class StandardObservable<T> implements Observable<T> {
     private T value;
     private final HashSet<Listener<T>> listeners;
 
     /**
-     * Instantiates a new Standard observable.
+     * Instantiates a new Standard observable with no default value.
      */
     public StandardObservable() {
         value = null;
@@ -21,9 +21,9 @@ public class StandardObservable<T> implements Observable<T> {
     }
 
     /**
-     * Instantiates a new Standard observable.
+     * Instantiates a new Standard observable with a starting default value.
      *
-     * @param value the value
+     * @param value the default value
      */
     public StandardObservable(T value) {
         this.value = value;
@@ -31,18 +31,17 @@ public class StandardObservable<T> implements Observable<T> {
     }
 
     /**
-     * Gets value.
-     *
-     * @return the value
+     * Returns the current value stored in the Observable instance.
+     * @return the current value stored in this Observable instance.
      */
     public Optional<T> getValue() {
         return Optional.ofNullable(this.value);
     }
 
     /**
-     * Sets value.
-     *
-     * @param value the value
+     * Sets the current value of the Observable instance to a new value. Each of the Observable's listeners
+     * will be notified of this change.
+     * @param value the new value
      */
     public void setValue(T value) {
         this.value = value;
@@ -50,7 +49,7 @@ public class StandardObservable<T> implements Observable<T> {
     }
 
     /**
-     * Clears all the previously added listeners.
+     * Deletes all previously registered Listeners in the Observable instance.
      */
     public void clearListeners() {
         this.listeners.clear();
