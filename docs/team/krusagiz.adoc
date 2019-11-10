@@ -1,7 +1,167 @@
-= Ang Chin Guan Melvin - Project Portfolio
+= Ang Chin Guan, Melvin - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
 
-== PROJECT: THRIFT
+== Introduction
+This portfolio serves to showcase my contributions to our team project THRIFT. The project was part of
+the requirements of a year two software engineering module, CS2103T, that I had taken as an undergraduate in NUS.
 
+=== About THRIFT
+THRIFT is an application for money-conscious NUS students who wish to track their incomes and expenditures so that they can make informed financial decisions. THRIFT is designed for those who prefer to work quickly with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI).
+ This is how the user interface of THRIFT looks like:
+
+.Main window of THRIFT which displays a list of user's transactions along with some useful information
+image::../images/UGUI.png[,700]
+
+THRIFT is a fork from the original https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook-Level3] application which allows users to create a personalised list of contacts.
+My team and I have since transformed the application to suit our use cases.
+
+=== About the THRIFT Team
+The THRIFT team consists of five passionate developers and I was the Software Architect, who is in charge of documentation.
+The other team members and their respective roles were:
+
+* Poh Jia Hao (Team Lead)
+* Lee Bo Qiang (User Experience Developer),
+* Lye Jian Wen (Quality Assurance Manager)
+* Kenson Oen (Process Analyst).
+
+Every single member played an important and major role in ensuring the success of THRIFT.
+
+=== About this document
+
+In this document, I will use some special text styling as described below to help you understand the document better.
+
+NOTE: This symbol denotes information you might want to note of.
+
+[horizontal]
+`currencyMappings`:: Text with grey highlight (called a mark-up) indicates that it is a method/variable name or a command.
+
+`**ModelManager**`:: Bold text within a mark-up indicates a class/package name.
+
+== Summary of Contributions
+This section provides a summary of the various contributions I have made to THRIFT.
+
+=== Code contributed
+You can follow these links to view a sample of my code: +
+ [https://github.com/AY1920S1-CS2103T-W12-2/main/commits/master?author=krusagiz[Commits]] [https://github.com/AY1920S1-CS2103T-W12-2/main/pulls?utf8=%E2%9C%93&q=is%3Amerged+is%3Apr+author%3Akrusagiz+[Pull requests]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=krusagiz&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense Dashboard]]
+
+=== Functionality enhanced
+
+The following are some of my enhancements:
+
+* **Major enhancement:** Added the **ability to tag and un-tag** entries in the transaction list.
+** What it does: The `tag` and `untag` commands allow the user to tag and un-tag their transactions.
+** Justification: It allows users to add and remove specific tags from transactions.
+** Highlights: The original AB3 edit function replaces the entire set of tags related to a transaction entry.
+My `tag` command adds to the set instead of overwriting it, with duplicate tags being detected and ignored.
+My `untag` command removes specified tags from the set instead of overwriting it, with the user being warned for trying to delete non-existent tags.
+
+* **Major enhancement:** Added the **ability to convert currency**.
+** What it does: The `convert` command allows the user to convert currency from one to another within the application.
+** Justification: It is possible that user wants to travel overseas or simply purchase something in another currency, they would then want an estimate of the exchange rates they can get.
+** Highlights: The `convert` command has the ability to use exchange rates stored in a JSON file, which can be obtained by downloading and modifying the JSON output from free online exchange rate services to obtain the latest rates.
+** Credits: The sample rates were obtained from the https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html[European Central Bank].
+
+* **Minor enhancements:** Modified the THRIFT interface to **display tags in different colours**.
+** Justification: Tags in THRIFT are meant to categorise the different transactions, it is more meaningful if tags are of different colour if they correspond to different categories.
+** Highlights: The colours are coloured into different colours if they are a <<../UserGuide#TagColours, keyword>>, otherwise they are in Purple.
+
+
+=== Other contributions
+* Project management:
+** I managed issues assigned to me from version 1.0 to 1.4 on https://github.com/AY1920S1-CS2103T-W12-2/main/milestones[GitHub].
+
+* Enhancement to existing features:
+** I added a function to the existing class `**ArgumentMultimap**` to enforce the return of no more than one argument value. (Pull request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/118[#118])
+
+
+* Documentation:
+** I added the sections related to `tag`, `untag` and `convert` commands in the User Guide.
+(Pull Requests:
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/69[#69],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/178[#178],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/201[#201])
+** I added the sections related to the `tag` command, the `untag` command and the planned feature on Artificial Intelligence in the Developer Guide.
+(Pull Requests:
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/79[#79],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/178[#178],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/201[#201],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/267[#267])
+** I managed the THRIFT documentation and ensured its quality.
+(Pull Requests:
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/72[#72],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/77[#77],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/179[#179],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/200[#200],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/223[#223],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/275[#275])
+
+
+* Community:
+** I reviewed and approved pull requests from my teammates.
+(Pull Requests:
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/46[#46],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/113[#113],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/266[#266])
+** I reviewed pull requests of new features from my teammates(with non-trivial comments).
+(Pull Requests:
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/113[#113],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/119[#119],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/206[#206])
+** I gave suggestions for another team in the class (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/42[Example])
+
+
+== Contributions to the User Guide
+The following section showcases my use of proper documentation to guide users through the many features of THRIFT.
+
+_{Start of extract from the section on the `tag` command}_
+
+include::../UserGuide.adoc[tag=tag]
+
+
+_{Start of extract from the section on the `tag` command}_
+
+
+
+_{Start of extract from the section on the `untag` command}_
+
+include::../UserGuide.adoc[tag=untag]
+
+
+_{End of extract from the section on the `untag` command}_
+
+
+
+_{Start of extract from the section on the `convert` command}_
+
+include::../UserGuide.adoc[tag=convert]
+
+
+_{End of extract from the section on the `convert` command}_
+
+
+== Contributions to the Developer Guide
+The following section demonstrates my ability to document technical implementations that give developers insight on the application design. My contributions to the technical depth to THRIFT is also shown.
+
+_{Start of extract from the section on the `tag`/`untag` commands}_
+
+include::../DeveloperGuide.adoc[tag=taguntag]
+
+
+_{End of extract from the section on the `tag`/`untag` commands}_
+
+
+
+_{Start of extract from the section on the proposed AI extension}_
+
+include::../DeveloperGuide.adoc[tag=ai]
+
+
+_{End of extract from the section on proposed AI extension}_

@@ -639,7 +639,7 @@ image::Help-exit/specifichelpcommand.PNG[]
 [[ExitTag]]
 === Exiting THRIFT: `exit`
 Think about exiting THRIFT after you have added the transaction? You can enter *exit* in the
-Command Box or click on the close button at the top-right corner of the application.
+Command Box or click on the close button at the top-right corner of the application (if you are on Windows).
 
 image::exit/Exit.png[,550]
 

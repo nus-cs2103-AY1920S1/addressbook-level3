@@ -344,7 +344,7 @@ justifying why we chose to implement it the way we did.
 
 ===== Aspect: Differentiating between `**Expense**` and `**Income**`
 * **Alternative 1: (current choice):** Introduce a `**Transaction**` parent class which both `**Expense**` and `**Income**`
-extends from.
+extend from.
 ** Pros: Introduces polymorphism, easing references to either classes by simply referencing the `**Transaction**` object.
 For example, using a single `**List<Transaction>**` instead of needing 2 separate lists `**List<Expense>**` and `**List<Income>**`.
 ** Cons: Reduces the readability of the program as polymorphism can be confusing.
@@ -456,21 +456,21 @@ since `**Budget**` is not really related to `**Transaction**` in the real world.
 // tag::taguntag[]
 === Tag/Untag feature
 
-We allow the user to add and remove custom `**Tag**` objects in `**Transaction**` entries so that they can categorise and partition the entries to their own liking.
+We allow the user to add and remove custom `**Tag**` objects in `**Transaction**` entries so that they can categorise the entries to their own liking.
 The following sections describe how this feature is implemented and the design considerations that led up to the solution.
 
 ==== Implementation
 
-The **tag**/**untag** command performs modifications on existing `**Transaction**` entries. Due to polymorphism, both `**Expense**` and `**Income**` objects extends the abstract class `**Transaction**`, and are treated the same way in the context of the **tag**/**untag** command.
+The **tag**/**untag** command performs modifications on existing `**Transaction**` entries that reside in the `**Model**`. Implemented using the concept of polymorphism , both `**Expense**` and `**Income**` objects extend the abstract class `**Transaction**`, and are treated the same way in the context of the **tag**/**untag** command.
 
 .A class diagram illustrating the implementation of `**Tag**` inside a `**Transaction**`
-image::tag-untag/TagPolymorphism.png[]
+image::tag-untag/TagPolymorphism.png[,250]
 
-Due to polymorphic nature of `**Transaction**`, many of the driver functions in `**THRIFT**` uses the `**Transaction**` class for both `**Expense**`
+Due to this polymorphic implementation, many of the driver functions in `**THRIFT**` use the `**Transaction**` class for both `**Expense**`
 and `**Income**` objects. For example, when tagging a new `**Expense**`/`**Income**` object, the `**TagCommandParser**` will treat them as the same object:
 
-.An sequence diagram showing how the `**TagCommandParser**` is called
-image::tag-untag/TagSequence.png[]
+.A sequence diagram showing how the `**TagCommandParser**` is called
+image::tag-untag/TagSequence.png[,450]
 
 When a user enters a **tag**/**untag** command, it is parsed by the respective `TagCommandParser#parse(String args)` and `UntagCommandParser#parse(String args)` parsers and returns a `**TagCommand**` command object or a `**UntagCommand**` command object  respectively, which will be executed. For both commands, the following conditions will cause a `**ParseException**` to be thrown by their respective parsers:
 
@@ -482,13 +482,13 @@ When a user enters a **tag**/**untag** command, it is parsed by the respective `
 [NOTE]
 If the user input is incorrect due to any of the reasons above, the corresponding usage syntax will be shown.
 
-The following is an example on how a `**Tag**` is added and removed from a `**Transaction**`, with details on the processes in the backend.
+The following is an example on how a `**Tag**` is added and removed from a `**Transaction**`, with details on the processes done in the backend.
 
-Step 1. The user launches the application with data from previous sessions. THRIFT contains two `**Transaction**` objects and the user is going to perform tagging and un-tagging operations on one of them.
+Step 1. The user launches the application with data from previous sessions. THRIFT currently contains two `**Transaction**` objects and the user is going to perform tagging and un-tagging operations on one of them.
 
-image::tag-untag/TagUntag1.png[]
+image::tag-untag/TagUntag1.png[,450]
 
-Step 2. The user executes the command **tag i/1 t/Delicious** to tag the `**Transaction**` at `**Index**` 1 with the `**Tag**` "Delicious". The input is checked with a `**TagCommandParser**` parser and an attempt to parse each parameter occurs:
+Step 2. The user executes the command **tag i/1 t/Delicious** to tag the `**Transaction**` at `**Index**` 1 with the `**Tag**` "Delicious". The input is checked with the `**TagCommandParser**` parser and an attempt to parse each parameter occurs:
 
 * `**Index**` is parsed by `ParserUtil#parseIndex(String)`
 * `**Tag**` strings are parsed by `ParserUtil#parseTags(Collection<String>)` which calls `ParserUtil#parseTag(String)` iteratively for every string in the collection
@@ -500,9 +500,9 @@ Tags that already exist inside the specified `**Transaction**` will be ignored, 
 
 Since the user input is valid, a `**TagCommand**` command object is created and executed. As a result, a copy of the `**Transaction**` object with the specified `**Tag**` added replaces the original in the `**TransactionList**` at the same position.
 
-image::tag-untag/TagUntag2.png[]
+image::tag-untag/TagUntag2.png[,450]
 
-Step 3. The user realises that the `**Tag**` added was not appropriate. The user then executes the command **untag i/1 t/Delicious** to untag the `**Tag**` "Delicious" from the `**Transaction**` at `**Index**` 1. The input is now checked with a `**UntagCommandParser**` parser and similarly, an attempt to parse each parameter occurs.
+Step 3. The user realises that the `**Tag**` added was not appropriate. The user then executes the command **untag i/1 t/Delicious** to untag the `**Tag**` "Delicious" from the `**Transaction**` at `**Index**` 1. The input is now checked with the `**UntagCommandParser**` parser and similarly, an attempt to parse each parameter occurs.
 
 * `**Index**` is parsed by `ParserUtil#parseIndex(String)`
 * `**Tag**` strings are parsed by `ParserUtil#parseTags(Collection<String>)` which calls `ParserUtil#parseTag(String)` iteratively for every string in the collection
@@ -512,12 +512,12 @@ Tags that do not exist inside the specified `**Transaction**` will be ignored, a
 
 Again, since the user input is valid, a `**UntagCommand**` command object is created and executed. As a result, a copy of the `**Transaction**` object with the specified `**Tag**` deleted replaces the original in the `**TransactionList**` at the same position.
 
-image::tag-untag/TagUntag1.png[]
+image::tag-untag/TagUntag1.png[,450]
 
-The following activity diagrams summarises what happens when the user executes a command to **tag** a `**Transaction**`.
+The following activity diagram summarises what happens when the user executes a command to tag a `**Transaction**`.
 
 .Activity diagram of the tagging process
-image::tag-untag/TagActivity.png[]
+image::tag-untag/TagActivity.png[,550]
 
 The **untag** command follows the same flow except for the following differences:
 
@@ -546,18 +546,16 @@ The uniqueness of `**Tag**` objects within a `**Transaction**`  will determine h
 
 * **Alternative 1:** Do not check if the `**Tag**` objects exist(s) within a `**Transaction**` when adding `**Tag**` objects and implicitly allow duplicates.
 ** Pros: Results in a simpler implementation of **tag** command, as there is no need to check for potential duplicates.
-** Cons: Makes each tag less meaningful as they are not longer unique.
+** Cons: Makes each tag less meaningful as they are no longer unique.
 
 * **Alternative 2: (current choice)** Check if the `**Tag**` objects exist(s) within a `**Transaction**` when adding `**Tag**` objects, explicitly prevent duplicates.
 ** Pros: Makes each tag more meaningful as they are unique.
 ** Cons: Results in a more complex implementation of the **tag** command, as there is a need to check for potential duplicates.
 
 Alternative 2 was chosen as we want to ensure that tags are meaningful to the user.
-
-// end:taguntag[]
+// end::taguntag[]
 
 // tag::update[]
-
 === Updating transactions
 The **update **functionality modifies details of a specified `**Transaction**` in the existing list and saves
 modifications to the external storage file.
@@ -670,11 +668,9 @@ instance of original transaction found.
 through the list with a simple loop.
 - Cons: Efficiency decreases as transactions list size increases. If transactions not unique, incorrect transaction may
 be replaced if a transaction identical to the one supposed to be replaced is found earlier in the list.
-
 // end::update[]
 
 // tag::clone[]
-
 === Cloning transactions
 The **clone** feature creates one or more duplicates of a specified `**Transaction**` and adds them to the end of the
 existing transactions list.
@@ -998,7 +994,6 @@ due to its key size.
 
 We believe that both alternatives have reasonable pros and cons and choosing either option would be beneficial to `**THRIFT**`.
 The added data security will assure the user that their data is safe and allows them to use `**THRIFT**` with a peace of mind.
-
 // end::dataencryption[]
 
 //tag::ai[]
@@ -1894,58 +1889,42 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Tagging a transaction and reflecting changes in the list.
 
-.. Prerequisites: List all transactions using the `list` command. The first transaction is `1. [-] Laksa ($10.50) [Lunch][Food]`.
-.. Test case: `tag i/1 t/EXPENSIVE` +
-   Expected: Details of the tagged transaction shown in status message. Listing the transaction reflects changes.
-.. Test case: `tag i/INVALID_INDEX` t/VALID_TAG` where `INVALID_INDEX` is a number less than 1 or more than list size and VALID_TAG is a valid tag. +
-   Expected: No changes. Error details shown in status message.
-.. Test case: `tag firstTransaction` +
-   Expected: No changes. Error details shown in status message.
-.. Test case: `tag` +
-   Expected: No changes. Error details shown in status message.
+.. Prerequisites: List all transactions using the **list** command. The first transaction is "1. [-] Laksa ($10.50) [Lunch][Food]".
+.. Test case: **tag i/1 t/EXPENSIVE** +
+   Expected: Details of the tagged transaction shown in Result Box. Listing the transaction reflects changes.
+.. Test case: **tag i/INVALID_INDEX t/VALID_TAG** where **INVALID_INDEX** is a number less than 1 or more than list size and **VALID_TAG** is a valid tag. +
+   Expected: No changes. Error details shown in Result Box.
+.. Test case: **tag firstTransaction** +
+   Expected: No changes. Error details shown in Result Box.
+.. Test case: **tag** +
+   Expected: No changes. Error details shown in Result Box.
 
 === Untagging a transaction
 
 . Untagging a transaction and reflecting changes in the list.
 
-.. Prerequisites: List all transactions using the `list` command. The first transaction is `1. [-] Laksa ($10.50) [Lunch][Food]`.
-.. Test case: `untag i/1 t/FOOD` +
-   Expected: Details of the untagged transaction shown in status message. Listing the transaction reflects changes.
-.. Test case: `untag i/INVALID_INDEX t/VALID_TAG` where `INVALID_INDEX` is a number less than 1 or more than list size and VALID_TAG is a valid tag. +
-   Expected: No changes. Error details shown in status message.
-.. Test case: `untag i/VALID_INDEX t/NOT_INSIDE_TAG` where `VALID_INDEX` is a valid transaction index and NOT_INSIDE_TAG is not inside the transaction specified. +
-   Expected: No changes. Error details shown in status message.
-.. Test case: `untag firstTransaction` +
-   Expected: No changes. Error details shown in status message.
-.. Test case: `untag` +
-   Expected: No changes. Error details shown in status message.
-
-=== Converting a transaction
-
-. Converting a transaction's currency and reflecting changes in the list.
-
-.. Prerequisites: List all transactions using the `list` command. The first transaction is `1. [-] Laksa ($10.50) [Lunch][Food]`.
-.. Test case: `convert to/USD i/1` +
-   Expected: Details of the converted transaction shown in status message. Listing the transaction reflects changes.
-.. Test case: `convert to/USD i/INVALID_INDEX` where `INVALID_INDEX` is a number less than 1 or more than list size. +
-   Expected: No changes. Error details shown in status message.
-.. Test case: `convert to/INVALID_CURRENCY i/VALID_INDEX` where `INVALID_CURRENCY` is not a supported currency and `VALID_INDEX` is a valid transaction index. +
-   Expected: No changes. Error details shown in status message.
-.. Test case: `convert firstTransaction` +
-   Expected: No changes. Error details shown in status message.
-.. Test case: `convert` +
-   Expected: No changes. Error details shown in status message.
+.. Prerequisites: List all transactions using the **list** command. The first transaction is "1. [-] Laksa ($10.50) [Lunch][Food]".
+.. Test case: **untag i/1 t/FOOD** +
+   Expected: Details of the untagged transaction shown in Result Box. Listing the transaction reflects changes.
+.. Test case: **untag i/INVALID_INDEX t/VALID_TAG** where **INVALID_INDEX** is a number less than 1 or more than list size and **VALID_TAG** is a valid tag. +
+   Expected: No changes. Error details shown in Result Box.
+.. Test case: **untag i/VALID_INDEX t/NOT_INSIDE_TAG** where **VALID_INDEX** is a valid transaction index and **NOT_INSIDE_TAG** is not inside the transaction specified. +
+   Expected: No changes. Error details shown in Result Box.
+.. Test case: **untag secondTransaction** +
+   Expected: No changes. Error details shown in Result Box.
+.. Test case: **untag** +
+   Expected: No changes. Error details shown in Result Box.
 
 === Converting a value
 
 . Converting a values's currency and displaying it
 
-.. Test case: `convert from/SGD to/USD v/VALUE`. +
+.. Test case: **convert v/VALUE c/SGD c/USD** +
    Expected: Original value and converted value displayed to the user.
-.. Test case: `convert from/SGD to/INVALID_CURRENCY v/VALUE` where `INVALID_CURRENCY` is not a supported currency. +
-   Expected: Error details shown in status message.
-.. Test case: `convert from/INVALID_CURRENCY to/USD v/VALUE` where `INVALID_CURRENCY` is not a supported currency. +
-   Expected: Error details shown in status message.
+.. Test case: **convert v/VALUE c/SGD c/INVALID_CURRENCY** where **INVALID_CURRENCY** is not a supported currency. +
+   Expected: Error details shown in Result Box.
+.. Test case: **convert v/VALUE c/INVALID_CURRENCY c/USD** where **INVALID_CURRENCY** is not a supported currency. +
+   Expected: Error details shown in Result Box.
 
 === Finding a transaction
 

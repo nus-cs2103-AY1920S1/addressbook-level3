@@ -7,6 +7,7 @@ skinparam classBackgroundColor STORAGE_COLOR
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
 Interface ThriftStorage <<Interface>>
+Interface CurrencyMappingsStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
@@ -14,13 +15,16 @@ Class JsonThriftStorage
 Class JsonAdaptedBudget
 Class JsonAdaptedTag
 Class JsonAdaptedTransaction
+Class JsonCurrencyMappingsStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
 StorageManager o--> ThriftStorage
+StorageManager o-up-> CurrencyMappingsStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonThriftStorage .left.|> ThriftStorage
+JsonCurrencyMappingsStorage .left.|> CurrencyMappingsStorage
 JsonThriftStorage .down.> JsonSerializableThrift
 JsonSerializableThrift .right.> JsonAdaptedTransaction
 JsonSerializableThrift ..> JsonAdaptedBudget

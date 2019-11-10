@@ -2,27 +2,21 @@
 start
 :User executes tag command;
 
-if () then ([Invalid, throws ParseException])
-else ([Valid])
+if () then ([Valid])
     :Initialise TagCommand;
     if () then ([Some Tag(s) don't exist])
-        while ()
-            -> [Some Tag(s) unchecked];
-            if () then ([Tag doesn't exist])
-                :            Add specified Tag to Tag set            ;
-            else ([Tag exist])
-
-            endif
-        endwhile
-        -> [All tags checked];
+        :Add specified Tag to the set without duplicates;
         if () then ([Transaction is an Expense])
             :Initialise Expense with updated Tag set;
         else ([Transaction is an Income])
             :Initialise Income with updated Tag set;
         endif
         :Replace original in transaction list;
-    else ([All Tag(s) exist])
+    else ([All Tag(s) already exist])
+    :Show warning for duplicates;
     endif
+else ([Invalid])
+    :ParseException;
 endif
 stop
 @enduml
