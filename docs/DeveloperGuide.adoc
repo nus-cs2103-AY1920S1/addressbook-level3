@@ -277,14 +277,15 @@ After each command, `AccountsManager#resetFilteredAccountList` is called to rese
 The Loans feature exists outside of the Account/Transaction mechanisms.
 It adds a separate `LoansManager` alongside the main `AccountsManager`, with `Loan` objects stored internally in an `internalList`.
 
-The following class diagram demonstrates the association between the `LoansManager` and `Loan` objects
-(miscellaneous methods such as getters and setters are omitted):
+The following class diagram demonstrates the association between the `LoansManager` and `Loan` objects.
+Miscellaneous methods such as getters and setters are omitted.
 
+.Class Diagram of the Loans Model
 image::LoanClassDiagram.png[]
 
 [NOTE]
-The `Debtor` class and `debtors` list belonging to `LoansManager` have been omitted to reduce complexity.
-Both will be depicted later when discussing the `loan split` command.
+The `Debtor` class, `LoansManager#debtors`, `LoansManager#setDebtors` and `LoansManager#getDebtors` can be ignored for now.
+They are depicted here for the sake of completion, but will only be used later when discussing the `loan split` command.
 
 Each `Loan` object has the following attributes:
 
