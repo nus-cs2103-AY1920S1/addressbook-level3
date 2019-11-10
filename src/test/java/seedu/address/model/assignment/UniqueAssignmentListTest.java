@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.AssignmentBuilder.EDITED_ASSIGNMENT_DEADLINE;
 import static seedu.address.testutil.AssignmentBuilder.EDITED_ASSIGNMENT_NAME;
-import static seedu.address.testutil.TypicalAssignments.ASSIGNMENT_ONE;
-import static seedu.address.testutil.TypicalAssignments.ASSIGNMENT_TWO;
+import static seedu.address.testutil.TypicalAssignments.ASSIGNMENT_MATH;
+import static seedu.address.testutil.TypicalAssignments.ASSIGNMENT_SCIENCE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,7 +41,7 @@ public class UniqueAssignmentListTest {
     @Test
     public void contains_assignmentWithSameIdentityFieldsInList_returnsTrue() {
         uniqueAssignmentList.add(ASSIGNMENT_ONE);
-        Assignment editedAss = new AssignmentBuilder(ASSIGNMENT_ONE)
+        Assignment editedAss = new AssignmentBuilder(ASSIGNMENT_MATH)
                 .withAssignmentDeadline(EDITED_ASSIGNMENT_DEADLINE).build();
         assertTrue(uniqueAssignmentList.contains(editedAss));
     }
@@ -52,44 +52,44 @@ public class UniqueAssignmentListTest {
 
     @Test
     public void add_duplicateAssignment_throwsDuplicateAssignmentException() {
-        uniqueAssignmentList.add(ASSIGNMENT_ONE);
-        assertThrows(DuplicateAssignmentException.class, () -> uniqueAssignmentList.add(ASSIGNMENT_ONE));
+        uniqueAssignmentList.add(ASSIGNMENT_MATH);
+        assertThrows(DuplicateAssignmentException.class, () -> uniqueAssignmentList.add(ASSIGNMENT_MATH));
     }
 
     @Test
     public void setAssignment_nullTargetAssignment_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                uniqueAssignmentList.setAssignment(null, ASSIGNMENT_ONE));
+                uniqueAssignmentList.setAssignment(null, ASSIGNMENT_MATH));
     }
 
     @Test
     public void setAssignment_nullEditedAssignment_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
-                uniqueAssignmentList.setAssignment(ASSIGNMENT_ONE, null));
+                uniqueAssignmentList.setAssignment(ASSIGNMENT_MATH, null));
     }
 
     @Test
     public void setAssignment_targetAssignmentNotInList_throwsAssignmentNotFoundException() {
         assertThrows(AssignmentNotFoundException.class, () ->
-                uniqueAssignmentList.setAssignment(ASSIGNMENT_ONE, ASSIGNMENT_ONE));
+                uniqueAssignmentList.setAssignment(ASSIGNMENT_MATH, ASSIGNMENT_MATH));
     }
 
     @Test
     public void setAssignment_editedAssignmentIsSameAssignment_success() {
-        uniqueAssignmentList.add(ASSIGNMENT_ONE);
-        uniqueAssignmentList.setAssignment(ASSIGNMENT_ONE, ASSIGNMENT_ONE);
+        uniqueAssignmentList.add(ASSIGNMENT_MATH);
+        uniqueAssignmentList.setAssignment(ASSIGNMENT_MATH, ASSIGNMENT_MATH);
         UniqueAssignmentList expectedUniqueAssignmentList = new UniqueAssignmentList();
-        expectedUniqueAssignmentList.add(ASSIGNMENT_ONE);
+        expectedUniqueAssignmentList.add(ASSIGNMENT_MATH);
         assertEquals(expectedUniqueAssignmentList, uniqueAssignmentList);
     }
 
     @Test
     public void setAssignment_editedAssignmentHasSameIdentity_success() {
-        uniqueAssignmentList.add(ASSIGNMENT_ONE);
-        Assignment editedAss = new AssignmentBuilder(ASSIGNMENT_ONE)
+        uniqueAssignmentList.add(ASSIGNMENT_MATH);
+        Assignment editedAss = new AssignmentBuilder(ASSIGNMENT_MATH)
                 .withAssignmentName(EDITED_ASSIGNMENT_NAME)
                 .withAssignmentDeadline(EDITED_ASSIGNMENT_DEADLINE).build();
-        uniqueAssignmentList.setAssignment(ASSIGNMENT_ONE, editedAss);
+        uniqueAssignmentList.setAssignment(ASSIGNMENT_MATH, editedAss);
         UniqueAssignmentList expectedUniqueAssignmentList = new UniqueAssignmentList();
         expectedUniqueAssignmentList.add(editedAss);
         assertEquals(expectedUniqueAssignmentList, uniqueAssignmentList);
@@ -98,9 +98,9 @@ public class UniqueAssignmentListTest {
     @Test
     public void setAssignment_editedAssignmentHasDifferentIdentity_success() {
         uniqueAssignmentList.add(ASSIGNMENT_ONE);
-        uniqueAssignmentList.setAssignment(ASSIGNMENT_ONE, ASSIGNMENT_TWO);
+        uniqueAssignmentList.setAssignment(ASSIGNMENT_MATH, ASSIGNMENT_SCIENCE);
         UniqueAssignmentList expectedUniqueAssignmentList = new UniqueAssignmentList();
-        expectedUniqueAssignmentList.add(ASSIGNMENT_TWO);
+        expectedUniqueAssignmentList.add(ASSIGNMENT_SCIENCE);
         assertEquals(expectedUniqueAssignmentList, uniqueAssignmentList);
     }
 
@@ -111,13 +111,13 @@ public class UniqueAssignmentListTest {
 
     @Test
     public void remove_assignmentDoesNotExist_throwsAssignmentNotFoundException() {
-        assertThrows(AssignmentNotFoundException.class, () -> uniqueAssignmentList.remove(ASSIGNMENT_ONE));
+        assertThrows(AssignmentNotFoundException.class, () -> uniqueAssignmentList.remove(ASSIGNMENT_MATH));
     }
 
     @Test
     public void remove_existingAssignment_removesAssignment() {
-        uniqueAssignmentList.add(ASSIGNMENT_ONE);
-        uniqueAssignmentList.remove(ASSIGNMENT_ONE);
+        uniqueAssignmentList.add(ASSIGNMENT_MATH);
+        uniqueAssignmentList.remove(ASSIGNMENT_MATH);
         UniqueAssignmentList expectedUniqueAssignmentList = new UniqueAssignmentList();
         assertEquals(expectedUniqueAssignmentList, uniqueAssignmentList);
     }
@@ -130,9 +130,9 @@ public class UniqueAssignmentListTest {
 
     @Test
     public void setAssignments_uniqueAssignmentList_replacesOwnListWithProvidedUniqueAssignmentList() {
-        uniqueAssignmentList.add(ASSIGNMENT_ONE);
+        uniqueAssignmentList.add(ASSIGNMENT_MATH);
         UniqueAssignmentList expectedUniqueAssignmentList = new UniqueAssignmentList();
-        expectedUniqueAssignmentList.add(ASSIGNMENT_TWO);
+        expectedUniqueAssignmentList.add(ASSIGNMENT_SCIENCE);
         uniqueAssignmentList.setAssignments(expectedUniqueAssignmentList);
         assertEquals(expectedUniqueAssignmentList, uniqueAssignmentList);
     }
@@ -144,17 +144,17 @@ public class UniqueAssignmentListTest {
 
     @Test
     public void setAssignments_list_replacesOwnListWithProvidedList() {
-        uniqueAssignmentList.add(ASSIGNMENT_ONE);
-        List<Assignment> assignmentList = Collections.singletonList(ASSIGNMENT_TWO);
+        uniqueAssignmentList.add(ASSIGNMENT_MATH);
+        List<Assignment> assignmentList = Collections.singletonList(ASSIGNMENT_SCIENCE);
         uniqueAssignmentList.setAssignments(assignmentList);
         UniqueAssignmentList expectedUniqueAssignmentList = new UniqueAssignmentList();
-        expectedUniqueAssignmentList.add(ASSIGNMENT_TWO);
+        expectedUniqueAssignmentList.add(ASSIGNMENT_SCIENCE);
         assertEquals(expectedUniqueAssignmentList, uniqueAssignmentList);
     }
 
     @Test
     public void setAssignments_listWithDuplicateAssignments_throwsDuplicateAssignmentException() {
-        List<Assignment> listWithDuplicateAssignments = Arrays.asList(ASSIGNMENT_ONE, ASSIGNMENT_ONE);
+        List<Assignment> listWithDuplicateAssignments = Arrays.asList(ASSIGNMENT_MATH, ASSIGNMENT_MATH;
         assertThrows(
                 DuplicateAssignmentException.class, () ->
                         uniqueAssignmentList.setAssignments(listWithDuplicateAssignments));
