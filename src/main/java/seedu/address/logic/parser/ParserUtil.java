@@ -168,7 +168,7 @@ public class ParserUtil {
                 }
                 intShares.add(Integer.parseInt(share.trim()));
             } catch (NumberFormatException ex) {
-                throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+                throw new ParseException(ex.getMessage());
             }
 
         }
@@ -194,12 +194,12 @@ public class ParserUtil {
             throw new ParseException(Messages.MESSAGE_AMOUNT_NEGATIVE);
         }
 
-        /* handles 0 value */
-        if (Double.parseDouble(s) == ZERO_AMOUNT) {
-            throw new ParseException(Messages.MESSAGE_AMOUNT_ZERO);
-        }
-
         try {
+            /* handles 0 value */
+            if (Double.parseDouble(s) == ZERO_AMOUNT) {
+                throw new ParseException(Messages.MESSAGE_AMOUNT_ZERO);
+            }
+
             /* handles overflow value */
             if (Double.parseDouble(s) >= MAX_AMOUNT) {
                 throw new ParseException(String.format(Messages.MESSAGE_AMOUNT_OVERFLOW));
