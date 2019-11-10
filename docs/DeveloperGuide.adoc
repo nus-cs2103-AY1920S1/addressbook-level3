@@ -211,9 +211,9 @@ Each `ClashCommand` has a `execute()` method that takes in a `Model` object and 
 ====
 There are a few formats allowed for user inputs:
 
-* `clash [a/INDEX]`: check timetable clash for a add/drop module appeal
-* `clash [m/INDEX] [m/INDEX]` or `clash [m/MODULE_CODE] [m/MODULE_CODE]`: check timetable clash between two different modules
-* `clash [s/INDEX]`: check timetable clash in a student's current timetable
+* `clash a/INDEX`: check timetable clash for a add/drop module appeal
+* `clash m/INDEX m/INDEX` or `clash m/MODULE_CODE m/MODULE_CODE`: check timetable clash between two different modules
+* `clash s/INDEX`: check timetable clash in a student's current timetable
 
 ====
 
