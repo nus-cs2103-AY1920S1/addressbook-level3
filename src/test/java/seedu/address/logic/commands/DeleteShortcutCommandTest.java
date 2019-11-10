@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureNoExceptionThrown;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalObjects.COMMAND_ITEM_1;
 import static seedu.address.testutil.TypicalObjects.COMMAND_ITEM_2;
 import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
@@ -28,11 +28,10 @@ public class DeleteShortcutCommandTest {
 
     @Test
     public void execute_validShortcut_success() {
-        CommandItem shortcutToDelete = model.getFilteredCommandsList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteShortcutCommand deleteShortcutCommand = new DeleteShortcutCommand(new CommandItem(new CommandWord("add"),
-                new CommandTask("add_contact")));
+        CommandItem shortcutToDelete = model.getFilteredCommandsList().get(INDEX_SECOND_PERSON.getZeroBased());
+        DeleteShortcutCommand deleteShortcutCommand = new DeleteShortcutCommand(shortcutToDelete);
 
-        String expectedMessage = String.format(DeleteShortcutCommand.MESSAGE_DELETE_SHORTCUT_SUCCESS, shortcutToDelete);
+        String expectedMessage = String.format(DeleteShortcutCommand.MESSAGE_DELETE_SHORTCUT_SUCCESS);
 
         ModelManager expectedModel = new ModelManager(model.getFinSec(), new UserPrefs());
         expectedModel.deleteCommand(shortcutToDelete);
