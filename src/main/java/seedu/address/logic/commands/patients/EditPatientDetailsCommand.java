@@ -30,15 +30,15 @@ public class EditPatientDetailsCommand extends ReversibleCommand {
             + "by the index number used in the displayed patient list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_ENTRY + " INDEX (must be a positive integer) "
+            + PREFIX_ENTRY + "INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_ENTRY + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_ENTRY + "1 "
+            + PREFIX_PHONE + "91200567 "
+            + PREFIX_EMAIL + "edmond@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Patient: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This patient has already been registered.";

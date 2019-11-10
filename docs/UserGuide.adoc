@@ -124,12 +124,16 @@ If no search keyword is provided, all registered patients will be displayed. +
 
 Format: `patient [<SEARCH_KEYWORD>]`
 
+* e.g. `patient S0000001A`
+
 ==== Registers a new patient: `newpatient` ====
 
 Registers a new patient. Only patient's reference id and name are compulsory fields +
 
 Format:  `newpatient -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
+
+* e.g. `newpatient -id E0000001A -name Edmond Halley -phone 85732743 -email halley@example.com -address 12, Kent ridge Ave 3, #01-11 -tag AIDS`
 
 IMPORTANT: As a design decision, undoing the registration of a patient is allowed, via the `undo` command.
 However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
@@ -146,6 +150,7 @@ IMPORTANT: Editing tags will overwrite all existing tags. +
 Format: `editpatient -entry <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
 
+* e.g. `editpatient -entry 1 -phone 91200567 -email edmond@example.com`
 
 === Staff Personal Management ===
 
@@ -156,12 +161,16 @@ If no search keyword is provided, all registered doctors will be displayed. +
 
 Format: `doctor [<SEARCH_KEYWORD>]`
 
+* e.g. `doctor S0111111A`
+
 ==== Registers a new doctor: `newdoctor` ====
 
 Registers a new doctor. Only doctor's reference id and name are compulsory fields. +
 
 Format: `newdoctor -id <STAFF_REFERENCE_ID> -name <NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <TAGS>]...`
+
+* e.g. `newdoctor -id W0000001A -name John Doe -phone 98765432 -email johnd@example.com -address 311, Clementi Ave 2, #02-25 -tag Male`
 
 IMPORTANT: As a design decision, undoing the registration of a staff doctor is allowed, via the `undo` command.
 However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
@@ -178,11 +187,15 @@ IMPORTANT: Editing tags will overwrite all existing tags. +
 Format: `editdoctor -entry <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
 [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
 
+* e.g. `editdoctor -entry 1 -phone 91234567 -email johndoe@example.com`
+
 ==== Marks the doctor as on-duty: `onduty` ====
 
 Marks the doctor, based on the index given, as on-duty and adds him/her to a list of on-duty doctors. +
 
 Format: `onduty <ON_DUTY_DOCTOR_ENTRY_ID>`
+
+* e.g. `onduty 1`
 
 ==== Marks the doctor as off-duty: `offduty` ====
 
@@ -190,6 +203,7 @@ Marks the doctor, based on the index given, as off-duty and removes him/her from
 
 Format: `offduty <ON_DUTY_DOCTOR_ENTRY_ID>`
 
+* e.g. `offduty 1`
 
 === Queue Management
 
@@ -199,11 +213,15 @@ Adds a patient to the queue based based on the patient's Id. The enqueued patien
 
 Format: `enqueue <PATIENT_REFERENCE_ID>` +
 
+* e.g. `enqueue E0000001A`
+
 ==== Removes a patient from the queue: `dequeue` ====
 
 Removes a patient from the queue based on their queue position. +
 
 Format: `dequeue <QUEUE_INDEX>`
+
+* e.g.
 
 ==== Assigns next patient to an available doctor : `next` ====
 //todo add doctor first
@@ -212,11 +230,15 @@ Assigns the next patient in the queue to a doctor. +
 
 Format: `next <ENTRY_ID>`
 
+* e.g.
+
 ==== Doctor takes a break: `break`  ====
 
 Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
 
 Format: `break <ENTRY_ID>`
+
+* e.g.
 
 ==== Doctor resumes his/her duty: `resume` ====
 
@@ -224,6 +246,7 @@ Allows patients to be directed to a doctor. e.g. Doctor is back from his/her bre
 
 Format: `resume <ENTRY_ID>`
 
+* e.g.
 
 === Appointment Management
 
@@ -231,7 +254,10 @@ Format: `resume <ENTRY_ID>`
 
 Displays a sorted list of upcoming appointments for the patient that is associated to the given `REFERENCE_ID`.
 If no keyword is given, all upcoming appointments will be displayed. +
+
 Format: `appointments [<REFERENCE_ID>]`
+
+* e.g.
 
 ==== Schedules an appointment: `newappt` ====
 
@@ -248,10 +274,14 @@ The optional field `[-reoccur <INTERVALS>]` can be `-reoccur w`, `-reoccur m`, o
 
 Format: `newappt -id <PATIENT_REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-reoccur <INTERVALS> -num <NUMBER_OF_TIMES>]`
 
+* e.g.
+
 ==== Acknowledges a appointment: `ackappt` ====
 
 Acknowledges the most upcoming appointment only if patient arrives on the same day and the arriving time is before the appointment's end time +
 Format: `ackappt <REFERENCE_ID>`
+
+* e.g.
 
 ==== Cancels an appointment: `cancelappt` ====
 Cancels the specified appointment. +
@@ -259,6 +289,8 @@ Cancels the specified appointment. +
 NOTE: To avoid accidental cancellation of another patient's appointments, the user must first narrow down the search to a single patient using the `appointments [<REFERENCE_ID>]` command. +
 
 Format: `cancelappt <ENTRY_ID>`
+
+* e.g.
 
 ==== Changes the appointment date: `editappt` ====
 
@@ -271,6 +303,9 @@ NOTE: The operation is rejected if there are insufficient staff doctors on duty 
 
 Format: `editappt -entry <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
 
+* e.g.
+
+
 ==== Lists patients who have missed their appointments: `missappt` ====
 
 Lists all appointments that are missed. +
@@ -280,6 +315,8 @@ NOTE: An appointment is considered missed if the appointment was not acknowledge
 
 Format: `missappt`
 
+* e.g.
+
 ==== Sets missed appointments as settled/notified: `settleappt` ====
 
 Settles and removes the missed appointment based on the given index. +
@@ -288,6 +325,8 @@ Settling refers to the user following up on contacting the patient who has misse
 NOTE: Only missed appointments can be settled. The user must first display the missed appointment listing, using `missappt`, before using this command. +
 
 Format: `settleappt <ENTRY_ID>`
+
+* e.g.
 
 ==== Shows the empty slots: `slot` (v2.0) ====
 
@@ -304,6 +343,8 @@ If no keyword is given, all upcoming appointments will be displayed. +
 
 Format: `shifts [<REFERENCE_ID>]`
 
+* e.g.
+
 ==== Adds a duty shift for a doctor: `newshift` ====
 
 Adds a new duty shift for a doctor. +
@@ -311,6 +352,8 @@ If both -reoccur <INTERVALS> and -num <NUMBER_OF_TIMES> fields are present, duty
 Otherwise, only one shift will be added. +
 
 Format: `newshift -id <STAFF_REFERENCE_ID> -start <START_TIMING> -end <END_TIMING> [-reoccur REOCCURRING -num REOCCURRING_TIMES]`
+
+* e.g.
 
 ==== Cancels a duty shift for a doctor: `cancelshift` ====
 
@@ -321,6 +364,8 @@ NOTE: To avoid accidental cancellation of another doctor's shift, the user must 
 NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. The appointments affected by the deletion of the duty shift must be resolved first. +
 
 Format: `cancelshift <ENTRY_ID>`
+
+* e.g.
 
 ==== Changes the duty shift for a doctor: `editshift` ====
 
@@ -333,6 +378,8 @@ NOTE: The operation is rejected if it results in there being more appointments t
 The patient's appointment affected by the deletion of the duty shift must be resolved first. +
 
 Format: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
+
+* e.g.
 
 === Inventory Commands (v2.0) ===
 

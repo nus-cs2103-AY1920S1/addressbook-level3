@@ -9,7 +9,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_TIMING_COMPARE_NOW = "Timing should be after current time.";
     public static final String MESSAGE_INVALID_TIMING_COMPARE_END = "The endTiming should be after startTiming.";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The index provided is invalid";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The index provided is invalid.";
     public static final String MESSAGE_PERSON_NOT_FOUND = "The person '%1$s' is not registered";
     public static final String MESSAGE_INVAILD_REFERENCE_ID =
             "The reference ID '%1$s' does not belong to any registered person!";
