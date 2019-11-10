@@ -78,7 +78,7 @@ public class ScriptObjectWrapper {
 
                 // manually take each element in the array and check its type
                 for (int i = 0; i < len; ++i) {
-                    Object elem = som.getSlot(i);
+                    Object elem = som.get(i);
                     if (elem == null) {
                         ret[i] = null;
                         continue;
