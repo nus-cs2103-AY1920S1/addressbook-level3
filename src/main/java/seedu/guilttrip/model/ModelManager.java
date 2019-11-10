@@ -112,8 +112,8 @@ public class ModelManager implements Model, ListenerSupport {
         createExpensesFromAutoExpenses();
         this.stats = new StatisticsManager(this.filteredExpenses, this.filteredIncomes,
                 versionedGuiltTrip.getCategoryList());
-        TimeUtil.addPropertyChangeListener(this);
-        TimeUtil.manualUpdate();
+        /*TimeUtil.addPropertyChangeListener(this);
+        TimeUtil.manualUpdate();*/
     }
 
     public ModelManager() {
