@@ -37,7 +37,7 @@ public class MassReject extends Reject {
                 if (appealId.equalsIgnoreCase(appeal.getAppealId())) {
                     Appeal rejectedAppeal;
                     Appeal appealToReject = appeal;
-                    if (appealToReject.isResolved() == false) {
+                    if (!appealToReject.isResolved()) {
                         rejectedAppeal = new Appeal(appealToReject.getAppealId(),
                                 appealToReject.getAppealType(),
                                 appealToReject.getStudentId(),
