@@ -1,0 +1,10 @@
+{
+  "modules" : [ {
+    "moduleCode" : "CS2103",
+    "title" : "Software Engineering",
+    "semester" : "1820S9",
+    "credit" : "4",
+    "faculty" : "Computing",
+    "grade" : "G"
+  }]
+}

@@ -27,7 +27,7 @@ public class TypicalModule {
             .withModuleTitle("Effective Communication for Computing Professionals")
             .withSemester("1920", 1)
             .withCredit(4)
-            .withGrade("A-").build();
+            .withGrade("B").build();
     public static final Module CS3226 = new ModuleBuilder().withModuleCode("CS3226")
             .withSemester("1920", 2)
             .withModuleTitle("Web Programming and Applications")
@@ -36,13 +36,13 @@ public class TypicalModule {
     public static final Module CS3233 = new ModuleBuilder().withModuleCode("CS3233")
             .withSemester("2021", 2)
             .withCredit(4)
-            .withGrade("A-")
+            .withGrade("B+")
             .withModuleTitle("Competitive Programming").build();
 
     private TypicalModule() {} // prevents instantiation
 
     /**
-     * Returns an {@ModuleCode CalendarAddressBook} with all the typical s.
+     * Returns a {@ModuleCode CapLog} with all the typical modules.
      */
     public static CapLog getTypicalCapLog() {
         CapLog capLog = new CapLog();
