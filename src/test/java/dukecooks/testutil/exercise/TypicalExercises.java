@@ -1,13 +1,20 @@
 package dukecooks.testutil.exercise;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.workout.exercise.ExerciseCatalogue;
+import dukecooks.model.workout.exercise.ExerciseSetAttempt;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.components.Intensity;
+import dukecooks.model.workout.exercise.details.Distance;
+import dukecooks.model.workout.exercise.details.ExerciseWeight;
+import dukecooks.model.workout.exercise.details.Repetitions;
+import dukecooks.model.workout.exercise.details.Timing;
+import dukecooks.model.workout.exercise.details.unit.DistanceUnit;
 import dukecooks.model.workout.exercise.details.unit.WeightUnit;
 
 
@@ -57,6 +64,22 @@ public class TypicalExercises {
                     null, CommandTestUtil.VALID_SETS_FIVE).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+
+    public static final ExerciseSetAttempt SET_ATTEMPT_WITH_WEIGHT_AND_REPETITIONS = new ExerciseSetAttempt(
+            new ExerciseWeight(10F, WeightUnit.KILOGRAM), null, new Repetitions(12),
+            null, null);
+
+    public static final ExerciseSetAttempt SET_ATTEMPT_WITH_WEIGHT_AND_REPETITIONS_2 = new ExerciseSetAttempt(
+            new ExerciseWeight(9F, WeightUnit.KILOGRAM), null, new Repetitions(12),
+            null, null);
+
+    public static final ExerciseSetAttempt SET_ATTEMPT_WITH_WEIGHT_AND_TIMING = new ExerciseSetAttempt(
+            new ExerciseWeight(9f, WeightUnit.KILOGRAM), null, null,
+            new Timing(Duration.ofSeconds(30L)), new Timing(Duration.ofSeconds(15L)));
+
+    public static final ExerciseSetAttempt SET_ATTEMPT_WITH_DISTANCE_AND_TIMING = new ExerciseSetAttempt(null,
+            new Distance(10f, DistanceUnit.KILOMETER), null, new Timing(Duration.ofSeconds(90L)),
+            new Timing(Duration.ofSeconds(60L)));
 
     private TypicalExercises() {} // prevents instantiation
 

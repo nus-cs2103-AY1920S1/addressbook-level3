@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="dashboardCardPane" fx:id="dashboardCardPane" prefHeight="133.0" prefWidth="464.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
       <Region prefHeight="58.0" prefWidth="57.0" />
         <GridPane HBox.hgrow="ALWAYS">
@@ -51,7 +51,13 @@
                 <RowConstraints />
             </rowConstraints>
         </GridPane>
-      <ImageView fx:id="imageView" fitHeight="105.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Region prefHeight="20.0" prefWidth="200.0" />
+            <ImageView fx:id="imageView" fitHeight="105.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Region prefHeight="20.0" prefWidth="200.0" />
+         </children>
+      </VBox>
       <Region prefHeight="58.0" prefWidth="57.0" />
     </children>
 </HBox>

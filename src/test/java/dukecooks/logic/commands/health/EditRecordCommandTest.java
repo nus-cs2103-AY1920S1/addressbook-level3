@@ -36,6 +36,7 @@ public class EditRecordCommandTest {
 
         Model expectedModel = new ModelManager(new HealthRecords(model.getHealthRecords()), new UserPrefs());
         expectedModel.setRecord(model.getFilteredRecordList().get(0), editedRecord);
+        expectedModel.updateFilteredRecordList(x -> x.getType().equals(editedRecord.getType()));
 
         EditRecordCommand.EditRecordDescriptor descriptor =
                 new EditRecordDescriptorBuilder(model.getFilteredRecordList().get(0), editedRecord).build();
@@ -68,6 +69,7 @@ public class EditRecordCommandTest {
 
         Model expectedModel = new ModelManager(new HealthRecords(model.getHealthRecords()), new UserPrefs());
         expectedModel.setRecord(lastRecord, editedRecord);
+        expectedModel.updateFilteredRecordList(x -> x.getType().equals(editedRecord.getType()));
 
         CommandTestUtil.assertCommandSuccess(editRecordCommand, model, expectedMessage, expectedModel);
     }
@@ -81,6 +83,7 @@ public class EditRecordCommandTest {
         String expectedMessage = String.format(EditRecordCommand.MESSAGE_EDIT_RECORD_SUCCESS, editedRecord);
 
         Model expectedModel = new ModelManager(new HealthRecords(model.getHealthRecords()), new UserPrefs());
+        expectedModel.updateFilteredRecordList(x -> x.getType().equals(editedRecord.getType()));
 
         CommandTestUtil.assertCommandSuccess(editRecordCommand, model, expectedMessage, expectedModel);
     }
@@ -98,6 +101,7 @@ public class EditRecordCommandTest {
 
         Model expectedModel = new ModelManager(new HealthRecords(model.getHealthRecords()), new UserPrefs());
         expectedModel.setRecord(model.getFilteredRecordList().get(0), editedRecord);
+        expectedModel.updateFilteredRecordList(x -> x.getType().equals(editedRecord.getType()));
 
         CommandTestUtil.assertCommandSuccess(editRecordCommand, model, expectedMessage, expectedModel);
     }

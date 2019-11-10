@@ -2,9 +2,11 @@ package dukecooks.logic.parser;
 
 import static dukecooks.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static dukecooks.testutil.Assert.assertThrows;
+import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_DASHBOARD;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -17,6 +19,8 @@ import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.Image;
+import dukecooks.model.dashboard.components.DashboardName;
+import dukecooks.model.dashboard.components.TaskDate;
 import dukecooks.model.diary.components.DiaryName;
 import dukecooks.model.diary.components.PageDescription;
 import dukecooks.model.diary.components.PageType;
@@ -33,6 +37,12 @@ public class ParserUtilTest {
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+
+    private static final String VALID_TASKNAME = "Project Meeting";
+    private static final String INVALID_TASKNAME = "Project Meeting!";
+
+    private static final String VALID_TASKDATE = "12/12/2019";
+    private static final String INVALID_TASKDATE = "12.12.2019";
 
     private static final String INVALID_NAME_2 = "T@mago Maki";
     private static final String INVALID_INGREDIENT = "Nor!";
@@ -89,6 +99,12 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(INDEX_FIRST_DIARY, ParserUtil.parseIndex("  1  "));
+
+        // No whitespaces
+        assertEquals(INDEX_FIRST_DASHBOARD, ParserUtil.parseIndex("1"));
+
+        // Leading and trailing whitespaces
+        assertEquals(INDEX_FIRST_DASHBOARD, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -112,6 +128,54 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseDashboardName_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDashboardName((String) null));
+    }
+
+    @Test
+    public void parseDashboardName_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDashboardName(INVALID_TASKNAME));
+    }
+
+    @Test
+    public void parseDashboardName_validValueWithoutWhitespace_returnsName() throws Exception {
+        DashboardName expectedName = new DashboardName(VALID_TASKNAME);
+        assertEquals(expectedName, ParserUtil.parseDashboardName(VALID_TASKNAME));
+    }
+
+    @Test
+    public void parseDashboardName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
+        String nameWithWhitespace = WHITESPACE + VALID_TASKNAME + WHITESPACE;
+        DashboardName expectedName = new DashboardName(VALID_TASKNAME);
+        assertEquals(expectedName, ParserUtil.parseDashboardName(nameWithWhitespace));
+    }
+
+    //
+
+    @Test
+    public void parseTaskDate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTaskDate((String) null));
+    }
+
+    @Test
+    public void parseTaskDate_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTaskDate(INVALID_TASKDATE));
+    }
+
+    @Test
+    public void parseTaskDate_validValueWithoutWhitespace_returnsName() throws Exception {
+        TaskDate expectedDate = new TaskDate(VALID_TASKDATE);
+        assertEquals(expectedDate.toString(), ParserUtil.parseTaskDate(VALID_TASKDATE).toString());
+    }
+
+    @Test
+    public void parseTaskDate_validValueWithWhitespace_returnsTrimmedName() throws Exception {
+        String dateWithWhitespace = WHITESPACE + VALID_TASKDATE + WHITESPACE;
+        TaskDate expectedDate = new TaskDate(VALID_TASKDATE);
+        assertEquals(expectedDate.toString(), ParserUtil.parseTaskDate(dateWithWhitespace).toString());
     }
 
     @Test

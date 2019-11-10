@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: asciidoctor.css
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
@@ -24,9 +25,9 @@ DukeCooks is a revolutionary lifestyle application, specially designed for healt
 runs on the Command-Line Interface (CLI), allowing you to execute different commands, all within a single line.
 You will be able to manage various aspects of your lifestyle, from your diet, to exercises and health records.
 
-(Think of a nice one-liner?)
+You can use DukeCooks to manage all your lifestyle needs, all within one single app.
 
-Now you can use DukeCooks to manage all your lifestyle needs, all within a single app.
+With DukeCooks, being healthy has never been easier!
 
 
 === Using the User Guide
@@ -62,7 +63,14 @@ section.
 
 === Quick Look at DukeCooks
 
-(Include UI Screenshots + explain the components)
+Welcome to DukeCooks! The only planner you ever need for a healthier lifestyle! +
+When you first start up DukeCooks, you will be greeted with the Dashboard. To switch between the awesome features the DukeCooks
+has to offer, click on the icons found in the side panel or use the command box to go to another wonderful feature. +
+Below is a screenshot of DukeCooks' overview (Figure 1.3) and the accompanied features labeled on the left.
+
+.An Overview of DukeCooks
+[caption="Figure 1.3: "]
+image::DukeCooksOverview.png[width="790"]
 
 
 === Understanding DukeCooks
@@ -70,7 +78,8 @@ section.
 DukeCooks consists of 5 main features.
 You may click on the following features below to find out more about the feature and their available commands.
 
-* Dashboard - (Fill in a simple line for your feature?)
+* Dashboard: +
+Start making a task list for the things you plan to do and never have to forget to do something ever again!
 * Recipe Book - (Fill in a simple line for your feature?)
 * Exercise - (Fill in a simple line for your feature?)
 * Health - (Fill in a simple line for your feature?)
@@ -79,7 +88,7 @@ You may click on the following features below to find out more about the feature
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `DukeCooks`.
+.  Download the latest `DukeCooks` from here (Include link).
 .  Copy the file to the folder you want to use as the home folder for DukeCooks.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -89,7 +98,10 @@ image::Ui.png[width="790"]
 
 == Commands
 === General
-Before we begin, let's look at some common commands that will be used through Duke cooks.
+Before we begin, let's look at some common commands that will be used through DukeCooks.
+
+==== Goto commands: `goto`
+Be the most efficient person in the room! Use the `goto` command to bring you to the awesome features that make up DukeCooks.
 
 ==== Add commands: `add`
 Have you just created a new dish, or tried a new exercise?
@@ -114,15 +126,26 @@ Delete commands will be used to delete a specific entry within DukeCooks.
 ==== Clear commands: `clear`
 Clear commands will be used to clear all saved data.
 
-=== Dashboard
+=== Breaking down the Dashboard
+For first time users of the CLI, working with it can be a daunting task. So, let's first start off by understanding what makes up the Dashboard!
 
-Can't track all your deadlines? Look through the available commands in this section and start managing them.
+In the image below (Figure 1), accompanied with text on the right, provides a brief explanation of the key components found in the Dashboard.
+
+.DukeCooks's Dashboard
+[caption="Figure 3.2: "]
+image::overviewdashboard.png[width="900"]
+
+[NOTE]
+====
+Here in the Dashboard, the prefix: /tn for name and td/ for date, are used to indicate the fields you are entering.
+====
+Alright, now you are ready to use DukeCooks! The following are the instructions on all the commands available in the Dashboard.
 
 ==== pass:[<u>Going to the Dashboard</u>]
 
 A quick way to get to the Dashboard and start getting work done!
 
-Command: `dashboard`
+Command: `goto dashboard`
 
 ==== pass:[<u>Adding a task</u>]
 
@@ -136,11 +159,27 @@ Format: `add task tn/_insert task here_ td/ _insert date here_`
 When entering the date for a task, please follow the given format: day/month/year
 ====
 
-Example usage: `add task tn/Bake a Cake td/29/10/2019`
+Example usage (Figure 3.3.2a & 3.3.3b): `add task tn/Bake CupCakes td/11/11/2019`
+
+Step 1. Enter the task you want to add into the command box and hit enter.
 
 .Adding a task
-[caption="Figure 2: "]
-image::addtask-ug.png[width="790"]
+[caption="Figure 3.2.2a: "]
+image::addtask1.png[width="500"]
+
+Step 2. If you have correctly inputted the information for adding a task, DukeCooks will
+tell you that the task is successfully added in the message box. +
+Step 3. You can view the newly added task under the Dashboard.
+
+.Adding a task success
+[caption="Figure 3.2.2b: "]
+image::addtask2.png[width="500"]
+
+[icon tip]
+====
+Did you know? You are able to enter Dashboard commands even if you are on another feature. Talk about
+double the productivity!
+====
 
 ==== pass:[<u>Editing a task's details</u>]
 
@@ -148,13 +187,29 @@ Made some typos when adding a task? +
 Fret not! You are able to make changes to them.
 
 Command: `edit task` +
-Format: `edit task _index number_`
+Format: `edit task _index number_ tn/ _insert new name_ td/ _insert new date_`
 
-Example usage: `edit task 1 tn/Bake cupcakes td/30/10/2019`
+[NOTE]
+====
+When editing a task, you can choose to change just 1 field or edit both fields.
+====
+
+Example usage (Figure 3.2.3a & 3.2.2b): `edit task 1 tn/Bake cupcakes td/21/10/2019`
+
+Step 1. Look at the index number corresponding to the task you want to edit. +
+Step 2. Enter the task information you want to edit into the command box and hit enter.
 
 .Editing a task
-[caption="Figure 3: "]
-image::edittask-ug.png[width="790"]
+[caption="Figure 3.2.3a: "]
+image::edittask1.png[width="500"]
+
+Step 3. If you have correctly inputted the information for editing a task, DukeCooks will
+tell you that the task is successfully edited in the message box. +
+Step 4. You can view the newly edited task under the Dashboard.
+
+.Editing a task success
+[caption="Figure 3.2.3b: "]
+image::edittask2.png[width="500"]
 
 ==== pass:[<u>Removing a task</u>]
 
@@ -164,42 +219,57 @@ Well you can delete them off from DukeCooks.
 Command: `delete task` +
 Format: `delete task _index number_`
 
-Example usage: `delete task 1`
+[NOTE]
+====
+Tasks that are marked as "RECENTLY COMPLETED" or "COMPLETED", cannot be deleted.
+====
+
+Example usage (Figure 3.2.4a & 3.2.4b): `delete task 1`
+
+Step 1. Look at the index number corresponding to the task you want to delete. +
+Step 2. Enter the task index number you want to delete into the command box and hit enter.
 
 .Deleting a task
-[caption="Figure 4: "]
-image::deletetask-ug.png[width="790"]
+[caption="Figure 3.2.4a: "]
+image::deletetask1.png[width="500"]
+
+Step 3. If you have correctly inputted the information for deleting a task, DukeCooks will
+tell you that the task is successfully removed from DukeCooks in the message box. +
+
+.Deleting a task success
+[caption="Figure 3.2.4b: "]
+image::deletetask2.png[width="500"]
 
 ==== pass:[<u>Marking a task as complete</u>]
 
 Finished with a task? +
 Check it off the list!
 
-Command: `done` +
-Format: `done _index number_`
+Command: `done task` +
+Format: `done task _index number_`
 
-Example usage: `done 2`
+Example usage (Figure 3.2.5a & 3.2.5b): `done 1`
 
-- 1: Enter the done command into the dashboard
-- 2: The task is now marked as RECENTLY COMPLETED.
-- 3: The progress bar will be increased
+Step 1. Look at the index number corresponding to the task you want to mark as complete. +
+Step 2. Enter the task index number you want to mark as complete into the command box and hit enter.
 
 .Marking a task complete
-[caption="Figure 5: "]
-image::donetask-ug.png[width="790"]
+[caption="Figure 3.2.5a: "]
+image::donetask1.png[width="500"]
 
-Hard at work? Marking 5 new tasks done will give a surprise! +
-A pop up window with an encouraging message will be displayed for extra motivation.
+Step 3. If you have correctly inputted the information for marking a task as complete, DukeCooks will
+tell you that the task is successfully marked in the message box. +
+Step 4. You can view the newly marked task under the Dashboard.
 
-.Completing 5 new tasks
-[caption="Figure 6: "]
-image::done5tasks-ug.png[width="300"]
+.Marking a task complete success
+[caption="Figure 3.2.5b: "]
+image::donetask2.png[width="500"]
 
 [NOTE]
 ====
-A task index number is available at the left side of the task's name.
+Hard at work? Marking 5 new tasks done will give a surprise! +
+A pop up window with an encouraging message will be displayed for extra motivation.
 ====
-
 ==== pass:[<u>Finding tasks</u>]
 
 For those who want to know what are the tasks relevant given a keyword.
@@ -207,20 +277,65 @@ For those who want to know what are the tasks relevant given a keyword.
 Command: `find task` +
 Format: `find task _keyword_`
 
-Example usage: `find task go`
+Example usage (Figure 3.2.6a & 3.2.6b): `find task project`
+
+Step 1. Enter the a keyword for that tasks you to find into the command box and hit enter.
 
 .Finding tasks with a keyword
-[caption="Figure 7: "]
-image::findtask-ug.png[width="790"]
+[caption="Figure 3.2.6a: "]
+image::findtask1.png[width="500"]
 
-==== pass:[<u>Viewing complete/incomplete tasks</u>]
+Step 3. If you have correctly inputted the information for finding a task, DukeCooks will
+tell you that the number of tasks relating to the keyword found in the message box. +
+Step 4. You can view the task relating to the keyword under the Dashboard.
+
+.Finding tasks with a keyword success
+[caption="Figure 3.2.6b: "]
+image::findtask2.png[width="500"]
+
+==== pass:[<u>Viewing completed/incompleted tasks</u>]
 
 Look at all those tasks!
+
 To view completed tasks: +
 Command: `list taskcomplete`
 
-For incomplete tasks: +
+For incompleted tasks: +
 Command: `list taskincomplete`
+
+==== pass:[<u>Postponing a task's date</u>] `Coming in v2.0`
+
+Think you need a little bit more time to complete a task?
+
+Command: `postpone task` +
+Format: `postpone task _index number_ by _number of days_`
+
+Example usage: `postpone task 1 by 5` +
+The above example will postpone the date of task 1 by 5 days.
+
+==== pass:[<u>Viewing your progress</u>] `Coming in v2.0`
+
+Want to know how many tasks you have done over the week? +
+DukeCooks will show you how many tasks you did each day for the past week. +
+Look at your progress and perhaps learn something about yourself!
+
+Command: `progress task`
+
+
+==== pass:[<u>Motivation booster</u>] `Coming in v2.0`
+
+DukeCooks knows you are hard at work. But for the times where you need an extra push, DukeCooks
+is here for you! +
+DukeCooks has a specially curated gif list that is sure to put a smile on your face!
+
+Command: `humour me`
+
+==== pass:[<u>Changing to calendar view</u>] `Coming in v2.0`
+
+A picture paints a thousand words. Same can be said with a calendar. Change to calendar view
+for a clearer view of all tasks due on a certain date!
+
+Command: `calendar`
 
 === Recipe Book
 
@@ -677,94 +792,206 @@ Format: `run <index>`
 Want to share great recipes and workout tips with your friends? Look through the available commands in this section and
 start sharing!
 
-==== pass:[<u>Adding a diary</u>]
+==== Taking a closer look into the Diary feature
 
-Let's first get started by creating diaries with our `add diary` command
+In the diary feature, you will be able to look through all your available diaries and pages at one quick glance!
+Not only that, you can also enter different commands within the command box.
+
+Still confused? You can refer to the following diagram for a better understanding.
+
+
+.Overview of Diary Feature
+image::diaryOverview.png[]
+
+
+==== Adding a diary
+
+Let's get started by adding a diary using the `add diary` command!
 
 Command: `add diary` +
 Format: `add diary n/ <diary name>`
 
-Example usage: `add diary n/ Asian Cuisines`
+Example usage: `add diary n/ Desserts Galore`
 
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::addDiary_before.png[width="450"]
+image::addDiary_before.png[]
 +
-. If the command succeeds, you should see the following message in the result display and a new diary will be added.
+. If the command succeeds, you should see the following message in the result display
+and a new diary named "Dessert Galore" will be added.
 +
-image::addDiary_after.png[width="450"]
+image::addDiary_after.png[]
+
+[WARNING]
+Diary names are only limited to 25 characters.
 
 
-==== pass:[<u>Deleting a diary</u>]
+==== Deleting a diary
 
 Accidentally created an unwanted diary? No worries! You can remove it with our `delete diary` command.
 
-Command: `delete diary`
-Format: `delete diary <index>`
+Command: `delete diary` +
+Format: `delete diary <diary index>`
 
-Example usage: `delete diary 1`
-
-.Steps
-. Enter the command in the command box and hit the kbd:[Enter] key.
-+
-image::deleteDiary_before.png[width="450"]
-+
-. If the command succeeds, you will see the following message in the result display and the diary wll be removed.
-+
-image::deleteDiary_after.png[width="450"]
-
-==== pass:[<u>Adding a page</u>]
-
-Want to customise your diary further? You can do so by adding pages with our `add page` command.
-
-Command: `add page`
-Command format: `add page n/ <diary name> t/ <page title> i/ <image path> desc/ <page description>`
-
-Example usage: `add page n/ Asian Food t/ Pho i/ src/main/resources/images/pho.jpg desc/ Simply the best!`
+Example usage: `delete diary 8`
 
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image:addPage_before.png[width="450"]
+image::deleteDiary_before.png[]
 +
-. If the command is successful, you should see that a new page will be added and the screen shows the following.
+. If the command succeeds, you will see the following message in the result display and the diary "Dessert Galore"
+will be removed.
 +
-image::addPage_after.png[width="450"]
+image::deleteDiary_after.png[]
 
-==== pass:[<u>Deleting a page</u>]
+==== Editing a diary
 
-Want to remove a page? We've got that covered with our `delete page` command.
+Made a minor mistake and would like to correct it? You can do so with our `edit diary` command!
 
-Command: `delete page`
-Format: `delete page <index> n/ <diary name>`
+Command: `edit diary` +
+Format: `edit diary <diary index> n/ <new diary name>`
+
+Example usage: `edit diary 1 n/ Asian Cuisines`
 
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::deletePage_before.png[width="450"]
+image::editDiary_before.png[]
 +
-. If the command is successful, the page will be removed and you will see the following in the result display.
+. If the command succeeds, the following result will be displayed and the diary will be edited as shown below.
 +
-image::deletePage_after.png[width="450"]
+image::editDiary_before.png[]
 
-==== pass:[<u>Viewing a diary</u>]
+==== Viewing a diary
 
-Want to switch over to another diary? You can do so through our `view diary` command.
+Want to take a look into another diary? Use the `view diary` command!
 
-Command: `view diary`
-Format: `view diary <index>`
+Command: `view diary` +
+Format: `view diary <diary index>`
 
 Example usage: `view diary 2`
 
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
-image::viewDiary_before.png[width="450"]
+image::viewDiary_before.png[]
 +
-. If the command is successful, you should see the following result.
+. If the command succeeds, the following result will be displayed and both the diary view and page view will switch.
+In this case, the diary will be switched to "Healthy Living" and its corresponding pages will be displayed as shown below.
 +
-image::viewDiary_after.png[width="450"]
+image::viewDiary_before.png[]
+
+==== Finding a diary
+
+Having difficulty with locating a particular diary? You can use the `find diary` command to quickly find your desired diary.
+
+Command: `find diary` +
+Format: `find diary <keywords>`
+
+Example usage: `find diary singapore`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::findDiary_before.png[]
++
+. If the command succeeds, only the found diaries would be displayed as shown below. In this case, all diaries with the
+keyword "singapore" would be found.
++
+image::findDiary_after.png[]
+
+==== Listing all diaries
+
+Want to see all the available diaries? You can use our `list diary` command to list all available diaries!
+
+Command: `list diary` +
+Format: `list diary`
+
+Example usage: `list diary`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::listDiary_before.png[]
++
+. If the command succeeds, all the available diaries would be listed as shown below.
++
+image::listDiary_after.png[]
+
+==== Adding a page
+
+Looking to customise your diary further? You can do so by adding pages with our `add page` command.
+
+Command: `add page` +
+Command format: `add page`
+
+Example usage: `add page`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::addPage_before.png[]
++
+. You will then be taken to the Page Input Form to provide details of the page.
+In this case, we will be adding a page to the specified diary "Asian Cuisines". You may choose to use your own images
+or you could use our images from <<Appendix, here>>.
++
+image::addPage_mid.png[]
++
+. If the command succeeds, the page will be added to the specified diary as shown below.
++
+image::addPage_after.png[]
+
+[WARNING]
+Page titles are limited to 40 characters.
+
+[TIP]
+If you made some mistake when filling up the Page Input Form, you can use the kbd:[F2] key to quickly return focus to
+the top of the Page Input Form.
+
+==== Deleting a page
+
+Want to remove a page? We've got that covered with our `delete page` command.
+
+Command: `delete page` +
+Format: `delete page <page index> n/ <diary name>`
+
+Example usage: `delete page 4 n/ Asian Cuisines`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. In this case, we are deleting page 4 from the diary
+"Asian Cuisines".
++
+image::deletePage_before.png[]
++
+. If the command is successful, the page will be removed and you will see the following in the result display.
++
+image::deletePage_after.png[]
+
+==== Editing a page
+
+Making minor changes to a page? You can do so with the `edit page` command!
+
+Command: `edit page` +
+Format: `edit page <page index> n/ <diary name> t/ [new title] tp/ [new type] desc/ [new description] i/ [new image]`
+
+Example usage: `edit page 1 n/ Asian Cuisines t/ Beef Pho`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key. In this case, we are editing page 1 from the diary
+"Asian Cuisines", looking to change it's title to "Beef Pho".
++
+image::editPage_before.png[]
++
+. If the command is successful, the page will be edited and you will see the following in the result display.
++
+image::editPage_after.png[]
+
+[NOTE]
+You are able to edit all different fields within a page. You can make changes to the page title, page type, page description
+or even the page image!
 
 ==== Link Recipes: `[Coming in v2.0]`
 Creates a new food page in the specified diary, using pre-existing recipes +
@@ -817,29 +1044,6 @@ Examples:
 * `link records BP129391 /to Healthy Living` +
  Creates a health page about “BP129391” and adds it to the diary named “Healthy Living”
 
-==== Edit Diary: `[Coming in v2.0]`
-Allows user to edit some basic information in the diary +
-Format: `edit <diary exerciseName>`
-
-* Diary should already exist
-
-Examples:
-
-* `edit Healthy Living` +
- Users will now be able to edit basic information in the diary named “Healthy Living”
-
-==== Edit Page: `[Coming in v2.0]`
-Allows user to edit basic information in the specified page of the specified diary +
-Format: `edit page <index> <diary exerciseName>`
-
-* Diary should already exist
-* Index should be a positive integer
-
-Examples:
-
-* `edit page 2 Healthy Living` +
- Users will be able to edit some basic information in page 2 of the diary named “Healthy Living”
-
 == Command Summary
 
 *Recipe Book*
@@ -852,14 +1056,16 @@ e.g. `delete recipe Chicken Rice`
 * *View recipe* : `view recipe` +
 e.g. `view recipe Chicken Rice`
 
-*Dashboard (Analytics & Suggestions)*
+*Dashboard*
 
-* *Get suggestions* : `suggest`
-* *Get random food suggestions* : `suggest food`
-* *Get new food suggestions* : `suggest new food`
-* *Get statistics* : `stats`
-* *Get food statistics* : `stats food`
-* *Get exercise statistics* : `stats exercise`
+* *Going to the Dashboard:* `goto dashboard`
+* *Adding a task:* `add task`
+* *Editing a task* : `edit task`
+* *Removing a task* : `delete task`
+* *Marking a task as complete* : `done task`
+* *Finding a task* : `find task`
+* *Viewing completed tasks* : `list taskcomplete`
+* *Viewing incomplete tasks* : `list taskcomplete`
 
 *Health Records*
 
@@ -884,15 +1090,45 @@ e.g. `add exercise Inclined Bench Press`
 * *Delete workout* : `delete workout <index>`
 * *Run workout* : `run <index>`
 
-*Food Diary*
+*Diary*
 
-* *Create Diary* : `create diary` +
-e.g. `create diary Healthy Living`
-* *Delete Diary* : `delete diary <diary exerciseName>` +
-e.g. `delete diary Healthy Living`
-* *Add page* : `add page <type> <diary exerciseName>` +
-e.g. `add page health Healthy Living`
-* *Delete page* : `delete page <index> <diary exerciseName>` +
-e.g. `delete page 2 Healthy Living`
+* *Adding diary* : `add diary n/ <diary name>` +
+e.g. `add diary n/ Healthy Living`
+* *Deleting diary* : `delete diary <diary index>` +
+e.g. `delete diary 1`
+* *Editing diary* : `edit diary <diary index> n/ <new diary name>` +
+e.g. `edit diary 1 n/ Student Life`
+* *Viewing diary* : `view diary <diary index>` +
+e.g. `view diary 1`
+* *Finding diary* : `find diary <keyword>` +
+e.g. `find diary Singapore`
+* *Listing diary* : `list diary` +
+e.g. `list diary`
+* *Adding pages* : `add page` +
+e.g. `add page`
+* *Deleting pages* : `delete page <page index> n/ <diary name>` +
+e.g. `delete page 1 n/ Healthy Living`
+* *Editing pages* : `edit page <page index> n/ <diary name> t/ [new title] tp/ [new type] desc/ [new description] i/ [new image]` +
+e.g. `edit page 1 n/ Healthy Living t/ Yoga`
+
 
 == Glossary
+
+== Appendix
+
+Here are some pre-defined images that you can use.
+
+*Pho Image* +
+Image URL: /images/pho.jpg +
+
+image::pho.jpg[width="500"]
+
+*Planks Image* +
+Image URL: /images/planks.jpg +
+
+image::planks.jpg[width="500"]
+
+*Low Sugar Foods Image* +
+Image URL: /images/lowsugar.jpg +
+
+image::lowsugar.jpg[width="500"]

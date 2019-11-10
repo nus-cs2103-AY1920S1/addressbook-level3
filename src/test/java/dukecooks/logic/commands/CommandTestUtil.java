@@ -109,7 +109,7 @@ public class CommandTestUtil {
     public static final String VALID_TASKDATE1 = "12/12/2019";
     public static final String VALID_TASKDATE2 = "13/12/2019";
     public static final String VALID_TASKDATE3 = "14/12/2019";
-    public static final String VALID_TASKSTATUS_COMPLETE = "COMPLETE";
+    public static final String VALID_TASKSTATUS_COMPLETE = "COMPLETED";
     public static final String VALID_TASKSTATUS_INCOMPLETE = "NOT COMPLETE";
 
     /** User Profile */
@@ -144,6 +144,8 @@ public class CommandTestUtil {
     /** Health Records */
     public static final String VALID_TYPE_GLUCOSE = "Glucose";
     public static final String VALID_TYPE_CALORIES = "Calories";
+    public static final String VALID_TYPE_WEIGHT = "Weight";
+    public static final String VALID_TYPE_HEIGHT = "Height";
     public static final String VALID_REMARK_GLUCOSE = "After meal";
     public static final String VALID_REMARK_CALORIES = "Dinner";
     public static final String VALID_VALUE_GLUCOSE = "18.0";
@@ -618,6 +620,6 @@ public class CommandTestUtil {
         final String[] splitName = dashboard.getDashboardName().fullName.split("\\s+");
         model.updateFilteredDashboardList(new DashboardNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredDashboardList().size());
+        assertEquals(2, model.getFilteredDashboardList().size());
     }
 }

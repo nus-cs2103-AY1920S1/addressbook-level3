@@ -40,6 +40,9 @@ public class EditProfileCommandParser implements Parser<EditProfileCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DOB, PREFIX_GENDER, PREFIX_BLOODTYPE,
                         PREFIX_HEIGHT, PREFIX_WEIGHT, PREFIX_MEDICALHISTORY, PREFIX_REMOVEMEDICALHISTORY);
 
+        boolean isWeightEdited = false;
+        boolean isHeightEdited = false;
+
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
@@ -59,10 +62,12 @@ public class EditProfileCommandParser implements Parser<EditProfileCommand> {
 
         if (argMultimap.getValue(PREFIX_WEIGHT).isPresent()) {
             editPersonDescriptor.setWeight(ParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get()));
+            isWeightEdited = true;
         }
 
         if (argMultimap.getValue(PREFIX_HEIGHT).isPresent()) {
             editPersonDescriptor.setHeight(ParserUtil.parseHeight(argMultimap.getValue(PREFIX_HEIGHT).get()));
+            isHeightEdited = true;
         }
 
         parseMedicalHistoriesForEdit(argMultimap.getAllValues(PREFIX_MEDICALHISTORY))
@@ -75,7 +80,7 @@ public class EditProfileCommandParser implements Parser<EditProfileCommand> {
             throw new ParseException(EditProfileCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditProfileCommand(editPersonDescriptor);
+        return new EditProfileCommand(editPersonDescriptor, isWeightEdited, isHeightEdited);
     }
 
     /**

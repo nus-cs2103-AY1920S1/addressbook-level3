@@ -10,9 +10,9 @@ import javafx.scene.layout.Region;
 /**
  * An UI component that displays information of a {@code Record}.
  */
-public class RecordListView extends UiPart<Region> {
+public class RecordTypeListCard extends UiPart<Region> {
 
-    private static final String FXML = "RecordListView.fxml";
+    private static final String FXML = "RecordTypeListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -33,9 +33,9 @@ public class RecordListView extends UiPart<Region> {
     @FXML
     private Label value;
     @FXML
-    private FlowPane pages;
+    private FlowPane remarkPages;
 
-    public RecordListView(Record record, int displayedIndex) {
+    public RecordTypeListCard(Record record, int displayedIndex) {
         super(FXML);
         this.record = record;
         id.setText(displayedIndex + ". ");
@@ -43,7 +43,7 @@ public class RecordListView extends UiPart<Region> {
         value.setText(record.getValue().value + record.getType().getUnit());
 
         record.getRemarks().stream()
-                .forEach(remark -> pages.getChildren().add(new Label(remark.remarkName)));
+                .forEach(remark -> remarkPages.getChildren().add(new Label(remark.remarkName)));
     }
 
     @Override
@@ -54,12 +54,12 @@ public class RecordListView extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RecordListView)) {
+        if (!(other instanceof RecordTypeListCard)) {
             return false;
         }
 
         // state check
-        RecordListView card = (RecordListView) other;
+        RecordTypeListCard card = (RecordTypeListCard) other;
         return id.getText().equals(card.id.getText())
                 && record.equals(card.record);
     }

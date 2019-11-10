@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.CommandResult;
@@ -45,6 +46,10 @@ public class DeleteTaskCommand extends DeleteCommand {
         if (taskToDelete.getTaskStatus().getDoneStatus()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_IS_COMPLETE);
         }
+
+        // Navigate to dashboard tab
+        Event event = Event.getInstance();
+        event.set("dashboard", "all");
 
         model.deleteDashboard(taskToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
