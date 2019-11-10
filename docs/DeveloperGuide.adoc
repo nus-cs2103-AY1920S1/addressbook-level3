@@ -197,8 +197,6 @@ of the heavy-lifting in terms of deciding what to change within the `Model`
 and what to return to the `Ui`. The diagram below shows the structure of the
 `Logic` component.
 
-// TODO change logic diagram
-
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
