@@ -223,7 +223,7 @@ Additionally, the `AutoAllocateCommand` uses the following operations:
 filtered by the tags specified by user.
 * `AutoAllocateCommand#getManpowerNeededByEvent()` -- Calculates the number of employees currently required
 by the event.
-* `AutoAllocateCommand#createEventAfterManpowerAllocation()` -- Creates a new event with a updated manpower list.
+* `AutoAllocateCommand#createEventAfterManpowerAllocation()` -- Creates a new event with an updated manpower list.
 
 Given below is an example usage scenario and how the auto allocation mechanism behaves at each step.
 
@@ -247,12 +247,12 @@ required by the specified event.
 **Step 4**. The command calls its own method `AutoAllocateCommand#createAvailableEmployeeListForEvent()` to create a
 filtered list of employees based on the `tagList` and if employee satisfies `Event#isAvailableForEvent()`.
 
-**Step 5**. The command checks if supply (number of employees in filtered list in step 4) exceeds
-demand (number of employees required by event, generated in step 3).
+**Step 5**. The command checks if supply (generated in *step 4*) exceeds
+demand (generated in *step 3*) of the event.
 [NOTE]
 If demand exceeds supply, an exception will be thrown to the user. If the supply exceeds demand, employees will be randomly selected instead.
 
-**Step 6**. The command calls `Event#createEventAfterManpowerAllocation()` to create a new event with a updated
+**Step 6**. The command calls `Event#createEventAfterManpowerAllocation()` to create a new event with an updated
 manpower list.
 [NOTE]
 For storage purposes, only the `Employee#EmployeeId` is saved in the event's manpower list.
@@ -283,7 +283,7 @@ PlantUML, the lifeline reaches the end of diagram.
 
 *Cons*: Future accesses require more time.
 
-*I decided to proceed with this option* because it creates less dependencies on other classes which is is a good
+*I decided to proceed with this option* because it has less dependencies on other classes which is is a good
 programming practice.
 
 |Saves all fields of `Employee` associated with the event.
@@ -302,7 +302,7 @@ programming practice.
 
 | Create a new event with a newly created and updated manpower list.
 
-*Pros*: Defensive programming.
+*Pros*: Good programming practice.
 
 *Cons*: Harder to implement.
 

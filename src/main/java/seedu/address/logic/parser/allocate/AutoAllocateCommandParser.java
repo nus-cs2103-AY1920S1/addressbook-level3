@@ -49,7 +49,7 @@ public class AutoAllocateCommandParser implements Parser<AutoAllocateCommand> {
                     AutoAllocateCommand.MESSAGE_USAGE), pe);
         }
 
-        tagList = parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).orElse(new HashSet<Tag>());
+        tagList = parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).orElse(new HashSet<>());
 
         return new AutoAllocateCommand(eventIndex, manpowerCount, tagList);
     }

@@ -31,7 +31,7 @@ The purpose of this user guide is show the user how they can use our app to carr
 === Installation
 . Ensure you have Java `11` or above installed in your Computer.
 . Download the latest `AddMin+.jar` link:{repoURL}/releases[here].
-. Copy the file to the folder you want to use as the home folder for AddMin+
+. Copy the file to a *new empty folder* which you want to use as the home folder for AddMin+
 . Double-click the file to start the app.
 The GUI should appear in a few seconds.
 +
@@ -382,7 +382,7 @@ Returns the 2rd event from the event list.
 
 Alternatively, the `fetch_ev` command can be executed from the GUI in just 2 simple steps.
 
-*Step 1*. *double-click the event* in the list as shown in the figure below:
+*Step 1*. *Double-click the event card* in the list as shown in the figure below:
 
 ._Instruction for user to execute fetch event command_
 image::beforefetch.png[width="600"]
@@ -395,8 +395,9 @@ image::afterfetch.png[width="600"]
 ==== Automated allocation of Employees to Events: `allocate`
 
 Automatically filters and allocates a specified number of employees from the
-complete employee list to an event. *AddMin+ prevents conflicting schedules by ensuring that
-employees cannot be allocated to events with overlapping periods.*
+complete employee list to an event. *Once an employee is allocated
+to an event, it is assumed that he will be unavailable
+from the start date to the end date of the event.*
 
 Format: `allocate EVENT_INDEX [n/NUMBER_OF_EMPLOYEES] [t/TAG]...`
 
@@ -404,7 +405,7 @@ Format: `allocate EVENT_INDEX [n/NUMBER_OF_EMPLOYEES] [t/TAG]...`
 Random selection of employees to allocate if supply exceeds demand of event.
 
 ****
-* Allocates a `NUMBER_OF_EMPLOYEES` of employees to the event at the specified `EVENT_INDEX` filtered based on `TAG`.
+* Allocate a `NUMBER_OF_EMPLOYEES` of employees to the event at the specified `EVENT_INDEX` filtered based on `TAG`.
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * The `NUMBER_OF_EMPLOYEES` refers to the number of employees to be allocated to the event.
 * Note the <<Constraints>> for *INDEX* and *INTEGER* _(for NUMBER_OF_EMPLOYEES)_.
@@ -416,9 +417,9 @@ Random selection of employees to allocate if supply exceeds demand of event.
 Examples:
 
 * `allocate 1` +
-Allocates available employees to the 1st event shown in the event list.
+Allocate available employees to the 1st event shown in the event list.
 * `allocate 2 n/3 t/female` +
-Allocates 3 employees who are tagged as 'female' to the 2nd event shown in the event list.
+Allocate 3 employees who are tagged as 'female' to the 2nd event shown in the event list.
 
 Alternatively, the `allocate` command can be executed from the GUI in just 1 simple step!
 
@@ -434,7 +435,7 @@ Format: `allocatem EVENT_INDEX n/EMPLOYEE_INDEX`
 Format: `allocatem EVENT_INDEX id/EMPLOYEE_ID`
 
 ****
-* Allocates an employee with `EMPLOYEE_INDEX` or `EMPLOYEE_ID` to the event at the specified `EVENT_INDEX`.
+* Allocate an employee with `EMPLOYEE_INDEX` or `EMPLOYEE_ID` to the event at the specified `EVENT_INDEX`.
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * The `EMPLOYEE_INDEX` refers to the index number shown in the displayed employee list.
 * `EMPLOYEE_ID` must match the exact 3-digit ID shown in the *FetchEventWindow*.
@@ -444,28 +445,28 @@ Format: `allocatem EVENT_INDEX id/EMPLOYEE_ID`
 Examples:
 
 * `allocatem 1 n/2` +
-Allocates the 2nd employee on the employee list to the 1st event on the event list.
+Allocate the 2nd employee on the employee list to the 1st event on the event list.
 
 * `allocatem 1 id/002` +
-Allocates the employee with id:"002" to the 1st event on the event list.
+Allocate the employee with id:"002" to the 1st event on the event list.
 
 Alternatively, the `allocatem` command can be executed from the GUI in just 2 simple step!
 
 *Step 1*:
-double-click the employee card on the left list. Notice the employee to allocate as shown in the
+*Double-click the employee card* on the left list. Notice the employee to allocate as shown in the
 following figure.
 
 ._Instruction for user to execute `allocatem` command_
 image::afterfree.png[width="600"]
 
-*Step 2*: result after the `allocatem` command is shown below:
+*Step 2*: Result after the `allocatem` command is shown below:
 
 ._Result after `allocatem` command_
 image::afterallocatem.png[width="600"]
 
 ==== De-allocation of Employees from Event: `free`
 
-Frees employees allocated to the event.
+Free employees allocated to the event.
 
 Format: `free EVENT_INDEX [id/EMPLOYEE_ID]`
 
@@ -479,9 +480,9 @@ Format: `free EVENT_INDEX [id/EMPLOYEE_ID]`
 Examples:
 
 * `free 1` +
-Frees all employees allocated to the 1st event on the event list.
+Free all employees allocated to the 1st event on the event list.
 * `free 1 id/001` +
-Frees an employee with id: "001" allocated to the 1st event on the event list.
+Free an employee with id: "001" allocated to the 1st event on the event list.
 
 Alternatively, the `free` command can be executed from the GUI in just 1 simple step!
 
@@ -783,11 +784,11 @@ image::StatsUiPart6.png[]
 
 === Miscellaneous
 
-==== Clearing all entries : `clear`
+==== Clearing all entries : `clear_em` and `clear_ev`
 
-Clears all entries from the address book and event book.
+Clears all entries from the employee book/event book.
 
-Format: `clear`
+Format: `clear_em` and `clear_ev`
 
 ==== Saving the data
 
@@ -893,7 +894,12 @@ such as the location, budget, and date.
 | *Generate Payment To Employee* | `pay EMPLOYEE_INDEX s/PAYMENT` | `pay 1 s/100`
 | *Undo Payment To Employee* | `undo_pay EMPLOYEE_INDEX s/PAYMENT` | `undo_pay 1 s/100`
 | *Navigate between Tabs* | `main, schedule` | `main, schedule`
-| *Clear* | `clear` | `clear`
+| *Clear EmployeeBook/EventBook* | `clear_em`
+
+`clear_ev` | `clear_em`
+
+`clear_ev`
+
 | *Help* | `help`| `help`
 | *Exit* | `exit`| `exit`
 

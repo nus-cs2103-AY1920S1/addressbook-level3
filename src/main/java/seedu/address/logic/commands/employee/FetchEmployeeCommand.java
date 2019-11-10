@@ -37,8 +37,8 @@ public class FetchEmployeeCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
-            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST);
+        if (!MainWindow.isMainTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_FETCH);
         }
 
         List<Employee> shownEmployeeList = model.getFilteredEmployeeList();
