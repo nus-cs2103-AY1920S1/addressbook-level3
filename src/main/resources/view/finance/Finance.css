@@ -243,3 +243,14 @@
     -fx-background-color: derive(#71c867, 20%);
     -fx-box-border: transparent;
 }
+
+.finance-result-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-background-radius: 20;
+    -fx-text-fill: #362949;
+    -fx-border-color: derive(#71c867, 10%);
+    -fx-border-radius: 20;
+    -fx-padding: 5;
+}
