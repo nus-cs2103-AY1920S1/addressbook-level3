@@ -577,7 +577,7 @@ You must ensure that all existing reports are closed before executing any report
 // tag::genReport[]
 
 ==== Generate report for a specific body: `genReport`
-You can generate an individual report in a PDF filename `[red]#Report <body_ID>.pdf#` located in the folder containing the jar file as shown in the screenshot below:
+You can generate an individual report in a PDF filename `[purple]#Report <body_ID>.pdf#` located in the folder containing the jar file as shown in the screenshot below:
 
 image::reportlocation.png[width="790"]
 You can also add your signature name to the report by following the command format below.
@@ -598,7 +598,7 @@ Outputs the PDF report for body ID B00000001 in the folder containing the jar fi
 // tag::genReports[]
 
 ==== Generate reports for all bodies: `genReports`
-You can generate all individual reports in a PDF filename `[red]#Report (ALL BODIES).pdf#` located in the folder containing the jar file.
+You can generate all individual reports in a PDF filename `[purple]#Report (ALL BODIES).pdf#` located in the folder containing the jar file.
 
 
 You can also add your signature name to the report by following the command format below.
@@ -619,7 +619,7 @@ Outputs the PDF containing reports for all bodies in the folder containing the j
 // tag::genReportSummary[]
 
 ==== Generate summary report for all bodies: `genReportSummary`
-You can generate a tabular report overview containing key information for all bodies in a PDF filename `[red]#Report Summary.pdf#` located in the folder containing the jar file.
+You can generate a tabular report overview containing key information for all bodies in a PDF filename `[purple]#Report Summary.pdf#` located in the folder containing the jar file.
 
 You can also add your signature name to the report by following the command format below.
 
