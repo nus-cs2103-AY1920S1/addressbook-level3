@@ -44,6 +44,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListBinCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.logic.commands.ListPolicyCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RestoreCommand;
 import seedu.address.logic.commands.SuggestionCommand;
 import seedu.address.logic.commands.SuggestionSwitchCommand;
@@ -93,8 +94,9 @@ public class LogicManager implements Logic {
             FindPolicyCommand.COMMAND_WORD, FindPolicyholdersCommand.COMMAND_WORD, FindTagPeopleCommand.COMMAND_WORD,
             FindTagPolicyCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD,
             ListPeopleCommand.COMMAND_WORD, ListPolicyCommand.COMMAND_WORD, SuggestionSwitchCommand.COMMAND_WORD,
-            UnassignPolicyCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, DisplayCommand.COMMAND_WORD,
-            ListBinCommand.COMMAND_WORD, RestoreCommand.COMMAND_WORD, BinItemExpiryCommand.COMMAND_WORD);
+            UnassignPolicyCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
+            DisplayCommand.COMMAND_WORD, ListBinCommand.COMMAND_WORD, RestoreCommand.COMMAND_WORD,
+            BinItemExpiryCommand.COMMAND_WORD);
     }
 
     @Override
