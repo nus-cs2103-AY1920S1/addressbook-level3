@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.moolah.model.expense.Category;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.ui.statistics.StatisticsRegionFactory;
+import seedu.moolah.ui.statistics.TableViewRegionFactory;
 
 /**
  * Represents the Statistics class that provides a table as its Visual Representation method
@@ -56,34 +58,6 @@ public class TabularStatistics implements Statistics {
     public List<FiveElementTableEntry> getUnionDifferenceTable() {
         return unionDifferenceTable;
     }
-
-
-    /*
-     * Compares the difference in basic statistics across 2 time periods
-     *
-     * @param validCategories List of allowed categories in MooLah
-     * @param firstStartDate The starting date meant for the first period to be compared
-     * @param secondStartDate The starting date meant for the second period to be compared
-     * @param primaryBudget The primary budget whose statistics is taken
-
-    public static TabularStatistics run(List<Category> validCategories,
-                                        Timestamp firstStartDate, Timestamp secondStartDate, Budget primaryBudget) {
-        requireNonNull(firstStartDate);
-        requireNonNull(secondStartDate);
-        requireNonNull(primaryBudget);
-
-        Period period = primaryBudget.getBudgetPeriod().getPeriod();
-
-        Timestamp firstEndDate = new Timestamp(firstStartDate.getFullTimestamp().plus(period)).minusDays(1);
-        Timestamp secondEndDate = new Timestamp(secondStartDate.getFullTimestamp().plus(period)).minusDays(1);
-
-        TabularStatistics statistics = new TabularStatistics(primaryBudget.getExpenses(),
-                firstStartDate, firstEndDate,
-                secondStartDate, secondEndDate);
-        statistics.generateTableData();
-        return statistics;
-    }
-    */
 
     /**
      * Gathers the data to be used for the elements of the table
@@ -283,6 +257,11 @@ public class TabularStatistics implements Statistics {
     @Override
     public void populateData() {
         generateTableData();
+    }
+
+    @Override
+    public StatisticsRegionFactory createFactory() {
+        return new TableViewRegionFactory(unionDifferenceTable, title);
     }
 }
 

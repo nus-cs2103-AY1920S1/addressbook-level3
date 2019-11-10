@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.moolah.model.expense.Category;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.ui.statistics.PieChartRegionFactory;
 
 /**
  * Represents the Statistics class that provides a pie chart as its Visual Representation method
@@ -55,6 +56,11 @@ public class PieChartStatistics implements Statistics {
     @Override
     public void populateData() {
         generatePieChartData();
+    }
+
+    @Override
+    public PieChartRegionFactory createFactory() {
+        return new PieChartRegionFactory(formattedCategories, formattedPercentages, title);
     }
 
     /**
