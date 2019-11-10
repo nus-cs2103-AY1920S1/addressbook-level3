@@ -4,41 +4,40 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DUEDATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.DeadlineCommand;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.RemoveBadCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.deadline.Deadline;
 import seedu.address.model.deadline.DueDate;
-import seedu.address.model.deadline.Task;
+
+
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class DeadlineCommandParser implements Parser<DeadlineCommand> {
+public class RemoveBadCommandParser implements Parser<RemoveBadCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeadlineCommand parse(String args) throws ParseException {
+    public RemoveBadCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TASK, PREFIX_DUEDATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_DUEDATE, PREFIX_INDEX);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TASK, PREFIX_DUEDATE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_DUEDATE, PREFIX_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeadlineCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveBadCommand.MESSAGE_USAGE));
         }
 
-        Task task = ParserUtil.parseTask(argMultimap.getValue(PREFIX_TASK).get());
         DueDate date = ParserUtil.parseDueDate(argMultimap.getValue(PREFIX_DUEDATE).get());
-
-        Deadline deadline = new Deadline(task, date);
-
-        return new DeadlineCommand(deadline);
+        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+        int i = index.getZeroBased();
+        return new RemoveBadCommand(date, i);
     }
 
     /**

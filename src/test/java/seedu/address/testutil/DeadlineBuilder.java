@@ -11,8 +11,8 @@ public class DeadlineBuilder {
 
     private static final String VALID_TASK_STR = "Complete Deadline Scheduler.";
     private static final String VALID_TASK_STR_2 = "Complete Calendar GUI.";
-    private static final String VALID_DUEDATE_STR = "01/10/2019";
-    private static final String VALID_DUEDATE_STR_2 = "11/10/2019";
+    private static final String VALID_DUEDATE_STR = "01/10/2020";
+    private static final String VALID_DUEDATE_STR_2 = "11/10/2020";
     private static final Task VALID_TASK = new Task(VALID_TASK_STR);
     private static final DueDate VALID_DUEDATE = new DueDate(VALID_DUEDATE_STR);
     private static final Task VALID_TASK_2 = new Task(VALID_TASK_STR_2);

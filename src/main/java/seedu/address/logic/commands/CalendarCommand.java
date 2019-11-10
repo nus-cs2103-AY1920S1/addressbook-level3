@@ -24,10 +24,10 @@ public class CalendarCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         Stage primaryStage = new Stage();
-        primaryStage.setTitle("Full Calendar Example");
+        primaryStage.setTitle("Calendar View");
         primaryStage.setX(0);
         primaryStage.setY(0);
-        primaryStage.setScene(new Scene(new FullCalendarView(YearMonth.now()).getView()));
+        primaryStage.setScene(new Scene(new FullCalendarView(YearMonth.now(), model).getView()));
         primaryStage.show();
         return new CommandResult(SHOWING_HELP_MESSAGE, false, false, false);
     }

@@ -17,7 +17,7 @@ public class JsonAdaptedDeadlineTest {
     private static final String INVALID_DUEDATE_STR = " ";
 
     private static final String VALID_TASK_STR = "Complete Deadline Scheduler.";
-    private static final String VALID_DUEDATE_STR = "01/10/2019";
+    private static final String VALID_DUEDATE_STR = "01/10/2030";
     private static final Task VALID_TASK = new Task(VALID_TASK_STR);
     private static final DueDate VALID_DUEDATE = new DueDate(VALID_DUEDATE_STR);
     public static final Deadline DEADLINE = new Deadline(VALID_TASK, VALID_DUEDATE);

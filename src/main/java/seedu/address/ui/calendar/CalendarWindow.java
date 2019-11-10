@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.Model;
 import seedu.address.ui.UiPart;
 
 //@author dalsontws
@@ -22,6 +23,8 @@ public class CalendarWindow extends UiPart<Stage> {
     private static final String FXML = "fullCalendar.fxml";
     @FXML
     private Pane calendarPane;
+
+    private Model model;
     /**
      * Creates a new calendar Window.
      */
@@ -30,11 +33,11 @@ public class CalendarWindow extends UiPart<Stage> {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fullCalendar.fxml"));
         primaryStage.setTitle("KeyboardFlashCards Calendar");
         Scene scene = new Scene(loader.load());
-        //scene.getStylesheets().add("view/DarkTheme.css");
+        scene.getStylesheets().add("view/DarkTheme.css");
         primaryStage.setScene(scene);
 
         // Get the controller and add the calendar view to it
-        calendarPane.getChildren().add(new FullCalendarView(YearMonth.now()).getView());
+        calendarPane.getChildren().add(new FullCalendarView(YearMonth.now(), model).getView());
         primaryStage.show();
     }
     /**
