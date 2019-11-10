@@ -85,6 +85,10 @@ should disappear.
 This application is optimized for screen resolution of 1400x900 pixels and higher. Anything lower than that and you
 might experienced some bugs.
 
+[NOTE]
+You might experience some truncated detail on smaller laptop screens. As such, we would advice you to not to input
+really long names, description, etc.
+
 [IMPORTANT]
 Ensure that your scaling setting is set to 100% as anything higher might result in text being cut off.
 
@@ -209,6 +213,28 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a wind
 
 .Example of view of information window after user inputs `info edit`.
 image::InfoEditUI.png[]
+|===
+
+==== Changing the application's theme: `theme`
+
+Changes the look of the application depending on the desired theme. +
+List of themes available are `light` and `dark`
+
+The default theme of the application is `dark`
+
+[NOTE]
+You are able to subsequently set the same theme one after another but it would not result in any change in themes. +
+e.g. calling `theme dark` and then `theme dark` again will only result in one time change to dark theme.
+
+****
+*Format*: `theme THEME` +
+*Example*: `theme dark`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The application's theme will now change to dark theme.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The application's theme will now change to dark theme.]
 |===
 
 ==== Exiting the application: `exit`

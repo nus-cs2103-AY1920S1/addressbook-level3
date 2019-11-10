@@ -13,6 +13,7 @@ public class AutoSortInfo {
             "AutoSort command allows you to sort the Food item list every time you run a command.\n\n"
             + "The AutoSorting will depend on the following factor:\n"
             + "ON state or OFF state\n\n";
+
     public static final String USAGE =
             "autosort ON";
 

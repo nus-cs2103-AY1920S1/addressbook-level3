@@ -16,6 +16,7 @@ import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.ModelManager;
 
+//@@author robytanama
 /**
  * Contains tests for {@code InfoCommand}
  */

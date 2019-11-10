@@ -33,6 +33,7 @@ import seedu.savenus.logic.commands.RemoveLikeCommand;
 import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.commands.ShowCommand;
 import seedu.savenus.logic.commands.SortCommand;
+import seedu.savenus.logic.commands.ThemeCommand;
 import seedu.savenus.logic.commands.TopUpCommand;
 import seedu.savenus.logic.commands.ViewSortCommand;
 import seedu.savenus.logic.commands.WithdrawCommand;
@@ -109,6 +110,9 @@ public class SaveNusParser {
 
         case InfoCommand.COMMAND_WORD:
             return new InfoCommandParser().parse(arguments);
+
+        case ThemeCommand.COMMAND_WORD:
+            return new ThemeCommandParser().parse(arguments);
 
         case DefaultCommand.COMMAND_WORD:
             return new DefaultCommand();
