@@ -1,9 +1,7 @@
 package seedu.moolah.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moolah.storage.JsonAdaptedBudget.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.moolah.testutil.Assert.assertThrows;
-import static seedu.moolah.testutil.TypicalMooLah.OUTSIDE_SCHOOL;
 
 import java.time.Period;
 import java.util.ArrayList;
