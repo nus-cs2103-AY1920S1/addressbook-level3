@@ -382,10 +382,10 @@ When you fail to type the word before the moving word reaches the bottom of scre
 is reflected in the player information panel in the game window.
 
 [NOTE]
-As the game progresses, the words move faster, hence increasing difficulty.
+As the game progresses, the words move faster, hence increasing difficulty such that you can improve your typing speed.
 
 [WARNING]
-Closing the game midway would result in loss of in game progress.
+Closing the game midway would result in loss of in-game progress.
 
 After the health points reaches zero, `GAME OVER` is displayed as shown below.
 

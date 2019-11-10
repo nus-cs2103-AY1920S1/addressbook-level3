@@ -8,6 +8,7 @@ package ui.game {
     class PlayerInformation
     class GameBody
     class MovingWord
+    class HighlighterUtil
 }
 
 package game {
@@ -29,10 +30,12 @@ StartWindow -right--> "0...1" GameWindow
 GameWindow -down--> "1" GameBody
 GameWindow -down--> "1" PlayerInformation
 
-MovingWord .down.> Words
-GameWindow .down.> Player
+MovingWord .left.> HighlighterUtil
+MovingWord .down.> Words :.get() from >
+MovingWord .down.> Player
+GameWindow .down.> Player :updates >
 GameBody .down.> Player
 GameBody .right.> "*" MovingWord
-PlayerInformation .down.> Player
+PlayerInformation <.down.> Player :bound
 
 @enduml
