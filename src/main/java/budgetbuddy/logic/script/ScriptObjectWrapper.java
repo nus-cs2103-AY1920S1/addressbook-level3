@@ -82,8 +82,8 @@ public class ScriptObjectWrapper {
 
                 // manually take each element in the array and check its type
                 for (int i = 0; i < len; ++i) {
-                    Object elem = som.get(i);
-                    if (elem == null) {
+                    Object elem = som.getSlot(i);
+                    if (elem == null || ScriptObjectMirror.isUndefined(elem)) {
                         ret[i] = null;
                         continue;
                     }
