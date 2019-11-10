@@ -38,8 +38,6 @@ This document serves to assist you in the navigation and utilisation of Athletic
 Note the following symbols and formatting used in this document
 
 [horizontal]
-
-
 NOTE: This symbol indicates important information
 
 [horizontal]
