@@ -36,7 +36,7 @@ Some of the main features of Athletick include:
 * Viewing of an athlete's profile.
 * Undoing and redoing of commands.
 
-This is what users see when they first start Athletick:
+This is what users see when they first launch Athletick:
 
 .The graphical user interface for Athletick.
 image::athletick.png[]
@@ -81,29 +81,37 @@ Also, as the enhancement is able to work with future commands, the implementatio
 this enhancement has to be considerable of the future features implementations and
 allow the future enhancement for such features to be easily integrated into the current implementation.
 
+<<<<<<< HEAD
 *Code contributed*: The links provided show my code contribution for the project. (https://nus-cs2103-ay1920s1.github
 .io/tp-dashboard/#search=junhup&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false
 &groupSelect=groupByAuthors&breakdown=false[Reposense], https://github.com/junhuplim/main[Github Repository])
 
+=======
+*Code contributed*: The links provided show my code contribution for the project. 
+(https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=junhup&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false[Reposense], https://github.com/junhuplim/main[Github Repository])
+>>>>>>> 0f45c7f97a57a344d4256f7256014899b6a4af87
 
 *Other contributions*
 
 * Project management
 ** Introduced Trello for tasks and deadlines management
+** Served as the team's Backend Engineer and assisted in the logic of the program whenever needed. 
 * Enhancements to existing features
 ** Implemented Training and Attendance classes (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63])
 ** Added the Gender attribute (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/130[#130])
 * Documentation
-** Did major tweaks to the User Guide and Developer Guide to make it more
-reader-friendly: (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/188[#188],
+** Added documentation for `undo` and `redo` for both User Guide and Developer Guide: 
+(Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/188[#188],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/219[#219])
+** Standardised product screenshots for `clear` and `help` in User Guide to make it more reader-friendly.
+(Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/223[#223])
 * Community
 ** Reviewed PRs with non-trivial review comments (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/210[#210],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/225[#225])
 ** Commented and provided suggestions on other team's PR
-(example: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/29[1])
-** Reported bugs and suggestions for other teams (examples:  https://github.com/junhuplim/ped/issues/5[1], https://github.com/junhuplim/ped/issues/8[2],
+(https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/29[Review])
+** Reported bugs and suggestions for other teams (Bug reports and suggestions:  https://github.com/junhuplim/ped/issues/5[1], https://github.com/junhuplim/ped/issues/8[2],
 https://github.com/junhuplim/ped/issues/9[3])
 
 
@@ -118,7 +126,10 @@ include::../UserGuide.adoc[tag=undoredo]
 
 This section showcases my contribution to the Developer Guide. They showcase my ability to write technical
 documentation and the technical depth of my contributions to the project.
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0f45c7f97a57a344d4256f7256014899b6a4af87
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
