@@ -9,7 +9,6 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.guilttrip.logic.commands.addcommands.AddBudgetCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
@@ -40,7 +39,7 @@ public class AddExpenseCommandParser implements Parser<AddExpenseCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_DATE,
                         PREFIX_TAG);
 
-        ParserUtil.errorIfCompulsoryPrefixMissing(AddBudgetCommand.MESSAGE_USAGE, argMultimap, false,
+        ParserUtil.errorIfCompulsoryPrefixMissing(AddExpenseCommand.MESSAGE_USAGE, argMultimap, false,
                 PREFIX_CATEGORY, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_DATE);
 
         String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get();
