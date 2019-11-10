@@ -906,16 +906,13 @@ image::/images/FinancialTrackerAdd2.png[]
 === Deleting an expense: ``delete``
 Added a wrong expense? Of course you can delete it if you want to :)
 
-The _Command Word_ is ``delete`` with an parameter index. +
-This command deletes an expense from your Financial Tracker with the only parameter being the index of the expense you want to delete. The index must be an integer which is greater than 1 and corresponds to ID of the expense you want to delete.
+*Format:* ``delete INDEX``
 
-Format: ``delete INDEX``
-
-Example: Delete the first expense you saw on your expense list.
+*Example:* Delete the first expense you saw on your expense list.
 
  delete 1
 
-Illustration:
+*Step by step:*
 
 . type ``delete 3`` in the command box and press _Enter_.
 
