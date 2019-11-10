@@ -1,7 +1,9 @@
 package unrealunity.visit.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static unrealunity.visit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static unrealunity.visit.logic.parser.CliSyntax.PREFIX_DELETE_VISIT;
+import static unrealunity.visit.logic.parser.CliSyntax.PREFIX_EDIT_VISIT;
 
 import unrealunity.visit.commons.core.Messages;
 import unrealunity.visit.commons.core.index.Index;
@@ -33,9 +35,11 @@ public class DeleteVisitCommandParser implements Parser<DeleteVisitCommand> {
         }
 
         try {
-            reportIdx = Integer.parseInt(argMultimap.getValue(PREFIX_DELETE_VISIT).orElse("-1"));
+            String input = argMultimap.getValue(PREFIX_DELETE_VISIT).orElse(ParserUtil.EMPTY_REPORT_INDEX);
+            reportIdx = ParserUtil.parseVisitReportIndex(input);
         } catch (NumberFormatException e) {
-            reportIdx = -1;
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteVisitCommand.MESSAGE_USAGE), e);
         }
 
         return new DeleteVisitCommand(index, reportIdx);

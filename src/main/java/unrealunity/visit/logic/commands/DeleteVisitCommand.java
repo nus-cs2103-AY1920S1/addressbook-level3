@@ -19,6 +19,7 @@ import unrealunity.visit.model.person.VisitReport;
  */
 public class DeleteVisitCommand extends Command {
     public static final String COMMAND_WORD = "deletevisit";
+    private static final int EMPTY_REPORT_INDICATOR = -1;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the visitation record of the person identified "
@@ -57,7 +58,7 @@ public class DeleteVisitCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = personToEdit;
-        if (id != -1) {
+        if (id != EMPTY_REPORT_INDICATOR) {
             try {
                 editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                         personToEdit.getAddress(), personToEdit.getVisitList().deleteRecord(id),

@@ -16,6 +16,7 @@ import unrealunity.visit.model.person.Person;
  */
 public class EditVisitCommand extends Command {
     public static final String COMMAND_WORD = "editvisit";
+    private static final int EMPTY_REPORT_INDICATOR = -1;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the visitation record of the person identified "
@@ -54,7 +55,7 @@ public class EditVisitCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = personToEdit;
-        if (id != -1) {
+        if (id != EMPTY_REPORT_INDICATOR) {
             try {
                 return new CommandResult(String.format(MESSAGE_EDIT_VISIT_PROMPT, personToEdit),
                         editedPerson.getVisitList().getObservableRecords(), index.getOneBased(),
