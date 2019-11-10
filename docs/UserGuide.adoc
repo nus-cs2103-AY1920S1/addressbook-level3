@@ -30,44 +30,45 @@ image::TraveEzyLogo.png[TravEzy Logo,width=600]
 Welcome to *TravEzy*! 😊
 
 Firstly, thank you for downloading our application. We greatly appreciate your support and
-we *promise* to make travel easy, with TravEzy.
+we *promise* to make travel easy with _TravEzy_.
 
-So, is TravEzy for you?
+So, is _TravEzy_ for you?
 
 . Are you a busy university student with a passion for travelling?
 . Are your summers and winters filled with internships, projects and CCA activities?
 . Do your numerous commitments get in the way of your travel plans?
 
-IF you answered yes to the questions above, then __yes__ it is. If not, it still is :)
+IF you answered yes to the questions above, then *yes* it is. If not, it still is :)
 
-What is TravEzy? TravEzy is a desktop application with a command line interface (CLI) and is *perfect* for NUS students who love travelling as much as we do. What's more, with a (CLI), you will be able to type in your commands much faster than similar applications which require you to keep using your mouse
+What is _TravEzy_? 
 
+_TravEzy_ is a desktop application with a command line interface (CLI) and is *perfect* for NUS students who love travelling as much as we do. With a CLI, you will be able to type in your commands much faster than similar applications which require you to keep using your mouse. Furthermore, since this is a desktop application, you do not need a web browser (like Chrome, Firefox, Internet Explorer, etc.) to start using _TravEzy_.
 
 TravEzy is perfect for:
 
-. Managing your busy calendar and finding the optimal period (_after your finals_) to take that much needed holiday!
+. Managing your busy calendar and finding the a good time to take that much needed holiday!
 
-. Creating the ideal itinerary for your 3 day shopping trip to Bangkok :)
+. Creating the ideal itinerary for your trips :)
 
 . Tracking your expenses during your trip, so that you have enough money left for the trip home
 
-. Journaling in your travel diary and effortlessly looking at old entries to recall your exchange trip to Sweden.
+. Journaling in your travel diary and effortlessly looking at old entries to recall your favourite moments
 
-. Calling old and new friends using the address book in TravEzy
+. Keep in contact with your old and new friends with the help of _TravEzy's_ address book
 
 What are you waiting for? Hop on to this user guide and we will
 travel to +++<u>+++Section 2, “Quick Start”+++</u>+++ to start TravEzy 😊
 
 == Quickstart
 
-. Grab a cup of coffee
+. Grab a cup of coffee.
 
 . Ensure that you have Java 11 or above installed in your Computer.
 
 . Download the latest
 https://github.com/AY1920S1-CS2103T-T17-2/main/releases[TravEzy.jar]
 
-. Copy the file to the folder you want to use as the home folder for TravEzy.
+. Copy the file to the folder you want to use as the home folder for your _TravEzy_.
 
 . Double-click the file to start the app.
 The GUI (Graphical User Interface) should appear in a few seconds.
@@ -77,12 +78,6 @@ The GUI (Graphical User Interface) should appear in a few seconds.
 
 . At the bottom of the screen, type the command in the command box and press *<Enter>* on your keyboard to execute it.
 E.g. typing *help* and pressing *<Enter>* will open the help window.
-
-. Examples commands you may try:
-.. *goto diary* : Open up the diary portion of TravEzy
-.. *list* : Shows all the entries in your diary
-.. *delete 3* : deletes the 3rd entry in the diary book
-.. *exit*: exits the app
 
 Refer to Section 3, “Features” for details of each command.
 
@@ -94,7 +89,7 @@ Excited to start using _TravEzy_? Read this section to find out how this documen
 
 === Structure of this Document
 
-Nobody likes to read long documents, especially when you have something as exciting as TravEzy to use. So, we have organised this document such that you can easily look for what *you* need. 
+Nobody likes to read long documents, especially when you have something as exciting as _TravEzy_ to use. So, we have organised this document such that you can easily look for what *you* need. 
 
 We've split up this guide into the different features of our application, namely:
 
@@ -106,8 +101,7 @@ We've split up this guide into the different features of our application, namely
 . Achievements
 
 
-In each of the above sections, you will be introduced to the *interface* of the feature, the *_parameters_* (which are just like those fields you fill up in a regular form📝) and the *commands* that will do the menial tasks for you.
-
+In each of the above sections, you will be introduced to the *interface* of the feature and the *commands* that will do the menial tasks for you. 
 
 === Reading this Document
 
@@ -125,7 +119,7 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 | A grey highlight means that you can type the words into _TravEzy_ and it will start performing tasks for you
 
 | ``MONTH``
-| Uppercase letters that are highlighted in grey indicate that the word is a _parameter_.footnote:[Remember what this means? A parameter is merely like a field in your regular form. Just replace it and fill it up with anything appropriate. 😊]
+| Uppercase letters that are highlighted in grey indicate that the word is a _parameter_.footnote:[A parameter is like a field in your regular form. Just replace it and fill it up with anything appropriate. 😊]
 
 | ``m/MONTH``
 | The slash and letter (or word) before the _parameter_ is a _prefix_. It is used to separate the current _parameter_ from other _parameters_.
@@ -144,13 +138,8 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 
 
 == Main
-Hi!
 
-Main is the welcome screen for TravEzy. From here, you can navigate to the other pages, such as calendar,
-financial tracker, achievements etc. You can also the exit the application from here.
-
-Don't worry! You can also navigate to other pages
-and exit when you are already inside in a page such as itinerary.
+Main is the welcome screen for _TravEzy_. From here, you can easily navigate to the other _pages_ (which contains the interface of the features): _calendar_, _itinerary_, _address book_, _financial tracker_, _diary_ and _achievements_. You can also the exit the application from here.
 
 === Go To Command
 
@@ -158,7 +147,7 @@ Trying to open up the achievements page? Use the *Go To Command*:
 
 *Go To another page: ``goto``*
 
-Allows you to navigate to different pages (from any page), with the possible pages being:
+Allows you to navigate to different _pages_ (from any page), with the possible pages being:
 
 . main
 . calendar
@@ -194,6 +183,8 @@ Format: ``exit``
 Example: Let's say I have to exit the calendar page -
 
 ``exit``
+
+IMPORTANT: The above commands can also be executed from the other _pages_.
 
 == Calendar
 
