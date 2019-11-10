@@ -6,7 +6,12 @@ import static mams.logic.commands.ClashCommand.ClashCase;
 import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import mams.commons.core.Messages;
@@ -29,7 +34,7 @@ public class MassApprove extends Approve {
     private final List<String> validIds;
     private final List<String> invalidIds;
     private final List<String> appealsWithClash;
-    private final List<String> cannotFindIDList;
+    private final List<String> cannotFindIdList;
     private final List<String> alreadyApproved = new ArrayList<>();
     private final List<String> alreadyRejected = new ArrayList<>();
     private final List<String> approvedSuccessfully = new ArrayList<>();
@@ -38,15 +43,15 @@ public class MassApprove extends Approve {
         this.validIds = validIds;
         this.invalidIds = invalidIds;
         this.appealsWithClash = new ArrayList<>();
-        this.cannotFindIDList = new ArrayList<>();
+        this.cannotFindIdList = new ArrayList<>();
     }
 
     @Override
     public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         List<Appeal> fullAppealList = model.getFullAppealList();
-        boolean foundID;
+        boolean foundId;
         for (String appealId : validIds) {
-            foundID = false;
+            foundId = false;
             for (Appeal appeal : fullAppealList) {
                 if (appealId.equalsIgnoreCase(appeal.getAppealId())) {
                     Appeal approvedAppeal;
@@ -272,12 +277,12 @@ public class MassApprove extends Approve {
                             && appealToApprove.getResult().equalsIgnoreCase("REJECTED")) {
                         alreadyRejected.add(appeal.getAppealId());
                     }
-                    foundID = true;
+                    foundId = true;
                     break;
                 }
             }
-            if (!foundID) {
-                cannotFindIDList.add(appealId);
+            if (!foundId) {
+                cannotFindIdList.add(appealId);
             }
         }
 
@@ -307,8 +312,8 @@ public class MassApprove extends Approve {
         if (!appealsWithClash.isEmpty()) {
             result += "\nAppeals with module clash: " + appealsWithClash.toString();
         }
-        if (!cannotFindIDList.isEmpty()) {
-            result += "\nThese appeal IDs do not exist: " + cannotFindIDList.toString();
+        if (!cannotFindIdList.isEmpty()) {
+            result += "\nThese appeal IDs do not exist: " + cannotFindIdList.toString();
         }
         return result;
     }
@@ -320,7 +325,6 @@ public class MassApprove extends Approve {
     public List<String> getValidList() {
         return validIds;
     }
-
     /**
      * gets list of invalid appeal IDs
      * * @return

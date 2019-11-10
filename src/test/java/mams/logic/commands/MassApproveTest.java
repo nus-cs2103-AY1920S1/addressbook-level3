@@ -13,7 +13,6 @@ import mams.model.student.Student;
 import mams.model.tag.Tag;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
 import static mams.logic.commands.Approve.MESAGE_NO_APPEALS_APPROVED;
 import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import static mams.logic.commands.ModCommand.*;
 import static mams.testutil.TypicalMams.getTypicalMams;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

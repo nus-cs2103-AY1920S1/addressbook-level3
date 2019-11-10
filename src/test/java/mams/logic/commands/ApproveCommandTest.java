@@ -26,6 +26,7 @@ import mams.model.module.Module;
 import mams.model.student.Credits;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
+
 import org.junit.jupiter.api.Test;
 
 import mams.model.Model;

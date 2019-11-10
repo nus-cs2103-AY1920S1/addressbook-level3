@@ -417,16 +417,6 @@ public class ApproveCommand extends Approve {
         }
         return s.toString();
     }
-//    /**
-//     * Checks whether {@code Index} is within the size of the list.
-//     * @param index index input
-//     * @param size size of the list
-//     * @throws CommandException when index is larger than the size of the list
-//     */
-//    private void verifyIndex(int index, int size) throws CommandException {
-//        if (index >= size) {
-//            throw new CommandException(MESSAGE_INVALID_INDEX);
-//        }
-//    }
+
 
 }
