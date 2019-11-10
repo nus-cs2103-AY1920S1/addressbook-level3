@@ -31,23 +31,6 @@ import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.TaskStatus;
 import seedu.pluswork.testutil.TaskBuilder;
 
-/*import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TASK_STATUS_DESC;*/
-/*import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FINANCE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_PUBLICITY;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_URGENCY;*/
-/*import static seedu.address.logic.commands.CommandTestUtil.TASK_NAME_DESC_PUBLICITY;
-import static seedu.address.logic.commands.CommandTestUtil.TASK_STATUS_DESC_FINANCE;
-import static seedu.address.logic.commands.CommandTestUtil.TASK_STATUS_DESC_PUBLICITY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PUBLICITY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_URGENCY;*/
-//import static seedu.address.testutil.TypicalTasksMembers.BUILD_WEBSITE;
-//import seedu.address.model.tag.Tag;
-//import seedu.address.model.task.Name;
-//import seedu.address.model.task.TaskStatus;
 
 public class AddTaskCommandParserTest {
     private AddTaskCommandParser parser = new AddTaskCommandParser();

@@ -6,21 +6,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.pluswork.testutil.Assert.assertThrows;
 
-import org.junit.jupiter.api.Test;
-
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
+import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.Model;
-import seedu.pluswork.model.ProjectDashboard;
 import seedu.pluswork.model.ReadOnlyProjectDashboard;
 import seedu.pluswork.model.ReadOnlyUserPrefs;
 import seedu.pluswork.model.UserSettings;
@@ -37,7 +36,6 @@ import seedu.pluswork.model.settings.ClockFormat;
 import seedu.pluswork.model.settings.Theme;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
-import seedu.pluswork.testutil.MeetingBuilder;
 import seedu.pluswork.testutil.MeetingQueryBuilder;
 
 public class AddMeetingCommandTest {
@@ -50,14 +48,10 @@ public class AddMeetingCommandTest {
     @Test
     public void execute_meetingAcceptedByModel_addSuccessful() throws Exception {
         MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
-        Index sampleIndex = Index.fromZeroBased(1);
-        Index validIndex = Index.fromZeroBased(0);
-        Meeting sampleMeeting = validMeetingQuery.getMeetingList().get(sampleIndex.getZeroBased());
-        Meeting validMeeting = validMeetingQuery.getMeetingList().get(validIndex.getZeroBased());
-        ModelStubWithMeetingQuery modelStub = new ModelStubWithMeetingQuery(validMeetingQuery, sampleMeeting);
 
-        assertEquals(sampleMeeting, modelStub.meetingsAdded.get(0));
-        assert(!sampleIndex.equals(validIndex));
+        Index validIndex = new Index(0);
+        Meeting validMeeting = validMeetingQuery.getMeetingList().get(validIndex.getZeroBased());
+        ModelStubWithMeetingQuery modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
 
         CommandResult commandResult = new AddMeetingCommand(validIndex).execute(modelStub);
 
@@ -70,11 +64,64 @@ public class AddMeetingCommandTest {
         Index validIndex = new Index(1);
         MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
         Meeting validMeeting = validMeetingQuery.getMeetingList().get(validIndex.getZeroBased());
-        ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery, validMeeting);
+
+        ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
+        modelStub.addMeeting(validMeeting);
 
         AddMeetingCommand addMeetingCommand = new AddMeetingCommand(validIndex);
         assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_DUPLICATE_MEETING, () ->
                 addMeetingCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_meetingIndexOutOfBounds_throwsCommandException() {
+        MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
+        ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
+        int validIndexUpperBound = validMeetingQuery.getMeetingList().size();
+
+        Index invalidIndex1 = new Index(20);
+        Index invalidIndex2 = new Index(validIndexUpperBound);
+        Index invalidIndex3 = new Index(validIndexUpperBound + 1);
+        Index invalidIndex4 = new Index(validIndexUpperBound + 200);
+
+        assert(invalidIndex1.getZeroBased() >= validIndexUpperBound);
+        assert(invalidIndex2.getZeroBased() >= validIndexUpperBound);
+        assert(invalidIndex3.getZeroBased() >= validIndexUpperBound);
+        assert(invalidIndex4.getZeroBased() >= validIndexUpperBound);
+
+        AddMeetingCommand invalidCommand1 = new AddMeetingCommand(invalidIndex1);
+        AddMeetingCommand invalidCommand2 = new AddMeetingCommand(invalidIndex2);
+        AddMeetingCommand invalidCommand3 = new AddMeetingCommand(invalidIndex3);
+        AddMeetingCommand invalidCommand4 = new AddMeetingCommand(invalidIndex4);
+
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+                invalidCommand1.execute(modelStub));
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+                invalidCommand2.execute(modelStub));
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+                invalidCommand3.execute(modelStub));
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX, () ->
+                invalidCommand4.execute(modelStub));
+    }
+
+    @Test
+    public void execute_nullMeetingQuery_throwsCommandException() {
+        MeetingQuery nullMeetingQuery = null;
+        ModelStub modelStub = new ModelStubWithMeetingQuery(nullMeetingQuery);
+
+        Index validIndex1 = new Index(1);
+        Index validIndex2 = new Index(123934);
+        Index validIndex3 = new Index(99999999);
+        AddMeetingCommand addMeetingCommand1 = new AddMeetingCommand(validIndex1);
+        AddMeetingCommand addMeetingCommand2 = new AddMeetingCommand(validIndex2);
+        AddMeetingCommand addMeetingCommand3 = new AddMeetingCommand(validIndex3);
+
+        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
+                addMeetingCommand1.execute(modelStub));
+        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
+                addMeetingCommand2.execute(modelStub));
+        assertThrows(CommandException.class, AddMeetingCommand.MESSAGE_INVALID_MEETING_REQUEST, () ->
+                addMeetingCommand3.execute(modelStub));
     }
 
     @Test
@@ -427,40 +474,14 @@ public class AddMeetingCommandTest {
     }
 
     /**
-     * A Model stub that always accept the task being added.
-     */
-    private class ModelStubAcceptingMeetingAdded extends ModelStub {
-        final ArrayList<Meeting> meetingsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasMeeting(Meeting meeting) {
-            requireNonNull(meeting);
-            return meetingsAdded.stream().anyMatch(meeting::isSameMeeting);
-        }
-
-        @Override
-        public void addMeeting(Meeting meeting) {
-            requireNonNull(meeting);
-            meetingsAdded.add(meeting);
-        }
-
-        @Override
-        public ReadOnlyProjectDashboard getProjectDashboard() {
-            return new ProjectDashboard();
-        }
-    }
-
-    /**
      * A Model stub that contains a single task.
      */
     private class ModelStubWithMeetingQuery extends ModelStub {
         final MeetingQuery meetingQuery;
         final ArrayList<Meeting> meetingsAdded = new ArrayList<>();
 
-        private ModelStubWithMeetingQuery(MeetingQuery meetingQuery, Meeting meeting) {
-            requireNonNull(meetingQuery);
+        private ModelStubWithMeetingQuery(MeetingQuery meetingQuery) {
             this.meetingQuery = meetingQuery;
-            meetingsAdded.add(meeting);
         }
 
         @Override

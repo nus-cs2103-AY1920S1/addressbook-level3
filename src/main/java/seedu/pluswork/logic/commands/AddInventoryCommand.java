@@ -131,8 +131,9 @@ public class AddInventoryCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddInventoryCommand // instanceof handles nulls
-                && taskId.equals(((AddInventoryCommand) other).taskId))
+                && taskId.equals(((AddInventoryCommand) other).taskId)
                 && name.equals(((AddInventoryCommand) other).name)
-                && price.equals(((AddInventoryCommand) other).price);
+                && price.equals(((AddInventoryCommand) other).price)
+                && memId.equals(((AddInventoryCommand)other).memId));
     }
 }

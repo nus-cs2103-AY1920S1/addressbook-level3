@@ -36,6 +36,7 @@ import seedu.pluswork.model.task.TaskStatus;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_PRICE = "Invalid Price entered.";
     public static final String MESSAGE_INVALID_DURATION = "Duration(hours) is not a non-zero unsigned integer.";
 
     /**
@@ -91,7 +92,7 @@ public class ParserUtil {
     public static Price parsePrice(String price) throws ParseException {
         String trimmedIndex = price.trim();
         if (!StringUtil.isPositiveDouble(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(MESSAGE_INVALID_PRICE);
         }
         return new Price(Double.parseDouble(trimmedIndex));
     }

@@ -392,17 +392,22 @@ of the settings feature which would allow developers to extend its functionality
 // end::settings[]
 
 // tag::statistics[]
+// tag::statisticsP1[]
 === Statistics feature
+The Statistics feature allows users to retrieve statistics relating to members and tasks in +Work, so that users can get a
+broad overview of the project's and member's project.
+
 ==== Implementation
 
-The commands introduced by this statistics feature includes: `get-task-stats` and `get-member-stats`. These commands are faciliatated by the class 'Statistics' that resides within model. The 'Statistics' class implements the following operations:
+The commands introduced by this statistics feature includes: `task-stats` and `member-stats`. These commands are facilitated by the class 'Statistics'
+that resides within model. The 'Statistics' class implements the following operations:
 
 * `Statistics#doCalculations()` -- Calculates the statistics needed using existing list of tasks, members and mappings.
 * `Statistics#getPortionMembersByTasks()` -- Retrieves statistics of all the members and number of tasks completed by the each individual member.
 * `Statistics#getPortionMembersByItems()` -- Retrieves statistics of all the members and number of items purchased by the each individual member.
 * `Statistics#getPortionTasksByStatus()` -- Retrieves statistics of all existing tasks and number of tasks of each status.
-**_
-These operations are exposed in the `Model` interface as `Model#doCalculations`, and 'Model#getStatistics'.
+
+These operations are exposed in the `Model` interface as `Model#doCalculations`, and `Model#getStatistics`.
 
 [NOTE]
 
@@ -410,116 +415,153 @@ To allow the `UI` to be responsive, one of the operations is similarly exposed i
 
 Given below is an example usage scenario and how the Statistics mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The 'Statistics' will be initialised based on the data previously saved.
+*Step 1.* The user launches the application for the first time. The 'Statistics' object stored by ProjectDashboard is initialised based on the data previously saved.
 
 [NOTE]
 
 Data previously saved refers to the statistics calculation done based on list of members, tasks and mappings saved.
 
-Step 2. The user executes `get-task-stats` command to retrieve statistics related to the tasks in the application.
+*Step 2.* The user executes the `task-stats` command to retrieve statistics related to the tasks in the application.
 
-The `get-task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` after updating all the lists to show all tasks/members/mappings, to obtain lists of all the members, tasks and mappings saved in the application. Using the lists, a Statistics object is formed. 'Model#setStatistics' is called to updated the statistics in ProjectDashboard.
+The `task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` to obtain lists of all the members, tasks and mappings saved in the application.
+Using the lists, a Statistics object is formed. `Model#setStatistics` is called to updated the statistics in ProjectDashboard.
 
-The following sequence diagram shows how the 'get-member-stats' operation works.
+The following sequence diagram (Figure 10) shows how the 'task-stats' operation works.
 
 image::GetStatisticsSequenceDiagram.png[]
-Figure 10. Operational flow of 'GetStatisticsCommand'
+Figure 10. Operational flow of `GetStatisticsCommand`
 
 [NOTE]
-The 'get-member-stats' operation is similar to the one shown in figure 10.
+The `member-stats` operation is similar to the one shown in figure 10.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+Step 3. In order for task statistics to be displayed in a comprehensive manner, when the `task-stats` command is called,
+`TaskStatisticsView` class is also called to display the task stats.
+
+[NOTE]
+To allow the `UI` to be responsive, `getStatistics()` is similarly exposed in the `Logic` interface as `Logic#getStatistics()'
+
+The following sequence diagram (Figure 11) shows how calling the 'task-stats' operation leads to the comprehensive UI display of task statistics.
+
+image::GetStatisticsUISequenceDiagram.png[]
+Figure 11. Operational flow of displaying statistics in +Work
+// end::statisticsP1[]
+
+The following activity diagram summarizes what happens when a user executes the `task-stats` command:
 
 image::GetStatisticsActivityDiagram.png[]
+Figure 12. Operational flow during execution of `task-stats` command
 
+// tag::statisticsP2[]
 ==== Design Considerations
+This section describes the pros and cons of the current and other alternative implementations of the Statistics class in +Work,
+as well as the display of statistics in +Work.
 
-===== Aspect: How to implement Statistics class
-
+===== Aspect: Implementation of Statistics class
 * **Alternative 1 (current choice):** One statistics object for the entire ProjectDashboard
 ** Pros: Easy to implement, centralised class for all statistics
 ** Cons: May have performance issues due to calculations involving large amounts of tasks and members.
 * **Alternative 2:** Individual statistic objects for members and tasks.
-** Pros: Will ensure faster performance,
-** Cons: Design of statistics object has to be very well-implemented, might not have enough time to implement it by v1.3
+** Pros: Ensures faster performance, more detailed statistics can be included
+** Cons: Complicates the implementation of the statistics class, might not have enough time to implement it by v1.4
+
+*Alternative 1* was chosen given the time constraint in implementing the features in time for +Work Version 1.4.
 
 ===== Aspect: Display of Statistics for Project Dashboard
+This section describes the pros and cons of the current and other alternative implementations of displaying the calculate statistics in +Work.
 
 * **Alternative 1 (current choice):** Use a pie chart to represent information
-** Pros: Easy for workload comparison
-** Cons: Less details of individual taks and members exposed in the statistiscs page.
+** Pros: Increases the ease of workload comparison
+** Cons: Decreases the amount of detail of individual tasks and members that are displayed
 * **Alternative 2:** Use a list to represent information
 ** Pros: Includes more details for individual elements
 ** Cons: Decreases the ease of comparison between tasks and members
+
+Because the team came to a consensus that the main objective of the Statistics feature in +Work is to provide the user with
+an overview of all the project tasks and members, for ease of comparison, *Alternative 1* was chosen as it fits the purpose
+more than Alternative 2 does.
+// tag::statisticsP2[]
 // end::statistics[]
 
 // tag::member[]
 === Member Feature
+The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks.
+This makes +Work a more comprehensive application because project tasks and members can be kept track of together.
+
 ==== Implementation
-The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks. Apart from the typical commands ('add-member', 'delete-member', 'find-member') involved in such a central class, the member features also introduce a 'set-image' command. The set-image command allows users to set an image in their computer as the profile picture of a member in +Work.
-To accomodate the set-image command, the 'Member' class has an alternative constructor that takes in the image url as a parameter to save it as an attribute to the member object, when 'set-image' command is called. Additionally, to support the 'set-image' command, the 'Member' class implements the following operation:
++Work's members and their related commands are supported by a `Member` class that resides within model.
+The following class diagram exposes the structure of the Member class, and shows how the different components relating to the Member class works together.
 
-* `Member#getImageUrl()` -- Retrieves the URL of the image stored in the user's computer
-* `Member#getImage()` -- Retrieves the member's image using the image url
+image::MemberClassDiagram.png[]
+Diagram 13. Class diagram of Member package
 
+Apart from the typical commands (`add-member`, `delete-member`, `find-member`) involved in such a central class, the member features also introduce a `set-image` command.
+The `set-image` command allows users to set an image in their computer as the profile picture of a member in +Work.
+To accommodate the `set-image` command, the `Member` class has an alternative constructor that takes in the image filepath as a parameter to save it as an attribute to the member object, when `set-image` command is called.
+Additionally, to support the command, the `Member` class implements the following operation:
+
+* `Member#getImagePath()` -- Retrieves the filepath of the image stored in the user's computer
+* `Member#getImage()` -- Retrieves the member's image using the image filepath
 
 Given below is an example usage scenario and how the set-image mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time, and adds a team member into +Work. The member is displayed with a default profile picture.
+*Step 1.* The user launches the application for the first time, and adds a team member into +Work. The member is displayed with a default profile picture.
 
-Step 2. The user executes `set-image` command to set an image in their computer as the profile picture of a member in +Work..
+*Step 2.* The user executes the `set-image` command to set an image in their computer as the profile picture of a member in +Work..
 
-The `set-image` command calls `Model#getFilteredMembersList()` to retrive the Member that is to be edited. A new member object is formed, with all the same parameters as the specified member object, and a new Image URL parameter. `Model#setMember` to replace the old member object with the new one in +Work.
+The `set-image` command calls `Model#getFilteredMembersList()` to retrieve the Member that is to be edited.
+A new member object is formed, with all the same parameters as the specified member object, and a new Image Filepath parameter.
+`Model#setMember` is called to replace the old member object with the new one in +Work.
 
 The following sequence diagram shows how the 'set-image' operation works.
 
 image::SetImageSequenceDiagram.png[]
-
-Figure 10. Operational flow of 'SetImageCommand'
+Figure 14. Operational flow of 'SetImageCommand'
 
 [NOTE]
-The image's file path will be stored in the Member object. If the image is shifted to another location, the file path stored becomes invalid, and user will have to call the `set-image` command again, with the new file path.
+The image's file path is stored in the Member object. If the image is shifted to another location, the file path stored becomes invalid, and the user has to call the `set-image` command again, with the new file path.
 
-Step 3. When an operation is called to display a member, `Member#getImage` is called to display the image using Javafx's ImageView.
+*Step 3.* When an operation is called to display a member, `Member#getImage` is called to display the image using Javafx's ImageView.
 
-The following sequence diagram shows how the image is called up and subsequently displayed in the UI for members.
+The following sequence diagram shows how the image is called up and subsequently displayed in the +Work for an individual member.
 
-image::DisplayImage.png[]
-Figure 10. Operational flow of displaying a member with image.
+image::DisplayMemberSequenceDiagram.png[]
+Figure 15. Operational flow of displaying a member with his profile picture
 
+[NOTE]
+The sequence diagram only shows how a member's profile image is called up and displayed. It doesn't show how the member's
+name and tags are displayed, since this is very similar to how AB3 originally displays its `Person` name and tags.
 
-
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarizes what happens when a user executes the `set-image` command:
 
 image::SetImageActivityDiagram.png[]
+Figure 16. Operational flow during execution of `set-image` command
 
 ==== Design Considerations
+This section describes the pros and cons of the current and other alternative implementations of the image attribute under members,
+as well as the display of members in +Work.
 
-===== Aspect: How to save image under Member (url or image object)
+===== Aspect: Storage of image under member
+* **Alternative 1:** Storing the image filepath as a changeable attribute
+** Pros: Editing a member's profile picture involves accessing the member and changing its file path attribute
+** Cons: The image file path attribute is exposed to the rest of the classes in +Work and may be unintentionally edited, causing
+the member's profile picture to be edited without the intention to.
+* **Alternative 2 (current choice):** Storing the image filepath as a final attribute
+** Pros: Ensures the member's image filepath remains unchangeable and specific to the member
+** Cons: A new member object has to be created to replace the member being edited every time the member's profile
+picture is updated
 
-* **Alternative 1 (current choice):** One statistics object for the entire ProjectDashboard
-** Pros: Easy to implement, centralised class for all statistics
-** Cons: May have performance issues due to calculations involving large amounts of tasks and members.
-* **Alternative 2:** Individual statistic objects for members and tasks.
-** Pros: Will ensure faster performance,
-** Cons: Design of statistics object has to be very well-implemented, might not have enough time to implement it by v1.3
+*Alternative 2* was chosen to keep in line with the original structure of the Person object in AB3, with all attributes
+being final and unchangeable.
 
-===== Aspect: Store image as (final or changeable) (basically repalcing the whole member or not)
-* **Alternative 1 (current choice):** Use a pie chart to represent information
-** Pros: Easy for workload comparison
-** Cons: Less details of individual taks and members exposed in the statistiscs page.
-* **Alternative 2:** Use a list to represent information
-** Pros: Includes more details for individual elements
-** Cons: Decreases the ease of comparison between tasks and members
+===== Aspect: Display of members
+* **Alternative 1:** Display each member with only its member name, ID and profile picture
+** Pros: Concise display of each member in +Work, with only the essential information being exposed
+** Cons: Less details of individual members are displayed, making it difficult to draw links between members and the tasks they are involved in
+* **Alternative 2 (current choice):** Display members with its member name, ID, profile picture and tasks assigned
+** Pros: Includes more details for individual members, which increases the ease in which the user can identify a member's responsibilities
+** Cons: Display of members is cluttered, and may expose unnecessary information in certain situations
 
-===== Aspect: Ui Display of members
-* **Alternative 1 (current choice):** Use a pie chart to represent information
-** Pros: Easy for workload comparison
-** Cons: Less details of individual taks and members exposed in the statistiscs page.
-* **Alternative 2:** Use a list to represent information
-** Pros: Includes more details for individual elements
-** Cons: Decreases the ease of comparison between tasks and members
-
+*Alternative 2* was chosen because it is more in line with +Work's objective of drawing easy comparison between project members and tasks.
 // end::member[]
 
 === Inventory feature

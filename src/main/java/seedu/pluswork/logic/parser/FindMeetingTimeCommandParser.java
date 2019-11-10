@@ -25,6 +25,8 @@ public class FindMeetingTimeCommandParser implements Parser<FindMeetingTimeComma
      *
      * @throws ParseException if the user input does not conform the expected format
      */
+    public static final String INVALID_START_TIME = "The start time has already passed";
+
     public FindMeetingTimeCommand parse(String args) throws ParseException, FileNotFoundException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_START_PERIOD, PREFIX_END_PERIOD, PREFIX_DURATION_HOURS);
@@ -32,10 +34,11 @@ public class FindMeetingTimeCommandParser implements Parser<FindMeetingTimeComma
         if (!arePrefixesPresent(argMultimap, PREFIX_START_PERIOD, PREFIX_END_PERIOD, PREFIX_DURATION_HOURS)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMeetingTimeCommand.MESSAGE_USAGE));
         }
-        LocalDateTime startPeriod = DateTimeUtil.parseDateTime(argMultimap.getValue(PREFIX_START_PERIOD).get());
-        LocalDateTime endPeriod = DateTimeUtil.parseDateTime(argMultimap.getValue(PREFIX_END_PERIOD).get());
-        Duration durationHours = ParserUtil.parseHours(argMultimap.getValue(PREFIX_DURATION_HOURS).get());
-        return new FindMeetingTimeCommand(startPeriod, endPeriod, durationHours);
+
+            LocalDateTime startPeriod = DateTimeUtil.parseDateTime(argMultimap.getValue(PREFIX_START_PERIOD).get());
+            LocalDateTime endPeriod = DateTimeUtil.parseDateTime(argMultimap.getValue(PREFIX_END_PERIOD).get());
+            Duration durationHours = ParserUtil.parseHours(argMultimap.getValue(PREFIX_DURATION_HOURS).get());
+            return new FindMeetingTimeCommand(startPeriod, endPeriod, durationHours);
     }
 
     /**

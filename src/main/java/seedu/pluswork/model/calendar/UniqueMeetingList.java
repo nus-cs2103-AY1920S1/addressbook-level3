@@ -6,11 +6,13 @@ import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.pluswork.model.calendar.exceptions.DuplicateMeetingException;
 import seedu.pluswork.model.calendar.exceptions.MeetingNotFoundException;
+import seedu.pluswork.model.member.MemberName;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -28,6 +30,14 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     private final ObservableList<Meeting> internalList = FXCollections.observableArrayList();
     private final ObservableList<Meeting> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    public void updateMemberRemoved(MemberName removedMember) {
+        List<Meeting> tmpList = internalList.stream()
+                .map(meeting -> meeting.updateMemberRemoved(removedMember))
+                .filter(meeting -> meeting.getMemberNameList().size() > 0)
+                .collect(Collectors.toList());
+        internalList.setAll(tmpList);
+    }
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.

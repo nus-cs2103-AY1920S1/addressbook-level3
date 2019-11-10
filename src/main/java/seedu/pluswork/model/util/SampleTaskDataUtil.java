@@ -107,14 +107,14 @@ public class SampleTaskDataUtil {
 
     public static Meeting[] getSampleMeeting() {
         try {
-            LocalDateTime sampleDateTime1 = DateTimeUtil.parseDateTime("29-10-2019 18:00");
+            LocalDateTime sampleDateTime1 = DateTimeUtil.parseDateTime("29-11-2019 18:00");
             Duration sampleHours1 = ParserUtil.parseHours("4");
             List<MemberName> sampleMembers1 = Arrays.asList(new MemberName[]{
                     new MemberName("Gabriel"),
                     new MemberName("Abhinav"),
                     new MemberName("Lynn")
             });
-            LocalDateTime sampleDateTime2 = DateTimeUtil.parseDateTime("11-11-2019 20:00");
+            LocalDateTime sampleDateTime2 = DateTimeUtil.parseDateTime("30-11-2019 20:00");
             Duration sampleHours2 = ParserUtil.parseHours("2");
             List<MemberName> sampleMembers2 = Arrays.asList(new MemberName[]{
                     new MemberName("Gabriel"),

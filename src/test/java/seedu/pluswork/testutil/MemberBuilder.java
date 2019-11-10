@@ -9,6 +9,9 @@ import seedu.pluswork.model.member.MemberName;
 import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.util.SampleMemberDataUtil;
 
+/**
+ * A utility class to help with building {@code <Member>} objects.
+ */
 public class MemberBuilder {
     public static final String DEFAULT_NAME = "Sample Member Name";
     public static final String DEFAULT_ID = "Sample Member ID";

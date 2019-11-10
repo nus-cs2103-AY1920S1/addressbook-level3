@@ -26,7 +26,8 @@ public class AddCalendarCommand extends Command {
             + PREFIX_FILE_PATH + "C:\\Users\\gbrls\\Downloads";
 
     public static final String MESSAGE_SUCCESS = "New calendar added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CALENDAR = "This calendar already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_CALENDAR = "This member already has a calendar in " +
+            "the address book. Please delete the existing calendar if you wish to change the calendar file.";
 
     private final CalendarWrapper toAdd;
 

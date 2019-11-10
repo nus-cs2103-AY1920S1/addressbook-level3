@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":UserViewUpdate" as UserViewUpdate UI_COLOR
+participant ":UserViewMain" as UserViewMain UI_COLOR
+participant ":UserViewNavigator" as UserViewNavigator UI_COLOR
+participant ":UserViewController" as UserViewController UI_COLOR
+participant "memberCard:IndivMemberCard" as IndivMemberCard UI_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Member" as Member MODEL_COLOR
+end box
+
+box Fxml FXML_COLOR_T1
+participant ":ImageView" as ImageView FXML_COLOR
+end box
+
+[-> MainWindow : executeCommand(set-image)
+activate MainWindow
+
+MainWindow -> UserViewUpdate : parseUserCommand(set-image)
+activate UserViewUpdate
+
+UserViewUpdate -> UserViewMain : loadSetImage()
+activate UserViewMain
+
+UserViewMain -> UserViewNavigator : loadSetImageView(logic)
+activate UserViewNavigator
+
+
+create IndivMemberCard
+UserViewNavigator -> IndivMemberCard : IndivMemberCard
+activate IndivMemberCard
+
+IndivMemberCard -> Member : getImage()
+activate Member
+
+Member --> IndivMemberCard : image
+deactivate Member
+
+IndivMemberCard -> ImageView : setImage(image)
+activate ImageView
+
+ImageView --> IndivMemberCard
+deactivate ImageView
+
+IndivMemberCard --> UserViewNavigator : memberCard
+deactivate IndivMemberCard
+
+UserViewNavigator -> UserViewController : setUserView(memberCard)
+activate UserViewController
+
+UserViewController --> UserViewNavigator
+deactivate UserViewController
+
+UserViewNavigator --> UserViewMain
+deactivate UserViewNavigator
+
+UserViewMain --> UserViewUpdate
+deactivate UserViewMain
+
+UserViewUpdate --> MainWindow
+deactivate UserViewUpdate
+
+[<--MainWindow
+deactivate MainWindow
+@enduml

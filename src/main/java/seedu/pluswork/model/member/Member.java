@@ -18,7 +18,7 @@ public class Member {
     // Identity fields
     private final MemberName name;
     private final MemberId id;
-    private final String url;
+    private final String imagePath;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -29,25 +29,25 @@ public class Member {
         this.name = name;
         this.id = id;
         this.tags.addAll(tags);
-        this.url = null;
+        this.imagePath = null;
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Member(MemberName name, MemberId id, Set<Tag> tags, String url) {
+    public Member(MemberName name, MemberId id, Set<Tag> tags, String imagePath) {
         requireAllNonNull(name, tags);
         this.name = name;
         this.id = id;
         this.tags.addAll(tags);
-        this.url = url;
+        this.imagePath = imagePath;
     }
 
     public Member() {
         this.name = null;
         this.id = null;
         this.tags.addAll(null);
-        this.url = null;
+        this.imagePath = null;
     }
 
     // TODO add multiple constructors so that users can add additional info later
@@ -70,16 +70,16 @@ public class Member {
 
     public Image getImage() {
         Image memImage;
-        if (this.url == null) {
+        if (this.imagePath == null) {
             memImage = null;
         } else {
-            memImage = new Image("file:///" + url);
+            memImage = new Image("file:///" + imagePath);
         }
         return memImage;
     }
 
-    public String getImageUrl() {
-        return this.url;
+    public String getImagePath() {
+        return this.imagePath;
     }
 
     /**
