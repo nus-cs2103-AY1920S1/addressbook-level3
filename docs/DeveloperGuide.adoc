@@ -1513,10 +1513,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `edittag 1 t/edited c/RED` +
    Expected: Tag [edited] edited.
 .. Test case: `edittag t/edited c/RED` +
-   Expected: Invalid command format!
-edittag: Edits the details of the Tag identified by the index number used in the displayed Tag list. Existing values will be overwritten by the input values.
-Parameters: INDEX (must be a positive integer) [t/TAG] [c/COLOR]
-Example: edittag 1 t/Easy c/BLUE
+   Expected: An error is thrown and the user is informed that the format of command is invalid.
 
 
 === Listing tags
