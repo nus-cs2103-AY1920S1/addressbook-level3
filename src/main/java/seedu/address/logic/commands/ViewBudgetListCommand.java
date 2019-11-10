@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ViewState;
 
 /**
- * Lists all expenses in the address book to the user.
+ * Lists all expenses in the Budget to the user.
  */
 public class ViewBudgetListCommand extends Command {
 

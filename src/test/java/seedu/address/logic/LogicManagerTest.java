@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_VODKA;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_VODKA;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_ALCOHOL;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenses.VODKA;
 
@@ -92,8 +93,9 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_VODKA + AMOUNT_DESC_VODKA + DATE_DESC_VODKA;
-        Expense expectedExpense = new ExpenseBuilder(VODKA).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_VODKA + AMOUNT_DESC_VODKA
+            + DATE_DESC_VODKA + TAG_DESC_ALCOHOL;
+        Expense expectedExpense = new ExpenseBuilder(VODKA).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addExpense(expectedExpense);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

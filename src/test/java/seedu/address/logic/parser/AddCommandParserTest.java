@@ -21,7 +21,6 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_DRINKS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_RUM;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALCOHOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_DRINKS;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -45,7 +44,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Expense expectedExpense = new ExpenseBuilder(RUM).withTags(VALID_TAG_DRINKS).build();
+        Expense expectedExpense = new ExpenseBuilder(RUM).withTag(VALID_TAG_DRINKS).build();
 
         // whitespace only preamble
         assertParseSuccess(parser,
@@ -71,19 +70,19 @@ public class AddCommandParserTest {
             NAME_DESC_RUM + AMOUNT_DESC_RUM + CURRENCY_DESC_RUM + DATE_DESC_VODKA + DATE_DESC_RUM
                 + TAG_DESC_DRINKS, new AddCommand(expectedExpense));
 
-        // multiple tags - all accepted
-        Expense expectedExpenseMultipleTags = new ExpenseBuilder(RUM).withTags(VALID_TAG_DRINKS, VALID_TAG_ALCOHOL)
+        // tags - accepted
+        Expense expectedExpenseMultipleTags = new ExpenseBuilder(RUM).withTag(VALID_TAG_DRINKS)
             .build();
         assertParseSuccess(parser,
-            NAME_DESC_RUM + AMOUNT_DESC_RUM + CURRENCY_DESC_RUM + DATE_DESC_RUM + TAG_DESC_ALCOHOL
-                + TAG_DESC_DRINKS, new AddCommand(expectedExpenseMultipleTags));
+            NAME_DESC_RUM + AMOUNT_DESC_RUM + CURRENCY_DESC_RUM + DATE_DESC_RUM + TAG_DESC_DRINKS,
+            new AddCommand(expectedExpenseMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Expense expectedExpense = new ExpenseBuilder(VODKA).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_VODKA + AMOUNT_DESC_VODKA + DATE_DESC_VODKA,
+        Expense expectedExpense = new ExpenseBuilder(VODKA).build();
+        assertParseSuccess(parser, NAME_DESC_VODKA + AMOUNT_DESC_VODKA + DATE_DESC_VODKA + TAG_DESC_ALCOHOL,
             new AddCommand(expectedExpense));
     }
 

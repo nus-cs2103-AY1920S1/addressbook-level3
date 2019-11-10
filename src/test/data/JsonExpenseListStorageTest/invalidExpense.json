@@ -7,7 +7,7 @@
       "rate" : 1.0
     },
     "date": "136/10/2019",
-    "tagged": [ "education" ]
+    "tag": "education"
   },
   {
       "name": "Expense with invalid currency field",
@@ -17,6 +17,6 @@
       "rate" : 1.0
     },
       "date": "13/10/2019",
-      "tagged": [ "education" ]
+      "tag": "education"
     }]
 }

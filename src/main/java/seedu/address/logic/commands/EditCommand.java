@@ -7,11 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -81,9 +78,9 @@ public class EditCommand extends Command {
         Amount updatedAmount = editExpenseDescriptor.getAmount().orElse(expenseToEdit.getAmount());
         Currency updatedCurrency = editExpenseDescriptor.getCurrency().orElse(expenseToEdit.getCurrency());
         Date updatedDate = editExpenseDescriptor.getDate().orElse(expenseToEdit.getDate());
-        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
+        Tag updatedTag = editExpenseDescriptor.getTag().orElse(expenseToEdit.getTag());
 
-        return new Expense(updatedName, updatedAmount, updatedCurrency, updatedDate, updatedTags);
+        return new Expense(updatedName, updatedAmount, updatedCurrency, updatedDate, updatedTag);
     }
 
     @Override
@@ -176,7 +173,7 @@ public class EditCommand extends Command {
         private Amount amount;
         private Currency currency;
         private Date date;
-        private Set<Tag> tags;
+        private Tag tag;
 
         public EditExpenseDescriptor() {
         }
@@ -190,14 +187,14 @@ public class EditCommand extends Command {
             setAmount(toCopy.amount);
             setCurrency(toCopy.currency);
             setDate(toCopy.date);
-            setTags(toCopy.tags);
+            setTag(toCopy.tag);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, amount, currency, date, tags);
+            return CollectionUtil.isAnyNonNull(name, amount, currency, date, tag);
         }
 
         public Optional<Name> getName() {
@@ -237,16 +234,16 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Tag> getTag() {
+            return Optional.ofNullable(tag);
         }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setTag(Tag tag) {
+            this.tag = tag;
         }
 
         @Override
@@ -268,7 +265,7 @@ public class EditCommand extends Command {
                 && getAmount().equals(e.getAmount())
                 && getCurrency().equals(e.getCurrency())
                 && getDate().equals(e.getDate())
-                && getTags().equals(e.getTags());
+                && getTag().equals(e.getTag());
         }
     }
 }

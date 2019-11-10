@@ -222,7 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             } else if (commandResult.getExpenseList() == null && commandResult.getBudgetList() != null) {
                 budgetListPanel = new BudgetListPanel(commandResult.getBudgetList());
                 rightListPanelPlaceHolder.getChildren().add(budgetListPanel.getRoot());
-                resultListTitle.setText(commandResult.getBudget().getName().toString());
+                resultListTitle.setText("All Budgets");
             } else {
                 statsDisplay.setDisplayData(logic.getFilteredExpenseList());
             }

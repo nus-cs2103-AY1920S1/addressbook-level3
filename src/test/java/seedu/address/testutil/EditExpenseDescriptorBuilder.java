@@ -1,9 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
@@ -36,7 +32,7 @@ public class EditExpenseDescriptorBuilder {
         descriptor.setAmount(expense.getAmount());
         descriptor.setCurrency(expense.getCurrency());
         descriptor.setDate(expense.getDate());
-        descriptor.setTags(expense.getTags());
+        descriptor.setTag(expense.getTag());
     }
 
     /**
@@ -75,9 +71,8 @@ public class EditExpenseDescriptorBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditExpenseDescriptor}
      * that we are building.
      */
-    public EditExpenseDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+    public EditExpenseDescriptorBuilder withTag(String tag) {
+        descriptor.setTag(new Tag(tag));
         return this;
     }
 

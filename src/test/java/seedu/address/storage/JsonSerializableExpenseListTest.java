@@ -23,7 +23,7 @@ public class JsonSerializableExpenseListTest {
     @Test
     public void toModelType_typicalExpensesFile_success() throws Exception {
         JsonSerializableExpenseList dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXPENSES_FILE,
-                JsonSerializableExpenseList.class).get();
+            JsonSerializableExpenseList.class).get();
         ExpenseList expenseListFromFile = dataFromFile.toModelType();
         ExpenseList typicalExpensesExpenseList = TypicalExpenses.getTypicalExpenseList();
         assertEquals(expenseListFromFile, typicalExpensesExpenseList);
@@ -32,16 +32,16 @@ public class JsonSerializableExpenseListTest {
     @Test
     public void toModelType_invalidExpenseFile_throwsIllegalValueException() throws Exception {
         JsonSerializableExpenseList dataFromFile = JsonUtil.readJsonFile(INVALID_EXPENSE_FILE,
-                JsonSerializableExpenseList.class).get();
+            JsonSerializableExpenseList.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicateExpenses_throwsIllegalValueException() throws Exception {
         JsonSerializableExpenseList dataFromFile = JsonUtil.readJsonFile(DUPLICATE_EXPENSE_FILE,
-                JsonSerializableExpenseList.class).get();
+            JsonSerializableExpenseList.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableExpenseList.MESSAGE_DUPLICATE_EXPENSE,
-                dataFromFile::toModelType);
+            dataFromFile::toModelType);
     }
 
 }

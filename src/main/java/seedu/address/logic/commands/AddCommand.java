@@ -26,14 +26,13 @@ public class AddCommand extends Command {
             + PREFIX_AMOUNT + "AMOUNT "
             + "[" + PREFIX_CURRENCY + "CURRENCY] "
             + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Textbook "
             + PREFIX_AMOUNT + "23.50 "
             + PREFIX_CURRENCY + "USD "
             + PREFIX_DATE + "1245 "
-            + PREFIX_TAG + "education "
-            + PREFIX_TAG + "school";
+            + PREFIX_TAG + "education ";
 
     public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense list";
