@@ -2,11 +2,14 @@ package seedu.guilttrip.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.guilttrip.MainApp;
+import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Period;
@@ -21,6 +24,7 @@ import seedu.guilttrip.storage.conditions.JsonAdaptedCondition;
  * Constructs a {@code JsonAdaptedReminder} with the given generalReminder details.
  */
 public class JsonAdaptedReminder {
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     private String reminderType;
     private String header;
     private String uniqueId;
@@ -29,6 +33,7 @@ public class JsonAdaptedReminder {
 
     private String period;
     private String freq;
+
 
     @JsonCreator
     public JsonAdaptedReminder(@JsonProperty("reminderType") String reminderType,
@@ -71,6 +76,7 @@ public class JsonAdaptedReminder {
      * @throws IllegalValueException if there were any data constraints violated in the adapted generalReminder.
      */
     public Reminder toModelType() throws IllegalValueException {
+        logger.info("Header: " + header);
         if (reminderType.equalsIgnoreCase("GeneralReminder")) {
             final List<Condition> conditionList = new ArrayList<>();
             for (JsonAdaptedCondition condition : conditions) {

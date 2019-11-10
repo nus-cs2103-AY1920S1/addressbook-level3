@@ -21,7 +21,6 @@ import seedu.guilttrip.commons.core.step.Step;
 import seedu.guilttrip.commons.util.AutoExpenseUpdater;
 import seedu.guilttrip.commons.util.ListenerSupport;
 import seedu.guilttrip.commons.util.ObservableSupport;
-import seedu.guilttrip.commons.util.TimeUtil;
 import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Category;

@@ -16,13 +16,13 @@ public class EntryHandler implements PropertyChangeListener {
     private GeneralReminder generalReminder;
 
     private LocalDate currDate;
-//===== Update Status and Notify GeneralReminder =====//
+    //===== Update Status and Notify GeneralReminder =====//
     @SuppressWarnings("checkstyle:CommentsIndentation")
     private void update() {
 
         generalReminder.setStatus(status.toString());
     }
-//===== Update Local Date =====//
+    //===== Update Local Date =====//
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equalsIgnoreCase("currDate")) {
