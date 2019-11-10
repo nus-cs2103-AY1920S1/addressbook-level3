@@ -1,16 +1,5 @@
 package seedu.planner.ui;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Skin;
-import javafx.scene.layout.VBox;
-import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
-import jfxtras.scene.control.agenda.Agenda;
-import seedu.planner.model.activity.Activity;
-import seedu.planner.model.activity.Duration;
-import seedu.planner.model.day.ActivityWithTime;
-import seedu.planner.model.day.Day;
-import seedu.planner.model.tag.Tag;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,6 +7,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Skin;
+import javafx.scene.layout.VBox;
+import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
+import jfxtras.scene.control.agenda.Agenda;
+
+import seedu.planner.model.activity.Activity;
+import seedu.planner.model.activity.Duration;
+import seedu.planner.model.day.ActivityWithTime;
+import seedu.planner.model.day.Day;
+import seedu.planner.model.tag.Tag;
+
+/**
+ * The manager of Agenda.
+ */
 public class AgendaManager {
     private static final int CHAR_LIMIT_BEFORE_TRUNCATING_SUMMARY = 220;
     private static final int MAX_MULTIPLE_OF_DAYLIST_SIZE_BEFORE_CLEARING_HASHMAP = 3;

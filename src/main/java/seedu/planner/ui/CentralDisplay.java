@@ -1,7 +1,6 @@
 package seedu.planner.ui;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
