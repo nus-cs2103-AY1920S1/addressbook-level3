@@ -750,6 +750,10 @@ You may cycle through these commands using the arrow keys.
 // tag::statsug[]
 
 === Viewing Statistics
+Like most of the expense commands, statistics of your expenses can be generated concerning
+to the primary budget you're residing on. Read further for the rest of the commands covered
+under the Statistics section.
+
 ==== Summary Statistics: `statsbasic`
 This command allows you to have a basic summary of the money spent from their
 categorical expenses in a given period of their current budget.
@@ -761,8 +765,8 @@ taken as a percentage of the total expenditure in the budget the command was cal
 
 Format: `statsbasic [sd/<START_DATE>] [ed/<END_DATE>]`
 
-
-[NOTE]
+****
+*Note*
 
 - For any input that consists of date and time, only, only the date information will be considered.
 
@@ -771,9 +775,10 @@ Format: `statsbasic [sd/<START_DATE>] [ed/<END_DATE>]`
 - `START_DATE` will be checked to be earlier than `END_DATE`
 
 - Categories where no tracked expenses fall under will not be reflected in the Statistics Panel.
+****
 
+Tips:
 
-[TIP]
 - There is no need to specify all the parameters if the outcomes of the example usage scenarios
 below fit your needs
 
@@ -786,20 +791,34 @@ the unit of time and statistics is calculated starting from one unit of time bef
 - If both `START_DATE` and `END_DATE` are empty, statistics will be calculated using the start date and end date
 of the current window of the budget.
 
+- As the 3 alternative configurations involve the knowledge of the budget's period, be familiar with the
+procedure of editing a budget's period.
+
 Example of configurations:
-`statsbasic`
-`statsbasic sd/ytd`
-`statsbasic sd/11-11-2018 ed/12-12-2018`
+----
+statsbasic
+statsbasic sd/ytd
+statsbasic sd/11-11-2018 ed/12-12-2018
+----
 
 Step-by-step guide:
-For example, MooLah is currently at the "school" budget with these expenses in window 1
-(sd1 to ed1) and window2(sd2 to ed2)
+For example, MooLah is currently at the "Outside School" budget, and shown below is the view of
+the current window of the Budget from start of 18 Oct to the end of 24 Oct. There are exactly
+4 expenses as shown in the example.
 
-To generate the pie chart:
+image::OutsideSchoolWindow.png[width="790"]
+
+To generate the pie chart for the expenses for this window.
+
 
 . Type `statsbasic` into the command box and press `Enter` to execute it.
-. The result box will display the message Pie Chart generated.
-. The screen will be switched into the Statistics Panel where the Pie Chart will be generated.
+. The result box will display the message "Pie Chart calculated!".
+. The screen will be switched into the Statistics Panel where the Pie Chart will be generated
+as shown below.
+
+image::PieChart.png[width="790"]
+
+
 +
 
 
@@ -829,7 +848,9 @@ represents the difference in frequency and difference in total expenditure.
 
 Format: `statscompare sd1/<START_DATE_1> sd2/<START_DATE_2>`
 
-[NOTE]
+****
+*Note*
+
 - Date formats accepted are handled by our Natural Language Parser library which supports human jargons.
 Please refer to the above documentation for more information.
 
@@ -847,17 +868,17 @@ shows the frequency and total expenditure common to both periods.
 the values for differences in frequency and differences in total expenditure for each category
 is calculated using the formula `second period – first period`.
 
-- The default size of the applicaton window accounts just sufficiently for a nicely fitted view of the
+- The default size of the application window accounts just sufficiently for a nicely fitted view of the
 table columns. Adjustments to the program window should not be made, otherwise some columns may be covered
-or excess space will be revealed.
+or excess space will be revealed. Currently the default startup dimension is Height = 800 and Width = 1254.
 
-`[Coming in v2.0]`
-- constructing periods with start dates doesn't align with the principles of the application
-as compared to end dates.
+****
 
 
 
-[TIP]
+
+Tips:
+
 - If zeroes are observed in the similarity columns, it may be possible that there is no
 overlap between the 2 periods or there are no expenses recorded in the common period.
 
@@ -865,19 +886,18 @@ overlap between the 2 periods or there are no expenses recorded in the common pe
 comparison.
 
 Example of configurations:
-`statscompare sd1/12-12 sd2/ 1 month ago'
-`stats sd2/ today sd1/ytd `
-`stats sd2/ 23-09-2019 sd1/1 year ago`
-
+----
+statscompare sd1/12-12 sd2/ 1 month ago
+stats sd2/ today sd1/ytd
+stats sd2/ 23-09-2019 sd1/1 year ago
+----
 
 Step-by-step guide:
-For example, MooLah is currently at the "school" budget with these expenses in window 1
-(sd1 to ed1) and window2(sd2 to ed2)
 
 To generate the table view:
 
-. Type `statscompare sd1/12-12 sd2/ 1 month ago' into the command box and press `Enter` to execute it.
-. The result box will display the message Table generated.
+. Type `statscompare sd1/27-10 sd2/ 28-10' into the command box and press `Enter` to execute it.
+. The result box will display the message "Statistics Comparison Calculated!".
 . The screen will be switched into the Statistics Panel where the Table View will be generated.
 
 ==== Growth Statistics : `statstrend`
@@ -907,8 +927,9 @@ till before the stated date of the next point.
 
 Format: `statstrend [sd/<START_DATE>] [ed/<END_DATE>] mode/MODE`
 
+****
+*Note*
 
-[NOTE]
 - Date formats accepted are handled by our Natural Language Parser library which supports human jargons.
 Please refer to the above documentation for more information.
 
@@ -918,24 +939,28 @@ Please refer to the above documentation for more information.
 
 - `START_DATE` will be checked to be earlier than `END_DATE`
 
-- We only allow a maximum of 34 plotted points to be displayed, which means that in any specified
-time interval bounded by the start date and end date, we will produce at most 34 time intervals of
+- We only allow a maximum of 33 plotted points to be displayed, which means that in any specified
+time interval bounded by the start date and end date, we will produce at most 33 time intervals of
 the specified unit of time starting from the start date. This is also a design consideration to coordinate
 with the size of the application window.
 
 - The first plotted point that would be observed should be the start date of the window of the current budget
-closest to the start date of analysis. Note that the two need not be the same.
+closest to the start date of analysis. If the two happen to be the same, the start date of the window of the budget
+should be included as a point in the trend line
 
 - Even though the current application doesn't allow for expenses to be added into dates ahead of the current date,
-the budget windows after the most recent possible window will still be shown for ths command
+the budget windows after the most recent possible window, relative to the current date, will still be shown for ths command.
+This also applies to budget windows which have intervals that are future to the current time. For example, a window spanning
+from 18 Oct to 24 Oct for a weekly budget is a legal point even when it is currently 19 Oct.
 
 - The categories that do not have any expenses in any of the time intervals will not be reflected
 as trend lines in the Statistics Panel.
 
+****
 
 
+Tips:
 
-[TIP]
 - There is no need to specify all the parameters if the outcomes of the example usage scenarios
 below fit your needs
 
@@ -954,20 +979,19 @@ hence to access other time modes of this command, please edit the budget's perio
 
 
 Example of configurations:
-`statstrend mode/category`
-`statstrend sd/ytd mode/category`
-`statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
-
+----
+statstrend mode/category
+statstrend sd/ytd mode/category
+statstrend sd/11-11-2018 ed/12-12-2018 mode/category
+----
 
 
 Step-by-step guide:
-For example, MooLah is currently at the "school" budget with these expenses in window 1
-(sd1 to ed1) and window2(sd2 to ed2)
 
 To generate the trend lines:
 
 . Type `statstrend mode/category` into the command box and press `Enter` to execute it.
-. The result box will display the message trend line generated.
+. The result box will display the message "Statistics Trend Calculated!".
 . The screen will be switched into the Statistics Panel where the trend lines will be generated.
 // end::statsug[]
 
@@ -1050,9 +1074,9 @@ e.g. `switchperiod t/01-05`
 
 *Viewing statistics:*
 
-* *Summary statistics* : `statsbasic [start/START_DATE] [end/END_DATE]` +
+* *Summary statistics* : `statsbasic [sd/<START_DATE>] [ed/<END_DATE>]` +
 e.g. `statsbasic sd/11-11-2018 ed/12-12-2018`
-* *Comparison statistics* : `statscompare sd1/START_DATE_1 sd2/START_DATE_2` +
+* *Comparison statistics* : `statscompare sd1/<START_DATE_1> sd2/<START_DATE_2>` +
 e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019`
 * *Growth statistics* : `statstrend [sd/START_DATE] [ed/END_DATE] mode/MODE` +
 e.g. `statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
