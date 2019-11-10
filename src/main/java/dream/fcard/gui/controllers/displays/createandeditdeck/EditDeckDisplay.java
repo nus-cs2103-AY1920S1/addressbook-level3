@@ -36,6 +36,7 @@ public class EditDeckDisplay extends VBox {
     private int numCards;
 
     public EditDeckDisplay(Deck deck) {
+        //System.out.println("EditDeckDisplay");
         try {
             Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"
@@ -67,6 +68,8 @@ public class EditDeckDisplay extends VBox {
                     int index = StateHolder.getState().hasDeckName(name);
                     if (index == -1 || index == currentIndex) {
                         deck.setDeckName(name);
+                    } else {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Deck name edit: invalid name.");
                     }
                 }
                 Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);

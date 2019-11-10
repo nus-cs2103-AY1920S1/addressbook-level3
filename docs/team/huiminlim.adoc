@@ -15,6 +15,8 @@ It has a GUI but most of the user interactions happen using a CLI (Command Line 
 
 * *Major enhancement*: expanded the *functionality and type of FlashCards*.
 
+** Worked on parsing and validation of inputs for `create`, `add` (Front and Back flash card and Multiple Choice flash card), `edit` (Front and Back flash card and Multiple Choice flash card), `delete` CLI functionality.
+
 ** Allows the user to assign priorities to each flash card.
 
 ** Allows the creation of a random set of flash cards for the `test` function. The set of flash cards created for the test will have a proportion of high priority and low priority cards.
@@ -23,7 +25,7 @@ It has a GUI but most of the user interactions happen using a CLI (Command Line 
 
 ** Added support for shuffling choices of Multiple Choice cards when displaying the Multiple Choice cards in `test` mode.
 
-* Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+* Justification: This feature allows the user to explore multiple modes of learning using flash cards.
 
 * Highlights:
 
@@ -39,11 +41,10 @@ It has a GUI but most of the user interactions happen using a CLI (Command Line 
 *** Alerted team about bugs found in issue tracker: https://github.com/AY1920S1-CS2103-F09-2/main/issues/146[#146], https://github.com/AY1920S1-CS2103-F09-2/main/issues/99[#99], https://github.com/AY1920S1-CS2103-F09-2/main/issues/109[#109]
 
 ** Enhancements to existing features:
-*** Wrote the parsing and input validation for:
-**** Front and Back, Multiple Choice Card addition
-**** Edit Front and Back Card, Multiple Choice Card
-**** Delete Flash card
-*** Wrote additional tests (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote the regular expression parsing, user input validation, and command execution for:
+**** `add` Front and Back, Multiple Choice Card addition
+**** `edit` Front and Back Card, Multiple Choice Card
+**** `delete` Flash card
 
 ** Documentation:
 *** Did documentation for the CLI commands in the User Guide. (See <<Contributions to the User Guide>> below)
@@ -79,6 +80,8 @@ include::../UserGuide.adoc[tag=delete]
 include::../UserGuide.adoc[tag=stop]
 
 include::../UserGuide.adoc[tag=stats]
+
+include::../UserGuide.adoc[tag=quit]
 
 include::../UserGuide.adoc[tag=FAQ]
 

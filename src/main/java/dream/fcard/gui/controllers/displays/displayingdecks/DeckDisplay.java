@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.displays.createandeditdeck.EditDeckDisplay;
+import dream.fcard.gui.controllers.displays.test.EndOfTestAlert;
 import dream.fcard.gui.controllers.displays.test.TestDisplay;
 import dream.fcard.gui.controllers.windows.CardEditingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
@@ -15,6 +16,7 @@ import dream.fcard.logic.respond.Consumers;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
@@ -81,11 +83,16 @@ public class DeckDisplay extends VBox {
      */
     private void startTest() {
         //display the first card
-        ArrayList<FlashCard> testArrayListOfCards = deck.getSubsetForTest();
-        ExamRunner.createExam(testArrayListOfCards, 0);
-        Exam exam = ExamRunner.getCurrentExam();
-        TestDisplay testDisplay = new TestDisplay(exam);
-        Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+        if (deck.getNumberOfCards() == 0) {
+            EndOfTestAlert.display("Error", "You cannot start a test on an empty deck!");
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+        } else {
+            ArrayList<FlashCard> testArrayListOfCards = deck.getSubsetForTest();
+            ExamRunner.createExam(testArrayListOfCards, 0);
+            Exam exam = ExamRunner.getCurrentExam();
+            TestDisplay testDisplay = new TestDisplay(exam);
+            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+        }
     }
 
     /**
@@ -93,10 +100,6 @@ public class DeckDisplay extends VBox {
      */
     private void renderQuestions() {
         questionList.getChildren().clear();
-        Label subtitle = new Label("Cards in deck");
-        subtitle.getStyleClass().add("window-subtitle");
-        questionList.getChildren().add(subtitle);
-
         ArrayList<FlashCard> cards = deck.getCards();
         int numCards = cards.size();
         deckSize.setText(numCards + (numCards == 1 ? " card" : " cards"));
