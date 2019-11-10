@@ -146,7 +146,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() throws DataConversionException {
+    void fillInnerParts() {
         lblWindowTitle.setText("Engagement Window");
         engagementListPanel = new EngagementListPanel(logic.getFilteredEngagementList());
         mainWindow.getChildren().add(engagementListPanel.getRoot());
@@ -225,16 +225,36 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Handles the calendar interaction represented by the specified {@code CommandResult}.
+     *
      * @param commandResult The specified {@code CommandResult}.
+     * @throws CommandException If the calendar interaction is invalid.
      */
     private void handleCalendarInteraction(CommandResult commandResult) throws CommandException {
+        verifyCurrentTabAsCalendarWindow();
+        executeCalendarInteraction(commandResult);
+    }
+
+    /**
+     * Verifies that the current tab is the calendar window.
+     *
+     * @throws CommandException If the current tab is not the calendar window.
+     */
+    private void verifyCurrentTabAsCalendarWindow() throws CommandException {
         if (!(currentTab.getController() instanceof CalendarWindow)) {
             throw new CommandException("Calendar commands can only be used in the calendar window.");
         }
+    }
+
+    /**
+     * Executes a calendar interaction based on the specified {@code CommandResult}.
+     *
+     * @param commandResult The specified {@code CommandResult}.
+     * @throws CommandException If the calendar interaction is invalid.
+     */
+    private void executeCalendarInteraction(CommandResult commandResult) throws CommandException {
         CalendarWindow calendarWindow = (CalendarWindow) currentTab.getController();
-        String calendarCommandType = commandResult.getCalendarCommandType();
         try {
-            switch (calendarCommandType) {
+            switch (commandResult.getCalendarCommandType()) {
             case CalendarOpenDisplayCommand.COMMAND_WORD:
                 calendarWindow.openSingleDayEngagementsDisplayWindow(commandResult.getCalendarDate());
                 break;

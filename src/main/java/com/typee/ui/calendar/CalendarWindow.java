@@ -172,6 +172,7 @@ public class CalendarWindow extends UiPart<Region> {
             closeAllDisplayedEngagementWindows();
             currentDisplayedYearMonth = currentDisplayedYearMonth.plusMonths(1);
             populateCalendar();
+            logger.info("Switching calendar view to next month.");
         } else {
             throw new CalendarInteractionException(MAXIMUM_YEAR_MESSAGE);
         }
@@ -199,6 +200,7 @@ public class CalendarWindow extends UiPart<Region> {
             closeAllDisplayedEngagementWindows();
             currentDisplayedYearMonth = currentDisplayedYearMonth.minusMonths(1);
             populateCalendar();
+            logger.info("Switching calendar view to previous month.");
         } else {
             throw new CalendarInteractionException(MINIMUM_YEAR_MESSAGE);
         }
@@ -230,6 +232,8 @@ public class CalendarWindow extends UiPart<Region> {
         for (CalendarDateCell calendarDateCell : calendarDateCells) {
             if (calendarDateCell.getDate().equals(date)) {
                 calendarDateCell.displayEngagements();
+                logger.info(String.format("Opening engagements display for %s",
+                        DateUtil.getFormattedDateString(date)));
             }
         }
     }
@@ -245,6 +249,8 @@ public class CalendarWindow extends UiPart<Region> {
             if (calendarDateCell.getDate().equals(date)
                     && calendarDateCell.hasOpenEngagementsDisplay()) {
                 calendarDateCell.closeDisplayedEngagements();
+                logger.info(String.format("Closing engagements display for %s",
+                        DateUtil.getFormattedDateString(date)));
                 return;
             }
         }
