@@ -537,7 +537,7 @@ public class Application implements ReadOnlyApplication {
      * Deletes the stored list of suggested commands.
      */
     void deleteSuggestedCommands() {
-        suggestedCommands = null;
+        suggestedCommands = new ArrayList<>();
         suggestedCorrections = null;
     }
 

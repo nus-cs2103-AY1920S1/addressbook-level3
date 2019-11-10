@@ -92,14 +92,15 @@ public class JsonStateStorage implements ApplicationStateStorage {
         Path filePath = getNextFilePath();
 
         try {
-            Date currSemStart = Module.getSemStart();
+            Optional<Date> currSemStart = Optional.ofNullable(Module.getSemStart());
             // Only save the state if the incoming application is different from the latest application
             ReadOnlyApplication latestApplication = getLatestState();
-            Date prevSemStart = Module.getSemStart();
-            Module.setSemStart(currSemStart);
+            Optional<Date> prevSemStart = Optional.ofNullable(Module.getSemStart());
+            Module.setSemStart(currSemStart.orElse(null));
 
             // Only saves the state when there is a change with the current state
-            if (!latestApplication.equalsUsingStringComparison(application) || !prevSemStart.equals(currSemStart)) {
+            if (!latestApplication.equalsUsingStringComparison(application)
+                    || !prevSemStart.equals(currSemStart)) {
 
                 // Save the application state
                 FileUtil.createIfMissing(filePath);

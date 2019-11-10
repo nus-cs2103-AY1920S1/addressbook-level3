@@ -5,6 +5,7 @@ import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_INDEX_NON_POSI
 import static seedu.tarence.logic.parser.ArgumentPatterns.PATTERN_WEEKRANGE;
 
 import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
@@ -190,7 +191,13 @@ public class ParserUtil {
         // Converts a string from '1200' to '12:00:00'.
         localTime = localTime.substring(0, 2) + ":" + localTime.substring(2, 4) + ":00";
 
-        return LocalTime.parse(localTime, DateTimeFormatter.ISO_TIME);
+        LocalTime result;
+        try {
+            result = LocalTime.parse(localTime, DateTimeFormatter.ISO_TIME);
+        } catch (DateTimeException e) {
+            throw new ParseException("Time entered should be in 24HR format eg 0900");
+        }
+        return result;
     }
 
     /**
