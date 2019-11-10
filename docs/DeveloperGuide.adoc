@@ -534,6 +534,7 @@ image::DeleteReminderSequenceDiagram.png[width=75%]
 
 [NOTE]
 The above diagram also highlights how logic and model components interact with each other while deleting a reminder.
+// end::reminder[]
 
 // tag::import[]
 === Import Feature

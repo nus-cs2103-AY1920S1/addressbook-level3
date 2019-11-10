@@ -14,12 +14,14 @@ public class Reminder {
     private ReminderMessage reminderMessage;
     private Date deadline;
     private long remainingDays;
+    private ReminderType type;
 
     public Reminder(Date deadline, ReminderMessage reminderMessage) {
         requireAllNonNull(deadline, reminderMessage);
         this.reminderMessage = reminderMessage;
         this.deadline = deadline;
         this.remainingDays = DateUtil.getDaysBetween(DateUtil.getTodayDate(), deadline.dateValue);
+        this.type = getReminderType(this.remainingDays);
     }
 
     public ReminderMessage getReminderMessage() {
@@ -31,17 +33,39 @@ public class Reminder {
     }
 
     /**
+     * Returns the type of reminder based on the remaining days from the current date.
+     */
+    public static ReminderType getReminderType(long remainingDays) {
+        if (remainingDays == 0) {
+            return ReminderType.DEADLINED_TODAY;
+        } else if (remainingDays == 1) {
+            return ReminderType.DEADLINED_TOMORROW;
+        } else if (remainingDays > 0) {
+            return ReminderType.DEADLINED_FURTHER;
+        } else {
+            return ReminderType.OVERDUE;
+        }
+    }
+
+    public ReminderType getType() {
+        return this.type;
+    }
+
+    /**
      * Returns the due date description of a reminder for displaying on UI.
      */
-    public String getDueDateDescription() {
-        if (remainingDays == 0) {
+    public static String getReminderDueDateDescription(Reminder reminder) {
+        if (reminder.remainingDays == 0) {
             return "Today";
-        } else if (remainingDays == 1) {
+        } else if (reminder.remainingDays == 1) {
             return "Tomorrow";
-        } else if (remainingDays < 0) {
-            return "Overdue\n" + DateUtil.twoDigitYearFormatDate(deadline.value);
+        } else if (reminder.remainingDays < 0) {
+            return "Overdue\n" + DateUtil.twoDigitYearFormatDate(reminder.deadline.value);
         } else {
-            return "in \n" + remainingDays + " days " + DateUtil.twoDigitYearFormatDate(deadline.value);
+            return "Due in \n"
+                    + reminder.remainingDays
+                    + " days "
+                    + DateUtil.twoDigitYearFormatDate(reminder.deadline.value);
         }
     }
 

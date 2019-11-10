@@ -508,6 +508,8 @@ A graph is shown.
 
 // end::graph[]
 
+// tag::reminder[]
+
 === Adding a reminder: `reminder add`
 
 Adds a reminder to the reminder list. Key information such as deadline and message are recorded.
@@ -545,6 +547,8 @@ Deletes the second reminder in the list based on the current results shown.
 *Expected Output:*
 
 The specified reminder is deleted.
+
+// end::reminder[]
 
 // tag::import[]
 === Importing data : `import`
@@ -657,6 +661,7 @@ Reverses the most recent undo command. +
 
 The most recent undo command is reversed.
 
+//tag::clear[]
 === Clear all data : `clear`
 Clears all entries from the application. +
 *Format:* `clear`
@@ -667,6 +672,8 @@ This command clears all stored reminders and spending from the application, and 
 *Expected Output:*
 
 All application data is cleared.
+
+//end::clear[]
 
 === Exiting the program : `exit`
 

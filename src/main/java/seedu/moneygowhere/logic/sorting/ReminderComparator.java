@@ -1,3 +1,5 @@
+//@@author minpyaemoe-reused
+//Reused from SpendingComparator @@author Nanosync
 package seedu.moneygowhere.logic.sorting;
 
 import java.util.Comparator;

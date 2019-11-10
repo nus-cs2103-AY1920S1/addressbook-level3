@@ -37,4 +37,30 @@ class ReminderTest {
         Reminder dummyReminder = new Reminder(new Date("today"), new ReminderMessage("Pay Bill"));
         assertNotEquals(null, dummyReminder);
     }
+
+    @Test void isOverdueReminder() {
+        Reminder dummyReminder = new Reminder(new Date("yesterday"), new ReminderMessage("Pay School Fee"));
+        assertEquals(ReminderType.OVERDUE, dummyReminder.getType());
+    }
+
+    @Test void isTodayDeadlinedReminder() {
+        Reminder dummyReminder = new Reminder(new Date("Today"), new ReminderMessage("Pay Phone Bill"));
+        assertEquals(ReminderType.DEADLINED_TODAY, dummyReminder.getType());
+    }
+
+    @Test void isTomorrowDeadlinedReminder() {
+        Reminder dummyReminder = new Reminder(new Date("tomorrow"), new ReminderMessage("Repay friends"));
+        assertEquals(ReminderType.DEADLINED_TOMORROW, dummyReminder.getType());
+    }
+
+    @Test void isTwoDaysLaterDeadlinedReminder() {
+        Reminder dummyReminder = new Reminder(new Date("two days later"), new ReminderMessage("Repay to Johnny"));
+        assertEquals(ReminderType.DEADLINED_FURTHER, dummyReminder.getType());
+    }
+
+    @Test void isOneYearLaterDeadlinedReminder() {
+        Reminder dummyReminder = new Reminder(new Date("one year later"), new ReminderMessage("Pay admin fees"));
+        assertEquals(ReminderType.DEADLINED_FURTHER, dummyReminder.getType());
+    }
 }
+

@@ -53,7 +53,7 @@ image::jonathantjendana.png[width="150", align="left"]
 
 === Min Pyae Moe
 image::minpyaemoe.png[width="150", align="left"]
-{empty}[https://github.com/minpyaemoe[github]]
+{empty}[https://github.com/minpyaemoe[github]] [<<minpyaemoe#, portfolio>>]
 
 *Role*: Developer
 
