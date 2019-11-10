@@ -249,7 +249,7 @@ Returns any items with names containing `milk` or `tea`, or with the tag `#Drink
 // end::search[]
 
 // tag::shift[]
-===== Shifting an item from one list to another: `shift`
+==== Shifting an item from one list to another: `shift`
 Transfers items from main list to replenish list, or from replenish list to main list.
 
 ===== Shifting an item from the main list to the replenish list
