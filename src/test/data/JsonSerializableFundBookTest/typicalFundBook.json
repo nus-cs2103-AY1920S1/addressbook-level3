@@ -43,5 +43,6 @@
     "month" : "12",
     "year" : "2012",
     "category" : "entertainment"
-  } ]
+  } ],
+  "loans" : [ ]
 }
