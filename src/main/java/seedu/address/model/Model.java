@@ -137,6 +137,23 @@ public interface Model {
     void addTask(Task task);
 
     /**
+     * Replaces the given task {@code target} with {@code editedTask}.
+     * {@code target} must exist, while {@code editedTask} must not be the equal to another
+     * existing task.
+     */
+    void setTask(Task target, Task editedTask);
+
+    /**
+     * Marks the given task as done. The task must exist.
+     */
+    void markTaskAsDone(Task taskDone);
+
+    /**
+     * Clears all tasks.
+     */
+    void clearTaskList();
+
+    /**
      * Returns an unmodifiable view of the filtered task list
      */
     ObservableList<Task> getFilteredTaskList();
@@ -215,8 +232,6 @@ public interface Model {
 
     void removeOneQuizQuestion();
 
-    void setTask(Task target, Task editedTask);
-
     /**
      * Returns an unmodifiable view of the filtered quiz question list.
      */
@@ -254,10 +269,6 @@ public interface Model {
      * Clears the quiz question list.
      */
     void clearQuizQuestionList();
-
-    void markTaskAsDone(Task taskDone);
-
-    void clearTaskList();
 
     /**
      * Returns an answer for question in quiz with specific {@code index}.

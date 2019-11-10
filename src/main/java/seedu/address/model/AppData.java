@@ -338,7 +338,6 @@ public class AppData implements ReadOnlyAppData {
         this.tasks.setTasks(tasks);
     }
 
-    // note-level operations
 
     /**
      * Returns true if a revision task with the same note / question, same date and time, and same status
@@ -373,10 +372,16 @@ public class AppData implements ReadOnlyAppData {
         tasks.remove(toRemove);
     }
 
+    /**
+     * Marks a given task {@code taskDone} as done. The task must exist.
+     */
     public void markTaskAsDone(Task taskDone) {
         tasks.markTaskAsDone(taskDone);
     }
 
+    /**
+     * Clears all tasks in the task list.
+     */
     public void clearTaskList() {
         tasks.clear();
     }
