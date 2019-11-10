@@ -73,7 +73,6 @@ check if the Earnings in the ArrayList has more than a `Count` of 0. If the `Cou
 |===
 
 include::../UserGuide.adoc[tag=startEarningsTag]
-include::../UserGuide.adoc[tag=login]
 
 == Contributions to the Developer Guide
 
@@ -82,4 +81,5 @@ include::../UserGuide.adoc[tag=login]
 |===
 
 include::../DeveloperGuide.adoc[tag=earnings]
+include::../DeveloperGuide.adoc[tag=otherEarnings]
 include::../DeveloperGuide.adoc[tag=accountStorage]
