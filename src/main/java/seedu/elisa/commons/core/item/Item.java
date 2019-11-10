@@ -370,6 +370,11 @@ public class Item {
                 throw new IllegalArgumentException("Task, Event & Reminder cannot all be empty!");
             }
 
+            if (newItem.getReminder().isPresent() && newItem.getEvent().isPresent()
+                    && newItem.getEvent().get().hasAutoReschedule()) {
+                throw new IllegalArgumentException("An auto-rechedule event can't have a reminder and vice versa!");
+            }
+
             //Resetting all constructing parameters back to null, so a new object doesn't use the parameters of the
             // previous object.
             task = null;

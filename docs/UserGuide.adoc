@@ -161,6 +161,9 @@ Examples:
 * `event John’s Birthday -d 3.day.later -r 2.day.later -p high -t friend`
 * `event CS2013T Quiz -d 11/11/2019 2359 -auto week`
 
+[NOTE]
+It is currently not possible to set a reminder for events with an autoreschedule flag. We intend to include this in v2.0 .
+
 ==== Adding a reminder: `reminder`
 
 Adds a reminder to the reminder list +
