@@ -22,7 +22,7 @@ public class CalendarDateCell extends UiPart<Region> {
     private static final String FXML = "CalendarDateCell.fxml";
 
     @FXML
-    private StackPane calendarDatePane;
+    private StackPane calendarDateStackPane;
 
     private LocalDate date;
     private ObservableList<Engagement> engagements;
@@ -40,14 +40,16 @@ public class CalendarDateCell extends UiPart<Region> {
 
     /**
      * Returns the {@code StackPane} that is used to mount this {@code CalendarDateCell}.
+     *
      * @return The {@code StackPane} that is used to mount this {@code CalendarDateCell}.
      */
-    public StackPane getCalendarDatePane() {
-        return calendarDatePane;
+    public StackPane getCalendarDateStackPane() {
+        return calendarDateStackPane;
     }
 
     /**
      * Adds the specified engagement to this {@code CalendarDateCell}.
+     *
      * @param engagement The specified engagement.
      */
     public void addEngagement(Engagement engagement) {
@@ -63,6 +65,7 @@ public class CalendarDateCell extends UiPart<Region> {
 
     /**
      * Returns the number of engagements in this {@code CalendarDateCell}.
+     *
      * @return The number of engagements in this {@code CalendarDateCell}.
      */
     public int getNumberOfEngagements() {
@@ -71,6 +74,7 @@ public class CalendarDateCell extends UiPart<Region> {
 
     /**
      * Sets the date of this {@code CalendarDateCell} to the specified date.
+     *
      * @param date The specified date.
      */
     public void setDate(LocalDate date) {
@@ -80,6 +84,7 @@ public class CalendarDateCell extends UiPart<Region> {
 
     /**
      * Returns the date of this {@code CalendarDateCell}.
+     *
      * @return The date of this {@code CalendarDateCell}.
      */
     public LocalDate getDate() {
@@ -103,6 +108,15 @@ public class CalendarDateCell extends UiPart<Region> {
         } else {
             engagementsDisplayWindow.focus();
         }
+    }
+
+    /**
+     * Returns true if this calendar date cell has an open engagements display window.
+     *
+     * @return True if this calendar date cell has an open engagements display window.
+     */
+    public boolean hasOpenEngagementsDisplay() {
+        return engagementsDisplayWindow.isShowing();
     }
 
 }

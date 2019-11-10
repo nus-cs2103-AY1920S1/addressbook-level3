@@ -1,0 +1,96 @@
+= Ko Gi Hun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Typee
+
+== Overview
+
+Typee is an engagement management application, where users can manage engagements and schedule accordingly. Our main users are targeted in corporation's receptionists and secretaries
+whose main tasks is to manage and arrange engagements.
+
+.default window of Typee upon start-up
+image::ppp_nordic96/ppp_1.png[width="700"]
+
+* Main UI is composed of 4 parts;
+** Tab/Menu Pane: List of Name/Feature/Menu is displayed here.
+** Menu Window: Each feature/menu window is displayed and can be interacted.
+** Command Output Display: Command output after execution displays here.
+** Command Input text field: User enters command
+* Typee divides engagements into 3 types; Appointments, Meetings and Interviews.
+* Typee application interacts with the users by separating application features into different menu windows. Each menu name is displayed in
+the left-end of the application window, where user can switch to different windows anytime by using command.
+* Typee is a CLI (Command Line Interface) based application, with a mixture of simple GUI interacting features.
+
+== Summary of contributions
+
+* *Major enhancement*:
+1. added *the ability to switch windows to other menu windows*
+*** What it does: allows the user to switch the main window to load different menu windows to utilise different features any time.
+*** Justification: In terms of user interface, by placing different feature interactions and forms in separate windows makes the application look more organised.
+*** Highlights: New class `Tab` was implemented in the model and existing class `CommandResult` had to check if the command if the command type is `tab` command. This was a necessary implementation as
+the `MainWindow`, which is the root UI component of the main UI had to load external fxml file to the empty component during the command process. Structure of the MainWindow had to be modified appropriately so that
+each separate fxml files are linked with different JAVAFX controller classes other than `MainWindow` controller class.
+*** Credits: SEDU team, where much of the architecture of the Main Window UI structure was referenced in order to customise our UI architecture to allow performing tab
+switching command.
+
+2. added *the ability to generate reports into a document form (pdf) based on the selected engagement*.
+*** What it does: allows users to generate a report into pdf format document, where user can simply select the engagement that the user wants to generate into
+document and attach it to email to the corresponding receiver.
+*** Justification: Secretaries and receptionists are not responsible only in task management. They have other tasks that consume alot of their time during office work.
+In order to improve their task performance more time efficiently, the feature allows users to save time instead of manually typing the document while referring to
+the engagement information one by one. With a simple 1 line command, typee generates a document, so that the user only need to attach the document their email.
+Document template is fully customisable, hence it makes the application flexible so that any corporations can use our application to fit their company document conventions formats.
+*** Credits:
+    **** https://https://commons.apache.org/proper/commons-io/[Commons-IO] : file extension validation method is used for
+    **** https://itextpdf.com/en[iTextPdf]
+
+* *Minor enhancement*: Updated the existing AB3 CSS dark theme file to customise our Typee UI color schemes; TreeListView, Functional button skins (Delete button, Refresh button, Next/Previous month button)
+
+* *Code contributed*: [https://github.com/nordic96/main[Functional code]]
+
+* *Other contributions*:
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage by roughly 7% (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main/pull/201[#201], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/200[#200])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (iTextPdf) to the project
+*** Integrated a third party library (common-IO) to the project
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=quick-start]
+
+include::../UserGuide.adoc[tag=tab-command]
+
+include::../UserGuide.adoc[tag=pdf-command]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=tab-switch]
+
+include::../DeveloperGuide.adoc[tag=report]
+
+include::../DeveloperGuide.adoc[tag=use-case-pdf]
+
+---

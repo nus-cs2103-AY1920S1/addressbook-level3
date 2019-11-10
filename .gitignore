@@ -16,13 +16,12 @@ src/main/resources/docs/
 
 /reports
 
-# Test sandbox files
-src/test/data/sandbox/
-
 # MacOS custom attributes files created by Finder
 .DS_Store
 
 /docs/images/appveyor/
 
-/docs/team/nordic96.adoc
-/docs/images/ppp_nordic96/
+/test/data/sandbox/serialize.json
+/test/data/sandbox/invalidList.json
+
+src/test/data/sandbox/serialize.json

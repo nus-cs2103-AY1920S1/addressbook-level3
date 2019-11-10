@@ -1,5 +1,7 @@
 package com.typee.ui.game;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -36,7 +38,7 @@ public class MovingWord extends UiPart<Pane> {
         this.parent = parent;
         this.player = player;
         this.fallingRate = fallingRate;
-        word = Words.get(random.nextInt(Words.SIZE));
+        word = getRandomWord();
         setXCoordinate();
         parent.getChildren().add(getRoot());
         continuouslyUpdate();
@@ -46,8 +48,23 @@ public class MovingWord extends UiPart<Pane> {
         animationTimer.stop();
     }
 
+    /**
+     * Randomly generate integer based on {@code limit}
+     */
+    private int randomNumberWithin(int limit) {
+        return random.nextInt(limit);
+    }
+
+    private String getRandomWord() {
+        int randomIndex = randomNumberWithin(Words.SIZE);
+        requireNonNull(randomIndex);
+        return Words.get(randomIndex);
+    }
+
     private void setXCoordinate() {
-        getRoot().setLayoutX(random.nextInt(WINDOW_BOUNDARY));
+        int randomXCoordinate = randomNumberWithin(WINDOW_BOUNDARY);
+        requireNonNull(randomXCoordinate);
+        getRoot().setLayoutX(randomXCoordinate);
     }
 
     /**
@@ -75,7 +92,7 @@ public class MovingWord extends UiPart<Pane> {
         } else if (player.getInputText().equals(word)) {
             stopAnimation();
             player.incrementScore(word.length() * SCORE_MULTIPLIER);
-            player.setInputAs("");
+            player.setInputTextAs("");
             disappear();
         }
     }
@@ -87,8 +104,8 @@ public class MovingWord extends UiPart<Pane> {
     private void highlightWords() {
         ObservableList<Node> words = getRoot().getChildren();
         words.clear();
-        Node highlightedNode = TextHighlighter.convertToTextFlowUsing(player.getInputText(), word);
-        Node nodeWithoutHighlight = TextHighlighter.convertToTextFlowUsing(word);
+        Node highlightedNode = TextHighlighterUtil.convertToTextFlowUsing(player.getInputText(), word);
+        Node nodeWithoutHighlight = TextHighlighterUtil.convertToTextFlowUsing(word);
         words.add(highlightedNode);
         words.add(nodeWithoutHighlight);
     }

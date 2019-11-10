@@ -18,16 +18,16 @@ class CalendarDateDisplayEngagementsCommandTest {
 
     @Test
     public void constructor_nullEngagement_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CalendarDateDisplayEngagementsCommand(null));
+        assertThrows(NullPointerException.class, () -> new CalendarOpenDisplayCommand(null));
     }
 
     @Test
     public void execute_validDate_displaySuccessful() {
         LocalDate validDate = LocalDate.of(2019, 10, 22);
         String formattedValidDateString = "22/10/2019";
-        CommandResult commandResult = new CalendarDateDisplayEngagementsCommand(validDate).execute(model);
+        CommandResult commandResult = new CalendarOpenDisplayCommand(validDate).execute(model);
 
-        assertEquals(CalendarDateDisplayEngagementsCommand.MESSAGE_SUCCESS + formattedValidDateString,
+        assertEquals(CalendarOpenDisplayCommand.MESSAGE_SUCCESS + formattedValidDateString,
                 commandResult.getFeedbackToUser());
     }
 
@@ -37,18 +37,23 @@ class CalendarDateDisplayEngagementsCommandTest {
     @Test
     public void equals() {
         LocalDate date = LocalDate.of(2019, 10, 22);
-        CalendarDateDisplayEngagementsCommand calendarDateDisplayEngagementsCommand =
-                new CalendarDateDisplayEngagementsCommand(date);
-        CalendarDateDisplayEngagementsCommand identicalCalendarDateDisplayEngagementsCommand =
-                new CalendarDateDisplayEngagementsCommand(date);
+        CalendarOpenDisplayCommand calendarDateDisplayEngagementsCommand =
+                new CalendarOpenDisplayCommand(date);
+        CalendarOpenDisplayCommand identicalCalendarDateDisplayEngagementsCommand =
+                new CalendarOpenDisplayCommand(date);
         assertTrue(calendarDateDisplayEngagementsCommand
                 .equals(identicalCalendarDateDisplayEngagementsCommand));
 
         LocalDate otherDate = LocalDate.of(2019, 10, 23);
-        CalendarDateDisplayEngagementsCommand differentCalendarDateDisplayEngagementsCommand =
-                new CalendarDateDisplayEngagementsCommand(otherDate);
+        CalendarOpenDisplayCommand differentCalendarDateDisplayEngagementsCommand =
+                new CalendarOpenDisplayCommand(otherDate);
         assertFalse(calendarDateDisplayEngagementsCommand
                 .equals(differentCalendarDateDisplayEngagementsCommand));
+
+        CalendarOpenDisplayCommand typicalCommand = new CalendarOpenDisplayCommand(date);
+        assertTrue(typicalCommand.equals(typicalCommand));
+
+        assertFalse(typicalCommand.equals(new CalendarNextMonthCommand()));
     }
 
 }

@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import com.typee.commons.core.GuiSettings;
 import com.typee.logic.commands.exceptions.CommandException;
+import com.typee.logic.commands.exceptions.DeleteDocumentException;
 import com.typee.logic.commands.exceptions.NullRedoableActionException;
 import com.typee.logic.commands.exceptions.NullUndoableActionException;
 import com.typee.model.EngagementList;
@@ -23,6 +24,7 @@ import com.typee.model.Model;
 import com.typee.model.ReadOnlyEngagementList;
 import com.typee.model.ReadOnlyUserPrefs;
 import com.typee.model.engagement.Engagement;
+import com.typee.model.report.Report;
 import com.typee.testutil.EngagementBuilder;
 
 import javafx.collections.ObservableList;
@@ -290,15 +292,31 @@ public class AddCommandTest {
 
         @Override
         public void saveEngagementList() {
+            // Used in the execution of AddCommand
         }
 
         @Override
-        public void updateSortedEngagementList(Comparator<Engagement> comparator) {
-            throw new AssertionError("This method should not be called.");
+        public void updateSortedEngagementList() {
+            // Used in the execution of AddCommand
         }
 
         @Override
         public ObservableList<Engagement> getSortedEngagementList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setComparator(Comparator<Engagement> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path saveReport(Path fileDir, Report report) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean deleteReport(Path fileDir, Report report) throws DeleteDocumentException {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -25,6 +25,16 @@ public class RedoCommand extends Command {
 
         model.redoEngagementList();
         model.updateFilteredEngagementList(Model.PREDICATE_SHOW_ALL_ENGAGEMENTS);
+        model.updateSortedEngagementList();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof RedoCommand)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

@@ -236,6 +236,7 @@ image::CommitActivityDiagram.png[width="190", align="center"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+//tag::tab-switch[]
 === Tab Switch Feature
 Tab switch feature is a type of Command that allows users to switch to respective windows for using different features in the system. System UI structure is generally divided into 2 parts;
 
@@ -261,6 +262,9 @@ Below is the basic activity diagram of fetchTabInformation method
 .fetchTabInformation method Activity Diagram
 image::fetchTabInformationActivityDiagram.png[align="center"]
 
+//end::tab-switch[]
+
+//tag::report[]
 === Engagement Report Generation
 This feature allows user to generate a pre-selected engagement in to a report and save it as a document file. The document file will be created in a .pdf format.
 
@@ -318,7 +322,7 @@ Table below explains the components that are included in the `ReportWindow` with
 2. Each list item is clickable with a MouseClick action of opening the document.
 | To allow user to manage documents more time efficiently.
 |===
-
+//end::report[]
 
 === Logging
 
@@ -779,6 +783,7 @@ Use case ends.
 
 [discrete]
 //Updated by Ko Gi Hun 30/09/19
+//tag::use-case-pdf[]
 === Use case: (UC15) Generate appointment document in PDF format
 
 *MSS*
@@ -802,6 +807,7 @@ Use case resumes at step 2.
 ** 3b1. System shows error message.
 +
 Use case resumes at step 2.
+//end::use-case-pdf[]
 
 [discrete]
 === Use case: (UC16) Sort appointments

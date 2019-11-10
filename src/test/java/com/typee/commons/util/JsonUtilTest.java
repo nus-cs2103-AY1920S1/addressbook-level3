@@ -4,9 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import com.typee.commons.exceptions.DataConversionException;
+import com.typee.testutil.SerializableListTestClass;
 import com.typee.testutil.SerializableTestClass;
 import com.typee.testutil.TestUtil;
 
@@ -16,6 +20,8 @@ import com.typee.testutil.TestUtil;
 public class JsonUtilTest {
 
     private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.json");
+    private static final Path LIST_SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder(
+            "serializeList.json");
 
     @Test
     public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
@@ -37,6 +43,15 @@ public class JsonUtilTest {
         assertEquals(serializableTestClass.getName(), SerializableTestClass.getNameTestValue());
         assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());
         assertEquals(serializableTestClass.getMapOfIntegerToString(), SerializableTestClass.getHashMapTestValues());
+    }
+
+    @Test
+    public void readJsonFileIntoList() throws DataConversionException {
+        SerializableListTestClass testClass = new SerializableListTestClass();
+        Optional<List<String>> serializableTestList = JsonUtil.readJsonFileIntoList(LIST_SERIALIZATION_FILE,
+                String.class);
+
+        assertEquals(serializableTestList.get(), testClass.getSerializableTestList());
     }
 
     //TODO: @Test jsonUtil_readJsonStringToObjectInstance_correctObject()

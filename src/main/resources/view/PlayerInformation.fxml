@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.StackPane?>
-
 <StackPane layoutX="0" layoutY="0" prefHeight="75.0" prefWidth="200.0" styleClass="playerInformation" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label styleClass="whiteText" text="Score" translateY="-10.0" StackPane.alignment="CENTER_LEFT" />

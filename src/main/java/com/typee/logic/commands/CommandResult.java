@@ -2,6 +2,7 @@ package com.typee.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -16,16 +17,18 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
-    private final boolean showHelp;
+    private final boolean isShowHelp;
 
     /** The application should exit. */
-    private final boolean exit;
+    private final boolean isExit;
 
     /** The application should switch tab menu. */
-    private final boolean tabCommand;
+    private final boolean isTabCommand;
 
     /* The application should interact with the calendar window. */
-    private final boolean calendarCommand;
+    private final boolean isCalendarCommand;
+
+    private final boolean isPdfCommand;
 
     private final Tab tab;
 
@@ -33,62 +36,85 @@ public class CommandResult {
 
     private final String calendarCommandType;
 
+    private final Path docPath;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean isShowHelp, boolean isExit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.tabCommand = false;
+        this.isShowHelp = isShowHelp;
+        this.isExit = isExit;
+        this.isTabCommand = false;
+        this.isPdfCommand = false;
         this.tab = new Tab("main");
-        this.calendarCommand = false;
+        this.isCalendarCommand = false;
         this.calendarDate = null;
         this.calendarCommandType = "";
+        this.docPath = null;
     }
 
     /**
      * Constructs a {@code CommandResult} specified for tab command.
      */
-    public CommandResult(String feedbackToUser, boolean tabCommand, Tab tab) {
+    public CommandResult(String feedbackToUser, boolean isTabCommand, Tab tab) {
         this.feedbackToUser = feedbackToUser;
-        this.showHelp = false;
-        this.exit = false;
-        this.tabCommand = tabCommand;
+        this.isShowHelp = false;
+        this.isExit = false;
+        this.isTabCommand = isTabCommand;
         this.tab = tab;
-        this.calendarCommand = false;
+        this.isCalendarCommand = false;
+        this.isPdfCommand = false;
         this.calendarDate = null;
         this.calendarCommandType = "";
+        this.docPath = null;
     }
 
     /**
      * Constructs a {@code CommandResult} for a calendar command with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean calendarCommand, LocalDate calendarDate,
+    public CommandResult(String feedbackToUser, boolean isCalendarCommand, LocalDate calendarDate,
                          String calendarCommandType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = false;
-        this.exit = false;
-        this.tabCommand = false;
+        this.isShowHelp = false;
+        this.isExit = false;
+        this.isTabCommand = false;
+        this.isPdfCommand = false;
         this.tab = new Tab("calendar");
-        this.calendarCommand = calendarCommand;
+        this.isCalendarCommand = isCalendarCommand;
         this.calendarDate = calendarDate;
         this.calendarCommandType = calendarCommandType;
+        this.docPath = null;
     }
 
     /**
      * Constructs a {@code CommandResult} for a calendar command with the specified fields,
      * excluding the date field.
      */
-    public CommandResult(String feedbackToUser, boolean calendarCommand, String calendarCommandType) {
+    public CommandResult(String feedbackToUser, boolean isCalendarCommand, String calendarCommandType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = false;
-        this.exit = false;
-        this.tabCommand = false;
+        this.isShowHelp = false;
+        this.isExit = false;
+        this.isTabCommand = false;
+        this.isPdfCommand = false;
         this.tab = new Tab("calendar");
-        this.calendarCommand = calendarCommand;
+        this.isCalendarCommand = isCalendarCommand;
         this.calendarDate = null;
         this.calendarCommandType = calendarCommandType;
+        this.docPath = null;
+    }
+
+    public CommandResult(String feedbackToUser, boolean isPdfCommand, Path docPath) {
+        this.feedbackToUser = feedbackToUser;
+        this.isShowHelp = false;
+        this.isExit = false;
+        this.isTabCommand = false;
+        this.tab = new Tab("report");
+        this.isCalendarCommand = false;
+        this.calendarDate = null;
+        this.calendarCommandType = "";
+        this.isPdfCommand = isPdfCommand;
+        this.docPath = docPath;
     }
 
     /**
@@ -104,15 +130,15 @@ public class CommandResult {
     }
 
     public boolean isShowHelp() {
-        return showHelp;
+        return isShowHelp;
     }
 
     public boolean isExit() {
-        return exit;
+        return isExit;
     }
 
     public boolean isTabCommand() {
-        return tabCommand;
+        return isTabCommand;
     }
 
     public Tab getTab() {
@@ -120,21 +146,29 @@ public class CommandResult {
     }
 
     public boolean isCalendarCommand() {
-        return calendarCommand;
+        return isCalendarCommand;
+    }
+
+    public boolean isPdfCommand() {
+        return isPdfCommand;
     }
 
     public LocalDate getCalendarDate() throws CommandException {
-        if (!calendarCommand) {
+        if (!isCalendarCommand) {
             throw new CommandException("Cannot get calendar date from a non-calendar command result");
         }
         return calendarDate;
     }
 
     public String getCalendarCommandType() throws CommandException {
-        if (!calendarCommand) {
+        if (!isCalendarCommand) {
             throw new CommandException("Cannot get calendar command type from a non-calendar command result");
         }
         return calendarCommandType;
+    }
+
+    public Path getDocPath() {
+        return docPath;
     }
 
     @Override
@@ -150,13 +184,13 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && isShowHelp == otherCommandResult.isShowHelp
+                && isExit == otherCommandResult.isExit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, isShowHelp, isExit);
     }
 
 }

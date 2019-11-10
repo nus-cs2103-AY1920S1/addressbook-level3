@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.StackPane?>
-<StackPane fx:id="calendarDatePane" prefWidth="200" prefHeight="200"
+<StackPane fx:id="calendarDateStackPane" prefWidth="200" prefHeight="60"
            styleClass="calendar-date-pane" onMouseClicked="#displayEngagements"
            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 </StackPane>

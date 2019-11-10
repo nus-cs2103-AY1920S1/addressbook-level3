@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.typee.commons.core.index.Index;
@@ -13,7 +12,7 @@ import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.EngagementList;
 import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.person.DescriptionContainsKeywordsPredicate;
+import com.typee.model.engagement.EngagementPredicate;
 
 /**
  * Contains helper methods for testing commands.
@@ -100,17 +99,16 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the engagement at the given {@code targetIndex} in the
-     * {@code model}'s engagement list.
+     * {@code model}'s engagement list based on the engagement description of the first engagement.
      */
     public static void showEngagementAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredEngagementList().size());
 
         Engagement engagement = model.getFilteredEngagementList().get(targetIndex.getZeroBased());
         final String[] splitDescription = engagement.getDescription().split("\\s+");
-        model.updateFilteredEngagementList(new DescriptionContainsKeywordsPredicate((
-                Arrays.asList(splitDescription[0]))
-        ));
-
+        EngagementPredicate predicate = new EngagementPredicate();
+        predicate.setDescription(splitDescription[0]);
+        model.updateFilteredEngagementList(predicate);
         assertEquals(1, model.getFilteredEngagementList().size());
     }
 

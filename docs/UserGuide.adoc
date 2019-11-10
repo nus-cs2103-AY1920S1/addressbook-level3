@@ -22,6 +22,8 @@ Typee is a Command Line Interface (CLI) application for managing engagements suc
 It is designed for secretaries and receptionists who prefer to work with a CLI while still enjoying the benefits of a
 Graphical User Interface (GUI). Head over to <<Quick Start>> to see how to get the application running!
 
+
+// tag::quick-start[]
 == Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -30,20 +32,21 @@ Graphical User Interface (GUI). Head over to <<Quick Start>> to see how to get t
 4. Enter the command `java -jar typee.jar` on your terminal to start the app. The GUI should appear in a few seconds.
 5. Type a command in the text box and press `Enter` to execute it.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="750"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all appointments.
-* **`tab` ** `game`: switches main window to start window of the game.
-* **`add`** `d/Meeting on Monday` : adds an appointment with the description `Meeting on Monday` to the appointment manager.
-* **`pdf` ** `i/1 to/Jason from/Harry`: generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
-* **`delete`** `3` : deletes the 3rd appointment shown in the current list.
+* **`tab` ** `b/game`: switches main window to start window of the game.
+* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 a/Jason | Harry d/Meeting on Monday a/HIGH` : adds an engagement to the storage with an engagement type of `Appointment` followed by start time and end time 09-11-2019-12:00 ~ 09-11-2019-13:30, attendee as `Jason` and `Harry`, description written as `Meeting on Monday`, priority of `HIGH`.
+* **`pdf` ** `i/1 t/Jason f/Harry`: generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
+* **`delete`** `i/3` : deletes the 3rd appointment shown in the current list.
 * *`exit`* : exits the app.
 
 Refer to <<Features>> for details of each command.
+//end::quick-start[]
 
 [[Features]]
 == Features
@@ -52,10 +55,12 @@ Refer to <<Features>> for details of each command.
 
 Format: `help`
 
+
+// tag::tab-command[]
 === Switch to different windows: `tab`
 
 Switches to a different menu in the application window. +
-Format: `tab [menu_name]`
+Format: `tab b/MENU_NAME`
 
 * Typee application has mainly 4 major features/menus. User needs to switch to respective windows to perform different commands and features of the system.
 ** Engagement
@@ -64,23 +69,28 @@ Format: `tab [menu_name]`
 ** Report
 
 [NOTE]
-`tab game` is used instead of `tab typinggame` to simplify typing.
-
-* `Engagement` window will be the default window upon start up of the application.
+`tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
+`Engagement` window will be the default window upon start up of the application.
 
 .Engagement (default) window displayed on start-up of the application.
-image::tab_1_default.png[width="800"]
+image::tab_1_default.png[width="520"]
 
 Now, if the user wants to switch to different windows, simply enter the tab command
-with refer to the menu name listed on the left end of the application window. For example, user enters `tab calendar`
+with refer to the menu name listed on the left end of the application window. For example, user enters `tab b/calendar`
 switch to calendar view window.
 
-.input section with tab command entered `tab calendar`
-image::tab_2.png[width="800"]
+.input section with tab command entered `tab b/calendar`
+image::tab_2.png[width="520"]
+
+[NOTE]
+Users who prefer using mouse over typing can alternatively click the green tabs on the top to switch to different menu windows.
 
 Below is the screenshot after entering the command.
 
-image::tab_3.png[width="800"]
+.tab switch successfully executed from engagement window to calendar window.
+image::tab_3.png[width="520"]
+
+//end::tab-command[]
 
 === Adding an appointment: `add`
 
@@ -218,47 +228,70 @@ image::redo-result.png[width="450"]
 //end::undo-redo[]
 
 === Changing to calendar view : `tab calendar`
-Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of engagements per day, and more commands can be used to see what those engagements are.
+Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of
+engagements per day. More commands are provided for interaction with the calendar window.
+
+Format: `tab calendar`
 
 .Calendar view for October 2019
 image::calendar-view.png[width="450"]
 
-=== Displaying the list of engagements for a specified date (calendar view only): `calendar opendisplay [date]`
-Opens a window displaying the list of engagements for the specified date. This command does not work if the application
-is in another tab (view) or the specified date is invalid.
+=== Displaying the list of engagements for a specified date (calendar view only): `calendar opendisplay`
+Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
+This means that nothing will happen if this command is used with a date which already has an open engagements list window.
+
+Format: `calendar opendisplay [date]`. The date must follow a DD/MM/YYYY format.
+
+If this command is used to open an engagement list window using a date from another month, the calendar's view will switch to
+display that specified month. This command can be used to quickly switch to another month which is not immediately before or
+after the currently displayed month.
+
+All engagement list windows will be closed if something is done to change the displayed calendar month
+(e.g. using the `calendar nextmonth` command). This includes using this command as in the above paragraph.
+
+Example: The calendar is currently displaying information for October 2019 and there are engagement list windows open for three dates
+in the display. If `calendar opendisplay 11/11/2019` is entered into the input box, then all three engagement list windows will be closed.
+The calendar's display then switches to November 2019 and the engagement list window for 11 November 2019 is opened up.
+
+This command does not work if the application is in another tab (view) or the specified date is invalid.
 
 .Engagement list for 01/11/2019
 image::calendar-open-display.png[width="450"]
-
-
-Alternatively, you may click on any of the individual cells within the calendar window to open the engagement list
-for that date.
-
+{empty} +
 After entering `calendar opendisplay 01/11/2019` into the input box while in calendar view for October 2019, the
 above window opens up. The date 01/11/2019 is still valid because it is displayed in the calendar view for October
 2019, albeit at the end of the grid.
+
+Alternatively, you may click on any of the individual cells within the calendar window to open the engagement list
+for that date.
 
 === Changing the calendar display to the next month (calendar view only): `calendar nextmonth`
 Changes the calendar view to the month following the currently displayed one. This command does not work if the
 application is in another tab.
 
+Format: `calendar nextmonth`
+
 .Changing to the next month from October 2019
 image::calendar-next-month.png[width="450"]
-
-
+{empty} +
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
 to change the display to the next month.
+
+This command closes any open engagement windows from the current month before updating the display to the next month.
 
 === Changing the calendar display to the previous month (calendar view only): `calendar previousmonth`
 Changes the calendar view to the month prior to the currently displayed one. This command does not work if the
 application is in another tab.
 
+Format: `calendar previousmonth`
+
 .Changing to the previous month from October 2019
 image::calendar-previous-month.png[width="450"]
-
-
+{empty} +
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
 to change the display to the previous month.
+
+This command closes any open engagement windows from the current month before updating the display to the previous month.
 
 === Typing game : `tab game`
 Changes the current window to the start window with a kbd:[Start] button.
@@ -286,45 +319,67 @@ image::GameOver.png[width="450"]
 Once the game is over, you can manually close the application by clicking the kbd:[x] on the top right hand corner of the window.
 If you want to play the game again, click the kbd:[Start] button shown in the Start window.
 
+// tag::pdf-command[]
+
 === Generating a PDF file of engagement : `pdf`
+==== Usage
 Pdf Command allows user to create a document of selected engagement in a given format of document template.
-Document template can be customised based on the customers's requirements, however, default document format will be in an eamil format,
+Document template can be customised based on the customers's requirements, however, default document format will be in an email format,
 where the user can set who the user is going to send this document to inform an engagement. +
 
-Format: `pdf i/[index] to/[receiver] from/[sender]` +
+Format: `pdf i/LIST_INDEX t/RECEIVER f/FROM` +
 
 For example, if the user wants to create a document of an engagement, which has a list index of 1, which can by observed in `engagement` window.
-User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 to/Harry from/John` to generate the document.
+User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 t/Harry f/John` to generate the document.
 
+[NOTE]
+User can generate multiple report documents with the same engagement, but with different SENDER and RECEIVER names. +
+System will not allow generating documents that already exists in the directory.
 
-image::pdf_1.png[width="800"]
+.report document window
+image::pdf_1.png[width="520"]
 
-Once user enters the command, system will display the command result in the output panel, showing "Engagement Report successfully generated."
-Now, if the user clicks the green refresh button on top right of the documents explorer, explorer will display the generated pdf as a list item.
+Once user enters the command, system will automatically open the generated document and display the command result in the output panel, showing "Engagement Report successfully generated."
 
-.refresh button and delete button in documents explorer.
-image::pdf_function_btns.png[width="800"]
+NOTE: User can alternatively click the green refresh button on top right of the documents explorer to refresh the documents directory.
 
-.System after clicking refresh button
-image::pdf_2.png[width="800"]
+.refresh button and delete button.
+image::pdf_function_btns.png[width="450", float="left"]
+[.left]
+.After clicking refresh button
+image::pdf_2.png[width="450"]
 
-User can double click the list item to open the document file on their local computer file system. Below is the sample of generated document from our system.
+User can also double click the list item in the documents explorer tree view to open the document file on their local computer file system. Below is the sample of generated document from the system.
 
 .pdf document sample
-image::pdf_sample.png[width="800"]
+image::pdf_sample.png[width="600", align="center"]
 
-If the user does not want to keep the document, instead of directing the actual directory in the local stystem, user can simply click the red `x` button, next to the refresh
+If the user does not want to keep the document, instead of directing the actual directory in the local system, user can simply click the red `x` button, next to the refresh
 button to delete the selected document list item. Once system displays the popup message to confirm the user's decision, user will click the `OK` button to confirm deletion. Delete function will only available when user has pre-selected the document list item and the selected item must be a .pdf form, not directory.
 Below is the screenshot after user clicks the delete button.
 
 .pdf delete pop up message
-image::pdf_delete.png[width="800"]
+image::pdf_delete.png[width="520"]
 
 Now, once system successfully deleted the selected document, system will display the status message above the documents explorer. Below is the screenshot of the system status message after deletion.
 
-image::pdf_delete_after.png[width="800"]
+image::pdf_delete_after.png[width="520"]
 
 NOTE: PDF generation and deletion operations cannot be undone via `undo` command.
+
+==== Error Handling
+
+1. Documents Explorer in Report Window only displays files with .pdf format in reports/ directory. Files with different format will not be displayed in the explorer.
++
+.duplicate file exception message displayed in status text field.
+image::pdf_error_2.png[width="600"]
+2. System will not allow user to delete directories in the documents explorer tree view. (Figure 26)
+3. System will throw an exception message in the status field if user locks the document. (Figure 26)
++
+.file deletion exception message displayed in the status text field.
+image::pdf_error_1.png[width="600"]
+
+// end::pdf-command[]
 
 === Exiting the program : `exit`
 
@@ -347,15 +402,15 @@ Relevant data will be loaded from the external file when the application starts.
 == Command Summary
 
 * *Add* `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY` +
-e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High`
-* *Tab*: `tab MENU_NAME`
-** *Add Engagement* : `tab engagement`
-** *Calendar* : `tab calendar`
-** *Game* : `tab game`
-** *Report* : `tab report`
+e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John | Elijah | Sam d/CS2103T Discussion p/HIGH`
+* *Tab*: `tab b/MENU_NAME`
+** *Add Engagement* : `tab b/engagement`
+** *Calendar* : `tab b/calendar`
+** *Game* : `tab b/game`
+** *Report* : `tab b/report`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
+* *Delete* : `delete i/INDEX` +
+e.g. `delete i/3`
 * *PDF* : `pdf i/INDEX to/RECEIVER from/SENDER`
 * *Redo* : `redo`
 * *Sort* : `sort ORDER`

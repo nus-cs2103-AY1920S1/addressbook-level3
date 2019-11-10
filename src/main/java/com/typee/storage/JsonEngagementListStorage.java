@@ -45,14 +45,14 @@ public class JsonEngagementListStorage implements EngagementListStorage {
     public Optional<ReadOnlyEngagementList> readEngagementList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableEngagementList> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableEngagementList> jsonEngagementList = JsonUtil.readJsonFile(
                 filePath, JsonSerializableEngagementList.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonEngagementList.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonEngagementList.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

@@ -1,6 +1,7 @@
 package com.typee.logic.commands;
 
 import static com.typee.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,4 +20,9 @@ public class CalendarNextMonthCommandTest {
         assertCommandSuccess(new CalendarNextMonthCommand(), model, expectedCommandResult, expectedModel);
     }
 
+    @Test
+    public void equals_identicalInstance_returnTrue() {
+        final CalendarNextMonthCommand typicalInstance = new CalendarNextMonthCommand();
+        assertTrue(typicalInstance.equals(typicalInstance));
+    }
 }

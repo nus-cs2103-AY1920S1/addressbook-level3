@@ -30,15 +30,6 @@ public class Location {
     }
 
     /**
-     * Sets the location to the input location.
-     *
-     * @param location a valid location.
-     */
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    /**
      * Returns true if the {@code Location} name is valid.
      *
      * @param string {@code String} to be checked.

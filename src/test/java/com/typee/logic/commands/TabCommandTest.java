@@ -3,6 +3,7 @@ package com.typee.logic.commands;
 import static com.typee.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.typee.testutil.TypicalEngagements.getTypicalEngagementList;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.typee.model.Model;
@@ -15,9 +16,15 @@ import com.typee.ui.Tab;
  */
 public class TabCommandTest {
 
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalEngagementList(), new UserPrefs());
+    }
+
     @Test
     public void execute_valid_tabCommand() {
-        Model model = new ModelManager(getTypicalEngagementList(), new UserPrefs());
         TabCommand tabCommand = new TabCommand(new Tab("Generate Report"));
         assertCommandSuccess(tabCommand, model, TabCommand.MESSAGE_SUCCESS + "Generate Report", model);
 

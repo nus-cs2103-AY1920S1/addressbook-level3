@@ -19,6 +19,8 @@ class JsonAdaptedEngagement {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Engagement's %s field is missing!";
     public static final String EMPTY_LIST = "[]";
 
+    private static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Description cannot be blank!";
+
     private final String engagementType;
     private final String timeSlot;
     private final String location;
@@ -32,8 +34,8 @@ class JsonAdaptedEngagement {
     @JsonCreator
     public JsonAdaptedEngagement(@JsonProperty("type") String type, @JsonProperty("timeSlot") String timeSlot,
                                  @JsonProperty("location") String location,
-                                 @JsonProperty("attendees") String attendees,
                                  @JsonProperty("description") String description,
+                                 @JsonProperty("attendees") String attendees,
                                  @JsonProperty("priority") String priority) {
         this.engagementType = type;
         this.timeSlot = timeSlot;
@@ -82,7 +84,14 @@ class JsonAdaptedEngagement {
      *
      * @return description.
      */
-    private String validateAndGetDescription() {
+    private String validateAndGetDescription() throws IllegalValueException {
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    String.class.getSimpleName()));
+        }
+        if (description.isBlank()) {
+            throw new IllegalValueException(MESSAGE_DESCRIPTION_CONSTRAINTS);
+        }
         return description;
     }
 

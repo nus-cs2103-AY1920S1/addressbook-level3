@@ -1,12 +1,12 @@
 package com.typee.logic.commands;
 
-import static com.typee.logic.parser.CliSyntax.PREFIX_ATTENDEES;
-import static com.typee.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static com.typee.logic.parser.CliSyntax.PREFIX_END_TIME;
-import static com.typee.logic.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
-import static com.typee.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static com.typee.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static com.typee.logic.parser.CliSyntax.PREFIX_START_TIME;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ATTENDEES;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_END_TIME;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LOCATION;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_PRIORITY;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
 import static java.util.Objects.requireNonNull;
 
 import com.typee.logic.commands.exceptions.CommandException;
@@ -67,6 +67,7 @@ public class AddCommand extends Command {
 
         model.addEngagement(toAdd);
         model.saveEngagementList();
+        model.updateSortedEngagementList();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

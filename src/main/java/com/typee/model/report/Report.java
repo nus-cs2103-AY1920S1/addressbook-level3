@@ -1,5 +1,7 @@
 package com.typee.model.report;
 
+import java.nio.file.Path;
+
 import com.typee.model.engagement.Engagement;
 import com.typee.model.person.Person;
 
@@ -8,6 +10,7 @@ import com.typee.model.person.Person;
  */
 public class Report {
     private Engagement engagement;
+    private Path filePath;
     private Person to;
     private Person from;
 
@@ -39,5 +42,13 @@ public class Report {
 
     public void setFrom(Person from) {
         this.from = from;
+    }
+
+    public Path getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(Path filePath) {
+        this.filePath = filePath;
     }
 }

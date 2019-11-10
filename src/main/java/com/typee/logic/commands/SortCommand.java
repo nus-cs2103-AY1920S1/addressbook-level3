@@ -31,7 +31,8 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateSortedEngagementList(comparator);
+        model.setComparator(comparator);
+        model.updateSortedEngagementList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
