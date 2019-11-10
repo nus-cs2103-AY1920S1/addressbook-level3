@@ -18,9 +18,11 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
  */
 public class IndexState extends PenultimateState {
 
-    private static final String MESSAGE_CONSTRAINTS = "Delete command initiated. Please enter the index of the"
-            + " engagement you would like to delete. The index should be prefixed by \"i/\".";
-    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter an index prefixed by \"i/\".";
+    private static final String MESSAGE_CONSTRAINTS = "Which engagement would you like to delete? Please enter the"
+            + " index of the engagement you would like to delete. The index should be prefixed by "
+            + PREFIX_LIST_INDEX.getPrefix() + ". Example - [i/5]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter an index prefixed by "
+            + PREFIX_LIST_INDEX.getPrefix() + ". Only positive indices are allowed.";
 
     public IndexState(ArgumentMultimap soFar) {
         super(soFar);
@@ -42,7 +44,7 @@ public class IndexState extends PenultimateState {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> index)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(index, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(index, MESSAGE_INVALID_INPUT);
         enforceValidity(index);
     }
 
@@ -56,7 +58,7 @@ public class IndexState extends PenultimateState {
         try {
             InteractiveParserUtil.parseIndex(index.get());
         } catch (ParseException e) {
-            throw new StateTransitionException(e.getMessage());
+            throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }
     }
 
