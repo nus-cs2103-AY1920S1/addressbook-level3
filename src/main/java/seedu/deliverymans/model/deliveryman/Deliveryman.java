@@ -22,7 +22,7 @@ public class Deliveryman {
     private final Phone phone;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Tag> tags;
     private StatusTag status;
 
     /**
@@ -32,7 +32,7 @@ public class Deliveryman {
         requireAllNonNull(name, phone);
         this.name = name;
         this.phone = phone;
-        this.tags.addAll(tags);
+        this.tags = Set.copyOf(tags);
         status = new StatusTag("UNAVAILABLE"); // editing field will affect status
     }
 
@@ -40,7 +40,7 @@ public class Deliveryman {
         requireAllNonNull(name, phone);
         this.name = name;
         this.phone = phone;
-        this.tags.addAll(tags);
+        this.tags = Set.copyOf(tags);
         this.status = status; // editing other fields will affect status
     }
 
@@ -64,8 +64,8 @@ public class Deliveryman {
         return status;
     }
 
-    public void setStatusTo(StatusTag status) {
-        this.status = status;
+    public Deliveryman setStatusTo(StatusTag status) {
+        return new Deliveryman(name, phone, tags, status);
     }
 
     /**
