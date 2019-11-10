@@ -86,7 +86,7 @@ public class TagCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getCurrentList().size() + 1);
         TagCommand tagCommand = new TagCommand(XPIRE, outOfBoundIndex,
                 new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
-        assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_INDEX);
     }
 
     @Test
@@ -116,7 +116,7 @@ public class TagCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getLists()[0].getItemList().size());
         TagCommand tagCommand = new TagCommand(XPIRE, outOfBoundIndex,
                 new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
-        assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_INDEX);
     }
 
     //add tags to an already tagged xpireItem should add on more tags
@@ -220,7 +220,7 @@ public class TagCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getCurrentList().size() + 1);
         TagCommand tagCommand = new TagCommand(REPLENISH, outOfBoundIndex,
                 new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
-        assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_INDEX);
     }
 
     @Test
@@ -253,7 +253,7 @@ public class TagCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getLists()[1].getItemList().size());
         TagCommand tagCommand = new TagCommand(REPLENISH, outOfBoundIndex,
                 new String[]{VALID_TAG_FRIDGE, VALID_TAG_FRUIT});
-        assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_INDEX);
     }
 
     //adding tags to an already tagged replenishItem should add on more tags
@@ -297,6 +297,8 @@ public class TagCommandTest {
         TagCommand tagCommand = new TagCommand(REPLENISH);
         assertEquals(tagCommand.getMode(), TagCommand.TagMode.SHOW);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
+        expectedModel.setCurrentList(REPLENISH);
+        model.setCurrentList(REPLENISH);
         List<String> tagList = new ArrayList<>();
         tagList.add((new Tag(VALID_TAG_CADBURY)).toString());
         tagList.add((new Tag(VALID_TAG_SWEET)).toString());
@@ -306,7 +308,7 @@ public class TagCommandTest {
         assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
     }
 
-    //---------------- Failed tagging tests --------------------------------------------------------------------
+    //---------------- Fail tagging tests --------------------------------------------------------------------
     @Test
     public void execute_tooManyTags_throwsCommandException() {
         TagCommand tagCommand = new TagCommand(XPIRE, INDEX_FIFTH_ITEM,

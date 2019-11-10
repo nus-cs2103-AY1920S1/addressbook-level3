@@ -9,6 +9,7 @@ import io.xpire.model.ModelManager;
 /**
  * State that stores the previous model's Xpire, UserPrefs and the FilteredList. ModifiedState denotes
  * a state in which all the lists have been modified.
+ * @@author Kalsyc
  */
 public class ModifiedState extends State {
 

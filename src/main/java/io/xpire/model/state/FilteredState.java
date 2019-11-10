@@ -10,6 +10,7 @@ import io.xpire.model.ModelManager;
 /**
  * State that stores the previous model's Xpire, UserPrefs and the FilteredList. FilteredState denotes
  * a state in which the current view has been modified but not the items.
+ * @@author Kalsyc
  */
 public class FilteredState extends State {
 

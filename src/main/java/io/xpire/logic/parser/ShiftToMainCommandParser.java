@@ -10,14 +10,14 @@ import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Quantity;
 
 /**
- * Parses input arguments and creates a new ShiftToMainCommand object
+ * Parses input arguments and creates a new ShiftToMainCommand object.
  */
 public class ShiftToMainCommandParser implements Parser<ShiftToMainCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ShiftToMainCommand
      * and returns an ShiftToMainCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public ShiftToMainCommand parse(String args) throws ParseException {
         String[] arguments = args.split("\\|", 3);

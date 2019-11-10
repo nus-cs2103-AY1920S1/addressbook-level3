@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import io.xpire.commons.util.AppUtil;
 
 /**
- * Represents an XpireItem's name in xpire.
+ * Represents an item's name.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
