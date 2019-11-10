@@ -40,8 +40,8 @@ public class EditMemberCommandTest {
         Member editedMember = memInList.withName(VALID_MEMBER_NAME_FINANCE)
                 .withTags(VALID_TAG_FINANCE).build();
 
-        EditMemberCommand.EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder().withName(VALID_MEMBER_NAME_FINANCE)
-                .withTags(VALID_TAG_FINANCE).build();
+        EditMemberCommand.EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder()
+                .withName(VALID_MEMBER_NAME_FINANCE).withTags(VALID_TAG_FINANCE).build();
         EditMemberCommand EditMemberCommand = new EditMemberCommand(lastMember.getId(), descriptor);
 
         String expectedMessage = String.format(EditMemberCommand.MESSAGE_EDIT_MEMBER_SUCCESS, editedMember);
@@ -55,13 +55,14 @@ public class EditMemberCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditMemberCommand EditMemberCommand = new EditMemberCommand(ID_FIRST_MEMBER, new EditMemberCommand.EditMemberDescriptor());
+        EditMemberCommand EditMemberCommand = new EditMemberCommand(ID_FIRST_MEMBER,
+                new EditMemberCommand.EditMemberDescriptor());
 
         int memIndex = 0;
 
         List<Member> memList = model.getFilteredMembersList();
 
-        for (int i = 0; i < memList.size() ; i++) {
+        for (int i = 0; i < memList.size(); i++) {
             if (memList.get(i).getId().equals(ID_FIRST_MEMBER)) {
                 memIndex = i;
             }
@@ -82,7 +83,8 @@ public class EditMemberCommandTest {
 
         Member memInFilteredList = model.getFilteredMembersList().get(0);
         MemberId memId = memInFilteredList.getId();
-        Member editedMember = new MemberBuilder(memInFilteredList).withName(VALID_MEMBER_NAME_FINANCE).withId(memId).build();
+        Member editedMember = new MemberBuilder(memInFilteredList).withName(VALID_MEMBER_NAME_FINANCE).withId(memId)
+                .build();
         EditMemberCommand EditMemberCommand = new EditMemberCommand(memId,
                 new EditMemberDescriptorBuilder().withName(VALID_MEMBER_NAME_FINANCE).build());
 
@@ -98,10 +100,10 @@ public class EditMemberCommandTest {
 
     @Test
     public void execute_invalidMemberIdUnfilteredList_failure() {
-        MemberId invalidID = new MemberId("invalid id");
+        MemberId invalidId = new MemberId("invalid id");
         EditMemberCommand.EditMemberDescriptor descriptor = new EditMemberDescriptorBuilder()
                 .withName(VALID_MEMBER_NAME_FINANCE).build();
-        EditMemberCommand EditMemberCommand = new EditMemberCommand(invalidID, descriptor);
+        EditMemberCommand EditMemberCommand = new EditMemberCommand(invalidId, descriptor);
 
         assertCommandFailure(EditMemberCommand, model, Messages.MESSAGE_INVALID_MEMBER_ID);
     }
@@ -112,10 +114,10 @@ public class EditMemberCommandTest {
      */
     @Test
     public void execute_invalidMemberIdFilteredList_failure() {
-        MemberId invalidID = new MemberId("invalid id");
+        MemberId invalidId = new MemberId("invalid id");
         // ensures that outOfBoundIndex is still in bounds of address book list
 
-        EditMemberCommand EditMemberCommand = new EditMemberCommand(invalidID,
+        EditMemberCommand EditMemberCommand = new EditMemberCommand(invalidId,
                 new EditMemberDescriptorBuilder().withName(VALID_MEMBER_NAME_FINANCE).build());
 
         assertCommandFailure(EditMemberCommand, model, Messages.MESSAGE_INVALID_MEMBER_ID);

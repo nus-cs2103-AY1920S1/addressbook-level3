@@ -15,7 +15,7 @@ public class GetStatisticsCommandTest {
     private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
 
     @Test
-    public void execute_get_stats_success() {
+    public void execute_getStatsSuccess() {
         CommandResult expectedCommandResult = new CommandResult(GetStatisticsCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(new GetStatisticsCommand(), model, expectedCommandResult, expectedModel);
     }

@@ -2,28 +2,15 @@ package seedu.pluswork.logic.parser;
 
 import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.pluswork.logic.commands.CommandTestUtil.INVENTORY_NAME_DESC_SPORTS;
-import static seedu.pluswork.logic.commands.CommandTestUtil.VALID_INVENTORY_NAME_MUSIC;
 import static seedu.pluswork.logic.commands.CommandTestUtil.VALID_INVENTORY_NAME_SPORTS;
-import static seedu.pluswork.logic.commands.CommandTestUtil.VALID_INVENTORY_PRICE_MUSIC;
-import static seedu.pluswork.logic.commands.CommandTestUtil.VALID_INVENTORY_PRICE_SPORTS;
-import static seedu.pluswork.logic.parser.ParserUtil.MESSAGE_INVALID_PRICE;
-import static seedu.pluswork.testutil.TypicalIndexes.INDEX_FIRST_INVENTORY;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_INDEX;
-import static seedu.pluswork.logic.commands.CommandTestUtil.INVENTORY_NAME_DESC_SPORTS;
-import static seedu.pluswork.logic.commands.CommandTestUtil.INVENTORY_PRICE_DESC_SPORTS;
-import static seedu.pluswork.logic.commands.CommandTestUtil.INVENTORY_TASKID_DESC_SPORTS;
-import static seedu.pluswork.logic.commands.CommandTestUtil.INVENTORY_MEMBERID_DESC_SPORTS;
 import static seedu.pluswork.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.pluswork.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.pluswork.logic.parser.ParserUtil.MESSAGE_INVALID_PRICE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.logic.commands.EditInventoryCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.inventory.InvName;
-import seedu.pluswork.model.inventory.Price;
-import seedu.pluswork.testutil.EditInventoryDescriptorBuilder;
 
 public class EditInventoryCommandParserTest {
 

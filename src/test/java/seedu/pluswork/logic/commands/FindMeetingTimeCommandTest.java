@@ -2,28 +2,21 @@ package seedu.pluswork.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.pluswork.testutil.Assert.assertThrows;
-
-import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
-import seedu.pluswork.commons.core.Messages;
-import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.commons.util.DateTimeUtil;
-import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
-import seedu.pluswork.model.ProjectDashboard;
 import seedu.pluswork.model.ReadOnlyProjectDashboard;
 import seedu.pluswork.model.ReadOnlyUserPrefs;
 import seedu.pluswork.model.UserSettings;
@@ -40,7 +33,6 @@ import seedu.pluswork.model.settings.ClockFormat;
 import seedu.pluswork.model.settings.Theme;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
-import seedu.pluswork.testutil.MeetingBuilder;
 import seedu.pluswork.testutil.MeetingQueryBuilder;
 
 public class FindMeetingTimeCommandTest {
@@ -90,16 +82,16 @@ public class FindMeetingTimeCommandTest {
 
     @Test
     public void constructor_nullMeeting_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> new FindMeetingTimeCommand(null, null, null));
-        assertThrows(NullPointerException.class,
-                () -> new FindMeetingTimeCommand(SAMPLE_END_DATE1, null, SAMPLE_DURATION1));
-        assertThrows(NullPointerException.class,
-                () -> new FindMeetingTimeCommand(null, null, SAMPLE_DURATION3));
-        assertThrows(NullPointerException.class,
-                () -> new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE3, null));
-        assertThrows(NullPointerException.class,
-                () -> new FindMeetingTimeCommand(null, SAMPLE_END_DATE1, null));
+        assertThrows(NullPointerException.class, ()
+            -> new FindMeetingTimeCommand(null, null, null));
+        assertThrows(NullPointerException.class, ()
+            -> new FindMeetingTimeCommand(SAMPLE_END_DATE1, null, SAMPLE_DURATION1));
+        assertThrows(NullPointerException.class, ()
+            -> new FindMeetingTimeCommand(null, null, SAMPLE_DURATION3));
+        assertThrows(NullPointerException.class, ()
+            -> new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE3, null));
+        assertThrows(NullPointerException.class, ()
+            -> new FindMeetingTimeCommand(null, SAMPLE_END_DATE1, null));
     }
 
     @Test

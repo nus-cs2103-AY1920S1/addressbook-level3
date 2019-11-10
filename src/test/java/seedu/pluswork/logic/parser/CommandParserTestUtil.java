@@ -3,10 +3,7 @@ package seedu.pluswork.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
-import java.util.logging.Logger;
 
-import seedu.pluswork.commons.core.LogsCenter;
-import seedu.pluswork.logic.commands.AddInventoryCommand;
 import seedu.pluswork.logic.commands.Command;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;

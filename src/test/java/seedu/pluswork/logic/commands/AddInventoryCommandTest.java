@@ -77,7 +77,8 @@ public class AddInventoryCommandTest {
     public void execute_inValidMemberId_throwsCommandException() {
         AddInventoryCommand addInventoryCommand = new AddInventoryCommand(new Index(0),
                 new InvName("Toy"), new Price(1), new MemberId("invalidId"));
-        AddInventoryCommandTest.ModelStubAcceptingInventoryAdded modelStub = new AddInventoryCommandTest.ModelStubAcceptingInventoryAdded();
+        AddInventoryCommandTest.ModelStubAcceptingInventoryAdded modelStub =
+                new AddInventoryCommandTest.ModelStubAcceptingInventoryAdded();
         //Commented out for assertion error
 //        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEMBER_ID, () ->
 //                addInventoryCommand.execute(modelStub));
@@ -454,9 +455,9 @@ public class AddInventoryCommandTest {
     private class ModelStubWithInventory extends AddInventoryCommandTest.ModelStub {
         final ObservableList<Member> membersAdded = FXCollections.observableArrayList(new MemberBuilder().withId(new MemberId("GS")).build());
         private final FilteredList<Member> filteredMembers = new FilteredList<Member>(membersAdded);
-        final ObservableList<Task> tasksAdded = FXCollections.observableArrayList();
+        private final ObservableList<Task> tasksAdded = FXCollections.observableArrayList();
         private final FilteredList<Task> filteredTasks = new FilteredList<Task>(tasksAdded);
-        final ObservableList<Inventory> invAdded = FXCollections.observableArrayList();
+        private final ObservableList<Inventory> invAdded = FXCollections.observableArrayList();
         private final FilteredList<Inventory> filteredInv = new FilteredList<Inventory>(invAdded);
         private final Inventory inventory;
 
@@ -511,13 +512,13 @@ public class AddInventoryCommandTest {
     private class ModelStubAcceptingInventoryAdded extends AddInventoryCommandTest.ModelStub {
         final ObservableList<Member> membersAdded = FXCollections.observableArrayList(new MemberBuilder().withId(new MemberId("GS")).build());
         private final FilteredList<Member> filteredMembers = new FilteredList<Member>(membersAdded);
-        final ObservableList<Task> tasksAdded = FXCollections.observableArrayList();
+        private final ObservableList<Task> tasksAdded = FXCollections.observableArrayList();
         private final FilteredList<Task> filteredTasks = new FilteredList<Task>(tasksAdded);
-        final ObservableList<Inventory> invAdded = FXCollections.observableArrayList();
+        private final ObservableList<Inventory> invAdded = FXCollections.observableArrayList();
         private final FilteredList<Inventory> filteredInv = new FilteredList<Inventory>(invAdded);
-        final ObservableList<Mapping> mappingAdded = FXCollections.observableArrayList();
+        private final ObservableList<Mapping> mappingAdded = FXCollections.observableArrayList();
         private final FilteredList<Mapping> filteredMappings = new FilteredList<Mapping>(mappingAdded);
-        final ArrayList<Inventory> inventoriesAdded = new ArrayList<>();
+        private final ArrayList<Inventory> inventoriesAdded = new ArrayList<>();
 
         @Override
         public boolean hasInventory(Inventory inventory) {

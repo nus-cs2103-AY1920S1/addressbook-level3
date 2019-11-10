@@ -11,6 +11,9 @@ import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.member.MemberName;
 import seedu.pluswork.model.tag.Tag;
 
+/**
+ * A utility class to help with building EditMemberDescriptor objects.
+ */
 public class EditMemberDescriptorBuilder {
     private EditMemberCommand.EditMemberDescriptor descriptor;
 

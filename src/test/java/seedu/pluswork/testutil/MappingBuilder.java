@@ -3,6 +3,9 @@ package seedu.pluswork.testutil;
 import seedu.pluswork.model.mapping.InvMemMapping;
 import seedu.pluswork.model.mapping.TasMemMapping;
 
+/**
+ * A utility class to help with building {@code Mapping} objects.
+ */
 public class MappingBuilder {
     public static final String DEFAULT_NAME = "Sample Mapping";
 

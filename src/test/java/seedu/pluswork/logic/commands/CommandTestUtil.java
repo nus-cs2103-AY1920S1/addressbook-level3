@@ -74,7 +74,8 @@ public class CommandTestUtil {
     public static final double VALID_INVENTORY_PRICE_SPORTS = 79.50;
     public static final double VALID_INVENTORY_PRICE_MUSIC = 999;
     public static final String INVENTORY_NAME_DESC_SPORTS = " " + PREFIX_INVENTORY_NAME + VALID_INVENTORY_NAME_SPORTS;
-    public static final String INVENTORY_PRICE_DESC_SPORTS = " " + PREFIX_INVENTORY_PRICE + VALID_INVENTORY_PRICE_SPORTS;
+    public static final String INVENTORY_PRICE_DESC_SPORTS = " " + PREFIX_INVENTORY_PRICE
+            + VALID_INVENTORY_PRICE_SPORTS;
     public static final String INVENTORY_TASKID_DESC_SPORTS = " " + PREFIX_TASK_INDEX + 1;
     public static final String INVENTORY_MEMBERID_DESC_SPORTS = " " + PREFIX_MEMBER_ID + "AR";
 

@@ -38,8 +38,8 @@ public class AddMemberCommandParserTest {
         Member expectedMember = new MemberBuilder(JOHN_DOE).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + PREFIX_MEMBER_NAME +  "John Doe" + PREFIX_MEMBER_ID + "JD"
-                 + TAG_DESC_PUBLICITY, new AddMemberCommand(expectedMember));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + PREFIX_MEMBER_NAME + "John Doe" + PREFIX_MEMBER_ID
+                + "JD" + TAG_DESC_PUBLICITY, new AddMemberCommand(expectedMember));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, MEMBER_NAME_DESC_FINANCE + MEMBER_NAME_JOHN_DOE + MEMBER_ID_JOHN_DOE
