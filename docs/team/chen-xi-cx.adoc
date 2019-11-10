@@ -65,4 +65,5 @@ include::../UserGuide.adoc[tag=average]
 
 include::../DeveloperGuide.adoc[tag=average]
 
+== Instructions for Manual Testing
 include::../DeveloperGuide.adoc[tag=averageTest]
