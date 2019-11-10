@@ -8,24 +8,24 @@ import static seedu.address.testutil.personutil.TypicalPersonDescriptor.WHITESPA
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.PopupCommand;
+import seedu.address.logic.commands.SelectFreeTimeCommand;
 
-class PopupCommandParserTest {
+class SelectFreeTimeCommandParserTest {
 
-    private PopupCommandParser parser = new PopupCommandParser();
+    private SelectFreeTimeParser parser = new SelectFreeTimeParser();
 
     @Test
     void parse_success() {
         assertParseSuccess(parser,
                 WHITESPACE + PREFIX_ID + 1,
-                new PopupCommand(0, 1));
+                new SelectFreeTimeCommand(0, 1));
     }
 
     @Test
     void parse_allNull() {
         assertParseFailure(parser,
                 WHITESPACE,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PopupCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectFreeTimeCommand.MESSAGE_USAGE));
     }
 
 }

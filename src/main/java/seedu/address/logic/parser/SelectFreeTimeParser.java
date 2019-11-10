@@ -5,29 +5,31 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WEEK;
 
-import seedu.address.logic.commands.PopupCommand;
+import seedu.address.logic.commands.SelectFreeTimeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parser class to show closest location inforamtion.
  */
-public class PopupCommandParser implements Parser<PopupCommand> {
+public class SelectFreeTimeParser implements Parser<SelectFreeTimeCommand> {
     @Override
-    public PopupCommand parse(String args) throws ParseException {
+    public SelectFreeTimeCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_WEEK, PREFIX_ID);
 
         if (!Parser.arePrefixesPresent(argMultimap, PREFIX_ID)
                 || Parser.areMultiplePrefixesPresent(argMultimap, PREFIX_GROUPNAME, PREFIX_WEEK, PREFIX_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PopupCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SelectFreeTimeCommand.MESSAGE_USAGE));
         }
 
         int id;
         if (argMultimap.getValue(PREFIX_ID).isPresent()) {
             id = ParserUtil.parseId(argMultimap.getValue(PREFIX_ID).get());
         } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PopupCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SelectFreeTimeCommand.MESSAGE_USAGE));
         }
 
         int week;
@@ -37,7 +39,7 @@ public class PopupCommandParser implements Parser<PopupCommand> {
             week = 0;
         }
 
-        return new PopupCommand(week, id);
+        return new SelectFreeTimeCommand(week, id);
     }
 
 

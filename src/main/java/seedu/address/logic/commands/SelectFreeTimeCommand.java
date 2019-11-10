@@ -17,9 +17,9 @@ import seedu.address.model.person.exceptions.InvalidTimeslotException;
 /**
  * Command to show popup of the locations suggested.
  */
-public class PopupCommand extends Command {
+public class SelectFreeTimeCommand extends Command {
 
-    public static final String COMMAND_WORD = "popup";
+    public static final String COMMAND_WORD = "selectfreetime";
 
     public static final String MESSAGE_SUCCESS = "Closest Location found! See the popup for information.";
     public static final String ERROR_NOTHING_TO_POPUP = "Nothing to show, please show a group first";
@@ -36,7 +36,7 @@ public class PopupCommand extends Command {
     private int week;
     private int id;
 
-    public PopupCommand(int week, int id) {
+    public SelectFreeTimeCommand(int week, int id) {
         this.week = week;
         this.id = id;
     }
@@ -81,6 +81,6 @@ public class PopupCommand extends Command {
 
     @Override
     public boolean equals(Command command) {
-        return (command instanceof PopupCommand);
+        return (command instanceof SelectFreeTimeCommand);
     }
 }

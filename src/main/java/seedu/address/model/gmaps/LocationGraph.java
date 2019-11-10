@@ -35,7 +35,6 @@ public class LocationGraph {
         if (distanceMatrix.size() <= index) {
             throw new IllegalValueException("Index " + index + "exceeds the size of the matrix");
         } else {
-            System.out.println(distanceMatrix.size());
             return distanceMatrix.get(index);
         }
     }

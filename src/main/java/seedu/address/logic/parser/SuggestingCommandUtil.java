@@ -27,9 +27,9 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
-import seedu.address.logic.commands.PopupCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ScrollCommand;
+import seedu.address.logic.commands.SelectFreeTimeCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.ShowNusModCommand;
 import seedu.address.logic.commands.SwitchTabCommand;
@@ -58,7 +58,7 @@ public class SuggestingCommandUtil {
             ExportCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
             HomeCommand.COMMAND_WORD,
-            PopupCommand.COMMAND_WORD,
+            SelectFreeTimeCommand.COMMAND_WORD,
             ScheduleCommand.COMMAND_WORD,
             ScrollCommand.COMMAND_WORD,
             ShowCommand.COMMAND_WORD,
