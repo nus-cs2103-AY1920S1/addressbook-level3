@@ -166,21 +166,60 @@ Delete all all `ToDoTask` and `ModuleTask` from all weeks.
 
 Format: `clear`
 
-=== Modules
+=== Grades Tracker
+
+
+.Quick Reference sheet
+[width="80%" cols="^3,^2, 10" options="header"]
+|=======
+|Available Commands | Prefixes / Input  required | Use
+| add | <m> MODULE_CODE, <t>TITLE, <s> SEMESTER, <c> CREDIT <g> GRADE | Adds a new module.
+| delete | MODULE_CODE | Deletes a specific module.
+| list | | List all the modules, often required after the find command.
+| find | KEYWORD | Find a specific keyword within module code and/or module description.
+| sort | | Display the modules in order of their semesters and academic years taken.
+| clear | | clear all existing modules.
+|=======
 
 To enter the Module section please enter the command: `switch cap`
 
 ==== Manually add module to record : `add`
 The user can add new modules into the grade tracker.
 
-Format: `add MODULE_CODE MODULE_TITLE MODULE_YEAR_AND_SEMESTER MODULE_FACULTY MODULAR_CREDIT GRADE`
-e.g. `add <m>CS2103 <t>Software Engineering <s>1920S1 <f>Computing <c>4 <g>A`, `add <m>ACC1002 <t>Financial Accounting <s>1920S1 <f>NUS Business School <c>4 <g>A`
+The fields of a module consist of: +
+- `MODULE_CODE` The module code of the module. The student is provided with the liberty to input any module code in consideration that new modules may be created in the future. Prefix: `<m>` +
+- `TITLE` The title of the module. The student is provided with the liberty to input any module code in consideration that new modules may be created in the future. Prefix: `<t>`. +
+- `SEMESTER` Semester includes 2 components i.e. the academic year and semester period. The academic year and semester that the module was taken in / provided. Modulo only takes in +/- 5 years for academic year, assuming that students are able to graduate within 5 years. The semester period field takes in 1, 2, 3, 4. Semesters 3 and 4 indicates special term 1 and 2 respectively. Prefix: `<s>`. +
+- `CREDIT` Modular credit for the module. Module credit only accepts 2 to 23 credits. Prefix: `<c>`. +
+- `GRADE` Grades for the attained for the module. Only permitted http://www.nus.edu.sg/nusbulletin/yong-siew-toh-conservatory-of-music/undergraduate-education/degree-requirements/grading-system-and-regulations/[grades] are accepted. SU is currently not supported. Prefix: `<g>`.
+
+[width="80%" options="header"]
+|=======
+|Input| Semester Period
+| 1 | Semester 1
+| 2 | Semester 1
+| 3 | Special Term 1
+| 4 | Special Term 2
+|=======
+
+Format: `add MODULE_CODE MODULE_TITLE MODULE_YEAR_AND_SEMESTER MODULAR_CREDIT GRADE`
+e.g. `add <m>CS2103 <t>Software Engineering <s>1920S1 <c>4 <g>A`, `add <m>ACC1002 <t>Financial Accounting <s>1920S1 <c>4 <g>A`
 
 ==== Delete module from record : `delete`
-Delete a specific module from the list of modules.
+Delete a specific module from the list of modules by specifying the module code. The command is very strict on matching the module code given to the existing modules in modulo.
 
-Format: `delete INDEX`
-e.g. `delete 1`
+Format: `delete MODULE CODE`
+e.g. `delete CS2103`
+
+==== Listing all tasks : `list`
+
+Shows the list of all modules in the grades tracker. +
+Format: `list`
+
+==== Listing all tasks : `sort`
+
+Sorts the list of modules in chronological order, the modules taken earlier to the modules taken later. The determination is based on the academic year then the semesters. +
+Format: `sort`
 
 ==== Locating module by module code or title : `find`
 Finds the module with the matching module code or module description.
@@ -190,7 +229,7 @@ The enhanced search is case insensitive and matches any keyword in the module co
 The search method adopts the inclusive OR search method that returns any modules with the keyword.
 e.g. searching for `metho` will return `Programming Methodology I`, `Programming Methodology II`, `Web Programming and Applications`.
 
-Format: `find MODULE_CODE [MORE_KEYWORDS]`
+Format: `find MODULE_CODE [OTHER_KEYWORDS]`
 e.g. `find CS1010S`, `find Programming Methodology I`
 
 ==== Clear all modules in a specific semester or clean-slate all records : `clear`
