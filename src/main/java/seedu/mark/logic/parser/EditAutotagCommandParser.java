@@ -23,8 +23,8 @@ import seedu.mark.model.predicates.BookmarkPredicate;
 public class EditAutotagCommandParser implements Parser<EditAutotagCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AutotagCommand
-     * and returns an AutotagCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditAutotagCommand
+     * and returns an EditAutotagCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditAutotagCommand parse(String args) throws ParseException {

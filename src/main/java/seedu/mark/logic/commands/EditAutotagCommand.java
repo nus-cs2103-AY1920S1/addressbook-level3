@@ -12,7 +12,7 @@ import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.storage.Storage;
 
 /**
- * Deletes an automatic tagger from Mark.
+ * Edits an automatic tagger from Mark.
  */
 public class EditAutotagCommand extends Command {
 
