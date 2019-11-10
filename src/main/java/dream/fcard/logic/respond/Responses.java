@@ -51,7 +51,6 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     //@@author
-                    
                     //@@author huiminlim
                     LogsCenter.getLogger(Responses.class).info("COMMAND: HELP_WITH_COMMAND");
                     //@author
