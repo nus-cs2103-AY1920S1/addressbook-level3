@@ -298,6 +298,15 @@ public class ModelManager implements Model {
 
     //=========== Filtered Loan List Accessors ===================================================================
 
+    /**
+     * Updates the filter of the filtered loan list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    public void updateFilteredLoanList(Predicate<Loan> predicate) {
+        requireNonNull(predicate);
+        filteredLoans.setPredicate(predicate);
+    }
+
     @Override
     public ObservableList<Loan> getFilteredLoanList() {
         return filteredLoans;
