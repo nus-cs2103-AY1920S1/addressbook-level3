@@ -123,3 +123,27 @@
     -fx-text-fill: gray;
     -fx-highlight-fill: #7ecfff;
 }
+
+#compileError {
+    -fx-border-color: #7d2277;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#compileError .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#compileError:focused .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#compileError:focused {
+    -fx-highlight-fill: #7ecfff;
+}
+
+#noteTextContent .content {
+    -fx-padding: 10px;
+    -fx-text-fill: gray;
+    -fx-highlight-fill: #7ecfff;
+}

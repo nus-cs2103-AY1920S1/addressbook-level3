@@ -85,7 +85,7 @@ e.g. after executing *`showall`* command, "List all questions..." will be displa
 
 3. *Tab Panes*
 +
-Consists of 4 different tabs: _Home_, _Questions_, _Workspace_ and _Help_
+Consists of 5 different tabs: _Home_, _Questions_, _Workspace_, _Notes_ and _Help_
 
 . After executing *`showall`* in the *CommandBox*, find a question that interests you and type `attempt <Qn Index>`
   into the *CommandBox* to start your DukeAcademy experience.
@@ -118,7 +118,7 @@ On the "Home" page, you can:
 The *Questions* tab contains a list of all the available questions and also a window to view your problem statements.
 
 You can use commands such as `browse` and `find` to filter through the list of questions in order to find what you
-are looking for. `browse` can lookup any keywords in titles, difficulty, description, topics, etc. `find` only finds by titles._(View <<Features>> for more details.)_
+are looking for. `browse` can lookup any keywords in titles, difficulty, description, topics, etc. `find` only finds by titles. _(View <<Features>> for more details.)_
 
 . To quickly see all questions, enter `showall` into the *CommandBox*.
 . To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
@@ -150,6 +150,16 @@ To submit your attempt, enter `submit` into the *CommandBox*.
 To begin your attempt on a question, enter `attempt <Qn Index>` into the *CommandBox*.
 
 To submit your attempt, enter `submit` into the *CommandBox*.
+
+[[BeforeStart]]
+== Before you start
+
+. The program evaluator uses *stdin* to feed your program inputs and *stdout* to receive your program's outputs. Thus,
+it is important that your program uses the `Scanner` class to read inputs and for you to print your results.
+
+. Take note that your program is being evaluated *on your local machine* and not within a container or a virtual machine.
+Thus, *do not write any code that you would not want to run on your local machine*.
+
 
 [[Features]]
 == Features
@@ -402,7 +412,6 @@ image::samplequestions.png[width="920"]
 //tag::customqn[]
 [[Custom-Questions]]
 == Load Your Custom Questions
-image::custom_questions.png[width="920"]
 
 * Create a .txt file.
 * The format of a question goes like follows:

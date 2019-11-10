@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
 /**
@@ -25,7 +27,7 @@ public class ProgramEvaluationPanel extends UiPart<Region> {
     private ListView<TestCaseResult> evaluationListView;
 
     @FXML
-    private Label feedback;
+    private TextArea compileError;
 
     /**
      * Instantiates a new Program Evaluation Panel.
@@ -34,6 +36,7 @@ public class ProgramEvaluationPanel extends UiPart<Region> {
      */
     public ProgramEvaluationPanel(Observable<TestResult> testResultObservable) {
         super(FXML);
+
         testResultObservable.addListener(result -> {
 
             if (result != null) {
@@ -41,10 +44,10 @@ public class ProgramEvaluationPanel extends UiPart<Region> {
                 if (result.getCompileError().isPresent()) {
                     evaluationListView.getItems().clear();
                     String compileErrorMessage = result.getCompileError().get().getErrorMessage();
-                    feedback.setText(compileErrorMessage);
+                    compileError.setText(compileErrorMessage);
                 } else {
                     // otherwise, we will display how well the user's program performed against pre-defined test cases
-                    feedback.setText("");
+                    compileError.setText(null);
                     List<TestCaseResult> testCaseResults = result.getResults();
                     ObservableList<TestCaseResult> observableTestCaseResults =
                             FXCollections.observableArrayList(testCaseResults);
