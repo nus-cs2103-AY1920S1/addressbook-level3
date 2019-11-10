@@ -450,7 +450,7 @@ Format: `showNotifs`
 // tag::sort[]
 
 ==== Sort all entries: `sort` `[coming in v2.0]`
-Sort all displayed entries according to a given order. Only body and worker entries can be sorted.
+You can sort all displayed entries according to a given order. Only body and worker entries can be sorted.
 Sort only works on the entries that are in view. For example, to sort body entries, the you need to first navigate to the bodies view.
 Types of ordering can be found below:
 
@@ -740,7 +740,7 @@ Assigns worker with worker ID W00001 to body with ID B00000002 with a task descr
 // tag::help[]
 
 ==== View all commands: `help`
-View a summary of all available commands and their flags. Use the `-v` flag to view the detailed description of all commands and their flags.
+You can view a summary of all available commands and their flags. Use the `-v` flag to view the detailed description of all commands and their flags.
 
 Format: `help`
 
@@ -750,7 +750,7 @@ Shows a link to the User Guide.
 // end::help[]
 
 ==== View help hotlines: `hotlines` `[coming in v2.0]`
-View emergency help hotlines.
+You can view emergency help hotlines.
 
 Format: `hotlines`
 
