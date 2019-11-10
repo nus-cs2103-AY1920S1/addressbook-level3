@@ -19,10 +19,10 @@ import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
 
-public class DoneTaskInvTag {
+class DoneTaskMl extends MultiLine{
 
-    public static CommandResult manageOne(CommandResult commandResult, Command command,
-                                          Model model, ArrayList<Command> commands) throws CommandException, ParseException {
+    CommandResult manageOne(CommandResult commandResult, Command command,
+                                   Model model, ArrayList<Command> commands) throws CommandException, ParseException {
         String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
         switch (commandWord) {
             case "Type-1":
@@ -48,7 +48,7 @@ public class DoneTaskInvTag {
         }
     }
 
-    public static boolean isMultiLine(CommandResult commandResult) {
+    boolean isMultiLine(CommandResult commandResult) {
         String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
         switch (commandWord) {
             case "continue":
@@ -59,7 +59,7 @@ public class DoneTaskInvTag {
         }
     }
 
-    public static AddInventoryCommand createCommandOne(Command command, Model model, ArrayList<Command> commands) throws ParseException {
+    private static AddInventoryCommand createCommandOne(Command command, Model model, ArrayList<Command> commands) throws ParseException {
         try {
             Index index;
             Name name;

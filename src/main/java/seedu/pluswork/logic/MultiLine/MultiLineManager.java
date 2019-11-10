@@ -44,35 +44,41 @@ public class MultiLineManager {
     //Manager methods
 
     public CommandResult manage(CommandResult commandResult, Command command) throws CommandException, ParseException {
+        MultiLine commandToExec;
         if (isMultiLine) {
             switch (currentType) {
                 case 1:
-                    isMultiLine = DoneTaskInvTag.isMultiLine(commandResult);
-                    return DoneTaskInvTag.manageOne(commandResult, command, model, commands);
+                    commandToExec = new DoneTaskMl();
+                    break;
                 case 2:
-                    isMultiLine = ClearQuestion.isMultiLine(commandResult);
-                    return ClearQuestion.manageOne(commandResult, command, model, commands);
+                    commandToExec = new ClearMl();
+                    break;
                 case 3:
-                    isMultiLine = AddTaskDetails.isMultiLine(commandResult);
-                    return AddTaskDetails.manageOne(commandResult, command, model, commands);
+                    commandToExec = new AddTaskMl();
+                    break;
                 default:
                     throw new ParseException("Invalid Command");
             }
+            isMultiLine = commandToExec.isMultiLine(commandResult);
+            return commandToExec.manageOne(commandResult, command, model, commands);
         } else {
             String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
             switch (commandWord) {
                 case "Type-1":
                     currentType = 1;
                     isMultiLine = true;
-                    return DoneTaskInvTag.manageOne(commandResult, command, model, commands);
+                    commandToExec = new DoneTaskMl();
+                    break;
                 case "Type-2":
                     currentType = 2;
                     isMultiLine = true;
-                    return ClearQuestion.manageOne(commandResult, command, model, commands);
+                    commandToExec = new ClearMl();
+                    break;
                 case "Type-3":
                     currentType = 3;
                     isMultiLine = true;
-                    return AddTaskDetails.manageOne(commandResult, command, model, commands);
+                    commandToExec = new AddTaskMl();
+                    break;
                 case "halt":
                 case "continue":
                 case "final":
@@ -82,6 +88,7 @@ public class MultiLineManager {
                     currentType = 0;
                     return new CommandResult("No MultiLine");
             }
+            return commandToExec.manageOne(commandResult, command, model, commands);
         }
     }
 }

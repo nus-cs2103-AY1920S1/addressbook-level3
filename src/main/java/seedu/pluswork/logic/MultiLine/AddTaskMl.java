@@ -15,9 +15,9 @@ import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.member.MemberId;
 
-public class AddTaskDetails {
-    public static CommandResult manageOne(CommandResult commandResult, Command command,
-                                          Model model, ArrayList<Command> commands) throws CommandException, ParseException {
+class AddTaskMl extends MultiLine{
+    CommandResult manageOne(CommandResult commandResult, Command command,
+                                   Model model, ArrayList<Command> commands) throws CommandException, ParseException {
         String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
         switch (commandWord) {
             case "Type-3":
@@ -44,7 +44,7 @@ public class AddTaskDetails {
         }
     }
 
-    public static boolean isMultiLine(CommandResult commandResult) {
+    boolean isMultiLine(CommandResult commandResult) {
         String commandWord = commandResult.getFeedbackToUser().trim();
         switch (commandWord) {
             case "continue":
