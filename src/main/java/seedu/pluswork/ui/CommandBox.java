@@ -15,9 +15,16 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import seedu.pluswork.commons.Keywords;
+import seedu.pluswork.logic.Logic;
 import seedu.pluswork.logic.commands.CommandResult;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
@@ -29,9 +36,9 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    List<String> commandList = Keywords.commandList;
 
     private final CommandExecutor commandExecutor;
+    private Logic logic;
 
     /**
      * The existing autocomplete entries.
@@ -41,10 +48,14 @@ public class CommandBox extends UiPart<Region> {
     /**
      * The popup used to select an entry.
      */
+    @FXML
     private ContextMenu entriesPopup;
 
     @FXML
     private TextField commandTextField;
+
+    @FXML
+    private Label label;
 
     /**
      * makes a new CommandBox adapted from Caleb Brinkman's AutoCompleteTextBox
@@ -52,16 +63,16 @@ public class CommandBox extends UiPart<Region> {
      *
      * @param commandExecutor
      */
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, Logic logic) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        entries = new TreeSet<>(commandList);
+        this.logic = logic;
+        entries = new TreeSet<>();
         entriesPopup = new ContextMenu();
         // calls #setStyleToDefault() whenever there is a change to the text of the
         // command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        commandTextField.textProperty()
-                .addListener((observableValue, oldStr, newStr) -> getSuggestions(observableValue, oldStr, newStr));
+        getSuggestions();
 
     }
 
@@ -73,16 +84,14 @@ public class CommandBox extends UiPart<Region> {
      * @param s
      * @param s2
      */
-
-    public void getSuggestions(ObservableValue<? extends String> observableValue, String s, String s2) {
-        String text = commandTextField.getText().toLowerCase();
-        if (text.length() == 0) {
-            entriesPopup.hide();
-        } else {
-            LinkedList<String> searchResult = new LinkedList<>();
-            searchResult.addAll(entries.subSet(text, text + Character.MAX_VALUE));
-            //show the list of suggestions if user input is a substring
-            if (entries.size() > 0) {
+    // adapted from group T12-2
+    public void getSuggestions() {
+        commandTextField.textProperty().addListener((observableValue, oldStr, newStr) -> {
+            String text = commandTextField.getText().toLowerCase();
+            if (text.length() == 0 || text == null) {
+                entriesPopup.hide();
+            } else {
+                LinkedList<String> searchResult = logic.getAutoCompleteResults(text);
                 populatePopup(searchResult);
                 if (!entriesPopup.isShowing()) {
                     entriesPopup.show(this.commandTextField, Side.BOTTOM, 0, 0);
@@ -90,10 +99,8 @@ public class CommandBox extends UiPart<Region> {
                 if (searchResult.size() == 1 && searchResult.getFirst().equals(text)) {
                     entriesPopup.hide();
                 }
-            } else {
-                entriesPopup.hide();
             }
-        }
+        });
     }
 
     /**
@@ -111,28 +118,55 @@ public class CommandBox extends UiPart<Region> {
      *
      * @param searchResult The set of matching strings.
      */
+
     private void populatePopup(List<String> searchResult) {
         List<CustomMenuItem> menuItems = new LinkedList<>();
         int maxEntries = 5;
         int count = Math.min(searchResult.size(), maxEntries);
         for (int i = 0; i < count; i++) {
+            String existingText = commandTextField.getText();
             final String result = searchResult.get(i);
-            Label entryLabel = new Label(result);
+            Label entryLabel = new Label();
+            entryLabel.setGraphic(buildTextFlow(result, existingText));
+            entryLabel.setPrefHeight(10);
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
-            item.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
+            item.setOnAction(actionEvent -> {
                     commandTextField.setText(Keywords.getParameters(result));
+                    System.out.println(Keywords.getParameters(result));
                     //this line moves the cursor to the end after choosing a drop-down option
                     commandTextField.endOfNextWord();
                     entriesPopup.hide();
-                }
             });
             menuItems.add(item);
         }
         entriesPopup.getItems().clear();
         entriesPopup.getItems().addAll(menuItems);
 
+    }
+
+    /**
+     * Build TextFlow with selected text. Return "case" dependent.
+     *
+     * @param text   - string with text
+     * @param filter - string to select in text
+     * @return - TextFlow
+     */
+    private static TextFlow buildTextFlow(String text, String filter) {
+        if (filter.equals("")) {
+            Text toReturn = new Text(text);
+            toReturn.setFill(Color.BLACK);
+            // toReturn.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
+            return new TextFlow(toReturn);
+        }
+        //System.out.println(filter);
+        int filterIndex = text.toLowerCase().indexOf(filter.toLowerCase());
+        Text textBefore = new Text(text.substring(0, filterIndex));
+        Text textAfter = new Text(text.substring(filterIndex + filter.length()));
+        //instead of "filter" to keep all "case sensitive"
+        Text textFilter = new Text(text.substring(filterIndex, filterIndex + filter.length()));
+        textFilter.setFill(Color.web("2eb8b8"));
+        // textFilter.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
+        return new TextFlow(textBefore, textFilter, textAfter);
     }
 
     /**
