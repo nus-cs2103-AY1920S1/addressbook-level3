@@ -59,7 +59,6 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<ReadOnlyGuiltTrip> readGuiltTrip(Path filePath) throws DataConversionException, IOException {
-        System.out.println("reaches here");
         logger.fine("Attempting to read data from file: " + filePath);
         return guiltTripStorage.readGuiltTrip(filePath);
     }

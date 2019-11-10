@@ -119,8 +119,6 @@ class JsonSerializableGuiltTrip {
 
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
             Budget budget = jsonAdaptedBudget.toModelType();
-            System.out.println(budget);
-            System.out.println("amt" + budget.getAmount());
             if (!guiltTrip.getCategoryList().contains(budget.getCategory())) {
                 throw new IllegalValueException(MESSAGE_WRONG_CATEGORY);
             }

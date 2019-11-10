@@ -80,12 +80,11 @@
                         </padding>
                         <Label fx:id="budgetTitle" styleClass="side-panel-title" text="Budgets" style="-fx-text-fill: SteelBlue"/>
                     </VBox>
-                    <VBox fx:id="remindersPlaceHolder" minWidth="550" prefWidth="550" styleClass="side-panel"
-                          VBox.vgrow="ALWAYS">
+                    <VBox fx:id="remindersPlaceHolder" minWidth="550" prefWidth="550" styleClass="side-panel" VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
-                        <Label fx:id="remindersTitle" styleClass="side-panel-title" text="Reminders" style="-fx-text-fill: GoldenRod"/>
+                        <Label fx:id="remindersTitle" styleClass="side-panel-title" text="Reminders" style="-fx-text-fill: MediumSeaGreen"/>
                     </VBox>
                     <VBox fx:id="autoExpensesPlaceHolder" minWidth="550" prefWidth="550" styleClass="side-panel"
                           VBox.vgrow="ALWAYS">

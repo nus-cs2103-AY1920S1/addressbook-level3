@@ -386,7 +386,6 @@ public class MainWindow extends UiPart<Stage> {
         FontManager fontManager = new FontManager();
         String feedbackToUserWithFontList = oldFeedbackToUser + ": "
                 + Arrays.toString(fontManager.getFontsAsStrings().toArray());
-        System.out.println(Arrays.toString(fontManager.getFontsAsStrings().toArray()));
         logger.info("Listed all fonts");
         return feedbackToUserWithFontList;
     }
@@ -570,9 +569,9 @@ public class MainWindow extends UiPart<Stage> {
                 showConditionPanel();
             }
 
-            if (!(commandResult.toShowConditionPanel())) {
+            /*if (!(commandResult.toShowConditionPanel())) {
                 showReminderPanel();
-            }
+            }*/
 
             if (commandResult.isList()) {
                 String toList = commandResult.getToList();

@@ -214,9 +214,7 @@ public class CommandTestUtil {
      */
     public static void showExpenseAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredIncomes().size());
-        System.out.println(model.getFilteredExpenses());
         Expense expense = model.getFilteredExpenses().get(targetIndex.getZeroBased());
-        System.out.println(expense);
         final String[] splitDesc = expense.getDesc().fullDesc.split("\\s+");
         model.updateFilteredExpenses(new EntryContainsDescriptionPredicate(Arrays.asList(splitDesc[0])));
 

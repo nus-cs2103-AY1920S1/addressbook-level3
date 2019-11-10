@@ -86,6 +86,9 @@ public class TypicalEntries {
         for (Income income : getTypicalIncomes()) {
             gt.addIncome(income);
         }
+        for (Budget budget : getTypicalBudgets()) {
+            gt.addBudget(budget);
+        }
         for (Wish wish : getTypicalWishes()) {
             gt.addWish(wish);
         }

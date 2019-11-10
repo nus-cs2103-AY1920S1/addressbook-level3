@@ -75,7 +75,6 @@ public class MainApp extends Application {
         Optional<ReadOnlyGuiltTrip> guiltTripOptional;
         ReadOnlyGuiltTrip initialData;
         try {
-            System.out.println("this is printed");
             guiltTripOptional = storage.readGuiltTrip();
 
             if (guiltTripOptional.isEmpty()) {
@@ -89,7 +88,6 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty GuiltTrip");
             initialData = new GuiltTrip(true);
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
             logger.warning("Problem while reading from the file. There is a duplicate category and "
                     + "will be starting with an empty GuiltTrip");
             initialData = new GuiltTrip(true);
