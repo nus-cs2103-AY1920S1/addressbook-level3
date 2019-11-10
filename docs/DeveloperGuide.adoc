@@ -198,7 +198,7 @@ the item is automatically tagged as `#Expired`.**
 ==== Commands in the replenish list
 
 ===== Implementation
-As shown in  <<Logic component,Section 2.3>> above, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
+As shown in  <<Logic component,Section 2.3>>, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
 `ReplenishParser` parses and handles the commands in the replenish list.
 [NOTE]
 Certain commands such as sorting by date, or deleting
@@ -228,9 +228,9 @@ This will be further explained in a <<Spelling correction with alternative recom
 // tag::autosort[]
 === Auto-sorting of items by name then date
 ==== Implementation
-Items in both lists are also automatically sorted by their name then date in chronological order.
+Items in both lists are automatically sorted by their name then date in chronological order.
 This auto-sorting mechanism is facilitated by `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`
-that both implement `SortedUniqueItemList`, in a relationship illustrated in  <<Model component,Section 2.4>> above.
+that both implement `SortedUniqueItemList`, in a relationship summarised in  <<Model component,Section 2.4>>.
 
 `SortedUniqueXpireItemList` supports a new function, `SortedUniqueItemList#setMethodOfSorting()`, that specifies the
 `MethodOfSorting` and comparator to be used for the list.
@@ -246,8 +246,8 @@ image::AutoSortViewSequenceDiagram.png[]
 [NOTE]
 Parsers are omitted from the diagram above to place greater emphasis on the parser selection process and sorting mechanism.
 
-Figure 13 above shows a `view|replenish` command executed to change the current view from that of the main tracking list `Xpire`
-to the replenish list, while Figure 14 below materializes this process.
+The figure above shows a `view|replenish` command executed to change the current view from that of the main tracking list `Xpire`
+to the replenish list, while the figure below initialises this process.
 
 .Sequence Diagram : setting the parser
 image::ViewSetParserSequenceDiagram.png[]
@@ -255,7 +255,7 @@ image::ViewSetParserSequenceDiagram.png[]
 `LogicManager` creates and allocates a parser to parse commands entered by the user each time. It does so by first identifying the current view
 displayed. In this example, the current view is found to be `XPIRE`, and thus `XpireParser` is selected. Following that,
 new objects `ViewCommandParser` and `ViewCommand` are created and returned to `LogicManager` to be used in the execution of the `view|replenish` command.
-Figure 15 below pictures the process of retrieving the internal sorted list of items in `ReplenishList`.
+The figure below pictures the process of retrieving the internal sorted list of items in `ReplenishList`.
 
 .Sequence Diagram : retrieve internal sorted list
 image::AutoSortViewPartSequenceDiagram.png[]
@@ -268,7 +268,7 @@ The list returned is the sortedInternalList wrapped as an unmodifiable list.
 `this.internalUnmodifiableList = FXCollections.unmodifiableList(this.sortedInternalList);`
 
 [NOTE]
-Everytime view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
+Every time view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
 the default method of sorting is then retrieved.
 
 The following sequence diagram demonstrates how the sort command changes the default order of items displayed:
@@ -279,7 +279,7 @@ image::SortSequenceDiagram.png[]
 When sort is called, the method of sorting is redefined by the user.
 
 In this example, the user has chosen to re-sort the items by date. As indicated above, `ParserUtil` primarily verifies that the method of sorting is valid, i.e. either name or date. Next, `s`,
-the `SortCommand` object created executes the `sort|date` command. Figure 17 below exhibits the specific process which sorts the items by their expiry dates.
+the `SortCommand` object created executes the `sort|date` command. The figure below exhibits the specific process which sorts the items by their expiry dates.
 
 .Sequence Diagram : set method of sorting to date
 image::SortPartSequenceDiagram.png[]
@@ -600,7 +600,7 @@ image::RecommendationsExample2.png[]
 
 //Given below is an example usage scenario and how the mechanism behaves at each step.
 
-Figure 24 below depicts the flow of events that check for spelling errors when a user executes an unknown command.
+The figure below depicts the flow of events that check for spelling errors when a user executes an unknown command.
 
 .Activity diagram showing what happens when an unknown command is executed
 
@@ -610,7 +610,7 @@ For example, if `set reminder` was input incorrectly as `set remindre`, it will 
 It is then compared with an collection of all possible command words in the existing list. `set reminder` will be established
 as its closest match and wrapped as a recommendation in a `ParseException` object to be thrown and displayed to the user.
 
-Figure 25 below on the other hand, presents what happens when a user executes a command with invalid arguments.
+On the other hand, the figure below presents what happens when a user executes a command with invalid arguments.
 
 .Activity diagram showing what happens when an a command is executed with misspelled arguments
 
@@ -625,7 +625,7 @@ In the example below encapsulated in a sequence diagram, "date" is misspelled as
 
 image::RecommendationsSortSequenceDiagram.png[]
 
-The sequence diagram titled `find similar words` here expands on the process omitted above in Figure 26.
+The sequence diagram titled `find similar words` here expands on the process omitted above.
 
 .Sequence diagram showing how "date" is found to be the most similar word to "dat"
 
