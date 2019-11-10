@@ -128,7 +128,7 @@ The *Questions* tab contains a list of all the available questions and also a wi
 You can use commands such as `browse` and `find` to filter through the list of questions in order to find what you
 are looking for. `browse` can lookup any keywords in titles, difficulty, description, topics, etc. `find` only finds by titles._(View <<Features>> for more details.)_
 
-. To quickly see all questions, enter `showall` into the *CommandBox*.
+. To quickly see all questions, enter `showall` into the *Command Box*.
 . To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
   on the right.
 
@@ -153,11 +153,11 @@ This panel displays the correctness of your program when evaluated against the p
 +
 A built-in editor for you to write your code.
 
-To submit your attempt, enter `submit` into the *CommandBox*.
+To submit your attempt, enter `submit` into the *Command Box*.
 
-To begin your attempt on a question, enter `attempt <Qn Index>` into the *CommandBox*.
+To begin your attempt on a question, enter `attempt <Qn Index>` into the *Command Box*.
 
-To submit your attempt, enter `submit` into the *CommandBox*.
+To submit your attempt, enter `submit` into the *Command Box*.
 
 [[Features]]
 == Features
