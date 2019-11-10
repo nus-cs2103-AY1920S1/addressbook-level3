@@ -526,6 +526,7 @@ The design considerations for the placement of the game is shown below:
 |Alternatives: |Pros: |Cons:
 |1. Placing the game in one of the tabs (beside the Calendar) such that `show g` will switch tab to the game tab. | Users are able to see the chatbox while in the game. | Requires users to use the mouse (away from CLI) to switch between typing in the command box and hitting the keys on the keyboard.
 |2. *(Current)* Creating a separate scene such that the original scene (with ELISA) is hidden when game mode is entered. | Allows users to hit the keys on the keyboard without typing into the command box. | Users are unable to see the chatbox from Elisa.
+|===
 
 === [Proposed] Data Encryption
 
