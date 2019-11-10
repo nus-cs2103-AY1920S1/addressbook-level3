@@ -199,14 +199,19 @@ image:BetterModelClassDiagram.png[]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::storage_classdiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`[green]#Storage.java#`]
 
-The `[green]#Storage#` component,
+The `[green]#Storage#` component the following data in json format and read it back
 
-* can save `[green]#UserPref#` objects in json format and read it back.
-* can save the Athletick data in json format and read it back.
+* `[green]#UserPref#` objects
+* `[green]#Athletick#` data (athlete list)
+* `[green]#Performance#` data (`[green]#Event#` and `[green]#Record#`)
+* `[green]#TrainingManager#` data (`[green]#Training#`)
+
+`[green]#Performance#` and `[green]#TrainingManager#` rely on `[green]#JsonAdaptedPerson#` as well, since a
+performance and training record also stores the athlete it is referring to.
 
 [[Design-Commons]]
 === Common classes
