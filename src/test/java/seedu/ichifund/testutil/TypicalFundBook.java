@@ -22,8 +22,8 @@ import java.util.List;
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.date.Date;
-import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * A utility class containing a list of {@code FundBook} related objects to be used in tests.
