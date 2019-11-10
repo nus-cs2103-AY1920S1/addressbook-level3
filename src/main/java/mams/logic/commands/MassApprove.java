@@ -270,10 +270,10 @@ public class MassApprove extends Approve {
                         model.setAppeal(appealToApprove, approvedAppeal);
                         approvedSuccessfully.add(appealId);
 
-                    } else if (appealToApprove.isResolved() == true
+                    } else if (appealToApprove.isResolved()
                             && appealToApprove.getResult().equalsIgnoreCase("APPROVED")) {
                         alreadyApproved.add(appeal.getAppealId());
-                    } else if (appealToApprove.isResolved() == true
+                    } else if (appealToApprove.isResolved()
                             && appealToApprove.getResult().equalsIgnoreCase("REJECTED")) {
                         alreadyRejected.add(appeal.getAppealId());
                     }
@@ -355,11 +355,8 @@ public class MassApprove extends Approve {
         Collections.sort(this.validIds);
         Collections.sort(this.invalidIds);
 
-        if (validIds.equals(compareValid)) {
-            return true;
-        } else {
-            return false;
-        }
+        return validIds.equals(compareValid);
+
     }
 
     private Optional<ClashCase> getClashCase(Module moduleA, Module moduleB) {
