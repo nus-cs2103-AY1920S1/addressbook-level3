@@ -100,8 +100,9 @@ Edits a existing delivery task in the task manager. +
 Format: `editT [TASK ID] [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]`
 
 ****
-* Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
 * Only indicate fields that you want to change.
+* Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
+* COMPLETED tasks cannot be edited.
 ****
 
 Examples:
