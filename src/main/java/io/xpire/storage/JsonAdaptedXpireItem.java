@@ -127,7 +127,7 @@ class JsonAdaptedXpireItem extends JsonAdaptedItem {
             throw new IllegalValueException(ReminderThreshold.MESSAGE_CONSTRAINTS);
         }
 
-        /* since the date of creation of the item is known,
+        /*  Since the date of creation of the item is known,
             this check assumes the date to be no earlier than 01/10/2019.
             Any reminder threshold that results in the reminder before 01/10/2019 will be rejected.
             @@author xiaoyu-nus

@@ -23,7 +23,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
     public Xpire() {}
 
     /**
-     * Creates a Xpire object using the xpireItems in the {@code toBeCopied}
+     * Creates a Xpire object using the xpireItems in the {@code toBeCopied}.
      */
     public Xpire(ReadOnlyListView toBeCopied) {
         this();

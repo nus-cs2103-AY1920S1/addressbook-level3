@@ -59,17 +59,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     @Override
-    public Path getReplenishFilePath() {
-        return this.replenishFilePath;
-    }
-
-    public void setReplenishFilePath(Path replenishListFilePath) {
-        requireNonNull(replenishListFilePath);
-        this.replenishFilePath = replenishListFilePath;
-    }
-
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
