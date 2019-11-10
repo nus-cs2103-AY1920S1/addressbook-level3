@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -28,6 +27,7 @@ import seedu.savenus.logic.commands.ViewSortCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.util.FixedToolTip;
 
 //@@author robytanama
 /**
@@ -130,40 +130,40 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         infoWindow = new InfoWindow();
 
-        // All the buttons tooltip configuration
-        Tooltip help = new Tooltip("Help");
+        // All the buttons FixedToolTip configuration
+        FixedToolTip help = new FixedToolTip("Help");
         help.setShowDelay(Duration.seconds(0));
         helpButton.setTooltip(help);
 
-        Tooltip quit = new Tooltip("Quit");
+        FixedToolTip quit = new FixedToolTip("Quit");
         quit.setShowDelay(Duration.seconds(0));
         quitButton.setTooltip(quit);
 
-        Tooltip theme = new Tooltip("Change theme");
+        FixedToolTip theme = new FixedToolTip("Change theme");
         theme.setShowDelay(Duration.seconds(0));
         themeButton.setTooltip(theme);
 
-        Tooltip recommend = new Tooltip("Recommend");
+        FixedToolTip recommend = new FixedToolTip("Recommend");
         recommend.setShowDelay(Duration.seconds(0));
         recommendButton.setTooltip(recommend);
 
-        Tooltip list = new Tooltip("List");
+        FixedToolTip list = new FixedToolTip("List");
         list.setShowDelay(Duration.seconds(0));
         listButton.setTooltip(list);
 
-        Tooltip defaults = new Tooltip("Default");
+        FixedToolTip defaults = new FixedToolTip("Default");
         defaults.setShowDelay(Duration.seconds(0));
         defaultButton.setTooltip(defaults);
 
-        Tooltip history = new Tooltip("History");
+        FixedToolTip history = new FixedToolTip("History");
         history.setShowDelay(Duration.seconds(0));
         historyButton.setTooltip(history);
 
-        Tooltip viewSort = new Tooltip("View sort");
+        FixedToolTip viewSort = new FixedToolTip("View sort");
         viewSort.setShowDelay(Duration.seconds(0));
         viewSortButton.setTooltip(viewSort);
 
-        Tooltip customSort = new Tooltip("Custom sort");
+        FixedToolTip customSort = new FixedToolTip("Custom sort");
         customSort.setShowDelay(Duration.seconds(0));
         customSortButton.setTooltip(customSort);
     }
