@@ -172,7 +172,7 @@ public class Policy implements Binnable {
      * Returns true if the specified {@code int} is within the age range of the policy.
      */
     public boolean isEligibleAge(int age) {
-            return age > Integer.parseInt(this.startAge.age) && age < Integer.parseInt(this.endAge.age);
+        return age > Integer.parseInt(this.startAge.age) && age < Integer.parseInt(this.endAge.age);
     }
 
     @Override
