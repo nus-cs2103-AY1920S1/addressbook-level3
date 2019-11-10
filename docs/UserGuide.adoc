@@ -776,11 +776,11 @@ Example:
 
 * Type `theme light` into the command box as shown below.
 
-image::theme-light-preview.png[width=500]
+image::theme-light-preview.png[width=400]
 
 * Hit the kbd:[Enter] key and +Work switches to the `light` theme! As seen below, your choice of `light` is highlighted as well.
 
-image::theme-light-res.png[width=500]
+image::theme-light-res.png[width=400]
 
 * Similarly, `theme dark` switches to the `dark` theme.
 
@@ -800,16 +800,16 @@ Example:
 
 * Type `clock twelve` into the command box as shown below.
 
-image::clock-twelve-preview.png[width=500]
+image::clock-twelve-preview.png[width=400]
 
 * Hit the kbd:[Enter] key and +Work switches the time format to the 12 hour clock! As seen below, the new format is highlighted as well.
 
-image::clock-twelve-res-settings.png[width=500]
+image::clock-twelve-res-settings.png[width=400]
 
 * Now when you navigate to any view which has time sensitive data, you will see that the format has been switched. For example, if you were to switch
 back to the dashboard by entering `home` you should see a window similar the one shown below.
 
-image::clock-twelve-res-dashboard.png[width=500]
+image::clock-twelve-res-dashboard.png[width=400]
 
 * Similarly, `clock twenty_four` switches to the 24 hour clock.
 
