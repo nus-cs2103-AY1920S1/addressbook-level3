@@ -184,20 +184,42 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::transaction[]
-=== Transaction: `in` / `out` / `split` / `receive`
+=== Transaction: `in` / `out`
 
-The `Transaction` abstract class allows user to input income, expense or split commands into the PalPay.
+The `Transaction` abstract class allows user to input income and expense statements. Both `in` and `out` transactions requires the mandatory `Amount`, `Description` and `Date` fields to be appended. There is an optional `Category` field which can accept one or more input depending on the user specifications.
+The `in` transactions will increase the `BankAccount` balance amount whilst the `out` transactions will reduce the `BankAccount` balance amount.
 
 ==== Current Implementation
 
-`Transaction` is an abstract class which contains the default constructor and commonly used functions. `InTransaction` and `OutTransaction` extends the `Transaction` class.
-`Transaction` stores an *amount*, *date*, *description*, and a set of *categories*. This describes the variables a `Transaction` with the `BankAccount` will typically hold.
-`InTransaction` and `OutTransaction` implements `BankAccountOperation`.
+The sequence diagram below illustrates how PalPay handles the command input `in $/200 n/coke d/10102019`. The arguments are parsed into the logic component where the subsequent model objects are created.
+
+.Sequence diagram for executing an `InCommand`
+image::InSequenceDiagram.png[]
+
+The `in` and `out` transaction follows the same logic flow after they are parsed. The only difference is that the `handleBalance()` method called in the `BankAccount` results in an `addAmount` operation in the `inTransaction` and a `subtractAmount` operation in the `OutTransaction` class.
+
+`Transaction` is an abstract class which contains the default constructor and commonly used variables. `InTransaction` and `OutTransaction` extends the `Transaction` class as they typically store an *amount*, *date*, *description*, and a set of *categories*.
+A code snippet of the `Transaction` abstract class is shown below.
+
+```
+public abstract class Transaction {
+
+    protected Amount amount;
+    protected Date date;
+    protected Description description;
+    protected final Set<Category> categories = new HashSet<>();
+
+    public Transaction(Amount amount, Date date, Description description) {
+        this.amount = amount;
+        this.date = date;
+        this.description = description;
+    }
+```
+
 
 ==== Design Considerations
 
-Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables. +
-The balance in `BankAccount` is considered separate from the balance in `Ledger`, both being encompassed in `UserState`.
+The balance in `BankAccount` and the balance in `Ledger` are considered two separate identities, both being encompassed under the `UserState` class.
 Therefore user operations that deal with `BankAccount` implements the `BankAccountOperation` interface, while operations
 that deal with `Ledger` implements the `LedgerOperation` interface. +
 This allows us to achieve polymorphism by overloading methods in `Model` to handle the different operations correctly.
@@ -340,7 +362,7 @@ The `project` command is facilitated by the Logic and Model components of the ap
 The sequence diagram below demonstrates how the `project DATE [CATEGORY]` command is handled by the application.
 If a `CATEGORY` is not specified by the user, it will be set as `GENERAL` by default.
 
-.Sequence Diagram of Project Command
+.Sequence Diagram of the Project Command
 image::ProjectSequenceDiagram.png[ProjectCommand Sequence Diagram]
 
 ===== Projection by Date
@@ -365,6 +387,7 @@ than the latter.
 
 The activity diagram below depicts how a projection is made.
 
+.Activity Diagram of the Project Command
 image::ProjectActivityDiagram.png[]
 
 ===== Graphical Representation
@@ -381,6 +404,11 @@ may not be best represented by a straight line, but rather by a polynomial equat
 feature will choose a value, _n_, and perform a _n-th_ degree polynomial regression, such that the user's balance
 and budget states can be more accurately projected.
 
+[NOTE]
+Currently, the GradientDescent class implements feature scaling and mean normalisation. Although this
+is not entirely necessary for the current implementation (which uses linear regression), it is meant
+for optimizing polynomial regression in future updates.
+
 ===== Normal Equation
 
 Currently, the gradient descent algorithm is used to plot the projection graph, which is used for predicting the
@@ -393,6 +421,21 @@ a set number (e.g. 500) of transactions.
 // end::project[]
 
 === Display Feature `display`
+This feature provides a graphical view of an existing projection to the _user_. +
+
+==== Current Implementation
+The following activity diagram depicts how the `display` command is executed.
+
+.Activity Diagram of the Display Command
+image::DisplayActivityDiagram.png[]
+
+For a more concrete illustration of how the `display` command is handled by _PalPay_,
+a sequence diagram is provided below.
+
+.Sequence Diagram of the Display Command
+image::DisplaySequenceDiagram.png[]
+
+
 // end::display[]
 
 // tag::view[]
@@ -452,10 +495,13 @@ image::DeleteActivityDiagram.png[]
 
 ===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
 
-Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables.
-`inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`,
-this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands.
-This allows multiple transaction calls within the same method.
+* **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction, Budget, Ledger or Projection list. (e.g. `delete b1` deletes item index 1 from budget).
+** Pros: Requires lesser user steps to be taken before executing a `delete` command
+** Cons: Requires four unique lists to be created instead of 1. (e.g. the `UniqueTransactionList` stores Transaction items and the `UniqueBudgetList` to store Budget items).
+** For example, when a new command is executed, we must remember to delete both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `delete 1 ..`)
+** Pros: Requires only one unique list required to store both Transactions and Budgets.
+** Cons: Requires additional user step to switch between modes before executing a updating command.
 
 // end::delete[]
 
@@ -470,11 +516,11 @@ This `update` feature allows one or more fields of a Transaction or Budget to be
 
 ===== Aspect: Update requires `TYPE+INDEX` as one of its parameter
 
-* **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction or Budget list. (e.g. `delete b1` deletes item index 1 from budget).
+* **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to update an item from Transaction, Budget or Projection list. (e.g. `delete b1` deletes item index 1 from budget).
 ** Pros: Requires lesser user steps to be taken before executing a `update` command
-** Cons: Requires two lists to be created instead of 1. The `UniqueTransactionList` stores Transaction items and `UniqueBudgetList` to store Budget items.
-For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `update 1`)
+** Cons: Requires three unique lists to be utilized instead of 1. (e.g. the `UniqueTransactionList` stores Transaction items and the `UniqueBudgetList` to store Budget items).
+** For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `update 1 ..`)
 ** Pros: Requires only one unique list required to store both Transactions and Budgets.
 ** Cons: Requires additional user step to switch between modes before executing a updating command.
 
