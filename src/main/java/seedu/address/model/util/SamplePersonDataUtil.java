@@ -350,7 +350,7 @@ public class SamplePersonDataUtil {
                 "Antonio",
                 "Willy"
         };
-        int count = 100;
+        int count = 1000;
         Person[] listOfPersons = new Person[count];
         Random random = new Random();
         for (int idx = 0; idx < count; idx++) {
