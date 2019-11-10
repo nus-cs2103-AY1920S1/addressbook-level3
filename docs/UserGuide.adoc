@@ -1015,6 +1015,9 @@ should I do? +
 `java -jar StudyBuddyPro.jar`. Windows users can use the Command Prompt application to
 do this while Mac users can use the Terminal application.
 
+*Q*: When I minimise the application, the entire application has shrunk and now it is gone! Help! +
+*A*: Currently our application do not allow diagonal or vertical resizing of the it. It is best not to resize the application at all and leave it as the maximized mode. For the this problem, we suggest that you try to maximise the application from the task manager or try to split the screen with another application so that StudyBuddyPro will resize back to normal. If the mentioned solutions fail, please do download our StudyBuddyPro again!
+
 == Command Summary
 
 === Global Commands (Can be executed in any mode)
