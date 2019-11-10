@@ -8,6 +8,7 @@ import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,9 @@ import seedu.ezwatchlist.logic.parser.SearchKey;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
-import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
+import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Date;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
@@ -24,6 +27,76 @@ import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
 public class SearchCommandTest {
     private Model model = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
+
+    private static final Show SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM = new Movie(
+            new Name("Fantastic Beasts and Where to Find Them"),
+            new Description("In 1926, Newt Scamander arrives at the Magical Congress of the United States of America "
+                    + "with a magically expanded briefcase, which houses a number of dangerous creatures and their "
+                    + "habitats. When the creatures escape from the briefcase, it sends the American wizarding "
+                    + "authorities after Newt, and threatens to strain even further the state of magical and "
+                    + "non-magical relations."),
+            new IsWatched("false"),
+            new Date("2016-11-16"),
+            new RunningTime(133),
+            getActorSet("Paul Dewdney", "Ryan Storey", "Alex Jaep", "Dan Trotter", "Dean Weir", "Douglas Byrne",
+                    "Morgan Walters", "Richard Hardisty", "Andrew Parker", "Sean Cronin", "Todd Boyce", "Ian Jenkins",
+                    "Patrick Carney Junior", "Bernardo Santos", "Lucie Pohl", "Tom Clarke Hill", "Neil Broome",
+                    "David Soffe", "Abi Adeyemi", "Abigayle Honeywill", "Jorge Leon Martinez", "Josh Cowdery",
+                    "Elizabeth Moynihan", "Ron Perlman", "David J Biscoe", "Jake Samuels", "Arnold Montey",
+                    "Andy Mihalache", "Lampros Kalfuntzos", "Michael Gabbitas", "Connor Sullivan", "Aileen Archer",
+                    "Jon Voight", "Erick Hayden", "Joshua Diffley", "Ellie Haddington", "Luke Hope", "Denis Khoroshko",
+                    "Lobna Futers", "Guy Paul", "Tristan Tait", "Reid Anderson", "Henry Douthwaite", "Richard Douglas",
+                    "Jane Perry", "Andreea Păduraru", "Emmi", "Marc Benanti", "Christy Meyer", "Pete Meads",
+                    "Sam Redford", "Tom Hodgkins", "Alphonso Austin", "Miles Roughley", "Edd Osmond", "Nick Donald",
+                    "Cristian Solimeno", "Lee Bolton", "Ezra Miller", "Paul Bergquist", "Geeta Vij", "Arinzé Kene",
+                    "Dennis O'Donnell", "Bart Edwards", "Miquel Brown", "Camilla Talarowska", "Rudy Valentino Grant",
+                    "Chloe de Burgh", "Annarie Boor", "Dino Fazzani", "Peter Breitmayer", "Carmen Cowell",
+                    "Adam Lazarus", "Tom Dab", "Alan Wyn Hughes", "Nathan Benham", "Stacey Clegg", "Fanny Carbonnel",
+                    "Faith Wood-Blagrove", "Nick Owenford", "Khristopher MacLeod", "John Murray", "Paul Birchard",
+                    "Cory Peterson", "Nicholas McGaughey", "Zoë Kravitz", "Alan Mandel", "David Charles-Cully",
+                    "Christian Dixon", "Simon Kerrison", "Brian F. Mulvey", "Nick Davison", "Vassiliki Tzanakou",
+                    "Ashley Hudson", "Eddie Redmayne", "Colin Farrell", "Kirsty Grace", "Matthew Wilson",
+                    "Kevin Guthrie", "Joseph Macnab", "Laura Bernardeschi", "Christine Marzano", "Dave Simon",
+                    "Claire Cooper-King", "Miroslav Zaruba", "Christopher Marsh", "Guna Gultniece", "Andrei Satalov",
+                    "Jenn Murray", "Yves O'Hara", "Robert-Anthony Artlett", "Flor Ferraco", "Akin Gazi", "Aretha Ayeh",
+                    "Craig Davies", "Wunmi Mosaku", "Anick Wiget", "Roy Beck", "Gemma Chan", "Elizabeth Briand",
+                    "Keith Lomas", "Johnny Depp", "Walles Hamonde", "Tim Bentinck", "Max Cazier", "Martin Oelbermann",
+                    "Samantha Morton", "Ronan Raftery", "Dominique Tipper", "Olivia Quinn", "Alison Sudol",
+                    "Greg Brummel", "Marketa Flynn", "Richard Price", "Jason Redshaw", "Lee Asquith-Coe",
+                    "Anne Wittman", "Matthew Sim", "Joe Malone", "David Goodson", "Dan Hedaya", "Leo Heller",
+                    "Michael Barron", "Paul A Munday", "Paul Low-Hang", "Rudi Dharmalingam", "Stephanie Eccles",
+                    "Attila G. Kerekes", "Andrew G. Ogleby", "Richard Clothier", "Adam Lezemore", "Carmen Ejogo",
+                    "Chloe Collingwood", "Gino Picciano", "Dan Fogler", "Silvia Crastan", "Cole Leman",
+                    "Kornelia Horvath", "Katherine Waterston", "James M.L. Muller", "Paul Redfern"));
+
+    private static final Show SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD = new Movie(
+            new Name("Fantastic Beasts: The Crimes of Grindelwald"),
+            new Description("Gellert Grindelwald has escaped imprisonment and has begun gathering followers to his "
+                    + "cause—elevating wizards above all non-magical beings. The only one capable of putting a stop to "
+                    + "him is the wizard he once called his closest friend, Albus Dumbledore. However, Dumbledore will "
+                    + "need to seek help from the wizard who had thwarted Grindelwald once before, his former student "
+                    + "Newt Scamander, who agrees to help, unaware of the dangers that lie ahead. Lines are drawn as "
+                    + "love and loyalty are tested, even among the truest friends and family, in an increasingly "
+                    + "divided wizarding world."),
+            new IsWatched("false"),
+            new Date("2018-11-14"),
+            new RunningTime(134),
+            getActorSet("Claudius Peters", "Maja Bloom", "Wolf Roth", "Jamie Campbell Bower", "Donna Preston",
+                    "Ed Gaughan", "Andrew Blackall", "Ruby Woolfenden", "Zoë Kravitz", "Johanna Thea", "Andy Summers",
+                    "Jemima Woolnough", "Simon Meacock", "Nasir Jama", "Olivia Popica", "Bernardo Santos",
+                    "David Wilmot", "Liv Hansen", "Hollie Burgess", "Eddie Redmayne", "Jude Law", "Israel Ruiz",
+                    "Callum Forman", "Ryan Hannaford", "Isaura Barbé-Brown", "Kevin Guthrie", "Christopher Birks",
+                    "Callum Turner", "Dave Simon", "Stephen McDade", "Alfrun Rose", "Alexandra Ford", "Victoria Yeates",
+                    "Sean Coleman", "David Sakurai", "Morrison Thomas", "Tahir Burhan", "Deepak Anand", "Johnny Depp",
+                    "Alfie Simmons", "Toby Regbo", "Isaac Domingos", "Linda Santiago", "Phil Hodges", "Adrian Wheeler",
+                    "Ezra Miller", "Hugh Quarshie", "Alison Sudol", "Jag Patel", "Jason Redshaw", "Al Clark",
+                    "Ólafur Darri Ólafsson", "Poppy Corby-Tuech", "Danielle Hugues", "Claudia Kim", "Simon Wan",
+                    "William Nadylam", "Cornell John", "Tim Ingall", "Connor Wolf", "Fiona Glascott",
+                    "Bart Soroczynski", "Andrew Turner", "Michael Haydon", "Thea Lamb", "Annarie Boor", "Carmen Ejogo",
+                    "Jessica Williams", "Jeremy Oliver", "Olwen Fouéré", "Dan Fogler", "Ingvar Eggert Sigurðsson",
+                    "Derek Riddell", "Keith Chanter", "Sean Gislingham", "Katherine Waterston", "Aykut Hilmi",
+                    "Sabine Crossen", "Alfie Mailley", "Natalie Lauren", "Deano Bugatti", "Brontis Jodorowsky",
+                    "Isaac Cortinovis Johnson", "Nick Owenford", "Joshua Shea"));
 
     @Test
     public void equals() {
@@ -61,7 +134,7 @@ public class SearchCommandTest {
 
     @Test
     public void execute_zeroKeywords_noShowFound() {
-        /*String expectedMessage = String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW, 0);
+        String expectedMessage = String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW, 0);
 
         HashMap<SearchKey, List<String>> emptyHash = new HashMap<>();
         ArrayList<String> emptyList = new ArrayList<>();
@@ -69,27 +142,34 @@ public class SearchCommandTest {
         emptyHash.put(SearchKey.KEY_NAME, emptyList);
         SearchCommand command = new SearchCommand(emptyHash);
 
-        expectedModel.updateFilteredShowList(predicate);
+        expectedModel.updateSearchResultList(new ArrayList<Show>());
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredShowList());*/
+
+        assertEquals(Collections.emptyList(), model.getSearchResultList());
     }
 
-    /*
     @Test
-
     public void execute_multipleKeywords_multipleShowsFound() {
-        String expectedMessage = String.format(MESSAGE_SHOWS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Avengers: Saving God");
-        SearchCommand command = new SearchCommand(Optional.of("Avengers: Saving God"));
-        expectedModel.updateFilteredShowList(predicate);
+        String expectedMessage = String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW, 2);
+
+        HashMap<SearchKey, List<String>> showHash = new HashMap<>();
+        ArrayList<String> showNameList = new ArrayList<>();
+        showNameList.add("Fantastic Beasts and Where to Find Them");
+        showHash.put(SearchKey.KEY_NAME, showNameList);
+        SearchCommand command = new SearchCommand(showHash);
+
+        List<Show> expectedList = new ArrayList<>();
+        expectedList.add(SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM);
+        expectedList.add(SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD);
+
+        expectedModel.updateSearchResultList(expectedList);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(AVENGERSENDGAME, SAVINGPRIVATERYAN, GODFATHER2), model.getFilteredShowList());
+        assertEquals(expectedList, model.getSearchResultList());
     }
-    */
-    /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
-     */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+
+    public static Set<Actor> getActorSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Actor::new)
+                .collect(Collectors.toSet());
     }
 }

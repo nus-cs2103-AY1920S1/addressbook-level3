@@ -208,7 +208,8 @@ public abstract class Show {
                 && (otherShow.isWatched().equals(isWatched()))
                 && otherShow.getDescription().equals(getDescription())
                 && otherShow.getRunningTime().equals(getRunningTime())
-                && otherShow.getActors().equals(getActors());
+                && otherShow.getActors().equals(getActors())
+                && otherShow.getGenres().equals(getGenres());
     }
 
     @Override

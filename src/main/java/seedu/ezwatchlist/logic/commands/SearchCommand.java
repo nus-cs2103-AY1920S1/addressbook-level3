@@ -50,8 +50,8 @@ public class SearchCommand extends Command {
     public SearchCommand(HashMap<SearchKey, List<String>> searchShowsHashMap) {
         nameList = searchShowsHashMap.get(SearchKey.KEY_NAME);
         typeList = searchShowsHashMap.get(SearchKey.KEY_TYPE);
-        actorList = searchShowsHashMap.get(SearchKey.KEY_ACTOR); // unable to search online
-        genreList = searchShowsHashMap.get(SearchKey.KEY_GENRE); // unable to search for shows online
+        actorList = searchShowsHashMap.get(SearchKey.KEY_ACTOR);
+        genreList = searchShowsHashMap.get(SearchKey.KEY_GENRE);
         isWatchedList = searchShowsHashMap.get(SearchKey.KEY_IS_WATCHED);
         fromOnlineList = searchShowsHashMap.get(SearchKey.KEY_FROM_ONLINE);
         try {
@@ -128,7 +128,6 @@ public class SearchCommand extends Command {
         if (actorList.isEmpty()) {
             return;
         }
-
         Set<Actor> actorSet = new HashSet<Actor>();
         for (String actorName : actorList) {
             if (actorName.isBlank()) {
@@ -160,7 +159,6 @@ public class SearchCommand extends Command {
         if (genreList.isEmpty()) {
             return;
         }
-
         Set<Genre> genreSet = new HashSet<Genre>();
         for (String genreName : genreList) {
             if (genreName.isBlank()) {
@@ -227,6 +225,11 @@ public class SearchCommand extends Command {
         addShowToSearchResult(filteredShowList);
     }
 
+    /**
+     *  Adds shows from database if it has any actor in {@code actorSet}.
+     * @param actorSet Set of actors to be searched for.
+     * @param model current model of the program.
+     */
     private void addShowFromDatabaseIfHasActor(Set<Actor> actorSet, Model model) {
         if (actorSet.isEmpty()) {
             return;
@@ -454,7 +457,7 @@ public class SearchCommand extends Command {
      * Filters out the duplicates in the search result.
      * @param model current model of the program.
      */
-    public void filterOutDuplicatesInSearchResult(Model model) {
+    private void filterOutDuplicatesInSearchResult(Model model) {
         List<Show> result = searchResult.stream().distinct().collect(Collectors.toList());
         model.updateSearchResultList(result);
     }
