@@ -3,7 +3,6 @@ package com.typee.ui.game;
 import com.typee.ui.UiPart;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
 /**
