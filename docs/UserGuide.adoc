@@ -27,7 +27,7 @@ Team: *T17-2*
 image::TraveEzyLogo.png[TravEzy Logo,width=600]
 
 
-Welcome to *TravEzy*! 😊
+Welcome to _TravEzy_! 😊
 
 Firstly, thank you for downloading our application. We greatly appreciate your support and
 we *promise* to make travel easy with _TravEzy_.
