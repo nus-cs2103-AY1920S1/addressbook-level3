@@ -47,22 +47,22 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     @Test
-    public void commandBox_startingWithFailedCommand() throws InterruptedException {
+    public void commandBox_startingWithFailedCommand() {
         assertBehaviorForFailedCommand();
+
+
         assertBehaviorForSuccessfulCommand();
 
         // verify that style is changed correctly even after multiple consecutive failed commands
         assertBehaviorForSuccessfulCommand();
         assertBehaviorForFailedCommand();
         assertBehaviorForFailedCommand();
-        Thread.sleep(100);
     }
 
     @Test
-    public void commandBox_startingWithSuccessfulCommand() throws InterruptedException {
+    public void commandBox_startingWithSuccessfulCommand() {
         assertBehaviorForSuccessfulCommand();
         assertBehaviorForFailedCommand();
-        Thread.sleep(100);
     }
 
     /**

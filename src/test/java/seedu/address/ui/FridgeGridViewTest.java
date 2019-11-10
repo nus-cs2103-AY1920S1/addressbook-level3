@@ -39,7 +39,7 @@ public class FridgeGridViewTest extends GuiUnitTest {
      */
     @Test
     public void performanceTest() {
-        ObservableList<Fridge> backingList = createBackingList(1000);
+        ObservableList<Fridge> backingList = createBackingList(500);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
