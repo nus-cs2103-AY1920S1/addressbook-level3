@@ -18,6 +18,7 @@ By: `CS2103T-T12-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
+
 Athletick is a team management desktop application for captains and coaches of timing-based sports teams. Athletick helps you to handle your administrative tasks so that you can focus on what you love doing: leading and motivating your team.
 
 Athletick supports *storing of your team members' personal details, attendance tracking and performance recording*. If you are a fast typist, you'll love Athletick's *Command Line Interface* (CLI) which will get your team management tasks done faster than ever before!
@@ -32,7 +33,7 @@ Note the following symbols and formatting used in this document
 
 [horizontal]
 
-NOTE:: This symbol indicates important information
+NOTE: This symbol indicates important information
 
 `command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the
 command line and executed by the application.
