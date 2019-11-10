@@ -170,6 +170,7 @@ Examples:
 
 * `delete cs2103t`
 
+// tag::deadline[]
 === Manage deadline tasks: `deadline`
 
 ==== `add`
@@ -252,6 +253,8 @@ Format: `deadline MODULE_LIST_NUM a/deleteAll`
 Deletes all the deadline tasks from the respective module.
 
 Example: `deadline 1 a/deleteAll`
+
+// end::deadline[]
 
 === Manage links in modules: `link`
 

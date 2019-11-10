@@ -1,0 +1,88 @@
+= Murugesan Karthika - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ModuleBook
+
+== Overview
+
+The purpose of this portfolio is to document my role and contributions to the ModuleBook project.
+
+My team of four software engineering students and I were tasked with enhancing a basic command line interface
+desktop addressbook application. It is a requirement for CS2103T Software Engineering project taught at National
+University of Singapore(NUS). We chose to morph it into a module tracking cum management application called ModuleBook.
+
+This application is tailored to meet the needs of NUS students’ module management problems. It helps students to
+find and track modules, manage module-specific deadlines and other useful information like quick-links.
+ModuleBook is a desktop application where user interacts with it using CLI, and it has GUI created with JavaFX.
+It is written in Java.
+
+This is what our project looks like:
+
+image::ModuleBookUILayout.png[]
+
+My role was to design and write codes for the management of module deadline feature. The following sections illustrate
+these enhancements in more details, as well as the relevant documentation I have added to the user and developer guides
+in relation to these enhancements.
+
+
+== Summary of contributions
+
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+
+* *Major Enhancement:*
+Added the *deadline management feature*.
+
+** What it does: Allows users to create deadlines by adding description, due date and priority.
+Deadline tasks are colored to indicate priority and sorted according to priority, date and time.
+Users can record their progress by marking deadline tasks as done, in progress or undone. They can edit and delete
+as well.
+
+** Justification: This benefits students to keep track of the countless deadlines, especially if student is lazy to
+manually keep track of them. For busy and forgetful students, it helps them to prioritise and
+organise deadlines for each module. For students who prefer easy navigation and flexibility, deadline feature is
+customisable as users can easily edit, mark and delete deadlines.
+
+** Highlights: This enhancement automatically sorts deadlines according to priority, date and time when user
+adds a deadline task. There is no need for users to sort again after adding deadline tasks.
+
+* *Minor Enhancement:* refactored part of commands and parsers.
+
+* *Code contributed:* https://tinyurl.com/wsun5bl[Code contributed]
+
+* *Other contributions:*
+
+** Project management:
+*** Took part in the release of `v1.1` - `v1.4` (4 releases) on GitHub
+
+** Enhancements to existing features:
+*** Write codes for exception and error handling (Pull requests
+https://github.com/AY1920S1-CS2103T-W13-1/main/pull/147[#147],
+https://github.com/AY1920S1-CS2103T-W13-1/main/pull/160[#160] )
+*** Write tests for deadline tasks (Pull request https://github.com/AY1920S1-CS2103T-W13-1/main/pull/169[#169])
+** Documentation:
+*** Updated the contact us page, deadline section of developer guide and user guide.
+** Community:
+*** PRs reviewed (with non-trivial review comments): (Pull requests
+https://github.com/AY1920S1-CS2103T-W13-1/main/pull/40[#40])
+*** Reported bugs and suggestions for other teams: https://github.com/Kzrthikz/ped/issues[PE Dry Run]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users.
+|===
+
+include::../UserGuide.adoc[tag=deadline]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=deadline]
