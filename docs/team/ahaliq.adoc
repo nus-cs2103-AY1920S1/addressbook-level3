@@ -34,14 +34,14 @@ for the user. It is to emulate a terminal window. It also has multiline editing 
 
 == Documentation Contribution
 
-* Wrote a [tutorial](https://gist.github.com/AHaliq/cf948272854c75267d4bf3a7af757eca) for the team to understand `Responses` at its most basic form
+Wrote a [tutorial](https://gist.github.com/AHaliq/cf948272854c75267d4bf3a7af757eca) for the team to understand `Responses` at its most basic form
 
-* include::../DeveloperGuide.adoc[tag=storage]
+include::../DeveloperGuide.adoc[tag=storage]
 
-* include::../DeveloperGuide.adoc[tag=parsejson]
+include::../DeveloperGuide.adoc[tag=parsejson]
 
-* include::../DeveloperGuide.adoc[tag=regexutil]
+include::../DeveloperGuide.adoc[tag=regexutil]
 
-* include::../UserGuide.adoc[tag=cli]
+include::../UserGuide.adoc[tag=cli]
 
 
