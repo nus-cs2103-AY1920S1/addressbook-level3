@@ -20,7 +20,7 @@ import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
  */
 public abstract class ScheduleViewManager {
 
-    protected static final Logger logger = LogsCenter.getLogger(ScheduleViewManager.class);
+    protected static final Logger LOGGER = LogsCenter.getLogger(ScheduleViewManager.class);
     protected ScheduleWindowDisplayType type;
     protected ScheduleView scheduleView;
     protected int weekNumber;
@@ -31,7 +31,7 @@ public abstract class ScheduleViewManager {
         ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
 
         if (!isValidSchedules(scheduleWindowDisplay.getPersonSchedules())) {
-            logger.severe("Schedule given is invalid.");
+            LOGGER.severe("Schedule given is invalid.");
             throw new InvalidScheduleViewException("The schedule has clashes between events!");
         }
 

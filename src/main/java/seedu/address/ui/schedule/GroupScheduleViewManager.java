@@ -32,7 +32,7 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
         super.weekNumber = 0;
         super.currentDate = LocalDate.now();
         super.type = ScheduleWindowDisplayType.GROUP;
-        super.logger.info("Generating schedule view for " + groupName.toString() + ".");
+        super.LOGGER.info("Generating schedule view for " + groupName.toString() + ".");
     }
 
     /**

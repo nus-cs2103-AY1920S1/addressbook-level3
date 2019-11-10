@@ -18,7 +18,7 @@ public class IndividualScheduleViewManager extends ScheduleViewManager {
         super.weekNumber = 0;
         super.currentDate = LocalDate.now();
         super.type = ScheduleWindowDisplayType.PERSON;
-        super.logger.info("Generating schedule for " + personSchedule.getPersonDisplay().getName().fullName + ".");
+        super.LOGGER.info("Generating schedule for " + personSchedule.getPersonDisplay().getName().fullName + ".");
     }
 
     /**
