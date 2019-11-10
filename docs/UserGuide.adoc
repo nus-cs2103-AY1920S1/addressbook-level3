@@ -175,7 +175,8 @@ image::mainGoto2.png[Goto result]
 
 If you are lost, this command will be helpful.
 
-*Format:* + ``help``
+*Format:* + 
+``help``
 
 *Step by step:*
 
