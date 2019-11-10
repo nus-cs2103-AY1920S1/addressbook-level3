@@ -9,10 +9,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class FineIncrement {
 
+    private static final int MAX_FINE_INCREMENT = 100000;
     public static final String MESSAGE_CONSTRAINTS =
-            "Fine increment should be positive and should not exceed Integer.MAX_VALUE cents.";
-    public static final String VALIDATION_REGEX = "\\d+";
-    public final int fineIncrement;
+            "Fine increment should be a positive number and should not exceed " + MAX_FINE_INCREMENT + " cents.";
+
+    private final int fineIncrement;
 
     /**
      * Constructs a {@code FineIncrement}.
@@ -42,7 +43,13 @@ public class FineIncrement {
      * Returns true if a given string is a valid fine amount.
      */
     public static boolean isValidFineIncrement(String test) {
-        return test.matches(VALIDATION_REGEX);
+        requireNonNull(test);
+        try {
+            int amount = Integer.parseInt(test);
+            return amount >= 0 && amount <= MAX_FINE_INCREMENT && !test.startsWith("+");
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 
     @Override

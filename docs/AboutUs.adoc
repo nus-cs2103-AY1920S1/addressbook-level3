@@ -10,9 +10,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Wang Shiyao
-image::shiyao821.png[width="150", align="left"]
+image::shiyao821.png[width="150", align=left]
 {empty}[https://github.com/shiyao821[github]]
-[<<WangShiyao#, portfolio>>]
+[<<shiyao821#, portfolio>>]
 
 Role: Team Lead
 
@@ -21,7 +21,7 @@ Responsibilities: Storage
 '''
 
 === See Zi Yang
-image::seeziyang.png[width="150", align="left"]
+image::seeziyang.png[width="150", align=left]
 {empty}[http://github.com/seeziyang[github]]
 [<<seeziyang#, portfolio>>]
 
@@ -32,9 +32,9 @@ Responsibilities: Logic
 '''
 
 === Lin Yuting
-image::linyutinglyt.png[width="150", align="left"]
+image::linyutinglyt.png[width="150", align=left]
 {empty}[http://github.com/linyutinglyt[github]]
-[<<LinYuting#, portfolio>>]
+[<<linyutinglyt#, portfolio>>]
 
 Role: Testing
 
@@ -43,9 +43,9 @@ Responsibilities: Commons
 '''
 
 === Yeo Tong
-image::cronyxx.png[width="150", align="left"]
+image::cronyxx.png[width="150", align=left]
 {empty}[http://github.com/Cronyxx[github]]
-[<<YeoTong#, portfolio>>]
+[<<cronyxx#, portfolio>>]
 
 Role: Documentation
 
@@ -54,9 +54,9 @@ Responsibilities: UI
 '''
 
 === Ho Hol Yin
-image::hoholyin.png[width="150", align="left"]
+image::hoholyin.png[width="150", align=left]
 {empty}[http://github.com/hoholyin[github]]
-[<<HoHolYin#, portfolio>>]
+[<<hoholyin#, portfolio>>]
 
 Role: Code quality, Deliverables and deadlines
 

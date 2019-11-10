@@ -5,113 +5,106 @@
 
 == PROJECT: LiBerry
 
----
-
 == Overview
 This portfolio aims to highlight my contributions to our team project, 'LiBerry'.
 
 'LiBerry' is a library management system that is designed for small communities with a lack of expertise and
 resources to manage a library.
 
-This library management system is able to:
+This library management system is able to *manage books* in the library, *register* borrowers,
+*loan* and *return* books, as well as *calculate loan periods* and *fines* for any overdue loans.
 
-* Add books to the library
-* Remove books from the library
-* Register borrowers
-* Loan and return books to borrowers
-* Calculate loan periods and fines for any overdue loans
+I was in charge of implementing the *Generate loan slip* feature and the *Book* feature.
+Additionally, I am responsible for the *code quality and testability* of the team's code base throughout the entire development phase.
 
-I was in charge of implementing the book related features.
-Additionally, I am responsible for the code quality and testability of the team's code base throughout the entire development phase.
 In this portfolio, I will illustrate my contributions in documenting the user guide and developer guide.
 These documentations serve to aid librarians and developers in understanding the features of the software.
 
-This is what the main page of our system looks like:
-
-.Graphical user interface for LiBerry
-image::Ui.png[]
-{nbsp}
-
-The figure above illustrates the main page librarians will navigate in while using the software.
-
 == Legend
+I have used symbols to give a visual explanation to certain parts of this portfolio. This section aims to explain the meaning behind the usage of these symbols.
 
-[TIP]
-Denotes useful tips.
+TIP: Denotes useful tips.
+
+NOTE: Denotes additional information.
+
+{nbsp} +
+{nbsp} +
+{nbsp} +
+{nbsp} +
 
 == Summary of contributions
-This section shows a summary of my contributions in terms of coding, documentation, and other helpful contributions to the team project.
+This section shows a summary of my contributions to the team project and will include the main enhancement (Generating Loan Slip),
+code contribution and other contributions.
 
-=== *Major enhancement - Generating Loan Slip*
-The ability to *automatically generate loan slips in Portable Document Format (PDF)* for every loan.
+=== *Major enhancement - Generate Loan Slip feature*
+This feature allows librarians to *automatically generate loan slips in Portable Document Format (PDF)* for every loan.
+I will explain in detail below what the feature is about and why it is an important feature.
 
-==== What it does
-This feature generates loan slips so that the librarian can immediately print the loan slip for the borrower.
-The printed loan slip contains all information about the loan, including the books loaned and the due date of the loans.
+
+==== What the feature does
+This feature *generates loan slips* so that the librarian can immediately print the loan slip for the borrower.
+The printed loan slip contains all information about the loan or renew, including a list of loaned books and the due date of these loans.
 
 ==== Justification
-Since our target group is small impoverished communities, it is unlikely they will have internet access to check the status of their loans.
-Therefore, it will be suitable to provide them with a printed version of the loan.
+Since our target group is small impoverished communities, it is unlikely they will have reliable internet access to check the status of their loans.
+Therefore, it will be suitable for librarians to provide them with a printed version of the loan.
 
 ==== Highlights
-This feature is challenging to implement as it will require us to create a new pdf document from scratch.
-I was required to understand a great deal about file input and output in Java, which is something out of the scope of the course.
-On top of that, this document will have to be suitably styled as a loan slip populated with information about the loans.
+This feature is challenging to implement as it will require us to create a new PDF document from scratch.
+It was required of me to understand a great deal about file input and output in Java, which was something out of the scope of the course.
+Additionally, this document would have to be suitably styled to display a certain level of professionalism.
+
+==== Why this is a major feature
+This feature represents most of the core features of 'LiBerry' in a condensed PDF.
+I have provided a breakdown below as to how this feature achieves the required *depth*, *completeness* and *level of effort*.
+
+* *Depth*: This feature is deeply linked with the Book, Loan and Borrower features as it has to display information relevant to these features.
+
+* *Completeness*: This feature is complete with the intended style has been rigorously tested in many test cases.
+
+* *Effort*: This feature required an in-depth understanding of handling external libraries as well as file input and output.
+These information are not taught in the course and therefore required extensive research on my part.
 
 ==== Credits
 This feature is made possible with the 'iText 7' library. However, it was still required of me to understand both the
 Java `File` class and the API well such that I can use it appropriately in the context of our project.
 {nbsp}
 
-This is how a generated loan slip looks like.
-
-.Generated Loan Slip
-image::LoanSlip.png[width=350, align=center]
-{nbsp}
-In Figure 2, we can see all books loaned by borrower 'Bill' recorded and generated in a printable loan slip.
+---
 
 === Code Contributed
+The following link shows the analysis of my code contributions:
 
-* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hoholyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and Test Code]
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hoholyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense link for Code Contributions]
 
-=== *Minor enhancement* - Book-related features
-On top of the feature to generate loan slips, I am also primarily involved the implementation of the basic book-related core features.
-
-==== Implemented the ability to *add books*
-* This feature assists the librarian in tracking the movement of books with ease using the system.
-
-==== Implemented the ability to *delete books*.
-* This feature allows the librarian to update the catalog when a book goes missing.
-
-==== Implemented the ability to *display information* about a book.
-* This feature aids the librarian in retrieving more information about a book when a borrower enquires about it.
+---
 
 === *Other contributions*:
 
 ==== Project management:
-* Managed the release of https://github.com/AY1920S1-CS2103T-F13-1/main/releases/tag/v1.3.1[`v1.3`] on GitHub. In `v1.3`, we have the following additional features:
-** Pay fines
-** Renew loans
-** Generate loan slip
-** Edit Borrower details
-** Search overdue books and books that are on loan
+* Managed the release of https://github.com/AY1920S1-CS2103T-F13-1/main/releases/tag/v1.3.1[`v1.3`] on GitHub.
+* Continually added test cases throughout development phase to ensure consistent code quality. Done through the following Pull Requests:
+** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/31[[#31\]]: Refactored `AddressBook3` tests to `LiBerry` tests
+** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/206[[#206\]]: Increased test coverage for `UI` components
+** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/260[[#260\]]: Increased test coverage for `Delete` and `Book` classes
 
 ==== Enhancements to existing features:
 These enhancements are done through the following Pull Requests:
 
-* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/177[[#177\]]: Created a borrower panel in the Graphical User Interface to list books that the borrower has currently loaned.
-* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/147[[#147\]]: Made the `Book` Object immutable in preparation for the undo/redo feature.
-* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/206[[#206\]]: Increased test coverage for the source code, thereby increasing code quality and testability.
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/176[[#176\]]: Added a new `LoanHistory` object in `Book` for to be displayed in the info window
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/177[[#177\]]: Created a borrower panel in the Graphical User Interface to list books that the borrower has currently loaned
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/187[[#187\]]: Upgraded `LoanSlipUtil` to allow it to mount multiple loans into a single loan slip
 
 ==== Documentation:
 The documentations are updated through the following Pull Requests:
 
-* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/148[[#148\]]: Illustrated the `Model` component of the system and its behaviour through class and sequence diagrams.
-* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/159[[#159\]]: Documented the feature to generate loan slip and its design considerations.
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/148[[#148\]]: Illustrated the `Model` component of the system and its behaviour through class and sequence diagrams
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/159[[#159\]]: Documented the feature to generate loan slip and its design considerations
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/162[[#162\]]: Amended Developer Guide based on feedback from tutor
 
 ==== Community:
-* https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/49/files/22e0d669e265d0f2835df4e4a2d0f15a57b05795[Reviewed] (with non-trivial comments) a Pull Request from another group
-* Contributed to forum discussions as a group (Shared a https://github.com/nus-cs2103-AY1920S1/forum/issues/115[tip] on how to check code coverage when running tests)
+* https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/49/files/22e0d669e265d0f2835df4e4a2d0f15a57b05795[Reviewed] a Pull Request from another group regarding their user stories and UML diagrams
+* Contributed a https://github.com/nus-cs2103-AY1920S1/forum/issues/115[tip] in the forum (as a group) on how to check code coverage when running tests
 * https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/49/files/22e0d669e265d0f2835df4e4a2d0f15a57b05795[Reported] bugs and suggestions for other teams in the class.
 
 ==== Tools:
@@ -121,30 +114,33 @@ This tool was added through the following Pull Request:
 
 == Contributions to the User Guide
 
-|===
-|_This section outlines my contributions to the team's User Guide. It demonstrates my ability to write documentation for librarians so that they can learn how to add, delete and loan books using the software._
-|===
+This section outlines my contributions to the team's User Guide.
+It demonstrates my ability to write documentation for librarians to understand how to use the software.
+Please refer to the
+https://ay1920s1-cs2103t-f13-1.github.io/main/UserGuide.html[User Guide]
+for the full documentation.
 
-=== Add and Delete book
-The ability to add and delete books to and from the system will help librarians track the status of all books with ease. +
-{nbsp}
+=== Book feature
 
 include::../UserGuide.adoc[tag=bookRelated]
-{nbsp}
 
-=== Loan book
-The feature to loan books will allow librarians to mark that the book has been loaned to a particular borrower. In this feature, I implemented the ability to auto-generate loan slips, allowing librarians to conveniently print it out for the borrower. +
-{nbsp}
+=== Generating a loan slip
 
 include::../UserGuide.adoc[tag=loanSlip]
 
 == Contributions to the Developer Guide
 
-|===
-|_This section highlights my contributions to the Developer Guide. The following excerpts from the 'LiBerry' Developer Guide demonstrates my ability to communicate with other developers through my detailed documentation._
-|===
+This section highlights my contributions to the Developer Guide.
+It demonstrate my ability to aid other developers in understanding the various implementations of the features.
+Please refer to the
+https://ay1920s1-cs2103t-f13-1.github.io/main/DeveloperGuide.html[Developer Guide]
+for the full documentation.
+
+=== Implementation of Book feature
 
 include::../DeveloperGuide.adoc[tag=addBook]
+
+=== Implementation of Generate Loan Slip feature
 
 include::../DeveloperGuide.adoc[tag=printLoanSlip]
 

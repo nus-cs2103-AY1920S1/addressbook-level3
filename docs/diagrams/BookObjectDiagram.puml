@@ -34,6 +34,13 @@ object "__:Genre__" as Genre2 {
     genreName = "FICTION"
 }
 
+object "__LoanHistory:LoanList__" as LoanHistory {
+
+}
+
+object "__loanList:ArrayList__" as LoanList {
+
+}
 
 Book --> SerialNumber
 Book --> Title
@@ -41,4 +48,7 @@ Book --> Author
 Book --> Genre1
 Book --> Genre2
 Book --> Loan
+Book --> LoanHistory
+
+LoanHistory --> LoanList
 @enduml

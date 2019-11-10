@@ -18,16 +18,6 @@ activate Logic
 Logic -> LoanCommand : execute(model)
 activate LoanCommand
 
-LoanCommand -> Model : getBook(toLoan)
-activate Model
-Model --> LoanCommand : Book
-deactivate Model
-
-LoanCommand -> Model : getServingBorrower()
-activate Model
-Model --> LoanCommand : ServingBorrower
-deactivate Model
-
 create Loan
 LoanCommand -> Loan : new Loan(LoanId, Book, Borrower, StartDate, DueDate)
 activate Loan
@@ -58,7 +48,7 @@ activate LoanSlipUtil
 LoanSlipUtil --> Logic
 deactivate LoanSlipUtil
 
-Logic -> LoanSlipUtil : unmountLoan()
+Logic -> LoanSlipUtil : clearSession()
 activate LoanSlipUtil
 LoanSlipUtil --> Logic
 deactivate LoanSlipUtil

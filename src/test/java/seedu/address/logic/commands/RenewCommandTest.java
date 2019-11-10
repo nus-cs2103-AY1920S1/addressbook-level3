@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_IS_OVERDUE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_7;
@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.DateUtil;
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
 import seedu.address.model.LoanRecords;
@@ -30,7 +30,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
 import seedu.address.model.borrower.Borrower;
-import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.loan.Loan;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BorrowerBuilder;
@@ -47,20 +46,19 @@ class RenewCommandTest {
     public void execute_validLoanedBook_renewSuccessful() {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
         borrowerRecords.addBorrower(IDA);
-        BorrowerId servingBorrowerId = IDA.getBorrowerId();
 
         Catalog catalog = new Catalog();
-        Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build();
+        Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build().addToLoanHistory(LOAN_7);
         catalog.addBook(onLoan);
 
         LoanRecords loanRecords = new LoanRecords();
         loanRecords.addLoan(LOAN_7);
 
         Model actualModel = new ModelManager(catalog, loanRecords, borrowerRecords, new UserPrefs());
-        actualModel.setServingBorrower(servingBorrowerId);
+        actualModel.setServingBorrower(IDA);
         Model expectedModel = new ModelManager(new Catalog(catalog), new LoanRecords(loanRecords),
                 new BorrowerRecords(borrowerRecords), new UserPrefs());
-        expectedModel.setServingBorrower(servingBorrowerId);
+        expectedModel.setServingBorrower(IDA);
 
         RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_BOOK);
 
@@ -95,22 +93,15 @@ class RenewCommandTest {
         Model model = new ModelManager(catalog, loanRecords, borrowerRecords, new UserPrefs());
 
         RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_BOOK);
-
-        String actualMessage;
-        try {
-            actualMessage = renewCommand.execute(model).getFeedbackToUser();
-        } catch (CommandException e) {
-            actualMessage = e.getMessage();
-        }
         String expectedMessage = MESSAGE_NOT_IN_SERVE_MODE;
-        assertEquals(actualMessage, expectedMessage);
+
+        assertCommandFailure(renewCommand, model, expectedMessage);
     }
 
     @Test
     public void execute_noSuchIndex_renewUnsuccessful() {
         BorrowerRecords borrowerRecords = new BorrowerRecords();
         borrowerRecords.addBorrower(IDA);
-        BorrowerId servingBorrowerId = IDA.getBorrowerId();
 
         Catalog catalog = new Catalog();
         Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build();
@@ -120,18 +111,12 @@ class RenewCommandTest {
         loanRecords.addLoan(LOAN_7);
 
         Model model = new ModelManager(catalog, loanRecords, borrowerRecords, new UserPrefs());
-        model.setServingBorrower(servingBorrowerId);
+        model.setServingBorrower(IDA);
 
         RenewCommand renewCommand = new RenewCommand(INDEX_SECOND_BOOK);
-
-        String actualMessage;
-        try {
-            actualMessage = renewCommand.execute(model).getFeedbackToUser();
-        } catch (CommandException e) {
-            actualMessage = e.getMessage();
-        }
         String expectedMessage = MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
-        assertEquals(actualMessage, expectedMessage);
+
+        assertCommandFailure(renewCommand, model, expectedMessage);
     }
 
     @Test
@@ -152,15 +137,10 @@ class RenewCommandTest {
         model.setServingBorrower(borrower);
 
         RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_BOOK);
+        LoanSlipUtil.clearSession();
 
-        String actualMessage;
-        try {
-            actualMessage = renewCommand.execute(model).getFeedbackToUser();
-        } catch (CommandException e) {
-            actualMessage = e.getMessage();
-        }
         String expectedMessage = String.format(MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE, maxRenewedBook);
-        assertEquals(actualMessage, expectedMessage);
+        assertCommandFailure(renewCommand, model, expectedMessage);
     }
 
     @Test
@@ -182,15 +162,9 @@ class RenewCommandTest {
         model.setServingBorrower(borrower);
 
         RenewCommand renewCommand = new RenewCommand(INDEX_FIRST_BOOK);
-
-        String actualMessage;
-        try {
-            actualMessage = renewCommand.execute(model).getFeedbackToUser();
-        } catch (CommandException e) {
-            actualMessage = e.getMessage();
-        }
         String expectedMessage = String.format(MESSAGE_BOOK_IS_OVERDUE, overdueBook);
-        assertEquals(actualMessage, expectedMessage);
+
+        assertCommandFailure(renewCommand, model, expectedMessage);
     }
 
     @Test

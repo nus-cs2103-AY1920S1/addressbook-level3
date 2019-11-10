@@ -32,13 +32,8 @@ public class PayCommandParser implements Parser<PayCommand> {
                     PayCommand.MESSAGE_USAGE));
         }
 
-        try {
-            double dollarAmount = ParserUtil.parseDollar(optionalDollarAmount.get());
-            int centAmount = FineUtil.dollarsToCents(dollarAmount);
-            return new PayCommand(centAmount);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    PayCommand.MESSAGE_USAGE), pe);
-        }
+        double dollarAmount = ParserUtil.parseDollar(optionalDollarAmount.get());
+        int centAmount = FineUtil.dollarsToCents(dollarAmount);
+        return new PayCommand(centAmount);
     }
 }

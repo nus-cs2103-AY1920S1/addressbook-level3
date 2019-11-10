@@ -14,6 +14,8 @@ Class ResultDisplay
 Class BookListPanel
 Class BookCard
 Class CommandBox
+class BorrowerPanel
+class InfoWindow
 }
 
 package Model <<Rectangle>> {
@@ -32,6 +34,8 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
+MainWindow *-down-> BorrowerPanel
+MainWindow -down-> InfoWindow
 MainWindow *-down-> BookListPanel
 
 BookListPanel -down-> BookCard
@@ -43,12 +47,16 @@ CommandBox --|> UiPart
 BookListPanel --|> UiPart
 BookCard --|> UiPart
 HelpWindow -down-|> UiPart
+BorrowerPanel --|> UiPart
+InfoWindow --|> UiPart
 
 BookCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
 BookListPanel -[hidden]left- HelpWindow
+InfoWindow -[hidden]left- BorrowerPanel
+BorrowerPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 

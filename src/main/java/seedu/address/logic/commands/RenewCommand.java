@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_IS_OVERDUE;
+import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_RENEW_IMMEDIATELY;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_RENEWABLE_BOOKS;
@@ -77,7 +78,7 @@ public class RenewCommand extends ReversibleCommand {
         ArrayList<Book> renewingBooks = getRenewingBooks(model);
         Borrower servingBorrower = model.getServingBorrower();
 
-        String feedbackMessage = "";
+        StringBuilder feedbackMessage = new StringBuilder();
         ArrayList<Book> renewedBookList = new ArrayList<>();
         ArrayList<Book> bookToBeRenewedList = new ArrayList<>();
         ArrayList<Loan> renewedLoanList = new ArrayList<>();
@@ -86,22 +87,11 @@ public class RenewCommand extends ReversibleCommand {
         for (Book bookToBeRenewed : renewingBooks) {
             Loan loanToBeRenewed = bookToBeRenewed.getLoan().get();
 
-            if (!isRenewAll) { // only check if renew is used with an index
-                if (loanToBeRenewed.getRenewCount() >= model.getUserSettings().getMaxRenews()) {
-                    throw new CommandException(String.format(MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE, bookToBeRenewed));
-                }
-
-                if (DateUtil.isDateBeforeToday(loanToBeRenewed.getDueDate())) {
-                    throw new CommandException(String.format(MESSAGE_BOOK_IS_OVERDUE, bookToBeRenewed));
-                }
-            }
-
             LocalDate extendedDueDate = DateUtil.extendDate(loanToBeRenewed.getDueDate(),
                     model.getUserSettings().getRenewPeriod());
             Loan renewedLoan = loanToBeRenewed.renewLoan(extendedDueDate);
 
-            Book renewedBook = new Book(bookToBeRenewed.getTitle(), bookToBeRenewed.getSerialNumber(),
-                    bookToBeRenewed.getAuthor(), renewedLoan, bookToBeRenewed.getGenres());
+            Book renewedBook = bookToBeRenewed.renewBook(renewedLoan);
 
             // update Book in model to have Loan due date extended
             model.setBook(bookToBeRenewed, renewedBook);
@@ -112,15 +102,14 @@ public class RenewCommand extends ReversibleCommand {
             // update Loan in LoanRecords with extended due date
             model.updateLoan(loanToBeRenewed, renewedLoan);
 
-            // mount renewed loan
             try {
                 LoanSlipUtil.mountLoan(renewedLoan, renewedBook, servingBorrower);
             } catch (LoanSlipException e) {
                 e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
             }
 
-            feedbackMessage += String.format(MESSAGE_SUCCESS, renewedBook,
-                    servingBorrower, DateUtil.formatDate(extendedDueDate));
+            feedbackMessage.append(String.format(MESSAGE_SUCCESS, renewedBook,
+                    servingBorrower, DateUtil.formatDate(extendedDueDate)));
             renewedBookList.add(renewedBook);
             bookToBeRenewedList.add(bookToBeRenewed);
             renewedLoanList.add(renewedLoan);
@@ -130,41 +119,80 @@ public class RenewCommand extends ReversibleCommand {
         undoCommand = new UnrenewCommand(renewedBookList, bookToBeRenewedList, renewedLoanList,
                 loanToBeRenewedList);
         redoCommand = this;
-        commandResult = new CommandResult(feedbackMessage.trim());
+        commandResult = new CommandResult(feedbackMessage.toString().trim());
 
         return commandResult;
     }
 
+    /**
+     * Retrieves the books that we are renewing in an ArrayList.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return ArrayList of renewingBooks.
+     * @throws CommandException If an error occurs during command execution.
+     */
     private ArrayList<Book> getRenewingBooks(Model model) throws CommandException {
         List<Book> lastShownBorrowerBooksList = model.getBorrowerBooks();
         ArrayList<Book> renewingBooks = new ArrayList<>();
+        int maxRenewCount = model.getUserSettings().getMaxRenews();
 
         if (isRenewAll) { // renew all valid books
-            for (Book book : lastShownBorrowerBooksList) {
-                Loan loan = book.getLoan().get();
-                if (loan.getRenewCount() >= model.getUserSettings().getMaxRenews()) { // hit max renews already
-                    continue;
-                }
-                if (DateUtil.isDateBeforeToday(loan.getDueDate())) { // overdue
-                    continue;
-                }
-
-                renewingBooks.add(book);
-            }
-
-            if (renewingBooks.isEmpty()) {
-                throw new CommandException(MESSAGE_NO_RENEWABLE_BOOKS);
-            }
+            getAllRenewableBooks(lastShownBorrowerBooksList, renewingBooks, maxRenewCount);
         } else { // renew book corresponding to index
-            if (index.getZeroBased() >= lastShownBorrowerBooksList.size()) {
-                throw new CommandException(MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
-            }
-
-            Book bookToBeRenewed = lastShownBorrowerBooksList.get(index.getZeroBased());
-            renewingBooks.add(bookToBeRenewed);
+            getRenewingBookFromIndex(lastShownBorrowerBooksList, renewingBooks, maxRenewCount);
         }
 
         return renewingBooks;
+    }
+
+    /**
+     * Get the book we are renewing from its index.
+     */
+    private void getRenewingBookFromIndex(List<Book> lastShownBorrowerBooksList, ArrayList<Book> renewingBooks,
+                                          int maxRenewCount) throws CommandException {
+        if (index.getZeroBased() >= lastShownBorrowerBooksList.size()) {
+            throw new CommandException(MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
+        }
+        Book bookToBeRenewed = lastShownBorrowerBooksList.get(index.getZeroBased());
+
+        if (LoanSlipUtil.bookIsInSession(bookToBeRenewed)) { // dont allow renewing books immediately after loaning
+            throw new CommandException(MESSAGE_CANNOT_RENEW_IMMEDIATELY);
+        }
+
+        Loan loanToBeRenewed = bookToBeRenewed.getLoan().get();
+        if (loanToBeRenewed.getRenewCount() >= maxRenewCount) {
+            throw new CommandException(String.format(MESSAGE_BOOK_CANNOT_BE_RENEWED_ANYMORE, bookToBeRenewed));
+        }
+        if (DateUtil.isDateBeforeToday(loanToBeRenewed.getDueDate())) {
+            throw new CommandException(String.format(MESSAGE_BOOK_IS_OVERDUE, bookToBeRenewed));
+        }
+
+        renewingBooks.add(bookToBeRenewed);
+    }
+
+    /**
+     * Get all the books that can be renewed.
+     */
+    private void getAllRenewableBooks(List<Book> lastShownBorrowerBooksList, ArrayList<Book> renewingBooks,
+                                      int maxRenewCount) throws CommandException {
+        for (Book book : lastShownBorrowerBooksList) {
+            Loan loan = book.getLoan().get();
+            if (loan.getRenewCount() >= maxRenewCount) { // hit max renews already
+                continue;
+            }
+            if (DateUtil.isDateBeforeToday(loan.getDueDate())) { // overdue
+                continue;
+            }
+            if (LoanSlipUtil.bookIsInSession(book)) { // dont allow renewing books immediately after loaning
+                continue;
+            }
+
+            renewingBooks.add(book);
+        }
+
+        if (renewingBooks.isEmpty()) {
+            throw new CommandException(MESSAGE_NO_RENEWABLE_BOOKS);
+        }
     }
 
     @Override

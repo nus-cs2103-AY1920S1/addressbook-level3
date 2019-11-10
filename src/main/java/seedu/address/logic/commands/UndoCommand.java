@@ -51,6 +51,10 @@ public class UndoCommand extends Command {
             return CommandResult.commandResultServe(msgSuccess);
         }
 
+        if (actualResult.isToggleUi()) {
+            return CommandResult.commandResultToggleUi(msgSuccess);
+        }
+
         return new CommandResult(msgSuccess);
     }
 

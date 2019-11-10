@@ -57,6 +57,8 @@ public class PayCommand extends Command {
             throw new CommandException(MESSAGE_NO_OUTSTANDING_FINE);
         }
 
+        model.resetCommandHistory();
+
         int change = model.payFines(amountInCents);
 
         String amountPaidInDollars = FineUtil.centsToDollarString(amountInCents - change);

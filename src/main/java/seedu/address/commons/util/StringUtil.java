@@ -103,7 +103,7 @@ public class StringUtil {
         requireNonNull(s);
 
         String[] dollarsAndCents = s.split("\\."); // split by the dot '.'
-        if (dollarsAndCents.length > 1 && dollarsAndCents[1].length() > 2) {
+        if (dollarsAndCents.length > 1 && dollarsAndCents[1].length() > 2) { // cents have more than 2 decimal places
             return false;
         }
 

@@ -34,9 +34,13 @@ public class RenewPeriodTest {
         assertFalse(RenewPeriod.isValidRenewPeriod("hello*")); // contains non-alphanumeric characters
         assertFalse(RenewPeriod.isValidRenewPeriod("hello world")); // alphabets only
         assertFalse(RenewPeriod.isValidRenewPeriod("-1")); // negative integer
+        assertFalse(RenewPeriod.isValidRenewPeriod("366")); // exceed max renew period
+        assertFalse(RenewPeriod.isValidRenewPeriod("0")); // zero
 
         // valid renewPeriod
-        assertTrue(RenewPeriod.isValidRenewPeriod("12345")); // numbers only
+        assertTrue(RenewPeriod.isValidRenewPeriod("123")); // numbers only
+        assertTrue(RenewPeriod.isValidRenewPeriod("365")); // max value
+        assertTrue(RenewPeriod.isValidRenewPeriod("1")); // min value
     }
 
     @Test

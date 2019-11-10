@@ -34,9 +34,12 @@ class MaxRenewsTest {
         assertFalse(MaxRenews.isValidMaxRenews("hello*")); // contains non-alphanumeric characters
         assertFalse(MaxRenews.isValidMaxRenews("hello world")); // alphabets only
         assertFalse(MaxRenews.isValidMaxRenews("-1")); // negative integer
+        assertFalse(MaxRenews.isValidMaxRenews("21")); // exceed maximum max renew count
 
         // valid maxRenews
-        assertTrue(MaxRenews.isValidMaxRenews("12345")); // numbers only
+        assertTrue(MaxRenews.isValidMaxRenews("10")); // numbers only
+        assertTrue(MaxRenews.isValidMaxRenews("0")); // min value
+        assertTrue(MaxRenews.isValidMaxRenews("20")); // max value
     }
 
     @Test

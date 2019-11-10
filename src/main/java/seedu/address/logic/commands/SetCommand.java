@@ -33,9 +33,11 @@ public class SetCommand extends ReversibleCommand {
             + "[" + PREFIX_MAX_RENEWS + "MAX_RENEWS]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_LOAN_PERIOD + "14 "
-            + PREFIX_RENEW_PERIOD + "14 ";
+            + PREFIX_RENEW_PERIOD + "14 "
+            + PREFIX_FINE_INCREMENT + "5 "
+            + PREFIX_MAX_RENEWS + "2 ";
 
-    public static final String MESSAGE_SET_USER_SETTINGS_SUCCESS = "Set User Settings: %1$s";
+    public static final String MESSAGE_SET_USER_SETTINGS_SUCCESS = "Set User Settings:\n%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final SetUserSettingsDescriptor setUserSettingsDescriptor;
@@ -77,6 +79,7 @@ public class SetCommand extends ReversibleCommand {
         settingsDescriptor.setLoanPeriod(new LoanPeriod(userSettings.getLoanPeriod()));
         settingsDescriptor.setRenewPeriod(new RenewPeriod(userSettings.getRenewPeriod()));
         settingsDescriptor.setFineIncrement(new FineIncrement(userSettings.getFineIncrement()));
+        settingsDescriptor.setMaxRenews(new MaxRenews(userSettings.getMaxRenews()));
 
         return settingsDescriptor;
     }

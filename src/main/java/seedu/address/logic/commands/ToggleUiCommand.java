@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 /**
  * Toggles the Ui theme between LiBerry Theme and Dark Theme
  */
-public class ToggleUiCommand extends Command {
+public class ToggleUiCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "toggleui";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles between Light and Dark Themes \n"
@@ -36,12 +36,16 @@ public class ToggleUiCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
 
         model.toggleGuiSettingsTheme();
+        undoCommand = this;
+        redoCommand = this;
 
         if (unusedArguments != null) {
-            return CommandResult.commandResultToggleUi(String.format(MESSAGE_SUCCESS
+            commandResult = CommandResult.commandResultToggleUi(String.format(MESSAGE_SUCCESS
                     + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD));
+            return commandResult;
         } else {
-            return CommandResult.commandResultToggleUi(MESSAGE_SUCCESS);
+            commandResult = CommandResult.commandResultToggleUi(MESSAGE_SUCCESS);
+            return commandResult;
         }
     }
 

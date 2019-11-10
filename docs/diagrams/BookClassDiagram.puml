@@ -9,5 +9,6 @@ Book --> "1" Title
 Book --> "1" SerialNumber
 Book --> "1" Author
 Book -right-> "0..1" Loan
+Book --> "1" LoanList : "LoanHistory"
 Loan -down[hidden]> Author
 @enduml

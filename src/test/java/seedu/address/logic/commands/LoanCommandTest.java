@@ -8,6 +8,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BOOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.BOOK_7;
@@ -87,17 +88,9 @@ class LoanCommandTest {
                 borrowerRecords, new UserPrefs());
 
         LoanCommand loanCommand = new LoanCommand(toLoan);
-
-        String actualMessage;
-        try {
-            actualMessage = loanCommand.execute(model).getFeedbackToUser();
-        } catch (CommandException e) {
-            actualMessage = e.getMessage();
-        } finally {
-            LoanSlipUtil.clearSession();
-        }
         String expectedMessage = MESSAGE_NOT_IN_SERVE_MODE;
-        assertEquals(actualMessage, expectedMessage);
+
+        assertCommandFailure(loanCommand, model, expectedMessage);
     }
 
     @Test
@@ -112,17 +105,9 @@ class LoanCommandTest {
         model.setServingBorrower(servingBorrowerId);
 
         LoanCommand loanCommand = new LoanCommand(toLoan);
-
-        String actualMessage;
-        try {
-            actualMessage = loanCommand.execute(model).getFeedbackToUser();
-        } catch (CommandException e) {
-            actualMessage = e.getMessage();
-        } finally {
-            LoanSlipUtil.clearSession();
-        }
         String expectedMessage = MESSAGE_NO_SUCH_BOOK;
-        assertEquals(actualMessage, expectedMessage);
+
+        assertCommandFailure(loanCommand, model, expectedMessage);
     }
 
     @Test
@@ -140,17 +125,10 @@ class LoanCommandTest {
         model.setServingBorrower(servingBorrowerId);
 
         LoanCommand loanCommand = new LoanCommand(toLoan);
-
-        String actualMessage;
-        try {
-            actualMessage = loanCommand.execute(model).getFeedbackToUser();
-        } catch (CommandException e) {
-            actualMessage = e.getMessage();
-        } finally {
-            LoanSlipUtil.clearSession();
-        }
         String expectedMessage = String.format(MESSAGE_BOOK_ON_LOAN, BOOK_7);
-        assertEquals(actualMessage, expectedMessage);
+
+        assertCommandFailure(loanCommand, model, expectedMessage);
+
     }
 
     @Test

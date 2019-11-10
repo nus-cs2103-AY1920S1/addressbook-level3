@@ -22,16 +22,23 @@ object "__bookSerialNumber:SerialNumber__" as SerialNumber {
 object "__borrowerId:BorrowerId__" as BorrowerId {
     value = "K0789"
 }
-object "__startDate:LocalDate__" as startDate
-object "__dueDate:LocalDate__" as dueDate
-object "__returnDate:LocalDate__" as returnDate
+object "__startDate:LocalDate__" as startDate {
+    year = 2019
+    month = 10
+    day = 10
+}
+object "__dueDate:LocalDate__" as dueDate {
+    year = 2019
+    month = 10
+    day = 24
+}
 object "__:Book__" as Book
 object "__:Borrower__" as Borrower
 object "__currentLoanList:LoanList__" as currentLoanList
 object "__returnedLoanList:LoanList__" as returnedLoanList
 
 LoanRecords --> Loan
-LoanRecords ---> LoanId
+LoanRecords --> LoanId
 Book --> Loan
 Book --> SerialNumber
 Borrower --> currentLoanList
@@ -44,6 +51,5 @@ Loan --> SerialNumber
 Loan --> BorrowerId
 Loan --> startDate
 Loan --> dueDate
-Loan --> returnDate
 
 @enduml

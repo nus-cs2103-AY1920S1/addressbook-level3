@@ -48,9 +48,13 @@ public class Messages {
     public static final String MESSAGE_BOOK_IS_OVERDUE = "%1$s is already overdue and cannot be renewed!";
     public static final String MESSAGE_NO_RETURNABLE_BOOKS = "Borrower does not have any books to return!";
     public static final String MESSAGE_NO_RENEWABLE_BOOKS =
-            "Borrower does not have any books that still can be renewed!";
+            "Borrower does not have any books that can be renewed currently!\n"
+            + "Books that have just been loaned or renewed, books that are overdue and books that have met "
+            + "the maximum renew count cannot be renewed.";
     public static final String MESSAGE_LOAN_STATE_CONSTRAINTS = "Only 1 of -available / -loaned / -overdue flags can "
             + "be used at any time";
+    public static final String MESSAGE_CANNOT_RENEW_IMMEDIATELY =
+            "Cannot renew a book immediately after loaning or renewing it!";
 
     // Fine messages
     public static final String MESSAGE_NO_OUTSTANDING_FINE = "No outstanding fines!";

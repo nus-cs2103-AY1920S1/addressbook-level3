@@ -9,10 +9,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class LoanPeriod {
 
+    private static final int MAX_LOAN_PERIOD = 365;
     public static final String MESSAGE_CONSTRAINTS =
-            "Loan period should be positive and should not exceed Integer.MAX_VALUE days.";
-    public static final String VALIDATION_REGEX = "\\d+";
-    public final int loanPeriod;
+            "Loan period should be a positive non-zero number and should not exceed "
+                    + MAX_LOAN_PERIOD + " days.";
+
+    private final int loanPeriod;
 
     /**
      * Constructs a {@code LoanPeriod}.
@@ -42,7 +44,13 @@ public class LoanPeriod {
      * Returns true if a given string is a valid loan period.
      */
     public static boolean isValidLoanPeriod(String test) {
-        return test.matches(VALIDATION_REGEX);
+        requireNonNull(test);
+        try {
+            int loanPeriod = Integer.parseInt(test);
+            return loanPeriod > 0 && loanPeriod <= MAX_LOAN_PERIOD && !test.startsWith("+");
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 
     @Override

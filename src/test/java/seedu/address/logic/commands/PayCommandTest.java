@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_OUTSTANDING_FINE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CENT_AMOUNT;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBorrowers.IDA;
 import static seedu.address.testutil.TypicalBorrowers.JANNA;
@@ -15,7 +15,6 @@ import static seedu.address.testutil.TypicalLoans.LOAN_9;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.FineUtil;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
 import seedu.address.model.LoanRecords;
@@ -65,15 +64,9 @@ class PayCommandTest {
         Model model = new ModelManager(new Catalog(), loanRecords, borrowerRecords, new UserPrefs());
 
         PayCommand payCommand = new PayCommand(VALID_CENT_AMOUNT);
-
-        String actualMessage;
-        try {
-            actualMessage = payCommand.execute(model).getFeedbackToUser();
-        } catch (CommandException e) {
-            actualMessage = e.getMessage();
-        }
         String expectedMessage = MESSAGE_NOT_IN_SERVE_MODE;
-        assertEquals(actualMessage, expectedMessage);
+
+        assertCommandFailure(payCommand, model, expectedMessage);
     }
 
     @Test
@@ -85,15 +78,10 @@ class PayCommandTest {
         model.setServingBorrower(IDA);
 
         PayCommand payCommand = new PayCommand(VALID_CENT_AMOUNT);
-
-        String actualMessage;
-        try {
-            actualMessage = payCommand.execute(model).getFeedbackToUser();
-        } catch (CommandException e) {
-            actualMessage = e.getMessage();
-        }
         String expectedMessage = MESSAGE_NO_OUTSTANDING_FINE;
-        assertEquals(actualMessage, expectedMessage);
+
+        assertCommandFailure(payCommand, model, expectedMessage);
+
     }
 
     @Test

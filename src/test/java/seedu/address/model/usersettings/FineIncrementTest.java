@@ -35,9 +35,12 @@ public class FineIncrementTest {
         assertFalse(FineIncrement.isValidFineIncrement("hello*")); // contains non-alphanumeric characters
         assertFalse(FineIncrement.isValidFineIncrement("hello world")); // alphabets only
         assertFalse(FineIncrement.isValidFineIncrement("-1")); // negative integer
+        assertFalse(FineIncrement.isValidFineIncrement("100001")); // exceed max fine increment
 
         // valid fineIncrement
         assertTrue(FineIncrement.isValidFineIncrement("12345")); // numbers only
+        assertTrue(FineIncrement.isValidFineIncrement("0")); // min value
+        assertTrue(FineIncrement.isValidFineIncrement("100000")); // max value
     }
 
     @Test
