@@ -161,13 +161,13 @@ image::command-suggestions/user-guide-example-step1.png[width=50%,pdfwidth=50vw]
 
 If you meant to type the `addevent` command, you can immediately select it by pressing the kbd:[Tab] key.
 Otherwise, you can pick other options by using the kbd:[Up] or kbd:[Down] arrow keys and then hit the kbd:[Tab] key to confirm your selection.
-For now, try selecting the `addtogroup` command.
+For now, try selecting the `addtogroup` command using the kbd:[Down] and kbd:[Tab] keys.
 TimeBook will complete the command like this:
 
 image::command-suggestions/user-guide-example-step2.png[width=50%]
 
 *****
-image:./icons/lightbulb.png[] You can type an abbreviated version of the command as long as the letters are in order!
+image:./icons/lightbulb.png[] You can type an abbreviated version of any command as long as the letters are in order!
 For example, instead of typing `addtogroup`, try `atg`.
 *****
 
