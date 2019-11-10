@@ -168,7 +168,7 @@ public class ParserUtil {
                 }
                 intShares.add(Integer.parseInt(share.trim()));
             } catch (NumberFormatException ex) {
-                throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+                throw new ParseException(ex.getMessage());
             }
 
         }
