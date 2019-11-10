@@ -40,13 +40,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list`* : Lists all appointments.
 * **`tab` ** `b/game` : Switches main window to start window of the game.
-* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 l/NUS a/Jason|Harry d/Meeting on Monday p/HIGH` : +
+* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 l/NUS a/Ben|Tom d/Meeting on Monday p/HIGH` : +
 Adds an engagement to the engagements list with the following details: +
 Engagement type: Appointment +
 Start time: 09/11/2019 at 1200 hours +
 End time: 09/11/2019 at 1330 hours +
 Location: NUS +
-Attendees: Jason and Harry +
+Attendees: Ben and Tom +
 Descrption: Meeting on Monday +
 Priority: High +
 * **`pdf` ** `i/1 t/Jason f/Harry`: Generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
