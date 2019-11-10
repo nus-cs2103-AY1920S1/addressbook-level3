@@ -363,6 +363,20 @@ Displays the overview of time spent reviewing the deck `science_deck`, as well a
 
 // end::stats[]
 
+
+// tag::quit[]
+=== Quit FlashCard Pro : `quit`
+
+Leaves FlashCard Pro application.
+
+Format: `quit`
+
+Example:
+
+* `quit`
+
+// end::quit[]
+
 // tag::FAQ[]
 == FAQ
 
