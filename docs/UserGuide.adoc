@@ -54,7 +54,7 @@ Adds an expense to records. +
 Usage:
 
 add n/[NAME] d/[DESCRIPTION] a/[AMOUNT] t/[TAG]
-+
+
 Example:  +
 `add n/buy a book d/math textbook a/10 t/coop` +
 Adds an expense to record where the name is “buy a book”, description is "math textbook" and the amount is 10. +
@@ -107,11 +107,10 @@ Usage:
 +
 Example: +
 `list` +
-Displays below expenses (for example) in the GUI: +
+Displays below expenses (for example) in the GUI:
+ +
 
-* 1. buy a book / amount: $10 +
-* 2. pay for dinner / amount: $5 +
-* !!!!!!!!!!!!!!!! Provide screenshot over here
+image::ListCommandExample.png[]
 {nbsp} +
 
 // tag::tagging[]
