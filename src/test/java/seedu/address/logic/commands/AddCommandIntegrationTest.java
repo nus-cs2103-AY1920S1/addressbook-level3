@@ -48,8 +48,8 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicateExpense_throwsCommandException() {
         Expense expenseInList = model.getExpenseList().getExpenseList().get(0);
-        assertCommandFailure(new AddExpenseCommand(expenseInList), model, AddExpenseCommand.MESSAGE_DUPLICATE_EXPENSE
-            , commandHistory);
+        assertCommandFailure(new AddExpenseCommand(expenseInList), model,
+            AddExpenseCommand.MESSAGE_DUPLICATE_EXPENSE, commandHistory);
     }
 
     @Test
