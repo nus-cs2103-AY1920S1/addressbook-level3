@@ -30,11 +30,6 @@ It required an in-depth analysis of design alternatives. This design choice is e
 *** Complete overhaul of User Interface. This includes generating the FXML files, creating the controller files, importing and GUI tests.
 *** UI commands. This includes the command that is directly related to switching of UI e.g `switch-o` which allows the user to switch their their focused tab panel with a command
 
-* *Code contributed*:
-
-* contributed total almost 7k LOC:
-** 3k+ functional & 3k+ test code: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false[code]
-
 * *Other contributions*:
 
 ** Project management:
@@ -55,8 +50,6 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/136[#136], https://github.co
 *** Ported GUI tests into code base and added to it (Pull Requests: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/103[#103], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/139[#139])
 *** Wrote tests for Statistics Module, Storage Module (Json) (Pull Requests: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/174[#174], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/171[#171], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/160[#160], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/83[#83])
 
-***
-
 ** Documentation:
 *** Wrote About us page: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/48[#48]
 *** Tweaked to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/140[#140]
@@ -69,7 +62,7 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/136[#136], https://github.co
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-T09-2/main/issues/207[#207]  )
 
 ** Summary:
-
+*** Contributed total almost 7k LOC: 3k+ functional & 3k+ test code: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false[code]
 *** Over 41 https://github.com/AY1920S1-CS2103T-T09-4/main/pulls/EugeneTeu[Pull requests] on Github
 *** Over 37 https://github.com/AY1920S1-CS2103T-T09-4/main/issues/created_by/EugeneTeu[issues] on Github
 *** Complete Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false[here]
