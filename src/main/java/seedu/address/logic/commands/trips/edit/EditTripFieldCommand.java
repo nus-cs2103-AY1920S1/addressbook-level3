@@ -21,10 +21,12 @@ import seedu.address.model.Model;
 import seedu.address.model.booking.BookingList;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
+import seedu.address.model.trip.Photo;
 import seedu.address.model.trip.Trip;
 
 /**
@@ -48,8 +50,8 @@ public class EditTripFieldCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 Thailand trip"
             + PREFIX_BUDGET + "3000";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field to must be provided!";
-    public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
+    private static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
 
     private final EditTripDescriptor editTripDescriptor;
 
@@ -103,8 +105,7 @@ public class EditTripFieldCommand extends Command {
         private Optional<LocalDateTime> endDate;
         private Optional<Location> destination;
         private Optional<Budget> totalBudget;
-        //Diary should not be edited here, only kept.
-        private final Diary diary;
+        private Optional<Photo> photo;
 
         public EditTripDescriptor() {
             name = Optional.empty();
@@ -112,20 +113,20 @@ public class EditTripFieldCommand extends Command {
             endDate = Optional.empty();
             destination = Optional.empty();
             totalBudget = Optional.empty();
-            diary = new Diary();
+            photo = Optional.empty();
         }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditTripDescriptor(EditTripDescriptor toCopy) {
+        EditTripDescriptor(EditTripDescriptor toCopy) {
             name = toCopy.getName();
             startDate = toCopy.getStartDate();
             endDate = toCopy.getEndDate();
             destination = toCopy.getDestination();
             totalBudget = toCopy.getBudget();
-            diary = toCopy.diary;
+            photo = toCopy.getPhoto();
         }
 
         /**
@@ -138,7 +139,7 @@ public class EditTripFieldCommand extends Command {
             setEndDate(toCopy.getEndDate());
             setDestination(toCopy.getDestination());
             setBudget(toCopy.getBudget());
-            diary = toCopy.getDiary();
+            setPhoto(toCopy.getPhoto());
         }
 
         /**
@@ -149,7 +150,7 @@ public class EditTripFieldCommand extends Command {
          * @param oldDescriptor Old {@code EditTripDescriptor} to use.
          * @param newDescriptor New {@code EditTripDescriptor} to use.
          */
-        public EditTripDescriptor(EditTripDescriptor oldDescriptor, EditTripDescriptor newDescriptor) {
+        EditTripDescriptor(EditTripDescriptor oldDescriptor, EditTripDescriptor newDescriptor) {
             this();
             newDescriptor.name.ifPresentOrElse(this::setName, () ->
                     oldDescriptor.name.ifPresent(this::setName));
@@ -165,7 +166,11 @@ public class EditTripFieldCommand extends Command {
 
             newDescriptor.totalBudget.ifPresentOrElse(this::setBudget, () ->
                     oldDescriptor.totalBudget.ifPresent(this::setBudget));
+
+            newDescriptor.photo.ifPresentOrElse(this::setPhoto, () ->
+                    oldDescriptor.photo.ifPresent(this::setPhoto));
         }
+
 
         /**
          * Builds a new {@code Trip} instance.
@@ -176,9 +181,11 @@ public class EditTripFieldCommand extends Command {
          */
         public Trip buildTrip() {
             if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
-                return new Trip(name.get(), startDate.get(), endDate.get(),
-                        destination.get(), totalBudget.get(), new DayList(), new ExpenditureList(), diary,
-                        new BookingList());
+                Trip trip = new Trip(name.get(), startDate.get(), endDate.get(),
+                        destination.get(), totalBudget.get(), new DayList(startDate.get(), endDate.get()),
+                        new ExpenditureList(), new Diary(), new BookingList(), new InventoryList(), photo);
+                trip.initializeDayList();
+                return trip;
             } else {
                 throw new NullPointerException();
             }
@@ -197,6 +204,7 @@ public class EditTripFieldCommand extends Command {
             LocalDateTime endDate = trip.getEndDate();
             Location destination = trip.getDestination();
             Budget budget = trip.getBudget();
+            Optional<Photo> photo = trip.getPhoto();
             if (this.name.isPresent()) {
                 tripName = this.name.get();
             }
@@ -212,16 +220,23 @@ public class EditTripFieldCommand extends Command {
             if (this.totalBudget.isPresent()) {
                 budget = this.totalBudget.get();
             }
+            if (this.photo.isPresent()) {
+                photo = this.photo;
+            }
 
-            return new Trip(tripName, startDate, endDate, destination, budget,
-                    trip.getDayList(), trip.getExpenditureList(), diary, new BookingList());
+            Trip newTrip = new Trip(tripName, startDate, endDate, destination, budget,
+                    trip.getDayList(), trip.getExpenditureList(), trip.getDiary(), trip.getBookingList(),
+                    trip.getInventoryList(), photo);
+            newTrip.initializeDayList();
+
+            return newTrip;
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(name, startDate, endDate, destination, totalBudget);
+            return CollectionUtil.isAnyPresent(name, startDate, endDate, destination, totalBudget, photo);
         }
 
         public void setName(Name name) {
@@ -242,6 +257,14 @@ public class EditTripFieldCommand extends Command {
 
         public void setEndDate(LocalDateTime endDate) {
             this.endDate = Optional.of(endDate);
+        }
+
+        public void setPhoto(Optional<Photo> photo) {
+            this.photo = photo;
+        }
+
+        public void setPhoto(Photo photo) {
+            this.photo = Optional.ofNullable(photo);
         }
 
         public Optional<LocalDateTime> getEndDate() {
@@ -265,6 +288,10 @@ public class EditTripFieldCommand extends Command {
             return totalBudget;
         }
 
+        public Optional<Photo> getPhoto() {
+            return photo;
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -284,7 +311,8 @@ public class EditTripFieldCommand extends Command {
                     && getStartDate().equals(e.getStartDate())
                     && getEndDate().equals(e.getEndDate())
                     && getDestination().equals(e.getDestination())
-                    && getBudget().equals(e.getBudget());
+                    && getBudget().equals(e.getBudget())
+                    && getPhoto().equals(e.getPhoto());
         }
 
         @Override
@@ -298,7 +326,7 @@ public class EditTripFieldCommand extends Command {
                     builder.append(" End date: ").append(ParserDateUtil.getDisplayTime(endDate)));
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
-
+            this.photo.ifPresent(photo -> builder.append("Photo path: ").append(photo));
             return builder.toString();
         }
     }

@@ -1,7 +1,7 @@
 .Sidebar {
-    -fx-background-color: linear-gradient(to right, rgb(222, 222, 222, 0.8), rgb(222, 222, 222, 0.5));
+    -fx-background-color: linear-gradient(to right, rgba(233, 233, 233, 0.5), rgba(233, 233, 233, 0.3));
     -fx-border-width: 2;
-    -fx-border-color: rgb(222, 222, 222);
+    -fx-border-color: transparent;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
     -fx-padding: 0;
@@ -10,31 +10,12 @@
 .Sidebar .button {
     -fx-background-radius: 0;
     -fx-background-color: transparent;
-    -fx-padding: 1;
+    -fx-padding: 0;
     -fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-background-insets: 0;
 }
 
-.button:pressed, .button:default:hover:pressed, .button:hover, .button:default:hover {
-  -fx-background-color: rgb(212, 212, 212, 1);
-}
-
-.button:focused {
-    -fx-background-color: rgb(212, 212, 212, 1);
-    -fx-border-color: transparent, transparent;
-    -fx-border-width: 0;
-    -fx-border-style: solid;
-    -fx-border-radius: 0;
-    -fx-border-insets: 0;
-}
-
-.button:disabled, .button:default:disabled {
-    -fx-background-color: rgb(212, 212, 212, 1);
-    -fx-text-fill: white;
-}
-
-.button:default {
-    -fx-background-color: rgb(212, 212, 212, 1);
-    -fx-text-fill: #ffffff;
+.Sidebar:hover {
+    -fx-background-color: linear-gradient(to right, rgba(244, 244, 244, 0.8), rgba(244, 244, 244, 0.5));
 }

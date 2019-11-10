@@ -2,8 +2,8 @@ package seedu.address.logic.commands.itinerary.days;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -34,13 +34,18 @@ public class EnterEditDayCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Day> lastShownList = model.getPageStatus().getTrip().getDayList().internalList;
+        ObservableList<Day> lastShownList = model.getPageStatus().getTrip().getDayList().internalList;
 
-        if (indexToEdit.getZeroBased() >= lastShownList.size()) {
+        // Set when the trip list is first displayed to the user
+        SortedList currentSortedDayList = model.getPageStatus().getSortedOccurrencesList();
+
+        int rawZeroBasedIndex = currentSortedDayList.getSourceIndex(indexToEdit.getZeroBased());
+
+        if (rawZeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);
         }
 
-        Day dayToEdit = lastShownList.get(indexToEdit.getZeroBased());
+        Day dayToEdit = lastShownList.get(rawZeroBasedIndex);
         EditDayFieldCommand.EditDayDescriptor editDayDescriptor = new EditDayFieldCommand.EditDayDescriptor(dayToEdit);
 
         model.setPageStatus(model.getPageStatus()

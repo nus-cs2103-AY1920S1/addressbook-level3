@@ -3,6 +3,7 @@ package seedu.address.model.expenditure;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.exceptions.ExpenditureNotRemovableException;
 import seedu.address.model.expenditure.exceptions.DuplicateExpenditureException;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
+import seedu.address.model.expenditure.exceptions.ExpenditureNotRemovableException;
 
 /**
  * List containing {@code Expenditure}.
@@ -97,9 +98,12 @@ public class ExpenditureList implements Iterable<Expenditure> {
      */
     public void remove(Expenditure toRemove) throws ExpenditureNotFoundException {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+        List<Expenditure> events = new ArrayList<>();
+        if (!internalList.stream().anyMatch(toRemove:: isSameExpenditure)) {
             throw new ExpenditureNotFoundException();
         }
+        internalList.stream().filter(toRemove:: isSameExpenditure).forEach(i -> events.add(i));
+        internalList.remove(events.get(0));
     }
 
     /**

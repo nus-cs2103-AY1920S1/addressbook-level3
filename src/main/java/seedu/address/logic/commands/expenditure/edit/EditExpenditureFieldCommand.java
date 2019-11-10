@@ -37,6 +37,8 @@ public class EditExpenditureFieldCommand extends Command {
 
     public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
+    public static final String MESSAGE_NOT_EDITABLE = "The expenditure is linked to an event, only the amount can be "
+            + "edited. To change name and day number, please edit the corresponding event";
 
     private final EditExpenditureDescriptor editExpenditureDescriptor;
 
@@ -52,6 +54,14 @@ public class EditExpenditureFieldCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Expenditure expenditure = model.getPageStatus().getExpenditure();
+        boolean hasName = editExpenditureDescriptor.getName().isPresent();
+        boolean hasDayNumber = editExpenditureDescriptor.getDayNumber().isPresent();
+        if (expenditure != null) {
+            if (!expenditure.getRemovability() && (hasName || hasDayNumber)) {
+                throw new CommandException(MESSAGE_NOT_EDITABLE);
+            }
+        }
         EditExpenditureDescriptor currentDescriptor = model.getPageStatus().getEditExpenditureDescriptor();
         EditExpenditureDescriptor newEditExpenditureDescriptor = currentDescriptor == null
                 ? new EditExpenditureDescriptor(editExpenditureDescriptor)
@@ -167,6 +177,7 @@ public class EditExpenditureFieldCommand extends Command {
             Name expenditureName = expenditure.getName();
             Budget budget = expenditure.getBudget();
             Optional<DayNumber> dayNumber = expenditure.getDayNumber();
+            boolean isRemovable = expenditure.getRemovability();
 
             if (this.name.isPresent()) {
                 expenditureName = this.name.get();
@@ -178,7 +189,7 @@ public class EditExpenditureFieldCommand extends Command {
                 dayNumber = this.dayNumber;
             }
 
-            return new Expenditure(expenditureName, budget, dayNumber, true);
+            return new Expenditure(expenditureName, budget, dayNumber, isRemovable);
         }
 
         /**

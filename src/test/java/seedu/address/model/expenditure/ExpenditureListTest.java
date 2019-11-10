@@ -164,7 +164,7 @@ public class ExpenditureListTest {
         ExpenditureList expenditureList = new ExpenditureList();
         assertDoesNotThrow(() -> {
             expenditureList.add(EXPENDITURE_A);
-            expenditureList.remove(EXPENDITURE_A);
+            expenditureList.removeByUser(EXPENDITURE_A);
             ExpenditureList expectedUniqueExpenditureList = new ExpenditureList();
             assertEquals(expectedUniqueExpenditureList, expenditureList);
         });

@@ -14,7 +14,6 @@ import seedu.address.model.trip.exceptions.TripNotFoundException;
 
 /**
  * Represents a list of consecutive, non clashing occurrences (trips/events/days).
- * Todo, make list consecutive.
  *
  * @param <T> Type of occurrence
  */
@@ -30,10 +29,10 @@ public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T> {
     public abstract boolean contains(T toCheck);
 
     /**
-     * Returns true if the list contains
+     * Returns true if the list contains clashing occurrence.
      *
-     * @param toCheck
-     * @return
+     * @param toCheck Target occurrence to check
+     * @return True if list contains clashing occurrence
      */
     public abstract boolean containsClashing(T toCheck);
 
@@ -108,8 +107,6 @@ public abstract class ConsecutiveOccurrenceList<T> implements Iterable<T> {
 
     /**
      * Returns true if {@code trips} contains only unique trips.
-     *
-     * @param occurrence
      */
     public abstract boolean areUnique(List<T> occurrence);
 

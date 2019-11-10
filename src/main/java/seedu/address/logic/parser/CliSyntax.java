@@ -24,4 +24,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_DAY_NUMBER = new Prefix("dn/");
     public static final Prefix PREFIX_DATA_FILE_PATH = new Prefix("fp/");
     public static final Prefix PREFIX_FILE_CHOOSER = new Prefix("fc/");
+    public static final Prefix PREFIX_SYMBOL = new Prefix("s/");
+    public static final Prefix PREFIX_RATE = new Prefix("r/");
 }

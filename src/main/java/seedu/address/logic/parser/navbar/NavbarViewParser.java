@@ -39,17 +39,23 @@ public class NavbarViewParser implements PageParser {
         this.precludedPage = precludedPage;
     }
 
+    public NavbarViewParser() {
+    }
+
     @Override
     public Command parse(String command, String arguments) throws ParseException {
         NavbarCommand commandType;
+
         try {
             commandType = NavbarCommand.valueOf(command);
-            if (commandType == precludedPage) {
+
+            if (precludedPage != null && commandType == precludedPage) {
                 throw new IllegalArgumentException(String.format(MESSAGE_NAVIGATE_SAME_PAGE, precludedPage));
             }
         } catch (IllegalArgumentException ex) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }
+
 
         switch (commandType) {
         case HOME:

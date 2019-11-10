@@ -4,11 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+
 <GridPane alignment="CENTER" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="350.0" minWidth="200.0" styleClass="TripCard" stylesheets="@Trips.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -42,20 +43,22 @@
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin></Label>
-      <AnchorPane GridPane.hgrow="ALWAYS">
-         <children>
-            <ImageView fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+      <BorderPane prefWidth="200.0">
+         <center>
+            <ImageView fx:id="tripImageView" fitHeight="175.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@../../images/dummytrip.jpeg" />
                </image>
             </ImageView>
-            <Label fx:id="tripDisplayIndexLabel" layoutX="14.0" layoutY="14.0" styleClass="TripCardIndex" text="Label" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+         </center>
+         <top>
+            <Label fx:id="tripDisplayIndexLabel" styleClass="TripCardIndex" text="Label" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Book Antiqua Bold" size="20.0" />
                </font>
             </Label>
-         </children>
-      </AnchorPane>
+         </top>
+      </BorderPane>
       <GridPane GridPane.rowIndex="4">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

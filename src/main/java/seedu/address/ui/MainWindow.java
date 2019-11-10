@@ -7,9 +7,11 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -23,15 +25,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.bookings.BookingListPage;
-import seedu.address.ui.bookings.BookingsPage;
+//import seedu.address.ui.bookings.BookingsPage;
 import seedu.address.ui.bookings.EditBookingsPage;
 import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
+import seedu.address.ui.currency.CurrencyPage;
 import seedu.address.ui.diary.DiaryPage;
-import seedu.address.ui.expenditure.DailyExpenditurePage;
 import seedu.address.ui.expenditure.EditExpenditurePage;
-import seedu.address.ui.expenditure.ExpensesListPage;
+import seedu.address.ui.expenditure.ExpensesPage;
 import seedu.address.ui.inventory.InventoryPage;
 import seedu.address.ui.itinerary.DaysPage;
 import seedu.address.ui.itinerary.EditDayPage;
@@ -39,9 +41,9 @@ import seedu.address.ui.itinerary.EditEventPage;
 import seedu.address.ui.itinerary.EventsPage;
 import seedu.address.ui.itinerary.ItineraryPage;
 import seedu.address.ui.template.Page;
+import seedu.address.ui.template.UiChangeConsumer;
 import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.trips.TripsPage;
-import seedu.address.ui.utility.PreferencesPage;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -50,6 +52,10 @@ import seedu.address.ui.utility.PreferencesPage;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+
+    private static final double MIN_WINDOW_WIDTH = 800;
+    private static final double MIN_WINDOW_HEIGHT = 600;
+
     private static final int PAGE_TRANSITION_DURATION_MILLIS = 500;
     private static final double PAGE_TRANSITION_INITIAL_OPACITY = 0.2;
     private static final String MESSAGE_PAGE_NOT_IMPLEMENTED = "Sorry! We haven't implemented the %1$s page!";
@@ -58,6 +64,7 @@ public class MainWindow extends UiPart<Stage> {
     protected Stage primaryStage;
     protected Logic logic;
     protected Model model;
+    protected Page<? extends Node> currentPage;
 
     private CommandUpdater commandUpdater;
 
@@ -84,26 +91,26 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.model = model;
 
-        setStageListeners();
+        setMinWindowSizeListeners();
         fillInnerParts();
         helpWindow = new HelpWindow();
     }
 
-    private void setStageListeners() {
-        ChangeListener<Number> guiChangeListener = (observable, oldValue, newValue) -> {
-            if (model.getUserPrefs().isGuiPrefsLocked()) {
-                setWindowDefaultSize(model.getGuiSettings());
-            } else {
-                GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                        (int) primaryStage.getX(), (int) primaryStage.getY());
-                model.setGuiSettings(guiSettings);
-            }
-        };
+    private void setMinWindowSizeListeners() {
+        primaryStage.setMinWidth(MIN_WINDOW_WIDTH);
+        primaryStage.setMinHeight(MIN_WINDOW_HEIGHT);
 
-        primaryStage.widthProperty().addListener(guiChangeListener);
-        primaryStage.heightProperty().addListener(guiChangeListener);
-        primaryStage.xProperty().addListener(guiChangeListener);
-        primaryStage.yProperty().addListener(guiChangeListener);
+        primaryStage.widthProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue.doubleValue() < MIN_WINDOW_WIDTH) {
+                primaryStage.setWidth(MIN_WINDOW_WIDTH);
+            }
+        }));
+
+        primaryStage.heightProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue.doubleValue() < MIN_WINDOW_HEIGHT) {
+                primaryStage.setHeight(MIN_WINDOW_HEIGHT);
+            }
+        }));
     }
 
     /**
@@ -118,6 +125,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        //Set 'F1' accelerator to move keyboard focus back to cli input
+        setAccelerator(KeyCombination.keyCombination("F1"), commandBox::requestFocus);
     }
 
     /**
@@ -134,7 +144,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    public CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    public CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, IllegalArgumentException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -152,10 +163,14 @@ public class MainWindow extends UiPart<Stage> {
                 handleSwitch();
             }
 
+            if (commandResult.doChangeUi()) {
+                handleChange(commandResult.getCommandWord());
+            }
+
             commandUpdater.executeUpdateCallback();
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IllegalArgumentException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -188,16 +203,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Closes the application.
+     * Closes the application, and saves the current window position and dimensions.
      */
     @FXML
     private void handleExit() {
-        //Save gui size on exit only if gui prefs are not locked.
-        if (!model.getUserPrefs().isGuiPrefsLocked()) {
-            GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                    (int) primaryStage.getX(), (int) primaryStage.getY());
-            model.setGuiSettings(guiSettings);
-        }
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        model.setGuiSettings(guiSettings);
+
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -218,9 +231,6 @@ public class MainWindow extends UiPart<Stage> {
         case ADD_TRIP:
             newPage = new EditTripPage(this, logic, model);
             break;
-        case PREFERENCES:
-            newPage = new PreferencesPage(this, logic, model);
-            break;
         case ADD_EVENT:
             newPage = new EditEventPage(this, logic, model);
             break;
@@ -237,13 +247,13 @@ public class MainWindow extends UiPart<Stage> {
             newPage = new ItineraryPage(this, logic, model);
             break;
         case EXPENSE_MANAGER:
-            newPage = new ExpensesListPage(this, logic, model);
-            break;
-        case EXPENSE_MANAGER_DAYS:
-            newPage = new DailyExpenditurePage(this, logic, model);
+            newPage = new ExpensesPage(this, logic, model);
             break;
         case ADD_EXPENDITURE:
             newPage = new EditExpenditurePage(this, logic, model);
+            break;
+        case ADD_CURRENCY:
+            newPage = new CurrencyPage(this, logic, model);
             break;
         case PRETRIP_INVENTORY:
             newPage = new InventoryPage(this, logic, model);
@@ -263,6 +273,7 @@ public class MainWindow extends UiPart<Stage> {
             return;
         }
 
+        currentPage = newPage;
         switchContent(newPage);
         this.commandUpdater = newPage::fillPage;
     }
@@ -273,7 +284,6 @@ public class MainWindow extends UiPart<Stage> {
      * @param page The {@code Page} to switch to.
      */
     private void switchContent(Page<? extends Node> page) {
-        setWindowDefaultSize(model.getGuiSettings());
         Node pageNode = page.getRoot();
 
         //transition
@@ -303,6 +313,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Executes the change in the UI within the same page.
+     * @param commandWord The command word used to execute this change.
+     */
+    private void handleChange(String commandWord) throws CommandException {
+        if (currentPage instanceof UiChangeConsumer) {
+            UiChangeConsumer consumer = (UiChangeConsumer) currentPage;
+            consumer.changeUi(commandWord.toUpperCase());
+        } else {
+            throw new CommandException("Page does not support this command");
+        }
+    }
+
+    /**
      * Functional interface for allowing custom operations to occur after a command is executed.
      */
     @FunctionalInterface
@@ -322,20 +345,14 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    //setAccelerator code from AB3 for opening help window
-    /*
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
-
     /**
-     * Sets the accelerator of a MenuItem.
+     * Sets an accelerator the application.
      * @param keyCombination the KeyCombination value of the accelerator
-     *//*
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-    /*
-        *
+     */
+    private void setAccelerator(KeyCombination keyCombination, Runnable keyCombinationExecutor) {
+        getRoot().getScene().getAccelerators().put(keyCombination, keyCombinationExecutor);
+
+        /*
          * TODO: the code below can be removed once the bug reported here
          * https://bugs.openjdk.java.net/browse/JDK-8131666
          * is fixed in later version of SDK.
@@ -350,13 +367,12 @@ public class MainWindow extends UiPart<Stage> {
          * help window purposely so to support accelerators even when focus is
          * in CommandBox or ResultDisplay.
          *
-        /*
+         */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
+                keyCombinationExecutor.run();
                 event.consume();
             }
         });
     }
-    */
 }

@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane style="-fx-border-color: sienna; -fx-border-width: 5; -fx-border-radius: 2; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" style="-fx-border-color: sienna; -fx-border-width: 5; -fx-border-radius: 2; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="photoImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="-2.0" />
+      <ImageView fx:id="photoImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/dummytrip.jpeg" />
+         </image>
+      </ImageView>
    </children>
-</AnchorPane>
+   <padding>
+      <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+   </padding>
+</StackPane>

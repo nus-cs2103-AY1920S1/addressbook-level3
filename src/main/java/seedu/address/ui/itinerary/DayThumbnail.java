@@ -1,12 +1,19 @@
 package seedu.address.ui.itinerary;
 
+import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.itinerary.days.EnterDayCommand;
+import seedu.address.logic.commands.itinerary.days.EnterEditDayCommand;
 import seedu.address.model.itinerary.day.Day;
+import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
+
 
 /**
  * A component for displaying the details of a day.
@@ -15,27 +22,36 @@ public class DayThumbnail extends UiPart<AnchorPane> {
     private static final String FXML = "itinerary/days/DayThumbnail.fxml";
 
     @FXML
-    private Label nameLabel;
-
-    @FXML
     private Label destinationLabel;
 
     @FXML
     private Label indexLabel;
 
+    @FXML
+    private Button editButton;
+
+    @FXML
+    private Label dateLabel;
+
     private Day day;
     private Index displayedIndex;
+    private MainWindow mainWindow;
 
-    public DayThumbnail(Day day, Index displayedIndex) {
+    public DayThumbnail(Day day, Index displayedIndex, MainWindow mainWindow) {
         super(FXML);
         this.day = day;
         this.displayedIndex = displayedIndex;
+        this.mainWindow = mainWindow;
         fillDayThumbnailLabels();
     }
 
+    /**
+     * Fills the contents of the thumbnails.
+     */
     private void fillDayThumbnailLabels() {
         indexLabel.setText("DAY " + displayedIndex.getOneBased() + "");
-        nameLabel.setText(day.getName().toString());
+        dateLabel.setText(day.getStartDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
+        destinationLabel.setWrapText(true);
         destinationLabel.setText(day.getDestination().toString());
     }
 
@@ -57,5 +73,14 @@ public class DayThumbnail extends UiPart<AnchorPane> {
                 && this.displayedIndex.equals(otherThumbnail.displayedIndex);
     }
 
+    @FXML
+    private void handleEditDay() {
+        mainWindow.executeGuiCommand(EnterEditDayCommand.COMMAND_WORD + " " + displayedIndex.getOneBased());
+    }
+
+    @FXML
+    private void handleEnterDay() {
+        mainWindow.executeGuiCommand(EnterDayCommand.COMMAND_WORD + " " + displayedIndex.getOneBased());
+    }
 
 }

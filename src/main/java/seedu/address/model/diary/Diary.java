@@ -36,6 +36,10 @@ public class Diary {
         return diaryEntryList.getFirstDiaryEntry();
     }
 
+    public void addDiaryEntry(DiaryEntry diaryEntry) {
+        diaryEntryList.addDiaryEntry(diaryEntry);
+    }
+
     public void setDiaryEntry(DiaryEntry target, DiaryEntry replacement) {
         diaryEntryList.setDiaryEntry(target, replacement);
     }
@@ -57,10 +61,6 @@ public class Diary {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(" Diary Entry List: ")
-                .append(diaryEntryList.toString());
-
-        return builder.toString();
+        return "Diary Entry List: " + diaryEntryList.toString();
     }
 }

@@ -4,19 +4,20 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #403F4C;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <left>
-        <VBox fx:id="sideBarLeft" prefHeight="200.0" prefWidth="100.0" />
+        <VBox fx:id="sideBarLeft" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" />
     </left>
     <right>
-        <VBox fx:id="sideBarRight" prefHeight="200.0" prefWidth="100.0" />
+        <VBox fx:id="sideBarRight" alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" />
     </right>
    <bottom>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #121420;" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
@@ -26,31 +27,33 @@
       </ScrollPane>
    </bottom>
    <center>
-      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+      <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
         </rowConstraints>
          <BorderPane.margin>
             <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
          </BorderPane.margin>
          <children>
-            <AnchorPane fx:id="diaryTextPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: #121420; -fx-border-width: 2;" GridPane.rowSpan="2147483647" GridPane.vgrow="NEVER">
+            <StackPane fx:id="diaryEntryPlaceholder" style="-fx-border-color: #121420; -fx-border-width: 1;">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding></StackPane>
+            <HBox style="-fx-background-color: #040F0F;" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="dayIndexLabel" contentDisplay="RIGHT" graphicTextGap="0.0" style="-fx-font-size: 25; -fx-font-family: Lucida Handwriting; -fx-border-width: 0 0 1 0; -fx-border-color: #121420; -fx-font-weight: bold;" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label fx:id="dayIndexLabel" contentDisplay="RIGHT" graphicTextGap="0.0" style="-fx-font-size: 25; -fx-font-family: Lucida Handwriting; -fx-font-weight: bold; -fx-text-fill: #FFFFFA;" text="Type &quot;create&quot;!">
                      <padding>
                         <Insets left="5.0" />
-                     </padding></Label>
+                     </padding>
+                  </Label>
                </children>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </AnchorPane>
-            <VBox fx:id="diaryRightPlaceholder" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #040F0F;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            </HBox>
+            <StackPane fx:id="diaryRightPlaceholder" style="-fx-background-color: #040F0F;" GridPane.columnIndex="1" />
             <ButtonBar fx:id="diaryRightButtonBar" buttonMinWidth="50.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #040F0F;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />

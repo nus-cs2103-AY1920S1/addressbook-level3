@@ -10,7 +10,6 @@ public enum PageType {
     DIARY,
     CONTACTS_MANAGER,
     EXPENSE_MANAGER,
-    EXPENSE_MANAGER_DAYS,
     PRETRIP_INVENTORY,
     ITINERARY,
     EVENT_PAGE,
@@ -19,5 +18,6 @@ public enum PageType {
     ADD_DAY,
     ADD_EVENT,
     ADD_EXPENDITURE,
-    ADD_BOOKINGS
+    ADD_BOOKINGS,
+    ADD_CURRENCY
 }

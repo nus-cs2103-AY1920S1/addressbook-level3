@@ -19,17 +19,20 @@ import seedu.address.logic.parser.ParserDateUtil;
  * Also contains other information such as the display name of the photo and the date.
  */
 public class Photo {
-    public static final String INVALID_FILE_PATH = "/images/invalidPhotoPlaceholder.png";
 
+    /** The maximum length of the description the should have. */
     public static final int MAXIMUM_DESCRIPTION_LENGTH = 20;
+
     public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
             "Description can take any values, but it should not be blank,"
                     + " and must have a maximum length of " + MAXIMUM_DESCRIPTION_LENGTH
                     + ". (Keep your descriptions short and sweet!)";
+
     public static final String MESSAGE_PATH_CONSTRAINTS =
             "The image path specified should be valid, and must point to an existing file.";
     public static final String MESSAGE_IMAGE_CONSTRAINTS = "The file should point to a valid png or jpg image file.";
 
+    private static final String INVALID_FILE_PATH = "/images/invalidPhotoPlaceholder.png";
 
     /*
      * The first character of the address must not be a whitespace,

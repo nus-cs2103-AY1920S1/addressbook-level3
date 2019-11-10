@@ -3,7 +3,7 @@ package seedu.address.logic.parser.common;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.common.EnterPrefsCommand;
+import seedu.address.logic.commands.common.HelpCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class CommonParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
-            + EnterPrefsCommand.COMMAND_WORD;
+            + HelpCommand.COMMAND_WORD;
 
     @Override
     public Command parse(String command, String arguments) throws ParseException {
@@ -24,9 +24,8 @@ public class CommonParser implements PageParser<Command> {
         }
 
         switch (commandType) {
-        case PREFS:
-            return new EnterPrefsCommand();
         case HELP:
+            return new HelpCommand();
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

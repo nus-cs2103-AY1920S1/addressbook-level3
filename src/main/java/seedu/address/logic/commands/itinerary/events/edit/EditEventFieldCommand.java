@@ -54,7 +54,7 @@ public class EditEventFieldCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_LOCATION + " ABC Zoo "
             + PREFIX_BUDGET + "10";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field to must be provided!";
+    public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
 
     private final EditEventDescriptor editEventDescriptor;
@@ -120,6 +120,8 @@ public class EditEventFieldCommand extends Command {
             endDate = Optional.empty();
             destination = Optional.empty();
             totalBudget = Optional.empty();
+            inventory = Optional.empty();
+            booking = Optional.empty();
 
         }
 
@@ -244,13 +246,10 @@ public class EditEventFieldCommand extends Command {
                 destination = this.destination.get();
             }
             if (this.totalBudget.isPresent()) {
-                if (expenditure.isPresent()) {
-                    model.getPageStatus().getTrip().getExpenditureList().remove(expenditure.get());
-                }
                 int index = model.getPageStatus().getTrip().getDayList()
                         .internalList.indexOf(model.getPageStatus().getDay());
                 Expenditure newExpenditure = new Expenditure(eventName, this.totalBudget.get(),
-                        new DayNumber(Integer.toString(index)), false);
+                        new DayNumber(Integer.toString(index + 1)), false);
                 expenditure = Optional.of(newExpenditure);
             }
             if (this.inventory.isPresent()) {

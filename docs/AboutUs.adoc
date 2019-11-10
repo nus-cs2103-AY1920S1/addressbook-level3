@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Ang Ze Yu
 image::ang-zeyu.png[width="150", align="left"]
-{empty}[https://github.com/ang-zeyu[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ang-zeyu[github]] [<<ang-zeyu#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic, Deliverables and deadlines

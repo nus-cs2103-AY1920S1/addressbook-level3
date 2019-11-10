@@ -20,21 +20,44 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean shouldExit;
 
+    /** The application should change the Ui **/
+    private final boolean doChangeUi;
+
+    /** The command word executed **/
+    private final String commandWord;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean shouldExit, boolean doSwitchPage) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean shouldExit, boolean doSwitchPage,
+                         boolean doChangeUi, String commandWord) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.shouldExit = shouldExit;
         this.doSwitchPage = doSwitchPage;
+        this.doChangeUi = doChangeUi;
+        this.commandWord = commandWord;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean shouldExit, boolean doSwitchPage) {
+        this(feedbackToUser, showHelp, shouldExit, doSwitchPage, false, null);
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean shouldExit) {
-        this(feedbackToUser, showHelp, shouldExit, false);
+        this(feedbackToUser, showHelp, shouldExit, false, false, null);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean doChangeUi, String commandWord) {
+        this(feedbackToUser, false, false, false, true, commandWord);
     }
 
     /**
@@ -51,7 +74,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, boolean doSwitchPage) {
-        this(feedbackToUser, false, false, doSwitchPage);
+        this(feedbackToUser, false, false, doSwitchPage, false, null);
     }
 
     public String getFeedbackToUser() {
@@ -68,6 +91,14 @@ public class CommandResult {
 
     public boolean doSwitchPage() {
         return doSwitchPage;
+    }
+
+    public boolean doChangeUi() {
+        return doChangeUi;
+    }
+
+    public String getCommandWord() {
+        return commandWord;
     }
 
     @Override

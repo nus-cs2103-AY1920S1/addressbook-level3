@@ -2,8 +2,6 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,9 +9,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane style="-fx-background-color: #F2DFD7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane alignment="CENTER" hgap="20.0" layoutX="96.0" layoutY="111.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="100.0">
+      <GridPane alignment="CENTER" layoutX="96.0" layoutY="111.0" maxWidth="400.0" style="-fx-background-color: white; -fx-border-color: black;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
         <columnConstraints>
             <ColumnConstraints halignment="LEFT" />
             <ColumnConstraints />
@@ -21,29 +19,23 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="nameLabel" style="-fx-font-size: 20; -fx-font-weight: bold;" text="\$Name" />
-            <Label fx:id="startDateLabel" text="\$StartDate" GridPane.rowIndex="1" />
-            <Label fx:id="endDateLabel" text="\$EndDate" GridPane.rowIndex="2" />
-            <Label fx:id="destinationLabel" text="\$Destination" GridPane.rowIndex="3" />
-            <Label fx:id="totalBudgetLabel" text="\$TotalBudget" GridPane.rowIndex="4" />
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <image>
-                  <Image url="@../../../../../build/resources/main/images/dummytrip.jpeg" />
-               </image>
-            </ImageView>
+            <Label fx:id="startDateLabel" style="-fx-font-size: 30;" text="\$StartDate" />
+            <Label fx:id="endDateLabel" style="-fx-font-size: 30;" text="\$EndDate" GridPane.rowIndex="1" />
+            <Label fx:id="destinationLabel" style="-fx-font-size: 30;" text="\$Destination" GridPane.rowIndex="2" />
+            <Label fx:id="totalBudgetLabel" style="-fx-font-size: 30;" text="\$TotalBudget" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <VBox fx:id="sideBarLeft" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <VBox fx:id="sideBarRight" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <ScrollPane fitToWidth="true" layoutX="186.0" layoutY="186.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <VBox fx:id="sideBarLeft" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <VBox fx:id="sideBarRight" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ScrollPane fitToHeight="true" layoutX="186.0" layoutY="186.0" maxWidth="400.0" prefViewportHeight="35.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <content>
             <HBox fx:id="dayButtonsContainer" />
          </content>
       </ScrollPane>
+      <Label fx:id="nameLabel" layoutX="312.0" layoutY="30.0" style="-fx-font-size: 50; -fx-font-weight: bold; -fx-alignment: center; -fx-background-color: white; -fx-font-family: Arial;" text="\$Name" AnchorPane.topAnchor="30.0" />
    </children>
 </AnchorPane>

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.diary.EditDiaryEntryCommand;
+import seedu.address.logic.commands.diary.entry.EditEntryTextCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
@@ -21,9 +21,9 @@ public class DeletePhotoCommand extends Command {
             + ": Deletes the photo specified by the index in the diary entry's gallery.\n"
             + "Parameters: Index (must be a valid positive integer)";
 
-    public static final String MESSAGE_DELETE_SUCCESS = "Deleted your photo! %1$s";
+    private static final String MESSAGE_DELETE_SUCCESS = "Deleted your photo! %1$s";
 
-    public static final String MESSAGE_PHOTO_MISSING = "The photo you specified at the index %1$s does not exist!";
+    private static final String MESSAGE_PHOTO_MISSING = "The photo you specified at the index %1$s does not exist!";
 
     private final Index photoIndex;
 
@@ -37,7 +37,7 @@ public class DeletePhotoCommand extends Command {
         DiaryEntry diaryEntry = model.getPageStatus().getDiaryEntry();
 
         if (diaryEntry == null) {
-            throw new CommandException(EditDiaryEntryCommand.MESSAGE_NO_DIARY_ENTRY);
+            throw new CommandException(EditEntryTextCommand.MESSAGE_NO_DIARY_ENTRY);
         }
 
         Photo deletedPhoto = diaryEntry.getPhotoList().deletePhoto(photoIndex);

@@ -65,12 +65,12 @@ public class TimeFormItem extends FormItem<LocalTime> {
         });
 
         hourSpinner.valueProperty().addListener(((observable, oldValue, newValue) -> {
-            if (oldValue != newValue) {
+            if (!oldValue.equals(newValue)) {
                 executeChangeHandler.accept(getValue());
             }
         }));
         minuteSpinner.valueProperty().addListener(((observable, oldValue, newValue) -> {
-            if (oldValue != newValue) {
+            if (!oldValue.equals(newValue)) {
                 executeChangeHandler.accept(getValue());
             }
         }));

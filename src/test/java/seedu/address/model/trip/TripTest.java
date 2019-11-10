@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DATE_TIME_FORMATTER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_DAY_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESTINATION_BALI;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESTINATION_DAY_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ENDDATE_BALI_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ENDDATE_AFRICA_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ENDDATE_DAY_1_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AFRICA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BALI;
@@ -91,7 +91,7 @@ public class TripTest {
 
         // different end date -> returns false
         editedTripA = TripBuilder.of(TRIP_A).setEndDate(
-                LocalDateTime.parse(VALID_ENDDATE_BALI_2, DATE_TIME_FORMATTER)).build();
+                LocalDateTime.parse(VALID_ENDDATE_AFRICA_2, DATE_TIME_FORMATTER)).build();
         assertFalse(TRIP_A.equals(editedTripA));
 
         // different Location -> returns false
@@ -100,10 +100,11 @@ public class TripTest {
 
         // different total budget -> returns false
         editedTripA = TripBuilder.of(TRIP_A).setTotalBudget(new Budget(VALID_TOTAL_BUDGET_BALI)).build();
-        assertTrue(TRIP_A.equals(editedTripA));
+        assertFalse(TRIP_A.equals(editedTripA));
 
         // different daylist -> returns false
-        DayList days = new DayList();
+        DayList days = new DayList(LocalDateTime.parse(VALID_STARTDATE_DAY_1_2, DATE_TIME_FORMATTER),
+                LocalDateTime.parse(VALID_ENDDATE_DAY_1_2, DATE_TIME_FORMATTER));
         days.add(DayBuilder.newInstance().setName(new Name(VALID_NAME_DAY_1))
                 .setDescription(new Description(VALID_DESCRIPTION_DAY_1))
                 .setStartDate(LocalDateTime.parse(VALID_STARTDATE_DAY_1_2, DATE_TIME_FORMATTER))

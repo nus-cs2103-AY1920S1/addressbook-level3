@@ -97,9 +97,9 @@ public class EditEventPage extends Page<AnchorPane> {
                     + " " + endTime.format(TIME_FORMATTER));
         });
 
-        eventTotalBudgetFormItem = new DoubleFormItem("Total budget : ", totalBudget -> {
+        eventTotalBudgetFormItem = new DoubleFormItem("Total budget (in Singapore Dollar): ", totalBudget -> {
             mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_BUDGET + totalBudget);
+                    + " " + PREFIX_BUDGET + String.format("%.2f", totalBudget));
         });
         eventDestinationFormItem = new TextFormItem("Destination : ", destinationValue -> {
             mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD

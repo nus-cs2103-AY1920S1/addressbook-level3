@@ -51,7 +51,8 @@ public class EnterEditExpenditureCommand extends Command {
                 .withNewExpenditure(expenditureToEdit)
                 .withNewEditExpenditureDescriptor(editExpenditureDescriptor));
 
-        return new CommandResult(String.format(MESSAGE_ENTER_EDIT_EXPENDITURE_SUCCESS, expenditureToEdit), true);
+        return new CommandResult(MESSAGE_ENTER_EDIT_EXPENDITURE_SUCCESS + expenditureToEdit.getName().toString(),
+                true);
     }
 
     @Override

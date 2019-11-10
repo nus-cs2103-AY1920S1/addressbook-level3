@@ -37,16 +37,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setTravelPalFilePath(newUserPrefs.getTravelPalFilePath());
-        setGuiPrefsLocked(newUserPrefs.isGuiPrefsLocked());
-    }
-
-    @Override
-    public boolean isGuiPrefsLocked() {
-        return isGuiLocked;
-    }
-
-    public void setGuiPrefsLocked(boolean doLock) {
-        isGuiLocked = doLock;
     }
 
     @Override

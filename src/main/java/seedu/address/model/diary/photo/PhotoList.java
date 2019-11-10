@@ -14,7 +14,7 @@ import seedu.address.commons.core.index.Index;
  * It is backed by an {@code ObservableList}.
  */
 public class PhotoList {
-    private ObservableList<Photo> photos;
+    private final ObservableList<Photo> photos;
 
     public PhotoList() {
         this.photos = FXCollections.observableArrayList();
@@ -58,11 +58,7 @@ public class PhotoList {
      * @param searchTerm The string search term to use.
      */
     public void removeAllPhotos(String searchTerm) {
-        photos.forEach(photo -> {
-            if (photo.getDescription().matches(searchTerm)) {
-                photos.remove(photo);
-            }
-        });
+        photos.removeIf(photo -> photo.getDescription().matches(searchTerm));
     }
 
     @Override

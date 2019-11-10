@@ -17,7 +17,7 @@ import seedu.address.model.diary.DiaryEntryList;
 /**
  * Jackson-friendly version of {@link DiaryEntryList}.
  */
-public class JsonAdaptedDiaryEntryList {
+class JsonAdaptedDiaryEntryList {
     private final List<JsonAdaptedDiaryEntry> diaryEntries;
 
     /**
@@ -37,7 +37,7 @@ public class JsonAdaptedDiaryEntryList {
     public JsonAdaptedDiaryEntryList(DiaryEntryList source) {
         requireNonNull(source);
         this.diaryEntries = new ArrayList<JsonAdaptedDiaryEntry>();
-        ObservableList<DiaryEntry> diaryEntryList = source.getReadOnlyDiaryEntries();
+        ObservableList<DiaryEntry> diaryEntryList = source.getDiaryEntrySortedList();
 
         for (DiaryEntry diaryEntry : diaryEntryList) {
             this.diaryEntries.add(new JsonAdaptedDiaryEntry(diaryEntry));

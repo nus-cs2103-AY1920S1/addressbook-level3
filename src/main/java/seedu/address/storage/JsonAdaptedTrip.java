@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -14,19 +15,22 @@ import seedu.address.model.booking.BookingList;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
+import seedu.address.model.trip.Photo;
 import seedu.address.model.trip.Trip;
 import seedu.address.storage.diary.JsonAdaptedDiary;
 
 /**
  * Jackson friendly version of {@code Trip}.
  */
-public class JsonAdaptedTrip {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Trip's %s field is missing!";
+class JsonAdaptedTrip {
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Trip's %s field is missing!";
 
     private final String name;
     private final LocalDateTime startDate;
@@ -37,6 +41,10 @@ public class JsonAdaptedTrip {
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
     private final List<JsonAdaptedExpenditure> expenditureList = new ArrayList<>();
     private final List<JsonAdaptedBooking> bookingList = new ArrayList<>();
+    private final Optional<JsonAdaptedTripPhoto> photo;
+
+    //Added by Karan Dev Sapra
+    private final List<JsonAdaptedInventory> inventoryList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedTrip} with the given trip details.
@@ -51,7 +59,9 @@ public class JsonAdaptedTrip {
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList,
             @JsonProperty("expenditureList")List<JsonAdaptedExpenditure> expenditureList,
             @JsonProperty("diary") JsonAdaptedDiary diary,
-            @JsonProperty("bookingList") List<JsonAdaptedBooking> bookingList) {
+            @JsonProperty("bookingList") List<JsonAdaptedBooking> bookingList,
+            @JsonProperty("photo") Optional<JsonAdaptedTripPhoto> photo,
+            @JsonProperty("inventoryList") List<JsonAdaptedInventory> inventoryList) throws IllegalValueException {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -66,6 +76,10 @@ public class JsonAdaptedTrip {
         this.diary = diary;
         if (bookingList != null) {
             this.bookingList.addAll(bookingList);
+        }
+        this.photo = photo;
+        if (inventoryList != null) {
+            this.inventoryList.addAll(inventoryList);
         }
     }
 
@@ -92,7 +106,17 @@ public class JsonAdaptedTrip {
         this.bookingList.addAll(source.getBookingList()
                 .asUnmodifiableObservableList()
             .stream().map(JsonAdaptedBooking::new)
-            .collect(Collectors.toList())
+            .collect(Collectors.toList()));
+        if (source.getPhoto().isPresent()) {
+            this.photo = Optional.of(new JsonAdaptedTripPhoto(source.getPhoto().get()));
+        } else {
+            this.photo = Optional.empty();
+        }
+
+        this.inventoryList.addAll(source.getInventoryList()
+                .asUnmodifiableObservableList()
+                .stream().map(JsonAdaptedInventory::new)
+                .collect(Collectors.toList())
         );
     }
 
@@ -105,6 +129,7 @@ public class JsonAdaptedTrip {
         final List<Day> days = new ArrayList<>();
         final List<Expenditure> expenditures = new ArrayList<>();
         final List<Booking> bookings = new ArrayList<>();
+        final List<Inventory> inventories = new ArrayList<>();
 
         for (JsonAdaptedDay day : dayList) {
             days.add(day.toModelType());
@@ -116,6 +141,10 @@ public class JsonAdaptedTrip {
 
         for (JsonAdaptedBooking booking : bookingList) {
             bookings.add(booking.toModelType());
+        }
+
+        for (JsonAdaptedInventory inventory : inventoryList) {
+            inventories.add(inventory.toModelType());
         }
 
         Diary diary = this.diary.toModelType();
@@ -157,8 +186,14 @@ public class JsonAdaptedTrip {
         //No check for TotalBudget (defaults to 0)
         Budget modelTotalBudget = new Budget(totalBudget);
 
+        Optional<Photo> modelPhoto;
+        if (photo.isPresent()) {
+            modelPhoto = Optional.of(photo.get().toModelType());
+        } else {
+            modelPhoto = Optional.empty();
+        }
 
-        DayList modelDayList = new DayList();
+        DayList modelDayList = new DayList(startDate, endDate);
         modelDayList.set(days);
 
         ExpenditureList modelExpenditureList = new ExpenditureList();
@@ -167,7 +202,11 @@ public class JsonAdaptedTrip {
         BookingList modelBookingList = new BookingList();
         modelBookingList.set(bookings);
 
+        InventoryList modelInventoryList = new InventoryList();
+        modelInventoryList.set(inventories);
+
         return new Trip(modelName, modelStartDate, modelEndDate,
-                modelDestination, modelTotalBudget, modelDayList, modelExpenditureList, diary, modelBookingList);
+                modelDestination, modelTotalBudget, modelDayList, modelExpenditureList, diary,
+                modelBookingList, modelInventoryList, modelPhoto);
     }
 }

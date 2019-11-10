@@ -15,6 +15,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appstatus.PageStatus;
 import seedu.address.model.appstatus.PageType;
+import seedu.address.model.currency.CustomisedCurrency;
+import seedu.address.model.currency.exceptions.CurrencyNotFoundException;
+import seedu.address.model.currency.exceptions.CurrencyNotRemovableException;
+import seedu.address.model.currency.exceptions.DuplicateCurrencyException;
 import seedu.address.model.person.Person;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.exceptions.ClashingTripException;
@@ -30,6 +34,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Trip> filteredTripList;
+    private final FilteredList<CustomisedCurrency> filteredCurrencyList;
 
     private PageStatus pageStatus;
 
@@ -47,9 +52,12 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.pageStatus = new PageStatus(PageType.TRIP_MANAGER, null, null, null, null,
                 null, null, null, null,
-                null, null, null, null, null);
+                null, null, null,
+                null, null, null,
+                null);
         filteredPersons = new FilteredList<>(this.travelPal.getPersonList());
         filteredTripList = new FilteredList<>(this.travelPal.getTripList());
+        filteredCurrencyList = new FilteredList<>(this.travelPal.getCurrencies());
     }
 
     public ModelManager() {
@@ -168,6 +176,38 @@ public class ModelManager implements Model {
         travelPal.deleteTrip(target);
     }
 
+    //=========== Filtered Currency List Accessors =============================================================
+
+    @Override
+    public FilteredList<CustomisedCurrency> getFilteredCurrencyList() {
+        return filteredCurrencyList;
+    }
+
+    @Override
+    public void addCurrency(CustomisedCurrency currency) throws DuplicateCurrencyException {
+        requireNonNull(currency);
+        travelPal.addCurrency(currency);
+    }
+
+    @Override
+    public void setCurrency(CustomisedCurrency target, CustomisedCurrency replacement)
+            throws CurrencyNotFoundException {
+        requireAllNonNull(target, replacement);
+        travelPal.setCurrency(target, replacement);
+    }
+
+    @Override
+    public void deleteCurrency(CustomisedCurrency target) throws CurrencyNotFoundException,
+            CurrencyNotRemovableException {
+        requireNonNull(target);
+        travelPal.deleteCurrency(target);
+    }
+
+    @Override
+    public void selectCurrency(CustomisedCurrency target) throws CurrencyNotFoundException {
+        requireNonNull(target);
+        travelPal.selectCurrency(target);
+    }
     //=========== PageStatus List Accessors =============================================================
 
     @Override
@@ -198,6 +238,7 @@ public class ModelManager implements Model {
         return travelPal.equals(other.travelPal)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
-                && filteredTripList.equals(other.filteredTripList);
+                && filteredTripList.equals(other.filteredTripList)
+                && pageStatus.equals(other.getPageStatus());
     }
 }

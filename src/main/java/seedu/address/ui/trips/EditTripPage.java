@@ -1,8 +1,10 @@
 package seedu.address.ui.trips;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_CHOOSER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
@@ -16,10 +18,12 @@ import seedu.address.logic.commands.trips.edit.CancelEditTripCommand;
 import seedu.address.logic.commands.trips.edit.DoneEditTripCommand;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.logic.parser.ParserDateUtil;
+import seedu.address.logic.parser.trips.edit.EditTripCommand;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.components.form.DateFormItem;
 import seedu.address.ui.components.form.DoubleFormItem;
+import seedu.address.ui.components.form.PhotoFormItem;
 import seedu.address.ui.components.form.TextFormItem;
 import seedu.address.ui.template.Page;
 
@@ -35,6 +39,7 @@ public class EditTripPage extends Page<AnchorPane> {
     private DateFormItem tripStartDateFormItem;
     private DateFormItem tripEndDateFormItem;
     private DoubleFormItem tripTotalBudgetFormItem;
+    private PhotoFormItem tripPhotoFormItem;
 
     @FXML
     private VBox formItemsPlaceholder;
@@ -67,6 +72,8 @@ public class EditTripPage extends Page<AnchorPane> {
                 tripEndDateFormItem.setValue(endDate.toLocalDate()));
         currentEditDescriptor.getBudget().ifPresent(budget ->
                 tripTotalBudgetFormItem.setValue(budget.value));
+        currentEditDescriptor.getPhoto().ifPresent(photo ->
+                tripPhotoFormItem.setValue(photo));
     }
 
     /**
@@ -87,9 +94,9 @@ public class EditTripPage extends Page<AnchorPane> {
         tripEndDateFormItem = new DateFormItem("End date : ", endDate -> {
             mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
                     + " " + PREFIX_DATE_END
-                    + ParserDateUtil.getStringFromDate(endDate.atStartOfDay()));
+                    + ParserDateUtil.getStringFromDate(endDate.atTime(23, 59)));
         });
-        tripTotalBudgetFormItem = new DoubleFormItem("Total budget : ", totalBudget -> {
+        tripTotalBudgetFormItem = new DoubleFormItem("Total budget (in Singapore Dollar): ", totalBudget -> {
             mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
                     + " " + PREFIX_BUDGET + totalBudget);
         });
@@ -97,6 +104,15 @@ public class EditTripPage extends Page<AnchorPane> {
             mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
                     + " " + PREFIX_LOCATION + destinationValue);
         });
+        tripPhotoFormItem = new PhotoFormItem("Photo : ", photo -> {
+            mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
+                    + " " + PREFIX_DATA_FILE_PATH + photo.getImageFilePath());
+        }, () -> {
+            mainWindow.executeGuiCommand(EditTripCommand.EDIT + " "
+                    + PREFIX_FILE_CHOOSER + " " + PREFIX_DATA_FILE_PATH);
+
+        }
+        );
 
         fillPage(); //update and overwrite with existing edit descriptor
 
@@ -105,7 +121,8 @@ public class EditTripPage extends Page<AnchorPane> {
                 tripStartDateFormItem.getRoot(),
                 tripEndDateFormItem.getRoot(),
                 tripTotalBudgetFormItem.getRoot(),
-                tripDestinationFormItem.getRoot());
+                tripDestinationFormItem.getRoot(),
+                tripPhotoFormItem.getRoot());
     }
 
     @FXML

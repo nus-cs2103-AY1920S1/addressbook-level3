@@ -1,10 +1,13 @@
 package seedu.address.ui.trips;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -17,7 +20,7 @@ import javafx.scene.layout.GridPane;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.common.EnterPrefsCommand;
+import seedu.address.logic.commands.common.HelpCommand;
 import seedu.address.logic.commands.trips.EnterCreateTripCommand;
 import seedu.address.logic.commands.trips.EnterTripCommand;
 import seedu.address.model.Model;
@@ -52,11 +55,16 @@ public class TripsPage extends Page<AnchorPane> {
      */
     public void fillPage() {
         tripGridPane.getChildren().clear();
-        List<Trip> trips = model.getTravelPal().getTripList();
-        List<Node> tripCards = IntStream.range(0, trips.size())
-                .mapToObj(i -> Index.fromZeroBased(i))
+        ObservableList<Trip> trips = model.getTravelPal().getTripList();
+
+        // Sorts trips for display
+        SortedList<Trip> tripsSortedList = trips.sorted(Comparator.comparing(Trip::getStartDate));
+        model.setPageStatus(model.getPageStatus().withNewSortedOccurrencesList(tripsSortedList));
+
+        List<Node> tripCards = IntStream.range(0, tripsSortedList.size())
+                .mapToObj(Index::fromZeroBased)
                 .map(index -> {
-                    TripCard tripCard = new TripCard(trips.get(index.getZeroBased()), index);
+                    TripCard tripCard = new TripCard(tripsSortedList.get(index.getZeroBased()), index, model);
                     int column = index.getZeroBased() % MAX_COLUMNS;
                     int row = index.getZeroBased() / MAX_COLUMNS;
 
@@ -85,7 +93,8 @@ public class TripsPage extends Page<AnchorPane> {
     }
 
     @FXML
-    private void handlePreferences() {
-        mainWindow.executeGuiCommand(EnterPrefsCommand.COMMAND_WORD);
+    private void handleHelp() {
+        mainWindow.executeGuiCommand(HelpCommand.COMMAND_WORD);
     }
+
 }

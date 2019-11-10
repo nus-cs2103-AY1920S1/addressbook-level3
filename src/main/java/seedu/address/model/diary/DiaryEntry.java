@@ -10,12 +10,12 @@ import seedu.address.model.diary.photo.PhotoList;
  * Each entry is linked to a specific {@code Day} and multiple {@code Event}s.
  */
 public class DiaryEntry {
-    public static final String MESSAGE_CONSTRAINTS = "You cannot have multiple diary entries for a one day. ";
 
-    private static final int MAX_DIARY_TEXT_DISPLAY_LENGTH = 30;
+    /** The maximum diary text display length to use when converting the {@link DiaryEntry} to a string. */
+    static final int MAX_DIARY_TEXT_DISPLAY_LENGTH = 30;
 
     private final Index dayIndex;
-    private String diaryText;
+    private final String diaryText;
     private final PhotoList photoList;
 
     /**
@@ -44,6 +44,10 @@ public class DiaryEntry {
 
     public Index getDayIndex() {
         return dayIndex;
+    }
+
+    public int getDayNumber() {
+        return dayIndex.getOneBased();
     }
 
     public PhotoList getPhotoList() {

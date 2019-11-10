@@ -1,0 +1,109 @@
+@startuml
+!include ../style.puml
+
+title Executing "edit ds/10/10/2019" in Days Page
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TravelPalParser" as TravelPalParser LOGIC_COLOR
+participant ":EditDayParser" as EditDayParser LOGIC_COLOR
+participant ":EditDayFieldParser" as EditDayFieldParser LOGIC_COLOR
+participant "argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant "editDayDescriptor:EditDayDescriptor" as EditDayDescriptor LOGIC_COLOR
+participant "command:EditDayFieldCommand" as EditDayFieldCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":PageStatus" as PageStatus MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("edit ds/10/10/2019")
+activate LogicManager
+
+LogicManager -> TravelPalParser : parseCommand("edit ds/10/10/2019")
+activate TravelPalParser
+
+create EditDayParser
+TravelPalParser -> EditDayParser
+activate EditDayParser
+EditDayParser -> TravelPalParser
+deactivate EditDayParser
+TravelPalParser -> EditDayParser : parse("edit", "ds/10/10/2019)
+activate EditDayParser
+
+create EditDayFieldParser
+EditDayParser -> EditDayFieldParser
+activate EditDayFieldParser
+EditDayFieldParser -> EditDayParser
+deactivate EditDayFieldParser
+EditDayParser -> EditDayFieldParser : parse("ds/10/10/2019")
+activate EditDayFieldParser
+
+create ArgumentMultimap
+EditDayFieldParser -> ArgumentMultimap : Argument.tokenizer(prefixes)
+activate ArgumentMultimap
+ArgumentMultimap -> EditDayFieldParser
+deactivate ArgumentMultimap
+EditDayFieldParser -> ArgumentMultimap : argMultimap.getValue(PREFIX_NAME)
+activate ArgumentMultimap
+ArgumentMultimap -> EditDayFieldParser : "10/10/2019"
+deactivate ArgumentMultimap
+
+create EditDayDescriptor
+EditDayFieldParser -> EditDayDescriptor
+activate EditDayDescriptor
+EditDayDescriptor -> EditDayFieldParser
+deactivate EditDayDescriptor
+EditDayFieldParser -> EditDayDescriptor : setStartDate(startDate)
+activate EditDayDescriptor
+EditDayDescriptor -> EditDayFieldParser
+deactivate EditDayDescriptor
+
+create EditDayFieldCommand
+EditDayFieldParser -> EditDayFieldCommand
+activate EditDayFieldCommand
+return command
+deactivate EditDayFieldCommand
+
+return command
+deactivate EditDayFieldParser
+
+return command
+deactivate EditDayParser
+
+return command
+
+LogicManager -> EditDayFieldCommand : execute()
+activate EditDayFieldCommand
+
+EditDayFieldCommand -> Model : getPageStatus()
+activate Model
+Model -> PageStatus : getEditDayDescriptor()
+activate PageStatus
+return currentDescriptor
+deactivate PageStatus
+Model -> EditDayFieldCommand : currentDescriptor
+deactivate Model
+
+EditDayFieldCommand -> Model : getPageStatus()
+activate Model
+Model -> PageStatus : withNewEditDayDescriptor(editDayDescriptor)
+activate PageStatus
+PageStatus -> PageStatus : new(..., EditDayDescriptor, ...)
+activate PageStatus
+return
+return
+return newEditDayDescriptor
+
+create CommandResult
+EditDayFieldCommand -> CommandResult
+activate CommandResult
+return
+
+EditDayFieldCommand -> LogicManager : result
+
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

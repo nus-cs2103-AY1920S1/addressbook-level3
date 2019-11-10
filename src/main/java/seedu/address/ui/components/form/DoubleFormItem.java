@@ -28,15 +28,10 @@ public class DoubleFormItem extends FormItem<Double> {
                 new DoubleSpinnerValueFactory(MIN_SPINNER_VALUE, MAX_SPINNER_VALUE, SPINNER_INCREMENT));
         formDoubleSpinner.getValueFactory().setValue(initialValue);
 
-        /*
-        Tie execute changeHandler to the value of the Spinner (for clicking up/down),
-        and the textProperty of the underlying TextField supporting
-        the spinner (if user types the value manually)
-        */
+        //Prevent entering of values that do not make a valid double
         formDoubleSpinner.getEditor().textProperty().addListener((observableVal, oldVal, newVal) -> {
             try {
                 Double.parseDouble(newVal);
-                formDoubleSpinner.commitValue();
                 //valueProperty listener will run after this
             } catch (NumberFormatException ex) {
                 formDoubleSpinner.getEditor().setText(oldVal);
@@ -44,7 +39,7 @@ public class DoubleFormItem extends FormItem<Double> {
         });
 
         formDoubleSpinner.valueProperty().addListener((observableVal, oldVal, newVal) -> {
-            if (oldVal != newVal) {
+            if (!oldVal.equals(newVal)) {
                 executeChangeHandler.accept(getValue());
             }
         });

@@ -5,9 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.Model;
+import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.ui.UiPart;
-
 
 /**
  * TODO: Implement display for inventory and booking labels.
@@ -21,17 +22,18 @@ public class ExpenditureCard extends UiPart<HBox> {
     private Label nameLabel;
     @FXML
     private Label budgetLabel;
-
     @FXML
     private VBox propertiesContainer;
 
     private Expenditure expenditure;
     private Index displayedIndex;
+    private Model model;
 
-    public ExpenditureCard(Expenditure expenditure, Index displayedIndex) {
+    public ExpenditureCard(Expenditure expenditure, Index displayedIndex, Model model) {
         super(FXML);
         this.expenditure = expenditure;
         this.displayedIndex = displayedIndex;
+        this.model = model;
         fillExpenditureCardLabels();
     }
 
@@ -39,9 +41,10 @@ public class ExpenditureCard extends UiPart<HBox> {
      * Fills the labels of this expenditure card.
      */
     private void fillExpenditureCardLabels() {
+        CustomisedCurrency currency = model.getTravelPal().getCurrencies().get(0);
         idLabel.setText(displayedIndex.getOneBased() + ".");
         nameLabel.setText(expenditure.getName().toString());
-        budgetLabel.setText(" $" + expenditure.getBudget().toString());
+        budgetLabel.setText(expenditure.getBudget().getValueStringInCurrency(currency));
     }
     @Override
     public boolean equals(Object other) {

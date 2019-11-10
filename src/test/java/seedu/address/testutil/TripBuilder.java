@@ -7,10 +7,12 @@ import java.time.LocalDateTime;
 import seedu.address.model.booking.BookingList;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
+import seedu.address.model.trip.Photo;
 import seedu.address.model.trip.Trip;
 
 /**
@@ -27,9 +29,11 @@ public class TripBuilder {
     private ExpenditureList expenditureList;
     private Diary diary;
     private BookingList bookingList;
+    private Photo photo;
+    private InventoryList inventoryList;
 
     private TripBuilder() {
-        dayList = new DayList();
+        dayList = new DayList(startDate, endDate);
     }
 
     public static TripBuilder newInstance() {
@@ -49,7 +53,10 @@ public class TripBuilder {
                 .setStartDate(trip.getStartDate())
                 .setEndDate(trip.getEndDate())
                 .setLocation(trip.getDestination())
-                .setTotalBudget(trip.getBudget());
+                .setTotalBudget(trip.getBudget())
+                .setDayList(trip.getDayList())
+                .setExpenditureList(trip.getExpenditureList())
+                .setDiary(trip.getDiary());
         //.setDayList(trip.getDayList());
     }
 
@@ -83,8 +90,22 @@ public class TripBuilder {
         return this;
     }
 
+    public TripBuilder setPhoto(Photo photo) {
+        this.photo = photo;
+        return this;
+    }
     public TripBuilder setExpenditureList(ExpenditureList expenditureList) {
         this.expenditureList = expenditureList;
+        return this;
+    }
+
+    public TripBuilder setDiary(Diary diary) {
+        this.diary = diary;
+        return this;
+    }
+
+    public TripBuilder setInventoryList(InventoryList inventoryList) {
+        this.inventoryList = inventoryList;
         return this;
     }
 
@@ -93,7 +114,7 @@ public class TripBuilder {
      */
     public Trip build() {
         return new Trip(name, startDate, endDate, destination, totalBudget, dayList, expenditureList, diary,
-                bookingList);
+                bookingList, inventoryList, photo);
     }
 
 }

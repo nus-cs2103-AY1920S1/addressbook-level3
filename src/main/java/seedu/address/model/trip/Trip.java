@@ -1,6 +1,9 @@
 package seedu.address.model.trip;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.booking.BookingList;
@@ -10,13 +13,17 @@ import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
+import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
+import seedu.address.model.itinerary.event.EventList;
 
 /**
  * Represents a Trip in TravelPal.
  * Compulsory fields: name, startDate, endDate, destination, dayList, totalBudget
  */
 public class Trip {
+    public static final String MESSAGE_INVALID_DATETIME = "Start date should be before end date";
+
     // Compulsory Fields
     private final Name name;
     private final LocalDateTime startDate;
@@ -28,15 +35,37 @@ public class Trip {
     private final Budget totalBudget;
     private final Diary diary;
     private final BookingList bookingList;
-
-    private final InventoryList inventoryList = new InventoryList();
+    private final Photo photo;
+    private final InventoryList inventoryList;
 
     /**
      * Constructs a trip.
      */
     public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
                 Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary,
-                BookingList bookingList) {
+                BookingList bookingList, InventoryList inventoryList, Photo photo) {
+        checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
+        this.name = name;
+        this.startDate = startDate.toLocalDate().atStartOfDay();
+        this.endDate = endDate.toLocalDate().atTime(23, 59);
+        this.destination = destination;
+        this.totalBudget = totalBudget;
+        this.dayList = dayList;
+        this.expenditureList = expenditureList;
+        this.tripId = new TripId();
+        this.diary = diary;
+        this.bookingList = bookingList;
+        this.photo = photo;
+        this.inventoryList = inventoryList;
+    }
+
+    /**
+     * Constructs a trip with optional fields
+     */
+    public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
+                Budget totalBudget, DayList dayList, ExpenditureList expenditureList,
+                Diary diary, BookingList bookingList, InventoryList inventoryList, Optional<Photo> photo) {
+        checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -47,6 +76,30 @@ public class Trip {
         this.tripId = new TripId();
         this.diary = diary;
         this.bookingList = bookingList;
+        this.photo = photo.orElse(null);
+        this.inventoryList = inventoryList;
+    }
+
+    /**
+     * Creates a list of days upon first initialization.
+     */
+    public void initializeDayList() {
+        int totalDays = endDate.getDayOfMonth() - startDate.getDayOfMonth() + 1;
+        assert(totalDays > 0);
+        this.dayList.internalList.clear();
+        for (int i = 0; i < totalDays; i++) {
+            LocalDateTime currentDay = startDate.plusDays(i);
+            this.dayList.add(new Day(currentDay.withHour(0).withMinute(0),
+                    currentDay.withHour(23).withMinute(59),
+                    Optional.empty(),
+                    destination,
+                    Optional.empty(),
+                    new EventList(currentDay)));
+        }
+    }
+
+    public boolean isValidDuration(LocalDateTime startDate, LocalDateTime endDate) {
+        return startDate.isBefore(endDate);
     }
 
     //Compulsory field getters
@@ -94,8 +147,13 @@ public class Trip {
         return diary;
     }
 
+    // Optional fields
+    public Optional<Photo> getPhoto() {
+        return Optional.ofNullable(photo);
+    }
+
     /**
-     * Returns true if both {@link Trip} contain the same booking and their to and from time are the same.
+     * Returns true if both {@link Trip} contain the same name, location, and starting, ending dates.
      * This defines a weaker notion of equality between two events.
      */
     public boolean isSameTrip(Trip otherTrip) {
@@ -125,7 +183,10 @@ public class Trip {
                 && otherTrip.getStartDate().equals(getStartDate())
                 && otherTrip.getEndDate().equals(getEndDate())
                 && otherTrip.getDestination().equals(getDestination())
-                && otherTrip.getDayList().equals(getDayList());
+                && otherTrip.getBudget().equals(getBudget())
+                && otherTrip.getDayList().equals(getDayList())
+                && otherTrip.getDiary().equals(getDiary())
+                && otherTrip.getExpenditureList().equals(getExpenditureList());
     }
 
     /**
@@ -153,7 +214,9 @@ public class Trip {
                 .append(" Destination: ")
                 .append(destination.toString())
                 .append(" Total Budget: ")
-                .append(totalBudget.toString());
+                .append(totalBudget.toString())
+                .append(" Image Path: ")
+                .append(photo == null ? "default image" : photo.getImageFilePath());
 
         return builder.toString();
     }

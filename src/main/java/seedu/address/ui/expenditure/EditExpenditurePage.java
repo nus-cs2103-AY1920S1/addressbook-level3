@@ -13,6 +13,7 @@ import seedu.address.logic.commands.expenditure.edit.CancelEditExpenditureComman
 import seedu.address.logic.commands.expenditure.edit.DoneEditExpenditureCommand;
 import seedu.address.logic.commands.expenditure.edit.EditExpenditureFieldCommand;
 import seedu.address.model.Model;
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.components.form.DoubleFormItem;
 import seedu.address.ui.components.form.TextFormItem;
@@ -29,7 +30,7 @@ public class EditExpenditurePage extends Page<AnchorPane> {
     private TextFormItem expenditureNameFormItem;
     private DoubleFormItem expenditureAmountFormItem;
     private TextFormItem expenditureDayFormItem;
-
+    private Expenditure expenditureToEdit;
     @javafx.fxml.FXML
     private VBox formItemsPlaceholder;
 
@@ -38,6 +39,7 @@ public class EditExpenditurePage extends Page<AnchorPane> {
 
     public EditExpenditurePage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
+        expenditureToEdit = model.getPageStatus().getExpenditure();
         initFormWithModel();
     }
 
@@ -61,6 +63,18 @@ public class EditExpenditurePage extends Page<AnchorPane> {
     }
 
     /**
+     * Sets fields as disabled.
+     */
+    public void setDisabledFields() {
+        if (expenditureToEdit == null || expenditureToEdit.getRemovability()) {
+            return;
+        } else {
+            expenditureNameFormItem.getRoot().setDisable(true);
+            expenditureDayFormItem.getRoot().setDisable(true);
+        }
+    }
+
+    /**
      * Initialises and fills up all the placeholders of this window.
      */
     private void initFormWithModel() {
@@ -70,7 +84,7 @@ public class EditExpenditurePage extends Page<AnchorPane> {
                     EditExpenditureFieldCommand.COMMAND_WORD
                             + " " + PREFIX_NAME + nameFormValue);
         });
-        expenditureAmountFormItem = new DoubleFormItem("Total amount : ", totalBudget -> {
+        expenditureAmountFormItem = new DoubleFormItem("Total amount (in Singapore Dollar): ", totalBudget -> {
             mainWindow.executeGuiCommand(EditExpenditureFieldCommand.COMMAND_WORD
                     + " " + PREFIX_BUDGET + totalBudget);
         });
@@ -80,7 +94,7 @@ public class EditExpenditurePage extends Page<AnchorPane> {
         });
 
         fillPage(); //update and overwrite with existing edit descriptor
-
+        setDisabledFields();
         formItemsPlaceholder.getChildren().addAll(
                 expenditureNameFormItem.getRoot(),
                 expenditureAmountFormItem.getRoot(),

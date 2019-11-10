@@ -11,42 +11,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: #F2DFD7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox style="-fx-background-color: #F2DFD7;" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="0.0">
+<AnchorPane style="-fx-background-color: #F2F4F7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox alignment="TOP_CENTER" style="-fx-background-color: #F2F4F7;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="0.0">
         <children>
-            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #F2DFD7;" VBox.vgrow="ALWAYS">
-            <content>
-               <FlowPane fx:id="dayThumbnailPane" hgap="10.0" prefWrapLength="1005.0" style="-fx-background-color: #F2DFD7;" vgap="10.0" />
-            </content></ScrollPane>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" minViewportHeight="200.0" minViewportWidth="200.0" minWidth="-Infinity" prefViewportHeight="300.0" prefViewportWidth="800.0" style="-fx-background-color: #F2F4F7;" VBox.vgrow="ALWAYS">
+                <content>
+                    <FlowPane fx:id="dayThumbnailPane" hgap="10.0" prefWrapLength="800.0" style="-fx-background-color: #F2F4F7;" vgap="10.0" />
+                </content></ScrollPane>
         </children>
     </VBox>
     <GridPane minHeight="35.0" minWidth="150.0" style="-fx-background-color: #50514F;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#handleAddDay" text="Add Day" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <font>
-                    <Font name="Consolas" size="16.0" />
-                </font>
-                <GridPane.margin>
-                    <Insets bottom="5.0" top="5.0" />
-                </GridPane.margin>
-            </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" text="Help" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <font>
-                    <Font name="Consolas" size="16.0" />
-                </font>
-                <GridPane.margin>
-                    <Insets bottom="5.0" top="5.0" />
-                </GridPane.margin>
-            </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#handlePreferences" text="Preferences" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" text="Help" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                 <font>
                     <Font name="Consolas" size="16.0" />
                 </font>
@@ -56,6 +38,6 @@
             </Button>
         </children>
     </GridPane>
-   <VBox fx:id="sideBarLeft" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-   <VBox fx:id="sideBarRight" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <VBox fx:id="sideBarLeft" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <VBox fx:id="sideBarRight" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 </AnchorPane>

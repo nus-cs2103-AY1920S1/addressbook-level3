@@ -3,6 +3,8 @@ package seedu.address.model.itinerary;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.currency.CustomisedCurrency;
+
 /**
  * Generic abstraction of budget.
  */
@@ -30,7 +32,6 @@ public class Budget {
     }
 
     public Budget(double value) {
-        requireNonNull(value);
         this.value = (double) Math.round(value * 100) / 100;
     }
 
@@ -45,10 +46,20 @@ public class Budget {
         return test > 0;
     }
 
+    public double getValueInCurrency(CustomisedCurrency customisedCurrency) {
+        return Double.parseDouble(String.format("%.2f", (customisedCurrency.getRate().getValue() * value)));
+    }
+
+    public String getValueStringInCurrency(CustomisedCurrency customisedCurrency) {
+        return customisedCurrency.getSymbol() + String.format("%.2f", (
+                customisedCurrency.getRate().getValue() * value));
+    }
+
     @Override
     public String toString() {
         return value.toString();
     }
+
 
     @Override
     public boolean equals(Object other) {

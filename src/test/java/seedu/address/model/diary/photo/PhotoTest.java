@@ -5,11 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
+import static seedu.address.model.diary.photo.Photo.MESSAGE_DESCRIPTION_CONSTRAINTS;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -25,13 +27,9 @@ import javafx.scene.image.Image;
 
 import seedu.address.MainApp;
 
-class PhotoTest {
+public class PhotoTest {
 
-    private static final String VALID_DESCRIPTION_1 = "abcde";
-    private static final String VALID_DESCRIPTION_2 = "*&^jausm,a";
-    private static final String INVALID_DESCRIPTION_1 = "abcdeabcdeabcdeabcdeabcde";
-    private static final String INVALID_DESCRIPTION_2 = " noWhitespacePrefix";
-    private static final Supplier<Path> VALID_IMAGE_PATH_WINDOWS = () -> {
+    static final Supplier<Path> VALID_IMAGE_PATH_WINDOWS = () -> {
         try {
             return Paths.get(URLDecoder.decode(
                     MainApp.class.getResource("/images/dummytrip.jpeg")
@@ -42,7 +40,7 @@ class PhotoTest {
             return null;
         }
     };
-    private static final Supplier<Path> VALID_IMAGE_PATH_UNIX = () -> {
+    static final Supplier<Path> VALID_IMAGE_PATH_UNIX = () -> {
         try {
             return Paths.get(URLDecoder.decode(
                     MainApp.class.getResource("/images/dummytrip.jpeg").getPath(),
@@ -51,7 +49,34 @@ class PhotoTest {
             return null;
         }
     };
+
+    private static final String VALID_DESCRIPTION_1 = "abcde";
+    private static final String VALID_DESCRIPTION_2 = "*&^jausm,a";
+    private static final String INVALID_DESCRIPTION_1 = "abcdeabcdeabcdeabcdeabcde";
+    private static final String INVALID_DESCRIPTION_2 = " noWhitespacePrefix";
     private static final String INVALID_IMAGE_PATH = "/";
+
+    /**
+     * Retrieves a test {@code Photo} instance for integration testing in other test classes.
+     * Photo is guranteed to be valid if below unit test cases pass.
+     *
+     * @return Valid {@link Photo} test instance.
+     * @throws IOException if photo construction from both test valid image paths fail.
+     */
+    public static Photo getValidTestPhoto() throws IOException {
+        Path unixPath = VALID_IMAGE_PATH_UNIX.get();
+        Path windowsPath = VALID_IMAGE_PATH_WINDOWS.get();
+
+        if (windowsPath != null) {
+            return new Photo(windowsPath, VALID_DESCRIPTION_1, LocalDateTime.now());
+        }
+
+        if (unixPath != null) {
+            return new Photo(unixPath, VALID_DESCRIPTION_1, LocalDateTime.now());
+        }
+
+        throw new IOException("Failed to retrieve test photo");
+    }
 
     @Test
     void validateDescription_validDescription_success() {
@@ -64,9 +89,9 @@ class PhotoTest {
     @Test
     void validateDescription_invalidDescription_throwsIllegalArgumentException() {
         assertAll("Invalid descriptions", () ->
-                assertThrows(IllegalArgumentException.class, () ->
+                assertThrows(IllegalArgumentException.class, MESSAGE_DESCRIPTION_CONSTRAINTS, () ->
                         new Photo("", INVALID_DESCRIPTION_1, LocalDateTime.now())), () ->
-                assertThrows(IllegalArgumentException.class, () ->
+                assertThrows(IllegalArgumentException.class, MESSAGE_DESCRIPTION_CONSTRAINTS, () ->
                         new Photo("", INVALID_DESCRIPTION_2, LocalDateTime.now())));
     }
 
@@ -90,9 +115,10 @@ class PhotoTest {
 
             //Check image width and height is equal, as javafx Image equality checking is not implemented
             try {
-                System.out.println(windowsPath);
                 FileInputStream fileInputStreamWindows = new FileInputStream(windowsPath.toAbsolutePath().toFile());
-                assertEquals(windowsPhoto.getImage().getWidth(), new Image(fileInputStreamWindows).getWidth());
+                Image expectedImage = new Image(fileInputStreamWindows);
+                assertEquals(windowsPhoto.getImage().getWidth(), expectedImage.getWidth());
+                assertEquals(windowsPhoto.getImage().getHeight(), expectedImage.getHeight());
                 return;
             } catch (FileNotFoundException ex) {
                 System.out.println("Windows path to test file was invalid, trying unix path.");
@@ -106,9 +132,10 @@ class PhotoTest {
 
             //Check image width and height is equal, as javafx Image equality checking is not implemented
             assertDoesNotThrow(() -> {
-                System.out.println(unixPath);
                 FileInputStream fileInputStreamUnix = new FileInputStream(unixPath.toAbsolutePath().toFile());
-                assertEquals(unixPhoto.getImage().getWidth(), new Image(fileInputStreamUnix).getWidth());
+                Image expectedImage = new Image(fileInputStreamUnix);
+                assertEquals(unixPhoto.getImage().getWidth(), expectedImage.getWidth());
+                assertEquals(unixPhoto.getImage().getHeight(), expectedImage.getHeight());
             });
             return;
         }

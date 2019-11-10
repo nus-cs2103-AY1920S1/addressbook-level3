@@ -17,8 +17,8 @@ public class CancelEditTripCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Cancels editing or creating a new trip.";
 
-    public static final String MESSAGE_CANCEL_CREATE_SUCCESS = "Cancelled creating the trip!";
-    public static final String MESSAGE_CANCEL_EDIT_SUCCESS = "Cancelled editing the trip: %1$s";
+    private static final String MESSAGE_CANCEL_CREATE_SUCCESS = "Cancelled creating the trip!";
+    private static final String MESSAGE_CANCEL_EDIT_SUCCESS = "Cancelled editing the trip: %1$s";
 
     public CancelEditTripCommand() { }
 

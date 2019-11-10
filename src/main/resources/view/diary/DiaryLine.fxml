@@ -2,27 +2,36 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="lineGrid" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" percentWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" percentWidth="0.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
-      <HBox fx:id="photoCardsDisplay" maxHeight="250.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" spacing="10.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <padding>
-            <Insets bottom="10.0" top="10.0" />
-         </padding>
-         <HBox.margin>
-            <Insets />
-         </HBox.margin>
-      </HBox>
-      <Label fx:id="lineTextLabel" contentDisplay="RIGHT" graphicTextGap="10.0" style="-fx-font-family: Segeo UI; -fx-font-size: 20; -fx-text-fill: #121420;" styleClass="diaryTextLine" text="Just some placeholder text" wrapText="true" HBox.hgrow="ALWAYS">
+      <Label fx:id="lineTextLabel" contentDisplay="RIGHT" graphicTextGap="10.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" style="-fx-font-family: Segeo UI; -fx-font-size: 20; -fx-text-fill: #121420; -fx-wrap-text: true;" styleClass="diaryTextLine" text="Just some placeholder text" wrapText="true">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
       </Label>
+      <HBox fx:id="photoCardsDisplay" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" spacing="10.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets bottom="15.0" top="15.0" />
+         </GridPane.margin>
+      </HBox>
    </children>
-</HBox>
+</GridPane>

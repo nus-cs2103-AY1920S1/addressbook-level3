@@ -1,10 +1,12 @@
 package seedu.address.model.inventory;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.inventory.exceptions.DuplicateInventoryException;
 import seedu.address.model.inventory.exceptions.InventoryNotFoundException;
@@ -14,10 +16,23 @@ import seedu.address.model.inventory.exceptions.InventoryNotFoundException;
  */
 public class InventoryList {
 
-    private List<Inventory> list;
+    //public final ObservableList<Expenditure> internalList = FXCollections.observableArrayList();
 
+    public final ObservableList<Inventory> list = FXCollections.observableArrayList();
+
+    public final ObservableList<Inventory> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(list);
+
+    /*
     public InventoryList() {
         this.list = new ArrayList<Inventory>();
+    }*/
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Inventory> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
     }
 
     /**
@@ -48,8 +63,15 @@ public class InventoryList {
         return this.list;
     }
 
-    public void setList(List<Inventory> list) {
-        this.list = list;
+    public void set(List<Inventory> occurrences) {
+        requireAllNonNull(occurrences);
+
+        /*
+        if (!expendituresAreUnique(occurrences)) {
+            throw new DuplicateExpenditureException();
+        }*/
+
+        list.setAll(occurrences);
     }
 
     /**

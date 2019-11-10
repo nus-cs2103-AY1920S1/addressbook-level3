@@ -20,10 +20,9 @@ public class DoneEditTripCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Commits your new or edited trip information.";
 
-    public static final String MESSAGE_CREATE_TRIP_SUCCESS = "Created Trip: %1$s";
-    public static final String MESSAGE_EDIT_TRIP_SUCCESS = "Edited Trip: %1$s";
     public static final String MESSAGE_NOT_EDITED = "All the fields must be provided!";
-    public static final String MESSAGE_CLASHING_TRIP = "This trip clashes with one of your other trips!";
+    private static final String MESSAGE_EDIT_TRIP_SUCCESS = "Edited Trip: %1$s";
+    private static final String MESSAGE_CLASHING_TRIP = "This trip clashes with one of your other trips!";
 
     public DoneEditTripCommand() { }
 

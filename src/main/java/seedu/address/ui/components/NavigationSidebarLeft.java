@@ -16,7 +16,7 @@ import seedu.address.ui.UiPart;
 public class NavigationSidebarLeft extends UiPart<VBox> {
 
     private static final String FXML = "components/SidebarLeft.fxml";
-    private MainWindow mainWindow;
+    private final MainWindow mainWindow;
 
     public NavigationSidebarLeft(MainWindow mainWindow) {
         super(FXML);
