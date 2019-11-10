@@ -80,6 +80,7 @@ public class ClearCourseCommand extends Command {
 
     @Override
     public JsonAdaptedCommand adaptToJsonAdaptedCommand() throws InvalidCommandToJsonException {
+        // TODO check with marc to see if this is correct
         return null;
     }
 
