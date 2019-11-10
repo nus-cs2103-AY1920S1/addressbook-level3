@@ -40,7 +40,7 @@ Additionally, showing the total games played and weekly games count may increase
 recorded and it feels like the user is making their own footprint on the app.
 
 
-https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=jascxx[***Link to codebase***]
+* *Code contributed*: https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=jascxx[***Link to codebase***]
 
 * *Other contributions*:
 
