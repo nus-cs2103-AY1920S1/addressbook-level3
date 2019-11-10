@@ -25,6 +25,9 @@ import com.typee.testutil.ArgumentMultimapBuilder;
 
 class PriorityStateTest {
 
+    private static final String EXPECTED_CONSTRAINTS = "How important is this engagement? Please enter a valid priority"
+            + " level prefixed by " + PREFIX_PRIORITY.getPrefix() + ". Example - [p/High]";
+
     @Test
     void transition_validArgumentMultimapOneInput_returnsPostTransitionState() {
         try {
@@ -142,8 +145,7 @@ class PriorityStateTest {
     @Test
     void getStateConstraints_valid_returnsConstraints() {
         State state = new PriorityState(new ArgumentMultimap());
-        assertEquals(state.getStateConstraints(), "The priority of an engagement can be"
-                + " LOW, MEDIUM, HIGH or NONE. Please enter the priority prefixed by \"p/\".");
+        assertEquals(EXPECTED_CONSTRAINTS, state.getStateConstraints());
     }
 
     @Test

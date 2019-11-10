@@ -1,5 +1,6 @@
 package com.typee.logic.interactive.parser.state.pdfmachine;
 
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_TO;
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,6 +14,8 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 class ToStateTest {
+    public static final String EXPECTED_CONSTRAINTS = "Who is the receiver of the document? Please enter the name "
+            + "prefixed by " + PREFIX_TO.getPrefix() + ". Example - [t/Damith]";
     private ToState typicalToState = new ToState(new ArgumentMultimap());
     @Test
     public void transition_validArgumentMultimap_returnsPostTransitionState() {
@@ -72,8 +75,7 @@ class ToStateTest {
 
     @Test
     public void getStateConstraints() {
-        assertEquals(typicalToState.getStateConstraints(), "Sender name stored. Please enter the name of the receiver,"
-                + " i.e. the person who the report is sent to, prefixed by \"t/\".");
+        assertEquals(EXPECTED_CONSTRAINTS, typicalToState.getStateConstraints());
     }
 
     @Test

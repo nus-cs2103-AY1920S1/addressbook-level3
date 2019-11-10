@@ -286,11 +286,11 @@ public class Parser implements InteractiveParser {
                 currentState = currentState.transition(argumentMultimap);
             }
         } catch (PenultimateStateTransitionException e) {
-            logger.warning(LOG_EXCESSIVE_ARGUMENTS);
+            logger.info(LOG_EXCESSIVE_ARGUMENTS);
             currentState = temporaryState;
             throw new ParseException(e.getMessage());
         } catch (StateTransitionException e) {
-            logger.warning(LOG_INVALID_ARGUMENTS);
+            logger.info(LOG_INVALID_ARGUMENTS);
             throw new ParseException(e.getMessage());
         }
     }

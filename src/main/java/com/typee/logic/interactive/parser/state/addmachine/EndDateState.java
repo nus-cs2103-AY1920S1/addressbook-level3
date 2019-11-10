@@ -18,10 +18,11 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
  */
 public class EndDateState extends State {
 
-    private static final String MESSAGE_CONSTRAINTS = "Please enter an end date and time prefixed by \"e/\"."
-            + " The start time must conform to the dd/mm/yyyy/hhmm format.";
-    private static final String MESSAGE_MISSING_KEYWORD = "Please enter a valid date and time after the prefix"
-            + " \"e/\". Please conform to the dd/mm/yyyy/hhmm format.";
+    private static final String MESSAGE_CONSTRAINTS = "When should the engagement end? Please enter the end"
+            + " date-time prefixed by " + PREFIX_END_TIME.getPrefix() + ". Example - [e/15/11/2019/1600]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid date-time after the"
+            + " prefix " + PREFIX_END_TIME.getPrefix() + ". The date-time must conform to the dd/MM/yyyy/HHmm format"
+            + " and occur after the start date-time.";
 
     protected EndDateState(ArgumentMultimap soFar) {
         super(soFar);
@@ -41,13 +42,13 @@ public class EndDateState extends State {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> endDate)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(endDate, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(endDate, MESSAGE_INVALID_INPUT);
         enforceValidity(endDate);
     }
 
     private void enforceValidity(Optional<String> endDate) throws StateTransitionException {
         if (!isValid(endDate.get())) {
-            throw new StateTransitionException(MESSAGE_CONSTRAINTS);
+            throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }
     }
 

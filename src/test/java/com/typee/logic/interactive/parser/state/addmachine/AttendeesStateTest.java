@@ -24,6 +24,10 @@ import com.typee.testutil.ArgumentMultimapBuilder;
 
 class AttendeesStateTest {
 
+    private static final String EXPECTED_CONSTRAINTS = "Who will be present at the engagement? Please enter the list of"
+            + " attendees separated by vertical lines and prefixed by " + PREFIX_ATTENDEES.getPrefix() + ". "
+            + "Example - [Prof Damith | Jon Snow]";
+
     @Test
     void transition_validArgumentMultimapOneInput_returnsPostTransitionState() {
         try {
@@ -221,8 +225,7 @@ class AttendeesStateTest {
     @Test
     void getStateConstraints_valid_returnsConstraints() {
         State state = new AttendeesState(new ArgumentMultimap());
-        assertEquals(state.getStateConstraints(), "Please enter the list of attendees separated by"
-                + " vertical lines and prefixed by \"a/\". Only English names are supported.");
+        assertEquals(EXPECTED_CONSTRAINTS, state.getStateConstraints());
     }
 
     @Test

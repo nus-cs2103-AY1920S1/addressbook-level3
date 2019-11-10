@@ -1,5 +1,6 @@
 package com.typee.logic.interactive.parser.state.calendarmachine;
 
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DATE;
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,6 +16,8 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 
 public class CloseDisplayStateTest {
 
+    public static final String EXPECTED_CONSTRAINTS = "Which day's engagements would you like to close? Please enter a "
+            + "date prefixed by " + PREFIX_DATE.getPrefix() + ". Example - [d/15/11/2019]";
     private CloseDisplayState closeDisplayState;
 
     @BeforeEach
@@ -79,8 +82,7 @@ public class CloseDisplayStateTest {
 
     @Test
     public void getStateConstraints() {
-        assertEquals(closeDisplayState.getStateConstraints(),
-                "Please enter a date after \"d/\"/ The date must be in the dd/mm/yyyy format.");
+        assertEquals(EXPECTED_CONSTRAINTS, closeDisplayState.getStateConstraints());
     }
 
     @Test

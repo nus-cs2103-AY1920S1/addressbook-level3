@@ -1,5 +1,6 @@
 package com.typee.logic.interactive.parser.state.pdfmachine;
 
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_FROM;
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,6 +14,8 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 class FromStateTest {
+    public static final String EXPECTED_CONSTRAINTS = "Who is the sender of the document? Please enter the name "
+            + "prefixed by " + PREFIX_FROM.getPrefix() + ". Example - [f/Damith]";
     private FromState typicalFromState = new FromState(new ArgumentMultimap());
     @Test
     public void transition_validArgumentMultimap_returnsPostTransitionState() {
@@ -72,8 +75,7 @@ class FromStateTest {
 
     @Test
     public void getStateConstraints() {
-        assertEquals(typicalFromState.getStateConstraints(), "Index stored. Please enter the name of the sender,"
-                + " i.e. the person who the report is from, prefixed by \"f/\".");
+        assertEquals(EXPECTED_CONSTRAINTS, typicalFromState.getStateConstraints());
     }
 
     @Test
