@@ -98,6 +98,8 @@ public class InfoCommand extends Command {
         switch(input) {
         case AddCommand.COMMAND_WORD :
             return new CommandResult(ADD_INFO);
+        case AliasCommand.COMMAND_WORD :
+            return new CommandResult(ALIAS_INFO);
         case AutoSortCommand.COMMAND_WORD :
             return new CommandResult(AUTO_SORT_INFO);
         case BudgetCommand.COMMAND_WORD :

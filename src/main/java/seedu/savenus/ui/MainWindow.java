@@ -412,6 +412,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getFeedbackToUser().equals(InfoCommand.ADD_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.ALIAS_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.AUTO_SORT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.BUDGET_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.BUY_INFO)
