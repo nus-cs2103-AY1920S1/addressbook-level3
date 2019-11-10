@@ -26,7 +26,7 @@ public class GameDataPointTest {
     @Test
     public void createGuessData_nullGuess_throwsNullPointerException() {
         assertThrows(NullPointerException.class, ()
-                -> GameDataPoint.createGuessData(null, 1)); // null guess
+            -> GameDataPoint.createGuessData(null, 1)); // null guess
     }
 
     @Test
