@@ -238,9 +238,22 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @return boolean
      */
-    private boolean usesRightPane(CommandResult commandResult) {
+    private boolean usesRightPanel(CommandResult commandResult) {
         return commandResult.isDisplay()
+            || commandResult.isExpandPerson()
+            || commandResult.isExpandPolicy()
             || commandResult.isListHistory();
+    }
+
+    /**
+     * Returns true if command result changes the list shown on the left panel.
+     *
+     * @return boolean
+     */
+    private boolean changesList(CommandResult commandResult) {
+        return commandResult.isListPeople()
+                || commandResult.isListPeople()
+                || commandResult.isListPolicy();
     }
 
     /**
@@ -248,6 +261,34 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult renderRightPanel(String commandText) throws
         CommandException, ParseException {
+        try {
+            boolean isSystemInput = true;
+            CommandResult commandResult = logic.execute(commandText, isSystemInput);
+            logger.info("Result from render right panel: " + commandResult.getFeedbackToUser());
+
+            if (commandResult.isListHistory()) {
+                showListHistory();
+            } else if (commandResult.isDisplay()) {
+                showListDisplay(commandResult);
+            } else if (commandResult.isExpandPerson()) {
+                showExpandPerson(commandResult);
+            } else if (commandResult.isExpandPolicy()) {
+                showExpandPolicy(commandResult);
+            }
+
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * Renders right panel only if the command is history or display. Any logic execution here is always a system input.
+     */
+    private CommandResult renderHistoryOrDisplay(String commandText) throws
+            CommandException, ParseException {
         try {
             boolean isSystemInput = true;
             CommandResult commandResult = logic.execute(commandText, isSystemInput);
@@ -299,10 +340,14 @@ public class MainWindow extends UiPart<Stage> {
                 showExpandPolicy(commandResult);
             }
 
-            if (usesRightPane(commandResult)) {
+            if (usesRightPanel(commandResult)) {
                 rightPanelCommandText = commandText;
             } else if (!isNull(rightPanelCommandText)) {
-                renderRightPanel(rightPanelCommandText);
+                if (!changesList(commandResult)) {
+                    renderRightPanel(rightPanelCommandText);
+                } else {
+                    renderHistoryOrDisplay(rightPanelCommandText);
+                }
             }
 
             return commandResult;
