@@ -24,7 +24,7 @@ public class JsonAdaptedModuleTest {
     public void toModelType_tutorialMapWithInvalidDay_throwsIllegalValueException() {
         JsonAdaptedModule module = new JsonAdaptedModule(VALID_MODULE_CODE,
                 JsonUtil.getMapOfSingleTutorialWithInvalidTutorialDay(), "null");
-        String expectedMessage = "Error in reading field! Invalid day entered";
+        String expectedMessage = "Json data has missing fields for tutorial map";
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 
@@ -44,6 +44,7 @@ public class JsonAdaptedModuleTest {
         JsonAdaptedModule module = new JsonAdaptedModule(VALID_MODULE_CODE,
                 JsonUtil.getMapOfSingleTutorialWithInvalidTutorialDuration(), "null");
         String expectedMessage = "Tutorial's Duration field is invalid! Or Tutorial's LocalTime field is invalid!";
+        expectedMessage = "Json data has missing fields for tutorial map";
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 
@@ -51,7 +52,7 @@ public class JsonAdaptedModuleTest {
     public void toModelType_tutorialMapWithInvalidStartTime_throwsIllegalValueExcepion() {
         JsonAdaptedModule module = new JsonAdaptedModule(VALID_MODULE_CODE,
                 JsonUtil.getMapOfSingleTutorialWithInvalidTutorialStartTime(), "null");
-        String expectedMessage = "Tutorial's Duration field is invalid! Or Tutorial's LocalTime field is invalid!";
+        String expectedMessage = "Json data has missing fields for tutorial map";
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 
@@ -61,6 +62,7 @@ public class JsonAdaptedModuleTest {
                 JsonUtil.getMapOfSingleTutorialWithInvalidTutorialWeeks(), "null");
         String expectedMessage = "Error in reading field! Invalid weeks input. Must be 'even', 'odd', or 'every week', "
                 + "or numbers separated by commas.";
+        expectedMessage = "Json data has missing fields for tutorial map";
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 
@@ -68,7 +70,8 @@ public class JsonAdaptedModuleTest {
     public void toModelType_tutorialMapWithInvalidModuleCode_throwsIllegalValueExcepion() {
         JsonAdaptedModule module = new JsonAdaptedModule(VALID_MODULE_CODE,
                 JsonUtil.getMapOfSingleTutorialWithInvalidModuleCode(), "null");
-        String expectedMessage = "Error in reading field! " + ModCode.MESSAGE_CONSTRAINTS;
+        String expectedMessage = "Json data has missing fields for tutorial map" + ModCode.MESSAGE_CONSTRAINTS;
+        expectedMessage = "Json data has missing fields for tutorial map";
         assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 

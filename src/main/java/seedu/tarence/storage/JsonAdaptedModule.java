@@ -61,6 +61,7 @@ public class JsonAdaptedModule {
     public static final String INVALID_FIELD_MESSAGE_FORMAT = "Tutorial's %s field is invalid!";
     public static final String MISSING_GENERIC_FIELD = "Error in reading field! ";
     public static final String INVALID_FIELD = "Invalid field in %s";
+    public static final String MISSING_FIELD_FOR_TUTORIAL_MAP = "Json data has missing fields for tutorial map";
 
     // Json fields
     // Implemented LinkedHashMap to preserve ordering.
@@ -107,11 +108,13 @@ public class JsonAdaptedModule {
         List<Tutorial> tutorials = new ArrayList<Tutorial>();
         try {
             for (String tutorialName : tutorialMap.keySet()) {
+
                 LinkedHashMap<String, String> singleTutorialMap = tutorialMap.get(tutorialName);
 
-                Boolean temp = JsonUtil.isValidTutorialMap(singleTutorialMap);
+                if (!JsonUtil.isValidTutorialMap(singleTutorialMap)) {
+                    throw new IllegalValueException(MISSING_FIELD_FOR_TUTORIAL_MAP);
+                }
 
-                // TODO: Check if singleTutorialMap is valid ie contains all the requires params
                 Tutorial tutorialFromJson = JsonUtil.tutorialMapToTutorial(singleTutorialMap);
                 tutorials.add(tutorialFromJson);
             }

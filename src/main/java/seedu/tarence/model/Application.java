@@ -621,7 +621,7 @@ public class Application implements ReadOnlyApplication {
 
     @Override
     /**
-     * Compares this application with another application, based on "toStringForComparison(0" method.
+     * Compares this application with another application, based on "toStringForComparison()" method.
      *
      * @param newApp Application to compare to.
      * @return Boolean.

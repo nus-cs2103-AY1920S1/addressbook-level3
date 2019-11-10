@@ -276,19 +276,16 @@ public class JsonUtil {
      */
     public static Boolean isValidTutorialMap(LinkedHashMap<String, String> singleTutorialMap) {
 
-        /*
-        for(String key : singleTutorialMap.keySet()) {
-            //System.out.println ("Keys: " + key);
-        }
+        return singleTutorialMap.containsKey(JsonAdaptedModule.TUTORIAL_NAME)
+                && singleTutorialMap.containsKey(JsonAdaptedModule.TUTORIAL_DAY)
+                && singleTutorialMap.containsKey(JsonAdaptedModule.TUTORIAL_START_TIME)
+                && singleTutorialMap.containsKey(JsonAdaptedModule.TUTORIAL_WEEKS)
+                && singleTutorialMap.containsKey(JsonAdaptedModule.TUTORIAL_DURATION)
+                && singleTutorialMap.containsKey(JsonAdaptedModule.TUTORIAL_STUDENT_LIST)
+                && singleTutorialMap.containsKey(JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST)
+                && singleTutorialMap.containsKey(JsonAdaptedModule.TUTORIAL_MODULE_CODE)
+                && singleTutorialMap.containsKey(JsonAdaptedModule.TUTORIAL_ASSIGNMENT_LIST);
 
-        if ( singleTutorialMap.containsKey(JsonAdaptedModule.TUTORIAL_EVENT_LIST) ) {
-            //System.out.println("Tutorial Map CONTAINS field: " + JsonAdaptedModule.TUTORIAL_EVENT_LIST);
-            return true;
-        } else {
-            return false;
-        }
-*/
-        return true;
     }
 
     /**
@@ -314,6 +311,105 @@ public class JsonUtil {
                 < studentString.indexOf(JsonAdaptedModule.STUDENT_MODULE_CODE))
                 && (studentString.indexOf(JsonAdaptedModule.STUDENT_MODULE_CODE)
                 < studentString.indexOf(JsonAdaptedModule.STUDENT_TUTORIAL_NAME)));
+    }
+
+    /**
+     * Checks if a studentAttendanceString is valid.
+     *
+     * @param studentWithAttendanceString String representing a Student, with attendance status, from Json object.
+     * @return Boolean.
+     */
+    public static Boolean isValidStudentWithAttendanceString(String studentWithAttendanceString) {
+        return (studentWithAttendanceString.contains(JsonAdaptedModule.STUDENT_EMAIL)
+                && studentWithAttendanceString.contains(JsonAdaptedModule.STUDENT_MATRIC_NUMBER)
+                && studentWithAttendanceString.contains(JsonAdaptedModule.STUDENT_MODULE_CODE)
+                && studentWithAttendanceString.contains(JsonAdaptedModule.STUDENT_NAME)
+                && studentWithAttendanceString.contains(JsonAdaptedModule.STUDENT_NUSNET_ID)
+                && studentWithAttendanceString.contains(JsonAdaptedModule.STUDENT_TUTORIAL_NAME)
+                && studentWithAttendanceString.contains(JsonAdaptedModule.STUDENT_ATTENDANCE_STATUS)
+                && (studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_NAME)
+                < studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_EMAIL))
+                && (studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_EMAIL)
+                < studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_MATRIC_NUMBER))
+                && (studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_MATRIC_NUMBER)
+                < studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_NUSNET_ID))
+                && (studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_NUSNET_ID)
+                < studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_MODULE_CODE))
+                && (studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_MODULE_CODE)
+                < studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_TUTORIAL_NAME))
+                && (studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_TUTORIAL_NAME)
+                < studentWithAttendanceString.indexOf(JsonAdaptedModule.STUDENT_ATTENDANCE_STATUS)));
+    }
+
+    /**
+     * Checks if a single event String is valid.
+     *
+     * @param singleTutorialEventString String representing a single Event.
+     * @return Boolean.
+     */
+    public static Boolean isValidSingleEventString(String singleTutorialEventString) {
+        return (singleTutorialEventString.contains(JsonAdaptedModule.EVENT_NAME)
+                && singleTutorialEventString.contains(JsonAdaptedModule.EVENT_START_DATE)
+                && singleTutorialEventString.contains(JsonAdaptedModule.EVENT_END_DATE)
+                && (singleTutorialEventString.indexOf(JsonAdaptedModule.EVENT_NAME)
+                < singleTutorialEventString.indexOf(JsonAdaptedModule.EVENT_START_DATE))
+                && (singleTutorialEventString.indexOf(JsonAdaptedModule.EVENT_START_DATE)
+                < singleTutorialEventString.indexOf(JsonAdaptedModule.EVENT_END_DATE)));
+    }
+
+    /**
+     * Checks if the whole event String (represents more than 1 event) is valid.
+     *
+     * @param numOfEvents Total number of events.
+     * @param eventString String.
+     * @return Boolean.
+     */
+    public static Boolean isValidEventString(int numOfEvents, String eventString) {
+        LinkedHashMap<Integer, String> identifiers = new LinkedHashMap();
+
+        for (int i = 1; i <= numOfEvents; i++) {
+            String identifier = JsonAdaptedModule.EVENT_NUMBER + i;
+            identifiers.put(i, identifier);
+        }
+
+        for (int i = 2; i <= numOfEvents; i++) {
+            String firstIdentifier = identifiers.get(i - 1);
+            String secondIdentifier = identifiers.get(i);
+            // Checks for ordering of EVENT_NUMBER
+            if (eventString.indexOf(firstIdentifier) > eventString.indexOf(secondIdentifier)) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    /**
+     * Checks if a single Student String, with Assignment, is valid.
+     *
+     * @param studentAssignmentString String.
+     * @return Boolean.
+     */
+    public static Boolean isValidStudentWithAssignmentString(String studentAssignmentString) {
+        return (studentAssignmentString.contains(JsonAdaptedModule.STUDENT_EMAIL)
+                && studentAssignmentString.contains(JsonAdaptedModule.STUDENT_MATRIC_NUMBER)
+                && studentAssignmentString.contains(JsonAdaptedModule.STUDENT_MODULE_CODE)
+                && studentAssignmentString.contains(JsonAdaptedModule.STUDENT_NAME)
+                && studentAssignmentString.contains(JsonAdaptedModule.STUDENT_NUSNET_ID)
+                && studentAssignmentString.contains(JsonAdaptedModule.STUDENT_TUTORIAL_NAME)
+                && studentAssignmentString.contains(JsonAdaptedModule.STUDENT_ASSIGNMENT_SCORE)
+                && (studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_NAME)
+                < studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_EMAIL))
+                && (studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_EMAIL)
+                < studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_MATRIC_NUMBER))
+                && (studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_MATRIC_NUMBER)
+                < studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_NUSNET_ID))
+                && (studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_NUSNET_ID)
+                < studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_MODULE_CODE))
+                && (studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_MODULE_CODE)
+                < studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_TUTORIAL_NAME))
+                && (studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_TUTORIAL_NAME)
+                < studentAssignmentString.indexOf(JsonAdaptedModule.STUDENT_ASSIGNMENT_SCORE)));
     }
 
 
@@ -647,7 +743,7 @@ public class JsonUtil {
 
             // Checks if the identifiers that represent a Student String is present
             // No error is thrown as some tutorials can be empty and have an empty list of students.
-            if (isValidStudentString(stringForOneStudent)) {
+            if (isValidStudentWithAttendanceString(stringForOneStudent)) {
                 // Removes all square brackets for each student string sequence.
                 stringForOneStudent = (stringForOneStudent.replace("]", "").replace("[", ""));
 
@@ -743,11 +839,16 @@ public class JsonUtil {
      * @throws IllegalValueException when there is an error during parsing.
      */
     public static List<Event> tutorialEventStringToEventList(String tutorialEventString) throws IllegalValueException {
+
         List <Event> eventList = new ArrayList<Event>();
         int numOfEvents = getTotalNumberOfEvents(tutorialEventString);
 
         if (numOfEvents == 0) {
             return eventList;
+        }
+
+        if (!isValidEventString(numOfEvents, tutorialEventString)) {
+            throw new IllegalValueException("Tutorial Event String has invalid fields");
         }
 
         for (int i = 1; i < numOfEvents; i++) {
@@ -780,7 +881,9 @@ public class JsonUtil {
      * @throws IllegalValueException when there is an error during parsing.
      */
     public static Event singleEventStringToEvent(String singleEventString) throws IllegalValueException {
-        //TODO: check all event fields are present and in order 66
+        if (!isValidSingleEventString(singleEventString)) {
+            throw new IllegalValueException("Missing fields in Tutorial's Event Json String");
+        }
 
         singleEventString = singleEventString.replace("{", "").replace("}", "");
 
@@ -892,7 +995,11 @@ public class JsonUtil {
 
         String[] studentsString = studentAssignmentString.split("\\]\\,\\[");;
         for (String s : studentsString) {
-            //TODO: Ensure order is as follows.
+
+            if (!isValidStudentWithAssignmentString(s)) {
+                throw new IllegalValueException("Student assignment String has invalid fields");
+            }
+
             String studentName = extractField(JsonAdaptedModule.STUDENT_NAME,
                     JsonAdaptedModule.STUDENT_EMAIL, s);
 
@@ -1071,7 +1178,7 @@ public class JsonUtil {
             String eventString = tutorialMap.get(JsonAdaptedModule.TUTORIAL_EVENT_LIST);
             List<Event> listOfEvents = tutorialEventStringToEventList(eventString);
 
-            // With assignment and event listconstruction
+            // With assignment and event list construction
             Tutorial t = new Tutorial(tutorialName, day, startTime, weeks, duration, studentList,
                    modCode, attendance, listOfAssignments);
             t.setEventList(listOfEvents);
