@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam FontColor #FFFFFFF
+
+show members
+hide empty members
+
+Class Expense {
+    -personId
+    -involvedIds[]
+    -description
+    -isDeleted
+    -isSettlement
+}
+
+Class Amount {
+    -value
+}
+
+Expense *--> "1" Amount
+@enduml

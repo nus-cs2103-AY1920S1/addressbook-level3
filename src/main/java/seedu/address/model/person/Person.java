@@ -71,6 +71,10 @@ public class Person {
         return name;
     }
 
+    public String getNameStr() {
+        return name.toString();
+    }
+
     public Phone getPhone() {
         return phone;
     }

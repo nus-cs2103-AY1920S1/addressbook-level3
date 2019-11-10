@@ -154,10 +154,9 @@ public class ParserUtil {
      */
     public static Amount parseAmount(String amount) throws ParseException {
         requireNonNull(amount);
-        String trimmedAmount = amount.trim();
         double value;
         try {
-            value = Double.parseDouble(trimmedAmount);
+            value = Double.parseDouble(amount.trim());
         } catch (NumberFormatException e) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }

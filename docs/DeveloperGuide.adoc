@@ -177,7 +177,7 @@ Title of the activity is stored using `Title`, which runs validations to ensure 
 
 * Participants
 
-Participants are saved internally under `participantIds`, which only stores the primary key of `Contact` involved.
+Participants are saved internally under `participantIds`, which only stores the primary key of `Person` involved.
 
 * Expenses incurred by this activity
 
@@ -243,6 +243,94 @@ Step 3. The user executes `activity t/Lunch p/Alex p/David` command to create an
 ** Pros: Easy to implement. Low possibility of bugs.
 ** Cons: Significantly decreases usability of the application.
 
+// tag::expense[]
+=== Expense class
+`Expense` is a class used to record expense information. It contains the following information:
+
+* Paying person
+
+Each expense must be paid by someone, which is recorded as `personId` internally. As the name suggests, only the primary key of the `Person` paying is stored.
+
+* Other involved people
+
+Each expense also involves some people who will be taken to owe money to the paying person. This is recorded as `involvedIds[]` internally, which only stores the primary key of each involved person.
+
+* Amount
+
+The amount of money spent. The value of an `Amount` is stored as a `double`, and must be non-negative.
+
+* Description
+
+The description of an expense. The description may be blank if the user chooses to not describe what it is about.
+
+* Deleted flag
+
+This flag tracks whether an expense has been marked as deleted or not, and is stored as a boolean value `isDeleted`. For accountability purposes, we do not allow an `Expense` to be deleted from an `Activity` entirely, and instead use this flag to keep track of it. Expenses can only be fully deleted by deleting the entire activity.
+
+* Settlement flag
+
+SplitWiser supports 2 main types of "expenses": one is an actual expense, and the other is a transaction between people to pay off debts. The latter is what we call a settlement, and is indicated by the boolean `isSettlement`.
+
+The following diagram describes the structure of the `Expense` class:
+
+.Structure of the Expense class
+image::ExpenseClassDiagram.png[]
+
+==== Design considerations
+===== Aspect: How to actually represent an `Expense`
+* **Alternative 1**: An expense is represented by a paying person and an amount. Everyone in the activity is then taken to owe the paying person an equal portion of the paid amount.
+** **Pros:** Extremely simple to use.
+** **Cons:** Overly idealised and simplified and assumes that everyone is involved in every expense. This severely hinders its utility in real scenarios as this is unable to account for even simple deviations in debt patterns.
+
+* **Alternative 2 (current choice)**: An expense is represented by a paying person, amount, and a list of people involved. Everyone who is specified to be involved then owes an equal portion of the paid amount to the paying person.
+** **Pros:** Reasonable flexibility as it enables a wide range of possible expense sharing combinations.
+** **Cons:** Forces equal split among participants in the involved list, which is still going to result in limited utility in some real scenarios. A simple example would be that a group of people can have a meal together but each person's meal would cost a different amount.
+** **Reason for choice:** Although the above con can be a very real issue from a user's standpoint, we believe this is the best balance between flexibility and usability.
+
+* **Alternative 3**: An expense is represented by a paying person, an amount, a list of paying people and the amount each person should pay back the paying person.
+** **Pros:** Ultimate flexibility and addresses the con above.
+** **Cons:** Significantly complicates the backend management of expenses. While this is something that will definitely be addressed in future versions of SplitWiser (e.g. adding a new `varexpense` command that enables this), we opted for a simpler version of `Expense` due to time constraints. The areas that need to be taken into consideration include (but may not limited to):
+*** Design of the command for the user in a way that is intuitive
+*** Managing the event that the amount list does not add up to the amount paid
+*** GUI representation of the more generalised version of `Expense`
+// end::expense[]
+
+// tag::createexpense[]
+=== Create expense feature
+The mechanism to create expenses is facilitated by `Expense`. Each `Activity` stores a list of `Expense` called `expenses`, representing the expenses incurred in the course of this activity.
+
+When creating an expense, an amount and at least one person (the paying person) must be specified, and information about an expense cannot be modified once it is created. The only exception to this would be to delete an expense, but expenses also cannot be un-deleted once marked as deleted.
+
+
+
+In terms of the name searching logic to actually identify who is involved, it is identical to that which is used in the creation of activities (see <<Create activity feature>>), but with a few key differences: +
+
+1. The expense will only be created if **all** sets of keywords result in a unique match. For instance, if the user specifies `p/John Doe p/Mary p/James`, but only the keyword `James` does not successfully identify a unique person, then the entire expense will not be created.
+2. The search scope is contextual. If creating an expense outside an activity context, it will search for matches in the entire Address Book. However, in an activity context, it will only search for matches among existing activity participants.
+
+Here, it is important to realise that duplicating the name searching logic ensures a consistent user experience, as the user has no reason to expect that the search behaviour would be different. For example, if `john` was successfully used to identify a contact named `John Doe` when creating an activity, the user has no reason to expect that `john` would not be able to identify `John Doe` for an expense.
+
+Here is a sample use case in creating an expense:
+
+**Step 1.** The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+
+**Step 2.** The user executes `activity t/breakfast p/Jo p/Bob p/Alice` command to create an activity named breakfast with 3 participants added to the activity. The context is then switched to this new activity.
+
+**Step 3.** The user executes `expense p/Jo e/10` to indicate that Jo paid $10 for something (unnamed as description is not specified) that is shared by everyone i.e. Bob and Alice. This happens because the default behaviour for `expense` is to assume everyone is involved if no one else is specified explicitly. `expense` command calls `Activity#addExpense()` and adds the new expense into the activity. The debt algorithm will then instantly recompute the debt matrix (see <<Debt simplification algorithm>>) for the activity, and store the expense object inside the activity's expense list (i.e. `expenses`).
+
+The following sequence diagram shows how the expense adding operation works:
+
+.Sequence diagram for adding an expense
+image::ExpenseSequenceDiagram.png[]
+
+NOTE: The lifeline for `ExpenseCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram encapsulates the high level logic of the expense adding operation:
+
+.Activity diagram for adding an expense
+image::ExpenseActivityDiagram.png[]
+
+// end::createexpense[]
 // tag::algorithm[]
 === Debt simplification algorithm
 The algorithm is inspired by https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf[this paper].
@@ -256,12 +344,9 @@ The paper gives an overview of that problem and why it is NP-complete (subset-su
 The amounts each person owes to another is represented by a graph in an adjacency matrix.
 The algorithm represents the payments to be made as a matrix.
 There are some other data structures to facilitate its operation, but the code is generally well commented and they are not major player so we will skip them.
-Also note that the matrices are necesarrily skew-symmetric: for example if A owes B $10, then B owes A $-10.
 
 To rephrase our gurantee in this context will be: we want to minimize weights.
-We do not care about the number of edges.
-Certainly we do not mean each person repeatedly pays out $1, $1, $1!
-Our idea of "minimum weights" refer to the total amount someone has to handle.
+That is, the total amount of money someone will have to touch is minimized.
 
 The lower bound for the amount someone has to handle is the balance.
 We create a balance sheeet for the users which is expanded as people enter the activity.
@@ -331,7 +416,7 @@ Step 2. The user executes the command string `list a/` to prompt the app to disp
 
 The following sequence diagram demonstrates the role of the respective components.
 
-image::ViewSequenceDiagram.png[]
+image::ListSequenceDiagram.png[]
 
 ==== Design Considerations
 
@@ -406,6 +491,48 @@ NOTE: The activity diagram for the disinvite command is omitted as it is similar
 ** Pros: Easy to implement. Reuse what is already in the codebase and we do not need to create additional Unique ID key for each participant to identify them.
 ** Cons: Might create duplicate person object when reading from multiple json files if not implemented properly.
 // end::invitedisinvite[]
+
+//tag::delete[]
+=== Delete feature
+==== Implementation
+
+The delete mechanism is facilitated by `AddressBook`, `ActivityBook`, as well as `Activity`. +
+The items that will be deleted can be contact/activity/expense depending on your current display.
+
+Given below is an example usage scenario and how the delete mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.  `SplitWiser` will be initialized with the initial address book and activity book state.
+
+Step 2. The user executes `list c/` command to display list contacts screen.
+
+Step 3. The user executes `delete 1` to delete the contact at the first index if he/she is not involved in any activities.
+
+Step 4. The user executes `list a/` to display list activities screen.
+
+Step 5. The user executes `delete 1` again, but this time the activity at the first index will be deleted instead.
+
+Step 6. The user views an activity at the second index using `view a/2`
+
+Step 7. The user executes `delete 1` again, but this time the expense at the first index will be deleted instead.
+
+The following activity diagram summarizes what happens when a user executes a delete command for deletion of activity:
+
+image::DeleteContactActivityDiagram.png[]
+
+NOTE: The activity diagram for deletion of expense and contact are omitted as they are similar to the deletion of activity.
+
+==== Design Considerations
+
+===== Aspect: How delete executes
+
+* **Alternative 1 (current choice):** Contextual based delete of contact/activity/expense based on current displayed screen.
+** Pros: More user-friendly. Users do not have to keep specifying what to delete.
+** Cons: Harder to implement.
+
+* **Alternative 2:** Delete based on user specifying which field to delete.
+** Pros: Easy to implement.
+** Cons: Have to keep retyping the field for deletion which is inconvenient.
+// end::delete[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
