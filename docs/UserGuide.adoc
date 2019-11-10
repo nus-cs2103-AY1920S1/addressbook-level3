@@ -809,7 +809,7 @@ The argument must match this three words perfectly.
 Shown below:
 
 
-image::StatsExampleDefault.png[width="600"]
+image::StatsExampleDefault.png[width="300"]
 
 
 Generates the statistics with date input in chart format (in pop-up modal dialog). +
@@ -819,7 +819,7 @@ Format for date is in YYYY.MM.DD e.g `2019.05.12`
 
 Shown below:
 
-image::StatsExampleGraph.png[width="600"]
+image::StatsExampleGraph.png[width="300"]
 
 [TIP]
 Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
@@ -830,7 +830,7 @@ as long as the date is valid
 Accuracy is guaranteed up to $0.01 *only*
 [TIP]
 Statistic type argument must match `profit`, `revenue`, `cost` (no upper case)
-
+// end::statisticsCommandUG[]
 Limitations:
 
 * Range of dates affecting chart display:
@@ -858,7 +858,6 @@ when the remaining statistic windows are closed manually.
 ** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
 we estimate at least a few seconds before the window will be loaded.
 
-
 ==== Average Statistics `[coming in v2.0]`
 ** More advanced commands like `average profit` etc
 
@@ -867,8 +866,6 @@ we estimate at least a few seconds before the window will be loaded.
 
 ==== Export Chart to PDF `[coming in v2.0]`
 ** User will be able to export their charts to pdf with a click of a button.
-
-// end::statisticsCommandUG[]
 
 === Exiting the program : `exit`
 

@@ -23,7 +23,7 @@ It required an in-depth analysis of design alternatives. This design choice is e
 *** The implementation was also challenging as I made very sure no to violate any of the SOLID principles. At the same time, we were also still deciding how to implement the rest of the architecture for the other features.
 *** A total of 4 attempts of refactoring was needed for me to reach the current version of the main feature.
 
-** Credits: The https://commons.apache.org/proper/commons-math/[apache commons math libraries] was used in the actual calculation. However, the main difficulty of this feature does not come from the actual calculation but extracting the correct and appropiate data needed for this in the appropiate manner.
+** Credits: The https://commons.apache.org/proper/commons-math/[apache commons math libraries] was used in the actual calculation. The main difficulty of this feature  come from extracting the correct and appropiate data needed and in the appropiate manner.
 
 * *Other Major enhancement*:
 ** My other contributions to the codebase is as follows:
@@ -33,9 +33,7 @@ It required an in-depth analysis of design alternatives. This design choice is e
 * *Code contributed*:
 
 * contributed total almost 7k LOC:
-
 ** 3k+ functional & 3k+ test code: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false[code]
-
 
 * *Other contributions*:
 
@@ -44,9 +42,7 @@ It required an in-depth analysis of design alternatives. This design choice is e
 *** *DevOps and Tools*
 **** Set up organization and team repo
 **** Managed Milestones deliverables: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/175[#175]
-**** Integrated a third party library (Travis CI) to the project (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/53[#53])
-**** Integrated a third party library (AppVeyor) to the team repo  (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/53[#53])
-**** Integrated a third party library (Coveralls) to the team repo
+**** Integrated a third party library (Travis CI) to the project (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/53[#53]),  (AppVeyor) to the team repo  (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/53[#53]) and  (Coveralls) to the team repo
 
 
 ** Enhancements to existing features:
@@ -55,42 +51,30 @@ It required an in-depth analysis of design alternatives. This design choice is e
 https://github.com/AY1920S1-CS2103T-T09-4/main/pull/136[#136], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/129[#129])
 
 *** Add Tabbed panels for UI. This includes writing the FXML files and controllers for the UI elements (Pull Requests: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/72[#72], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/192[#192], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/145[#145], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/169[#169] )
-
 *** Add command to interact with Tabbed panels for UI (Pull Requests: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/110[#110] , https://github.com/AY1920S1-CS2103T-T09-4/main/pull/76[#76])
-
 *** Ported GUI tests into code base and added to it (Pull Requests: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/103[#103], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/139[#139])
-
 *** Wrote tests for Statistics Module, Storage Module (Json) (Pull Requests: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/174[#174], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/171[#171], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/160[#160], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/83[#83])
 
 ***
 
 ** Documentation:
 *** Wrote About us page: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/48[#48]
-
 *** Tweaked to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/140[#140]
-
 *** Created new UML model diagrams for Developer Guide: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/159[#159]
 
 
 ** Community:
-
 *** Participated in PRs review(with non-trivial review comments): ( https://github.com/AY1920S1-CS2103T-T09-4/main/pull/61[#61], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/62[#62], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/63[#63], https://github.com[#42], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/66[#66] , https://github.com/AY1920S1-CS2103T-T09-4/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/72[#72], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/141[#141])
-
 *** Contributed to forum discussions and shared my solution on enabling GUI tests on Travis CI: https://github.com/nus-cs2103-AY1920S1/forum/issues/141[#141]
-
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-T09-2/main/issues/207[#207]  )
 
 ** Summary:
 
 *** Over 41 https://github.com/AY1920S1-CS2103T-T09-4/main/pulls/EugeneTeu[Pull requests] on Github
-
 *** Over 37 https://github.com/AY1920S1-CS2103T-T09-4/main/issues/created_by/EugeneTeu[issues] on Github
-
 *** Complete Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=eugeneteu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false[here]
 
 == Contributions to the User Guide
-
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -105,15 +89,14 @@ include::../UserGuide.adoc[tag=statisticsCommandUG]
 |===
 
 * My Contributions are:
-** Created the architecture diagram
-** Created logic diagram
-** Wrote the User Interface part of the DG
-** Wrote the Statistic Feature in the DG
+** Created the architecture, UI and Logic diagram (refer to DG portion with these diagrams)
+** Wrote the User Interface part of the DG (omitted limitations to user part due to length constraint of PPP)
+** Wrote the Statistic Feature in the DG (omitted notes to developer part due to length constraint)
 
 
-include::../DeveloperGuide.adoc[tag=architectureDiagram]\
-***
-include::../DeveloperGuide.adoc[tag=logicDiagram]
+//include::../DeveloperGuide.adoc[tag=architectureDiagram]
+
+//include::../DeveloperGuide.adoc[tag=logicDiagram]
 ***
 include::../DeveloperGuide.adoc[tag=UiUG]
 ***
