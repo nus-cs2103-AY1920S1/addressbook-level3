@@ -99,7 +99,6 @@ public class DeckDisplay extends VBox {
      */
     private void renderQuestions() {
         questionList.getChildren().clear();
-
         ArrayList<FlashCard> cards = deck.getCards();
         int numCards = cards.size();
         deckSize.setText(numCards + (numCards == 1 ? " card" : " cards"));

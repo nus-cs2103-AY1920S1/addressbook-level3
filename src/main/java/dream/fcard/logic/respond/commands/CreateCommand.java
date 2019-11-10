@@ -98,7 +98,6 @@ public class CreateCommand extends Command {
         for (Deck curr : state.getDecks()) {
 
             if (curr.getDeckName().equals(command.get(0).get(0))) {
-                // todo: @PhireHandy -- equals() between String and ArrayList<String>
                 deckExistsInState = true;
                 currDeck = curr;
                 break;
