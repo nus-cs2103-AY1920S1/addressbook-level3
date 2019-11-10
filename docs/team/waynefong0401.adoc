@@ -25,7 +25,7 @@ It is written in Java, and has about 18 kLoC.
 ** added a history command that allows the user to view all the previous commands.
 ** added a feature that allows the user to to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=waynefong0401[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
