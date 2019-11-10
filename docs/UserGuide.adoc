@@ -411,7 +411,7 @@ image::StatsCommandBox1.png[width="600"]
 
 . A window will appear, displaying 3 charts:
 +
-image::StatsWindow1.png[width="850", height="250"]
+image::StatsWindow1.png[width="400", height="400"]
 +
 
 Starting from the top, the first chart displays the total number of FlashCards rated as good, hard and easy. The second chart displays the total number of FlashCards rated as good, hard and easy that are completed during test mode. The last chart displays your performance (in percentage) for all tests completed. Performance is determined by the ratio of FlashCards rated as good and easy to FlashCards rated as hard.
