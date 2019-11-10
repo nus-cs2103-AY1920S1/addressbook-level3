@@ -166,6 +166,11 @@ public class SearchCommandTest {
         ArrayList<String> emptyList = new ArrayList<>();
         emptyList.add(" ");
         emptyHash.put(SearchKey.KEY_NAME, emptyList);
+        emptyHash.put(SearchKey.KEY_GENRE, emptyList);
+        emptyHash.put(SearchKey.KEY_TYPE, emptyList);
+        emptyHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
+        emptyHash.put(SearchKey.KEY_ACTOR, emptyList);
+        emptyHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
         SearchCommand command = new SearchCommand(emptyHash);
 
         expectedModel.updateSearchResultList(new ArrayList<Show>());
