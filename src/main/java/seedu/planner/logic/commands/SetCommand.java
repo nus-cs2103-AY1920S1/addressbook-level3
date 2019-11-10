@@ -1,7 +1,6 @@
 package seedu.planner.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_START_DATE;
 
@@ -15,37 +14,36 @@ import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
-import seedu.planner.logic.parser.ParserUtil;
 import seedu.planner.model.Model;
 import seedu.planner.model.field.Name;
 
 /**
- * Adds a person to the address book.
+ * Sets the name and start date of the trip.
  */
-public class InitCommand extends Command {
+public class SetCommand extends Command {
 
-    public static final String COMMAND_WORD = "init";
+    public static final String COMMAND_WORD = "set";
+    public static final String MESSAGE_NOTHING_TO_SET = "Neither name nor start date is being set.";
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD,
-            ": Initialises the Planner with a name and trip start date.",
+            ": Set the Planner's name and trip start date.",
             COMMAND_WORD + " "
-                    + PREFIX_NAME + "NAME "
-                    + PREFIX_START_DATE + "START_DATE",
+                    + "[" + PREFIX_NAME + "NAME] "
+                    + "[" + PREFIX_START_DATE + "START_DATE]",
             COMMAND_WORD + " " + PREFIX_NAME + "An amazing trip to Germany "
                     + PREFIX_START_DATE + "23-7-2020"
     );
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD,
+            new ArrayList<>(),
+            new ArrayList<>(),
             Arrays.asList(PREFIX_NAME.toString(), PREFIX_START_DATE.toString()),
-            new ArrayList<>(),
-            new ArrayList<>(),
             new ArrayList<>()
     );
 
-    public static final String MESSAGE_SUCCESS = "Planner initialised with name:%1$s and"
-            + " start date:%2$s";
+    public static final String MESSAGE_SUCCESS = "Settings of planner changed!";
     public static final String MESSAGE_NAME_IS_TOO_LONG = "Please keep the name of the planner equal to or "
             + "under 30 characters";
 
@@ -55,8 +53,7 @@ public class InitCommand extends Command {
     /**
      * Creates an AddContactCommand to add the specified {@code Person}
      */
-    public InitCommand(Name name, LocalDate date) {
-        requireAllNonNull(name, date);
+    public SetCommand(Name name, LocalDate date) {
         this.name = name;
         this.startDate = date;
     }
@@ -64,19 +61,21 @@ public class InitCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (this.name.name.length() > 30) {
-            throw new CommandException(MESSAGE_NAME_IS_TOO_LONG);
+        if (!(name == null)) {
+            if (this.name.name.length() > 30) {
+                throw new CommandException(MESSAGE_NAME_IS_TOO_LONG);
+            }
+            model.setFolderName(this.name);
+            model.setItineraryName(this.name);
         }
-
-        model.setFolderName(this.name);
-        model.setItineraryName(this.name);
-        LocalDate oldStartDate = model.getStartDate();
-        long differenceInDaysBetweenOldAndNew = ChronoUnit.DAYS.between(oldStartDate, startDate);
-        model.setItineraryStartDate(this.startDate);
-        model.shiftDatesInItineraryByDay(differenceInDaysBetweenOldAndNew);
-        String dateInString = this.startDate.format(ParserUtil.DATE_FORMATTER_1);
+        if (!(startDate == null)) {
+            LocalDate oldStartDate = model.getStartDate();
+            long differenceInDaysBetweenOldAndNew = ChronoUnit.DAYS.between(oldStartDate, startDate);
+            model.setItineraryStartDate(this.startDate);
+            model.shiftDatesInItineraryByDay(differenceInDaysBetweenOldAndNew);
+        }
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, name, dateInString),
+                MESSAGE_SUCCESS,
                 new UiFocus[] {UiFocus.AGENDA}
         );
     }
@@ -84,8 +83,8 @@ public class InitCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof InitCommand // instanceof handles nulls
-                && this.name.equals(((InitCommand) other).name)
-                && this.startDate.equals(((InitCommand) other).startDate));
+                || (other instanceof SetCommand // instanceof handles nulls
+                && this.name.equals(((SetCommand) other).name)
+                && this.startDate.equals(((SetCommand) other).startDate));
     }
 }

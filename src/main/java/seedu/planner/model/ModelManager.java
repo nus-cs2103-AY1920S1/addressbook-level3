@@ -671,7 +671,7 @@ public class ModelManager implements Model {
         shiftDatesInItineraryByDayBetweenRange(
                 days,
                 Index.fromOneBased(1),
-                Index.fromOneBased(itinerary.getNumberOfDays())
+                Index.fromOneBased(itinerary.getNumberOfDays() + 1)
         );
     }
 
