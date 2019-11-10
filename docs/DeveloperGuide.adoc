@@ -201,11 +201,31 @@ prefixes like `q>`, `a>`, `r>` and `c>`
 //@@author dalsontws
 // tag::deadline[]
 
-=== Deadline feature
+=== Add and Remove Deadline feature
 ==== Implementation
 
 The deadline feature allows the user to add tasks with specific due dates, with a compulsory field
 of `TASK` and `DUE DATE`.
+
+The following are new classes used to integrate the Deadline feature.
+
+* `Deadline` -- Object class, containing important information such as the `Task` and `DueDate`.
+* `UniqueDeadlineList` -- Contains a `ObservableList` of `Deadline` objects. The list will be initialised from the storage
+at start up of application. A `Comparator` class was added to arrange the list according to ascending `DueDate`.
+* `DeadlineCommand` --  Embodies the `Deadline` command by the user. It will hold all the information about
+the `Deadline` that will be added.
+* `DeadlineCommandParser` -- Parses user input and uses it to construct a `DeadlineCommand` instance.
+* `RemoveCommand` --  Holds information on which `Deadline` to be removed. Contains an `Index` object.
+* `RemoveCommandParser` -- Parses user input and uses it to construct a `RemoveCommand` instance.
+
+In addition, various Exception classes are added to handle possible runtime errors while adding new Deadlines.
+This is done to ensure that the user specified Deadline is valid for storage and processing.
+
+* `DuplicateDeadlineException` -- This exception is thrown when the user attempts to add an identical `Deadline` object
+is added into the existing `UniqueDeadlineList`.
+* `DeadlineNotFoundException` -- This exception is thrown when the user attempts to remove a `Deadline` object that does
+not exist in the `UniqueDeadlineList`.
+
 
 [NOTE]
 Following are the prefixes for each field: +
@@ -219,14 +239,12 @@ Given below is an example usage scenario of `deadline` :
 The user executes `deadline t>Complete Homework d>04/10/2019` to add new deadline to the task
 of completing homework by the 4th October 2019.
 
+NOTE: The deadline feature does not allow adding of duplicate/identical deadlines. Also, new deadlines must
+be later than the current date.
+
 The following sequence diagram shows how the deadline operation works:
 
 image::DeadlineSequenceDiagram.png[]
-
-
-The deadline feature does not allow adding of duplicate/identical deadlines.
-i.e. A duplicated/identical deadline is one that has identical fields for both the task and the due date.
-If the duplicated/identical deadline exists in the storage, an error will be shown.
 
 The following activity diagram summarizes what happens when a user executes a deadline command:
 
@@ -237,12 +255,12 @@ image::DeadlineActivityDiagram.png[width=320,height=480]
 
 * **Alternative 1(current choice):** Use command `deadline` together with
 prefixes like `t>` and `d>`
-** Pros: Easier to implement.
+** Pros: Easier to implement
 ** Cons: User might miss the prefixes hence adding wrong deadlines
 * **Alternative 2:** Make use of the GUI. after user execute `deadline` command,
- an **add deadline window** would pop up with a section for individual fields.
-** Pros: More user friendly.
-** Cons: Difficult to implement. Might be slower for the user to key in deadlines as compared to using a one liner with prefixes.
+ an **add deadline window** would pop up with a section for individual fields
+** Pros: More user friendly
+** Cons: Difficult to implement. Might be slower for the user to key in deadlines as compared to using a one liner with prefixes
 
 // end::deadline[]
 
@@ -259,20 +277,16 @@ re-test these FlashCards.
 
 [NOTE]
 Following are the prefixes for each field: +
-- t> : `TASK` +
-- d> : `DUE DATE`
-- For `DUE DATE` : Date format must be in dd/MM/yyyy
-i.e. 01/01/2019
+- `bad INDEX` +
+i.e. bad 2
 
-Given below is an example usage scenario of `deadline` :
+Given below is an example usage scenario of `bad INDEX` :
 
-The user executes `deadline t>Complete Homework d>04/10/2019` to add new deadline to the task
-of completing homework by the 4th October 2019.
+The user executes `bad 2` to rate the second FlashCard as a "Bad" FlashCard
 
 The following sequence diagram shows how the deadline operation works:
 
 image::DeadlineSequenceDiagram.png[]
-
 
 The deadline feature does not allow adding of duplicate/identical deadlines.
 i.e. A duplicated/identical deadline is one that has identical fields for both the task and the due date.
@@ -334,7 +348,6 @@ Because `ExportPath` follows the factory pattern, any class that deals with `Exp
 dealing with exactly. Each `ExportPath` subclass will implement its own `export` and `import` methods, which, when called, will perform the required operations
 without any further hassle. Of course, due to the Separation of Concerns principle, the `ExportPath` subclasses will not handle these directly.
 Instead, they will delegate the work to other utility classes, which, in turn, interface with the external libraries necessary to complete the task.
-
 TIP: The exporting/importing functionality is extremely easy to extend - support for new formats can be added simply through the creation of new subclasses of `ExportPath`.
 
 NOTE: All relevant classes can be found in the `seedu.address.model.export` package. The only exceptions are `ExportCommand`, `ImportCommand`, `ExportCommandParser`, and `ImportCommandParser`, which can be found in the `seedu.address.logic` package.
