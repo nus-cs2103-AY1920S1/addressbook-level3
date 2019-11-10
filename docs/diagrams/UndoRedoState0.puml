@@ -3,12 +3,12 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title Initial state
+title Initial State
 
 package States {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
+    class State1 as "__us0:UserState__"
+    class State2 as "__us1:UserState__"
+    class State3 as "__us2:UserState__"
 }
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3

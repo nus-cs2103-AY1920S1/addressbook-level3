@@ -21,7 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.category.Category;
-import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.model.transaction.TransactionPredicate;
 import seedu.address.ui.tab.Tab;
 
 
@@ -39,9 +39,9 @@ public class FilterCommandTest {
             new HashSet<>(Collections.singletonList(new Category("first"))));
         Optional<Set<Category>> categoriesTwo = Optional.of(
             new HashSet<>(Collections.singletonList(new Category("second"))));
-        TransactionContainsCategoriesPredicate firstPredicate = new TransactionContainsCategoriesPredicate(
+        TransactionPredicate firstPredicate = new TransactionPredicate(
             categoriesOne, Optional.empty(), Optional.empty(), Optional.empty());
-        TransactionContainsCategoriesPredicate secondPredicate = new TransactionContainsCategoriesPredicate(
+        TransactionPredicate secondPredicate = new TransactionPredicate(
             categoriesTwo, Optional.empty(), Optional.empty(), Optional.empty());
 
         FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
@@ -68,7 +68,7 @@ public class FilterCommandTest {
     @Test
     public void execute_zeroKeywords_noTransactionFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 0);
-        TransactionContainsCategoriesPredicate predicate = preparePredicate(" ");
+        TransactionPredicate predicate = preparePredicate(" ");
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
         expectedModel.commitUserState();
@@ -78,16 +78,16 @@ public class FilterCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code TransactionContainsCategoriesPredicate}.
+     * Parses {@code userInput} into a {@code TransactionPredicate}.
      */
-    private TransactionContainsCategoriesPredicate preparePredicate(String userInput) {
+    private TransactionPredicate preparePredicate(String userInput) {
         List<Category> listOfCat = Arrays
             .asList(userInput.split("\\s+"))
             .stream()
             .map(cat -> new Category(cat))
             .collect(Collectors.toList());
         Optional<Set<Category>> categories = Optional.of(new HashSet<>(listOfCat));
-        return new TransactionContainsCategoriesPredicate(categories,
+        return new TransactionPredicate(categories,
             Optional.empty(), Optional.empty(), Optional.empty());
     }
 }

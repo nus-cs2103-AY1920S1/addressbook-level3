@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.model.transaction.TransactionPredicate;
 import seedu.address.ui.tab.Tab;
 
 /**
@@ -35,9 +35,9 @@ public class FilterCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Bank Account has been filtered!";
 
-    private final TransactionContainsCategoriesPredicate pred;
+    private final TransactionPredicate pred;
 
-    public FilterCommand(TransactionContainsCategoriesPredicate pred) {
+    public FilterCommand(TransactionPredicate pred) {
         requireNonNull(pred);
         this.pred = pred;
     }

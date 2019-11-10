@@ -118,8 +118,8 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getTransactionList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getTransactionList().remove(0));
+    public void getTransactionList_modifyList_throwsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> logic.getTransactionList().remove(0));
     }
 
     @Test

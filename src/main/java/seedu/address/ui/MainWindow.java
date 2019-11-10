@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -136,7 +137,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
+        ObservableList<BankAccountOperation> transactionList = logic.getFilteredTransactionList();
         transactionListPanel = new TransactionListPanel(transactionList);
 
         ObservableList<Budget> budgetList = logic.getBudgetList();
@@ -152,7 +153,7 @@ public class MainWindow extends UiPart<Stage> {
         projectionListPanel = new ProjectionListPanel(projectionsList);
 
         mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel, projectionListPanel,
-                peopleListPanel);
+            peopleListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -251,7 +252,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             // update bank balance display
-            ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
+            List<BankAccountOperation> transactionList = logic.getTransactionList();
             statusBarFooter.setBalance(transactionList);
 
             if (commandResult.isShowHelp()) {

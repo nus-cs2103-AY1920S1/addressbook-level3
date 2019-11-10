@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":MainParser" as MainParser LOGIC_COLOR
 participant ":ProjectCommandParser" as ProjectCommandParser LOGIC_COLOR
 participant "p:ProjectCommand" as ProjectCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -17,40 +17,42 @@ participant "pr:Projection" as Projection MODEL_COLOR
 
 end box
 
-[-> LogicManager : execute("project d/22112019")
+[-> LogicManager : execute("project d/DATE")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("project d/22112019")
-activate AddressBookParser
+LogicManager -> MainParser : parseCommand("project d/DATE [c/CATEGORY]")
+activate MainParser
 
 create ProjectCommandParser
-AddressBookParser -> ProjectCommandParser
+MainParser -> ProjectCommandParser
 activate ProjectCommandParser
 
-ProjectCommandParser --> AddressBookParser
+ProjectCommandParser --> MainParser
 deactivate ProjectCommandParser
 
-AddressBookParser -> ProjectCommandParser : parse("d/22112019")
+MainParser -> ProjectCommandParser : parse("d/DATE [c/CATEGORY]")
 activate ProjectCommandParser
 
 create ProjectCommand
-ProjectCommandParser -> ProjectCommand : 22112019
+ProjectCommandParser -> ProjectCommand : DATE, CATEGORY
 activate ProjectCommand
 
 ProjectCommand --> ProjectCommandParser : p
 deactivate ProjectCommand
 
-ProjectCommandParser --> AddressBookParser : p
+ProjectCommandParser --> MainParser : p
 deactivate ProjectCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-ProjectCommandParser -[hidden]-> AddressBookParser
+ProjectCommandParser -[hidden]-> MainParser
 destroy ProjectCommandParser
 
-AddressBookParser --> LogicManager : p
-deactivate AddressBookParser
+MainParser --> LogicManager : p
+deactivate MainParser
 
 LogicManager -> ProjectCommand : execute()
 activate ProjectCommand
+
+ProjectCommand -> ProjectCommand : ensureDateToProjectionIsWithinRange(DATE)
 
 ProjectCommand -> Model : getBankAccount()
 activate Model
@@ -71,15 +73,37 @@ activate ReadOnlyBankAccount
 ReadOnlyBankAccount --> ProjectCommand : th
 deactivate ReadOnlyBankAccount
 
-create Projection
-ProjectCommand --> Projection : th, 22112019
-activate Projection
+ProjectCommand --> Model : getFilteredBudgetList()
+    activate Model
+    Model --> ProjectCommand : budgets
+    deactivate Model
 
-Projection --> ProjectCommand
-deactivate Projection
+alt has specified category
+    ProjectCommand --> ProjectCommand : th.filtered(CATEGORY)
+    ProjectCommand --> ProjectCommand : ensureMinimumTransactions(th)
+    ProjectCommand --> ProjectCommand : budgets.filtered(CATEGORY);
+    create Projection
+    ProjectCommand --> Projection : th, DATE, CATEGORY
+    activate Projection
+    Projection --> ProjectCommand
+    deactivate Projection
+else no category specified
+    ProjectCommand --> ProjectCommand : ensureMinimumTransactions(th)
+    ProjectCommand --> ProjectCommand : budgets.filtered(Category.GENERAL)
+    create Projection
+    ProjectCommand --> Projection : th, DATE
+    activate Projection
+    Projection --> ProjectCommand
+    deactivate Projection
+end
+ProjectCommand --> Model : add(pr)
+activate Model
+
+ProjectCommand --> Model : commitUserState()
+deactivate Model
 
 create CommandResult
-ProjectCommand -> CommandResult :pr
+ProjectCommand --> CommandResult :pr
 activate CommandResult
 
 CommandResult --> ProjectCommand

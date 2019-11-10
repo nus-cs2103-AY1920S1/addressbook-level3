@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -53,17 +54,13 @@ public interface Logic {
 
     /**
      * Returns an unmodifiable view of the filtered list of transactions
-     *
-     * @return
      */
     ObservableList<BankAccountOperation> getFilteredTransactionList();
 
     /**
      * Returns an ObservableList of Transactions
-     *
-     * @return
      */
-    ObservableList<BankAccountOperation> getTransactionList();
+    List<BankAccountOperation> getTransactionList();
 
     ObservableList<Budget> getBudgetList();
 

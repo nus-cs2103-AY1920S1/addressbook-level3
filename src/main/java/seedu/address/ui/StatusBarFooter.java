@@ -2,9 +2,9 @@ package seedu.address.ui;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -29,13 +29,13 @@ public class StatusBarFooter extends UiPart<Region> {
 
     private Amount amount;
 
-    public StatusBarFooter(Path saveLocation, ObservableList<BankAccountOperation> transactions) {
+    public StatusBarFooter(Path saveLocation, List<BankAccountOperation> transactions) {
         super(FXML);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
         setBalance(transactions);
     }
 
-    public void setBalance(ObservableList<BankAccountOperation> transactions) {
+    public void setBalance(List<BankAccountOperation> transactions) {
         Amount amount = Amount.zero();
         for (BankAccountOperation transaction : transactions) {
             amount = amount.addAmount(transaction.getAmount());

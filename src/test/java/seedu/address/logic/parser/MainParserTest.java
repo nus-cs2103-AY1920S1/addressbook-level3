@@ -37,7 +37,7 @@ import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
-import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.model.transaction.TransactionPredicate;
 
 // TODO: ADD ALL THE COMMANDS
 public class MainParserTest {
@@ -102,7 +102,7 @@ public class MainParserTest {
         FilterCommand command = (FilterCommand) parser.parseCommand(
             FilterCommand.COMMAND_WORD + " "
                 + keywords.stream().map(cat -> "c/" + cat).collect(Collectors.joining(" ")));
-        assertEquals(new FilterCommand(new TransactionContainsCategoriesPredicate(categories,
+        assertEquals(new FilterCommand(new TransactionPredicate(categories,
             Optional.empty(), Optional.empty(), Optional.empty())), command);
     }
 

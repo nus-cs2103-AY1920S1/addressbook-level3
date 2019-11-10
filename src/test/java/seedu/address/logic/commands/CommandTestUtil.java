@@ -19,7 +19,7 @@ import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.model.transaction.TransactionPredicate;
 //import seedu.address.testutil.UpdateTransactionDescriptorBuilder;
 
 /**
@@ -130,7 +130,7 @@ public class CommandTestUtil {
 
         final Optional<Set<Category>> categories = Optional.of(transaction
             .getCategories());
-        model.updateFilteredTransactionList(new TransactionContainsCategoriesPredicate(categories,
+        model.updateFilteredTransactionList(new TransactionPredicate(categories,
             Optional.empty(), Optional.empty(), Optional.empty()));
 
         assertEquals(1, model.getFilteredTransactionList().size());

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.List;
@@ -31,9 +32,10 @@ public class ProjectCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Projected balance: $%s\n%s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Project future balance based on past income/outflow.\n"
             + "Parameters: "
-            + PREFIX_DATE + "DATE\n"
+            + PREFIX_DATE + "DATE [" + PREFIX_CATEGORY + "CATEGORY]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DATE + "12122103 09:00";
+            + PREFIX_DATE + "12122103 "
+            + PREFIX_CATEGORY + "Food";
     public static final int REQUIRED_MINIMUM_TRANSACTIONS = 5;
 
     private static final String MESSAGE_VOID_TRANSACTION_HISTORY =
@@ -69,7 +71,7 @@ public class ProjectCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ensureDaysToProjectIsWithinRange(this.date);
+        ensureDateToProjectIsWithinRange(this.date);
         ObservableList<BankAccountOperation> transactionHistory =
                 model.getBankAccount().getSortedTransactionHistory(new DateComparator());
         Projection projection = defineProjection(transactionHistory, model);
@@ -105,12 +107,14 @@ public class ProjectCommand extends Command {
             throws CommandException {
         if (this.category.equals(Category.GENERAL)) {
             ensureMinimumTransactions(transactionHistory);
-            return new Projection(transactionHistory, date);
+            ObservableList<Budget> budgets = model.getFilteredBudgetList()
+                    .filtered(x -> x.getCategories().contains(Category.GENERAL));
+            return new Projection(transactionHistory, date, budgets);
         } else {
             transactionHistory = transactionHistory.filtered(x -> x.getCategories().contains(this.category));
+            ensureMinimumTransactions(transactionHistory);
             ObservableList<Budget> budgets = model.getFilteredBudgetList()
                     .filtered(x -> x.getCategories().contains(this.category));
-            ensureMinimumTransactions(transactionHistory);
             return new Projection(transactionHistory, date, budgets, this.category);
         }
     }
@@ -136,7 +140,7 @@ public class ProjectCommand extends Command {
     /**
      * Ensures that the {@code Projection} is not cast beyond the maximum number of days to project
      */
-    private void ensureDaysToProjectIsWithinRange(Date toProject) throws CommandException {
+    private void ensureDateToProjectIsWithinRange(Date toProject) throws CommandException {
         int daysFromNow = Math.abs(Date.daysBetween(Date.now(), toProject));
         if (daysFromNow >= REQUIRED_MAXIMUM_DAYS_TO_PROJECT) {
             throw new CommandException(MESSAGE_PROJECTION_TOO_PROTRACTED);

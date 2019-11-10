@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Description;
-import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
+import seedu.address.model.transaction.TransactionPredicate;
 
 public class FilterCommandParserTest {
 
@@ -35,7 +35,7 @@ public class FilterCommandParserTest {
         Optional<Integer> year = Optional.of(2019);
         Optional<Description> description = Optional.of(new Description("KFC"));
         FilterCommand expectedFilterCommand =
-            new FilterCommand(new TransactionContainsCategoriesPredicate(categories,
+            new FilterCommand(new TransactionPredicate(categories,
                 month, year, description));
         assertParseSuccess(parser, " c/Alice c/Bob m/11 y/2019 n/KFC", expectedFilterCommand);
 

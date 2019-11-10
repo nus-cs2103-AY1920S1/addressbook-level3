@@ -13,19 +13,20 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.category.Category;
 
 /**
- * Tests that a {@code Transaction}'s {@code Category} matches the {@code Category} given.
+ * Tests that a {@code BankAccountOperation} matches the {@code keyCategories}, {@code month}, {@code year}
+ * and {@code description} given.
  */
-public class TransactionContainsCategoriesPredicate implements Predicate<BankAccountOperation> {
+public class TransactionPredicate implements Predicate<BankAccountOperation> {
 
     private final Optional<List<Category>> keyCategories;
     private final Optional<Integer> month;
     private final Optional<Integer> year;
     private final Optional<Description> description;
 
-    public TransactionContainsCategoriesPredicate(Optional<Set<Category>> keyCategories,
-                                                  Optional<Integer> month,
-                                                  Optional<Integer> year,
-                                                  Optional<Description> description) {
+    public TransactionPredicate(Optional<Set<Category>> keyCategories,
+                                Optional<Integer> month,
+                                Optional<Integer> year,
+                                Optional<Description> description) {
         requireAllNonNull(keyCategories, month, year, description);
         if (keyCategories.isPresent()) {
             this.keyCategories = Optional.of(new ArrayList<>(keyCategories.get()));
@@ -48,7 +49,7 @@ public class TransactionContainsCategoriesPredicate implements Predicate<BankAcc
     }
 
     /**
-     * Checks if at least of of the categories in {@code keyCategories} is in {@code transaction}.
+     * Checks if at least one of the categories in {@code keyCategories} is in {@code transaction}.
      */
     private boolean testForCategories(BankAccountOperation transaction) {
         if (keyCategories.isPresent()) {
@@ -62,7 +63,7 @@ public class TransactionContainsCategoriesPredicate implements Predicate<BankAcc
     }
 
     /**
-     *
+     * Checks if {@code transaction} has {@code description}.
      */
     private boolean testForDescription(BankAccountOperation transaction) {
         if (description.isPresent()) {
@@ -111,10 +112,10 @@ public class TransactionContainsCategoriesPredicate implements Predicate<BankAcc
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof TransactionContainsCategoriesPredicate // instanceof handles nulls
-            && keyCategories.equals(((TransactionContainsCategoriesPredicate) other).keyCategories))
-            && month.equals(((TransactionContainsCategoriesPredicate) other).month)
-            && year.equals(((TransactionContainsCategoriesPredicate) other).year)
-            && description.equals(((TransactionContainsCategoriesPredicate) other).description); // state check
+            || (other instanceof TransactionPredicate // instanceof handles nulls
+            && keyCategories.equals(((TransactionPredicate) other).keyCategories))
+            && month.equals(((TransactionPredicate) other).month)
+            && year.equals(((TransactionPredicate) other).year)
+            && description.equals(((TransactionPredicate) other).description); // state check
     }
 }

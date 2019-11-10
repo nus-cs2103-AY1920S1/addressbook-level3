@@ -221,7 +221,7 @@ public class Budget implements Comparable<Budget> {
     public String displayPercentage() {
         double percentage = this.amount.divideAmount(this.initialAmount) * 100;
         if (percentage < 0.00) {
-            percentage = 0.0;
+            percentage = 0.0; // should not display a negative percentage
         }
         return String.format("%.2f%% remaining", percentage);
     }

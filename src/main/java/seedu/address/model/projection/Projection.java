@@ -17,7 +17,6 @@ import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.util.Date;
-import seedu.address.model.util.GradientDescent;
 
 /**
  * Represents a projection of user's balance at a set date in the future\
@@ -33,14 +32,6 @@ public class Projection {
     private Amount projection;
     private GradientDescent projector;
     private Category category;
-
-
-    public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date) {
-        this.transactionHistory = transactionHistory;
-        this.date = date;
-        this.category = Category.GENERAL;
-        this.project();
-    }
 
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date,
                       ObservableList<Budget> budgets) {

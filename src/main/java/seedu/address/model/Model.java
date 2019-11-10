@@ -205,9 +205,12 @@ public interface Model {
     void add(Projection projection);
 
     /**
-     * Returns an unmodifiable view of the filtered transaction list
-     *
-     * @return
+     * Returns an unmodifiable view of the non-filtered transaction list.
+     */
+    List<BankAccountOperation> getTransactionList();
+
+    /**
+     * Returns an unmodifiable view of the filtered transaction list.
      */
     ObservableList<BankAccountOperation> getFilteredTransactionList();
 

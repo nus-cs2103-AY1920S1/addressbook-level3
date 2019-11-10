@@ -1,0 +1,35 @@
+@startuml
+start
+:User logs Transaction;
+if() then ([In Transaction])
+
+:Income statement appended to Transaction list;
+:BankAccount handles amount from Income;
+
+else([Out Transaction])
+
+:Expenditure statement appended to Transaction list;
+:BankAccount handles amount from Expenditure;
+
+endif
+
+if() then ([In Transaction])
+
+
+else([Out Transaction)
+:PalPay checks if Transaction categories matches any Budget categories;
+
+if() then ([Yes])
+:Budget remaining amount deducts Transaction's amount;
+
+else([No])
+
+endif
+
+endif
+
+:Transaction appended to Transaction List;
+
+stop
+@enduml
+
