@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:source-highlighter: rouge
 
 == PROJECT: AlgoBase
 
@@ -74,6 +75,9 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/90[#90]
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/116[#116]
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/117[#117]
 
+*** Contributed to forum discussions:
+**** Guide on image and caption formatting in asciidoc: https://github.com/nus-cs2103-AY1920S1/forum/issues/168[#168]
+
 *** Reported bugs and suggestions for other teams in the class:
 https://github.com/tiuweehan/ped[Reported 18 bugs in PED]
 
@@ -97,3 +101,10 @@ include::../UserGuide.adoc[tag=gui]
 
 include::../DeveloperGuide.adoc[tag=uilogic]
 include::../DeveloperGuide.adoc[tag=gui]
+
+=== More contributions to the User and Developer Guide
+
+https://ay1920s1-cs2103t-w11-1.github.io/main/UserGuide.html#introduction[UG - Introduction and Overview] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/UserGuide.html#switching-tabs-code-switchtab-code[UG - Command line Tab Management] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#command-line-tab-management[DG - Command Line Tab Management] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#switching-tabs[DG - Tabs and GUI] +
