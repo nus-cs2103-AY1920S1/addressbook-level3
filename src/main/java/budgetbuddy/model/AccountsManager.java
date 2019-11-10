@@ -128,26 +128,28 @@ public class AccountsManager {
      * @param toDelete The target account for deletion.
      */
     public void deleteAccount(Index toDelete) throws EmptyAccountListException, AccountNotFoundException {
-
         if (accounts.size() <= 1) {
             //the last account in the list should not be deleted
             throw new EmptyAccountListException();
         }
 
         Account accountToDelete = filteredAccounts.get(toDelete.getZeroBased());
-        if (filteredAccounts.size() == 1) {
-            //there is one account left on the filtered list and it is active
-            accounts.remove(accountToDelete);
+        boolean isActiveAccount = accountToDelete.isActive();
+        accounts.remove(accountToDelete);
+        if (filteredAccounts.size() == 0) {
+            // there was only one account left on the filtered list
+            // (it had to have been the active account)
+            // reset the filtered account list and set the first one to active
             unsetActiveAccount();
             resetFilteredAccountList();
             setActiveAccountByIndex(Index.fromZeroBased(0));
-        } else {
-            if (filteredAccounts.get(toDelete.getZeroBased()).isActive()) {
-                accounts.remove(accountToDelete);
-                setActiveAccountByIndex(Index.fromZeroBased(0));
-            } else {
-                accounts.remove(accountToDelete);
-            }
+        } else if (isActiveAccount) {
+            // we removed the active account, reset it to the first account
+            setActiveAccountByIndex(Index.fromZeroBased(0));
+        } else if (activeAccountIndex.getZeroBased() > toDelete.getZeroBased()) {
+            // we removed an account before the active account (by index)
+            // the active account's index has now decreased by 1, so update it
+            setActiveAccountByIndex(Index.fromZeroBased(activeAccountIndex.getZeroBased() - 1));
         }
     }
 
