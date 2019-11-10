@@ -722,8 +722,8 @@ e.g. `addprob  n/factorial d/define a function factorial that takes in a number 
 ** *List Problems* : `listprob` +
 ** *Edit Problems* : `editprob INDEX [n/NAME] [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...` +
 e.g. `editprob 2 n/permutations t/`
-** *Delete Problem* : `deleteprob INDEX` +
-e.g. `deleteprob 3`
+** *Delete Problem* : `deleteprob INDEX [f/]` +
+e.g. `deleteprob 3 f/`
 ** *Sort Problems* : `sortprob m/METHOD [ord/ORDER]` +
 e.g. `sortprob m/difficulty ord/ascend`
 ** *Find Problems* : `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]` +
