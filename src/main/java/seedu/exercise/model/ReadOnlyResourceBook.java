@@ -111,6 +111,6 @@ public class ReadOnlyResourceBook<T extends Resource> {
 
     @Override
     public String toString() {
-        return "" + resources.asUnmodifiableObservableList().size() + " resources.";
+        return "" + resources.asUnmodifiableObservableList().size() + " items";
     }
 }

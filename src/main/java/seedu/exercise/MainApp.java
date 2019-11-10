@@ -152,7 +152,13 @@ public class MainApp extends Application {
             if (exerciseBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample exercise database book");
             }
-            exerciseData = exerciseBookOptional.orElseGet(DefaultExerciseDatabaseUtil::getExerciseDatabaseBook);
+
+            if (path.equals(storage.getExerciseBookFilePath())) { //use sample data util exercise book
+                exerciseData = exerciseBookOptional.orElseGet(SampleDataUtil::getSampleExerciseBook);
+            } else { // use default exercise database util database book
+                exerciseData = exerciseBookOptional.orElseGet(DefaultExerciseDatabaseUtil::getExerciseDatabaseBook);
+            }
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in correct format. Will be starting with a sample exercise database book");
             exerciseData = DefaultExerciseDatabaseUtil.getExerciseDatabaseBook();

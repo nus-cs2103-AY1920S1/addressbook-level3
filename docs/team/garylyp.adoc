@@ -22,19 +22,21 @@ image::Ui.png[]
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** What it does: allows the user to undo previous commands one at a time. Undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement requires an in-depth analysis of design alternatives as well as the interaction between all undoable commands and the backend model.
 The implementation too was challenging as it required changes to existing commands while allowing ease of integration with future commands.
 
 * *Minor enhancement 1*: implemented the sorting of exercise list, regime list and schedule list such that entries are listed in a systematic order for users.
 
-* *Minor enhancement 2*: modified list command to improve the navigability across various lists (exercise tracker, exercise suggestions, regime list, schedule list).
+* *Minor enhancement 2*: modified the `list` command to improve the navigability across various lists (exercise tracker, exercise suggestions, regime list, schedule list).
 
 * *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=garylyp&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]
 
 * *Other contributions*:
 
+** Project management:
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/124[#124], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/186[#186])
 ** Documentation:
