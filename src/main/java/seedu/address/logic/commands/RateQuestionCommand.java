@@ -14,7 +14,7 @@ import seedu.address.model.flashcard.Rating;
 public class RateQuestionCommand extends NextQuestionCommand {
 
     public static final String COMMAND_WORD = "rate";
-    public static final String MESSAGE_SUCCESS = "Rated successfully! Here's the next question";
+    public static final String MESSAGE_SUCCESS = "Rated successfully! Here's the next question:";
     public static final String ERROR_MESSAGE = "You can only rate after answering the question!\n"
             + "Next available command: ans, skip, end";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Rates a FlashCard and gets the next question.\n"
@@ -25,7 +25,6 @@ public class RateQuestionCommand extends NextQuestionCommand {
 
     public RateQuestionCommand(KeyboardFlashCardsParser keyboardFlashCardsParser, Rating rating) {
         super(keyboardFlashCardsParser, MESSAGE_SUCCESS);
-
         requireNonNull(rating);
 
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
