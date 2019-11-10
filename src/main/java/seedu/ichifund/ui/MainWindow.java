@@ -40,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private RepeaterListPanel repeaterListPanel;
     private BudgetListPanel budgetListPanel;
     private DataListPanel dataListPanel;
+    private LoanListPanel loanListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -53,13 +54,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem showTransactionMenuItem;
 
     @FXML
+    private MenuItem showLoanMenuItem;
+
+    @FXML
     private MenuItem showRepeaterMenuItem;
 
     @FXML
     private MenuItem showBudgetMenuItem;
-
-    @FXML
-    private MenuItem showLoanMenuItem;
 
     @FXML
     private MenuItem showAnalyticsMenuItem;
@@ -69,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane transactionListPanelPlaceholder;
+
+    @FXML
+    private StackPane loanListPanelPlaceholder;
 
     @FXML
     private StackPane repeaterListPanelPlaceholder;
@@ -176,6 +180,9 @@ public class MainWindow extends UiPart<Stage> {
         dataListPanel = new DataListPanel(logic.getDataList());
         dataListPanelPlaceholder.getChildren().add(dataListPanel.getRoot());
 
+        loanListPanel = new LoanListPanel(logic.getFilteredLoanList());
+        loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
+
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFundBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -270,6 +277,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public TransactionListPanel getTransactionListPanel() {
         return transactionListPanel;
+    }
+
+    public LoanListPanel getLoanListPanel() {
+        return loanListPanel;
     }
 
     public RepeaterListPanel getRepeaterListPanel() {
