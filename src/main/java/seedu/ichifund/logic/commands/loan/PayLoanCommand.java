@@ -1,24 +1,16 @@
 package seedu.ichifund.logic.commands.loan;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_LOAN_SPAN;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_END_DAY;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_END_MONTH;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_END_YEAR;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_DAY;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_MONTH;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_YEAR;
 
+import java.util.List;
+
+import seedu.ichifund.commons.core.Messages;
+import seedu.ichifund.commons.core.index.Index;
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
-import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.loan.Loan;
-import seedu.ichifund.model.loan.LoanId;
 
 /**
  * Adds a loan to IchiFund.
@@ -33,10 +25,10 @@ public class PayLoanCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Paid off Loan: %1$s";
+    public static final String MESSAGE_PAY_LOAN_SUCCESS = "Paid off Loan: %1$s";
 
-    private final Index target;
-    
+    private final Index index;
+
     public PayLoanCommand(Index index) {
         this.index = index;
     }
@@ -50,15 +42,15 @@ public class PayLoanCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_LOAN_INDEX);
         }
 
-        Loan loanToDelete = lastShownList.get(index.getZeroBased());
-        model.payLoan(loanToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_LOAN_SUCCESS, loanToDelete));
+        Loan loanToPay = lastShownList.get(index.getZeroBased());
+        model.payLoan(loanToPay);
+        return new CommandResult(String.format(MESSAGE_PAY_LOAN_SUCCESS, loanToPay));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteLoanCommand // instanceof handles nulls
-                && index.equals(((DeleteLoanCommand) other).index)); // state check
+                || (other instanceof PayLoanCommand // instanceof handles nulls
+                && index.equals(((PayLoanCommand) other).index)); // state check
     }
 }
