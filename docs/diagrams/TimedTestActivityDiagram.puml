@@ -1,0 +1,20 @@
+@startuml
+(*) --> "load question"
+If "Times up?" then
+--> [No] If "End of Deck?" then
+--> [No] "user attempts question"
+--> "mark question"
+If "Is the user correct?" then
+--> [Yes] "add one to result"
+--> "next question"
+--> "load question"
+else
+--> [No] "next question"
+Endif
+else
+--> [Yes] "review mistakes or reattempt questions"
+Endif
+else
+--> [Yes] "review mistakes or reattempt questions"
+-->(*)
+@enduml
