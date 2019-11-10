@@ -23,7 +23,7 @@ image::ryanytan.png[width="150", align="left"]
 {empty}[http://github.com/ryanytan[github]] [<<ryanytan#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Cost planner feature
+Responsibilities: Course planner feature
 
 '''
 
@@ -50,6 +50,6 @@ image::mrnewguy.png[width="150", align="left"]
 {empty}[http://github.com/mrnewguy[github]] [<<mrnewguy#, portfolio>>]
 
 Role: Developer +
-Responsibilities: CCA planner feature
+Responsibilities: CCA tracker feature
 
 '''
