@@ -64,6 +64,7 @@ import seedu.planner.ui.cards.HelpCard;
 import seedu.planner.ui.panels.AccommodationListPanel;
 import seedu.planner.ui.panels.ActivityListPanel;
 import seedu.planner.ui.panels.ContactListPanel;
+import seedu.planner.ui.panels.InfoListPanel;
 
 /**
  * A ui for the split window that is displayed at the center of the application.
@@ -73,9 +74,6 @@ public class CentralDisplay extends UiPart<Region> {
     private static final String FXML = "CentralDisplay.fxml";
     private static final int CHAR_LIMIT_BEFORE_TRUNCATING_SUMMARY = 220;
     private static final int MAX_MULTIPLE_OF_DAYLIST_SIZE_BEFORE_CLEARING_HASHMAP = 3;
-
-    private final Agenda agenda;
-
     private SimpleObjectProperty<LocalDate> startDateProperty;
     private SimpleObjectProperty<Name> nameProperty;
     private ObservableList<Day> dayList;
@@ -99,11 +97,13 @@ public class CentralDisplay extends UiPart<Region> {
     @FXML
     private Tab infoTab;
     @FXML
-    private ListView<Node> infoList;
-    @FXML
     private Tab helpTab;
     @FXML
+    private ListView<Node> infoList;
+    private final InfoListPanel infoListPanel;
+    @FXML
     private ListView<Node> helpList;
+    private final Agenda agenda;
 
     public CentralDisplay(ObservableList<Day> dayList, ObservableList<Accommodation> accommodationList,
                           ObservableList<Activity> activityList, ObservableList<Contact> contactList,
@@ -114,6 +114,7 @@ public class CentralDisplay extends UiPart<Region> {
         this.dayList = dayList;
         this.nameProperty = nameProperty;
         this.activityToAppointmentGroupHashMap = new HashMap<>();
+        this.infoListPanel = new InfoListPanel();
 
         // initialising agenda
         this.agenda = new Agenda() {
@@ -167,6 +168,9 @@ public class CentralDisplay extends UiPart<Region> {
         contactPane.setContent((new ContactListPanel(contactList)).getRoot());
         // expands the activity pane
         sideDisplay.setExpandedPane(activityPane);
+
+        infoTab.setContent(infoListPanel.getRoot());
+
         setupAgendaAppointmentGroups();
         agendaTab.setText(nameProperty.getValue().toString() + " Itinerary");
         agenda.setDisplayedLocalDateTime(startDateProperty.getValue().atStartOfDay());
@@ -204,11 +208,6 @@ public class CentralDisplay extends UiPart<Region> {
      * Setup listeners that will update the central display.
      */
     private void setupListeners() {
-        // set up listeners that will update the agenda
-        //dayList.addListener((ListChangeListener<? super Day>) c -> {
-        //    updateSkin(agenda);
-        //    updateAgenda(agenda, dayList);
-        //});
         startDateProperty.addListener((observable, oldValue, newValue) -> {
             updateAgenda(agenda, dayList);
             agenda.setDisplayedLocalDateTime(newValue.atStartOfDay());
@@ -263,42 +262,10 @@ public class CentralDisplay extends UiPart<Region> {
      * Displays the relevant information in infoList from command executed.
      */
     public void changeInfo(ResultInformation[] resultInformation) {
-        infoList.getItems().clear();
-        for (ResultInformation i : resultInformation) {
-            i.getAccommodation().ifPresent(accommodation ->
-                    addAccommodationInfo(accommodation, i.getIndex(), i.getDescription().orElse(""))
-            );
-            i.getActivity().ifPresent(activity ->
-                    addActivityInfo(activity, i.getIndex(), i.getDescription().orElse(""))
-            );
-            i.getContact().ifPresent(contact ->
-                    addContactInfo(contact, i.getIndex(), i.getDescription().orElse(""))
-            );
-            i.getActivityWithTime().ifPresent(activityWithTime ->
-                    addActivityWithTimeInfo(activityWithTime, i.getIndex())
-            );
-        }
+        infoListPanel.changeInfo(resultInformation);
     }
 
-    private void addAccommodationInfo(Accommodation accommodation, Index displayedIndex, String description) {
-        infoList.getItems().add(
-                new AccommodationCardFull(accommodation, displayedIndex.getOneBased(), description).getRoot());
-    }
 
-    private void addContactInfo(Contact contact, Index displayedIndex, String description) {
-        infoList.getItems().add(
-                new ContactCardFull(contact, displayedIndex.getOneBased(), description).getRoot());
-    }
-
-    private void addActivityInfo(Activity activity, Index displayedIndex, String description) {
-        infoList.getItems().add(
-                new ActivityCardFull(activity, displayedIndex.getOneBased(), description).getRoot());
-    }
-
-    private void addActivityWithTimeInfo(ActivityWithTime activityWithTime, Index displayedIndex) {
-        infoList.getItems().add(
-                new ActivityWithTimeCardFull(activityWithTime, displayedIndex.getOneBased()).getRoot());
-    }
 
     /**
      * Expands tabs according to the provided {@code uiFocus}.
