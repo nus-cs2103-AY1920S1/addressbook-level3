@@ -58,7 +58,7 @@ public class SetReminderCommand extends Command {
         ObservableList<? extends Item> currentList = model.getCurrentList();
 
         if (this.index.getZeroBased() >= currentList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         XpireItem targetItem = (XpireItem) currentList.get(this.index.getZeroBased());

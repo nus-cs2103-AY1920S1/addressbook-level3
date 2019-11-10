@@ -137,7 +137,7 @@ public class TagCommand extends Command {
     private CommandResult executeAddTags(Model model, StateManager stateManager) throws CommandException {
         ObservableList<? extends Item> currentList = model.getCurrentList();
         if (this.index.getZeroBased() >= currentList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         Item itemToTag = currentList.get(this.index.getZeroBased());

@@ -29,26 +29,9 @@ import io.xpire.model.tag.Tag;
  */
 public class StringUtil {
 
-    private static final String NUMERIC_VALIDATION_REGEX = "^[0-9]+$";
+    private static final String UNSIGNED_NUMERIC_VALIDATION_REGEX = "^[1-9][0-9]*$";
+    private static final String NUMERIC_VALIDATION_REGEX = "^[+-]*[0-9]*$";
 
-    /**
-     * Returns a detailed message of the t, including the stack trace.
-     */
-    public static String getDetails(Throwable t) {
-        requireNonNull(t);
-        StringWriter sw = new StringWriter();
-        t.printStackTrace(new PrintWriter(sw));
-        return t.getMessage() + "\n" + sw.toString();
-    }
-
-    /**
-     * Returns true if {@code s} is numeric.
-     *
-     * @return true if {@code s} matches validation regex.
-     */
-    public static boolean isNumeric(String s) {
-        return s.matches(NUMERIC_VALIDATION_REGEX);
-    }
 
     //@@author JermyTan
     /**
@@ -73,6 +56,36 @@ public class StringUtil {
     }
 
     /**
+     * Returns a detailed message of the t, including the stack trace.
+     */
+    public static String getDetails(Throwable t) {
+        requireNonNull(t);
+        StringWriter sw = new StringWriter();
+        t.printStackTrace(new PrintWriter(sw));
+        return t.getMessage() + "\n" + sw.toString();
+    }
+
+    //@author liawsy
+    /**
+     * Returns true if {@code s} is an unsigned number with no leading 0s.
+     *
+     * @return true if {@code s} matches validation regex.
+     */
+    public static boolean isUnsignedNumericWithoutLeadingZeroes(String s) {
+        return s.matches(UNSIGNED_NUMERIC_VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if {@code s} is numeric.
+     *
+     * @return true if {@code s} matches validation regex.
+     */
+    public static boolean isNumeric(String s) {
+        return s.matches(NUMERIC_VALIDATION_REGEX);
+    }
+    //@author
+
+    /**
      * Returns true if {@code s} represents a non-negative integer.
      * e.g. 0, 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>.
      * Will return false for any other non-null string input.
@@ -82,7 +95,6 @@ public class StringUtil {
      */
     public static boolean isNonNegativeInteger(String s) {
         requireNonNull(s);
-
         try {
             int value = Integer.parseInt(s);
             return value >= 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)

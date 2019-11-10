@@ -51,8 +51,7 @@ public class SortedUniqueReplenishItemList implements SortedUniqueList<Item> {
     public void add(Item toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            //throw new DuplicateItemException();
-            return;
+            throw new DuplicateItemException();
         }
         this.internalList.add(toAdd);
     }

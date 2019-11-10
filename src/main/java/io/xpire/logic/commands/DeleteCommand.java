@@ -1,7 +1,7 @@
 package io.xpire.logic.commands;
 
-import static io.xpire.commons.core.Messages.MESSAGE_REPLENISH_SHIFT_SUCCESS;
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
+import static io.xpire.logic.commands.util.CommandUtil.MESSAGE_REPLENISH_SHIFT_SUCCESS;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 
@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
+import io.xpire.logic.commands.util.CommandUtil;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.ListType;
 import io.xpire.model.Model;
@@ -35,6 +36,7 @@ public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
     public static final String COMMAND_SHORTHAND = "d";
+    public static final String MESSAGE_UNKNOWN_DELETE_MODE = "Unknown Delete mode.";
 
     public static final String MESSAGE_USAGE =
             "Three formats available for " + COMMAND_WORD + ":\n"
@@ -50,15 +52,13 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted item: %s";
     public static final String MESSAGE_DELETE_TAGS_SUCCESS = "Deleted tags from item: %s";
     public static final String MESSAGE_DELETE_QUANTITY_SUCCESS = "Reduced quantity by %s from item: %s";
-    public static final String MESSAGE_DELETE_QUANTITY_FAILURE = "Invalid quantity specified. \n"
-            + "Quantity must be positive and less than or equals to item's quantity.";
 
     private final Index targetIndex;
     private final Set<Tag> tagSet;
     private final Quantity quantity;
     private final DeleteMode mode;
     private final ListType listType;
-    private Item item = null;
+    private Item item;
     private String result = "";
 
     public DeleteCommand(ListType listType, Index targetIndex) {
@@ -92,7 +92,7 @@ public class DeleteCommand extends Command {
         ObservableList<? extends Item> currentList = model.getCurrentList();
 
         if (this.targetIndex.getZeroBased() >= currentList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         Item targetItem = currentList.get(this.targetIndex.getZeroBased());
@@ -106,7 +106,7 @@ public class DeleteCommand extends Command {
         case QUANTITY:
             return executeDeleteQuantity(model, targetItem, stateManager);
         default:
-            throw new CommandException(Messages.MESSAGE_UNKNOWN_DELETE_MODE);
+            throw new CommandException(MESSAGE_UNKNOWN_DELETE_MODE);
         }
     }
 
@@ -114,14 +114,14 @@ public class DeleteCommand extends Command {
      * Executes the command and returns the result message.
      *
      * @param model model {@code Model} which the command should operate on.
-     * @param targetItem target item to reduce the quantity of,
+     * @param targetItem target item to reduce the quantity of.
      * @return feedback message of the operation result for display.
      * @throws CommandException If an error occurs during command execution.
      */
     private CommandResult executeDeleteQuantity(Model model, Item targetItem, StateManager stateManager)
-            throws CommandException, ParseException {
+            throws CommandException {
         assert this.quantity != null;
-        XpireItem updatedItem = reduceItemQuantity(new XpireItem((XpireItem) targetItem), this.quantity);
+        XpireItem updatedItem = CommandUtil.reduceItemQuantity((XpireItem) targetItem, this.quantity);
         stateManager.saveState(new ModifiedState(model));
         model.setItem(listType, targetItem, updatedItem);
         // transfer item to replenish list
@@ -132,7 +132,7 @@ public class DeleteCommand extends Command {
             setShowInHistory(true);
             return new CommandResult(this.result);
         }
-        this.result = String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetItem);
+        this.result = String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetItem.getName());
         setShowInHistory(true);
         return new CommandResult(this.result);
     }
@@ -161,8 +161,7 @@ public class DeleteCommand extends Command {
         return new CommandResult(this.result);
     }
 
-    /**
-     * Executes the command and returns the result message.
+    /** Executes the command and returns the result message.
      *
      * @param model model {@code Model} which the command should operate on.
      * @param targetItem target item to delete completely.
@@ -218,25 +217,6 @@ public class DeleteCommand extends Command {
         }
         targetReplenishItem.setTags(newTags);
         return targetReplenishItem;
-    }
-
-    /**
-     * Reduces xpireItem's quantity by amount specified.
-     *
-     * @param targetXpireItem XpireItem which amount will be reduced.
-     * @param reduceByQuantity Quantity to be reduced.
-     * @return The new XpireItem with its quantity reduced.
-     * @throws ParseException if
-     */
-    private XpireItem reduceItemQuantity(XpireItem targetXpireItem, Quantity reduceByQuantity) throws CommandException,
-                                                                                                      ParseException {
-        Quantity originalQuantity = targetXpireItem.getQuantity();
-        if (originalQuantity.isLessThan(reduceByQuantity)) {
-            throw new CommandException(MESSAGE_DELETE_QUANTITY_FAILURE);
-        }
-        Quantity updatedQuantity = originalQuantity.deductQuantity(reduceByQuantity);
-        targetXpireItem.setQuantity(updatedQuantity);
-        return targetXpireItem;
     }
 
     /**

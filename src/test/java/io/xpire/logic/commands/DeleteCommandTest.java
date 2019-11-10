@@ -1,10 +1,10 @@
 package io.xpire.logic.commands;
 
-import static io.xpire.commons.core.Messages.MESSAGE_REPLENISH_SHIFT_SUCCESS;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandFailure;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.logic.commands.CommandTestUtil.showReplenishItemAtIndex;
 import static io.xpire.logic.commands.CommandTestUtil.showXpireItemAtIndex;
+import static io.xpire.logic.commands.util.CommandUtil.MESSAGE_REPLENISH_SHIFT_SUCCESS;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIFTH_ITEM;
@@ -44,11 +44,11 @@ import org.junit.jupiter.api.Test;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
+import io.xpire.logic.commands.util.CommandUtil;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;
 import io.xpire.model.item.Item;
-import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.tag.Tag;
@@ -87,7 +87,7 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getCurrentList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(XPIRE, outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_INDEX);
     }
 
     @Test
@@ -116,7 +116,7 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(XPIRE, outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_INDEX);
     }
 
     //test to delete tags for xpireItem with tags
@@ -203,7 +203,7 @@ public class DeleteCommandTest {
                 .withQuantity("8")
                 .build();
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
-                quantityToDeduct.toString(), targetXpireItem);
+                quantityToDeduct.toString(), targetXpireItem.getName());
         expectedModel.setItem(XPIRE, targetXpireItem, expectedXpireItem);
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
 
@@ -219,19 +219,18 @@ public class DeleteCommandTest {
                 .withQuantity("3")
                 .build();
         expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
-                quantityToDeduct.toString(), targetXpireItem);
+                quantityToDeduct.toString(), targetXpireItem.getName());
         expectedModel.setItem(XPIRE, targetXpireItem, expectedXpireItem);
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_deleteQuantityEqualsToXpireItemQuantityFromXpireItem_success() {
+        // item does not exist on replenish list
         Quantity quantityToDeduct = new Quantity("1");
         DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_THIRD_ITEM, quantityToDeduct);
         XpireItem xpireItemToDelete = (XpireItem) model.getCurrentList().get(INDEX_THIRD_ITEM.getZeroBased());
-        Name itemName = xpireItemToDelete.getName();
-        Set<Tag> itemTags = xpireItemToDelete.getTags();
-        Item adaptedItem = new Item(itemName, itemTags);
+        Item adaptedItem = new Item(xpireItemToDelete.getName(), xpireItemToDelete.getTags());
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
                 quantityToDeduct.toString(), xpireItemToDelete) + "\n"
                 + String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, xpireItemToDelete.getName());
@@ -243,10 +242,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_deleteQuantityMoreThanXpireItemQuantityFromXpireItem_throwsCommandException() {
-        XpireItem xpireItemToDelete = (XpireItem) model.getCurrentList().get(INDEX_THIRD_ITEM.getZeroBased());
         Quantity quantityToDeduct = new Quantity("3");
         DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_THIRD_ITEM, quantityToDeduct);
-        assertCommandFailure(deleteCommand, model, DeleteCommand.MESSAGE_DELETE_QUANTITY_FAILURE);
+        assertCommandFailure(deleteCommand, model, CommandUtil.MESSAGE_INVALID_REDUCE_QUANTITY);
     }
 
     //---------------- Tests for Replenish List -----------------------------------------------------------------------
@@ -269,7 +267,7 @@ public class DeleteCommandTest {
         model.setCurrentList(REPLENISH);
         Index outOfBoundIndex = Index.fromOneBased(model.getCurrentList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(REPLENISH, outOfBoundIndex);
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_INDEX);
     }
 
     @Test
@@ -298,7 +296,7 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = new DeleteCommand(REPLENISH, outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_INDEX);
     }
 
     //test to delete tags for replenishItem with tags
@@ -380,6 +378,7 @@ public class DeleteCommandTest {
         //---------------- Tests for Xpire List ----------------------------------------------------------------
         DeleteCommand deleteXpireFirstCommand = new DeleteCommand(XPIRE, INDEX_FIRST_ITEM);
         DeleteCommand deleteXpireSecondCommand = new DeleteCommand(XPIRE, INDEX_SECOND_ITEM);
+        DeleteCommand deleteXpireFirstQuantityCommand = new DeleteCommand(XPIRE, INDEX_FIRST_ITEM, new Quantity("1"));
 
         // same object -> returns true
         assertTrue(deleteXpireFirstCommand.equals(deleteXpireFirstCommand));
@@ -396,6 +395,9 @@ public class DeleteCommandTest {
 
         // different xpireItem -> returns false
         assertFalse(deleteXpireFirstCommand.equals(deleteXpireSecondCommand));
+
+        // different delete modes -> returns false
+        assertFalse(deleteXpireFirstCommand.equals(deleteXpireFirstQuantityCommand));
 
         //---------------- Tests for Replenish List ----------------------------------------------------------------
         DeleteCommand deleteReplenishListFirstCommand = new DeleteCommand(REPLENISH, INDEX_FIRST_ITEM);
@@ -419,7 +421,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show no one.
+     * Updates {@code model}'s filtered list to show no item.
      **/
     private void showNoItem(Model model) {
         model.filterCurrentList(XPIRE, p -> false);

@@ -7,7 +7,7 @@ import io.xpire.logic.commands.ShiftToReplenishCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new ShiftToReplenishCommand object
+ * Parses input arguments and creates a new ShiftToReplenishCommand object.
  */
 public class ShiftToReplenishCommandParser implements Parser<ShiftToReplenishCommand> {
 
@@ -18,13 +18,7 @@ public class ShiftToReplenishCommandParser implements Parser<ShiftToReplenishCom
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     ShiftToReplenishCommand.MESSAGE_USAGE));
         }
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(splitArgs[0]);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ShiftToReplenishCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseIndex(splitArgs[0]);
         return new ShiftToReplenishCommand(index);
     }
 }

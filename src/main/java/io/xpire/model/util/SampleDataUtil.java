@@ -17,7 +17,7 @@ import io.xpire.model.tag.Tag;
 
 
 /**
- * Contains utility methods for populating {@code Xpire} with sample data.
+ * Contains utility methods for populating {@code Xpire} and {@Code ReplenishList} with sample data.
  */
 public class SampleDataUtil {
 

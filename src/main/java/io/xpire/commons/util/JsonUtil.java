@@ -24,7 +24,7 @@ import io.xpire.commons.core.LogsCenter;
 import io.xpire.commons.exceptions.DataConversionException;
 
 /**
- * Converts a Java object instance to JSON and vice versa
+ * Converts a Java object instance to JSON and vice versa.
  */
 public class JsonUtil {
 
