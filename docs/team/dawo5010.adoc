@@ -68,7 +68,7 @@ The following screenshot shows the User Interface of the application on first la
 image:Ui.png[width="600"]
 
 == Summary of contributions
-I served as Team Lead for the project, and my responsibilities included the design of the new User Interface, as well
+I served as Team Lead for the project, and my responsibilities included designing the new User Interface, as well
 as the features within the Overview tab.
 
 In the following sections, I will illustrate the above-mentioned enhancements in greater detail, along with the
