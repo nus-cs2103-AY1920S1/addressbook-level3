@@ -2419,6 +2419,103 @@ and "Unmarked Student" at index 2, who is not marked.
    Expected: Error message stating that the group with the groupID does not exist.
 
 
+=== Event
+
+. Adding a event to the event record.
+.. Prerequisites: The event list already already contains one event with event name "Test Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
+as it is valid.
+
+.. Test case: `event eventName/cs2103 Practical startDateTime/2019-11-15T08:00 endDateTime/2019-11-15T09:00 recur/none color/1` +
+   Expected: Adds Event with event name cs2103 Practical to the event list
+.. Test case: `event eventName/Test Event startDateTime/2019-11-01T03:00 endDateTime/2019-11-01T04:00 recur/none color/1` +
+   Expected: Shows error message that will result in duplicate event being created
+.. Test case: `student name/\n` +
+   Expected: Shows error message that event name cannot contain backslash.
+.. Test case: `event eventName/teacher meeting startDateTime/2019-11-15T07:00 endDateTime/2019-11-15T06:00 recur/none color/1` +
+   Expected: Shows error message for invalid date range
+.. Test case: `event eventName/teacher meeting startDateTime/2019-11-15T07:00 endDateTime/2019-11-15T09:00 recur/none color/24` +
+   Expected: Shows error message for invalid color number passed.
+.. Test case: `event eventName/teacher meeting startDateTime/2019-11-15T07:00 endDateTime/2019-11-15T09:00 recur/invalid color/1` +
+   Expected: Shows error message for invalid recurrence type passed.
+.. Other incorrect add commands to try: `event eventName/cs2103 Practical startDateTime/ endDateTime/2019-11-15T09:00 recur/ color/1`
+   Expected: Shows error message regarding reason for command failure or the correct command syntax.
+
+. Finding the index of a existing event in the event list
+
+.. Prerequisites: The event list contains one event. The event has event name "First Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
+as it is valid.
+
+.. Test case: `event indexOf/First Event` +
+   Expected: Displays the index and details of the event.
+.. Test case: `event indexOf/First` +
+   Expected: Event was not found but suggests the event with event name "First Event" and displays its index as well as
+its details.
+.. Test case: `event indexOf/` +
+   Expected: Shows error message, asking user to input a event name to be used in the search.
+
+. Editing an existing event in the event list.
+
+.. Prerequisites: The student list contains two events. The first event with event name "First Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00" at index one. The second event with event name "Second Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00"
+
+.. Test case: `event 1 eventName/changed name color/13 recur/daily` +
+   Expected: First event in event list changed event name to "changed name", color to 13 and recurrence to daily.
+.. Test case: `event 1 eventName/Second Event` +
+   Expected: Error message stating this will result in duplicate events.
+.. Test case: `event 0 eventName/valid Event` +
+   Expected: Shows error message that index provided is not valid.
+.. Test case: `event 5 eventName/Test Five` +
+   Expected: Shows error message that index provided is out of bounds.
+
+. Deleting a event from the event list.
+
+.. Prerequisites: The event list has one event at index 1.
+
+.. Test case: `event delete 1` +
+   Expected: First event is deleted from the list.
+.. Test case: `event delete 0` +
+   Expected: Error message stating that index is invalid is shown
+.. Test case: `student delete 5` +
+   Expected: Error message stating that index is out of bounds is shown.
+
+. Exporting event to .ics file type.
+
+.. Prerequisites: The event list contains one event with with event name "Test Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
+as it is valid.
+
+.. Test case: `event export` +
+   Expected: A message stating that events were successfully exported. And prompts the user to check the export directory.
+
+. Taking a screenshot of the event schedule.
+
+.. Prerequisites: The event list contains one event with with event name "Test Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
+as it is valid.
+
+.. Test case: `event screenshot` +
+   Expected: Opens a full screen window, taking a screenshot fo the event schedule. Then closes it and shows a message
+indicating the screenshot has successfully been taken.
+
+. Viewing the event schedule.
+
+.. Prerequisites: The event list contains one event with with event name "Test Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
+as it is valid.
+
+.. Test case: `event view targetDate/2019-11-18 scheduleMode/daily` +
+   Expected: Changes the view of the event schedule to daily mode and focuses on the date 18 November 2019.
+
+.. Test case: `event view targetDate/2019-99-99 scheduleMode/daily` +
+   Expected: Shows error message for invalid date format.
+
+
+.. Test case: `event view targetDate/2019-01-01 scheduleMode/invalid` +
+   Expected: Shows error message for invalid schedule view mode. Prompting user to input weekly or daily only.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
