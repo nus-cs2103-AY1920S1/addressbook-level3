@@ -8,6 +8,7 @@
 <fx:root id="Content" fx:id="deckDisplay" minHeight="-Infinity" minWidth="-Infinity" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="deckName" alignment="CENTER" styleClass="window-title" text="Name of deck" textAlignment="CENTER" />
+      <Label styleClass="window-subtitle" text="Cards in deck" />
       <VBox fx:id="questionList" />
       <Label fx:id="deckSize" alignment="CENTER" text="number of cards" />
       <HBox spacing="10.0">
