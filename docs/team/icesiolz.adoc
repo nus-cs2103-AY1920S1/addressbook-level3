@@ -1,0 +1,84 @@
+= Low Cheng Yi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ELISA
+
+== Overview
+My team of 5 software engineering students were tasked with enhancing a basic command line interface (CLI) desktop address book application for our Software Engineering project.
+
+As computing students, we face a lot of projects and assignments every day. The intense workload and fast-paced environment can make us forget the things that we need to do. We feel stressed out easily as we do not know how to manage all our tasks in an organised manner.
+
+Therefore, my team came up with ELISA. ELISA stands for Exceptionally Loud and Intelligent Student Assistant. ELISA helps students by keeping track of all the tasks that he/she may have, as well as provide companionship to alleviate the stress.
+
+== Application introduction
+This is how our application looks like:
+
+.User interface annotated
+image::sianghwee/taskpanel-annotated.PNG[]
+The rest of the report will refer to this components and so their function will be briefly explained.
+
+[cols="2, 10"]
+|===
+|Component |Function
+
+|ELISA icon
+|Icon of the application which changes with the different mode of the application.
+
+|Result display
+|The "chat box" with ELISA which contains all past user input and ELISA's response.
+
+|Command box
+|The user can type their commands here to interact with ELISA.
+
+|View panel
+|The current view of the application. It can show the task, event, reminder or calendar panel.
+|===
+
+== Summary of contributions
+
+In this section, I will be briefly going through my contributions to this team project. For the full extent of my contributions to the project, please visit https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=icesiolz[here].
+
+=== Functional contributions
+* *Game mode (Major Feature)*:
+
+_What does it do?_
+
+
+_Why make it?_
+
+
+_Why is it special?_
+
+
+_Difficulties?_
+
+
+=== Other contributions:
+
+* *Project management*:
+
+
+* *Refactoring*:
+
+Refactored the ui class so that it will work with the project.
+
+* *Documentation*:
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide for my main feature. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=priority]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide for my main feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=priority]
