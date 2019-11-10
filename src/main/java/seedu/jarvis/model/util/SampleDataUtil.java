@@ -22,6 +22,7 @@ import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
+import seedu.jarvis.model.finance.MonthlyLimit;
 import seedu.jarvis.model.finance.installment.Installment;
 import seedu.jarvis.model.finance.installment.InstallmentDescription;
 import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
@@ -141,6 +142,8 @@ public class SampleDataUtil {
         FinanceTracker financeTracker = new FinanceTracker();
         Arrays.stream(getSamplePurchases()).forEach(financeTracker::addPurchaseToBack);
         Arrays.stream(getSampleInstallments()).forEach(financeTracker::addInstallment);
+        MonthlyLimit monthlyLimit = new MonthlyLimit("500");
+        financeTracker.setMonthlyLimit(monthlyLimit);
         return financeTracker;
     }
 

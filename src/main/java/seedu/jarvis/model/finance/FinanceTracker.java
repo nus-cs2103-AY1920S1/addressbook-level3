@@ -64,6 +64,9 @@ public class FinanceTracker {
         requireNonNull(financeTracker);
         setPurchaseList(financeTracker.getPurchaseList());
         setInstallmentList(financeTracker.getInstallmentList());
+        if (financeTracker.getMonthlyLimit().isPresent()) {
+            setMonthlyLimit(financeTracker.getMonthlyLimit().get());
+        }
     }
 
     //=========== Purchase List =======================================================================
