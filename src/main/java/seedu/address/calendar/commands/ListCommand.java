@@ -45,10 +45,10 @@ public class ListCommand extends Command<Calendar> {
         }
 
         if (relevantEvents.equals("")) {
-            return new CommandResult(MESSAGE_LIST_FAILED, false, false, false, true, false);
+            return new CommandResult(MESSAGE_LIST_FAILED, false, false, false, true);
         }
 
         String formattedFeedback = String.format(relevantEvents);
-        return new CommandResult(formattedFeedback, false, false, false, true, false);
+        return new CommandResult(formattedFeedback, false, false, false, true);
     }
 }
