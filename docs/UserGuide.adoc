@@ -126,24 +126,36 @@ Format: `list`
 === Sorting all appointments : `sort`
 
 Sorts the list of all appointments in the appointment list by the order specified by user. +
-Format: `sort ORDER`
+Format: `sort p/ PROPERTY o/ORDER`
 
 [TIP]
-Orders supported: `description ascending`, `description descending`, `start ascending`, `start descending`, `end ascending`, `end descending`, `priority ascending`, `priority descending`.
+Properties supported: `start` (Start time), `end` (End time), `priority` and `description` +
+Orders supported: `ascending` and `descending`.
 
 Examples:
 
-* `sort start ascending` +
+* `sort` +
+`p/start` +
+`o/ascending` +
 Sorts the list displayed in ascending order of start time.
 
 [.clearfix]
 --
 .Engagement list before sorting
 image::before-sort.png[width="450", float="left"]
+.Engagement list after the execution of `sort`
+image::after-p.png[width="450", float="left"]
+.Engagement list after the execution of `p/start`
+image::after-o.png[width="450", float="left"]
 [.left]
-.Engagement list after sorting by start time in ascending order
+.Engagement list after the execution of `o/ascending`
 image::after-sort.png[width="450"]
 --
+
+TIP: `sort` command can be done in one shot by giving all attributes at once. e.g. figure below shows the execution of `sort p/start o/ascending`.
+
+.Sorting engagement list by providing attributes at once
+image::after-oneshot-sort.png[width="450"]
 
 [TIP]
 After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete 1` will delete the current first engagement displayed.
@@ -184,9 +196,9 @@ Undo supports the following commands that modify the engagement list: `add`, `ed
 
 Examples:
 
-* `add d/Meeting on Monday` +
+* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High` +
 `undo` +
-Undoes the add command, i.e. the engagement with the description `Meeting on Monday` will no longer be in the appointment manager.
+Undoes the add command, i.e. the engagement with the description `CS2103T Discussion` will no longer be in the appointment manager.
 
 * `delete 1` +
 `undo` +
@@ -196,7 +208,7 @@ Undoes the delete command, i.e. restores the first engagement in the original di
 [.clearfix]
 --
 .Engagement list before the command `delete 1`
-image::after-sort.png[width="450", float="left"]
+image::after-list.png[width="450", float="left"]
 [.left]
 .Engagement list after deletion
 image::deletion-before-undo.png[width="450"]
