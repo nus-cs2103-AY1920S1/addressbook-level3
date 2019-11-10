@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalClassrooms.getTypicalClassroom;
 import static seedu.address.testutil.TypicalStudents.ALICE;
-import static seedu.address.testutil.TypicalStudents.getTypicalClassroom;
 //import java.util.Arrays;
 //import java.util.Collection;
 
@@ -42,7 +42,7 @@ public class ClassroomTest {
 
     @Test
     public void resetData_withValidReadOnlyClassroom_replacesData() {
-        Classroom newData = getTypicalClassroom();
+        Classroom newData = getTypicalClassroom().get(0);
         classroom.resetData(newData);
         assertEquals(newData, classroom);
     }

@@ -29,69 +29,62 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
 
 import seedu.address.model.student.Student;
+import seedu.address.model.student.UniqueStudentList;
+import seedu.address.testutil.AssignmentBuilder;
 import seedu.address.testutil.StudentBuilder;
 
-public class AddStudentCommandTest {
+public class AddAssignmentCommandTest {
 
     @Test
-    public void constructor_nullStudent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddStudentCommand(null));
+    public void constructor_nullAssignment_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddAssignmentCommand(null));
     }
 
     @Test
-    public void execute_studentAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
-        Student validStudent = new StudentBuilder().build();
+    public void execute_assignmentAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingAssignmentAdded modelStub = new ModelStubAcceptingAssignmentAdded();
+        Assignment validAssignment = new AssignmentBuilder().build();
 
-        CommandResult commandResult = new AddStudentCommand(validStudent).execute(modelStub);
+        CommandResult commandResult = new AddAssignmentCommand(validAssignment).execute(modelStub);
 
-        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validStudent), modelStub.studentsAdded);
+        assertEquals(String.format(AddAssignmentCommand.MESSAGE_SUCCESS, validAssignment),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validAssignment), modelStub.assignmentsAdded);
     }
 
     @Test
-    public void execute_duplicateStudent_throwsCommandException() {
-        Student validStudent = new StudentBuilder().build();
-        AddStudentCommand addStudentCommand = new AddStudentCommand(validStudent);
-        ModelStub modelStub = new ModelStubWithStudent(validStudent);
+    public void execute_duplicateAssignment_throwsCommandException() {
+        Assignment validAssignment = new AssignmentBuilder().build();
+        AddAssignmentCommand addAssignmentCommand = new AddAssignmentCommand(validAssignment);
+        ModelStub modelStub = new ModelStubWithAssignment(validAssignment);
 
-        assertThrows(CommandException.class, AddStudentCommand.MESSAGE_DUPLICATE_STUDENT, (
-            ) -> addStudentCommand.execute(modelStub));
-    }
-
-    @Test
-    public void execute_samePhoneAsParentPhone_throwsCommandException() {
-        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
-        Student invalidStudent = new StudentBuilder().withPhone("99999999").withParentPhone("99999999").build();
-
-        assertThrows(CommandException.class, String.format(AddStudentCommand.MESSAGE_SAME_PHONE_AND_PARENT_PHONE,
-                invalidStudent), () -> new AddStudentCommand(invalidStudent).execute(modelStub));
-
+        assertThrows(CommandException.class, AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, (
+        ) -> addAssignmentCommand.execute(modelStub));
     }
 
 
     @Test
     public void equals() {
-        Student alice = new StudentBuilder().withName("Alice").build();
-        Student bob = new StudentBuilder().withName("Bob").build();
-        AddStudentCommand addAliceCommand = new AddStudentCommand(alice);
-        AddStudentCommand addBobCommand = new AddStudentCommand(bob);
+        Assignment mathAssignment = new AssignmentBuilder().withAssignmentName("Math Homework 3").build();
+        Assignment englishAssignment = new AssignmentBuilder().withAssignmentName("English Assignment 2").build();
+        AddAssignmentCommand addMathAssignmentCommand = new AddAssignmentCommand(mathAssignment);
+        AddAssignmentCommand addEnglishAssignmentCommand = new AddAssignmentCommand(englishAssignment);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addMathAssignmentCommand.equals(addMathAssignmentCommand));
 
         // same values -> returns true
-        AddStudentCommand addAliceCommandCopy = new AddStudentCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddAssignmentCommand addMathAssignmentCommandCopy = new AddAssignmentCommand(mathAssignment);
+        assertTrue(addMathAssignmentCommand.equals(addMathAssignmentCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addMathAssignmentCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addMathAssignmentCommand.equals(null));
 
-        // different student -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different Assignment -> returns false
+        assertFalse(addMathAssignmentCommand.equals(addEnglishAssignmentCommand));
     }
 
     /**
@@ -200,7 +193,7 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public void setStudent(Student target, Student editedStudent) {
+        public void setStudent(Student target, Student editedAssignment) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -285,22 +278,22 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public void displayAssignments() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
         public void displayStudents() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
-        public String displayLessons() {
+        public void displayAssignments() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
         public boolean isDisplayStudents() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public String displayLessons() {
             throw new AssertionError("This method should not be called");
         }
 
@@ -331,40 +324,41 @@ public class AddStudentCommandTest {
 
 
     /**
-     * A Model stub that contains a single student.
+     * A Model stub that contains a single assignment.
      */
-    private class ModelStubWithStudent extends ModelStub {
-        private final Student student;
+    private class ModelStubWithAssignment extends ModelStub {
+        private final Assignment assignment;
 
-        ModelStubWithStudent(Student student) {
-            requireNonNull(student);
-            this.student = student;
+        ModelStubWithAssignment(Assignment assignment) {
+            requireNonNull(assignment);
+            this.assignment = assignment;
         }
 
         @Override
-        public boolean hasStudent(Student student) {
-            requireNonNull(student);
-            return this.student.isSameStudent(student);
+        public boolean hasAssignment(Assignment assignment) {
+            requireNonNull(assignment);
+            return this.assignment.isSameAssignment(assignment);
         }
     }
 
     /**
-     * A Model stub that always accept the student being added.
+     * A Model stub that always accept the assignment being added.
      */
-    private class ModelStubAcceptingStudentAdded extends ModelStub {
-        final ArrayList<Student> studentsAdded = new ArrayList<>();
+    private class ModelStubAcceptingAssignmentAdded extends ModelStub {
+        final ArrayList<Assignment> assignmentsAdded = new ArrayList<>();
         final UniqueAssignmentList assignments = new UniqueAssignmentList();
+        final UniqueStudentList students = new UniqueStudentList();
 
         @Override
-        public boolean hasStudent(Student student) {
-            requireNonNull(student);
-            return studentsAdded.stream().anyMatch(student::isSameStudent);
+        public boolean hasAssignment(Assignment assignment) {
+            requireNonNull(assignment);
+            return assignmentsAdded.stream().anyMatch(assignment::isSameAssignment);
         }
 
         @Override
-        public void addStudent(Student student) {
-            requireNonNull(student);
-            studentsAdded.add(student);
+        public void addAssignment(Assignment assignment) {
+            requireNonNull(assignment);
+            assignmentsAdded.add(assignment);
         }
 
         @Override
@@ -379,6 +373,13 @@ public class AddStudentCommandTest {
             Assignment dummyAssignment = new Assignment(assignmentName, assignmentDeadline);
             assignments.add(dummyAssignment);
             return assignments.asUnmodifiableObservableList();
+        }
+
+        @Override
+        public ObservableList<Student> getFilteredStudentList() {
+            Student student = new StudentBuilder().build();
+            students.add(student);
+            return students.asUnmodifiableObservableList();
         }
 
         @Override

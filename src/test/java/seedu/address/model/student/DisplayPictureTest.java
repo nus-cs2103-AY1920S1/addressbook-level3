@@ -14,16 +14,20 @@ public class DisplayPictureTest {
         assertThrows(IllegalArgumentException.class, () -> new DisplayPicture(inValidFileName));
     }
 
+
     @Test
     public void isValidDisplayPicture() {
         // null filename
         assertThrows(NullPointerException.class, () -> DisplayPicture.isValidFormat(null));
 
         // invalid filenames
+
         assertFalse(DisplayPicture.isValidFormat("")); // empty string
         assertFalse(DisplayPicture.isValidFormat(" ")); // spaces only
         assertFalse(DisplayPicture.isValidFormat("asddf"));
         assertFalse(DisplayPicture.isValidFormat("asddf234567uio"));
+        assertFalse(DisplayPicture.isValidFormat("D://")); // file length less than 5
+        assertFalse(DisplayPicture.isValidFormat("/Users/file.pdf")); // file is not jpg or png format
 
         // valid filename
         assertTrue(DisplayPicture.isValidFormat("/images/themyth.png"));
