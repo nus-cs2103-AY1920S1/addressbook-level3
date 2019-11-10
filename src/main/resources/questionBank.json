@@ -43,7 +43,7 @@
     "status" : "ATTEMPTED",
     "difficulty" : "EASY",
     "isBookmarked" : false,
-    "topics" : [ "OTHERS", "RECURSION" ],
+    "topics" : [ "RECURSION", "OTHERS" ],
     "testCases" : [ {
       "input" : "12321",
       "expectedResult" : "true\n"
@@ -61,7 +61,7 @@
     "status" : "PASSED",
     "difficulty" : "MEDIUM",
     "isBookmarked" : false,
-    "topics" : [ "DYNAMIC_PROGRAMMING", "GRAPH" ],
+    "topics" : [ "GRAPH", "DYNAMIC_PROGRAMMING" ],
     "testCases" : [ {
       "input" : "5 12 33 23",
       "expectedResult" : "4132\n"
@@ -79,7 +79,7 @@
     "status" : "NEW",
     "difficulty" : "HARD",
     "isBookmarked" : true,
-    "topics" : [ "LINKED_LIST", "SORTING" ],
+    "topics" : [ "SORTING", "LINKED_LIST" ],
     "testCases" : [ {
       "input" : "3 5 3 4 1 99 0 21 34 123 3 21 3 1",
       "expectedResult" : "0 1 3 4 21 34 99 123\n"
@@ -92,5 +92,383 @@
       "sourceCode" : "// Import Scanner and other Java packages here\n\npublic class Main {\n    public static void main(String[] args) {\n        // Your code here\n    }\n}"
     },
     "description" : "Given an array A of positive lengths, return the largest perimeter of a triangle with non-zero area, formed from 3 of these lengths.\n\nIf it is impossible to form any triangle of non-zero area, return 0.\n\n \n\nExample 1:\n\nInput: [2,1,2]\nOutput: 5\nExample 2:\n\nInput: [1,2,1]\nOutput: 0\nExample 3:\n\nInput: [3,2,3,4]\nOutput: 10\nExample 4:\n\nInput: [3,6,2,3]\nOutput: 8\n \n\nNote:\n\n3 <= A.length <= 10000\n1 <= A[i] <= 10^6"
+  }, {
+    "title" : "Regular Expression Matching",
+    "status" : "NEW",
+    "difficulty" : "HARD",
+    "isBookmarked" : false,
+    "topics" : [ "DYNAMIC_PROGRAMMING", "RECURSION" ],
+    "testCases" : [ {
+      "input" : "s = \"aa\"\np = \"a\"",
+      "expectedResult" : "false"
+    }, {
+      "input" : "s = \"aa\"\np = \"a*\"\nOutput::\ntrue\nInput::\ns = \"ab\"\np = \".*\"",
+      "expectedResult" : "true\nInput::\ns = \"ab\"\np = \".*\"\nOutput::\ntrue"
+    }, {
+      "input" : "s = \"aab\"\np = \"c*a*b\"",
+      "expectedResult" : "true"
+    }, {
+      "input" : "s = \"mississippi\"\np = \"mis*is*p*\"",
+      "expectedResult" : "false"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given an input string (s) and a pattern (p), implement regular expression matching with support for '.' and '*'.\n\n'.' Matches any single character.\n'*' Matches zero or more of the preceding element.\nThe matching should cover the entire input string (not partial).\n\nNote:\n\ns could be empty and contains only lowercase letters a-z.\np could be empty and contains only lowercase letters a-z, and characters like . or *."
+  }, {
+    "title" : "Valid Parentheses",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "OTHERS" ],
+    "testCases" : [ {
+      "input" : "()",
+      "expectedResult" : "true"
+    }, {
+      "input" : "()[]{}\nOutput::\ntrue\nInput::\n(]\nOutput::\nfalse\nInput::\n([)]",
+      "expectedResult" : "true\nInput::\n(]\nOutput::\nfalse\nInput::\n([)]\nOutput::\nfalse"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\n\nAn input string is valid if:\n\nOpen brackets must be closed by the same type of brackets.\nOpen brackets must be closed in the correct order.\nNote that an empty string is also considered valid."
+  }, {
+    "title" : "Count and Say",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "OTHERS" ],
+    "testCases" : [ {
+      "input" : "1",
+      "expectedResult" : "1"
+    }, {
+      "input" : "4",
+      "expectedResult" : "1211"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "The count-and-say sequence is the sequence of integers with the first five terms as following:\n\n1.     1\n2.     11\n3.     21\n4.     1211\n5.     111221\n1 is read off as \"one 1\" or 11.\n11 is read off as \"two 1s\" or 21.\n21 is read off as \"one 2, then one 1\" or 1211.\n\nGiven an integer n where 1 ≤ n ≤ 30, generate the nth term of the count-and-say sequence.\n\nNote: Each term of the sequence of integers will be represented as a string."
+  }, {
+    "title" : "Pow(x, n)",
+    "status" : "NEW",
+    "difficulty" : "MEDIUM",
+    "isBookmarked" : false,
+    "topics" : [ "TREE" ],
+    "testCases" : [ {
+      "input" : "2.00000, 10",
+      "expectedResult" : "1024.00000"
+    }, {
+      "input" : "2.10000, 3",
+      "expectedResult" : "9.26100"
+    }, {
+      "input" : "2.00000, -2",
+      "expectedResult" : "0.25000"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Implement pow(x, n), which calculates x raised to the power n (x^n)."
+  }, {
+    "title" : "Permutations",
+    "status" : "NEW",
+    "difficulty" : "MEDIUM",
+    "isBookmarked" : false,
+    "topics" : [ "RECURSION" ],
+    "testCases" : [ {
+      "input" : "1",
+      "expectedResult" : "11"
+    }, {
+      "input" : "2",
+      "expectedResult" : "22"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given a collection of distinct integers, return all possible permutations."
+  }, {
+    "title" : "Same Tree",
+    "status" : "NEW",
+    "difficulty" : "MEDIUM",
+    "isBookmarked" : false,
+    "topics" : [ "RECURSION", "TREE" ],
+    "testCases" : [ {
+      "input" : "1         1\n          / \\       / \\\n         2   3     2   3\n\n        [1,2,3],   [1,2,3]",
+      "expectedResult" : "true"
+    }, {
+      "input" : "1         1\n          /           \\\n         2             2\n\n        [1,2],     [1,null,2]",
+      "expectedResult" : "false"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given two binary trees, write a function to check if they are the same or not.\n\nTwo binary trees are considered the same if they are structurally identical and the nodes have the same value.\nExample 1:\n\nInput:     1         1\n          / \\       / \\\n         2   3     2   3\n\n        [1,2,3],   [1,2,3]\n\nOutput: true\nExample 2:\n\nInput:     1         1\n          /           \\\n         2             2\n\n        [1,2],     [1,null,2]\n\nOutput: false"
+  }, {
+    "title" : "Sqrt(x)",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "TREE" ],
+    "testCases" : [ {
+      "input" : "4",
+      "expectedResult" : "2"
+    }, {
+      "input" : "8",
+      "expectedResult" : "2"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Implement int sqrt(int x).\n\nCompute and return the square root of x, where x is guaranteed to be a non-negative integer.\n\nSince the return type is an integer, the decimal digits are truncated and only the integer part of the result is returned."
+  }, {
+    "title" : "Interleaving String",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "TREE" ],
+    "testCases" : [ {
+      "input" : "s1 = \"aabcc\", s2 = \"dbbca\", s3 = \"aadbbcbcac\"",
+      "expectedResult" : "true"
+    }, {
+      "input" : "s1 = \"aabcc\", s2 = \"dbbca\", s3 = \"aadbbbaccc\"",
+      "expectedResult" : "false"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given s1, s2, s3, find whether s3 is formed by the interleaving of s1 and s2.\nExample 1:\n\nInput: s1 = \"aabcc\", s2 = \"dbbca\", s3 = \"aadbbcbcac\"\nOutput: true\nExample 2:\n\nInput: s1 = \"aabcc\", s2 = \"dbbca\", s3 = \"aadbbbaccc\"\nOutput: false"
+  }, {
+    "title" : "Length of Last Word",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "OTHERS" ],
+    "testCases" : [ {
+      "input" : "Hello World",
+      "expectedResult" : "5"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.\n\nIf the last word does not exist, return 0.\n\nNote: A word is defined as a character sequence consists of non-space characters only.\n\nExample:\n\nInput: \"Hello World\"\nOutput: 5"
+  }, {
+    "title" : "Edit Distance",
+    "status" : "NEW",
+    "difficulty" : "HARD",
+    "isBookmarked" : false,
+    "topics" : [ "DYNAMIC_PROGRAMMING" ],
+    "testCases" : [ {
+      "input" : "word1 = \"horse\", word2 = \"ros\"",
+      "expectedResult" : "3"
+    }, {
+      "input" : "word1 = \"intention\", word2 = \"execution\"",
+      "expectedResult" : "5"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.\n\nYou have the following 3 operations permitted on a word:\n\nInsert a character\nDelete a character\nReplace a character\nExample 1:\n\nInput: word1 = \"horse\", word2 = \"ros\"\nOutput: 3\nExplanation: \nhorse -> rorse (replace 'h' with 'r')\nrorse -> rose (remove 'r')\nrose -> ros (remove 'e')\nExample 2:\n\nInput: word1 = \"intention\", word2 = \"execution\"\nOutput: 5\nExplanation: \nintention -> inention (remove 't')\ninention -> enention (replace 'i' with 'e')\nenention -> exention (replace 'n' with 'x')\nexention -> exection (replace 'n' with 'c')\nexection -> execution (insert 'u')"
+  }, {
+    "title" : "Sort List",
+    "status" : "NEW",
+    "difficulty" : "MEDIUM",
+    "isBookmarked" : false,
+    "topics" : [ "SORTING" ],
+    "testCases" : [ {
+      "input" : "4->2->1->3",
+      "expectedResult" : "1->2->3->4"
+    }, {
+      "input" : "-1->5->3->4->0",
+      "expectedResult" : "-1->0->3->4->5"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Sort a linked list in O(n log n) time using constant space complexity.\n\nExample 1:\n\nInput: 4->2->1->3\nOutput: 1->2->3->4\nExample 2:\n\nInput: -1->5->3->4->0\nOutput: -1->0->3->4->5"
+  }, {
+    "title" : "Single Number",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "HASHTABLE" ],
+    "testCases" : [ {
+      "input" : "[2,2,1]",
+      "expectedResult" : "1"
+    }, {
+      "input" : "[4,1,2,1,2]",
+      "expectedResult" : "4"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given a non-empty array of integers, every element appears twice except for one. Find that single one.\n\nNote:\n\nYour algorithm should have a linear runtime complexity. Could you implement it without using extra memory?\n\nExample 1:\n\nInput: [2,2,1]\nOutput: 1\nExample 2:\n\nInput: [4,1,2,1,2]\nOutput: 4"
+  }, {
+    "title" : "Word Pattern",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "RECURSION" ],
+    "testCases" : [ {
+      "input" : "pattern = \"abba\", str = \"dog cat cat dog\"",
+      "expectedResult" : "true"
+    }, {
+      "input" : "pattern = \"abba\", str = \"dog cat cat fish\"",
+      "expectedResult" : "false"
+    }, {
+      "input" : "pattern = \"aaaa\", str = \"dog cat cat dog\"",
+      "expectedResult" : "false"
+    }, {
+      "input" : "pattern = \"abba\", str = \"dog dog dog dog\"",
+      "expectedResult" : "false"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given a pattern and a string str, find if str follows the same pattern.\n\nHere follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in str.\n\nExample 1:\n\nInput: pattern = \"abba\", str = \"dog cat cat dog\"\nOutput: true\nExample 2:\n\nInput:pattern = \"abba\", str = \"dog cat cat fish\"\nOutput: false\nExample 3:\n\nInput: pattern = \"aaaa\", str = \"dog cat cat dog\"\nOutput: false\nExample 4:\n\nInput: pattern = \"abba\", str = \"dog dog dog dog\"\nOutput: false\nNotes:\nYou may assume pattern contains only lowercase letters, and str contains lowercase letters that may be separated by a single space."
+  }, {
+    "title" : "Distribute Candies",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "HASHTABLE" ],
+    "testCases" : [ {
+      "input" : "[1,1,2,2,3,3]",
+      "expectedResult" : "3"
+    }, {
+      "input" : "[1,1,2,3]",
+      "expectedResult" : "2"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given an integer array with even length, where different numbers in this array represent different kinds of candies. Each number means one candy of the corresponding kind. You need to distribute these candies equally in number to brother and sister. Return the maximum number of kinds of candies the sister could gain.\nExample 1:\nInput: candies = [1,1,2,2,3,3]\nOutput: 3\nExplanation:\nThere are three different kinds of candies (1, 2 and 3), and two candies for each kind.\nOptimal distribution: The sister has candies [1,2,3] and the brother has candies [1,2,3], too. \nThe sister has three different kinds of candies. \nExample 2:\nInput: candies = [1,1,2,3]\nOutput: 2\nExplanation: For example, the sister has candies [2,3] and the brother has candies [1,1]. \nThe sister has two different kinds of candies, the brother has only one kind of candies."
+  }, {
+    "title" : "Remove Duplicates from Sorted Array",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "ARRAY" ],
+    "testCases" : [ {
+      "input" : "[1,1,2]",
+      "expectedResult" : "2"
+    }, {
+      "input" : "[0,0,1,1,1,2,2,3,3,4]",
+      "expectedResult" : "5"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.\n\nDo not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.\n\nExample 1:\n\nGiven nums = [1,1,2],\n\nYour function should return length = 2, with the first two elements of nums being 1 and 2 respectively.\n\nIt doesn't matter what you leave beyond the returned length.\nExample 2:\n\nGiven nums = [0,0,1,1,1,2,2,3,3,4],\n\nYour function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively.\n\nIt doesn't matter what values are set beyond the returned length."
+  }, {
+    "title" : "Merge Sorted Array",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "ARRAY" ],
+    "testCases" : [ {
+      "input" : "nums1 = [1,2,3,0,0,0], m = 3\nnums2 = [2,5,6],       n = 3",
+      "expectedResult" : "[1,2,2,3,5,6]"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.\n\nNote:\n\nThe number of elements initialized in nums1 and nums2 are m and n respectively.\nYou may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2.\nExample:\n\nInput:\nnums1 = [1,2,3,0,0,0], m = 3\nnums2 = [2,5,6],       n = 3\n\nOutput: [1,2,2,3,5,6]"
+  }, {
+    "title" : "Insert Interval",
+    "status" : "NEW",
+    "difficulty" : "HARD",
+    "isBookmarked" : false,
+    "topics" : [ "ARRAY" ],
+    "testCases" : [ {
+      "input" : "intervals = [[1,3],[6,9]], newInterval = [2,5]",
+      "expectedResult" : "[[1,5],[6,9]]"
+    }, {
+      "input" : "[[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]",
+      "expectedResult" : "[[1,2],[3,10],[12,16]]"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).\n\nYou may assume that the intervals were initially sorted according to their start times.\n\nExample 1:\n\nInput: intervals = [[1,3],[6,9]], newInterval = [2,5]\nOutput: [[1,5],[6,9]]\nExample 2:\n\nInput: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]\nOutput: [[1,2],[3,10],[12,16]]\nExplanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].\nNOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature."
+  }, {
+    "title" : "Min Cost Climbing Stairs",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "ARRAY" ],
+    "testCases" : [ {
+      "input" : "cost = [10, 15, 20]",
+      "expectedResult" : "15"
+    }, {
+      "input" : "cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]",
+      "expectedResult" : "6"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "On a staircase, the i-th step has some non-negative cost cost[i] assigned (0 indexed).\n\nOnce you pay the cost, you can either climb one or two steps. You need to find minimum cost to reach the top of the floor, and you can either start from the step with index 0, or the step with index 1.\n\nExample 1:\nInput: cost = [10, 15, 20]\nOutput: 15\nExplanation: Cheapest is start on cost[1], pay that cost and go to the top.\nExample 2:\nInput: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]\nOutput: 6\nExplanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3].\nNote:\ncost will have a length in the range [2, 1000].\nEvery cost[i] will be an integer in the range [0, 999]."
+  }, {
+    "title" : "Redundant Connection II",
+    "status" : "NEW",
+    "difficulty" : "HARD",
+    "isBookmarked" : false,
+    "topics" : [ "GRAPH" ],
+    "testCases" : [ {
+      "input" : "[[1,2], [1,3], [2,3]]",
+      "expectedResult" : "[2,3]"
+    }, {
+      "input" : "[[1,2], [2,3], [3,4], [4,1], [1,5]]",
+      "expectedResult" : "[4,1]"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "In this problem, a rooted tree is a directed graph such that, there is exactly one node (the root) for which all other nodes are descendants of this node, plus every node has exactly one parent, except for the root node which has no parents.\n\nThe given input is a directed graph that started as a rooted tree with N nodes (with distinct values 1, 2, ..., N), with one additional directed edge added. The added edge has two different vertices chosen from 1 to N, and was not an edge that already existed.\n\nThe resulting graph is given as a 2D-array of edges. Each element of edges is a pair [u, v] that represents a directed edge connecting nodes u and v, where u is a parent of child v.\n\nReturn an edge that can be removed so that the resulting graph is a rooted tree of N nodes. If there are multiple answers, return the answer that occurs last in the given 2D-array."
+  }, {
+    "title" : "Find the Town Judge",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "GRAPH" ],
+    "testCases" : [ {
+      "input" : "N = 2, trust = [[1,2]]",
+      "expectedResult" : "2"
+    }, {
+      "input" : "N = 3, trust = [[1,3],[2,3]]",
+      "expectedResult" : "3"
+    }, {
+      "input" : "N = 3, trust = [[1,3],[2,3],[3,1]]",
+      "expectedResult" : "-1"
+    }, {
+      "input" : "N = 3, trust = [[1,2],[2,3]]",
+      "expectedResult" : "-1"
+    }, {
+      "input" : "N = 4, trust = [[1,3],[1,4],[2,3],[2,4],[4,3]]",
+      "expectedResult" : "3"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : ""
+    },
+    "description" : "In a town, there are N people labelled from 1 to N.  There is a rumor that one of these people is secretly the town judge.\n\nIf the town judge exists, then:\n\nThe town judge trusts nobody.\nEverybody (except for the town judge) trusts the town judge.\nThere is exactly one person that satisfies properties 1 and 2.\nYou are given trust, an array of pairs trust[i] = [a, b] representing that the person labelled a trusts the person labelled b.\n\nIf the town judge exists and can be identified, return the label of the town judge.  Otherwise, return -1.\n\n \n\nExample 1:\n\nInput: N = 2, trust = [[1,2]]\nOutput: 2\nExample 2:\n\nInput: N = 3, trust = [[1,3],[2,3]]\nOutput: 3\nExample 3:\n\nInput: N = 3, trust = [[1,3],[2,3],[3,1]]\nOutput: -1\nExample 4:\n\nInput: N = 3, trust = [[1,2],[2,3]]\nOutput: -1\nExample 5:\n\nInput: N = 4, trust = [[1,3],[1,4],[2,3],[2,4],[4,3]]\nOutput: 3\n \n\nNote:\n\n1 <= N <= 1000\ntrust.length <= 10000\ntrust[i] are all different\ntrust[i][0] != trust[i][1]\n1 <= trust[i][0], trust[i][1] <= N"
   } ]
 }
