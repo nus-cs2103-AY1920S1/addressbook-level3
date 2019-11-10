@@ -363,6 +363,8 @@ Format:
 * The search is case insensitive. e.g "avengers" will match "Avengers"
 * The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris"
 * Not only full words will be matched. e.g. "Joke" will also match with "Joker"
+* Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers"
+* Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error.
 * For `FROM_ONLINE` and `HAS_WATCHED`, only `yes`, `true`, `no` and `false` would be accepted.
 * When searching based on actor, only shows from the watchlist will be searched.
 * When searching based on genre online, only movies will be searched.

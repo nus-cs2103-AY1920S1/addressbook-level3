@@ -30,7 +30,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchCommand parse(String args, String currentPanel) throws ParseException {
-        checkNoOtherPrefixPresent(args); // this requires content to be right after / without any spaces
+        checkNoOtherPrefixPresent(args); // this allows content to have space after n/
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_NAME, PREFIX_TYPE, PREFIX_ACTOR, PREFIX_GENRE, PREFIX_IS_WATCHED, PREFIX_FROM_ONLINE);
@@ -71,11 +71,11 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         int arrayLength = keywordsArray.length;
         for (int i = 0; i < arrayLength - 1; i++) {
             String s = keywordsArray[i];
-            String[] sArray = args.split(" ");
+            String[] sArray = s.split(" ");
             int sLength = sArray.length;
-            String last = sArray[sLength - 1];
-            if (!last.equals("n") && !last.equals("a") && !last.equals("g") && !last.equals("t")
-                    && !last.equals("o") && !last.equals("w")) {
+            String prefix = sArray[sLength - 1];
+            if (!prefix.equals("n") && !prefix.equals("a") && !prefix.equals("g") && !prefix.equals("t")
+                    && !prefix.equals("o") && !prefix.equals("w")) {
                 throw new ParseException("Invalid syntax.\n" + SearchMessages.MESSAGE_USAGE);
             }
         }
