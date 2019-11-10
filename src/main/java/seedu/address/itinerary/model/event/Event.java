@@ -137,7 +137,7 @@ public class Event {
     }
 
     public String getMonthAndYear() {
-        String dateString = date.toString().replace('/','-');
+        String dateString = date.toString().replace('/', '-');
         return dateString.substring(3);
     }
 
