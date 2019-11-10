@@ -20,11 +20,12 @@ public class RemoveCommand extends WordBankCommand {
             + " WORDBANK\n"
             + "Eg: " + COMMAND_WORD + " sample";
 
-    private static final String MESSAGE_REMOVE_CARD_SUCCESS = "Removed word bank: %1$s";
+    public static final String MESSAGE_REMOVE_CARD_SUCCESS = "Removed word bank: %1$s";
 
     private static String wordBankName;
 
     public RemoveCommand(String wordBankName) {
+        requireNonNull(wordBankName);
         this.wordBankName = wordBankName;
     }
 
