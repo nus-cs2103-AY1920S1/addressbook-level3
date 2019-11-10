@@ -163,7 +163,7 @@ and design concepts such as _Observer Pattern_ and _MVC_ within cards and word b
 
 === Other contributions
 * *Code contributed*:
-** Overall: [https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=chrischenhui[All Commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chrischenhui&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chrischenhui&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[RepoSense]] [https://github.com/AY1920S1-CS2103T-T11-2/main/graphs/contributors?from=2016-08-07&to=2019-11-09&type=a[GitHub]]
+** Overall: [https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=chrischenhui[All Commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chrischenhui&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chrischenhui&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[RepoSense]] [https://github.com/AY1920S1-CS2103T-T11-2/main/graphs/contributors?from=2016-08-07&to=2019-11-10&type=a[GitHub]]
 ** Functional:
 *** WordBank: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/wordbank[WordBank]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/wordbanklist[WordBankList]]
 *** Storage: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/storage/wordbanks[WordBank storage]]
