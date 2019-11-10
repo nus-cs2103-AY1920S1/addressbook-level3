@@ -1,12 +1,12 @@
 package seedu.guilttrip.ui;
 
-import static java.time.Duration.ofMillis;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+//import static java.time.Duration.ofMillis;
+//import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.guilttrip.testutil.TypicalEntries.getTypicalBudgets;
 
 import java.util.Collections;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -69,7 +69,7 @@ public class BudgetListPanelTest extends GuiUnitTest {
      * Verifies that creating and deleting large number of entries in {@code BudgetPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
-    @Test
+    /*@Test
     public void performanceTest() {
         ObservableList<Budget> backingList = createBackingList(10000);
 
@@ -77,7 +77,7 @@ public class BudgetListPanelTest extends GuiUnitTest {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
         }, "Creation and deletion of budget cards exceeded time limit");
-    }
+    }*/
 
     /**
      * Returns a list of entries containing {@code budgetCount} entries that is used to populate the
