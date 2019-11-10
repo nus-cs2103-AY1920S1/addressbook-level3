@@ -194,6 +194,8 @@ _Figure 5. Overview of questions classes_
 [[Feature-Question-Add]]
 ==== Add command
 
+===== Implementation
+
 The following is a detailed explanation of the operations `QuestionAddCommand` performs. +
 
 *Step 1*. The `QuestionAddCommand#execute(Model model)` method is executed and it validates type of question defined.
@@ -207,6 +209,8 @@ will be appended with the `QuestionAddCommand#MESSAGE_SUCCESS` constant and a ne
 
 [[Feature-Question-Edit]]
 ==== Edit command
+
+===== Implementation
 
 The following is a detailed explanation of the operations `QuestionEditCommand` performs. +
 
@@ -229,6 +233,8 @@ and a new `CommandResult` will be returned with the message.
 [[Feature-Question-Delete]]
 ==== Delete command
 
+===== Implementation
+
 The following is a detailed explanation of the operations `QuestionDeleteCommand` performs. +
 
 *Step 1*. The `QuestionDeleteCommand#execute(Model model)` method is executed and it checks if the `Index` defined when
@@ -243,6 +249,8 @@ and a new `CommandResult` will be returned with the message.
 [[Feature-Question-List]]
 ==== List command
 
+===== Implementation
+
 The following is a detailed explanation of the operations `QuestionListCommand` performs. +
 
 *Step 1*. The `QuestionListCommand#execute(Model model)` method is executed. No validation is necessary here since it
@@ -254,6 +262,8 @@ object.
 // tag::questions-find[]
 [[Feature-Question-Find]]
 ==== Find command
+
+===== Implementation
 
 The following is a detailed explanation of the operations `QuestionFindCommand` performs.
 [NOTE]
@@ -335,6 +345,8 @@ questions displayed in the slideshow.
 
 image::SlideshowFeatureSequenceDiagram.png[scaledwidth=16cm]
 _Figure 7. Sequence diagram illustrating the interactions happening_
+
+===== Implementation
 
 The following is an example and detailed explanation as to how the questions are fetched and displayed on the slideshow. +
 
