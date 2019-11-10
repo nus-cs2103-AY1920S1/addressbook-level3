@@ -65,7 +65,7 @@ and 4 schedule related commands.
 ** What does it do: The *Schedule* section was implemented to allow users to have an easier way to view and identify
 events that are happening on a specific date or period. Thus, the `display_schedule_date`, `display_schedule_month`
 and `display_schedule_between` commands were implemented. The enhancement was also done to improve the user experience, by providing a clean
-graphical representation of the user's schedule, greatly improving the application's user experience.
+graphical representation of the user's schedule through the use of the `generate_schedule` command, greatly improving the application's user experience.
 
 ** Justification: The *Schedule* feature improves the product significantly because it allows users to have a convenient way to view their
 upcoming event schedule and keep track of all the important event dates. The feature will greatly improve the user experience of the application
@@ -84,7 +84,9 @@ specific tabs to prevent unusual behavior, which can cause users to be confused.
 to edit on, and react accordingly. Other minor features includes the implementation of the `add_ev`, `edit_ev`, `find_em_tag` and `find_ev_tag` commands
 for the AddMin+ App.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shihaoyap&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[Functional code]][https://github.com[Test code]]
+* *Code contributed*:
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shihaoyap&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[Functional code]]
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shihaoyap&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
@@ -102,7 +104,7 @@ https://github.com/AY1920S1-CS2103T-T11-3/main/pull/109[#109],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/138[#138],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/139[#139])
 *** In-charged of setting up test cases for all *Schedule* feature - commands, parsers, predicates
-(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/133[#233])
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/233[#233],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/249[#249],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/267[#267])
 *** Assisted in morphing the Events class and storage units into AddMin+
@@ -115,13 +117,15 @@ fixed test cases and checkstyle errors.
 (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
 *** Assisted in setting up the test structure for Events to facilitate easier Events related
 test cases
-(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
-*** Assisted in implementing AddMin+ tab recognition, to disallow certain commands depending on which tab
-the user is on.
-(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/267[#267])
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/233[#233])
+*** Assisted in implementing AddMin+ tab recognition, to reduce any unusual app behavior, optimise user experience by allowing
+users to edit list on different tabs, as well as disallow certain commands depending on which tab the user is on.
+(Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/155[#155],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/160[#160],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/265[#265])
 
 ** Enhancements to existing features:
-*** Upgraded the GUI display and other GUI enhancements
+*** Upgraded the GUI display and other GUI enhancements, such as the fetch employee window
 (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/102[#102],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/143[#143])
 *** Wrote additional tests for existing features
@@ -145,7 +149,8 @@ https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/83[#83],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/85[#85],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92[#92],
-https://github.com/AY1920S1-CS2103T-T11-3/main/pull/137[#137])
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/137[#137],
+https://github.com/AY1920S1-CS2103T-T11-3/main/pull/273[#273])
 
 == Contributions to the User Guide
 |===
@@ -175,6 +180,9 @@ Another aspect of software development which I felt is often overlooked is actua
 documentation writing. However, through CS2101, we were able to learn the steps of writing quality documentation of our project
 that caters to our target audiences. Finally, even though the AddMin+ project was only 6 weeks long, I was able to pick up many valuable knowledge
 that will be essential in becoming a software developer in the future.
+
+If you would like to know more about me or AddMin+, feel free to drop by my https://shihaoyap.github.io/ShihaoResume/index.html[personal website] or
+contact me via https://sg.linkedin.com/in/shi-hao-yap-964724169[LinkedIn].
 
 ---
 

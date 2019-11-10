@@ -204,7 +204,9 @@ Employee Format: `add_em n/NAME g/GENDER p/PAY no/PHONE e/EMAIL a/ADDRESS on/JOI
 
 ****
 * Note the <<Constraints>> for *NAME*, *GENDER*, *PAY*, *PHONE*, *EMAIL* and *JOIN_DATE*.
-* An employee's identity is uniquely identified by his/her name, phone number and email. You cannot add an employee whose identity is the same as another employee already inside the Employee List.
+* An employee's identity is uniquely identified by his/her name, phone number and email. You cannot add an employee whose
+identity is the same as another employee in the Employee List.
+* The soft limit for total number of Employees is ~100.
 ****
 
 Event: Adds an event that the company is organizing or hosting to the company’s calendar.
@@ -214,7 +216,9 @@ Event Format: `add_ev n/NAME at/VENUE m/MANPOWER_NEEDED on/START_DATE till/END_D
 ****
 * Note the <<Constraints>> for *NAME*, *MANPOWER_NEEDED*, and *START/END_DATE*.
 * Additionally, take note that the `START_DATE` must be before the `END_DATE`, and that the maximum date range of the event is *90 days*.
-* An events's identity is uniquely identified by its name, start date, and end date. You cannot add an event which is identical to another event already insid
+* An events's identity is uniquely identified by its name, start date, and end date. You cannot add an event which is
+identical to another event in the Event List.
+* The soft limit for total number of Events is ~100.
 ****
 
 [TIP]

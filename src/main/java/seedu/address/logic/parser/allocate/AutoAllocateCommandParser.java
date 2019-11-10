@@ -43,13 +43,12 @@ public class AutoAllocateCommandParser implements Parser<AutoAllocateCommand> {
             eventIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
             manpowerCount = ParserUtil.parseManpowerToAllocate(argMultimap.getValue(PREFIX_EMPLOYEE_NUMBER)
                     .orElse(null));
+            tagList = parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).orElse(new HashSet<>());
 
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AutoAllocateCommand.MESSAGE_USAGE), pe);
         }
-
-        tagList = parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).orElse(new HashSet<>());
 
         return new AutoAllocateCommand(eventIndex, manpowerCount, tagList);
     }

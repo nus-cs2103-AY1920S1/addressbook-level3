@@ -1,3 +1,7 @@
+/*
+@@author calvincxz
+ */
+
 package seedu.address.logic.commands.allocate;
 
 import static java.util.Objects.requireNonNull;
@@ -39,20 +43,21 @@ public class DeallocateCommand extends Command {
             + " [EMPLOYEE_ID]\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_EMPLOYEE_ID + "001";
 
-    private static final String MESSAGE_FREE_EVENT_SUCCESS = "De-allocated %2$s from the Event: %1$s";
+    public static final String MESSAGE_FREE_EVENT_SUCCESS = "De-allocated %2$s from the Event: %1$s";
 
     private final Index eventIndex;
-    private final String employeeId;
+    private final EmployeeId employeeId;
 
     public DeallocateCommand(Index eventIndex) {
         this.eventIndex = eventIndex;
         this.employeeId = null;
     }
 
-    public DeallocateCommand(Index eventIndex, String employeeId) {
+    public DeallocateCommand(Index eventIndex, EmployeeId employeeId) {
         this.eventIndex = eventIndex;
         this.employeeId = employeeId;
     }
+
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -85,7 +90,7 @@ public class DeallocateCommand extends Command {
         //Checks if employeeId is found and does the relevant changes for the de-allocation from events.
         if (employeeId != null) {
             Optional<Employee> optionalPersonToDelete = lastShownList.stream()
-                    .filter(x -> x.getEmployeeId().id.equals(employeeId))
+                    .filter(x -> x.getEmployeeId().equals(employeeId))
                     .findAny();
 
             if (optionalPersonToDelete.isEmpty()) {
@@ -110,7 +115,7 @@ public class DeallocateCommand extends Command {
      * Creates and returns a {@code Event} with the details of {@code eventToEdit}
      * and a new {@code EventManpowerAllocatedList} depending on the Employee given as input.
      */
-    private static Event createEditedEvent(Event eventToEdit, Employee employeeToDelete) throws CommandException {
+    public static Event createEditedEvent(Event eventToEdit, Employee employeeToDelete) throws CommandException {
         assert eventToEdit != null;
 
         EventName updatedEventName = eventToEdit.getName();
@@ -152,9 +157,8 @@ public class DeallocateCommand extends Command {
 
         // state check
         DeallocateCommand e = (DeallocateCommand) other;
-        assert employeeId != null;
         return eventIndex.equals(e.eventIndex)
-                && employeeId.equals(e.employeeId);
+                && (employeeId == e.employeeId || employeeId.equals(e.employeeId));
     }
 
 }
