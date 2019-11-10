@@ -75,9 +75,7 @@ public class AddTagCommand extends Command {
             newTags.add(new Tag(tag));
         }
 
-        Person editedPerson = new PersonBuilder(personToEdit)
-                .addTags(newTags)
-                .build();
+        Person editedPerson = new PersonBuilder(personToEdit).addTags(newTags).build();
 
         model.setPerson(personToEdit, editedPerson);
 

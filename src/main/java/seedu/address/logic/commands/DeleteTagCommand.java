@@ -91,9 +91,7 @@ public class DeleteTagCommand extends Command {
             }
         }
 
-        Person editedPerson = new PersonBuilder(personToEdit)
-                .removeTags(removeTags)
-                .build();
+        Person editedPerson = new PersonBuilder(personToEdit).removeTags(removeTags).build();
 
         model.setPerson(personToEdit, editedPerson);
 
