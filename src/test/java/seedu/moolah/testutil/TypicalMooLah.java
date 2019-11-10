@@ -29,11 +29,11 @@ import seedu.moolah.model.expense.Expense;
  */
 public class TypicalMooLah {
 
-    public static final String SCHOOL_BUDGET_STRING_ONE = "|| Description: School related expenses "
-            + "Amount: 300 Period: month Start date: 15 Nov 2019, 12:00:00 PM End date: 14 Dec 2019, 12:00:00 PM ||";
+    public static final String SCHOOL_BUDGET_STRING_ONE = "|| Description: School related expenses Amount: 300.00 "
+            + "Period: month Start date: 15 Oct 2019, 12:00:00 AM End date: 14 Nov 2019, 11:59:59 PM ||";
 
-    public static final String SCHOOL_BUDGET_STRING_TWO = "|| Description: School related expenses "
-            + "Amount: 300 Period: month Start date: Nov 15, 2019, 12:00:00 PM End date: Dec 14, 2019, 12:00:00 PM ||";
+    public static final String SCHOOL_BUDGET_STRING_TWO = "|| Description: School related expenses Amount: 300.00 "
+            + "Period: month Start date: Oct 15, 2019, 12:00:00 AM End date: Nov 14, 2019, 11:59:59 PM ||";
 
     // ==============================Budgets=================================
     public static final Budget SCHOOL = new BudgetBuilder()
@@ -73,7 +73,7 @@ public class TypicalMooLah {
 
     //==== For Statistics testing ===
     public static final Budget DAY_BUDGET = new BudgetBuilder()
-            .withDescription("budget")
+            .withDescription("Default Budget")
             .withAmount("100")
             .withStartDate("05-09-2016 evening")
             .withPeriod("day")
@@ -82,7 +82,7 @@ public class TypicalMooLah {
             .build();
 
     public static final Budget WEEK_BUDGET = new BudgetBuilder()
-            .withDescription("Budget")
+            .withDescription("Default Budget")
             .withAmount("200")
             .withStartDate("05-09-2016 noon")
             .withPeriod("week")
@@ -91,7 +91,7 @@ public class TypicalMooLah {
             .build();
 
     public static final Budget MONTH_BUDGET = new BudgetBuilder()
-            .withDescription("Budget")
+            .withDescription("Default Budget")
             .withAmount("300")
             .withStartDate("05-09-2016 noon")
             .withPeriod("month")
@@ -100,7 +100,7 @@ public class TypicalMooLah {
             .build();
 
     public static final Budget YEAR_BUDGET = new BudgetBuilder()
-            .withDescription("Budget")
+            .withDescription("Default Budget")
             .withAmount("400")
             .withStartDate("05-09-2016 noon")
             .withPeriod("year")
@@ -113,7 +113,7 @@ public class TypicalMooLah {
             .withPrice("5")
             .withCategory("Food")
             .withTimestamp("05-09-2016 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000023")
             .build();
 
@@ -122,7 +122,7 @@ public class TypicalMooLah {
             .withPrice("10")
             .withCategory("Food")
             .withTimestamp("13-09-2016 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000024")
             .build();
 
@@ -132,7 +132,7 @@ public class TypicalMooLah {
             .withPrice("20")
             .withCategory("Transport")
             .withTimestamp("14-09-2016 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000025")
             .build();
 
@@ -141,7 +141,7 @@ public class TypicalMooLah {
             .withPrice("30")
             .withCategory("Travel")
             .withTimestamp("15-09-2016 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000026")
             .build();
 
@@ -150,7 +150,7 @@ public class TypicalMooLah {
             .withPrice("60")
             .withCategory("Shopping")
             .withTimestamp("16-09-2016 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000027")
             .build();
 
@@ -161,7 +161,7 @@ public class TypicalMooLah {
             .withPrice("50")
             .withCategory("Utilities")
             .withTimestamp("17-09-2016 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000028")
             .build();
 
@@ -170,7 +170,7 @@ public class TypicalMooLah {
             .withPrice("70")
             .withCategory("Utilities")
             .withTimestamp("20-09-2016 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000100")
             .build();
 
@@ -179,7 +179,7 @@ public class TypicalMooLah {
             .withPrice("240")
             .withCategory("Healthcare")
             .withTimestamp("18-09-2016 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000029")
             .build();
 
@@ -188,7 +188,7 @@ public class TypicalMooLah {
             .withPrice("480")
             .withCategory("Entertainment")
             .withTimestamp("19-09-2016 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000030")
             .build();
 
@@ -197,7 +197,7 @@ public class TypicalMooLah {
             .withPrice("960")
             .withCategory("Education")
             .withTimestamp("05-10-2016 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000031")
             .build();
 
@@ -206,7 +206,7 @@ public class TypicalMooLah {
             .withPrice("1920")
             .withCategory("Others")
             .withTimestamp("06-10-2016 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000031")
             .build();
 
@@ -218,7 +218,7 @@ public class TypicalMooLah {
             .withPrice("5")
             .withCategory("Food")
             .withTimestamp("13-09-2015 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000101")
             .build();
 
@@ -228,7 +228,7 @@ public class TypicalMooLah {
             .withPrice("5")
             .withCategory("Food")
             .withTimestamp("13-09-2015 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000102")
             .build();
 
@@ -237,7 +237,7 @@ public class TypicalMooLah {
             .withPrice("20")
             .withCategory("Transport")
             .withTimestamp("14-09-2015 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000103")
             .build();
 
@@ -246,7 +246,7 @@ public class TypicalMooLah {
             .withPrice("500")
             .withCategory("Travel")
             .withTimestamp("15-09-2015 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000107")
             .build();
 
@@ -255,7 +255,7 @@ public class TypicalMooLah {
             .withPrice("60")
             .withCategory("Shopping")
             .withTimestamp("16-09-2015 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000108")
             .build();
 
@@ -266,7 +266,7 @@ public class TypicalMooLah {
             .withPrice("20")
             .withCategory("Utilities")
             .withTimestamp("17-09-2015 noon")
-            .withBudgetName("Budget")
+            .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000028")
             .build();
 
@@ -447,6 +447,16 @@ public class TypicalMooLah {
 
     public static List<Budget> getTypicalBudgets() {
         return new ArrayList<>(Arrays.asList(OUTSIDE_SCHOOL, SCHOOL));
+    }
+
+    /**
+     * To reverse effect of ClearBudgetsCommandTest
+     */
+    public static void reset() {
+        CHICKEN_RICE.setBudget(SCHOOL);
+        DRINKS.setBudget(SCHOOL);
+        SCHOOL.addExpense(CHICKEN_RICE);
+        SCHOOL.addExpense(DRINKS);
     }
 
     //==== For Statistics testing ===

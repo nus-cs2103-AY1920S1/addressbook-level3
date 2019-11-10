@@ -5,7 +5,6 @@ import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +13,7 @@ import seedu.moolah.model.budget.exceptions.DeleteDefaultBudgetException;
 import seedu.moolah.model.budget.exceptions.DuplicateBudgetException;
 import seedu.moolah.model.budget.exceptions.SwitchToFuturePeriodException;
 import seedu.moolah.model.expense.Description;
+import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
 
 /**
@@ -89,6 +89,28 @@ public class UniqueBudgetList implements Iterable<Budget> {
         }
 
         internalList.setAll(budgets);
+    }
+
+    /**
+     * Removes an expense from its corresponding budget.
+     */
+    public void removeExpense(Expense key) {
+        requireNonNull(key);
+        Budget budget = getBudgetWithName(key.getBudgetName());
+        Budget copy = budget.deepCopy();
+        copy.removeExpense(key);
+        setBudget(budget, copy);
+    }
+
+    /**
+     * Replaces an expense with updated version in its corresponding budget.
+     */
+    public void setExpense(Expense target, Expense edited) {
+        requireAllNonNull(target, edited);
+        Budget budget = getBudgetWithName(target.getBudgetName());
+        Budget copy = budget.deepCopy();
+        copy.setExpense(target, edited);
+        setBudget(budget, copy);
     }
 
     /**
@@ -209,19 +231,19 @@ public class UniqueBudgetList implements Iterable<Budget> {
         }
     }
 
-    /**
-     * Handles issue of duplicate primary budgets when undoing "clearbudgets".
-     * Sets default budget to non-primary if there are more than one primary budgets in the list.
-     */
-    public void handleDuplicatePrimaryBudgets() {
-        List<Budget> primaryBudgets = internalList
-                .stream()
-                .filter(b -> b.isPrimary())
-                .collect(Collectors.toList());
-        if (primaryBudgets.size() > 1) {
-            getDefaultBudget().setToNotPrimary();
-        }
-    }
+    //    /**
+    //     * Handles issue of duplicate primary budgets when undoing "clearbudgets".
+    //     * Sets default budget to non-primary if there are more than one primary budgets in the list.
+    //     */
+    //    public void handleDuplicatePrimaryBudgets() {
+    //        List<Budget> primaryBudgets = internalList
+    //                .stream()
+    //                .filter(b -> b.isPrimary())
+    //                .collect(Collectors.toList());
+    //        if (primaryBudgets.size() > 1) {
+    //            getDefaultBudget().setToNotPrimary();
+    //        }
+    //    }
 
     /**
      * Deletes the budget with the specified description.

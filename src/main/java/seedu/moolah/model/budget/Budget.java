@@ -298,6 +298,12 @@ public class Budget {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(description, amount, getWindowStartDate(), getWindowEndDate(), getBudgetPeriod(),
+                expenses, isPrimary);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -313,11 +319,6 @@ public class Budget {
                 && otherBudget.window.equals(window)
                 && otherBudget.expenses.equals(expenses)
                 && otherBudget.isPrimary == isPrimary;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(description, amount, window, expenses, isPrimary);
     }
 
     @Override

@@ -158,6 +158,7 @@ public class MooLah implements ReadOnlyMooLah {
         requireNonNull(editedExpense);
 
         expenses.setExpense(target, editedExpense);
+        budgets.setExpense(target, editedExpense);
     }
 
     /**
@@ -166,6 +167,7 @@ public class MooLah implements ReadOnlyMooLah {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
+        budgets.removeExpense(key);
     }
 
     //=========== Budget-level operations ================================================================
@@ -335,8 +337,8 @@ public class MooLah implements ReadOnlyMooLah {
         return other == this // short circuit if same object
                 || (other instanceof MooLah // instanceof handles nulls
                 && expenses.equals(((MooLah) other).expenses)
-                && events.equals(((MooLah) other).events));
-        // && budgets.equals(((MooLah) other).budgets));
+                && events.equals(((MooLah) other).events)
+                && budgets.equals(((MooLah) other).budgets));
     }
 
     @Override

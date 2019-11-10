@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_BUDGET_AMOUNT_HOLIDAY;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_BUDGET_DESCRIPTION_HOLIDAY;
+import static seedu.moolah.logic.commands.CommandTestUtil.VALID_BUDGET_DESCRIPTION_SCHOOL;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_BUDGET_PERIOD_HOLIDAY;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_BUDGET_START_DATE_HOLIDAY;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -61,12 +62,10 @@ public class EditBudgetCommandTest {
 
         BudgetBuilder budgetInList = new BudgetBuilder(lastBudget);
         Budget editedBudget = budgetInList
-                .withDescription(VALID_BUDGET_DESCRIPTION_HOLIDAY)
                 .withAmount(VALID_BUDGET_AMOUNT_HOLIDAY)
                 .build();
 
         EditBudgetDescriptor descriptor = new EditBudgetDescriptorBuilder()
-                .withDescription(VALID_BUDGET_DESCRIPTION_HOLIDAY)
                 .withAmount(VALID_BUDGET_AMOUNT_HOLIDAY)
                 .build();
         EditBudgetCommand editBudgetCommand = new EditBudgetCommand(indexLastBudget, descriptor);
@@ -107,6 +106,24 @@ public class EditBudgetCommandTest {
     }
 
     @Test
+    public void run_isDefaultBudget_throwsCommandException() {
+        EditBudgetDescriptor descriptor = new EditBudgetDescriptorBuilder()
+                .withDescription(VALID_BUDGET_DESCRIPTION_HOLIDAY).build();
+        EditBudgetCommand editBudgetCommand = new EditBudgetCommand(INDEX_FIRST, descriptor);
+
+        assertCommandFailure(editBudgetCommand, model, EditBudgetCommand.MESSAGE_DEFAULT_BUDGET_UNEDITABLE);
+    }
+
+    @Test
+    public void run_duplicateBudget_throwsCommandException() {
+        EditBudgetDescriptor descriptor = new EditBudgetDescriptorBuilder()
+                .withDescription(VALID_BUDGET_DESCRIPTION_SCHOOL).build();
+        EditBudgetCommand editBudgetCommand = new EditBudgetCommand(INDEX_SECOND, descriptor);
+
+        assertCommandFailure(editBudgetCommand, model, EditBudgetCommand.MESSAGE_DUPLICATE_BUDGET);
+    }
+
+    @Test
     public void equals() {
         EditBudgetDescriptor descriptor = new EditBudgetDescriptorBuilder()
                 .withDescription(VALID_BUDGET_DESCRIPTION_HOLIDAY)
@@ -133,5 +150,4 @@ public class EditBudgetCommandTest {
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditBudgetCommand(INDEX_SECOND, descriptor)));
     }
-
 }

@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.moolah.commons.core.index.Index;
+import seedu.moolah.logic.commands.budget.EditBudgetCommand;
 import seedu.moolah.logic.commands.event.EditEventCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.logic.commands.expense.EditExpenseCommand;
@@ -31,6 +32,7 @@ import seedu.moolah.model.MooLah;
 import seedu.moolah.model.expense.DescriptionContainsKeywordsPredicate;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.testutil.EditBudgetDescriptorBuilder;
 import seedu.moolah.testutil.EditEventDescriptorBuilder;
 import seedu.moolah.testutil.EditExpenseDescriptorBuilder;
 import seedu.moolah.testutil.StatsDescriptorBuilder;
@@ -132,6 +134,7 @@ public class CommandTestUtil {
 
     public static final EditExpenseCommand.EditExpenseDescriptor DESC_CHICKEN;
     public static final EditEventCommand.EditEventDescriptor DESC_BUFFET;
+    public static final EditBudgetCommand.EditBudgetDescriptor DESC_HOLIDAY;
 
 
     public static final String VALID_EARLY_TIMESTAMP = "14-01-2019";
@@ -196,6 +199,15 @@ public class CommandTestUtil {
                 .withTimestamp(VALID_EVENT_TIMESTAMP_BUFFET)
                 .withCategory(VALID_EVENT_CATEGORY_BUFFET).build();
     }
+
+    static {
+        DESC_HOLIDAY = new EditBudgetDescriptorBuilder().withDescription(VALID_BUDGET_DESCRIPTION_HOLIDAY)
+                .withAmount(VALID_BUDGET_AMOUNT_HOLIDAY)
+                .withStartDate(VALID_BUDGET_START_DATE_HOLIDAY)
+                .withPeriod(VALID_BUDGET_PERIOD_HOLIDAY)
+                .build();
+    }
+
 
 
 

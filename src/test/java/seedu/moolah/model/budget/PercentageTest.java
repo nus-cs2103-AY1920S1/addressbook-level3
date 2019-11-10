@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.moolah.testutil.Assert.assertThrows;
 
+import java.util.Objects;
+
 import org.junit.jupiter.api.Test;
 
 public class PercentageTest {
@@ -73,5 +75,11 @@ public class PercentageTest {
 
         //Percentage with same value
         assertTrue(SAMPLE_PERCENTAGE.equals(new Percentage(33)));
+    }
+
+    @Test
+    public void testHashCode() {
+        assertTrue(Objects.hash(33) == SAMPLE_PERCENTAGE.hashCode());
+        assertFalse(Objects.hash(30) == SAMPLE_PERCENTAGE.hashCode());
     }
 }

@@ -6,7 +6,6 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.moolah.model.Model.PREDICATE_SHOW_ALL_BUDGETS;
-import static seedu.moolah.model.budget.Budget.DEFAULT_BUDGET;
 
 import java.util.List;
 import java.util.Optional;
@@ -79,7 +78,7 @@ public class EditBudgetCommand extends UndoableCommand {
         }
 
         Budget budgetToEdit = lastShownList.get(index.getZeroBased());
-        if (budgetToEdit.isSameBudget(DEFAULT_BUDGET)) {
+        if (budgetToEdit.isDefaultBudget()) {
             throw new CommandException(MESSAGE_DEFAULT_BUDGET_UNEDITABLE);
         }
         Budget editedBudget = createEditedBudget(budgetToEdit, editBudgetDescriptor);

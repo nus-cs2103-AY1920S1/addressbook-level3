@@ -47,6 +47,14 @@ public class DeleteBudgetByNameCommandTest {
     }
 
     @Test
+    public void run_defaultBudgetName_throwsCommandException() {
+        Description defaultBudgetName = Budget.DEFAULT_BUDGET_DESCRIPTION;
+        DeleteBudgetByNameCommand deleteBudgetByNameCommand = new DeleteBudgetByNameCommand(defaultBudgetName);
+
+        assertCommandFailure(deleteBudgetByNameCommand, model, Messages.MESSAGE_CANNOT_DELETE_DEFAULT_BUDGET);
+    }
+
+    @Test
     public void equals() {
         DeleteBudgetByNameCommand deleteSchoolCommand = new DeleteBudgetByNameCommand(SCHOOL);
         DeleteBudgetByNameCommand deleteOutsideScholCommand = new DeleteBudgetByNameCommand(HOLIDAY);
@@ -69,3 +77,4 @@ public class DeleteBudgetByNameCommandTest {
     }
 
 }
+
