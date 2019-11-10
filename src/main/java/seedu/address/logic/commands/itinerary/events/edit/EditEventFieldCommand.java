@@ -37,7 +37,7 @@ import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.itinerary.event.Event;
 
 /**
- * Placeholder.
+ * Command to edit field(s) in a given event.
  */
 public class EditEventFieldCommand extends Command {
 

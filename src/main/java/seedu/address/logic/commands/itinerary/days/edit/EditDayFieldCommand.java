@@ -28,17 +28,16 @@ import seedu.address.model.itinerary.event.EventList;
 
 
 /**
- * Placeholder.
+ * Command to edit a field/fields in a day.
  */
 public class EditDayFieldCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of your form "
-            + "by the index of the form field as displayed, or by the various prefixes of the fields. "
+            + "by the various prefixes of the fields. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_DATE_START + "START DATE] "
             + "[" + PREFIX_DATE_END + "END DATE] "
             + "[" + PREFIX_LOCATION + "DESTINATION] "
@@ -53,7 +52,7 @@ public class EditDayFieldCommand extends Command {
     private final EditDayFieldCommand.EditDayDescriptor editDayDescriptor;
 
     /**
-     * @param editDayDescriptor details to edit the person with
+     * @param editDayDescriptor details to edit the day with
      */
     public EditDayFieldCommand(EditDayDescriptor editDayDescriptor) {
         requireNonNull(editDayDescriptor);
