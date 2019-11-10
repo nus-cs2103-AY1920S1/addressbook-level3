@@ -750,14 +750,13 @@ image::ml-task_4_4.PNG[]
 image::ml-task_4_5.PNG[]
 // end::Multiline[]
 
-=== Settings Commands
 // tag::settings[]
+=== Settings Commands
 ==== Switching the theme of +Work: `theme`
 
 This command helps you toggle the theme of +Work between light and dark to suit your viewing preferences.
 
 [TIP]
-
 By default, the theme is set to dark.
 
 Format: `theme light`

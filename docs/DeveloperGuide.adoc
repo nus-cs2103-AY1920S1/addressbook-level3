@@ -240,6 +240,7 @@ may not help as much.
 May introduce complexity into storage and dependencies among components.
 
 
+//tag::dashboard[]
 === Dashboard feature
 ==== Implementation
 
@@ -308,7 +309,9 @@ iterate through all keys to obtain all the `Task` objects and manipulate their m
 
 We decided to opt for design option one so as to enable `Task` to integrate with other components of +Work in the most efficient way possible. Although design option two would
 benefit the dashboard greatly it would cause almost all other components and views to become inefficient.
+//end::dashboard[]
 
+//tag::settings[]
 === Settings feature
 ==== Implementation
 
@@ -644,9 +647,6 @@ represented as enumerations.
 ** Pros: The inventories list is more user-friendly and more provides more details.
 
 ** Cons: Implementation is harder, and we have to ensure minimal errors or bugs.
-
-// end::settings[]
-
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
