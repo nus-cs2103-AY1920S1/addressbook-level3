@@ -320,14 +320,10 @@ Examples:
 If currently viewing list of contacts, returns contacts (e.g. `john` and `John Doe`).
 If currently viewing list of activities, returns activities (e.g `lunch with john`).
 
-<<<<<<< HEAD
 // tag::delete[]
-=== Deleting a contact, activity or expense: `delete`
-=======
 === Deleting a contact, activity or expense: `delete`
 
 Deletes the contact/activity/expense at the specified index from the current display. +
->>>>>>> master
 
 If current display is listing contacts `list c/`, the contact at that specified index will be deleted if he/she is not involved in any activities.
 
@@ -351,17 +347,12 @@ Examples:
 * `delete 2` +
 If viewing the list of contacts, deletes the 2nd person by index if he/she is not involved in any activity. +
 
-<<<<<<< HEAD
-// end::delete[]
-
-=== Assign an activity as a sub-activity: `assign` (*v2.0 only*)
-=======
 * `delete 1` +
 If viewing the list of activities, deletes the 1st activity by index. +
->>>>>>> master
 
 * `delete 1` +
 If viewing a particular activity, strikes off (soft-deletes) the 1st expense by index.
+// end::delete[]
 
 //tag::varexpense[]
 === Add variable split expenses to an activity: `varexpense` (*v2.0 only*)
