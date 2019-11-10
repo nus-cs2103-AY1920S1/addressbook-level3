@@ -551,7 +551,7 @@ This feature helps you map `plus` to `add` so you no longer need to remember the
 
 To learn the wrong command `plus` as `add`:
 
-. You want to do an `add` command but carelessly type in `plus` instead and hit in Enter to execute.
+. You want to do an `add` command but carelessly type in `plus` instead and hit Enter to execute.
 +
 image::step1.png[width="700", align="left"]
 
