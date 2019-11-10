@@ -65,10 +65,12 @@ activate NextCommand
 NextCommand -> Model : removeFromQueue(001A)
 activate Model
 Model --> NextCommand
+deactivate Model
 
 NextCommand -> Model : removeRoom(1)
 activate Model
 Model --> NextCommand
+deactivate Model
 
 NextCommand -> Model : addRoomToIndex(0)
 activate Model
