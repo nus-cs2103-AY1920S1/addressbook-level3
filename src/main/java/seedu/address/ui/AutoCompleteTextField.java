@@ -14,6 +14,7 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.text.TextFlow;
 import seedu.address.commons.core.LogsCenter;
@@ -30,6 +31,7 @@ public class AutoCompleteTextField extends TextField {
     private final SortedSet<String> entries;
     private ContextMenu entriesPopup;
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private final int MAX_ENTRIES = 10;
     private ArrayList<String> entriesList = new ArrayList<>();
 
     /**
@@ -52,7 +54,7 @@ public class AutoCompleteTextField extends TextField {
                         .filter(e -> e.toLowerCase().contains(mainRequest.toLowerCase()))
                         .collect(Collectors.toList());
                 if (!filteredEntries.isEmpty()) {
-                    populatePopup(filteredEntries, mainRequest);
+                    populatePopUp(filteredEntries, mainRequest);
                     if (!entriesPopup.isShowing()) {
                         //position of popup
                         entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
@@ -90,41 +92,65 @@ public class AutoCompleteTextField extends TextField {
      * populates contextmenu with suggestions from listener
      * if any suggestion is selected,
      * set the textfield to suggestion
-     * @param searchResult
+     * @param searchResults
      * @param searchRequest
      */
-    private void populatePopup(List<String> searchResult, String searchRequest) {
-        assert !searchResult.isEmpty() : "Search result must be non-empty in this method.";
+    private void populatePopUp(List<String> searchResults, String searchRequest) {
+        assert !searchResults.isEmpty() : "Search result must be non-empty in this method.";
         if (searchRequest.equals("")) {
             return;
         }
         List<CustomMenuItem> menuItems = new LinkedList<>();
-        int maxEntries = 10;
-        int numEntries = Math.min(searchResult.size(), maxEntries);
+        int numEntries = Math.min(searchResults.size(), MAX_ENTRIES);
         entriesList.clear();
         for (int i = 0; i < numEntries; i++) {
-            final String result = searchResult.get(i);
-            boolean requestLongerThanResult = searchRequest.length() >= result.length();
-            if (result.equals("") || requestLongerThanResult) {
+            final String mainText = searchResults.get(i);
+            boolean requestLongerThanResult = searchRequest.length() >= mainText.length();
+            if (mainText.equals("") || requestLongerThanResult) {
                 continue;
             }
-            entriesList.add(result);
-            Label entryLabel = new Label();
-            TextFlow highlightText = Styles.buildTextFlow(result, searchRequest);
+            CustomMenuItem popUpItem = buildPopUpEntry(mainText, searchRequest);
+            menuItems.add(popUpItem);
 
-            entryLabel.setGraphic(highlightText);
-            entryLabel.setPrefHeight(10);
-            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
-            menuItems.add(item);
-
-            item.setOnAction(actionEvent -> {
-                setText(result);
-                positionCaret(result.length());
-                entriesPopup.hide();
-            });
+            setOnSelection(popUpItem, mainText);
         }
-        entriesPopup.getItems().clear();
-        entriesPopup.getItems().addAll(menuItems);
+        List<MenuItem> popUpList = entriesPopup.getItems();
+        popUpList.clear();
+        popUpList.addAll(menuItems);
+    }
+
+    /**
+     * helper for populatePopup
+     * builds highlighted portion of text
+     * for each popup entry
+     * @param mainText
+     * @param portionToHighlight
+     * @return
+     */
+    private CustomMenuItem buildPopUpEntry(String mainText, String portionToHighlight) {
+        entriesList.add(mainText);
+        Label entryLabel = new Label();
+        TextFlow highlightText = Styles.buildTextFlow(mainText, portionToHighlight);
+        entryLabel.setGraphic(highlightText);
+        entryLabel.setPrefHeight(10);
+        CustomMenuItem popupItem = new CustomMenuItem(entryLabel, true);
+        return popupItem;
+    }
+
+    /**
+     * upon selection,
+     * item text placed into textfield,
+     * cursor set to back of command and
+     * popup menu closed
+     * @param popUpItem
+     * @param mainText
+     */
+    public void setOnSelection(CustomMenuItem popUpItem, String mainText) {
+        popUpItem.setOnAction(actionEvent -> {
+            setText(mainText);
+            positionCaret(mainText.length());
+            entriesPopup.hide();
+        });
     }
 
     /**

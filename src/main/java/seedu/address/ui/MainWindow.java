@@ -332,7 +332,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private String uploadCommandCheck(String commandText) {
         if (commandText.length() > 7 && commandText.substring(0, 6).equals("upload")) {
-            commandText = commandText + " " + "f/" + openFileChooser();
+            String filePath = openFileChooser();
+            commandText = commandText + " " + "f/" + filePath;
         }
         return commandText;
     }

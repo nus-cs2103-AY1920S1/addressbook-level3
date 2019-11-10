@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":FileChooser" as FileChooser UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":NotebookParser" as NotebookParser LOGIC_COLOR
+participant ":UploadCommandParser" as UploadPictureCommandParser LOGIC_COLOR
+participant "u:UploadPictureCommand" as UploadPictureCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> MainWindow : executeCommand("upload 1")
+activate MainWindow
+
+create FileChooser
+MainWindow-> FileChooser : openFileChooser()
+activate FileChooser
+
+FileChooser --> MainWindow : filePath
+deactivate FileChooser
+FileChooser -[hidden]-> MainWindow
+destroy FileChooser
+
+MainWindow -> LogicManager : execute("upload 1 f/filePath")
+activate LogicManager
+
+LogicManager -> NotebookParser : parseCommand("upload 1 f/filePath")
+activate NotebookParser
+
+create UploadPictureCommandParser
+NotebookParser-> UploadPictureCommandParser
+activate UploadPictureCommandParser
+
+UploadPictureCommandParser --> NotebookParser
+deactivate UploadPictureCommandParser
+
+NotebookParser-> UploadPictureCommandParser : parse("1 f/filePath")
+activate UploadPictureCommandParser
+
+create UploadPictureCommand
+UploadPictureCommandParser -> UploadPictureCommand
+activate UploadPictureCommand
+
+UploadPictureCommand --> UploadPictureCommandParser : u
+deactivate UploadPictureCommand
+
+UploadPictureCommandParser --> NotebookParser: u
+deactivate UploadPictureCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+UploadPictureCommandParser -[hidden]-> NotebookParser
+destroy UploadPictureCommandParser
+
+NotebookParser--> LogicManager : u
+deactivate NotebookParser
+
+LogicManager -> UploadPictureCommand : execute()
+activate UploadPictureCommand
+
+
+UploadPictureCommand -> Model : setStudent(1, editedStudent)
+activate Model
+
+Model --> UploadPictureCommand
+deactivate Model
+
+create CommandResult
+UploadPictureCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> UploadPictureCommand
+deactivate CommandResult
+
+UploadPictureCommand --> LogicManager : result
+deactivate UploadPictureCommand
+
+LogicManager --> MainWindow : result
+deactivate LogicManager
+[<--MainWindow
+deactivate MainWindow
+@enduml
