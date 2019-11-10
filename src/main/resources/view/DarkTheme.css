@@ -367,19 +367,14 @@
     -fx-font-size: 11;
 }
 
-#amounts {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
-}
-
 #amounts .label {
-    -fx-text-fill: white;
-    -fx-background-color: #56ae87;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
-}
+     -fx-text-fill: white;
+     -fx-background-color: #56ae87;
+     -fx-padding: 1 3 1 3;
+     -fx-border-radius: 2;
+     -fx-background-radius: 2;
+     -fx-font-size: 11;
+ }
 
 #budgetMinus {
     -fx-hgap: 7;

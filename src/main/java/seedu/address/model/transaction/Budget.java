@@ -129,7 +129,7 @@ public class Budget implements Comparable<Budget> {
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
             return newBudget;
-        } else if (isSameCategory && !isRemoveTransaction) {
+        } else if (isSameCategory) {
             Amount newAmount = this.amount.addAmount(amount);
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
@@ -164,7 +164,7 @@ public class Budget implements Comparable<Budget> {
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
             return newBudget;
-        } else if (isSameCategory && isSameTransactionCategory) {
+        } else if (isSameCategory) {
             Amount newAmount = this.amount.addAmount(amountReplacement).subtractAmount(amountToReplace);
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
@@ -172,10 +172,6 @@ public class Budget implements Comparable<Budget> {
         } else {
             return this;
         }
-    }
-
-    private void updateDeadline(Date date) {
-        this.deadline = date;
     }
 
     /**
