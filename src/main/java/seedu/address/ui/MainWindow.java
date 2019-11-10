@@ -9,6 +9,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -59,6 +60,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statsDisplayPlaceHolder;
+
+    @FXML
+    private Text expenseListTitle;
+
+    @FXML
+    private Text resultListTitle;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -199,23 +206,30 @@ public class MainWindow extends UiPart<Stage> {
 
             displayExpenseBudget = commandText.split(" ")[0];
 
+            // List Expenses on Right panel
             if (commandResult.getExpenseList() != null && commandResult.getBudgetList() == null) {
                 expenseListPanel = new ExpenseListPanel(commandResult.getExpenseList());
                 rightListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
                 if (commandResult.getBudget() != null) {
                     statsDisplay.setDisplayDataBudget(commandResult.getExpenseList(), commandResult.getBudget());
+                    resultListTitle.setText(commandResult.getBudget().getName().toString());
+
                 } else {
                     statsDisplay.setDisplayData(commandResult.getExpenseList());
+                    resultListTitle.setText("Default Expenses");
                 }
+                // List Budget on Right panel
             } else if (commandResult.getExpenseList() == null && commandResult.getBudgetList() != null) {
                 budgetListPanel = new BudgetListPanel(commandResult.getBudgetList());
                 rightListPanelPlaceHolder.getChildren().add(budgetListPanel.getRoot());
+                resultListTitle.setText(commandResult.getBudget().getName().toString());
             } else {
                 statsDisplay.setDisplayData(logic.getFilteredExpenseList());
             }
 
             //TODO: remove this hack
             expenseListPanel = new ExpenseListPanel(logic.updateExpenses());
+            //Update Left panel with all expenses.
             leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
             //            statsDisplayPlaceHolder.getChildren().add(statsDisplay.getRoot());
 
