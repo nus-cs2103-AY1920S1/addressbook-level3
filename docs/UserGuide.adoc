@@ -261,31 +261,31 @@ the calendar view for November 2019, albeit at the top left corner.
 Alternatively, you may click on any of the individual cells within the calendar window grid to open the engagement list
 for that date.
 
-=== Changing the calendar display to the next month (calendar view only): `calendar nextmonth`
+=== Changing the calendar display to the next month (calendar view only): `calendar c/nextmonth`
 Changes the calendar view to the month following the currently displayed one. This command does not work if the
-application is in another tab.
+application is in another tab or if attempting to go above the maximum allowable year of 9999.
 
-Format: `calendar nextmonth`
+Format: `calendar c/nextmonth`
 
-.Changing to the next month from October 2019
+.Changing to the next month from November 2019
 image::calendar-next-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
-to change the display to the next month.
+to change the display to the next month. The button will not work if calendar is displaying December 9999.
 
 This command closes any open engagement windows from the current month before updating the display to the next month.
 
-=== Changing the calendar display to the previous month (calendar view only): `calendar previousmonth`
+=== Changing the calendar display to the previous month (calendar view only): `calendar c/previousmonth`
 Changes the calendar view to the month prior to the currently displayed one. This command does not work if the
-application is in another tab.
+application is in another tab or if attempting to go below the minimum allowable year of 0001.
 
-Format: `calendar previousmonth`
+Format: `calendar c/previousmonth`
 
 .Changing to the previous month from October 2019
 image::calendar-previous-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
-to change the display to the previous month.
+to change the display to the previous month. The button will not work if the calendar is displaying January 0001.
 
 This command closes any open engagement windows from the current month before updating the display to the previous month.
 
