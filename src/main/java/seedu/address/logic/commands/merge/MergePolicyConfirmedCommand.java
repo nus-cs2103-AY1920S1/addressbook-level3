@@ -42,8 +42,29 @@ public class MergePolicyConfirmedCommand extends MergeConfirmedCommand {
         Policy originalPolicy = previousMergeCommand.getOriginalPolicy();
         Policy inputPolicy = previousMergeCommand.getInputPolicy();
         String fieldType = previousMergeCommand.getNextMergeFieldType();
-        EditPolicyCommand.EditPolicyDescriptor editPolicyDescriptor = new EditPolicyCommand.EditPolicyDescriptor();
+        EditPolicyCommand.EditPolicyDescriptor editPolicyDescriptor = getEditPolicyDescriptor(fieldType, inputPolicy);
         logger.info("Executing merge: editing " + fieldType);
+        EditPolicyCommand edit = new EditPolicyCommand();
+        Policy editedPolicy = edit.executeForMerge(originalPolicy, editPolicyDescriptor, model);
+        previousMergeCommand.updateOriginalPolicy(editedPolicy);
+        if (isLastMerge()) {
+            return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
+                    + "\n" + String.format(previousMergeCommand.MESSAGE_SUCCESS,
+                    previousMergeCommand.getOriginalPolicy()));
+        } else {
+            previousMergeCommand.removeFirstDifferentField();
+            String nextMerge = previousMergeCommand.getNextMergePrompt();
+            return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
+                    + "\n" + nextMerge);
+        }
+    }
+
+    /**
+     * Creates an EditPolicyDescriptor to be used to update the field.
+     *
+     */
+    public EditPolicyCommand.EditPolicyDescriptor getEditPolicyDescriptor(String fieldType, Policy inputPolicy) {
+        EditPolicyCommand.EditPolicyDescriptor editPolicyDescriptor = new EditPolicyCommand.EditPolicyDescriptor();
         switch(fieldType) {
         case Description.DATA_TYPE:
             editPolicyDescriptor.setDescription(inputPolicy.getDescription());
@@ -63,19 +84,7 @@ public class MergePolicyConfirmedCommand extends MergeConfirmedCommand {
         default:
             break;
         }
-        EditPolicyCommand edit = new EditPolicyCommand();
-        Policy editedPolicy = edit.executeForMerge(originalPolicy, editPolicyDescriptor, model);
-        previousMergeCommand.updateOriginalPolicy(editedPolicy);
-        if (isLastMerge()) {
-            return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
-                    + "\n" + String.format(previousMergeCommand.MESSAGE_SUCCESS,
-                    previousMergeCommand.getOriginalPolicy()));
-        } else {
-            previousMergeCommand.removeFirstDifferentField();
-            String nextMerge = previousMergeCommand.getNextMergePrompt();
-            return new CommandResult(String.format(MESSAGE_MERGE_FIELD_SUCCESS, fieldType)
-                    + "\n" + nextMerge);
-        }
+        return editPolicyDescriptor;
     }
 
     @Override

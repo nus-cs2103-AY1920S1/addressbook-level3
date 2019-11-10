@@ -251,7 +251,7 @@ public class ParserUtil {
      */
     public static Coverage parseCoverage(String coverage) throws ParseException {
         requireNonNull(coverage);
-        String trimmedCoverage = coverage.trim();
+        String trimmedCoverage = coverage.trim().replaceAll(" +", " ");
         if (!Coverage.isValidCoverage(trimmedCoverage)) {
             throw new ParseException(Coverage.MESSAGE_CONSTRAINTS);
         }

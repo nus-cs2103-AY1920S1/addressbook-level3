@@ -29,7 +29,7 @@ import seedu.address.model.policy.Policy;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new DoNotMergePersonCommand object
  */
 public class DoNotMergePersonCommandParser implements Parser<DoNotMergePersonCommand> {
 

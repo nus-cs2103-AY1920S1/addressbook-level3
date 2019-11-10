@@ -66,39 +66,39 @@ public class TypicalPersons {
         .withPhone("94824425").withEmail("anna@example.com").withAddress("4th street")
         .withDateOfBirth("5.5.2015").withGender("Male").build();
     public static final Person ASYRAF = new PersonBuilder().withName("Asyraf")
-        .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
+        .withNric("S0000008J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
         .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Male")
         .withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE)
         .withTags("smoker", "diabetic", "public housing", "high blood pressure").build();
     public static final Person KEITH = new PersonBuilder().withName("Keith Tan")
-        .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
+        .withNric("S0000009J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
         .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Male")
         .withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE)
         .withTags("smoker", "diabetic", "public housing", "high blood pressure").build();
     public static final Person ROBIN = new PersonBuilder().withName("Robin")
-        .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
+        .withNric("S0000010J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
         .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Male")
         .withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE)
         .withTags("smoker", "diabetic", "public housing", "high blood pressure").build();
     public static final Person TAYYANG = new PersonBuilder().withName("Tay Yang")
-        .withNric("S0000001J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
+        .withNric("S0000011J").withAddress("123, Jurong West Ave 6, #08-111").withEmail("asyraf@example.com")
         .withPhone("94351253").withDateOfBirth("12.12.1992").withGender("Male")
         .withPolicies(HEALTH_INSURANCE, FIRE_INSURANCE)
         .withTags("smoker", "diabetic", "public housing", "high blood pressure").build();
     public static final Person CHLOE = new PersonBuilder().withName("Chloe")
-        .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
+        .withNric("S0000012J").withAddress("311, Clementi Ave 2, #02-25")
         .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1952").withGender("Female")
         .withPolicies(LIFE_INSURANCE).withTags("high blood pressure").build();
     public static final Person VICTORIA = new PersonBuilder().withName("Victoria")
-        .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
+        .withNric("S0000013J").withAddress("311, Clementi Ave 2, #02-25")
         .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1952").withGender("Female")
         .withPolicies(LIFE_INSURANCE).withTags("high blood pressure").build();
     public static final Person NATASHA = new PersonBuilder().withName("Natasha")
-        .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
+        .withNric("S0000014J").withAddress("311, Clementi Ave 2, #02-25")
         .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1952").withGender("Female")
         .withPolicies(LIFE_INSURANCE).withTags("high blood pressure").build();
     public static final Person RACHEL = new PersonBuilder().withName("Rachel")
-        .withNric("S0000002J").withAddress("311, Clementi Ave 2, #02-25")
+        .withNric("S0000015J").withAddress("311, Clementi Ave 2, #02-25")
         .withEmail("johnd@example.com").withPhone("98765432").withDateOfBirth("12.12.1932").withGender("Female")
         .withPolicies(SENIOR_INSURANCE).withTags("high blood pressure", "diabetic").build();
 
