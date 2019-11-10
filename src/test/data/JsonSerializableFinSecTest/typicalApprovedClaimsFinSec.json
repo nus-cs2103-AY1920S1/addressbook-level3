@@ -1,0 +1,142 @@
+{
+  "contacts" : [ {
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "tagged" : [ "friends" ],
+    "claims": [ ]
+  }, {
+    "name" : "Benson Meier",
+    "phone" : "98765432",
+    "email" : "johnd@example.com",
+    "tagged" : [ "owesMoney", "friends" ],
+    "claims": [ ]
+  }, {
+    "name" : "Carl Kurz",
+    "phone" : "95352563",
+    "email" : "heinz@example.com",
+    "tagged" : [ ],
+    "claims": [ ]
+  }, {
+    "name" : "Daniel Meier",
+    "phone" : "87652533",
+    "email" : "cornelia@example.com",
+    "tagged" : [ "friends" ],
+    "claims": [ ]
+  }, {
+    "name" : "Elle Meyer",
+    "phone" : "94822241",
+    "email" : "werner@example.com",
+    "tagged" : [ ],
+    "claims": []
+  }, {
+    "name" : "Fiona Kunz",
+    "phone" : "94824271",
+    "email" : "lydia@example.com",
+    "tagged" : [ ],
+    "claims": [ ]
+  }, {
+    "name" : "George Best",
+    "phone" : "94824421",
+    "email" : "anna@example.com",
+    "tagged" : [ ],
+    "claims": [ ]
+  }, {
+    "name" : "Amy Bee",
+    "phone" : "91111111",
+    "email" : "amy@example.com",
+    "tagged" : [ "friend" ],
+    "claims": [ ]
+  } , {
+    "name" : "Bob Choo",
+    "phone" : "92222222",
+    "email" : "bob@example.com",
+    "tagged" : [ "friend", "husband" ],
+    "claims": [ ]
+  }  ],
+  "claims": [ {
+    "id": "1",
+    "description": "Annual fundraising",
+    "amount": "321.10",
+    "date": "11-11-2019",
+    "name": "Amy Bee",
+    "tagged": [],
+    "status": "PENDING"
+  }, {
+    "id" : "1",
+    "description" : "Shirt sales",
+    "amount" : "45.10",
+    "date" : "01-11-2019",
+    "name" : "Bob Choo",
+    "tagged" : [ ],
+    "status" : "PENDING"
+  } , {
+    "id" : "1",
+    "description" : "Logistics",
+    "amount" : "500",
+    "date" : "15-12-2000",
+    "name" : "Bob Choo",
+    "tagged" : [ ],
+    "status" : "REJECTED"
+  } ],
+  "claims": [ {
+    "id" : "1",
+    "description" : "Test1",
+    "amount" : "321.10",
+    "date" : "11-11-2019",
+    "name" : "Amy Bee",
+    "tagged" : [ ],
+    "status" : "APPROVED"
+  }, {
+    "id" : "1",
+    "description" : "Test2",
+    "amount" : "45.10",
+    "date" : "01-11-2019",
+    "name" : "Bob Choo",
+    "tagged" : [ ],
+    "status" : "APPROVED"
+  }, {
+    "id" : "1",
+    "description" : "Test3",
+    "amount" : "500",
+    "date" : "15-12-2000",
+    "name" : "Bob Choo",
+    "tagged" : [ ],
+    "status" : "APPROVED"
+  }, {
+    "id" : "1",
+    "description" : "Test4",
+    "amount" : "9999.99",
+    "date" : "11-11-2099",
+    "name" : "Amy Bee",
+    "tagged" : [ ],
+    "status" : "APPROVED"
+  }, {
+    "id" : "1",
+    "description" : "Test5",
+    "amount" : "45.10",
+    "date" : "23-11-2019",
+    "name" : "Bob Choo",
+    "tagged" : [ ],
+    "status" : "APPROVED"
+  } ],
+  "incomes": [
+    {
+      "description" : "Annual fundraising",
+      "amount" : "10000",
+      "date" : "01-01-2019",
+      "name" : "Amy Bee",
+      "phone" : "91111111",
+      "tagged" : [ ]
+    } ,
+    {
+      "description" : "Shirt sales",
+      "amount" : "100.10",
+      "date" : "11-11-2019",
+      "name" : "Bob Choo",
+      "phone" : "92222222",
+      "tagged" : [ ]
+    } ],
+  "suggestions": [ ],
+  "commands": [ ]
+}

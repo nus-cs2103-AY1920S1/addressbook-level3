@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.SortCommand;
 
 class SortCommandParserTest {
+
     private SortCommandParser parser = new SortCommandParser();
 
     //    @Test

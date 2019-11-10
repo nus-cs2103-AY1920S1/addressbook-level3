@@ -30,7 +30,7 @@ Responsibilities: Claims Feature
 
 === Joshua Seet
 image::joshuaseetss.png[width="150", align="left"]
-{empty}[http://github.com/joshuaseetss[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/joshuaseetss[github]] [<<joshuaseetss#, portfolio>>]
 
 Role: Testing + In charge of UI + Integration + Coverall Expert +
 Responsibilities: Income Feature and AutoCorrect Shortcut Feature

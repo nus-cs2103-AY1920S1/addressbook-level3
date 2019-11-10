@@ -39,10 +39,15 @@ public class GotoCommand extends Command {
      * @throws ParseException if the view is not properly typed by user
      */
     public GotoCommand(View view) {
-        if (view == null) {
-            throw new NullPointerException();
-        }
+        requireNonNull(view);
         gotoView = view;
+    }
+
+    /**
+     * Gives an empty constructor for tests
+     */
+    public GotoCommand() {
+
     }
 
     /**

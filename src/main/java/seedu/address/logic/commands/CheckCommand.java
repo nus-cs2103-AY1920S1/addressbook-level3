@@ -37,9 +37,7 @@ public class CheckCommand extends Command {
      * @param index that is from user input
      */
     public CheckCommand(Index index) {
-        if (index == null) {
-            throw new NullPointerException();
-        }
+        requireNonNull(index);
         this.index = index;
     }
 
@@ -58,7 +56,7 @@ public class CheckCommand extends Command {
             List<Claim> lastShownList = model.getFilteredClaimList();
 
             for (Claim claim : lastShownList) {
-                if (Integer.parseInt(claim.getId().toString()) == index.getZeroBased()) {
+                if (Integer.parseInt(claim.getId().toString()) == index.getOneBased()) {
                     claimToShow = claim;
                 }
             }

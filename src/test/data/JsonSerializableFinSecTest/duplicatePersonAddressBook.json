@@ -1,5 +1,5 @@
 {
-  "persons": [ {
+  "contacts": [ {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
@@ -14,5 +14,6 @@
   } ],
   "incomes": [ ],
   "claims" : [ ],
-  "suggestions": [ ]
+  "suggestions": [ ],
+  "commands": [ ]
 }

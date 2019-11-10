@@ -253,6 +253,7 @@ image::warning.png[width = "20", float = "left"]
 //
 //* `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
 
+
 === Adding an income : `add_income`
 
 You can add an income to the incomes list by using the add income command by entering the keyword `add_income` followed by the required fields of an income.
@@ -358,13 +359,13 @@ Deletes the income at the specified `INDEX`.
 
 <<UG-DeleteIncomeExample>> and <<UG-DeleteIncomeResult>> shows what you can expect to see after typing in the example: `delete_income 2`.
 [[UG-DeleteIncomeExample]]
-[reftext="Figure 3.10.1"]
-[caption="Figure 3.10.1: "]
+[reftext="Figure 3.9.1"]
+[caption="Figure 3.9.1: "]
 .Type in the delete_income command.
 image::UG-Delete_income1.png[width="800"]
 [[UG-DeleteIncomeResult]]
-[reftext="Figure 3.10.2"]
-[caption="Figure 3.10.2: "]
+[reftext="Figure 3.9.2"]
+[caption="Figure 3.9.2: "]
 .The result after entering the command. The second income is now deleted off the incomes list.
 image::UG-Delete_income2.png[width="800"]
 
@@ -379,6 +380,7 @@ image::warning.png[width = "20", float = "left"]
 
 ====
 
+// tag::shortcutfeature[]
 === Creating a shortcut
 
 Accidentally typed a command that is not in FinSec? Don't worry! FinSec will recognise that it is an unknown command and is smart enough to make that unknown entry into a shortcut!
@@ -409,19 +411,19 @@ No shortcut is created. Continue using FinSec as per normal!
 [[UG-NoShortcutexample1]]
 [reftext="Figure 3.11.1.1"]
 [caption="Figure 3.11.1.1: "]
-.When a user enters an accidental typo
+.When you enter an accidental typo
 image::UG-NoShortcut1.png[width="800"]
 
 [[UG-NoShortcutExample2]]
 [reftext="Figure 3.11.1.2"]
 [caption="Figure 3.11.1.2: "]
-.The result after entering the typo. FinSec will ask you if you want to create a shortcut.
+.FinSec will ask you if you want to create a shortcut (in blue). If you do not wish to create one, enter the command "n" as shown above.
 image::UG-NoShortcut2.png[width="800"]
 
 [[UG-NoShortcutResult]]
 [reftext="Figure 3.11.1.3"]
 [caption="Figure 3.11.1.3: "]
-.Since it is a genuine typo, entering 'n' will allow you to continue.
+.Entering 'n' will allow you to continue.
 image::UG-NoShortcut3.png[width="800"]
 
 
@@ -444,21 +446,21 @@ A new shortcut is created for you! From now on, `ai` can be used as a substitute
 
 <<UG-createShortcutexample1>>, <<UG-createShortcutExample2>> and <<UG-createShortcutResult>> shows what you can expect to see when you want to create a shortcut `ai` as shown in the example.
 [[UG-createShortcutexample1]]
-[reftext="Figure 3.11.2.1"]
-[caption="Figure 3.11.2.1: "]
-.When a user enters a shortcut he/she wishes to create.
+[reftext="Figure 3.10.2.1"]
+[caption="Figure 3.10.2.1: "]
+.Enter the shortcut you wish to create.
 image::UG-createShortcut1.png[width="800"]
 
 [[UG-createShortcutExample2]]
-[reftext="Figure 3.11.2.2"]
-[caption="Figure 3.11.2.2: "]
-.User will enter the existing command that he wishes to map the shortcut to.
+[reftext="Figure 3.10.2.2"]
+[caption="Figure 3.10.2.2: "]
+.Enter the command you wish to have an alias to.
 image::UG-createShortcut2.png[width="800"]
 
 [[UG-createShortcutResult]]
-[reftext="Figure 3.11.2.3"]
-[caption="Figure 3.11.2.3: "]
-.After creating the shortcut.
+[reftext="Figure 3.10.2.3"]
+[caption="Figure 3.10.2.3: "]
+.Congratulations! You have just created a shortcut! Now the shortcut is able for use.
 image::UG-createShortcut3.png[width="800"]
 
 ====
@@ -470,21 +472,6 @@ image::warning.png[width = "20", float = "left"]
 * The shortcut you want to add has to be to a default FinSec command.
 
 ====
-
-
-<<UG-shortcutExample>>, <<UG-shortcutResult>> shows what you can expect after creating a shortcut of your own!
-[[UG-shortcutExample]]
-[reftext="Figure 3.11.2.4"]
-[caption="Figure 3.11.2.4: "]
-.User can now use the command 'ai' for adding an income!
-image::UG-createShortcut4.png[width="800"]
-
-[[UG-shortcutResult]]
-[reftext="Figure 3.11.2.5"]
-[caption="Figure 3.11.2.5: "]
-.The newly created shortcut 'ai' creating an income.
-image::UG-createShortcut5.png[width="800"]
-
 
 
 === Deleting a shortcut : `delete_shortcut`
@@ -516,24 +503,28 @@ image::warning.png[width = "20", float = "left"]
 * This will not work for default commands.
 
 ====
+// end::shortcutfeature[]
 
 //@@author {lawncegoh}
+// tag::introduction[]
 ---
+[source, java]
 The 3 features below are made to be used in conjunction with each other. They are `goto`, `check` and `sort`/`reverse` respectively.
 They are an implementation of the other objects created in this application. You will be able to use these 3 features smoothly once
-you have input objects like `claim`, `income` into FinSec. +
-You would then be able to switch between the different "tabs" that
-we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can
-`sort` or `reverse` this list. The list will then be sorted into a more organised manner for you. Once you have
-sorted the list, you can then use the `check` feature in the `contact` or `claim` View to sieve out a specific
-contact or claim that interests you. +
-Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature
+you have input objects like `claim`, `income` into FinSec. You would then be able to switch between the different "tabs" that
+we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can`sort` or `reverse` this
+list. The list will then be sorted into a more organised manner for you. Once you have sorted the list, you can then use the `check`
+feature in the `contact` or `claim` View to sieve out a specific contact or claim that interests you.
+Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature.
 
+// end::introduction[]
+
+// tag::gotofeature[]
 === Changing Views : `goto`
 
-This command changes the displayed list to show Contacts, Claims or Incomes. Such a command allows users to switch
+This command changes the displayed list to show Contacts, Claims or Incomes. Such a command allows you to switch
 between the 3 lists easily. This feature has also been enhanced with the addition of tabs below the Command Result panel.
-These tabs give the same functionality as this goto feature so users can choose to type or click on the tabs. +
+These tabs give the same functionality as this goto feature so that you can choose to type or click on the tabs. +
 
 <<UG-GotoExample>> shows the command result panel after the `goto contacts` command has been entered
 as well as the tabs that are below this panel.
@@ -554,10 +545,13 @@ Example:
 `goto claims`
 `goto incomes`
 
+// end::gotofeature[]
+
+// tag::checkfeature[]
 //@@author {lawncegoh}
 === Checking a Contact or Claim : `check`
 
-You can check an individual `Contact` or `Claim` in either lists. This will give you a clearer view of the 2 different objects
+This feature allows you to check an individual `Contact` or `Claim` in either lists. This will give you a clearer view of the 2 different objects
 that you need. This function in the contacts list will give you a pop-up of the contact and show you the basic details of this
 contact and most importantly, the claims that are under this contact. +
 
@@ -576,9 +570,45 @@ Format: `check INDEX`
 Examples:
 
 ****
-* check 1 (in contacts page, show details of the person in index 1)
-* check 13 (in claims page, show details of the claim that has the claimID of 13)
+*Checking of a contact in the contacts page:* +
+*Step 1:* Type `check 1` into the command box and press kbd:[Enter] to execute it
+
+[[UG-CheckExample1]]
+image::UG-CheckExample1.png[width="800"]
+
+*Step 2:* The result box will display "Contact Shown"
+
+[[UG-CheckExample2]]
+image::UG-CheckExample2.png[width="800"]
+
+*Step 3:* This is the pop-up window that comes up after the command is entered. You are now
+able to see the claims that belong to this contact
+[[UG-CheckExample3]]
+image::UG-CheckExample3.png[width="800"]
+
+*Checking of a claim in the claims page:* +
+*Step 1:* Type `check 2` into the command box and press kbd:[Enter] to execute it. This index 2 represents the claimID
+of each individual claim card.
+
+[[UG-CheckExample1]]
+image::UG-CheckExample4.png[width="800"]
+
+*Step 2:* The result box will display "Claim Shown"
+
+[[UG-CheckExample2]]
+image::UG-CheckExample5.png[width="800"]
+
+*Step 3:* This is the pop-up window that comes up after the command is entered. You are now able to see the important
+details that belong to this claim.
+[[UG-CheckExample3]]
+image::UG-CheckExample6.png[width="600"]
+
 ****
+
+//end::checkfeature[]
+
+
+// tag::sortfeature[]
 //@@author {lawncegoh}
 === Sorting the Contacts/Claims/Incomes list by Contact's Name
 
@@ -591,8 +621,11 @@ Keyword: `sort name`
 Format: `sort name`
 
 Examples:
+
 * `sort name`
+
 //@@author {lawncegoh}
+
 === Sorting the Claims/Incomes list by Date
 
 This feature allows you to sort the various lists according to the date from the oldest to newest entry.
@@ -630,6 +663,10 @@ image::UG-ClaimsListSort.png[width="800"]
 
 Examples:
 * `sort date`
+
+// end::sortfeature[]
+
+// tag::reversefeature[]
 //@@author {lawncegoh}
 === Sorting the Contacts/Claims/Incomes list in reverse order
 
@@ -665,6 +702,8 @@ will be sorted as REJECTED at the top, followed by APPROVED then PENDING.
 Keyword: `reverse status`
 
 Format: `reverse status`
+
+// end::reversefeature[]
 
 *Warning*
 `reverse status` only applies to the claims list
@@ -704,6 +743,7 @@ Format: `budget`
 image::UG-BudgetExample.PNG[width="800"]
 
 //@@{lawncegoh}
+// tag::clearfeature[]
 === Clearing all data : `clear`
 
 This command wipes all data from the FinSec and starts with a new FinSec. This feature is also updated from addressbook
@@ -718,14 +758,16 @@ Format: `clear`
 [[UG-ClearExample1]]
 [reftext="Figure 3.14.1"]
 [caption="Figure 3.14.1: "]
-.Before the `clear` command is used (data is present)
+.When the clear command is typed, the prompt comes up to ensure that you did not type the command accidentally.
 image::UG-ClearExample1.PNG[width="800"]
 
 [[UG-ClearExample2]]
 [reftext="Figure 3.14.2"]
 [caption="Figure 3.14.2: "]
-.After the `clear` command is used (all the data has been cleared)
+.After the `clear` command is confirmed.
 image::UG-ClearExample2.PNG[width="800"]
+
+//end::clearfeature[]
 
 === Making a mistake : `<any invalid entry>`
 
@@ -786,6 +828,47 @@ Examples:
 ****
 * Popup will appear upon entering of this command to allow the user to choose an image and it will be attached to the
 specified index from the user input
+****
+
+//@@author{lawncegoh}
+// tag::checkDatefeature[]
+=== Checking for months or dates
+
+Checks for the claims or incomes that matches the specific month or date that was typed as input.
+
+Keyword: `check`
+
+Format: `check FILTER`
+
+Examples:
+
+* `check november`
+* `check 28/12/2019`
+
+****
+The list of claims or incomes based on the above check filter will be shown in a similar pop-up to the
+current check feature. This is an increment to that feature.
+****
+//end::checkDatefeature[]
+
+//tag::statsfeature[]
+//@@author{lawncegoh}
+=== Display statistics of the application
+
+Displays the important statistics that a Finance Secretary need to know. Examples of statistics are:
+
+* Number of claims in the month
+* Total income received in a certain time period
+* What was the most expensive claim
+
+Keyword: `statistics`
+
+Format: `statistics`
+//end::statsfeature[]
+
+****
+This statistics feature will be the 4th view that the application can bring you to. All the specific data
+and graphs will be shown on this 4th view.
 ****
 
 === Grouping Users : `tag` (To be implemented in v2.0)

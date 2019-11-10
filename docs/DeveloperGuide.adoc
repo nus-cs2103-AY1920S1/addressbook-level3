@@ -302,6 +302,7 @@ The approve claim feature is facilitated by the `RejectClaimCommandParser` and t
 The `RejectClaimCommand` is part of the logic component of our application. It interacts with the model and storage
 components of our application.
 
+
 === Income feature
 
 The `add_income` command allows for users to register new `Income` objects into FinSec.
@@ -423,7 +424,7 @@ Here is an example of a step-by-step process on how the edit command alters an a
 
 //enter activity diagram for edit income
 
-
+// tag::shortcutfeature[]
 === Shortcut feature
 
 This feature gives the user an option to create a shortcut when an unknown command is entered into FinSec.
@@ -469,14 +470,23 @@ XYSeries public Command checkCommand(String currentInput, String prevInput) {
 
 *Step 7 :* `CreateShortCutCommmand` would then return a `CommandResult` to the `LogicManager` which would then be returned back to the user.
 
-The following activity diagram summarises what happens when a user executes an unknown command:
+The following diagrams summarises what happens when a user executes an unknown command:
 
-<<ShortcutDiagram>> is the activity diagram when a user inputs an unkown command
+<<ShortcutDiagram>> is the activity diagram when a user inputs an unknown command
 [[ShortcutDiagram]]
-[reftext="Figure 2.3.2.2"]
-[caption="Figure 2.3.2.2: "]
-.ActivityDiagram
+[reftext="Figure 2.4.1"]
+[caption="Figure 2.4.1: "]
+.ActivityDiagram when a user inputs an unknown command
 image::ShortcutActivityDiagram.png[width="800"]
+
+<<CreateShortCutDiagram>> shows the UML diagram of the flow of logic when a user creates a shortcut to a valid command
+[[CreateShortCutDiagram]]
+[reftext="Figure 2.4.2"]
+[caption="Figure 2.4.2: "]
+.UML diagram when a user creates a shortcut
+image::CreateShortCutDiagram.png[width="800"]
+
+
 
 ==== Why was it implemented this way?
 
@@ -503,6 +513,7 @@ We considered between two alternatives.
 
 We have decided to opt for the first option primarily because it significantly improves the performance of the application.
 
+// end::shortcutfeature[]
 
 === Autocorrect feature
 
@@ -547,9 +558,7 @@ XYSeries  public CommandResult execute(Model model) throws CommandException {
 
 *Step 4 :* The newly created `AutocorrectSuggestion` object is added into `Model` and handled by the `ModelManager`.
 
-*Step 5 :* As the `AutocorrectTextField` is refreshed, the newly updated list of suggestions would be loaded and ready to display for the next user input.
-
-
+*Step 5 :* As the `AutocorrectTextField` is refreshed, the newly updated list of suggestions would be loaded by the methods `FinSecParser#getCommandList().keySet()` and `SuggestionsStorage#getSuggestions()` and ready to display for the next user input.
 
 
 === Budget feature
@@ -640,7 +649,7 @@ With so many claims and incomes, all having differing dates, it can be hard to k
 
 * We also wanted to keep track of the history of said `Claims` and `Incomes` and doing it over a 1 month period ensures there will not be too visual data cluttering the screen.
 
-==== Alternatives Considered
+==== Design Considerations
 
 We have considered between two differing graph designs.
 
@@ -658,6 +667,7 @@ We have considered between two differing graph designs.
 |=======================
 We have settled on adopting a single-graph approach as having multiple graphs open can lead to the user being overwhelmed by unnecessary data, and the code needed to achieve this result satisfactorily would be too convoluted.
 
+// tag::gotofeature[]
 === Goto feature
 This section describes the different Views that Goto can bring a user to. It includes an overview of the goto details and how users can interact
 with goto based on commands implemented with the revamp of the original list feature.
@@ -750,12 +760,23 @@ of placing all of them into the same list
 change automatically to either the contact, claims or incomes page. This gives the user a clear indication if the specific entry he/she has added
 is successful.
 
-==== Alternatives Considered
-* We wanted to display 3 lists in the same main page, but that would cause the lists to be too crammed
+==== Design Considerations
 
-* We wanted to reload the list on the current page to the various lists, but we believe that such a change in tabs will
-help to tell the user that he is currently working on something different.
+* Change the current list to another, overtaking the same area
+** *Advantage*: Cleaner user interface
+** *Disadvantage*: Performance issues may arise when the lists get too long and this constant reloading may cause lags
+** I decided to proceed with this option because the change in tabs
+would allow users to be clear that they are changing a page to the specific list that they want.
 
+* Display 3 lists in the same main page
+** Pros: Can see everything in a glance
+** Cons: Main page may have performance issues too as the lists all have to be loaded at the same time
+
+
+
+// end::gotofeature[]
+
+// tag::checkfeature[]
 === Check feature
 This feature is an extended feature of the goto feature because this feature can only be run when
 the user is in the claims or contacts page. This command is called when the user wants to check each contact or claim individually.
@@ -864,10 +885,22 @@ The pop-up method seems to be the best way to attract the attention of the user 
 check at that point in time. A pop-up is also easy because it allows the user to return immediately to the lists of claims or contacts and he/she
 can continue to work on his tasks immediately.
 
-==== Alternative Considered
-* We also considered that upon `check index`, it just removes the whole list from view and isolates the desired claim
-or contact needed, but we realised that might not catch the attention of the user
+==== Design Considerations
 
+* Show a pop-up of the individual card
+** *Advantage*: Clearly shows the user what he/she is checking
+** *Disadvantage*: Inconvenient for people with dual screens as the pop-up may appear on another screen
+** I decided to proceed with this option because it is the best way of making the individual window clear to the user.
+
+* Remove the whole list from view and isolates the desired claim
+or contact needed
+** *Advantage*: Does not require the pop-up, another window to be shown
+** *Disadvantage*: Might not catch the attention of the user
+
+
+// end::checkfeature[]
+
+// tag::sortfeature[]
 === Sort Feature
 This section describes the ways that a user can sort the various lists. An overview is also included on how these sorts
 work.
@@ -968,13 +1001,24 @@ filter is especially important so the user can check what are the latest or olde
 find the various contacts/claims/incomes. It doubles up as a find or filter function to let the user find the specific
 object he/she is finding.
 
-==== Alternative Considered
-* Sorting of the claims list based on contact's name instead
+==== Design Considerations
+* Sorting of the claims list based on description
+** *Advantage*: Easily find the claim you are looking for
+** *Disadvantage*: Might be difficult to remember the names of each claim
 
+* Sorting of the claims list based on contact's name instead
+** *Advantage*: Easy to know as the person's name is probably easier to remember than the claim's description
+** *Disadvantage*: Already done in check contact, where you can filter the claims of a certain contact through the
+`check` feature
+
+// end::sortfeature[]
+
+// tag::reversefeature[]
 === Reverse feature
 This feature is exactly identical in the implementation as compared to the above sort feature. This feature sorts the various
 lists based on the same filters in the reverse of natural ordering. It shows the lists in reverse lexicographical order if
 `name` is used as filter and shows the newest entry at the top and the oldest at the bottom of the list.
+// end::reversefeature[]
 
 [appendix]
 == Product Scope

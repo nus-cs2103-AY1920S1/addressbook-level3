@@ -60,6 +60,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
+    /**
+     * Constructs the mainwindow with all the other objects with it
+     * @param primaryStage that holds the FXML
+     * @param logic that runs the logic and commands behind it
+     */
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -77,6 +82,7 @@ public class MainWindow extends UiPart<Stage> {
         unknownEntry = false;
 
         toClear = false;
+
     }
 
     public Stage getPrimaryStage() {
@@ -105,12 +111,14 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillWithContacts() {
+    public void fillWithContacts() {
         personListPanel = new PersonListPanel(logic.getFilteredContactList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        resultDisplay.setFeedbackToUser("Welcome to FinSec! An all in one application"
+                + " for your financial planning needs.");
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -120,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up window with claims
      */
-    void fillWithClaims() {
+    public void fillWithClaims() {
         claimListPanel = new ClaimListPanel(logic.getFilteredClaimList());
         personListPanelPlaceholder.getChildren().add(claimListPanel.getRoot());
         resultDisplay = new ResultDisplay();
@@ -134,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up window with incomes
      */
-    void fillWithIncomes() {
+    public void fillWithIncomes() {
         incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
         personListPanelPlaceholder.getChildren().add(incomeListPanel.getRoot());
         resultDisplay = new ResultDisplay();
@@ -204,7 +212,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
+    public void show() {
         primaryStage.show();
     }
 
@@ -220,6 +228,7 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    //@@author{joshuaseetss}
     /**
      * After unknown entry is handled, it becomes known.
      */
@@ -261,6 +270,7 @@ public class MainWindow extends UiPart<Stage> {
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 return commandResult;
             } else if (unknownEntry) {
+                //@@author{joshuaseetss}
                 CommandResult commandResult = logic.executeUnknownInput(commandText);
                 if (!commandResult.isCreateShortCut()) {
                     handleUnknownEntry();
@@ -297,6 +307,7 @@ public class MainWindow extends UiPart<Stage> {
                     handleContact(contact);
                 }
 
+                //@@author{joshuaseetss}
                 if (commandResult.isCreateShortCut()) {
                     handleUnknownEntry();
                 }
@@ -315,12 +326,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleContact(Contact contact) {
         ObservableList<Claim> claimList = logic.getFilteredClaimList();
-        CheckContactWindow checkContactWindow = new CheckContactWindow(contact, claimList);
 
-        if (!checkContactWindow.isShowing()) {
-            checkContactWindow.show();
+        IndividualContactWindow individualContactWindow = new IndividualContactWindow(contact, claimList);
+
+        if (!individualContactWindow.isShowing()) {
+            individualContactWindow.show();
         } else {
-            checkContactWindow.focus();
+            individualContactWindow.focus();
         }
     }
 

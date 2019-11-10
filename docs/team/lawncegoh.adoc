@@ -5,16 +5,23 @@
 
 == PROJECT: FinSec
 
----
-
 == Overview
 
-FinSec is a Financial Planner that helps the finance secretaries of any department in NUS, preferably from the School of
-Computing so that they would be more likely to like the idea of having a CLI app.
+This is a project for a Software Engineering module, CS2103T in National University of Singapore. I am in a team of 4 Computer Science students and we were given the task of enhancing the existing Command Line Interface application that the module provided us with. We decided to morph the application into a Financial Tracker for Finance Secretaries in organisations. The name of the application is FinSec.
+
+This new application, allows for these Finance Secretaries to easily store their claims requests, income inflows and keep track of budget accurately. On top of these, the secretary can store the contacts of all the people who have made transactions with him so that it ensures easier tracking in the future.
+
+This is what our project looks like:
+
+[[fig-PPP-ui]]
+.Structure of the Logic Component
+image::PPP-ui.png[]
 
 == Summary of contributions
 
-* *Major enhancement 1* I added *ability to `goto` a different view, through the different lists*
+This section is a summary of my contributions to the project. I have 3 major enhancements and 1 minor enhancement in total. They are as follows:
+
+* *Major enhancement 1*: I added *ability to `goto` a different view, through the different lists*
 ** *What it does*: this `goto` feature allows the user to get to the different lists, namely: contacts,
 claims and incomes, changing the state at which the
 user is currently at
@@ -28,7 +35,7 @@ ensure that this list is able to update to another list when the correct command
 Also, after implementing the changing of lists, I had to also implement a state in each of these lists to make sure that the state
 changes when a certain view is input as parameter into this `goto` feature.
 
-* *Major enhancement 2* I added *ability to `sort` and `reverse` the 3 various lists.
+* *Major enhancement 2*: I added *ability to `sort` and `reverse` the 3 various lists.
 
 ** *What it does*:The user is able to sort the lists according to name, date and status.
 `reverse` on the other hand sorts the lists in the reverse order. This is where the states of the various lists will allow this sort feature to work
@@ -60,65 +67,60 @@ the ability to pop up the claims that are of a certain date or status. If the so
 * *Minor enhancement 1*: I tweaked the `clear` feature in the existing AB3 to ensure that before the user is able to clear the list, the application prompts the
 user one more time to ensure that the command was not by accident.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/
-#search=lawncegoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=
-commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&
-tabType=authorship&tabAuthor=lawncegoh&tabRepo=AY1920S1-CS2103T-W12-1%2Fmain%5Bmaster%5D
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lawncegoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lawncegoh&tabRepo=AY1920S1-CS2103T-W12-1%2Fmain%5Bmaster%5D
 [Code]]_{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
 *** There were a total of 5 releases, from version 1.0 to 1.4. I managed releases versions 1.0 and 1.2
+
 ** Enhancements to existing features:
 *** Updated Mockup for UI of product (Commit https://github.com/AY1920S1-CS2103T-W12-1/main/commit/560d7bdc3c9e4ea835285441bc7cc013f6f90ab2[560d7bdc3c9e4ea835285441bc7cc013f6f90ab2])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 *** Updated the UI of the whole application to suit our general theme of a more pastel-coloured application to allow the user to feel comfortable using it
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
+** Documentation:
+*** Shifted the contents of the Developer Guide around as well as made major changes to my own section: https://github.com/AY1920S1-CS2103T-W12-1/main/pull/143[#143]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W12-1/main/pull/74[#74],
+https://github.com/AY1920S1-CS2103T-W12-1/main/pull/58[#58], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/40[#40]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/139[139],
+https://github.com/nus-cs2103-AY1920S1/forum/issues/45[2]
+
+** Tools:
+*** Integrated coveralls to the project
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. The following is an excerpt from our FinSec User Guide, showing additions that I have
+made for `sort` and `check` features. There is also a section on the 2 features I am proposing to implement in v2.0_
 |===
 
-include::../UserGuide.adoc[tag=goto]
+include::../UserGuide.adoc[tag=sortfeature]
 
-include::../UserGuide.adoc[tag=sort]
+include::../UserGuide.adoc[tag=checkfeature]
 
-include::../UserGuide.adoc[tag=check]
+include::../UserGuide.adoc[tag=checkDatefeature]
 
-include::../UserGuide.adoc[tag=clear]
+include::../UserGuide.adoc[tag=statsfeature]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. The following is an except from our FinSec Developer guide, showing additions that
+I have made for `goto` and `check` features._
 |===
 
-include::../UserGuide.adoc[tag=goto]
+include::../DeveloperGuide.adoc[tag=gotofeature]
 
-include::../UserGuide.adoc[tag=sort]
+include::../DeveloperGuide.adoc[tag=checkfeature]
 
-include::../UserGuide.adoc[tag=check]
-
-include::../UserGuide.adoc[tag=clear]
 
 
 == PROJECT: FinSec
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_

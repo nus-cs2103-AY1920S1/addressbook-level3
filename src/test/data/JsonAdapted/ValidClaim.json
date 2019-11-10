@@ -1,0 +1,15 @@
+{
+  "contacts": [ ],
+  "claims": [ {
+    "id" : "1",
+    "description" : "Logistics for Hackathon",
+    "amount" : "102.50",
+    "date" : "25-11-2019",
+    "name" : "John Doe",
+    "tagged" : [ ],
+    "status" : "PENDING"
+  } ],
+  "incomes": [ ],
+  "suggestions": [ ],
+  "commands": [ ]
+}
