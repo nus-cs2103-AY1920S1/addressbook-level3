@@ -432,7 +432,7 @@ image::SuggestCommand.png[]
 
 // tag::notification[]
 ==== Notification feature
-The notification feature prompts the user with new window pane if a meal have been missed.
+The notification feature prompts the user with new window if a meal have been missed.
 
 ===== Implementation
 
@@ -459,7 +459,7 @@ Step 2. The application will then execute `NotificationHelper` once to check if 
 
 Step 3. After 10 minutes, `UIManager` will then execute `NotificationHelper` and check if the user have keyed in any meals. This process will carry on for every 10 mintues till the user key in their meal.
 
-The following sequence diagram shows how the suggest operation works:
+The following sequence diagram shows how the notification operation works:
 
 image::NotificationActivityDiagram.png[]
 
@@ -476,7 +476,7 @@ image::NotificationActivityDiagram.png[]
 * **Explanation of Choice:** Since this feature provide the user as an assistance, we should not bring in more hassle and inconvenience to the user. Thus even with a higher risk of notification not showing up due to error. After 10 more minutes the notification will be prompted.
 // end::notification[]
 
-// tag::assistance[]
+// end::assistance[]
 
 // tag::report[]
 === Report feature
