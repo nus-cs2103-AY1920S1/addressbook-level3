@@ -478,7 +478,29 @@ and a list of appeal IDs with time table clash detected.
 
 image::MassResolveSequenceDiagram.png[]
 
-To implement design considerations......
+Design Consideration: How to handle different user input formats for individual and mass appeal resolution
+
+* Current choice: Resolving individual appeals, `ApproveCommand` and `RejectCommand` takes in a single index relative to the displayed list of appeals while resolving multiple appeals, `MassApprove` and `MassReject` takes in IDs of exisiting appeals.
+
+** Pros:
+*** User can easily resolve a single appeal since needs to enter the index of the appeal of choice shown in the appeal list.
+*** When resolving in bulk, typing the full appeal IDs will allow user to be certain that the appeal that is about to be resolved is indeed the correct one.
+** Cons:
+*** Users have to type the full appeal IDs of appeals when resolving in bulk.
+*** Users cannot resolve multiple appeals by index as the displayed appeal list is may be changing constantly with the filter commands entered by user.  As a result, user will be more prone to resolving a wrong appeal due to carelessness when using index.
+
+* Alternative consideration: Allow user to resolve individual and multiple appeals by both index and appeal ID.
+
+** Pros:
+*** User has options to perform appeal resolution.
+*** Easier to resolve multiple appeals in bulk, as it is quicker to type the index instead of the full ID
+** Cons:
+*** Harder to implement
+*** User could resolve the wrong appeals since user does not need to cross check with the appeal ID of the appeals-of-interest.
+
+Design Consideration: Having individual resolve commands and mass resolve commands extend from parent class `ResolveCommand` instead of `Approve` and `Reject`.  Refer to diagram below for better understanding.
+
+image::ResolveAltClassDiagram.png[]
 
 //end::resolve[]
 
