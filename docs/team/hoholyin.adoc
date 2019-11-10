@@ -12,12 +12,10 @@ This portfolio aims to highlight my contributions to our team project, 'LiBerry'
 resources to manage a library.
 
 This library management system is able to *manage books* in the library, *register* borrowers,
-*loan* and *return* books, as well as *calculate loan periods* and *fines* for any overdue loans. +
-{nbsp}
+*loan* and *return* books, as well as *calculate loan periods* and *fines* for any overdue loans.
 
 I was in charge of implementing the *Generate loan slip* feature and the *Book* feature.
-Additionally, I am responsible for the *code quality and testability* of the team's code base throughout the entire development phase. +
-{nbsp}
+Additionally, I am responsible for the *code quality and testability* of the team's code base throughout the entire development phase.
 
 In this portfolio, I will illustrate my contributions in documenting the user guide and developer guide.
 These documentations serve to aid librarians and developers in understanding the features of the software.
@@ -58,7 +56,7 @@ Additionally, this document would have to be suitably styled to display a certai
 This feature represents most of the core features of 'LiBerry' in a condensed PDF.
 I have provided a breakdown below as to how this feature achieves the required *depth*, *completeness* and *level of effort*.
 
-* *Depth*: This feature is deeply linked with the Book, Loan and Borrower features as it has to display information relevant to these features
+* *Depth*: This feature is deeply linked with the Book, Loan and Borrower features as it has to display information relevant to these features.
 
 * *Completeness*: This feature is complete with the intended style has been rigorously tested in many test cases.
 
