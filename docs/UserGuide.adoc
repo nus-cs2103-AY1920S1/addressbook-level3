@@ -106,7 +106,7 @@ using the format `mt/... mt/... mt/...`
 // tag::UniversalCommands[]
 === Universal Commands
 
-==== Accessing project dashboard page: `home` +
+==== Accessing the project dashboard page: `home` +
 This command brings you to the project dashboard page, where tasks are displayed. +
 
 Format: `home` +
@@ -116,14 +116,14 @@ Calling the `home` command will bring you to the following page:
 image::Ui.png[width=790]
 
 
-==== Accessing time management page: `calendar` +
+==== Accessing the time management page: `calendar` +
 This command brings you to the time management page where calendar and meeting times are displayed +
 
 Format: `calendar` +
 
 Calling the `calendar` command will bring you to the following page:
 
-==== Accessing settings page: `settings` (Coming in v1.3) +
+==== Accessing the settings page: `settings` +
 This command brings you to the settings page  +
 
 Format: `settings` +
@@ -752,48 +752,62 @@ image::ml-task_4_5.PNG[]
 
 // tag::settings[]
 === Settings Commands
+
++Work helps you view your current settings by highlighting your current option! To see your current settings navigate
+to the settings panel by entering `settings` as described in section Section 3.1.3.
+
 ==== Switching the theme of +Work: `theme`
 
-This command helps you toggle the theme of +Work between light and dark to suit your viewing preferences.
+This command helps you toggle the theme of +Work between `light` and `dark` to suit your viewing preferences.
 
 [TIP]
-By default, the theme is set to dark.
+By default, the theme is set to `dark`.
 
 Format: `theme light`
 
-Examples:
+Example:
 
-* Type `theme light` as shown below.
+* Type `theme light` into the command box as shown below.
 
-image::theme-light-command.png[]
+image::theme-light-preview.png[]
 
-* Hit the kbd:[Enter] key and +Work switches to the light theme!
+* Hit the kbd:[Enter] key and +Work switches to the `light` theme! As seen below, your choice of `light` is highlighted as well.
 
-image::theme_light.png[]
+image::theme-light-res.png[]
 
-* Similarly, `theme dark` switches to the dark theme, and your choice is highlighted.
+* Similarly, `theme dark` switches to the `dark` theme.
 
-==== Switching the clock format of +Work: `clock`
+==== Switching the time format of +Work: `clock`
 
-This command helps you toggle the clock format of +Work between 24 hour and 12 hour format. +
-The clock format is set to 24 hour is set to 24 hour by default.
+This command helps you toggle the time format of +Work between 24 hour and 12 hour clock. +
+
+[TIP]
+The time format is set to 24 hour by default.
 
 [NOTE]
-
 This does not affect the input format of deadlines for tasks, you still need to be enter them in the 24 hour format!
 
 Format: `clock twenty_four`
 
-Examples:
+Example:
 
-* `clock twelve` +
-Switches to the 12 hour clock
+* Type `clock twelve` into the command box as shown below.
 
-* `clock twenty_four` +
-Switches to the 24 hour clock
+image::clock-twelve-preview.png[]
 
-'''
+* Hit the kbd:[Enter] key and +Work switches the time format to the 12 hour clock! As seen below, the new format is highlighted as well.
+
+image::clock-twelve-res-settings.png[]
+
+* Now when you navigate to any view which has time sensitive data, you will see that the format has been switched. For example, if you were to switch
+back to the dashboard by entering `home` you should see a window similar the one shown below.
+
+image::clock-twelve-res-dashboard.png[]
+
+* Similarly, `clock twenty_four` switches to the 24 hour clock.
+
 // end::settings[]
+'''
 
 === Saving Data
 
