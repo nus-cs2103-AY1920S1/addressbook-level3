@@ -73,7 +73,7 @@ in the feature so that a reader can make a more accurate judgement of how much e
 * *Minor enhancement*: added two commands (EditExpenseFromBudgetCommand & DeleteExpenseFromBudgetCommand) that allows
 users to edit or delete expenses directly from the budget, without having to switch to general expense list first.
 
-* *Code contributed*: [https://github.com/anqichen9856[Functional code]] [https://github.com/anqichen9856[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=anqichen9856&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=anqichen9856&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[Functional code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=anqichen9856&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=anqichen9856&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
