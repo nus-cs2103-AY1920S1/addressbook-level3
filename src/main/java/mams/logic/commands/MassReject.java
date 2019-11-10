@@ -80,12 +80,12 @@ public class MassReject extends Reject {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof MassApprove)) {
+        if (!(other instanceof MassReject)) {
             return false;
         }
 
         // state check
-        MassApprove e = (MassApprove) other;
+        MassReject e = (MassReject) other;
         List<String> compareValid = e.getValidList();
         List<String> compareInvalid = e.getInvalidIds();
 
@@ -99,13 +99,26 @@ public class MassReject extends Reject {
     }
 
     /**
-     * Generates response for user
+     * gets list of valid appeal IDs
      * @return
      */
+    public List<String> getValidList() {
+        return validIds;
+    }
+    /**
+     * gets list of invalid appeal IDs
+     * * @return
+     */
+    public List<String> getInvalidIds() {
+        return invalidIds;
+    }
+
+
+
     private String resultGenerator() {
         String result = "";
         if (rejectedSuccessfully.isEmpty()) {
-            result += "No appeals were rejected";
+            result += MESSAGE_NO_APPEALS_REJECTED;
         } else {
             result += "Successfully rejected: " + rejectedSuccessfully.toString();
         }
