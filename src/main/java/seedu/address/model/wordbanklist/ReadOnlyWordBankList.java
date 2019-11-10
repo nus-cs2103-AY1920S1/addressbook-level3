@@ -3,7 +3,6 @@ package seedu.address.model.wordbanklist;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 
 /**
  * Unmodifiable view of a word bank list.
