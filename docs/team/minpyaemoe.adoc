@@ -20,6 +20,7 @@ This application help users by allowing them to record their daily expenses, set
 With the integrated pie chart and graph display, students are able to have clear view of their total weekly, monthly or yearly spending.
 Moreover, since the user interaction is mainly through command line interface (CLI), this application also brings convenience to users who prefers fast typing.
 
+
 == Contribution Summary
 * *Role* : Developer
 * *Responsibility* : Development, Integration and Testing
@@ -67,6 +68,14 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=minpyaemoe&sort=group
 *** Performed manual testing, reported bugs, feature flaws and gave suggestions to other teams in the class.
 
 == Contributions to the User Guide
+
+Below is a icon which highlights the important information in this document.
+
+[NOTE]
+Represents important information to be noted.
+
+
+
 |===
 |_Followings are the sections in the User Guide that I have contributed, which also demonstrates my documentation skills to target end-users effectively._
 |===
@@ -78,3 +87,5 @@ include::../UserGuide.adoc[tag=clear]
 |===
 |_The following sections in thee Developer Guide are contributed by me and they highlights my documentation skills in technical aspect._
 |===
+
+include::../DeveloperGuide.adoc[tag=reminder]
