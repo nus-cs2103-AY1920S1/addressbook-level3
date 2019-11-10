@@ -267,6 +267,7 @@ This section's table explains the design considerations for some implementations
 .Table of design considerations and comparisons
 |===
 |Aspect|Alternative 1 |Alternative 2 |Conclusion and Explanation
+
 |How [blue]`done` command in reimbursement tab updates transactions model and storage.
 |The `reimbursementLogic` keeps a `transactionModel` and a `transactionStorage` to update transactions.
 |`MainWindow` calls methods from `reimbursementLogic` and `transactionLogic` when a command is executed.
@@ -282,7 +283,6 @@ When launching the application, reimbursement tab reads the transactions informa
 |Alternative 2 is chosen.
 Alternative 2 does not save duplicate information that has already been saved into `transactionHistory.txt`.
 So, alternative 2 is more efficient.
-
 |===
 
 [[facade]]
