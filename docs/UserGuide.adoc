@@ -271,7 +271,7 @@ Format: `calendar c/nextmonth`
 image::calendar-next-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
-to change the display to the next month. The button will not work if calendar is displaying December 9999.
+to change the display to the next month. The button will not work if the calendar is displaying December 9999.
 
 This command closes any open engagement windows from the current month before updating the display to the next month.
 
