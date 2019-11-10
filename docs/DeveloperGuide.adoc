@@ -660,7 +660,7 @@ to obtain the insertion order of a `Loan` object.
 // end::bookLoaningFeatures[]
 
 // tag::bookFinding[]
-=== Book Finding
+=== Book finding feature
 The command for finding a book in the catalog is as follows: +
 `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }`
 
@@ -698,27 +698,52 @@ this statement. The user could be looking for both types of books (which will sh
 loaned and available (which will show none). To prevent such meaningless confusion, there is a need for only 1 such
 flag to be accepted in the `BookPredicate`.
 
-* **Alternative 1: Hard code a priority for loan status flags and accept the highest one**
-** Pros: Easy to implement
-** Cons: Does not make it clear for the user why an unintended display is shown
+* *Alternative 1: Hard code a priority for loan status flags and accept the highest one when generating `BookPredicate`**
+** *Pros*: Easy to implement, since Flags are implemented as `Enums`.
+** *Cons*: Can be confusing to the reader as it is not clear why an unintended display is shown / why a certain priority exists.
 
-* **Alternative 2 (Currently Used): Raise an exception whenever there are more than 1 loan status flags**
-** Pros: Helps user clarify misconception of using more than 1 loan status flag
-** Cons: Slightly more complicated code where the output `ArgumentMultimap`
+* *Alternative 2 (Currently Used): Raise an exception whenever there are more than 1 loan status flags*
+** *Pros*: Helps user clarify misconception of using more than 1 loan status flag
+** *Cons*: Slightly more complicated code where the flags obtained from `ArgumentMultimap` has to be counted, checked and selected.
+
+*Alternative 2* was chosen in the end as it conformed with the norms of directly informing the user of his
+mistake through the use of exceptions and error messages.
 
 ===== Aspect: Limiting the Number of Books to Display
 As users generally do not want to be flooded with information when using the find command, a display limit `[NUMBER]` is used. Users
 can ask for a limited number of books to display. However, the `FilteredList` JavaFx class that is used to implement the list of
 filtered books does not have an API that sets a hard limit on the number of books to show. A work-around has to be made.
 
-* **Alternative 1: Create an new class that extends the JavaFx `FilteredList` class**
-** Pros: Does not require a change in other parts of the code
-** Cons: Hard to implement. Need to know the ins and outs of FilteredList
+* *Alternative 1: Create an new class that extends the JavaFx `FilteredList` class* that has a function that caps the
+number of items in the inner `ObservableList`.
+** *Pros*: Does not require a change in other parts of the code. Interface is simple and elegant.
+** *Cons*: Hard to implement. Need to know the ins and outs of `FilteredList` and `ObservableList`.
 
-* **Alternative 2 (Currently Used): Create a counter variable in `BookPredicate` that decrements after every passed test**
-** Pros: Easy to implement.
-** Cons: Not the most cleanest way of implementation
+* *Alternative 2 (Currently Used): Create a counter variable in `BookPredicate` that decrements after every passed test*
+** *Pros*: Easy to implement.
+** *Cons*: Not the cleanest and most developer friendly way of implementation.
+
+*Alternative 2* was chosen instead as the extension of `FilteredList` would take too much time for the implementation of such a simple feature.
+The cons of this choice will be compensated for in source code documentation to explain to developers how it works.
 // end::bookFinding[]
+//tag::toggleUi[]
+=== Toggle GUI theme feature
+==== Details of implementation
+The `toggleui` command will cause switching of the LiBerry GUI between 'light' and 'dark' modes. The basic underlying mechanism
+is to access the stylesheets of the `MainWindow` node, delete the previous stylesheet giving the current GUI theme, and adding
+the stylesheet for the new GUI theme.
+
+However, since some parts of the GUI are dynamically styled (such as the 'serve/normal mode' label on the top right, and
+the 'loan box' detailing loan details to the right of each book card, as shown below), such a simple css file switch is unable to fully change all GUI elements effectively.
+These dynamically styled elements will remain in 'light' mode colors while the rest of the app changes to 'dark' mode, causing an ugly
+contrast.
+
+.Dynamically styled GUI elements boxed in blue.
+image::dynamicGuiElements.png[height=400, align=center]
+
+The way that this was managed was through re-populating the panels every time the `toggleui` command is called. This forced the recreation of the
+book cards with the correct stylesheet right from their instantiation, which will cause them to display the correct loan box.
+//end::toggleUi[]
 
 //tag::registerBorrower[]
 === Register borrower feature
