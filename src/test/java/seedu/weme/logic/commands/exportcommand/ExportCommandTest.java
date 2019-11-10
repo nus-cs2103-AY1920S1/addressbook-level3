@@ -22,7 +22,6 @@ class ExportCommandTest extends ApplicationTest {
 
     private static final String VALID_SANDBOX_DIRECTORY = TestUtil.getSandboxFolder().toString();
     private static final String VALID_SANDBOX_DIRECTORY_2 = TestUtil.getSecondSandboxFolder().toString();
-    private static final String INVALID_SANDBOX_DIRECTORY = TestUtil.getInvalidSandboxFolder().toString();
 
     private Model model;
     private Model expectedModel;
@@ -42,7 +41,6 @@ class ExportCommandTest extends ApplicationTest {
         ExportCommand exportCommand = new ExportCommand(new DirectoryPath(VALID_SANDBOX_DIRECTORY));
 
         assertCommandSuccess(exportCommand, model, ExportCommand.MESSAGE_SUCCESS, expectedModel);
-        // Test if file is present in the folder
 
         TestUtil.clearSandBoxFolder();
     }

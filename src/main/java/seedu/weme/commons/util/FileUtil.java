@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public class FileUtil {
             if (fileEntry.isDirectory()) {
                 recursiveLoad(imageList, new DirectoryPath(fileEntry.getPath())); // recursive call
             } else if (isFileExists(fileEntry.toPath())
-                    && isValidImageExtension(fileEntry.toPath())) {
+                    && isValidImageFile(fileEntry.toPath())) {
                 imageList.add(Paths.get(fileEntry.getPath()));
             }
         }
@@ -105,7 +106,7 @@ public class FileUtil {
      * @param initialPath The initial path of the file.
      * @return
      */
-    private static String buildFilePath(Path newDirectoryPath, String fileLabel, Path initialPath) {
+    public static String buildFilePath(Path newDirectoryPath, String fileLabel, Path initialPath) {
         StringBuilder newFilePath = new StringBuilder();
         newFilePath
                 .append(newDirectoryPath)
@@ -121,7 +122,7 @@ public class FileUtil {
     }
 
     /**
-     * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)},
+     * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String, String...)}},
      * otherwise returns false.
      * @param path A string representing the file path. Cannot be null.
      */
@@ -135,8 +136,8 @@ public class FileUtil {
     }
 
     /**
-     * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)}
-     * and {@link Files#exists(Path)}, otherwise returns false.
+     * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String, String...)}
+     * and {@link Files#exists(Path, LinkOption...)}, otherwise returns false.
      * @param path A string representing the file path. Cannot be null.
      */
     public static boolean isValidDirectoryPath(String path) {
@@ -257,7 +258,7 @@ public class FileUtil {
      * @return True if the file is a valid image file path.
      * @throws IOException Unexpected error encountered from probeContentType().
      */
-    public static boolean isValidImageExtension(Path filePath) throws IOException {
+    public static boolean isValidImageFile(Path filePath) throws IOException {
         return !(new Image(filePath.toUri().toURL().toString()).isError());
     }
 
