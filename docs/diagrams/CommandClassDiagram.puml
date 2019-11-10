@@ -1,0 +1,29 @@
+@startuml
+
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Command {
+Class XYZCommand
+Class CommandResult
+Class "{abstract}\nCommand" as Command
+}
+
+Interface Logic <<Interface>>
+Class LogicManager
+
+XYZCommand -up-|> Command
+LogicManager .left.> Command : executes >
+LogicManager .up.|> Logic
+
+LogicManager -down-> Model
+Command .right.> Model
+note right of XYZCommand: XYZCommand = FindCommand, \nResolveCommand, etc
+
+Logic ..> CommandResult
+LogicManager .down.> CommandResult
+Command .up.> CommandResult
+
+@enduml

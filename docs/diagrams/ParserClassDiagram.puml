@@ -1,0 +1,47 @@
+@startuml
+
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Parser {
+Interface Parser <<Interface>>
+Class MamsParser
+Class XYZCommandParser
+Class CliSyntax
+Class ParserUtil
+Class ArgumentMultimap
+Class ArgumentTokenizer
+Class Prefix
+Class Option
+Class OptionsSet
+Class OptionsTokenizer
+}
+
+Class HiddenOutside #FFFFFF
+
+LogicManager -down--> MamsParser
+MamsParser .down.> XYZCommandParser: creates >
+
+XYZCommandParser .up.> XYZCommand : creates >
+
+XYZCommandParser ...|> Parser
+XYZCommandParser ..> OptionsSet
+XYZCommandParser ..> OptionsTokenizer
+OptionsSet ..> Option
+OptionsTokenizer ..> Option
+
+
+XYZCommandParser ..> ArgumentMultimap
+XYZCommandParser ..> ArgumentTokenizer
+ArgumentTokenizer .left.> ArgumentMultimap
+ArgumentTokenizer ..> Prefix
+XYZCommandParser ..> CliSyntax
+CliSyntax ..> Prefix
+XYZCommandParser ..> ParserUtil
+ParserUtil ..> Prefix
+
+ArgumentMultimap -right[hidden]- ArgumentTokenizer
+
+@enduml
