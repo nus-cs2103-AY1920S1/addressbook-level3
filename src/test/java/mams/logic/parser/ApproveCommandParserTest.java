@@ -1,23 +1,17 @@
 package mams.logic.parser;
 
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import static mams.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static mams.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalIndexes.INDEX_SECOND;
 
-import mams.commons.core.index.Index;
+import org.junit.jupiter.api.Test;
 
+import mams.commons.core.index.Index;
 import mams.logic.commands.Approve;
 import mams.logic.commands.ApproveCommand;
 
-import mams.logic.commands.MassApprove;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class ApproveCommandParserTest {

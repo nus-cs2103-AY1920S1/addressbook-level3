@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Test;
+
 import mams.model.appeal.Appeal;
 import mams.model.Model;
 import mams.model.ModelManager;
@@ -20,11 +22,6 @@ import mams.model.student.Credits;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 import mams.model.UserPrefs;
-
-import org.junit.jupiter.api.Test;
-
-
-
 
 public class MassApproveTest {
 
