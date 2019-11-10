@@ -1,0 +1,168 @@
+= Jerrold Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :exclamation:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
+
+== PROJECT: VISIT
+
+---
+
+== Overview
+
+VISIT is an open-source Customer Relationship Management (CRM) software for *House Call Doctors*. It is based on a Command-Line Interface (CLI) application called AddressBook3 by the SE-EDU Initiative. The UnrealUnity Team comprising of 4 people including myself introduced features that allow these doctors on-the-go to manage their appointments in an easy and enhanced fashion. It is written in Java with its GUI created in JavaFX, and has about 16 kLoC.
+
+.VISIT Main Window
+image::Ui.png[width="790"]
+
+I was tasked with conceptualizing and implementing the *Appointments* system comprising of *Reminders* and *Follow-ups*. This document highlights these features and provides the documentation for them from the User and Developer Guides.
+
+== Summary of contributions
+
+* *Major enhancement*: Added a system for handling aliases
+** What it does: Allows the user to define, use and delete aliases.
+** Justification: When doctors visit patients, they need to do multiple things repeatedly, such as scheduling followups. With the inclusion of the alias feature, it streamlines doctors' workflow during visitations.
+** Highlights: This feature requires a dictionary data structure to store all the user-defined aliases which are defined. It also matches the longest starting substring instead of wholesale matching and replacing of the aliases.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#tabOpen=true&tabType=authorship&tabAuthor=Wingedevil&tabRepo=AY1920S1-CS2103T-F12-2%2Fmain%5Bmaster%5D[RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Vetted and assigned incoming Issues to team members.
+** Documentation:
+*** Worked on documentation for the project, example: https://github.com/AY1920S1-CS2103T-F12-2/main/pull/96[#96]
+** Community:
+*** Reported bugs and suggestions for other projects using AddressBook3 as a base (examples: Code review of https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/12[NurseTraverse])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== *Appointment System*
+
+====
+VISIT also enables doctors to keep abreast and up-to-date on any events or deadlines as VISIT can be customized to remind them of any follow-up visits or other timed reminders.
+
+There are two kinds of Appointments: Follow-Ups and Reminders.
+
+You can only have one active Appointment of the same title, adding the same Appointment with a different day count will simply update the existing Appointment.
+
+Follow-ups in this version do not update if you change the name of the patient after the follow-up is created.
+====
+
+==== Adding a follow-up visit with patient : `followup`
+
+Adds a follow-up visit for a particular patient. You can add one even if you have never had a visit with the patient in the past. The application will keep track of when your next appointment with the patient is on the Appointments window. +
+Format: `followup INDEX [d/DAYS]`
+
+[TIP]
+The follow-up entry will by default generate the follow-up for 7 days' time if not specified.
+
+*Examples*:
+
+* `followup 9 d/10` +
+Creates a follow-up entry on patient with index 9 for 10 days later.
+* `followup 1` +
+Creates a follow-up entry on patient with index 1 for 7 days later.
+
+image::UGApptFollowUps.png[width="790"]
+
+==== Creating a generic reminder : `reminder`
+
+Creates a new reminder to show up in the Appointments window. +
+Format: `reminder TEXT [d/DAYS]`
+
+[TIP]
+The reminder entry will by default generate the prompt for 7 days' time if not specified.
+
+*Examples*:
+
+* `reminder Two Point Hospital closed d/10` +
+Creates a reminder "Two Point Hospital closed" that will display for the next 10 days.
+* `reminder Losartan recall` +
+Creates a reminder "Losartan recall" that will display for the next 7 days.
+
+image::UGApptReminders.png[width="790"]
+
+==== Removing an Appointment : `removeappt`
+
+Remove an appointment from VISIT. This can be either a Follow-up or Reminder. +
+Format: `removeappt DESCRIPTION [d/DAYS]`
+
+[TIP]
+Any appointment matching just the description will be removed if the specific days is not specified.
+
+*Examples*:
+
+* `removeappt Two Point Hospital closed` +
+Removes any appointment which description is "Two Point Hospital closed".
+* `removeappt Satya Nadella` +
+Removes any appointments with the patient whose name is Satya Nadella.
+
+image::UGApptRemoveAppt.png[width="790"]
+
+==== Show Appointments "Message of the Day" box : `show`
+
+Shows a pop-up containing the appointments. This is useful if you want to keep a small window just containing the appointments on the screen, separate from the main window. +
+Format: `show`
+
+image::UGApptShow.png[width="790"]
+
+==== Sort Appointments : `sort`
+
+Sorts the appointments in order of type, days remaining, and finally by name. +
+Format: `sort`
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Appointments feature
+==== Implementation
+The Appointments feature comprises of Reminders and Follow-Ups. Users can create a generic Reminder to be notified of an ongoing "something to take note of", such as a hospital being closed. Follow-ups are used to plan future visits to patients. Both Reminders and Follow-ups are represented by the `Appointment` class, but are facilitated by the `AppointmentList` class for UI updates and `AppointmentTable` class for JSON updating.
+
+.Appointment Class Diagram
+image::DGApptAppointmentClassDiagram.png[]
+
+.AppointmentList Class Diagram
+image::DGApptAppointmentListClassDiagram.png[]
+
+.AppointmentTable Class Diagram
+image::DGApptAppointmentTableClassDiagram.png[]
+
+The `AppointmentList` and `AppointmentTable` are similar and run the same operations in parallel. This is a constraint due to how data is stored into JSON by the underlying program, and is on the timeline to be converged in v2.0. Due to their similarities, we will only look at `AppointmentTable` for the sake of this documentation.
+
+It implements the following operations:
+
+* `AppointmentTable#getDefaultAppointments()` -- Returns a default, empty `AppointmentTable`.
+* `AppointmentTable#getAppointmentList()` -- Returns an `ObservableList` version of the Appointments for UI usage. This is necessary as `AppointmentTable` is loaded on launch and `AppointmentList` uses this data to propagate the UI.
+* `AppointmentTable#addAppointment(type, description, days)` -- Adds a new Appointment.
+* `AppointmentTable#deleteAppointment(description, days)` -- Deletes an appointment from VISIT.
+* `AppointmentTable#antiDuplicate(check, description, days)` -- Checks if the Appointment already exists. Returns true if there is no duplicate, false if there is a duplicate.
+* `AppointmentTable#sortAppointments()` -- Sorts the list of appointments by days remaining, then name.
+* `AppointmentTable#cascadeDay(days)` -- Decrements the days an Appointment has left. Run on application launch by `UserPrefs` after calculating days elapsed.
+* `AppointmentTable#outputAppointments()` -- Outputs the Appointments to readable String.
+
+These operations are exposed in the `Model` interface.
+
+The following sequence diagram shows how adding an appointment works, using reminders as an example:
+
+.Adding an Appointment Sequence Diagram
+image::DGApptAddAppointmentSequenceDiagram.png[]
+
+The following activity diagram shows how adding an appointment works, using follow-ups as an example:
+
+.Adding an Appointment Activity Diagram
+image::DGApptFollowUpActivityDiagram.png[]

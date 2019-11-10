@@ -382,7 +382,7 @@ VISIT being an application optimized for doctors who are comfortable with CLI, h
 
 ==== Setting a shorthand command / alias : `alias`
 
-Set an alias for a command to enable faster command entry for a customized input. +
+Set an alias for a command to enable faster command entry for a customized input. This command will override your previous mapping for the alias if there exists a prior mapping. Additionally, using existing commands as aliases is disallowed. +
 Format: `alias l/SHORTHAND v/COMMAND`
 
 *Examples*:
@@ -392,15 +392,19 @@ Typing `ls` now works equivalently as typing `list`.
 * `alias l/display all patients v/list` +
 Typing `display all patients` now works equivalently as typing `list`.
 
+image::UGAddAlias.png[width="800"]
+
 ==== Removing a shorthand command / alias : `unalias`
 
-Delete an existing alias. +
+Delete an existing alias, if it exists. +
 Format: `unalias SHORTHAND`
 
 *Examples*:
 
 * `unalias ls` +
 Typing `ls` will no longer be equivalent to typing `list`.
+
+image::UGUnalias.png[width="800"]
 
 ==== Showing all existing shorthand commands / aliases : `aliaslist`
 
@@ -411,6 +415,16 @@ Examples:
 
 * `aliaslist` +
 Shows all the existing aliases.
+
+image::UGAliasList.png[width="800"]
+
+==== Using aliases
+To use a user-defined alias, you just have to type the alias you defined. Additional optional parameters can also be specified if the aliased command takes in additional arguments. +
+Format: `SHORTHAND [additional arguments]`
+
+Examples:
+
+image::UGApplyAlias.png[width="800"]
 
 === *Saving the data*
 

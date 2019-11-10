@@ -157,7 +157,7 @@ This section describes some noteworthy details on how certain features are imple
 // tag::alias[]
 === Alias feature
 ==== Implementation
-The alias mechanism is facilitated by `AliasTable`.
+The alias mechanism is facilitated by `AliasTable`. At a lower level, saving of aliases is facilitated by use of a `HashMap`.
 It is contained within `UserPrefs` and can be serialized together with the rest of the members in `UserPrefs`.
 Additionally, it implements the following operations:
 
@@ -182,6 +182,8 @@ image::ApplyAliasSequenceDiagram.png[]
 
 [NOTE]
 This is a generalized diagram which depicts what happens between `execute(commandText)` and `LogicManager#parseCommand(alias)`. This process is not shown in other sequence diagrams.
+
+A user-defined alias is considered a match with the user input if the alias is a substring, that starts from the beginning, of the user input. Specifically, `AliasTable` uses the regex `(ALIAS)($| ).*` to check if it is a match. Following that, it picks the longest matching alias to apply to the user input.
 
 The following activity diagram shows how applying alias picks which alias to apply:
 
