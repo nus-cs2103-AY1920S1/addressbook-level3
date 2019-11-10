@@ -224,12 +224,12 @@ image::redo-result.png[width="450"]
 --
 
 === Changing to calendar view : `tab calendar`
-Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of
-engagements per day. More commands are provided for interaction with the calendar window.
+Changes the current view to the calendar view which displays daily engagement information.
+More commands are provided for interaction with the calendar window.
 
 Format: `tab calendar`
 
-.Calendar view for October 2019
+.Calendar view for November 2019
 image::calendar-view.png[width="450"]
 
 === Displaying the list of engagements for a specified date (calendar view only): `calendar opendisplay`
