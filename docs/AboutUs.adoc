@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Chia Wei Hao, David
 image::davidcwh.png[width="150", align="left"]
-{empty}[https://github.com/davidcwh[github]] [<<davidcwh, portfolio>>]
+{empty}[https://github.com/davidcwh[github]] [<<davidcwh#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Deliverables and deadlines, In charge of Storage
