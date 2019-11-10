@@ -110,9 +110,7 @@ public class CliEditor {
         textArea.setEditable(false);
         textArea.setText("");
         textArea.setOnKeyPressed(this::processKeyInput);
-        //textArea.setFont(Font.loadFont(
-            //getClass().getClassLoader().getResource("fonts/Inconsolata.otf").toExternalForm(), 12));
-        System.out.println(getClass().getClassLoader().getResource("fonts/Inconsolata.otf").toString());
+        textArea.setFont(Font.font("Inconsolata", 12));
         textArea.setWrapText(true);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
@@ -217,7 +215,6 @@ public class CliEditor {
             newLine();
             multiline = old;
             printPrompt();
-            System.out.println("PRINT PROMPT FROM NO MSG");
         }
     }
 
