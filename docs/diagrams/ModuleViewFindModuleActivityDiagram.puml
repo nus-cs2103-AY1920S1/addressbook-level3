@@ -11,26 +11,22 @@ end note
 
 if () then ([not empty])
     :Return module;
-    end
 
 else([else])
+    :Get list of archived modules;
+    :Filter by module code;
+    note right
+    It is guaranteed there is at most
+    one module in the filtered list
+    end note
 
-:Get list of archived modules;
-
-:Filter by module code;
-note right
-It is guaranteed there is at most
-one module in the filtered list
-end note
-
-if () then ([not empty])
-    :Return module;
-    end
-else([else])
-
+    if () then ([not empty])
+        :Return module;
+    else([else])
+        :Throw exception;
+    endif
 endif
 
-:Throw exception;
-end
+stop
 
 @enduml
