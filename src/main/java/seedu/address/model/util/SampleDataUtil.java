@@ -82,6 +82,8 @@ public class SampleDataUtil {
                 BorrowerIdGenerator.generateBorrowerId()),
             new Borrower(new Name("Yabobani Shima"), new Phone("998765432"), new Email("shima@griiko.yogaruto"),
                 BorrowerIdGenerator.generateBorrowerId()),
+            new Borrower(new Name("Im not wanted"), new Phone("91119222"), new Email("banana@baba.com"),
+                new BorrowerId("K0069")),
         };
     }
 
