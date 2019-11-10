@@ -211,9 +211,10 @@ Examples:
 The system will allow a valid item to be added even if the category of the item does *not* match with the
 specified category inputted.
 
-Steps:
+* Steps:
 
-1. If you do not remember the exact description of the item to add, you can type the command "add" with a category
+1.
+If you do not remember the exact description of the item to add, you can type the command "add" with a category
 specified as shown in the screenshot below.
 
 image::cashierUG/AddCommand1.png[width=600"]

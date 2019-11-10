@@ -794,10 +794,9 @@ This command enables you to add a sales item into the table.
 * Command:
 `add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
 
-The quantity that you input must be less than or equal to the stock available in the Inventory Tab.
-Else, Leo will display a message prompting input of a smaller quantity or another item. +
+The quantity that you input must be less than or equal to the stock available in the Inventory tab.
 The category field is optional. If you are unsure about the description of the desired item, you can refer to
-the Inventory Tab or simply key in the category without any other fields. Leo will display all the items in the
+the Inventory tab or simply key in the category without any other fields. Leo will display all the items in the
 specified category that are available for sale.
 
 If you input a description of an item that already exists in the inventory, the quantity inputted will be added to
@@ -806,7 +805,7 @@ the existing quantity. If the total quantity exceed the stock available, the sys
 Additionally, if the description is misspelled or does not match any of the items in the inventory, Leo will recommend
 items with similar description that you might be looking for.
 
-Examples:
+* Examples:
 
 ** [blue]`add c/food` - Displays all items that are under the 'food' category in the response box
 ** [blue]`add c/stationary d/pancake q/3` - Adds 3 similar items which have the description "pancake"
@@ -823,9 +822,10 @@ according to the mistyped description.
 If both category and description are specified and valid, the system will allow the item to be added according the
 description even if the category of the item does *not* match with the specified category inputted.
 
-Steps:
+* Steps:
 
-1. If you do not remember the exact description of the item to add, you can type the command "add" with a category
+1.
+If you do not remember the exact description of the item to add, you can type the command "add" with a category
 specified as shown in the screenshot below.
 
 //.Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
@@ -860,7 +860,8 @@ The specified index should correspond to the row index of the item in the table.
 
 * Steps:
 
-1. To delete an item, type the command "delete" with an index specified as shown in the screenshot below.
+1.
+To delete an item, type the command "delete" with an index specified as shown in the screenshot below.
 
 //.Screenshot of the user input into Command Box for Delete Command in Cashier Tab
 image::cashierUG/DeleteCommand1.png[width="600"]
@@ -877,7 +878,7 @@ Leo will respond to the successful deletion with a response message. The item wi
 ==== Edit the Quantity of a Sales Item
 This command allows you to edit the quantity of a sales item that already exists in the table.
 
-* Command:
+* Commands:
 
 ** `edit d/DESCRIPTION q/QUANTITY`
 ** `edit i/INDEX q/QUANTITY`
@@ -904,7 +905,7 @@ If the quantity is invalid, Leo will display the quantity of stock left.
 image::cashierUG/EditCommand1.png[width="600"]
 
 [start = 2]
-1.2. To edit by its *description*, you can enter the required description and quantity as shown below.
+1.2 To edit by its *description*, you can enter the command "edit"  with the required description and quantity as shown below.
 
 //.Screenshot of user input (description, quantity) into Command Box for Edit Command in Cashier Tab
 image::cashierUG/EditCommand3.png[width="600"]
@@ -924,8 +925,8 @@ This command enables you to set the cashier whom is in-charge of the sales.
 * Command:
 `cashier NAME`
 
-The person to be set as the cashier must be an existing member of the club. This means that their details must be found on the Members Tab. +
-If you have yet to record the cashier as a member, please proceed to Members Tab
+The person to be set as the cashier must be an existing member of the club. This means that their details must be found on the Members tab. +
+If you have yet to record the cashier as a member, please proceed to Members tab
 to register him/her as a member before executing this command.
 
 [NOTE]
@@ -937,7 +938,8 @@ This step must be executed before checking out. Else, checkout cannot proceed.
 
 * Steps:
 
-1. To set a cashier, type the command "cashier" with the cashier's name specified as shown in the screenshot below.
+1.
+To set a cashier, type the command "cashier" with the cashier's name specified as shown in the screenshot below.
 
 //.Screenshot of user input into Command Box for Set Cashier Command in Cashier Tab
 image::cashierUG/SetCashierCommand1.png[width="600"]
@@ -958,8 +960,8 @@ This command enables you to perform a checkout of all the sales items in the tab
 `checkout AMOUNT_PAID_BY_CUSTOMER`
 
 The amount inputted should be the amount that the customer will be paying. This amount must be greater than or equal to the
-total amount listed on the bottom row of the table. If the amount paid is greater than the total amount, Leo will display
-the amount of change that the cashier should return.
+total amount listed on the bottom row of the table. If the amount paid is valid, Leo will display
+the total amount and the change that the cashier should return.
 
 After checking out, all items in the table will be cleared and the cashier will be reset.
 
@@ -972,7 +974,8 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 
 * Steps:
 
-1. To checkout, you can type the command "checkout" and specify the amount that the customer is paying as shown in the screenshot below.
+1.
+To checkout, you can type the command "checkout" and specify the amount that the customer is paying as shown in the screenshot below.
 
 //.Screenshot of user input into Command Box for Checkout Command in Cashier Tab
 image::cashierUG/CheckoutCommand1.png[width="600"]
@@ -991,7 +994,7 @@ The Home tab will be updated with this transaction and the remaining stock in th
 ==== Clears All the Sales Items in the Table
 This command clears all the sales item in the table.
 
-* Command format:
+* Command:
 [blue]`clear`
 
 After clearing, the cashier will be reset as well.
@@ -1009,7 +1012,8 @@ This command is irreversible. Please use at your own discretion.
 
 * Steps:
 
-1. To clear, type the "clear" command word only as shown in the screenshot below.
+1.
+To clear, you can type the "clear" command word only as shown in the screenshot below.
 
 //.Screenshot of user input into Command Box for Clear Command in Cashier Tab
 image::cashierUG/ClearCommand1.png[width="600"]
