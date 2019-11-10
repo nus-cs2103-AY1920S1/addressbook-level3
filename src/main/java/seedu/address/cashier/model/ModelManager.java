@@ -30,6 +30,7 @@ public class ModelManager implements Model {
 
     protected static boolean onCashierMode = false;
 
+    private static final double MAX_AMOUNT = 999999.99;
     private static final String SALES_DESCRIPTION = "Items sold";
     private static final String SALES_CATEGORY = "Sales";
     private static ArrayList<Item> salesList = new ArrayList<Item>();
@@ -81,7 +82,6 @@ public class ModelManager implements Model {
         this.inventoryList = inventoryList;
         this.transactionList = transactionList;
     }
-
 
     /**
      * Returns true if the quantity keyed in is less than or equals to the quantity available in inventory.
@@ -154,7 +154,7 @@ public class ModelManager implements Model {
                     return true;
                 }
             }
-        } catch (Exception e) {
+        } catch (NoSuchIndexException e) {
             return false;
         }
         return false;
@@ -193,7 +193,9 @@ public class ModelManager implements Model {
         for (Item item : salesList) {
             if (item.getDescription().equalsIgnoreCase(description)) {
                 int originalQty = item.getQuantity();
-                item.setQuantity(originalQty + qty);
+                int newQty = originalQty + qty;
+                salesList.remove(item);
+                addItem(description, newQty);
                 return item;
             }
         }
@@ -277,7 +279,7 @@ public class ModelManager implements Model {
      */
     @Override
     public double getTotalAmount() throws AmountExceededException {
-        double total = 0;
+        double total = 0.00;
         for (Item i : salesList) {
             total += (i.getPrice() * i.getQuantity());
         }
@@ -320,8 +322,14 @@ public class ModelManager implements Model {
      * @return the item edited
      */
     @Override
-    public Item editItem(int index, int qty) {
-        salesList.get(index - 1).setQuantity(qty);
+    public Item editItem(int index, int qty) throws NoSuchItemException {
+        String description = salesList.get(index - 1).getDescription();
+        salesList.remove(index - 1);
+
+        Item i = inventoryList.getOriginalItem(description);
+        Item copyItem = new Item(i.getDescription(), i.getCategory(), qty, i.getCost(), i.getPrice(),
+                Integer.valueOf(i.getId()));
+        salesList.add(index - 1, copyItem);
         return salesList.get(index - 1);
     }
 
@@ -426,11 +434,11 @@ public class ModelManager implements Model {
     public ArrayList<String> getCombination(char[] arr, int n) {
         assert arr != null : "Array to get combination from cannot be null.";
         ArrayList<String> result = new ArrayList<>();
-        for (int len = 1; len <= n; len++) {
+        for (int start = 1; start <= n; start++) {
             String word = "";
-            for (int i = 0; i <= n - len; i++) {
-                //  Print characters from current starting point to current ending point
-                int j = i + len - 1;
+            for (int i = 0; i <= n - start; i++) {
+                //  Adds characters from current starting point to current ending point
+                int j = i + start - 1;
                 for (int k = i; k <= j; k++) {
                     word += String.valueOf(arr[k]);
                 }
@@ -520,16 +528,19 @@ public class ModelManager implements Model {
 
     @Override
     public boolean isValidAmount(String description, int qty) throws NoSuchItemException, AmountExceededException {
+        assert qty > 0 : "Quantity must be a positive integer.";
+        requireNonNull(description);
+
         double price = inventoryList.getOriginalItem(description).getPrice();
         double itemPrice = price * qty;
-        if (itemPrice > 999999.99) {
+        if (itemPrice > MAX_AMOUNT) {
             return false;
         } else {
             double total = 0;
             for (Item i : salesList) {
                 total += (i.getPrice() * i.getQuantity());
             }
-            if ((total + itemPrice) > 999999.99) {
+            if ((total + itemPrice) > MAX_AMOUNT) {
                 throw new AmountExceededException(MESSAGE_TOTAL_AMOUNT_EXCEEDED);
             }
             return true;
@@ -538,6 +549,9 @@ public class ModelManager implements Model {
 
     @Override
     public boolean isValidAmount(int index, int qty) throws NoSuchItemException, AmountExceededException {
+        assert qty > 0 : "Quantity must be a positive integer.";
+        assert index > 0 : "Index must be a positive integer.";
+
         String description = salesList.get(index - 1).getDescription();
         return isValidAmount(description, qty);
     }

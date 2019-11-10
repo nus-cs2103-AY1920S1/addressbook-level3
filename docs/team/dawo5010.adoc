@@ -33,7 +33,7 @@ clubs track their expenses, reimbursements, sales and inventory. To do so, we in
 management features of AddressBook and used it as a starting point to build treasurerPro. We also built a new User
 Interface (UI) to accommodate the new features that we had added.
 
-In total, treasurerPro took a total of 8 weeks to complete.
+In total, treasurerPro took a total of 10 weeks to complete.
 
 ===  Key to the icons and formatting used in the document
 
@@ -50,7 +50,7 @@ the application.
 [blue]`*command*` :
 Text with blue font and grey highlight indicates a command that can be input by the user.
 
-=== Introduction of treasurerPro
+=== Introduction to treasurerPro
 
 The User Interface of treasurerPro is primarily divided into 6 tabs - Home, Members, Reimbursements, Inventory, Cashier
 and Overview. Each tab serves a particular function:
@@ -205,24 +205,26 @@ This command enables you to set a financial goal.
 
 [NOTE]
 The amount should be non-negative, and the maximum amount you may set is 10,000,000
-(10 million).
+(10 million). If more than 2 decimal places are specified, the amount will be rounded to 2 decimal places. +
+To reset the goal, simply set it to 0.
 
 * Steps:
 . Type the command with the corresponding target and amount.
 
-//.Screenshot of user input into Command Box for Set Command in Overview Tab
 image::overviewUG/SetCommandExample.png[width="600"]
 
 [start = 2]
 . Hit `Enter`
 
-//.Screenshot of a successful user input for Set Command in Overview Tab
 image::overviewUG/SetCommandResult.png[width="600"]
 
 Leo displays a confirmation showing that the goal was successfully set. +
 The user interface reflects this under the respective section.
 
 ==== 5.6.3 Set a Notification Threshold
+This command allows you to set a percentage threshold for notifications. +
+For example, an 80 percent threshold will mean that you will receive a notification once you have reached 80% of the
+goal set for that particular financial goal.
 
 * Command:
 ** To set budget goal notification: `notify b/PERCENTAGE`
@@ -230,23 +232,24 @@ The user interface reflects this under the respective section.
 ** To set sales goal notification: `notify s/PERCENTAGE`
 
 * Examples:
-** To set budget goal notification: [blue]`notify b/PERCENTAGE`
-** To set expense goal notification: [blue]`notify e/PERCENTAGE`
-** To set sales goal notification: [blue]`notify s/PERCENTAGE`
+** To set budget goal notification: [blue]`notify b/80`
+** To set expense goal notification: [blue]`notify e/80`
+** To set sales goal notification: [blue]`notify s/80`
 
 [NOTE]
-The percentage value should be a value from 0 - 100.
+The percentage value should be a whole number from 0 - 100. +
+This feature will not work if no goals have previously been set with the `set` command, or if the goal is currently
+set to 0. +
+To disable notifications for a particular financial goal, simply set its notifications threshold to 0.
 
 * Steps:
 . Type the command with the corresponding target and amount.
 
-//.Screenshot of user input into Command Box for Notify Command in Overview Tab
 image::overviewUG/NotifyCommandExample.png[width="600"]
 
 [start = 2]
 . Hit `Enter`
 
-//.Screenshot of a successful user input for Notify Command in Overview Tab
 image::overviewUG/NotifyCommandResult.png[width="600"]
 
 Leo displays a confirmation showing that the notification was successfully set. +
@@ -259,7 +262,6 @@ Notifications show only once per app run, or whenever a target or threshold is m
 
 The following screenshot shows an example of the notifications:
 
-//.Screenshot of notifications displayed by Leo for Notify Command in Overview Tab
 image::overviewUG/NotificationExample.png[width="600"]
 
 :sectnums:

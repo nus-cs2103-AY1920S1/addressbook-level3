@@ -23,11 +23,11 @@ year 4 Computer Engineering Undergraduate student.
 
 === About the Project
 
-This project is part of the module 'Software Engineering Project CS2103T' where we were tasked to develop a basic
+This project is part of the module 'Software Engineering CS2103T' where we were tasked to develop a basic
 command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
 Our team decided to incorporate and morph the AddressBook application as part of our all-in-one application which
 enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
-reimbursements, inventory and member’s contact details easily. The duration of our project was 13 weeks.
+reimbursements, inventory and members' contact details easily. The duration of our project was 13 weeks.
 
 ===  Key to the Icons and Formatting Used in the Document
 
@@ -36,7 +36,7 @@ This symbol indicates extra information or definition.
 
 `Model` :
 Text with this font and grey highlight indicates a component, class or object in the architecture of
-the application.
+the application. It also indicates a generic command format for the command box in the User Guide.
 
 [blue]`command` :
 Text with this blue font and grey highlight indicates a command that can be inputted by the user.
@@ -48,11 +48,11 @@ for Leo, our lion mascot. Each tab serves a different purpose that helps treasur
 or society's finances.
 
 Home Tab keeps track of individual transactions. Members Tab keep track of all contact
-details of members. Reimbursements Tab keeps track of reimbursement records for members that have spent money for the club activities.
+details of members. Reimbursements Tab keeps track of reimbursement records for members that have spent money for club activities.
 Inventory Tab keeps track of items for sale. Cashier Tab helps the club with on-site sales
 and directly inputs all revenue into the system. Overview Tab allows treasurers to plan the
 club's finances.
-This is what our application looks like when it is first opened (graphical user interface for treasurerPro):
+This is what our application looks like when it is first opened (Graphical User Interface of treasurerPro):
 
 .Graphical User Interface of treasurerPro
 image::AnnotatedUi.png[width="700"]
@@ -87,11 +87,11 @@ A [blue]`*sort*` command was implemented for the transactions in the table to so
 ////
 * Deleting Transactions of a Specific Member
 ** What it does:
-The Delete Command allows all transactions linked to the specified member in the command to be deleted at once.
+This feature allows all transactions linked to a specified member to be deleted at once.
 
 ** Justification:
 This feature allows the user to clear all transaction records linked to a specific member if the member
-has left the CCA since a member's details can only be deleted in the Members Tab if the member does not have existing transaction
+has left the CCA since a member's details can only be deleted in Members Tab if the member does not have existing transaction
 records.
 
 ** Highlights:
@@ -101,7 +101,7 @@ records. This works well with the deletion of member feature in Members Tab.
 * Sorting Transactions in a Specific Order
 ** What it does:
 Each transaction records consists of a date, description, category, amount of money and
-person accountable for the transaction. Thus, the Sort Command helps to sort the transactions by the alphabetical order of
+person accountable for the transaction. Thus, this feature helps to sort the transactions by the alphabetical order of
 the person's name, by the date (from oldest to most recent) or amount (from smallest to largest).
 
 ** Justification:
@@ -155,13 +155,13 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/201[(PR #201)]
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/126[(PR #126)]
 
 * Integration
-** Integrated `Transaction Tab` with `Reimbursements Tab`:
+** Integrated the Logic of the Home Tab with the Logic of the Reimbursements Tab:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49[(PR #49)]
 
-** Integrated the Original `AddressBook` into the `Members Tab` in Graphical User Interface:
+** Integrated the Original `AddressBook` into the Members Tab in Graphical User Interface:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/42[(PR #42)]
 
-** Integrated the Edit and Delete Command of `AddressBook` with the Logic of `Transaction Tab`:
+** Integrated the Edit and Delete Command of `AddressBook` with the Logic of the Home Tab:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49/commits/af0e17f2d0b9101c91122329ccd676ee6c7bc0fe[(PR #49)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/85/commits/3aebcd9053985fcc07e9145cff89fb579d9fde9e[(PR #85)]
 
@@ -175,13 +175,14 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/22[(PR#22)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/197[(PR #197)]
 
 == Contributions to the User Guide
-The following section shows my additions to the treasurerPro User Guide for the `Home Tab` features which showcases my ability
-to write documentation to guide non-technical end-users on how to use treasurerPro.
+The following section shows my additions to the treasurerPro User Guide for the features in Home Tab which showcases my ability
+to write documentation to guide end-users on how to use treasurerPro.
 
 === Current Enhancement
 {Start of First Extract from User Guide}
 
-[big red]*5.1.2. To Delete Transactions in the Home Tab*
+:sectnums!:
+==== 5.1.2. To Delete Transactions in the Home Tab
 
 This command allows you to delete either all transactions of a person or a single transaction of a specific ID from the table.
 
@@ -190,7 +191,8 @@ This command allows you to delete either all transactions of a person or a singl
 
 * Examples
 ** Delete by ID: [blue]`delete 1` - Deletes the transaction at the index shown in the table. If the table shows a filtered
-list of transactions due to the find command detailed in <<findCommandHome, Section 5.1.5. To Find Transactions that Match Keywords in the Home Tab>>,
+list of transactions due to the find command detailed in
+https://ay1920s1-cs2103t-t13-3.github.io/main/UserGuide.html#findCommandHome[Section 5.1.5. To Find Transactions that Match Keywords in the Home Tab],
 the 1st transaction in the filtered list is deleted.
 ** Delete by Person: [blue]`delete p/Alex Yeoh` - Deletes all transactions of the person in full list of transactions.
 
@@ -224,7 +226,7 @@ Leo will respond with a message to inform you. If the person does not have any t
 
 {Start of Second Extract from User Guide}
 
-[big red]*5.1.4. To Sort Transactions in the Home Tab*
+==== 5.1.4. To Sort Transactions in the Home Tab
 
 This command sorts the table of transactions into the specified order for viewing and carrying out of subsequent commands.
 
@@ -238,28 +240,30 @@ This command sorts the table of transactions into the specified order for viewin
 The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
 
 * Steps
-1. Type the any one of the above command in blue font into the command box.
+1. Type any one of the above commands in blue font into the command box.
 
 2. Hit `Enter`. The table will now be sorted in the specified order for you.
 
 {End of Second Extract}
 
+:sectnums:
 ==  Contributions to the Developer Guide
-The following section shows my contribution to the treasurerPro Developer Guide for the `Home Tab` features which showcases
+The following section shows my contribution to the treasurerPro Developer Guide for the features of the Home tab which showcases
 my ability to write documentation of technical concepts and the technical-depth of my contributions to the project.
 
 === Current enhancement
 {Start of Extract from Developer Guide}
 
+:sectnums!:
 [[DeleteCommandHome]]
-[big red]*3.1.2. Delete Feature*
+==== 3.1.2. Delete Feature
 
 This section explains the implementation of the delete command in Home Tab. This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
 that person to be deleted.
 The following activity diagram shows the steps needed to delete a new transaction:
 
-[caption = "Figure 17. "]
+[caption = "Figure 19. "]
 .Activity diagram of the delete command being executed in Home Tab (transaction package)
 image::HomeTabActivityDiagramDeleteCommand.png[width = "500"]
 
@@ -267,29 +271,31 @@ The above activity diagram assumes the index to be within the bounds of the tabl
 be shown about the incorrect input. Also, as shown above, responses will be shown to indicate if an input is incorrect or
 when a successful deletion is done.
 
-For the implementation, the `DeleteCommandParser` which is represented in <<GeneralLogicSD, 2.3. Logic component: Figure 5>> as a generic parser creates either a `DeleteIndexCommand` or `DeleteNameCommand` object according to the user input.
+For the implementation, the `DeleteCommandParser` which is represented in https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#GeneralLogicSD[2.3. Logic component: Figure 5]
+as a generic parser creates either a `DeleteIndexCommand` or `DeleteNameCommand` object according to the user input.
 The following sequence diagram shows how the `DeleteNameCommand` is created with the definition of `CheckAndGetPersonByNameOnlyModel#getPersonByName` defined in
-<<getPersonByName, 3.1.1. Add Command Feature>>:
+https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#getPersonByName[3.1.1. Add Command Feature]:
 
-[caption = "Figure 18. "]
+[caption = "Figure 20. "]
 .Sequence diagram of the parser for the delete command to delete by the `Person` 's name
 image::DeleteCommandParser.png[]
 
-The following sequence diagram shows how the command to delete transactions according to the specified name works after it is created which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+The following sequence diagram shows how the command to delete transactions according to the specified name works after it is created which is referenced in https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#GeneralLogicSD[2.3. Logic component: Figure 5]:
 
-[caption = "Figure 19. "]
+[caption = "Figure 21. "]
 .Sequence diagram of the delete command being executed in Home Tab (transaction package)
 image::HomeDeleteNameCommand.png[width = "300"]
 
-In addition, the `Model#resetPredicate()` method defined in <<resetPredicate, 3.1.1. Add Command Feature>> is not called in the `DeleteNameCommand`. If the prior input is a
+In addition, the `Model#resetPredicate()` method defined in
+ https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#resetPredicate[3.1.1. Add Command Feature] is not called in the `DeleteNameCommand`. If the prior input is a
 find command and the list at the start of the activity diagram shows
 a filtered list, the table in the UI will continue to show the filtered list after the current delete command.
 To view the full transaction list, the user would be required to enter the
 back command where `BackCommand` calls `Model#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
-following section <<BackCommandSD, 3.1.3. Back Command Feature>>
+following section <<BackCommandSD, 3.1.3. Back Command Feature>>.
 
-After this, the list of transactions and Reimbursement Tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 14>>
-and <<update-reimbursement, 3.1.1. Add Command feature: Figure 15>>
+After this, the list of transactions and Reimbursement Tab is updated as shown in https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#updateTL[3.1.1. Add Command feature: Figure 16]
+and https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#update-reimbursement[3.1.1. Add Command feature: Figure 17]
 respectively.
 
 The implementation of the command to delete transactions according to the specified index would be similar but does not require interaction with the `CheckAndGetPersonByNameOnlyModel` from the
@@ -297,28 +303,29 @@ The implementation of the command to delete transactions according to the specif
 `Model#findTransactionInFilteredListByIndex(index)` and `Model#deleteTransaction(index)` instead which deletes the `Transaction` object according
 to its position in the filtered transaction list.
 
-[big red]*3.1.3. Back Command Feature*
+==== 3.1.3. Back Command Feature
 
 [[BackCommandSD]]
 This section explains the implementation of the back command feature in Home Tab.
 The `BackCommand` is not initialised by a specific command parser as shown in as shown in
- <<GeneralLogicSD, 2.3. Logic component: Figure 5>>
+ https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#GeneralLogicSD[2.3. Logic component: Figure 5]
 but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
 
-[caption = "Figure 20. "]
+[caption = "Figure 22. "]
 .Sequence diagram of the back command being executed in Home Tab (transaction package)
 image::HomeTabBackCommandSequenceDiagram.png[width = "500"]
 
-[big red]*3.1.4. Sort Command Feature*
+==== 3.1.4. Sort Command Feature
 
 This section explains the implementation of the sort command feature in Home Tab.
-The `SortCommand` allows for 3 types of sort, by name in
+The sort command allows for 3 types of sort, by name in
 alphabetical order, by amount (from least to most) and by date (from oldest to most recent).
 
-The following sequence diagram shows how the sort command works which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+The following sequence diagram shows how the sort command works which is referenced in
+https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#GeneralLogicSD[2.3. Logic component: Figure 5]:
 
-[caption = "Figure 21. "]
+[caption = "Figure 23. "]
 .Sequence diagram of the sort command being executed in Home Tab (transaction package)
 
 image::HomeTabSortSD.png[width = "300"]
@@ -327,9 +334,9 @@ When a user inputs the sort command, it is only checked that it is one of the 3 
 the incorrect user input. When it is successfully sorted, there will also be a response message shown.
 
 Similar to the delete command in <<DeleteCommandHome, 3.1.2. Delete Command Feature>>, the `Model#resetPredicate()` method is not called. If the UI table is showing a filtered
-list of transactions, the back command has to be entered to call that method from `BackCommand` to reset the predicate.
+list of transactions, the back command must be entered to call that method from `BackCommand` to reset the predicate.
 
-[big red]*3.1.5. Overall Design Considerations*
+==== 3.1.5. Overall Design Considerations
 
 This section's table explains the design considerations for some implementations in the Home Tab.
 
@@ -341,14 +348,14 @@ object for viewing in the UI table that can be sorted such that when [blue]`sort
 |`ModelManager` contains only the shown `TransactionList` that can be sorted and reads from the data file to get
 the `TransactionList` object in original order when [blue]`sort reset` is called.
 |Alternative 1 was implemented. Alternative 1 allows the data file to be exported in the desired order anytime while treasurerPro is running while
-alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shown below the table in <<lists, Figure 22>>.
+alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shown in <<lists, Figure 24>>, below the table.
 
 |The Members Tab's `Model` interface is passed as parameters into Transaction Tab's `Logic` to give `Logic` access to all public methods
 of `ModelManager`.
 |A new interface is made to allow the only used method of Members Tab's `ModelManager` to be accessed in Transaction Tab's
 `Logic`.
 |Alternative 2 was implemented. The new interface acts as a facade for `ModelManager` which prevent unwanted modifications
-to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel` as shown below the table in <<facade, Figure 23>>.
+to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel` as shown in <<facade, Figure 25>>, below the table.
 
 |An `ArrayList` is used to store `Transaction` objects in `TransactionList`.
 |A `LinkedList` is used to store `Transaction` objects in `TransactionList`.
@@ -356,12 +363,12 @@ to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel
 |===
 
 [[lists]]
-[caption = "Figure 22. "]
+[caption = "Figure 24. "]
 .Code snippet of `ModelManager` class with 2 `TransactionList` objects
 image::homeDG/2lists.png[width = "450"]
 
 [[facade]]
-[caption = "Figure 23. "]
+[caption = "Figure 25. "]
 .Code snippet of `CheckAndGetPersonByNameOnly` facade class for `ModelManager` from Members Tab
 image::homeDG/facadeForDesignConsiderations.png[width = "450"]
 

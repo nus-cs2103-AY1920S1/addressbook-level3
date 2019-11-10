@@ -52,11 +52,6 @@ public class EditCommand extends Command {
         logger.info("trans to edit: " + transactionToEdit.toString());
         Transaction editedTransaction = createdEditedTransaction(transactionToEdit,
                 editTransactionDescriptor, personModel);
-
-        //allow for duplicates
-        /*if (transactionToEdit.equals(editedTransaction) && model.hasTransaction(editedTransaction)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
-        }*/
         model.setTransaction(transactionToEdit, editedTransaction);
         if (editedTransaction.isNegative()) {
             return new CommandResult(String.format(MESSAGE_NEGATIVE_TRANSACTION_EDITED, editedTransaction));

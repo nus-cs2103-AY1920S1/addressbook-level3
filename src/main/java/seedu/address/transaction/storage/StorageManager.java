@@ -13,7 +13,7 @@ import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
-import seedu.address.transaction.storage.exception.FileReadWriteException;
+import seedu.address.transaction.storage.exception.FileReadException;
 
 /**
  * Manages storage of transaction data in local storage.
@@ -35,7 +35,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public TransactionList readTransactionList() throws FileReadWriteException {
+    public TransactionList readTransactionList() throws FileReadException {
         try {
             ArrayList<Transaction> transactionArrayList = new ArrayList<>();
             file.getAbsoluteFile().getParentFile().mkdirs();
@@ -47,9 +47,9 @@ public class StorageManager implements Storage {
                 transactionArrayList.add(t);
             }
             return new TransactionList(transactionArrayList);
-        } catch (Exception e) {
+        } catch (IOException e) {
             logger.warning("There was a problem reading transactionHistory.txt while application is running.");
-            throw new FileReadWriteException(ERROR_READING_FILE);
+            throw new FileReadException(ERROR_READING_FILE);
         }
     }
 
@@ -90,7 +90,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void appendToTransaction(Transaction transaction) throws Exception {
+    public void appendToTransaction(Transaction transaction) throws FileReadException, IOException {
         FileWriter fw = new FileWriter(this.file, true);
         TransactionList transactionList = readTransactionList();
         String textFileMsg = "";

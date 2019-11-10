@@ -51,13 +51,6 @@ public class CheckoutCommandParserTest {
                 new CheckoutCommand(0, VALID_PRICE_PAID), model,
                 (CheckAndGetPersonByNameModel) personModel);
 
-        // with sales item added
-        /*model.addItem(FISH_BURGER);
-        model.addItem(STORYBOOK);
-        double totalAmount = FISH_BURGER.getSubtotal() + STORYBOOK.getSubtotal();
-        assertCommandParserSuccess(parser, DESC_PRICE_PAID,
-                new CheckoutCommand(totalAmount, VALID_PRICE_PAID - totalAmount), model,
-                (CheckAndGetPersonByNameModel) personModel); */
         model.clearSalesList();
     }
 

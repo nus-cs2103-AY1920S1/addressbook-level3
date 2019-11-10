@@ -23,9 +23,11 @@ public class NotifySalesCommand extends NotifyCommand {
     public CommandResult execute(Model model) throws InvalidValueException {
 
         if (amount < 0 || amount > 100) {
+            logger.warning("Value not between 0 and 100, throwing exception.");
             throw new InvalidValueException(MESSAGE_INVALID_NOTIFY_AMOUNT);
         }
 
+        logger.info("Setting notification threshold for sales to " + amount);
         model.setSalesThreshold(amount);
         return new CommandResult(String.format(MESSAGE_NOTIFY_SALES_SUCCESS, DECIMAL_FORMAT.format(amount)));
     }

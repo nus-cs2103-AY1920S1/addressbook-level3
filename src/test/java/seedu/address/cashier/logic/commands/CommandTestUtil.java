@@ -26,7 +26,6 @@ import seedu.address.inventory.model.Item;
  */
 public class CommandTestUtil {
 
-    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String VALID_DESCRIPTION_FISH_BURGER = "Burger";
     public static final String VALID_DESCRIPTION_STORYBOOK = "The tale";
     public static final String VALID_DESCRIPTION_CHIPS = CHIPS.getDescription();
@@ -44,7 +43,6 @@ public class CommandTestUtil {
 
     public static final String DESC_DESCRIPTION_FISH_BURGER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_FISH_BURGER;
     public static final String DESC_DESCRIPTION_STORYBOOK = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_STORYBOOK;
-    public static final String DESC_DESCRIPTION_BLACK_SHIRT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BLACK_SHIRT;
     public static final String DESC_DESCRIPTION_CHIPS = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CHIPS;
     public static final String DESC_CATEGORY_1 = " " + PREFIX_CATEGORY + VALID_CATEGORY_1;
     public static final String DESC_CATEGORY_2 = " " + PREFIX_CATEGORY + VALID_CATEGORY_2;
@@ -64,8 +62,6 @@ public class CommandTestUtil {
 
     public static final String INVALID_DESCRIPTION_1 = " " + PREFIX_DESCRIPTION + "black shirt";
     public static final String INVALID_DESCRIPTION_2 = " " + PREFIX_DESCRIPTION + "black case";
-    public static final String INVALID_CATEGORY_1 = " " + PREFIX_CATEGORY + "accessory";
-    public static final String INVALID_CATEGORY_2 = " " + PREFIX_CATEGORY + "paper";
     public static final String INVALID_QUANTITY_1 = " " + PREFIX_QUANTITY + "hi";
     public static final String INVALID_QUANTITY_2 = " " + PREFIX_QUANTITY + "-4";
     public static final String INVALID_QUANTITY_3 = " " + PREFIX_QUANTITY + "9999999";
@@ -73,7 +69,6 @@ public class CommandTestUtil {
     public static final String INVALID_INDEX_2 = " " + PREFIX_INDEX + "900";
     public static final String INVALID_INDEX_3 = " " + PREFIX_INDEX + "hey";
     public static final String INVALID_INDEX_4 = " " + PREFIX_INDEX + 0;
-    public static final String INVALID_PRICE_PAID_1 = " " + "-30";
     public static final String INVALID_PRICE_PAID_2 = " " + "0.30";
     public static final String INVALID_PRICE_PAID_3 = " " + "hi hi";
 
@@ -90,12 +85,8 @@ public class CommandTestUtil {
                                             Model expectedModel,
                                             seedu.address.person.model.CheckAndGetPersonByNameModel personModel) {
         try {
-            System.out.println("beforee");
             CommandResult result = command.execute(cashierModel, personModel);
-            System.out.println("inside test util:" + expectedCommandResult.getFeedbackToUser());
-            System.out.println(result.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
-            System.out.println("did first assert equals");
             assertEquals(expectedModel, cashierModel);
             assertEquals(expectedModel.getSalesList(), cashierModel.getSalesList());
         } catch (Exception ce) {

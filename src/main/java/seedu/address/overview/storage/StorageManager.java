@@ -5,13 +5,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import seedu.address.overview.model.Model;
+import seedu.address.person.commons.core.LogsCenter;
 
 /**
  * Manages storage of transaction data in local storage.
  */
 public class StorageManager implements Storage {
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private final File file;
     private double[] values;
 
@@ -30,9 +34,13 @@ public class StorageManager implements Storage {
         return values;
     }
 
+
+
     @Override
     public void writeToFile(Model model) throws IOException {
+        logger.info("Writing data to file...");
         if (!file.exists()) {
+            logger.info("File not found. Creating new file...");
             file.getParentFile().mkdirs();
             file.createNewFile();
         }
@@ -66,13 +74,14 @@ public class StorageManager implements Storage {
 
         fw.write(s.toString());
         fw.close();
+        logger.info("Data successfully written to file!");
     }
 
     /**
      * Reads in the current file line and stores the value from that line.
      * @param line The current file line.
      */
-    void readInFileLine(String line) {
+    private void readInFileLine(String line) {
         String[] params = line.split("\\|");
 
         if (params[0].equals("budgetTarget") || params[0].equals("expenseTarget") || params[0].equals("salesTarget")) {
