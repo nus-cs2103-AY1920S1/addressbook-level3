@@ -22,14 +22,16 @@ My team of five members consists of four Year 2 Computer Science students, inclu
 student, all taking the module CS2103T Software Engineering.
 
 === About the project
-This project is part of the module - Software Engineering Project, CS2103T. We were tasked to develop a basic
-command line interface footnote:[Command Line Interface (CLI) is a text-based user interface (UI) that allows the user
-to interact with the system using commands] (CLI)
-desktop application by morphing or enhancing an existing AddressBook desktop application over a period of 13 weeks.
+This project was developed as part of the module - Software Engineering Project, CS2103T. We were tasked to develop a desktop
+application footnote:[A desktop application is an application that runs on various Operating System including Windows, macOS or Linux.]
+with a Command Line Interface footnote:[Command Line Interface (CLI) is a text-based user interface (UI)
+that allows the user to interact with the system using commands] by enhancing an existing AddressBook desktop application.
+
 My team decided to morph and incorporate the AddressBook application as part of our all-in-one expense tracker.
-This application enables treasurers and members of Co-Curricular Activities (CCA) Clubs and Societies to regulate
-their club expenses, manage the stocks in the inventory and retrieve records of reimbursements of its members and
-their contact details easily.
+This application aims to enable treasurers and members of Co-Curricular Activities (CCA) Clubs and Societies to regulate
+their club expenses, manage the stocks in the inventory and retrieve records of reimbursements of its members easily.
+
+In total, this project took place over a span of 8 weeks.
 
 ===  Typographical Conventions
 This section covers the key icons and formatting used in this document.
@@ -37,7 +39,7 @@ This section covers the key icons and formatting used in this document.
 [NOTE]
 This symbol indicates important information or definition.
 
-[blue]`*command*` :
+[blue]`command` :
 Text with blue font and grey highlight indicates a command that can be inputted into the command line by the user and
 be executed by the application.
 
@@ -64,9 +66,9 @@ This is what the application looks like when it starts up:
 image::AnnotatedUi.png[width="680"]
 
 == Summary of contributions
-My role was to design the layout and code the features for the Cashier tab. The following sections present the
-enhancements that I have implemented in greater detail, as well as the relevant documentation I have done in the
-user guide and developer guide.
+My responsibilities include designing the layout, implementing the features for the Cashier tab and ensuring good code quality across all packages.
+
+The following sections present the enhancements that I have implemented in greater detail, as well as the relevant documentation I have done in the user guide and developer guide.
 
 === Main Enhancements
 The following illustrates some crucial enhancements that I have added for Cashier tab.
