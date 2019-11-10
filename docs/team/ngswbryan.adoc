@@ -39,8 +39,8 @@ The custom commands feature required handling command words that are not recogni
 
 * *Minor enhancement*: Added *the Student Profile feature*
 ** What it does: It allows the user to add students along with the vital information required about them to a list for easy viewing and management.
-** Justification: TAs have too many things to remember about individual students like their participation, attendance and results. Having an organized bird's eye view of everything in one place helps them keep track of everything and reduces time wasted in retrieving information from many different places.
-** Implementation: This feature was implemented by refactoring an enhancing the existing Person class with additional functionality such as setting a picture to a student profile.
+** Justification: TAs have too many things to remember about individual students like their participation, attendance and results. Having an organized bird's eye view of everything in one place helps to reduce the time wasted in retrieving information from many different places.
+** Implementation: This feature was implemented by refactoring and enhancing the existing Person class with additional functionality such as setting a picture to a student profile.
 
 * *Code contributed*: [https://github.com/AY1920S1-CS2103T-F14-2/main/commits?author=ngswbryan[All commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ngswbryan[Project Code Dashboard]]
 
