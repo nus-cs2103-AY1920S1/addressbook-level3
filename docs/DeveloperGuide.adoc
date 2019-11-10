@@ -894,6 +894,45 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding an entity manually
+Please refer to the Add interviewees/interviewer section in the <<UserGuide#, user guide>> for more detailed information on the `add` command.
+
+For simplicity, we refer to interviewees and interviewers as *entities* collectively.
+
+. Upon launching Scheduler, input the following command to add an interviewee:
+.. `add r/interviewee n/Ronald p/88888888 t/CAP5 t/dogLover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-18:30`
+. To add an interviewer, input the following command:
+.. `add r/interviewer n/Delilah p/98765432 ew/delilah@u.nus.edu d/Marketing s/20/09/2019 18:00-18:30`
+. Expected: The Interviewees and Interviewers tab now reflects the newly added interviewee and interviewer, with each column in the tab corresponding to the various fields input.
+(i.e the column in the interviewees tab with header `name` now reflects `Ronald` as input by the user)
+. You can change the different prefix fields (e.g `n/Ronald`) to any valid value, as stated in the User Guide under the `add` command section.
+
+=== Editing an entity
+Please refer to the Edit interviewees/interviewer section in the <<UserGuide#, user guide>> for more detailed information on the `edit` command.
+
+This section follows directly from the previous section, <<Adding an entity manually, adding an entity manually>>.
+
+. With Scheduler launched, input the following command in the user input field:
+.. `edit Ronald r/interviewee p/91234567`
+. Expected: The Interviewees tab now reflects the edited interviewee, where `Ronald` now has a phone number `91234567`.
+. Now enter the following command in the user input field:
+.. `edit Delilah r/interviewer ew/delilah1995@u.nus.edu`
+. Expected: The Interviewers tab now reflects the edited interviewer, where `Delilah` now has an email `delilah1995@u.nus.edu`.
+. You can change, include or exclude the different prefix fields as long as within the boundaries specified in the User Guide under the `edit` command section.
+
+=== Deleting an entity
+Please refer to the Delete interviewees/interviewer section in the <<UserGuide#, user guide>> for more detailed information on the `delete` command.
+
+This section follows directly from the previous section, <<Editing an entity, Editing an entity>>.
+
+. With Scheduler launched, input the following command in the user input field:
+.. `delete Ronald r/interviewee`
+. Expected: The Interviewees tab now reflects the deleted interviewee, where `Ronald` is now missing from the tab.
+. Now enter the following command in the user input field:
+.. `delete Delilah r/interviewer`
+. Expected: The Interviewers tab now similar reflects the deleted interviewer `Delilah`.
+. You can delete any entity as long as the entity's name is shown in the Interviewee/Interviewer tab. See the User Guide under the `delete` command section for specifics.
+
 === Scheduling Interviews
 . Import .csv files of interviewers' availability and interviewees' details using the `import` command.
 .. Please refer to the QuickStart section in the <<UserGuide#, user guide>> to download the templates of the interviewers' availability and interviewees details.
