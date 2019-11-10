@@ -42,7 +42,7 @@ public class DistrictKeywordsPredicateTest {
     }
 
     @Test
-    public void test_singleVehicleSingleDistrict_returnsTrue() {
+    public void test_singleVehicleInSingleDistrict_returnsTrue() {
         districts3.add(vehicles.get(0).getDistrict());
 
         DistrictKeywordsPredicate p3 = new DistrictKeywordsPredicate(districts3);
@@ -51,7 +51,7 @@ public class DistrictKeywordsPredicateTest {
     }
 
     @Test
-    public void test_singleVehicleMultipleDistricts_returnsTrue() {
+    public void test_singleVehicleInAnyOfTheMultipleDistricts_returnsTrue() {
         for (int i = 0; i < vehicles.size(); i++) {
             if (i % 2 == 0) {
                 districts2.add(vehicles.get(i).getDistrict());
@@ -64,5 +64,28 @@ public class DistrictKeywordsPredicateTest {
 
         assertTrue(p1.test(vehicles.get(0)));
         assertTrue(p2.test(vehicles.get(0)));
+    }
+
+    @Test
+    public void test_singleVehicleNotInSingleDistrict_returnsFalse() {
+        districts3.add(vehicles.get(0).getDistrict());
+
+        DistrictKeywordsPredicate p3 = new DistrictKeywordsPredicate(districts3);
+
+        assertFalse(p3.test(vehicles.get(1)));
+    }
+
+    @Test
+    public void test_singleVehicleNotInAnyOfTheMultipleDistricts_returnsFalse() {
+        for (int i = 0; i < vehicles.size(); i++) {
+            if (i % 2 == 0) {
+                districts2.add(vehicles.get(i).getDistrict());
+            }
+        }
+
+        DistrictKeywordsPredicate p2 = new DistrictKeywordsPredicate(districts2);
+
+        assertFalse(p2.test(vehicles.get(1)));
+        assertFalse(p2.test(vehicles.get(3)));
     }
 }

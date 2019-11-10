@@ -1,8 +1,8 @@
 package seedu.address.model.vehicle;
 
-import static seedu.address.model.vehicle.Availability.VEHICLE_AVAILABLE_TAG;
-
 import java.util.function.Predicate;
+
+import static seedu.address.model.vehicle.Availability.VEHICLE_AVAILABLE_TAG;
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  * Only used for manual vehicle assignment, where model shows only the available
@@ -35,7 +35,7 @@ public class AvailableInDistrictPredicate implements Predicate<Vehicle> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AvailableInDistrictPredicate // instanceof handles nulls
-                && district == ((AvailableInDistrictPredicate) other).district); // state check
+                && district.equals(((AvailableInDistrictPredicate) other).district)); // state check
     }
 
     public String getPredicate() {
