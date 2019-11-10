@@ -207,17 +207,42 @@ This allows us to achieve polymorphism by overloading methods in `Model` to hand
 // tag::set[]
 === Set Budget Feature: `set`
 
-This feature allows the user to set a budget for a given time period for a category, if specified.
+The `Budget` class allows the user to set a budget for a given time period for a category, if specified.
 The user is allowed to set multiple budgets, but duplicate budgets (budgets with the same identity in terms of *amount*, *date* and *tag*) are not allowed.
-Upon setting the budget and prior to the deadline, the user's `OutTransaction` will deduct the amount from each budget in the list respectively.
+Upon setting the budget, making `OutTransaction` will deduct the amount from relevant budgets in the list.
+The detailed implementation of the process of updating the budget is explained further below in <<Current-Implementation, Current Implementation>>.
 
+[[Current-Implementation]]
 ==== Current Implementation
 
 The `set` command is an extension of parent `Command` class, facilitated by the _Logic_ and _Model_ components of the application, _PalPay_ +
 Given an *amount* and *date*, a new Budget is set for the user. +
 Upon setting a new budget, a `BudgetCard` is created and displayed in a list in the application window till the date set by the user. +
 
-// TODO: add PUML figure for Sequence diagram
+A `Budget` stores an *initial amount*, *amount* (the current amount), *deadline*, *categories*.
+There is a need for a `Budget` to store both *initial amount* and *amount* as it allows for percentage of budget remaining to be calculated. +
+Displaying the percentage improves the user experience greatly as our target user is a
+`visual person who wants to see how much budget he has left in each category so as to cut down on spending as necessary`
+as specified in <<User-Stories, user stories>>. Hence, taking a quick glance at the `Budget card` allows the user to
+determine how much of budget he has left, as well as be alarmed by the red font colour to spend less if he has overspent beyond the budget set. +
+
+A snippet of the code which calculates the percentage of budget left is shown below:
+```
+public String displayPercentage() {
+    double percentage = this.amount.divideAmount(this.initialAmount) * 100;
+    if (percentage < 0.00) {
+        percentage = 0.0; // should not display a negative percentage
+    }
+    return String.format("%.2f%% remaining", percentage);
+}
+```
+
+Shown below is an example of an overspent budget. Budget is displayed in red to alert the user that
+he has overspent beyond the set budget:
+
+.Example of an overspent budget
+image::overspentBudget.png[]
+
 
 
 ==== Design Considerations
@@ -683,6 +708,9 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
+
+[[User-Stories]]
+
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
