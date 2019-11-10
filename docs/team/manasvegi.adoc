@@ -85,3 +85,5 @@ include::../UserGuide.adoc[tag=shoppinglistfeatures]
 |===
 
 include::../DeveloperGuide.adoc[tag=mergeBoughtFeature]
+
+include::../DeveloperGuide.adoc[tag=shoppinglistmanualtesting]
