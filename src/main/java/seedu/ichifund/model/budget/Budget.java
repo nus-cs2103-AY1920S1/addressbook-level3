@@ -66,7 +66,11 @@ public class Budget {
             return true;
         }
 
-        return otherBudget != null && otherBudget.getDescription().equals(getDescription());
+        return otherBudget != null && otherBudget.getDescription().equals(getDescription())
+                && ((otherBudget.getMonth() == null && getMonth() == null)
+                || otherBudget.getMonth().equals(getMonth()))
+                && ((otherBudget.getYear() == null && getYear() == null)
+                || otherBudget.getYear().equals(getYear()));
     }
 
     /**
@@ -111,7 +115,7 @@ public class Budget {
                 && otherBudget.getAmount().equals(getAmount())
                 && ((otherBudget.getMonth() == null && getMonth() == null)
                 || otherBudget.getMonth().equals(getMonth()))
-                && ((otherBudget.getYear() == null && getMonth() == null)
+                && ((otherBudget.getYear() == null && getYear() == null)
                 || otherBudget.getYear().equals(getYear()))
                 && ((otherBudget.getCategory() == null && getCategory() == null)
                 || otherBudget.getCategory().equals(getCategory()));
