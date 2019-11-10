@@ -58,10 +58,6 @@ image::Ui.png[width="790"]
 [[Features]]
 == Features
 
-Note: GUI deck displays work ideally for decks with 10 or less cards. Better GUI support will be included for display of decks in V2.0.
-
-Please use scroll bar to view the windows properly.
-
 ====
 *Command Format*
 
@@ -69,6 +65,14 @@ Please use scroll bar to view the windows properly.
 * Items in square brackets are optional.
 * Items with `…` after them can be used multiple times including zero times.
 * Commands are case-sensitive.
+====
+
+// tag::cli[]
+====
+*Command History*
+
+* After keying in a command, press up and down arrow keys to navigate your command history.
+* If in multiline editing mode, press (Ctrl+d) to submit the multiline text
 ====
 
 
@@ -326,6 +330,8 @@ Starts a untimed test with the deck of cards, `science_deck`
 * `test deck/science_deck duration/100` +
 
 Starts a timed test of 100 seconds with the deck of cards, `science_deck`
+
+Do note that only the results of the *first attempt* of each question will be counted in each test. Repeat attempts are allowed for a better learning experience, but will not contribute towards score.
 ****
 
 ==== Get next card: `next`
@@ -341,17 +347,43 @@ Gets the previous card in the test deck.
 // tag::stop[]
 ==== Quit test: `exit`
 
-Exits the test process when the user is in test mode. +
+Exits the test process when the user is in test mode.
 
 Exams will also terminate automatically upon running out of cards in the test deck.
 
 Triggers a popup with the results of the test.
 
-==== Front-Back Cards
+Do note that premature ending of a test will still count towards your Statistics.
 
-* Flipping the cards: `front` and `back`
+==== Front-Back Cards: `front`, `back`, `correct`, `wrong`
 
+====
+* Users should look at the question on the front of the card and think of their answer.
 
+* Once they have their answer, they can type `back` to view the answer on the back on the card.
+
+* They will then be able to type `correct` or `wrong` to count their results.
+
+* They can type `front` when they are on the card back to relook at the question.
+====
+
+==== Multiple Choice Cards: `<USER_INPUT>`, `front`
+====
+* Upon loading the card, users will be presented with the question and several choices.
+
+* Users will be able to key in their choice into the command bar, with the top most option as 1 and increasing downwards. Do note only numbers are accepted.
+
+* Keying in the answer will automatically flip the card and evaluate the answer. Users can then use `front` to relook at the question.
+====
+
+==== Java/Javascript Cards: `code`
+====
+* Upon loading the card, users will be presented with a coding question.
+
+* They can then type `code` to launch the appropriate Java/Javascript coding playground to code their programs.
+
+* Upon running their programs, if they pass all test cases, their results will automatically be counted.
+====
 // tag::stats[]
 === Viewing user statistics : `stats`
 
@@ -410,15 +442,37 @@ Example:
 e.g. `help command/view`
 * *import* : `import filepath/FILE_NAME`
 * *export* : `export deck/DECK_NAME FILE_NAME`
-* *stats* : `stats [deck/DECK_NAME]` +
-e.g. `stats deck/science_deck`
 * *view* : `view [deck/DECK_NAME]` +
 e.g. `view deck/science_deck`
 * *create* : `create deck/DECK_NAME`
-* *test* : `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME` +
-e.g. `test deck/science_deck`
-* *exit* : `exit`
+* *add*: only applicable for Front-Back Cards and Multiple Choice Cards
+====
+** `add deck/DECK_NAME front/CARD_FRONT back/CARD_BACK [priority/HIGH_OR_LOW]`
+
+** `add deck/DECK_NAME front/CARD_FRONT back/CORRECT_OPTION choice/CHOICE_A choice/CHOICE_B [priority/HIGH_OR_LOW]`
+
+====
 * *edit* : `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]` +
 e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
+* *test* : `test deck/DECK_NAME duration/TIME_LIMIT_ALLOWED` +
+e.g. `test deck/science_deck duration/0` +
+e.g. `test deck/science_deck duration/100`
+====
+** *next card*: `next`
+** *previous card*: `prev`
+** *exit test mode*: `exit`
+** *Front Back Cards:*
+*** see back of card: `back`
+*** correct answer: `correct`
+*** wrong answer: `wrong`
+*** see question: `front`
+** *Multiple Choice Cards:*
+*** indicate choice: `<USER_INPUT>` which is any integer
+*** see question: `front`
+** *Java/Javascript Cards:*
+*** open coding playground: `code`
+====
+* *stats* : `stats [deck/DECK_NAME]` +
+e.g. `stats deck/science_deck`
 * *quit* : `quit`
 // end::summary[]

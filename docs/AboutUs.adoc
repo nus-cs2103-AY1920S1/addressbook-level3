@@ -39,10 +39,10 @@ Responsibilities: In charge of Statistics, did first draft of application's GUI,
 
 === Abdul Haliq
 image::ahaliq.png[width="150", align="left"]
-{empty}[https://github.com/ahaliq[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ahaliq[github]] [<<ahaliq#, portfolio>>]
 
 Role: Developer +
-Responsibilities: TBC
+Responsibilities: In charge of Storage, JSON Parsing, cli interface. Heavily contributed to high level architecture.
 
 '''
 
