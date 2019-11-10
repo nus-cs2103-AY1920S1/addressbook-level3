@@ -55,7 +55,7 @@ public class CalendarPanel extends UiPart<Region> {
     /**
      * To populate the agenda with the schedules in the observable list
      */
-    public void populateAgenda() {
+    private void populateAgenda() {
         agenda.appointments().clear();
 
         for (Schedule schedule: scheduleList) {

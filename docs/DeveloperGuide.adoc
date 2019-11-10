@@ -394,11 +394,14 @@ which is consistent with the unlimited number of `Tag` a `Customer` can hold.
 === Calendar / Schedule feature
 ==== Implementation
 
-We decided to incorporate a third party library, `JFXtras's Agenda`, to represent our schedules on a calendar for easy viewing by our users.
+We decided to incorporate a third party library, _JFXtras's Agenda_, to represent our schedules on a calendar for easy viewing by our users.
 
-`CalendarPanel` keeps `UniqueList<Schedule>` and `UniqueList<Order>` objects from `Model` as class variables.
-On instantiation, all the schedules in `UniqueList<Schedule>` will be converted to `Appointments` and then added to `Agenda`.
-To set the display information of the `Schedule` object, we will find its `Order` in the `UniqueList<Order>` and retrieve its index.
+Here is the class diagram for `CalendarPanel`:
+
+image::CalendarPanelClassDiagram.png[]
+
+On instantiation of `CalendarPanel`, all the schedules in scheduleList will be converted to `Appointments` and then added to `Agenda` via `populateAgenda()`.
+To set the display information of the `Schedule` object, we will find its `Order` in the orderList and retrieve its index.
 
 Schedule supports a few main commands:
 
@@ -407,27 +410,27 @@ Schedule supports a few main commands:
 * Delete -- deletes an existing schedule in SML, command will be in this format: `delete-s ORDER_INDEX`
 * Schedule -- switches the view on the panel to the week containing the date entered, command will be in this format: `schedule cd/DATE`
 
-The schedules and date the calendar panel shows is automatically updated depending on the commands executed by the users.
+The schedules and date in the calendar panel shows is automatically updated depending on the commands executed by the users.
 For example:
 
 * If the user adds/edits/deletes a schedule -- calendar panel will display the week with the date of the schedule.
 * If the user uses the switch-s command -- calendar panel will display the week with today's date.
-* If the user uses the schedule command -- calendar will display the week with the date requested by the user.
+* If the user uses the schedule command -- calendar panel will display the week with the date requested by the user.
 
-Changes to the schedules are made in the model by editing the `UniqueList<Schedule>` object.
-`CalendarPanel` adds a listener to its `UniqueList<Schedule>` variable and listens to the changes and generates the updated list of `Schedules` into `Appointments` to add to `Agenda`.
+Changes to the schedules are made in the model by editing its own scheduleList.
+`CalendarPanel` adds a listener to its `scheduleList` variable and listens to the changes and calls `populateAgenda()` to generate the updated list of `Schedules` into `Appointments` to add to `Agenda`.
 
 The current date shown on the calendar panel is encapsulated in a `CalendarDate` object.
 The `CalendarDate` class uses `SimpleObjectProperty` to keep track of the Calendar (date).
 
 When any of the schedule commands are executed, model will edit the `CalendarDate` object with the updated Calendar (date).
-`CalendarPanel` adds a listener to its `CalendarDate` variable and listens to the changes and sets the agenda view to the new `Calendar` in `CalendarDate` accordingly.
+`CalendarPanel` adds a listener to its `CalendarDate` variable and listens to the changes and calls `setAgendaView()` to set the new `Calendar` in `CalendarDate` accordingly.
 
 Here is a sample of what happens when a user adds a schedule (AddScheduleCommand):
 
 image::ScheduleCommandSequenceDiagram.png[]
 
-Basically, after the setCalendarDate(calendar) method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its setAgendaView(calendar) method.
+Basically, after the `setCalendarDate()` method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its `setAgendaView()` method.
 
 ===== Design Considerations / Alternative designs considered
 
