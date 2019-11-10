@@ -20,12 +20,13 @@ By: `CS2103T W13-4`
 
 == Introduction
 
-Budget Buddy is an all-in-one expense tracking application for computing students who prefer to use a desktop app
-to manage their expenses. More importantly, Budget Buddy is *optimized for those who prefer to work with a Command
+Budget Buddy is an all-in-one expense tracking application for students from the School of Computing (SoC)
+at the National University of Singapore (NUS) who prefer to use a desktop app to manage their expenses.
+More importantly, Budget Buddy is *optimized for those who prefer to work with a Command
 Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you type fast, Budget Buddy can get your expense management tasks done faster than traditional GUI apps.
-Furthermore, Budget Buddy allows computing students to add their own functions through customized JavaScript files,
-as well as a set of rules to simplify expense tracking through automation.
+Furthermore, Budget Buddy allows users with computing know-how to add their own functions through customized JavaScript files,
+as well as set rules to simplify expense tracking through automation.
 
 This user guide provides in-depth documentation of the current as well as upcoming features, including the setup
 process, as well as some commonly asked questions. For the hands-on person, check out the _Quick Start_ section right
@@ -70,18 +71,21 @@ or jump straight to a specific section from the _Table of Contents_ above.
 [[Features]]
 == Features
 
-Budget Buddy comes with many tools to help you manage your expenses better!
+Budget Buddy comes with many tools to help you manage your expenses better.
 You can create different accounts, record your transactions,
 track money you owe people or that people owe to you,
 and even instantly split a bill between you and your friends!
 
 What's more? Automate processes with rules. Typing the same description for transactions again and again?
 Set the description of a transaction automatically by using a keyword!
-Sort your spendings on food into a Food category automatically! Automate everything!
+Sort your spendings on food into a _Food_ category automatically! Automate everything!
 
 If you know how to code in JavaScript, there's great news for you too.
 Write and evaluate your own scripts within Budget Buddy.
-Do complicated things in a snap. You can even integrate your scripts into your custom rules!
+Do complicated things in a snap. You can even integrate your scripts into your own custom rules!
+
+Before diving into the commands you can execute in Budget Buddy,
+you should first familiarize yourself with the syntax that will be used throughout this guide.
 
 ====
 *Command Format*
@@ -93,9 +97,32 @@ Do complicated things in a snap. You can even integrate your scripts into your c
 * `...` indicates a variable number (at least 1) of the specified parameter.
 ====
 
+Budget Buddy also comes with various keyboard shortcuts,
+further helping you to use the app with the keyboard alone.
+
+|===
+|Shortcut |Purpose
+
+|kbd:[F1]
+|Executes the `help` command, details of which can be found <<help-command,here>>
+
+|kbd:[Ctrl+Shift]
+|Switches focus to the input text box
+
+|kbd:[Ctrl+Tab]
+|Switches the current active tab to the next tab in the list
+
+|kbd:[Ctrl+D]
+|(__ *Loan* tab only __) Switches between the loan list and split list, more details <<loan-split,here>>
+|===
+
+From this point on, each of Budget Buddy's commands will be discussed in detail.
+
+[[help-command]]
 === Viewing help: `help`
 
-Provides a link to this user guide.
+This command opens a window containing a link to this user guide,
+which can be useful should you ever forget how to execute a certain command.
 
 Format: `help`
 
@@ -408,6 +435,7 @@ Its format is as follows.
 
 Format: `loan delete [<index ...>] [<p/person ...>]`
 
+[[loan-split]]
 ==== Calculate loans: `loan split`
 
 This command takes a group of persons and a list of amounts each person has paid,
