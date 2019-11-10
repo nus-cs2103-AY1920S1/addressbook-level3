@@ -2,15 +2,19 @@ package seedu.weme.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
+import seedu.weme.commons.core.LogsCenter;
 
 /**
  * {@code Weme} that keeps track of it's previous states.
  */
 public class VersionedWeme extends Weme {
 
+    private static final Logger logger = LogsCenter.getLogger(VersionedWeme.class);
     private final List<ReadOnlyWeme> versionedWemeStates;
     private int stateIndex = 0;
-    private final List<String> feedbackList = new ArrayList<>(); // Feedback for undo redo command
+    private final List<String> feedbackList = new ArrayList<>(); // Feedback for undo redo command. 1 step slow.
 
     public VersionedWeme(ReadOnlyWeme initialState) {
         super(initialState);
@@ -39,11 +43,13 @@ public class VersionedWeme extends Weme {
      * @param feedback the feedback of the last executed command
      */
     public void commit(String feedback) {
-        versionedWemeStates.subList(stateIndex + 1, versionedWemeStates.size()).clear();
-        feedbackList.subList(stateIndex, feedbackList.size()).clear();
+        assert feedback != null;
+
+        clearExtraWemeStates();
         versionedWemeStates.add(new Weme(this));
         feedbackList.add(feedback);
         stateIndex++;
+        logger.info("Successfully added state to history");
     }
 
     /**
@@ -54,8 +60,11 @@ public class VersionedWeme extends Weme {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
+        assert stateIndex > 0;
+
         stateIndex--;
         resetData(versionedWemeStates.get(stateIndex));
+        logger.info("Successfully moved back the Weme state");
         return feedbackList.get(stateIndex);
     }
 
@@ -67,9 +76,17 @@ public class VersionedWeme extends Weme {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
+        assert stateIndex < versionedWemeStates.size() - 1;
+
         stateIndex++;
         resetData(versionedWemeStates.get(stateIndex));
+        logger.info("Successfully moved forward the Weme state");
         return feedbackList.get(stateIndex - 1);
+    }
+
+    private void clearExtraWemeStates() {
+        versionedWemeStates.subList(stateIndex + 1, versionedWemeStates.size()).clear();
+        feedbackList.subList(stateIndex, feedbackList.size()).clear();
     }
 
     @Override

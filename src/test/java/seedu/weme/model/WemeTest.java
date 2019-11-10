@@ -103,6 +103,13 @@ public class WemeTest extends ApplicationTest {
         assertThrows(UnsupportedOperationException.class, () -> weme.getMemeList().remove(0));
     }
 
+    @Test
+    public void equals() {
+        assertTrue(weme.equals(weme));
+
+        assertFalse(weme.equals("random string"));
+    }
+
     /**
      * A stub ReadOnlyWeme whose memes list can violate interface constraints.
      */
