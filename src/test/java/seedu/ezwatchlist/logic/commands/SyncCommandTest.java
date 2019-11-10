@@ -102,7 +102,8 @@ public class SyncCommandTest {
         List<Show> search2 = new ArrayList<>();
         search2.add(new ShowBuilder().build());
         modelManager.updateSearchResultList(search2);
-        assertThrows(CommandException.class, MESSAGE_UNSUCCESSFUL + " " + MESSAGE_UNSUCCESFUL2 + "\n" + MESSAGE_UNSUCCESSFUL3, ()->
+        assertThrows(CommandException.class, MESSAGE_UNSUCCESSFUL + " "
+                + MESSAGE_UNSUCCESFUL2 + "\n" + MESSAGE_UNSUCCESSFUL3, ()->
                 syncCommand1.execute(modelManager));
 
     }

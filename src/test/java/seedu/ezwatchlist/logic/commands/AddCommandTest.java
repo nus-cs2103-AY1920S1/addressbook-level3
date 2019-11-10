@@ -35,7 +35,6 @@ import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Genre;
-import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.ShowBuilder;
