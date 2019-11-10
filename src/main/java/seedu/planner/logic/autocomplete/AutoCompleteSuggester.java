@@ -7,8 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.logic.autocomplete.exceptions.CommandNotFoundException;
 import seedu.planner.logic.commands.ClearCommand;
 import seedu.planner.logic.commands.ExitCommand;
@@ -48,6 +50,7 @@ import seedu.planner.logic.parser.Prefix;
  * Makes suggestions based on the text in the command box.
  */
 public class AutoCompleteSuggester {
+    private static final Logger logger = LogsCenter.getLogger(AutoCompleteSuggester.class);
     private CommandInformation[] allCommandInformation = new CommandInformation[] {
         AddActivityCommand.COMMAND_INFORMATION,
         AddAccommodationCommand.COMMAND_INFORMATION,
@@ -88,6 +91,12 @@ public class AutoCompleteSuggester {
         this.allCommandWords = getAllCommandWord();
     }
 
+    /**
+     * Creates a list of string of possible suggestions to make to the user.
+     * @param command the command word
+     * @param preamblePresent reflects the presence of a preamble in the input
+     * @param prefixesPresent contains the prefixes present in the input
+     */
     public List<String> getPossibilities(String command, boolean preamblePresent, List<Prefix> prefixesPresent) {
         requireAllNonNull(command, preamblePresent, preamblePresent);
         List<String> possibilities = new ArrayList<>();
@@ -95,10 +104,12 @@ public class AutoCompleteSuggester {
         try {
             commandInformation = findMatchingCommandInformation(command);
         } catch (CommandNotFoundException e) {
+            logger.fine("failed to find a command that completely matches.");
             return closestMatchingCommand(command);
         }
 
         if (!preamblePresent && commandInformation.thereIsPreamble()) {
+            logger.fine("the command requires a preamble and the user has not provided a preamble");
             possibilities.add(commandInformation.getPreamble().get());
             return possibilities;
         }
@@ -146,7 +157,7 @@ public class AutoCompleteSuggester {
     }
 
     /**
-     * Removes the prefix from the list.
+     * Removes the prefix from a list.
      */
     private List<String> removeMatchingPrefixFromList(List<String> ls, Prefix prefix) {
         List<String> copiedList = new ArrayList<>(ls);
@@ -165,7 +176,7 @@ public class AutoCompleteSuggester {
     }
 
     /**
-     * Finds command information based on the command typed in the command box.
+     * Finds command information based on the command input.
      */
     private CommandInformation findMatchingCommandInformation(String command) throws CommandNotFoundException {
         CommandInformation matchingCommandInformation = null;

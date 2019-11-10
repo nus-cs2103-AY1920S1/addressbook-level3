@@ -40,6 +40,8 @@ public class AddActivityCommand extends AddCommand {
                     + PREFIX_NAME + "NAME "
                     + PREFIX_ADDRESS + "ADDRESS "
                     + PREFIX_DURATION + "DURATION "
+                    + "[" + PREFIX_COST + "COST] "
+                    + "[" + PREFIX_PRIORITY + "PRIORITY] "
                     + "[" + PREFIX_TAG + "TAG]...",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
                     + PREFIX_NAME + "visit mt Fuji "

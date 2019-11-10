@@ -3,6 +3,7 @@ package seedu.planner.ui;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import javafx.beans.value.ChangeListener;
@@ -13,6 +14,7 @@ import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.logic.autocomplete.AutoCompleteParser;
 import seedu.planner.logic.autocomplete.AutoCompleteSuggester;
 import seedu.planner.logic.autocomplete.exceptions.CommandWordNotFoundException;
@@ -26,11 +28,9 @@ import seedu.planner.logic.parser.Prefix;
  * at https://gist.github.com/floralvikings/10290131
  */
 public class AutoCompleteTextField extends TextField {
-    /**
-     * The popup used to select an entry.
-     */
-    private ContextMenu entriesPopup;
+    private static final Logger logger = LogsCenter.getLogger(AutoCompleteTextField.class);
 
+    private ContextMenu entriesPopup;
     private final AutoCompleteParser autoCompleteParser = new AutoCompleteParser();
     private final AutoCompleteSuggester autoCompleteSuggester = new AutoCompleteSuggester();
 
@@ -105,6 +105,7 @@ public class AutoCompleteTextField extends TextField {
      */
     public List<String> getEntries(String input) {
         if (input.contains("<") || input.contains(">")) {
+            logger.fine("input contains a preamble and should be edited first before making suggestions.");
             return new LinkedList<>();
         }
 

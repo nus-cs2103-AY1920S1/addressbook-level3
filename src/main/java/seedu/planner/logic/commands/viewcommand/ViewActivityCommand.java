@@ -27,13 +27,13 @@ public class ViewActivityCommand extends ViewCommand {
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
             "Opens the specified activity on the info tab or simply opens"
                     + " the contact side panel",
-            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " [INDEX]",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " INDEX",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1"
     );
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            "INDEX"
+            "<INDEX>"
     );
 
     public static final String MESSAGE_SUCCESS = "Opened the activity tab!";

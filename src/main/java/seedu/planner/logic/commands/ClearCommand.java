@@ -13,7 +13,7 @@ import seedu.planner.model.Itinerary;
 import seedu.planner.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the planner.
  */
 public class ClearCommand extends UndoableCommand {
 

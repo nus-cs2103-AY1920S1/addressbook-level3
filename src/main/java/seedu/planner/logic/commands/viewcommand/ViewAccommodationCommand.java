@@ -33,7 +33,7 @@ public class ViewAccommodationCommand extends ViewCommand {
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            "INDEX"
+            "<INDEX>"
     );
 
     public static final String MESSAGE_SUCCESS = "Opened the accommodation tab!";
