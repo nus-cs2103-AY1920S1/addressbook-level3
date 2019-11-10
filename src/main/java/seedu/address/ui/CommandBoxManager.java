@@ -4,17 +4,17 @@ package seedu.address.ui;
 import javafx.scene.input.KeyCode;
 
 /**
- * Manages AutoComplete of MainWindow.
+ * MainWindow's Interface of CommandBox.
  */
 public interface CommandBoxManager {
 
     /**
-     * Updates AutoComplete with commandText.
+     * CommandBox TextChanged Callback.
      */
     void handleCommandBoxTextChanged(String commandText);
 
     /**
-     * Called whenever keyPressed on AutoComplete.
+     * CommandBox KeyPressed Callback.
      */
     void handleCommandBoxKeyPressed(KeyCode keycode);
 }
