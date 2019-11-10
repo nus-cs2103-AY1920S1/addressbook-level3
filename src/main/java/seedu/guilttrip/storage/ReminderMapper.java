@@ -25,6 +25,7 @@ public class ReminderMapper {
 
     public ReminderMapper(List<JsonAdaptedReminder> jsonReminders)
         throws IllegalValueException {
+        logger.info("Mapping reminders");
         for (JsonAdaptedReminder jsonAdaptedReminder : jsonReminders) {
             Reminder reminder = jsonAdaptedReminder.toModelType();
             if (reminder instanceof GeneralReminder) {
@@ -46,13 +47,14 @@ public class ReminderMapper {
     private void mapCondition(GeneralReminder generalReminder) {
         for (Condition condition : generalReminder.getConditions()) {
             if (!conditions.contains(condition)) {
+                logger.info("adding condition");
                 conditions.add(condition);
             } else {
                 int index = conditions.indexOf(condition);
                 Condition existingCondition = conditions.get(index);
-                for (ListenerSupport listener : condition.getSupport().getPropertyChangeListeners()) {
-                    existingCondition.addPropertyChangeListener(listener);
-                }
+                generalReminder.removeCondition(condition);
+                generalReminder.addCondition(condition);
+                logger.info("mapping condition");
             }
         }
     }
