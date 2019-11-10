@@ -17,7 +17,8 @@ public class FoodComparator implements Comparator<Food> {
 
     public static final String MESSAGE_CONSTRAINTS = "The sorting order can only be one of the following types:\n"
             + "(Sort by) fn: food name; ft: food type; ca: calorie; gi: glycemic index; su: sugar; fa: fat";
-    public static final String MESSAGE_PREFIX_CONSTRAINTS = "The sorting order can be either ascending or descending:\n"
+    public static final String MESSAGE_PREFIX_CONSTRAINTS = "The sorting order can only be"
+            + "either ascending or descending:\n"
             + "Namely, " + PREFIX_SORT_ASC + "and " + PREFIX_SORT_DES + " cannot be both present.";
     public static final String DEFAULT_SORT_ORDER_STRING = SortOrderType.SORT_ORDER_FOOD_TYPE.getSortOrderString();
 
