@@ -1,4 +1,4 @@
-= <NAME> - Project Portfolio
+= <Wong Shun Min> - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -13,35 +13,34 @@ ClerkPro is a desktop application used for managing clinic's appointments, queue
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+* *Major enhancement 1*: added *the ability to enqueue/dequeue patients into the queue*
+** What it does: allows the user to add patients into the queue based on the `referenceId` of the patient. It also allows the user to remove patients from the queue based on the index number.
+** Justification: This feature has high priority as the user (clerk/receptionist) would need to add or remove patients from the queue.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement 2*: added *the ability to serve patients and assign them to a doctor*
+** What it does: serves the first patient in the queue and assigns them to a doctor based on the index number.
+** Justification: This feature is important as the user (clerk/receptionist) would need to assign patients in the queue to doctors.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Major enhancement 3*: added *the ability to keep track of doctors on duty*
+** What it does: allows the user to be able to know how many doctors are on duty. Also, allows the user to know if any doctors went for a break.
+** Justification: This feature is useful as it allows the user (clerk/receptionist) to know how many doctors are on duty and is able to assign patients to them.
+
+* *Minor enhancement*: added compatibility with the undo/redo commands
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=wongsm7&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=wongsm7&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=wongsm7&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=wongsm7&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.3` amd `v1.2.1` (2 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the UI for doctors on duty and queue (Pull requests https://github.com/AY1920S1-CS2103T-T09-3/main/pull/203[#203], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/119/files[#119])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide.
+*** Created various UML diagrams for for Developer Guide. https://github.com/AY1920S1-CS2103T-T09-3/main/pull/87[#87]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Reported bugs and suggestions for other teams in the class
 
 == Contributions to the User Guide
 
@@ -50,9 +49,52 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=delete]
+=== Queue Management
 
-//include::../UserGuide.adoc[tag=dataencryption]
+==== Adds a patient to the queue: `enqueue` ====
+
+Adds a patient to the queue based based on the patient's Id. The enqueued patient must be a registered. Staff members cannot be enqueued. +
+
+Format: `enqueue <PATIENT_REFERENCE_ID>` +
+
+==== Removes a patient from the queue: `dequeue` ====
+
+Removes a patient from the queue based on their queue position. +
+
+Format: `dequeue <QUEUE_INDEX>`
+
+==== Assigns next patient to an available doctor : `next` ====
+//todo add doctor first
+
+Assigns the next patient in the queue to a doctor. +
+
+Format: `next <ENTRY_ID>`
+
+==== Doctor takes a break: `break`  ====
+
+Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
+
+Format: `break <ENTRY_ID>`
+
+==== Doctor resumes his/her duty: `resume` ====
+
+Allows patients to be directed to a doctor. e.g. Doctor is back from his/her break. +
+
+Format: `resume <ENTRY_ID>`
+
+=== Staff Personal Management
+
+==== Marks the doctor as on-duty: `onduty` ====
+
+Marks the doctor, based on the index given, as on-duty and adds him/her to a list of on-duty doctors. +
+
+Format: `onduty <ON_DUTY_DOCTOR_ENTRY_ID>`
+
+==== Marks the doctor as off-duty: `offduty` ====
+
+Marks the doctor, based on the index given, as off-duty and removes him/her from the list. +
+
+Format: `offduty <ON_DUTY_DOCTOR_ENTRY_ID>`
 
 == Contributions to the Developer Guide
 
@@ -60,6 +102,43 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+=== Queue feature
+The queue feature allows the user to enqueue and dequeue a patient from the queue.
 
-//include::../DeveloperGuide.adoc[tag=dataencryption]
+* e.g. `enqueue 003A` - Enqueues the patient with `referenceId` 003A.
+* e.g. `next 1` Serves the next patient in queue and allocates him/her to room 1.
+
+Queue supports a few basic commands:
+
+* Enqueue -- Enqueues a patient into the queue. +
+Format: `enqueue <PATIENT_REFERENCE_ID>`
+* Dequeue -- Dequeues a patient from the queue. +
+Format: `dequeue <QUEUE_INDEX>`
+* Next -- Assigns the next patient in the queue to a doctor. +
+Format: `next <ENTRY_ID>`
+* Break -- Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
+Format: `break <ENTRY_ID>`
+* Resume -- Allows patients to be directed to a doctor. e.g. Doctor is back from his/her break. +
+Format: `resume <ENTRY_ID>`
+
+==== Current Implementation
+The queue will be displayed in a list.
+
+The following activity diagram summarizes what happens when a user executes an enqueue command:
+
+.Enqueue Activity Diagram
+image::EnqueueActivityDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes an next command:
+
+.Next Activity Diagram
+image::NextActivityDiagram.png[]
+
+Below is an example usage of the queue feature.
+
+Step 1: User enters the `enqueue E0000001A` command.
+
+Step 2: The command then calls Model#enqueuePatient to enqueue the patient into the queue.
+
+Step 3: Patient will then displayed in the queue.
+
