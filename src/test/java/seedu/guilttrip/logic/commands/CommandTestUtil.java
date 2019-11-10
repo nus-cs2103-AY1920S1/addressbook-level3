@@ -93,12 +93,6 @@ public class CommandTestUtil {
     public static final String CATEGORY_TYPE_INCOME = " " + PREFIX_CATEGORY + "Income";
     public static final String CATEGORY_NAME_EXPENSE = " " + PREFIX_DESC + "food";
     public static final String CATEGORY_NAME_INCOME = " " + PREFIX_DESC + "business";
-
-    //Category related Test Utils.
-    public static final String CATEGORY_TYPE_EXPENSE = " " + PREFIX_CATEGORY + VALID_CATEGORY_TYPE_EXPENSE;
-    public static final String CATEGORY_TYPE_INCOME = " " + PREFIX_CATEGORY + VALID_CATEGORY_TYPE_INCOME;
-    public static final String CATEGORY_NAME_EXPENSE = " " + PREFIX_DESC + VALID_CATEGORY_NAME_EXPENSE_FOOD;
-    public static final String CATEGORY_NAME_INCOME = " " + PREFIX_DESC + VALID_CATEGORY_NAME_INCOME;
     public static final String CATEGORY_NAME_EXPENSE_FOR_ENTRIES = " " + PREFIX_CATEGORY
             + VALID_CATEGORY_NAME_EXPENSE_FOOD;
 

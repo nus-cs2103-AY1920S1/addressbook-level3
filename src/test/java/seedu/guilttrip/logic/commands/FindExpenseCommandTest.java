@@ -1,11 +1,9 @@
 package seedu.guilttrip.logic.commands;
 
-<<<<<<< HEAD
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_ENTRIES_LISTED_OVERVIEW;
-=======
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
->>>>>>> 0ec25f7dbcc82c190291db5bda9ad7080a40a2d7
+
 import static seedu.guilttrip.testutil.TypicalEntries.getTypicalGuiltTrip;
 
 import java.util.Arrays;
@@ -88,23 +86,6 @@ public class FindExpenseCommandTest {
                 model.getFilteredExpenses());
     }*/
 
-<<<<<<< HEAD
-=======
-    /*@Test
-    public void execute_multipleKeywordsMultiplePredicates_singleExpensesFound() {
-        CommandHistory chs = new CommandHistoryStub();
-        String expectedMessage = String.format(MESSAGE_ENTRIES_LISTED_OVERVIEW, model.getFilteredExpenses().size() - 2);
-        EntryContainsDescriptionPredicate predicate = preparePredicate("mala cotton Mars");
-        EntryContainsAmountPredicate amtpredicate = new EntryContainsAmountPredicate(500);
-        List<Predicate<Entry>> predicateToPassIn = Arrays.asList(predicate, amtpredicate);
-        FindExpenseCommand command = new FindExpenseCommand(predicateToPassIn);
-        expectedModel.updateFilteredExpenses(predicate.and(amtpredicate));
-        assertCommandSuccess(command, model, expectedMessage, expectedModel, chs);
-        assertEquals(Arrays.asList(TypicalEntries.TRAVEL_EXPENSE),
-                model.getFilteredExpenses());
-    }*/
-
->>>>>>> 0ec25f7dbcc82c190291db5bda9ad7080a40a2d7
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
