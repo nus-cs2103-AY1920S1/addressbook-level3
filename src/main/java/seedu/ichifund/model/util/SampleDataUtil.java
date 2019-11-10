@@ -81,7 +81,7 @@ public class SampleDataUtil {
 
         for (Repeater sampleRepeater : getSampleRepeaters()) {
             sampleFundBook.addRepeater(sampleRepeater);
-            createRepeaterTransactions(sampleFundBook, sampleRepeater);
+            sampleFundBook.createRepeaterTransactions(sampleRepeater);
         }
         sampleFundBook.setCurrentRepeaterUniqueId(new RepeaterUniqueId(getSampleRepeaters().length + ""));
 
@@ -89,63 +89,6 @@ public class SampleDataUtil {
             sampleFundBook.addBudget(sampleBudget);
         }
         return sampleFundBook;
-    }
-
-    /**
-     * Private method to add transactions to a fund book for a repeater.
-     */
-    private static void createRepeaterTransactions(FundBook fundBook, Repeater repeater) {
-        int currentMonth = repeater.getStartDate().getMonth().monthNumber;
-        int currentYear = repeater.getStartDate().getYear().yearNumber;
-        int endMonth = repeater.getEndDate().getMonth().monthNumber;
-        int endYear = repeater.getEndDate().getYear().yearNumber;
-
-        while ((currentYear < endYear) || (currentYear == endYear && currentMonth <= endMonth)) {
-            if (!repeater.getMonthStartOffset().isIgnored()) {
-                Transaction transaction = new Transaction(
-                        repeater.getDescription(),
-                        repeater.getAmount(),
-                        repeater.getCategory(),
-                        new Date(
-                                new Day(repeater.getMonthStartOffset().toString()),
-                                new Month(String.valueOf(currentMonth)),
-                                new Year(String.valueOf(currentYear))),
-                        repeater.getTransactionType(),
-                        repeater.getUniqueId());
-                fundBook.addTransaction(transaction);
-            }
-
-            if (!repeater.getMonthEndOffset().isIgnored()) {
-                int daysInMonth;
-                if ((new Month(String.valueOf(currentMonth))).has30Days()) {
-                    daysInMonth = 30;
-                } else if ((new Month(String.valueOf(currentMonth))).has31Days()) {
-                    daysInMonth = 31;
-                } else if ((new Year(String.valueOf(currentYear))).isLeapYear()) {
-                    daysInMonth = 29;
-                } else {
-                    daysInMonth = 28;
-                }
-
-                Transaction transaction = new Transaction(
-                        repeater.getDescription(),
-                        repeater.getAmount(),
-                        repeater.getCategory(),
-                        new Date(
-                                new Day(String.valueOf(daysInMonth - (repeater.getMonthEndOffset().value - 1))),
-                                new Month(String.valueOf(currentMonth)),
-                                new Year(String.valueOf(currentYear))),
-                        repeater.getTransactionType(),
-                        repeater.getUniqueId());
-                fundBook.addTransaction(transaction);
-            }
-
-            currentMonth++;
-            if (currentMonth == 12) {
-                currentMonth = 1;
-                currentYear++;
-            }
-        }
     }
 
 }

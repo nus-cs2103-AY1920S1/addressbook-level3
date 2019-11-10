@@ -18,14 +18,11 @@ import seedu.ichifund.commons.core.LogsCenter;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
-import seedu.ichifund.model.date.Date;
-import seedu.ichifund.model.date.Day;
-import seedu.ichifund.model.date.Month;
-import seedu.ichifund.model.date.Year;
+import seedu.ichifund.model.loan.Loan;
+import seedu.ichifund.model.loan.LoanId;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
-import seedu.ichifund.model.transaction.TransactionList;
 
 /**
  * Represents the in-memory model of the fund book data.
@@ -37,6 +34,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Transaction> filteredTransactions;
     private final FilteredList<Repeater> filteredRepeaters;
+    private final FilteredList<Loan> filteredLoans;
     private final FilteredList<Budget> filteredBudgets;
     private final FilteredList<Data> datas;
 
@@ -55,6 +53,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTransactions = new FilteredList<>(this.fundBook.getTransactionList());
         filteredRepeaters = new FilteredList<>(this.fundBook.getRepeaterList());
+        filteredLoans = new FilteredList<>(this.fundBook.getLoanList());
         filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
         datas = new FilteredList<>(this.fundBook.getDataList());
         initTransactionContext();
@@ -148,19 +147,12 @@ public class ModelManager implements Model {
     @Override
     public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireAllNonNull(target, editedTransaction);
-
         fundBook.setTransaction(target, editedTransaction);
     }
 
     @Override
     public ObservableList<Transaction> getAssociatedTransactions(RepeaterUniqueId repeaterUniqueId) {
-        TransactionList list = new TransactionList();
-        for (Transaction transaction : fundBook.getTransactionList()) {
-            if (transaction.getRepeaterUniqueId().equals(repeaterUniqueId)) {
-                list.add(transaction);
-            }
-        }
-        return list.asUnmodifiableObservableList();
+        return fundBook.getAssociatedTransactions(repeaterUniqueId);
     }
 
     @Override
@@ -176,9 +168,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteRepeaterTransactions(RepeaterUniqueId repeaterUniqueId) {
-        for (Transaction transaction : getAssociatedTransactions(repeaterUniqueId)) {
-            deleteTransaction(transaction);
-        }
+        fundBook.deleteRepeaterTransactions(repeaterUniqueId);
     }
 
     @Override
@@ -189,65 +179,58 @@ public class ModelManager implements Model {
 
     @Override
     public void createRepeaterTransactions(Repeater repeater) {
-        int currentMonth = repeater.getStartDate().getMonth().monthNumber;
-        int currentYear = repeater.getStartDate().getYear().yearNumber;
-        int endMonth = repeater.getEndDate().getMonth().monthNumber;
-        int endYear = repeater.getEndDate().getYear().yearNumber;
-
-        while ((currentYear < endYear) || (currentYear == endYear && currentMonth <= endMonth)) {
-            if (!repeater.getMonthStartOffset().isIgnored()) {
-                Transaction transaction = new Transaction(
-                        repeater.getDescription(),
-                        repeater.getAmount(),
-                        repeater.getCategory(),
-                        new Date(
-                            new Day(repeater.getMonthStartOffset().toString()),
-                            new Month(String.valueOf(currentMonth)),
-                            new Year(String.valueOf(currentYear))),
-                        repeater.getTransactionType(),
-                        repeater.getUniqueId());
-                addTransaction(transaction);
-            }
-
-            if (!repeater.getMonthEndOffset().isIgnored()) {
-                int daysInMonth;
-                if ((new Month(String.valueOf(currentMonth))).has30Days()) {
-                    daysInMonth = 30;
-                } else if ((new Month(String.valueOf(currentMonth))).has31Days()) {
-                    daysInMonth = 31;
-                } else if ((new Year(String.valueOf(currentYear))).isLeapYear()) {
-                    daysInMonth = 29;
-                } else {
-                    daysInMonth = 28;
-                }
-
-                Transaction transaction = new Transaction(
-                        repeater.getDescription(),
-                        repeater.getAmount(),
-                        repeater.getCategory(),
-                        new Date(
-                            new Day(String.valueOf(daysInMonth - (repeater.getMonthEndOffset().value - 1))),
-                            new Month(String.valueOf(currentMonth)),
-                            new Year(String.valueOf(currentYear))),
-                        repeater.getTransactionType(),
-                        repeater.getUniqueId());
-                addTransaction(transaction);
-            }
-
-            currentMonth++;
-            if (currentMonth == 13) {
-                currentMonth = 1;
-                currentYear++;
-            }
-        }
+        fundBook.createRepeaterTransactions(repeater);
     }
 
     @Override
     public void setRepeater(Repeater target, Repeater editedRepeater) {
         requireAllNonNull(target, editedRepeater);
-
         fundBook.setRepeater(target, editedRepeater);
     }
+
+    ///////////////////////////////////////////////////////////////////////// Loans ->
+
+    @Override
+    public boolean hasLoan(Loan loan) {
+        requireNonNull(loan);
+        return fundBook.hasLoan(loan);
+    }
+
+    @Override
+    public void addLoan(Loan loan) {
+        requireNonNull(loan);
+        fundBook.addLoan(loan);
+    }
+
+    @Override
+    public void setLoan(Loan target, Loan editedLoan) {
+        requireNonNull(target);
+        requireNonNull(editedLoan);
+        fundBook.payLoan(target);
+        fundBook.addLoan(editedLoan);
+    }
+
+    /**
+     * Deletes the given loan.
+     * The loan must exist in the fund book.
+     */
+    @Override
+    public void payLoan(Loan target) {
+        requireNonNull(target);
+        fundBook.payLoan(target);
+    }
+
+    @Override
+    public LoanId getCurrentLoanId() {
+        return fundBook.getCurrentLoanId();
+    }
+
+    @Override
+    public void setCurrentLoanId(LoanId loanId) {
+        fundBook.setCurrentLoanId(loanId);
+    }
+
+    ////////////////////////////////////////////////////////////////////// Budget ->
 
     @Override
     public boolean hasBudget(Budget budget) {
@@ -310,6 +293,14 @@ public class ModelManager implements Model {
 
     public ObservableValue<TransactionContext> getTransactionContextProperty() {
         return transactionContext;
+    }
+
+
+    //=========== Filtered Loan List Accessors ===================================================================
+
+    @Override
+    public ObservableList<Loan> getFilteredLoanList() {
+        return filteredLoans;
     }
 
     //=========== Filtered Repeater List Accessors =============================================================

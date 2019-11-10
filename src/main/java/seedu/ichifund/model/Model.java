@@ -10,6 +10,8 @@ import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
+import seedu.ichifund.model.loan.Loan;
+import seedu.ichifund.model.loan.LoanId;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
@@ -147,6 +149,36 @@ public interface Model {
      */
     void updateFilteredRepeaterList(Predicate<Repeater> predicate);
 
+    /// Loans
+
+    boolean hasLoan(Loan loan);
+
+    void addLoan(Loan loan);
+
+    LoanId getCurrentLoanId();
+
+    /**
+     * Deletes the given repeater.
+     * The repeater must exist in the fund book.
+     */
+    void payLoan(Loan target);
+
+    public void setCurrentLoanId(LoanId loanId);
+
+    /**
+     * Replaces the given repeater {@code target} with {@code editedRepeater}.
+     * {@code target} must exist in the fund book.
+     * The repeater identity of {@code editedRepeater} must not be the same as another existing repeater in the fund
+     * book.
+     */
+    void setLoan(Loan target, Loan editedLoan);
+
+    /** Returns an unmodifiable view of the filtered repeater list */
+    ObservableList<Loan> getFilteredLoanList();
+
+    ////////
+
+
     /**
      * Returns true if a budget with the same identity as {@code budget} exists in the fund book.
      */
@@ -187,4 +219,5 @@ public interface Model {
 
     /** Updates the current analytics view */
     void updateDataList(List<Data> datas);
+
 }

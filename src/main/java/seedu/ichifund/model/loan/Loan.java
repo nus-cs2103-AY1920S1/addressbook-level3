@@ -15,19 +15,19 @@ public class Loan implements Comparable<Loan> {
     private LoanId loanId;
     private Amount amount;
     private Name name;
-    private Date takenOn;
-    private Date returnBy;
+    private Date startDate;
+    private Date endDate;
     private Description description;
 
-    public Loan(LoanId loanId, Amount amount, Name name, Date takenOn, Date returnBy, Description description) {
+    public Loan(LoanId loanId, Amount amount, Name name, Date startDate, Date endDate, Description description) {
 
-        requireAllNonNull(loanId, amount, takenOn);
+        requireAllNonNull(loanId, amount, startDate);
 
         this.loanId = loanId;
         this.amount = amount;
         this.name = name;
-        this.takenOn = takenOn;
-        this.returnBy = returnBy;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.description = description;
     }
 
@@ -39,20 +39,20 @@ public class Loan implements Comparable<Loan> {
         this.loanId = loanId;
     }
 
-    public Date getTakenOn() {
-        return takenOn;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setTakenOn(Date takenOn) {
-        this.takenOn = takenOn;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getReturnBy() {
-        return returnBy;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setReturnBy(Date returnBy) {
-        this.returnBy = returnBy;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public Name getName() {
@@ -79,8 +79,6 @@ public class Loan implements Comparable<Loan> {
         this.description = description;
     }
 
-
-
     /**
      * ONly returns true if 2 loan objects have exact same paramenters,
      */
@@ -98,14 +96,14 @@ public class Loan implements Comparable<Loan> {
         return otherLoan.getLoanId().equals(getLoanId())
                 && otherLoan.getAmount().equals(getAmount())
                 && otherLoan.getName().equals(getName())
-                && otherLoan.getReturnBy().equals(getReturnBy())
-                && otherLoan.getTakenOn().equals(getTakenOn())
+                && otherLoan.getEndDate().equals(getEndDate())
+                && otherLoan.getStartDate().equals(getStartDate())
                 && otherLoan.getDescription().equals(getDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(loanId, amount, name, takenOn, returnBy, description);
+        return Objects.hash(loanId, amount, name, startDate, endDate, description);
     }
 
     @Override
@@ -118,9 +116,9 @@ public class Loan implements Comparable<Loan> {
                 .append(" Name: ")
                 .append(getName())
                 .append(" Taken Date: ")
-                .append(getTakenOn())
+                .append(getStartDate())
                 .append(" Deadline Date: ")
-                .append(getReturnBy())
+                .append(getEndDate())
                 .append(" Description: ")
                 .append(getDescription());
         return builder.toString();
@@ -128,7 +126,7 @@ public class Loan implements Comparable<Loan> {
 
     @Override
     public int compareTo(Loan other) {
-        int dateComparison = getTakenOn().compareTo(other.getTakenOn());
+        int dateComparison = getStartDate().compareTo(other.getStartDate());
         int amountComparison = getAmount().compareTo(other.getAmount());
         if (dateComparison != 0) {
             return dateComparison;

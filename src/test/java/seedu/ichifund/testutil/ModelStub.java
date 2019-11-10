@@ -13,6 +13,8 @@ import seedu.ichifund.model.ReadOnlyUserPrefs;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
+import seedu.ichifund.model.loan.Loan;
+import seedu.ichifund.model.loan.LoanId;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
@@ -142,6 +144,42 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public LoanId getCurrentLoanId() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addLoan(Loan loan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setCurrentLoanId(LoanId loanId) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasLoan(Loan loan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+
+
+    @Override
+    public ObservableList<Loan> getFilteredLoanList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setLoan(Loan target, Loan editedLoan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void payLoan(Loan target) {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public void addBudget(Budget budget) {
