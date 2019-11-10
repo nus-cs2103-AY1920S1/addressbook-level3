@@ -32,8 +32,6 @@ Budget Buddy also allows users to utilize their computing know-how to write cust
 For example, users can write scripts to add huge numbers of transactions,
 or scripts to trigger alarms when their expenses have exceeded a certain limit.
 
-== My Role
-
 My role in the project was to implement all facets regarding the *loans* feature.
 Chiefly, I added the ability for the user to add, edit, view and delete loans.
 Users can also mark loans as paid or unpaid,
@@ -88,9 +86,13 @@ to read them in their entirety. I was responsible for the section on *Managing L
 
 include::../UserGuide.adoc[tag=kenneth-ppp-loan-intro]
 
+<<<
+
 include::../UserGuide.adoc[tag=kenneth-ppp-loan-paid]
 
 include::../UserGuide.adoc[tag=kenneth-ppp-loan-split]
+
+<<<
 
 == Contributions to the Developer Guide
 
@@ -103,6 +105,9 @@ to read them in their entirety. I was responsible for the section detailing the 
 |===
 
 include::../DeveloperGuide.adoc[tag=kenneth-ppp-loan-class]
+
+<<<
+
 include::../DeveloperGuide.adoc[tag=kenneth-ppp-loan-sequence]
 include::../DeveloperGuide.adoc[tag=kenneth-ppp-loan-multi]
 include::../DeveloperGuide.adoc[tag=kenneth-ppp-loan-split-1]

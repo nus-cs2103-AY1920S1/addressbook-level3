@@ -286,12 +286,12 @@ Miscellaneous methods (such as `LoansManager#getLoans` and `LoansManager#getLoan
 .Class Diagram of the Loans Model
 image::LoanClassDiagram.png[]
 
+// end::kenneth-ppp-loan-class[]
+
 [NOTE]
 The `Debtor` class, `LoansManager#debtors`, `LoansManager#setDebtors` and `LoansManager#getDebtors` can be ignored for now.
 They are depicted here for the sake of completion,
 but will only be used when discussing the `loan split` command in a <<Loan Splitting,later section>>.
-
-// end::kenneth-ppp-loan-class[]
 
 Each `Loan` object has the following attributes:
 
@@ -455,28 +455,28 @@ which might prove helpful for following the steps in the example scenario:
 image::LoanSplitActivityDiagram.png[]
 
 Step 1.
-The user executes the command `loan split p/Kenneth p/Duke p/Adam p/Zed x/0 x/20 x/80 x/50 max/10 me/Kenneth d/Dinner`.
+The user executes the command `loan split p/Ben p/Duke p/Adam p/Zed x/0 x/20 x/80 x/50 max/10 me/Ben d/Dinner`.
 In this scenario, out of the total bill of *$150*,
-`Kenneth` has paid *$0*,
+`Ben` has paid *$0*,
 `Duke` has paid *$20*,
 `Adam` has paid *$80*
 and `Zed` has paid *$50*.
-Furthermore, `max/10` specifies that `Kenneth` should only pay/owe up to *$10* overall.
-Finally, `me/Kenneth` marks `Kenneth` as the user;
-all debts involving `Kenneth` should be added to the normal loan list with the description `Dinner`.
+Furthermore, `max/10` specifies that `Ben` should only pay/owe up to *$10* overall.
+Finally, `me/Ben` marks `Ben` as the user;
+all debts involving `Ben` should be added to the normal loan list with the description `Dinner`.
 
 Step 2.
 `LoanSplitCommandParser` parses the persons, amounts, and max shares into `List<Person>`, `List<Amount>` and `List<Long>` respectively.
-`me/Kenneth` and `d/Dinner` are parsed into `Optional<Person>` and `Optional<Description>`.
+`me/Ben` and `d/Dinner` are parsed into `Optional<Person>` and `Optional<Description>`.
 A new `LoanSplitCommand` is instantiated with the lists and optional objects.
 
 Step 3.
-`LoanSplitCommand` replaces `Kenneth` in `List<Person>` with a `Person` with the `Name` `You`.
+`LoanSplitCommand` replaces `Ben` in `List<Person>` with a `Person` with the `Name` `You`.
 Using the static methods of a `LoanSplitCalculator` class, it then begins executing the following algorithm:
 
 . The `defaultSharePerPerson` is calculated.
 In this scenario, *$150* should be split among the 4 persons.
-However, as `Kenneth` has a max share of *$10*, the other 3 persons must divide *$140* among themselves,
+However, as `Ben` has a max share of *$10*, the other 3 persons must divide *$140* among themselves,
 resulting in a `defaultSharePerPerson` of *$46.66*.
 
 . Each person in `List<Person>` is given a `balance`,
@@ -486,7 +486,7 @@ minus either the `defaultSharePerPerson` or their max share if present.
 . A list of all possible sub-groups (combinations) of persons is generated.
 In this scenario, the number of sub-groups for the 4 persons would be *16*.
 
-. For each sub-group of persons, if the sum of their balances is *zero*, then the following steps are performed:
+. For each sub-group, if the sum of their balances is *zero*, then the following steps are performed:
 
 .. Take the persons with the smallest and biggest balances: the `debtor` and `creditor` respectively.
 
@@ -506,7 +506,7 @@ These loans are added to `internalList` in `LoansManager` using `LoansManager#ad
 Step 5. The list of `debtors` in `LoansManager` is displayed to the user.
 In this scenario, the display will show that
 `Duke` owes `Adam` *$26.66*
-and `You` (`Kenneth`, the user) owe `Zed` and `Adam` *$3.32* and *$6.68* respectively.
+and `You` (`Ben`, the user) owe `Zed` and `Adam` *$3.32* and *$6.68* respectively.
 // end::kenneth-ppp-loan-split-2[]
 
 ==== Design Considerations
