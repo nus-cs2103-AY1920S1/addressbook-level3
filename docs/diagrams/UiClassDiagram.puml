@@ -15,6 +15,8 @@ Class StudentListPanel
 Class StudentCard
 Class AssignmentListPanel
 Class AssignmentCard
+Class ClassroomListPanel
+Class ClassroomCard
 Class ReminderListPanel
 Class ReminderCard
 Class StatusBarFooter
@@ -40,6 +42,7 @@ MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> StudentListPanel
 MainWindow *-down-> AssignmentListPanel
+MainWindow *-down-> ClassroomListPanel
 MainWindow *-down-> StatusBarFooter
 MainWindow *-down-> ReminderListPanel
 CommandBox *-down-> History
@@ -47,6 +50,7 @@ CommandBox *-down-> History
 StudentListPanel -down-> StudentCard
 AssignmentListPanel -down-> AssignmentCard
 ReminderListPanel -down-> ReminderCard
+ClassroomListPanel -down-> ClassroomCard
 
 MainWindow -left-|> UiPart
 
@@ -58,18 +62,22 @@ AssignmentListPanel --|> UiPart
 AssignmentCard --|> UiPart
 ReminderListPanel --|> UiPart
 ReminderCard --|> UiPart
+ClassroomListPanel --|> UiPart
+ClassroomCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
 StudentCard ..> Model
 AssignmentCard ..> Model
 ReminderCard ..> Model
+ClassroomCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
 StudentListPanel -[hidden]left- HelpWindow
 AssignmentListPanel -[hidden]left- HelpWindow
 ReminderListPanel -[hidden]left- HelpWindow
+ClassroomListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

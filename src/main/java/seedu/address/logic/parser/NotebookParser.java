@@ -21,6 +21,7 @@ import seedu.address.logic.commands.EditLessonCommand;
 import seedu.address.logic.commands.EditStudentCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindAssignmentCommand;
+import seedu.address.logic.commands.FindLessonCommand;
 import seedu.address.logic.commands.FindStudentCommand;
 import seedu.address.logic.commands.GetStudentGradesCommand;
 import seedu.address.logic.commands.GetUnsubmittedAssignmentsCommand;
@@ -29,6 +30,7 @@ import seedu.address.logic.commands.ListAssignmentCommand;
 import seedu.address.logic.commands.ListLessonCommand;
 import seedu.address.logic.commands.ListStudentCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.ResetDisplayPictureCommand;
 import seedu.address.logic.commands.SetClassroomCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateGradesCommand;
@@ -38,7 +40,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class ClassroomParser {
+public class NotebookParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -141,6 +143,12 @@ public class ClassroomParser {
 
         case UploadPictureCommand.COMMAND_WORD:
             return new UploadPictureCommandParser().parse(arguments);
+
+        case ResetDisplayPictureCommand.COMMAND_WORD:
+            return new ResetDisplayPictureCommandParser().parse(arguments);
+
+        case FindLessonCommand.COMMAND_WORD:
+            return new FindLessonCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -21,14 +21,14 @@ public class MedicalConditionTest {
 
     @Test
     public void isValidMedicalCondition() {
-        // null address
+        // null medical condition
         assertThrows(NullPointerException.class, () -> MedicalCondition.isValidMedicalCondition(null));
 
-        // invalid addresses
+        // invalid medical conditions
         assertFalse(MedicalCondition.isValidMedicalCondition("")); // empty string
         assertFalse(MedicalCondition.isValidMedicalCondition(" ")); // spaces only
 
-        // valid addresses
+        // valid medical conditions
         assertTrue(MedicalCondition.isValidMedicalCondition("Sinus"));
         assertTrue(MedicalCondition.isValidMedicalCondition("-")); // one character
         assertTrue(MedicalCondition.isValidMedicalCondition("Pneumonoultramicroscopicsilicovocanoconiosis"));

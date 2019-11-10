@@ -14,7 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * parses input arguments and return UploadPictureCommand
  */
-public class UploadPictureCommandParser {
+public class UploadPictureCommandParser implements Parser<UploadPictureCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the UploadPictureCommand

@@ -13,7 +13,7 @@ import seedu.address.model.classroom.Classroom;
 /**
  * Parses input arguments and creates a new DeleteClassroomCommand object
  */
-public class DeleteClassroomCommandParser {
+public class DeleteClassroomCommandParser implements Parser<DeleteClassroomCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteClassroomCommand

@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":ClassroomParser" as ClassroomParser LOGIC_COLOR
+participant ":NotebookParser" as NotebookParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
@@ -14,18 +14,18 @@ end box
 [-> LogicManager : execute(undo)
 activate LogicManager
 
-LogicManager -> ClassroomParser : parseCommand(undo)
-activate ClassroomParser
+LogicManager -> NotebookParser : parseCommand(undo)
+activate NotebookParser
 
 create UndoCommand
-ClassroomParser -> UndoCommand
+NotebookParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> ClassroomParser
+UndoCommand --> NotebookParser
 deactivate UndoCommand
 
-ClassroomParser --> LogicManager : u
-deactivate ClassroomParser
+NotebookParser --> LogicManager : u
+deactivate NotebookParser
 
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
@@ -36,7 +36,7 @@ activate Model
 Model -> Caretaker : undo()
 activate Caretaker
 
-Caretaker -> Caretaker :resetData(ReadOnlyClassroom)
+Caretaker -> Caretaker :resetData(ReadOnlyNotebook)
 Caretaker --> Model :
 deactivate Caretaker
 

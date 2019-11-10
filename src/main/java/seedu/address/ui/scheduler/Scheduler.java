@@ -1,4 +1,4 @@
-package seedu.address.model.scheduler;
+package seedu.address.ui.scheduler;
 
 import java.util.Calendar;
 import java.util.concurrent.Executors;

@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICALCONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -19,9 +21,12 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentNameContainsKeywordsPredicate;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.student.NameContainsKeywordsPredicate;
 import seedu.address.model.student.Student;
+import seedu.address.testutil.EditAssignmentDescriptorBuilder;
 import seedu.address.testutil.EditStudentDescriptorBuilder;
 
 /**
@@ -61,15 +66,32 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_PARENTPHONE_DESC = " " + PREFIX_PARENTPHONE + "91a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+
+    public static final String VALID_ASSIGNMENT_NAME_ENGLISH = "English Worksheet 1";
+    public static final String VALID_ASSIGNMENT_NAME_MATH = "Math Homework 3";
+    public static final String VALID_ASSIGNMENT_DEADLINE_ENGLISH = "02/12/2024 1029";
+    public static final String VALID_ASSIGNMENT_DEADLINE_MATH = "12/12/2019 1800";
+
+    public static final String ASSIGNMENT_NAME_DESC_ENGLISH = " " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_NAME_ENGLISH;
+    public static final String ASSIGNMENT_NAME_DESC_MATH = " " + PREFIX_ASSIGNMENT + VALID_ASSIGNMENT_NAME_MATH;
+    public static final String ASSIGNMENT_DEADLINE_DESC_ENGLISH = " " + PREFIX_DEADLINE
+            + VALID_ASSIGNMENT_DEADLINE_ENGLISH;
+    public static final String ASSIGNMENT_DEADLINE_DESC_MATH = " " + PREFIX_DEADLINE + VALID_ASSIGNMENT_DEADLINE_MATH;
+
+    public static final String INVALID_ASSIGNMENT_NAME_DESC = " " + PREFIX_ASSIGNMENT + "Math&&"; // '&' not allowed
+    public static final String INVALID_ASSIGNMENT_DEADLINE_DESC = " " + PREFIX_DEADLINE + "invalid"; // invalid deadline
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditStudentCommand.EditStudentDescriptor DESC_AMY;
     public static final EditStudentCommand.EditStudentDescriptor DESC_BOB;
+    public static final EditAssignmentCommand.EditAssignmentDescriptor DESC_ENGLISH;
+    public static final EditAssignmentCommand.EditAssignmentDescriptor DESC_MATH;
 
     static {
         DESC_AMY = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -80,6 +102,10 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withParentPhone(VALID_PARENTPHONE_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withMedicalCondition((VALID_MEDICALCONDITION_BOB))
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_ENGLISH = new EditAssignmentDescriptorBuilder().withAssignmentName(VALID_ASSIGNMENT_NAME_ENGLISH)
+                .withAssignmentDeadline(VALID_ASSIGNMENT_DEADLINE_ENGLISH).build();
+        DESC_MATH = new EditAssignmentDescriptorBuilder().withAssignmentName(VALID_ASSIGNMENT_NAME_MATH)
+                .withAssignmentDeadline(VALID_ASSIGNMENT_DEADLINE_MATH).build();
     }
 
     /**
@@ -124,6 +150,7 @@ public class CommandTestUtil {
         assertEquals(expectedClassroom, actualModel.getCurrentClassroom());
         assertEquals(expectedFilteredList, actualModel.getFilteredStudentList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the student at the given {@code targetIndex} in the
      * {@code model}'s classroom.
@@ -136,6 +163,20 @@ public class CommandTestUtil {
         model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredStudentList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the assignment at the given {@code targetIndex} in the
+     * {@code model}'s classroom.
+     */
+    public static void showAssignmentAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredAssignmentList().size());
+
+        Assignment assignment = model.getFilteredAssignmentList().get(targetIndex.getZeroBased());
+        final String[] splitName = assignment.getAssignmentName().toString().split("\\s+");
+        model.updateFilteredAssignmentList(new AssignmentNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredAssignmentList().size());
     }
 
 }

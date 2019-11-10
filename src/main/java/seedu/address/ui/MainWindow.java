@@ -33,7 +33,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.scheduler.Scheduler;
+import seedu.address.ui.scheduler.Scheduler;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -64,6 +64,7 @@ public class MainWindow extends UiPart<Stage> {
     private ReminderListPanel satReminderListPanel;
     private ReminderListPanel sunReminderListPanel;
 
+    private ListChangeListener<Lesson> listener;
 
     @FXML
     private TabPane lessonTabPanel;
@@ -293,6 +294,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        //logic.getFilteredLessonList().removeListener(listener);
     }
 
     public StudentListPanel getStudentListPanel() {
@@ -330,7 +332,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private String uploadCommandCheck(String commandText) {
         if (commandText.length() > 7 && commandText.substring(0, 6).equals("upload")) {
-            commandText = commandText + " " + "f/" + openFileChooser();
+            String filePath = openFileChooser();
+            commandText = commandText + " " + "f/" + filePath;
         }
         return commandText;
     }
@@ -374,7 +377,8 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         } catch (NullPointerException e) {
-            resultDisplay.setFeedbackToUser("Please choose a photo.");
+            logger.info("Null pointer exception.");
+            resultDisplay.setFeedbackToUser("Upload operation cancelled.");
             throw e;
         }
     }
@@ -417,7 +421,7 @@ public class MainWindow extends UiPart<Stage> {
             Lesson lesson = lessons.get(i);
             createSchedule(lesson);
         }
-        lessons.addListener(new ListChangeListener<Lesson>() {
+        listener = new ListChangeListener<Lesson>() {
             @Override
             public void onChanged(Change<? extends Lesson> c) {
                 while (c.next()) {
@@ -429,7 +433,8 @@ public class MainWindow extends UiPart<Stage> {
                     }
                 }
             }
-        });
+        };
+        lessons.addListener(listener);
     }
 
     //@@author SebastianLie

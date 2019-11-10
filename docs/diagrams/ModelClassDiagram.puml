@@ -5,11 +5,13 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyClassroom <<Interface>>
+Interface ReadOnlyNotebook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class Classroom
-Class ReadOnlyClassroom
+Class Notebook
+Class ReadOnlyNotebook
+Class Caretaker
+Class Memento
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -27,6 +29,13 @@ Class UniqueStudentList
 Class DisplayPicture
 }
 
+Package Classroom {
+Interface ReadOnlyClassroom <<Interface>>
+Class ReadOnlyClassroom
+Class Classroom
+Class UniqueClassroomList
+}
+
 Package Tag {
 Class Tag
 }
@@ -38,6 +47,11 @@ Class AssignmentName
 Class AssignmentDeadline
 Class UniqueAssignmentList
 }
+
+Package Classroom {
+Class Classroom
+Class ReadOnlyClassroom
+Class UniqueClassroomList
 }
 
 Package Lesson {
@@ -45,18 +59,27 @@ Class Lesson
 Class ClassName
 Class Time
 Class UniqueLessonList
+Class UniqueLessonWeekList
+}
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 Classroom .up.|> ReadOnlyClassroom
-
+Notebook .up.|> ReadOnlyNotebook
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" Classroom
+ModelManager o--> "1" Notebook
+ModelManager o--> "1" Caretaker
+Caretaker o--> "*" Memento
+Memento o--> "1" ReadOnlyNotebook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
+
+Notebook *--> "1" UniqueClassroomList
+UniqueClassroomList o--> "*" Classroom
+Notebook *--> "1" UniqueLessonWeekList
 
 Classroom *--> "1" UniqueStudentList
 UniqueStudentList o--> "*" Student
@@ -65,7 +88,7 @@ Student *--> Phone
 Student *--> Email
 Student *--> Address
 Student *--> ParentPhone
-Student *--> "*" MedicalCondition
+Student *--> MedicalCondition
 Student *--> "*" Tag
 Student *--> DisplayPicture
 
@@ -75,6 +98,8 @@ Assignment *--> AssignmentName
 Assignment *--> AssignmentGrades
 Assignment *--> AssignmentDeadline
 
+Notebook o--> "*" UniqueLessonWeekList
+UniqueLessonWeekList o--> "7" UniqueLessonList
 UniqueLessonList o--> "*" Lesson
 Lesson *--> ClassName
 Lesson *--> Time
@@ -86,5 +111,5 @@ Email -[hidden]right-> ParentPhone
 ParentPhone -[hidden]right-> MedicalCondition
 MedicalCondition -[hidden]right-> DisplayPicture
 
-ModelManager -->"1" Classroom : filtered list
+ModelManager -->"1" Notebook : filtered list
 @enduml

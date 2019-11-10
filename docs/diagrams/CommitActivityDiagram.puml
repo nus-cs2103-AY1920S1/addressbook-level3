@@ -5,9 +5,9 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
-if () then ([command commits Classroom])
-    :Purge redunant states;
-    :Save Classroom to
+if () then ([command commits Notebook])
+    :Purge redundant states;
+    :Save Notebook to
     mementos;
 else ([else])
 endif

@@ -6,25 +6,39 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+//@@author SebastianLie
 /**
- * helper class for autocomplete textfield
+ * helps to highlight user input in the suggestions offered by autocomplete
  */
 public class Styles {
 
     /**
-     * Build TextFlow with selected text. Return "case" dependent.
-     *
+     * highlights a certain portion of text
      * @param text - string with text
-     * @param filter - string to select in text
+     * @param textToHighlight - string to select in text
      * @return - TextFlow
      */
-    public static TextFlow buildTextFlow(String text, String filter) {
-        int filterIndex = text.toLowerCase().indexOf(filter.toLowerCase());
-        Text textBefore = new Text(text.substring(0, filterIndex));
-        Text textAfter = new Text(text.substring(filterIndex + filter.length()));
-        Text textFilter = new Text(text.substring(filterIndex, filterIndex + filter.length()));
-        textFilter.setFill(Color.ORANGE);
-        textFilter.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
-        return new TextFlow(textBefore, textFilter, textAfter);
+    public static TextFlow buildTextFlow(String text, String textToHighlight) throws IllegalArgumentException {
+        //(text.equals("") && textToHighlight.equals(""))
+        if (text == null || textToHighlight == null || (text.equals("") && textToHighlight.equals(""))) {
+            throw new IllegalArgumentException("Text cannot be null or empty!");
+        }
+
+        String caseIndependent = text.toLowerCase();
+        String caseIndependentToHighlight = textToHighlight.toLowerCase();
+
+        assert caseIndependent.contains(caseIndependentToHighlight) : "Text to highlight must be in original";
+
+        int highlightIndex = caseIndependent.indexOf(caseIndependentToHighlight);
+        int highlightIndexWithinLength = Math.max(0, highlightIndex);
+
+        Text textBefore = new Text(text.substring(0, highlightIndexWithinLength));
+        Text textAfter = new Text(text.substring(highlightIndexWithinLength + textToHighlight.length()));
+        Text textHighlighted = new Text(text.substring(highlightIndexWithinLength,
+                highlightIndexWithinLength + textToHighlight.length()));
+
+        textHighlighted.setFill(Color.LIGHTSKYBLUE);
+        textHighlighted.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        return new TextFlow(textBefore, textHighlighted, textAfter);
     }
 }

@@ -19,7 +19,7 @@ activate model MODEL_COLOR
 model -[MODEL_COLOR]-> logic
 deactivate model
 
-logic -[LOGIC_COLOR]> storage : saveClassroom(classroom)
+logic -[LOGIC_COLOR]> storage : saveNotebook(notebook)
 activate storage STORAGE_COLOR
 
 storage -[STORAGE_COLOR]> storage : Save to file

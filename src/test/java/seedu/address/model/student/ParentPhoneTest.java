@@ -21,10 +21,10 @@ public class ParentPhoneTest {
 
     @Test
     public void isValidParentPhone() {
-        // null phone number
+        // null parent phone number
         assertThrows(NullPointerException.class, () -> ParentPhone.isValidParentPhone(null));
 
-        // invalid phone numbers
+        // invalid parent phone numbers
         assertFalse(ParentPhone.isValidParentPhone("")); // empty string
         assertFalse(ParentPhone.isValidParentPhone(" ")); // spaces only
         assertFalse(ParentPhone.isValidParentPhone("91")); // less than 3 numbers
@@ -32,7 +32,7 @@ public class ParentPhoneTest {
         assertFalse(ParentPhone.isValidParentPhone("9011p041")); // alphabets within digits
         assertFalse(ParentPhone.isValidParentPhone("9312 1534")); // spaces within digits
 
-        // valid phone numbers
+        // valid parent phone numbers
         assertTrue(ParentPhone.isValidParentPhone("911")); // exactly 3 numbers
         assertTrue(ParentPhone.isValidParentPhone("93121534"));
         assertTrue(ParentPhone.isValidParentPhone("124293842033123")); // long parent phone numbers

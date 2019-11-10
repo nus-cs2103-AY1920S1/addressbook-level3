@@ -15,8 +15,6 @@ import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.classroom.UniqueClassroomList;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
-//import seedu.address.model.scheduler.Reminder;
-//import seedu.address.model.scheduler.UniqueReminderList;
 import seedu.address.model.lesson.UniqueLessonWeekList;
 import seedu.address.model.student.Student;
 //import seedu.address.model.student.UniqueStudentList;
@@ -64,16 +62,14 @@ public class Notebook implements ReadOnlyNotebook {
             Classroom newClassroom = new Classroom();
             setCurrentClassroom(newClassroom);
         } else {
-            setCurrentClassroom(getFirstClassroom());
+            setCurrentClassroom(newData.getCurrentClassroom());
         }
 
         for (int i = 0; i < 7; i++) {
             lessonLists.asUnmodifiableObservableList().get(i).setLessons(newData.getLessonWeekList().get(i));
         }
         ObservableList<Lesson> newLessonList = newData.getLessonList();
-        for (int i = 0; i < newLessonList.size(); i++) {
-            lessons.add(newLessonList.get(i));
-        }
+        lessons.setLessons(newLessonList);
     }
 
     //=========== Notebook ================================================================================
@@ -220,7 +216,6 @@ public class Notebook implements ReadOnlyNotebook {
     }
 
 
-
     /**
      * Adds a lessons to the classroom.
      * The lesson must not already exist in the classroom.
@@ -230,6 +225,15 @@ public class Notebook implements ReadOnlyNotebook {
         UniqueLessonList dayList = lessonLists.getDayList(day);
         dayList.add(p);
         lessons.add(p);
+    }
+
+    /**
+     * Returns true if another lesson in the list exists in the same period as lesson toCheck.
+     * @param toCheck Lesson object.
+     * @return boolean.
+     */
+    public boolean checkTimingExist(Lesson toCheck) {
+        return lessons.checkTimingExist(toCheck);
     }
 
     /**
@@ -327,12 +331,6 @@ public class Notebook implements ReadOnlyNotebook {
     }
      */
 
-    /*
-    public ObservableList<Reminder> getReminderList() {
-        return reminders.asUnmodifiableObservableList();
-    }
-     */
-
     public ObservableList<Lesson> getLessonList() {
         return lessons.asUnmodifiableObservableList();
     }
@@ -384,9 +382,7 @@ public class Notebook implements ReadOnlyNotebook {
         // state check
         Notebook other = (Notebook) obj;
         return classrooms.equals(other.classrooms)
-                && lessons.equals(other.lessons);
-                //&& students.equals(other.students)
-                //&& assignments.equals(other.assignments);
+                && lessonLists.equals(other.lessonLists);
     }
 
 }

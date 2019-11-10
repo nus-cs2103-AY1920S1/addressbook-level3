@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 
 //@@author weikiat97
@@ -16,9 +18,10 @@ public class Caretaker extends Notebook {
      * Initializes the list of mementos.
      * @param notebook the notebook where changes are updated in
      */
-    public Caretaker(Memento start, Notebook notebook) {
+    public Caretaker(Notebook notebook) {
+        requireNonNull(notebook);
         statePointer = 0;
-        mementos.add(start);
+        mementos.add(new Memento(new Notebook(notebook)));
         this.notebook = notebook;
     }
 
@@ -32,6 +35,13 @@ public class Caretaker extends Notebook {
         Memento mementoToAdd = new Memento(notebookToAdd);
         mementos.add(mementoToAdd);
         statePointer++;
+    }
+
+    /**
+     * Gets the first ReadOnlyNotebook in the mementos, which is the initial state of the Notebook.
+     */
+    public ReadOnlyNotebook getInitialState() {
+        return mementos.get(0).getState();
     }
 
     /**

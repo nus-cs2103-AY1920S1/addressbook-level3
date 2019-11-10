@@ -77,6 +77,23 @@ public class Lesson {
     }
 
     /**
+     * checks if Lesson time occurs during another Lesson time.
+     * @param toCheck Lesson object.
+     * @return boolean
+     */
+    public boolean checkTimingExist(Lesson toCheck) {
+        Calendar toCheckStart = toCheck.getStartTime().getTime();
+        Calendar toCheckEnd = toCheck.getEndTime().getTime();
+        Calendar thisStart = this.getStartTime().getTime();
+        Calendar thisEnd = this.getEndTime().getTime();
+        boolean equalStartTime = toCheckStart.compareTo(thisStart) == 0;
+        boolean equalEndTime = toCheckEnd.compareTo(thisEnd) == 0;
+        boolean startBetweenLesson = toCheckStart.after(thisStart) && toCheckStart.before(thisEnd);
+        boolean endBetweenLesson = toCheckEnd.after(thisStart) && toCheckEnd.before(thisEnd);
+        return equalStartTime || equalEndTime || startBetweenLesson || endBetweenLesson;
+    }
+
+    /**
      * Returns true if the end time is after the start time.
      * @return
      */
@@ -110,7 +127,8 @@ public class Lesson {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getName() + "\n")
+                .append(getStartTime().getStringDay())
                 .append(" \nFrom: ")
                 .append(getStartTime())
                 .append(" To: ")

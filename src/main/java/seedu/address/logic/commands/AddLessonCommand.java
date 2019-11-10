@@ -31,6 +31,7 @@ public class AddLessonCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New lesson added: %1$s";
     public static final String MESSAGE_DUPLICATE_LESSON = "This lesson already exists in the classroom";
     public static final String MESSAGE_INVALID_END_TIME = "The end time should be after the start time";
+    public static final String MESSAGE_INVALID_LESSON_TIME = "Another lesson in the same timeslot already exists";
 
     private final Lesson toAdd;
 
@@ -47,6 +48,10 @@ public class AddLessonCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_LESSON);
         } else if (!toAdd.endTimeIsAfterStartTime()) {
             throw new CommandException(MESSAGE_INVALID_END_TIME);
+        }
+
+        if (model.checkTimingExist(toAdd)) {
+            throw new CommandException(MESSAGE_INVALID_LESSON_TIME);
         }
 
         model.addLesson(toAdd);

@@ -66,7 +66,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `deletestudent 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StudentListPanel`, 'AssignmentListPanel', `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StudentListPanel`, `AssignmentListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -99,15 +99,15 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `ClassroomParser` class to parse the user command.
+.  `Logic` uses the `NotebookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a student).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deletestudent 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `deletestudent 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteStudentCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -123,8 +123,9 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Classroom data.
-* exposes an unmodifiable `ObservableList<Student>`, `ObservableList<Assignment>`, `ObservableList<Reminder>` and `ObservableList<Lesson>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Notebook data.
+* saves the state of the Notebook after each change in state for undo redo function.
+* exposes an unmodifiable `ObservableList<Student>`, `ObservableList<Assignment>`, and `ObservableList<Lesson>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -143,7 +144,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Classroom data in json format and read it back.
+* can save the Notebook data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -154,43 +155,127 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::autocomplete[]
+=== Autocomplete feature
+
+==== Current Implementation
+
+The AutoComplete feature is facilitated by 2 classes: the `AutoCompleteTextField`, and the class `Styles`.
+Both are represented in the class diagram below.
+
+image::SebastianDG/AutoCompleteClassDiagram.png[auto_,300,300,pdfwidth=50%,scaledwidth=50%]
+
+The `AutoCompleteTextField` adds a `ChangeListener` to textProperty() that notifies `AutoCompleteTextField`
+whenever the user inputs new text, i.e when the text entered changes.
+
+Step 1.  User triggers the listener when user enters text.
+
+Step 2. From the text entered, `AutoCompleteTextField` attempts suggesting existing commands.
+If input matches any existing commands, it proceeds to step 3. Otherwise, it does nothing and waits user input.
+
+Step 3. `AutoCompleteTextField` calls `Styles#buildTextFlow`to highlight the portion of each
+command suggestion where the user's input matches the suggestion.
+
+Step 4. `AutoCompleteTextField` then displays a popup menu using the javafx class `ContextMenu`.
+
+Step 5. If the user selects a suggestion, the textfield is set to that suggestion, and the popup menu is
+closed. If the user enters more text, `AutoCompleteTextField` returns to step 1.
+
+Step 6. Otherwise, the popup menu is closed.
+
+This sequence of steps is illustrated below with an activity diagram.
+
+image::SebastianDG/auto_activity.JPG[auto_,500,500,pdfwidth=50%,scaledwidth=50%]
+// end::autocomplete[]
+
+// tag::upload[]
+=== Upload feature
+
+==== Current Implementation
+
+The uploading of a student's picture is facilitated by UploadPictureCommandParser, UploadPictureCommand, ModelManager, FileChooser and DisplayPicture,
+while the displaying of the student's picture is facilitated by MainWindow and StudentCard. +
+`UploadPictureCommandParser` implements `Parser`. `UploadPictureCommand` extends `Command`,
+and represents the logic that will be executed once the user activates the upload command and chooses a file. +
+The `UploadPictureCommand` command communicates with `ModelManager` to replace the old `Student` object with
+a new `Student` object that has its display picture field changed. +
+
+This change is then reflected in the UI when `MainWindow` loads the `StudentCard` for the new student,
+which will load the image and display it in the UI.
+
+The main operation implemented is `UploadPictureCommand#execute`.
+
+Step 1. The user wants to upload a display picture for their student. User identifies the student's index
+number and enters the command `upload INDEX`.
+
+Step 2. `MainWindow` detects the `upload` command word and uses `FileChooser` to open a window for the user to select a picture from their computer.
+`MainWindow` then saves the path of the selected file as a string and adds a prefix "f/" to the input arguments.
+The path of the file is also appended to the end of the input string before the input arguments are passed to `NotebookParser`
+
+Step 3. `NotebookParser` parses the input and detects the `upload` command word, and calls `UploadPictureCommandParser`.
+This in turn checks user's input for errors before calling `UploadPictureCommand`, which checks whether the file
+is a PNG or JPG file.
+
+Step 4. `LogicManager` executes the `UploadPictureCommand`, which checks the validity of the index provided,
+as well as whether the picture selected is different from the picture already displayed.
+A visual representation of the order of checks for the input arguments are displayed in the diagram below.
+
+image::upload/upload_dg_1.JPG[checksdiagram,400,480,pdfwidth=50%,scaledwidth=50%]
+
+Step 5. After these checks, the `createEditedStudent` method in `UploadPictureCommand` is called to create a new `Student` object, editedStudent,
+which has its display filepath changed to the file the user chose.
+
+Step 6. `UploadPictureCommand` calls Model to replace the current student with the editedStudent.
+The command result is then passed back all the way to `MainWindow` which refreshes the GUI,
+and displays the new picture for the chosen student.
+
+The following diagram illustrates the process above.
+
+image::SebastianDG/UploadSequenceDiagram.png[]
+
+==== Design Considerations
+
+Alternative implementations:
+
+// end::upload[]
+
 // tag::undoredo[]
 === Undo and Redo feature
 ==== Implementation
 
-The undo/redo mechanism is facilitated by `Caretaker`, with each classroom state saved as a `Memento`.
-It extends `Classroom` with an undo/redo history, stored internally as an `mementos` and `statePointer`.
+The undo/redo mechanism is facilitated by `Caretaker`, with each notebook state saved as a `Memento`.
+It extends `Notebook` with an undo/redo history, stored internally as an `mementos` and `statePointer`.
 Additionally, it implements the following operations:
 
-* `Caretaker#saveState()` -- Saves the current classroom state in its history.
-* `Caretaker#undo()` -- Restores the previous classroom state from its history by undoing the previous command.
-* `Caretaker#redo()` -- Restores a previously undone classroom state from its history by redoing the previously undone command.
+* `Caretaker#saveState()` -- Saves the current notebook state in its history.
+* `Caretaker#undo()` -- Restores the previous notebook state from its history by undoing the previous command.
+* `Caretaker#redo()` -- Restores a previously undone notebook state from its history by redoing the previously undone command.
 
 These operations are exposed in the `Model` interface as `Model#saveState()`, `Model#undo()` and `Model#redo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `Caretaker` will be initialized with the initial classroom state, and the `statePointer` pointing to that single classroom state.
+Step 1. The user launches the application for the first time. The `Caretaker` will be initialized with the initial notebook state, and the `statePointer` pointing to that single notebook state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `deletestudent 5` command to delete the 5th student in the classroom. The `delete` command calls `Model#saveState()`, causing the modified state of the classroom after the `delete 5` command executes to be saved in the `mementos`, and the `statePointer` is shifted to the newly inserted classroom state.
+Step 2. The user executes `deletestudent 5` command to delete the 5th student in the current classroom. The `deletestudent` command calls `Model#saveState()`, causing the modified state of the notebook after the `deletestudent 5` command executes to be saved in the `mementos`, and the `statePointer` is shifted to the newly inserted notebook state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `addstudent n/David ...` to add a new student. The `addstudent` command also calls `Model#saveState()`, causing another modified classroom state to be saved into the `mementos`.
+Step 3. The user executes `addstudent n/David ...` to add a new student. The `addstudent` command also calls `Model#saveState()`, causing another modified notebook state to be saved into the `mementos`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#saveState()`, so the classroom state will not be saved into the `mementos`.
+If a command fails its execution, it will not call `Model#saveState()`, so the notebook state will not be saved into the `mementos`.
 
-Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `statePointer` once to the left, pointing it to the previous classroom state, and restores the classroom to that state.
+Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `statePointer` once to the left, pointing it to the previous notebook state, and restores the notebook to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `statePointer` is at index 0, pointing to the initial classroom state, then there are no previous classroom states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `statePointer` is at index 0, pointing to the initial notebook state, then there are no previous notebook states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -198,16 +283,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redo()`, which shifts the `statePointer` once to the right, pointing to the previously undone state, and restores the classroom to that state.
+The `redo` command does the opposite -- it calls `Model#redo()`, which shifts the `statePointer` once to the right, pointing to the previously undone state, and restores the notebook to that state.
 
 [NOTE]
-If the `statePointer` is at index `mementos.size() - 1`, pointing to the latest classroom state, then there are no undone classroom states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `statePointer` is at index `mementos.size() - 1`, pointing to the latest notebook state, then there are no undone notebook states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `liststudents`. Commands that do not modify the classroom, such as `liststudents`, will usually not call `Model#saveState()`, `Model#undo()` or `Model#redo()`. Thus, the `mementos` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#saveState()`. Since the `statePointer` is not pointing at the end of the `mementos`, all classroom states after the `statePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#saveState()`. Since the `statePointer` is not pointing at the end of the `mementos`, all notebook states after the `statePointer` will be purged. We designed it this way because it no longer makes sense to redo the `addstudent n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 
 image::UndoRedoState5.png[]
@@ -220,7 +305,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire classroom.
+* **Alternative 1 (current choice):** Saves the entire notebook.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -230,9 +315,9 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of classroom states.
+* **Alternative 1 (current choice):** Use a list to store the history of notebook states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedClassroom`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Caretaker`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.

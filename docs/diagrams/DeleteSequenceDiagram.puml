@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":ClassroomParser" as ClassroomParser LOGIC_COLOR
+participant ":NotebookParser" as NotebookParser LOGIC_COLOR
 participant ":DeleteStudentCommandParser" as DeleteStudentCommandParser LOGIC_COLOR
 participant "d:DeleteStudentCommand" as DeleteStudentCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -16,17 +16,17 @@ end box
 [-> LogicManager : execute("deletestudent 1")
 activate LogicManager
 
-LogicManager -> ClassroomParser : parseCommand("deletestudent 1")
-activate ClassroomParser
+LogicManager -> NotebookParser : parseCommand("deletestudent 1")
+activate NotebookParser
 
 create DeleteStudentCommandParser
-ClassroomParser -> DeleteStudentCommandParser
+NotebookParser-> DeleteStudentCommandParser
 activate DeleteStudentCommandParser
 
-DeleteStudentCommandParser --> ClassroomParser
+DeleteStudentCommandParser --> NotebookParser
 deactivate DeleteStudentCommandParser
 
-ClassroomParser -> DeleteStudentCommandParser : parse("1")
+NotebookParser-> DeleteStudentCommandParser : parse("1")
 activate DeleteStudentCommandParser
 
 create DeleteStudentCommand
@@ -36,14 +36,14 @@ activate DeleteStudentCommand
 DeleteStudentCommand --> DeleteStudentCommandParser : d
 deactivate DeleteStudentCommand
 
-DeleteStudentCommandParser --> ClassroomParser : d
+DeleteStudentCommandParser --> NotebookParser: d
 deactivate DeleteStudentCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteStudentCommandParser -[hidden]-> ClassroomParser
+DeleteStudentCommandParser -[hidden]-> NotebookParse
 destroy DeleteStudentCommandParser
 
-ClassroomParser --> LogicManager : d
-deactivate ClassroomParser
+NotebookParser--> LogicManager : d
+deactivate NotebookParse
 
 LogicManager -> DeleteStudentCommand : execute()
 activate DeleteStudentCommand
@@ -51,6 +51,7 @@ activate DeleteStudentCommand
 DeleteStudentCommand -> Model : deleteStudent(1)
 activate Model
 
+DeleteStudentCommand -> Model : saveState()
 Model --> DeleteStudentCommand
 deactivate Model
 
