@@ -294,6 +294,8 @@ Format: `display PROJECTION_ID`
 
 ****
 * A `Projection` with `PROJECTION_ID` must exist.
+* `Projection` graphs do not update automatically when a new `Transaction` or `Budget` is
+added or removed. Instead, they are statically rendered upon the `display` command.
 ****
 
 ==== Example Usage
