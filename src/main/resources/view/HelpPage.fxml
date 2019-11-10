@@ -44,12 +44,12 @@
                </Label>
                <TextFlow layoutX="22.0" layoutY="63.0" AnchorPane.leftAnchor="22.0">
                   <children>
-                     <Label text="home">
+                     <Label text="dashboard">
                         <font>
                            <Font name="System Bold" size="14.0" />
                         </font>
                      </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Home tab">
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Dashboard tab">
                         <font>
                            <Font size="13.0" />
                         </font>
@@ -176,6 +176,20 @@
                         </font>
                      </Label>
                      <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Help tab (the current tab)">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+               <TextFlow layoutX="22.0" layoutY="331.0" AnchorPane.leftAnchor="22.0">
+                  <children>
+                     <Label text="tab">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Toggles to the next tab">
                         <font>
                            <Font size="13.0" />
                         </font>

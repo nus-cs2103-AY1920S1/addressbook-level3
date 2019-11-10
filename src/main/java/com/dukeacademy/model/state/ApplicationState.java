@@ -12,7 +12,7 @@ public class ApplicationState {
     private final StandardObservable<Boolean> isEvaluating;
 
     public ApplicationState() {
-        this.currentActivity = new StandardObservable<>(Activity.HOME);
+        this.currentActivity = new StandardObservable<>(Activity.DASHBOARD);
         this.isEvaluating = new StandardObservable<>(false);
     }
 
