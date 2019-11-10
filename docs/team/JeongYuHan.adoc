@@ -7,11 +7,11 @@
 
 == Introduction and Overview
 
-The purpose of this document is to display the author's (Jeong Yu Han) contribution to the software engineering project and his technical skills.
+The purpose of this document is to display the author's (Jeong Yu Han) contribution to the software engineering module project and his technical skills.
 
-My team and I were tasked with enhancing a command line interface application for our Software Engineering project.
+My team and I were tasked with enhancing a command line, desktop application for our Software Engineering project.
 We chose to morph it into a teaching assistant called the Njoy Teaching Assistant, targeted at tech-savvy teachers who wish to improve
-the efficiency of their daily tasks such as creating quizzes, schedules and tracking student performances.
+the efficiency of their daily tasks such as creating quizzes, schedules, notes and tracking student performances.
 
 This is what our project looks like:
 
@@ -32,19 +32,19 @@ This symbol indicates a note to the user.
 
 == Summary of contributions
 
-This section details a summary of my specific enhancements, code contributions and other tasks.
+This section details a summary of my enhancements, code contributions and other tasks.
 
-I implemented the notes commands which include: *Creating*, *Editing*, *Deleting*, *Listing*, *Sorting* notes. +
+I implemented the note commands which include: *Creating*, *Editing*, *Deleting*, *Listing* and *Sorting* notes. +
 Another feature I implemented was the ability to *generate and store Statistics reports*.
 
 === Enhancements
 
-==== Creating, Editing and Deleting Notes
+==== Creating, Editing and Deleting Notes (Major Enhancement)
 
 * *What it does:* Users can add notes with a title, description and an optional priority.
 The default priority is unmarked and different priorities are color coded. The features can be edited/deleted by specifying their index and the fields to edit.
 
-* *Justification:* Teachers often have a dizzying array of tasks to handle. The notes feature allows teachers to deal with work and other worries and allows them to handle the most pressing issues. Editing and deleting
+* *Justification:* Teachers often have a dizzying array of tasks to handle. The notes feature allows teachers to deal with work and other worries, allowing them to handle the most pressing issues. Editing and deleting
 gives the flexibility of shifting priorities, typing errors and task completion.
 
 * *Highlights:* The implementation for this feature required contemplation in terms of UX. While additional features such as re/un-doing was considered, the main principle of the notes UX is to be
@@ -53,18 +53,18 @@ was also challenging, in particular for the edit command.
 
 ==== Sorting Notes
 
-* *What it does:* Sorts the notes in the list in descending order of priority.
+* *What it does:* Users can sort the notes in the list in descending order of priority.
 
 * *Justification:* Users should be easily able to identify more pressing tasks.
 
 ==== Listing Notes
 
-* *What it does:* Shows the list of notes in the command result box. This feature is an alternative solution to the issue of notes having
+* *What it does:* Users can show the list of notes in the command result box. This feature is an alternative solution to the issue of notes having
 content length that exceed its allocated space in the User Interface.
 
-==== Generating and Storing Statistics
+==== Generating and Storing Statistics (Major Enhancement)
 
-* *What it does:* Read student score data from excel file and process it to generate some descriptive statistics on performance. Store as optionally specified image file.
+* *What it does:* Users can pass student score data from an excel file for processing to generate some descriptive statistics on performance. Store as optionally specified image file.
 
 * *Justification:* Give teachers the ability to see class performance at a glance and identify weaker students to help.
 
@@ -80,7 +80,7 @@ Please click the following link to see my code contributions dashboard. https://
 ** Reviewed team's code coverage, resolved issues in the tracker.
 
 * Enhancements to team documentation:
-** Updated README and ContactUs with missing acknowledgement and developer contacts.
+** Updated README and ContactUs with missing acknowledgements and developer contacts.
 ** Updated Glossary and Product Survey : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/24[#24]
 
 * Enhancements to team code:
@@ -90,8 +90,8 @@ Please click the following link to see my code contributions dashboard. https://
 ** Wrote additional tests and generic model stubs for testing : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/123[#123]
 
 * Documentation:
-** Made additions to the appendix for Developer Guide and improve readability: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/25[#25]
-** Implemented features for User/Developer Guide: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/77[#77],
+** Made modifications to the Developer Guide and improved readability: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/25[#25]
+** Documented the implemented features: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/77[#77],
 https://github.com/AY1920S1-CS2103T-W13-2/main/pull/97[#97], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/181[#181], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/190[#190]
 
 * Community:
@@ -104,7 +104,7 @@ https://github.com/AY1920S1-CS2103T-W13-2/main/pull/97[#97], https://github.com/
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write comprehensive documentation targeting end-users.
-The following are some portions of the NJoy Assistant's User Guide that I have selected to display as a representation of my abilities._
+I have decided to select one command for each feature as a representation of my abilities. The full document can be seen here: https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/docs/UserGuide.adoc[User Guide]_
 |===
 
 *The following is an example of Creating Notes*:
@@ -119,7 +119,7 @@ include::../UserGuide.adoc[lines=1157..1226]
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation. As with the User Guide, I will only showcase
-the portions that demonstrate the depth of my technical capacities as a representation of my contributions._
+one example from each feature to demonstrate the depth of my technical capacities and my contributions. The full document can be seen here: https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]_
 |===
 
 *The following is an example of Adding Notes*:
@@ -130,4 +130,4 @@ include::../DeveloperGuide.adoc[lines=1112..1135]
 
 *The following is an example of Statistics Generation*:
 
-include::../DeveloperGuide.adoc[lines=1222..1263]
+include::../DeveloperGuide.adoc[lines=1223..1263]

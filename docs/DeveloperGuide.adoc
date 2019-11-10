@@ -1220,12 +1220,12 @@ aim to keep our notes feature as simple as a pen-paper recording or even simpler
 
 [[Feature-Statistics]]
 === Statistics feature
-
+==== Generating Statistics
 The statistics feature allows users of Njoy to generate statistics reports using external files as input data.
 
 Current File Compatibilities: Excel(.xlsx)
 
-A generic data parser of external files is used to generate HashMap of student’s data as specified by the input file. This processed data is passed to a Statistics Model which performs statistical analysis before passing back to the UI for rendering.
+A generic data parser of external files is used to generate `HashMap` of student’s data as specified by the input file. This processed data is passed to a `Statistics` `Model` which performs statistical analysis before passing back to the UI for rendering.
 
 .Class Diagram for Statistics Feature
 image::DeveloperGuideResources/StatisticsClassDiagramColored.png[]
@@ -1242,7 +1242,7 @@ The following is an example usage scenario where the Actor/User asks Njoy for a 
 4. Execution of this command results in the processed data being passed to the `ModelManager` using `StatisticsAddCommand#execute`.
 
 5. The success result of the Statistics command is shown on the GUI and the execution call has returned to `MainWindow#executeCommand(String commandText)`. It
-recognises the command was a valid Statistics command and opens window to show the processed data.
+recognises the command was a valid Statistics command and opens a new window to show the processed data.
 
 [NOTE]
 If the input file is not formatted as specified in the user guide, a `ParseException` would be thrown to show error message as the result. No new window is opened. The diagram below illustrates possible program control flows.
@@ -1256,8 +1256,8 @@ image::DeveloperGuideResources/StatisticsActivityDiagramResized.png[]
 
 * **Alternative 1 (current choice):** Opens a new window for the report generated.
 ** Pros: More space to work with, able to generate more comprehensive report that is easier to view.
-** Cons: Data widgets are no longer stateful, they are newly created every time new report is requested.
-* **Alternative 2:** Render data for current state of the model on the original application.
+** Cons: Data widgets are no longer stateful, they are newly created every time a new report is requested.
+* **Alternative 2:** Render data for current state of the model on the user interface.
 ** Pros: Stateful, no need to recreate the widget every time there is new input data.
 ** Cons: Lack of space, hard to render other UI elements such as the timetable.
 
