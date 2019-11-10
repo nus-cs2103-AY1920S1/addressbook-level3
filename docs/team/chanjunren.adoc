@@ -3,8 +3,6 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-
-
 == About The Project
 
 My team of 4 Computer Science students and I were tasked with enhancing a basic command line interface
@@ -18,6 +16,25 @@ image::jrImages/appPreview.png[]
 
 _Figure 1. The graphical user interface for *StudyBuddyPro*._
 
+=== Callouts Signs
+
+Please do refer to the signs below as they are used throughout the document.
+
+[WARNING]
+====
+Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
+====
+
+[IMPORTANT]
+====
+Indicates information that are crucial to understand so that you will be able to follow the flow of the document.
+====
+
+[NOTE]
+====
+Indicates information that are note-worthy. Do read them for more information and better understandings.
+====
+
 == Summary of contributions
 
 * *Major enhancement*: added *ability to start a time trial of flashcards.*
@@ -25,7 +42,7 @@ _Figure 1. The graphical user interface for *StudyBuddyPro*._
 ** Justification: Pushes the user to test his understanding / familiarity of a certain topic.
 ** Highlights: This enhancement works with existing as well as future commands. An in-depth analysis of design
 alternatives was necessary to implement the feature in a way that doesn’t disrupt other features. The implementation was also challenging because there was a need to read up on an existing API that I did not have prior experience in.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Credits: Usage of the timeline api and linking the timer to a label was inspired by: https://asgteach.com/2011/10/javafx-animation-and-binding-simple-countdown-timer-2/
 
 * *Minor enhancement*: Designed the overall GUI of the StudyBuddyPro application.
 
@@ -33,23 +50,25 @@ alternatives was necessary to implement the feature in a way that doesn’t disr
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+* Project management:
+** Facilitated discussion of the overall direction of the application in v1.1.
 
-_{you can add/remove categories in the list above}_
+* Developing existing features:
+** Implemented the switching of modes and hooking up the activity window to the respective modes(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/162[#162]).
+** Implemented the viewing and showing of flashcards(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/133[#133])(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/200[#200]).
+** Implemented the time trial feature of the Flashcard(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/198[#198]).
+
+* Enhancements to existing features:
+** Designed the overall GUI of the StudyBuddyPro(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/123/commits/2964fbad0c7a09397ea1aea0d76867204e3395f1[#123])
+** Enhanced delete commands to prompt the user once to confirm his/her deletion(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/244[#244]).
+** Wrote additional tests for existing features to increase the test coverage.
+
+* Documentation:
+** Added the command summary for the team(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/338[#338]).
+
+* Community:
+** Reported bugs and offered suggestions for the other team during the Practical Exam dry run.
+
 
 == Contributions to the User Guide
 
@@ -58,9 +77,100 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+=== Time Trial: `timetrial`
 
-include::../UserGuide.adoc[tag=dataencryption]
+Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashcard.
+
+    Format: timetrial tag/TAG...
+
+    Example usage: timetrial cs2103tuml hard
+
+    Expected output: Time trial started
+
+* At least one tag must be specified.
+* If more than one tag is specified, selects all flashcards that contains all of the specified tags.
+* Default <TIME> will be 5 seconds.
+* Answer will be flashed for 3 seconds.
+* If a flashcard command (other than `show`) is inputted during the time trial, the time trial will be terminated and the inputted
+command will be executed.
+* Executing `show` will reveal the answer of the flashcard in advance, but will not terminate the time trial.
+
+== Command Summary
+=== Global Commands (Can be executed in any mode)
+* *Switch* : `switch MODE` +
+e.g `switch fc`
+
+* *Filter All* : `filterall tag/TAG...` +
+e.g `filterall tag/cs2103tuml tag/difficult`
+
+* *List tags* : `taglist`
+
+* *Help* : `help`
+
+* *List* : `list`
+
+* *Exit* : `exit`
+
+=== Flashcard Commands
+* *Add* : `add q/QUESTION a/ANSWER t/TITLE [tag/TAG]...` +
+e.g. `add q/What is 100 Binary in its Decimal form? a/4 t/Binary Stuff tag/CS2100`
+
+* *Delete* : `delete INDEX`
+e.g `delete 1`
+
+* *Filter* : `filter tag/TAG...` +
+e.g `filter cs2103tuml`
+
+* *View* : `view INDEX` +
+e.g `view 1`
+
+* *List* : `list`
+
+* *Show* : `show`
+
+* *Remind* : `remind`
+
+=== Note Commands
+
+* *Add* : `add t/TITLE c/CONTENT tag/TAG...` +
+e.g. `add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes simultaneously. tag/cs2100`
+
+* *Delete* : `delete INDEX`
+e.g `delete 1`
+
+* *View* : `view INDEX` +
+e.g `view 1`
+
+* *Viewing a raw note* : `viewraw INDEX` +
+e.g `viewraw 3`
+
+* *Filter* : `filter tag/TAG...` +
+e.g `filter tag/hard tag/cs2100`
+
+* *List* : `list`
+
+=== CheatSheet Commands
+
+* *Add* : `add t/TITLE [tag/TAG]...` +
+e.g. `add t/CS2100 Midterm CheatSheet tag/cs2100midterm`
+
+* *Delete* : `delete INDEX`
+e.g `delete 1`
+
+* *Edit* :  `edit INDEX t/TITLE tag/TAG...` +
+e.g `edit 8 t/cs2100 final cheatsheet tag/formula`
+
+* *Show* : `show INDEX` +
+e.g `show 4`
+
+* *View* : `view INDEX` +
+e.g `view 1`
+
+* *Filter* : `filter tag/TAG...` +
+e.g `filter tag/hard tag/cs2100`
+
+* *List* : `list`
+
 
 == Contributions to the Developer Guide
 
@@ -75,13 +185,13 @@ The following commands assume that the user is in the _flashcard_ mode.
 
 ==== Implementation
 a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`, and mainly uses the `Timeline`, `KeyFrame` and `KeyValue` class from the JavaFX package to support its functionality.
-
++
 The following _figure_ shows a class diagram of the relevant classes of the time trial feature.
-
++
 image::jrImages/TimeTrialClassDiagram.png[]
-
++
 The following _figure_ is an activity diagram of the flow of events when a user attempts to start a time trial.
-
++
 image::jrImages/TimeTrialActivityDiagram.png[]
 
 b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
@@ -125,8 +235,6 @@ object.
 
 
 
-== PROJECT: PowerPointLabs
+== PROJECT: StudyBuddyPro
 
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_

@@ -1,4 +1,5 @@
 == Prerequisites
+:stylesDir: stylesheets
 
 . *JDK `11`* or above
 . *IntelliJ* IDE

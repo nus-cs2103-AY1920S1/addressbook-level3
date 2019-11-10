@@ -1,4 +1,7 @@
 = Samuel Lim - Project Portfolio for StudyBuddyPro
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == About the Project
 Me and my team of four other software engineering coursemates were tasked with morphing a given codebase for a
@@ -42,6 +45,10 @@ note to remove the leftover syntax from the addition of the note fragment tag.
 *** Managed release v1.3 (out of v1.0 to v1.4)
 ** Enhancements to existing features:
 *** Wrote test code for all Note-related code
+** GUI
+*** Did GUI for Notes
+** Storage
+*** Did Storage for Notes
 * <I guess I need to pore through all my PRs and look for other documentation and code refactoring stuff; also need
 to look at reposense and compare what's there>
 
