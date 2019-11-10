@@ -1097,3 +1097,40 @@ NOTE: Ensure the application has at least one question to do the quiz.
 . Quiting from the quiz mode
 .. Type `quit` in the command line when the application is in the quiz mode.
 .. The application will exit from the quiz mode and return to the original mode.
+
+=== Revision task management
+. Before adding task
+.. Add some notes to the app to be used for tasks.
+.. Add notes by typing `addnote t/a c/a`, followed by `addnote t/b c/b`.
+. Adding a task for revising a note to the revision list
+.. Type `rn t/a dt/01/11/2019 tm/0900`.
+.. The app will display message for successful addition of the task if there is a note with title "a" in the note list.
+. Adding a task for revising a question to the revision list
+.. Type `rq i/1 dt/12/09/2019 tm/1200`.
+.. The app will display message for successful addition of the task if there is a question with index 1 in the question list.
+If the question list is empty, an error message will be shown.
+. Editing a task
+.. Type `redit 1 h/b`.
+.. The heading of the first task will be changed to b if both the first task and a note with title "b" exist in the note list.
+. Marking a task as done
+.. Type `rdone 1`
+.. The first task will be marked as done.
+. Searching for a task
+.. Type `rfind tm/0900`.
+.. All task at 9am will be shown (if existing).
+. Listing all tasks
+.. Type `rlist`.
+.. All tasks will be shown.
+. Showing finished tasks
+.. Type `finished`.
+.. All finished (done) tasks will be shown.
+.. Similar operations can be done for unfinished tasks and overdue tasks with command `unfinished`, `overdue` respectively.
+. Deleting a task
+.. Type `rlist` to display all tasks for better demo effect. (If there are more than one tasks in the current list view, you can skip this step)
+.. Type `rdelete 2`
+.. The second task in the current list view will be successfully deleted (if existing).
+. Clearing all tasks
+.. Type `rclear`.
+.. All tasks will be cleared.
+.. Type `rlist` and you can see no task is left in the list.
+
