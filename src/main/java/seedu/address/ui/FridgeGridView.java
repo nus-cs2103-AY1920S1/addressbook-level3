@@ -6,20 +6,18 @@ import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.fridge.Fridge;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997
 /**
  * Represents the grid view that displays the fridges in the dashboard.
  */
 public class FridgeGridView extends UiPart<Region> {
 
     private static final String FXML = "FridgeGridView.fxml";
-    private FilteredList<Fridge> fridgeObservableList;
 
     @FXML
     private GridView fridgeGridView;
@@ -31,7 +29,7 @@ public class FridgeGridView extends UiPart<Region> {
         fridgeGridView.setItems(fridgeList);
         fridgeGridView.setCellFactory(gridview -> new FridgeGridCell());
         fridgeGridView.setCellWidth(70);
-        fridgeGridView.setCellHeight(70);
+        fridgeGridView.setCellHeight(80);
         fridgeGridView.setHorizontalCellSpacing(5);
     }
 
@@ -53,4 +51,4 @@ public class FridgeGridView extends UiPart<Region> {
     }
 
 }
-//@@ author
+//@@author

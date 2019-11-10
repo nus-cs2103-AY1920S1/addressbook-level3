@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import seedu.address.ui.StatusBarFooter;
 
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 /**
  * This rule makes the time stamp in the status bar predictable during a test.
  * Before the test starts, the rule replaces the clock in the status bar with a fixed clock.
@@ -42,3 +44,4 @@ public class ClockExtension implements BeforeEachCallback, AfterEachCallback {
         StatusBarFooter.setClock(injectedClock);
     }
 }
+//@@author

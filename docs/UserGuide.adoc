@@ -138,9 +138,7 @@ You can add a body, worker or fridge by entering an add command that follows the
 This table details how you can craft your add command to add an entity in Mortago.
 |===
 
-| Purpose |  Format
-
-| Add a new worker
+| Adding a Worker |  Adding a Body | Adding a Fridge
 
 a|
 ====
@@ -158,11 +156,10 @@ add -w +
 If you wish to provide a photo for the worker entry, please provide the absolute path of the image file.
 You can follow the steps <<Copy-File-Path, here>> to obtain the absolute path of the file.
 
+
 ====
 
----
 
-| Add a new body
 a|
 ====
 add -b +
@@ -180,22 +177,23 @@ add -b +
 (/cod causeOfDeath) +
 (/organsForDonation organsForDonation) +
 (/fridgeId fridgeId)
+
+
 ====
 
-[TIP]
-Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
-
----
-| Add a new fridge
 a|
 ====
 add -f
 ====
 
+
 [TIP]
 Default status: `UNOCCUPIED`
 
 |===
+
+[TIP]
+Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
 
 Example:
 
@@ -211,7 +209,6 @@ a|
  /dateJoined 18/08/2019
  /designation Autopsy Technician`
 
----
 
 | Worker added
 
@@ -232,7 +229,7 @@ a|
 /details Heavy bleeding and head injury
 /organsForDonation NIL`
 
----
+
 | Body added
 
 a|

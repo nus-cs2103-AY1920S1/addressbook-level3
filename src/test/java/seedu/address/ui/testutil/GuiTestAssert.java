@@ -4,13 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import guitests.guihandles.FridgeCardHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.WorkerCardHandle;
 import guitests.guihandles.WorkerListPanelHandle;
+import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.ui.WorkerCard;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 /**
  * A set of assertion methods useful for writing GUI tests.
  */
@@ -49,6 +52,16 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedFridge}.
+     */
+    public static void assertCardDisplaysFridge(Fridge expectedFridge, FridgeCardHandle actualCard) {
+        assertEquals(expectedFridge.getIdNum().toString(), actualCard.getFridgeId());
+        assertEquals(expectedFridge.getBody().isPresent() ? expectedFridge.getBody().get().getIdNum().toString()
+                : "No body assigned", actualCard.getBodyId());
+        assertEquals(expectedFridge.getFridgeStatus().toString(), actualCard.getStatus());
+    }
+
+    /**
      * Asserts that the list in {@code workerListPanelHandle} displays the details of {@code workers} correctly and
      * in the correct order.
      */
@@ -83,4 +96,4 @@ public class GuiTestAssert {
         assertEquals(expected, resultDisplayHandle.getText());
     }
 }
-//@@ author
+//@@author

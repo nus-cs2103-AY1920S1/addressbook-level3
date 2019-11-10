@@ -26,6 +26,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
+//@@author shaoyi1997
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
@@ -45,7 +46,7 @@ public class ParserUtilTest {
     private static final String VALID_SEX = "male";
     private static final String VALID_NRIC = "S1234567A";
     private static final String VALID_ID = "F01";
-    private static final String VALID_ORGANS_FOR_DONATION = "kidney, cornea";
+    private static final String VALID_ORGANS_FOR_DONATION = "kidney cornea";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -264,3 +265,4 @@ public class ParserUtilTest {
     }
     //@@author
 }
+//@@author

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.SelectCommand;
 
-//@@ shaoyi1997-reused
+//@@author shaoyi1997-reused
 //Reused from SE-EDU Address Book Level 4
 /**
  * Test scope: similar to {@code DeleteCommandParserTest}.
@@ -29,4 +29,4 @@ public class SelectCommandParserTest {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
     }
 }
-//@@ shaoyi1997-reused
+//@@author

@@ -19,7 +19,7 @@ import javafx.scene.shape.Circle;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.worker.Worker;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997
 /**
  * An UI component that displays information of a {@code Worker}.
  */
@@ -88,17 +88,21 @@ public class WorkerCard extends UiPart<Region> {
     }
 
     private void setDisplayPhoto() {
+        // first, create the clipping circle
         double radiusAndXCentre = displayPhoto.getFitWidth() / 2;
         double yCentre = displayPhoto.getFitHeight() / 2;
         Circle circle = new Circle(radiusAndXCentre, yCentre, radiusAndXCentre);
+
+        // second, sets the display photo of the worker if user supplies a photo
+        // else, circle is embedded with the initials of the worker's name
         if (worker.getPhoto().isPresent()) {
             displayPhoto.setImage(new Image(worker.getPhoto().get().getPathToDataDirectory()));
             displayPhoto.setClip(circle);
-            return;
+        } else {
+            circle.setFill(Paint.valueOf(generateColor()));
+            Label initialsOfName = new Label(getInitials(worker.getName().toString()));
+            displayPhotoPlaceholder.getChildren().addAll(circle, initialsOfName);
         }
-        circle.setFill(Paint.valueOf(generateColor()));
-        Label initialsOfName = new Label(getInitials(worker.getName().toString()));
-        displayPhotoPlaceholder.getChildren().addAll(circle, initialsOfName);
     }
 
     /**
@@ -108,7 +112,7 @@ public class WorkerCard extends UiPart<Region> {
     private String generateColor() {
         // The unique generated color for each worker will be stored in a HashMap,
         // so that whenever there is an event change to WorkerListPanel and WorkerCard,
-        // the same color will be produced instead of generating a new color.
+        // the same color will be produced for each worker instead of generating a new color.
         if (workerToColorMap.containsKey(worker)) {
             return workerToColorMap.get(worker);
         } else {
@@ -138,7 +142,7 @@ public class WorkerCard extends UiPart<Region> {
         String[] wordsInName = name.split("\\s+");
         String initials;
         if (wordsInName.length == 1) {
-            initials = wordsInName[0].charAt(0) + "";
+            initials = "" + wordsInName[0].charAt(0);
         } else {
             initials = "" + wordsInName[0].charAt(0) + wordsInName[1].charAt(0);
         }
@@ -163,4 +167,4 @@ public class WorkerCard extends UiPart<Region> {
                 && worker.equals(card.worker);
     }
 }
-//@@ author
+//@@author

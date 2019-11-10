@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="80.0" prefHeight="80.0" prefWidth="100.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="fridgeCardPane" maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox id="cardPane" fx:id="cardPane" alignment="CENTER" prefWidth="100.0" AnchorPane.topAnchor="0.0">
+      <VBox id="cardPane" alignment="CENTER" prefWidth="100.0" AnchorPane.topAnchor="0.0">
          <StackPane fx:id="fridgeIdPlaceholder">
             <VBox.margin>
                <Insets bottom="7.0" />
@@ -23,17 +23,12 @@
       </VBox>
       <StackPane layoutY="52.0" prefWidth="100.0" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0">
          <children>
-            <Label id="bodyIdInFridge" fx:id="bodyIdInFridge" alignment="CENTER" maxWidth="60.0" stylesheets="@DarkTheme.css" text="\$body" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" StackPane.alignment="BOTTOM_CENTER">
+            <Label id="bodyIdInFridge" fx:id="bodyIdInFridge" alignment="CENTER" maxWidth="80.0" stylesheets="@DarkTheme.css" text="\$body" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" StackPane.alignment="CENTER">
                <StackPane.margin>
                   <Insets />
                </StackPane.margin>
-               <padding>
-                  <Insets top="5.0" />
-               </padding></Label>
+            </Label>
          </children>
-         <padding>
-            <Insets top="5.0" />
-         </padding>
       </StackPane>
    </children>
 </AnchorPane>

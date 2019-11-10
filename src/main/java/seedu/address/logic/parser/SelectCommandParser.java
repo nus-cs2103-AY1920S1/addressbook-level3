@@ -6,7 +6,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-//@@ shaoyi1997-reused
+//@@author shaoyi1997-reused
 //Reused from SE-EDU Address Book Level 4
 /**
  * Parses input arguments and creates a new SelectCommand object
@@ -28,4 +28,4 @@ public class SelectCommandParser implements Parser<SelectCommand> {
         }
     }
 }
-//@@ shaoyi1997-reused
+//@@author

@@ -4,7 +4,8 @@ import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
 import seedu.address.ui.UiManager;
 
-//@@ author
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 /**
  * A handle for the {@code AlertDialog} of the UI.
  */
@@ -31,4 +32,4 @@ public class AlertDialogHandle extends StageHandle {
         return dialogPane.getContentText();
     }
 }
-//@@ author
+//@@author

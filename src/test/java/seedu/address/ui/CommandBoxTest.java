@@ -14,7 +14,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 public class CommandBoxTest extends GuiUnitTest {
 
     private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;
@@ -48,6 +49,8 @@ public class CommandBoxTest extends GuiUnitTest {
     @Test
     public void commandBox_startingWithFailedCommand() {
         assertBehaviorForFailedCommand();
+
+
         assertBehaviorForSuccessfulCommand();
 
         // verify that style is changed correctly even after multiple consecutive failed commands
@@ -92,5 +95,5 @@ public class CommandBoxTest extends GuiUnitTest {
         assertEquals(expectedCommand, commandBoxHandle.getInput());
     }
 }
-//@@ author
+//@@author
 

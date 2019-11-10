@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
@@ -22,6 +23,8 @@ public class IdentificationNumber {
     private static final String ID_PREFIX_BODY = "B";
     private static final String ID_PREFIX_WORKER = "W";
     private static final String ID_PREFIX_FRIDGE = "F";
+    private static final String INVALID_ENTITY_SUBCLASS =
+            "IdentificationNumber is not implemented for this entity subclass.";
 
     private static UniqueIdentificationNumberMaps uniqueIds = new UniqueIdentificationNumberMaps();
 
@@ -36,14 +39,17 @@ public class IdentificationNumber {
             typeOfEntity = "W";
         } else if (entity instanceof Body) {
             typeOfEntity = "B";
-        } else {
+        } else if (entity instanceof Fridge) {
             typeOfEntity = "F";
+        } else {
+            LogsCenter.getLogger(IdentificationNumber.class).severe(INVALID_ENTITY_SUBCLASS);
         }
     }
 
     //@@author ambervoong
     protected IdentificationNumber(Entity entity, int id) {
         requireNonNull(entity);
+        assert(id > 0);
         idNum = id;
         UniqueIdentificationNumberMaps.addEntity(entity, id);
         if (entity instanceof Worker) {
@@ -61,34 +67,58 @@ public class IdentificationNumber {
         this.idNum = idNum;
     }
 
+    /**
+     * Factory method for assigning a new {@code IdentificationNumber} to {@code body}
+     */
     public static IdentificationNumber generateNewBodyId(Body body) {
         return new IdentificationNumber(body);
     }
 
+    /**
+     * Factory method for creating a custom {@code IdentificationNumber} with {@code id} to {@code body}
+     */
     public static IdentificationNumber generateNewBodyId(Body body, int id) {
         return new IdentificationNumber(body, id);
     }
 
+    /**
+     * Factory method for assigning a new {@code IdentificationNumber} to {@code worker}
+     */
     public static IdentificationNumber generateNewWorkerId(Worker worker) {
         return new IdentificationNumber(worker);
     }
 
+    /**
+     * Factory method for creating a custom {@code IdentificationNumber} with {@code id} to {@code worker}
+     */
     public static IdentificationNumber generateNewWorkerId(Worker worker, int id) {
         return new IdentificationNumber(worker, id);
     }
 
+    /**
+     * Factory method for assigning a new {@code IdentificationNumber} to {@code fridge}
+     */
     public static IdentificationNumber generateNewFridgeId(Fridge fridge) {
         return new IdentificationNumber(fridge);
     }
 
+    /**
+     * Factory method for creating a custom {@code IdentificationNumber} with {@code id} to {@code worker}
+     */
     public static IdentificationNumber generateNewFridgeId(Fridge fridge, int id) {
         return new IdentificationNumber(fridge, id);
     }
 
+    /**
+     * Custom generates an {@code IdentificationNumber} with {@code typeOfEntity} and {@code idNum}
+     */
     public static IdentificationNumber customGenerateId(String typeOfEntity, int idNum) {
         return new IdentificationNumber(typeOfEntity, idNum);
     }
 
+    /**
+     * Checks if the given {@code prefix} is a valid prefix for an entity.
+     */
     private static boolean isValidIdPrefix (String prefix) {
         return prefix.equalsIgnoreCase(ID_PREFIX_BODY) || (
                 prefix.equalsIgnoreCase(ID_PREFIX_FRIDGE) || prefix.equalsIgnoreCase(ID_PREFIX_WORKER));

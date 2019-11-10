@@ -5,7 +5,8 @@ import javafx.scene.control.Label;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.ui.WorkerCard;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4 with major modifications
 /**
  * Provides a handle to a person card in the person list panel.
  */
@@ -96,4 +97,4 @@ public class WorkerCardHandle extends NodeHandle<Node> {
                         ? worker.getEmploymentStatus().get() : "-");
     }
 }
-//@@ author
+//@@author

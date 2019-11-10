@@ -8,7 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.model.entity.worker.Worker;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 /**
  * Provides a handle for {@code WorkerListPanel} containing the list of {@code WorkerCard}.
  */
@@ -158,3 +159,4 @@ public class WorkerListPanelHandle extends NodeHandle<ListView<Worker>> {
         return getRootNode().getItems().size();
     }
 }
+//@@author

@@ -9,7 +9,8 @@ import guitests.guihandles.exceptions.EventTimeoutException;
 import guitests.guihandles.exceptions.StageNotFoundException;
 import javafx.stage.Stage;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 /**
  * Robot used to simulate user actions on the GUI.
  * Extends {@link FxRobot} by adding some customized functionality and workarounds.
@@ -113,4 +114,4 @@ public class GuiRobot extends FxRobot {
         return targetStage.orElseThrow(StageNotFoundException::new);
     }
 }
-//@@ author
+//@@author
