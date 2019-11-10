@@ -18,7 +18,6 @@ public class Tag {
 
     public Tag(String tag) {
         requireNonNull(tag);
-        assert isValidTag(tag);
         this.tag = tag;
     }
 

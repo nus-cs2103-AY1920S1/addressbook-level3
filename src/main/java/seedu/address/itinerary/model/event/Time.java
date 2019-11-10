@@ -14,7 +14,7 @@ public class Time {
     public final String oldTime;
 
     public Time(String time) {
-        assert isValidTime(time);
+        assert time != null;
         oldTime = time;
         this.time = formatTime(time);
     }

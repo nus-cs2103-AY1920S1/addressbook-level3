@@ -18,7 +18,7 @@ public class Date {
     public final String oldDate;
 
     public Date(String date) {
-        assert isValidDate(date);
+        assert date != null;
         this.oldDate = date;
         this.date = formatDate(date);
     }

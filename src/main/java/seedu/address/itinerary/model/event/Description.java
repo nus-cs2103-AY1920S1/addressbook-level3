@@ -16,7 +16,6 @@ public class Description {
     public final String desc;
 
     public Description(String desc) {
-        assert isValidDescription(desc);
         this.desc = desc;
     }
 
