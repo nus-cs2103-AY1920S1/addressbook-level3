@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:source-highlighter: rouge
 
 == PROJECT: AlgoBase
 
@@ -97,3 +98,10 @@ include::../UserGuide.adoc[tag=gui]
 
 include::../DeveloperGuide.adoc[tag=uilogic]
 include::../DeveloperGuide.adoc[tag=gui]
+
+=== More contributions to the User and Developer Guide
+
+https://ay1920s1-cs2103t-w11-1.github.io/main/UserGuide.html#introduction[UG - Introduction and Overview] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/UserGuide.html#switching-tabs-code-switchtab-code[UG - Command line Tab Management] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#command-line-tab-management[DG - Command Line Tab Management] +
+https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#switching-tabs[DG - Tabs and GUI] +
