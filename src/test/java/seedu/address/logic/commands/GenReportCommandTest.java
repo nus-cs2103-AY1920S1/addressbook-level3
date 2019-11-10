@@ -82,7 +82,7 @@ public class GenReportCommandTest {
             }
         }
     }
-    
+
     @Test
     public void equals() {
         model.addEntity(ALICE);
