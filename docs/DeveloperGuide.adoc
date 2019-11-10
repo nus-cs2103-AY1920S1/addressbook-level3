@@ -1305,6 +1305,17 @@ The feature comprises of the following features:
 The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
 (See <<Design-Logic, logic component>> for the general overview).
 
+==== Class Overview
+
+The figure below describes the interactions between event-related classes in the `Model`. Note how the `EventRecord`
+class has a dependency on `Event` object in its constructor, but only has a `VEvent` attribute: `vEvents`. This
+highlights a mapping between the Event and VEvent object within the `EventRecord` class. Althought the methods
+of the `EventRecord` class are omitted for brevity, they are mostly `VEvent` based, which again highlights that
+interactions with the `Logic` and `UI` layers will mostly be done in `VEvent` type.
+
+.Class Diagram for EventRecord
+image::DeveloperGuideResources/EventClassDiagram.png[]
+
 [[Feature-Event-Add]]
 ==== Add Event Command
 
