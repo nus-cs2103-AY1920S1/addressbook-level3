@@ -199,7 +199,7 @@ your EzWatchlist usage. EzWatchlist will create your own personalized recommenda
 ===== How to get your recommendations
 1. First, make sure that you have added at least one  (offline or online) into `EzWatchlist` so that we can use that to generate recommendations for you.
 
-2. Then head to the <<Statistics Page, Statistics Page>> by clicking kbd:[3] or pressing the `Statistics.` button on the
+2. Then head to the <<Statistics Page, Statistics Page>> by clicking kbd:[4] or pressing the `Statistics.` button on the
 in the interface.
 
 3. Now your recommendations as seen in Figure 5 will be shown prominently on the bottom of the Statistics Page, with movie recommendations on the left, and Tv Series recommendations on the right.
@@ -233,12 +233,12 @@ Say goodbye to typing errors!
 * Parameters can be in any order e.g. if the command specifies `n/SHOW_NAME t/SHOW_TYPE`, `t/SHOW_TYPE n/SHOW_NAME` is also acceptable.
 ====
 
-==== Viewing help : `help`
+==== View help : `help`
 
 Format: `help`
 
 // tag::addfirst[]
-==== Adding a show: `add`
+==== Add a show: `add`
 
 Adds a show to the watchlist +
 
@@ -315,7 +315,7 @@ image::WatchTheOffice.png[width="790"]
 image::Watch.png[width="790"]
 
 [start=3]
-3. You may now view the show under the watched tab by clicking the watched tab or hitting the keyboard shortcut `2`.
+3. You may now view the show under the watched tab by clicking the watched tab or hitting the keyboard shortcut kbd:[2].
 
 .Viewing the newly marked show
 image::WatchedTheOffice.png[width="790"]
@@ -350,7 +350,7 @@ Marks all episodes of the first 5 seasons of the second show as watched.
 Marks all episodes up to and including the second episode of the fifth season of the third show in the list as watched.
 
 // end::watch[]
-==== Editing a show's details : `edit`
+==== Edit a show's details : `edit`
 
 Edits an existing show in the list +
 Format: `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...`
@@ -375,9 +375,6 @@ Clears all existing actors of the 2nd show in the list.
 
 // tag::search[]
 ==== Search for a show: `search`
-====
-Note: Search results will appear in the Search Page, click kbd:[3] to go straight to the search page.
-====
 
 Searches for shows whose names contain any of the given keywords from the online database, unless specified to be from
 the watchlist or watched list. +
@@ -385,37 +382,51 @@ the watchlist or watched list. +
 Format:
 
 * by name: +
-`search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
+`search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
 
 * by genre: +
-`search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
+`search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
 
-* by actor (from watchlist): +
-`search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
+* by actor (from watchlist only): +
+`search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
 
-[NOTE]
-To be able to search from watchlist or watched list, do specify `o/no`. To search specifically from watchlist, include
-`o/no w/no` and to search specifically from watchlist, include `o/no w/yes`. +
-Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error. +
-For `FROM_ONLINE` and `HAS_WATCHED`, only `yes`, `true`, `no` and `false` would be accepted. +
-For `[o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered.
-e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv". +
-When searching based on actor, only shows from the watchlist will be searched. +
-When searching based on genre online, only movies will be searched.
+** `SHOW_NAME`, `GENRE`, `ACTOR_NAME` can be any words, as long as it does not contain `/`.
+** `FROM_ONLINE` and `HAS_WATCHED` can only be `yes`, `true`, `no` or `false`.
+** `SHOW_TYPE` can only be `movie` or `tv`.
 
+====
 [TIP]
+Special commands to take note of: +
+`o/no`: to search from watchlist or watched list +
+`o/no w/no`: to search from watchlist only +
+`o/no w/yes`: to search from watched list only
+====
+====
+[NOTE]
+Do take note of the following expected command outputs: +
+When searching based on genre online, only movies will be searched. +
+{sp} +
+For `[o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. +
+e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv". +
+{sp} +
+Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error. +
+Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
+====
+
+====
+[NOTE]
 The search is case insensitive. e.g "avengers" will match "Avengers". +
 The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris". +
-Not only full words will be matched. e.g. "Joke" will also match with "Joker". +
-Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
-
+Not only full words will be matched. e.g. "Joke" will also match with "Joker".
+====
+{sp} +
 *Example Usage:* +
 You may want to search for movies named "Avengers" and also movies with an actor called "Tom".
 As shown below, assume that your watchlist only has a movie "Avengers: Endgame" that you have watched.
 
-.Current *Watched list* with a movie "Avengers: Endgame"
+.Current *Watched Page* with a movie watched "Avengers: Endgame"
 image::watchedPageWithAvengerEndgame.png[width="790"]
-
+{sp} +
 [start=1]
 1. Navigate to the *Search page* by one of the following ways: +
 * clicking on the *search* tab
@@ -425,22 +436,24 @@ image::watchedPageWithAvengerEndgame.png[width="790"]
 
 .Entering of the `search` command
 image::searchCommand.png[width="790"]
-
+{sp} +
 After you have entered the command, you will be led to the *Search page* as shown below.
 
-.User Interface of the search page
+.User Interface of the *Search Page*
 image::emptySearchPage.png[width="790"]
 
 [TIP]
-You may skip Step 1 as you will be automatically be navigated to the *Search page* when you key in any valid `search`
-command, such as the one in Step 2.
+You may skip Step 1 as you will be automatically be navigated to the *Search Page* when you key in any valid `search`
+command, such as the one in Step 2 below.
 
+{sp} +
 [start=2]
-2. Enters `search n/Avengers a/Tom t/movie` into the command box in the search tab as shown below.
+2. Enters `search n/Avengers a/Tom t/movie` into the command box in the *Search Page* as shown below.
 
 .Entering of the `search` command to search for shows
 image::searchAvengerUserInput.png[width="790"]
 
+{sp} +
 Press kbd:[enter] after entering the information shown above and wait for the information to load.
 
 .Loading Screen of the *Search page*
@@ -451,9 +464,11 @@ The loading page as shown above will appear while EzWatchlist searches for your 
 [TIP]
 You can go to the other pages in the mean time. Do allow some time for the search to load.
 
+{sp} +
 [start=3]
 3. Search page shows the list of shows based on `search n/Avengers a/Tom t/movie`.
 
+{sp} +
 *Scenario A: You are offline* +
 Only movies from the watchlist or offline database with the movie name "Avengers" or actor name "Tom" will be shown,
 as seen in the figure below.
@@ -461,13 +476,14 @@ as seen in the figure below.
 .*Search Page* showing the search results when offline
 image::searchPageSearchedForAvengersWhenOffline.png[width="790"]
 
+{sp} +
 *Scenario B: You are online* +
 Only movies from the online database with the movie name "Avengers" or actor name "Tom" will be shown, as seen in the
 figure below.
 
 .*Search Page* showing the search results when online
 image::searchPageSearchedForAvengersWhenOnline.png[width="790"]
-
+{sp} +
 Examples:
 
 * By name:
@@ -478,7 +494,7 @@ Returns movies from the online database with the name "Avenger" or "Spiderman" a
 * By genre:
 ** `search g/Action t/movie` +
 Returns movies from the online database with the genre "Action"
-* By actor:
+* By actor: (from watchlist only)
 ** `search a/Tom o/no w/no` +
 Returns shows within the watchlist with actor named "Tom"
 // end::search[]

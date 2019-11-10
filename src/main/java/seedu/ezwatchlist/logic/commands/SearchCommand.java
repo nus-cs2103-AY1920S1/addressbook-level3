@@ -362,7 +362,12 @@ public class SearchCommand extends Command {
      * Returns true if user requests to search for tv series or movies only.
      * @return True if user requests to search for tv series or movies only.
      */
-    private boolean requestedType() {
+    private boolean requestedType() throws CommandException {
+        for (String input : typeList) {
+            if (!(input.equals(Type.MOVIE.getType()) || input.equals(Type.TV_SHOW.getType()))) {
+                throw new CommandException(SearchMessages.MESSAGE_INVALID_TYPE_COMMAND);
+            }
+        }
         return !typeList.isEmpty();
     }
 
@@ -370,7 +375,7 @@ public class SearchCommand extends Command {
      * Returns true if user requests to search for movies only.
      * @return True if user requests to search for movies only.
      */
-    private boolean requestedSearchForMovie() {
+    private boolean requestedSearchForMovie() throws CommandException {
         return requestedType() && (typeList.get(0).equals(Type.MOVIE.getType()));
     }
 
@@ -378,7 +383,7 @@ public class SearchCommand extends Command {
      * Returns true if user requests to search for tv series only.
      * @return True if user requests to search for tv series only.
      */
-    private boolean requestedSearchForTv() {
+    private boolean requestedSearchForTv() throws CommandException {
         return requestedType() && (typeList.get(0).equals(Type.TV_SHOW.getType()));
     }
 
