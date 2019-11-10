@@ -514,6 +514,18 @@ The design considerations for the classes are shown below:
 |*(Current)* Singleton pattern for AutoRescheduleManager |Ensure that only one instance can be instantiated as there should only be one manager for all the RescheduleTask. If there are multiple managers, it would be hard to keep track of all of them and it would be difficult to coordinate all the tasks. | Difficult to create tests for AutoResheduleManager. Could have many hidden dependencies, which makes code harder to maintain.
 |===
 
+=== Game feature
+
+==== Implementation
+
+==== Internal workings of the Game
+
+==== Design considerations
+The design considerations for the placement of the game is shown below:
+|===
+|Alternatives: |Pros: |Cons:
+|1. Placing the game in one of the tabs (beside the Calendar) such that `show g` will switch tab to the game tab. | Users are able to see the chatbox while in the game. | Requires users to use the mouse (away from CLI) to switch between typing in the command box and hitting the keys on the keyboard.
+|2. *(Current)* Creating a separate scene such that the original scene (with ELISA) is hidden when game mode is entered. | Allows users to hit the keys on the keyboard without typing into the command box. | Users are unable to see the chatbox from Elisa.
 
 === [Proposed] Data Encryption
 
