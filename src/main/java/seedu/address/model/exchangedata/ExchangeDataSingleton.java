@@ -1,5 +1,7 @@
 package seedu.address.model.exchangedata;
 
+import seedu.address.model.util.SampleDataUtil;
+
 /**
  * ExchangeDataSingleton is the single source of truth for all currency conversions in MyMorise.
  *
@@ -19,7 +21,7 @@ public class ExchangeDataSingleton {
 
     public static ExchangeData getInstance() {
         if (instance == null) {
-            instance = new ExchangeData();
+            instance = new ExchangeData(SampleDataUtil.getSampleExchangeData());
         }
         return instance;
     }
