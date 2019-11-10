@@ -53,7 +53,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
     private TagDropdown tagDropdown;
 
-    private HelpWindow helpWindow;
+    private HelpCommandWindow helpWindow;
 
     private CodeWindow codeWindow;
 
@@ -107,7 +107,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
         setAccelerators();
 
-        this.helpWindow = new HelpWindow();
+        this.helpWindow = new HelpCommandWindow();
         this.codeWindow = new CodeWindow();
 
         fillInnerParts();
