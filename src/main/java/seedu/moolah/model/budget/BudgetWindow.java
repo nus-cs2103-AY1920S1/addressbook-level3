@@ -89,7 +89,7 @@ public class BudgetWindow {
             break;
         case WEEK:
             long daysDiff = ChronoUnit.DAYS.between(startDate.getDate(), anchor.toLocalDate());
-            long offset = daysDiff >= 0 ? daysDiff % 7 : daysDiff % 7 + 7;
+            long offset = daysDiff % 7 >= 0 ? daysDiff % 7 : daysDiff % 7 + 7;
             normalized = anchor.minusDays(offset);
             break;
         default:

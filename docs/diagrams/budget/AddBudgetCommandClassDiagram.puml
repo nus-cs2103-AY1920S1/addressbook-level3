@@ -1,12 +1,8 @@
 @startuml
 
 class AddBudgetCommand {
-+{static} COMMAND_WORD: String
-+{static} MESSAGE_USAGE: String
-+{static} MESSAGE_SUCCESS: String
-+{static} MESSAGE_DUPLICATE_BUDGET: String
-#validate(model: Model)
-#execute(model: Model): CommandResult
+#validate(model : Model)
+#execute(model : Model) : CommandResult
 }
 
 abstract class UndoableCommand

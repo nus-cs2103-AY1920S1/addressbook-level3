@@ -1,0 +1,20 @@
+@startuml
+start
+:MooLah launches;
+if () then (json file found and \nin correct format)
+    :add budgets from storage;
+else (json file not found or \nnot in correct format)
+    :create default budget;
+    :set default budget to primary;
+endif
+
+:expense is added to MooLah;
+if () then (expense has a budget \n(retrieved from storage))
+    :add this expense to corresponding budget;
+else (expense has no budget \n(newly added by user))
+    :set primary budget as expenses's budget;
+    :add expense to primary budget;
+endif
+:add expense to expense list;
+stop
+@enduml

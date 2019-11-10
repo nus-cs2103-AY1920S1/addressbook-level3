@@ -1,0 +1,12 @@
+@startuml
+
+class Budget {
+}
+
+class Expense {
+-budgetName : Description
+}
+
+Budget -right-> "0..*" Expense
+
+@enduml

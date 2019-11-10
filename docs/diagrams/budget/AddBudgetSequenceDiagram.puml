@@ -1,0 +1,142 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MooLahParser" as MooLahParser LOGIC_COLOR
+participant ":AddBudgetCommandParser" as AddBudgetCommandParser LOGIC_COLOR
+participant "abc:AddBudgetCommand" as AddBudgetCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box ModelManager MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":MooLah" as MooLah MODEL_COLOR
+participant ":UniqueBudgetList" as UniqueBudgetList MODEL_COLOR
+participant "toAdd:Budget" as Budget MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":StorageManager" as StorageManager STORAGE_COLOR
+participant ":JsonMooLahStorage" as JsonMooLahStorage STORAGE_COLOR  
+end box
+
+[-> LogicManager : execute("addbudget...")
+activate LogicManager
+
+LogicManager -> MooLahParser : parseCommand("addbudget...")
+activate MooLahParser
+
+
+MooLahParser -> AddBudgetCommandParser : parse(arguments)
+activate AddBudgetCommandParser
+
+create AddBudgetCommand
+
+
+AddBudgetCommandParser -> AddBudgetCommand
+activate AddBudgetCommand
+AddBudgetCommand --> AddBudgetCommandParser : abc
+deactivate AddBudgetCommand
+
+AddBudgetCommandParser --> MooLahParser : abc
+deactivate AddBudgetCommandParser
+
+AddBudgetCommandParser -[hidden]-> MooLahParser : result
+destroy AddBudgetCommandParser
+
+MooLahParser --> LogicManager : abc
+deactivate MooLahParser
+
+LogicManager -> AddBudgetCommand : validate(model)
+activate AddBudgetCommand
+AddBudgetCommand -> ModelManager : hasBudget(toAdd)
+activate ModelManager
+
+ModelManager -> MooLah : hasBudget(toAdd)
+activate MooLah
+MooLah -> UniqueBudgetList : contains(toAdd)
+activate UniqueBudgetList
+UniqueBudgetList --> MooLah : outcome
+deactivate UniqueBudgetList
+
+MooLah --> ModelManager : outcome
+deactivate MooLah
+
+
+ModelManager --> AddBudgetCommand : outcome
+deactivate ModelManager
+AddBudgetCommand --> LogicManager
+deactivate AddBudgetCommand
+
+LogicManager -> AddBudgetCommand : execute(model)
+activate AddBudgetCommand
+
+AddBudgetCommand -> ModelManager : addBudget(toAdd)
+activate ModelManager
+
+ModelManager -> MooLah : addBudget(toAdd)
+activate MooLah
+
+MooLah -> UniqueBudgetList : add(toAdd)
+activate UniqueBudgetList
+
+UniqueBudgetList -> UniqueBudgetList : contains(toAdd)
+activate UniqueBudgetList
+UniqueBudgetList --> UniqueBudgetList
+deactivate UniqueBudgetList
+
+UniqueBudgetList -> Budget : normalize(now)
+activate Budget
+Budget --> UniqueBudgetList : normalized
+deactivate Budget
+
+UniqueBudgetList -> UniqueBudgetList : setPrimary(normalized)
+activate UniqueBudgetList
+UniqueBudgetList --> UniqueBudgetList
+deactivate UniqueBudgetList
+
+
+UniqueBudgetList --> MooLah
+deactivate UniqueBudgetList
+
+MooLah --> ModelManager :
+deactivate MooLah
+
+ModelManager --> AddBudgetCommand
+deactivate ModelManager
+
+create CommandResult
+
+AddBudgetCommand -> CommandResult
+activate CommandResult
+CommandResult --> AddBudgetCommand :result
+deactivate CommandResult
+
+AddBudgetCommand --> LogicManager : result
+deactivate AddBudgetCommand
+
+AddBudgetCommand -[hidden]-> LogicManager : result
+destroy AddBudgetCommand
+
+LogicManager -> LogicManager : save()
+activate LogicManager
+
+LogicManager -> StorageManager : saveMooLah(moolah)
+activate StorageManager
+
+StorageManager -> JsonMooLahStorage : saveMooLah(moolah, filePath)
+activate JsonMooLahStorage
+JsonMooLahStorage --> StorageManager
+deactivate JsonMooLahStorage
+
+StorageManager --> LogicManager
+deactivate StorageManager
+
+LogicManager --> LogicManager
+deactivate LogicManager
+
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

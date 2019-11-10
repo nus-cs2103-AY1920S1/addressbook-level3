@@ -34,7 +34,7 @@
   } ],
   "budgets": [ {
     "description" : "Default Budget",
-    "amount" : "999999999999999999999",
+    "amount" : "1000000000000000000000",
     "startDate" : "1 Jan 2000, 12:00:00 AM",
     "endDate" : "31 Dec 2099, 11:59:59 PM",
     "period" : "infinity",

@@ -1,0 +1,18 @@
+@startuml
+
+class Budget {
+-boolean: isPrimary
++{static}deepCopy() : Budget
++calculateProportionUsed(): Percentage
++normalize(anchor : Timestamp) : Budget
++refresh() : void
++getCurrentPeriodExpenses() : ObservableList<Expense>
++transferExpensesTo(other : Budget) : void
+}
+
+Budget -right-> "1" BudgetWindow : budgeting period
+Budget -up-> "1" Description : name
+Budget -up-> "1" Price : amount
+Budget o-down-> "0..*" Expense : expenses
+
+@enduml

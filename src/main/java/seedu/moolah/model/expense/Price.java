@@ -15,7 +15,7 @@ public class Price {
                     + "a maximum of 2 decimal places allowed.";
     public static final String VALIDATION_REGEX = "^\\d+(\\.\\d{0,2})?$";
     public static final String ZERO = "0";
-    public static final Price MAX_PRICE = new Price("999999999999999999999");
+    public static final Price MAX_PRICE = new Price("1000000000000000000000");
 
     public final String value;
 

@@ -118,6 +118,7 @@ public class Budget {
      * Normalizes the budget window to the period containing the specified timestamp.
      *
      * @param anchor The timestamp to anchor the period.
+     * @return A deep copy of this budget, normalized according to the anchor.
      */
     public Budget normalize(Timestamp anchor) {
         requireNonNull(anchor);
@@ -156,13 +157,6 @@ public class Budget {
      * @param toRemove The expense to remove.
      */
     public void removeExpense(Expense toRemove) {
-        //        Expense toRemove = null;
-        //        for (Expense expense : expenses) {
-        //            if (expense.isSameExpense(otherExpense)) {
-        //                toRemove = expense;
-        //                break;
-        //            }
-        //        }
         requireNonNull(toRemove);
         this.expenses.remove(toRemove);
     }

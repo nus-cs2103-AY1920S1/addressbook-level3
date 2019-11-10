@@ -8,41 +8,61 @@
 ---
 //UG: write clear user instructions
 //add steps and SS
-
 //add preface below each chapter
-== Overview
-
-This Project Portfolio documents my contributions to MooLah, a student project for a Software
-Engineering module.
-//Expense tracker is inherently troublesome...
-//streamline this process
 //Add natty and refer to top
 //UG - quick start - Copy the file to the folder you want to use as the home folder for Alfred.
 
-//provide context - module
+== Overview
+
+This Project Portfolio documents my contributions to MooLah, a student project for a Software
+Engineering module. Tasked to work in teams of five, to develop seedu project AddressBook - Level 3
+to a product of our own . Our team decided to morph it to an expense tracker - MooLah.
+
+Expense tracking is an inherently troublesome task, because it includes managing
+multiple budgets and monitoring complicated statistics. MooLah aims to streamline this process by
+providing a user-friendly desktop Command-Line Interface (CLI) solution.
+
+It improves user experience through autocomplete and prefix suggestions, boosting efficiency.
+It also an external library Natty, to parse natural language time parser, to allow accept
+more intuitive input format for time.
+
+Budgeting feature, track expenses under different budgets, clearly view the budget progress bar and
+get timely notification when thresholds are reached. Support managing, editing, deleting budgets.
+
+Statistics feature view in different modes, be it a pie chart, a table or a trendline.
+Reminders of future events .
+undo-redo feature
+menu feature tailored to NUS students.
+
+Making MooLah is a hassle-free expense tracker.
+
+MooLah is written in Java, and has about 17 kLoC.
+
 //all features of app
-MooLah is a desktop application used for tracking expenses or events, managing budgets and statistics.
-It is morphed from seedu project AddressBook - Level 3.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has about 17 kLoC.
+
 
 == Summary of contributions
-//The following is a summary of my contributions to the feature.
-//preface - main role
-//user - use "their" plural form instead of "his/her"
+My main role in the team was to develop the budget feature. The following is a summary of my
+contributions to this feature.
 //how does it integrate with the other components?
 
-* *Major enhancement*: added *the ability to track expenses under budgets, and manage different budgets*
-** What it does: allows the user to add, switch, modify and delete budgets.
-** Justification:
-//what problem does it solve? users need a tool to ... allowances..This enables them to ... spending habits
-//and be more controlled with their own expenses
-This feature improves the product significantly because it helps the user cultivate better financial
-management habits and regulate spending according to a budget's limit.
+* *Major enhancement*: added *the ability to track expenses under budgets, and manage different budgets*.
+The budget feature is a significant enhancement to MooLah. Users need a tool to help them monitor their expenditure and avoid overspending.
+This is especially relevant to our main target users - university students, most of whom do not have a stable income and live on resources from
+parents. The budgeting feature enables users to be more controlled with their own expenses, grow healthy saving habits,
+and cultivate good financial management skills to prepare for the future.
+** What it does:
+(i) Allows the user to add, modify, delete, and clear budgets (ii) Allows users to switch primary budget
+(iii) Allows users to view expenses in a past budgeting period
 ** Highlights:
-//what do you want to claim credit for
-//make sure it syncs with undo redo
-//have to learn a whole new set of things to make it work
+Developed many budget-related commands, and write unit tests for all (lines coverage = 100%)
+The major difficulty is normalize
+had to deep copy and constantly debug for marginal cases such as February, leap year, and months with 30 days
+make sure it integrates well with undo redo
+Since budgeting-related commands are many,
+had to check through every command to make sure all undo and redo changes are immediately reflected on GUI
+and json file
+make sure a deep copy of budget is made upon every changes of the existing budgets in MooLah
 
 This feature allows users to add, edit, switch, delete, clear budgets as well as switch the budget window
 to view expenses in a past period. It involves adjustments to the existing model, logic, UI components, and integrates
@@ -50,37 +70,45 @@ well with the current implementation of other core features such as undoredo and
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used
 in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added two commands (EditExpenseFromBudgetCommand & DeleteExpenseFromBudgetCommand) that allows
+users to edit or delete expenses directly from the budget, without having to switch to general expense list first.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=anqichen9856&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=anqichen9856&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[Functional code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=anqichen9856&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=anqichen9856&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-//refactor remove traces of "addressbook" in all parameter names and class names to moolah
 //link to PR
-//contributions - not job descriptions, rephrase it into achievements
-//start each bullet point with a verb
-*** Managed releases `v1.1`, `v1.2.1`, `v1.3.0`, `v1.3.1` (4 releases) on GitHub
-*** Managed issues, assigned team member to issues
 *** Set up various types of issue labels in team repo
-*** Set up and wrapped up milestones in team repo on Github
+*** Migrated user stories from team Google Doc (for brainstorming) to GitHub issues
+*** Managed issues on GitHub and assigned team members to corresponding issues
+*** Set up milestones with suitable deadlines in team repo on Github
+*** Wrapped up milestones at deadline, closing resolved issues and moving unresolved ones to next milestone
+*** Managed releases `v1.1`, `v1.2.1`, `v1.3.0`, `v1.3.1`, `v1.4.0` (5 releases) on GitHub
+
+** Refactor:
+*** Replaced all traces of "address book" (from parameter names, class names, javadoc comments and tests in the code base) with "moolah"
+*** Organized commands and parsers into different packages according to their features
+*** Changed the package "seedu.address" to "seedu.moolah"
+*** Created an icon for MooLah ("moolah.png") and replaced the "address_book_32.png" icon with it
+
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI color scheme to a more elegant and modern one (Pull requests https://github.com[#33], https://github.com[#34])
+*** Populated SampleDataUtil class with various budgets and expenses so that MooLah has sufficient data upon first launch
+*** Improved code readability by adding separator comments to group methods into different features (in MooLahParser, MainWindow,
+ModelManager, MooLah and TypicalMooLah)
+
 ** Documentation:
-//user stories part
-//sampledatautil
-*** Wrote user profile in introduction of the User Guide: https://github.com[#14]
+*** Improved introduction section of the User Guide: https://github.com[#14]
+*** Transferred user stories from GitHub issues to User Guide and format in table form:
+*** Updated Ui.png with annotations alongside different GUI components
+
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
 ** Tools:
-*** Set up Netlify to the team repo, which helps preview changes to documentation files,
-if the PR contains updates to documentation.
-** Refactor:
-*** Refactor all traces of "address book" to "moolah" in the code base.
-*** Arrange commands and their parsers to different packages according to features.
+*** Set up Netlify to the team repo, which facilitated previewing changes to documentation files if the PR contains updates to documentation.
 
 == Contributions to the User Guide
 
@@ -89,9 +117,9 @@ if the PR contains updates to documentation.
 They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=budget]
-
 include::../UserGuide.adoc[tag=intro]
+
+include::../UserGuide.adoc[tag=budget]
 
 == Contributions to the Developer Guide
 
@@ -102,9 +130,3 @@ my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=budget]
-
-//== PROJECT: PowerPointLabs
-//
-//---
-//
-//_{Optionally, you may include other projects in your portfolio.}_

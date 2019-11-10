@@ -14,13 +14,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T11-1/main
 
-By: `CS2103T-T11-1`      Since: `Aug 2019`      Licence: `MIT`
+By: `Team MooLah`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
 To be filled later
-
-
 
 
 === Purpose & Scope
@@ -117,7 +115,6 @@ Users may change between the visible panels through the CLI by using the `view` 
 The following sequence diagram shows the events which occur in order to change the the UI component displayed in the main window.
 
 image::ViewPanelSequenceDiagram.png[]
-
 
 
 [[Design-Logic]]
@@ -257,77 +254,216 @@ by the `add` command.
 
 
 // tag::budget[]
-=== Budget feature
-==== Implementation
+=== Budget Feature
+The budget feature allows users to: (i) *add, delete and modify* budgets; (ii) monitor spending by the budget's
+*progress bar* and *pop up notifications*; (iii) easily *modify or remove expenses* from the budget; (iv) *switch
+period* to view past expenses; and (v) *switch the primary budget* to flexibly track expenses under different budgets.
 
-The budget feature allows users to add a budget and track expenses under this budget.
-When a budget is added, it is automatically set to the primary budget, and all expenses added after that
-will be tracked under this budget. If the user wants to track an expense under a different budget, he
-switches to the target budget first, before adding the expense.
+==== Basics
 
-Each `Budget` has 8 fields:
+Budgets form a partition of all expenses. That is, an expense must belong to *one and only one* budget,
+and all expenses from all budgets must add up to the total number in the general expense list.
+Each expense keeps track of its own budget through budget name (of Description type) - this is made possible by
+disallowing duplicate names in UniqueBudgetList. On the other hand, each budget keeps track of a list of expenses
+added to this budget.
 
-* description: `Description` - budget name
-* amount: `Price` - amount of budget limit
-* startDate: `Timestamp` - the start date of the budget (for the current period)
-* endDate: `Timestamp`- the end date of the budget (for the current period)
-* period: `Period` - the recurring period of the budget
-* expenses: `ObservableList<Expense>` - the list of all expenses under this budget
-* isPrimary: `boolean` - a flag indicating the primary status of this budget
-* proportionUsed: `Percentage` - the proportion of the total amount that has been used up
+image::ExpenseAndBudgetRelationshipClassDiagram.png[]
+
+As shown in the figure below, each `Budget` has 5 attributes:
+
+. *description* (Description) : budget name;
+. *amount* (Price) : budget limit;
+. *window* (BudgetWindow) : the current budgeting period (see <<BudgetWindow and SwitchPeriodCommand>>)
+. *expenses* (ObservableList<Expense>) : the list of all expenses under this budget
+. *isPrimary* (boolean) : a flag indicating whether this budget is currently primary budget
+(see <<Primary Budget and SwitchBudgetCommand>>)
 
 image::BudgetClassDiagram.png[]
 
+==== Add, Edit, Delete, Clear Budgets
+There are five commands related to the addition, modification and removal of budgets, namely:
+AddBudgetCommand, EditBudgeCommand, DeleteBudgetByIndexCommand, DeleteBudgetByNameCommand,
+and ClearBudgetsCommand. +
 
-Each budget, once added, will recur infinitely. This is achieved by the Budget#refresh() method, which checks whether
-the budget has expired, and refreshes it to a new period if necessary, upon launching MooLah.
+Here is the class diagram of AddBudgetCommand:
 
-A budget is like a sliding window that moves in the positive direction of time axis. The window has a fixed size,
-which is the period of the budget. Only expenses within the current window will be shown in the app. Every time
-the budget refreshes, the window "slides" to the next period, starting with an empty screen that gradually gets
-populated with newly added expenses over time.
-
-A budget keeps a list of all expenses ever been tracked by this budget, including historical ones. Additionally,
-
-it has a method Budget#getCurrentPeriodExpenses() that generates a filtered list of expenses within the current budgeting
-period, which interacts with GUI to be shown in the current screen.
-
-The fundamental classes of the budget feature are:
-
-* `Budget` : main functional backend class
-* `JsonAdaptedBudget` : for storage of a `Budget` object in Json format
-* `UniqueBudgetList` : a list of non-duplicate budgets in MooLah
-* `AddBudgetCommand` and `SwitchBudgetCommand` : budget-related commands
-        `AddBudgetCommand` creates a new `Budget` and adds it to `UniqueBudgetList`
-        `SwitchBudgetCommand` switches the primary budget to the specified budget
-* `AddBudgetCommandParser` and `SwitchBudgetCommandParser` : for parsing CLI input into commands
-
-
-Here are the class diagrams of the two key commands related to Budget:
-
-AddBudgetCommand: Adds a new Budget to MooLah
 image::AddBudgetCommandClassDiagram.png[]
 
-SwitchBudgetCommand: Switches the primary Budget to another
-image::SwitchBudgetCommandClassDiagram.png[]
-
-Additionally, util class `Percentage` wraps a percentage for easier calculation and validation of proportionUsed.
-
-image::PercentageClassDiagram.png[]
-
+As shown in the figure above, AddBudgetCommand has 2 methods:
+(i) validate(model), which checks whether the command is legal (i.e. will not result in duplicate budgets being added
+ to MooLah), and throws CommandException to notify user of the illegal input if any;
+(ii) execute(model), which runs this command in model and successfully adds a new budget.
 
 The following sequence diagram shows how the add budget operation works:
 
 image::AddBudgetSequenceDiagram.png[]
 
-
 NOTE: The lifeline for `AddBudgetCommandParser` and `AddBudgetCommand` should end at the destroy marker (X) but due to
 a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+As shown in the figure above, when user inputs "addbudget ...", LogicManager executes the string, MooLahParser creates the
+corresponding CommandParser which parses the input into an AddBudgetCommand. AddBudgetCommand then validates itself by
+checking if there is an identical budget already existing in MooLah. If no duplicate budgets are found, it executes the
+command, adding the specified new budget to MooLah. After that, AddBudgetCommand creates a CommandResult and passes it
+back to LogicManager. LogicManager then saves the updated MooLah as json file, and returns the CommandResult to GUI to
+be displayed to user.
+
+The implementation of other commands has similar flow as AddBudgetCommand, differing only in the parameters and corresponding
+methods in ModelManager, MooLah and UniqueBudgetList. A noteworthy implementation in EditBudgetCommand is that it
+has a inner class EditBudgetDescriptor to record the updated attributes of the budget, which is then used in the method
+EditBudgetCommand#createEditedBudget(Budget, EditBudgetDescriptor) to create an edited budget, maintaining non-updated
+attributes the same as the original budget.
+
+When a budget is edited, the original budget's expenses will be transferred to the updated budget through
+Budget#transferExpensesTo(Budget other). The transfer process does two things: (i) set the expenses's budget name
+to the new budget name; (ii) add the expenses to the new budget's expense list. Similarly, when a budget is deleted,
+all its expenses will be transferred to default budget through the same method.
+
+
+==== Primary Budget and SwitchBudgetCommand
+At any time, there is one, and only one, *primary budget* in MooLah. All expenses added will go to this primary budget.
+If the user wants to track expenses under a different budget,
+he switches to the target budget first, before adding the expense.
+A newly created budget is automatically set to primary.
+MooLah creates a default budget upon first launching. If no budget is created by the user, expenses will be tracked
+under this default budget, which has a huge budget limit (10^21) and budgeting period (100 years).
+
+The SwitchBudgetCommand takes in a budget name and switches primary budget to that budget.
+Given below is an example usage scenario of SwitchBudgetCommand: +
+
+*Step 1.* The user launches MooLah for the first time. The default budget will be created and set as the primary budget.
+
+image::PrimaryBudget1.png[]
+
+*Step 2.* The user adds an expense "bubble tea". Since the default budget is the primary one, this expense will go
+under default budget.
+
+image::PrimaryBudget2.png[]
+
+*Step 3.* The user creates a budget "School". Since "School" is newly added, it will be set as the primary budget.
+
+image::PrimaryBudget3.png[]
+
+*Step 4.* The user adds an expense "chicken rice". Since "School" is the primary budget, this expense will go
+under "School".
+
+image::PrimaryBudget4.png[]
+
+*Step 5.* The user now wants to add another expense "movie", but does not want it tracked under "School". As such, the
+user executes `switchbudget d/default budget`. The default budget is now the primary budget.
+
+image::PrimaryBudget5.png[]
+
+*Step 6.* The user adds the expense "movie", which is tracked under the current primary budget - default budget.
+
+image::PrimaryBudget6.png[]
+
+==== BudgetWindow and SwitchPeriodCommand
+
+A budget is like a *sliding window* that moves along the time axis. The window has a fixed size determined by the
+BudgetPeriod, an enum class having five values: DAY, WEEK, MONTH, YEAR, INFINITY (for Default Budget).
+Only expenses within the current window are shown in the app. Every time
+the budget refreshes, the window "slides" to the next period, starting with an empty screen that gradually gets
+populated with newly added expenses over time. This is achieved through the BudgetWindow class.
+
+Here is the class diagram of BudgetWindow:
+
+image::BudgetWindowClassDiagram.png[]
+
+As shown in the figure above, BudgetWindow has 3 attributes: start date, end date, and period. The start and end
+dates are modifiable, but the period is fixed. This corresponds to the above-mentioned "sliding window" concept.
+
+A budget keeps a list of all expenses ever been tracked by this budget, including historical ones. Additionally,
+it has a method Budget#getCurrentPeriodExpenses() that filters from this list expenses within the current
+budgeting period, which are shown in the current GUI screen.
+
+When users want to view expenses in a past period, they can do so by executing SwitchPeriodCommand. This command
+takes in a timestamp and switches the budget window to a period anchored by that timestamp. This is achieved by
+BudgetWindow#normalize(Timestamp anchor) method. This method takes into account marginal cases such as months with 30
+days, February, and leap year.
+
+Given below is an example usage scenario of SwitchPeriodCommand: +
+
+*Step 1.* The user has a monthly budget "school" that recurs on the 5th of each month. Suppose the current date is
+Nov 10. As a result, the current budgeting period will be Nov 5 - Dec 4. There are 1 expense "chicken rice" recorded
+in this current period.
+
+*Step 2.* The user wants to view expenses in September. As such, the user executes `switchperiod t/20-09`
+(interchangeable with any other dates within Sep 5 - Oct 4). This command calls
+`BudgetWindow#normalize(Timestamp anchor)`, which shifts the window's start and end dates to Sep 5 and Oct 4 respectively, while maintaining the fixed period - MONTH.
+As a result, the user sees expenses tracked under the budget during this period.
+
+The BudgetWindow#normalize(Timestamp anchor) method is also called upon adding a new budget to MooLah. No matter how
+far the start date inputted by the user is from now, it will be normalized to the current period, such that expenses added
+subsequently will correctly be reflected in the budget panel.
+
+Each budget, once added, will recur infinitely. This is achieved by Budget#refresh() along with the Timekeeper class.
+Every 10 seconds, Timekeeper checks if it is a new day, and call Budget#refresh() if necessary. Subsequently,
+BudgetWindow#normalize(Timestamp anchor) is called; the anchor passed in is current time. As a result, the budget is
+successfully normalized to the current period.
+
+==== Add, Edit, Delete Expense from a Budget
+Addition of expenses are executed through AddExpenseCommand. Since it does not take in any INDEX parameters,
+the execution can be done irrespective of the currently shown list, and the change will always be correctly reflected
+in the budget panel.
+The case is different for editing and deleting expenses, which takes in an INDEX dependent on the currently shown list.
+As such, editing from the general expense list is different from editing from a budget's expense list. This is why two
+separate commands, EditExpenseFromBudgetCommand and DeleteExpenseFromBudgetCommand, are implemented, apart from
+EditExpenseCommand and DeleteExpenseCommand which work on the general expense list.
+
+EditExpenseFromBudgetCommand and DeleteExpenseFromBudgetCommand obtain their target expense (to be edited/deleted)
+through `model.getPrimaryBudget().getCurrentPeriodExpenses()` in the two commands' validate() and execute() method.
+This makes sure the INDEX is based on the primary budget's currently shown expense list, which includes all expenses
+within the current budgeting period.
+
+==== List budgets
+ListBudgetsCommand shows a list of all budgets stored in MooLah. The command returns a CommandResult with view
+request to "BudgetListPanel.PANEL_NAME". Subsequently, MainWindow#changePanel(PanelName) will switch the currently
+shown panel to BudgetListPanel.
+ListBudgetsCommand has the same effect as "view budget list".
+
+==== UI Component of Budget
+There are three classes related to the UI display of Budgets:
+(i) BudgetCard, which shows the budget name, period, and progress bar - GUI representation of a budget
+(ii) BudgetListPanel, which displays a list of BudgetCard - called through ListBudgetsCommand or "view budget list"
+(iii) BudgetPanel, which displays a BudgetCard at top representing the primary budget, and a list of expenses tracked
+under this primary budget in this current budgeting period - called through "view primary budget"
+
+The progress bar in BudgetCard shows the proportion used against the budget limit. This is calculated by
+Budget#calculateProportionUsed(), which divides the sum of all current period expenses against the budget limit,
+returning a Percentage that wraps the result (rounded to the nearest integer).
+
+Besides, the budget also gives popup notification when proportion used reaches 50%, 90%, and 100%. These 3 status
+correspond to Budget#isHalf(), Budget#isNear() and Budget#isExceeded(). Before each command in MooLah is executed, the
+initial values of these 3 booleans are recorded by LogicManager#recordInitialPrimaryBudgetStatus(), which returns a
+boolean array of size 3. At the end of each command, the final values of these 3 booleans are recorded again by
+LogicManager#recordFinalPrimaryBudgetStatus(). The two resulting arrays are then passed into
+MainWindow#showWarningIfAny() for a comparision, and if any values have changed, MainWindow#showPopupMessage will show
+the corresponding pop up notification to remind the user of the budget progress.
+//diagram
+//image::PercentageClassDiagram.png[]
+
+==== Storage of Budgets
+Budget objects are stored in Json format, through the JsonAdaptedBudget class. The json file has
+the same properties as the budget, except: (i) it flattens the BudgetWindow field into start date, end date and period,
+for clearer display; (ii) it stores a list of UniqueIdentifiers to expenses, instead of a list of JsonAdaptedExpenses.
+
 The following activity diagram summarizes what happens to budgets when the app launches and when a new expense is added:
 
-
 image::BudgetActivityDiagram.png[]
+
+==== Integration with undo-redo
+Budgeting-related commands integrate well with Undo-Redo feature, by extending UndoableCommand. Undoable commands are
+those modifying data in MooLah, for example, AddBudgetCommand and EditBudgetCommand. On the other hand, commands that
+only result in GUI changes, such as ListBudgetsCommand, is not undoable.
+
+A difficulty here is to make every "undo" immediately reflected on GUI. Since undo rollback on models, this dictates that
+every change must result in a new budget object being created and replacing the old one. Otherwise, even though the
+change is reflected backend, it will not show in frontend because the Budgets in two models are still referring to
+the same object. This task is handled by Budget#deepCopy(), which is widely called from UniqueBudgetList, in every method
+that modifies the existing budgets.
+
+//table for all undoable commands
 
 ==== Design Considerations
 
@@ -337,31 +473,60 @@ image::BudgetActivityDiagram.png[]
 ** Pros: Easier to manage expenses.
 ** Cons: Causes cyclical dependency, and reduces testability. Also, this will cause infinite loop when creating
 JsonAdaptedExpense and JsonAdaptedBudget.
+
 * **Alternative 2:** Expense does not have reference to Budget
 ** Pros: Less coupling.
 ** Cons: When reconstructing MooLah from json file, system does not know which budget to add the past expenses to.
+
 * **Solution (Current implementation):**
 Each Expense keeps a budgetName field which indicates the name of the Budget it is tracked under. Since UniqueBudgetList
 checks for duplicate budget names, a name is sufficient to identify a Budget. Besides, since budgetName is of
-`Description` type instead of `Budget` type, it is easy to convert to String, and resolves infinite loop when creating
-json files. Also, the resulting JsonAdaptedExpense file will not be too long, since the "budgetName" property stores
-only the budget name instead of the full budget object.
+Description type instead of Budget type, it is easy to convert to String, and resolves the problem of infinite loop
+when creating json files. Also, the resulting JsonAdaptedExpense file will not be too long, since the "budgetName"
+property stores only the budget name instead of the full budget object.
 
 
-===== Aspect: Must every Expense be tracked under a Budget? Can one Expense be tracked under multiple Budgets?
+===== Aspect: Can one Expense be tracked under multiple Budgets? Or under no budget at all?
 
-* **Alternative 1:** Every Expense must be tracked under one, and only one Budget.
-** Pros: Budgets would be a partition of all Expenses, which makes generating statistics (pie charts, etc.) easier.
-** Cons: User would not be able to track Expenses that fall under multiple Budgets.
+* **Alternative 1:** Every expense must be tracked under one, and only one budget.
+** Pros: Budgets would be a partition of all expenses, which makes generating statistics (pie charts, etc.) easier.
+** Cons: Reduces flexibility in tracking expenses - users would not be able to track expenses that fall under multiple
+budgets.
 
-* **Alternative 2:** Allow expenses without a Budget.
-** Pros: More flexible budgeting experience.
-** Cons: Internal logic would be very confusing. GUI and statistics would be harder to implement.
+* **Alternative 2:** Allow expenses with multiple budgets, or without any budget.
+** Pros: Users would enjoy more flexible budgeting experience.
+** Cons: This might result in duplicate calculation of expenses and difficulty in generating pie charts, as statistics
+revolves around budgets.
+
 * **Solution (Current implementation):**
-Adopt Alternative 1. Every Expense must be tracked under one and only one Budget. If the expense is added before
-adding any budgets, a default budget with a huge limit is created for tracking all expenses without a proper budget.
-This ensures that the main screen has a budget and shows a budget status bar at all times. Besides, it leads to neater
-statistics.
+Adopt Alternative 1. Every Expense must be tracked under one and only one budget. If the expense is added before
+adding any budgets, a default budget with a huge limit and infinite period is created for tracking all expenses without
+a proper user-defined budget. This ensures that the main screen has a budget and shows a budget status bar at all times.
+Besides, it leads to neater statistics.
+
+===== Aspect: How should JsonAdaptedBudget keep track of the budget's expenses?
+
+* **Alternative 1:** JsonAdaptedBudget stores a list of JsonAdaptedExpenses
+** Pros: More intuitive, improving readability of json file. Also eases reconstruction of MooLah from storage file,
+since JsonAdaptedExpenses can be easily converted to model type Expenses.
+** Cons: Json file is subject to user modification. If expenses are modified such that those in general expense list
+differ from their counterparts in budget's expense list, this will cause data inconsistency and introduce bugs into
+MooLah.
+
+* **Alternative 2:** JsonAdaptedBudget stores a list of UniqueIdentifiers
+** Pros: Guards against accidental user modification of json file.
+** Cons: More hassle when reconstructing MooLah from storage, since the JsonAdaptedBudget#toModelType() will need to
+refer to MooLah's expense list, identify those expenses by their UniqueIdentifiers, and add them to the budget.
+
+* **Solution (Current implementation):**
+Adopt Alternative 2. Since every expense has a unique identifier, a list of UniqueIdentifiers, supplemented with a list
+of MooLah's general expenses, is sufficient to correctly reconstruct those expenses tracked under this budget. The
+benefit of protecting MooLah from external json modification outweighs the extra hassle in reconstructing MooLah from
+storage.
+
+//===== Aspect: Should Budgets has proportionUsed field?
+//and isPrimary field?
+
 // end::budget[]
 
 // category::events[]
