@@ -36,7 +36,12 @@ public class FindMentorCommandTest {
                 Optional.empty(),
                 Optional.empty()
         );
-        String expectedMessage = FindMentorCommand.MESSAGE_SUCCESS;
+        String expectedMessage = FindMentorCommand.MESSAGE_SUCCESS + "n/" + "" + " " + "e/"
+                + "email" + " " + "p/" + "" + " "
+                + "o/" + "" + "\n"
+                + "Excluded the following: \n"
+                + "n/" + "" + " " + "e/" + "" + " " + "p/" + "" + " "
+                + "o/" + "" + "\n";
 
         assertCommandSuccess(command,
                 this.modelManager, expectedMessage, this.modelManager);
@@ -58,7 +63,12 @@ public class FindMentorCommandTest {
                 Optional.empty(),
                 Optional.empty()
         );
-        String expectedMessage = FindMentorCommand.MESSAGE_SUCCESS;
+        String expectedMessage = FindMentorCommand.MESSAGE_SUCCESS + "n/" + "P" + " " + "e/"
+                + "example" + " " + "p/" + "" + " "
+                + "o/" + "" + "\n"
+                + "Excluded the following: \n"
+                + "n/" + "" + " " + "e/" + "" + " " + "p/" + "" + " "
+                + "o/" + "" + "\n";
 
         assertCommandSuccess(command,
                 this.modelManager, expectedMessage, this.modelManager);

@@ -301,7 +301,7 @@ public class ModelManagerTest {
             modelManager.addParticipant(TypicalParticipants.B);
             assertEquals(modelManager.getParticipantList().list().size(), 2);
             assertEquals(modelManager.findParticipant(
-                    Predicates.getPredicateFindParticipantByName("A", false)).size(), 1);
+                    Predicates.getPredicateFindParticipantByName("A", false)).size(), 2);
             assertEquals(modelManager.findParticipant(
                     Predicates.getPredicateFindParticipantByName("Part B", false)).size(), 1);
         } catch (AlfredException | IOException e) {

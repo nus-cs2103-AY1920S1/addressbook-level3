@@ -62,12 +62,9 @@ public class ModelManager implements Model {
     protected SortedList<Team> sortedTeam;
     protected SortedList<Team> topKTeams;
 
-    // TODO: Remove the null values which are a placeholder due to the multiple
-    // constructors.
-    // Also will have to change the relevant attributes to final.
-    private AlfredStorage storage = null;
-    private ModelHistory history = null;
-    private CommandHistory commandHistory = null;
+    private AlfredStorage storage;
+    private ModelHistory history;
+    private CommandHistory commandHistory;
     private final UserPrefs userPrefs;
 
     // This constructor is only used for ModelManagerStub

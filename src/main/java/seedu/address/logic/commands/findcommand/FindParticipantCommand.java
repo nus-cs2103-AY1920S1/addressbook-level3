@@ -24,8 +24,8 @@ public class FindParticipantCommand extends FindCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds the participant by the name "
             + "given. Parameters: name to search for "
             + "and/or phone and/or email to search for "
-            + "Example: " + COMMAND_WORD + " n/John Doe";
-    public static final String MESSAGE_SUCCESS = "Successfully ran the find command.";
+            + "Example: " + COMMAND_WORD + "<OR/AND> n/John Doe <EXCLUDE> ...other params";
+    public static final String MESSAGE_SUCCESS = "Successfully ran the find command with the following args: \n";
 
     private String nameNorm;
     private String emailNorm;
@@ -81,8 +81,7 @@ public class FindParticipantCommand extends FindCommand {
 
         this.nameNorm = nameNorm.orElse("");
         this.emailNorm = emailNorm.orElse("");
-        this.phoneNorm = emailNorm.orElse("");
-        this.phoneNorm = emailNorm.orElse("");
+        this.phoneNorm = phoneNorm.orElse("");
         this.nameExclude = nameExclude.orElse("");
         this.emailExclude = emailExclude.orElse("");
         this.phoneExclude = phoneExclude.orElse("");
@@ -96,7 +95,11 @@ public class FindParticipantCommand extends FindCommand {
         listResults(results, PrefixType.P);
         model.updateHistory(this);
         model.recordCommandExecution(this.getCommandInputString());
-        return new CommandResult(MESSAGE_SUCCESS, CommandType.P);
+        return new CommandResult(MESSAGE_SUCCESS
+                + "n/" + nameNorm + " " + "e/" + emailNorm + " " + "p/" + phoneNorm + "\n"
+                + "Excluded the following: \n"
+                + "n/" + nameExclude + " " + "e/" + emailExclude + " " + "p/" + phoneExclude + "\n",
+                CommandType.P);
     }
 
     @Override
