@@ -1,8 +1,10 @@
 package seedu.algobase.integration;
 
 import static seedu.algobase.integration.IntegrationTestUtil.getTempFilePath;
+import static seedu.algobase.logic.parser.ParserUtil.FORMATTER;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,9 +40,15 @@ public class EditPlanCommandIntegrationTest {
     }
 
     @Test
-    public void editplan_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("editplan 1 n/test d/test start/2019-01-01 end/2019-01-01\n");
-        logicManager.execute("editplan 1 n/test d/test start/2019-01-01 end/2019-01-01\n");
-        logicManager.execute("editplan 1 n/test d/test start/2020-02-29 end/2024-02-29\n");
+    public void editplan() throws CommandException, ParseException {
+        logicManager.execute("editplan 1"
+                + " start/" + LocalDate.now().format(FORMATTER)
+                + " end/" + LocalDate.now().plusMonths(1).format(FORMATTER));
+        logicManager.execute("editplan 1 n/Two Sequences d/DS"
+                + " start/" + LocalDate.now().plusMonths(1).format(FORMATTER)
+                + " end/" + LocalDate.now().plusMonths(1).format(FORMATTER));
+        logicManager.execute("editplan 1"
+                + " start/" + LocalDate.now().minusMonths(1).format(FORMATTER)
+                + " end/" + LocalDate.now().plusMonths(1).format(FORMATTER));
     }
 }

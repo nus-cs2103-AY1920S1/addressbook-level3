@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
@@ -54,6 +55,8 @@ public class EditPlanCommand extends Command {
     public static final String MESSAGE_EDIT_PLAN_SUCCESS = "Plan [%1$s] edited.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PLAN = "A plan of name [%1$s] already exists in AlgoBase.";
+    public static final String MESSAGE_INVALID_TIME_RANGE =
+            "The time range of a plan should cover due dates of its tasks.";
 
     private final Index index;
     private final EditPlanDescriptor editPlanDescriptor;
@@ -84,6 +87,11 @@ public class EditPlanCommand extends Command {
 
         if (!isValidRange(editedPlan.getStartDate(), editedPlan.getEndDate())) {
             throw new CommandException(ORDER_CONSTRAINTS);
+        }
+
+        Stream<LocalDate> dueDates = editedPlan.getTasks().stream().map(Task::getTargetDate);
+        if (!dueDates.allMatch(editedPlan::checkWithinDateRange)) {
+            throw new CommandException(MESSAGE_INVALID_TIME_RANGE);
         }
 
         if (!planToEdit.isSamePlan(editedPlan) && model.hasPlan(editedPlan)) {

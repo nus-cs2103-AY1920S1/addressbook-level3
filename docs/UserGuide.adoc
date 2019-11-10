@@ -384,7 +384,7 @@ Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DAT
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * `START_DATE` should be before or equal to `END_DATE`.
-* Edited start date and end date are not forced to cover all due dates of tasks in the plan. Instead, users can change the due dates afterwards to make life easier.
+* The time range of the edited plan should cover due dates of its tasks.
 
 Examples:
 
