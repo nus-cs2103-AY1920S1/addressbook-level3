@@ -7,6 +7,7 @@ import io.xpire.logic.Logic;
 import io.xpire.logic.commands.CommandResult;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
+import io.xpire.model.history.HistoryManager;
 import io.xpire.ui.history.InputHistoryManager;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,7 +33,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
     private ResultDisplay resultDisplay;
-    private InputHistoryManager<String> inputHistoryManager = new InputHistoryManager<>();
+    private HistoryManager<String> inputHistoryManager = new InputHistoryManager<>();
 
     @FXML
     private TextField commandTextField;
@@ -94,6 +95,7 @@ public class CommandBox extends UiPart<Region> {
         } else {
             resultDisplay.setFeedbackToUser("");
             if (isStyleFailure()) {
+                // need to jump twice since the error message is not wiped from the command box.
                 previousInput = inputHistoryManager.previous();
             }
             commandTextField.setText(previousInput);

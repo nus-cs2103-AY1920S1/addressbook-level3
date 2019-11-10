@@ -15,7 +15,7 @@ import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.state.StateManager;
 
-public class UndoableHistoryManagerTest {
+public class UndoableHistoryManagerManagerTest {
 
     private UndoableHistoryManager<CommandStub> historyManager = new UndoableHistoryManager<>();
 
