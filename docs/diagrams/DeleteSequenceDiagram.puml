@@ -6,7 +6,8 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR_T1
 participant ":RevisionToolParser" as RevisionToolParser LOGIC_COLOR_T1
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR_T1
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR_T1
-participant ":CommandResultBuilder" as CommandResultBuilder LOGIC_COLOR_T1
+participant "builder:CommandResultBuilder" as CommandResultBuilder LOGIC_COLOR_T1
+participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR_T1
 end box
 
 box Model MODEL_COLOR_T1
@@ -62,7 +63,17 @@ deactivate CommandResultBuilder
 CommandResultBuilder -> CommandResultBuilder : withFeedback(deleteMessage)
 
 CommandResultBuilder -> CommandResultBuilder : build()
+activate CommandResultBuilder
 
+create CommandResult
+CommandResultBuilder -> CommandResult : CommandResult(builder)
+activate CommandResult
+CommandResult-> CommandResultBuilder : commandResult
+deactivate CommandResult
+
+deactivate CommandResult
+
+deactivate CommandResultBuilder
 CommandResultBuilder --> DeleteCommand : commandResult
 deactivate CommandResultBuilder
 
