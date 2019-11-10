@@ -11,12 +11,8 @@ import seedu.address.itinerary.model.event.Location;
 import seedu.address.itinerary.model.event.Tag;
 import seedu.address.itinerary.model.event.Time;
 import seedu.address.itinerary.model.event.Title;
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.PageType;
-
-import java.util.stream.Stream;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
