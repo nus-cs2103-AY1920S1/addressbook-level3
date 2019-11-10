@@ -319,7 +319,7 @@ public class DukeCooksParserTest {
 
     @Test
     public void parseCommand_addExercise() throws Exception {
-        Exercise exercise = new ExerciseBuilder().build();
+        Exercise exercise = new ExerciseBuilder().withEmptyHistory().build();
         AddExerciseCommand command = (AddExerciseCommand) parser.parseCommand(ExerciseUtil
                 .getAddExerciseCommand(exercise));
         assertEquals(new AddExerciseCommand(exercise), command);

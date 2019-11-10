@@ -11,6 +11,7 @@ import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.commands.workout.UpdateWorkoutCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.workout.Workout;
+import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -50,6 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private RunWorkoutWindow runWorkoutWindow;
     private Event event;
     private Workout workout;
+    private Exercise exerciseToView;
 
     private StatusBarFooter dashboardPathStatus;
     private StatusBarFooter recipePathStatus;
@@ -286,11 +288,9 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-
-        //TODO code below results in a null pointer
-        /**if (runWorkoutWindow.getRoot().isShowing()) {
+        if (runWorkoutWindow != null && runWorkoutWindow.getRoot().isShowing()) {
             runWorkoutWindow.getRoot().hide();
-        }**/
+        }
     }
 
     /**
@@ -354,6 +354,11 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case "viewWorkout":
             versatilePanelPlaceholder.getChildren().add(new WorkoutHistoryPanel(workout).getRoot());
+            statusbarPlaceholder.getChildren().add(workoutPathStatus.getRoot());
+            featureMode.setText("Workout");
+            break;
+        case "viewExercise":
+            versatilePanelPlaceholder.getChildren().add(new ExercisePanel(exerciseToView).getRoot());
             statusbarPlaceholder.getChildren().add(workoutPathStatus.getRoot());
             featureMode.setText("Workout");
             break;
@@ -447,7 +452,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isViewWorkout()) {
                 this.workout = commandResult.getWorkoutToRun();
                 event.set("viewWorkout", "all");
-                handleSwitch();
+            }
+            if (commandResult.isViewExercise()) {
+                exerciseToView = commandResult.getExerciseToView();
+                event.set("viewExercise", "all");
             }
 
 

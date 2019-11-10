@@ -28,6 +28,7 @@ import dukecooks.model.workout.history.WorkoutRun;
 import dukecooks.storage.workout.exercise.JsonAdaptedDistance;
 import dukecooks.storage.workout.exercise.JsonAdaptedExerciseDetail;
 import dukecooks.storage.workout.exercise.JsonAdaptedMuscleType;
+import dukecooks.storage.workout.exercise.JsonAdaptedRepetitions;
 import dukecooks.storage.workout.exercise.JsonAdaptedSets;
 import dukecooks.storage.workout.exercise.JsonAdaptedTiming;
 import dukecooks.storage.workout.exercise.JsonAdaptedWeight;
@@ -109,7 +110,7 @@ public class JsonAdaptedWorkout {
         } else if (detail instanceof Distance) {
             return new JsonAdaptedDistance((Distance) detail);
         } else if (detail instanceof Repetitions) {
-            return new JsonAdaptedTiming((Repetitions) detail);
+            return new JsonAdaptedRepetitions((Repetitions) detail);
         } else if (detail instanceof Sets) {
             return new JsonAdaptedSets((Sets) detail);
         } else {

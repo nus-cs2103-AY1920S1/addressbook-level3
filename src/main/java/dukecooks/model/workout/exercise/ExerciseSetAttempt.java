@@ -71,8 +71,6 @@ public class ExerciseSetAttempt {
         return new ExerciseSetAttempt(weight, distance, reps, time, restTime);
     }
 
-
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {

@@ -1,4 +1,4 @@
-package dukecooks.model.workout.exercise;
+package dukecooks.model.workout.exercise.components;
 
 import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
 import static dukecooks.testutil.exercise.TypicalExercises.SITUP;
@@ -13,8 +13,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandTestUtil;
-import dukecooks.model.workout.exercise.components.Exercise;
-import dukecooks.model.workout.exercise.components.UniqueExerciseList;
 import dukecooks.model.workout.exercise.exceptions.DuplicateExerciseException;
 import dukecooks.model.workout.exercise.exceptions.ExerciseNotFoundException;
 import dukecooks.testutil.Assert;
@@ -30,18 +28,18 @@ public class UniqueExerciseListTest {
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_exerciseNotInList_returnsFalse() {
         assertFalse(uniqueExerciseList.contains(ABS_ROLLOUT));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_exerciseInList_returnsTrue() {
         uniqueExerciseList.add(ABS_ROLLOUT);
         assertTrue(uniqueExerciseList.contains(ABS_ROLLOUT));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_exerciseWithSameIdentityFieldsInList_returnsTrue() {
         uniqueExerciseList.add(ABS_ROLLOUT);
         Exercise editedAbsRollout = new ExerciseBuilder(ABS_ROLLOUT)
                 .withDetails(null, null, null, null, null, CommandTestUtil.VALID_SETS_FIVE)
@@ -50,34 +48,34 @@ public class UniqueExerciseListTest {
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullExercise_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList.add(null));
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
+    public void add_duplicateExercise_throwsDuplicatePersonException() {
         uniqueExerciseList.add(ABS_ROLLOUT);
         Assert.assertThrows(DuplicateExerciseException.class, () -> uniqueExerciseList.add(ABS_ROLLOUT));
     }
 
     @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
+    public void setPerson_nullTargetExercise_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList.setExercise(null, ABS_ROLLOUT));
     }
 
     @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
+    public void setPerson_nullEditedExercise_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList.setExercise(ABS_ROLLOUT, null));
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
+    public void setPerson_targetExerciseNotInList_throwsPersonNotFoundException() {
         Assert.assertThrows(ExerciseNotFoundException.class, () -> uniqueExerciseList
                 .setExercise(ABS_ROLLOUT, ABS_ROLLOUT));
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setPerson_editedExerciseIsSameExercise_success() {
         uniqueExerciseList.add(ABS_ROLLOUT);
         uniqueExerciseList.setExercise(ABS_ROLLOUT, ABS_ROLLOUT);
         UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
@@ -86,7 +84,7 @@ public class UniqueExerciseListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
+    public void setExercise_editedExerciseHasSameIdentity_success() {
         uniqueExerciseList.add(ABS_ROLLOUT);
         Exercise editedAlice = new ExerciseBuilder(ABS_ROLLOUT)
                 .withDetails(null, null, null, null, null, CommandTestUtil.VALID_SETS_FIVE)
@@ -98,7 +96,7 @@ public class UniqueExerciseListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
+    public void setExercise_editedExerciseHasDifferentIdentity_success() {
         uniqueExerciseList.add(ABS_ROLLOUT);
         uniqueExerciseList.setExercise(ABS_ROLLOUT, SITUP);
         UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
@@ -107,24 +105,24 @@ public class UniqueExerciseListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setExercise_editedExerciseHasNonUniqueIdentity_throwsDuplicateExerciseException() {
         uniqueExerciseList.add(ABS_ROLLOUT);
         uniqueExerciseList.add(SITUP);
         Assert.assertThrows(DuplicateExerciseException.class, () -> uniqueExerciseList.setExercise(ABS_ROLLOUT, SITUP));
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullExercise_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList.remove(null));
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_exerciseDoesNotExist_throwsExerciseNotFoundException() {
         Assert.assertThrows(ExerciseNotFoundException.class, () -> uniqueExerciseList.remove(ABS_ROLLOUT));
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
+    public void remove_existingExercise_removesExercise() {
         uniqueExerciseList.add(ABS_ROLLOUT);
         uniqueExerciseList.remove(ABS_ROLLOUT);
         UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
@@ -132,13 +130,13 @@ public class UniqueExerciseListTest {
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void setExercises_nullUniqueExerciseList_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList
                 .setExercises((UniqueExerciseList) null));
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setExercises_uniqueExerciseList_replacesOwnListWithProvidedUniqueExerciseList() {
         uniqueExerciseList.add(ABS_ROLLOUT);
         UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
         expectedUniqueExerciseList.add(SITUP);
@@ -147,12 +145,12 @@ public class UniqueExerciseListTest {
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
+    public void setExercises_nullList_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList.setExercises((List<Exercise>) null));
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
+    public void setExercises_list_replacesOwnListWithProvidedList() {
         uniqueExerciseList.add(ABS_ROLLOUT);
         List<Exercise> exerciseList = Collections.singletonList(SITUP);
         uniqueExerciseList.setExercises(exerciseList);
@@ -162,7 +160,7 @@ public class UniqueExerciseListTest {
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
+    public void setExercises_listWithDuplicateExercises_throwsDuplicateExerciseException() {
         List<Exercise> listWithDuplicateExercises = Arrays.asList(ABS_ROLLOUT, ABS_ROLLOUT);
         Assert.assertThrows(DuplicateExerciseException.class, () -> uniqueExerciseList
                 .setExercises(listWithDuplicateExercises));

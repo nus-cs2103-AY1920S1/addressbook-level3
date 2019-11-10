@@ -1,5 +1,7 @@
 package dukecooks.storage.workout.exercise;
 
+import java.time.Duration;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -10,7 +12,7 @@ import dukecooks.model.workout.exercise.details.Timing;
 /**
  * Jackson-friendly version of {@link Timing}.
  */
-public class JsonAdaptedTiming<Duration> extends JsonAdaptedExerciseDetail {
+public class JsonAdaptedTiming extends JsonAdaptedExerciseDetail {
 
     /**
      * Constructs a {@code JsonAdaptedTiming} with the given {@code magnitude}
@@ -35,7 +37,7 @@ public class JsonAdaptedTiming<Duration> extends JsonAdaptedExerciseDetail {
      *
      */
     public ExerciseDetail toModelType() {
-        return new Timing(magnitude);
+        return new Timing((java.time.Duration) magnitude);
     }
 
 }
