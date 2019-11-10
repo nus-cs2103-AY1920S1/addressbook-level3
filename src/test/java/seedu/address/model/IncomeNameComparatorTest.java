@@ -28,19 +28,19 @@ class IncomeNameComparatorTest {
     private IncomeNameComparator incomeNameComparator = new IncomeNameComparator();
 
     @Test
-    public void lessThan() {
+    public void comparator_lessThan_negativeInteger() {
         int result = incomeNameComparator.compare(INCOME_1, INCOME_2);
         assertEquals(result, -1);
     }
 
     @Test
-    public void equal() {
+    public void comparator_equal_zero() {
         int result = incomeNameComparator.compare(INCOME_1, INCOME_1);
         assertEquals(result, 0);
     }
 
     @Test
-    public void moreThan() {
+    public void comparator_moreThan_positiveInteger() {
         int result = incomeNameComparator.compare(INCOME_2, INCOME_1);
         assertEquals(result, 1);
     }

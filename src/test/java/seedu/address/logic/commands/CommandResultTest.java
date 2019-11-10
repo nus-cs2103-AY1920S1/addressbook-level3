@@ -48,6 +48,21 @@ public class CommandResultTest {
         assertTrue(commandResult2.hasContact());
     }
 
+    @Test
+    public void checkIsExit() {
+        assertFalse(commandResult1.isExit());
+    }
+
+    @Test
+    public void checkIsShortCut() {
+        assertFalse(commandResult3.isCreateShortCut());
+    }
+
+    @Test
+    public void checkShowHelp() {
+        assertFalse(commandResult3.isShowHelp());
+    }
+
     //@@author{lawncegoh}
     @Test
     public void checkToClear() {

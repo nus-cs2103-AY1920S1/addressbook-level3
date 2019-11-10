@@ -39,7 +39,7 @@ class SortCommandTest {
     }
 
     @Test
-    public void execute_validContactFilterName() throws CommandException {
+    public void execute_validContactFilterName_gotoSuccessful() throws CommandException {
         UiManager.changeState("contacts");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("name", 1);
@@ -48,7 +48,15 @@ class SortCommandTest {
     }
 
     @Test
-    public void execute_validClaimFilterName() throws CommandException {
+    public void execute_invalidContactFilterDate_gotoSuccessful() throws CommandException {
+        UiManager.changeState("contacts");
+        ModelStubForValidList model = new ModelStubForValidList();
+        SortFilter validFilter = new SortFilter("date", 2);
+        assertThrows(CommandException.class, () -> new SortCommand(validFilter).execute(model));
+    }
+
+    @Test
+    public void execute_validClaimFilterName_gotoSuccessful() throws CommandException {
         UiManager.changeState("claims");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("name", 1);
@@ -57,7 +65,7 @@ class SortCommandTest {
     }
 
     @Test
-    public void execute_validClaimFilterDate() throws CommandException {
+    public void execute_validClaimFilterDate_gotoSuccessful() throws CommandException {
         UiManager.changeState("claims");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("date", 2);
@@ -66,7 +74,7 @@ class SortCommandTest {
     }
 
     @Test
-    public void execute_validClaimFilterStatus() throws CommandException {
+    public void execute_validClaimFilterStatus_gotoSuccessful() throws CommandException {
         UiManager.changeState("claims");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("status", 3);
@@ -75,7 +83,7 @@ class SortCommandTest {
     }
 
     @Test
-    public void execute_validIncomeFilterName() throws CommandException {
+    public void execute_validIncomeFilterName_gotoSuccessful() throws CommandException {
         UiManager.changeState("incomes");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("name", 1);
@@ -84,7 +92,7 @@ class SortCommandTest {
     }
 
     @Test
-    public void execute_validIncomeFilterDate() throws CommandException {
+    public void execute_validIncomeFilterDate_gotoSuccessful() throws CommandException {
         UiManager.changeState("incomes");
         ModelStubForValidList model = new ModelStubForValidList();
         SortFilter validFilter = new SortFilter("date", 2);
@@ -93,15 +101,27 @@ class SortCommandTest {
     }
 
     @Test
-    public void execute_invalidFilter() {
-        SortFilter invalidFilter;
-        try {
-            invalidFilter = new SortFilter("invalid", 4);
-        } catch (IllegalArgumentException e) {
-            invalidFilter = null;
-            SortFilter finalInvalidFilter = invalidFilter;
-            assertThrows(NullPointerException.class, () -> new SortCommand(finalInvalidFilter));
-        }
+    public void execute_invalidIncomeFilterNameWithWrongState_throwsCommandException() throws CommandException {
+        UiManager.changeState("asd");
+        ModelStubForValidList model = new ModelStubForValidList();
+        SortFilter validFilter = new SortFilter("name", 1);
+        assertThrows(CommandException.class, () -> new SortCommand(validFilter).execute(model));
+    }
+
+    @Test
+    public void execute_invalidIncomeFilterStatus_throwsCommandException() throws CommandException {
+        UiManager.changeState("incomes");
+        ModelStubForValidList model = new ModelStubForValidList();
+        SortFilter validFilter = new SortFilter("status", 3);
+        assertThrows(CommandException.class, () -> new SortCommand(validFilter).execute(model));
+    }
+
+    @Test
+    public void execute_invalidFilter_throwsCommandException() {
+        UiManager.changeState("contacts");
+        ModelStubForValidList model = new ModelStubForValidList();
+        SortFilter invalidFilter = new SortFilter("status", 4);
+        assertThrows(CommandException.class, () -> new SortCommand(invalidFilter).execute(model));
     }
 
     @Test

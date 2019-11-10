@@ -24,19 +24,19 @@ public class ClaimNameComparatorTest {
     private ClaimNameComparator claimNameComparator = new ClaimNameComparator();
 
     @Test
-    public void lessThan() {
+    public void comparator_lessThan_negativeInteger() {
         int result = claimNameComparator.compare(CLAIM_1, CLAIM_2);
         assertEquals(result, -8);
     }
 
     @Test
-    public void equal() {
+    public void comparator_equal_zero() {
         int result = claimNameComparator.compare(CLAIM_1, CLAIM_1);
         assertEquals(result, 0);
     }
 
     @Test
-    public void moreThan() {
+    public void comparator_moreThan_positiveInteger() {
         int result = claimNameComparator.compare(CLAIM_2, CLAIM_1);
         assertEquals(result, 8);
     }

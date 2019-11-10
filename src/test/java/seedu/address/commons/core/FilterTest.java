@@ -17,15 +17,14 @@ public class FilterTest {
     }
 
     @Test
-    public void invalidFilter_ifBlank() {
-
+    public void invalidFilter_ifBlank_parseSuccess() {
         //blank View
         assertFalse(ParserUtil.checkFilter(""));
         assertFalse(ParserUtil.checkFilter("   "));
     }
 
     @Test
-    public void invalidValidFilter_withUppercase() {
+    public void invalidValidFilter_withUppercase_parseSuccess() {
         assertFalse(ParserUtil.checkFilter("NAME"));
         assertFalse(ParserUtil.checkFilter("Name"));
         assertFalse(ParserUtil.checkFilter("Date"));
@@ -35,7 +34,7 @@ public class FilterTest {
     }
 
     @Test
-    public void invalidView_withWhiteSpace() {
+    public void invalidView_withWhiteSpace_parseSuccess() {
         assertFalse(ParserUtil.checkFilter("name        "));
         assertFalse(ParserUtil.checkFilter("date       "));
         assertFalse(ParserUtil.checkFilter("status  "));
@@ -45,7 +44,7 @@ public class FilterTest {
     }
 
     @Test
-    public void validViews() {
+    public void validViews_parseSuccess() {
         assertTrue(ParserUtil.checkFilter("name"));
         assertTrue(ParserUtil.checkFilter("date"));
         assertTrue(ParserUtil.checkFilter("status"));
