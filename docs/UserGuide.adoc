@@ -205,7 +205,7 @@ Well, _TravEzy_ has got you covered. Simply inform _TravEzy_ of your schedule (y
 
 This is how _TravEzy's calendar_ looks like:
 
-image::calendarScreenshots/calendarInterface.png[Calendar interface,width=800]
+image::calendarScreenshots/calendarInterfaceUG.png[Calendar interface,width=800]
 
 {nbsp}
 
