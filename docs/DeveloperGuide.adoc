@@ -433,57 +433,72 @@ The implementation of the above functions will be described separately in this s
 
 ===== Function 1: Displays an overview of training and performance records in a selected month
 
-Function 1 is facilitated by `[green]#CalendarPanel#`. It extends `[green]#UiPart<Region>#` and represents the calendar using a `[green]#GridPane#` with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:
+There are 2 commands that users can issue to perform function 1:
 
-* `[green]#CalendarPanel#retrieveCurrentDate()#` -- Retrieves the details of today's date to be used as the title of the calendar feature and for rendering the displayed month on the calendar when the user does not provide a month to view.
+. `view calendar`: Displays calendar for the current month.
+
+. `calendar MMYYYY`: Displays calendar for the month specified by the user (e.g. `calendar 012019` where `012019` corresponds to January 2019).
+
+The following sequence diagram shows you how the `calendar MMYYYY` (e.g. `calendar 012019`) operation works.
+
+.Interactions inside the `[green]#UI#` and `[green]#Logic#` components for the `calendar 012019` Command
+image::CalendarCommandSequenceDiagram1.png[width="700"]
+
+Upon completion of the above execution, the calendar for January 2019 will be displayed to the user.
+
+The `view calendar` command is similar except that `[green]#displayCalendar(CommandResult)#` is called instead of `[green]#displayCalendarWithDate(CommandResult)#` and the `[green]#CalendarPanel#` class is constructed _without_ an `[green]#AthletickDate#` specified by the user. The calendar displayed to the user will reflect the current month and year.
+
+The following activity diagram summarises what happens when a user wants to perform function 1.
+
+.Activity diagram showing what happens when a user wants to  perform function 1 
+image::Function1ActivityDiagram.png[width=300]
+
+Function 1 is facilitated by the `[green]#CalendarPanel#` class. It extends `[green]#UiPart<Region>#` and represents the calendar using a `[green]#GridPane#` with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:
+
+* `[green]#CalendarPanel#retrieveCurrentDate()#` -- Retrieves the details of today's date to be used as the title of the calendar feature and for rendering the displayed month on the calendar when the user does not provide a specific month to view.
 * `[green]#CalendarPanel#retrieveProvidedDate()#` -- Retrieves the details of the date provided by the user for rendering the displayed month on the calendar.
-* `[green]#CalendarPanel#initialiseSelectedDate()#` -- Fills up all 42 cells of the `GridPane` with the respective days based on the selected month by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
+* `[green]#CalendarPanel#initialiseSelectedDate()#` -- Fills up all the 42 cells of the `GridPane` with their respective days based on the selected month by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
 
 +
 In addition, days with training or performance records will be marked with a small green or purple dot indicator respectively.
 
-These operations are performed when an instance of `[green]#CalendarPanel#` is created in the `[green]#MainWindow#` class. An instance of `[green]#CalendarPanel#` is created when the `[green]#CommandResult#` obtained after executing the user's command contains a `[green]#Feature#` corresponding to a calendar and an optional `[green]#AthletickDate#`.
+These operations are performed when an instance of `[green]#CalendarPanel#` is created in the `[green]#MainWindow#` class. An instance of `[green]#CalendarPanel#` is created when the `[green]#CommandResult#` obtained in `[green]#MainWindow#` after the execution of the user's command contains a `[green]#Feature#` corresponding to a calendar and an _optional_ `[green]#AthletickDate#`.
 
-Given below is an example usage scenario for the first function and how the operation behaves at each step:
+The sequence diagram below shows you what happens when the CalendarPanel is instantiated.
 
-Step 1:. The user either issues the `view calendar` or `calendar MMYYYY` (e.g. `calendar 012019`) command. The first command displays the calendar for the current month, while the second command displays the calendar for the specified the month and year.
+.Interactions Inside the UI and Model Components when CalendarPanel is Instantiated
+image::CalendarConstructorSequenceDiagram.png[width="700"]
 
-Step 2. The issued command
+Upon completion of the above execution, all 42 cells `[green]#GridPane#` will be filled with a number corresponding to the day of the month. Days with training or performance records will be marked with a small green or purple dot indicator respectively. The following diagram depicts how each individual cell will look like.
 
-// to be continued
-
-The following sequence diagram shows how the `calendar MMYYYY` (e.g. `calendar 012019`) operation works:
-
-.Interactions Inside the UI, Logic and Model Components for the `calendar MMYYYY` Command
-image::CalendarCommandSequenceDiagram1.png[]
-
-The `view calendar` command is similar except that the `[green]#CalendarPanel#` class is constructed without an `[green]#AthletickDate#` specified by the user. The calendar displayed to the user will reflect the current month and year.
-
-The following activity diagram summarises what happens when a user executes the `view calendar` or `calendar MMYYYY` command:
-
-// activity diagram
+image::CellResult.png[width="400"]
 
 ===== Function 2: Displays training and performance records entered on a specific date
 
+In order to perform function 2, the user issues the `calendar DDMMYYYY` command (e.g. `calendar 01012019` where `01012019` corresponds to 1st January 2019).
+
+The following sequence diagram shows you how the `calendar DDMMYYYY` (e.g. `calendar 01012019) operation works.
+
+.Interactions Inside the UI and Logic Components for the `calendar 01012019` Command
+image::CalendarCommandSequenceDiagram2.png[]
+
+Upon completion of the above execution, the attendance and performance records of 1st January 2019 will be displayed to the user.
+
 Function 2 is facilitated by `[green]#CalendarDetailPanel#`. It extends `UiPart<Region>` and displays the attendance and performance records for a specific date in a table. Additionally, it implements the following operations:
 
-* `[green]#CalendarDetailPanel#initialiseAttendanceData#` -- Retrieves and displays the attendance of each person on the specified date.
+* `[green]#CalendarDetailPanel#initialiseAttendanceData#` -- Retrieves and displays the attendance records on the specified date.
 * `[green]#CalendarDetailPanel#initialisePerformanceData#` -- Retrieves and displays the performance records on the specified date.
 
-These operations are performed when an instance of `[green]#CalendarDetailPanel#` is created in the `[green]#MainWindow#` class. An instance of `CalendarDetailPanel` is created when the `[green]#CommandResult#` obtained after executing the user's command contains an `[green]#AthletickDate#`.
+These operations are performed when an instance of `[green]#CalendarDetailPanel#` is created in the `[green]#MainWindow#` class. An instance of `CalendarDetailPanel` is created when the `[green]#CommandResult#` obtained after executing the user's command contains a `[green]#Feature#` corresponding to a calendar and an `[green]#AthletickDate#`.
 
-Given below is an example usage scenario for the second function and how the operation behaves at each step:
-
-Step 1: The user either issues the `calendar DDMMYYYY` (e.g. `calendar 01012019`) command.
-
-Step 2. The issued command
+The sequence diagram below shows you what happens when the CalendarDetailPanel is instantiated.
 
 // to be continued
 
 The following sequence diagram shows how the `calendar DDMMYYYY` (e.g. `calendar 01012019`) operation works:
 
 .Interactions Inside the UI, Logic and Model Components for the `calendar DDMMYYYY` Command
-image::CalendarCommandSequenceDiagram2.png[]
+
 
 The following activity diagram summarises what happens when a user executes the `calendar DDMMYYYY` command:
 
@@ -497,7 +512,9 @@ This section contains some of our design considerations for the calendar feature
 
 [width="100%", cols="1, 5, 5"]
 |===
-||Alternative 1 (Current Choice): Use a monthly calendar|Alternative 2: Use a monthly list
+|
+a|**Alternative 1 (Current Choice)**: Use a monthly calendar
+a|**Alternative 2**: Use a monthly list
 
 |**Pros**
 a|* Displays information more clearly especially when users have a large number of training and performance records in a month
@@ -519,7 +536,9 @@ a|* Displays information in rows and columns which is no better than using Excel
 
 [width="100%", cols="1, 5, 5"]
 |===
-||Alternative 1 (Current Choice): Display using a fixed 7 by 6 `[green]#GridPane#`, fill up left over days with days from previous and next month|Alternative 2: Display using a variable sized `[green]#GridPane#` that is populated with days from selected month only
+|
+a|**Alternative 1 (Current Choice)**: Display using a fixed 7 by 6 `[green]#GridPane#`, fill up left over days with days from previous and next month
+a|**Alternative 2**: Display using a variable sized `[green]#GridPane#` that is populated with days from selected month only
 
 |**Pros**
 a|* Makes implementation easier
@@ -541,7 +560,9 @@ a|* Increases difficulty of implementation
 
 [width="100%", cols="1, 5, 5"]
 |===
-||Alternative 1 (Current Choice): Use one `calendar DDMMYYYY` command to view _both_ attendance and performance records on the specified date|Alternative 2: Use two separate commands to view attendance and performance records _separately_ on the specified date
+|
+a|**Alternative 1 (Current Choice)**: Use one `calendar DDMMYYYY` command to view _both_ attendance and performance records on the specified date
+a|**Alternative 2**: Use two separate commands to view attendance and performance records _separately_ on the specified date
 
 |**Pros**
 a|* Makes access of data more efficient
@@ -842,7 +863,7 @@ The following sequence diagram shows how the `sort` operation works:
 .Interactions Inside the Logic and Model Components for the `sort` Command
 image::SortCommandSequenceDiagram.png[]
 
-Upon completion of the above execution, the sorted list of athletes would be displayed immediately to the user.
+With reference to the diagram above, when the user issues the `sort` command, a `[green]#SortCommand#` object `[green]#s#` is created. `[green]#s#` is then executed by `[green]#LogicManager#`, which calls the `[green]#sortByName()#` method in `[green]#LogicManager#`. An instance of `[green]#PersonNameComparator#` is then created and is used by the `[green]#sortByName(PersonNameComparator)#` method in `[green]#Athletick#` to sort the observable `[green]#internalList#` in `[green]#UniquePersonList#`. Upon completion of the above execution, the sorted list of athletes would be displayed immediately to the user.
 
 To support sorting by more attributes (e.g. attendance rate/performance) in the future, you can simply create a new class that implements the `[green]#Comparator#` interface which compares athletes by that attribute instead. After which, you have to edit the `sort` command syntax to allow users to indicate how they want their list to be sorted.
 
@@ -854,7 +875,9 @@ This section contains some of our design considerations for the sort command.
 
 [width="100%", cols="1, 5, 5"]
 |===
-||Alternative 1 (Current Choice): Sort address book after user issues the `sort` command|Alternative 2: Sort address book persistently in alphabetical order
+|
+a|**Alternative 1 (Current Choice)**: Sort address book after user issues the `sort` command
+a|**Alternative 2**: Sort address book persistently in alphabetical order
 
 |**Pros**
 a|* Allows users to view their newly added athletes at the bottom of the list which is more user-friendly especially when the list of athletes is very long

@@ -299,10 +299,7 @@ public class MainWindow extends UiPart<Stage> {
         Model model = commandResult.getModel();
         switch (commandResult.getDate().getType()) {
         case 1:
-            CalendarDetailPanel calendarDetailPanel =
-                    new CalendarDetailPanel(commandResult.getDate(), model);
-            featureBoxPlaceholder.getChildren().clear();
-            featureBoxPlaceholder.getChildren().add(calendarDetailPanel.getRoot());
+            displayCalendarDetailPanel(commandResult, model);
             break;
         case 2:
             CalendarPanel calendarPanel = new CalendarPanel(commandResult.getDate(), model);
@@ -312,5 +309,17 @@ public class MainWindow extends UiPart<Stage> {
         default:
             break;
         }
+    }
+
+    /**
+     * Displays {@code CalendarDetailPanel} in featureBoxPlaceHolder.
+     * @param commandResult Command result from execution of calendar DDMMYYYY
+     * @param model Model
+     */
+    private void displayCalendarDetailPanel(CommandResult commandResult, Model model) {
+        CalendarDetailPanel calendarDetailPanel =
+                new CalendarDetailPanel(commandResult.getDate(), model);
+        featureBoxPlaceholder.getChildren().clear();
+        featureBoxPlaceholder.getChildren().add(calendarDetailPanel.getRoot());
     }
 }

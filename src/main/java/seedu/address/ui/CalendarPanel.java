@@ -362,7 +362,7 @@ public class CalendarPanel extends UiPart<Region> {
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 7; col++) {
                 String day = days[counter];
-                Label l = createLabel(day);
+                Label l = createDayLabel(day);
                 boolean havePerformanceEntry;
                 boolean haveTrainingEntry;
                 boolean setColour = false;
@@ -497,7 +497,7 @@ public class CalendarPanel extends UiPart<Region> {
      * @param labelText String to be used as text
      * @return Label with text set as {@code labelText}.
      */
-    private Label createLabel(String labelText) {
+    private Label createDayLabel(String labelText) {
         Label l = new Label();
         l.setText(labelText);
         l.setPadding(new Insets(5, 0, 0, 0));
