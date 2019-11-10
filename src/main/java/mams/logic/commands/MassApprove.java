@@ -355,7 +355,7 @@ public class MassApprove extends Approve {
         Collections.sort(this.validIds);
         Collections.sort(this.invalidIds);
 
-        if (this.validIds.equals(compareValid)) {
+        if (validIds.equals(compareValid)) {
             return true;
         } else {
             return false;
