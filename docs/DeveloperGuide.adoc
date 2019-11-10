@@ -235,11 +235,13 @@ and `add-meeting`.
 The commands are facilitated by `ProjectDasboard`. This component resides in `Model` and contains the in-memory data of the application which is
 retrieved when the user switches to `Home`.
 
-* `ProjectDashboard#getTasksNotStarted()` -- Retrieves the current theme applied to +Work.
-* `ProjectDashboard#getTasksDoing()` -- Retrieves the current theme applied to +Work.
-* `ProjectDashboard#getTasksDone()` -- Retrieves the current theme applied to +Work.
-* `ProjectDashboard#getTasksByDeadline()` -- Retrieves the current theme applied to +Work.
-* `ProjectDashboard#getMeetingList()` -- Retrieves the current theme applied to +Work.
+* `ProjectDashboard#getTasksNotStarted()` -- Retrieves the current list of tasks with status `unbegun` in +Work.
+* `ProjectDashboard#getTasksDoing()` -- Retrieves the current list of tasks with status `doing` in +Work.
+* `ProjectDashboard#getTasksDone()` -- Retrieves the current list of tasks with status `done` in +Work.
+* `ProjectDashboard#getTasksByDeadline()` -- Retrieves the current list of tasks with nearing deadlines in +Work.
+* `ProjectDashboard#getMeetingList()` -- Retrieves the current list of meetings in +Work.
+* `ProjectDashboard#splitTaksByStatus()` -- Processes the current list of tasks and stores the tasks by status.
+* `ProjectDashboard#splitTaksByDeadline()` -- Processes the current list of tasks and stores the tasks based on nearing deadlines.
 
 These operations are exposed in the `Model` interface as `Model#getFilteredTasksNotStarted()`, `Model#getFilteredTasksDoing()`,
 `Model#getFilteredTasksDone()`, `Model#getFilteredTasksByDeadline()` and `Model#getFilteredMeetingList()`.
@@ -250,41 +252,46 @@ To allow `Ui` to be responsive to updates in the settings, all of the operations
 `Logic#getFilteredTasksNotStarted()`, `Logic#getFilteredTasksDoing()`,
 `Logic#getFilteredTasksDone()`, `Logic#getFilteredTasksByDeadline()` and `Logic#getFilteredMeetingList()`.
 
-The following steps wil guide you on how `Task` data is processed and retrieved through the use of object diagrams when the user views the dashboard. It will omit operations
-invlolving `Meeting` data as well as in the `Ui` component for brevity.
-
 Step 1. The user executes the `home` command.
 
 Step 2. `Logic` executes `Logic#getFilteredTasksNotStarted()`, `Logic#getFilteredTasksDoing()`,
-`Logic#getFilteredTasksDone()` and `Logic#getFilteredTasksByDeadline()`.
+`Logic#getFilteredTasksDone()`, `Logic#getFilteredTasksByDeadline()` and `Logic#getFilteredMeetingList()`.
 
 Step 3. This calls `Model#getFilteredTasksNotStarted()`, `Model#getFilteredTasksDoing()`, `Model#getFilteredTasksDone()`, `Model#getFilteredTasksByDeadline()`.
 
-Step 4. This executes `ProjectDashboard#splitTasksByStatus()`, to populate `filteredTasksNotStarted`, `filteredTasksDoing` and `filteredTasksDone`. +
-Also, `ProjectDashBoard#splitTasksByDeadline()` is called to populate `filteredTasksByDeadline`.
+Step 4. This executes `ProjectDashboard#splitTasksByStatus()`, to populate `tasksNotStarted`, `tasksDoing` and `tasksDone`. +
+Similarly, `ProjectDashBoard#splitTasksByDeadline()` is called to populate `tasksByDeadline`.
 
-Step 5. Relevant data is retrieved by `Ui`.
+Step 5. The various `FilteredList` objects are updated, since their backing lists are stored in `ProjectDashboard`. (refer to Figure 9)
+
+The object diagram below shows a snapshot of the various objects involved when the user views the dashboard.
+
+[NOTE]
+The diagram omits objects involving the `Ui` component as well as specific `Task` objects for brevity.
+
+.Snapshot of objects involved in populating the dashboard with data
+image::DashboardObjectDiagram.png[]
+
 
 
 ==== Design Considerations
 
 This section explores how the design of the dashboard can affect it's responsiveness and integration with other data in the application.
 
-===== Aspect: Storage and retrieval of `Task` related data for dashboard.
+===== Aspect: Data structure used to store `Task` objects.
 
 * **Alternative 1 (current choice):** All tasks are stored in a single `UniqueTaskList` in `ProjectDashboard` with `TaskStatus` attribute.
 When the enters `home` to view the dashboard, the tasks are split by `TaskStatus` and deadline in `ProjectDashboard` and dispatched to the `Ui`.
 ** Pros: Easier to implement in terms of storage and retrieval. By storing only one list and splitting the tasks in memory there is less data saved.
-** Cons: The constant recalibration and splitting of task data may tax the memory of the application, as it is storing the same tasks in multiple containers. This may affect performance
+** Cons: The constant processing of task data may tax the memory of the application, as it is storing the same tasks in multiple data structures. This may affect performance
 for large number of tasks.
-* **Alternative 2:** The `Task` objects will only contain attributes which are not filtered in the dashboard, such as `Name`. They are stored in a `HashMap` as values and the keys are filtered attributes such as status and deadline.
-** Pros: Retrieval of data is much faster, as `ProjectDashboard` does not have to store multiple copies of tasks in memory. Instead,
-due to the mappings between `TaskStatus` and the `Task` assigned those statuses, they can be retrieved and displayed more efficiently.
+* **Alternative 2:** The `Task` objects will only contain attributes which are not filtered in the dashboard. They can be stored in a `HashMap` as values and the keys are filtered attributes such as `TaskStatus` and deadline.
+** Pros: Memory usage of _Work is more efficient, as `ProjectDashboard` does not have to store multiple references of the same `Task` objects in memory. Also, due to the mappings between `TaskStatus` and the `Task` assigned those statuses, they can be retrieved and displayed more efficiently.
 ** Cons: Due to the requirements of +Work, `Task` objects are coupled to `Member` and `Inventory`. The method of storing these tasks, other components would have to
 iterate through all keys to obtain all the `Task` objects and manipulate their mappings. This would render the `HashMap` useless.
 
 We decided to opt for design option one so as to enable `Task` to integrate with other components of +Work in the most efficient way possible. Although design option two would
-benefit the dashboard greatly it would cause other components and views to become inefficient.
+benefit the dashboard greatly it would cause almost all other components and views to become inefficient.
 
 === Settings feature
 ==== Implementation
