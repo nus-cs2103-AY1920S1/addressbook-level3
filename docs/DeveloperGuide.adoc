@@ -546,7 +546,7 @@ Since AlgoBase is forked from AddressBook 3, it also inherits AB3's design choic
 //@@author
 
 //@@author tiuweehan
-=== GUI Enhancements
+=== Graphical User Interface Features
 
 An intuitive GUI facilitates the overall user friendliness of the application.
 The user should be able to navigate around the application easily to facilitate a smooth experience using AlgoBase.
@@ -566,16 +566,16 @@ The following classes facilitate the handling of GUI actions:
 * `UiActionType` - An Enum of the types of UI actions that exist in AlgoBase.
 * `UiActionDetails` - An object containing details of a UI action.
 * `UiAction` - Interface with instructions for executing a UI action.
-* `UiLogicManager` - Manages the overall UI Logic.
+* `UiLogicManager` - Implements  `Uilogic` and manages the overall UI Logic.
 * `AlgoBaseUiActionParser` - Parses a `UiActionDetails` object into an implementation of `UiAction`.
 * `UiActionResult` - The result of executing the UI action.
 
-When the user makes a change in the GUI, the change is propagated from `Ui` to `UiLogic` to `Model` and to `Storage`, as represented in the diagram below.
+When the user makes a change in the GUI, the change is propagated from `Ui` to `UiLogic` to `Model` and to `Storage`, as represented in the diagram below:
 
 .An example of a high level representation of the GUI Actions.
 image::ArchitectureSequenceDiagram1.png[]
 
-This process of how the application handles UI Actions is captured by the example in the Sequence Diagrams below.
+This process of how the application handles UI Actions is captured by the example in the Sequence Diagrams below:
 
 .Interaction between `UI` and `UiLogic`
 image::gui/EditProblemUiActionSequenceDiagram0.png[]
@@ -589,9 +589,9 @@ which in turn calls the `execute` method of `UiLogicManager`.
 
 Step 4: The method call returns a `UiActionResult` object, which may optionally contain feedback for the user.
 
-The following diagram goes into more details on how the `UiLogic` handles the `UiActionDetails`
+The following diagram goes into more details on how the `UiLogic` handles the `UiActionDetails`:
 
-.Interactions between classes in the `UiLogic`
+.Interactions between classes in the `UiLogic` component.
 image::gui/EditProblemUiActionSequenceDiagram1.png[]
 
 Step 1: The `UiLogicManager` passes the `UiActionDetails` object to the `AlgoBaseUiActionParser`,
@@ -603,6 +603,8 @@ and passes it back to the `UiLogicManager`.
 Step 3: The `UiLogicManager` executes the `EditProblemUiAction` together with the `Model`, and returns the `UiActionResult`.
 
 ==== Graphical User Interface State
+
+===== Current Implementation
 
 The state of the GUI is stored in a `GuiState` object, which is in turn stored in the `Model`. The `GuiState` object contains a `TabManager` object, which manages tab information such as the tabs that are open and the tabs that are currently selected.
 
@@ -617,7 +619,7 @@ The following Activity diagram illustrates the series of actions that occur when
 image::gui/OpenTabUiActionActivityDiagram.png[]
 
 In AlgoBase, the state of the GUI is also saved to Storage after every action. This is so that when the user closes the application and opens it again later, the state is stored.
-The Sequence diagram below also shows how the GuiState is saved to Storage.
+The Sequence diagram below also shows how the GuiState is saved to Storage:
 
 .Sequence Diagram for storing new GUI state
 image::gui/SwitchTabsSequenceDiagram3.png[]
