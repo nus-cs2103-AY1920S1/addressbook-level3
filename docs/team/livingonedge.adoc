@@ -13,7 +13,7 @@
 
 == Summary of contributions
 
-* *Major enhancement*: added *commands to stage, unstage, load, import and export memes*.
+* *Major enhancement*: added *commands to stage, unstage, load, import and export memes* [https://github.com/AY1920S1-CS2103-T16-3/main/commit/ce54203d886a948e62906bbacb7bedc3c89a54db[#77]].
 ** What it does: Allows the user to import their own memes into the application. It also allows for user to export memes from the application
 to their own personal folder.
 ** Justification: This feature provides a platform for the user to manage memes between the application
@@ -26,10 +26,10 @@ more commands need to be introduced to support the export and import tabs, which
 For example, support commands such as edit, delete and clear commands have to be separately created for the import tab.
 
 * *Minor enhancement*:
-** Added a preferences tab for the user to view his or her user preferences of the application, which is configurable in preferences.json.
-** Added Edit and Load commands for memes in the import tab.
-** Added Clear commands for both export and import tab.
-** Added a View command for the memes tab.
+** Added a preferences tab for the user to view his or her user preferences of the application, which is configurable in preferences.json [https://github.com/AY1920S1-CS2103-T16-3/main/commit/9984517448d90e019e7d6d68fa16e59122319325[#105]].
+** Added Edit and Load commands for memes in the import tab [https://github.com/AY1920S1-CS2103-T16-3/main/commit/5bcfa70c5681960bd0ba0e32f64afe79e2e23268[#128]].
+** Added Clear commands for both export and import tab [https://github.com/AY1920S1-CS2103-T16-3/main/commit/5bcfa70c5681960bd0ba0e32f64afe79e2e23268[#128]].
+** Added a View command for the memes tab [https://github.com/AY1920S1-CS2103-T16-3/main/commit/fb90681581c5d62ed16465348a859309ffa76fa3[#241]].
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=livingonedge&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test code]]
 
@@ -37,23 +37,23 @@ For example, support commands such as edit, delete and clear commands have to be
 
 ** Project management:
 *** Managed release `v1.3` (1 release) on GitHub
-*** Contributed to initial morphing from AddressBook to Weme (Change Address field to Description): (Pull Request https://github.com/AY1920S1-CS2103-T16-3/main/commit/299753ded0eb95c47b56af3e773d2323cbb50a71[#36])
+*** Contributed to initial morphing from AddressBook to Weme (Change Address field to Description): (Pull Request [https://github.com/AY1920S1-CS2103-T16-3/main/commit/299753ded0eb95c47b56af3e773d2323cbb50a71[#36]])
 ** Enhancements to existing features:
-*** Added preferences tab (Pull request https://github.com/AY1920S1-CS2103-T16-3/main/commit/9984517448d90e019e7d6d68fa16e59122319325[#105])
+*** Added preferences tab (Pull request [https://github.com/AY1920S1-CS2103-T16-3/main/commit/9984517448d90e019e7d6d68fa16e59122319325[#105]])
 ** Documentation:
-*** Updated User Stories for Developer Guide https://github.com/AY1920S1-CS2103-T16-3/main/commit/791f7149f336ac4e4c13ecabe6a334b4de00230a[#31]
-*** Major update to User Guide for v1.3 release: https://github.com/AY1920S1-CS2103-T16-3/main/commit/f0773ea9194ee7fa731bc3ce708e234c4642df78[#153]
+*** Updated User Stories for Developer Guide [https://github.com/AY1920S1-CS2103-T16-3/main/commit/791f7149f336ac4e4c13ecabe6a334b4de00230a[#31]].
+*** Major update to User Guide for v1.3 release: [https://github.com/AY1920S1-CS2103-T16-3/main/commit/f0773ea9194ee7fa731bc3ce708e234c4642df78[#153]].
 ** Tools:
-*** Added support for TestFX [https://github.com/AY1920S1-CS2103-T16-3/main/pull/234[#234]]
+*** Added support for TestFX [https://github.com/AY1920S1-CS2103-T16-3/main/pull/234[#234]].
 ** Community:
-*** PRs reviewed (trivial): https://github.com/AY1920S1-CS2103-T16-3/main/pull/68[#68],
+*** PRs reviewed (trivial): [https://github.com/AY1920S1-CS2103-T16-3/main/pull/68[#68],
 https://github.com/AY1920S1-CS2103-T16-3/main/pull/49[#49],
 https://github.com/AY1920S1-CS2103-T16-3/main/pull/38[#38],
-https://github.com/AY1920S1-CS2103-T16-3/main/pull/159[#159]
+https://github.com/AY1920S1-CS2103-T16-3/main/pull/159[#159]].
 *** PRs reviewed (non-trivial):
-https://github.com/AY1920S1-CS2103-T16-3/main/pull/71[#71],
-https://github.com/AY1920S1-CS2103-T16-3/main/pull/76[#76]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/LivingOnEdge/ped[1])
+[https://github.com/AY1920S1-CS2103-T16-3/main/pull/71[#71],
+https://github.com/AY1920S1-CS2103-T16-3/main/pull/76[#76]].
+*** Reported bugs and suggestions for other teams in the class (examples:  [https://github.com/LivingOnEdge/ped[1]]).
 
 == Contributions to the User Guide
 
