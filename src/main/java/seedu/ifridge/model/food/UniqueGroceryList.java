@@ -24,7 +24,7 @@ import seedu.ifridge.model.food.exceptions.FoodNotFoundException;
  */
 public class UniqueGroceryList implements Iterable<GroceryItem> {
 
-    private final ObservableList<GroceryItem> internalList = FXCollections.observableArrayList();
+    final ObservableList<GroceryItem> internalList = FXCollections.observableArrayList();
     private final ObservableList<GroceryItem> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 

@@ -1004,22 +1004,6 @@ Cons:
 
 Given below are instructions to test the app manually.
 
-glist remDefault r/-1 +
-glist remDefault r/1.2 +
-glist rem +
-glist rem r/10 +
-glist delete 1 +
-glist undo +
-tlist template add 1 n/rice a/100g e/10/10/2020 +
-tlist add n/Surprise Party +
-tlist undo +
-tlist redo +
-slist bought +
-slist urgent +
-slist mergebought +
-slist undo +
-slist redo
-
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
@@ -1142,6 +1126,66 @@ Some of the items in the shopping list must be bought for changes in the lists t
 Expected: All bought items are added to the grocery list according to the following conditions: If a bought item does not have a corresponding grocery item (same name and expiry date) in the grocery list, a new grocery item with the bought item's details is added to the grocery list. If a bought item has a corresponding grocery item in the grocery list, the grocery item's amount is added instead of creating a new grocery item. +
 If a shopping item was fully bought, it is removed from the shopping list while merging. If the item is only partially bought, the quantity that is bought is subtracted from the shopping item's quantity and the bought tag will be removed.
 //end::shoppinglistmanualtesting[]
+
+=== Undo Redo Manual Testing
+
+. Undo a grocery list command
+
+.. Prerequisites: At least one grocery command have been done which modifies the content of the grocery list.
+.. Test case: `glist delete 1` + `glist undo` +
+   Expected: The tab for waste list is shown if another tab is currently opened
+and the grocery item which has been removed from grocery list and added to waste list
+is now removed from waste list and added back to grocery list.
+.. Test case: `glist add n/potato a/10g e/10/10/2020` + `glist undo` +
+   Expected: The tab for the waste list is not shown if another tab is currently opened
+and the grocery item which has just been added to the grocery list is now removed.
+.. Test case: `glist list` + `glist undo` +
+   Expected: Error message displayed suggesting not able to undo as `glist list` command
+does not modify the grocery list.
+
+. Undo a template list command
+
+.. Prerequisites: At least one template command (template list or template item command)
+have been done which modifies the content of the template list or template item respectively.
+.. Test case: `tlist delete 1` + `tlist undo` +
+   Expected: The tab for template list is shown while template item is cleared
+and the template which has been removed from template list is added back to template list.
+.. Test case: `tlist template add 1 n/potato a/10g` + `glist undo` +
+   Expected: The tab for template list is shown along with the specified template being updated
+and the template item which has been added to the specified template is removed from the template.
+
+. Undo a shopping list command
+
+.. Prerequisites: At least one shopping command have been done which modifies the content of the shopping list.
+.. Test case: `slist add n/Milk a/1L` + `slist undo` +
+   Expected: The tab for shopping list is shown
+
+. Redo grocery, template, or shopping list command
+
+.. Prerequisites: At least 1 undo has been done for the corresponding list.
+
+=== Reminder Manual Testing
+
+. Set default reminder settings to determine which food are expiring "soon"
+
+.. Prerequisites: Have at least 1 grocery item in grocery list which has not expired
+(has an expiry date of at least the current date or after) to see visible results.
+.. Test case: `glist remDefault r/10`
+Expected: Grocery items (in grocery list and waste list)
+with expiry dates within 10 days from current date will be color coded as orange
+while grocery items which are not expiring within 10 days will be color coded green.
+Expired grocery items will still remain red. The color coding will be retained when the app is closed and relaunched.
+
+. Get reminder on food expiring soon
+
+.. Prerequisites: Have at least 1 grocery item in grocery list which has not expired
+to see visible results.
+.. Test case: `glist rem r/0`
+   Expected: Displays all grocery items expiring on the same date as today in grocery list.
+.. Test case: `glist rem`
+   Expected: Displays all grocery items in grocery list which are expiring within the specified number of days
+in the default reminder settings. If default reminder settings is not specified yet, number of  days in
+default reminder settings is set to 3 days.
 
 === Saving data
 
