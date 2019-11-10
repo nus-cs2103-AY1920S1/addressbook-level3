@@ -152,99 +152,127 @@ Classes used by multiple components are in the `mams.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::find[]
+=== Find feature
+==== Implementation
+
+The find feature is facilitated by `FindCommand` class. The `FindCommand` stores a `List` of `Predicates`, which can be
+StudentContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, or `AppealContainsKeywordsPredicate`. Each `Predicate` stores a `List` of String of keywords.
+
+image::PredicateClassDiagram.png[]
+
+Each `FindCommand` has a `execute()` method that takes in a `Model` object and a `FilterOnlyCommandHistory` object.
+`FindCommand` only retrieves information from model and returns a message to be shown in the message bar but do not alter anything in the existing lists.
+
+Below shows how the Find Command mechanism behaves at each step.
+
+Step 1. The user inputs `find ...`.
+
+Step 2. The `FindCommandParser` is called first to create `StudentContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, and `AppealContainsKeywordsPredicate` by checking the prefixes.
+
+Step 3. A new `FindCommand` is created by passing in the `List` of `Predicates`.
+
+Step 4. `FindCommand.execute()` is called. Each `Predicate` object is examined and calls `Predicate.test()`. `Model#updateStudentList()`, `Model#updateModuleList()`, or `Module#updateAppealList()` is called accordingly.
+
+Step 5. A `CommandResult` object is returned, which contains message about the number of items found in the target list. The target list only shows the item(s) that contain(s) any of the keywords.
+
+The following sequence diagram shows how the Find command works:
+
+image::FindSequenceDiagram.png[]
+
+
+// end::find[]
+
 //tag::clash[]
 === Clash feature
 ==== Implementation
 
-The clash feature is facilitated by an abstract `ClashCommand` class which extends abstract `Command` class and
-three sub-classes which extends `ClashCommand` to handle different types of checking.
+The clash feature is facilitated by `ClashCommand` class.
 
-The three sub-classes are:
+There are two additional static classes in `ClashCommand` to facilitate the feature. The two classes are:
 
-* `ClashModCommand` -- check time slots clashes within two modules and return messages accordingly.
-* `ClashStudentCommand` -- check time slots clashes within a particular student's timetable and return messages accordingly.
-* `ClashAppealCommand` -- check time slots clashes between the requested module and the student's existing timetable for a "Add Module" appeal .
+* `ClashCommandParameters`: Stores the details of the parsed parameters that a `ClashCommand` will operate on.
 
-image::ClashCommandClassDiagram.png[]
+image::ClashCommandParametersClassDiagram.png[]
+* `ClashCase`: Stores the details of the clash cases between two modules that a `ClashCommand` will operate on.
 
-Each sub-class has a `execute()` method that takes in a `Model` object. Clash commands only retrieve information from model but do not alter anything in the existing lists.
+image::ClashCaseClassDiagram.png[]
+
+[NOTE]
+Similar to how time slot is stored in `Module` class, the clashing slots in `ClashCase` are represented as Integers and
+each integer value corresponds to a particular 1-hour time slot in a week.
+
+Each `ClashCommand` has a `execute()` method that takes in a `Model` object and a `FilterOnlyCommandHistory` object.
+`ClashCommand` only retrieves information from model and returns a message to be shown in the message bar but do not alter anything in the existing lists.
+
+====
+There are a few formats allowed for user inputs:
+
+* `clash [a/INDEX]`: check timetable clash for a add/drop module appeal
+* `clash [m/INDEX] [m/INDEX]` or `clash [m/MODULE_CODE] [m/MODULE_CODE]`: check timetable clash between two different modules
+* `clash [s/INDEX]`: check timetable clash in a student's current timetable
+
+====
 
 Below shows how the Clash Command mechanism behaves at each step.
 
 Step 1. The user inputs `clash ...` to check whether there is clash in the timetable.
 
-Step 2. The `ClashCommandParser` will be called first to check which of the three types of checking is evoked by checking the prefixes.
+Step 2. The `ClashCommandParser` will be called to create a new `ClashCommandParameters` and set the relevant parameter values accordingly.
 
-Step 3. Relevant `ClashModCommand`, `ClashStudentCommand`, or `ClashAppealCommand` object will be created accordingly.
+Step 3. A new `ClashCommand` is created by passing in the `ClashCommandParameters` object.
+The following sequence diagram shows how `ClashCommandParser` works:
 
-Step 4. `ClashCommand.execute()` is called.
-
-* If the command is a `ClashModCommand`, it will get the relevant `Module` objects from the list `model.getFilteredModuleList()`.
-* If the command is a `ClashStudentCommand`, it will get the relevant `Student` object from the list `model.getFilteredStudentList()`.
+Step 4. `ClashCommand.execute()` is called. The types of checking will be determined by checking the presence of relevant parameters in `ClashCommandParameters`.
 
 [NOTE]
-The student current modules are stored as String of module code to reduce coupling. Hence, modules taken by the student are retrieved from `model.getFilteredModuleList()` by matching module codes.
+** The `Student` who submits the appeal is stored as String of Matric ID and `Module` to add/drop is stored as String of module code in an `Appeal` object.
+Hence, `Student` who submits the appeal is retrieved from `model.getFullStudentList()` by matching Matric ID,
+and `Module` to add/drop is retrieved from `model.getFullModuleList()` by matching module codes.
 
-* If the command is a `ClashAppealCommand`, it will get the relevant `Appeal` object from the list `model.getFilteredAppealList()`
+Step 5. Each `ClashCommand` returns a `CommandResult` object which contains the message of the clash details if there are clashes and 'No clashes detected' if there is no clash.
 
-[NOTE]
-The `Student` who submits the appeal and requested `Module` are stored as String of Matric ID and module code respectively in an `Appeal` object to reduce coupling.
-Hence, `Student` who submits the appeal is retrieved from `model.getFilteredStudentList()` by matching Matric ID,
-and `Module` requested is retrieved from `model.getFilteredModuleList()` by matching module codes.
+The following activity diagram shows how the clash command works:
 
-Step 5. Each `ClashCommand` returns a `CommandResult` object which contains the message of the clashing time slots if there are clashes and 'No clashes detected' if there is no clash.
+image::ClashCommandActivityDiagram.png[]
 
-The following sequence diagram shows how the clash operation works:
+===== Design Consideration: How to deal with different user input formats for different types of checking
 
-image::ClashSequenceDiagram.png[]
-
-===== Aspect: How to deal with different user inputs for different checking
-
-* **Alternative 1 (current choice):** Create three different sub-classes extending `ClashCommand` class. `ClashCommand` will deal with differentiating cases for checking and create Command object accordingly.
-** Pros: Easy to implement.
-** Cons: some of the code are different to be abstracted. (repeted codes in part of the two sub-classes to keep low coupling) May need to find a way to improve it in the future.
-* **Alternative 2:** Only 1 `ClashCommand` class. The cases of checking are determined inside `ClashCommand`.
+* **Current choice:** Only 1 `ClashCommand` class. Every `ClashCommand` object keeps a `ClashCommandParameters` object which stores the parameters passed in.
+The value of parameters are set when parsing user inputs by a few setter methods.
+The cases of checking are determined in `ClashCommand.execute()` by checking the presence of each parameter.
 ** Pros:
-** Cons: Violates Single Responsibility Principle. `ClashCommand` is doing part of the parsing work.
+*** Avoid having too many unnecessary constructors (or passing of null-values) caused by the optional nature of the parameters passed to ClashCommand.
+*** If more user input formats are allowed in the future to improve user experience (not restricted to index and module codes),
+we can simply add more setter and getter methods in `ClashCommandParameters` accordingly.
+** Cons:
+*** More defensive programming is needed to ensure that no multiple parameters of different types of checking are present at the same time.
+* **Alternative considered:** Create three different sub-classes (i.e. `ClashAppealCommand`, `ClashModuleCommand`, and `ClashStudentCommand`) which extend an abstract `ClashCommand` class.
+`ClashCommandParser` deals with differentiating cases for checking (by looking at prefixes) and create Command object accordingly.
+** Pros:
+*** Each `ClashCommand` has knowledge about what type of checking is evoked. Less checking is required in `ClashCommand.execute()`.
+** Cons:
+*** Each sub-class will have different attributes.
+*** Tedious modification will be needed if we allow more user input formats in the future to improve user experience.
 
-===== Aspect: String representation of clashing time slots
+===== Design Consideration: How to show details of the clashing time slots
 
-* **Alternative 1 (current choice):** Use a list to store time slot index and use them to create a temporary `Module` object.
-** Pros: Can reuse `getTimeSlotToString()` to obtain the string representation
-** Cons: Redundant objects are created. More memory space used.
+* **Current choice:** Use a static class `ClashCase` to store each clash case detected.
+** Pros:
+*** No need to hardcode the string representation of clash details since all information needed is stored in the `ClashCase` and we can simply call `toString()`.
+Even if the way of representation is to be changed in the future, we only need to modify `toString()` (and add attributes in `ClashCase` if needed).
+** Cons:
+*** Additional objects being created for each clash detected between two modules. More memory space used.
+* **Alternative considered:** Every `ClashCommand` object keeps a list of to store time slot index and use them to create a temporary `Module` object.
+** Pros:
+*** Easy to implement.
+*** Can reuse `getTimeSlotToString()` to obtain the string representation. (The current choice also keeps this part)
+** Cons:
+*** Redundant objects are created. More memory space used.
+*** Need to hardcode information like module codes of the two modules having clashes since the list only stores the clashing slots.
+*** Tedious modification needed if the way of response changes in the future. For example, instead of showing the clash details in the message bar,
+we decide to a pop-up window to show more detailed information or include graphic representation.
 // end::clash[]
-
-//tag::find[]
-=== Find feature
-==== Implementation
-
-The find feature is facilitated by `FindCommand` class. The `FindCommand` constructor takes a `List` of `Predicates`, which can be `NameContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, or `AppealContainsKeywordsPredicate`
-
-image::PredicateClassDiagram.png[]
-
-Find commands only retrieve information from model but do not alter anything in the existing lists.
-
-Below shows how the Find Command mechanism behaves at each step.
-
-Step 1. The user inputs `find prefix/[KEYWORDS]...`.
-
-Step 2. The `FindCommandParser` will be called first to check which of the three lists to search by checking the prefixes.
-`NameContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, and `AppealContainsKeywordsPredicate` will be created accordingly which stores all the keywords for the same list.
-
-Step 3. A new `FindCommand` is created.
-
-[NOTE]
-Even there is no keyword for a particular `Predicate`, a new `Predicate` object with an empty `List` of keywords will be passed in to create a new `FindCommand`.
-Eg. input: `find s/bob`. A new `FindCommand` is created with a `NameContainsKeywordsPredicate` with a `List` of keywords containing `bob`, and `ModuleContainsKeywordsPredicate`, and `AppealContainsKeywordsPredicate` with empty `List` of keywords.
-
-Step 4. `FindCommand.execute()` is called. Each `Predicate` object is examined and calls `Predicate.test()`. `Model#updateStudentList()`, `Model#updateModuleList()`, or `Module#updateAppealList()` is called accordingly.
-
-Step 5. A `CommandResult` object is returned, which contains message about the number of items found in the target list. The target list only shows the item contains keyword.
-
-The following sequence diagram shows how the Find operation works:
-
-image::FindSequenceDiagram.png[]
-// end::find[]
 
 //tag::addremovemod[]
 === Add and remove module feature
