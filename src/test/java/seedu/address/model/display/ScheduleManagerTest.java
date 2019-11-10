@@ -35,7 +35,7 @@ class ScheduleManagerTest {
 
     @Test
     void getState_home() {
-        scheduleManager.updateDisplayWithUser(timeBook.getPersonList().getUser(),
+        scheduleManager.updateScheduleWithUser(timeBook.getPersonList().getUser(),
                 LocalDateTime.now(),
                 ScheduleState.HOME);
 
@@ -44,12 +44,12 @@ class ScheduleManagerTest {
 
     @Test
     void getState_person() throws PersonNotFoundException {
-        scheduleManager.updateDisplayWithUser(timeBook.getPersonList().getUser(),
+        scheduleManager.updateScheduleWithUser(timeBook.getPersonList().getUser(),
                 LocalDateTime.now(), ScheduleState.PERSON);
 
         assertEquals(ScheduleState.PERSON, scheduleManager.getState());
 
-        scheduleManager.updateDisplayWithPerson(timeBook.getPersonList().findPerson(ALICE.getName()),
+        scheduleManager.updateScheduleWithPerson(timeBook.getPersonList().findPerson(ALICE.getName()),
                 LocalDateTime.now(),
                 ScheduleState.PERSON);
 
@@ -59,7 +59,7 @@ class ScheduleManagerTest {
     @Test
     void getState_group() throws GroupNotFoundException {
         Group group = timeBook.getGroupList().findGroup(GROUP_NAME1);
-        scheduleManager.updateDisplayWithGroup(group,
+        scheduleManager.updateScheduleWithGroup(group,
                 timeBook.getPersonsOfGroup(GROUP_NAME1),
                 timeBook.getPersonToGroupMappingList().getMappingsOfGroup(group.getGroupId()),
                 LocalDateTime.now(),
@@ -68,7 +68,7 @@ class ScheduleManagerTest {
         assertEquals(ScheduleState.GROUP, scheduleManager.getState());
 
         ArrayList<Person> persons = timeBook.getPersonList().getPersons();
-        scheduleManager.updateDisplayWithPersons(
+        scheduleManager.updateScheduleWithPersons(
                 persons, LocalDateTime.now(),
                 ScheduleState.GROUP);
 
@@ -78,7 +78,7 @@ class ScheduleManagerTest {
     @Test
     void updateDisplayWithPerson() {
         assertDoesNotThrow(() ->
-                scheduleManager.updateDisplayWithPerson(
+                scheduleManager.updateScheduleWithPerson(
                         timeBook.getPersonList().findPerson(ALICE.getName()),
                         LocalDateTime.now(),
                         ScheduleState.PERSON));
@@ -87,13 +87,13 @@ class ScheduleManagerTest {
     @Test
     void updateDisplayWithUser() {
         assertDoesNotThrow(() ->
-                scheduleManager.updateDisplayWithUser(
+                scheduleManager.updateScheduleWithUser(
                         timeBook.getPersonList().getUser(),
                         LocalDateTime.now(),
                         ScheduleState.PERSON));
 
         assertDoesNotThrow(() ->
-                scheduleManager.updateDisplayWithUser(
+                scheduleManager.updateScheduleWithUser(
                         timeBook.getPersonList().getUser(),
                         LocalDateTime.now(),
                         ScheduleState.HOME));
@@ -103,7 +103,7 @@ class ScheduleManagerTest {
     void updateDisplayWithGroup() throws GroupNotFoundException {
         Group group = timeBook.getGroupList().findGroup(GROUP_NAME1);
         assertDoesNotThrow(() ->
-                scheduleManager.updateDisplayWithGroup(group,
+                scheduleManager.updateScheduleWithGroup(group,
                         timeBook.getPersonsOfGroup(GROUP_NAME1),
                         timeBook.getPersonToGroupMappingList().getMappingsOfGroup(group.getGroupId()),
                         LocalDateTime.now(),
@@ -114,7 +114,7 @@ class ScheduleManagerTest {
     void updateDisplayWithPersons() {
         ArrayList<Person> persons = timeBook.getPersonList().getPersons();
         assertDoesNotThrow(() ->
-                scheduleManager.updateDisplayWithPersons(
+                scheduleManager.updateScheduleWithPersons(
                         persons, LocalDateTime.now(),
                         ScheduleState.GROUP));
 
@@ -142,7 +142,7 @@ class ScheduleManagerTest {
 
     @Test
     void getScheduleDisplay() {
-        scheduleManager.updateDisplayWithUser(
+        scheduleManager.updateScheduleWithUser(
                 timeBook.getPersonList().getUser(),
                 LocalDateTime.now(),
                 ScheduleState.PERSON);

@@ -294,23 +294,23 @@ public interface Model {
     /**
      * Updates the current main window display with a Person's schedule.
      */
-    void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleState type) throws PersonNotFoundException;
+    void updateScheduleWithPerson(Name name, LocalDateTime time, ScheduleState type) throws PersonNotFoundException;
 
     /**
      * Updates the current main window display with the User's schedule.
      */
-    void updateDisplayWithUser(LocalDateTime time, ScheduleState type);
+    void updateScheduleWithUser(LocalDateTime time, ScheduleState type);
 
     /**
      * Updates the current main window display with a Group's schedule.
      */
-    void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleState type)
+    void updateScheduleWithGroup(GroupName groupName, LocalDateTime time, ScheduleState type)
             throws GroupNotFoundException;
 
     /**
      * Updates the current main window display with an Array of Person's schedule.
      */
-    void updateDisplayWithPersons(ArrayList<Person> persons, LocalDateTime time, ScheduleState type);
+    void updateScheduleWithPersons(ArrayList<Person> persons, LocalDateTime time, ScheduleState type);
 
     /**
      * Updates the current side panel display.

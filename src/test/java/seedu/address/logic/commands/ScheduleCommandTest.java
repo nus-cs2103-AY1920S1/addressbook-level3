@@ -32,7 +32,7 @@ class ScheduleCommandTest {
         for (Person person: persons) {
             personNames.add(person.getName());
         }
-        model.updateDisplayWithPersons(persons,
+        model.updateScheduleWithPersons(persons,
                 LocalDateTime.now(), ScheduleState.GROUP);
     }
 

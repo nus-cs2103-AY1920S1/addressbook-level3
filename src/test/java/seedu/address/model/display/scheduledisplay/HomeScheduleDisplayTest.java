@@ -26,7 +26,7 @@ class HomeScheduleDisplayTest {
     @BeforeEach
     void init() {
         modelManager = TypicalModel.generateModelWithSchedules();
-        modelManager.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.HOME);
+        modelManager.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.HOME);
         homeScheduleDisplay = (HomeScheduleDisplay) modelManager.getScheduleDisplay();
     }
 

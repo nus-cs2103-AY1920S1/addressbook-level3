@@ -29,7 +29,7 @@ public class LookAtGroupMemberCommandTest {
     @BeforeEach
     void init() throws GroupNotFoundException {
         model = TypicalModel.generateTypicalModel();
-        model.updateDisplayWithGroup(TypicalGroups.GROUP_NAME3, LocalDateTime.now(),
+        model.updateScheduleWithGroup(TypicalGroups.GROUP_NAME3, LocalDateTime.now(),
                 ScheduleState.GROUP);
     }
 

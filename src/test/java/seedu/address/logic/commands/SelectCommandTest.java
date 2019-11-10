@@ -35,7 +35,7 @@ class SelectCommandTest {
 
     @Test
     void executeOnGroup_personNotSpecified() throws CommandException, GroupNotFoundException {
-        model.updateDisplayWithGroup(
+        model.updateScheduleWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
 
         assertEquals(ScheduleState.GROUP, model.getState());
@@ -54,7 +54,7 @@ class SelectCommandTest {
 
     @Test
     void executeOnGroup_personNotFound() throws CommandException, GroupNotFoundException {
-        model.updateDisplayWithGroup(
+        model.updateScheduleWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
 
         assertEquals(ScheduleState.GROUP, model.getState());
@@ -65,7 +65,7 @@ class SelectCommandTest {
 
     @Test
     void executeOnGroup_timeslotNotFound() throws CommandException, GroupNotFoundException {
-        model.updateDisplayWithGroup(
+        model.updateScheduleWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
 
         assertEquals(ScheduleState.GROUP, model.getState());
@@ -76,7 +76,7 @@ class SelectCommandTest {
     void executeOnGroup_success()
             throws CommandException, PersonTimeslotNotFoundException, PersonNotFoundException, GroupNotFoundException {
 
-        model.updateDisplayWithGroup(
+        model.updateScheduleWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
 
         assertEquals(ScheduleState.GROUP, model.getState());
@@ -98,7 +98,7 @@ class SelectCommandTest {
     void executeOnPerson_success()
             throws CommandException, PersonTimeslotNotFoundException, PersonNotFoundException {
 
-        model.updateDisplayWithPerson(
+        model.updateScheduleWithPerson(
                 ALICE.getName(), LocalDateTime.now(), ScheduleState.PERSON);
 
         assertEquals(ScheduleState.PERSON, model.getState());
@@ -119,7 +119,7 @@ class SelectCommandTest {
     @Test
     void executeOnPerson_timeslotNotFound() throws PersonNotFoundException {
 
-        model.updateDisplayWithPerson(
+        model.updateScheduleWithPerson(
                 ALICE.getName(), LocalDateTime.now(), ScheduleState.PERSON);
 
         assertEquals(ScheduleState.PERSON, model.getState());
@@ -130,7 +130,7 @@ class SelectCommandTest {
     void executeOnHome_success()
             throws CommandException, PersonTimeslotNotFoundException, PersonNotFoundException {
 
-        model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.HOME);
+        model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.HOME);
 
         assertEquals(ScheduleState.HOME, model.getState());
 
@@ -150,7 +150,7 @@ class SelectCommandTest {
     @Test
     void executeOnHome_timeslotNotFound() {
 
-        model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.HOME);
+        model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.HOME);
 
         assertEquals(ScheduleState.HOME, model.getState());
 

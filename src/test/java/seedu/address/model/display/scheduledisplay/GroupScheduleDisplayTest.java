@@ -28,7 +28,7 @@ class GroupScheduleDisplayTest {
     @BeforeEach
     void init() throws GroupNotFoundException {
         modelManager = TypicalModel.generateModelWithSchedules();
-        modelManager.updateDisplayWithGroup(GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
+        modelManager.updateScheduleWithGroup(GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
         groupScheduleDisplay = (GroupScheduleDisplay) modelManager.getScheduleDisplay();
     }
 

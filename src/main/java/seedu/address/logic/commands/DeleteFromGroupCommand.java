@@ -70,7 +70,7 @@ public class DeleteFromGroupCommand extends Command {
         try {
             model.deletePersonToGroupMapping(mapping);
 
-            model.updateDisplayWithGroup(group.getGroupName(),
+            model.updateScheduleWithGroup(group.getGroupName(),
                     LocalDateTime.now(), ScheduleState.GROUP);
 
         } catch (MappingNotFoundException e) {
