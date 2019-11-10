@@ -211,7 +211,7 @@ The following shows my additions to the StudyBuddyPro Developer Guide for the ta
 
 === Tagging Feature
 
-===== Implementation
+==== Implementation
 
 The current implementation of StudyBuddyItems in StudyBuddyPro is such that it contains a Set of Tags.
 

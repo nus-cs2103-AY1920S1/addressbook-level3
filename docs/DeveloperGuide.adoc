@@ -484,15 +484,16 @@ The following commands assume that the user is in the _flashcard_ mode.
 
 ==== Implementation
 a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`, and mainly uses the `Timeline`, `KeyFrame` and `KeyValue` class from the JavaFX package to support its functionality.
-
++
 The following _figure_ shows a class diagram of the relevant classes of the time trial feature.
-
++
 image::jrImages/TimeTrialClassDiagram.png[]
 
 b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
 c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the `StudyBuddyParser`’s function enum will be set to parse `Flashcard` commands.
 d.	The user executes (timetrial cs2100), and the `StartTimeTrialCommand` retrieves a List of flashcards with the associated `Tag` through the `Model#getTaggedFlashcards`, which is then passed into the `FlashcardTabWindowController`.
 e.	The `FlashcardTabWindowController` then calls the `FlashcardTabWindowController#startTimeTrial`, which in turns construct a `Timeline` with the following added for 3 flashcards:
+
 1.	A `KeyFrame` to call the `FlashcardTabWindowController#loadTimeTrial` method, which displays the question of the flashcard on the window, with a `KeyValue` that starts the timer on the screen.
 2.	A `KeyFrame` to call the `FlashcardTabWindowController#showFlashcardAns` method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
 3.	A `KeyFrame` is then added to the timeline to call the `FlashcardTabWindowController#resetViews` method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
