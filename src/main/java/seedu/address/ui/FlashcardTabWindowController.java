@@ -114,7 +114,7 @@ public class FlashcardTabWindowController {
      * Starts the timer countdown.
      */
     private void startTimer() {
-        // Adapted from https://asgteach.com/2011/10/javafx-animation-and-binding-simple-countdown-timer-2/
+        //
 
         currentSeconds.set(TIMER_DURATION);
         timelineHelper = new Timeline(new KeyFrame(Duration.seconds(TIMER_DURATION + 1),

@@ -420,7 +420,7 @@ Expected output:
 
 Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashcard.
 
-    Format: timetrial [tag/TAG]...
+    Format: timetrial tag/TAG...
 
 Example usage:
 
