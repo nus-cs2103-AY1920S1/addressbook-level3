@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_RANGE_
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_TYPE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_ZERO_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATETYPE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATETYPE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
@@ -109,7 +110,8 @@ public class OutCommandParserTest {
 
         // invalid date (type)
         assertParseFailure(parser, " " + AMOUNT_DESC_ALICE + INVALID_DATETYPE_DESC
-                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE, Date.MESSAGE_DATE_INVALID);
+                + DESCRIPTION_DESC_ALICE + CATEGORY_DESC_ALICE,
+                String.format(Date.MESSAGE_DATE_INVALID, INVALID_DATETYPE));
 
         // invalid description
         assertParseFailure(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE

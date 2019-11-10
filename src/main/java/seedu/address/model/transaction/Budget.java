@@ -14,7 +14,7 @@ import seedu.address.model.util.Date;
 /**
  * Handles Budget of a BankAccount.
  */
-public class Budget {
+public class Budget implements Comparable<Budget> {
     private Amount initialAmount;
     private Amount amount;
     private Date start = Date.now();
@@ -129,7 +129,7 @@ public class Budget {
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
             return newBudget;
-        } else if (isSameCategory && !isRemoveTransaction) {
+        } else if (isSameCategory) {
             Amount newAmount = this.amount.addAmount(amount);
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
@@ -164,7 +164,7 @@ public class Budget {
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
             return newBudget;
-        } else if (isSameCategory && isSameTransactionCategory) {
+        } else if (isSameCategory) {
             Amount newAmount = this.amount.addAmount(amountReplacement).subtractAmount(amountToReplace);
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
@@ -172,10 +172,6 @@ public class Budget {
         } else {
             return this;
         }
-    }
-
-    private void updateDeadline(Date date) {
-        this.deadline = date;
     }
 
     /**
@@ -252,5 +248,10 @@ public class Budget {
 
     public String toLabelText() {
         return String.format("$%s by %s", this.getInitialBudget(), this.deadline.toString());
+    }
+
+    @Override
+    public int compareTo(Budget o) {
+        return o.getInitialBudget().compareTo(this.getInitialBudget());
     }
 }

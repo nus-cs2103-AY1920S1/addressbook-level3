@@ -15,6 +15,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.util.Date;
 import seedu.address.model.util.GradientDescent;
 
@@ -25,12 +26,11 @@ public class Projection {
 
     private final ObservableList<BankAccountOperation> transactionHistory;
     private final Date date;
-    private List<Budget> budgets = new ArrayList<>();
+    private ObservableList<Budget> budgets = new UniqueBudgetList().asUnmodifiableObservableList();
     private List<Amount> budgetProjections = new ArrayList<>();
     private List<Amount> budgetStartValues = new ArrayList<>();
     private List<Amount> budgetThresholds = new ArrayList<>();
     private Amount projection;
-    private Amount cumulativeBalance;
     private GradientDescent projector;
     private Category category;
 
@@ -43,7 +43,7 @@ public class Projection {
     }
 
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date,
-                      List<Budget> budgets) {
+                      ObservableList<Budget> budgets) {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.date = date;
         this.budgets = budgets;
@@ -52,10 +52,10 @@ public class Projection {
     }
 
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date,
-                      List<Budget> budgets, Category category) {
+                      ObservableList<Budget> budgets, Category category) {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.date = date;
-        this.budgets = budgets;
+        this.budgets = budgets.sorted();
         this.category = category;
         this.project();
     }
@@ -73,7 +73,7 @@ public class Projection {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.projection = amount;
         this.date = date;
-        this.budgets = budgets;
+        this.budgets = budgets.sorted();
         this.budgetProjections = new ArrayList<>();
         this.category = category;
         this.project();
@@ -105,7 +105,7 @@ public class Projection {
         return this.projector;
     }
 
-    public List<Budget> getBudgets() {
+    public ObservableList<Budget> getBudgets() {
         return this.budgets;
     }
 
@@ -149,11 +149,11 @@ public class Projection {
         return this.budgetProjections.get(idx);
     }
 
-    public Amount getBudgetStartValue(int idx) {
+    Amount getBudgetStartValue(int idx) {
         return this.budgetStartValues.get(idx);
     }
 
-    public Amount getBudgetThreshold(int idx) {
+    Amount getBudgetThreshold(int idx) {
         return this.budgetThresholds.get(idx);
     }
 
@@ -161,7 +161,7 @@ public class Projection {
         StringBuilder text = new StringBuilder();
         IntStream.range(0, budgetProjections.size()).forEach(x -> {
             if (this.budgetProjections.get(x).getIntegerValue() > 0) {
-                text.append(String.format(ProjectCommand.MESSAGE_BUDGET_SUCCESS, this.budgets.get(x).toString(),
+                text.append(String.format(ProjectCommand.MESSAGE_BUDGET_ON_TRACK, this.budgets.get(x).toString(),
                         this.budgetProjections.get(x).toString()));
             } else {
                 text.append(String.format(ProjectCommand.MESSAGE_BUDGET_CAUTION, this.budgets.get(x).toString(),
@@ -213,7 +213,7 @@ public class Projection {
     /**
      * Checks if the given projection projects the same date as this Projection
      */
-    public boolean isSameProjection(Projection other) {
+    boolean isSameProjection(Projection other) {
         if (other == this) {
             return true;
         }

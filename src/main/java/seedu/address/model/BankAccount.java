@@ -181,6 +181,8 @@ public class BankAccount implements ReadOnlyBankAccount {
 
     /**
      * Updates each budget in {@code budgets} when OutTransaction is made.
+     * Each budget is updated only if it belongs to the same {@code Category} as the OutTransaction,
+     * and if OutTransaction is dated after Today, before the deadline.
      *
      * @param txn Transaction can be either InTransaction or OutTransaction.
      */
@@ -189,8 +191,12 @@ public class BankAccount implements ReadOnlyBankAccount {
             Amount outAmount = txn.getAmount();
             Set<Category> outCategories = txn.getCategories();
             for (Budget bd : budgets) {
-                Budget newBd = bd.updateBudget(outAmount, outCategories, isRemoveTransaction);
-                setBudget(bd, newBd);
+                boolean beforeDeadline = txn.getDate().compareTo(bd.getDeadline()) < 0;
+                if (beforeDeadline) {
+                    Budget newBd = bd.updateBudget(outAmount, outCategories, isRemoveTransaction);
+                    setBudget(bd, newBd);
+
+                }
             }
         }
     }

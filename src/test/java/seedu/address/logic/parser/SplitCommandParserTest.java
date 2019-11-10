@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_OVERFL
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_RANGE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_TYPE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_ZERO_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATETYPE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATETYPE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -133,7 +134,7 @@ class SplitCommandParserTest {
 
         //invalid date (type)
         assertParseFailure(parser, " " + AMOUNT_DESC_ALICE + INVALID_DATETYPE_DESC + " a/description n/Name",
-                Date.MESSAGE_DATE_INVALID);
+                String.format(Date.MESSAGE_DATE_INVALID, INVALID_DATETYPE));
 
         //invalid description
         assertParseFailure(parser, " " + AMOUNT_DESC_ALICE + DATE_DESC_ALICE + " a/Milk@ n/Name",

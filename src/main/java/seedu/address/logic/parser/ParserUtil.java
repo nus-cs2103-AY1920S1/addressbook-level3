@@ -27,7 +27,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     public static final char NEGATIVE_AMOUNT_SIGN = '-';
-    public static final char ZERO_AMOUNT = '0';
+    public static final double ZERO_AMOUNT = 0;
+    public static final double MAX_AMOUNT = 1000000;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
@@ -114,10 +115,10 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!trimmedDate.matches(Date.DATE_FORMAT)) {
-            throw new ParseException(String.format(Date.MESSAGE_FORMAT_CONSTRAINTS, trimmedDate));
+            throw new ParseException(Date.MESSAGE_FORMAT_CONSTRAINTS);
         }
         if (!Date.isValidDate(trimmedDate)) {
-            throw new ParseException(Date.MESSAGE_DATE_INVALID);
+            throw new ParseException(String.format(Date.MESSAGE_DATE_INVALID, trimmedDate));
         }
         return new Date(trimmedDate);
     }
@@ -182,19 +183,25 @@ public class ParserUtil {
      */
     public static Amount parseAmount(String s) throws ParseException {
         requireNonNull(s);
+        /* handles empty amount*/
+        if (s.length() == ZERO_AMOUNT) {
+            throw new ParseException(Messages.MESSAGE_AMOUNT_EMPTY);
+        }
+
+        /* handles negative amount*/
         char first = s.toCharArray()[0];
         if (first == NEGATIVE_AMOUNT_SIGN) {
             throw new ParseException(Messages.MESSAGE_AMOUNT_NEGATIVE);
         }
 
         /* handles 0 value */
-        if (first == ZERO_AMOUNT && s.length() == 1) {
+        if (Double.parseDouble(s) == ZERO_AMOUNT) {
             throw new ParseException(Messages.MESSAGE_AMOUNT_ZERO);
         }
 
         try {
             /* handles overflow value */
-            if (Double.parseDouble(s) >= 1000000) {
+            if (Double.parseDouble(s) >= MAX_AMOUNT) {
                 throw new ParseException(String.format(Messages.MESSAGE_AMOUNT_OVERFLOW));
             }
 

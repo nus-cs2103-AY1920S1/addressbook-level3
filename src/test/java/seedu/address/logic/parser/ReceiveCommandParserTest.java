@@ -73,6 +73,7 @@ class ReceiveCommandParserTest {
         assertParseFailure(parser, " $/2003 n/amy d/amy#@ ", Date.MESSAGE_FORMAT_CONSTRAINTS);
 
         // invalid date format
-        assertParseFailure(parser, " $/2003 n/amy d/20202019 ", Date.MESSAGE_DATE_INVALID);
+        assertParseFailure(parser, " $/2003 n/amy d/20202019 ",
+                String.format(Date.MESSAGE_DATE_INVALID, "20202019"));
     }
 }

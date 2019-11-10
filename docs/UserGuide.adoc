@@ -240,22 +240,58 @@ Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* 
 
 === Projecting Balance : `project`
 
-Projects future balance based on past In or Out transactions +
-Format: `project d/DATE`
+Cast a projection on your future balance amount and budget statuses based on your transaction history. +
+Format: `project d/DATE [c/test]`
 
 ****
 * `DATE` input only accepts date in format DDMMYYYY.
-* `DATE` input must be preceded by its tag `d/`
+* `DATE` input must be preceded by its tag `d/`.
 * `DATE` input must be set in the future.
+* `Date` cannot be more than 720 days from the day of projection.
+*  There must be a minimum of 5 transactions in total, or in the specified category
+for a projection to be successfully cast.
+* Should the number of `transactions` in a  `projection` fall below 5, the `projection`
+will be automatically deleted.
 ****
 
-Examples:
+==== Example Usage:
 
-* `project d/22072020`
-* `project d/01012020`
+. `project d/22072020`
+
+ Projected balance: $955.80
+
+. `project d/01012020 c/Food`
+
+ Projected balance: $188.04
+ You are on track to meeting your budget of $600 by 08122019, with a surplus of $484.32!
+
+
+=== Display Projection Graph: `display`
+
+Display a graphical representation of a `projection` in a new window.
+
+Format: `display PROJECTION_ID`
+****
+* A `Projection` with `PROJECTION_ID` must exist.
+****
+==== Example Usage
+. Type *display PROJECTION_ID* into the command box and press kbd:[Enter].
++
+image::display1.png[]
++
+. A new window containing a graphical representation of the specified projection will pop up.
++
+image::display2.png[]
++
+If there are any budgets associated with the projection, a corresponding graphical
+representation of the budget will be additionally displayed.
++
+image::display3.png[]
++
+
 
 // tag::view[]
-=== Displaying View : `view`
+=== Switching Tabs : `view`
 
 Want to switch tabs without using your mouse? You can switch to another tab with the `view` command.
 
@@ -284,6 +320,7 @@ image::view2.png[]
 image::view3.png[]
 
 // end::view[]
+
 
 // tag::delete[]
 === Deleting Finance : `delete`

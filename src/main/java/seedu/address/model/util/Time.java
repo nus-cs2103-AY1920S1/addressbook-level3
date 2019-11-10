@@ -15,9 +15,9 @@ public class Time {
 
     public static final String MESSAGE_CONSTRAINTS = "Time objects must adhere to the format: HHmm\n";
 
-    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
 
-    public final LocalTime time;
+    private final LocalTime time;
 
     public Time(String value) {
         requireNonNull(value);
