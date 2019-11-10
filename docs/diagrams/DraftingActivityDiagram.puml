@@ -1,0 +1,24 @@
+@startuml
+start
+:User executes 'new' command;
+:User chooses to manually assign vehicle to incident
+eg: new dist/1 auto/n;
+:No index of vehicle to dispatch is provided;
+fork
+    :Available vehicles in district is displayed;
+fork again
+    :User prompted to provide
+    valid index of vehicle to dispatch;
+end fork
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([valid index provided])
+    :Selected vehicle dispatched;
+else ([invalid index provided])
+    :Error thrown;
+endif
+
+stop
+@enduml

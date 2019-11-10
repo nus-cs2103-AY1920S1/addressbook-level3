@@ -360,18 +360,20 @@ image::NewDraftSequenceDiagramAuto.png[width="500"]
 
 ==== Manual Vehicle Dispatchment:
 
-User needs to key in the index of vehicle based on the list of available vehicle in given district to dispatch. Note that this list can only be obtained with the input `new dist/DISTRICT auto/N`, and not based on the list of vehicles currently displayed. If no index is provided, or the index is not valid, an exception will be thrown and user will be prompted to provide a valid index.
+User first obtains list of vehicles available in specified district with `new dist/DISTRICT auto/n`, which prompts user for index of vehicle to dispatch. Note that this list can only be obtained with the input `new dist/DISTRICT auto/N`, and not based on the list of vehicles currently displayed.
 
-Below is a sequence diagram of a successful case:
+User then inputs the index of vehicle based on the list of available vehicle in given district to dispatch. If no index is provided, or the index is not valid, an exception will be thrown and user will be prompted to provide a valid index.
 
-image::NewDraftSequenceDiagramManual.png[width="500"]
+Below is an activity diagram illustrating the above:
+
+image::DraftingActivityDiagram.png[width="500"]
 
 
 ==== Design Considerations
 
 ===== Aspect: How incident draft creation executes
 
-* **Current Choice:** Auto assignment of vehicles
+* **Current Choice:** Manual assignment by prompting user
 ** Pros:
 *** Reduces number of steps of execution.
 *** User need not waste time on decision making; an available vehicle will be dispatched directly, and if no vehicles are available, user will be notified as well.
