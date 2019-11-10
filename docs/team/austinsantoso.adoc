@@ -27,15 +27,15 @@ This section shows my contributions to the team project.
 ** Justification: This feature is a core component in the program. One of the key features of the program is to show the user whether or not the user spends within budget.
 ** Highlights: This enhancement requires an in-depth  of the software architecture. It affects other commands as it affected by certain commands.
 
-* *Minor enhancement*: Implemented `showbudget` command to show the user their budget as well as sum of spending in the month set.
-* *Minor enhancement*: Implemented the ability for the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: Implemented `showbudget` command to show users their budget as well as sum of spending in the month set.
+* *Minor enhancement*: Implemented the ability for users to navigate to previous commands using up/down keys.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=austinsantoso&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Collated code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** posted user stories as issues
+*** Posted user stories as issues
 ** Enhancements to existing features:
 *** Refactored existing class `Person` to `Spending` (Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/54[#54])
 
