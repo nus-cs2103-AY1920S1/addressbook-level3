@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.weme.logic.commands.CommandTestUtil.showTemplateAtIndex;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
@@ -61,11 +62,10 @@ public class TemplateUnarchiveCommandTest extends ApplicationTest {
         assertCommandFailure(templateUnarchiveCommand, model, Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
     }
 
-    /* Commenting out until implementation of TemplateFindCommand
     @Test
     public void execute_validIndexFilteredList_success() {
         ModelManager expectedModel = new ModelManager(model.getWeme(), new UserPrefs());
-        expectedModel.updateFilteredTemplateList(Model.PREDICATE_SHOW_ALL_ARCHIVED_MEMES);
+        expectedModel.updateFilteredTemplateList(Model.PREDICATE_SHOW_ALL_ARCHIVED_TEMPLATES);
 
         showTemplateAtIndex(model, INDEX_FIRST);
 
@@ -92,9 +92,8 @@ public class TemplateUnarchiveCommandTest extends ApplicationTest {
 
         TemplateUnarchiveCommand templateUnarchiveCommand = new TemplateUnarchiveCommand(outOfBoundIndex);
 
-        assertCommandFailure(templateUnarchiveCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
+        assertCommandFailure(templateUnarchiveCommand, model, Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
     }
-    */
 
     @Test
     public void execute_unarchivedTemplate_throwsCommandException() {

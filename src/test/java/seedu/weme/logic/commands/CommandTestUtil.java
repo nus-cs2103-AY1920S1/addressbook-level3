@@ -10,6 +10,7 @@ import static seedu.weme.testutil.Assert.assertThrows;
 import static seedu.weme.testutil.MemeUtil.isSameMemeImage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.weme.commons.core.index.Index;
@@ -20,6 +21,8 @@ import seedu.weme.model.Weme;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.meme.PathMatchesPathPredicate;
 import seedu.weme.model.path.ImagePath;
+import seedu.weme.model.template.NameContainsKeywordsPredicate;
+import seedu.weme.model.template.Template;
 import seedu.weme.testutil.EditMemeDescriptorBuilder;
 
 /**
@@ -159,6 +162,16 @@ public class CommandTestUtil {
         model.commitWeme(feedback);
 
         assertTrue(initialSize - 1 == model.getFilteredMemeList().size());
+    }
+
+    public static void showTemplateAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTemplateList().size());
+
+        Template template = model.getFilteredTemplateList().get(targetIndex.getZeroBased());
+        final String[] splitName = template.getName().toString().split("\\s+");
+        model.updateFilteredTemplateList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredTemplateList().size());
     }
 
 }
