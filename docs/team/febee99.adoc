@@ -20,6 +20,9 @@ Xpire is a desktop application used for tracking expiry dates of items.  The use
 
 == Summary of contributions
 
+|===
+|_This section shows a summary of my coding, documentation and other helpful contributions to the team project._
+|===
 //** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Major enhancement*: added *the ability to view different lists and execute only commands permissible for the list specified*

@@ -1,11 +1,11 @@
 = Xpire - Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toclevels: 4
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:sectnumlevels: 4
+:sectnumlevels: 5
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -147,8 +147,8 @@ Classes used by multiple components are in the `io.xpire.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 === Replenish List
-
 // tag::replenishListItems[]
+
 ==== Items in the replenish list
 
 ===== Implementation
@@ -196,6 +196,7 @@ the item is automatically tagged as `#Expired`.**
 
 // tag::replenishListCommands[]
 ==== Commands in the replenish list
+
 ===== Implementation
 As shown in  <<Logic component,Section 2.3>> above, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
 `ReplenishParser` parses and handles the commands in the replenish list.
@@ -214,7 +215,7 @@ This will be further explained in a <<Spelling correction with alternative recom
 
 ===== Design Considerations
 
-===== Aspect: How commands are executed in the list
+====== Aspect: How commands are executed in the list
 * **Alternative 1 (current choice): Create two separate parsers, one for the main tracking list and another for the replenish list.**
 ** Pros: This allows us to reuse existing commands that are currently functional for the main tracking list in the replenish list as well, without extensive repetition of code.
 ** Cons: This would require us to check which parser is to be used every time a command is executed.
