@@ -27,8 +27,11 @@ image::annotatedUi.png[KeyboardFlashCards]
 _Figure 1. The graphical user interface of **KeyboardFlashCards**_
 
 Please note the following symbols and formatting, which will appear throughout the rest of the document:
+
 NOTE: A point of information to take note of
+
 TIP: A tip or suggestion
+
 CAUTION: A cautionary piece of advice
 
 == Summary of contributions
