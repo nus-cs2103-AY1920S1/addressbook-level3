@@ -645,8 +645,7 @@ image::CommandPromptActivityDiagram.png[]
 === Tabs feature
 
 Most features in Weme can be logically grouped together.
-For example, listing memes and viewing a single meme forms a group,
-whereas listing templates, statistics, import, and export form their own respective groups.
+For example, commands that list, view, add, edit, or delete templates all deal with templates and can fall under a single group.
 As such, it seems logical for us to separate distinct groups of features at the UI level to make it more intuitive to the user.
 We achieve this by putting each group of features into a tab.
 
@@ -656,27 +655,25 @@ As discussed earlier, `ModelManager` stores `ModelContext` which keeps track of 
 Within each context, Weme exposes different commands and has different behaviors.
 
 Tabs can be roughly seen as the reflection of `ModelContext` at the UI level.
+Besides having different commands and behaviours, each tab also has its own UI components.
 For example, when the `ModelContext` changes from `Memes` to `Templates`, the UI should switch from the *Memes* tab to the *Templates* tab.
-However, a tab can house multiple contexts.
-For example, both *Memes* context for viewing multiple memes and *Meme* context for viewing a single meme will be under the *Memes* tab.
 
 Shown below are the tabs and their associated `ModelContext`s.
 
 * *Memes* tab
-** Memes (showing multiple memes)
-** Meme (viewing a particular meme) (_to be added_)
+** Memes (meme management)
 
 .Screenshot of Weme in the *Memes* tab
 image:MemesTabScreenshot.png[]
 
 * *Templates* tab
-** Templates (showing all templates)
-
-.Screenshot of Weme in the *Templates* tab
-image:TemplatesTabScreenshot.png[]
-
+** Templates (template management)
 * *Create* tab
-** Current meme creation session. Displays placeholder text if no session is going on.
+** Meme creation. Displays placeholder text if no creation session is going on.
+
+.Screenshot of Weme in the *Create* tab
+image:CreateTabScreenshot.png[]
+
 * *Statistics* tab
 ** Statistics (showing Weme statistics)
 * *Import* tab
@@ -690,7 +687,7 @@ image:TemplatesTabScreenshot.png[]
 
 * is stored in `ModelManager` as a `SimpleObjectProperty`.
 * can be changed by `Comamnd` execution.
-* is exposed in `Logic`.
+* is exposed in `Logic` as an `ObservableValue`
 * is observed by `MainWindow` to update the UI.
 
 The user can switch tabs with `tab xyz` command, where `xyz` is the tab the user would like to switch to.
@@ -713,15 +710,6 @@ image::TabSwitchSequenceDiagram.png[]
 * **Alternative 2:** Use mouse to click on tab buttons.
 ** Pros: More intuitive for new users.
 ** Cons: Users who prefer a keyboard-driven workflow might not want to use the mouse.
-
-===== Aspect: Number of contexts a tab should have
-
-* **Alternative 1 (current choice):** Each tab can have multiple contexts.
-** Pros: More intuitive to the user, less screen space wasted for extra tabs.
-** Cons: More difficult to implement. Need to be careful about which commands can change the context.
-* **Alternative 2:** Each tab has exactly one context.
-** Pros: Easy to implement.
-** Cons: Similar features not closely grouped together, more tabs for the same amount of features.
 
 // end::tabs[]
 

@@ -16,7 +16,7 @@ Class ModelContext MODEL_COLOR
 }
 
 MainWindow -right-> LogicManager
-MainWindow .> ModelContext
+MainWindow .> ModelContext : Listens to >
 
 ModelManager o-> "1" ModelContext
 
