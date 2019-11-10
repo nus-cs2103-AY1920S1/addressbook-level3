@@ -18,7 +18,7 @@ class MonthViewCommandTest {
             UiManagerStub uiManager = new UiManagerStub();
 
             Command command = MonthViewCommand.newBuilder(uiManager)
-                    .acceptSentence(calendarDate)
+                    .acceptPhrase(calendarDate)
                     .build();
 
             command.execute();
