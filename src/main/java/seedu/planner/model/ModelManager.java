@@ -222,7 +222,6 @@ public class ModelManager implements Model {
                     act.getCost().isPresent() ? act.getCost().get() : null, act.getTags(), act.getDuration(),
                     act.getPriority());
             this.activities.setActivity(act, newAct);
-            updateDay(act, newAct);
         }
 
         if (contactAccommodationMap.containsKey(contact)) {
@@ -263,6 +262,7 @@ public class ModelManager implements Model {
 
             if (contactAccommodationMap.containsKey(oldContact)) {
                 contactActivityMap.remove(oldContact);
+
             } else {
                 contactActivityMap.remove(oldContact);
                 removeContact(oldContact);
@@ -294,7 +294,6 @@ public class ModelManager implements Model {
     private void updateMapping(Accommodation oldAcc, Accommodation newAcc) {
         if (oldAcc.getContact().isPresent()) { //checks for existing mapping
             Contact oldContact = oldAcc.getContact().get();
-
             if (contactActivityMap.containsKey(oldContact)) {
                 contactAccommodationMap.remove(oldContact);
             } else {
@@ -328,21 +327,6 @@ public class ModelManager implements Model {
                     oldAct.getCost().orElse(null), oldAct.getTags(), oldAct.getDuration(),
                     oldAct.getPriority());
             activities.setActivity(oldAct, newAct);
-            if (activityDayMap.containsKey(oldAct)) {
-                List<Day> listOfDays = activityDayMap.remove(oldAct);
-                itinerary.getItinerary().forEach(y -> {
-                    if (listOfDays.contains(y)) {
-                        List<ActivityWithTime> listOfActivityWithTime = y.getListOfActivityWithTime();
-                        int indexOfOldItem = listOfActivityWithTime.indexOf(oldAct);
-                        ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(indexOfOldItem);
-                        listOfActivityWithTime.set(indexOfOldItem,
-                                new ActivityWithTime(newAct, oldActivityWithTime.getStartDateTime())
-                        );
-                    }
-                });
-                activityDayMap.put(newAct, listOfDays);
-            }
-
             contactActivityMap.put(newContact, newAct);
         }
         if (contactAccommodationMap.containsKey(oldContact)) {
