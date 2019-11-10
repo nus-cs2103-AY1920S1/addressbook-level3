@@ -53,9 +53,12 @@ to these enhancements.
 
 This sub-section will denote the important symbols and formatting used in this
 document.
-//todo add the legend
+
+NOTE: This denotes additional information that is helpful for elaboration.
 
 {sp} +
+
+`FinanceTracker` refers to the Java class named FinanceTracker.
 
 == Summary of Contributions
 
@@ -64,8 +67,6 @@ contributions to the team project.
 {sp} +
 
 === Enhancement Added - Finance Tracker
-
----
 
 ==== Description of enhancement
 
@@ -104,13 +105,10 @@ Please click on these links to see a sample of my code for this project:
 
 All sections related to the Finance Tracker in the user guide and developer
 guide were done by me. They will be elaborated in the later sections, namely
-Contributions to User Guide and Contributions to Developer Guide.
-//todo add the jumps
-
+<<gohsnn.adoc#contributions-to-user-guide,Contributions to User Guide>> and
+<<gohsnn.adoc#contributions-to-developer-guide,Contributions to Developer Guide>>.
 
 === Other Contributions
-
----
 
 ==== Enhancements to existing features
 
@@ -147,8 +145,7 @@ following examples in this https://github.com/gohsnn/ped/issues[link].
 
 This section will summarise my contribution to the overall set of documentation
 for the team project, excluding the Finance Tracker feature, which would be
-elaborated here.
-//todo add link to that section
+elaborated from <<gohsnn.adoc#contributions-to-user-guide,this section>>.
 
 ===== User Guide
 
@@ -185,8 +182,7 @@ https://github.com/AY1920S1-CS2103T-T10-1/main/pull/373[#373].
 
 {sp} +
 
-=== Contributions to User Guide
----
+== Contributions to User Guide
 
 As we morphed the existing address-book application, we had to update the
 original user guide to reflect the changes in features implemented. My team
@@ -198,14 +194,13 @@ The section will contain excerpts from our Jarvis User Guide, showing additions
 that I have made with my Finance Tracker feature. The commands that I would be
 illustrating is the `find-paid` command and the `edit-install` command.
 
-==== Search for a purchase with keyword(s)
+=== Search for a purchase with keyword(s)
 This command searches through the existing purchases stored in Jarvis and
 displays to the user all purchases which have descriptions matching the keyword
 input by the user.
 
 The following contains a modified excerpt from our user guide:
 
----
 To have a quick view to see what you have been eating for dinner over the last
 month, you can used `find-paid` to pull up purchases with descriptions matching
 `KEYWORD` provided.
@@ -221,7 +216,7 @@ image::finance-tracker/find-paid2.png[]
 {sp} +
 Format: `find-paid KEYWORD`
 
-===== Example
+==== Example
 ----
 find-paid Gongcha
 ----
@@ -232,15 +227,15 @@ the keyword given by the user, the result box will display the following message
 .No purchases found in Finance Tracker
 image::finance-tracker/find-paid3.png[]
 
+{sp} +
+
 For examples of more commands for the Finance Tracker feature, please click to
 view our
 https://github.com/AY1920S1-CS2103T-T10-1/main/blob/master/docs/UserGuide.adoc#finance-tracker[user guide].
 
 {sp} +
 
-=== Contributions to Developer Guide
-
----
+== Contributions to Developer Guide
 
 Similar to the user guide, my team also decided that each member should be
 responsible to write their own documentation in the developer guide for their
@@ -248,7 +243,7 @@ individual feature. The following section shows my addition to the Jarvis
 Developer Guide for the Finance Tracker feature. It will contain modified
 excerpts from the developer guide.
 
-==== Finance Tracker Model
+=== Finance Tracker Model
 
 The Finance Tracker mechanism is facilitated by the `FinanceTrackerModel`
 interface, which is implemented by `Model`. This allows the model to be
@@ -276,7 +271,7 @@ user for this month
 * `Model#calculateRemainingAmount()` - Calculates the remaining spending amount
 available to user
 
-==== Components
+=== Components
 
 The Finance Tracker feature closely follows the extendable OOP solution already
 implemented within AB3. In the Finance Tracker, the `Installment` objects and
@@ -294,13 +289,13 @@ For more elaboration on the components of the Finance Tracker feature, please
 click to view our
 https://github.com/AY1920S1-CS2103T-T10-1/main/blob/master/docs/DeveloperGuide.adoc#finance-tracker-feature[developer guide].
 
-==== Implementation
+=== Implementation
 
 To demonstrate the implementation of the Finance Tracker feature, I will be
 elaborating on the command that allows the user to edit an existing installment
 with the fields he has specified.
 
-===== User enters command `edit-install`
+==== User enters command `edit-install`
 
 The user has to specify the index of the installment he wishes
 to edit, as well as any of the fields he wishes to change. If the index does
@@ -315,7 +310,7 @@ than or equal to zero, or greater than the largest index in `InstallmentList`.
 .Activity Diagram for edit-install command
 image::finance-tracker/EditInstallmentActivityDiagram.png[]
 
-==== Execution of command `edit-install`
+=== Execution of command `edit-install`
 
 The following sequence diagram illustrates how an
 `Installment` is edited when a user types in a `edit-install` command.
@@ -328,14 +323,14 @@ with the corresponding fields.
 .Sequence Diagram for edit-install command
 image::finance-tracker/EditInstallmentSequenceDiagram.png[]
 
-==== Design Considerations
+=== Design Considerations
 
 When designing the implementation of the Finance Tracker feature, I had to
 think of the best way to create and manage the various objects in the Finance
 Tracker as there were many sub-components. Thus, I had to consider whether to
 encapsulate the fields of the `Installment` and `Purchase` objects.
 
-===== Current choice
+==== Current choice
 
 Our current choice was to encapsulate the constituent objects in `Installment`
 and `Purchase` objects in their own wrapper classes. As mentioned above,
@@ -351,7 +346,7 @@ maintainability of objects)
 Cons: Major changes to current code base; steep increase in code due to greater
 abstraction
 
-===== Alternative
+==== Alternative
 
 The alternative would have been to leave the corresponding fields as
 primitive data types. This would have been the easier alternative at the time
@@ -359,7 +354,7 @@ as it was the original implementation. Furthermore, since the `Installment`
 and `Purchase` objects were not extremely complex, further encapsulation was
 unnecessary.
 
-===== Our Thoughts
+==== Our Thoughts
 
 Taking the long-term vision of the application to be continuously developed
 into consideration, I decided to increase OOP as much as possible. The decision
