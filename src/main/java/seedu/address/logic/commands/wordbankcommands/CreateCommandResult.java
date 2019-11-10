@@ -9,7 +9,7 @@ import seedu.address.storage.Storage;
  */
 public class CreateCommandResult extends WordBankCommandResult {
 
-    public CreateCommandResult(String feedback, String wordBankName) {
+    CreateCommandResult(String feedback, String wordBankName) {
         super(feedback, wordBankName);
     }
 

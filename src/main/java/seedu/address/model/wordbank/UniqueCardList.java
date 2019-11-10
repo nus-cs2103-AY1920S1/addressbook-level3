@@ -71,6 +71,12 @@ public class UniqueCardList implements Iterable<Card> {
         internalList.set(index, editedPerson);
     }
 
+    /**
+     * Retrieves the card by searching for it using it's unique meaning.
+     *
+     * @param meaning of the card.
+     * @return the card with that specific meaning.
+     */
     public Card getCard(Meaning meaning) {
         requireAllNonNull(meaning);
         for (Card c : internalList) {
@@ -92,6 +98,11 @@ public class UniqueCardList implements Iterable<Card> {
         }
     }
 
+    /**
+     * Replaces the list of cards with a a new list of cards.
+     *
+     * @param replacement list of card.
+     */
     public void setCards(UniqueCardList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -110,10 +121,21 @@ public class UniqueCardList implements Iterable<Card> {
         internalList.setAll(cards);
     }
 
+    /**
+     * Retrieves a card using it's index.
+     *
+     * @param index of the card.
+     * @return the card with that index.
+     */
     public Card get(Index index) {
         return internalList.get(index.getZeroBased());
     }
 
+    /**
+     * Returns the size of this list.
+     *
+     * @return size of this list.
+     */
     public int size() {
         return internalList.size();
     }

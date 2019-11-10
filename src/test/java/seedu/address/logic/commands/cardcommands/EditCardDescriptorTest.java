@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.cardcommands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,13 +10,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_WORD_BUTTERFREE
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.cardcommands.EditCommand;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
-public class EditCardDescriptorTest {
+class EditCardDescriptorTest {
 
     @Test
-    public void equals() {
+    void equals() {
         // same values -> returns true
         EditCommand.EditCardDescriptor descriptorWithSameValues = new EditCommand.EditCardDescriptor(DESC_ABRA);
         assertTrue(DESC_ABRA.equals(descriptorWithSameValues));

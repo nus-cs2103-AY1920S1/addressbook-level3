@@ -1,33 +1,38 @@
 package seedu.address.logic.commands.cardcommands;
 
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.address.testutil.TypicalCards.getTypicalWordBank;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-//import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
 
-//import seedu.address.logic.commands.appcommands.ClearCommand;
-//import seedu.address.model.Model;
-//import seedu.address.model.ModelManager;
-//import seedu.address.model.UserPrefs;
-//import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.card.Card;
+import seedu.address.testutil.CardBuilder;
 
-public class ClearCommandTest {
+class ClearCommandTest {
 
-    //    @Test
-    //    public void execute_emptyAddressBook_success() {
-    //        Model model = new ModelManager();
-    //        Model expectedModel = new ModelManager();
-    //
-    //        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
-    //    }
+    @Test
+    void execute_emptyWordBank_success() {
+        Model model = new ModelManager();
+        Model expectedModel = new ModelManager();
+        new ClearCommand().execute(expectedModel);
 
-    //    @Test
-    //    public void execute_nonEmptyAddressBook_success() {
-    //        Model model = new ModelManager(getTypicalWordBank(), new UserPrefs());
-    //        Model expectedModel = new ModelManager(getTypicalWordBank(), new UserPrefs());
-    //        expectedModel.setWordBank(new WordBank("abc"));
-    //
-    //        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
-    //    }
+        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    void execute_nonEmptyWordBank_success() {
+        Card abra = new CardBuilder().withWord("Abra").build();
+        Card charmander = new CardBuilder().withWord("Charmander").build();
+
+        Model model = new ModelManager();
+        model.addCard(abra);
+
+        Model expectedModel = new ModelManager();
+        expectedModel.addCard(charmander);
+        new ClearCommand().execute(expectedModel);
+
+        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+    }
 
 }
