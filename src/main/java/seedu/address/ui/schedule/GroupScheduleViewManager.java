@@ -3,10 +3,8 @@ package seedu.address.ui.schedule;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
 import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
@@ -21,16 +19,14 @@ import seedu.address.model.person.Name;
 public class GroupScheduleViewManager extends ScheduleViewManager {
 
     private List<PersonSchedule> originalPersonSchedules;
-    private List<MonthSchedule> filteredMonthSchedules;
+    private List<PersonSchedule> filteredPersonSchedules;
     private GroupName groupName;
     private ArrayList<FreeSchedule> freeSchedules;
 
     public GroupScheduleViewManager(List<PersonSchedule> originalPersonSchedules,
                                     GroupName groupName, ArrayList<FreeSchedule> freeSchedules) {
         this.originalPersonSchedules = originalPersonSchedules;
-        this.filteredMonthSchedules = originalPersonSchedules.stream()
-                .map(PersonSchedule::getScheduleDisplay)
-                .collect(Collectors.toCollection(ArrayList::new));
+        this.filteredPersonSchedules = originalPersonSchedules;
         this.groupName = groupName;
         this.freeSchedules = freeSchedules;
         super.weekNumber = 0;
@@ -45,7 +41,8 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
      */
     private void update() {
         LocalDate dateToShow = currentDate.plusDays(7 * weekNumber);
-        super.scheduleView = new ScheduleView(MonthSchedule.getWeekSchedulesOf(filteredMonthSchedules, weekNumber),
+        super.scheduleView = new ScheduleView(MonthSchedule.getWeekSchedulesOf(filteredPersonSchedules.stream()
+                .map(PersonSchedule::getScheduleDisplay).collect(Collectors.toCollection(ArrayList::new)), weekNumber),
                 groupName.toString(), dateToShow);
         //Required to set the free time schedule first before generating the schedule.
         super.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
@@ -56,13 +53,13 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
      *
      */
     private void filterPerson(List<Name> filteredList) {
-        filteredMonthSchedules = new ArrayList<>();
+        filteredPersonSchedules = new ArrayList<>();
         ArrayList<Name> filteredListCopy = new ArrayList<>(filteredList);
         for (PersonSchedule personSchedule : originalPersonSchedules) {
             if (filteredListCopy.contains(personSchedule.getPersonDisplay().getName())) {
                 //Person is found in the filtered list.
                 int index = originalPersonSchedules.indexOf(personSchedule);
-                filteredMonthSchedules.add(personSchedule.getScheduleDisplay());
+                filteredPersonSchedules.add(personSchedule);
                 filteredListCopy.remove(personSchedule.getPersonDisplay().getName());
             }
         }
