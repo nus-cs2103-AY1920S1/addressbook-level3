@@ -54,3 +54,13 @@ Role: Developer +
 Responsibilities: TBC
 
 ...
+
+=== Muhammad Taha bin Jailani
+image::phirehandy.png[width="150", align="left"]
+{empty}[https://github.com/phirehandy[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: In charge of Undo/Redo feature. Helped to populate and maintain Responses Enums and CLI parsing.
+
+...
+
