@@ -172,7 +172,7 @@ Referring to the diagram above, it performs the following operations:
 . Execute the `Command` and obtain a `UserOutput`.
 . Notify all `userOutputListeners` about the `UserOutput`.
 
-To give a more concrete example, refer to the sequence diagram below of adding a task:
+To give a more concrete example, refer to the sequence diagram below of *adding a task* to Horo:
 
 .Sequence diagram of adding a task
 image::AddTaskSequenceDiagram.png[]
@@ -361,24 +361,76 @@ A command is said to contain a list of arguments, and it’s options are said to
 Additionally, if a variable argument is defined, it will be treated as the last argument in the `ArgumentList`. This is because a variable argument can accept zero or more command phrases, which will prevent other arguments from receiving command phrases if it is not the last argument.
 
 [[Design-ModelManager]]
-=== Model component
+=== ModelManager Component
+
+The `ModelManager` is responsible for the reading and writing of events and tasks in Horo.
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelManagerClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+The `ModelManager` has three main functions,
 
-The `Model`,
+. Stores all events and tasks in a wrapper class `ModelData`.
+. Notifies all `ModelDataListeners` whenever the `ModelData` changes.
+. Allows any class with a reference to `ModelManager` to update the current `ModelData`.
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+To give a more concrete example of how ModelManager notifies its listeners, refer to the sequence diagram below of *adding a task* to Horo:
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
-+
-image:BetterModelClassDiagram.png[]
+==== ModelData
+
+`ModelData` is designed to be a wrapper class which contains a *snapshot* of Horo's events and tasks.
+It is immutable, and automatically creates deep copies of all events and tasks, to prevent any rouge modifications.
+
+==== EventSource
+
+An `EventSource` is a representation of an event in Horo.
+It has two required fields, and three optional fields:
+
+Required:
+
+. Description : Long description of the event
+. Start DateTime : The beginning of the event
+
+Optional:
+
+. End DateTime : The end of the event, if the event has no end it is considered to be an instant in the timeline.
+. Reminder DateTime : When a reminder should be given to the user, used in the <<notification system>>.
+. Tag(s) : User defined tags, which help in organizing the user's events.
+
+The `EventSourceBuilder` API provides a simple way for developers to create an `EventSource`.
+For example, to create an `EventSource` with three tags:
+
+[source]
+----
+EventSource e = EventSource.newBuilder("CS2103T Lecture", DateTime.now())
+    .setTags(List.of("CS2103T", "NUS", "Lecture"))
+    .build();
+----
+
+==== TaskSource
+
+A `TaskSource` is a representation of a task in Horo.
+It has one required field, and three optional fields:
+
+Required:
+
+. Description : Long description of the task
+
+Optional:
+
+. Due DateTime : When the task should be due.
+. Reminder DateTime : When a reminder should be given to the user, used in the <<notification system>>.
+. Tag(s) : User defined tags, which help in organizing the user's tasks.
+
+The `TaskSourceBuilder` API provides a simple way for developers to create a `TaskSource`.
+For example, to create a `TaskSource` with two tags:
+
+[source]
+----
+TaskSource t = TaskSource.newBuilder("Buy Groceries")
+    .setTags(List.of("Shopping", "Groceries"))
+    .build();
+----
 
 [[Design-StorageManager]]
 === Storage component
