@@ -19,13 +19,16 @@ negotiating and teamwork.
 
 
 Mark is a __desktop bookmark manage__r used for organising websites.
-The user interacts with it using a _Command Line Interface_ (CLI),
+This application can help the user organize websites by bookmarks,
+manage the bookmarks into folders,
+take note on the offline copy and set reminders for the task.
+The user interacts with Mark using a _Command Line Interface_ (CLI),
 and it uses a _Graphical User Interface_ (GUI) created with JavaFX.
-It is written in _Java_.
+Mark is written in _Java_.
 
 This is what our app looks like: +
 
-image::Ui.png[width="790"]
+image::Ui.png[width="600"]
 
 My role is to design and implement the `reminder` feature.
 The following section will illustrate more about this feature.

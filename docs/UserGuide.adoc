@@ -884,6 +884,7 @@ The expired reminder will be auto delete after one hour.
 
 Format: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 
+
 ****
 * `INDEX` is the index of the bookmark that you want to add with a reminder.
  * `TIME_DATE` follows `_dd/MM/uuuu HHmm_` format.
