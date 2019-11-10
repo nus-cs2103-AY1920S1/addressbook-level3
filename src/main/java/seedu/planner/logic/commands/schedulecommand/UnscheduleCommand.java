@@ -91,6 +91,10 @@ public class UnscheduleCommand extends UndoableCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (dayIndex.getZeroBased() >= model.getFilteredItinerary().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DAY_DISPLAYED_INDEX);
+        }
+
         List<Day> lastShownDays = model.getFilteredItinerary();
         Day dayToEdit = lastShownDays.get(dayIndex.getZeroBased());
         List<ActivityWithTime> activitiesInDay = dayToEdit.getListOfActivityWithTime();
