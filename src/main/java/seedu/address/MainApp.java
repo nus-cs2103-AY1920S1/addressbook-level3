@@ -1,5 +1,6 @@
 package seedu.address;
 
+import static seedu.address.model.util.SampleDataUtil.getSampleArchivedOrderBook;
 import static seedu.address.model.util.SampleDataUtil.getSampleCustomerBook;
 import static seedu.address.model.util.SampleDataUtil.getSampleOrderBook;
 import static seedu.address.model.util.SampleDataUtil.getSamplePhoneBook;
@@ -202,9 +203,11 @@ public class MainApp extends Application {
 
             if (!archivedOrderBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Archived Order DataBook");
-            }
+                initialArchivedOrderData = new DataBook<>(getSampleArchivedOrderBook());
 
-            initialArchivedOrderData = archivedOrderBookOptional.orElse(new DataBook<Order>());
+            } else {
+                initialArchivedOrderData = archivedOrderBookOptional.orElse(new DataBook<Order>());
+            }
 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Order DataBook");
