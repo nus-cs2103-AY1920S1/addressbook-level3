@@ -298,7 +298,16 @@ Expected output:
     Tag edited!
     All items and contents in StudyBuddy tagged ‘midterm’ is replaced with tag ‘finals’.
 
-Allows the user to easily modify the tags of all the items. For instance, if every item that is marked difficult does not appear hard to you anymore, you could replace all items tagged 'difficult' with a tag 'moderate'.
+This allows the user to easily modify the tags of all the items with a single command.
+
+For instance, if the user has items that are tagged [cs2100] and [midterm], and the user wishes to make
+use of such items to include in a cheatsheet for CS2100 finals, the user can input
+
+    edit tag/midterm tag/finals
+
+to conveniently change, for instance, all notes tagged with [midterm] to be tagged with [finals].
+
+This then allows the user to more conveniently generate a cheatsheet for his/her final exams.
 
 == Flashcard Feature
 
