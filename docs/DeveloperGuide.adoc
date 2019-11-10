@@ -26,7 +26,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.png[width=60%,scaledwidth=60%]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -60,10 +60,11 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other
+for the scenario where the user issues the command `account delete 1`.
 
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for `account delete 1` command
+image::ArchitectureSequenceDiagram.png[width=85%,scaledwidth=85%]
 
 The sections below give more details of each component.
 
@@ -111,7 +112,7 @@ image::DeleteSequenceDiagram.png[]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[width=80%,scaledwidth=80%]
 
 [NOTE]
 The lower levels of each `XYZManager` class can be viewed in their respective sections in the <<implementation,Implementation>> section.
