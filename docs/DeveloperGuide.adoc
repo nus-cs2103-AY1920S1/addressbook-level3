@@ -220,8 +220,6 @@ Pros: Easy to implement.
 
 Cons: Might not be as OOP as other designs.
 
-=== ListFont Command
-
 
 === ChangeFontCommand
 
