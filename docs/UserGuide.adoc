@@ -639,6 +639,7 @@ Examples:
 * `*cache-delete* 2` +
 Deletes the offline copy of the second bookmark.
 
+// tag::offlinecommand[]
 ==== Viewing an offline copy: *`offline`*
 
 If you want to view the offline copy of a bookmark, you can do so using the `offline` command. Your view will be switched
@@ -656,12 +657,10 @@ Examples:
 
 * `*offline* 1` +
 Shows annotated offline copy of bookmark 1.
-
-//TODO: * `*offline* 1 v/2` +
-//Shows the 2nd version of offline copy of bookmark 1. If it is annotated,
-//then annotations are shown as well.
+// end::offlinecommand[]
 
 
+// tag::annotatecommand[]
 [[annotate]]
 ==== Making annotations on an offline copy: *`annotate`*
 
@@ -858,7 +857,7 @@ This deletes the general note G1 in the offline copy of bookmark 2.
 
 * `*annotate-delete* 1 p/all` +
 This removes all annotations of the offline copy of bookmark 1.
-
+// end::annotatecommand[]
 
 === Reminders
 

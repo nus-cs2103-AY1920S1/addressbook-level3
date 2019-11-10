@@ -10,8 +10,7 @@
 
 == Overview
 
-//TODO: change *aims to* to sth else? + make last sentence more concise and shorter
-This project portfolio aims to showcase my contributions, as part of my team consisting 5 Year 2 Computer Science students, to our group Software Engineering project, Mark. We were tasked
+This project portfolio showcases my contributions as part of my team consisting 5 Year 2 Computer Science students to our group Software Engineering project, Mark. We were tasked
 with enhancing a basic desktop application, https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)], in short AB3, to solve a problem for a specific target group.
 AB3 uses a Command Line Interface (CLI) where users type their commands to navigate and use the application.
 
@@ -21,8 +20,11 @@ tabs left open due to various reasons in their web browsers and provides a one-s
 annotation when rushing for time.
 
 Mark has a visually appealing graphical user interface (GUI) to visually guide the users around the application. This is what Mark looks like when you open the application:
-//TODO: insert gui pic with well populated data
-//caption?
+//TODO: replace gui pic with well populated data
+
+.Dashboard tab view of Mark.
+image::dashboardMark.png[]
+
 
 My role was to design and implement the _annotation_ feature so users can conveniently make notes on
 important web pages instantly while reading them. This feature uses commands that begin with `annotate` and works on the offline version
@@ -30,13 +32,12 @@ of the web pages converted by Mark.
 
 The following sections illustrate my contributions in more detail. The relevant documentation I have added to the User and Developer Guides in relation to this enhancement is also included in this portfolio.
 
-Note the following symbols and formatting used in this document:
-//TODO: symbols/glossary list
+//note to special symbols?
 
 == Summary of contributions
 This section gives a summary of the features I implemented, documentation I did and other parts I contributed to my team project.
 
-=== Major enhancements
+=== Major enhancements added
 I have made 2 major enhancements: adding the annotation functionality and adding the in-built web browser.
 
 ==== Added the annotation feature
@@ -50,53 +51,79 @@ separately, they can instead annotate directly on the web page the moment they w
 This feature keeps their notes together with the content of the web page and makes it easy to get information by taking a glance at the annotated document. If they want to make changes to their
 existing annotations, they can also do so easily in just one step.
 
-* Highlights:
-* Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* Highlights: This enhancement works with `undo` and redo` commands, which makes note-taking very assuring. The implementation was rather challenging
+because to support annotations, the offline document has to take into account different kinds of paragraphs, each having a unique set of restrictions.
+The functionality implemented is also massive. Nevertheless,
+the completed annotation feature works well and is aesthetically pleasing on the application.
+* Credits: I used the https://jsoup.org/[JSoup library] to extract the contents of the paragraphs of the web page, which is first parsed using the https://github.com/dankito/Readability4J[Readability4J library]. Colours of the highlight are selected from the javafx css extension.
 
 ==== Added the web browsing feature
 I added the ability to browse web pages on the application. Users can navigate the web using the embedded web view and the address bar.
 
 * Justification: Users no longer need to open a separate web browser window to view their bookmarks. This ensures easy navigation within the application by maintaining focus on the application
-rather than on other platforms, which would otherwise make it more troublesome to handle
+rather than on other platforms, which would otherwise make it more troublesome to do bookmarking, web browsing and note-taking at the same time.
+
+* Highlights: This enhancement allows users to browse directly on the application. This is crucial as they can now directly bookmark the web page they are currently viewing without having to copy the url, switch to Mark and add the bookmark manually.
+Implementation wise, embedding the web view was not difficult. However, design of the GUI was tedious especially due to the initial lack of expertise on using JavaFX.
+
+* Credits: I took inspiration from the web view embedded in https://github.com/nus-cs2103-AY1819S2/addressbook-level4[Address Book (Level 4)], which was not navigable as a user would expect of a browser.
 
 
-=== Minor enhancement
-In addition to the major enhancements I made, I also created tabs to house the various parts of the user interface that we show to the user.
+=== Minor enhancement added
+In addition to the major enhancements I made, I also created tabs to lay down the various parts of the user interface that we show to the user.
+
 ==== Added tab view
+I created tabs and added the ability to switch views from tab to tab.
+
+* Justification: An organised interface will help users get familiarised fast and improve their quality of use of the application. Hence, tabs are necessary to declutter the GUI so each component has sufficient space for users to view them in comfort.
+
+* Highlights: This enhancement leaves much room for customization and personalization for future work.
+
 
 === Code contributed
- [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+//TODO: thisssss
+ [https://github.com[Functional code]] [https://github.com/kxyoke/main/tree/master/src/test/java/seedu/mark[Test code]] _{give links to collated code files}_
+To view the code I wrote, please click on the following links: +
+ [https://github.com/kxyoke/main/tree/master/src/main/java/seedu/mark[Functional code]]
+ [https://github.com/kxyoke/main/tree/master/src/test/java/seedu/mark[Test code]]
+
+
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed release `v1.2` on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Created layout of the GUI (Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/74[#74])
+*** Designed the GUI color scheme to make it more attractive (Pull request https://github.com/AY1920S1-CS2103T-T13-4/main/pull/246[#246])
+//** Documentation:
+//*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reviewed Pull Requests (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T13-4/main/pull/64[#64], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/96[#96], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/128[#128], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/[#129]
+//*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (example:  https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/47[1])
+//, https://github.com[2], https://github.com[3])
+//*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a third party library (JSoup) to the project (https://github.com/AY1920S1-CS2103T-T13-4/main/pull/122[#122])
+//*** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
+//_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
+We had to update the original AB3 User Guide with instructions for the enhancements that we had added.
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to our User Guide for Mark. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+_Start of extract from Mark User Guide_
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=annotatecommand]
+
+include::../UserGuide.adoc[tag=offlinecommand]
+
+_End of extract from Mark User Guide_
 
 == Contributions to the Developer Guide
 
