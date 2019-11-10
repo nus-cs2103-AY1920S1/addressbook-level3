@@ -140,13 +140,13 @@ image::in_ug_4.png[]
 * `in $/250.50 d/29022020 n/mom c/family`
 * `in $/120 d/31122019 n/helping friend`
 
-
 [[Out]]
 === Logging Expense : `out`
 
 Have you recently made an expenditure that requires logging down? PalPay accepts all expenditure inputs through the `out` command. Inputting an `out` command will decrease the overall balance value. Your expenditure statements, just like the income statements, have the added option to be tagged under one or more categories. You can do so by including the `[c/CATEGORY]` parameter in your command line. All uncategorized incomes will be tagged under the `GENERAL` category.
 
 ==== Command Syntax
+
 Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
@@ -159,8 +159,8 @@ Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 ****
 
 ==== Important Details:
-Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
 
+Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
 
 ==== Example Usage
 
@@ -402,6 +402,7 @@ image::display3.png[]
 
 [[View]]
 // tag::view[]
+
 === Switching Tabs : `view`
 
 Want to switch tabs without using your mouse? You can switch to another tab with the `view` command.
@@ -438,7 +439,9 @@ image::view3.png[]
 
 Deletes the specified Transaction, Budget, Ledger or Projection from PalPay. +
 
+
 ==== Command Syntax
+
 Format: `delete TYPE+INDEX`
 
 ****
@@ -467,7 +470,6 @@ image::delete_ug_2.png[]
 +
 image::delete_ug_3.png[]
 
-
 ===== Example Commands:
 
 * `delete t1`
@@ -480,8 +482,8 @@ image::delete_ug_3.png[]
 
 Did you make a mistake in one of your entries? Perhaps you over counted that expenditure you made. PalPay provides you with an `update` feature which helps you change specific fields within your entries.
 
-
 ==== Command Syntax
+
 The `update` feature has different implementations for different entry types. The conditions for the `update` feature is as follows.
 
 Format (Transactions): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]` +
@@ -515,13 +517,14 @@ Format (Projections): `update TYPE+INDEX [d/DATE]`
 ==== Example Usage
 
 ===== Example 1:
+
 Updating a *Transaction* entry.
 
 . Identify the index number of the entry you want to edit. In this case, we will be using entry 3.
 +
 image::update_ug_1.png[]
 +
-.  Put `t` as your `TYPE` input and key in the fields you want to change. In this case, we will only be changing the amount of the transaction.
+. Put `t` as your `TYPE` input and key in the fields you want to change. In this case, we will only be changing the amount of the transaction.
 +
 image::update_ug_2.png[]
 +
@@ -530,13 +533,14 @@ image::update_ug_2.png[]
 image::update_ug_3.png[]
 
 ===== Example 2:
+
 Updating a *Budget* entry.
 
 . Identify the index number of the entry you want to edit
 +
 image::update_ug_4.png[]
 +
-.  Put `b` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing both the date and amount of this Budget.
+. Put `b` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing both the date and amount of this Budget.
 +
 image::update_ug_5.png[]
 +
@@ -545,7 +549,6 @@ image::update_ug_5.png[]
 image::update_ug_6.png[]
 
 ===== Example Commands:
-
 
 * `update t1 $/20 n/coke c/drinks d/12122019`
 * `update b2 $/300`
