@@ -63,8 +63,8 @@ public class LogicManager implements Logic {
                                   Consumer<String> displayResult,
                                   Thread previousEagerEvaluationThread) {
         try {
-            Thread.sleep(200);
             previousEagerEvaluationThread.join();
+            Thread.sleep(200);
         } catch (InterruptedException ex) {
             logger.info("Skipping eager evaluation execution ");
             return;
