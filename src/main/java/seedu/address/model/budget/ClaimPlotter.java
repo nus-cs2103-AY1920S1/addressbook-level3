@@ -57,8 +57,8 @@ public class ClaimPlotter {
      */
 
     private void findClaimValueAtStartOfMonth() {
-        assert currentMonthNumber <= 12: "There is an error with LocalDate Month";
-        assert currentYearNumber > 0: "There is an error with LocalDate Year";
+        assert currentMonthNumber <= 12 : "There is an error with LocalDate Month";
+        assert currentYearNumber > 0 : "There is an error with LocalDate Year";
         LocalDate firstDayOfMonth = LocalDate.of(currentYearNumber, currentMonthNumber, 2);
         for (Claim claim : claimList) {
             if (claim.getStatus() == Status.APPROVED) {
@@ -81,8 +81,8 @@ public class ClaimPlotter {
             if ((claim.getStatus() == Status.APPROVED)
                     && (currentMonthNumber == claim.getDate().date.getMonthValue()
                     && currentYearNumber == claim.getDate().date.getYear())) {
-                assert currentMonthNumber <= 12: "There is an error with LocalDate Month";
-                assert currentYearNumber > 0: "There is an error with LocalDate Year";
+                assert currentMonthNumber <= 12 : "There is an error with LocalDate Month";
+                assert currentYearNumber > 0 : "There is an error with LocalDate Year";
                 updatedClaimList.add(claim);
             }
         }

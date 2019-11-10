@@ -56,8 +56,8 @@ public class IncomePlotter {
      */
 
     private void findIncomeValueAtStartOfMonth() {
-        assert currentMonthNumber <= 12: "There is an error with LocalDate Month";
-        assert currentYearNumber > 0: "There is an error with LocalDate Year";
+        assert currentMonthNumber <= 12 : "There is an error with LocalDate Month";
+        assert currentYearNumber > 0 : "There is an error with LocalDate Year";
         LocalDate firstDayOfMonth = LocalDate.of(currentYearNumber, currentMonthNumber, 2);
         for (Income income : incomeList) {
             if (income.getDate().date.isBefore(firstDayOfMonth)) {
@@ -77,8 +77,8 @@ public class IncomePlotter {
         for (Income income : incomeList) {
             if (currentMonthNumber == income.getDate().date.getMonthValue()
                     && currentYearNumber == income.getDate().date.getYear()) {
-                assert currentMonthNumber <= 12: "There is an error with LocalDate Month";
-                assert currentYearNumber > 0: "There is an error with LocalDate Year";
+                assert currentMonthNumber <= 12 : "There is an error with LocalDate Month";
+                assert currentYearNumber > 0 : "There is an error with LocalDate Year";
                 updatedIncomeList.add(income);
             }
         }
