@@ -495,11 +495,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Replace expenses and incomes on the main panel with reminders.
+     * Shows the reminder popup alert window.
      */
-    private void showRemindersOnMainPanel() {
-        mainPanel.getChildren().removeAll(mainPanel.getChildren());
-        mainPanel.getChildren().add(reminderPanel.getRoot());
+    private void showReminderPopup() {
+        final Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.getDialogPane().getStylesheets().add(this.theme.getThemeUrl());
+        alert.initStyle(StageStyle.DECORATED);
+        alert.getDialogPane().setGraphic(new ImageView(new Image("images/guiltTrip()_32.png")));
+        alert.initOwner(this.primaryStage);
+        alert.setTitle("reminder");
+        alert.setHeaderText("headerText");
+        alert.setContentText("contentText");
+        alert.getDialogPane().setId("alertDialogPane");
+        alert.showAndWait();
     }
 
     public EntryListPanel getEntryListPanel() {
@@ -585,6 +593,7 @@ public class MainWindow extends UiPart<Stage> {
                     break;
                 case "budget":
                     resetMainPanel();
+                    mainPanel.getChildren().removeAll(mainPanel.getChildren());
                     mainPanel.getChildren().add(this.budgetPanel.getRoot());
                     if (budgetsPlaceHolder.isVisible() && budgetsPlaceHolder.isManaged()) {
                         togglePlaceHolder(budgetsPlaceHolder);
@@ -592,6 +601,7 @@ public class MainWindow extends UiPart<Stage> {
                     break;
                 case "wish":
                     resetMainPanel();
+                    mainPanel.getChildren().removeAll(mainPanel.getChildren());
                     mainPanel.getChildren().add(this.wishListPanel.getRoot());
                     if (wishesPlaceHolder.isVisible() && wishesPlaceHolder.isManaged()) {
                         togglePlaceHolder(wishesPlaceHolder);
@@ -602,21 +612,10 @@ public class MainWindow extends UiPart<Stage> {
                     if (remindersPlaceHolder.isVisible() && remindersPlaceHolder.isManaged()) {
                         togglePlaceHolder(remindersPlaceHolder);
                     }
-                    //showRemindersOnMainPanel();
                     mainPanel.getChildren().removeAll(mainPanel.getChildren());
                     mainPanel.getChildren().add(this.reminderPanel.getRoot());
 
-                    final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.getDialogPane().getStylesheets().add(this.theme.getThemeUrl());
-                    alert.initStyle(StageStyle.DECORATED);
-                    alert.getDialogPane().setGraphic(new ImageView(new Image("images/guiltTrip()_32.png")));
-                    alert.initOwner(this.primaryStage);
-                    alert.setTitle("reminder");
-                    alert.setHeaderText("headerText");
-                    alert.setContentText("contentText");
-                    alert.getDialogPane().setId("alertDialogPane");
-                    alert.showAndWait();
-
+                    showReminderPopup();
                     break;
                 default:
                     // Do nothing.
