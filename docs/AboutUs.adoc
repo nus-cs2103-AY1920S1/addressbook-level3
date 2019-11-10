@@ -16,7 +16,7 @@ image::ubersaiyan.png[width="150", align="left"]
 
 Role: Project Architect, Testing, Team Lead
 
-In Charge of: Storage
+In Charge of: Model, AutoComplete
 
 '''
 
@@ -32,11 +32,11 @@ In Charge of: Statistics generation, User Interface (UI)
 
 === Yeo Dong Han
 image::yeodonghan.png[width="150", align="left"]
-{empty}[https://github.com/yeodonghan[github]]
+{empty}[https://github.com/yeodonghan[github]][<<yeodonghan#, portfolio>>]
 
-Role: Developer , Scheduling and tracking
+Role: Developer, Scheduling and tracking
 
-In Charge of: Schedule + CRUD
+In Charge of: Storage
 
 '''
 
@@ -56,6 +56,6 @@ image::qiujiaaa.png[width="150", align="left"]
 
 Role: Documentation, Code Coverage
 
-In Charge of: CRUD + storage
+In Charge of: Schedule (CRUD + Parsing) + Calendar UI
 
 '''
