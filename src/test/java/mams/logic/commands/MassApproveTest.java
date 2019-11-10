@@ -79,7 +79,7 @@ public class MassApproveTest {
     }
 
     @Test
-    public void execute_nothingApproved_Success() {
+    public void execute_nothingApproved_success() {
         ArrayList<String> validIDs = new ArrayList<>();
         ArrayList<String> invalidIDs = new ArrayList<>();
         String expectedMessage = "";
@@ -91,7 +91,7 @@ public class MassApproveTest {
     }
 
     @Test
-    public void execute_noSuchAppealId_Success() {
+    public void execute_noSuchAppealId_success() {
         ArrayList<String> validIDs = new ArrayList<>();
         ArrayList<String> invalidIDs = new ArrayList<>();
         String expectedMessage = "";
@@ -103,7 +103,7 @@ public class MassApproveTest {
     }
 
     @Test
-    public void execute_validInput_Success() {
+    public void execute_validInput_success() {
 
         ArrayList<String> inputValidIds = new ArrayList<>();
         ArrayList<String> inputInvalidIds = new ArrayList<>();
@@ -255,17 +255,6 @@ public class MassApproveTest {
                                 currentModules.add(filteredModule);
                             }
 
-                            //Checks if current modules clashes with requested module
-//                            for (Module currentModule : currentModules) {
-//                                if (getClashCase(currentModule, moduleToEdit).isPresent()) {
-//                                    clashCases.add(getClashCase(currentModule, moduleToEdit).get());
-//                                }
-//                            }
-//
-//                            if (!clashCases.isEmpty()) {
-//                                appealsWithClash.add(appealId);
-//                                break;
-//                            }
 
                             //add module to student.
                             Set<Tag> ret = new HashSet<>();

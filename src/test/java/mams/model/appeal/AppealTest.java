@@ -12,112 +12,112 @@ public class AppealTest {
     @Test
     public void isSameAppeal() {
 
-        Appeal AppealTest1 = TypicalAppeals.APPEAL1;
+        Appeal appealTest1 = TypicalAppeals.APPEAL1;
 
         // same object -> returns true
-        Assertions.assertTrue(AppealTest1.isSameAppeal(AppealTest1));
+        Assertions.assertTrue(appealTest1.isSameAppeal(appealTest1));
 
         //null -> returns false
-        Assertions.assertFalse(AppealTest1.isSameAppeal(null));
+        Assertions.assertFalse(appealTest1.isSameAppeal(null));
 
         // approved appeal -> returns false
-        Appeal approveAppeal = new Appeal(AppealTest1.getAppealId(),
-                AppealTest1.getAppealType(),
-                AppealTest1.getStudentId(),
-                AppealTest1.getAcademicYear(),
-                AppealTest1.getStudentWorkload(),
-                AppealTest1.getAppealDescription(),
-                AppealTest1.getPreviousModule(),
-                AppealTest1.getNewModule(),
-                AppealTest1.getModuleToAdd(),
-                AppealTest1.getModuleToDrop(),
+        Appeal approveAppeal = new Appeal(appealTest1.getAppealId(),
+                appealTest1.getAppealType(),
+                appealTest1.getStudentId(),
+                appealTest1.getAcademicYear(),
+                appealTest1.getStudentWorkload(),
+                appealTest1.getAppealDescription(),
+                appealTest1.getPreviousModule(),
+                appealTest1.getNewModule(),
+                appealTest1.getModuleToAdd(),
+                appealTest1.getModuleToDrop(),
                 true,
                 "approved",
                 "");
-        assertFalse(AppealTest1.isSameAppeal(approveAppeal));
+        assertFalse(appealTest1.isSameAppeal(approveAppeal));
 
         // rejected appeal -> returns false
-        Appeal rejectedAppeal = new Appeal(AppealTest1.getAppealId(),
-                AppealTest1.getAppealType(),
-                AppealTest1.getStudentId(),
-                AppealTest1.getAcademicYear(),
-                AppealTest1.getStudentWorkload(),
-                AppealTest1.getAppealDescription(),
-                AppealTest1.getPreviousModule(),
-                AppealTest1.getNewModule(),
-                AppealTest1.getModuleToAdd(),
-                AppealTest1.getModuleToDrop(),
+        Appeal rejectedAppeal = new Appeal(appealTest1.getAppealId(),
+                appealTest1.getAppealType(),
+                appealTest1.getStudentId(),
+                appealTest1.getAcademicYear(),
+                appealTest1.getStudentWorkload(),
+                appealTest1.getAppealDescription(),
+                appealTest1.getPreviousModule(),
+                appealTest1.getNewModule(),
+                appealTest1.getModuleToAdd(),
+                appealTest1.getModuleToDrop(),
                 true,
                 "rejected",
                 "");
-        assertFalse(AppealTest1.isSameAppeal(rejectedAppeal));
+        assertFalse(appealTest1.isSameAppeal(rejectedAppeal));
 
     }
 
     @Test
     public void equals() {
-        Appeal AppealToTest = TypicalAppeals.APPEAL1;
+        Appeal appealToTest = TypicalAppeals.APPEAL1;
 
         // same object -> returns true
-        assertTrue(AppealToTest.equals(AppealToTest));
+        assertTrue(appealToTest.equals(appealToTest));
 
         // null -> returns false
-        assertFalse(AppealToTest.equals(null));
+        assertFalse(appealToTest.equals(null));
 
         // different type -> return false
-        assertFalse(AppealToTest.equals(5));
+        assertFalse(appealToTest.equals(5));
 
         // different appeal -> return  false
-        Appeal ANOTHERAPPEAL = TypicalAppeals.APPEAL2;
-        assertFalse(AppealToTest.equals(ANOTHERAPPEAL));
+        Appeal anotherAppeal = TypicalAppeals.APPEAL2;
+        assertFalse(appealToTest.equals(anotherAppeal));
 
         // different appealID -> return false
         Appeal AppealwithDifferentId = new Appeal(TypicalAppeals.APPEAL3.getAppealId(),
-                AppealToTest.getAppealType(),
-                AppealToTest.getStudentId(),
-                AppealToTest.getAcademicYear(),
-                AppealToTest.getStudentWorkload(),
-                AppealToTest.getAppealDescription(),
-                AppealToTest.getPreviousModule(),
-                AppealToTest.getNewModule(),
-                AppealToTest.getModuleToAdd(),
-                AppealToTest.getModuleToDrop(),
+                appealToTest.getAppealType(),
+                appealToTest.getStudentId(),
+                appealToTest.getAcademicYear(),
+                appealToTest.getStudentWorkload(),
+                appealToTest.getAppealDescription(),
+                appealToTest.getPreviousModule(),
+                appealToTest.getNewModule(),
+                appealToTest.getModuleToAdd(),
+                appealToTest.getModuleToDrop(),
                 false,
                 "",
                 "");
-        assertFalse(AppealToTest.equals(AppealwithDifferentId));
+        assertFalse(appealToTest.equals(AppealwithDifferentId));
 
         // different appeal type -> returns false
-        Appeal AppealOfAnotherType = new Appeal(AppealToTest.getAppealId(),
+        Appeal appealOfAnotherType = new Appeal(appealToTest.getAppealId(),
                 TypicalAppeals.APPEAL2.getAppealType(),
-                AppealToTest.getStudentId(),
-                AppealToTest.getAcademicYear(),
-                AppealToTest.getStudentWorkload(),
-                AppealToTest.getAppealDescription(),
-                AppealToTest.getPreviousModule(),
-                AppealToTest.getNewModule(),
-                AppealToTest.getModuleToAdd(),
-                AppealToTest.getModuleToDrop(),
+                appealToTest.getStudentId(),
+                appealToTest.getAcademicYear(),
+                appealToTest.getStudentWorkload(),
+                appealToTest.getAppealDescription(),
+                appealToTest.getPreviousModule(),
+                appealToTest.getNewModule(),
+                appealToTest.getModuleToAdd(),
+                appealToTest.getModuleToDrop(),
                 false,
                 "",
                 "");
-        assertFalse(AppealToTest.equals(AppealOfAnotherType));
+        assertFalse(appealToTest.equals(appealOfAnotherType));
 
         // different studentID -> returns false
-        Appeal AppealWithAnotherStudent = new Appeal(AppealToTest.getAppealId(),
-                AppealToTest.getAppealType(),
+        Appeal appealWithAnotherStudent = new Appeal(appealToTest.getAppealId(),
+                appealToTest.getAppealType(),
                 TypicalAppeals.APPEAL3.getStudentId(),
-                AppealToTest.getAcademicYear(),
-                AppealToTest.getStudentWorkload(),
-                AppealToTest.getAppealDescription(),
-                AppealToTest.getPreviousModule(),
-                AppealToTest.getNewModule(),
-                AppealToTest.getModuleToAdd(),
-                AppealToTest.getModuleToDrop(),
+                appealToTest.getAcademicYear(),
+                appealToTest.getStudentWorkload(),
+                appealToTest.getAppealDescription(),
+                appealToTest.getPreviousModule(),
+                appealToTest.getNewModule(),
+                appealToTest.getModuleToAdd(),
+                appealToTest.getModuleToDrop(),
                 false,
                 "",
                 "");
-        assertFalse(AppealToTest.equals(AppealWithAnotherStudent));
+        assertFalse(appealToTest.equals(appealWithAnotherStudent));
     }
 
     @Test void isValidAppealId() {
