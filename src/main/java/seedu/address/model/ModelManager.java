@@ -32,7 +32,7 @@ public class ModelManager implements Model {
     private final FilteredList<Deadline> filteredDeadlines;
     private final FilteredList<Category> categoryList;
     private FlashCardTestModel flashCardTestModel;
-    private ArrayList<Integer> performance;
+    private ArrayList<Float> performance;
 
 
     /**
@@ -50,7 +50,7 @@ public class ModelManager implements Model {
         filteredDeadlines = new FilteredList<>(this.keyboardFlashCards.getDeadlineList());
         categoryList = new FilteredList<>(this.keyboardFlashCards.getCategoryList());
         flashCardTestModel = new FlashCardTestModel(new LinkedList<>());
-        this.performance = new ArrayList<Integer>();
+        this.performance = new ArrayList<Float>();
     }
 
     public ModelManager() {
@@ -169,21 +169,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ArrayList<Integer> getPerformance() {
+    public ArrayList<Float> getPerformance() {
         return performance;
     }
 
     @Override
     public void updatePerformance(Model model) {
         requireNonNull(model);
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("good"));
-        int numGood = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("hard"));
-        int numHard = model.getFilteredFlashCardList().size();
-        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("easy"));
-        int numEasy = model.getFilteredFlashCardList().size();
-
-        int value = ((numEasy + numGood) * 100) / (numEasy + numGood + numHard);
+        float numGood = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("good")).size();
+        float numHard = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("hard")).size();
+        float numEasy = model.getFilteredFlashCardListNoCommit(new RatingContainsKeywordPredicate("easy")).size();
+        float value;
+        if ((numEasy + numGood + numHard) == 0) {
+            value = 0;
+        } else {
+            value = ((numEasy + numGood) * 100) / (numEasy + numGood + numHard);
+        }
         performance.add(value);
     }
 

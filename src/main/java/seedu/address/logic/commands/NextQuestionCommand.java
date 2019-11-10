@@ -26,6 +26,7 @@ abstract class NextQuestionCommand extends Command {
         requireNonNull(model);
         if (!model.hasTestFlashCard()) {
             keyboardFlashCardsParser.endTestMode();
+            model.updatePerformance(model);
             CommandResult result = new CommandResult(MESSAGE_SUCCESS_END_OF_TEST);
             result.setTestMode(false, true);
             return result;

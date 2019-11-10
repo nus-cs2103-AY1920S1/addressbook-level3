@@ -249,7 +249,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ArrayList<Integer> getPerformance() {
+        public ArrayList<Float> getPerformance() {
             throw new AssertionError("This method should not be called.");
         }
 

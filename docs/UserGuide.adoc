@@ -414,7 +414,7 @@ image::StatsCommandBox1.png[width="600"]
 image::StatsWindow1.png[width="850", height="250"]
 +
 
-Starting from the left, the first chart displays the total number of FlashCards rated as good, hard and easy. The second chart displays the total number of FlashCards rated as good, hard and easy that are completed during test mode. The last chart displays your performance (in percentage) for all tests completed. Performance is determined by the ratio of FlashCards rated as good and easy to FlashCards rated as hard.
+Starting from the top, the first chart displays the total number of FlashCards rated as good, hard and easy. The second chart displays the total number of FlashCards rated as good, hard and easy that are completed during test mode. The last chart displays your performance (in percentage) for all tests completed. Performance is determined by the ratio of FlashCards rated as good and easy to FlashCards rated as hard.
 +
 Note that the second and third chart will be empty if the `stats` command is executed before running at least one test, since both of these charts are dependent on the test mode. Furthermore, the statistics displayed on these two charts will reset when the application is closed.
 
