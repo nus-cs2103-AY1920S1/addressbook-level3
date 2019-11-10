@@ -193,6 +193,7 @@ The fields of a module consist of: +
 - `CREDIT` Modular credit for the module. Module credit only accepts 2 to 23 credits. Prefix: `<c>`. +
 - `GRADE` Grades for the attained for the module. Only permitted http://www.nus.edu.sg/nusbulletin/yong-siew-toh-conservatory-of-music/undergraduate-education/degree-requirements/grading-system-and-regulations/[grades] are accepted. SU is currently not supported. Prefix: `<g>`.
 
+.Semester Period Classifications
 [width="80%" options="header"]
 |=======
 |Input| Semester Period
@@ -204,6 +205,18 @@ The fields of a module consist of: +
 
 Format: `add MODULE_CODE MODULE_TITLE MODULE_YEAR_AND_SEMESTER MODULAR_CREDIT GRADE`
 e.g. `add <m>CS2103 <t>Software Engineering <s>1920S1 <c>4 <g>A`, `add <m>ACC1002 <t>Financial Accounting <s>1920S1 <c>4 <g>A`
+
+
+.List of sample data
+[width="80%" cols="^3, 10" options="header"]
+|=======
+| Module | Command
+| CS2103 | add <m>CS2103 <t>Software Engineering <s>1920S1 <c>4 <g>A
+| EC3343 | add <m>CS3343 <t>International Finance I <s>2021S1 <c>4 <g>A
+| CS3202 | add <m>CS3202 <t>Software Engineering Project II <s>2021S2 <c>4 <g>B+
+| CS3211 | add <m>CS3211 <t>Parallel and Concurrent Programming <s>2021S2 <c>4 <g>A-
+| CS3218 | add <m>CS3218 <t>Multimodal Processing in Mobile Platforms <s>2122S1 <c>4 <g>B
+|=======
 
 ==== Delete module from record : `delete`
 Delete a specific module from the list of modules by specifying the module code. The command is very strict on matching the module code given to the existing modules in modulo.
@@ -230,7 +243,7 @@ The search method adopts the inclusive OR search method that returns any modules
 e.g. searching for `metho` will return `Programming Methodology I`, `Programming Methodology II`, `Web Programming and Applications`.
 
 Format: `find MODULE_CODE [OTHER_KEYWORDS]`
-e.g. `find CS1010S`, `find Programming Methodology I`
+e.g. `find CS1010S`, `find Programming`
 
 ==== Clear all modules in a specific semester or clean-slate all records : `clear`
 Deletes all modules in the record. The user can avoid clearing modules one-by-one when large number of modules have to be cleared.
