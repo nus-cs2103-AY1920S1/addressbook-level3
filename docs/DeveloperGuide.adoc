@@ -127,7 +127,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === UiLogic Component
 
 .Structure of the UiLogic Component
-image::UiLogicClassDiagram.png[width=70%, scaledwidth=15cm]
+image::UiLogicClassDiagram.png[width=70%, scaledwidth=17cm]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/algobase/ui/action/UiLogic.java[`UiLogic.java`]
@@ -573,7 +573,7 @@ The following classes facilitate the handling of GUI actions:
 When the user makes a change in the GUI, the change is propagated from `Ui` to `UiLogic` to `Model` and to `Storage`, as represented in the diagram below:
 
 .An example of a high level representation of the GUI Actions.
-image::ArchitectureSequenceDiagram1.png[width=70%, scaledwidth=10cm]
+image::ArchitectureSequenceDiagram1.png[width=70%, scaledwidth=13cm]
 
 This process of how the application handles UI Actions is captured by the example in the Sequence Diagrams below:
 
