@@ -1,0 +1,17 @@
+@startuml
+start
+:User enters redo command;
+
+if () then ([at least 1 undo command has
+been executed prior])
+    :Pop the last
+    undone command;
+    :Execute that command to
+    reapply the last undone change;
+else ([else])
+    :Show error that no
+    changes to be redone;
+endif
+    :Return CommandResult to UI;
+stop
+@enduml

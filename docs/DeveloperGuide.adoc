@@ -222,6 +222,10 @@ of the `execute(ItemModel model)` in that Command.
 
 The command execution history is stored in a stack, which is maintained in `ElisaCommandHistory`.
 
+The activity diagram below shows the flow of the undo command.
+
+image::UndoActivity.png[]
+
 Below is a possible usage scenario and the app behaviour.
 
 Step 1. The user executes `task eat`. A task with description "eat" is added and then the command is pushed into the commands stack.
@@ -235,7 +239,14 @@ image::UndoStackStep2.png[]
 
 Step 3. After successful execution of the `UndoCommand` a confirmation message is displayed in the chat box.
 
-Of course, the undo feature has its counterpart, the redo command. The commands to be redone are stored in an additional stack within `ElisaCommandHistory`, and when the redo is done, it executes the command again, which reapplies the most recent change.
+Of course, the undo feature has its counterpart, the redo command. The commands to be redone are stored in an additional stack within `ElisaCommandHistory`,
+and when the redo is done, it executes the command again, which reapplies the most recent change. Every time a new `UndoableCommand` is executed, the redo stack is cleared.
+That is, the redo stack is only non empty when the latest executed `Command`(s) is/are `UndoCommand`(s).
+
+The activity diagram below shows the flow of the redo command.
+
+image::RedoActivity.png[]
+
 // end::undobyreverse[]
 
 // tag::undoredo[]
