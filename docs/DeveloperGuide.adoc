@@ -167,7 +167,7 @@ Each of the four components
 * Defines its API in an interface with the same name as the component.
 * Exposes its functionality using a `**{Component Name}Manager**` class.
 
-For example, the `**Logic**` component (see the class diagram given below) defines its API in the _Logic.java_ interface and exposes its functionality using the _LogicManager.java_ class.
+For example, the `**Logic**` component (see the class diagram given below) defines its API in the `_Logic.java_` interface and exposes its functionality using the `_LogicManager.java_` class.
 
 .Class diagram of the `**Logic**` component
 image::LogicClassDiagram.png[]
@@ -237,7 +237,7 @@ The `**Model**`,
 * stores a `**UserPref**` object that represents the user's preferences.
 * stores `**THRIFT**` data.
 * stores `**BudgetList**` which contains budget set for different months by the user.
-* stores `**PastUndoableCommands**` which keeps track of undoable commands for future undo and redo operation.
+* stores `**PastUndoableCommands**` which keeps track of undoable command objects for future undo and redo operation.
 * exposes an unmodifiable `**ObservableList<Transaction>**` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -1094,20 +1094,20 @@ We use asciidoc for writing documentation.
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render .adoc files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your .adoc files in real-time.
 
-=== Editing Diagrams
+=== Editing diagrams
 
 See <<UsingPlantUml#, UsingPlantUml.adoc>> to find out how to create and update the UML diagrams in the developer guide.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -1122,7 +1122,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation settings
 
 The link:{repoURL}/build.gradle[`_build.gradle_`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -1146,7 +1146,7 @@ Setting this will add a "View on GitHub" link in the navigation bar.
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Per-file Documentation Settings
+=== Per-file documentation settings
 
 Each .adoc file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
@@ -1173,7 +1173,7 @@ One of: `_UserGuide_`, `_DeveloperGuide_`, `_AboutUs_`, `_ContactUs_`
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[_docs/stylesheets_] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -1193,7 +1193,7 @@ The THRIFT team does not provide support for modified template files.
 
 This section describes the type of tests used in THRIFT and how it can be executed.
 
-=== Running Tests
+=== Running tests
 
 There are two ways to run tests.
 
@@ -1221,7 +1221,7 @@ e.g. `*thrift.storage.StorageManagerTest*`
 e.g. `*thrift.logic.LogicManagerTest*`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: Keyboard and mouse movements are not simulated on macOS Mojave, resulting in GUI Tests failure.**
 
 * Reason: From macOS Mojave onwards, applications without `Accessibility` permission cannot simulate certain keyboard and mouse movements.
@@ -1233,7 +1233,7 @@ image::testfx-idea-accessibility-permissions.png[width="600"]
 == Dev ops
 This section describes the practices and tools used during development.
 
-=== Build Automation
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
@@ -1241,15 +1241,15 @@ See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build auto
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -1258,7 +1258,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. v0.1
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, THRIFT depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
@@ -1730,6 +1730,7 @@ _Use case ends_
 1. User requests to search for a keyword in THRIFT.
 2. THRIFT processes its currently saved entire transaction list to look for matches.
 3. THRIFT found matches and display the results at the `**TransactionListPanel**` screen.
++
 _Use case ends_
 
 [appendix]
@@ -1742,6 +1743,7 @@ _Use case ends_
 . THRIFT should work for a single user only.
 . THRIFT should not require user to install.
 . Features implemented should be testable using manual testing and automated testing.
+. THRIFT should support screen resolution of 1920 x 1080 or higher.
 
 [appendix]
 == Glossary
@@ -1785,13 +1787,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+   Expected: Shows the GUI with empty transaction.
 
 === Setting a monthly budget
 
@@ -1935,167 +1931,218 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Undoing the previous command
 
-. Undoing previous command and reflecting changes in the list
+. Undoing the previous command and reflecting changes in the list
 
-.. Prerequisites: List all transactions using the `list` command
+.. Prerequisites: List all transactions using the *list* command
 .. Test case:
 +
 --
-... `add expense n/Chicken rice v/3`
-... `undo`
+... *add_expense n/Chicken rice v/3*
+... *undo*
 --
 +
-Expected: Transaction regarding to the expense spent on chicken rice is removed from the list.
+Expected: Transaction regarding the expense spent on "Chicken Rice" is removed from the list.
 .. Test case:
 +
 --
-... `add income n/Salary v/2500`
-... `undo`
+... *add_income n/Salary v/2500*
+... *undo*
 --
 +
-Expected: Transaction regarding to the income received from salary is removed from the list.
+Expected: Transaction regarding the income received from "Salary" is removed from the list.
 .. Test case:
 +
 --
-... `delete 1`
-... `undo`
+... *delete i/1*
+... *undo*
 --
 +
-Expected: First transaction removed from the list is restored back to its original position.
-.. Test case: (Assuming that the first transaction is `1. [-] Chicken rice ($3.00)`)
+Expected: The first transaction that is removed from the list is restored to its original position.
+.. Test case: (Assuming that the first transaction is "1. [-] Chicken rice ($3.00)")
 +
 --
-... `update i/1 n/Fried Rice`
-... `undo`
+... *update i/1 n/Fried Rice*
+... *undo*
 --
 +
-Expected: The description of the first transaction is changed back to chicken rice.
+Expected: The description of the first transaction is changed back to "Chicken Rice"".
 .. Test case:
 +
 --
-... `clone i/1`
-... `undo`
+... *clone i/1*
+... *undo*
 --
 +
-Expected: Newly cloned transaction is removed from the list.
+Expected: The newly cloned transaction is removed from the list.
 .. Test case:
 +
 --
-... `tag i/1 t/LUNCH`
-... `undo`
+... *clone i/1 o/daily:3*
+... *undo*
 --
 +
-Expected: Lunch tag is removed from the first transaction in the list.
+Expected: Three new transactions, which are added using *clone*, are removed from the list.
 .. Test case:
 +
 --
-... `untag i/1 t/LUNCH`
-... `undo`
+... *tag i/1 t/LUNCH*
+... *undo*
 --
 +
-Expected: Lunch tag is added back to the first transaction in the list.
+Expected: The "LUNCH" tag is removed from the first transaction in the list.
 .. Test case:
 +
 --
-... `list`
-... `undo`
+... *untag i/1 t/LUNCH*
+... *undo*
 --
 +
-Expected: No changes. Message shown in the status message indicating that there are no available commands for user to undo.
+Expected: The "LUNCH" tag is added back to the first transaction in the list.
+.. Test case: (Assuming that the budget for "11/2019" is "$0.00")
++
+--
+... *budget v/1000 d/11/2019*
+... *undo*
+--
++
+Expected: The budget shown in the UI for "11/2019" is reset to "$0.00".
+.. Test case:
++
+--
+... *list*
+... *undo*
+--
++
+Expected: No changes. A message is shown in the Result Box, indicating that there are no available commands for the user to undo.
+.. Test case:
++
+--
+... *undo 123*
+--
++
+Expected: No changes. A message is shown in the Result Box, indicating that it is an invalid command.
 
 === Redoing the undone command
 
 . Redoing undone command and reflecting changes in the list
 
-.. Prerequisites: List all transactions using the `list` command
+.. Prerequisites: List all transactions using the *list* command
 .. Test case:
 +
 --
-... `add expense n/Laksa v/3`
-... `undo`
-... `redo`
+... *add_expense n/Laksa v/3*
+... *undo*
+... *redo*
 --
 +
-Expected: Transaction regarding to the expense spent on Laksa is added back to the list.
+Expected: Transaction regarding the expense spent on "Laksa" is added back to the list.
 .. Test case:
 +
 --
-... `add income n/bursary v/2500`
-... `undo`
-... `redo`
+... *add_income n/bursary v/2500*
+... *undo*
+... *redo*
 --
 +
-Expected: Transaction regarding to the income received from bursary is added back to the list.
+Expected: Transaction regarding the income received from "bursary" is added back to the list.
 .. Test case:
 +
 --
-... `delete i/1`
-... `undo`
-... `redo`
+... *delete i/1*
+... *undo*
+... *redo*
 --
 +
-Expected: First transaction removed from the list.
-.. Test case: (Assume that the first transaction is `1. [-] Chicken rice ($3.00)`)
+Expected: The first transaction is removed from the list.
+.. Test case: (Assume that the first transaction is "1. [-] Chicken rice ($3.00)")
 +
 --
-... `update i/1 n/Fried Rice`
-... `undo`
-... `redo`
+... *update i/1 n/Fried Rice*
+... *undo*
+... *redo*
 --
 +
-Expected: The description of the first transaction remains as fried rice.
+Expected: The description of the first transaction is displayed as "Fried Rice".
 .. Test case:
 +
 --
-... `clone i/1`
-... `undo`
-... `redo`
+... *clone i/1*
+... *undo*
+... *redo*
 --
 +
-Expected: Newly cloned transaction is added back to the list.
+Expected: The newly cloned transaction is added back to the list.
 .. Test case:
 +
 --
-... `tag i/1 t/FOOD`
-... `undo`
-... `redo`
+... *clone i/1 o/daily:3*
+... *undo*
+... *redo*
 --
 +
-Expected: Food tag is added back to the first transaction in the list.
+Expected: Three new cloned transactions are added back to the list.
 .. Test case:
 +
 --
-... `untag i/1 t/FOOD`
-... `undo`
-... `redo`
+... *tag i/1 t/FOOD*
+... *undo*
+... *redo*
 --
 +
-Expected: Food tag is removed from the first transaction in the list.
+Expected: The "FOOD" tag is added back to the first transaction in the list.
 .. Test case:
 +
 --
-... `untag i/1 t/LUNCH`
-... `undo`
-... `clone i/1`
-... `redo`
+... *untag i/1 t/FOOD*
+... *undo*
+... *redo*
 --
 +
-Expected: No changes. Message shown in the status message indicating that there are no available commands for user to redo.
+Expected: The "FOOD" tag is removed from the first transaction in the list.
+.. Test case: (Assuming that the budget for "11/2019" is "$0.00")
++
+--
+... *budget v/1000 d/11/2019*
+... *undo*
+... *redo*
+--
++
+Expected: The budget shown in the UI for "11/2019" is set to "$1000.00".
 .. Test case:
 +
 --
-... `list`
-... `redo`
+... *tag i/1 t/LUNCH*
+... *undo*
+... *clone i/1*
+... *redo*
 --
 +
-Expected: No changes. Message shown in the status message indicating that there are no available commands for user to redo.
+Expected: New cloned transaction is added to the bottom of the list, but the "LUNCH" tag is not added back to the first transaction in the list.
+There is a message shown in the Result Box indicating that there are no available commands for the user to redo.
+.. Test case:
++
+--
+... *list*
+... *redo*
+--
++
+Expected: No changes. A message is shown in the Result Box, indicating that there are no available commands for the user to redo.
+.. Test case:
++
+--
+... *redo 123*
+--
++
+Expected: No changes. A message is shown in the Result Box, indicating that it is an invalid command.
 
 === Showing help window
 
-.. Test case: `help` +
-   Expected: A new pop-up help window is displayed.
-.. Test case: `help delete` +
-   Expected: Syntax of the `delete` command is shown in the status message.
+. Viewing the usage of the command
+
+.. Test case: *help* +
+   Expected: A new pop-up help window containing the link to our User Guide is displayed.
+.. Test case: *help delete* +
+   Expected: Usage of the *delete* command is shown in the Result Box.
 
 === Saving data
 

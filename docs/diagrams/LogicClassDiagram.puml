@@ -19,7 +19,7 @@ Class Prefix
 
 package Command {
 Class ABCCommand
-note left: ABCCommand = \nFindCommand, \nListCommand, \nBudgetCommand, etc
+note left: ABCCommand = \nFindCommand, \nListCommand, etc
 Class XYZCommand
 note left: XYZCommand = \nAddExpenseCommand, \nAddIncomeCommand, etc
 Class CommandResult
@@ -38,10 +38,6 @@ Class HiddenModel #FFFFFF
 }
 
 package Storage{
-Class HiddenModel #FFFFFF
-}
-
-package UI{
 Class HiddenModel #FFFFFF
 }
 
@@ -73,10 +69,8 @@ LogicManager .left.> Command : executes >
 LogicManager --> Model
 Command .right.> Model
 
-ScrollableCommand ..> UI
 LogicManager -right-> Storage
 
-ScrollableCommand -[hidden]left- UI
 ThriftParser -[hidden]up- Logic
 Undoable -[hidden]right- ThriftParser
 XYZCommand -[hidden]right- ParserUtil
