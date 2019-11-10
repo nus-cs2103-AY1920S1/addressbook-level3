@@ -372,13 +372,17 @@ the watchlist or watched list. +
 Format:
 
 * by name: +
-`search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
+`search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
 
 * by genre: +
-`search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
+`search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
 
-* by actor (from watchlist): +
-`search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
+* by actor (from watchlist only): +
+`search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
+
+** `SHOW_NAME`, `GENRE`, `ACTOR_NAME` can be any words, as long as it does not contain `/`.
+** `FROM_ONLINE` and `HAS_WATCHED` can only be `yes`, `true`, `no` or `false`.
+** `SHOW_TYPE` can only be `movie` or `tv`.
 
 ====
 [TIP]
@@ -386,20 +390,17 @@ Special commands to take note of: +
 `o/no`: to search from watchlist or watched list +
 `o/no w/no`: to search from watchlist only +
 `o/no w/yes`: to search from watched list only
-
-[TIP]
-For `FROM_ONLINE` and `HAS_WATCHED`, only `yes`, `true`, `no` and `false` would be accepted. +
 ====
-
 ====
-Do take note of the following expected command outputs:
-
-* When searching based on actor, only shows from the watchlist will be searched.
-* When searching based on genre online, only movies will be searched.
-* For `[o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. +
-e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv".
-* Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error.
-* Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
+[NOTE]
+Do take note of the following expected command outputs: +
+When searching based on genre online, only movies will be searched. +
+{sp} +
+For `[o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. +
+e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv". +
+{sp} +
+Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error. +
+Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
 ====
 
 ====
@@ -478,7 +479,7 @@ Returns movies from the online database with the name "Avenger" or "Spiderman" a
 * By genre:
 ** `search g/Action t/movie` +
 Returns movies from the online database with the genre "Action"
-* By actor:
+* By actor: (from watchlist only)
 ** `search a/Tom o/no w/no` +
 Returns shows within the watchlist with actor named "Tom"
 // end::search[]

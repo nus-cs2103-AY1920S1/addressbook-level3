@@ -18,6 +18,7 @@ import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.commons.core.messages.SearchMessages;
 import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.model.show.Type;
 
 /**
  * Parses input arguments and creates a new SearchCommand object.
@@ -113,10 +114,13 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * Parses the type to be searched.
      * @param typeOptional Type to be searched.
      */
-    private void parseTypeToBeSearched(Optional<String> typeOptional) {
+    private void parseTypeToBeSearched(Optional<String> typeOptional) throws ParseException {
         ArrayList<String> listOfType = new ArrayList<String>();
         if (typeOptional.isPresent()) {
             String type = typeOptional.get().trim().toLowerCase();
+            if (!(type.equals(Type.MOVIE.getType()) || type.equals(Type.TV_SHOW.getType()))) {
+                throw new ParseException(SearchMessages.MESSAGE_INVALID_TYPE_COMMAND);
+            }
             listOfType.add(type);
         }
         searchShowsHashMap.put(SearchKey.KEY_TYPE, listOfType);
