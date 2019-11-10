@@ -84,7 +84,8 @@ Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a sp
 
 Have an income that you need to log down? PalPay accepts all income inputs through the `in` command. Inputting an `in` command will increase the overall balance value. Your income statements have the added option to be tagged under one or more categories. You can do so by including the `[c/CATEGORY]` parameter in your command line. All uncategorized incomes will be tagged under the `GENERAL` category.
 
-Adds an income of your personal finance to PalPay +
+==== Command Syntax
+
 Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
@@ -141,7 +142,7 @@ Example Commands:
 
 Have you recently made an expenditure that requires logging down? PalPay accepts all expenditure inputs through the `out` command. Inputting an `out` command will decrease the overall balance value. Your expenditure statements, just like the income statements, have the added option to be tagged under one or more categories. You can do so by including the `[c/CATEGORY]` parameter in your command line. All uncategorized incomes will be tagged under the `GENERAL` category.
 
-Adds an expenditure of your personal finance +
+==== Command Syntax
 Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
@@ -427,6 +428,8 @@ image::view3.png[]
 === Deleting Finance : `delete`
 
 Deletes the specified Transaction, Budget, Ledger or Projection from PalPay. +
+
+==== Command Syntax
 Format: `delete TYPE+INDEX`
 
 ****
@@ -468,7 +471,9 @@ Examples:
 
 Did you make a mistake in one of your entries? Perhaps you over counted that expenditure you made. PalPay provides you with an `update` feature which helps you change specific fields within your entries.
 
-Updates the specified entry within PalPay. +
+
+==== Command Syntax
+The `update` feature has different implementations for different entry types. The conditions for the `update` feature is as follows.
 
 Format (Transactions): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]` +
 
@@ -488,15 +493,16 @@ Format (Projections): `update TYPE+INDEX [d/DATE]`
 * `TYPE` accepts either `t` (Transaction), `b` (Budget), or `p` (Projection). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work).
 * You can only update an existing transaction or budget. Nothing will be updated if the transaction or budget of `INDEX` does not exists.
-* You can not change an `in` transaction to an `out` transaction.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
 
 To Note:
 
 * `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
-* Ledger does not have an update function. If you need to change specific fields within a ledger entry, you should delete the target entry and recreate a new entry with your preferred fields.
-*
+* Ledger does not have an update function. If you need to change specific fields within a ledger entry, you should delete the target entry and recreate a new ledger entry with your preferred fields.
+* You can not change an `in` transaction to an `out` transaction.
+
+==== Example Usage
 
 Examples:
 
