@@ -197,10 +197,6 @@ Classes used by multiple components are in the `seedu.savenus.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== [Proposed] Data Encryption
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -584,9 +580,13 @@ image::RecValueActivityDiagram.png[width=650, align="center"]
 The calculated recommendation values are used to sort the food items when the `recommend` command
 is executed. Food with similar recommendation values are sorted based on their price.
 
-===== Design Considerations
-Detailed below are the design considerations taken into account when engineering the
- `RecommendationSystem#calculateRecommendation()` function.
+==== Design Considerations
+
+Detailed below are the design considerations taken into account when engineering the Recommendation System.
+
+===== Design Considerations of `RecommendationSystem` class
+
+Explained below are our considerations when designing the `RecommendationSystem` class.
 
 .Design considerations of `RecommendationSystem` class
 [cols="50, 50"]
@@ -612,8 +612,6 @@ a|Implement `RecommendationSystem` as a normal class
 ** Hard to bring together the classes required by `RecommendationSystem`
 |===
 
-{empty} +
-
 ****
 We decided to go with alternative 1 and implement `RecommendationSystem` as a singleton because of the fact that it
 exists as a global class, encapsulating many seemingly unrelated classes such as `Budget`, `PurchaseHistory` and
@@ -631,6 +629,10 @@ Furthermore, we have thoroughly tested the implementation of
 ****
 
 {empty} +
+
+===== Design Considerations of `RecommendationSystem#calculateRecommendation()` function.
+
+Explained below are our considerations when designing the `RecommendationSystem#calculateRecommendation()` function.
 
 .Design considerations of the `RecommendationSystem#calculateRecommendation()` function
 [cols="50,50"]
@@ -659,8 +661,6 @@ be stored in each item
 the recommendation value
 ** An extra field `recommendationValue` has to be added to each `Food`
 |===
-
-{empty} +
 
 ****
 We chose alternative 1 because of its simplicity of implementation. Adding a hidden `recommendationValue`
