@@ -13,6 +13,7 @@ import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
 import seedu.address.model.CalendarDate;
 import seedu.address.ui.UserOutput;
 
+//@@author Kyzure
 /**
  * Represents a Command which adds an EventSource to the Model.
  */

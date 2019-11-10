@@ -1,0 +1,26 @@
+@startuml
+
+' Style
+skinparam shadowing false
+
+start
+:Receive command definitions
+Set __context__ to the command's ArgumentList;
+
+repeat
+
+:Accept new command phrase;
+
+if (Command phrase is an option keyword?) then (yes)
+    :Set __context__ to the option's ArgumentList;
+else (no)
+    :Accept command phrase into __context__;
+endif
+
+repeat while (More command phrases?) is (yes)
+-> no;
+
+:Build command;
+
+stop
+@enduml

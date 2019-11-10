@@ -11,7 +11,7 @@ import seedu.address.model.events.EventSource;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.card.EventCard;
 
-
+//@@author Kyzure
 /**
  * Represents the Event List to display the events.
  */

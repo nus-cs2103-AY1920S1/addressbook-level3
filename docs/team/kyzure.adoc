@@ -1,77 +1,86 @@
-= Timothy Yu Zhiwen - Project Portfolio
+= Timothy Yu Zhiwen - Project Portfolio for Horo
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-
-== PROJECT: Horo
-
----
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-1/main
 
 == Overview
 
-Horo is a desktop Reminder application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). It is a Java application *written in an OOP fashion*, developed and intended for Students requiring a place to consolidate their Events and Task.
+Tasked to enhance or morph a simple command line interface (CLI) desktop address book application, our team of 5 Computer Science Students decided to morph the program into a calendar scheduling application for students. From the word "Horology", we came up with the name **Horo** for our program. It is capable of maintaining a calendar and to-do list, posting timely reminders for the users.
+
+Here is a screenshot of **Horo**:
+
+.Screenshot of Horo
+image::Ui.png[]
+
+I played the role of designing the User Interface (UI) and the logic of how my teammates' code will interact with the UI. The following sections below will display the following morphing I did in detail, including certain documentation added to the User and Developer Guide.
+
+__Note: The following symbols and format are explained as:__
+
+.Symbol and Formats
+|===
+|`*list*`| A bold text with highlight as well as the change to monospaced indicates a command input by you which is to be executed by the Horo.
+|`TimelineView`| A text with highlight as well as monospaced font indicates a component, class or object in the structure of **Horo**
+|===
 
 == Summary of contributions
 
-* *Major enhancement*: enhanced *UI* component.
-** What it does: allows the user to interact with the GUI together with CLI, showing the Events and Task to the user as well as outputting the log for what the user did.
-** Justification: This feature is what makes the product visually appealing for the user, making the Events and Tasks compact and concise for the user to see, as well as having a log for what the user previously did.
-** Highlights: This enhancement affects the current and future commands, as it requires several other components for it to show the result to the user. Future commands or addition to Events and Task requires changes to the existing UI, as the GUI and UI component will require further changes.
-** Credits: _[https://top.gg/bot/349920059549941761[Reminder Bot]]_
+=== Enhancement Ui and Calendar Logic
 
-* *Minor enhancement*: _To be implemented_
+==== What is it:
+There are 3 different UI screens/panels you can switch between: Calendar Panel, List Panel, Log Panel. Each of the panels shows you a different screen provided with different information.
 
-* *Code contributed*: _To be implemented_
+==== What does it do:
+This is accessed using the commands calendar, list, log respectively and provides a different screen to you depending on what you wish to see.
 
-* *Other contributions*:
+==== Why it is necessary:
+It provides you a Graphical User Interface (GUI) so you can easily view their Events or Tasks with a simple switch between the views.
 
-_To be implemented_ +
-{empty} +
+=== Code Contributed
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+==== Sample Code Contributed:
+Here is a link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Kyzure&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Kyzure&tabRepo=AY1920S1-CS2103T-F12-1%2Fmain%5Bmaster%5D[`Repo Sense Link`] that indicates the amount of code I have written for the project. Additionally, our code has an authorship signature, with mine being - `//@@author Kyzure`, or `<!-- @@author Kyzure -$$->$$`. This authorship can be found at the top of any of the class, or method.
+
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui[`Ui Controller Code`] - The packages `systemTray` and `listeners` are not written by me, as well as code without my authorship.
+* link:{repoURL}/blob/master/src/main/resources/view[`JavaFX Code for .fxml files`]
+* link:{repoURL}/blob/master/src/main/java/seedu/address/model/CalendarDate.java[`Calendar Date Model Code`]
+* link:{repoURL}/blob/master/src/main/java/seedu/address/logic/commands[`Command Code`] - Only the following is written by me: `DayViewCommand`, `WeekViewCommand`, `MonthViewCommand`, `CalendarViewCommand`, `ListViewCommand`, `LogViewCommand`.
+
+=== Other Contribution
+
+==== Documentation:
+* Provided a baseline for both User and Developer Guide at the beginning, and improve the design to make it more readable for the user. (Pull requests link:{repoURL}/pull/11[#11], link:{repoURL}/pull/94[#94], link:{repoURL}/pull/95[#95], link:{repoURL}/pull/119[#119], link:{repoURL}/pull/128[#128], link:{repoURL}/pull/226[#226])
+
+==== Community:
+* Reviewed Pull Requests: link:{repoURL}/pull/41[#41]
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The following sections are an excerpt from my contribution to the User Guide to indicate my ability for writing readable help sections to the user._
 |===
 
-_To be implemented_
+include::../UserGuide.adoc[tag=uiCalendarView]
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=uiTimelineDay]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The following sections are an excerpt from my contribution to the Developer Guide to showcase my prowess in the technical aspect of the project._
 |===
 
-_To be implemented_
+include::../DeveloperGuide.adoc[tag=uiImplementation]
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=uiDayView]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=uiDesign]
