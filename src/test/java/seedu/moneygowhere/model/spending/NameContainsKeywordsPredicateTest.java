@@ -40,7 +40,7 @@ public class NameContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void predicate_nameContainsKeywords_returnsTrue() {
+    public void namePredicate_nameContainsKeywords_returnsTrue() {
         // One keyword
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new SpendingBuilder().withName("Alice Bob").build()));
@@ -59,7 +59,7 @@ public class NameContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void predicate_nameDoesNotContainKeywords_returnsFalse() {
+    public void namePredicate_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new SpendingBuilder().withName("Alice").build()));
