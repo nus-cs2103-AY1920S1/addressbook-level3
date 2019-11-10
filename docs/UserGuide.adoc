@@ -174,7 +174,7 @@ Since reimbursements are aggregated by member, if the member already has other o
 it will simply be added to his existing row. This is shown in the screenshot below:
 
 //.Screenshot of the Reimbursement Tab after successfully adding a transaction
-image::homeUG/HomeAddShowInR.png[width = "400"]
+image::homeUG/HomeAddShowInR.png[width = "700"]
 
 
 ==== To Delete Transactions in the Home Tab
@@ -261,8 +261,9 @@ image::homeUG/HomeEditStep2cr.png[]
 
 
 If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Add command>>.
+In addition, if there is no matching transactions, en empty table will be shown.
 
-==== To Sort Transactions in the Home Tab
+==== To Sort Transactions in Different Orders
 This command enables you to sort the table of transactions into a specified order for viewing and carrying out of subsequent commands.
 
 * To sort:
@@ -380,7 +381,7 @@ A person can have any number of tags (including 0).
 ** [blue]`add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 ** [blue]`add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-==== To List all Persons
+==== To List All Persons
 The List command shows you a list of all persons in the database.
 
 * Command:
