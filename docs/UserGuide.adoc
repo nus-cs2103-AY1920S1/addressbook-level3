@@ -76,9 +76,51 @@ On the __Trip Manager__ page, the following command are available:
 * `delete <index of trip>` : deletes the trip with the specified index and all data associated with it.
 * `goto <index of trip>`  : enters the main page of a trip with the specified index.
 
-=== Trip setup
+=== Itinerary
+==== Introduction
+__Itinerary__ is a series of features that allows the user to manage and view their __Trips__. The 2 main aspects that __Itinerary__ covers are :
+
+* *Itinerary Management* : How to access information about each trip?
+* *Itinerary Administration* : How to edit information about each trip?
+
+_Itinerary_ provides an intuitive and efficient way to achieve both goals.
+
+==== Basic Structure Overview
+The structure of _Itinerary_ is modelled after that of a regular travel itinerary.
+The following gives the basic understanding of how _TravelPal_ for better understanding of further sections:
+
+* *Trip*: Each _Trip_ is divided into _Days_ which are automatically generated upon creating a _Trip_
+* *Day*: Each _Day_ consists of several _Events_. Events are created and editable by the user.
+* *Event*: _Events_ are the smallest unit of planning in _TravelPal_
+
+NOTE: _Trip/Day/Events_ created by you should not clash with another _Trip/Day/Event_ of the same type
+
+With a basic understanding of how the basic structure of _Itinerary_ is like, you are now ready to use the user interface!
+
+==== Itinerary User Interface Overview
+_Itinerary_ consists of 5 pages:
+
+1. *Itinerary Page*: Displays basic information of your _Trip_
+2. *Days Page*: Displays the _Days_ in your selected _Trip_
+3. *Events Page*: Displays the _Events_ in your selected _Day_
+4. *Edit Day Page*: Displays a form where users can create/edit their _Day_
+5. *Edit Event Page*: Displays a form where users can create/edit their _Event_
+
+image::ItineraryTree.png[title="Pages in an Itinerary. (Black arrow denote common navigation between two different pages)"]
+
+The accessibility between pages is intuitively based on the specific user's focus. For example, in the figure above, each vertical column represents a user's focus. From column 1 - 4, the user's focus switches from each _Trip_ -> _Day_ -> _Event_.
+
+NOTE: The commands related to each page in _Itinerary_ are separated and the same command produces different results on different pages.
+
+===== Itinerary Page
+The _Itinerary_ page is the home page of your _Trip_. From this page, you can access your _Days_ and details for each _Day_. Below is an explanation of the user interface:
+
+image::itineraryPage.png[]
+
+==== Trip setup
 Trip setup is the first step in configuring a new/existing trip! This requires you to be at the __Trip Manager__ page (the landing page).
 
+image::TripManager.png[title="User Interface of  __Trip Manager__"]
 
 Now you can enter the command `create` or `edit <index>` to create a new trip or edit an existing trip.
 
@@ -130,7 +172,7 @@ Having completed editing the the form, you can submit it by executing the `done`
 
 You have successfully created/edited a trip!
 
-=== Event Setup
+==== Event Setup
 Creating/editing an event is similar to creating/editing a trip (directly above). To do so you have to begin on the events page displaying the list of events of a certain day.
 
 image::eventsPage.png[title="The Events Page"]
@@ -220,7 +262,7 @@ image::showCommand.png[]
 
 image::showCommandResult.png[]
 
-=== How to navigate
+==== How to navigate
 The main form of navigation is by using the navigation bars and the commands that are available on every page they are on. The bars appear like this:
 
 image::icons.png[]
