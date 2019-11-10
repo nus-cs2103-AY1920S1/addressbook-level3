@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -38,7 +39,8 @@ public class RateQuestionCommandTest {
         Model model = initModel(new ModelManager(keyboardFlashCards, new UserPrefs()));
         try {
             Command cmd = new RateQuestionCommand(keyboardFlashCardsParser, new Rating("good"));
-            cmd.execute(model);
+            CommandResult result = new CommandResult(NextQuestionCommand.MESSAGE_SUCCESS_END_OF_TEST);
+            assertEquals(result, cmd.execute(model));
         } catch (Exception e) {
             fail();
         }

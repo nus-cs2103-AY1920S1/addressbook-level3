@@ -15,7 +15,7 @@ public class RateQuestionCommandParser implements Parser<RateQuestionCommand> {
 
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
-    public RateQuestionCommandParser(KeyboardFlashCardsParser keyboardFlashCardsParser) {
+    RateQuestionCommandParser(KeyboardFlashCardsParser keyboardFlashCardsParser) {
         requireNonNull(keyboardFlashCardsParser);
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
