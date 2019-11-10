@@ -363,8 +363,7 @@ public class UpdateCommand extends UndoableCommand {
                     // This is to make the GUI display the update.
                     model.setEntity(claimedFridge, claimedFridge);
                 }
-
-
+                
                 // Undo Notif removal
                 for (Notif n : toDeleteNotif) {
                     model.addNotif(n);
