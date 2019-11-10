@@ -683,9 +683,8 @@ image::FindSequenceDiagram.png[width=840, align=center]
 The `BookPredicate` class stores in its fields the specific values to match. Default values are mostly null, which will indicate that
 there is no need to filter for that field. Below is an example.
 
-image::BookPredicateObjectDiagram.png[height=300, align=center]
-
 .Object Diagram showing the fields present in an empty (left) and partially filled (right) BookPredicate object
+image::BookPredicateObjectDiagram.png[height=300, align=center]
 
 The figure above shows what happens when we are trying to filter for books with title 'harry' and 'Potter' that are loaned out,
 showing up to 5 books only. Notice that the rest of the fields in the object are null.
@@ -904,6 +903,53 @@ image::UseCases.png[width=330, align=center]
 
 (For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
 
+
+[discrete]
+==== Use case: Help borrower find books of a particular title/author
+
+*MSS*
+
+1. Borrower comes to user requesting for a book of a particular title/from a particular author.
+2. User enters that book's title/author name.
+3. LiBerry searches through all books with an author matching what is entered.
+4. LiBerry displays books found.
+5. User informs borrower whether book exists, including how many copies
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Borrower forgets the exact spelling of the title/author he is looking for.
++
+[none]
+** 2a1. User enters partial spelling of the title/author.
+** Use case returns to step 3.
+
+* 2b. User wishes to display only the first N number of books.
++
+[none]
+** 2b1. User specifies the maximum number of books to display on top of his search conditions.
+** Use case returns to step 3. However, LiBerry displays only the first N number of books in step 4.
+
+[discrete]
+==== Use case: Generate the list of available/loaned out/overdue books
+
+*MSS*
+
+1. User enters command to show all available/loaned out/overdue books.
+2. LiBerry searches through catalog to create a list of available/loaned out/overdue books.
+3. LiBerry displays the list of all available/loaned out/overdue books.
+
+*Extensions*
+
+[none]
+* 1a. User wishes to display only the first N number of books.
++
+[none]
+** 1a1. User specifies the maximum number of books to display on top of his search conditions.
+** Use case returns to step 2. However, LiBerry displays only the first N number of books in step 4.
+
 [discrete]
 ==== Use case: Add a book
 
@@ -911,9 +957,11 @@ image::UseCases.png[width=330, align=center]
 
 1.  User adds a book by specifying its details
 2.  LiBerry shows a success message
-
++
 Use case ends.
 
+*Extensions*
+[none]
 * 1a. The arguments provided are invalid.
 +
 [none]
@@ -921,7 +969,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
 [none]
 * 1b. The mandatory arguments are not provided.
 +
@@ -946,6 +993,7 @@ Use case resumes at step 2.
 2.  LiBerry shows a list of books
 3.  User requests to delete a specific book in the list
 4.  LiBerry deletes the book
++
 Use case ends.
 
 *Extensions*
@@ -955,6 +1003,7 @@ Use case ends.
 +
 Use case ends
 +
+{empty} +
 [none]
 * 3a. The given index is invalid.
 +
@@ -1004,6 +1053,7 @@ Use case ends.
 
 *Extension*
 
+[none]
 * 1a. The arguments provided are invalid.
 +
 [none]
@@ -1030,6 +1080,7 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 1a. App is in serve mode
 +
 [none]
@@ -1041,6 +1092,7 @@ Use case ends.
 +
 [none]
 ** 1b1. LiBerry shows an error message.
++
 Use case ends.
 
 [discrete]
@@ -1054,6 +1106,7 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 2a. App is in serve mode
 +
 [none]
@@ -1140,6 +1193,7 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 4a. The book cannot be renewed.
 +
 [none]
@@ -1150,7 +1204,7 @@ Use case ends.
 [discrete]
 ==== Use case: Paying a fine
 
-*MSS*
+*MSS* +
 
 1.  Borrower comes to user to pay a fine.
 2.  User enters the borrower's ID.
@@ -1162,10 +1216,22 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 4a. The borrower has no outstanding fines.
 +
 [none]
 ** 4a1. LiBerry shows an error message.
++
+Use case ends.
+
+[discrete]
+==== Use case: Changing GUI to dark mode
+
+*MSS*
+
+1.  Sun sets and room gets dark
+2.  User enters command to change GUi
+3.  LiBerry changes GUI to dark mode
 +
 Use case ends.
 
@@ -1203,14 +1269,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-==== Toggling UI theme
-
-. Converting between light and dark mode
-.. testcase: `toggleui` +
-Expected: The main GUI switches from light mode to dark mode, including those of all other sub-windows
-.. Testcase: `toggleui` (again) +
-Expected: The main GUI switches back to light mode, including those of all other sub-windows
 
 ==== Finding a book
 
@@ -1376,6 +1434,14 @@ paid by +
 Borrower: [K0004] Hiap Seng +
 Outstanding fine: $0.00 +
 Change given: $0.90" appears on the command results display. The borrower panel now shows "Fines $0.00".
+
+==== Toggling UI theme
+
+. Converting between light and dark mode
+.. testcase: `toggleui` +
+Expected: The main GUI switches from light mode to dark mode, including those of all other sub-windows
+.. Testcase: `toggleui` (again) +
+Expected: The main GUI switches back to light mode, including those of all other sub-windows
 
 ==== Removing or corrupting data
 
