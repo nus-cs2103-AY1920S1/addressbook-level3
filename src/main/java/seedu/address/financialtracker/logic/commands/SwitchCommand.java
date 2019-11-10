@@ -8,7 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
- * add financial countrys command for Financial Tracker.
+ * Switches to another expense list with associated country.
  */
 public class SwitchCommand extends Command<Model> {
 

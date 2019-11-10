@@ -9,7 +9,8 @@ class SummaryCommandTest {
 
     @Test
     void execute_withoutModel() {
-        assertThrows(NullPointerException.class, () -> new SummaryCommand().execute(null));
+        assertThrows(NullPointerException.class,
+                () -> new SummaryCommand().execute(null));
     }
 
     @Test

@@ -9,7 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
- * add financial expenses command for Financial Tracker.
+ * Adds financial expenses command for Financial Tracker.
  */
 public class AddFinCommand extends Command<Model> {
 
