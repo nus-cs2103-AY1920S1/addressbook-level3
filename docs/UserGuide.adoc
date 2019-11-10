@@ -978,9 +978,3 @@ image::planks.jpg[width="500"]
 Image URL: /images/lowsugar.jpg +
 
 image::lowsugar.jpg[width="500"]
-
-
-
-
-
-
