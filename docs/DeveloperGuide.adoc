@@ -325,17 +325,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* *Alternative 1 (current choice):* Save the entire address book.
-+
-[cols="1,10"]
-|===
-|*Pros*|
-1. Implementation is easy.
-|*Cons*|
-1. May have performance issues in terms of memory usage.
-|===
-
-* *Alternative 2:* Individual command knows how to undo/redo by itself.
+* *Alternative 1 (current choice):* Pair Individual commands with their inverse action.
 +
 [cols="1,10"]
 |===
@@ -343,6 +333,27 @@ image::CommitActivityDiagram.png[]
 1. Use less memory (e.g. for `delete`, just save the person being deleted).
 |*Cons*|
 1. Must ensure that the implementation of each individual command are correct.
+|===
+
+* *Alternative 3:* Individual command knows how to undo/redo by itself.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Use less memory (e.g. for `delete`, just save the person being deleted).
+|*Cons*|
+1. Must ensure that the implementation of each individual command are correct.
+|===
+
+
+* *Alternative 2:* Save the entire address book.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Implementation is easy.
+|*Cons*|
+1. May have performance issues in terms of memory usage.
 |===
 
 ===== Aspect: Data structure to support the undo/redo commands
