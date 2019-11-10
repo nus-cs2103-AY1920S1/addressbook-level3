@@ -29,7 +29,12 @@ public class FinanceCommandTestUtil {
     public static final String PURCHASE_DESC_LUNCH = " " + PREFIX_DESCRIPTION + VALID_DESC_LUNCH;
     public static final String PURCHASE_MONEY_LUNCH = " " + PREFIX_MONEY + VALID_MONEY_LUNCH;
 
+    public static final String INVALID_INSTAL_MONEY = " " + PREFIX_MONEY + "-10.0";
+    public static final String INVALID_PURCHASE_MONEY = " " + PREFIX_MONEY + "-10.0";
+
     public static final String HIGH_MONTHLY_LIMIT = " " + PREFIX_MONEY + "800.0";
+
+    public static final String INVALID_MONTHLY_LIMIT = " " + PREFIX_MONEY + "-500.0";
 
     public static final EditInstallmentDescriptor INSTALL_NETFLIX;
     public static final EditInstallmentDescriptor INSTALL_SPOTIFY;
