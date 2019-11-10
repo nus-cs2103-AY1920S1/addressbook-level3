@@ -20,7 +20,7 @@ public class CopyWebsiteCommand extends CopyPasswordCommand {
     public static final String COMMAND_WORD = "website";
     public static final String COMMAND_WORD1 = "w";
 
-    public static final String MESSAGE_SUCCESS = "Copied website";
+    public static final String MESSAGE_SUCCESS = "Copied website to clipboard!";
 
     private final Index targetIndex;
 
