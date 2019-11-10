@@ -1,0 +1,57 @@
+= Derrick Teo - Project Portfolio for _TravelPal_
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+## About the project
+My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop addressbook application for our Software Engineering project.
+We chose to morph it into a travel management application called **TravelPal**. This application allows travellers to micromanage their travels, including features like expenditure and inventory managing.
+
+image::Ui.png[]
+
+My main role was to design the __itinerary__ feature which allows user to view and manage all parts of their trip. The following sections illustrate these enhancement in more detail, as well as relevant documentation I have added to the user and developer guides in relation to these enhancements.
+
+symbol legend
+
+## Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project. Our application is a multipage application and features were split by assigning each individual page(s) to develop.
+
+* *Main Major Contribution:* Itinerary Feature
+** What it does: The Itinerary Feature consists of 2 parts - 1. Itinerary Management and 2. Itinerary Administration
+*** Itinerary Management: Responsible for displaying user data and redirecting users to relevant portions of the app.
+*** Itinerary Administration: Responsible for letting users create their customized trips and synchronizing them with other's they have created.
+** Justification: TravelPal has several layers of specification and requires an intuitive way for users to manage their trips. This feature divides the management of trips into different parts so the user's purview of the application is limited to only the most necessary.
+** Highlights: Since itinerary feature is the main way users access the data they have input, it includes ways to create/edit/display information from other features. Tough design considerations had to be made so the code base was easily understandable and accessible for other teammates to use.
+* *Second Major Contribution:* Feature Integration
+** About: Following from the  __Itinerary__ feature being the main mode of accessing and viewing a user's trip information, I was also responsible in integrating the various other features (e.g. __Booking Manager__, __Inventory Manager__ and __Expense Manager__)
+** Justification: Integrated features ensures user friendliness. In this case changing information/statuses in other parts of __TravelPal__ should change its display in all other facets the app so the user doesn't have to do so manually.
+** Highlights: The main challenge in integration is the changing specifications throughout the development of __TravelPal__. Discussions on changing existing specifications and addition of new ideas not in the original design requires extensive maintenance and changing newly broken tests.
+* *Third Major Contribution:* Refactoring Code Base
+** About: Refactored the `Model` and `Storage` components from the original __AddressBook 3__ application.
+** Justification: The __Address Book__ base application was different from our intended design and required modifications before each feature could be properly implemented
+** Highlights: The major positive challenge in refactoring the code base was the coordination between team members. Since each component rely on each other to function correctly, we had to communicated our needs and wants effectively to ensure we do not negatively affect another components refactoring negatively.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=teoha&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=teoha&tabRepo=AY1920S1-CS2103T-T11-4%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=teoha&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=teoha&tabRepo=AY1920S1-CS2103T-T11-4%2Fmain%5Bmaster%5D[Test code]]
+
+* *Other contributions:*
+** Community
+*** Reviewed Pull Requests: [https://github.com/AY1920S1-CS2103T-T11-4/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3Ateoha+[My reviews]]
+*** Assigned and closed issues:
+**** Bug related: [https://github.com/AY1920S1-CS2103T-T11-4/main/issues?utf8=%E2%9C%93&q=is%3Aissue+assignee%3Ateoha+[Discussion, assignment and closure of issues]]
+**** Team task related: [https://github.com/AY1920S1-CS2103T-T11-4/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Ateoha+[Issues]]
+** Enhancement to existing features
+*** Wrote tests for existing features: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=teoha&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=teoha&tabRepo=AY1920S1-CS2103T-T11-4%2Fmain%5Bmaster%5D[Tests]]
+*** Updated Graphical User Interface (GUI) to increases user friendliness and better aesthetics: https://github.com/AY1920S1-CS2103T-T11-4/main/pull/149[#149], https://github.com/AY1920S1-CS2103T-T11-4/main/pull/86[#86], https://github.com/AY1920S1-CS2103T-T11-4/main/pull/81[#81]
+** Tools
+*** Integrated Travis to the project
+*** Integrated GitHub Pages into the project
+** Documentation
+*** Contributed all __Appendixes__ in the _Developer's Guide__ [https://github.com/AY1920S1-CS2103T-T11-4/main/blob/master/docs/DeveloperGuide.adoc#product-scope[Appendixes]]
+*** Contributed the __Trip Manager__ user guide [https://github.com/AY1920S1-CS2103T-T11-4/main/blob/master/docs/UserGuide.adoc#trip-manager[Trip Manager Guide]]
+
+## Contributions ot the User Guide
+
+## Contributions to the Developer Guide
+
+### [Itinerary] Edit trip/day/event feature
+#### Implementation
