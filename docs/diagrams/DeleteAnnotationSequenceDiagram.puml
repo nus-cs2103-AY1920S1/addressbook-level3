@@ -11,7 +11,6 @@ participant "doc:OfflineDocument" as OfflineDocument MODEL_COLOR
 participant "an:Annotation" as Annotation MODEL_COLOR
 end box
 
-group sd respective annotation command execution
 
 AddAnnotationCommand -> Bookmark : getRequiredDocCopy(index)
 activate Bookmark
@@ -31,7 +30,5 @@ activate OfflineDocument
 
 OfflineDocument --> AddAnnotationCommand
 deactivate OfflineDocument
-
-end group
 
 @enduml

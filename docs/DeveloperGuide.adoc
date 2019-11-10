@@ -403,27 +403,35 @@ There are three functionalities to the annotation feature:
  * Delete an annotation (triggered by `annotate-delete` command and executed by `DeleteAnnotationCommand#execute()`).
  * Edit an annotation (triggered by `annotate-edit` command and executed by `EditAnnotationCommand#execute()`).
 
-`annotate`, `annotate-delete` and `annotate-edit` make up the _family of annotation commands_.
+Command  words `annotate`, `annotate-delete` and `annotate-edit` make up the _family of annotation commands_.
 These functionalities, when activated each calls the respective command parser to create the corresponding `AnnotationCommand`.
-Subsequently, when necessary the appropriate `Paragraph`(s) is retrieved, and the annotation is handled according to the command.
+Subsequently, when necessary the appropriate `Paragraph` is retrieved, and the annotation is handled according to the command.
 
 The following sequence diagram illustrates how a command of the _family of annotation commands_ operates:
 
 [[sd-annotation-general]]
-.Sequence diagram showing how annotation commands generally work.
-//TODO: sd - general for annotation; when done make this line newline
+.Sequence diagram showing how annotation commands generally work. `cmdStr` is the string representing the command input by the user. `arguments` is `cmdStr` without the command word.
 image::AnnotationSequenceDiagram.png[]
+
+NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 In the <<sd-annotation-general, figure above>>, the specifics of how `Parser#parse` and `AnnotationCommand#execute` are abstracted out.
 This is because each of the annotation commands have different input criteria. Hence each command is parsed and handled differently.
 The sub-sections below will show some examples illustrating how each command works.
 
 ===== Adding an annotation
-When adding an annotati
+Adding an annotation works as described by the <<sd-annotation-general, general sequence diagram>>, with the following
+sequence diagram as the reference frame:
 
-image::AddAnnotationExecuteSequenceDiagram.png[]
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate 1 p/p2 n/example note h/orange`.
+image::AddAnnotationSequenceDiagram.png[]
 
-NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+===== Deleting an annotation
+Deleting an annotation also works as described by the <<sd-annotation-general, general sequence diagram>>, but with the following
+sequence diagram as the reference frame:
+
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-delete 1 p/p2 n/true`.
+image::DeleteAnnotationSequenceDiagram.png[]
 
 //TODO: after adding delete cmd, (highlight, note, both --> stray paragrph)
 For the delete operation, instead of creating and adding an `Annotation` to the retrieved `Paragraph`, the part or the entire pre-existing `Annotation` of the `Paragraph` will be dereferenced from the `Paragraph`.

@@ -62,6 +62,11 @@ deactivate AddAnnotationCommand
 
 ref over AddAnnotationCommand, Bookmark : respective annotation command execution
 
+AddAnnotationCommand -> AddAnnotationCommand : saveState()
+activate AddAnnotationCommand
+AddAnnotationCommand --> AddAnnotationCommand
+deactivate AddAnnotationCommand
+
 create OfflineCommandResult
 AddAnnotationCommand -> OfflineCommandResult
 activate OfflineCommandResult
