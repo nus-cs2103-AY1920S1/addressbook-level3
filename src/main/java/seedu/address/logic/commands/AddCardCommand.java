@@ -17,7 +17,7 @@ import seedu.address.model.card.Card;
 public class AddCardCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the app. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the app. \n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_CARDNUMBER + "CARD NUMBER "

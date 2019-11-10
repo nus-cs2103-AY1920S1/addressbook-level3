@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FIELDS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_TOO_MANY_TAG_FIELDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CARDNUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CVC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -40,11 +40,8 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getAllValues(PREFIX_DESCRIPTION).size() > 1
-                || argMultimap.getAllValues(PREFIX_CARDNUMBER).size() > 1
-                || argMultimap.getAllValues(PREFIX_CVC).size() > 1
-                || argMultimap.getAllValues(PREFIX_EXPIRYDATE).size() > 1) {
-            throw new ParseException(String.format(MESSAGE_DUPLICATE_FIELDS, AddCardCommand.MESSAGE_USAGE));
+        if (argMultimap.getAllValues(PREFIX_TAG).size() > 5) {
+            throw new ParseException(String.format(MESSAGE_TOO_MANY_TAG_FIELDS, AddCardCommand.MESSAGE_USAGE));
         }
 
         Description description = ParserUtil.parseCardDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());

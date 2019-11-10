@@ -53,7 +53,6 @@ public class VersionedNoteBook extends NoteBook {
             String previousCommand = undoStack.peek().getCommand();
             if (!isSameNoteBook(previousNoteBookState)) {
                 updateRedoStack(previousCommand);
-                ;
                 updateCurrentState(previousNoteBookState);
                 undoStack.pop();
                 return previousCommand;
